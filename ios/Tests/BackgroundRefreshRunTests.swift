@@ -2,12 +2,12 @@ import BackgroundTasks
 import XCTest
 @testable import CryptoChecker
 
-/// Ein ganzer Lauf der Hintergrund-Aufgabe (`BackgroundRefresh.handleRefresh`, seit Build 103, Review TST-03) mit einer
+/// Ein ganzer Lauf der Hintergrund-Aufgabe (`BackgroundRefresh.handleRefresh`, Review TST-03) mit einer
 /// Fälschung statt `BGTask`: Das Ende wird genau einmal gemeldet — im normalen Lauf mit Erfolg, beim Ablauf vor dem Ende
 /// mit `false`, und der Alarm bleibt dann scharf. Die Reihenfolge im `expirationHandler` (abbrechen, melden, danach
 /// Protokoll) prüft `BackgroundExpiryTests`; hier geht es um das Zusammenspiel mit dem Arbeits-Task.
 /// Läuft auf der Merkliste der Test-App (App Group): Der Test legt ein eigenes Paar mit Alarm an und entfernt es danach.
-/// Seit Build 104 sichert er auch den übrigen geteilten Zustand (Uhrzeiten, Bericht, %-Basis, «Letzte Prüfungen»,
+/// Er sichert auch den übrigen geteilten Zustand (Uhrzeiten, Bericht, %-Basis, «Letzte Prüfungen»,
 /// vorgemerkte Anfrage) und stellt ihn danach wieder her.
 @MainActor
 final class BackgroundRefreshRunTests: XCTestCase {
@@ -33,7 +33,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         }
     }
 
-    /// Geteilter Zustand vor dem Test (seit Build 104, Review TST2-04).
+    /// Geteilter Zustand vor dem Test (Review TST2-04).
     private struct SavedState {
         var lastAlarmCheckAt: Int64
         var lastRefreshAt: Int64
@@ -48,7 +48,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
 
     nonisolated private static let watchId: Int64 = 990_001
     nonisolated private static let alarmId: Int64 = 990_002
-    /// Seit Build 105: zweiter Alarm desselben Paars (Abbruch mitten in der Melde-Schleife).
+    /// Zweiter Alarm desselben Paars (Abbruch mitten in der Melde-Schleife).
     nonisolated private static let alarmId2: Int64 = 990_003
     private var saved: SavedState?
 
@@ -124,7 +124,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         SharedStorage.loadSnapshot().alarms.first { $0.id == id }
     }
 
-    /// Gefälschter Durchlauf (seit Build 104): Kurs 100 für das eigene Paar, sein Alarm ausgelöst und zum Melden bereit
+    /// Gefälschter Durchlauf: Kurs 100 für das eigene Paar, sein Alarm ausgelöst und zum Melden bereit
     /// (ohne Netz und ohne Lease).
     nonisolated private static func firedOutcome(_ alarms: [Alarm] = [alarm]) -> PriceRefresher.Outcome {
         let now = TimeUtils.nowMillis
@@ -135,7 +135,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         return outcome
     }
 
-    /// Ausgelöster Alarm, zum Melden bereit (seit Build 105 auch für den Zusatzdaten-Pfad).
+    /// Ausgelöster Alarm, zum Melden bereit (auch für den Zusatzdaten-Pfad).
     nonisolated private static func pending(_ alarm: Alarm, now: Int64) -> PriceRefresher.PendingAlarm {
         var fired = alarm
         fired.enabled = false
@@ -146,7 +146,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
             update: PriceRefresher.AlarmUpdate(evaluated: alarm, result: fired, setsEnabled: true))
     }
 
-    /// Seit Build 105: Kurs gespeichert, Kursalarme keine, aber ein Alarm mit Zusatzdaten wartet; dessen Prüfung
+    /// Kurs gespeichert, Kursalarme keine, aber ein Alarm mit Zusatzdaten wartet; dessen Prüfung
     /// (gefälscht, ohne Netz) löst ihn aus.
     nonisolated private static func extraSeams(shows: LockedBox<Int>,
                                                afterExtraSave: @escaping @Sendable () async -> Void) -> BackgroundRunSeams {
@@ -215,7 +215,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         XCTAssertEqual(task.completions, [true])
     }
 
-    /// Seit Build 104 (Review IOS2-R03): Läuft die Zeit nach dem Speichern der Kurse, aber vor dem Melden ab, wird nichts
+    /// Review IOS2-R03: Läuft die Zeit nach dem Speichern der Kurse, aber vor dem Melden ab, wird nichts
     /// mehr gemeldet — genau ein Ende mit `false`, der Kurs bleibt gespeichert, der Alarm scharf.
     func testExpiryAfterSavingBeforeDeliveringShowsNothing() async throws {
         try insertArmedAlarm()
@@ -249,7 +249,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         XCTAssertEqual(task.completions, [true])
     }
 
-    /// Seit Build 105 (Review IOS3-R01): Ablauf nach dem Speichern der Zusatzdaten-Alarme → kein Melden, kein Vermerk,
+    /// Review IOS3-R01: Ablauf nach dem Speichern der Zusatzdaten-Alarme → kein Melden, kein Vermerk,
     /// genau ein Ende mit `false`, der Alarm bleibt scharf.
     func testExpiryAfterSavingExtraAlarmsShowsNothing() async throws {
         try insertArmedAlarm()
@@ -288,7 +288,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         XCTAssertEqual(task.completions, [true])
     }
 
-    /// Seit Build 105 (Review IOS3-R01): Ablauf während der Melde-Schleife — die Meldung des ersten Alarms löst ihn
+    /// Review IOS3-R01: Ablauf während der Melde-Schleife — die Meldung des ersten Alarms löst ihn
     /// aus, der zweite wird nicht mehr gemeldet und bleibt scharf (wie Android `ensureActive` je Alarm).
     func testExpiryDuringDeliveryLoopStopsBeforeSecondAlarm() async throws {
         guard !QuietHours.holdsAlarmsNow(SharedStorage.loadSettings()) else {

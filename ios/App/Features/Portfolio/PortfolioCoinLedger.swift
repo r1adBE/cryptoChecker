@@ -2,8 +2,8 @@ import Foundation
 
 /// Eingaben der Coin-Ansicht (`PortfolioCalculator.ledger`): Coin, Transaktionen samt Adress-Guthaben, aktuelle Kurse
 /// (auch für die Gebühr-Zeilen), Einstandsmethode und Ladung der Tagesschlüsse (Zähler) — Schlüssel für `.task(id:)`.
-/// Seit Build 103 abseits des Hauptthreads gerechnet statt in `body`, wie Android `coinDetailFlow`.
-/// Seit Build 105 (PERF3-R1): `prices` nur für den Coin und `feeCoins` — Kurs-Ticks anderer Coins ändern den Schlüssel
+/// Abseits des Hauptthreads gerechnet statt in `body`, wie Android `coinDetailFlow`.
+/// PERF3-R1: `prices` nur für den Coin und `feeCoins` — Kurs-Ticks anderer Coins ändern den Schlüssel
 /// nicht mehr (wie Android `CoinFeePrices`).
 struct PortfolioCoinLedgerKey: Equatable, Sendable {
     let coin: String
@@ -68,7 +68,7 @@ extension PortfolioModel {
 }
 
 /// Eingaben des Wallet-Hinweises unter der Gesamtkarte (FIFO je Wallet, `PortfolioCalculator.walletShortfalls`) —
-/// seit Build 103 abseits des Hauptthreads statt in `body`, wie Android `walletShortfallsFlow`.
+/// abseits des Hauptthreads statt in `body`, wie Android `walletShortfallsFlow`.
 struct PortfolioWalletShortfallKey: Equatable, Sendable {
     let trades: [PortfolioTx]
     let method: CostMethod

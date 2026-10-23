@@ -54,12 +54,12 @@ enum MarketHTTP {
     /// Sammelabfragen der Kurse: 20 s wie Einzelabfragen (auch Gesamtdauer) — eine hängende Börse hielte sonst
     /// die Aktualisierung bis zu 70 s auf (Hintergrund und Widget haben nur rund 30 s).
     static let tickerBulkSession: URLSession = makeSession(timeout: 20, resource: 20)
-    /// Adress-Hosts (`HttpUserAgent.isAddressHost`, seit Build 104): eigene Sessions mit neutralem User-Agent und
+    /// Adress-Hosts (`HttpUserAgent.isAddressHost`): eigene Sessions mit neutralem User-Agent und
     /// eigenen Verbindungen — Gebühren/Halving an mempool.space, publicnode … nennen die App so nie (wie Android).
     static let addressHostSession: URLSession = makeSession(timeout: 20, userAgent: HttpUserAgent.neutral)
     static let addressHostBulkSession: URLSession = makeSession(timeout: 60, userAgent: HttpUserAgent.neutral)
 
-    /// Session für eine Anfrage an `host`: Adress-Hosts nie über die Sessions mit App-User-Agent (seit Build 104).
+    /// Session für eine Anfrage an `host`: Adress-Hosts nie über die Sessions mit App-User-Agent.
     static func sessionFor(host: String?, requested: URLSession) -> URLSession {
         guard let host, HttpUserAgent.isAddressHost(host) else { return requested }
         if requested === addressHostSession || requested === addressHostBulkSession { return requested }
@@ -104,7 +104,7 @@ enum MarketHTTP {
             }
             post.headers?.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
         }
-        // Adress-Hosts: neutral auch gegen mitgegebene Kopfzeilen (seit Build 104)
+        // Adress-Hosts: neutral auch gegen mitgegebene Kopfzeilen
         if HttpUserAgent.isAddressHost(u.host ?? "") {
             request.setValue(HttpUserAgent.neutral, forHTTPHeaderField: HttpUserAgent.header)
         }
@@ -153,7 +153,7 @@ enum MarketHTTP {
     /// Widget-Erweiterung (rund 30 MB Speicher): Listen höchstens 3 MB — die Antwort liegt beim Lesen als Data, als
     /// String und als JSON-Baum zugleich im Speicher (bei 8 MB bis 40–50 MB). Jede Sammelabfrage mit fester Adresse
     /// ist ungepackt höchstens 2 MB (Aufnahme `record_exchange_fixtures.py` verwirft Grösseres, keine wurde verworfen);
-    /// die grossen ungefilterten Listen holt das Widget ohnehin nicht (`LowMemoryBulk`). Seit Build 102.
+    /// die grossen ungefilterten Listen holt das Widget ohnehin nicht (`LowMemoryBulk`).
     static let maxExtensionBodyBytes = 3 * 1024 * 1024
 
     /// Läuft der Code in einer Erweiterung (Widget)?

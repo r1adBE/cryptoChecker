@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">การแสดง</string>
     <string name="widget_portfolio_display_conversion">เฉพาะการแปลง</string>
     <string name="widget_portfolio_display_conversion_usdt">การแปลง + USDT</string>
-    <string name="widget_portfolio_display_hint">บรรทัด USDT จะถูกซ่อนเมื่อสกุลเงินที่แปลงเป็น USD</string>
+    <string name="widget_portfolio_display_hint">บรรทัด USDT จะถูกซ่อนเมื่อสกุลเงินที่แปลงเป็นสเตเบิลคอยน์ USD (เช่น USDC)</string>
     <string name="widget_portfolio_display_usdt">เฉพาะ USDT</string>
     <string name="widget_portfolio_empty">เพิ่มรายการซื้อในแท็บพอร์ตโฟลิโอ</string>
     <string name="widget_portfolio_list_hint">เปิดแอปเพื่อแสดงสินทรัพย์ของคุณที่นี่</string>

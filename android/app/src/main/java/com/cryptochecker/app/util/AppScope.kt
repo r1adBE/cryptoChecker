@@ -9,7 +9,7 @@ import kotlinx.coroutines.SupervisorJob
 import timber.log.Timber
 
 /**
- * Prozessweiter Bereich für App-eigene Hintergrundarbeit (Singletons, Empfänger) — seit Build 103 einheitlich mit
+ * Prozessweiter Bereich für App-eigene Hintergrundarbeit (Singletons, Empfänger) — einheitlich mit
  * Sicherheitsnetz: SupervisorJob (ein Fehler bricht die anderen Jobs nicht ab) und [appExceptionHandler]. Ohne Handler
  * beendet eine nicht gefangene Ausnahme in einem `launch` den ganzen Prozess.
  */
@@ -27,7 +27,7 @@ internal fun appExceptionHandler(
         else Timber.w(e, "%s: Hintergrundarbeit fehlgeschlagen", label)
     },
 ): CoroutineExceptionHandler = CoroutineExceptionHandler { _, e ->
-    // Seit Build 104: im Release sonst unsichtbar — nur zählen je Bereich und Art (BackgroundErrorCounter), keine Texte
+    // Im Release sonst unsichtbar — nur zählen je Bereich und Art (BackgroundErrorCounter), keine Texte
     if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label), error = e)
     log(e)
 }

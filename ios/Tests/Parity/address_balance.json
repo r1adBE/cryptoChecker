@@ -1343,7 +1343,7 @@
     ]
   },
   "portfolioMerge": {
-    "_comment": "Adress-Guthaben im Rechner (ab Build 46): withAddresses haengt je Coin eine Einzahlung ohne Kaufpreis an (Id -1 BTC, -2 ETH, datiert auf heldSince), der Rechner zaehlt sie als EIGENEN Teil (addressHoldings): Gesamtwert mit, Einstand/Seit Kauf/realisiert nur aus den eigenen Transaktionen (vorher: ganzer Coin ohne Kaufpreis, Seit Kauf null). Zeitraeume/Verlauf lassen Adress-Eintraege weg (nie rueckwirkend; vorher 3125 = heutiges Guthaben x Kursaenderung seit dem Stichtag) — nur die beobachtete Reihe 'balanceHistory' zaehlt.",
+    "_comment": "Adress-Guthaben im Rechner: withAddresses haengt je Coin eine Einzahlung ohne Kaufpreis an (Id -1 BTC, -2 ETH, datiert auf heldSince), der Rechner zaehlt sie als EIGENEN Teil (addressHoldings): Gesamtwert mit, Einstand/Seit Kauf/realisiert nur aus den eigenen Transaktionen (vorher: ganzer Coin ohne Kaufpreis, Seit Kauf null). Zeitraeume/Verlauf lassen Adress-Eintraege weg (nie rueckwirkend; vorher 3125 = heutiges Guthaben x Kursaenderung seit dem Stichtag) — nur die beobachtete Reihe 'balanceHistory' zaehlt.",
     "todayUtcDay": 20000,
     "addresses": [
       {
@@ -2614,7 +2614,7 @@
     "_comment": "Schritte nacheinander mit WatchedAddressRules.applyFetched. history = Eintraege fuer USDT und LINK aus AddressBalanceHistory.trades(of([Zustand nach Schritt 2])) (Reihenfolge der Reihen: ETH, dann Token nach Liste)."
   },
   "gapScan": {
-    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20 (Build 76, vorher 5), hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette. Hintergrund (BACKGROUND, seit Build 94): bekannte benutzte + die naechsten backgroundLookahead (2) je Kette; complete = hinter der neusten benutzten jeder Kette eine unbenutzte gefragt (fehlt = true). keepBackground: unvollstaendiges Hintergrund-Ergebnis nur, wenn nicht unter dem gespeicherten Guthaben (BTC; null = nie). fullEstimate (seit Build 102, F-16): Mindestzahl Anfragen einer vollstaendigen Suche = je Kette hoechster benutzter Index + 1 + gap (ohne benutzte: gap); modeFor waehlt bei faelliger vollstaendiger Suche mit Zwischenspeicher QUICK, wenn das ueber maxRequests liegt (cache.usedReceive/usedChange optional).",
+    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20 (vorher 5), hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette. Hintergrund (BACKGROUND): bekannte benutzte + die naechsten backgroundLookahead (2) je Kette; complete = hinter der neusten benutzten jeder Kette eine unbenutzte gefragt (fehlt = true). keepBackground: unvollstaendiges Hintergrund-Ergebnis nur, wenn nicht unter dem gespeicherten Guthaben (BTC; null = nie). fullEstimate (F-16): Mindestzahl Anfragen einer vollstaendigen Suche = je Kette hoechster benutzter Index + 1 + gap (ohne benutzte: gap); modeFor waehlt bei faelliger vollstaendiger Suche mit Zwischenspeicher QUICK, wenn das ueber maxRequests liegt (cache.usedReceive/usedChange optional).",
     "gap": 20,
     "lookahead": 20,
     "maxRequests": 400,
@@ -4586,7 +4586,7 @@
         }
       },
       {
-        "name": "schnell, zuletzt leere benutzte werden nicht erneut gefragt (seit Build 102)",
+        "name": "schnell, zuletzt leere benutzte werden nicht erneut gefragt",
         "mode": "QUICK",
         "cache": {
           "usedReceive": [
@@ -10527,7 +10527,7 @@
         }
       },
       {
-        "name": "vollstaendig merkt leere benutzte (seit Build 102)",
+        "name": "vollstaendig merkt leere benutzte",
         "mode": "FULL",
         "cache": null,
         "used": {
@@ -10657,7 +10657,7 @@
         "mode": null
       },
       {
-        "_comment": "Seit Build 102 (F-16): fällige vollständige Suche sicher über maxRequests (fullEstimate 401) → schnell",
+        "_comment": "F-16: fällige vollständige Suche sicher über maxRequests (fullEstimate 401) → schnell",
         "cache": {
           "fullScan": 1000,
           "usedReceive": [
@@ -11706,7 +11706,7 @@
         }
       ],
       "jettonLimit": 50,
-      "_keptComment": "kept (seit Build 95): bekannte Jettons, die auf einer vollen Seite fehlen (ChainBalance.parseTonJettonPage) - ihr alter Wert bleibt, gilt aber als nicht bestaetigt (WatchedAddress.staleTokens)."
+      "_keptComment": "kept: bekannte Jettons, die auf einer vollen Seite fehlen (ChainBalance.parseTonJettonPage) - ihr alter Wert bleibt, gilt aber als nicht bestaetigt (WatchedAddress.staleTokens)."
     },
     "ada": {
       "_comment": "Koios POST /api/v1/address_info; Format laut github.com/cardano-community/koios-artifacts specs/results/koiosapi-mainnet.yaml (2e2eb57): Array mit address, balance (Lovelace als Text), stake_address, script_address, utxo_set.",
@@ -12230,7 +12230,7 @@
     ]
   },
   "backupOverlap": {
-    "_comment": "Sicherung beobachteter Adressen mit dem Ueberschneidungs-Entscheid (Build 89): «overlapChecked»:true nur, wenn entschieden (z. B. «trotzdem zaehlen»), «overlapLegacy»:true nur dazu (Entscheid nach der alten Regel, wie «ovl» ohne «ovl2» in den Zusatzdaten). Ohne Feld (aeltere Sicherung) = nicht entschieden; «overlapLegacy» ohne «overlapChecked» zaehlt nicht. Lesen, Schreiben (nur diese Felder), Einspielen (merge) und zurueck in die Sicherung uebernehmen den Wert.",
+    "_comment": "Sicherung beobachteter Adressen mit dem Ueberschneidungs-Entscheid: «overlapChecked»:true nur, wenn entschieden (z. B. «trotzdem zaehlen»), «overlapLegacy»:true nur dazu (Entscheid nach der alten Regel, wie «ovl» ohne «ovl2» in den Zusatzdaten). Ohne Feld (aeltere Sicherung) = nicht entschieden; «overlapLegacy» ohne «overlapChecked» zaehlt nicht. Lesen, Schreiben (nur diese Felder), Einspielen (merge) und zurueck in die Sicherung uebernehmen den Wert.",
     "text": "[{\"chain\":\"BTC\",\"address\":\"bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\",\"addedAt\":1,\"overlapChecked\":true},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"addedAt\":2,\"countInPortfolio\":false,\"overlapChecked\":true,\"overlapLegacy\":true},{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\",\"addedAt\":3,\"overlapLegacy\":true},{\"chain\":\"BTC\",\"address\":\"bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4\",\"addedAt\":4}]",
     "expected": [
       {
@@ -12360,7 +12360,7 @@
     ]
   },
   "addressAlarmState": {
-    "_comment": "Seit Build 95 (AddressAlarmState.of): nie geladene zaehlende Adresse = pending, solange kein Fehler oder vor weniger als 24 h hinzugefuegt (Uhr zurueckgestellt = frisch); die 24 h zaehlen ab max(addedAt, pendingSince) - wiederhergestellt (Sicherung, Rueckgaengig) mit altem addedAt (auch 0) und Fehler, aber pendingSince vor 1 h = pending; pendingSince vor ueber 24 h = failing; sonst failing (Name: Bezeichnung oder gekuerzte Adresse) - Portfolio-Alarme rechnen ohne sie. Gleiche Adresse einmal, Nur anzeigen zaehlt nicht. staleTokens mit gespeichertem Guthaben > 0: staleTokenAddresses und Menge je Coin; Wert zu prices (Coin ohne Kurs = 0).",
+    "_comment": "AddressAlarmState.of: nie geladene zaehlende Adresse = pending, solange kein Fehler oder vor weniger als 24 h hinzugefuegt (Uhr zurueckgestellt = frisch); die 24 h zaehlen ab max(addedAt, pendingSince) - wiederhergestellt (Sicherung, Rueckgaengig) mit altem addedAt (auch 0) und Fehler, aber pendingSince vor 1 h = pending; pendingSince vor ueber 24 h = failing; sonst failing (Name: Bezeichnung oder gekuerzte Adresse) - Portfolio-Alarme rechnen ohne sie. Gleiche Adresse einmal, Nur anzeigen zaehlt nicht. staleTokens mit gespeichertem Guthaben > 0: staleTokenAddresses und Menge je Coin; Wert zu prices (Coin ohne Kurs = 0).",
     "now": 1700000000000,
     "addresses": [
       {
@@ -12460,7 +12460,7 @@
     }
   },
   "keptTokens": {
-    "_comment": "Seit Build 95 (WatchedAddressRules.applyFetched keptTokens): null = staleTokens unveraendert; sonst nur Schluessel mit gespeichertem Guthaben > 0. Tokens mitzaehlen aus loescht sie. Speicherform (Android Spalte, Schluessel stk) hin und zurueck.",
+    "_comment": "WatchedAddressRules.applyFetched keptTokens: null = staleTokens unveraendert; sonst nur Schluessel mit gespeichertem Guthaben > 0. Tokens mitzaehlen aus loescht sie. Speicherform (Android Spalte, Schluessel stk) hin und zurueck.",
     "start": {
       "chain": "TON",
       "address": "UQDVN7ycBNMi3xg4iUS7D32nSWmFfUgrS7aVW5XMEEeEiaD/",

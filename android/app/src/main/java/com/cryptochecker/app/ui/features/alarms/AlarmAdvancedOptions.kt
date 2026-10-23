@@ -49,8 +49,8 @@ internal fun AdvancedHeader(
     title: String,
     expanded: Boolean,
     onToggle: () -> Unit,
-    subtitle: String? = null,
     modifier: Modifier = Modifier,
+    subtitle: String? = null,
 ) {
     val stateText = stringResource(if (expanded) R.string.a11y_expanded else R.string.a11y_collapsed)
     Row(

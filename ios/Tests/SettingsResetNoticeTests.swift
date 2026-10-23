@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Unlesbare Einstellungen (seit Build 97): Entscheid `SharedStorage.settingsCorrupt` und Reihenfolge der Hinweise
+/// Unlesbare Einstellungen: Entscheid `SharedStorage.settingsCorrupt` und Reihenfolge der Hinweise
 /// `StorageRecoveryNotice.next` — gleiche Fälle wie Android `SettingsResetNoticeTest`.
 final class SettingsResetNoticeTests: XCTestCase {
 
@@ -19,7 +19,7 @@ final class SettingsResetNoticeTests: XCTestCase {
         XCTAssertFalse(SharedStorage.settingsCorrupt(hasData: false, decodes: false))
     }
 
-    /// Seit Build 102: unlesbar → Portfolio-Sperre unbekannt → an (wie Android `SettingsLockFallbackTest`).
+    /// Unlesbar → Portfolio-Sperre unbekannt → an (wie Android `SettingsLockFallbackTest`).
     func testUnlesbareEinstellungenSperrenDasPortfolio() {
         XCTAssertTrue(SharedStorage.settingsAfterRead(nil, corrupt: true).appLock)
         // Neue Installation bzw. gesperrte Ablage: Standard (aus); gesperrte Ablage sperrt über `state`

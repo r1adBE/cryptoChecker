@@ -5,7 +5,7 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-/** Seit Build 104: gezählte Fehler im Hintergrund — nur Zahlen je Bereich und Zeitpunkt des letzten, nie Texte. */
+/** Gezählte Fehler im Hintergrund — nur Zahlen je Bereich und Zeitpunkt des letzten, nie Texte. */
 data class BackgroundErrorSummary(
     val counts: Map<String, Int> = emptyMap(),
     /** Letzter gezählter Fehler (ms); 0 = keiner bekannt. */
@@ -15,7 +15,7 @@ data class BackgroundErrorSummary(
 )
 
 /**
- * Seit Build 104 (F-25): Fehler in Hintergrundarbeit sind im Release sonst unsichtbar (Timber nur im Debug-Build). Statt
+ * F-25: Fehler in Hintergrundarbeit sind im Release sonst unsichtbar (Timber nur im Debug-Build). Statt
  * eines Protokolls nur ein Zähler je Bereich; im Diagnosebericht eine Zeile. Gleiches Format wie `BackgroundErrors.swift`
  * (Testfälle `background_errors.json`).
  */

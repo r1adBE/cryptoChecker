@@ -4739,7 +4739,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Since build 104: App Store archives must carry the source commit (ios/APP_STORE.md 4.6)\n# Since build 105: only a full commit hash (40 characters 0-9a-f) counts\nif [ \"${REQUIRE_GIT_COMMIT:-NO}\" = \"YES\" ]; then\n  case \"${GIT_COMMIT:-}\" in\n    \"\"|*[!0-9a-f]*) ok=NO ;;\n    *) ok=YES ;;\n  esac\n  if [ \"$ok\" != YES ] || [ \"${#GIT_COMMIT}\" -ne 40 ]; then\n    echo 'error: REQUIRE_GIT_COMMIT=YES but GIT_COMMIT is missing, local or not a full commit hash (40 characters 0-9a-f). Pass GIT_COMMIT=<output of git -C <public clone> rev-parse \"v<version>-<build>^{commit}\"> (ios/APP_STORE.md 4.6).'\n    exit 1\n  fi\nfi\n";
+			shellScript = "# App Store archives must carry the source commit (ios/APP_STORE.md 4.6)\n# Only a full commit hash (40 characters 0-9a-f) counts\nif [ \"${REQUIRE_GIT_COMMIT:-NO}\" = \"YES\" ]; then\n  case \"${GIT_COMMIT:-}\" in\n    \"\"|*[!0-9a-f]*) ok=NO ;;\n    *) ok=YES ;;\n  esac\n  if [ \"$ok\" != YES ] || [ \"${#GIT_COMMIT}\" -ne 40 ]; then\n    echo 'error: REQUIRE_GIT_COMMIT=YES but GIT_COMMIT is missing, local or not a full commit hash (40 characters 0-9a-f). Pass GIT_COMMIT=<output of git -C <public clone> rev-parse \"v<version>-<build>^{commit}\"> (ios/APP_STORE.md 4.6).'\n    exit 1\n  fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -6225,7 +6225,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -6252,7 +6252,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6272,7 +6272,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6291,7 +6291,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6378,7 +6378,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -6407,7 +6407,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -6433,7 +6433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6457,7 +6457,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 109;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;

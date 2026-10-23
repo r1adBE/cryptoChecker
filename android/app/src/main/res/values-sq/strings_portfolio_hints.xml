@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Alarmet e portofolit janë pezulluar: nuk ka çmim aktual për %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alarmet e portofolit janë pezulluar: jo të gjitha monedhat kanë çmim aktual</string>
     <string name="portfolio_alarms_paused_addresses">Alarmet e portofolit janë pezulluar: balancat e adresave të ndjekura nuk janë ngarkuar ende</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarmet e portofolit janë pezulluar: balancat e tokenëve të %1$s janë pjesërisht të vjetruara</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarmet e portofolit janë pezulluar: balancat e tokenëve të adresave të ndjekura janë pjesërisht të vjetruara</string>
     <string name="portfolio_alarms_paused_unverified">Alarmet e portofolit janë pezulluar: çmim i paverifikuar për %1$s</string>

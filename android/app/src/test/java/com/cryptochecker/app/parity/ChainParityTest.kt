@@ -267,7 +267,7 @@ class ChainParityTest {
             networks = f["networks"].list().map { it as String },
         )
         assertEquals(f["expectedNetworks"], after.networks)
-        // Erste Wahl: stumme Netze bleiben gewählt, im Hintergrund keine Wahl (seit Build 94)
+        // Erste Wahl: stumme Netze bleiben gewählt, im Hintergrund keine Wahl
         r["discovered"].list().map { it.obj() }.forEach { c ->
             assertEquals(
                 "discovered $c", c["expected"],

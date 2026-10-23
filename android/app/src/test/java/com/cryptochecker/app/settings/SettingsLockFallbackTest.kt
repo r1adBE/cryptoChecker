@@ -6,7 +6,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Seit Build 102: Portfolio-Sperre bei unlesbaren Einstellungen «unbekannt → an» ([SettingsLockFallback]) statt still
+ * Portfolio-Sperre bei unlesbaren Einstellungen «unbekannt → an» ([SettingsLockFallback]) statt still
  * aus (Standardwert) — gleiche Regel wie iOS `SharedStorage.LoadedSettings.appLockAssumed`.
  */
 class SettingsLockFallbackTest {

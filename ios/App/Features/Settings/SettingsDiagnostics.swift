@@ -3,7 +3,7 @@ import SwiftUI
 import UIKit
 import UniformTypeIdentifiers
 
-/// «Diagnose teilen» (Build 81) unter Einstellungen › Über die App: Zeile mit Hinweis; öffnet die Vorschau, erst dort
+/// «Diagnose teilen» unter Einstellungen › Über die App: Zeile mit Hinweis; öffnet die Vorschau, erst dort
 /// geht es über das Teilen-Menü weiter. Wie `DiagnosticsCard` (Android).
 @MainActor
 struct DiagnosticsCard: View {
@@ -98,14 +98,14 @@ struct DiagnosticsPreviewPage: View {
             exchangePauses: SharedStorage.exchangeBackoff,
             // Der Release-Build führt kein Fehlerprotokoll
             errorLog: nil,
-            // Seit Build 103: Quell-Commit aus dem Build-Setting GIT_COMMIT
+            // Quell-Commit aus dem Build-Setting GIT_COMMIT
             sourceCommit: info?["CCGitCommit"] as? String ?? DiagnosticReport.localCommit)
         // Nur der Text: die Datei entsteht erst beim Teilen (`DiagnosticsShareFile`), nicht schon mit der Vorschau
         text = await Task.detached(priority: .utility) { () -> String in
             var full = input
             full.checkRuns = CheckRunStore.load()
             full.alarmEvents = AlarmLogStore.load().events
-            // Seit Build 104: nur Anzahl Fehler im Hintergrund je Bereich
+            // Nur Anzahl Fehler im Hintergrund je Bereich
             full.backgroundErrors = BackgroundErrorCounter.summary()
             return DiagnosticReport.build(full)
         }.value
@@ -124,7 +124,7 @@ struct DiagnosticsPreviewPage: View {
 
 /// Bericht fürs Teilen-Menü als Textdatei im temporären Ordner (nicht im Geräte-Backup). Geschrieben wird erst, wenn
 /// nach dem Tipp auf «Teilen» ein Ziel die Datei anfordert, und gelöscht beim Verlassen der Vorschau — der Bericht
-/// liegt so nicht unverschlüsselt herum (wie Android `DiagnosticsFiles`, seit Build 98).
+/// liegt so nicht unverschlüsselt herum (wie Android `DiagnosticsFiles`).
 struct DiagnosticsShareFile: Transferable, Sendable {
     let text: String
 

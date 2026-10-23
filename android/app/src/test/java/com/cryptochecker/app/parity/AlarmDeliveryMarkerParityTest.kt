@@ -11,7 +11,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Seit Build 103 (Review FUN-05): Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
+ * Review FUN-05: Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
  * (`testdata/parity/alarm_delivery_marker.json`). Gegenstück: `Tests/AlarmDeliveryMarkerTests.swift`.
  */
 class AlarmDeliveryMarkerParityTest {
@@ -27,7 +27,7 @@ class AlarmDeliveryMarkerParityTest {
         for (raw in cases) {
             val c = raw.obj()
             val markerAt = c["markerAt"].num()?.toLong()
-            // Seit Build 104: «postedAt» statt «shown» — gezeigt nur, wenn ab dem Vermerk gemeldet
+            // «postedAt» statt «shown» — gezeigt nur, wenn ab dem Vermerk gemeldet
             val shown = if (c.containsKey("postedAt")) {
                 AlarmDeliveryMarker.shownSinceMarker(c["postedAt"].num()?.toLong(), markerAt ?: 0L)
             } else {
@@ -38,7 +38,7 @@ class AlarmDeliveryMarkerParityTest {
         }
     }
 
-    /** Seit Build 105 (Review IOS3-R02): Auslösung zum Vermerk schon gespeichert? */
+    /** Review IOS3-R02: Auslösung zum Vermerk schon gespeichert? */
     @Test
     fun gespeichertSeitDemVermerkWieGemeinsameTestfaelle() {
         val cases = fixture["savedSinceCases"].list()
@@ -51,7 +51,7 @@ class AlarmDeliveryMarkerParityTest {
     }
 
     /**
-     * Seit Build 105 (Review IOS3-R02): ganze Läufe von [AlarmDelivery.deliver] — ein liegengebliebener Vermerk einer schon
+     * Review IOS3-R02: ganze Läufe von [AlarmDelivery.deliver] — ein liegengebliebener Vermerk einer schon
      * gespeicherten Auslösung verschluckt die neue nicht; ein Prozess-Ende zwischen Melden und Speichern speichert weiter nur.
      */
     @Test
@@ -80,7 +80,7 @@ class AlarmDeliveryMarkerParityTest {
         }
     }
 
-    /** Seit Build 105 (Review ARC3-R03): Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt. */
+    /** Review ARC3-R03: Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt. */
     @Test
     fun zuruecksetzenWieGemeinsameTestfaelle() {
         val cases = fixture["resetCases"].list()
@@ -92,7 +92,7 @@ class AlarmDeliveryMarkerParityTest {
         }
     }
 
-    /** Seit Build 104: Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern. */
+    /** Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern. */
     @Test
     fun aeltereMitteilungBestaetigtNicht() = runBlocking {
         val store = AlarmDeliveryMarkerStore.InMemory()
@@ -111,7 +111,7 @@ class AlarmDeliveryMarkerParityTest {
         assertEquals(at, store.get(11))
     }
 
-    /** Seit Build 104: schon gemeldet, aber nicht mehr speicherbar (inzwischen bearbeitet) → Mitteilung wieder weg. */
+    /** Schon gemeldet, aber nicht mehr speicherbar (inzwischen bearbeitet) → Mitteilung wieder weg. */
     @Test
     fun schonGemeldetAberNichtGespeichertEntferntMitteilung() = runBlocking {
         val store = AlarmDeliveryMarkerStore.InMemory()
@@ -128,7 +128,7 @@ class AlarmDeliveryMarkerParityTest {
         assertNull(store.get(12))
     }
 
-    /** Seit Build 104: Vermerke gelöschter bzw. ersetzter Alarme aufräumen. */
+    /** Vermerke gelöschter bzw. ersetzter Alarme aufräumen. */
     @Test
     fun vermerkeAufraeumen() {
         val store = AlarmDeliveryMarkerStore.InMemory()

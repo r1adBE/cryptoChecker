@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 102: eine Rundungsregel (halbe auf gerade) für Rechnen (`PortfolioDecimal.amount`) und Speichern
+/// Eine Rundungsregel (halbe auf gerade) für Rechnen (`PortfolioDecimal.amount`) und Speichern
 /// (`PortfolioDecimal.text`); eine Menge unter 10⁻¹⁸ ist nach dem Runden 0 und damit ungültig. Wie
 /// `PortfolioTxCleanupTest.kt` (Android).
 final class PortfolioDecimalRoundingTests: XCTestCase {

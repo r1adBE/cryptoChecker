@@ -4,7 +4,7 @@ import java.security.MessageDigest
 import java.security.SecureRandom
 
 /**
- * Eine gewählte Sicherung einmal je Wiederherstellen lesen (seit Build 93). Bis dahin las jeder Schritt die Datei neu
+ * Eine gewählte Sicherung einmal je Wiederherstellen lesen. Früher las jeder Schritt die Datei neu
  * (Passwort nötig? → ungültige Einträge → Wiederherstellen): eine verschlüsselte Datei bis 64 MB dreimal, mit zweimal
  * Argon2id (64 MiB am Stück) — auf Geräten mit wenig Arbeitsspeicher endete das in einem OutOfMemoryError.
  *
@@ -13,7 +13,7 @@ import java.security.SecureRandom
  * nichts gemerkt). Eine andere Datei ersetzt den Stand. [take] gibt ihn für das Wiederherstellen ab und vergisst ihn;
  * [clear] beim Abbrechen und beim Wählen einer Datei (die Datei kann sich inzwischen geändert haben).
  *
- * Seit Build 102 liegt das Passwort nicht mehr im Klartext im (prozessweiten) Speicher: verglichen wird ein gesalzener
+ * Das Passwort liegt nicht im Klartext im (prozessweiten) Speicher: verglichen wird ein gesalzener
  * SHA-256 ([digest], Salz je Instanz). Der Klartext der Sicherung gilt nur [plainTtlMillis] lang (Passwort prüfen →
  * Rückfrage → Wiederherstellen); danach wird er beim nächsten Zugriff verworfen und bei Bedarf neu entschlüsselt.
  *

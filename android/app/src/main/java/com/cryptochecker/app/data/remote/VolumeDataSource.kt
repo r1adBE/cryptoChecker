@@ -43,8 +43,8 @@ class VolumeDataSource @Inject constructor(
     private val tokenIdentityStore: TokenIdentityStore,
 ) {
     /**
-     * Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter. Seit Build 99
-     * begrenzt ([BoundedCache]): abgelaufene Einträge wurden nie entfernt, jedes je geprüfte Paar blieb im Speicher.
+     * Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter.
+     * Begrenzt ([BoundedCache]): abgelaufene Einträge wurden nie entfernt, jedes je geprüfte Paar blieb im Speicher.
      */
     private val cache = BoundedCache<String, Pair<Long, Sourced<List<HourCandle>>?>>(MAX_CACHE_ENTRIES)
 

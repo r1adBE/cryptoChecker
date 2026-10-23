@@ -87,7 +87,7 @@ enum CsvImportKraken {
     /// Ein-/Auszahlungen zwischen Spot und Staking (Indizes in `legs`) — wie Android `stakingMoves`: zuerst für ALLE
     /// Staking-Zeilen das Gegenstück mit derselben refid (irgendwo in der Datei), erst danach für die übrigen eine Zeile
     /// ≤ 1 h daneben — sonst nähme eine frühere Staking-Zeile über das Zeitfenster die Spot-Zeile einer anderen Umbuchung
-    /// weg (seit Build 92). `unpaired`: Staking-Zeilen ohne gefundenes Gegenstück.
+    /// weg. `unpaired`: Staking-Zeilen ohne gefundenes Gegenstück.
     private static func stakingMoves(_ legs: [Leg]) -> (moved: Set<Int>, unpaired: Set<Int>) {
         var out = Set<Int>()
         var unpaired = Set<Int>()
@@ -204,7 +204,7 @@ enum CsvImportKraken {
         return CsvImport.finish(.KRAKEN, rows: rows, skipped: skipped, zone: zone, localTimes: true)
     }
 
-    /// Fiat (Stablecoins zählen als Krypto, bis Build 46 galt USDT als Geld).
+    /// Fiat (Stablecoins zählen als Krypto, früher galt USDT als Geld).
     private static func isMoney(_ asset: String) -> Bool { CsvImport.fiat.contains(asset) }
 
     private static func rawKind(_ leg: Leg) -> String { leg.subtype.isEmpty ? leg.type : leg.type + " " + leg.subtype }

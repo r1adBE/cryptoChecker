@@ -7,7 +7,7 @@ data class StoredPrice(
     val price: Double,
     val at: Long,
     /**
-     * Binance-Kurs mit unbestätigtem Token («Kurs ungeprüft», seit Build 101): gilt als Wert, aber nie als bestätigter
+     * Binance-Kurs mit unbestätigtem Token («Kurs ungeprüft»): gilt als Wert, aber nie als bestätigter
      * Bezug (Kerzen, Tagesschlüsse) — auch nach einem Neustart, darum mit dem Kurs gemerkt.
      */
     val unverified: Boolean = false,
@@ -97,7 +97,7 @@ object PortfolioPriceFallback {
     fun unverified(coins: Collection<String>, entries: Map<String, StoredPrice>, via: Map<String, String>): Set<String> =
         coins.filterTo(LinkedHashSet()) { coin -> (entries[coin] ?: via[coin]?.let { entries[it] })?.unverified == true }
 
-    /** Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit», bei «Kurs ungeprüft» (seit Build 101) «COIN;Kurs;Zeit;u». */
+    /** Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit», bei «Kurs ungeprüft» «COIN;Kurs;Zeit;u». */
     fun encode(entries: Map<String, StoredPrice>): String = buildString {
         append(FORMAT_HEADER)
         for ((coin, entry) in entries.entries.sortedBy { it.key }) {

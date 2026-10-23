@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// `expirationHandler` der Hintergrund-Aufgabe (`BackgroundExpiry`, seit Build 103): zuerst abbrechen und das Ende
+/// `expirationHandler` der Hintergrund-Aufgabe (`BackgroundExpiry`): zuerst abbrechen und das Ende
 /// melden, Protokoll und neues Vormerken erst danach und abseits des Aufrufers — `setTaskCompleted` wartet nie auf
 /// Datei-Abstimmung.
 final class BackgroundExpiryTests: XCTestCase {

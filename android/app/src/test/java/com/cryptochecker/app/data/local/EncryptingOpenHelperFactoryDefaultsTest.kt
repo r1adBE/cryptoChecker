@@ -10,7 +10,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Merkliste ohne Schlüssel (Build 91): Mit dem Standard von [EncryptingOpenHelperFactory] entsteht `cryptochecker.db` nie
+ * Merkliste ohne Schlüssel: Mit dem Standard von [EncryptingOpenHelperFactory] entsteht `cryptochecker.db` nie
  * unverschlüsselt — ohne Schlüssel und ohne Datei nur im Arbeitsspeicher ([Decision.Refused]); eine schon unverschlüsselt
  * vorhandene Datei öffnet weiter wie bisher (nie Daten verlieren) und wird mit Schlüssel beim nächsten Start überführt.
  */
@@ -53,13 +53,13 @@ class EncryptingOpenHelperFactoryDefaultsTest {
 
     @Test
     fun newWatchlistWithoutKeyIsNeverCreatedInPlaintext() {
-        // Bis Build 90: Decision.Plaintext (neue unverschlüsselte Datei)
+        // Früher: Decision.Plaintext (neue unverschlüsselte Datei)
         assertEquals(Decision.Refused, prepare(FileKind.ABSENT, AppDatabase.DB_NAME))
     }
 
     @Test
     fun existingPlaintextWatchlistWithoutKeyKeepsWorking() {
-        // Alte unverschlüsselte Datei: seit Build 91 nur gelesen (Inhalt im Arbeitsspeicher, keine leere Liste), nie
+        // Alte unverschlüsselte Datei: nur gelesen (Inhalt im Arbeitsspeicher, keine leere Liste), nie
         // weitergeschrieben — wie iOS (Entscheid 21.10.)
         assertEquals(Decision.PlaintextKept, prepare(FileKind.PLAINTEXT, AppDatabase.DB_NAME))
     }
@@ -75,7 +75,7 @@ class EncryptingOpenHelperFactoryDefaultsTest {
 
     @Test
     fun prepareLockIsSharedPerDatabaseAcrossFactories() {
-        // Seit Build 103: App und Systemsicherung (eigene Fabrik) überführen dieselbe Datei nie gleichzeitig
+        // App und Systemsicherung (eigene Fabrik) überführen dieselbe Datei nie gleichzeitig
         assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) === EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME))
         assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) !== EncryptingOpenHelperFactory.prepareLock(PortfolioDatabase.DB_NAME))
     }

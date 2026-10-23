@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 107 (IOS5-R01/R02): Blätter mit Eingaben (Alarm-Editor, Notiz, Gruppe) fragen genau einmal (Rückfrage F-08)
+/// IOS5-R01/R02: Blätter mit Eingaben (Alarm-Editor, Notiz, Gruppe) fragen genau einmal (Rückfrage F-08)
 /// und schliessen erst danach; «Abbrechen» lässt sie mit den Eingaben offen. Quelltext-Prüfung, da ohne UI-Test.
 @MainActor
 final class EditorConfirmCloseTests: XCTestCase {

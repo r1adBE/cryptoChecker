@@ -7,10 +7,10 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Wache über die kleinste Schriftstufe: `typography.labelSmall` (seit Build 76 12 sp statt 11 sp,
+ * Wache über die kleinste Schriftstufe: `typography.labelSmall` (12 sp statt 11 sp,
  * siehe `appTypography`) bzw. iOS `.caption2` (11 pt) gehören nur zu Quellenangaben, rechtlichen
  * Fusszeilen und Chart-Beschriftungen; Metadaten nehmen `label` (12 sp) bzw. `.caption`. Die
- * Obergrenzen sind der Stand nach Build 76 und dürfen nur sinken — wer eine Stelle entfernt,
+ * Obergrenzen sind der erreichte Stand und dürfen nur sinken — wer eine Stelle entfernt,
  * senkt die Zahl hier mit. Liest die Quellen von der Platte
  * (wie [AccentContrastTest]); das iOS-Verzeichnis ist optional (reiner Android-Checkout).
  */

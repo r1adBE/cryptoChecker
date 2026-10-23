@@ -130,7 +130,7 @@ extension PortfolioScreen {
 
     /// «Rückgängig» im Banner: zurücklegen; nicht geschrieben → Hinweis statt still nichts.
     /// «Portfolio leeren» bestätigt: alle Transaktionen weg, Banner mit Zahl, «Rückgängig» (alle mit ihren ids zurück,
-    /// die Kurse lädt die Seite danach neu) und Ansage — seit Build 94 wie `deleteCoin`, wie Android.
+    /// die Kurse lädt die Seite danach neu) und Ansage — wie `deleteCoin`, wie Android.
     func clearAll() {
         // Stand vorher für «Rückgängig» (mit ids), wie `PortfolioRepository.clearAll` (Android) ihn zurückgibt
         let before = data.currentPortfolioFile().transactions
@@ -167,7 +167,7 @@ extension PortfolioScreen {
         let expected = data.portfolio.contains { $0.importBatch == batch.id }
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { removed = data.undoPortfolioImport(batch.id) }
         guard !removed.isEmpty else {
-            // Seit Build 104: nicht geschrieben (gesperrt/Fehler) → Hinweis statt still, wie beim Löschen eines Coins
+            // Nicht geschrieben (gesperrt/Fehler) → Hinweis statt still, wie beim Löschen eines Coins
             if expected { banner = .portfolioNotWritten(data) }
             return
         }
@@ -196,7 +196,7 @@ extension WatchlistBannerMessage {
                                long: true)
     }
 
-    /// Nicht geschrieben wegen eines Schreibfehlers (nicht gesperrt): «Konnte nicht gespeichert werden» — seit Build 103,
+    /// Nicht geschrieben wegen eines Schreibfehlers (nicht gesperrt): «Konnte nicht gespeichert werden»,
     /// wie Android `portfolio_write_failed`.
     static var portfolioWriteFailed: WatchlistBannerMessage {
         WatchlistBannerMessage(text: L("portfolio_write_failed"), icon: "exclamationmark.triangle", long: true)

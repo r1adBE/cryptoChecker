@@ -18,7 +18,7 @@ on:
   # tests on an emulator are part of the push gate, not only a manual run), and on every release tag v*.
   push:
     branches: [main]
-    # Since build 104: release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
+    # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
     paths:
@@ -293,7 +293,7 @@ jobs:
         run: |
           F="$RUNNER_TEMP/smoke-findings.tsv"
           if [ ! -s "$F" ]; then
-            # On main and release tags (release state, since build 104 also refs/tags/v*) a smoke test without
+            # On main and release tags (release state, including refs/tags/v*) a smoke test without
             # results fails the job; on branches a warning
             if [ "$GITHUB_REF" = "refs/heads/main" ] || [[ "$GITHUB_REF" == refs/tags/v* ]]; then
               echo "::error title=Release smoke test API ${{ matrix.api-level }}::No smoke test results (emulator did not start or the script did not run)"

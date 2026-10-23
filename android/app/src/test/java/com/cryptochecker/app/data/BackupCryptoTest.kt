@@ -259,7 +259,7 @@ class BackupCryptoTest {
 
     @Test
     fun passwordRules() {
-        // Mindestlänge 12 (neue Sicherungen, seit Build 69)
+        // Mindestlänge 12 (neue Sicherungen)
         assertFalse(BackupCrypto.isPasswordLongEnough("12345678901"))
         assertTrue(BackupCrypto.isPasswordLongEnough("123456789012"))
         // Emoji zählt als ein Zeichen (zwei UTF-16-Einheiten)
@@ -276,7 +276,7 @@ class BackupCryptoTest {
         for (weak in weakSamples) {
             assertFalse(weak, BackupCrypto.canExport(protect = true, password = weak, repeat = weak))
         }
-        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (bis Build 68 erlaubt)
+        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (früher erlaubt)
         assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ"))   // 11 Zeichen
         assertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2"))   // 12 Zeichen
     }

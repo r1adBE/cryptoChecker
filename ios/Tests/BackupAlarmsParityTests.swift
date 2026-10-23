@@ -15,7 +15,7 @@ final class BackupAlarmsParityTests: XCTestCase {
             if let expected = (c["windowHours"] as? NSNumber)?.intValue {
                 XCTAssertEqual(parsed?.windowHours, expected, c["name"] as? String ?? "")
             }
-            // Seit Build 104: fallend ≥ 100 % ausgeschaltet übernommen
+            // Fallend ≥ 100 % ausgeschaltet übernommen
             if let expectedEnabled = c["expectedEnabled"] as? Bool {
                 XCTAssertEqual(parsed?.enabled, expectedEnabled, c["name"] as? String ?? "")
             }

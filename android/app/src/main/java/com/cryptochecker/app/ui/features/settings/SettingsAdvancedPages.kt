@@ -19,10 +19,10 @@ import com.cryptochecker.app.R
 // ── Erweitert ────────────────────────────────────────────────────────────────
 
 /**
- * Build 53: Die Hauptseite zeigt nur die häufigen Einstellungen; alles für
+ * Die Hauptseite zeigt nur die häufigen Einstellungen; alles für
  * Fortgeschrittene steht hier, in Karten ohne Überschrift — Märkte (Token & TradFi), Meldungen
  * (Markt-Meldungen, Sprachausgabe), Anzeige (Coin-Logos) und, falls freigeschaltet, «Entwickler».
- * Kurs-Aktualisierung und Widgets stehen seit Build 55 wieder auf der Hauptseite, Portfolio seit Build 83
+ * Kurs-Aktualisierung und Widgets stehen auf der Hauptseite, ebenso Portfolio
  * (nur dort, unter «Allgemein»). Zurück führt von jeder Unterseite wieder hierher. Wie iOS (`AdvancedSettingsPage`).
  */
 @Composable

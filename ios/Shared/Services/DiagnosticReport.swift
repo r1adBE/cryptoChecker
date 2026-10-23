@@ -36,20 +36,20 @@ struct DiagnosticInput: Sendable {
     var exchangePauses: [String: ExchangeBackoff.State]
     /// Fehlerprotokoll des Release-Builds; nil = die App führt keines.
     var errorLog: [String]? = nil
-    /// Seit Build 103: Quell-Commit des Builds (Info.plist `CCGitCommit`); «local» = ohne Angabe gebaut.
+    /// Quell-Commit des Builds (Info.plist `CCGitCommit`); «local» = ohne Angabe gebaut.
     var sourceCommit: String = DiagnosticReport.localCommit
-    /// Seit Build 104: gezählte Fehler im Hintergrund je Bereich (`BackgroundErrors`), nur Zahlen.
+    /// Gezählte Fehler im Hintergrund je Bereich (`BackgroundErrors`), nur Zahlen.
     var backgroundErrors = BackgroundErrorSummary()
 }
 
-/// «Diagnose teilen» (Build 81): reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
+/// «Diagnose teilen»: reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
 /// Teilen-Menü weitergegeben — nichts wird automatisch gesendet. Bezeichnungen fest auf Englisch, Werte als Codes.
 /// Gleiches Format wie `DiagnosticReport.kt`.
 enum DiagnosticReport {
     static let fileName = "cryptochecker-diagnostics.txt"
     static let maxCheckRuns = 20
     static let redacted = "[redacted]"
-    /// Seit Build 103: Commit-Angabe eines Builds ohne Quelle (lokal gebaut).
+    /// Commit-Angabe eines Builds ohne Quelle (lokal gebaut).
     static let localCommit = "local"
     private static let none = "(none)"
 
@@ -153,7 +153,7 @@ enum DiagnosticReport {
         return lines.joined(separator: "\n") + "\n"
     }
 
-    /// Seit Build 103: Commit für die Zeile «Source» — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local».
+    /// Commit für die Zeile «Source» — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local».
     /// Nicht über `clean`: ein Hash kann wie eine Adresse aussehen und würde sonst ersetzt. Wie Android.
     static func sourceCommit(_ raw: String) -> String {
         let text = raw.trimmingCharacters(in: .whitespacesAndNewlines)

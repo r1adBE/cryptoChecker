@@ -15,7 +15,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Seit Build 95 (`testdata/parity/address_balance.json`, Gegenstück `Tests/AddressAlarmStateTests.swift`): nie geladene
+ * `testdata/parity/address_balance.json`, Gegenstück `Tests/AddressAlarmStateTests.swift`: nie geladene
  * Adressen sperren die Portfolio-Alarme nur noch 24 Stunden ([AddressAlarmState]), nicht bestätigte Token-Guthaben
  * ([WatchedAddress.staleTokens]) aus einer vollen TON-Jetton-Seite ([ChainBalance.parseTonJettonPage]).
  */

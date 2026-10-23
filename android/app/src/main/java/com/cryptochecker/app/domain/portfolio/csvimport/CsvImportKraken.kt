@@ -95,7 +95,7 @@ internal object CsvImportKraken {
      * Gegenstück (Gegenrichtung, gleiches Basis-Asset, gleiche Menge). Zuerst für ALLE Staking-Zeilen das Gegenstück mit
      * derselben refid (irgendwo in der Datei), erst danach für die übrigen eine Zeile ≤ 1 h daneben — sonst nähme eine
      * frühere Staking-Zeile über das Zeitfenster die Spot-Zeile einer anderen Umbuchung weg, und deren eigenes
-     * Gegenstück würde als echte Ein-/Auszahlung gebucht (seit Build 92). [StakingMoves.unpaired]: Staking-Zeilen ohne
+     * Gegenstück würde als echte Ein-/Auszahlung gebucht. [StakingMoves.unpaired]: Staking-Zeilen ohne
      * gefundenes Gegenstück.
      */
     private fun stakingMoves(legs: List<Leg>): StakingMoves {
@@ -206,7 +206,7 @@ internal object CsvImportKraken {
         else -> amount == null && text.trim() == first
     }
 
-    /** Fiat (Stablecoins zählen als Krypto, bis Build 46 galt USDT als Geld). */
+    /** Fiat (Stablecoins zählen als Krypto; früher galt USDT als Geld). */
     private fun isMoney(asset: String) = asset in CsvImport.FIAT
 
     private fun rawKind(leg: Leg) = if (leg.subtype.isEmpty()) leg.type else leg.type + " " + leg.subtype

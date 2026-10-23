@@ -50,7 +50,7 @@ enum class FuturesContractType(val value: Int) {
         /**
          * Erkennt ein inverses Perpetual an der Kennung der Börse: Binance COIN-M «2:BTCUSD_PERP» (ohne Datum),
          * OKX «BTC-USD-SWAP», Deribit «BTC-PERPETUAL» (ohne «_»; linear wäre «SOL_USDC-PERPETUAL»). Nötig für Paare,
-         * die vor Build 47 noch als PERPETUAL gespeichert wurden ([normalized]); neue Paarlisten setzen die Art selbst.
+         * die alte Versionen als PERPETUAL gespeichert haben ([normalized]); neue Paarlisten setzen die Art selbst.
          */
         fun isInversePerpetualId(marketKey: String, pairId: String?): Boolean {
             val id = pairId?.trim()
@@ -90,8 +90,8 @@ enum class FuturesContractType(val value: Int) {
         /**
          * Ungefährer Verfallstag nach Kalender (Freitage, UTC) — nur für die Anzeige und als Ersatz, wenn die
          * Kennung kein Datum trägt. null für Spot und Perpetuals. Abgerechnet wird freitags um 08:00 UTC: Ab dann gilt
-         * schon der nächste Kontrakt — seit Build 92 auch für Monat und Quartal, wenn ihr letzter Freitag vorbei ist
-         * (vorher z. B. am 31. Oktober noch der 30. Oktober). [now] für Tests; iOS: `FuturesContractType.delivery(asOf:)`.
+         * schon der nächste Kontrakt — auch für Monat und Quartal, wenn ihr letzter Freitag vorbei ist
+         * (z. B. am 31. Oktober nicht der 30. Oktober). [now] für Tests; iOS: `FuturesContractType.delivery(asOf:)`.
          */
         fun getDeliveryDate(contractType: FuturesContractType, now: Instant = Instant.now()): LocalDate? {
             val utc = now.atOffset(ZoneOffset.UTC)

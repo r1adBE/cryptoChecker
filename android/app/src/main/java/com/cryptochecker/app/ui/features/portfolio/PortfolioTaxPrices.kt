@@ -144,7 +144,7 @@ internal suspend fun PortfolioExportViewModel.networkFeePrices(
  * FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende [period] — je Verkauf, Auszahlung und
  * Gebühr in Krypto (Umbuchung/Tausch mit Gebühr im Coin, Gebühr im dritten Coin) die gehaltenen Coins (ohne den
  * verkauften und ohne Stablecoins) zum Tagesschluss des UTC-Tags der Abtretung ([TaxDayClose], dieselbe Regel wie die
- * Gebühr-Zeilen; bis Build 85 der Vortag). Gehalten = in
+ * Gebühr-Zeilen). Gehalten = in
  * der Reihenfolge der Rechnung davor gebucht ([TaxEngines.frHeldBefore], auch dieselbe Millisekunde). Fehlt ein
  * Kurs, bleibt der Einstand dieser Abtretung leer («unvollständig»).
  */

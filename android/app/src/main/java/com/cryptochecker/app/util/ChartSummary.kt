@@ -41,7 +41,7 @@ data class ChartSummary(
 
         /**
          * Prozent ohne Vorzeichen für Screenreader («2.35%»): Die Richtung steht als
-         * Wort davor, das Zeichen «−» lesen Screenreader uneinheitlich. Seit Build 95 in der Schreibweise der
+         * Wort davor, das Zeichen «−» lesen Screenreader uneinheitlich. In der Schreibweise der
          * App-Sprache ([PercentText]: «2,35 %», «%2,35»), wie iOS `A11y.change`.
          */
         fun unsignedPercent(percent: Double, decimals: Int = 2, locale: Locale = LocaleNumbers.appLocale): String =

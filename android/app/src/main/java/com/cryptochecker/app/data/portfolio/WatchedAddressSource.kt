@@ -39,8 +39,8 @@ import javax.inject.Singleton
  * [WatchedAddressRefresher] (Portfolio-Tab, Hintergrund/Widget).
  *
  * Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
- * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL], seit Build 103), eigener Verbindungs-Pool und Dispatcher
- * (seit Build 104); Protokolle nennen nur die gekürzte Adresse. Eigener Bitcoin-Server ([AddressServer]): nur dorthin.
+ * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL]), eigener Verbindungs-Pool und Dispatcher;
+ * Protokolle nennen nur die gekürzte Adresse. Eigener Bitcoin-Server ([AddressServer]): nur dorthin.
  * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources]); 429/418 und wiederholte
  * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der
  * nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
@@ -55,10 +55,10 @@ class WatchedAddressSource @Inject constructor(
         .apply {
             interceptors().clear()
             networkInterceptors().clear()
-            // Neutraler User-Agent statt «okhttp/…» bzw. App-Kennung, gleich wie iOS (seit Build 103)
+            // Neutraler User-Agent statt «okhttp/…» bzw. App-Kennung, gleich wie iOS
             addInterceptor(UserAgentInterceptor(HttpUserAgent.NEUTRAL))
         }
-        // Eigene Verbindungen und Warteschlange (seit Build 104): keine Wiederverwendung von Verbindungen der App-Anfragen
+        // Eigene Verbindungen und Warteschlange: keine Wiederverwendung von Verbindungen der App-Anfragen
         .connectionPool(ConnectionPool())
         .dispatcher(Dispatcher())
         .callTimeout(AddressBalance.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)

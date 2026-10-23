@@ -43,7 +43,7 @@ class FiatAlarmGuardTest {
         }
     }
 
-    /** Seit Build 92: echte Fiat-Währung ohne Devisenkurs (NGN, ARS …) = FIAT_UNSUPPORTED, nie Krypto über USDT. */
+    /** Echte Fiat-Währung ohne Devisenkurs (NGN, ARS …) = FIAT_UNSUPPORTED, nie Krypto über USDT. */
     @Test
     fun quoteKindKnowsFiatWithoutFxRate() {
         cases("classify").forEach { c ->

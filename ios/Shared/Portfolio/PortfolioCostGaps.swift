@@ -17,7 +17,7 @@ struct PortfolioCostGap: Equatable, Sendable {
     let kind: CostGapKind
 }
 
-/// Zugänge ohne Einstand («Einträge ohne Einstand», Build 84): Kauf, Einzahlung (auch aus einem CSV-Import ohne Preis) und
+/// Zugänge ohne Einstand («Einträge ohne Einstand»): Kauf, Einzahlung (auch aus einem CSV-Import ohne Preis) und
 /// Belohnung ohne Preis. Ein erfasster Einstand kommt ins Preisfeld der Transaktion (`priceExact`, Preis je Coin) — kein
 /// neues Feld. Adress-Einträge sind keine Lücken dieser Art (dafür `AddressCostLots`). Wie Android.
 enum PortfolioCostGaps {

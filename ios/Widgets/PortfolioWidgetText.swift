@@ -212,10 +212,10 @@ enum PortfolioWidgetText {
                           usdt.map { L("a11y_converted", $0) }, missing(s, plan: plan, overview: overview), chart, fallbackHint(plan), positions])
     }
 
-    /// Mit dem Geheimnis der Installation: sonst öffnet die App den Portfolio-Tab nicht (`OpenTargetGuard`, seit Build 97).
+    /// Mit dem Geheimnis der Installation: sonst öffnet die App den Portfolio-Tab nicht (`OpenTargetGuard`).
     static var appURL: URL? { OpenTargetGuard.url("portfolio") }
 
-    /// Portfolio aus: «Einschalten unter Einstellungen › Portfolio.» — Pfad aus den Namen der App (Build 83: Zeile
+    /// Portfolio aus: «Einschalten unter Einstellungen › Portfolio.» — Pfad aus den Namen der App (Zeile
     /// unter «Allgemein»).
     static var offHint: String {
         L("widget_portfolio_off_hint",

@@ -68,7 +68,7 @@ internal fun PortfolioScreenDialogs(
     val resources = LocalResources.current
     val context = LocalContext.current
     val haptics = rememberHaptics()
-    // Nicht geschrieben: gesperrt bzw. Fehler nennen statt still (seit Build 103, wie iOS)
+    // Nicht geschrieben: gesperrt bzw. Fehler nennen statt still (wie iOS)
     val notSaved = { result: PortfolioWriteResult -> banner.show(resources.getString(result.notSavedText())) }
     // Ungültige Einträge aus der Systemsicherung einmal nennen
     SystemRestoreNoticeDialog()
@@ -97,7 +97,7 @@ internal fun PortfolioScreenDialogs(
         PortfolioImportsDialog(
             batches = PortfolioImportBatch.summarize(transactions.orEmpty().map { it.importBatch }),
             onUndo = { batch ->
-                // Nicht geschrieben: Hinweis statt still (seit Build 104)
+                // Nicht geschrieben: Hinweis statt still
                 viewModel.undoImport(batch.id, onFailed = notSaved) { removed ->
                     haptics.play(HapticEvent.DESTRUCTIVE)
                     banner.show(resources.getQuantityString(R.plurals.portfolio_import_undone, removed.size, removed.size)) {

@@ -73,7 +73,7 @@ fun TaxExport.yearSummary(
     val feeApart = template.withdrawalFeeApart || template == TaxTemplate.FR || template.quoteFeeIsInfo
     val (withdrawalFees, sales) = if (feeApart) allRows.partition { it.feeExpense == PortfolioFeeExpense.WITHDRAWAL }
     else emptyList<TaxGainRow>() to allRows
-    // Umbuchungsgebühren nur zur Information ([PortfolioFeeExpense.TRANSFER], Build 57): eigener Posten
+    // Umbuchungsgebühren nur zur Information ([PortfolioFeeExpense.TRANSFER]): eigener Posten
     val (transferFees, rows) = sales.partition { it.feeExpense == PortfolioFeeExpense.TRANSFER }
     // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»
     val (allInterest, income) = incomeRows(trades, period, zone, currency, rates ?: emptyMap(), priceAt, usdtUsd)

@@ -165,7 +165,7 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                 )
             }
             RowDivider()
-            // «Pünktlich prüfen» (Build 46): exakter Wecker alle 15 Min., Standard aus
+            // «Pünktlich prüfen»: exakter Wecker alle 15 Min., Standard aus
             SettingsAnchor("updates.exact") {
                 Column {
                     ExactChecksRow(
@@ -204,7 +204,7 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                         modifier = Modifier.padding(start = Spacing.sm)
                     )
                 }
-                // Eingeschränkt und es wird im Hintergrund geprüft: deutlicher Satz (Build 46)
+                // Eingeschränkt und es wird im Hintergrund geprüft: deutlicher Satz
                 Hint(
                     stringResource(
                         if (com.cryptochecker.app.domain.refresh.BackgroundSchedule.showBatteryHint(!batteryUnrestricted, hasWork)) R.string.battery_delay_hint
@@ -222,7 +222,7 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                 }
             }
         }
-        // «Letzte Prüfungen» (Build 46): wann Android wirklich geprüft hat
+        // «Letzte Prüfungen»: wann Android wirklich geprüft hat
         Spacer(Modifier.height(12.dp))
         SettingsAnchor("updates.check_runs") {
             CheckRunsCard(checkRuns)
@@ -242,7 +242,7 @@ private fun UpdateModeCard(settings: AppSettings, onSelect: (UpdateMode) -> Unit
         Column(Modifier.selectableGroup()) {
             UpdateMode.selectable.forEach { mode ->
                 val sparsam = mode == UpdateMode.SPARSAM
-                // Sparsam ist Standard und empfohlen; Live nur für Profis (Build 43)
+                // Sparsam ist Standard und empfohlen; Live nur für Profis
                 val title = if (sparsam) stringResource(R.string.update_mode_sparsam) + " · " + stringResource(R.string.update_mode_recommended)
                 else stringResource(R.string.update_mode_live) + " · " + stringResource(R.string.update_mode_for_pros)
                 val subtitle = if (sparsam) stringResource(R.string.update_mode_sparsam_hint, background)

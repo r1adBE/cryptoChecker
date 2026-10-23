@@ -263,11 +263,11 @@ actor LivePriceStream {
 
     private func connectOnce(_ spec: LiveConnectionSpec) async -> Ended {
         guard let url = URL(string: spec.exchange.url) else { return Ended(receivedData: false, rateLimited: false) }
-        // User-Agent auch im Handshake, wie bei REST (`MarketHTTP`) und Android (seit Build 102)
+        // User-Agent auch im Handshake, wie bei REST (`MarketHTTP`) und Android
         var request = URLRequest(url: url)
         request.setValue(HttpUserAgent.value, forHTTPHeaderField: HttpUserAgent.header)
         let socket = session.webSocketTask(with: request)
-        // Ausdrücklich 1 MiB: grössere Nachricht → Fehler → Neuverbindung wie Android (seit Build 103)
+        // Ausdrücklich 1 MiB: grössere Nachricht → Fehler → Neuverbindung wie Android
         socket.maximumMessageSize = LiveRules.maxMessageBytes
         socket.resume()
         let clock = LiveClock()

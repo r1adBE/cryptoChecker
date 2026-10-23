@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Merkliste: leere Ansicht, Statuszeile, Frische -->
     <string name="watchlist_all_fresh">Current · %1$s</string>
     <string name="watchlist_empty_title">No pairs yet</string>
@@ -7,8 +7,9 @@
         <item quantity="one">%1$d of %2$d without price</item>
         <item quantity="other">%1$d of %2$d without price</item>
     </plurals>
-    <string name="watchlist_last_run">Last run %1$s</string>
-    <string name="watchlist_live_a11y">Live prices on</string>
+    <!-- Nur iOS: Android nutzt diese Texte nicht -->
+    <string name="watchlist_last_run" tools:ignore="UnusedResources">Last run %1$s</string>
+    <string name="watchlist_live_a11y" tools:ignore="UnusedResources">Live prices on</string>
     <string name="watchlist_offline_since">No connection · as of %1$s</string>
     <string name="watchlist_pull_to_refresh">Pull down to refresh</string>
     <string name="watchlist_refresh_report">Last refresh</string>
@@ -186,9 +187,11 @@
     <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
     <string name="sort_drag_handle">Drag to reorder</string>
     <string name="sort_move_bottom">Move to bottom</string>
-    <string name="sort_move_down">Move down</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="sort_move_down" tools:ignore="UnusedResources">Move down</string>
     <string name="sort_move_top">Move to top</string>
-    <string name="sort_move_up">Move up</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="sort_move_up" tools:ignore="UnusedResources">Move up</string>
 
     <string name="watchlist_first_alarm_title">Set your first alert</string>
     <string name="watchlist_first_alarm_text">Get notified when a price reaches your mark – with the app closed, Android checks irregularly.</string>

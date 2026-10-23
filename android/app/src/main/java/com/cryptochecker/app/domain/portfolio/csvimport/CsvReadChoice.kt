@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 /**
- * Seit Build 103: Lesart der CSV-Datei, die in der Vorschau gewählt wird — Zeitzone der Zeiten ohne Versatz,
+ * Lesart der CSV-Datei, die in der Vorschau gewählt wird — Zeitzone der Zeiten ohne Versatz,
  * Tag/Monat bei mehrdeutigen Daten, Dezimalzeichen bei mehrdeutigen Zahlen (null = Regel). Die Vorschau merkt sich, mit
  * welcher Lesart sie gebaut wurde; «Importieren» nur, wenn sie zur aktuellen Wahl gehört ([canConfirm]). Wie iOS
  * `CsvReadChoice`.

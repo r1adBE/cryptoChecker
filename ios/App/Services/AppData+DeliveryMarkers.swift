@@ -1,8 +1,8 @@
 import Foundation
 
-// Seit Build 105 (Review ARC3-R03): Vermerke «wird gemeldet» (`AlarmDelivery`) beim Löschen nur kürzen, wenn der Stand
+// Review ARC3-R03: Vermerke «wird gemeldet» (`AlarmDelivery`) beim Löschen nur kürzen, wenn der Stand
 // dieses Laufs auch bleibt — wie Android `PrefsAlarmDeliveryMarkers.prunable`.
-// Seit Build 106 (Review IOS4-R01): entschieden nach dem Ergebnis DIESES Lösch-Schreibens (nicht des vorigen) — erst
+// Review IOS4-R01: entschieden nach dem Ergebnis DIESES Lösch-Schreibens (nicht des vorigen) — erst
 // wenn die Schreib-Warteschlange es ausgeführt hat (`SharedStorage.snapshotWritesSettled`).
 
 extension AppData {

@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Display</string>
     <string name="widget_portfolio_display_conversion">Conversion only</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversion + USDT</string>
-    <string name="widget_portfolio_display_hint">The USDT line is hidden when the conversion currency is USD.</string>
+    <string name="widget_portfolio_display_hint">The USDT line is hidden when the conversion currency is a USD stablecoin (e.g. USDC).</string>
     <string name="widget_portfolio_display_usdt">USDT only</string>
     <string name="widget_portfolio_empty">Add purchases in the Portfolio tab</string>
     <string name="widget_portfolio_list_hint">Open the app to show your positions here.</string>
@@ -57,7 +57,8 @@
     </plurals>
     <string name="widget_portfolio_name">Portfolio</string>
     <string name="widget_portfolio_off_hint">Turn it on in %1$s.</string>
-    <string name="widget_portfolio_off_short">Portfolio off</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="widget_portfolio_off_short" tools:ignore="UnusedResources">Portfolio off</string>
     <string name="widget_portfolio_off_title">Portfolio is off</string>
     <string name="widget_portfolio_partly_stale">some prices outdated</string>
     <string name="widget_portfolio_period">Period</string>

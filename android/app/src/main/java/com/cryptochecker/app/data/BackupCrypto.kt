@@ -32,7 +32,7 @@ import javax.crypto.spec.SecretKeySpec
  * Ein veränderter Kopf scheitert damit am GCM-Tag — gemeldet wie ein falsches Passwort ([WrongPasswordException]),
  * denn beides ist nicht zu unterscheiden.
  *
- * v2 (bis Build 76, weiterhin lesbar, unverändert): «kdf» PBKDF2-HMAC-SHA256 mit «iter» (600 000, ältere Dateien
+ * v2 (ältere Sicherungen, weiterhin lesbar, unverändert): «kdf» PBKDF2-HMAC-SHA256 mit «iter» (600 000, ältere Dateien
  * 210 000), ohne AAD.
  *
  * Gemeinsame Prüfwerte (beide Seiten, mit Python `cryptography` nachgerechnet): `testdata/parity/backup_crypto.json`.
@@ -54,7 +54,7 @@ object BackupCrypto {
     const val ARGON2_TIME = 3
     const val ARGON2_PARALLELISM = 1
 
-    /** «iter» der v2-Sicherungen mit PBKDF2 (bis Build 76). */
+    /** «iter» der v2-Sicherungen mit PBKDF2 (ältere Sicherungen). */
     const val ITERATIONS = 600_000
 
     /** «iter» noch älterer v2-Sicherungen (weiterhin lesbar). */
@@ -65,7 +65,7 @@ object BackupCrypto {
     const val KEY_BITS = 256
 
     /**
-     * Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen; seit Build 69 12, vorher 10 bzw. 8). Gilt
+     * Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen; 12, früher 10 bzw. 8). Gilt
      * nur beim Sichern: ältere Dateien lassen sich mit jedem Passwort entschlüsseln.
      */
     const val MIN_PASSWORD_LENGTH = 12

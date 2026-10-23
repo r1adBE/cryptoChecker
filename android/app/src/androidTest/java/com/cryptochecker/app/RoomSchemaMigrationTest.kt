@@ -18,13 +18,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Migrationen gegen die exportierten Schemas (`app/schemas`, seit Build 103, Review TST-01): [MigrationTestHelper] legt
+ * Migrationen gegen die exportierten Schemas (`app/schemas`, Review TST-01): [MigrationTestHelper] legt
  * die alte Datenbank genau nach `<Version>.json` an — nicht nachgebaut wie in [DatabaseMigrationTest] —, füllt sie, führt
  * die App-Migrationen aus und prüft das Ergebnis gegen das Schema der Zielversion. So fällt auf, wenn eine Migration
  * oder ein nachgebautes Test-Schema vom wirklich ausgelieferten Stand abweicht.
  *
  * AppDatabase: die realen Update-Wege früherer Builds der aktuellen Linie (Datenbank v13/v14/v15 → v16) mit Daten, dazu
- * v1–v3 (die übrigen alten Schemas 4–12 wurden nie exportiert) nur als Schemaprüfung. Korrigiert seit Build 104: 16.2.x
+ * v1–v3 (die übrigen alten Schemas 4–12 wurden nie exportiert) nur als Schemaprüfung. Achtung: 16.2.x
  * hatte Datenbank v12 (nicht v13–v15); dessen Weg 12 → 13 prüft mangels Schema nur [DatabaseMigrationTest]. PortfolioDatabase: alle Versionen 1–5 → 6.
  * Unverschlüsselt (FrameworkSQLiteOpenHelperFactory): Geprüft wird das Schema; SQLCipher ändert daran nichts. Die
  * Schemas legt das Room-Gradle-Plugin selbst als Assets des Test-APK bei.

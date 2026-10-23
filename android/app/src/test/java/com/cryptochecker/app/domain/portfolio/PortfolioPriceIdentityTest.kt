@@ -76,7 +76,7 @@ class PortfolioPriceIdentityTest {
         assertEquals(split["unverified"].list().toSet(), got.unverified)
     }
 
-    /** Ohne andere Paarlisten bleibt alles wie bis Build 100: kein Coin «Kurs ungeprüft». */
+    /** Ohne andere Paarlisten bleibt alles wie früher: kein Coin «Kurs ungeprüft». */
     @Test
     fun withoutOtherListsNothingUnverified() {
         assertEquals(PortfolioPriceIdentity.BinanceCheck.USE, PortfolioPriceIdentity.binanceCheck("BEAM", null, "Beam Gaming"))

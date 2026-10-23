@@ -1,5 +1,5 @@
 {
-  "description": "Netzwerkgebühren (GasFees.kt / GasFees.swift): eth_feeHistory, eth_gasPrice, mempool.space, Überweisungskosten und Anzeige. Zahlen in gwei bzw. USD, Vergleich mit relativer Toleranz \"tolerance\". Seit Build 97.",
+  "description": "Netzwerkgebühren (GasFees.kt / GasFees.swift): eth_feeHistory, eth_gasPrice, mempool.space, Überweisungskosten und Anzeige. Zahlen in gwei bzw. USD, Vergleich mit relativer Toleranz \"tolerance\".",
   "tolerance": 1e-09,
   "feeHistory": [
     {

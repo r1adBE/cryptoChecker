@@ -1,7 +1,7 @@
 import Foundation
 
 /// Zwischenspeicher mit höchstens `maxEntries` Einträgen: der am längsten nicht benutzte fällt heraus (LRU) — wie
-/// `BoundedCache.kt` (Android). Seit Build 99 statt eines unbegrenzten Wörterbuchs: abgelaufene Einträge wurden nie
+/// `BoundedCache.kt` (Android). Statt eines unbegrenzten Wörterbuchs: dort wurden abgelaufene Einträge nie
 /// entfernt, jedes je geprüfte Paar blieb bis zum Prozessende im Speicher. Nicht selbst threadsicher: Aufrufer
 /// schützen ihn (z. B. mit einem `NSLock`).
 struct BoundedCache<Key: Hashable, Value> {

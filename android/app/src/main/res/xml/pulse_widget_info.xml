@@ -2,7 +2,11 @@
 <!-- Widget «Was gerade auffällt»: Schlagzeile, Leitsatz und so viele Coin-Chips (BTC, ETH,
      SOL), wie ganz in die Breite passen (PulseWidgetMath.coinCount). Einrichten optional (Hintergrund, Deckkraft).
      Vor Android 12 ohne previewLayout: Vorschaubild widget_preview_pulse_img. -->
+<!-- tools:targetApi: targetCellWidth/-Height, previewLayout und widgetFeatures wirken erst ab Android 12 bzw. 9;
+     ältere Versionen übergehen sie bewusst (dort gelten minWidth/minHeight und previewImage). -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="31"
     android:minWidth="110dp"
     android:minHeight="110dp"
     android:minResizeWidth="110dp"

@@ -2,7 +2,7 @@ import Foundation
 
 /// Zeilen, die das Merkliste-Widget höchstens zeigt. Logos und «wird veraltet»-Zeitpunkte nur für diese laden:
 /// Mit 2000 Paaren in «Alle» lasen sonst bis zu 2000 Logo-Dateien (je ein UIImage) in eine Erweiterung mit
-/// rund 30 MB Speicher und kurzer Zeichenfrist — für höchstens 10 sichtbare Zeilen. Seit Build 102.
+/// rund 30 MB Speicher und kurzer Zeichenfrist — für höchstens 10 sichtbare Zeilen.
 enum WidgetRows {
     /// Grosse Grösse: 10 Zeilen (mittel 4, klein 1 — alle zeigen die ersten Paare der Liste).
     static let maxListRows = 10

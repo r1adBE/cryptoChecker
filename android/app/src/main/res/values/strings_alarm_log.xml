@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Protokoll (Build 80): Titel der Seite und Name des Knopfs in «Alle Alarme» -->
+    <!-- Alarm-Protokoll: Titel der Seite und Name des Knopfs in «Alle Alarme» -->
     <string name="alarm_log_title">Alert log</string>
     <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
     <string name="alarm_log_open">Show alert log</string>

@@ -726,7 +726,7 @@
       }
     }
   ],
-  "workpaperHoldingsDescription": "Bestand der Arbeitsunterlage (Steuer-Export mit Vorlage, Build 87): gerechnet nach der Methode der Vorlage (TaxTemplate.methodFor(app, year) = taxMethod, holdingsCostMethod = taxMethod.costMethod ?: CostMethod.DEFAULT) — dieselbe Methode, die im Kopf steht; overridden = TaxTemplate.methodOverridden (Hinweis «Vorlage ersetzt die Methode» auch im Kopf der Bestandsdatei). holdings = CutoffExport.holdingsAt(trades, cutoff, holdingsCostMethod); appHoldings = allgemeiner Stichtag-Export ohne Vorlage (App-Methode).",
+  "workpaperHoldingsDescription": "Bestand der Arbeitsunterlage (Steuer-Export mit Vorlage): gerechnet nach der Methode der Vorlage (TaxTemplate.methodFor(app, year) = taxMethod, holdingsCostMethod = taxMethod.costMethod ?: CostMethod.DEFAULT) — dieselbe Methode, die im Kopf steht; overridden = TaxTemplate.methodOverridden (Hinweis «Vorlage ersetzt die Methode» auch im Kopf der Bestandsdatei). holdings = CutoffExport.holdingsAt(trades, cutoff, holdingsCostMethod); appHoldings = allgemeiner Stichtag-Export ohne Vorlage (App-Methode).",
   "workpaperHoldings": [
     {
       "name": "DE (FIFO je Wallet), App FIFO: Kauf 1 BTC Binance, Verkauf 0.5 BTC Kraken — Bestandsdatei 1 (Kraken-Abgang gekappt), App-Stichtag 0.5",

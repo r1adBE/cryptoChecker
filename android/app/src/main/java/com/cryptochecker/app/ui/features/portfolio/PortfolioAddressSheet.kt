@@ -165,7 +165,7 @@ internal fun PortfolioAddressSheet(
             onDismissRequest = { askOverlap = null },
             title = { Text(stringResource(R.string.portfolio_address_overlap_title)) },
             text = { Text(stringResource(R.string.portfolio_address_overlap_ask, chain.coin)) },
-            // Build 46: «Nur anzeigen» ist die sichere Wahl (kein Doppelzählen) und steht vorn;
+            // «Nur anzeigen» ist die sichere Wahl (kein Doppelzählen) und steht vorn;
             // «Zählen» nur, wenn die Adresse sicher nicht dieselben Coins hält
             confirmButton = {
                 TextButton(onClick = { askOverlap = null; add(countInPortfolio = false, overlapChecked = true) }) {
@@ -214,7 +214,7 @@ internal fun PortfolioAddressSheet(
         viewModel.removeWatchedAddress(
             target.id,
             onLocked = { banner.show(lockedText) },
-            // Nicht geschrieben: nennen statt still nichts zu tun (seit Build 97)
+            // Nicht geschrieben: nennen statt still nichts zu tun
             onFailed = { banner.show(failedText) },
         ) { row ->
             haptics.play(HapticEvent.DESTRUCTIVE)

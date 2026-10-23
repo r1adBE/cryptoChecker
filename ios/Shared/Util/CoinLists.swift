@@ -1,6 +1,6 @@
 import Foundation
 
-/// Erster Schritt jedes Logo-Abgleichs (Build 46): Binance-Symbolliste und Alpha-Liste **zuerst und
+/// Erster Schritt jedes Logo-Abgleichs: Binance-Symbolliste und Alpha-Liste **zuerst und
 /// gleichzeitig** holen — unabhängig von CoinGecko, den Paarlisten und den Bildern. Namen und
 /// Alpha-Kennzeichen stehen so wenige Sekunden nach dem Start bereit; vorher kamen sie erst nach den
 /// Paarlisten, der Nasdaq-Liste und allen Seiten der CoinGecko-Rangliste.

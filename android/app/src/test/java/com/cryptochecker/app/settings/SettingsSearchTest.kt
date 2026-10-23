@@ -52,7 +52,7 @@ class SettingsSearchTest {
     }
 
     /**
-     * Build 83: Die Seite «Portfolio» (Zeile unter «Allgemein») steht oben im Index (`settingsSearchItems`) und
+     * Die Seite «Portfolio» (Zeile unter «Allgemein») steht oben im Index (`settingsSearchItems`) und
      * darum bei «Portfolio» zuerst, vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» mit gleich vielen
      * Punkten — wie `testPortfolioSearchFindsPageFirst` (iOS, mit dem echten Katalog).
      */

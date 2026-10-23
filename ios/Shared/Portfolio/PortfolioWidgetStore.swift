@@ -52,7 +52,7 @@ enum PortfolioWidgetStore {
 
     static func load() -> PortfolioWidgetSnapshot? {
         // Ein Eintrag unter `snapshotKey` ist neuer als die Datei: alter Stand vor der Umstellung
-        // (`migrateSnapshotToFile`) oder Ausweichweg bis Build 59, als die Datei nicht schreibbar war. Seit Build 60
+        // (`migrateSnapshotToFile`) oder früherer Ausweichweg, als die Datei nicht schreibbar war. Heute
         // entsteht er nie mehr; der nächste Start der App zieht ihn um oder entfernt ihn.
         guard let data = SharedStorage.defaults.data(forKey: snapshotKey) ?? (try? ProtectedFile.read(snapshotURL))
         else { return nil }
@@ -91,17 +91,17 @@ enum PortfolioWidgetStore {
     static func save(_ snapshot: PortfolioWidgetSnapshot) -> Bool {
         guard load() != snapshot, let data = try? JSONEncoder().encode(snapshot) else { return false }
         // Nicht versiegelt speicherbar (Schlüssel gerade nicht lesbar, Datei nicht schreibbar): nichts ablegen — kein
-        // Ausweichen in die App-Group-Einstellungen mehr (Build 60), dort stünden die Beträge im Klartext. Das
+        // Ausweichen in die App-Group-Einstellungen mehr, dort stünden die Beträge im Klartext. Das
         // Widget zeigt den letzten versiegelten Stand oder keine Werte; die nächste Aktualisierung versucht es neu.
         return writeSnapshotFile(data)
     }
 
     /// Schreibt die Datei versiegelt und setzt das Backup-Merkmal neu (das atomare Schreiben verliert es). Der alte
-    /// Klartext-Eintrag in den Einstellungen (bis Build 59) fällt in jedem Fall weg — auch wenn nicht geschrieben
+    /// Klartext-Eintrag in den Einstellungen fällt in jedem Fall weg — auch wenn nicht geschrieben
     /// werden konnte: ein Zwischenspeicher, den die nächste Aktualisierung neu berechnet. false = nicht geschrieben.
     private static func writeSnapshotFile(_ data: Data) -> Bool {
         defer { SharedStorage.defaults.removeObject(forKey: snapshotKey) }
-        // Beträge nur verschlüsselt (`ProtectedFile`, Build 59): ohne Schlüssel schriebe `ProtectedFile.write`
+        // Beträge nur verschlüsselt (`ProtectedFile`): ohne Schlüssel schriebe `ProtectedFile.write`
         // Klartext — für diesen Zwischenspeicher lieber gar nichts (wie Android `PortfolioSnapshotSeal`)
         guard case .key(_) = StorageKey.shared.lookup() else { return false }
         do {
@@ -115,7 +115,7 @@ enum PortfolioWidgetStore {
         return true
     }
 
-    /// Beim Start (`PortfolioStore.applyBackupPolicy`): Stand aus den Einstellungen (bis Build 59) versiegelt in die
+    /// Beim Start (`PortfolioStore.applyBackupPolicy`): alten Stand aus den Einstellungen versiegelt in die
     /// Datei übernehmen (der Eintrag ist immer der neuere, siehe `load`) oder, wenn das nicht geht, nur entfernen.
     static func migrateSnapshotToFile() {
         guard let pending = SharedStorage.defaults.data(forKey: snapshotKey) else { return }

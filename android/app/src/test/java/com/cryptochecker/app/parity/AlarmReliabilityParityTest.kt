@@ -18,7 +18,7 @@ class AlarmReliabilityParityTest {
 
     private fun bool(m: Map<String, Any?>, key: String, default: Boolean): Boolean = m[key] as? Boolean ?: default
 
-    /** Gespeicherte Läufe («at;trigger;result;dauer»), falls der Fall sie nennt (seit Build 93). */
+    /** Gespeicherte Läufe («at;trigger;result;dauer»), falls der Fall sie nennt. */
     private fun runs(m: Map<String, Any?>) =
         (m["runs"] as? List<*>)?.let { lines -> CheckRunLog.decode(lines.joinToString("\n")) }
 

@@ -20,7 +20,7 @@ import com.cryptochecker.app.util.LocaleNumbers
 internal const val MARKET_COIN_UI_EVENTS = "market_coin_ui_events"
 
 /**
- * Seit Build 107 (Review ARC5-R01): Rückmeldungen der Aktionen aus «Heute auffällig» ([MarketCoinSheets]) nach der Rückfrage
+ * Review ARC5-R01: Rückmeldungen der Aktionen aus «Heute auffällig» ([MarketCoinSheets]) nach der Rückfrage
  * F-08 im GERADE gezeigten Bildschirm — Erlaubnis über die Launcher dieser Komposition (nie über einen abgemeldeten),
  * Vorschau «hinzugefügt» und Blatt in ihrem [state]. Ablauf wie vorher in den Rückrufen.
  */

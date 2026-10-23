@@ -2,7 +2,7 @@ import SwiftUI
 
 // Runde 35 (M1): Die frühere «Marktphase» (Zonen, Hoch-/Tief-Punkte, Skala, Phasen nach dem
 // Halving) ist weg. Übrig bleiben reine Messwerte: je Kennzahl der Wert, ein Satz, was sie misst,
-// und (Build 55) eine Zeile «hoch heisst …, tief heisst …» — in normaler Textfarbe, ohne Schwellen,
+// und eine Zeile «hoch heisst …, tief heisst …» — in normaler Textfarbe, ohne Schwellen,
 // Punkte oder Signal. Wie `MarketPhaseCard.kt`.
 
 /// «Bitcoin-Kennzahlen» als Zeile unter «Einordnung»: rechts der Kurs, darunter Mayer-Multiple
@@ -99,7 +99,7 @@ enum IndicatorText {
         }
     }
 
-    /// Build 55: «hoch heisst …, tief heisst …» — was ein hoher und ein tiefer Wert beschreibt,
+    /// «hoch heisst …, tief heisst …» — was ein hoher und ein tiefer Wert beschreibt,
     /// ohne Kauf- oder Verkaufssignal. Wie `indicatorReading` (Android).
     static func reading(_ id: IndicatorId) -> String {
         switch id {

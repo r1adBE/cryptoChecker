@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.core.content.edit
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -16,8 +17,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Seit Build 105 (Review FUN3-01): Portfolio-Alarme «fällt um ≥ 100 %» ([PortfolioAlarmLogic.exceedsFall]) liessen sich
- * bis Build 104 speichern; sie lösen nie aus. Einmal je Installation ausschalten (eigener Merker), die Übersicht
+ * Review FUN3-01: Portfolio-Alarme «fällt um ≥ 100 %» ([PortfolioAlarmLogic.exceedsFall]) liessen sich
+ * in älteren Versionen speichern; sie lösen nie aus. Einmal je Installation ausschalten (eigener Merker), die Übersicht
  * kennzeichnet sie («Schwelle ungültig – bitte anpassen»). Wie [com.cryptochecker.app.data.FallAlarmCleanup] für die
  * Paar-Alarme und iOS `AppData.disableInvalidFallAlarmsOnce`. Nicht gegen eine Datenbank nur im Arbeitsspeicher (dann
  * beim nächsten Start erneut).
@@ -45,7 +46,7 @@ class PortfolioFallAlarmCleanup @Inject constructor(
                 if (changed > 0) Timber.i("Portfolio-Alarme «fällt um ≥ 100 %%» ausgeschaltet: %d", changed)
                 markDone(prefs)
             }.onFailure {
-                // Seit Build 106 (F-25): im Release sonst unsichtbar — zählen (Bereich «alarms»), Schlüssel fehlt: nur Hinweis
+                // F-25: im Release sonst unsichtbar — zählen (Bereich «alarms»), Schlüssel fehlt: nur Hinweis
                 if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS, error = it)
                 Timber.w(it, "Portfolio-Alarme «fällt um ≥ 100 %» nicht bereinigt")
             }
@@ -54,7 +55,7 @@ class PortfolioFallAlarmCleanup @Inject constructor(
 
     @SuppressLint("ApplySharedPref")
     private fun markDone(prefs: android.content.SharedPreferences) {
-        prefs.edit().putBoolean(KEY_DONE, true).commit()
+        prefs.edit(commit = true) { putBoolean(KEY_DONE, true) }
     }
 
     private companion object {

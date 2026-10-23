@@ -26,10 +26,10 @@ import java.math.BigDecimal
  *    → Tausch ([stableSwap]): Verkauf X gegen S = Tausch X → S, Kauf X mit S = Tausch S → X; S-Menge = Fiat-/Quote-Betrag
  *    der Datei, sonst Preis × Menge. Wert nur bei USDT (= S-Menge, [CsvImport.stableSwapValue]), sonst unbekannt.
  *    Gebühr bleibt in ihrer Einheit. Ohne Preis bleibt die Zeile Kauf/Verkauf (ohne Preis, Vorschau nennt sie).
- *    Schlüssel bis Build 46 (noch Kauf/Verkauf) stehen in [CsvImportRow.legacyKeys].
+ *    Frühere Schlüssel (noch Kauf/Verkauf) stehen in [CsvImportRow.legacyKeys].
  *  - Kauf/Verkauf gegen einen Krypto-Coin ([CsvImport.isCryptoQuote], Paar «ETH/BTC») ebenso → Tausch (Kauf ETH = BTC → ETH,
  *    Verkauf ETH = ETH → BTC; BTC-Menge = Quote-Betrag, sonst Preis × Menge), Wert unbekannt (Tagesschluss beim Rechnen),
- *    ohne Stablecoin-Hinweis; frühere Schlüssel (Kauf/Verkauf ohne Preis in USDT, bis Build 47) in [CsvImportRow.legacyKeys].
+ *    ohne Stablecoin-Hinweis; frühere Schlüssel (Kauf/Verkauf ohne Preis in USDT) in [CsvImportRow.legacyKeys].
  */
 object CsvImportParser {
 
@@ -59,7 +59,7 @@ object CsvImportParser {
     /**
      * Höchstens so viele Zellen je Zeile und Datensätze je Datei ([tokenizeOrNull]); mehr = Datei zu gross, gleich wie
      * eine Datei über 16 MB «nicht lesbar» (wie iOS). Echte Exporte haben unter 40 Spalten; ohne Grenze baute eine Zeile
-     * aus lauter Trennern Millionen leere Zellen. Seit Build 99.
+     * aus lauter Trennern Millionen leere Zellen.
      */
     const val MAX_CELLS_PER_ROW = 200
     const val MAX_ROWS = 200_000

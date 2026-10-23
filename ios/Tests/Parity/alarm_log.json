@@ -1,5 +1,5 @@
 {
-  "_comment": "Alarm-Protokoll (Build 80): Ergebnis aus der beobachteten Prüfung (AlarmLog.outcome/notable; Build 82: «1 h später» = snoozed), Melde-Ablauf (AlarmLog.deliveryTrace), Zusammenfassen im Ringpuffer (AlarmLog.record) und Dateiformat (AlarmLog.decode; Build 82: Herkunft «src» = CheckTrigger-Code, unbekannt = null). Gemeinsam für AlarmLogParityTest.kt und AlarmLogParityTests.swift.",
+  "_comment": "Alarm-Protokoll: Ergebnis aus der beobachteten Prüfung (AlarmLog.outcome/notable; «1 h später» = snoozed), Melde-Ablauf (AlarmLog.deliveryTrace), Zusammenfassen im Ringpuffer (AlarmLog.record) und Dateiformat (AlarmLog.decode; Herkunft «src» = CheckTrigger-Code, unbekannt = null). Gemeinsam für AlarmLogParityTest.kt und AlarmLogParityTests.swift.",
   "codes": {
     "FIRED": "fired",
     "NOT_REACHED": "not_reached",

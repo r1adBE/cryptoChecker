@@ -202,6 +202,197 @@
           }
         }
       }
+    },
+    "NSLocalNetworkUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مطلوب فقط إذا كان خادمك الخاص للعناوين موجودًا في شبكتك المنزلية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potřebné jen tehdy, když je tvůj vlastní server pro adresy v domácí síti."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kun nødvendigt, hvis din egen server til adresser står i dit hjemmenetværk."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur nötig, wenn dein eigener Server für Adressen in deinem Heimnetz steht."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρειάζεται μόνο αν ο δικός σου διακομιστής για διευθύνσεις βρίσκεται στο οικιακό σου δίκτυο."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only needed if your own server for addresses is in your home network."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo es necesario si tu propio servidor para direcciones está en tu red doméstica."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فقط وقتی لازم است که سرور شخصی‌ات برای آدرس‌ها در شبکهٔ خانگی‌ات باشد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarvitaan vain, jos oma osoitepalvelimesi on kotiverkossasi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nécessaire uniquement si ton propre serveur pour les adresses se trouve sur ton réseau domestique."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נדרש רק אם השרת הפרטי לכתובות נמצא ברשת הביתית."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "केवल तब ज़रूरी है जब पतों के लिए तुम्हारा अपना सर्वर तुम्हारे होम नेटवर्क में हो।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Csak akkor szükséges, ha a címekhez használt saját szervered az otthoni hálózatodban van."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hanya diperlukan jika server pribadimu untuk alamat ada di jaringan rumahmu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serve solo se il tuo server per gli indirizzi si trova nella tua rete domestica."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレス用の自分のサーバーが自宅のネットワーク内にある場合にのみ必要です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소용 개인 서버가 홈 네트워크에 있는 경우에만 필요합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bare nødvendig hvis din egen server for adresser står i hjemmenettverket ditt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alleen nodig als je eigen server voor adressen in je thuisnetwerk staat."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potrzebne tylko wtedy, gdy twój własny serwer adresów jest w twojej sieci domowej."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só é necessário se o teu próprio servidor de endereços estiver na tua rede doméstica."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só é necessário se o seu próprio servidor de endereços estiver na sua rede doméstica."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Necesar doar dacă serverul tău propriu pentru adrese se află în rețeaua ta de acasă."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нужно, только если твой собственный сервер для адресов находится в твоей домашней сети."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nevojitet vetëm nëse serveri yt për adresat është në rrjetin tënd të shtëpisë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behövs bara om din egen server för adresser finns i ditt hemnätverk."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จำเป็นเฉพาะเมื่อเซิร์ฟเวอร์ส่วนตัวสำหรับที่อยู่อยู่ในเครือข่ายภายในบ้าน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnızca adresler için kendi sunucun ev ağındaysa gerekir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потрібно, лише якщо твій власний сервер для адрес у твоїй домашній мережі."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉ cần khi máy chủ riêng cho địa chỉ nằm trong mạng gia đình."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅当你自己的地址服务器位于家庭网络中时才需要。"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

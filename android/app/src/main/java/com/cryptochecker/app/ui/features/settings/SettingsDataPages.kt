@@ -224,7 +224,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
 
 /**
  * «3 Paare und 12 Alarme überschreiten die Grenzen …» mit [format] vor ([R.string.backup_restore_over_limits]) bzw. nach
- * dem Wiederherstellen ([R.string.backup_restored_over_limits]); null, wenn nichts wegfällt. Seit Build 99.
+ * dem Wiederherstellen ([R.string.backup_restored_over_limits]); null, wenn nichts wegfällt.
  */
 internal fun overLimitsText(
     resources: android.content.res.Resources,

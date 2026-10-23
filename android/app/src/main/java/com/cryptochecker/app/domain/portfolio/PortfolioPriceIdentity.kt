@@ -9,7 +9,7 @@ import com.cryptochecker.app.domain.watch.TokenIdentity
  * Binances Kurs nicht — dann Merklisten-Paar bzw. Kerzen-Kette (die prüft den Namen ebenso). Ist kein Name bekannt,
  * gilt Binance nur, wenn Binance dem Kürzel einen Namen gibt und es kein bekanntes Doppel-Kürzel ist ([binanceCheck]);
  * sonst bleibt der Kurs «ungeprüft». Führen die Paarlisten anderer Börsen unter dem Kürzel klar verschiedene Token
- * (seit Build 101), zählt Binances Kurs weiter, aber als «Kurs ungeprüft» ([BinanceCheck.UNVERIFIED]).
+ * zählt Binances Kurs weiter, aber als «Kurs ungeprüft» ([BinanceCheck.UNVERIFIED]).
  * Reine Logik — wie `PortfolioPriceIdentity.swift`.
  */
 object PortfolioPriceIdentity {

@@ -8,7 +8,7 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
 /**
- * Versiegelung der Momentaufnahme des Portfolio-Widgets (Build 60, reines Kotlin — getestet in
+ * Versiegelung der Momentaufnahme des Portfolio-Widgets (reines Kotlin — getestet in
  * PortfolioSnapshotSealTest). Gesamtwert, Positionen, Gewinn/Verlust und gehaltene Coins liegen nicht mehr lesbar in
  * den SharedPreferences `portfolio_widget`, sondern als ein mit AES-256-GCM versiegelter Eintrag; den Schlüssel hält
  * der Android Keystore ([Keys], PortfolioSnapshotKeyStore — eigener Alias, unabhängig von den Datenbank-Schlüsseln).

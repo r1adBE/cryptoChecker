@@ -296,7 +296,7 @@ class PortfolioWidgetViewsTest {
         assertEquals(0, PortfolioWidgetViews.listTotalChange(snapshot(change = 0.001, percent = 0.001))!!.direction)
         // Schmale Total-Zeile ist höher als eine einzeilige Zeile (zweizeilig wie die schmalen Listenzeilen)
         assertTrue(PortfolioWidgetViews.listTotalHeightDp(1f) > PortfolioWidgetViews.rowHeightDp(true, 1f))
-        // Breit einzeilig wie die breiten Zeilen (Build 46): niedriger als zweizeilig
+        // Breit einzeilig wie die breiten Zeilen: niedriger als zweizeilig
         assertTrue(PortfolioWidgetViews.listTotalHeightDp(1f, wide = true) < PortfolioWidgetViews.listTotalHeightDp(1f))
         // Ohne Prozent (Basis ~0): nur der Betrag
         val noPercent = PortfolioWidgetViews.listTotalChange(snapshot(change = 9.0, percent = null))!!

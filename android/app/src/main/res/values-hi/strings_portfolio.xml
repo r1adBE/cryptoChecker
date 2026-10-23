@@ -262,7 +262,7 @@
         <item quantity="other">बिना खरीद मूल्य वाले %1$d कॉइनों के बिना (%2$s) – गिनती में लाने के लिए मूल्य जोड़ो।</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">USDT में गिरावट – बाज़ार %1$s USD पर</string>
     <string name="portfolio_usdt_via_usdc">USDC/USDT के ज़रिए USDT की डॉलर दर – USDC गिरे तो यह मान सही नहीं</string>
     <string name="portfolio_amount_bridged_stable">≈ %1$s सहित (ब्रिज किया)</string>
@@ -296,7 +296,7 @@
         <item quantity="one">%d लेन-देन हटाए जाएँगे। हटाने के तुरंत बाद तुम इसे पूर्ववत कर सकते हो।</item>
         <item quantity="other">%d लेन-देन हटाए जाएँगे। हटाने के तुरंत बाद तुम इसे पूर्ववत कर सकते हो।</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">%1$s में चुकाई गई फ़ीस दूसरे लेन-देन से भी हटाई जाएगी: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (Build 102) löst nie aus – ausgeschaltet, Schwelle anpassen; seit Build 104 -->
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus älteren Versionen) löst nie aus – ausgeschaltet, Schwelle anpassen -->
     <string name="alarm_threshold_invalid_fix">Soglia non valida – modificala</string>
 </resources>

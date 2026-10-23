@@ -28,7 +28,7 @@ enum RemoveWatchedResult: Equatable {
     case removed(WatchedAddress)
     /// Gespeichertes Portfolio gerade nicht lesbar (`PortfolioStorageLock`): nichts entfernt.
     case locked
-    /// Nicht geschrieben (Datei nicht beschreibbar) — die Oberfläche nennt es (seit Build 97, wie Android `onFailed`).
+    /// Nicht geschrieben (Datei nicht beschreibbar) — die Oberfläche nennt es (wie Android `onFailed`).
     case failed
     /// Nicht (mehr) da, z. B. schon entfernt: nichts zu melden.
     case notFound
@@ -76,7 +76,7 @@ extension AppData {
     }
 
     /// Entfernen (nach Rückfrage); gibt die ganze Adresse für «Rückgängig» zurück (`restoreWatchedAddress`). Gesperrt:
-    /// `.locked` — die Oberfläche nennt es, statt still nichts zu tun (seit Build 94).
+    /// `.locked` — die Oberfläche nennt es, statt still nichts zu tun.
     @discardableResult
     func removeWatchedAddress(_ id: Int64) -> RemoveWatchedResult {
         guard !portfolioStorageLocked else { return .locked }
@@ -87,8 +87,8 @@ extension AppData {
     }
 
     /// «Rückgängig» nach `removeWatchedAddress`: dieselbe Adresse mit alter Id samt Eröffnungsposten, Verlauf und
-    /// Token-Reihen (`WatchedAddressUndo.restore`) — wie Android `restoreWatchedAddress`. Gesperrt: `.locked`. Seit Build 95
-    /// mit `pendingSince` = jetzt: wieder volle 24 h zum Laden, bevor sie als fehlgeschlagen gilt.
+    /// Token-Reihen (`WatchedAddressUndo.restore`) — wie Android `restoreWatchedAddress`. Gesperrt: `.locked`.
+    /// Mit `pendingSince` = jetzt: wieder volle 24 h zum Laden, bevor sie als fehlgeschlagen gilt.
     @discardableResult
     func restoreWatchedAddress(_ removed: WatchedAddress) -> RemoveWatchedResult {
         guard !portfolioStorageLocked else { return .locked }

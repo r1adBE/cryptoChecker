@@ -7,9 +7,9 @@ import org.json.JSONObject
  * Zwischenspeicher eines beobachteten xpub/ypub/zpub: abgeleitete Adressen je Kette (0 = Empfang, 1 = Wechselgeld,
  * Index = Position) und die benutzten Indizes (mindestens eine Transaktion). [fullScan] = letzte vollständige Suche
  * (ms, 0 = nie). [script] = gefundener Adresstyp eines xpub (Segwit-Konto mit xpub, [XpubScan.scripts]); null = noch
- * keiner mit Verlauf (bis Build 46 immer null: P2PKH). [emptyReceive]/[emptyChange] (seit Build 102) = benutzte Indizes,
+ * keiner mit Verlauf (in älteren Versionen immer null: P2PKH). [emptyReceive]/[emptyChange] = benutzte Indizes,
  * die beim letzten Abruf kein Guthaben hatten: QUICK und BACKGROUND fragen sie nicht erneut (nur FULL), sonst scheitert
- * ein xpub mit vielen benutzten Adressen an [XpubScan.MAX_REQUESTS]. [limitedFallback] (seit Build 102) = die tägliche
+ * ein xpub mit vielen benutzten Adressen an [XpubScan.MAX_REQUESTS]. [limitedFallback] = die tägliche
  * vollständige Suche war zu gross und wurde durch die schnelle ersetzt ([XpubScan.modeFor], Aufrufer bei [XpubScan.TooMany]);
  * bleibt, bis wieder eine vollständige gelingt (Hinweis in der Adresszeile). Gespeichert im JSON der beobachteten Adresse
  * ([WatchedAddressExtras]).
@@ -257,7 +257,7 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
 
         /**
          * Adresstypen der Suche in dieser Reihenfolge: ypub/zpub und Taproot-Konto nur ihr Typ; xpub mit gemerktem Typ ([XpubCache.script])
-         * oder mit benutzten Adressen im Zwischenspeicher bis Build 46 (gefunden als P2PKH) nur dieser; sonst P2PKH,
+         * oder mit benutzten Adressen im alten Zwischenspeicher (gefunden als P2PKH) nur dieser; sonst P2PKH,
          * P2SH-P2WPKH, P2WPKH — Ledger Live zeigt die xpub auch für Segwit-Konten. Mehr als ein Typ = vollständig suchen
          * und den ersten mit benutzter Adresse behalten ([pickScript]). [cache] muss zum Schlüssel gehören.
          */

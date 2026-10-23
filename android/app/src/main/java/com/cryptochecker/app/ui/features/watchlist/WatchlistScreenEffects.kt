@@ -9,6 +9,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
@@ -102,7 +103,7 @@ private const val ALARM_HINT_MILLIS = 6_000L
  * Merkliste in diesem Lauf nur im Arbeitsspeicher ([WatchlistStorageLock.notice]): Der Keystore gab den Schlüssel der
  * verschlüsselten Datei gerade nicht heraus ([DatabaseEncryptionNotice.storedKept] — der gespeicherte Stand kommt nach
  * einem Neustart zurück, Änderungen dieses Laufs nicht), oder es gibt gar keinen Schlüssel (keine Datei: nie
- * unverschlüsselt angelegt; alte unverschlüsselte Datei: seit Build 91 nur gelesen — nichts wird gespeichert, gleicher
+ * unverschlüsselt angelegt; alte unverschlüsselte Datei: nur gelesen — nichts wird gespeichert, gleicher
  * Text wie iOS). Sagen statt still. Als Dauerhinweis
  * ([WatchlistBanner.showResting]): Er steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
  */
@@ -118,7 +119,7 @@ private fun WatchlistStorageNotice(banner: WatchlistBanner) {
             WatchlistStorageLock.Notice.KEPT ->
                 banner.showResting(resources.getString(R.string.watchlist_storage_kept_in_memory), closeLabel)
             WatchlistStorageLock.Notice.NOT_SAVED -> {
-                // Alte unverschlüsselte Datei nur gelesen (seit Build 93 auch nach gescheiterter Überführung MIT Schlüssel):
+                // Alte unverschlüsselte Datei nur gelesen (auch nach gescheiterter Überführung MIT Schlüssel):
                 // neutral «noch nicht verschlüsselt» statt «kein Schlüssel»
                 val text = if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) {
                     R.string.watchlist_storage_copy_in_memory
@@ -136,6 +137,8 @@ private fun WatchlistStorageNotice(banner: WatchlistBanner) {
  * Stand die Liste ganz oben, bleibt sie oben. Gelesen wird nur beim Wechsel und ohne
  * Beobachtung — Scrollen löst keinen Neuaufbau aus.
  */
+// Gelesen wird nur beim Wechsel und in Snapshot.withoutReadObservation: Scrollen setzt keinen Neuaufbau in Gang
+@SuppressLint("FrequentlyChangingValue")
 @Composable
 internal fun KeepTopWhenPulseAppears(pulseShown: Boolean, listState: LazyListState) {
     val pulseWasShown = remember { booleanArrayOf(pulseShown) }

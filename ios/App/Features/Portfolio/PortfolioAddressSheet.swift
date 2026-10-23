@@ -27,7 +27,7 @@ struct PortfolioAddressSheet: View {
     /// «Zählen» nach der Warnung zu einer gleich grossen Einzahlung: für dieses Blatt bestätigt (nur im Speicher,
     /// allgemeiner Hinweis bleibt) — wie Android.
     @State private var countConfirmed: Set<Int64> = []
-    /// «Einstand für Adressguthaben» einer Adresse (eigenes Blatt darüber, Build 84).
+    /// «Einstand für Adressguthaben» einer Adresse (eigenes Blatt darüber).
     @State private var lotsFor: WatchedAddress?
     /// Eigenes Banner im Blatt («entfernt» mit «Rückgängig», Sperre): das des Portfolio-Tabs läge dahinter — wie Android.
     @State private var banner: WatchlistBannerMessage?
@@ -42,7 +42,7 @@ struct PortfolioAddressSheet: View {
                 ForEach(addresses) { a in
                     row(a)
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button { askRemove = a } label: { // seit Build 106 (UX4-R5): ohne Rolle, Zeile bleibt bis zur Rückfrage
+                            Button { askRemove = a } label: { // UX4-R5: ohne Rolle, Zeile bleibt bis zur Rückfrage
                                 Label(L("portfolio_address_remove"), systemImage: "trash")
                             }
                             .tint(AppColors.destructive)
@@ -103,7 +103,7 @@ struct PortfolioAddressSheet: View {
             .alert(L("portfolio_address_overlap_title"), isPresented: Binding(
                 get: { askOverlap != nil }, set: { if !$0 { askOverlap = nil } }
             ), presenting: askOverlap) { _ in
-                // Build 46: «Nur anzeigen» ist die sichere Wahl (kein Doppelzählen) und steht vorn (fett) — wie Android
+                // «Nur anzeigen» ist die sichere Wahl (kein Doppelzählen) und steht vorn (fett) — wie Android
                 Button(L("portfolio_address_show_only_short")) { add(check, countInPortfolio: false, overlapChecked: true) }
                     .keyboardShortcut(.defaultAction)
                 Button(L("portfolio_address_count")) { add(check, countInPortfolio: true, overlapChecked: true) }
@@ -157,7 +157,7 @@ struct PortfolioAddressSheet: View {
                 action: WatchlistBannerAction.undo {
                     switch data.restoreWatchedAddress(removed) {
                     case .locked: showLocked()
-                    // Nicht zurückgeholt: Grund nennen statt still nichts zu tun (seit Build 95, wie Android)
+                    // Nicht zurückgeholt: Grund nennen statt still nichts zu tun (wie Android)
                     case .failed: showRestoreFailed(WatchedAddressUndo.failure(data.watchedAddresses, removed))
                     case .removed, .notFound: break
                     }
@@ -165,7 +165,7 @@ struct PortfolioAddressSheet: View {
             )
         case .locked:
             showLocked()
-        // Nicht geschrieben: nennen statt still nichts zu tun (seit Build 97, wie Android)
+        // Nicht geschrieben: nennen statt still nichts zu tun (wie Android)
         case .failed:
             banner = WatchlistBannerMessage(text: L("portfolio_address_remove_failed"), icon: "exclamationmark.triangle", long: true)
         case .notFound:
@@ -294,7 +294,7 @@ struct PortfolioAddressSheet: View {
                 .tint(accent.primary)
                 .frame(minHeight: 44)
             } else if !overlap.isEmpty && a.countInPortfolio {
-                // Build 46: Hinweis bleibt, solange die Adresse zählt — «Nur anzeigen» mit einem Tipp (wie Android)
+                // Hinweis bleibt, solange die Adresse zählt — «Nur anzeigen» mit einem Tipp (wie Android)
                 Button(L("portfolio_address_show_only_short")) {
                     data.setWatchedAddressCountInPortfolio(a.id, on: false)
                 }
@@ -342,7 +342,7 @@ struct PortfolioAddressSheet: View {
                 set: { showOnly in data.setWatchedAddressCountInPortfolio(a.id, on: !showOnly) }
             ))
             .font(.subheadline)
-            // Build 84: Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
+            // Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
             if a.countInPortfolio {
                 ForEach(AddressCostLots.coverage(a, trades: data.portfolio, all: data.watchedAddresses), id: \.coin) { c in
                     Text(L("address_lots_status", lotAmount(c.lotted, c.coin), lotAmount(c.base, c.coin)))

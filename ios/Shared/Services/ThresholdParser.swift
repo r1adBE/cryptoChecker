@@ -6,7 +6,7 @@ import Foundation
 /// - Tausendertrenner ’ ' ‘ ` Leerzeichen, geschütztes und schmales Leerzeichen werden ignoriert.
 /// - Kommen Punkt und Komma vor, ist das letzte der beiden das Dezimalzeichen: «1.234,56», «1,234.56».
 /// - Mehrfach dasselbe Zeichen = Tausendertrennung in Dreiergruppen: «1.234.567», «1,234,567».
-///   Seit Build 103 mit `indianGrouping` (Region mit Zweier-Nebengruppen wie hi-IN) auch indisch: «1,00,000».
+///   Mit `indianGrouping` (Region mit Zweier-Nebengruppen wie hi-IN) auch indisch: «1,00,000».
 /// - Einmal ein Zeichen mit genau drei Ziffern danach («60,000», «60.000») ist mehrdeutig:
 ///   Mit `priceHint` (aktueller Kurs in der Währung des Schwellwerts) gewinnt die Lesart, die
 ///   näher am Kurs liegt (Verhältnis am nächsten bei 1); ohne Kurs entscheidet das
@@ -32,7 +32,7 @@ enum ThresholdParser {
     /// Dezimalzeichen auf Punkt oder Komma abbilden (anderes → Punkt).
     static func normalized(_ separator: Character) -> Character { separator == "," ? "," : "." }
 
-    /// Seit Build 103: Gruppiert die Zahlen-Locale (`LocaleNumbers.appLocale`) indisch? Standard für `indianGrouping`;
+    /// Gruppiert die Zahlen-Locale (`LocaleNumbers.appLocale`) indisch? Standard für `indianGrouping`;
     /// wie Android `ThresholdParser.regionIndianGrouping`.
     static var regionIndianGrouping: Bool { LocaleNumbers.usesIndianGrouping(LocaleNumbers.appLocale) }
 
@@ -164,7 +164,7 @@ enum ThresholdParser {
         return (intPart.isEmpty ? "0" : intPart) + "." + (fracPart.isEmpty ? "0" : fracPart)
     }
 
-    /// Tausendergruppen: erste Gruppe 1–3 Ziffern ohne führende 0, danach je genau drei. Seit Build 103 mit
+    /// Tausendergruppen: erste Gruppe 1–3 Ziffern ohne führende 0, danach je genau drei. Mit
     /// `indian` zusätzlich indisch: erste Gruppe 1–2 Ziffern, dann Zweiergruppen, zuletzt genau drei («12,34,567»).
     private static func validGrouping(_ text: String, _ sep: Character, indian: Bool = false) -> Bool {
         let groups = text.split(separator: sep, omittingEmptySubsequences: false)

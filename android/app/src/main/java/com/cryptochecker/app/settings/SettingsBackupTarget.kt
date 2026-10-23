@@ -9,7 +9,7 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 
 /**
  * Was die Sicherung an Einstellungen liest und schreibt (`BackupSettingsCodec`): der jetzige Stand und je gesicherte
- * Einstellung der Setter von [SettingsRepository] (dort mit Grenzen und Nebenwirkungen). Seit Build 102 als Schnittstelle,
+ * Einstellung der Setter von [SettingsRepository] (dort mit Grenzen und Nebenwirkungen). Als Schnittstelle,
  * damit der Hin- und Rückweg aller Einstellungen ohne DataStore testbar ist (BackupSettingsCodecTest).
  */
 interface SettingsBackupTarget {

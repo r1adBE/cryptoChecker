@@ -66,13 +66,13 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 fun PortfolioDetailScreen(
     coin: String,
     onBack: () -> Unit,
-    /** Seit Build 103 die Instanz des Portfolio-Tabs (AppNavHost); eigene nur zur Not. */
+    /** Die Instanz des Portfolio-Tabs (AppNavHost); eigene nur zur Not. */
     viewModel: PortfolioViewModel = hiltViewModel(),
 ) {
     val symbol = remember(coin) { PortfolioCalculator.normalizeCoin(coin) }
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
     val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
-    // Seit Build 103: Ledger/FIFO, Adress-Guthaben und Treffer im ViewModel abseits des Hauptthreads (PortfolioCoinDetailFlow)
+    // Ledger/FIFO, Adress-Guthaben und Treffer im ViewModel abseits des Hauptthreads (PortfolioCoinDetailFlow)
     val detail by remember(viewModel, symbol) { viewModel.coinDetailFlow(symbol) }.collectAsStateWithLifecycle(null)
 
     LaunchedEffect(Unit) { viewModel.start() }
@@ -92,7 +92,7 @@ fun PortfolioDetailScreen(
     // Nicht geschrieben: gesperrt bzw. Fehler nennen (wie iOS) statt «entfernt»
     val resources = LocalResources.current
 
-    // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist. Seit Build 103 auch nicht,
+    // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist. Auch nicht,
     // solange ein Löschen auf sein Ergebnis wartet, dessen Banner noch nicht steht oder «Rückgängig» noch schreibt
     val bannerData = banner.host.currentSnackbarData
     var deletesPending by remember { mutableIntStateOf(0) }
@@ -122,7 +122,7 @@ fun PortfolioDetailScreen(
     }
     fun deleteTx(tx: PortfolioTxEntity) {
         deletesPending++
-        // Banner «entfernt» mit «Rückgängig» und Haptik erst nach dem Ergebnis (seit Build 103, wie iOS)
+        // Banner «entfernt» mit «Rückgängig» und Haptik erst nach dem Ergebnis (wie iOS)
         viewModel.delete(tx.id) { result ->
             deletesPending--
             if (result == PortfolioWriteResult.OK) {
@@ -138,7 +138,7 @@ fun PortfolioDetailScreen(
     sheet?.let { draft ->
         PortfolioTxSheet(initial = draft, viewModel = viewModel, onDismiss = { sheet = null })
     }
-    // Build 84: «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben
+    // «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben
     var costGapsOpen by remember { mutableStateOf(false) }
     var lotsFor by remember { mutableStateOf<Long?>(null) }
     if (costGapsOpen) {

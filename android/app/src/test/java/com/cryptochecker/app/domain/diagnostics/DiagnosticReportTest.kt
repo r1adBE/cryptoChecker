@@ -88,7 +88,7 @@ class DiagnosticReportTest {
         // 12:00 UTC = 14:00 in Zürich (Sommerzeit)
         assertTrue(text.contains("Created: 2026-10-18 14:00 (Europe/Zurich)"))
         assertTrue(text.contains("App: 16.2.2 (81)"))
-        // Seit Build 103: ohne Angabe «local»
+        // Ohne Angabe «local»
         assertTrue(text.contains("Source: local"))
         assertTrue(text.contains("Exact checks: on"))
         assertTrue(text.contains("Quiet hours: on 23:00-07:00"))
@@ -98,7 +98,7 @@ class DiagnosticReportTest {
         assertTrue(text.contains("binance | paused until 2026-10-18 14:01 | RATE_LIMIT | strikes 2"))
         assertTrue(text.contains("kraken | not paused | TIMEOUT | strikes 1"))
         assertTrue(text.contains("none - the app keeps no error log"))
-        // Seit Build 104: Zähler der Fehler im Hintergrund
+        // Zähler der Fehler im Hintergrund
         assertTrue(text.contains("none - the app keeps no error log\nBackground errors: none\n"))
         assertTrue(text.endsWith("\n"))
     }
@@ -177,7 +177,7 @@ class DiagnosticReportTest {
         }
     }
 
-    /** Seit Build 103: Quell-Commit in der Zeile «Source», gleiche Fälle wie iOS. */
+    /** Quell-Commit in der Zeile «Source», gleiche Fälle wie iOS. */
     @Test
     fun sourceCommitSharedCases() {
         val data = ParityJson.load("diagnostic_redact.json")

@@ -36,7 +36,7 @@ import com.cryptochecker.app.util.PriceFormat
 internal data class TotalHintItem(val text: String, val error: Boolean = false, val txId: Long? = null)
 
 /**
- * Bereich «Hinweise» unter der Gesamtkarte (L-15), Build 46 zugeklappt: eine Zeile «Hinweise (n)» mit
+ * Bereich «Hinweise» unter der Gesamtkarte (L-15), zugeklappt: eine Zeile «Hinweise (n)» mit
  * Pfeil (48 dp hoch, Fehlerfarbe, wenn eine Zeile ein Fehler ist — veraltet, Wallet-Bestand); offen die
  * Zeilen ([TotalHint]) eng untereinander, eingerückt wie der Inhalt der Karte. Wie iOS `hints`.
  */
@@ -83,8 +83,8 @@ internal fun TotalCardHints(hints: List<TotalHintItem>, expanded: Boolean, onTog
 @Composable
 private fun TotalHint(
     text: String,
-    color: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier: Modifier = Modifier,
+    color: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant,
 ) {
     Text(
         text,
@@ -145,7 +145,7 @@ internal fun totalHintItems(
                 summary.missingCostCoins.size,
                 summary.missingCostCoins.joinToString(", ")
             ),
-            // Antippen: Einträge ohne Einstand (Build 84)
+            // Antippen: Einträge ohne Einstand
             txId = COST_GAPS_HINT_ID,
         ))
     }

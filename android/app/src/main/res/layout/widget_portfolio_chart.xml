@@ -3,7 +3,10 @@
      Stundenwerte: statt des Charts ruhig «Verlauf folgt» (portfolio_chart_pending).
      Füllt den Platz (Gewicht 1); im Layout der mittleren Stufe als rechte Spalte.
      Abstand oben 4 dp: PortfolioWidgetMath.CHART_GAP_DP rechnet die Chart-Höhe damit — nur zusammen ändern. -->
+<!-- MergeRootFrame: wird per <include> mit Gewicht, Abstand und Sichtbarkeit (portfolio_chart_box) eingebunden; <merge> verlöre das -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MergeRootFrame"
     android:id="@+id/portfolio_chart_box"
     android:layout_width="match_parent"
     android:layout_height="0dp"

@@ -270,7 +270,7 @@ class PortfolioFifoTest {
     }
 
     /**
-     * Build 58: Umbuchungsgebühr auf Bestand ohne Kaufpreis im Pool der Steuer-Vorlagen ([TaxPool.addFee], UK/CA ohne
+     * Umbuchungsgebühr auf Bestand ohne Kaufpreis im Pool der Steuer-Vorlagen ([TaxPool.addFee], UK/CA ohne
      * Vorlage-Regeln) — derselbe Anteil wie im Portfolio vermerkt, nicht verworfen. Mit den UK-Regeln zählt die Gebühr USDT
      * gar nicht zum Einstand (nur Information) — dann bleibt nichts offen.
      */

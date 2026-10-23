@@ -10,7 +10,7 @@ import org.json.JSONObject
  * Paar-Alarme aus der Sicherung lesen (reines Kotlin; Gemeinsame Fälle `testdata/parity/backup_alarms.json`,
  * Swift: `BackupManager.alarmFromJson`). Eine unbekannte Alarmart (neuere App-Version) oder eine Schwelle
  * ohne endlichen Wert ist UNGÜLTIG und wird gezählt — nie zu «Kurs über …» mit fremder Schwelle umgedeutet
- * (aus «RSI über 70» würde sonst «BTC über 70», das sofort auslöst). Seit Build 102 ebenso eine Schwelle ≤ 0 bei
+ * (aus «RSI über 70» würde sonst «BTC über 70», das sofort auslöst). Ebenso eine Schwelle ≤ 0 bei
  * Kursmarke, Prozent, Bewegung, Volumen und Open Interest ([needsPositiveThreshold]): «Kurs über 0» oder «Bewegung um 0 %» löste bei jeder
  * Prüfung aus; die Eingabe lässt solche Werte nie zu (ThresholdParser).
  */
@@ -36,8 +36,8 @@ object AlarmJson {
     private const val MAX_FALL_PERCENT = 100.0
 
     /**
-     * Seit Build 103: fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösen nie aus — der Editor
-     * nimmt nur Werte unter 100 an. Seit Build 104 kommen sie aus einer Sicherung AUSGESCHALTET (nicht als ungültig
+     * Fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösen nie aus — der Editor
+     * nimmt nur Werte unter 100 an. Aus einer Sicherung kommen sie AUSGESCHALTET (nicht als ungültig
      * gezählt) und werden in der Alarmliste gekennzeichnet («Schwelle ungültig – bitte anpassen»). Wie iOS
      * `BackupManager.exceedsFall`.
      */
@@ -46,7 +46,7 @@ object AlarmJson {
             threshold >= MAX_FALL_PERCENT
 
     /**
-     * Seit Build 105 (Review FUN3-02/UX3-06): Schalter auf [enable] stellen erlaubt? Einschalten eines [exceedsFall]-Alarms
+     * Review FUN3-02/UX3-06: Schalter auf [enable] stellen erlaubt? Einschalten eines [exceedsFall]-Alarms
      * nie (er löst nie aus, die Karte zeigt «Schwelle ungültig») — erst im Editor anpassen; ausschalten immer. Wie iOS
      * `BackupManager.toggleAllowed` (Fälle `alarm_toggle.json`).
      */
@@ -66,7 +66,7 @@ object AlarmJson {
 
     /**
      * Ein Alarm; null = ungültig (Id/Paar fehlt, Alarmart unbekannt, Schwelle nicht endlich bzw. ≤ 0, wo sie positiv sein
-     * muss). Fallend ≥ 100 % seit Build 104: übernommen, aber ausgeschaltet ([exceedsFall]).
+     * muss). Fallend ≥ 100 %: übernommen, aber ausgeschaltet ([exceedsFall]).
      */
     fun fromJson(o: JSONObject): AlarmEntity? {
         if (!o.has("id") || !o.has("watchId")) return null

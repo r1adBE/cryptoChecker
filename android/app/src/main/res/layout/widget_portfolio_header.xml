@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Kopfzeile aller Portfolio-Widget-Layouts: Logo und «Portfolio». Keine Pille — das Prozent steht als
      Text in der Kursfarbe in der Betragszeile («↘ −1’968.40 CHF  −2.31% · 24h», PortfolioWidgetRenderer). -->
+<!-- UseCompoundDrawables: Logo als eigene 16-dp-ImageView, die der Renderer per RemoteViews setzt; als Compound-Drawable sähe es anders aus -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UseCompoundDrawables"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"

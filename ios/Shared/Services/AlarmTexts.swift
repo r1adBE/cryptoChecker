@@ -147,7 +147,7 @@ enum AlarmTexts {
                  currency: alarm.convertCurrency ?? quote, windowHours: alarm.windowHours)
     }
 
-    /// Prozent nach Sprache: «5%» (en), «5 %» (de), höchstens zwei Nachkommastellen. Seit Build 96 über `PercentText`
+    /// Prozent nach Sprache: «5%» (en), «5 %» (de), höchstens zwei Nachkommastellen. Über `PercentText`
     /// statt `NumberFormatter.percent`, damit iOS und Android trotz unterschiedlicher ICU-Stände gleich schreiben
     /// (wie `AlarmSentence.percent`) — mit Tausendertrennung wie dort («1,000%»; Open-Interest-Schwellen bis 1000 %).
     static func percent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {

@@ -27,7 +27,7 @@ internal object BackupFormat {
     }
 
     /**
-     * Text einer Sicherungsdatei: eingerückt (bis Build 91) oder kompakt (seit Build 92, [encode]) — der Parser nimmt
+     * Text einer Sicherungsdatei: eingerückt (ältere Sicherungen) oder kompakt ([encode]) — der Parser nimmt
      * beides, auch Sicherungen von iOS.
      */
     fun parse(text: String): BackupFile {
@@ -57,7 +57,7 @@ internal object BackupFormat {
     }
 
     /**
-     * Klartext der Sicherung als Bytes: kompakt ohne Einrückung (seit Build 92; eingerückt war die Datei gut ein Drittel
+     * Klartext der Sicherung als Bytes: kompakt ohne Einrückung (eingerückt war die Datei gut ein Drittel
      * grösser). Grösser als lesbar ([BackupLimits.MAX_BYTES]) → [BackupLimits.ExportTooLargeException].
      */
     fun encode(root: JSONObject): ByteArray =

@@ -271,7 +271,7 @@ extension PortfolioTxSheet {
         tx.importRestoreState = initial.importRestoreState
         // Ursprüngliches Kaufdatum: nur bei einer Einzahlung, nie nach ihrem Datum
         tx.acquiredTime = type == .DEPOSIT ? acquiredTimeForSave(until: tx.time) : nil
-        // Build 46: vor dem Schreiben — gab es schon Transaktionen? (erste mit Portfolio aus: Rückfrage statt still ein)
+        // Vor dem Schreiben — gab es schon Transaktionen? (erste mit Portfolio aus: Rückfrage statt still ein)
         let askEnable: Bool = PortfolioOff.askEnableOnSave(isNew: !initial.isEdit,
                                                            portfolioEnabled: data.settings.portfolioEnabled,
                                                            hadTransactions: !data.portfolio.isEmpty)

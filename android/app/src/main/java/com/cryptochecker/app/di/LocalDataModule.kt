@@ -1,6 +1,7 @@
 package com.cryptochecker.app.di
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -36,7 +37,7 @@ object LocalDataModule {
     // ---- Datenbanken
 
     /**
-     * Beide Datenbanken verschlüsselt (SQLCipher, Build 59): Schlüssel im Android Keystore, einmalige Überführung
+     * Beide Datenbanken verschlüsselt (SQLCipher): Schlüssel im Android Keystore, einmalige Überführung
      * alter unverschlüsselter Dateien beim ersten Öffnen ([EncryptingOpenHelperFactory]). Gibt der Keystore den
      * Schlüssel einer vorhandenen Datei gerade nicht heraus, öffnen Portfolio und Merkliste im Vordergrund für diesen
      * Lauf leer im Arbeitsspeicher, statt die Oberfläche abstürzen zu lassen; die Dateien bleiben unberührt. Ohne
@@ -56,7 +57,7 @@ object LocalDataModule {
         @ApplicationContext context: Context,
         openHelperFactory: EncryptingOpenHelperFactory,
     ): AppDatabase {
-        // Überbleibsel des Vorgängerprojekts: seit Build 99 einmal im Hintergrund (LegacyDatabaseCleanup, beim Start
+        // Überbleibsel des Vorgängerprojekts: einmal im Hintergrund (LegacyDatabaseCleanup, beim Start
         // der App) statt hier bei jedem Anlegen im Hauptthread
         return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
             .openHelperFactory(openHelperFactory)
@@ -88,14 +89,14 @@ object LocalDataModule {
         return builder.build()
     }
 
-    /** «Letzte Prüfungen» (Build 46): eigene kleine Datei, nicht in der Sicherung. */
+    /** «Letzte Prüfungen»: eigene kleine Datei, nicht in der Sicherung. */
     @Provides
     @Singleton
     fun provideCheckRunStore(@ApplicationContext context: Context): CheckRunStore =
         CheckRunStore(File(context.noBackupFilesDir, CheckRunStore.FILE_NAME))
 
     /**
-     * Alarm-Protokoll (Build 80): neben «Letzte Prüfungen» in `noBackupFilesDir`, versiegelt mit eigenem Keystore-Schlüssel
+     * Alarm-Protokoll: neben «Letzte Prüfungen» in `noBackupFilesDir`, versiegelt mit eigenem Keystore-Schlüssel
      * (Paare und Schwellen wie die verschlüsselte Merkliste).
      */
     @Provides
@@ -108,7 +109,7 @@ object LocalDataModule {
 
     // ---- Widget
 
-    /** Schlüssel der versiegelten Portfolio-Widget-Aufnahme (Build 60): eigener Keystore-Alias, nicht der der Datenbanken. */
+    /** Schlüssel der versiegelten Portfolio-Widget-Aufnahme: eigener Keystore-Alias, nicht der der Datenbanken. */
     @Provides
     @Singleton
     fun providePortfolioSnapshotKeys(): PortfolioSnapshotSeal.Keys = PortfolioSnapshotKeyStore()
@@ -133,7 +134,7 @@ object LocalDataModule {
     // ---- Callbacks
 
     /**
-     * Seit Build 104: Datenbank neu angelegt (erste Installation, unlesbare Datei beiseitegelegt, nur im Arbeitsspeicher):
+     * Datenbank neu angelegt (erste Installation, unlesbare Datei beiseitegelegt, nur im Arbeitsspeicher):
      * Alarm-Ids beginnen von vorn — alte Vermerke «wird gemeldet» ([AlarmDeliveryMarkers]) gehörten zu anderen Alarmen.
      */
     private class DeliveryMarkerResetCallback(
@@ -143,7 +144,7 @@ object LocalDataModule {
     ) : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             // Nur vorübergehend leer im Arbeitsspeicher (gespeicherte Datei bleibt, Schlüssel gerade nicht lesbar) bzw.
-            // seit Build 105 auch Kopie einer alten Datei im Speicher (PlaintextKept, `markInMemory` vor dem Öffnen): die
+            // auch Kopie einer alten Datei im Speicher (PlaintextKept, `markInMemory` vor dem Öffnen): die
             // Vermerke gehören zu den echten Alarmen und bleiben — wie iOS (nur bei endgültig beiseitegelegten Daten)
             if (!PrefsAlarmDeliveryMarkers.prunable(databaseName)) return
             PrefsAlarmDeliveryMarkers.clearAll(context, prefsName)
@@ -165,7 +166,7 @@ object LocalDataModule {
     }
 
     /**
-     * Einmalig nach dem Einschalten von `secure_delete` (Build 39): Früher Gelöschtes liegt noch in freien
+     * Einmalig nach dem Einschalten von `secure_delete`: Früher Gelöschtes liegt noch in freien
      * Seiten von `cryptochecker_portfolio.db`; ein VACUUM baut die Datei ohne sie neu. Gemerkt wird das
      * erst nach Erfolg (sonst beim nächsten Öffnen nochmals); ein Fehler wird nur protokolliert.
      */
@@ -182,7 +183,7 @@ object LocalDataModule {
                 db.checkpoint()
             }
             if (outcome.isSuccess) {
-                prefs.edit().putBoolean(KEY_DONE, true).apply()
+                prefs.edit { putBoolean(KEY_DONE, true) }
             } else {
                 Timber.w(outcome.exceptionOrNull(), "Portfolio-Datenbank: VACUUM fehlgeschlagen")
             }

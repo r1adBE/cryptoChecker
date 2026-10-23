@@ -13,7 +13,7 @@ import org.junit.Assert.fail
 import org.junit.Test
 
 /**
- * DexScreener-Kennung «chain/adresse» (`testdata/parity/dex_pair_id.json`, seit Build 104): ungültige Kennungen gehen
+ * DexScreener-Kennung «chain/adresse» (`testdata/parity/dex_pair_id.json`): ungültige Kennungen gehen
  * nie unkodiert in den Pfad — Einzelkurs «nicht gefunden» ohne Anfrage, Suchtreffer fallen weg, Sicherung lehnt ab.
  * Gegenstück: `Tests/DexPairIdParityTests.swift`.
  */
@@ -57,7 +57,7 @@ class DexPairIdParityTest {
         }
     }
 
-    /** Seit Build 105 (SEC3-R1): der Pfad bleibt nach dem URL-Parser «…/<chain>/<adresse>» (keine Punkt-Segmente). */
+    /** SEC3-R1: der Pfad bleibt nach dem URL-Parser «…/<chain>/<adresse>» (keine Punkt-Segmente). */
     @Test
     fun pfadBleibtNachUrlParser() {
         for (c in cases().filter { it["valid"] as Boolean }) {
@@ -67,7 +67,7 @@ class DexPairIdParityTest {
         }
     }
 
-    /** Seit Build 105 (SEC3-R1): die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs. */
+    /** SEC3-R1: die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs. */
     @Test
     fun sammelabfrageNurMitGueltigerKennung() {
         for (c in cases()) {

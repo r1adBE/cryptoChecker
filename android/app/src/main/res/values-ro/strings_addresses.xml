@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">Un xpub dezvăluie toate adresele acestui wallet. Ele sunt derivate pe dispozitivul tău; la %1$s ajung doar adrese individuale – cel puțin 40 de cereri la prima căutare, apoi mai puține. Cheile private (xprv) nu sunt acceptate niciodată.</string>
     <string name="portfolio_address_xpub_gap">Căutarea se oprește după %1$d adrese nefolosite consecutive (standardul BIP44 folosit de majoritatea portofelelor). O adresă folosită dincolo de acest gol nu este numărată – adaug-o separat.</string>
     <string name="portfolio_address_xpub_used">Adrese folosite: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">Prea multe adrese folosite pentru o actualizare</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">Foarte multe adrese – plățile noi către adrese vechi, goale s-ar putea să nu fie detectate</string>
     <string name="portfolio_addresses_title">Adrese</string>
 

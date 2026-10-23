@@ -15,7 +15,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "109"
+    CURRENT_PROJECT_VERSION: "110"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
@@ -51,23 +51,23 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app
         INFOPLIST_FILE: App/Info.plist
-        # Seit Build 103: Quell-Commit für «Diagnose teilen» (Info.plist CCGitCommit), wie tools/gen_xcodeproj.py
+        # Quell-Commit für «Diagnose teilen» (Info.plist CCGitCommit), wie tools/gen_xcodeproj.py
         GIT_COMMIT: local
-        # Seit Build 104: nur der Archiv-Befehl für den App Store setzt YES (Phase «Check source commit»)
+        # Nur der Archiv-Befehl für den App Store setzt YES (Phase «Check source commit»)
         REQUIRE_GIT_COMMIT: "NO"
         CODE_SIGN_ENTITLEMENTS: App/CryptoChecker.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
         ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "AppIconOrangeLight AppIconRed AppIconRedLight AppIconBlue AppIconBlueLight AppIconGreen AppIconGreenLight AppIconMarrsGreen AppIconMarrsGreenLight"
-    # Seit Build 104: wie GIT_COMMIT_CHECK_SCRIPT in tools/gen_xcodeproj.py (gleicher Text); bricht ein Archiv mit
+    # Wie GIT_COMMIT_CHECK_SCRIPT in tools/gen_xcodeproj.py (gleicher Text); bricht ein Archiv mit
     # REQUIRE_GIT_COMMIT=YES ohne Commit ab (APP_STORE.md §4.6)
     preBuildScripts:
       - name: Check source commit
         basedOnDependencyAnalysis: false
         script: |
-          # Since build 104: App Store archives must carry the source commit (ios/APP_STORE.md 4.6)
-          # Since build 105: only a full commit hash (40 characters 0-9a-f) counts
+          # App Store archives must carry the source commit (ios/APP_STORE.md 4.6)
+          # Only a full commit hash (40 characters 0-9a-f) counts
           if [ "${REQUIRE_GIT_COMMIT:-NO}" = "YES" ]; then
             case "${GIT_COMMIT:-}" in
               ""|*[!0-9a-f]*) ok=NO ;;

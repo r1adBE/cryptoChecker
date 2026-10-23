@@ -49,7 +49,7 @@ extension AppData {
             SheetChartStore.shared.invalidateAll()
             let startedAt = TimeUtils.nowMillis
             let outcome: PriceRefresher.Outcome? = await refreshAll()
-            // «Letzte Prüfungen» (Build 46): auch der Knopf in der App zählt (Auslöser «App») — seit Build 103 abseits des
+            // «Letzte Prüfungen»: auch der Knopf in der App zählt (Auslöser «App») — abseits des
             // Hauptfadens (die Datei-Abstimmung kann auf Widget oder Hintergrund-Aufgabe warten)
             let result: CheckResult = outcome.map { CheckRunLog.result(checked: $0.checked, failed: $0.failed) } ?? .skipped
             CheckRunStore.logDetached(.foreground, result, startedAt: startedAt)
@@ -224,7 +224,7 @@ extension AppData {
             }
             let delivered = await pending.deliverAlarms(settings: settings, current: current,
                                                         save: { id, update in await self.saveDeliveredAlarm(id, update) },
-                                                        // Seit Build 105: echtes Ergebnis der Schreib-Warteschlange
+                                                        // Echtes Ergebnis der Schreib-Warteschlange
                                                         persisted: { await SharedStorage.snapshotWritesSettled() },
                                                         recordLog: { AppData.recordAlarmLog($0, live: $1) })
             for item in delivered {
@@ -242,7 +242,7 @@ extension AppData {
     }
 
     /// `save` für `Outcome.deliverAlarms`: in den Stand im Speicher übernehmen und in die Schreib-Warteschlange.
-    /// false = Alarm inzwischen bearbeitet oder gelöscht. Seit Build 105 wartet `persisted` (`snapshotWritesSettled`)
+    /// false = Alarm inzwischen bearbeitet oder gelöscht. Wartet `persisted` (`snapshotWritesSettled`)
     /// das Schreiben ab, bevor der nächste Alarm gemeldet bzw. die Lease frei wird, und liefert das echte Ergebnis:
     /// nicht geschrieben (z. B. Datei gesperrt, Schlüssel fehlt) → der Vermerk bleibt (`AlarmDelivery.deliver`).
     private func saveDeliveredAlarm(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) async -> Bool {

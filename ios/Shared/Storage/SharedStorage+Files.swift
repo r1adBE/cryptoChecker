@@ -10,7 +10,7 @@ extension SharedStorage {
         let fm = FileManager.default
         var snap: Snapshot
         if fm.fileExists(atPath: watchlist.path) {
-            // Verschlüsselt (Build 59, `ProtectedFile`): ohne Schlüssel «nicht zugreifbar», beschädigt wie kaputt
+            // Verschlüsselt (`ProtectedFile`): ohne Schlüssel «nicht zugreifbar», beschädigt wie kaputt
             let data: Data
             do {
                 data = try ProtectedFile.read(watchlist, keys: keys)
@@ -75,7 +75,7 @@ extension SharedStorage {
     /// letzten Stand, die Änderung bleibt im Speicher (`AppData`) und geht mit dem nächsten Speichern hinaus
     /// (`watchlistPending`). Eine unverschlüsselte Datei aus älteren Versionen bleibt lesbar und wird beim nächsten
     /// Schreiben mit Schlüssel versiegelt.
-    /// - Parameter durability: nur für `watchlist.json` (seit Build 103): `.barrier` bei reinen Kurs-Speicherungen
+    /// - Parameter durability: nur für `watchlist.json`: `.barrier` bei reinen Kurs-Speicherungen
     ///   (Live-Takt); die Portfolio-Alarme immer voll (`ProtectedFile.Durability`).
     /// - Returns: true, wenn `watchlist.json` geschrieben wurde.
     @discardableResult

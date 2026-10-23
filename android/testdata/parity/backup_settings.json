@@ -1,5 +1,5 @@
 {
- "description": "Settings in a backup, read and written again (Android BackupSettingsCodec.restoreSettings + settingsToJson, iOS BackupManager.applySettings + settingsJson). Every value differs from the Android default and is valid on both platforms. Read onto the defaults as a trusted backup (password), then written again: each key in «settings» must come back unchanged. Keys in «excludedOnIos» are handled outside applySettings on iOS (portfolio lock in restore, column sort in UserDefaults) and are only compared on Android. Since Build 102.",
+ "description": "Settings in a backup, read and written again (Android BackupSettingsCodec.restoreSettings + settingsToJson, iOS BackupManager.applySettings + settingsJson). Every value differs from the Android default and is valid on both platforms. Read onto the defaults as a trusted backup (password), then written again: each key in «settings» must come back unchanged. Keys in «excludedOnIos» are handled outside applySettings on iOS (portfolio lock in restore, column sort in UserDefaults) and are only compared on Android.",
  "excludedOnIos": ["appLock", "watchlistColumnSort"],
  "settings": {
   "updateMode": "LIVE_OFFEN",

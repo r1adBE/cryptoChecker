@@ -47,7 +47,6 @@
     <string name="alarm_threshold_error_funding">펀딩비는 −10~+10퍼센트 사이의 숫자여야 합니다.</string>
     <string name="alarm_threshold_error_invalid">0보다 큰 올바른 숫자를 입력하세요.</string>
     <string name="alarm_threshold_error_oi">미결제약정 변화: 최대 1000퍼센트.</string>
-    <string name="alarm_threshold_error_percent_down">하락폭은 최대 100퍼센트입니다.</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d시간 이내</item>
     </plurals>

@@ -270,7 +270,7 @@
         <item quantity="other">Без %1$d монети без ціни купівлі (%2$s) — додай ціни, щоб вони враховувались.</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">Обвал USDT – ринок %1$s USD</string>
     <string name="portfolio_usdt_via_usdc">Курс USDT до долара через USDC/USDT – якщо USDC впаде, це значення хибне</string>
     <string name="portfolio_amount_bridged_stable">≈ разом із %1$s (через міст)</string>
@@ -306,7 +306,7 @@
         <item quantity="many">Буде видалено %d операцій. Одразу після цього видалення можна скасувати.</item>
         <item quantity="other">Буде видалено %d операції. Одразу після цього видалення можна скасувати.</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">Комісії, сплачені в %1$s, буде вилучено й з інших транзакцій: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

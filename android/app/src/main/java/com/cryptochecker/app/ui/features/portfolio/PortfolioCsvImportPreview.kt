@@ -76,7 +76,7 @@ internal fun CsvImportPreviewSheet(
     onDecimalMark: (Char) -> Unit,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
-    /** Seit Build 103: Lesart geändert, Datei wird neu gelesen — Knopf aus, Vorschau gedimmt. */
+    /** Lesart geändert, Datei wird neu gelesen — Knopf aus, Vorschau gedimmt. */
     rereading: Boolean = false,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -84,7 +84,7 @@ internal fun CsvImportPreviewSheet(
     val plan = remember(preview, links, linked) { CsvTransferMatch.apply(preview.transactions, links, linked) }
     val txs = plan.transactions
     val total = txs.size + plan.storedUpdates.size
-    // Seit Build 103 gemerkt: bei Tausenden Zeilen nicht bei jeder Neuzeichnung filtern
+    // Gemerkt: bei Tausenden Zeilen nicht bei jeder Neuzeichnung filtern
     val withdrawals = remember(txs) { txs.filter { it.type == PortfolioTxType.WITHDRAWAL } }
     val allDecided = remember(txs, choices) { CsvImportMapping.allWithdrawalsDecided(txs, choices) }
     val dim = if (rereading) 0.4f else 1f
@@ -111,7 +111,7 @@ internal fun CsvImportPreviewSheet(
             if (preview.columns.isNotEmpty()) {
                 PreviewHint(stringResource(R.string.portfolio_csv_import_columns, preview.columns.joinToString(", ")))
             }
-            // Seit Build 103: neue Lesart wird gelesen — Hinweis (auch für Screenreader), Rest gedimmt
+            // Neue Lesart wird gelesen — Hinweis (auch für Screenreader), Rest gedimmt
             if (rereading) {
                 Text(
                     stringResource(R.string.portfolio_csv_import_rereading),
@@ -154,14 +154,14 @@ internal fun CsvImportPreviewSheet(
             // Kauf/Verkauf gegen Stablecoin als Tausch gebucht: der Stablecoin erscheint im Bestand
             if (preview.stableSwaps) PreviewHint(stringResource(R.string.portfolio_csv_import_stable_swaps))
             // Zeiten ohne Zeitzone in der Datei: verwendete Zeitzone zeigen und wählen lassen
-            // Seit Build 104: während des Neu-Lesens sind Chips, Schalter und Knöpfe aus (nicht nur gedimmt)
+            // Während des Neu-Lesens sind Chips, Schalter und Knöpfe aus (nicht nur gedimmt)
             val enabled = !rereading
             if (preview.localTimes) ZonePicker(preview.zone, onZone, enabled)
             // Nur mehrdeutige Daten («03/04/2024»): Tag/Monat wählen lassen statt still Tag zuerst
             if (preview.dateOrderAmbiguous) DateOrderPicker(preview.dateOrder, onDateOrder, enabled)
             // Kein Dezimalzeichen erkennbar, aber «42,000»: 42000 oder 42 wählen lassen
             preview.decimalSample?.let { DecimalPicker(it, preview.decimalMark, onDecimalMark, enabled) }
-            // Listen und Zeilen gedimmt, solange neu gelesen wird (seit Build 103)
+            // Listen und Zeilen gedimmt, solange neu gelesen wird
             Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.alpha(dim)) {
                 // Auszahlung + Einzahlung desselben Coins (Datei oder früherer Import): als eine Umbuchung buchen
                 if (links.isNotEmpty()) TransferLinks(links, linked, onLink, enabled)
@@ -268,13 +268,13 @@ internal fun PreviewHint(text: String) {
 }
 
 /**
- * «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — seit Build 104 zwei Zeilen ohne harte Begrenzung (vorher eine
+ * «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — zwei Zeilen ohne harte Begrenzung (vorher eine
  * Zeile mit maxLines = 1: bei grosser Schrift fehlten Menge und Preis).
  */
 @Composable
 internal fun PreviewRow(tx: CsvImportTx) {
     val style = MaterialTheme.typography.bodyMedium.tabularNumbers()
-    // Seit Build 105: TalkBack liest Datum und Menge als ein Element (wie iOS `.accessibilityElement(children: .combine)`)
+    // TalkBack liest Datum und Menge als ein Element (wie iOS `.accessibilityElement(children: .combine)`)
     Column(Modifier.semantics(mergeDescendants = true) {}) {
         Text(listOf(PortfolioFormat.date(tx.time), stringResource(tx.type.labelRes())).joinToString(" · "), style = style)
         Text(

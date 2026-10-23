@@ -4,7 +4,7 @@ import com.cryptochecker.app.domain.mirror.DataMirror
 
 /**
  * Namen, Alpha-Kennzeichen und Bild-Adressen der Coins: Zusammenführen der Listen und Ersatz, wenn
- * die Binance-Listen direkt nicht kommen (Build 46). Reines Kotlin, gleich in iOS `CoinMeta.swift`
+ * die Binance-Listen direkt nicht kommen. Reines Kotlin, gleich in iOS `CoinMeta.swift`
  * (gemeinsame Testfälle `testdata/parity/coin_meta.json`).
  *
  * - [merge]: Rangliste (CoinGecko), Binance-Symbolliste und Alpha-Liste → Logo-Adressen, Namen und

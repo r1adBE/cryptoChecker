@@ -231,7 +231,7 @@ MARKETS = [
      "single": "https://sapi.zebpay.com/api/v2/market/ticker?symbol=BTC-INR",
      "bulk": "https://sapi.zebpay.com/api/v2/market/allTickers",
      "pairs": "https://sapi.zebpay.com/api/v2/ex/exchangeInfo"},
-    # Build 85: Formate von Hand nach der Doku geschrieben – erste Aufnahme prüft sie (exchange_<name>.json)
+    # Formate von Hand nach der Doku geschrieben – erste Aufnahme prüft sie (exchange_<name>.json)
     # Paribu: eine Gesamtliste dient als Einzelkurs, Sammelabfrage und Paarliste
     {"market": "Paribu", "pair": pair("BTC", "TRY", "BTC_TL"),
      "single": "https://www.paribu.com/ticker",

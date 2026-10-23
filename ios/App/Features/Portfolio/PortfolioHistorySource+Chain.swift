@@ -36,7 +36,7 @@ extension PortfolioHistorySource {
     private static let chainMissMillis: Int64 = 60 * 60_000
     private static let chainParallel = 4
     private static let chainLock = NSLock()
-    // Seit Build 103 begrenzt (`BoundedCache`, 512 Coins wie `chainMemory`/`chainMisses` mit `MEMORY_CACHE_ENTRIES`,
+    // Begrenzt (`BoundedCache`, 512 Coins wie `chainMemory`/`chainMisses` mit `MEMORY_CACHE_ENTRIES`,
     // Android) statt unbegrenzter Wörterbücher.
     /// Coin → (Reihe der Kette samt Weg, Abfragezeit); nur unter `chainLock`.
     nonisolated(unsafe) private static var chainMemory = BoundedCache<String, (entry: PortfolioOwnCloses, at: Int64)>()
@@ -105,7 +105,7 @@ extension PortfolioHistorySource {
     /// Aktueller Kurs als Bezug: aus dem Speicher der Portfolio-Kurse, sonst der gemerkte Stand; nur geprüfte Kurse
     /// (`CutoffExport.referencePrices`). Keine eigene Kursabfrage.
     private static func chainReference(_ coin: String) async -> Double? {
-        // Ohne ungeprüfte und (seit Build 101) ohne «Kurs ungeprüft» — gleiche Regel wie die Exporte, wie Android
+        // Ohne ungeprüfte und ohne «Kurs ungeprüft» — gleiche Regel wie die Exporte, wie Android
         func layer(_ p: PortfolioPrices) -> CutoffExport.ReferenceLayer {
             CutoffExport.ReferenceLayer(prices: p.prices, unchecked: p.unchecked, unverified: p.unverified)
         }

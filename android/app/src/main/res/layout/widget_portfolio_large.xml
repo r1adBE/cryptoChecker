@@ -41,7 +41,9 @@
 
             <include layout="@layout/widget_portfolio_chart" />
 
+            <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
             <FrameLayout
+                tools:ignore="NestedWeights"
                 android:id="@+id/portfolio_spacer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -107,7 +109,9 @@
                         </LinearLayout>
 
                         <!-- Anteil als dünner Balken: Spur schwach, Füllung per setImageLevel (clip, 0–10000) -->
+                        <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
                         <FrameLayout
+                            tools:ignore="NestedWeights"
                             android:layout_width="0dp"
                             android:layout_height="3dp"
                             android:layout_weight="1"
@@ -206,7 +210,9 @@
                             <!-- Anteil als dünner Balken: Spur schwach, Füllung per setImageLevel (clip, 0–10000) -->
                         </LinearLayout>
 
+                        <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
                         <FrameLayout
+                            tools:ignore="NestedWeights"
                             android:layout_width="0dp"
                             android:layout_height="3dp"
                             android:layout_weight="1"
@@ -305,7 +311,9 @@
                             <!-- Anteil als dünner Balken: Spur schwach, Füllung per setImageLevel (clip, 0–10000) -->
                         </LinearLayout>
 
+                        <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
                         <FrameLayout
+                            tools:ignore="NestedWeights"
                             android:layout_width="0dp"
                             android:layout_height="3dp"
                             android:layout_weight="1"

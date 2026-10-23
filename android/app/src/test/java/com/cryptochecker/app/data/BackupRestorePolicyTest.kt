@@ -87,7 +87,7 @@ class BackupRestorePolicyTest {
         assertEquals(inMemory, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = true, restoring = true))
     }
 
-    /** Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (seit Build 99, wie iOS). */
+    /** Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (wie iOS). */
     @Test
     fun unverschluesseltSchaltetSystemsicherungNieEin() {
         assertEquals(null, BackupRestorePolicy.systemBackup(wanted = true, current = false, trusted = false))
@@ -99,7 +99,7 @@ class BackupRestorePolicyTest {
         assertEquals(false, BackupRestorePolicy.systemBackup(wanted = false, current = true, trusted = true))
     }
 
-    /** Ohne Passwort: «Beträge verbergen» nur ein, nie aus (seit Build 99, wie iOS). */
+    /** Ohne Passwort: «Beträge verbergen» nur ein, nie aus (wie iOS). */
     @Test
     fun unverschluesseltSchaltetBetraegeVerbergenNieAus() {
         assertEquals(null, BackupRestorePolicy.hideAmounts(wanted = false, current = true, trusted = false))

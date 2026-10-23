@@ -1,6 +1,6 @@
 // Einzeln gelöschte Paare, solange ihr «Rückgängig»-Banner steht (reines Kotlin, testbar).
 // Ein zweites Wisch-Löschen ersetzte früher den Banner, das erste war dann ohne Hinweis endgültig; jetzt fasst
-// der Banner beide zusammen («2 Paare entfernt») und «Rückgängig» holt alle zurück (seit Build 102, wie iOS).
+// der Banner beide zusammen («2 Paare entfernt») und «Rückgängig» holt alle zurück (wie iOS).
 package com.cryptochecker.app.ui.features.watchlist
 
 import android.content.res.Resources

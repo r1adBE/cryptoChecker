@@ -10,7 +10,7 @@ import Foundation
 ///
 /// Mit Portfolio-Daten: versiegelt mit dem Schlüssel der verschlüsselten Dateien (`ProtectedContainer`, `StorageKey`),
 /// im Container der App (nicht in der App Group, die Widgets brauchen es nicht) und nie im Geräte-Backup. Ohne Schlüssel
-/// kein Journal — seit Build 102 lehnt das Wiederherstellen dann ab (`BackupManager.Failure.journalUnavailable`).
+/// kein Journal — lehnt das Wiederherstellen dann ab (`BackupManager.Failure.journalUnavailable`).
 enum RestoreJournal {
     enum Read {
         /// Kein Journal: kein Lauf abgebrochen.
@@ -32,7 +32,7 @@ enum RestoreJournal {
     @discardableResult
     static func write(_ data: Data, keys: StorageKey = .shared, to target: URL = url) -> Bool {
         // Schlüssel anlegen, falls noch keiner da ist (frische Installation: Sicherung einspielen vor dem ersten Speichern).
-        // Nur `lookup()` lehnte seit Build 102 genau diesen häufigsten Fall ab (`Failure.journalUnavailable`)
+        // Nur mit `lookup()` würde genau dieser häufigste Fall abgelehnt (`Failure.journalUnavailable`)
         guard let key = journalKey(keys, create: true) else { return false }
         do {
             try FileManager.default.createDirectory(at: target.deletingLastPathComponent(), withIntermediateDirectories: true)
@@ -54,7 +54,7 @@ enum RestoreJournal {
 
     /// Schlüssel des Journals: der Speicherschlüssel (`create`: anlegen, falls keiner da ist). Nur im UI-Test (Debug-Build
     /// mit `-uiTesting`): ein Schlüssel nur im Arbeitsspeicher — der unsignierte Simulator-Build hat keinen Zugriff auf die
-    /// Schlüsselbund-Gruppe der App Group, und ohne Journal lehnt das Wiederherstellen seit Build 102 ab.
+    /// Schlüsselbund-Gruppe der App Group, und ohne Journal lehnt das Wiederherstellen ab.
     private static func journalKey(_ keys: StorageKey, create: Bool) -> SymmetricKey? {
         #if DEBUG
         if UITesting.isActive && keys === StorageKey.shared { return UITesting.journalKey }

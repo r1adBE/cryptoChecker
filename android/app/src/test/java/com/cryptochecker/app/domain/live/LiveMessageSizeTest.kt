@@ -5,7 +5,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Grösste Nachricht des Live-Stroms (seit Build 103): 1 MiB in UTF-8, wie iOS `LiveRules.maxMessageBytes`. */
+/** Grösste Nachricht des Live-Stroms: 1 MiB in UTF-8, wie iOS `LiveRules.maxMessageBytes`. */
 class LiveMessageSizeTest {
 
     @Test

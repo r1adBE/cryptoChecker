@@ -39,7 +39,7 @@ import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.PriceFormat
 
 /**
- * Kompakter Kopf wie in Portfolio-Trackern (Build 46 entlastet): Gesamtwert (gross, rollende Ziffern)
+ * Kompakter Kopf wie in Portfolio-Trackern: Gesamtwert (gross, rollende Ziffern)
  * und die Umrechnung, darunter EINE Veränderung «Heute» ([TotalChangeLine], %-Basis der App), dann
  * zwei Kennzahlen nebeneinander — «7 T» (Gewinn seit dem Tagesschluss vor 7 Tagen, Käufe/Verkäufe
  * herausgerechnet, [PortfolioViewModel.weekChange]) und «Seit Kauf» (± unrealisiert seit Kauf).
@@ -93,7 +93,7 @@ internal fun TotalCard(
     /** Uhr für die Frische der Messung (Bildschirm tickt alle 30 s). */
     now: Long = System.currentTimeMillis(),
 ) {
-    // Build 46: Details und Hinweise aufklappbar (die Karte zeigt zuerst nur Gesamtwert, «Heute», 7 T, Seit Kauf)
+    // Details und Hinweise aufklappbar (die Karte zeigt zuerst nur Gesamtwert, «Heute», 7 T, Seit Kauf)
     var showDetails by rememberSaveable { mutableStateOf(false) }
     var showHints by rememberSaveable { mutableStateOf(false) }
     val expandedText = stringResource(R.string.a11y_expanded)
@@ -167,7 +167,7 @@ internal fun TotalCard(
                 // «USDT = 1 angenommen» auf der Karte selbst, sobald der Ersatz 1 die Zahlen trägt ([DepegAlarm.cardNote]
                 // mit USDT zum Marktkurs: nur noch USDT_ASSUMED); die Kursquelle steht unter «Hinweise»
                 UsdtNoteLine(usdtNote, priceSourceText)
-                // Build 46: eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
+                // Eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
                 // (Prozent ohne Betrag, z. B. ohne Devisenkurs, bleibt sichtbar); ohne Daten keine Zeile
                 TotalChangeLine(
                     amountUsd = todayAmount?.takeIf { todayPercent != null },
@@ -241,7 +241,7 @@ internal fun TotalCard(
                 }
             }
         }
-        // L-15: Hinweise klein unter der Karte; Build 46: eine Zeile «Hinweise (n)», aufklappbar
+        // L-15: Hinweise klein unter der Karte; eine Zeile «Hinweise (n)», aufklappbar
         val hints = totalHintItems(
             summary = summary,
             updatedAt = updatedAt,

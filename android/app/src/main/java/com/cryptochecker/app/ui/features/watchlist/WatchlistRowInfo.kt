@@ -78,7 +78,7 @@ internal fun RowInfo(
     val rowIcon = with(LocalDensity.current) { 13.sp.toDp() }
     val noteIcon = with(LocalDensity.current) { 12.sp.toDp() }
     Column(modifier = modifier) {
-        // Build 46: Das Paar geht vor — es bekommt den Platz bis auf einen ⚡-Chip ohne Text; «Was bewegt sich mit?»
+        // Das Paar geht vor — es bekommt den Platz bis auf einen ⚡-Chip ohne Text; «Was bewegt sich mit?»
         // steht nur, wenn danach noch Platz ist ([ActivityBolt] klappt sonst auf ⚡ zusammen)
         Layout(
             content = {
@@ -182,7 +182,7 @@ internal fun RowInfo(
                     // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht seit L-14 nur im Aktionsblatt
                     else -> watch.marketName
                 },
-                // Build 57: Lesegrösse (14 sp) statt 12 — bricht bei grosser Schrift um ([DenseRowText]),
+                // Lesegrösse (14 sp) statt 12 — bricht bei grosser Schrift um ([DenseRowText]),
                 // rechts steht dieselbe Stufe (≈ Umrechnung), die Linien bleiben gleich hoch
                 style = MaterialTheme.typography.body,
                 color = when {

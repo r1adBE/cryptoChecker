@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Alertes du portefeuille en pause : aucun cours actuel pour %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alertes du portefeuille en pause : tous les coins n\'ont pas de cours actuel</string>
     <string name="portfolio_alarms_paused_addresses">Alertes du portefeuille en pause : soldes des adresses suivies pas encore chargés</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alertes du portefeuille en pause : soldes de jetons de %1$s en partie obsolètes</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alertes du portefeuille en pause : soldes de jetons des adresses suivies en partie obsolètes</string>
     <string name="portfolio_alarms_paused_unverified">Alertes du portefeuille en pause : cours non vérifié pour %1$s</string>

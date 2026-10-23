@@ -1,6 +1,6 @@
 import Foundation
 
-/// «Adresse entfernen» mit «Rückgängig» (seit Build 94): Was geht mit der Adresse weg (für den Text der Rückfrage), und
+/// «Adresse entfernen» mit «Rückgängig»: Was geht mit der Adresse weg (für den Text der Rückfrage), und
 /// darf die entfernte Adresse mit ihrer alten Id zurück? Rein, gleich wie `WatchedAddressUndo.kt` (Android).
 enum WatchedAddressUndo {
 
@@ -35,7 +35,7 @@ enum WatchedAddressUndo {
         return true
     }
 
-    /// Warum «Rückgängig» nicht ging (seit Build 95: Banner statt still nichts). Wie Android.
+    /// Warum «Rückgängig» nicht ging (Banner statt still nichts). Wie Android.
     enum RestoreFailure: Equatable, Sendable { case duplicate, limit, notSaved }
 
     /// Grund nach einem gescheiterten Zurückholen: dieselbe Adresse inzwischen neu hinzugefügt, Liste voll — sonst nicht

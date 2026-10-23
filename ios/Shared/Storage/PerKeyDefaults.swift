@@ -4,11 +4,11 @@ import Foundation
 /// Wörterbuchs unter einem Schlüssel — wie die eigenen Einstellungsdateien auf Android (ein Schlüssel je Pool).
 /// App, Hintergrund und Widget-Erweiterung schreiben gleichzeitig: Mit einem gemeinsamen Wörterbuch (lesen, ändern,
 /// ganz zurückschreiben) überschrieb ein Prozess die Messung eines anderen. Ein einzelner Schlüssel ist für sich
-/// atomar. Seit Build 102.
+/// atomar.
 struct PerKeyDefaults: Sendable {
     /// Vorsilbe der Einzelschlüssel, z. B. «dex_liquidity.».
     let prefix: String
-    /// Früherer gemeinsamer Schlüssel (Wörterbuch bzw. Liste von Watch-Ids) bis Build 101.
+    /// Früherer gemeinsamer Schlüssel (Wörterbuch bzw. Liste von Watch-Ids) älterer Versionen.
     let legacyKey: String
 
     func key(_ id: String) -> String { prefix + id }

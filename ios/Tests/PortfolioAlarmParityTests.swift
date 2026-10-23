@@ -5,7 +5,7 @@ import XCTest
 final class PortfolioAlarmParityTests: XCTestCase {
     private func data() throws -> [String: Any] { try TestSupport.fixture("portfolio_alarm") }
 
-    /// Seit Build 105 (FUN3-01): «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus; die
+    /// FUN3-01: «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus; die
     /// einmalige Bereinigung schaltet genau diese aus.
     func testThreshold() throws {
         let block = try XCTUnwrap(try data()["threshold"] as? [String: Any])
@@ -51,7 +51,7 @@ final class PortfolioAlarmParityTests: XCTestCase {
         }
     }
 
-    /// Unvollständiger Stand (seit Build 94): Adressen, Wesentlichkeit alter Kurse, Hinweis «pausiert».
+    /// Unvollständiger Stand: Adressen, Wesentlichkeit alter Kurse, Hinweis «pausiert».
     func testIncomplete() throws {
         let block = try XCTUnwrap(try data()["incomplete"] as? [String: Any])
         XCTAssertEqual(PortfolioAlarmLogic.immaterialShare, TestSupport.number(block["immaterialShare"]))
@@ -83,7 +83,7 @@ final class PortfolioAlarmParityTests: XCTestCase {
             } else if let coins = c["pause"] as? [String] {
                 expected = .noPrice(coins)
             } else if let p = c["pause"] as? [String: Any] {
-                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}; seit Build 101 {"unverified":[…]}
+                // {"tokens":[…]} bzw. {"failing":[…]} bzw. {"unverified":[…]}
                 if let tokens = p["tokens"] as? [String] { expected = .tokensStale(tokens) }
                 else if let coins = p["unverified"] as? [String] { expected = .priceUnverified(coins) }
                 else { expected = .addressesFailing(p["failing"] as? [String] ?? []) }

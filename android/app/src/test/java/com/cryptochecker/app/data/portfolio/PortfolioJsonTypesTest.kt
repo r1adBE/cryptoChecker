@@ -11,7 +11,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.math.BigDecimal
 
-/** Build 46: neue Arten und Felder in Sicherung und Systemsicherungs-Kopie ([PortfolioJson]). */
+/** Neue Arten und Felder in Sicherung und Systemsicherungs-Kopie ([PortfolioJson]). */
 class PortfolioJsonTypesTest {
 
     private val transfer = PortfolioTxEntity(
@@ -74,7 +74,7 @@ class PortfolioJsonTypesTest {
         assertNull(PortfolioJson.jsonToTx(PortfolioJson.txToJson(deposit).apply { remove("acquiredTime") })!!.acquiredTime)
     }
 
-    /** Build 58: Schenkung an Ehe-/Lebenspartner als eigenes Feld — übersteht Sicherung und Systemsicherungs-Kopie. Wie iOS. */
+    /** Schenkung an Ehe-/Lebenspartner als eigenes Feld — übersteht Sicherung und Systemsicherungs-Kopie. Wie iOS. */
     @Test
     fun spouseGiftFlagRoundTrips() {
         val gift = PortfolioTxEntity(
@@ -94,7 +94,7 @@ class PortfolioJsonTypesTest {
         assertFalse(gift.copy(type = PortfolioTxType.WITHDRAWAL).toTrade().isGiftToSpouse)
     }
 
-    /** Sicherung bis Build 57: Merker «@spouse» und gepackte Verknüpfung werden beim Wiederherstellen Felder. */
+    /** Ältere Sicherung: Merker «@spouse» und gepackte Verknüpfung werden beim Wiederherstellen Felder. */
     @Test
     fun oldBackupFormsBecomeFields() {
         val oldGift = JSONObject(PortfolioJson.txToJson(PortfolioTxEntity(id = 9, coin = "BTC", type = PortfolioTxType.GIFT,

@@ -1,7 +1,7 @@
 import Foundation
 
 /// Warum der CSV-Import keine Vorschau zeigt — die Meldung nennt den Grund, statt eine zu grosse Datei als «kein
-/// unterstütztes Format» abzutun. Seit Build 99 (vorher wurde `CsvImportResult.tooLarge` nie ausgewertet).
+/// unterstütztes Format» abzutun (wertet `CsvImportResult.tooLarge` aus).
 /// Spiegel: `CsvImportRefusal.kt` (Android).
 enum CsvImportRefusal: Error, Equatable {
     /// Über 16 MB (`PortfolioCsvImporter.maxBytes`) oder über `CsvImportParser.maxRows`/`maxCellsPerRow`.

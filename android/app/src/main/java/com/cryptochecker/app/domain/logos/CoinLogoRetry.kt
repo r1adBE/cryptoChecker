@@ -31,7 +31,7 @@ object CoinLogoRetry {
     fun downloadsFailedForNetwork(online: Boolean, failed: Int, attempted: Int): Boolean =
         failed > 0 && (!online || (failed == attempted && attempted >= ALL_FAILED_MIN))
 
-    // ---- Bild-Server bremst (Build 46)
+    // ---- Bild-Server bremst
 
     /**
      * Antwort eines Bild-Servers, die eine Pause verlangt statt «Bild kaputt»: zu viele Anfragen (429),

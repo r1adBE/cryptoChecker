@@ -167,7 +167,7 @@
     }
   ],
   "incomplete": {
-    "_comment": "PortfolioAlarmLogic.incomplete / pause (seit Build 94): nie geladene Adressen sperren jede Art; alte Kurse nur, wenn ihr Wert (staleValueUsdt, null = unbekannt) mindestens 1 % (immaterialShare) von totalUsdt ist; Coins ohne Kurs sperren Wert-Alarme, fehlende Vergleichskurse %-Alarme. pause: null = nicht pausiert, sonst addresses bzw. coins (stale nur wenn wesentlich, missing nur mit Wert-Alarm). Seit Build 95: addressesFailing (seit ueber 24 h scheiternde Adressen) sperren nicht, Hinweis {failing:[...]} nur ohne andere Pause; staleTokenAddresses/staleTokenValueUsdt (nicht bestaetigte Token-Guthaben) zaehlen wie alte Kurse (Wert zusammen), Pause {tokens:[...]} wenn nur sie sperren. Seit Build 101: unverifiedCoins/unverifiedValueUsdt (Kurs ungeprueft, Token nicht bestaetigt) zaehlen ebenfalls wie alte Kurse (Wert zusammen mit alten Kursen und Token); Pause {unverified:[...]} wenn keine alten bzw. fehlenden Kurse mitsperren (vor {tokens:[...]}); sperren alte/fehlende Kurse mit, bleibt es bei coins mit nur diesen Coins.",
+    "_comment": "PortfolioAlarmLogic.incomplete / pause: nie geladene Adressen sperren jede Art; alte Kurse nur, wenn ihr Wert (staleValueUsdt, null = unbekannt) mindestens 1 % (immaterialShare) von totalUsdt ist; Coins ohne Kurs sperren Wert-Alarme, fehlende Vergleichskurse %-Alarme. pause: null = nicht pausiert, sonst addresses bzw. coins (stale nur wenn wesentlich, missing nur mit Wert-Alarm). addressesFailing (seit ueber 24 h scheiternde Adressen) sperren nicht, Hinweis {failing:[...]} nur ohne andere Pause; staleTokenAddresses/staleTokenValueUsdt (nicht bestaetigte Token-Guthaben) zaehlen wie alte Kurse (Wert zusammen), Pause {tokens:[...]} wenn nur sie sperren. unverifiedCoins/unverifiedValueUsdt (Kurs ungeprueft, Token nicht bestaetigt) zaehlen ebenfalls wie alte Kurse (Wert zusammen mit alten Kursen und Token); Pause {unverified:[...]} wenn keine alten bzw. fehlenden Kurse mitsperren (vor {tokens:[...]}); sperren alte/fehlende Kurse mit, bleibt es bei coins mit nur diesen Coins.",
     "immaterialShare": 0.01,
     "cases": [
       {
@@ -604,7 +604,7 @@
     ]
   },
   "threshold": {
-    "_comment": "Seit Build 105 (FUN3-01): gültige Schwelle (PortfolioAlarmLogic.isValidThreshold): Betrag > 0; steigt um x % mit 0 < x <= 1000; fällt um x % nur 0 < x < maxFallPercent (die Veränderung «heute» fällt nie unter −100 %). exceedsFall = fällt um >= maxFallPercent (löst nie aus). Wiederherstellung (Android PortfolioJson.jsonToAlarm / iOS BackupManager.jsonToPortfolioAlarm, eingeschaltet gesichert): restored = übernommen, restoredEnabled = danach eingeschaltet (exceedsFall: aus und gekennzeichnet). Einmalige Bereinigung schaltet genau die exceedsFall-Alarme aus.",
+    "_comment": "FUN3-01: gültige Schwelle (PortfolioAlarmLogic.isValidThreshold): Betrag > 0; steigt um x % mit 0 < x <= 1000; fällt um x % nur 0 < x < maxFallPercent (die Veränderung «heute» fällt nie unter −100 %). exceedsFall = fällt um >= maxFallPercent (löst nie aus). Wiederherstellung (Android PortfolioJson.jsonToAlarm / iOS BackupManager.jsonToPortfolioAlarm, eingeschaltet gesichert): restored = übernommen, restoredEnabled = danach eingeschaltet (exceedsFall: aus und gekennzeichnet). Einmalige Bereinigung schaltet genau die exceedsFall-Alarme aus.",
     "maxFallPercent": 100,
     "cases": [
       { "name": "fällt um 99,9 % gültig", "kind": "CHANGE_DOWN", "threshold": 99.9, "valid": true, "exceedsFall": false, "restored": true, "restoredEnabled": true },

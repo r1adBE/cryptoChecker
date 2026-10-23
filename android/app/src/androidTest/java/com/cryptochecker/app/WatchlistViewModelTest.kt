@@ -244,7 +244,7 @@ class WatchlistViewModelTest {
     }
 
     /**
-     * Seit Build 106 (Review ARC4-R01, UX4-R1/R2/R3): Merkliste wird nicht gespeichert, Rückfrage F-08 mit «Abbrechen» →
+     * Review ARC4-R01, UX4-R1/R2/R3: Merkliste wird nicht gespeichert, Rückfrage F-08 mit «Abbrechen» →
      * Rückruf «nicht geschrieben» (der Bildschirm zeigt dann kein Banner, keine Haptik, fragt keine Erlaubnis; die Vorschau
      * bekommt `onDone(null, false)`), mit «Trotzdem» → «geschrieben».
      */

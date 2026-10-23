@@ -160,8 +160,8 @@ class PortfolioExportViewModel @Inject constructor(
     internal suspend fun trades(): List<PortfolioTrade> = _trades.value ?: repository.getTransactions().map { it.toTrade() }
 
     /**
-     * Eigene Transaktionen + Eröffnungsposten beobachteter Adressen als Käufe (Build 84,
-     * [com.cryptochecker.app.domain.portfolio.AddressCostLots.exportTrades]); FR dazu der Gesamtwert samt beobachteter
+     * Eigene Transaktionen + Eröffnungsposten beobachteter Adressen als Käufe
+     * ([com.cryptochecker.app.domain.portfolio.AddressCostLots.exportTrades]); FR dazu der Gesamtwert samt beobachteter
      * Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als Adress-Einträge ([AddressBalanceHistory.trades],
      * negative Id: keine Veräusserungen) ohne den belegten Teil. Fehler: nur die eigenen Transaktionen.
      */

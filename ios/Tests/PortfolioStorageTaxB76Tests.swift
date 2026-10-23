@@ -3,7 +3,7 @@ import XCTest
 import Security
 @testable import CryptoChecker
 
-/// Build 76 (Portfolio-Speicher und Steuer-Export) — wie `PortfolioStorageTaxB76Test.kt` und `DatabaseKeyRecoveryTest.kt`:
+/// Portfolio-Speicher und Steuer-Export — wie `PortfolioStorageTaxB76Test.kt` und `DatabaseKeyRecoveryTest.kt`:
 /// Devisenkurs je Tag, Zeitzone je Vorlage, AT-Freigrenze Altbestand, Gebühr-Zeile und Zins als eigene Merker, exakter
 /// Zufluss, Vorschlag «Umbuchung», Erkennung der Kopfzeile, Prüfung der Sicherung, Sperre mit monotoner Uhr, Portfolio
 /// nie im Klartext, Journal des Wiederherstellens und zurückgeholte beiseitegelegte Dateien.
@@ -253,7 +253,7 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
         let locked = ProtectedFileTests.FakeKeychain()
         locked.readStatus = errSecInteractionNotAllowed
         XCTAssertFalse(RestoreJournal.write(state, keys: StorageKey(keychain: locked), to: url), "gesperrt: kein Journal")
-        // Frische Installation (noch kein Schlüssel): Schlüssel wird angelegt, Journal geschrieben (seit Build 102)
+        // Frische Installation (noch kein Schlüssel): Schlüssel wird angelegt, Journal geschrieben
         let fresh = ProtectedFileTests.FakeKeychain()
         let freshURL = dir.appendingPathComponent("journal-fresh.sealed")
         XCTAssertTrue(RestoreJournal.write(state, keys: StorageKey(keychain: fresh), to: freshURL), "frisch: Journal mit neuem Schlüssel")

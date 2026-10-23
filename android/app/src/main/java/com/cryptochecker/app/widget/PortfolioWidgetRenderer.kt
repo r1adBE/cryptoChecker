@@ -129,7 +129,7 @@ class PortfolioWidgetRenderer @Inject constructor(
             OutdatedRule.isOutdated(snapshot.time, System.currentTimeMillis(), WidgetOutdated.afterMillis(settings))
         val locked = PortfolioLockPolicy.widgetLocked(settings.appLock)
         // Tage der Balken in derselben Zone wie das Zeitgitter und das Einzel-Widget (Chart-Zeitzone der %-Basis,
-        // [ChangeBasisMath.chartZone]; seit Build 93 — vorher immer die Gerätezone). Wie iOS
+        // [ChangeBasisMath.chartZone], nicht die Gerätezone). Wie iOS
         val zone = ChangeBasisMath.chartZone(settings.changeBasis.storage)
 
         for (appWidgetId in appWidgetIds) {
@@ -264,7 +264,7 @@ class PortfolioWidgetRenderer @Inject constructor(
             action = ACTION_OPEN_PORTFOLIO
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra(MainActivity.EXTRA_OPEN, "portfolio")
-            // Geheimnis dieser Installation: sonst gilt das Ziel nicht (OpenTargetGuard, seit Build 97)
+            // Geheimnis dieser Installation: sonst gilt das Ziel nicht (OpenTargetGuard)
             withOpenToken(context)
         }
         return PendingIntent.getActivity(

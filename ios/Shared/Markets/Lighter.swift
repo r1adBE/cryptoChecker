@@ -145,7 +145,7 @@ final class Lighter: Market {
     /// darum bleibt sie leer statt «0,00 %». Fehlt das Zählfeld, gilt die Veränderung wie bisher.
     ///
     /// Eine Handelszeit nennt Lighter nicht. Ohne Handel in 24 h lag der letzte aber spätestens 24 h zurück: Diese
-    /// Obergrenze gilt als Börsenzeit (seit Build 93). So sperrt die bestehende Regel (`exchangeTime` älter als 2 h)
+    /// Obergrenze gilt als Börsenzeit. So sperrt die bestehende Regel (`exchangeTime` älter als 2 h)
     /// Alarme auf den stehengebliebenen Kurs, und die Zeile zeigt «veraltet – letzter Handel vor 1 Tag» — wie
     /// Hyperliquid ohne Orderbuch keine Alarme auslöst. Mit Handel bleibt die Zeit unbekannt. Wie Android.
     private static func copyRow(_ row: JObject, into ticker: inout Ticker) throws {

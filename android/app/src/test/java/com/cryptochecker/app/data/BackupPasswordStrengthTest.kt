@@ -11,7 +11,7 @@ class BackupPasswordStrengthTest {
     fun shortPasswordsAreWeak() {
         assertTrue(BackupPasswordStrength.isWeak("Abc!def9"))
         assertTrue(BackupPasswordStrength.isWeak("Abc!def9x"))        // 9 Zeichen
-        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen (bis Build 68 erlaubt)
+        assertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen (früher erlaubt)
         assertTrue(BackupPasswordStrength.isWeak("Abc!def9xyZ"))      // 11 Zeichen
         assertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ2"))    // 12 Zeichen
         // Emoji zählt als ein Zeichen

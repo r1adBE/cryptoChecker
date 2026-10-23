@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
 /**
- * Seite «Damit Alarme ankommen» (Build 81): aus dem echten Zustand von System und App je Punkt eine Zeile mit
+ * Seite «Damit Alarme ankommen»: aus dem echten Zustand von System und App je Punkt eine Zeile mit
  * ✓ / ⚠ / Hinweis und dem passenden Knopf. Reine Logik (ohne android.*) — wie `AlarmReadiness.swift`; gemeinsame
  * Fälle in `testdata/parity/alarm_delivery.json`. Liest nur (Einstellungen, Erlaubnisse, «Letzte Prüfungen»): an der
  * Prüfung der Alarme selbst ändert die Seite nichts.
@@ -122,7 +122,7 @@ object AlarmReadiness {
         val timeSensitive: Boolean? = null,
         val backgroundRefresh: Boolean = true,
         val lowPower: Boolean = false,
-        // ---- Zuverlässigkeitszeile ([AlarmReliability], seit Build 93)
+        // ---- Zuverlässigkeitszeile ([AlarmReliability])
         /**
          * Ende des neuesten geplanten Laufs, wenn keiner der gespeicherten gelang (alle gescheitert); sonst null
          * ([com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck]).

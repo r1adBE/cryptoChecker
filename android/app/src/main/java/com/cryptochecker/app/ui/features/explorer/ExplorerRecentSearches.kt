@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import android.content.Context
+import androidx.core.content.edit
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -54,12 +55,12 @@ class RecentSearchStore @Inject constructor(
         val updated = RecentSearches.add(_items.value, query)
         if (updated == _items.value) return
         _items.value = updated
-        prefs.edit().putString(KEY, RecentSearches.encode(updated)).apply()
+        prefs.edit { putString(KEY, RecentSearches.encode(updated)) }
     }
 
     fun clear() {
         _items.value = emptyList()
-        prefs.edit().remove(KEY).apply()
+        prefs.edit { remove(KEY) }
     }
 
     private companion object {

@@ -1,8 +1,8 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 103 (Review UX-02): Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
-/// (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `AlarmPairPickerParityTest.kt`. Seit Build 104 über die
+/// Review UX-02: Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
+/// (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `AlarmPairPickerParityTest.kt`. Über die
 /// vorberechneten Zeilen (`AlarmPairPicker.makeRows`) mit gefalteten Coin-Namen.
 @MainActor
 final class AlarmPairPickerTests: XCTestCase {
@@ -32,18 +32,18 @@ final class AlarmPairPickerTests: XCTestCase {
             let actual = AlarmPairPicker.choices(rows, query: c["query"] as? String ?? "", foldedNames: folded).map(\.id)
             XCTAssertEqual(actual, expected, name)
         }
-        // Seit Build 104: ein neuer Kurs ändert die Zeilen-Quelle nicht, ein Favorit schon
+        // Ein neuer Kurs ändert die Zeilen-Quelle nicht, ein Favorit schon
         let priced = watches.map { w -> Watch in var copy = w; copy.lastPrice = 42; copy.lastUpdate = 1; return copy }
         XCTAssertEqual(watches.map(AlarmPairPicker.Source.init), priced.map(AlarmPairPicker.Source.init))
         let flipped = watches.map { w -> Watch in var copy = w; copy.favorite.toggle(); return copy }
         XCTAssertNotEqual(watches.map(AlarmPairPicker.Source.init), flipped.map(AlarmPairPicker.Source.init))
-        // Seit Build 105 (PERF3-R2): Schlüssel für `.task(id:)` ebenso
+        // PERF3-R2: Schlüssel für `.task(id:)` ebenso
         XCTAssertEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(priced))
         XCTAssertNotEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(flipped))
         XCTAssertNotEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(Array(watches.reversed())))
     }
 
-    /// Seit Build 105 (PERF3-R2): das Struct neu zu erzeugen (Elternbildschirm zeichnet neu) faltet keine Zeilen.
+    /// PERF3-R2: das Struct neu zu erzeugen (Elternbildschirm zeichnet neu) faltet keine Zeilen.
     func testErzeugenRechnetKeineZeilen() {
         let watches = (1...50).map { Watch(id: Int64($0), marketKey: "binance", marketName: "Binance", baseAsset: "C\($0)",
                                            quoteAsset: "USDT") }

@@ -14,7 +14,7 @@ import java.util.Base64
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
-/** Versiegelte Widget-Aufnahme (Build 60): Behälterformat, Manipulation, Lese-/Schreibregeln. */
+/** Versiegelte Widget-Aufnahme: Behälterformat, Manipulation, Lese-/Schreibregeln. */
 class PortfolioSnapshotSealTest {
 
     private fun newKey(): SecretKey = KeyGenerator.getInstance("AES").apply { init(256) }.generateKey()
@@ -81,7 +81,7 @@ class PortfolioSnapshotSealTest {
         val open = PortfolioSnapshotSeal.planRead("x", hasPlain = true, keyReady = true)
         assertTrue(open is ReadPlan.Open && open.sealed == "x")
         assertTrue(PortfolioSnapshotSeal.planRead("x", hasPlain = false, keyReady = true) is ReadPlan.Open)
-        // Nur Klartext (bis Build 59): einmal überführen
+        // Nur Klartext (ältere Aufnahme): einmal überführen
         assertSame(ReadPlan.MigratePlain, PortfolioSnapshotSeal.planRead(null, hasPlain = true, keyReady = true))
         assertSame(ReadPlan.Empty, PortfolioSnapshotSeal.planRead(null, hasPlain = false, keyReady = true))
     }

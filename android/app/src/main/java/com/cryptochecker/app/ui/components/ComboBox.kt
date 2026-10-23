@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
@@ -234,6 +235,8 @@ private fun ComboList(
     val rows = entries.size.coerceIn(1, MAX_VISIBLE_ROWS)
     // Feste Masse bleiben nötig (LazyColumn kennt keine Intrinsics), sie folgen aber Bildschirm
     // und Schriftgrösse: bei 200 % wächst die Zeile mit, auf schmalen Geräten passt die Liste.
+    // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung
+    @SuppressLint("ConfigurationScreenWidthHeight")
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val listWidth = minOf(MaxListWidth, (screenWidth - ListScreenMargin).coerceAtLeast(RowHeight * 3))
     val rowHeight = comboRowHeight()

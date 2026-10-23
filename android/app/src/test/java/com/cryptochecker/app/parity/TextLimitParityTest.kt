@@ -9,7 +9,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Längengrenze von Notizen in sichtbaren Zeichen (`testdata/parity/text_limit.json`, seit Build 98): Emoji, ZWJ-Familie,
+ * Längengrenze von Notizen in sichtbaren Zeichen (`testdata/parity/text_limit.json`): Emoji, ZWJ-Familie,
  * kombinierende Akzente und Flaggen werden nie zerrissen und zählen je als ein Zeichen. Gegenstück:
  * `Tests/TextLimitParityTests.swift`.
  */
@@ -35,7 +35,7 @@ class TextLimitParityTest {
     }
 
     /**
-     * Gruppenname, Börse/Wallet und Notiz säubern wie Eingabe und Sicherung (seit Build 99): Android kürzte Gruppen und
+     * Gruppenname, Börse/Wallet und Notiz säubern wie Eingabe und Sicherung: Android kürzte Gruppen und
      * Börsen nach UTF-16-Einheiten, iOS nach sichtbaren Zeichen.
      */
     @Test

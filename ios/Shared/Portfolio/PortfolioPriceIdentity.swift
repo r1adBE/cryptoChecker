@@ -5,8 +5,8 @@ import Foundation
 /// Terra Classic gegen Terra 2.0, TON Tokamak gegen Toncoin, GMT GoMining gegen STEPN, HOT Hydro gegen Holo), gilt
 /// Binances Kurs nicht — dann Merklisten-Paar bzw. Kerzen-Kette (die prüft den Namen ebenso). Ist kein Name bekannt,
 /// gilt Binance nur, wenn Binance dem Kürzel einen Namen gibt und es kein bekanntes Doppel-Kürzel ist (`binanceCheck`);
-/// sonst bleibt der Kurs «ungeprüft». Führen die Paarlisten anderer Börsen unter dem Kürzel klar verschiedene Token
-/// (seit Build 101), zählt Binances Kurs weiter, aber als «Kurs ungeprüft» (`BinanceCheck.unverified`).
+/// sonst bleibt der Kurs «ungeprüft». Führen die Paarlisten anderer Börsen unter dem Kürzel klar verschiedene Token,
+/// zählt Binances Kurs weiter, aber als «Kurs ungeprüft» (`BinanceCheck.unverified`).
 /// Reine Logik — wie `PortfolioPriceIdentity.kt`.
 enum PortfolioPriceIdentity {
     /// Ein Paar der Merkliste für `watchNames`.

@@ -214,14 +214,14 @@ fun PortfolioScreen(
     }
     // CSV-Importläufe für ⋯ › «Importe» (neueste zuerst)
     val importBatches = remember(transactions) { PortfolioImportBatch.summarize(transactions.orEmpty().map { it.importBatch }) }
-    // FIFO je Wallet: Abgänge über den Bestand ihrer Wallet (Hinweis unter der Gesamtkarte); seit Build 103 im ViewModel
+    // FIFO je Wallet: Abgänge über den Bestand ihrer Wallet (Hinweis unter der Gesamtkarte); im ViewModel
     // abseits des Hauptthreads gerechnet (PortfolioCoinDetailFlow)
     val walletShortfalls by remember(viewModel) { viewModel.walletShortfallsFlow() }.collectAsStateWithLifecycle(emptyList())
 
     // Wischen auf einem Coin: erst Rückfrage mit der Zahl der Transaktionen, dann alle weg, «Rückgängig» im Banner
     var askDeleteCoin by rememberSaveable { mutableStateOf<String?>(null) }
     val coinHaptics = rememberHaptics()
-    // Nicht geschrieben: gesperrt bzw. Fehler nennen statt «entfernt» (seit Build 103, wie iOS)
+    // Nicht geschrieben: gesperrt bzw. Fehler nennen statt «entfernt» (wie iOS)
     val notSaved = { result: PortfolioWriteResult -> banner.show(resources.getString(result.notSavedText())) }
     fun deleteCoin(coin: String) {
         viewModel.deleteCoin(coin, onFailed = notSaved) { removed ->

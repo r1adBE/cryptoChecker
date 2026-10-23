@@ -53,18 +53,18 @@
         <item quantity="one">%1$d paar</item>
         <item quantity="other">%1$d paren</item>
     </plurals>
-    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
     <string name="backup_restore_over_limits">Boven de limieten (%3$s paren, %4$s alarmen per paar), worden niet hersteld: %1$s, %2$s.</string>
     <string name="backup_restored_over_limits">Boven de limieten (%3$s paren, %4$s alarmen per paar), niet hersteld: %1$s, %2$s.</string>
 
-    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
     <string name="storage_recovery_message">Dit apparaat heeft de sleutel van de versleutelde app-gegevens niet meer, dus de app is leeg gestart. Er is niets verwijderd. Haal je lijst en portfolio terug door in de instellingen onder «%1$s» een back-upbestand te importeren.</string>
     <string name="storage_recovery_title">Opgeslagen gegevens niet te ontgrendelen</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
     <string name="backup_not_enough_memory">Onvoldoende vrij geheugen om de back-up met een wachtwoord te beveiligen of te openen. Sluit andere apps en probeer het opnieuw.</string>
 
-    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
     <string name="storage_recovery_restore_action">Back-up terugzetten</string>
     <string name="storage_recovery_acknowledge">Begrepen</string>
     <string name="storage_recovery_restored_title">Opgeslagen gegevens weer ontgrendeld</string>
@@ -90,7 +90,7 @@
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Back-up is niet mogelijk: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw en probeer het nog eens.</string>
     <string name="backup_restore_storage_in_memory">Importeren is nu niet mogelijk: de app slaat op dit moment geen gegevens op (versleuteling nog niet actief), dus de import zou bij het herstarten verloren gaan. Start de app opnieuw en probeer het nog eens.</string>
-    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable); seit Build 102 -->
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">Importeren kan nu niet: de veiligheidskopie van je huidige gegevens kon niet worden opgeslagen (sleutel op dit moment niet beschikbaar). Er is niets gewijzigd. Probeer het later opnieuw of start de app opnieuw.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->

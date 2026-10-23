@@ -10,7 +10,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Doppeltipp beim Anlegen eines Portfolio-Alarms: nur ein INSERT (seit Build 99, [AlarmCreateGuard] wie bei den
+ * Doppeltipp beim Anlegen eines Portfolio-Alarms: nur ein INSERT ([AlarmCreateGuard] wie bei den
  * Paar-Alarmen). iOS: `PortfolioAlarmSheet` mit `AlarmCreateGuard`.
  */
 class PortfolioAlarmCreateGuardTest {

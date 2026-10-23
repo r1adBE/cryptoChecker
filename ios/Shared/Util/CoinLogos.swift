@@ -22,7 +22,7 @@ import Foundation
 ///   (`pickTradFi`, Schlüssel `tradFiKey`); ohne Treffer Initialen.
 /// - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS (`isAllowedURL`). Kein eigenes
 ///   Logo-Paket (CoinGecko-API-Bedingungen verbieten Weitergabe und Speicherung ihrer Daten).
-/// - Mitgeliefert (Build 46): das freie Icon-Paket «Cryptocurrency Icons» (CC0, `iconPackFile`, rund
+/// - Mitgeliefert: das freie Icon-Paket «Cryptocurrency Icons» (CC0, `iconPackFile`, rund
 ///   480 grössere Coins) — sofort und ohne Netz; Reihenfolge: CoinGecko → Binance-Liste/Alpha →
 ///   mitgeliefertes Icon → Initialen. Kein Abruf bei jsDelivr mehr.
 /// - Kein Logo (unbekannt, Fehler, Schalter aus): Kreis mit `initials` — nie ein kaputtes Bild.
@@ -156,7 +156,7 @@ enum CoinLogos {
     static func allowed(forMarket marketKey: String?) -> Bool { marketKey != dexMarketKey }
 
     /// Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
-    /// Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Seit Build 105 mit URL-Parser
+    /// Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Mit URL-Parser
     /// (`LogoURLPolicy`, SEC3-02).
     static func isAllowedURL(_ url: String?) -> Bool { LogoURLPolicy.isAllowed(url) }
 

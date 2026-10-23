@@ -95,7 +95,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
         /**
          * Hintergrund-Aktualisierung nötig? Mit Portfolio-Widget immer; sonst nur mit scharfem Portfolio-Alarm. Nicht
          * lesbar ([activeAlarms] null) zählt als «vielleicht scharf»: lieber einmal zu viel aktualisieren, als einen
-         * Alarm auszulassen — [refresh] kommt selbst mit gesperrtem Speicher zurecht (seit Build 97, vorher «keine Alarme»).
+         * Alarm auszulassen — [refresh] kommt selbst mit gesperrtem Speicher zurecht (vorher «keine Alarme»).
          */
         internal fun shouldRefresh(hasPortfolioWidget: Boolean, activeAlarms: Boolean?): Boolean =
             hasPortfolioWidget || activeAlarms != false

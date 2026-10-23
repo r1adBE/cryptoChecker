@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Portföy alarmları duraklatıldı: %1$s için güncel fiyat yok</string>
     <string name="portfolio_alarms_paused_price_generic">Portföy alarmları duraklatıldı: her coinin güncel fiyatı yok</string>
     <string name="portfolio_alarms_paused_addresses">Portföy alarmları duraklatıldı: izlenen adreslerin bakiyeleri henüz yüklenmedi</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portföy alarmları duraklatıldı: %1$s token bakiyeleri kısmen güncel değil</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portföy alarmları duraklatıldı: izlenen adreslerin token bakiyeleri kısmen güncel değil</string>
     <string name="portfolio_alarms_paused_unverified">Portföy alarmları duraklatıldı: %1$s için fiyat doğrulanmadı</string>

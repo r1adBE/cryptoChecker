@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Einstand im Erfassen-Blatt eines gespeicherten Zugangs ohne Preis (Build 84) — wie `TxCostSuggestion` (Android):
+/// Einstand im Erfassen-Blatt eines gespeicherten Zugangs ohne Preis — wie `TxCostSuggestion` (Android):
 /// Einzahlung/Kauf: «Vorschlag: Tagesschluss <Datum>: …» mit «Übernehmen» (setzt den geprüften Tagesschluss als Preis je
 /// Coin, markiert, änderbar; gespeichert erst mit «Speichern»). Belohnung: nur «Einstand = Wert bei Zufluss
 /// (Einkommen)» (AT ohne Zins: Anschaffungskosten 0) — kein Vorschlag, den Einstand zu ändern. In der Anzeigewährung kein

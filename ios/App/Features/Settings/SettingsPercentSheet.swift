@@ -1,8 +1,8 @@
 import SwiftUI
 
 /// Eigene Melde-Schwelle eingeben — wie der Dialog von Android `PercentChoiceRow`: «Sichern» bleibt
-/// gesperrt, solange die Eingabe nicht 0 – 100 ergibt, und das Feld zeigt den Hinweis. Seit Build 99;
-/// vorher schloss ein Alert bei «150» still, ohne etwas zu ändern.
+/// gesperrt, solange die Eingabe nicht 0 – 100 ergibt, und das Feld zeigt den Hinweis
+/// (kein Alert, der bei «150» still schliesst, ohne etwas zu ändern).
 struct SettingsPercentSheet: View {
     let title: String
     let onSave: (Double) -> Void

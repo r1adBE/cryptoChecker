@@ -4,7 +4,7 @@ import SwiftUI
 // Eigene Datei, damit das Blatt selbst nur Zähler, Zeilen und den Ablauf enthält.
 
 extension PortfolioCsvImportSheet {
-    /// Seit Build 103: so viele Umbuchungen bzw. Auszahlungen einzeln im Blatt; alle über «Alle anzeigen» (wie Android).
+    /// So viele Umbuchungen bzw. Auszahlungen einzeln im Blatt; alle über «Alle anzeigen» (wie Android).
     static var listRows: Int { 10 }
 
     /// Umbuchungen zwischen Börsen: je Kandidat «Auszahlung → Einzahlung» mit Schalter (eindeutige vorgewählt),
@@ -62,7 +62,7 @@ extension PortfolioCsvImportSheet {
         }
         .tint(accent.primary)
         .accessibilityHint(L("portfolio_csv_import_transfer_link"))
-        // Seit Build 104: während des Neu-Lesens aus (nicht nur gedimmt) — wie Android
+        // Während des Neu-Lesens aus (nicht nur gedimmt) — wie Android
         .disabled(rereading)
         .padding(.top, 4)
     }
@@ -122,7 +122,7 @@ extension PortfolioCsvImportSheet {
         .padding(.top, 4)
     }
 
-    /// Seit Build 103: alle Zeilen einer Liste im eigenen Blatt, als `List` (nur sichtbare Zeilen gebaut).
+    /// Alle Zeilen einer Liste im eigenen Blatt, als `List` (nur sichtbare Zeilen gebaut).
     private func fullList<Rows: View>(_ title: String, done: @escaping () -> Void,
                                       @ViewBuilder rows: () -> Rows) -> some View {
         NavigationStack {

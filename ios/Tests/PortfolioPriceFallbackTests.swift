@@ -59,7 +59,7 @@ final class PortfolioPriceFallbackTests: XCTestCase {
         XCTAssertEqual(PortfolioPriceFallback.decode(text), ["ETH": StoredPrice(price: 3000, at: now)])
     }
 
-    /// «Kurs ungeprüft» wird mit dem Kurs gemerkt (seit Build 101); ältere Dateien ohne Feld gelten als geprüft. Wie Android.
+    /// «Kurs ungeprüft» wird mit dem Kurs gemerkt; ältere Dateien ohne Feld gelten als geprüft. Wie Android.
     func testUnverifiedFlagRoundTrip() {
         let entries: [String: StoredPrice] = [
             "BTC": StoredPrice(price: 65_432.1, at: now),

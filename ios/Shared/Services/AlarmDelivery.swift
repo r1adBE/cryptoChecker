@@ -11,12 +11,12 @@ import Foundation
 /// Prozesses: App, Hintergrund-Aufgabe und Widget melden Alarme, und ein Neuversuch im anderen Prozess
 /// gleich danach wäre eine zweite Meldung.
 ///
-/// Seit Build 103: Findet der nächste Lauf einen frischen Vermerk (`alreadyDelivered`, < `freshMillis`) und steht die
+/// Findet der nächste Lauf einen frischen Vermerk (`alreadyDelivered`, < `freshMillis`) und steht die
 /// Mitteilung noch da (`isShown`), wird der Alarm nur noch als gemeldet gespeichert — kein zweiter Alarmton nach der
 /// Abklingzeit. Wie Android `AlarmDeliveryMarker`. Gelesen und geschrieben wird nur unter der `AlarmLease`
 /// (Paar-Alarme) bzw. auf dem MainActor der App (Portfolio-Alarme) — darum genügt hier ein Lock.
 ///
-/// Seit Build 104: `isShown` bekommt den Zeitpunkt des Vermerks — nur eine danach gezeigte Mitteilung bestätigt
+/// `isShown` bekommt den Zeitpunkt des Vermerks — nur eine danach gezeigte Mitteilung bestätigt
 /// (`shownSinceMarker`), eine ältere desselben Alarms nicht; lässt sich der Alarm dann nicht speichern, wird die
 /// Mitteilung entfernt (`retract`). Vermerke gelöschter bzw. ersetzter Alarme räumt `retain`/`remove` weg.
 final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Schreiben nur unter `lock` (NSLock); UserDefaults selbst ist thread-sicher
@@ -28,10 +28,10 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
     /// Nicht bestätigter Alarm: frühestens so spät erneut melden (wie `NotificationBudget.MIN_RETRY_MINUTES`).
     static let minRetryMinutes = 5
 
-    /// Seit Build 103: So lange gilt ein Vermerk als frisch (wie Android `AlarmDeliveryMarker.FRESH_MILLIS`).
+    /// So lange gilt ein Vermerk als frisch (wie Android `AlarmDeliveryMarker.FRESH_MILLIS`).
     static let freshMillis: Int64 = 10 * 60_000
 
-    /// Seit Build 103: Frischer Vermerk und die Mitteilung steht noch da — schon gemeldet, nur noch speichern
+    /// Frischer Vermerk und die Mitteilung steht noch da — schon gemeldet, nur noch speichern
     /// (`alarm_delivery_marker.json`). Wie Android `AlarmDeliveryMarker.alreadyDelivered`.
     static func alreadyDelivered(markerAt: Int64?, now: Int64, shown: Bool) -> Bool {
         guard shown, let markerAt, markerAt > 0 else { return false }
@@ -39,25 +39,25 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
         return age >= 0 && age < freshMillis
     }
 
-    /// Seit Build 104: Spielraum für das Datum der Mitteilung gegenüber dem Vermerk (wie Android
+    /// Spielraum für das Datum der Mitteilung gegenüber dem Vermerk (wie Android
     /// `AlarmDeliveryMarker.POSTED_TOLERANCE_MILLIS`).
     static let postedToleranceMillis: Int64 = 1_000
 
-    /// Seit Build 104: Zählt die zugestellte Mitteilung (Datum `postedAt` in ms, nil = keine) als die nach dem Vermerk
+    /// Zählt die zugestellte Mitteilung (Datum `postedAt` in ms, nil = keine) als die nach dem Vermerk
     /// `markerAt` gezeigte? Eine ältere desselben Alarms bestätigt nichts. Wie Android `AlarmDeliveryMarker.shownSinceMarker`.
     static func shownSinceMarker(postedAt: Int64?, markerAt: Int64) -> Bool {
         guard let postedAt else { return false }
         return postedAt >= markerAt - postedToleranceMillis
     }
 
-    /// Seit Build 105: Ist die Auslösung zum Vermerk `markerAt` schon gespeichert? `mark` speichert `lastTriggeredAt` mit
+    /// Ist die Auslösung zum Vermerk `markerAt` schon gespeichert? `mark` speichert `lastTriggeredAt` mit
     /// derselben Zeit wie der Vermerk; ein Vermerk aus der Zeit davor gehört zu einer ungespeicherten Auslösung.
     /// Wie Android `AlarmDeliveryMarker.savedSinceMarker`.
     static func savedSinceMarker(lastTriggeredAt: Int64, markerAt: Int64) -> Bool {
         markerAt > 0 && lastTriggeredAt >= markerAt
     }
 
-    /// Seit Build 105: Vermerke löschen bzw. gegen die vorhandenen Alarme kürzen? Nicht, solange der nächste Prozess den
+    /// Vermerke löschen bzw. gegen die vorhandenen Alarme kürzen? Nicht, solange der nächste Prozess den
     /// Stand der Datei zurückbringt (gesperrt behalten bzw. nur im Speicher wartend). Wie Android
     /// `AlarmDeliveryMarker.shouldClear` (`alarm_delivery_marker.json`, «resetCases»).
     static func shouldClear(storedKept: Bool, volatileCopy: Bool) -> Bool {
@@ -89,11 +89,11 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
     /// - Parameter mark: speichert den Zustand nach dem Auslösen; false = nicht gespeichert (z. B. inzwischen bearbeitet).
     /// - Parameter retract: entfernt die schon gezeigte Mitteilung, wenn `mark` nichts speichern konnte — sie gehörte
     ///   zu einem Alarm, den es so nicht mehr gibt. Wie Android.
-    /// - Parameter isShown: seit Build 103 — steht die Mitteilung dieses Alarms noch da? Seit Build 104 mit dem Zeitpunkt
+    /// - Parameter isShown: steht die Mitteilung dieses Alarms noch da? Mit dem Zeitpunkt
     ///   des Vermerks: nur eine danach gezeigte zählt (`shownSinceMarker`).
-    /// - Parameter savedSince: seit Build 105 — ist die Auslösung zum Vermerk schon gespeichert (`savedSinceMarker` mit
+    /// - Parameter savedSince: ist die Auslösung zum Vermerk schon gespeichert (`savedSinceMarker` mit
     ///   `lastTriggeredAt` des ausgewerteten Alarms)? Dann ist der Vermerk liegen geblieben und wird verworfen.
-    /// - Parameter persisted: seit Build 105 (nur iOS) — nach `mark` == true: ist der Zustand auch auf der Platte? Die App
+    /// - Parameter persisted: (nur iOS) nach `mark` == true: ist der Zustand auch auf der Platte? Die App
     ///   übernimmt in den Speicher und schreibt über die Warteschlange; schlägt das Schreiben fehl, bleibt der Vermerk
     ///   (endet die App vor dem nächsten Speichern, meldet der nächste Prozess nicht ein zweites Mal). Die Mitteilung
     ///   bleibt — der Alarm gilt im Speicher als ausgelöst. Android: Room liefert das Ergebnis direkt aus `mark`.
@@ -106,19 +106,19 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
                  isShown: (_ markerAt: Int64) async -> Bool = { _ in false },
                  savedSince: (_ markerAt: Int64) -> Bool = { _ in false },
                  persisted: @escaping @Sendable () async -> Bool = { true }) async -> Bool {
-        // Seit Build 105: liegengebliebener Vermerk einer schon gespeicherten Auslösung → verwerfen und normal melden
+        // Liegengebliebener Vermerk einer schon gespeicherten Auslösung → verwerfen und normal melden
         // (sonst würde eine neue, echte Auslösung still als «schon gemeldet» gespeichert). Wie Android.
         if let stale = unconfirmedAt(alarmId), savedSince(stale) {
             setUnconfirmed(alarmId, at: nil)
         }
-        // Seit Build 103: voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
+        // Voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
         // false: in diesem Lauf nichts gemeldet (keine zweite Ansage)
         if let pending = unconfirmedAt(alarmId),
            Self.alreadyDelivered(markerAt: pending, now: now, shown: await isShown(pending)) {
             await Task {
-                // Seit Build 104: nicht gespeichert (inzwischen bearbeitet/gelöscht) → Mitteilung wieder weg
+                // Nicht gespeichert (inzwischen bearbeitet/gelöscht) → Mitteilung wieder weg
                 if await mark() {
-                    // Seit Build 105: nicht auf der Platte → Vermerk bleibt
+                    // Nicht auf der Platte → Vermerk bleibt
                     guard await persisted() else { return }
                 } else {
                     await retract()
@@ -141,7 +141,7 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
             // Nicht bestätigt: Vermerk bleibt — frühestens nach der Abklingzeit erneut
             guard await show() else { return false }
             let saved = await mark()
-            // Seit Build 105: übernommen, aber nicht auf der Platte → Vermerk bleibt (Mitteilung auch)
+            // Übernommen, aber nicht auf der Platte → Vermerk bleibt (Mitteilung auch)
             if saved, !(await persisted()) { return true }
             self.setUnconfirmed(alarmId, at: nil)
             if !saved { await retract() }
@@ -157,23 +157,23 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
         return Int64(value)
     }
 
-    /// Seit Build 104: Vermerke dieser Alarme entfernen (gelöscht bzw. durch eine Sicherung ersetzt).
+    /// Vermerke dieser Alarme entfernen (gelöscht bzw. durch eine Sicherung ersetzt).
     func remove<S: Sequence>(_ alarmIds: S) where S.Element == Int64 {
         let keys = Set(alarmIds.map { String($0) })
         modifyAll { all in all = all.filter { entry in !keys.contains(entry.key) } }
     }
 
-    /// Seit Build 104: nur Vermerke noch vorhandener Alarme behalten.
+    /// Nur Vermerke noch vorhandener Alarme behalten.
     func retain(_ alarmIds: Set<Int64>) {
         modifyAll { all in all = all.filter { entry in Int64(entry.key).map { alarmIds.contains($0) } ?? false } }
     }
 
-    /// Seit Build 104: alle Vermerke löschen (Speicher neu angelegt — Ids beginnen von vorn).
+    /// Alle Vermerke löschen (Speicher neu angelegt — Ids beginnen von vorn).
     func removeAll() {
         modifyAll { all in all = [:] }
     }
 
-    /// Seit Build 104: Vermerke beider Arten löschen (gespeicherter Stand beiseitegelegt, neu begonnen; wie Android
+    /// Vermerke beider Arten löschen (gespeicherter Stand beiseitegelegt, neu begonnen; wie Android
     /// beim Neuanlegen der Datenbanken).
     static func removeAllMarkers() {
         pairs.removeAll()

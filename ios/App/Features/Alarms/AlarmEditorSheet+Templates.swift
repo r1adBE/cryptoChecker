@@ -38,7 +38,7 @@ extension AlarmEditorSheet {
         let label = Self.templateLabel(template)
         return Button {
             guard createGuard.begin(creating: true) else { return }
-            // Seit Build 106 (UX4-06): erst nach bestätigter Rückfrage F-08 anlegen und schliessen
+            // UX4-06: erst nach bestätigter Rückfrage F-08 anlegen und schliessen
             onTemplate(template, { dismiss() }, { createGuard.reset() })
         } label: {
             Text(label)
@@ -92,7 +92,7 @@ extension AlarmEditorSheet {
                     .font(.title3.weight(.semibold))
                 Spacer(minLength: 0)
             }
-            // Build 46: Satzende auf der Grundlinie der Eingabe (nicht mittig über Feld samt Fehlertext) — wie Android
+            // Satzende auf der Grundlinie der Eingabe (nicht mittig über Feld samt Fehlertext) — wie Android
             HStack(alignment: .firstTextBaseline, spacing: 8) {
                 amountInput
                 if !end.isEmpty {

@@ -14,7 +14,7 @@ import timber.log.Timber
 /**
  * Gemeinsamer Bereich für Arbeit aus Broadcast-Empfängern (Widgets). Ein Fehler (Datenbank,
  * Bitmap) darf den Prozess im Hintergrund nicht beenden: wird nur protokolliert (Timber nur
- * in Debug-Builds gepflanzt, im Release also kein Protokoll). Seit Build 104 über [appScope] (gleiches Sicherheitsnetz,
+ * in Debug-Builds gepflanzt, im Release also kein Protokoll). Läuft über [appScope] (gleiches Sicherheitsnetz,
  * Datenbank-Schlüssel nicht lesbar nur als Hinweis).
  */
 object ReceiverAsync {
@@ -31,7 +31,7 @@ object ReceiverAsync {
 
     /**
      * Führt [block] in [scope] aus, höchstens [timeoutMillis]; Fehler werden protokolliert, [onDone] kommt immer
-     * (auch nach Zeitgrenze, Fehler oder Abbruch). Kern von [launchAsync], seit Build 104 eigens für Tests.
+     * (auch nach Zeitgrenze, Fehler oder Abbruch). Kern von [launchAsync], eigens für Tests.
      */
     internal fun launchBounded(
         label: String,
@@ -52,7 +52,7 @@ object ReceiverAsync {
                 Timber.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)
             } else {
                 Timber.w(e, "%s fehlgeschlagen", label)
-                // Seit Build 104: im Release nur gezählt (Bereich, keine Texte)
+                // Im Release nur gezählt (Bereich, keine Texte)
                 BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label), error = e)
             }
         } finally {

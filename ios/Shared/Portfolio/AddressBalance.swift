@@ -260,14 +260,14 @@ enum AddressBalance {
 
     // MARK: Adress-Bestände im Portfolio-Rechner
     //
-    // Ehrliche Regel (ab Build 46, wie `AddressBalance.kt`): Das Guthaben beobachteter Adressen ist ein EIGENER Teil
+    // Ehrliche Regel (wie `AddressBalance.kt`): Das Guthaben beobachteter Adressen ist ein EIGENER Teil
     // der Position, kein Posten der Buchhaltung. `withAddresses` hängt je Coin eine Einzahlung ohne Kaufpreis mit
     // negativer Id an; `split` trennt sie wieder ab. Gesamtwert, Positionen, Widget und Portfolio-Alarme zählen das
     // Guthaben mit (`CoinPosition.addressHoldingsExact`); Einstand, Ø, «Seit Kauf», realisiert und Steuer nur aus den
     // eigenen Transaktionen. Heute / 7 T / 1 J und Wertverlauf: Adress-Einträge zählen NICHT rückwirkend — nur eine
     // beobachtete Reihe (`AddressBalanceHistory`), ab ihrer ersten Beobachtung, Änderungen zum Marktkurs.
     // Die echten Transaktionen bleiben unverändert (Liste, Export, Sicherung kennen diese Einträge nicht).
-    // Build 84: Eröffnungsposten (`AddressCostLots`) belegen einen Teil des Guthabens mit Einstand — sie rechnen wie Käufe
+    // Eröffnungsposten (`AddressCostLots`) belegen einen Teil des Guthabens mit Einstand — sie rechnen wie Käufe
     // (Wallet = Adresse), nur der Rest bleibt Adress-Teil ohne Einstand (`isAddressPart`).
 
     private static let dayMillis: Int64 = 86_400_000

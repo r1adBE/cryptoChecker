@@ -40,11 +40,11 @@ internal fun SelectionBar(
     onFavorite: () -> Unit,
     onGroup: () -> Unit,
     onDelete: () -> Unit,
+    modifier: Modifier = Modifier,
     /** Alle angehakten Paare sind deaktiviert: «Aktivieren» statt «Deaktivieren». */
     allDisabled: Boolean = false,
     /** Deaktivieren bzw. (wenn [allDisabled]) wieder aktivieren. */
     onToggleDisabled: () -> Unit = {},
-    modifier: Modifier = Modifier,
 ) {
     val enabled = count > 0
     Surface(

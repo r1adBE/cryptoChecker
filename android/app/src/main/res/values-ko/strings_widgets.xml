@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">표시</string>
     <string name="widget_portfolio_display_conversion">환산만</string>
     <string name="widget_portfolio_display_conversion_usdt">환산 + USDT</string>
-    <string name="widget_portfolio_display_hint">환산 통화가 USD이면 USDT 줄은 표시되지 않습니다.</string>
+    <string name="widget_portfolio_display_hint">환산 통화가 USD 스테이블코인(예: USDC)이면 USDT 줄은 표시되지 않습니다.</string>
     <string name="widget_portfolio_display_usdt">USDT만</string>
     <string name="widget_portfolio_empty">포트폴리오 탭에서 매수 내역을 추가하세요</string>
     <string name="widget_portfolio_list_hint">앱을 열면 여기에 보유 자산이 표시됩니다.</string>

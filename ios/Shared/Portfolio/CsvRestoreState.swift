@@ -17,7 +17,7 @@ struct CsvAbsorbedRow: Hashable, Sendable {
 /// Zustand einer gespeicherten Transaktion vor der Verknüpfung zu einer Umbuchung (`CsvTransferMatch.restoreState`) —
 /// gespeichert in `PortfolioTx.importRestoreState` (Datei und Sicherung «importRestoreState»; Android: Spalte der
 /// Portfolio-Datenbank v4). «Import rückgängig» des verknüpfenden Laufs setzt die Transaktion darauf zurück; `absorbed` = die
-/// darin aufgegangene neue Zeile (nil nur bei Altbestand aus Build 56, `LegacyStorageMigration`). Wie Android
+/// darin aufgegangene neue Zeile (nil nur bei Altbestand älterer Versionen, `LegacyStorageMigration`). Wie Android
 /// `CsvRestoreState` — dort steht auch, warum EIN Feld mit eigener Fassungsnummer statt 23 einzelner Felder.
 ///
 /// Format (Fassung 1; Zahlen exakt als Text wie `PortfolioDecimal.text`, fehlende Werte weggelassen):

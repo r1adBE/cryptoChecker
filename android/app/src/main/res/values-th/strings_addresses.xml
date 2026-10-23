@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">xpub เปิดเผยที่อยู่ทั้งหมดของวอลเล็ตนี้ ที่อยู่จะถูกสร้างบนอุปกรณ์ของคุณ ส่งไปยัง %1$s เฉพาะที่อยู่ทีละรายการ – การค้นหาครั้งแรกอย่างน้อย 40 คำขอ หลังจากนั้นน้อยลง ไม่รับคีย์ส่วนตัว (xprv) เด็ดขาด</string>
     <string name="portfolio_address_xpub_gap">การค้นหาจะหยุดหลังพบที่อยู่ที่ไม่ได้ใช้ติดต่อกัน %1$d รายการ (มาตรฐาน BIP44 ที่วอลเล็ตส่วนใหญ่ใช้) ที่อยู่ที่ใช้แล้วซึ่งอยู่ถัดจากช่วงนี้จะไม่ถูกนับ – ให้เพิ่มแยกต่างหาก</string>
     <string name="portfolio_address_xpub_used">ที่อยู่ที่ใช้งาน: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">มีที่อยู่ที่ใช้แล้วมากเกินไปสำหรับการอัปเดต</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">ที่อยู่มีจำนวนมากเกินไป – อาจตรวจไม่พบการชำระเงินใหม่ที่เข้าที่อยู่เก่าซึ่งว่างแล้ว</string>
     <string name="portfolio_addresses_title">ที่อยู่</string>
 

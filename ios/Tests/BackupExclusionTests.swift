@@ -69,7 +69,7 @@ final class BackupExclusionTests: XCTestCase {
     }
 }
 
-/// Seit Build 93: Merkmal unverschlüsselt gebliebener Dateien (`PlainBackupExclusion`), reine Regeln.
+/// Merkmal unverschlüsselt gebliebener Dateien (`PlainBackupExclusion`), reine Regeln.
 final class PlainBackupExclusionTests: XCTestCase {
     func testRememberedBeforeIsKeptFromFirstTime() {
         XCTAssertFalse(PlainBackupExclusion.rememberedBefore(current: false, remembered: nil))
@@ -82,7 +82,7 @@ final class PlainBackupExclusionTests: XCTestCase {
     func testAfterSealingPrefersRemembered() {
         XCTAssertFalse(PlainBackupExclusion.afterSealing(current: true, remembered: false))
         XCTAssertTrue(PlainBackupExclusion.afterSealing(current: false, remembered: true))
-        // Nichts gemerkt: wie bis Build 92 das aktuelle Merkmal
+        // Nichts gemerkt (ältere Installation): das aktuelle Merkmal
         XCTAssertTrue(PlainBackupExclusion.afterSealing(current: true, remembered: nil))
         XCTAssertFalse(PlainBackupExclusion.afterSealing(current: false, remembered: nil))
     }

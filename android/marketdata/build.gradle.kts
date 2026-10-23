@@ -28,6 +28,9 @@ android {
         abortOnError = true
         checkDependencies = true
         checkReleaseBuilds = true
+        // Wie im App-Modul: Versions-Updates laufen über «Supply chain update» und OSV, der targetSdk-Wechsel ist
+        // eine bewusste Entscheidung.
+        disable += setOf("GradleDependency", "NewerVersionAvailable", "AndroidGradlePluginVersion", "OldTargetApi")
     }
 }
 

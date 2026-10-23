@@ -1,7 +1,7 @@
 import Foundation
 
 /// Freitext auf sichtbare Zeichen begrenzen — wie Android `TextLimit.kt`. Swift zählt mit `count`/`prefix`
-/// schon Graphem-Cluster; hier steht nur die gemeinsame Reihenfolge fürs Säubern (seit Build 99).
+/// schon Graphem-Cluster; hier steht nur die gemeinsame Reihenfolge fürs Säubern.
 enum TextLimit {
     /// Trimmen, auf `max` Zeichen kürzen und nochmals trimmen (ein Schnitt kann auf ein Leerzeichen
     /// fallen); leer = nil. Für Notizen, Gruppen- und Börsennamen — aus der Eingabe wie aus einer Sicherung.

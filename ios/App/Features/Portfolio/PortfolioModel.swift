@@ -117,7 +117,7 @@ final class PortfolioModel: ObservableObject {
     }
 
     /// Für `body`: bis die Rechnung zu neuen Kursen/Transaktionen im Hintergrund fertig ist, das letzte Ergebnis
-    /// (kein leeres Portfolio dazwischen); fertig → `objectWillChange`. Seit Build 98 nicht mehr auf dem Hauptthread.
+    /// (kein leeres Portfolio dazwischen); fertig → `objectWillChange`. Nicht mehr auf dem Hauptthread.
     var shownSummary: PortfolioSummary {
         summaryCache.shown(summaryKey(), input: self.summaryInput)
     }

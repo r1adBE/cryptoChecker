@@ -129,7 +129,7 @@ class AccentContrastTest {
     }
 
     /**
-     * Build 46: Bitcoin-Orange als Grafik (Dominanz-Balken) ≥ 3:1 auf allen Flächen seines Modus —
+     * Bitcoin-Orange als Grafik (Dominanz-Balken) ≥ 3:1 auf allen Flächen seines Modus —
      * hell #F7931A hielt nur ≈ 2.2:1, deshalb dunkler; dunkel bleibt das Original.
      */
     @Test
@@ -146,7 +146,7 @@ class AccentContrastTest {
         assertEquals(0xFFF7931A.toInt(), AssetPalette.bitcoin(dark = true))
     }
 
-    /** Build 46: Ethereum-Blau (Dominanz-Balken) ≥ 3:1 — hell #627EEA hielt auf #E5E2DB nur ≈ 2.85:1. */
+    /** Ethereum-Blau (Dominanz-Balken) ≥ 3:1 — hell #627EEA hielt auf #E5E2DB nur ≈ 2.85:1. */
     @Test
     fun `Ethereum-Blau erreicht 3 zu 1 als Grafik in Hell und Dunkel`() {
         for (dark in listOf(false, true)) {
@@ -162,7 +162,7 @@ class AccentContrastTest {
     }
 
     /**
-     * Build 46: Rand der Gruppen-Chips (einzige Kontur, WCAG 1.4.11) ist `outline` — ≥ 3:1 auf den
+     * Rand der Gruppen-Chips (einzige Kontur, WCAG 1.4.11) ist `outline` — ≥ 3:1 auf den
      * Flächen der Kopfzeile; `outlineVariant` (#ADA9A0, ≈ 2.0–2.3:1) bleibt darunter. Werte aus dem Quelltext.
      */
     @Test
@@ -178,7 +178,7 @@ class AccentContrastTest {
         assertTrue(ratio(0xFFADA9A0.toInt(), 0xFFF1EEE9.toInt()) < 3.0)
     }
 
-    /** Build 58: Trennlinien hell ≈ 2.2:1 auf dem Hintergrund #FBF9F6 (vorher #C9C6BF 1.6:1), unter 3:1. */
+    /** Trennlinien hell ≈ 2.2:1 auf dem Hintergrund #FBF9F6 (vorher #C9C6BF 1.6:1), unter 3:1. */
     @Test
     fun `Trennlinie hell erreicht etwa 2_2 zu 1`() {
         val r = ratio(0xFFADA9A0.toInt(), 0xFFFBF9F6.toInt())
@@ -186,7 +186,7 @@ class AccentContrastTest {
         assertTrue(ratio(0xFFC9C6BF.toInt(), 0xFFFBF9F6.toInt()) < 1.7)
     }
 
-    /** Build 46: Blau ohne violettes Tertiär; tertiary als Schrift AA, onTertiary auf tertiary AA. */
+    /** Blau ohne violettes Tertiär; tertiary als Schrift AA, onTertiary auf tertiary AA. */
     @Test
     fun `Blau hat ein blaues Tertiaer mit AA`() {
         val source = schemesSource()
@@ -240,7 +240,7 @@ class AccentContrastTest {
     }
 
     /**
-     * Coin-Plakette ohne Logo (seit Build 103): Initialen in primary auf der hellen Tönung über surfaceContainer
+     * Coin-Plakette ohne Logo: Initialen in primary auf der hellen Tönung über surfaceContainer
      * ≥ 4.5:1 für alle Akzente; mit der früheren Tönung 14 % lagen sie darunter. Wie iOS `AccentContrastTests`.
      */
     @Test
@@ -266,7 +266,7 @@ class AccentContrastTest {
         return out
     }
 
-    /** Seit Build 105 Pflicht (vorher still grün ohne Datei). */
+    /** Pflicht: fehlt die Datei, nicht still grün. */
     private fun schemesSource(): String =
         SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt"), "ui/theme/AppColorSchemes.kt")
 
@@ -299,7 +299,7 @@ class AccentContrastTest {
             0xFFEEEEEE.toInt() to 0xFFF1EEE9.toInt(), 0xFFE8E8E8.toInt() to 0xFFEBE8E2.toInt(),
             0xFFE4E4E4.toInt() to 0xFFE7E4DD.toInt(), 0xFFE2E2E2.toInt() to 0xFFE5E2DB.toInt(),
             0xFFDADADA.toInt() to 0xFFDDDAD3.toInt(), 0xFFF1F1F1.toInt() to 0xFFF3F1EB.toInt(),
-            // outlineVariant bewusst dunkler (Build 58, ≈ 2.2:1): eigener Test
+            // outlineVariant bewusst dunkler (≈ 2.2:1): eigener Test
         )
         val WARM_SCHEME_TOKENS = listOf(
             "background" to "FBF9F6", "surface" to "FBF9F6", "surfaceBright" to "FBF9F6",

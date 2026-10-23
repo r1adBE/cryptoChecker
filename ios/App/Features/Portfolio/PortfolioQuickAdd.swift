@@ -4,7 +4,7 @@ import SwiftUI
 // einschalten?». Eigene Datei, weil sie das Transaktions-Blatt nur einbettet (wie `PortfolioQuickAdd.kt`).
 
 /// Erfassen-Blatt aus der Merkliste bzw. dem Markt (Coin und Kurs vorbelegt) — wie `PortfolioQuickAddSheet` (Android).
-/// Build 46: Die erste Transaktion mit ausgeschaltetem Portfolio schaltet es nicht still ein; nach dem Schliessen
+/// Die erste Transaktion mit ausgeschaltetem Portfolio schaltet es nicht still ein; nach dem Schliessen
 /// des Blatts fragt «Portfolio-Tab einschalten?»: Einschalten → `onEnabled`; Später → Transaktion bleibt, Tab
 /// bleibt aus, einmal der Weg dorthin (`onLater`).
 @MainActor

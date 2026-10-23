@@ -19,7 +19,7 @@ import java.time.ZoneId
 /**
  * Gemeinsame Testfälle `tax_export.json` → `ukBbWindow` (iOS: `TaxExportWindowTests.swift`): UK 30-Tage-Regel über das
  * Ende des Steuerjahrs hinaus — Kurse und Tagesschlüsse bis 30 Tage nach dem 5. April, Einstand in GBP zum Kurs des
- * Zugangsdatums, kein Vermerk «ohne Devisenkurs» (seit Build 93).
+ * Zugangsdatums, kein Vermerk «ohne Devisenkurs».
  */
 class TaxExportWindowParityTest {
 
@@ -88,7 +88,7 @@ class TaxExportWindowParityTest {
             assertEquals("$label proceeds ${r.proceedsTarget}", 0, BigDecimal(e["proceedsTarget"] as String).compareTo(r.proceedsTarget))
             assertFalse("$label noFx", r.fxMissing)
         }
-        // Wie bis Build 92 (Kurse nur bis zum Ende des Steuerjahrs): Zugänge nach dem 5. April ohne Devisenkurs
+        // Wie früher (Kurse nur bis zum Ende des Steuerjahrs): Zugänge nach dem 5. April ohne Devisenkurs
         val truncated = rates.filterKeys { it <= period.end.toEpochDay() }
         val old = TaxExport.gainRows(trades, TaxMethod.UK_POOL, period, zone, currency, truncated, priceAt, rules = TaxTemplate.UK.eventRules)
         assertEquals(data["truncatedFxMissing"].num()!!.toInt(), old.count { it.fxMissing })

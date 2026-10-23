@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Einstellungen in der Sicherung hin und zurück (`Parity/backup_settings.json`, seit Build 102) — wie Android
+/// Einstellungen in der Sicherung hin und zurück (`Parity/backup_settings.json`) — wie Android
 /// `BackupSettingsCodecTest`: alle Werte auf die Standardwerte gelesen (mit Passwort) und wieder geschrieben, gleich.
 final class BackupSettingsParityTests: XCTestCase {
 

@@ -17,8 +17,8 @@ import java.net.InetSocketAddress
 import java.net.Proxy
 
 /**
- * Neutraler User-Agent der Adressabfragen (`testdata/parity/address_privacy.json`, seit Build 103): gleicher Wert wie
- * iOS, ohne App-Name/Version; seit Build 104 Host-Regel (Adress-Hosts immer neutral, auch Gebühren/Halving) und eigener
+ * Neutraler User-Agent der Adressabfragen (`testdata/parity/address_privacy.json`): gleicher Wert wie
+ * iOS, ohne App-Name/Version; Host-Regel (Adress-Hosts immer neutral, auch Gebühren/Halving) und eigener
  * Verbindungs-Pool des Adress-Clients. Gegenstück: `Tests/AddressPrivacyParityTests.swift`.
  */
 class AddressPrivacyParityTest {
@@ -33,7 +33,7 @@ class AddressPrivacyParityTest {
         }
     }
 
-    /** Host → User-Agent wie iOS (seit Build 104). */
+    /** Host → User-Agent wie iOS. */
     @Test
     fun hostRegelWieGemeinsameFaelle() {
         val app = "cryptoChecker-Android/1.0"
@@ -46,8 +46,8 @@ class AddressPrivacyParityTest {
     }
 
     /**
-     * Der gemeinsame Client setzt für Adress-Hosts den neutralen User-Agent, auch über einen mitgebrachten (seit
-     * Build 104). MockWebServer als HTTP-Proxy, damit der Interceptor den echten Host-Namen sieht.
+     * Der gemeinsame Client setzt für Adress-Hosts den neutralen User-Agent, auch über einen mitgebrachten.
+     * MockWebServer als HTTP-Proxy, damit der Interceptor den echten Host-Namen sieht.
      */
     @Test
     fun gemeinsamerClientSendetAdressHostsNeutral() {
@@ -73,7 +73,7 @@ class AddressPrivacyParityTest {
         }
     }
 
-    /** Eigener Verbindungs-Pool und Dispatcher des Adress-Clients (seit Build 104). */
+    /** Eigener Verbindungs-Pool und Dispatcher des Adress-Clients. */
     @Test
     fun adressClientTeiltKeineVerbindungen() {
         val shared = OkHttpClient.Builder().addInterceptor(UserAgentInterceptor("cryptoChecker-Android/1.0")).build()

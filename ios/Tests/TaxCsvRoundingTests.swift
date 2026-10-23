@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Summenzeilen der CSV-Exporte aus den GERUNDETEN Zeilenwerten (Build 85): drei Zeilen zu 0.335 stehen als 0.34 in der
+/// Summenzeilen der CSV-Exporte aus den GERUNDETEN Zeilenwerten: drei Zeilen zu 0.335 stehen als 0.34 in der
 /// Datei, das Total ist 1.02 (Nachsummieren geht auf), nicht die exakte Summe 1.005 → 1.01. Wie `TaxCsvRoundingTest.kt`.
 final class TaxCsvRoundingTests: XCTestCase {
     private let third = Decimal(string: "0.335", locale: Locale(identifier: "en_US_POSIX"))!
@@ -37,7 +37,7 @@ final class TaxCsvRoundingTests: XCTestCase {
         XCTAssertEqual(lines[4], "Total;;;1.02;1.02;")
     }
 
-    /// Gewinne-CSV (Build 93): Gewinn je Zeile = gerundeter Erlös − gerundeter Einstand — Erlös 2.004 (2.00), Einstand 1.005
+    /// Gewinne-CSV: Gewinn je Zeile = gerundeter Erlös − gerundeter Einstand — Erlös 2.004 (2.00), Einstand 1.005
     /// (1.01), Gewinn exakt 0.999 steht als 0.99, nicht 1.00; die Summe des Gewinns geht so mit den Spalten auf den Cent auf.
     func testGainsRowAndTotalAddUp() {
         let texts = TaxCsvTexts(

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Eigene URLSessions ohne Cookies und ohne Antwort-Cache (`PrivateSessionConfig`, seit Build 99): Die
+/// Eigene URLSessions ohne Cookies und ohne Antwort-Cache (`PrivateSessionConfig`): Die
 /// Datenschutzerklärung verspricht «keine Kennungen». Ein Server setzt per Set-Cookie eine Kennung — die nächste
 /// Anfrage trägt keinen Cookie-Kopf, und der geteilte Cookie-Speicher bleibt leer.
 final class PrivateSessionConfigTests: XCTestCase {

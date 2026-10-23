@@ -1,6 +1,6 @@
 import Foundation
 
-/// Eine Zeile über der Merkliste (Build 91): Kommen die Alarme an? Verdichtet denselben gelesenen Zustand wie «Damit
+/// Eine Zeile über der Merkliste: Kommen die Alarme an? Verdichtet denselben gelesenen Zustand wie «Damit
 /// Alarme ankommen» (`AlarmReadiness.Input`) auf genau einen Satz — ruhig (grau) mit der letzten Prüfung, oder eine
 /// Warnung (Bernstein) mit dem wichtigsten Grund; Tipp öffnet die Seite. Ohne Alarme keine Zeile. Reine Logik — wie
 /// `AlarmReliability.kt`; gemeinsame Fälle in `Parity/alarm_reliability.json`.
@@ -9,7 +9,7 @@ enum AlarmReliability {
     /// zeigen, dass Alarme gerade nicht geprüft werden — bei 15-Min.-Takt sind 2 h klar zu viel.
     static let androidStaleMillis: Int64 = 2 * 60 * 60_000
     /// iOS: gleiche Grenze wie die Seite (`AlarmReadiness.staleCheckMillis`, 6 h) — iOS startet `BGAppRefreshTask` nach
-    /// eigenem Ermessen, oft nur alle paar Stunden; 2 h warnten sonst fast ständig ohne echten Fehler (seit Build 92).
+    /// eigenem Ermessen, oft nur alle paar Stunden; 2 h warnten sonst fast ständig ohne echten Fehler.
     static let iosStaleMillis: Int64 = AlarmReadiness.staleCheckMillis
 
     /// Grenze «zu alt» je Plattform.
@@ -27,7 +27,7 @@ enum AlarmReliability {
         /// Mitteilungen nicht erlaubt bzw. Alarm-Kanal aus (Android).
         case notificationsOff = "notifications_off"
         /// Android: Merkliste nur als Kopie im Arbeitsspeicher (kein Schlüssel) — Prüfungen im Hintergrund ruhen. iOS kennt
-        /// das nicht; für den gemeinsamen Testfall da (seit Build 93).
+        /// das nicht; für den gemeinsamen Testfall da.
         case storageNoKey = "storage_no_key"
         /// Android: Hintergrundnutzung eingeschränkt, oder Prüfung zu alt bei Akku-Optimierung/Akkusparen des Herstellers.
         case battery

@@ -15,7 +15,7 @@ on:
     - cron: '7 * * * *'    # hourly at :07 UTC
   workflow_dispatch:
 
-# Seit Build 104 zwei Jobs: «fetch» fragt die Anbieter ohne Schreibrecht ab und übergibt die Dateien als Artefakt;
+# Zwei Jobs: «fetch» fragt die Anbieter ohne Schreibrecht ab und übergibt die Dateien als Artefakt;
 # «publish» (Schreibrecht, keine fremden Netzabfragen) checkt github.sha frisch aus, prüft das Artefakt streng
 # (artifact_check.py) und lädt erst dann die Release-Assets hoch.
 permissions: {}

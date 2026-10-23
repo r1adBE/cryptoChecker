@@ -21,7 +21,7 @@ import javax.inject.Singleton
  * Bewusst SharedPreferences wie [WidgetPrefs]: Das Widget liest synchron und ohne Netz.
  * Flüchtige Daten — von der Android-Sicherung ausgenommen (backup_rules.xml).
  *
- * Seit Build 60 versiegelt ([PortfolioSnapshotSeal]): alle Werte als ein JSON-Objekt in einem mit AES-256-GCM
+ * Versiegelt ([PortfolioSnapshotSeal]): alle Werte als ein JSON-Objekt in einem mit AES-256-GCM
  * verschlüsselten Eintrag ([KEY_SEALED]), Schlüssel im Android Keystore ([PortfolioSnapshotSeal.Keys]). Die Schlüssel
  * im JSON heissen wie die früheren Einzel-Einträge; Klartext älterer Versionen wird einmal gelesen und versiegelt
  * neu geschrieben. Ohne Schlüssel: keine Aufnahme (Leer-Zustand des Widgets), nie Klartext. Lesbar bleibt nur der
@@ -277,7 +277,7 @@ class PortfolioSnapshotStore @Inject constructor(
         writeSealed(payload)
     }
 
-    /** Klartext-Zahl (Bits als Long, wie bis Build 59 und im Devisenkurs); null = fehlt oder NaN. */
+    /** Klartext-Zahl (Bits als Long, wie vor der Versiegelung und im Devisenkurs); null = fehlt oder NaN. */
     private fun android.content.SharedPreferences.getDouble(key: String): Double? =
         if (contains(key)) Double.fromBits(getLong(key, 0L)).takeIf { !it.isNaN() } else null
 
@@ -298,7 +298,7 @@ class PortfolioSnapshotStore @Inject constructor(
 
     private companion object {
         const val FILE_NAME = "portfolio_widget"
-        // Build 60: die ganze Aufnahme versiegelt ([PortfolioSnapshotSeal]); die Schlüssel unten gelten im JSON
+        // Die ganze Aufnahme versiegelt ([PortfolioSnapshotSeal]); die Schlüssel unten gelten im JSON
         const val KEY_SEALED = "sealed_snapshot"
         const val KEY_TOTAL = "total"
         const val KEY_CHANGE = "change"
@@ -349,7 +349,7 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_FX_RATE = "fx_rate"
         const val KEY_FX_AT = "fx_at"
 
-        // Klartext-Einträge bis Build 59 nach Typ (Überführung [migratePlain]); der Devisenkurs bleibt Klartext
+        // Klartext-Einträge älterer Versionen nach Typ (Überführung [migratePlain]); der Devisenkurs bleibt Klartext
         val PLAIN_DOUBLE_KEYS = listOf(KEY_TOTAL, KEY_CHANGE, KEY_CHANGE_PERCENT, KEY_TOTAL_USDT_V2)
         val PLAIN_INT_KEYS = listOf(KEY_OTHER_POSITIONS_V2, KEY_MISSING_PRICES, KEY_STALE_PRICES)
         val PLAIN_STRING_KEYS = listOf(

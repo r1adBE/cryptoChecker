@@ -242,7 +242,7 @@ struct WatchGroupEditSheet: View {
         }, cancelled: { saving = false })
     }
 
-    /// Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts (Blatt bleibt, wieder bereit).
+    /// Rückfrage F-08 vorher; «Abbrechen» = nichts (Blatt bleibt, wieder bereit).
     private func deleteGroup() {
         guard !saving else { return }
         saving = true

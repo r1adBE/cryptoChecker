@@ -47,7 +47,6 @@
     <string name="alarm_threshold_error_funding">Funding rate ต้องเป็นตัวเลขระหว่าง −10 ถึง +10 เปอร์เซ็นต์</string>
     <string name="alarm_threshold_error_invalid">ใส่ตัวเลขที่ถูกต้องซึ่งมากกว่า 0</string>
     <string name="alarm_threshold_error_oi">การเปลี่ยนแปลงของ Open interest: สูงสุด 1000 เปอร์เซ็นต์</string>
-    <string name="alarm_threshold_error_percent_down">การลดลงสูงสุดได้ไม่เกิน 100 เปอร์เซ็นต์</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">ภายใน %1$d ชม.</item>
     </plurals>

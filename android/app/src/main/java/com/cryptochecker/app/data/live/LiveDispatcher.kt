@@ -32,7 +32,7 @@ internal object LiveDispatcher {
     /**
      * Client des Live-Stroms aus dem gemeinsamen [base] (Verbindungs-Pool, Fristen fürs Verbinden): ohne Gesamt-
      * Zeitgrenze und Protokoll-Interceptor, Ping-Frames alle [pingSeconds] halten die Verbindung offen. Der User-Agent
-     * bleibt (Handshake wie REST, seit Build 102); eigener Dispatcher ([create]).
+     * bleibt (Handshake wie REST); eigener Dispatcher ([create]).
      */
     fun client(base: OkHttpClient, pingSeconds: Long): OkHttpClient = base.newBuilder()
         .apply {

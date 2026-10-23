@@ -50,7 +50,6 @@
     <string name="alarm_threshold_error_funding">Ставка фінансування має бути числом від −10 до +10 відсотків.</string>
     <string name="alarm_threshold_error_invalid">Введи коректне число, більше за 0.</string>
     <string name="alarm_threshold_error_oi">Зміна показника «Відкритий інтерес»: не більше 1000 відсотків.</string>
-    <string name="alarm_threshold_error_percent_down">Падіння може становити щонайбільше 100 відсотків.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">за %1$d год</item>
         <item quantity="few">за %1$d год</item>

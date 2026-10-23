@@ -46,7 +46,7 @@ internal fun CsvImportParser.build(
     }
     val parsed = ArrayList<Pair<CsvImportRow, Int>>()
     val skipped = ArrayList<CsvImportSkip>()
-    // Zeile → ursprünglicher Kauf/Verkauf (vor dem Tausch gegen Stablecoin), für die Schlüssel bis Build 46
+    // Zeile → ursprünglicher Kauf/Verkauf (vor dem Tausch gegen Stablecoin), für die früheren Schlüssel
     val origins = HashMap<Int, CsvImportRow>()
     for (rec in data) {
         try {
@@ -63,8 +63,8 @@ internal fun CsvImportParser.build(
     }
     skipped.sortBy { it.line }
     val keys = CsvImport.withOccurrence(drafts.map { it.key })
-    // Frühere Schlüssel: Zeit in UTC je Zeitzone der Auswahl (bis Build 45), Kauf/Verkauf gegen Stablecoin noch
-    // als Kauf/Verkauf (bis Build 46) und Belohnung ohne Preis (bis Build 92) — ältere Importe weiter als Duplikat erkennen
+    // Frühere Schlüssel älterer Versionen: Zeit in UTC je Zeitzone der Auswahl, Kauf/Verkauf gegen Stablecoin noch
+    // als Kauf/Verkauf und Belohnung ohne Preis — ältere Importe weiter als Duplikat erkennen
     val old = drafts.map { r -> origins[r.line]?.takeIf { r.kind == CsvImportKind.SWAP || r.kind == CsvImportKind.REWARD } ?: r }
     val oldKeys = CsvImport.withOccurrence(old.map { it.key })
     val legacyZones = listOf(zone, deviceZone, SWISS_ZONE, "UTC").distinct()
@@ -256,12 +256,12 @@ private fun CsvImportParser.row(
     val quote = cell(Role.NET_CURRENCY).ifEmpty { cell(Role.QUOTE) }.ifEmpty { pairQuote }.uppercase().ifEmpty { null }
 
     var price = number(Role.PRICE)?.abs()?.takeIf { it.signum() > 0 }
-    // Belohnung mit Fiat-Betrag (seit Build 93, wie Coinbase/Bitpanda): Preis = Betrag / Menge — nur mit Geld als
+    // Belohnung mit Fiat-Betrag (wie Coinbase/Bitpanda): Preis = Betrag / Menge — nur mit Geld als
     // Preiswährung (Fiat oder USDT), sonst bliebe sie ohne Wert bzw. würde mangels Währung übersprungen
     val rewardValue = kind == CsvImportKind.REWARD && (CsvImport.isFiat(quote) || quote == PortfolioStables.VALUATION)
     var derivedReward = false
     if (price == null && (kind == CsvImportKind.BUY || kind == CsvImportKind.SELL || rewardValue)) {
-        // Belohnung mit unlesbarem Betrag: ohne Preis wie bis Build 92, nicht übersprungen
+        // Belohnung mit unlesbarem Betrag: ohne Preis wie früher, nicht übersprungen
         val fiat = if (kind == CsvImportKind.REWARD) {
             try { number(Role.FIAT_AMOUNT) } catch (_: Skip) { null }
         } else number(Role.FIAT_AMOUNT)
@@ -323,7 +323,7 @@ private fun CsvImportParser.row(
     } else null
     val swapped = stableSwap(format, draft, stableAmount)
     if (swapped != null) origins[rec.line] = draft
-    // Belohnung mit abgeleitetem Preis: bis Build 92 ohne Preis importiert — dieser Schlüssel bleibt als früherer
+    // Belohnung mit abgeleitetem Preis: früher ohne Preis importiert — dieser Schlüssel bleibt als früherer
     // ([CsvImportRow.legacyKeys]), sonst käme eine schon importierte Belohnung ein zweites Mal
     if (derivedReward) origins[rec.line] = draft.copy(price = null, key = CsvImport.key(format, kind, coin, amount, null, time, externalId, local))
     return (swapped ?: draft) to (if (signed.signum() < 0) -1 else 1)

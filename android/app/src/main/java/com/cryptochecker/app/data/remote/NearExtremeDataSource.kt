@@ -44,7 +44,7 @@ class NearExtremeDataSource @Inject constructor(
     /** Namensprüfung der Ausweich-Reihe wie beim Mini-Chart ([seriesAllowed]). */
     private val tokenIdentityStore: TokenIdentityStore,
 ) {
-    /** Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    /** Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
     private val memory = BoundedCache<String, WindowRanges>(MEMORY_CACHE_ENTRIES)
 
     /** Paare ohne Kerzen (oder Netzfehler): eine Stunde nicht erneut fragen (nur im Speicher). */

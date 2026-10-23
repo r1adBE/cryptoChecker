@@ -11,7 +11,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
 /**
- * Seit Build 102: vorübergehende Keystore-Fehler ([DatabaseKeyRetry]) — «verdächtige» Fehler werden wiederholt und erst in
+ * Vorübergehende Keystore-Fehler ([DatabaseKeyRetry]) — «verdächtige» Fehler werden wiederholt und erst in
  * einem späteren Lauf als Verlust gewertet; nie im selben Lauf beiseitelegen oder den Keystore-Eintrag ersetzen.
  */
 class DatabaseKeyRetryTest {

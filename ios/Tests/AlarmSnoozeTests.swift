@@ -112,7 +112,7 @@ final class AlarmSnoozeTests: XCTestCase {
     }
 
     /// Ausschalten lässt Bezug und Marke stehen; Einschalten stellt nur die Bedingungen mit Marke neu scharf.
-    /// Seit Build 93: «1 h später» auch im Speicher der App. Das Zusammenführen beim Speichern übernimmt die Datei nur bei
+    /// «1 h später» auch im Speicher der App. Das Zusammenführen beim Speichern übernimmt die Datei nur bei
     /// neuerer Auslösung — das Einschalten auf der Datei allein ginge gegen ein Speichern der App («aus») verloren.
     func testRearmMustAlsoReachTheAppSnapshot() {
         let fired = Alarm(id: 1, watchId: 9, condition: .PRICE_ABOVE, threshold: 100, enabled: false,

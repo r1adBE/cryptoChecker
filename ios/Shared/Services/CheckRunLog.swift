@@ -28,7 +28,7 @@ enum CheckResult: String, CaseIterable, Sendable {
     case partial
     case failed
     /// Nicht gelaufen: eben erst geprüft bzw. läuft gerade (zählt als Prüfung), nichts zu tun oder offline (nur die
-    /// App; ein geplanter Lauf offline wird seit Build 93 nicht vermerkt).
+    /// App; ein geplanter Lauf offline wird nicht vermerkt).
     case skipped
 }
 
@@ -40,7 +40,7 @@ struct CheckRun: Equatable, Sendable {
     let durationMillis: Int64
 }
 
-/// «Letzte Prüfungen» (Build 46): die letzten `max` Läufe der Hintergrund-Prüfung, neueste zuerst, in
+/// «Letzte Prüfungen»: die letzten `max` Läufe der Hintergrund-Prüfung, neueste zuerst, in
 /// einer kleinen Textdatei ohne Sicherung (eine Zeile je Lauf: `at;trigger;result;dauer`). Zeigt
 /// ehrlich, wann iOS wirklich geprüft hat. Reine Logik — wie `CheckRunLog.kt`.
 enum CheckRunLog {
@@ -66,7 +66,7 @@ enum CheckRunLog {
 
     /// Ende des neuesten geplanten Laufs, wenn unter den gespeicherten (`max`) keiner gelang — sonst nil. Scheitert
     /// jede Prüfung, fiele die letzte gelungene sonst aus dem Ringpuffer, und «Letzte Prüfung» sähe aus wie «noch nie
-    /// geprüft» (grau) statt wie eine Warnung (seit Build 93). Wie Android.
+    /// geprüft» (grau) statt wie eine Warnung. Wie Android.
     static func lastFailedBackgroundCheck(_ runs: [CheckRun]) -> Int64? {
         lastBackgroundCheck(runs) != nil ? nil : runs.first { $0.trigger.scheduled }?.at
     }
@@ -134,7 +134,7 @@ enum CheckRunStore {
         add(CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0)))
     }
 
-    /// Wie `log`, aber abseits des Aufrufers (die Datei-Abstimmung kann auf einen anderen Prozess warten) — seit Build 103
+    /// Wie `log`, aber abseits des Aufrufers (die Datei-Abstimmung kann auf einen anderen Prozess warten) —
     /// für Hauptfaden und `expirationHandler`. Die Dauer zählt bis jetzt; mit `await …value` abwarten, wo der Eintrag vor
     /// dem Ende der Aufgabe stehen muss.
     @discardableResult

@@ -103,7 +103,7 @@ class AlarmLogStoreTest {
         assertFalse("nach dem Intervall wieder geschrieben", beforeInterval.contentEquals(file.readBytes()))
     }
 
-    /** Seit Build 102: auch ohne Live-Kurse nicht bei jedem Durchlauf alle letzten Prüfungen versiegeln. */
+    /** Auch ohne Live-Kurse nicht bei jedem Durchlauf alle letzten Prüfungen versiegeln. */
     @Test
     fun plainChecksAreThrottledWithoutLiveToo() {
         val file = File(folder.root, AlarmLogStore.FILE_NAME)

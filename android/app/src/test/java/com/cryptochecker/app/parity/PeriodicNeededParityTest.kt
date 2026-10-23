@@ -6,7 +6,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Bedarf der periodischen Hintergrund-Aktualisierung (`testdata/parity/periodic_needed.json`, seit Build 103):
+ * Bedarf der periodischen Hintergrund-Aktualisierung (`testdata/parity/periodic_needed.json`):
  * [BackgroundWorkPolicy.periodicNeeded] und [BackgroundWorkPolicy.portfolioWork]. Gegenstück:
  * `Tests/PeriodicNeededParityTests.swift` (iOS plant bzw. sagt die BGTask-Anfrage danach ab).
  */

@@ -69,7 +69,7 @@ extension PortfolioScreen {
             )
             .portfolioListRow(top: 4, bottom: 8)
 
-            // Einträge ohne Einstand: sanfte Karte zum Ergänzen (Build 84)
+            // Einträge ohne Einstand: sanfte Karte zum Ergänzen
             let pendingGaps = PortfolioCostGaps.pending(PortfolioCostGaps.gaps(data.portfolio, template: data.settings.taxTemplate),
                                                         acknowledged: PortfolioCostGapUi.ids(costGapsUnknown)).count
             if pendingGaps > 0 {
@@ -130,7 +130,7 @@ extension PortfolioScreen {
                         unavailable: model.prices.unavailable.contains(position.coin),
                         // Wert und 24h wie im Widget in der Anzeigewährung (Detail bleibt USDT)
                         unit: PortfolioCardUnit(currency: currency, fxRate: model.displayRate(for: currency)),
-                        // Build 46: Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)
+                        // Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)
                         exchange: model.prices.sources[position.coin],
                         viaBase: model.prices.viaBase[position.coin],
                         bridgedStable: bridgedStables[position.coin]?.joined(separator: ", ")

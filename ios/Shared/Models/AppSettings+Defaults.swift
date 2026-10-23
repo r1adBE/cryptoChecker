@@ -31,11 +31,11 @@ extension AppSettings {
     static let gasBtcChoices = [0, 1, 2, 5, 10]
     static let notificationChangeChoices: [Double] = [0, 3, 5, 7]
 
-    /// Bisherige Standards (bis Build 42) der in Build 43 geänderten Schalter — wie Android.
+    /// Bisherige Standards der für neue Installationen geänderten Schalter (ältere Installationen) — wie Android.
     static let legacyWatchlistNames = false
     static let legacyShowConverted = false
     static let legacyIncludeAlphaTokens = true
-    /// Bisheriger Standard (bis Build 43) des Portfolio-Tabs; auch für Sicherungen ohne das Feld.
+    /// Bisheriger Standard (ältere Installationen) des Portfolio-Tabs; auch für Sicherungen ohne das Feld.
     static let legacyPortfolioEnabled = true
 
     /// Geänderter Standard, wenn der Wert fehlt: bestehende Installation → bisheriger Standard, neue →

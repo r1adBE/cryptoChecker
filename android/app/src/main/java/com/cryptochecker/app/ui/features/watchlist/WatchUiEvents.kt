@@ -1,4 +1,4 @@
-// Seit Build 107 (Review ARC5-R01): Rückmeldungen der Merkliste-Aktionen nach der Rückfrage F-08 (Banner, Haptik, Erlaubnis,
+// Review ARC5-R01: Rückmeldungen der Merkliste-Aktionen nach der Rückfrage F-08 (Banner, Haptik, Erlaubnis,
 // Blatt bzw. Auswahl zu) als Einmal-Ereignisse für den GERADE gezeigten Bildschirm. Die Rückrufe an das ViewModel schicken
 // nur noch Daten ([WatchUiEvent]); ausgeführt wird in [WatchlistUiEffects] bzw. `MarketCoinUiEffects` — auch wenn die
 // Activity inzwischen neu erstellt wurde (alte Komposition: Banner weg, abgemeldeter Erlaubnis-Launcher).
@@ -82,7 +82,7 @@ internal const val WATCHLIST_UI_EVENTS = "watchlist_ui_events"
 private fun undoFull(n: Int) = WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_undo_full, count = n))
 
 /**
- * Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen»: ohne Rückfrage, mit «Rückgängig». Seit Build 105 Haptik und
+ * Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen»: ohne Rückfrage, mit «Rückgängig». Haptik und
  * Banner erst nach dem Löschen; der Rückgängig-Schlüssel kommt gleich aus [WatchUiEventsHolder.removed].
  */
 internal fun WatchUiEventsHolder.deleteWithUndo(viewModel: WatchlistViewModel, watch: WatchEntity) {
@@ -93,7 +93,7 @@ internal fun WatchUiEventsHolder.deleteWithUndo(viewModel: WatchlistViewModel, w
     }
 }
 
-/** Nach rechts wischen: Favorit an/aus mit kurzem Banner — Haptik und Banner erst nach dem Schreiben (seit Build 106). */
+/** Nach rechts wischen: Favorit an/aus mit kurzem Banner — Haptik und Banner erst nach dem Schreiben. */
 internal fun WatchUiEventsHolder.favoriteWithBanner(viewModel: WatchlistViewModel, watch: WatchEntity) {
     viewModel.toggleFavorite(watch) { written ->
         if (!written) return@toggleFavorite
@@ -103,7 +103,7 @@ internal fun WatchUiEventsHolder.favoriteWithBanner(viewModel: WatchlistViewMode
 }
 
 /**
- * Deaktivieren bzw. wieder aktivieren (Aktionsblatt, Merkliste und Markt): seit Build 107 (UX5-R2, wie iOS) Blatt erst nach
+ * Deaktivieren bzw. wieder aktivieren (Aktionsblatt, Merkliste und Markt) — UX5-R2, wie iOS: Blatt erst nach
  * der Rückfrage F-08 zu, mit leichter Haptik und Banner; «Abbrechen» = Blatt bleibt, gesperrt = Blatt zu ohne Banner.
  */
 internal fun WatchUiEventsHolder.toggleDisabled(viewModel: WatchlistViewModel, watch: WatchEntity) {
@@ -135,7 +135,7 @@ internal fun WatchUiEventsHolder.handleShared(
             haptics.play(HapticEvent.DESTRUCTIVE)
             val batch = removed
             banner.show(batch.bannerText(resources), onClosed = { batch.closed(event.generation) }) {
-                // Seit Build 103: Merkliste inzwischen voll → Hinweis, wie viele nicht zurückkamen
+                // Merkliste inzwischen voll → Hinweis, wie viele nicht zurückkamen
                 viewModel.undoDelete(event.undoKey) { n -> send(undoFull(n)) }
             }
         }

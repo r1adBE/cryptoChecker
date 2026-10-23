@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -80,9 +81,9 @@ internal fun WatchRow(
     now: Long,
     staleAfter: Long,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     /** Ohne Fehler, aber älter als das: «veraltet» statt der normalen Zeitzeile. */
     outdatedAfter: Long = Long.MAX_VALUE,
-    modifier: Modifier = Modifier,
     elevation: Dp = 0.dp,
     highlighted: Boolean = false,
     sortMode: Boolean = false,
@@ -288,6 +289,8 @@ internal fun WatchRow(
         val stacked = DenseRowText.stacksTrailing(LocalDensity.current.fontScale)
         // Schmale Zeile (< 360 dp): Mini-Chart 48 statt 56 dp, das Paar behält mehr Platz ([DenseRowText]).
         // Breite einmal von der Liste ([LocalWatchRowWidth]) statt je Zeile gemessen
+        // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung
+        @SuppressLint("ConfigurationScreenWidthHeight")
         val rowWidth = LocalWatchRowWidth.current.takeIf { it.isSpecified }?.value
             ?: LocalConfiguration.current.screenWidthDp.toFloat()
         Box {

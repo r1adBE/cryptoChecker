@@ -1,7 +1,7 @@
 import Foundation
 
 /// Erstes ungültiges Feld des Erfassen-Blatts in der Reihenfolge der Oberfläche: dorthin rollt «Speichern» mit
-/// Fehlern, setzt den Fokus und sagt den Fehler an (seit Build 99; vorher wurde nur rot markiert, oft ausserhalb
+/// Fehlern, setzt den Fokus und sagt den Fehler an (statt nur rot zu markieren, oft ausserhalb
 /// des sichtbaren Bereichs). Gleich wie `PortfolioTxFirstInvalid.kt` (Android).
 enum PortfolioTxFirstInvalid {
 

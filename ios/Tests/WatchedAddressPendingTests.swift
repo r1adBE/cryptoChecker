@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 94: nie geladene Adressen sperren Portfolio-Alarme, Abruf-Reihenfolge im Hintergrund, tolerante Datei der
+/// Nie geladene Adressen sperren Portfolio-Alarme, Abruf-Reihenfolge im Hintergrund, tolerante Datei der
 /// beobachteten Adressen und der Hinweis «Portfolio-Alarme pausiert» — Fälle aus `address_balance.json` wie Android
 /// (`AddressBalanceParityTest.pendingCount` / `dueOrder`, `PortfolioAlarmLogicTest`, `PortfolioPauseTextTest`).
 final class WatchedAddressPendingTests: XCTestCase {

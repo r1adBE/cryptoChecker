@@ -3,7 +3,7 @@ import Security
 import XCTest
 @testable import CryptoChecker
 
-/// Verschlüsselte Dateien (Build 59): Format (`ProtectedContainer`), Lesen und Schreiben (`ProtectedFile`) und die
+/// Verschlüsselte Dateien: Format (`ProtectedContainer`), Lesen und Schreiben (`ProtectedFile`) und die
 /// Überführung beim Start (`ProtectedStorage.prepareAtLaunch`) mit gefälschtem Schlüsselbund — jeder Fehler lässt die
 /// Klartext-Datei stehen. Gegenstück zu `DatabaseEncryptionMigrationTest.kt` (Android, Datenbanken). Läuft in einem
 /// temporären Ordner, nie auf der App Group oder dem echten Schlüsselbund.
@@ -17,7 +17,7 @@ final class ProtectedFileTests: XCTestCase {
         /// Ein anderer Prozess legt beim Hinzufügen gleichzeitig diesen Schlüssel an.
         var racingKey: Data?
         private(set) var adds = 0
-        /// Zugriff des Eintrags: true = `…ThisDeviceOnly`; neu angelegte Einträge sind es immer (Build 69).
+        /// Zugriff des Eintrags: true = `…ThisDeviceOnly`; neu angelegte Einträge sind es immer.
         var deviceOnly = true
         /// Fehler beim Umstellen (z. B. vor dem ersten Entsperren).
         var updateStatus: OSStatus?
@@ -259,13 +259,13 @@ final class ProtectedFileTests: XCTestCase {
         XCTAssertFalse(ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake), defaults: isolatedDefaults()).encryptionPending)
     }
 
-    // MARK: Schlüssel nur auf diesem Gerät (Build 69)
+    // MARK: Schlüssel nur auf diesem Gerät
 
     func testOldKeychainItemIsRestrictedToThisDeviceKeepingTheKey() throws {
         let sealed = try ProtectedContainer.seal(json, key: fixedKey)
         try sealed.write(to: watchlist)
         let fake = keychain(with: fixedKey)
-        fake.deviceOnly = false // angelegt bis Build 68 (`…AfterFirstUnlock`)
+        fake.deviceOnly = false // von älteren Versionen angelegt (`…AfterFirstUnlock`)
         let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake), defaults: isolatedDefaults())
         XCTAssertEqual(outcome, .init())
         XCTAssertTrue(fake.deviceOnly)
@@ -375,7 +375,7 @@ final class ProtectedFileTests: XCTestCase {
     }
 }
 
-/// Seit Build 93: unverschlüsselt gebliebene Dateien nicht im Geräte-Backup, versiegelt wieder nach eigener Regel
+/// Unverschlüsselt gebliebene Dateien nicht im Geräte-Backup, versiegelt wieder nach eigener Regel
 /// (`PlainBackupExclusion`). Eigene Einstellungs-Suite, nie die der App.
 extension ProtectedFileTests {
     private func isolatedDefaults() -> UserDefaults {

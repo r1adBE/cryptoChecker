@@ -45,7 +45,7 @@ extension WatchlistScreen {
                 if locked { portfolioDraft = nil }
             }
             // Erfassen-Blatt aus der Merkliste: Coin (und Kurs, falls in USD) vorbelegt
-            // Erste Transaktion mit Portfolio aus: Rückfrage «Portfolio-Tab einschalten?» (Build 46)
+            // Erste Transaktion mit Portfolio aus: Rückfrage «Portfolio-Tab einschalten?»
             .modifier(PortfolioQuickAddPresenter(
                 draft: $portfolioDraft,
                 onEnabled: { portfolioEnabledBanner() },
@@ -95,12 +95,12 @@ extension WatchlistScreen {
                 Text(L("watchlist_clear_confirm"))
             }
             // Glocke ohne Alarm, mehrere Paare: Paar wählen → dessen Alarm-Seite (gleiches Blatt wie die leere Übersicht).
-            // Seit Build 103 mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
+            // Mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
             .sheet(isPresented: $pickAlarmPair, onDismiss: {
                 if let id = pickedAlarmPair { alarmsFor = id }
                 pickedAlarmPair = nil
             }) {
-                let input = data.alarmPairPickerInput // seit Build 106 (PERF4-R1): einmal je Stand
+                let input = data.alarmPairPickerInput // PERF4-R1: einmal je Stand
                 AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey) { id in
                     pickedAlarmPair = id
                     pickAlarmPair = false

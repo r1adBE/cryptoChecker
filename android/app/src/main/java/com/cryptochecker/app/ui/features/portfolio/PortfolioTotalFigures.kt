@@ -148,7 +148,7 @@ internal fun FittedTotal(
  * Zeile unter dem Gesamtwert wie im Portfolio-Widget: «↘ −38’412.95 USDT −27.85% · 1J» — Pfeil,
  * Betrag (verborgen «•••») und Prozent als farbige Schrift ohne Pille in der Kursfarbe (Richtung
  * nach dem Betrag, ohne Betrag nach dem Prozent; Null-Regel des Portfolios), die Währung klein und
- * grau, der Zeitraum [period] klein und grau dahinter. Build 46: für «Heute» (unter dem Gesamtwert)
+ * grau, der Zeitraum [period] klein und grau dahinter. Für «Heute» (unter dem Gesamtwert)
  * und «1 J» (in den Details); ohne Zahl keine Zeile, mit [requireAmount] auch ohne Betrag keine.
  * Vorgelesen als ein Satz («1 year: down 27.85%, −38’412.95 USDT»).
  */

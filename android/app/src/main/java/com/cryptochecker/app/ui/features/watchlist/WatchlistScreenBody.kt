@@ -105,7 +105,7 @@ internal fun WatchlistBody(
     val columnSort = display.columnSort
     val changeBasis = display.changeBasis
     val haptics = rememberHaptics()
-    // Seit Build 107 (ARC5-R01): Rückmeldungen der Mehrfachauswahl nach der Rückfrage F-08 im aktuellen Bildschirm
+    // ARC5-R01: Rückmeldungen der Mehrfachauswahl nach der Rückfrage F-08 im aktuellen Bildschirm
     val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
     val selectionDone = arrayOf<WatchUiEvent>(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT), WatchUiEvent.EndSelection)
     ReadableInset { inset ->
@@ -289,7 +289,7 @@ internal fun WatchlistBody(
                     SelectionBar(
                         count = selectedIds.size,
                         allFavorites = chosen.isNotEmpty() && chosen.all { it.favorite },
-                        // Seit Build 106 (ARC4-R01, UX4-06): Haptik und Ende der Auswahl erst nach dem Schreiben —
+                        // ARC4-R01, UX4-06: Haptik und Ende der Auswahl erst nach dem Schreiben —
                         // «Abbrechen» in der Rückfrage F-08 lässt die Auswahl stehen
                         onFavorite = {
                             viewModel.setFavorite(selectedIds, !chosen.all { it.favorite }) { if (it) uiEvents.send(*selectionDone) }
@@ -322,7 +322,7 @@ internal fun WatchlistBody(
                         // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
                         current = chosen.map { it.groupName }.distinct().singleOrNull(),
                         groups = groups,
-                        // Seit Build 106 (UX4-06): Dialog zu, Auswahl erst nach dem Schreiben beenden
+                        // UX4-06: Dialog zu, Auswahl erst nach dem Schreiben beenden
                         onSelect = { group ->
                             ui.askGroupForSelection = false
                             viewModel.setGroup(selectedIds, group) { if (it) uiEvents.send(WatchUiEvent.EndSelection) }

@@ -134,7 +134,7 @@ fun LicensesContent() {
             SectionTitle(stringResource(R.string.licenses_font_title))
             LicenseText(font)
 
-            // Ersatz-Logos (Build 46): freies Icon-Paket, CC0 1.0
+            // Ersatz-Logos: freies Icon-Paket, CC0 1.0
             SectionDivider()
             SectionTitle(stringResource(R.string.licenses_icons_title))
             BodyText(stringResource(R.string.licenses_icons_bundled_text))

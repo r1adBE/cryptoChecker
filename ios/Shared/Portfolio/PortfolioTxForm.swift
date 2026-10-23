@@ -67,10 +67,10 @@ enum PortfolioTxForm {
     /// Die Warnung nennt die Gebühr, wenn eine Gebühr im Coin mitzählt.
     static func sellExceedsIncludesFee(_ fee: Decimal?, unit: PortfolioFeeUnit) -> Bool { coinFee(fee, unit: unit) > 0 }
 
-    // MARK: Arten (Build 46, Regeln in `PortfolioLedger`)
+    // MARK: Arten (Regeln in `PortfolioLedger`)
 
     /// Reihenfolge der Arten im Blatt: Kauf, Verkauf, Umbuchung, Belohnung, Einzahlung, Auszahlung, Verschenkt, Damit bezahlt
-    /// (Build 47, gleich nach der Auszahlung), Tausch.
+    /// (gleich nach der Auszahlung), Tausch.
     static let types: [PortfolioTxType] = [.BUY, .SELL, .TRANSFER, .REWARD, .DEPOSIT, .WITHDRAWAL, .GIFT, .PAYMENT, .SWAP]
 
     /// Felder je Art — wie `PortfolioTxForm.Fields` (Kotlin).
@@ -178,7 +178,7 @@ enum PortfolioTxForm {
     /// Von/Nach: höchstens 40 Zeichen (wie die Börse).
     static let maxRoute = 40
 
-    // MARK: Tausch und Eingabe in der Anzeigewährung (Build 46)
+    // MARK: Tausch und Eingabe in der Anzeigewährung
 
     /// Tausch: erhaltener Coin gültig (1–15 Buchstaben/Ziffern) und ≠ dem abgegebenen Coin — wie `swapToCoinValid` (Kotlin).
     static func swapToCoinValid(_ toCoin: String, coin: String) -> Bool {
@@ -196,7 +196,7 @@ enum PortfolioTxForm {
 
     /// Ausdrücklich eingegebener Preis 0 (`entered`, schon gelesen) nicht speicherbar? Nur bei einer importierten
     /// Transaktion (`imported`, CSV): dort ist ein Verkauf zum Preis 0 das Kennzeichen der Gebühr-Zeile
-    /// (`PortfolioLedger.isFeeDisposal`). Von Hand erfasst ist 0 ein echter Preis (z. B. wertlosen Coin verkaufen, Build 47).
+    /// (`PortfolioLedger.isFeeDisposal`). Von Hand erfasst ist 0 ein echter Preis (z. B. wertlosen Coin verkaufen).
     /// Wie Android.
     static func priceZero(_ entered: Decimal?, imported: Bool) -> Bool {
         guard imported, let entered else { return false }

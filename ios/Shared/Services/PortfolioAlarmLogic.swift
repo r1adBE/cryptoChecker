@@ -92,7 +92,7 @@ struct PortfolioReading: Equatable, Sendable {
     /// Wert (USDT, zum letzten Kurs) der Coins mit altem Kurs; nil = unbekannt (älterer Stand: dann wesentlich). Wie Android.
     var staleValueUsdt: Double? = nil
     /// Zählende Adressen, deren Guthaben noch nie geladen wurde (`AddressBalance.pendingCount`): sie fehlen im Gesamtwert —
-    /// dann prüft KEIN Portfolio-Alarm (seit Build 94); seit über 24 Stunden scheiternde zählen nicht. Wie Android.
+    /// dann prüft KEIN Portfolio-Alarm; seit über 24 Stunden scheiternde zählen nicht. Wie Android.
     var addressesPending = 0
     /// Zählende Adressen, deren Guthaben nie geladen hat und seit über 24 Stunden scheitert (`AddressAlarmState.failing`):
     /// die Alarme rechnen ohne sie (keine endlose Pause), der Hinweis nennt sie (`.addressesFailing`). Wie Android.
@@ -101,7 +101,7 @@ struct PortfolioReading: Equatable, Sendable {
     /// `staleTokenValueUsdt` (`staleMaterial`). Wie Android.
     var staleTokenAddresses: [String] = []
     var staleTokenValueUsdt = 0.0
-    /// Coins mit «Kurs ungeprüft» (Binance-Kurs, Token nicht bestätigt; seit Build 101,
+    /// Coins mit «Kurs ungeprüft» (Binance-Kurs, Token nicht bestätigt;
     /// `PortfolioWidgetSnapshot.unverifiedCoins`): zählen wie ein alter Kurs mit Wert `unverifiedValueUsdt`
     /// (`staleMaterial`); sperren nur sie, eigener Hinweis (`.priceUnverified`). Wie Android.
     var unverifiedCoins: [String] = []
@@ -117,7 +117,7 @@ enum PortfolioAlarmPause: Equatable, Sendable {
     case noPrice([String])
     /// Token-Guthaben dieser Adressen nicht bestätigt (wesentlich, wie ein alter Kurs).
     case tokensStale([String])
-    /// Kurs dieser Coins ungeprüft (Token nicht bestätigt, wesentlich wie ein alter Kurs; seit Build 101).
+    /// Kurs dieser Coins ungeprüft (Token nicht bestätigt, wesentlich wie ein alter Kurs).
     case priceUnverified([String])
     /// Keine Pause, nur Hinweis: die Alarme rechnen ohne diese seit über 24 Stunden scheiternden Adressen.
     case addressesFailing([String])
@@ -214,7 +214,7 @@ enum PortfolioAlarmLogic {
     /// Wert-Alarme weiter. Wie Android.
     static func staleMaterial(_ reading: PortfolioReading) -> Bool {
         let prices = reading.stalePrices > 0
-        // Nicht bestätigte Token-Guthaben (seit Build 95) und ungeprüfte Kurse (seit Build 101) zählen wie Coins mit
+        // Nicht bestätigte Token-Guthaben und ungeprüfte Kurse zählen wie Coins mit
         // altem Kurs, Wert zusammen
         let tokens = !reading.staleTokenAddresses.isEmpty
         let unverified = !reading.unverifiedCoins.isEmpty
@@ -239,7 +239,7 @@ enum PortfolioAlarmLogic {
     /// Warum die eingeschalteten Portfolio-Alarme (`kinds`) gerade nicht prüfen (Hinweis in der Alarm-Übersicht); nil =
     /// mindestens nicht wegen Adressen oder Kursen. Adressen zuerst (betrifft jede Art); sonst Coins ohne aktuellen Kurs:
     /// die wesentlichen alten (`staleCoins`) und — bei Wert-Alarmen — die ganz ohne Kurs (`missingCoins`); ohne solche Coins
-    /// die mit ungeprüftem Kurs (`.priceUnverified`, seit Build 101), sonst die Adressen nicht bestätigter Token-Guthaben
+    /// die mit ungeprüftem Kurs (`.priceUnverified`), sonst die Adressen nicht bestätigter Token-Guthaben
     /// (`.tokensStale`). Sperren alte bzw. fehlende Kurse mit, bleibt es beim Satz «kein aktueller Kurs» mit nur diesen
     /// Coins. Ohne Pause der Hinweis auf seit über 24 Stunden scheiternde Adressen (`.addressesFailing`). Wie Android.
     static func pause(_ kinds: [PortfolioAlarmKind], _ reading: PortfolioReading, missingCoins: [String],
@@ -296,7 +296,7 @@ enum PortfolioAlarmLogic {
     /// Nach dem Melden: ein einmaliger Alarm schaltet sich ab, ein wiederholender bleibt an.
     static func enabledAfterFire(repeating: Bool) -> Bool { repeating }
 
-    /// Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Seit Build 105 (Review FUN3-01) «fällt um»
+    /// Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Review FUN3-01: «fällt um»
     /// nur unter `maxFallPercent`: Die Veränderung «heute» fällt nie unter −100 %, so ein Alarm löste nie aus. Wie Android
     /// (`portfolio_alarm.json`, «threshold»).
     static func isValidThreshold(_ kind: PortfolioAlarmKind, _ threshold: Double?) -> Bool {
@@ -308,12 +308,12 @@ enum PortfolioAlarmLogic {
         }
     }
 
-    /// Seit Build 105: Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`BackupManager.exceedsFall`).
+    /// Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`BackupManager.exceedsFall`).
     static let maxFallPercent = 100.0
 
-    /// Seit Build 105 (Review FUN3-01): «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
+    /// Review FUN3-01: «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
     /// ausgeschaltet, einmalig bereinigt (`disableInvalidFallAlarmsOnce`) und in der Übersicht als «Schwelle ungültig»
-    /// gekennzeichnet; nicht einschaltbar. Seit Build 106 (FUN4-R2): kein Editor, darum Hinweis «löschen und neu anlegen»
+    /// gekennzeichnet; nicht einschaltbar. FUN4-R2: kein Editor, darum Hinweis «löschen und neu anlegen»
     /// (`portfolio_alarm_threshold_invalid_recreate`). Wie Android.
     static func exceedsFall(_ kind: PortfolioAlarmKind, _ threshold: Double) -> Bool {
         kind == .CHANGE_DOWN && threshold.isFinite && threshold >= maxFallPercent

@@ -8,6 +8,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.background
@@ -94,6 +95,8 @@ internal val LocalWatchRowWidth = compositionLocalOf { androidx.compose.ui.unit.
  * Coin-Logos ein kleiner Stern am Logo (sonst ein eigener kleiner Stern vor dem Paar) — kein eigener Stern-Knopf mehr,
  * der dem Paar Breite nimmt (Favorit wechseln: nach rechts wischen, Aktionsblatt, Screenreader-Aktion).
  */
+// handleModifier gilt nur dem Griff (Ziehen im Sortiermodus), nicht der ganzen Ansicht: Name und Pflicht bewusst
+@SuppressLint("ModifierParameter")
 @Composable
 internal fun RowLeading(
     sortMode: Boolean,
@@ -146,6 +149,8 @@ internal fun RowLeading(
 }
 
 /** Rechts: Kurs (rollende Ziffern, kurzes Aufblitzen), %-Änderung als farbige Schrift und ≈ Umrechnung. */
+// Standard «Abstand links» passt neben das Paar; WatchRow übergibt den Modifier je nach Lage (neben/unter) selbst
+@SuppressLint("ModifierParameter")
 @Composable
 internal fun RowPrice(
     watch: WatchEntity,
@@ -248,7 +253,7 @@ internal fun RowPrice(
         if (converted != null) {
             Text(
                 text = converted,
-                // Build 57: wie die Börsenzeile links (14 sp); die Spalte ist so breit wie ihr Inhalt
+                // Wie die Börsenzeile links (14 sp); die Spalte ist so breit wie ihr Inhalt
                 style = MaterialTheme.typography.body.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,

@@ -27,7 +27,7 @@ final class HoldingsMethodParityTests: XCTestCase {
         t.toAmountExact = (o["toAmount"] as? String).map(dec)
         t.swapValueExact = (o["swapValue"] as? String).map(dec)
         t.importKey = o["importKey"] as? String
-        // Gebühr-Zeile: eigenes Feld (Build 76); fehlt es im Fixture, die frühere Regel (wie beim Lesen alter Dateien)
+        // Gebühr-Zeile: eigenes Feld; fehlt es im Fixture, die frühere Regel (wie beim Lesen alter Dateien)
         t.feeRow = o["feeRow"] as? Bool ?? LegacyStorageMigration.legacyFeeRow(t.type, importKey: t.importKey, price: t.priceExact)
         return t
     }

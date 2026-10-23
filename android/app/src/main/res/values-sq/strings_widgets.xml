@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Shfaqja</string>
     <string name="widget_portfolio_display_conversion">Vetëm konvertimi</string>
     <string name="widget_portfolio_display_conversion_usdt">Konvertimi + USDT</string>
-    <string name="widget_portfolio_display_hint">Rreshti USDT fshihet kur monedha e konvertimit është USD.</string>
+    <string name="widget_portfolio_display_hint">Rreshti USDT fshihet kur monedha e konvertimit është një stablecoin në USD (p.sh. USDC).</string>
     <string name="widget_portfolio_display_usdt">Vetëm USDT</string>
     <string name="widget_portfolio_empty">Shto blerje te skeda Portofoli</string>
     <string name="widget_portfolio_list_hint">Hap aplikacionin për të shfaqur këtu pozicionet e tua.</string>

@@ -1,13 +1,13 @@
 import XCTest
 
-/// Seit Build 106 (Review TST4-01, F-08): Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie
+/// Review TST4-01, F-08: Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie
 /// Android `WatchRepositoryCallGuardTest`. Die Schreibwege kommen aus `AppData` (Funktionen in `App/Services/AppData*.swift`,
 /// deren Rumpf `watchlistWriteRefused(` enthält, plus Weiterleitungen darauf; Überladungen nach Argument-Bezeichnern). Jeder
 /// Aufruf `data.<Schreibweg>(` in `App` ausserhalb von `Services` liegt im Block von `withWatchlistConfirm { … }` (nicht im
 /// `cancelled:`-Block), in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`), oder hinter
 /// `await confirmWatchlistWrite()` (Block noch offen). Ein Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt (z. B.
-/// `addStarterConfirmed`; seit Build 107 `saveDraftNow`, einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer
-/// Funktion zählt dabei nie als fragender Hilfsweg (seit Build 107). Review TST5-R2: Die Richtung der Bedingung zählt —
+/// `addStarterConfirmed` oder `saveDraftNow`, dessen einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer
+/// Funktion zählt dabei nie als fragender Hilfsweg. Review TST5-R2: Die Richtung der Bedingung zählt —
 /// `confirmWatchlistWrite` gilt nur als `guard await … else { … }` und nur für Schreibwege danach.
 @MainActor
 final class WatchlistConfirmCallGuardTests: XCTestCase {
@@ -38,7 +38,7 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
     }
 
     /// Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, im `cancelled:`-Block, nach dem Block, Zeichenkette mit
-    /// Kommentarzeichen → Befund; Hilfsweg, `confirmWatchlistWrite` und andere Überladung → kein Befund. Seit Build 107:
+    /// Kommentarzeichen → Befund; Hilfsweg, `confirmWatchlistWrite` und andere Überladung → kein Befund.
     /// Regex-Literal mit `//` verdeckt nichts; Schreibweg vor der Frage in einer Funktion mit Closure-Parameter → Befund.
     func testCounterSampleIsFlagged() {
         let repo = CallGuard.Source(#"""

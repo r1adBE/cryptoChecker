@@ -9,7 +9,7 @@ on:
     - cron: '41 6 * * 3'   # Wednesdays 06:41 UTC
   workflow_dispatch:
 
-# Least privilege (since build 104 two jobs): «check» asks the exchanges without any write permission and hands the
+# Least privilege (two jobs): «check» asks the exchanges without any write permission and hands the
 # result over as an artifact; «report» (issues: write, no exchange requests) checks out github.sha afresh, strictly
 # checks the artifact (artifact_check.py) and manages the one issue. Failures are reported in the issue and the run
 # stays green; a red run means a script or the artifact check failed.
@@ -31,7 +31,7 @@ jobs:
           persist-credentials: false
           sparse-checkout: .github/scripts
 
-      # Exchange requests; no write token exists in this job. Result into a file (since Build 103)
+      # Exchange requests; no write token exists in this job. Result into a file
       - name: Check exchange APIs
         env:
           PYTHONDONTWRITEBYTECODE: '1'

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Portföljlarm pausade: ingen aktuell kurs för %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Portföljlarm pausade: alla mynt har inte en aktuell kurs</string>
     <string name="portfolio_alarms_paused_addresses">Portföljlarm pausade: saldon för bevakade adresser är inte inlästa än</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portföljlarm pausade: tokensaldon för %1$s är delvis inaktuella</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portföljlarm pausade: tokensaldon för bevakade adresser är delvis inaktuella</string>
     <string name="portfolio_alarms_paused_unverified">Portföljlarm pausade: okontrollerad kurs för %1$s</string>

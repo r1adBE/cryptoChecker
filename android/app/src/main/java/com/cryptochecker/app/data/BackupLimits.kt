@@ -8,7 +8,7 @@ import java.io.InputStream
  * [MAX_BYTES], und die JSON-Verschachtelung höchstens [MAX_DEPTH] tief (sonst Stacküberlauf im Parser).
  * Eine echte Sicherung mit Tausenden Transaktionen liegt weit darunter (wenige MB, Tiefe 4).
  *
- * Dieselbe Grenze gilt seit Build 92 auch beim Schreiben ([checkWritable]): Bis Build 91 konnte eine Sicherung über
+ * Dieselbe Grenze gilt auch beim Schreiben ([checkWritable]): Früher konnte eine Sicherung über
  * 16 MB entstehen, die sich danach nicht mehr einlesen liess. Seither kompaktes JSON und 64 MB auf beiden Plattformen.
  */
 object BackupLimits {

@@ -357,7 +357,7 @@ object PortfolioWidgetChart {
 
     /**
      * Prozent der Betragszeile: «+2.31%» / «−0.50%» / «0.00%» — Text in der Kursfarbe hinter dem Betrag
-     * (keine Pille; der Pfeil steht vor dem Betrag); null ohne Prozent. Seit Build 95 in der Prozent-Schreibweise der
+     * (keine Pille; der Pfeil steht vor dem Betrag); null ohne Prozent. In der Prozent-Schreibweise der
      * App-Sprache ([PercentText]: «+2,31 %», «+%2,31»), wie iOS `PortfolioWidgetChart.percentText`.
      */
     fun percentText(plan: PortfolioChartPlan, locale: Locale = LocaleNumbers.appLocale): String? {

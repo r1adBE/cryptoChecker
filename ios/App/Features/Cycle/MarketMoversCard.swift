@@ -8,7 +8,7 @@ import SwiftUI
 /// «Heute auffällig» (Aktionsblatt des Paars, sonst seine Vorschau, siehe `CycleScreen`). VoiceOver: je Zeile ein
 /// Element mit Aktion. Keine Prognose, keine Empfehlung.
 ///
-/// Auf «Jetzt» ruhig und kompakt (Build 83): je Gruppe zuerst `compactCount` Zeilen, «Alle zeigen» klappt auf alle
+/// Auf «Jetzt» ruhig und kompakt: je Gruppe zuerst `compactCount` Zeilen, «Alle zeigen» klappt auf alle
 /// (bis fünf) auf, «Weniger zeigen» wieder zu — gemerkt, solange der Tab lebt. Wie Android `MOVERS_COMPACT`.
 struct CycleMoversCard: View {
     let market: CycleLoad<PulseMarketData>

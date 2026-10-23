@@ -27,7 +27,7 @@ internal object RestoreRun {
     }
 
     /**
-     * Seit Build 102 nie ohne Journal: Ohne gemerkten Stand rollte ein im Lauf beendeter Prozess nichts zurück (neue
+     * Nie ohne Journal: Ohne gemerkten Stand rollte ein im Lauf beendeter Prozess nichts zurück (neue
      * Merkliste, altes Portfolio, keine Meldung) — dann lieber gar nichts schreiben ([BackupJournalUnavailableException]).
      *
      * Scheitert ein Schritt, schreibt [rollBack] den gemerkten Stand der berührten Teile zurück; nur wenn das ganz gelang

@@ -1,5 +1,5 @@
 {
- "_comment": "Einmalige Umstellung der Speicher-Notlösungen aus Build 56/57 (LegacyStorageMigration, Android LegacyStorageMigrationParityTest / iOS LegacyStorageMigrationTests): «before» = gespeicherte Felder mit alten Formen (Merker «@spouse» im Feld «nach» einer Schenkung, «A ⇄ B» und «⟲ Zustand» in importKey, Fassung 1 = Build 56, 2 = Build 57), «after» = die Felder ab Build 58 (giftToSpouse, linkedImportKey, importRestoreState im JSON-Format Fassung 1 von CsvRestoreState). type = gespeicherte Art (unbekannt = neuere Version). Werte ohne alte Form bleiben unverändert.",
+ "_comment": "Einmalige Umstellung der Speicher-Notlösungen älterer Versionen (LegacyStorageMigration, Android LegacyStorageMigrationParityTest / iOS LegacyStorageMigrationTests): «before» = gespeicherte Felder mit alten Formen (Merker «@spouse» im Feld «nach» einer Schenkung, «A ⇄ B» und «⟲ Zustand» in importKey, Fassungen 1 und 2), «after» = die heutigen Felder (giftToSpouse, linkedImportKey, importRestoreState im JSON-Format Fassung 1 von CsvRestoreState). type = gespeicherte Art (unbekannt = neuere Version). Werte ohne alte Form bleiben unverändert.",
  "cases": [
   {
    "name": "spouse marker of a gift becomes the flag",
@@ -128,7 +128,7 @@
    }
   },
   {
-   "name": "shortened part (before build 58) stays shortened",
+   "name": "shortened part (older versions) stays shortened",
    "type": "TRANSFER",
    "before": {
     "transferTo": null,
@@ -252,7 +252,7 @@
    }
   },
   {
-   "name": "v1 state (build 56): only the stored side",
+   "name": "v1 state: only the stored side",
    "type": "TRANSFER",
    "before": {
     "transferTo": null,
@@ -472,7 +472,7 @@
    }
   }
  ],
- "_interestRewardComment": "Zins-Erkennung: «interest» = neue Regel (TaxEngines.interestReward, Build 88, für neue Eingaben und den CSV-Import; AT: Anschaffungskosten = Wert beim Zufluss): nur ganze Wörter, Trenner = alles ausser Buchstaben/Ziffern und der Wechsel klein → gross — «Verzinsung», «Zinseszins», «keine Verzinsung» sind kein Zins. «legacyInterest» = alte Teilstring-Regel bis Build 87 (LegacyStorageMigration.interestRewardLegacy, Build 89 eingefroren), gilt nur für Altbestand: legacyInterest bei der Migration der Portfolio-Datenbank v4 → v5, alten iOS-Dateien und Sicherungen ohne Feld «interest» — dort bleibt «Verzinsung» ein Zins wie damals gerechnet.",
+ "_interestRewardComment": "Zins-Erkennung: «interest» = neue Regel (TaxEngines.interestReward, für neue Eingaben und den CSV-Import; AT: Anschaffungskosten = Wert beim Zufluss): nur ganze Wörter, Trenner = alles ausser Buchstaben/Ziffern und der Wechsel klein → gross — «Verzinsung», «Zinseszins», «keine Verzinsung» sind kein Zins. «legacyInterest» = alte Teilstring-Regel (LegacyStorageMigration.interestRewardLegacy, eingefroren), gilt nur für Altbestand: legacyInterest bei der Migration der Portfolio-Datenbank v4 → v5, alten iOS-Dateien und Sicherungen ohne Feld «interest» — dort bleibt «Verzinsung» ein Zins wie damals gerechnet.",
  "interestReward": [
   {
    "text": "Lending interest",

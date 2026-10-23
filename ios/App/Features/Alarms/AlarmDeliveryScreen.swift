@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 import UserNotifications
 
-/// «Damit Alarme ankommen» (Build 81): der echte Zustand je Punkt (✓ / ⚠ / Hinweis) mit Knopf zur passenden Seite.
+/// «Damit Alarme ankommen»: der echte Zustand je Punkt (✓ / ⚠ / Hinweis) mit Knopf zur passenden Seite.
 /// Erreichbar aus «Alle Alarme», dem Hinweis im Alarm-Editor und Einstellungen › Alarme. Wie `AlarmDeliveryScreen.kt`.
 /// Liest nur (Mitteilungs-Einstellungen, Hintergrundaktualisierung, Stromsparmodus, «Letzte Prüfungen»); beim
 /// Zurückkehren in die App neu gelesen.
@@ -248,7 +248,7 @@ enum AlarmReadinessProbe {
         input.quietEnd = settings.quietHoursEnd
         // Nur vom System geplante Prüfungen (BGAppRefreshTask) — App, Widget und gescheiterte Läufe zählen nicht
         input.lastBackgroundCheck = CheckRunLog.lastBackgroundCheck(runs)
-        // Alle gespeicherten geplanten Läufe gescheitert: Zuverlässigkeitszeile warnt (seit Build 93)
+        // Alle gespeicherten geplanten Läufe gescheitert: Zuverlässigkeitszeile warnt
         input.lastFailedBackgroundCheck = CheckRunLog.lastFailedBackgroundCheck(runs)
         input.hasAlarms = hasAlarms
         input.alertEnabled = center.alertSetting != .disabled

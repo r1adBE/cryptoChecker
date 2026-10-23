@@ -64,7 +64,7 @@ final class BackupRestorePolicyTests: XCTestCase {
         XCTAssertFalse(PortfolioRestoreNotice.shouldRecord(dropped: 0, signature: "x", seen: nil))
     }
 
-    /// Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (seit Build 99, wie Android).
+    /// Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (wie Android).
     func testUnverschluesseltSchaltetSystemsicherungNieEin() {
         XCTAssertNil(BackupRestorePolicy.systemBackup(wanted: true, current: false, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: false, current: true, trusted: false), false)
@@ -74,7 +74,7 @@ final class BackupRestorePolicyTests: XCTestCase {
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: false, current: true, trusted: true), false)
     }
 
-    /// Ohne Passwort: «Beträge verbergen» nur ein, nie aus (seit Build 99, wie Android).
+    /// Ohne Passwort: «Beträge verbergen» nur ein, nie aus (wie Android).
     func testUnverschluesseltSchaltetBetraegeVerbergenNieAus() {
         XCTAssertNil(BackupRestorePolicy.hideAmounts(wanted: false, current: true, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: true, current: false, trusted: false), true)

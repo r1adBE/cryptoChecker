@@ -8,7 +8,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Binäre Nachrichten des Live-Stroms (seit Build 104): bis [LiveRules.MAX_MESSAGE_BYTES] als UTF-8-Text wie iOS
+ * Binäre Nachrichten des Live-Stroms: bis [LiveRules.MAX_MESSAGE_BYTES] als UTF-8-Text wie iOS
  * (`.data`), grössere trennen die Verbindung ([LiveConnection.binaryText] = null).
  */
 class LiveBinaryMessageTest {

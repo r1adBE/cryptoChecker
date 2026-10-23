@@ -99,7 +99,7 @@ enum LiveBackoff {
     static let rateLimitedMillis: Int64 = 300_000
 
     /// Erst eine Verbindung, die so lange hielt und Kurse brachte, setzt die Pause zurück. Sonst
-    /// verbände eine Börse, die nach dem ersten Stand trennt, jede Sekunde neu (seit Build 94).
+    /// verbände eine Börse, die nach dem ersten Stand trennt, jede Sekunde neu.
     static let stableMillis: Int64 = 60_000
 
     /// Streuung der Pause (±20 %), damit nicht alle Verbindungen im selben Takt neu verbinden.
@@ -135,7 +135,7 @@ enum LiveBackoff {
 enum LiveRules {
     /// Zeit eines neuen Kurses: die der Börse, ausser sie fehlt oder liegt mehr als 5 Minuten in der Zukunft (falsch
     /// gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Market.markFetched`): eine Zeit aus der Zukunft
-    /// liesse einen stehenden Kurs lange frisch aussehen (seit Build 102). Wie `LiveRules.tickTime` (Android).
+    /// liesse einen stehenden Kurs lange frisch aussehen. Wie `LiveRules.tickTime` (Android).
     static func tickTime(_ reported: Int64?, now: Int64) -> Int64 {
         guard let reported, reported > 0, reported <= now + Market.exchangeTimeFutureToleranceMillis else { return now }
         return reported
@@ -149,7 +149,7 @@ enum LiveRules {
     /// Kein Lebenszeichen der Verbindung so lange (Börsen mit Text-Ping): neu verbinden.
     static let staleConnectionMillis: Int64 = 60_000
     /// Grösste Nachricht des Stroms (1 MiB, `maximumMessageSize`); grössere trennen die Verbindung — wie Android
-    /// `LiveRules.MAX_MESSAGE_BYTES` (seit Build 103).
+    /// `LiveRules.MAX_MESSAGE_BYTES`.
     static let maxMessageBytes = 1 << 20
 
     /// Veränderung, die mit dem Live-Kurs gilt: die des Stroms nur bei Basis «Letzte 24 Std.»,

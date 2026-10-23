@@ -5,7 +5,7 @@ import Foundation
 ///
 /// Datenschutz: eigene flüchtige Sitzung (keine Cookies, kein Zwischenspeicher) und nicht über
 /// `MarketHTTP.call`, damit die Adresse nicht im HTTP-Protokoll der App landet; Protokolle nennen nur
-/// die gekürzte Adresse. Neutraler User-Agent (`HttpUserAgent.neutral`, seit Build 103). Eigener Bitcoin-Server
+/// die gekürzte Adresse. Neutraler User-Agent (`HttpUserAgent.neutral`). Eigener Bitcoin-Server
 /// (`AddressServer`): nur dorthin.
 /// Pausen: 451/403 → Host 6 h übersprungen (`BlockedSources`); 429/418 und wiederholte
 /// Zeitüberschreitungen → Pause je Host nach `ExchangeBackoff` («Retry-After» gilt); dann der
@@ -38,12 +38,12 @@ actor WatchedAddressSource {
         let error: String?
     }
 
-    /// Nicht privat: Test prüft den neutralen User-Agent (seit Build 103).
+    /// Nicht privat: Test prüft den neutralen User-Agent.
     static let session: URLSession = {
         let c = PrivateSessionConfig.make(timeout: AddressBalance.timeoutSeconds,
                                           resource: AddressBalance.timeoutSeconds + 5)
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
-        // Neutraler User-Agent ohne App-Name/Version wie Android (seit Build 103)
+        // Neutraler User-Agent ohne App-Name/Version wie Android
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.neutral, "Accept": "application/json"]
         c.waitsForConnectivity = false
         return URLSession(configuration: c)

@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Weergave</string>
     <string name="widget_portfolio_display_conversion">Alleen omrekening</string>
     <string name="widget_portfolio_display_conversion_usdt">Omrekening + USDT</string>
-    <string name="widget_portfolio_display_hint">De USDT-regel wordt verborgen als de omrekenvaluta USD is.</string>
+    <string name="widget_portfolio_display_hint">De USDT-regel wordt verborgen als de omrekenvaluta een USD-stablecoin is (bijv. USDC).</string>
     <string name="widget_portfolio_display_usdt">Alleen USDT</string>
     <string name="widget_portfolio_empty">Voeg aankopen toe op het tabblad Portfolio</string>
     <string name="widget_portfolio_list_hint">Open de app om je posities hier te tonen.</string>

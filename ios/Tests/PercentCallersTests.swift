@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 96 schreiben auch Alarm-Sätze, Funding, Spot-Kennzahlen und Schwellen ihre Prozente über `PercentText`
+/// Auch Alarm-Sätze, Funding, Spot-Kennzahlen und Schwellen ihre Prozente über `PercentText`
 /// (vorher `NumberFormatter.percent` oder « %» von Hand) — Zeichen für Zeichen wie Android
 /// (`AlarmSentenceTest`, `PercentTextTest`, `PortfolioWidgetMathTest`).
 final class PercentCallersTests: XCTestCase {
@@ -52,7 +52,7 @@ final class PercentCallersTests: XCTestCase {
         XCTAssertEqual(PercentText.unsigned(5, decimals: 2, locale: us), "5.00%")
     }
 
-    /// Zyklus-Chart für VoiceOver seit Build 96 wie Android `A11yText.change(…, decimals = 0)`: ganze Prozent ohne
+    /// Zyklus-Chart für VoiceOver wie Android `A11yText.change(…, decimals = 0)`: ganze Prozent ohne
     /// Tausendertrennung, «unverändert» erst unter 0.005 % (vorher «1’130 %» und schon unter 0.5 %).
     func testZyklusChartSprichtWieAndroid() {
         XCTAssertEqual(PercentText.unsigned(1130, decimals: 0, locale: us), "1130%")

@@ -16,7 +16,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * «Pünktlich prüfen» (Build 46): exakter Wecker ([AlarmManager.setExactAndAllowWhileIdle]) alle
+ * «Pünktlich prüfen»: exakter Wecker ([AlarmManager.setExactAndAllowWhileIdle]) alle
  * 15 Minuten, der dieselbe Prüfung wie WorkManager auslöst ([ExactCheckReceiver]). Nach jedem Lauf
  * neu gestellt; nach Neustart/Update/neuer Berechtigung stellt [BootReceiver] ihn neu. WorkManager
  * bleibt als Netz darunter; doppelte Läufe verhindert [BackgroundSchedule.shouldSkip].

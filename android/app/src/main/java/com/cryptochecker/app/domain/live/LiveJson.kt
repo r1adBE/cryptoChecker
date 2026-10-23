@@ -6,7 +6,7 @@ package com.cryptochecker.app.domain.live
  * Parser ohne Android (org.json) testbar sind. Ungültiges JSON ergibt null — eine kaputte
  * Nachricht wird still übergangen, der Strom läuft weiter.
  *
- * Seit Build 102 mit Tiefenlimit [MAX_DEPTH] (wie `HttpBodyLimit.MAX_JSON_DEPTH`): Der Leser ist rekursiv, eine
+ * Mit Tiefenlimit [MAX_DEPTH] (wie `HttpBodyLimit.MAX_JSON_DEPTH`): Der Leser ist rekursiv, eine
  * Nachricht «[[[[…» liesse den Stapel des OkHttp-Threads überlaufen (StackOverflowError — ein Error, den der Strom
  * sonst nicht fängt: Absturz). Echte Nachrichten der Börsen liegen bei Tiefe < 10.
  */

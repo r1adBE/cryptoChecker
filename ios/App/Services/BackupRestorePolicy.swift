@@ -3,7 +3,7 @@ import Foundation
 /// Regeln beim Wiederherstellen — wie `BackupRestorePolicy.kt` (gleiche Fälle in den Tests).
 ///
 /// Eine Sicherung ohne Passwort hat keine Echtheitsprüfung: Eine bearbeitete Datei im gleichen Format
-/// wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und seit Build 99
+/// wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und
 /// auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein (`systemBackup`),
 /// «Beträge verbergen» nie aus (`hideAmounts`).
 enum BackupRestorePolicy {

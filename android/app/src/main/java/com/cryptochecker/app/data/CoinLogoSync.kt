@@ -155,7 +155,7 @@ class CoinLogoSync @Inject constructor(
                             .toSet()
                     }
                     .distinctUntilChanged()
-                    // Seit Build 103: Merkliste nicht lesbar (z. B. Datenbank-Schlüssel) beendet nur diese Beobachtung
+                    // Merkliste nicht lesbar (z. B. Datenbank-Schlüssel) beendet nur diese Beobachtung
                     .catch { e -> Timber.w(e, "TradFi: Merkliste nicht gelesen") }
                     .collectLatest { pairs ->
                         try {

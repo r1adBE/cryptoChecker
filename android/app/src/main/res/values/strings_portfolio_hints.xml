@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Portfolio alerts paused: no current price for %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Portfolio alerts paused: not every coin has a current price</string>
     <string name="portfolio_alarms_paused_addresses">Portfolio alerts paused: balances of watched addresses not loaded yet</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portfolio alerts paused: token balances of %1$s partly outdated</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portfolio alerts paused: token balances of watched addresses partly outdated</string>
     <string name="portfolio_alarms_paused_unverified">Portfolio alerts paused: price unverified for %1$s</string>
     <string name="portfolio_alarms_paused_unverified_generic">Portfolio alerts paused: price of some coins unverified</string>
     <string name="portfolio_alarms_address_failing">Portfolio alerts check without %1$s: balance not loaded for over 24 hours</string>
     <string name="portfolio_alarms_address_failing_generic">Portfolio alerts check without addresses whose balance has not loaded for over 24 hours</string>
-    <!-- Statuszeile einer Adresse, gescheitertes «Rückgängig» nach «Adresse entfernen» und (seit Build 97) gescheitertes Entfernen -->
+    <!-- Statuszeile einer Adresse, gescheitertes «Rückgängig» nach «Adresse entfernen» und gescheitertes Entfernen -->
     <string name="portfolio_address_tokens_partly_stale">tokens partly outdated</string>
     <string name="portfolio_address_restore_failed">Address could not be restored – add it again if needed</string>
     <string name="portfolio_address_remove_failed">Address could not be removed – please try again</string>

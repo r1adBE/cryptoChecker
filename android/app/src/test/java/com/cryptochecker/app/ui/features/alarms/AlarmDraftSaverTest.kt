@@ -73,7 +73,7 @@ class AlarmDraftSaverTest {
         val dir = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app/ui/features/alarms" })
         assertNotNull("alarms-Quellen nicht gefunden (Arbeitsverzeichnis?)", dir)
         val screen = File(dir, "AlarmsScreen.kt").readText()
-        // Seit Build 107 (ARC5-R01): offener Editor im ViewModel (SavedStateHandle), gleiche Liste wie AlarmDraftSaver.saver
+        // ARC5-R01: offener Editor im ViewModel (SavedStateHandle), gleiche Liste wie AlarmDraftSaver.saver
         assertTrue(screen.contains("var draft by viewModel.editor"))
         assertFalse(screen.contains("var draft by rememberSaveable"))
         val state = File(dir, "AlarmEditorState.kt").readText()

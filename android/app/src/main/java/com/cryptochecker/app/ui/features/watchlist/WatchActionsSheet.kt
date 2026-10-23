@@ -89,7 +89,7 @@ internal fun WatchActionsSheet(
     /** null = Eintrag verborgen (Vorschau); sonst immer, auch mit Portfolio aus ([PortfolioOff]). */
     onAddToPortfolio: (() -> Unit)? = null,
     /**
-     * Seit Build 107 (IOS5-R02): `close` schliesst den Dialog — erst nach bestätigter Rückfrage F-08 aufrufen; `cancelled`
+     * IOS5-R02: `close` schliesst den Dialog — erst nach bestätigter Rückfrage F-08 aufrufen; `cancelled`
      * bei «Abbrechen» (Dialog bleibt, wieder bereit). Bis dahin zählt kein weiterer Tipp (wie iOS `saving`).
      */
     onSetGroup: (String?, close: () -> Unit, cancelled: () -> Unit) -> Unit = { _, close, _ -> close() },

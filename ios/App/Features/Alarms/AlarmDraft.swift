@@ -7,11 +7,11 @@ enum ThresholdProblem: Equatable {
 
 extension AlarmCondition {
     /// Fallende Prozent-Alarme («fällt um x %», «Open Interest fällt um x %»): mehr als 100 % kann nichts fallen — ein
-    /// solcher Alarm löste nie aus (seit Build 102 abgelehnt). Seit Build 103 auch genau 100 % (Wert 0 wird nie
+    /// solcher Alarm löste nie aus (wird abgelehnt). Auch genau 100 % (Wert 0 wird nie
     /// gemeldet): der Schwellwert muss kleiner als `maxFallPercent` sein. Wie Android `isFallingPercent`.
     var isFallingPercent: Bool { self == .CHANGE_PERCENT_DOWN || self == .OI_DOWN }
 
-    /// Obergrenze (ausschliesslich, seit Build 103) eines fallenden Prozent-Alarms.
+    /// Obergrenze (ausschliesslich) eines fallenden Prozent-Alarms.
     static let maxFallPercent = 100.0
 }
 
@@ -150,7 +150,7 @@ struct AlarmDraft: Identifiable, Equatable {
 
     var isValid: Bool { threshold != nil }
 
-    /// Fallender Prozent-Alarm mit gültiger Zahl ab `AlarmCondition.maxFallPercent` (seit Build 103 auch genau 100)?
+    /// Fallender Prozent-Alarm mit gültiger Zahl ab `AlarmCondition.maxFallPercent` (auch genau 100)?
     private var exceedsFall: Bool {
         guard condition.isFallingPercent,
               let value = ThresholdParser.parse(thresholdText, decimalSeparator: ThresholdParser.localeDecimalSeparator)

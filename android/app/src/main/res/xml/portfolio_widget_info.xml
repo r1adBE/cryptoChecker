@@ -2,7 +2,11 @@
 <!-- Portfolio-Widget: eigenes Layout je Stufe (PortfolioWidgetMath.size): klein, schmal-hoch (Wertverlauf darunter),
      mittel ab 250 dp Breite (Wertverlauf rechts), gross (dazu die drei grössten Positionen); was nicht in die Höhe passt, entfällt.
      Einrichten optional (ab Android 12): Anzeige, Zeitraum, Chart-Art; ohne Einrichten «Umrechnung» (bei USD «Nur USDT»), 24 h, Linie. -->
+<!-- tools:targetApi: targetCellWidth/-Height, previewLayout und widgetFeatures wirken erst ab Android 12 bzw. 9;
+     ältere Versionen übergehen sie bewusst (dort gelten minWidth/minHeight und previewImage). -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="31"
     android:minWidth="110dp"
     android:minHeight="80dp"
     android:minResizeWidth="110dp"

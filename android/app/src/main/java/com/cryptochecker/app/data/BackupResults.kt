@@ -15,9 +15,9 @@ data class RestoreResult(
     val replacedAlarmIds: List<Long> = emptyList(),
     /** Ids der ersetzten Portfolio-Alarme (leer, wenn die Sicherung keine enthielt und sie blieben). */
     val replacedPortfolioAlarmIds: List<Long> = emptyList(),
-    /** Paare über den Grenzen bzw. mit unzulässiger Kennung ([BackupRestoreLimits]), nicht übernommen (seit Build 99). */
+    /** Paare über den Grenzen bzw. mit unzulässiger Kennung ([BackupRestoreLimits]), nicht übernommen. */
     val droppedPairs: Int = 0,
-    /** Alarme über den Grenzen bzw. weggelassener Paare ([BackupRestoreLimits]), nicht übernommen (seit Build 99). */
+    /** Alarme über den Grenzen bzw. weggelassener Paare ([BackupRestoreLimits]), nicht übernommen. */
     val droppedAlarms: Int = 0,
 )
 
@@ -48,7 +48,7 @@ class BackupStorageKeptException : IllegalStateException("Gespeicherter Stand ge
 class BackupStorageInMemoryException : IllegalStateException("Datenbank nur im Arbeitsspeicher")
 
 /**
- * Seit Build 102: Einspielen abgelehnt, bevor etwas ersetzt wird — das Journal des Wiederherstellens ([RestoreJournal])
+ * Einspielen abgelehnt, bevor etwas ersetzt wird — das Journal des Wiederherstellens ([RestoreJournal])
  * liess sich nicht schreiben (Keystore-Schlüssel gerade nicht verfügbar oder Speicherfehler). Ohne Journal rollte ein
  * mittendrin beendeter Lauf nichts zurück; später erneut versuchen.
  */

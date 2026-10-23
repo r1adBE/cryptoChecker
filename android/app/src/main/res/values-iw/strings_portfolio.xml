@@ -266,7 +266,7 @@
         <item quantity="other">בלי %1$d מטבעות ללא מחיר קנייה (%2$s) – הוסיפו את המחירים כדי שייספרו.</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">קריסת USDT – השוק ב-%1$s USD</string>
     <string name="portfolio_usdt_via_usdc">שער הדולר של USDT דרך USDC/USDT – אם USDC יורד, הערך הזה שגוי</string>
     <string name="portfolio_amount_bridged_stable">≈ כולל %1$s (דרך גשר)</string>
@@ -301,7 +301,7 @@
         <item quantity="two">עסקאות שיימחקו: %d. אפשר לבטל את זה מיד אחר כך.</item>
         <item quantity="other">עסקאות שיימחקו: %d. אפשר לבטל את זה מיד אחר כך.</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">עמלות ששולמו ב-%1$s יוסרו גם מעסקאות אחרות: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

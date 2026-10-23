@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 105 (PERF3-R1): Schlüssel der Coin-Ansicht hängt nur an den Kursen des Coins und der Coins, deren Tageskurs
+/// PERF3-R1: Schlüssel der Coin-Ansicht hängt nur an den Kursen des Coins und der Coins, deren Tageskurs
 /// seine Zeilen brauchen — wie Android `PortfolioCoinDetailFlowTest`.
 final class PortfolioCoinLedgerKeyTests: XCTestCase {
     private var trades: [PortfolioTx] {

@@ -145,7 +145,7 @@ final class TaxExportTests: XCTestCase {
         for line in m["incomeLines"] as? [String] ?? [] { XCTAssertTrue(csv.contains(line), "income line \(line) in \(csv)") }
     }
 
-    /// Build 78: Einkünfte-CSV AT — Zins (beim Zufluss steuerpflichtig) und Staking (nur Information) je Zeile vermerkt,
+    /// Einkünfte-CSV AT — Zins (beim Zufluss steuerpflichtig) und Staking (nur Information) je Zeile vermerkt,
     /// zwei Summen mit je eigenem «unvollständig»; ohne die AT-Texte (alle anderen Vorlagen) unverändert eine Summe. Wie Android.
     func testAtIncomeSplitsInterestAndStaking() throws {
         let d = try data()
@@ -326,9 +326,9 @@ final class TaxExportTests: XCTestCase {
         XCTAssertEqual(TaxExport.withChWealthNote(.CH, header: [], chWealthNote: note), [note])
     }
 
-    /// Build 47 (B4): Gewinn 1020 ≤ 1 Jahr und Auszahlungsgebühr 25 USDT — die Gebühr ist keine Veräusserung: eigener Posten,
+    /// B4: Gewinn 1020 ≤ 1 Jahr und Auszahlungsgebühr 25 USDT — die Gebühr ist keine Veräusserung: eigener Posten,
     /// NICHT in der Summe § 23 → 1020 ≥ 1000 «erreicht» (vorher 995 «unter der Freigrenze»). Wie Android.
-    /// Build 56/57: Gebühr in USDT/Fiat einer Auszahlung bzw. Umbuchung bei UK, US, CA, AU, JP nur Information (Vermerk,
+    /// Gebühr in USDT/Fiat einer Auszahlung bzw. Umbuchung bei UK, US, CA, AU, JP nur Information (Vermerk,
     /// nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert. FR: Auszahlungsgebühr ebenso nur Information
     /// (wie in der Jahresübersicht). Wie Android.
     func testWithdrawalFeeInfoIsNotInTotals() throws {
@@ -373,7 +373,7 @@ final class TaxExportTests: XCTestCase {
         }
     }
 
-    /// Build 58: FIFO-Posten tragen ihren Einstand in Teilen mit Datum — CH: Kauf 2018 5000 USDT (Kurs 1.00) +
+    /// FIFO-Posten tragen ihren Einstand in Teilen mit Datum — CH: Kauf 2018 5000 USDT (Kurs 1.00) +
     /// Umbuchungsgebühr 2024 100 USDT (Kurs 0.85) = 5085 CHF (FIFO, FIFO je Wallet und Ø gleich); Umbuchungsgebühr auf
     /// Bestand ohne Kaufpreis als Info-Zeile «nicht zugeordnet – Einstand unbekannt» nach der Summe. Wie Android.
     func testFifoCostPartsAtOwnRates() throws {

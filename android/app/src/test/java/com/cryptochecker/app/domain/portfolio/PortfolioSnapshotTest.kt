@@ -83,7 +83,7 @@ class PortfolioSnapshotTest {
         assertEquals("+1.23%", PortfolioSnapshotMath.signedPercent(1.234, Locale.US))
         assertEquals("−0.50%", PortfolioSnapshotMath.signedPercent(-0.5, Locale.US))
         assertEquals("0.00%", PortfolioSnapshotMath.signedPercent(-0.001, Locale.US))
-        // Schreibweise der Sprache über PercentText (seit Build 96)
+        // Schreibweise der Sprache über PercentText
         assertEquals("\u22120,50\u00A0%", PortfolioSnapshotMath.signedPercent(-0.5, Locale.GERMANY))
         assertEquals("+%1,23", PortfolioSnapshotMath.signedPercent(1.234, Locale.forLanguageTag("tr-TR")))
         assertEquals("5,00\u00A0%", PortfolioSnapshotMath.unsignedPercent(-5.0, Locale.GERMANY))

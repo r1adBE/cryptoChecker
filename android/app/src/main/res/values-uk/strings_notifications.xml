@@ -69,7 +69,7 @@
     <string name="tts_direction_volume_spike">зі сплеском обсягу</string>
     <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
 
-    <!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <!-- Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
     <string name="notification_alarm_action_snooze">Через 1 год</string>
     <string name="notification_alarm_action_edit">Змінити</string>
 </resources>

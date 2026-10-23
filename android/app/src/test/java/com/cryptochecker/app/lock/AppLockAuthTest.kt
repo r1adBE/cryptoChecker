@@ -6,7 +6,7 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/** Erlaubte Verfahren der Portfolio-Sperre je API-Stufe (seit Build 103). */
+/** Erlaubte Verfahren der Portfolio-Sperre je API-Stufe. */
 class AppLockAuthTest {
 
     @Test

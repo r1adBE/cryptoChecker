@@ -89,7 +89,7 @@ class CsvImportParityTest {
     @Test
     fun dates() {
         data["dates"].list().map { it.obj() }.forEach { c ->
-            // Seit Build 104: optionale Zeitzone (Sommerzeit-Wechsel Zürich/New York)
+            // Optionale Zeitzone (Sommerzeit-Wechsel Zürich/New York)
             val zone = c["zone"] as String? ?: CsvImportParser.DEFAULT_ZONE
             assertEquals("date: $c", millis(c["expected"]), CsvImportParser.parseTime(c["text"] as String, zone))
         }
@@ -211,7 +211,7 @@ class CsvImportParityTest {
         }
     }
 
-    /** Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel (auch gegen Schlüssel bis Build 45). */
+    /** Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel (auch gegen Schlüssel älterer Versionen). */
     @Test
     fun zoneDedupe() {
         data["zoneDedupe"].list().map { it.obj() }.forEach { c ->
@@ -300,7 +300,7 @@ class CsvImportParityTest {
                 assertEquals("$m toCoin", e["toCoin"], tx.toCoin)
                 assertEquals("$m toAmount", e["toAmount"], text(tx.toAmount))
                 assertEquals("$m swapValueUsdt", e["swapValueUsdt"], text(tx.swapValueUsdt))
-                // Gebühr (Build 48; fehlt im Fixture = nicht geprüft)
+                // Gebühr (fehlt im Fixture = nicht geprüft)
                 if ("fee" in e) assertEquals("$m fee", e["fee"], text(tx.fee))
                 if ("feeUnit" in e) assertEquals("$m feeUnit", e["feeUnit"], tx.feeUnit?.name)
                 if ("feeCoin" in e) assertEquals("$m feeCoin", e["feeCoin"], tx.feeCoin)
@@ -348,7 +348,7 @@ class CsvImportParityTest {
         )
     }
 
-    /** Fiat-Liste des Imports = Währungen mit Devisenkurs (eine Quelle der Wahrheit, Build 48 doppelt). */
+    /** Fiat-Liste des Imports = Währungen mit Devisenkurs (eine Quelle der Wahrheit, früher doppelt). */
     @Test
     fun fiatListMatchesFxCurrencies() {
         assertEquals(FxRateSource.CURRENCIES.toSet(), CsvImport.FX_FIAT)
@@ -372,9 +372,9 @@ class CsvImportParityTest {
     }
 
     /**
-     * Build 93: Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
+     * Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
      * missingFx (nie still weg); Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso; Belohnung mit Fiat-Betrag
-     * bekommt Preis = Betrag / Menge, der Schlüssel bis Build 92 (ohne Preis) erkennt den früheren Import weiter.
+     * bekommt Preis = Betrag / Menge, der ältere Schlüssel (ohne Preis) erkennt den früheren Import weiter.
      */
     @Test
     fun fiatFeeReward() {

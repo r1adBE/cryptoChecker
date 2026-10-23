@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Grenzen beim Wiederherstellen der Merkliste (`Parity/backup_limits.json`, seit Build 99): unzulässige Kennungen
+/// Grenzen beim Wiederherstellen der Merkliste (`Parity/backup_limits.json`): unzulässige Kennungen
 /// lassen das Paar wegfallen, Gruppe und Notiz werden wie die Eingabe gesäubert, höchstens so viele Paare und Alarme
 /// je Paar wie festgelegt; Weggelassenes wird gezählt (Rückfrage und Erfolgsmeldung). Gegenstück: `BackupRestoreLimitsParityTest.kt`.
 final class BackupRestoreLimitsTests: XCTestCase {
@@ -29,7 +29,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
             XCTAssertEqual(BackupRestoreLimits.acceptsWatch(watch), c["kept"] as? Bool, name)
             XCTAssertEqual(watch.groupName, c["group"] as? String, name)
             XCTAssertEqual(watch.note, c["note"] as? String, name)
-            // Seit Build 103: Bestand nur endlich und > 0 (wie Android)
+            // Bestand nur endlich und > 0 (wie Android)
             if c.keys.contains("expectedHoldings") {
                 XCTAssertEqual(watch.holdings, c["expectedHoldings"] as? Double, name)
             }

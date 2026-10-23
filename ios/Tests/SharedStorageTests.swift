@@ -8,7 +8,7 @@ import XCTest
 final class SharedStorageTests: XCTestCase {
 
     private var dir: URL!
-    /// Schlüssel aus dem Test-Schlüsselbund (`ProtectedFileTests.FakeKeychain`), seit Build 105.
+    /// Schlüssel aus dem Test-Schlüsselbund (`ProtectedFileTests.FakeKeychain`).
     private var keys: StorageKey!
     private var watchlist: URL { dir.appendingPathComponent("watchlist.json") }
     private var portfolioAlarms: URL { dir.appendingPathComponent("portfolio_alarms.json") }
@@ -17,7 +17,7 @@ final class SharedStorageTests: XCTestCase {
         dir = FileManager.default.temporaryDirectory.appendingPathComponent("shared-storage-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         // Portfolio-Alarme werden nur noch versiegelt geschrieben: Schlüssel anlegen wie die App beim Start
-        // (`ProtectedStorage.prepareAtLaunch`). Seit Build 105 im Test-Schlüsselbund statt im echten — läuft so
+        // (`ProtectedStorage.prepareAtLaunch`), im Test-Schlüsselbund statt im echten — läuft so
         // auch auf dem unsignierten CI-Host (vorher XCTSkip ohne Schlüsselbund)
         let fake = ProtectedFileTests.FakeKeychain()
         keys = StorageKey(keychain: fake, readGeneration: { nil }, writeGeneration: { _ in })
@@ -35,7 +35,7 @@ final class SharedStorageTests: XCTestCase {
         try Data(json.utf8).write(to: url, options: [.atomic])
     }
 
-    /// Inhalt einer geschriebenen Datei — verschlüsselt, sobald die App einen Schlüssel hat (`ProtectedFile`, Build 59).
+    /// Inhalt einer geschriebenen Datei — verschlüsselt, sobald die App einen Schlüssel hat (`ProtectedFile`).
     private func object(_ url: URL) throws -> [String: Any] {
         let any = try JSONSerialization.jsonObject(with: ProtectedFile.read(url, keys: keys))
         return try XCTUnwrap(any as? [String: Any])

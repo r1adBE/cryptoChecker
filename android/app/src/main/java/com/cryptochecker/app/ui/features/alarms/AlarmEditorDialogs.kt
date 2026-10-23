@@ -23,7 +23,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 
 /**
  * Kleine graue Zeile unter dem Alarm-Satz: der eine Satz «Wann Alarme geprüft werden»
- * ([alarmTimingHintText]) — vollständig sichtbar, darum ohne (i), das ihn nur wiederholen würde (Build 55).
+ * ([alarmTimingHintText]) — vollständig sichtbar, darum ohne (i), das ihn nur wiederholen würde.
  * Auch im Portfolio-Alarm. Darunter der Akku-Hinweis, (K-10) der Knopf «Aktualisierung ändern»
  * direkt zur Wahl «Wie aktuell?» und der Weg zu «Damit Alarme ankommen».
  */
@@ -83,7 +83,7 @@ internal fun alarmTimingHintText(): String =
 internal fun AlarmTimingDialog(onDismiss: () -> Unit) {
     val path = com.cryptochecker.app.domain.alarm.AlarmTimingHint.settingsPath(
         stringResource(R.string.settings_title),
-        // Build 55: «Kurs-Aktualisierung» steht wieder auf der Hauptseite (Gruppe «Allgemein»)
+        // «Kurs-Aktualisierung» steht wieder auf der Hauptseite (Gruppe «Allgemein»)
         stringResource(R.string.settings_row_updates),
     )
     androidx.compose.material3.AlertDialog(

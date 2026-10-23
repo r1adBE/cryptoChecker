@@ -91,7 +91,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() { backupManager.forgetPickedBackup(); super.onCleared() }
+    override fun onCleared() { backupManager.forgetPickedBackup() }
 
     // Start mit dem zuletzt gelesenen Stand statt Werks-Defaults: sonst springen Schalter beim Öffnen kurz um
     val settings: StateFlow<AppSettings> = settingsRepository.settings
@@ -284,7 +284,7 @@ class SettingsViewModel @Inject constructor(
         scheduler.apply(settingsRepository.current())
     }
 
-    // ── «Aktualisierung»: Pünktlich prüfen, Letzte Prüfungen (Build 46) ──
+    // ── «Aktualisierung»: Pünktlich prüfen, Letzte Prüfungen ──
 
     /** «Letzte Prüfungen», neueste zuerst. */
     val checkRuns: StateFlow<List<com.cryptochecker.app.domain.refresh.CheckRun>> get() = checkRunStore.runs

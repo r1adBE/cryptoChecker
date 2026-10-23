@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">xpub はこのウォレットのすべてのアドレスを明らかにします。アドレスは端末上で導出され、%1$s には個々のアドレスだけが送られます（初回の検索で最低40件のリクエスト、その後は少なくなります）。秘密鍵（xprv）は一切受け付けません。</string>
     <string name="portfolio_address_xpub_gap">未使用のアドレスが連続 %1$d 件続くと検索を終了します（多くのウォレットが採用する BIP44 標準）。その先にある使用済みアドレスは集計されません。個別に追加してください。</string>
     <string name="portfolio_address_xpub_used">使用中のアドレス：%1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">使用済みアドレスが多すぎて更新できません</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">アドレスが非常に多いため、空になった古いアドレスへの新しい入金は検出されない場合があります</string>
     <string name="portfolio_addresses_title">アドレス</string>
 

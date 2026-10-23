@@ -12,7 +12,7 @@ internal interface MoveHistoryStorage {
 }
 
 /**
- * Kern von [MoveHistoryStore] (seit Build 102): ein Schlüssel je Paar statt aller Verläufe unter einem. Vorher las
+ * Kern von [MoveHistoryStore]: ein Schlüssel je Paar statt aller Verläufe unter einem. Vorher las
  * und schrieb jedes [append] den gesamten Inhalt aller Paare und dekodierte zusätzlich jeden fremden Verlauf — bei
  * M Paaren mit Bewegungs-Alarm O(M²) je Durchlauf, im Live-Modus alle 10 s. Jetzt liest und schreibt ein Paar nur
  * den eigenen Eintrag; fremde, abgelaufene Verläufe (gelöschte Paare, Alarm entfernt) räumt höchstens alle
@@ -67,7 +67,7 @@ internal class MoveHistoryCore(private val storage: MoveHistoryStorage) {
             last == null || now - last > MoveWindow.RETENTION_MILLIS
         }
 
-    /** Bis Build 101 standen alle Verläufe unter [LEGACY_KEY] ({"<watchId>": [[zeit, kurs], …]}): einmal aufteilen. */
+    /** Früher standen alle Verläufe unter [LEGACY_KEY] ({"<watchId>": [[zeit, kurs], …]}): einmal aufteilen. */
     private fun migrate() {
         if (migrated) return
         migrated = true

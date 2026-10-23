@@ -52,7 +52,7 @@ fun SettingsViewModel.restorePicked(uri: android.net.Uri) = update {
         _backupMessage.value = BackupMessage.failure(e)
         null
     } catch (e: OutOfMemoryError) {
-        // Sicherung bis 64 MB: lieber eine Meldung als ein Absturz (seit Build 93)
+        // Sicherung bis 64 MB: lieber eine Meldung als ein Absturz
         _backupMessage.value = BackupMessage.failure(e)
         null
     }
@@ -185,7 +185,7 @@ sealed interface BackupMessage {
     data object Exported : BackupMessage
     /**
      * [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an.
-     * [droppedPairs]/[droppedAlarms] = über den Grenzen nicht übernommen (seit Build 99).
+     * [droppedPairs]/[droppedAlarms] = über den Grenzen nicht übernommen.
      */
     data class Restored(
         val watches: Int,
@@ -225,7 +225,7 @@ sealed interface BackupMessage {
             is com.cryptochecker.app.data.BackupStorageInMemoryException -> StorageInMemory
             is com.cryptochecker.app.data.BackupJournalUnavailableException -> JournalUnavailable
             is com.cryptochecker.app.data.BackupLimits.ExportTooLargeException -> ExportTooLarge
-            // Sicherung bis 64 MB als Text und JSON im Speicher (seit Build 93 kein Absturz mehr)
+            // Sicherung bis 64 MB als Text und JSON im Speicher (Meldung statt Absturz)
             is OutOfMemoryError -> NotEnoughMemory
             else -> Failed
         }

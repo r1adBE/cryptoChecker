@@ -1,6 +1,6 @@
 import Foundation
 
-/// Seite «Damit Alarme ankommen» (Build 81): aus dem echten Zustand von System und App je Punkt eine Zeile mit
+/// Seite «Damit Alarme ankommen»: aus dem echten Zustand von System und App je Punkt eine Zeile mit
 /// ✓ / ⚠ / Hinweis und dem passenden Knopf. Reine Logik — wie `AlarmReadiness.kt`; gemeinsame Fälle in
 /// `Parity/alarm_delivery.json`. Liest nur (Einstellungen, Erlaubnisse, «Letzte Prüfungen»): an der Prüfung der
 /// Alarme selbst ändert die Seite nichts.
@@ -118,7 +118,7 @@ enum AlarmReadiness {
         var timeSensitive: Bool? = nil
         var backgroundRefresh = true
         var lowPower = false
-        // ---- Zuverlässigkeitszeile (`AlarmReliability`, seit Build 93)
+        // ---- Zuverlässigkeitszeile (`AlarmReliability`)
         /// Ende des neuesten geplanten Laufs, wenn keiner der gespeicherten gelang (alle gescheitert); sonst nil
         /// (`CheckRunLog.lastFailedBackgroundCheck`).
         var lastFailedBackgroundCheck: Int64? = nil

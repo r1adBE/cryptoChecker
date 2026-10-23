@@ -3,7 +3,6 @@ import XCTest
 
 /// Funding-/Open-Interest-Alarme an `PriceRefresher.checkAlarms`: Fehlt der benötigte Wert, heisst es «nicht geprüft»
 /// (Grund `noData`) statt stiller Lücke — wie Android `checkDerivativesAlarm` (`run.unchecked(alarm, NO_DATA)`).
-/// Seit Build 98; vorher liess iOS den Alarm still aus.
 final class RefreshEffectsDerivativesTests: XCTestCase {
     private let now: Int64 = 1_700_000_000_000
 

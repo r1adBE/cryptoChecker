@@ -16,7 +16,7 @@ enum PortfolioStore {
     /// verworfenen Einträgen, ist `intact` false — dann darf sie nicht einfach überschrieben werden.
     static func loadChecked() -> (file: PortfolioFile, intact: Bool) {
         guard FileManager.default.fileExists(atPath: url.path) else { return (PortfolioFile(), true) }
-        // Verschlüsselt (Build 59): ohne Schlüssel oder beschädigt ebenfalls «nicht intakt»
+        // Verschlüsselt: ohne Schlüssel oder beschädigt ebenfalls «nicht intakt»
         guard let data = try? ProtectedFile.read(url),
               let file = try? JSONDecoder().decode(PortfolioFile.self, from: data)
         else { return (PortfolioFile(), false) }
@@ -102,7 +102,7 @@ enum PortfolioStore {
         for file in widgetFiles {
             BackupExclusion.set(excluded: true, for: file)
         }
-        // Noch unverschlüsselt (Versiegeln beim Start gescheitert): auch eingeschaltet nicht ins Backup (seit Build 93)
+        // Noch unverschlüsselt (Versiegeln beim Start gescheitert): auch eingeschaltet nicht ins Backup
         for file in backupPolicyURLs {
             let plain = FileManager.default.fileExists(atPath: file.path) && !ProtectedStorage.isSealedFile(file)
             BackupExclusion.set(excluded: PlainBackupExclusion.policyExcluded(includeInBackup: includeInBackup, plain: plain),

@@ -6,7 +6,7 @@ import UIKit
 struct PortfolioSettingsPage: View {
     @EnvironmentObject private var data: AppData
     @State private var toast: String?
-    /// Build 46: Gerätecode eingerichtet? Ohne hebt sich die Sperre selbst auf — ehrlich darunter sagen (wie Android).
+    /// Gerätecode eingerichtet? Ohne hebt sich die Sperre selbst auf — ehrlich darunter sagen (wie Android).
     @State private var deviceSecure = AppLock.canAuthenticate()
     @Environment(\.scenePhase) private var scenePhase
 
@@ -50,7 +50,7 @@ struct PortfolioSettingsPage: View {
                     )
                     .settingsAnchor("portfolio.hide")
                 }
-                // Build 46: Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio — wie Android
+                // Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio — wie Android
                 if data.settings.portfolioEnabled {
                     RowDivider()
                     // Einstandsmethode für Einstand, «Seit Kauf», realisiert und Steuer-Export (Standard FIFO) — wie Android

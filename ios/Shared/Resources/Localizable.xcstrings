@@ -59170,197 +59170,6 @@
         }
       }
     },
-    "alarm_threshold_error_percent_down" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لا يمكن أن يتجاوز الانخفاض 100 بالمئة."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pokles může být nejvýše 100 procent."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Et fald kan højst være 100 procent."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ein Rückgang beträgt höchstens 100 Prozent."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Μια πτώση μπορεί να είναι το πολύ 100 τοις εκατό."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A drop can be at most 100 percent."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Una caída puede ser como máximo del 100 por ciento."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "کاهش حداکثر می‌تواند ۱۰۰ درصد باشد."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lasku voi olla enintään 100 prosenttia."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Une baisse ne peut pas dépasser 100 pour cent."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ירידה יכולה להיות לכל היותר 100 אחוז."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "गिरावट अधिकतम 100 प्रतिशत हो सकती है।"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Egy esés legfeljebb 100 százalék lehet."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Penurunan paling banyak 100 persen."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un calo può essere al massimo del 100 per cento."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "下落は最大 100 パーセントまでです。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "하락폭은 최대 100퍼센트입니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Et fall kan være høyst 100 prosent."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Een daling kan maximaal 100 procent zijn."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spadek może wynosić najwyżej 100 procent."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uma descida pode ser no máximo de 100 por cento."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uma queda pode ser de no máximo 100 por cento."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O scădere poate fi de cel mult 100 la sută."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Падение может составлять не более 100 процентов."
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Një rënie mund të jetë më së shumti 100 për qind."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En nedgång kan vara högst 100 procent."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "การลดลงสูงสุดได้ไม่เกิน 100 เปอร์เซ็นต์"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bir düşüş en fazla yüzde 100 olabilir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Падіння може становити щонайбільше 100 відсотків."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mức giảm tối đa là 100 phần trăm."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "跌幅最多为百分之一百。"
-          }
-        }
-      }
-    },
     "alarm_threshold_error_percent_down_below" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -100121,12 +99930,6 @@
         "he" : {
           "variations" : {
             "plural" : {
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "עוד %lld הקשות לפתיחת אפשרויות המפתחים"
-                }
-              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -141083,6 +140886,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用面容 ID 解锁你的投资组合。"
+          }
+        }
+      }
+    },
+    "ios_local_network_usage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مطلوب فقط إذا كان خادمك الخاص للعناوين موجودًا في شبكتك المنزلية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potřebné jen tehdy, když je tvůj vlastní server pro adresy v domácí síti."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kun nødvendigt, hvis din egen server til adresser står i dit hjemmenetværk."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur nötig, wenn dein eigener Server für Adressen in deinem Heimnetz steht."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρειάζεται μόνο αν ο δικός σου διακομιστής για διευθύνσεις βρίσκεται στο οικιακό σου δίκτυο."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only needed if your own server for addresses is in your home network."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo es necesario si tu propio servidor para direcciones está en tu red doméstica."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فقط وقتی لازم است که سرور شخصی‌ات برای آدرس‌ها در شبکهٔ خانگی‌ات باشد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarvitaan vain, jos oma osoitepalvelimesi on kotiverkossasi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nécessaire uniquement si ton propre serveur pour les adresses se trouve sur ton réseau domestique."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נדרש רק אם השרת הפרטי לכתובות נמצא ברשת הביתית."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "केवल तब ज़रूरी है जब पतों के लिए तुम्हारा अपना सर्वर तुम्हारे होम नेटवर्क में हो।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Csak akkor szükséges, ha a címekhez használt saját szervered az otthoni hálózatodban van."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hanya diperlukan jika server pribadimu untuk alamat ada di jaringan rumahmu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serve solo se il tuo server per gli indirizzi si trova nella tua rete domestica."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレス用の自分のサーバーが自宅のネットワーク内にある場合にのみ必要です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소용 개인 서버가 홈 네트워크에 있는 경우에만 필요합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bare nødvendig hvis din egen server for adresser står i hjemmenettverket ditt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alleen nodig als je eigen server voor adressen in je thuisnetwerk staat."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potrzebne tylko wtedy, gdy twój własny serwer adresów jest w twojej sieci domowej."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só é necessário se o teu próprio servidor de endereços estiver na tua rede doméstica."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só é necessário se o seu próprio servidor de endereços estiver na sua rede doméstica."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Necesar doar dacă serverul tău propriu pentru adrese se află în rețeaua ta de acasă."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нужно, только если твой собственный сервер для адресов находится в твоей домашней сети."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nevojitet vetëm nëse serveri yt për adresat është në rrjetin tënd të shtëpisë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behövs bara om din egen server för adresser finns i ditt hemnätverk."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จำเป็นเฉพาะเมื่อเซิร์ฟเวอร์ส่วนตัวสำหรับที่อยู่อยู่ในเครือข่ายภายในบ้าน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnızca adresler için kendi sunucun ev ağındaysa gerekir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потрібно, лише якщо твій власний сервер для адрес у твоїй домашній мережі."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉ cần khi máy chủ riêng cho địa chỉ nằm trong mạng gia đình."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅当你自己的地址服务器位于家庭网络中时才需要。"
           }
         }
       }
@@ -432390,187 +432384,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يُخفى سطر USDT عندما تكون عملة التحويل هي USD."
+            "value" : "يُخفى سطر USDT عندما تكون عملة التحويل عملة مستقرة مرتبطة بالدولار (مثل USDC)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Řádek USDT se nezobrazí, pokud je měnou přepočtu USD."
+            "value" : "Řádek USDT se nezobrazí, pokud je měnou přepočtu stablecoin vázaný na USD (např. USDC)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT-linjen vises ikke, når omregningsvalutaen er USD."
+            "value" : "USDT-linjen vises ikke, når omregningsvalutaen er en USD-stablecoin (f.eks. USDC)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die USDT-Zeile entfällt, wenn deine Währung USD ist."
+            "value" : "Die USDT-Zeile entfällt, wenn deine Währung ein USD-Stablecoin ist (z. B. USDC)."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Η γραμμή USDT δεν εμφανίζεται όταν το νόμισμα μετατροπής είναι USD."
+            "value" : "Η γραμμή USDT δεν εμφανίζεται όταν το νόμισμα μετατροπής είναι stablecoin σε USD (π.χ. USDC)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The USDT line is hidden when the conversion currency is USD."
+            "value" : "The USDT line is hidden when the conversion currency is a USD stablecoin (e.g. USDC)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La línea USDT no se muestra si la moneda de conversión es USD."
+            "value" : "La línea USDT no se muestra si la moneda de conversión es una stablecoin en USD (p. ej., USDC)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "وقتی ارز تبدیل USD باشد، خط USDT نمایش داده نمی‌شود."
+            "value" : "وقتی ارز تبدیل یک استیبل‌کوین دلاری باشد (مثلاً USDC)، خط USDT نمایش داده نمی‌شود."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT-riviä ei näytetä, kun muunnosvaluutta on USD."
+            "value" : "USDT-riviä ei näytetä, kun muunnosvaluutta on USD-vakaakolikko (esim. USDC)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La ligne USDT est masquée si la devise de conversion est l'USD."
+            "value" : "La ligne USDT est masquée si la devise de conversion est un stablecoin en USD (p. ex. USDC)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שורת USDT מוסתרת כשמטבע ההמרה הוא USD."
+            "value" : "שורת USDT מוסתרת כשמטבע ההמרה הוא מטבע יציב מבוסס USD (למשל USDC)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "रूपांतरण मुद्रा USD होने पर USDT पंक्ति नहीं दिखती।"
+            "value" : "रूपांतरण मुद्रा USD स्टेबलकॉइन (जैसे USDC) होने पर USDT पंक्ति नहीं दिखती।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az USDT-sor nem jelenik meg, ha az átváltási pénznem USD."
+            "value" : "Az USDT-sor nem jelenik meg, ha az átváltási pénznem USD-alapú stablecoin (pl. USDC)."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Baris USDT disembunyikan jika mata uang konversi adalah USD."
+            "value" : "Baris USDT disembunyikan jika mata uang konversi adalah stablecoin USD (mis. USDC)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La riga USDT non viene mostrata se la valuta di conversione è USD."
+            "value" : "La riga USDT non viene mostrata se la valuta di conversione è una stablecoin in USD (ad es. USDC)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "換算通貨が USD の場合、USDT の行は表示されません。"
+            "value" : "換算通貨が USD ステーブルコイン（例: USDC）の場合、USDT の行は表示されません。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "환산 통화가 USD이면 USDT 줄은 표시되지 않습니다."
+            "value" : "환산 통화가 USD 스테이블코인(예: USDC)이면 USDT 줄은 표시되지 않습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT-linjen vises ikke når omregningsvalutaen er USD."
+            "value" : "USDT-linjen vises ikke når omregningsvalutaen er en USD-stablecoin (f.eks. USDC)."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De USDT-regel wordt verborgen als de omrekenvaluta USD is."
+            "value" : "De USDT-regel wordt verborgen als de omrekenvaluta een USD-stablecoin is (bijv. USDC)."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wiersz USDT jest ukryty, gdy walutą przeliczenia jest USD."
+            "value" : "Wiersz USDT jest ukryty, gdy walutą przeliczenia jest stablecoin powiązany z USD (np. USDC)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A linha USDT é ocultada quando a moeda de conversão é USD."
+            "value" : "A linha USDT é ocultada quando a moeda de conversão é uma stablecoin em USD (p. ex., USDC)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A linha USDT fica oculta quando a moeda de conversão é USD."
+            "value" : "A linha USDT fica oculta quando a moeda de conversão é uma stablecoin em USD (ex.: USDC)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rândul USDT este ascuns când moneda de conversie este USD."
+            "value" : "Rândul USDT este ascuns când moneda de conversie este un stablecoin în USD (de ex. USDC)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Строка USDT скрыта, если валюта пересчёта — USD."
+            "value" : "Строка USDT скрыта, если валюта пересчёта — стейблкоин в USD (например, USDC)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rreshti USDT fshihet kur monedha e konvertimit është USD."
+            "value" : "Rreshti USDT fshihet kur monedha e konvertimit është një stablecoin në USD (p.sh. USDC)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "USDT-raden visas inte när omräkningsvalutan är USD."
+            "value" : "USDT-raden visas inte när omräkningsvalutan är en USD-stablecoin (t.ex. USDC)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "บรรทัด USDT จะถูกซ่อนเมื่อสกุลเงินที่แปลงเป็น USD"
+            "value" : "บรรทัด USDT จะถูกซ่อนเมื่อสกุลเงินที่แปลงเป็นสเตเบิลคอยน์ USD (เช่น USDC)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Çevrim para birimi USD olduğunda USDT satırı gizlenir."
+            "value" : "Çevrim para birimi bir USD sabit coini (ör. USDC) olduğunda USDT satırı gizlenir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Рядок USDT приховано, якщо валюта перерахунку — USD."
+            "value" : "Рядок USDT приховано, якщо валюта перерахунку — стейблкоїн у USD (наприклад, USDC)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dòng USDT bị ẩn khi tiền tệ quy đổi là USD."
+            "value" : "Dòng USDT bị ẩn khi tiền tệ quy đổi là stablecoin USD (ví dụ USDC)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "换算货币为 USD 时不显示 USDT 行。"
+            "value" : "换算货币为 USD 稳定币（如 USDC）时不显示 USDT 行。"
           }
         }
       }

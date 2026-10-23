@@ -6,10 +6,10 @@ import UserNotifications
 /// Je Gruppe eine Karte wie im Markt-Tab «Jetzt» (Überschrift mit Strich oben in der Karte),
 /// darin Zeilen mit Titel, aktuellem Wert in Grau und Pfeil;
 /// alles Ausführliche steht auf Unterseiten (`Settings…Pages.swift` je Gruppe, Markt-Meldungen, Sprachausgabe).
-/// Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
+/// Gruppen: Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
 /// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
 /// · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
-/// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio (Build 83) hat
+/// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
 /// genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
 /// und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. «Erweitert»
 /// (`AdvancedSettingsPage`) trägt Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler;

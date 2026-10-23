@@ -2,7 +2,7 @@ import Security
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 102: Wiederherstellen nie ohne Journal (`BackupManager.requireJournal`, wie Android `RestoreRun`) —
+/// Wiederherstellen nie ohne Journal (`BackupManager.requireJournal`, wie Android `RestoreRun`) —
 /// ohne Schlüssel im Schlüsselbund wird nichts ersetzt.
 final class RestoreJournalGateTests: XCTestCase {
     /// Schlüsselbund, der gerade nicht lesbar ist (z. B. vor dem ersten Entsperren).

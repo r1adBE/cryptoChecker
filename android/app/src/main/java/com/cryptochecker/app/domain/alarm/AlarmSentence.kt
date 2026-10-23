@@ -76,7 +76,7 @@ object AlarmSentence {
     }
 
     /**
-     * «5 %» bzw. «5%» je nach Sprache, höchstens zwei Nachkommastellen. Seit Build 96 über [PercentText] statt
+     * «5 %» bzw. «5%» je nach Sprache, höchstens zwei Nachkommastellen. Über [PercentText] statt
      * `getPercentInstance`, damit Android und iOS trotz unterschiedlicher ICU-Stände gleich schreiben — mit
      * Tausendertrennung wie dort («1,000%»; Open-Interest-Schwellen gehen bis 1000 %).
      */

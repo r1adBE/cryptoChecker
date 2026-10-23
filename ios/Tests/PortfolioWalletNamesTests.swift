@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Build 46: Vorschläge und «Meintest du …?» für Wallet-Namen — wie `PortfolioWalletNamesTest.kt` (Android).
+/// Vorschläge und «Meintest du …?» für Wallet-Namen — wie `PortfolioWalletNamesTest.kt` (Android).
 final class PortfolioWalletNamesTests: XCTestCase {
     private let used: [String] = ["Binance", "Ledger Nano", "Kraken"]
 

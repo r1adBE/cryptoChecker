@@ -1,5 +1,5 @@
 // «Speichern» mit Fehlern im Erfassen-Blatt: zum ersten ungültigen Feld rollen, Fokus setzen und den Fehler ansagen
-// (seit Build 99; Entscheid in [PortfolioTxFirstInvalid], gleich wie iOS). Eigene Datei, damit das Blatt kurz bleibt.
+// (Entscheid in [PortfolioTxFirstInvalid], gleich wie iOS). Eigene Datei, damit das Blatt kurz bleibt.
 @file:OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 
 package com.cryptochecker.app.ui.features.portfolio

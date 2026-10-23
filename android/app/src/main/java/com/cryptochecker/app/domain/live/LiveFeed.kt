@@ -91,7 +91,7 @@ object LiveBackoff {
 
     /**
      * Erst eine Verbindung, die so lange hielt und Kurse brachte, setzt die Pause zurück. Sonst
-     * verbände eine Börse, die nach dem ersten Stand trennt, jede Sekunde neu (seit Build 94).
+     * verbände eine Börse, die nach dem ersten Stand trennt, jede Sekunde neu.
      */
     const val STABLE_MILLIS = 60_000L
 
@@ -136,7 +136,7 @@ object LiveRules {
     /**
      * Zeit eines neuen Kurses: die der Börse, ausser sie fehlt oder liegt mehr als 5 Minuten in der Zukunft
      * (falsch gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Market.markFetched`): eine Zeit
-     * aus der Zukunft liesse einen stehenden Kurs lange frisch aussehen (seit Build 102).
+     * aus der Zukunft liesse einen stehenden Kurs lange frisch aussehen.
      */
     fun tickTime(reported: Long?, now: Long): Long =
         reported?.takeIf { it > 0 && it <= now + com.cryptochecker.marketdata.model.Market.EXCHANGE_TIME_FUTURE_TOLERANCE_MS } ?: now
@@ -150,7 +150,7 @@ object LiveRules {
     /** Kein Lebenszeichen der Verbindung so lange: neu verbinden. */
     const val STALE_CONNECTION_MILLIS = 60_000L
 
-    /** Grösste Nachricht des Stroms (1 MiB, wie iOS `maximumMessageSize`); grössere trennen die Verbindung (seit Build 103). */
+    /** Grösste Nachricht des Stroms (1 MiB, wie iOS `maximumMessageSize`); grössere trennen die Verbindung. */
     const val MAX_MESSAGE_BYTES = 1_048_576
 
     /** Nachricht grösser als [MAX_MESSAGE_BYTES] (UTF-8)? Jede UTF-16-Einheit zählt 1 bis 3 Byte. */

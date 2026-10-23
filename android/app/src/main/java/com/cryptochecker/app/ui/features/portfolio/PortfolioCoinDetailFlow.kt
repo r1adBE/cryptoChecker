@@ -1,4 +1,4 @@
-// Rechnungen der Coin-Ansicht und der Wallet-Hinweise (Teil von `PortfolioViewModel`), seit Build 103 abseits des
+// Rechnungen der Coin-Ansicht und der Wallet-Hinweise (Teil von `PortfolioViewModel`), abseits des
 // Hauptthreads statt in der Komposition: Ledger/FIFO, Adress-Guthaben, Umbuchungs-Treffer. Ergebnis wie vorher.
 package com.cryptochecker.app.ui.features.portfolio
 
@@ -58,16 +58,16 @@ internal fun coinDetail(
 }
 
 /**
- * Coin-Ansicht für [symbol] (normalisiert); leer, bis die Datenbank geantwortet hat. Seit Build 104: erst mit beiden
+ * Coin-Ansicht für [symbol] (normalisiert); leer, bis die Datenbank geantwortet hat. Erst mit beiden
  * Listen (alle und zählende Transaktionen — vorher kurz Bestand 0), und der Vergleich der Ergebnisse läuft vor [flowOn]
- * abseits des Hauptthreads. Seit Build 105 (PERF3-R1): Kurs-Ticks anderer Coins rechnen wirklich nicht neu — der
+ * abseits des Hauptthreads. PERF3-R1: Kurs-Ticks anderer Coins rechnen wirklich nicht neu — der
  * Tageskurs für Gebühr-/Tausch-Zeilen hängt nur an den Kursen der Coins, die die eigenen Zeilen brauchen
  * ([coinDetailFeeCoins], [CoinFeePrices]); die Kursfunktion entsteht erst in der Rechnung.
  */
 internal fun PortfolioViewModel.coinDetailFlow(symbol: String): Flow<CoinDetailUi> =
     coinDetailFlowOf(symbol, transactions, calcTransactions, watchedAddresses, prices, _closes, costMethod)
 
-/** [coinDetailFlow] aus den einzelnen Flows; [detail] = Rechnung (Tests zählen damit die Aufrufe). Seit Build 105. */
+/** [coinDetailFlow] aus den einzelnen Flows; [detail] = Rechnung (Tests zählen damit die Aufrufe). */
 internal fun coinDetailFlowOf(
     symbol: String,
     transactions: Flow<List<PortfolioTxEntity>?>,
@@ -93,7 +93,7 @@ internal fun coinDetailFlowOf(
 /**
  * Coins (normalisiert), deren Tageskurs die Zeilen von [symbol] brauchen ([PortfolioLedger.valueAtDayClose]): Zeilen, die
  * [symbol] betreffen (Coin, erhaltener Coin oder Gebühr-Coin) und einen Tagesschluss brauchen — deren Coin und beim
- * Tausch der erhaltene Coin. Seit Build 105.
+ * Tausch der erhaltene Coin.
  */
 internal fun coinDetailFeeCoins(symbol: String, calc: List<PortfolioTxEntity>): Set<String> {
     val out = sortedSetOf<String>()
@@ -131,7 +131,7 @@ internal data class CoinFeePrices(val live: Map<String, Double?>, val closes: Ma
 internal fun PortfolioViewModel.walletShortfallsFlow(): Flow<List<PortfolioWalletShortfall>> =
     combine(calcTransactions, costMethod) { calc, method ->
         PortfolioCalculator.walletShortfalls(calc.orEmpty().map { it.toTrade() }, method)
-    }.distinctUntilChanged().flowOn(Dispatchers.Default) // seit Build 104: Vergleich vor flowOn (nicht auf Main)
+    }.distinctUntilChanged().flowOn(Dispatchers.Default) // Vergleich vor flowOn (nicht auf Main)
 
 private data class Inputs(
     val all: List<PortfolioTxEntity>?,

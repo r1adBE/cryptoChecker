@@ -103,8 +103,8 @@ enum AlarmEdit {
 
     /// Eigene Alarmwährung im Editor anbieten? Nur bei Kursmarken (`priceThreshold`), wenn die Quote `quote` nicht schon
     /// die Währung `other` ist — und nur, wenn sich die Quote überhaupt umrechnen lässt: Eine Fiat-Quote ohne Devisenkurs
-    /// (NGN, ARS: `.fiatUnsupported`) oder ein ungültiges Kürzel nie, sonst wartete der Alarm für immer auf einen Kurs
-    /// (seit Build 93). `fiat` = Währungen mit Devisenkurs. Wie Android.
+    /// (NGN, ARS: `.fiatUnsupported`) oder ein ungültiges Kürzel nie, sonst wartete der Alarm für immer auf einen Kurs.
+    /// `fiat` = Währungen mit Devisenkurs. Wie Android.
     static func offersCurrency(priceThreshold: Bool, quote: String, other: String,
                                fiat: [String] = FxRateSource.currencies) -> Bool {
         let blank = quote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty

@@ -9,7 +9,7 @@ import WidgetKit
 /// eingestellten Intervall, oft später (je nach Nutzung, Akku und Netz).
 enum BackgroundRefresh {
     static let refreshId = "com.cryptochecker.app.refresh"
-    /// Eigene Aufgabe für Fear & Greed bis Build 46. iOS erlaubt nur EINE vorgemerkte Aktualisierung je App
+    /// Frühere eigene Aufgabe für Fear & Greed. iOS erlaubt nur EINE vorgemerkte Aktualisierung je App
     /// (`tooManyPendingTaskRequests`) — die Prüfung läuft darum jetzt als Schritt in `refreshId`. Bleibt in
     /// `BGTaskSchedulerPermittedIdentifiers` und registriert, damit eine alte Anfrage abgesagt (und, falls sie
     /// vorher noch startet, sauber beendet) werden kann.
@@ -21,7 +21,7 @@ enum BackgroundRefresh {
         // weniger Hintergrundzeit) und neu vormerken — diese Anfrage ist verbraucht.
         BGTaskScheduler.shared.register(forTaskWithIdentifier: refreshId, using: nil) { task in
             guard let refresh = task as? BGAppRefreshTask else {
-                // Seit Build 104: Lauf gescheitert — nur gezählt (Diagnosebericht)
+                // Lauf gescheitert — nur gezählt (Diagnosebericht)
                 BackgroundErrorCounter.record(BackgroundErrors.refresh)
                 task.setTaskCompleted(success: false)
                 scheduleRefresh(settings: SharedStorage.loadSettings(), replace: true, fromNow: true)
@@ -36,7 +36,7 @@ enum BackgroundRefresh {
         BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: legacyZoneId)
     }
 
-    // Planen und Absagen (`schedule`, `scheduleRefresh`, Bedarf): BackgroundRefresh+Planning.swift (seit Build 103).
+    // Planen und Absagen (`schedule`, `scheduleRefresh`, Bedarf): BackgroundRefresh+Planning.swift.
 
     // MARK: Fear & Greed (wie `ZoneCheckWorker`, zweimal täglich)
 
@@ -100,9 +100,9 @@ enum BackgroundRefresh {
         if !done { scheduleRefresh(settings: settings, replace: true, fromNow: true) }
     }
 
-    /// Ein Lauf der Hintergrund-Aufgabe. Seit Build 103 hinter `BackgroundRefreshTask` (Tests: Fälschung statt `BGTask`);
+    /// Ein Lauf der Hintergrund-Aufgabe. Hinter `BackgroundRefreshTask` (Tests: Fälschung statt `BGTask`);
     /// liefert den Arbeits-Task (nil = sofort beendet), damit Tests sein Ende abwarten können.
-    /// - Parameter seams: Kurse, Melde-Weg und Haken nach dem Speichern (seit Build 104; Tests: Fälschungen).
+    /// - Parameter seams: Kurse, Melde-Weg und Haken nach dem Speichern (Tests: Fälschungen).
     @discardableResult
     static func handleRefresh(_ task: any BackgroundRefreshTask,
                               seams: BackgroundRunSeams = .live) -> Task<Void, Never>? {
@@ -114,7 +114,7 @@ enum BackgroundRefresh {
         // Nächste Runde SOFORT vormerken — vor jeder Arbeit, damit auch ein abgelaufener oder abgebrochener
         // Lauf die Kette nicht abreisst (diese Anfrage ist verbraucht, also ersetzen, Intervall ab jetzt)
         scheduleRefresh(settings: SharedStorage.loadSettings(), replace: true, fromNow: true, zoneRunsNow: zoneDue)
-        // «Letzte Prüfungen» (Build 46): Alarme eben erst geprüft (z. B. App offen) → kurz und erfolgreich enden.
+        // «Letzte Prüfungen»: Alarme eben erst geprüft (z. B. App offen) → kurz und erfolgreich enden.
         // Massgebend ist die letzte Prüfung MIT allen Alarmen — das Widget prüft nur Kursalarme (`lastAlarmCheckAt`).
         if BackgroundSchedule.shouldSkip(trigger: .bgTask, lastFinishedAt: SharedStorage.lastAlarmCheckAt, now: startedAt) {
             CheckRunStore.log(.bgTask, .skipped, startedAt: startedAt)
@@ -128,7 +128,7 @@ enum BackgroundRefresh {
             // könnte einen frühen Ablauf verpassen (dann meldete niemand das Ende rechtzeitig).
             let zoneBox = TaskCancelBox()
             task.onExpiration {
-                // Seit Build 103: zuerst abbrechen und das Ende melden, danach neu vormerken (`BackgroundExpiry`)
+                // Zuerst abbrechen und das Ende melden, danach neu vormerken (`BackgroundExpiry`)
                 BackgroundExpiry(cancel: { zoneBox.cancel() }, complete: { completion.complete(success: false) },
                                  afterwards: {
                                      AppLog.background.notice("BG-Aufgabe abgelaufen (nur Fear & Greed)")
@@ -147,7 +147,7 @@ enum BackgroundRefresh {
         // Ergebnis der Kurse, sobald gespeichert — läuft danach die Zeit ab, zählt es trotzdem
         let priceBox = CheckResultBox()
         // Zeit abgelaufen: Arbeit abbrechen UND sofort das Ende melden — sonst beendet iOS die App.
-        // Der Ablauf meldet danach nicht noch einmal (`BackgroundTaskCompletion`). Seit Build 103 erst danach und abseits
+        // Der Ablauf meldet danach nicht noch einmal (`BackgroundTaskCompletion`). Erst danach und abseits
         // des Aufrufers (`BackgroundExpiry`): Eintrag in «Letzte Prüfungen» (Datei-Abstimmung) und zur Sicherheit noch
         // einmal vormerken (eine schon vorgemerkte bleibt stehen, `scheduleRefresh` ohne replace).
         // Gesetzt VOR dem Start der Arbeit: läuft die Zeit ab, bevor der Task angelegt ist, bricht die Box ihn
@@ -171,7 +171,7 @@ enum BackgroundRefresh {
         AppLog.background.info("BG-Aufgabe gestartet")
         let work = Task { @MainActor in
             let settings = SharedStorage.loadSettings()
-            // Datei-Arbeit (Abstimmung, AES, JSON) seit Build 103 abseits des Hauptfadens (`offMain`)
+            // Datei-Arbeit (Abstimmung, AES, JSON) abseits des Hauptfadens (`offMain`)
             let snapshot = await offMain { SharedStorage.loadSnapshot() }
             // Zeitbudget: iOS gibt der Aufgabe nur rund 30 s. Eine Endzeit gilt für ALLE Schritte (Kurse,
             // Tages-Bezüge, Lease, Alarm-Daten, Nebenprüfungen). Reihenfolge nach Wichtigkeit
@@ -198,14 +198,14 @@ enum BackgroundRefresh {
             let priceResult: CheckResult = (saved == nil && outcome.checked > 0)
                 ? .failed : CheckRunLog.result(checked: outcome.checked, failed: outcome.failed)
             priceBox.set(priceResult)
-            // Seit Build 104: Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
+            // Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
             if saved == nil && outcome.checked > 0 {
                 BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind)
             } else if outcome.checked > 0 && outcome.failed >= outcome.checked {
                 BackgroundErrorCounter.record(BackgroundErrors.refresh, kind: BackgroundErrors.allFailedKind)
             }
             await seams.afterPriceSave()
-            // Seit Build 104: während oder nach dem Speichern abgelaufen (Ende schon gemeldet) → nicht mehr melden; die
+            // Während oder nach dem Speichern abgelaufen (Ende schon gemeldet) → nicht mehr melden; die
             // Kurse bleiben gespeichert, die Alarme scharf (wie Android: abgebrochener Lauf meldet nicht). Einmal gelesen,
             // damit «Alarme geprüft» und Melden zusammenpassen
             let expired = Task.isCancelled
@@ -302,7 +302,7 @@ enum BackgroundRefresh {
                     await Task.detached(priority: .utility) { AlarmLogStore.record(log, live: false) }.value
                 } else if let stored = await offMain({ SharedStorage.updateSnapshot { extra.apply(to: &$0) } }) {
                     await seams.afterExtraSave()
-                    // Seit Build 105: während des Speicherns abgelaufen → nicht mehr melden, Lease frei, Alarme scharf
+                    // Während des Speicherns abgelaufen → nicht mehr melden, Lease frei, Alarme scharf
                     // (wie der Kurs-Pfad; in der Melde-Schleife prüft `deliverAlarms` je Alarm erneut)
                     if Task.isCancelled {
                         extra.releaseAlarmLease()
@@ -330,7 +330,7 @@ enum BackgroundRefresh {
                     await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat)
                 }
             }
-            // Fear & Greed und Kennzahlen (bis Build 46 eigene Aufgabe): nur wenn fällig, höchstens bis zur Endzeit
+            // Fear & Greed und Kennzahlen (früher eigene Aufgabe): nur wenn fällig, höchstens bis zur Endzeit
             if zoneDue && !Task.isCancelled {
                 await runZoneStep(settings: settings, deadline: deadline)
             }
@@ -355,7 +355,7 @@ enum BackgroundRefresh {
                 }
             }
             // Alles Geschriebene auf die Platte, bevor iOS die App wieder anhält — abgewartet, ohne den Hauptfaden zu
-            // blockieren (seit Build 103)
+            // blockieren
             await SharedStorage.snapshotWritesSettled()
             if logGate.claim() { await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt).value }
             AppLog.background.info("BG-Aufgabe beendet nach \(TimeUtils.nowMillis - startedAt, privacy: .public) ms, geprüft \(outcome.checked, privacy: .public), fehlgeschlagen \(outcome.failed, privacy: .public)")
@@ -365,7 +365,7 @@ enum BackgroundRefresh {
         return work
     }
 
-    /// Datei-Arbeit (`NSFileCoordinator`, AES, JSON) abseits des Hauptfadens und abgewartet — seit Build 103: Der Lauf
+    /// Datei-Arbeit (`NSFileCoordinator`, AES, JSON) abseits des Hauptfadens und abgewartet: Der Lauf
     /// selbst ist auf dem MainActor, und das Abstimmen kann auf Widget oder App warten (Oberfläche hinge sonst).
     private static func offMain<T: Sendable>(_ work: @escaping @Sendable () -> T) async -> T {
         await Task.detached(priority: .userInitiated) { work() }.value

@@ -14,7 +14,7 @@ enum PortfolioRecoveryDecision: Equatable, Sendable {
 }
 
 extension SharedStorage {
-    /// Merker «Portfolio wieder an» noch offen (seit Build 95) — dauerhaft wie Android der Merker im DataStore: Nur im
+    /// Merker «Portfolio wieder an» noch offen — dauerhaft wie Android der Merker im DataStore: Nur im
     /// Arbeitsspeicher ginge er verloren, sobald die (neu angelegten) Einstellungen gespeichert sind, und das Portfolio
     /// bliebe trotz Daten für immer aus.
     static var portfolioRecoveryPending: Bool {
@@ -27,7 +27,7 @@ extension SharedStorage {
 }
 
 extension AppData {
-    /// Einstellungen neu angelegt, aber Portfolio- oder Adressdatei beim Prüfen nicht lesbar (seit Build 95): «Portfolio
+    /// Einstellungen neu angelegt, aber Portfolio- oder Adressdatei beim Prüfen nicht lesbar: «Portfolio
     /// wieder an» wird nach dem Nachlesen entschieden (`recoverPortfolioIfDeferred`) — wie Android `PortfolioDataCheck`.
     /// Gespeichert (`SharedStorage.portfolioRecoveryPending`), damit es auch einen Neustart übersteht.
     var portfolioRecoveryDeferred: Bool {
@@ -36,7 +36,7 @@ extension AppData {
     }
 
     /// Einstellungen ohne gelesenen Stand (oder Merker noch offen), aber Portfolio-Daten vorhanden: bestehende
-    /// Installation, Portfolio an (`AppSettings.enablePortfolioForData`, wie Android). Seit Build 95: Portfolio- oder
+    /// Installation, Portfolio an (`AppSettings.enablePortfolioForData`, wie Android). Portfolio- oder
     /// Adressdatei gerade nicht lesbar (gesperrt, ohne Schlüssel) und nichts gefunden → nicht als «keine Daten» entscheiden,
     /// sondern nach dem Nachlesen (`recoverPortfolioIfDeferred`). Der Merker geht erst mit dem Entscheid weg.
     func portfolioRecovered(_ loaded: AppSettings, state: SharedStorage.SettingsReadState) -> AppSettings {

@@ -10,7 +10,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Speichern aus dem Editor mit dem GESPEICHERTEN Stand (seit Build 102): ein eben ausgelöster Alarm bleibt ausgelöst,
+ * Speichern aus dem Editor mit dem GESPEICHERTEN Stand: ein eben ausgelöster Alarm bleibt ausgelöst,
  * auch wenn die Oberfläche noch den scharfen Stand zeigte — sonst käme eine zweite Meldung.
  */
 class AlarmSaveBuilderTest {
@@ -72,7 +72,7 @@ class AlarmSaveBuilderTest {
         val save = vm.substringAfter("fun save(draft: AlarmDraft").substringBefore("\n    fun delete(")
         assertTrue(save.contains("saveMergedIfWatchExists("))
         assertFalse(save.contains("AlarmEdit.merged("))
-        // Seit Build 105 in WatchRepositoryAlarmSave.kt (eindeutiges Ergebnis: gespeichert, voll, abgelehnt)
+        // In WatchRepositoryAlarmSave.kt (eindeutiges Ergebnis: gespeichert, voll, abgelehnt)
         val repo = source("src/main/java/com/cryptochecker/app/data/WatchRepositoryAlarmSave.kt")
         val merged = repo.substringAfter("suspend fun WatchRepository.trySaveAlarmMerged(")
         assertTrue(merged.contains("database.withTransaction"))

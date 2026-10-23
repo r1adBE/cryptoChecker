@@ -59,18 +59,18 @@
         <item quantity="many">%1$d пар</item>
         <item quantity="other">%1$d пари</item>
     </plurals>
-    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
     <string name="backup_restore_over_limits">Понад ліміти (%3$s пар, %4$s сигналів на пару), не буде відновлено: %1$s, %2$s.</string>
     <string name="backup_restored_over_limits">Понад ліміти (%3$s пар, %4$s сигналів на пару), не відновлено: %1$s, %2$s.</string>
 
-    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
     <string name="storage_recovery_message">На цьому пристрої більше немає ключа до зашифрованих даних застосунку, тому він запустився порожнім. Нічого не видалено. Щоб повернути список і портфель, імпортуй файл резервної копії в налаштуваннях, у розділі «%1$s».</string>
     <string name="storage_recovery_title">Не вдалося розблокувати збережені дані</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
     <string name="backup_not_enough_memory">Недостатньо вільної пам’яті, щоб захистити або відкрити резервну копію паролем. Закрий інші застосунки й спробуй ще раз.</string>
 
-    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
     <string name="storage_recovery_restore_action">Відновити з копії</string>
     <string name="storage_recovery_acknowledge">Зрозуміло</string>
     <string name="storage_recovery_restored_title">Збережені дані знову розблоковано</string>
@@ -96,7 +96,7 @@
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Резервне копіювання неможливе: збережені дані зараз не вдається прочитати. Перезапусти застосунок і спробуй знову.</string>
     <string name="backup_restore_storage_in_memory">Імпорт зараз неможливий: застосунок наразі не зберігає дані (шифрування ще не активне), тож імпортоване зникне після перезапуску. Перезапусти застосунок і спробуй знову.</string>
-    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable); seit Build 102 -->
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">Імпорт зараз неможливий: не вдалося зберегти резервну копію твоїх поточних даних (ключ зараз недоступний). Нічого не змінено. Спробуй пізніше або перезапусти застосунок.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->

@@ -27,7 +27,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Seit Build 104 (Review F-07): echter Paralleltest für [EncryptingOpenHelperFactory.prepareLock] — zwei Fabriken (wie
+ * Review F-07: echter Paralleltest für [EncryptingOpenHelperFactory.prepareLock] — zwei Fabriken (wie
  * App und Systemsicherung) öffnen dieselbe unverschlüsselte Datei gleichzeitig aus zwei Threads. Erwartet: genau eine
  * Überführung und ein Schlüssel, Daten vollständig, keine Ausnahme, nichts beiseitegelegt, keine Kopie übrig. Hilfen und
  * Aufräumen wie `DatabaseEncryptionTest` (eigener Schlüsselname und Ordner, damit sich die Tests nicht stören).

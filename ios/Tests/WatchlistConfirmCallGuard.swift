@@ -1,6 +1,6 @@
 import Foundation
 
-/// Quelltext-Scan für `WatchlistConfirmCallGuardTests` (seit Build 106, Review TST4-01): Schreibwege aus `AppData` ableiten
+/// Quelltext-Scan für `WatchlistConfirmCallGuardTests` (Review TST4-01): Schreibwege aus `AppData` ableiten
 /// und je Aufruf prüfen, ob die Rückfrage F-08 davor liegt. Arbeitet auf UTF-16 (Positionen passen zu NSRegularExpression).
 @MainActor
 enum CallGuard {
@@ -191,7 +191,7 @@ enum CallGuard {
     /// Liegt `pos` hinter der Rückfrage — oder fragen alle Aufrufer des umschliessenden Hilfswegs?
     private static func confirmed(_ sources: [String: Source], _ file: String, _ pos: Int, seen: Set<String>) -> Bool {
         guard let src = sources[file], let region = src.regions.last(where: { $0.start <= pos }) else { return false }
-        // Seit Build 107: der eigene Rumpf zählt nicht als fragender Hilfsweg (sonst gälte eine Funktion, die ihre
+        // Der eigene Rumpf zählt nicht als fragender Hilfsweg (sonst gälte eine Funktion, die ihre
         // Closure-Parameter nur nach der Frage aufruft, z. B. `saveNote(_:close:cancelled:)`, auch für Schreibwege davor)
         if insideConfirm(sources, src, region.headerEnd, pos, seen: seen.union([region.name])) { return true }
         if seen.contains(region.name) || seen.count > 4 { return false }
@@ -306,7 +306,7 @@ enum CallGuard {
 }
 
 /// Kleiner Zerleger für Swift: Kommentare (auch verschachtelt) durch Leerraum ersetzen; Zeichenketten `"…"`, `"""…"""` und
-/// `#"…"#` samt Interpolation `\(…)` überspringen, damit z. B. `"/0/*"` keinen Kommentar öffnet. Seit Build 107 (REL5-R1)
+/// `#"…"#` samt Interpolation `\(…)` überspringen, damit z. B. `"/0/*"` keinen Kommentar öffnet. REL5-R1:
 /// auch erweiterte Regex-Literale `#/…/#` (beliebig viele `#`), wie `ios_release_audit.py`; nackte `/…/` bewusst nicht
 /// (nur Swift 6 bzw. mit Compiler-Schalter, ohne Parser nicht sicher von Division zu trennen).
 private struct Stripper {

@@ -9,8 +9,8 @@ import Foundation
 // Umbuchungsgebühr auf Bestand ohne Kaufpreis bzw. Menge über Bestand − Netzwerkgebühr im Pool (UK/CA ohne
 // Vorlage-Regeln, `TaxPool.addFee`): `PortfolioUnassignedFee`. Gebühr-Zeile (CSV «Fee»)
 // zum Tageskurs `priceAt` (alle Vorlagen, `PortfolioLedger.valueAtDayClose`; ebenso Verschenkt/bezahlt ohne Marktwert und
-// Tausch ohne Wert, Build 47). Damit bezahlt (`.PAYMENT`) = Veräusserung zum Marktwert wie ein Verkauf (alle Vorlagen);
-// Schenkung und Netzwerkgebühr nach den Regeln der Vorlage (`TaxEventRules`, `applyRules`, Build 56): Verschenkt nur für
+// Tausch ohne Wert). Damit bezahlt (`.PAYMENT`) = Veräusserung zum Marktwert wie ein Verkauf (alle Vorlagen);
+// Schenkung und Netzwerkgebühr nach den Regeln der Vorlage (`TaxEventRules`, `applyRules`): Verschenkt nur für
 // UK/CA/AU eine Veräusserung, an Ehe-/Lebenspartner in UK/CA ohne Gewinn/Verlust (TCGA 1992 s. 58, ITA 73(1));
 // Netzwerkgebühr in Krypto einer Umbuchung/Auszahlung bei UK/US/CA/AU/JP eine eigene Veräusserung zum Marktwert.
 // FR: Gesamtwert samt beobachteter Adressen. UK: Einzahlung mit früherem Kaufdatum «gleicher Tag»/«30 Tage» am
@@ -178,7 +178,7 @@ enum TaxEngines {
     ///    ohne: wie eine Auszahlung. Der Partner-Merker fällt dabei weg — Vorlagen ohne die Regel ignorieren ihn;
     ///  - mit `networkFeeIsDisposal`: Netzwerkgebühr in Krypto einer Umbuchung, Auszahlung oder Schenkung (Coin und dritter
     ///    Coin) wird eine eigene Veräusserung der Gebühr-Coins zum Marktwert (`networkFeeSales`);
-    ///  - mit `quoteFeeIsInfo` (Build 57): die Gebühr USDT einer Umbuchung erhöht den Einstand nicht (sie fällt weg;
+    ///  - mit `quoteFeeIsInfo`: die Gebühr USDT einer Umbuchung erhöht den Einstand nicht (sie fällt weg;
     ///    `disposals` führt sie als Zeile zur Information).
     static func applyRules(_ trades: [PortfolioTx], rules: TaxEventRules,
                            priceAt: ((String, Int64) -> Decimal?)?) -> [PortfolioTx] {

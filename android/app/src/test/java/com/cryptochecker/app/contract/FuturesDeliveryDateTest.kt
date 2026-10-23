@@ -37,7 +37,7 @@ class FuturesDeliveryDateTest {
 
     @Test
     fun `last friday of the month already passed moves to next month`() {
-        // Samstag nach dem letzten Freitag im Oktober: bis Build 91 noch der 30. Oktober
+        // Samstag nach dem letzten Freitag im Oktober: früher noch der 30. Oktober
         val now = "2026-10-31T00:00:00Z"
         assertEquals(date("2026-11-27"), delivery(MONTHLY, now))
         assertEquals(date("2026-12-25"), delivery(BIMONTHLY, now))

@@ -12,7 +12,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.math.BigDecimal
 
-/** Build 46: Herkunftsschlüssel (CSV-Import) und beobachtete Adressen in Sicherung und Systemsicherungs-Kopie. */
+/** Herkunftsschlüssel (CSV-Import) und beobachtete Adressen in Sicherung und Systemsicherungs-Kopie. */
 class PortfolioBackupWatchedTest {
 
     private val btc = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"

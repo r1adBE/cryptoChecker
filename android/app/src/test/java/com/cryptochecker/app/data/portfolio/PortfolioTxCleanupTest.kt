@@ -10,7 +10,7 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * Seit Build 102: Mengen mit mehr als 18 Nachkommastellen werden vor der Prüfung gerundet (eine Menge unter 10⁻¹⁸ ist
+ * Mengen mit mehr als 18 Nachkommastellen werden vor der Prüfung gerundet (eine Menge unter 10⁻¹⁸ ist
  * ungültig statt als 0 gespeichert), und Rechnen ([PortfolioDecimal.amount]) und Speichern ([PortfolioDecimal.text])
  * runden gleich (halbe auf gerade). Wie iOS (`PortfolioDecimalRoundingTests`).
  */

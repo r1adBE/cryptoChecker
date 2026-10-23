@@ -88,7 +88,7 @@ suspend fun PortfolioViewModel.entryFx(currency: String, date: LocalDate): Entry
 }
 
 /**
- * Speichern. Build 46: die erste Transaktion mit ausgeschaltetem Portfolio schaltet es NICHT still ein
+ * Speichern. Die erste Transaktion mit ausgeschaltetem Portfolio schaltet es NICHT still ein
  * ([PortfolioOff.askEnableOnSave]) — dann zuerst [onAskEnablePortfolio] (Rückfrage, [enablePortfolio]).
  * Gespeichert: [onSaved] (Blatt zu); Fehler beim Schreiben: [onFailed] (Blatt bleibt offen mit den
  * Eingaben) — nie still verworfen.
@@ -157,7 +157,7 @@ fun PortfolioViewModel.enablePortfolio(onEnabled: () -> Unit = {}) {
 }
 
 /**
- * Ergebnis eines Schreibwegs im Portfolio (seit Build 103, wie iOS `Bool` + `portfolioNotSaved`): geschrieben, gesperrt
+ * Ergebnis eines Schreibwegs im Portfolio (wie iOS `Bool` + `portfolioNotSaved`): geschrieben, gesperrt
  * ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock], Schlüssel nicht lesbar) oder sonst fehlgeschlagen.
  */
 enum class PortfolioWriteResult { OK, LOCKED, FAILED }
@@ -192,7 +192,7 @@ fun PortfolioViewModel.delete(id: Long, onResult: (PortfolioWriteResult) -> Unit
 
 /**
  * Wischen auf einem Coin: alle seine Transaktionen löschen; [onDeleted] erhält sie
- * für «Rückgängig» ([restore]). Nicht geschrieben: [onFailed] (seit Build 103, statt still).
+ * für «Rückgängig» ([restore]). Nicht geschrieben: [onFailed] (statt still).
  */
 fun PortfolioViewModel.deleteCoin(
     coin: String,
@@ -208,7 +208,7 @@ fun PortfolioViewModel.deleteCoin(
 
 /**
  * «Import rückgängig»: alle Transaktionen des Laufs [batch] löschen; [onDeleted] erhält sie für «Rückgängig». Nicht
- * geschrieben (gesperrt/Fehler): [onFailed] (seit Build 104, statt still — wie [deleteCoin]).
+ * geschrieben (gesperrt/Fehler): [onFailed] (statt still — wie [deleteCoin]).
  */
 fun PortfolioViewModel.undoImport(
     batch: String,
@@ -232,8 +232,8 @@ fun PortfolioViewModel.restore(transactions: List<PortfolioTxEntity>, onResult: 
 
 /**
  * «Portfolio leeren» (nach Bestätigung): alle Transaktionen löschen; [onCleared] erhält sie für «Rückgängig»
- * ([restore] legt sie mit denselben ids wieder an, die Kurse lädt der Tab danach neu) — seit Build 94 wie das
- * Löschen eines Coins. Nicht geschrieben: [onFailed] (seit Build 103).
+ * ([restore] legt sie mit denselben ids wieder an, die Kurse lädt der Tab danach neu) — wie das
+ * Löschen eines Coins. Nicht geschrieben: [onFailed].
  */
 fun PortfolioViewModel.clearAll(
     onFailed: (PortfolioWriteResult) -> Unit = {},
@@ -261,7 +261,7 @@ fun PortfolioViewModel.addAlarm(
     repeating: Boolean,
     onSaved: (PortfolioAlarmEntity, Boolean) -> Unit = { _, _ -> },
 ) {
-    // Doppeltipp: ein zweites «Speichern», solange das erste Anlegen läuft, bleibt ohne Wirkung (seit Build 99)
+    // Doppeltipp: ein zweites «Speichern», solange das erste Anlegen läuft, bleibt ohne Wirkung
     alarmCreateGuard.launch(viewModelScope, guarded = true) {
         val code = currency.value
         val id = safe { alarmRepository.add(kind, threshold, code, repeating) }

@@ -73,7 +73,7 @@ extension ExplorerViewModel {
             return
         }
         let pairs = bulkPairs
-        // Seit Build 105: EINE Rückfrage F-08 für alle Paare, vorher; «Abbrechen» = nichts angelegt, keine Meldung
+        // EINE Rückfrage F-08 für alle Paare, vorher; «Abbrechen» = nichts angelegt, keine Meldung
         data.withWatchlistConfirm { [weak self] in self?.addBulkPairsNow(market, pairs) }
     }
 

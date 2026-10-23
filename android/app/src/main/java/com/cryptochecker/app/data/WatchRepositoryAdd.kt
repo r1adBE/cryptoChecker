@@ -106,7 +106,7 @@ suspend fun WatchRepository.addWatches(
     return BulkAddResult(added = added, skipped = skipped, refused = refused)
 }
 
-/** Ausgang von [restore] (seit Build 103). */
+/** Ausgang von [restore]. */
 enum class RestoreOutcome {
     RESTORED,
     /** Paar besteht noch, wurde inzwischen neu angelegt, Id vergeben oder Merkliste gesperrt. */
@@ -118,7 +118,7 @@ enum class RestoreOutcome {
 /**
  * Gelöschtes Paar unverändert zurückholen: gleiche Id (Ids werden nie neu vergeben,
  * Room-Primärschlüssel mit AUTOINCREMENT), gleicher Platz, Gruppe, Notiz, Favorit,
- * Einstellungen und alle Alarme mit ihren Ids — in einem Vorgang. Seit Build 103 wie das Anlegen nur, solange die
+ * Einstellungen und alle Alarme mit ihren Ids — in einem Vorgang. Wie das Anlegen nur, solange die
  * Merkliste nicht voll ist ([WatchlistLimits.canAddPair]); «Rückgängig» umging sonst die Obergrenze. Wie iOS
  * `AppData.restore`.
  */

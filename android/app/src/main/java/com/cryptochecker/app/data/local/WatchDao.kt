@@ -71,7 +71,7 @@ interface WatchDao {
     ): Long?
 
     /**
-     * Vor Build 47 als PERPETUAL gespeicherte inverse Perpetuals umstellen (FuturesContractType.normalized).
+     * Von älteren Versionen als PERPETUAL gespeicherte inverse Perpetuals umstellen (FuturesContractType.normalized).
      * OR IGNORE: Gibt es dasselbe Paar schon als INVERSE_PERPETUAL, bleibt der alte Eintrag wie er ist.
      */
     @Query("UPDATE OR IGNORE watches SET contractType = :contractType WHERE id IN (:ids)")
@@ -295,7 +295,7 @@ interface WatchDao {
 
     /**
      * Wie [rearmAlarm], aber nur bei unverändertem, eingeschaltetem Alarm (Aktualisierung) — auch gleiche Alarm-Währung
-     * wie [markAlarmTriggered] (seit Build 102; sonst stellte eine Kursmarke in EUR nach dem Wechsel auf USD scharf).
+     * wie [markAlarmTriggered] (sonst stellte eine Kursmarke in EUR nach dem Wechsel auf USD scharf).
      */
     @Query(
         "UPDATE alarms SET referenceAt = 0 " +
@@ -332,7 +332,7 @@ interface WatchDao {
     suspend fun setMissingPercentReferences(watchId: Long, price: Double)
 
     /**
-     * Seit Build 104: «fällt um ≥ [maxFall] %» (Kurs, Open Interest) löst nie aus — ausschalten ([FallAlarmCleanup],
+     * «fällt um ≥ [maxFall] %» (Kurs, Open Interest) löst nie aus — ausschalten ([FallAlarmCleanup],
      * einmalig). Rückgabe: geänderte Zeilen.
      */
     @Query(

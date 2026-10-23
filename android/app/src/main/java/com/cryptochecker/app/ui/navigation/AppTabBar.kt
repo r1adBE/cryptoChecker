@@ -152,7 +152,7 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSele
                     )
                     val label = stringResource(tab.labelRes)
                     // Eigene Box je Tab trägt die gleiche Breite (weight): TooltipBox gibt einen Gewichts-Modifier nicht an die
-                    // Zeile weiter – sonst nimmt der erste Tab die ganze Breite und die übrigen werden 0 breit (Build 58)
+                    // Zeile weiter – sonst nimmt der erste Tab die ganze Breite und die übrigen werden 0 breit
                     Box(modifier = Modifier.weight(1f)) {
                         // Langes Drücken zeigt den Namen gross (Gegenstück zum Large Content Viewer in iOS)
                         TooltipBox(

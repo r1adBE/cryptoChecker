@@ -262,7 +262,7 @@
         <item quantity="other">%1$d vételár nélküli coin nélkül (%2$s) – add meg az árakat, hogy beszámítsanak.</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">USDT-összeomlás – piac %1$s USD</string>
     <string name="portfolio_usdt_via_usdc">Az USDT dolláros árfolyama USDC/USDT alapján – ha az USDC esik, ez az érték nem helyes</string>
     <string name="portfolio_amount_bridged_stable">≈ %1$s-vel együtt (áthidalt)</string>
@@ -296,7 +296,7 @@
         <item quantity="one">%d tranzakció törlődik. Közvetlenül utána visszavonhatod.</item>
         <item quantity="other">%d tranzakció törlődik. Közvetlenül utána visszavonhatod.</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">A %1$s formájában fizetett díjak más tranzakciókból is törlődnek: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

@@ -282,7 +282,9 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp">
 
+            <!-- UselessParent: gleicher Aufbau wie die übrigen Vorschauzeilen (Zeile plus Rahmen mit Abständen) -->
             <LinearLayout
+                tools:ignore="UselessParent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

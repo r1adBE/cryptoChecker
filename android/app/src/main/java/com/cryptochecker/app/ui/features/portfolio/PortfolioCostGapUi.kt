@@ -1,4 +1,4 @@
-// Einträge ohne Einstand und Einstand für Adressguthaben (Build 84): Zustand, Aktionen und kleine Bausteine (Karte im
+// Einträge ohne Einstand und Einstand für Adressguthaben: Zustand, Aktionen und kleine Bausteine (Karte im
 // Portfolio-Tab, antippbare Hinweise). Blätter in `PortfolioCostGapsSheet.kt` und `PortfolioAddressLotsSheet.kt`.
 package com.cryptochecker.app.ui.features.portfolio
 

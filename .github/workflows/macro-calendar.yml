@@ -11,7 +11,7 @@ on:
     - cron: '17 5 * * 1'   # Mondays 05:17 UTC
   workflow_dispatch:
 
-# Least privilege (since build 104 two jobs): «fetch» reads the third-party pages without any write permission and
+# Least privilege (two jobs): «fetch» reads the third-party pages without any write permission and
 # hands its result over as an artifact; «publish» (write permissions, no third-party requests) checks out github.sha
 # afresh, downloads and strictly checks the artifact (artifact_check.py), then manages the issue and commits.
 permissions: {}

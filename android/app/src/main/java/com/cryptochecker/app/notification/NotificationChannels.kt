@@ -6,6 +6,7 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 
@@ -42,7 +43,7 @@ object NotificationChannels {
     fun ensureAlarmChannel(context: Context, mode: AlarmSignal, version: Int, soundUri: String?): String {
         val id = AlarmSignal.channelId(mode, version)
         val manager = context.getSystemService<NotificationManager>() ?: return id
-        // Häufigster Fall (jeder Alarm): Kanal besteht schon — eine Abfrage statt alle Kanäle zu listen (seit Build 102).
+        // Häufigster Fall (jeder Alarm): Kanal besteht schon — eine Abfrage statt alle Kanäle zu listen.
         // Alte Versionen entstehen nur mit einem neuen Kanal, darum wird nur beim Anlegen aufgeräumt.
         if (manager.getNotificationChannel(id) != null) return id
         AlarmSignal.staleChannelIds(manager.notificationChannels.map { it.id }, mode, version)
@@ -55,7 +56,7 @@ object NotificationChannels {
             description = context.getString(R.string.channel_alarms_description)
             enableVibration(mode.vibrate)
             if (mode.sound) {
-                val sound = soundUri?.let { runCatching { android.net.Uri.parse(it) }.getOrNull() }
+                val sound = soundUri?.let { runCatching { it.toUri() }.getOrNull() }
                     ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
                 setSound(
                     sound,

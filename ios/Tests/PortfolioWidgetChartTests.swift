@@ -507,7 +507,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         let expectedTotal: Double = convertedPart + 2 + 8 + 1
         XCTAssertEqual(total, expectedTotal, accuracy: d)
         XCTAssertGreaterThan(total, PortfolioWidgetViews.rowHeight(wide: true))
-        // Breit einzeilig wie die breiten Zeilen (Build 46): niedriger als zweizeilig
+        // Breit einzeilig wie die breiten Zeilen: niedriger als zweizeilig
         XCTAssertLessThan(PortfolioWidgetViews.listTotalHeight(wide: true), total)
         // Platz für Kopf (16 + 6) und Total, aber keine Zeile: keine Zeilen, Stand nur wenn Platz
         let tight = PortfolioWidgetViews.listRowsBelowTotal(height: 22 + total + 2, header: 16, gap: 6, row: 30,

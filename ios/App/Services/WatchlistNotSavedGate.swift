@@ -1,14 +1,14 @@
 import Foundation
 
-/// Seit Build 104 (Review F-08): Merkliste wird gerade nicht gespeichert (`WatchlistStorageLock.Notice.notSaved`, kein
+/// Review F-08: Merkliste wird gerade nicht gespeichert (`WatchlistStorageLock.Notice.notSaved`, kein
 /// Schlüssel zum Versiegeln) — Änderungen gehen beim Neustart verloren. Vor der ersten Änderung des Nutzers je App-Lauf
 /// einmal fragen: «Abbrechen» ändert nichts, «Trotzdem» führt die Änderung aus und fragt in diesem Lauf nicht mehr.
-/// Seit Build 105 (Review UX3-02/05, IOS3-R04): gefragt wird EINMAL je Nutzeraktion VOR der Aktion im Bildschirm
+/// Review UX3-02/05, IOS3-R04: gefragt wird EINMAL je Nutzeraktion VOR der Aktion im Bildschirm
 /// (`AppData.confirmWatchlistWrite`, wartet per `confirm`), danach läuft der normale Weg mit Banner, Rückgängig, Ansage und
 /// Erst-Alarm. Der Schreibweg in AppData fragt nicht mehr und führt nichts erneut aus, sondern lehnt ohne Bestätigung ab
 /// (`needsConfirmation`, Sicherung). Den Dialog zeigt `WatchlistNotSavedGatePresenter` über allem (eigenes Fenster, auch
 /// über Blättern). Ohne sichtbare App nie fragen. Wie Android `WatchlistNotSavedGate` (`watchlist_not_saved_gate.json`).
-/// Seit Build 106 (Review ARC4-R02, Variante A): Fehlt die Szene beim Bestätigen nur kurz, wartet `confirm` bis zu
+/// Review ARC4-R02, Variante A: Fehlt die Szene beim Bestätigen nur kurz, wartet `confirm` bis zu
 /// `askerWaitMillis` auf sie und fragt dann. Ohne Szene durchgelassen, lehnt die Sicherung im Schreibweg danach nicht ab
 /// (`needsConfirmation`).
 /// Review F-27: Diese Zustimmung gilt nur für die eine Aktion — `run` führt sie unter `actionConsent` aus (TaskLocal, auch
@@ -27,7 +27,7 @@ final class WatchlistNotSavedGate: ObservableObject {
     /// Reine Folge einer Antwort: «Trotzdem» bestätigt für den Rest des Laufs, «Abbrechen» nicht. Wie Android.
     nonisolated static func confirmedAfter(confirmed: Bool, proceed: Bool) -> Bool { confirmed || proceed }
 
-    /// Seit Build 106 (ARC4-R02): so lange wartet `confirm` ohne sichtbare Szene auf sie (ms) — wie Android.
+    /// ARC4-R02: so lange wartet `confirm` ohne sichtbare Szene auf sie (ms) — wie Android.
     nonisolated static let askerWaitMillis: UInt64 = 2_000
 
     /// Offene Frage (Dialog zeigen).
@@ -37,7 +37,7 @@ final class WatchlistNotSavedGate: ObservableObject {
     /// einem `confirm` mit true, das gefragt werden konnte (`run` prüft `mayAsk`): also nach «Trotzdem» (dann ohnehin
     /// bestätigt) oder nach einem Durchlass ohne Szene — wie Android nur für diese Aktion.
     nonisolated static let actionConsent = TaskLocal<Bool>(wrappedValue: false)
-    /// Wartende Aktionen (seit Build 105), je mit eigener Kennung, damit ein abgebrochener Wartender sich austragen kann.
+    /// Wartende Aktionen, je mit eigener Kennung, damit ein abgebrochener Wartender sich austragen kann.
     private var waiters: [UUID: CheckedContinuation<Bool, Never>] = [:]
 
     init() {
@@ -48,7 +48,7 @@ final class WatchlistNotSavedGate: ObservableObject {
         #endif
     }
 
-    /// Sicherung im Schreibweg (seit Build 105): bräuchte er jetzt noch eine Antwort? Dann lehnt AppData ab — die Aktion
+    /// Sicherung im Schreibweg: bräuchte er jetzt noch eine Antwort? Dann lehnt AppData ab — die Aktion
     /// hat `confirm` nicht vorher aufgerufen; fragt selbst nie. Wie Android `needsConfirmation`. Nicht in einer Aktion mit
     /// Zustimmung (`actionConsent`), sonst lehnte sie nach einem Durchlass ohne Szene dieselbe Aktion still ab (ARC4-R02).
     func needsConfirmation(notSaved: Bool, canAsk: Bool) -> Bool {
@@ -61,14 +61,14 @@ final class WatchlistNotSavedGate: ObservableObject {
         Self.actionConsent.withValue(true) { action() }
     }
 
-    /// Seit Build 106: Kann eine Aktion jetzt eine Frage brauchen (nicht gespeichert, noch nicht bestätigt), egal ob sichtbar?
+    /// Kann eine Aktion jetzt eine Frage brauchen (nicht gespeichert, noch nicht bestätigt), egal ob sichtbar?
     func mayAsk(notSaved: Bool) -> Bool {
         Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: true)
     }
 
     /// Vor einer Aktion des Nutzers: true = ausführen. Fragt höchstens einmal gleichzeitig (weitere Aktionen warten auf
     /// dieselbe Antwort). Wird der Wartende abgebrochen, trägt er sich aus (false); wartet niemand mehr, verschwindet die
-    /// Frage. Wie Android `confirm`. Seit Build 106: ohne Szene erst `awaitAsker` (true = Szene jetzt da, dann fragen).
+    /// Frage. Wie Android `confirm`. Ohne Szene erst `awaitAsker` (true = Szene jetzt da, dann fragen).
     func confirm(notSaved: Bool, canAsk: Bool, awaitAsker: @MainActor () async -> Bool = { false }) async -> Bool {
         var asker = canAsk || !mayAsk(notSaved: notSaved)
         if !asker {

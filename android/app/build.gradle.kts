@@ -32,14 +32,14 @@ if (providers.gradleProperty("requireReleaseSigning").orNull == "true" && !keyst
     )
 }
 
-// Seit Build 103: Quell-Commit für «Diagnose teilen». Store-Build: -PgitCommit=<Hash aus dem public-Klon>, CI: GITHUB_SHA,
-// sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache). Seit Build 105 (REL3-R1): nur ein voller
+// Quell-Commit für «Diagnose teilen». Store-Build: -PgitCommit=<Hash aus dem public-Klon>, CI: GITHUB_SHA,
+// sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache). REL3-R1: Nur ein voller
 // Commit-Hash (40 Zeichen 0-9a-f) zählt, alles andere wird «local» (und der Guard unten bricht beim Store-Build ab).
 val gitCommitRaw: String = providers.gradleProperty("gitCommit").orElse(providers.environmentVariable("GITHUB_SHA"))
     .getOrElse("").trim()
 val gitCommit: String = gitCommitRaw.takeIf { Regex("^[0-9a-f]{40}$").matches(it) } ?: "local"
 
-// Seit Build 104: Store-Build (requireReleaseSigning=true) ohne Commit bricht ab, statt «local» in die Diagnose zu
+// Store-Build (requireReleaseSigning=true) ohne Commit bricht ab, statt «local» in die Diagnose zu
 // schreiben. Geprüft erst im fertigen Task-Graph und nur, wenn ein Release-Bundle/-APK gebaut wird (Debug-Builds,
 // Tests und CI ohne die Eigenschaft bleiben unberührt); whenReady läuft vor dem Speichern des Konfigurations-Caches.
 val requireReleaseCommit = providers.gradleProperty("requireReleaseSigning").orNull == "true" && gitCommit == "local"
@@ -67,10 +67,10 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 109
+        versionCode = 110
         versionName = "16.2.2"
 
-        // Seit Build 103: Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
+        // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
         buildConfigField("String", "GIT_COMMIT", "\"$gitCommit\"")
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
@@ -135,6 +135,19 @@ android {
     lint {
         abortOnError = true
         enable += "LogNotTimber"
+        // Versions-Updates laufen bewusst über den Workflow «Supply chain update» und OSV (dazu muss
+        // gradle/verification-metadata.xml passen), nicht über Lint-Hinweise.
+        disable += setOf("GradleDependency", "NewerVersionAvailable", "AndroidGradlePluginVersion")
+        // Der Wechsel des targetSdk ist eine bewusste, getestete Entscheidung.
+        disable += "OldTargetApi"
+        // Die englische Wörterliste schlägt in übersetzten Texten falsch an (de «seit dem», Schweizer «ss»,
+        // Fachwörter wie «gas» in pt/tr).
+        disable += "Typos"
+        // Datumsangaben (1-3-2021, 1/3/2021), Aktenzeichen (Rev. Proc. 2024-28) und Quoten (1/2) in den Steuertexten
+        // stehen bewusst so; iOS übernimmt dieselben Texte (ios/tools/convert_strings.py).
+        disable += setOf("TypographyDashes", "TypographyFractions")
+        // Ordner values-in/values-iw (alte Codes) und id/he in res/xml/locales_config.xml sind dieselben Sprachen.
+        disable += "UnusedTranslation"
     }
 
     // JVM-Unit-Tests mit fester Sprache und Zeitzone: Erwartete Datums- und Zahlentexte sollen auf jedem Rechner gleich
@@ -281,7 +294,7 @@ dependencies {
     // WatchlistViewModelTest: Zustand mit Turbine über runTest beobachten
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.turbine)
-    // Seit Build 103: Migrationen aus app/schemas prüfen (RoomSchemaMigrationTest); die Schemas legt das Room-Plugin
+    // Migrationen aus app/schemas prüfen (RoomSchemaMigrationTest); die Schemas legt das Room-Plugin
     // selbst als Assets des Test-APK bei
     androidTestImplementation(libs.androidx.room.testing)
 

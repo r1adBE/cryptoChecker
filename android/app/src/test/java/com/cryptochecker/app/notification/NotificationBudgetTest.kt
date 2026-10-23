@@ -109,7 +109,7 @@ class NotificationBudgetTest {
     }
 
     /**
-     * Seit Build 102: 48 offene Mitteilungen (47 Alarme + Zusammenfassung) — der neue Alarm verdrängt die älteste statt
+     * 48 offene Mitteilungen (47 Alarme + Zusammenfassung) — der neue Alarm verdrängt die älteste statt
      * endlos still zu scheitern.
      */
     @Test

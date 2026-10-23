@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -80,7 +81,7 @@ class AppearanceApplier @Inject constructor(
             false -> NIGHT_LIGHT
         }
         val prefs = context.getSharedPreferences(CACHE_PREFS, Context.MODE_PRIVATE)
-        if (prefs.getString(KEY_NIGHT, null) != value) prefs.edit().putString(KEY_NIGHT, value).apply()
+        if (prefs.getString(KEY_NIGHT, null) != value) prefs.edit { putString(KEY_NIGHT, value) }
     }
 
     /** Ergebnis des Start-Zwischenspeichers. */

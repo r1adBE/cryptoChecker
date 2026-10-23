@@ -83,7 +83,7 @@ class PortfolioRepository @Inject constructor(
         PortfolioCoinDeletion.apply(portfolioDao, coin)
     }
 
-    /** Legt gelöschte Transaktionen mit ihren alten ids wieder an («Rückgängig»); seit Build 103 nicht abbrechbar (Ansicht zu). */
+    /** Legt gelöschte Transaktionen mit ihren alten ids wieder an («Rückgängig»); nicht abbrechbar (Ansicht zu). */
     suspend fun restore(transactions: List<PortfolioTxEntity>) {
         if (transactions.isEmpty()) return
         kotlinx.coroutines.withContext(kotlinx.coroutines.NonCancellable) {

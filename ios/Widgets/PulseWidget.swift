@@ -28,7 +28,7 @@ struct PulseEntry: TimelineEntry {
     /// nil = keine (brauchbaren) Marktdaten → «nicht verfügbar».
     let data: PulseMarketData?
     let theme: WidgetThemeOption
-    /// Werte aus den App-Einstellungen: einmal dekodiert und übergeben (`PulseEntry.styled`, seit Build 103; vorher je
+    /// Werte aus den App-Einstellungen: einmal dekodiert und übergeben (`PulseEntry.styled`; vorher je
     /// Feld erneut).
     let accent: AccentColor
     var priceColors: PriceColorScheme
@@ -106,7 +106,7 @@ struct PulseEntry: TimelineEntry {
                       plainFearGreed: FearGreedShared.Stored(value: 72, time: now))
     }
 
-    /// Neuer Eintrag jetzt; Einstellungen und Fear & Greed je EINMAL gelesen (seit Build 103).
+    /// Neuer Eintrag jetzt; Einstellungen und Fear & Greed je EINMAL gelesen.
     static func styled(data: PulseMarketData?, theme: WidgetThemeOption, width: CGFloat,
                        fearGreed: Int? = nil, plainFearGreed: FearGreedShared.Stored? = nil,
                        settings: AppSettings = SharedStorage.loadSettings()) -> PulseEntry {

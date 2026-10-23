@@ -76,7 +76,7 @@ enum PortfolioHistorySource {
     ]
 
     private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Seit Build 103 begrenzt (`BoundedCache`, 512 Coins
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Begrenzt (`BoundedCache`, 512 Coins
     // wie `MEMORY_CACHE_ENTRIES` in PortfolioHistorySource.kt, Android) statt unbegrenzter Wörterbücher.
     /// Coin → (Schlüsse samt Spanne, Abfragezeit); leere Karte = kein Binance-Paar.
     nonisolated(unsafe) private static var memory = BoundedCache<String, (entry: PortfolioCoinCloses, at: Int64)>()

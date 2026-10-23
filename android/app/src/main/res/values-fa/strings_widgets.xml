@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">نمایش</string>
     <string name="widget_portfolio_display_conversion">فقط تبدیل</string>
     <string name="widget_portfolio_display_conversion_usdt">تبدیل + USDT</string>
-    <string name="widget_portfolio_display_hint">وقتی ارز تبدیل USD باشد، خط USDT نمایش داده نمی‌شود.</string>
+    <string name="widget_portfolio_display_hint">وقتی ارز تبدیل یک استیبل‌کوین دلاری باشد (مثلاً USDC)، خط USDT نمایش داده نمی‌شود.</string>
     <string name="widget_portfolio_display_usdt">فقط USDT</string>
     <string name="widget_portfolio_empty">خریدها را در زبانه پرتفوی ثبت کن</string>
     <string name="widget_portfolio_list_hint">برنامه را باز کن تا دارایی‌هایت اینجا نمایش داده شود.</string>

@@ -10,7 +10,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Fehlerfarben (Build 90): hell wie dunkel warmes Orange-Rot, für jede Akzentfarbe gleich.
+ * Fehlerfarben: hell wie dunkel warmes Orange-Rot, für jede Akzentfarbe gleich.
  * Gelesen aus den echten Schemata [appColorScheme], nicht aus einer Kopie der Werte.
  * Wie iOS `WarmSurfaceAndScaleContrastTests.testErrorTokens…`.
  */

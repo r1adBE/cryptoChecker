@@ -1,6 +1,6 @@
 import Foundation
 
-/// Seit Build 93: Eine Datei mit Nutzerdaten, die beim Start unverschlüsselt bleibt (`ProtectedStorage.LaunchOutcome
+/// Eine Datei mit Nutzerdaten, die beim Start unverschlüsselt bleibt (`ProtectedStorage.LaunchOutcome
 /// .keptPlain`: Versiegeln gescheitert, Schlüsselbund nicht lesbar oder kein Schlüssel möglich), kommt so lange nicht ins
 /// Geräte-Backup (iCloud, Finder, Übertragung) — wie die Momentaufnahme des Widgets. Der versiegelte Stand ist ohnehin nur
 /// auf diesem Gerät lesbar (Schlüssel «nur dieses Gerät»), der Klartext wäre es überall.
@@ -18,7 +18,7 @@ enum PlainBackupExclusion {
         remembered ?? current ?? false
     }
 
-    /// Merkmal nach dem Versiegeln beim Start: das gemerkte von vorher, sonst das aktuelle (bis Build 92 immer dieses).
+    /// Merkmal nach dem Versiegeln beim Start: das gemerkte von vorher, sonst das aktuelle (früher immer dieses).
     static func afterSealing(current: Bool, remembered: Bool?) -> Bool {
         remembered ?? current
     }

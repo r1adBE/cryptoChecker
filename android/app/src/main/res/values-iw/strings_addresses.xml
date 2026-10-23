@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">xpub חושף את כל הכתובות של הארנק הזה. הן נגזרות במכשיר שלך; אל %1$s נשלחות רק כתובות בודדות – בסריקה הראשונה לפחות 40 בקשות, אחר כך פחות. מפתחות פרטיים (xprv) לעולם לא מתקבלים.</string>
     <string name="portfolio_address_xpub_gap">החיפוש נעצר אחרי %1$d כתובות לא בשימוש ברצף (תקן BIP44 שבו משתמשים רוב הארנקים). כתובת בשימוש שנמצאת מעבר לפער הזה לא נספרת – הוסיפו אותה בנפרד.</string>
     <string name="portfolio_address_xpub_used">כתובות בשימוש: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">יותר מדי כתובות בשימוש לעדכון</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">הרבה מאוד כתובות – ייתכן שתשלומים חדשים לכתובות ישנות וריקות לא יזוהו</string>
     <string name="portfolio_addresses_title">כתובות</string>
 

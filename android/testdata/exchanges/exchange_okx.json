@@ -288,7 +288,7 @@
           "time": null
         }
       ],
-      "note": "Neither NaN nor a value beyond Long/Int64 is a time (since build 102; before: clamped to Long.MAX, iOS Int64(1e30) used to trap)"
+      "note": "Neither NaN nor a value beyond Long/Int64 is a time (formerly clamped to Long.MAX, iOS Int64(1e30) used to trap)"
     },
     {
       "kind": "live",

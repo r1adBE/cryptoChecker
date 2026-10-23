@@ -78,7 +78,7 @@ abstract class Market(
      * Why the fetch time counts: «outdated» (OutdatedRule, lastUpdate) asks whether the exchange still lists the
      * pair — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, Bithumb
      * `trade_date`/`trade_time`) is therefore not outdated within the alarm limit; a last trade older than that limit
-     * (2 h, AlarmFreshness) marks the row «outdated – last trade …» too (PriceFreshness.staleReason, build 82). If the fetch fails, lastUpdate stays and the pair ages as
+     * (2 h, AlarmFreshness) marks the row «outdated – last trade …» too (PriceFreshness.staleReason). If the fetch fails, lastUpdate stays and the pair ages as
      * usual; a delisted pair is missing from the list (NotTraded). The exchange time is only shown
      * (PriceFreshness) so that a standing price does not look fresh. Same as `Market.swift`.
      */

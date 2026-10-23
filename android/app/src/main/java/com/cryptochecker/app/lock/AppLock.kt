@@ -22,7 +22,7 @@ import javax.inject.Singleton
 /**
  * Portfolio-Sperre: Entsperren mit Biometrie ODER Geräte-Sperre (PIN, Muster, Passwort), über androidx.biometric
  * ([authenticatorsFor]).
- *  - ab API 30: setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL) — seit Build 103 nur starke
+ *  - ab API 30: setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL) — nur starke
  *    Biometrie (Klasse 3), schwache (z. B. reine Kamera-Gesichtserkennung) führt zur Geräte-Sperre
  *  - API 26–29: BIOMETRIC_WEAK mit setDeviceCredentialAllowed(true) (dort so verlangt; STRONG mit
  *    DEVICE_CREDENTIAL gibt es dort nicht)
@@ -30,7 +30,7 @@ import javax.inject.Singleton
  */
 object AppLockAuth {
 
-    /** Erlaubte Verfahren je API-Stufe (seit Build 103): ab API 30 starke Biometrie oder Geräte-Sperre. */
+    /** Erlaubte Verfahren je API-Stufe: ab API 30 starke Biometrie oder Geräte-Sperre. */
     fun authenticatorsFor(sdk: Int): Int =
         if (sdk >= Build.VERSION_CODES.R) BIOMETRIC_STRONG or DEVICE_CREDENTIAL else BIOMETRIC_WEAK or DEVICE_CREDENTIAL
 

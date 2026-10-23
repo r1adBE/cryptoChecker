@@ -36,7 +36,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "109"
+CURRENT_PROJECT_VERSION = "110"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -109,14 +109,14 @@ RESOURCE_EXTS = {".xcassets", ".xcstrings", ".strings", ".json", ".png", ".story
 # Testdaten, die die Tests neben ihrer Quelle lesen (#filePath): nicht ins Projekt, ohne Hinweis
 # (Tests/Csv, UITests/Fixtures).
 SOURCE_READ_EXTS = {".csv"}
-# Seit Build 104: Run-Script-Phase im App-Ziel (vor dem Kompilieren). Bricht ab, wenn REQUIRE_GIT_COMMIT=YES (nur im
-# Archiv-Befehl, APP_STORE.md §4.6) und GIT_COMMIT fehlt oder kein voller Hash ist (seit Build 105: 40 Zeichen 0-9a-f).
+# Run-Script-Phase im App-Ziel (vor dem Kompilieren). Bricht ab, wenn REQUIRE_GIT_COMMIT=YES (nur im
+# Archiv-Befehl, APP_STORE.md §4.6) und GIT_COMMIT fehlt oder kein voller Hash ist (40 Zeichen 0-9a-f).
 # Gleicher Text in project.yml (preBuildScripts).
 # Kein «/*» und keine Zeile mit «//» im Text (parse_openstep entfernt Kommentare).
 GIT_COMMIT_CHECK_NAME = "Check source commit"
 GIT_COMMIT_CHECK_SCRIPT = (
-    '# Since build 104: App Store archives must carry the source commit (ios/APP_STORE.md 4.6)\n'
-    '# Since build 105: only a full commit hash (40 characters 0-9a-f) counts\n'
+    '# App Store archives must carry the source commit (ios/APP_STORE.md 4.6)\n'
+    '# Only a full commit hash (40 characters 0-9a-f) counts\n'
     'if [ "${REQUIRE_GIT_COMMIT:-NO}" = "YES" ]; then\n'
     '  case "${GIT_COMMIT:-}" in\n'
     '    ""|*[!0-9a-f]*) ok=NO ;;\n'
@@ -396,11 +396,11 @@ def app_settings():
         "ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS": "YES",
         "CODE_SIGN_ENTITLEMENTS": "App/CryptoChecker.entitlements",
         "ENABLE_PREVIEWS": "YES",
-        # Seit Build 103: Quell-Commit für «Diagnose teilen» (Info.plist CCGitCommit); Store-Build überschreibt
+        # Quell-Commit für «Diagnose teilen» (Info.plist CCGitCommit); Store-Build überschreibt
         # mit `GIT_COMMIT=$(git rev-parse HEAD)`, CI mit GITHUB_SHA
         "GIT_COMMIT": "local",
         "INFOPLIST_FILE": "App/Info.plist",
-        # Seit Build 104: nur der Archiv-Befehl für den App Store setzt YES (Phase «Check source commit»)
+        # Nur der Archiv-Befehl für den App Store setzt YES (Phase «Check source commit»)
         "REQUIRE_GIT_COMMIT": "NO",
         "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
         "PRODUCT_BUNDLE_IDENTIFIER": APP_ID,
@@ -579,7 +579,7 @@ def build():
         build_phases = [src, fw, res]
         deps = []
         if tgt == APP_TARGET:
-            # Seit Build 104: Commit-Prüfung vor dem Kompilieren (läuft immer, ohne Ein-/Ausgabedateien)
+            # Commit-Prüfung vor dem Kompilieren (läuft immer, ohne Ein-/Ausgabedateien)
             check = add(Obj(uid("scriptphase", tgt, "gitcommit"), GIT_COMMIT_CHECK_NAME,
                             isa="PBXShellScriptBuildPhase", alwaysOutOfDate="1", buildActionMask="2147483647",
                             files=[], inputFileListPaths=[], inputPaths=[], name=GIT_COMMIT_CHECK_NAME,
@@ -844,7 +844,7 @@ def project_yml_differences():
         if not found:
             errors.append(f"project.yml: {key} missing (expected {expected})")
         errors += [f"project.yml: {key} {v} != {expected} (gen_xcodeproj.py)" for v in found if v != expected]
-    # Seit Build 104: XcodeGen-Fallback muss die Commit-Prüfung ebenfalls tragen
+    # XcodeGen-Fallback muss die Commit-Prüfung ebenfalls tragen
     if "REQUIRE_GIT_COMMIT" not in text or GIT_COMMIT_CHECK_NAME not in text:
         errors.append(f"project.yml: preBuildScripts «{GIT_COMMIT_CHECK_NAME}» / REQUIRE_GIT_COMMIT missing")
     return errors

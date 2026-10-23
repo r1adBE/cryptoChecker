@@ -148,7 +148,7 @@ internal class FakeRefreshNotifier(
         return shows
     }
 
-    /** Seit Build 105: nach jeder Meldung (Tests: z. B. den Lauf abbrechen). */
+    /** Nach jeder Meldung (Tests: z. B. den Lauf abbrechen). */
     var onShow: () -> Unit = {}
 
     override fun cancelAlarms(alarmIds: Collection<Long>) {

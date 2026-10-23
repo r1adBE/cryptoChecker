@@ -10,17 +10,16 @@
           privacy_url / support_url / marketing_url not https (when filled in)
           version differs: android/app/build.gradle.kts vs ios/tools/gen_xcodeproj.py vs ios/project.yml
           tag run (GITHUB_REF refs/tags/v*): tag != v<versionName>-<versionCode> of android/app/build.gradle.kts
-            (since build 105)
   warning required store text empty or missing (title / name / description), no screenshots
           android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
             versionCode / build number named there differs from android/app/build.gradle.kts
           ROADMAP.md / TESTPLAN.md (private, only if present): "Build N" in the header (first lines) differs
-            from versionCode or is missing (since build 106)
+            from versionCode or is missing
   notice  private guide missing (public repository): named as "not checked" instead of skipped silently
 
 The folder review_information (contact data for the App Review) is never read or listed.
 Usage: python3 -I release_readiness.py <repository root> <findings file>
-       python3 -I release_readiness.py --self-test   (tag check since build 105, document headers since 106)
+       python3 -I release_readiness.py --self-test   (tag check, document headers)
 """
 import os
 import re
@@ -191,7 +190,7 @@ def expected_tag_problem(ref, name, code):
 
 
 def check_tag(repo):
-    # Seit Build 105 (REL3-R1): Tag-Lauf nur mit passendem Tag
+    # REL3-R1: Tag-Lauf nur mit passendem Tag
     ref = os.environ.get("GITHUB_REF", "")
     if not ref.startswith("refs/tags/"):
         return
@@ -214,7 +213,7 @@ def self_test():
     assert expected_tag_problem("refs/heads/main", "16.2.2", "105") is None
     assert expected_tag_problem("refs/pull/7/merge", "16.2.2", "105") is None
     assert expected_tag_problem("refs/tags/other", "16.2.2", "105") is None
-    # Seit Build 106 (REL4-02): Build-Nummer im Kopf von ROADMAP/TESTPLAN
+    # REL4-02: Build-Nummer im Kopf von ROADMAP/TESTPLAN
     head = "# Liste\n\nStand: 22. Oktober 2026 · Version 16.2.2 (Build {} – steigt)\n"
     assert head_build_problem(head.format(105), "105") is None
     assert "Build 104" in head_build_problem(head.format(104), "105")
@@ -252,7 +251,7 @@ def check_store_docs(repo):
     for rel, patterns in DOC_PATTERNS.items():
         path = os.path.join(repo, *rel.split("/"))
         if not os.path.isfile(path):
-            # Seit Build 103 sichtbar statt still: im öffentlichen Repository fehlen die privaten Anleitungen
+            # Sichtbar statt still: im öffentlichen Repository fehlen die privaten Anleitungen
             add("notice", f"{rel}: not checked (private file, not in this repository)")
             continue
         wrong = []
@@ -289,7 +288,7 @@ def head_build_problem(text, code):
 
 
 def check_head_docs(repo):
-    # Seit Build 106 (REL4-02): «Build-Nummer siehe Kopf» — der Kopf muss zum versionCode passen
+    # REL4-02: «Build-Nummer siehe Kopf» — der Kopf muss zum versionCode passen
     code = first(r"^\s*versionCode\s*=\s*(\d+)", os.path.join(repo, "android", "app", "build.gradle.kts"))
     if not code:
         return

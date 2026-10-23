@@ -70,15 +70,15 @@ struct WatchActionsSheet: View {
     /// Kurzer Hinweis unten im Blatt (z. B. «Sprachausgabe ist an»).
     @State private var toast: String? = nil
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
-    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen. Seit
-    /// Build 104 ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    /// Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
     @State private var refusedToggles = 0
 
     /// Gezeigter Eintrag: der hinzugefügte (Vorschau) bzw. der übergebene.
     var currentId: Int64 { addedId ?? watchId }
 
     var body: some View {
-        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus), seit Build 104
+        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
         let _ = refusedToggles
         // Eben hinzugefügt: die Vorschau bleibt stehen, bis der neue Eintrag einen Kurs (oder
         // Fehler) hat — kein «—» dazwischen; höchstens kurz (`addHoldNanos`)
@@ -119,7 +119,7 @@ struct WatchActionsSheet: View {
     /// Merkliste, zeigt das Blatt einfach jenes.
     func addPreview() {
         guard let preview, !adding, let market = MarketsConfig.market(preview.marketKey) else { return }
-        // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Haptik
+        // Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Haptik
         data.withWatchlistConfirm {
             let firstEver = data.isFirstPairAdd
             let outcome = data.tryAddWatch(market: market, pair: preview.pairInfo)
@@ -255,7 +255,7 @@ struct WatchActionsSheet: View {
                     SwitchRow(title: L("watchlist_tts"), isOn: Binding(
                         get: { data.watch(currentId)?.ttsEnabled ?? false },
                         set: { enabled in
-                            // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen»: Schalter zeigt den Stand
+                            // Rückfrage F-08 vorher; «Abbrechen»: Schalter zeigt den Stand
                             data.withWatchlistConfirm {
                                 // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
                                 if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
@@ -270,7 +270,7 @@ struct WatchActionsSheet: View {
                         get: { data.watch(currentId)?.notificationEnabled ?? false },
                         set: { enabled in
                             data.withWatchlistConfirm {
-                                // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                                // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage
                                 if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
                                 if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
                                 if data.watchlistWritesBlocked { refusedToggles &+= 1 }

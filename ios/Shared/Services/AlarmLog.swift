@@ -102,7 +102,7 @@ struct AlarmLogState: Equatable, Sendable {
     static let empty = AlarmLogState()
 }
 
-/// Alarm-Protokoll (Build 80): beantwortet «Warum hat es nicht gepiepst?». Zwei Teile — je Kursalarm die letzte Prüfung
+/// Alarm-Protokoll: beantwortet «Warum hat es nicht gepiepst?». Zwei Teile — je Kursalarm die letzte Prüfung
 /// (bei jeder Prüfung überschrieben) und ein Ringpuffer mit höchstens `maxEvents` bemerkenswerten Prüfungen der letzten
 /// `retentionMillis` (ausgelöst bzw. zurückgehalten, obwohl fällig — nicht jedes «nicht erreicht»). Nur auf dem Gerät,
 /// nie in einem Geräte-Backup. Reine Logik — wie `AlarmLog.kt`.

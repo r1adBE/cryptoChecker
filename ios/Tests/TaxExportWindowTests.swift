@@ -3,7 +3,7 @@ import XCTest
 
 /// Gemeinsame Testfälle `tax_export.json` → `ukBbWindow` (Android: `TaxExportWindowParityTest.kt`): UK 30-Tage-Regel über
 /// das Ende des Steuerjahrs hinaus — Kurse und Tagesschlüsse bis 30 Tage nach dem 5. April, Einstand in GBP zum Kurs des
-/// Zugangsdatums, kein Vermerk «ohne Devisenkurs» (seit Build 93).
+/// Zugangsdatums, kein Vermerk «ohne Devisenkurs».
 final class TaxExportWindowTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -97,7 +97,7 @@ final class TaxExportWindowTests: XCTestCase {
             XCTAssertEqual(r.proceedsTarget, dec(e["proceedsTarget"]), "\(label) proceeds")
             XCTAssertFalse(r.fxMissing, "\(label) noFx")
         }
-        // Wie bis Build 92 (Kurse nur bis zum Ende des Steuerjahrs): Zugänge nach dem 5. April ohne Devisenkurs
+        // Wie früher (Kurse nur bis zum Ende des Steuerjahrs): Zugänge nach dem 5. April ohne Devisenkurs
         let truncated = rates(d).filter { $0.key <= period.end.epochDay }
         let old = TaxExport.gainRows(txs, method: .UK_POOL, period: period, timeZone: zone, currency: currency,
                                      rates: truncated, priceAt: priceAt(d), rules: TaxTemplate.UK.eventRules)

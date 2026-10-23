@@ -145,7 +145,7 @@ enum AlarmTemplates {
         return condition.isPriceThreshold && hasCurrency
     }
 
-    /// Öffnet der Editor gleich mit «Mehr» (Build 91: Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vorlesen)?
+    /// Öffnet der Editor gleich mit «Mehr» (Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vorlesen)?
     /// Ja, wenn der Nutzer es in dieser Sitzung schon aufgeklappt hatte (`sessionExpanded`), oder wenn der Alarm etwas
     /// darin braucht (`opensMoreConditions`, `opensAdvanced`) — sonst stünde sein Wert verborgen. Wie Android.
     static func opensMore(condition: AlarmCondition, currency: String?, sessionExpanded: Bool) -> Bool {

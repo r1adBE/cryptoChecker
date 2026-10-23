@@ -13,7 +13,7 @@ import java.math.BigDecimal
  *    Kaufdatum von [PortfolioTrade.transferFrom] nach [PortfolioTrade.transferTo]. Das BMF-Schreiben zu Kryptowerten
  *    (10.05.2022, neu gefasst 06.03.2025, Rn. 62: walletbezogene Betrachtung) lässt FIFO je Wallet zu; das
  *    universelle FIFO bleibt der Standard.
- *  - [AVERAGE]: gleitender Durchschnitt («Ø»), wie bis Build 45.
+ *  - [AVERAGE]: gleitender Durchschnitt («Ø»), wie in älteren Versionen.
  * Name wird so gespeichert (wie iOS); ältere Versionen kennen [FIFO_WALLET] nicht und nehmen dann [DEFAULT].
  */
 enum class CostMethod {
@@ -273,7 +273,7 @@ data class PortfolioLostFeeCost(val coin: String, val txId: Long, val time: Long
  * Gebühr im dritten Coin), der nach Menge auf Bestand OHNE Kaufpreis fällt. Er gehört zu dessen unbekanntem Einstand und
  * kann keinem bekannten Einstand zugeschlagen werden — statt still zu entfallen steht er hier ([CoinPosition.unassignedFeeUsdt],
  * Anzeige «Gebühr nicht zugeordnet – Einstand unbekannt»; Steuer-Export: Info-Zeile). Weder im Einstand noch realisiert.
- * Die Veräusserung einer Gebühr im dritten Coin ([PortfolioDisposal.feeLeg]) bleibt davon unberührt. Seit Build 102 auch
+ * Die Veräusserung einer Gebühr im dritten Coin ([PortfolioDisposal.feeLeg]) bleibt davon unberührt. Ebenso
  * der Anteil einer Auszahlungsgebühr, der auf nicht erfassten Bestand fällt ([PortfolioFeeExpenses.withdrawalUncovered]).
  */
 data class PortfolioUnassignedFee(val coin: String, val txId: Long, val time: Long, val usdt: BigDecimal)

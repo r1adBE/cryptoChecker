@@ -36,7 +36,7 @@ import com.cryptochecker.app.ui.theme.body
 import com.cryptochecker.app.ui.theme.label
 
 /**
- * «Einstand für Adressguthaben» (Build 84) einer beobachteten Adresse ([addressId]): je Coin, wie viel des Guthabens
+ * «Einstand für Adressguthaben» einer beobachteten Adresse ([addressId]): je Coin, wie viel des Guthabens
  * Posten mit Einstand hat (Rest «ohne Einstand»), Hinweis, wenn die Posten das Guthaben übersteigen (älteste zuerst
  * verbraucht, [AddressCostLots.cover]); Liste der Posten (antippen = bearbeiten) und «Posten hinzufügen». Die Posten
  * zählen wie Käufe in dieser Adresse ([AddressCostLots]).

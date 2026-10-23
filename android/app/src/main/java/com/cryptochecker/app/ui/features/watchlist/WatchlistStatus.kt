@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
@@ -276,6 +277,8 @@ internal const val ADD_PAIR_LABEL_MAX_PAIRS = 3
  * Text, wie iOS `addPairButton`. [labelled] = false: nur der Kreis mit «+» (neben der Lupe in der
  * Merkliste und oben rechts in der Start-Auswahl); die Beschreibung bleibt «Paar hinzufügen».
  */
+// Standard «Abstand links» gehört zum Platz neben der Lupe; andere Aufrufer übergeben ihren eigenen Modifier
+@SuppressLint("ModifierParameter")
 @Composable
 internal fun AddPairButton(
     onClick: () -> Unit,

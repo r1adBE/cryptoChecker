@@ -8,13 +8,16 @@
      widget_portfolio_as_of, der sich statisch nicht füllen lässt — daher nur die Uhrzeit.
      Nur RemoteViews-taugliche Views, keine IDs. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/widget_preview_background"
     android:padding="12dp">
 
+    <!-- UseCompoundDrawables: Logo als eigene 16-dp-ImageView wie in allen Widget-Kopfzeilen; als Compound-Drawable sähe es anders aus -->
     <LinearLayout
+        tools:ignore="UseCompoundDrawables"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -228,7 +231,9 @@
     </LinearLayout>
 
     <!-- Platzhalter: hält die Fusszeile unten -->
+    <!-- UselessLeaf: Platzhalter mit Gewicht 1 hält den Rest unten (<View> ist in RemoteViews nicht erlaubt) -->
     <FrameLayout
+        tools:ignore="UselessLeaf"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

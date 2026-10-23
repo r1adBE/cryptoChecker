@@ -48,7 +48,7 @@ class EncryptionPendingTest {
 
     @Test
     fun plaintextKeptCountsAsNotEncrypted() {
-        // Alte unverschlüsselte Merkliste ohne Schlüssel, nur gelesen (Build 91): Verschlüsselung noch nicht aktiv
+        // Alte unverschlüsselte Merkliste ohne Schlüssel, nur gelesen: Verschlüsselung noch nicht aktiv
         val kept = EncryptionPending.updated(emptySet(), "app.db", Decision.PlaintextKept)
         assertEquals(setOf("app.db"), kept)
         assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(kept, "app.db", encrypted)))

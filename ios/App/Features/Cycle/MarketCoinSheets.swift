@@ -83,7 +83,7 @@ struct CycleCoinSheets: ViewModifier {
                     data.withWatchlistConfirm {
                         var result = UndoRestoreResult()
                         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
-                        // Seit Build 103: Merkliste inzwischen voll → Hinweis (wie Android)
+                        // Merkliste inzwischen voll → Hinweis (wie Android)
                         if result.full > 0 {
                             banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full),
                                                             icon: "exclamationmark.circle", long: true)
@@ -162,7 +162,7 @@ struct CycleCoinSheets: ViewModifier {
 
     /// Wie nach links wischen in der Merkliste: sofort löschen, «Rückgängig» im Banner, Ansage.
     private func delete(_ watch: Watch) {
-        // Seit Build 105: Rückfrage F-08 vorher; nach «Trotzdem» Banner mit «Rückgängig» und Ansage, nach «Abbrechen» nichts
+        // Rückfrage F-08 vorher; nach «Trotzdem» Banner mit «Rückgängig» und Ansage, nach «Abbrechen» nichts
         data.withWatchlistConfirm {
             var result: DeletedWatch?
             withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }

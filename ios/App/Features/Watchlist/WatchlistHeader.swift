@@ -186,7 +186,7 @@ extension WatchlistScreen {
                 .tint(accent.primary)
                 .accessibilityLabel(bellLabel)
                 .largeContentLabel(bellLabel, systemImage: "bell.and.waves.left.and.right")
-                // Build 46: volle 44 pt Platz — die Tippflächen von Glocke und Menü überlappen nicht mehr
+                // Volle 44 pt Platz — die Tippflächen von Glocke und Menü überlappen nicht mehr
                 // (früher 30 pt Platz, 14 pt der Glocke lagen unter dem Menü). Wie Android
 
                 // Menü: oben Logo und App-Name («Über die App»), dann Aktualisieren, Alle Alarme, Sortieren,

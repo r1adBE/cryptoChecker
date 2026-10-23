@@ -70,7 +70,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
  * noch nicht gezeigte Karten sind gar nicht da (darunter kann nichts verschoben werden),
  * nur eine kleine Ladezeile unter der letzten. Einmal gezeigt, bleibt alles stehen.
  *
- * Aufbau von «Jetzt» (Entscheid Build 83, gleich wie iOS): oben EINE Heldenkarte — Crypto Pulse mit
+ * Aufbau von «Jetzt» (gleich wie iOS): oben EINE Heldenkarte — Crypto Pulse mit
  * «Kurz gesagt» als Körper ([CryptoPulseCard], [rememberPlainSummary]); darüber nur die Status-Pille.
  * Darunter ruhig und kompakt Fear & Greed ([FearGreedRow], compact) und «Gewinner und Verlierer 24 h»
  * ([MarketMoversCard], je drei, «Alle zeigen»). Dann «Mehr Marktdaten» ([MarketMoreToggle], Standard zu,

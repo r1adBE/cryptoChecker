@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
+import androidx.core.net.toUri
 import timber.log.Timber
 
 /**
@@ -94,7 +95,7 @@ object AlarmSoundStore {
     fun isOwnTone(uri: String?, relativePath: String?): Boolean = isMediaStoreAudio(uri) && isOwnRelativePath(relativePath)
 
     /**
-     * Seit Build 99: Ein neu gewählter Ton ersetzt den vorigen eigenen — der alte würde sonst bei jedem Wechsel in
+     * Ein neu gewählter Ton ersetzt den vorigen eigenen — der alte würde sonst bei jedem Wechsel in
      * der Mediathek liegen bleiben. Nur löschen, wenn sich der Ton wirklich ändert.
      */
     fun shouldDeletePrevious(previous: String?, next: String?, previousRelativePath: String?): Boolean =
@@ -117,7 +118,7 @@ object AlarmSoundStore {
     fun deletePreviousIfOwn(context: Context, previous: String?, next: String?) {
         if (previous == null || sameTone(previous, next) || !isMediaStoreAudio(previous)) return
         val resolver = context.contentResolver
-        val uri = Uri.parse(previous)
+        val uri = previous.toUri()
         try {
             val path = resolver.query(uri, arrayOf(MediaStore.Audio.Media.RELATIVE_PATH), null, null, null)?.use { c ->
                 if (c.moveToFirst()) c.getString(0) else null

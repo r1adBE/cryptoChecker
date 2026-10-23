@@ -5,7 +5,7 @@ import java.io.File
 /**
  * Datei des geteilten Diagnoseberichts im Cache (`cache/diagnostics/`, freigegeben in `res/xml/diagnostics_paths.xml`).
  * Sie liegt unverschlüsselt da und darf nicht bleiben: weg bei jedem App-Start und wenn die Vorschau ohne Teilen
- * schliesst. Nicht gleich nach «Teilen» — die gewählte App liest sie dann noch über den FileProvider. Seit Build 98;
+ * schliesst. Nicht gleich nach «Teilen» — die gewählte App liest sie dann noch über den FileProvider.
  * iOS schreibt die Datei erst beim Teilen und löscht sie beim Verlassen der Vorschau (`DiagnosticsShareFile`).
  */
 object DiagnosticsFiles {

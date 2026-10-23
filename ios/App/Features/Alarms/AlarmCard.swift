@@ -39,7 +39,7 @@ struct AlarmCard: View {
                     }
                 }
 
-            // Beschriftung nur für VoiceOver: welcher Alarm geschaltet wird. Seit Build 105 (FUN3-02): «Schwelle ungültig»
+            // Beschriftung nur für VoiceOver: welcher Alarm geschaltet wird. FUN3-02: «Schwelle ungültig»
             // lässt sich nicht einschalten (erst im Editor anpassen), wie Android
             SwitchRow(isOn: Binding(get: { alarm.enabled }, set: { onToggle($0) }),
                       enabled: BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: !alarm.enabled),
@@ -124,7 +124,7 @@ struct AlarmCard: View {
         .fixedSize(horizontal: false, vertical: true)
     }
 
-    /// Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet.
+    /// «fällt um ≥ 100 %» löst nie aus — vor allen anderen Gründen, auch ausgeschaltet.
     private var invalidThreshold: Bool { BackupManager.exceedsFall(alarm.condition, alarm.threshold) }
 
     /// Text und Symbol der Statuszeile; sonst nur bei eingeschalteten Alarmen (das stellt `AlarmCardStatus` sicher).

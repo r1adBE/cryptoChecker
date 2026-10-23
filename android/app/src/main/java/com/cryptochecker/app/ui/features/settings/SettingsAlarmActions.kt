@@ -14,24 +14,24 @@ import com.cryptochecker.app.notification.alarmChannel
 
 /**
  * Kursmitteilung eines Paars an/aus — wie der Schalter im Aktionsblatt (`WatchlistViewModel.setNotificationEnabled`).
- * Seit Build 106 (UX4-R3): [onDone] nach dem Schreiben, true = geschrieben (erst dann die Erlaubnis fragen).
+ * UX4-R3: [onDone] nach dem Schreiben, true = geschrieben (erst dann die Erlaubnis fragen).
  */
 fun SettingsViewModel.setPairNotification(watchId: Long, enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
-    // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts
+    // Rückfrage F-08 vorher; «Abbrechen» = nichts
     viewModelScope.launch { onDone(watchRepository.confirmUserWrite() && applyPairNotification(watchId, enabled)) }
 }
 
 /** «Alle an» / «Alle aus» für alle Paare der Merkliste; [onDone] wie bei [setPairNotification] (mindestens eins geschrieben). */
 fun SettingsViewModel.setAllPairNotifications(enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
     viewModelScope.launch {
-        // Seit Build 105: EINE Rückfrage F-08 für alle Paare (nicht je Paar); «Abbrechen» = nichts
+        // EINE Rückfrage F-08 für alle Paare (nicht je Paar); «Abbrechen» = nichts
         if (!watchRepository.confirmUserWrite()) return@launch onDone(false)
         onDone(watchRepository.getWatches().filter { it.notificationEnabled != enabled }
             .count { applyPairNotification(it.id, enabled) } > 0)
     }
 }
 
-/** true = geschrieben (seit Build 106), false = abgelehnt. */
+/** true = geschrieben, false = abgelehnt. */
 internal suspend fun SettingsViewModel.applyPairNotification(watchId: Long, enabled: Boolean): Boolean {
     // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
     if (!watchRepository.setNotificationEnabled(watchId, enabled)) return false
@@ -75,7 +75,7 @@ fun SettingsViewModel.importAlarmSound(source: android.net.Uri) = update {
 }
 
 /**
- * Vorigen eigenen Ton aus der Mediathek löschen, sobald ein anderer gilt (seit Build 99; sonst sammeln sich die
+ * Vorigen eigenen Ton aus der Mediathek löschen, sobald ein anderer gilt (sonst sammeln sich die
  * Kopien in «Notifications/CryptoChecker»). Erst nach dem Umstellen: der Kanal zeigt dann schon auf den neuen Ton.
  */
 private suspend fun SettingsViewModel.deletePreviousOwnTone(previous: String?, next: String?) {

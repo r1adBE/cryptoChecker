@@ -76,7 +76,7 @@ data class CsvImportPreview(
      * [CsvImportPriced.usdtApproximate]) — die Vorschau nennt sie wie [missingFx].
      */
     val usdtApproximate: List<Int> = emptyList(),
-    /** Datei über den Grenzen des Zerlegens ([CsvImportResult.tooLarge]): keine Zeilen, Meldung «zu gross». Seit Build 99. */
+    /** Datei über den Grenzen des Zerlegens ([CsvImportResult.tooLarge]): keine Zeilen, Meldung «zu gross». */
     val tooLarge: Boolean = false,
 )
 
@@ -177,7 +177,7 @@ object CsvImportMapping {
             toCoin = row.toCoin?.let { PortfolioCalculator.normalizeCoin(it) }.takeIf { row.kind == CsvImportKind.SWAP },
             toAmount = row.toAmount.takeIf { row.kind == CsvImportKind.SWAP },
             swapValueUsdt = p.swapValueUsdt?.takeIf { row.kind == CsvImportKind.SWAP && it.signum() >= 0 },
-            // Eigene Merker (Build 76): Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
+            // Eigene Merker: Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
             feeRow = row.kind == CsvImportKind.FEE,
             interest = row.kind == CsvImportKind.REWARD && TaxEngines.interestReward(row.rawKind),
         )

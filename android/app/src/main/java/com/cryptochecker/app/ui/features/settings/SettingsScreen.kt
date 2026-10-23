@@ -61,10 +61,10 @@ import kotlinx.coroutines.withContext
  * Pfeil. Alles Ausführliche steht auf Unterseiten
  * ([SettingsPageScreen], Markt-Meldungen, Sprachausgabe). Schlüssel und Verhalten unverändert.
  *
- * Gruppen (Build 55): Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
+ * Gruppen: Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
  * · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
  * · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
- * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio (Build 83) hat
+ * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
  * genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
  * und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. «Erweitert»
  * ([AdvancedPage]) trägt Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler;
@@ -98,7 +98,7 @@ fun SettingsScreen(
                     askReset = false
                     resetScope.launch {
                         // Eigene Alarmtöne liegen in der Mediathek, nicht im App-Speicher: «Speicher leeren» liesse
-                        // sie liegen (seit Build 99 vorher gelöscht, abseits des Hauptthreads)
+                        // sie liegen (darum vorher gelöscht, abseits des Hauptthreads)
                         if (AlarmSoundStore.supportsCustomFile) {
                             withContext(Dispatchers.IO) { AlarmSoundStore.deleteAllOwn(resetContext) }
                         }

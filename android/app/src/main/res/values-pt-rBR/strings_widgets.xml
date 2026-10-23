@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Exibição</string>
     <string name="widget_portfolio_display_conversion">Só conversão</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversão + USDT</string>
-    <string name="widget_portfolio_display_hint">A linha USDT fica oculta quando a moeda de conversão é USD.</string>
+    <string name="widget_portfolio_display_hint">A linha USDT fica oculta quando a moeda de conversão é uma stablecoin em USD (ex.: USDC).</string>
     <string name="widget_portfolio_display_usdt">Só USDT</string>
     <string name="widget_portfolio_empty">Adicione compras na aba Portfólio</string>
     <string name="widget_portfolio_list_hint">Abra o app para mostrar suas posições aqui.</string>

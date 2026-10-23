@@ -2,10 +2,10 @@ package com.cryptochecker.app.util
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
 import timber.log.Timber
 
 /**
@@ -32,7 +32,7 @@ object BatteryOptimization {
      */
     fun openSettings(context: Context) {
         val appDetails = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            data = Uri.parse("package:${context.packageName}")
+            data = "package:${context.packageName}".toUri()
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 

@@ -6,7 +6,7 @@ import java.util.Locale
 /**
  * Monat und Jahr («Apr. 2028», «2028年4月», «أبريل ٢٠٢٨») in der Reihenfolge und Schreibweise der Sprache — wie iOS
  * `setLocalizedDateFormatFromTemplate("MMMyyyy")`. Ein festes «MMM yyyy» stellte etwa Japanisch falsch dar
- * («4月 2028»). Ziffern nach der Regel der App ([LocaleNumbers.dates]). Seit Build 98.
+ * («4月 2028»). Ziffern nach der Regel der App ([LocaleNumbers.dates]).
  */
 object MonthYearFormat {
     /** Vorlage (Skeleton) wie auf iOS. */

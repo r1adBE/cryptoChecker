@@ -31,7 +31,7 @@ class WidgetContrastTest {
     }
 
     /**
-     * Build 83: Mit hohem Kontrast heben die Widgets den Akzent wie die App (7:1 zur dunkelsten Kartenfläche);
+     * Mit hohem Kontrast heben die Widgets den Akzent wie die App (7:1 zur dunkelsten Kartenfläche);
      * Kurs-Etikett (onAccent auf Akzent) und Widget-Grund bleiben mindestens AA, ohne hohen Kontrast unverändert.
      * Wie `testHighContrastAccentAsAndroidAndUsedByWidgets` (iOS, AccentContrastTests).
      */

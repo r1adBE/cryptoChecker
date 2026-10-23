@@ -37,7 +37,7 @@ import com.cryptochecker.app.util.PriceFormat
 /*
  * Runde 35 (M1): Die frühere «Marktphase» (Zonen, Hoch-/Tief-Punkte, Skala, Phasen nach dem
  * Halving) ist weg. Übrig bleiben reine Messwerte: je Kennzahl der Wert, ein Satz, was sie misst,
- * und (Build 55) eine Zeile «hoch heisst …, tief heisst …» — in normaler Textfarbe, ohne Schwellen,
+ * und eine Zeile «hoch heisst …, tief heisst …» — in normaler Textfarbe, ohne Schwellen,
  * Punkte oder Signal. Wie iOS `MarketPhaseCard`.
  */
 
@@ -221,7 +221,7 @@ private fun indicatorExplain(id: IndicatorId): Int = when (id) {
 }
 
 /**
- * Build 55: «hoch heisst …, tief heisst …» je Kennzahl — was ein hoher und ein tiefer Wert
+ * «hoch heisst …, tief heisst …» je Kennzahl — was ein hoher und ein tiefer Wert
  * beschreibt, ohne Kauf- oder Verkaufssignal. Wie `IndicatorText.reading` (iOS).
  */
 private fun indicatorReading(id: IndicatorId): Int = when (id) {

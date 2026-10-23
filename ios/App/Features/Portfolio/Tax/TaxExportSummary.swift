@@ -25,7 +25,7 @@ extension TaxExport {
         let feeApart = template.withdrawalFeeApart || template == .FR || template.quoteFeeIsInfo
         let withdrawalFees = feeApart ? allRows.filter { $0.feeExpense == .WITHDRAWAL } : []
         let sales = feeApart ? allRows.filter { $0.feeExpense != .WITHDRAWAL } : allRows
-        // Umbuchungsgebühren nur zur Information (`.TRANSFER`, Build 57): eigener Posten — wie Android
+        // Umbuchungsgebühren nur zur Information (`.TRANSFER`): eigener Posten — wie Android
         let transferFees = sales.filter { $0.feeExpense == .TRANSFER }
         let rows = sales.filter { $0.feeExpense != .TRANSFER }
         // AT: Zinsen eigener Posten (beim Zufluss Einkunft), übrige Belohnungen bleiben «Einkünfte»

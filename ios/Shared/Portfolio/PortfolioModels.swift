@@ -11,11 +11,11 @@ import Foundation
 ///  - `SWAP`: Tausch Coin gegen Coin in EINER Transaktion (`toCoin`/`toAmountExact`, Wert `swapValueExact`) —
 ///    Veräusserung von `coin` und Zugang von `toCoin` (Regeln in `PortfolioLedger`/`PortfolioFifo`). Weder Zu- noch
 ///    Abgang im Sinne von `isInflow`/`isOutflow`.
-///  - `GIFT`: «Verschenkt» (Build 47) — beim Schenkenden meist KEINE Veräusserung: Karte, Verlauf und Einstandsmethoden wie
+///  - `GIFT`: «Verschenkt» — beim Schenkenden meist KEINE Veräusserung: Karte, Verlauf und Einstandsmethoden wie
 ///    eine Auszahlung; nur wo die Schenkung beim Schenkenden eine Veräusserung zum Marktwert ist (UK, CA, AU,
 ///    `TaxTemplate.giftIsDisposal`) im Steuer-Export wie `PAYMENT` (`TaxEngines.applyRules`, Vermerk «Schenkung»); an
 ///    Ehe-/Lebenspartner (`PortfolioTx.isGiftToSpouse`) in UK/CA ohne Gewinn und Verlust.
-///  - `PAYMENT`: «Damit bezahlt» (Build 47) — Tausch gegen Waren/Dienstleistungen: überall eine Veräusserung zum MARKTWERT wie
+///  - `PAYMENT`: «Damit bezahlt» — Tausch gegen Waren/Dienstleistungen: überall eine Veräusserung zum MARKTWERT wie
 ///    ein Verkauf (`isSaleLike`), Steuer-Export «Zahlung mit Krypto»; ohne Preis zum Tagesschluss geschätzt. Wie Android.
 /// Ältere Versionen kennen nur `BUY`/`SELL` bzw. kein `SWAP`/`GIFT`/`PAYMENT`: Sie verwerfen unbekannte Arten beim Lesen (gezählt,
 /// kein Absturz). Rohwert als Text: ein neuer Fall liest alte Dateien unverändert.
@@ -102,7 +102,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// Kennung des CSV-Importlaufs (`PortfolioImportBatch`); nil = von Hand erfasst. Wie `PortfolioTxEntity.importBatch`.
     var importBatch: String? = nil
     /// Schenkung (`.GIFT`) an Ehe-/Lebenspartner — UK/CA ohne Gewinn und Verlust (`TaxTemplate.spouseGiftNeutral`); bei
-    /// anderen Arten ohne Wirkung (`isGiftToSpouse`). Wie `PortfolioTxEntity.giftToSpouse` (Build 58).
+    /// anderen Arten ohne Wirkung (`isGiftToSpouse`). Wie `PortfolioTxEntity.giftToSpouse`.
     var giftToSpouse = false
     /// Verknüpfte Umbuchung (`CsvTransferMatch`): Herkunft der Einzahlung (`importKey` = die der Auszahlung) — erkennt beim
     /// nächsten Import auch diese Zeile als doppelt; sonst nil. Wie `PortfolioTxEntity.linkedImportKey`.
@@ -111,11 +111,11 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// (`CsvRestoreState`) für «Import rückgängig»; sonst nil. Wie `PortfolioTxEntity.importRestoreState`.
     var importRestoreState: CsvRestoreState? = nil
     /// Gebühr-Zeile (CSV «Fee»): eine Veräusserung zum Tageskurs (`PortfolioLedger.isFeeDisposal`), gespeichert als Verkauf.
-    /// Eigenes Feld seit Build 76 — bis dahin aus «Verkauf zum Preis 0 mit Import-Herkunft» geschlossen
+    /// Eigenes Feld — früher aus «Verkauf zum Preis 0 mit Import-Herkunft» geschlossen
     /// (`LegacyStorageMigration.legacyFeeRow`). Nur bei `.SELL`. Wie `PortfolioTxEntity.feeRow`.
     var feeRow = false
-    /// Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. Eigenes Feld seit Build 76
-    /// (CSV-Import setzt es, im Erfassen-Blatt umschaltbar) — bis dahin aus der Notiz geschlossen
+    /// Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. Eigenes Feld
+    /// (CSV-Import setzt es, im Erfassen-Blatt umschaltbar) — früher aus der Notiz geschlossen
     /// (`LegacyStorageMigration.legacyInterest`). Nur bei `.REWARD`. Wie `PortfolioTxEntity.interest`.
     var interest = false
     /// Wert nur geschätzt (Tagesschluss, `PortfolioLedger.valueAtDayClose`): Verschenkt/bezahlt ohne Marktwert bzw. Tausch
@@ -192,12 +192,12 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// (`amountText`: «0.00000001») — wie die Sicherung der Android-Fassung.
     private enum CodingKeys: String, CodingKey {
         case id, coin, type, amount, amountText, priceUsdt, priceText, time, note, fee, feeText, feeUnit, exchange
-        // Seit Build 46 (wie Android `PortfolioJson`); fehlen = keine Angabe
+        // Optionale Felder (wie Android `PortfolioJson`); fehlen = keine Angabe
         case transferFrom, transferTo, feeCoin, feeCoinAmountText, feeCoinPriceText, importKey, acquiredTime
         case toCoin, toAmountText, swapValueText, importBatch
-        // Seit Build 58 (eigene Felder statt der alten Formen in «transferTo»/«importKey», `LegacyStorageMigration`)
+        // Eigene Felder statt der alten Formen in «transferTo»/«importKey» (`LegacyStorageMigration`)
         case giftToSpouse, linkedImportKey, importRestoreState
-        // Seit Build 76 (eigene Merker statt Schluss aus Preis/Herkunft bzw. Notiz)
+        // Eigene Merker statt Schluss aus Preis/Herkunft bzw. Notiz
         case feeRow, interest
     }
 
@@ -243,7 +243,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         feeCoinAmountExact = third?.amount
         let feePriceText = (try? c.decodeIfPresent(String.self, forKey: .feeCoinPriceText)) ?? nil
         feeCoinPriceExact = third == nil ? nil : feePriceText.flatMap { PortfolioDecimal.parse($0) }.flatMap { $0 >= 0 ? $0 : nil }
-        // Dateien bis Build 57 tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen); das
+        // Alte Dateien tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen); das
         // nächste Speichern schreibt nur noch die Felder
         let stored = LegacyStorageMigration.convert(type, LegacyStorageMigration.Fields(
             transferTo: Self.cleanExchange((try? c.decodeIfPresent(String.self, forKey: .transferTo)) ?? nil),
@@ -258,7 +258,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         linkedImportKey = linked
         importRestoreState = linked == nil ? nil : stored.importRestoreState
         acquiredTime = Self.cleanAcquiredTime(type, (try? c.decodeIfPresent(Int64.self, forKey: .acquiredTime)) ?? nil)
-        // Tausch (Build 46): ohne gültigen erhaltenen Coin und Menge ungültig (gezählt) — wie Android `PortfolioJson`
+        // Tausch: ohne gültigen erhaltenen Coin und Menge ungültig (gezählt) — wie Android `PortfolioJson`
         if type == .SWAP {
             toCoin = Self.cleanToCoin((try? c.decodeIfPresent(String.self, forKey: .toCoin)) ?? nil, coin: coin)
             let toText = (try? c.decodeIfPresent(String.self, forKey: .toAmountText)) ?? nil
@@ -270,7 +270,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
             }
         }
         importBatch = PortfolioImportBatch.clean((try? c.decodeIfPresent(String.self, forKey: .importBatch)) ?? nil)
-        // Fehlen die Merker (Datei bzw. Sicherung bis Build 75), einmal nach der früheren Regel ableiten — das nächste
+        // Fehlen die Merker (alte Datei bzw. Sicherung), einmal nach der früheren Regel ableiten — das nächste
         // Speichern schreibt sie
         if let flag = (try? c.decodeIfPresent(Bool.self, forKey: .feeRow)) ?? nil {
             feeRow = flag && type == .SELL

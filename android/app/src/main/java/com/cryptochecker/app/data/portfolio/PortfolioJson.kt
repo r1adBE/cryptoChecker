@@ -37,31 +37,31 @@ object PortfolioJson {
         .put("feeText", t.fee?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
         .put("feeUnit", t.fee?.let { PortfolioFeeUnit.fromName(t.feeUnit).name } ?: JSONObject.NULL)
         .put("exchange", t.exchange ?: JSONObject.NULL)
-        // Seit Build 46 (Portfolio-Datenbank v3); fehlen = keine Angabe. Nur exakter Text — ältere Versionen
+        // Ab Portfolio-Datenbank v3; fehlen = keine Angabe. Nur exakter Text — ältere Versionen
         // kennen die Felder nicht (und die neuen Arten nicht: sie zählen sie als ungültig, Rückfrage)
         .put("transferFrom", t.transferFrom ?: JSONObject.NULL)
         .put("transferTo", t.transferTo ?: JSONObject.NULL)
         .put("feeCoin", t.feeCoin ?: JSONObject.NULL)
         .put("feeCoinAmountText", t.feeCoinAmount?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
         .put("feeCoinPriceText", t.feeCoinPriceUsdt?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
-        // CSV-Import (Build 46): Herkunft der Zeile — nach dem Wiederherstellen weiterhin als doppelt erkannt
+        // CSV-Import: Herkunft der Zeile — nach dem Wiederherstellen weiterhin als doppelt erkannt
         .put("importKey", t.importKey ?: JSONObject.NULL)
-        // Einzahlung: ursprüngliches Kaufdatum (Build 46); fehlt = Datum der Einzahlung
+        // Einzahlung: ursprüngliches Kaufdatum; fehlt = Datum der Einzahlung
         .put("acquiredTime", t.acquiredTime?.takeIf { t.type == PortfolioTxType.DEPOSIT } ?: JSONObject.NULL)
-        // Tausch (Build 46): erhaltener Coin, Menge und Wert (exakt als Text); ältere Versionen kennen die Art nicht
+        // Tausch: erhaltener Coin, Menge und Wert (exakt als Text); ältere Versionen kennen die Art nicht
         // und zählen den Eintrag als ungültig (Rückfrage)
         .put("toCoin", t.toCoin?.takeIf { t.type == PortfolioTxType.SWAP } ?: JSONObject.NULL)
         .put("toAmountText", t.toAmount?.takeIf { t.type == PortfolioTxType.SWAP }?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
         .put("swapValueText", t.swapValueUsdt?.takeIf { t.type == PortfolioTxType.SWAP }?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
-        // CSV-Importlauf (Build 46): «Import rückgängig» auch nach dem Wiederherstellen
+        // CSV-Importlauf: «Import rückgängig» auch nach dem Wiederherstellen
         .put("importBatch", t.importBatch ?: JSONObject.NULL)
-        // Build 58 (Portfolio-Datenbank v4): eigene Felder statt der alten Formen in «transferTo»/«importKey». Ältere
+        // Portfolio-Datenbank v4: eigene Felder statt der alten Formen in «transferTo»/«importKey». Ältere
         // Versionen ignorieren unbekannte Felder und lesen den Eintrag trotzdem — ohne Partner-Merker, mit nur dem
         // Schlüssel der Auszahlung und ohne «Rückgängig» der Verknüpfung (kein Absturz, nichts ungültig)
         .put("giftToSpouse", t.giftToSpouse && t.type == PortfolioTxType.GIFT)
         .put("linkedImportKey", t.linkedImportKey ?: JSONObject.NULL)
         .put("importRestoreState", t.importRestoreState?.toJson() ?: JSONObject.NULL)
-        // Build 76 (Portfolio-Datenbank v5): Gebühr-Zeile und Zins als eigene Merker. Ältere Versionen ignorieren sie und
+        // Portfolio-Datenbank v5: Gebühr-Zeile und Zins als eigene Merker. Ältere Versionen ignorieren sie und
         // schliessen wie bisher aus Preis 0 + Herkunft bzw. aus der Notiz (beides bleibt gespeichert)
         .put("feeRow", t.feeRow && t.type == PortfolioTxType.SELL)
         .put("interest", t.interest && t.type == PortfolioTxType.REWARD)
@@ -101,7 +101,7 @@ object PortfolioJson {
         val toCoin = if (swap) cleanToCoin(text(o, "toCoin"), coin) ?: return null else null
         val toAmount = if (swap) text(o, "toAmountText")?.let { PortfolioDecimal.parse(it) }?.takeIf { it.signum() > 0 } ?: return null else null
         val swapValue = if (swap) text(o, "swapValueText")?.let { PortfolioDecimal.parse(it) }?.takeIf { it.signum() >= 0 } else null
-        // Sicherungen bis Build 57 tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen)
+        // Ältere Sicherungen tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen)
         val stored = LegacyStorageMigration.convert(
             type,
             LegacyStorageMigration.Fields(
@@ -141,7 +141,7 @@ object PortfolioJson {
             giftToSpouse = stored.giftToSpouse && type == PortfolioTxType.GIFT,
             linkedImportKey = linkedImportKey,
             importRestoreState = stored.importRestoreState?.takeIf { linkedImportKey != null },
-            // Fehlen die Merker (Sicherung bis Build 75), einmal nach der früheren Regel ableiten
+            // Fehlen die Merker (Sicherung vor Portfolio-Datenbank v5), einmal nach der früheren Regel ableiten
             feeRow = type == PortfolioTxType.SELL &&
                 (if (o.has("feeRow")) o.optBoolean("feeRow", false) else LegacyStorageMigration.legacyFeeRow(type, stored.importKey, price)),
             interest = type == PortfolioTxType.REWARD &&
@@ -208,7 +208,7 @@ object PortfolioJson {
         .put("repeating", a.repeating)
 
     /**
-     * Unbekannte Art (neuere Version) oder ungültiger Schwellwert: überspringen. Seit Build 105 «fällt um ≥ 100 %»
+     * Unbekannte Art (neuere Version) oder ungültiger Schwellwert: überspringen. «fällt um ≥ 100 %»
      * übernommen, aber ausgeschaltet ([PortfolioAlarmLogic.exceedsFall], wie die Paar-Alarme).
      */
     fun jsonToAlarm(o: JSONObject): PortfolioAlarmEntity? {

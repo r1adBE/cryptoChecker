@@ -70,8 +70,8 @@ fun AlarmsScreen(
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
     var confirmFiresNow by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
 
-    // Offener Editor samt Eingaben übersteht Drehen und Prozess-Neustart (sonst wäre alles Getippte weg). Seit Build 107
-    // (ARC5-R01) im ViewModel: «Trotzdem» in der Rückfrage F-08 schliesst ihn auch nach dem Neuerstellen der Activity
+    // Offener Editor samt Eingaben übersteht Drehen und Prozess-Neustart (sonst wäre alles Getippte weg). Im ViewModel
+    // (ARC5-R01): «Trotzdem» in der Rückfrage F-08 schliesst ihn auch nach dem Neuerstellen der Activity
     var draft by viewModel.editor
     // Neuer Alarm im einfachen Modus: Feld leer, aktueller Kurs nur als Platzhalter
     val newDraft: () -> AlarmDraft = { AlarmDraft.blankFor() }
@@ -133,7 +133,7 @@ fun AlarmsScreen(
             snackbar.showSnackbar(text, duration = SnackbarDuration.Long)
         }
     }
-    // Seit Build 107 (ARC5-R01): Erlaubnis, Haptik und Bestätigung nach dem Speichern im aktuellen Bildschirm
+    // ARC5-R01: Erlaubnis, Haptik und Bestätigung nach dem Speichern im aktuellen Bildschirm
     AlarmEditorEffects(viewModel, snackbar, watch, testAlarm)
 
     // Einmal nach dem Speichern: ehrlich, wann bei geschlossener App geprüft wird
@@ -274,7 +274,7 @@ fun AlarmsScreen(
     }
 
     /**
-     * Speichern; Editor zu, Erlaubnis und Bestätigung ([AlarmEditorEffects]). Seit Build 106 (UX4-06, UX4-R3): Editor erst nach
+     * Speichern; Editor zu, Erlaubnis und Bestätigung ([AlarmEditorEffects]). UX4-06, UX4-R3: Editor erst nach
      * bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingaben), Erlaubnis erst nach dem Speichern.
      */
     fun saveDraft(toSave: AlarmDraft) {
@@ -300,7 +300,7 @@ fun AlarmsScreen(
             } == true,
             onLoadRate = viewModel::loadRate,
             onDraftChange = { draft = it },
-            // Seit Build 106: Editor erst nach bestätigter Rückfrage F-08 zu, Erlaubnis erst nach dem Anlegen
+            // Editor erst nach bestätigter Rückfrage F-08 zu, Erlaubnis erst nach dem Anlegen
             onTemplate = { template -> if (!showSaveLocked()) viewModel.createFromTemplate(template) },
             onDismiss = { draft = null },
             // Kopf mit Paar und aktuellem Kurs (wie iOS)

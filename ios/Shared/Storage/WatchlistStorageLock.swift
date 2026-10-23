@@ -3,7 +3,7 @@ import Foundation
 /// Gespeicherte Merkliste da, aber gerade nicht lesbar (Schlüssel im Schlüsselbund bzw. Datenschutz gerade nicht
 /// verfügbar, `SharedStorage.SnapshotRead.inaccessible`): Die App zeigt eine leere Merkliste im Speicher, und nichts
 /// davon wird geschrieben (`saveSnapshotInBackground` lässt die Datei unberührt) — was jetzt angelegt wird, ist weg,
-/// sobald die Datei wieder gelesen wird. Seit Build 103 (Review F-08) ist die Merkliste darum nur lesbar wie das
+/// sobald die Datei wieder gelesen wird. Review F-08: Darum ist die Merkliste nur lesbar wie das
 /// Portfolio: Alle Schreibwege des Nutzers (Paare hinzufügen, bearbeiten, löschen, Notiz, Gruppe, Favorit, Alarme) lehnt
 /// `AppData` zentral ab (`watchlistWriteRefused`) und nennt es kurz («watchlist_storage_locked», gedrosselt); die Merkliste
 /// zeigt einen Dauerhinweis. Hintergrund (Kurse, Alarmzustand, Widget) läuft weiter. Wie Android `WatchlistStorageLock`.

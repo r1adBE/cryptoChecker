@@ -20,7 +20,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 
 /**
  * Erfassen-Blatt aus der Merkliste bzw. dem Markt: Coin und Kurs vorbelegt. Auch mit ausgeschaltetem Portfolio.
- * Build 46: Die erste Transaktion schaltet es nicht still ein — nach dem Speichern ersetzt die Rückfrage
+ * Die erste Transaktion schaltet es nicht still ein — nach dem Speichern ersetzt die Rückfrage
  * «Portfolio-Tab einschalten?» das Blatt: Einschalten → [onPortfolioEnabled]; Später → Transaktion bleibt,
  * Tab bleibt aus, einmal der Weg dorthin ([onPortfolioLater]).
  */

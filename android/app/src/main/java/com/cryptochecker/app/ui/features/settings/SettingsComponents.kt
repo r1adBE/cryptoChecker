@@ -153,13 +153,13 @@ internal fun SettingsValueText(value: String, modifier: Modifier = Modifier) {
 @Composable
 internal fun SettingsNavRow(
     title: String,
+    modifier: Modifier = Modifier,
     @DrawableRes icon: Int? = null,
     value: String? = null,
     valueDescription: String? = value,
     valueContent: (@Composable () -> Unit)? = null,
     /** Öffnet eine Website (Browser): Pfeil nach oben rechts statt «›», vorgelesen mit «Link». */
     external: Boolean = false,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     val linkLabel = stringResource(R.string.a11y_external_link)

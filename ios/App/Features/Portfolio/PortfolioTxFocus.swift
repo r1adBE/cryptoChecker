@@ -6,8 +6,8 @@ struct PortfolioTxFocusJump: Equatable {
     let seq: Int
 }
 
-/// «Speichern» mit Fehlern: zum ersten ungültigen Feld rollen, Fokus setzen und den Fehler ansagen (seit Build 99;
-/// Entscheid in `PortfolioTxFirstInvalid`) — wie `PortfolioTxFocus.kt` (Android).
+/// «Speichern» mit Fehlern: zum ersten ungültigen Feld rollen, Fokus setzen und den Fehler ansagen
+/// (Entscheid in `PortfolioTxFirstInvalid`) — wie `PortfolioTxFocus.kt` (Android).
 extension PortfolioTxSheet {
 
     /// Nächsten Sprung zu `field` anstossen; Gebühren liegen im Abschnitt — erst aufklappen, sonst fehlt das Feld.

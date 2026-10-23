@@ -30,9 +30,9 @@ import com.cryptochecker.app.notification.showPortfolioAlarm
 @Singleton
 class PortfolioAlarmRepository @Inject constructor(
     private val dao: PortfolioAlarmDao,
-    /** Seit Build 104: Vermerke «wird gemeldet» gelöschter bzw. ersetzter Alarme aufräumen. */
+    /** Vermerke «wird gemeldet» gelöschter bzw. ersetzter Alarme aufräumen. */
     private val deliveryMarkers: PortfolioAlarmDeliveryMarkers,
-    /** Seit Build 105: «fällt um ≥ 100 %» einmalig ausschalten, bevor die Liste erscheint. */
+    /** «fällt um ≥ 100 %» einmalig ausschalten, bevor die Liste erscheint. */
     private val fallCleanup: PortfolioFallAlarmCleanup,
 ) {
     fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll().onStart { fallCleanup.runOnce() }
@@ -52,12 +52,12 @@ class PortfolioAlarmRepository @Inject constructor(
 
     suspend fun delete(id: Long) {
         dao.delete(id)
-        // Seit Build 105: nicht bei Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
+        // Nicht bei Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
         if (PortfolioAlarmDeliveryMarkers.prunable()) withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
     }
 
     suspend fun setEnabled(id: Long, enabled: Boolean) {
-        // Seit Build 105 (FUN3-01): «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen)
+        // FUN3-01: «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen)
         if (enabled && dao.getAll().any { it.id == id && PortfolioAlarmLogic.exceedsFall(it.kind, it.threshold) }) return
         dao.setEnabled(id, enabled)
     }
@@ -66,7 +66,7 @@ class PortfolioAlarmRepository @Inject constructor(
     suspend fun replaceAll(alarms: List<PortfolioAlarmEntity>) {
         dao.deleteAll()
         alarms.forEach { dao.insert(it.copy(referenceAt = 0, lastTriggeredAt = 0, lastTriggeredValue = null)) }
-        // Seit Build 104: alle Alarme ersetzt (Ids können sich decken) — alte Vermerke gelten nicht mehr
+        // Alle Alarme ersetzt (Ids können sich decken) — alte Vermerke gelten nicht mehr
         withContext(Dispatchers.IO) { deliveryMarkers.retain(emptySet()) }
     }
 }
@@ -84,14 +84,14 @@ class PortfolioAlarmChecker @Inject constructor(
     private val notifier: AppNotifier,
     private val fxSource: FxRateSource,
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
-    /** Seit Build 104: Vermerk «wird gemeldet» der Portfolio-Alarme. */
+    /** Vermerk «wird gemeldet» der Portfolio-Alarme. */
     deliveryMarkers: PortfolioAlarmDeliveryMarkers,
-    /** Seit Build 105: «fällt um ≥ 100 %» einmalig ausschalten (vor dem ersten Prüfen). */
+    /** «fällt um ≥ 100 %» einmalig ausschalten (vor dem ersten Prüfen). */
     private val fallCleanup: PortfolioFallAlarmCleanup,
 ) {
     private val mutex = Mutex()
 
-    /** Melden-dann-Speichern; Vermerk seit Build 104 dauerhaft und mit eigenen Ids ([PortfolioAlarmDeliveryMarkers]). */
+    /** Melden-dann-Speichern; Vermerk dauerhaft und mit eigenen Ids ([PortfolioAlarmDeliveryMarkers]). */
     private val delivery = AlarmDelivery(deliveryMarkers)
 
     /** Braucht die Hintergrund-Aktualisierung eine Momentaufnahme für die Alarme? */
@@ -133,7 +133,7 @@ class PortfolioAlarmChecker @Inject constructor(
                     // Wie die Paar-Alarme: ZUERST melden, erst speichern (einmalige: abschalten), wenn die Meldung
                     // unter den offenen Mitteilungen steht — verwirft Android sie, bleibt der Alarm scharf und meldet
                     // frühestens nach der Abklingzeit erneut. Hat der Nutzer ihn inzwischen geändert/ausgeschaltet,
-                    // speichert markTriggered nichts und die Mitteilung wird wieder entfernt. Seit Build 104 über
+                    // speichert markTriggered nichts und die Mitteilung wird wieder entfernt. Läuft über
                     // [AlarmDelivery] mit dauerhaftem Vermerk (wie iOS `AlarmDelivery.portfolio`): ein Prozess-Ende
                     // zwischen Melden und Speichern klingelt nicht ein zweites Mal.
                     is PortfolioAlarmDecision.Fire -> {
@@ -165,7 +165,7 @@ class PortfolioAlarmChecker @Inject constructor(
                             isShown = { markerAt ->
                                 AlarmDeliveryMarker.shownSinceMarker(notifier.activePostTimes()?.get(notificationId), markerAt)
                             },
-                            // Seit Build 105: Vermerk einer schon gespeicherten Auslösung zählt nicht
+                            // Vermerk einer schon gespeicherten Auslösung zählt nicht
                             savedSince = { markerAt -> AlarmDeliveryMarker.savedSinceMarker(alarm.lastTriggeredAt, markerAt) },
                         )
                     }

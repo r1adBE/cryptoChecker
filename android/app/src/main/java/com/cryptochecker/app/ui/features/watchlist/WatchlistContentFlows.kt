@@ -87,7 +87,7 @@ internal class WatchlistContentFlows(
             GroupFilter(groups, group, tokens, alpha, kinds)
         }
     }
-        // Erster Zugriff liest und dekodiert die Namensdatei (TokenIdentityStore): nicht auf Main (seit Build 103)
+        // Erster Zugriff liest und dekodiert die Namensdatei (TokenIdentityStore): nicht auf Main
         .flowOn(Dispatchers.Default)
         .stateIn(scope, SharingStarted.WhileSubscribed(5_000), null)
 

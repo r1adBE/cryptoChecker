@@ -61,7 +61,9 @@
                 android:visibility="gone" />
 
             <!-- Platzhalter: hält die Fusszeile unten -->
+            <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
             <FrameLayout
+                tools:ignore="NestedWeights"
                 android:id="@+id/portfolio_spacer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

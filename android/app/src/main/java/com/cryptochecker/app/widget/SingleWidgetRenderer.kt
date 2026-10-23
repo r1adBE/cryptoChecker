@@ -1,12 +1,12 @@
 package com.cryptochecker.app.widget
 
+import androidx.core.net.toUri
 import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.data.BoundedCache
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.widget.RemoteViews
 import com.cryptochecker.app.R
@@ -51,7 +51,7 @@ class SingleWidgetRenderer @Inject constructor(
     internal val tokenIdentityStore: com.cryptochecker.app.data.TokenIdentityStore,
 ) {
     /** Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie). */
-    /** Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    /** Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
     internal val sparkCache = BoundedCache<String, Pair<Long, List<WidgetCandle>>>(MEMORY_CACHE_ENTRIES)
 
     /**
@@ -271,7 +271,7 @@ class SingleWidgetRenderer @Inject constructor(
     private fun openPair(appWidgetId: Int, watchId: Long): PendingIntent {
         val intent = Intent(context, MainActivity::class.java).apply {
             action = ACTION_OPEN_SINGLE_WIDGET
-            data = Uri.parse("cryptochecker://widget/single/open/$appWidgetId")
+            data = "cryptochecker://widget/single/open/$appWidgetId".toUri()
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra(MainActivity.EXTRA_WATCH_ID, watchId)
         }
@@ -287,7 +287,7 @@ class SingleWidgetRenderer @Inject constructor(
         val intent = Intent(context, SingleWidgetConfigureActivity::class.java).apply {
             action = AppWidgetManager.ACTION_APPWIDGET_CONFIGURE
             // Eigene data-Uri je Widget: sonst teilten sich alle Widgets einen PendingIntent
-            data = Uri.parse("cryptochecker://widget/single/$appWidgetId")
+            data = "cryptochecker://widget/single/$appWidgetId".toUri()
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         }

@@ -7,7 +7,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Seit Build 106 (Review TST4-01, F-08): Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei. Die
+ * Review TST4-01, F-08: Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei. Die
  * Schreibwege des Nutzers kommen aus dem Repository (Funktionen, deren Rumpf `userWriteRefused(` enthält, plus
  * Weiterleitungen darauf); jeder Aufruf ausserhalb von `data/` (Oberfläche, Mitteilungen, Widgets …) liegt in einer Funktion,
  * die vorher [confirmUserWrite] fragt (Block noch offen) bzw. im Block von `launchWrite { … }`. Ein Hilfsweg ohne eigene
@@ -303,7 +303,7 @@ class WatchRepositoryCallGuardTest {
                 at = matching(text, at, '(', ')') + 1
                 while (text[at].isWhitespace()) at++
             }
-            // seit Build 107 (TST5-R1): Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
+            // TST5-R1: Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
             text[at] == '{' && at < pos && neverBelow(text, at + 1, pos, 1, start = 1)
         }
     }

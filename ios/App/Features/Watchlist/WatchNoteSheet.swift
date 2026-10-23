@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Notiz zu einem Paar bearbeiten (#233) — wie `NoteDialog` in Android.
 /// Leer speichern oder «Notiz entfernen» löscht sie; höchstens `Watch.noteMax` Zeichen.
-/// Seit Build 107 (IOS5-R02): schliesst erst nach bestätigter Rückfrage F-08; «Abbrechen» = Blatt bleibt mit dem Text.
+/// IOS5-R02: schliesst erst nach bestätigter Rückfrage F-08; «Abbrechen» = Blatt bleibt mit dem Text.
 @MainActor
 struct WatchNoteSheet: View {
     let initial: String?

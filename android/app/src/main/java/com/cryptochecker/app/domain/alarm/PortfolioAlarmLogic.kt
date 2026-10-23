@@ -80,7 +80,7 @@ data class PortfolioReading(
     /**
      * Zählende Adressen, deren Guthaben noch nie geladen wurde
      * ([com.cryptochecker.app.domain.portfolio.AddressBalance.pendingCount]): sie fehlen im Gesamtwert — dann prüft
-     * KEIN Portfolio-Alarm (seit Build 94). Seit über 24 Stunden scheiternde zählen nicht ([addressesFailing]).
+     * KEIN Portfolio-Alarm. Seit über 24 Stunden scheiternde zählen nicht ([addressesFailing]).
      */
     val addressesPending: Int = 0,
     /**
@@ -96,7 +96,7 @@ data class PortfolioReading(
     val staleTokenAddresses: List<String> = emptyList(),
     val staleTokenValueUsdt: Double = 0.0,
     /**
-     * Coins mit «Kurs ungeprüft» (Binance-Kurs, Token nicht bestätigt; seit Build 101,
+     * Coins mit «Kurs ungeprüft» (Binance-Kurs, Token nicht bestätigt;
      * [com.cryptochecker.app.domain.portfolio.PortfolioSnapshot.unverifiedCoins]): zählen wie ein alter Kurs mit Wert
      * [unverifiedValueUsdt] ([PortfolioAlarmLogic.staleMaterial]); sperren nur sie, eigener Hinweis
      * ([PortfolioAlarmPause.PriceUnverified]).
@@ -121,7 +121,7 @@ sealed interface PortfolioAlarmPause {
     /** Token-Guthaben dieser Adressen nicht bestätigt (wesentlich, wie ein alter Kurs). */
     data class TokensStale(val addresses: List<String>) : PortfolioAlarmPause
 
-    /** Kurs dieser Coins ungeprüft (Token nicht bestätigt, wesentlich wie ein alter Kurs; seit Build 101). */
+    /** Kurs dieser Coins ungeprüft (Token nicht bestätigt, wesentlich wie ein alter Kurs). */
     data class PriceUnverified(val coins: List<String>) : PortfolioAlarmPause
 
     /** Keine Pause, nur Hinweis: die Alarme rechnen ohne diese seit über 24 Stunden scheiternden Adressen. */
@@ -235,7 +235,7 @@ object PortfolioAlarmLogic {
      */
     fun staleMaterial(reading: PortfolioReading): Boolean {
         val prices = reading.stalePrices > 0
-        // Nicht bestätigte Token-Guthaben (seit Build 95) und ungeprüfte Kurse (seit Build 101) zählen wie Coins mit
+        // Nicht bestätigte Token-Guthaben und ungeprüfte Kurse zählen wie Coins mit
         // altem Kurs, Wert zusammen
         val tokens = reading.staleTokenAddresses.isNotEmpty()
         val unverified = reading.unverifiedCoins.isNotEmpty()
@@ -259,7 +259,7 @@ object PortfolioAlarmLogic {
      * Warum die eingeschalteten Portfolio-Alarme ([kinds]) gerade nicht prüfen (Hinweis in der Alarm-Übersicht); null =
      * mindestens nicht wegen Adressen oder Kursen. Adressen zuerst (betrifft jede Art); sonst Coins ohne aktuellen
      * Kurs: die wesentlichen alten ([staleCoins]) und — bei Wert-Alarmen — die ganz ohne Kurs ([missingCoins]); ohne
-     * solche Coins die mit ungeprüftem Kurs ([PortfolioAlarmPause.PriceUnverified], seit Build 101), sonst die Adressen
+     * solche Coins die mit ungeprüftem Kurs ([PortfolioAlarmPause.PriceUnverified]), sonst die Adressen
      * nicht bestätigter Token-Guthaben ([PortfolioAlarmPause.TokensStale]). Sperren alte bzw. fehlende Kurse mit, bleibt
      * es beim Satz «kein aktueller Kurs» mit nur diesen Coins (ungeprüfte zeigen ihren Hinweis in der Zeile). Ohne Pause
      * der Hinweis auf seit über 24 Stunden scheiternde Adressen ([PortfolioAlarmPause.AddressesFailing]).
@@ -333,7 +333,7 @@ object PortfolioAlarmLogic {
     fun notifyAfterSave(updatedRows: Int): Boolean = updatedRows > 0
 
     /**
-     * Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Seit Build 105 (Review FUN3-01) «fällt um»
+     * Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Review FUN3-01: «fällt um»
      * nur unter [MAX_FALL_PERCENT]: Die Veränderung «heute» fällt nie unter −100 %, so ein Alarm löste nie aus.
      * Gemeinsame Fälle `portfolio_alarm.json` («threshold»).
      */
@@ -346,13 +346,13 @@ object PortfolioAlarmLogic {
         }
     }
 
-    /** Seit Build 105: Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`AlarmJson.exceedsFall`). */
+    /** Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`AlarmJson.exceedsFall`). */
     const val MAX_FALL_PERCENT = 100.0
 
     /**
-     * Seit Build 105 (Review FUN3-01): «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
+     * Review FUN3-01: «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
      * ausgeschaltet, einmalig bereinigt ([com.cryptochecker.app.data.portfolio.PortfolioFallAlarmCleanup]) und in der
-     * Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. Seit Build 106 (FUN4-R2): kein Editor, darum
+     * Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. FUN4-R2: kein Editor, darum
      * Hinweis «löschen und neu anlegen» (`portfolio_alarm_threshold_invalid_recreate`). Wie iOS.
      */
     fun exceedsFall(kind: PortfolioAlarmKind, threshold: Double): Boolean =

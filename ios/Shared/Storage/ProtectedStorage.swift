@@ -25,7 +25,7 @@ enum ProtectedStorage {
             (SharedStorage.unreadableCopyURL(of: PortfolioStore.url), PortfolioStore.url),
             (WatchedAddressStore.url, WatchedAddressStore.url),
             (PortfolioWidgetStore.snapshotURL, PortfolioWidgetStore.snapshotURL),
-            // Alarm-Protokoll (Build 80): Paare und Schwellen wie die Merkliste
+            // Alarm-Protokoll: Paare und Schwellen wie die Merkliste
             (AlarmLogStore.url, AlarmLogStore.url),
         ]
     }
@@ -50,7 +50,7 @@ enum ProtectedStorage {
     /// - Ohne lesbaren Schlüsselbund: nichts anfassen (nächster Start).
     /// - Kein Schlüssel, aber verschlüsselte Dateien (Schlüssel verloren, z. B. Backup ohne Schlüsselbund eingespielt):
     ///   diese beiseitelegen statt löschen, erst dann einen neuen Schlüssel anlegen.
-    /// - Unverschlüsselt bleibende Dateien kommen so lange nicht ins Geräte-Backup (`PlainBackupExclusion`, seit Build 93).
+    /// - Unverschlüsselt bleibende Dateien kommen so lange nicht ins Geräte-Backup (`PlainBackupExclusion`).
     @discardableResult
     static func prepareAtLaunch(files: [(url: URL, coordination: URL)] = ProtectedStorage.files,
                                 keys: StorageKey = .shared, defaults: UserDefaults = .standard) -> LaunchOutcome {

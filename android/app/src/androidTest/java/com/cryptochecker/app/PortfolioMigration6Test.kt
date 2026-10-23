@@ -22,7 +22,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Portfolio-Datenbank v5 → v6 (Build 84): neue Spalte `costLots` der beobachteten Adressen; bestehende Adressen bleiben
+ * Portfolio-Datenbank v5 → v6: neue Spalte `costLots` der beobachteten Adressen; bestehende Adressen bleiben
  * unverändert und haben keine Eröffnungsposten. Room prüft nach der Migration das Schema gegen die Entity.
  */
 @RunWith(AndroidJUnit4::class)

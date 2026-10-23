@@ -3,9 +3,9 @@ package com.cryptochecker.app.data.local
 import java.io.File
 
 /**
- * Seit Build 102: vorübergehende Keystore-Fehler nicht als endgültig werten ([DatabaseKeyStore]). Auf manchen Geräten
+ * Vorübergehende Keystore-Fehler nicht als endgültig werten ([DatabaseKeyStore]). Auf manchen Geräten
  * liefert der Keystore kurz nach dem Start oder einem System-Update `UnrecoverableKeyException` oder gar keinen Schlüssel
- * (`getKey` = null), obwohl der Eintrag besteht. Bis Build 101 legte die App die Datenbank dann sofort beiseite und
+ * (`getKey` = null), obwohl der Eintrag besteht. Früher legte die App die Datenbank dann sofort beiseite und
  * ersetzte den Keystore-Eintrag — die früheren Schlüsseldateien waren danach nie mehr zu öffnen.
  *
  * Darum: [run] wiederholt «verdächtige» Fehler ([Failure.SUSPECT]) wie gewöhnliche mehrmals; erst wenn ein verdächtiger

@@ -266,7 +266,7 @@
         <item quantity="other">Senza %1$d monete senza prezzo d\'acquisto (%2$s) – aggiungi i prezzi perché contino.</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">Crollo di USDT – mercato a %1$s USD</string>
     <string name="portfolio_usdt_via_usdc">Cambio in dollari di USDT tramite USDC/USDT – se USDC scende, questo valore non è corretto</string>
     <string name="portfolio_amount_bridged_stable">≈ incl. %1$s (bridged)</string>
@@ -301,7 +301,7 @@
         <item quantity="many">Verranno rimosse %d transazioni. Puoi annullare subito dopo.</item>
         <item quantity="other">Verranno rimosse %d transazioni. Puoi annullare subito dopo.</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">Le commissioni pagate in %1$s verranno rimosse anche da altre transazioni: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

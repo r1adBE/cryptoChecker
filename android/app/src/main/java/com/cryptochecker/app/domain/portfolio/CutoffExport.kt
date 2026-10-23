@@ -51,7 +51,7 @@ object CutoffExport {
     /**
      * Bezugskurse der Identitätsprüfung aus den aktuellen Portfolio-Kursen [current]: nur gültige,
      * ohne ungeprüfte Kerzenkurse ([uncheckedCurrent], kein unabhängiger Bezug) und ohne Binance-Kurse mit
-     * unbestätigtem Token ([unverifiedCurrent], «Kurs ungeprüft», seit Build 101 — sonst bestätigte ein womöglich
+     * unbestätigtem Token ([unverifiedCurrent], «Kurs ungeprüft» — sonst bestätigte ein womöglich
      * fremder Token seine eigenen Tagesschlüsse). Fehlt ein Coin, wird sein Tagesschluss nicht übernommen («ungeprüft»).
      */
     fun referencePrices(

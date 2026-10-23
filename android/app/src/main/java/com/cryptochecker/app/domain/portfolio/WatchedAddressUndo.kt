@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
 /**
- * «Adresse entfernen» mit «Rückgängig» (seit Build 94): Was geht mit der Adresse weg (für den Text der Rückfrage), und
+ * «Adresse entfernen» mit «Rückgängig»: Was geht mit der Adresse weg (für den Text der Rückfrage), und
  * darf die entfernte Adresse mit ihrer alten Id zurück? Rein, gleich wie `WatchedAddressUndo.swift` (iOS).
  */
 object WatchedAddressUndo {
@@ -26,7 +26,7 @@ object WatchedAddressUndo {
             !WatchedAddressRules.contains(existing, removed.chain, removed.address) &&
             WatchedAddressRules.canAdd(existing)
 
-    /** Warum «Rückgängig» nicht ging (seit Build 95: Banner statt still nichts). */
+    /** Warum «Rückgängig» nicht ging (Banner statt still nichts). */
     enum class RestoreFailure { DUPLICATE, LIMIT, NOT_SAVED }
 
     /**

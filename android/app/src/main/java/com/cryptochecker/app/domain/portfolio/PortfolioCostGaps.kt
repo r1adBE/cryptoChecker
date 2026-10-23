@@ -19,7 +19,7 @@ enum class CostGapKind { EDITABLE, INCOME_RECEIPT_VALUE, INCOME_ZERO }
 data class PortfolioCostGap(val trade: PortfolioTrade, val kind: CostGapKind)
 
 /**
- * Zugänge ohne Einstand («Einträge ohne Einstand», Build 84): Kauf, Einzahlung (auch aus einem CSV-Import ohne Preis) und
+ * Zugänge ohne Einstand («Einträge ohne Einstand»): Kauf, Einzahlung (auch aus einem CSV-Import ohne Preis) und
  * Belohnung ohne Preis zählen auf der Karte zum Bestand ohne Kaufpreis. Gespeichert wird ein erfasster Einstand im
  * Preisfeld der Transaktion (Preis je Coin, [PortfolioTrade.priceUsdt]) — keine neue Spalte. Adress-Einträge sind keine
  * Lücken dieser Art (dafür [AddressCostLots]).

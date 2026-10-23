@@ -15,7 +15,7 @@ class BackupMemoryMessageTest {
     @Test
     fun notEnoughMemoryHasOwnMessage() {
         assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(BackupCrypto.NotEnoughMemoryException()))
-        // Sicherung bis 64 MB: zu wenig Speicher beim Lesen ist kein Absturz und kein «fehlgeschlagen» (seit Build 93)
+        // Sicherung bis 64 MB: zu wenig Speicher beim Lesen ist kein Absturz und kein «fehlgeschlagen»
         assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(OutOfMemoryError("Java heap space")))
         // Andere Fehler bleiben «fehlgeschlagen»
         assertEquals(BackupMessage.Failed, BackupMessage.failure(IllegalStateException("x")))
@@ -25,7 +25,7 @@ class BackupMemoryMessageTest {
     fun storageAndSizeRefusalsHaveOwnMessages() {
         assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageKeptException()))
         assertEquals(BackupMessage.StorageInMemory, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageInMemoryException()))
-        // Seit Build 102: ohne Journal nichts eingespielt — eigene Meldung, Fehler-Haptik
+        // Ohne Journal nichts eingespielt — eigene Meldung, Fehler-Haptik
         val journal = BackupMessage.failure(com.cryptochecker.app.data.BackupJournalUnavailableException(null))
         assertEquals(BackupMessage.JournalUnavailable, journal)
         assertEquals(com.cryptochecker.app.ui.components.HapticEvent.ERROR, BackupMessage.haptic(journal))

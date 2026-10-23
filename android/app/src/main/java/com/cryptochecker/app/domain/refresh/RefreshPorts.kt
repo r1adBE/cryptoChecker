@@ -83,7 +83,7 @@ internal interface RefreshNotifier {
     suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long>
     /** Ende einer laufenden «1 h später»-Pause des Alarms ([com.cryptochecker.app.domain.alarm.AlarmSnooze]); null = keine. */
     fun alarmSnoozeUntil(alarmId: Long): Long? = null
-    /** Seit Build 104: Meldezeit der offenen Mitteilung des Alarms; null = keine offen bzw. nicht abfragbar. */
+    /** Meldezeit der offenen Mitteilung des Alarms; null = keine offen bzw. nicht abfragbar. */
     fun alarmPostedAt(alarmId: Long): Long? = null
 }
 

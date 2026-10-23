@@ -3,13 +3,12 @@ import Foundation
 /// Obergrenzen für Merkliste und Paar-Alarme aus einer Sicherung (`BackupManager.restore`) — gleich wie Android
 /// `BackupRestoreLimits.kt` (gemeinsame Fälle `Parity/backup_limits.json`). Eine Datei kann von Hand verändert sein:
 /// ohne Grenzen kämen beliebig lange Kennungen oder Hunderttausende Paare in Speicher, Abfragen und Börsen-Adressen.
-/// Seit Build 99.
 ///
 /// - Paar mit zu langer Börse, Basis, Quote, Börsenname oder Paar-Kennung fällt weg (Kürzen änderte, welches Paar
 ///   gemeint ist). Gezählt werden Unicode-Codepunkte, auf beiden Plattformen gleich.
 /// - Paar-Kennung nur aus Buchstaben und Ziffern jeder Schrift (Binance führt Coins mit chinesischem Namen) sowie
 ///   «/ _ : . -»; Leerzeichen, «@», «&», «?» u. Ä. kommen in keiner Börse vor.
-/// - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» (`DexScreener.isSafePairId`, seit Build 104).
+/// - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» (`DexScreener.isSafePairId`).
 /// - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`), nur begrenzt.
 /// - Höchstens `maxPairs` Paare (die ersten der Datei) und je Paar `maxAlarmsPerPair` Alarme.
 enum BackupRestoreLimits {
@@ -32,7 +31,7 @@ enum BackupRestoreLimits {
             && base.unicodeScalars.count <= maxAsset
             && quote.unicodeScalars.count <= maxAsset
             && (pairId.map(validPairId) ?? true)
-            // Seit Build 104: DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
+            // DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
             && (marketKey != DexScreener.key || pairId.map(DexScreener.isSafePairId) == true)
     }
 
@@ -52,7 +51,7 @@ enum BackupRestoreLimits {
 
     /// Was nach `accept` bzw. `limit` übernommen wird; `droppedPairs`/`droppedAlarms` = wie viele wegen der Grenzen
     /// wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine eigene ältere Sicherung mit mehr Paaren
-    /// oder Alarmen verlöre sonst still Daten (seit Build 99, wie Android `Limited`).
+    /// oder Alarmen verlöre sonst still Daten (wie Android `Limited`).
     struct Limited {
         var watches: [Watch]
         var alarms: [Alarm]

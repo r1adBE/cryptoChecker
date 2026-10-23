@@ -286,7 +286,7 @@ final class PortfolioTxFormTests: XCTestCase {
     }
 
     /// Preis 0 ausdrücklich eingegeben: nur bei einer importierten Transaktion abgelehnt (Kennzeichen der Gebühr-Zeile); von
-    /// Hand erfasst ist 0 ein echter Preis (Build 47); leer und > 0 sind erlaubt. Wie Android.
+    /// Hand erfasst ist 0 ein echter Preis; leer und > 0 sind erlaubt. Wie Android.
     func testPriceZeroIsRejectedOnlyForImported() {
         XCTAssertTrue(PortfolioTxForm.priceZero(dec("0"), imported: true))
         XCTAssertTrue(PortfolioTxForm.priceZero(dec("0.000"), imported: true))
@@ -298,7 +298,7 @@ final class PortfolioTxFormTests: XCTestCase {
         XCTAssertFalse(PortfolioTxForm.priceZero(dec("0.000"), imported: false))
     }
 
-    /// Verschenkt und Damit bezahlt (Build 47): nach der Auszahlung; Verschenkt mit den Feldern der Auszahlung, Damit bezahlt
+    /// Verschenkt und Damit bezahlt: nach der Auszahlung; Verschenkt mit den Feldern der Auszahlung, Damit bezahlt
     /// mit Preisfeld (Marktwert) und Gebühren wie ein Verkauf. Wie Android.
     func testGiftAndPaymentFieldsAndOrder() {
         let types = PortfolioTxForm.types

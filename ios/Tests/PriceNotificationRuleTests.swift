@@ -24,7 +24,7 @@ final class PriceNotificationRuleTests: XCTestCase {
         XCTAssertNil(PriceNotificationRule.referenceAfterEnable(shown: false, price: 42))
     }
 
-    /// Seit Build 102: Kurs-Mitteilungen nur beim Übergang an → aus entfernen, nicht bei jeder Einstellungs-Änderung.
+    /// Kurs-Mitteilungen nur beim Übergang an → aus entfernen, nicht bei jeder Einstellungs-Änderung.
     func testSwitchedOffOnlyOnTransition() {
         XCTAssertTrue(PriceNotificationRule.switchedOff(old: true, new: false))
         XCTAssertFalse(PriceNotificationRule.switchedOff(old: false, new: false))

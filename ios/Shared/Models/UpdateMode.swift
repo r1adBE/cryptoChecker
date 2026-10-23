@@ -3,7 +3,7 @@ import Foundation
 /// «Wie aktuell?» (Einstellungen › Kurs-Aktualisierung) — wie `UpdateMode.kt`: eine Wahl statt
 /// der früheren drei Schalter «Im Hintergrund aktualisieren», «Häufig aktualisieren» und «Live-Kurse».
 ///
-///  - `SPARSAM` (Standard, empfohlen, seit Build 43): nur die Hintergrund-Aktualisierung im gewählten Intervall, kein WebSocket.
+///  - `SPARSAM` (Standard, empfohlen): nur die Hintergrund-Aktualisierung im gewählten Intervall, kein WebSocket.
 ///  - `LIVE_OFFEN` (für Profis): Live-Kurse per WebSocket, solange die Merkliste offen ist,
 ///    dazu die Hintergrund-Aktualisierung bei geschlossener App.
 ///  - `IMMER_KURZ`: nur Android (Vordergrunddienst); iOS kennt keinen Dauerdienst → `LIVE_OFFEN`.

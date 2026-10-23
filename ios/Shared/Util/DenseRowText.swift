@@ -18,7 +18,7 @@ enum DenseRowText {
     /// Rechte Spalte unter die linke stellen?
     static func stacksTrailing(_ scale: Double) -> Bool { scale >= stackFrom }
 
-    /// Zeilen schmaler als das (pt/dp) gelten als schmal: Mini-Chart dort schmaler (Build 57).
+    /// Zeilen schmaler als das (pt/dp) gelten als schmal: Mini-Chart dort schmaler.
     static let narrowRow: Double = 360
     static let sparklineWidthRegular: Double = 56
     static let sparklineWidthNarrow: Double = 48

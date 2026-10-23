@@ -31,7 +31,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Eine Kurs- und Alarmprüfung im Hintergrund (Build 46): gemeinsamer Weg für WorkManager
+ * Eine Kurs- und Alarmprüfung im Hintergrund: gemeinsamer Weg für WorkManager
  * ([PriceUpdateWorker]), Widget-Knopf und den exakten Wecker ([ExactCheckReceiver]). Überspringt
  * geplante Läufe kurz nach einer Prüfung ([BackgroundSchedule.shouldSkip]) und vermerkt jeden Lauf
  * in «Letzte Prüfungen» ([CheckRunStore]).
@@ -55,8 +55,8 @@ class BackgroundCheck @Inject constructor(
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return true
         val active = runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
         // Merkliste nur als Kopie im Arbeitsspeicher (erst nach dem Öffnen oben verlässlich): [run] prüft dann nicht
-        // (vermerkt «gescheitert»), also soll der Wecker «Pünktlich prüfen» das Gerät dafür nicht weiter wecken (seit
-        // Build 93). Jeder Start stellt ihn wieder (PriceUpdateScheduler.apply: Paare unbekannt = stellen) — ist die Datei
+        // (vermerkt «gescheitert»), also soll der Wecker «Pünktlich prüfen» das Gerät dafür nicht weiter wecken.
+        // Jeder Start stellt ihn wieder (PriceUpdateScheduler.apply: Paare unbekannt = stellen) — ist die Datei
         // dann überführt, läuft die Kette wie zuvor
         if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) return false
         return active
@@ -87,14 +87,14 @@ class BackgroundCheck @Inject constructor(
             return null
         }
         // Wie die Merkliste in diesem Prozess liegt, steht erst nach dem Öffnen fest — ein Hintergrund-Prozess öffnet sie
-        // oft erst hier (seit Build 92 vor den beiden Prüfungen darunter)
+        // oft erst hier (vor den beiden Prüfungen darunter)
         withContext(Dispatchers.IO) { watchRepository.openDatabase() }
         // Merkliste in diesem Prozess nur leer im Arbeitsspeicher (Schlüssel war gerade nicht lesbar): eine Prüfung sähe
         // keine Paare und keine Alarme — wie «Schlüssel nicht verfügbar» behandeln, die Einstiege versuchen es später
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
         }
-        // Kopie einer alten unverschlüsselten Datei (kein Schlüssel, seit Build 92): «ausgelöst» ginge mit dem Prozess
+        // Kopie einer alten unverschlüsselten Datei (kein Schlüssel): «ausgelöst» ginge mit dem Prozess
         // verloren, jeder neue Hintergrund-Prozess meldete dieselben Alarme erneut. Überspringen statt erneut versuchen —
         // das bleibt so, bis ein Start mit Schlüssel die Datei überführt; im Vordergrund prüft die App weiter
         if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) {
@@ -117,7 +117,7 @@ class BackgroundCheck @Inject constructor(
             throw e
         }
         log(trigger, CheckRunLog.result(summary.checked, summary.failed), startedAt)
-        // Seit Build 104: Kursabruf komplett gescheitert — gezählt für den Diagnosebericht (wie iOS)
+        // Kursabruf komplett gescheitert — gezählt für den Diagnosebericht (wie iOS)
         if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) {
             BackgroundErrorCounter.record(BackgroundErrors.REFRESH, kind = BackgroundErrors.ALL_FAILED_KIND)
         }
@@ -164,7 +164,7 @@ class BackgroundCheck @Inject constructor(
             throw e
         } catch (e: Exception) {
             log(trigger, CheckResult.FAILED, startedAt)
-            // Seit Build 104: Lauf gescheitert — gezählt (Schlüssel gerade nicht lesbar ist kein Fehler)
+            // Lauf gescheitert — gezählt (Schlüssel gerade nicht lesbar ist kein Fehler)
             if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.REFRESH, error = e)
             throw e
         }

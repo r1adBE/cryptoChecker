@@ -47,7 +47,6 @@
     <string name="alarm_threshold_error_funding">Funding rate harus berupa angka antara −10 dan +10 persen.</string>
     <string name="alarm_threshold_error_invalid">Masukkan angka valid yang lebih dari 0.</string>
     <string name="alarm_threshold_error_oi">Perubahan open interest: maksimal 1000 persen.</string>
-    <string name="alarm_threshold_error_percent_down">Penurunan paling banyak 100 persen.</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">dalam %1$d jam</item>
     </plurals>

@@ -150,7 +150,7 @@ fun CoinBadge(
 
 /**
  * Ersatz-Kreis: Akzentfarbe getönt ([INITIALS_TINT_LIGHT] bzw. [INITIALS_TINT_DARK]), Initialen in der Akzentfarbe.
- * Hell seit Build 103 schwächer: mit 14 % lagen die Initialen auf surfaceContainer unter 4.5:1.
+ * Hell schwächer getönt: mit 14 % lagen die Initialen auf surfaceContainer unter 4.5:1.
  */
 @Composable
 private fun InitialsCircle(coin: String, size: Dp) {

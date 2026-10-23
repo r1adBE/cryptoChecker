@@ -110,7 +110,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("price_colors.swap", stringResource(R.string.price_colors_swap), stringResource(R.string.settings_price_colors),
         SettingsSearchTarget.Page(SettingsPage.PRICE_COLORS, "price_colors.swap"),
         stringResource(R.string.price_colors_red_up_hint))
-    // %-Änderung unter «Merkliste» (Review D13), Coin-Logos unter «Erweitert», Widgets unter «Darstellung» (Build 55)
+    // %-Änderung unter «Merkliste» (Review D13), Coin-Logos unter «Erweitert», Widgets unter «Darstellung»
     val changeBasis = stringResource(R.string.settings_change_basis, "%")
     add("page.change_basis", changeBasis, watchlist, SettingsSearchTarget.Page(SettingsPage.CHANGE_BASIS),
         stringResource(R.string.settings_change_basis_hint_1),
@@ -230,7 +230,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
     add("main.reset", stringResource(R.string.settings_reset_app), "", SettingsSearchTarget.Main("main.reset"),
         stringResource(R.string.settings_reset_app_confirm))
-    // «Token & TradFi» mit Alpha und QTLY: eigene Seite unter «Erweitert» (Build 53, vorher «Merkliste»);
+    // «Token & TradFi» mit Alpha und QTLY: eigene Seite unter «Erweitert» (vorher «Merkliste»);
     // frühere Namen bleiben Suchwörter
     val futures = stringResource(R.string.settings_asset_scope_title)
     addPage(SettingsPage.MARKETS, futures)

@@ -6,7 +6,7 @@ import UniformTypeIdentifiers
 // Eigene Datei wie `WatchSheetDexAddress.kt`; der Kopf (`WatchActionsHeader.swift`) setzt sie unter die Börse.
 
 /// «0x1234…abcd» unter der Börse eines DEX-Pools (`DexTokenAddress`); Tippen legt die volle Adresse in die
-/// Zwischenablage. Ohne gemerkte Adresse (Paar vor Build 91 hinzugefügt) nichts.
+/// Zwischenablage. Ohne gemerkte Adresse (Paar mit einer älteren Version hinzugefügt) nichts.
 struct DexTokenAddressLine: View {
     let watch: Watch
     /// Kurz «kopiert» statt der Adresse: iOS bestätigt das Kopieren nicht selbst (Android 13+ schon).
@@ -15,7 +15,7 @@ struct DexTokenAddressLine: View {
     var body: some View {
         if DexLiquidity.isDex(watch.marketKey), let address = DexTokenAddressStore.get(watch.pairId) {
             Button {
-                // Nur auf diesem Gerät (keine universelle Zwischenablage) und nach 60 s wieder weg (seit Build 97,
+                // Nur auf diesem Gerät (keine universelle Zwischenablage) und nach 60 s wieder weg (wie
                 // Android markiert die Adresse als vertraulich)
                 UIPasteboard.general.setItems([[UTType.plainText.identifier: address]],
                                               options: [.localOnly: true, .expirationDate: Date().addingTimeInterval(60)])

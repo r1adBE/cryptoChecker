@@ -7,7 +7,7 @@ import java.io.File
 
 /**
  * Inhalt einer unverschlüsselten Datei in die Datenbank im Arbeitsspeicher kopieren
- * ([DatabaseEncryptionMigration.Decision.PlaintextKept], seit Build 91): Merkliste bzw. Portfolio zeigen den gespeicherten
+ * ([DatabaseEncryptionMigration.Decision.PlaintextKept]): Merkliste bzw. Portfolio zeigen den gespeicherten
  * Stand, aber nichts wird in die Datei geschrieben (wie iOS `ProtectedFile.write(requireSealed:)`). Die Datei wird nur
  * gelesen (`ATTACH`, dann `SELECT`). Kopiert wird nur bei gleichem Room-Schema (`identity_hash`); sonst bleibt der Speicher
  * leer und der nächste Start mit Schlüssel überführt die Datei samt Migrationen. Scheitert etwas, bleibt der Speicher leer

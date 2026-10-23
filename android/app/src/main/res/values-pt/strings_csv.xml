@@ -48,7 +48,7 @@
     <string name="portfolio_csv_import_transfers_hint">Um levantamento e o depósito correspondente da mesma moeda tornam-se uma só transferência: o preço de compra e o período de detenção mantêm-se, a diferença conta como comissão de rede.</string>
     <string name="portfolio_csv_import_transfers_title">Transferências entre as tuas contas</string>
     <string name="portfolio_csv_import_unreadable">Nenhuma transação suportada encontrada. Suportados: exportações CSV da Relai, da Swissquote, da Kraken, da Binance, da Coinbase e da Bitpanda.</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">O ficheiro é demasiado grande para importar (máx. 16 MB e %1$s linhas). Exporta períodos mais curtos e importa-os um a um.</string>
     <string name="portfolio_csv_import_failed">A importação falhou – nada foi guardado. Tenta novamente.</string>
     <string name="portfolio_csv_import_locked">Não é possível importar: os dados guardados não podem ser lidos agora. Reinicia a app.</string>

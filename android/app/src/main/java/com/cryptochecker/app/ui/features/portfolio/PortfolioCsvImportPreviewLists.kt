@@ -1,5 +1,5 @@
 // Listen im Vorschau-Blatt des CSV-Imports: Wahl der Auszahlungen und Umbuchungen zwischen Börsen.
-// Seit Build 103 eigene Datei: einzeln nur die ersten [PREVIEW_LIST_ROWS], alle in einem eigenen Blatt mit Lazy-Liste —
+// Eigene Datei: einzeln nur die ersten [PREVIEW_LIST_ROWS], alle in einem eigenen Blatt mit Lazy-Liste —
 // grosse Dateien bauten sonst Tausende Zeilen auf einmal (wie `PortfolioCsvImportSheet+Choices.swift`).
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
@@ -50,7 +50,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalProposal
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
-/** Seit Build 103: so viele Auszahlungen bzw. Umbuchungen einzeln im Vorschau-Blatt; alle über «Alle anzeigen». Wie iOS. */
+/** So viele Auszahlungen bzw. Umbuchungen einzeln im Vorschau-Blatt; alle über «Alle anzeigen». Wie iOS. */
 internal const val PREVIEW_LIST_ROWS = 10
 
 /**
@@ -65,10 +65,10 @@ internal fun WithdrawalChoices(
     choices: Map<String, CsvWithdrawalChoice>,
     onChoice: (String, CsvWithdrawalChoice) -> Unit,
     onAllChoices: (CsvWithdrawalChoice) -> Unit,
-    /** Seit Build 104: false während des Neu-Lesens — Chips und Knöpfe aus, nicht nur gedimmt. */
+    /** false während des Neu-Lesens — Chips und Knöpfe aus, nicht nur gedimmt. */
     enabled: Boolean = true,
 ) {
-    // Abgeleitete Werte nur neu, wenn sich ihre Eingaben ändern (seit Build 103)
+    // Abgeleitete Werte nur neu, wenn sich ihre Eingaben ändern
     val destinations = remember(proposals) { proposals.associate { it.importKey to it.transferTo } }
     val allDecided = remember(withdrawals, choices) { CsvImportMapping.allWithdrawalsDecided(withdrawals, choices) }
     var showAll by rememberSaveable { mutableStateOf(false) }
@@ -100,7 +100,7 @@ internal fun WithdrawalChoices(
     }
     if (showAll) {
         FullListSheet(stringResource(R.string.portfolio_csv_import_withdrawals_title), onDismiss = { showAll = false }) {
-            // Schlüssel (seit Build 104): Zeilen behalten ihren Zustand beim Neuordnen; importKey ist je Vorschau eindeutig
+            // Schlüssel: Zeilen behalten ihren Zustand beim Neuordnen; importKey ist je Vorschau eindeutig
             items(withdrawals, key = { it.importKey }) { tx -> WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice, enabled) }
         }
     }
@@ -144,7 +144,7 @@ internal fun TransferLinks(
     links: List<CsvTransferLink>,
     linked: Set<String>,
     onLink: (String, Boolean) -> Unit,
-    /** Seit Build 104: false während des Neu-Lesens — Schalter und Knöpfe aus, nicht nur gedimmt. */
+    /** false während des Neu-Lesens — Schalter und Knöpfe aus, nicht nur gedimmt. */
     enabled: Boolean = true,
 ) {
     var showAll by rememberSaveable { mutableStateOf(false) }
@@ -163,7 +163,7 @@ internal fun TransferLinks(
     }
     if (showAll) {
         FullListSheet(stringResource(R.string.portfolio_csv_import_transfers_title), onDismiss = { showAll = false }) {
-            // Schlüssel (seit Build 104): link.key ist je Vorschau eindeutig
+            // Schlüssel: link.key ist je Vorschau eindeutig
             items(links, key = { it.key }) { link -> TransferLinkRow(link, link.key in linked, onLink, enabled) }
         }
     }
@@ -205,7 +205,7 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
     }
 }
 
-/** Seit Build 103: alle Zeilen einer Liste in einem eigenen Blatt, als Lazy-Liste (nur sichtbare Zeilen gebaut). */
+/** Alle Zeilen einer Liste in einem eigenen Blatt, als Lazy-Liste (nur sichtbare Zeilen gebaut). */
 @Composable
 private fun FullListSheet(
     title: String,

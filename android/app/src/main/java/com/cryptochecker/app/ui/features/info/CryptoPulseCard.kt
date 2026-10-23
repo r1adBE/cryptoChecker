@@ -39,7 +39,7 @@ import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.PriceFormat
 
 /**
- * «Was gerade auffällt», die eine Heldenkarte oben im Markt-Tab (Entscheid Build 83: nur diese Karte
+ * «Was gerade auffällt», die eine Heldenkarte oben im Markt-Tab (Entscheid: nur diese Karte
  * ist betont — grösste Schrift, leichte Tönung; alle Karten darunter ruhig). Liest sich als
  * Was passiert (Schlagzeile + Leitsatz) → «Kurz gesagt» ([plain], bis zu drei Sätze in Alltagssprache)
  * → Belege (Coin-Änderungen, Funding-Chip) → «Was bewegt sich mit?» (aufklappbar: Altcoins vs. Bitcoin

@@ -1,7 +1,7 @@
 import Foundation
 
-/// Wie viele Kurs-Mitteilungen die App gleichzeitig einzeln zeigt — wie `NotificationBudget.kt` (seit Build 102 auch
-/// auf iOS). Höchstens `maxPrice` Kurs-Mitteilungen einzeln, der Rest in EINER Sammelmeldung («+N weitere Kurse») im
+/// Wie viele Kurs-Mitteilungen die App gleichzeitig einzeln zeigt — wie `NotificationBudget.kt`.
+/// Höchstens `maxPrice` Kurs-Mitteilungen einzeln, der Rest in EINER Sammelmeldung («+N weitere Kurse») im
 /// Thread «prices»; sonst stünden nach dem ersten Durchlauf mit hunderten Paaren ebenso viele Mitteilungen da
 /// (Kursmitteilung für neue Paare ist standardmässig an). Reine Regeln, testbar.
 enum NotificationBudget {

@@ -1,5 +1,5 @@
 {
-  "_comment": "Obergrenze der Kurs-Mitteilungen (seit Build 102 auch iOS): höchstens 20 einzeln, der Rest in EINER Sammelmeldung; priceSlots = Plätze bei anderen offenen Mitteilungen, planPrices = Verteilung (shown = einzeln offen, neueste zuerst; overflowBefore = bisher in der Sammelmeldung; posts = jetzt zu melden). Gemeinsam für NotificationBudgetParityTest.kt und NotificationBudgetTests.swift.",
+  "_comment": "Obergrenze der Kurs-Mitteilungen (Android und iOS): höchstens 20 einzeln, der Rest in EINER Sammelmeldung; priceSlots = Plätze bei anderen offenen Mitteilungen, planPrices = Verteilung (shown = einzeln offen, neueste zuerst; overflowBefore = bisher in der Sammelmeldung; posts = jetzt zu melden). Gemeinsam für NotificationBudgetParityTest.kt und NotificationBudgetTests.swift.",
   "maxPrice": 20,
   "priceSlots": [
     {

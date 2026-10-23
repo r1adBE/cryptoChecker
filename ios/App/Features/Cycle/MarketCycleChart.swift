@@ -308,7 +308,7 @@ extension CycleHistoryChart {
         var sentences: [String] = []
         for s in series {
             guard let last = s.points.last(where: { $0.multiple > 0 }) else { continue }
-            // Seit Build 96 wie Android `A11yText.change(…, decimals = 0)`: ganze Prozent ohne Tausendertrennung,
+            // Wie Android `A11yText.change(…, decimals = 0)`: ganze Prozent ohne Tausendertrennung,
             // «unverändert» erst unter 0.005 % (vorher eigene Schreibweise «1’130 %» und Schwelle 0.5 %)
             let change = A11y.change((last.multiple - 1) * 100, decimals: 0) ?? L("a11y_change_flat")
             sentences.append(L("a11y_cycle", LocaleNumbers.integer(s.halving.year), change, last.day))

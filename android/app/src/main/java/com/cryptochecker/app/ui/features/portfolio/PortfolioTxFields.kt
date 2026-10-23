@@ -50,7 +50,7 @@ import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
 /**
- * Von/Nach einer Umbuchung: freier Text (Börse oder Wallet). Build 46: Vorschläge als Chips — im leeren,
+ * Von/Nach einer Umbuchung: freier Text (Börse oder Wallet). Vorschläge als Chips — im leeren,
  * fokussierten Feld die selbst benutzten Namen [used], beim Tippen dazu die Börsen der App [suggestions]
  * ([PortfolioWalletNames.suggestions]); bei einem fast gleichen bekannten Namen («Binanse») der Hinweis
  * «Meintest du Binance?» zum Antippen — bei FIFO je Wallet wäre jede andere Schreibweise eine eigene Wallet.

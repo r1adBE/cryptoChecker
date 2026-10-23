@@ -1,5 +1,5 @@
 {
-  "_comment": "«1 h später» aus der Alarm-Mitteilung (Build 82): Ende der Pause (AlarmSnooze.snoozeUntil), hält sie die Meldung jetzt zurück (isSnoozed; Uhr zurückgestellt = vorbei) und Aufräumen (prune); Knopf nur, wo die Pause wirkt (offeredFor: wiederholende Prozent- und Bewegungsalarme; ab Build 91 auch Kursmarken, die die Pause wieder scharf stellt: rearmsOnSnooze). Gemeinsam für AlarmSnoozeTest.kt und AlarmSnoozeTests.swift.",
+  "_comment": "«1 h später» aus der Alarm-Mitteilung: Ende der Pause (AlarmSnooze.snoozeUntil), hält sie die Meldung jetzt zurück (isSnoozed; Uhr zurückgestellt = vorbei) und Aufräumen (prune); Knopf nur, wo die Pause wirkt (offeredFor: wiederholende Prozent- und Bewegungsalarme; auch Kursmarken, die die Pause wieder scharf stellt: rearmsOnSnooze). Gemeinsam für AlarmSnoozeTest.kt und AlarmSnoozeTests.swift.",
   "snoozeMillis": 3600000,
   "until": [
     {"now": 1000, "until": 3601000},

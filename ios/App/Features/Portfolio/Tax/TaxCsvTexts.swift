@@ -147,15 +147,15 @@ struct TaxCsvTexts: Sendable {
             withdrawalFee: L("tax_export_withdrawal_fee"),
             // CSV-Zeile «Fee»: Veräusserung ohne Erlös
             feeRow: L("tax_export_fee_row"),
-            // Verschenkt/bezahlt und geschätzter Wert (Build 47)
+            // Verschenkt/bezahlt und geschätzter Wert
             gift: L("tax_export_gift"),
             payment: L("tax_export_payment"),
             valueEstimated: L("tax_export_value_estimated"),
-            // Build 56: Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
+            // Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
             spouseGift: L("tax_export_spouse_gift"),
             // Auszahlungsgebühr USDT/Fiat nur Information (UK, US, CA, AU, JP: `TaxTemplate.quoteFeeIsInfo`)
             withdrawalFeeInfo: L("tax_export_withdrawal_fee_info"),
-            // Build 57: Umbuchungsgebühr USDT/Fiat nur Information (nicht im Einstand)
+            // Umbuchungsgebühr USDT/Fiat nur Information (nicht im Einstand)
             transferFeeInfo: L("tax_export_transfer_fee_info"),
             // USDT zum Marktkurs: Tag ohne USDT/USD-Tagesschluss rechnet mit 1 — je Zeile vermerkt
             usdtAssumed: L("portfolio_usdt_assumed")

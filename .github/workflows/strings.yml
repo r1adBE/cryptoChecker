@@ -5,7 +5,7 @@ name: Strings
 on:
   push:
     branches: [main]
-    # Since build 104: release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
+    # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
     paths:

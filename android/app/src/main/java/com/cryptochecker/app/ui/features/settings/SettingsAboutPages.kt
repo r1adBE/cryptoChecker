@@ -44,7 +44,7 @@ private const val DEVELOPER_COUNTDOWN_FROM = 3
 
 /**
  * Über die App: Zweck, Version (7 Tipps schalten «Entwickler» frei), Hinweis zu den Daten; darunter
- * Datenschutz, Börse wünschen, Quellcode und Lizenzen (bis Build 52 auf der Hauptseite) und «Diagnose teilen».
+ * Datenschutz, Börse wünschen, Quellcode und Lizenzen und «Diagnose teilen».
  */
 @Composable
 internal fun AboutPage(
@@ -99,7 +99,7 @@ internal fun AboutPage(
                 YourDataLine(R.string.about_data_device_change_label, R.string.about_data_device_change)
             }
         }
-        // Build 53: Links und Lizenzen von der Hauptseite hierher (Google Play verlangt den Link zur
+        // Links und Lizenzen von der Hauptseite hierher (Google Play verlangt den Link zur
         // Datenschutzerklärung auch in der App). Ohne Browser wirft der Standard-Handler — nie abstürzen.
         NavCard {
             SettingsAnchor("about.privacy") {

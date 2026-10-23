@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
 /**
- * Obergrenzen der Merkliste überall in der App (Entscheid Build 99): höchstens [MAX_PAIRS] Paare und je Paar
+ * Obergrenzen der Merkliste überall in der App: höchstens [MAX_PAIRS] Paare und je Paar
  * [MAX_ALARMS_PER_PAIR] Alarme — beim Hinzufügen (einzeln, Sammelaufnahme, Start-Coins, DEX, Vorschau), beim Anlegen
  * von Alarmen (Editor, Schnell-Alarme) und beim Wiederherstellen einer Sicherung
  * ([com.cryptochecker.app.data.BackupRestoreLimits]). Mehr Paare machen jede Aktualisierung, die Widgets und die

@@ -86,14 +86,14 @@ extension BackupManager {
         }
     }
 
-    /// Seit Build 103: fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösen nie aus — der Editor
-    /// nimmt nur Werte unter 100 an. Seit Build 104 aus einer Sicherung AUSGESCHALTET übernommen (nicht als ungültig
+    /// Fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösen nie aus — der Editor
+    /// nimmt nur Werte unter 100 an. Aus einer Sicherung AUSGESCHALTET übernommen (nicht als ungültig
     /// gezählt) und in der Alarmliste gekennzeichnet. Wie Android `AlarmJson.exceedsFall`.
     static func exceedsFall(_ condition: AlarmCondition, _ threshold: Double) -> Bool {
         condition.isFallingPercent && threshold >= AlarmCondition.maxFallPercent
     }
 
-    /// Seit Build 105 (Review FUN3-02/UX3-06): Schalter auf `enable` stellen erlaubt? Einschalten eines `exceedsFall`-Alarms
+    /// Review FUN3-02/UX3-06: Schalter auf `enable` stellen erlaubt? Einschalten eines `exceedsFall`-Alarms
     /// nie (löst nie aus, die Karte zeigt «Schwelle ungültig») — erst im Editor anpassen; ausschalten immer. Wie Android
     /// `AlarmJson.toggleAllowed` (Fälle `alarm_toggle.json`).
     static func toggleAllowed(_ condition: AlarmCondition, _ threshold: Double, enable: Bool) -> Bool {
@@ -106,7 +106,7 @@ extension BackupManager {
         guard let id = int64(o, "id"), let watchId = int64(o, "watchId"),
               let threshold = double(o, "threshold"), threshold.isFinite,
               let condition = AlarmCondition(rawValue: string(o, "condition") ?? ""),
-              // Seit Build 102: Kursmarke, Prozent und Bewegung mit Schwelle ≤ 0 lösten bei jeder Prüfung aus
+              // Kursmarke, Prozent und Bewegung mit Schwelle ≤ 0 lösten bei jeder Prüfung aus
               !(needsPositiveThreshold(condition) && threshold <= 0)
         else { return nil }
         let referencePrice: Double?
@@ -122,7 +122,7 @@ extension BackupManager {
             watchId: watchId,
             condition: condition,
             threshold: threshold,
-            // Seit Build 104: fallend ab 100 % löst nie aus — ausgeschaltet übernehmen
+            // Fallend ab 100 % löst nie aus — ausgeschaltet übernehmen
             enabled: (bool(o, "enabled") ?? true) && !exceedsFall(condition, threshold),
             repeating: bool(o, "repeating") ?? false,
             sound: bool(o, "sound") ?? true,

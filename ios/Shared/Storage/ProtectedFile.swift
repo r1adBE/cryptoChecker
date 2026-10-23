@@ -2,7 +2,7 @@ import CryptoKit
 import Foundation
 import Security
 
-// Verschlüsselte Dateien mit Nutzerdaten in der App Group (Build 59) — Gegenstück zu den verschlüsselten Datenbanken
+// Verschlüsselte Dateien mit Nutzerdaten in der App Group — Gegenstück zu den verschlüsselten Datenbanken
 // auf Android (SQLCipher, `DatabaseEncryptionMigration.kt`). Gleiche Regeln: nie Daten verlieren, Klartext erst
 // ersetzen, wenn die verschlüsselte Fassung geprüft ist, bei jedem Fehler unverschlüsselt weiter und später erneut.
 
@@ -75,12 +75,12 @@ struct StorageKeychainError: Error, Equatable {
 /// vorhandene Berechtigung `com.apple.security.application-groups`; ein eigenes `keychain-access-groups` würde die
 /// Standardgruppe aller Schlüsselbund-Einträge der App ändern).
 ///
-/// `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` (Entscheid 17. Oktober 2026, Build 69): lesbar ab dem ersten
+/// `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` (Entscheid 17. Oktober 2026): lesbar ab dem ersten
 /// Entsperren nach dem Start (Widgets, Hintergrund), aber nie Teil eines iCloud-/Finder-Backups und nicht übertragbar
 /// auf ein anderes iPhone — wer ein Geräte-Backup in die Hände bekommt, hat die Dateien, aber nie ihren Schlüssel.
 /// Folge: Nach einem Gerätewechsel sind die verschlüsselten Dateien unlesbar; `prepareAtLaunch` legt sie beiseite
 /// und `StorageRecoveryNotice` nennt das einmal. Weg zurück ist die Sicherungsdatei (Einstellungen › Sicherung sagt
-/// das vorab). Bis Build 68 hiess der Zugriff `kSecAttrAccessibleAfterFirstUnlock`; `StorageKey.restrictToThisDevice`
+/// das vorab). Früher hiess der Zugriff `kSecAttrAccessibleAfterFirstUnlock`; `StorageKey.restrictToThisDevice`
 /// stellt einen solchen Eintrag beim Start um. Nicht mit dem iCloud-Schlüsselbund synchronisiert.
 struct SystemStorageKeychain: StorageKeychain {
     static let service = "com.cryptochecker.storage-key"
@@ -221,7 +221,7 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
         return nil
     }
 
-    /// Einen bis Build 68 angelegten Eintrag (`…AfterFirstUnlock`, im Geräte-Backup enthalten) auf «nur dieses Gerät»
+    /// Einen früher angelegten Eintrag (`…AfterFirstUnlock`, im Geräte-Backup enthalten) auf «nur dieses Gerät»
     /// umstellen. Ändert nur den Zugriff des bestehenden Eintrags (`SecItemUpdate`), nie die Schlüsselbytes — ein neuer
     /// Schlüssel machte alle Dateien unlesbar. Scheitert es (z. B. vor dem ersten Entsperren), bleibt alles wie es ist
     /// und der nächste Start versucht es erneut. true = umgestellt oder schon so (oder kein Eintrag).
@@ -311,7 +311,7 @@ enum ProtectedFile {
         }
     }
 
-    /// Schreibt verschlüsselt (geprüft, atomar ersetzt); ohne Schlüssel unverschlüsselt wie bis Build 58 — der nächste
+    /// Schreibt verschlüsselt (geprüft, atomar ersetzt); ohne Schlüssel unverschlüsselt wie früher — der nächste
     /// Start der App überführt die Datei. Liegt dort aber schon eine verschlüsselte Datei, wird sie ohne Schlüssel nie
     /// durch Klartext ersetzt (`locked`): sonst stünden z. B. Widget-Daten nach einem kurz gesperrten Schlüsselbund
     /// wieder unverschlüsselt da. Das Backup-Merkmal setzen die Aufrufer danach neu (neue Datei).
@@ -319,7 +319,7 @@ enum ProtectedFile {
     /// auch nicht für eine neue oder noch unverschlüsselte Datei — `locked`; der Aufrufer behält den Stand im Speicher
     /// und schreibt beim nächsten Mal
     /// (wie die Widget-Aufnahme, `PortfolioWidgetStore.writeSnapshotFile`).
-    /// `durability`: seit Build 103 `.barrier` für reine Kurs-Speicherungen (`Durability`), sonst `.full`.
+    /// `durability`: `.barrier` für reine Kurs-Speicherungen (`Durability`), sonst `.full`.
     static func write(_ data: Data, to url: URL, keys: StorageKey = .shared, requireSealed: Bool = false,
                       durability: Durability = .full) throws {
         guard case .key(let key) = keys.lookup() else {
@@ -356,7 +356,7 @@ enum ProtectedFile {
 
     /// Versiegeln → in eine Nachbardatei schreiben → von dort lesen, öffnen und mit `data` vergleichen → atomar auf `url`
     /// umbenennen. `unchangedFrom`: nur ersetzen, wenn die Datei noch genau diese Bytes hat (Überführung).
-    /// `durability` `.barrier` (seit Build 103): ohne Nachlesen, mit F_BARRIERFSYNC (`Durability`).
+    /// `durability` `.barrier`: ohne Nachlesen, mit F_BARRIERFSYNC (`Durability`).
     static func writeSealed(_ data: Data, to url: URL, key: SymmetricKey, unchangedFrom expected: Data? = nil,
                             durability: Durability = .full) throws {
         let sealed = try ProtectedContainer.seal(data, key: key)

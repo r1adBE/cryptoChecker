@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Seit Build 105 (Review FUN3-02/UX3-06): «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
+ * Review FUN3-02/UX3-06: «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
  * (`testdata/parity/alarm_toggle.json`); Gegenstück: `AlarmToggleParityTests.swift`.
  */
 class AlarmToggleParityTest {

@@ -254,12 +254,12 @@ struct PricePairsPage: View {
     /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
     @State private var toast: String?
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
-    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen. Seit
-    /// Build 104 ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    /// Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
     @State private var refusedToggles = 0
 
     var body: some View {
-        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus), seit Build 104
+        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
         let _ = refusedToggles
         SettingsSubPage(title: L("settings_price_notifications")) {
             SettingsHint(text: L("settings_price_pairs_hint"), top: 4)
@@ -268,9 +268,9 @@ struct PricePairsPage: View {
             } else {
                 HStack(spacing: 8) {
                     Button(L("settings_price_pairs_all_on")) {
-                        // Seit Build 105: EINE Rückfrage F-08 für alle Paare, vorher
+                        // EINE Rückfrage F-08 für alle Paare, vorher
                         data.withWatchlistConfirm {
-                            // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                            // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage
                             if !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
                             data.setAllNotifications(true)
                         }

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 106 (Review IOS4-R01, FUN4-R1): Vermerke «wird gemeldet» beim Löschen erst nach dem Ergebnis DIESES
+/// Review IOS4-R01, FUN4-R1: Vermerke «wird gemeldet» beim Löschen erst nach dem Ergebnis DIESES
 /// Schreibens kürzen; Portfolio-Bereinigung setzt ihren Merker nur bei wirklich gelesenen Portfolio-Alarmen.
 final class DeliveryMarkerPruneTests: XCTestCase {
     /// (a) Lösch-Schreiben scheitert → Vermerk bleibt (auch wenn alle früheren Schreiben gelangen).

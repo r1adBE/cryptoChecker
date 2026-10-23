@@ -47,7 +47,7 @@ internal class BackupSettingsCodec(
             .put("fearGreedAbove", s.fearGreedAbove)
             .put("gasAlertEthTenths", s.gasAlertEthTenths)
             .put("gasAlertBtc", s.gasAlertBtc)
-            // USDT-Depeg-Alarm (Build 46); ältere Versionen ignorieren die Felder
+            // USDT-Depeg-Alarm; ältere Versionen ignorieren die Felder
             .put("depegAlarm", s.depegAlarm)
             .put("depegThresholdTenths", s.depegThresholdTenths)
             .put("activityAlerts", s.activityAlerts)
@@ -144,7 +144,7 @@ internal class BackupSettingsCodec(
         // Sicherung ohne das Feld (vor dem Schalter): bisheriger Standard an
         setPortfolioEnabled(o.bool("portfolioEnabled") ?: com.cryptochecker.app.settings.AppSettings.LEGACY_PORTFOLIO_ENABLED)
         o.string("portfolioCurrency")?.let { setPortfolioCurrency(it) }
-        // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus), nicht der neue von Build 43
+        // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus), nicht der neue
         setShowConverted(o.bool("showConverted") ?: com.cryptochecker.app.settings.AppSettings.LEGACY_SHOW_CONVERTED)
         if (o.has("priceColorScheme") && !o.isNull("priceColorScheme")) {
             setPriceColorScheme(com.cryptochecker.app.settings.PriceColorScheme.fromName(o.optString("priceColorScheme")))

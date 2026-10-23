@@ -21,7 +21,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Überführung echter Datenbankdateien eines Testgeräts (Build 57/58, vom Inhaber geliefert): `cryptochecker.db` und
+ * Überführung echter Datenbankdateien eines Testgeräts (älterer Stand, vom Inhaber geliefert): `cryptochecker.db` und
  * `cryptochecker_portfolio.db` samt `-wal`/`-shm` unter `app/src/androidTest/assets/realdb/` ablegen (nur Testgerät,
  * keine echten Bestände ins Repository). Fehlen sie, wird der Test übersprungen.
  *

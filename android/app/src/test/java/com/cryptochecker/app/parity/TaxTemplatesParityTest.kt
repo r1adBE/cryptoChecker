@@ -62,7 +62,7 @@ class TaxTemplatesParityTest {
             giftToSpouse = t["giftToSpouse"] == true,
             acquiredTime = t["acquiredTime"].num()?.toLong(),
             imported = t["importKey"] != null,
-            // Gebühr-Zeile und Zins: eigene Felder (Build 76); fehlen sie im Fixture, die frühere Regel (wie beim Wiederherstellen)
+            // Gebühr-Zeile, Zins: eigene Felder; fehlen sie im Fixture, die frühere Regel (wie beim Wiederherstellen)
             feeRow = (t["feeRow"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow(
                 PortfolioTxType.fromName(t["type"] as String), t["importKey"] as String?, dec(t["price"]),
             ),
@@ -121,7 +121,7 @@ class TaxTemplatesParityTest {
         data["ukExempt"].list().map { it.list() }.forEach { c ->
             assertEquals("ukExempt $c", dec(c[1]), TaxTemplate.ukAnnualExemptGbp(c[0].num()!!.toInt()))
         }
-        // Build 56: Regeln je Vorlage (Schenkung, Schenkung an Ehe-/Lebenspartner, Netzwerkgebühr); Partner-Merker (Build 58: Feld)
+        // Regeln je Vorlage (Schenkung, Schenkung an Ehe-/Lebenspartner, Netzwerkgebühr); Partner-Merker (eigenes Feld)
         data["eventRules"].list().map { it.list() }.forEach { c ->
             val expected = TaxEventRules(c[1] as Boolean, c[2] as Boolean, c[3] as Boolean, c[4] as Boolean)
             assertEquals("eventRules $c", expected, TaxTemplate.valueOf(c[0] as String).eventRules)
@@ -188,13 +188,13 @@ class TaxTemplatesParityTest {
                 (e["costIncomplete"] as Boolean?)?.let { assertEquals("$label costIncomplete", it, d.costIncomplete) }
                 (e["uncovered"] as Boolean?)?.let { assertEquals("$label uncovered", it, d.uncovered) }
                 (e["wallet"] as String?)?.let { assertEquals("$label wallet", it, d.wallet) }
-                // Build 47: Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
+                // Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
                 (e["gift"] as Boolean?)?.let { assertEquals("$label gift", it, d.gift) }
                 (e["payment"] as Boolean?)?.let { assertEquals("$label payment", it, d.payment) }
                 (e["valueEstimated"] as Boolean?)?.let { assertEquals("$label valueEstimated", it, d.valueEstimated) }
-                // Build 56: Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
+                // Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
                 (e["spouseGift"] as Boolean?)?.let { assertEquals("$label spouseGift", it, d.spouseGift) }
-                // Build 81: FR-Gesamtwert samt beobachteter Adressen (ohne Einstand)
+                // FR-Gesamtwert samt beobachteter Adressen (ohne Einstand)
                 (e["addressValueIncluded"] as Boolean?)?.let { assertEquals("$label addressValueIncluded", it, d.addressValueIncluded) }
                 // Herkunftsteile summieren sich exakt zum Einstand
                 if (d.costParts.isNotEmpty()) {

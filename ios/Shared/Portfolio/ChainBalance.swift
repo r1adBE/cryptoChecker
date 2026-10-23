@@ -301,7 +301,7 @@ enum ChainBalance {
     static func parseTonJettons(_ body: String) throws -> [String: String] { try parseTonJettonPage(body).tokens }
 
     /// Gelesene Jetton-Seite: `tokens` wie `parseTonJettons`, `kept` = bekannte Jettons, die auf der vollen Seite fehlen
-    /// (Reihenfolge der Liste). Ihr alter Wert bleibt, gilt aber seit Build 95 als nicht bestätigt (`WatchedAddress.staleTokens`)
+    /// (Reihenfolge der Liste). Ihr alter Wert bleibt, gilt aber als nicht bestätigt (`WatchedAddress.staleTokens`)
     /// — sonst bliebe er bei dauerhaft voller Seite für immer stehen. Wie Android.
     struct TonJettonPage: Equatable, Sendable {
         let tokens: [String: String]

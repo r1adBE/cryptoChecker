@@ -229,7 +229,7 @@ final class BackupCryptoTests: XCTestCase {
     }
 
     func testPasswordRules() {
-        // Mindestlänge 12 (neue Sicherungen, seit Build 69)
+        // Mindestlänge 12 (neue Sicherungen)
         XCTAssertFalse(BackupCrypto.isPasswordLongEnough("12345678901"))
         XCTAssertTrue(BackupCrypto.isPasswordLongEnough("123456789012"))
         // Emoji zählt als ein Zeichen
@@ -246,7 +246,7 @@ final class BackupCryptoTests: XCTestCase {
         for weak in weakSamples {
             XCTAssertFalse(BackupCrypto.canExport(protect: true, password: weak, repeated: weak), weak)
         }
-        XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (bis Build 68 erlaubt)
+        XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (in älteren Versionen erlaubt)
         XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ"))   // 11 Zeichen
         XCTAssertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2"))   // 12 Zeichen
     }
@@ -265,7 +265,7 @@ final class BackupCryptoTests: XCTestCase {
     func testPasswordStrengthShortIsWeak() {
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9"))
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9x"))        // 9 Zeichen
-        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen (bis Build 68 erlaubt)
+        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen (in älteren Versionen erlaubt)
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xyZ"))      // 11 Zeichen
         XCTAssertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ2"))    // 12 Zeichen
         // Emoji zählt als ein Zeichen
@@ -347,7 +347,7 @@ final class BackupLimitsTests: XCTestCase {
         XCTAssertEqual(BackupLimits.maxBytes, 64 * 1024 * 1024)
     }
 
-    /// Seit Build 92 kompakt (kein `.prettyPrinted`), Schlüssel weiter sortiert; das Einlesen nimmt die Datei an.
+    /// Kompakt (kein `.prettyPrinted`), Schlüssel weiter sortiert; das Einlesen nimmt die Datei an.
     func testBackupIsWrittenCompactAndReadBack() throws {
         let root: [String: Any] = [
             "format": BackupManager.format, "version": BackupManager.version,
@@ -363,7 +363,7 @@ final class BackupLimitsTests: XCTestCase {
         XCTAssertEqual(try BackupManager.invalidEntries(data), 0)
     }
 
-    /// Eingerückte Sicherung bis Build 91 (iOS `.prettyPrinted`, Android `toString(2)`) liest sich weiter.
+    /// Eingerückte Sicherung älterer Versionen (iOS `.prettyPrinted`, Android `toString(2)`) liest sich weiter.
     func testIndentedBackupUpToBuild91IsStillRead() throws {
         let indented = Data(#"""
         {

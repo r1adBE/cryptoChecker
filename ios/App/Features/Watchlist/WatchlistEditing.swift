@@ -1,10 +1,10 @@
 import Accessibility
 import SwiftUI
 
-/// Favorit, Löschen mit «Rückgängig» und Reihenfolge — per Wischen, VoiceOver oder Ziehen. Seit Build 105 (F-08,
-/// Review UX3-02, IOS3-R04): jede Aktion fragt EINMAL vorher (`data.withWatchlistConfirm`); nach «Trotzdem» läuft der
-/// normale Weg mit Banner, «Rückgängig», Haptik und Ansage, nach «Abbrechen» nichts davon. Seit Build 106 (UX4-06,
-/// wie Android): Banner/Haptik nur nach dem Schreiben (gesperrt: nur der Hinweis), die Mehrfachauswahl endet erst dann.
+/// Favorit, Löschen mit «Rückgängig» und Reihenfolge — per Wischen, VoiceOver oder Ziehen. F-08,
+/// Review UX3-02, IOS3-R04: jede Aktion fragt EINMAL vorher (`data.withWatchlistConfirm`); nach «Trotzdem» läuft der
+/// normale Weg mit Banner, «Rückgängig», Haptik und Ansage, nach «Abbrechen» nichts davon. UX4-06 (wie
+/// Android): Banner/Haptik nur nach dem Schreiben (gesperrt: nur der Hinweis), die Mehrfachauswahl endet erst dann.
 extension WatchlistScreen {
     /// Wisch-Aktionen: nicht beim Sortieren (Ziehgriffe) und nicht mit VoiceOver.
     var swipeEnabled: Bool { !sorting && !selecting && !voiceOver }
@@ -85,7 +85,7 @@ extension WatchlistScreen {
         }
     }
 
-    /// «Rückgängig» für mehrere Paare; seit Build 103 mit Hinweis, wenn die Merkliste inzwischen voll ist.
+    /// «Rückgängig» für mehrere Paare; mit Hinweis, wenn die Merkliste inzwischen voll ist.
     func undoRestore(_ deleted: [DeletedWatch]) {
         data.withWatchlistConfirm {
             var result = UndoRestoreResult()
@@ -94,7 +94,7 @@ extension WatchlistScreen {
         }
     }
 
-    /// Seit Build 103: «n nicht zurückgeholt – Merkliste voll» (wie Android).
+    /// «n nicht zurückgeholt – Merkliste voll» (wie Android).
     func showUndoFull(_ result: UndoRestoreResult) {
         guard result.full > 0 else { return }
         banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full), icon: "exclamationmark.circle",

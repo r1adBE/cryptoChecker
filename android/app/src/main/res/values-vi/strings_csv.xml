@@ -40,7 +40,7 @@
     <string name="portfolio_csv_import_transfers_hint">Một lần rút và lần nạp tương ứng của cùng một coin trở thành một lần chuyển: giá mua và thời gian nắm giữ được giữ nguyên, phần chênh lệch được tính là phí mạng.</string>
     <string name="portfolio_csv_import_transfers_title">Chuyển giữa các tài khoản của bạn</string>
     <string name="portfolio_csv_import_unreadable">Không tìm thấy giao dịch được hỗ trợ. Hỗ trợ: tệp CSV xuất từ Relai, Swissquote, Kraken, Binance, Coinbase và Bitpanda.</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">Tệp quá lớn để nhập (tối đa 16 MB và %1$s dòng). Hãy xuất các khoảng thời gian ngắn hơn rồi nhập lần lượt.</string>
     <string name="portfolio_csv_import_failed">Nhập không thành công – chưa có gì được lưu. Vui lòng thử lại.</string>
     <string name="portfolio_csv_import_locked">Không thể nhập: hiện không đọc được dữ liệu đã lưu. Hãy khởi động lại ứng dụng.</string>

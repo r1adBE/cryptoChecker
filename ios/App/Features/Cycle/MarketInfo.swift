@@ -59,7 +59,7 @@ enum MarketInfoTopic: String, Identifiable {
     }
     var sourceKey: String { "market_info_\(rawValue)_source" }
 
-    /// Build 55: Zeilen «hoch heisst …, tief heisst …» zu Werten der Karte, die «So liest du es» noch
+    /// Zeilen «hoch heisst …, tief heisst …» zu Werten der Karte, die «So liest du es» noch
     /// nicht erklärt (Hebel, Funding, Altcoins) — wie `readingRes` (Android).
     var readingKeys: [String] {
         switch self {

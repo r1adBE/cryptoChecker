@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import android.annotation.SuppressLint
 import com.cryptochecker.app.domain.watch.FirstAlarmCard
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
@@ -106,6 +107,8 @@ fun WatchlistScreen(
     val staleAfter = display.staleAfterMillis
     val outdatedAfter = display.staleAfterMillis
     // Mini-Chart nur mit genug Breite, damit der Paarname nicht gequetscht wird ([sparklinesFit])
+    // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung
+    @SuppressLint("ConfigurationScreenWidthHeight")
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val fontScale = LocalDensity.current.fontScale
     val fetchSparklines = sparklinesFit(display.sparklineEnabled, screenWidthDp, fontScale)
@@ -221,7 +224,7 @@ fun WatchlistScreen(
         }
     }
     // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen» (ohne Rückfrage, mit «Rückgängig», weiteres Löschen als
-    // Sammel-Banner) bzw. nach rechts wischen (Favorit): seit Build 107 (ARC5-R01) Haptik und Banner über Ereignisse im
+    // Sammel-Banner) bzw. nach rechts wischen (Favorit): Haptik und Banner (ARC5-R01) über Ereignisse im
     // aktuellen Bildschirm ([WatchlistUiEffects] in [WatchlistSheets])
     val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
     val deleteWithUndo: (WatchEntity) -> Unit = { uiEvents.deleteWithUndo(viewModel, it) }

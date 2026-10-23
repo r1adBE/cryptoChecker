@@ -12,7 +12,7 @@ import kotlin.math.abs
 import kotlin.math.max
 
 /**
- * Netzwerkgebühren (`testdata/parity/gas_fees.json`, seit Build 97): eth_feeHistory (Grundgebühr des nächsten Blocks plus
+ * Netzwerkgebühren (`testdata/parity/gas_fees.json`): eth_feeHistory (Grundgebühr des nächsten Blocks plus
  * Median der Trinkgelder, unlesbare Einträge übersprungen), eth_gasPrice, mempool.space, Überweisungskosten und Anzeige.
  * Gegenstück: `Tests/GasFeesParityTests.swift`.
  */

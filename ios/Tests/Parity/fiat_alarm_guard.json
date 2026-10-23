@@ -1,5 +1,5 @@
 {
-  "_comment": "Fiat-Alarme (Build 91): Alter des Devisenkurses in Bankarbeitszeit (ohne Wochenende/TARGET-Feiertage, 36 h), USDT/USD-Stand (angenommen/gemessen/unsicher über USDC) und Auslassen. Gemeinsam für FiatAlarmGuardTest.kt und FiatAlarmGuardTests.swift. Seit Build 92: echte Fiat-Währungen ohne Devisenkurs (NGN, ARS …) = FIAT_UNSUPPORTED — keine Umrechnung, nie über USDT («classify»).",
+  "_comment": "Fiat-Alarme: Alter des Devisenkurses in Bankarbeitszeit (ohne Wochenende/TARGET-Feiertage, 36 h), USDT/USD-Stand (angenommen/gemessen/unsicher über USDC) und Auslassen. Gemeinsam für FiatAlarmGuardTest.kt und FiatAlarmGuardTests.swift. Echte Fiat-Währungen ohne Devisenkurs (NGN, ARS …) = FIAT_UNSUPPORTED — keine Umrechnung, nie über USDT («classify»).",
   "rateTimeOf": [
     {
       "name": "ECB date at 15:00 UTC",

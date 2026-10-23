@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Plant die Hintergrund-Aktualisierung nach einem Neustart bzw. App-Update neu — samt Wecker
  * «Pünktlich prüfen», auch wenn «Wecker und Erinnerungen» gerade erlaubt wurde. Nach Wechsel von Zeitzone
  * oder Uhr die Morgen-Meldung «Wirtschaftstermine» (an die Ortszeit gebunden) und den Wecker abgleichen.
- * Seit Build 104 über [launchAsync]: Zeitgrenze nach goAsync ([com.cryptochecker.app.util.ReceiverAsync.TIMEOUT_MILLIS]),
+ * Über [launchAsync]: Zeitgrenze nach goAsync ([com.cryptochecker.app.util.ReceiverAsync.TIMEOUT_MILLIS]),
  * Fehler nur protokolliert, finish() immer.
  */
 @AndroidEntryPoint

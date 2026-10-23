@@ -171,7 +171,7 @@ final class ParityFixtureTests: XCTestCase {
             let text = c["text"] as? String ?? ""
             let decimal: Character = (c["decimal"] as? String)?.first ?? "."
             let expected = S.number(c["expected"])
-            // Seit Build 103: Region mit indischer Gruppierung («1,00,000»), Standard nein
+            // Region mit indischer Gruppierung («1,00,000»), Standard nein
             let indian = c["indianGrouping"] as? Bool ?? false
             let actual = ThresholdParser.parse(text, decimalSeparator: decimal, priceHint: S.number(c["hint"]),
                                                indianGrouping: indian)
@@ -282,7 +282,7 @@ final class ParityFixtureTests: XCTestCase {
         }
     }
 
-    /// Bezugskurse der Tagesschlüsse: ohne ungeprüfte und (seit Build 101) ohne «Kurs ungeprüft» — wie Android.
+    /// Bezugskurse der Tagesschlüsse: ohne ungeprüfte und ohne «Kurs ungeprüft» — wie Android.
     func testCutoffReferencePrices() throws {
         let cases = S.list(try S.fixture("cutoff_export")["referenceCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 3)
@@ -296,7 +296,7 @@ final class ParityFixtureTests: XCTestCase {
         }
     }
 
-    /// Bezugskurs des Wertverlaufs (Speicher, dann gemerkter Stand) nach derselben Regel (seit Build 101) — wie Android.
+    /// Bezugskurs des Wertverlaufs (Speicher, dann gemerkter Stand) nach derselben Regel — wie Android.
     func testChainReference() throws {
         let cases = S.list(try S.fixture("cutoff_export")["chainReferenceCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 3)

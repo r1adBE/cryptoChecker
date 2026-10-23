@@ -129,8 +129,8 @@ object PriceFormat {
     fun zeroPercent(): String = BidiText.ltr(PercentText.unsigned(0.0, 2))
 
     /**
-     * Uhrzeit mit Sekunden — bei Kursen zählt die Sekunde. 12/24 h nach der Systemeinstellung ([ClockText], seit
-     * Build 95); [is24] = null: wie die Sprache.
+     * Uhrzeit mit Sekunden — bei Kursen zählt die Sekunde. 12/24 h nach der Systemeinstellung ([ClockText]);
+     * [is24] = null: wie die Sprache.
      */
     fun time(millis: Long, is24: Boolean? = ClockText.systemIs24Hour(), locale: Locale = LocaleNumbers.appLocale): String =
         if (millis <= 0) "—"
@@ -143,7 +143,7 @@ object PriceFormat {
 
     /**
      * Prozentwert für Benachrichtigungen: mit Vorzeichen (echtes Minus U+2212), drei Nachkommastellen; gerundet 0
-     * ohne Vorzeichen («0.000%» statt «+0.000%»/«−0.000%», seit Build 95) wie [PercentText.signed].
+     * ohne Vorzeichen («0.000%» statt «+0.000%»/«−0.000%») wie [PercentText.signed].
      */
     fun changePercentDetailed(value: Double, locale: Locale = LocaleNumbers.appLocale): String =
         BidiText.ltr(PercentText.signed(value, 3, locale))
@@ -171,7 +171,7 @@ object PriceFormat {
     /**
      * Abstand zu einem Zeitpunkt, kompakt und in der App-Sprache: Englisch «45s», «12m», «3h», «7d», Deutsch «7 T.»,
      * «3 Std.» (ICU MeasureFormat, NARROW — wie iOS `DateComponentsFormatter` .abbreviated). Für «seit der letzten
-     * Meldung» in der Benachrichtigung. Seit Build 94 nicht mehr fest englisch («vor 7d»).
+     * Meldung» in der Benachrichtigung. Nie fest englisch («vor 7d»).
      */
     fun age(sinceMillis: Long, now: Long = System.currentTimeMillis(), locale: Locale = LocaleNumbers.appLocale): String? {
         val (value, unit) = ageParts(sinceMillis, now) ?: return null

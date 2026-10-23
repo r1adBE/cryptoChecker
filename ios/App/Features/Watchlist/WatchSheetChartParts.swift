@@ -109,8 +109,8 @@ struct SheetChangeHeaderLine: View {
     }
 }
 
-/// Beschriftungen in Charts (Aktionsblatt, Wertverlauf): 10 pt, mit der Textgrösse bis 1.5× (Build 46,
-/// vorher 1.3×). Die Preisspalte misst ihre Breite und die Ränder die Höhe — nichts wird abgeschnitten.
+/// Beschriftungen in Charts (Aktionsblatt, Wertverlauf): 10 pt, mit der Textgrösse bis 1.5×.
+/// Die Preisspalte misst ihre Breite und die Ränder die Höhe — nichts wird abgeschnitten.
 /// Wie Android `LABEL_SP` / `MAX_FONT_SCALE`.
 enum ChartLabelMetrics {
     static let base: CGFloat = 10

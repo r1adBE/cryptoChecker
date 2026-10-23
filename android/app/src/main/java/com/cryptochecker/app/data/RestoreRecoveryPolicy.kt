@@ -4,7 +4,7 @@ package com.cryptochecker.app.data
  * Darf ein beim Start gefundenes Journal ([RestoreJournal]) noch zurückgerollt werden? Gespiegelt in
  * `RestoreRecoveryPolicy.swift`, gleiche Fälle auf beiden Seiten.
  *
- * Seit Build 93: Scheiterte das Zurückrollen, blieb das Journal liegen und jeder Start versuchte es erneut. Der Nutzer
+ * Scheiterte das Zurückrollen, blieb das Journal liegen und jeder Start versuchte es erneut. Der Nutzer
  * arbeitet aber weiter — ein späteres, gelungenes Zurückrollen hätte Tage an Änderungen mit dem Stand vor dem
  * Wiederherstellen überschrieben, und der Hinweis «nicht vollständig» kam bei jedem Start. Darum je Journal genau ein
  * Zurückrollen beim Start (nie mit einem Journal, das älter als [MAX_AGE_MS] ist); scheitert es, gibt der nächste Start
@@ -17,7 +17,7 @@ object RestoreRecoveryPolicy {
     enum class Decision { ROLL_BACK, GIVE_UP }
 
     /**
-     * Zeitpunkt des Journals: [stored] aus dem Inhalt (seit Build 93), sonst die Änderungszeit der Datei [fileModified]
+     * Zeitpunkt des Journals: [stored] aus dem Inhalt, sonst die Änderungszeit der Datei [fileModified]
      * (Journale älterer Versionen; die Datei wird nur einmal geschrieben). ≤ 0 = unbekannt.
      */
     fun createdAt(stored: Long, fileModified: Long): Long = if (stored > 0) stored else fileModified

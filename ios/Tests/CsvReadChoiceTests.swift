@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 103 (Review FUN-01): «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen
+/// Review FUN-01: «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen
 /// Lesart (`csv_import.json` › «confirmGate»). Gegenstück: `CsvReadChoiceParityTest.kt`.
 final class CsvReadChoiceTests: XCTestCase {
     private typealias S = TestSupport

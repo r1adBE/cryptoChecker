@@ -8,12 +8,12 @@
          Gerät zu Gerät — darum je zwei Zeilen. Android 8 kennt das Attribut nicht: dafür xml/backup_rules.xml. -->
     <!-- Merkliste, Alarme, Gruppen, Notizen: unverschlüsselte Kopie der Hauptdatenbank, die es nur während
          einer Sicherung gibt (SystemBackupAgent.EXPORT_NAME, eine Datei ohne WAL). Die Datenbank selbst
-         (cryptochecker.db, seit Build 59 verschlüsselt) steht bewusst NICHT hier: Ihr Schlüssel liegt im
+         (cryptochecker.db, verschlüsselt) steht bewusst NICHT hier: Ihr Schlüssel liegt im
          Keystore dieses Geräts und ginge nicht mit. Ebenso nie: Schlüsseldateien (noBackupFilesDir/db_keys),
          beiseitegelegte *.unreadable, MarketDatabase.db (Altbestand). -->
     <include domain="database" path="cryptochecker_system_backup.db" requireFlags="clientSideEncryption" />
     <include domain="database" path="cryptochecker_system_backup.db" requireFlags="deviceToDeviceTransfer" />
-    <!-- Nur für die Wiederherstellung alter Sicherungen (bis Build 58: cryptochecker.db-wal), die der Agent
+    <!-- Nur für die Wiederherstellung alter Sicherungen (ältere Versionen mit unverschlüsselter Datenbank: cryptochecker.db-wal), die der Agent
          hierhin umleitet (SystemBackupAgent.onRestoreFile); beim Sichern gibt es die Datei nie. -->
     <include domain="database" path="cryptochecker_system_backup.db-wal" requireFlags="clientSideEncryption" />
     <include domain="database" path="cryptochecker_system_backup.db-wal" requireFlags="deviceToDeviceTransfer" />

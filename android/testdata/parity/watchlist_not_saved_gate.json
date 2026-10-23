@@ -1,5 +1,5 @@
 {
-  "_comment": "Seit Build 104 (F-08): Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand — vor der ersten Änderung des Nutzers je App-Lauf einmal fragen. «Trotzdem» bestätigt für den Rest des Laufs, «Abbrechen» nicht. Hintergrund (kein Schreibweg des Nutzers) und ohne sichtbare Oberfläche nie fragen. Android: WatchlistNotSavedGateTest.kt, iOS: WatchlistNotSavedGateTests.swift.",
+  "_comment": "F-08: Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand — vor der ersten Änderung des Nutzers je App-Lauf einmal fragen. «Trotzdem» bestätigt für den Rest des Laufs, «Abbrechen» nicht. Hintergrund (kein Schreibweg des Nutzers) und ohne sichtbare Oberfläche nie fragen. Android: WatchlistNotSavedGateTest.kt, iOS: WatchlistNotSavedGateTests.swift.",
   "shouldAsk": [
     {"notSaved": true, "userWrite": true, "confirmed": false, "canAsk": true, "ask": true},
     {"notSaved": false, "userWrite": true, "confirmed": false, "canAsk": true, "ask": false},
@@ -22,7 +22,7 @@
     ]
   },
   "actions": {
-    "_comment": "Seit Build 105 (Review ARC3-R01/R02, UX3-01..05, IOS3-R04): EINE Nutzeraktion (Paar löschen, «Merkliste leeren», Gruppe für viele Paare, Startpaare, Alarm speichern) fragt EINMAL VOR der Aktion (Android confirmUserWrite, iOS confirmWatchlistWrite), danach laufen ihre Schreibwege (writes) und erst dann die Folgen (effects: Rückgängig-Eintrag, Mitteilungen entfernen, Banner, Haptik, Ansage, Erst-Alarm). «Abbrechen» = nichts geschrieben, keine Folgen. Ohne vorherige Bestätigung lehnt der Schreibweg ab (Sicherung, eindeutiges Ergebnis), statt selbst zu fragen. confirmed = schon «Trotzdem» in diesem Lauf; skipConfirm = Aktion ruft die Bestätigung nicht auf; questions = gestellte Fragen; written = ausgeführte Schreibwege.",
+    "_comment": "Review ARC3-R01/R02, UX3-01..05, IOS3-R04: EINE Nutzeraktion (Paar löschen, «Merkliste leeren», Gruppe für viele Paare, Startpaare, Alarm speichern) fragt EINMAL VOR der Aktion (Android confirmUserWrite, iOS confirmWatchlistWrite), danach laufen ihre Schreibwege (writes) und erst dann die Folgen (effects: Rückgängig-Eintrag, Mitteilungen entfernen, Banner, Haptik, Ansage, Erst-Alarm). «Abbrechen» = nichts geschrieben, keine Folgen. Ohne vorherige Bestätigung lehnt der Schreibweg ab (Sicherung, eindeutiges Ergebnis), statt selbst zu fragen. confirmed = schon «Trotzdem» in diesem Lauf; skipConfirm = Aktion ruft die Bestätigung nicht auf; questions = gestellte Fragen; written = ausgeführte Schreibwege.",
     "cases": [
       {"name": "delete one pair, cancel", "writes": 1, "answer": false, "questions": 1, "written": 0, "effects": false},
       {"name": "delete one pair, proceed", "writes": 1, "answer": true, "questions": 1, "written": 1, "effects": true},
@@ -36,13 +36,13 @@
     ]
   },
   "cancelledWaiter": {
-    "_comment": "Seit Build 105: Wird die wartende Aktion abgebrochen (Bildschirm/ViewModel weg), verschwindet die offene Frage (pending leer) — kein Dialog ohne Aktion dahinter, nichts bestätigt; die nächste Aktion fragt neu.",
+    "_comment": "Wird die wartende Aktion abgebrochen (Bildschirm/ViewModel weg), verschwindet die offene Frage (pending leer) — kein Dialog ohne Aktion dahinter, nichts bestätigt; die nächste Aktion fragt neu.",
     "pendingAfterCancel": false,
     "confirmedAfterCancel": false,
     "nextActionAsks": true
   },
   "lateScreen": {
-    "_comment": "Seit Build 106 (Review ARC4-R02, Variante A): Fehlt beim Bestätigen die sichtbare Oberfläche (Drehen, kurz verdeckt), wartet die Aktion bis zu waitMillis auf sie. Erscheint sie (screenAppears), wird gefragt; sonst läuft die Aktion ohne Frage, und die Sicherung im Schreibweg lehnt ihre Schreibwege danach nicht ab, auch wenn die Oberfläche inzwischen da ist (canAskAtWrite) — vorher still abgelehnt. afterUnaskedPass: Die nächste Aktion mit Oberfläche fragt wieder; nach deren «Abbrechen» bleibt die Sicherung für Schreibwege ohne Bestätigung (refusesAgainAfterCancel) — der Durchlass galt nur für seine eigene Aktion (unaskedPassScope).",
+    "_comment": "Review ARC4-R02, Variante A: Fehlt beim Bestätigen die sichtbare Oberfläche (Drehen, kurz verdeckt), wartet die Aktion bis zu waitMillis auf sie. Erscheint sie (screenAppears), wird gefragt; sonst läuft die Aktion ohne Frage, und die Sicherung im Schreibweg lehnt ihre Schreibwege danach nicht ab, auch wenn die Oberfläche inzwischen da ist (canAskAtWrite) — vorher still abgelehnt. afterUnaskedPass: Die nächste Aktion mit Oberfläche fragt wieder; nach deren «Abbrechen» bleibt die Sicherung für Schreibwege ohne Bestätigung (refusesAgainAfterCancel) — der Durchlass galt nur für seine eigene Aktion (unaskedPassScope).",
     "waitMillis": 2000,
     "cases": [
       {"name": "screen appears while waiting, proceed", "writes": 3, "screenAppears": true, "answer": true, "questions": 1, "written": 3, "effects": true},

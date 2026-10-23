@@ -48,7 +48,6 @@
     <string name="alarm_threshold_error_funding">Funding rate skal være et tal mellem −10 og +10 procent.</string>
     <string name="alarm_threshold_error_invalid">Indtast et gyldigt tal større end 0.</string>
     <string name="alarm_threshold_error_oi">Ændring i open interest: højst 1000 procent.</string>
-    <string name="alarm_threshold_error_percent_down">Et fald kan højst være 100 procent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">inden for %1$d t</item>
         <item quantity="other">inden for %1$d t</item>

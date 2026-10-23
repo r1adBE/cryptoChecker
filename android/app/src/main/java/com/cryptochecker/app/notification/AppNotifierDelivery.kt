@@ -56,7 +56,7 @@ internal fun AppNotifier.makeRoomForAlarm(id: Int) {
             remaining--
         }
         // Zuletzt die ältesten Alarm-Meldungen: sonst verwarf Android ab rund 48 offenen Alarmen jeden neuen still,
-        // er blieb unbestätigt und meldete sich endlos alle paar Minuten erneut (seit Build 102)
+        // er blieb unbestätigt und meldete sich endlos alle paar Minuten erneut
         val evicted = NotificationBudget.alarmsToEvict(remaining, active.alarms, id)
         evicted.forEach { manager.cancel(it) }
         Timber.d(
@@ -195,7 +195,7 @@ internal fun AppNotifier.openTargetIntent(target: String, requestCode: Int): Pen
         action = "$ACTION_OPEN_NOTIFICATION.$target"
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         putExtra(MainActivity.EXTRA_OPEN, target)
-        // Geheimnis dieser Installation: sonst gilt das Ziel nicht (OpenTargetGuard, seit Build 97)
+        // Geheimnis dieser Installation: sonst gilt das Ziel nicht (OpenTargetGuard)
         withOpenToken(context)
     }
     return PendingIntent.getActivity(

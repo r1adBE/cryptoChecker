@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
 /**
- * Entscheide der Hintergrund-Prüfung (Build 46): «Pünktlich prüfen» (Android: exakter Wecker alle
+ * Entscheide der Hintergrund-Prüfung: «Pünktlich prüfen» (Android: exakter Wecker alle
  * 15 Min.), Sperre gegen doppelte Läufe, Akku-Hinweis. Reine Logik ohne Android — wie
  * `BackgroundSchedule.swift` (dort nur Sperre und Hinweis genutzt; iOS kennt keinen Wecker).
  */

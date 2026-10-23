@@ -15,7 +15,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Build 76: frühere Datenbank-Schlüssel nummeriert behalten und beim nächsten Start gegen beiseitegelegte Dateien
+ * Frühere Datenbank-Schlüssel nummeriert behalten und beim nächsten Start gegen beiseitegelegte Dateien
  * probieren ([DatabaseEncryptionMigration]); Prüfung einer geschriebenen Sicherung ([BackupVerification]); Sperre nach
  * dem Hintergrund mit monotoner Uhr ([PortfolioLockPolicy.relockAfterBackground]).
  */

@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">Een xpub onthult alle adressen van deze wallet. Ze worden op je apparaat afgeleid; naar %1$s gaan alleen losse adressen – bij de eerste zoektocht minstens 40 verzoeken, daarna minder. Privésleutels (xprv) worden nooit geaccepteerd.</string>
     <string name="portfolio_address_xpub_gap">Het zoeken stopt na %1$d ongebruikte adressen op rij (de BIP44-standaard die de meeste wallets gebruiken). Een gebruikt adres voorbij dat gat wordt niet meegeteld – voeg het apart toe.</string>
     <string name="portfolio_address_xpub_used">Gebruikte adressen: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">Te veel gebruikte adressen voor een update</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">Zeer veel adressen – nieuwe betalingen naar oude, lege adressen worden mogelijk niet herkend</string>
     <string name="portfolio_addresses_title">Adressen</string>
 

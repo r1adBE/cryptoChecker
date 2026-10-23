@@ -1,6 +1,6 @@
 import Foundation
 
-/// Reihenfolge der fälligen Paare für «Ungewöhnliche Aktivität» (seit Build 102) — wie `ActivityDueOrder.kt`. Der
+/// Reihenfolge der fälligen Paare für «Ungewöhnliche Aktivität» — wie `ActivityDueOrder.kt`. Der
 /// Durchlauf hat ein Zeitbudget; in Listenreihenfolge kämen bei grossen Merklisten immer dieselben vorderen Paare dran
 /// und die hinteren nie. Darum: am längsten nicht geprüfte zuerst, nie geprüfte ganz vorn; ein Versuch ohne Ergebnis
 /// zählt wie eine Prüfung, damit ein Paar ohne Kerzen nicht jeden Lauf vorn steht.

@@ -131,7 +131,7 @@ final class AppData: ObservableObject {
     /// false = `portfolio.json` war beim Lesen da, aber nicht (ganz) lesbar: vor jedem Schreiben neu lesen
     /// bzw. die Datei sichern, statt sie mit einem leeren Stand zu überschreiben.
     var portfolioIntact = true
-    /// Letztes `setPortfolioFile` scheiterte an der Sperre (Datei/Schlüssel), nicht an einem Schreibfehler — seit Build 103.
+    /// Letztes `setPortfolioFile` scheiterte an der Sperre (Datei/Schlüssel), nicht an einem Schreibfehler.
     var portfolioWriteLocked = false
     /// Portfolio bzw. Portfolio-Alarme konnten nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar) und
     /// warten im Speicher — nie im Klartext geschrieben. Das Portfolio nennt es; das nächste Speichern bzw. die Rückkehr
@@ -143,7 +143,7 @@ final class AppData: ObservableObject {
     @Published private(set) var watchlistSavePending = false
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
     /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Schreibwege des Nutzers sind gesperrt. Neu bei jedem Lesen.
-    /// Setzen nur hier beim Lesen; `internal(set)` seit Build 103 allein für den Verhaltenstest (WatchlistLockBehaviorTests).
+    /// Setzen nur hier beim Lesen; `internal(set)` allein für den Verhaltenstest (WatchlistLockBehaviorTests).
     @Published internal(set) var watchlistLocked = false
     /// Zähler der gemeldeten Ablehnungen (`watchlistWriteRefused`, gedrosselt): Bildschirme zeigen je Erhöhung den kurzen
     /// Hinweis «watchlist_storage_locked» (`.watchlistLockedHint`). Zeit des letzten Hinweises (monotone ms) dazu.
@@ -172,7 +172,7 @@ final class AppData: ObservableObject {
     @Published var addTargetGroup: String?
 
     private init() {
-        // Vor dem ersten Lesen: Dateien mit Nutzerdaten verschlüsseln (einmalig, Build 59); ohne Schlüssel unlesbare beiseitelegen
+        // Vor dem ersten Lesen: Dateien mit Nutzerdaten verschlüsseln (einmalig); ohne Schlüssel unlesbare beiseitelegen
         // und nennen, bis bestätigt (`StorageRecoveryNotice`); öffnen sie doch mit dem Schlüssel, kommen sie zurück (einmal genannt)
         let protection = ProtectedStorage.prepareAtLaunch()
         if !protection.setAside.isEmpty { StorageRecoveryNotice.record(); AlarmDelivery.removeAllMarkers() }
@@ -187,7 +187,7 @@ final class AppData: ObservableObject {
         settings = loadedSettings.settings
         settingsAccessible = loadedSettings.state != .inaccessible
         if loadedSettings.state == .missing { SharedStorage.markSettingsReadable() }
-        // Unlesbare Einstellungen (seit Build 97): einmal melden und gleich durch die Standardwerte ersetzen wie Android —
+        // Unlesbare Einstellungen: einmal melden und gleich durch die Standardwerte ersetzen wie Android —
         // sonst meldete jeder Start dieselben unlesbaren Daten erneut
         if loadedSettings.corrupt { AppData.settingsWereReset(loadedSettings.settings) }
         let loaded = PortfolioStore.loadChecked()
@@ -214,7 +214,7 @@ final class AppData: ObservableObject {
         PriceColors.accent = settings.accentColor
         for kind in FavoriteKind.allCases { favorites[kind] = SharedStorage.favorites(kind) }
         activityReports = ActivityRepository.reports()
-        // Namensdatei vorwärmen, sonst liest `watchKinds` sie beim ersten Zeichnen auf Main — wie Android (seit Build 103)
+        // Namensdatei vorwärmen, sonst liest `watchKinds` sie beim ersten Zeichnen auf Main — wie Android
         Task.detached(priority: .utility) { TokenIdentityStore.shared.warmUp() }
         portfolio = PortfolioStore.newestFirst(portfolioFile.transactions)
         let watched = WatchedAddressStore.loadChecked()
@@ -251,7 +251,7 @@ final class AppData: ObservableObject {
                                                    object: nil, queue: .main) { _ in
             Task { @MainActor in AppData.shared.reloadSettingsIfInaccessible() }
         }
-        primeBackgroundDemand() // Basis des Hintergrund-Bedarfs schon beim Start (seit Build 104)
+        primeBackgroundDemand() // Basis des Hintergrund-Bedarfs schon beim Start
     }
 
     /// Einstellungen lesen; «nicht zugänglich» erkennt die App an `isProtectedDataAvailable`.
@@ -259,7 +259,7 @@ final class AppData: ObservableObject {
         SharedStorage.loadSettingsChecked(protectedDataAvailable: UIApplication.shared.isProtectedDataAvailable)
     }
 
-    /// Einstellungen waren unlesbar: Standardwerte (seit Build 102 mit Portfolio-Sperre an, `SharedStorage.settingsAfterRead`)
+    /// Einstellungen waren unlesbar: Standardwerte (mit Portfolio-Sperre an, `SharedStorage.settingsAfterRead`)
     /// speichern und den Hinweis vormerken (`StorageRecoveryNotice.settingsReset`).
     private static func settingsWereReset(_ standard: AppSettings) {
         StorageRecoveryNotice.recordSettingsReset()
@@ -336,7 +336,7 @@ final class AppData: ObservableObject {
         quietPriceSave = false
         dropMissingWatchlistGroup()
         // Speichern im Hintergrund; die Widgets erst danach neu laden (sie lesen die Datei). Danach: warten Portfolio-Alarme
-        // auf den Schlüssel (nie Klartext), nennt das Portfolio es. Nur Kurse (`quiet`): Barriere (seit Build 103, `Durability`)
+        // auf den Schlüssel (nie Klartext), nennt das Portfolio es. Nur Kurse (`quiet`): Barriere (`Durability`)
         SharedStorage.saveSnapshotInBackground(s, durability: quiet ? .barrier : .full, done: { [weak self] in
             if SharedStorage.portfolioAlarmsPending { self?.portfolioSavePending = true }
             // Nur bei Änderung veröffentlichen (gespeichert wird bei Live-Kursen alle paar Sekunden)
@@ -349,7 +349,7 @@ final class AppData: ObservableObject {
                 WidgetCenter.shared.reloadAllTimelines()
             }
         })
-        if !quiet { followBackgroundDemand() } // Bedarf der Hintergrund-Aktualisierung (seit Build 103)
+        if !quiet { followBackgroundDemand() } // Bedarf der Hintergrund-Aktualisierung
     }
 
     /// Vor dem Lesen (Haupt-Thread). false = nicht lesen: Der Speicher bleibt massgebend.
@@ -376,7 +376,7 @@ final class AppData: ObservableObject {
             // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
             // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
             // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand). Warten Portfolio-Alarme auf den
-            // Schlüssel, bleiben seit Build 103 diese aus dem Speicher (`PortfolioSaveRetry.merged`)
+            // Schlüssel, bleiben diese aus dem Speicher (`PortfolioSaveRetry.merged`)
             if !waiting, let fresh = read.snapshot {
                 snapshot = PortfolioSaveRetry.merged(disk: fresh, memory: snapshot,
                                                      alarmsPending: SharedStorage.portfolioAlarmsPending)

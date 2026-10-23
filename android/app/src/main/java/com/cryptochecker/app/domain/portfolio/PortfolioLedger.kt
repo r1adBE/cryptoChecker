@@ -171,7 +171,7 @@ object PortfolioLedger {
      * `withdrawalPrice`) und Steuer-Export (`priceAt`):
      *  - Gebühr-Zeile ([valueFeeDisposals]): Preis = Tagesschluss, sonst Erlös unbekannt.
      *  - Damit bezahlt ohne Marktwert: Preis = Tagesschluss, [PortfolioTrade.valueEstimated].
-     *  - Tausch ohne Wert (Build 47, z. B. Kraken Krypto↔Krypto): Wert = abgegebene Menge × Tagesschluss des abgegebenen
+     *  - Tausch ohne Wert (z. B. Kraken Krypto↔Krypto): Wert = abgegebene Menge × Tagesschluss des abgegebenen
      *    Coins, sonst erhaltene Menge × Tagesschluss des erhaltenen Coins — Erlös des abgegebenen und Einstand des
      *    erhaltenen Coins, [PortfolioTrade.valueEstimated]. Mit erfasstem Wert unverändert.
      * Ohne Kurs bleibt der Wert unbekannt wie bisher. Ohne solche Transaktionen dieselbe Liste.

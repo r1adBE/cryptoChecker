@@ -4,13 +4,16 @@
      (dunkel, Akzent ORANGE): Fear-&-Greed-Zahl in der Textfarbe, «24h» grau vor den Coins
      (farbiger Text ohne Pille), zwei ganze Coins wie in 3 × 2 (die Marktbreite passt dort nicht neben Fear &amp; Greed). Nur RemoteViews-taugliche Views, keine IDs, kein Code. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/widget_preview_background"
     android:padding="12dp">
 
+    <!-- UseCompoundDrawables: Logo als eigene 16-dp-ImageView wie in allen Widget-Kopfzeilen; als Compound-Drawable sähe es anders aus -->
     <LinearLayout
+        tools:ignore="UseCompoundDrawables"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -117,7 +120,9 @@
             android:textSize="12sp" />
     </LinearLayout>
 
+    <!-- UselessLeaf: Platzhalter mit Gewicht 1 hält den Rest unten (<View> ist in RemoteViews nicht erlaubt) -->
     <FrameLayout
+        tools:ignore="UselessLeaf"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

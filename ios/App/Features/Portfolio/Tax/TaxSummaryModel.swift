@@ -43,12 +43,12 @@ enum TaxSummaryNote: String, Sendable, Equatable, Hashable {
     /// UK, US, CA, AU, JP Auszahlungsgebühren in USDT/Fiat (`TaxTemplate.quoteFeeIsInfo`): kein Verlust, nur Information
     /// (UK: HMRC CRYPTO22150; sonst keine Regel, die sie abziehbar macht).
     case WITHDRAWAL_FEE_INFO
-    /// UK, US, CA, AU, JP Umbuchungsgebühren in USDT/Fiat (`TaxLine.TRANSFER_FEES`, Build 57): kein Verlust und nicht im
+    /// UK, US, CA, AU, JP Umbuchungsgebühren in USDT/Fiat (`TaxLine.TRANSFER_FEES`): kein Verlust und nicht im
     /// Einstand, nur Information.
     case TRANSFER_FEE_INFO
     /// AT Spekulationsgeschäfte netto (`TaxLine.OLD_SHORT_NET`): darin Verkäufe bzw. Tausch von Neuvermögen vom 1.1. bis
     /// 28.2.2022 (`TaxTemplate.atOptionFrom` bis vor `TaxTemplate.atSwapNeutralFrom`) — auf Antrag schon 27,5 % möglich
-    /// (§ 124b Z 384 lit. c EStG); gerechnet ohne Option. Name aus Build 76 beibehalten. Wie Android.
+    /// (§ 124b Z 384 lit. c EStG); gerechnet ohne Option. Früherer Name beibehalten. Wie Android.
     case AT_TRANSITION_2021
     /// AT Freigrenze Spekulationsgeschäfte (`TaxLine.AT_OLD_SPECULATION_LIMIT`): geprüft ohne Option — die Verkäufe von
     /// Neuvermögen vom 1.1. bis 28.2.2022 zählen mit. Wie Android.
@@ -88,7 +88,7 @@ enum TaxLine: String, CaseIterable, Sendable {
     case FR_OUTFLOW
     /// DE, AT: Gebühren von Auszahlungen — eigener Posten, nicht mit den Veräusserungen verrechnet.
     case WITHDRAWAL_FEES
-    /// UK, US, CA, AU, JP (Build 57): Gebühren USDT/Fiat von Umbuchungen zwischen eigenen Wallets (`.TRANSFER`) — nur
+    /// UK, US, CA, AU, JP: Gebühren USDT/Fiat von Umbuchungen zwischen eigenen Wallets (`.TRANSFER`) — nur
     /// Information, weder Verlust noch Einstand.
     case TRANSFER_FEES
     /// CH: Vermögenswert per 31.12. (`TaxExport.chWealth`) — der Text nennt selbst «(Orientierung)», darum ohne Vorsatz im

@@ -5,7 +5,7 @@ import Foundation
 /// - `pending`: zählende Adressen, deren Guthaben noch nie geladen wurde und die noch eine Chance haben (`isPending`): sie
 ///   fehlen im Gesamtwert — Portfolio-Alarme prüfen dann nicht.
 /// - `failing`: zählende Adressen, die nie geladen haben und seit über `pendingMillis` scheitern (Name: Bezeichnung oder
-///   gekürzte Adresse). Seit Build 95 sperren sie die Alarme nicht mehr ohne Ende: die Alarme rechnen ohne sie, der Hinweis
+///   gekürzte Adresse). Sie sperren die Alarme nicht ohne Ende: die Alarme rechnen ohne sie, der Hinweis
 ///   in der Alarm-Übersicht nennt sie.
 /// - `staleTokenAddresses` / `staleTokenAmounts`: zählende Token-Guthaben, deren Wert der letzte Abruf nicht bestätigt hat
 ///   (`WatchedAddress.staleTokens`, z. B. bekannter TON-Jetton fehlt auf einer vollen Seite) — sie gelten für die Alarme wie

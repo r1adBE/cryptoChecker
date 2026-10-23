@@ -67,7 +67,7 @@ internal class TtsAudio(private val context: Context) {
          * Automatische Ansagen (Alarme, Kurse): Strom der Mitteilungen wie der Alarm-Kanal (USAGE_NOTIFICATION) —
          * Lautstärke «Benachrichtigungen», stumm, wenn Mitteilungen stumm sind. Ein stummes Telefon bleibt stumm;
          * Lautlos/Vibration, Telefonat und «Bitte nicht stören» prüft [TtsSpeaker] zusätzlich vor jeder Ansage.
-         * Bis Build 81 lief das über den Wecker-Strom (USAGE_ALARM) und war bei stummen Mitteilungen trotzdem hörbar.
+         * Früher lief das über den Wecker-Strom (USAGE_ALARM) und war bei stummen Mitteilungen trotzdem hörbar.
          * Eine Einstellung «Dringend», die den Wecker-Strom rechtfertigen würde, gibt es nicht. iOS: Kategorie `.ambient`.
          */
         val ANNOUNCEMENT_ATTRIBUTES: AudioAttributes = AudioAttributes.Builder()

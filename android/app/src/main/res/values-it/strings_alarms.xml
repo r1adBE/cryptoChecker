@@ -49,7 +49,6 @@
     <string name="alarm_threshold_error_funding">Il funding rate deve essere un numero tra −10 e +10 per cento.</string>
     <string name="alarm_threshold_error_invalid">Inserisci un numero valido maggiore di 0.</string>
     <string name="alarm_threshold_error_oi">Variazione dell’open interest: al massimo 1000 per cento.</string>
-    <string name="alarm_threshold_error_percent_down">Un calo può essere al massimo del 100 per cento.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">in %1$d h</item>
         <item quantity="many">in %1$d h</item>

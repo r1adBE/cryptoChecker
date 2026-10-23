@@ -26,7 +26,7 @@ internal suspend fun BackupManager.writeWatchlist(watches: List<WatchEntity>, al
             watches.forEach { w -> check(watchDao.insertWatch(w) != -1L) { "Paar ${w.id} nicht übernommen" } }
             alarms.forEach { watchDao.insertAlarm(it) }
         }
-        // Seit Build 104: alle Alarme ersetzt (Ids können sich decken) — alte Vermerke «wird gemeldet» gelten nicht mehr
+        // Alle Alarme ersetzt (Ids können sich decken) — alte Vermerke «wird gemeldet» gelten nicht mehr
         PrefsAlarmDeliveryMarkers.clearAll(context, AlarmDeliveryMarkers.PREFS)
     }
 }
@@ -58,7 +58,7 @@ internal suspend fun BackupManager.rollBack(previous: PreviousState, touched: Se
                 watchedAddressDao.deleteAll()
                 previous.watchedAddresses.forEach { watchedAddressDao.insert(it) }
             }
-            // Seit Build 104: Portfolio-Alarme ersetzt — alte Vermerke «wird gemeldet» gelten nicht mehr
+            // Portfolio-Alarme ersetzt — alte Vermerke «wird gemeldet» gelten nicht mehr
             PrefsAlarmDeliveryMarkers.clearAll(context, PortfolioAlarmDeliveryMarkers.PREFS)
         }
         override suspend fun watchlist() = writeWatchlist(previous.watches, previous.alarms)

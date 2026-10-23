@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Megjelenítés</string>
     <string name="widget_portfolio_display_conversion">Csak átváltás</string>
     <string name="widget_portfolio_display_conversion_usdt">Átváltás + USDT</string>
-    <string name="widget_portfolio_display_hint">Az USDT-sor nem jelenik meg, ha az átváltási pénznem USD.</string>
+    <string name="widget_portfolio_display_hint">Az USDT-sor nem jelenik meg, ha az átváltási pénznem USD-alapú stablecoin (pl. USDC).</string>
     <string name="widget_portfolio_display_usdt">Csak USDT</string>
     <string name="widget_portfolio_empty">Vásárlások rögzítése a Portfólió lapon</string>
     <string name="widget_portfolio_list_hint">Nyisd meg az alkalmazást, hogy itt megjelenjenek a pozícióid.</string>

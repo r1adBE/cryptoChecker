@@ -45,7 +45,7 @@ object ListSegment {
     fun shape(index: Int, count: Int): Shape =
         SegmentShape(first = index <= 0, last = index >= count - 1, radius = Outer.value)
 
-    /** Farbe der Trennlinie zwischen den Zeilen: volle Token-Farbe, nie halbtransparent (Build 46). */
+    /** Farbe der Trennlinie zwischen den Zeilen: volle Token-Farbe, nie halbtransparent. */
     @Composable
     @ReadOnlyComposable
     fun dividerColor(): Color = MaterialTheme.colorScheme.outlineVariant

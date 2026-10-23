@@ -33,8 +33,8 @@ struct AlarmsScreen: View {
     /// Uhr der Statuszeilen, jede Minute nachgeführt — ein Kurs wird auch ohne neue Daten veraltet.
     @State private var now: Int64 = TimeUtils.nowMillis
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
-    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen. Seit
-    /// Build 104 ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    /// Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
     @State var refusedToggles = 0
     @Environment(\.scenePhase) private var scenePhase
     /// «Anpassen» aus einer Alarm-Mitteilung (`AppRouter.pendingEditAlarmId`).
@@ -51,7 +51,7 @@ struct AlarmsScreen: View {
     }
 
     var body: some View {
-        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus), seit Build 104
+        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
         let _ = refusedToggles
         let watch = data.watch(watchId)
         let alarms = data.alarms(for: watchId)
@@ -268,7 +268,7 @@ struct AlarmsScreen: View {
         }
     }
 
-    /// Vorgemerkte Dialoge zeigen: beim Schliessen des Editors, seit Build 105 auch nach einer späteren Antwort (F-08).
+    /// Vorgemerkte Dialoge zeigen: beim Schliessen des Editors auch nach einer späteren Antwort (F-08).
     func showPendingDialogs() {
         if firstAlarmPending {
             firstAlarmPending = false

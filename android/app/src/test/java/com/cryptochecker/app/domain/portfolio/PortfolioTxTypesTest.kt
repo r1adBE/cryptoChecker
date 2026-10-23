@@ -8,7 +8,7 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * Build 46: Umbuchung, Belohnung, Ein-/Auszahlung und Gebühr in einem dritten Coin ([PortfolioLedger]).
+ * Umbuchung, Belohnung, Ein-/Auszahlung und Gebühr in einem dritten Coin ([PortfolioLedger]).
  * Wie `PortfolioTxTypesTests` (iOS); gemeinsame Fälle in `testdata/parity/portfolio.json`.
  */
 class PortfolioTxTypesTest {
@@ -34,7 +34,7 @@ class PortfolioTxTypesTest {
             listOf("BUY", "SELL", "TRANSFER", "REWARD", "DEPOSIT", "WITHDRAWAL", "SWAP", "GIFT", "PAYMENT"),
             PortfolioTxType.entries.map { it.name },
         )
-        // Build 47: «Verschenkt» und «Damit bezahlt» als Text gespeichert (neue Namen am Ende, alte Daten unverändert)
+        // «Verschenkt» und «Damit bezahlt» als Text gespeichert (neue Namen am Ende, alte Daten unverändert)
         assertEquals(PortfolioTxType.GIFT, PortfolioTxType.fromName("GIFT"))
         assertEquals(PortfolioTxType.PAYMENT, PortfolioTxType.fromName("PAYMENT"))
         assertTrue(PortfolioTxType.GIFT.isOutflow && PortfolioTxType.GIFT.isWithdrawalLike && !PortfolioTxType.GIFT.isSaleLike)
@@ -227,7 +227,7 @@ class PortfolioTxTypesTest {
         assertNull(PortfolioExchangeRoute.market("Ledger Nano", mapOf("Kraken" to "Kraken", "Binance" to "Binance")))
     }
 
-    /** Build 47: Damit bezahlt = Veräusserung zum Marktwert in allen Methoden; Abfluss wie ein Verkauf. Wie iOS. */
+    /** Damit bezahlt = Veräusserung zum Marktwert in allen Methoden; Abfluss wie ein Verkauf. Wie iOS. */
     @Test
     fun `payment is a disposal at market value in every method`() {
         val trades = listOf(
@@ -270,7 +270,7 @@ class PortfolioTxTypesTest {
     }
 
     /**
-     * Build 47: Verschenkt = beim Schenkenden keine Veräusserung — Karte und Einstandsmethoden wie eine Auszahlung (kein
+     * Verschenkt = beim Schenkenden keine Veräusserung — Karte und Einstandsmethoden wie eine Auszahlung (kein
      * realisierter Gewinn, Wert verlässt das Portfolio zum Marktwert); nur für UK/CA/AU als Veräusserung. Wie iOS.
      */
     @Test
@@ -326,7 +326,7 @@ class PortfolioTxTypesTest {
     }
 
     /**
-     * Build 76: Gebühr-Zeile nur mit eigenem Merker (feeRow) — ein Verkauf zum Preis 0 mit Import-Herkunft allein ist keine
+     * Gebühr-Zeile nur mit eigenem Merker (feeRow) — ein Verkauf zum Preis 0 mit Import-Herkunft allein ist keine
      * mehr; von Hand ein Verkauf eines wertlosen Coins.
      */
     @Test

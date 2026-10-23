@@ -42,19 +42,19 @@ struct PortfolioScreen: View {
     @State var csvPickerOpen = false
     /// ⋯ › «Importe»: Importläufe mit «Rückgängig».
     @State var importsOpen = false
-    /// Einträge ohne Einstand (Karte, Hinweise unter der Gesamtkarte; Build 84).
+    /// Einträge ohne Einstand (Karte, Hinweise unter der Gesamtkarte).
     @State var costGapsOpen = false
     /// «Unbekannt lassen»: Ids, die die Karte nicht mehr zählt (nur auf diesem Gerät).
     @AppStorage(PortfolioCostGapUi.unknownKey) var costGapsUnknown = ""
     @State private var csvPreview: CsvImportLoaded?
     @State private var csvUnreadable = false
-    /// Grund der Meldung «nicht lesbar»: zu gross oder kein unterstütztes Format (seit Build 99).
+    /// Grund der Meldung «nicht lesbar»: zu gross oder kein unterstütztes Format.
     @State private var csvRefusal = CsvImportRefusal.unreadable
     @Environment(\.accessibilityReduceMotion) var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOver
     /// Uhr für «vor 2 Min.» und den Wechsel nach «veraltet» (alle 30 s, wie der Markt-Tab).
     @State var now = TimeUtils.nowMillis
-    /// FIFO je Wallet: Abgänge über den Bestand ihrer Wallet — seit Build 103 im Hintergrund (`PortfolioWalletShortfallKey`).
+    /// FIFO je Wallet: Abgänge über den Bestand ihrer Wallet — im Hintergrund (`PortfolioWalletShortfallKey`).
     @State var walletShortfalls: [PortfolioWalletShortfall] = []
 
     init() {}

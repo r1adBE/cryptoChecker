@@ -58,8 +58,8 @@ internal class WatchlistEditController(
     private val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
     /**
-     * Seit Build 105 (F-08): Rückfrage EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts
-     * ausser [cancelled] (seit Build 106: Rückmeldung «nicht geschrieben» an den Bildschirm, ARC4-R01).
+     * F-08: Rückfrage EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts
+     * ausser [cancelled] (Rückmeldung «nicht geschrieben» an den Bildschirm, ARC4-R01).
      */
     private fun launchWrite(cancelled: () -> Unit = {}, block: suspend () -> Unit) =
         scope.launch { if (watchRepository.confirmUserWrite()) block() else cancelled() }
@@ -68,7 +68,7 @@ internal class WatchlistEditController(
         scope.launch { settingsRepository.setWatchlistGroup(group) }
     }
 
-    /** Notiz bzw. Gruppe eines Paars; [onProceed] seit Build 107 (IOS5-R02): nach bestätigter Rückfrage (Dialog zu). */
+    /** Notiz bzw. Gruppe eines Paars; [onProceed] (IOS5-R02): nach bestätigter Rückfrage (Dialog zu). */
     fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) {
         launchWrite(cancelled) { onProceed(); watchRepository.setNote(watch.id, note) }
     }
@@ -83,7 +83,7 @@ internal class WatchlistEditController(
 
     /**
      * «Gruppe bearbeiten» übernehmen (ein Vorgang): [oldName] = bisheriger Name, null für eine neue Gruppe. Eine neue Gruppe
-     * ohne Paare entsteht gar nicht; eine bestehende ohne Paare verschwindet. [onDone] seit Build 106 erst nach der Rückfrage
+     * ohne Paare entsteht gar nicht; eine bestehende ohne Paare verschwindet. [onDone] erst nach der Rückfrage
      * F-08 und dem Schreiben (Haptik, Blatt zu; wie iOS), nicht bei «Abbrechen».
      */
     fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) {
@@ -116,7 +116,7 @@ internal class WatchlistEditController(
      * Hinzufügen-Tab — Dublettenprüfung in [WatchRepository.addWatch] (gleiche Standardwerte, Kurs-Benachrichtigung an,
      * Gruppe nach [com.cryptochecker.app.domain.watch.AutoGroup]), Erst-Moment beim allerersten Paar
      * ([com.cryptochecker.app.data.AddMoments.afterExplorerAdd]), danach gleich den Kurs holen (nach [onDone]). [onDone]: Id
-     * des neuen bzw. schon vorhandenen Eintrags; null, wenn nichts zu finden ist — seit Build 106 auch bei «Abbrechen» bzw.
+     * des neuen bzw. schon vorhandenen Eintrags; null, wenn nichts zu finden ist — auch bei «Abbrechen» bzw.
      * gesperrt. Die Erlaubnis für Mitteilungen fragt die Oberfläche (wie der Hinzufügen-Tab nach «ADDED»). Merkliste voll
      * ([com.cryptochecker.app.domain.watch.WatchlistLimits]): nichts angelegt, nur [onFull] (Hinweis).
      */
@@ -153,7 +153,7 @@ internal class WatchlistEditController(
      * (Alarme, Meldungen und Widgets sehen es nicht mehr), vorher aber vollständig festgehalten ([WatchSnapshot]).
      * [undoDelete] legt es mit derselben Id und denselben Alarm-Ids wieder an. Nur die letzte Löschung lässt sich
      * zurückholen; Löschen und Zurückholen laufen nacheinander ([undoMutex]).
-     * Seit Build 105: erst nach dem Löschen ruft es [onDeleted] (Banner, Haptik; liefert den Rückgängig-Schlüssel — liegt
+     * Erst nach dem Löschen ruft es [onDeleted] (Banner, Haptik; liefert den Rückgängig-Schlüssel — liegt
      * dort schon etwas, Sammlung solange der Banner steht, [RemovedBatch], kommt das Paar dazu), danach Rückgängig-Eintrag
      * und Mitteilungen. «Abbrechen» in der Rückfrage bzw. abgelehnt: nichts davon.
      */
@@ -173,7 +173,7 @@ internal class WatchlistEditController(
     }
 
     /**
-     * «Rückgängig» für [watchId]; tut nichts, wenn inzwischen etwas anderes gelöscht wurde. Seit Build 103 nur bis zur
+     * «Rückgängig» für [watchId]; tut nichts, wenn inzwischen etwas anderes gelöscht wurde. Nur bis zur
      * Obergrenze der Merkliste: [onFull] bekommt die Zahl der deshalb nicht zurückgeholten Paare (nur wenn > 0).
      */
     fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) {
@@ -181,7 +181,7 @@ internal class WatchlistEditController(
             undoMutex.withLock {
                 val snapshots = undo.take(watchId) ?: return@withLock
                 // Nach «Merkliste leeren» bzw. vielen Paaren keine Kurs-Meldung je Paar: Android drosselt rund 5 Meldungen
-                // pro Sekunde und verwirft den Rest still; wie unter iOS meldet dann erst die nächste Aktualisierung (Build 95)
+                // pro Sekunde und verwirft den Rest still; wie unter iOS meldet dann erst die nächste Aktualisierung
                 val showPrices = restoresPriceNotifications(snapshots.size)
                 var any = false
                 var full = 0
@@ -208,7 +208,7 @@ internal class WatchlistEditController(
      */
     fun deleteNotTradedWithUndo(onDone: (Int) -> Unit) {
         scope.launch {
-            // Seit Build 105: Rückfrage vor der Sperre; «Abbrechen» bzw. abgelehnt = 0 (kein Banner, nichts weggeräumt)
+            // Rückfrage vor der Sperre; «Abbrechen» bzw. abgelehnt = 0 (kein Banner, nichts weggeräumt)
             val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
                 val ids = watchRepository.getWatches().filter { it.isNotTraded }.map { it.id }
                 deleteSnapshots(NOT_TRADED_UNDO_KEY, ids.mapNotNull { watchRepository.snapshot(it) })
@@ -232,7 +232,7 @@ internal class WatchlistEditController(
 
     /**
      * Festgehaltene Paare löschen (unter [undoMutex]); erst NACH dem Löschen Rückgängig-Eintrag unter [key] und Kurs-,
-     * Aktivitäts- und Alarm-Mitteilungen weg (seit Build 105). Rückgabe: Zahl der gelöschten Paare, 0 = nichts geschehen.
+     * Aktivitäts- und Alarm-Mitteilungen weg. Rückgabe: Zahl der gelöschten Paare, 0 = nichts geschehen.
      */
     private suspend fun deleteSnapshots(key: Long, snapshots: List<WatchSnapshot>): Int {
         if (snapshots.isEmpty() || !watchRepository.deleteWatches(snapshots.map { it.watch.id })) return 0
@@ -246,8 +246,8 @@ internal class WatchlistEditController(
     }
 
     /**
-     * Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen. Seit Build 106 (ARC4-R01,
-     * UX4-06): [onDone] erst nach dem Schreiben — true = geschrieben (Haptik, Auswahl zu), false = «Abbrechen» bzw. abgelehnt.
+     * Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen. ARC4-R01,
+     * UX4-06: [onDone] erst nach dem Schreiben — true = geschrieben (Haptik, Auswahl zu), false = «Abbrechen» bzw. abgelehnt.
      */
     fun setFavorite(ids: Collection<Long>, favorite: Boolean, onDone: (Boolean) -> Unit = {}) {
         launchWrite(cancelled = { onDone(false) }) {
@@ -291,7 +291,7 @@ internal class WatchlistEditController(
     }
 
     /**
-     * «Merkliste leeren» (nach Rückfrage): alle Paare samt Alarmen löschen — seit Build 94 wie [deleteNotTradedWithUndo]
+     * «Merkliste leeren» (nach Rückfrage): alle Paare samt Alarmen löschen — wie [deleteNotTradedWithUndo]
      * vorher vollständig festgehalten (Paar mit Id, Platz, Gruppe, Notiz und Alarmen), damit «Rückgängig» ([undoDelete] mit
      * [CLEAR_ALL_UNDO_KEY]) alles mit denselben Ids zurückholt. [onDone]: Zahl der gelöschten Paare (0 = nichts geschehen).
      */
@@ -299,7 +299,7 @@ internal class WatchlistEditController(
         scope.launch {
             val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
                 val snapshots = watchRepository.getWatches().mapNotNull { watchRepository.snapshot(it.id) }
-                // Ids vorher festhalten; die Mitteilungen gehen seit Build 105 erst nach dem Löschen weg (abgelehnt: bleiben)
+                // Ids vorher festhalten; die Mitteilungen gehen erst nach dem Löschen weg (abgelehnt: bleiben)
                 val ids = snapshots.map { it.watch.id }
                 val alarmIds = watchRepository.getAllAlarmIds()
                 if (!watchRepository.deleteAllWatches()) return@withLock 0
@@ -315,7 +315,7 @@ internal class WatchlistEditController(
         }
     }
 
-    /** Kursmitteilung an/aus; [onDone] wie bei [setFavorite] (seit Build 106: erst dann die Erlaubnis fragen, UX4-R3). */
+    /** Kursmitteilung an/aus; [onDone] wie bei [setFavorite] (erst dann die Erlaubnis fragen, UX4-R3). */
     fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
         launchWrite(cancelled = { onDone(false) }) {
             // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
@@ -374,7 +374,7 @@ internal class WatchlistEditController(
         val blocked = com.cryptochecker.app.data.local.WatchlistStorageLock
             .blocksWrites(com.cryptochecker.app.data.local.DatabaseEncryptionNotice.storedKept.value)
         val turnOnSpeech = enabled && !blocked && !settingsRepository.cached.speaksPairPrices
-        // Seit Build 105: kommt erst die Rückfrage (F-08), keinen Hinweis vorwegnehmen; seit 106 auch ohne sichtbare Oberfläche
+        // Kommt erst die Rückfrage (F-08), keinen Hinweis vorwegnehmen; auch ohne sichtbare Oberfläche
         val asksFirst = com.cryptochecker.app.data.local.WatchlistNotSavedGate.mayAsk()
         launchWrite {
             // Abgelehnt (Merkliste gesperrt): die Sprachausgabe bleibt, wie sie ist

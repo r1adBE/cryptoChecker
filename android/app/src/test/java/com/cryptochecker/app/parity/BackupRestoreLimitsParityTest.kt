@@ -11,7 +11,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Grenzen beim Wiederherstellen der Merkliste (`testdata/parity/backup_limits.json`, seit Build 99): unzulässige
+ * Grenzen beim Wiederherstellen der Merkliste (`testdata/parity/backup_limits.json`): unzulässige
  * Kennungen lassen das Paar wegfallen, Gruppe und Notiz werden wie die Eingabe gesäubert, höchstens so viele Paare
  * und Alarme je Paar wie festgelegt; Weggelassenes wird gezählt (Rückfrage und Erfolgsmeldung). Gegenstück: `Tests/BackupRestoreLimitsTests.swift`.
  */
@@ -41,14 +41,14 @@ class BackupRestoreLimitsParityTest {
             val name = c["description"] as String
             val json = JSONObject()
             c["watch"].obj().forEach { (key, value) ->
-                // Ganze Zahlen als Long (Ids); Bruchzahlen wie ein Bestand 0.5 bleiben Double (seit Build 103)
+                // Ganze Zahlen als Long (Ids); Bruchzahlen wie ein Bestand 0.5 bleiben Double
                 json.put(key, if (value is Double && value % 1.0 == 0.0) value.toLong() else value ?: JSONObject.NULL)
             }
             val watch = BackupWatchlistCodec.jsonToWatch(json)
             assertEquals(name, c["kept"] as Boolean, BackupRestoreLimits.acceptsWatch(watch))
             assertEquals(name, c["group"] as String?, watch.groupName)
             assertEquals(name, c["note"] as String?, watch.note)
-            // Seit Build 103: Bestand nur endlich und > 0 (wie iOS `Watch.validHoldings`)
+            // Bestand nur endlich und > 0 (wie iOS `Watch.validHoldings`)
             if (c.containsKey("expectedHoldings")) assertEquals(name, c["expectedHoldings"].num(), watch.holdings)
         }
     }

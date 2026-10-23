@@ -25,7 +25,7 @@ internal object SettingsKeys {
     /** Frühere Schalter: nur noch mitgeschrieben (aus [UpdateMode.legacyFlags]) für ältere Versionen. */
     val backgroundUpdatesLegacy = booleanPreferencesKey(KEY_BACKGROUND_UPDATES)
     val backgroundInterval = intPreferencesKey("background_interval_minutes")
-    /** «Pünktlich prüfen» (Build 46). */
+    /** «Pünktlich prüfen». */
     val exactChecks = booleanPreferencesKey("exact_checks")
     val liveServiceLegacy = booleanPreferencesKey(KEY_LIVE_SERVICE)
     val liveInterval = intPreferencesKey("live_interval_seconds")

@@ -258,7 +258,7 @@
         <item quantity="other">不含 %1$d 个没有买入价的币（%2$s）——补充价格后即可计入。</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">USDT 暴跌 – 市场价 %1$s USD</string>
     <string name="portfolio_usdt_via_usdc">经 USDC/USDT 得出的 USDT 美元汇率 – 若 USDC 下跌，此数值不准确</string>
     <string name="portfolio_amount_bridged_stable">≈ 含 %1$s（跨链桥）</string>
@@ -291,7 +291,7 @@
     <plurals name="portfolio_coin_delete_confirm">
         <item quantity="other">将删除 %d 笔交易。删除后可立即撤销。</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">以 %1$s 支付的手续费也会从其他交易中移除：%2$d 笔</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

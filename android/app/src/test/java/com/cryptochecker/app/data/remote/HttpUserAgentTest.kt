@@ -24,7 +24,7 @@ class HttpUserAgentTest {
     }
 
     /**
-     * Kein fest verdrahteter User-Agent neben [HttpUserAgent] (seit Build 93: Logos sandten «/16» statt der Version):
+     * Kein fest verdrahteter User-Agent neben [HttpUserAgent] (früher sandten Logos «/16» statt der Version):
      * Jede Abfrage nimmt [HttpUserAgent.android] mit dem versionName.
      */
     @Test

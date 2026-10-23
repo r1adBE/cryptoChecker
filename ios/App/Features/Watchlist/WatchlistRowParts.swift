@@ -43,7 +43,7 @@ extension WatchlistRow {
         VStack(alignment: .leading, spacing: 2) {
             HStack(spacing: Spacing.xs) {
                 pairName
-                    // Build 46: Das Paar geht vor — «Was bewegt sich mit?» klappt bei wenig Platz auf ⚡ zusammen
+                    // Das Paar geht vor — «Was bewegt sich mit?» klappt bei wenig Platz auf ⚡ zusammen
                     .layoutPriority(1)
                 // «Erst-Hinzufügen»: kurzes Häkchen (Banner und Ansage sagen dasselbe)
                 if showCheck {
@@ -86,7 +86,7 @@ extension WatchlistRow {
                         .foregroundStyle(AppColors.warningText)
                         .accessibilityHidden(true)
                 }
-                // Build 57: Lesegrösse (`.subheadline`) statt `.footnote` — wie Android `body`
+                // Lesegrösse (`.subheadline`) statt `.footnote` — wie Android `body`
                 Text(line.text)
                     .font(.subheadline.monospacedDigit())
                     // Bernstein-Schrift (≥ 4.5:1 auch auf hellen Karten), nie die Farbe eines fallenden Kurses
@@ -193,7 +193,7 @@ extension WatchlistRow {
                         .frame(minHeight: namesEnabled ? line2 : nil, alignment: .trailing)
                 }
                 if let converted {
-                    // Build 57: wie die Zeitzeile links (`.subheadline`)
+                    // Wie die Zeitzeile links (`.subheadline`)
                     Text(converted)
                         .font(AppFont.amount(.subheadline))
                         .foregroundStyle(AppColors.onSurfaceVariant)

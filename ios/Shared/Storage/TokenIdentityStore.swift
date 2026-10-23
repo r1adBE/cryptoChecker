@@ -39,7 +39,7 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
         }
     }
 
-    /// Datei einmal lesen und dekodieren (Hintergrund beim Start, seit Build 103), damit der erste Zugriff aus der
+    /// Datei einmal lesen und dekodieren (Hintergrund beim Start), damit der erste Zugriff aus der
     /// Oberfläche nicht auf dem Hauptthread liest.
     func warmUp() {
         lock.lock(); defer { lock.unlock() }

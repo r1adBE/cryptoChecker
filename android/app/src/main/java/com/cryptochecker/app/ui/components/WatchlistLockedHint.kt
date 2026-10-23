@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 /**
  * Kurzer Hinweis, wenn das Repository einen Schreibweg der Merkliste abgelehnt hat ([WatchlistWriteRefusal], gespeicherter
- * Stand gerade nicht lesbar — seit Build 103): Warn-Haptik ([HapticEvent.WARNING]) und [show] mit dem Text
+ * Stand gerade nicht lesbar): Warn-Haptik ([HapticEvent.WARNING]) und [show] mit dem Text
  * «watchlist_storage_locked» über die Snackbar bzw. das Banner des Bildschirms. Nur in Bildschirmen, die Paare oder
  * Alarme ändern (Merkliste, Paar hinzufügen, Alarme, «Jetzt»). Ein neuer Hinweis ersetzt einen noch laufenden.
  */

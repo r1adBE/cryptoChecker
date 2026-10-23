@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- tools:targetApi: targetCellWidth/-Height, previewLayout und widgetFeatures wirken erst ab Android 12 bzw. 9;
+     ältere Versionen übergehen sie bewusst (dort gelten minWidth/minHeight und previewImage). -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="31"
     android:minWidth="180dp"
     android:minHeight="110dp"
     android:minResizeWidth="110dp"

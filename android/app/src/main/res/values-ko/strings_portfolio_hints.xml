@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">포트폴리오 경보 일시 중지: %1$s의 현재 시세 없음</string>
     <string name="portfolio_alarms_paused_price_generic">포트폴리오 경보 일시 중지: 일부 코인에 현재 시세가 없음</string>
     <string name="portfolio_alarms_paused_addresses">포트폴리오 경보 일시 중지: 감시 중인 주소의 잔액을 아직 불러오지 못함</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">포트폴리오 경보 일시 중지: %1$s의 토큰 잔액이 일부 오래됨</string>
     <string name="portfolio_alarms_paused_tokens_generic">포트폴리오 경보 일시 중지: 감시 중인 주소의 토큰 잔액이 일부 오래됨</string>
     <string name="portfolio_alarms_paused_unverified">포트폴리오 경보 일시 중지: %1$s의 가격 미확인</string>

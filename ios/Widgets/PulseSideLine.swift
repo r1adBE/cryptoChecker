@@ -23,7 +23,7 @@ enum PulseSideLine {
         guard let range = line.range(of: number) else { return dotText + Text(line) }
         let head = Text(verbatim: String(line[..<range.lowerBound]))
         let tail = Text(verbatim: String(line[range.upperBound...]))
-        // Zahl in Textfarbe statt Stufenfarbe (AA, Build 43, wie die Karte); die Stufe zeigt der Punkt
+        // Zahl in Textfarbe statt Stufenfarbe (AA, wie die Karte); die Stufe zeigt der Punkt
         return dotText + head + Text(verbatim: number).foregroundStyle(palette.text) + tail
     }
 

@@ -19,7 +19,7 @@ import os
 /// denn beides ist nicht zu unterscheiden. Byte-Folge wie unter Android (`Cipher.doFinal`): `iv` steht eigens, `data`
 /// ist `ciphertext + tag` — nicht `SealedBox.combined` (das hätte die Nonce vorne).
 ///
-/// v2 (bis Build 76, weiterhin lesbar, unverändert): «kdf» PBKDF2-HMAC-SHA256 (CommonCrypto) mit «iter» (600 000,
+/// v2 (ältere Sicherungen, weiterhin lesbar, unverändert): «kdf» PBKDF2-HMAC-SHA256 (CommonCrypto) mit «iter» (600 000,
 /// ältere Dateien 210 000), ohne AAD.
 ///
 /// Gemeinsame Prüfwerte: `Tests/Parity/backup_crypto.json` (gleiche Datei wie Android). Argon2id mit 64 MiB dauert
@@ -37,7 +37,7 @@ enum BackupCrypto {
     static let argon2MemoryKiB = 65_536
     static let argon2Time = 3
     static let argon2Parallelism = 1
-    /// «iter» der v2-Sicherungen mit PBKDF2 (bis Build 76).
+    /// «iter» der v2-Sicherungen mit PBKDF2 (ältere Sicherungen).
     static let defaultIterations = 600_000
     /// «iter» noch älterer v2-Sicherungen (weiterhin lesbar).
     static let legacyIterations = 210_000
@@ -45,8 +45,8 @@ enum BackupCrypto {
     static let ivBytes = 12
     static let tagBytes = 16
     static let keyBytes = 32
-    /// Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen, wie `codePointCount` unter Android; seit
-    /// Build 69 12, vorher 10 bzw. 8). Ältere Dateien lassen sich mit jedem Passwort entschlüsseln.
+    /// Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen, wie `codePointCount` unter Android; 12,
+    /// früher 10 bzw. 8). Ältere Dateien lassen sich mit jedem Passwort entschlüsseln.
     static let minPasswordLength = 12
     /// Grenzen für «iter» beim Lesen: Schutz vor unsinnigen oder absichtlich lähmenden Werten (umfasst 210 000 und 600 000).
     private static let iterationRange = 10_000...10_000_000

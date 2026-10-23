@@ -89,9 +89,9 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(SettingsSearch.search(zh, query: "价格", locale: Locale(identifier: "zh")).map(\.id), ["a", "b"])
     }
 
-    /// Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
+    /// Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
     /// Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler; %-Änderung steht auf
-    /// «Merkliste». Build 83: Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest.kt`.
+    /// «Merkliste». Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest.kt`.
     func testPagesSitWhereTheMainPageShowsThem() {
         XCTAssertEqual(SettingsSearchPage.updates.home, .general)
         XCTAssertEqual(SettingsSearchPage.alarms.home, .general)
@@ -107,7 +107,7 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertNil(SettingsSearchPage.changeBasis.home)
     }
 
-    /// Der Pfad eines Treffers folgt dem Ort der Seite (Build 55).
+    /// Der Pfad eines Treffers folgt dem Ort der Seite.
     @MainActor
     func testSearchPathFollowsPlacement() {
         let items = SettingsSearchCatalog.items(settings: AppSettings())
@@ -120,7 +120,7 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertNil(path("main.portfolio"))
     }
 
-    /// Build 83: Portfolio an einem Ort — die Suche nach «Portfolio» zeigt zuerst die Seite (Zeile unter
+    /// Portfolio an einem Ort — die Suche nach «Portfolio» zeigt zuerst die Seite (Zeile unter
     /// «Allgemein»), den alten Schalter der Gruppe «Mehr» gibt es nicht mehr — wie `portfolio_pageComesFirst` (Android).
     @MainActor
     func testPortfolioSearchFindsPageFirst() {

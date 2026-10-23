@@ -35,7 +35,7 @@ class PortfolioStorageLockTest {
     }
 
     /**
-     * Build 91: Adress-Schreibwege des Nutzers prüfen die Sperre (in der Transaktion), Guthaben-Abrufe und automatische
+     * Adress-Schreibwege des Nutzers prüfen die Sperre (in der Transaktion), Guthaben-Abrufe und automatische
      * Umstellungen nicht — sie dürfen im Hintergrund weiterlaufen. Prüft die Quelle, weil das Repository Room braucht.
      */
     @Test
@@ -53,7 +53,7 @@ class PortfolioStorageLockTest {
         for (name in listOf("setWatchedAddressCountTokens", "setWatchedAddressNetworks", "setWatchedAddressCountInPortfolio")) {
             assertFalse("$name darf die Sperre nicht umgehen", body(source, name).contains("userEdit = false"))
         }
-        // Build 94: «Rückgängig» nach «Adresse entfernen» ist ebenfalls ein Schreibweg des Nutzers
+        // «Rückgängig» nach «Adresse entfernen» ist ebenfalls ein Schreibweg des Nutzers
         assertTrue(source("PortfolioRepositoryUndo.kt").contains("ensurePortfolioWritable()"))
     }
 

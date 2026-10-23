@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">En xpub avslöjar alla adresser i den här walleten. De härleds på din enhet; bara enskilda adresser skickas till %1$s – minst 40 förfrågningar vid första sökningen, sedan färre. Privata nycklar (xprv) godtas aldrig.</string>
     <string name="portfolio_address_xpub_gap">Sökningen avbryts efter %1$d oanvända adresser i rad (BIP44-standarden som de flesta plånböcker använder). En använd adress efter det glappet räknas inte – lägg till den separat.</string>
     <string name="portfolio_address_xpub_used">Använda adresser: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">För många använda adresser för en uppdatering</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">Väldigt många adresser – nya betalningar till gamla, tomma adresser upptäcks kanske inte</string>
     <string name="portfolio_addresses_title">Adresser</string>
 

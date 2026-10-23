@@ -171,7 +171,7 @@ object CsvImport {
     /**
      * Zeilen, deren Schlüssel (oder ein früherer, [CsvImportRow.legacyKeys]) schon gespeichert ist, als Duplikate abtrennen.
      * [existingKeys] = alle gespeicherten Herkunftsschlüssel samt `linkedImportKey` verknüpfter Umbuchungen: jede ihrer
-     * Seiten gilt als importiert. Vor Build 58 verknüpfte Umbuchungen tragen lange Teile gekürzt
+     * Seiten gilt als importiert. Vor Portfolio-Datenbank v4 verknüpfte Umbuchungen tragen lange Teile gekürzt
      * ([LegacyStorageMigration.shortKey]) — auch darüber erkannt.
      */
     fun splitDuplicates(rows: List<CsvImportRow>, existingKeys: Set<String>): CsvImportSplit {

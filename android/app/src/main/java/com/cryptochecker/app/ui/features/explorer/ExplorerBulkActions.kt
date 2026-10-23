@@ -86,7 +86,7 @@ fun ExplorerViewModel.addBulkPairs() {
 
     viewModelScope.launch {
         bulkAdd.value = BulkAddResult(added = 0, skipped = 0, running = true)
-        // Seit Build 105: Rückfrage F-08 einmal für alle Paare; «Abbrechen» = nichts angelegt, keine Zählung
+        // Rückfrage F-08 einmal für alle Paare; «Abbrechen» = nichts angelegt, keine Zählung
         if (!watchRepository.confirmUserWrite()) {
             bulkAdd.value = null
             return@launch

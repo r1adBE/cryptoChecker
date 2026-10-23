@@ -74,7 +74,7 @@ struct TaxPeriod: Sendable, Equatable {
 
 /// Steuer-Vorlage (Einstellung «tax_template», Standard Neutral) — ORIENTIERUNG, keine Steuerberatung. Regeln, Quellen
 /// und Stand (14./15.10.2026) wie `TaxTemplate` (Android): DE § 23/§ 22 Nr. 3 EStG, BMF 06.03.2025 (Rn. 62: nur FIFO
-/// je Wallet); AT BMF (Stand 01.01.2026: Staking/Airdrop Anschaffungskosten null, § 27b Abs. 2 EStG; Zinsen aus Lending seit Build 55 unterschieden,
+/// je Wallet); AT BMF (Stand 01.01.2026: Staking/Airdrop Anschaffungskosten null, § 27b Abs. 2 EStG; Zinsen aus Lending unterschieden,
 /// `TaxEngines.interestReward`: Wert beim Zufluss), KryptowährungsVO § 2 Abs. 1 (je Adresse/Wallet); CH ESTV (Stand
 /// 22.09.2026, ohne Einordnung durch die App; Vermögenswert per 31.12. nur als Orientierung, `TaxExport.chWealth`); UK HMRC CRYPTO22200 ff., CRYPTO22280 (Gebühr in Tokens = Veräusserung),
 /// gov.uk (Stand 13.04.2026); US IRS FAQ digital assets (Stand 29.06.2026), Rev. Proc. 2024-28 (ab 2025 nur FIFO je
@@ -218,7 +218,7 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     /// abziehbaren Kosten, USDT-Gebühr = Veräusserung zum Nennwert ohne Gewinn. UK: HMRC CRYPTO22150 (keine «allowable cost»
     /// für Fiat-Ein-/Auszahlungen); US (IRS digital asset FAQ, § 67(g) IRC), CA (CRA), AU (ATO), JP (国税庁 FAQ): keine Regel,
     /// die sie abziehbar macht — unklar, darum «nicht abziehbar, Information». DE/AT eigener Posten, CH/FR/Neutral Aufwand.
-    /// Build 57: ebenso die Gebühr USDT/Fiat einer Umbuchung zwischen eigenen Wallets — kein Zuschlag zum Einstand mehr, eigene
+    /// Ebenso die Gebühr USDT/Fiat einer Umbuchung zwischen eigenen Wallets — kein Zuschlag zum Einstand mehr, eigene
     /// Zeile `.TRANSFER` (UK CRYPTO22150; sonst unklar → «nicht abziehbar, Information»). DE (keine Verwaltungsauffassung zu
     /// Transfergebühren zwischen eigenen Wallets), CH (ESTV ordnet nicht ein) bleiben beim Zuschlag wie das Portfolio; AT
     /// (§ 27a Abs. 4 Z 2 EStG) und FR (nicht in der Erwerbspreis-Summe) rechnen sie ohnehin nicht zum Einstand. Wie Android.

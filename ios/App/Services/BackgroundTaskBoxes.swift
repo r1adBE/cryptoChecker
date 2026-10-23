@@ -4,7 +4,7 @@ import Foundation
 // Thread-sichere Hilfen der Hintergrund-Aufgabe (`BackgroundRefresh`): Ende genau einmal melden, Task abbrechen,
 // Zwischenstand merken.
 
-/// Was `BackgroundRefresh.handleRefresh` von der Hintergrund-Aufgabe braucht (seit Build 103): Ablauf-Handler setzen und
+/// Was `BackgroundRefresh.handleRefresh` von der Hintergrund-Aufgabe braucht: Ablauf-Handler setzen und
 /// das Ende melden. In der App ist es die `BGTask`, in Tests eine Fälschung, die beides festhält.
 protocol BackgroundRefreshTask: AnyObject {
     /// Setzt den `expirationHandler` (eigener Name: kein Zusammenstoss mit dem Setter der Eigenschaft).
@@ -90,7 +90,7 @@ final class OnceGate: @unchecked Sendable { // @unchecked: veränderlicher Zusta
     }
 }
 
-/// Ablauf eines `expirationHandler` (seit Build 103): zuerst die Arbeit abbrechen und iOS das Ende melden — so wartet
+/// Ablauf eines `expirationHandler`: zuerst die Arbeit abbrechen und iOS das Ende melden — so wartet
 /// `setTaskCompleted` nie auf Datei-Abstimmung (z. B. «Letzte Prüfungen», das Widget hält die Datei). Protokoll und neues
 /// Vormerken laufen danach abseits des Aufrufers (`afterwards`); hält iOS die App vorher an, holt der Task sie beim
 /// nächsten Aufwachen nach.

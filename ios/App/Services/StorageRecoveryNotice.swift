@@ -9,7 +9,7 @@ import SwiftUI
 ///  - `.keyRestored`: Eine beiseitegelegte Datei öffnete beim nächsten Start doch mit dem Schlüssel und ist zurück. Einmal.
 ///  - `.restoreRolledBack` / `.restoreIncomplete`: Ein Wiederherstellen brach ab; der Stand davor wurde zurückgeschrieben
 ///    bzw. liess sich nicht zurückschreiben (`RestoreJournal`). Einmal.
-///  - `.settingsReset` (seit Build 97): Die gespeicherten Einstellungen liessen sich nicht lesen und wurden durch Standardwerte
+///  - `.settingsReset`: Die gespeicherten Einstellungen liessen sich nicht lesen und wurden durch Standardwerte
 ///    ersetzt (`AppData`, `SharedStorage.settingsCorrupt`) — Portfolio-Sperre, Intervall und Währung stehen still auf dem
 ///    Standard. Bleibt vorgemerkt, bis der Nutzer den Hinweis schliesst. Nicht bei einer neuen Installation und nicht bei
 ///    einer (noch) gesperrten Ablage.
@@ -47,7 +47,7 @@ enum StorageRecoveryNotice {
         NotificationCenter.default.post(name: changed, object: nil)
     }
 
-    /// Seit Build 93: Für das Journal mit Zeitpunkt `journalCreatedAt` wollte ein Start schon zurückrollen (gescheitert)
+    /// Für das Journal mit Zeitpunkt `journalCreatedAt` wollte ein Start schon zurückrollen (gescheitert)
     /// oder gab auf — der nächste Start rollt es nicht mehr zurück (`RestoreRecoveryPolicy`). Ein neues Journal hat einen
     /// anderen Zeitpunkt, darum muss der Wert nie gelöscht werden. Wie Android.
     static func recordRollBackAttempt(_ journalCreatedAt: Int64, defaults: UserDefaults = .standard) {

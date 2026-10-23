@@ -31,7 +31,7 @@ final class MomentTextTests: XCTestCase {
     }
 }
 
-/// Seit Build 99 mit zwischengespeicherten Formattern (`DateFormatterCache`): gleiche Ausgabe wie ein frischer
+/// Mit zwischengespeicherten Formattern (`DateFormatterCache`): gleiche Ausgabe wie ein frischer
 /// `DateFormatter` mit denselben Stilen — auch bei wechselnder Zeitzone und Sprache.
 final class MomentTextCacheTests: XCTestCase {
     private func fresh(_ millis: Int64, zone: TimeZone, locale: Locale, today: Bool) -> String {

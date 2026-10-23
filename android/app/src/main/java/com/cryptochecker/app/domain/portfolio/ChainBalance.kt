@@ -256,7 +256,7 @@ object ChainBalance {
 
     /**
      * Gelesene Jetton-Seite: [tokens] wie [parseTonJettons], [kept] = bekannte Jettons, die auf der vollen Seite fehlen
-     * (Reihenfolge der Liste). Ihr alter Wert bleibt, gilt aber seit Build 95 als nicht bestätigt
+     * (Reihenfolge der Liste). Ihr alter Wert bleibt, gilt aber als nicht bestätigt
      * ([WatchedAddress.staleTokens]) — sonst bliebe er bei dauerhaft voller Seite für immer stehen.
      */
     data class TonJettonPage(val tokens: Map<String, String>, val kept: List<String>)

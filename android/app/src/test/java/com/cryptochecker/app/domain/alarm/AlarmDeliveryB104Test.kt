@@ -10,7 +10,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Seit Build 104 (Review ARC2-02): Portfolio-Alarme laufen über [AlarmDelivery] mit eigenem Vermerk-Speicher (wie iOS
+ * Review ARC2-02: Portfolio-Alarme laufen über [AlarmDelivery] mit eigenem Vermerk-Speicher (wie iOS
  * `AlarmDelivery.portfolio`). Gegenstück: `Tests/AlarmDeliveryB104Tests.swift`.
  */
 class AlarmDeliveryB104Test {

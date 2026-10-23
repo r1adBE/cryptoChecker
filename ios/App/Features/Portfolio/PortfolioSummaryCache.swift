@@ -30,7 +30,7 @@ struct PortfolioSummaryInput: Sendable {
     }
 }
 
-/// Zwischenspeicher der Gesamtrechnung für den Portfolio-Tab. Die Rechnung (FIFO je Coin) läuft seit Build 98 abseits
+/// Zwischenspeicher der Gesamtrechnung für den Portfolio-Tab. Die Rechnung (FIFO je Coin) läuft abseits
 /// des Hauptthreads, wie auf Android (`flowOn(Dispatchers.Default)`): `body` bekommt bis zum neuen Ergebnis das letzte
 /// (kein leeres Portfolio dazwischen), nur ganz ohne Ergebnis wird einmal sofort gerechnet. Gleiche Eingaben laufen
 /// höchstens einmal — auch wenn Ansicht und «7 T» gleichzeitig danach fragen.

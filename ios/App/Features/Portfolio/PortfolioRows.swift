@@ -63,7 +63,7 @@ extension PortfolioScreen {
     var emptyState: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // Alltagssprache vor dem ersten Eintrag (Build 58): Beispiel ohne Kaufkurs in USDT, Hauptweg
+                // Alltagssprache vor dem ersten Eintrag: Beispiel ohne Kaufkurs in USDT, Hauptweg
                 // «Ersten Kauf eintragen»; Börsen-Datei und Adresse nur als Nebenwege darunter (wie Android)
                 EmptyStateView(
                     systemImage: AppSymbol.portfolio,
@@ -154,7 +154,7 @@ struct PortfolioCoinRow: View {
         // Positionen als eine Karte: Trennlinie und Aussenrand statt eines Rands je Zeile
         .segmentLines(shape)
         .contentShape(shape)
-        // VoiceOver (seit Build 93): die Zeile als EIN Satz, die Teile ausgeblendet — wie die Zeile der Merkliste
+        // VoiceOver: die Zeile als EIN Satz, die Teile ausgeblendet — wie die Zeile der Merkliste
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(verbatim: accessibilityText))
     }
@@ -248,7 +248,7 @@ struct PortfolioCoinRow: View {
                         .layoutPriority(2)
                         .accessibilityLabel(Text(verbatim: L("label_value", L("portfolio_transactions"), LocaleNumbers.integer(txCount))))
                 }
-                // Build 46: Börse des Kurses («· Kraken», nur mit eigener Börse) und nur bei veraltetem Kurs
+                // Börse des Kurses («· Kraken», nur mit eigener Börse) und nur bei veraltetem Kurs
                 // «veraltet» in Fehlerfarbe (wie die Merkliste). Fehlt Platz, kürzt zuerst die Börse,
                 // dann der Anteil; Zahl und «veraltet» bleiben ganz — wie Android
                 if let exchange, !exchange.trimmingCharacters(in: .whitespaces).isEmpty {

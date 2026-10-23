@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Tampilan</string>
     <string name="widget_portfolio_display_conversion">Hanya konversi</string>
     <string name="widget_portfolio_display_conversion_usdt">Konversi + USDT</string>
-    <string name="widget_portfolio_display_hint">Baris USDT disembunyikan jika mata uang konversi adalah USD.</string>
+    <string name="widget_portfolio_display_hint">Baris USDT disembunyikan jika mata uang konversi adalah stablecoin USD (mis. USDC).</string>
     <string name="widget_portfolio_display_usdt">Hanya USDT</string>
     <string name="widget_portfolio_empty">Tambahkan pembelian di tab Portofolio</string>
     <string name="widget_portfolio_list_hint">Buka aplikasi untuk menampilkan posisimu di sini.</string>

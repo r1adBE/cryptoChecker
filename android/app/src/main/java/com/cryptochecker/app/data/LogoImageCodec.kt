@@ -4,6 +4,7 @@ package com.cryptochecker.app.data
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.core.graphics.scale
 import com.cryptochecker.app.domain.logos.CoinLogos
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -46,11 +47,10 @@ internal object LogoImageCodec {
         val longest = max(decoded.width, decoded.height)
         if (longest <= CoinLogos.STORED_PX) return decoded
         val scale = CoinLogos.STORED_PX.toFloat() / longest
-        return Bitmap.createScaledBitmap(
-            decoded,
+        return decoded.scale(
             (decoded.width * scale).toInt().coerceAtLeast(1),
             (decoded.height * scale).toInt().coerceAtLeast(1),
-            true,
+            filter = true,
         ).also { if (it !== decoded) decoded.recycle() }
     }
 

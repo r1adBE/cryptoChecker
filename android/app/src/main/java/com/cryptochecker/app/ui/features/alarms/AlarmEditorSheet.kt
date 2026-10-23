@@ -38,7 +38,7 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import androidx.compose.ui.semantics.heading
 
 /**
- * Alarm anlegen/bearbeiten als Blatt von unten. Oben nur das Nötige (Build 91): Paar und Kurs, die einfachen
+ * Alarm anlegen/bearbeiten als Blatt von unten. Oben nur das Nötige: Paar und Kurs, die einfachen
  * Bedingungen (Kurs über/unter zuerst, Steigt/Fällt um), der Betrag — die Kursmarke als Satz «Wenn BTC über [Betrag]
  * geht» — und «Einmal / Jedes Mal». Schnell-Alarme (nur beim Anlegen), alle übrigen Bedingungen, Währung, Ton,
  * Vibration und Vorlesen stehen unter «Mehr» (zugeklappt; offen, wenn in dieser Sitzung schon aufgeklappt oder der

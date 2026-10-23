@@ -16,14 +16,14 @@ import java.io.File
  * Room greift nie auf dem Hauptthread zu, die einmalige Überführung einer alten unverschlüsselten Datei
  * ([DatabaseEncryptionMigration]) läuft darum nie dort. Je nach Entscheidung öffnet der Helfer:
  * - verschlüsselt über SQLCipher (`SupportOpenHelperFactory`, roher Schlüssel aus [DatabaseKeyStore]);
- * - unverschlüsselt über das Android-SQLite wie bis Build 58 (Rückfall, der nächste Start versucht es erneut);
- * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired]: Portfolio und seit
- *   Build 91 die Merkliste) ohne Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen
+ * - unverschlüsselt über das Android-SQLite wie vor der Verschlüsselung (Rückfall, der nächste Start versucht es erneut);
+ * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired]: Portfolio und
+ *   Merkliste) ohne Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen
  *   bleiben im Speicher, Portfolio und Merkliste nennen es); der nächste Start versucht es erneut
  *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei mit Pflicht bleibt ohne Schlüssel
- *   seit Build 91 unberührt: ihr Inhalt kommt in den Arbeitsspeicher ([PlaintextMemoryCopy],
- *   [DatabaseEncryptionNotice.isVolatileCopy]), Änderungen werden nicht gespeichert — seit Build 93 auch mit Schlüssel,
- *   aber gescheiterter Überführung (bis Build 92 dann unverschlüsselt weiter wie oben);
+ *   unberührt: ihr Inhalt kommt in den Arbeitsspeicher ([PlaintextMemoryCopy],
+ *   [DatabaseEncryptionNotice.isVolatileCopy]), Änderungen werden nicht gespeichert — auch mit Schlüssel,
+ *   aber gescheiterter Überführung;
  * - gibt der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht heraus: im Vordergrund und für Datenbanken
  *   aus [inMemoryWhenKeyUnavailable] (App: Portfolio und Merkliste) leer im Arbeitsspeicher für diesen Lauf — die
  *   Oberfläche stürzte sonst beim ersten Zugriff ab; die Datei bleibt unberührt, der gespeicherte Stand kommt nach einem
@@ -39,7 +39,7 @@ class EncryptingOpenHelperFactory(
     private val files: DatabaseEncryptionMigration.Files = SqlCipherDatabaseFiles(context),
     /**
      * Datenbanken, die ohne Schlüssel nie unverschlüsselt angelegt werden: Portfolio (Beträge, Adressen, xpub) und Merkliste
-     * (Paare, Alarme, Notizen; bis Build 90 ohne Schlüssel unverschlüsselt angelegt). Ohne Schlüssel und ohne Datei nur im
+     * (Paare, Alarme, Notizen; früher ohne Schlüssel unverschlüsselt angelegt). Ohne Schlüssel und ohne Datei nur im
      * Arbeitsspeicher; den Inhalt dieses Laufs übernimmt ein späterer Schlüssel nicht (der Hinweis sagt das).
      */
     private val encryptionRequired: Set<String> = ENCRYPTION_REQUIRED,
@@ -88,14 +88,14 @@ class EncryptingOpenHelperFactory(
         private fun delegate(): SupportSQLiteOpenHelper {
             delegate?.let { return it }
             val name = requireNotNull(configuration.name)
-            // Prozessweit je Datenbank nur eine Überführung zugleich (seit Build 103): Die Systemsicherung
+            // Prozessweit je Datenbank nur eine Überführung zugleich: Die Systemsicherung
             // (PortfolioBackupMirror) baut eine eigene Fabrik — @Synchronized gilt nur je Instanz
             val decision = synchronized(prepareLock(name)) { DatabaseEncryptionMigration(
                 files,
                 keys,
                 log = { message, error -> if (error == null) Timber.i(message) else Timber.w(error, message) },
                 encryptionRequired = { it in encryptionRequired },
-                // Beiseitegelegte Kopien erst nach bestätigtem Hinweis und Frist löschen (seit Build 102, AsideRetention)
+                // Beiseitegelegte Kopien erst nach bestätigtem Hinweis und Frist löschen (AsideRetention)
                 asideExpired = { db, copies ->
                     AsideRetention.expired(
                         AsideRetention.SeenStore(File(context.noBackupFilesDir, "${DatabaseKeyStore.DIRECTORY}/$db.aside-seen")),

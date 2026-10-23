@@ -676,7 +676,7 @@ def main():
         flats = {}
         for variant in VARIANTS:
             # ---- app icon: adaptive icon background + foreground, inner 72 of 108 dp
-            adaptive = os.path.join(args.android_res, "mipmap-anydpi-v26", f"ic_launcher_{color}_{variant}.xml")
+            adaptive = os.path.join(args.android_res, "mipmap-anydpi", f"ic_launcher_{color}_{variant}.xml")
             bg_ref, fg_ref = parse_adaptive_icon(adaptive)
             if not bg_ref.startswith("@color/"):
                 raise SystemExit(f"{adaptive}: only color backgrounds are supported ({bg_ref})")

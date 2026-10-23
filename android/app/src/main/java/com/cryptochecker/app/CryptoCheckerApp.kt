@@ -38,7 +38,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     @Inject lateinit var settingsRepository: SettingsRepository
 
     /**
-     * Lazy (seit Build 99): Scheduler und Portfolio hängen an den Datenbanken — eager gespritzt luden sie bei jedem
+     * Lazy: Scheduler und Portfolio hängen an den Datenbanken — eager gespritzt luden sie bei jedem
      * Prozessstart (Widget, WorkManager, Neustart) SQLCipher im Hauptthread. Gebraucht werden sie nur in den
      * Hintergrund-Jobs unten; dort entsteht der Graph jetzt abseits des Hauptthreads.
      */
@@ -56,7 +56,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
-     * Ohne Handler würde eine Ausnahme in einem dieser Jobs den ganzen Prozess beenden. Seit Build 104 über [appScope]
+     * Ohne Handler würde eine Ausnahme in einem dieser Jobs den ganzen Prozess beenden. Läuft über [appScope]
      * (Datenbank-Schlüssel gerade nicht lesbar nur als Hinweis, nicht als Fehler).
      */
     private val scope = appScope(Dispatchers.Default, "Hintergrundaufgabe beim Start")
@@ -79,7 +79,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     }
 
     override fun onCreate() {
-        // Seit Build 104: Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
+        // Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
         com.cryptochecker.app.util.BackgroundErrorCounter.install(this)
         // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
         // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner)
@@ -87,8 +87,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
             runCatching { com.cryptochecker.app.data.local.DatabaseSystemBackup(this).cleanUpLeftover() }
                 .onFailure { Timber.w(it, "Systemsicherung: Aufräumen fehlgeschlagen") }
         }
-        // Ebenso eine unverschlüsselte Portfolio-Kopie neben der Portfolio-Datenbank (dauernd bis Build 75, oder eine
-        // abgebrochene Sicherung); ohne Datenbank bleibt sie für die Übernahme nach einer Wiederherstellung
+        // Ebenso eine unverschlüsselte Portfolio-Kopie neben der Portfolio-Datenbank (dauernd in älteren Versionen
+        // oder eine abgebrochene Sicherung); ohne Datenbank bleibt sie für die Übernahme nach einer Wiederherstellung
         runCatching { PortfolioBackupMirror.cleanUpLeftover(this) }
             .onFailure { Timber.w(it, "Portfolio: Kopie für die Systemsicherung nicht aufgeräumt") }
         super.onCreate()

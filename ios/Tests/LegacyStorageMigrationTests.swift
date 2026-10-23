@@ -71,7 +71,7 @@ final class LegacyStorageMigrationTests: XCTestCase {
         }
     }
 
-    /// Datei bis Build 57 (`portfolio.json`): alte Formen werden beim Lesen Felder, das Speichern schreibt nur noch diese.
+    /// Datei älterer Versionen (`portfolio.json`): alte Formen werden beim Lesen Felder, gespeichert nur noch diese.
     func testOldFileFormsBecomeFieldsOnLoad() throws {
         let old = """
         [{"id": 1, "coin": "BTC", "type": "GIFT", "amountText": "0.5", "time": 10, "transferTo": "@spouse"},
@@ -93,7 +93,7 @@ final class LegacyStorageMigrationTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode([PortfolioTx].self, from: Data(saved.utf8)), txs)
     }
 
-    /// Sicherung bis Build 57: alte Formen werden beim Wiederherstellen Felder; die neue Form übersteht die Sicherung. Wie Android.
+    /// Ältere Sicherung: alte Formen werden beim Wiederherstellen Felder; die neue Form übersteht sie. Wie Android.
     func testOldBackupFormsBecomeFields() throws {
         var gift = BackupManager.txToJson(PortfolioTx(id: 9, coin: "BTC", type: .GIFT, amountExact: 1, time: 12))
         gift["transferTo"] = "@spouse"

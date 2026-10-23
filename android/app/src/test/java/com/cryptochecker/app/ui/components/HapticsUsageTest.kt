@@ -7,7 +7,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Wache über den Haptik-Katalog (seit Build 100): Android spielt Haptik nur über `ui/components/Haptics.kt`
+ * Wache über den Haptik-Katalog: Android spielt Haptik nur über `ui/components/Haptics.kt`
  * (`rememberHaptics().play(HapticEvent…)`), iOS nur über `App/Components/Haptics.swift` (`Haptics.play(.…)` bzw.
  * `.haptic(_:trigger:)`) — so vibrieren beide in denselben Momenten. Direkte Aufrufe der System-APIs fallen hier auf.
  * Hintergrund, Mitteilungen und Widgets bekommen gar keine Haptik. Liest die Quellen von der Platte (wie

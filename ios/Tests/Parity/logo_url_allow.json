@@ -1,5 +1,5 @@
 {
-  "_comment": "Freigabe von Logo-Adressen (seit Build 105, SEC3-02): CoinLogos.isAllowedUrl (Android, LogoUrlPolicy mit OkHttp HttpUrl) und CoinLogos.isAllowedURL (iOS, LogoURLPolicy mit URLComponents) müssen gleich entscheiden. Regeln: nur https://, nur URL-Zeichen in ASCII, «%» nur mit zwei Hex-Ziffern, kein «#», kein «\\», Authority ohne «@» und «%», Host aus DNS-Labels ohne «xn--», Port fehlt oder 443, Host coingecko.com / *.coingecko.com / *.bnbstatic.com, kein «/missing_». Android: LogoUrlAllowParityTest.kt, iOS: LogoURLAllowParityTests.swift.",
+  "_comment": "Freigabe von Logo-Adressen (SEC3-02): CoinLogos.isAllowedUrl (Android, LogoUrlPolicy mit OkHttp HttpUrl) und CoinLogos.isAllowedURL (iOS, LogoURLPolicy mit URLComponents) müssen gleich entscheiden. Regeln: nur https://, nur URL-Zeichen in ASCII, «%» nur mit zwei Hex-Ziffern, kein «#», kein «\\», Authority ohne «@» und «%», Host aus DNS-Labels ohne «xn--», Port fehlt oder 443, Host coingecko.com / *.coingecko.com / *.bnbstatic.com, kein «/missing_». Android: LogoUrlAllowParityTest.kt, iOS: LogoURLAllowParityTests.swift.",
   "cases": [
     {
       "url": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",

@@ -6,7 +6,7 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.ui.components.ScreenEvents
 import kotlin.reflect.KProperty
 
-/** Seit Build 107 (Review ARC5-R01): Ergebnis von Speichern bzw. Schnell-Alarm für den aktuellen Bildschirm. */
+/** Review ARC5-R01: Ergebnis von Speichern bzw. Schnell-Alarm für den aktuellen Bildschirm. */
 internal sealed interface AlarmEditorEvent {
     /**
      * Gespeichert: Erlaubnis fragen, Haptik, Bestätigung. [isNew]: neu angelegt; [allowed]: darf als Mitteilung erscheinen;
@@ -22,7 +22,7 @@ internal sealed interface AlarmEditorEvent {
 }
 
 /**
- * Seit Build 107 (Review ARC5-R01): offener Alarm-Editor samt Eingaben im ViewModel ([SavedStateHandle], übersteht Drehen und
+ * Review ARC5-R01: offener Alarm-Editor samt Eingaben im ViewModel ([SavedStateHandle], übersteht Drehen und
  * Prozess-Ende wie vorher `rememberSaveable`) statt im Bildschirm. So schliesst «Trotzdem» in der Rückfrage F-08 den Editor
  * auch, wenn die Activity inzwischen neu erstellt wurde (sonst bliebe er offen und ein zweites «Speichern» legte einen
  * zweiten Alarm an). Der Bildschirm liest und schreibt [draft] als Delegat (`var draft by viewModel.editor`).

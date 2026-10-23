@@ -7,7 +7,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Seit Build 103 (Review FUN-01): «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen
+ * Review FUN-01: «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen
  * Lesart (`csv_import.json` › «confirmGate»). Gegenstück: `Tests/CsvReadChoiceTests.swift`.
  */
 class CsvReadChoiceParityTest {

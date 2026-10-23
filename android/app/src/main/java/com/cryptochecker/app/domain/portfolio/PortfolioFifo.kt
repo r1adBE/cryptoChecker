@@ -327,7 +327,7 @@ internal object PortfolioFifo {
                     if (src !== dst) {
                         // Je Wallet: Posten wandern mit Kaufdatum und Einstand von der Quelle zum Ziel
                         check(src, amount + coinFee, t, feeLeg = false)
-                        // Seit Build 104: leere Quelle → die ganze Gebühr vermerkt statt still verworfen
+                        // Leere Quelle → die ganze Gebühr vermerkt statt still verworfen
                         if (src.held.signum() <= 0) { unassign(t, PortfolioFeeExpenses.transferUncovered(t, zero)); continue }
                         // Netzwerkgebühr zuerst (älteste Posten der Quelle); ihr Einstand wandert mit
                         val carried = consume(src, coinFee)
@@ -335,7 +335,7 @@ internal object PortfolioFifo {
                             Lot(s.lot.txId, s.lot.acquired, s.lot.time, s.lot.kind, s.amount, s.cost, s.parts)
                         }
                         // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil
-                        // ohne Kaufpreis und (seit Build 104) der Anteil der nicht angekommenen Menge werden vermerkt
+                        // ohne Kaufpreis und der Anteil der nicht angekommenen Menge werden vermerkt
                         if (feeValue == null && moved.any { it.cost != null }) feeValueMissing = true
                         val movedAmount = moved.fold(zero) { acc, l -> acc + l.amount }
                         val lost = PortfolioFeeExpenses.transferUncovered(t, movedAmount)

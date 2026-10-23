@@ -46,7 +46,9 @@
             <include layout="@layout/widget_portfolio_chart" />
 
             <!-- Platzhalter: hält die Fusszeile unten (FrameLayout, da <View> in RemoteViews nicht erlaubt ist) -->
+            <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
             <FrameLayout
+                tools:ignore="NestedWeights"
                 android:id="@+id/portfolio_spacer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

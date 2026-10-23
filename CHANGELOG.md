@@ -15,6 +15,16 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 110)
+
+* Code comments describe the code as it is now: build-number history removed from comments in about 820 files (audit F-21); compatibility notes for older versions kept without numbers.
+* iOS: own text for the local network prompt (own address server in the home network), in all 31 languages.
+* Portfolio widget: the display hint now correctly says the USDT line is hidden for a USD stablecoin (e.g. USDC), not for USD.
+* Supply chain active: Gradle dependency checksums (`gradle/verification-metadata.xml`) and lock files from the «Supply chain update» workflow; every build now verifies each dependency.
+* CI: lint warnings additionally listed per finding (grouped by id and file, with line numbers) in the check annotations.
+* Lint warnings cleaned up: real findings fixed (KTX extensions, modifier parameter order, empty super call, obsolete resource folder, one unused string in 31 languages, unused Hebrew plural form), deliberate cases suppressed per element with a reason (RemoteViews widget layouts, iOS-only strings, translations flagged as typos, dependency update hints handled by the supply chain workflow).
+* Repository: a stray CI output line at the end of `docs/privacy/index.html` (published with build 109, after `</html>`) removed; the page is again identical to `android/docs/privacy/index.html`.
+
 ## 16.2.2 (build 109)
 
 * Mirror data is signed: the apps accept files from the GitHub data mirror only with a valid signature (ECDSA P-256 over a manifest with SHA-256 per file, at most 7 days old); otherwise they use the exchanges directly as before.

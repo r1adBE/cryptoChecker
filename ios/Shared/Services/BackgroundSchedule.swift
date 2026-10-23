@@ -1,6 +1,6 @@
 import Foundation
 
-/// Entscheide der Hintergrund-Prüfung (Build 46) — wie `BackgroundSchedule.kt`. iOS nutzt nur die Sperre
+/// Entscheide der Hintergrund-Prüfung — wie `BackgroundSchedule.kt`. iOS nutzt nur die Sperre
 /// gegen doppelte Läufe (`shouldSkip`); Wecker «Pünktlich prüfen» und Akku-Hinweis gibt es nur auf
 /// Android (iOS entscheidet allein, wann geprüft wird). Der Rest steht für gleiche Tests auf beiden Seiten.
 enum BackgroundSchedule {

@@ -79,7 +79,7 @@ class AlarmsOverviewViewModel @Inject constructor(
     fun deletePortfolioAlarm(id: Long) {
         viewModelScope.launch {
             portfolioAlarmRepository.delete(id)
-            // Seit Build 104: die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
+            // Die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
             com.cryptochecker.app.data.remote.util.runCatchingCancellable { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
         }
     }
@@ -102,7 +102,7 @@ class AlarmsOverviewViewModel @Inject constructor(
 
     /**
      * Zeilen der Paarwahl ([AlarmPickerRow]) ohne Kurs, im Hintergrund gerechnet und nur bei echter Änderung weitergegeben
-     * (nicht bei jeder Kurs-Schreibung) — seit Build 104. null = noch nicht gerechnet.
+     * (nicht bei jeder Kurs-Schreibung). null = noch nicht gerechnet.
      */
     internal val pickerRows: StateFlow<List<AlarmPickerRow>?> = watchRepository.observeWatches()
         .map { alarmPickerRows(it) }
@@ -112,7 +112,7 @@ class AlarmsOverviewViewModel @Inject constructor(
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
         viewModelScope.launch {
-            // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts
+            // Rückfrage F-08 vorher; «Abbrechen» = nichts
             if (!watchRepository.confirmUserWrite()) return@launch
             // Abgelehnt (Merkliste gesperrt, «fällt um ≥ 100 %» einschalten): Alarm bleibt, wie er ist, seine Mitteilung bleibt
             if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch

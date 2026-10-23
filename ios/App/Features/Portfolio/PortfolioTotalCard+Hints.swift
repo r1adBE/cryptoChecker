@@ -35,7 +35,7 @@ extension PortfolioTotalCard {
         // Was im Gewinn seit Kauf fehlt (M3: nur diese Coins, nicht das ganze Portfolio)
         if !summary.missingCostCoins.isEmpty {
             let count: Int = summary.missingCostCoins.count
-            // Antippen: Einträge ohne Einstand (Build 84)
+            // Antippen: Einträge ohne Einstand
             items.append(HintItem(text: L("ledger_without_cost", count: count, count, summary.missingCostCoins.joined(separator: ", ")),
                                   txId: PortfolioCostGapUi.hintId))
         }
@@ -87,7 +87,7 @@ extension PortfolioTotalCard {
         return items
     }
 
-    /// Bereich «Hinweise» unter der Karte (L-15), Build 46 zugeklappt: eine Zeile «Hinweise (n)» mit Pfeil
+    /// Bereich «Hinweise» unter der Karte (L-15), zugeklappt: eine Zeile «Hinweise (n)» mit Pfeil
     /// (44 pt hoch, Fehlerfarbe, wenn eine Zeile ein Fehler ist); offen die Zeilen eng untereinander
     /// (`.subheadline`), eingerückt wie der Inhalt der Karte — wie Android `TotalCardHints`.
     @ViewBuilder
