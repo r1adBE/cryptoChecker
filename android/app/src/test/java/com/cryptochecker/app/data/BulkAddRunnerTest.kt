@@ -264,7 +264,9 @@ class BulkAddRunnerTest {
         val runner = runner(writes)
         val shown = MutableStateFlow<ShownResult?>(null)
         val display = BulkAddDisplay(runner, shown)
-        backgroundScope.launch { display.collect() }
+        // Vordergrund statt backgroundScope: advanceUntilIdle wartet auf Hintergrundarbeit nicht, die Anzeige liefe sonst
+        // den Ständen des Runners hinterher
+        val collector = launch { display.collect() }
 
         // Wie `addBulkPairs`: Explorer zeigt «läuft», bevor der Runner fragt
         shown.value = ShownResult(added = 0, skipped = 0, running = true)
@@ -274,6 +276,7 @@ class BulkAddRunnerTest {
         assertNull(shown.value)
         assertNull(runner.progress.value)
         assertEquals(emptyList<String>(), writes.store.writes)
+        collector.cancel()
     }
 
     /**
@@ -286,7 +289,9 @@ class BulkAddRunnerTest {
         val runner = runner(Writes(FakeWatchStore(), confirmStep = { true }))
         val shown = MutableStateFlow<ShownResult?>(null)
         val display = BulkAddDisplay(runner, shown)
-        backgroundScope.launch { display.collect() }
+        // Vordergrund statt backgroundScope: advanceUntilIdle wartet auf Hintergrundarbeit nicht, die Anzeige liefe sonst
+        // den Ständen des Runners hinterher
+        val collector = launch { display.collect() }
 
         runner.start(BINANCE, listOf(pair("BTC")), group = null)
         advanceUntilIdle()
@@ -306,6 +311,7 @@ class BulkAddRunnerTest {
         runner.clearResult()
         advanceUntilIdle()
         assertNull("schon von der Merkliste gemeldet", shown.value)
+        collector.cancel()
     }
 
     /** «Rückgängig» nur kurz nach dem Ende: höchstens [BulkAddRunner.UNDO_WINDOW_MS] nach dem Ergebnis. */
