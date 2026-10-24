@@ -13,7 +13,8 @@
   warning required store text empty or missing (title / name / description), no screenshots
           android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
             versionCode / build number named there (also tag examples and archive name) differs from
-            android/app/build.gradle.kts; history lines («Build N: …», «früher» / «previously») are skipped
+            android/app/build.gradle.kts; history lines («Build N: …» with N < versionCode, «früher» /
+            «previously» at the line start or in parentheses) are skipped
           ROADMAP.md / TESTPLAN.md (private, only if present): "Build N" in the header (first lines) differs
             from versionCode or is missing
   notice  private guide missing (public repository): named as "not checked" instead of skipped silently
@@ -233,10 +234,23 @@ def self_test():
     assert doc_mismatches(["x", "CryptoChecker-99.xcarchive"], apple, "16.2.2", "105") == ["line 2: 99 (project: 105)"]
     assert doc_mismatches(["v16.2.2-105-rc"], play, "16.2.2", "105") == []          # no word end after the build
     history = ["Build 91: Tag v16.2.0-91 und CryptoChecker-91.xcarchive", "- **Build 90:** versionCode 90",
-               "früher Version 16.1.0 (Build 80)", "Die frühere Tag-Form v16.0.0-70", "previously v15.0.0-60",
-               "  Build 89: versionCode = 89"]
+               "früher Version 16.1.0 (Build 80)", "Frühere Tag-Form v16.0.0-70", "previously v15.0.0-60",
+               "  Build 89: versionCode = 89", "- Previously: v16.1.0-80", "Tag v16.2.2-105 (früher v16.0.0-70)",
+               "Tag v16.2.2-105 (previously v16.0.0-70)"]
     assert doc_mismatches(history, apple + play, "16.2.2", "105") == [], doc_mismatches(history, apple, "16.2.2", "105")
-    assert is_history("Build 91: x") and not is_history("Version 16.2.2 (Build 105)") and not is_history("Build 105")
+    assert is_history("Build 91: x", "105") and not is_history("Version 16.2.2 (Build 105)", "105")
+    assert not is_history("Build 105", "105")
+    # «Build N:» only for older builds: the current or a newer build is checked like any other line
+    assert not is_history("Build 105: Tag v16.2.2-104", "105")
+    assert doc_mismatches(["Build 105: Tag v16.2.2-104"], play, "16.2.2", "105") == ["line 1: 104 (project: 105)"]
+    assert not is_history("- **Build 106:** versionCode 104", "105")
+    assert is_history("- **Build 104:** versionCode 104", "105")
+    # «früher» / «previously» elsewhere in the sentence does not hide a wrong version
+    assert not is_history("Tag v16.2.2-104 setzen, wie früher", "105")
+    assert doc_mismatches(["Tag v16.2.2-104 setzen, wie früher"], play, "16.2.2", "105") == ["line 1: 104 (project: 105)"]
+    assert not is_history("Version 16.2.1 previously announced", "105")
+    assert not is_history("Die frühere Tag-Form v16.0.0-70", "105")
+    assert is_history("(früher v16.0.0-70)", "105") and is_history("**Früher:** v16.0.0-70", "105")
     print("release_readiness.py self-test passed")
     return 0
 
@@ -244,21 +258,28 @@ def self_test():
 # Version mentions in the private store guides (not in the public repository): headers, versionCode / build
 # fields, tag examples (v<version>-<build>) and the archive name. Only the current version is named like this.
 # Lines that are recognisably history are skipped as a whole (is_history): they start with «Build N:» (also as a
-# list item or in bold) or contain «früher» / «previously» (also «frühere», «früheren»). Other lines that name an
-# old version («seit Build 47» without a version pattern) are not matched by the patterns anyway.
-HISTORY_LINE = re.compile(r"^\s*(?:[-*+]\s+|\d+\.\s+)?\**Build \d+\**\s*:|früher|previously", re.IGNORECASE)
+# list item or in bold) with N below versionCode — «Build 105:» for the current build is checked — or carry
+# «früher» / «previously» (also «frühere», «früheren») at the line start or inside parentheses («(früher …)»);
+# the word elsewhere in a sentence does not hide the line. Other lines that name an old version («seit Build 47»
+# without a version pattern) are not matched by the patterns anyway.
+HISTORY_LINE = re.compile(r"^\s*(?:[-*+]\s+|\d+\.\s+)?\**Build (\d+)\**\s*:")
+HISTORY_WORD = re.compile(r"^\s*(?:[-*+]\s+|\d+\.\s+)?\**(?:früher|previously)|\([^)]*\b(?:früher|previously)",
+                          re.IGNORECASE)
 
 
-def is_history(line):
-    """True for a history line of a store guide (see HISTORY_LINE)."""
-    return bool(HISTORY_LINE.search(line))
+def is_history(line, code):
+    """True for a history line of a store guide (see HISTORY_LINE / HISTORY_WORD); code = versionCode."""
+    m = HISTORY_LINE.match(line)
+    if m and int(m.group(1)) < int(code):
+        return True
+    return bool(HISTORY_WORD.search(line))
 
 
 def doc_mismatches(lines, patterns, name, code):
     """[«line N: value (project: expected)»] for version mentions that differ from name / code; history skipped."""
     wrong = []
     for no, line in enumerate(lines, 1):
-        if is_history(line):
+        if is_history(line, code):
             continue
         for pattern in patterns:
             for m in re.finditer(pattern, line):

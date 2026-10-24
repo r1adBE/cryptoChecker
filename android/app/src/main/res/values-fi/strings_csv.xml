@@ -84,4 +84,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">sama tapahtumatunnus eri määrällä – tarkista käsin</string>
     <string name="portfolio_csv_skip_staking_unpaired">staking-kirjaus ilman vastakirjausta – tarkista saldo</string>
+    <string name="portfolio_csv_skip_amount_too_small">määrä liian pieni – tallennettaessa 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">vaihto ilman kelvollista saatua kolikkoa tai saatua määrää</string>
 </resources>

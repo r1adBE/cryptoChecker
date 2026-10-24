@@ -183,6 +183,19 @@ class CsvImportMappingTest {
         assertEquals(mapOf("CHF" to 19364L..19364L), CsvImportMapping.fxNeeds(CsvImportParser.parse(sq).rows))
     }
 
+    /** Menge unter 10⁻¹⁸ (gespeichert 0): schon in der Vorschau übersprungen, nicht neu und nicht «ohne Preis». */
+    @Test
+    fun unsavableRowIsSkippedInPreview() {
+        val text = "Date,Type,Coin,Amount,Price,Currency\n" +
+            "2024-03-01T10:00:00Z,Buy,BTC,0.0000000000000000001,,USD\n" +
+            "2024-03-02T10:00:00Z,Buy,BTC,1,60000,USD\n"
+        val p = CsvImportMapping.preview(CsvImportParser.parse(text), emptySet()) { _, _ -> null }
+        assertEquals(listOf(3), p.transactions.map { it.line })
+        assertEquals(listOf(CsvImportSkip(2, CsvImportSkipReason.AMOUNT_TOO_SMALL)), p.skipped)
+        assertFalse(2 in p.missingPrice)
+        assertFalse(2 in p.missingFx)
+    }
+
     /** Datei «neueste zuerst»: älteste zuerst speichern (Id folgt der Zeit); aufsteigende/gemischte bleiben. */
     @Test
     fun insertOrderReversesNewestFirstFiles() {

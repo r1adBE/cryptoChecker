@@ -9,6 +9,9 @@ struct PortfolioCsvImportSheet: View {
     let loaded: CsvImportLoaded
     /// Anzahl angelegter Transaktionen; `enabled` = das Portfolio wurde dabei eingeschaltet.
     let onImported: (_ count: Int, _ enabled: Bool) -> Void
+    /// Schreiben gescheitert, nachdem das Blatt schon zu war («Abbrechen» während des Schreibens): der Portfolio-Screen
+    /// meldet es, statt dass der Fehler still bleibt.
+    let onSaveFailed: () -> Void
 
     @State var preview: CsvImportPreview
     /// Vorschläge je Auszahlung (`CsvImportMapping.proposeWithdrawals`): Vorauswahl und Ziel der Umbuchung — wie Android.
@@ -26,8 +29,8 @@ struct PortfolioCsvImportSheet: View {
     /// Gewähltes Dezimalzeichen bei mehrdeutigen Zahlen («42,000»; nil = Standard: Zeichen = Dezimal) — wie Android
     /// `setDecimalMark`.
     @State var decimalMark: Character? = nil
-    /// Tageskurse nach einer anderen Reihenfolge Tag/Monat neu geladen (nil = die beim Laden).
-    @State private var rates: [String: [(day: Int, rate: Double)]]? = nil
+    /// Tageskurse und USDT/USD-Schlüsse nach einer anderen Reihenfolge Tag/Monat neu geladen (nil = die beim Laden).
+    @State private var rates: CsvImportRates? = nil
     /// Tag/Monat bzw. Dezimalzeichen geändert, die Tageskurse dazu aber noch nicht übernommen: die nächste Neuzuordnung
     /// lädt sie (auch wenn inzwischen nur die Zeitzone gewechselt hat und die frühere Neuzuordnung verworfen wird).
     @State var ratesStale = false
@@ -51,9 +54,11 @@ struct PortfolioCsvImportSheet: View {
     /// Speichern im Hintergrund mit Fortschritt und «Abbrechen» (`CsvImportRun`) — wie Android `CsvImportState.Saving`.
     @StateObject private var saveRun = CsvImportRun()
 
-    init(loaded: CsvImportLoaded, onImported: @escaping (_ count: Int, _ enabled: Bool) -> Void) {
+    init(loaded: CsvImportLoaded, onImported: @escaping (_ count: Int, _ enabled: Bool) -> Void,
+         onSaveFailed: @escaping () -> Void) {
         self.loaded = loaded
         self.onImported = onImported
+        self.onSaveFailed = onSaveFailed
         _preview = State(initialValue: loaded.preview)
         let plan = CsvTransferMatch.apply(loaded.preview.transactions, links: [], chosen: [])
         _plan = State(initialValue: plan)
@@ -215,16 +220,15 @@ struct PortfolioCsvImportSheet: View {
     }
 
     /// Datei mit der gewählten Zeitzone, Reihenfolge Tag/Monat und dem Dezimalzeichen neu lesen und zuordnen — einmal
-    /// lesen (bis 16 MB) und zuordnen abseits des Haupt-Threads; Tageskurse nur neu laden, wenn sie veraltet sind
-    /// (`ratesStale`). Die Vorschau wird auf dem MainActor übernommen; inzwischen anders gewählt: verwerfen.
+    /// lesen (bis 16 MB) und zuordnen abseits des Haupt-Threads (`PortfolioCsvImporter.reread`); Tageskurse und
+    /// USDT/USD-Schlüsse nur neu laden, wenn sie veraltet sind (`ratesStale`), sonst bleiben die bekannten. Die Vorschau
+    /// wird auf dem MainActor übernommen; inzwischen anders gewählt: verwerfen.
     func remap() {
         let text = loaded.text
         let existingKeys = loaded.existingKeys
-        let knownRates = rates ?? loaded.rates
+        let known = rates ?? CsvImportRates(fx: loaded.rates, usdtUsd: loaded.usdtUsd)
         let deviceZone = TimeZone.current.identifier
-        let chosenZone = zone
-        let order = dateOrder
-        let mark = decimalMark
+        let choice = chosenRead
         let refetch = ratesStale
         let addresses = data.watchedAddresses
         let stored = data.portfolio.compactMap(PortfolioCsvImporter.storedMove)
@@ -232,26 +236,22 @@ struct PortfolioCsvImportSheet: View {
         rereading = true
         remapGeneration += 1
         let generation = remapGeneration
-        typealias Remapped = (preview: CsvImportPreview, rates: [String: [(day: Int, rate: Double)]],
-                              proposals: CsvImportProposals)
+        typealias Remapped = (preview: CsvImportPreview, rates: CsvImportRates, proposals: CsvImportProposals)
         Task { @MainActor in
             let computed = await Task.detached(priority: .userInitiated) { () -> Remapped in
-                let result = CsvImportParser.parse(text, deviceZone: deviceZone, zone: chosenZone, dateOrder: order,
-                                                   decimalMark: mark)
-                let fresh = refetch ? await PortfolioCsvImporter.fetchRates(result) : knownRates
-                let mapped = PortfolioCsvImporter.mapPreview(result, existingKeys: existingKeys, rates: fresh,
-                                                             withdrawalsAsTransfer: false)
-                return (preview: mapped, rates: fresh,
-                        proposals: CsvImportProposals.of(mapped, addresses: addresses, stored: stored))
+                let read = await PortfolioCsvImporter.reread(text, choice: choice, deviceZone: deviceZone,
+                                                             existingKeys: existingKeys, known: known, refetch: refetch)
+                return (preview: read.preview, rates: read.rates,
+                        proposals: CsvImportProposals.of(read.preview, addresses: addresses, stored: stored))
             }.value
             // Inzwischen anders gewählt bzw. neuer angestossen: verwerfen (die neuere Neuzuordnung übernimmt)
-            guard generation == remapGeneration, zone == chosenZone, dateOrder == order, decimalMark == mark else { return }
+            guard generation == remapGeneration, chosenRead == choice else { return }
             if refetch {
                 rates = computed.rates
                 ratesStale = false
             }
             preview = computed.preview
-            builtWith = CsvReadChoice(zone: chosenZone, dateOrder: order, decimalMark: mark)
+            builtWith = choice
             rereading = false
             applyProposals(computed.proposals)
         }
@@ -300,15 +300,21 @@ struct PortfolioCsvImportSheet: View {
         // Zusammenstellen im Hintergrund mit Fortschritt; «Abbrechen» bis zum Schreiben lässt alles unverändert
         let report = saveRun.begin(.saving)
         saveRun.attach(Task {
+            // Speichern zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
+            let backgroundTask = BackgroundTaskGuard.begin("csvImportSave")
+            defer { backgroundTask.end() }
             let written = await data.insertImportedPortfolioTxs(list, batch: batch, progress: report)
-            // Abgebrochen vor dem Schreiben: das Blatt ist schon zu, nichts gespeichert. Kam «Abbrechen» erst während
-            // des Schreibens (im Hintergrund), gilt der Import: Verknüpfungen setzen und melden wie sonst
-            guard written.isWritten || !Task.isCancelled else { return }
+            // «Abbrechen» gedrückt: das Blatt ist schon zu
+            let closed = Task.isCancelled
+            // Abgebrochen vor dem Schreiben: nichts gespeichert. Kam «Abbrechen» erst während des Schreibens (im
+            // Hintergrund), gilt der Import: Verknüpfungen setzen und melden wie sonst
+            if written == .cancelled && closed { return }
             saveRun.end()
             switch written {
-            case .written(let inserted): finishSave(inserted: inserted, storedUpdates: storedUpdates, batch: batch)
+            case .written(let inserted):
+                finishSave(inserted: inserted, storedUpdates: storedUpdates, batch: batch, closed: closed)
             // Nicht geschrieben: Grund nennen statt «0 importiert» — wie Android
-            case .failed: saveFailed = true
+            case .failed: reportSaveFailed(closed: closed)
             case .cancelled: break
             }
         })
@@ -316,7 +322,7 @@ struct PortfolioCsvImportSheet: View {
 
     /// Nach dem Anlegen (geschrieben, nicht mehr abbrechbar): gespeicherte Seiten verknüpfter Umbuchungen ändern,
     /// Portfolio bei Bedarf einschalten, melden und schliessen.
-    private func finishSave(inserted: Int, storedUpdates: [CsvStoredTransfer], batch: String) {
+    private func finishSave(inserted: Int, storedUpdates: [CsvStoredTransfer], batch: String, closed: Bool) {
         // Gespeicherte Seiten verknüpfter Umbuchungen: neu gelesen, inzwischen gelöscht oder verknüpft → ausgelassen;
         // die Transaktion wechselt in diesen Importlauf («Import rückgängig» setzt sie zurück) — wie Android `linkStored`
         var linkedStored = 0
@@ -332,7 +338,7 @@ struct PortfolioCsvImportSheet: View {
         let count = inserted + linkedStored
         // Nur Verknüpfungen und keine davon geschrieben: ebenfalls ein Fehler, nicht «0 importiert»
         if count == 0 && linkFailed {
-            saveFailed = true
+            reportSaveFailed(closed: closed)
             return
         }
         // Erste Transaktion mit ausgeschaltetem Portfolio: einschalten (Tab erscheint), wie von Hand — nur neu angelegte
@@ -343,5 +349,10 @@ struct PortfolioCsvImportSheet: View {
         }
         onImported(count, enabled)
         dismiss()
+    }
+
+    /// Schreiben gescheitert: Meldung im Blatt; ist es schon zu (`closed`), meldet der Portfolio-Screen.
+    private func reportSaveFailed(closed: Bool) {
+        if closed { onSaveFailed() } else { saveFailed = true }
     }
 }

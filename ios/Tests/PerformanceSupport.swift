@@ -257,13 +257,22 @@ enum PerformanceTiming {
     }
 
     /// Misst `measure` (Anzahl → Median in ms) für die kleine und die grosse Menge von `sizes`, schreibt beide Werte
-    /// ins Testprotokoll und prüft `limitMillis` für die grosse sowie die Skalierung.
+    /// ins Testprotokoll und prüft `limitMillis` für die grosse sowie die Skalierung. Liegt die grosse Menge über der
+    /// Skalierungsgrenze, werden beide Grössen einmal neu gemessen (ein Ausreisser des Runners zählt nicht), erst
+    /// dann scheitert der Test — wie `PerformanceTiming.assertScales` (Android).
     static func assertScales(_ name: String, limitMillis: Double, sizes: Sizes = PerformanceTiming.pairs,
                              file: StaticString = #filePath, line: UInt = #line,
                              _ measure: (Int) throws -> Double) rethrows {
-        let smallMillis = try measure(sizes.small)
-        let largeMillis = try measure(sizes.large)
-        let scaleLimit = scaleFactor * smallMillis + scaleSlackMillis
+        var smallMillis = try measure(sizes.small)
+        var largeMillis = try measure(sizes.large)
+        var scaleLimit = scaleFactor * smallMillis + scaleSlackMillis
+        if largeMillis > scaleLimit {
+            report(name, sizes, smallMillis, largeMillis, limitMillis,
+                   scale: "Skalierung ≤ \(format(scaleLimit)) ms überschritten, neu gemessen")
+            smallMillis = try measure(sizes.small)
+            largeMillis = try measure(sizes.large)
+            scaleLimit = scaleFactor * smallMillis + scaleSlackMillis
+        }
         report(name, sizes, smallMillis, largeMillis, limitMillis, scale: "Skalierung ≤ \(format(scaleLimit)) ms")
         XCTAssertLessThanOrEqual(largeMillis, limitMillis,
                                  "\(name): \(format(largeMillis)) ms für \(sizes.large) \(sizes.unit)",

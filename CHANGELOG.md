@@ -15,6 +15,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 124)
+
+* Android: the portfolio CSV import no longer freezes the app while the rows are checked before saving.
+* The import preview already lists rows that cannot be saved (amount too small, swap without a valid coin or amount received) as skipped, so one such row no longer stops the whole import.
+* Android: if the app was closed by the system during a CSV import, the import closes cleanly and «Import CSV» works again right away.
+* Android: the list widget clears an expired «Retrying at …» time when the app starts.
+
 ## 16.2.2 (build 123)
 
 * Android: when the widget's «Refresh» has to wait because the encrypted storage is not unlocked yet, the watchlist status shows «Storage still locked – retrying in 27 s» and counts down (announced once by TalkBack); the list widget shows the fixed retry time «Retrying at 14:32» (12/24 h as set on the device) instead of the time. The retry interval stays 30 s.

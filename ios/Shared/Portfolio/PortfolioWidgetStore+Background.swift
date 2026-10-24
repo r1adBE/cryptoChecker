@@ -58,6 +58,17 @@ extension PortfolioWidgetStore {
         } ?? nil
     }
 
+    /// Wie `update`, aber mit einer früher gezogenen Marke (`updates.ticket()` beim Erfassen der Eingaben auf dem
+    /// MainActor) — für Aufrufer, die Kurse und Adressen erst im Hintergrund dazunehmen. Nicht auf dem Hauptthread
+    /// aufrufen.
+    @discardableResult
+    static func update(ticket: Int64, transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
+                       rate: Double?) -> PortfolioWidgetSnapshot? {
+        updates.run(ticket) {
+            updateNow(transactions: transactions, prices: prices, currency: currency, rate: rate)
+        } ?? nil
+    }
+
     /// Wie `update`, aber im Hintergrund gerechnet — für den MainActor (Portfolio-Tab). Die Reihenfolge gilt ab dem
     /// Aufruf: Eingaben, die später erfasst wurden, gewinnen, auch wenn ihre Rechnung zuerst fertig ist.
     @discardableResult

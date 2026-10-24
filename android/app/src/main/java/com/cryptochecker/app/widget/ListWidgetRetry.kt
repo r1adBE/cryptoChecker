@@ -54,6 +54,14 @@ class ListWidgetRetry @Inject constructor(
         drawHeader(0L)
     }
 
+    /**
+     * App-Start: eine abgelaufene Uhrzeit des Versuchs löschen und den Kopf neu zeichnen
+     * ([RetryWait.widgetRetryExpired]); eine noch kommende bleibt (der Auftrag wartet noch).
+     */
+    fun clearIfExpired(now: Long) {
+        if (RetryWait.widgetRetryExpired(widgetPrefs.refreshRetryAt, now)) clear()
+    }
+
     private fun drawHeader(retryAt: Long) {
         val ids = toolkit.ids(PriceWidgetProvider::class.java)
         if (ids.isEmpty()) return

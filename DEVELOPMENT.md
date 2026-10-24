@@ -734,7 +734,8 @@ library only, `--self-test` without Gradle). For each target file – `Portfolio
 and `return` of a constant of the declared type; never in strings, comments or generics), at most 4 per file and 50 in
 total, chosen deterministically (hash of file, line, column and rule), no new mutant after 55 minutes. Each mutant is
 written into the file, the test classes listed for that file in `TARGETS` run with
-`./gradlew :app:testDebugUnitTest --tests '<pattern>' -q --offline`, and the file is restored in a `finally` (also when the run is cancelled; written
+`./gradlew :app:testDebugUnitTest --tests '<pattern>' -q --offline`, and the file is restored in a `finally` (also
+when the run is cancelled; written
 atomically via a temporary file and `os.replace`). A Gradle run that hits the mutant timeout counts as killed; the
 script then stops the Gradle daemons (`gradlew --stop`), so a hung test run does not block the next mutant. The
 setup-gradle cache is read only in this workflow. Result: «killed» (tests red), «survived» (tests green: a warning with
@@ -2352,6 +2353,14 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 124: CSV import – `PortfolioRepository.insertImported` cleans and checks the rows (`cleanForSave` + `require`)
+  on `Dispatchers.Default`; `CsvImportMapping.unsavableReason` puts rows that saving would reject into the preview's
+  skipped list (`MISSING_FIELD`, new `AMOUNT_TOO_SMALL`, `INVALID_SWAP`; parity `csv_import.json` › «unsavable», also
+  checked against `cleanForSave`); `runCsvImportSave` (confirm flow as a pure function: prepare, cancel, save, enable)
+  and `canCancelSave`; `csvImportOrphaned` closes the import flow after process death (picked, no pending file picker
+  result, view model `Idle`). Widget: `ListWidgetRetry.clearIfExpired` at app start (`RetryWait.widgetRetryExpired`).
+  `release_readiness.py`: «Build N:» history only for N < versionCode, «früher» / «previously» only at the line start
+  or in parentheses.
 * Build 123: `RetryWait` (retry wait of the widget refresh: WorkInfo ENQUEUED + `runAttemptCount` > 0 →
   `nextScheduleTimeMillis`, linear backoff, countdown seconds), `PriceUpdateScheduler.observeManualRetryAt` →
   `WatchlistLive.widgetRetryAt` → status pill countdown (`WatchlistRetryCountdown`), `ListWidgetRetry` (partial widget

@@ -98,4 +98,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">stejné ID transakce s jinou částkou – zkontroluj ručně</string>
     <string name="portfolio_csv_skip_staking_unpaired">stakingový zápis bez protizápisu – zkontroluj zůstatek</string>
+    <string name="portfolio_csv_skip_amount_too_small">příliš malé množství – při uložení bude 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">směna bez platné přijaté mince nebo přijatého množství</string>
 </resources>

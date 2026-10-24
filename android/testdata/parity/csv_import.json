@@ -3104,5 +3104,188 @@
       },
       "expected": false
     }
+  ],
+  "_unsavableComment": "Zeilen, die das Speichern ablehnen würde, zeigt die Vorschau als übersprungen (Android CsvImportMapping.unsavableReason / iOS gleichnamig). Reihenfolge: coin nach trim/gross leer → MISSING_FIELD; amount auf 18 Nachkommastellen gerundet (halbe auf gerade) ≤ 0 → AMOUNT_TOO_SMALL; nur type SWAP: toCoin (trim/gross) fehlt, leer, länger als 15 Zeichen oder gleich coin, oder toAmount fehlt bzw. gerundet ≤ 0 → INVALID_SWAP; sonst null. toCoin/toAmount bei anderen Arten ohne Bedeutung. Die Vorschau hängt diese Gründe an die übersprungenen Zeilen (stabil nach Zeile sortiert, Datei-Gründe zuerst) und lässt die Zeilen auch aus missingFx, missingPrice, usdtApproximate und stableSwaps weg.",
+  "unsavable": [
+    {
+      "name": "plain buy",
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": "0.5",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "lowercase coin",
+      "coin": "btc",
+      "type": "BUY",
+      "amount": "0.5",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "blank coin",
+      "coin": "  ",
+      "type": "BUY",
+      "amount": "1",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "MISSING_FIELD"
+    },
+    {
+      "name": "amount below 1e-18",
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": "0.0000000000000000001",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "AMOUNT_TOO_SMALL"
+    },
+    {
+      "name": "amount exactly half rounds to 0 (half even)",
+      "coin": "BTC",
+      "type": "SELL",
+      "amount": "0.0000000000000000005",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "AMOUNT_TOO_SMALL"
+    },
+    {
+      "name": "amount just over half rounds to 1e-18",
+      "coin": "BTC",
+      "type": "SELL",
+      "amount": "0.00000000000000000051",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "amount 1.5e-18 rounds to 2e-18",
+      "coin": "BTC",
+      "type": "REWARD",
+      "amount": "0.0000000000000000015",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "amount exactly 1e-18",
+      "coin": "BTC",
+      "type": "DEPOSIT",
+      "amount": "0.000000000000000001",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "zero amount",
+      "coin": "BTC",
+      "type": "WITHDRAWAL",
+      "amount": "0",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "AMOUNT_TOO_SMALL"
+    },
+    {
+      "name": "blank coin wins over tiny amount",
+      "coin": " ",
+      "type": "BUY",
+      "amount": "0.0000000000000000001",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "MISSING_FIELD"
+    },
+    {
+      "name": "valid swap",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": "USDT",
+      "toAmount": "2500",
+      "expected": null
+    },
+    {
+      "name": "swap to same coin after trim/upper",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": " eth ",
+      "toAmount": "2",
+      "expected": "INVALID_SWAP"
+    },
+    {
+      "name": "swap without toCoin",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": null,
+      "toAmount": "2",
+      "expected": "INVALID_SWAP"
+    },
+    {
+      "name": "swap with blank toCoin",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": "  ",
+      "toAmount": "2",
+      "expected": "INVALID_SWAP"
+    },
+    {
+      "name": "swap without toAmount",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": "USDT",
+      "toAmount": null,
+      "expected": "INVALID_SWAP"
+    },
+    {
+      "name": "swap toAmount rounds to 0",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": "USDT",
+      "toAmount": "0.0000000000000000004",
+      "expected": "INVALID_SWAP"
+    },
+    {
+      "name": "swap toCoin 15 characters",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": "ABCDEFGHIJKLMNO",
+      "toAmount": "2",
+      "expected": null
+    },
+    {
+      "name": "swap toCoin 16 characters",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": "ABCDEFGHIJKLMNOP",
+      "toAmount": "2",
+      "expected": "INVALID_SWAP"
+    },
+    {
+      "name": "swap tiny amount reports amount first",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "0.0000000000000000001",
+      "toCoin": "ETH",
+      "toAmount": null,
+      "expected": "AMOUNT_TOO_SMALL"
+    },
+    {
+      "name": "sell with toCoin equal to coin is fine",
+      "coin": "ETH",
+      "type": "SELL",
+      "amount": "1",
+      "toCoin": "ETH",
+      "toAmount": null,
+      "expected": null
+    }
   ]
 }

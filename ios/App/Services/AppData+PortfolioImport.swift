@@ -91,14 +91,16 @@ extension AppData {
         }
         portfolioFile = file
         portfolio = disk.sorted
-        // Portfolio-Widget mit den bekannten Kursen nachführen, ebenfalls im Hintergrund
+        // Portfolio-Widget mit den bekannten Kursen nachführen, ebenfalls im Hintergrund; die Marke der Reihenfolge
+        // (`OrderedSerialRunner`) gilt ab hier, wo der Stand erfasst ist — eine später erfasste Aufnahme gewinnt
         let transactions = file.transactions
         let currency = settings.portfolioCurrency
+        let ticket = PortfolioWidgetStore.updates.ticket()
         Task.detached(priority: .utility) {
             let all = AddressBalance.withAddresses(transactions, addresses: WatchedAddressStore.load().addresses)
             let prices = PortfolioPriceSource.cached(all.flatMap(\.coins))
-            await PortfolioWidgetStore.updateInBackground(transactions: all, prices: prices, currency: currency,
-                                                          rate: FxRateSource.cached(currency))
+            PortfolioWidgetStore.update(ticket: ticket, transactions: all, prices: prices, currency: currency,
+                                        rate: FxRateSource.cached(currency))
         }
         return .saved
     }

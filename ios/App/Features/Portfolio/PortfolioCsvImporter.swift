@@ -41,6 +41,13 @@ struct CsvImportLoaded: Identifiable {
     }
 }
 
+/// Kurse einer Datei für die Vorschau: Devisen-Tageskurse je Währung (`PortfolioCsvImporter.fetchRates`) und
+/// USDT/USD-Tagesschlüsse (`fetchUsdtUsd`; leer = keine, Näherung markiert).
+struct CsvImportRates: Sendable {
+    var fx: [String: [(day: Int, rate: Double)]]
+    var usdtUsd: [Int: Decimal]
+}
+
 /// Vorschläge zu einer Vorschau: je Auszahlung (`CsvImportMapping.proposeWithdrawals`) und mögliche Umbuchungen
 /// (`CsvTransferMatch.candidates`) — bei vielen Zeilen teuer, darum abseits des Haupt-Threads gerechnet; übernommen
 /// wird auf dem MainActor (`PortfolioCsvImportSheet.applyProposals`) — wie Android `proposalsFor`/`applyProposals`.
@@ -155,6 +162,22 @@ enum PortfolioCsvImporter {
         return exact
     }
 
+    /// Neu lesen mit der Lesart `choice` (abseits des Haupt-Threads aufrufen): Text zerlegen und die Vorschau umrechnen.
+    /// `refetch` = Tageskurse und USDT/USD-Tagesschlüsse für den neuen Zeitraum neu laden (andere Reihenfolge Tag/Monat
+    /// bzw. anderes Dezimalzeichen); sonst bleiben `known` samt USDT/USD — wie Android `prepare` bzw. `reparse`.
+    static func reread(_ text: String, choice: CsvReadChoice, deviceZone: String, existingKeys: Set<String>,
+                       known: CsvImportRates, refetch: Bool) async -> (preview: CsvImportPreview, rates: CsvImportRates) {
+        let result = CsvImportParser.parse(text, deviceZone: deviceZone, zone: choice.zone, dateOrder: choice.dateOrder,
+                                           decimalMark: choice.decimalMark)
+        var rates = known
+        if refetch {
+            rates = CsvImportRates(fx: await fetchRates(result), usdtUsd: await fetchUsdtUsd(result))
+        }
+        let preview = mapPreview(result, existingKeys: existingKeys, rates: rates.fx, withdrawalsAsTransfer: false,
+                                 usdtUsd: rates.usdtUsd)
+        return (preview: preview, rates: rates)
+    }
+
     /// Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage).
     static func fetchRates(_ result: CsvImportResult) async -> [String: [(day: Int, rate: Double)]] {
         var rates: [String: [(day: Int, rate: Double)]] = [:]
@@ -260,6 +283,8 @@ enum PortfolioCsvImporter {
         case .AMBIGUOUS_GROUP: return "portfolio_csv_skip_ambiguous"
         case .DUPLICATE_TXID_DIFFERENT: return "portfolio_csv_skip_duplicate_txid_different"
         case .STAKING_UNPAIRED: return "portfolio_csv_skip_staking_unpaired"
+        case .AMOUNT_TOO_SMALL: return "portfolio_csv_skip_amount_too_small"
+        case .INVALID_SWAP: return "portfolio_csv_skip_invalid_swap"
         }
     }
 }

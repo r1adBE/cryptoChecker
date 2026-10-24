@@ -185,8 +185,6 @@ enum CsvImportMapping {
         let fresh = split.fresh.filter { !held.contains($0.key) }
         var skipped = result.skipped + split.fresh.filter { held.contains($0.key) }
             .map { CsvImportSkip(line: $0.line, reason: .POSSIBLE_DUPLICATE) }
-        // stabil nach Zeile (wie Android `sortedBy`)
-        skipped = skipped.enumerated().sorted { ($0.element.line, $0.offset) < ($1.element.line, $1.offset) }.map(\.element)
         // Ohne Angabe: Zeitzone der Tageskurse (`result.fxZone` = Gerät, wie der Steuer-Export), wie Android
         var priced: [CsvImportPriced] = []
         priced.reserveCapacity(fresh.count)
@@ -195,18 +193,64 @@ enum CsvImportMapping {
             priced += CsvImport.priceInUsdt(block, zone: zone ?? result.fxZone, usdtUsd: usdtUsd, fx: fx)
             try onRow(priced.count, fresh.count)
         }
+        // Zeilen, die das Speichern ablehnen würde (`unsavableReason`), schon hier als übersprungen: Vorschau und
+        // Speichern stimmen überein; sie fehlen auch in missingFx, missingPrice, usdtApproximate und stableSwaps — wie
+        // Android
+        var kept: [CsvImportPriced] = []
+        var txs: [CsvImportTx] = []
+        kept.reserveCapacity(priced.count)
+        txs.reserveCapacity(priced.count)
+        for p in priced {
+            let tx = toTx(p, withdrawalsAsTransfer: withdrawalsAsTransfer)
+            if let reason = unsavableReason(tx) {
+                skipped.append(CsvImportSkip(line: p.row.line, reason: reason))
+            } else {
+                kept.append(p)
+                txs.append(tx)
+            }
+        }
+        // stabil nach Zeile (wie Android `sortedBy`): bei gleicher Zeile Datei-Gründe, mögliche Duplikate, dann diese
+        skipped = skipped.enumerated().sorted { ($0.element.line, $0.offset) < ($1.element.line, $1.offset) }
+            .map(\.element)
         return CsvImportPreview(format: result.format,
-                                transactions: priced.map { toTx($0, withdrawalsAsTransfer: withdrawalsAsTransfer) },
+                                transactions: txs,
                                 duplicates: split.duplicates.count, skipped: skipped,
-                                missingFx: priced.filter(\.needsFx).map(\.row.line),
-                                missingPrice: priced.filter(\.missingPrice).map(\.row.line),
+                                missingFx: kept.filter(\.needsFx).map(\.row.line),
+                                missingPrice: kept.filter(\.missingPrice).map(\.row.line),
                                 zone: result.zone, localTimes: result.localTimes,
                                 dateOrder: result.dateOrder, dateOrderAmbiguous: result.dateOrderAmbiguous,
-                                stableSwaps: fresh.contains { $0.stableSwap },
+                                stableSwaps: kept.contains { $0.row.stableSwap },
                                 decimalSample: result.decimalSample, decimalMark: result.decimalMark,
                                 columns: result.columns,
-                                usdtApproximate: priced.filter(\.usdtApproximate).map(\.row.line),
+                                usdtApproximate: kept.filter(\.usdtApproximate).map(\.row.line),
                                 tooLarge: result.tooLarge)
+    }
+
+    /// Höchstlänge des erhaltenen Coins eines Tauschs — dieselbe Grenze wie beim Speichern (`PortfolioTx.maxFeeCoin`).
+    static let maxToCoin = PortfolioTx.maxFeeCoin
+
+    /// Grund, warum das Speichern `tx` ablehnen würde (`AppData.cleanedPortfolioTx`), sonst nil — wie Android.
+    static func unsavableReason(_ tx: CsvImportTx) -> CsvImportSkipReason? {
+        unsavableReason(coin: tx.coin, type: tx.type, amount: tx.amount, toCoin: tx.toCoin, toAmount: tx.toAmount)
+    }
+
+    /// Dieselbe Regel für Speichern (`AppData.cleanedPortfolioTx`) und Vorschau, geprüft in dieser Reihenfolge — wie
+    /// Android `unsavableReason`:
+    /// - Coin nach trim/Grossschreibung leer → `.MISSING_FIELD`
+    /// - Menge auf 18 Nachkommastellen gerundet (`PortfolioDecimal.amount`, halbe auf gerade) ≤ 0 → `.AMOUNT_TOO_SMALL`
+    /// - nur Tausch: erhaltener Coin (trim/gross) fehlt, leer, länger als `maxToCoin` UTF-16-Einheiten oder gleich dem
+    ///   Coin, oder erhaltene Menge fehlt bzw. gerundet ≤ 0 → `.INVALID_SWAP`
+    static func unsavableReason(coin: String, type: PortfolioTxType, amount: Decimal, toCoin: String?,
+                                toAmount: Decimal?) -> CsvImportSkipReason? {
+        let c = PortfolioCalculator.normalizeCoin(coin)
+        if c.isEmpty { return .MISSING_FIELD }
+        if !(PortfolioDecimal.amount(amount) > 0) { return .AMOUNT_TOO_SMALL }
+        guard type == .SWAP else { return nil }
+        let to = toCoin.map(PortfolioCalculator.normalizeCoin) ?? ""
+        // Länge in UTF-16-Einheiten wie Kotlin `length`
+        let toCoinOk = !to.isEmpty && to.utf16.count <= maxToCoin && to != c
+        let toAmountOk = toAmount.map { PortfolioDecimal.amount($0) > 0 } ?? false
+        return toCoinOk && toAmountOk ? nil : .INVALID_SWAP
     }
 
     /// Reihenfolge beim Speichern (die Id folgt ihr und entscheidet bei gleicher Zeit) — wie Android `insertOrder`: Datei

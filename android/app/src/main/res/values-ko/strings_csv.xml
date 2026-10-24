@@ -77,4 +77,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">같은 거래 ID, 다른 수량 – 직접 확인</string>
     <string name="portfolio_csv_skip_staking_unpaired">상대 기록 없는 스테이킹 기록 – 잔액 확인</string>
+    <string name="portfolio_csv_skip_amount_too_small">수량이 너무 작음 – 저장 시 0이 됨</string>
+    <string name="portfolio_csv_skip_invalid_swap">유효한 받은 코인 또는 수량이 없는 스왑</string>
 </resources>

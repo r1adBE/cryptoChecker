@@ -300,4 +300,6 @@ private fun CsvImportSkipReason.labelRes(): Int = when (this) {
     CsvImportSkipReason.AMBIGUOUS_GROUP -> R.string.portfolio_csv_skip_ambiguous
     CsvImportSkipReason.DUPLICATE_TXID_DIFFERENT -> R.string.portfolio_csv_skip_duplicate_txid_different
     CsvImportSkipReason.STAKING_UNPAIRED -> R.string.portfolio_csv_skip_staking_unpaired
+    CsvImportSkipReason.AMOUNT_TOO_SMALL -> R.string.portfolio_csv_skip_amount_too_small
+    CsvImportSkipReason.INVALID_SWAP -> R.string.portfolio_csv_skip_invalid_swap
 }

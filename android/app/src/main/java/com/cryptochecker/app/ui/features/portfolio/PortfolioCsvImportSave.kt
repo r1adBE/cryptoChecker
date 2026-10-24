@@ -10,6 +10,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
@@ -73,4 +75,40 @@ internal fun prepareCsvImport(
     val txs = CsvImportMapping.insertOrder(CsvImportMapping.applyWithdrawalChoices(plan.transactions, choices, destinations))
     val batch = PortfolioImportBatch.newId(preview.format.name, now, txs.map { it.importKey })
     return CsvImportSavePlan(txs.map { it.toEntity() }, batch, plan.storedUpdates)
+}
+
+/**
+ * «Abbrechen» im Lade- bzw. Speicherdialog möglich: beim Laden immer; beim Speichern, bis alle Zeilen angelegt sind
+ * ([progress] im Schritt [CsvImportStep.SAVE] mit done ≥ total) — danach läuft das Verknüpfen der Umbuchungen, das
+ * nicht mehr abbrechbar ist.
+ */
+internal fun canCancelSave(saving: Boolean, progress: CsvImportProgress?): Boolean =
+    !saving || progress?.let { it.step == CsvImportStep.SAVE && it.done >= it.total } != true
+
+/**
+ * Ablauf von «Importieren» nach dem Zustand [CsvImportState.Saving]: [prepare] (wirft = Fehler, null = nicht jede
+ * Auszahlung gewählt), [cancelled] nach dem Vorbereiten geprüft, dann [save] ([saveCsvImport]) und bei neu angelegten
+ * Zeilen [enable] (Portfolio einschalten; true = eingeschaltet).
+ * @return neuer Zustand: [CsvImportState.Done], [CsvImportState.Cancelled], [CsvImportState.Locked] oder
+ *   [CsvImportState.SaveFailed]; null = die Vorschau bleibt (nicht jede Auszahlung gewählt)
+ */
+internal suspend fun runCsvImportSave(
+    prepare: suspend () -> CsvImportSavePlan?,
+    cancelled: () -> Boolean,
+    save: suspend (CsvImportSavePlan) -> CsvImportSaveOutcome,
+    enable: suspend (inserted: Int) -> Boolean,
+): CsvImportState? {
+    val prepared = runCatchingCancellable { prepare() }
+        .onFailure { Timber.w(it, "CSV-Import: Vorbereiten fehlgeschlagen") }
+    if (prepared.isFailure) return CsvImportState.SaveFailed
+    val plan = prepared.getOrNull() ?: return null
+    if (cancelled()) return CsvImportState.Cancelled
+    return when (val outcome = save(plan)) {
+        CsvImportSaveOutcome.Cancelled -> CsvImportState.Cancelled
+        // Nichts geschrieben, weil Schreiben scheiterte (gesperrt oder Fehler): Grund nennen statt «0 importiert»
+        is CsvImportSaveOutcome.Failed -> if (outcome.locked) CsvImportState.Locked else CsvImportState.SaveFailed
+        // Nur neu angelegte Transaktionen schalten ein (verknüpfte gespeicherte gab es schon)
+        is CsvImportSaveOutcome.Saved ->
+            CsvImportState.Done(outcome.count, enabled = outcome.inserted > 0 && enable(outcome.inserted))
+    }
 }

@@ -258,6 +258,9 @@ struct PortfolioScreen: View {
             PortfolioCsvImportSheet(loaded: loaded) { count, enabled in
                 toast = ToastMessage(enabled ? L("portfolio_enabled_banner") : L("portfolio_csv_import_done", count: count),
                                      kind: enabled ? .info : .success)
+            } onSaveFailed: {
+                // Blatt schon zu («Abbrechen» während des Schreibens): Fehler hier melden, nicht still
+                toast = ToastMessage(L("portfolio_csv_import_failed"), kind: .error)
             }
             .environmentObject(data)
             .environment(\.appAccent, accent)

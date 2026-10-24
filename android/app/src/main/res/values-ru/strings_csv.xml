@@ -98,4 +98,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">тот же ID транзакции с другой суммой – проверь вручную</string>
     <string name="portfolio_csv_skip_staking_unpaired">запись стейкинга без встречной записи – проверь остаток</string>
+    <string name="portfolio_csv_skip_amount_too_small">слишком малое количество – при сохранении станет 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">обмен без корректной полученной монеты или количества</string>
 </resources>

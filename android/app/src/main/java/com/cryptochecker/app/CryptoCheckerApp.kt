@@ -54,6 +54,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     /** Lazy: nur, wenn nach neu angelegten Einstellungen Portfolio-Daten zu prüfen sind ([PortfolioDataCheck]). */
     @Inject lateinit var portfolioAlarmRepository: dagger.Lazy<PortfolioAlarmRepository>
 
+    /** Lazy: Kopf der Listen-Widgets erst im Hintergrund-Job unten ([ListWidgetRetry.clearIfExpired]). */
+    @Inject lateinit var widgetRetry: dagger.Lazy<com.cryptochecker.app.widget.ListWidgetRetry>
+
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
      * Ohne Handler würde eine Ausnahme in einem dieser Jobs den ganzen Prozess beenden. Läuft über [appScope]
@@ -124,6 +127,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
         // Diagnosebericht vom letzten Teilen (unverschlüsselt im Cache) wegräumen; die Ziel-App hat ihn längst gelesen
         scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.DiagnosticsFiles.clear(cacheDir) }
+
+        // Widget: eine abgelaufene «Neuer Versuch um …»-Uhrzeit (Prozess endete vor dem Löschen) weg, Kopf neu zeichnen
+        scope.launch { widgetRetry.get().clearIfExpired(System.currentTimeMillis()) }
 
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         scope.launch { portfolioRepository.get().migrateHoldingsOnce() }

@@ -21,10 +21,12 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportedRef
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -316,10 +318,13 @@ class PortfolioRepository @Inject constructor(
         onRow: (Int) -> Unit = {},
         cancelled: () -> Boolean = { false },
     ): Int {
-        // Vorab bereinigt und geprüft: eine ungültige Zeile meldet einen Fehler, bevor etwas geschrieben ist
-        val clean = transactions.map { tx ->
-            cleanForSave(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)).also {
-                require(it.coin.isNotEmpty() && it.amount.signum() > 0) { "Ungültige Transaktion" }
+        // Vorab bereinigt und geprüft (bei grossen Dateien rechenintensiv, darum nicht auf dem Thread des Aufrufers): eine
+        // ungültige Zeile meldet einen Fehler, bevor etwas geschrieben ist
+        val clean = withContext(Dispatchers.Default) {
+            transactions.map { tx ->
+                cleanForSave(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)).also {
+                    require(it.coin.isNotEmpty() && it.amount.signum() > 0) { "Ungültige Transaktion" }
+                }
             }
         }
         return database.withTransaction {

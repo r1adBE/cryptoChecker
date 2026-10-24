@@ -84,4 +84,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">azonos tranzakcióazonosító eltérő összeggel – ellenőrizd kézzel</string>
     <string name="portfolio_csv_skip_staking_unpaired">staking-tétel ellentétel nélkül – ellenőrizd az egyenleget</string>
+    <string name="portfolio_csv_skip_amount_too_small">túl kicsi mennyiség – mentéskor 0 lesz</string>
+    <string name="portfolio_csv_skip_invalid_swap">csere érvényes kapott coin vagy kapott mennyiség nélkül</string>
 </resources>

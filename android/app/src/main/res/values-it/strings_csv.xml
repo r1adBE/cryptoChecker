@@ -91,4 +91,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">stesso ID transazione con importo diverso – controlla a mano</string>
     <string name="portfolio_csv_skip_staking_unpaired">registrazione di staking senza contropartita – controlla il saldo</string>
+    <string name="portfolio_csv_skip_amount_too_small">quantità troppo piccola – al salvataggio diventa 0</string>
+    <string name="portfolio_csv_skip_invalid_swap">scambio senza moneta o quantità ricevuta valida</string>
 </resources>

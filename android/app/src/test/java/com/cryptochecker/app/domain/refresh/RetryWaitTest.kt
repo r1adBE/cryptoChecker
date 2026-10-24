@@ -113,6 +113,15 @@ class RetryWaitTest {
     }
 
     @Test
+    fun expiredWidgetRetryIsClearedAtStart() {
+        // Abgelaufen (auch genau jetzt) → beim App-Start löschen; noch kommend oder keiner → bleibt
+        assertTrue(RetryWait.widgetRetryExpired(now - 5_000, now))
+        assertTrue(RetryWait.widgetRetryExpired(now, now))
+        assertFalse(RetryWait.widgetRetryExpired(now + 1, now))
+        assertFalse(RetryWait.widgetRetryExpired(0L, now))
+    }
+
+    @Test
     fun widgetLayoutHasNoCountdown() {
         val path = listOf("", "app/", "android/app/").map { "${it}src/main/res/layout/widget_list.xml" }
             .firstOrNull { java.io.File(it).isFile }
