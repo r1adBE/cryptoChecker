@@ -52,7 +52,7 @@ struct WatchlistGroupChips: View {
     /// So lange bleibt der Namenshinweis stehen.
     private static let hintSeconds: Double = 1.5
     /// Koordinatenraum der Chip-Zeile (für den Ausblend-Rand).
-    private static let rowSpace = "watchlistGroupChips"
+    nonisolated private static let rowSpace = "watchlistGroupChips"
     /// Breite der sichtbaren Zeile und Ende (Hinterkante) der Chips darin.
     @State private var rowWidth: CGFloat = 0
     @State private var chipsEnd: CGFloat = 0
