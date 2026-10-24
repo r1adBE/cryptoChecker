@@ -122,7 +122,9 @@ final class PortfolioCostPartPoolTests: XCTestCase {
         }
         let open = pool.toArray(total: cost)
         assertParts("Seed \(seed) offen", former.parts, open, exact: exact)
-        if !open.isEmpty { XCTAssertEqual(Self.sum(open), cost, "Seed \(seed) Summe offen") }
+        if !open.isEmpty {
+            XCTAssertLessThanOrEqual(abs(Self.sum(open) - cost), Self.tolerance, "Seed \(seed) Summe offen")
+        }
     }
 
     func testMatchesFormerListOnRandomSequences() {

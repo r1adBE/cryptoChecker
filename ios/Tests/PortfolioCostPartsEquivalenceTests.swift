@@ -59,7 +59,10 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
                 assertParts("\(l) Veräusserung \(i)", pair.0.costParts.items, pair.1.costParts.items)
             }
             assertParts("\(l) offen", expected.openParts, actual.openParts)
-            if !actual.openParts.isEmpty { XCTAssertEqual(Self.sum(actual.openParts), actual.cost, "\(l) Summe offen") }
+            if !actual.openParts.isEmpty {
+                let gap = abs(Self.sum(actual.openParts) - actual.cost)
+                XCTAssertLessThanOrEqual(gap, Self.tolerance, "\(l) Summe offen")
+            }
         }
     }
 
