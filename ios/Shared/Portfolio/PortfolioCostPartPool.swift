@@ -179,8 +179,8 @@ struct PortfolioCostPartList: RandomAccessCollection, ExpressibleByArrayLiteral,
             var lo = first.time
             var hi = first.time
             for p in parts {
-                lo = min(lo, p.time)
-                hi = max(hi, p.time)
+                lo = Swift.min(lo, p.time)
+                hi = Swift.max(hi, p.time)
             }
             return [lo, hi]
         case .view(let view):
