@@ -20,7 +20,7 @@ extension WatchlistScreen {
             let action: WatchlistBannerAction? = noAlarms ? celebration.watchIds.first.map { id in
                 WatchlistBannerAction(title: L("add_alarm_action")) { alarmsFor = id }
             } : nil
-            banner = WatchlistBannerMessage(text: celebration.message, long: true, action: action)
+            banner = WatchlistBannerMessage(text: celebration.message, kind: .success, long: true, action: action)
             let text = celebration.message
             Task { @MainActor in
                 // Erst nach dem Wechsel zur Liste ansagen, sonst geht es im Fokuswechsel unter

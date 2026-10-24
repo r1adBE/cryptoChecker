@@ -495,6 +495,10 @@ Tests on the test app's own storage (`WatchlistLockBehaviorTests`, `BackgroundRe
 `StorageKey.shared` gets an in-memory test keychain with a fixed key (`StorageKey.replaceKeychainForTesting`, Debug
 build only); with a real keychain nothing is replaced. They therefore run everywhere; a skip of these classes (quiet
 hours, not enough time left) or of `SharedStorageTests` fails `ios.yml` on `main` and release tags.
+`ios.yml` runs three Macs in parallel – «iOS release build» (unsigned Release build for devices, release settings
+audit, built-app inspection with the compiler-warning ceiling 0), «iOS unit tests» (Debug build and unit tests) and
+«iOS UI tests» – and the job «iOS build» (the required check) is green only if all three are; logs on failure as
+artifacts `xcode-logs-release`, `-unit`, `-ui`. About 25 minutes instead of about 65 one after another.
 
 `gen_xcodeproj.py` (also with `--check`) fails when `ios/project.yml` (the XcodeGen fallback) carries a
 `MARKETING_VERSION` or `CURRENT_PROJECT_VERSION` different from the constants at the top of the script —
@@ -654,7 +658,7 @@ touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (opt
   `libs.versions.toml`, a plugin or the Gradle version (including Dependabot security updates – their pull request
   fails verification until the files are regenerated: run the workflow on the Dependabot branch – `supply-chain/update`
   then starts from that commit, so its pull request carries the version change plus the files; merge it instead).
-  Sources and javadoc jars (downloaded by Android Studio) are trusted without checksum; the trust rules live in the
+  Sources and javadoc jars and the Gradle sources zip (downloaded by Android Studio) are trusted without checksum; the trust rules live in the
   seed in `supply_chain_files.py`. A local build failing with «Dependency verification failed» after a deliberate
   change: regenerate; for a one-off local experiment `--dependency-verification lenient`.
 * *Known vulnerabilities*: `.github/workflows/osv.yml` (pushes and pull requests touching `android/`, release tags,
@@ -662,6 +666,18 @@ touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (opt
   (`.github/scripts/osv_check.py`, `--self-test`). A vulnerability with a fixed version is an error on `main`, tags
   and the weekly run, a warning on pull requests; without a fix or when OSV is unreachable it is a warning. An
   accepted finding goes into `.github/osv-ignore.txt` (`ID  # reason`) and is then only a notice.
+* *SBOM*: the *Android* workflow writes a CycloneDX 1.5 software bill of materials (`.github/scripts/sbom.py`,
+  `--self-test`) after the release build and keeps it as artifact `sbom` (90 days): `sbom-android.cdx.json` lists every
+  `releaseRuntimeClasspath` coordinate of the committed lock files (`:app`, `:marketdata`; not the baseline-profile
+  generator) with package URL and the SHA-256 of the shipped `.aar`/`.jar` from `verification-metadata.xml`
+  (Kotlin-multiplatform umbrella modules and BOMs have no binary, hence no hash); a shipped coordinate missing there
+  fails the step. `sbom-ios.cdx.json` states that the iOS app has no third-party packages and fails as soon as a
+  package manifest (`Package.swift`, `Podfile`, `Cartfile` …) appears. No timestamp or serial number: same sources,
+  same bytes.
+* *Reproducible build*: `.github/workflows/reproducible.yml` (pushes to `main` touching `android/`, release tags,
+  weekly on Sundays, by hand) builds the unsigned release APK and AAB twice on two fresh runners without any cache and
+  compares them and the SBOM byte for byte (`.github/scripts/repro_compare.py`, `--self-test`; a difference names the
+  archive entries). Not a required check. iOS is not covered (Xcode output is not byte-reproducible).
 
 The *Android* workflow also shows, never failing: lint warnings counted by id (top 20, one notice;
 `.github/scripts/lint_warnings.py`) and unit-test line coverage of `:app` and `:marketdata` (Kover, one notice;
@@ -2272,6 +2288,11 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 119: `AppSnackbarHost` / `showAppSnackbar` / `SnackbarKind` / `SnackbarPalette` (+ `snackbar_colors.json`), iOS
+  `snackbarSurface`, `sbom.py`, `reproducible.yml` + `repro_compare.py`, behaviour tests (`FakeWatchStore`,
+  `WatchlistWriteConsentTest`, `BulkAddRunnerTest`, iOS `WatchlistConsentBehaviorTests`, `AddWatchesBehaviorTests`),
+  performance tests (`performance/*PerformanceTest`, iOS `*PerformanceTests`, 2000 pairs), iOS `AlarmUpdate.Index`,
+  `ios.yml` split into three parallel jobs (no separate Release Simulator build any more).
 * Build 118: `BulkAddRunner` (app-wide bulk add, progress, `undo`), `bulkNewCount` / iOS `ExplorerBulkCount`,
   `BulkAddProgress` / `WatchlistBulkAdd`, `MarketMoveScale` (+ `market_move_scale.json`), `alarmReliabilityLineShown`,
   `PortfolioEmptyExample`, exchange check row selector (`{"symbol": "BTC"}`).

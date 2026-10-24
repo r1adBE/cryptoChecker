@@ -22,16 +22,19 @@ import kotlinx.coroutines.withTimeoutOrNull
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Banner unten in der Merkliste («BTC/USDT entfernt» mit «Rückgängig», «… wird jetzt
- * überwacht» mit «Alarm setzen», Favorit an/aus). Ein neues Banner ersetzt das alte; weitere einzelne
+ * überwacht» mit «Alarm setzen», Favorit an/aus). Jedes Banner hat eine Art ([SnackbarKind], Standard Info: kein
+ * farbiger Rahmen), gezeichnet von `AppSnackbarHost`. Ein neues Banner ersetzt das alte; weitere einzelne
  * Löschungen fasst der Bildschirm zu einem Sammel-Banner zusammen ([RemovedBatch]). Mit Screenreader bleibt ein Banner mit Aktion ggf.
  * länger stehen (Systemeinstellung «Zeit für Aktionen»).
  */
 @Stable
 internal class WatchlistBanner(
-    /** Für den `SnackbarHost` des Bildschirms. */
+    /** Für den `AppSnackbarHost` des Bildschirms. */
     val host: SnackbarHostState,
     private val scope: CoroutineScope,
 ) {
@@ -56,7 +59,7 @@ internal class WatchlistBanner(
         job?.cancel()
         job = scope.launch {
             host.currentSnackbarData?.dismiss()
-            host.showSnackbar(text, actionLabel = label, duration = SnackbarDuration.Indefinite)
+            host.showAppSnackbar(text, actionLabel = label, duration = SnackbarDuration.Indefinite)
         }
     }
 
@@ -76,12 +79,13 @@ internal class WatchlistBanner(
     /**
      * Banner mit Aktion [label] (z. B. «Alarm setzen») für [millis]; [onAction] beim Tippen darauf.
      * [onClosed] einmal, sobald das Banner weg ist (abgelaufen, weggewischt, ersetzt oder Aktion getippt) —
-     * mit `true`, wenn die Aktion getippt wurde.
+     * mit `true`, wenn die Aktion getippt wurde. [kind]: Art der Meldung (Rahmen, Symbol).
      */
     fun showAction(
         text: String,
         label: String,
         millis: Long,
+        kind: SnackbarKind = SnackbarKind.INFO,
         onClosed: ((actionPerformed: Boolean) -> Unit)? = null,
         onAction: () -> Unit,
     ) {
@@ -95,7 +99,7 @@ internal class WatchlistBanner(
                     millis, containsIcons = false, containsText = true, containsControls = true
                 ) ?: millis
                 val result = withTimeoutOrNull(timeout) {
-                    host.showSnackbar(text, actionLabel = label, duration = SnackbarDuration.Indefinite)
+                    host.showAppSnackbar(text, kind, actionLabel = label, duration = SnackbarDuration.Indefinite)
                 }
                 performed = result == SnackbarResult.ActionPerformed
                 if (performed) onAction()
@@ -108,21 +112,29 @@ internal class WatchlistBanner(
         }
     }
 
-    /** Kurzes Banner; mit [onUndo] steht «Rückgängig» daneben ([UNDO_MILLIS]). [onClosed] wie bei [showAction]. */
-    fun show(text: String, onClosed: ((actionPerformed: Boolean) -> Unit)? = null, onUndo: (() -> Unit)? = null) {
+    /**
+     * Kurzes Banner der Art [kind]; mit [onUndo] steht «Rückgängig» daneben ([UNDO_MILLIS]). [onClosed] wie bei
+     * [showAction].
+     */
+    fun show(
+        text: String,
+        kind: SnackbarKind = SnackbarKind.INFO,
+        onClosed: ((actionPerformed: Boolean) -> Unit)? = null,
+        onUndo: (() -> Unit)? = null,
+    ) {
         if (onUndo == null) {
             job?.cancel()
             job = scope.launch {
                 try {
                     host.currentSnackbarData?.dismiss()
-                    host.showSnackbar(text, duration = SnackbarDuration.Short)
+                    host.showAppSnackbar(text, kind, duration = SnackbarDuration.Short)
                 } finally {
                     onClosed?.invoke(false)
                 }
                 restoreRestingAfter(coroutineContext[Job])
             }
         } else {
-            showAction(text, undoLabel, UNDO_MILLIS, onClosed = onClosed) {
+            showAction(text, undoLabel, UNDO_MILLIS, kind, onClosed = onClosed) {
                 haptics?.play(HapticEvent.SUCCESS)
                 onUndo()
             }

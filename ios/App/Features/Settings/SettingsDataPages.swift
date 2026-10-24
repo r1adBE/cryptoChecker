@@ -71,7 +71,7 @@ struct BackupSettingsPage: View {
                             return
                         }
                         Haptics.play(.success)
-                        show("backup_exported")
+                        show("backup_exported", kind: .success)
                     case .failure(let error):
                         if !Self.isCancel(error) { fail("backup_failed") }
                     }
@@ -306,7 +306,7 @@ struct BackupSettingsPage: View {
             Haptics.play(.success)
             let text = Self.restoredText(result)
             let asDialog = Self.restoredAsDialog(result, text: text)
-            present(text, asDialog: asDialog)
+            present(text, asDialog: asDialog, kind: .success)
             // Wie Android: Erlaubnis für Mitteilungen erfragen (eine Neuinstallation hat nie gefragt — sonst
             // kommen Alarme der eingespielten Paare nie an) und gleich Kurse holen (Widgets, Alarme)
             // (erst die kurze Erklärung, `NotificationPrePrompt`; nach einem Ergebnis-Dialog erst nach dessen Schliessen)
@@ -327,18 +327,19 @@ struct BackupSettingsPage: View {
     /// Fehlgeschlagen: Hinweis mit Fehler-Haptik (wie Android `BackupMessage.haptic`).
     private func fail(_ key: String) {
         Haptics.play(.error)
-        show(key)
+        show(key, kind: .error)
     }
 
-    /// Meldung mit Schlüssel `key`: lang als Dialog, sonst als Toast (`BackupResultPresentation`, wie Android).
-    private func show(_ key: String) {
+    /// Meldung `key`: lang als Dialog, sonst als Toast der Art `kind` (`BackupResultPresentation`, wie Android).
+    private func show(_ key: String, kind: SnackbarKind = .info) {
         let text = L(key)
-        present(text, asDialog: BackupResultPresentation.asDialog(key: key, text: text, fontScale: Self.fontScale()))
+        let asDialog = BackupResultPresentation.asDialog(key: key, text: text, fontScale: Self.fontScale())
+        present(text, asDialog: asDialog, kind: kind)
     }
 
-    private func present(_ text: String, asDialog: Bool) {
+    private func present(_ text: String, asDialog: Bool, kind: SnackbarKind = .info) {
         guard asDialog else {
-            toast = ToastMessage(text)
+            toast = ToastMessage(text, kind: kind)
             return
         }
         pendingResult = text

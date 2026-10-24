@@ -127,7 +127,7 @@ struct WatchActionsSheet: View {
             if outcome == .locked { return }
             if outcome == .full {
                 // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
-                toast = ToastMessage(WatchlistLimitText.full)
+                toast = ToastMessage(WatchlistLimitText.full, kind: .error)
                 Haptics.play(.warning)
             } else if case .added(let id) = outcome {
                 adding = true
@@ -192,7 +192,7 @@ struct WatchActionsSheet: View {
         .background(AppColors.background.ignoresSafeArea())
         .toast($toast)
         // Vorschau nicht übernommen bzw. Paar nicht geändert (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
-        .watchlistLockedHint { toast = ToastMessage($0) }
+        .watchlistLockedHint { toast = ToastMessage($0, kind: .error) }
         // «1 CHF = … Sats»: Faktor zuerst aus dem Zwischenspeicher, sonst frisch (neu bei anderer
         // Quote oder Umrechnungswährung)
         .task(id: "\(watch.quoteAsset)|\(data.settings.portfolioCurrency)|\(Sats.isBitcoin(watch.baseAsset))") {

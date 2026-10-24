@@ -15,6 +15,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 119)
+
+* Messages at the bottom match the theme (dark in dark mode instead of a light pill); success shows a green outline with a check mark, errors a red outline with an exclamation mark (orange with the colour-vision palette), information only a quiet outline. Success stays green with swapped price colours; the meaning never depends on colour alone (both platforms).
+* Software bill of materials: every Android build writes a CycloneDX SBOM of all shipped libraries with version, package URL and the verified SHA-256; the iOS part states that the app has no third-party packages.
+* Reproducible build check: the Android release APK and AAB are built twice on fresh runners without caches and compared byte for byte (main, release tags, weekly).
+* Behaviour tests for the central guarantees (no write without consent while the watchlist is not saved, consent only for the action itself, bulk add with undo, the pair limit on undo) instead of source-text checks where they cover the same; performance tests with 2000 pairs (sorting, filters, search, refresh, alarms, pulse, widget plan, backup size) with fixed limits and a scaling check.
+* iOS CI: release build, unit tests and UI tests run on three Macs in parallel (about 25 instead of about 65 minutes); the duplicate Release build for the Simulator is gone, the release checks run on the device build.
+* iOS performance: alarm changes after a refresh are applied through an index (no longer one linear search per change), and the «not checked» marks change single entries and notify the view once per run.
+
 ## 16.2.2 (build 118)
 
 UX review of build 117 (both platforms unless noted):

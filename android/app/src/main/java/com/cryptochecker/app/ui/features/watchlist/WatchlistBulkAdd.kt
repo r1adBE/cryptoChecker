@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.ui.components.BulkAddProgress
 import com.cryptochecker.app.ui.features.explorer.BulkAddResult
+import com.cryptochecker.app.ui.features.explorer.bulkAddedKind
 import com.cryptochecker.app.ui.features.explorer.bulkAddedText
 import com.cryptochecker.app.ui.theme.Spacing
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,12 +51,11 @@ internal fun WatchlistBulkAdd(
         }
     } else if (result != null) {
         LaunchedEffect(result) {
-            val text = bulkAddedText(
-                resources, BulkAddResult(added = result.added, skipped = result.skipped, refused = result.refused),
-            )
+            val summary = BulkAddResult(added = result.added, skipped = result.skipped, refused = result.refused)
+            val text = bulkAddedText(resources, summary)
             // Neue Paare angelegt: «Rückgängig» entfernt genau diese wieder
             val ids = result.addedIds
-            banner.show(text, onUndo = if (ids.isEmpty()) null else ({ viewModel.runner.undo(ids) }))
+            banner.show(text, bulkAddedKind(summary), onUndo = if (ids.isEmpty()) null else ({ viewModel.runner.undo(ids) }))
             viewModel.runner.clearResult()
         }
     }

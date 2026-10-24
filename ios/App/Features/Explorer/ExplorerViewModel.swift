@@ -39,6 +39,9 @@ struct ExplorerMessage: Equatable, Identifiable {
     var retryDexQuery: String? = nil
     /// Gesetzt: nach dem Hinzufügen mehrerer Paare statt «Ansehen» der Knopf «Rückgängig» für diese neuen Paare.
     var undoIds: [Int64]? = nil
+    /// Art der Meldung: Rahmen und Symbol (übernommen = Erfolg; gesperrt, voll, DEX-Suche gescheitert = Fehler) — wie
+    /// Android `ExplorerFeedback`.
+    var kind: SnackbarKind = .info
 }
 
 /// Steuerung der Seite «Paar hinzufügen» (Gegenstück zu `ExplorerViewModel.kt`): Coin-Suche (Coin zuerst,
@@ -198,7 +201,7 @@ final class ExplorerViewModel: ObservableObject {
         let text = data.celebrateFirstAdd(watchId)
         // Hat das Paar noch keinen Alarm, bietet die Meldung «Alarm setzen» an (wie Android)
         let hasAlarm = (data.activeAlarmCounts[watchId] ?? 0) != 0
-        show(ExplorerMessage(text: text, long: true, alarmWatchId: hasAlarm ? nil : watchId))
+        show(ExplorerMessage(text: text, long: true, alarmWatchId: hasAlarm ? nil : watchId, kind: .success))
         AccessibilityNotification.Announcement(text).post()
     }
 

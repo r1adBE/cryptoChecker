@@ -55,11 +55,12 @@ import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Tab «Markt»: Jetzt (Puls, Auffälliges), Einordnung (Fear & Greed, Bitcoin-Kennzahlen, Dominanz, Halving) und Daten.
@@ -128,7 +129,7 @@ fun MarketPhaseScreen(
     // «… entfernt» mit «Rückgängig» nach «Löschen» im Aktionsblatt (wie in der Merkliste)
     val banner = rememberWatchlistBanner(scope)
     // Paar nicht übernommen bzw. nicht geändert, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
-    com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it) }
+    com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it, SnackbarKind.ERROR) }
     // Was beim Betreten des Tabs schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel)
     // Auf «Jetzt» zählt nur, was dort schon stand (Fear & Greed erst unter den Karten darüber)
     val revealedOnEntry = remember {
@@ -196,7 +197,7 @@ fun MarketPhaseScreen(
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(banner.host) },
+        snackbarHost = { AppSnackbarHost(banner.host) },
         topBar = {
             TopAppBar(
                 title = { TabTitle(stringResource(R.string.tab_market_phase), R.drawable.ic_tab_market) },

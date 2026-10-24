@@ -29,35 +29,39 @@ import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.rememberHaptics
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Snackbar [text] mit Aktion [actionLabel], [millis] lang — mit Screenreader ggf. länger (Systemeinstellung «Zeit
  * für Aktionen»). Eine stehende Snackbar macht Platz. null = abgelaufen, ohne dass die Aktion getippt wurde.
+ * [kind]: Art der Meldung (Rahmen, Symbol).
  */
 internal suspend fun SnackbarHostState.showTimed(
     text: String,
     actionLabel: String,
     millis: Long,
     accessibilityManager: AccessibilityManager?,
+    kind: SnackbarKind = SnackbarKind.INFO,
 ): SnackbarResult? {
     currentSnackbarData?.dismiss()
     val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
         millis, containsIcons = false, containsText = true, containsControls = true
     ) ?: millis
     return withTimeoutOrNull(timeout) {
-        showSnackbar(text, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)
+        showAppSnackbar(text, kind, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)
     }
 }
 
 /**
  * Hinweis lange stehen lassen (eine stehende Snackbar macht Platz), mit Haptik [event] — etwa «Höchstzahl Alarme»
- * (Warnung) oder «Speicher gesperrt» (Fehler), wie iOS.
+ * (Warnung) oder «Speicher gesperrt» (Fehler), wie iOS. Beides lehnt etwas ab: Art Fehler.
  */
 internal fun SnackbarHostState.showNotice(scope: CoroutineScope, text: String, haptics: HapticPlayer, event: HapticEvent) {
     haptics.play(event)
     scope.launch {
         currentSnackbarData?.dismiss()
-        showSnackbar(text, duration = SnackbarDuration.Long)
+        showAppSnackbar(text, SnackbarKind.ERROR, duration = SnackbarDuration.Long)
     }
 }
 
@@ -128,7 +132,7 @@ internal fun PendingUndoSnackbar(
         // Allererster Alarm: erst nach dem Dialog, sonst liefe «Rückgängig» unerreichbar dahinter ab
         awaitAlarmDialogsClosed(firstAlarm, timingHint)
         if (undo.isFresh(System.currentTimeMillis())) {
-            val result = snackbar.showTimed(undo.text, undoLabel, millis, accessibilityManager)
+            val result = snackbar.showTimed(undo.text, undoLabel, millis, accessibilityManager, SnackbarKind.SUCCESS)
             if (result == SnackbarResult.ActionPerformed) {
                 haptics.play(HapticEvent.SUCCESS)
                 onUndo(undo.alarmId)

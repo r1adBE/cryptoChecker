@@ -10,8 +10,11 @@ import java.io.File
 /**
  * Sperre der Merkliste im Repository (Review F-08): Jeder Schreibweg des Nutzers fragt zuerst
  * [userWriteRefused] (zentral, nicht in jeder Oberfläche), Hintergrundarbeit nicht. Room läuft nur auf dem Gerät, darum
- * am Quelltext wie [com.cryptochecker.app.data.local.WatchDaoAlarmQueriesTest]; die Drosselung des Hinweises
- * ([WatchlistWriteRefusal]) rein.
+ * die VOLLSTÄNDIGKEIT (welche Wege fragen, in welcher Reihenfolge die Oberfläche Folgen auslöst) am Quelltext wie
+ * [com.cryptochecker.app.data.local.WatchDaoAlarmQueriesTest]; die Drosselung des Hinweises ([WatchlistWriteRefusal])
+ * rein.
+ * Das VERHALTEN der Sicherung (ohne Zustimmung abgelehnt ohne Frage und Warten, gesperrt mit Hinweis, Folge-Schreibwege
+ * nie) prüft [WatchlistWriteConsentTest], die Obergrenze beim Anlegen und Zurückholen [WatchAddRulesTest].
  */
 class WatchRepositoryLockTest {
 
@@ -66,14 +69,18 @@ class WatchRepositoryLockTest {
         assertTrue(add.substringAfter("fun WatchRepository.addWatch(").substringBefore("\n\n").contains("tryAddWatch("))
     }
 
-    /** Review FUN-03: «Rückgängig» prüft die Obergrenze der Merkliste wie das Anlegen. */
+    /**
+     * Review FUN-03: «Rückgängig» prüft die Obergrenze der Merkliste wie das Anlegen. Die Regeln selbst (vorhanden vor
+     * «voll», Zählen nur ohne Dublette) prüft [WatchAddRulesTest] als Verhalten; hier nur, dass beide Transaktionen sie
+     * mit der echten Zahl der Paare benutzen.
+     */
     @Test
     fun restoreRespectsPairLimit() {
-        val body = source("WatchRepositoryAdd.kt").substringAfter("fun WatchRepository.restore(")
-        assertTrue(body.contains("WatchlistLimits.canAddPair(watchDao.countWatches())"))
-        assertTrue(body.contains("RestoreOutcome.FULL"))
-        // Vorhandenes Paar geht vor «voll»
-        assertTrue(body.indexOf("blocked -> RestoreOutcome.BLOCKED") < body.indexOf("RestoreOutcome.FULL"))
+        val add = source("WatchRepositoryAdd.kt")
+        val restore = add.substringAfter("fun WatchRepository.restore(")
+        assertTrue(restore.contains("restoreBlocker(blocked) { watchDao.countWatches() }"))
+        assertTrue(add.substringAfter("fun WatchRepository.tryAddWatch(").substringBefore("\n}\n")
+            .contains("addBlocker(existing != null) { watchDao.countWatches() }"))
     }
 
     /** Kurse, Fehler und Alarm-Zustand schreiben weiter (leere Datenbank im Arbeitsspeicher) — kein Absturz, kein Hinweis. */
@@ -86,7 +93,10 @@ class WatchRepositoryLockTest {
         }
     }
 
-    /** Folge-Schreibwege (Meldekurs, Prozent-Bezug) sperren still: Der Hinweis kam schon vom eigentlichen Schreibweg. */
+    /**
+     * Folge-Schreibwege (Meldekurs, Prozent-Bezug) sperren still: Der Hinweis kam schon vom eigentlichen Schreibweg.
+     * Was `notify = false` bewirkt, prüft [WatchlistWriteConsentTest]; hier, welche Wege es benutzen.
+     */
     @Test
     fun followUpWritesRefuseSilently() {
         val repo = source("WatchRepository.kt")
@@ -150,12 +160,11 @@ class WatchRepositoryLockTest {
      * Review ARC3-R02, UX3-01/03/04: Die Rückfrage F-08 kommt EINMAL je Aktion VOR Sperren und Folgen
      * ([confirmUserWrite]); der Schreibweg wartet nie auf sie (sonst hielte ein offener Dialog z. B. die Refresh-Sperre),
      * sondern lehnt ohne Bestätigung ab. Jede Datei, die Schreibwege des Nutzers aufruft, fragt vorher.
+     * «Der Schreibweg wartet nie und fragt nie selbst» prüft [WatchlistWriteConsentTest] als Verhalten (echte Sicherung
+     * [writeRefused]); hier die Reihenfolge in der Oberfläche, die ohne ViewModels nicht ausführbar ist.
      */
     @Test
     fun actionsConfirmBeforeLocksAndWritePathsNeverWait() {
-        val lock = source("WatchRepositoryLock.kt").substringAfter("fun WatchRepository.userWriteRefused(").substringBefore("\n}\n")
-        assertFalse(lock.contains(".confirm("))
-        assertTrue(lock.contains("WatchlistNotSavedGate.needsConfirmation()"))
         val edit = ui("watchlist/WatchEditViewModel.kt")
         assertTrue(edit.indexOf("confirmUserWrite()") in 0 until edit.indexOf("withRefreshLock {"))
         val controller = ui("watchlist/WatchlistEditController.kt")
@@ -188,12 +197,20 @@ class WatchRepositoryLockTest {
         return listOf(File(path), File("app/$path")).first { it.exists() }.readText()
     }
 
+    /**
+     * Was nach dem Öffnen der Datenbank geschieht ([writeRefused]), prüft [WatchlistWriteConsentTest] als Verhalten.
+     * Room läuft nur auf dem Gerät: hier nur, dass [userWriteRefused] die Sperre in einer Transaktion liest und an
+     * [writeRefused] mit dem echten Hinweis weitergibt (nicht mit einer Testnaht).
+     */
     @Test
     fun lockChecksStoredKeptInsideATransaction() {
-        val lock = source("WatchRepositoryLock.kt").substringAfter("fun WatchRepository.userWriteRefused(")
-        assertTrue(lock.contains("database.withTransaction"))
-        assertTrue(lock.contains("WatchlistStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value)"))
-        assertTrue(lock.contains("WatchlistWriteRefusal.report()"))
+        val text = source("WatchRepositoryLock.kt")
+        val lock = text.substringAfter("fun WatchRepository.userWriteRefused(").substringBefore("\n\n")
+        assertTrue(lock.contains("writeRefused("))
+        val read = "database.withTransaction { WatchlistStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }"
+        assertTrue(lock.contains(read))
+        assertFalse("Hinweis nicht ausgetauscht", lock.contains("report ="))
+        assertTrue(text.contains("report: () -> Unit = { WatchlistWriteRefusal.report() }"))
     }
 
     @Test

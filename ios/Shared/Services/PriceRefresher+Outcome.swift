@@ -70,12 +70,31 @@ extension PriceRefresher {
         /// - Returns: true = übertragen; false = inzwischen bearbeitet, abgeschaltet, gelöscht oder Paar geändert.
         @discardableResult
         func apply(toAlarm id: Int64, in snapshot: inout SharedStorage.Snapshot) -> Bool {
-            guard let i = snapshot.alarms.firstIndex(where: { $0.id == id }), matches(snapshot.alarms[i]) else {
+            apply(toAlarm: id, in: &snapshot, index: AlarmUpdate.Index(snapshot))
+        }
+
+        /// Positionen der Alarme und Paare, einmal je Durchlauf aufgebaut: viele Änderungen hintereinander suchen
+        /// dann nicht jedes Mal linear (sonst Änderungen × (Alarme + Paare) Vergleiche bei 2000 Paaren).
+        struct Index {
+            let alarmPosition: [Int64: Int]
+            let watchIdentity: [Int64: WatchIdentity.Key]
+
+            init(_ snapshot: SharedStorage.Snapshot) {
+                alarmPosition = Dictionary(snapshot.alarms.enumerated().map { ($1.id, $0) }, uniquingKeysWith: { a, _ in a })
+                watchIdentity = Dictionary(snapshot.watches.map { ($0.id, $0.identity) }, uniquingKeysWith: { a, _ in a })
+            }
+        }
+
+        /// Wie `apply(toAlarm:in:)` mit vorab aufgebautem `index` (Alarme und Paare werden dabei nur geändert,
+        /// nicht eingefügt oder entfernt – die Positionen bleiben gültig).
+        @discardableResult
+        func apply(toAlarm id: Int64, in snapshot: inout SharedStorage.Snapshot, index: Index) -> Bool {
+            guard let i = index.alarmPosition[id], i < snapshot.alarms.count, snapshot.alarms[i].id == id,
+                  matches(snapshot.alarms[i]) else {
                 return false
             }
             if let pair {
-                let watchId = snapshot.alarms[i].watchId
-                guard snapshot.watches.first(where: { $0.id == watchId })?.identity == pair else { return false }
+                guard index.watchIdentity[snapshot.alarms[i].watchId] == pair else { return false }
             }
             if let enabled { snapshot.alarms[i].enabled = enabled }
             snapshot.alarms[i].referencePrice = referencePrice
@@ -327,10 +346,12 @@ extension PriceRefresher {
                 }
             }
             // Nur auf unveränderte Alarme: eine Bearbeitung während der Abfrage bleibt
+            let index = AlarmUpdate.Index(snapshot)
             for (id, update) in alarms {
-                if !changedPair.isEmpty, let alarm = snapshot.alarms.first(where: { $0.id == id }),
-                   changedPair.contains(alarm.watchId) { continue }
-                update.apply(toAlarm: id, in: &snapshot)
+                if !changedPair.isEmpty, let i = index.alarmPosition[id], changedPair.contains(snapshot.alarms[i].watchId) {
+                    continue
+                }
+                update.apply(toAlarm: id, in: &snapshot, index: index)
             }
         }
     }

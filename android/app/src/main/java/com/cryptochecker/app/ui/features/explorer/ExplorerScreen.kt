@@ -14,7 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -271,7 +271,7 @@ private fun ExplorerPage(
 
     Scaffold(
         topBar = { ExplorerTopBar(onBack) },
-        snackbarHost = { SnackbarHost(snackbar) },
+        snackbarHost = { AppSnackbarHost(snackbar) },
     ) { insets ->
         // Die ganze Seite scrollt als eines, das Suchfeld mit
         Column(

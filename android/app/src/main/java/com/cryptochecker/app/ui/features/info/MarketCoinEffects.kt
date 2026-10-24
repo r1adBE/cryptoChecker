@@ -15,6 +15,7 @@ import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.handleShared
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /** Schlüssel des Markt-Tabs für `rememberWatchUiEvents` (eigener Empfänger neben der Merkliste). */
 internal const val MARKET_COIN_UI_EVENTS = "market_coin_ui_events"
@@ -49,7 +50,8 @@ internal fun MarketCoinUiEffects(
                     resources.getString(
                         R.string.watchlist_limit_reached,
                         LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
-                    )
+                    ),
+                    SnackbarKind.ERROR,
                 )
             }
             is WatchUiEvent.PreviewAdded -> {

@@ -13,7 +13,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -48,6 +48,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,7 +106,10 @@ fun AlarmsScreen(
     }
     val snackbar = remember { SnackbarHostState() }
     // Alarm nicht geändert bzw. gelöscht, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
-    com.cryptochecker.app.ui.components.WatchlistLockedHint { snackbar.currentSnackbarData?.dismiss(); snackbar.showSnackbar(it) }
+    com.cryptochecker.app.ui.components.WatchlistLockedHint {
+        snackbar.currentSnackbarData?.dismiss()
+        snackbar.showAppSnackbar(it, SnackbarKind.ERROR)
+    }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     // Paar gibt es nicht mehr (z. B. «Anpassen» aus der Mitteilung eines gelöschten Paars): kein Editor ohne Paar —
@@ -205,7 +210,7 @@ fun AlarmsScreen(
             }
         },
         // «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm (Live-Region über den SnackbarHost)
-        snackbarHost = { SnackbarHost(snackbar) }
+        snackbarHost = { AppSnackbarHost(snackbar) }
     ) { padding ->
         if (alarms.isEmpty() && lowLiquidity) {
             // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung

@@ -62,7 +62,7 @@ extension AlarmsScreen {
         let id = created.id
         let message = WatchlistBannerMessage(
             // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
-            text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
+            text: templateCreatedText(id), kind: .success,
             action: WatchlistBannerAction.undo {
                 data.withWatchlistConfirm { withAnimation { _ = data.deleteAlarm(id) } }
             }
@@ -95,13 +95,13 @@ extension AlarmsScreen {
     /// Merkliste gerade nicht lesbar (`AppData.alarmSaveBlocked`): nichts angelegt, sagen warum (der Editor schliesst sich)
     func showSaveLocked() {
         Haptics.play(.error)
-        banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
+        banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), kind: .error, long: true)
     }
 
     /// Paar hat schon die Höchstzahl Alarme (`WatchlistLimits`): nichts angelegt, sagen warum (der Editor schliesst sich)
     func showAlarmLimit() {
         Haptics.play(.warning)
-        banner = WatchlistBannerMessage(text: AlarmLimitText.text, icon: "bell.badge", long: true)
+        banner = WatchlistBannerMessage(text: AlarmLimitText.text, kind: .error, long: true)
     }
 
     /// Bestätigung eines Schnell-Alarms: Bedingung wie nach dem Speichern (`AlarmSavedText`), ohne Mitteilungs-Hinweis.
@@ -141,14 +141,14 @@ extension AlarmsScreen {
             if id == 0 && !off {
                 if firstAlarm { return }
                 banner = WatchlistBannerMessage(
-                    text: L("alarm_saved_active"), icon: "bell.badge.fill",
+                    text: L("alarm_saved_active"), kind: .success,
                     action: WatchlistBannerAction(title: L("alarm_test_action"), perform: { alarmTestTrigger += 1 })
                 )
                 return
             }
             banner = WatchlistBannerMessage(
                 text: AlarmSavedText.text(condition: condition, repeating: repeating, notificationsOff: off),
-                icon: off ? "bell.slash.fill" : "bell.badge.fill",
+                kind: .success,
                 action: off ? WatchlistBannerAction(title: L("settings_title"), perform: { NotificationsOffBanner.openSettings() }) : nil
             )
         }

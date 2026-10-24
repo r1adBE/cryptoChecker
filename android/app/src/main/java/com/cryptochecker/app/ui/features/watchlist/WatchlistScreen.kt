@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -285,7 +285,7 @@ fun WatchlistScreen(
                 // testTags als Ressourcen-Id: für den Baseline-Profile-Generator (UiAutomator)
                 testTagsAsResourceId = true
             },
-            snackbarHost = { SnackbarHost(banner.host) },
+            snackbarHost = { AppSnackbarHost(banner.host) },
         ) { padding ->
             WatchlistSheets(
                 ui = ui,

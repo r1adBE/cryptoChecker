@@ -305,9 +305,6 @@ enum AppColors {
     static let warningText = Color.dynamic(light: 0x8A5300, dark: 0xFFC94D)
     /// Löschen und Zurücksetzen (Wisch-Aktionen, «App zurücksetzen»): der Fehlerton statt Systemrot, wie Android.
     static let destructive = error
-    /// Hinweis-Banner und Toasts: dunkle Fläche mit heller Schrift, in Hell und Dunkel gleich.
-    static let toastBackground = Color.black.opacity(0.86)
-    static let onToast = Color.white
     /// Text und Symbole auf kräftigen Farbflächen (Akzent-Vorschau, Randzonen der Marktskala).
     static let onVivid = Color.white
     /// Schatten (Deckkraft setzt die Stelle).

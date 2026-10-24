@@ -15,7 +15,7 @@ extension PortfolioScreen {
             let off = await Notifier.isDenied()
             banner = WatchlistBannerMessage(
                 text: AlarmSavedText.text(condition: condition, repeating: alarm.repeating, notificationsOff: off),
-                icon: off ? "bell.slash.fill" : "bell.badge.fill",
+                kind: .success,
                 action: off ? WatchlistBannerAction(title: L("settings_title"), perform: { NotificationsOffBanner.openSettings() }) : nil
             )
         }
@@ -53,7 +53,6 @@ extension PortfolioScreen {
         let text = L("portfolio_coin_removed", count: count, coin, count)
         banner = WatchlistBannerMessage(
             text: text,
-            icon: "trash",
             action: WatchlistBannerAction.undo {
                 restoreOrWarn(restore)
             }
@@ -96,7 +95,6 @@ extension PortfolioScreen {
         let ids: [Int64] = list.map(\.id)
         banner = WatchlistBannerMessage(
             text: text,
-            icon: "eye",
             action: WatchlistBannerAction.undo {
                 for id in ids { data.setWatchedAddressCountInPortfolio(id, on: true) }
             }
@@ -117,7 +115,6 @@ extension PortfolioScreen {
         let ids: [Int64] = list.map(\.id)
         banner = WatchlistBannerMessage(
             text: text,
-            icon: "eye",
             action: WatchlistBannerAction.undo {
                 for id in ids { data.setWatchedAddressCountInPortfolio(id, on: false) }
             }
@@ -145,7 +142,6 @@ extension PortfolioScreen {
         let text = L("portfolio_cleared", count: before.count)
         banner = WatchlistBannerMessage(
             text: text,
-            icon: "trash",
             action: WatchlistBannerAction.undo { restoreOrWarn(before) }
         )
         Task { @MainActor in
@@ -176,7 +172,6 @@ extension PortfolioScreen {
         let text = L("portfolio_import_undone", count: removed.count)
         banner = WatchlistBannerMessage(
             text: text,
-            icon: "arrow.uturn.backward",
             action: WatchlistBannerAction.undo {
                 restoreOrWarn(restore)
             }
@@ -192,14 +187,14 @@ extension WatchlistBannerMessage {
     /// Portfolio-Datei nicht geschrieben (gespeicherter Stand gesperrt, Schlüsselbund nicht lesbar): Änderungen erst nach
     /// dem nächsten Start — statt einer Erfolgsmeldung (wie Android `portfolio_storage_locked`).
     static var portfolioNotSaved: WatchlistBannerMessage {
-        WatchlistBannerMessage(text: L("portfolio_storage_locked"), icon: "lock.trianglebadge.exclamationmark",
+        WatchlistBannerMessage(text: L("portfolio_storage_locked"), kind: .error,
                                long: true)
     }
 
     /// Nicht geschrieben wegen eines Schreibfehlers (nicht gesperrt): «Konnte nicht gespeichert werden»,
     /// wie Android `portfolio_write_failed`.
     static var portfolioWriteFailed: WatchlistBannerMessage {
-        WatchlistBannerMessage(text: L("portfolio_write_failed"), icon: "exclamationmark.triangle", long: true)
+        WatchlistBannerMessage(text: L("portfolio_write_failed"), kind: .error, long: true)
     }
 
     /// Hinweis nach einem nicht geschriebenen Schreibweg: gesperrt (`AppData.portfolioWriteLocked`) → `portfolioNotSaved`,

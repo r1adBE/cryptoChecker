@@ -19,6 +19,9 @@ import java.io.File
  * Schreibweg in einem Block `x.launch { … }`/`x.async { … }` mit Empfänger (anderer Scope, `GlobalScope`,
  * `CoroutineScope(…)`, auch erneut `viewModelScope`), der NACH der Zustimmung beginnt, ist losgelöst und ein Befund
  * ([escapes]); Kind-Coroutinen (`launch { … }` ohne Empfänger, `withContext`) bleiben erlaubt.
+ * Abgrenzung: Das Verhalten der Zustimmung selbst (ohne abgelehnt, mit geschrieben, Kind-Coroutine ja, losgelöster
+ * Bereich nein) prüfen [WatchlistWriteConsentTest] und [BulkAddRunnerTest] am Schreibweg. Dieser Wächter sichert
+ * zusätzlich, was kein Verhaltenstest abdeckt: dass JEDER Aufruf in Oberfläche, Mitteilungen und Widgets vorher fragt.
  */
 class WatchRepositoryCallGuardTest {
 

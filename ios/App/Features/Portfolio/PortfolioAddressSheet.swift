@@ -153,7 +153,6 @@ struct PortfolioAddressSheet: View {
             let name = target.label ?? WatchedAddressRules.shortAddress(target.address)
             banner = WatchlistBannerMessage(
                 text: L("watchlist_removed", name),
-                icon: "trash",
                 action: WatchlistBannerAction.undo {
                     switch data.restoreWatchedAddress(removed) {
                     case .locked: showLocked()
@@ -167,14 +166,14 @@ struct PortfolioAddressSheet: View {
             showLocked()
         // Nicht geschrieben: nennen statt still nichts zu tun (wie Android)
         case .failed:
-            banner = WatchlistBannerMessage(text: L("portfolio_address_remove_failed"), icon: "exclamationmark.triangle", long: true)
+            banner = WatchlistBannerMessage(text: L("portfolio_address_remove_failed"), kind: .error, long: true)
         case .notFound:
             break
         }
     }
 
     private func showLocked() {
-        banner = WatchlistBannerMessage(text: L("portfolio_storage_locked"), icon: "lock.fill", long: true)
+        banner = WatchlistBannerMessage(text: L("portfolio_storage_locked"), kind: .error, long: true)
     }
 
     /// Text zum gescheiterten «Rückgängig» (`WatchedAddressUndo.failure`) — wie Android `restoreFailedText`.
@@ -185,7 +184,7 @@ struct PortfolioAddressSheet: View {
         case .limit: text = L("address_limit")
         case .notSaved: text = L("portfolio_address_restore_failed")
         }
-        banner = WatchlistBannerMessage(text: text, icon: "exclamationmark.triangle", long: true)
+        banner = WatchlistBannerMessage(text: text, kind: .error, long: true)
     }
 
     /// Angefangene Eingabe (Adresse oder Bezeichnung).

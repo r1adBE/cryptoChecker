@@ -32,23 +32,41 @@ final class AlarmCheckStatus: ObservableObject, @unchecked Sendable { // @unchec
         return map[alarmId]
     }
 
+    /// Benachrichtigung der Ansicht schon unterwegs (unter `lock`): viele Änderungen in einem Durchlauf ergeben eine.
+    private var notifyPending = false
+
     func markUnchecked(_ alarmId: Int64, reason: Reason, now: Int64) {
-        update { Self.unchecked($0, alarmId: alarmId, reason: reason, now: now) }
+        lock.lock()
+        let old = map[alarmId]
+        let next = Unchecked(reason: reason, since: old?.since ?? now)
+        let changed = old != next
+        if changed { map[alarmId] = next }
+        lock.unlock()
+        if changed { notify() }
     }
 
     func markChecked(_ alarmId: Int64) {
-        update { Self.checked($0, alarmId: alarmId) }
+        lock.lock()
+        let changed = map.removeValue(forKey: alarmId) != nil
+        lock.unlock()
+        if changed { notify() }
     }
 
-    /// Ändern; bei einer Änderung die Ansicht (Alarmliste) auf dem Main-Thread benachrichtigen.
-    private func update(_ change: ([Int64: Unchecked]) -> [Int64: Unchecked]) {
+    /// Nur einzelne Einträge ändern (keine Kopie und kein Vergleich der ganzen Karte je Alarm – bei 2000 Paaren
+    /// sonst Alarme × Einträge je Prüfung); die Ansicht (Alarmliste) auf dem Main-Thread einmal benachrichtigen.
+    private func notify() {
         lock.lock()
-        let next = change(map)
-        let changed = next != map
-        map = next
+        let schedule = !notifyPending
+        notifyPending = true
         lock.unlock()
-        guard changed else { return }
-        DispatchQueue.main.async { [weak self] in self?.objectWillChange.send() }
+        guard schedule else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.lock.lock()
+            self.notifyPending = false
+            self.lock.unlock()
+            self.objectWillChange.send()
+        }
     }
 
     /// Ausgelassen: «seit» bleibt die erste ausgelassene Prüfung, der Grund wird der neueste.

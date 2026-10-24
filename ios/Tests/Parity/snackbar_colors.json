@@ -1,0 +1,2893 @@
+{
+  "description": "Short messages at the bottom (Android AppSnackbarHost / iOS snackbar surface): colour of the 1.5 dp/pt border and leading symbol per kind x price-colour scheme x accent (null = without accent) x dark x highContrast, as RGB hex (null = INFO: no coloured border, no symbol). SUCCESS = the scheme's rising colour without swap (never the swapped colour: success is not a price direction), ERROR = the app error colour (light B8361A, dark FF5833, unchanged in high contrast), but with a colour-vision scheme (BLUE_ORANGE, CALM_COLOR_VISION) the scheme's falling colour without swap. Derived from price_colors.json (inverted = false); the 'Swap colours' setting never changes these values.",
+  "colorVisionSchemes": [
+    "BLUE_ORANGE",
+    "CALM_COLOR_VISION"
+  ],
+  "error": {
+    "light": "B8361A",
+    "dark": "FF5833"
+  },
+  "cases": [
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "396E54"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "294F3C"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "61AE87"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "A1CFB8"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "396E54"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "294F3C"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "61AE87"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "A1CFB8"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "396E54"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "294F3C"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "61AE87"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "A1CFB8"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "396E54"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "294F3C"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "61AE87"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "A1CFB8"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "506299"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "364673"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "8D9CD3"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "B9C3F2"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "506299"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "364673"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "8D9CD3"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "B9C3F2"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "127248"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "025430"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "0ECB81"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "30DE92"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "127248"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "025430"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "0ECB81"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "30DE92"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "127248"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "025430"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "0ECB81"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "30DE92"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "127248"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "025430"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "0ECB81"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "30DE92"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "127248"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "025430"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "0ECB81"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "30DE92"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "127248"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "025430"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "0ECB81"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "30DE92"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "GREEN_RED",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "0A7262"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "005246"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "3EAE97"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "5AD8BE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "0A7262"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "005246"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "3EAE97"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "5AD8BE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "0A7262"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "005246"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "3EAE97"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "5AD8BE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "0A7262"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "005246"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "3EAE97"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "5AD8BE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "0A7262"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "005246"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "3EAE97"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "5AD8BE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "0A7262"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "005246"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "B8361A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "3EAE97"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "5AD8BE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FF5833"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "TRADITIONAL",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "064E93"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "B73900"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "00335F"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "842A00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "4F9FFD"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA73E"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "CFEAFF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFB46A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "064E93"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B73900"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "00335F"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "842A00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "4F9FFD"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA73E"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "CFEAFF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFB46A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "064E93"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B73900"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "00335F"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "842A00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "4F9FFD"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA73E"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "CFEAFF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFB46A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "064E93"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B73900"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "00335F"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "842A00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "4F9FFD"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA73E"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "CFEAFF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFB46A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "064E93"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B73900"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "00335F"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "842A00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "4F9FFD"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA73E"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "CFEAFF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFB46A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "064E93"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "B73900"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "00335F"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "842A00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "4F9FFD"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA73E"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "CFEAFF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFB46A"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "BLUE_ORANGE",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "1460AB"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": "9F4300"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "093D83"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": "6C2E00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "64B5F6"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA040"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "A6D4FF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFC685"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": null,
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "1460AB"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "786200"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "093D83"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "564500"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "64B5F6"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "C9A718"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "A6D4FF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "ECC959"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "ORANGE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "1460AB"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": "786200"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "093D83"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": "564500"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "64B5F6"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": "C9A718"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "A6D4FF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": "ECC959"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "RED",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "0D6F73"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": "9F4300"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "095053"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": "6C2E00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "26C6CC"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA040"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "80E6EA"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFC685"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "BLUE",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "1460AB"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "9F4300"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "093D83"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "6C2E00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "64B5F6"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA040"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "A6D4FF"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFC685"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "2462BE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": "9F4300"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "03448D"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": "6C2E00"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": false,
+      "highContrast": true,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "819BEA"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": "FFA040"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": false,
+      "tone": null
+    },
+    {
+      "kind": "SUCCESS",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "B4C3FE"
+    },
+    {
+      "kind": "ERROR",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": "FFC685"
+    },
+    {
+      "kind": "INFO",
+      "scheme": "CALM_COLOR_VISION",
+      "accent": "MARRS_GREEN",
+      "dark": true,
+      "highContrast": true,
+      "tone": null
+    }
+  ]
+}

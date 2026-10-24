@@ -111,16 +111,19 @@ struct TonalButtonStyle: ButtonStyle {
 }
 
 /// Text eines Toasts mit eigener Kennung: derselbe Text erneut gesetzt zeigt und sagt ihn noch einmal an.
+/// `kind`: Art der Meldung (Rahmen, Symbol), Standard Info.
 struct ToastMessage: Equatable {
     let id = UUID()
     let text: String
+    let kind: SnackbarKind
 
-    init(_ text: String) {
+    init(_ text: String, kind: SnackbarKind = .info) {
         self.text = text
+        self.kind = kind
     }
 }
 
-/// Kleines Hinweis-Toast unten am Bildschirm.
+/// Kleines Hinweis-Toast unten am Bildschirm; Fläche, Rahmen und Symbol je Art wie die Banner (`snackbarSurface`).
 struct ToastModifier: ViewModifier {
     @Binding var message: ToastMessage?
 
@@ -130,19 +133,24 @@ struct ToastModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.overlay(alignment: .bottom) {
             if let message {
-                Text(message.text)
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(AppColors.onToast)
-                    .padding(.horizontal, Spacing.lg)
-                    .padding(.vertical, 12)
-                    .background(AppColors.toastBackground, in: Capsule())
-                    .accessibilityIdentifier(UiTestTags.toast)
-                    // Nur Anzeige: fängt keine Tipps ab (sonst blockiert sie kurz Tab-Leiste und Knöpfe darunter)
-                    .allowsHitTesting(false)
-                    .padding(.bottom, 24)
-                    .padding(.horizontal, 16)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                    .task(id: message) { await show(message) }
+                HStack(spacing: Spacing.sm) {
+                    SnackbarKindIcon(kind: message.kind)
+                    Text(message.text)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(AppColors.onSurface)
+                }
+                .padding(.horizontal, Spacing.lg)
+                .padding(.vertical, 12)
+                .snackbarSurface(message.kind, in: Capsule())
+                // Ein Element für VoiceOver (das Symbol ist ausgeblendet), Kennung für die UI-Tests
+                .accessibilityElement(children: .combine)
+                .accessibilityIdentifier(UiTestTags.toast)
+                // Nur Anzeige: fängt keine Tipps ab (sonst blockiert sie kurz Tab-Leiste und Knöpfe darunter)
+                .allowsHitTesting(false)
+                .padding(.bottom, 24)
+                .padding(.horizontal, 16)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .task(id: message) { await show(message) }
             }
         }
         .animation(.spring(duration: 0.3), value: message)

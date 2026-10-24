@@ -77,7 +77,7 @@ struct CycleCoinSheets: ViewModifier {
                 onLater: { banner = WatchlistBannerMessage(text: L("portfolio_enable_later_hint")) }
             ))
             // Paar nicht übernommen bzw. geändert (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
-            .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
+            .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, kind: .error, long: true) }
             .overlay(alignment: .bottom) {
                 WatchlistBanner(message: $banner) { deleted in
                     data.withWatchlistConfirm {
@@ -86,7 +86,7 @@ struct CycleCoinSheets: ViewModifier {
                         // Merkliste inzwischen voll → Hinweis (wie Android)
                         if result.full > 0 {
                             banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full),
-                                                            icon: "exclamationmark.circle", long: true)
+                                                            kind: .error, long: true)
                         }
                     }
                 }
@@ -113,8 +113,7 @@ struct CycleCoinSheets: ViewModifier {
             // Wie in der Merkliste: kurzes Banner nach «Deaktivieren»/«Aktivieren»
             onDisabledChange: { before in
                 banner = WatchlistBannerMessage(
-                    text: L(before.disabled ? "watch_enabled_banner" : "watch_disabled_banner", before.displayName),
-                    icon: before.disabled ? "play.circle.fill" : "pause.circle.fill"
+                    text: L(before.disabled ? "watch_enabled_banner" : "watch_disabled_banner", before.displayName)
                 )
             }
         )
@@ -168,7 +167,7 @@ struct CycleCoinSheets: ViewModifier {
             withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
             guard let deleted = result else { return }
             let text = L("watchlist_removed", deleted.watch.displayPair)
-            banner = WatchlistBannerMessage(text: text, icon: "trash", undo: deleted)
+            banner = WatchlistBannerMessage(text: text, undo: deleted)
             Task { @MainActor in
                 // Nach dem Fokuswechsel ansagen, sonst geht es unter
                 try? await Task.sleep(nanoseconds: 300_000_000)

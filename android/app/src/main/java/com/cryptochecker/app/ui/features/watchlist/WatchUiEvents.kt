@@ -17,6 +17,7 @@ import com.cryptochecker.app.ui.components.CollectScreenEvents
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.HapticPlayer
 import com.cryptochecker.app.ui.components.ScreenEvents
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /** Text eines Banners, erst im aktuellen Bildschirm aufgelöst (Sprache kann inzwischen gewechselt haben). */
 internal data class BannerText(
@@ -34,8 +35,15 @@ internal data class BannerText(
 
 /** Rückmeldung einer Aktion für den aktuellen Bildschirm. */
 internal sealed interface WatchUiEvent {
-    /** Kurzes Banner; mit [undoKey] daneben «Rückgängig» (`undoDelete`, Merkliste inzwischen voll → Hinweis). */
-    data class Banner(val text: BannerText, val undoKey: Long? = null) : WatchUiEvent
+    /**
+     * Kurzes Banner; mit [undoKey] daneben «Rückgängig» (`undoDelete`, Merkliste inzwischen voll → Hinweis als Fehler).
+     * [kind]: Art der Meldung (Rahmen, Symbol).
+     */
+    data class Banner(
+        val text: BannerText,
+        val undoKey: Long? = null,
+        val kind: SnackbarKind = SnackbarKind.INFO,
+    ) : WatchUiEvent
 
     data class Haptic(val event: HapticEvent) : WatchUiEvent
 
@@ -79,7 +87,8 @@ internal fun rememberWatchUiEvents(key: String): WatchUiEventsHolder = viewModel
 internal const val WATCHLIST_UI_EVENTS = "watchlist_ui_events"
 
 /** «Merkliste inzwischen voll» nach «Rückgängig»: [n] Paare nicht zurückgeholt. */
-private fun undoFull(n: Int) = WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_undo_full, count = n))
+private fun undoFull(n: Int) =
+    WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_undo_full, count = n), kind = SnackbarKind.ERROR)
 
 /**
  * Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen»: ohne Rückfrage, mit «Rückgängig». Haptik und
@@ -128,8 +137,10 @@ internal fun WatchUiEventsHolder.handleShared(
         is WatchUiEvent.Haptic -> haptics.play(event.event)
         is WatchUiEvent.Banner -> {
             val key = event.undoKey
-            if (key == null) banner.show(event.text.resolve(resources))
-            else banner.show(event.text.resolve(resources)) { viewModel.undoDelete(key) { n -> send(undoFull(n)) } }
+            if (key == null) banner.show(event.text.resolve(resources), event.kind)
+            else banner.show(event.text.resolve(resources), event.kind) {
+                viewModel.undoDelete(key) { n -> send(undoFull(n)) }
+            }
         }
         is WatchUiEvent.Removed -> {
             haptics.play(HapticEvent.DESTRUCTIVE)

@@ -268,7 +268,7 @@ extension WatchlistScreen {
                                                         now: TimeUtils.nowMillis) else { return }
         try? await Task.sleep(nanoseconds: UInt64(RefreshDebounce.pullEchoMillis) * 1_000_000)
         let text = L("watchlist_refresh_just_done", ago)
-        banner = WatchlistBannerMessage(text: text, icon: "checkmark.circle")
+        banner = WatchlistBannerMessage(text: text)
         // Einmal ansagen wie das Banner unter Android (TalkBack liest Snackbars selbst)
         AccessibilityNotification.Announcement(text).post()
     }

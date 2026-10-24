@@ -1,0 +1,115 @@
+# Reproducible Android build: the same commit is built twice on two fresh runners (no Gradle cache, no build cache,
+# no configuration cache), and the unsigned release APK and AAB and the SBOM are compared byte for byte by
+# .github/scripts/repro_compare.py. Identical outputs prove that the published source and the locked, checksummed
+# dependencies (gradle.lockfile, verification-metadata.xml) fully determine the app; a difference names the archive
+# entries that differ. Signing happens afterwards on the owner's machine and adds only the signature block.
+# iOS is not covered: Xcode builds are not byte-reproducible (code signature, build UUIDs).
+# Not a required check: on main, on release tags, weekly, by hand and on pull requests that change the check.
+name: Reproducible build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths:
+      - 'android/**'
+      - '.github/workflows/reproducible.yml'
+      - '.github/scripts/repro_compare.py'
+      - '.github/scripts/sbom.py'
+  # Pull requests only when the check itself changes (it doubles the build time)
+  pull_request:
+    paths:
+      - '.github/workflows/reproducible.yml'
+      - '.github/scripts/repro_compare.py'
+  schedule:
+    - cron: '23 4 * * 0'   # Sundays 04:23 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reproducible-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Release build ${{ matrix.run }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        run: [a, b]
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # No cache at all: each run downloads and builds everything itself
+      - name: Set up Gradle (no cache)
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-disabled: true
+
+      # Same flags as the Android workflow; -PgitCommit is the commit itself (identical in both runs)
+      - name: Build release APK and AAB (unsigned)
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleRelease :app:bundleRelease -PgitCommit="$GITHUB_SHA" \
+            --no-build-cache --no-configuration-cache --stacktrace
+
+      - name: Collect outputs
+        working-directory: .
+        run: |
+          OUT="$RUNNER_TEMP/out"
+          mkdir -p "$OUT"
+          cp android/app/build/outputs/apk/release/*.apk "$OUT/"
+          cp android/app/build/outputs/bundle/release/*.aab "$OUT/"
+          python3 -I .github/scripts/sbom.py . "$OUT"
+          ls -l "$OUT"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: repro-${{ matrix.run }}
+          path: ${{ runner.temp }}/out/
+          if-no-files-found: error
+          retention-days: 7
+
+  compare:
+    name: Compare builds
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read     # download this run's artifacts
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # actions/download-artifact is not pinned in this repository yet: gh (preinstalled) with this run's artifacts
+      - name: Download builds
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for run in a b; do
+            gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "repro-$run" --dir "$RUNNER_TEMP/repro/repro-$run"
+          done
+
+      - name: Compare
+        run: |
+          python3 -I .github/scripts/repro_compare.py --self-test
+          python3 -I .github/scripts/repro_compare.py "$RUNNER_TEMP/repro/repro-a" "$RUNNER_TEMP/repro/repro-b" \
+            "$RUNNER_TEMP/repro.tsv"
+          python3 -I .github/scripts/annotate.py "$RUNNER_TEMP/repro.tsv" "Reproducible build"

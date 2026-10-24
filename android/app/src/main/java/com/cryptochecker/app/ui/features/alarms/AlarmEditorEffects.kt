@@ -18,6 +18,8 @@ import com.cryptochecker.app.ui.components.openAppNotificationSettings
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import kotlinx.coroutines.launch
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Review ARC5-R01: Ergebnisse von Speichern und Schnell-Alarm ([AlarmEditorEvent]) im GERADE gezeigten
@@ -68,7 +70,9 @@ internal fun AlarmEditorEffects(
                 if (event.isNew && !off) {
                     if (event.firstEver) return@CollectScreenEvents
                     scope.launch {
-                        val result = snackbar.showTimed(activeText, testLabel, ACTIVE_MILLIS, accessibilityManager)
+                        val result = snackbar.showTimed(
+                            activeText, testLabel, ACTIVE_MILLIS, accessibilityManager, SnackbarKind.SUCCESS,
+                        )
                         if (result == SnackbarResult.ActionPerformed) testAlarm()
                     }
                     return@CollectScreenEvents
@@ -79,10 +83,12 @@ internal fun AlarmEditorEffects(
                     snackbar.currentSnackbarData?.dismiss()
                     if (off) {
                         // Mit Aktion «Einstellungen» (Mitteilungs-Einstellungen der App)
-                        val result = snackbar.showTimed(text, settingsLabel, SAVED_MILLIS, accessibilityManager)
+                        val result = snackbar.showTimed(
+                            text, settingsLabel, SAVED_MILLIS, accessibilityManager, SnackbarKind.SUCCESS,
+                        )
                         if (result == SnackbarResult.ActionPerformed) openAppNotificationSettings(context)
                     } else {
-                        snackbar.showSnackbar(text, duration = SnackbarDuration.Short)
+                        snackbar.showAppSnackbar(text, SnackbarKind.SUCCESS, duration = SnackbarDuration.Short)
                     }
                 }
             }

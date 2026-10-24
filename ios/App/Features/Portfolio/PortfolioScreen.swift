@@ -136,8 +136,7 @@ struct PortfolioScreen: View {
             // nicht still (nie im Klartext geschrieben); das nächste Speichern bzw. die Rückkehr der App versucht es erneut
             .onChange(of: data.portfolioSavePending) { _, pending in
                 if pending {
-                    banner = WatchlistBannerMessage(text: L("portfolio_save_pending"),
-                                                    icon: "lock.trianglebadge.exclamationmark", long: true)
+                    banner = WatchlistBannerMessage(text: L("portfolio_save_pending"), long: true)
                 }
             }
             // Später aufgetauchte Überschneidung Adresse ↔ eigene Transaktionen: einmal automatisch «Nur anzeigen» — wie Android
@@ -186,7 +185,7 @@ struct PortfolioScreen: View {
                 guard data.addPortfolioAlarm(kind: kind, threshold: threshold, currency: data.settings.portfolioCurrency,
                                              repeating: repeating) else {
                     if data.alarmSaveBlocked {
-                        banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
+                        banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), kind: .error, long: true)
                     }
                     return
                 }
@@ -212,7 +211,7 @@ struct PortfolioScreen: View {
                 onConfirmTemplate: { data.settings.taxTemplateConfirmed = true },
                 onExported: {
                     exportOpen = false
-                    toast = ToastMessage(L("portfolio_export_done"))
+                    toast = ToastMessage(L("portfolio_export_done"), kind: .success)
                 }
             )
             .environment(\.appAccent, accent)
@@ -241,7 +240,8 @@ struct PortfolioScreen: View {
         }
         .sheet(item: $csvPreview) { loaded in
             PortfolioCsvImportSheet(loaded: loaded) { count, enabled in
-                toast = ToastMessage(enabled ? L("portfolio_enabled_banner") : L("portfolio_csv_import_done", count: count))
+                toast = ToastMessage(enabled ? L("portfolio_enabled_banner") : L("portfolio_csv_import_done", count: count),
+                                     kind: enabled ? .info : .success)
             }
             .environmentObject(data)
             .environment(\.appAccent, accent)
