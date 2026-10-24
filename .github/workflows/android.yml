@@ -87,6 +87,14 @@ jobs:
           set -o pipefail
           ./gradlew test --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
 
+      # Performance tests (app/src/test/.../performance: timings with 2000 pairs) on their own, after the unit tests and
+      # before lint: nothing else runs in parallel, so the timings do not depend on the load of the runner. The normal
+      # unit-test run excludes them (app/build.gradle.kts, -PperformanceTests).
+      - name: Performance tests
+        run: |
+          set -o pipefail
+          ./gradlew :app:testDebugUnitTest -PperformanceTests=only --stacktrace 2>&1 | tee -a "$RUNNER_TEMP/gradle-test.log"
+
       # Kotlin compiler warnings in the app and library sources: ceiling 0 (like lint and the iOS release build).
       # A fresh checkout compiles every changed module in full, so all warnings of that module appear in the log; a
       # module whose compile output comes from the Gradle build cache prints none (it was unchanged and checked when it

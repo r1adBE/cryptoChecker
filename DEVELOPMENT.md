@@ -446,7 +446,12 @@ of `0.0123` can be 1.23 % (fraction) or 0.0123 % (percent) – compare it with
 ```sh
 cd android
 ./gradlew testDebugUnitTest        # or: ./gradlew test (debug + release, all modules)
+./gradlew :app:testDebugUnitTest -PperformanceTests=only   # performance tests alone (timings, 2000 pairs)
 ```
+
+The performance tests (`app/src/test/.../performance`) are excluded from the normal run: their timings vary when lint or
+other tests run in parallel. The *Android* workflow runs them in their own step («Performance tests») with nothing else
+running; `-PperformanceTests=true` includes them in a normal run.
 
 Reports: `android/app/build/reports/tests/testDebugUnitTest/index.html`.
 
@@ -2342,7 +2347,8 @@ after the encryption step.
 * Build 121: Swift 6 language mode (`SWIFT_VERSION 6.0`, `ios/README.md` «Swift 6 Migration»), `WatchSearchIndex` /
   `rememberWatchSearchResult` (iOS `WatchlistSearchIndex`), `coverage_summary.py` «logic» + Kover merge of :marketdata,
   `xccov_summary.py`, `mutation_test.py` + `mutation.yml`, `indicators.json` parity, `rsi` period ≤ 0 → null (Android),
-  `release_readiness` guide patterns for tag examples / archive name.
+  `release_readiness` guide patterns for tag examples / archive name, `-PperformanceTests` (only/true; performance
+  tests in their own CI step), `LocalResources` in `WatchlistBulkAdd`.
 * Build 120: `AlarmCheckStatus.batch` (Android), `BulkAddRunner` end states (cancelled/failed, finish time, undo window
   60 s, `deleteNewWatchesForUndo` without alarms), `BulkAddDisplay`, iOS `WatchInsertion`, `DenseRowText.convertedMaxLines`
   / `convertedLineLimit`, `lineStart` (relative time at line start), `MarketMoveScale` opposing market/breadth → mixed.

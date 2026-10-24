@@ -153,11 +153,20 @@ android {
     // JVM-Unit-Tests mit fester Sprache und Zeitzone: Erwartete Datums- und Zahlentexte sollen auf jedem Rechner gleich
     // ausfallen (lokal etwa de-CH/Europe/Zurich, im CI en-US/UTC). Tests, die eine andere Locale brauchen, setzen sie
     // selbst und stellen sie danach zurück.
+    // Leistungstests (Paket performance, Zeitmessungen) laufen nicht im normalen Unit-Test-Lauf: Parallel zu Lint
+    // oder anderen Tests schwanken die Zeiten. Eigener Lauf: -PperformanceTests=only (CI-Schritt «Performance tests»,
+    // allein); -PperformanceTests=true nimmt sie in den normalen Lauf auf.
+    val performanceTests = providers.gradleProperty("performanceTests").orNull
     testOptions {
         unitTests.all {
             it.systemProperty("user.language", "en")
             it.systemProperty("user.country", "US")
             it.systemProperty("user.timezone", "UTC")
+            when (performanceTests) {
+                "only" -> it.filter.includeTestsMatching("com.cryptochecker.app.performance.*")
+                "true" -> Unit
+                else -> it.exclude("**/performance/**")
+            }
         }
     }
 

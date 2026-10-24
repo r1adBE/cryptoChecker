@@ -22,7 +22,7 @@ Start of phase C (quality and tests):
 * iOS: the app is built in the Swift 6 language mode (strict concurrency checked by the compiler and at run time); system callbacks (notifications, WebSocket ping, Low Power Mode) run on the right thread.
 * Watchlist search: the search text of every pair is prepared once per list change, so each keystroke only compares (also with thousands of pairs).
 * Indicators: the RSI with an invalid period returns no value on Android, like iOS (it returned «not a number»).
-* Tests and tooling: line coverage shown per platform as total and «logic» (Android including the market-data module, iOS new); new shared indicator cases and tests for exchange rates and price formatting; weekly mutation tests for the tax, portfolio and alarm logic; the device test classifies the undo of «add many pairs» as a user write (locked watchlist: nothing changes); the store-guide check also covers tag examples and the archive name.
+* Tests and tooling: line coverage shown per platform as total and «logic» (Android including the market-data module, iOS new); new shared indicator cases and tests for exchange rates and price formatting; weekly mutation tests for the tax, portfolio and alarm logic; the device test classifies the undo of «add many pairs» as a user write (locked watchlist: nothing changes); the store-guide check also covers tag examples and the archive name; the performance tests run in their own CI step (not in parallel with other tests, so the timings no longer vary with the load); one lint warning less (bulk-add banner reads resources via LocalResources).
 
 ## 16.2.2 (build 120)
 
