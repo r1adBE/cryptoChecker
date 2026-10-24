@@ -2353,6 +2353,16 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 125: Performance without changed results. Ø (`PortfolioCalculatorAverage`) keeps the cost parts per acquisition
+  (`takeParts`, acquisitions × disposals) only with `withParts` (default true: tax export, CA engine, coin detail);
+  `summarize(…, withParts = false)` / `ledgers(…, withParts = false)` are linear with identical numbers (empty
+  `costParts`/`pricedCostParts`). The portfolio card keeps parts only outside USDT (`PortfolioCostFx`); widget
+  snapshot, freshness check, hourly candles and alarms never. `PortfolioLedger.eventsByCoin` once instead of
+  `events` per coin: `PortfolioCalculator.ledgers` (tax notes `lostFeeCostsIn`/`unassignedFeesIn`), value history
+  (`holdingsTimelineOf`, `cashFlows`, `pnlFlows`), `PortfolioPeriodParts` (all coins). `PortfolioSummaryCache`
+  (last summary by trades, prices, method, parts) shared by the app's freshness check, the background refresh and
+  `PortfolioSnapshotUpdater.record` – one summary per update. Open lots: 50 rows, then «Show all (N)» in a lazy sheet,
+  formatters once per list. RSI: average gain and loss both 0 → 50 (parity `indicators.json` › «flat closes»).
 * Build 124: CSV import – `PortfolioRepository.insertImported` cleans and checks the rows (`cleanForSave` + `require`)
   on `Dispatchers.Default`; `CsvImportMapping.unsavableReason` puts rows that saving would reject into the preview's
   skipped list (`MISSING_FIELD`, new `AMOUNT_TOO_SMALL`, `INVALID_SWAP`; parity `csv_import.json` › «unsavable», also

@@ -66,18 +66,30 @@ final class PortfolioPerformanceTests: XCTestCase {
     }
 
     func testSummaryAverage() {
-        // Ø: wächst bekanntlich schneller als linear — der Einstand führt je Zugang einen Herkunftsteil
-        // (PortfolioCalculatorAverage, `parts`), und jeder Abgang nimmt aus ALLEN Teilen anteilig (`takeParts`), bis
-        // der Bestand ganz weg ist: Zugänge × Abgänge je Coin. Gemessen wird darum nur die feste Grenze; erwartet rund
-        // 2–8 s für 10 000 Transaktionen (Debug; Verhältnis zu 2500 etwa ×10–16)
-        T.assertLimitOnly("Portfolio-Übersicht Ø", limitMillis: 60_000, sizes: T.transactions) { n in
+        // Ø der Karte und des Widgets ohne Herkunftsteile (`withParts` false, Anzeige in USDT): je Schritt gleich viel
+        // Arbeit; erwartet rund 0,3–1 s für 10 000 Transaktionen (Debug). Nur die feste Grenze wie bei FIFO: der
+        // iOS-Lauf (Debug, Abdeckung, geteilter Mac) skaliert unzuverlässig — die Skalierung prüft Android
+        T.assertLimitOnly("Portfolio-Übersicht Ø", limitMillis: 10_000, sizes: T.transactions) { n in
             let trades = D.trades(n)
-            // Sekunden je Lauf: 1 Aufwärm- und 3 Messläufe
+            return T.medianMillis(warmup: T.quickWarmupRuns, runs: T.quickMeasuredRuns) {
+                PortfolioCalculator.summarize(trades, prices: PortfolioPerformanceTests.prices, method: .AVERAGE,
+                                              withdrawalPrice: { PortfolioPerformanceData.priceAtDouble($0, $1) },
+                                              withParts: false)
+            }
+        }
+        assertSameHoldings(.AVERAGE)
+    }
+
+    func testSummaryAverageWithParts() {
+        // Ø mit Herkunftsteilen (Anzeigewährung ≠ USDT, wie der Steuer-Export): wächst schneller als linear — jeder
+        // Zugang führt einen Teil, jeder Abgang nimmt aus ALLEN Teilen anteilig (`takeParts`): Zugänge × Abgänge je
+        // Coin. Nur die feste Grenze; erwartet rund 2–8 s für 10 000 Transaktionen (Debug)
+        T.assertLimitOnly("Portfolio-Übersicht Ø mit Herkunftsteilen", limitMillis: 60_000, sizes: T.transactions) { n in
+            let trades = D.trades(n)
             return T.medianMillis(warmup: T.quickWarmupRuns, runs: T.quickMeasuredRuns) {
                 PortfolioPerformanceTests.summary(trades, .AVERAGE)
             }
         }
-        assertSameHoldings(.AVERAGE)
     }
 
     func testHoldingsAtTime() {

@@ -170,7 +170,7 @@ enum PortfolioPriceFallback {
     /// `mayRecordShare` für ein Portfolio: Wert je offenem Coin mit den Abfragezeiten der Kurse.
     static func mayRecord(transactions: [PortfolioTx], prices: PortfolioPrices, now: Int64, staleAfterMillis: Int64) -> Bool {
         var values: [String: Double] = [:]
-        for p in PortfolioCalculator.summarize(transactions, prices: prices.prices).open {
+        for p in PortfolioCalculator.summarize(transactions, prices: prices.prices, withParts: false).open {
             if let v = p.value { values[PortfolioCalculator.normalizeCoin(p.coin)] = v }
         }
         return mayRecordShare(values: values, times: prices.times, now: now, staleAfterMillis: staleAfterMillis,

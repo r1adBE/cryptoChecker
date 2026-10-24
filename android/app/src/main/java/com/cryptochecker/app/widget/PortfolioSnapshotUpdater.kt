@@ -25,6 +25,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
+import com.cryptochecker.app.domain.portfolio.PortfolioSummary
+import com.cryptochecker.app.domain.portfolio.PortfolioSummaryCache
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
@@ -68,6 +70,12 @@ class PortfolioSnapshotUpdater @Inject constructor(
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) {
     private val mutex = Mutex()
+
+    /**
+     * Gesamtsicht je Aktualisierung nur einmal ([PortfolioSummaryCache]): Frische-Prüfung (auch die der App,
+     * [com.cryptochecker.app.ui.features.portfolio.PortfolioViewModel]), Stundenkerzen und [record] mit denselben Eingaben.
+     */
+    internal val summaries = PortfolioSummaryCache()
 
     /**
      * Hintergrund-Aktualisierung: nur mit Portfolio-Widget auf dem Startbildschirm oder einem
@@ -121,11 +129,17 @@ class PortfolioSnapshotUpdater @Inject constructor(
             rememberFx(currency, fx)
             // Wie im Portfolio-Tab: nur aufnehmen, wenn mindestens 80 % des Werts einen frischen Kurs haben — je
             // Coin geprüft; Alarme prüfen nur, wenn ALLE bewerteten Coins frisch sind ([record], stalePrices)
-            if (coins.isNotEmpty() && !mayRecord(transactions, fetched)) {
+            val trades = transactions.map { it.toTrade() }
+            val method = settingsRepository.current().costMethod
+            val summary = summaries.summarize(trades, prices, method)
+            if (coins.isNotEmpty() && !mayRecord(summary, fetched)) {
                 Timber.d("Portfolio: zu wenig frische Kurse, keine neue Aufnahme")
                 return@withContext
             }
-            hourlyCandles.loadMissingCandles(transactions, prices)
+            // Offene Coins für die Stundenkerzen nach der Standardmethode: dieselbe Gesamtsicht, wenn sie eingestellt ist
+            val defaultOpen = if (method == CostMethod.DEFAULT) summary.open
+            else PortfolioCalculator.summarize(trades, prices, CostMethod.DEFAULT, withParts = false).open
+            hourlyCandles.loadMissingCandles(defaultOpen.map { it.coin })
             record(transactions, prices, currency, fx, fetched)
         } catch (e: CancellationException) {
             throw e
@@ -146,10 +160,12 @@ class PortfolioSnapshotUpdater @Inject constructor(
         return true
     }
 
-    /** [PortfolioPriceFallback.mayRecordShare] mit der Frische-Schwelle der Portfolio-Kurse. */
-    private suspend fun mayRecord(transactions: List<PortfolioTxEntity>, fetched: PortfolioPrices): Boolean {
-        // Bestände nach der eingestellten Einstandsmethode (wie Karte und Aufnahme)
-        val open = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, fetched.prices, settingsRepository.current().costMethod).open
+    /**
+     * [PortfolioPriceFallback.mayRecordShare] mit der Frische-Schwelle der Portfolio-Kurse; [summary] = Gesamtsicht nach
+     * der eingestellten Einstandsmethode (wie Karte und Aufnahme).
+     */
+    private suspend fun mayRecord(summary: PortfolioSummary, fetched: PortfolioPrices): Boolean {
+        val open = summary.open
         val values = open.mapNotNull { p -> p.value?.let { PortfolioCalculator.normalizeCoin(p.coin) to it } }.toMap()
         val staleAfter = PortfolioPriceFallback.staleAfterMillis(settingsRepository.current().backgroundIntervalMinutes)
         return PortfolioPriceFallback.mayRecordShare(
@@ -199,7 +215,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
         // 24 h scheiternde rechnen sie ohne); nicht bestätigte Token-Guthaben gelten wie ein alter Kurs
         val addressState = AddressAlarmState.of(watched, System.currentTimeMillis())
         val recorded = mutex.withLock {
-            val summary = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices, settings.costMethod)
+            // Gleiche Eingaben wie die Frische-Prüfung davor: aus dem Zwischenspeicher
+            val summary = summaries.summarize(transactions.map { it.toTrade() }, prices, settings.costMethod)
             // Noch kein einziger Kurs bekannt: lieber die letzte Aufnahme stehen lassen als 0 zeigen
             if (summary.open.isNotEmpty() && summary.open.all { it.value == null }) return@withLock null
 

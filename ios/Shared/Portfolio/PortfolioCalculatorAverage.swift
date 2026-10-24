@@ -20,13 +20,15 @@ extension PortfolioCalculator {
         var priced: Decimal = 0      // Menge mit Kaufpreis
         var unpriced: Decimal = 0    // Menge ohne Kaufpreis
         var cost: Decimal = 0        // Einstand des Teils mit Kaufpreis (inkl. Gebühren in USDT)
-        var parts: [PortfolioCostPart] = [] // Herkunft von `cost`
+        var parts: [PortfolioCostPart] = [] // Herkunft von `cost` (nur mit `withParts`)
+        /// Herkunft führen? Ohne bleibt `parts` leer und jeder Schritt kostet gleich viel (linear statt Zugänge × Abgänge).
+        let withParts: Bool
 
         var holdings: Decimal { priced + unpriced }
 
         mutating func addCost(_ time: Int64, _ usdt: Decimal) {
             cost += usdt
-            if usdt != 0 { parts.append(PortfolioCostPart(time: time, usdt: usdt)) }
+            if withParts && usdt != 0 { parts.append(PortfolioCostPart(time: time, usdt: usdt)) }
         }
 
         /// Einstand und Herkunft ganz verwerfen (Teil mit Kaufpreis ist leer).
@@ -89,8 +91,10 @@ extension PortfolioCalculator {
     /// ungedeckte Rest bei «mehr verkauft als erfasst»). Der Einstand wird zusätzlich nach Herkunft geführt
     /// (`PortfolioCostPart`); ein Abgang nimmt alle Teile anteilig mit — so rechnet der Steuer-Export den Ø-Einstand zum
     /// Devisenkurs JE Zugang um. Wie Android.
-    static func average(_ symbol: String, events: [PortfolioLedgerEvent]) -> PortfolioBookResult {
-        var book = Book()
+    /// `withParts`: Herkunft führen (Steuer-Export, Einstand der Karte in einer Anzeigewährung). Ohne sind
+    /// `PortfolioDisposal.costParts` und `openParts` leer, alle Zahlen (Bestand, Einstand, realisiert …) gleich.
+    static func average(_ symbol: String, events: [PortfolioLedgerEvent], withParts: Bool = true) -> PortfolioBookResult {
+        var book = Book(withParts: withParts)
         var realized: Decimal = 0
         var unknownSold: Decimal = 0 // verkaufte Menge mit unbekanntem Gewinn/Verlust
         var soldTotal: Decimal = 0

@@ -179,8 +179,8 @@ enum TaxExport {
         let all: [PortfolioLostFeeCost]
         if let cm = method.costMethod {
             let applied = TaxEngines.applyRules(r, rules: rules ?? .of(method), priceAt: nil)
-            all = PortfolioLedger.coins(applied)
-                .flatMap { PortfolioCalculator.ledger($0, trades: applied, currentPrice: nil, method: cm).lostFeeCosts }
+            // Ein Buch je Coin, Schritte einmal gesammelt; Herkunftsteile ändern den vermerkten Einstand nicht
+            all = PortfolioCalculator.ledgers(applied, method: cm, withParts: false).flatMap(\.lostFeeCosts)
         } else {
             all = TaxEngines.lostFeeCosts(r, method: method, timeZone: timeZone, rules: rules)
         }
@@ -205,8 +205,7 @@ enum TaxExport {
         let all: [PortfolioUnassignedFee]
         if let cm = method.costMethod {
             let applied = TaxEngines.applyRules(r, rules: rules ?? .of(method), priceAt: nil)
-            all = PortfolioLedger.coins(applied)
-                .flatMap { PortfolioCalculator.ledger($0, trades: applied, currentPrice: nil, method: cm).unassignedFees }
+            all = PortfolioCalculator.ledgers(applied, method: cm, withParts: false).flatMap(\.unassignedFees)
         } else {
             all = TaxEngines.unassignedFees(r, method: method, timeZone: timeZone, rules: rules)
         }

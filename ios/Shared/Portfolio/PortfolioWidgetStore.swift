@@ -314,7 +314,7 @@ enum PortfolioWidgetStore {
     private static func loadMissingCandles(transactions: [PortfolioTx], prices: PortfolioPrices,
                                            known: [String: [PortfolioTimedPrice]]) async -> [String: [PortfolioTimedPrice]] {
         guard prices.updatedAt > 0 else { return [:] }
-        let open = PortfolioCalculator.summarize(transactions, prices: prices.prices).open.map(\.coin)
+        let open = PortfolioCalculator.summarize(transactions, prices: prices.prices, withParts: false).open.map(\.coin)
         guard !open.isEmpty else { return [:] }
         let now = TimeUtils.nowMillis
         let merged = PortfolioWidgetSeries.merge(stored: loadHourly(), fresh: known, now: now)

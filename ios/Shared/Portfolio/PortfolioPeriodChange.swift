@@ -230,10 +230,17 @@ enum PortfolioPeriodChange {
                 return PortfolioDecimal.of(p)
             })
         }
-        // Alle Arten und Gebühren im dritten Coin über `PortfolioLedger` (Bestand und Zuflüsse wie der Rechner)
-        for coin in PortfolioLedger.coins(valid) {
-            if let only, coin != only { continue }
-            let events = PortfolioLedger.events(coin, trades: valid)
+        // Alle Arten und Gebühren im dritten Coin über `PortfolioLedger` (Bestand und Zuflüsse wie der Rechner); die
+        // Schritte aller Coins in einem Durchgang, nur für `only` die seines Coins
+        var byCoin: [(coin: String, events: [PortfolioLedgerEvent])] = []
+        if let only {
+            if PortfolioLedger.coins(valid).contains(only) {
+                byCoin = [(coin: only, events: PortfolioLedger.events(only, trades: valid))]
+            }
+        } else {
+            byCoin = PortfolioLedger.eventsByCoin(valid)
+        }
+        for (coin, events) in byCoin {
             // Bestände exakt wie die Position nach der Methode (`PortfolioHoldingsBook`); erst zum Bewerten als Double
             var book = PortfolioHoldingsBook(method: method)
             for e in events where e.trade.time <= windowStart { book.apply(e) }

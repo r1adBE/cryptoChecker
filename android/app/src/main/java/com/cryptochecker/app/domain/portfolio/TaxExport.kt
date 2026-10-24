@@ -206,7 +206,7 @@ object TaxExport {
         lostFeeCostsIn(trades, TaxMethod.of(method), calendar(year), zone)
 
     /**
-     * Wie oben für ein Steuerjahr und jede Vorlage: Einstandsmethoden des Portfolios über [PortfolioCalculator.ledger],
+     * Wie oben für ein Steuerjahr und jede Vorlage: Einstandsmethoden des Portfolios über [PortfolioCalculator.ledgers],
      * eigene Rechnungen über [TaxEngines.lostFeeCosts]. Mit [TaxEventRules.networkFeeIsDisposal] (UK, US, CA, AU, JP) ist
      * die Netzwerkgebühr eine Veräusserung — kein Einstand bleibt liegen (leer); FR kennt keinen Gebühr-Einstand je Coin.
      */
@@ -221,7 +221,8 @@ object TaxExport {
         val cm = method.costMethod
         val all = if (cm != null) {
             val applied = TaxEngines.applyRules(r, rules, null)
-            PortfolioLedger.coins(applied).flatMap { PortfolioCalculator.ledger(it, applied, null, cm).lostFeeCosts }
+            // Ein Buch je Coin aus den einmal gesammelten Schritten; Herkunftsteile braucht der Vermerk nicht
+            PortfolioCalculator.ledgers(applied, cm, withParts = false).flatMap { it.lostFeeCosts }
         } else TaxEngines.lostFeeCosts(r, method, zone, rules)
         return all
             .filter { localDate(it.time, zone) in period }
@@ -236,7 +237,7 @@ object TaxExport {
         unassignedFeesIn(trades, TaxMethod.of(method), calendar(year), zone)
 
     /**
-     * Wie oben für ein Steuerjahr und jede Vorlage: Einstandsmethoden des Portfolios über [PortfolioCalculator.ledger]
+     * Wie oben für ein Steuerjahr und jede Vorlage: Einstandsmethoden des Portfolios über [PortfolioCalculator.ledgers]
      * (nach [TaxEngines.applyRules]: mit [TaxEventRules.quoteFeeIsInfo] zählt die Gebühr USDT einer Umbuchung ohnehin
      * nicht zum Einstand), eigene Rechnungen über [TaxEngines.unassignedFees].
      */
@@ -251,7 +252,7 @@ object TaxExport {
         val cm = method.costMethod
         val all = if (cm != null) {
             val applied = TaxEngines.applyRules(r, rules, null)
-            PortfolioLedger.coins(applied).flatMap { PortfolioCalculator.ledger(it, applied, null, cm).unassignedFees }
+            PortfolioCalculator.ledgers(applied, cm, withParts = false).flatMap { it.unassignedFees }
         } else TaxEngines.unassignedFees(r, method, zone, rules)
         return all
             .filter { localDate(it.time, zone) in period }

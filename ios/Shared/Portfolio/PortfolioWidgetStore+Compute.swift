@@ -168,7 +168,8 @@ extension PortfolioWidgetStore {
                         displayFx: PortfolioDisplayFx? = nil,
                         addressState: AddressAlarmState = AddressAlarmState()) -> PortfolioWidgetSnapshot {
         guard !transactions.isEmpty else { return .emptyPortfolio }
-        let summary = PortfolioCalculator.summarize(transactions, prices: prices.prices, method: method)
+        // Ohne Herkunftsteile: «Seit Kauf» in der Währung kommt aus dem Merkzettel der App (`displayFx`)
+        let summary = PortfolioCalculator.summarize(transactions, prices: prices.prices, method: method, withParts: false)
         var holdings: [String: Double] = [:]
         for p in summary.open { holdings[p.coin] = p.holdings }
         guard !holdings.isEmpty else { return .emptyPortfolio }

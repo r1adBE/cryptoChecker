@@ -166,6 +166,16 @@ extension CoinLogoStore {
         return setTradFiPairs(current.union([pair]))
     }
 
+    /// Mehrere Paare dazu (Sammelaufnahme) — einmal lesen, höchstens einmal schreiben; true, wenn eines neu war.
+    @discardableResult
+    static func addTradFiPairs(_ pairs: [String]) -> Bool {
+        guard !pairs.isEmpty else { return false }
+        let current = tradFiPairs
+        let merged = current.union(pairs)
+        guard merged.count != current.count else { return false }
+        return setTradFiPairs(merged)
+    }
+
     /// Schlüssel für die Plakette eines Paars (TradFi oder Krypto).
     static func logoKey(for watch: Watch) -> String {
         CoinLogos.logoKey(watch.baseAsset, tradFi: tradFiPairs.contains(watch.logoPairKey))

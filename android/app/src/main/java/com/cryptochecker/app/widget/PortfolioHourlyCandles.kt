@@ -1,8 +1,6 @@
 package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.data.SparklineRepository
-import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
@@ -38,9 +36,9 @@ class PortfolioHourlyCandles @Inject constructor(
      * ([PortfolioWidgetSeries.candleCoins]), gemeinsam höchstens [CANDLE_LOAD_TIMEOUT_MILLIS]
      * (das Widget wartet insgesamt nur 8 s). Die Kerzen landen im Zwischenspeicher von
      * [SingleWidgetRenderer]; [PortfolioSnapshotUpdater.record] führt sie mit den gemerkten Kursen zusammen. Fehler bleiben still.
+     * @param open offene Coins nach der Standardmethode, grösste Position zuerst (Gesamtsicht der Aufnahme)
      */
-    suspend fun loadMissingCandles(transactions: List<PortfolioTxEntity>, prices: Map<String, Double>) {
-        val open = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices).open.map { it.coin }
+    suspend fun loadMissingCandles(open: List<String>) {
         if (open.isEmpty()) return
         val now = System.currentTimeMillis()
         val known = PortfolioWidgetSeries.merge(

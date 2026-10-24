@@ -8,6 +8,9 @@ struct PortfolioSummaryKey: Equatable, Sendable {
     let prices: [String: Double]
     let method: CostMethod
     let closesStamp: Int
+    /// Herkunftsteile des Ø-Einstands führen (`summarize` `withParts`) — nur für den Einstand in einer Anzeigewährung
+    /// (`PortfolioCostFx`); in USDT bleibt die Ø-Rechnung ohne sie linear, alle gezeigten Zahlen gleich.
+    var withParts = true
 }
 
 /// Eingabe einer Rechnung: Schlüssel und die Tagesschlüsse, zu denen Auszahlungen und Gebühr-Zeilen «ausgebucht» werden.
@@ -26,7 +29,7 @@ struct PortfolioSummaryInput: Sendable {
                                              withdrawalPrice: { coin, time in
             PortfolioPeriodChange.marketPriceAt(coin, live: live[PortfolioCalculator.normalizeCoin(coin)],
                                                 closes: closes, time: time)
-        })
+        }, withParts: input.key.withParts)
     }
 }
 

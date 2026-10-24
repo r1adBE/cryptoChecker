@@ -18,6 +18,8 @@ extension PortfolioFifo {
         private(set) var cost: Decimal?
         /// Herkunft von `cost` (Summe = `cost`); leer ohne Kaufpreis bzw. bei Einstand 0.
         private(set) var parts: [PortfolioCostPart] = []
+        /// Platz je Zeitpunkt in `parts` (`PortfolioCostParts.add` mit Index): gleicher Zeitpunkt ohne Suche.
+        private var partIndex: [Int64: Int] = [:]
 
         /// `parts` nil = ganzer Einstand zum Erwerb.
         init(txId: Int64, acquired: Int64, time: Int64, kind: PortfolioTxType, amount: Decimal, cost: Decimal?,
@@ -30,9 +32,9 @@ extension PortfolioFifo {
             self.cost = cost
             if let cost {
                 if let parts {
-                    for p in parts { PortfolioCostParts.add(&self.parts, p.time, p.usdt) }
+                    for p in parts { PortfolioCostParts.add(&self.parts, index: &partIndex, p.time, p.usdt) }
                 } else {
-                    PortfolioCostParts.add(&self.parts, acquired, cost)
+                    PortfolioCostParts.add(&self.parts, index: &partIndex, acquired, cost)
                 }
             }
         }
@@ -41,7 +43,7 @@ extension PortfolioFifo {
         func addCost(_ at: Int64, _ usdt: Decimal) {
             guard let c = cost else { return }
             cost = c + usdt
-            PortfolioCostParts.add(&parts, at, usdt)
+            PortfolioCostParts.add(&parts, index: &partIndex, at, usdt)
         }
 
         /// Übernimmt Einstand samt Herkunft `from` (nur mit Kaufpreis).
@@ -54,6 +56,8 @@ extension PortfolioFifo {
             guard let c = cost else { return nil }
             let removed = qty == amount ? c : PortfolioDecimal.divide(c * qty, amount)
             let taken = PortfolioCostParts.take(&parts, total: c, target: removed)
+            // `take` ändert Teile nur an ihrem Platz oder leert alle
+            if parts.isEmpty { partIndex.removeAll() }
             cost = c - removed
             return (removed, taken)
         }
@@ -66,17 +70,46 @@ extension PortfolioFifo {
         }
     }
 
-    /// Warteschlange einer Wallet (universell: eine einzige).
+    /// Warteschlange einer Wallet (universell: eine einzige). Verbrauchte Posten vorn rücken nur den Kopf `head` weiter
+    /// (kein Verschieben aller übrigen); Platz wird gelegentlich freigegeben. Reihenfolge wie eine einfache Liste.
     final class Queue {
         let key: String
-        var lots: [Lot] = []
+        private var items: [Lot] = []
+        private var head = 0
         var held: Decimal = 0 // Σ Menge der Posten
+        /// Offene Posten in FIFO-Reihenfolge.
+        var lots: ArraySlice<Lot> { items[head...] }
         /// Netzwerkgebühr-Einstand ohne bezahlten Posten: wartet auf den nächsten Posten mit Kaufpreis.
         var pendingLost: [PortfolioLostFeeCost] = []
         /// Herkunft von `pendingLost` (Summe gleich).
         var pendingParts: [PortfolioCostPart] = []
 
         init(key: String) { self.key = key }
+
+        /// Ältester Posten; nil = leer.
+        var first: Lot? { head < items.count ? items[head] : nil }
+        var isEmpty: Bool { head >= items.count }
+
+        /// Ältesten Posten entfernen (nur den Kopf weiterrücken; ab der Hälfte verbrauchter Plätze aufräumen).
+        func removeFirst() {
+            guard head < items.count else { return }
+            head += 1
+            if head == items.count {
+                items.removeAll(keepingCapacity: true)
+                head = 0
+            } else if head >= 64 && head * 2 >= items.count {
+                items.removeFirst(head)
+                head = 0
+            }
+        }
+
+        /// `lot` an seinen Platz (meist hinten): hinter allen Posten, vor denen er nicht liegt (`Lot.isBefore`).
+        func insert(_ lot: Lot) {
+            var i = items.count
+            while i > head && lot.isBefore(items[i - 1]) { i -= 1 }
+            items.insert(lot, at: i)
+            held += lot.amount
+        }
     }
 
     /// Verbrauchter Teil eines Postens: Menge, Einstand (nil = ohne Kaufpreis) und dessen Herkunft.

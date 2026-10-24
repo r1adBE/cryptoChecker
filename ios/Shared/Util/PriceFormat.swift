@@ -54,14 +54,13 @@ enum PriceFormat {
         guard let value, value.isFinite, value > 0,
               let exact = Decimal(string: DecimalText.plain(value), locale: Locale(identifier: "en_US_POSIX"))
         else { return "—" }
-        let f = NumberFormatter()
-        f.locale = locale
-        f.numberStyle = .decimal
-        f.usesGroupingSeparator = true
-        f.minimumFractionDigits = 0
-        f.maximumFractionDigits = thresholdMaxDecimals
-        f.generatesDecimalNumbers = true
-        return f.string(from: NSDecimalNumber(decimal: exact)) ?? DecimalText.plain(value)
+        return NumberFormatterCache.string(NSDecimalNumber(decimal: exact), purpose: "threshold", locale: locale) { f in
+            f.numberStyle = .decimal
+            f.usesGroupingSeparator = true
+            f.minimumFractionDigits = 0
+            f.maximumFractionDigits = thresholdMaxDecimals
+            f.generatesDecimalNumbers = true
+        } ?? DecimalText.plain(value)
     }
 
     /// Schwellwert wie `threshold` mit Währung: «1.0005 USDT».
@@ -122,14 +121,14 @@ enum PriceFormat {
 
     /// Exakte Menge mit Tausendertrennung wie `amount`, ohne Rundung (alle Nachkommastellen, höchstens 18).
     static func exactAmount(_ value: Decimal) -> String {
-        let f = NumberFormatter()
-        f.locale = LocaleNumbers.appLocale
-        f.numberStyle = .decimal
-        f.usesGroupingSeparator = true
-        f.minimumFractionDigits = 0
-        f.maximumFractionDigits = PortfolioDecimal.maxScale
-        f.generatesDecimalNumbers = true
-        return f.string(from: NSDecimalNumber(decimal: value)) ?? PortfolioDecimal.text(value)
+        NumberFormatterCache.string(NSDecimalNumber(decimal: value), purpose: "exactAmount",
+                                    locale: LocaleNumbers.appLocale) { f in
+            f.numberStyle = .decimal
+            f.usesGroupingSeparator = true
+            f.minimumFractionDigits = 0
+            f.maximumFractionDigits = PortfolioDecimal.maxScale
+            f.generatesDecimalNumbers = true
+        } ?? PortfolioDecimal.text(value)
     }
 
     static func changePercent(_ value: Double?) -> String? {

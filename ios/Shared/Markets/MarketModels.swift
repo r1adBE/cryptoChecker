@@ -311,9 +311,7 @@ enum TimeUtils {
 
     /// ISO-8601-Zeitpunkt → ms (auf ganze Sekunden), 0, wenn er sich nicht lesen lässt.
     static func isoToMillis(_ s: String) -> Int64 {
-        let withFraction = ISO8601DateFormatter()
-        withFraction.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        guard let date = withFraction.date(from: s) ?? ISO8601DateFormatter().date(from: s) else { return 0 }
+        guard let date = IsoDates.date(s) else { return 0 }
         return Int64(date.timeIntervalSince1970) * 1000
     }
 }

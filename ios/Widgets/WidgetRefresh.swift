@@ -111,15 +111,16 @@ enum WidgetRefresh {
     /// Volle Aktualisierung. Der Knopf «Aktualisieren» ruft sie direkt auf, auch kurz nach einem
     /// misslungenen Versuch (`retryAfterMillis` gilt nur für `refreshIfStale`).
     /// - Parameter budgetMillis: Endzeit ab Beginn (Kurse, Lease, Kursalarme); aus dem Zeichnen kürzer.
+    /// - Parameter snapshot: eben gelesene Merkliste (aus dem Zeichnen, `refreshIfStale`); nil = hier lesen.
     @discardableResult
-    static func run(budgetMillis: Int64 = runBudgetMillis) async -> RunResult {
+    static func run(budgetMillis: Int64 = runBudgetMillis, snapshot read: SharedStorage.Snapshot? = nil) async -> RunResult {
         let defaults = SharedStorage.defaults
         let started = TimeUtils.nowMillis
         guard claimRun(started: started) else { return .busy }
         defer { releaseRun(started: started) }
 
         let settings = SharedStorage.loadSettings()
-        let snapshot = SharedStorage.loadSnapshot()
+        let snapshot = read ?? SharedStorage.loadSnapshot()
         // Speichergrenze der Erweiterung (~30 MB): keine grossen ungefilterten Sammellisten (`LowMemoryBulk`).
         // Mit Endzeit prüft `refresh` nur die Kursalarme; die mit Zusatzdaten (`deferredAlarms`) bleiben liegen.
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings,
@@ -177,13 +178,20 @@ enum WidgetRefresh {
     /// rechtzeitig → `otherKinds`; erst später fertig → `otherKinds` und die eigene Art (`ownKind`), die schon
     /// mit den alten Kursen gezeichnet hat. Keine Schleife: nach dem Speichern sind die Daten nicht mehr alt,
     /// das erneute Zeichnen holt also nichts. Andere Arten (Portfolio, Puls) zeigen diese Kurse nicht.
-    static func refreshIfStale(deadline: Double = drawDeadlineSeconds, ownKind: String, otherKinds: [String]) async {
-        guard isStale, !recentlyFailed, !SharedStorage.loadSnapshot().watches.isEmpty else { return }
+    /// Die Merkliste wird dabei höchstens einmal gelesen (`snapshot`: schon gelesen vom Aufrufer) und an `run`
+    /// weitergegeben. Ergebnis: true = eine Aktualisierung wurde gestartet (die Kurse können sich geändert haben).
+    @discardableResult
+    static func refreshIfStale(deadline: Double = drawDeadlineSeconds, ownKind: String, otherKinds: [String],
+                               snapshot known: SharedStorage.Snapshot? = nil) async -> Bool {
+        guard isStale, !recentlyFailed else { return false }
+        let snapshot = known ?? SharedStorage.loadSnapshot()
+        guard !snapshot.watches.isEmpty else { return false }
         let gate = WidgetDeadlineGate()
         let savedInTime: Bool = await withCheckedContinuation { continuation in
             gate.set(continuation)
             Task {
-                let saved = (await run(budgetMillis: WidgetCadence.drawRunBudgetMillis(deadlineSeconds: deadline))) == .saved
+                let budget = WidgetCadence.drawRunBudgetMillis(deadlineSeconds: deadline)
+                let saved = (await run(budgetMillis: budget, snapshot: snapshot)) == .saved
                 if !gate.finish(saved), saved {
                     WidgetData.reloadKinds([ownKind] + otherKinds, reason: "spät gespeichert")
                 }
@@ -198,6 +206,7 @@ enum WidgetRefresh {
         } else {
             AppLog.widget.info("Zeichnen mit gespeicherten Kursen (Netz langsamer als \(Int(deadline), privacy: .public) s)")
         }
+        return true
     }
 }
 

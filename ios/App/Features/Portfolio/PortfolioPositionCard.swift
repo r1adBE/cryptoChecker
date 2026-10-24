@@ -154,15 +154,38 @@ struct PortfolioPositionCard: View {
     }
 }
 
+/// Zeile von «Offene Kauf-Posten» mit stabiler Id (Posten, Wallet, Art; gleiche Angaben fortlaufend gezählt).
+private struct PortfolioOpenLotItem: Identifiable {
+    let id: String
+    let lot: PortfolioOpenLot
+
+    static func of(_ lots: [PortfolioOpenLot]) -> [PortfolioOpenLotItem] {
+        var seen: [String: Int] = [:]
+        return lots.map { lot in
+            let base = "\(lot.txId.map(String.init) ?? "-")|\(lot.wallet ?? "-")|\(lot.aggregated)|\(lot.costUsdt == nil)"
+            let n = seen[base, default: 0]
+            seen[base] = n + 1
+            return PortfolioOpenLotItem(id: base + "|\(n)", lot: lot)
+        }
+    }
+}
+
 /// «Offene Kauf-Posten» (zugeklappt): FIFO je Posten Kaufdatum, Restmenge, Rest-Einstand (und je Coin), Wallet (FIFO je
-/// Wallet), Posten ohne Kaufpreis markiert; Ø die zusammengefasste(n) Zeile(n) — wie `OpenLotsSection` (Android).
+/// Wallet), Posten ohne Kaufpreis markiert; Ø die zusammengefasste(n) Zeile(n). Direkt höchstens `shownLots`, danach
+/// «Alle zeigen (N)» mit allen Posten in einem Blatt — wie `OpenLotsSection` (Android).
 struct PortfolioOpenLotsSection: View {
     let lots: [PortfolioOpenLot]
     let coin: String
     @Environment(\.hidePortfolioAmounts) private var hideAmounts
+    @Environment(\.appAccent) private var accent
     @State private var expanded = false
+    @State private var showAll = false
+
+    /// So viele Posten direkt in der Karte (wie Android `OPEN_LOTS_SHOWN`).
+    static let shownLots = 50
 
     var body: some View {
+        let items = PortfolioOpenLotItem.of(lots)
         VStack(alignment: .leading, spacing: Spacing.xs) {
             Button {
                 withAnimation(.easeInOut(duration: 0.2)) { expanded.toggle() }
@@ -172,8 +195,13 @@ struct PortfolioOpenLotsSection: View {
             .buttonStyle(.plain)
             if expanded {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
-                    ForEach(Array(lots.enumerated()), id: \.offset) { _, lot in
-                        row(lot)
+                    ForEach(items.prefix(Self.shownLots)) { item in
+                        row(item.lot)
+                    }
+                    if items.count > Self.shownLots {
+                        Button(L("explorer_bulk_show_all", items.count)) { showAll = true }
+                            .font(.subheadline)
+                            .buttonStyle(.borderless)
                     }
                 }
                 .padding(.horizontal, 16)
@@ -182,6 +210,21 @@ struct PortfolioOpenLotsSection: View {
                 .background(AppColors.container, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
                 .transition(.opacity)
             }
+        }
+        .sheet(isPresented: $showAll) {
+            NavigationStack {
+                List(items) { item in row(item.lot) }
+                    .listStyle(.plain)
+                    .navigationTitle(L("portfolio_open_lots", lots.count))
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L("action_close")) { showAll = false }
+                        }
+                    }
+            }
+            .tint(accent.primary)
+            .environment(\.hidePortfolioAmounts, hideAmounts)
         }
     }
 

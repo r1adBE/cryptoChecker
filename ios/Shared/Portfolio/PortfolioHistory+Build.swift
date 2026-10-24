@@ -55,12 +55,15 @@ extension PortfolioHistory {
         let capped = isCapped(range: range, firstTradeMillis: firstTime, todayEpochDay: todayEpochDay,
                               dayEndMillis: dayEndMillis)
 
+        // Schritte aller Coins in einem Durchgang (Bestand, Zuflüsse, Gewinn/Verlust nutzen dieselben Listen)
+        var eventsOf: [String: [PortfolioLedgerEvent]] = [:]
+        for entry in PortfolioLedger.eventsByCoin(valid) { eventsOf[entry.coin] = entry.events }
         let coins = PortfolioLedger.coins(valid).sorted()
         // Bestände exakt (Wert = Menge × Kurs ohne Gleitkomma-Rundung der Menge); als Double nur für die Prüfungen «gehalten»
         var exactTimelines: [String: [(time: Int64, holdings: Decimal)]] = [:]
         var timelines: [String: [(time: Int64, holdings: Double)]] = [:]
         for coin in coins {
-            let exact = holdingsTimelineExact(coin, trades: valid, method: method)
+            let exact = holdingsTimelineExact(events: eventsOf[coin] ?? [], method: method)
             exactTimelines[coin] = exact
             timelines[coin] = exact.map { (time: $0.time, holdings: PortfolioDecimal.double($0.holdings)) }
         }
@@ -156,7 +159,7 @@ extension PortfolioHistory {
             if day == todayEpochDay, let live { return PortfolioStables.price(coin, market: live) }
             return PortfolioStables.price(coin, market: closeOnOrBefore(series, day: day))
         }
-        let flows = cashFlows(valid, coins: included, start: start, todayEpochDay: todayEpochDay,
+        let flows = cashFlows(eventsOf, coins: included, start: start, todayEpochDay: todayEpochDay,
                               dayEndMillis: dayEndMillis, rate: rate, market: market, method: method)
 
         // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen. Ab 0 mit allen Zuflüssen
@@ -168,7 +171,7 @@ extension PortfolioHistory {
         var pnlCoins: [String] = []
         for coin in included {
             let coinFlows = unpriced.contains(coin) ? nil
-                : pnlFlows(coin, trades: valid, start: start, todayEpochDay: todayEpochDay, dayEndMillis: dayEndMillis,
+                : pnlFlows(coin, events: eventsOf[coin] ?? [], start: start, todayEpochDay: todayEpochDay, dayEndMillis: dayEndMillis,
                            rate: rate, sinceFirst: sinceFirst, market: market, method: method)
             if let coinFlows {
                 pnlCoins.append(coin)
@@ -236,13 +239,13 @@ extension PortfolioHistory {
     /// einer unbekannt (Coin fehlt, «ohne …»). Im Zeitraum die nach dem Ende von `start` (davor zählt der Wert
     /// am ersten Tag); «Seit 1. Kauf» (`sinceFirst`) alle, frühere auf `start` gelegt. Auszahlungen ohne Preis und
     /// Adress-Änderungen zum Marktkurs ihres (lokalen) Tags (`market`). Wie Android.
-    private static func pnlFlows(_ coin: String, trades: [PortfolioTx], start: Int, todayEpochDay: Int,
+    private static func pnlFlows(_ coin: String, events: [PortfolioLedgerEvent], start: Int, todayEpochDay: Int,
                                  dayEndMillis: (Int) -> Int64, rate: Double, sinceFirst: Bool,
                                  market: (String, Int) -> Double?, method: CostMethod) -> [PortfolioCashFlow]? {
         let rangeEnd = dayEndMillis(start)
         var out: [PortfolioCashFlow] = []
         var book = PortfolioHoldingsBook(method: method)
-        for e in PortfolioLedger.events(coin, trades: trades) {
+        for e in events {
             if sinceFirst || e.trade.time > rangeEnd {
                 let day = localDay(e.trade.time, from: start, to: todayEpochDay, dayEndMillis: dayEndMillis)
                 let price = PortfolioLedger.needsMarketPrice(e) ? market(coin, day) : nil
@@ -259,14 +262,15 @@ extension PortfolioHistory {
     /// Zuflüsse der `coins` nach dem Ende von `start` (gleiche Regel wie `PortfolioPeriodChange.gain`,
     /// `PortfolioLedger.flow`: ein Verkauf ohne Bestand zählt nicht); nil, sobald einer davon unbekannt ist. Tag = lokaler Tag
     /// der Transaktion, höchstens `todayEpochDay`. Wie Android.
-    private static func cashFlows(_ trades: [PortfolioTx], coins: [String], start: Int, todayEpochDay: Int,
+    private static func cashFlows(_ eventsOf: [String: [PortfolioLedgerEvent]], coins: [String], start: Int,
+                                  todayEpochDay: Int,
                                   dayEndMillis: (Int) -> Int64, rate: Double,
                                   market: (String, Int) -> Double?, method: CostMethod) -> [PortfolioCashFlow]? {
         let rangeEnd = dayEndMillis(start)
         var out: [PortfolioCashFlow] = []
         for coin in coins {
             var book = PortfolioHoldingsBook(method: method)
-            for e in PortfolioLedger.events(coin, trades: trades) {
+            for e in eventsOf[coin] ?? [] {
                 if e.trade.time > rangeEnd {
                     // Gleiche Zuflüsse wie «7 T» (`PortfolioLedger.flow`); unbekannt → keine Zuflüsse
                     let day = localDay(e.trade.time, from: start, to: todayEpochDay, dayEndMillis: dayEndMillis)

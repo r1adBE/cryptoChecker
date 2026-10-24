@@ -239,10 +239,15 @@ class PortfolioViewModel @Inject constructor(
     /** Geladene Tagesschlusskurse (Verlauf, «7 T»/«1 J», Kurs einer Auszahlung ohne Preis); null = noch nicht geladen. */
     internal val _closes = MutableStateFlow<HistoryCloses?>(null)
 
-    val summary: StateFlow<PortfolioSummary?> = combine(calcTransactions, _prices, costMethod, _closes) { txs, p, method, loaded ->
+    val summary: StateFlow<PortfolioSummary?> = combine(
+        calcTransactions, _prices, costMethod, _closes, currency.map { it != PortfolioFormat.USDT }.distinctUntilChanged(),
+    ) { txs, p, method, loaded, withParts ->
         // «Ausgebucht»: Auszahlung ohne Preis zum Tagesschluss ihres Tags (danach aktueller Kurs); ohne geladene
-        // Schlusskurse unbekannt → «unvollständig» (PortfolioSummary.withdrawnGainIncomplete); Gebühr-Zeilen ebenso
-        txs?.let { list -> PortfolioCalculator.summarize(list.map { it.toTrade() }, p.prices, method, marketPriceAt(p, loaded)) }
+        // Schlusskurse unbekannt → «unvollständig» (PortfolioSummary.withdrawnGainIncomplete); Gebühr-Zeilen ebenso.
+        // Herkunftsteile des Ø-Einstands nur für «Seit Kauf» in der Anzeigewährung ([costFx]); in USDT linear ohne
+        txs?.let { list ->
+            PortfolioCalculator.summarize(list.map { it.toTrade() }, p.prices, method, marketPriceAt(p, loaded), withParts = withParts)
+        }
     }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null) // Rechnen nicht auf dem Main-Thread
 
     // PERF3-R1: Kursfunktion der Coin-Ansicht nicht mehr hier, sondern in coinDetailFlow (CoinFeePrices)

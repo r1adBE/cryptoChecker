@@ -52,12 +52,6 @@ enum WidgetData {
         }
     }
 
-    /// Vorhandene Gruppen, alphabetisch ohne Gross/Klein (wie die App).
-    static func groups() -> [String] {
-        Array(Set(SharedStorage.loadSnapshot().watches.compactMap(\.groupName)))
-            .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
-    }
-
     /// Normales Neuladen (`WidgetCadence.reloadMinutes`).
     static var nextReload: Date { Date().addingTimeInterval(Double(WidgetCadence.reloadMinutes) * 60) }
 

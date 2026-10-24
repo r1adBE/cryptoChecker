@@ -6,7 +6,10 @@ object Indicators {
     fun smaOfLast(values: List<Double>, n: Int): Double? =
         if (n > 0 && values.size >= n) values.takeLast(n).average() else null
 
-    /** RSI nach Wilder über [period] Schritte; null bei zu wenig Daten oder [period] nicht positiv (wie iOS). */
+    /**
+     * RSI nach Wilder über [period] Schritte; null bei zu wenig Daten oder [period] nicht positiv (wie iOS).
+     * Durchschnittlicher Verlust 0: 100, wenn es Gewinne gab, sonst (völlig flach) 50.
+     */
     fun rsi(closes: List<Double>, period: Int = 14): Double? {
         if (period <= 0 || closes.size <= period) return null
         var gain = 0.0
@@ -22,7 +25,8 @@ object Indicators {
             avgGain = (avgGain * (period - 1) + maxOf(d, 0.0)) / period
             avgLoss = (avgLoss * (period - 1) + maxOf(-d, 0.0)) / period
         }
-        if (avgLoss == 0.0) return 100.0
+        // Völlig flache Kurse (weder Gewinn noch Verlust): neutral 50 statt «überkauft»; nur Gewinne: 100
+        if (avgLoss == 0.0) return if (avgGain == 0.0) 50.0 else 100.0
         val rs = avgGain / avgLoss
         return 100.0 - 100.0 / (1.0 + rs)
     }
