@@ -3,8 +3,6 @@ package com.cryptochecker.app.data
 import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.app.domain.refresh.MarketRefresh
-import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.domain.watch.RowPause
@@ -12,8 +10,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.json.JSONArray
-import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,7 +26,7 @@ class RefreshStats @Inject constructor(
 
     private val _lastDurationMillis = MutableStateFlow(prefs.getLong(KEY_LAST_DURATION, 0))
     private val _lastRefreshAt = MutableStateFlow(prefs.getLong(KEY_LAST_REFRESH_AT, 0))
-    private val _lastReport = MutableStateFlow(decode(prefs.getString(KEY_LAST_REPORT, null)))
+    private val _lastReport = MutableStateFlow(RefreshReportCodec.decode(prefs.getString(KEY_LAST_REPORT, null)))
     private val _changeStamp = MutableStateFlow(ChangeStamp.decode(prefs.getString(KEY_CHANGE_STAMP, null)))
 
     /** Dauer des letzten vollständigen Durchlaufs. */
@@ -86,16 +82,19 @@ class RefreshStats @Inject constructor(
     /** Ersetzt den Bericht (auch bei einem abgebrochenen Durchlauf). */
     fun setLastReport(report: RefreshReport) {
         prefs.edit {
-            putString(KEY_LAST_REPORT, encode(report))
+            putString(KEY_LAST_REPORT, RefreshReportCodec.encode(report))
             // Bis Runde 21 als Klartext gespeichert
             remove(KEY_LEGACY_REPORT)
         }
         _lastReport.value = report
     }
 
-    /** Wartezeit zwischen Knopfdruck und Start nachtragen (WorkManager). */
-    fun setWaitMillis(millis: Long) {
-        _lastReport.value?.let { setLastReport(it.copy(waitMillis = millis)) }
+    /**
+     * Wartezeit zwischen Knopfdruck und Start und die Nummer des Versuchs ([RefreshReport.attempt])
+     * nachtragen (WorkManager).
+     */
+    fun setWait(millis: Long, attempt: Int) {
+        _lastReport.value?.let { setLastReport(it.copy(waitMillis = millis, attempt = attempt)) }
     }
 
     private val _appStartMillis = MutableStateFlow(prefs.getLong(KEY_APP_START, 0L).takeIf { it > 0 })
@@ -145,86 +144,5 @@ class RefreshStats @Inject constructor(
         const val KEY_CHANGE_STAMP = "change_basis_stamp"
         const val KEY_APP_START = "app_start_millis"
         const val KEY_BACKOFF = "exchange_backoff"
-
-        fun encode(r: RefreshReport): String = JSONObject()
-            .put("at", r.at)
-            .put("total", r.totalMillis)
-            .put("pairs", r.pairs)
-            .put("network", r.networkMillis)
-            .put("markets", JSONArray().apply {
-                r.markets.forEach { m ->
-                    put(
-                        JSONObject()
-                            .put("name", m.name)
-                            .put("millis", m.millis)
-                            .put("pairs", m.pairs)
-                            .put("updated", m.updated)
-                            .put("notTraded", m.notTraded)
-                            .put("failed", m.failed)
-                            .put("bulkTried", m.bulkTried)
-                            .put("bulkMillis", m.bulkMillis)
-                            .put("bulkPrices", m.bulkPrices)
-                            .put("singles", m.singles)
-                            .apply { m.reason?.let { put("reason", it.name) } }
-                            .apply { m.pausedUntil?.let { put("pausedUntil", it) } }
-                            .apply { m.pauseReason?.let { put("pauseReason", it.name) } }
-                            .apply { m.detail?.let { put("detail", it) } }
-                    )
-                }
-            })
-            .apply {
-                r.dbMillis?.let { put("db", it) }
-                r.effectsMillis?.let { put("effects", it) }
-                put("alarms", r.alarms)
-                put("notifications", r.notifications)
-                r.widgetMillis?.let { put("widgets", it) }
-                r.waitMillis?.let { put("wait", it) }
-                r.aborted?.let { put("aborted", it) }
-            }
-            .toString()
-
-        /** Unlesbar oder fehlend → null («noch kein Bericht»). */
-        fun decode(json: String?): RefreshReport? {
-            if (json.isNullOrEmpty()) return null
-            return runCatching {
-                val o = JSONObject(json)
-                val list = o.optJSONArray("markets") ?: JSONArray()
-                val markets = (0 until list.length()).map { i ->
-                    val m = list.getJSONObject(i)
-                    MarketRefresh(
-                        name = m.optString("name"),
-                        millis = m.optLong("millis"),
-                        pairs = m.optInt("pairs"),
-                        updated = m.optInt("updated"),
-                        notTraded = m.optInt("notTraded"),
-                        failed = m.optInt("failed"),
-                        bulkTried = m.optBoolean("bulkTried"),
-                        bulkMillis = m.optLong("bulkMillis"),
-                        bulkPrices = m.optInt("bulkPrices"),
-                        singles = m.optInt("singles"),
-                        reason = m.optString("reason").let { r -> RefreshFailure.entries.firstOrNull { it.name == r } },
-                        pausedUntil = m.optLongOrNull("pausedUntil"),
-                        pauseReason = m.optString("pauseReason").let { r -> RefreshFailure.entries.firstOrNull { it.name == r } },
-                        detail = m.optString("detail").takeIf { it.isNotEmpty() },
-                    )
-                }
-                RefreshReport(
-                    at = o.optLong("at"),
-                    totalMillis = o.optLong("total"),
-                    pairs = o.optInt("pairs"),
-                    networkMillis = o.optLong("network"),
-                    markets = markets,
-                    dbMillis = o.optLongOrNull("db"),
-                    effectsMillis = o.optLongOrNull("effects"),
-                    alarms = o.optInt("alarms"),
-                    notifications = o.optInt("notifications"),
-                    widgetMillis = o.optLongOrNull("widgets"),
-                    waitMillis = o.optLongOrNull("wait"),
-                    aborted = if (o.has("aborted")) o.optString("aborted") else null,
-                )
-            }.getOrNull()
-        }
-
-        fun JSONObject.optLongOrNull(key: String): Long? = if (has(key)) optLong(key) else null
     }
 }

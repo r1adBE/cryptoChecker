@@ -163,6 +163,14 @@ class WidgetPrefs @Inject constructor(
         set(value) = prefs.edit { putLong(KEY_REFRESH_BLOCKED_UNTIL, value) }
 
     /**
+     * Nächster Versuch der Aktualisierung aus dem Widget (Wanduhr, ms; 0 = keiner), solange sie nach «erneut
+     * versuchen» wartet ([ListWidgetRetry]): Listen-Widgets zählen bis dahin herunter.
+     */
+    var refreshRetryAt: Long
+        get() = prefs.getLong(KEY_REFRESH_RETRY_AT, 0L)
+        set(value) = prefs.edit { putLong(KEY_REFRESH_RETRY_AT, value) }
+
+    /**
      * Wirksamer hoher Kontrast beim letzten Zeichnen der Widgets; null = noch nie
      * gezeichnet (oder vor diesem Update). Ändert sich der System-Kontrast, merkt
      * es die App beim nächsten Start und zeichnet neu.
@@ -211,6 +219,7 @@ class WidgetPrefs @Inject constructor(
         const val FILE_NAME = "widgets"
         const val KEY_LAST_HIGH_CONTRAST = "last_high_contrast"
         const val KEY_REFRESH_BLOCKED_UNTIL = "refresh_blocked_until"
+        const val KEY_REFRESH_RETRY_AT = "refresh_retry_at"
         const val GROUP_PREFIX = "widget_group_"
     }
 }

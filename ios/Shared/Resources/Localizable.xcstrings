@@ -287034,6 +287034,197 @@
         }
       }
     },
+    "refresh_sheet_wait_attempt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المحاولة رقم %1$ld – لم يكن التخزين المشفّر جاهزًا في المحاولة الأولى"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. pokus – šifrované úložiště napoprvé ještě nebylo připravené"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. forsøg – det krypterede lager var ikke klar ved første forsøg"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. Versuch – der verschlüsselte Speicher war beim ersten noch nicht bereit"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ldη προσπάθεια – ο κρυπτογραφημένος χώρος αποθήκευσης δεν ήταν έτοιμος την πρώτη φορά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attempt %1$ld – the encrypted storage wasn't ready on the first one"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intento %1$ld – el almacenamiento cifrado no estaba listo en el primero"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تلاش %1$ld – حافظهٔ رمزگذاری‌شده در تلاش اول هنوز آماده نبود"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. yritys – salattu tallennustila ei ollut valmis ensimmäisellä kerralla"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lde essai – le stockage chiffré n'était pas prêt au premier"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ניסיון %1$ld – האחסון המוצפן לא היה מוכן בניסיון הראשון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोशिश %1$ld – पहली बार एन्क्रिप्टेड स्टोरेज तैयार नहीं था"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. próbálkozás – a titkosított tárhely az elsőnél még nem volt kész"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percobaan ke-%1$ld – penyimpanan terenkripsi belum siap pada percobaan pertama"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ldº tentativo – l'archivio crittografato non era pronto al primo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld 回目の試行 – 暗号化ストレージは初回にはまだ準備できていませんでした"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld번째 시도 – 첫 시도에서는 암호화된 저장소가 아직 준비되지 않았습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. forsøk – den krypterte lagringen var ikke klar ved første forsøk"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lde poging – de versleutelde opslag was bij de eerste nog niet klaar"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. próba – zaszyfrowana pamięć nie była gotowa przy pierwszej"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ldª tentativa – o armazenamento encriptado ainda não estava pronto na primeira"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ldª tentativa – o armazenamento criptografado ainda não estava pronto na primeira"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Încercarea %1$ld – stocarea criptată nu era încă pregătită la prima"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попытка %1$ld – зашифрованное хранилище в первый раз ещё не было готово"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Përpjekja e %1$ld-të – hapësira ruajtëse e enkriptuar nuk ishte gati herën e parë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Försök %1$ld – den krypterade lagringen var inte redo vid första försöket"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ครั้งที่ %1$ld – ที่เก็บข้อมูลที่เข้ารหัสยังไม่พร้อมในครั้งแรก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$ld. deneme – şifreli depolama ilk denemede henüz hazır değildi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Спроба %1$ld – зашифроване сховище першого разу ще не було готове"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lần thử %1$ld – bộ nhớ được mã hóa chưa sẵn sàng ở lần đầu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 %1$ld 次尝试 – 首次尝试时加密存储尚未就绪"
+          }
+        }
+      }
+    },
     "refresh_sheet_widgets" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -396198,6 +396389,838 @@
         }
       }
     },
+    "watchlist_retry_countdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$ld ث"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úložiště je stále zamčené – nový pokus za %1$ld s"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lageret er stadig låst – nyt forsøg om %1$ld s"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speicher noch gesperrt – neuer Versuch in %1$ld s"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο χώρος αποθήκευσης είναι ακόμη κλειδωμένος – νέα προσπάθεια σε %1$ld δευτ."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Storage still locked – retrying in %1$ld s"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almacenamiento aún bloqueado – nuevo intento en %1$ld s"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حافظه هنوز قفل است – تلاش دوباره تا %1$ld ثانیهٔ دیگر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tallennustila on yhä lukittu – uusi yritys %1$ld s:n päästä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stockage encore verrouillé – nouvel essai dans %1$ld s"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "האחסון עדיין נעול – ניסיון חוזר בעוד %1$ld שנ׳"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "स्टोरेज अभी भी लॉक है – %1$ld सेकंड में फिर से कोशिश"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A tárhely még zárolva – új próbálkozás %1$ld mp múlva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penyimpanan masih terkunci – mencoba lagi dalam %1$ld dtk"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archivio ancora bloccato – nuovo tentativo tra %1$ld s"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ストレージはまだロックされています – %1$ld 秒後に再試行します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장소가 아직 잠겨 있습니다 – %1$ld초 후 다시 시도합니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagringen er fortsatt låst – nytt forsøk om %1$ld s"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opslag nog vergrendeld – nieuwe poging over %1$ld s"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pamięć nadal zablokowana – ponowna próba za %1$ld s"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Armazenamento ainda bloqueado – nova tentativa dentro de %1$ld s"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Armazenamento ainda bloqueado – nova tentativa em %1$ld s"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stocarea este încă blocată – o nouă încercare în %1$ld s"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Хранилище ещё заблокировано – новая попытка через %1$ld с"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hapësira ruajtëse ende e kyçur – përpjekje e re pas %1$ld s"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagringen är fortfarande låst – nytt försök om %1$ld s"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ที่เก็บข้อมูลยังถูกล็อกอยู่ – จะลองใหม่ใน %1$ld วินาที"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depolama hâlâ kilitli – %1$ld sn sonra yeniden denenecek"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сховище ще заблоковане – нова спроба через %1$ld с"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bộ nhớ vẫn đang bị khóa – thử lại sau %1$ld giây"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "存储仍处于锁定状态 – %1$ld 秒后重试"
+          }
+        }
+      }
+    },
+    "watchlist_retry_countdown_a11y" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$lld ثوانٍ"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$lld ثانية"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$lld ثانية"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$lld ثانية"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$lld ثانيتين"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$lld ثانية"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Úložiště je stále zamčené – nový pokus za %1$lld sekundy"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Úložiště je stále zamčené – nový pokus za %1$lld sekundy"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Úložiště je stále zamčené – nový pokus za %1$lld sekundu"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Úložiště je stále zamčené – nový pokus za %1$lld sekund"
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lageret er stadig låst – nyt forsøg om %1$lld sekund"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lageret er stadig låst – nyt forsøg om %1$lld sekunder"
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Speicher noch gesperrt – neuer Versuch in %1$lld Sekunde"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Speicher noch gesperrt – neuer Versuch in %1$lld Sekunden"
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ο χώρος αποθήκευσης είναι ακόμη κλειδωμένος – νέα προσπάθεια σε %1$lld δευτερόλεπτο"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ο χώρος αποθήκευσης είναι ακόμη κλειδωμένος – νέα προσπάθεια σε %1$lld δευτερόλεπτα"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Storage still locked – retrying in %1$lld second"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Storage still locked – retrying in %1$lld seconds"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Almacenamiento aún bloqueado – nuevo intento en %1$lld segundos"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Almacenamiento aún bloqueado – nuevo intento en %1$lld segundo"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Almacenamiento aún bloqueado – nuevo intento en %1$lld segundos"
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "حافظه هنوز قفل است – تلاش دوباره تا %1$lld ثانیهٔ دیگر"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "حافظه هنوز قفل است – تلاش دوباره تا %1$lld ثانیهٔ دیگر"
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tallennustila on yhä lukittu – uusi yritys %1$lld sekunnin päästä"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tallennustila on yhä lukittu – uusi yritys %1$lld sekunnin päästä"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Stockage encore verrouillé – nouvel essai dans %1$lld secondes"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Stockage encore verrouillé – nouvel essai dans %1$lld seconde"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Stockage encore verrouillé – nouvel essai dans %1$lld secondes"
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "האחסון עדיין נעול – ניסיון חוזר בעוד %1$lld שנייה"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "האחסון עדיין נעול – ניסיון חוזר בעוד %1$lld שניות"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "האחסון עדיין נעול – ניסיון חוזר בעוד %1$lld שניות"
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "स्टोरेज अभी भी लॉक है – %1$lld सेकंड में फिर से कोशिश"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "स्टोरेज अभी भी लॉक है – %1$lld सेकंड में फिर से कोशिश"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "A tárhely még zárolva – új próbálkozás %1$lld másodperc múlva"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "A tárhely még zárolva – új próbálkozás %1$lld másodperc múlva"
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Penyimpanan masih terkunci – mencoba lagi dalam %1$lld detik"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Archivio ancora bloccato – nuovo tentativo tra %1$lld secondi"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Archivio ancora bloccato – nuovo tentativo tra %1$lld secondo"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Archivio ancora bloccato – nuovo tentativo tra %1$lld secondi"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ストレージはまだロックされています – %1$lld 秒後に再試行します"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "저장소가 아직 잠겨 있습니다 – %1$lld초 후 다시 시도합니다"
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lagringen er fortsatt låst – nytt forsøk om %1$lld sekund"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lagringen er fortsatt låst – nytt forsøk om %1$lld sekunder"
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Opslag nog vergrendeld – nieuwe poging over %1$lld seconde"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Opslag nog vergrendeld – nieuwe poging over %1$lld seconden"
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Pamięć nadal zablokowana – ponowna próba za %1$lld sekundy"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Pamięć nadal zablokowana – ponowna próba za %1$lld sekund"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Pamięć nadal zablokowana – ponowna próba za %1$lld sekundę"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Pamięć nadal zablokowana – ponowna próba za %1$lld sekundy"
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Armazenamento ainda bloqueado – nova tentativa dentro de %1$lld segundos"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Armazenamento ainda bloqueado – nova tentativa dentro de %1$lld segundo"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Armazenamento ainda bloqueado – nova tentativa dentro de %1$lld segundos"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Armazenamento ainda bloqueado – nova tentativa em %1$lld segundos"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Armazenamento ainda bloqueado – nova tentativa em %1$lld segundo"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Armazenamento ainda bloqueado – nova tentativa em %1$lld segundos"
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Stocarea este încă blocată – o nouă încercare în %1$lld secunde"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Stocarea este încă blocată – o nouă încercare în %1$lld secundă"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Stocarea este încă blocată – o nouă încercare în %1$lld de secunde"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Хранилище ещё заблокировано – новая попытка через %1$lld секунды"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Хранилище ещё заблокировано – новая попытка через %1$lld секунд"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Хранилище ещё заблокировано – новая попытка через %1$lld секунду"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Хранилище ещё заблокировано – новая попытка через %1$lld секунды"
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hapësira ruajtëse ende e kyçur – përpjekje e re pas %1$lld sekonde"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hapësira ruajtëse ende e kyçur – përpjekje e re pas %1$lld sekondash"
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lagringen är fortfarande låst – nytt försök om %1$lld sekund"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lagringen är fortfarande låst – nytt försök om %1$lld sekunder"
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ที่เก็บข้อมูลยังถูกล็อกอยู่ – จะลองใหม่ใน %1$lld วินาที"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Depolama hâlâ kilitli – %1$lld saniye sonra yeniden denenecek"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Depolama hâlâ kilitli – %1$lld saniye sonra yeniden denenecek"
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Сховище ще заблоковане – нова спроба через %1$lld секунди"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Сховище ще заблоковане – нова спроба через %1$lld секунд"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Сховище ще заблоковане – нова спроба через %1$lld секунду"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Сховище ще заблоковане – нова спроба через %1$lld секунди"
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Bộ nhớ vẫn đang bị khóa – thử lại sau %1$lld giây"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "存储仍处于锁定状态 – %1$lld 秒后重试"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "watchlist_row_disabled" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -443979,6 +445002,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刷新 – %1$ld 秒后可再次刷新"
+          }
+        }
+      }
+    },
+    "widget_retry_countdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محاولة جديدة خلال %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nový pokus za %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyt forsøg om %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neuer Versuch in %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Νέα προσπάθεια σε %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retrying in %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo intento en %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تلاش دوباره تا %1$@ دیگر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uusi yritys: %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvel essai dans %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ניסיון חוזר בעוד %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ में फिर से कोशिश"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Új próbálkozás %1$@ múlva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mencoba lagi dalam %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuovo tentativo tra %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 後に再試行"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 후 다시 시도"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nytt forsøk om %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieuwe poging over %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponowna próba za %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova tentativa dentro de %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova tentativa em %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouă încercare în %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новая попытка через %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Përpjekje e re pas %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nytt försök om %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จะลองใหม่ใน %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ sonra yeniden denenecek"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нова спроба через %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thử lại sau %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 后重试"
           }
         }
       }

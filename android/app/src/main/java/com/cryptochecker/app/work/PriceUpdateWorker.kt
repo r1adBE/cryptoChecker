@@ -9,9 +9,11 @@ import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.CheckTrigger
+import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.refreshNotification
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.widget.ListWidgetRetry
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CancellationException
@@ -27,6 +29,7 @@ class PriceUpdateWorker @AssistedInject constructor(
     private val refreshStats: RefreshStats,
     private val exactScheduler: ExactCheckScheduler,
     private val settingsRepository: SettingsRepository,
+    private val widgetRetry: ListWidgetRetry,
 ) : CoroutineWorker(appContext, params) {
 
     /**
@@ -43,6 +46,8 @@ class PriceUpdateWorker @AssistedInject constructor(
         val manual = inputData.getBoolean(KEY_MANUAL, false)
         val enqueuedAt = inputData.getLong(KEY_ENQUEUED_AT, 0L)
         val waitedMillis = if (enqueuedAt > 0) System.currentTimeMillis() - enqueuedAt else -1L
+        // Neuer Versuch nach «Datenbank-Schlüssel nicht lesbar» beginnt: Countdown im Widget weg
+        if (manual && runAttemptCount > 0) widgetRetry.clear()
 
         return try {
             // Gemeinsamer Weg mit dem exakten Wecker (BackgroundCheck): überspringt geplante Läufe kurz
@@ -54,10 +59,10 @@ class PriceUpdateWorker @AssistedInject constructor(
             if (BackgroundWorkPolicy.syncsExactAfterRun(manual)) syncExact()
             if (summary == null) return BackgroundWorkPolicy.outcome(manual, null, null).toResult()
 
-            // Zeit zwischen Knopfdruck und Start: Die zählt nicht zur Dauer,
-            // verlängert aber, wie lange der Kreis in der App dreht.
+            // Zeit zwischen Knopfdruck und Start (samt Wartezeit früherer Versuche): Die zählt nicht zur Dauer,
+            // verlängert aber, wie lange der Kreis in der App dreht. Dazu die Nummer des Versuchs für den Bericht.
             if (manual && waitedMillis >= 0) {
-                refreshStats.setWaitMillis(waitedMillis)
+                refreshStats.setWait(waitedMillis, RetryWait.attemptNumber(runAttemptCount))
             }
             Timber.d(
                 "Hintergrund-Aktualisierung: %d geprüft, %d fehlgeschlagen, %d Alarme",
@@ -76,6 +81,12 @@ class PriceUpdateWorker @AssistedInject constructor(
             // Datenbank-Schlüssel gerade nicht lesbar (Keystore): Lauf überspringen, WorkManager versucht es später
             if (ex.isDatabaseKeyUnavailable()) {
                 Timber.d(ex, "Hintergrund-Aktualisierung: Datenbank-Schlüssel nicht verfügbar, später erneut")
+                // Aus dem Widget: dort bis zum nächsten Versuch herunterzählen (die App liest ihn aus der WorkInfo)
+                if (manual) {
+                    val backoffMillis = BackgroundWorkPolicy.RETRY_BACKOFF_SECONDS * 1000
+                    val now = System.currentTimeMillis()
+                    widgetRetry.show(RetryWait.linearRetryAt(now, backoffMillis, runAttemptCount))
+                }
                 return BackgroundWorkPolicy.outcomeOnKeyUnavailable().toResult()
             }
             Timber.w(ex, "Hintergrund-Aktualisierung fehlgeschlagen")

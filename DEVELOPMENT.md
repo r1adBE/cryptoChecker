@@ -2347,6 +2347,12 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 123: `RetryWait` (retry wait of the widget refresh: WorkInfo ENQUEUED + `runAttemptCount` > 0 →
+  `nextScheduleTimeMillis`, linear backoff, countdown seconds), `PriceUpdateScheduler.observeManualRetryAt` →
+  `WatchlistLive.widgetRetryAt` → status pill countdown (`WatchlistRetryCountdown`), `ListWidgetRetry` (partial widget
+  update with a `Chronometer` countdown, `WidgetPrefs.refreshRetryAt`), `RefreshReport.attempt` (`RefreshReportCodec`,
+  extracted from `RefreshStats`), `BackgroundWorkPolicy.RETRY_BACKOFF_SECONDS`. Android only: iOS runs the widget
+  refresh directly in the intent without a retry.
 * Build 122: `CsvImportProgress` (throttled progress, cancellable insert; iOS `CsvImportBackground`, `CsvImportRun`,
   `AppData+PortfolioImport`), `BulkAddProgress(text:)`, coverage gate `--min-logic` (`MIN_LOGIC` 58 / 78),
   `PortfolioPerformanceTest` / `TaxPerformanceTest` (+ iOS), `PerformanceTiming.Sizes`, `exchange_errors_synthetic.json`

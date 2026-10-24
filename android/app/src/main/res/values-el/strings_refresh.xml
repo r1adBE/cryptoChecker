@@ -110,4 +110,15 @@
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">Μήνυμα του ανταλλακτηρίου: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
+         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Ο χώρος αποθήκευσης είναι ακόμη κλειδωμένος – νέα προσπάθεια σε %1$d δευτ.</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Ο χώρος αποθήκευσης είναι ακόμη κλειδωμένος – νέα προσπάθεια σε %1$d δευτερόλεπτο</item>
+        <item quantity="other">Ο χώρος αποθήκευσης είναι ακόμη κλειδωμένος – νέα προσπάθεια σε %1$d δευτερόλεπτα</item>
+    </plurals>
+    <string name="widget_retry_countdown">Νέα προσπάθεια σε %1$s</string>
+    <string name="refresh_sheet_wait_attempt">%1$dη προσπάθεια – ο κρυπτογραφημένος χώρος αποθήκευσης δεν ήταν έτοιμος την πρώτη φορά</string>
 </resources>

@@ -128,4 +128,17 @@
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">Сообщение биржи: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
+         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Хранилище ещё заблокировано – новая попытка через %1$d с</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Хранилище ещё заблокировано – новая попытка через %1$d секунду</item>
+        <item quantity="few">Хранилище ещё заблокировано – новая попытка через %1$d секунды</item>
+        <item quantity="many">Хранилище ещё заблокировано – новая попытка через %1$d секунд</item>
+        <item quantity="other">Хранилище ещё заблокировано – новая попытка через %1$d секунды</item>
+    </plurals>
+    <string name="widget_retry_countdown">Новая попытка через %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Попытка %1$d – зашифрованное хранилище в первый раз ещё не было готово</string>
 </resources>

@@ -140,6 +140,11 @@ data class WatchlistDisplay(
 /** Was sich laufend ändert: Aktualisierung, Netz, Live-Strom, Umrechnungsfaktoren, Stempel der Änderungen. */
 data class WatchlistLive(
     val refreshing: Boolean,
+    /**
+     * Aktualisierung aus dem Widget wartet auf ihren nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar): dessen
+     * Zeitpunkt (Wanduhr, ms), sonst null. Die Statuszeile zeigt dann «Speicher noch gesperrt – neuer Versuch in 27 s».
+     */
+    val widgetRetryAt: Long? = null,
     /** Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …». */
     val online: Boolean,
     /** Börsen, deren Live-Strom gerade Kurse liefert. */

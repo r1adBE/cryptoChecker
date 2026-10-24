@@ -110,4 +110,15 @@
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">Pörssin viesti: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
+         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Tallennustila on yhä lukittu – uusi yritys %1$d s:n päästä</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="one">Tallennustila on yhä lukittu – uusi yritys %1$d sekunnin päästä</item>
+        <item quantity="other">Tallennustila on yhä lukittu – uusi yritys %1$d sekunnin päästä</item>
+    </plurals>
+    <string name="widget_retry_countdown">Uusi yritys: %1$s</string>
+    <string name="refresh_sheet_wait_attempt">%1$d. yritys – salattu tallennustila ei ollut valmis ensimmäisellä kerralla</string>
 </resources>

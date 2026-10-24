@@ -101,4 +101,14 @@
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">Pesan bursa: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
+         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">Penyimpanan masih terkunci – mencoba lagi dalam %1$d dtk</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">Penyimpanan masih terkunci – mencoba lagi dalam %1$d detik</item>
+    </plurals>
+    <string name="widget_retry_countdown">Mencoba lagi dalam %1$s</string>
+    <string name="refresh_sheet_wait_attempt">Percobaan ke-%1$d – penyimpanan terenkripsi belum siap pada percobaan pertama</string>
 </resources>

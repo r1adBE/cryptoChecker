@@ -15,6 +15,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 123)
+
+* Android: when the widget's «Refresh» has to wait because the encrypted storage is not unlocked yet, the watchlist status shows «Storage still locked – retrying in 27 s» and counts down (announced once by TalkBack); the list widget shows «Retrying in 0:30» instead of the time. The retry interval stays 30 s.
+* Android: «Last refresh» notes under «Waiting to start» when a run was not the first attempt («Attempt 2 – the encrypted storage wasn't ready on the first one»).
+
 ## 16.2.2 (build 122)
 
 Phase C, continued:

@@ -35,6 +35,7 @@ import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.refresh.RefreshStatus
+import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
@@ -152,7 +153,12 @@ internal fun MarketRow(market: MarketRefresh, locale: Locale) {
 /** Ablauf: zweispaltig, links Bezeichnung (ggf. mit Zusatz), rechts Dauer. */
 @Composable
 internal fun StepRows(report: RefreshReport, locale: Locale) {
-    report.waitMillis?.let { StepRow(stringResource(R.string.refresh_sheet_wait), null, seconds(it, locale)) }
+    report.waitMillis?.let { millis ->
+        // Nicht der erste Versuch (Datenbank-Schlüssel beim ersten noch nicht lesbar): klein darunter, warum
+        val note = report.attempt?.takeIf { RetryWait.showsAttemptNote(it) }
+            ?.let { stringResource(R.string.refresh_sheet_wait_attempt, it) }
+        StepRow(stringResource(R.string.refresh_sheet_wait), null, seconds(millis, locale), note)
+    }
     StepRow(stringResource(R.string.refresh_sheet_network), null, seconds(report.networkMillis, locale))
     report.dbMillis?.let { StepRow(stringResource(R.string.refresh_sheet_database), null, seconds(it, locale)) }
     report.effectsMillis?.let { millis ->
@@ -174,8 +180,9 @@ internal fun AppStartRow(millis: Long?, locale: Locale) {
     StepRow(stringResource(R.string.refresh_sheet_app_start), null, seconds(millis, locale))
 }
 
+/** [note]: kleine graue Zeile unter der Bezeichnung (null = keine). */
 @Composable
-private fun StepRow(label: String, extra: String?, value: String) {
+private fun StepRow(label: String, extra: String?, value: String, note: String? = null) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -184,12 +191,21 @@ private fun StepRow(label: String, extra: String?, value: String) {
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .semantics(mergeDescendants = true) {}
     ) {
-        Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
-            Text(label, style = MaterialTheme.typography.bodyMedium)
-            if (extra != null) {
+        Column(Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(label, style = MaterialTheme.typography.bodyMedium)
+                if (extra != null) {
+                    Text(
+                        " · $extra",
+                        style = MaterialTheme.typography.bodySmall.tabularNumbers(),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+            if (note != null) {
                 Text(
-                    " · $extra",
-                    style = MaterialTheme.typography.bodySmall.tabularNumbers(),
+                    note,
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

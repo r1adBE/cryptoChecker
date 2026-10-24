@@ -38,6 +38,13 @@ internal class WatchlistRefreshController(
     ) { app, widget -> app || widget }
         .stateIn(scope, SharingStarted.WhileSubscribed(5_000), manualRefresh.running.value)
 
+    /**
+     * Nächster Versuch der Aktualisierung aus dem Widget, solange sie nach «erneut versuchen» wartet
+     * (Datenbank-Schlüssel noch nicht lesbar); null = keiner. Die Statuszeile zählt bis dahin herunter.
+     */
+    val widgetRetryAt: StateFlow<Long?> = scheduler.observeManualRetryAt()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5_000), null)
+
     /** Aufschlüsselung des letzten Durchlaufs, per Tipp auf die Dauer. */
     val lastRefreshReport: StateFlow<RefreshReport?> = refreshStats.lastReport
 
