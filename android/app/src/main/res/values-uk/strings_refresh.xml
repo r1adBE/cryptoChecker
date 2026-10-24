@@ -130,8 +130,8 @@
     <string name="refresh_sheet_exchange_detail">Повідомлення біржі: %1$s</string>
 
     <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
-         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
-         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
     <string name="watchlist_retry_countdown">Сховище ще заблоковане – нова спроба через %1$d с</string>
     <plurals name="watchlist_retry_countdown_a11y">
         <item quantity="one">Сховище ще заблоковане – нова спроба через %1$d секунду</item>
@@ -139,6 +139,7 @@
         <item quantity="many">Сховище ще заблоковане – нова спроба через %1$d секунд</item>
         <item quantity="other">Сховище ще заблоковане – нова спроба через %1$d секунди</item>
     </plurals>
-    <string name="widget_retry_countdown">Нова спроба через %1$s</string>
+    <string name="watchlist_retry_short">Нова спроба через %1$s</string>
+    <string name="widget_retry_at">Нова спроба о %1$s</string>
     <string name="refresh_sheet_wait_attempt">Спроба %1$d – зашифроване сховище першого разу ще не було готове</string>
 </resources>

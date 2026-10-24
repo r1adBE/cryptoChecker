@@ -19,6 +19,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberOneShotGate
 import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.theme.SnackbarKind
+import kotlinx.coroutines.launch
 
 /**
  * Rückmeldungen als Snackbar statt Text, der das Layout verschiebt: Paar übernommen bzw. schon
@@ -154,7 +155,11 @@ internal fun ExplorerFeedback(
     val bulkFailedText = stringResource(R.string.something_went_wrong)
     // Rückfrage «%d Paare wieder entfernen?» — steht unabhängig von der (dann schon geschlossenen) Meldung
     val bulkUndo = rememberBulkUndoConfirm()
-    BulkUndoConfirmDialog(bulkUndo, onRemove = onUndoBulk)
+    val undoExpiredText = stringResource(R.string.bulk_undo_expired)
+    val scope = rememberCoroutineScope()
+    // «Entfernen» nach Ablauf des Zeitfensters: nichts löschen, nur sagen, dass die Paare bleiben
+    val onUndoExpired = { scope.launch { snackbar.showAppSnackbar(undoExpiredText, SnackbarKind.INFO) }; Unit }
+    BulkUndoConfirmDialog(bulkUndo, onExpired = onUndoExpired, onRemove = onUndoBulk)
     LaunchedEffect(bulkAddResult) {
         val done = bulkAddResult?.takeIf { !it.running }
         if (!bulkGate.claim(done)) {
@@ -188,7 +193,7 @@ internal fun ExplorerFeedback(
                 duration = SnackbarDuration.Long
             )
             if (result == SnackbarResult.ActionPerformed) {
-                if (undoable) bulkUndo.request(state.addedIds) else onOpenWatchlist()
+                if (undoable) bulkUndo.request(state.addedIds, state.finishedAt) else onOpenWatchlist()
             }
         } finally {
             onBulkAddResultShown()

@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">«%1$s» krahason me çmimin e saktë 24 orë më parë. «00:00» krahason me çmimin e hapjes në mesnatë në këtë zonë kohore.</string>
     <string name="settings_change_basis_hint_3">Alarmet nuk preken.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» krahason me çmimin e përditësimit të mëparshëm. Me çmime të drejtpërdrejta mbetet afër 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Monedha e konvertimit</string>

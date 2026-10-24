@@ -90,6 +90,7 @@ extension ExplorerViewModel {
         }
         // Neue Paare angelegt: «Rückgängig» entfernt genau diese wieder — wie Android
         show(ExplorerMessage(text: text, long: true, undoIds: anyAdded ? outcome.addedIds : nil,
+                             undoFinishedAt: TimeUtils.nowMillis,
                              kind: SnackbarKind.bulkAdded(added: outcome.added, refused: outcome.refused)))
         haptic(anyAdded ? .success : .warning)
         if anyAdded { requestNotifications() }
@@ -119,27 +120,46 @@ enum ExplorerBulkCount {
 }
 
 /// Rückfrage vor «Rückgängig» nach «Mehrere Paare auf einmal»: Antippen von «Rückgängig» merkt nur die neu angelegten
-/// Paare (`request`); erst «Entfernen» (`remove`) gibt sie an den Undo-Weg (`ExplorerViewModel.undoBulkAdd`) weiter,
-/// «Behalten» (`keep`) — ebenso Wischen bzw. Tippen neben den Dialog — verwirft sie. Wie Android `BulkUndoConfirm`.
+/// Paare samt Ende der Aufnahme (`request`); erst «Entfernen» (`remove`) gibt sie an den Undo-Weg
+/// (`ExplorerViewModel.undoBulkAdd`) weiter — und nur, solange «Rückgängig» noch gilt (`undoOffered`), sonst wird
+/// nichts gelöscht. «Behalten» (`keep`) — ebenso Wischen bzw. Tippen neben den Dialog — verwirft sie. Wie Android
+/// `BulkUndoConfirm`.
 struct BulkUndoConfirm: Equatable {
+    /// So lange nach dem Ende der Aufnahme gilt «Rückgängig» — wie Android `BulkAddRunner.UNDO_WINDOW_MS`.
+    static let undoWindowMillis: Int64 = 60_000
+
+    /// Ende (`finishedAt`, 0 = keins) höchstens `undoWindowMillis` vor `now`; Uhr rückwärts: nein — wie Android
+    /// `BulkAddRunner.undoOffered`.
+    static func undoOffered(finishedAt: Int64, now: Int64) -> Bool {
+        finishedAt > 0 && (0...undoWindowMillis).contains(now - finishedAt)
+    }
+
     /// Paare, für die der Dialog gerade fragt; nil = kein Dialog.
     private(set) var pending: [Int64]?
+    /// Zahl der Paare der letzten Anfrage: Der Titel bleibt beim Ausblenden des Dialogs gleich (dann ist `pending`
+    /// schon nil).
+    private(set) var lastCount = 0
+    /// Ende der Aufnahme dieser Paare (ms); damit prüft «Entfernen» das Zeitfenster erneut.
+    private(set) var finishedAt: Int64 = 0
 
     var isPresented: Bool { pending != nil }
 
-    /// «Rückgängig» getippt: Dialog für `ids` öffnen (ohne Paare keiner).
-    mutating func request(_ ids: [Int64]) {
-        if !ids.isEmpty { pending = ids }
+    /// «Rückgängig» getippt: Dialog für `ids` (Aufnahme beendet um `finishedAt`) öffnen (ohne Paare keiner).
+    mutating func request(_ ids: [Int64], finishedAt: Int64) {
+        guard !ids.isEmpty else { return }
+        pending = ids
+        lastCount = ids.count
+        self.finishedAt = finishedAt
     }
 
     /// «Behalten»: nichts entfernen.
     mutating func keep() { pending = nil }
 
-    /// «Entfernen»: Dialog zu, dann `undo` mit den Paaren des Dialogs (`presented`, sonst den gemerkten) — genau
-    /// einmal.
-    mutating func remove(_ presented: [Int64]? = nil, undo: ([Int64]) -> Void) {
+    /// «Entfernen»: Dialog zu; gilt «Rückgängig» um `now` noch, `undo` mit den Paaren des Dialogs (`presented`, sonst
+    /// den gemerkten) — genau einmal; sonst `expired`, dann wird nichts gelöscht.
+    mutating func remove(_ presented: [Int64]? = nil, now: Int64, expired: () -> Void, undo: ([Int64]) -> Void) {
         guard let ids = presented ?? pending, !ids.isEmpty else { return }
         pending = nil
-        undo(ids)
+        if Self.undoOffered(finishedAt: finishedAt, now: now) { undo(ids) } else { expired() }
     }
 }

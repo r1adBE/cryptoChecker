@@ -62,7 +62,7 @@ struct WatchGroupEditSheet: View {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         // Alle Paare in der Reihenfolge der Merkliste (Favoriten zuerst)
         let all = data.watches
-        let names: [Int64: String] = trimmed.isEmpty ? [:] : WatchlistSearch.names(for: all)
+        let names: [Int64: String] = trimmed.isEmpty ? [:] : searchIndex.names(for: all)
         let shown = trimmed.isEmpty ? all : searchIndex.filter(all, query: trimmed, names: names)
         NavigationStack {
             List {

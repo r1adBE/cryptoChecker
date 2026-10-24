@@ -138,4 +138,5 @@
         <item quantity="other">%1$d Paare wieder entfernen?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Paare, für die du inzwischen einen Alarm gesetzt hast, bleiben.</string>
+    <string name="bulk_undo_expired">Rückgängig ist nicht mehr möglich – die Paare bleiben in der Merkliste.</string>
 </resources>

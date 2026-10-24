@@ -80978,6 +80978,197 @@
         }
       }
     },
+    "bulk_undo_expired" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يعد التراجع ممكنًا – تبقى الأزواج في قائمة المتابعة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vrátit zpět už nejde – páry zůstanou ve sledovaných."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortryd er ikke længere muligt – parrene bliver på overvågningslisten."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rückgängig ist nicht mehr möglich – die Paare bleiben in der Merkliste."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η αναίρεση δεν είναι πλέον δυνατή – τα ζεύγη παραμένουν στη λίστα παρακολούθησης."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo is no longer possible – the pairs stay in the watchlist."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya no se puede deshacer – los pares se quedan en la lista de seguimiento."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "واگرد دیگر ممکن نیست – جفت‌ها در واچ‌لیست می‌مانند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kumoaminen ei ole enää mahdollista – parit jäävät seurantalistalle."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il n'est plus possible d'annuler – les paires restent dans la liste de suivi."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כבר אי אפשר לבטל – הצמדים יישארו ברשימת המעקב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अब पूर्ववत नहीं किया जा सकता – पेयर वॉचलिस्ट में बने रहेंगे।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A visszavonás már nem lehetséges – a párok a figyelőlistán maradnak."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak bisa diurungkan lagi – pasangan tetap ada di daftar pantau."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non è più possibile annullare – le coppie restano nella lista di osservazione."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "元に戻せる時間が過ぎました。ペアはウォッチリストに残ります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이제 실행 취소할 수 없습니다. 거래쌍은 관심 목록에 그대로 남습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Angre er ikke lenger mulig – parene blir værende i overvåkingslisten."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ongedaan maken kan niet meer – de paren blijven in de volglijst."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cofnięcie nie jest już możliwe – pary zostają na liście obserwowanych."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Já não é possível anular – os pares ficam na lista de acompanhamento."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é mais possível desfazer – os pares continuam na lista de acompanhamento."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anularea nu mai este posibilă – perechile rămân în lista de urmărire."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отменить уже нельзя – пары останутся в списке."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zhbërja nuk është më e mundur – çiftet mbeten në listën e ndjekjes."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det går inte längre att ångra – paren finns kvar i bevakningslistan."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เลิกทำไม่ได้แล้ว คู่ต่างๆ จะยังคงอยู่ในรายการติดตาม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Artık geri alınamaz – çiftler izleme listesinde kalır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Скасувати вже не можна – пари залишаться у списку."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể hoàn tác nữa – các cặp vẫn ở trong danh sách theo dõi."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已无法撤销，交易对会保留在自选中。"
+          }
+        }
+      }
+    },
     "change_basis_device" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -397221,6 +397412,197 @@
         }
       }
     },
+    "watchlist_retry_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محاولة جديدة خلال %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nový pokus za %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyt forsøg om %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neuer Versuch in %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Νέα προσπάθεια σε %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retrying in %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuevo intento en %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تلاش دوباره تا %1$@ دیگر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uusi yritys: %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvel essai dans %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ניסיון חוזר בעוד %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ में फिर से कोशिश"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Új próbálkozás %1$@ múlva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mencoba lagi dalam %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuovo tentativo tra %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 後に再試行"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 후 다시 시도"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nytt forsøk om %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieuwe poging over %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponowna próba za %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova tentativa dentro de %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova tentativa em %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouă încercare în %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новая попытка через %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Përpjekje e re pas %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nytt försök om %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จะลองใหม่ใน %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ sonra yeniden denenecek"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нова спроба через %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thử lại sau %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 后重试"
+          }
+        }
+      }
+    },
     "watchlist_row_disabled" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -445006,193 +445388,193 @@
         }
       }
     },
-    "widget_retry_countdown" : {
+    "widget_retry_at" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "محاولة جديدة خلال %1$@"
+            "value" : "محاولة جديدة في الساعة %1$@"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nový pokus za %1$@"
+            "value" : "Nový pokus v %1$@"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nyt forsøg om %1$@"
+            "value" : "Nyt forsøg kl. %1$@"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neuer Versuch in %1$@"
+            "value" : "Neuer Versuch um %1$@"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Νέα προσπάθεια σε %1$@"
+            "value" : "Νέα προσπάθεια στις %1$@"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retrying in %1$@"
+            "value" : "Retrying at %1$@"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nuevo intento en %1$@"
+            "value" : "Nuevo intento a las %1$@"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تلاش دوباره تا %1$@ دیگر"
+            "value" : "تلاش دوباره در ساعت %1$@"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uusi yritys: %1$@"
+            "value" : "Uusi yritys klo %1$@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nouvel essai dans %1$@"
+            "value" : "Nouvel essai à %1$@"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ניסיון חוזר בעוד %1$@"
+            "value" : "ניסיון חוזר בשעה %1$@"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ में फिर से कोशिश"
+            "value" : "%1$@ बजे फिर से कोशिश"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Új próbálkozás %1$@ múlva"
+            "value" : "Új próbálkozás ekkor: %1$@"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mencoba lagi dalam %1$@"
+            "value" : "Mencoba lagi pukul %1$@"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nuovo tentativo tra %1$@"
+            "value" : "Nuovo tentativo alle %1$@"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 後に再試行"
+            "value" : "%1$@ に再試行"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 후 다시 시도"
+            "value" : "%1$@에 다시 시도"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nytt forsøk om %1$@"
+            "value" : "Nytt forsøk kl. %1$@"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nieuwe poging over %1$@"
+            "value" : "Nieuwe poging om %1$@"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ponowna próba za %1$@"
+            "value" : "Ponowna próba o %1$@"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nova tentativa dentro de %1$@"
+            "value" : "Nova tentativa às %1$@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nova tentativa em %1$@"
+            "value" : "Nova tentativa às %1$@"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nouă încercare în %1$@"
+            "value" : "Nouă încercare la %1$@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Новая попытка через %1$@"
+            "value" : "Новая попытка в %1$@"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Përpjekje e re pas %1$@"
+            "value" : "Përpjekje e re në %1$@"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nytt försök om %1$@"
+            "value" : "Nytt försök kl. %1$@"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "จะลองใหม่ใน %1$@"
+            "value" : "จะลองใหม่เวลา %1$@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ sonra yeniden denenecek"
+            "value" : "Yeniden deneme saati: %1$@"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нова спроба через %1$@"
+            "value" : "Нова спроба о %1$@"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thử lại sau %1$@"
+            "value" : "Thử lại lúc %1$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ 后重试"
+            "value" : "将于 %1$@ 重试"
           }
         }
       }

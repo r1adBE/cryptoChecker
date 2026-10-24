@@ -138,4 +138,5 @@
         <item quantity="other">Fjerne %1$d par igjen?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Par du har satt alarm for i mellomtiden, blir værende.</string>
+    <string name="bulk_undo_expired">Angre er ikke lenger mulig – parene blir værende i overvåkingslisten.</string>
 </resources>

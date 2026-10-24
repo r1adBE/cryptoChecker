@@ -112,13 +112,14 @@
     <string name="refresh_sheet_exchange_detail">एक्सचेंज का संदेश: %1$s</string>
 
     <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
-         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
-         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
     <string name="watchlist_retry_countdown">स्टोरेज अभी भी लॉक है – %1$d सेकंड में फिर से कोशिश</string>
     <plurals name="watchlist_retry_countdown_a11y">
         <item quantity="one">स्टोरेज अभी भी लॉक है – %1$d सेकंड में फिर से कोशिश</item>
         <item quantity="other">स्टोरेज अभी भी लॉक है – %1$d सेकंड में फिर से कोशिश</item>
     </plurals>
-    <string name="widget_retry_countdown">%1$s में फिर से कोशिश</string>
+    <string name="watchlist_retry_short">%1$s में फिर से कोशिश</string>
+    <string name="widget_retry_at">%1$s बजे फिर से कोशिश</string>
     <string name="refresh_sheet_wait_attempt">कोशिश %1$d – पहली बार एन्क्रिप्टेड स्टोरेज तैयार नहीं था</string>
 </resources>

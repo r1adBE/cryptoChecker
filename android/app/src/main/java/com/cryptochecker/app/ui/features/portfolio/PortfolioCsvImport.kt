@@ -85,21 +85,39 @@ fun PortfolioCsvImportFlow(
         }
     }
     val close = { viewModel.reset(); onDismiss() }
+    // Ergebnis des Speicherns als Zustand: übersteht ein Drehen, gemeldet mit den Rückrufen der aktuellen Komposition
+    LaunchedEffect(state) {
+        when (val s = state) {
+            is CsvImportState.Done -> {
+                viewModel.reset()
+                onImported(s.count)
+                onDismiss()
+                // Wie iOS: eingeschaltet → diese Bestätigung (ersetzt die Anzahl)
+                if (s.enabled) onPortfolioEnabled()
+            }
+            CsvImportState.Cancelled -> close()
+            else -> Unit
+        }
+    }
 
     when (val s = state) {
-        CsvImportState.Idle -> Unit
+        CsvImportState.Idle, is CsvImportState.Done, CsvImportState.Cancelled -> Unit
         // Laden (Datei, Kurse, Vorschau) und Speichern: «Abbrechen» und Zurück brechen ab, gespeichert ist dann nichts.
-        // Laden schliesst sofort; Speichern erst, wenn die Transaktion zurückgerollt ist (`onCancelled` von `confirm`)
+        // Laden schliesst sofort; Speichern erst, wenn die Transaktion zurückgerollt ist (CsvImportState.Cancelled).
+        // Alle Zeilen angelegt: Verknüpfen der Umbuchungen läuft und ist nicht abbrechbar — dann kein «Abbrechen»
         CsvImportState.Loading, CsvImportState.Saving -> {
             val saving = s == CsvImportState.Saving
-            val cancel = { viewModel.cancelLoad(); if (!saving) onDismiss() }
+            val cancellable = !saving || progress?.let { it.step == CsvImportStep.SAVE && it.done >= it.total } != true
+            val cancel = { if (cancellable) { viewModel.cancelLoad(); if (!saving) onDismiss() } }
             AlertDialog(
                 onDismissRequest = cancel,
                 properties = androidx.compose.ui.window.DialogProperties(dismissOnClickOutside = false),
                 title = { Text(stringResource(R.string.portfolio_csv_import_action)) },
                 text = { CsvImportProgressText(saving, progress) },
                 confirmButton = {},
-                dismissButton = { TextButton(onClick = cancel) { Text(stringResource(R.string.action_cancel)) } },
+                dismissButton = if (cancellable) {
+                    { TextButton(onClick = cancel) { Text(stringResource(R.string.action_cancel)) } }
+                } else null,
             )
         }
         // Nicht lesbar, zu gross, Portfolio gesperrt (PortfolioStorageLock) oder Schreiben gescheitert: Grund statt «0 importiert»
@@ -143,13 +161,7 @@ fun PortfolioCsvImportFlow(
             onDismiss = close,
             // Während des Neu-Lesens kein «Importieren»
             rereading = s.rereading,
-            onConfirm = {
-                viewModel.confirm(
-                    onDone = { count -> onImported(count); onDismiss() },
-                    onPortfolioEnabled = onPortfolioEnabled,
-                    onCancelled = onDismiss,
-                )
-            },
+            onConfirm = viewModel::confirm,
         )
     }
 }

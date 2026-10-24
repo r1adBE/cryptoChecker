@@ -50,10 +50,12 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Gradle (with cache)
+      # Read-only cache: the mutant runs would only write a cache full of mutated build outputs; the regular Android
+      # workflow keeps the cache up to date
+      - name: Set up Gradle (cache, read only)
         uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          cache-read-only: true
 
       # Mutants are only meaningful against green tests; this run also fills the Gradle caches, so the mutant runs
       # below work with --offline

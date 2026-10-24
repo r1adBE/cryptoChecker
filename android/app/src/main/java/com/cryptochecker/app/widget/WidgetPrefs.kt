@@ -164,7 +164,7 @@ class WidgetPrefs @Inject constructor(
 
     /**
      * Nächster Versuch der Aktualisierung aus dem Widget (Wanduhr, ms; 0 = keiner), solange sie nach «erneut
-     * versuchen» wartet ([ListWidgetRetry]): Listen-Widgets zählen bis dahin herunter.
+     * versuchen» wartet ([ListWidgetRetry]): Listen-Widgets zeigen bis dahin die Uhrzeit dieses Versuchs.
      */
     var refreshRetryAt: Long
         get() = prefs.getLong(KEY_REFRESH_RETRY_AT, 0L)

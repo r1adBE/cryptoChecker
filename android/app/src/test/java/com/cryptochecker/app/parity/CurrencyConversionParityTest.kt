@@ -30,7 +30,7 @@ class CurrencyConversionParityTest {
 
     @Test
     fun classify() {
-        data["classify"].list().forEach { raw ->
+        data["classify"].list().also { assertTrue("classify: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val kind = CurrencyConversion.classify(c["quote"] as String, fiat)
             assertEquals("classify '${c["quote"]}'", c["kind"], kind.name)
@@ -39,7 +39,7 @@ class CurrencyConversionParityTest {
 
     @Test
     fun quoteToUsd() {
-        data["quoteToUsd"].list().forEach { raw ->
+        data["quoteToUsd"].list().also { assertTrue("quoteToUsd: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val actual = CurrencyConversion.quoteToUsd(
                 QuoteKind.valueOf(c["kind"] as String),
@@ -54,7 +54,7 @@ class CurrencyConversionParityTest {
 
     @Test
     fun chainQuoteToTargetAndAmount() {
-        data["chain"].list().forEach { raw ->
+        data["chain"].list().also { assertTrue("chain: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val name = c["name"] as String
             val quote = c["quote"] as String
@@ -73,7 +73,7 @@ class CurrencyConversionParityTest {
 
     @Test
     fun freshQuotePriceAndStaleFx() {
-        data["freshQuotePrice"].list().forEach { raw ->
+        data["freshQuotePrice"].list().also { assertTrue("freshQuotePrice: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val actual = CurrencyConversion.freshQuotePrice(
                 c["price"].num(),
@@ -82,7 +82,7 @@ class CurrencyConversionParityTest {
             )
             assertEquals(c["name"] as String, c["expected"].num(), actual)
         }
-        data["staleFxTime"].list().forEach { raw ->
+        data["staleFxTime"].list().also { assertTrue("staleFxTime: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val actual = CurrencyConversion.staleFxTime(
                 c["quoteFxAt"].num()?.toLong(),
@@ -95,12 +95,12 @@ class CurrencyConversionParityTest {
 
     @Test
     fun conversionQuoteAndSameCurrency() {
-        data["conversionQuote"].list().forEach { raw ->
+        data["conversionQuote"].list().also { assertTrue("conversionQuote: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val actual = CurrencyConversion.conversionQuote(c["market"] as String?, c["quote"] as String)
             assertEquals("conversionQuote ${c["market"]} ${c["quote"]}", c["expected"], actual)
         }
-        data["sameCurrency"].list().forEach { raw ->
+        data["sameCurrency"].list().also { assertTrue("sameCurrency: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val actual = CurrencyConversion.sameCurrency(c["a"] as String?, c["b"] as String?)
             assertEquals("sameCurrency ${c["a"]} ${c["b"]}", c["expected"], actual)

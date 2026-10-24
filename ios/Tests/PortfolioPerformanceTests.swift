@@ -7,6 +7,12 @@ import XCTest
 /// `PerformanceTiming` mit `transactions` (Debug-Build, darum grosszügiger als Android). Wie
 /// `PortfolioPerformanceTest.kt`.
 final class PortfolioPerformanceTests: XCTestCase {
+    /// Unter Thread Sanitizer (CI setzt `CC_SKIP_PERFORMANCE=1`) übersprungen: die Zeiten wären verfälscht.
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try PerformanceTiming.skipIfRequested()
+    }
+
     private typealias T = PerformanceTiming
     private typealias D = PortfolioPerformanceData
     /// Rundung der anteiligen Teile (34 Stellen) ist weit darunter.
@@ -66,7 +72,10 @@ final class PortfolioPerformanceTests: XCTestCase {
         // 2–8 s für 10 000 Transaktionen (Debug; Verhältnis zu 2500 etwa ×10–16)
         T.assertLimitOnly("Portfolio-Übersicht Ø", limitMillis: 60_000, sizes: T.transactions) { n in
             let trades = D.trades(n)
-            return T.medianMillis { PortfolioPerformanceTests.summary(trades, .AVERAGE) }
+            // Sekunden je Lauf: 1 Aufwärm- und 3 Messläufe
+            return T.medianMillis(warmup: T.quickWarmupRuns, runs: T.quickMeasuredRuns) {
+                PortfolioPerformanceTests.summary(trades, .AVERAGE)
+            }
         }
         assertSameHoldings(.AVERAGE)
     }

@@ -138,4 +138,5 @@
         <item quantity="other">Αφαίρεση %1$d ζευγών ξανά;</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Τα ζεύγη για τα οποία όρισες στο μεταξύ συναγερμό παραμένουν.</string>
+    <string name="bulk_undo_expired">Η αναίρεση δεν είναι πλέον δυνατή – τα ζεύγη παραμένουν στη λίστα παρακολούθησης.</string>
 </resources>

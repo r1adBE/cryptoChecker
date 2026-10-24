@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">„%1$s” porównuje z ceną sprzed dokładnie 24 godzin. „00:00” porównuje z ceną otwarcia o północy w tej strefie czasowej.</string>
     <string name="settings_change_basis_hint_3">Nie dotyczy alarmów.</string>
     <string name="settings_change_basis_hint_since_last">„%1$s” porównuje z ceną z poprzedniej aktualizacji. Przy cenach na żywo pozostaje blisko 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Waluta przeliczenia</string>

@@ -15,7 +15,6 @@ import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.linkStoredTransfers
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
@@ -67,6 +66,13 @@ sealed interface CsvImportState {
     data object Locked : CsvImportState
     /** Schreiben fehlgeschlagen: nichts importiert — gemeldet statt «0 importiert». */
     data object SaveFailed : CsvImportState
+    /**
+     * Gespeichert: [count] Zeilen, [enabled] = Portfolio dabei eingeschaltet. Als Zustand (nicht als Rückruf), damit
+     * das Ergebnis ein Drehen übersteht; die Ansicht meldet es und setzt zurück ([PortfolioCsvImportViewModel.reset]).
+     */
+    data class Done(val count: Int, val enabled: Boolean) : CsvImportState
+    /** «Abbrechen» beim Speichern: nichts gespeichert; die Ansicht schliesst und setzt zurück. */
+    data object Cancelled : CsvImportState
 }
 
 /**
@@ -124,6 +130,9 @@ class PortfolioCsvImportViewModel @Inject constructor(
 
     /** Nummer der letzten Neu-Lese-Anfrage; nur deren Ergebnis zählt ([reread]). */
     private var rereadGeneration = 0
+
+    /** Laufendes Neu-Lesen ([reread]); ein neues Neu-Lesen und [reset] brechen es ab. */
+    private var rereadJob: kotlinx.coroutines.Job? = null
 
     /** Zuletzt gelesen (Text, Ergebnis, Kurse) — für eine andere Lesart ohne die Datei neu zu lesen. */
     private var input: CsvImportInput? = null
@@ -242,7 +251,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
         val read = input ?: return
         val generation = ++rereadGeneration
         (_state.value as? CsvImportState.Preview)?.let { _state.value = it.copy(rereading = true) }
-        viewModelScope.launch {
+        rereadJob?.cancel()
+        rereadJob = viewModelScope.launch {
             val built = runCatchingCancellable { build(read, choice).let { it to mapCsvPreview(it) } }.getOrNull()
             if (generation != rereadGeneration) return@launch
             val shown = _state.value as? CsvImportState.Preview ?: return@launch
@@ -260,44 +270,54 @@ class PortfolioCsvImportViewModel @Inject constructor(
     }
 
     /**
-     * Neue Transaktionen anlegen und gewählte Umbuchungen mit gespeicherten Seiten verknüpfen ([saveCsvImport]); [onDone]
-     * mit der Anzahl (im Hauptthread), [onPortfolioEnabled] wenn eingeschaltet, [onCancelled] nach «Abbrechen» ([cancelLoad])
-     * — dann ist nichts gespeichert.
+     * Neue Transaktionen anlegen und gewählte Umbuchungen mit gespeicherten Seiten verknüpfen ([saveCsvImport]). Erst
+     * [CsvImportState.Saving], dann im Hintergrund vorbereiten ([prepareCsvImport]) und speichern. Ergebnis als Zustand:
+     * [CsvImportState.Done] (Anzahl, eingeschaltet) bzw. [CsvImportState.Cancelled] nach «Abbrechen» ([cancelLoad]) —
+     * dann ist nichts gespeichert.
      */
-    fun confirm(onDone: (Int) -> Unit, onPortfolioEnabled: () -> Unit, onCancelled: () -> Unit = {}) {
+    fun confirm() {
         val shown = _state.value as? CsvImportState.Preview ?: return
-        // Nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
-        // Mit der Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen)
+        // Nicht während des Neu-Lesens und nur mit der Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen)
         if (!CsvReadChoice.canConfirm(shown.rereading, shown.choice, chosen)) return
-        val preview = shown.preview
+        val links = _links.value
+        val linked = _linked.value
         val choices = _choices.value
-        val plan = CsvTransferMatch.apply(preview.transactions, _links.value, _linked.value)
-        // Jede Auszahlung (ohne verknüpfte Umbuchung) braucht eine Wahl (der Knopf ist sonst aus)
-        if (!CsvImportMapping.allWithdrawalsDecided(plan.transactions, choices)) return
-        // Datei «neueste zuerst»: älteste zuerst speichern (Id folgt der Zeit)
-        val txs = CsvImportMapping.insertOrder(
-            CsvImportMapping.applyWithdrawalChoices(
-                plan.transactions, choices, _proposals.value.associate { it.importKey to it.transferTo },
-            ),
-        )
+        val destinations = _proposals.value.associate { it.importKey to it.transferTo }
         _state.value = CsvImportState.Saving
         _progress.value = null
         saveCancelled.set(false)
         viewModelScope.launch {
-            // Kennung dieses Importlaufs («Import rückgängig»): Format, Zeit, Hash der Zeilenschlüssel
-            val batch = PortfolioImportBatch.newId(preview.format.name, System.currentTimeMillis(), txs.map { it.importKey })
-            val entities = txs.map { it.toEntity() }
-            val throttle = CsvProgressThrottle(CsvImportStep.SAVE, entities.size) { _progress.value = it }.also { it.start() }
+            val prepared = runCatchingCancellable {
+                withContext(Dispatchers.Default) {
+                    prepareCsvImport(shown.preview, links, linked, choices, destinations, System.currentTimeMillis())
+                }
+            }.onFailure { Timber.w(it, "CSV-Import: Vorbereiten fehlgeschlagen") }
+            if (prepared.isFailure) {
+                reset()
+                _state.value = CsvImportState.SaveFailed
+                return@launch
+            }
+            val plan = prepared.getOrNull()
+            // Nicht jede Auszahlung gewählt (der Knopf ist dann aus): Vorschau bleibt
+            if (plan == null) {
+                _state.value = shown
+                return@launch
+            }
+            if (saveCancelled.get()) {
+                _state.value = CsvImportState.Cancelled
+                return@launch
+            }
+            val throttle = CsvProgressThrottle(CsvImportStep.SAVE, plan.entities.size) { _progress.value = it }.also { it.start() }
             // Abgebrochen wird nur über `saveCancelled` (vor jeder Zeile, Transaktion rollt zurück): so steht nie ein
             // Teil-Import und das Ergebnis passt immer zum Gespeicherten
             val outcome = withContext(NonCancellable) {
                 saveCsvImport(
-                    insert = { repository.insertImported(entities, batch, throttle::row, saveCancelled::get) },
-                    link = { repository.linkStoredTransfers(plan.storedUpdates, batch) },
+                    insert = { repository.insertImported(plan.entities, plan.batch, throttle::row, saveCancelled::get) },
+                    link = { repository.linkStoredTransfers(plan.storedUpdates, plan.batch) },
                 )
             }
             val saved = when (outcome) {
-                CsvImportSaveOutcome.Cancelled -> { reset(); onCancelled(); return@launch }
+                CsvImportSaveOutcome.Cancelled -> { _state.value = CsvImportState.Cancelled; return@launch }
                 // Nichts geschrieben, weil Schreiben scheiterte (gesperrt oder Fehler): Grund nennen statt «0 importiert»
                 is CsvImportSaveOutcome.Failed -> {
                     reset()
@@ -306,29 +326,25 @@ class PortfolioCsvImportViewModel @Inject constructor(
                 }
                 is CsvImportSaveOutcome.Saved -> outcome
             }
-            val inserted = saved.inserted
-            val count = saved.count
             var enabled = false
             // Nur neu angelegte Transaktionen schalten ein (verknüpfte gespeicherte gab es schon)
-            if (inserted > 0 && PortfolioOff.enableOnSave(isNew = true, portfolioEnabled = settingsRepository.current().portfolioEnabled)) {
+            if (saved.inserted > 0 && PortfolioOff.enableOnSave(isNew = true, portfolioEnabled = settingsRepository.current().portfolioEnabled)) {
                 enabled = runCatchingCancellable { settingsRepository.setPortfolioEnabled(true) }.isSuccess
                 if (enabled) {
                     runCatchingCancellable { coinLogoSync.startIfEnabled() }
                     runCatchingCancellable { snapshotUpdater.redrawWidgets() }
                 }
             }
-            reset()
-            onDone(count)
-            // Wie iOS: eingeschaltet → diese Bestätigung (ersetzt die Anzahl)
-            if (enabled) onPortfolioEnabled()
+            _progress.value = null
+            _state.value = CsvImportState.Done(saved.count, enabled)
         }
     }
 
     /**
      * «Abbrechen» bzw. Zurück im Ladedialog: Lesen und Kursabfragen stoppen. Geschrieben wird erst mit «Importieren»
      * ([confirm]), darum bleibt nichts halb importiert. Während des Speicherns ([CsvImportState.Saving]): vor der nächsten
-     * Zeile abbrechen, die Transaktion rollt zurück ([confirm] meldet es über `onCancelled`); schon fertig angelegt, gilt
-     * der Import. Auch mit schon fertiger Vorschau zurücksetzen: das ViewModel lebt länger als der Ablauf, eine
+     * Zeile abbrechen, die Transaktion rollt zurück ([confirm] meldet [CsvImportState.Cancelled]); schon fertig angelegt,
+     * gilt der Import. Auch mit schon fertiger Vorschau zurücksetzen: das ViewModel lebt länger als der Ablauf, eine
      * stehengebliebene Vorschau erschiene sonst beim nächsten Öffnen wieder.
      */
     fun cancelLoad() {
@@ -353,6 +369,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
         clearChoices()
         chosen = CsvReadChoice()
         rereadGeneration++
+        rereadJob?.cancel()
+        rereadJob = null
     }
 
     private fun clearChoices() {

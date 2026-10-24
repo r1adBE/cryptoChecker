@@ -82,10 +82,10 @@
                     android:fontFeatureSettings="tnum" />
 
                 <!-- Statt «Uhrzeit · Dauer», solange die Aktualisierung aus dem Widget auf den nächsten Versuch wartet:
-                     «Neuer Versuch in 0:30», zählt selbst herunter (ListWidgetRetry) -->
-                <Chronometer
+                     feste Uhrzeit «Neuer Versuch um 14:32» (ListWidgetRetry) -->
+                <TextView
                     tools:ignore="NestedWeights"
-                    android:id="@+id/widget_retry_countdown"
+                    android:id="@+id/widget_retry_at"
                     android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

@@ -126,4 +126,5 @@
         <item quantity="other">%1$d ペアを再び削除しますか？</item>
     </plurals>
     <string name="bulk_undo_confirm_text">その間にアラームを設定したペアは残ります。</string>
+    <string name="bulk_undo_expired">元に戻せる時間が過ぎました。ペアはウォッチリストに残ります。</string>
 </resources>

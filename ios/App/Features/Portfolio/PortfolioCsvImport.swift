@@ -161,7 +161,7 @@ struct PortfolioCsvImportSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    // Auch während des Speicherns: abbrechen, nichts gespeichert
+                    // Auch während des Speicherns: bis zum Schreiben abbrechen, nichts gespeichert
                     Button(L("action_cancel")) { saveRun.cancel(); dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
@@ -301,8 +301,9 @@ struct PortfolioCsvImportSheet: View {
         let report = saveRun.begin(.saving)
         saveRun.attach(Task {
             let written = await data.insertImportedPortfolioTxs(list, batch: batch, progress: report)
-            // Abgebrochen: das Blatt ist schon zu, nichts gespeichert
-            guard !Task.isCancelled else { return }
+            // Abgebrochen vor dem Schreiben: das Blatt ist schon zu, nichts gespeichert. Kam «Abbrechen» erst während
+            // des Schreibens (im Hintergrund), gilt der Import: Verknüpfungen setzen und melden wie sonst
+            guard written.isWritten || !Task.isCancelled else { return }
             saveRun.end()
             switch written {
             case .written(let inserted): finishSave(inserted: inserted, storedUpdates: storedUpdates, batch: batch)

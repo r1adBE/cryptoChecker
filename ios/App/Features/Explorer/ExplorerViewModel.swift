@@ -39,6 +39,9 @@ struct ExplorerMessage: Equatable, Identifiable {
     var retryDexQuery: String? = nil
     /// Gesetzt: nach dem Hinzufügen mehrerer Paare statt «Ansehen» der Knopf «Rückgängig» für diese neuen Paare.
     var undoIds: [Int64]? = nil
+    /// Ende der Aufnahme zu `undoIds` (ms): «Entfernen» in der Rückfrage prüft damit das Zeitfenster
+    /// (`BulkUndoConfirm.undoOffered`).
+    var undoFinishedAt: Int64 = 0
     /// Art der Meldung: Rahmen und Symbol (übernommen = Erfolg; gesperrt, voll, DEX-Suche gescheitert = Fehler) — wie
     /// Android `ExplorerFeedback`.
     var kind: SnackbarKind = .info

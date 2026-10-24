@@ -190,8 +190,8 @@ class ListWidgetRenderer @Inject constructor(
             R.id.widget_duration,
             if (outdated && header.status.isNotEmpty()) WidgetOutdated.spoken(context, lastRefresh) else null
         )
-        // Aktualisierung aus dem Widget wartet auf den nächsten Versuch: «Neuer Versuch in 0:30» statt der Uhrzeit
-        views.setTextColor(R.id.widget_retry_countdown, background.secondaryTextColor)
+        // Aktualisierung aus dem Widget wartet auf den nächsten Versuch: «Neuer Versuch um 14:32» statt der Uhrzeit
+        views.setTextColor(R.id.widget_retry_at, background.secondaryTextColor)
         ListWidgetRetry.applyTo(context, views, widgetPrefs.refreshRetryAt, System.currentTimeMillis())
         views.setTextViewText(R.id.widget_empty, context.getString(R.string.widget_empty))
         views.setTextColor(R.id.widget_empty, background.secondaryTextColor)

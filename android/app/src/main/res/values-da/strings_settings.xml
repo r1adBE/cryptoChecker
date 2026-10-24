@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">”%1$s” sammenligner med kursen for præcis 24 timer siden. ”00:00” sammenligner med åbningskursen ved midnat i denne tidszone.</string>
     <string name="settings_change_basis_hint_3">Alarmer påvirkes ikke.</string>
     <string name="settings_change_basis_hint_since_last">”%1$s” sammenligner med kursen fra den forrige opdatering. Med live-kurser forbliver den tæt på 0 %%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Omregningsvaluta</string>

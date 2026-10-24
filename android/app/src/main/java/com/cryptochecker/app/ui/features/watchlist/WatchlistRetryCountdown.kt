@@ -37,10 +37,10 @@ internal fun rememberRetrySeconds(retryAt: Long?): Int {
     return seconds
 }
 
-/** Kurzform bei Platzmangel: «Neuer Versuch in 27 s» (gleicher Text wie im Widget). */
+/** Kurzform bei Platzmangel: «Neuer Versuch in 27 s». */
 @Composable
 internal fun retryShortText(seconds: Int): String =
-    stringResource(R.string.widget_retry_countdown, stringResource(R.string.settings_seconds, seconds))
+    stringResource(R.string.watchlist_retry_short, stringResource(R.string.settings_seconds, seconds))
 
 /**
  * Sagt [spoken] einmal an, sobald der Countdown erscheint ([waiting] wird true) — nicht bei jeder Sekunde; den

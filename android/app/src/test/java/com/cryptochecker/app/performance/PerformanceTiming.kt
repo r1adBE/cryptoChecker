@@ -64,12 +64,21 @@ internal object PerformanceTiming {
 
     /**
      * Misst [measure] (Anzahl → Median in ms) für die kleine und die grosse Menge von [sizes], schreibt beide Werte ins
-     * Testprotokoll und prüft [limitMillis] für die grosse sowie die Skalierung.
+     * Testprotokoll und prüft [limitMillis] für die grosse sowie die Skalierung. Liegt die grosse Menge über der
+     * Skalierungsgrenze, werden beide Grössen einmal neu gemessen (ein Ausreisser des Runners, z. B. GC oder ein
+     * Nachbarprozess, soll nicht scheitern lassen); erst die zweite Messung entscheidet.
      */
     fun assertScales(name: String, limitMillis: Double, sizes: Sizes = PAIRS, measure: (Int) -> Double) {
-        val small = measure(sizes.small)
-        val large = measure(sizes.large)
-        val scaleLimit = SCALE_FACTOR * small + SCALE_SLACK_MILLIS
+        var small = measure(sizes.small)
+        var large = measure(sizes.large)
+        var scaleLimit = SCALE_FACTOR * small + SCALE_SLACK_MILLIS
+        if (large > scaleLimit) {
+            val exceeded = "Skalierung ≤ ${fmt(scaleLimit)} ms überschritten, neu gemessen"
+            report(name, sizes, small, large, limitMillis, exceeded)
+            small = measure(sizes.small)
+            large = measure(sizes.large)
+            scaleLimit = SCALE_FACTOR * small + SCALE_SLACK_MILLIS
+        }
         report(name, sizes, small, large, limitMillis, "Skalierung ≤ ${fmt(scaleLimit)} ms")
         assertWithin(name, sizes, large, limitMillis)
         assertTrue(

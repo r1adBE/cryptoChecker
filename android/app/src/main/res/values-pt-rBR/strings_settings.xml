@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">“%1$s” compara com o preço de exatamente 24 horas atrás. “00:00” compara com o preço de abertura à meia-noite nesse fuso horário.</string>
     <string name="settings_change_basis_hint_3">Os alarmes não são afetados.</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” compara com o preço da atualização anterior. Com preços ao vivo, fica perto de 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Moeda de conversão</string>

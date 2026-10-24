@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">“%1$s” ठीक 24 घंटे पहले के भाव से तुलना करता है। “00:00” इस समय क्षेत्र में आधी रात के शुरुआती भाव से तुलना करता है।</string>
     <string name="settings_change_basis_hint_3">अलार्म पर इसका असर नहीं होता।</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” पिछले अपडेट के भाव से तुलना करता है। लाइव भाव में यह 0%% के करीब रहता है।</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">रूपांतरण मुद्रा</string>

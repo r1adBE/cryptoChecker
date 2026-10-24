@@ -126,4 +126,5 @@
         <item quantity="other">再次移除 %1$d 个交易对？</item>
     </plurals>
     <string name="bulk_undo_confirm_text">在此期间你已设置提醒的交易对会保留。</string>
+    <string name="bulk_undo_expired">已无法撤销，交易对会保留在自选中。</string>
 </resources>

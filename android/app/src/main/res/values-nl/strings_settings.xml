@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">‘%1$s’ vergelijkt met de koers van precies 24 uur geleden. ‘00:00’ vergelijkt met de openingskoers om middernacht in die tijdzone.</string>
     <string name="settings_change_basis_hint_3">Alarmen worden niet beïnvloed.</string>
     <string name="settings_change_basis_hint_since_last">‘%1$s’ vergelijkt met de koers van de vorige update. Bij live koersen blijft de waarde dicht bij 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Omrekenvaluta</string>

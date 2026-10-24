@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">« %1$s » compare avec le cours d’il y a exactement 24 heures. « 00:00 » compare avec le cours d’ouverture à minuit dans ce fuseau horaire.</string>
     <string name="settings_change_basis_hint_3">Les alertes ne sont pas concernées.</string>
     <string name="settings_change_basis_hint_since_last">« %1$s » compare avec le cours de la mise à jour précédente. Avec les cours en direct, la valeur reste proche de 0 %%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Devise de conversion</string>

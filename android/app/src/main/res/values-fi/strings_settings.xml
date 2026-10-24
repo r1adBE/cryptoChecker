@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">”%1$s” vertaa hintaan tasan 24 tuntia sitten. ”00:00” vertaa avaushintaan keskiyöllä tällä aikavyöhykkeellä.</string>
     <string name="settings_change_basis_hint_3">Hälytyksiin tämä ei vaikuta.</string>
     <string name="settings_change_basis_hint_since_last">”%1$s” vertaa edellisen päivityksen hintaan. Live-hinnoilla arvo pysyy lähellä 0 %%:a.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Muunnosvaluutta</string>

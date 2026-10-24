@@ -267,7 +267,8 @@ extension AppData {
         var portfolioDone = true
         // Nur ein vollständig gelesener Stand (sonst überschriebe er eine nicht lesbare Datei)
         if portfolioIntact {
-            portfolioDone = PortfolioStore.save(portfolioFile, includeInBackup: settings.portfolioSystemBackup) == .saved
+            let file = portfolioFile, include = settings.portfolioSystemBackup
+            portfolioDone = Self.portfolioWrites.write { PortfolioStore.save(file, includeInBackup: include) } == .saved
         }
         if watchedAddressSavePending && watchedAddressIntact {
             let result = WatchedAddressStore.save(watchedAddressFile, includeInBackup: settings.portfolioSystemBackup)
@@ -327,7 +328,10 @@ extension AppData {
         // Erst schreiben, dann anzeigen: Scheitert das Schreiben, zeigt die Liste nichts, was nicht gespeichert ist.
         // Ohne Schlüssel (nie Klartext): ohne Datei Stand im Speicher behalten und das nennen — das nächste Speichern
         // schreibt ihn; mit gespeichertem Stand in der Datei Fehler statt Erfolg (`PortfolioStore.keepsUnsealed`)
-        switch PortfolioStore.save(file, includeInBackup: settings.portfolioSystemBackup) {
+        // In der Schreib-Reihenfolge (`portfolioWrites`): ein Import im Hintergrund schreibt danach nicht mehr seinen
+        // älteren Stand darüber
+        let include = settings.portfolioSystemBackup
+        switch Self.portfolioWrites.write({ PortfolioStore.save(file, includeInBackup: include) }) {
         case .saved: portfolioSavePending = SharedStorage.portfolioAlarmsPending || watchedAddressSavePending
         case .needsKey:
             let stored = FileManager.default.fileExists(atPath: PortfolioStore.url.path)

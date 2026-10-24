@@ -162,4 +162,5 @@
         <item quantity="other">Znovu odebrat %1$d párů?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Páry, které mezitím dostaly alarm, zůstanou.</string>
+    <string name="bulk_undo_expired">Vrátit zpět už nejde – páry zůstanou ve sledovaných.</string>
 </resources>

@@ -121,14 +121,15 @@
     <string name="refresh_sheet_exchange_detail">Messaggio dell\'exchange: %1$s</string>
 
     <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
-         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
-         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
     <string name="watchlist_retry_countdown">Archivio ancora bloccato – nuovo tentativo tra %1$d s</string>
     <plurals name="watchlist_retry_countdown_a11y">
         <item quantity="one">Archivio ancora bloccato – nuovo tentativo tra %1$d secondo</item>
         <item quantity="many">Archivio ancora bloccato – nuovo tentativo tra %1$d secondi</item>
         <item quantity="other">Archivio ancora bloccato – nuovo tentativo tra %1$d secondi</item>
     </plurals>
-    <string name="widget_retry_countdown">Nuovo tentativo tra %1$s</string>
+    <string name="watchlist_retry_short">Nuovo tentativo tra %1$s</string>
+    <string name="widget_retry_at">Nuovo tentativo alle %1$s</string>
     <string name="refresh_sheet_wait_attempt">%1$dº tentativo – l\'archivio crittografato non era pronto al primo</string>
 </resources>

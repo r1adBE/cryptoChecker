@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">„%1$s” compară cu prețul de acum exact 24 de ore. „00:00” compară cu prețul de deschidere de la miezul nopții în acest fus orar.</string>
     <string name="settings_change_basis_hint_3">Alarmele nu sunt afectate.</string>
     <string name="settings_change_basis_hint_since_last">„%1$s” compară cu prețul de la actualizarea anterioară. Cu prețuri live, rămâne aproape de 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Moneda de conversie</string>

@@ -34,7 +34,7 @@ class QuietHoursParityTest {
 
     @Test
     fun minuteOfDayAcrossDaylightSavingChanges() {
-        data["minuteOfDay"].list().forEach { raw ->
+        data["minuteOfDay"].list().also { assertTrue("minuteOfDay: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val millis = c["millis"].num()!!.toLong()
             assertEquals("${c["name"]}: utc", Instant.parse(c["utc"] as String).toEpochMilli(), millis)
@@ -45,7 +45,7 @@ class QuietHoursParityTest {
 
     @Test
     fun quietAtInstantInZone() {
-        data["quietAt"].list().forEach { raw ->
+        data["quietAt"].list().also { assertTrue("quietAt: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
             val minute = QuietHours.minuteOfDay(c["millis"].num()!!.toLong(), TimeZone.getTimeZone(c["zone"] as String))
             val quiet = QuietHours.isQuiet(true, c["start"].num()!!.toInt(), c["end"].num()!!.toInt(), minute)

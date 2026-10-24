@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.work.BackgroundWorkPolicy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -91,6 +92,34 @@ class RetryWaitTest {
         }
         assertEquals(listOf(3, 2, 1, 0), shown)
         assertEquals(retryAt, t)
+    }
+
+    // ── Widget: feste Uhrzeit ───────────────────────────────────────────────
+
+    @Test
+    fun widgetShowsFixedRetryTimeWhileAhead() {
+        val retryAt = now + 90_000
+        // Fest: dieselbe Uhrzeit, egal wann gezeichnet wird
+        assertEquals(retryAt, RetryWait.widgetRetryTime(retryAt, now))
+        assertEquals(retryAt, RetryWait.widgetRetryTime(retryAt, now + 89_999))
+    }
+
+    @Test
+    fun widgetHidesRetryTimeWhenOverOrNone() {
+        // Beim nächsten Zeichnen nach Ablauf: nichts (nie ein negativer Wert)
+        assertNull(RetryWait.widgetRetryTime(now, now))
+        assertNull(RetryWait.widgetRetryTime(now - 5_000, now))
+        assertNull(RetryWait.widgetRetryTime(0L, now))
+    }
+
+    @Test
+    fun widgetLayoutHasNoCountdown() {
+        val path = listOf("", "app/", "android/app/").map { "${it}src/main/res/layout/widget_list.xml" }
+            .firstOrNull { java.io.File(it).isFile }
+        val layout = java.io.File(SourceGuard.android(path, "widget_list.xml")).readText()
+        // Uhrzeit des Versuchs als einfacher Text, nicht als herunterzählender Chronometer
+        assertTrue(Regex("""<TextView\s+[^>]*android:id="@\+id/widget_retry_at"""").containsMatchIn(layout))
+        assertFalse(layout.contains("widget_retry_countdown"))
     }
 
     // ── Bericht ─────────────────────────────────────────────────────────────

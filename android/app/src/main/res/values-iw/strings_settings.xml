@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">״%1$s״ משווה למחיר לפני 24 שעות בדיוק. ״00:00״ משווה למחיר הפתיחה בחצות באזור הזמן הזה.</string>
     <string name="settings_change_basis_hint_3">ההתראות אינן מושפעות.</string>
     <string name="settings_change_basis_hint_since_last">״%1$s״ משווה למחיר של העדכון הקודם. במחירים חיים הערך נשאר קרוב ל-0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">מטבע להמרה</string>

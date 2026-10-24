@@ -5,6 +5,12 @@ import XCTest
 /// gespeicherten Stand (`SharedStorage.Snapshot`, `watchlist.json`, auch von den Widgets gelesen): Grösse, Zeit zum
 /// Schreiben und Lesen. Grenzen und Skalierung: `PerformanceTiming`. Wie `BackupPerformanceTest.kt`.
 final class BackupPerformanceTests: XCTestCase {
+    /// Unter Thread Sanitizer (CI setzt `CC_SKIP_PERFORMANCE=1`) übersprungen: die Zeiten wären verfälscht.
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try PerformanceTiming.skipIfRequested()
+    }
+
     private typealias T = PerformanceTiming
     private static let twoMB = 2 * 1024 * 1024
     /// Der Stand trägt zusätzlich Kurse, Zeiten und Veränderung je Paar: gerechnet rund 1,7 MB.

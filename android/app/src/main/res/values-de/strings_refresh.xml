@@ -112,13 +112,14 @@
     <string name="refresh_sheet_exchange_detail">Meldung der Börse: %1$s</string>
 
     <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
-         Status der Merkliste (zählt herunter), Ansage dazu, Chronometer-Format im Listen-Widget (%1$s = «0:30» bzw. «27 s»),
-         Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
     <string name="watchlist_retry_countdown">Speicher noch gesperrt – neuer Versuch in %1$d s</string>
     <plurals name="watchlist_retry_countdown_a11y">
         <item quantity="one">Speicher noch gesperrt – neuer Versuch in %1$d Sekunde</item>
         <item quantity="other">Speicher noch gesperrt – neuer Versuch in %1$d Sekunden</item>
     </plurals>
-    <string name="widget_retry_countdown">Neuer Versuch in %1$s</string>
+    <string name="watchlist_retry_short">Neuer Versuch in %1$s</string>
+    <string name="widget_retry_at">Neuer Versuch um %1$s</string>
     <string name="refresh_sheet_wait_attempt">%1$d. Versuch – der verschlüsselte Speicher war beim ersten noch nicht bereit</string>
 </resources>

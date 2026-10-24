@@ -150,4 +150,5 @@
         <item quantity="other">Elimini din nou %1$d de perechi?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Perechile pentru care ai setat între timp o alarmă rămân.</string>
+    <string name="bulk_undo_expired">Anularea nu mai este posibilă – perechile rămân în lista de urmărire.</string>
 </resources>

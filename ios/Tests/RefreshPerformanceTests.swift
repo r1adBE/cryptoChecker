@@ -6,6 +6,12 @@ import XCTest
 /// den Stand übertragen (`Outcome.apply`) und der Vermerk «nicht geprüft» (`AlarmCheckStatus`). Grenzen und
 /// Skalierung: `PerformanceTiming`. Wie `RefreshPerformanceTest.kt`.
 final class RefreshPerformanceTests: XCTestCase {
+    /// Unter Thread Sanitizer (CI setzt `CC_SKIP_PERFORMANCE=1`) übersprungen: die Zeiten wären verfälscht.
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try PerformanceTiming.skipIfRequested()
+    }
+
     private typealias T = PerformanceTiming
     private typealias Outcome = PriceRefresher.Outcome
     private let now: Int64 = PerformanceData.updatedAt + 60_000

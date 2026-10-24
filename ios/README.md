@@ -616,8 +616,9 @@ Erledigt (statisch geprüft, ohne Xcode — massgebend ist der erste CI-Lauf mit
 2. **Portfolio.** Die `nonisolated(unsafe) static var`-Zwischenspeicher in `PortfolioPriceSource` (samt `+Store`),
    `FxRateSource`, `PortfolioHistorySource` (samt `+Chain`), `HistoricPriceSource` und `PortfolioRouteResolver` sind
    geprüft und kommentiert: jeder Zugriff nur unter der genannten Sperre (auch in `PortfolioPriceSourceClearTests`).
-4. **Laufzeitprüfungen.** Einstiegspunkte durchgesehen: Mitteilungs-Delegate (`@preconcurrency`-Konformität,
-   `willPresent` `nonisolated`), `BGTaskScheduler`-Handler und `expirationHandler` (nicht isoliert),
+4. **Laufzeitprüfungen.** Einstiegspunkte durchgesehen: Mitteilungs-Delegate (`willPresent` und `didReceive`
+   `nonisolated`; `didReceive` liest die Antwort sofort als Sendable-Werte aus und erledigt Pause, Navigation und
+   `AppData` samt `completionHandler` in einem MainActor-Task), `BGTaskScheduler`-Handler und `expirationHandler` (nicht isoliert),
    `NWPathMonitor` (`NetworkStatus`, `UnmeteredNetwork`: nicht isoliert), UIKit-Farb-Closures (nur in nicht isolierten
    Typen), `NotificationCenter`-Beobachter, Combine/`onReceive` (Stromsparmodus über den Haupt-Thread),
    `AVSpeechSynthesizerDelegate` (`nonisolated`), WebSocket-Ping (`@Sendable`), `WidgetCenter.getCurrentConfigurations`.

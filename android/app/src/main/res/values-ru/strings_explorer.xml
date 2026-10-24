@@ -162,4 +162,5 @@
         <item quantity="other">Снова удалить %1$d пары?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Пары, у которых тем временем появилось оповещение, останутся.</string>
+    <string name="bulk_undo_expired">Отменить уже нельзя – пары останутся в списке.</string>
 </resources>

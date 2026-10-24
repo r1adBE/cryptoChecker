@@ -138,4 +138,5 @@
         <item quantity="other">Poistetaanko %1$d paria taas?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Parit, joille olet sillä välin asettanut hälytyksen, jäävät.</string>
+    <string name="bulk_undo_expired">Kumoaminen ei ole enää mahdollista – parit jäävät seurantalistalle.</string>
 </resources>

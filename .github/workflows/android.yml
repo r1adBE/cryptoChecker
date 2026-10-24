@@ -1,8 +1,8 @@
 # Release gate for the Android app (android/): unit tests, lint (debug and release), instrumented
 # tests compiled, debug and release (R8, unsigned) APK and AAB, an audit of the release build
 # (merged manifest policy, R8 mapping, baseline profile, 16 KB alignment; results as annotations)
-# and the release evidence as artifact; on pull requests also a dependency review. Display only (never red): lint
-# warnings by id and unit-test line coverage (Kover) as notices.
+# and the release evidence as artifact; on pull requests also a dependency review. Gate: unit-test line coverage
+# (Kover, «logic» below MIN_LOGIC is red; notice with the numbers). Display only (never red): lint warnings by id.
 name: Android
 
 on:

@@ -41,7 +41,8 @@ dependencies {
     testImplementation(libs.junit)
 }
 
-// Testabdeckung nur auf Anfrage (CI-Schritt «Coverage»: -Pcoverage=true), sonst laufen die Tests ohne Instrumentierung
+// Testabdeckung nur auf Anfrage (CI-Schritt «Coverage (logic gate)»: -Pcoverage=true), sonst laufen die Tests ohne
+// Instrumentierung; die Schwelle prüft die CI über den zusammengeführten Bericht von :app
 if (providers.gradleProperty("coverage").orNull == "true") {
     apply(plugin = libs.plugins.kover.get().pluginId)
 }

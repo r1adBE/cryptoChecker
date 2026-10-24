@@ -2,7 +2,8 @@
 # unit tests (target CryptoCheckerTests, incl. the shared Android/iOS cases in Tests/Parity)
 # and the UI tests of the main flows (target CryptoCheckerUITests: add a coin, price alarm,
 # CSV import, backup — app started with -uiTesting: empty storage, fake exchange answers).
-# Display only (never red): line coverage of the unit tests as a notice (total and logic = Shared/ without views).
+# Gate: line coverage of the unit tests (notice with total and logic = Shared/ without views; logic below
+# MIN_LOGIC is red).
 # Runs on every pull request, on pushes to main when ios/ changes, and by hand
 # (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only changes skip it.
 # Signing, archiving and uploading happen locally in Xcode.
@@ -190,6 +191,9 @@ jobs:
 
       # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app). The same run records the line
       # coverage (-enableCodeCoverage, result bundle UnitTests.xcresult); the step «Coverage (logic gate)» reads it.
+      # With Thread Sanitizer the performance tests (time limits) are skipped: TSAN slows everything down several
+      # times, so their limits would fail without a real regression. xcodebuild hands every environment variable
+      # with the prefix TEST_RUNNER_ to the test process without the prefix, so the tests see CC_SKIP_PERFORMANCE=1.
       - name: Unit tests (iOS Simulator)
         working-directory: ios
         env:
@@ -197,6 +201,10 @@ jobs:
         run: |
           LOG="$RUNNER_TEMP/xcode-test.log"
           echo "Thread Sanitizer: $TSAN"
+          if [ "$TSAN" = YES ]; then
+            export TEST_RUNNER_CC_SKIP_PERFORMANCE=1
+            echo "Performance tests skipped (CC_SKIP_PERFORMANCE=1)"
+          fi
           set +e
           xcodebuild test \
             -enableThreadSanitizer "$TSAN" \
@@ -247,14 +255,23 @@ jobs:
       # Line coverage of the unit-test run above as ONE notice: total and «logic» (files under Shared/ without SwiftUI
       # views). Gate: «logic» must not fall below MIN_LOGIC (just under the measured value: stops regressions without
       # forcing new work; raise it when coverage grows). Only after green unit tests; a missing report is red.
+      # Thread Sanitizer run (manual): display only, no gate - the skipped performance tests also cover logic, so the
+      # number is not comparable with MIN_LOGIC; the regular runs (without TSAN) keep the gate.
       - name: Coverage (logic gate)
         timeout-minutes: 5
         env:
           MIN_LOGIC: '78'
+          TSAN: ${{ inputs.thread_sanitizer && 'YES' || 'NO' }}
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" --self-test
           xcrun xccov view --report --json "$RUNNER_TEMP/UnitTests.xcresult" > "$RUNNER_TEMP/xccov.json" || true
-          python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" --min-logic "$MIN_LOGIC" "$RUNNER_TEMP/xccov.json"
+          if [ "$TSAN" = YES ]; then
+            echo "::notice title=iOS coverage gate::Thread Sanitizer run: coverage shown only, gate not applied"
+            python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" "$RUNNER_TEMP/xccov.json"
+          else
+            python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" --min-logic "$MIN_LOGIC" \
+              "$RUNNER_TEMP/xccov.json"
+          fi
 
       - name: Upload Xcode logs
         if: failure()

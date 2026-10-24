@@ -150,4 +150,5 @@
         <item quantity="other">¿Quitar de nuevo %1$d pares?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Los pares para los que hayas creado una alarma mientras tanto se quedan.</string>
+    <string name="bulk_undo_expired">Ya no se puede deshacer – los pares se quedan en la lista de seguimiento.</string>
 </resources>

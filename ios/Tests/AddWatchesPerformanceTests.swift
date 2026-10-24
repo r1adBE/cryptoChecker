@@ -6,6 +6,12 @@ import XCTest
 /// Identitäten, höchste Id und nächster Platz werden einmal vorab berechnet, der Durchlauf ist also linear — darum mit
 /// Skalierungsprüfung 2000 gegen 500 Paare (`PerformanceTiming`, Median).
 final class AddWatchesPerformanceTests: XCTestCase {
+    /// Unter Thread Sanitizer (CI setzt `CC_SKIP_PERFORMANCE=1`) übersprungen: die Zeiten wären verfälscht.
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try PerformanceTiming.skipIfRequested()
+    }
+
     private typealias T = PerformanceTiming
 
     func testBulkInsertIntoEmptyWatchlist() throws {

@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">„%1$s“ porovnává s cenou přesně před 24 hodinami. „00:00“ porovnává s otevírací cenou o půlnoci v tomto časovém pásmu.</string>
     <string name="settings_change_basis_hint_3">Alarmů se to netýká.</string>
     <string name="settings_change_basis_hint_since_last">„%1$s“ porovnává s cenou z předchozí aktualizace. U živých cen zůstává blízko 0 %%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Měna přepočtu</string>

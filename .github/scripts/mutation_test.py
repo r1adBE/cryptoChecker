@@ -5,7 +5,8 @@ For every target file (pure Kotlin logic under android/app/src/main/java/.../dom
 fee expenses, display-currency conversion, the tax engines and the tax export rows) the script creates mutants by
 fixed rules, runs the unit-test classes configured for that file with Gradle and reports whether the tests noticed
 the change («killed», tests red) or not («survived»). The file is always restored afterwards (try/finally, also on
-Ctrl-C / SIGTERM of a cancelled run; the restored bytes are checked).
+Ctrl-C / SIGTERM of a cancelled run; written atomically via a temporary file in the same folder and os.replace, so
+the file is never left half written; the restored bytes are checked).
 
 Rules (only in code: never inside strings, character literals, comments or generics):
   <  <->  <=        >  <->  >=        ==  <->  !=        &&  <->  ||
@@ -20,7 +21,9 @@ Binary operators are only taken in the code style of the sources (one space on b
 Selection: per file at most --per-file mutants, chosen deterministically (sorted by a hash of file, line, column and
 rule — the same sources always give the same mutants), at most --max-total over all files (round robin, so every
 file gets its share) and no new mutant after --time-limit minutes. A mutant that does not compile is reported as
-«not compilable» and not counted; a Gradle run that hits --mutant-timeout counts as killed.
+«not compilable» and not counted; a Gradle run that hits --mutant-timeout counts as killed. After such a timeout the
+Gradle daemons are stopped (`gradlew --stop`, own short timeout, failures ignored): killing the client does not stop
+the daemon, which would otherwise go on with the hung test run and hold its locks for the next mutant.
 
 Report: findings for annotate.py (one line «level<TAB>file<TAB>line<TAB>message»): a notice per file with the share
 of killed mutants, a warning per surviving mutant (file:line, the change), a notice with the total. Errors (exit 1)
@@ -383,28 +386,62 @@ def _on_signal(signum, frame):
     raise Terminated(f"signal {signum}")
 
 
-@contextlib.contextmanager
-def mutated(file_path, original_bytes, new_text):
-    """Writes the mutant; the original bytes are always written back (and checked)."""
+def write_atomic(file_path, data, replace=os.replace):
+    """Writes data to a temporary file in the same folder and moves it over file_path (keeps the file mode).
+
+    The target holds either the old or the new bytes, never a mix; on failure the temporary file is removed."""
+    folder = os.path.dirname(os.path.abspath(file_path))
+    fd, tmp = tempfile.mkstemp(prefix=".mutation-", suffix=".tmp", dir=folder)
     try:
-        with open(file_path, "wb") as f:
-            f.write(new_text.encode("utf-8"))
+        with os.fdopen(fd, "wb") as f:
+            f.write(data)
+            f.flush()
+            os.fsync(f.fileno())
+        with contextlib.suppress(OSError):
+            os.chmod(tmp, os.stat(file_path).st_mode & 0o7777)
+        replace(tmp, file_path)
+    except BaseException:
+        with contextlib.suppress(OSError):
+            os.unlink(tmp)
+        raise
+
+
+@contextlib.contextmanager
+def mutated(file_path, original_bytes, new_text, replace=os.replace):
+    """Writes the mutant; the original bytes are always written back atomically (and checked)."""
+    try:
+        write_atomic(file_path, new_text.encode("utf-8"), replace)
         yield
     finally:
-        with open(file_path, "wb") as f:
-            f.write(original_bytes)
+        try:
+            write_atomic(file_path, original_bytes, replace)
+        except OSError as e:
+            raise RuntimeError(f"could not restore {file_path}: {e}") from e
         with open(file_path, "rb") as f:
             if f.read() != original_bytes:
                 raise RuntimeError(f"could not restore {file_path}")
 
 
-def gradle_runner(cmd, cwd, timeout):
+STOP_TIMEOUT = 120   # seconds for `gradlew --stop` after a mutant timeout
+
+
+def stop_daemons(gradle, cwd, run=subprocess.run):
+    """`gradle --stop` with its own timeout; every failure is ignored (best effort, the next run starts fresh)."""
     try:
-        p = subprocess.run(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout,
-                           text=True, errors="replace")
+        run([gradle, "--stop"], cwd=cwd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=STOP_TIMEOUT)
+    except (OSError, subprocess.SubprocessError):
+        pass
+
+
+def gradle_runner(cmd, cwd, timeout, run=subprocess.run):
+    """(exit code, output) of one Gradle run; (None, output) on timeout, after stopping the Gradle daemons."""
+    try:
+        p = run(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout,
+                text=True, errors="replace")
         return p.returncode, p.stdout
     except subprocess.TimeoutExpired as e:
         out = e.stdout if isinstance(e.stdout, str) else (e.stdout or b"").decode("utf-8", "replace")
+        stop_daemons(cmd[0], cwd, run)
         return None, out
 
 
@@ -474,8 +511,8 @@ def run(args, targets, runner=gradle_runner, clock=time.monotonic):
         try:
             with mutated(full, texts[m.path], new_text):
                 code, output = runner(cmd, android_dir, args.mutant_timeout)
-        except RuntimeError as e:
-            findings.append(("error", m.path, str(m.line), str(e)))
+        except (RuntimeError, OSError) as e:
+            findings.append(("error", m.path, str(m.line), f"{e.__class__.__name__}: {e}"))
             return findings, 1
         result = classify(code, output)
         print(f"    -> {result}", flush=True)
@@ -631,6 +668,41 @@ def self_test():
         with open(full, "rb") as f:
             assert f.read() == original
 
+        # Atomic restore: file mode kept, no temporary file left; a failing replace leaves the old bytes intact
+        os.chmod(full, 0o640)
+        with mutated(full, original, "mutant"):
+            pass
+        assert os.stat(full).st_mode & 0o777 == 0o640 and os.listdir(os.path.dirname(full)) == ["Sample.kt"]
+
+        def failing_replace(src, dst):
+            raise OSError("disk full")
+
+        try:
+            write_atomic(full, b"half", replace=failing_replace)
+            raise AssertionError("write_atomic must raise")
+        except OSError:
+            pass
+        with open(full, "rb") as f:
+            assert f.read() == original
+        assert os.listdir(os.path.dirname(full)) == ["Sample.kt"]
+        # Restore that fails -> RuntimeError (run() turns it into an error finding, exit 1)
+        replaces = []
+
+        def second_fails(src, dst):
+            replaces.append(src)
+            if len(replaces) == 2:
+                raise OSError("read-only")
+            os.replace(src, dst)
+
+        try:
+            with mutated(full, original, "mutant", replace=second_fails):
+                pass
+            raise AssertionError("failed restore must raise")
+        except RuntimeError as e:
+            assert "could not restore" in str(e) and "read-only" in str(e), e
+        write_atomic(full, original)
+        assert os.listdir(os.path.dirname(full)) == ["Sample.kt"]
+
         # Full run with a fake Gradle: classification, file restored, findings format
         calls = []
 
@@ -679,6 +751,24 @@ def self_test():
         assert code == 1 and sum(1 for f in findings if f[0] == "error") == 2, findings
         with open(full, "rb") as f:
             assert f.read() == original
+
+    # Gradle runner: a timeout stops the daemons (own timeout); a failing --stop is ignored; no stop otherwise
+    seen = []
+
+    def fake_run(cmd, **kw):
+        seen.append((cmd, kw.get("timeout")))
+        if cmd[-1] == "--stop":
+            raise subprocess.TimeoutExpired(cmd, kw.get("timeout"))
+        if cmd[-1] == "hang":
+            raise subprocess.TimeoutExpired(cmd, kw.get("timeout"), output=b"partial")
+        return subprocess.CompletedProcess(cmd, 0, stdout="ok")
+
+    assert gradle_runner(["/a/gradlew", "test", "hang"], "/a", 600, run=fake_run) == (None, "partial")
+    assert seen == [(["/a/gradlew", "test", "hang"], 600), (["/a/gradlew", "--stop"], STOP_TIMEOUT)], seen
+    seen.clear()
+    assert gradle_runner(["/a/gradlew", "test"], "/a", 600, run=fake_run) == (0, "ok")
+    assert seen == [(["/a/gradlew", "test"], 600)], seen
+    stop_daemons("/missing/gradlew", "/", run=lambda *a, **k: (_ for _ in ()).throw(FileNotFoundError("x")))
 
     # The configured targets exist next to this script (repository checkout), when it is one
     here = os.path.dirname(os.path.abspath(__file__))

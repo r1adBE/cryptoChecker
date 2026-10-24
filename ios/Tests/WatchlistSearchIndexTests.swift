@@ -91,4 +91,35 @@ final class WatchlistSearchIndexTests: XCTestCase {
             XCTAssertEqual(index.filter(list, query: q, names: names), direct(list, q, names))
         }
     }
+
+    /// Coin-Namen der Suche: einmal je Listenstand bzw. Namensliste, nicht je Tastendruck (wie `rememberSearchNames`);
+    /// Kurse zählen nicht, ein anderes Paar, eine neue Namensliste und «Suche zu» schon.
+    func testNamesAreCachedPerListAndNameList() {
+        let stored = ["BTC": "Bitcoin", "SOL": "Solana"]
+        let index = WatchlistSearchIndex()
+        let first = index.names(for: watches, names: stored, tradFiPairs: [], stockNames: { [:] })
+        XCTAssertEqual(first, WatchlistSearch.names(for: watches, names: stored, tradFiPairs: [], stockNames: { [:] }))
+        XCTAssertEqual(first[1], "Bitcoin")
+        for _ in 0..<5 { _ = index.names(for: watches, names: stored, tradFiPairs: [], stockNames: { [:] }) }
+        XCTAssertEqual(index.namesBuilt, 1)
+        // Nur Kurse geändert: weiter aus dem Zwischenspeicher
+        let ticked = watches.map { original -> Watch in
+            var w = original
+            w.lastPrice = 7
+            return w
+        }
+        _ = index.names(for: ticked, names: stored, tradFiPairs: [], stockNames: { [:] })
+        XCTAssertEqual(index.namesBuilt, 1)
+        // Anderes Paar an derselben Stelle bzw. neue Namensliste: neu
+        var swapped = watches
+        swapped[0].baseAsset = "SOL"
+        XCTAssertEqual(index.names(for: swapped, names: stored, tradFiPairs: [], stockNames: { [:] })[1], "Solana")
+        XCTAssertEqual(index.namesBuilt, 2)
+        let renamed = index.names(for: swapped, names: ["SOL": "Sol"], tradFiPairs: [], stockNames: { [:] })
+        XCTAssertEqual(renamed[1], "Sol")
+        XCTAssertEqual(index.namesBuilt, 3)
+        index.clear()
+        _ = index.names(for: swapped, names: ["SOL": "Sol"], tradFiPairs: [], stockNames: { [:] })
+        XCTAssertEqual(index.namesBuilt, 4)
+    }
 }

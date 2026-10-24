@@ -17,8 +17,10 @@ Detailed build history below.
 
 ## 16.2.2 (build 123)
 
-* Android: when the widget's «Refresh» has to wait because the encrypted storage is not unlocked yet, the watchlist status shows «Storage still locked – retrying in 27 s» and counts down (announced once by TalkBack); the list widget shows «Retrying in 0:30» instead of the time. The retry interval stays 30 s.
+* Android: when the widget's «Refresh» has to wait because the encrypted storage is not unlocked yet, the watchlist status shows «Storage still locked – retrying in 27 s» and counts down (announced once by TalkBack); the list widget shows the fixed retry time «Retrying at 14:32» (12/24 h as set on the device) instead of the time. The retry interval stays 30 s.
 * Android: «Last refresh» notes under «Waiting to start» when a run was not the first attempt («Attempt 2 – the encrypted storage wasn't ready on the first one»).
+* Android: the portfolio CSV import keeps its result when the screen is rotated while saving; preparing the rows after «Import» runs off the main thread; «Cancel» disappears once all rows are saved (linking transfers can no longer be cancelled); a failed row is reported as an error instead of a count.
+* «Remove pairs again?» after adding many pairs checks the undo window again on «Remove»: if it has expired, nothing is deleted and a note says the pairs stay in the watchlist (Android and iOS).
 
 ## 16.2.2 (build 122)
 
@@ -36,7 +38,7 @@ Start of phase C (quality and tests):
 * iOS: the app is built in the Swift 6 language mode (strict concurrency checked by the compiler and at run time); system callbacks (notifications, WebSocket ping, Low Power Mode) run on the right thread.
 * Watchlist search: the search text of every pair is prepared once per list change, so each keystroke only compares (also with thousands of pairs).
 * Indicators: the RSI with an invalid period returns no value on Android, like iOS (it returned «not a number»).
-* Tests and tooling: line coverage shown per platform as total and «logic» (Android including the market-data module, iOS new); new shared indicator cases and tests for exchange rates and price formatting; weekly mutation tests for the tax, portfolio and alarm logic; the device test classifies the undo of «add many pairs» as a user write (locked watchlist: nothing changes); the store-guide check also covers tag examples and the archive name; the performance tests run in their own CI step (not in parallel with other tests, so the timings no longer vary with the load); one lint warning less (bulk-add banner reads resources via LocalResources).
+* Tests and tooling: line coverage shown per platform as total and «logic» (Android including the market-data module, iOS new); new shared indicator cases and tests for exchange rates and price formatting; weekly mutation tests for the tax and portfolio logic; the device test classifies the undo of «add many pairs» as a user write (locked watchlist: nothing changes); the store-guide check also covers tag examples and the archive name; the performance tests run in their own CI step (not in parallel with other tests, so the timings no longer vary with the load); one lint warning less (bulk-add banner reads resources via LocalResources).
 
 ## 16.2.2 (build 120)
 

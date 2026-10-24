@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.components
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.saveable.SaverScope
+import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -12,24 +13,30 @@ import java.io.File
 
 /**
  * «Rückgängig» nach «Mehrere Paare auf einmal» löscht erst nach der Rückfrage ([BulkUndoConfirm]: nur «Entfernen» ruft
- * den Undo-Weg) und Meldungen mit Aktion tragen das Schliessen-✕ ([AppSnackbarVisuals.withDismissAction]). Wie iOS
- * `BulkUndoConfirmTests`.
+ * den Undo-Weg, und nur solange «Rückgängig» noch gilt) und Meldungen mit Aktion tragen das Schliessen-✕
+ * ([AppSnackbarVisuals.withDismissAction]). Wie iOS `BulkUndoConfirmTests`.
  */
 class BulkUndoConfirmTest {
+
+    private val end = 1_000_000L
+    private val inWindow = end + 5_000L
+
+    private fun BulkUndoConfirm.removeNow(now: Long = inWindow, expired: () -> Unit = {}, undo: (List<Long>) -> Unit) =
+        remove(now, expired, undo)
 
     @Test
     fun `Rueckgaengig oeffnet nur den Dialog, Undo erst nach Entfernen`() {
         val undone = mutableListOf<List<Long>>()
         val confirm = BulkUndoConfirm()
-        confirm.request(listOf(1L, 2L, 3L))
+        confirm.request(listOf(1L, 2L, 3L), end)
         assertEquals(listOf(1L, 2L, 3L), confirm.pending)
         assertTrue("noch nichts entfernt", undone.isEmpty())
 
-        confirm.remove { undone += it }
+        confirm.removeNow { undone += it }
         assertEquals(listOf(listOf(1L, 2L, 3L)), undone)
         assertNull(confirm.pending)
         // Doppelt getippt: nur einmal entfernt
-        confirm.remove { undone += it }
+        confirm.removeNow { undone += it }
         assertEquals(1, undone.size)
     }
 
@@ -37,28 +44,51 @@ class BulkUndoConfirmTest {
     fun `Behalten entfernt nichts`() {
         val undone = mutableListOf<List<Long>>()
         val confirm = BulkUndoConfirm()
-        confirm.request(listOf(7L))
+        confirm.request(listOf(7L), end)
         confirm.keep()
         assertNull(confirm.pending)
-        confirm.remove { undone += it }
+        confirm.removeNow { undone += it }
         assertTrue(undone.isEmpty())
     }
 
     @Test
     fun `ohne neue Paare kein Dialog`() {
         val confirm = BulkUndoConfirm()
-        confirm.request(emptyList())
+        confirm.request(emptyList(), end)
         assertNull(confirm.pending)
         assertNull(BulkUndoConfirm(emptyList()).pending)
     }
 
     @Test
-    fun `offener Dialog uebersteht das Speichern`() {
+    fun `Entfernen nach Ablauf des Zeitfensters loescht nichts`() {
+        val undone = mutableListOf<List<Long>>()
+        var expired = 0
         val confirm = BulkUndoConfirm()
-        confirm.request(listOf(4L, 5L))
+        confirm.request(listOf(1L, 2L), end)
+        confirm.removeNow(now = end + BulkAddRunner.UNDO_WINDOW_MS + 1, expired = { expired++ }) { undone += it }
+        assertTrue("abgelaufen: nichts gelöscht", undone.isEmpty())
+        assertEquals(1, expired)
+        assertNull("Dialog zu", confirm.pending)
+        // Genau an der Grenze gilt es noch (wie BulkAddRunner.undoOffered)
+        confirm.request(listOf(3L), end)
+        confirm.removeNow(now = end + BulkAddRunner.UNDO_WINDOW_MS, expired = { expired++ }) { undone += it }
+        assertEquals(listOf(listOf(3L)), undone)
+        assertEquals(1, expired)
+    }
+
+    @Test
+    fun `offener Dialog uebersteht das Speichern samt Ende der Aufnahme`() {
+        val confirm = BulkUndoConfirm()
+        confirm.request(listOf(4L, 5L), end)
         val saved = save(confirm)
-        assertEquals(listOf(4L, 5L), saved?.toList())
-        assertEquals(listOf(4L, 5L), BulkUndoConfirm.Saver.restore(saved!!)?.pending)
+        assertEquals(listOf(end, 4L, 5L), saved?.toList())
+        val restored = BulkUndoConfirm.Saver.restore(saved!!)
+        assertEquals(listOf(4L, 5L), restored?.pending)
+        assertEquals(end, restored?.finishedAt)
+        // Nach dem Wiederherstellen prüft «Entfernen» weiter das ursprüngliche Ende
+        var expired = false
+        restored?.removeNow(now = end + BulkAddRunner.UNDO_WINDOW_MS + 1, expired = { expired = true }) { }
+        assertTrue(expired)
         assertNull("kein Dialog: nichts zu sichern", save(BulkUndoConfirm()))
     }
 
@@ -78,19 +108,22 @@ class BulkUndoConfirmTest {
     @Test
     fun `Explorer und Merkliste fragen vor dem Entfernen`() {
         val feedback = source("ui/features/explorer/ExplorerFeedback.kt")
-        assertTrue(feedback.contains("bulkUndo.request(state.addedIds)"))
-        assertTrue(feedback.contains("BulkUndoConfirmDialog(bulkUndo, onRemove = onUndoBulk)"))
+        assertTrue(feedback.contains("bulkUndo.request(state.addedIds, state.finishedAt)"))
+        assertTrue(feedback.contains("BulkUndoConfirmDialog(bulkUndo, onExpired = onUndoExpired, onRemove = onUndoBulk)"))
+        assertTrue(feedback.contains("R.string.bulk_undo_expired"))
         assertFalse("kein direktes Undo aus der Meldung", feedback.contains("onUndoBulk(state.addedIds)"))
 
         val watchlist = source("ui/features/watchlist/WatchlistBulkAdd.kt")
-        assertTrue(watchlist.contains("undoConfirm.request(ids)"))
+        assertTrue(watchlist.contains("undoConfirm.request(ids, current.finishedAt)"))
+        assertTrue(watchlist.contains("R.string.bulk_undo_expired"))
         val undoCalls = Regex("""runner\.undo\(""").findAll(watchlist).count()
         assertEquals("runner.undo nur in onRemove des Dialogs", 1, undoCalls)
-        assertTrue(watchlist.contains("BulkUndoConfirmDialog(undoConfirm, onRemove = { viewModel.runner.undo(it) })"))
+        assertTrue(watchlist.contains("onRemove = { viewModel.runner.undo(it) }"))
 
         val ios = iosSource("App/Features/Explorer/ExplorerScreen.swift")
-        assertTrue(ios.contains("onUndo: { bulkUndo.request(\$0) }"))
-        assertTrue(ios.contains("bulkUndo.remove(ids) { vm.undoBulkAdd(\$0) }"))
+        // iOS: Dialog über bulkUndo.request, gelöscht nur im Entfernen-Weg (Prüfung des Zeitfensters dort)
+        assertTrue(ios.contains("bulkUndo.request("))
+        assertTrue(ios.contains("vm.undoBulkAdd("))
 
         // Erfolgs-Haptik erst bei «Entfernen»: im Dialog, nicht beim Tippen auf «Rückgängig» in der Merkliste
         assertTrue(source("ui/components/BulkUndoConfirm.kt").contains("haptics.play(HapticEvent.SUCCESS)"))

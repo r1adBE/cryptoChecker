@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">A „%1$s” a pontosan 24 órával korábbi árfolyamhoz hasonlít. A „00:00” az ebben az időzónában éjfélkor érvényes nyitóárfolyamhoz hasonlít.</string>
     <string name="settings_change_basis_hint_3">A riasztásokat ez nem érinti.</string>
     <string name="settings_change_basis_hint_since_last">A „%1$s” az előző frissítés árfolyamához hasonlít. Élő árfolyamoknál 0%% közelében marad.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Átváltási pénznem</string>

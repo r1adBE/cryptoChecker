@@ -138,4 +138,5 @@
         <item quantity="other">%1$d جفت دوباره حذف شود؟</item>
     </plurals>
     <string name="bulk_undo_confirm_text">جفت‌هایی که در این فاصله برایشان هشدار تنظیم کرده‌ای، می‌مانند.</string>
+    <string name="bulk_undo_expired">واگرد دیگر ممکن نیست – جفت‌ها در واچ‌لیست می‌مانند.</string>
 </resources>
