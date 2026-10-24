@@ -61,9 +61,9 @@
     <string name="market_info_macro_what">重要な米国経済指標の発表日です。インフレ（CPI、PCE）、生産者物価（PPI）、雇用統計、米連邦準備制度理事会（FRB）の金利決定などで、こうした数字は暗号資産の価格も動かすことがよくあります。</string>
     <string name="market_info_no_advice">投資助言ではありません。</string>
     <string name="market_info_phase_source">Binance、Coin Metrics · 価格は1時間ごと、オンチェーン値は12時間ごとに再読み込み</string>
-    <string name="market_info_pulse_how">見出しは方向を示し、カードを開くと詳細が表示されます。幅広い動きとは、大きなコインの多くが同じ方向に動いていることです。資金調達率が高いとは、多くの人がレバレッジをかけて値上がりに賭けていることです。現時点のスナップショットで、予測ではありません。</string>
+    <string name="market_info_pulse_how">見出しは方向を示し、カードを開くと詳細が表示されます。幅広い動きとは、大きなコインの多くが同じ方向に動いていることです。レバレッジ取引の心理が強気とは、多くの人がレバレッジをかけて値上がりに賭けていることです（Bitcoin 先物の資金調達率で判断）。現時点のスナップショットで、予測ではありません。</string>
     <string name="market_info_pulse_source">Binance、CoinGecko · 約5分ごとに再読み込み</string>
-    <string name="market_info_pulse_what">過去24時間の市場の短いまとめです。Bitcoin、Ethereum、Solana の動き、最大級のコインのうちいくつが上昇・下落しているか、いまどれだけの Bitcoin が取引されているか、Bitcoin 先物の資金調達率がどの水準にあるかを示します。</string>
+    <string name="market_info_pulse_what">過去24時間の市場の短いまとめです。Bitcoin、Ethereum、Solana の動き、最大級のコインのうちいくつが上昇・下落しているか、いまどれだけの Bitcoin が取引されているか、レバレッジ取引の心理（Bitcoin 先物の資金調達率で判断）を示します。</string>
     <string name="market_info_totals_how">横に24時間での合計価値の変化が表示されます。取引高が多いのは売買が活発だという意味で、方向は示しません。可能なら換算通貨で、そうでなければ米ドルで表示します。</string>
     <string name="market_info_totals_source">全コイン · CoinGecko · 約30分ごとに再読み込み</string>
     <string name="market_info_totals_what">すべての暗号資産の合計価値（時価総額: 価格×流通量をすべてのコインで合計したもの）と、過去24時間の取引高です。</string>
@@ -137,8 +137,8 @@
     <string name="pulse_alts_even">アルトコインと Bitcoin が同じように動いている</string>
     <string name="pulse_alts_stronger">アルトコインが Bitcoin より強い</string>
     <string name="pulse_alts_weaker">Bitcoin がアルトコインより強い</string>
-    <string name="pulse_chip_funding_high">資金調達率 高め</string>
-    <string name="pulse_chip_funding_negative">資金調達率 マイナス</string>
+    <string name="pulse_chip_funding_high">レバレッジ取引の心理は強気</string>
+    <string name="pulse_chip_funding_negative">レバレッジ取引の心理は弱気</string>
     <string name="pulse_funding_high">資金調達率がはっきりプラス：レバレッジのロングが多い</string>
     <string name="pulse_funding_negative">資金調達率がマイナス：ショートが多い</string>
     <string name="pulse_funding_neutral">資金調達率は中立</string>

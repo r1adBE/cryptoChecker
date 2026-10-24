@@ -79,6 +79,17 @@ class RefreshResultProcessor internal constructor(
         dayStart: Long?,
         /** Live-Kurse ([LivePriceApplier]): Veränderung steht schon im Ticker, keine Ansagen, keine Volumen-Alarme. */
         live: Boolean = false,
+    ): Processed = effects.alarmCheckStatus.batch {
+        processRun(watches, fetched, settings, dayStart, live)
+    }
+
+    /** [process] ohne Sperr-Nachweis; Vermerke «nicht geprüft» gesammelt ([AlarmCheckStatus.batch]). */
+    private suspend fun processRun(
+        watches: List<WatchEntity>,
+        fetched: Map<Long, Fetched>,
+        settings: AppSettings,
+        dayStart: Long?,
+        live: Boolean,
     ): Processed {
         val now = System.currentTimeMillis()
 

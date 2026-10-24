@@ -48,16 +48,28 @@ extension AppData {
 
     /// Lage für die Rückfrage F-08: wird die Merkliste gerade nicht gespeichert?
     var watchlistGateNotSaved: Bool {
-        WatchlistNotSavedGate.appDataOverride?.notSaved ?? (watchlistStorageNotice == .notSaved)
+        #if DEBUG
+        if let override = WatchlistNotSavedGate.appDataOverride { return override.notSaved }
+        #endif
+        return watchlistStorageNotice == .notSaved
     }
 
     /// Kann die App jetzt fragen (aktiv, Fenster für die Frage vorhanden, `WatchlistNotSavedGatePresenter`)?
     var watchlistGateCanAsk: Bool {
-        WatchlistNotSavedGate.appDataOverride?.canAsk ?? (appActive && WatchlistNotSavedGatePresenter.shared.attached)
+        #if DEBUG
+        if let override = WatchlistNotSavedGate.appDataOverride { return override.canAsk }
+        #endif
+        return appActive && WatchlistNotSavedGatePresenter.shared.attached
     }
 
-    /// Tor der Rückfrage F-08: `WatchlistNotSavedGate.shared`, ausser ein Test gibt eines vor (`appDataOverride`).
-    private var watchlistGate: WatchlistNotSavedGate { WatchlistNotSavedGate.appDataOverride?.gate ?? .shared }
+    /// Tor der Rückfrage F-08: `WatchlistNotSavedGate.shared`, ausser ein Test gibt in Debug eines vor
+    /// (`appDataOverride`).
+    private var watchlistGate: WatchlistNotSavedGate {
+        #if DEBUG
+        if let override = WatchlistNotSavedGate.appDataOverride { return override.gate }
+        #endif
+        return .shared
+    }
 
     /// Review UX3-02/05, IOS3-R04: Rückfrage «Merkliste wird nicht gespeichert» EINMAL je Nutzeraktion,
     /// VOR der Aktion; false = «Abbrechen» (nichts tun, kein Banner, keine Haptik). Danach läuft der normale Weg mit

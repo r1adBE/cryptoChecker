@@ -239,6 +239,24 @@ class AlarmEditTest {
         assertEquals(AlarmCheckStatus.Reason.NO_CANDLES, store.state.value[6]?.reason)
     }
 
+    @Test
+    fun checkStatusBatchPublishesOnceAtTheEnd() = kotlinx.coroutines.test.runTest {
+        val store = AlarmCheckStatus()
+        store.markUnchecked(1, AlarmCheckStatus.Reason.NO_RATE, 10)
+        store.batch {
+            store.markUnchecked(1, AlarmCheckStatus.Reason.NO_CANDLES, 20)
+            store.markUnchecked(2, AlarmCheckStatus.Reason.NO_RATE, 20)
+            store.markChecked(3)
+            // Während des Durchlaufs noch der vorige Stand
+            assertEquals(AlarmCheckStatus.Reason.NO_RATE, store.state.value[1]?.reason)
+            assertNull(store.state.value[2])
+        }
+        assertEquals(AlarmCheckStatus.Unchecked(AlarmCheckStatus.Reason.NO_CANDLES, 10), store.state.value[1])
+        assertEquals(AlarmCheckStatus.Unchecked(AlarmCheckStatus.Reason.NO_RATE, 20), store.state.value[2])
+        store.batch { store.markChecked(2) }
+        assertNull(store.state.value[2])
+    }
+
     // MARK: Bezug neuer Prozentalarme nur aus frischem Kurs
 
     @Test

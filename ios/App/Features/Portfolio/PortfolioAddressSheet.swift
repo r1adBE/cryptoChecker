@@ -208,7 +208,8 @@ struct PortfolioAddressSheet: View {
             if a.lastUpdated > 0 {
                 // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
                 let partlyStale = a.tokenHoldings().contains { a.staleTokens.contains($0.key) }
-                return WatchlistTime.ago(a.lastUpdated, now: now) + (a.lastProvider.map { " · \($0)" } ?? "")
+                let age = WatchlistTime.ago(a.lastUpdated, now: now) // am Zeilenanfang gross: «Vor 2 Std. · Etherscan»
+                return WatchlistTime.lineStart(age, ago: age) + (a.lastProvider.map { " · \($0)" } ?? "")
                     + (partlyStale ? " · " + L("portfolio_address_tokens_partly_stale") : "")
             }
             return nil

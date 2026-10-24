@@ -61,9 +61,9 @@
     <string name="market_info_macro_what">중요한 미국 경제 지표의 발표 일정입니다. 물가(CPI, PCE), 생산자 물가(PPI), 고용보고서, 미국 연방준비제도의 금리 결정이 해당하며, 이런 수치는 암호화폐 가격도 자주 움직입니다.</string>
     <string name="market_info_no_advice">투자 조언이 아닙니다.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · 가격은 매시간, 온체인 값은 12시간마다 다시 불러옴</string>
-    <string name="market_info_pulse_how">헤드라인은 방향을 알려 주고, 카드를 펼치면 자세한 내용이 나옵니다. 폭넓은 움직임은 대부분의 큰 코인이 같은 방향으로 움직인다는 뜻입니다. 펀딩비가 높다는 것은 많은 사람이 레버리지로 상승에 걸고 있다는 뜻입니다. 지금 이 순간의 모습일 뿐, 예측이 아닙니다.</string>
+    <string name="market_info_pulse_how">헤드라인은 방향을 알려 주고, 카드를 펼치면 자세한 내용이 나옵니다. 폭넓은 움직임은 대부분의 큰 코인이 같은 방향으로 움직인다는 뜻입니다. 레버리지 심리가 낙관이라는 것은 많은 사람이 레버리지로 상승에 걸고 있다는 뜻이며, Bitcoin 선물의 펀딩비로 판단합니다. 지금 이 순간의 모습일 뿐, 예측이 아닙니다.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · 약 5분마다 다시 불러옴</string>
-    <string name="market_info_pulse_what">지난 24시간 시장의 짧은 요약입니다. Bitcoin, Ethereum, Solana가 어떻게 움직이는지, 가장 큰 코인 가운데 몇 개가 오르거나 내리는지, 지금 Bitcoin이 얼마나 거래되는지, Bitcoin 선물의 펀딩비가 어느 수준인지를 보여 줍니다.</string>
+    <string name="market_info_pulse_what">지난 24시간 시장의 짧은 요약입니다. Bitcoin, Ethereum, Solana가 어떻게 움직이는지, 가장 큰 코인 가운데 몇 개가 오르거나 내리는지, 지금 Bitcoin이 얼마나 거래되는지, 레버리지 심리가 어떤지(Bitcoin 선물의 펀딩비 기준)를 보여 줍니다.</string>
     <string name="market_info_totals_how">옆에는 24시간 동안의 전체 가치 변동이 나옵니다. 거래량이 많다는 것은 거래가 활발하다는 뜻일 뿐, 방향을 알려 주지는 않습니다. 가능하면 환산 통화로, 아니면 미국 달러로 표시합니다.</string>
     <string name="market_info_totals_source">전체 코인 · CoinGecko · 약 30분마다 다시 불러옴</string>
     <string name="market_info_totals_what">모든 암호화폐의 전체 가치(시가총액: 가격 × 유통량을 모든 코인에 대해 더한 값)와 지난 24시간의 거래량입니다.</string>
@@ -137,8 +137,8 @@
     <string name="pulse_alts_even">알트코인과 Bitcoin이 비슷하게 움직임</string>
     <string name="pulse_alts_stronger">알트코인이 Bitcoin보다 강세</string>
     <string name="pulse_alts_weaker">Bitcoin이 알트코인보다 강세</string>
-    <string name="pulse_chip_funding_high">펀딩비 높음</string>
-    <string name="pulse_chip_funding_negative">펀딩비 마이너스</string>
+    <string name="pulse_chip_funding_high">레버리지 심리 낙관</string>
+    <string name="pulse_chip_funding_negative">레버리지 심리 비관</string>
     <string name="pulse_funding_high">펀딩비 뚜렷한 양수: 레버리지 롱 많음</string>
     <string name="pulse_funding_negative">펀딩비 음수: 숏 많음</string>
     <string name="pulse_funding_neutral">펀딩비 중립</string>

@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Fontos amerikai gazdasági adatok időpontjai: infláció (CPI, PCE), termelői árak (PPI), munkaerőpiaci jelentés és az amerikai jegybank kamatdöntései. Az ilyen számok gyakran a kriptovaluták árfolyamát is mozgatják.</string>
     <string name="market_info_no_advice">Nem befektetési tanácsadás.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · árfolyamok óránként, on-chain értékek 12 óránként újratöltve</string>
-    <string name="market_info_pulse_how">A címsor az irányt mutatja, kinyitva látszanak a részletek. A széles mozgás azt jelenti, hogy a legtöbb nagy coin ugyanabba az irányba halad. A magas finanszírozási ráta azt jelenti, hogy sokan tőkeáttétellel emelkedő árfolyamra fogadnak. Pillanatkép, nem előrejelzés.</string>
+    <string name="market_info_pulse_how">A címsor az irányt mutatja, kinyitva látszanak a részletek. A széles mozgás azt jelenti, hogy a legtöbb nagy coin ugyanabba az irányba halad. Az optimista tőkeáttételes hangulat azt jelenti, hogy sokan tőkeáttétellel emelkedő árfolyamra fogadnak; a Bitcoin határidős ügyletek finanszírozási rátája alapján mérjük. Pillanatkép, nem előrejelzés.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · nagyjából 5 percenként újratöltve</string>
-    <string name="market_info_pulse_what">Rövid összefoglaló a piacról az elmúlt 24 órából: hogyan mozog a Bitcoin, az Ethereum és a Solana, a legnagyobb coinok közül hány emelkedik vagy esik, mennyi Bitcoin forog éppen, és hol áll a Bitcoin határidős ügyletek finanszírozási rátája.</string>
+    <string name="market_info_pulse_what">Rövid összefoglaló a piacról az elmúlt 24 órából: hogyan mozog a Bitcoin, az Ethereum és a Solana, a legnagyobb coinok közül hány emelkedik vagy esik, mennyi Bitcoin forog éppen, és milyen a tőkeáttételes hangulat (a Bitcoin határidős ügyletek finanszírozási rátája alapján).</string>
     <string name="market_info_totals_how">Jobbra az együttes érték 24 órás változása látható. A nagy forgalom azt jelenti, hogy sokat kereskednek, de azt nem mondja meg, milyen irányba. Lehetőleg az átváltási pénznemben, különben amerikai dollárban.</string>
     <string name="market_info_totals_source">Minden coin · CoinGecko · nagyjából 30 percenként újratöltve</string>
     <string name="market_info_totals_what">Az összes kriptovaluta együttes értéke (piaci kapitalizáció: árfolyam szorozva a forgalomban lévő mennyiséggel, minden coinra összeadva) és az elmúlt 24 óra forgalma.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Az altcoinok és a Bitcoin együtt mozognak</string>
     <string name="pulse_alts_stronger">Az altcoinok erősebbek a Bitcoinnál</string>
     <string name="pulse_alts_weaker">A Bitcoin erősebb az altcoinoknál</string>
-    <string name="pulse_chip_funding_high">Funding emelkedett</string>
-    <string name="pulse_chip_funding_negative">Funding negatív</string>
+    <string name="pulse_chip_funding_high">Tőkeáttételes hangulat optimista</string>
+    <string name="pulse_chip_funding_negative">Tőkeáttételes hangulat pesszimista</string>
     <string name="pulse_funding_high">Funding egyértelműen pozitív: sok tőkeáttételes long</string>
     <string name="pulse_funding_negative">Funding negatív: sok short</string>
     <string name="pulse_funding_neutral">Funding semleges</string>

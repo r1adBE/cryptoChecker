@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -20,8 +21,8 @@ import com.cryptochecker.app.ui.theme.SnackbarKind
 /**
  * Rückmeldungen als Snackbar statt Text, der das Layout verschiebt: Paar übernommen bzw. schon
  * da, DEX-Pool, mehrere Paare. Mit «Ansehen» zur Merkliste. Neue Paare haben Meldungen an —
- * die Erlaubnis wird jetzt gefragt, nicht beim Start. Übernommen = Erfolg, gesperrt, voll oder DEX-Suche
- * gescheitert = Fehler, sonst Info ([SnackbarKind]).
+ * die Erlaubnis wird jetzt gefragt, nicht beim Start. Übernommen = Erfolg, gesperrt, voll, DEX-Suche oder
+ * Sammelaufnahme gescheitert = Fehler, sonst Info ([SnackbarKind]).
  */
 @Composable
 internal fun ExplorerFeedback(
@@ -34,6 +35,8 @@ internal fun ExplorerFeedback(
     onBulkAddResultShown: () -> Unit,
     /** «Rückgängig» nach dem Hinzufügen mehrerer Paare (die neu angelegten Ids). */
     onUndoBulk: (List<Long>) -> Unit = {},
+    /** Ergebnis von «Mehrere Paare» wird ab jetzt gezeigt (gilt im Runner als gemeldet). */
+    onBulkAddResultClaimed: () -> Unit = {},
 ) {
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
@@ -145,6 +148,7 @@ internal fun ExplorerFeedback(
         }
     }
 
+    val bulkFailedText = stringResource(R.string.something_went_wrong)
     LaunchedEffect(bulkAddResult) {
         val done = bulkAddResult?.takeIf { !it.running }
         if (!bulkGate.claim(done)) {
@@ -152,10 +156,23 @@ internal fun ExplorerFeedback(
             return@LaunchedEffect
         }
         val state = done ?: return@LaunchedEffect
+        // Ab hier gemeldet: Runner leeren (die Merkliste zeigt es nicht noch einmal); bulkAddResult bleibt gleich, der
+        // Effekt läuft also weiter
+        onBulkAddResultClaimed()
+        if (state.failed) {
+            haptics.play(HapticEvent.WARNING)
+            try {
+                snackbar.showAppSnackbar(bulkFailedText, SnackbarKind.ERROR, duration = SnackbarDuration.Long)
+            } finally {
+                onBulkAddResultShown()
+            }
+            return@LaunchedEffect
+        }
         if (state.added > 0) requestNotifications()
         haptics.play(if (state.added > 0) HapticEvent.SUCCESS else HapticEvent.WARNING)
-        // Neue Paare angelegt: «Rückgängig» (genau diese wieder entfernen); sonst «Ansehen»
-        val undoable = state.addedIds.isNotEmpty()
+        // Neue Paare angelegt: «Rückgängig» (genau diese wieder entfernen), nur kurz nach dem Ende; sonst «Ansehen»
+        val undoable = state.addedIds.isNotEmpty() &&
+            BulkAddRunner.undoOffered(state.finishedAt, System.currentTimeMillis())
         try {
             val result = snackbar.showAppSnackbar(
                 text = bulkAddedText(resources, state),

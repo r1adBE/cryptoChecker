@@ -85,14 +85,23 @@ private const val RELATIVE_SPAN_MAX_MILLIS = 7L * 24 * 60 * 60_000
 
 /**
  * Relative Zeit für die Mitte eines Satzes: Android formt sie wie einen Satzanfang («Vor 10 Min.»), in der App steht
- * sie aber hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.») — klein wie «gerade
- * eben» und wie iOS (`formattingContext = .middleOfSentence`). Nur das erste Zeichen nach den Regeln der Sprache
+ * sie meist hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.») — klein wie «gerade
+ * eben» und wie iOS (`formattingContext = .middleOfSentence`). Am Zeilenanfang macht [lineStart] sie wieder gross. Nur das erste Zeichen nach den Regeln der Sprache
  * ([locale], z. B. Türkisch); Schriften ohne Gross/Klein bleiben unverändert. Ab einer Woche ([ageMillis]) ist es ein
  * Datum («Oct 12») — Monatsnamen bleiben, wie sie sind.
  */
 internal fun midSentence(relative: String, ageMillis: Long, locale: Locale = Locale.getDefault()): String =
     if (abs(ageMillis) >= RELATIVE_SPAN_MAX_MILLIS) relative
     else relative.replaceFirstChar { it.lowercase(locale) }
+
+/**
+ * Zeile, die mit der relativen Zeit [ago] beginnt («vor 5 Min. · Binance nicht erreichbar», Adresszeile «vor 2 Std. ·
+ * Etherscan»): erstes Zeichen gross nach den Regeln der Sprache ([locale], z. B. Türkisch «i» → «İ»). Mitten im Satz
+ * bleibt die Zeit klein ([midSentence]); beginnt [line] nicht mit [ago] (andere Wortstellung), bleibt sie unverändert.
+ * Wie iOS `WatchlistTime.lineStart`.
+ */
+internal fun lineStart(line: String, ago: String, locale: Locale = Locale.getDefault()): String =
+    if (ago.isNotEmpty() && line.startsWith(ago)) line.replaceFirstChar { it.uppercase(locale) } else line
 
 /**
  * Sagt [spoken] höflich an, wenn der Status zwischen aktuell / veraltet / offline wechselt

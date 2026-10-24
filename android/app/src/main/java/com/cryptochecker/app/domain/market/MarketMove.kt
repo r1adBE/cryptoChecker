@@ -56,7 +56,10 @@ object MarketMoveScale {
      * Schlagzeile aus Grosswerten, Gesamtmarkt ([marketChange], null = unbekannt) und Breite
      * ([breadth], null = unbekannt). Reihenfolge:
      * 1. Ruhig: alle drei Grosswerte und der Gesamtmarkt (falls bekannt) unter [FLAT_BELOW_PERCENT].
-     * 2. Grosswerte gleichgerichtet (über [NOISE_PERCENT]) → deren Richtung, nie «gemischt».
+     * 2. Grosswerte gleichgerichtet (über [NOISE_PERCENT]) → deren Richtung, ausser der Gesamtmarkt
+     *    liegt mindestens [FLAT_BELOW_PERCENT] in der Gegenrichtung oder die Breite neigt (ab
+     *    [BREADTH_LEAN_SHARE]) in die Gegenrichtung → gemischt. Die Schlagzeile folgt so dem ganzen
+     *    Markt und widerspricht nie dem Satz zum Gesamtwert.
      * 3. Sonst entscheidet die Breite (ab [BREADTH_LEAN_SHARE]); widerspricht ihr der Gesamtmarkt
      *    (mindestens [FLAT_BELOW_PERCENT] in die Gegenrichtung) oder liegt sie um 50 % → gemischt.
      *    Ohne Breite: Gesamtmarkt ab [FLAT_BELOW_PERCENT], sonst gemischt.
@@ -79,19 +82,25 @@ object MarketMoveScale {
 
     /** +1 steigend, −1 fallend, null = gemischt. */
     private fun direction(big: List<Double>, market: Double?, breadth: PulseBreadth?): Int? {
-        if (big.all { it > NOISE_PERCENT }) return 1
-        if (big.all { it < -NOISE_PERCENT }) return -1
         val marketVote = when {
             market == null -> 0
             market >= FLAT_BELOW_PERCENT -> 1
             market <= -FLAT_BELOW_PERCENT -> -1
             else -> 0
         }
-        if (breadth == null || breadth.total <= 0) return marketVote.takeIf { it != 0 }
-        val lean = breadthVote(breadth)
+        val lean = breadth?.takeIf { it.total > 0 }?.let { breadthVote(it) }
+        val bigVote = when {
+            big.all { it > NOISE_PERCENT } -> 1
+            big.all { it < -NOISE_PERCENT } -> -1
+            else -> 0
+        }
+        // Grosswerte gleichgerichtet: gemischt, sobald Gesamtmarkt oder Breite klar dagegen stehen
+        if (bigVote != 0) return if (marketVote == -bigVote || lean == -bigVote) null else bigVote
+        if (lean == null) return marketVote.takeIf { it != 0 }
         return if (lean == 0 || marketVote == -lean) null else lean
     }
 
+    /** +1 / −1 ab [BREADTH_LEAN_SHARE] steigend bzw. fallend, sonst 0. */
     private fun breadthVote(breadth: PulseBreadth): Int = when {
         breadth.up.toDouble() / breadth.total >= BREADTH_LEAN_SHARE - EPS -> 1
         breadth.down.toDouble() / breadth.total >= BREADTH_LEAN_SHARE - EPS -> -1

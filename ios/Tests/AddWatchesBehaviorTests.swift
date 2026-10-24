@@ -3,8 +3,9 @@ import XCTest
 
 /// Sammelaufnahme als Verhalten auf `AppData.shared` der Test-App (eigene Testpaare, danach wiederhergestellt), wie
 /// Android `BulkAddRunnerTest`: vorhandene Paare werden übersprungen, über der Obergrenze abgelehnt (`refused`),
-/// `addedIds` sind genau die neuen und «Rückgängig» (`deleteForUndo(ids:)`, wie `ExplorerBulkActions.undoBulkAdd`)
-/// entfernt nur diese. Einen Fortschritt meldet iOS nicht (`addWatches` legt alles in einem Schritt an).
+/// `addedIds` sind genau die neuen und «Rückgängig» (`deleteForUndo(ids:)` bzw. `deleteNewWatchesForUndo`, wie
+/// `ExplorerBulkActions.undoBulkAdd`) entfernt nur diese — Paare mit Alarm bleiben. Einen Fortschritt meldet iOS
+/// nicht (`addWatches` legt alles in einem Schritt an).
 /// Rückfrage F-08 hier aus (eigenes Tor, «gespeichert»), sie prüft `WatchlistConsentBehaviorTests`.
 @MainActor
 final class AddWatchesBehaviorTests: XCTestCase {
@@ -81,6 +82,58 @@ final class AddWatchesBehaviorTests: XCTestCase {
         XCTAssertTrue(result.locked)
         XCTAssertEqual(result.addedIds, [])
         XCTAssertEqual(ids, [Self.btc.id])
+    }
+
+    /// «Rückgängig» (`deleteNewWatchesForUndo`, wie `ExplorerBulkActions.undoBulkAdd`) lässt neu angelegte Paare
+    /// stehen, die inzwischen einen Alarm haben — wie Android `deleteWatchesWithoutAlarms`.
+    func testUndoKeepsNewPairsThatGotAnAlarm() async throws {
+        try await XCTUnwrap(watchlist).load([Self.btc])
+        let data = AppData.shared
+        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
+        let result = data.addWatches(market: market, pairs: [pair("SOL"), pair("XRP")])
+        XCTAssertEqual(result.addedIds.count, 2)
+        let withAlarm = result.addedIds[0]
+        data.mutate { s in
+            s.alarms.append(Alarm(id: s.nextAlarmId, watchId: withAlarm, condition: .PRICE_ABOVE, threshold: 1e15))
+            s.nextAlarmId += 1
+        }
+
+        let undone = data.deleteNewWatchesForUndo(ids: Set(result.addedIds))
+
+        XCTAssertEqual(undone.map(\.watch.id), [result.addedIds[1]])
+        XCTAssertEqual(ids, [Self.btc.id, withAlarm], "Paar mit Alarm bleibt")
+        XCTAssertTrue(data.snapshot.alarms.contains { $0.watchId == withAlarm }, "Alarm bleibt")
+    }
+
+    /// Ein Durchlauf (`WatchInsertion.insertAll`) mit denselben Regeln wie einzeln (`AppData.insertOutcome`): Dubletten
+    /// auch innerhalb der Auswahl, Id hinter der höchsten (auch wenn `nextWatchId` kleiner ist), Plätze fortlaufend.
+    func testInsertAllMatchesSingleInserts() throws {
+        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
+        var start = SharedStorage.Snapshot()
+        start.watches = [Self.btc, Self.eth]
+        start.nextWatchId = 5
+        let pairs = [pair("SOL"), pair("BTC"), pair("SOL"), pair("XRP")]
+
+        var bulk = start
+        let result = WatchInsertion.insertAll(&bulk, market: market, pairs: pairs)
+        var single = start
+        let outcomes = pairs.map { AppData.insertOutcome(&single, market: market, pair: $0) }
+
+        XCTAssertEqual(result.added, 2)
+        XCTAssertEqual(result.skipped, 2)
+        XCTAssertEqual(result.addedIds, [990_203, 990_204])
+        XCTAssertEqual(result.addedIds, outcomes.compactMap { o -> Int64? in
+            if case .added(let id) = o { return id }
+            return nil
+        })
+        XCTAssertEqual(bulk.watches.map(\.identity), single.watches.map(\.identity))
+        XCTAssertEqual(bulk.watches.map(\.id), single.watches.map(\.id))
+        XCTAssertEqual(bulk.watches.map(\.sortOrder), [0, 1, 2, 3])
+        XCTAssertEqual(single.watches.map(\.sortOrder), [0, 1, 2, 3])
+        XCTAssertEqual(bulk.watches.map(\.groupName), single.watches.map(\.groupName))
+        XCTAssertEqual(bulk.watches.map(\.notificationEnabled), single.watches.map(\.notificationEnabled))
+        XCTAssertEqual(bulk.nextWatchId, single.nextWatchId)
+        XCTAssertEqual(bulk.nextWatchId, 990_205)
     }
 }
 

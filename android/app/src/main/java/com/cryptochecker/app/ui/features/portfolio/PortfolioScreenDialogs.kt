@@ -141,8 +141,9 @@ internal fun PortfolioScreenDialogs(
                     val condition = PortfolioAlarmTexts.sentence(context, alarm, changeBasis, hideAmounts)
                     val text = com.cryptochecker.app.ui.features.alarms.savedText(context, condition, alarm.repeating, off)
                     if (off) {
+                        // Info statt Erfolg: gespeichert, kommt aber nicht an (Mitteilungen aus)
                         banner.showAction(
-                            text, resources.getString(R.string.settings_title), SAVED_ALARM_MILLIS, SnackbarKind.SUCCESS,
+                            text, resources.getString(R.string.settings_title), SAVED_ALARM_MILLIS, SnackbarKind.INFO,
                         ) {
                             com.cryptochecker.app.ui.components.openAppNotificationSettings(context)
                         }

@@ -120,14 +120,19 @@ struct ExplorerSnackbar: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
 
-    /// Anzeigedauer: mit «Alarm setzen» 6 s (mit VoiceOver 12 s), lange Meldungen 5 s, sonst 3 s.
+    /// Anzeigedauer: mit «Rückgängig» nach «Mehrere Paare» `undoSeconds` (wie Android `SnackbarDuration.Long`), mit
+    /// «Alarm setzen» bzw. «Erneut versuchen» 6 s — mit VoiceOver je doppelt so lang; lange Meldungen 5 s, sonst 3 s.
     private func lifetime(_ note: ExplorerMessage) -> UInt64 {
         let second: UInt64 = 1_000_000_000
-        if note.alarmWatchId != nil || note.retryDexQuery != nil || note.undoIds != nil {
+        if note.undoIds != nil { return (voiceOver ? 2 : 1) * Self.undoSeconds * second }
+        if note.alarmWatchId != nil || note.retryDexQuery != nil {
             return (voiceOver ? 12 : 6) * second
         }
         return (note.long ? 5 : 3) * second
     }
+
+    /// So lange steht «Rückgängig» nach «Mehrere Paare» (ohne VoiceOver) — gleich wie Android (10 s).
+    static let undoSeconds: UInt64 = 10
 
     var body: some View {
         if let note = message {

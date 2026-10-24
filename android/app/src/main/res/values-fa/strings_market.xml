@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">تاریخ انتشار داده‌های مهم اقتصادی آمریکا: تورم (CPI، PCE)، قیمت تولیدکننده (PPI)، گزارش اشتغال و تصمیم‌های نرخ بهره فدرال رزرو. این ارقام اغلب قیمت رمزارزها را هم جابه‌جا می‌کنند.</string>
     <string name="market_info_no_advice">مشاوره سرمایه‌گذاری نیست.</string>
     <string name="market_info_phase_source">Binance، Coin Metrics · قیمت‌ها هر ساعت، داده‌های آن‌چین هر ۱۲ ساعت دوباره بارگیری می‌شوند</string>
-    <string name="market_info_pulse_how">تیتر جهت را نشان می‌دهد و با باز کردن کارت جزئیات دیده می‌شود. حرکت گسترده یعنی بیشتر کوین‌های بزرگ در یک جهت حرکت می‌کنند. نرخ تأمین مالی بالا یعنی بسیاری با اهرم روی افزایش قیمت شرط بسته‌اند. یک تصویر لحظه‌ای است، نه پیش‌بینی.</string>
+    <string name="market_info_pulse_how">تیتر جهت را نشان می‌دهد و با باز کردن کارت جزئیات دیده می‌شود. حرکت گسترده یعنی بیشتر کوین‌های بزرگ در یک جهت حرکت می‌کنند. حال‌وهوای خوش‌بین معاملات اهرمی یعنی بسیاری با اهرم روی افزایش قیمت شرط بسته‌اند؛ معیار آن نرخ تأمین مالی قراردادهای آتی Bitcoin است. یک تصویر لحظه‌ای است، نه پیش‌بینی.</string>
     <string name="market_info_pulse_source">Binance، CoinGecko · تقریباً هر ۵ دقیقه دوباره بارگیری می‌شود</string>
-    <string name="market_info_pulse_what">خلاصه‌ای کوتاه از بازار در ۲۴ ساعت گذشته: Bitcoin، Ethereum و Solana چطور حرکت می‌کنند، چند تا از بزرگ‌ترین کوین‌ها بالا یا پایین می‌روند، الان چقدر Bitcoin معامله می‌شود و نرخ تأمین مالی قراردادهای آتی Bitcoin در چه سطحی است.</string>
+    <string name="market_info_pulse_what">خلاصه‌ای کوتاه از بازار در ۲۴ ساعت گذشته: Bitcoin، Ethereum و Solana چطور حرکت می‌کنند، چند تا از بزرگ‌ترین کوین‌ها بالا یا پایین می‌روند، الان چقدر Bitcoin معامله می‌شود و حال‌وهوای معاملات اهرمی چگونه است (بر اساس نرخ تأمین مالی قراردادهای آتی Bitcoin).</string>
     <string name="market_info_totals_how">در کنار آن تغییر ارزش کل در ۲۴ ساعت آمده است. حجم بالا یعنی معاملات زیادی انجام می‌شود، اما جهت را نمی‌گوید. در صورت امکان با ارز تبدیل و در غیر این صورت با دلار آمریکا نمایش داده می‌شود.</string>
     <string name="market_info_totals_source">همه کوین‌ها · CoinGecko · تقریباً هر ۳۰ دقیقه دوباره بارگیری می‌شود</string>
     <string name="market_info_totals_what">ارزش کل همه رمزارزها (ارزش بازار: قیمت ضرب در مقدار در گردش، جمع‌شده برای همه کوین‌ها) و حجم معاملات ۲۴ ساعت گذشته.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">آلت‌کوین‌ها و Bitcoin هم‌جهت حرکت می‌کنند</string>
     <string name="pulse_alts_stronger">آلت‌کوین‌ها قوی‌تر از Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin قوی‌تر از آلت‌کوین‌ها</string>
-    <string name="pulse_chip_funding_high">فاندینگ بالا</string>
-    <string name="pulse_chip_funding_negative">فاندینگ منفی</string>
+    <string name="pulse_chip_funding_high">حال‌وهوای معاملات اهرمی خوش‌بین</string>
+    <string name="pulse_chip_funding_negative">حال‌وهوای معاملات اهرمی بدبین</string>
     <string name="pulse_funding_high">نرخ تأمین مالی به‌وضوح مثبت: لانگ‌های اهرمی زیاد</string>
     <string name="pulse_funding_negative">نرخ تأمین مالی منفی: شورت‌های زیاد</string>
     <string name="pulse_funding_neutral">نرخ تأمین مالی خنثی</string>

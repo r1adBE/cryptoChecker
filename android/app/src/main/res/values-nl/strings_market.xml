@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Data van belangrijke Amerikaanse economische cijfers: inflatie (CPI, PCE), producentenprijzen (PPI), het banenrapport en rentebesluiten van de Amerikaanse centrale bank. Zulke cijfers bewegen vaak ook de koersen van cryptomunten.</string>
     <string name="market_info_no_advice">Geen beleggingsadvies.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · koersen elk uur, on-chainwaarden elke 12 uur opnieuw geladen</string>
-    <string name="market_info_pulse_how">De kop noemt de richting; uitgeklapt staan de details. Een brede beweging betekent dat de meeste grote coins dezelfde kant op gaan. Een hoge funding rate betekent dat velen met hefboom op stijgende koersen inzetten. Een momentopname, geen voorspelling.</string>
+    <string name="market_info_pulse_how">De kop noemt de richting; uitgeklapt staan de details. Een brede beweging betekent dat de meeste grote coins dezelfde kant op gaan. Een optimistisch hefboomsentiment betekent dat velen met hefboom op stijgende koersen inzetten, gemeten aan de funding rate van Bitcoin-futures. Een momentopname, geen voorspelling.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · ongeveer elke 5 minuten opnieuw geladen</string>
-    <string name="market_info_pulse_what">Een korte samenvatting van de markt over de afgelopen 24 uur: hoe Bitcoin, Ethereum en Solana bewegen, hoeveel van de grootste coins stijgen of dalen, hoeveel Bitcoin er nu wordt verhandeld en hoe de funding rate van Bitcoin-futures staat.</string>
+    <string name="market_info_pulse_what">Een korte samenvatting van de markt over de afgelopen 24 uur: hoe Bitcoin, Ethereum en Solana bewegen, hoeveel van de grootste coins stijgen of dalen, hoeveel Bitcoin er nu wordt verhandeld en hoe het hefboomsentiment is (gemeten aan de funding rate van Bitcoin-futures).</string>
     <string name="market_info_totals_how">Rechts staat de verandering van de totale waarde over 24 uur. Hoog volume betekent dat er veel wordt verhandeld, maar niet in welke richting. Waar mogelijk in de omrekenvaluta, anders in Amerikaanse dollars.</string>
     <string name="market_info_totals_source">Alle coins · CoinGecko · ongeveer elke 30 minuten opnieuw geladen</string>
     <string name="market_info_totals_what">De totale waarde van alle cryptomunten (marktkapitalisatie: koers maal circulerende hoeveelheid, opgeteld over alle coins) en het handelsvolume van de afgelopen 24 uur.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoins en Bitcoin bewegen gelijk op</string>
     <string name="pulse_alts_stronger">Altcoins sterker dan Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin sterker dan altcoins</string>
-    <string name="pulse_chip_funding_high">Funding verhoogd</string>
-    <string name="pulse_chip_funding_negative">Funding negatief</string>
+    <string name="pulse_chip_funding_high">Hefboomsentiment optimistisch</string>
+    <string name="pulse_chip_funding_negative">Hefboomsentiment pessimistisch</string>
     <string name="pulse_funding_high">Funding duidelijk positief: veel longs met hefboom</string>
     <string name="pulse_funding_negative">Funding negatief: veel shorts</string>
     <string name="pulse_funding_neutral">Funding neutraal</string>

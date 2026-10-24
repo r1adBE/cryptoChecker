@@ -63,9 +63,9 @@
     <string name="market_info_macro_what">Datele unor indicatori economici importanți din SUA: inflația (CPI, PCE), prețurile de producție (PPI), raportul privind locurile de muncă și deciziile de dobândă ale Rezervei Federale. Aceste cifre mișcă adesea și prețurile criptomonedelor.</string>
     <string name="market_info_no_advice">Nu este consultanță de investiții.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · prețuri din oră în oră, date on-chain reîncărcate la fiecare 12 ore</string>
-    <string name="market_info_pulse_how">Titlul arată direcția; cardul extins arată detaliile. O mișcare largă înseamnă că majoritatea monedelor mari merg în aceeași direcție. O rată de finanțare ridicată înseamnă că mulți pariază pe creștere cu efect de levier. Un instantaneu, nu o prognoză.</string>
+    <string name="market_info_pulse_how">Titlul arată direcția; cardul extins arată detaliile. O mișcare largă înseamnă că majoritatea monedelor mari merg în aceeași direcție. O stare a pieței cu levier optimistă înseamnă că mulți pariază pe creștere cu efect de levier, măsurată prin rata de finanțare a contractelor futures pe Bitcoin. Un instantaneu, nu o prognoză.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · reîncărcat cam la fiecare 5 minute</string>
-    <string name="market_info_pulse_what">Un scurt rezumat al pieței din ultimele 24 de ore: cum se mișcă Bitcoin, Ethereum și Solana, câte dintre cele mai mari monede cresc sau scad, cât Bitcoin se tranzacționează acum și la ce nivel este rata de finanțare a contractelor futures pe Bitcoin.</string>
+    <string name="market_info_pulse_what">Un scurt rezumat al pieței din ultimele 24 de ore: cum se mișcă Bitcoin, Ethereum și Solana, câte dintre cele mai mari monede cresc sau scad, cât Bitcoin se tranzacționează acum și cum este starea pieței cu levier (măsurată prin rata de finanțare a contractelor futures pe Bitcoin).</string>
     <string name="market_info_totals_how">În dreapta apare variația valorii totale pe 24 de ore. Un volum mare înseamnă că se tranzacționează mult, dar nu spune în ce direcție. Afișat, dacă se poate, în moneda de conversie, altfel în dolari americani.</string>
     <string name="market_info_totals_source">Toate monedele · CoinGecko · reîncărcat cam la fiecare 30 de minute</string>
     <string name="market_info_totals_what">Valoarea totală a tuturor criptomonedelor (capitalizarea de piață: preț înmulțit cu cantitatea în circulație, adunat pentru toate monedele) și volumul de tranzacționare din ultimele 24 de ore.</string>
@@ -139,8 +139,8 @@
     <string name="pulse_alts_even">Altcoinurile și Bitcoin se mișcă la fel</string>
     <string name="pulse_alts_stronger">Altcoinuri mai puternice decât Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin mai puternic decât altcoinurile</string>
-    <string name="pulse_chip_funding_high">Funding ridicat</string>
-    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_chip_funding_high">Starea pieței cu levier optimistă</string>
+    <string name="pulse_chip_funding_negative">Starea pieței cu levier pesimistă</string>
     <string name="pulse_funding_high">Funding clar pozitiv: multe long-uri cu levier</string>
     <string name="pulse_funding_negative">Funding negativ: multe short-uri</string>
     <string name="pulse_funding_neutral">Funding neutru</string>

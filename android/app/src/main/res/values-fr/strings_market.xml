@@ -63,9 +63,9 @@
     <string name="market_info_macro_what">Les dates de données économiques américaines importantes : inflation (CPI, PCE), prix à la production (PPI), rapport sur l\'emploi et décisions de taux de la Réserve fédérale. Ces chiffres font souvent bouger aussi les cours des cryptomonnaies.</string>
     <string name="market_info_no_advice">Pas un conseil en investissement.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · cours toutes les heures, données on-chain rechargées toutes les 12 heures</string>
-    <string name="market_info_pulse_how">Le titre indique la direction ; la carte dépliée donne les détails. Un mouvement large signifie que la plupart des grandes cryptos vont dans le même sens. Un taux de financement élevé signifie que beaucoup parient à la hausse avec effet de levier. Un instantané, pas une prévision.</string>
+    <string name="market_info_pulse_how">Le titre indique la direction ; la carte dépliée donne les détails. Un mouvement large signifie que la plupart des grandes cryptos vont dans le même sens. Une humeur à effet de levier optimiste signifie que beaucoup parient à la hausse avec effet de levier, mesurée par le taux de financement des contrats à terme sur Bitcoin. Un instantané, pas une prévision.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · rechargé environ toutes les 5 minutes</string>
-    <string name="market_info_pulse_what">Un bref résumé du marché sur les dernières 24 heures : l\'évolution de Bitcoin, Ethereum et Solana, le nombre des plus grandes cryptos en hausse ou en baisse, le volume de Bitcoin échangé en ce moment et le niveau du taux de financement des contrats à terme sur Bitcoin.</string>
+    <string name="market_info_pulse_what">Un bref résumé du marché sur les dernières 24 heures : l\'évolution de Bitcoin, Ethereum et Solana, le nombre des plus grandes cryptos en hausse ou en baisse, le volume de Bitcoin échangé en ce moment et l\'humeur à effet de levier (mesurée par le taux de financement des contrats à terme sur Bitcoin).</string>
     <string name="market_info_totals_how">À droite figure la variation de la valeur totale sur 24 heures. Un volume élevé signifie que l\'on échange beaucoup, sans indiquer dans quel sens. Affiché si possible dans la devise de conversion, sinon en dollars américains.</string>
     <string name="market_info_totals_source">Toutes les cryptos · CoinGecko · rechargé environ toutes les 30 minutes</string>
     <string name="market_info_totals_what">La valeur totale de toutes les cryptomonnaies (capitalisation : cours multiplié par la quantité en circulation, additionné pour toutes les cryptos) et le volume d\'échanges des dernières 24 heures.</string>
@@ -139,8 +139,8 @@
     <string name="pulse_alts_even">Altcoins et Bitcoin évoluent de pair</string>
     <string name="pulse_alts_stronger">Altcoins plus forts que Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin plus fort que les altcoins</string>
-    <string name="pulse_chip_funding_high">Funding élevé</string>
-    <string name="pulse_chip_funding_negative">Funding négatif</string>
+    <string name="pulse_chip_funding_high">Humeur à effet de levier optimiste</string>
+    <string name="pulse_chip_funding_negative">Humeur à effet de levier pessimiste</string>
     <string name="pulse_funding_high">Funding nettement positif : beaucoup de longs à effet de levier</string>
     <string name="pulse_funding_negative">Funding négatif : beaucoup de shorts</string>
     <string name="pulse_funding_neutral">Funding neutre</string>

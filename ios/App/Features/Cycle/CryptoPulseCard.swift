@@ -280,8 +280,8 @@ extension CryptoPulseCard {
         }
     }
 
-    /// Kennzahl-Chips, nur die zutreffenden: Funding hoch/negativ. Volumen (Krypto-Markt)
-    /// und Fear & Greed haben eigene Karten im Tab und erscheinen hier nicht doppelt.
+    /// Kennzahl-Chips, nur die zutreffenden: Hebel-Stimmung (Funding) optimistisch/pessimistisch. Volumen
+    /// (Krypto-Markt) und Fear & Greed haben eigene Karten im Tab und erscheinen hier nicht doppelt.
     static func metricChips(_ report: PulseReport) -> [String] {
         var chips: [String] = []
         switch report.funding {

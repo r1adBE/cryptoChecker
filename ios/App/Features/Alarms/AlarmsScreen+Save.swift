@@ -146,9 +146,10 @@ extension AlarmsScreen {
                 )
                 return
             }
+            // Mitteilungen aus: Info statt Erfolg (gespeichert, kommt so aber nicht an) — wie Android
             banner = WatchlistBannerMessage(
                 text: AlarmSavedText.text(condition: condition, repeating: repeating, notificationsOff: off),
-                kind: .success,
+                kind: off ? .info : .success,
                 action: off ? WatchlistBannerAction(title: L("settings_title"), perform: { NotificationsOffBanner.openSettings() }) : nil
             )
         }

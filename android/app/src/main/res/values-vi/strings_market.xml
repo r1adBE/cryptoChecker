@@ -61,9 +61,9 @@
     <string name="market_info_macro_what">Lịch công bố các dữ liệu kinh tế quan trọng của Mỹ: lạm phát (CPI, PCE), giá sản xuất (PPI), báo cáo việc làm và quyết định lãi suất của Cục Dự trữ Liên bang Mỹ. Những con số này thường cũng làm giá tiền mã hóa biến động.</string>
     <string name="market_info_no_advice">Không phải lời khuyên đầu tư.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · giá mỗi giờ, dữ liệu on-chain tải lại mỗi 12 giờ</string>
-    <string name="market_info_pulse_how">Tiêu đề cho biết hướng đi; mở rộng thẻ để xem chi tiết. Biến động rộng nghĩa là phần lớn các coin lớn đi cùng một hướng. Funding rate cao nghĩa là nhiều người dùng đòn bẩy đặt cược giá tăng. Chỉ là ảnh chụp thời điểm, không phải dự báo.</string>
+    <string name="market_info_pulse_how">Tiêu đề cho biết hướng đi; mở rộng thẻ để xem chi tiết. Biến động rộng nghĩa là phần lớn các coin lớn đi cùng một hướng. Tâm lý giao dịch đòn bẩy lạc quan nghĩa là nhiều người dùng đòn bẩy đặt cược giá tăng, đo bằng funding rate của hợp đồng tương lai Bitcoin. Chỉ là ảnh chụp thời điểm, không phải dự báo.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · tải lại khoảng 5 phút một lần</string>
-    <string name="market_info_pulse_what">Bản tóm tắt ngắn về thị trường trong 24 giờ qua: Bitcoin, Ethereum và Solana đang biến động thế nào, bao nhiêu đồng coin lớn nhất đang tăng hoặc giảm, lượng Bitcoin đang được giao dịch lúc này và mức funding rate của hợp đồng tương lai Bitcoin.</string>
+    <string name="market_info_pulse_what">Bản tóm tắt ngắn về thị trường trong 24 giờ qua: Bitcoin, Ethereum và Solana đang biến động thế nào, bao nhiêu đồng coin lớn nhất đang tăng hoặc giảm, lượng Bitcoin đang được giao dịch lúc này và tâm lý giao dịch đòn bẩy (đo bằng funding rate của hợp đồng tương lai Bitcoin).</string>
     <string name="market_info_totals_how">Bên cạnh là thay đổi của tổng giá trị trong 24 giờ. Khối lượng cao nghĩa là giao dịch nhiều, nhưng không cho biết theo hướng nào. Hiển thị bằng tiền tệ quy đổi nếu có thể, nếu không thì bằng đô la Mỹ.</string>
     <string name="market_info_totals_source">Tất cả coin · CoinGecko · tải lại khoảng 30 phút một lần</string>
     <string name="market_info_totals_what">Tổng giá trị của tất cả tiền mã hóa (vốn hóa thị trường: giá nhân lượng đang lưu hành, cộng cho mọi coin) và khối lượng giao dịch trong 24 giờ qua.</string>
@@ -137,8 +137,8 @@
     <string name="pulse_alts_even">Altcoin và Bitcoin biến động như nhau</string>
     <string name="pulse_alts_stronger">Altcoin mạnh hơn Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin mạnh hơn altcoin</string>
-    <string name="pulse_chip_funding_high">Funding cao</string>
-    <string name="pulse_chip_funding_negative">Funding âm</string>
+    <string name="pulse_chip_funding_high">Tâm lý giao dịch đòn bẩy lạc quan</string>
+    <string name="pulse_chip_funding_negative">Tâm lý giao dịch đòn bẩy bi quan</string>
     <string name="pulse_funding_high">Funding dương rõ rệt: nhiều lệnh long dùng đòn bẩy</string>
     <string name="pulse_funding_negative">Funding âm: nhiều lệnh short</string>
     <string name="pulse_funding_neutral">Funding trung tính</string>

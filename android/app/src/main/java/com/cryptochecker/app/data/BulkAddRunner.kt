@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.marketdata.model.MarketPair
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,26 +17,36 @@ import javax.inject.Singleton
 /**
  * «Mehrere Paare auf einmal» app-weit: Die Aufnahme läuft im Prozess-Bereich weiter, auch wenn der Bildschirm «Paar
  * hinzufügen» verlassen wird (vorher brach das Verlassen sie ab). [progress] zeigt den Stand für den Balken im
- * Explorer und über der Merkliste; das Ergebnis bleibt stehen, bis ein Bildschirm es gemeldet hat ([clearResult]).
- * Schreibwege ([BulkAddWrites]) und Bereich sind über den internen Konstruktor austauschbar (`BulkAddRunnerTest`).
+ * Explorer und über der Merkliste; jedes Ende ist eindeutig (Ergebnis, gesperrt, abgebrochen, Fehler) und bleibt
+ * stehen, bis ein Bildschirm es gemeldet hat ([clearResult]). Schreibwege ([BulkAddWrites]), Bereich und Uhr sind über
+ * den internen Konstruktor austauschbar (`BulkAddRunnerTest`).
  */
 @Singleton
 class BulkAddRunner internal constructor(
     private val writes: BulkAddWrites,
     private val scope: CoroutineScope,
+    private val now: () -> Long = System::currentTimeMillis,
 ) {
     @Inject
     constructor(watchRepository: WatchRepository, addMoments: AddMoments) :
         this(RepositoryBulkAddWrites(watchRepository, addMoments), appScope(Dispatchers.Default, "Paare aufnehmen"))
 
-    /** Stand: [done] von [total] verarbeitet; [result] erst am Ende (gesperrt: null und [locked]). */
+    /**
+     * Stand: [done] von [total] verarbeitet; am Ende genau eines von [result], [locked], [cancelled] oder [failed].
+     */
     data class Progress(
         val done: Int,
         val total: Int,
         val result: BulkAddResult? = null,
         val locked: Boolean = false,
+        /** «Abbrechen» der Rückfrage F-08 im Runner: nichts angelegt. */
+        val cancelled: Boolean = false,
+        /** Mit Fehler beendet (z. B. Datenbank-Schlüssel nicht lesbar); bis dahin angelegte Paare bleiben. */
+        val failed: Boolean = false,
+        /** Zeitpunkt des Ergebnisses (Uhr des Runners, ms) für das Fenster von «Rückgängig» ([undoOffered]). */
+        val finishedAt: Long = 0,
     ) {
-        val running: Boolean get() = result == null && !locked
+        val running: Boolean get() = result == null && !locked && !cancelled && !failed
     }
 
     private val state = MutableStateFlow<Progress?>(null)
@@ -56,19 +67,24 @@ class BulkAddRunner internal constructor(
                 // Eigene Coroutine: Zustimmung F-08 hier noch einmal (nach der Antwort im Explorer ohne Dialog; ohne
                 // Oberfläche durchgelassen gilt sie nur für die Coroutine der Aktion, also für diese)
                 if (!writes.confirm()) {
-                    state.value = null
+                    state.value = Progress(0, total, cancelled = true)
                     return@launch
                 }
                 val outcome = writes.add(market, pairs, group) { done ->
                     state.value = Progress(done, total)
                 }
                 state.value = if (outcome.locked) Progress(total, total, locked = true)
-                else Progress(total, total, result = outcome)
+                else Progress(total, total, result = outcome, finishedAt = now())
                 // Viele auf einmal: kein Erst-Moment, das erste Paar gilt aber als erledigt
                 if (outcome.added > 0) writes.markFirstPairAdded()
             } catch (e: Throwable) {
-                // Fehler (z. B. Datenbank-Schlüssel gerade nicht lesbar): kein Balken, der ewig steht
-                state.value = null
+                // Fehler (z. B. Datenbank-Schlüssel gerade nicht lesbar) oder Bereich beendet: eindeutiges Ende statt
+                // eines Balkens, der ewig steht. Ein schon gemeldetes Ende bleibt.
+                val cancelled = e is CancellationException
+                state.update { p ->
+                    if (p == null || !p.running) p
+                    else Progress(p.done, total, cancelled = cancelled, failed = !cancelled)
+                }
                 throw e
             }
         }
@@ -76,20 +92,31 @@ class BulkAddRunner internal constructor(
     }
 
     /**
-     * «Rückgängig» nach dem Hinzufügen: genau die neu angelegten Paare [ids] wieder löschen (bestehende bleiben).
-     * Läuft wie die Aufnahme app-weit, mit eigener Zustimmung F-08.
+     * «Rückgängig» nach dem Hinzufügen: die neu angelegten Paare [ids] wieder löschen (bestehende bleiben), ausser
+     * denen, die inzwischen einen Alarm bekommen haben. Läuft wie die Aufnahme app-weit, mit eigener Zustimmung F-08.
      */
     fun undo(ids: List<Long>) {
         if (ids.isEmpty()) return
         scope.launch {
             if (!writes.confirm()) return@launch
-            writes.delete(ids)
+            writes.deleteWithoutAlarms(ids)
         }
     }
+
+    /** «Rückgängig» für dieses Ergebnis noch anbieten? Nur kurz nach dem Ende ([UNDO_WINDOW_MS]). */
+    fun undoOffered(p: Progress): Boolean = undoOffered(p.finishedAt, now())
 
     /** Ergebnis gemeldet (Explorer oder Merkliste): Anzeige weg. Eine laufende Aufnahme bleibt. */
     fun clearResult() {
         state.update { if (it?.running == true) it else null }
+    }
+
+    companion object {
+        /** So lange nach dem Ende wird «Rückgängig» angeboten; danach nur noch die Meldung. */
+        const val UNDO_WINDOW_MS = 60_000L
+
+        /** Ende ([finishedAt], 0 = keins) höchstens [UNDO_WINDOW_MS] vor [now]; Uhr rückwärts: nein. */
+        fun undoOffered(finishedAt: Long, now: Long): Boolean = finishedAt > 0 && now - finishedAt in 0..UNDO_WINDOW_MS
     }
 }
 
@@ -110,8 +137,8 @@ internal interface BulkAddWrites {
         onProgress: (Int) -> Unit,
     ): BulkAddResult
 
-    /** Genau diese Paare löschen ([WatchRepository.deleteWatches]). */
-    suspend fun delete(ids: List<Long>)
+    /** Diese Paare löschen, soweit sie keinen Alarm haben ([deleteWatchesWithoutAlarms]). */
+    suspend fun deleteWithoutAlarms(ids: List<Long>)
 
     /** Erstes Paar gilt als erledigt ([AddMoments.markFirstPairAdded]). */
     suspend fun markFirstPairAdded()
@@ -126,8 +153,8 @@ private class RepositoryBulkAddWrites(
     override suspend fun add(market: MarketInfo, pairs: List<MarketPair>, group: String?, onProgress: (Int) -> Unit) =
         watchRepository.addWatches(market, pairs, group, onProgress)
 
-    override suspend fun delete(ids: List<Long>) {
-        watchRepository.deleteWatches(ids)
+    override suspend fun deleteWithoutAlarms(ids: List<Long>) {
+        watchRepository.deleteWatchesWithoutAlarms(ids)
     }
 
     override suspend fun markFirstPairAdded() = addMoments.markFirstPairAdded()

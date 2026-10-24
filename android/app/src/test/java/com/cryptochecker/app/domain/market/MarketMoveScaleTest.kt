@@ -60,22 +60,45 @@ class MarketMoveScaleTest {
         }
     }
 
-    /** Raster: nie «gemischt» bei gleichgerichteten Grosswerten, nie «leicht» neben «deutlich». */
+    /**
+     * Raster: gleichgerichtete Grosswerte → deren Richtung, ausser Gesamtmarkt (ab 1 %) oder Breite
+     * stehen dagegen, dann «gemischt» (ruhige Fälle ausgenommen); nie «leicht» neben «deutlich».
+     */
     @Test
     fun headlineNeverContradictsTheNumbers() {
         val steps = listOf(-4.0, -3.0, -2.0, -1.2, -0.5, 0.0, 0.5, 1.2, 2.0, 3.0, 4.0)
-        val markets = listOf(null, -3.5, -3.0, -1.5, -0.5, 0.5, 1.5, 3.0, 3.5)
-        for (btc in steps) for (eth in steps) for (sol in steps) for (market in markets) {
+        val markets = listOf(null, -3.5, -3.0, -1.5, -1.0, -0.5, 0.5, 1.0, 1.5, 3.0, 3.5)
+        // Breite: 26 von 30 fallend (−1) bzw. steigend (+1)
+        val breadths = listOf(-1 to changes(4, 26, 30), 1 to changes(26, 4, 30))
+        for (btc in steps) for (eth in steps) for (sol in steps) for (market in markets) for ((lean, top) in breadths) {
             val big = listOf(btc, eth, sol)
-            val r = makeReport(btc, eth, sol, market, changes(4, 26, 30), null)
+            val r = makeReport(btc, eth, sol, market, top, null)
             val lead = CryptoPulse.leadSentence(r).kind
-            val label = "btc=$btc eth=$eth sol=$sol market=$market"
-            if (big.all { it > MarketMoveScale.NOISE_PERCENT } || big.all { it < -MarketMoveScale.NOISE_PERCENT }) {
-                assertNotEquals(label, PulseSummary.MIXED, r.summary)
+            val label = "btc=$btc eth=$eth sol=$sol market=$market lean=$lean"
+            val bigSign = when {
+                big.all { it > MarketMoveScale.NOISE_PERCENT } -> 1
+                big.all { it < -MarketMoveScale.NOISE_PERCENT } -> -1
+                else -> 0
+            }
+            if (bigSign != 0 && r.summary != PulseSummary.CALM) {
+                val marketAgainst = market != null && market * bigSign <= -MarketMoveScale.FLAT_BELOW_PERCENT
+                val expected = when {
+                    marketAgainst || lean == -bigSign -> PulseSummary.MIXED
+                    bigSign > 0 -> PulseSummary.BROAD_UP
+                    else -> PulseSummary.BROAD_DOWN
+                }
+                assertEquals(label, expected, r.summary)
             }
             val plain = market?.let { MarketPlainSummary.directionKind(it) }
             if (plain == PlainDirectionKind.DOWN_CLEAR) assertNotEquals(label, PulseLeadKind.DRIFT_DOWN, lead)
             if (plain == PlainDirectionKind.UP_CLEAR) assertNotEquals(label, PulseLeadKind.DRIFT_UP, lead)
+            // Gesamtwert zeigt in eine Richtung (ab 1 %) → Schlagzeile nie in die Gegenrichtung
+            if (market != null && market >= MarketMoveScale.FLAT_BELOW_PERCENT) {
+                assertNotEquals(label, PulseSummary.BROAD_DOWN, r.summary)
+            }
+            if (market != null && market <= -MarketMoveScale.FLAT_BELOW_PERCENT) {
+                assertNotEquals(label, PulseSummary.BROAD_UP, r.summary)
+            }
         }
     }
 

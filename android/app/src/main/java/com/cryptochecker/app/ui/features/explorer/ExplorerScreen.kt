@@ -109,6 +109,7 @@ fun ExplorerScreen(
                 onSelectPair = vm::selectBulkPair,
                 onAddAll = vm::addBulkPairs,
                 onAddAllShown = vm::clearBulkAddResult,
+                onAddAllClaimed = vm::markBulkAddClaimed,
                 onUndo = vm::undoBulkAdd,
                 onQuoteChanged = vm::setBulkQuote,
                 onNeedStats = vm::loadBulkStats,
@@ -173,6 +174,8 @@ internal class BulkActions(
     val onSelectPair: (MarketPair) -> Unit,
     val onAddAll: () -> Unit,
     val onAddAllShown: () -> Unit,
+    /** Ergebnis wird gezeigt: im Runner als gemeldet markieren. */
+    val onAddAllClaimed: () -> Unit,
     /** «Rückgängig» nach dem Hinzufügen: diese neu angelegten Paare wieder entfernen. */
     val onUndo: (List<Long>) -> Unit,
     val onQuoteChanged: (String) -> Unit,
@@ -252,6 +255,7 @@ private fun ExplorerPage(
         onAddResultShown = actions.onAddShown,
         onBulkAddResultShown = bulk.onAddAllShown,
         onUndoBulk = bulk.onUndo,
+        onBulkAddResultClaimed = bulk.onAddAllClaimed,
     )
 
     if (askBulkConfirm) {

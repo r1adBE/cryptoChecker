@@ -63,9 +63,9 @@
     <string name="market_info_macro_what">Le date di importanti dati economici USA: inflazione (CPI, PCE), prezzi alla produzione (PPI), rapporto sull\'occupazione e decisioni sui tassi della Federal Reserve. Questi dati spesso muovono anche i prezzi delle criptovalute.</string>
     <string name="market_info_no_advice">Non è una consulenza finanziaria.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · prezzi ogni ora, dati on-chain ricaricati ogni 12 ore</string>
-    <string name="market_info_pulse_how">Il titolo indica la direzione; aprendo la scheda si vedono i dettagli. Un movimento ampio significa che la maggior parte delle grandi crypto va nella stessa direzione. Un funding rate alto significa che molti scommettono al rialzo con la leva. Un\'istantanea, non una previsione.</string>
+    <string name="market_info_pulse_how">Il titolo indica la direzione; aprendo la scheda si vedono i dettagli. Un movimento ampio significa che la maggior parte delle grandi crypto va nella stessa direzione. Un umore con leva ottimista significa che molti scommettono al rialzo con la leva, misurato dal funding rate dei futures su Bitcoin. Un\'istantanea, non una previsione.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · ricaricato circa ogni 5 minuti</string>
-    <string name="market_info_pulse_what">Un breve riepilogo del mercato delle ultime 24 ore: come si muovono Bitcoin, Ethereum e Solana, quante delle crypto più grandi salgono o scendono, quanto Bitcoin viene scambiato in questo momento e a che livello è il funding rate dei futures su Bitcoin.</string>
+    <string name="market_info_pulse_what">Un breve riepilogo del mercato delle ultime 24 ore: come si muovono Bitcoin, Ethereum e Solana, quante delle crypto più grandi salgono o scendono, quanto Bitcoin viene scambiato in questo momento e com\'è l\'umore con leva (misurato dal funding rate dei futures su Bitcoin).</string>
     <string name="market_info_totals_how">A destra c\'è la variazione del valore totale nelle 24 ore. Un volume alto significa che si scambia molto, ma non dice in quale direzione. Mostrato se possibile nella valuta di conversione, altrimenti in dollari USA.</string>
     <string name="market_info_totals_source">Tutte le crypto · CoinGecko · ricaricato circa ogni 30 minuti</string>
     <string name="market_info_totals_what">Il valore totale di tutte le criptovalute (capitalizzazione: prezzo per quantità in circolazione, sommato su tutte le crypto) e il volume di scambi delle ultime 24 ore.</string>
@@ -139,8 +139,8 @@
     <string name="pulse_alts_even">Altcoin e Bitcoin si muovono allo stesso modo</string>
     <string name="pulse_alts_stronger">Altcoin più forti di Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin più forte delle altcoin</string>
-    <string name="pulse_chip_funding_high">Funding elevato</string>
-    <string name="pulse_chip_funding_negative">Funding negativo</string>
+    <string name="pulse_chip_funding_high">Umore con leva ottimista</string>
+    <string name="pulse_chip_funding_negative">Umore con leva pessimista</string>
     <string name="pulse_funding_high">Funding nettamente positivo: molti long con leva</string>
     <string name="pulse_funding_negative">Funding negativo: molti short</string>
     <string name="pulse_funding_neutral">Funding neutro</string>

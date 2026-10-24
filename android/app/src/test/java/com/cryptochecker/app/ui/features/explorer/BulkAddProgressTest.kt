@@ -36,6 +36,23 @@ class BulkAddProgressTest {
         assertFalse(Progress(10, 10, locked = true).running)
     }
 
+    /** Abgebrochen: Knopf frei, kein Balken; Fehler: keine Zählung, aber die Fehler-Meldung. */
+    @Test
+    fun cancelledShowsNothingAndFailedShowsTheError() {
+        assertFalse(Progress(0, 5, cancelled = true).running)
+        assertNull(bulkAddFromRunner(Progress(0, 5, cancelled = true)))
+        val failed = bulkAddFromRunner(Progress(3, 5, failed = true))
+        assertTrue(failed!!.failed)
+        assertFalse(failed.running)
+        assertEquals(0, failed.added)
+    }
+
+    @Test
+    fun finishedKeepsTheEndTimeForUndo() {
+        val shown = bulkAddFromRunner(Progress(1, 1, result = RepoResult(added = 1, skipped = 0), finishedAt = 42L))
+        assertEquals(42L, shown!!.finishedAt)
+    }
+
     @Test
     fun newCountSkipsPairsAlreadyInWatchlist() {
         val pairs = listOf(MarketPair("BTC", "USDT", "BTCUSDT"), MarketPair("ETH", "USDT", "ETHUSDT"), MarketPair("SOL", "USDT", "SOLUSDT"))

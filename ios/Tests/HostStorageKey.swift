@@ -62,7 +62,7 @@ enum HostStorageKey {
     }
 
     /// Nur fehlende Berechtigung (-34018) oder kein Schlüsselbund (-25291) rechtfertigen den Test-Schlüsselbund; ein
-    /// gesperrter oder verweigerter Schlüsselbund nicht, ein unbekannter Zustand (nil) auch nicht (Review 116, P3).
+    /// gesperrter oder verweigerter Schlüsselbund nicht, ein unbekannter Zustand (nil) auch nicht.
     static func shouldUseTestKeychain(status: OSStatus?) -> Bool {
         guard let status else { return false }
         return status == errSecMissingEntitlement || status == errSecNotAvailable

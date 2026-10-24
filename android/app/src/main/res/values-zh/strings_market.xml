@@ -61,9 +61,9 @@
     <string name="market_info_macro_what">美国重要经济数据的发布日期：通胀（CPI、PCE）、生产者价格（PPI）、就业报告以及美联储的利率决议。这些数据也常常带动加密货币价格。</string>
     <string name="market_info_no_advice">不构成投资建议。</string>
     <string name="market_info_phase_source">Binance、Coin Metrics · 价格每小时，链上数据每 12 小时重新加载</string>
-    <string name="market_info_pulse_how">标题说明方向，展开卡片可看细节。普遍性的波动是指大多数大币朝同一方向走。资金费率高意味着很多人用杠杆押注上涨。这只是当下的快照，不是预测。</string>
+    <string name="market_info_pulse_how">标题说明方向，展开卡片可看细节。普遍性的波动是指大多数大币朝同一方向走。杠杆情绪偏多意味着很多人用杠杆押注上涨（以 Bitcoin 期货的资金费率衡量）。这只是当下的快照，不是预测。</string>
     <string name="market_info_pulse_source">Binance、CoinGecko · 约每 5 分钟重新加载</string>
-    <string name="market_info_pulse_what">过去 24 小时市场的简短总结：Bitcoin、Ethereum 和 Solana 的走势，最大的几十种币中有多少在涨或跌，眼下有多少 Bitcoin 在成交，以及 Bitcoin 期货的资金费率处于什么水平。</string>
+    <string name="market_info_pulse_what">过去 24 小时市场的简短总结：Bitcoin、Ethereum 和 Solana 的走势，最大的几十种币中有多少在涨或跌，眼下有多少 Bitcoin 在成交，以及杠杆情绪如何（以 Bitcoin 期货的资金费率衡量）。</string>
     <string name="market_info_totals_how">旁边显示总价值 24 小时的变化。成交量大说明交易活跃，但不说明方向。尽可能以换算货币显示，否则以美元显示。</string>
     <string name="market_info_totals_source">全部币种 · CoinGecko · 约每 30 分钟重新加载</string>
     <string name="market_info_totals_what">所有加密货币的总价值（总市值：价格乘以流通量，所有币相加）以及过去 24 小时的成交量。</string>
@@ -137,8 +137,8 @@
     <string name="pulse_alts_even">山寨币与 Bitcoin 同步波动</string>
     <string name="pulse_alts_stronger">山寨币强于 Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin 强于山寨币</string>
-    <string name="pulse_chip_funding_high">资金费率偏高</string>
-    <string name="pulse_chip_funding_negative">资金费率为负</string>
+    <string name="pulse_chip_funding_high">杠杆情绪偏多</string>
+    <string name="pulse_chip_funding_negative">杠杆情绪偏空</string>
     <string name="pulse_funding_high">资金费率明显为正：大量杠杆多单</string>
     <string name="pulse_funding_negative">资金费率为负：大量空单</string>
     <string name="pulse_funding_neutral">资金费率中性</string>

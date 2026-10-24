@@ -57,4 +57,10 @@ final class DenseRowTextTests: XCTestCase {
         XCTAssertEqual(DenseRowText.convertedMaxWidth(rowWidth: 411), 205.5, accuracy: 0.001)
         XCTAssertEqual(DenseRowText.convertedMaxWidth(rowWidth: 320), 160, accuracy: 0.001)
     }
+
+    /// Neben dem Paar zwei Zeilen (Vermerk am Ende bleibt sichtbar), gestapelt frei — wie Android.
+    func testConvertedWrapsToTwoLinesBesideThePair() {
+        XCTAssertEqual(DenseRowText.convertedLineLimit(stacked: false), 2)
+        XCTAssertNil(DenseRowText.convertedLineLimit(stacked: true))
+    }
 }

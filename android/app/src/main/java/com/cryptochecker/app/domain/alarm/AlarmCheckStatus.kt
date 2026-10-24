@@ -35,11 +35,49 @@ class AlarmCheckStatus @Inject constructor() {
     /** Alarm-Id → nicht geprüft; fehlt die Id, wurde der Alarm zuletzt geprüft (oder noch nie ausgelassen). */
     val state: StateFlow<Map<Long, Unchecked>> = _state.asStateFlow()
 
+    private val lock = Any()
+
+    /** Laufender Durchlauf ([batch]): Änderungen hier sammeln, am Ende EINMAL veröffentlichen (unter [lock]). */
+    private var working: HashMap<Long, Unchecked>? = null
+    private var depth = 0
+
+    /**
+     * Ein Prüfdurchlauf über viele Paare: Vermerke werden gesammelt und am Ende einmal veröffentlicht – sonst kopierte
+     * jeder neue Vermerk die ganze Karte (bei vielen fehlenden Devisenkursen quadratisch). Verschachtelt und
+     * gleichzeitig nutzbar; während des Durchlaufs zeigt [state] noch den vorigen Stand. Wie iOS (Einträge einzeln).
+     */
+    suspend fun <T> batch(block: suspend () -> T): T {
+        synchronized(lock) { if (depth++ == 0) working = HashMap(_state.value) }
+        try {
+            return block()
+        } finally {
+            synchronized(lock) {
+                if (--depth == 0) {
+                    val done = working
+                    working = null
+                    if (done != null && done != _state.value) _state.value = done.toMap()
+                }
+            }
+        }
+    }
+
     fun markUnchecked(alarmId: Long, reason: Reason, now: Long) {
+        synchronized(lock) {
+            working?.let { w ->
+                w[alarmId] = Unchecked(reason, w[alarmId]?.since ?: now)
+                return
+            }
+        }
         _state.update { unchecked(it, alarmId, reason, now) }
     }
 
     fun markChecked(alarmId: Long) {
+        synchronized(lock) {
+            working?.let { w ->
+                w.remove(alarmId)
+                return
+            }
+        }
         _state.update { checked(it, alarmId) }
     }
 

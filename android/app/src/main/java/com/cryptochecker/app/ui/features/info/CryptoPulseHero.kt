@@ -142,7 +142,7 @@ internal fun PulseHeadline(report: PulseReport) {
 /**
  * Belege unter «Kurz gesagt»: drei Coin-Änderungen, die zutreffenden Kennzahl-Chips, Marktbreite und
  * Krypto-Markt. Für den Screenreader ein Element: «Letzte 24 Stunden: Bitcoin gestiegen um 2.8%, …
- * Funding erhöht. … Top 30: 22 steigen, 8 fallen. Krypto-Markt …».
+ * Hebel-Stimmung optimistisch. … Top 30: 22 steigen, 8 fallen. Krypto-Markt …».
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -153,7 +153,7 @@ internal fun PulseEvidence(report: PulseReport) {
         Triple("ETH", "Ethereum", report.eth24h),
         Triple("SOL", "Solana", report.sol24h),
     )
-    // Nur zutreffende Chips: Funding erhöht/negativ. Volumen (Krypto-Markt) und
+    // Nur zutreffende Chips: Hebel-Stimmung (Funding) optimistisch/pessimistisch. Volumen (Krypto-Markt) und
     // Fear & Greed haben eigene Karten im Tab und erscheinen hier nicht doppelt.
     val chips = buildList {
         when (report.funding) {

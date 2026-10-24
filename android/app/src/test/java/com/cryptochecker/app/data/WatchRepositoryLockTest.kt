@@ -61,8 +61,12 @@ class WatchRepositoryLockTest {
     @Test
     fun addingPairsAsksTheLock() {
         val add = source("WatchRepositoryAdd.kt")
-        // «Rückgängig» ebenfalls dort (Obergrenze der Merkliste)
-        for (signature in listOf("fun WatchRepository.tryAddWatch(", "fun WatchRepository.addWatches(", "fun WatchRepository.restore(")) {
+        // «Rückgängig» ebenfalls dort (Obergrenze der Merkliste; nach «Mehrere Paare» nur Paare ohne Alarm)
+        val signatures = listOf(
+            "fun WatchRepository.tryAddWatch(", "fun WatchRepository.addWatches(", "fun WatchRepository.restore(",
+            "fun WatchRepository.deleteWatchesWithoutAlarms(",
+        )
+        for (signature in signatures) {
             assertTrue(signature, add.substringAfter(signature).substringBefore("\n}\n").contains("userWriteRefused("))
         }
         // Ohne eigene Datenbank-Arbeit: legt über tryAddWatch an (dort gesperrt)
@@ -200,7 +204,7 @@ class WatchRepositoryLockTest {
     /**
      * Was nach dem Öffnen der Datenbank geschieht ([writeRefused]), prüft [WatchlistWriteConsentTest] als Verhalten.
      * Room läuft nur auf dem Gerät: hier nur, dass [userWriteRefused] die Sperre in einer Transaktion liest und an
-     * [writeRefused] mit dem echten Hinweis weitergibt (nicht mit einer Testnaht).
+     * [writeRefused] mit dem echten Hinweis weitergibt (nicht mit einer Testnaht) und dass beide nie fragen.
      */
     @Test
     fun lockChecksStoredKeptInsideATransaction() {
@@ -210,6 +214,11 @@ class WatchRepositoryLockTest {
         val read = "database.withTransaction { WatchlistStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }"
         assertTrue(lock.contains(read))
         assertFalse("Hinweis nicht ausgetauscht", lock.contains("report ="))
+        // Die Sperre fragt nie selbst (F-08 fragt die Aktion vorher): sonst wartete ein Schreibweg auf den Dialog, z. B.
+        // unter der Refresh-Sperre
+        assertFalse("userWriteRefused fragt", lock.contains("confirm("))
+        val decision = text.substringAfter("internal suspend fun writeRefused(").substringBefore("\n}\n")
+        assertFalse("writeRefused fragt", decision.contains("confirm("))
         assertTrue(text.contains("report: () -> Unit = { WatchlistWriteRefusal.report() }"))
     }
 

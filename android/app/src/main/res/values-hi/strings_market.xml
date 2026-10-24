@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">महत्वपूर्ण अमेरिकी आर्थिक आँकड़ों की तारीखें: महँगाई (CPI, PCE), उत्पादक कीमतें (PPI), जॉब्स रिपोर्ट और अमेरिकी फ़ेडरल रिज़र्व के ब्याज दर फ़ैसले। ऐसे आँकड़े अक्सर क्रिप्टो की कीमतों को भी हिलाते हैं।</string>
     <string name="market_info_no_advice">निवेश सलाह नहीं।</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · कीमतें हर घंटे, ऑन-चेन मान हर 12 घंटे में फिर से लोड</string>
-    <string name="market_info_pulse_how">शीर्षक दिशा बताता है; कार्ड खोलने पर विवरण दिखते हैं। व्यापक चाल का मतलब है कि ज़्यादातर बड़े कॉइन एक ही दिशा में चल रहे हैं। ऊँचे फ़ंडिंग रेट का मतलब है कि बहुत से लोग लीवरेज के साथ कीमत बढ़ने पर दाँव लगा रहे हैं। यह एक झलक है, पूर्वानुमान नहीं।</string>
+    <string name="market_info_pulse_how">शीर्षक दिशा बताता है; कार्ड खोलने पर विवरण दिखते हैं। व्यापक चाल का मतलब है कि ज़्यादातर बड़े कॉइन एक ही दिशा में चल रहे हैं। लीवरेज ट्रेडरों के आशावादी मूड का मतलब है कि बहुत से लोग लीवरेज के साथ कीमत बढ़ने पर दाँव लगा रहे हैं; इसे Bitcoin फ़्यूचर्स के फ़ंडिंग रेट से मापा जाता है। यह एक झलक है, पूर्वानुमान नहीं।</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · लगभग हर 5 मिनट में फिर से लोड</string>
-    <string name="market_info_pulse_what">पिछले 24 घंटों में बाज़ार का छोटा सार: Bitcoin, Ethereum और Solana कैसे चल रहे हैं, सबसे बड़े कॉइन में से कितने बढ़ या घट रहे हैं, अभी कितना Bitcoin ट्रेड हो रहा है और Bitcoin फ़्यूचर्स पर फ़ंडिंग रेट किस स्तर पर है।</string>
+    <string name="market_info_pulse_what">पिछले 24 घंटों में बाज़ार का छोटा सार: Bitcoin, Ethereum और Solana कैसे चल रहे हैं, सबसे बड़े कॉइन में से कितने बढ़ या घट रहे हैं, अभी कितना Bitcoin ट्रेड हो रहा है और लीवरेज ट्रेडरों का मूड कैसा है (Bitcoin फ़्यूचर्स के फ़ंडिंग रेट से मापा गया)।</string>
     <string name="market_info_totals_how">साथ में 24 घंटे में कुल मूल्य का बदलाव दिखता है। ऊँचे वॉल्यूम का मतलब है कि बहुत ट्रेडिंग हो रही है, लेकिन यह दिशा नहीं बताता। संभव हो तो रूपांतरण मुद्रा में, वरना अमेरिकी डॉलर में दिखाया जाता है।</string>
     <string name="market_info_totals_source">सभी कॉइन · CoinGecko · लगभग हर 30 मिनट में फिर से लोड</string>
     <string name="market_info_totals_what">सभी क्रिप्टोकरेंसी का कुल मूल्य (मार्केट कैप: कीमत गुणा प्रचलन में मात्रा, सभी कॉइन का जोड़) और पिछले 24 घंटों का ट्रेडिंग वॉल्यूम।</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">ऑल्टकॉइन और Bitcoin एक साथ चल रहे हैं</string>
     <string name="pulse_alts_stronger">ऑल्टकॉइन Bitcoin से मज़बूत</string>
     <string name="pulse_alts_weaker">Bitcoin ऑल्टकॉइन से मज़बूत</string>
-    <string name="pulse_chip_funding_high">फ़ंडिंग ऊँचा</string>
-    <string name="pulse_chip_funding_negative">फ़ंडिंग नेगेटिव</string>
+    <string name="pulse_chip_funding_high">लीवरेज ट्रेडरों का मूड आशावादी</string>
+    <string name="pulse_chip_funding_negative">लीवरेज ट्रेडरों का मूड निराशावादी</string>
     <string name="pulse_funding_high">फ़ंडिंग साफ़ तौर पर पॉज़िटिव: कई लीवरेज्ड लॉन्ग</string>
     <string name="pulse_funding_negative">फ़ंडिंग नेगेटिव: कई शॉर्ट</string>
     <string name="pulse_funding_neutral">फ़ंडिंग न्यूट्रल</string>

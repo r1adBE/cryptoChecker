@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Önemli ABD ekonomik verilerinin tarihleri: enflasyon (CPI, PCE), üretici fiyatları (PPI), istihdam raporu ve ABD Merkez Bankası faiz kararları. Bu tür veriler kripto para fiyatlarını da sıklıkla hareketlendirir.</string>
     <string name="market_info_no_advice">Yatırım tavsiyesi değildir.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · fiyatlar saatte bir, zincir üstü veriler 12 saatte bir yeniden yüklenir</string>
-    <string name="market_info_pulse_how">Başlık yönü belirtir, kart açılınca ayrıntılar görünür. Geniş bir hareket, büyük coinlerin çoğunun aynı yöne gittiği anlamına gelir. Yüksek fonlama oranı, birçok kişinin kaldıraçla yükselişe oynadığı anlamına gelir. Bir anlık görüntü, tahmin değil.</string>
+    <string name="market_info_pulse_how">Başlık yönü belirtir, kart açılınca ayrıntılar görünür. Geniş bir hareket, büyük coinlerin çoğunun aynı yöne gittiği anlamına gelir. İyimser bir kaldıraç havası, birçok kişinin kaldıraçla yükselişe oynadığı anlamına gelir; Bitcoin vadeli işlemlerindeki fonlama oranıyla ölçülür. Bir anlık görüntü, tahmin değil.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · yaklaşık 5 dakikada bir yeniden yüklenir</string>
-    <string name="market_info_pulse_what">Son 24 saatte piyasanın kısa bir özeti: Bitcoin, Ethereum ve Solana nasıl hareket ediyor, en büyük coinlerden kaçı yükseliyor ya da düşüyor, şu anda ne kadar Bitcoin işlem görüyor ve Bitcoin vadeli işlemlerinde fonlama oranı ne seviyede.</string>
+    <string name="market_info_pulse_what">Son 24 saatte piyasanın kısa bir özeti: Bitcoin, Ethereum ve Solana nasıl hareket ediyor, en büyük coinlerden kaçı yükseliyor ya da düşüyor, şu anda ne kadar Bitcoin işlem görüyor ve kaldıraç havası nasıl (Bitcoin vadeli işlemlerindeki fonlama oranıyla ölçülür).</string>
     <string name="market_info_totals_how">Sağda toplam değerin 24 saatlik değişimi yer alır. Yüksek hacim çok işlem yapıldığı anlamına gelir, ama hangi yönde olduğunu söylemez. Mümkünse çevrim para biriminde, değilse ABD doları cinsinden gösterilir.</string>
     <string name="market_info_totals_source">Tüm coinler · CoinGecko · yaklaşık 30 dakikada bir yeniden yüklenir</string>
     <string name="market_info_totals_what">Tüm kripto paraların toplam değeri (piyasa değeri: fiyat çarpı dolaşımdaki miktar, tüm coinler için toplanmış) ve son 24 saatin işlem hacmi.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoin\'ler ve Bitcoin benzer hareket ediyor</string>
     <string name="pulse_alts_stronger">Altcoin\'ler Bitcoin\'den güçlü</string>
     <string name="pulse_alts_weaker">Bitcoin altcoin\'lerden güçlü</string>
-    <string name="pulse_chip_funding_high">Fonlama yüksek</string>
-    <string name="pulse_chip_funding_negative">Fonlama negatif</string>
+    <string name="pulse_chip_funding_high">Kaldıraç havası iyimser</string>
+    <string name="pulse_chip_funding_negative">Kaldıraç havası kötümser</string>
     <string name="pulse_funding_high">Fonlama belirgin şekilde pozitif: çok sayıda kaldıraçlı long</string>
     <string name="pulse_funding_negative">Fonlama negatif: çok sayıda short</string>
     <string name="pulse_funding_neutral">Fonlama nötr</string>

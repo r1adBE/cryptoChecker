@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Datoer for viktige amerikanske økonomiske tall: inflasjon (CPI, PCE), produsentpriser (PPI), sysselsettingsrapporten og rentebeslutninger fra den amerikanske sentralbanken. Slike tall påvirker ofte også kursene på kryptovaluta.</string>
     <string name="market_info_no_advice">Ingen investeringsråd.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · kurser hver time, on-chain-verdier lastes inn på nytt hver 12. time</string>
-    <string name="market_info_pulse_how">Overskriften viser retningen; utvidet står detaljene. En bred bevegelse betyr at de fleste store myntene går samme vei. En høy funding-rate betyr at mange satser på stigende kurser med giring. Et øyeblikksbilde, ikke en prognose.</string>
+    <string name="market_info_pulse_how">Overskriften viser retningen; utvidet står detaljene. En bred bevegelse betyr at de fleste store myntene går samme vei. En optimistisk giringsstemning betyr at mange satser på stigende kurser med giring, målt etter funding-raten for Bitcoin-futures. Et øyeblikksbilde, ikke en prognose.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · lastes inn på nytt omtrent hvert 5. minutt</string>
-    <string name="market_info_pulse_what">Et kort sammendrag av markedet de siste 24 timene: hvordan Bitcoin, Ethereum og Solana beveger seg, hvor mange av de største myntene som stiger eller faller, hvor mye Bitcoin som handles akkurat nå, og hvor funding-raten på Bitcoin-futures ligger.</string>
+    <string name="market_info_pulse_what">Et kort sammendrag av markedet de siste 24 timene: hvordan Bitcoin, Ethereum og Solana beveger seg, hvor mange av de største myntene som stiger eller faller, hvor mye Bitcoin som handles akkurat nå, og hvordan giringsstemningen er (målt etter funding-raten for Bitcoin-futures).</string>
     <string name="market_info_totals_how">Til høyre står endringen i den samlede verdien over 24 timer. Høyt volum betyr at det handles mye, men ikke i hvilken retning. Vises om mulig i omregningsvalutaen, ellers i amerikanske dollar.</string>
     <string name="market_info_totals_source">Alle mynter · CoinGecko · lastes inn på nytt omtrent hvert 30. minutt</string>
     <string name="market_info_totals_what">Den samlede verdien av alle kryptovalutaer (markedsverdi: kurs ganger mengde i omløp, lagt sammen for alle mynter) og handelsvolumet de siste 24 timene.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoins og Bitcoin beveger seg likt</string>
     <string name="pulse_alts_stronger">Altcoins sterkere enn Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin sterkere enn altcoins</string>
-    <string name="pulse_chip_funding_high">Funding forhøyet</string>
-    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_chip_funding_high">Giringsstemning optimistisk</string>
+    <string name="pulse_chip_funding_negative">Giringsstemning pessimistisk</string>
     <string name="pulse_funding_high">Funding tydelig positiv: mange belånte longs</string>
     <string name="pulse_funding_negative">Funding negativ: mange shorts</string>
     <string name="pulse_funding_neutral">Funding nøytral</string>

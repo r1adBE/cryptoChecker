@@ -321,8 +321,9 @@ MANIFEST_VERSION = 1
 # Public key of MIRROR_SIGNING_KEY (ECDSA P-256, SubjectPublicKeyInfo DER, Base64), built into the apps
 PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1"
               "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw==")
-# Reserve key (F-29): its private part is kept offline by the owner; the apps accept both keys, so the secret can be
-# switched to the reserve key without an app update (DEVELOPMENT.md, "Mirror signing key")
+# Reserve key (F-29): its private part is kept offline by the owner; the apps accept both keys. If the signing key is
+# lost, the secret is switched to the reserve key without an app update; if it leaked, the leaked key must also be
+# removed from the apps with the next update (until then it stays valid) - DEVELOPMENT.md, "Reserve key"
 RESERVE_PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k"
                       "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw==")
 PUBLIC_KEYS = (PUBLIC_KEY, RESERVE_PUBLIC_KEY)
@@ -513,6 +514,14 @@ def _selftest_manifest():
     assert parse_manifest(b'{"v":true,"created":1,"files":{}}') is None
     assert parse_manifest(b'{"v":1,"created":1,"files":{"a/b":"' + b"0" * 64 + b'"}}') is None
     assert parse_manifest(b'{"v":1,"created":1.5,"files":{}}') is None
+    # The apps' keys (parity fixture productionPublicKey / productionReservePublicKey) are exactly these: a typo in
+    # the reserve key would otherwise only show in an emergency
+    fixture = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "android", "testdata", "parity",
+                           "mirror_signature.json")
+    if os.path.isfile(fixture):
+        with open(fixture, encoding="utf-8") as f:
+            keys = json.load(f)
+        assert (keys["productionPublicKey"], keys["productionReservePublicKey"]) == PUBLIC_KEYS, "keys differ from the apps"
     # SubjectPublicKeyInfo of a P-256 key (91 bytes); active and reserve key differ
     assert all(base64.b64decode(k)[:2] == b"\x30\x59" for k in PUBLIC_KEYS) and len(set(PUBLIC_KEYS)) == 2
 

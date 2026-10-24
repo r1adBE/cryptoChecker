@@ -123,10 +123,9 @@ final class RefreshPerformanceTests: XCTestCase {
 
     func testApplyAlarmUpdatesToSnapshot() {
         let now = self.now
-        // Jeder Alarm mit neuem Bezug (z. B. nach einem starken Ausschlag). `AlarmUpdate.apply(toAlarm:in:)` sucht den
-        // Alarm je Änderung linear im Stand — wächst mit Änderungen × Alarmen, darum nur die feste Grenze
-        // (Verhältnis im Protokoll).
-        T.assertLimitOnly("Alarm-Änderungen auf den Stand übertragen", limitMillis: 10_000) { n in
+        // Jeder Alarm mit neuem Bezug (z. B. nach einem starken Ausschlag). `Outcome.apply(to:)` baut einmal einen Index
+        // (`AlarmUpdate.Index`) und findet jeden Alarm direkt — wächst linear, darum mit Skalierungs-Prüfung.
+        T.assertScales("Alarm-Änderungen auf den Stand übertragen", limitMillis: 10_000) { n in
             let watches = binanceWatches(n)
             let alarms = PerformanceData.alarms(watches)
             var outcome = Outcome()
@@ -157,10 +156,10 @@ final class RefreshPerformanceTests: XCTestCase {
 
     func testUncheckedMarksWithoutExchangeRate() {
         let now = self.now
-        // Kursmarken in EUR ohne Devisenkurs: jede Prüfung vermerkt «nicht geprüft» erneut. Jeder Vermerk kopiert und
-        // vergleicht die ganze Karte (`AlarmCheckStatus.update`) — wächst mit Alarmen × Vermerken, darum nur die feste
-        // Grenze (Verhältnis im Protokoll). Gemessen: eine Prüfung, wenn die Vermerke schon stehen.
-        T.assertLimitOnly("Vermerk «nicht geprüft» je Alarm (zweite Prüfung)", limitMillis: 10_000) { n in
+        // Kursmarken in EUR ohne Devisenkurs: jede Prüfung vermerkt «nicht geprüft» erneut. Jeder Vermerk ändert nur
+        // seinen Eintrag (`AlarmCheckStatus.markUnchecked`) — wächst linear, darum mit Skalierungs-Prüfung. Gemessen: eine
+        // Prüfung, wenn die Vermerke schon stehen.
+        T.assertScales("Vermerk «nicht geprüft» je Alarm (zweite Prüfung)", limitMillis: 10_000) { n in
             let alarms = PerformanceData.alarms(binanceWatches(n), currency: "EUR")
             let mark: (AlarmCheckStatus) -> Int = { status in
                 for alarm in alarms {

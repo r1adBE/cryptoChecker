@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Datum för viktig amerikansk ekonomisk statistik: inflation (CPI, PCE), producentpriser (PPI), jobbrapporten och räntebesked från den amerikanska centralbanken. Sådana siffror påverkar ofta också kurserna för kryptovalutor.</string>
     <string name="market_info_no_advice">Ingen investeringsrådgivning.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · kurser varje timme, on-chain-värden laddas om var 12:e timme</string>
-    <string name="market_info_pulse_how">Rubriken anger riktningen; utfällt syns detaljerna. En bred rörelse betyder att de flesta stora mynt går åt samma håll. En hög finansieringsränta betyder att många satsar på stigande kurser med hävstång. En ögonblicksbild, ingen prognos.</string>
+    <string name="market_info_pulse_how">Rubriken anger riktningen; utfällt syns detaljerna. En bred rörelse betyder att de flesta stora mynt går åt samma håll. En optimistisk hävstångsstämning betyder att många satsar på stigande kurser med hävstång, mätt med finansieringsräntan för Bitcoin-terminer. En ögonblicksbild, ingen prognos.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · laddas om ungefär var 5:e minut</string>
-    <string name="market_info_pulse_what">En kort sammanfattning av marknaden de senaste 24 timmarna: hur Bitcoin, Ethereum och Solana rör sig, hur många av de största mynten som stiger eller faller, hur mycket Bitcoin som handlas just nu och var finansieringsräntan för Bitcoin-terminer ligger.</string>
+    <string name="market_info_pulse_what">En kort sammanfattning av marknaden de senaste 24 timmarna: hur Bitcoin, Ethereum och Solana rör sig, hur många av de största mynten som stiger eller faller, hur mycket Bitcoin som handlas just nu och hur hävstångsstämningen är (mätt med finansieringsräntan för Bitcoin-terminer).</string>
     <string name="market_info_totals_how">Till höger står förändringen av det sammanlagda värdet över 24 timmar. Hög volym betyder att det handlas mycket, men inte åt vilket håll. Visas om möjligt i omräkningsvalutan, annars i amerikanska dollar.</string>
     <string name="market_info_totals_source">Alla mynt · CoinGecko · laddas om ungefär var 30:e minut</string>
     <string name="market_info_totals_what">Det sammanlagda värdet av alla kryptovalutor (börsvärde: kurs gånger utelöpande mängd, summerat för alla mynt) och handelsvolymen de senaste 24 timmarna.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoins och Bitcoin rör sig likadant</string>
     <string name="pulse_alts_stronger">Altcoins starkare än Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin starkare än altcoins</string>
-    <string name="pulse_chip_funding_high">Funding förhöjd</string>
-    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_chip_funding_high">Hävstångsstämning optimistisk</string>
+    <string name="pulse_chip_funding_negative">Hävstångsstämning pessimistisk</string>
     <string name="pulse_funding_high">Funding tydligt positiv: många hävstångslongs</string>
     <string name="pulse_funding_negative">Funding negativ: många shorts</string>
     <string name="pulse_funding_neutral">Funding neutral</string>

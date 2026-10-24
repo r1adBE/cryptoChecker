@@ -64,9 +64,9 @@
     <string name="market_info_macro_what">Даты публикации важных экономических данных США: инфляция (CPI, PCE), цены производителей (PPI), отчёт по рынку труда и решения ФРС по ставке. Такие данные часто двигают и курсы криптовалют.</string>
     <string name="market_info_no_advice">Не инвестиционная рекомендация.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · цены каждый час, ончейн-данные обновляются каждые 12 часов</string>
-    <string name="market_info_pulse_how">Заголовок показывает направление, в развёрнутом виде видны подробности. Широкое движение означает, что большинство крупных монет движется в одну сторону. Высокая ставка финансирования означает, что многие ставят на рост с плечом. Это снимок момента, а не прогноз.</string>
+    <string name="market_info_pulse_how">Заголовок показывает направление, в развёрнутом виде видны подробности. Широкое движение означает, что большинство крупных монет движется в одну сторону. Оптимистичный настрой трейдеров с плечом означает, что многие ставят на рост с плечом; он оценивается по ставке финансирования фьючерсов на Bitcoin. Это снимок момента, а не прогноз.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · обновляется примерно каждые 5 минут</string>
-    <string name="market_info_pulse_what">Краткая сводка рынка за последние 24 часа: как движутся Bitcoin, Ethereum и Solana, сколько крупнейших монет растёт или падает, сколько Bitcoin торгуется прямо сейчас и на каком уровне ставка финансирования по фьючерсам на Bitcoin.</string>
+    <string name="market_info_pulse_what">Краткая сводка рынка за последние 24 часа: как движутся Bitcoin, Ethereum и Solana, сколько крупнейших монет растёт или падает, сколько Bitcoin торгуется прямо сейчас и каков настрой трейдеров с плечом (по ставке финансирования фьючерсов на Bitcoin).</string>
     <string name="market_info_totals_how">Справа указано изменение общей стоимости за 24 часа. Высокий объём означает, что торгуют много, но не говорит, в какую сторону. По возможности в валюте пересчёта, иначе в долларах США.</string>
     <string name="market_info_totals_source">Все монеты · CoinGecko · обновляется примерно каждые 30 минут</string>
     <string name="market_info_totals_what">Общая стоимость всех криптовалют (рыночная капитализация: цена, умноженная на количество в обращении, в сумме по всем монетам) и объём торгов за последние 24 часа.</string>
@@ -140,8 +140,8 @@
     <string name="pulse_alts_even">Альткоины и биткоин движутся одинаково</string>
     <string name="pulse_alts_stronger">Альткоины сильнее биткоина</string>
     <string name="pulse_alts_weaker">Биткоин сильнее альткоинов</string>
-    <string name="pulse_chip_funding_high">Фандинг повышен</string>
-    <string name="pulse_chip_funding_negative">Фандинг отрицательный</string>
+    <string name="pulse_chip_funding_high">Настрой трейдеров с плечом оптимистичный</string>
+    <string name="pulse_chip_funding_negative">Настрой трейдеров с плечом пессимистичный</string>
     <string name="pulse_funding_high">Фандинг заметно положительный: много лонгов с плечом</string>
     <string name="pulse_funding_negative">Фандинг отрицательный: много шортов</string>
     <string name="pulse_funding_neutral">Фандинг нейтральный</string>

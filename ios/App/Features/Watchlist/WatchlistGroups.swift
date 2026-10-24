@@ -281,28 +281,25 @@ private struct ChipLargeContent: ViewModifier {
 // MARK: Ausblend-Rand
 
 /// Weicher Ausblend-Rand am Ende der Chip-Zeile (rechts, bei RTL links), solange `active` — Hinweis, dass die Zeile
-/// weiter scrollt. Die Maske reicht oben und unten weit über die Zeile, damit der Namenshinweis unter einem Chip
-/// sichtbar bleibt. Wie Android `fadeEnd`.
+/// weiter scrollt. Die Maske liegt immer an (gleiche View-Identität); `active` ändert nur das Ende des Verlaufs
+/// (ausgeblendet bzw. voll deckend). So wird die ScrollView beim Wechsel nicht neu aufgebaut und springt nicht an den
+/// Anfang zurück. Die Maske reicht oben und unten weit über die Zeile, damit der Namenshinweis unter einem Chip
+/// sichtbar bleibt. Wie Android `fadeEnd` (nur Zeichnung).
 private struct ChipRowFade: ViewModifier {
     let active: Bool
 
     /// Breite des Rands (wie Android `CHIP_FADE_WIDTH`).
     private static let width: CGFloat = 24
 
-    @ViewBuilder
     func body(content: Content) -> some View {
-        if active {
-            content.mask {
-                HStack(spacing: 0) {
-                    Rectangle()
-                    LinearGradient(colors: [.black, .clear], startPoint: .leading, endPoint: .trailing)
-                        .flipsForRightToLeftLayoutDirection(true)
-                        .frame(width: Self.width)
-                }
-                .padding(.vertical, -60)
+        content.mask {
+            HStack(spacing: 0) {
+                Rectangle()
+                LinearGradient(colors: [.black, active ? .clear : .black], startPoint: .leading, endPoint: .trailing)
+                    .flipsForRightToLeftLayoutDirection(true)
+                    .frame(width: Self.width)
             }
-        } else {
-            content
+            .padding(.vertical, -60)
         }
     }
 }

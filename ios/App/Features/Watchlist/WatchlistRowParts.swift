@@ -194,15 +194,18 @@ extension WatchlistRow {
                 }
                 if let converted {
                     // Wie die Zeitzeile links (`.subheadline`)
-                    // Höchstens halbe Zeile (`DenseRowText.convertedMaxWidth`), länger → «…»: sonst drückt die
-                    // Kurs-Spalte (fixedSize) Paar, Name und Börse auf Breite 0 — wie Android
-                    // Gestapelt (Kurs unter dem Paar) frei
-                    let capped = !DenseRowText.stacksTrailing(typeScale)
-                    CappedWidthLayout(maxWidth: capped ? DenseRowText.convertedMaxWidth(rowWidth: Double(rowWidth)) : .infinity) {
+                    // Höchstens halbe Zeile (`DenseRowText.convertedMaxWidth`): sonst drückt die Kurs-Spalte
+                    // (fixedSize) Paar, Name und Börse auf Breite 0. Länger → Umbruch auf zwei Zeilen, damit die
+                    // Vermerke am Ende («· Kurs 08:15», «· Umrechnung unsicher») sichtbar bleiben, erst danach «…».
+                    // Gestapelt (Kurs unter dem Paar) frei — wie Android
+                    let stacked = DenseRowText.stacksTrailing(typeScale)
+                    let cap = stacked ? .infinity : DenseRowText.convertedMaxWidth(rowWidth: Double(rowWidth))
+                    CappedWidthLayout(maxWidth: cap) {
                         Text(converted)
                             .font(AppFont.amount(.subheadline))
                             .foregroundStyle(AppColors.onSurfaceVariant)
-                            .lineLimit(1)
+                            .multilineTextAlignment(.trailing)
+                            .lineLimit(DenseRowText.convertedLineLimit(stacked: stacked))
                             .truncationMode(.tail)
                     }
                     .padding(.trailing, 2)
@@ -261,7 +264,8 @@ extension WatchlistRow {
 }
 
 /// Schlägt dem Inhalt höchstens `maxWidth` vor, auch ohne Vorschlag (die Kurs-Spalte ist `fixedSize`): kurzer Text
-/// bleibt so breit wie er ist, längerer wird mit «…» gekürzt. Rechtsbündig. Wie Android `widthIn(max = …)`.
+/// bleibt so breit wie er ist, längerer bricht nach seiner Zeilengrenze um bzw. wird gekürzt. Rechtsbündig.
+/// Wie Android `widthIn(max = …)`.
 struct CappedWidthLayout: Layout {
     let maxWidth: Double
 

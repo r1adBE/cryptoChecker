@@ -670,14 +670,17 @@ touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (opt
   `--self-test`) after the release build and keeps it as artifact `sbom` (90 days): `sbom-android.cdx.json` lists every
   `releaseRuntimeClasspath` coordinate of the committed lock files (`:app`, `:marketdata`; not the baseline-profile
   generator) with package URL and the SHA-256 of the shipped `.aar`/`.jar` from `verification-metadata.xml`
-  (Kotlin-multiplatform umbrella modules and BOMs have no binary, hence no hash); a shipped coordinate missing there
+  (also when the variant file is named differently, e.g. Compose `ui.aar`; Kotlin-multiplatform umbrella modules and
+  BOMs have no binary, hence no hash); a shipped coordinate missing there
   fails the step. `sbom-ios.cdx.json` states that the iOS app has no third-party packages and fails as soon as a
   package manifest (`Package.swift`, `Podfile`, `Cartfile` …) appears. No timestamp or serial number: same sources,
   same bytes.
 * *Reproducible build*: `.github/workflows/reproducible.yml` (pushes to `main` touching `android/`, release tags,
   weekly on Sundays, by hand) builds the unsigned release APK and AAB twice on two fresh runners without any cache and
   compares them and the SBOM byte for byte (`.github/scripts/repro_compare.py`, `--self-test`; a difference names the
-  archive entries). Not a required check. iOS is not covered (Xcode output is not byte-reproducible).
+  archive entries). Not a required check. It proves that two independent builds on the same runner image agree; a
+  different OS, JDK or build path is not covered (anyone rebuilding should use the same JDK 17 and Gradle wrapper).
+  iOS is not covered (Xcode output is not byte-reproducible).
 
 The *Android* workflow also shows, never failing: lint warnings counted by id (top 20, one notice;
 `.github/scripts/lint_warnings.py`) and unit-test line coverage of `:app` and `:marketdata` (Kover, one notice;
@@ -2288,6 +2291,9 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 120: `AlarmCheckStatus.batch` (Android), `BulkAddRunner` end states (cancelled/failed, finish time, undo window
+  60 s, `deleteNewWatchesForUndo` without alarms), `BulkAddDisplay`, iOS `WatchInsertion`, `DenseRowText.convertedMaxLines`
+  / `convertedLineLimit`, `lineStart` (relative time at line start), `MarketMoveScale` opposing market/breadth → mixed.
 * Build 119: `AppSnackbarHost` / `showAppSnackbar` / `SnackbarKind` / `SnackbarPalette` (+ `snackbar_colors.json`), iOS
   `snackbarSurface`, `sbom.py`, `reproducible.yml` + `repro_compare.py`, behaviour tests (`FakeWatchStore`,
   `WatchlistWriteConsentTest`, `BulkAddRunnerTest`, iOS `WatchlistConsentBehaviorTests`, `AddWatchesBehaviorTests`),

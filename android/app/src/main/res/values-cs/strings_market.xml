@@ -64,9 +64,9 @@
     <string name="market_info_macro_what">Termíny důležitých ekonomických údajů z USA: inflace (CPI, PCE), ceny výrobců (PPI), zpráva o trhu práce a rozhodnutí americké centrální banky o sazbách. Taková čísla často hýbou i cenami kryptoměn.</string>
     <string name="market_info_no_advice">Nejde o investiční doporučení.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · ceny každou hodinu, on-chain hodnoty se načítají znovu každých 12 hodin</string>
-    <string name="market_info_pulse_how">Titulek udává směr, po rozbalení jsou vidět podrobnosti. Široký pohyb znamená, že se většina velkých mincí pohybuje stejným směrem. Vysoký funding rate znamená, že mnozí sázejí s pákou na růst cen. Okamžitý snímek, ne prognóza.</string>
+    <string name="market_info_pulse_how">Titulek udává směr, po rozbalení jsou vidět podrobnosti. Široký pohyb znamená, že se většina velkých mincí pohybuje stejným směrem. Optimistická nálada obchodníků s pákou znamená, že mnozí sázejí s pákou na růst cen; měří se podle funding rate u futures na Bitcoin. Okamžitý snímek, ne prognóza.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · načítá se znovu zhruba každých 5 minut</string>
-    <string name="market_info_pulse_what">Krátké shrnutí trhu za posledních 24 hodin: jak se pohybují Bitcoin, Ethereum a Solana, kolik z největších mincí roste nebo klesá, kolik Bitcoinu se právě obchoduje a kde je funding rate u futures na Bitcoin.</string>
+    <string name="market_info_pulse_what">Krátké shrnutí trhu za posledních 24 hodin: jak se pohybují Bitcoin, Ethereum a Solana, kolik z největších mincí roste nebo klesá, kolik Bitcoinu se právě obchoduje a jaká je nálada obchodníků s pákou (měřeno podle funding rate u futures na Bitcoin).</string>
     <string name="market_info_totals_how">Vpravo je změna celkové hodnoty za 24 hodin. Vysoký objem znamená, že se hodně obchoduje, ale neříká, kterým směrem. Pokud možno v měně přepočtu, jinak v amerických dolarech.</string>
     <string name="market_info_totals_source">Všechny mince · CoinGecko · načítá se znovu zhruba každých 30 minut</string>
     <string name="market_info_totals_what">Celková hodnota všech kryptoměn (tržní kapitalizace: cena krát množství v oběhu, sečteno přes všechny mince) a objem obchodů za posledních 24 hodin.</string>
@@ -140,8 +140,8 @@
     <string name="pulse_alts_even">Altcoiny a Bitcoin se pohybují stejně</string>
     <string name="pulse_alts_stronger">Altcoiny silnější než Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin silnější než altcoiny</string>
-    <string name="pulse_chip_funding_high">Funding zvýšený</string>
-    <string name="pulse_chip_funding_negative">Funding záporný</string>
+    <string name="pulse_chip_funding_high">Nálada obchodníků s pákou optimistická</string>
+    <string name="pulse_chip_funding_negative">Nálada obchodníků s pákou pesimistická</string>
     <string name="pulse_funding_high">Funding výrazně kladný: mnoho pákových longů</string>
     <string name="pulse_funding_negative">Funding záporný: mnoho shortů</string>
     <string name="pulse_funding_neutral">Funding neutrální</string>

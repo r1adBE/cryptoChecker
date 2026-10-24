@@ -7,7 +7,7 @@ import UIKit
 extension WatchlistRow {
     /// Zeitzeile: aktuell nur «Binance» (die Zeit steht oben im Status), nicht aktuell
     /// «Binance · vor 13 Min.» (wie Android); letzte Abfrage gescheitert
-    /// «vor 41 Min. · Binance nicht erreichbar»; ohne Fehler, aber zu alt
+    /// «Vor 41 Min. · Binance nicht erreichbar»; ohne Fehler, aber zu alt
     /// «Binance · veraltet · vor 4 Min.»; Abruf frisch, letzter Handel laut Börse > 2 h (Regel der Alarmsperre,
     /// `PriceFreshness.staleReason`) «Binance · letzter Handel vor 3 Std.». `warning` = Warnfarbe mit Symbol.
     var timeLine: (text: String, warning: Bool, spoken: String?) {
@@ -19,7 +19,8 @@ extension WatchlistRow {
         guard watch.lastUpdate > 0 else { return (watch.marketName, false, nil) }
         let ago = WatchlistTime.ago(watch.lastUpdate, now: now)
         if let error = watch.lastError, !error.isEmpty, !ConnectionErrors.isNotTraded(error) {
-            let text = L("watchlist_row_unreachable", ago, watch.marketName)
+            // Zeit steht hier am Zeilenanfang: gross beginnend
+            let text = WatchlistTime.lineStart(L("watchlist_row_unreachable", ago, watch.marketName), ago: ago)
             return (text, true, text)
         }
         if watch.lastError == nil, outdatedAfter > 0, now - watch.lastUpdate > outdatedAfter {
