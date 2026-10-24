@@ -154,6 +154,21 @@ final class TaxExportRunTests: XCTestCase {
         }
     }
 
+    /// `yearSummary(run:)` prüft in Debug, dass `run` aus denselben Eingaben stammt (`GainsRun.matches`).
+    func testRunMatchesOnlyItsOwnInputs() {
+        let utc = TimeZone(identifier: "UTC") ?? .gmt
+        let period = TaxTemplate.DE.period(2024)
+        let rules = TaxTemplate.DE.eventRules
+        let wallet = LocalDay(2024, 1, 1)
+        let run = TaxExport.GainsRun([], method: .FIFO, period: period, timeZone: utc, rules: rules, walletFrom: wallet)
+        XCTAssertTrue(run.matches(method: .FIFO, period: period, timeZone: utc, rules: rules, walletFrom: wallet))
+        XCTAssertFalse(run.matches(method: .AVERAGE, period: period, timeZone: utc, rules: rules, walletFrom: wallet))
+        let other = TaxTemplate.DE.period(2025)
+        XCTAssertFalse(run.matches(method: .FIFO, period: other, timeZone: utc, rules: rules, walletFrom: wallet))
+        XCTAssertFalse(run.matches(method: .FIFO, period: period, timeZone: utc, rules: rules, walletFrom: nil))
+        XCTAssertFalse(run.matches(method: .FIFO, period: period, timeZone: utc, rules: nil, walletFrom: wallet))
+    }
+
     // MARK: - Fixture
 
     private func dec(_ value: Any?) -> Decimal? { PortfolioDecimal.parse(value as? String) }

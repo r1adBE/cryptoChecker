@@ -78,7 +78,7 @@ extension AppData {
         Task { [weak self, ids] in
             guard let self else { return }
             // Läuft schon eine Aktualisierung, die neuen Paare einzeln holen
-            if self.refreshing {
+            if self.refreshState.refreshing {
                 for id in ids { await self.refreshOne(id) }
             } else {
                 await self.refreshAll()
@@ -158,7 +158,7 @@ extension AppData {
         Task { [weak self] in
             guard let self else { return }
             // Läuft noch eine Einzelabfrage des alten Paars: abwarten (ihr Ergebnis wird verworfen), höchstens 10 s
-            for _ in 0..<100 where self.refreshingWatchIds.contains(watchId) {
+            for _ in 0..<100 where self.refreshState.refreshingWatchIds.contains(watchId) {
                 try? await Task.sleep(nanoseconds: 100_000_000)
             }
             await self.refreshOne(watchId)

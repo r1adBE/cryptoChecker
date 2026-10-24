@@ -73,12 +73,15 @@ extension WatchlistScreen {
                 Button(L("action_cancel"), role: .cancel) {}
             }
             .sheet(isPresented: $showReport) {
-                RefreshReportSheet(report: data.lastRefreshReport, appStartMillis: data.appStartMillis,
-                                   liveExchanges: data.liveExchanges)
-                    .environment(\.appAccent, accent)
-                    // Eine feste Höhe: der Bericht kann lang sein, kein Stufenwechsel
-                    .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
+                // Offen während einer Aktualisierung: neuer Bericht und Live-Börsen erscheinen (eigene Beobachtung)
+                RefreshStateReader(state: data.refreshState) { state in
+                    RefreshReportSheet(report: state.lastRefreshReport, appStartMillis: data.appStartMillis,
+                                       liveExchanges: state.liveExchanges)
+                }
+                .environment(\.appAccent, accent)
+                // Eine feste Höhe: der Bericht kann lang sein, kein Stufenwechsel
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
             }
             // Nicht mehr gehandelte Paare (ganze Merkliste) samt Alarmen entfernen, mit «Rückgängig»
             .alert(L("watchlist_remove_not_traded_title"), isPresented: $askRemoveNotTraded) {

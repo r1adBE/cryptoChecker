@@ -81,9 +81,30 @@ final class PriceSaveThrottleTests: XCTestCase {
         XCTAssertEqual(back.request(now: 400_000, reloadWidgets: false, widgetKinds: nil), .saveNow)
     }
 
+    func testWidgetWishesMergeIntoAFullSave() {
+        let none = PriceSaveThrottle.Widgets()
+        let kinds = PriceSaveThrottle.Widgets(all: false, kinds: ["single"])
+        let all = PriceSaveThrottle.Widgets(all: true, kinds: [])
+        // Nichts wartend: das volle Schreiben bleibt, wie es ist
+        let unchanged = none.merged(reloadWidgets: true, widgetKinds: ["list", "chart"])
+        XCTAssertTrue(unchanged.reload)
+        XCTAssertEqual(unchanged.kinds, ["list", "chart"])
+        XCTAssertFalse(none.merged(reloadWidgets: false, widgetKinds: nil).reload)
+        // Wartende Arten kommen dazu, auch wenn das volle Schreiben selbst keine Widgets lädt
+        let added = kinds.merged(reloadWidgets: false, widgetKinds: nil)
+        XCTAssertTrue(added.reload)
+        XCTAssertEqual(added.kinds, ["single"])
+        XCTAssertEqual(kinds.merged(reloadWidgets: true, widgetKinds: ["list"]).kinds, ["list", "single"])
+        // «Alle» auf einer Seite: alle
+        XCTAssertNil(kinds.merged(reloadWidgets: true, widgetKinds: nil).kinds)
+        let everything = all.merged(reloadWidgets: true, widgetKinds: ["list"])
+        XCTAssertTrue(everything.reload)
+        XCTAssertNil(everything.kinds)
+    }
+
     /// In `AppData`: reine Kurse (`quiet`) gehen über die Zusammenfassung, jede andere Änderung (z. B. ein ausgelöster
-    /// Alarm) nicht — sie wird sofort geschrieben und lässt die Vormerkung unberührt; der Wechsel in den Hintergrund
-    /// schreibt wartende Kurse sofort.
+    /// Alarm) nicht — sie wird sofort geschrieben und nimmt wartende Kurse samt Widget-Wünschen mit (danach kein
+    /// zusätzliches Kurs-Schreiben, Abstand ab dann); der Wechsel in den Hintergrund schreibt wartende Kurse sofort.
     func testAppDataCoalescesOnlyPricesAndFlushesInBackground() async throws {
         // Merkliste der Test-App mit eigenem Testpaar, danach wiederhergestellt (wie AddWatchesBehaviorTests)
         let watchlist = try await AppDataTestWatchlist()
@@ -94,11 +115,18 @@ final class PriceSaveThrottleTests: XCTestCase {
         data.mutate({ _ in }, reloadWidgets: false, quiet: true)
         XCTAssertFalse(data.priceSaves.pending, "erste Kurs-Speicherung sofort")
         XCTAssertNotNil(data.priceSaves.lastSaveAt)
-        data.mutate({ _ in }, reloadWidgets: false, quiet: true)
+        data.mutate({ _ in }, reloadWidgets: true, widgetKinds: ["PriceSaveThrottleTests"], quiet: true)
         XCTAssertTrue(data.priceSaves.pending, "zweite innerhalb von 30 s wartet")
+        XCTAssertEqual(data.priceSaves.widgets.kinds, ["PriceSaveThrottleTests"])
         let before = data.priceSaves
         data.mutate({ _ in }, reloadWidgets: false)
-        XCTAssertEqual(data.priceSaves, before, "andere Änderung: sofort, nicht über die Zusammenfassung")
+        XCTAssertFalse(data.priceSaves.pending, "volles Schreiben nimmt die wartenden Kurse mit")
+        XCTAssertFalse(data.priceSaves.fires(token: before.token), "kein zusätzliches Kurs-Schreiben danach")
+        XCTAssertTrue(data.priceSaves.widgets.isEmpty, "Widget-Wünsche ins volle Schreiben übernommen")
+        XCTAssertGreaterThanOrEqual(data.priceSaves.lastSaveAt ?? 0, before.lastSaveAt ?? 0)
+        // Abstand ab dem vollen Schreiben: der nächste Kurs wartet
+        data.mutate({ _ in }, reloadWidgets: false, quiet: true)
+        XCTAssertTrue(data.priceSaves.pending, "Kurs kurz nach dem vollen Schreiben wartet")
         let wasActive = data.appActive
         data.setAppActive(false)
         XCTAssertFalse(data.priceSaves.pending, "Hintergrund: sofort geschrieben")

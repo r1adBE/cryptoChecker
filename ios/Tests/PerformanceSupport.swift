@@ -193,7 +193,9 @@ enum PerformanceData {
 /// Tests laufen als Debug-Build ohne Optimierung) und die Skalierung gegenüber einem Viertel davon — höchstens
 /// `scaleFactor`-mal so lang plus `scaleSlackMillis`. Linear wäre das 4-Fache, n·log n knapp das 5-Fache,
 /// quadratisch das 16-Fache. Grössen: `pairs` (Merkliste, Standard) oder `transactions` (Portfolio). Alle Werte stehen
-/// mit «[Performance]» im Testprotokoll. Wie `PerformanceTiming.kt`.
+/// mit «[Performance]» im Testprotokoll. Wie `PerformanceTiming.kt`. Der Workflow `ios-performance.yml` führt nur die
+/// Leistungstest-Klassen zusätzlich im Release-Build aus (ohne Abdeckung); diese Dateien dürfen darum nur App-Code
+/// nutzen, der auch im Release-Build vorhanden ist (nichts unter `#if DEBUG`), und keine Hilfen anderer Testdateien.
 enum PerformanceTiming {
     /// Obergrenze der Merkliste.
     static let large = WatchlistLimits.maxPairs

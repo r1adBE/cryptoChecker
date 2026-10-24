@@ -79,16 +79,15 @@ final class AppData: ObservableObject {
     /// vorgewärmt): `settings` sind Standardwerte nur zur Anzeige, werden nie gespeichert, und die
     /// Portfolio-Sperre gilt als an (`appLockEffective`). Neu gelesen in `reloadSettingsIfInaccessible`.
     @Published private(set) var settingsAccessible: Bool
-    @Published var refreshing = false
-    @Published var lastRefreshMillis: Int64 = SharedStorage.lastRefreshDuration
-    @Published var lastRefreshReport: RefreshReport? = SharedStorage.lastRefreshReport
+    /// Status der Aktualisierung und des Live-Stroms (läuft, einzelne Paare, Dauer, Bericht, Live-Paare): eigenes
+    /// beobachtbares Objekt, damit eine Änderung nicht alle Ansichten von `AppData` neu aufbaut (`RefreshState`).
+    let refreshState = RefreshState(lastRefreshMillis: SharedStorage.lastRefreshDuration,
+                                    lastRefreshReport: SharedStorage.lastRefreshReport)
     /// Ende der Pause je Börsen-Schlüssel (`RowPause.pauses`): «Binance · pausiert bis 19:45» in der Zeitzeile ihrer
     /// Paare; ob eine Pause noch läuft, entscheidet die Zeile mit der aktuellen Zeit (`RowPause.shownUntil`).
     @Published var exchangePauses: [String: Int64] = RowPause.pauses(SharedStorage.exchangeBackoff)
     /// %-Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden.
     @Published var changeStamp: ChangeStamp? = SharedStorage.changeStamp
-    /// Paare, die gerade einzeln aktualisiert werden.
-    @Published var refreshingWatchIds: Set<Int64> = []
     @Published var favorites: [FavoriteKind: Set<String>] = [:]
     /// «Ungewöhnliche Aktivität» je Paar (Watch-Id); abgelaufene Signale filtert
     /// `ActivityReport.active(now:)`.
@@ -112,12 +111,8 @@ final class AppData: ObservableObject {
     @Published private(set) var online = NetworkStatus.shared.isOnline
     /// App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen), für den Bericht «Ablauf».
     @Published private(set) var appStartMillis: Int64? = SharedStorage.appStartMillis
-    // Live-Kurse je Paar: `LivePrices` (eigener, je Zeile beobachteter Speicher) — ein Tick
-    // veröffentlicht hier nichts, sonst würden Markt, Portfolio und Einstellungen neu aufgebaut.
-    /// Börsen, deren Live-Strom gerade Kurse liefert («LIVE» in der Status-Pille, Bericht).
-    @Published var liveExchanges: [String] = []
-    /// Watch-Ids der Paare am Live-Strom (Börse liefert gerade): Frische 2 Min., «Live» nur mit allen (K-1).
-    @Published var liveWatchIds: Set<Int64> = []
+    // Live-Kurse je Paar: `LivePrices` (eigener, je Zeile beobachteter Speicher), Börsen und Paare am Strom:
+    // `refreshState` — ein Tick veröffentlicht hier nichts, sonst würden Markt, Portfolio und Einstellungen neu aufgebaut.
     /// Letzter Live-Kurs je Watch-Id (ms) — Paare mit frischem Kurs lässt die REST-Abfrage aus.
     var liveTickAt: [Int64: Int64] = [:]
     /// «Paar bearbeiten» je Watch-Id (ms): Live-Kurse von davor gehören zum alten Paar (`applyLive` verwirft sie).
@@ -326,7 +321,9 @@ final class AppData: ObservableObject {
             requestPriceSave(reloadWidgets: reloadWidgets, widgetKinds: widgetKinds)
             return
         }
-        writeSnapshot(s, durability: .full, reloadWidgets: reloadWidgets, widgetKinds: widgetKinds)
+        // Wartende Kurse stecken schon in `s`: sie kommen mit diesem Schreiben, samt ihren Widget-Wünschen
+        let widgets = foldPendingPriceSave(reloadWidgets: reloadWidgets, widgetKinds: widgetKinds)
+        writeSnapshot(s, durability: .full, reloadWidgets: widgets.reload, widgetKinds: widgets.kinds)
         followBackgroundDemand() // Bedarf der Hintergrund-Aktualisierung
     }
 
@@ -381,8 +378,10 @@ final class AppData: ObservableObject {
             }
         }
         reloadSettingsIfInaccessible()
-        lastRefreshMillis = SharedStorage.lastRefreshDuration
-        lastRefreshReport = SharedStorage.lastRefreshReport
+        let duration = SharedStorage.lastRefreshDuration
+        if refreshState.lastRefreshMillis != duration { refreshState.lastRefreshMillis = duration }
+        let report = SharedStorage.lastRefreshReport
+        if refreshState.lastRefreshReport != report { refreshState.lastRefreshReport = report }
         reloadExchangePauses()
         changeStamp = SharedStorage.changeStamp
         activityReports = ActivityRepository.reports()

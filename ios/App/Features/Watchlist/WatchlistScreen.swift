@@ -153,6 +153,12 @@ struct WatchlistScreen: View {
         }
         // «Nur veraltete» bzw. «nur deaktivierte»: der Status zählt weiter über die ganze Gruppe
         let wholeGroup = quickView == .stale || quickView == .disabled
+        let refreshEvents = WatchlistRefreshEvents(
+            state: data.refreshState, countdown: refreshCountdown,
+            onRunChange: { now = TimeUtils.nowMillis },
+            // «Nur veraltete»: die Frische-Schwelle hängt am Live-Strom — Liste neu filtern
+            onLiveChange: { if quickView == .stale { now = TimeUtils.nowMillis } }
+        )
         let content = ScrollViewReader { proxy in
             Group {
                 if watches.isEmpty {
@@ -215,10 +221,9 @@ struct WatchlistScreen: View {
                 now = TimeUtils.nowMillis
             }
         }
-        // Countdown der 15-s-Sperre: nur solange die Merkliste sichtbar ist, neu nach jeder Aktualisierung
-        .task(id: "\(data.refreshing)-\(data.lastRefreshReport?.at ?? 0)") {
-            await refreshCountdown.run(refreshing: data.refreshing)
-        }
+        // Status der Aktualisierung (eigenes Objekt, `RefreshState`): Countdown der 15-s-Sperre und Uhr; der
+        // Bildschirm beobachtet ihn nicht selbst — nur Start und Ende eines Durchlaufs (bzw. neue Dauer) stellen die Uhr
+        .modifier(refreshEvents)
         // Umrechnungsfaktoren: neu bei geänderter Einstellung oder anderen Quote-Währungen,
         // sonst höchstens alle 60 s.
         .task(id: conversionKey) {
@@ -232,7 +237,7 @@ struct WatchlistScreen: View {
     }
 
     /// Zweiter Teil der Modifikatoren von `screen`, in drei kleine Ausdrücke aufgeteilt, damit der
-    /// Swift-Compiler sie in vernünftiger Zeit prüfen kann: Uhr und Sprünge aus Mitteilungen
+    /// Swift-Compiler sie in vernünftiger Zeit prüfen kann: Glocke und Sprünge aus Mitteilungen
     /// (`routeEvents`), Ende der vorübergehenden Ansichten (`viewEvents`), Live-Kurse und
     /// App-Start-Messung (`liveEvents`).
     private func events(_ content: some View, visible: [Watch], activityChip: Bool,
@@ -245,8 +250,6 @@ struct WatchlistScreen: View {
     private func routeEvents(_ content: some View) -> some View {
         let lastTriggered: Int64 = data.lastAlarmTriggeredAt
         return content
-            .onChange(of: data.refreshing) { _, _ in now = TimeUtils.nowMillis }
-            .onChange(of: data.lastRefreshMillis) { _, _ in now = TimeUtils.nowMillis }
             // Erster Stand gilt als gesehen; nur spätere Auslösungen lassen die Glocke pulsieren
             .onChange(of: lastTriggered) { old, new in
                 if !reduceMotion && AlarmPulse.isNew(previous: old, current: new) { bellPulse += 1 }

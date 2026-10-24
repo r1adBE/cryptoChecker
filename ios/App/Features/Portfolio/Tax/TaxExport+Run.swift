@@ -34,6 +34,14 @@ extension TaxExport {
                                      rules: rules, walletFrom: walletFrom)
         }
 
+        /// Mit diesen Eingaben gerechnet? Prüft Methode, Steuerjahr, Zeitzone, Regeln und Wallet-Beginn; `trades` und
+        /// `priceAt` (Closure) lassen sich nicht vergleichen — dafür bürgt der Aufrufer (`yearSummary(run:)`).
+        func matches(method: TaxMethod, period: TaxPeriod, timeZone: TimeZone, rules: TaxEventRules?,
+                     walletFrom: LocalDay?) -> Bool {
+            guard self.method == method, self.period == period, self.timeZone == timeZone else { return false }
+            return self.rules == rules && self.walletFrom == walletFrom
+        }
+
         /// Wie `TaxExport.disposals(in:)` ohne den Jahresfilter.
         private static func disposals(_ trades: [PortfolioTx], method: TaxMethod, timeZone: TimeZone,
                                       priceAt: ((String, Int64) -> Decimal?)?, fx: ((Int64) -> Decimal?)?,

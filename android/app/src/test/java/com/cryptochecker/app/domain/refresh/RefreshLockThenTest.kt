@@ -129,4 +129,68 @@ class RefreshLockThenTest {
         assertEquals(1, lock.tryWithLockThen(scope) { _ -> 1 to null }?.first)
         assertEquals(2, lock.withLockWithinThen(1_000, scope) { _ -> 2 to null }?.first)
     }
+
+    @Test
+    fun stagedTailRunsAfterAFailingBlockAndKeepsTheLockUntilItEnds() = runBlocking {
+        val lock = RefreshLock()
+        val gate = CompletableDeferred<Unit>()
+        val ran = CompletableDeferred<Unit>()
+        val tail: LockedTail = {
+            gate.await()
+            ran.complete(Unit)
+        }
+        val result = runCatching {
+            lock.withLockThen<Unit>(scope) { proof ->
+                lock.stageTail(proof, tail)
+                error("Fehler nach dem Vormerken")
+            }
+        }
+        // Der Fehler geht an den Aufrufer, die Nacharbeit läuft trotzdem und hält die Sperre bis zu ihrem Ende
+        assertEquals("Fehler nach dem Vormerken", result.exceptionOrNull()?.message)
+        assertTrue(lock.isLocked)
+        assertNull(lock.tryWithLock { "dazwischen" })
+        gate.complete(Unit)
+        withTimeout(5_000) { ran.await() }
+        awaitUnlocked(lock)
+        assertEquals("danach", lock.tryWithLock { "danach" })
+    }
+
+    @Test
+    fun stagedTailRunsWhenTheBlockEndsNormally() = runBlocking {
+        val lock = RefreshLock()
+        var ran = false
+        val staged: LockedTail = { ran = true }
+        val (value, job) = lock.withLockThen(scope) { proof ->
+            lock.stageTail(proof, staged)
+            5 to null
+        }
+        assertEquals(5, value)
+        withTimeout(5_000) { job!!.join() }
+        awaitUnlocked(lock)
+        assertTrue(ran)
+    }
+
+    @Test
+    fun returnedTailWinsOverTheStagedOne() = runBlocking {
+        val lock = RefreshLock()
+        val order = Collections.synchronizedList(ArrayList<String>())
+        val staged: LockedTail = { order += "vorgemerkt" }
+        val returned: LockedTail = { order += "zurückgegeben" }
+        val (_, job) = lock.withLockThen(scope) { proof ->
+            lock.stageTail(proof, staged)
+            Unit to returned
+        }
+        withTimeout(5_000) { job!!.join() }
+        awaitUnlocked(lock)
+        assertEquals(listOf("zurückgegeben"), order.toList())
+    }
+
+    @Test
+    fun stagingOutsideAThenBlockFails() = runBlocking {
+        val lock = RefreshLock()
+        val staged: LockedTail = {}
+        val result = runCatching { lock.withLock { proof -> lock.stageTail(proof, staged) } }
+        assertTrue(result.exceptionOrNull() is IllegalStateException)
+        assertFalse(lock.isLocked)
+    }
 }

@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 126 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 127 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -525,7 +525,7 @@ Frühere Runden:
 | `Shared/` | Code und Ressourcen für **beide** Targets (App und Widgets), u. a. `Resources/Localizable.xcstrings` |
 | `App/` | nur App: Oberfläche, Hintergrund-Aktualisierung, `Info.plist`, Entitlements, `Resources/Assets.xcassets` (App-Icons, Logos) |
 | `Widgets/` | nur Widget-Erweiterung: Widgets, `Info.plist`, Entitlements, eigener Asset-Katalog |
-| `Tests/` | Unit-Tests (Testziel `CryptoCheckerTests`, ⌘U bzw. `xcodebuild test -scheme CryptoChecker`); `Tests/Parity/` = gemeinsame Testfälle, vom Generator aus `android/testdata/parity` kopiert |
+| `Tests/` | Unit-Tests (Testziel `CryptoCheckerTests`, ⌘U bzw. `xcodebuild test -scheme CryptoChecker`); `Tests/Parity/` = gemeinsame Testfälle, vom Generator aus `android/testdata/parity` kopiert; `*PerformanceTests` = Zeitmessungen, zusätzlich im Release-Build per Workflow `ios-performance.yml` (public/DEVELOPMENT.md, «iOS performance tests in Release») |
 | `tools/` | Generatoren (Python 3) für Texte, Grafiken und das Xcode-Projekt |
 | `CryptoChecker.xcodeproj` | generiertes Xcode-Projekt |
 | `project.yml` | gleichwertige XcodeGen-Spezifikation (Fallback) |

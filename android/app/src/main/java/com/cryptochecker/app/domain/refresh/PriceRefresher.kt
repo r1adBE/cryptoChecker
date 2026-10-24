@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -127,26 +128,22 @@ class PriceRefresher @Inject constructor(
     }
 
     /**
-     * Durchlauf unter der Sperre; die zurückgestellten Kurs-Meldungen ([priceTail]) laufen danach als Nacharbeit, die
-     * die Sperre weiter hält ([RefreshLock.withLockThen]). Rückgabe: Ergebnis und Job der Kurs-Meldungen (null =
-     * keine).
+     * Durchlauf unter der Sperre; die zurückgestellten Kurs-Meldungen laufen danach als Nacharbeit, die die Sperre
+     * weiter hält ([RefreshLock.withLockThen]) — vorgemerkt gleich nach dem Speichern, also auch nach einem Fehler oder
+     * Abbruch im Rest des Durchlaufs. Rückgabe: Ergebnis und Job der Kurs-Meldungen (null = keine).
      */
     private suspend fun refreshAllGuarded(deadlineAt: Long?): Pair<RefreshSummary, Job?> =
         refreshLock.withLockThen(lateFillScope) { lock ->
             fullRefreshStartedAt = System.currentTimeMillis()
             _fullRefreshRunning.value = true
-            priceTail = null
             try {
-                refreshOnIo(lock, deadlineAt) to priceTail
+                // Die Kurs-Meldungen merkt refreshAllLocked gleich nach dem Speichern vor (RefreshLock.stageTail)
+                refreshOnIo(lock, deadlineAt) to null
             } finally {
-                priceTail = null
                 _fullRefreshRunning.value = false
                 fullRefreshStartedAt = 0L
             }
         }
-
-    /** Kurs-Meldungen des laufenden Durchlaufs, nach Widgets und Bericht (nur unter der Sperre gesetzt und gelesen). */
-    private var priceTail: LockedTail? = null
 
     private suspend fun refreshOnIo(lock: RefreshLockScope, deadlineAt: Long?): RefreshSummary =
         withContext(Dispatchers.IO) {
@@ -318,6 +315,13 @@ class PriceRefresher @Inject constructor(
         //    dann Alarme, Benachrichtigungen und Ansagen.
         // Paare pausierter Börsen nicht anfassen: kein Fehler, letzter Kurs bleibt
         val processed = resultProcessor.process(lock, activeWatches, fetched, settings, dayStart, deferPrices = true)
+        // Kurs-Meldungen gleich vormerken: Sie laufen nach dem Durchlauf (gedrosselt bis einige Sekunden, die Sperre
+        // bleibt gehalten) — auch wenn danach etwas scheitert, denn die Kurse sind gespeichert. Die Zahl der gezeigten
+        // trägt die Nacharbeit in den Bericht dieses Durchlaufs nach (sofern es ihn gibt)
+        val report = AtomicReference<RefreshReport?>(null)
+        refreshLock.stageTail(
+            lock, resultProcessor.pricesTail(processed) { shown -> report.get()?.let { noteShownPrices(it, shown) } },
+        )
         // Neue Basis oder neuer Tag: alte Werte von Paaren ohne neuen Kurs gehören nicht mehr dazu
         // (ohne Stempel: Werte von vorher, also rollend)
         val previousStamp = refreshStats.changeStamp.value ?: ChangeStamp(ChangeBasis.ROLLING_24H, 0L)
@@ -344,7 +348,7 @@ class PriceRefresher @Inject constructor(
         if (drawWidgets) chartRefresher.markIfStale()
         val widgetMillis = if (drawWidgets) System.currentTimeMillis() - widgetStartedAt else null
 
-        val report = RefreshReport(
+        val finished = RefreshReport(
             at = System.currentTimeMillis(),
             totalMillis = duration,
             pairs = watches.size,
@@ -356,11 +360,9 @@ class PriceRefresher @Inject constructor(
             notifications = processed.notificationsShown,
             widgetMillis = widgetMillis,
         )
-        Timber.i("Aktualisierung: %s", report)
-        refreshStats.setLastReport(report)
-        // Kurs-Meldungen erst jetzt (gedrosselt bis einige Sekunden), die Sperre bleibt gehalten; die Zahl der
-        // gezeigten trägt die Nacharbeit in diesen Bericht nach
-        priceTail = resultProcessor.pricesTail(processed) { shown -> noteShownPrices(report, shown) }
+        Timber.i("Aktualisierung: %s", finished)
+        refreshStats.setLastReport(finished)
+        report.set(finished)
 
         return RefreshSummary(
             checked = processed.checked,

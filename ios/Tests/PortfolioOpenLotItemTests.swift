@@ -1,8 +1,8 @@
 import XCTest
 @testable import CryptoChecker
 
-/// «Offene Kauf-Posten»: Zeilen nur, wenn sie gezeigt werden (`PortfolioOpenLotItem.shown`) — mit denselben Ids und
-/// Posten wie aus der ganzen Liste.
+/// «Offene Kauf-Posten»: Zeilen der Karte nur, wenn sie gezeigt werden (`PortfolioOpenLotItem.shown`) — mit denselben
+/// Ids und Posten wie aus der ganzen Liste, die das Blatt «Alle zeigen» zeigt (`PortfolioOpenLotItem.of`).
 final class PortfolioOpenLotItemTests: XCTestCase {
 
     private func lots(_ count: Int) -> [PortfolioOpenLot] {
@@ -27,15 +27,12 @@ final class PortfolioOpenLotItemTests: XCTestCase {
         for count in [0, 1, limit - 1, limit, limit + 1, 3 * limit + 7] {
             let all = lots(count)
             let full = PortfolioOpenLotItem.of(all)
-            XCTAssertTrue(PortfolioOpenLotItem.shown(all, expanded: false, showAll: false, limit: limit).isEmpty)
-            let expanded = PortfolioOpenLotItem.shown(all, expanded: true, showAll: false, limit: limit)
+            XCTAssertTrue(PortfolioOpenLotItem.shown(all, expanded: false, limit: limit).isEmpty)
+            let expanded = PortfolioOpenLotItem.shown(all, expanded: true, limit: limit)
             XCTAssertEqual(expanded.map(\.id), full.prefix(limit).map(\.id), "\(count)")
             XCTAssertEqual(expanded.map(\.lot), full.prefix(limit).map(\.lot), "\(count)")
-            for open in [false, true] {
-                let sheet = PortfolioOpenLotItem.shown(all, expanded: open, showAll: true, limit: limit)
-                XCTAssertEqual(sheet.map(\.id), full.map(\.id), "\(count)")
-                XCTAssertEqual(sheet.map(\.lot), all, "\(count)")
-            }
+            // Das Blatt «Alle zeigen» nimmt immer die ganze Liste (`of`), auch beim Schliessen
+            XCTAssertEqual(full.map(\.lot), all, "\(count)")
             XCTAssertEqual(Set(full.map(\.id)).count, full.count, "Ids eindeutig")
         }
     }

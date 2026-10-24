@@ -115,6 +115,8 @@ struct AboutSettingsPage: View {
 @MainActor
 struct DeveloperSettingsPage: View {
     @EnvironmentObject private var data: AppData
+    /// Dauer und Bericht der letzten Aktualisierung (eigenes Objekt neben `AppData`, beobachtet).
+    @ObservedObject private var refreshState = AppData.shared.refreshState
     @Environment(\.appAccent) private var accent
 
     init() {}
@@ -132,8 +134,8 @@ struct DeveloperSettingsPage: View {
                 HStack {
                     Text(L("watchlist_refresh_report")).font(.body)
                     Spacer()
-                    if data.lastRefreshMillis > 0 {
-                        Text(PriceFormat.duration(data.lastRefreshMillis))
+                    if refreshState.lastRefreshMillis > 0 {
+                        Text(PriceFormat.duration(refreshState.lastRefreshMillis))
                             .font(.footnote.weight(.semibold).monospacedDigit())
                             .foregroundStyle(accent.onContainer)
                             .padding(.horizontal, 8)
@@ -142,7 +144,7 @@ struct DeveloperSettingsPage: View {
                     }
                 }
                 // Gleiche Darstellung wie das Blatt in der Merkliste (Status, Börsen)
-                if let report = data.lastRefreshReport {
+                if let report = refreshState.lastRefreshReport {
                     RefreshReportSummary(report: report, now: TimeUtils.nowMillis)
                         .padding(.top, 4)
                     RefreshReportMarketList(markets: report.markets)

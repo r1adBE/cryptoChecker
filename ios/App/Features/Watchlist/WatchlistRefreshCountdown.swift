@@ -35,12 +35,14 @@ final class WatchlistRefreshCountdown {
 /// «Aktualisieren (5)», «(4)» … grau, danach wird der Eintrag von selbst wieder aktiv — auch bei offenem
 /// Menü. Keine Ansage je Sekunde: VoiceOver liest die neue Beschriftung, wenn es den Eintrag erreicht.
 struct WatchlistMenuHead: View {
-    let refreshing: Bool
+    /// Status der Aktualisierung (beobachtet: läuft eine, steht der Eintrag im laufenden Zustand).
+    @ObservedObject var state: RefreshState
     let countdown: WatchlistRefreshCountdown
     let onOpenAbout: () -> Void
     let onRefresh: () -> Void
 
     var body: some View {
+        let refreshing = state.refreshing
         let seconds = refreshing ? 0 : countdown.seconds
         // Zusätzlich frisch geprüft: Gleich nach dem Ende einer Aktualisierung steht `seconds` noch kurz
         // auf 0, bis `run` neu gestartet hat — dann nicht für einen Augenblick aktiv

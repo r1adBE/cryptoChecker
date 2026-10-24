@@ -36,6 +36,9 @@ struct WatchActionsSheet: View {
     var onDisabledChange: (Watch) -> Void = { _ in }
 
     @EnvironmentObject var data: AppData
+    /// Status der Aktualisierung (eigenes Objekt neben `AppData`): «Aktualisieren» mit Kreisel, «Erneut versuchen»
+    /// gesperrt, Frische im Kopf (Live-Strom) folgen ihm.
+    @ObservedObject var refreshState = AppData.shared.refreshState
     @Environment(\.appAccent) var accent
     @Environment(\.onAccent) var onAccent
     @Environment(\.dismiss) var dismiss
@@ -144,7 +147,7 @@ struct WatchActionsSheet: View {
 
     private func content(_ watch: Watch, isPreview: Bool = false) -> some View {
         let alarmCount = data.activeAlarmCounts[watch.id] ?? 0
-        let refreshingThis = data.refreshingWatchIds.contains(watch.id)
+        let refreshingThis = refreshState.refreshingWatchIds.contains(watch.id)
         let scroll = ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 header(watch, isPreview: isPreview)

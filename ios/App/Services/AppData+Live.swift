@@ -33,16 +33,16 @@ extension AppData {
     /// Vom Strom: neuer Anzeige-Stand (nil = Kurse unverändert), Börsen mit Daten, Zeit je Paar.
     func setLive(quotes: [Int64: LiveQuote]?, exchanges: [String], liveIds: Set<Int64>, tickAt: [Int64: Int64]) {
         if let quotes { LivePrices.shared.apply(quotes) }
-        if exchanges != liveExchanges { liveExchanges = exchanges }
-        if liveIds != liveWatchIds { liveWatchIds = liveIds }
+        if exchanges != refreshState.liveExchanges { refreshState.liveExchanges = exchanges }
+        if liveIds != refreshState.liveWatchIds { refreshState.liveWatchIds = liveIds }
         liveTickAt = tickAt
     }
 
     /// Strom beendet: wieder die gespeicherten Kurse zeigen.
     func clearLive() {
         LivePrices.shared.clear()
-        if !liveExchanges.isEmpty { liveExchanges = [] }
-        if !liveWatchIds.isEmpty { liveWatchIds = [] }
+        if !refreshState.liveExchanges.isEmpty { refreshState.liveExchanges = [] }
+        if !refreshState.liveWatchIds.isEmpty { refreshState.liveWatchIds = [] }
         liveTickAt = [:]
     }
 
@@ -52,7 +52,7 @@ extension AppData {
     func applyLive(_ quotes: [Int64: LiveQuote], reloadWidgets: Bool) async -> Bool {
         // Läuft eine Aktualisierung (alle oder ein Paar): nicht anstellen — der Puffer behält je
         // Paar nur den neuesten Kurs, der Strom versucht es beim nächsten Mal (zusammengeführt)
-        guard !refreshing, !liveApplying, refreshingWatchIds.isEmpty else { return false }
+        guard !refreshState.refreshing, !liveApplying, refreshState.refreshingWatchIds.isEmpty else { return false }
         liveApplying = true
         defer { liveApplying = false }
         let now = TimeUtils.nowMillis

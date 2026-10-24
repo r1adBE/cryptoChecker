@@ -15,6 +15,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 127)
+
+* iOS: the watchlist no longer redraws every row while a refresh is running.
+* Android: deferred price notifications survive an error late in a refresh; iOS: a pending price save is folded into the next full save; open-lots sheet keeps the full list while closing.
+
 ## 16.2.2 (build 126)
 
 * Tax worksheet: the realised-gains export and the year summary compute the disposals only once per file (dates for the exchange rates and the rows come from the same run) and the two notes about network-fee cost and unassigned fees from one shared run – same files, less work.

@@ -87,6 +87,11 @@ class LivePriceApplier internal constructor(
      * Letztes Speichern beim Beenden des Stroms ([com.cryptochecker.app.data.live.LivePriceStream.stopAll]):
      * wie [applyLive], wartet aber höchstens [timeoutMillis] auf die Sperre statt sofort aufzugeben —
      * sonst gingen die letzten Live-Kurse während einer laufenden Aktualisierung verloren.
+     *
+     * Auf die Kurs-Meldungen (Nacharbeit) wartet es nicht: Sie laufen im App-weiten Bereich weiter und halten die
+     * Sperre bis zu ihrem Ende, kein anderer Schreiber kommt vorher dran. Warten verlängerte nur das Beenden des
+     * Stroms (läuft ohne Abbruch, [kotlinx.coroutines.NonCancellable]) um die Drosselung von einigen Sekunden — ohne
+     * dass die Meldungen dadurch sicherer kämen (gleiche Prozess-Lebensdauer).
      * @return false, wenn die Sperre nicht rechtzeitig frei wurde (nichts gespeichert)
      */
     suspend fun applyLiveFinal(
@@ -147,6 +152,10 @@ class LivePriceApplier internal constructor(
             val processed = resultProcessor.process(
                 lock, watches, fetched, settings, dayStart = null, live = true, deferPrices = true,
             )
+            // Kurs-Meldungen gleich vormerken: Sie laufen nach den Widgets (die Sperre bleibt bis zu ihrem Ende
+            // gehalten) — auch wenn das Zeichnen scheitert, denn die Kurse sind gespeichert
+            val prices = resultProcessor.pricesTail(processed)
+            refreshLock.stageTail(lock, prices)
             if (redrawWidgets) {
                 // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
                 refreshStats.setLastRefresh(refreshStats.lastDurationMillis.value)
@@ -155,7 +164,7 @@ class LivePriceApplier internal constructor(
                 if (liveWidgetGate.drawAll(deferWhenOff = true, fetch = false)) chartRefresher.markIfStale()
             }
             // Kurs-Meldungen (gedrosselt bis einige Sekunden) erst nach den Widgets
-            Unit to resultProcessor.pricesTail(processed)
+            Unit to prices
         }
 
     private companion object {
