@@ -75,6 +75,10 @@ class PortfolioCostPartsEquivalenceTest {
             val zone = if (seed % 3 == 0) null else ZoneId.of("UTC")
             val pool = TaxPool(zone)
             val former = TaxPoolReference(zone)
+            // Ziel der fortgeführten Teile (Umbuchung in ein anderes Wallet): ein eigener Pool wie in der App — derselbe
+            // Pool würde seine Teile bei jedem Zurückbuchen verdoppeln
+            val dest = TaxPool(zone)
+            val destFormer = TaxPoolReference(zone)
             var time = 1_650_000_000_000L
             var carried: Pair<TaxTaken, TaxTaken>? = null
             repeat(500) { step ->
@@ -97,9 +101,11 @@ class PortfolioCostPartsEquivalenceTest {
                         carried = expected to actual
                     }
                     6 -> carried?.let { (e, a) ->
-                        // Fortgeführter Einstand mit Herkunft (Umbuchung, UK-Tageszugang) — Teile aus einem früheren Abgang
-                        former.addCarried(e.removedPriced, e.parts)
-                        pool.addCarried(a.removedPriced, a.parts)
+                        // Fortgeführter Einstand mit Herkunft (Umbuchung) — Teile eines Abgangs, je einmal in den Ziel-Pool
+                        destFormer.addCarried(e.removedPriced, e.parts)
+                        dest.addCarried(a.removedPriced, a.parts)
+                        same("$l Ziel Einstand", destFormer.cost, dest.cost)
+                        carried = null
                     }
                     7 -> same("$l Netzwerkgebühr", former.dropQty(qty.min(former.held)), pool.dropQty(qty.min(pool.held)))
                     8 -> {
@@ -128,6 +134,7 @@ class PortfolioCostPartsEquivalenceTest {
                 if (step % 50 == 0) assertParts("$l offen", former.parts, pool.parts)
             }
             assertParts("Seed $seed offen", former.parts, pool.parts)
+            assertParts("Seed $seed Ziel", destFormer.parts, dest.parts)
         }
     }
 

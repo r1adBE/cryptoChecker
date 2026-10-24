@@ -75,6 +75,10 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
             let zone: TimeZone? = seed % 3 == 0 ? nil : TimeZone(identifier: "UTC")
             var pool = TaxPool(zone: zone)
             var former = TaxPoolReference(zone: zone)
+            // Ziel der fortgeführten Teile (Umbuchung in ein anderes Wallet): ein eigener Pool wie in der App — derselbe
+            // Pool würde seine Teile bei jedem Zurückbuchen verdoppeln
+            var dest = TaxPool(zone: zone)
+            var destFormer = TaxPoolReference(zone: zone)
             var time: Int64 = 1_650_000_000_000
             var carried: (former: TaxTaken, pool: TaxTaken)?
             for step in 0..<500 {
@@ -95,10 +99,12 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
                     assertParts(l, expected.parts.items, actual.parts.items)
                     carried = (expected, actual)
                 case 6:
-                    // Fortgeführter Einstand mit Herkunft (Umbuchung, UK-Tageszugang) — Teile aus einem früheren Abgang
-                    if let carried {
-                        former.addCarried(carried.former.removedPriced, from: carried.former.parts.items)
-                        pool.addCarried(carried.pool.removedPriced, from: carried.pool.parts)
+                    // Fortgeführter Einstand mit Herkunft (Umbuchung) — Teile eines Abgangs, je einmal in den Ziel-Pool
+                    if let taken = carried {
+                        destFormer.addCarried(taken.former.removedPriced, from: taken.former.parts.items)
+                        dest.addCarried(taken.pool.removedPriced, from: taken.pool.parts)
+                        XCTAssertEqual(destFormer.cost, dest.cost, "\(l) Ziel Einstand")
+                        carried = nil
                     }
                 case 7:
                     let expected = former.dropQty(min(qty, former.held))
@@ -127,6 +133,7 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
                 if step % 50 == 0 { assertParts("\(l) offen", former.parts, pool.parts) }
             }
             assertParts("Seed \(seed) offen", former.parts, pool.parts)
+            assertParts("Seed \(seed) Ziel", destFormer.parts, dest.parts)
         }
     }
 
