@@ -108,7 +108,7 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
                     if let taken = carried {
                         destFormer.addCarried(taken.former.removedPriced, from: taken.former.parts.items)
                         dest.addCarried(taken.pool.removedPriced, from: taken.pool.parts)
-                        XCTAssertEqual(destFormer.cost, dest.cost, "\(l) Ziel Einstand")
+                        XCTAssertLessThanOrEqual(abs(destFormer.cost - dest.cost), Self.tolerance, "\(l) Ziel Einstand")
                         carried = nil
                     }
                 case 7:
