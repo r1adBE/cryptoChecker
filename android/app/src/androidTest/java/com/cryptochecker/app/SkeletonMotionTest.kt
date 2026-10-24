@@ -48,6 +48,9 @@ class SkeletonMotionTest {
         compose.mainClock.autoAdvance = false
         show { SkeletonList(reduceMotion = true) }
         val node = compose.onNode(hasContentDescription(loading), useUnmergedTree = true)
+        // Erst Übergänge der Aktivität und des Themas ausklingen lassen; danach darf sich nichts mehr bewegen
+        compose.mainClock.advanceTimeBy(3_000L)
+        compose.waitForIdle()
         val first = node.captureToImage().toPixelMap()
         // Halbe Pulsdauer (900 ms) und eine ganze später: ohne Puls dieselben Pixel
         for (step in listOf(450L, 450L, 900L)) {
