@@ -50,6 +50,8 @@ struct PortfolioScreen: View {
     @State private var csvUnreadable = false
     /// Grund der Meldung «nicht lesbar»: zu gross oder kein unterstütztes Format.
     @State private var csvRefusal = CsvImportRefusal.unreadable
+    /// Laden der gewählten Datei (lesen, Tageskurse, Vorschau) mit Fortschritt und «Abbrechen» — wie Android Loading.
+    @StateObject private var csvLoad = CsvImportRun()
     @Environment(\.accessibilityReduceMotion) var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOver
     /// Uhr für «vor 2 Min.» und den Wechsel nach «veraltet» (alle 30 s, wie der Markt-Tab).
@@ -225,17 +227,31 @@ struct PortfolioScreen: View {
                               testFile: .csv) { result in
             guard case .success(let url) = result else { return }
             let keys = data.portfolioImportKeys
-            Task {
+            let addresses = data.watchedAddresses
+            let stored = data.portfolio.compactMap(PortfolioCsvImporter.storedMove)
+            let report = csvLoad.begin(.loading)
+            csvLoad.attach(Task {
                 // Lesen und Zuordnen zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
                 let backgroundTask = BackgroundTaskGuard.begin("csvImport")
                 defer { backgroundTask.end() }
-                switch await PortfolioCsvImporter.load(url, existingKeys: keys) {
+                let outcome = await PortfolioCsvImporter.load(url, existingKeys: keys, addresses: addresses,
+                                                              stored: stored, progress: report)
+                // «Abbrechen»: nichts zeigen, gespeichert war ohnehin nichts
+                guard !Task.isCancelled else { return }
+                csvLoad.end()
+                switch outcome {
                 case .success(let loaded):
                     csvPreview = loaded
                 case .failure(let refusal):
                     csvRefusal = refusal
                     csvUnreadable = true
                 }
+            })
+        }
+        // Laden: Fortschritt mit «Abbrechen» über der Ansicht
+        .overlay {
+            if let phase = csvLoad.phase {
+                CsvImportProgressOverlay(phase: phase, progress: csvLoad.progress) { csvLoad.cancel() }
             }
         }
         .sheet(item: $csvPreview) { loaded in

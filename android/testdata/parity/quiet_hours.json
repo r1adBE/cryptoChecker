@@ -1,0 +1,380 @@
+{
+  "description": "Quiet hours (Android QuietHours.kt / iOS QuietHours.swift). Minutes since midnight 0..1439, local time of the device; start belongs to the span, end does not; start == end = never; span may cross midnight; invalid start/end = never; the minute is taken modulo 1440. holdsAlarms = isQuiet. minuteOfDay: hour*60 + minute of the instant in the zone (seconds cut off), so a skipped hour (spring forward) never occurs and a repeated hour (fall back) occurs twice. quietAt = isQuiet(minuteOfDay(instant, zone)). No weekdays: the app has none.",
+  "isQuiet": [
+    {
+      "name": "23:00-07:00 across midnight, 22:59",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": 1379,
+      "quiet": false
+    },
+    {
+      "name": "23:00-07:00 across midnight, 23:00 = start",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": 1380,
+      "quiet": true
+    },
+    {
+      "name": "23:00-07:00 across midnight, 23:59",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": 1439,
+      "quiet": true
+    },
+    {
+      "name": "23:00-07:00 across midnight, 00:00 midnight",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": 0,
+      "quiet": true
+    },
+    {
+      "name": "23:00-07:00 across midnight, 06:59",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": 419,
+      "quiet": true
+    },
+    {
+      "name": "23:00-07:00 across midnight, 07:00 = end",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": 420,
+      "quiet": false
+    },
+    {
+      "name": "23:00-07:00 across midnight, 12:00",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": 720,
+      "quiet": false
+    },
+    {
+      "name": "13:00-14:00 within the day, 12:59",
+      "enabled": true,
+      "start": 780,
+      "end": 840,
+      "minute": 779,
+      "quiet": false
+    },
+    {
+      "name": "13:00-14:00 within the day, 13:00 = start",
+      "enabled": true,
+      "start": 780,
+      "end": 840,
+      "minute": 780,
+      "quiet": true
+    },
+    {
+      "name": "13:00-14:00 within the day, 13:59",
+      "enabled": true,
+      "start": 780,
+      "end": 840,
+      "minute": 839,
+      "quiet": true
+    },
+    {
+      "name": "13:00-14:00 within the day, 14:00 = end",
+      "enabled": true,
+      "start": 780,
+      "end": 840,
+      "minute": 840,
+      "quiet": false
+    },
+    {
+      "name": "13:00-14:00 within the day, 02:00",
+      "enabled": true,
+      "start": 780,
+      "end": 840,
+      "minute": 120,
+      "quiet": false
+    },
+    {
+      "name": "start = end (07:00) means never, 00:00",
+      "enabled": true,
+      "start": 420,
+      "end": 420,
+      "minute": 0,
+      "quiet": false
+    },
+    {
+      "name": "start = end (07:00) means never, 07:00",
+      "enabled": true,
+      "start": 420,
+      "end": 420,
+      "minute": 420,
+      "quiet": false
+    },
+    {
+      "name": "start = end (07:00) means never, 12:00",
+      "enabled": true,
+      "start": 420,
+      "end": 420,
+      "minute": 720,
+      "quiet": false
+    },
+    {
+      "name": "start = end (07:00) means never, 23:59",
+      "enabled": true,
+      "start": 420,
+      "end": 420,
+      "minute": 1439,
+      "quiet": false
+    },
+    {
+      "name": "start 00:00, end 23:59: whole day but the last minute, 23:58",
+      "enabled": true,
+      "start": 0,
+      "end": 1439,
+      "minute": 1438,
+      "quiet": true
+    },
+    {
+      "name": "start 00:00, end 23:59: last minute is outside",
+      "enabled": true,
+      "start": 0,
+      "end": 1439,
+      "minute": 1439,
+      "quiet": false
+    },
+    {
+      "name": "start 23:59, end 00:00: only the last minute",
+      "enabled": true,
+      "start": 1439,
+      "end": 0,
+      "minute": 1439,
+      "quiet": true
+    },
+    {
+      "name": "start 23:59, end 00:00: midnight is outside",
+      "enabled": true,
+      "start": 1439,
+      "end": 0,
+      "minute": 0,
+      "quiet": false
+    },
+    {
+      "name": "switched off is never quiet",
+      "enabled": false,
+      "start": 1380,
+      "end": 420,
+      "minute": 120,
+      "quiet": false
+    },
+    {
+      "name": "invalid start -1 is never quiet",
+      "enabled": true,
+      "start": -1,
+      "end": 420,
+      "minute": 180,
+      "quiet": false
+    },
+    {
+      "name": "invalid end 1440 is never quiet",
+      "enabled": true,
+      "start": 1380,
+      "end": 1440,
+      "minute": 180,
+      "quiet": false
+    },
+    {
+      "name": "minute -1 counts as 23:59",
+      "enabled": true,
+      "start": 1380,
+      "end": 420,
+      "minute": -1,
+      "quiet": true
+    },
+    {
+      "name": "minute 1440 counts as 00:00",
+      "enabled": true,
+      "start": 780,
+      "end": 840,
+      "minute": 1440,
+      "quiet": false
+    },
+    {
+      "name": "minute 1440 + 13:30 counts as 13:30",
+      "enabled": true,
+      "start": 780,
+      "end": 840,
+      "minute": 2250,
+      "quiet": true
+    }
+  ],
+  "minuteOfDay": [
+    {
+      "name": "UTC",
+      "utc": "2026-01-01T22:30:00Z",
+      "millis": 1767306600000,
+      "zone": "UTC",
+      "minute": 1350
+    },
+    {
+      "name": "Zurich winter (CET, +1)",
+      "utc": "2026-01-01T22:30:00Z",
+      "millis": 1767306600000,
+      "zone": "Europe/Zurich",
+      "minute": 1410
+    },
+    {
+      "name": "Zurich summer (CEST, +2)",
+      "utc": "2026-07-01T21:15:00Z",
+      "millis": 1782940500000,
+      "zone": "Europe/Zurich",
+      "minute": 1395
+    },
+    {
+      "name": "Zurich spring forward: last minute before 02:00 CET",
+      "utc": "2026-03-29T00:59:00Z",
+      "millis": 1774745940000,
+      "zone": "Europe/Zurich",
+      "minute": 119
+    },
+    {
+      "name": "Zurich spring forward: 02:00 CET becomes 03:00 CEST",
+      "utc": "2026-03-29T01:00:00Z",
+      "millis": 1774746000000,
+      "zone": "Europe/Zurich",
+      "minute": 180
+    },
+    {
+      "name": "Zurich fall back: 02:59 CEST (first pass)",
+      "utc": "2026-10-25T00:59:00Z",
+      "millis": 1792889940000,
+      "zone": "Europe/Zurich",
+      "minute": 179
+    },
+    {
+      "name": "Zurich fall back: 03:00 CEST becomes 02:00 CET (second pass)",
+      "utc": "2026-10-25T01:00:00Z",
+      "millis": 1792890000000,
+      "zone": "Europe/Zurich",
+      "minute": 120
+    },
+    {
+      "name": "Zurich fall back: 02:30 CET (second pass)",
+      "utc": "2026-10-25T01:30:00Z",
+      "millis": 1792891800000,
+      "zone": "Europe/Zurich",
+      "minute": 150
+    },
+    {
+      "name": "New York spring forward: 01:59 EST",
+      "utc": "2026-03-08T06:59:00Z",
+      "millis": 1772953140000,
+      "zone": "America/New_York",
+      "minute": 119
+    },
+    {
+      "name": "New York spring forward: 02:00 EST becomes 03:00 EDT",
+      "utc": "2026-03-08T07:00:00Z",
+      "millis": 1772953200000,
+      "zone": "America/New_York",
+      "minute": 180
+    },
+    {
+      "name": "New York fall back: 01:59 EDT (first pass)",
+      "utc": "2026-11-01T05:59:00Z",
+      "millis": 1793512740000,
+      "zone": "America/New_York",
+      "minute": 119
+    },
+    {
+      "name": "New York fall back: 02:00 EDT becomes 01:00 EST (second pass)",
+      "utc": "2026-11-01T06:00:00Z",
+      "millis": 1793512800000,
+      "zone": "America/New_York",
+      "minute": 60
+    },
+    {
+      "name": "seconds do not round up (23:59:59 stays 23:59)",
+      "utc": "2026-01-01T22:59:59Z",
+      "millis": 1767308399000,
+      "zone": "Europe/Zurich",
+      "minute": 1439
+    }
+  ],
+  "quietAt": [
+    {
+      "name": "02:00-03:00 Zurich on spring-forward night: 00:59Z = 01:59 CET, not yet",
+      "utc": "2026-03-29T00:59:00Z",
+      "millis": 1774745940000,
+      "zone": "Europe/Zurich",
+      "start": 120,
+      "end": 180,
+      "quiet": false
+    },
+    {
+      "name": "02:00-03:00 Zurich on spring-forward night: 01:00Z = 03:00 CEST, the hour is skipped",
+      "utc": "2026-03-29T01:00:00Z",
+      "millis": 1774746000000,
+      "zone": "Europe/Zurich",
+      "start": 120,
+      "end": 180,
+      "quiet": false
+    },
+    {
+      "name": "23:00-02:30 Zurich on fall-back night: 00:45Z = 02:45 CEST, outside",
+      "utc": "2026-10-25T00:45:00Z",
+      "millis": 1792889100000,
+      "zone": "Europe/Zurich",
+      "start": 1380,
+      "end": 150,
+      "quiet": false
+    },
+    {
+      "name": "23:00-02:30 Zurich on fall-back night: 01:15Z = 02:15 CET (repeated hour), quiet again",
+      "utc": "2026-10-25T01:15:00Z",
+      "millis": 1792890900000,
+      "zone": "Europe/Zurich",
+      "start": 1380,
+      "end": 150,
+      "quiet": true
+    },
+    {
+      "name": "23:00-07:00 Zurich: 05:59Z in summer = 07:59 CEST, outside",
+      "utc": "2026-07-01T05:59:00Z",
+      "millis": 1782885540000,
+      "zone": "Europe/Zurich",
+      "start": 1380,
+      "end": 420,
+      "quiet": false
+    },
+    {
+      "name": "23:00-07:00 Zurich: 05:59Z in winter = 06:59 CET, quiet",
+      "utc": "2026-01-15T05:59:00Z",
+      "millis": 1768456740000,
+      "zone": "Europe/Zurich",
+      "start": 1380,
+      "end": 420,
+      "quiet": true
+    },
+    {
+      "name": "23:00-07:00 New York: 06:30Z after fall back = 01:30 EST, quiet",
+      "utc": "2026-11-01T06:30:00Z",
+      "millis": 1793514600000,
+      "zone": "America/New_York",
+      "start": 1380,
+      "end": 420,
+      "quiet": true
+    },
+    {
+      "name": "22:00-23:00 New York: 02:30Z in winter = 21:30 EST, outside",
+      "utc": "2026-01-15T02:30:00Z",
+      "millis": 1768444200000,
+      "zone": "America/New_York",
+      "start": 1320,
+      "end": 1380,
+      "quiet": false
+    }
+  ]
+}

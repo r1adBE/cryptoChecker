@@ -65,11 +65,23 @@ enum CurrencyConversion {
     /// Fiat-Währungen (`knownFiat`) ohne Umrechnung.
     static func classify(_ quote: String?, fiat: [String] = FxRateSource.currencies) -> QuoteKind {
         let code = normalize(quote)
-        guard !code.isEmpty, code.count <= 15, code.allSatisfy({ $0.isLetter || $0.isNumber }) else { return .invalid }
+        guard !code.isEmpty, code.utf16.count <= 15, code.utf16.allSatisfy(isLetterOrDigit) else { return .invalid }
         if usdStables.contains(code) { return .usd }
         if fiat.contains(where: { $0.uppercased() == code }) { return .fiat }
         if knownFiat.contains(code) { return .fiatUnsupported }
         return .crypto
+    }
+
+    /// Wie Kotlin `Char.isLetterOrDigit` je UTF-16-Einheit: Buchstabe (Lu, Ll, Lt, Lm, Lo) oder Dezimalziffer (Nd),
+    /// auch nicht-ASCII; andere Zahlzeichen («½», «Ⅷ») und Surrogat-Hälften (Zeichen ausserhalb der BMP) nicht.
+    private static func isLetterOrDigit(_ unit: UTF16.CodeUnit) -> Bool {
+        guard let scalar = Unicode.Scalar(unit) else { return false }
+        switch scalar.properties.generalCategory {
+        case .uppercaseLetter, .lowercaseLetter, .titlecaseLetter, .modifierLetter, .otherLetter, .decimalNumber:
+            return true
+        default:
+            return false
+        }
     }
 
     /// Stablecoin-Regel der «≈ Umrechnung» wie das Portfolio (`PortfolioStables`): USD genau 1; USDT sein

@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Formati: %1$s</string>
     <string name="portfolio_csv_import_line">Rreshti %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Po lexohen skedari dhe kurset ditore…</string>
+    <string name="portfolio_csv_import_progress">Rreshti %1$s nga %2$s</string>
+    <string name="portfolio_csv_import_saving">Po ruhen transaksionet…</string>
     <string name="portfolio_csv_import_missing_fx">Asnjë kurs ditor për rreshtin %1$s – u importua pa çmim e tarifë.</string>
     <string name="portfolio_csv_import_missing_price">Asnjë çmim në skedar për rreshtin %1$s – u importua pa çmim.</string>
     <string name="portfolio_csv_import_more">+ %1$d të tjera</string>

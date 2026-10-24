@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Muoto: %1$s</string>
     <string name="portfolio_csv_import_line">Rivi %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Luetaan tiedostoa ja päiväkursseja…</string>
+    <string name="portfolio_csv_import_progress">Rivi %1$s/%2$s</string>
+    <string name="portfolio_csv_import_saving">Tallennetaan tapahtumia…</string>
     <string name="portfolio_csv_import_missing_fx">Rivillä %1$s ei ole päiväkurssia – tuotu ilman hintaa ja kulua.</string>
     <string name="portfolio_csv_import_missing_price">Tiedostossa ei ole hintaa rivillä %1$s – tuotu ilman hintaa.</string>
     <string name="portfolio_csv_import_more">+ %1$d lisää</string>

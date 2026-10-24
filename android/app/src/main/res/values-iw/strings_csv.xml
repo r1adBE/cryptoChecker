@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_format">פורמט: %1$s</string>
     <string name="portfolio_csv_import_line">שורה %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">קורא את הקובץ ואת השערים היומיים…</string>
+    <string name="portfolio_csv_import_progress">שורה %1$s מתוך %2$s</string>
+    <string name="portfolio_csv_import_saving">שומרים את העסקאות…</string>
     <string name="portfolio_csv_import_missing_fx">אין שער יומי לשורה %1$s – יובא בלי מחיר ועמלה.</string>
     <string name="portfolio_csv_import_missing_price">אין מחיר בקובץ לשורה %1$s – יובא בלי מחיר.</string>
     <string name="portfolio_csv_import_more">+ עוד %1$d</string>

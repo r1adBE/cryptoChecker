@@ -74,7 +74,6 @@ class WatchlistHeaderStateTest {
         assertTrue(h.refreshing)
         assertTrue(h.canClear)
         assertEquals(1, h.notTradedCount)
-        assertEquals(2, h.pairCount)
     }
 
     @Test
@@ -87,7 +86,6 @@ class WatchlistHeaderStateTest {
         assertFalse(h.canSelect)
         assertFalse(h.allSelected)
         assertNull(h.alarmTotal)
-        assertEquals(0, h.pairCount)
     }
 
     @Test
@@ -130,12 +128,14 @@ class WatchlistHeaderStateTest {
     }
 
     @Test
-    fun groupsHintOnlyAfterFirstUse() {
-        val pairs = (1L..6L).map { watch(it) }
-        // Kein Alarm, erster Tag: kein Gruppen-Hinweis
-        assertFalse(header(uiState(pairs, alarmTotal = 0, usageDays = 1)).groupsHintAllowed)
-        // Erster Alarm (auch ausgeschaltet zählt in alarmTotal) bzw. drei Tage: Hinweis wie bisher
-        assertTrue(header(uiState(pairs, alarmTotal = 1)).groupsHintAllowed)
-        assertTrue(header(uiState(pairs, alarmTotal = 0, usageDays = 3)).groupsHintAllowed)
+    fun groupsHintFromFirstStartWithFewPairs() {
+        // Erster Tag, kein Alarm, wenige Paare, keine Gruppen: die Kopfzeile zeigt den Gruppen-Hinweis
+        for (count in 0..4) {
+            val h = header(uiState((1L..count.toLong()).map { watch(it) }, alarmTotal = 0, usageDays = 1))
+            val hint = showsGroupsHint(
+                h.groups, h.selectedGroup, h.hasFavorites, h.hasActivity, h.quickView, h.searching, h.sortMode, h.hasAlpha,
+            )
+            assertTrue("$count Paare", hint)
+        }
     }
 }

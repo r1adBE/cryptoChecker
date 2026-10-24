@@ -120,6 +120,9 @@ object CsvImportMapping {
     /** Höchstlänge der Notiz (wie [com.cryptochecker.app.data.local.model.NOTE_MAX]). */
     private const val NOTE_MAX = 120
 
+    /** Zeilen je Block beim Umrechnen der Vorschau ([preview]): dazwischen Fortschritt und Abbruch. */
+    const val PREVIEW_BLOCK = 100
+
     fun type(kind: CsvImportKind, withdrawalsAsTransfer: Boolean = false): PortfolioTxType = when (kind) {
         CsvImportKind.BUY -> PortfolioTxType.BUY
         CsvImportKind.SELL -> PortfolioTxType.SELL
@@ -186,7 +189,9 @@ object CsvImportMapping {
     /**
      * Vorschau: Doppelte gegen [existingKeys] abtrennen, die neuen umrechnen ([fx] und [usdtUsd] wie [CsvImport.priceInUsdt])
      * und zuordnen. Binance: fast gleiche Geschäfte wie schon importierte ([CsvImportBinance.possibleDuplicates]) kommen
-     * in die Übersprungenen statt ein zweites Mal ins Portfolio.
+     * in die Übersprungenen statt ein zweites Mal ins Portfolio. Umgerechnet wird in Blöcken zu [PREVIEW_BLOCK] Zeilen
+     * (jede Zeile für sich, das Ergebnis ist dasselbe); nach jedem Block [onRow] (fertig, gesamt) — für den Fortschritt
+     * und um abzubrechen (eine Ausnahme dort bricht die Vorschau ab).
      */
     fun preview(
         result: CsvImportResult,
@@ -194,6 +199,7 @@ object CsvImportMapping {
         zone: String = result.fxZone,
         withdrawalsAsTransfer: Boolean = false,
         usdtUsd: Map<Long, BigDecimal>? = null,
+        onRow: ((done: Int, total: Int) -> Unit)? = null,
         fx: (String, Long) -> BigDecimal?,
     ): CsvImportPreview {
         val split = CsvImport.splitDuplicates(result.rows, existingKeys)
@@ -201,7 +207,11 @@ object CsvImportMapping {
             CsvImportBinance.possibleDuplicates(split.fresh, existingKeys).mapTo(HashSet()) { it.key }
         } else emptySet()
         val fresh = split.fresh.filter { it.key !in held }
-        val priced = CsvImport.priceInUsdt(fresh, zone, usdtUsd, fx)
+        val priced = ArrayList<CsvImportPriced>(fresh.size)
+        for (block in fresh.chunked(PREVIEW_BLOCK)) {
+            priced += CsvImport.priceInUsdt(block, zone, usdtUsd, fx)
+            onRow?.invoke(priced.size, fresh.size)
+        }
         return CsvImportPreview(
             format = result.format,
             transactions = priced.map { toTx(it, withdrawalsAsTransfer) },

@@ -40,14 +40,13 @@ data class WatchlistUiState(
     val kinds: Map<Long, AssetKind> get() = content.groupFilter?.kinds.orEmpty()
 
     /**
-     * Erster Gebrauch ([WatchlistOnboarding]): Gruppen-Hinweis, Puls und Gesten-Hinweis erst nach dem ersten Alarm
+     * Erster Gebrauch ([WatchlistOnboarding]): Puls und Gesten-Hinweis erst nach dem ersten Alarm
      * (gleiche Zählung wie die Karte «Ersten Alarm setzen») oder an einigen verschiedenen Tagen.
      */
     val onboarding: WatchlistOnboarding.Visible
         get() = WatchlistOnboarding.visible(
             alarmCount = content.alarmTotal,
             usageDays = display.usageDays,
-            hasGroupsOrFavorites = groups.isNotEmpty() || watches.any { it.favorite },
         )
 }
 

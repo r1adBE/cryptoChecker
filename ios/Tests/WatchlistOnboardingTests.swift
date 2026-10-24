@@ -4,40 +4,27 @@ import XCTest
 /// Merkliste nach der Start-Auswahl schrittweise — gleiche Fälle wie `WatchlistOnboardingTest.kt`.
 final class WatchlistOnboardingTests: XCTestCase {
 
-    func testFirstUseHidesGroupsHintPulseAndGestureHint() {
-        let v = WatchlistOnboarding.visible(alarmCount: 0, usageDays: 1, hasGroupsOrFavorites: false)
-        XCTAssertFalse(v.groupsHint)
+    func testFirstUseHidesPulseAndGestureHint() {
+        let v = WatchlistOnboarding.visible(alarmCount: 0, usageDays: 1)
         XCTAssertFalse(v.pulse)
         XCTAssertFalse(v.gestureHint)
     }
 
     func testAlarmsNotLoadedYetCountAsNone() {
-        let v = WatchlistOnboarding.visible(alarmCount: nil, usageDays: 0, hasGroupsOrFavorites: false)
+        let v = WatchlistOnboarding.visible(alarmCount: nil, usageDays: 0)
         XCTAssertFalse(v.pulse)
         XCTAssertFalse(v.gestureHint)
-        XCTAssertFalse(v.groupsHint)
     }
 
     func testFirstAlarmShowsEverything() {
-        let v = WatchlistOnboarding.visible(alarmCount: 1, usageDays: 0, hasGroupsOrFavorites: false)
-        XCTAssertTrue(v.groupsHint)
+        let v = WatchlistOnboarding.visible(alarmCount: 1, usageDays: 0)
         XCTAssertTrue(v.pulse)
         XCTAssertTrue(v.gestureHint)
     }
 
     func testThreeDifferentDaysShowEverythingWithoutAnAlarm() {
-        XCTAssertFalse(WatchlistOnboarding.visible(alarmCount: 0, usageDays: WatchlistOnboarding.unlockDays - 1,
-                                                   hasGroupsOrFavorites: false).pulse)
-        let v = WatchlistOnboarding.visible(alarmCount: 0, usageDays: WatchlistOnboarding.unlockDays,
-                                            hasGroupsOrFavorites: false)
-        XCTAssertTrue(v.groupsHint)
-        XCTAssertTrue(v.pulse)
-        XCTAssertTrue(v.gestureHint)
-    }
-
-    func testGroupsOrFavoritesShowChipsInsteadOfTheHint() {
-        let v = WatchlistOnboarding.visible(alarmCount: 2, usageDays: 5, hasGroupsOrFavorites: true)
-        XCTAssertFalse(v.groupsHint)
+        XCTAssertFalse(WatchlistOnboarding.visible(alarmCount: 0, usageDays: WatchlistOnboarding.unlockDays - 1).pulse)
+        let v = WatchlistOnboarding.visible(alarmCount: 0, usageDays: WatchlistOnboarding.unlockDays)
         XCTAssertTrue(v.pulse)
         XCTAssertTrue(v.gestureHint)
     }

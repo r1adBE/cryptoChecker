@@ -239,12 +239,11 @@ extension WatchlistScreen {
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: pulse == nil)
     }
 
-    /// Erster Gebrauch (`WatchlistOnboarding`): Gruppen-Hinweis, Puls und Gesten-Hinweis erst nach dem ersten Alarm
+    /// Erster Gebrauch (`WatchlistOnboarding`): Puls und Gesten-Hinweis erst nach dem ersten Alarm
     /// (gleiche Zählung wie die Karte «Ersten Alarm setzen») oder an einigen verschiedenen Tagen — wie Android
     /// `WatchlistUiState.onboarding`.
     var onboardingVisible: WatchlistOnboarding.Visible {
-        WatchlistOnboarding.visible(alarmCount: totalAlarmCount, usageDays: data.settings.usageDays,
-                                    hasGroupsOrFavorites: !data.watchGroups.isEmpty || data.watches.contains { $0.favorite })
+        WatchlistOnboarding.visible(alarmCount: totalAlarmCount, usageDays: data.settings.usageDays)
     }
 
     /// Öffnen heute zählen (lokaler Kalendertag), für `WatchlistOnboarding`. Nicht zugängliche Einstellungen (vor

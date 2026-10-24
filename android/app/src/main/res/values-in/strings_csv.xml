@@ -23,6 +23,8 @@
     <string name="portfolio_csv_import_format">Format: %1$s</string>
     <string name="portfolio_csv_import_line">Baris %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Membaca file dan kurs harian…</string>
+    <string name="portfolio_csv_import_progress">Baris %1$s dari %2$s</string>
+    <string name="portfolio_csv_import_saving">Menyimpan transaksi…</string>
     <string name="portfolio_csv_import_missing_fx">Tidak ada kurs harian untuk baris %1$s – diimpor tanpa harga/biaya.</string>
     <string name="portfolio_csv_import_missing_price">Tidak ada harga di file untuk baris %1$s – diimpor tanpa harga.</string>
     <string name="portfolio_csv_import_more">+ %1$d lainnya</string>

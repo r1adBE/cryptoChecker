@@ -13,20 +13,18 @@ import com.cryptochecker.app.data.BackupLimits
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.linkStoredTransfers
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
-import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRefusal
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvProgressThrottle
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvReadChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
@@ -36,6 +34,7 @@ import com.cryptochecker.app.settings.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -43,8 +42,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.ZoneId
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 /** Ablauf des CSV-Imports. */
@@ -81,14 +79,16 @@ sealed interface CsvImportState {
  */
 @HiltViewModel
 class PortfolioCsvImportViewModel @Inject constructor(
-    @param:ApplicationContext private val context: Context,
+    @param:ApplicationContext context: Context,
     private val repository: PortfolioRepository,
-    private val historic: HistoricPriceSource,
-    private val historySource: PortfolioHistorySource,
+    historic: HistoricPriceSource,
+    historySource: PortfolioHistorySource,
     private val settingsRepository: SettingsRepository,
     private val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
     private val snapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
 ) : ViewModel() {
+
+    private val reader = PortfolioCsvImportReader(context, repository, historic, historySource)
 
     private val _state = MutableStateFlow<CsvImportState>(CsvImportState.Idle)
     val state: StateFlow<CsvImportState> = _state.asStateFlow()
@@ -109,31 +109,31 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private val _linked = MutableStateFlow<Set<String>>(emptySet())
     val linked: StateFlow<Set<String>> = _linked.asStateFlow()
 
+    /** Fortschritt des langen Schritts (Vorschau umrechnen, Speichern), gedrosselt; null = ohne Zeilenzahl (Kreis). */
+    private val _progress = MutableStateFlow<CsvImportProgress?>(null)
+    val progress: StateFlow<CsvImportProgress?> = _progress.asStateFlow()
+
+    /** «Abbrechen» beim Speichern: vor jeder Zeile geprüft ([PortfolioRepository.insertImported]), dann nichts gespeichert. */
+    private val saveCancelled = AtomicBoolean(false)
+
     /**
      * Gewählte Lesart (Zeitzone der Zeiten ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel). Eine
-     * Wahl samt der Lesart der gezeigten Vorschau ([Input.choice]): «Importieren» nur, wenn beide gleich sind.
+     * Wahl samt der Lesart der gezeigten Vorschau ([CsvImportInput.choice]): «Importieren» nur, wenn beide gleich sind.
      */
     private var chosen = CsvReadChoice()
 
     /** Nummer der letzten Neu-Lese-Anfrage; nur deren Ergebnis zählt ([reread]). */
     private var rereadGeneration = 0
 
-    /**
-     * Text, Ergebnis, Schlüssel, Tageskurse, USDT/USD-Schlüsse ([CsvImport.priceInUsdt]) — für eine neue Vorschau;
-     * [choice] = Lesart, mit der gelesen wurde.
-     */
-    private class Input(
-        val text: String, val result: CsvImportResult, val keys: Set<String>,
-        val rates: Map<String, List<Pair<Long, Double>>>, val usdtUsd: Map<Long, java.math.BigDecimal>,
-        val choice: CsvReadChoice,
-    )
-    private var input: Input? = null
+    /** Zuletzt gelesen (Text, Ergebnis, Kurse) — für eine andere Lesart ohne die Datei neu zu lesen. */
+    private var input: CsvImportInput? = null
 
     /** Lesen und Kurse laden ([load]); [cancelLoad] bricht ab — bis dahin ist nichts gespeichert. */
     private var loadJob: kotlinx.coroutines.Job? = null
 
     fun load(uri: Uri) {
         _state.value = CsvImportState.Loading
+        _progress.value = null
         loadJob?.cancel()
         loadJob = viewModelScope.launch {
             // Gesperrt: gar nicht erst lesen — die Vorschau endete sonst ohne Grund in «0 importiert»
@@ -199,61 +199,10 @@ class PortfolioCsvImportViewModel @Inject constructor(
     }
 
     private suspend fun buildPreview(uri: Uri): CsvImportPreview {
-        val text = withContext(Dispatchers.IO) {
-            // Nie ungebremst lesen (wie die Sicherung); UTF-8, sonst Windows-1252 (Excel), BOM weg
-            context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it, max = BackupLimits.CSV_MAX_BYTES) }
-                ?.let { CsvImportParser.decode(it) } ?: error("Datei kann nicht gelesen werden")
-        }
-        val read = prepare(text, chosen)
+        val read = reader.prepare(reader.readText(uri), chosen)
         input = read
-        return mapPreview(read)
-    }
-
-    /** Text mit der Lesart [choice] lesen und Tageskurse für den Zeitraum laden (die Vorschau bildet [mapPreview]). */
-    private suspend fun prepare(text: String, choice: CsvReadChoice): Input {
-        val result = withContext(Dispatchers.Default) {
-            CsvImportParser.parse(text, ZoneId.systemDefault().id, choice.zone, choice.dateOrder, choice.decimalMark)
-        }
-        // Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage)
-        val rates = HashMap<String, List<Pair<Long, Double>>>()
-        for ((currency, days) in CsvImportMapping.fxNeeds(result.rows, result.fxZone)) {
-            val from = LocalDate.ofEpochDay(days.first - PortfolioHistoryFx.LEAD_DAYS)
-            val series = runCatchingCancellable { historic.usdToSeries(currency, from, LocalDate.ofEpochDay(days.last)) }.getOrNull()
-            if (series != null) rates[currency] = series.entries.map { it.key to it.value }.sortedBy { it.first }
-        }
-        val keys = repository.importKeys()
-        return Input(text, result, keys, rates, usdtUsdCloses(result), choice)
-    }
-
-    /**
-     * USDT/USD-Tagesschlüsse (Kraken, [PortfolioHistorySource.usdtUsdDaily]) vom frühesten Tag der Datei bis heute — wie
-     * der Steuer-Export (`usdtUsdCloses`), damit Import und Export denselben Schluss DES Tags nehmen. Nicht erreichbar →
-     * leer (USD/Fiat dann mit USDT = 1, Zeilen als Näherung markiert, [CsvImportPreview.usdtApproximate]).
-     */
-    private suspend fun usdtUsdCloses(result: CsvImportResult): Map<Long, java.math.BigDecimal> {
-        val first = result.rows.minOfOrNull { com.cryptochecker.app.domain.portfolio.csvimport.CsvImport.epochDay(it.timeMillis, result.fxZone) }
-            ?: return emptyMap()
-        val today = LocalDate.now(ZoneId.systemDefault()).toEpochDay()
-        val days = (today - first + 1 + PortfolioHistoryFx.LEAD_DAYS).coerceIn(1L, Int.MAX_VALUE.toLong()).toInt()
-        val closes = try {
-            historySource.usdtUsdDaily(days)
-        } catch (e: kotlinx.coroutines.CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Timber.w(e, "CSV-Import: USDT/USD-Tagesschlüsse fehlen")
-            emptyMap()
-        }
-        return closes.mapNotNull { (day, close) -> PortfolioDecimal.of(close)?.let { day to it } }.toMap()
-    }
-
-    /**
-     * Abgleich und Umrechnung können bei grossen Dateien dauern: nicht auf dem Main-Thread. Auszahlungen bleiben hier
-     * Auszahlungen; die Wahl je Zeile ([choices]) gilt beim Speichern ([CsvImportMapping.applyWithdrawalChoices]).
-     */
-    private suspend fun mapPreview(read: Input): CsvImportPreview = withContext(Dispatchers.Default) {
-        CsvImportMapping.preview(read.result, read.keys, usdtUsd = read.usdtUsd) { currency, day ->
-            read.rates[currency]?.let { PortfolioHistoryFx.rateOn(it, day) }?.let { PortfolioDecimal.of(it) }
-        }
+        // Vorschau umrechnen mit Fortschritt «Zeile X von Y» im Ladedialog
+        return mapCsvPreview(read) { _progress.value = it }
     }
 
     /**
@@ -263,12 +212,9 @@ class PortfolioCsvImportViewModel @Inject constructor(
     fun setZone(zone: String?) = reread(chosen.copy(zone = zone)) { read, choice ->
         // Tag/Monat und Dezimalzeichen wie beim letzten Lesen: nur neu zuordnen; sonst ganz neu (Tageskurse)
         if (read.choice.dateOrder != choice.dateOrder || read.choice.decimalMark != choice.decimalMark) {
-            prepare(read.text, choice)
+            reader.prepare(read.text, choice)
         } else {
-            val result = withContext(Dispatchers.Default) {
-                CsvImportParser.parse(read.text, ZoneId.systemDefault().id, choice.zone, choice.dateOrder, choice.decimalMark)
-            }
-            Input(read.text, result, read.keys, read.rates, read.usdtUsd, choice)
+            reader.reparse(read, choice)
         }
     }
 
@@ -276,13 +222,13 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * Reihenfolge Tag/Monat bei mehrdeutigen Daten wählen: Text im Speicher neu lesen; die Tage können sich um Monate
      * verschieben, darum auch die Tageskurse neu laden.
      */
-    fun setDateOrder(order: CsvDateOrder) = reread(chosen.copy(dateOrder = order)) { read, choice -> prepare(read.text, choice) }
+    fun setDateOrder(order: CsvDateOrder) = reread(chosen.copy(dateOrder = order)) { read, choice -> reader.prepare(read.text, choice) }
 
     /**
      * Dezimalzeichen bei mehrdeutigen Zahlen wählen («42,000 = 42000 oder 42?»): Text im Speicher neu lesen (Preise und
      * Mengen ändern sich; Tageskurse wie beim Umschalten der Reihenfolge neu laden).
      */
-    fun setDecimalMark(mark: Char) = reread(chosen.copy(decimalMark = mark)) { read, choice -> prepare(read.text, choice) }
+    fun setDecimalMark(mark: Char) = reread(chosen.copy(decimalMark = mark)) { read, choice -> reader.prepare(read.text, choice) }
 
     /**
      * Text im Speicher mit der Lesart [choice] neu lesen ([build]). Die Vorschau steht solange auf
@@ -291,13 +237,13 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * Generationsprüfung, die Vorschau trägt ihre Lesart ([CsvImportState.Preview.choice]) — ein überholtes Ergebnis
      * kann so nie als Lesart der gezeigten Vorschau gelten.
      */
-    private fun reread(choice: CsvReadChoice, build: suspend (Input, CsvReadChoice) -> Input) {
+    private fun reread(choice: CsvReadChoice, build: suspend (CsvImportInput, CsvReadChoice) -> CsvImportInput) {
         chosen = choice
         val read = input ?: return
         val generation = ++rereadGeneration
         (_state.value as? CsvImportState.Preview)?.let { _state.value = it.copy(rereading = true) }
         viewModelScope.launch {
-            val built = runCatchingCancellable { build(read, choice).let { it to mapPreview(it) } }.getOrNull()
+            val built = runCatchingCancellable { build(read, choice).let { it to mapCsvPreview(it) } }.getOrNull()
             if (generation != rereadGeneration) return@launch
             val shown = _state.value as? CsvImportState.Preview ?: return@launch
             if (built == null) {
@@ -314,10 +260,11 @@ class PortfolioCsvImportViewModel @Inject constructor(
     }
 
     /**
-     * Neue Transaktionen anlegen und gewählte Umbuchungen mit gespeicherten Seiten verknüpfen; [onDone] mit der Anzahl
-     * (im Hauptthread), [onPortfolioEnabled] wenn eingeschaltet.
+     * Neue Transaktionen anlegen und gewählte Umbuchungen mit gespeicherten Seiten verknüpfen ([saveCsvImport]); [onDone]
+     * mit der Anzahl (im Hauptthread), [onPortfolioEnabled] wenn eingeschaltet, [onCancelled] nach «Abbrechen» ([cancelLoad])
+     * — dann ist nichts gespeichert.
      */
-    fun confirm(onDone: (Int) -> Unit, onPortfolioEnabled: () -> Unit) {
+    fun confirm(onDone: (Int) -> Unit, onPortfolioEnabled: () -> Unit, onCancelled: () -> Unit = {}) {
         val shown = _state.value as? CsvImportState.Preview ?: return
         // Nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
         // Mit der Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen)
@@ -334,22 +281,33 @@ class PortfolioCsvImportViewModel @Inject constructor(
             ),
         )
         _state.value = CsvImportState.Saving
+        _progress.value = null
+        saveCancelled.set(false)
         viewModelScope.launch {
             // Kennung dieses Importlaufs («Import rückgängig»): Format, Zeit, Hash der Zeilenschlüssel
             val batch = PortfolioImportBatch.newId(preview.format.name, System.currentTimeMillis(), txs.map { it.importKey })
-            val insert = runCatchingCancellable { repository.insertImported(txs.map { it.toEntity() }, batch) }
-                .onFailure { Timber.w(it, "CSV-Import: Speichern fehlgeschlagen") }
-            val link = if (insert.isFailure) null else runCatchingCancellable { repository.linkStoredTransfers(plan.storedUpdates, batch) }
-                .onFailure { Timber.w(it, "CSV-Import: Umbuchung nicht verknüpft") }
-            val inserted = insert.getOrDefault(0)
-            val count = inserted + (link?.getOrNull() ?: 0)
-            // Nichts geschrieben, weil Schreiben scheiterte (gesperrt oder Fehler): Grund nennen statt «0 importiert»
-            val failure = insert.exceptionOrNull() ?: link?.exceptionOrNull()?.takeIf { count == 0 }
-            if (failure != null) {
-                reset()
-                _state.value = if (failure is PortfolioStorageLockedException) CsvImportState.Locked else CsvImportState.SaveFailed
-                return@launch
+            val entities = txs.map { it.toEntity() }
+            val throttle = CsvProgressThrottle(CsvImportStep.SAVE, entities.size) { _progress.value = it }.also { it.start() }
+            // Abgebrochen wird nur über `saveCancelled` (vor jeder Zeile, Transaktion rollt zurück): so steht nie ein
+            // Teil-Import und das Ergebnis passt immer zum Gespeicherten
+            val outcome = withContext(NonCancellable) {
+                saveCsvImport(
+                    insert = { repository.insertImported(entities, batch, throttle::row, saveCancelled::get) },
+                    link = { repository.linkStoredTransfers(plan.storedUpdates, batch) },
+                )
             }
+            val saved = when (outcome) {
+                CsvImportSaveOutcome.Cancelled -> { reset(); onCancelled(); return@launch }
+                // Nichts geschrieben, weil Schreiben scheiterte (gesperrt oder Fehler): Grund nennen statt «0 importiert»
+                is CsvImportSaveOutcome.Failed -> {
+                    reset()
+                    _state.value = if (outcome.locked) CsvImportState.Locked else CsvImportState.SaveFailed
+                    return@launch
+                }
+                is CsvImportSaveOutcome.Saved -> outcome
+            }
+            val inserted = saved.inserted
+            val count = saved.count
             var enabled = false
             // Nur neu angelegte Transaktionen schalten ein (verknüpfte gespeicherte gab es schon)
             if (inserted > 0 && PortfolioOff.enableOnSave(isNew = true, portfolioEnabled = settingsRepository.current().portfolioEnabled)) {
@@ -368,19 +326,29 @@ class PortfolioCsvImportViewModel @Inject constructor(
 
     /**
      * «Abbrechen» bzw. Zurück im Ladedialog: Lesen und Kursabfragen stoppen. Geschrieben wird erst mit «Importieren»
-     * ([confirm]), darum bleibt nichts halb importiert. Während des Speicherns ([CsvImportState.Saving]) nicht möglich.
-     * Auch mit schon fertiger Vorschau zurücksetzen: das ViewModel lebt länger als der Ablauf, eine stehengebliebene
-     * Vorschau erschiene sonst beim nächsten Öffnen wieder.
+     * ([confirm]), darum bleibt nichts halb importiert. Während des Speicherns ([CsvImportState.Saving]): vor der nächsten
+     * Zeile abbrechen, die Transaktion rollt zurück ([confirm] meldet es über `onCancelled`); schon fertig angelegt, gilt
+     * der Import. Auch mit schon fertiger Vorschau zurücksetzen: das ViewModel lebt länger als der Ablauf, eine
+     * stehengebliebene Vorschau erschiene sonst beim nächsten Öffnen wieder.
      */
     fun cancelLoad() {
-        if (_state.value == CsvImportState.Saving) return
+        if (_state.value == CsvImportState.Saving) {
+            saveCancelled.set(true)
+            return
+        }
         loadJob?.cancel()
         loadJob = null
         reset()
     }
 
+    /** ViewModel endet während des Speicherns: wie «Abbrechen» (nichts halb gespeichert). */
+    override fun onCleared() {
+        saveCancelled.set(true)
+    }
+
     fun reset() {
         _state.value = CsvImportState.Idle
+        _progress.value = null
         input = null
         clearChoices()
         chosen = CsvReadChoice()

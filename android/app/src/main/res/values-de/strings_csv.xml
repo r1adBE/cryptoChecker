@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Format: %1$s</string>
     <string name="portfolio_csv_import_line">Zeile %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Datei und Tageskurse werden gelesen …</string>
+    <string name="portfolio_csv_import_progress">Zeile %1$s von %2$s</string>
+    <string name="portfolio_csv_import_saving">Transaktionen werden gespeichert …</string>
     <string name="portfolio_csv_import_missing_fx">Kein Tageskurs für Zeile %1$s – ohne Preis bzw. Gebühr übernommen.</string>
     <string name="portfolio_csv_import_missing_price">Kein Preis in der Datei für Zeile %1$s – ohne Preis übernommen.</string>
     <string name="portfolio_csv_import_more">+ %1$d weitere</string>

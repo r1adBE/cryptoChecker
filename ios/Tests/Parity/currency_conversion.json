@@ -1,0 +1,678 @@
+{
+  "description": "«≈ conversion» pure rules (Android CurrencyConversion.kt / iOS CurrencyConversion in CurrencyConverter.swift). classify with the fiat list «fiat» (currencies with an fx rate). quoteToUsd: USD exactly 1; USDT = live USDT/USD if 0.05..3.0 (PortfolioStables.usdtUsdLive), else 1, null = 1; other stablecoins market rate in USDT x that factor, none without a valid rate; FIAT 1/usdToQuote; CRYPTO cryptoUsdt x factor; FIAT_UNSUPPORTED/INVALID none. chain: rate = quoteToUsd x usdToTarget (both > 0 and finite, result finite), converted = amount x rate (no rounding in the rule; display formats later). freshQuotePrice: crypto/stable quote at most 15 min old (boundary inclusive). staleFxTime: oldest fx time if older than 3 h (boundary exclusive). Numbers compared with relative tolerance 1e-12. classify: every UTF-16 unit must be a Unicode letter (Lu/Ll/Lt/Lm/Lo) or decimal digit (Nd) like Kotlin Char.isLetterOrDigit (other number signs like ½ or Ⅷ and characters outside the BMP are invalid), length in UTF-16 units at most 15.",
+  "fiat": [
+    "EUR",
+    "CHF",
+    "JPY",
+    "GBP"
+  ],
+  "classify": [
+    {
+      "quote": "USDT",
+      "kind": "USD"
+    },
+    {
+      "quote": "usdc",
+      "kind": "USD"
+    },
+    {
+      "quote": "USD",
+      "kind": "USD"
+    },
+    {
+      "quote": " chf ",
+      "kind": "FIAT"
+    },
+    {
+      "quote": "eur",
+      "kind": "FIAT"
+    },
+    {
+      "quote": "NGN",
+      "kind": "FIAT_UNSUPPORTED"
+    },
+    {
+      "quote": "ARS",
+      "kind": "FIAT_UNSUPPORTED"
+    },
+    {
+      "quote": "BTC",
+      "kind": "CRYPTO"
+    },
+    {
+      "quote": "eth",
+      "kind": "CRYPTO"
+    },
+    {
+      "quote": "ALL",
+      "kind": "CRYPTO"
+    },
+    {
+      "quote": "",
+      "kind": "INVALID"
+    },
+    {
+      "quote": "BTC-USD",
+      "kind": "INVALID"
+    },
+    {
+      "quote": "ABCDEFGHIJKLMNOP",
+      "kind": "INVALID"
+    },
+    {
+      "quote": "ABCDEFGHIJKLMNO",
+      "kind": "CRYPTO"
+    },
+    {
+      "quote": "BTC½",
+      "kind": "INVALID"
+    },
+    {
+      "quote": "Ⅷ",
+      "kind": "INVALID"
+    },
+    {
+      "quote": "BTC٣",
+      "kind": "CRYPTO"
+    },
+    {
+      "quote": "ÄBC",
+      "kind": "CRYPTO"
+    },
+    {
+      "quote": "𝐀BC",
+      "kind": "INVALID"
+    },
+    {
+      "quote": "ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+      "kind": "CRYPTO"
+    }
+  ],
+  "quoteToUsd": [
+    {
+      "name": "USD is exactly 1, even with a USDT rate",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USD",
+      "usdtUsd": 0.97,
+      "expected": 1.0
+    },
+    {
+      "name": "USDT without a measured rate counts 1",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDT",
+      "usdtUsd": null,
+      "expected": 1.0
+    },
+    {
+      "name": "USDT at its market rate",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDT",
+      "usdtUsd": 0.998,
+      "expected": 0.998
+    },
+    {
+      "name": "USDT: confirmed break 0.30 is used",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDT",
+      "usdtUsd": 0.3,
+      "expected": 0.3
+    },
+    {
+      "name": "USDT: lower bound 0.05 is used",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDT",
+      "usdtUsd": 0.05,
+      "expected": 0.05
+    },
+    {
+      "name": "USDT: below 0.05 is implausible -> 1",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDT",
+      "usdtUsd": 0.0499,
+      "expected": 1.0
+    },
+    {
+      "name": "USDT: upper bound 3.0 is used",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDT",
+      "usdtUsd": 3.0,
+      "expected": 3.0
+    },
+    {
+      "name": "USDT: 7.0 is implausible -> 1",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDT",
+      "usdtUsd": 7.0,
+      "expected": 1.0
+    },
+    {
+      "name": "USDC: market rate in USDT x USDT/USD",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": 0.9993,
+      "code": "USDC",
+      "usdtUsd": 0.998,
+      "expected": 0.9973014
+    },
+    {
+      "name": "USDC without market rate: none (not a silent 1)",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "USDC",
+      "usdtUsd": null,
+      "expected": null
+    },
+    {
+      "name": "DAI with rate 0: none",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": 0.0,
+      "code": "DAI",
+      "usdtUsd": null,
+      "expected": null
+    },
+    {
+      "name": "empty code counts as USD",
+      "kind": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": "",
+      "usdtUsd": null,
+      "expected": 1.0
+    },
+    {
+      "name": "EUR: 0.92 EUR per USD",
+      "kind": "FIAT",
+      "usdToQuote": 0.92,
+      "cryptoUsdt": null,
+      "code": null,
+      "usdtUsd": null,
+      "expected": 1.0869565217391304
+    },
+    {
+      "name": "CHF: 0.8 CHF per USD",
+      "kind": "FIAT",
+      "usdToQuote": 0.8,
+      "cryptoUsdt": null,
+      "code": null,
+      "usdtUsd": null,
+      "expected": 1.25
+    },
+    {
+      "name": "JPY: 150.25 JPY per USD",
+      "kind": "FIAT",
+      "usdToQuote": 150.25,
+      "cryptoUsdt": null,
+      "code": null,
+      "usdtUsd": null,
+      "expected": 0.0066555740432612314
+    },
+    {
+      "name": "fiat without rate: none",
+      "kind": "FIAT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": null,
+      "usdtUsd": null,
+      "expected": null
+    },
+    {
+      "name": "fiat with negative rate: none",
+      "kind": "FIAT",
+      "usdToQuote": -0.9,
+      "cryptoUsdt": null,
+      "code": null,
+      "usdtUsd": null,
+      "expected": null
+    },
+    {
+      "name": "BTC quote: 60000 USDT",
+      "kind": "CRYPTO",
+      "usdToQuote": null,
+      "cryptoUsdt": 60000.0,
+      "code": null,
+      "usdtUsd": null,
+      "expected": 60000.0
+    },
+    {
+      "name": "BTC quote: 60000 USDT x USDT/USD 0.998",
+      "kind": "CRYPTO",
+      "usdToQuote": null,
+      "cryptoUsdt": 60000.0,
+      "code": null,
+      "usdtUsd": 0.998,
+      "expected": 59880.0
+    },
+    {
+      "name": "SHIB-sized quote 1.2e-8 USDT",
+      "kind": "CRYPTO",
+      "usdToQuote": null,
+      "cryptoUsdt": 1.2e-08,
+      "code": null,
+      "usdtUsd": null,
+      "expected": 1.2e-08
+    },
+    {
+      "name": "crypto without price: none",
+      "kind": "CRYPTO",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "code": null,
+      "usdtUsd": null,
+      "expected": null
+    },
+    {
+      "name": "unsupported fiat (NGN): never converted",
+      "kind": "FIAT_UNSUPPORTED",
+      "usdToQuote": 1500.0,
+      "cryptoUsdt": 0.00066,
+      "code": null,
+      "usdtUsd": null,
+      "expected": null
+    },
+    {
+      "name": "invalid quote: never converted",
+      "kind": "INVALID",
+      "usdToQuote": 1.0,
+      "cryptoUsdt": 1.0,
+      "code": null,
+      "usdtUsd": null,
+      "expected": null
+    }
+  ],
+  "chain": [
+    {
+      "name": "USDT -> CHF at USD/CHF 0.8 (USDT = 1)",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.8,
+      "amount": 96000.0,
+      "rate": 0.8,
+      "converted": 76800.0
+    },
+    {
+      "name": "USDT -> CHF with USDT/USD 0.998",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": 0.998,
+      "usdToTarget": 0.8,
+      "amount": 96000.0,
+      "rate": 0.7984,
+      "converted": 76646.4
+    },
+    {
+      "name": "USDT -> EUR at 0.92",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.92,
+      "amount": 1.0,
+      "rate": 0.92,
+      "converted": 0.92
+    },
+    {
+      "name": "USD -> CHF ignores USDT/USD",
+      "quote": "USD",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": 0.97,
+      "usdToTarget": 0.8,
+      "amount": 100.0,
+      "rate": 0.8,
+      "converted": 80.0
+    },
+    {
+      "name": "EUR -> CHF: 0.8 / 0.92",
+      "quote": "EUR",
+      "usdToQuote": 0.92,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.8,
+      "amount": 1000.0,
+      "rate": 0.8695652173913043,
+      "converted": 869.5652173913044
+    },
+    {
+      "name": "CHF -> EUR: 0.92 / 0.8",
+      "quote": "CHF",
+      "usdToQuote": 0.8,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.92,
+      "amount": 1000.0,
+      "rate": 1.1500000000000001,
+      "converted": 1150.0000000000002
+    },
+    {
+      "name": "CHF -> USD (target factor 1)",
+      "quote": "CHF",
+      "usdToQuote": 0.8,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 1.0,
+      "amount": 80.0,
+      "rate": 1.25,
+      "converted": 100.0
+    },
+    {
+      "name": "EUR -> JPY",
+      "quote": "EUR",
+      "usdToQuote": 0.92,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 150.25,
+      "amount": 1.0,
+      "rate": 163.31521739130434,
+      "converted": 163.31521739130434
+    },
+    {
+      "name": "BTC quote -> CHF via USDT",
+      "quote": "BTC",
+      "usdToQuote": null,
+      "cryptoUsdt": 60000.0,
+      "usdtUsd": 0.998,
+      "usdToTarget": 0.8,
+      "amount": 0.5,
+      "rate": 47904.0,
+      "converted": 23952.0
+    },
+    {
+      "name": "USDC -> EUR via market rate",
+      "quote": "USDC",
+      "usdToQuote": null,
+      "cryptoUsdt": 0.9993,
+      "usdtUsd": 0.998,
+      "usdToTarget": 0.92,
+      "amount": 250.0,
+      "rate": 0.9175172880000001,
+      "converted": 229.37932200000003
+    },
+    {
+      "name": "very small amount 1e-8 USDT -> CHF",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.8,
+      "amount": 1e-08,
+      "rate": 0.8,
+      "converted": 8e-09
+    },
+    {
+      "name": "very large amount 1e12 USDT -> JPY",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 150.25,
+      "amount": 1000000000000.0,
+      "rate": 150.25,
+      "converted": 150250000000000.0
+    },
+    {
+      "name": "floating point: 0.1 USDT -> CHF at 0.3",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.3,
+      "amount": 0.1,
+      "rate": 0.3,
+      "converted": 0.03
+    },
+    {
+      "name": "missing target rate: no factor",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": null,
+      "amount": 100.0,
+      "rate": null,
+      "converted": null
+    },
+    {
+      "name": "target rate 0: no factor",
+      "quote": "USDT",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.0,
+      "amount": 100.0,
+      "rate": null,
+      "converted": null
+    },
+    {
+      "name": "missing quote fx rate: no factor",
+      "quote": "EUR",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.8,
+      "amount": 100.0,
+      "rate": null,
+      "converted": null
+    },
+    {
+      "name": "missing crypto price: no factor",
+      "quote": "BTC",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.8,
+      "amount": 1.0,
+      "rate": null,
+      "converted": null
+    },
+    {
+      "name": "USDC without market rate: no factor",
+      "quote": "USDC",
+      "usdToQuote": null,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.8,
+      "amount": 100.0,
+      "rate": null,
+      "converted": null
+    },
+    {
+      "name": "unsupported fiat NGN: no factor",
+      "quote": "NGN",
+      "usdToQuote": 1500.0,
+      "cryptoUsdt": null,
+      "usdtUsd": null,
+      "usdToTarget": 0.8,
+      "amount": 100.0,
+      "rate": null,
+      "converted": null
+    },
+    {
+      "name": "overflow to infinity: no factor",
+      "quote": "BTC",
+      "usdToQuote": null,
+      "cryptoUsdt": 10000000000.0,
+      "usdtUsd": null,
+      "usdToTarget": 1e+300,
+      "amount": 1.0,
+      "rate": null,
+      "converted": null
+    }
+  ],
+  "freshQuotePrice": [
+    {
+      "name": "fetched now",
+      "price": 60000.0,
+      "time": 60000000,
+      "now": 60000000,
+      "expected": 60000.0
+    },
+    {
+      "name": "exactly 15 min old: still fresh",
+      "price": 60000.0,
+      "time": 59100000,
+      "now": 60000000,
+      "expected": 60000.0
+    },
+    {
+      "name": "15 min + 1 ms: stale",
+      "price": 60000.0,
+      "time": 59099999,
+      "now": 60000000,
+      "expected": null
+    },
+    {
+      "name": "16 min: stale",
+      "price": 60000.0,
+      "time": 59040000,
+      "now": 60000000,
+      "expected": null
+    },
+    {
+      "name": "time in the future (device clock behind) counts as fresh",
+      "price": 60000.0,
+      "time": 60300000,
+      "now": 60000000,
+      "expected": 60000.0
+    },
+    {
+      "name": "no time: stale",
+      "price": 60000.0,
+      "time": null,
+      "now": 60000000,
+      "expected": null
+    },
+    {
+      "name": "time 0: stale",
+      "price": 60000.0,
+      "time": 0,
+      "now": 60000000,
+      "expected": null
+    },
+    {
+      "name": "no price",
+      "price": null,
+      "time": 60000000,
+      "now": 60000000,
+      "expected": null
+    }
+  ],
+  "staleFxTime": [
+    {
+      "name": "no fx rate involved",
+      "quoteFxAt": null,
+      "targetFxAt": null,
+      "now": 360000000,
+      "expected": null
+    },
+    {
+      "name": "target fx exactly 3 h old: no hint",
+      "quoteFxAt": null,
+      "targetFxAt": 349200000,
+      "now": 360000000,
+      "expected": null
+    },
+    {
+      "name": "target fx 3 h + 1 ms old: its time",
+      "quoteFxAt": null,
+      "targetFxAt": 349199999,
+      "now": 360000000,
+      "expected": 349199999
+    },
+    {
+      "name": "both fresh",
+      "quoteFxAt": 356400000,
+      "targetFxAt": 352800000,
+      "now": 360000000,
+      "expected": null
+    },
+    {
+      "name": "oldest of both counts",
+      "quoteFxAt": 342000000,
+      "targetFxAt": 356400000,
+      "now": 360000000,
+      "expected": 342000000
+    },
+    {
+      "name": "quote fx only, 4 h old",
+      "quoteFxAt": 345600000,
+      "targetFxAt": null,
+      "now": 360000000,
+      "expected": 345600000
+    }
+  ],
+  "conversionQuote": [
+    {
+      "market": "Aster",
+      "quote": "U",
+      "expected": "USD"
+    },
+    {
+      "market": " aster ",
+      "quote": "u",
+      "expected": "USD"
+    },
+    {
+      "market": "Binance",
+      "quote": "U",
+      "expected": "U"
+    },
+    {
+      "market": null,
+      "quote": " usdt ",
+      "expected": "USDT"
+    },
+    {
+      "market": "Aster",
+      "quote": "USDT",
+      "expected": "USDT"
+    }
+  ],
+  "sameCurrency": [
+    {
+      "a": "chf",
+      "b": "CHF",
+      "expected": true
+    },
+    {
+      "a": "USDT",
+      "b": "USD",
+      "expected": false
+    },
+    {
+      "a": "",
+      "b": "",
+      "expected": false
+    },
+    {
+      "a": " eur",
+      "b": "EUR ",
+      "expected": true
+    },
+    {
+      "a": null,
+      "b": null,
+      "expected": false
+    }
+  ]
+}

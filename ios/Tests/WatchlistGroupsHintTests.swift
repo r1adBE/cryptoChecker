@@ -1,38 +1,31 @@
 import XCTest
 @testable import CryptoChecker
 
-/// G-14: Gruppen-Hinweis erst ab einigen Paaren — wie `WatchlistGroupsHintTest.kt`.
+/// Gruppen-Hinweis immer, wenn keine Chips da sind — gleiche Fälle wie `WatchlistGroupsHintTest.kt`.
 final class WatchlistGroupsHintTests: XCTestCase {
 
-    private func hint(pairs: Int, groups: [String] = [], favorites: Bool = false,
-                      searching: Bool = false, quickView: QuickView? = nil, onboarded: Bool = true) -> Bool {
+    private func hint(groups: [String] = [], favorites: Bool = false, searching: Bool = false,
+                      sorting: Bool = false, quickView: QuickView? = nil) -> Bool {
         WatchlistGroupChips.showsHint(groups: groups, selected: nil, hasFavorites: favorites, hasActivity: false,
-                                      quickView: quickView, searching: searching, sorting: false, pairCount: pairs,
-                                      onboarded: onboarded)
+                                      quickView: quickView, searching: searching, sorting: sorting)
     }
 
-    func testHintOnlyFromFivePairs() {
-        XCTAssertFalse(hint(pairs: 0))
-        XCTAssertFalse(hint(pairs: WatchlistGroupChips.hintMinPairs - 1))
-        XCTAssertTrue(hint(pairs: WatchlistGroupChips.hintMinPairs))
+    func testHintWithoutGroupsFromFirstStart() {
+        // Ohne Gruppen und Favoriten immer der Hinweis — auch mit 0–4 Paaren und ohne Alarm
+        // (die Regel kennt weder Paarzahl noch ersten Gebrauch)
+        XCTAssertTrue(hint())
     }
 
     func testChipsInsteadOfHintWithGroupOrFavorite() {
-        // Gruppe oder Favorit: Chips statt Hinweis, auch mit wenigen Paaren
         XCTAssertTrue(WatchlistGroupChips.showsChips(groups: ["DeFi"], selected: nil, hasFavorites: false))
         XCTAssertTrue(WatchlistGroupChips.showsChips(groups: [], selected: nil, hasFavorites: true))
-        XCTAssertFalse(hint(pairs: 10, groups: ["DeFi"]))
-        XCTAssertFalse(hint(pairs: 10, favorites: true))
+        XCTAssertFalse(hint(groups: ["DeFi"]))
+        XCTAssertFalse(hint(favorites: true))
     }
 
-    func testNoHintWhileSearchingOrInQuickView() {
-        XCTAssertFalse(hint(pairs: 10, searching: true))
-        XCTAssertFalse(hint(pairs: 10, quickView: .stale))
-    }
-
-    func testNoHintBeforeFirstUseIsOver() {
-        // Erster Bildschirm nur für Kurse und den ersten Alarm (WatchlistOnboarding)
-        XCTAssertFalse(hint(pairs: 10, onboarded: false))
-        XCTAssertTrue(hint(pairs: 10, onboarded: true))
+    func testNoHintWhileSearchingSortingOrInQuickView() {
+        XCTAssertFalse(hint(searching: true))
+        XCTAssertFalse(hint(sorting: true))
+        XCTAssertFalse(hint(quickView: .stale))
     }
 }

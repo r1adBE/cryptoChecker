@@ -23,6 +23,8 @@
     <string name="portfolio_csv_import_format">格式：%1$s</string>
     <string name="portfolio_csv_import_line">第 %1$d 行：%2$s</string>
     <string name="portfolio_csv_import_loading">正在读取文件和每日汇率…</string>
+    <string name="portfolio_csv_import_progress">第 %1$s 行，共 %2$s 行</string>
+    <string name="portfolio_csv_import_saving">正在保存交易…</string>
     <string name="portfolio_csv_import_missing_fx">第 %1$s 行没有每日汇率——已按无价格/手续费导入。</string>
     <string name="portfolio_csv_import_missing_price">文件中第 %1$s 行没有价格——已按无价格导入。</string>
     <string name="portfolio_csv_import_more">+ 另外 %1$d 条</string>

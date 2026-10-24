@@ -18,6 +18,8 @@ struct CsvImportLoaded: Identifiable {
     let preview: CsvImportPreview
     /// USDT/USD-Tagesschlüsse (`CsvImport.priceInUsdt` `usdtUsd`), beim Laden geholt; leer = keine (Näherung markiert).
     var usdtUsd: [Int: Decimal] = [:]
+    /// Vorschläge zur Vorschau beim Laden (im Hintergrund gerechnet, `CsvImportProposals.of`).
+    var proposals = CsvImportProposals(list: [], links: [])
 
     /// Vorschau neu zuordnen (`CsvImportMapping`, `withdrawalsAsTransfer`) — wie `mapPreview` (Android); `zone` =
     /// gewählte Zeitzone der Zeiten ohne Versatz (nil = Regel `CsvImportParser.zoneFor`): Text im Speicher neu lesen,
@@ -36,6 +38,20 @@ struct CsvImportLoaded: Identifiable {
         }
         return PortfolioCsvImporter.mapPreview(r, existingKeys: existingKeys, rates: current ?? rates,
                                                withdrawalsAsTransfer: withdrawalsAsTransfer, usdtUsd: usdtUsd)
+    }
+}
+
+/// Vorschläge zu einer Vorschau: je Auszahlung (`CsvImportMapping.proposeWithdrawals`) und mögliche Umbuchungen
+/// (`CsvTransferMatch.candidates`) — bei vielen Zeilen teuer, darum abseits des Haupt-Threads gerechnet; übernommen
+/// wird auf dem MainActor (`PortfolioCsvImportSheet.applyProposals`) — wie Android `proposalsFor`/`applyProposals`.
+struct CsvImportProposals {
+    let list: [CsvWithdrawalProposal]
+    let links: [CsvTransferLink]
+
+    static func of(_ preview: CsvImportPreview, addresses: [WatchedAddress], stored: [CsvStoredMove]) -> CsvImportProposals {
+        CsvImportProposals(list: CsvImportMapping.proposeWithdrawals(preview.transactions, addresses: addresses),
+                           links: CsvTransferMatch.candidates(preview.transactions, place: preview.format.exchangeName,
+                                                              stored: stored))
     }
 }
 
@@ -70,25 +86,52 @@ enum PortfolioCsvImporter {
     }
 
     /// Vorschau laden; sonst der Grund (`CsvImportRefusal`): zu gross oder nicht lesbar bzw. keine unterstützte Zeile.
-    static func load(_ url: URL, existingKeys: Set<String>) async -> Result<CsvImportLoaded, CsvImportRefusal> {
-        let scoped = url.startAccessingSecurityScopedResource()
-        defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-        let data: Data
-        switch readChecked(url) {
-        case .success(let d): data = d
+    /// Lesen, Zerlegen, Umrechnen und die Vorschläge (`addresses`, `stored` vom Aufrufer) laufen abseits des
+    /// Haupt-Threads (`CsvImportBackground`) und brechen mit dem Aufrufer ab; `progress` meldet gedrosselt «Zeile X von Y»
+    /// beim Umrechnen — wie Android `buildPreview`. Nach einem Abbruch das Ergebnis verwerfen (`Task.isCancelled`).
+    static func load(_ url: URL, existingKeys: Set<String>, addresses: [WatchedAddress] = [],
+                     stored: [CsvStoredMove] = [], progress: @escaping @Sendable (CsvImportProgress) -> Void = { _ in })
+        async -> Result<CsvImportLoaded, CsvImportRefusal> {
+        let deviceZone = TimeZone.current.identifier
+        typealias Read = Result<(text: String, result: CsvImportResult), CsvImportRefusal>
+        let read = await CsvImportBackground.run { () -> Read in
+            let scoped = url.startAccessingSecurityScopedResource()
+            defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+            switch PortfolioCsvImporter.readChecked(url) {
+            case .success(let data):
+                // UTF-8, sonst Windows-1252 (Excel), BOM weg — wie Android
+                let text = CsvImportParser.decode(data)
+                return .success((text: text, result: CsvImportParser.parse(text, deviceZone: deviceZone)))
+            case .failure(let refusal):
+                return .failure(refusal)
+            }
+        }
+        let text: String
+        let result: CsvImportResult
+        switch read {
+        case .success(let r):
+            text = r.text
+            result = r.result
         case .failure(let refusal): return .failure(refusal)
         }
-        // UTF-8, sonst Windows-1252 (Excel), BOM weg — wie Android
-        let text = CsvImportParser.decode(data)
-        let result = CsvImportParser.parse(text, deviceZone: TimeZone.current.identifier)
         let rates = await fetchRates(result)
         let usdtUsd = await fetchUsdtUsd(result)
-        let preview = mapPreview(result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: false,
-                                 usdtUsd: usdtUsd)
+        let mapped = await CsvImportBackground.run { () -> (preview: CsvImportPreview, proposals: CsvImportProposals) in
+            var throttle: CsvProgressThrottle?
+            let preview = PortfolioCsvImporter.mapPreview(result, existingKeys: existingKeys, rates: rates,
+                                                          withdrawalsAsTransfer: false, usdtUsd: usdtUsd) { done, total in
+                if throttle == nil {
+                    throttle = CsvProgressThrottle(step: .PREVIEW, total: total, report: progress)
+                    throttle?.start()
+                }
+                throttle?.row(done)
+            }
+            return (preview: preview, proposals: CsvImportProposals.of(preview, addresses: addresses, stored: stored))
+        }
         // Zu gross (über den Grenzen des Zerlegens) eigens melden, nicht als fremdes Format (wie Android)
-        if let refusal = CsvImportRefusal.of(fileTooLarge: false, preview: preview) { return .failure(refusal) }
+        if let refusal = CsvImportRefusal.of(fileTooLarge: false, preview: mapped.preview) { return .failure(refusal) }
         return .success(CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates,
-                                        preview: preview, usdtUsd: usdtUsd))
+                                        preview: mapped.preview, usdtUsd: usdtUsd, proposals: mapped.proposals))
     }
 
     /// USDT/USD-Tagesschlüsse (Kraken, `PortfolioHistorySource.usdtUsdDaily`) vom frühesten Tag der Datei bis heute — wie
@@ -116,11 +159,13 @@ enum PortfolioCsvImporter {
         return rates
     }
 
-    /// Abgleich, Umrechnung und Zuordnung (`withdrawalsAsTransfer`: Auszahlung → Umbuchung).
+    /// Abgleich, Umrechnung und Zuordnung (`withdrawalsAsTransfer`: Auszahlung → Umbuchung); `onRow` nach jedem Block
+    /// (fertig, gesamt) für den Fortschritt.
     static func mapPreview(_ result: CsvImportResult, existingKeys: Set<String>, rates: [String: [(day: Int, rate: Double)]],
-                           withdrawalsAsTransfer: Bool, usdtUsd: [Int: Decimal] = [:]) -> CsvImportPreview {
+                           withdrawalsAsTransfer: Bool, usdtUsd: [Int: Decimal] = [:],
+                           onRow: (_ done: Int, _ total: Int) -> Void = { _, _ in }) -> CsvImportPreview {
         CsvImportMapping.preview(result, existingKeys: existingKeys, withdrawalsAsTransfer: withdrawalsAsTransfer,
-                                 usdtUsd: usdtUsd) { currency, day in
+                                 usdtUsd: usdtUsd, onRow: onRow) { currency, day in
             guard let list = rates[currency], let r = PortfolioHistoryFx.rateOn(list, day: Int(day)) else { return nil }
             return PortfolioDecimal.of(r)
         }

@@ -2,10 +2,10 @@ import Foundation
 
 /// Merkliste nach der Start-Auswahl schrittweise: Der erste Bildschirm hat EINE Aufgabe — Kurse sehen und den ersten
 /// Alarm setzen; die Karte «Ersten Alarm setzen» (`FirstAlarmCard`) bleibt der einzige hervorgehobene Hinweis.
-/// Gruppen-Hinweis, Puls über der Liste und Gesten-Hinweis kommen erst dazu, sobald es einen Alarm gibt (auch einen
-/// ausgeschalteten) oder die App an `unlockDays` verschiedenen Tagen offen war. Wer schon Alarme hat (Update,
-/// Wiederherstellen), sieht also alles sofort. Sortierzeile und Gruppen-Chips bleiben immer (Grundbedienung bzw.
-/// vom Nutzer selbst angelegt). Reine Regel — wie Android `WatchlistOnboarding.kt` (gleiche Testfälle in
+/// Puls über der Liste und Gesten-Hinweis kommen erst dazu, sobald es einen Alarm gibt (auch einen ausgeschalteten)
+/// oder die App an `unlockDays` verschiedenen Tagen offen war. Wer schon Alarme hat (Update, Wiederherstellen),
+/// sieht also alles sofort. Sortierzeile und Gruppen-Chips bzw. ohne sie der Gruppen-Hinweis bleiben immer
+/// (Grundbedienung; Regel in `WatchlistGroupChips.showsHint`). Reine Regel — wie Android `WatchlistOnboarding.kt` (gleiche Testfälle in
 /// WatchlistOnboardingTests / WatchlistOnboardingTest).
 enum WatchlistOnboarding {
     /// Ab so vielen Tagen mit offener App zeigt die Merkliste alles, auch ohne Alarm.
@@ -13,8 +13,6 @@ enum WatchlistOnboarding {
 
     /// Was die Merkliste über die Grundbedienung hinaus zeigen darf.
     struct Visible: Equatable {
-        /// Grauer Hinweis «Hier erscheinen deine Gruppen» in der leeren Chip-Zeile.
-        let groupsHint: Bool
         /// Puls («↗ 7 steigen · ↘ 3 fallen · Ø …») über der Liste.
         let pulse: Bool
         /// Gesten-Hinweis (Wischen, langes Drücken).
@@ -25,10 +23,9 @@ enum WatchlistOnboarding {
     ///   - alarmCount: alle Alarme wie bei `FirstAlarmCard` (auch ausgeschaltete); nil = noch nicht geladen → wie
     ///     keiner, damit beim ersten Start nichts kurz aufblitzt
     ///   - usageDays: verschiedene Tage, an denen die App offen war (`UsageDays`)
-    ///   - hasGroupsOrFavorites: eigene Gruppen oder Favoriten: dann stehen dort die Chips, kein Hinweis
-    static func visible(alarmCount: Int?, usageDays: Int, hasGroupsOrFavorites: Bool) -> Visible {
+    static func visible(alarmCount: Int?, usageDays: Int) -> Visible {
         let unlocked = (alarmCount ?? 0) > 0 || usageDays >= unlockDays
-        return Visible(groupsHint: unlocked && !hasGroupsOrFavorites, pulse: unlocked, gestureHint: unlocked)
+        return Visible(pulse: unlocked, gestureHint: unlocked)
     }
 }
 

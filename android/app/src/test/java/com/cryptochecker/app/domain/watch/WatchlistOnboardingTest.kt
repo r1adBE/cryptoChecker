@@ -9,42 +9,30 @@ import org.junit.Test
 class WatchlistOnboardingTest {
 
     @Test
-    fun `first use hides groups hint, pulse and gesture hint`() {
-        val v = WatchlistOnboarding.visible(alarmCount = 0, usageDays = 1, hasGroupsOrFavorites = false)
-        assertFalse(v.groupsHint)
+    fun `first use hides pulse and gesture hint`() {
+        val v = WatchlistOnboarding.visible(alarmCount = 0, usageDays = 1)
         assertFalse(v.pulse)
         assertFalse(v.gestureHint)
     }
 
     @Test
     fun `alarms not loaded yet count as none`() {
-        val v = WatchlistOnboarding.visible(alarmCount = null, usageDays = 0, hasGroupsOrFavorites = false)
+        val v = WatchlistOnboarding.visible(alarmCount = null, usageDays = 0)
         assertFalse(v.pulse)
         assertFalse(v.gestureHint)
-        assertFalse(v.groupsHint)
     }
 
     @Test
     fun `first alarm shows everything`() {
-        val v = WatchlistOnboarding.visible(alarmCount = 1, usageDays = 0, hasGroupsOrFavorites = false)
-        assertTrue(v.groupsHint)
+        val v = WatchlistOnboarding.visible(alarmCount = 1, usageDays = 0)
         assertTrue(v.pulse)
         assertTrue(v.gestureHint)
     }
 
     @Test
     fun `three different days show everything without an alarm`() {
-        assertFalse(WatchlistOnboarding.visible(0, WatchlistOnboarding.UNLOCK_DAYS - 1, false).pulse)
-        val v = WatchlistOnboarding.visible(alarmCount = 0, usageDays = WatchlistOnboarding.UNLOCK_DAYS, hasGroupsOrFavorites = false)
-        assertTrue(v.groupsHint)
-        assertTrue(v.pulse)
-        assertTrue(v.gestureHint)
-    }
-
-    @Test
-    fun `groups or favorites show chips instead of the hint`() {
-        val v = WatchlistOnboarding.visible(alarmCount = 2, usageDays = 5, hasGroupsOrFavorites = true)
-        assertFalse(v.groupsHint)
+        assertFalse(WatchlistOnboarding.visible(0, WatchlistOnboarding.UNLOCK_DAYS - 1).pulse)
+        val v = WatchlistOnboarding.visible(alarmCount = 0, usageDays = WatchlistOnboarding.UNLOCK_DAYS)
         assertTrue(v.pulse)
         assertTrue(v.gestureHint)
     }

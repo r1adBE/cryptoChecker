@@ -44,10 +44,12 @@ enum RateLimitSignal {
         if ExchangeBackoff.isRateLimitCode(status) { return status }
         guard let body, !body.isEmpty else { return nil }
         if (200..<300).contains(status) {
-            if body.utf8.count > maxOkBody { return nil }
+            // Länge in UTF-16-Einheiten wie Android (`String.length` / `take`)
+            if body.utf16.count > maxOkBody { return nil }
             return okBodyRateLimited(body) ? httpCodeForRateLimit : nil
         }
-        return inText(String(body.prefix(maxOkBody))) ? httpCodeForRateLimit : nil
+        let start = String(decoding: Array(body.utf16.prefix(maxOkBody)), as: UTF16.self)
+        return inText(start) ? httpCodeForRateLimit : nil
     }
 
     /// Felder einer JSON-Antwort, in denen Börsen ihre Fehlermeldung schicken.

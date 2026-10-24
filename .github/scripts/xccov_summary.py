@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prints the iOS unit-test line coverage as ONE notice annotation (display only, no threshold).
+"""Prints the iOS unit-test line coverage as ONE notice annotation; with «--min-logic P» also a gate.
 
 Input: the JSON of «xcrun xccov view --report --json <xcresult>» (targets[].files[] with path, coveredLines,
 executableLines). Test bundles (*.xctest) are left out. A file compiled into several targets (app and widget
@@ -8,7 +8,9 @@ extension) counts once, with its best-covered entry: the tests run in the app, t
 Two numbers: «total» (every source file of the app and its extensions) and «logic» (files under Shared/ that do not
 define a SwiftUI view, i.e. contain no «some View»). Without the source file on disk the folder alone decides.
 
-Usage: python3 -I xccov_summary.py report.json
+«--min-logic P»: exit 1 with an error annotation when «logic» is below P percent or the report is missing/unreadable.
+
+Usage: python3 -I xccov_summary.py [--min-logic 78] report.json
        python3 -I xccov_summary.py --self-test
 """
 import contextlib
@@ -49,6 +51,23 @@ def best_files(report):
 
 def percent(covered, executable):
     return f"{100.0 * covered / executable:.1f} %" if executable else "n/a"
+
+
+def logic_numbers(report):
+    """(covered, executable) lines of «logic» (Shared/ without SwiftUI views)."""
+    logic = [v for p, v in best_files(report).items() if is_logic(p)]
+    return sum(c for c, _ in logic), sum(e for _, e in logic)
+
+
+def logic_gate(report, minimum):
+    """(ok, message) of the gate «logic coverage at least [minimum] percent»; no data = not ok."""
+    covered, executable = logic_numbers(report)
+    if not executable:
+        return False, f"no iOS logic coverage data (gate: at least {minimum:g} %)"
+    value = 100.0 * covered / executable
+    if value < minimum:
+        return False, f"iOS logic coverage {value:.1f} % is below the gate of {minimum:g} %"
+    return True, f"iOS logic coverage {value:.1f} % ≥ gate {minimum:g} %"
 
 
 def summary(report):
@@ -103,6 +122,13 @@ def self_test():
             assert main([os.path.join(tmp, "missing.json")]) == 0
         assert "::notice title=iOS coverage::iOS line coverage" in out.getvalue(), out.getvalue()
         assert "no coverage report (FileNotFoundError)" in out.getvalue(), out.getvalue()
+        # Gate: 78.6 % Logik im Beispiel; ohne Bericht rot
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            assert main(["--min-logic", "78", path]) == 0
+            assert main(["--min-logic", "80", path]) == 1
+            assert main(["--min-logic", "78", os.path.join(tmp, "missing.json")]) == 1
+        assert "≥ gate 78 %" in out.getvalue() and "below the gate of 80 %" in out.getvalue(), out.getvalue()
     print("xccov_summary self-test ok")
     return 0
 
@@ -110,19 +136,28 @@ def self_test():
 def main(argv):
     if argv == ["--self-test"]:
         return self_test()
-    if len(argv) != 1:
+    args, minimum = list(argv), None
+    if len(args) == 3 and args[0] == "--min-logic":
+        minimum = float(args[1])
+        args = args[2:]
+    if len(args) != 1:
         print(__doc__)
-        return 0
+        return 0 if minimum is None else 1
     try:
-        with open(argv[0], encoding="utf-8") as f:
+        with open(args[0], encoding="utf-8") as f:
             report = json.load(f)
     except (OSError, ValueError) as error:
-        print(f"::notice title=iOS coverage::no coverage report ({error.__class__.__name__})")
-        return 0
+        level = "notice" if minimum is None else "error"
+        print(f"::{level} title=iOS coverage::no coverage report ({error.__class__.__name__})")
+        return 0 if minimum is None else 1
     text = summary(report)
     print(text)
     print(f"::notice title=iOS coverage::{escape(text)}")
-    return 0
+    if minimum is None:
+        return 0
+    ok, message = logic_gate(report, minimum)
+    print(f"::{'notice' if ok else 'error'} title=iOS coverage gate::{message}")
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

@@ -87,9 +87,9 @@ jobs:
           set -o pipefail
           ./gradlew test --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
 
-      # Performance tests (app/src/test/.../performance: timings with 2000 pairs) on their own, after the unit tests and
-      # before lint: nothing else runs in parallel, so the timings do not depend on the load of the runner. The normal
-      # unit-test run excludes them (app/build.gradle.kts, -PperformanceTests).
+      # Performance tests (app/src/test/.../performance: timings with 2000 pairs and 10 000 portfolio transactions) on
+      # their own, after the unit tests and before lint: nothing else runs in parallel, so the timings do not depend on
+      # the load of the runner. The normal unit-test run excludes them (app/build.gradle.kts, -PperformanceTests).
       - name: Performance tests
         run: |
           set -o pipefail
@@ -198,20 +198,22 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/android_release_audit.sh" "$FINDINGS" "$RUNNER_TEMP/release-evidence"
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$FINDINGS" "Android release audit"
 
-      # Unit-test line coverage of :app and :marketdata as ONE notice (display only, no threshold): total and «logic»
-      # (without Compose/widget rendering, activities and generated code). The :app report also measures :marketdata
-      # (its exchange parsers run mostly in the contract tests of :app); :marketdata's own report is listed as «own
-      # tests only». Kover is applied only with -Pcoverage=true, so the gate above runs uninstrumented; this re-runs
-      # the debug unit tests with the agent. continue-on-error: a coverage problem never turns the gate red.
-      - name: Coverage (display only)
-        continue-on-error: true
+      # Unit-test line coverage of :app and :marketdata as ONE notice: total and «logic» (without Compose/widget
+      # rendering, activities and generated code). The :app report also measures :marketdata (its exchange parsers run
+      # mostly in the contract tests of :app); :marketdata's own report is listed as «own tests only». Kover is applied
+      # only with -Pcoverage=true, so the gate above runs uninstrumented; this re-runs the debug unit tests with the
+      # agent. Gate: the merged «logic» coverage must not fall below MIN_LOGIC (set just under the measured value, so
+      # it stops regressions without forcing new work; raise it when coverage grows). No report = red.
+      - name: Coverage (logic gate)
         timeout-minutes: 15
         env:
           REQUIRE_IOS_SOURCES: 'true'
+          MIN_LOGIC: '58'
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
           ./gradlew -Pcoverage=true :app:koverXmlReportDebug :marketdata:koverXmlReportDebug --stacktrace
-          python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app app=app marketdata=marketdata
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
+            app=app marketdata=marketdata
 
       # Evidence of the audited release build: R8 mapping (deobfuscate crashes of exactly this
       # build), AAB, merged manifest with summary and merger report.

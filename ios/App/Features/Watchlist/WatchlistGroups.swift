@@ -178,17 +178,13 @@ struct WatchlistGroupChips: View {
         !groups.isEmpty || hasFavorites || hasActivity || hasAlpha || selected != nil
     }
 
-    /// Ab so vielen Paaren lohnt sich Gruppieren: vorher bleibt die leere Chip-Zeile ohne Hinweis
-    /// (Gruppen oder Favoriten zeigen die Chips trotzdem; G-14). Wie Android `GROUPS_HINT_MIN_PAIRS`.
-    nonisolated static let hintMinPairs = 5
-
-    /// Hinweis «Hier erscheinen deine Gruppen» statt der Chips? Nur ohne Chips (`showsChips`),
-    /// ab `hintMinPairs` Paaren und ohne vorübergehende Ansicht, Suche oder Sortieren — wie
-    /// Android `showsGroupsHint`. `onboarded`: erster Gebrauch vorbei (`WatchlistOnboarding.Visible.groupsHint`).
+    /// Hinweis «Hier erscheinen deine Gruppen» statt der Chips? Immer, wenn keine Chips da sind (`showsChips`) —
+    /// unabhängig von der Zahl der Paare und vom ersten Gebrauch —, ausser während einer vorübergehenden Ansicht,
+    /// der Suche oder dem Sortieren. Wie Android `showsGroupsHint`.
     nonisolated static func showsHint(groups: [String], selected: String?, hasFavorites: Bool, hasActivity: Bool,
-                                      quickView: QuickView?, searching: Bool, sorting: Bool, hasAlpha: Bool = false,
-                                      pairCount: Int = hintMinPairs, onboarded: Bool = true) -> Bool {
-        guard onboarded, quickView == nil, !searching, !sorting, pairCount >= hintMinPairs else { return false }
+                                      quickView: QuickView?, searching: Bool, sorting: Bool,
+                                      hasAlpha: Bool = false) -> Bool {
+        guard quickView == nil, !searching, !sorting else { return false }
         return !showsChips(groups: groups, selected: selected, hasFavorites: hasFavorites, hasActivity: hasActivity,
                            hasAlpha: hasAlpha)
     }

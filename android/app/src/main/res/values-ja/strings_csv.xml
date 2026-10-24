@@ -23,6 +23,8 @@
     <string name="portfolio_csv_import_format">形式：%1$s</string>
     <string name="portfolio_csv_import_line">%1$d 行目：%2$s</string>
     <string name="portfolio_csv_import_loading">ファイルと日次レートを読み込み中…</string>
+    <string name="portfolio_csv_import_progress">%2$s 行中 %1$s 行目</string>
+    <string name="portfolio_csv_import_saving">取引を保存しています…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s 行目の日次レートがありません – 価格・手数料なしで読み込みました。</string>
     <string name="portfolio_csv_import_missing_price">%1$s 行目はファイルに価格がありません – 価格なしで読み込みました。</string>
     <string name="portfolio_csv_import_more">+ 他 %1$d 件</string>

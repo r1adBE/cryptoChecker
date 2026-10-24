@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Format: %1$s</string>
     <string name="portfolio_csv_import_line">Line %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Reading file and daily rates…</string>
+    <string name="portfolio_csv_import_progress">Line %1$s of %2$s</string>
+    <string name="portfolio_csv_import_saving">Saving transactions…</string>
     <string name="portfolio_csv_import_missing_fx">No daily rate for lines %1$s – imported without price/fee.</string>
     <string name="portfolio_csv_import_missing_price">No price in the file for lines %1$s – imported without price.</string>
     <!-- Kein Plural nötig: Zähler «+ N weitere», kein Mehrzahlwort nach der Zahl -->

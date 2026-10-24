@@ -90,6 +90,9 @@ enum CsvImportMapping {
 
     private static let noteMax = 120
 
+    /// Zeilen je Block beim Umrechnen der Vorschau (`preview`): dazwischen Fortschritt — wie Android `PREVIEW_BLOCK`.
+    static let previewBlock = 100
+
     static func type(_ kind: CsvImportKind, withdrawalsAsTransfer: Bool = false) -> PortfolioTxType {
         switch kind {
         case .BUY: return .BUY
@@ -163,6 +166,18 @@ enum CsvImportMapping {
                         zone: String? = nil, withdrawalsAsTransfer: Bool = false,
                         usdtUsd: [Int: Decimal]? = nil,
                         fx: (String, Int64) -> Decimal?) -> CsvImportPreview {
+        preview(result, existingKeys: existingKeys, zone: zone, withdrawalsAsTransfer: withdrawalsAsTransfer,
+                usdtUsd: usdtUsd, onRow: { _, _ in }, fx: fx)
+    }
+
+    /// Vorschau: Doppelte abtrennen, die neuen umrechnen und zuordnen. Umgerechnet wird in Blöcken zu `previewBlock`
+    /// Zeilen (jede Zeile für sich, das Ergebnis ist dasselbe); nach jedem Block `onRow` (fertig, gesamt) — wie Android
+    /// `preview` mit `onRow`.
+    static func preview(_ result: CsvImportResult, existingKeys: Set<String>,
+                        zone: String? = nil, withdrawalsAsTransfer: Bool = false,
+                        usdtUsd: [Int: Decimal]? = nil,
+                        onRow: (_ done: Int, _ total: Int) -> Void,
+                        fx: (String, Int64) -> Decimal?) -> CsvImportPreview {
         let split = CsvImport.splitDuplicates(result.rows, existingKeys: existingKeys)
         // Binance: fast gleiche Geschäfte wie schon importierte in die Übersprungenen statt doppelt (wie Android)
         let held: Set<String> = result.format == .BINANCE
@@ -173,7 +188,13 @@ enum CsvImportMapping {
         // stabil nach Zeile (wie Android `sortedBy`)
         skipped = skipped.enumerated().sorted { ($0.element.line, $0.offset) < ($1.element.line, $1.offset) }.map(\.element)
         // Ohne Angabe: Zeitzone der Tageskurse (`result.fxZone` = Gerät, wie der Steuer-Export), wie Android
-        let priced = CsvImport.priceInUsdt(fresh, zone: zone ?? result.fxZone, usdtUsd: usdtUsd, fx: fx)
+        var priced: [CsvImportPriced] = []
+        priced.reserveCapacity(fresh.count)
+        for start in stride(from: 0, to: fresh.count, by: previewBlock) {
+            let block = Array(fresh[start..<min(start + previewBlock, fresh.count)])
+            priced += CsvImport.priceInUsdt(block, zone: zone ?? result.fxZone, usdtUsd: usdtUsd, fx: fx)
+            onRow(priced.count, fresh.count)
+        }
         return CsvImportPreview(format: result.format,
                                 transactions: priced.map { toTx($0, withdrawalsAsTransfer: withdrawalsAsTransfer) },
                                 duplicates: split.duplicates.count, skipped: skipped,

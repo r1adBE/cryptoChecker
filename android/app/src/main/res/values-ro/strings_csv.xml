@@ -27,6 +27,8 @@
     <string name="portfolio_csv_import_format">Format: %1$s</string>
     <string name="portfolio_csv_import_line">Rândul %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Se citesc fișierul și cursurile zilnice…</string>
+    <string name="portfolio_csv_import_progress">Rândul %1$s din %2$s</string>
+    <string name="portfolio_csv_import_saving">Se salvează tranzacțiile…</string>
     <string name="portfolio_csv_import_missing_fx">Niciun curs zilnic pentru rândul %1$s – importat fără preț și comision.</string>
     <string name="portfolio_csv_import_missing_price">Niciun preț în fișier pentru rândul %1$s – importat fără preț.</string>
     <string name="portfolio_csv_import_more">+ încă %1$d</string>

@@ -1,0 +1,1375 @@
+{
+  "exchange": "several",
+  "description": "Synthetic error responses (nothing recorded): broken JSON, empty answers, HTTP 429 and the rate-limit forms the code knows (RateLimitSignal: Kraken EGeneral/EAPI, Bybit retCode 10006 and HTTP 403 text, OKX code 50011, BingX code 100410). Shapes follow the parsers and the recorded/hand-written cases of each exchange; unknown exchange error forms are not invented. Read by ExchangeContractTest/ExchangeContractTests like every exchange_*.json, plus ExchangeErrorContractTest/ExchangeErrorContractTests: every case is synthetic, yields no price, and httpStatus + body give RateLimitSignal.httpCode 429 exactly when rateLimit is true; messageRateLimit = RateLimitSignal.inText of the exchange text.",
+  "note": "httpStatus: status the response comes with (the parser itself never sees it). An unknown symbol is covered by the per-exchange files (exchange_<name>.json).",
+  "cases": [
+    {
+      "kind": "single",
+      "name": "synthetic: Binance single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Binance",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.0000",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Binance single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Binance",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Binance single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Binance",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Binance bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Binance",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112},{\"symbol\":\"ETHBTC\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.30",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Binance bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Binance",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[]",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bybit single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"bid1Price\":\"62000\", \"bid1Size\":\"0.512\",\"ask1Price\":\"62000.1\",\"ask1Size\":\"0.20",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bybit single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bybit single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Bybit bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Bybit",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[ {\"symbol\":\"BTCUSDT\",\"bid1Price\":\"62000\",\"ask1Price\":\"62000.1\",\"lastPrice\":\"62000.1\",\"price24hPcnt\":\"0.0248\",\"highPrice24h\":\"62500\",\"lowPrice24h\":\"60000\",\"turnover24h\":\"744460123.4567\",\"volume24h\":\"12100.523\"}, {\"symb",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Bybit bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Bybit",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[]},\"retExtInfo\":{},\"time\":1728540000123}",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Okex single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Okex single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Okex single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Okex bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Okex",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Okex bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Okex",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[]}",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kraken single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.0010",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kraken single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kraken single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Kraken bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Kraken",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.0000",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Kraken bulk: empty list -> the batch fails",
+      "synthetic": true,
+      "market": "Kraken",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"error\":[],\"result\":{}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kucoin single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Kucoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000123,\"symbol\":\"BTC-USDT\",\"buy\":\"62000\",\"sell\":\"62000.1\", \"changeRate\":\"0.0248\",\"changePrice\":\"1500.1",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kucoin single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Kucoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kucoin single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Kucoin",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Kucoin bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Kucoin",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000999,\"ticker\":[ {\"symbol\":\"BTC-USDT\",\"symbolName\":\"BTC-USDT\",\"buy\":\"62000\",\"bestBidSize\":\"0.5\",\"sell\":\"62000.1\",\"bestAskSize\":\"0.8\",\"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\",\"last\":\"",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Kucoin bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Kucoin",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000999,\"ticker\":[]}}",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: GateIo single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "GateIo",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[{\"currency_pair\":\"BTC_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percent",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: GateIo single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "GateIo",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: GateIo single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "GateIo",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: GateIo bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "GateIo",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[{\"currency_pair\":\"BTC_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_n",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: GateIo bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "GateIo",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[]",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Mexc single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Mexc",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.1\",\"priceChangePercent\":\"0.0248\",\"prevClosePrice\":\"60500\", \"lastPrice\":\"62000.1\",\"bidPrice\":\"62000\",\"bidQt",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Mexc single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Mexc",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Mexc single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Mexc",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Mexc bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Mexc",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.1\",\"priceChangePercent\":\"0.0248\",\"prevClosePrice\":\"60500\", \"lastPrice\":\"62000.1\",\"bidPrice\":\"62000\",\"bidQty\":\"0.5\",\"askPrice\":\"62000.2\",\"askQty\":\"0.8\",\"openPrice\":\"60500\", \"highPrice\":\"62500\",\"lowPrice\":\"60000\",\"volume\":\"12100.52\",\"quoteVolume\":\"7444",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Mexc bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Mexc",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[]",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bitget single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Bitget",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[{\"symbol\":\"BTCUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":\"62000.1\",\"low24h\":\"60000\", ",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bitget single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Bitget",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bitget single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Bitget",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Bitget bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Bitget",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[{\"symbol\":\"BTCUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":\"62000.1\",\"low24h\":\"60000\", \"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\", \"bidSz\"",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Bitget bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Bitget",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[]}",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Htx single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Htx",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "btcusdt",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"ch\":\"market.btcusdt.detail.merged\",\"status\":\"ok\",\"ts\":1728540000123,\"tick\":{\"id\":352345678901, \"version\":3523456",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Htx single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Htx",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "btcusdt",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Htx single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Htx",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "btcusdt",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Htx bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Htx",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"status\":\"ok\",\"ts\":1728540000999,\"data\":[ {\"symbol\":\"btcusdt\",\"open\":60500.0,\"high\":62500.0,\"low\":60000.0,\"close\":62000.1,\"amount\":12100.523456,\"vol\":744460123.4567,\"count\":1234567,\"bid\":62000.0,\"bidSize\":0.5123,\"ask\":62000.2,\"askSize\":0.8",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Htx bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Htx",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"status\":\"ok\",\"ts\":1728540000999,\"data\":[]}",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: BingX single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "BingX",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"openPrice\":\"60500.50\",\"highPrice\":\"62500.00\",\"lowPrice\":\"60000.00\",\"lastPrice\":\"62000.10\",\"",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: BingX single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "BingX",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: BingX single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "BingX",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: BingX bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "BingX",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"openPrice\":\"60500.50\",\"highPrice\":\"62500.00\",\"lowPrice\":\"60000.00\",\"lastPrice\":\"62000.10\",\"priceChange\":\"1499.60\",\"priceChangePercent\":\"2.48%\",\"volume\":\"1210.523\",\"quoteVolume\":\"74446012.34\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"62000.20\",\"askQty\":\"0.512\",\"bidPrice\":\"62000.00\",\"bidQty\":\"0.204\"}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: BingX bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "BingX",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":[]}",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: CryptoCom single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "CryptoCom",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"BTC_USDT\",\"h\":\"62500.00",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: CryptoCom single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "CryptoCom",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: CryptoCom single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "CryptoCom",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: CryptoCom bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "CryptoCom",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"BTC_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"62000.10\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":172",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: CryptoCom bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "CryptoCom",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[]}}",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bitfinex single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Bitfinex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "tBTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[62000,10.51,62000.1,8.23,1500.1,0.0248,",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bitfinex single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Bitfinex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "tBTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bitfinex single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Bitfinex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "tBTCUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Bitfinex bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Bitfinex",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[[\"tBTCUSD\",62000,10.51,62000.1,8.23,1500.1,0.0248,62000.1,1234.567,62500,60000], [\"fUSD\",0.0001,0.00009,2,1234.5,0.",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Bitfinex bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Bitfinex",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[]",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Upbit single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Upbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "KRW-BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RI",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Upbit single: empty list -> error, no exchange text",
+      "synthetic": true,
+      "market": "Upbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "KRW-BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[]",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Upbit single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Upbit",
+      "pair": {
+        "base": "BTC",
+        "quote": "KRW",
+        "id": "KRW-BTC",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Upbit bulk: broken JSON (cut off) -> the batch fails",
+      "synthetic": true,
+      "market": "Upbit",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_pr",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Upbit bulk: empty list -> no tickers",
+      "synthetic": true,
+      "market": "Upbit",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "[]",
+      "expect": {
+        "count": 0
+      },
+      "note": "No ticker, no price 0: the app treats an empty batch as incomplete (no «not traded» verdict)."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Coinbase single: broken JSON (cut off) -> error, no exchange text",
+      "synthetic": true,
+      "market": "Coinbase",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTC-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{\"open\":\"60500.00\",\"high\":\"62500.00\",\"low\":\"60000.00\",\"last\":\"62000.10\",\"volu",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Coinbase single: empty object -> error, no exchange text",
+      "synthetic": true,
+      "market": "Coinbase",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTC-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": false,
+      "body": "{}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Coinbase single: HTTP 429 without body -> error, rate limit by status",
+      "synthetic": true,
+      "market": "Coinbase",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTC-USD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 429,
+      "rateLimit": true,
+      "body": "",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kraken single: rate limit EGeneral (HTTP 200) -> exchange text, counted as throttling",
+      "synthetic": true,
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"error\":[\"EGeneral:Too many requests\"],\"result\":{}}",
+      "expect": {
+        "error": true,
+        "message": "EGeneral:Too many requests"
+      },
+      "messageRateLimit": true
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Kraken single: rate limit EAPI without result -> exchange text, counted as throttling",
+      "synthetic": true,
+      "market": "Kraken",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "XXBTZUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"error\":[\"EAPI:Rate limit exceeded\"]}",
+      "expect": {
+        "error": true,
+        "message": "EAPI:Rate limit exceeded"
+      },
+      "messageRateLimit": true
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Kraken bulk: rate limit EGeneral -> the batch fails",
+      "synthetic": true,
+      "market": "Kraken",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"error\":[\"EGeneral:Too many requests\"],\"result\":{}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bybit single: retCode 10006 -> retMsg, counted as throttling",
+      "synthetic": true,
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"retCode\":10006,\"retMsg\":\"Too many visits!\",\"result\":{},\"retExtInfo\":{},\"time\":1728540000123}",
+      "expect": {
+        "error": true,
+        "message": "Too many visits!"
+      },
+      "messageRateLimit": true
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Bybit single: HTTP 403 text «access too frequent» -> no exchange text, rate limit from the text",
+      "synthetic": true,
+      "market": "Bybit",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 403,
+      "rateLimit": true,
+      "body": "access too frequent",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Bybit bulk: retCode 10006 without list -> the batch fails",
+      "synthetic": true,
+      "market": "Bybit",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"retCode\":10006,\"retMsg\":\"Too many visits!\",\"result\":{},\"retExtInfo\":{},\"time\":1728540000123}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: Okex single: code 50011 -> msg, counted as throttling",
+      "synthetic": true,
+      "market": "Okex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"code\":\"50011\",\"msg\":\"Rate limit reached. Please refer to API documentation and throttle requests accordingly.\",\"data\":[]}",
+      "expect": {
+        "error": true,
+        "message": "Rate limit reached. Please refer to API documentation and throttle requests accordingly."
+      },
+      "messageRateLimit": true
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: Okex bulk: code 50011 with empty data -> no tickers; only the HTTP layer (RateLimitSignal) sees the rate limit",
+      "synthetic": true,
+      "market": "Okex",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"code\":\"50011\",\"msg\":\"Rate limit reached. Please refer to API documentation and throttle requests accordingly.\",\"data\":[]}",
+      "expect": {
+        "count": 0
+      },
+      "note": "The parser alone cannot tell this from an empty list: RateLimitSignal turns it into 429 before parsing."
+    },
+    {
+      "kind": "single",
+      "name": "synthetic: BingX single: code 100410 -> msg FREQUENCY_LIMIT (text alone is no throttling hint, the code is)",
+      "synthetic": true,
+      "market": "BingX",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTC-USDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"code\":100410,\"msg\":\"FREQUENCY_LIMIT\",\"timestamp\":1792443730000}",
+      "expect": {
+        "error": true,
+        "message": "FREQUENCY_LIMIT"
+      },
+      "messageRateLimit": false
+    },
+    {
+      "kind": "bulk",
+      "name": "synthetic: BingX bulk: code 100410 without data -> the batch fails",
+      "synthetic": true,
+      "market": "BingX",
+      "requestId": 0,
+      "httpStatus": 200,
+      "rateLimit": true,
+      "body": "{\"code\":100410,\"msg\":\"FREQUENCY_LIMIT\",\"timestamp\":1792443730000}",
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

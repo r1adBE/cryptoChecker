@@ -33,6 +33,8 @@
     <string name="portfolio_csv_import_format">التنسيق: %1$s</string>
     <string name="portfolio_csv_import_line">السطر %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">جارٍ قراءة الملف والأسعار اليومية…</string>
+    <string name="portfolio_csv_import_progress">السطر %1$s من %2$s</string>
+    <string name="portfolio_csv_import_saving">جارٍ حفظ المعاملات…</string>
     <string name="portfolio_csv_import_missing_fx">لا يوجد سعر يومي للسطر %1$s – استُورد دون سعر أو رسوم.</string>
     <string name="portfolio_csv_import_missing_price">لا يوجد سعر في الملف للسطر %1$s – استُورد دون سعر.</string>
     <string name="portfolio_csv_import_more">+ %1$d أخرى</string>

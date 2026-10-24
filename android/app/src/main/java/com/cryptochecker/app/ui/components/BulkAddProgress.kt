@@ -15,17 +15,18 @@ import com.cryptochecker.app.util.LocaleNumbers
 
 /**
  * Fortschritt von «Mehrere Paare auf einmal» ([com.cryptochecker.app.data.BulkAddRunner]): Balken und
- * «Paare werden hinzugefügt … 123 / 746». Im Explorer unter dem Knopf und schmal über der Merkliste.
+ * «Paare werden hinzugefügt … 123 / 746». Im Explorer unter dem Knopf und schmal über der Merkliste. Mit [text] eine
+ * andere Zeile unter dem Balken (CSV-Import: «Zeile 1’200 von 10’000»).
  */
 @Composable
-fun BulkAddProgress(done: Int, total: Int, modifier: Modifier = Modifier) {
+fun BulkAddProgress(done: Int, total: Int, modifier: Modifier = Modifier, text: String? = null) {
     Column(modifier) {
         LinearProgressIndicator(
             progress = { if (total > 0) (done.toFloat() / total).coerceIn(0f, 1f) else 0f },
             modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            text = stringResource(
+            text = text ?: stringResource(
                 R.string.bulk_add_progress,
                 LocaleNumbers.integer(done, grouping = true),
                 LocaleNumbers.integer(total, grouping = true),

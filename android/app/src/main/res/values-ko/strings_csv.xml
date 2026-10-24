@@ -23,6 +23,8 @@
     <string name="portfolio_csv_import_format">형식: %1$s</string>
     <string name="portfolio_csv_import_line">%1$d행: %2$s</string>
     <string name="portfolio_csv_import_loading">파일과 일별 환율을 읽는 중…</string>
+    <string name="portfolio_csv_import_progress">%2$s행 중 %1$s행</string>
+    <string name="portfolio_csv_import_saving">거래를 저장하는 중…</string>
     <string name="portfolio_csv_import_missing_fx">%1$s행의 일별 환율이 없습니다 – 가격/수수료 없이 가져왔습니다.</string>
     <string name="portfolio_csv_import_missing_price">파일에 %1$s행의 가격이 없습니다 – 가격 없이 가져왔습니다.</string>
     <string name="portfolio_csv_import_more">+ %1$d개 더</string>
