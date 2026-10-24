@@ -12,12 +12,14 @@ extension TaxExport {
                             priceAt: ((String, Int64) -> Decimal?)? = nil,
                             walletFrom: LocalDay? = nil, usdtUsd: [Int: Decimal]? = nil,
                             today: LocalDay? = nil, yearEndCloses: CutoffCloses? = nil,
-                            yearEndAddresses: AddressCutoffView? = nil) -> TaxYearSummary {
+                            yearEndAddresses: AddressCutoffView? = nil, run: GainsRun? = nil) -> TaxYearSummary {
         let period = template.period(startYear)
         let fx = rates != nil || currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD"
-        let allRows = gainRows(trades, method: method, period: period, timeZone: timeZone, currency: currency,
-                               rates: rates ?? [:], priceAt: priceAt, rules: template.eventRules,
-                               walletFrom: walletFrom, usdtUsd: usdtUsd)
+        // `run`: dieselben Eingaben schon gerechnet (`PortfolioTaxExporter.summary`) — gleiche Zeilen ohne neue Rechnung
+        let allRows = run?.gainRows(currency: currency, rates: rates ?? [:], usdtUsd: usdtUsd)
+            ?? gainRows(trades, method: method, period: period, timeZone: timeZone, currency: currency,
+                        rates: rates ?? [:], priceAt: priceAt, rules: template.eventRules,
+                        walletFrom: walletFrom, usdtUsd: usdtUsd)
         // DE/AT: Auszahlungsgebühren sind keine Veräusserung — eigener Posten, nicht in den Summen (DE: § 23 und Freigrenze;
         // AT: Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG) — wie Android
         // UK, US, CA, AU, JP: kein Verlust, nur Information (`TaxTemplate.quoteFeeIsInfo`); FR ebenso nur Information (die

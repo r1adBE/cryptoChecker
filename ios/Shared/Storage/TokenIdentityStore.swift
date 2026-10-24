@@ -10,6 +10,9 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
     private let url: URL
     private let lock = NSLock()
     private var index: TokenIdentity.NameIndex?
+    /// Zählt jede Änderung der Namen im Speicher (Lesen der Datei, `update`) — für Zwischenspeicher, die Namen nutzen
+    /// (`AppData.watchKinds`).
+    private var changes = 0
 
     init(url: URL = SharedStorage.directory.appendingPathComponent("token_names.json")) {
         self.url = url
@@ -20,6 +23,7 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
         if let index { return index }
         let loaded = TokenIdentity.decode(try? Data(contentsOf: url))
         index = loaded
+        changes &+= 1
         return loaded
     }
 
@@ -29,6 +33,7 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
         let next = change(before)
         if next == before { return }
         index = next
+        changes &+= 1
         guard let data = TokenIdentity.encode(next) else { return }
         do {
             try data.write(to: url, options: .atomic)
@@ -37,6 +42,12 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
         } catch {
             // Nur im Speicher; beim nächsten Abgleich erneut
         }
+    }
+
+    /// Stand der Namen (ändert sich mit jeder Änderung); gleich = dieselben Namen wie beim letzten Lesen.
+    var version: Int {
+        lock.lock(); defer { lock.unlock() }
+        return changes
     }
 
     /// Datei einmal lesen und dekodieren (Hintergrund beim Start), damit der erste Zugriff aus der

@@ -30,8 +30,9 @@ import java.time.ZoneId
 /**
  * Steuer-Arbeitsunterlage eines grossen Portfolios (bis 10 000 Transaktionen über 2019–2025,
  * [PortfolioPerformanceData]) für das Steuerjahr 2025 je Vorlage NEUTRAL, CH, DE, UK, US — derselbe Ablauf wie
- * `PortfolioExportViewModel` ohne Netz: Devisenspanne ([TaxExport.fxSpan]), Jahresübersicht samt CSV, Gewinne-CSV mit
- * Netzwerkgebühr- und Gebühr-Vermerken, Einkünfte-CSV. Devisen-, USDT- und Tageskurse aus festen Tabellen. Grenzen und
+ * `PortfolioExportViewModel` ohne Netz: Veräusserungen einmal ([TaxExport.allDisposals]) für Devisenspanne
+ * ([TaxExport.fxSpan]), Jahresübersicht samt CSV und Gewinne-CSV, Netzwerkgebühr- und Gebühr-Vermerke aus einem Lauf
+ * ([TaxExport.feesIn]), Einkünfte-CSV. Devisen-, USDT- und Tageskurse aus festen Tabellen. Grenzen und
  * Skalierung: [PerformanceTiming] mit [TRANSACTIONS]. iOS: TaxPerformanceTests.swift.
  */
 class TaxPerformanceTest {
@@ -64,21 +65,22 @@ class TaxPerformanceTest {
         val priceAt = PortfolioPerformanceData::priceAt
         val walletFrom = template.walletFrom(APP_METHOD, YEAR)
         val rules = template.eventRules
-        val span = TaxExport.fxSpan(trades, method, period, zone, priceAt, rules, walletFrom, until, TODAY)
+        // Veräusserungen einmal für Spanne, Übersicht und Zeilen; Gebühr-Vermerke aus einem Lauf
+        val disposals = TaxExport.allDisposals(trades, method, zone, priceAt, rules, walletFrom)
+        val span = TaxExport.fxSpan(trades, method, period, zone, priceAt, rules, walletFrom, until, TODAY, disposals)
         val summary = TaxExport.yearSummary(
             trades, template, method, YEAR, zone, currency, input.rates, priceAt, walletFrom, input.usdtUsd,
-            today = TODAY,
+            today = TODAY, disposals = disposals,
         )
         val summaryCsv = TaxExport.summaryCsv(summary, SUMMARY_TEXTS, HEADER, "Zone ${zone.id}", FORMAT)
         val rows = TaxExport.gainRows(
             trades, method, period, zone, currency, input.rates, priceAt, rules = rules, walletFrom = walletFrom,
-            usdtUsd = input.usdtUsd,
+            usdtUsd = input.usdtUsd, disposals = disposals,
         )
+        val fees = TaxExport.feesIn(trades, method, period, zone, rules)
         val gainsCsv = TaxExport.gainsCsv(
-            rows, CSV_TEXTS, HEADER, FORMAT,
-            lostFeeCosts = TaxExport.lostFeeCostsIn(trades, method, period, zone, rules),
-            zone = zone,
-            unassignedFees = TaxExport.unassignedFeesIn(trades, method, period, zone, rules),
+            rows, CSV_TEXTS, HEADER, FORMAT, lostFeeCosts = fees.lostFeeCosts, zone = zone,
+            unassignedFees = fees.unassignedFees,
         )
         val income = TaxExport.incomeRows(trades, period, zone, currency, input.rates, priceAt, input.usdtUsd)
         val incomeCsv = TaxExport.incomeCsv(income, CSV_TEXTS, HEADER, FORMAT)
@@ -113,8 +115,8 @@ class TaxPerformanceTest {
 
     @Test
     fun neutral() {
-        // FIFO über alle Wallets, Anzeigewährung EUR: erwartet rund 300–800 ms (mehrere Durchgänge über alle
-        // Transaktionen: Spanne, Übersicht, Gewinne, Vermerke)
+        // FIFO über alle Wallets, Anzeigewährung EUR: erwartet rund 300–800 ms (zwei Durchgänge über alle
+        // Transaktionen: Veräusserungen, Vermerke)
         measure(TaxTemplate.NEUTRAL, 5_000.0)
         assertNull(check(TaxTemplate.NEUTRAL, TaxMethod.FIFO).summary.walletFrom)
     }
@@ -138,8 +140,8 @@ class TaxPerformanceTest {
         // Share Pooling: wächst bekanntlich schneller als linear — der Section-104-Pool führt je Kalendertag mit Zugang
         // einen Herkunftsteil (TaxPool mit Zeitzone), und jeder Abgang nimmt aus ALLEN Teilen anteilig (`takeParts`),
         // dazu trägt jede Zeile alle Teile (Devisenkurs je Teil). Zugänge (bis zur Zahl der Tage) × Abgänge je Coin,
-        // fünfmal je Export (Spanne, Übersicht, Gewinne, zwei Vermerk-Listen). Nur die feste Grenze; erwartet rund
-        // 2–6 s für 10 000 Transaktionen (Verhältnis zu 2500 etwa ×10–16)
+        // zweimal je Export (Veräusserungen für Spanne, Übersicht und Gewinne; Vermerke). Nur die feste Grenze
+        // (Verhältnis zu 2500 im Protokoll)
         assertLimitOnly("Steuer-Export UK $YEAR", 40_000.0, TRANSACTIONS) { n ->
             val input = inputs(n, TaxTemplate.UK)
             medianMillis { export(TaxTemplate.UK, input) }

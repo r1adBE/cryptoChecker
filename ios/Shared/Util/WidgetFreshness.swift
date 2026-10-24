@@ -47,4 +47,12 @@ enum WidgetFreshness {
     static func priceTime(_ watch: Watch, now: Int64, afterMillis: Int64) -> Int64 {
         unchangedSince(watch, now: now, afterMillis: afterMillis) ?? PriceFreshness.freshnessTime(watch)
     }
+
+    /// Paar des Einzel-Widgets kurz vor dem Zeichnen neu lesen? Ja nach eigener Aktualisierung (`refreshed`) oder wenn
+    /// `watchlist.json` seit dem ersten Lesen geschrieben wurde (`writtenBefore` → `writtenNow`, ms; z. B. hat die App
+    /// während des Chart-Ladens frische Kurse gespeichert). Sonst bleibt das schon gelesene Paar — kein zweites Lesen
+    /// der ganzen Merkliste.
+    static func rereadWatch(refreshed: Bool, writtenBefore: Int64, writtenNow: Int64) -> Bool {
+        refreshed || writtenNow != writtenBefore
+    }
 }

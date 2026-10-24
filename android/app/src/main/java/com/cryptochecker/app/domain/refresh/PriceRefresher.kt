@@ -67,7 +67,7 @@ class PriceRefresher @Inject constructor(
     /** Widget-Charts ausserhalb der Sperre nachladen. */
     internal val chartRefresher: ChartRefresher,
     /** Aktivität, Gas, Depeg und Portfolio-Momentaufnahme nach dem Durchlauf. */
-    private val sideChecks: RefreshSideChecks,
+    internal val sideChecks: RefreshSideChecks,
 ) {
     /**
      * [block] unter derselben Sperre wie Aktualisierung, Live-Speichern und späte Tages-Bezüge:
@@ -121,43 +121,32 @@ class PriceRefresher @Inject constructor(
             Timber.i("Aktualisierung übersprungen: offline")
             return RefreshSummary()
         }
-        val summary = refreshAllGuarded(deadlineAt)
-        // Widget-Charts: unter der Sperre nur aus dem Zwischenspeicher gezeichnet — jetzt, ohne
-        // Sperre, nachladen; mit Frist nur, wenn noch genug Zeit bleibt (sonst bleibt der alte Chart)
-        val chartTimeout = if (chartRefresher.takePending()) {
-            CheckBudget.chartFetchMillis(deadlineAt, System.currentTimeMillis())
-        } else {
-            null
-        }
-        // Aktivität, Gas, Depeg, Portfolio: erst nach gespeicherten Kursen und gezeichneten Widgets,
-        // ausserhalb der Sperre ([RefreshSideChecks])
-        if (awaitPortfolioSnapshot) {
-            // WorkManager-Job: abwarten, parallel und mit Zeitgrenze.
-            // Mit Frist: nur die verbleibende Zeit (Reserve für Ansagen und Vermerk)
-            val sideTimeout = CheckBudget.waitMillis(
-                deadlineAt, System.currentTimeMillis(), SIDE_CHECK_TIMEOUT_MILLIS, reserve = SIDE_CHECK_RESERVE_MILLIS
-            )
-            sideChecks.awaitAll(
-                sideTimeout,
-                chartTimeout?.let { RefreshSideChecks.Extra("Widget-Charts", it) { chartRefresher.refreshUnlocked() } },
-            )
-        } else {
-            sideChecks.launchDetached()
-            if (chartTimeout != null) chartRefresher.launch(chartTimeout)
-        }
+        val (summary, prices) = refreshAllGuarded(deadlineAt)
+        afterRefresh(prices, awaitPortfolioSnapshot, deadlineAt)
         return summary
     }
 
-    private suspend fun refreshAllGuarded(deadlineAt: Long?): RefreshSummary = refreshLock.withLock { lock ->
-        fullRefreshStartedAt = System.currentTimeMillis()
-        _fullRefreshRunning.value = true
-        try {
-            refreshOnIo(lock, deadlineAt)
-        } finally {
-            _fullRefreshRunning.value = false
-            fullRefreshStartedAt = 0L
+    /**
+     * Durchlauf unter der Sperre; die zurückgestellten Kurs-Meldungen ([priceTail]) laufen danach als Nacharbeit, die
+     * die Sperre weiter hält ([RefreshLock.withLockThen]). Rückgabe: Ergebnis und Job der Kurs-Meldungen (null =
+     * keine).
+     */
+    private suspend fun refreshAllGuarded(deadlineAt: Long?): Pair<RefreshSummary, Job?> =
+        refreshLock.withLockThen(lateFillScope) { lock ->
+            fullRefreshStartedAt = System.currentTimeMillis()
+            _fullRefreshRunning.value = true
+            priceTail = null
+            try {
+                refreshOnIo(lock, deadlineAt) to priceTail
+            } finally {
+                priceTail = null
+                _fullRefreshRunning.value = false
+                fullRefreshStartedAt = 0L
+            }
         }
-    }
+
+    /** Kurs-Meldungen des laufenden Durchlaufs, nach Widgets und Bericht (nur unter der Sperre gesetzt und gelesen). */
+    private var priceTail: LockedTail? = null
 
     private suspend fun refreshOnIo(lock: RefreshLockScope, deadlineAt: Long?): RefreshSummary =
         withContext(Dispatchers.IO) {
@@ -328,7 +317,7 @@ class PriceRefresher @Inject constructor(
         // 2) Auswerten: erst alle Kurse in EINEM Datenbank-Vorgang speichern,
         //    dann Alarme, Benachrichtigungen und Ansagen.
         // Paare pausierter Börsen nicht anfassen: kein Fehler, letzter Kurs bleibt
-        val processed = resultProcessor.process(lock, activeWatches, fetched, settings, dayStart)
+        val processed = resultProcessor.process(lock, activeWatches, fetched, settings, dayStart, deferPrices = true)
         // Neue Basis oder neuer Tag: alte Werte von Paaren ohne neuen Kurs gehören nicht mehr dazu
         // (ohne Stempel: Werte von vorher, also rollend)
         val previousStamp = refreshStats.changeStamp.value ?: ChangeStamp(ChangeBasis.ROLLING_24H, 0L)
@@ -369,6 +358,9 @@ class PriceRefresher @Inject constructor(
         )
         Timber.i("Aktualisierung: %s", report)
         refreshStats.setLastReport(report)
+        // Kurs-Meldungen erst jetzt (gedrosselt bis einige Sekunden), die Sperre bleibt gehalten; die Zahl der
+        // gezeigten trägt die Nacharbeit in diesen Bericht nach
+        priceTail = resultProcessor.pricesTail(processed) { shown -> noteShownPrices(report, shown) }
 
         return RefreshSummary(
             checked = processed.checked,

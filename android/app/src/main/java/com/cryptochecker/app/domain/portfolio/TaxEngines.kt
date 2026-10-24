@@ -328,14 +328,14 @@ object TaxEngines {
         else run(applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, priceAt), TaxEventRules.of(method), priceAt), method, ZoneId.of("UTC"), priceAt).outflows
 
     /** Ergebnis einer Rechnung: Veräusserungen, vermerkter Gebühr-Einstand, nicht zugeordnete Gebühren, FR-Abgänge ohne Verkauf. */
-    private class TaxRun(
+    internal class TaxRun(
         val disposals: List<PortfolioDisposal>,
         val lostFeeCosts: List<PortfolioLostFeeCost>,
         val unassignedFees: List<PortfolioUnassignedFee>,
         val outflows: List<TaxOutflow>,
     )
 
-    private fun run(
+    internal fun run(
         trades: List<PortfolioTrade>,
         method: TaxMethod,
         zone: ZoneId,

@@ -124,20 +124,32 @@ extension TaxExport {
                          currency: String, rates: [Int: Decimal]?,
                          priceAt: ((String, Int64) -> Decimal?)? = nil, rules: TaxEventRules? = nil,
                          walletFrom: LocalDay? = nil, usdtUsd: [Int: Decimal]? = nil) -> [TaxGainRow] {
+        let fx = fxAt(rates, timeZone: timeZone, currency: currency, usdtUsd: usdtUsd)
+        let sold = disposals(in: trades, method: method, period: period, timeZone: timeZone, priceAt: priceAt,
+                             fx: fx, rules: rules, walletFrom: walletFrom)
+        return gainRows(of: sold, trades: trades, method: method, timeZone: timeZone, currency: currency,
+                        rates: rates, rules: rules, usdtUsd: usdtUsd)
+    }
+
+    /// USDT → Steuerwährung zu einem Zeitpunkt (CA: Superficial Loss in der Steuerwährung, dieselben Kurse wie die Zeilen).
+    static func fxAt(_ rates: [Int: Decimal]?, timeZone: TimeZone, currency: String,
+                     usdtUsd: [Int: Decimal]?) -> (Int64) -> Decimal? {
+        { t in rateOn(rates, date: localDay(t, timeZone: timeZone), currency: currency, usdtUsd: usdtUsd) }
+    }
+
+    /// Zeilen aus den schon gerechneten Veräusserungen `disposals` des Steuerjahrs (`gainRows` oben, `GainsRun`).
+    static func gainRows(of disposals: [PortfolioDisposal], trades: [PortfolioTx], method: TaxMethod,
+                         timeZone: TimeZone, currency: String, rates: [Int: Decimal]?, rules: TaxEventRules?,
+                         usdtUsd: [Int: Decimal]?) -> [TaxGainRow] {
         // Verkäufe, die Gebühren sind (`PortfolioLedger.isFeeDisposal`) — einmal gesammelt
         let feeSales = Set(trades.filter { PortfolioLedger.isFeeDisposal($0) }.map(\.id))
         // Transaktionen ohne Verkauf (Umbuchung, Auszahlung, Tausch): ihre Veräusserungen ohne Tausch-Vermerk sind
         // Gebühren in Krypto (Netzwerkgebühr nach `networkFeeIsDisposal`, FR Gebühr-Abtretung) — Vermerk «Gebühr»
         let nonSales = Set(trades.filter { $0.type == .TRANSFER || $0.type.isWithdrawalLike || $0.type == .SWAP }.map(\.id))
-        // CA: Superficial Loss in der Steuerwährung entscheiden (dieselben Kurse wie die Zeilen)
-        let fx: (Int64) -> Decimal? = { t in
-            rateOn(rates, date: localDay(t, timeZone: timeZone), currency: currency, usdtUsd: usdtUsd)
-        }
         // Auszahlungsgebühr USDT/Fiat nur Information (`TaxEventRules.quoteFeeIsInfo`); FR ebenso — die Gebühr mindert den
         // Gewinn nicht (art. 150 VH bis), wie in der Jahresübersicht, sonst stünde sie in der Summe der Gewinne-CSV
         let feeInfo = (rules ?? .of(method)).quoteFeeIsInfo || method == .FR_PTA
-        return disposals(in: trades, method: method, period: period, timeZone: timeZone, priceAt: priceAt,
-                         fx: fx, rules: rules, walletFrom: walletFrom).map { d -> TaxGainRow in
+        return disposals.map { d -> TaxGainRow in
             let sold = localDay(d.sellTime, timeZone: timeZone)
             let acquired = d.acquiredTime.map { localDay($0, timeZone: timeZone) }
             let saleRate = rateOn(rates, date: sold, currency: currency, usdtUsd: usdtUsd)

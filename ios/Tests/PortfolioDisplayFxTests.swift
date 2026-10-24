@@ -92,4 +92,24 @@ final class PortfolioDisplayFxTests: XCTestCase {
         let data = try JSONEncoder().encode(memo)
         XCTAssertEqual(try JSONDecoder().decode(PortfolioDisplayFx.self, from: data), memo)
     }
+
+    /// Gesamtsicht ohne Herkunftsteile (nach dem Umstellen von USDT rechnet die Karte erst mit Teilen neu): Einstand ≠ 0
+    /// ohne Teile → «—» (`partsPending`), kein kurzer Hinweis «Kurs fehlt». Mit Teilen bzw. Einstand 0: rechnen. Wie
+    /// Android `costFxFlow`.
+    func testCostWithoutPartsIsPendingNotFxMissing() {
+        // Ø ohne Herkunftsteile (`withParts: false`, die schnelle Rechnung vor der genauen)
+        let without = PortfolioCalculator.summarize(trades, prices: prices, method: .AVERAGE, withParts: false)
+        XCTAssertTrue(PortfolioCostFx.partsPending(without))
+        let with = PortfolioCalculator.summarize(trades, prices: prices, method: .AVERAGE)
+        XCTAssertFalse(PortfolioCostFx.partsPending(with))
+        // Belohnung zum Wert 0: Einstand 0 braucht keine Teile
+        let zero = PortfolioCalculator.summarize([trade(1, "BTC", 1, 0, d0)], prices: prices, method: .AVERAGE,
+                                                 withParts: false)
+        XCTAssertFalse(PortfolioCostFx.partsPending(zero))
+        XCTAssertFalse(PortfolioCostFx.partsPending(PortfolioCalculator.summarize([], prices: prices)))
+        for method in [CostMethod.FIFO, .FIFO_WALLET, .AVERAGE] {
+            XCTAssertFalse(PortfolioCostFx.partsPending(PortfolioCalculator.summarize(trades, prices: prices, method: method)),
+                           "\(method)")
+        }
+    }
 }

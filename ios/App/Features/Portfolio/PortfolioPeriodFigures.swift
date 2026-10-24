@@ -32,6 +32,13 @@ struct PortfolioPeriodResult: Sendable {
 /// «7 T»/«1 J» der Gesamtkarte — rein, ohne Hauptthread; dieselbe Rechnung wie zuvor direkt im Modell.
 enum PortfolioPeriodFigures {
     static func compute(_ input: PortfolioPeriodInput) -> PortfolioPeriodResult {
+        // Ohne Abbruch rechnet die abbrechbare Fassung immer zu Ende
+        compute(input, cancelled: { false }) ?? PortfolioPeriodResult(week: nil, weekUsdt: nil, year: nil)
+    }
+
+    /// Wie oben, aber `cancelled` wird zwischen den Teilrechnungen gefragt (vor «7 T» rein in USDT und vor «1 J», die
+    /// teuerste): true = abbrechen, nil zurück — eine veraltete Rechnung läuft nicht bis zum Ende weiter.
+    static func compute(_ input: PortfolioPeriodInput, cancelled: () -> Bool) -> PortfolioPeriodResult? {
         let today = input.today
         func period(_ days: Int) -> PortfolioChange? {
             var fx: ((Int) -> Double)?
@@ -55,10 +62,14 @@ enum PortfolioPeriodFigures {
             // Gegenwert zum Faktor der Karte (Devisenkurs × USDT/USD jetzt, `displayRate`)
             return PortfolioHistoryFx.forCard(change, currentRate: fxNow * input.usdt.current().rate)
         }
+        if cancelled() { return nil }
         let week = period(PortfolioPeriodChange.days)
+        if cancelled() { return nil }
         let weekUsdt = PortfolioPeriodChange.gain(trades: input.trades, current: input.current, closes: input.closes,
                                                   baseDay: today - PortfolioPeriodChange.days,
                                                   addresses: input.addresses, method: input.method)
-        return PortfolioPeriodResult(week: week, weekUsdt: weekUsdt, year: period(PortfolioPeriodChange.yearDays))
+        if cancelled() { return nil }
+        let year = period(PortfolioPeriodChange.yearDays)
+        return PortfolioPeriodResult(week: week, weekUsdt: weekUsdt, year: year)
     }
 }

@@ -155,7 +155,7 @@ struct PortfolioPositionCard: View {
 }
 
 /// Zeile von «Offene Kauf-Posten» mit stabiler Id (Posten, Wallet, Art; gleiche Angaben fortlaufend gezählt).
-private struct PortfolioOpenLotItem: Identifiable {
+struct PortfolioOpenLotItem: Identifiable {
     let id: String
     let lot: PortfolioOpenLot
 
@@ -167,6 +167,13 @@ private struct PortfolioOpenLotItem: Identifiable {
             seen[base] = n + 1
             return PortfolioOpenLotItem(id: base + "|\(n)", lot: lot)
         }
+    }
+
+    /// Nur die Zeilen, die gezeigt werden: zugeklappt keine, aufgeklappt die ersten `limit` (eine Id zählt nur die Posten
+    /// davor — dieselben Ids wie aus allen), im Blatt «Alle zeigen» alle.
+    static func shown(_ lots: [PortfolioOpenLot], expanded: Bool, showAll: Bool, limit: Int) -> [PortfolioOpenLotItem] {
+        if showAll { return of(lots) }
+        return expanded ? of(Array(lots.prefix(limit))) : []
     }
 }
 
@@ -185,7 +192,8 @@ struct PortfolioOpenLotsSection: View {
     static let shownLots = 50
 
     var body: some View {
-        let items = PortfolioOpenLotItem.of(lots)
+        // Zeilen nur bilden, wenn sie gezeigt werden (zugeklappt nichts)
+        let items = PortfolioOpenLotItem.shown(lots, expanded: expanded, showAll: showAll, limit: Self.shownLots)
         VStack(alignment: .leading, spacing: Spacing.xs) {
             Button {
                 withAnimation(.easeInOut(duration: 0.2)) { expanded.toggle() }
@@ -198,8 +206,8 @@ struct PortfolioOpenLotsSection: View {
                     ForEach(items.prefix(Self.shownLots)) { item in
                         row(item.lot)
                     }
-                    if items.count > Self.shownLots {
-                        Button(L("explorer_bulk_show_all", items.count)) { showAll = true }
+                    if lots.count > Self.shownLots {
+                        Button(L("explorer_bulk_show_all", lots.count)) { showAll = true }
                             .font(.subheadline)
                             .buttonStyle(.borderless)
                     }

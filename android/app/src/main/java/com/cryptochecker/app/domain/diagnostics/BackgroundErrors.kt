@@ -43,6 +43,7 @@ object BackgroundErrors {
         "CoinListSync" to COINS,
         "LivePriceStream" to LIVE,
         "LiveWidgetGate" to LIVE,
+        "LivePriceApplier" to LIVE,
         "PriceRefresher" to REFRESH,
         "RefreshSideChecks" to REFRESH,
         "RefreshEffects" to REFRESH,

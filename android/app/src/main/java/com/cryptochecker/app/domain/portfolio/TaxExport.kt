@@ -36,6 +36,9 @@ import java.time.ZoneId
  * BOM, CRLF, Trenn-/Dezimalzeichen je Region ([CutoffCsvFormat]); Kopfzeilen (Methode, Währung, keine
  * Steuerberatung, App-Version) gibt der Aufrufer übersetzt mit.
  */
+/** Netzwerkgebühr-Einstände und nicht zugeordnete Gebühren eines Steuerjahrs aus einem Lauf ([TaxExport.feesIn]). */
+data class TaxFees(val lostFeeCosts: List<PortfolioLostFeeCost>, val unassignedFees: List<PortfolioUnassignedFee>)
+
 object TaxExport {
 
     /** Devisenkurs höchstens so viele Tage vor dem Datum (Wochenende, Feiertage). */
@@ -199,6 +202,22 @@ object TaxExport {
             .filter { localDate(it.sellTime, zone) in period }
 
     /**
+     * Veräusserungen aller Jahre nach [method] ohne Devisenkurse — wie [disposalsIn] ohne `fx` und ohne Filter aufs
+     * Steuerjahr. Ein Export rechnet sie EINMAL und leitet daraus die Devisenspanne ([fxSpan]) und die Zeilen
+     * ([gainRows], [yearSummary]) ab. CA ([TaxMethod.CA_ACB]) nehmen die Zeilen nicht daraus: dort entscheiden die
+     * Devisenkurse den Superficial Loss, und welche Kurse geladen werden, bestimmt erst die Spanne.
+     */
+    fun allDisposals(
+        trades: List<PortfolioTrade>,
+        method: TaxMethod,
+        zone: ZoneId,
+        priceAt: ((String, Long) -> BigDecimal?)? = null,
+        rules: TaxEventRules = TaxEventRules.of(method),
+        walletFrom: LocalDate? = null,
+    ): List<PortfolioDisposal> =
+        TaxEngines.disposals(trades.filter { it.amount.signum() > 0 }, method, zone, priceAt, null, rules, walletFrom)
+
+    /**
      * Einstand von Netzwerkgebühren ohne bezahlten Posten ([PortfolioLostFeeCost]) mit Datum im Jahr [year], zeitlich —
      * für den Vermerk im Gewinne-Export ([gainsCsv] `lostFeeCosts`). Kein realisierter Gewinn/Verlust.
      */
@@ -259,6 +278,40 @@ object TaxExport {
             .sortedWith(compareBy<PortfolioUnassignedFee> { it.time }.thenBy { it.txId }.thenBy { it.coin })
     }
 
+    /**
+     * [lostFeeCostsIn] und [unassignedFeesIn] aus EINEM Lauf: beide rechnen mit derselben Eingabe (ohne Tagesschlüsse,
+     * nach [TaxEngines.applyRules]) — gleiche Listen, ein Buch je Coin statt zwei. Nicht aus dem Lauf der
+     * Veräusserungen ([allDisposals]): der bewertet Belohnungen, Tausch und Gebühr-Zeilen ohne Wert zum Tagesschluss
+     * und kann darum einen anderen Bestand mit Kaufpreis haben.
+     */
+    fun feesIn(
+        trades: List<PortfolioTrade>,
+        method: TaxMethod,
+        period: TaxPeriod,
+        zone: ZoneId,
+        rules: TaxEventRules = TaxEventRules.of(method),
+    ): TaxFees {
+        val applied = TaxEngines.applyRules(real(trades), rules, null)
+        val cm = method.costMethod
+        val lost: List<PortfolioLostFeeCost>
+        val unassigned: List<PortfolioUnassignedFee>
+        if (cm != null) {
+            val ledgers = PortfolioCalculator.ledgers(applied, cm, withParts = false)
+            lost = ledgers.flatMap { it.lostFeeCosts }
+            unassigned = ledgers.flatMap { it.unassignedFees }
+        } else {
+            val run = TaxEngines.run(applied, method, zone, null)
+            lost = run.lostFeeCosts
+            unassigned = run.unassignedFees
+        }
+        return TaxFees(
+            lost.filter { localDate(it.time, zone) in period }
+                .sortedWith(compareBy<PortfolioLostFeeCost> { it.time }.thenBy { it.txId }.thenBy { it.coin }),
+            unassigned.filter { localDate(it.time, zone) in period }
+                .sortedWith(compareBy<PortfolioUnassignedFee> { it.time }.thenBy { it.txId }.thenBy { it.coin }),
+        )
+    }
+
     /** Belohnungen im Steuerjahr [period], zeitlich (dann Id). */
     internal fun rewardsIn(trades: List<PortfolioTrade>, period: TaxPeriod, zone: ZoneId): List<PortfolioTrade> =
         real(trades).filter { it.type == PortfolioTxType.REWARD && localDate(it.time, zone) in period }
@@ -300,10 +353,14 @@ object TaxExport {
         walletFrom: LocalDate? = null,
         until: LocalDate = period.end,
         today: LocalDate = LocalDate.now(zone),
+        /** Veräusserungen aller Jahre aus [allDisposals] (derselbe Lauf wie die Zeilen); null = hier rechnen. */
+        disposals: List<PortfolioDisposal>? = null,
     ): Pair<LocalDate, LocalDate> {
         // FIFO: Kaufdatum der Posten; Durchschnitt/Pool: Datum jedes Herkunftsteils des Einstands
         val upTo = if (method == TaxMethod.CA_ACB) TaxPeriod(period.startYear, LocalDate.MIN, period.end) else period
-        val times = disposalsIn(trades, method, upTo, zone, priceAt, rules = rules, walletFrom = walletFrom)
+        val inSpan = disposals?.filter { localDate(it.sellTime, zone) in upTo }
+            ?: disposalsIn(trades, method, upTo, zone, priceAt, rules = rules, walletFrom = walletFrom)
+        val times = inSpan
             .flatMap { d -> listOfNotNull(d.acquiredTime, d.matchedTime) + d.costParts.map { it.time } }
         val first = times.minOrNull()?.let { localDate(it, zone) }
         val from = if (first != null && first.isBefore(period.start)) first else period.start

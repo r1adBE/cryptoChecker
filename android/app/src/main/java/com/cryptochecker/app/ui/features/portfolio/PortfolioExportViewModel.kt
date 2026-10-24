@@ -11,6 +11,7 @@ import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
+import com.cryptochecker.app.domain.portfolio.PortfolioDisposal
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
@@ -21,6 +22,7 @@ import com.cryptochecker.app.domain.portfolio.incomeRows
 import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
 import com.cryptochecker.app.domain.portfolio.TaxMethod
+import com.cryptochecker.app.domain.portfolio.TaxPeriod
 import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.TaxYearSummary
@@ -42,6 +44,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
@@ -188,9 +191,9 @@ class PortfolioExportViewModel @Inject constructor(
         val priceAt = taxPrices(tpl, method, trades, period, zone, until)
         // US: Übergang 1.1.2025 (universelles FIFO bis dahin, [TaxTemplate.walletFrom])
         val walletFrom = tpl.walletFrom(costMethod.value, year)
-        val (from, fxUntil) = withContext(Dispatchers.Default) {
-            TaxExport.fxSpan(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom, until, LocalDate.now(zone))
-        }
+        // Veräusserungen einmal für Spanne und Übersicht ([TaxExport.allDisposals])
+        val (disposals, span) = disposalsAndSpan(trades, tpl, method, period, zone, priceAt, walletFrom, until)
+        val (from, fxUntil) = span
         val rates = rates(currency, from, fxUntil)
         val usdtUsd = usdtUsdCloses(currency, from)
         // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
@@ -198,9 +201,29 @@ class PortfolioExportViewModel @Inject constructor(
         return withContext(Dispatchers.Default) {
             TaxExport.yearSummary(
                 trades, tpl, method, year, zone, currency, rates, priceAt, walletFrom, usdtUsd,
-                yearEndCloses = wealth?.first, yearEndAddresses = wealth?.second,
+                yearEndCloses = wealth?.first, yearEndAddresses = wealth?.second, disposals = disposals,
             )
         }
+    }
+
+    /**
+     * Veräusserungen aller Jahre aus einem Lauf ([TaxExport.allDisposals]) und daraus die Devisenspanne
+     * ([TaxExport.fxSpan]): ab dem frühesten Kauf-/Herkunftsdatum bis zum spätesten genutzten Zugang.
+     */
+    private suspend fun disposalsAndSpan(
+        trades: List<PortfolioTrade>,
+        tpl: TaxTemplate,
+        method: TaxMethod,
+        period: TaxPeriod,
+        zone: ZoneId,
+        priceAt: ((String, Long) -> BigDecimal?)?,
+        walletFrom: LocalDate?,
+        until: LocalDate,
+    ): Pair<List<PortfolioDisposal>, Pair<LocalDate, LocalDate>> = withContext(Dispatchers.Default) {
+        val disposals = TaxExport.allDisposals(trades, method, zone, priceAt, tpl.eventRules, walletFrom)
+        disposals to TaxExport.fxSpan(
+            trades, method, period, zone, priceAt, tpl.eventRules, walletFrom, until, LocalDate.now(zone), disposals,
+        )
     }
 
     /** CSV «Jahresübersicht» (Vorlage, Orientierung) für [year] in die Datei [uri]. */
@@ -272,21 +295,23 @@ class PortfolioExportViewModel @Inject constructor(
                 // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums) bis zum
                 // spätesten genutzten Zugang (UK: 30-Tage-Regel über das Ende des Steuerjahrs hinaus)
                 val walletFrom = tpl.walletFrom(costMethod.value, year)
-                val (from, fxUntil) = withContext(Dispatchers.Default) {
-                    TaxExport.fxSpan(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom, until, LocalDate.now(zone))
-                }
+                // Veräusserungen einmal für Spanne und Zeilen; Netzwerkgebühr-Einstände und nicht zugeordnete Gebühren
+                // zusammen aus einem eigenen Lauf ([TaxExport.feesIn])
+                val (disposals, span) = disposalsAndSpan(trades, tpl, method, period, zone, priceAt, walletFrom, until)
+                val (from, fxUntil) = span
                 val rates = rates(currency, from, fxUntil)
                 // USDT zum Marktkurs: USDT/USD-Tagesschluss je Datum (ohne Schluss 1, je Zeile vermerkt)
                 val usdtUsd = usdtUsdCloses(currency, from)
                 withContext(Dispatchers.Default) {
+                    val fees = TaxExport.feesIn(trades, method, period, zone, tpl.eventRules)
                     TaxExport.gainsCsv(
                         TaxExport.gainRows(
                             trades, method, period, zone, currency, rates, priceAt, rules = tpl.eventRules,
-                            walletFrom = walletFrom, usdtUsd = usdtUsd,
+                            walletFrom = walletFrom, usdtUsd = usdtUsd, disposals = disposals,
                         ), texts, header, format,
-                        lostFeeCosts = TaxExport.lostFeeCostsIn(trades, method, period, zone, tpl.eventRules),
+                        lostFeeCosts = fees.lostFeeCosts,
                         zone = zone,
-                        unassignedFees = TaxExport.unassignedFeesIn(trades, method, period, zone, tpl.eventRules),
+                        unassignedFees = fees.unassignedFees,
                     )
                 }
             }

@@ -15,12 +15,20 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 126)
+
+* Tax worksheet: the realised-gains export and the year summary compute the disposals only once per file (dates for the exchange rates and the rows come from the same run) and the two notes about network-fee cost and unassigned fees from one shared run – same files, less work.
+* Price notifications no longer hold up a refresh: widgets, «Last refresh» and the updated time come first, the throttled price notifications follow (same order, at most five per second, reference price only for notifications actually shown); alarm notifications are still posted immediately.
+* The list widget reads the watchlist once per update for all its widgets (header, empty note and rows) instead of three times per widget.
+* Alarm thresholds reuse their number formatter.
+* iOS: the watchlist recomputes less, the portfolio loads after the first frame, live prices are saved less often, «7D»/«1Y» cancel outdated work, and switching the currency no longer shows a brief «rate missing» note.
+
 ## 16.2.2 (build 125)
 
 * Portfolio card, value history and «7D»/«1Y» are faster with large portfolios; the average-cost method now takes time in proportion to the number of transactions (the cost history per purchase is only kept where it is needed: tax export and «Since purchase» in another currency).
 * RSI: completely flat prices now give 50 (neutral) instead of 100.
 * Long lists of open purchase lots show the first 50 with «Show all (N)».
-* Widgets read the watchlist once per update instead of once per row (iOS).
+* Fewer watchlist reads per widget update (iOS).
 * iOS: «7D»/«1Y» are calculated off the main thread, adding many pairs at once is faster and number formatters are reused.
 
 ## 16.2.2 (build 124)
@@ -42,6 +50,7 @@ Detailed build history below.
 Phase C, continued:
 
 * Portfolio CSV import of large files (e.g. 10 000 lines) runs in the background with a progress bar «Line X of Y» and «Cancel»; cancelling leaves the portfolio unchanged. On iPhone the import no longer blocks the app while saving.
+* The setting «Show the period next to the change» is gone: the period (24h, today, last update) is now always shown next to the change – in the pulse line, the single widget and the iOS Live Activity too.
 * Watchlist: without own groups the group row shows «Your groups will appear here» with «New group» from the first start (it used to stay empty until the first alert).
 * iOS: the UK tax pool finds the 30-day matches faster (same result).
 * Tests and tooling: line coverage is now a gate (logic at least 58 % on Android, 78 % on iOS, just under today's values); performance tests with 10 000 portfolio transactions (holdings and tax years for NEUTRAL, CH, DE, UK, US); synthetic error responses (broken, empty, HTTP 429, rate-limit texts) for 14 exchanges; shared cases for quiet hours (including daylight-saving changes) and currency conversion; iOS checks currency codes and the rate-limit length exactly like Android.

@@ -243,7 +243,7 @@ struct WatchlistScreen: View {
     }
 
     private func routeEvents(_ content: some View) -> some View {
-        let lastTriggered: Int64 = data.alarms.map { $0.lastTriggeredAt }.max() ?? 0
+        let lastTriggered: Int64 = data.lastAlarmTriggeredAt
         return content
             .onChange(of: data.refreshing) { _, _ in now = TimeUtils.nowMillis }
             .onChange(of: data.lastRefreshMillis) { _, _ in now = TimeUtils.nowMillis }

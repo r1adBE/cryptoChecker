@@ -159,13 +159,21 @@ fun TaxExport.gainRows(
     walletFrom: LocalDate? = null,
     /** USDT/USD-Tagesschluss je Datum ([rateOn]); null = USDT gilt 1 USD. */
     usdtUsd: Map<Long, BigDecimal>? = null,
-): List<TaxGainRow> = disposalsIn(
-    trades, method, period, zone, priceAt,
-    // CA: Superficial Loss in der Steuerwährung entscheiden (dieselben Kurse wie die Zeilen)
-    fx = { t -> rateOn(rates, localDate(t, zone), currency, usdtUsd) },
-    rules = rules,
-    walletFrom = walletFrom,
-).map { d ->
+    /**
+     * Veräusserungen aller Jahre aus [TaxExport.allDisposals] (derselbe Lauf wie [TaxExport.fxSpan]); null = hier
+     * rechnen. CA rechnet immer selbst: dort entscheiden die Devisenkurse den Superficial Loss.
+     */
+    disposals: List<PortfolioDisposal>? = null,
+): List<TaxGainRow> = (
+    disposals?.takeIf { method != TaxMethod.CA_ACB }?.filter { localDate(it.sellTime, zone) in period }
+        ?: disposalsIn(
+            trades, method, period, zone, priceAt,
+            // CA: Superficial Loss in der Steuerwährung entscheiden (dieselben Kurse wie die Zeilen)
+            fx = { t -> rateOn(rates, localDate(t, zone), currency, usdtUsd) },
+            rules = rules,
+            walletFrom = walletFrom,
+        )
+    ).map { d ->
     val sold = localDate(d.sellTime, zone)
     val acquired = d.acquiredTime?.let { localDate(it, zone) }
     val saleRate = rateOn(rates, sold, currency, usdtUsd)

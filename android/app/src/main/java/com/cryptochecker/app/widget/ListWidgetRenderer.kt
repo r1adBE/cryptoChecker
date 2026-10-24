@@ -16,6 +16,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 import com.cryptochecker.app.domain.refresh.PriceRefresher
@@ -69,13 +70,27 @@ class ListWidgetRenderer @Inject constructor(
      */
     private val drawLock = Mutex()
 
-    /** Zeichnet die Listen-Widgets [appWidgetIds]; false, wenn nichts zu zeichnen war. */
-    suspend fun update(appWidgetIds: IntArray): Boolean {
-        if (appWidgetIds.isEmpty()) return false
-        return drawLock.withLock { draw(appWidgetIds) }
+    /**
+     * Ergebnis eines Zeichnens: [watches] = die dabei EINMAL gelesenen Paare (für den Wecker «veraltet»,
+     * [WidgetUpdater]); null = nicht gelesen oder fehlgeschlagen.
+     */
+    class Drawn(val watches: List<WatchEntity>?)
+
+    /**
+     * Zeichnet die Listen-Widgets [appWidgetIds]; null, wenn nichts zu zeichnen war. [select]: wählt aus den gelesenen
+     * Paaren, welche der Widgets neu müssen (unter der Sperre des Zeichnens, dieselbe Abfrage wie die Zeilen).
+     */
+    suspend fun update(appWidgetIds: IntArray, select: ((List<WatchEntity>) -> IntArray)? = null): Drawn? {
+        if (appWidgetIds.isEmpty()) return null
+        return drawLock.withLock {
+            // Paare einmal je Zeichnen: Leer-Hinweis, Titel und Zeilen aller Widgets lesen dieselben
+            val all = WidgetOnceRead { rows.allWatches() }
+            val ids = if (select == null) appWidgetIds else select(all.get())
+            if (ids.isEmpty() || !draw(ids, all)) null else Drawn(all.peek())
+        }
     }
 
-    private suspend fun draw(appWidgetIds: IntArray): Boolean {
+    private suspend fun draw(appWidgetIds: IntArray, all: WidgetOnceRead<List<WatchEntity>>): Boolean {
         val manager = AppWidgetManager.getInstance(context) ?: return false
 
         // Akzentfarbe wie in der App; Hell/Dunkel je Widget (System/Dunkel/Hell).
@@ -110,13 +125,13 @@ class ListWidgetRenderer @Inject constructor(
             // Leer oder nicht: selbst entscheiden statt über setEmptyView — manche Launcher lassen den
             // Hinweis «Noch keine Paare» sonst stehen, obwohl inzwischen Paare da sind (z. B. nach dem
             // Einspielen einer Sicherung in ein leeres Widget)
-            val empty = runCatchingCancellable { rows.count(appWidgetId) == 0 }.getOrDefault(false)
+            val empty = runCatchingCancellable { rows.count(appWidgetId, all.get()) == 0 }.getOrDefault(false)
             // Merkliste nur leer im Arbeitsspeicher (gespeicherter Stand gerade nicht lesbar; nach dem Zählen oben
             // verlässlich): nicht neu zeichnen — der Launcher behält den bisherigen Inhalt statt «Noch keine Paare»
             if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) continue
-            val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) inlineRows(appWidgetId) else null
+            val inline = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) inlineRows(appWidgetId, all) else null
             if (inline == null) viaService += appWidgetId
-            val title = headerTitle(appWidgetId)
+            val title = headerTitle(appWidgetId, all)
             // Neuer Stand je Zeichnen: Zeilen aus dem Dienst gehören so zur Uhrzeit im Kopf (ListWidgetDataVersion)
             val version = rows.versions.next(appWidgetId)
             runCatchingCancellable {
@@ -276,9 +291,9 @@ class ListWidgetRenderer @Inject constructor(
      * «Token», «Alpha-Tokens», «TradFi», eigener Name — gekürzt, [WidgetGroupSelection.title]). Hat die
      * Gruppe keine Paare (das Widget zeigt dann alle) oder schlägt das Lesen fehl: «Merkliste».
      */
-    private suspend fun headerTitle(appWidgetId: Int): String {
+    private suspend fun headerTitle(appWidgetId: Int, all: WidgetOnceRead<List<WatchEntity>>): String {
         val default = context.getString(R.string.tab_watchlist)
-        val group = runCatchingCancellable { rows.group(appWidgetId) }.onFailure {
+        val group = runCatchingCancellable { rows.group(appWidgetId, all.get()) }.onFailure {
             Timber.w(it, "Widget-Gruppe %d nicht lesbar", appWidgetId)
         }.getOrNull()
         return WidgetGroupSelection.title(group, default) { filter ->
@@ -296,9 +311,12 @@ class ListWidgetRenderer @Inject constructor(
      * dann liefert sie [PriceWidgetService].
      */
     @RequiresApi(Build.VERSION_CODES.S)
-    private suspend fun inlineRows(appWidgetId: Int): RemoteViews.RemoteCollectionItems? {
+    private suspend fun inlineRows(
+        appWidgetId: Int,
+        all: WidgetOnceRead<List<WatchEntity>>,
+    ): RemoteViews.RemoteCollectionItems? {
         return runCatchingCancellable {
-            val data = rows.load(appWidgetId)
+            val data = rows.load(appWidgetId, all.get())
             // Mit Logos reist je Zeile ein kleines Bild mit: früher an den Dienst abgeben
             val limit = if (data.logos != null) MAX_INLINE_ROWS_WITH_LOGOS else MAX_INLINE_ROWS
             if (data.watches.size > limit) return@runCatchingCancellable null

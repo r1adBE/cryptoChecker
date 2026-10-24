@@ -79,8 +79,44 @@ class RefreshResultProcessor internal constructor(
         dayStart: Long?,
         /** Live-Kurse ([LivePriceApplier]): Veränderung steht schon im Ticker, keine Ansagen, keine Volumen-Alarme. */
         live: Boolean = false,
+        /**
+         * Kurs-Meldungen nicht hier zeigen, sondern in [Processed.pendingPrices] zurückgeben: Der Aufrufer zeigt sie
+         * mit [postPrices] nach Widgets und Bericht, weiter unter der Sperre (gedrosselt dauert das bis einige
+         * Sekunden).
+         */
+        deferPrices: Boolean = false,
     ): Processed = effects.alarmCheckStatus.batch {
-        processRun(watches, fetched, settings, dayStart, live)
+        processRun(watches, fetched, settings, dayStart, live, deferPrices)
+    }
+
+    /**
+     * Kurs-Meldungen eines Durchlaufs zeigen ([RefreshNotifier.showPrices]: Reihenfolge, Drosselung, Sammelmeldung) und
+     * den Meldekurs NUR der tatsächlich gezeigten speichern. Unter der Sperre ([lock] als Beweis), damit kein anderer
+     * Durchlauf vorher mit dem alten Meldekurs entscheidet. Rückgabe: Zahl der gezeigten.
+     */
+    internal suspend fun postPrices(@Suppress("UNUSED_PARAMETER") lock: RefreshLockScope, pending: PendingPrices): Int =
+        showAndRecord(pending)
+
+    /**
+     * Nacharbeit für [RefreshLock.withLockThen]: die zurückgestellten Kurs-Meldungen von [processed] zeigen, danach
+     * [after] mit der Zahl der gezeigten; null = keine zurückgestellt.
+     */
+    internal fun pricesTail(processed: Processed, after: (Int) -> Unit = {}): LockedTail? {
+        val pending = processed.pendingPrices ?: return null
+        return { lock -> after(postPrices(lock, pending)) }
+    }
+
+    private suspend fun showAndRecord(pending: PendingPrices): Int {
+        val notified = ArrayList<Pair<Long, Double>>()
+        if (pending.watches.isNotEmpty()) {
+            val shown = notifier.showPrices(pending.watches, ongoing = pending.ongoing)
+            for (watch in pending.watches) {
+                val price = watch.lastPrice ?: continue
+                if (watch.id in shown) notified += watch.id to price
+            }
+        }
+        watchRepository.setNotifiedPrices(notified, pending.now)
+        return notified.size
     }
 
     /** [process] ohne Sperr-Nachweis; Vermerke «nicht geprüft» gesammelt ([AlarmCheckStatus.batch]). */
@@ -90,6 +126,7 @@ class RefreshResultProcessor internal constructor(
         settings: AppSettings,
         dayStart: Long?,
         live: Boolean,
+        deferPrices: Boolean,
     ): Processed {
         val now = System.currentTimeMillis()
 
@@ -167,7 +204,6 @@ class RefreshResultProcessor internal constructor(
         else watchRepository.getAllEnabledAlarms().groupBy { it.watchId }
 
         var alarms = 0
-        val notifiedPrices = ArrayList<Pair<Long, Double>>()
         // Alarm-Protokoll: nur mitschreiben, am Ende einmal speichern
         val log = AlarmLogCollector(now)
 
@@ -215,15 +251,8 @@ class RefreshResultProcessor internal constructor(
         // Sammelmeldung (Android verwirft ab rund 50 offenen Mitteilungen je App weitere still).
         // Neuer Bezugspunkt nur für Paare, deren Kurs jetzt gezeigt wird.
         notifier.cancelPrices(priceCancels, shownNotifications)
-        if (pricePosts.isNotEmpty()) {
-            val shownPrices = notifier.showPrices(pricePosts, ongoing = settings.ongoingNotifications)
-            for (watch in pricePosts) {
-                val price = watch.lastPrice ?: continue
-                if (watch.id in shownPrices) notifiedPrices += watch.id to price
-            }
-        }
-
-        watchRepository.setNotifiedPrices(notifiedPrices, now)
+        val pending = PendingPrices(pricePosts, settings.ongoingNotifications, now)
+        val shown = if (deferPrices) 0 else showAndRecord(pending)
 
         recordAlarmLog(log, watches, errorWrites, alarmsByWatch, live)
 
@@ -231,11 +260,12 @@ class RefreshResultProcessor internal constructor(
             checked = watches.size,
             failed = errorWrites.size,
             alarms = alarms,
-            notificationsShown = notifiedPrices.size,
+            notificationsShown = shown,
             dbMillis = dbMillis,
             effectsMillis = System.currentTimeMillis() - effectsStartedAt,
             missingDayChange = updatedWatches.filter { it.change24h == null },
             failedIds = errorWrites.map { it.id },
+            pendingPrices = pending.takeIf { deferPrices && pricePosts.isNotEmpty() },
         )
     }
 
@@ -280,5 +310,10 @@ class RefreshResultProcessor internal constructor(
         val missingDayChange: List<WatchEntity> = emptyList(),
         /** Paare ohne neuen Kurs (Fehler, nicht mehr gehandelt). */
         val failedIds: List<Long> = emptyList(),
+        /** Mit `deferPrices`: noch zu zeigende Kurs-Meldungen ([postPrices]); null = keine. */
+        val pendingPrices: PendingPrices? = null,
     )
+
+    /** Kurs-Meldungen eines Durchlaufs (Reihenfolge = Vorrang), gemeldet mit [ongoing], Meldekurs-Zeit [now]. */
+    internal class PendingPrices(val watches: List<WatchEntity>, val ongoing: Boolean, val now: Long)
 }

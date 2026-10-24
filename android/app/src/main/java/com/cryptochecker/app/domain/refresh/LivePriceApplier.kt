@@ -12,6 +12,8 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.widget.LiveWidgetGate
 import com.cryptochecker.marketdata.model.SimpleTicker
+import com.cryptochecker.app.util.appScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -33,6 +35,8 @@ class LivePriceApplier internal constructor(
     private val liveWidgetGate: RefreshWidgets,
     private val chartRefresher: RefreshCharts,
     private val resultProcessor: RefreshResultProcessor,
+    /** Kurs-Meldungen nach dem Speichern: Nacharbeit unter der weitergereichten Sperre ([RefreshLock.withLockThen]). */
+    private val tailScope: CoroutineScope = appScope(Dispatchers.IO, "LivePriceApplier"),
 ) {
     /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
     @Inject constructor(
@@ -73,7 +77,8 @@ class LivePriceApplier internal constructor(
         pairs: Map<Long, PairIdentity>? = null,
     ): Boolean {
         if (quotes.isEmpty()) return true
-        refreshLock.tryWithLock { lock -> applyLocked(lock, quotes, redrawWidgets, pairs) } ?: return false
+        refreshLock.tryWithLockThen(tailScope) { lock -> applyLocked(lock, quotes, redrawWidgets, pairs) }
+            ?: return false
         afterUnlock()
         return true
     }
@@ -91,8 +96,9 @@ class LivePriceApplier internal constructor(
         timeoutMillis: Long = FINAL_SAVE_WAIT_MILLIS,
     ): Boolean {
         if (quotes.isEmpty()) return true
-        refreshLock.withLockWithin(timeoutMillis) { lock -> applyLocked(lock, quotes, redrawWidgets, pairs) }
-            ?: return false
+        refreshLock.withLockWithinThen(timeoutMillis, tailScope) { lock ->
+            applyLocked(lock, quotes, redrawWidgets, pairs)
+        } ?: return false
         afterUnlock()
         return true
     }
@@ -100,13 +106,16 @@ class LivePriceApplier internal constructor(
     /** Charts mit fehlenden Kerzen (auch Vorgemerktes eines früheren Laufs) ausserhalb der Sperre nachladen. */
     private fun afterUnlock() = chartRefresher.launchIfPending()
 
-    /** Arbeit unter der Sperre ([lock] als Beweis): Kurse übernehmen, Widgets ohne Kerzen-Abruf zeichnen. */
+    /**
+     * Arbeit unter der Sperre ([lock] als Beweis): Kurse übernehmen, Widgets ohne Kerzen-Abruf zeichnen. Rückgabe: die
+     * Kurs-Meldungen als Nacharbeit nach den Widgets (die Sperre bleibt bis zu ihrem Ende gehalten); null = keine.
+     */
     private suspend fun applyLocked(
         lock: RefreshLockScope,
         quotes: Map<Long, LiveQuote>,
         redrawWidgets: Boolean,
         pairs: Map<Long, PairIdentity>?,
-    ) {
+    ): Locked<Unit> =
         withContext(Dispatchers.IO) {
             val now = System.currentTimeMillis()
             val settings = settingsRepository.current()
@@ -134,18 +143,20 @@ class LivePriceApplier internal constructor(
                 }
                 fetched[watch.id] = Fetched(ticker, null)
             }
-            if (watches.isNotEmpty()) {
-                resultProcessor.process(lock, watches, fetched, settings, dayStart = null, live = true)
-                if (redrawWidgets) {
-                    // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
-                    refreshStats.setLastRefresh(refreshStats.lastDurationMillis.value)
-                    // Bildschirm aus: nur merken, beim Einschalten einmal nachzeichnen.
-                    // Unter der Sperre ohne Kerzen-Abruf, Charts danach ausserhalb
-                    if (liveWidgetGate.drawAll(deferWhenOff = true, fetch = false)) chartRefresher.markIfStale()
-                }
+            if (watches.isEmpty()) return@withContext Unit to null
+            val processed = resultProcessor.process(
+                lock, watches, fetched, settings, dayStart = null, live = true, deferPrices = true,
+            )
+            if (redrawWidgets) {
+                // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
+                refreshStats.setLastRefresh(refreshStats.lastDurationMillis.value)
+                // Bildschirm aus: nur merken, beim Einschalten einmal nachzeichnen.
+                // Unter der Sperre ohne Kerzen-Abruf, Charts danach ausserhalb
+                if (liveWidgetGate.drawAll(deferWhenOff = true, fetch = false)) chartRefresher.markIfStale()
             }
+            // Kurs-Meldungen (gedrosselt bis einige Sekunden) erst nach den Widgets
+            Unit to resultProcessor.pricesTail(processed)
         }
-    }
 
     private companion object {
         /** Letztes Live-Speichern ([applyLiveFinal]): höchstens so lange auf die Sperre warten. */

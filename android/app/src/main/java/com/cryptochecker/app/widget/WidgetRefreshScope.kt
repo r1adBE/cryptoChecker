@@ -20,6 +20,26 @@ object WidgetRefreshScope {
             widgetGroup !in existingGroups || watchGroup == widgetGroup
 
     /**
+     * Listen-Widgets aus [listIds], die nach der Aktualisierung des Paares [watchId] neu müssen ([listShowsWatch]) —
+     * aus denselben Paaren [watches], mit denen danach gezeichnet wird. Paar nicht (mehr) da (gelöscht): alle, damit
+     * es überall verschwindet. [groupOf] = Gruppe eines Widgets.
+     */
+    fun <W> listsShowing(
+        listIds: IntArray,
+        watchId: Long,
+        watches: List<W>,
+        id: (W) -> Long,
+        groupName: (W) -> String?,
+        groupOf: (Int) -> String?,
+    ): IntArray {
+        val watch = watches.firstOrNull { id(it) == watchId }
+        val groups = watches.mapTo(HashSet()) { groupName(it) }
+        return listIds.filter { w ->
+            watch == null || listShowsWatch(groupOf(w), groupName(watch), groups)
+        }.toIntArray()
+    }
+
+    /**
      * Portfolio-Widgets neu zeichnen? Nur wenn sich die Momentaufnahme (Gesamtwert, Zeit)
      * seit dem letzten Zeichnen geändert hat; ist nichts bekannt ([drawn] null), sicherheitshalber ja.
      */

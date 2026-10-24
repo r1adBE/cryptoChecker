@@ -5,25 +5,45 @@ import SwiftUI
 extension AppData {
     // MARK: Lesen
 
-    /// Anzeige-Reihenfolge: Favoriten zuerst, dann sortOrder, dann id.
-    /// Gespeicherte Kurse (alle 10 s mit den Live-Kursen nachgeführt); den Live-Kurs legt jede
+    /// Anzeige-Reihenfolge: Favoriten zuerst, dann sortOrder, dann id (`displayOrder`).
+    /// Gespeicherte Kurse (mit den Live-Kursen nachgeführt); den Live-Kurs legt jede
     /// Zeile selbst darüber (`LivePrices`, `WatchlistLiveRow`), damit ein Tick nur sie neu zeichnet.
+    /// Einmal je Stand gerechnet (`WatchlistReadCache`, gilt bis zur nächsten Übernahme in `snapshot`).
     var watches: [Watch] {
-        snapshot.watches.sorted {
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.watches { return cached }
+        let sorted = Self.displayOrder(snapshot.watches)
+        readCache.watches = sorted
+        return sorted
+    }
+
+    static func displayOrder(_ watches: [Watch]) -> [Watch] {
+        watches.sorted {
             if $0.favorite != $1.favorite { return $0.favorite }
             if $0.sortOrder != $1.sortOrder { return $0.sortOrder < $1.sortOrder }
             return $0.id < $1.id
         }
     }
 
-    var alarms: [Alarm] { snapshot.alarms.sorted { $0.id < $1.id } }
+    /// Alarme nach Id; einmal je Stand gerechnet.
+    var alarms: [Alarm] {
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.alarms { return cached }
+        let sorted = snapshot.alarms.sorted { $0.id < $1.id }
+        readCache.alarms = sorted
+        return sorted
+    }
 
     // MARK: Gruppen
 
     /// Vorhandene Gruppen, alphabetisch ohne Gross/Klein — wie `groupsOf` in Android.
-    /// Eine Gruppe gibt es, solange mindestens ein Paar sie nutzt.
+    /// Eine Gruppe gibt es, solange mindestens ein Paar sie nutzt. Einmal je Stand gerechnet.
     var watchGroups: [String] {
-        Self.groups(of: snapshot.watches)
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.groups { return cached }
+        let groups = Self.groups(of: snapshot.watches)
+        readCache.groups = groups
+        return groups
     }
 
     static func groups(of watches: [Watch]) -> [String] {
@@ -52,28 +72,39 @@ extension AppData {
         WatchFilter.showsAlpha(snapshot.watches)
     }
 
-    /// Art je Paar (Id → `AssetKind`) für das Symbol vor der Glocke; Listen einmal gelesen.
+    /// Art je Paar (Id → `AssetKind`) für das Symbol vor der Glocke; Listen einmal gelesen. Je Stand und gleichen
+    /// Listen (TradFi, Alpha, Namen) nur einmal je Paar gerechnet — ändert sich eine Liste, neu.
     var watchKinds: [Int64: AssetKind] {
-        let tradFiPairs = CoinLogoStore.tradFiPairs
-        let alphaSymbols = CoinLogoStore.alphaSymbols
-        let alphaNames = CoinLogoStore.alphaNames
+        readCache.align(snapshotGeneration)
+        let key = WatchlistReadCache.KindsKey(tradFiPairs: CoinLogoStore.tradFiPairs,
+                                              alphaSymbols: CoinLogoStore.alphaSymbols,
+                                              alphaNames: CoinLogoStore.alphaNames,
+                                              names: TokenIdentityStore.shared.version)
+        if let cached = readCache.kinds, cached.key == key { return cached.value }
         var out: [Int64: AssetKind] = [:]
         for w in snapshot.watches {
-            out[w.id] = w.assetKind(tradFiPairs: tradFiPairs, alphaSymbols: alphaSymbols, alphaNames: alphaNames,
+            out[w.id] = w.assetKind(tradFiPairs: key.tradFiPairs, alphaSymbols: key.alphaSymbols,
+                                    alphaNames: key.alphaNames,
                                     pairName: TokenIdentityStore.shared.pairName(marketKey: w.marketKey, base: w.baseAsset))
         }
+        readCache.kinds = (key, out)
         return out
     }
 
     /// Sichtbare Paare: alle, die Favoriten («FAV») oder nur die der gewählten Gruppe (Anzeige-Reihenfolge).
     var visibleWatches: [Watch] {
         guard let group = selectedWatchlistGroup else { return watches }
-        // «Alpha»: Listen einmal lesen statt je Paar
+        // «Alpha»: Listen einmal lesen statt je Paar (Arten zwischengespeichert, `watchKinds`)
         if WatchFilter.isAlpha(group) {
             let kinds = watchKinds
             return watches.filter { kinds[$0.id] == .ALPHA }
         }
-        return watches.filter { WatchFilter.matches(group, $0) }
+        // Gruppe, Favoriten, «Token»: hängen nur am Stand — einmal je Stand und Gruppe gefiltert
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.visible, cached.group == group { return cached.value }
+        let shown = watches.filter { WatchFilter.matches(group, $0) }
+        readCache.visible = (group, shown)
+        return shown
     }
 
     func selectWatchlistGroup(_ group: String?) {
@@ -142,23 +173,51 @@ extension AppData {
         return found.withLive(LivePrices.shared.quote(for: id), rollingBasis: !settings.changeBasis.isDay)
     }
 
-    func alarms(for watchId: Int64) -> [Alarm] { alarms.filter { $0.watchId == watchId } }
-
-    var alarmsWithWatch: [AlarmWithWatch] {
-        let byId = Dictionary(snapshot.watches.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-        return alarms.compactMap { a in byId[a.watchId].map { AlarmWithWatch(alarm: a, watch: $0) } }
+    /// Alarme eines Paars nach Id (je Stand einmal nach Paar gruppiert).
+    func alarms(for watchId: Int64) -> [Alarm] {
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.alarmsByWatch { return cached[watchId] ?? [] }
+        let grouped = Dictionary(grouping: alarms, by: \.watchId)
+        readCache.alarmsByWatch = grouped
+        return grouped[watchId] ?? []
     }
 
-    /// Anzahl aktiver Alarme je Paar.
+    var alarmsWithWatch: [AlarmWithWatch] {
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.alarmsWithWatch { return cached }
+        let byId = Dictionary(snapshot.watches.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        let list = alarms.compactMap { a in byId[a.watchId].map { AlarmWithWatch(alarm: a, watch: $0) } }
+        readCache.alarmsWithWatch = list
+        return list
+    }
+
+    /// Anzahl aktiver Alarme je Paar (einmal je Stand).
     var activeAlarmCounts: [Int64: Int] {
-        Dictionary(grouping: snapshot.alarms.filter(\.enabled), by: \.watchId).mapValues(\.count)
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.activeAlarmCounts { return cached }
+        let counts = Dictionary(grouping: snapshot.alarms.filter(\.enabled), by: \.watchId).mapValues(\.count)
+        readCache.activeAlarmCounts = counts
+        return counts
     }
 
     /// Letzte Auslösung je Paar (Epoch-ms; auch abgeschaltete Einmal-Alarme) — für «Alarm ausgelöst»
-    /// im VoiceOver-Satz der Zeile (`A11ySpeech.firedRecently`), wie Android `alarmFiredAt`.
+    /// im VoiceOver-Satz der Zeile (`A11ySpeech.firedRecently`), wie Android `alarmFiredAt`. Einmal je Stand.
     var alarmFiredAt: [Int64: Int64] {
-        Dictionary(grouping: snapshot.alarms.filter { $0.lastTriggeredAt > 0 }, by: \.watchId)
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.alarmFiredAt { return cached }
+        let fired = Dictionary(grouping: snapshot.alarms.filter { $0.lastTriggeredAt > 0 }, by: \.watchId)
             .mapValues { list in list.map(\.lastTriggeredAt).max() ?? 0 }
+        readCache.alarmFiredAt = fired
+        return fired
+    }
+
+    /// Letzte Auslösung über alle Alarme (Puls der Glocke); 0 = keine. Einmal je Stand.
+    var lastAlarmTriggeredAt: Int64 {
+        readCache.align(snapshotGeneration)
+        if let cached = readCache.lastTriggered { return cached }
+        let last = snapshot.alarms.map(\.lastTriggeredAt).max() ?? 0
+        readCache.lastTriggered = last
+        return last
     }
 
     /// Ab diesem Alter gilt ein Kurs als veraltet.
@@ -178,5 +237,38 @@ extension AppData {
     /// Schwelle eines Paars: am Live-Strom (`liveWatchIds`) 2 Minuten, sonst `staleAfterMillis` (K-1).
     func staleAfterMillis(for watchId: Int64) -> Int64 {
         LiveStatus.staleAfterMillis(onLiveSocket: liveWatchIds.contains(watchId), pollingAfter: staleAfterMillis)
+    }
+}
+
+/// Zwischenspeicher der abgeleiteten Listen von `AppData` (AppData+Reading.swift): gilt für genau einen Stand
+/// (`AppData.snapshotGeneration` — jede Übernahme in `snapshot` zählt: Paare, Sortierung, Gruppe, Favorit, Alarm, Kurse).
+/// Ein anderer Stand leert alles (`align`); jede Liste wird beim nächsten Zugriff neu gerechnet — gleich wie direkt.
+struct WatchlistReadCache {
+    /// Eingaben von `watchKinds` ausser dem Stand.
+    struct KindsKey: Equatable {
+        let tradFiPairs: Set<String>
+        let alphaSymbols: Set<String>
+        let alphaNames: [String: String]
+        /// `TokenIdentityStore.version`.
+        let names: Int
+    }
+
+    private(set) var generation: Int?
+    var watches: [Watch]?
+    var alarms: [Alarm]?
+    var groups: [String]?
+    var visible: (group: String, value: [Watch])?
+    var kinds: (key: KindsKey, value: [Int64: AssetKind])?
+    var alarmsByWatch: [Int64: [Alarm]]?
+    var alarmsWithWatch: [AlarmWithWatch]?
+    var activeAlarmCounts: [Int64: Int]?
+    var alarmFiredAt: [Int64: Int64]?
+    var lastTriggered: Int64?
+
+    /// Zum Stand `generation` passend machen: anderer Stand → alles vergessen.
+    mutating func align(_ generation: Int) {
+        guard self.generation != generation else { return }
+        self = WatchlistReadCache()
+        self.generation = generation
     }
 }

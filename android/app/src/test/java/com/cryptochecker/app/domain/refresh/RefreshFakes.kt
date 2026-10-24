@@ -161,9 +161,16 @@ internal class FakeRefreshNotifier(
         cancelledPrices += watchIds
     }
 
+    /** Vor jedem [showPrices] (Tests: Kurs-Meldungen aufhalten). */
+    var beforeShowPrices: suspend () -> Unit = {}
+
+    /** Welche Kurs-Meldungen als gezeigt gelten (sonst «von Android verworfen»). */
+    var priceShown: (Long) -> Boolean = { true }
+
     override suspend fun showPrices(watches: List<WatchEntity>, ongoing: Boolean): Set<Long> {
+        beforeShowPrices()
         pricePosts += watches.map { it.id }
-        return watches.mapTo(HashSet()) { it.id }
+        return watches.map { it.id }.filterTo(HashSet()) { priceShown(it) }
     }
 }
 

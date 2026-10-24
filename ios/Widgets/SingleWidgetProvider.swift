@@ -108,7 +108,9 @@ struct SingleProvider: AppIntentTimelineProvider {
     }
 
     func timeline(for configuration: SingleWidgetIntent, in context: Context) async -> Timeline<SingleEntry> {
-        // Merkliste einmal lesen: für das Paar, die Aktualisierung und — ohne Aktualisierung — den Eintrag
+        // Merkliste einmal lesen: für das Paar, die Aktualisierung und — ohne Aktualisierung — den Eintrag. Zeitpunkt
+        // der Datei VOR dem Lesen: ein späteres Schreiben (App, Hintergrund) erkennt `rereadWatch` sicher
+        let writtenBefore = SharedStorage.watchlistWrittenAt
         let snapshot = SharedStorage.loadSnapshot()
         let initial = Self.watch(for: configuration, in: snapshot.watches)
         // Kurse und Chart gleichzeitig holen (nach einem misslungenen Versuch erst nach
@@ -120,8 +122,11 @@ struct SingleProvider: AppIntentTimelineProvider {
         let ran = await refreshed
         let sourced = await chart
         let candles: [MarketCandle]? = sourced?.value
-        // Nach einer Aktualisierung neu gelesen (frische Kurse), sonst das schon gelesene Paar
-        let watch = ran ? Self.watch(for: configuration) : initial
+        // Kurz vor dem Zeichnen: nach einer Aktualisierung oder wenn die Merkliste inzwischen geschrieben wurde (frische
+        // Kurse der App während des Chart-Ladens) neu gelesen, sonst das schon gelesene Paar (nur ein Datei-Zeitstempel)
+        let reread = WidgetFreshness.rereadWatch(refreshed: ran, writtenBefore: writtenBefore,
+                                                 writtenNow: SharedStorage.watchlistWrittenAt)
+        let watch = reread ? Self.watch(for: configuration) : initial
         // Erst diese Aktualisierung kann «nicht mehr gehandelt» ergeben haben: dann kein Chart
         // Deaktiviert (auch eben erst): kein Chart
         var entry = SingleEntry(date: Date(), watch: watch,

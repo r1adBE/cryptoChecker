@@ -31,6 +31,7 @@ extension AppData {
         resetGeneration &+= 1
         clearLive()
         Task { await LivePriceStream.shared.setPairs([]) }
+        discardPendingPriceSave()
         SharedStorage.flushSnapshotWrites()
 
         Self.clearStoredFiles()

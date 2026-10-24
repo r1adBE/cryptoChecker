@@ -41,10 +41,9 @@ internal fun PortfolioHistory.sumCells(
 
 /**
  * Zuflüsse eines Coins aus seinen Schritten [events] ([PortfolioLedger.eventsByCoin]) für den Gewinn/Verlust
- * ([PortfolioLedger.flow]) in der Einheit des Verlaufs; null =
- * einer unbekannt (Coin fehlt, «ohne …»). Im Zeitraum die nach dem Ende von [start] (davor zählt der Wert
- * am ersten Tag); «Seit 1. Kauf» ([sinceFirst]) alle, frühere auf [start] gelegt. Auszahlungen ohne Preis
- * und Adress-Änderungen zum Marktkurs ihres (UTC-)Tags ([market]).
+ * ([PortfolioLedger.flow]) in der Einheit des Verlaufs; null = einer unbekannt (Coin fehlt, «ohne …»). Im Zeitraum
+ * die nach dem Ende von [start] (davor zählt der Wert am ersten Tag); «Seit 1. Kauf» ([sinceFirst]) alle, frühere
+ * auf [start] gelegt. Auszahlungen ohne Preis und Adress-Änderungen zum Marktkurs ihres (UTC-)Tags ([market]).
  */
 internal fun PortfolioHistory.pnlFlows(
     coin: String,
@@ -74,9 +73,9 @@ internal fun PortfolioHistory.pnlFlows(
 }
 
 /**
- * Zuflüsse der [coins] (Schritte je Coin: [events], [PortfolioLedger.eventsByCoin]) nach dem Ende von [start] (gleiche Regel wie [PortfolioPeriodChange.gain]: ein
- * Verkauf ohne Bestand zählt nicht); null, sobald einem davon der Preis fehlt. Tag = UTC-Tag der
- * Transaktion, höchstens [todayEpochDay].
+ * Zuflüsse der [coins] (Schritte je Coin: [events], [PortfolioLedger.eventsByCoin]) nach dem Ende von [start]
+ * (gleiche Regel wie [PortfolioPeriodChange.gain]: ein Verkauf ohne Bestand zählt nicht); null, sobald einem davon
+ * der Preis fehlt. Tag = UTC-Tag der Transaktion, höchstens [todayEpochDay].
  */
 internal fun PortfolioHistory.cashFlows(
     events: Map<String, List<PortfolioLedgerEvent>>,
