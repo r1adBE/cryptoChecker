@@ -163,9 +163,7 @@ jobs:
         run: |
           LOG="$RUNNER_TEMP/xcode-build.log"
           set +e
-          # -enableCodeCoverage as in the test step: same build settings, so the test step reuses this build
           xcodebuild build \
-            -enableCodeCoverage YES \
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Debug \

@@ -11,6 +11,8 @@ define a SwiftUI view, i.e. contain no «some View»). Without the source file o
 Usage: python3 -I xccov_summary.py report.json
        python3 -I xccov_summary.py --self-test
 """
+import contextlib
+import io
 import json
 import os
 import sys
@@ -94,8 +96,13 @@ def self_test():
         path = os.path.join(tmp, "report.json")
         with open(path, "w", encoding="utf-8") as f:
             json.dump(report, f)
-        assert main([path]) == 0
-        assert main([os.path.join(tmp, "missing.json")]) == 0
+        # Ausgabe abfangen: der Selbsttest darf keine Annotationen auf der Lauf-Seite erzeugen
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            assert main([path]) == 0
+            assert main([os.path.join(tmp, "missing.json")]) == 0
+        assert "::notice title=iOS coverage::iOS line coverage" in out.getvalue(), out.getvalue()
+        assert "no coverage report (FileNotFoundError)" in out.getvalue(), out.getvalue()
     print("xccov_summary self-test ok")
     return 0
 
