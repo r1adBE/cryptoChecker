@@ -105,6 +105,18 @@ enum PortfolioCostParts {
         }
     }
 
+    /// Wie `add`, mit `index` (Zeitpunkt → Platz in `parts`, vom Aufrufer mitgeführt) statt linearer Suche — gleiche
+    /// Teile in gleicher Reihenfolge. `index` muss zu `parts` passen (leer, wenn `parts` leer ist).
+    static func add(_ parts: inout [PortfolioCostPart], index: inout [Int64: Int], _ time: Int64, _ usdt: Decimal) {
+        if usdt == 0 { return }
+        if let i = index[time] {
+            parts[i] = PortfolioCostPart(time: time, usdt: parts[i].usdt + usdt)
+        } else {
+            index[time] = parts.count
+            parts.append(PortfolioCostPart(time: time, usdt: usdt))
+        }
+    }
+
     /// Nimmt `target` von `parts` (Summe `total`) anteilig aus allen Teilen heraus (die Teile sinken entsprechend);
     /// Rückgabe = die genommenen Teile, Summe exakt `target` (Rest beim letzten Teil).
     static func take(_ parts: inout [PortfolioCostPart], total: Decimal, target: Decimal) -> [PortfolioCostPart] {

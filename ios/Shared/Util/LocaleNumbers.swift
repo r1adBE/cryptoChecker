@@ -52,12 +52,12 @@ enum LocaleNumbers {
     }
 
     static func integer(_ value: Int64, locale: Locale = appLocale, grouping: Bool = false) -> String {
-        let f = NumberFormatter()
-        f.locale = locale
-        f.numberStyle = .decimal
-        f.usesGroupingSeparator = grouping
-        f.maximumFractionDigits = 0
-        return f.string(from: NSNumber(value: value)) ?? String(value)
+        // Formatter je Sprache/Region zwischengespeichert (`NumberFormatterCache`)
+        NumberFormatterCache.string(NSNumber(value: value), purpose: "integer|\(grouping)", locale: locale) { f in
+            f.numberStyle = .decimal
+            f.usesGroupingSeparator = grouping
+            f.maximumFractionDigits = 0
+        } ?? String(value)
     }
 
     /// Kommazahl mit `minDecimals`…`maxDecimals` Nachkommastellen, kaufmännisch gerundet wie
@@ -69,14 +69,15 @@ enum LocaleNumbers {
         locale: Locale = appLocale,
         grouping: Bool = false
     ) -> String {
-        let f = NumberFormatter()
-        f.locale = locale
-        f.numberStyle = .decimal
-        f.roundingMode = .halfUp
-        f.usesGroupingSeparator = grouping
-        f.minimumFractionDigits = minDecimals ?? maxDecimals
-        f.maximumFractionDigits = maxDecimals
-        return f.string(from: NSNumber(value: value)) ?? String(format: "%.\(maxDecimals)f", value)
+        let minimum = minDecimals ?? maxDecimals
+        return NumberFormatterCache.string(NSNumber(value: value), purpose: "decimal|\(minimum)|\(maxDecimals)|\(grouping)",
+                                           locale: locale) { f in
+            f.numberStyle = .decimal
+            f.roundingMode = .halfUp
+            f.usesGroupingSeparator = grouping
+            f.minimumFractionDigits = minimum
+            f.maximumFractionDigits = maxDecimals
+        } ?? String(format: "%.\(maxDecimals)f", value)
     }
 
     /// Lateinische Ziffern 0–9 eines fertigen Textes durch die der Sprache ersetzen — nur für

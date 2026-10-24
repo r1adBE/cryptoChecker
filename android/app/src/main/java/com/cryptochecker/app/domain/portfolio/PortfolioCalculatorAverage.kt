@@ -6,11 +6,18 @@ import java.math.BigDecimal
 
 /**
  * Durchschnittskosten-Methode (siehe oben), mit einer Veräusserung je Verkauf (Teil mit/ohne Kaufpreis, dazu
- * der ungedeckte Rest bei «mehr verkauft als erfasst»). Der Einstand wird zusätzlich nach Herkunft geführt
- * ([PortfolioCostPart]: Zeitpunkt und Betrag je Zugang/Gebühr); ein Abgang nimmt alle Teile anteilig mit —
- * so rechnet der Steuer-Export den Ø-Einstand zum Devisenkurs JE Zugang um.
+ * der ungedeckte Rest bei «mehr verkauft als erfasst»). Mit [withParts] wird der Einstand zusätzlich nach Herkunft
+ * geführt ([PortfolioCostPart]: Zeitpunkt und Betrag je Zugang/Gebühr); ein Abgang nimmt alle Teile anteilig mit —
+ * so rechnen der Steuer-Export und «Seit Kauf» in der Anzeigewährung ([PortfolioCostFx]) den Ø-Einstand zum
+ * Devisenkurs JE Zugang um. Das kostet je Abgang alle bisherigen Teile (Zugänge × Abgänge); ohne [withParts] bleiben
+ * [PortfolioDisposal.costParts] und [PortfolioBookResult.openParts] leer, alle anderen Zahlen sind identisch und die
+ * Rechnung linear.
  */
-internal fun PortfolioCalculator.average(symbol: String, events: List<PortfolioLedgerEvent>): PortfolioBookResult {
+internal fun PortfolioCalculator.average(
+    symbol: String,
+    events: List<PortfolioLedgerEvent>,
+    withParts: Boolean = true,
+): PortfolioBookResult {
     val zero = BigDecimal.ZERO
     val mc = PortfolioDecimal.MC
 
@@ -42,10 +49,13 @@ internal fun PortfolioCalculator.average(symbol: String, events: List<PortfolioL
 
     fun addCost(time: Long, usdt: BigDecimal) {
         cost += usdt
-        if (usdt.signum() != 0) parts += PortfolioCostPart(time, usdt)
+        if (withParts && usdt.signum() != 0) parts += PortfolioCostPart(time, usdt)
     }
 
-    /** Nimmt [removed] von [before] (Einstand davor) anteilig aus allen Herkunftsteilen; Summe exakt [removed]. */
+    /**
+     * Nimmt [removed] von [before] (Einstand davor) anteilig aus allen Herkunftsteilen; Summe exakt [removed]. Ohne
+     * [withParts] ist [parts] immer leer.
+     */
     fun takeParts(removed: BigDecimal, before: BigDecimal): List<PortfolioCostPart> {
         if (removed.signum() == 0 || parts.isEmpty()) return emptyList()
         if (removed >= before) {

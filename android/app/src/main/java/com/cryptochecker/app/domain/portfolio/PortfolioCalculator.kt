@@ -92,6 +92,18 @@ object PortfolioCalculator {
             { coin: String, time: Long -> f(coin, time)?.takeIf { it > 0.0 && it.isFinite() }?.let { PortfolioDecimal.of(it) } }
         })
 
+    /**
+     * [ledger] aller Coins ([PortfolioLedger.coins], ohne aktuellen Kurs und Tageskurs) in einem Durchgang: die
+     * Schritte je Coin einmal gesammelt ([PortfolioLedger.eventsByCoin]) statt je Coin über alle Transaktionen — je
+     * Coin dasselbe Ergebnis wie `ledger(coin, trades, null, method)` (ohne [withParts]: Ø ohne Herkunftsteile).
+     */
+    internal fun ledgers(trades: List<PortfolioTrade>, method: CostMethod, withParts: Boolean = true): List<CoinLedger> {
+        val (real, address) = AddressBalance.split(feeValued(trades, null))
+        val byCoin = PortfolioLedger.eventsByCoin(real)
+        return PortfolioLedger.coins(trades)
+            .map { coin -> ledgerOf(coin, byCoin[coin].orEmpty(), address[coin], null, method, withParts) }
+    }
+
     /** [ledger] aus den schon gesammelten Schritten [events] des Coins (ohne Adress-Einträge). */
     private fun ledgerOf(
         symbol: String,
@@ -99,11 +111,12 @@ object PortfolioCalculator {
         addressAmount: BigDecimal?,
         currentPrice: Double?,
         method: CostMethod,
+        withParts: Boolean = true,
     ): CoinLedger {
         val book = when (method) {
             CostMethod.FIFO -> PortfolioFifo.run(symbol, events)
             CostMethod.FIFO_WALLET -> PortfolioFifo.run(symbol, events, perWallet = true)
-            CostMethod.AVERAGE -> average(symbol, events)
+            CostMethod.AVERAGE -> average(symbol, events, withParts)
         }
         val zero = BigDecimal.ZERO
         val mc = PortfolioDecimal.MC
@@ -289,6 +302,19 @@ object PortfolioCalculator {
          * ([PortfolioLedger.valueFeeDisposals]); null = nur erfasste Preise.
          */
         withdrawalPrice: ((coin: String, time: Long) -> Double?)? = null,
+    ): PortfolioSummary = summarize(trades, prices, method, withdrawalPrice, withParts = true)
+
+    /**
+     * [summarize] mit Wahl, ob Ø die Herkunftsteile des Einstands führt ([CoinPosition.pricedCostParts], nur für
+     * «Seit Kauf»/Einstand in der Anzeigewährung, [PortfolioCostFx]). Ohne Teile ([withParts] false) linear statt
+     * Zugänge × Abgänge — alle übrigen Zahlen identisch. FIFO führt seine Teile je Posten ohnehin (linear).
+     */
+    fun summarize(
+        trades: List<PortfolioTrade>,
+        prices: Map<String, Double>,
+        method: CostMethod,
+        withdrawalPrice: ((coin: String, time: Long) -> Double?)? = null,
+        withParts: Boolean,
     ): PortfolioSummary {
         // Gebühr-Zeilen zum Tageskurs (gleicher Kurs wie der Abfluss im Verlauf); ohne Kurs Erlös unbekannt
         val trades = feeValued(trades, withdrawalPrice)
@@ -297,7 +323,7 @@ object PortfolioCalculator {
         val (real, address) = AddressBalance.split(trades)
         val byCoin = PortfolioLedger.eventsByCoin(real)
         val ledgers = PortfolioLedger.coins(trades)
-            .map { coin -> ledgerOf(coin, byCoin[coin].orEmpty(), address[coin], prices[coin], method) }
+            .map { coin -> ledgerOf(coin, byCoin[coin].orEmpty(), address[coin], prices[coin], method, withParts) }
         val positions = ledgers.map { it.position }
         val withdrawn = withdrawnGain(ledgers.flatMap { it.withdrawals }, withdrawalPrice)
 

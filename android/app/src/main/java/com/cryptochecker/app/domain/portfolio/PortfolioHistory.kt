@@ -95,9 +95,12 @@ object PortfolioHistory {
         coin: String,
         trades: List<PortfolioTrade>,
         method: CostMethod = CostMethod.DEFAULT,
-    ): List<Pair<Long, BigDecimal>> {
+    ): List<Pair<Long, BigDecimal>> =
         // Alle Arten und Gebühren im dritten Coin wie der Rechner ([PortfolioHoldingsBook])
-        val events = PortfolioLedger.events(coin, trades)
+        holdingsTimelineOf(PortfolioLedger.events(coin, trades), method)
+
+    /** [holdingsTimelineExact] aus den schon gesammelten Schritten [events] eines Coins ([PortfolioLedger.eventsByCoin]). */
+    internal fun holdingsTimelineOf(events: List<PortfolioLedgerEvent>, method: CostMethod): List<Pair<Long, BigDecimal>> {
         val book = PortfolioHoldingsBook(method)
         val out = ArrayList<Pair<Long, BigDecimal>>(events.size)
         for (e in events) {
@@ -177,8 +180,10 @@ object PortfolioHistory {
         val capped = isCapped(range, firstTime, todayEpochDay, dayEndMillis)
 
         val coins = PortfolioLedger.coins(valid).sorted()
+        // Schritte je Coin einmal gesammelt (Bestände, Zuflüsse und Gewinn/Verlust nutzen dieselben)
+        val events = PortfolioLedger.eventsByCoin(valid)
         // Bestände exakt (Wert = Menge × Kurs ohne Gleitkomma-Rundung der Menge); als Double nur für die Prüfungen «gehalten»
-        val exactTimelines = coins.associateWith { holdingsTimelineExact(it, valid, method) }
+        val exactTimelines = coins.associateWith { holdingsTimelineOf(events.getValue(it), method) }
         val timelines = exactTimelines.mapValues { (_, list) -> list.map { (time, holdings) -> time to holdings.toDouble() } }
 
         // Coins, die im Zeitraum etwas hielten
@@ -263,7 +268,7 @@ object PortfolioHistory {
                 .takeIf { live == null || PricePlausibility.closesMatchLive(it, live) }.orEmpty()
             PortfolioStables.price(coin, if (day == todayEpochDay && live != null) live else closeOnOrBefore(series, day))
         }
-        val flows = cashFlows(valid, included, start, todayEpochDay, dayEndMillis, rate, market, method)
+        val flows = cashFlows(events, included, start, todayEpochDay, dayEndMillis, rate, market, method)
 
         // Gewinn/Verlust: nur Coins mit Kurs an jedem gehaltenen Tag und bekannten Zuflüssen. Ab 0 mit allen Zuflüssen
         // auch, wenn der erste Kauf erst im Zeitraum liegt (junges Portfolio): sonst fehlte der erste Tag (Kursbewegung
@@ -274,7 +279,7 @@ object PortfolioHistory {
         val pnlCoins = ArrayList<String>()
         for (coin in included) {
             val coinFlows = if (coin in unpriced) null else pnlFlows(
-                coin, valid, start, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method,
+                coin, events.getValue(coin), start, todayEpochDay, dayEndMillis, rate, sinceFirst, market, method,
             )
             if (coinFlows == null) {
                 pnlSkipped += coin

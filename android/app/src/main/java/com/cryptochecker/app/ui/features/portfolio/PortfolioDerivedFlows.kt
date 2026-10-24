@@ -33,6 +33,8 @@ internal fun PortfolioViewModel.costFxFlow(): StateFlow<com.cryptochecker.app.do
 ) { s, code, rate, load ->
     if (s == null || !cardUnit(code, rate).converted) return@combine null
     val current = rate?.let { com.cryptochecker.app.domain.portfolio.PortfolioDecimal.of(it) } ?: return@combine null
+    // Gesamtsicht noch ohne Herkunftsteile (gerade von USDT umgestellt, [PortfolioViewModel.summary] rechnet neu): «—»
+    if (s.open.any { (it.pricedCostExact?.signum() ?: 0) != 0 && it.pricedCostParts.isEmpty() }) return@combine null
     // Heute als UTC-Tag wie die Erwerbstage ([com.cryptochecker.app.domain.portfolio.PortfolioCostFx.dayOf])
     val today = PortfolioHistory.utcToday()
     val first = com.cryptochecker.app.domain.portfolio.PortfolioCostFx.firstDay(s)

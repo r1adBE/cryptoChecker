@@ -37,7 +37,8 @@ extension AppData {
             result = WatchInsertion.insertAll(&s, market: market, pairs: pairs, group: group)
         }
         if result.added > 0 { markFirstPairAdded() }
-        pairs.forEach { noteTradFi(market: market, pair: $0) }
+        // TradFi-Paare gesammelt vormerken (ein Schreibvorgang statt je Paar)
+        noteTradFi(market: market, pairs: pairs)
         return result
     }
 

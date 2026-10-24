@@ -12,15 +12,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,6 +39,9 @@ import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.components.withSmallQuote
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.PriceFormat
+import java.text.DateFormat
+import java.util.Date
 
 /** Kennzahlen eines Coins in zwei Spalten. */
 @Composable
@@ -199,38 +206,67 @@ internal fun PositionCard(
     }
 }
 
+/** So viele offene Posten zeigt die Karte direkt; alle stehen in einem eigenen Blatt mit Lazy-Liste. */
+internal const val OPEN_LOTS_SHOWN = 50
+
+/**
+ * Formatierer der Posten-Zeilen, einmal je Liste angelegt (nicht je Zeile): gleiche Ausgabe wie [PortfolioFormat.date],
+ * [PortfolioFormat.usdt] und [PortfolioFormat.amount]. Nur auf dem Main-Thread (DecimalFormat ist nicht threadsicher).
+ */
+private class OpenLotFormats {
+    val date: DateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
+    val value = PriceFormat.valueFormat()
+    val amount = PriceFormat.exactAmountFormat()
+}
+
 /**
  * «Offene Kauf-Posten» (zugeklappt): FIFO je Posten Kaufdatum, Restmenge, Rest-Einstand (und je Coin), Wallet (FIFO je
- * Wallet), Posten ohne Kaufpreis markiert; Ø die zusammengefasste(n) Zeile(n).
+ * Wallet), Posten ohne Kaufpreis markiert; Ø die zusammengefasste(n) Zeile(n). Direkt höchstens [OPEN_LOTS_SHOWN],
+ * danach «Alle zeigen (N)» mit allen Posten in einem Blatt.
  */
 @Composable
 internal fun OpenLotsSection(lots: List<PortfolioOpenLot>, coin: String) {
     var expanded by rememberSaveable { mutableStateOf(false) }
+    var showAll by rememberSaveable { mutableStateOf(false) }
+    // Neu anlegen, wenn sich die Sprache ändert (Formatierer übernehmen die Region beim Anlegen)
+    val formats = remember(LocalConfiguration.current.locales[0]) { OpenLotFormats() }
+    val title = stringResource(R.string.portfolio_open_lots, lots.size)
     Column(modifier = Modifier.fillMaxWidth()) {
         ExpandToggleButton(
-            text = stringResource(R.string.portfolio_open_lots, lots.size),
+            text = title,
             expanded = expanded,
             onClick = { expanded = !expanded },
         )
         if (expanded) {
             AppCard(padding = CardPadding.List) {
-                lots.forEach { lot -> OpenLotRow(lot, coin) }
+                lots.take(OPEN_LOTS_SHOWN).forEach { lot -> OpenLotRow(lot, coin, formats) }
+                if (lots.size > OPEN_LOTS_SHOWN) {
+                    TextButton(onClick = { showAll = true }) {
+                        Text(stringResource(R.string.explorer_bulk_show_all, lots.size))
+                    }
+                }
             }
+        }
+    }
+    if (showAll) {
+        FullListSheet(title, onDismiss = { showAll = false }) {
+            items(lots) { lot -> OpenLotRow(lot, coin, formats) }
         }
     }
 }
 
 @Composable
-private fun OpenLotRow(lot: PortfolioOpenLot, coin: String) {
+private fun OpenLotRow(lot: PortfolioOpenLot, coin: String, formats: OpenLotFormats) {
     val cost = lot.costUsdt
     val title = when {
         lot.aggregated -> stringResource(if (cost != null) R.string.portfolio_open_lots_avg else R.string.portfolio_open_lots_no_cost)
-        else -> lot.acquiredTime?.let { PortfolioFormat.date(it) } ?: "—"
+        else -> lot.acquiredTime?.let { formats.date.format(Date(it)) } ?: "—"
     }
     val walletText = lot.wallet?.let { w -> stringResource(R.string.tax_export_wallet, w.ifBlank { stringResource(R.string.tax_export_wallet_unspecified) }) }
     val costText = if (cost != null) {
         val perCoin = if (lot.amount.signum() > 0) cost.divide(lot.amount, java.math.MathContext.DECIMAL128) else null
-        maskAmount(PortfolioFormat.usdt(cost.toDouble())) + (perCoin?.let { " · Ø " + PortfolioFormat.price(it.toDouble()) } ?: "")
+        maskAmount(PriceFormat.valueWithCurrency(cost.toDouble(), PortfolioFormat.USDT, formats.value)) +
+            (perCoin?.let { " · Ø " + PortfolioFormat.price(it.toDouble()) } ?: "")
     } else stringResource(R.string.portfolio_open_lots_without_price)
     Row(verticalAlignment = Alignment.Top, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Column(modifier = Modifier.weight(1f)) {
@@ -242,7 +278,7 @@ private fun OpenLotRow(lot: PortfolioOpenLot, coin: String) {
             )
         }
         Text(
-            maskAmount(PortfolioFormat.amount(lot.amount, coin)),
+            maskAmount("${PriceFormat.amount(lot.amount, formats.amount)} $coin"),
             style = MaterialTheme.typography.bodyMedium.tabularNumbers(),
             modifier = Modifier.padding(start = 8.dp)
         )

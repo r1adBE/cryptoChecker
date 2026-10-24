@@ -116,9 +116,7 @@ enum SpotMarket {
     /// «2026-10-11T12:34:56.789Z» → Epoch-ms; nil, wenn ungültig.
     static func isoMillis(_ text: String?) -> Int64? {
         guard let s = text?.trimmingCharacters(in: .whitespacesAndNewlines), !s.isEmpty else { return nil }
-        let withFraction = ISO8601DateFormatter()
-        withFraction.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        guard let date = withFraction.date(from: s) ?? ISO8601DateFormatter().date(from: s) else { return nil }
+        guard let date = IsoDates.date(s) else { return nil }
         let millis = Int64((date.timeIntervalSince1970 * 1000).rounded())
         return millis > 0 ? millis : nil
     }

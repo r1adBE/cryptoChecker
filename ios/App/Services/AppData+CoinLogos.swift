@@ -140,6 +140,15 @@ extension AppData {
                                     contractType: String(pair.contractType.rawValue))
         if CoinLogoStore.addTradFiPair(key) { CoinLogoRevision.bump() }
     }
+
+    /// Wie `noteTradFi` für viele Paare (Sammelaufnahme): ein Schreibvorgang, höchstens ein `CoinLogoRevision.bump()`.
+    func noteTradFi(market: Market, pairs: [MarketPair]) {
+        let keys = pairs.filter(\.isTradFi).map {
+            CoinLogos.pairKey(marketKey: market.key, base: $0.base, quote: $0.quote,
+                              contractType: String($0.contractType.rawValue))
+        }
+        if CoinLogoStore.addTradFiPairs(keys) { CoinLogoRevision.bump() }
+    }
 }
 
 /// Zustand des Logo-Abgleichs und seines Nachholens (nur im Speicher, wie Android

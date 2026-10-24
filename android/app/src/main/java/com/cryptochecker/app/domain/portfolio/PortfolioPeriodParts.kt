@@ -71,10 +71,12 @@ internal object PortfolioPeriodParts {
             marketPrice(coin, current[coin]?.takeIf { it > 0.0 && it.isFinite() }, time)
                 ?.takeIf { it > 0.0 && it.isFinite() }?.let { PortfolioDecimal.of(it) }
         }
-        // Alle Arten und Gebühren im dritten Coin über [PortfolioLedger] (Bestand und Zuflüsse wie der Rechner)
+        // Alle Arten und Gebühren im dritten Coin über [PortfolioLedger] (Bestand und Zuflüsse wie der Rechner); alle
+        // Coins: Schritte einmal je Coin gesammelt ([PortfolioLedger.eventsByCoin]), nur ein Coin: nur seine
+        val byCoin = if (only == null) PortfolioLedger.eventsByCoin(valid) else null
         for (coin in PortfolioLedger.coins(valid)) {
             if (only != null && coin != only) continue
-            val events = PortfolioLedger.events(coin, valid)
+            val events = byCoin?.get(coin) ?: PortfolioLedger.events(coin, valid)
             // Bestände exakt wie die Position nach der Methode ([PortfolioHoldingsBook]); erst zum Bewerten als Double
             val book = PortfolioHoldingsBook(method)
             for (e in events) {

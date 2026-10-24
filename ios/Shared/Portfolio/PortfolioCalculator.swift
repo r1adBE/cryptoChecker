@@ -49,13 +49,27 @@ enum PortfolioCalculator {
     /// `CoinPosition.addressHoldingsExact`: Menge und Wert zählen mit, Einstand, Ø, «Seit Kauf», realisiert und
     /// Steuer nur aus den eigenen Transaktionen. Wie Android.
     /// `feePrice`: Marktkurs für Gebühr-Zeilen (Tageskurs, wie `summarize` `withdrawalPrice`); nil = Erlös unbekannt.
+    /// `withParts`: Herkunft des Ø-Einstands führen (`average`); ohne sind nur die Herkunftsteile leer.
     static func ledger(_ coin: String, trades: [PortfolioTx], currentPrice: Double?,
                        method: CostMethod = .defaultMethod,
-                       feePrice: ((String, Int64) -> Double?)? = nil) -> CoinLedger {
+                       feePrice: ((String, Int64) -> Double?)? = nil, withParts: Bool = true) -> CoinLedger {
         let symbol = normalizeCoin(coin)
         let split = AddressBalance.split(feeValued(trades, feePrice))
         return ledgerOf(symbol, events: PortfolioLedger.events(symbol, trades: split.real),
-                        addressAmount: split.address[symbol], currentPrice: currentPrice, method: method)
+                        addressAmount: split.address[symbol], currentPrice: currentPrice, method: method,
+                        withParts: withParts)
+    }
+
+    /// `ledger` (ohne aktuellen Kurs, ohne `feePrice`) für jeden Coin von `PortfolioLedger.coins` in dieser Reihenfolge —
+    /// die Schritte je Coin einmal gesammelt (`PortfolioLedger.eventsByCoin`) statt je Coin über alle Transaktionen.
+    static func ledgers(_ trades: [PortfolioTx], method: CostMethod, withParts: Bool = true) -> [CoinLedger] {
+        let split = AddressBalance.split(feeValued(trades, nil))
+        var byCoin: [String: [PortfolioLedgerEvent]] = [:]
+        for entry in PortfolioLedger.eventsByCoin(split.real) { byCoin[entry.coin] = entry.events }
+        return PortfolioLedger.coins(trades).map {
+            ledgerOf($0, events: byCoin[$0] ?? [], addressAmount: split.address[$0], currentPrice: nil, method: method,
+                     withParts: withParts)
+        }
     }
 
     /// Gebühr-Zeilen, Verschenkt/bezahlt ohne Marktwert und Tausch ohne Wert zum Tageskurs `price` (> 0, endlich), sonst
@@ -73,12 +87,12 @@ enum PortfolioCalculator {
 
     /// `ledger` aus den schon gesammelten Schritten `events` des Coins (ohne Adress-Einträge).
     private static func ledgerOf(_ symbol: String, events: [PortfolioLedgerEvent], addressAmount: Decimal?,
-                                 currentPrice: Double?, method: CostMethod) -> CoinLedger {
+                                 currentPrice: Double?, method: CostMethod, withParts: Bool = true) -> CoinLedger {
         let book: PortfolioBookResult
         switch method {
         case .FIFO: book = PortfolioFifo.run(symbol, events: events)
         case .FIFO_WALLET: book = PortfolioFifo.run(symbol, events: events, perWallet: true)
-        case .AVERAGE: book = average(symbol, events: events)
+        case .AVERAGE: book = average(symbol, events: events, withParts: withParts)
         }
         let priced = book.priced
         let unpriced = book.unpriced
@@ -269,9 +283,12 @@ enum PortfolioCalculator {
     /// Gesamtsicht nach `method`; `prices` = aktueller USDT-Kurs je Coin (Grossschreibung). Adress-Guthaben zählen
     /// im Gesamtwert, aber nicht in Einstand und «Seit Kauf» — ein Coin nur aus Adressen fehlt dort ohne
     /// «ohne Kaufpreis»-Hinweis (`missingCostCoins` nennt nur eigene Bestände ohne Kaufpreis). Wie Android.
+    /// `withParts`: Herkunft des Ø-Einstands (`CoinPosition.pricedCostParts`) führen — nur für den Einstand in einer
+    /// Anzeigewährung (`PortfolioCostFx`); ohne bleiben alle anderen Zahlen gleich und die Ø-Rechnung linear.
     static func summarize(_ trades: [PortfolioTx], prices: [String: Double],
                           method: CostMethod = .defaultMethod,
-                          withdrawalPrice: ((String, Int64) -> Double?)? = nil) -> PortfolioSummary {
+                          withdrawalPrice: ((String, Int64) -> Double?)? = nil,
+                          withParts: Bool = true) -> PortfolioSummary {
         // Gebühr-Zeilen zum Tageskurs (gleicher Kurs wie der Abfluss im Verlauf); ohne Kurs Erlös unbekannt
         let trades = feeValued(trades, withdrawalPrice)
         // Auch Coins, die nur als Gebühr-Coin vorkommen (Bestand 0, ggf. «mehr als vorhanden»).
@@ -281,7 +298,7 @@ enum PortfolioCalculator {
         for entry in PortfolioLedger.eventsByCoin(split.real) { byCoin[entry.coin] = entry.events }
         let ledgers = PortfolioLedger.coins(trades).map {
             ledgerOf($0, events: byCoin[$0] ?? [], addressAmount: split.address[$0], currentPrice: prices[$0],
-                     method: method)
+                     method: method, withParts: withParts)
         }
         let positions = ledgers.map(\.position)
         let withdrawn = withdrawnGain(ledgers.flatMap(\.withdrawals), marketPrice: withdrawalPrice)

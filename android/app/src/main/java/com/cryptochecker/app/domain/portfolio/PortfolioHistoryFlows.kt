@@ -40,14 +40,15 @@ internal fun PortfolioHistory.sumCells(
 }
 
 /**
- * Zuflüsse eines Coins für den Gewinn/Verlust ([PortfolioLedger.flow]) in der Einheit des Verlaufs; null =
+ * Zuflüsse eines Coins aus seinen Schritten [events] ([PortfolioLedger.eventsByCoin]) für den Gewinn/Verlust
+ * ([PortfolioLedger.flow]) in der Einheit des Verlaufs; null =
  * einer unbekannt (Coin fehlt, «ohne …»). Im Zeitraum die nach dem Ende von [start] (davor zählt der Wert
  * am ersten Tag); «Seit 1. Kauf» ([sinceFirst]) alle, frühere auf [start] gelegt. Auszahlungen ohne Preis
  * und Adress-Änderungen zum Marktkurs ihres (UTC-)Tags ([market]).
  */
 internal fun PortfolioHistory.pnlFlows(
     coin: String,
-    trades: List<PortfolioTrade>,
+    events: List<PortfolioLedgerEvent>,
     start: Long,
     todayEpochDay: Long,
     dayEndMillis: (Long) -> Long,
@@ -59,7 +60,7 @@ internal fun PortfolioHistory.pnlFlows(
     val rangeEnd = dayEndMillis(start)
     val out = ArrayList<PortfolioCashFlow>()
     val book = PortfolioHoldingsBook(method)
-    for (e in PortfolioLedger.events(coin, trades)) {
+    for (e in events) {
         if (sinceFirst || e.trade.time > rangeEnd) {
             val day = localDay(e.trade.time, start, todayEpochDay, dayEndMillis)
             val price = if (PortfolioLedger.needsMarketPrice(e)) market(coin, day) else null
@@ -73,12 +74,12 @@ internal fun PortfolioHistory.pnlFlows(
 }
 
 /**
- * Zuflüsse der [coins] nach dem Ende von [start] (gleiche Regel wie [PortfolioPeriodChange.gain]: ein
+ * Zuflüsse der [coins] (Schritte je Coin: [events], [PortfolioLedger.eventsByCoin]) nach dem Ende von [start] (gleiche Regel wie [PortfolioPeriodChange.gain]: ein
  * Verkauf ohne Bestand zählt nicht); null, sobald einem davon der Preis fehlt. Tag = UTC-Tag der
  * Transaktion, höchstens [todayEpochDay].
  */
 internal fun PortfolioHistory.cashFlows(
-    trades: List<PortfolioTrade>,
+    events: Map<String, List<PortfolioLedgerEvent>>,
     coins: List<String>,
     start: Long,
     todayEpochDay: Long,
@@ -91,7 +92,7 @@ internal fun PortfolioHistory.cashFlows(
     val out = ArrayList<PortfolioCashFlow>()
     for (coin in coins) {
         val book = PortfolioHoldingsBook(method)
-        for (e in PortfolioLedger.events(coin, trades)) {
+        for (e in events[coin].orEmpty()) {
             if (e.trade.time > rangeEnd) {
                 // Gleiche Zuflüsse wie «7 T» ([PortfolioLedger.flow]); unbekannt → keine Zuflüsse
                 val day = localDay(e.trade.time, start, todayEpochDay, dayEndMillis)

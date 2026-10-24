@@ -207,7 +207,7 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
 
 /** Alle Zeilen einer Liste in einem eigenen Blatt, als Lazy-Liste (nur sichtbare Zeilen gebaut). */
 @Composable
-private fun FullListSheet(
+internal fun FullListSheet(
     title: String,
     onDismiss: () -> Unit,
     content: androidx.compose.foundation.lazy.LazyListScope.() -> Unit,

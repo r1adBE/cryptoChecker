@@ -70,15 +70,29 @@ class PortfolioPerformanceTest {
 
     @Test
     fun summaryAverage() {
-        // Ø: wächst bekanntlich schneller als linear — der Einstand führt je Zugang einen Herkunftsteil
-        // (PortfolioCalculatorAverage, `parts`), und jeder Abgang nimmt aus ALLEN Teilen anteilig (`takeParts`), bis
-        // der Bestand ganz weg ist: Zugänge × Abgänge je Coin. Gemessen wird darum nur die feste Grenze; erwartet rund
-        // 0,5–2 s für 10 000 Transaktionen (Verhältnis zu 2500 etwa ×10–16)
-        assertLimitOnly("Portfolio-Übersicht Ø", limitMillis = 15_000.0, sizes = TRANSACTIONS) { n ->
+        // Ø ohne Herkunftsteile (Karte in USDT, Widget, Alarme): linear wie FIFO; erwartet rund 50–150 ms für 10 000
+        // Transaktionen. Nur «Seit Kauf» in der Anzeigewährung und der Steuer-Export führen die Teile
+        // (PortfolioCalculatorAverage, `takeParts`: Zugänge × Abgänge je Coin) — deren Grenze prüft summaryAverageWithParts
+        assertScales("Portfolio-Übersicht Ø", limitMillis = 1_500.0, sizes = TRANSACTIONS) { n ->
+            val trades = PortfolioPerformanceData.trades(n)
+            medianMillis {
+                PortfolioCalculator.summarize(
+                    trades, prices, CostMethod.AVERAGE, PortfolioPerformanceData::priceAtDouble, withParts = false,
+                )
+            }
+        }
+        assertSameHoldings(CostMethod.AVERAGE)
+    }
+
+    @Test
+    fun summaryAverageWithParts() {
+        // Ø mit Herkunftsteilen («Seit Kauf» in der Anzeigewährung): wächst schneller als linear — jeder Abgang nimmt aus
+        // ALLEN Teilen anteilig, bis der Bestand ganz weg ist. Darum nur die feste Grenze; erwartet rund 0,5–2 s für
+        // 10 000 Transaktionen (Verhältnis zu 2500 etwa ×10–16)
+        assertLimitOnly("Portfolio-Übersicht Ø mit Herkunftsteilen", limitMillis = 15_000.0, sizes = TRANSACTIONS) { n ->
             val trades = PortfolioPerformanceData.trades(n)
             medianMillis { summary(trades, CostMethod.AVERAGE) }
         }
-        assertSameHoldings(CostMethod.AVERAGE)
     }
 
     @Test

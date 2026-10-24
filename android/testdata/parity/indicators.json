@@ -1,5 +1,5 @@
 {
-  "description": "Indicators (Android Indicators.kt, iOS Indicators.swift): simple moving average of the last n values and RSI after Wilder over period steps, closes oldest first. expected null = no value (too few values, n or period not positive). Numbers compared with a tolerance of 1e-9. Shared by IndicatorsParityTest.kt (Android) and IndicatorsParityTests.swift (iOS).",
+  "description": "Indicators (Android Indicators.kt, iOS Indicators.swift): simple moving average of the last n values and RSI after Wilder over period steps, closes oldest first. expected null = no value (too few values, n or period not positive). RSI: average loss 0 and average gain > 0 = 100; both 0 (completely flat closes) = 50. Numbers compared with a tolerance of 1e-9. Shared by IndicatorsParityTest.kt (Android) and IndicatorsParityTests.swift (iOS).",
   "sma": [
     {
       "name": "last three of five",
@@ -260,7 +260,7 @@
       "expected": 100.0
     },
     {
-      "name": "flat closes: no losses = 100",
+      "name": "flat closes: no gains and no losses = 50 (neutral, not overbought)",
       "closes": [
         50.0,
         50.0,
@@ -280,7 +280,7 @@
         50.0
       ],
       "period": 14,
-      "expected": 100.0
+      "expected": 50.0
     },
     {
       "name": "exactly period + 1 closes (no smoothing step)",

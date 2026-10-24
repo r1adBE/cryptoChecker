@@ -50,9 +50,13 @@ internal suspend fun PortfolioViewModel.showStoredToday(fxRate: Double?) {
     _coinPnl.value = snapshot.coinPnl
 }
 
-/** Frische je Coin ([PortfolioPriceFallback.mayRecordShare]): Wert je offenem Coin mit Abfragezeit. */
+/**
+ * Frische je Coin ([PortfolioPriceFallback.mayRecordShare]): Wert je offenem Coin mit Abfragezeit. Die Gesamtsicht kommt
+ * aus dem Zwischenspeicher der Aufnahme ([com.cryptochecker.app.widget.PortfolioSnapshotUpdater.summaries]) — die
+ * Aufnahme gleich danach rechnet mit denselben Eingaben nicht noch einmal.
+ */
 internal fun PortfolioViewModel.mayRecord(input: PortfolioWidgetInput): Boolean {
-    val open = PortfolioCalculator.summarize(input.transactions.map { it.toTrade() }, input.prices.prices, costMethod.value).open
+    val open = snapshotUpdater.summaries.summarize(input.transactions.map { it.toTrade() }, input.prices.prices, costMethod.value).open
     val values = open.mapNotNull { p -> p.value?.let { PortfolioCalculator.normalizeCoin(p.coin) to it } }.toMap()
     return PortfolioPriceFallback.mayRecordShare(
         values, input.prices.times, System.currentTimeMillis(), staleAfterMillis.value,

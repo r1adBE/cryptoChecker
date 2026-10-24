@@ -46,9 +46,15 @@ object PriceFormat {
     /** Gehaltene Menge: Tausendertrennung, bis acht Nachkommastellen, ohne Nullen am Ende. */
     fun amount(value: Double): String = DecimalFormat("#,##0.########").format(value)
 
-    /** Wert eines Bestands mit Währung, immer zwei Nachkommastellen. */
-    fun valueWithCurrency(value: Double, quoteAsset: String): String =
-        "${DecimalFormat("#,##0.00").format(value)} $quoteAsset"
+    /**
+     * Wert eines Bestands mit Währung, immer zwei Nachkommastellen. Lange Listen geben einen einmal angelegten
+     * [valueFormat] mit (nicht threadsicher, Sprache der Region beim Anlegen).
+     */
+    fun valueWithCurrency(value: Double, quoteAsset: String, format: DecimalFormat = valueFormat()): String =
+        "${format.format(value)} $quoteAsset"
+
+    /** Formatierer für [valueWithCurrency]. */
+    fun valueFormat(): DecimalFormat = DecimalFormat("#,##0.00")
 
     /**
      * Menge oder Kurs für ein Eingabefeld: ohne Exponent und Tausendertrennung, mit dem
@@ -82,12 +88,17 @@ object PriceFormat {
         value?.let { DecimalText.plain(it) }.orEmpty()
             .replace('.', ThresholdParser.normalized(decimalSeparator))
 
-    /** Exakte Menge mit Tausendertrennung wie [amount], ohne Rundung (alle Nachkommastellen, höchstens 18). */
-    fun amount(value: BigDecimal): String {
+    /**
+     * Exakte Menge mit Tausendertrennung wie [amount], ohne Rundung (alle Nachkommastellen, höchstens 18). Lange Listen
+     * geben einen einmal angelegten [exactAmountFormat] mit (nicht threadsicher).
+     */
+    fun amount(value: BigDecimal, format: DecimalFormat = exactAmountFormat()): String {
         val scaled = value.setScale(minOf(maxOf(value.stripTrailingZeros().scale(), 0), 18), RoundingMode.HALF_UP)
-        val format = DecimalFormat("#,##0").apply { maximumFractionDigits = 18; minimumFractionDigits = 0 }
         return format.format(scaled)
     }
+
+    /** Formatierer für [amount] (exakte Menge). */
+    fun exactAmountFormat(): DecimalFormat = DecimalFormat("#,##0").apply { maximumFractionDigits = 18; minimumFractionDigits = 0 }
 
     /**
      * Pfeil zur Kursbewegung, überall gleich: «↗» steigend, «↘» fallend (schräg wie iOS

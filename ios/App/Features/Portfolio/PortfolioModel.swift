@@ -78,6 +78,9 @@ final class PortfolioModel: ObservableObject {
     private let summaryCache: PortfolioSummaryCache
     /// «7 T»/«1 J», solange die Gesamtrechnung dafür noch läuft.
     private var weekTask: Task<Void, Never>?
+    /// Rechnung von «7 T»/«1 J» im Hintergrund und ihre Generation (jeder Auftrag zählt hoch).
+    private var periodTask: Task<Void, Never>?
+    private var periodGeneration = 0
 
     private init() {
         summaryCache = PortfolioSummaryCache()
@@ -129,8 +132,10 @@ final class PortfolioModel: ObservableObject {
     }
 
     private func summaryKey() -> PortfolioSummaryKey {
+        // Herkunftsteile nur, wenn die Karte den Einstand in eine Anzeigewährung umrechnet (`costFx`, `loadCostFx`)
         PortfolioSummaryKey(trades: calcPortfolio, prices: prices.prices, method: data.settings.costMethod,
-                            closesStamp: historyClosesStamp)
+                            closesStamp: historyClosesStamp,
+                            withParts: data.settings.portfolioCurrency != PortfolioFormat.usdt)
     }
 
     /// Nur bei einem Fehltreffer gebildet (die Reihen umzurechnen kostet).
@@ -203,10 +208,13 @@ final class PortfolioModel: ObservableObject {
     }
 
     /// «7 T»/«1 J» mit den Beständen aus `summary` (Bestände hängen nur an den Mengen, nicht an den Preisen der
-    /// Gebühr-Zeilen — dieselben wie ohne `withdrawalPrice`).
+    /// Gebühr-Zeilen — dieselben wie ohne `withdrawalPrice`). Eingaben hier gelesen, gerechnet im Hintergrund
+    /// (`PortfolioPeriodFigures`); ein Ergebnis zu älteren Eingaben (`periodGeneration`) wird verworfen.
     private func applyWeekChange(_ summary: PortfolioSummary) {
+        periodGeneration &+= 1
+        let generation = periodGeneration
+        periodTask?.cancel()
         // Bestände nach derselben Einstandsmethode wie die Karte (FIFO je Wallet: je Wallet gekappt)
-        let method = data.settings.costMethod
         var holdings: [String: Double] = [:]
         var current: [String: Double] = [:]
         for p in summary.open {
@@ -231,46 +239,29 @@ final class PortfolioModel: ObservableObject {
             yearChange = nil
             return
         }
-        // «Gewinn 7 T» / «1 J»: Käufe und Verkäufe im Zeitraum herausgerechnet (`PortfolioPeriodChange.gain`)
-        let trades = calcPortfolio
-        // Tageskerzen der eingetragenen Börse, sonst Binance skaliert (PortfolioExchangeRoute.historyCloses)
-        let scaled = routed(loaded.prices).closes
-        let addresses = addressHistories
         // Anzeigewährung: dieselben Tageskurse wie der Wertverlauf, sofern sie bis zum Stichtag zurückreichen — Kopf
         // und Kurve zeigen dieselbe Zahl; sonst wie bisher USDT (× heutiger Kurs in der Karte). Wie Android.
         let currency = data.settings.portfolioCurrency
-        // Auch USD: USDT zum Marktkurs (`convertsUsdt`); Devisenkurs dort an jedem Tag 1
-        let fxNow = PortfolioHistoryFx.convertsUsdt(currency, usdtMarket: true)
-            ? rate(for: currency).flatMap { $0 > 0 && $0.isFinite ? $0 : nil } : nil
-        let viaFx = PortfolioHistoryFx.convertsUsdtAsUsd(currency)
-        // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss, ab heute × Live-Kurs (wie der Wertverlauf)
-        let usdt = UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: loaded.prices.usdtUsd)
-        func period(_ days: Int) -> PortfolioChange? {
-            var fx: ((Int) -> Double)?
-            if let fxNow {
-                var rates: [Int: Double]?
-                if !viaFx {
-                    rates = PortfolioHistoryFx.usdParity(fromEpochDay: today - days - PortfolioHistoryFx.leadDays,
-                                                         toEpochDay: today)
-                } else if let known = fxSeries, known.currency == currency, known.from <= LocalDay(epochDay: today - days) {
-                    rates = known.rates
-                }
-                if let rates, !rates.isEmpty {
-                    fx = PortfolioHistoryFx.rateFunction(dailyRates: rates, currentRate: fxNow, todayEpochDay: today,
-                                                         usdt: usdt)
-                }
-            }
-            let change = PortfolioPeriodChange.gain(trades: trades, current: current, closes: scaled,
-                                                    baseDay: today - days, addresses: addresses, method: method, fx: fx)
-            guard let change, fx != nil, let fxNow else { return change }
-            // Gegenwert zum Faktor der Karte (Devisenkurs × USDT/USD jetzt, `displayRate`)
-            return PortfolioHistoryFx.forCard(change, currentRate: fxNow * usdt.current().rate)
+        var known: (from: LocalDay, rates: [Int: Double]?)?
+        if let s = fxSeries, s.currency == currency { known = (from: s.from, rates: s.rates) }
+        // «Gewinn 7 T» / «1 J»: Käufe und Verkäufe im Zeitraum herausgerechnet (`PortfolioPeriodChange.gain`);
+        // Tageskerzen der eingetragenen Börse, sonst Binance skaliert (PortfolioExchangeRoute.historyCloses).
+        // Auch USD: USDT zum Marktkurs (`convertsUsdt`); Devisenkurs dort an jedem Tag 1; USDT zum Marktkurs: je Tag
+        // × USDT/USD-Tagesschluss, ab heute × Live-Kurs (wie der Wertverlauf)
+        let input = PortfolioPeriodInput(
+            trades: calcPortfolio, current: current, closes: routed(loaded.prices).closes, addresses: addressHistories,
+            method: data.settings.costMethod, today: today,
+            fxNow: PortfolioHistoryFx.convertsUsdt(currency, usdtMarket: true)
+                ? rate(for: currency).flatMap { $0 > 0 && $0.isFinite ? $0 : nil } : nil,
+            viaFx: PortfolioHistoryFx.convertsUsdtAsUsd(currency), fxSeries: known,
+            usdt: UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: loaded.prices.usdtUsd))
+        periodTask = Task { [weak self] in
+            let result = await Task.detached(priority: .userInitiated) { PortfolioPeriodFigures.compute(input) }.value
+            guard let self, !Task.isCancelled, generation == self.periodGeneration else { return }
+            self.weekChange = result.week
+            self.weekChangeUsdt = result.weekUsdt
+            self.yearChange = result.year
         }
-        weekChange = period(PortfolioPeriodChange.days)
-        weekChangeUsdt = PortfolioPeriodChange.gain(trades: trades, current: current, closes: scaled,
-                                                    baseDay: today - PortfolioPeriodChange.days,
-                                                    addresses: addresses, method: method)
-        yearChange = period(PortfolioPeriodChange.yearDays)
     }
 
     /// Reihen für Verlauf, «7 T» und «1 J» zu den aktuellen Kursen (`PortfolioExchangeRoute.historyCloses`):

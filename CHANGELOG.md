@@ -15,6 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 125)
+
+* Portfolio card, value history and «7D»/«1Y» are faster with large portfolios; the average-cost method now takes time in proportion to the number of transactions (the cost history per purchase is only kept where it is needed: tax export and «Since purchase» in another currency).
+* RSI: completely flat prices now give 50 (neutral) instead of 100.
+* Long lists of open purchase lots show the first 50 with «Show all (N)».
+* Widgets read the watchlist once per update instead of once per row (iOS).
+* iOS: «7D»/«1Y» are calculated off the main thread, adding many pairs at once is faster and number formatters are reused.
+
 ## 16.2.2 (build 124)
 
 * Android: the portfolio CSV import no longer freezes the app while the rows are checked before saving.

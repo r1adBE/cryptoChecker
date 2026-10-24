@@ -81,41 +81,39 @@ enum PortfolioFifo {
                 q.pendingLost.removeAll()
                 q.pendingParts.removeAll()
             }
-            var i = q.lots.count
-            while i > 0 && lot.isBefore(q.lots[i - 1]) { i -= 1 }
-            q.lots.insert(lot, at: i)
-            q.held += lot.amount
+            q.insert(lot)
         }
 
         /// Verbraucht `requested` (gekappt auf den Bestand von `q`), älteste Posten zuerst.
         func consume(_ q: Queue, _ requested: Decimal) -> [Slice] {
             var out: [Slice] = []
             var left = min(requested, q.held)
-            while left > 0, let lot = q.lots.first {
+            while left > 0, let lot = q.first {
                 let qty = min(left, lot.amount)
                 // Einstand anteilig samt Herkunft (vor dem Kürzen der Menge)
                 let taken = lot.takeCost(qty)
                 lot.amount -= qty
                 q.held -= qty
-                if lot.amount <= 0 { q.lots.removeFirst() }
+                if lot.amount <= 0 { q.removeFirst() }
                 left -= qty
                 out.append(Slice(txId: lot.txId, acquired: lot.acquired, time: lot.time, kind: lot.kind, amount: qty,
                                  cost: taken?.cost, parts: taken?.parts ?? []))
             }
-            if q.lots.isEmpty { q.held = 0 }
+            if q.isEmpty { q.held = 0 }
             return out
         }
 
         /// Gebühr USDT + Wert der Gebühr im dritten Coin (`extra`) einer Umbuchung zum Zeitpunkt `at` nach Menge auf `lots`
         /// (Summe `h`); der letzte Posten bekommt den Rest, wenn alle einen Kaufpreis haben. Rückgabe = Anteil der Posten
         /// OHNE Kaufpreis (`unassign`); 0 = alles zugeordnet.
-        func spread(_ lots: [Lot], _ extra: Decimal, _ h: Decimal, at: Int64) -> Decimal {
+        func spread(_ lots: ArraySlice<Lot>, _ extra: Decimal, _ h: Decimal, at: Int64) -> Decimal {
             guard extra > 0, h > 0 else { return 0 }
             let allPriced = lots.allSatisfy { $0.cost != nil }
+            let last = lots.count - 1
             var left = extra
             var assigned: Decimal = 0
             for (i, lot) in lots.enumerated() {
-                let part = allPriced && i == lots.count - 1 ? left : PortfolioDecimal.divide(extra * lot.amount, h)
+                let part = allPriced && i == last ? left : PortfolioDecimal.divide(extra * lot.amount, h)
                 left -= part
                 if lot.cost != nil {
                     lot.addCost(at, part)
@@ -332,7 +330,7 @@ enum PortfolioFifo {
                     if feeValue == nil && moved.contains(where: { $0.cost != nil }) { r.feeValueMissing = true }
                     let movedAmount = moved.reduce(Decimal(0)) { $0 + $1.amount }
                     let lost = PortfolioFeeExpenses.transferUncovered(t, covered: movedAmount)
-                    unassign(t, lost + spread(moved, t.quoteFeeExact + (feeValue ?? 0) - lost, movedAmount, at: t.time))
+                    unassign(t, lost + spread(moved[...], t.quoteFeeExact + (feeValue ?? 0) - lost, movedAmount, at: t.time))
                     // Nächster Posten mit Kaufpreis: verschoben, Rest der Quelle, sonst im Ziel; erst ohne jeden
                     // wartet der Einstand (bei den verschobenen Coins im Ziel, sonst in der Quelle)
                     let target = moved.first(where: { $0.cost != nil }) ?? src.lots.first(where: { $0.cost != nil })

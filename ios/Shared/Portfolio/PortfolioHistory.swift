@@ -109,7 +109,12 @@ enum PortfolioHistory {
     /// `holdingsTimeline` exakt: der Verlauf multipliziert damit, ohne Gleitkomma-Rundung der Menge — wie Android.
     static func holdingsTimelineExact(_ coin: String, trades: [PortfolioTx],
                                       method: CostMethod = .defaultMethod) -> [(time: Int64, holdings: Decimal)] {
-        let events = PortfolioLedger.events(coin, trades: trades)
+        holdingsTimelineExact(events: PortfolioLedger.events(coin, trades: trades), method: method)
+    }
+
+    /// `holdingsTimelineExact` aus den schon gesammelten Schritten eines Coins (`PortfolioLedger.eventsByCoin`).
+    static func holdingsTimelineExact(events: [PortfolioLedgerEvent],
+                                      method: CostMethod) -> [(time: Int64, holdings: Decimal)] {
         var book = PortfolioHoldingsBook(method: method)
         var out: [(time: Int64, holdings: Decimal)] = []
         out.reserveCapacity(events.count)

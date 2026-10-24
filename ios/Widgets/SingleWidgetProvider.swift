@@ -108,16 +108,20 @@ struct SingleProvider: AppIntentTimelineProvider {
     }
 
     func timeline(for configuration: SingleWidgetIntent, in context: Context) async -> Timeline<SingleEntry> {
-        let initial = Self.watch(for: configuration)
+        // Merkliste einmal lesen: für das Paar, die Aktualisierung und — ohne Aktualisierung — den Eintrag
+        let snapshot = SharedStorage.loadSnapshot()
+        let initial = Self.watch(for: configuration, in: snapshot.watches)
         // Kurse und Chart gleichzeitig holen (nach einem misslungenen Versuch erst nach
         // `WidgetRefresh.retryAfterMillis` wieder; die Merkliste nur nach gespeicherten Kursen neu zeichnen).
-        async let refreshed: Void = WidgetRefresh.refreshIfStale(ownKind: WidgetData.singleKind,
-                                                                 otherKinds: [WidgetData.watchlistKind])
+        async let refreshed: Bool = WidgetRefresh.refreshIfStale(ownKind: WidgetData.singleKind,
+                                                                 otherKinds: [WidgetData.watchlistKind],
+                                                                 snapshot: snapshot)
         async let chart: Sourced<[MarketCandle]>? = Self.candles(for: initial, range: configuration.range)
-        _ = await refreshed
+        let ran = await refreshed
         let sourced = await chart
         let candles: [MarketCandle]? = sourced?.value
-        let watch = Self.watch(for: configuration)
+        // Nach einer Aktualisierung neu gelesen (frische Kurse), sonst das schon gelesene Paar
+        let watch = ran ? Self.watch(for: configuration) : initial
         // Erst diese Aktualisierung kann «nicht mehr gehandelt» ergeben haben: dann kein Chart
         // Deaktiviert (auch eben erst): kein Chart
         var entry = SingleEntry(date: Date(), watch: watch,
@@ -152,8 +156,14 @@ struct SingleProvider: AppIntentTimelineProvider {
     }
 
     private static func watch(for configuration: SingleWidgetIntent) -> Watch? {
+        guard configuration.watch?.watchId != nil else { return nil }
+        return watch(for: configuration, in: SharedStorage.loadSnapshot().watches)
+    }
+
+    /// Paar des Widgets in der schon gelesenen Merkliste `watches`.
+    private static func watch(for configuration: SingleWidgetIntent, in watches: [Watch]) -> Watch? {
         guard let id = configuration.watch?.watchId else { return nil }
-        return SharedStorage.loadSnapshot().watches.first { $0.id == id }
+        return watches.first { $0.id == id }
     }
 
     /// Börse der Kerzen, falls nicht die des Paars (wie Android `SingleWidgetRenderer`, `DayChange.foreignCandleSource`).
