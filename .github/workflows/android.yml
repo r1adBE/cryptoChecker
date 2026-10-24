@@ -105,6 +105,11 @@ jobs:
       - name: Unit test errors
         if: failure()
         run: |
+          # GitHub shows only about 10 annotations per step: failed tests with their assertion and the test-file line in
+          # ONE annotation (line breaks as %0A)
+          DETAILS=$(grep -E ' FAILED$|^\s+(java|kotlin|org\.junit)\.[A-Za-z.]*(Error|Exception|Failure)|^\s+at [^(]*\([A-Za-z]+Test\.kt:[0-9]+\)' \
+            "$RUNNER_TEMP/gradle-test.log" | head -60 | sed -E 's/^\s+//' | awk '{printf "%s%%0A", $0}' || true)
+          [ -z "$DETAILS" ] || echo "::error title=Failed unit tests (details)::$DETAILS"
           grep -E '^e: |FAILED|Exception|expected:' "$RUNNER_TEMP/gradle-test.log" | head -60 | sed 's/^/::error::/' || true
 
       # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only
