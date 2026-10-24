@@ -145,8 +145,6 @@
     <string name="settings_change_basis_hint_3">Alerts are not affected.</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” compares with the price of the previous update. With live prices it stays close to 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">Show period next to the change</string>
-    <string name="settings_change_period_hint">Small “24h”, “today” or “last update” next to the change in the pulse line and the single-coin widget. The watchlist always shows it; screen readers always say it.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Conversion currency</string>

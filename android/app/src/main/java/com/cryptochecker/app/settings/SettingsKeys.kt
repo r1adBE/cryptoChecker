@@ -74,7 +74,6 @@ internal object SettingsKeys {
     val priceColorScheme = stringPreferencesKey("price_color_scheme")
     val watchlistSparkline = booleanPreferencesKey("watchlist_sparkline")
     val watchlistNames = booleanPreferencesKey(KEY_WATCHLIST_NAMES)
-    val showChangePeriod = booleanPreferencesKey("show_change_period")
     val appIconBadge = booleanPreferencesKey("app_icon_badge")
     val watchlistActivityCard = booleanPreferencesKey("watchlist_activity_card")
     val coinLogos = booleanPreferencesKey("coin_logos")

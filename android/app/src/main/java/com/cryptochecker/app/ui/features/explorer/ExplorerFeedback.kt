@@ -12,7 +12,9 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.ui.components.BulkUndoConfirmDialog
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberBulkUndoConfirm
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberOneShotGate
 import com.cryptochecker.app.ui.components.showAppSnackbar
@@ -22,7 +24,8 @@ import com.cryptochecker.app.ui.theme.SnackbarKind
  * Rückmeldungen als Snackbar statt Text, der das Layout verschiebt: Paar übernommen bzw. schon
  * da, DEX-Pool, mehrere Paare. Mit «Ansehen» zur Merkliste. Neue Paare haben Meldungen an —
  * die Erlaubnis wird jetzt gefragt, nicht beim Start. Übernommen = Erfolg, gesperrt, voll, DEX-Suche oder
- * Sammelaufnahme gescheitert = Fehler, sonst Info ([SnackbarKind]).
+ * Sammelaufnahme gescheitert = Fehler, sonst Info ([SnackbarKind]). «Rückgängig» nach «Mehrere Paare» fragt erst
+ * nach ([BulkUndoConfirmDialog]); nur «Entfernen» ruft [onUndoBulk].
  */
 @Composable
 internal fun ExplorerFeedback(
@@ -33,7 +36,7 @@ internal fun ExplorerFeedback(
     onOpenWatchlist: () -> Unit,
     onAddResultShown: () -> Unit,
     onBulkAddResultShown: () -> Unit,
-    /** «Rückgängig» nach dem Hinzufügen mehrerer Paare (die neu angelegten Ids). */
+    /** «Entfernen» in der Rückfrage nach «Rückgängig» der Sammelaufnahme (die neu angelegten Ids). */
     onUndoBulk: (List<Long>) -> Unit = {},
     /** Ergebnis von «Mehrere Paare» wird ab jetzt gezeigt (gilt im Runner als gemeldet). */
     onBulkAddResultClaimed: () -> Unit = {},
@@ -149,6 +152,9 @@ internal fun ExplorerFeedback(
     }
 
     val bulkFailedText = stringResource(R.string.something_went_wrong)
+    // Rückfrage «%d Paare wieder entfernen?» — steht unabhängig von der (dann schon geschlossenen) Meldung
+    val bulkUndo = rememberBulkUndoConfirm()
+    BulkUndoConfirmDialog(bulkUndo, onRemove = onUndoBulk)
     LaunchedEffect(bulkAddResult) {
         val done = bulkAddResult?.takeIf { !it.running }
         if (!bulkGate.claim(done)) {
@@ -170,7 +176,8 @@ internal fun ExplorerFeedback(
         }
         if (state.added > 0) requestNotifications()
         haptics.play(if (state.added > 0) HapticEvent.SUCCESS else HapticEvent.WARNING)
-        // Neue Paare angelegt: «Rückgängig» (genau diese wieder entfernen), nur kurz nach dem Ende; sonst «Ansehen»
+        // Neue Paare angelegt: «Rückgängig» (nach Rückfrage genau diese wieder entfernen), nur kurz nach dem Ende;
+        // sonst «Ansehen»
         val undoable = state.addedIds.isNotEmpty() &&
             BulkAddRunner.undoOffered(state.finishedAt, System.currentTimeMillis())
         try {
@@ -181,7 +188,7 @@ internal fun ExplorerFeedback(
                 duration = SnackbarDuration.Long
             )
             if (result == SnackbarResult.ActionPerformed) {
-                if (undoable) onUndoBulk(state.addedIds) else onOpenWatchlist()
+                if (undoable) bulkUndo.request(state.addedIds) else onOpenWatchlist()
             }
         } finally {
             onBulkAddResultShown()

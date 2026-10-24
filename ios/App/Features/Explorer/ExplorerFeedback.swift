@@ -105,8 +105,9 @@ struct ExplorerSyncSheet: View {
 
 // MARK: Rückmeldung
 
-/// Meldung am unteren Rand mit optionalem Knopf: «Ansehen» (zur Merkliste) oder «Alarm setzen». Fläche, Rahmen und
-/// Symbol je Art (`ExplorerMessage.kind`, `snackbarSurface`).
+/// Meldung am unteren Rand mit optionalem Knopf: «Ansehen» (zur Merkliste) oder «Alarm setzen»; mit Knopf auch das
+/// Schliessen-✕ (`SnackbarDismissButton`). Fläche, Rahmen und Symbol je Art (`ExplorerMessage.kind`,
+/// `snackbarSurface`).
 struct ExplorerSnackbar: View {
     @Binding var message: ExplorerMessage?
     let onView: () -> Void
@@ -114,7 +115,7 @@ struct ExplorerSnackbar: View {
     var onAlarm: (Int64) -> Void = { _ in }
     /// «Erneut versuchen» sucht den DEX-Begriff noch einmal.
     var onRetryDex: (String) -> Void = { _ in }
-    /// «Rückgängig» entfernt die eben neu angelegten Paare.
+    /// «Rückgängig» nach «Mehrere Paare»: der Aufrufer fragt nach, bevor er die eben neu angelegten Paare entfernt.
     var onUndo: ([Int64]) -> Void = { _ in }
     @Environment(\.appAccent) var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -144,6 +145,9 @@ struct ExplorerSnackbar: View {
                     .foregroundStyle(AppColors.onSurface)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 actionButton(for: note)
+                if Self.hasAction(note) {
+                    SnackbarDismissButton { withAnimation { self.message = nil } }
+                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, Spacing.lg)
@@ -163,6 +167,11 @@ struct ExplorerSnackbar: View {
                 withAnimation { self.message = nil }
             })
         }
+    }
+
+    /// Trägt die Meldung einen Knopf (`actionButton`)? Dann steht daneben das Schliessen-✕.
+    nonisolated static func hasAction(_ note: ExplorerMessage) -> Bool {
+        note.alarmWatchId != nil || note.undoIds != nil || note.retryDexQuery != nil || note.showView
     }
 
     @ViewBuilder

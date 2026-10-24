@@ -254,12 +254,6 @@ class SettingsViewModel @Inject constructor(
     /** «Zahl am App-Symbol» (gilt für neue Mitteilungen). */
     fun setAppIconBadge(show: Boolean) = update { settingsRepository.setAppIconBadge(show) }
 
-    /** Zeitraum neben der %-Änderung («24h», «heute»); Widgets zeichnen gleich neu. */
-    fun setShowChangePeriod(show: Boolean) = update {
-        settingsRepository.setShowChangePeriod(show)
-        widgetUpdater.updateAll()
-    }
-
     /** Umgerechnete Kurse in der Merkliste («≈ 61’234 CHF»). */
     fun setShowConverted(show: Boolean) = update { settingsRepository.setShowConverted(show) }
 

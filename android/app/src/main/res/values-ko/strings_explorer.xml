@@ -121,4 +121,9 @@
         <item quantity="other">새 거래쌍 %1$d개, 이미 관심 목록에 %2$d개</item>
     </plurals>
     <string name="explorer_bulk_all_present">모두 이미 관심 목록에 있습니다</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="other">거래쌍 %1$d개를 다시 삭제할까요?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">그사이 경보를 설정한 거래쌍은 그대로 남아요.</string>
 </resources>

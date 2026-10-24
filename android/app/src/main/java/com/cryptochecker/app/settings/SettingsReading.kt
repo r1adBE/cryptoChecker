@@ -69,7 +69,6 @@ internal fun appSettingsOf(prefs: Preferences): AppSettings {
         priceColorScheme = PriceColorScheme.fromName(prefs[SettingsKeys.priceColorScheme]),
         watchlistSparkline = prefs[SettingsKeys.watchlistSparkline] ?: defaults.watchlistSparkline,
         watchlistNames = prefs[SettingsKeys.watchlistNames] ?: defaults.watchlistNames,
-        showChangePeriod = prefs[SettingsKeys.showChangePeriod] ?: defaults.showChangePeriod,
         appIconBadge = prefs[SettingsKeys.appIconBadge] ?: defaults.appIconBadge,
         watchlistActivityCard = prefs[SettingsKeys.watchlistActivityCard] ?: defaults.watchlistActivityCard,
         coinLogos = prefs[SettingsKeys.coinLogos] ?: defaults.coinLogos,

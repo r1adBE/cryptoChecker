@@ -97,7 +97,6 @@ data class WatchlistDisplay(
      */
     val staleAfterMillis: Long,
     val changeBasis: ChangeBasis,
-    val showChangePeriod: Boolean,
     /** Hauptschalter «Kursmitteilungen»: aus = jede Zeile zeigt die durchgestrichene Glocke. */
     val priceNotificationsOn: Boolean,
     /** Gesten-Hinweis noch zeigen (bis er weggeklickt wird). */
@@ -118,7 +117,6 @@ data class WatchlistDisplay(
             convertTarget = s.portfolioCurrency.takeIf { s.showConverted },
             staleAfterMillis = LiveStatus.pollingStaleAfterMillis(s.backgroundIntervalMinutes),
             changeBasis = s.changeBasis,
-            showChangePeriod = s.showChangePeriod,
             priceNotificationsOn = s.priceNotifications,
             showGestureHint = !s.gestureHintSeen,
             firstAlarmCardDismissed = s.firstAlarmCardDismissed,

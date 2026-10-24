@@ -34,6 +34,21 @@ final class BackupSettingsParityTests: XCTestCase {
         }
     }
 
+    /// Ältere Sicherung mit «showChangePeriod»: still übergangen, der Rest kommt an; geschrieben wird er nicht.
+    func testFormerChangePeriodSwitchIgnored() {
+        let old: [String: Any] = ["showChangePeriod": true, "watchlistSparkline": true]
+        let restored = BackupManager.applySettings(old, onto: AppSettings(), trusted: true)
+        XCTAssertTrue(restored.watchlistSparkline)
+        XCTAssertNil(BackupManager.settingsJson(restored)["showChangePeriod"])
+    }
+
+    /// Gespeicherte Einstellungen mit dem früheren Schlüssel «showChangePeriod» lesen sich weiter.
+    func testStoredSettingsWithFormerChangePeriodKeyDecode() throws {
+        let json = Data(#"{"showChangePeriod": true, "watchlistSparkline": true}"#.utf8)
+        let decoded = try JSONDecoder().decode(AppSettings.self, from: json)
+        XCTAssertTrue(decoded.watchlistSparkline)
+    }
+
     func testUntrustedOnlyTowardsMoreProtection() {
         var current = AppSettings()
         current.hidePortfolioAmounts = true

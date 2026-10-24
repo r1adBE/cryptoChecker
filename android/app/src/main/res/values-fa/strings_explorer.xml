@@ -132,4 +132,10 @@
         <item quantity="other">%1$d جدید، %2$d از قبل در واچ‌لیست</item>
     </plurals>
     <string name="explorer_bulk_all_present">همه از قبل در واچ‌لیست هستند</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d جفت دوباره حذف شود؟</item>
+        <item quantity="other">%1$d جفت دوباره حذف شود؟</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">جفت‌هایی که در این فاصله برایشان هشدار تنظیم کرده‌ای، می‌مانند.</string>
 </resources>

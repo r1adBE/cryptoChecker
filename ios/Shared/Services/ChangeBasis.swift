@@ -127,8 +127,8 @@ struct ChangeStamp: Codable, Equatable, Sendable {
 struct ChangeView: Equatable, Sendable {
     var basis: ChangeBasis = .default
     var current: Bool = true
-    /// Zeitraum («24h», «heute», «letzter Stand») neben der Änderung, Puls, Einzel-Widget und
-    /// Live-Aktivität zeigen? Einstellung ab Werk aus — wie Android.
+    /// Zeitraum («24h», «heute», «letzter Stand») klein an der Änderung zeigen — überall ja; nein nur, wo er
+    /// schon in der Zeile dahinter steht (Kopf des Aktionsblatts) — wie Android.
     var showPeriod: Bool = true
 
     /// Veränderung zum Anzeigen: nil («—»), wenn die Werte nicht mehr zur Basis passen.
@@ -146,15 +146,14 @@ struct ChangeView: Equatable, Sendable {
     }
 
     static func of(stamp: ChangeStamp?, basis: ChangeBasis, now: Int64 = TimeUtils.nowMillis,
-                   timeZone: TimeZone = .current, showPeriod: Bool = true) -> ChangeView {
-        ChangeView(basis: basis, current: ChangeBasisMath.isCurrent(stamp: stamp, basis: basis, now: now, timeZone: timeZone),
-                   showPeriod: showPeriod)
+                   timeZone: TimeZone = .current) -> ChangeView {
+        ChangeView(basis: basis, current: ChangeBasisMath.isCurrent(stamp: stamp, basis: basis, now: now, timeZone: timeZone))
     }
 
     /// Aus den gespeicherten Einstellungen und dem Stempel des letzten Durchlaufs (App und Widgets).
     static func stored(now: Int64 = TimeUtils.nowMillis) -> ChangeView {
         let settings = SharedStorage.loadSettings()
-        return of(stamp: SharedStorage.changeStamp, basis: settings.changeBasis, now: now, showPeriod: settings.showChangePeriod)
+        return of(stamp: SharedStorage.changeStamp, basis: settings.changeBasis, now: now)
     }
 }
 

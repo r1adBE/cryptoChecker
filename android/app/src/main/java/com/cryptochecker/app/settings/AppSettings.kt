@@ -204,12 +204,6 @@ data class AppSettings(
     val watchlistNames: Boolean = true,
 
     /**
-     * Zeitraum der %-Änderung («24h», «heute», «letzter Stand») klein neben der Änderung, Puls und
-     * Einzel-Widget; ab Werk aus. Der Screenreader nennt ihn immer.
-     */
-    val showChangePeriod: Boolean = false,
-
-    /**
      * «Zahl am App-Symbol»: Alarme und Marktmeldungen zählen am App-Symbol (iOS-Kennzeichen;
      * Android gibt je Mitteilung 1 mit, Zahl oder Punkt entscheidet der Startbildschirm). Ab Werk an.
      */

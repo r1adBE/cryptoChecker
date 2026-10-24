@@ -143,4 +143,11 @@
         <item quantity="other">חדשים: %1$d, כבר ברשימת המעקב: %2$d</item>
     </plurals>
     <string name="explorer_bulk_all_present">כולם כבר ברשימת המעקב</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">להסיר שוב %1$d צמד?</item>
+        <item quantity="two">להסיר שוב %1$d צמדים?</item>
+        <item quantity="other">להסיר שוב %1$d צמדים?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">צמדים שהוגדרה להם התראה בינתיים יישארו.</string>
 </resources>

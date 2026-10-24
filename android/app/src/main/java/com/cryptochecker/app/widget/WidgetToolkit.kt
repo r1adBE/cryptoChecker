@@ -39,8 +39,8 @@ class WidgetToolkit @Inject constructor(
      * %-Basis der Widgets und ob die gespeicherten Veränderungen noch dazu passen (Stempel des
      * letzten Durchlaufs); sonst «—» bis zur nächsten Aktualisierung.
      */
-    fun changeView(basis: ChangeBasis, now: Long = System.currentTimeMillis(), showPeriod: Boolean = true): ChangeView =
-        ChangeView.of(refreshStats.changeStamp.value, basis, now, showPeriod = showPeriod)
+    fun changeView(basis: ChangeBasis, now: Long = System.currentTimeMillis()): ChangeView =
+        ChangeView.of(refreshStats.changeStamp.value, basis, now)
 
     /**
      * Hintergrund eines Widgets: Die Fläche mit runden Ecken (drawable/widget_background) liegt

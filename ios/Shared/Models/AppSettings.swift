@@ -103,9 +103,6 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Für neue Installationen an;
     /// gespeicherte Einstellungen ohne den Wert: bisher aus (`legacyWatchlistNames`).
     var watchlistNames: Bool = true
-    /// Zeitraum der %-Änderung («24h», «heute», «letzter Stand») klein neben der Änderung, Puls,
-    /// Einzel-Widget und Live-Aktivität; ab Werk aus. VoiceOver nennt ihn immer.
-    var showChangePeriod: Bool = false
     /// «Zahl am App-Symbol»: neue Alarme und Marktmeldungen zählen am Kennzeichen, beim Öffnen
     /// der App wieder 0 (`Notifier.badge`); ab Werk an — wie `appIconBadge` (Android).
     var appIconBadge: Bool = true
@@ -278,7 +275,6 @@ struct AppSettings: Codable, Equatable, Sendable {
         watchlistNames = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistNames))
             ?? AppSettings.defaultForMigration(existingInstall: true, legacy: AppSettings.legacyWatchlistNames,
                                                current: d.watchlistNames)
-        showChangePeriod = (try? c.decodeIfPresent(Bool.self, forKey: .showChangePeriod)) ?? d.showChangePeriod
         appIconBadge = (try? c.decodeIfPresent(Bool.self, forKey: .appIconBadge)) ?? d.appIconBadge
         watchlistActivityCard = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistActivityCard)) ?? d.watchlistActivityCard
         coinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .coinLogos)) ?? d.coinLogos

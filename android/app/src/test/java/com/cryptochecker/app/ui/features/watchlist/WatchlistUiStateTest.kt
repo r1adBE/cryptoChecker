@@ -36,7 +36,6 @@ class WatchlistUiStateTest {
             portfolioCurrency = "CHF",
             backgroundIntervalMinutes = 30,
             changeBasis = ChangeBasis.DEFAULT,
-            showChangePeriod = true,
             priceNotifications = false,
             gestureHintSeen = false,
             firstAlarmCardDismissed = false,
@@ -49,7 +48,6 @@ class WatchlistUiStateTest {
         assertEquals(ColumnSort(SortKey.PRICE, descending = true), d.columnSort)
         assertEquals("CHF", d.convertTarget)
         assertEquals(LiveStatus.pollingStaleAfterMillis(30), d.staleAfterMillis)
-        assertTrue(d.showChangePeriod)
         assertFalse(d.priceNotificationsOn)
         assertTrue(d.showGestureHint)
         assertFalse(d.firstAlarmCardDismissed)

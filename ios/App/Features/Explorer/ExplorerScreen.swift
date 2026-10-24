@@ -26,6 +26,8 @@ struct ExplorerScreen: View {
     /// Aktiver Schnellfilter von «Alle …-Paare»; nil heisst normale Reihenfolge.
     @State var bulkFilter: ExplorerQuickFilter?
     @State var confirmBulk = false
+    /// Rückfrage «%d Paare wieder entfernen?» nach «Rückgängig» der Sammelaufnahme.
+    @State var bulkUndo = BulkUndoConfirm()
     @State var dexQuery = ""
     @FocusState var searchFocused: Bool
     @FocusState var dexFocused: Bool
@@ -71,6 +73,19 @@ struct ExplorerScreen: View {
                 Button(L("explorer_add_to_watchlist")) { vm.addBulkPairs() }
             } message: {
                 Text(bulkConfirmText)
+            }
+            // «Rückgängig» der Sammelaufnahme: erst «Entfernen» löscht (Paare mit inzwischen gesetztem Alarm bleiben)
+            .alert(bulkUndoTitle, isPresented: bulkUndoShown, presenting: bulkUndo.pending) { ids in
+                Button(L("action_keep"), role: .cancel) { bulkUndo.keep() }
+                    .accessibilityIdentifier(UiTestTags.bulkUndoKeep)
+                Button(L("watchlist_remove_not_traded_action"), role: .destructive) {
+                    // Erfolgs-Haptik erst beim Entfernen, nicht beim Öffnen des Dialogs — wie Android
+                    Haptics.play(.success)
+                    bulkUndo.remove(ids) { vm.undoBulkAdd($0) }
+                }
+                .accessibilityIdentifier(UiTestTags.bulkUndoRemove)
+            } message: { _ in
+                Text(L("bulk_undo_confirm_text"))
             }
     }
 
@@ -245,8 +260,19 @@ struct ExplorerScreen: View {
                 router.openAlarmsWatchId = watchId
             },
             onRetryDex: { vm.searchDex($0) },
-            onUndo: { vm.undoBulkAdd($0) }
+            onUndo: { bulkUndo.request($0) }
         )
+    }
+
+    /// «746 Paare wieder entfernen?» (Zahl der neu angelegten Paare).
+    private var bulkUndoTitle: String {
+        let n = bulkUndo.pending?.count ?? 0
+        return L("bulk_undo_confirm_title", count: n, n)
+    }
+
+    /// Dialog offen, solange Paare gemerkt sind; Schliessen ohne Knopf gilt als «Behalten».
+    private var bulkUndoShown: Binding<Bool> {
+        Binding(get: { bulkUndo.isPresented }, set: { if !$0 { bulkUndo.keep() } })
     }
 
     private var syncSheet: some View {

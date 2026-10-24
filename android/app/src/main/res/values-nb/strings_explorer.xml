@@ -132,4 +132,10 @@
         <item quantity="other">%1$d nye, %2$d allerede i overvåkingslisten</item>
     </plurals>
     <string name="explorer_bulk_all_present">Alle er allerede i overvåkingslisten</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Fjerne %1$d par igjen?</item>
+        <item quantity="other">Fjerne %1$d par igjen?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Par du har satt alarm for i mellomtiden, blir værende.</string>
 </resources>

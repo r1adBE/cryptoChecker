@@ -117,3 +117,29 @@ enum ExplorerBulkCount {
         }.count
     }
 }
+
+/// Rückfrage vor «Rückgängig» nach «Mehrere Paare auf einmal»: Antippen von «Rückgängig» merkt nur die neu angelegten
+/// Paare (`request`); erst «Entfernen» (`remove`) gibt sie an den Undo-Weg (`ExplorerViewModel.undoBulkAdd`) weiter,
+/// «Behalten» (`keep`) — ebenso Wischen bzw. Tippen neben den Dialog — verwirft sie. Wie Android `BulkUndoConfirm`.
+struct BulkUndoConfirm: Equatable {
+    /// Paare, für die der Dialog gerade fragt; nil = kein Dialog.
+    private(set) var pending: [Int64]?
+
+    var isPresented: Bool { pending != nil }
+
+    /// «Rückgängig» getippt: Dialog für `ids` öffnen (ohne Paare keiner).
+    mutating func request(_ ids: [Int64]) {
+        if !ids.isEmpty { pending = ids }
+    }
+
+    /// «Behalten»: nichts entfernen.
+    mutating func keep() { pending = nil }
+
+    /// «Entfernen»: Dialog zu, dann `undo` mit den Paaren des Dialogs (`presented`, sonst den gemerkten) — genau
+    /// einmal.
+    mutating func remove(_ presented: [Int64]? = nil, undo: ([Int64]) -> Void) {
+        guard let ids = presented ?? pending, !ids.isEmpty else { return }
+        pending = nil
+        undo(ids)
+    }
+}

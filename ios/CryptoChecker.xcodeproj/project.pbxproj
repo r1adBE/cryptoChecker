@@ -450,6 +450,7 @@
 		43E9B19220B5092A8524670A /* TaxChWealthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B33EFFCAAF1730F5E1A4355 /* TaxChWealthTests.swift */; };
 		442FE7E191E7B23F29EE250D /* Aster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33678B063707457A2BCB0726 /* Aster.swift */; };
 		44319F7CDF01CA7CB4F92690 /* MirrorManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB7361B9F27356BF1E4E415 /* MirrorManifest.swift */; };
+		443A98177BA58051CE3CC038 /* BulkUndoConfirmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE105E95A6E4627F108B8016 /* BulkUndoConfirmTests.swift */; };
 		447578CCC3C6202F3D0E35B1 /* AlarmDeliveryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43005CF5BEED60E13201F6 /* AlarmDeliveryScreen.swift */; };
 		448FF25B6F4EB28BC34A9EFB /* SettingsAdvancedPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB5DAEEF70C70212D3A69F /* SettingsAdvancedPages.swift */; };
 		44963C10974C2393DA47A6AC /* PortfolioTx+Derived.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0106EF50025F53E22C6742 /* PortfolioTx+Derived.swift */; };
@@ -2614,6 +2615,7 @@
 		BD3EC2ADF3669F5CDB553DFE /* TabTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTitle.swift; sourceTree = "<group>"; };
 		BD9C18FEC37366E6C8C591C1 /* WatchlistRow+Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistRow+Texts.swift"; sourceTree = "<group>"; };
 		BDFA0C17F428DF4D9214EB4D /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		BE105E95A6E4627F108B8016 /* BulkUndoConfirmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkUndoConfirmTests.swift; sourceTree = "<group>"; };
 		BEB41B501E1C9047A8197C10 /* PortfolioHistoryLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioHistoryLoad.swift; sourceTree = "<group>"; };
 		BEE7F1B3D6EB5DBC3F117B4F /* WidgetQuoteText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetQuoteText.swift; sourceTree = "<group>"; };
 		BF13F979076D30FA7055CA1A /* DateFormatterCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterCacheTests.swift; sourceTree = "<group>"; };
@@ -4081,6 +4083,7 @@
 				06C234EC578262F577EEAFE3 /* BridgedStablesTests.swift */,
 				0389592E936C4BFF8A374D6C /* BtcCorrelationTests.swift */,
 				327E60BBE4C5A5B06F9F04E4 /* BulkDelistedTests.swift */,
+				BE105E95A6E4627F108B8016 /* BulkUndoConfirmTests.swift */,
 				FD180D6089E8426E17B69CC0 /* CandleSeriesTests.swift */,
 				872217DE4EB8220A5017D247 /* ChainTests.swift */,
 				44A6E921458F8F3F91D7BA56 /* ChangeBasisTests.swift */,
@@ -5395,6 +5398,7 @@
 				2197B9D12BFA4EA96BD78ADF /* BridgedStablesTests.swift in Sources */,
 				252833F0391CEE08DE27827E /* BtcCorrelationTests.swift in Sources */,
 				B251C7BD5A57CEF2E7BB712C /* BulkDelistedTests.swift in Sources */,
+				443A98177BA58051CE3CC038 /* BulkUndoConfirmTests.swift in Sources */,
 				0F280E072702AB17071D15E1 /* CandleSeriesTests.swift in Sources */,
 				C27EE55F6D74BDE5142B4F20 /* ChainTests.swift in Sources */,
 				DC60189085F7CEAB16DD4321 /* ChangeBasisTests.swift in Sources */,

@@ -132,4 +132,10 @@
         <item quantity="other">%1$d नए, %2$d पहले से वॉचलिस्ट में</item>
     </plurals>
     <string name="explorer_bulk_all_present">सभी पहले से वॉचलिस्ट में हैं</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d पेयर फिर से हटाओ?</item>
+        <item quantity="other">%1$d पेयर फिर से हटाओ?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">जिन पेयर पर तुमने इस बीच अलार्म सेट किया है, वे बने रहेंगे।</string>
 </resources>

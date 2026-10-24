@@ -143,4 +143,11 @@
         <item quantity="other">%1$d nuove, %2$d già nella lista di osservazione</item>
     </plurals>
     <string name="explorer_bulk_all_present">Tutte già nella lista di osservazione</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Rimuovere di nuovo %1$d coppia?</item>
+        <item quantity="many">Rimuovere di nuovo %1$d coppie?</item>
+        <item quantity="other">Rimuovere di nuovo %1$d coppie?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Le coppie per cui nel frattempo hai impostato un allarme restano.</string>
 </resources>

@@ -46,6 +46,28 @@ struct SnackbarKindIcon: View {
     }
 }
 
+/// Schliessen-✕ einer Meldung mit Aktion (das «OK»), damit niemand aus Reflex die Aktion (etwa «Rückgängig») antippt,
+/// nur um die Meldung loszuwerden — wie Android `AppSnackbarVisuals.withDismissAction`. Tippfläche 44 × 44 pt; die
+/// negativen Abstände lassen die Meldung dadurch nicht höher werden. VoiceOver «Schliessen».
+struct SnackbarDismissButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "xmark")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.borderless)
+        .padding(.vertical, -Spacing.md)
+        .padding(.trailing, -Spacing.sm)
+        .accessibilityLabel(L("action_close"))
+        .accessibilityIdentifier(UiTestTags.snackbarDismiss)
+    }
+}
+
 extension View {
     /// Fläche einer Meldung der Art `kind` (Karte mit `Radius.card`).
     func snackbarSurface(_ kind: SnackbarKind) -> some View {

@@ -145,17 +145,6 @@ internal fun ChangeBasisPage(onBack: () -> Unit, viewModel: SettingsViewModel = 
             NumberedHint(4, stringResource(R.string.settings_change_basis_hint_3))
         }
         GroupCard {
-            SettingsAnchor("change.period") {
-                SwitchRow(
-                    title = stringResource(R.string.settings_change_period),
-                    subtitle = stringResource(R.string.settings_change_period_hint),
-                    checked = settings.showChangePeriod,
-                    onCheckedChange = viewModel::setShowChangePeriod
-                )
-            }
-        }
-        Spacer(Modifier.height(12.dp))
-        GroupCard {
             Column(Modifier.selectableGroup()) {
                 ChangeBasis.entries.forEach { basis ->
                     RadioRow(

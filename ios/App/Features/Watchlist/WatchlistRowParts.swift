@@ -187,9 +187,6 @@ extension WatchlistRow {
                     WatchlistDayChangePill(watch: watch, marker: changeMarker != nil,
                                            markerLabel: changeMarker.map(DayChange.rowMarkerLabel),
                                            markerHint: changeSourceHint, showMarkerHint: $showSourceHint)
-                        // Zeitraum («24h», «letzter Stand», «heute») in der Zeile immer klein an der Änderung, damit die
-                        // Basis der Prozentzahl nie verborgen ist; der Schalter gilt weiter für Puls und Einzel-Widget
-                        .environment(\.changeView, rowChangeView)
                         .frame(minHeight: namesEnabled ? line2 : nil, alignment: .trailing)
                 }
                 if let converted {
@@ -247,13 +244,6 @@ extension WatchlistRow {
         .lineLimit(1)
         .minimumScaleFactor(0.75)
         .environment(\.layoutDirection, .leftToRight)
-    }
-
-    /// %-Basis der Zeile: Zeitraum immer sichtbar (wie Android `RowPrice`).
-    private var rowChangeView: ChangeView {
-        var view = changeView
-        view.showPeriod = true
-        return view
     }
 
     /// Kurz aufblitzende Fläche hinter dem Kurs: Steigend- bzw. Fallend-Farbe.

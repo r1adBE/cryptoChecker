@@ -102,13 +102,11 @@ struct WatchlistPulseLine: View {
         let average = PriceFormat.changePercent(stats.average) ?? PriceFormat.zeroPercent()
         HStack(alignment: .firstTextBaseline, spacing: 4) {
             pill(icon: nil, text: L("watchlist_pulse_avg", average), value: stats.average, tone: .average)
-            if changeView.showPeriod {
-                Text(A11y.changeShortLabel(changeView.basis))
-                    .font(.caption)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .lineLimit(1)
-                    .fixedSize()
-            }
+            Text(A11y.changeShortLabel(changeView.basis))
+                .font(.caption)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .lineLimit(1)
+                .fixedSize()
         }
         // Klein und grau: «· 510 ohne 24h-Wert»
         if stats.missing > 0 {

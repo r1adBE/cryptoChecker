@@ -45,6 +45,9 @@ struct WatchlistBannerMessage: Identifiable, Equatable {
         return long ? 5_000_000_000 : 3_000_000_000
     }
 
+    /// Mit «Rückgängig» oder anderer Aktion steht daneben das Schliessen-✕ (`SnackbarDismissButton`).
+    var hasAction: Bool { undo != nil || action != nil }
+
     static func == (a: Self, b: Self) -> Bool { a.id == b.id }
 }
 
@@ -60,8 +63,8 @@ struct WatchlistBannerAction {
     }
 }
 
-/// Wie `ExplorerSnackbar`, dazu optional «Rückgängig». Fläche und Rahmen je Art: `snackbarSurface`. Nach unten wischen
-/// schliesst; Weniger Bewegung: nur einblenden.
+/// Wie `ExplorerSnackbar`, dazu optional «Rückgängig»; mit Aktion auch das Schliessen-✕. Fläche und Rahmen je Art:
+/// `snackbarSurface`. Nach unten wischen schliesst; Weniger Bewegung: nur einblenden.
 struct WatchlistBanner: View {
     @Binding var message: WatchlistBannerMessage?
     let onUndo: (DeletedWatch) -> Void
@@ -106,6 +109,11 @@ struct WatchlistBanner: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.borderless)
+                }
+                if message.hasAction {
+                    SnackbarDismissButton {
+                        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { self.message = nil }
+                    }
                 }
             }
             .padding(.horizontal, 16)

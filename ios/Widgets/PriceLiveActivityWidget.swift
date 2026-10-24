@@ -167,10 +167,8 @@ private struct PriceActivityChange: View {
 
     var body: some View {
         let basis = state.basis ?? .default
-        // Zeitraum nur, wenn eingeschaltet (Einstellungen › %-Änderung)
         WidgetChangeLabel(change: state.change24h, palette: palette, size: size, showsArrow: true, day: true,
-                          suffix: SharedStorage.loadSettings().showChangePeriod ? A11y.changeShortLabel(basis) : nil,
-                          basis: basis)
+                          suffix: A11y.changeShortLabel(basis), basis: basis)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(A11y.change(state.change24h, basis: basis))
     }

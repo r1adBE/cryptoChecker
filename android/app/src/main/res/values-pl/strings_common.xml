@@ -5,6 +5,7 @@
     <string name="action_cancel">Anuluj</string>
     <string name="action_clear">Wyczyść</string>
     <string name="action_close">Zamknij</string>
+    <string name="action_keep">Zachowaj</string>
     <string name="action_delete">Usuń</string>
     <string name="action_edit">Edytuj</string>
     <string name="action_more">Więcej opcji</string>

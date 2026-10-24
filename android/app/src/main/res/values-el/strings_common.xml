@@ -5,6 +5,7 @@
     <string name="action_cancel">Ακύρωση</string>
     <string name="action_clear">Καθαρισμός</string>
     <string name="action_close">Κλείσιμο</string>
+    <string name="action_keep">Διατήρηση</string>
     <string name="action_delete">Διαγραφή</string>
     <string name="action_edit">Επεξεργασία</string>
     <string name="action_more">Περισσότερες επιλογές</string>

@@ -24,7 +24,6 @@ class SettingsSlicesTest {
             firstAlarmCardDismissed = true,
             usageDays = 2,
             backgroundIntervalMinutes = 30,
-            showChangePeriod = true,
             priceNotifications = false,
         )
         val w = WatchlistSettings.of(s)
@@ -42,7 +41,6 @@ class SettingsSlicesTest {
         assertEquals(2, w.usageDays)
         assertEquals(30, w.backgroundIntervalMinutes)
         assertEquals(s.changeBasis, w.changeBasis)
-        assertEquals(true, w.showChangePeriod)
         assertEquals(false, w.priceNotifications)
     }
 

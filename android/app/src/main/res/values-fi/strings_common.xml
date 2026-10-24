@@ -5,6 +5,7 @@
     <string name="action_cancel">Peruuta</string>
     <string name="action_clear">Tyhjennä</string>
     <string name="action_close">Sulje</string>
+    <string name="action_keep">Säilytä</string>
     <string name="action_delete">Poista</string>
     <string name="action_edit">Muokkaa</string>
     <string name="action_more">Lisää vaihtoehtoja</string>

@@ -143,4 +143,11 @@
         <item quantity="other">%1$d noi, %2$d deja în lista de urmărire</item>
     </plurals>
     <string name="explorer_bulk_all_present">Toate sunt deja în lista de urmărire</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Elimini din nou %1$d pereche?</item>
+        <item quantity="few">Elimini din nou %1$d perechi?</item>
+        <item quantity="other">Elimini din nou %1$d de perechi?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Perechile pentru care ai setat între timp o alarmă rămân.</string>
 </resources>

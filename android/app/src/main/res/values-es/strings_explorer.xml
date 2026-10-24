@@ -143,4 +143,11 @@
         <item quantity="other">%1$d nuevos, %2$d ya en la lista de seguimiento</item>
     </plurals>
     <string name="explorer_bulk_all_present">Todos ya están en la lista de seguimiento</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">¿Quitar de nuevo %1$d par?</item>
+        <item quantity="many">¿Quitar de nuevo %1$d pares?</item>
+        <item quantity="other">¿Quitar de nuevo %1$d pares?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Los pares para los que hayas creado una alarma mientras tanto se quedan.</string>
 </resources>

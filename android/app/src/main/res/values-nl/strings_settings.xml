@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">Alarmen worden niet beïnvloed.</string>
     <string name="settings_change_basis_hint_since_last">‘%1$s’ vergelijkt met de koers van de vorige update. Bij live koersen blijft de waarde dicht bij 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">Periode naast de verandering tonen</string>
-    <string name="settings_change_period_hint">Klein ‘24h’, ‘vandaag’ of ‘laatste update’ naast de verandering in de pulsregel en de widget met één munt. De volglijst toont hem altijd; de schermlezer noemt hem altijd.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Omrekenvaluta</string>

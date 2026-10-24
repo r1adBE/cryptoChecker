@@ -59,7 +59,6 @@ internal class BackupSettingsCodec(
             .put("priceColorScheme", s.priceColorScheme.name)
             .put("watchlistSparkline", s.watchlistSparkline)
             .put("watchlistNames", s.watchlistNames)
-            .put("showChangePeriod", s.showChangePeriod)
             .put("appIconBadge", s.appIconBadge)
             .put("watchlistActivityCard", s.watchlistActivityCard)
             .put("coinLogos", s.coinLogos)
@@ -155,7 +154,8 @@ internal class BackupSettingsCodec(
         o.bool("watchlistSparkline")?.let { setWatchlistSparkline(it) }
         // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus), wie iOS
         setWatchlistNames(o.bool("watchlistNames") ?: com.cryptochecker.app.settings.AppSettings.LEGACY_WATCHLIST_NAMES)
-        o.bool("showChangePeriod")?.let { setShowChangePeriod(it) }
+        // «showChangePeriod» (früherer Schalter «Zeitraum neben der Änderung») in älteren Sicherungen wird
+        // übergangen — der Zeitraum steht immer da
         o.bool("appIconBadge")?.let { setAppIconBadge(it) }
         o.bool("watchlistActivityCard")?.let { setWatchlistActivityCard(it) }
         o.bool("coinLogos")?.let { setCoinLogos(it) }
