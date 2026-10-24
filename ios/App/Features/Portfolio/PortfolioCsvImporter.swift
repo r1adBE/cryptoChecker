@@ -171,8 +171,16 @@ enum PortfolioCsvImporter {
     /// Abgleich, Umrechnung und Zuordnung (`withdrawalsAsTransfer`: Auszahlung → Umbuchung); `onRow` nach jedem Block
     /// (fertig, gesamt) für den Fortschritt und die Abbruchprüfung (darf werfen).
     static func mapPreview(_ result: CsvImportResult, existingKeys: Set<String>, rates: [String: [(day: Int, rate: Double)]],
+                           withdrawalsAsTransfer: Bool, usdtUsd: [Int: Decimal] = [:]) -> CsvImportPreview {
+        // Ohne Fortschritt: eigene Fassung (ein Vorgabewert für `onRow` gälte bei `rethrows` als werfend)
+        mapPreview(result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: withdrawalsAsTransfer,
+                   usdtUsd: usdtUsd, onRow: { _, _ in })
+    }
+
+    /// Wie oben, mit `onRow` nach jedem Block (darf werfen, z. B. `Task.checkCancellation()`).
+    static func mapPreview(_ result: CsvImportResult, existingKeys: Set<String>, rates: [String: [(day: Int, rate: Double)]],
                            withdrawalsAsTransfer: Bool, usdtUsd: [Int: Decimal] = [:],
-                           onRow: (_ done: Int, _ total: Int) throws -> Void = { _, _ in }) rethrows -> CsvImportPreview {
+                           onRow: (_ done: Int, _ total: Int) throws -> Void) rethrows -> CsvImportPreview {
         try CsvImportMapping.preview(result, existingKeys: existingKeys, withdrawalsAsTransfer: withdrawalsAsTransfer,
                                  usdtUsd: usdtUsd, onRow: onRow) { currency, day in
             guard let list = rates[currency], let r = PortfolioHistoryFx.rateOn(list, day: Int(day)) else { return nil }
