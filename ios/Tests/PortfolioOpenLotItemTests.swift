@@ -6,12 +6,19 @@ import XCTest
 final class PortfolioOpenLotItemTests: XCTestCase {
 
     private func lots(_ count: Int) -> [PortfolioOpenLot] {
-        (0..<count).map { i in
-            // Gleiche Angaben mehrfach (fortlaufend gezählte Ids), teils ohne Kaufpreis, zwei Wallets
-            PortfolioOpenLot(coin: "BTC", txId: Int64(i % 7), acquiredTime: Int64(i) * 1_000, kind: .BUY,
-                             amount: Decimal(i + 1), costUsdt: i % 5 == 0 ? nil : Decimal(i * 10),
-                             wallet: i % 2 == 0 ? "Kraken" : nil, aggregated: false)
+        // Gleiche Angaben mehrfach (fortlaufend gezählte Ids), teils ohne Kaufpreis, zwei Wallets. Werte einzeln
+        // ausgerechnet: als ein Ausdruck braucht die Typprüfung zu lange
+        var out: [PortfolioOpenLot] = []
+        for i in 0..<count {
+            let txId = Int64(i % 7)
+            let time = Int64(i) * 1_000
+            let amount = Decimal(i + 1)
+            let cost: Decimal? = i % 5 == 0 ? nil : Decimal(i * 10)
+            let wallet: String? = i % 2 == 0 ? "Kraken" : nil
+            out.append(PortfolioOpenLot(coin: "BTC", txId: txId, acquiredTime: time, kind: .BUY, amount: amount,
+                                        costUsdt: cost, wallet: wallet, aggregated: false))
         }
+        return out
     }
 
     func testShownRowsSameAsFromAllLots() {
