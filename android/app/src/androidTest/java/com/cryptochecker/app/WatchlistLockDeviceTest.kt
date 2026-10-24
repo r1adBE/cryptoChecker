@@ -14,6 +14,7 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.WatchSnapshot
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.addWatches
+import com.cryptochecker.app.data.deleteWatchesWithoutAlarms
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
@@ -63,6 +64,7 @@ class WatchlistLockDeviceTest {
     private lateinit var db: AppDatabase
     private lateinit var repo: WatchRepository
     private var watchId = 0L
+    private var plainWatchId = 0L
     private var alarmId = 0L
     private var percentAlarmId = 0L
 
@@ -86,7 +88,8 @@ class WatchlistLockDeviceTest {
         )
         runBlocking {
             watchId = checkNotNull(repo.addWatch(BINANCE, MarketPair("BTC", "USDT", "BTCUSDT"), group = "Layer 1"))
-            checkNotNull(repo.addWatch(BINANCE, MarketPair("ETH", "USDT", "ETHUSDT")))
+            // Ohne Alarm: deleteWatchesWithoutAlarms hat ungesperrt etwas zu löschen
+            plainWatchId = checkNotNull(repo.addWatch(BINANCE, MarketPair("ETH", "USDT", "ETHUSDT")))
             repo.setNote(watchId, "Ø 77 500")
             alarmId = checkNotNull(
                 repo.saveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_ABOVE, threshold = 100_000.0)),
@@ -131,6 +134,11 @@ class WatchlistLockDeviceTest {
             "setMissingPercentReferences" to write { repo.setMissingPercentReferences(watchId, 99_000.0) },
             "deleteWatch" to write { locked -> assertEquals(!locked, repo.deleteWatch(watchId)) },
             "deleteWatches" to write { locked -> assertEquals(!locked, repo.deleteWatches(listOf(watchId))) },
+            // Undo der Sammelaufnahme: nur das Paar ohne Alarm geht, das mit Alarm bleibt
+            "deleteWatchesWithoutAlarms" to write { locked ->
+                assertEquals(!locked, repo.deleteWatchesWithoutAlarms(listOf(watchId, plainWatchId)))
+                if (!locked) assertEquals(listOf(watchId), repo.getWatches().map { it.id })
+            },
             "deleteAllWatches" to write { locked -> assertEquals(!locked, repo.deleteAllWatches()) },
             "setNotificationEnabled" to write { locked -> assertEquals(!locked, repo.setNotificationEnabled(watchId, false)) },
             "setFavorite" to write { repo.setFavorite(watchId, true) },

@@ -43,10 +43,15 @@ final class RefreshEffectsWiringTests: XCTestCase {
     }
 
     /// Gespeicherter Stand (statt Datei).
-    private final class FakeStore: @unchecked Sendable { // @unchecked: Test-Fake, nur nacheinander aus dem Testablauf benutzt
-        var snapshot = SharedStorage.Snapshot()
+    private final class FakeStore: @unchecked Sendable { // @unchecked: `stored` nur unter `lock` (NSLock)
+        private let lock = NSLock()
+        private var stored = SharedStorage.Snapshot()
+        var snapshot: SharedStorage.Snapshot {
+            get { lock.withLock { stored } }
+            set { lock.withLock { stored = newValue } }
+        }
         func save(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) -> Bool {
-            update.apply(toAlarm: id, in: &snapshot)
+            lock.withLock { update.apply(toAlarm: id, in: &stored) }
         }
     }
 

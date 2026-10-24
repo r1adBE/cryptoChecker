@@ -214,9 +214,16 @@ final class AlarmLogTests: XCTestCase {
         func last(_ id: Int64) -> AlarmLogEntry? { entries.last { $0.alarmId == id } }
     }
 
-    private final class FakeStore: @unchecked Sendable { // @unchecked: Test-Fake, nur nacheinander benutzt
-        var snapshot = SharedStorage.Snapshot()
-        func save(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) -> Bool { update.apply(toAlarm: id, in: &snapshot) }
+    private final class FakeStore: @unchecked Sendable { // @unchecked: `stored` nur unter `lock` (NSLock)
+        private let lock = NSLock()
+        private var stored = SharedStorage.Snapshot()
+        var snapshot: SharedStorage.Snapshot {
+            get { lock.withLock { stored } }
+            set { lock.withLock { stored = newValue } }
+        }
+        func save(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) -> Bool {
+            lock.withLock { update.apply(toAlarm: id, in: &stored) }
+        }
     }
 
     private var defaults: UserDefaults!

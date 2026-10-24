@@ -56,9 +56,20 @@ internal val SearchRowHeight = 34.dp
  * Trifft die Suche dieses Paar? Gross-/Kleinschreibung und Akzente egal; mehrere Wörter
  * müssen alle passen (z. B. «btc kraken», «bitcoin usdt»). Geprüft werden Basis, Quote,
  * «BASIS/QUOTE», Vertragskürzel, Börse, Notiz und der Name des Coins ([name], z. B. «Bitcoin»).
+ * Für ganze Listen je Tastendruck [WatchSearchIndex] (Felder nur einmal gefaltet).
  */
-internal fun WatchEntity.matchesSearch(query: String, name: String? = null): Boolean {
-    val fields = listOfNotNull(
+internal fun WatchEntity.matchesSearch(query: String, name: String? = null): Boolean =
+    searchKey(name).matches(searchTokens(query))
+
+/** Gefaltete Suchfelder eines Paars ([NameMatch.fold]), siehe [matchesSearch]. */
+internal class WatchSearchKey(val fields: List<String>) {
+    /** Jedes Wort der Anfrage ([searchTokens]) steht in mindestens einem Feld; keine Wörter: true. */
+    fun matches(tokens: List<String>): Boolean = tokens.all { token -> fields.any { it.contains(token) } }
+}
+
+/** Suchschlüssel: die Felder von [matchesSearch], gefaltet; [name] = Coin-Name ([searchName]). */
+internal fun WatchEntity.searchKey(name: String?): WatchSearchKey = WatchSearchKey(
+    listOfNotNull(
         baseAsset,
         quoteAsset,
         displayPair,
@@ -67,9 +78,109 @@ internal fun WatchEntity.matchesSearch(query: String, name: String? = null): Boo
         marketName,
         note,
         name,
-    ).map { NameMatch.fold(it) }
-    return NameMatch.fold(query).split(' ').filter { it.isNotBlank() }.all { token ->
-        fields.any { it.contains(token) }
+    ).map { NameMatch.fold(it) },
+)
+
+/** Wörter der Anfrage, gefaltet; getrennt am Leerzeichen, leere fallen weg. */
+internal fun searchTokens(query: String): List<String> = NameMatch.fold(query).split(' ').filter { it.isNotBlank() }
+
+/**
+ * Suchschlüssel der Merkliste je [WatchEntity.id], zwischengespeichert: Neu gefaltet wird nur ein Paar, dessen
+ * durchsuchte Felder (Basis, Quote, Vertrag, Börse, Notiz) oder Coin-Name sich geändert haben — Kurse und andere
+ * Felder zählen nicht. Paare, die nicht mehr in der Liste stehen, fallen weg; je Tastendruck wird nur die Anfrage
+ * gefaltet. Ergebnis wie `filter { it.matchesSearch(query, names[it.id]) }`. Nicht threadsicher (nur aus der
+ * Komposition benutzt, [rememberWatchSearchResult]); iOS: `WatchlistSearchIndex`.
+ */
+internal class WatchSearchIndex {
+    /** Was in den Schlüssel eingeht; gleich = der Schlüssel gilt weiter. */
+    private data class Source(
+        val base: String,
+        val quote: String,
+        val contract: FuturesContractType,
+        val market: String,
+        val note: String?,
+        val name: String?,
+    )
+
+    private class Entry(val source: Source, val key: WatchSearchKey)
+
+    private var entries = HashMap<Long, Entry>()
+    private var lastWatches: List<WatchEntity>? = null
+    private var lastNames: Map<Long, String>? = null
+
+    /** Zwei Paare mit gleicher Kennung, aber verschiedenen Feldern: dann ohne Zwischenspeicher prüfen. */
+    private var ambiguous = false
+
+    /** Gespeicherte Schlüssel. */
+    val size: Int get() = entries.size
+
+    /** Wie oft bisher ein Schlüssel gefaltet wurde (für Tests und Messungen). */
+    var keysBuilt = 0
+        private set
+
+    /** Paare aus [watches], die [query] trifft, in gleicher Reihenfolge; [names] = Coin-Namen je Kennung. */
+    fun filter(watches: List<WatchEntity>, query: String, names: Map<Long, String>): List<WatchEntity> {
+        update(watches, names)
+        if (ambiguous) return watches.filter { it.matchesSearch(query, names[it.id]) }
+        val tokens = searchTokens(query)
+        return watches.filter { w -> entries[w.id]?.key?.matches(tokens) ?: w.matchesSearch(query, names[w.id]) }
+    }
+
+    /** Schlüssel auf den Stand von [watches] bringen (gleiche Liste und Namen wie zuletzt: nichts zu tun). */
+    fun update(watches: List<WatchEntity>, names: Map<Long, String>) {
+        if (watches === lastWatches && names === lastNames) return
+        val next = HashMap<Long, Entry>(watches.size * 2)
+        var clash = false
+        for (w in watches) {
+            val name = names[w.id]
+            val source = Source(w.baseAsset, w.quoteAsset, w.contractType, w.marketName, w.note, name)
+            val seen = next[w.id]
+            if (seen != null) {
+                if (seen.source != source) clash = true
+                continue
+            }
+            val old = entries[w.id]
+            next[w.id] = if (old != null && old.source == source) {
+                old
+            } else {
+                keysBuilt++
+                Entry(source, w.searchKey(name))
+            }
+        }
+        entries = next
+        ambiguous = clash
+        lastWatches = watches
+        lastNames = names
+    }
+
+    /** Alles vergessen (Suche zu). */
+    fun clear() {
+        if (entries.isNotEmpty()) entries = HashMap()
+        ambiguous = false
+        lastWatches = null
+        lastNames = null
+    }
+}
+
+/**
+ * Treffer der Suche für die Merkliste: [query] schon getrimmt, leer = alle Paare. Die Suchschlüssel bleiben
+ * zwischengespeichert, solange [keep] gilt (Suche offen), sonst werden sie verworfen.
+ */
+@Composable
+internal fun rememberWatchSearchResult(
+    watches: List<WatchEntity>,
+    query: String,
+    names: Map<Long, String>,
+    keep: Boolean = true,
+): List<WatchEntity> {
+    val index = remember { WatchSearchIndex() }
+    return remember(watches, query, names, keep) {
+        if (query.isEmpty()) {
+            if (!keep) index.clear()
+            watches
+        } else {
+            index.filter(watches, query, names)
+        }
     }
 }
 

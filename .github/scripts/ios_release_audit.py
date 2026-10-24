@@ -218,8 +218,9 @@ def strip_comments(text):
     small tokenizer: string literals (plain, multi-line, raw #"..."# with escapes and interpolation) are skipped,
     so "a//b" or "/0/*" no longer hides the code after it. REL5-R1: extended regex literals #/.../#
     (any number of #, multi-line when #/ ends the line, spaces/tabs/CR allowed) are skipped too, so #/a//b/# hides nothing. Bare /.../ literals
-    are not recognised on purpose: they need Swift 6 mode or -enable-bare-slash-regex (the app builds with Swift 5),
-    and telling them apart from division needs a parser - a wrong guess would blank real code."""
+    are not recognised on purpose: telling them apart from division needs a parser - a wrong guess would blank real
+    code. The app builds in Swift 6 mode, where bare /.../ literals are possible; it does not use any - keep using
+    #/.../# or Regex(...) so this audit stays exact."""
     out = list(text)
     n = len(text)
 

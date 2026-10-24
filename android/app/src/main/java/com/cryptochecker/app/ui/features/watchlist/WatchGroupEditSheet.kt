@@ -132,9 +132,7 @@ internal fun GroupEditSheet(
 
     val trimmedQuery = query.trim()
     val searchNames = rememberSearchNames(watches)
-    val shown = remember(watches, trimmedQuery, searchNames) {
-        if (trimmedQuery.isEmpty()) watches else watches.filter { it.matchesSearch(trimmedQuery, searchNames[it.id]) }
-    }
+    val shown = rememberWatchSearchResult(watches, trimmedQuery, searchNames)
 
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         // Kopf: «Gruppe bearbeiten», Name gross, Stift zum Umbenennen

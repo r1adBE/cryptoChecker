@@ -18,8 +18,9 @@ final class PortfolioPriceSourceClearTests: XCTestCase {
         PortfolioPriceSource.unavailableCoins = ["ZZTESTA", "ZZTESTB"]
         PortfolioPriceSource.uncheckedCoins = ["ZZTESTC"]
         PortfolioPriceSource.lock.unlock()
-        // Gegenprobe: vor dem Leeren gesetzt
-        XCTAssertEqual(PortfolioPriceSource.unavailableCoins, ["ZZTESTA", "ZZTESTB"])
+        // Gegenprobe: vor dem Leeren gesetzt (gelesen unter der Sperre wie jeder Zugriff)
+        let before = PortfolioPriceSource.lock.withLock { PortfolioPriceSource.unavailableCoins }
+        XCTAssertEqual(before, ["ZZTESTA", "ZZTESTB"])
 
         PortfolioPriceSource.clearStored()
 

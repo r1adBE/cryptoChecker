@@ -67,7 +67,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 120
+        versionCode = 121
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -315,7 +315,9 @@ tasks.withType<Test>().configureEach {
 }
 
 // Testabdeckung nur auf Anfrage (CI-Schritt «Coverage»: -Pcoverage=true, Bericht :app:koverXmlReportDebug), sonst
-// laufen die Unit-Tests ohne Instrumentierung. Nur Anzeige, keine Schwelle.
+// laufen die Unit-Tests ohne Instrumentierung. Nur Anzeige, keine Schwelle. Der Bericht von :app misst :marketdata
+// mit: die Börsen-Parser laufen vor allem in den Vertragstests von :app (contract/), nicht in :marketdata selbst.
 if (providers.gradleProperty("coverage").orNull == "true") {
     apply(plugin = libs.plugins.kover.get().pluginId)
+    dependencies { add("kover", project(":marketdata")) }
 }

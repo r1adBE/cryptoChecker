@@ -6,7 +6,7 @@ import XCTest
 @MainActor
 final class PortfolioSummaryCacheTests: XCTestCase {
     /// Zählt Rechnungen (aus dem Hintergrund aufgerufen).
-    private final class Counter: @unchecked Sendable {
+    private final class Counter: @unchecked Sendable { // @unchecked: `value` nur unter `lock` (NSLock)
         private let lock = NSLock()
         private var value = 0
         func hit() { lock.lock(); value += 1; lock.unlock() }

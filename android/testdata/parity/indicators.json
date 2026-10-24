@@ -1,0 +1,362 @@
+{
+  "description": "Indicators (Android Indicators.kt, iOS Indicators.swift): simple moving average of the last n values and RSI after Wilder over period steps, closes oldest first. expected null = no value (too few values, n or period not positive). Numbers compared with a tolerance of 1e-9. Shared by IndicatorsParityTest.kt (Android) and IndicatorsParityTests.swift (iOS).",
+  "sma": [
+    {
+      "name": "last three of five",
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "n": 3,
+      "expected": 4.0
+    },
+    {
+      "name": "exactly n values",
+      "values": [
+        10,
+        20,
+        30,
+        40
+      ],
+      "n": 4,
+      "expected": 25.0
+    },
+    {
+      "name": "one value window",
+      "values": [
+        7.5,
+        8.25
+      ],
+      "n": 1,
+      "expected": 8.25
+    },
+    {
+      "name": "too few values",
+      "values": [
+        1,
+        2,
+        3
+      ],
+      "n": 4,
+      "expected": null
+    },
+    {
+      "name": "n zero",
+      "values": [
+        1,
+        2,
+        3
+      ],
+      "n": 0,
+      "expected": null
+    },
+    {
+      "name": "n negative",
+      "values": [
+        1,
+        2,
+        3
+      ],
+      "n": -2,
+      "expected": null
+    },
+    {
+      "name": "empty",
+      "values": [],
+      "n": 1,
+      "expected": null
+    },
+    {
+      "name": "decimals",
+      "values": [
+        100,
+        102,
+        101,
+        105,
+        103,
+        104,
+        108,
+        107,
+        106,
+        110,
+        109,
+        111,
+        115,
+        112,
+        113,
+        118,
+        116,
+        117,
+        121,
+        119,
+        120,
+        124,
+        122,
+        125,
+        123,
+        127,
+        126,
+        130,
+        128,
+        131
+      ],
+      "n": 7,
+      "expected": 127.14285714285714
+    }
+  ],
+  "rsi": [
+    {
+      "name": "Wilder textbook series, period 14",
+      "closes": [
+        44.34,
+        44.09,
+        44.15,
+        43.61,
+        44.33,
+        44.83,
+        45.1,
+        45.42,
+        45.84,
+        46.08,
+        45.89,
+        46.03,
+        45.61,
+        46.28,
+        46.28,
+        46.0,
+        46.03,
+        46.41,
+        46.22,
+        45.64
+      ],
+      "period": 14,
+      "expected": 57.91502067008556
+    },
+    {
+      "name": "mixed series, period 14",
+      "closes": [
+        100,
+        102,
+        101,
+        105,
+        103,
+        104,
+        108,
+        107,
+        106,
+        110,
+        109,
+        111,
+        115,
+        112,
+        113,
+        118,
+        116,
+        117,
+        121,
+        119,
+        120,
+        124,
+        122,
+        125,
+        123,
+        127,
+        126,
+        130,
+        128,
+        131
+      ],
+      "period": 14,
+      "expected": 71.83071491563481
+    },
+    {
+      "name": "mixed series, period 5",
+      "closes": [
+        100,
+        102,
+        101,
+        105,
+        103,
+        104,
+        108,
+        107,
+        106,
+        110,
+        109,
+        111,
+        115,
+        112,
+        113,
+        118,
+        116,
+        117,
+        121,
+        119,
+        120,
+        124,
+        122,
+        125,
+        123,
+        127,
+        126,
+        130,
+        128,
+        131
+      ],
+      "period": 5,
+      "expected": 72.6797832692588
+    },
+    {
+      "name": "only falling closes",
+      "closes": [
+        200.0,
+        197.0,
+        194.0,
+        191.0,
+        188.0,
+        185.0,
+        182.0,
+        179.0,
+        176.0,
+        173.0,
+        170.0,
+        167.0,
+        164.0,
+        161.0,
+        158.0,
+        155.0,
+        152.0,
+        149.0,
+        146.0,
+        143.0
+      ],
+      "period": 14,
+      "expected": 0.0
+    },
+    {
+      "name": "only rising closes: no losses = 100",
+      "closes": [
+        10.0,
+        11.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        17.0,
+        18.0,
+        19.0,
+        20.0,
+        21.0,
+        22.0,
+        23.0,
+        24.0,
+        25.0
+      ],
+      "period": 14,
+      "expected": 100.0
+    },
+    {
+      "name": "flat closes: no losses = 100",
+      "closes": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "period": 14,
+      "expected": 100.0
+    },
+    {
+      "name": "exactly period + 1 closes (no smoothing step)",
+      "closes": [
+        44.34,
+        44.09,
+        44.15,
+        43.61,
+        44.33,
+        44.83,
+        45.1,
+        45.42,
+        45.84,
+        46.08,
+        45.89,
+        46.03,
+        45.61,
+        46.28,
+        46.28
+      ],
+      "period": 14,
+      "expected": 70.46413502109705
+    },
+    {
+      "name": "period closes only: too few",
+      "closes": [
+        44.34,
+        44.09,
+        44.15,
+        43.61,
+        44.33,
+        44.83,
+        45.1,
+        45.42,
+        45.84,
+        46.08,
+        45.89,
+        46.03,
+        45.61,
+        46.28
+      ],
+      "period": 14,
+      "expected": null
+    },
+    {
+      "name": "empty",
+      "closes": [],
+      "period": 14,
+      "expected": null
+    },
+    {
+      "name": "period zero",
+      "closes": [
+        44.34,
+        44.09,
+        44.15,
+        43.61,
+        44.33,
+        44.83,
+        45.1,
+        45.42,
+        45.84,
+        46.08,
+        45.89,
+        46.03,
+        45.61,
+        46.28,
+        46.28,
+        46.0,
+        46.03,
+        46.41,
+        46.22,
+        45.64
+      ],
+      "period": 0,
+      "expected": null
+    }
+  ]
+}

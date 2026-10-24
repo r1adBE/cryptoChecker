@@ -5,6 +5,7 @@ import Foundation
 /// Hintergrund lesen nur die fertigen Wege. Fehlt die Paarliste einer Börse, wird sie höchstens alle 6 Std.
 /// einmal geladen. Wie `PortfolioPriceSource.applyExchangeRoutes` (Android, dort in einem Schritt).
 enum PortfolioRouteResolver {
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var pairListAttempts: [String: Int64] = [:]
     private static let lock = NSLock()
     private static let retryMillis: Int64 = 6 * 60 * 60_000

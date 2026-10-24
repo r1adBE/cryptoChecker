@@ -324,7 +324,7 @@ enum CallGuard {
 /// Kleiner Zerleger für Swift: Kommentare (auch verschachtelt) durch Leerraum ersetzen; Zeichenketten `"…"`, `"""…"""` und
 /// `#"…"#` samt Interpolation `\(…)` überspringen, damit z. B. `"/0/*"` keinen Kommentar öffnet. REL5-R1:
 /// auch erweiterte Regex-Literale `#/…/#` (beliebig viele `#`), wie `ios_release_audit.py`; nackte `/…/` bewusst nicht
-/// (nur Swift 6 bzw. mit Compiler-Schalter, ohne Parser nicht sicher von Division zu trennen).
+/// (im Swift-6-Modus möglich, die App nutzt keine; ohne Parser nicht sicher von Division zu trennen).
 private struct Stripper {
     let t: [UInt16]
     var out: [UInt16]

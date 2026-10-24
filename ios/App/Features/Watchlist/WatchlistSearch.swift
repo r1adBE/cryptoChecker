@@ -78,8 +78,24 @@ enum WatchlistSearch {
     /// Gross-/Kleinschreibung und Akzente egal; mehrere Wörter müssen alle passen
     /// (z. B. «btc kraken», «bitcoin usdt»). Geprüft werden Basis, Quote, «BASIS/QUOTE»,
     /// Vertragskürzel, Börse, Notiz und der Name des Coins (`name`, z. B. «Bitcoin»).
+    /// Für ganze Listen je Tastendruck `WatchlistSearchIndex` (Felder nur einmal gefaltet).
     static func matches(_ watch: Watch, query: String, name: String? = nil) -> Bool {
-        let fields = [
+        key(watch, name: name).matches(tokens(query))
+    }
+
+    /// Gefaltete Suchfelder eines Paars (`ExplorerNameMatch.fold`), siehe `matches` — wie `WatchSearchKey` (Android).
+    struct Key {
+        let fields: [String]
+
+        /// Jedes Wort der Anfrage (`tokens`) steht in mindestens einem Feld; keine Wörter: true.
+        func matches(_ tokens: [String]) -> Bool {
+            tokens.allSatisfy { token in fields.contains { $0.contains(token) } }
+        }
+    }
+
+    /// Suchschlüssel: die Felder von `matches`, gefaltet; `name` = Coin-Name (`searchName`).
+    static func key(_ watch: Watch, name: String?) -> Key {
+        Key(fields: [
             watch.baseAsset,
             watch.quoteAsset,
             watch.displayPair,
@@ -88,9 +104,12 @@ enum WatchlistSearch {
             watch.marketName,
             watch.note ?? "",
             name ?? "",
-        ].map(ExplorerNameMatch.fold)
-        let tokens = ExplorerNameMatch.fold(query).split(whereSeparator: { $0.isWhitespace }).map(String.init)
-        return tokens.allSatisfy { token in fields.contains { $0.contains(token) } }
+        ].map(ExplorerNameMatch.fold))
+    }
+
+    /// Wörter der Anfrage, gefaltet; getrennt an Leerraum.
+    static func tokens(_ query: String) -> [String] {
+        ExplorerNameMatch.fold(query).split(whereSeparator: { $0.isWhitespace }).map(String.init)
     }
 
     /// Name des Coins bzw. der Firma eines Paars für die Suche (`CoinLogos.nameKey`, TradFi beachtet,
@@ -118,5 +137,79 @@ enum WatchlistSearch {
             }
         }
         return out
+    }
+}
+
+/// Suchschlüssel der Merkliste je `Watch.id`, zwischengespeichert: Neu gefaltet wird nur ein Paar, dessen
+/// durchsuchte Felder (Basis, Quote, Vertrag, Börse, Notiz) oder Coin-Name sich geändert haben — Kurse und andere
+/// Felder zählen nicht. Paare, die nicht mehr in der Liste stehen, fallen weg; je Tastendruck wird nur die Anfrage
+/// gefaltet. Ergebnis wie `filter { WatchlistSearch.matches($0, query:, name:) }`. Bewusst kein beobachteter
+/// Zustand (wie `WatchlistJumpTracker`), nur aus der Ansicht benutzt — wie `WatchSearchIndex` (Android).
+final class WatchlistSearchIndex {
+    /// Was in den Schlüssel eingeht; gleich = der Schlüssel gilt weiter.
+    private struct Source: Equatable {
+        let base: String
+        let quote: String
+        let contract: FuturesContractType
+        let market: String
+        let note: String?
+        let name: String?
+    }
+
+    private struct Entry {
+        let source: Source
+        let key: WatchlistSearch.Key
+    }
+
+    private var entries: [Int64: Entry] = [:]
+    /// Zwei Paare mit gleicher Kennung, aber verschiedenen Feldern: dann ohne Zwischenspeicher prüfen.
+    private var ambiguous = false
+
+    /// Gespeicherte Schlüssel.
+    var count: Int { entries.count }
+    /// Wie oft bisher ein Schlüssel gefaltet wurde (für Tests und Messungen).
+    private(set) var keysBuilt = 0
+
+    /// Paare aus `watches`, die `query` trifft, in gleicher Reihenfolge; `names` = Coin-Namen je Kennung.
+    func filter(_ watches: [Watch], query: String, names: [Int64: String]) -> [Watch] {
+        update(watches, names: names)
+        if ambiguous { return watches.filter { WatchlistSearch.matches($0, query: query, name: names[$0.id]) } }
+        let tokens = WatchlistSearch.tokens(query)
+        return watches.filter { watch in
+            guard let entry = entries[watch.id] else {
+                return WatchlistSearch.matches(watch, query: query, name: names[watch.id])
+            }
+            return entry.key.matches(tokens)
+        }
+    }
+
+    /// Schlüssel auf den Stand von `watches` bringen; unveränderte Paare behalten ihren Schlüssel.
+    func update(_ watches: [Watch], names: [Int64: String]) {
+        var next: [Int64: Entry] = [:]
+        next.reserveCapacity(watches.count)
+        var clash = false
+        for watch in watches {
+            let name = names[watch.id]
+            let source = Source(base: watch.baseAsset, quote: watch.quoteAsset, contract: watch.contractType,
+                                market: watch.marketName, note: watch.note, name: name)
+            if let seen = next[watch.id] {
+                if seen.source != source { clash = true }
+                continue
+            }
+            if let old = entries[watch.id], old.source == source {
+                next[watch.id] = old
+            } else {
+                keysBuilt += 1
+                next[watch.id] = Entry(source: source, key: WatchlistSearch.key(watch, name: name))
+            }
+        }
+        entries = next
+        ambiguous = clash
+    }
+
+    /// Alles vergessen (Suche zu).
+    func clear() {
+        if !entries.isEmpty { entries = [:] }
+        ambiguous = false
     }
 }

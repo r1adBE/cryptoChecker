@@ -36,7 +36,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "120"
+CURRENT_PROJECT_VERSION = "121"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -346,7 +346,7 @@ def project_settings(debug):
         "MTL_FAST_MATH": "YES",
         "SDKROOT": "iphoneos",
         "SWIFT_STRICT_CONCURRENCY": "complete",
-        "SWIFT_VERSION": "5.0",
+        "SWIFT_VERSION": "6.0",
     }
     if debug:
         s.update({
@@ -382,7 +382,7 @@ def common_target_settings():
         "PRODUCT_NAME": "$(TARGET_NAME)",
         "SWIFT_EMIT_LOC_STRINGS": "NO",
         "SWIFT_STRICT_CONCURRENCY": "complete",
-        "SWIFT_VERSION": "5.0",
+        "SWIFT_VERSION": "6.0",
         "TARGETED_DEVICE_FAMILY": "1",
     }
 
@@ -438,7 +438,7 @@ def test_settings():
         "PRODUCT_NAME": "$(TARGET_NAME)",
         "SWIFT_EMIT_LOC_STRINGS": "NO",
         "SWIFT_STRICT_CONCURRENCY": "complete",
-        "SWIFT_VERSION": "5.0",
+        "SWIFT_VERSION": "6.0",
         "TARGETED_DEVICE_FAMILY": "1",
         "TEST_HOST": f"$(BUILT_PRODUCTS_DIR)/{APP_TARGET}.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/{APP_TARGET}",
     }
@@ -458,7 +458,7 @@ def uitest_settings():
         "PRODUCT_NAME": "$(TARGET_NAME)",
         "SWIFT_EMIT_LOC_STRINGS": "NO",
         "SWIFT_STRICT_CONCURRENCY": "complete",
-        "SWIFT_VERSION": "5.0",
+        "SWIFT_VERSION": "6.0",
         "TARGETED_DEVICE_FAMILY": "1",
         "TEST_TARGET_NAME": APP_TARGET,
     }

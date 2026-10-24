@@ -44,10 +44,11 @@ struct CoinBadge: View {
         self.ringColor = ringColor
     }
 
+    // nonisolated: reine Konstanten, auch aus den Tests lesbar (eigenes Modul, nicht auf dem MainActor)
     /// Tönung des Initialen-Kreises hell: primary darauf über `container` ≥ 4.5:1 (vorher 0.14).
-    static let initialsTintLight = 0.06
+    nonisolated static let initialsTintLight = 0.06
     /// Tönung des Initialen-Kreises dunkel (unverändert).
-    static let initialsTintDark = 0.14
+    nonisolated static let initialsTintDark = 0.14
 
     private var enabled: Bool { portfolio ? portfolioEnabled : appEnabled }
 

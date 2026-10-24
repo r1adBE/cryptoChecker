@@ -10,6 +10,7 @@ extension PortfolioPriceSource {
     /// Hintergrund) sehen nur Kurse dieses Prozesses, wie bisher.
     static var storeURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_last_prices.txt") }
     /// Gemerkte Kurse; nil = Datei noch nicht gelesen.
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
     nonisolated(unsafe) private static var storedEntries: [String: StoredPrice]?
 
     /// Wie `cached`, ergänzt um den letzten gemerkten Stand (einmal je Prozess gelesen; je Coin gewinnt

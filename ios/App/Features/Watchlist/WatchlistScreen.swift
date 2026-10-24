@@ -92,6 +92,9 @@ struct WatchlistScreen: View {
     @State var showActivitySettings = false
     /// Sprungknopf «Zum Anfang» / «Zum Ende»: sichtbare Zeilen, Richtung, Scrollzustand.
     @State var jumpTracker = WatchlistJumpTracker()
+    /// Suchschlüssel der gezeigten Liste bzw. der Zeilen des Sprungknopfs (`WatchlistSearchIndex`).
+    @State var searchIndex = WatchlistSearchIndex()
+    @State var jumpSearchIndex = WatchlistSearchIndex()
     @State var jumpDown = true
     @State var jumpScrolled = false
     @State var jumpHideTask: Task<Void, Never>?

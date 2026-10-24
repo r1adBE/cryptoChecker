@@ -68,21 +68,38 @@ final class WatchlistPerformanceTests: XCTestCase {
 
     func testSearchWithCoinNames() {
         let queries = ["btc", "usdt kraken", "bitcoin", "layer", "pépé eur", "xyz"]
-        // Jede Suche faltet je Paar acht Felder (Akzente, Kleinschreibung): erwartet einige 100 ms für sechs Suchen
-        T.assertScales("Suche (6 Anfragen, mit Coin-Namen)", limitMillis: 4_000) { n in
+        // Je Tastendruck wie in der App (`WatchlistSearchIndex`): Schlüssel schon gefaltet, nur die Anfrage wird
+        // gefaltet; je Anfrage noch der Abgleich des Listenstands (ohne Faltung). Erwartet einige 10 ms für sechs
+        // Anfragen (Debug). Grenze 1000 statt 4000 ms (früher faltete jede Anfrage acht Felder je Paar)
+        T.assertScales("Suche je Tastendruck (6 Anfragen, mit Coin-Namen)", limitMillis: 1_000) { n in
             let watches = PerformanceData.watches(n)
             let names = self.names(watches)
+            let index = WatchlistSearchIndex()
+            index.update(watches, names: names)
             return T.medianMillis {
-                queries.reduce(0) { total, q in
-                    total + watches.filter { WatchlistSearch.matches($0, query: q, name: names[$0.id]) }.count
-                }
+                queries.reduce(0) { total, q in total + index.filter(watches, query: q, names: names).count }
+            }
+        }
+        // Vorbereitung: alle Schlüssel neu falten (Suche geöffnet) — so viel wie früher jede Anfrage
+        T.assertScales("Suche: Schlüssel vorbereiten (mit Coin-Namen)", limitMillis: 4_000) { n in
+            let watches = PerformanceData.watches(n)
+            let names = self.names(watches)
+            return T.medianMillis(setup: { WatchlistSearchIndex() }) { fresh in
+                fresh.update(watches, names: names)
+                return fresh.count
             }
         }
         let watches = PerformanceData.watches(T.large)
         let names = self.names(watches)
-        // «bitcoin» findet genau die BTC-Paare (20 Quote-Währungen), «xyz» nichts
-        XCTAssertEqual(watches.filter { WatchlistSearch.matches($0, query: "bitcoin", name: names[$0.id]) }.count, 20)
-        XCTAssertEqual(watches.filter { WatchlistSearch.matches($0, query: "xyz", name: names[$0.id]) }.count, 0)
+        let index = WatchlistSearchIndex()
+        // «bitcoin» findet genau die BTC-Paare (20 Quote-Währungen), «xyz» nichts; gleich wie Paar für Paar
+        XCTAssertEqual(index.filter(watches, query: "bitcoin", names: names).count, 20)
+        XCTAssertEqual(index.filter(watches, query: "xyz", names: names).count, 0)
+        for q in queries {
+            XCTAssertEqual(index.filter(watches, query: q, names: names),
+                           watches.filter { WatchlistSearch.matches($0, query: q, name: names[$0.id]) }, q)
+        }
+        XCTAssertEqual(index.keysBuilt, T.large)
     }
 
     func testPulseAndBreadth() {

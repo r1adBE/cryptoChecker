@@ -124,7 +124,7 @@ struct PriceDeliveredState {
 
 /// Hält Kurs-Durchläufe eines Prozesses nacheinander (wie Android `priceRunLock`): sonst plante ein zweiter Durchlauf
 /// mit dem Stand vor den Meldungen des ersten und zeigte mehr als `maxPrice` einzeln.
-final class PriceRunGate: @unchecked Sendable {
+final class PriceRunGate: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let shared = PriceRunGate()
     private let lock = NSLock()
     private var tail: Task<Void, Never>?

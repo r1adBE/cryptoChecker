@@ -16,6 +16,7 @@ import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
 import com.cryptochecker.app.ui.features.explorer.bulkNewCount
 import com.cryptochecker.app.ui.features.explorer.watchKey
 import com.cryptochecker.app.ui.features.watchlist.filterByGroup
+import com.cryptochecker.app.ui.features.watchlist.WatchSearchIndex
 import com.cryptochecker.app.ui.features.watchlist.matchesSearch
 import com.cryptochecker.app.widget.WidgetGroupSelection
 import org.junit.Assert.assertEquals
@@ -86,22 +87,42 @@ class WatchlistPerformanceTest {
         }
     }
 
+    private fun coinNames(watches: List<WatchEntity>): Map<Long, String> =
+        watches.mapNotNull { w -> PerformanceData.COIN_NAMES[w.baseAsset]?.let { w.id to it } }.toMap()
+
     @Test
     fun searchWithCoinNames() {
         val queries = listOf("btc", "usdt kraken", "bitcoin", "layer", "pépé eur", "xyz")
-        // Jede Suche faltet je Paar acht Felder (Akzente, Kleinschreibung): erwartet um 100 ms für sechs Suchen
-        assertScales("Suche (6 Anfragen, mit Coin-Namen)", limitMillis = 1_000.0) { n ->
+        // Je Tastendruck wie in der App ([WatchSearchIndex]): Schlüssel schon gefaltet, nur die Anfrage wird
+        // gefaltet und verglichen — erwartet wenige ms für sechs Anfragen. Grenze 250 statt 1000 ms (früher faltete
+        // jede Anfrage acht Felder je Paar), weiterhin ein Vielfaches des Erwarteten
+        assertScales("Suche je Tastendruck (6 Anfragen, mit Coin-Namen)", limitMillis = 250.0) { n ->
             val watches = PerformanceData.watches(n)
-            val names = watches.mapNotNull { w -> PerformanceData.COIN_NAMES[w.baseAsset]?.let { w.id to it } }.toMap()
+            val names = coinNames(watches)
+            val index = WatchSearchIndex().apply { update(watches, names) }
             medianMillis {
-                queries.sumOf { q -> watches.count { it.matchesSearch(q, names[it.id]) } }
+                queries.sumOf { q -> index.filter(watches, q, names).size }
+            }
+        }
+        // Vorbereitung: alle Schlüssel neu falten (Suche geöffnet) — so viel wie früher jede Anfrage
+        assertScales("Suche: Schlüssel vorbereiten (mit Coin-Namen)", limitMillis = 1_000.0) { n ->
+            val watches = PerformanceData.watches(n)
+            val names = coinNames(watches)
+            medianMillis({ WatchSearchIndex() }) { fresh ->
+                fresh.update(watches, names)
+                fresh.size
             }
         }
         val watches = PerformanceData.watches(PerformanceTiming.LARGE)
-        val names = watches.mapNotNull { w -> PerformanceData.COIN_NAMES[w.baseAsset]?.let { w.id to it } }.toMap()
-        // «bitcoin» findet genau die BTC-Paare (20 Quote-Währungen), «xyz» nichts
-        assertEquals(20, watches.count { it.matchesSearch("bitcoin", names[it.id]) })
-        assertEquals(0, watches.count { it.matchesSearch("xyz", names[it.id]) })
+        val names = coinNames(watches)
+        val index = WatchSearchIndex()
+        // «bitcoin» findet genau die BTC-Paare (20 Quote-Währungen), «xyz» nichts; gleich wie Paar für Paar
+        assertEquals(20, index.filter(watches, "bitcoin", names).size)
+        assertEquals(0, index.filter(watches, "xyz", names).size)
+        for (q in queries) {
+            assertEquals(q, watches.filter { it.matchesSearch(q, names[it.id]) }, index.filter(watches, q, names))
+        }
+        assertEquals(PerformanceTiming.LARGE, index.keysBuilt)
     }
 
     @Test

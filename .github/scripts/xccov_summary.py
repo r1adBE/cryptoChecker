@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""Prints the iOS unit-test line coverage as ONE notice annotation (display only, no threshold).
+
+Input: the JSON of «xcrun xccov view --report --json <xcresult>» (targets[].files[] with path, coveredLines,
+executableLines). Test bundles (*.xctest) are left out. A file compiled into several targets (app and widget
+extension) counts once, with its best-covered entry: the tests run in the app, the extension stays at 0 %.
+
+Two numbers: «total» (every source file of the app and its extensions) and «logic» (files under Shared/ that do not
+define a SwiftUI view, i.e. contain no «some View»). Without the source file on disk the folder alone decides.
+
+Usage: python3 -I xccov_summary.py report.json
+       python3 -I xccov_summary.py --self-test
+"""
+import json
+import os
+import sys
+import tempfile
+
+UI_MARKERS = ("some View",)
+
+
+def is_logic(path):
+    """True for a file under Shared/ without a SwiftUI view."""
+    if "/Shared/" not in path.replace(os.sep, "/"):
+        return False
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            text = f.read()
+    except OSError:
+        return True
+    return not any(marker in text for marker in UI_MARKERS)
+
+
+def best_files(report):
+    """{path: (covered, executable)} over all non-test targets, best entry per path."""
+    files = {}
+    for target in report.get("targets", []):
+        if str(target.get("name", "")).endswith(".xctest"):
+            continue
+        for entry in target.get("files", []):
+            path = entry.get("path") or entry.get("name") or ""
+            covered, executable = int(entry.get("coveredLines", 0)), int(entry.get("executableLines", 0))
+            if path not in files or covered > files[path][0]:
+                files[path] = (covered, executable)
+    return files
+
+
+def percent(covered, executable):
+    return f"{100.0 * covered / executable:.1f} %" if executable else "n/a"
+
+
+def summary(report):
+    files = best_files(report)
+    covered = sum(c for c, _ in files.values())
+    executable = sum(e for _, e in files.values())
+    logic = [v for p, v in files.items() if is_logic(p)]
+    logic_covered = sum(c for c, _ in logic)
+    logic_executable = sum(e for _, e in logic)
+    return (f"iOS line coverage (unit tests): total {percent(covered, executable)} ({covered}/{executable})"
+            f" · logic {percent(logic_covered, logic_executable)} ({logic_covered}/{logic_executable})"
+            f" · logic = Shared/ without SwiftUI views")
+
+
+def escape(text):
+    return text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+
+def self_test():
+    with tempfile.TemporaryDirectory() as tmp:
+        shared = os.path.join(tmp, "ios", "Shared")
+        os.makedirs(os.path.join(shared, "Util"))
+        calc, arrow = os.path.join(shared, "Calc.swift"), os.path.join(shared, "Util", "Arrow.swift")
+        with open(calc, "w", encoding="utf-8") as f:
+            f.write("enum Calc {}\n")
+        with open(arrow, "w", encoding="utf-8") as f:
+            f.write("struct Arrow: View { var body: some View { EmptyView() } }\n")
+        screen = os.path.join(tmp, "ios", "App", "Screen.swift")
+        gone = os.path.join(tmp, "ios", "Shared", "Gone.swift")
+        report = {"targets": [
+            {"name": "CryptoChecker.app", "files": [
+                {"path": calc, "coveredLines": 8, "executableLines": 10},
+                {"path": arrow, "coveredLines": 1, "executableLines": 10},
+                {"path": screen, "coveredLines": 0, "executableLines": 20},
+                {"path": gone, "coveredLines": 3, "executableLines": 4}]},
+            {"name": "CryptoCheckerWidgetsExtension.appex", "files": [
+                {"path": calc, "coveredLines": 0, "executableLines": 10}]},
+            {"name": "CryptoCheckerTests.xctest", "files": [
+                {"path": os.path.join(tmp, "ios", "Tests", "CalcTests.swift"), "coveredLines": 50,
+                 "executableLines": 50}]}]}
+        text = summary(report)
+        assert text == ("iOS line coverage (unit tests): total 27.3 % (12/44) · logic 78.6 % (11/14)"
+                        " · logic = Shared/ without SwiftUI views"), text
+        assert summary({}).startswith("iOS line coverage (unit tests): total n/a (0/0) · logic n/a"), summary({})
+        path = os.path.join(tmp, "report.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(report, f)
+        assert main([path]) == 0
+        assert main([os.path.join(tmp, "missing.json")]) == 0
+    print("xccov_summary self-test ok")
+    return 0
+
+
+def main(argv):
+    if argv == ["--self-test"]:
+        return self_test()
+    if len(argv) != 1:
+        print(__doc__)
+        return 0
+    try:
+        with open(argv[0], encoding="utf-8") as f:
+            report = json.load(f)
+    except (OSError, ValueError) as error:
+        print(f"::notice title=iOS coverage::no coverage report ({error.__class__.__name__})")
+        return 0
+    text = summary(report)
+    print(text)
+    print(f"::notice title=iOS coverage::{escape(text)}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

@@ -47,6 +47,8 @@ struct WatchGroupEditSheet: View {
     @State private var askDelete = false
     /// Speichern bzw. Löschen läuft (Rückfrage F-08 offen): weitere Tipps zählen nicht (IOS6-01, wie `WatchGroupSheet`).
     @State private var saving = false
+    /// Suchschlüssel der Paare, solange das Blatt offen ist (`WatchlistSearchIndex`).
+    @State private var searchIndex = WatchlistSearchIndex()
 
     /// `initialMembers`: die Paare, die schon in dieser Gruppe sind.
     init(groupName: String, isNew: Bool, initialMembers: Set<Int64>) {
@@ -61,7 +63,7 @@ struct WatchGroupEditSheet: View {
         // Alle Paare in der Reihenfolge der Merkliste (Favoriten zuerst)
         let all = data.watches
         let names: [Int64: String] = trimmed.isEmpty ? [:] : WatchlistSearch.names(for: all)
-        let shown = trimmed.isEmpty ? all : all.filter { WatchlistSearch.matches($0, query: trimmed, name: names[$0.id]) }
+        let shown = trimmed.isEmpty ? all : searchIndex.filter(all, query: trimmed, names: names)
         NavigationStack {
             List {
                 Section {
