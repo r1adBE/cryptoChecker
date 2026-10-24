@@ -35,8 +35,8 @@ final class RefreshEffectsWiringTests: XCTestCase {
 
         var notifier: PriceRefresher.AlarmNotifier {
             PriceRefresher.AlarmNotifier(canShow: { true }, show: { item in
-                self.lock.lock(); defer { self.lock.unlock() }
-                self._posts.append((item.alarm.id, item.price))
+                // async-Closure: nur die bereichsgebundene Sperre (lock()/unlock() sind dort nicht erlaubt)
+                self.lock.withLock { self._posts.append((item.alarm.id, item.price)) }
                 return true
             })
         }

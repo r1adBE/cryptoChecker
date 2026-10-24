@@ -43,8 +43,8 @@ final class AlarmChainIntegrationTests: XCTestCase {
 
         var notifier: PriceRefresher.AlarmNotifier {
             PriceRefresher.AlarmNotifier(canShow: { self.deliverable }, show: { item in
-                self.lock.lock(); defer { self.lock.unlock() }
-                self._posts.append((item.alarm.id, item.price))
+                // async-Closure: nur die bereichsgebundene Sperre (lock()/unlock() sind dort nicht erlaubt)
+                self.lock.withLock { self._posts.append((item.alarm.id, item.price)) }
                 return self.shown
             })
         }
@@ -305,11 +305,12 @@ final class AlarmChainIntegrationTests: XCTestCase {
         // Inzwischen gespeichert: gleiche Id, anderes Paar
         store.snapshot.watches[0].baseAsset = "ETH"
         outcome.apply(to: &store.snapshot)
+        let fixedNow = now // @Sendable-Closure: Wert statt self
         let delivered = await outcome.keepingCurrentPairs(store.snapshot.watches)
             .deliverAlarms(settings: AppSettings(), current: store.snapshot.alarms,
                            save: { store.save($0, $1) }, reloadStored: { store.snapshot.alarms },
                            notifier: notifier.notifier,
-                           delivery: AlarmDelivery(storeKey: "pairs", store: defaults), now: { self.now })
+                           delivery: AlarmDelivery(storeKey: "pairs", store: defaults), now: { fixedNow })
         XCTAssertTrue(delivered.isEmpty)
         XCTAssertTrue(notifier.posts.isEmpty)
         XCTAssertEqual(store.snapshot.alarms[0], original)
