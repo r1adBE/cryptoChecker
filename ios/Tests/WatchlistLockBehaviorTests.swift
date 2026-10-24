@@ -281,6 +281,8 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         "celebrateFirstAdd(_ watchId", "takeAddCelebration()", "watchingMessage(ids", "starterPair(_ coin",
         "contains(marketKey", "insert(_ s", "insertOutcome(_ s", "restoreInto(_ s", "placeInSlots(_ all",
         "isFavorite(_ kind", "groups(of watches", "watch(_ id", "alarms(for watchId", "staleAfterMillis(for watchId",
+        // Zwischenspeicher der abgeleiteten Listen (Sortierung, Abgleich mit dem Stand)
+        "displayOrder(_ watches", "align(_ generation",
     ]
 
     /// Hintergrund bzw. ausserhalb der Merkliste — ohne Sperre: Einstellungen, Auswahl-Favoriten (eigene Ablage),
