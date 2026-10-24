@@ -186,4 +186,5 @@
         <item quantity="other">إزالة %1$d زوج مرة أخرى؟</item>
     </plurals>
     <string name="bulk_undo_confirm_text">تبقى الأزواج التي ضبطت لها تنبيهًا في هذه الأثناء.</string>
+    <string name="bulk_undo_expired">لم يعد التراجع ممكنًا – تبقى الأزواج في قائمة المتابعة.</string>
 </resources>

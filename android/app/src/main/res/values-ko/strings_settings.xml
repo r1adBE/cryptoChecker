@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">‘%1$s’는 정확히 24시간 전 가격과 비교합니다. ‘00:00’은 해당 시간대 자정의 시가와 비교합니다.</string>
     <string name="settings_change_basis_hint_3">경보에는 영향을 주지 않습니다.</string>
     <string name="settings_change_basis_hint_since_last">‘%1$s’는 이전 업데이트의 가격과 비교합니다. 실시간 가격에서는 0%%에 가깝게 유지됩니다.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">환산 통화</string>

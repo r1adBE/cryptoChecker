@@ -87,8 +87,9 @@ enum PortfolioCsvImporter {
 
     /// Vorschau laden; sonst der Grund (`CsvImportRefusal`): zu gross oder nicht lesbar bzw. keine unterstützte Zeile.
     /// Lesen, Zerlegen, Umrechnen und die Vorschläge (`addresses`, `stored` vom Aufrufer) laufen abseits des
-    /// Haupt-Threads (`CsvImportBackground`) und brechen mit dem Aufrufer ab; `progress` meldet gedrosselt «Zeile X von Y»
-    /// beim Umrechnen — wie Android `buildPreview`. Nach einem Abbruch das Ergebnis verwerfen (`Task.isCancelled`).
+    /// Haupt-Threads (`CsvImportBackground`) und brechen mit dem Aufrufer ab (Prüfung nach dem Lesen, zwischen den
+    /// Blöcken des Umrechnens und vor den Vorschlägen); `progress` meldet gedrosselt «Zeile X von Y» beim Umrechnen —
+    /// wie Android `buildPreview`. Nach einem Abbruch das Ergebnis verwerfen (`Task.isCancelled`).
     static func load(_ url: URL, existingKeys: Set<String>, addresses: [WatchedAddress] = [],
                      stored: [CsvStoredMove] = [], progress: @escaping @Sendable (CsvImportProgress) -> Void = { _ in })
         async -> Result<CsvImportLoaded, CsvImportRefusal> {
@@ -114,20 +115,28 @@ enum PortfolioCsvImporter {
             result = r.result
         case .failure(let refusal): return .failure(refusal)
         }
+        // Abgebrochen: der Aufrufer verwirft das Ergebnis (`Task.isCancelled`), ohne Tageskurse zu laden
+        guard !Task.isCancelled else { return .failure(.unreadable) }
         let rates = await fetchRates(result)
         let usdtUsd = await fetchUsdtUsd(result)
-        let mapped = await CsvImportBackground.run { () -> (preview: CsvImportPreview, proposals: CsvImportProposals) in
+        typealias Mapped = (preview: CsvImportPreview, proposals: CsvImportProposals)
+        let built = await CsvImportBackground.run { () -> Mapped? in
             var throttle: CsvProgressThrottle?
-            let preview = PortfolioCsvImporter.mapPreview(result, existingKeys: existingKeys, rates: rates,
-                                                          withdrawalsAsTransfer: false, usdtUsd: usdtUsd) { done, total in
-                if throttle == nil {
-                    throttle = CsvProgressThrottle(step: .PREVIEW, total: total, report: progress)
-                    throttle?.start()
-                }
-                throttle?.row(done)
-            }
+            // Abbruch zwischen den Blöcken: `checkCancellation` wirft, die Vorschau endet dort
+            guard let preview = try? PortfolioCsvImporter.mapPreview(
+                result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: false, usdtUsd: usdtUsd,
+                onRow: { done, total in
+                    try Task.checkCancellation()
+                    if throttle == nil {
+                        throttle = CsvProgressThrottle(step: .PREVIEW, total: total, report: progress)
+                        throttle?.start()
+                    }
+                    throttle?.row(done)
+                }), !Task.isCancelled else { return nil }
             return (preview: preview, proposals: CsvImportProposals.of(preview, addresses: addresses, stored: stored))
         }
+        // Abgebrochen: der Aufrufer verwirft das Ergebnis (`Task.isCancelled`)
+        guard let mapped = built else { return .failure(.unreadable) }
         // Zu gross (über den Grenzen des Zerlegens) eigens melden, nicht als fremdes Format (wie Android)
         if let refusal = CsvImportRefusal.of(fileTooLarge: false, preview: mapped.preview) { return .failure(refusal) }
         return .success(CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates,
@@ -160,11 +169,19 @@ enum PortfolioCsvImporter {
     }
 
     /// Abgleich, Umrechnung und Zuordnung (`withdrawalsAsTransfer`: Auszahlung → Umbuchung); `onRow` nach jedem Block
-    /// (fertig, gesamt) für den Fortschritt.
+    /// (fertig, gesamt) für den Fortschritt und die Abbruchprüfung (darf werfen).
+    static func mapPreview(_ result: CsvImportResult, existingKeys: Set<String>, rates: [String: [(day: Int, rate: Double)]],
+                           withdrawalsAsTransfer: Bool, usdtUsd: [Int: Decimal] = [:]) -> CsvImportPreview {
+        // Ohne Fortschritt: eigene Fassung (ein Vorgabewert für `onRow` gälte bei `rethrows` als werfend)
+        mapPreview(result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: withdrawalsAsTransfer,
+                   usdtUsd: usdtUsd, onRow: { _, _ in })
+    }
+
+    /// Wie oben, mit `onRow` nach jedem Block (darf werfen, z. B. `Task.checkCancellation()`).
     static func mapPreview(_ result: CsvImportResult, existingKeys: Set<String>, rates: [String: [(day: Int, rate: Double)]],
                            withdrawalsAsTransfer: Bool, usdtUsd: [Int: Decimal] = [:],
-                           onRow: (_ done: Int, _ total: Int) -> Void = { _, _ in }) -> CsvImportPreview {
-        CsvImportMapping.preview(result, existingKeys: existingKeys, withdrawalsAsTransfer: withdrawalsAsTransfer,
+                           onRow: (_ done: Int, _ total: Int) throws -> Void) rethrows -> CsvImportPreview {
+        try CsvImportMapping.preview(result, existingKeys: existingKeys, withdrawalsAsTransfer: withdrawalsAsTransfer,
                                  usdtUsd: usdtUsd, onRow: onRow) { currency, day in
             guard let list = rates[currency], let r = PortfolioHistoryFx.rateOn(list, day: Int(day)) else { return nil }
             return PortfolioDecimal.of(r)

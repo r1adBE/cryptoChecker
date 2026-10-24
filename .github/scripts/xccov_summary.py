@@ -115,14 +115,14 @@ def self_test():
         path = os.path.join(tmp, "report.json")
         with open(path, "w", encoding="utf-8") as f:
             json.dump(report, f)
-        # Ausgabe abfangen: der Selbsttest darf keine Annotationen auf der Lauf-Seite erzeugen
+        # Capture the output: the self-test must not create annotations on the run page
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
             assert main([path]) == 0
             assert main([os.path.join(tmp, "missing.json")]) == 0
         assert "::notice title=iOS coverage::iOS line coverage" in out.getvalue(), out.getvalue()
         assert "no coverage report (FileNotFoundError)" in out.getvalue(), out.getvalue()
-        # Gate: 78.6 % Logik im Beispiel; ohne Bericht rot
+        # Gate: 78.6 % logic in the sample; no report = red
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
             assert main(["--min-logic", "78", path]) == 0

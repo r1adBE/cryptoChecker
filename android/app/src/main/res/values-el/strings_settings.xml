@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">Το «%1$s» συγκρίνει με την τιμή ακριβώς πριν από 24 ώρες. Το «00:00» συγκρίνει με την τιμή ανοίγματος τα μεσάνυχτα σε αυτή τη ζώνη ώρας.</string>
     <string name="settings_change_basis_hint_3">Οι συναγερμοί δεν επηρεάζονται.</string>
     <string name="settings_change_basis_hint_since_last">Το «%1$s» συγκρίνει με την τιμή της προηγούμενης ενημέρωσης. Με ζωντανές τιμές παραμένει κοντά στο 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Νόμισμα μετατροπής</string>

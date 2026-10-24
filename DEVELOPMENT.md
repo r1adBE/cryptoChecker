@@ -73,7 +73,7 @@ For a new exchange «Example»:
 | Both | ticker parsing | set `exchangeTime` when the API sends the time of the price (see [section 15](#15-ui-rules-for-numbers), «Exchange time vs fetch time») |
 
 After adding a Swift file, regenerate the Xcode project with
-`python3 ios/tools/gen_xcodeproj.py` (it picks up new files by itself).
+`python3 -I ios/tools/gen_xcodeproj.py` (it picks up new files by itself).
 
 Both platforms must behave the same: same pair ids, same fields, same
 fallbacks. Backups can be moved between Android and iOS, so the **key** of the
@@ -446,12 +446,13 @@ of `0.0123` can be 1.23 % (fraction) or 0.0123 % (percent) – compare it with
 ```sh
 cd android
 ./gradlew testDebugUnitTest        # or: ./gradlew test (debug + release, all modules)
-./gradlew :app:testDebugUnitTest -PperformanceTests=only   # performance tests alone (timings, 2000 pairs)
+./gradlew :app:testDebugUnitTest -PperformanceTests=only   # performance tests alone (timings)
 ```
 
-The performance tests (`app/src/test/.../performance`) are excluded from the normal run: their timings vary when lint or
-other tests run in parallel. The *Android* workflow runs them in their own step («Performance tests») with nothing else
-running; `-PperformanceTests=true` includes them in a normal run.
+The performance tests (`app/src/test/.../performance`; watchlist, backup and refresh with 2000 pairs, portfolio and
+tax with 10 000 transactions; most also compare against a quarter of the size to check the scaling) are excluded from
+the normal run: their timings vary when lint or other tests run in parallel. The *Android* workflow runs them in their
+own step («Performance tests») with nothing else running; `-PperformanceTests=true` includes them in a normal run.
 
 Reports: `android/app/build/reports/tests/testDebugUnitTest/index.html`.
 
@@ -488,7 +489,7 @@ CryptoChecker`):
 
 ```sh
 cd ios
-python3 tools/gen_xcodeproj.py     # after adding/removing Swift files or changing the JSON cases
+python3 -I tools/gen_xcodeproj.py  # after adding/removing Swift files or changing the JSON cases
 xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
   -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:CryptoCheckerTests
 ```
@@ -643,7 +644,7 @@ checks out `github.sha` afresh, downloads the artifact with `gh run download` (`
 `actions/download-artifact` is not pinned in the repository) and checks it with
 `.github/scripts/artifact_check.py` (expected file names, size, rough JSON schema; `--self-test`) before committing,
 uploading or managing the issue. Locally, without
-touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (optionally
+touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (optionally
 `--only kraken,okx`).
 
 **Supply chain (Android).** Three layers, none needs a secret:
@@ -709,7 +710,7 @@ new work; raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both script
   `R`). ViewModels and other classes in `ui/` packages without `@Composable` count as logic. `--self-test` checks the
   classification and the merge. Locally: `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under
   `app/build/reports/kover/`; the summary needs the XML: `:app:koverXmlReportDebug :marketdata:koverXmlReportDebug`),
-  then in `android/`: `python3 ../.github/scripts/coverage_summary.py --merged app --min-logic 58 app=app
+  then in `android/`: `python3 -I ../.github/scripts/coverage_summary.py --merged app --min-logic 58 app=app
   marketdata=marketdata`.
 * *iOS* (`ios.yml`, job «iOS unit tests»): the unit-test run itself records coverage (`-enableCodeCoverage YES`,
   result bundle `UnitTests.xcresult`; same run, only the flag). The step «Coverage (logic gate)»
@@ -718,28 +719,32 @@ new work; raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both script
   extension counts once (best entry). *Logic* = files under `ios/Shared/` that define no SwiftUI view (no
   `some View`). Locally: run the tests in Xcode with coverage on (scheme › Test › Options › Code Coverage), then
   `xcrun xccov view --report --json <path to .xcresult> > /tmp/cov.json` and
-  `python3 .github/scripts/xccov_summary.py --min-logic 78 /tmp/cov.json`.
+  `python3 -I .github/scripts/xccov_summary.py --min-logic 78 /tmp/cov.json`. A manual run with Thread Sanitizer
+  (input `thread_sanitizer`) skips the performance tests (`TEST_RUNNER_CC_SKIP_PERFORMANCE=1`, seen by the tests as
+  `CC_SKIP_PERFORMANCE=1`) and therefore only shows the coverage, without the gate.
 * Where logic is still uncovered, prefer a parity fixture (`testdata/parity/`, same cases on both platforms) over a
   single-platform test; network sources take an OkHttp `Interceptor` as fake provider (e.g. `FxRateSourceTest`).
 
 **Mutation tests (portfolio and tax logic).** `.github/workflows/mutation.yml` (Saturdays and by hand, never a required
-check) first runs `./gradlew :app:testDebugUnitTest` (must be green), then `.github/scripts/mutation_test.py`
-(standard library only, `--self-test` without Gradle). For each target file – `PortfolioFifo`, `PortfolioFifoLots`,
+check) first runs `./gradlew :app:testDebugUnitTest` (must be green), then `.github/scripts/mutation_test.py` (standard
+library only, `--self-test` without Gradle). For each target file – `PortfolioFifo`, `PortfolioFifoLots`,
 `PortfolioCalculatorAverage`, `PortfolioFeeExpenses`, `PortfolioCostFx`, `TaxEngineCore/Uk/Ca/Fr/At/Jp` and
-`TaxExportRows` under `domain/portfolio` – it creates mutants by fixed rules (`<`↔`<=`, `>`↔`>=`, `==`↔`!=`,
-`&&`↔`||`, `+`↔`-`, `*`↔`/`, `+=`↔`-=`, `true`↔`false`, `.subtract(`→`.add(`, `.multiply(`↔`.divide(`, `.min(`↔`.max(`
+`TaxExportRows` under `domain/portfolio` – it creates mutants by fixed rules (`<`↔`<=`, `>`↔`>=`, `==`↔`!=`, `&&`↔`||`,
+`+`↔`-`, `*`↔`/`, `+=`↔`-=`, `*=`↔`/=`, `true`↔`false`, `.subtract(`→`.add(`, `.multiply(`↔`.divide(`, `.min(`↔`.max(`
 and `return` of a constant of the declared type; never in strings, comments or generics), at most 4 per file and 50 in
 total, chosen deterministically (hash of file, line, column and rule), no new mutant after 55 minutes. Each mutant is
 written into the file, the test classes listed for that file in `TARGETS` run with
-`./gradlew :app:testDebugUnitTest --tests '<pattern>' -q --offline`, and the file is restored in a `finally` (also when
-the run is cancelled). Result: «killed» (tests red), «survived» (tests green: a warning with file:line and the change)
-or «not compilable» (not counted); a notice per file with the share killed and one with the total, via `annotate.py`.
-The run is red only when the baseline or the script fails (missing target, a pattern that matches no test, a file that
-could not be restored). A surviving mutant means a missing test – or an equivalent change; add a case (preferably a
-parity fixture) rather than a filter. When a target file is renamed or its tests move, update `TARGETS` (the self-test
-checks that every target exists). Locally (repository root, after a green test run):
-`python3 .github/scripts/mutation_test.py --list` shows the chosen mutants,
-`python3 .github/scripts/mutation_test.py --findings /tmp/m.txt --only TaxEngineUk --online` runs them.
+`./gradlew :app:testDebugUnitTest --tests '<pattern>' -q --offline`, and the file is restored in a `finally` (also when the run is cancelled; written
+atomically via a temporary file and `os.replace`). A Gradle run that hits the mutant timeout counts as killed; the
+script then stops the Gradle daemons (`gradlew --stop`), so a hung test run does not block the next mutant. The
+setup-gradle cache is read only in this workflow. Result: «killed» (tests red), «survived» (tests green: a warning with
+file:line and the change) or «not compilable» (not counted); a notice per file with the share killed and one with the
+total, via `annotate.py`. The run is red only when the baseline or the script fails (missing target, a pattern that
+matches no test, a file that could not be restored). A surviving mutant means a missing test – or an equivalent change;
+add a case (preferably a parity fixture) rather than a filter. When a target file is renamed or its tests move, update
+`TARGETS` (the self-test checks that every target exists). Locally (repository root, after a green test run):
+`python3 -I .github/scripts/mutation_test.py --list` shows the chosen mutants,
+`python3 -I .github/scripts/mutation_test.py --findings /tmp/m.txt --only TaxEngineUk --online` runs them.
 
 ## 13. Market tab caching
 
@@ -2347,6 +2352,15 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 123: `RetryWait` (retry wait of the widget refresh: WorkInfo ENQUEUED + `runAttemptCount` > 0 →
+  `nextScheduleTimeMillis`, linear backoff, countdown seconds), `PriceUpdateScheduler.observeManualRetryAt` →
+  `WatchlistLive.widgetRetryAt` → status pill countdown (`WatchlistRetryCountdown`), `ListWidgetRetry` (partial widget
+  update with the fixed retry time `widget_retry_at` via `RetryWait.widgetRetryTime`, `WidgetPrefs.refreshRetryAt`),
+  `RefreshReport.attempt` (`RefreshReportCodec`, extracted from `RefreshStats`), `BackgroundWorkPolicy.RETRY_BACKOFF_SECONDS`.
+  Android only: iOS runs the widget refresh directly in the intent without a retry. CSV import: `CsvImportState.Done` /
+  `Cancelled` (result as state, survives rotation), `prepareCsvImport` / `CsvImportSavePlan` (on `Dispatchers.Default`),
+  `insertImported` inserts directly via `portfolioDao` (no nested transaction). `BulkUndoConfirm.finishedAt` (saved;
+  «Remove» re-checks `BulkAddRunner.undoOffered`, `bulk_undo_expired`). Device test `PortfolioImportInsertTest`.
 * Build 122: `CsvImportProgress` (throttled progress, cancellable insert; iOS `CsvImportBackground`, `CsvImportRun`,
   `AppData+PortfolioImport`), `BulkAddProgress(text:)`, coverage gate `--min-logic` (`MIN_LOGIC` 58 / 78),
   `PortfolioPerformanceTest` / `TaxPerformanceTest` (+ iOS), `PerformanceTiming.Sizes`, `exchange_errors_synthetic.json`

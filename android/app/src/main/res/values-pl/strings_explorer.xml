@@ -162,4 +162,5 @@
         <item quantity="other">Usunąć ponownie %1$d par?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Pary, które w międzyczasie dostały alarm, zostaną.</string>
+    <string name="bulk_undo_expired">Cofnięcie nie jest już możliwe – pary zostają na liście obserwowanych.</string>
 </resources>

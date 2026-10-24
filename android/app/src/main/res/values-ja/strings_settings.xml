@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">「%1$s」はちょうど24時間前の価格と比較します。「00:00」はそのタイムゾーンの午前0時の始値と比較します。</string>
     <string name="settings_change_basis_hint_3">アラームには影響しません。</string>
     <string name="settings_change_basis_hint_since_last">「%1$s」は前回の更新時の価格と比較します。ライブ価格では0%%付近にとどまります。</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">換算通貨</string>

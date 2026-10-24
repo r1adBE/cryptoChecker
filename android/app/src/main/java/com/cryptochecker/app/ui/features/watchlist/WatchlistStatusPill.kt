@@ -66,7 +66,10 @@ internal fun WatchlistStatusPill(
     staleOnly: Boolean = false,
     /** Tipp: nur veraltete zeigen bzw. wieder alle; null = nicht antippbar. */
     onClick: (() -> Unit)? = null,
+    /** Nächster Versuch der Aktualisierung aus dem Widget (null = keiner): solange Countdown statt Status. */
+    retryAt: Long? = null,
 ) {
+    val retrySeconds = rememberRetrySeconds(retryAt)
     val clickLabel = stringResource(if (staleOnly) R.string.watchlist_show_all else R.string.watchlist_show_only_stale)
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -85,6 +88,11 @@ internal fun WatchlistStatusPill(
         // Kurzform bei Platzmangel (nur «Kurse der gewählten Börsen · …»), siehe [FirstFitText]
         var shortText: String? = null
         val statusText = when {
+            // «Speicher noch gesperrt – neuer Versuch in 27 s», kurz «Neuer Versuch in 27 s»
+            retrySeconds > 0 -> {
+                shortText = retryShortText(retrySeconds)
+                stringResource(R.string.watchlist_retry_countdown, retrySeconds)
+            }
             groupEmpty -> stringResource(R.string.watchlist_status_group_empty)
             allDisabled -> stringResource(R.string.watchlist_status_all_disabled)
             status.none -> stringResource(R.string.watchlist_status_none_traded)
@@ -114,9 +122,15 @@ internal fun WatchlistStatusPill(
         val agoTime = if (!status.warn && !status.deviceOffline) status.shownTime else newest
         val shortAgo = if (agoTime > 0) ago(agoTime, now) else ""
         val longAgo = if (agoTime > 0) spokenAgo(agoTime, now) else ""
-        val spoken = A11ySpeech.spokenDots(
-            if (shortAgo.isNotEmpty() && shortAgo != longAgo) statusText.replace(shortAgo, longAgo) else statusText
-        )
+        val spoken = if (retrySeconds > 0) {
+            pluralStringResource(R.plurals.watchlist_retry_countdown_a11y, retrySeconds, retrySeconds)
+        } else {
+            A11ySpeech.spokenDots(
+                if (shortAgo.isNotEmpty() && shortAgo != longAgo) statusText.replace(shortAgo, longAgo) else statusText
+            )
+        }
+        // Countdown: einmal beim Erscheinen ansagen, nicht jede Sekunde
+        AnnounceRetry(waiting = retrySeconds > 0, spoken = spoken)
         // Höflich ansagen, aber nur beim Wechsel aktuell / veraltet / offline (nicht jede Minute)
         val kind = A11ySpeech.statusKind(
             none = status.none,
@@ -127,10 +141,15 @@ internal fun WatchlistStatusPill(
         AnnounceStatusChange(kind, spoken)
         // Einzeilig: zu eng (z. B. 390 dp mit «3 deaktiviert») → Kurzform «Börsenkurse · vor 1 Min.»,
         // noch enger nur die Zeit — das Alter hat Vorrang vor dem Wort davor (Screenreader: ganzer Satz)
-        val variants = listOfNotNull(statusText, shortText, shortAgo.takeIf { it.isNotEmpty() && it != statusText && statusText.contains(it) })
+        val variants = listOfNotNull(
+            statusText,
+            shortText,
+            shortAgo.takeIf { retrySeconds == 0 && it.isNotEmpty() && it != statusText && statusText.contains(it) },
+        )
         Crossfade(
             targetState = variants,
-            animationSpec = if (reduceMotion) snap() else tween(STATUS_FADE_MILLIS),
+            // Countdown: jede Sekunde ein neuer Text — ohne Überblenden
+            animationSpec = if (reduceMotion || retrySeconds > 0) snap() else tween(STATUS_FADE_MILLIS),
             label = "status_text",
             modifier = Modifier
                 .weight(1f, fill = false)

@@ -150,4 +150,5 @@
         <item quantity="other">Retirer à nouveau %1$d paires ?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Les paires pour lesquelles tu as créé une alerte entre-temps restent.</string>
+    <string name="bulk_undo_expired">Il n\'est plus possible d\'annuler – les paires restent dans la liste de suivi.</string>
 </resources>

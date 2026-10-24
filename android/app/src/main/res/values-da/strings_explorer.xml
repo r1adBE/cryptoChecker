@@ -138,4 +138,5 @@
         <item quantity="other">Fjern %1$d par igen?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Par, som du har sat en alarm for i mellemtiden, bliver.</string>
+    <string name="bulk_undo_expired">Fortryd er ikke længere muligt – parrene bliver på overvågningslisten.</string>
 </resources>

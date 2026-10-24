@@ -215,6 +215,8 @@ internal fun WatchlistStatusRow(
     onToggleDisabled: () -> Unit = {},
     /** «+ Paar hinzufügen» mit Text statt nur «+» (kleine Merkliste, [ADD_PAIR_LABEL_MAX_PAIRS]). */
     addLabelled: Boolean = false,
+    /** Aktualisierung aus dem Widget wartet bis dahin auf den nächsten Versuch (null = nicht): Countdown im Status. */
+    retryAt: Long? = null,
 ) {
     val status = WatchlistStatus.of(visible, now, staleAfter, online, liveIds)
     // Alle Paare der Ansicht deaktiviert: eigener ruhiger Satz statt «Keine gehandelten Paare»
@@ -274,7 +276,8 @@ internal fun WatchlistStatusRow(
                         reduceMotion = reduceMotion,
                         staleOnly = staleOnly,
                         onClick = if (staleOnly || status.stale > 0) onToggleStale else null,
-                        modifier = Modifier.weight(1f, fill = false)
+                        modifier = Modifier.weight(1f, fill = false),
+                        retryAt = retryAt,
                     )
                     if (disabledCount > 0 || disabledOnly) {
                         DisabledChip(

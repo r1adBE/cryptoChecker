@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">”%1$s” jämför med kursen för exakt 24 timmar sedan. ”00:00” jämför med öppningskursen vid midnatt i den tidszonen.</string>
     <string name="settings_change_basis_hint_3">Larm påverkas inte.</string>
     <string name="settings_change_basis_hint_since_last">”%1$s” jämför med kursen från föregående uppdatering. Med livekurser ligger värdet nära 0 %%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Omräkningsvaluta</string>

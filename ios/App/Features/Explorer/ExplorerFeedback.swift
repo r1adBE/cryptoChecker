@@ -115,8 +115,9 @@ struct ExplorerSnackbar: View {
     var onAlarm: (Int64) -> Void = { _ in }
     /// «Erneut versuchen» sucht den DEX-Begriff noch einmal.
     var onRetryDex: (String) -> Void = { _ in }
-    /// «Rückgängig» nach «Mehrere Paare»: der Aufrufer fragt nach, bevor er die eben neu angelegten Paare entfernt.
-    var onUndo: ([Int64]) -> Void = { _ in }
+    /// «Rückgängig» nach «Mehrere Paare»: der Aufrufer fragt nach, bevor er die eben neu angelegten Paare entfernt
+    /// (Paare, Ende der Aufnahme in ms).
+    var onUndo: ([Int64], Int64) -> Void = { _, _ in }
     @Environment(\.appAccent) var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -187,7 +188,7 @@ struct ExplorerSnackbar: View {
         } else if let ids = note.undoIds {
             Button {
                 withAnimation { self.message = nil }
-                onUndo(ids)
+                onUndo(ids, note.undoFinishedAt)
             } label: {
                 actionLabel(L("action_undo"))
             }

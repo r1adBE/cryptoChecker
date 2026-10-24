@@ -138,4 +138,5 @@
         <item quantity="other">Të hiqen sërish %1$d çifte?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Çiftet për të cilat ke vendosur ndërkohë një alarm mbeten.</string>
+    <string name="bulk_undo_expired">Zhbërja nuk është më e mundur – çiftet mbeten në listën e ndjekjes.</string>
 </resources>

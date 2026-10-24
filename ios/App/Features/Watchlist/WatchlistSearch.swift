@@ -124,15 +124,20 @@ enum WatchlistSearch {
     }
 
     /// Namen der Paare für die Suche (Schlüssel `Watch.id`), unabhängig vom Schalter «Namen anzeigen»;
-    /// nur gespeicherte Namen, kein Abruf. Einmal je Suche gelesen, nicht je Zeile — wie
-    /// `rememberSearchNames` in Android.
+    /// nur gespeicherte Namen, kein Abruf. Für die Liste je Tastendruck `WatchlistSearchIndex.names(for:)`
+    /// (zwischengespeichert) — wie `rememberSearchNames` in Android.
     static func names(for watches: [Watch]) -> [Int64: String] {
-        let names = CoinLogoStore.names
+        names(for: watches, names: CoinLogoStore.names, tradFiPairs: CoinLogoStore.tradFiPairs,
+              stockNames: { CoinLogoStore.stockNames })
+    }
+
+    /// Wie oben mit gegebenen Listen (Coin-Namen, TradFi-Paare, Aktiennamen nur bei Bedarf gelesen).
+    static func names(for watches: [Watch], names: [String: String], tradFiPairs: Set<String>,
+                      stockNames: () -> [String: String]) -> [Int64: String] {
         guard !names.isEmpty else { return [:] }
-        let tradFiPairs = CoinLogoStore.tradFiPairs
         var out: [Int64: String] = [:]
         for watch in watches {
-            if let name = searchName(watch, names: names, tradFiPairs: tradFiPairs, stockNames: { CoinLogoStore.stockNames }) {
+            if let name = searchName(watch, names: names, tradFiPairs: tradFiPairs, stockNames: stockNames) {
                 out[watch.id] = name
             }
         }
@@ -161,14 +166,58 @@ final class WatchlistSearchIndex {
         let key: WatchlistSearch.Key
     }
 
+    /// Zwischengespeicherte Coin-Namen der Suche (`names(for:)`) samt dem Stand, aus dem sie stammen.
+    private struct NamesCache {
+        let watches: [Watch]
+        let names: [String: String]
+        let tradFiPairs: Set<String>
+        let stockNames: [String: String]
+        let result: [Int64: String]
+    }
+
     private var entries: [Int64: Entry] = [:]
     /// Zwei Paare mit gleicher Kennung, aber verschiedenen Feldern: dann ohne Zwischenspeicher prüfen.
     private var ambiguous = false
+    private var namesCache: NamesCache?
 
     /// Gespeicherte Schlüssel.
     var count: Int { entries.count }
     /// Wie oft bisher ein Schlüssel gefaltet wurde (für Tests und Messungen).
     private(set) var keysBuilt = 0
+    /// Wie oft bisher die Coin-Namen zusammengestellt wurden (für Tests und Messungen).
+    private(set) var namesBuilt = 0
+
+    /// Coin-Namen der Paare für die Suche (`WatchlistSearch.names(for:)`), zwischengespeichert: neu zusammengestellt
+    /// nur, wenn sich die Paare (Kennung, Börse, Basis, Quote, Vertrag) oder die gespeicherten Namen ändern — nicht je
+    /// Tastendruck, wie `rememberSearchNames` (Android).
+    func names(for watches: [Watch]) -> [Int64: String] {
+        names(for: watches, names: CoinLogoStore.names, tradFiPairs: CoinLogoStore.tradFiPairs,
+              stockNames: { CoinLogoStore.stockNames })
+    }
+
+    /// Wie oben mit gegebenen Listen; Aktiennamen nur gelesen, wenn es TradFi-Paare gibt.
+    func names(for watches: [Watch], names: [String: String], tradFiPairs: Set<String>,
+               stockNames: () -> [String: String]) -> [Int64: String] {
+        let stocks = tradFiPairs.isEmpty ? [:] : stockNames()
+        if let cache = namesCache, cache.names == names, cache.tradFiPairs == tradFiPairs, cache.stockNames == stocks,
+           Self.sameNameSources(cache.watches, watches) {
+            return cache.result
+        }
+        namesBuilt += 1
+        let result = WatchlistSearch.names(for: watches, names: names, tradFiPairs: tradFiPairs, stockNames: { stocks })
+        namesCache = NamesCache(watches: watches, names: names, tradFiPairs: tradFiPairs, stockNames: stocks,
+                                result: result)
+        return result
+    }
+
+    /// Gleiche Felder, von denen der Coin-Name abhängt (`WatchlistSearch.searchName`), in gleicher Reihenfolge — Kurse
+    /// und andere Felder zählen nicht.
+    private static func sameNameSources(_ a: [Watch], _ b: [Watch]) -> Bool {
+        a.count == b.count && zip(a, b).allSatisfy { x, y in
+            x.id == y.id && x.marketKey == y.marketKey && x.baseAsset == y.baseAsset && x.quoteAsset == y.quoteAsset
+                && x.contractType == y.contractType
+        }
+    }
 
     /// Paare aus `watches`, die `query` trifft, in gleicher Reihenfolge; `names` = Coin-Namen je Kennung.
     func filter(_ watches: [Watch], query: String, names: [Int64: String]) -> [Watch] {
@@ -211,5 +260,6 @@ final class WatchlistSearchIndex {
     func clear() {
         if !entries.isEmpty { entries = [:] }
         ambiguous = false
+        namesCache = nil
     }
 }

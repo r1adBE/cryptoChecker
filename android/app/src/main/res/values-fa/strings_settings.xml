@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">«%1$s» با قیمت دقیقاً 24 ساعت پیش مقایسه می‌کند. «00:00» با قیمت بازگشایی در نیمه‌شب همین منطقه زمانی مقایسه می‌کند.</string>
     <string name="settings_change_basis_hint_3">هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» با قیمت به‌روزرسانی قبلی مقایسه می‌کند. با قیمت‌های زنده نزدیک به 0%% می‌ماند.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">ارز تبدیل</string>

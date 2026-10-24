@@ -183,7 +183,11 @@ enum PerformanceData {
 
 /// Zeitmessung der Leistungstests ohne XCTest-`measure` (das bräuchte Baseline-Dateien von Xcode): je Messung zuerst
 /// `warmupRuns` Aufwärmläufe, dann der Median aus `measuredRuns` Läufen mit `ContinuousClock`; Eingaben je Lauf
-/// frisch und ungemessen (`setup`).
+/// frisch und ungemessen (`setup`). Sehr lange Messungen (Sekunden je Lauf) nehmen je Messung weniger Läufe
+/// (`quickWarmupRuns`, `quickMeasuredRuns`), damit der Unit-Test-Lauf kürzer bleibt.
+///
+/// Mit der Umgebungsvariable `CC_SKIP_PERFORMANCE=1` (CI unter Thread Sanitizer, der die Zeiten vervielfacht)
+/// überspringen die Leistungstests sich selbst (`skipIfRequested` in `setUpWithError`).
 ///
 /// Geprüft werden eine feste, grosszügige Obergrenze für die grosse Menge (CI-Runner sind langsam und schwanken, die
 /// Tests laufen als Debug-Build ohne Optimierung) und die Skalierung gegenüber einem Viertel davon — höchstens
@@ -209,20 +213,33 @@ enum PerformanceTiming {
     static let transactions = Sizes(small: 2_500, large: 10_000, unit: "Transaktionen")
     static let warmupRuns = 2
     static let measuredRuns = 5
+    /// Für Messungen, deren einzelner Lauf Sekunden dauert (UK-Steuer-Export, Ø-Übersicht).
+    static let quickWarmupRuns = 1
+    static let quickMeasuredRuns = 3
+    /// Umgebungsvariable des Testlaufs: "1" = Leistungstests überspringen.
+    static let skipVariable = "CC_SKIP_PERFORMANCE"
     static let scaleFactor = 5.0
     /// Feste Zugabe zur Skalierungsgrenze: kleine Messwerte schwanken absolut um einige Millisekunden.
     static let scaleSlackMillis = 20.0
 
+    /// Wirft `XCTSkip`, wenn der Testlauf die Leistungstests auslässt (`skipVariable` = "1").
+    static func skipIfRequested() throws {
+        try XCTSkipIf(ProcessInfo.processInfo.environment[skipVariable] == "1",
+                      "Leistungstests ausgelassen (\(skipVariable)=1, z. B. unter Thread Sanitizer)")
+    }
+
     /// Median der Laufzeit von `block` in Millisekunden; `setup` liefert je Lauf frische Eingaben (nicht gemessen).
-    static func medianMillis<S, R>(setup: () throws -> S, _ block: (S) throws -> R) rethrows -> Double {
-        for _ in 0..<warmupRuns {
+    /// `warmup` Aufwärm- und `runs` Messläufe (Standard `warmupRuns`, `measuredRuns`).
+    static func medianMillis<S, R>(warmup: Int = warmupRuns, runs: Int = measuredRuns, setup: () throws -> S,
+                                   _ block: (S) throws -> R) rethrows -> Double {
+        for _ in 0..<warmup {
             let input = try setup()
             let result = try block(input)
             withExtendedLifetime(result) {}
         }
         let clock = ContinuousClock()
         var times: [Double] = []
-        for _ in 0..<measuredRuns {
+        for _ in 0..<runs {
             let input = try setup()
             let started = clock.now
             let result = try block(input)
@@ -230,12 +247,13 @@ enum PerformanceTiming {
             withExtendedLifetime(result) {}
             times.append(millis(elapsed))
         }
-        return times.sorted()[measuredRuns / 2]
+        return times.sorted()[runs / 2]
     }
 
     /// Wie oben, ohne eigene Eingaben je Lauf.
-    static func medianMillis<R>(_ block: () throws -> R) rethrows -> Double {
-        try medianMillis(setup: {}, { _ in try block() })
+    static func medianMillis<R>(warmup: Int = warmupRuns, runs: Int = measuredRuns,
+                                _ block: () throws -> R) rethrows -> Double {
+        try medianMillis(warmup: warmup, runs: runs, setup: {}, { _ in try block() })
     }
 
     /// Misst `measure` (Anzahl → Median in ms) für die kleine und die grosse Menge von `sizes`, schreibt beide Werte

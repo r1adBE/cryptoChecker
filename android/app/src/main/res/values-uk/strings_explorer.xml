@@ -162,4 +162,5 @@
         <item quantity="other">Знову видалити %1$d пари?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Пари, для яких тим часом з’явився сигнал, залишаться.</string>
+    <string name="bulk_undo_expired">Скасувати вже не можна – пари залишаться у списку.</string>
 </resources>

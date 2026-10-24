@@ -11,6 +11,7 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.cryptochecker.app.data.WatchRepository
@@ -19,6 +20,7 @@ import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.domain.refresh.RetryWait
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioWidgetProvider
@@ -70,7 +72,7 @@ class PriceUpdateScheduler @Inject constructor(
             .setConstraints(constraints)
             // Retry nur noch bei nicht lesbarem Datenbank-Schlüssel (BackgroundWorkPolicy): kurz und
             // linear statt exponentiell (Vorgabe, bis 5 h), damit Alarme nicht stundenlang ausbleiben
-            .setBackoffCriteria(BackoffPolicy.LINEAR, RETRY_BACKOFF_SECONDS, TimeUnit.SECONDS)
+            .setBackoffCriteria(BackoffPolicy.LINEAR, BackgroundWorkPolicy.RETRY_BACKOFF_SECONDS, TimeUnit.SECONDS)
             .build()
 
         workManager.enqueueUniquePeriodicWork(
@@ -92,7 +94,7 @@ class PriceUpdateScheduler @Inject constructor(
             // Bevorzugt ausführen, damit der Knopf im Widget spürbar reagiert.
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             // Retry nur bei nicht lesbarem Datenbank-Schlüssel: kurz und linear, solange der Kreis dreht
-            .setBackoffCriteria(BackoffPolicy.LINEAR, RETRY_BACKOFF_SECONDS, TimeUnit.SECONDS)
+            .setBackoffCriteria(BackoffPolicy.LINEAR, BackgroundWorkPolicy.RETRY_BACKOFF_SECONDS, TimeUnit.SECONDS)
             .setInputData(
                 workDataOf(
                     PriceUpdateWorker.KEY_MANUAL to true,
@@ -118,6 +120,20 @@ class PriceUpdateScheduler @Inject constructor(
     fun observeManualRefreshRunning(): Flow<Boolean> =
         workManager.getWorkInfosForUniqueWorkFlow(PriceUpdateWorker.ONE_TIME_WORK_NAME)
             .map { infos -> infos.any { !it.state.isFinished } }
+            .distinctUntilChanged()
+
+    /**
+     * Zeitpunkt des nächsten Versuchs, solange die Aktualisierung aus dem Widget nach «erneut versuchen»
+     * (Datenbank-Schlüssel noch nicht lesbar) wartet ([RetryWait.retryAt]); sonst null.
+     */
+    fun observeManualRetryAt(): Flow<Long?> =
+        workManager.getWorkInfosForUniqueWorkFlow(PriceUpdateWorker.ONE_TIME_WORK_NAME)
+            .map { infos ->
+                infos.firstNotNullOfOrNull {
+                    val enqueued = it.state == WorkInfo.State.ENQUEUED
+                    RetryWait.retryAt(enqueued, it.runAttemptCount, it.nextScheduleTimeMillis)
+                }
+            }
             .distinctUntilChanged()
 
     /** @param forceExact Wecker «Pünktlich prüfen» neu stellen (Neustart, Update, neue Berechtigung). */
@@ -253,9 +269,4 @@ class PriceUpdateScheduler @Inject constructor(
     private fun hasWidgets(provider: Class<*>): Boolean = runCatching {
         AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(context, provider)).isNotEmpty()
     }.getOrDefault(true)
-
-    private companion object {
-        /** Linearer Backoff (Sekunden) für Retry der Aktualisierung; WorkManager-Minimum sind 10 s. */
-        const val RETRY_BACKOFF_SECONDS = 30L
-    }
 }

@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">“%1$s” so với giá đúng 24 giờ trước. “00:00” so với giá mở cửa lúc nửa đêm theo múi giờ đó.</string>
     <string name="settings_change_basis_hint_3">Không ảnh hưởng đến cảnh báo.</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” so với giá của lần cập nhật trước. Với giá trực tiếp, giá trị luôn gần 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Tiền tệ quy đổi</string>

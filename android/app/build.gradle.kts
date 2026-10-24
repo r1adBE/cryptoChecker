@@ -67,7 +67,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 122
+        versionCode = 123
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -323,8 +323,9 @@ tasks.withType<Test>().configureEach {
     }
 }
 
-// Testabdeckung nur auf Anfrage (CI-Schritt «Coverage»: -Pcoverage=true, Bericht :app:koverXmlReportDebug), sonst
-// laufen die Unit-Tests ohne Instrumentierung. Nur Anzeige, keine Schwelle. Der Bericht von :app misst :marketdata
+// Testabdeckung nur auf Anfrage (CI-Schritt «Coverage (logic gate)»: -Pcoverage=true, Bericht
+// :app:koverXmlReportDebug), sonst laufen die Unit-Tests ohne Instrumentierung. Die CI prüft daraus eine
+// Mindestabdeckung der Logik (MIN_LOGIC in android.yml). Der Bericht von :app misst :marketdata
 // mit: die Börsen-Parser laufen vor allem in den Vertragstests von :app (contract/), nicht in :marketdata selbst.
 if (providers.gradleProperty("coverage").orNull == "true") {
     apply(plugin = libs.plugins.kover.get().pluginId)

@@ -185,6 +185,7 @@ internal fun WatchlistBody(
                     disabledOnly = ui.quickView == QuickView.DISABLED,
                     onToggleDisabled = { ui.toggleQuickView(QuickView.DISABLED) },
                     addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
+                    retryAt = live.widgetRetryAt,
                 )
                 // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
                 if (!ui.sortMode && !ui.selecting && !ui.searching) AlarmReliabilityLine(now = now)

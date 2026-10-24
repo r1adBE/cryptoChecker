@@ -126,4 +126,5 @@
         <item quantity="other">거래쌍 %1$d개를 다시 삭제할까요?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">그사이 경보를 설정한 거래쌍은 그대로 남아요.</string>
+    <string name="bulk_undo_expired">이제 실행 취소할 수 없습니다. 거래쌍은 관심 목록에 그대로 남습니다.</string>
 </resources>

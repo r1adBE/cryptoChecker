@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 122 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 123 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -616,8 +616,9 @@ Erledigt (statisch geprüft, ohne Xcode — massgebend ist der erste CI-Lauf mit
 2. **Portfolio.** Die `nonisolated(unsafe) static var`-Zwischenspeicher in `PortfolioPriceSource` (samt `+Store`),
    `FxRateSource`, `PortfolioHistorySource` (samt `+Chain`), `HistoricPriceSource` und `PortfolioRouteResolver` sind
    geprüft und kommentiert: jeder Zugriff nur unter der genannten Sperre (auch in `PortfolioPriceSourceClearTests`).
-4. **Laufzeitprüfungen.** Einstiegspunkte durchgesehen: Mitteilungs-Delegate (`@preconcurrency`-Konformität,
-   `willPresent` `nonisolated`), `BGTaskScheduler`-Handler und `expirationHandler` (nicht isoliert),
+4. **Laufzeitprüfungen.** Einstiegspunkte durchgesehen: Mitteilungs-Delegate (`willPresent` und `didReceive`
+   `nonisolated`; `didReceive` liest die Antwort sofort als Sendable-Werte aus und erledigt Pause, Navigation und
+   `AppData` samt `completionHandler` in einem MainActor-Task), `BGTaskScheduler`-Handler und `expirationHandler` (nicht isoliert),
    `NWPathMonitor` (`NetworkStatus`, `UnmeteredNetwork`: nicht isoliert), UIKit-Farb-Closures (nur in nicht isolierten
    Typen), `NotificationCenter`-Beobachter, Combine/`onReceive` (Stromsparmodus über den Haupt-Thread),
    `AVSpeechSynthesizerDelegate` (`nonisolated`), WebSocket-Ping (`@Sendable`), `WidgetCenter.getCurrentConfigurations`.

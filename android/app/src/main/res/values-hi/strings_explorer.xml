@@ -138,4 +138,5 @@
         <item quantity="other">%1$d पेयर फिर से हटाओ?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">जिन पेयर पर तुमने इस बीच अलार्म सेट किया है, वे बने रहेंगे।</string>
+    <string name="bulk_undo_expired">अब पूर्ववत नहीं किया जा सकता – पेयर वॉचलिस्ट में बने रहेंगे।</string>
 </resources>

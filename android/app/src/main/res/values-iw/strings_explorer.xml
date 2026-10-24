@@ -150,4 +150,5 @@
         <item quantity="other">להסיר שוב %1$d צמדים?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">צמדים שהוגדרה להם התראה בינתיים יישארו.</string>
+    <string name="bulk_undo_expired">כבר אי אפשר לבטל – הצמדים יישארו ברשימת המעקב.</string>
 </resources>

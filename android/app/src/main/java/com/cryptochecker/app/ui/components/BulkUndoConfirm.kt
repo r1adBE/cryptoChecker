@@ -16,22 +16,30 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.ui.UiTestTags
 
 /**
  * Rückfrage vor «Rückgängig» nach «Mehrere Paare auf einmal»: Antippen von «Rückgängig» merkt nur die neu angelegten
- * Paare ([request]); erst «Entfernen» ([remove]) gibt sie an den Undo-Weg weiter, «Behalten» ([keep]) — ebenso Zurück
+ * Paare samt Ende der Aufnahme ([request]); erst «Entfernen» ([remove]) gibt sie an den Undo-Weg weiter — nur, wenn
+ * «Rückgängig» dann noch gilt ([BulkAddRunner.undoOffered]), sonst bleiben sie. «Behalten» ([keep]) — ebenso Zurück
  * oder Tippen neben den Dialog — verwirft sie. Wie iOS `BulkUndoConfirm`.
  */
 @Stable
-class BulkUndoConfirm(initial: List<Long>? = null) {
+class BulkUndoConfirm(initial: List<Long>? = null, initialFinishedAt: Long = 0L) {
     /** Paare, für die der Dialog gerade fragt; null = kein Dialog. */
     var pending: List<Long>? by mutableStateOf(initial?.takeIf { it.isNotEmpty() })
         private set
 
-    /** «Rückgängig» getippt: Dialog für [ids] öffnen (ohne Paare keiner). */
-    fun request(ids: List<Long>) {
-        if (ids.isNotEmpty()) pending = ids
+    /** Ende der Aufnahme dieser Paare (ms); damit prüft «Entfernen» das Zeitfenster erneut. */
+    var finishedAt: Long = initialFinishedAt
+        private set
+
+    /** «Rückgängig» getippt: Dialog für [ids] (Aufnahme beendet um [finishedAt]) öffnen (ohne Paare keiner). */
+    fun request(ids: List<Long>, finishedAt: Long) {
+        if (ids.isEmpty()) return
+        this.finishedAt = finishedAt
+        pending = ids
     }
 
     /** «Behalten»: nichts entfernen. */
@@ -39,18 +47,21 @@ class BulkUndoConfirm(initial: List<Long>? = null) {
         pending = null
     }
 
-    /** «Entfernen»: Dialog zu, dann [undo] mit den gemerkten Paaren (genau einmal). */
-    fun remove(undo: (List<Long>) -> Unit) {
+    /**
+     * «Entfernen»: Dialog zu; gilt «Rückgängig» um [now] noch, [undo] mit den gemerkten Paaren (genau einmal), sonst
+     * [expired] — dann wird nichts gelöscht.
+     */
+    fun remove(now: Long, expired: () -> Unit, undo: (List<Long>) -> Unit) {
         val ids = pending ?: return
         pending = null
-        undo(ids)
+        if (BulkAddRunner.undoOffered(finishedAt, now)) undo(ids) else expired()
     }
 
     companion object {
-        /** Offener Dialog übersteht Drehen und Prozessende (Ids als LongArray). */
+        /** Offener Dialog übersteht Drehen und Prozessende (LongArray: Ende der Aufnahme, dann die Ids). */
         val Saver: Saver<BulkUndoConfirm, LongArray> = Saver(
-            save = { it.pending?.toLongArray() },
-            restore = { BulkUndoConfirm(it.toList()) },
+            save = { c -> c.pending?.let { longArrayOf(c.finishedAt) + it.toLongArray() } },
+            restore = { BulkUndoConfirm(it.drop(1), it.firstOrNull() ?: 0L) },
         )
     }
 }
@@ -62,10 +73,11 @@ fun rememberBulkUndoConfirm(): BulkUndoConfirm = rememberSaveable(saver = BulkUn
 /**
  * Dialog «746 Paare wieder entfernen?» mit dem Hinweis, dass Paare mit inzwischen gesetztem Alarm bleiben. «Behalten»
  * schliesst ohne Folgen, «Entfernen» (Fehlerfarbe) spielt die Erfolgs-Haptik und ruft [onRemove] mit den neu
- * angelegten Paaren — die Haptik also erst beim Entfernen, nicht beim Öffnen (wie iOS `ExplorerScreen`).
+ * angelegten Paaren — die Haptik also erst beim Entfernen, nicht beim Öffnen (wie iOS `ExplorerScreen`). Ist das
+ * Zeitfenster inzwischen abgelaufen, schliesst «Entfernen» nur und ruft [onExpired] (Hinweis, nichts gelöscht).
  */
 @Composable
-fun BulkUndoConfirmDialog(confirm: BulkUndoConfirm, onRemove: (List<Long>) -> Unit) {
+fun BulkUndoConfirmDialog(confirm: BulkUndoConfirm, onExpired: () -> Unit, onRemove: (List<Long>) -> Unit) {
     val haptics = rememberHaptics()
     val ids = confirm.pending ?: return
     AlertDialog(
@@ -75,8 +87,10 @@ fun BulkUndoConfirmDialog(confirm: BulkUndoConfirm, onRemove: (List<Long>) -> Un
         confirmButton = {
             TextButton(
                 onClick = {
-                    haptics.play(HapticEvent.SUCCESS)
-                    confirm.remove(onRemove)
+                    confirm.remove(System.currentTimeMillis(), expired = onExpired) {
+                        haptics.play(HapticEvent.SUCCESS)
+                        onRemove(it)
+                    }
                 },
                 modifier = Modifier.testTag(UiTestTags.BULK_UNDO_REMOVE),
             ) {

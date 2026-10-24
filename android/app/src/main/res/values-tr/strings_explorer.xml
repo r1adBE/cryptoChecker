@@ -138,4 +138,5 @@
         <item quantity="other">%1$d çift yeniden kaldırılsın mı?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Bu arada alarm kurduğun çiftler kalır.</string>
+    <string name="bulk_undo_expired">Artık geri alınamaz – çiftler izleme listesinde kalır.</string>
 </resources>

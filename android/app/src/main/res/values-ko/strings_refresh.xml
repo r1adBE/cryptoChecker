@@ -101,4 +101,15 @@
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">거래소 메시지: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">저장소가 아직 잠겨 있습니다 – %1$d초 후 다시 시도합니다</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">저장소가 아직 잠겨 있습니다 – %1$d초 후 다시 시도합니다</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s 후 다시 시도</string>
+    <string name="widget_retry_at">%1$s에 다시 시도</string>
+    <string name="refresh_sheet_wait_attempt">%1$d번째 시도 – 첫 시도에서는 암호화된 저장소가 아직 준비되지 않았습니다</string>
 </resources>

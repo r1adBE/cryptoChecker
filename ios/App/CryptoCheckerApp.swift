@@ -237,11 +237,11 @@ struct CryptoCheckerApp: App {
     }
 }
 
-// @preconcurrency: iOS ruft die Mitteilungs-Delegate-Methoden auf dem Haupt-Thread auf; das SDK markiert das
-// Protokoll aber nicht als MainActor (die Klasse ist es über UIApplicationDelegate). Swift 6 prüft das zur Laufzeit
-// (Abbruch auf einem anderen Thread): `willPresent` braucht den MainActor nicht und ist darum `nonisolated`;
-// `didReceive` bleibt isoliert (springt zum Paar, ruft `completionHandler` erst nach dem Schreiben).
-final class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate {
+// Die Mitteilungs-Delegate-Methoden sind `nonisolated`: Das SDK markiert das Protokoll nicht als MainActor (die Klasse
+// ist es über UIApplicationDelegate), und iOS garantiert den Haupt-Thread nicht — eine isolierte Methode bräche in
+// Swift 6 auf einem anderen Thread ab. `didReceive` liest die Antwort sofort als Sendable-Werte aus; alles, was den
+// MainActor braucht (Pause, Navigation, AppData), läuft in einem MainActor-Task, der danach `completionHandler` ruft.
+final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -293,62 +293,70 @@ final class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUser
     }
 
     // Tipp auf eine Mitteilung: zum Paar springen.
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        let watchId = (response.notification.request.content.userInfo[Notifier.userInfoWatchId] as? NSNumber)?.int64Value
-        let exchangeUrl = (response.notification.request.content.userInfo[Notifier.userInfoExchangeUrl] as? String)
-            .flatMap { URL(string: $0) }
-        let alarmId = (response.notification.request.content.userInfo[Notifier.userInfoAlarmId] as? NSNumber)?.int64Value
-        if response.actionIdentifier == Notifier.actionSnooze, let alarmId {
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let tap = NotificationTap(response)
+        let completion = NotificationCompletion(call: completionHandler)
+        Task { @MainActor in
+            await AppDelegate.handle(tap)
+            completion.call()
+        }
+    }
+
+    /// Antwort auf eine Mitteilung umsetzen; kehrt erst zurück, wenn «1 h später» gespeichert ist.
+    @MainActor
+    private static func handle(_ tap: NotificationTap) async {
+        if tap.action == Notifier.actionSnooze, let alarmId = tap.alarmId {
             // «1 h später»: Pause vermerken (der Alarm bleibt scharf), Mitteilung weg — App bleibt im Hintergrund.
             // Zuerst die Pause: Kursmarken stellt das Einschalten danach wieder scharf (`rearmsOnSnooze`), die Pause
             // hält die sofortige Meldung zurück — wie AlarmActionReceiver auf Android
             AlarmSnooze.snooze(alarmId, now: TimeUtils.nowMillis)
             Notifier.cancelAlarm(alarmId)
-            Task { @MainActor in
-                // Schreiben zu Ende führen, auch wenn iOS die App gleich wieder anhält; erst danach fertig melden
-                let backgroundTask = BackgroundTaskGuard.begin("snoozeAlarm")
-                defer {
-                    backgroundTask.end()
-                    completionHandler()
-                }
-                // Abgestimmt auf der Datei statt im Speicher der App: Widget oder Hintergrund können den Alarm
-                // inzwischen ausgelöst und gespeichert haben (`AlarmSnooze.rearm`). Abseits des Haupt-Threads — das
-                // Schreiben kann über `NSFileCoordinator` auf das Widget warten
-                let saved = await Task.detached(priority: .userInitiated) {
-                    var changed = false
-                    let written = SharedStorage.updateSnapshot { changed = AlarmSnooze.rearm(alarmId, in: &$0) }
-                    return written != nil && changed
-                }.value
-                guard saved else { return }
-                // Auch im Speicher der App: Ein Speichern der App zwischen dem Schreiben oben und dem Neuladen
-                // schrieb sonst ihr «aus» zurück (das Zusammenführen übernimmt die Datei nur bei neuerer Auslösung, das
-                // Einschalten ändert sie nicht) — der Alarm bliebe trotz «1 h später» aus. Gleiche Änderung wie auf der
-                // Datei, gespeichert wie der Schalter in der Liste; nur wenn der Alarm im Speicher steht (sonst nichts zu
-                // ändern, z. B. Merkliste gesperrt und leer)
-                let app = AppData.shared
-                var probe = app.snapshot
-                if AlarmSnooze.rearm(alarmId, in: &probe) {
-                    app.mutate({ _ = AlarmSnooze.rearm(alarmId, in: &$0) }, reloadWidgets: false)
-                }
-                await app.reloadFromDisk()
-            }
-            return
-        } else if response.actionIdentifier == Notifier.actionEdit, let alarmId, let id = watchId {
-            Task { @MainActor in AppRouter.shared.open(AlarmEditTarget.of(watchId: id, alarmId: alarmId)) }
-        } else if response.actionIdentifier == Notifier.actionOpenExchange, let url = exchangeUrl, url.scheme == "https" {
+            await rearmAfterSnooze(alarmId)
+        } else if tap.action == Notifier.actionEdit, let alarmId = tap.alarmId, let id = tap.watchId {
+            AppRouter.shared.open(AlarmEditTarget.of(watchId: id, alarmId: alarmId))
+        } else if tap.action == Notifier.actionOpenExchange, let url = tap.exchangeUrl, url.scheme == "https" {
             // USDT-Depeg «Börse öffnen»: Seite USDC/USDT der Börse (App der Börse, falls sie den Link übernimmt)
-            Task { @MainActor in UIApplication.shared.open(url, options: [:], completionHandler: nil) }
-        } else if response.actionIdentifier == Notifier.actionWhy, let id = watchId {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else if tap.action == Notifier.actionWhy, let id = tap.watchId {
             // «Was bewegt sich mit?»: direkt das Blatt des Paars
-            Task { @MainActor in AppRouter.shared.open("why/\(id)") }
-        } else if let id = watchId {
-            Task { @MainActor in AppRouter.shared.open("watch/\(id)") }
-        } else if let target = response.notification.request.content.userInfo["open"] as? String {
+            AppRouter.shared.open("why/\(id)")
+        } else if let id = tap.watchId {
+            AppRouter.shared.open("watch/\(id)")
+        } else if let target = tap.openTarget {
             // z. B. «Wirtschaftstermine» → Markt-Tab
-            Task { @MainActor in AppRouter.shared.open(target) }
+            AppRouter.shared.open(target)
         }
-        completionHandler()
+    }
+
+    /// «1 h später»: Alarm wieder einschalten und speichern — zu Ende geführt, auch wenn iOS die App gleich wieder
+    /// anhält (Hintergrund-Zeit bis zum Ende).
+    @MainActor
+    private static func rearmAfterSnooze(_ alarmId: Int64) async {
+        let backgroundTask = BackgroundTaskGuard.begin("snoozeAlarm")
+        defer { backgroundTask.end() }
+        // Abgestimmt auf der Datei statt im Speicher der App: Widget oder Hintergrund können den Alarm
+        // inzwischen ausgelöst und gespeichert haben (`AlarmSnooze.rearm`). Abseits des Haupt-Threads — das
+        // Schreiben kann über `NSFileCoordinator` auf das Widget warten
+        let saved = await Task.detached(priority: .userInitiated) {
+            var changed = false
+            let written = SharedStorage.updateSnapshot { changed = AlarmSnooze.rearm(alarmId, in: &$0) }
+            return written != nil && changed
+        }.value
+        guard saved else { return }
+        // Auch im Speicher der App: Ein Speichern der App zwischen dem Schreiben oben und dem Neuladen
+        // schrieb sonst ihr «aus» zurück (das Zusammenführen übernimmt die Datei nur bei neuerer Auslösung, das
+        // Einschalten ändert sie nicht) — der Alarm bliebe trotz «1 h später» aus. Gleiche Änderung wie auf der
+        // Datei, gespeichert wie der Schalter in der Liste; nur wenn der Alarm im Speicher steht (sonst nichts zu
+        // ändern, z. B. Merkliste gesperrt und leer)
+        let app = AppData.shared
+        var probe = app.snapshot
+        if AlarmSnooze.rearm(alarmId, in: &probe) {
+            app.mutate({ _ = AlarmSnooze.rearm(alarmId, in: &$0) }, reloadWidgets: false)
+        }
+        await app.reloadFromDisk()
     }
 }
 

@@ -164,6 +164,13 @@ object BackgroundWorkPolicy {
      */
     fun outcomeOnKeyUnavailable(): WorkOutcome = WorkOutcome.RETRY
 
+    /**
+     * Linearer Backoff (Sekunden) für [outcomeOnKeyUnavailable], gesetzt von PriceUpdateScheduler (WorkManager-Minimum
+     * sind 10 s); der n-te neue Versuch wartet n × so lange
+     * ([com.cryptochecker.app.domain.refresh.RetryWait.linearRetryAt]).
+     */
+    const val RETRY_BACKOFF_SECONDS = 30L
+
     /** Wecker «Pünktlich prüfen» nach dem Lauf abgleichen? Nur geplante Läufe (Netz darunter). */
     fun syncsExactAfterRun(manual: Boolean): Boolean = !manual
 

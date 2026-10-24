@@ -135,9 +135,12 @@ internal class WatchlistLiveFlows(
 
     /** Aktualisierung, Netz, Live-Strom, Umrechnung und Stempel der Änderungen in einem Stand. */
     val live: StateFlow<WatchlistLive> = combine(
-        combine(refresh.refreshing, online, liveExchanges, liveWatchIds) { refreshing, online, exchanges, ids ->
+        combine(
+            refresh.refreshing, online, liveExchanges, liveWatchIds, refresh.widgetRetryAt,
+        ) { refreshing, online, exchanges, ids, retryAt ->
             WatchlistLive(
                 refreshing = refreshing,
+                widgetRetryAt = retryAt,
                 online = online,
                 liveExchanges = exchanges,
                 liveWatchIds = ids,
@@ -157,6 +160,7 @@ internal class WatchlistLiveFlows(
 
     private fun currentLive() = WatchlistLive(
         refreshing = refresh.refreshing.value,
+        widgetRetryAt = refresh.widgetRetryAt.value,
         online = online.value,
         liveExchanges = liveExchanges.value,
         liveWatchIds = liveWatchIds.value,

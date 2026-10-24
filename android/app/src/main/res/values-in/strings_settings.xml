@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">“%1$s” membandingkan dengan harga tepat 24 jam lalu. “00:00” membandingkan dengan harga pembukaan pada tengah malam di zona waktu itu.</string>
     <string name="settings_change_basis_hint_3">Alarm tidak terpengaruh.</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” membandingkan dengan harga pembaruan sebelumnya. Dengan harga langsung, nilainya tetap mendekati 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Mata uang konversi</string>

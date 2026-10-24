@@ -8,6 +8,12 @@ import XCTest
 /// Skalierung: `PerformanceTiming` mit `transactions` (Debug-Build, darum grosszügiger als Android). Wie
 /// `TaxPerformanceTest.kt`.
 final class TaxPerformanceTests: XCTestCase {
+    /// Unter Thread Sanitizer (CI setzt `CC_SKIP_PERFORMANCE=1`) übersprungen: die Zeiten wären verfälscht.
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try PerformanceTiming.skipIfRequested()
+    }
+
     private typealias T = PerformanceTiming
     private static let year = 2025
     private static let neutralCurrency = "EUR"
@@ -131,7 +137,10 @@ final class TaxPerformanceTests: XCTestCase {
         T.assertLimitOnly("Steuer-Export UK \(TaxPerformanceTests.year)", limitMillis: 180_000,
                           sizes: T.transactions) { n in
             let input = TaxPerformanceTests.inputs(n, .UK)
-            return T.medianMillis { TaxPerformanceTests.export(.UK, input).chars }
+            // Sekunden je Lauf: 1 Aufwärm- und 3 Messläufe
+            return T.medianMillis(warmup: T.quickWarmupRuns, runs: T.quickMeasuredRuns) {
+                TaxPerformanceTests.export(.UK, input).chars
+            }
         }
         check(.UK, .UK_POOL)
     }

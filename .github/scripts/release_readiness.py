@@ -13,7 +13,7 @@
   warning required store text empty or missing (title / name / description), no screenshots
           android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
             versionCode / build number named there (also tag examples and archive name) differs from
-            android/app/build.gradle.kts
+            android/app/build.gradle.kts; history lines («Build N: …», «früher» / «previously») are skipped
           ROADMAP.md / TESTPLAN.md (private, only if present): "Build N" in the header (first lines) differs
             from versionCode or is missing
   notice  private guide missing (public repository): named as "not checked" instead of skipped silently
@@ -222,13 +222,51 @@ def self_test():
     # Nur der Kopf zählt: Verlauf weiter unten («Build 91: …») nicht
     assert head_build_problem(head.format(105) + "\n" * 10 + "Build 91: alt\n", "105") is None
     assert head_build_problem("# Liste\n" + "\n" * 10 + "Build 105\n", "105") is not None
+    # Store guides: tag examples and archive name are checked, history lines are not
+    play, apple = DOC_PATTERNS["android/docs/PLAY_STORE.md"], DOC_PATTERNS["ios/APP_STORE.md"]
+    ok = ["Tag `v16.2.2-105` setzen", "Archiv: CryptoChecker-105.xcarchive", "Version **16.2.2** (Build 105)",
+          "versionCode = 105", "`git tag v16.2.2-105 && git push origin v16.2.2-105`"]
+    assert doc_mismatches(ok, apple, "16.2.2", "105") == [], doc_mismatches(ok, apple, "16.2.2", "105")
+    assert doc_mismatches(ok, play, "16.2.2", "105") == [], doc_mismatches(ok, play, "16.2.2", "105")
+    assert doc_mismatches(["Tag `v16.2.2-104` setzen"], play, "16.2.2", "105") == ["line 1: 104 (project: 105)"]
+    assert doc_mismatches(["git tag v16.2.1-105"], apple, "16.2.2", "105") == ["line 1: 16.2.1 (project: 16.2.2)"]
+    assert doc_mismatches(["x", "CryptoChecker-99.xcarchive"], apple, "16.2.2", "105") == ["line 2: 99 (project: 105)"]
+    assert doc_mismatches(["v16.2.2-105-rc"], play, "16.2.2", "105") == []          # no word end after the build
+    history = ["Build 91: Tag v16.2.0-91 und CryptoChecker-91.xcarchive", "- **Build 90:** versionCode 90",
+               "früher Version 16.1.0 (Build 80)", "Die frühere Tag-Form v16.0.0-70", "previously v15.0.0-60",
+               "  Build 89: versionCode = 89"]
+    assert doc_mismatches(history, apple + play, "16.2.2", "105") == [], doc_mismatches(history, apple, "16.2.2", "105")
+    assert is_history("Build 91: x") and not is_history("Version 16.2.2 (Build 105)") and not is_history("Build 105")
     print("release_readiness.py self-test passed")
     return 0
 
 
 # Version mentions in the private store guides (not in the public repository): headers, versionCode / build
-# fields, tag examples (v<version>-<build>) and the archive name. Only the current version is named like this;
-# history lines read «Build 91: …» and are not matched.
+# fields, tag examples (v<version>-<build>) and the archive name. Only the current version is named like this.
+# Lines that are recognisably history are skipped as a whole (is_history): they start with «Build N:» (also as a
+# list item or in bold) or contain «früher» / «previously» (also «frühere», «früheren»). Other lines that name an
+# old version («seit Build 47» without a version pattern) are not matched by the patterns anyway.
+HISTORY_LINE = re.compile(r"^\s*(?:[-*+]\s+|\d+\.\s+)?\**Build \d+\**\s*:|früher|previously", re.IGNORECASE)
+
+
+def is_history(line):
+    """True for a history line of a store guide (see HISTORY_LINE)."""
+    return bool(HISTORY_LINE.search(line))
+
+
+def doc_mismatches(lines, patterns, name, code):
+    """[«line N: value (project: expected)»] for version mentions that differ from name / code; history skipped."""
+    wrong = []
+    for no, line in enumerate(lines, 1):
+        if is_history(line):
+            continue
+        for pattern in patterns:
+            for m in re.finditer(pattern, line):
+                value = m.group(1)
+                expected = name if "." in value else code
+                if value != expected:
+                    wrong.append(f"line {no}: {value} (project: {expected})")
+    return wrong
 DOC_PATTERNS = {
     "android/docs/PLAY_STORE.md": (
         r"versionCode\W{0,4}(\d+)",
@@ -261,15 +299,8 @@ def check_store_docs(repo):
             # Sichtbar statt still: im öffentlichen Repository fehlen die privaten Anleitungen
             add("notice", f"{rel}: not checked (private file, not in this repository)")
             continue
-        wrong = []
         with open(path, encoding="utf-8") as f:
-            for no, line in enumerate(f, 1):
-                for pattern in patterns:
-                    for m in re.finditer(pattern, line):
-                        value = m.group(1)
-                        expected = name if "." in value else code
-                        if value != expected:
-                            wrong.append(f"line {no}: {value} (project: {expected})")
+            wrong = doc_mismatches(f.read().splitlines(), patterns, name, code)
         if wrong:
             add("warning", f"{rel} names another version or build than the project ({name}, build {code}); "
                            "update the guide before the upload:\n- " + "\n- ".join(wrong[:12]), rel)

@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">«%1$s» vergleicht mit dem Kurs vor genau 24 Stunden. «00:00» vergleicht mit dem Eröffnungskurs um Mitternacht in dieser Zeitzone.</string>
     <string name="settings_change_basis_hint_3">Alarme sind davon nicht betroffen.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» vergleicht mit dem Kurs der vorherigen Aktualisierung. Bei Live-Kursen bleibt der Wert nahe 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Anzeigewährung</string>

@@ -1,11 +1,19 @@
-// Speichern des CSV-Imports: neue Transaktionen anlegen (abbrechbar, in einer Datenbank-Transaktion), danach gewählte
+// Speichern des CSV-Imports: Zeilen vorbereiten (im Hintergrund), neue Transaktionen anlegen (abbrechbar, in einer Datenbank-Transaktion), danach gewählte
 // Umbuchungen mit gespeicherten Seiten verknüpfen. Eigene Datei, weil `PortfolioCsvImportViewModel.kt` an der
 // Längengrenze ist; gespiegelt im Speichern von `PortfolioCsvImport.swift`.
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
+import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
 import timber.log.Timber
 
 /** Ergebnis von [saveCsvImport]. */
@@ -37,4 +45,32 @@ internal suspend fun saveCsvImport(insert: suspend () -> Int, link: suspend () -
     val failure = inserted.exceptionOrNull() ?: linked?.exceptionOrNull()?.takeIf { count == 0 }
     if (failure != null) return CsvImportSaveOutcome.Failed(locked = failure is PortfolioStorageLockedException)
     return CsvImportSaveOutcome.Saved(created, count)
+}
+
+/** Zum Speichern vorbereitet ([prepareCsvImport]): Zeilen, Kennung des Laufs, gespeicherte Seiten zum Verknüpfen. */
+internal class CsvImportSavePlan(
+    val entities: List<PortfolioTxEntity>,
+    val batch: String,
+    val storedUpdates: List<CsvStoredTransfer>,
+)
+
+/**
+ * Gewählte Umbuchungen anwenden, die Wahl je Auszahlung übernehmen (Ziel aus [destinations]), älteste zuerst ordnen
+ * (Id folgt der Zeit), in Zeilen umwandeln und den Lauf kennzeichnen («Import rückgängig»: Format, [now], Hash der
+ * Zeilenschlüssel). Bei grossen Dateien rechenintensiv, darum im Hintergrund aufgerufen.
+ * @return null, wenn nicht jede Auszahlung (ohne verknüpfte Umbuchung) eine Wahl hat
+ */
+internal fun prepareCsvImport(
+    preview: CsvImportPreview,
+    links: List<CsvTransferLink>,
+    linked: Set<String>,
+    choices: Map<String, CsvWithdrawalChoice>,
+    destinations: Map<String, String?>,
+    now: Long,
+): CsvImportSavePlan? {
+    val plan = CsvTransferMatch.apply(preview.transactions, links, linked)
+    if (!CsvImportMapping.allWithdrawalsDecided(plan.transactions, choices)) return null
+    val txs = CsvImportMapping.insertOrder(CsvImportMapping.applyWithdrawalChoices(plan.transactions, choices, destinations))
+    val batch = PortfolioImportBatch.newId(preview.format.name, now, txs.map { it.importKey })
+    return CsvImportSavePlan(txs.map { it.toEntity() }, batch, plan.storedUpdates)
 }

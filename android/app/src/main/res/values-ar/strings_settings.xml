@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">«%1$s» يقارن بالسعر قبل 24 ساعة تمامًا. «00:00» يقارن بسعر الافتتاح عند منتصف الليل في هذه المنطقة الزمنية.</string>
     <string name="settings_change_basis_hint_3">لا يؤثر ذلك على التنبيهات.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» يقارن بسعر التحديث السابق. مع الأسعار المباشرة يبقى قريبًا من 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">عملة التحويل</string>

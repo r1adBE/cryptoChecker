@@ -300,9 +300,9 @@ class PortfolioRepository @Inject constructor(
     suspend fun importKeys(): Set<String> = portfolioDao.getImportKeys().toSet()
 
     /**
-     * Importierte Transaktionen in einer Datenbank-Transaktion anlegen (über [save]: gleiche Bereinigung wie
-     * von Hand). Zeilen, deren [PortfolioTxEntity.importKey] oder [PortfolioTxEntity.linkedImportKey] inzwischen schon
-     * da ist, werden übersprungen.
+     * Importierte Transaktionen in einer Datenbank-Transaktion anlegen (gleiche Bereinigung und Prüfung wie [save],
+     * vorab für alle Zeilen). Zeilen, deren [PortfolioTxEntity.importKey] oder [PortfolioTxEntity.linkedImportKey]
+     * inzwischen schon da ist, werden übersprungen. Scheitert eine Zeile, wirft der ganze Import (nichts angelegt).
      * [batch] = Kennung des Importlaufs ([PortfolioImportBatch.newId]) für alle angelegten Transaktionen (null = keine).
      * [onRow] nach jeder Zeile (fertige Zeilen); [cancelled] vor jeder Zeile geprüft — dann rollt die Transaktion zurück
      * ([CsvImportInsert.run]), nichts ist angelegt.
@@ -315,12 +315,22 @@ class PortfolioRepository @Inject constructor(
         batch: String? = null,
         onRow: (Int) -> Unit = {},
         cancelled: () -> Boolean = { false },
-    ): Int = database.withTransaction {
-        // Gesperrt ([PortfolioStorageLock]): ganz ablehnen statt jede Zeile still zu überspringen
-        ensureWritable()
-        val known = portfolioDao.getImportKeys().toHashSet()
-        CsvImportInsert.run(transactions, known, { listOfNotNull(it.importKey, it.linkedImportKey) }, cancelled, onRow) { tx ->
-            runCatchingCancellable { save(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)) }.isSuccess
+    ): Int {
+        // Vorab bereinigt und geprüft: eine ungültige Zeile meldet einen Fehler, bevor etwas geschrieben ist
+        val clean = transactions.map { tx ->
+            cleanForSave(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)).also {
+                require(it.coin.isNotEmpty() && it.amount.signum() > 0) { "Ungültige Transaktion" }
+            }
+        }
+        return database.withTransaction {
+            // Gesperrt ([PortfolioStorageLock]): ganz ablehnen statt jede Zeile still zu überspringen
+            ensureWritable()
+            val known = portfolioDao.getImportKeys().toHashSet()
+            // Direkt in die Tabelle, ohne verschachtelte Transaktion ([save]): ein Fehler wirft und rollt alles zurück,
+            // statt still zurückzurollen und doch eine Anzahl zu melden
+            CsvImportInsert.run(clean, known, { listOfNotNull(it.importKey, it.linkedImportKey) }, cancelled, onRow) { tx ->
+                portfolioDao.insert(tx) > 0
+            }
         }
     }
 

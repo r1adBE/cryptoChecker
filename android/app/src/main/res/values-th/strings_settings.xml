@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">“%1$s” เทียบกับราคาเมื่อ 24 ชั่วโมงก่อนพอดี “00:00” เทียบกับราคาเปิดตอนเที่ยงคืนในเขตเวลานั้น</string>
     <string name="settings_change_basis_hint_3">ไม่มีผลกับสัญญาณเตือน</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” เทียบกับราคาของการอัปเดตครั้งก่อน เมื่อใช้ราคาสด ค่าจะอยู่ใกล้ 0%%</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">สกุลเงินที่แปลง</string>

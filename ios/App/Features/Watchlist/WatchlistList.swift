@@ -11,9 +11,9 @@ extension WatchlistScreen {
         // Aktive Suche filtert zusätzlich zur gewählten Gruppe
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         let filtering = searching && !trimmed.isEmpty
-        // Namen der Coins («bitcoin» findet BTC), einmal je Suche; Suchschlüssel je Paar einmal gefaltet,
-        // solange die Suche offen ist — je Tastendruck nur die Anfrage
-        let names: [Int64: String] = filtering ? WatchlistSearch.names(for: watches) : [:]
+        // Namen der Coins («bitcoin» findet BTC) und Suchschlüssel je Paar zwischengespeichert, solange die Suche
+        // offen ist — je Tastendruck nur die Anfrage
+        let names: [Int64: String] = filtering ? searchIndex.names(for: watches) : [:]
         if !searching { searchIndex.clear() }
         let found = filtering ? searchIndex.filter(watches, query: trimmed, names: names) : watches
         // Sortieren nach Spalte (nicht im Sortiermodus): Favoriten oben, unter sich sortiert; Kurse

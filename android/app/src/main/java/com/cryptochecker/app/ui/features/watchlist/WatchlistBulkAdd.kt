@@ -50,7 +50,13 @@ internal fun WatchlistBulkAdd(
     val failedText = stringResource(R.string.something_went_wrong)
     // Vor dem frühen Ende: der Dialog bleibt, auch wenn das Ergebnis im Runner schon abgeräumt ist
     val undoConfirm = rememberBulkUndoConfirm()
-    BulkUndoConfirmDialog(undoConfirm, onRemove = { viewModel.runner.undo(it) })
+    val undoExpiredText = stringResource(R.string.bulk_undo_expired)
+    // «Entfernen» nach Ablauf des Zeitfensters: nichts löschen, nur sagen, dass die Paare bleiben
+    BulkUndoConfirmDialog(
+        undoConfirm,
+        onExpired = { banner.show(undoExpiredText, SnackbarKind.INFO) },
+        onRemove = { viewModel.runner.undo(it) },
+    )
     val current = progress ?: return
     val result = current.result
     if (current.running) {
@@ -68,7 +74,7 @@ internal fun WatchlistBulkAdd(
             // mit Alarm)
             val ids = result.addedIds
             val offered = ids.isNotEmpty() && viewModel.runner.undoOffered(current)
-            val undo = if (offered) ({ undoConfirm.request(ids) }) else null
+            val undo = if (offered) ({ undoConfirm.request(ids, current.finishedAt) }) else null
             // Haptik erst bei «Entfernen» im Dialog; Anzeigedauer wie die Meldung im Explorer
             banner.show(text, bulkAddedKind(summary), undoMillis = BULK_UNDO_MILLIS, undoHaptic = false, onUndo = undo)
             viewModel.runner.clearResult()

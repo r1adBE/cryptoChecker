@@ -90,7 +90,7 @@ extension WatchlistScreen {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         let filtering = searching && !trimmed.isEmpty
         let watches = data.visibleWatches
-        let names: [Int64: String] = filtering ? WatchlistSearch.names(for: watches) : [:]
+        let names: [Int64: String] = filtering ? jumpSearchIndex.names(for: watches) : [:]
         if !searching { jumpSearchIndex.clear() }
         let found = filtering ? jumpSearchIndex.filter(watches, query: trimmed, names: names) : watches
         return found.filter(\.favorite) + found.filter { !$0.favorite }

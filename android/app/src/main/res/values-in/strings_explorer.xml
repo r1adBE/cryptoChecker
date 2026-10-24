@@ -126,4 +126,5 @@
         <item quantity="other">Hapus lagi %1$d pasangan?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Pasangan yang sudah kamu pasangi alarm sementara itu tetap ada.</string>
+    <string name="bulk_undo_expired">Tidak bisa diurungkan lagi – pasangan tetap ada di daftar pantau.</string>
 </resources>

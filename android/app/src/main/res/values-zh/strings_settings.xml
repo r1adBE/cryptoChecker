@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">“%1$s”与恰好 24 小时前的价格比较。“00:00”与该时区午夜的开盘价比较。</string>
     <string name="settings_change_basis_hint_3">不影响提醒。</string>
     <string name="settings_change_basis_hint_since_last">“%1$s”与上次更新时的价格比较。使用实时价格时，数值会接近 0%%。</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">换算货币</string>

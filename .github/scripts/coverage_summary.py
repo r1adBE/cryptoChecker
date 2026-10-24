@@ -15,10 +15,12 @@ Each argument is «name=module dir»; the first Kover XML report (JaCoCo format)
 <module dir>/build/reports/kover/ is read (debug variant preferred), the sources under <module dir>/src/main/{java,kotlin}.
 «--merged NAME»: the report of NAME also contains the other modules (Kover «dependencies { kover(project(…)) }»);
 the total comes from it, files are attributed to the module whose sources contain them, and the other modules' own
-reports are listed as «own tests only». Missing reports are listed, never an error.
+reports are listed as «own tests only». Without «--min-logic», missing reports are only listed: a missing merged
+report then falls back to the modules' own reports (display only).
 
-«--min-logic P»: exit 1 with an error annotation when the total «logic» coverage is below P percent or there is no
-coverage data at all (a missing report must not pass the gate silently). Without it: display only, always exit 0.
+«--min-logic P»: exit 1 with an error annotation when the total «logic» coverage is below P percent, when there is no
+coverage data at all, or when «--merged NAME» is given and NAME's report is missing (no silent fallback to the
+modules' own reports - a missing report must never pass the gate). Without it: display only, always exit 0.
 
 Usage: python3 -I coverage_summary.py --merged app [--min-logic 58] app=app marketdata=marketdata
        python3 -I coverage_summary.py --self-test
@@ -243,7 +245,7 @@ def self_test():
         assert lines[1] == "lib: total 10.0 % (2/20) · logic 10.0 % (2/20)", lines
         assert lines[2] == "none: no Kover report", lines
 
-        # Merged report missing: falls back to the modules' own reports
+        # Merged report missing: the display falls back to the modules' own reports
         head, lines = summary([("none", os.path.join(tmp, "none")), ("lib", lib)], merged="none")
         assert lines == ["none: no Kover report", "lib: total 10.0 % (2/20) · logic 10.0 % (2/20)", lines[-1]], lines
 
@@ -267,12 +269,26 @@ def self_test():
     gate.logic_covered, gate.logic_missed = 60, 40
     assert logic_gate(gate, 58) == (True, "logic coverage 60.0 % ≥ gate 58 %"), logic_gate(gate, 58)
     assert logic_gate(gate, 61)[0] is False and "below the gate of 61 %" in logic_gate(gate, 61)[1]
-    # Gate im Aufruf: ohne Bericht rot (nie still grün); Ausgabe abgefangen (keine Annotationen im Selbsttest)
+    # Gate through main: no report = red (never silently green); output captured (no annotations in the self-test)
     out = io.StringIO()
     with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(out):
         assert main(["--min-logic", "58", f"none={os.path.join(tmp, 'none')}"]) == 1
         assert main([f"none={os.path.join(tmp, 'none')}"]) == 0
     assert "::error title=Coverage gate::no logic coverage data" in out.getvalue(), out.getvalue()
+    # Gate with --merged: the merged report is missing, but the other module's own report would pass the gate on
+    # its own - still red (no silent fallback); display only (without --min-logic) stays exit 0
+    out = io.StringIO()
+    with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(out):
+        good = os.path.join(tmp, "good")
+        _write(os.path.join(good, "build", "reports", "kover", "reportDebug.xml"), _report([("p", "A.kt", 0, 10)]))
+        mods = [f"none={os.path.join(tmp, 'none')}", f"good={good}"]
+        assert main(["--min-logic", "50", "good=" + good]) == 0
+        assert main(["--merged", "none", "--min-logic", "50"] + mods) == 1
+        assert main(["--merged", "absent", "--min-logic", "50", "good=" + good]) == 1
+        assert main(["--merged", "none"] + mods) == 0
+    text = out.getvalue()
+    assert text.count("::error title=Coverage gate::merged report of «none» missing") == 1, text
+    assert text.count("::error title=Coverage gate::merged report of «absent» missing") == 1, text
     print("coverage_summary self-test ok")
     return 0
 
@@ -297,6 +313,12 @@ def main(argv):
     print(f"::notice title=Coverage::{escape(head + chr(10) + chr(10).join(lines))}")
     if minimum is None:
         return 0
+    dirs = dict(modules)
+    if merged is not None and not (merged in dirs and find_report(dirs[merged])):
+        message = (f"merged report of «{merged}» missing (gate: at least {minimum:g} %); "
+                   "the modules' own reports do not replace it")
+        print(f"::error title=Coverage gate::{escape(message)}")
+        return 1
     ok, message = logic_gate(total, minimum)
     print(f"::{'notice' if ok else 'error'} title=Coverage gate::{message}")
     return 0 if ok else 1

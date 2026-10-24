@@ -79,9 +79,14 @@ struct ExplorerScreen: View {
                 Button(L("action_keep"), role: .cancel) { bulkUndo.keep() }
                     .accessibilityIdentifier(UiTestTags.bulkUndoKeep)
                 Button(L("watchlist_remove_not_traded_action"), role: .destructive) {
-                    // Erfolgs-Haptik erst beim Entfernen, nicht beim Öffnen des Dialogs — wie Android
-                    Haptics.play(.success)
-                    bulkUndo.remove(ids) { vm.undoBulkAdd($0) }
+                    // Zeitfenster abgelaufen: nichts löschen, nur sagen, dass die Paare bleiben — wie Android
+                    bulkUndo.remove(ids, now: TimeUtils.nowMillis, expired: {
+                        vm.show(ExplorerMessage(text: L("bulk_undo_expired"), showView: false))
+                    }) {
+                        // Erfolgs-Haptik erst beim Entfernen, nicht beim Öffnen des Dialogs — wie Android
+                        Haptics.play(.success)
+                        vm.undoBulkAdd($0)
+                    }
                 }
                 .accessibilityIdentifier(UiTestTags.bulkUndoRemove)
             } message: { _ in
@@ -260,13 +265,13 @@ struct ExplorerScreen: View {
                 router.openAlarmsWatchId = watchId
             },
             onRetryDex: { vm.searchDex($0) },
-            onUndo: { bulkUndo.request($0) }
+            onUndo: { bulkUndo.request($0, finishedAt: $1) }
         )
     }
 
-    /// «746 Paare wieder entfernen?» (Zahl der neu angelegten Paare).
+    /// «746 Paare wieder entfernen?» (Zahl der neu angelegten Paare, beim Ausblenden unverändert).
     private var bulkUndoTitle: String {
-        let n = bulkUndo.pending?.count ?? 0
+        let n = bulkUndo.lastCount
         return L("bulk_undo_confirm_title", count: n, n)
     }
 

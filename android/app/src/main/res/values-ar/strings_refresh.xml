@@ -146,4 +146,20 @@
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">رسالة المنصة: %1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$d ث</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="zero">التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$d ثانية</item>
+        <item quantity="one">التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$d ثانية</item>
+        <item quantity="two">التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$d ثانيتين</item>
+        <item quantity="few">التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$d ثوانٍ</item>
+        <item quantity="many">التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$d ثانية</item>
+        <item quantity="other">التخزين لا يزال مقفلًا – محاولة جديدة خلال %1$d ثانية</item>
+    </plurals>
+    <string name="watchlist_retry_short">محاولة جديدة خلال %1$s</string>
+    <string name="widget_retry_at">محاولة جديدة في الساعة %1$s</string>
+    <string name="refresh_sheet_wait_attempt">المحاولة رقم %1$d – لم يكن التخزين المشفّر جاهزًا في المحاولة الأولى</string>
 </resources>

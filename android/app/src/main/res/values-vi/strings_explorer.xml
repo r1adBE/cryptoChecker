@@ -126,4 +126,5 @@
         <item quantity="other">Xóa lại %1$d cặp?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Các cặp đã được đặt cảnh báo trong thời gian này sẽ được giữ lại.</string>
+    <string name="bulk_undo_expired">Không thể hoàn tác nữa – các cặp vẫn ở trong danh sách theo dõi.</string>
 </resources>

@@ -101,4 +101,15 @@
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">交易所消息：%1$s</string>
+
+    <!-- Aktualisierung aus dem Widget wartet auf den nächsten Versuch (Datenbank-Schlüssel noch nicht lesbar, RetryWait):
+         Status der Merkliste (zählt herunter), Ansage dazu, Kurzform der Merkliste (%1$s = «27 s»), feste Uhrzeit des
+         Versuchs im Listen-Widget (%1$s = «14:32»), Zusatz unter «Warten bis Start» im Bericht (%1$d = Nummer des Versuchs) -->
+    <string name="watchlist_retry_countdown">存储仍处于锁定状态 – %1$d 秒后重试</string>
+    <plurals name="watchlist_retry_countdown_a11y">
+        <item quantity="other">存储仍处于锁定状态 – %1$d 秒后重试</item>
+    </plurals>
+    <string name="watchlist_retry_short">%1$s 后重试</string>
+    <string name="widget_retry_at">将于 %1$s 重试</string>
+    <string name="refresh_sheet_wait_attempt">第 %1$d 次尝试 – 首次尝试时加密存储尚未就绪</string>
 </resources>

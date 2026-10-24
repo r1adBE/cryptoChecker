@@ -140,7 +140,6 @@
     <string name="settings_change_basis_hint_2">«%1$s» порівнює з ціною рівно 24 години тому. «00:00» порівнює з ціною відкриття опівночі в цьому часовому поясі.</string>
     <string name="settings_change_basis_hint_3">На сигнали це не впливає.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» порівнює з ціною попереднього оновлення. За живих цін значення лишається близько 0%%.</string>
-    <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Валюта перерахунку</string>

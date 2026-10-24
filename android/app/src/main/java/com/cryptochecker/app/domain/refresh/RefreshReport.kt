@@ -20,6 +20,11 @@ data class RefreshReport(
     val widgetMillis: Long? = null,
     /** Wartezeit zwischen Knopfdruck und Start (WorkManager); null = keine. */
     val waitMillis: Long? = null,
+    /**
+     * Nummer des Versuchs (WorkManager, 1 = erster): grösser als 1, wenn der Datenbank-Schlüssel beim
+     * ersten noch nicht lesbar war ([RetryWait]); null = nicht gemessen (App-Knopf, ältere Berichte).
+     */
+    val attempt: Int? = null,
     /** Durchlauf abgebrochen: kurze technische Ursache. */
     val aborted: String? = null,
 )

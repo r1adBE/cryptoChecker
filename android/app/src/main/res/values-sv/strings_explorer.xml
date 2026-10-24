@@ -138,4 +138,5 @@
         <item quantity="other">Ta bort %1$d par igen?</item>
     </plurals>
     <string name="bulk_undo_confirm_text">Par som du har ställt in larm för under tiden finns kvar.</string>
+    <string name="bulk_undo_expired">Det går inte längre att ångra – paren finns kvar i bevakningslistan.</string>
 </resources>
