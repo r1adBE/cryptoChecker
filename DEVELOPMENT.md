@@ -2353,6 +2353,26 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 126: Deeper performance points, results unchanged (each with an equality test against the previous way).
+  Tax export: `TaxExport.allDisposals` (all years, without fx) is computed once per gains export / year summary and
+  passed to `fxSpan(…, disposals)`, `gainRows(…, disposals)` and `yearSummary(…, disposals)`; CA (`CA_ACB`) rows keep
+  their own run with fx (superficial loss decided in CAD, the rates depend on the span). `TaxExport.feesIn` returns
+  `lostFeeCostsIn` + `unassignedFeesIn` from one run (one `ledgers`/engine run; same input as before: no day closes,
+  `applyRules(…, null)`) – deliberately not from the disposal run, whose day-close valuation can change the holdings
+  with cost. Cost parts stay over all years. `TaxExportSingleRunTest`: identical span and CSV texts (summary, gains,
+  income) for all `tax_templates.json` cases/summaries, `tax_export.json` and the performance data (all templates,
+  several years, FIFO/Ø). Price notifications: `RefreshResultProcessor.process(…, deferPrices = true)` returns
+  `pendingPrices`; full refresh and live prices post them with `postPrices` (showPrices + `setNotifiedPrices` only for
+  shown) after widgets and report as a tail of `RefreshLock.withLockThen` / `tryWithLockThen` / `withLockWithinThen`:
+  the caller finishes, the lock is handed to the tail in the app scope and released only after it (no other writer in
+  between, so the next run never decides with an old notified price). WorkManager/exact runs wait for the tail; side
+  checks (their own notifications) start after it; the report gets the shown count afterwards (`noteShownPrices`).
+  Single-pair refresh unchanged (one post, never throttled). Overflow lines are built once (only pairs cancelled
+  during the pause drop out), `PriceFormat.threshold` keeps one formatter per locale. List widget: `WidgetOnceRead`
+  reads the pairs once per draw (empty note, title, rows of all widgets), `ListWidgetRenderer.update(ids, select)`
+  picks the lists for `updateForWatch` from the same read (`WidgetRefreshScope.listsShowing`), and the outdated alarm
+  reuses it. Tests: `PortfolioEventsByCoinTest` (`eventsByCoin` = `events` per coin; `PortfolioPeriodParts` all coins =
+  sum per coin; `cashFlows`/`pnlFlows` all coins = per coin).
 * Build 125: Performance without changed results. Ø (`PortfolioCalculatorAverage`) keeps the cost parts per acquisition
   (`takeParts`, acquisitions × disposals) only with `withParts` (default true: tax export, CA engine, coin detail);
   `summarize(…, withParts = false)` / `ledgers(…, withParts = false)` are linear with identical numbers (empty

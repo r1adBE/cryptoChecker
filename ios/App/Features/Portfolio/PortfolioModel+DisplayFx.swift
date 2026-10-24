@@ -25,6 +25,8 @@ extension PortfolioModel {
         guard PortfolioCardUnit(currency: currency, fxRate: rate).converted, let rate,
               let current = PortfolioDecimal.of(rate) else { return nil }
         let summary = shown ?? self.summary
+        // Gesamtsicht noch ohne Herkunftsteile (`PortfolioCostFx.partsPending`): «—»
+        if PortfolioCostFx.partsPending(summary) { return nil }
         let first = PortfolioCostFx.firstDay(summary)
         // Ohne Teile mit Datum keine Kurse nötig; sonst nur mit einer Ladung, die den frühesten Tag abdeckt
         let usable = costFxLoad.flatMap { load -> (rates: [Int: Decimal]?, usdtUsd: [Int: Decimal])? in

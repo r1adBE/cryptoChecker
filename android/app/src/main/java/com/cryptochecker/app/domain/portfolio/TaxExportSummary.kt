@@ -58,13 +58,15 @@ fun TaxExport.yearSummary(
     yearEndCloses: CutoffCloses? = null,
     /** CH: beobachtete Adressen am 31.12. in der Sicht der Karte ([AddressCutoff.at]); null = keine. */
     yearEndAddresses: AddressCutoffView? = null,
+    /** Veräusserungen aller Jahre aus [TaxExport.allDisposals] (für [gainRows]); null = dort rechnen. */
+    disposals: List<PortfolioDisposal>? = null,
 ): TaxYearSummary {
     val zero = BigDecimal.ZERO
     val period = template.period(startYear)
     val fx = rates != null || currency.trim().uppercase() == "USD"
     val allRows = gainRows(
         trades, method, period, zone, currency, rates ?: emptyMap(), priceAt, rules = template.eventRules,
-        walletFrom = walletFrom, usdtUsd = usdtUsd,
+        walletFrom = walletFrom, usdtUsd = usdtUsd, disposals = disposals,
     )
     // DE/AT: Auszahlungsgebühren sind keine Veräusserung — eigener Posten, nicht in den Summen (DE: § 23 und Freigrenze;
     // AT: Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG); UK, US, CA, AU, JP: kein Verlust, nur

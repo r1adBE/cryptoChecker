@@ -8,6 +8,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.abs
 
 object PriceFormat {
@@ -29,12 +30,20 @@ object PriceFormat {
     fun threshold(value: Double?, locale: Locale = Locale.getDefault(Locale.Category.FORMAT)): String {
         if (value == null || !value.isFinite() || value <= 0.0) return "—"
         val exact = BigDecimal.valueOf(value).stripTrailingZeros()
-        val format = DecimalFormat("#,##0", DecimalFormatSymbols.getInstance(locale)).apply {
+        val format = thresholdFormats.getOrPut(locale) { thresholdFormat(locale) }
+        // DecimalFormat ist nicht threadsicher: ein Formatierer je Region, benutzt unter seiner Sperre
+        return synchronized(format) { format.format(exact) }
+    }
+
+    /** Formatierer für [threshold] je Region, einmal angelegt (Alarm-Meldungen und -Listen fragen ihn oft ab). */
+    private val thresholdFormats = ConcurrentHashMap<Locale, DecimalFormat>()
+
+    /** Neuer Formatierer für [threshold] in [locale]. */
+    internal fun thresholdFormat(locale: Locale): DecimalFormat =
+        DecimalFormat("#,##0", DecimalFormatSymbols.getInstance(locale)).apply {
             maximumFractionDigits = THRESHOLD_MAX_DECIMALS
             minimumFractionDigits = 0
         }
-        return format.format(exact)
-    }
 
     /** Schwellwert wie [threshold] mit Währung: «1.0005 USDT». */
     fun thresholdWithCurrency(value: Double?, quoteAsset: String): String =

@@ -1,9 +1,13 @@
 package com.cryptochecker.app.domain.refresh
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.AbstractCoroutineContextElement
@@ -16,6 +20,12 @@ import kotlin.coroutines.CoroutineContext
  * Arbeit direkt auf statt erneut zu sperren.
  */
 sealed interface RefreshLockScope
+
+/** Nacharbeit unter der weitergereichten Sperre ([RefreshLock.withLockThen]). */
+typealias LockedTail = suspend (RefreshLockScope) -> Unit
+
+/** Ergebnis eines Blocks unter der Sperre und seine Nacharbeit (null = keine). */
+typealias Locked<T> = Pair<T, LockedTail?>
 
 /**
  * Die Sperre für alles, was Kurse schreibt: volle und einzelne Aktualisierung, Live-Speichern, späte Tages-Bezüge,
@@ -60,6 +70,66 @@ class RefreshLock @Inject constructor() {
             return withContext(Held) { block(Token) }
         } finally {
             mutex.unlock()
+        }
+    }
+
+    /**
+     * Wie [withLock], aber [block] kann eine Nacharbeit zurückgeben, die die Sperre über sein Ende hinaus hält: Sie
+     * läuft in [scope] und gibt die Sperre erst frei, wenn sie fertig ist (auch nach Fehler oder Abbruch). Der Aufrufer
+     * ist so früher fertig, die Sperre wird dazwischen aber nie frei — kein anderer Schreiber kommt vor der Nacharbeit
+     * an die Reihe. Rückgabe: Ergebnis von [block] und der Job der Nacharbeit (null = keine).
+     */
+    suspend fun <T> withLockThen(scope: CoroutineScope, block: suspend (RefreshLockScope) -> Locked<T>): Pair<T, Job?> {
+        checkNotHeld()
+        mutex.lock()
+        return runThen(scope, block)
+    }
+
+    /** Wie [withLockThen], gibt aber sofort auf, wenn die Sperre belegt ist (wie [tryWithLock]): dann null. */
+    suspend fun <T> tryWithLockThen(
+        scope: CoroutineScope,
+        block: suspend (RefreshLockScope) -> Locked<T>,
+    ): Pair<T, Job?>? {
+        checkNotHeld()
+        if (!mutex.tryLock()) return null
+        return runThen(scope, block)
+    }
+
+    /** Wie [withLockThen], wartet aber höchstens [timeoutMillis] (wie [withLockWithin]); danach null. */
+    suspend fun <T> withLockWithinThen(
+        timeoutMillis: Long,
+        scope: CoroutineScope,
+        block: suspend (RefreshLockScope) -> Locked<T>,
+    ): Pair<T, Job?>? {
+        checkNotHeld()
+        withTimeoutOrNull(timeoutMillis) { mutex.lock() } ?: return null
+        return runThen(scope, block)
+    }
+
+    /** [block] mit gehaltener Sperre; danach die Nacharbeit in [scope], die die Sperre freigibt (sonst gleich hier). */
+    private suspend fun <T> runThen(
+        scope: CoroutineScope,
+        block: suspend (RefreshLockScope) -> Locked<T>,
+    ): Pair<T, Job?> {
+        var handedOver = false
+        try {
+            val (value, tail) = withContext(Held) { block(Token) }
+            if (tail == null) return value to null
+            val started = AtomicBoolean(false)
+            val job = scope.launch(Held) {
+                started.set(true)
+                try {
+                    tail(Token)
+                } finally {
+                    mutex.unlock()
+                }
+            }
+            // Nie gestartet (Bereich schon beendet): dann gibt niemand sonst die Sperre frei
+            job.invokeOnCompletion { if (!started.get()) mutex.unlock() }
+            handedOver = true
+            return value to job
+        } finally {
+            if (!handedOver) mutex.unlock()
         }
     }
 

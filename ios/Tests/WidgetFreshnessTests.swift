@@ -63,4 +63,15 @@ final class WidgetFreshnessTests: XCTestCase {
         XCTAssertEqual(OutdatedRule.nextChangeAt([now - hour + 2 * hour - after], now: now, afterMillis: after),
                        now + hour + 1)
     }
+
+    /// Einzel-Widget: Paar vor dem Zeichnen neu lesen nach eigener Aktualisierung oder wenn die Merkliste seit dem
+    /// ersten Lesen geschrieben wurde; sonst nicht (kein zweites Lesen der ganzen Merkliste).
+    func testSingleWidgetRereadsWatchOnlyWhenWritten() {
+        XCTAssertTrue(WidgetFreshness.rereadWatch(refreshed: true, writtenBefore: 1_000, writtenNow: 1_000))
+        XCTAssertTrue(WidgetFreshness.rereadWatch(refreshed: false, writtenBefore: 1_000, writtenNow: 2_000))
+        // Datei erst nach dem ersten Lesen angelegt (vorher 0 = keine Datei)
+        XCTAssertTrue(WidgetFreshness.rereadWatch(refreshed: false, writtenBefore: 0, writtenNow: 2_000))
+        XCTAssertFalse(WidgetFreshness.rereadWatch(refreshed: false, writtenBefore: 1_000, writtenNow: 1_000))
+        XCTAssertFalse(WidgetFreshness.rereadWatch(refreshed: false, writtenBefore: 0, writtenNow: 0))
+    }
 }

@@ -52,8 +52,11 @@ class ListWidgetRows @Inject constructor(
     /** Stand je Widget: [ListWidgetRenderer] zählt hoch, [PriceWidgetService] lädt bei altem Stand neu. */
     internal val versions = ListWidgetDataVersion()
 
-    /** Lädt die Daten für das Widget [appWidgetId]. */
-    internal suspend fun load(appWidgetId: Int): ListWidgetRowData {
+    /** Alle Paare (eine Abfrage); ein Zeichnen liest sie einmal für alle Widgets ([WidgetOnceRead]). */
+    internal suspend fun allWatches(): List<WatchEntity> = watchRepository.getWatches()
+
+    /** Lädt die Daten für das Widget [appWidgetId]; [all] = schon gelesene Paare, null = hier lesen. */
+    internal suspend fun load(appWidgetId: Int, all: List<WatchEntity>? = null): ListWidgetRowData {
         val settings = settingsRepository.current()
         val background = WidgetColors.of(
             settings.accentColor,
@@ -62,7 +65,7 @@ class ListWidgetRows @Inject constructor(
             HighContrast.isEffective(context, settings.highContrast),
             settings.priceColorsInverted,
         )
-        val watches = groupWatches(watchRepository.getWatches(), appWidgetId).second
+        val watches = groupWatches(all ?: allWatches(), appWidgetId).second
         return ListWidgetRowData(
             watches = watches,
             background = background,
@@ -72,14 +75,14 @@ class ListWidgetRows @Inject constructor(
         )
     }
 
+    /** Anzahl Zeilen des Widgets [appWidgetId] aus den Paaren [all] (Leer-Hinweis, [ListWidgetRenderer]). */
+    internal fun count(appWidgetId: Int, all: List<WatchEntity>): Int = groupWatches(all, appWidgetId).second.size
+
     /**
      * Wirksame Gruppe des Widgets [appWidgetId] für den Titel im Kopf: null = «Alle» — auch wenn die
-     * gewählte Gruppe keine Paare (mehr) hat und das Widget deshalb alle zeigt.
+     * gewählte Gruppe keine Paare (mehr) in [all] hat und das Widget deshalb alle zeigt.
      */
-    /** Anzahl Zeilen des Widgets [appWidgetId] (Leer-Hinweis im Kopf des Zeichnens, [ListWidgetRenderer]). */
-    internal suspend fun count(appWidgetId: Int): Int = groupWatches(watchRepository.getWatches(), appWidgetId).second.size
-
-    internal suspend fun group(appWidgetId: Int): String? = groupWatches(watchRepository.getWatches(), appWidgetId).first
+    internal fun group(appWidgetId: Int, all: List<WatchEntity>): String? = groupWatches(all, appWidgetId).first
 
     /**
      * Gruppe des Widgets und ihre Paare; gibt es sie nicht mehr (gelöscht) oder hat sie keine Paare,

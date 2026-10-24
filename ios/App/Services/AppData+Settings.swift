@@ -11,6 +11,18 @@ import UserNotifications
 extension AppData {
     // MARK: Einstellungen
 
+    /// Einstellungen lesen; «nicht zugänglich» erkennt die App an `isProtectedDataAvailable`.
+    static func readSettings() -> SharedStorage.LoadedSettings {
+        SharedStorage.loadSettingsChecked(protectedDataAvailable: UIApplication.shared.isProtectedDataAvailable)
+    }
+
+    /// Einstellungen waren unlesbar: Standardwerte (mit Portfolio-Sperre an, `SharedStorage.settingsAfterRead`)
+    /// speichern und den Hinweis vormerken (`StorageRecoveryNotice.settingsReset`).
+    static func settingsWereReset(_ standard: AppSettings) {
+        StorageRecoveryNotice.recordSettingsReset()
+        SharedStorage.saveSettings(standard)
+    }
+
     func settingsChanged(from old: AppSettings) {
         // Bedarf der Hintergrund-Aktualisierung (Mitteilungen, Ansagen, Aktivität, Portfolio, Gas/Depeg)
         followBackgroundDemand()

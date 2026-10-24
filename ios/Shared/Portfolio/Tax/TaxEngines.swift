@@ -258,6 +258,15 @@ enum TaxEngines {
         return run(input, method: method, timeZone: timeZone, priceAt: nil).unassignedFees
     }
 
+    /// `lostFeeCosts` und `unassignedFees` aus EINER Rechnung (gleiche Eingabe, gleiches Ergebnis wie beide einzeln).
+    static func feeNotes(_ trades: [PortfolioTx], method: TaxMethod, timeZone: TimeZone, rules: TaxEventRules? = nil)
+        -> (lostFeeCosts: [PortfolioLostFeeCost], unassignedFees: [PortfolioUnassignedFee]) {
+        if method.costMethod != nil { return ([], []) }
+        let input = applyRules(trades, rules: rules ?? .of(method), priceAt: nil)
+        let result = run(input, method: method, timeZone: timeZone, priceAt: nil)
+        return (result.lostFeeCosts, result.unassignedFees)
+    }
+
     /// `.FR_PTA`: Abgänge ohne Verkauf mit Kürzung der Erwerbspreis-Summe, zeitlich; sonst leer.
     static func outflows(_ trades: [PortfolioTx], method: TaxMethod,
                          priceAt: ((String, Int64) -> Decimal?)? = nil) -> [TaxOutflow] {

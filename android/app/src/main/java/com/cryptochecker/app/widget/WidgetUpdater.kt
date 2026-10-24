@@ -3,6 +3,7 @@ package com.cryptochecker.app.widget
 import android.content.Context
 import android.os.PowerManager
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
@@ -48,7 +49,7 @@ class WidgetUpdater @Inject constructor(
 
     /** Listen-Widgets neu zeichnen ([ListWidgetRenderer]). */
     suspend fun update(appWidgetIds: IntArray) {
-        if (listWidgets.update(appWidgetIds)) scheduleOutdatedCheck()
+        listWidgets.update(appWidgetIds)?.let { scheduleOutdatedCheck(it.watches) }
     }
 
     /**
@@ -71,9 +72,10 @@ class WidgetUpdater @Inject constructor(
     /**
      * Wecker auf den Moment, an dem der nächste angezeigte Stand veraltet ([WidgetOutdated]):
      * Uhrzeit der Liste, Kurse der Paare (Listen- und Einzel-Widgets), Momentaufnahme des
-     * Portfolios. Dann zeichnet [redrawOutdated] die Widgets ohne Netz neu.
+     * Portfolios. Dann zeichnet [redrawOutdated] die Widgets ohne Netz neu. [known] = eben beim Zeichnen gelesene Paare
+     * (null = hier lesen).
      */
-    private suspend fun scheduleOutdatedCheck() {
+    private suspend fun scheduleOutdatedCheck(known: List<WatchEntity>? = null) {
         val hasList = widgetIds().isNotEmpty()
         val hasSingle = singleWidgetIds().isNotEmpty()
         val hasPortfolio = portfolioWidgetIds().isNotEmpty()
@@ -81,7 +83,7 @@ class WidgetUpdater @Inject constructor(
         val times = buildList {
             if (hasList) add(refreshStats.lastRefresh())
             if (hasList || hasSingle) {
-                watchRepository.getWatches()
+                (known ?: watchRepository.getWatches())
                     // Deaktivierte Paare werden nie «veraltet» (kein Wecker für sie)
                     .filterNot { it.isNotTraded || it.disabled }
                     // Abruf und (verschoben) letzter Handel laut Börse — Regel der App ([WidgetFreshness.outdatedTimes])
@@ -166,15 +168,13 @@ class WidgetUpdater @Inject constructor(
     suspend fun updateForWatch(watchId: Long, fetch: Boolean = true) {
         val listIds = widgetIds()
         if (listIds.isNotEmpty()) {
-            val watches = watchRepository.getWatches()
-            val watch = watches.firstOrNull { it.id == watchId }
-            val groups = watches.mapTo(HashSet()) { it.groupName }
-            // Paar inzwischen gelöscht: alle Listen, damit es überall verschwindet
-            update(
-                listIds.filter { id ->
-                    watch == null || WidgetRefreshScope.listShowsWatch(widgetPrefs.getGroup(id), watch.groupName, groups)
-                }.toIntArray()
-            )
+            // Welche Listen das Paar zeigen, aus derselben Abfrage wie die Zeilen ([ListWidgetRenderer.update]); Paar
+            // inzwischen gelöscht: alle Listen, damit es überall verschwindet
+            listWidgets.update(listIds) { watches ->
+                WidgetRefreshScope.listsShowing(
+                    listIds, watchId, watches, { it.id }, { it.groupName }, widgetPrefs::getGroup,
+                )
+            }?.let { scheduleOutdatedCheck(it.watches) }
         }
         updateSingle(singleWidgetIds().filter { widgetPrefs.getWatchId(it) == watchId }.toIntArray(), fetch)
 

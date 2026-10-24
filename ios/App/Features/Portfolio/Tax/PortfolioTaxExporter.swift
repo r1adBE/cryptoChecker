@@ -158,8 +158,10 @@ enum PortfolioTaxExporter {
         let until = TaxExport.priceUntil(template, period: period, today: today)
         let priceAt: ((String, Int64) -> Decimal?)? = await taxPrices(template, method, transactions, period: period,
                                                                       until: until)
-        let span = TaxExport.fxSpan(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
-                                    rules: template.eventRules, walletFrom: walletFrom, until: until, today: today)
+        // Veräusserungen einmal gerechnet: Devisenspanne und Zeilen der Übersicht aus derselben Rechnung
+        let run = TaxExport.GainsRun(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
+                                     rules: template.eventRules, walletFrom: walletFrom)
+        let span = run.span(until: until, today: today)
         let from = span.from
         let fx = await rates(currency, from: from, to: span.until)
         let usdtUsd = await usdtUsdCloses(currency, from: from)
@@ -168,7 +170,8 @@ enum PortfolioTaxExporter {
         if template == .CH { yearEnd = await chYearEnd(transactions, method: method, end: period.end, zone: zone) }
         return TaxExport.yearSummary(transactions, template: template, method: method, startYear: year, timeZone: zone,
                                      currency: currency, rates: fx, priceAt: priceAt, walletFrom: walletFrom,
-                                     usdtUsd: usdtUsd, yearEndCloses: yearEnd?.closes, yearEndAddresses: yearEnd?.addresses)
+                                     usdtUsd: usdtUsd, yearEndCloses: yearEnd?.closes, yearEndAddresses: yearEnd?.addresses,
+                                     run: run)
     }
 
     /// CH: Tagesschlüsse des 31.12. (`end`) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter
@@ -225,22 +228,22 @@ enum PortfolioTaxExporter {
             let priceAt: ((String, Int64) -> Decimal?)? = await taxPrices(template, method, transactions, period: period,
                                                                           until: until)
             // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums) bis zum
-            // spätesten genutzten Zugang (UK: 30-Tage-Regel über das Ende des Steuerjahrs hinaus)
-            let span = TaxExport.fxSpan(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
-                                        rules: template.eventRules, walletFrom: walletFrom, until: until, today: today)
+            // spätesten genutzten Zugang (UK: 30-Tage-Regel über das Ende des Steuerjahrs hinaus) — Spanne und Zeilen
+            // aus EINER Rechnung der Veräusserungen (`TaxExport.GainsRun`; CA: zweite mit den Kursen, wie bisher)
+            let run = TaxExport.GainsRun(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
+                                         rules: template.eventRules, walletFrom: walletFrom)
+            let span = run.span(until: until, today: today)
             let from = span.from
             let fx = await rates(currency, from: from, to: span.until)
             // USDT zum Marktkurs: USDT/USD-Tagesschluss je Datum (ohne Schluss 1, je Zeile vermerkt)
             let usdtUsd = await usdtUsdCloses(currency, from: from)
-            let rows = TaxExport.gainRows(transactions, method: method, period: period, timeZone: zone,
-                                          currency: currency, rates: fx, priceAt: priceAt,
-                                          rules: template.eventRules, walletFrom: walletFrom, usdtUsd: usdtUsd)
+            let rows = run.gainRows(currency: currency, rates: fx, usdtUsd: usdtUsd)
+            // Gebühr-Vermerke beide aus einer Rechnung
+            let notes = TaxExport.feeNotes(in: transactions, method: method, period: period, timeZone: zone,
+                                           rules: template.eventRules)
             return TaxExport.gainsCsv(rows, texts: texts, header: header, format: format,
-                                      lostFeeCosts: TaxExport.lostFeeCosts(in: transactions, method: method, period: period,
-                                                                           timeZone: zone, rules: template.eventRules),
-                                      timeZone: zone,
-                                      unassignedFees: TaxExport.unassignedFees(in: transactions, method: method, period: period,
-                                                                               timeZone: zone, rules: template.eventRules))
+                                      lostFeeCosts: notes.lostFeeCosts, timeZone: zone,
+                                      unassignedFees: notes.unassignedFees)
         case .income:
             let fx = await rates(currency, from: period.start, to: period.end)
             let usdtUsd = await usdtUsdCloses(currency, from: period.start)

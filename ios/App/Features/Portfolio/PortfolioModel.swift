@@ -256,8 +256,13 @@ final class PortfolioModel: ObservableObject {
             viaFx: PortfolioHistoryFx.convertsUsdtAsUsd(currency), fxSeries: known,
             usdt: UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: loaded.prices.usdtUsd))
         periodTask = Task { [weak self] in
-            let result = await Task.detached(priority: .userInitiated) { PortfolioPeriodFigures.compute(input) }.value
-            guard let self, !Task.isCancelled, generation == self.periodGeneration else { return }
+            // Abbruch reicht bis in die losgelöste Rechnung (zwischen «7 T» und «1 J» geprüft): eine überholte Rechnung
+            // belegt keinen Kern mehr, während die neueste schon läuft
+            let work = Task.detached(priority: .userInitiated) {
+                PortfolioPeriodFigures.compute(input, cancelled: { Task.isCancelled })
+            }
+            let computed = await withTaskCancellationHandler { await work.value } onCancel: { work.cancel() }
+            guard let result = computed, let self, !Task.isCancelled, generation == self.periodGeneration else { return }
             self.weekChange = result.week
             self.weekChangeUsdt = result.weekUsdt
             self.yearChange = result.year

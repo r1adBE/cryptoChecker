@@ -35,6 +35,7 @@ class BackgroundErrorsTest {
     fun androidLabelsMapToAreas() {
         assertEquals(BackgroundErrors.LOGOS, BackgroundErrors.areaForLabel("CoinLogoSync"))
         assertEquals(BackgroundErrors.REFRESH, BackgroundErrors.areaForLabel("PriceRefresher"))
+        assertEquals(BackgroundErrors.LIVE, BackgroundErrors.areaForLabel("LivePriceApplier"))
         assertEquals(BackgroundErrors.WIDGETS, BackgroundErrors.areaForLabel("Listen-Widget neu zeichnen"))
         assertEquals(BackgroundErrors.SCHEDULE, BackgroundErrors.areaForLabel("Neuplanung nach Neustart"))
         assertEquals(BackgroundErrors.ALARMS, BackgroundErrors.areaForLabel("Kursmarke nach «1 h später» scharf stellen"))

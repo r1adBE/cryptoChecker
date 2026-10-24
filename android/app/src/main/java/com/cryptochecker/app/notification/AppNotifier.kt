@@ -117,28 +117,18 @@ class AppNotifier @Inject constructor(
                     if (id !in cancelledDuringRun && postPrice(byId.getValue(id), ongoing)) shown += id
                 }
             }
-            // Zeilen: frischer Kurs, sonst die bisherige Zeile (Sammelmeldung bzw. verschobene Einzelmeldung)
-            fun overflowLines(): LinkedHashMap<Long, String> {
-                val lines = LinkedHashMap<Long, String>()
-                for (id in plan.overflow) {
-                    if (id in cancelledDuringRun) continue
-                    val watch = byId[id]
-                    val price = watch?.lastPrice
-                    val line = if (watch != null && price != null) priceTitle(watch, price)
-                    else active?.overflow?.get(id) ?: active?.prices?.get(id)
-                    if (!line.isNullOrEmpty()) lines[id] = line
-                }
-                return lines
-            }
-            val (unchanged, anyLine) = synchronized(this) {
-                val lines = overflowLines()
+            // Zeilen EINMAL bauen: frischer Kurs, sonst die bisherige Zeile (Sammelmeldung bzw. verschobene
+            // Einzelmeldung). Die Grundlage (Plan, Kurse, Zustand von vorher) bleibt gleich; nach der Pause fallen nur
+            // die inzwischen entfernten Paare weg
+            val (lines, unchanged) = synchronized(this) {
+                val built = overflowLines(plan.overflow, byId, active)
                 val same = active != null && active.overflowShown &&
-                    active.overflow.entries.toList() == lines.entries.toList()
-                same to lines.isNotEmpty()
+                    active.overflow.entries.toList() == built.entries.toList()
+                built to same
             }
-            if (!unchanged && anyLine) spaceOut()
+            if (!unchanged && lines.isNotEmpty()) spaceOut()
             synchronized(this) {
-                val lines = overflowLines()
+                lines.keys.removeAll(cancelledDuringRun)
                 if (unchanged || postOverflow(lines, ongoing)) {
                     lines.keys.filterTo(shown) { it in byId }
                 }
@@ -150,6 +140,24 @@ class AppNotifier @Inject constructor(
                 cancelledDuringRun.clear()
             }
         }
+    }
+
+    /** Zeilen der Sammelmeldung ([overflow] ohne entfernte Paare): frischer Kurs, sonst bisherige Zeile. */
+    private fun overflowLines(
+        overflow: List<Long>,
+        byId: Map<Long, WatchEntity>,
+        active: ActiveState?,
+    ): LinkedHashMap<Long, String> {
+        val lines = LinkedHashMap<Long, String>()
+        for (id in overflow) {
+            if (id in cancelledDuringRun) continue
+            val watch = byId[id]
+            val price = watch?.lastPrice
+            val line = if (watch != null && price != null) priceTitle(watch, price)
+            else active?.overflow?.get(id) ?: active?.prices?.get(id)
+            if (!line.isNullOrEmpty()) lines[id] = line
+        }
+        return lines
     }
 
     /** Hält Kurs-Durchläufe ([showPrices]) nacheinander, ohne die Objektsperre zu belegen; wartet, ohne zu blockieren. */

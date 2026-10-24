@@ -247,10 +247,22 @@ enum TaxExport {
                        priceAt: ((String, Int64) -> Decimal?)? = nil, rules: TaxEventRules? = nil,
                        walletFrom: LocalDay? = nil, until: LocalDay? = nil,
                        today: LocalDay? = nil) -> (from: LocalDay, until: LocalDay) {
+        let upTo = spanPeriod(method, period: period)
+        let used = disposals(in: trades, method: method, period: upTo, timeZone: timeZone, priceAt: priceAt,
+                             rules: rules, walletFrom: walletFrom)
+        return span(of: used, period: period, timeZone: timeZone, until: until, today: today)
+    }
+
+    /// Steuerjahr, dessen Veräusserungen `fxSpan` auswertet: `period`; CA alle bis zu dessen Ende.
+    static func spanPeriod(_ method: TaxMethod, period: TaxPeriod) -> TaxPeriod {
+        method == .CA_ACB ? TaxPeriod(startYear: period.startYear, start: LocalDay(1, 1, 1), end: period.end) : period
+    }
+
+    /// `fxSpan` aus den schon gerechneten Veräusserungen `used` (Verkaufsdatum in `spanPeriod`).
+    static func span(of used: [PortfolioDisposal], period: TaxPeriod, timeZone: TimeZone, until: LocalDay?,
+                     today: LocalDay?) -> (from: LocalDay, until: LocalDay) {
         // FIFO: Kaufdatum der Posten; Durchschnitt/Pool: Datum jedes Herkunftsteils des Einstands
-        let upTo = method == .CA_ACB ? TaxPeriod(startYear: period.startYear, start: LocalDay(1, 1, 1), end: period.end) : period
-        let times = disposals(in: trades, method: method, period: upTo, timeZone: timeZone, priceAt: priceAt,
-                              rules: rules, walletFrom: walletFrom)
+        let times = used
             .flatMap { d -> [Int64] in
                 var out: [Int64] = []
                 if let a = d.acquiredTime { out.append(a) }

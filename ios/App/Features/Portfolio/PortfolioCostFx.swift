@@ -50,6 +50,13 @@ enum PortfolioCostFx {
         summary.open.flatMap(\.pricedCostParts).map { dayOf($0.time) }.min()
     }
 
+    /// Gesamtsicht noch ohne Herkunftsteile (z. B. gerade von USDT umgestellt, die Rechnung mit Teilen läuft noch): eine
+    /// offene Position mit Einstand ≠ 0 hat keine Teile. Dann zeigt die Karte «—» statt kurz «Kurs fehlt». Wie Android
+    /// `costFxFlow`.
+    static func partsPending(_ summary: PortfolioSummary) -> Bool {
+        summary.open.contains { ($0.pricedCostExact ?? 0) != 0 && $0.pricedCostParts.isEmpty }
+    }
+
     /// Faktor USDT → `currency` am Tag `day`: ab `todayEpochDay` `currentRate`, sonst `TaxExport.rateOn` mit `rates`
     /// (Devisen-Tageskurse, Tag → Kurs) und `usdtUsd` (USDT/USD-Tagesschlüsse); nil = kein Devisenkurs.
     static func rateOn(day: Int, currency: String, currentRate: Decimal, todayEpochDay: Int,
