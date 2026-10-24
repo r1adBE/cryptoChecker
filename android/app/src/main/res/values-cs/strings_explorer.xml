@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Žádné výsledky.</string>
     <string name="explorer_search_hint">Hledat minci, pár nebo burzu</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Zadej název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyber pár. Pár je mince na burze v jedné měně, např. BTC/USDT na Binance.</string>
+    <string name="explorer_search_intro">Zadej název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyber pár.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Přidat do sledovaných</string>
@@ -140,4 +140,18 @@
         <item quantity="many">Nepřidáno: %1$d. Tvůj seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
         <item quantity="other">Nepřidáno: %1$d. Tvůj seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
     </plurals>
+    <string name="bulk_add_progress">Přidávají se páry … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Přidat %1$d nový pár do sledovaných</item>
+        <item quantity="few">Přidat %1$d nové páry do sledovaných</item>
+        <item quantity="many">Přidat %1$d nových párů do sledovaných</item>
+        <item quantity="other">Přidat %1$d nových párů do sledovaných</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nový, %2$d už ve sledovaných</item>
+        <item quantity="few">%1$d nové, %2$d už ve sledovaných</item>
+        <item quantity="many">%1$d nových, %2$d už ve sledovaných</item>
+        <item quantity="other">%1$d nových, %2$d už ve sledovaných</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Všechny už jsou ve sledovaných</string>
 </resources>

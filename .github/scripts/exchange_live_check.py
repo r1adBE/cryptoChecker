@@ -134,9 +134,11 @@ EXCHANGES = [
      "url": "https://fapi.asterdex.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
     {"key": "lighter", "name": "Lighter",
-     # Gesamtliste aller Märkte (wie der Adapter); geprüft wird die erste Zeile
+     # Gesamtliste aller Märkte (wie der Adapter); geprüft wird der BTC-Perp (die erste Zeile kann ein Markt ohne
+     # Handel sein, Kurs 0 – die App zeigt dort «keine Daten»)
      "url": "https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats",
-     "fields": [["order_book_stats", 0, "last_trade_price"], ["order_book_stats", 0, "daily_price_change"]]},
+     "fields": [["order_book_stats", {"symbol": "BTC"}, "last_trade_price"],
+                ["order_book_stats", {"symbol": "BTC"}, "daily_price_change"]]},
     {"key": "hyperliquid", "name": "Hyperliquid",
      "url": "https://api.hyperliquid.xyz/info", "post": {"type": "metaAndAssetCtxs"},
      "fields": [[1, 0, "midPx"], [1, 0, "prevDayPx"], [1, 0, "funding"]],
@@ -160,7 +162,8 @@ EXCHANGES = [
      "url": "https://api.poloniex.com/markets/BTC_USDT/ticker24h",
      "fields": [["close"], ["dailyChange"], ["amount"]]},
     {"key": "onetrading", "name": "One Trading",
-     "url": "https://api.onetrading.com/fast/v1/market-ticker/BTC_EUR",
+     # BTC_EUR ist seit Oktober 2026 geschlossen (HTTP 500); aktiv sind nur BTC_USDC, ETH_USDC und USDC_EUR
+     "url": "https://api.onetrading.com/fast/v1/market-ticker/BTC_USDC",
      "fields": [["last_price"], ["quote_volume"]]},
     {"key": "onetradingbulk", "name": "One Trading (all tickers)",
      "url": "https://api.onetrading.com/fast/v1/market-ticker",
@@ -258,6 +261,15 @@ def fetch(entry):
 
 def walk(obj, path):
     for step in path:
+        if isinstance(step, dict):
+            # {"symbol": "BTC"}: first list row whose fields match (a fixed market instead of whatever comes first)
+            if not isinstance(obj, list):
+                return None
+            obj = next((row for row in obj if isinstance(row, dict)
+                        and all(row.get(k) == v for k, v in step.items())), None)
+            if obj is None:
+                return None
+            continue
         if isinstance(step, int):
             if not isinstance(obj, list) or len(obj) <= step:
                 return None
@@ -278,7 +290,11 @@ def numeric(value):
 
 
 def path_text(path):
-    return "".join(f"[{p}]" if isinstance(p, int) else f".{p}" for p in path).lstrip(".")
+    def part(p):
+        if isinstance(p, dict):
+            return "[" + ",".join(f"{k}={v}" for k, v in p.items()) + "]"
+        return f"[{p}]" if isinstance(p, int) else f".{p}"
+    return "".join(part(p) for p in path).lstrip(".")
 
 
 def check(entry):

@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus はアプリを停止することがあり、その間アラームは届きません。「自動起動」を許可し、バッテリー使用量でバックグラウンド動作を許可してください。</string>
     <string name="oem_battery_oppo">Oppo/Realme はアプリを停止することがあり、その間アラームは届きません。「自動起動」を許可し、バッテリー使用量でバックグラウンド動作を許可してください。</string>
     <string name="oem_battery_vivo">Vivo はアプリを停止することがあり、その間アラームは届きません。「自動起動」を許可し、バッテリーでバックグラウンドの高い電力消費を許可してください。</string>
-    <string name="alarm_reliability_recent">最終確認：%1$s</string>
     <string name="alarm_reliability_stale">最終確認：%1$s – アラームが遅れる可能性があります</string>
     <string name="alarm_reliability_never">アラームはオン – バックグラウンドでの確認はまだありません</string>
     <string name="alarm_reliability_notifications_off">通知がオフ – アラームは届きません</string>

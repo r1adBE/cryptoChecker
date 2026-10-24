@@ -113,6 +113,8 @@ struct ExplorerSnackbar: View {
     var onAlarm: (Int64) -> Void = { _ in }
     /// «Erneut versuchen» sucht den DEX-Begriff noch einmal.
     var onRetryDex: (String) -> Void = { _ in }
+    /// «Rückgängig» entfernt die eben neu angelegten Paare.
+    var onUndo: ([Int64]) -> Void = { _ in }
     @Environment(\.appAccent) var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -120,7 +122,9 @@ struct ExplorerSnackbar: View {
     /// Anzeigedauer: mit «Alarm setzen» 6 s (mit VoiceOver 12 s), lange Meldungen 5 s, sonst 3 s.
     private func lifetime(_ note: ExplorerMessage) -> UInt64 {
         let second: UInt64 = 1_000_000_000
-        if note.alarmWatchId != nil || note.retryDexQuery != nil { return (voiceOver ? 12 : 6) * second }
+        if note.alarmWatchId != nil || note.retryDexQuery != nil || note.undoIds != nil {
+            return (voiceOver ? 12 : 6) * second
+        }
         return (note.long ? 5 : 3) * second
     }
 
@@ -164,6 +168,14 @@ struct ExplorerSnackbar: View {
                 onAlarm(watchId)
             } label: {
                 actionLabel(L("add_alarm_action"))
+            }
+            .buttonStyle(.borderless)
+        } else if let ids = note.undoIds {
+            Button {
+                withAnimation { self.message = nil }
+                onUndo(ids)
+            } label: {
+                actionLabel(L("action_undo"))
             }
             .buttonStyle(.borderless)
         } else if let query = note.retryDexQuery {

@@ -107,21 +107,21 @@
     <string name="pulse_lead_mixed">대형 코인들이 서로 다르게 움직입니다.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">펀딩비 높음.</string>
-    <string name="pulse_detail_fund_negative">펀딩비 마이너스.</string>
-    <string name="pulse_detail_fund_neutral">펀딩비 중립.</string>
+    <string name="pulse_detail_fund_high">레버리지 심리 낙관.</string>
+    <string name="pulse_detail_fund_negative">레버리지 심리 비관.</string>
+    <string name="pulse_detail_fund_neutral">레버리지 심리 중립.</string>
     <string name="pulse_detail_vol_above">거래량 평소보다 %1$s 많음.</string>
-    <string name="pulse_detail_vol_above_fund_high">거래량 평소보다 %1$s 많음, 펀딩비 높음.</string>
-    <string name="pulse_detail_vol_above_fund_negative">거래량 평소보다 %1$s 많음, 펀딩비 마이너스.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">거래량 평소보다 %1$s 많음, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_above_fund_high">거래량 평소보다 %1$s 많음, 레버리지 심리 낙관.</string>
+    <string name="pulse_detail_vol_above_fund_negative">거래량 평소보다 %1$s 많음, 레버리지 심리 비관.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">거래량 평소보다 %1$s 많음, 레버리지 심리 중립.</string>
     <string name="pulse_detail_vol_below">거래량 평소보다 %1$s 적음.</string>
-    <string name="pulse_detail_vol_below_fund_high">거래량 평소보다 %1$s 적음, 펀딩비 높음.</string>
-    <string name="pulse_detail_vol_below_fund_negative">거래량 평소보다 %1$s 적음, 펀딩비 마이너스.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">거래량 평소보다 %1$s 적음, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_below_fund_high">거래량 평소보다 %1$s 적음, 레버리지 심리 낙관.</string>
+    <string name="pulse_detail_vol_below_fund_negative">거래량 평소보다 %1$s 적음, 레버리지 심리 비관.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">거래량 평소보다 %1$s 적음, 레버리지 심리 중립.</string>
     <string name="pulse_detail_vol_normal">거래량 평소 수준.</string>
-    <string name="pulse_detail_vol_normal_fund_high">거래량 평소 수준, 펀딩비 높음.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">거래량 평소 수준, 펀딩비 마이너스.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">거래량 평소 수준, 펀딩비 중립.</string>
+    <string name="pulse_detail_vol_normal_fund_high">거래량 평소 수준, 레버리지 심리 낙관.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">거래량 평소 수준, 레버리지 심리 비관.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">거래량 평소 수준, 레버리지 심리 중립.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">상위 %1$d: 시가총액 기준 가장 큰 코인(스테이블코인 제외), 24시간 변동(CoinGecko).</string>

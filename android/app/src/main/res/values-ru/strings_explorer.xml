@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Ничего не найдено.</string>
     <string name="explorer_search_hint">Поиск монеты, пары или биржи</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Введи название или тикер монеты, например Bitcoin или BTC, затем выбери пару. Пара — это монета на бирже в определённой валюте, например BTC/USDT на Binance.</string>
+    <string name="explorer_search_intro">Введи название или тикер монеты, например Bitcoin или BTC, затем выбери пару.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Добавить в список</string>
@@ -140,4 +140,18 @@
         <item quantity="many">Не добавлено: %1$d. В списке может быть не больше %2$s пар.</item>
         <item quantity="other">Не добавлено: %1$d. В списке может быть не больше %2$s пар.</item>
     </plurals>
+    <string name="bulk_add_progress">Добавление пар … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Добавить %1$d новую пару в список</item>
+        <item quantity="few">Добавить %1$d новые пары в список</item>
+        <item quantity="many">Добавить %1$d новых пар в список</item>
+        <item quantity="other">Добавить %1$d новой пары в список</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d новая, %2$d уже в списке</item>
+        <item quantity="few">%1$d новые, %2$d уже в списке</item>
+        <item quantity="many">%1$d новых, %2$d уже в списке</item>
+        <item quantity="other">%1$d новой, %2$d уже в списке</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Все уже в списке</string>
 </resources>

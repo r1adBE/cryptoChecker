@@ -59,6 +59,11 @@ internal fun BulkPairsCard(
     syncing: Boolean,
     /** «Alle hinzufügen» läuft. */
     adding: Boolean,
+    /** Während der Aufnahme: verarbeitete und alle Paare (Balken unter dem Knopf); total 0 = noch kein Stand. */
+    addDone: Int = 0,
+    addTotal: Int = 0,
+    /** Davon noch nicht in der Merkliste; 0 = Knopf aus («Alle schon in der Merkliste»). */
+    newCount: Int = pairs.size,
     /** Gewähltes Paar (in der Liste hervorgehoben). */
     coin: String?,
     pairQuote: String?,
@@ -148,10 +153,14 @@ internal fun BulkPairsCard(
                     )
                 }
 
+                // Vorab gezählt: «312 neu, 434 schon in der Merkliste» (nur wenn schon welche da sind)
+                if (newCount < pairs.size) {
+                    StepHint(pluralStringResource(R.plurals.explorer_bulk_counts, newCount, newCount, pairs.size - newCount))
+                }
                 GroupTargetSelector(groupTarget, modifier = Modifier.padding(top = 4.dp))
                 Button(
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                    enabled = !adding && !syncing,
+                    enabled = !adding && !syncing && newCount > 0,
                     onClick = onAddAll
                 ) {
                     if (adding) {
@@ -161,8 +170,22 @@ internal fun BulkPairsCard(
                             color = AppColors.onAccent
                         )
                     } else {
-                        Text(pluralStringResource(R.plurals.explorer_add_all_pairs, pairs.size, pairs.size))
+                        Text(
+                            when {
+                                newCount <= 0 -> stringResource(R.string.explorer_bulk_all_present)
+                                newCount < pairs.size -> pluralStringResource(R.plurals.explorer_add_new_pairs, newCount, newCount)
+                                else -> pluralStringResource(R.plurals.explorer_add_all_pairs, pairs.size, pairs.size)
+                            }
+                        )
                     }
+                }
+                // Läuft weiter, auch wenn der Bildschirm verlassen wird (BulkAddRunner)
+                if (adding && addTotal > 0) {
+                    com.cryptochecker.app.ui.components.BulkAddProgress(
+                        done = addDone,
+                        total = addTotal,
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    )
                 }
 
                 if (showBulkList) {
@@ -314,12 +337,19 @@ private fun quickFilterChange(filter: QuickFilter, stats: PairStats?): Double? =
 
 /** Rückfrage vor «Alle hinzufügen»: wie viele Paare, welche Gegenwährung, welche Börse. */
 @Composable
-internal fun BulkConfirmDialog(count: Int, quote: String, market: String, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+internal fun BulkConfirmDialog(
+    count: Int,
+    total: Int,
+    quote: String,
+    market: String,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_title, count, count)) },
         text = {
-            DialogText { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_text, count, count, quote, market)) }
+            DialogText { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_text, total, total, quote, market)) }
         },
         confirmButton = {
             TextButton(onClick = onConfirm) { Text(stringResource(R.string.explorer_add_to_watchlist)) }

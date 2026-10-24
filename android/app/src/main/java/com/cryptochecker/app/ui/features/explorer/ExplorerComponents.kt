@@ -125,6 +125,9 @@ internal fun contractName(type: FuturesContractType): String =
 internal fun StepHeader(number: Int, title: String, active: Boolean, done: Boolean) {
     val lit = active || done
     val accent = MaterialTheme.colorScheme.primary
+    // Erledigt: kleines Häkchen auf neutralem Grund (keine gefüllte Akzent-Plakette, die wie eine Checkbox wirkt);
+    // offen bzw. aktiv: Nummer
+    val badge = if (done) 20.dp else 24.dp
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(bottom = 8.dp)
@@ -132,14 +135,18 @@ internal fun StepHeader(number: Int, title: String, active: Boolean, done: Boole
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .size(24.dp)
+                .size(badge)
                 .clip(CircleShape)
-                .background(if (lit) accent else MaterialTheme.colorScheme.surfaceVariant)
+                .background(if (lit && !done) accent else MaterialTheme.colorScheme.surfaceVariant)
         ) {
             Text(
                 text = if (done) "✓" else LocaleNumbers.integer(number),
                 style = MaterialTheme.typography.labelMedium,
-                color = if (lit) AppColors.onAccent else MaterialTheme.colorScheme.onSurfaceVariant
+                color = when {
+                    done -> MaterialTheme.colorScheme.onSurfaceVariant
+                    lit -> AppColors.onAccent
+                    else -> MaterialTheme.colorScheme.onSurfaceVariant
+                }
             )
         }
         Text(

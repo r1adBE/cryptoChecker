@@ -107,21 +107,21 @@
     <string name="pulse_lead_mixed">เหรียญใหญ่เคลื่อนไหวไปคนละทาง</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding สูง</string>
-    <string name="pulse_detail_fund_negative">Funding ติดลบ</string>
-    <string name="pulse_detail_fund_neutral">Funding เป็นกลาง</string>
+    <string name="pulse_detail_fund_high">อารมณ์การเทรดเลเวอเรจมองบวก</string>
+    <string name="pulse_detail_fund_negative">อารมณ์การเทรดเลเวอเรจมองลบ</string>
+    <string name="pulse_detail_fund_neutral">อารมณ์การเทรดเลเวอเรจเป็นกลาง</string>
     <string name="pulse_detail_vol_above">ปริมาณสูงกว่าปกติ %1$s</string>
-    <string name="pulse_detail_vol_above_fund_high">ปริมาณสูงกว่าปกติ %1$s Funding สูง</string>
-    <string name="pulse_detail_vol_above_fund_negative">ปริมาณสูงกว่าปกติ %1$s Funding ติดลบ</string>
-    <string name="pulse_detail_vol_above_fund_neutral">ปริมาณสูงกว่าปกติ %1$s Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_above_fund_high">ปริมาณสูงกว่าปกติ %1$s อารมณ์การเทรดเลเวอเรจมองบวก</string>
+    <string name="pulse_detail_vol_above_fund_negative">ปริมาณสูงกว่าปกติ %1$s อารมณ์การเทรดเลเวอเรจมองลบ</string>
+    <string name="pulse_detail_vol_above_fund_neutral">ปริมาณสูงกว่าปกติ %1$s อารมณ์การเทรดเลเวอเรจเป็นกลาง</string>
     <string name="pulse_detail_vol_below">ปริมาณต่ำกว่าปกติ %1$s</string>
-    <string name="pulse_detail_vol_below_fund_high">ปริมาณต่ำกว่าปกติ %1$s Funding สูง</string>
-    <string name="pulse_detail_vol_below_fund_negative">ปริมาณต่ำกว่าปกติ %1$s Funding ติดลบ</string>
-    <string name="pulse_detail_vol_below_fund_neutral">ปริมาณต่ำกว่าปกติ %1$s Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_below_fund_high">ปริมาณต่ำกว่าปกติ %1$s อารมณ์การเทรดเลเวอเรจมองบวก</string>
+    <string name="pulse_detail_vol_below_fund_negative">ปริมาณต่ำกว่าปกติ %1$s อารมณ์การเทรดเลเวอเรจมองลบ</string>
+    <string name="pulse_detail_vol_below_fund_neutral">ปริมาณต่ำกว่าปกติ %1$s อารมณ์การเทรดเลเวอเรจเป็นกลาง</string>
     <string name="pulse_detail_vol_normal">ปริมาณปกติ</string>
-    <string name="pulse_detail_vol_normal_fund_high">ปริมาณปกติ Funding สูง</string>
-    <string name="pulse_detail_vol_normal_fund_negative">ปริมาณปกติ Funding ติดลบ</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">ปริมาณปกติ Funding เป็นกลาง</string>
+    <string name="pulse_detail_vol_normal_fund_high">ปริมาณปกติ อารมณ์การเทรดเลเวอเรจมองบวก</string>
+    <string name="pulse_detail_vol_normal_fund_negative">ปริมาณปกติ อารมณ์การเทรดเลเวอเรจมองลบ</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">ปริมาณปกติ อารมณ์การเทรดเลเวอเรจเป็นกลาง</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: เหรียญใหญ่ที่สุดตามมูลค่าตลาด ไม่รวมสเตเบิลคอยน์ การเปลี่ยนแปลงใน 24 ชั่วโมง (CoinGecko)</string>

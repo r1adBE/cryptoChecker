@@ -5,7 +5,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
-import com.cryptochecker.app.data.addWatches
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.marketdata.model.MarketPair
 import kotlinx.coroutines.*
@@ -82,7 +81,7 @@ fun ExplorerViewModel.addBulkPairs() {
         addResult.value = AddResult.NO_PAIR_SELECTED
         return
     }
-    if (bulkAdd.value?.running == true) return
+    if (bulkAdd.value?.running == true || bulkAddRunner.progress.value?.running == true) return
 
     viewModelScope.launch {
         bulkAdd.value = BulkAddResult(added = 0, skipped = 0, running = true)
@@ -91,21 +90,45 @@ fun ExplorerViewModel.addBulkPairs() {
             bulkAdd.value = null
             return@launch
         }
-        val outcome = watchRepository.addWatches(selected, pairs, sessionTargetGroup.value)
-        // Merkliste gesperrt: keine Zählung «0 hinzugefügt», den kurzen Hinweis zeigt WatchlistLockedHint
-        if (outcome.locked) {
-            bulkAdd.value = null
-            return@launch
-        }
-        // Merkliste voll: nur bis zur Grenze angelegt, die Rückmeldung nennt die übrigen
-        bulkAdd.value = BulkAddResult(added = outcome.added, skipped = outcome.skipped, refused = outcome.refused)
-        // Viele auf einmal: kein Erst-Moment, das erste Paar gilt aber als erledigt
-        if (outcome.added > 0) addMoments.markFirstPairAdded()
+        // Läuft app-weit weiter (Verlassen des Bildschirms bricht nicht ab); Stand und Ergebnis über
+        // [bulkAddFromRunner]. Gesperrt: keine Zählung, den kurzen Hinweis zeigt WatchlistLockedHint; voll: die
+        // Rückmeldung nennt die übrigen
+        if (!bulkAddRunner.start(selected, pairs, sessionTargetGroup.value)) bulkAdd.value = null
     }
+}
+
+/** Stand von [com.cryptochecker.app.data.BulkAddRunner] als Anzeige des Explorers (Balken, Ergebnis). */
+internal fun bulkAddFromRunner(p: com.cryptochecker.app.data.BulkAddRunner.Progress?): BulkAddResult? = when {
+    p == null || p.locked -> null
+    p.running -> BulkAddResult(added = 0, skipped = 0, running = true, done = p.done, total = p.total)
+    else -> p.result?.let { BulkAddResult(added = it.added, skipped = it.skipped, refused = it.refused, addedIds = it.addedIds) }
+}
+
+/**
+ * Stand der app-weiten Aufnahme übernehmen — auch nach Rückkehr auf den Bildschirm (neues ViewModel). Noch keine
+ * Aufnahme (null) ändert nichts (Rückfrage läuft evtl. noch); gesperrt: keine Zählung.
+ */
+internal suspend fun ExplorerViewModel.collectBulkRunner() {
+    bulkAddRunner.progress.collect { p ->
+        when {
+            p == null -> Unit
+            p.locked -> {
+                bulkAdd.value = null
+                bulkAddRunner.clearResult()
+            }
+            else -> bulkAdd.value = bulkAddFromRunner(p)
+        }
+    }
+}
+
+/** «Rückgängig» in der Rückmeldung: die eben neu angelegten Paare wieder entfernen. */
+fun ExplorerViewModel.undoBulkAdd(ids: List<Long>) {
+    bulkAddRunner.undo(ids)
 }
 
 fun ExplorerViewModel.clearBulkAddResult() {
     bulkAdd.value = null
+    bulkAddRunner.clearResult()
 }
 
 /** Kennzahlen der Schnellfilter höchstens einmal pro Minute neu abfragen. */

@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Προσθήκη πρώτης αγοράς</string>
     <string name="portfolio_empty_address">Απλώς παρακολούθηση διεύθυνσης πορτοφολιού</string>
     <string name="portfolio_empty_csv">Αγορά σε ανταλλακτήριο; Εισαγωγή αρχείου</string>
-    <string name="portfolio_empty_example_plain">Παράδειγμα: 0,01 BTC αγορασμένο την 1η Μαρτίου. Η εφαρμογή δείχνει πόσο αξίζει σήμερα και αν είσαι σε κέρδος ή ζημία – αποθηκεύεται μόνο σε αυτή τη συσκευή.</string>
-    <string name="portfolio_empty_text">Καταχώρισε τι αγόρασες – η εφαρμογή δείχνει πόσο αξίζει σήμερα και πόσο είσαι σε κέρδος ή ζημία.</string>
+    <string name="portfolio_empty_example_plain">Παράδειγμα: %1$s BTC αγορασμένο την 1η Μαρτίου. Η εφαρμογή δείχνει πόσο αξίζει σήμερα και αν είσαι σε κέρδος ή ζημία – αποθηκεύεται μόνο σε αυτή τη συσκευή.</string>
     <string name="portfolio_empty_title">Δεν υπάρχουν ακόμη συναλλαγές</string>
     <string name="portfolio_enable_ask_text">Η συναλλαγή σου αποθηκεύτηκε. Η καρτέλα Χαρτοφυλάκιο δείχνει τα υπόλοιπά σου και την αξία τους.</string>
     <string name="portfolio_enable_ask_title">Ενεργοποίηση της καρτέλας Χαρτοφυλάκιο;</string>

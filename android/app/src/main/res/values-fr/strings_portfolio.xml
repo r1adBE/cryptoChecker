@@ -13,8 +13,7 @@
     <string name="portfolio_empty_action">Ajouter ton premier achat</string>
     <string name="portfolio_empty_address">Suivre seulement une adresse de wallet</string>
     <string name="portfolio_empty_csv">Acheté sur une plateforme ? Importer son fichier</string>
-    <string name="portfolio_empty_example_plain">Exemple : 0,01 BTC acheté le 1er mars. L’app montre alors sa valeur aujourd’hui et si tu es en gain ou en perte – enregistré uniquement sur cet appareil.</string>
-    <string name="portfolio_empty_text">Indique ce que tu as acheté – l’app montre sa valeur aujourd’hui et combien tu gagnes ou perds.</string>
+    <string name="portfolio_empty_example_plain">Exemple : %1$s BTC acheté le 1er mars. L’app montre alors sa valeur aujourd’hui et si tu es en gain ou en perte – enregistré uniquement sur cet appareil.</string>
     <string name="portfolio_empty_title">Aucune transaction</string>
     <string name="portfolio_enable_ask_text">Ta transaction est enregistrée. L’onglet Portefeuille affiche tes avoirs et leur valeur.</string>
     <string name="portfolio_enable_ask_title">Activer l’onglet Portefeuille ?</string>

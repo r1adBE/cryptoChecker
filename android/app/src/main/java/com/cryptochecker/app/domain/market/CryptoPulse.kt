@@ -49,7 +49,10 @@ enum class PulseVolume { HIGH, LOW, NORMAL }
 enum class PulseFunding { HIGH, SLIGHT, NEUTRAL, NEGATIVE }
 enum class PulseGas { LOW, NORMAL, HIGH }
 
-/** Erster Satz der Zusammenfassung. */
+/**
+ * Schlagzeile: Richtung aus [MarketMoveScale.decide] (BROAD_UP/BROAD_DOWN = steigend/fallend, egal ob
+ * leicht oder deutlich), mit hohem BTC-Volumen als eigene Variante.
+ */
 enum class PulseSummary { BROAD_UP_VOLUME, BROAD_UP, BROAD_DOWN_VOLUME, BROAD_DOWN, MIXED, CALM }
 
 /** Zusätzliche Sätze, in dieser Reihenfolge. */
@@ -130,12 +133,6 @@ object CryptoPulse {
     const val GAS_LOW_GWEI = 2.0
     const val GAS_NORMAL_MAX_GWEI = 10.0
 
-    /** Breite Bewegung: alle drei mindestens so weit in dieselbe Richtung. */
-    const val BROAD_MOVE_PERCENT = 1.5
-
-    /** Ruhig: alle drei betragsmässig darunter. */
-    const val CALM_PERCENT = 1.0
-
     const val GREED_FROM = 70
     const val FEAR_TO = 30
 
@@ -166,6 +163,9 @@ object CryptoPulse {
         val fearGreed = input.fearGreed?.takeIf { it in 0..100 }
         val funding = input.fundingPercent?.takeIf { it.isFinite() }
         val gas = input.ethGasGwei?.takeIf { it.isFinite() && it >= 0.0 }
+        val breadth = breadth(input.topChanges)
+        val marketCap = input.marketCapUsd?.takeIf { it.isFinite() && it > 0.0 }
+        val marketCap24h = input.marketCap24h?.takeIf { it.isFinite() && marketCap != null }
 
         return PulseReport(
             btc24h = btc,
@@ -179,15 +179,13 @@ object CryptoPulse {
             funding = funding?.let { fundingLevel(it) },
             gasGwei = gas,
             gas = gas?.let { gasLevel(it) },
-            summary = summary(btc, eth, sol, ratio),
+            summary = summary(MarketMoveScale.decide(btc, eth, sol, marketCap24h, breadth), ratio),
             extras = extras(fearGreed, funding),
             time = input.time,
-            breadth = breadth(input.topChanges),
-            breadthNote = breadth(input.topChanges)?.let { breadthNote(it, btc) },
-            marketCapUsd = input.marketCapUsd?.takeIf { it.isFinite() && it > 0.0 },
-            marketCap24h = input.marketCap24h?.takeIf {
-                it.isFinite() && input.marketCapUsd?.let { cap -> cap.isFinite() && cap > 0.0 } == true
-            },
+            breadth = breadth,
+            breadthNote = breadth?.let { breadthNote(it, btc) },
+            marketCapUsd = marketCap,
+            marketCap24h = marketCap24h,
             movers = input.movers?.takeIf { !it.isEmpty },
         )
     }
@@ -246,18 +244,20 @@ object CryptoPulse {
         else -> PulseGas.HIGH
     }
 
-    fun summary(btc: Double, eth: Double, sol: Double, volumeRatio: Double?): PulseSummary {
-        val all = listOf(btc, eth, sol)
+    /** Schlagzeile aus der Marktrichtung ([MarketMoveScale.decide]) und dem BTC-Volumen. */
+    fun summary(move: MarketMove, volumeRatio: Double?): PulseSummary {
         val highVolume = volumeRatio != null && volumeRatio >= VOLUME_HIGH_RATIO
-        return when {
-            all.all { it >= BROAD_MOVE_PERCENT } ->
-                if (highVolume) PulseSummary.BROAD_UP_VOLUME else PulseSummary.BROAD_UP
-            all.all { it <= -BROAD_MOVE_PERCENT } ->
-                if (highVolume) PulseSummary.BROAD_DOWN_VOLUME else PulseSummary.BROAD_DOWN
-            all.all { abs(it) < CALM_PERCENT } -> PulseSummary.CALM
-            else -> PulseSummary.MIXED
+        return when (move.direction) {
+            MarketMoveDirection.UP -> if (highVolume) PulseSummary.BROAD_UP_VOLUME else PulseSummary.BROAD_UP
+            MarketMoveDirection.DOWN -> if (highVolume) PulseSummary.BROAD_DOWN_VOLUME else PulseSummary.BROAD_DOWN
+            MarketMoveDirection.CALM -> PulseSummary.CALM
+            MarketMoveDirection.MIXED -> PulseSummary.MIXED
         }
     }
+
+    /** Marktrichtung eines Berichts — dieselbe Entscheidung wie für [PulseReport.summary]. */
+    fun move(report: PulseReport): MarketMove =
+        MarketMoveScale.decide(report.btc24h, report.eth24h, report.sol24h, report.marketCap24h, report.breadth)
 
     fun extras(fearGreed: Int?, fundingPercent: Double?): List<PulseExtra> = buildList {
         if (fearGreed != null && fearGreed >= GREED_FROM) add(PulseExtra.GREED)
@@ -270,31 +270,30 @@ object CryptoPulse {
 
     /**
      * Leitsatz unter der Schlagzeile, höchstens zwei kurze Sätze:
-     * 1. Wer führt / wie bewegt sich der Markt (Reihenfolge der Regeln zählt):
-     *    ruhig → breit fallend → breit steigend mit BTC als grösster Bewegung →
-     *    Altcoins stärker / schwächer → breit steigend → leicht steigend/fallend
-     *    (alle gleichgerichtet) → auseinander.
+     * 1. Wer führt / wie bewegt sich der Markt, nach derselben Richtung und Stärke wie die Schlagzeile
+     *    ([move]; Reihenfolge der Regeln zählt): ruhig → deutlich fallend («breit») → deutlich steigend
+     *    mit BTC als grösster Bewegung → Altcoins stärker / schwächer → deutlich steigend → leicht
+     *    steigend/fallend → auseinander. «Leicht» kommt so nur, wo auch der Gesamtwert nicht «deutlich» ist.
      * 2. Volumen (echtes Verhältnis, ±5 % = normal) und Funding, sofern bekannt.
      */
     fun leadSentence(report: PulseReport): PulseLead {
         val btc = report.btc24h
-        val eth = report.eth24h
-        val sol = report.sol24h
-        val all = listOf(btc, eth, sol)
-        val broadUp = report.summary == PulseSummary.BROAD_UP || report.summary == PulseSummary.BROAD_UP_VOLUME
-        val broadDown = report.summary == PulseSummary.BROAD_DOWN || report.summary == PulseSummary.BROAD_DOWN_VOLUME
-        val btcLargest = abs(btc) >= abs(eth) && abs(btc) >= abs(sol)
+        val move = move(report)
+        val clear = move.level == MarketMoveLevel.CLEAR
+        val up = move.direction == MarketMoveDirection.UP
+        val down = move.direction == MarketMoveDirection.DOWN
+        val btcLargest = btc > 0.0 && abs(btc) >= abs(report.eth24h) && abs(btc) >= abs(report.sol24h)
 
         val kind = when {
-            report.summary == PulseSummary.CALM -> PulseLeadKind.CALM
-            broadDown -> PulseLeadKind.BROAD_DOWN
+            move.direction == MarketMoveDirection.CALM -> PulseLeadKind.CALM
+            down && clear -> PulseLeadKind.BROAD_DOWN
             // «Bitcoin steigt am stärksten» nur, wenn die Altcoins nicht klar stärker sind
-            broadUp && btcLargest && report.alts != PulseAlts.STRONGER -> PulseLeadKind.BTC_LEADS
+            up && clear && btcLargest && report.alts != PulseAlts.STRONGER -> PulseLeadKind.BTC_LEADS
             report.alts == PulseAlts.STRONGER -> PulseLeadKind.ALTS_STRONGER
             report.alts == PulseAlts.WEAKER -> PulseLeadKind.BTC_STRONGER
-            broadUp -> PulseLeadKind.BROAD_UP
-            all.all { it >= 0.0 } && all.any { it > 0.0 } -> PulseLeadKind.DRIFT_UP
-            all.all { it <= 0.0 } && all.any { it < 0.0 } -> PulseLeadKind.DRIFT_DOWN
+            up && clear -> PulseLeadKind.BROAD_UP
+            up -> PulseLeadKind.DRIFT_UP
+            down -> PulseLeadKind.DRIFT_DOWN
             else -> PulseLeadKind.MIXED
         }
 

@@ -35,7 +35,7 @@
     <string name="explorer_search_empty">لا توجد نتائج.</string>
     <string name="explorer_search_hint">ابحث عن عملة أو زوج أو منصة</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج. الزوج هو عملة على منصة بعملة معيّنة، مثل BTC/USDT على Binance.</string>
+    <string name="explorer_search_intro">اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">إضافة إلى قائمة المتابعة</string>
@@ -158,4 +158,22 @@
         <item quantity="many">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
         <item quantity="other">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
     </plurals>
+    <string name="bulk_add_progress">جارٍ إضافة الأزواج … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="zero">إضافة %1$d زوج جديد إلى قائمة المتابعة</item>
+        <item quantity="one">إضافة زوج جديد (%1$d) إلى قائمة المتابعة</item>
+        <item quantity="two">إضافة زوجين جديدين (%1$d) إلى قائمة المتابعة</item>
+        <item quantity="few">إضافة %1$d أزواج جديدة إلى قائمة المتابعة</item>
+        <item quantity="many">إضافة %1$d زوجًا جديدًا إلى قائمة المتابعة</item>
+        <item quantity="other">إضافة %1$d زوج جديد إلى قائمة المتابعة</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="zero">جديدة: %1$d، موجودة في قائمة المتابعة: %2$d</item>
+        <item quantity="one">جديدة: %1$d، موجودة في قائمة المتابعة: %2$d</item>
+        <item quantity="two">جديدة: %1$d، موجودة في قائمة المتابعة: %2$d</item>
+        <item quantity="few">جديدة: %1$d، موجودة في قائمة المتابعة: %2$d</item>
+        <item quantity="many">جديدة: %1$d، موجودة في قائمة المتابعة: %2$d</item>
+        <item quantity="other">جديدة: %1$d، موجودة في قائمة المتابعة: %2$d</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">كلها موجودة في قائمة المتابعة</string>
 </resources>

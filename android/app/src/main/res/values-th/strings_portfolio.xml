@@ -11,8 +11,7 @@
     <string name="portfolio_empty_action">เพิ่มการซื้อครั้งแรก</string>
     <string name="portfolio_empty_address">ติดตามเฉพาะที่อยู่กระเป๋า</string>
     <string name="portfolio_empty_csv">ซื้อในกระดานเทรด? นำเข้าไฟล์</string>
-    <string name="portfolio_empty_example_plain">ตัวอย่าง: ซื้อ 0.01 BTC เมื่อ 1 มีนาคม แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุน – บันทึกไว้ในอุปกรณ์นี้เท่านั้น</string>
-    <string name="portfolio_empty_text">กรอกสิ่งที่คุณซื้อ – แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุนเท่าไร</string>
+    <string name="portfolio_empty_example_plain">ตัวอย่าง: ซื้อ %1$s BTC เมื่อ 1 มีนาคม แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุน – บันทึกไว้ในอุปกรณ์นี้เท่านั้น</string>
     <string name="portfolio_empty_title">ยังไม่มีรายการ</string>
     <string name="portfolio_enable_ask_text">บันทึกรายการแล้ว แท็บพอร์ตโฟลิโอจะแสดงยอดถือครองและมูลค่า</string>
     <string name="portfolio_enable_ask_title">เปิดแท็บพอร์ตโฟลิโอหรือไม่</string>

@@ -13,8 +13,7 @@
     <string name="portfolio_empty_action">Adaugă prima cumpărare</string>
     <string name="portfolio_empty_address">Doar urmărește o adresă de portofel</string>
     <string name="portfolio_empty_csv">Cumpărat pe o bursă? Importă fișierul</string>
-    <string name="portfolio_empty_example_plain">Exemplu: 0,01 BTC cumpărat pe 1 martie. Aplicația arată apoi cât valorează azi și dacă ești pe plus sau pe minus – salvat doar pe acest dispozitiv.</string>
-    <string name="portfolio_empty_text">Introdu ce ai cumpărat – aplicația arată cât valorează azi și cât ești pe plus sau pe minus.</string>
+    <string name="portfolio_empty_example_plain">Exemplu: %1$s BTC cumpărat pe 1 martie. Aplicația arată apoi cât valorează azi și dacă ești pe plus sau pe minus – salvat doar pe acest dispozitiv.</string>
     <string name="portfolio_empty_title">Încă nicio tranzacție</string>
     <string name="portfolio_enable_ask_text">Tranzacția ta a fost salvată. Fila Portofoliu arată deținerile tale și valoarea lor.</string>
     <string name="portfolio_enable_ask_title">Activezi fila Portofoliu?</string>

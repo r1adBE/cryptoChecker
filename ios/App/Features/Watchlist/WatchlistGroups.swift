@@ -15,8 +15,10 @@ import SwiftUI
 /// ausser «TradFi», `WatchFilter.tokens`) nur mit TradFi- und anderen Paaren, «+» erst mit
 /// einer Gruppe (die erste entsteht über das Aktionsblatt eines Paars); sonst bleibt die Zeile leer.
 /// Ist eine vorübergehende Ansicht an, ist keine Gruppe markiert (ausser ⚡ selbst).
-/// Tippen auf einen Symbol-Chip zeigt zusätzlich kurz dessen Namen darunter (`ChipHintOverlay`);
-/// immer nur einer, ein weiterer Tipp ersetzt ihn (wie Android `ChipHintPopup`).
+/// Der gewählte Symbol-Chip zeigt neben dem Symbol seinen Namen («Alle», «Favoriten» …); tippt man einen Symbol-Chip
+/// ab (⚡), zeigt er kurz den Namen darunter (`ChipHintOverlay`) — immer nur einer, ein weiterer Tipp ersetzt ihn
+/// (wie Android `ChipHintPopup`). Geht die Zeile über den Rand hinaus, blendet sie am Ende weich aus
+/// (`ChipRowFade`) — Hinweis, dass sie weiter scrollt (wie Android `fadeEnd`).
 @MainActor
 struct WatchlistGroupChips: View {
     let groups: [String]
@@ -49,6 +51,11 @@ struct WatchlistGroupChips: View {
 
     /// So lange bleibt der Namenshinweis stehen.
     private static let hintSeconds: Double = 1.5
+    /// Koordinatenraum der Chip-Zeile (für den Ausblend-Rand).
+    nonisolated private static let rowSpace = "watchlistGroupChips"
+    /// Breite der sichtbaren Zeile und Ende (Hinterkante) der Chips darin.
+    @State private var rowWidth: CGFloat = 0
+    @State private var chipsEnd: CGFloat = 0
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -104,8 +111,13 @@ struct WatchlistGroupChips: View {
               }
             }
             .padding(.vertical, 2)
+            .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named(Self.rowSpace)).maxX } action: { chipsEnd = $0 }
         }
+        .coordinateSpace(.named(Self.rowSpace))
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { rowWidth = $0 }
         .scrollClipDisabled()
+        // Weicher Rand am Ende, solange weitere Chips folgen (nur Zeichnung; VoiceOver unverändert)
+        .modifier(ChipRowFade(active: chipsEnd > rowWidth + 1))
         .task(id: hintTap) { await hideHintLater() }
         .haptic(.selection, trigger: selected)
         .haptic(.selection, trigger: quickView)
@@ -181,8 +193,9 @@ struct WatchlistGroupChips: View {
                            hasAlpha: hasAlpha)
     }
 
-    /// `icon`: nur ein Symbol statt `title` (Alle, ★, ⚡, Token, TradFi); `title` ist dann der VoiceOver-Name.
-    /// `hint`: Schlüssel eines Symbol-Chips — Tippen zeigt `title` kurz darunter.
+    /// `icon`: nur ein Symbol statt `title` (Alle, ★, ⚡, Token, TradFi); `title` ist dann der VoiceOver-Name und
+    /// steht beim gewählten Chip als Text neben dem Symbol.
+    /// `hint`: Schlüssel eines Symbol-Chips — Tippen zeigt `title` kurz darunter (nur ungewählt).
     /// Alle Chips neutral: Text und Symbol in der Textfarbe, grauer Rand, keine Füllung. Der gewählte
     /// bekommt Rand, Text und Symbol in der Themenfarbe (orange) — ebenfalls ohne Füllung (wie Android).
     private func chip(_ title: String, icon: GroupChipIcon? = nil,
@@ -190,16 +203,26 @@ struct WatchlistGroupChips: View {
                       longPress: (() -> Void)? = nil, spoken: String? = nil,
                       hint: String? = nil) -> some View {
         let tint = isSelected ? accent.primary : AppColors.onSurface
-        let hintShown = hint != nil && hintKey == hint
+        // Gewählter Symbol-Chip: Name daneben, darum kein Hinweis darunter
+        let hintShown = hint != nil && hintKey == hint && !isSelected
         let tap: () -> Void = {
             action()
             if let hint { showHint(hint) }
         }
         return Group {
             if let icon {
-                GroupChipIconView(icon: icon)
-                    .foregroundStyle(tint)
-                    .padding(.horizontal, -2)
+                HStack(spacing: Spacing.xs) {
+                    GroupChipIconView(icon: icon)
+                        .foregroundStyle(tint)
+                        .padding(.horizontal, -2)
+                    if isSelected {
+                        // Wie die Text-Chips; VoiceOver liest den Namen einmal (Label des Chips)
+                        Text(title)
+                            .font(.subheadline.weight(.semibold))
+                            .lineLimit(1)
+                            .dynamicTypeSize(...AppTabBarMetrics.maxTypeSize)
+                    }
+                }
             } else {
                 // Schrift wächst bis ≈ 1,5-fach mit (wie die Tab-Leiste, `AppTabBarMetrics.maxTypeSize`, und Android)
                 Text(title)
@@ -248,6 +271,35 @@ private struct ChipLargeContent: ViewModifier {
             content.accessibilityShowsLargeContentViewer {
                 GroupChipIconView(icon: icon)
                 Text(title)
+            }
+        } else {
+            content
+        }
+    }
+}
+
+// MARK: Ausblend-Rand
+
+/// Weicher Ausblend-Rand am Ende der Chip-Zeile (rechts, bei RTL links), solange `active` — Hinweis, dass die Zeile
+/// weiter scrollt. Die Maske reicht oben und unten weit über die Zeile, damit der Namenshinweis unter einem Chip
+/// sichtbar bleibt. Wie Android `fadeEnd`.
+private struct ChipRowFade: ViewModifier {
+    let active: Bool
+
+    /// Breite des Rands (wie Android `CHIP_FADE_WIDTH`).
+    private static let width: CGFloat = 24
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if active {
+            content.mask {
+                HStack(spacing: 0) {
+                    Rectangle()
+                    LinearGradient(colors: [.black, .clear], startPoint: .leading, endPoint: .trailing)
+                        .flipsForRightToLeftLayoutDirection(true)
+                        .frame(width: Self.width)
+                }
+                .padding(.vertical, -60)
             }
         } else {
             content

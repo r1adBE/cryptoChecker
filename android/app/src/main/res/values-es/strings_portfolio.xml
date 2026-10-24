@@ -13,8 +13,7 @@
     <string name="portfolio_empty_action">Añadir tu primera compra</string>
     <string name="portfolio_empty_address">Solo seguir una dirección de wallet</string>
     <string name="portfolio_empty_csv">¿Compraste en un exchange? Importa su archivo</string>
-    <string name="portfolio_empty_example_plain">Ejemplo: 0,01 BTC comprado el 1 de marzo. La app muestra cuánto vale hoy y si ganas o pierdes – guardado solo en este dispositivo.</string>
-    <string name="portfolio_empty_text">Anota lo que compraste – la app muestra cuánto vale hoy y cuánto ganas o pierdes.</string>
+    <string name="portfolio_empty_example_plain">Ejemplo: %1$s BTC comprado el 1 de marzo. La app muestra cuánto vale hoy y si ganas o pierdes – guardado solo en este dispositivo.</string>
     <string name="portfolio_empty_title">Aún no hay transacciones</string>
     <string name="portfolio_enable_ask_text">Tu transacción está guardada. La pestaña Cartera muestra tus tenencias y su valor.</string>
     <string name="portfolio_enable_ask_title">¿Activar la pestaña Cartera?</string>

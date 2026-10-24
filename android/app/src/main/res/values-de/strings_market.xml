@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">Die grossen Coins laufen auseinander.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding erhöht.</string>
-    <string name="pulse_detail_fund_negative">Funding negativ.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_fund_high">Hebel-Stimmung optimistisch.</string>
+    <string name="pulse_detail_fund_negative">Hebel-Stimmung pessimistisch.</string>
+    <string name="pulse_detail_fund_neutral">Hebel-Stimmung neutral.</string>
     <string name="pulse_detail_vol_above">Volumen %1$s über normal.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volumen %1$s über normal, Funding erhöht.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$s über normal, Funding negativ.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$s über normal, Funding neutral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$s über normal, Hebel-Stimmung optimistisch.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$s über normal, Hebel-Stimmung pessimistisch.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$s über normal, Hebel-Stimmung neutral.</string>
     <string name="pulse_detail_vol_below">Volumen %1$s unter normal.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volumen %1$s unter normal, Funding erhöht.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$s unter normal, Funding negativ.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$s unter normal, Funding neutral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$s unter normal, Hebel-Stimmung optimistisch.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$s unter normal, Hebel-Stimmung pessimistisch.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$s unter normal, Hebel-Stimmung neutral.</string>
     <string name="pulse_detail_vol_normal">Volumen normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volumen normal, Funding erhöht.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volumen normal, Funding negativ.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volumen normal, Funding neutral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen normal, Hebel-Stimmung optimistisch.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen normal, Hebel-Stimmung pessimistisch.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen normal, Hebel-Stimmung neutral.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: die grössten Coins nach Marktwert, ohne Stablecoins; Veränderung über 24 Stunden (CoinGecko).</string>

@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">De store myntene går hver sin vei.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding forhøyet.</string>
-    <string name="pulse_detail_fund_negative">Funding negativ.</string>
-    <string name="pulse_detail_fund_neutral">Funding nøytral.</string>
+    <string name="pulse_detail_fund_high">Giringsstemning optimistisk.</string>
+    <string name="pulse_detail_fund_negative">Giringsstemning pessimistisk.</string>
+    <string name="pulse_detail_fund_neutral">Giringsstemning nøytral.</string>
     <string name="pulse_detail_vol_above">Volum %1$s over normalt.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volum %1$s over normalt, funding forhøyet.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volum %1$s over normalt, funding negativ.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volum %1$s over normalt, funding nøytral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volum %1$s over normalt, giringsstemning optimistisk.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volum %1$s over normalt, giringsstemning pessimistisk.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volum %1$s over normalt, giringsstemning nøytral.</string>
     <string name="pulse_detail_vol_below">Volum %1$s under normalt.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volum %1$s under normalt, funding forhøyet.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volum %1$s under normalt, funding negativ.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volum %1$s under normalt, funding nøytral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volum %1$s under normalt, giringsstemning optimistisk.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volum %1$s under normalt, giringsstemning pessimistisk.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volum %1$s under normalt, giringsstemning nøytral.</string>
     <string name="pulse_detail_vol_normal">Volum normalt.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volum normalt, funding forhøyet.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volum normalt, funding negativ.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volum normalt, funding nøytral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volum normalt, giringsstemning optimistisk.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volum normalt, giringsstemning pessimistisk.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volum normalt, giringsstemning nøytral.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Topp %1$d: de største myntene etter markedsverdi, uten stablecoins; endring over 24 timer (CoinGecko).</string>

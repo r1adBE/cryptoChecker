@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Sin resultados.</string>
     <string name="explorer_search_hint">Buscar moneda, par o exchange</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Escribe el nombre o el símbolo de una moneda, p. ej. Bitcoin o BTC, y elige el par. Un par es una moneda en un exchange en una divisa, p. ej. BTC/USDT en Binance.</string>
+    <string name="explorer_search_intro">Escribe el nombre o el símbolo de una moneda, p. ej. Bitcoin o BTC, y elige el par.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Añadir a la lista de seguimiento</string>
@@ -131,4 +131,16 @@
         <item quantity="many">%1$d pares no añadidos: tu lista de seguimiento puede tener como máximo %2$s pares.</item>
         <item quantity="other">%1$d pares no añadidos: tu lista de seguimiento puede tener como máximo %2$s pares.</item>
     </plurals>
+    <string name="bulk_add_progress">Añadiendo pares … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Añadir %1$d par nuevo a la lista de seguimiento</item>
+        <item quantity="many">Añadir %1$d pares nuevos a la lista de seguimiento</item>
+        <item quantity="other">Añadir %1$d pares nuevos a la lista de seguimiento</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nuevo, %2$d ya en la lista de seguimiento</item>
+        <item quantity="many">%1$d nuevos, %2$d ya en la lista de seguimiento</item>
+        <item quantity="other">%1$d nuevos, %2$d ya en la lista de seguimiento</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Todos ya están en la lista de seguimiento</string>
 </resources>

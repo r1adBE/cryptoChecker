@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Niciun rezultat.</string>
     <string name="explorer_search_hint">Caută monedă, pereche sau bursă</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea. O pereche este o monedă pe o bursă, cotată într-o valută, de ex. BTC/USDT pe Binance.</string>
+    <string name="explorer_search_intro">Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Adaugă în lista de urmărire</string>
@@ -131,4 +131,16 @@
         <item quantity="few">Neadăugate: %1$d. Lista ta de urmărire poate conține cel mult %2$s de perechi.</item>
         <item quantity="other">Neadăugate: %1$d. Lista ta de urmărire poate conține cel mult %2$s de perechi.</item>
     </plurals>
+    <string name="bulk_add_progress">Se adaugă perechile … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Adaugă %1$d pereche nouă în lista de urmărire</item>
+        <item quantity="few">Adaugă %1$d perechi noi în lista de urmărire</item>
+        <item quantity="other">Adaugă %1$d de perechi noi în lista de urmărire</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nouă, %2$d deja în lista de urmărire</item>
+        <item quantity="few">%1$d noi, %2$d deja în lista de urmărire</item>
+        <item quantity="other">%1$d noi, %2$d deja în lista de urmărire</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Toate sunt deja în lista de urmărire</string>
 </resources>

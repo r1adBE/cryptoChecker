@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus는 앱을 중지할 수 있으며, 그러면 경보가 오지 않습니다. “자동 실행”과 배터리 사용량의 백그라운드 활동을 허용하세요.</string>
     <string name="oem_battery_oppo">Oppo/Realme는 앱을 중지할 수 있으며, 그러면 경보가 오지 않습니다. “자동 실행”과 배터리 사용량의 백그라운드 활동을 허용하세요.</string>
     <string name="oem_battery_vivo">Vivo는 앱을 중지할 수 있으며, 그러면 경보가 오지 않습니다. “자동 시작”과 배터리의 높은 백그라운드 전력 사용을 허용하세요.</string>
-    <string name="alarm_reliability_recent">마지막 확인: %1$s</string>
     <string name="alarm_reliability_stale">마지막 확인: %1$s – 경보가 늦을 수 있음</string>
     <string name="alarm_reliability_never">경보 켜짐 – 아직 백그라운드 확인 없음</string>
     <string name="alarm_reliability_notifications_off">알림 꺼짐 – 경보가 도착하지 않음</string>

@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Legg inn ditt første kjøp</string>
     <string name="portfolio_empty_address">Bare følg en lommebokadresse</string>
     <string name="portfolio_empty_csv">Kjøpt på en børs? Importer filen</string>
-    <string name="portfolio_empty_example_plain">Eksempel: 0,01 BTC kjøpt 1. mars. Appen viser da hva den er verdt i dag og om du er i pluss eller minus – lagret bare på denne enheten.</string>
-    <string name="portfolio_empty_text">Legg inn det du har kjøpt – appen viser hva det er verdt i dag og hvor mye du er i pluss eller minus.</string>
+    <string name="portfolio_empty_example_plain">Eksempel: %1$s BTC kjøpt 1. mars. Appen viser da hva den er verdt i dag og om du er i pluss eller minus – lagret bare på denne enheten.</string>
     <string name="portfolio_empty_title">Ingen transaksjoner ennå</string>
     <string name="portfolio_enable_ask_text">Transaksjonen din er lagret. Fanen Portefølje viser beholdningene dine og verdien deres.</string>
     <string name="portfolio_enable_ask_title">Slå på fanen Portefølje?</string>

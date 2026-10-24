@@ -102,6 +102,8 @@ enum PulseGas: Equatable, Sendable {
     }
 }
 
+/// Schlagzeile: Richtung aus `MarketMoveScale.decide` (broadUp/broadDown = steigend/fallend, egal ob
+/// leicht oder deutlich), mit hohem BTC-Volumen als eigene Variante.
 enum PulseSummary: Equatable, Sendable {
     case broadUp, broadUpVolume, broadDown, broadDownVolume, mixed, calm
 }

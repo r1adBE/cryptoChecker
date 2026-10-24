@@ -63,13 +63,14 @@ extension PortfolioScreen {
     var emptyState: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // Alltagssprache vor dem ersten Eintrag: Beispiel ohne Kaufkurs in USDT, Hauptweg
-                // «Ersten Kauf eintragen»; Börsen-Datei und Adresse nur als Nebenwege darunter (wie Android)
+                // Nur ein Satz (das Beispiel) statt Text plus Beispiel, damit auf einem üblichen Telefon alles
+                // samt Fusstext ohne Scrollen sichtbar ist. Alltagssprache vor dem ersten Eintrag: Beispiel ohne
+                // Kaufkurs in USDT, Hauptweg «Ersten Kauf eintragen»; Börsen-Datei und Adresse nur als Nebenwege
+                // darunter (wie Android)
                 EmptyStateView(
                     systemImage: AppSymbol.portfolio,
                     title: L("portfolio_empty_title"),
-                    message: L("portfolio_empty_text"),
-                    example: L("portfolio_empty_example_plain"),
+                    example: L("portfolio_empty_example_plain", PortfolioEmptyExample.amountText()),
                     actionTitle: L("portfolio_empty_action"),
                     action: { sheet = PortfolioTxDraft() }
                 )
@@ -89,6 +90,14 @@ extension PortfolioScreen {
             .readableContentWidth()
         }
     }
+}
+
+/// Menge im Beispiel des leeren Portfolios («Beispiel: 0.01 BTC …»), im Zahlenformat der App. Wie Android.
+enum PortfolioEmptyExample {
+    static let amount = 0.01
+
+    /// Menge wie die Bestände formatiert (`PriceFormat.amount`), de-CH «0.01», de-DE «0,01».
+    static func amountText() -> String { PriceFormat.amount(amount) }
 }
 
 // MARK: Coin-Zeile

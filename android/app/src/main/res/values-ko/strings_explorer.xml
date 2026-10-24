@@ -25,7 +25,7 @@
     <string name="explorer_search_empty">결과가 없습니다.</string>
     <string name="explorer_search_hint">코인, 거래쌍 또는 거래소 검색</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요. 거래쌍은 한 거래소에서 특정 통화로 거래되는 코인입니다(예: Binance의 BTC/USDT).</string>
+    <string name="explorer_search_intro">코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">관심 목록에 추가</string>
@@ -113,4 +113,12 @@
     <plurals name="explorer_bulk_not_added_limit">
         <item quantity="other">%1$d개는 추가되지 않았습니다. 관심 목록에는 거래쌍을 최대 %2$s개까지 추가할 수 있습니다.</item>
     </plurals>
+    <string name="bulk_add_progress">페어를 추가하는 중 … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="other">새 거래쌍 %1$d개를 관심 목록에 추가</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="other">새 거래쌍 %1$d개, 이미 관심 목록에 %2$d개</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">모두 이미 관심 목록에 있습니다</string>
 </resources>

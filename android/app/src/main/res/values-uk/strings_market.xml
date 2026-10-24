@@ -110,21 +110,21 @@
     <string name="pulse_lead_mixed">Великі монети розходяться.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Фандинг підвищений.</string>
-    <string name="pulse_detail_fund_negative">Фандинг від’ємний.</string>
-    <string name="pulse_detail_fund_neutral">Фандинг нейтральний.</string>
+    <string name="pulse_detail_fund_high">Настрій трейдерів із плечем оптимістичний.</string>
+    <string name="pulse_detail_fund_negative">Настрій трейдерів із плечем песимістичний.</string>
+    <string name="pulse_detail_fund_neutral">Настрій трейдерів із плечем нейтральний.</string>
     <string name="pulse_detail_vol_above">Обсяг на %1$s вищий за норму.</string>
-    <string name="pulse_detail_vol_above_fund_high">Обсяг на %1$s вищий за норму, фандинг підвищений.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Обсяг на %1$s вищий за норму, фандинг від’ємний.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Обсяг на %1$s вищий за норму, фандинг нейтральний.</string>
+    <string name="pulse_detail_vol_above_fund_high">Обсяг на %1$s вищий за норму, настрій трейдерів із плечем оптимістичний.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Обсяг на %1$s вищий за норму, настрій трейдерів із плечем песимістичний.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Обсяг на %1$s вищий за норму, настрій трейдерів із плечем нейтральний.</string>
     <string name="pulse_detail_vol_below">Обсяг на %1$s нижчий за норму.</string>
-    <string name="pulse_detail_vol_below_fund_high">Обсяг на %1$s нижчий за норму, фандинг підвищений.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Обсяг на %1$s нижчий за норму, фандинг від’ємний.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Обсяг на %1$s нижчий за норму, фандинг нейтральний.</string>
+    <string name="pulse_detail_vol_below_fund_high">Обсяг на %1$s нижчий за норму, настрій трейдерів із плечем оптимістичний.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Обсяг на %1$s нижчий за норму, настрій трейдерів із плечем песимістичний.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Обсяг на %1$s нижчий за норму, настрій трейдерів із плечем нейтральний.</string>
     <string name="pulse_detail_vol_normal">Обсяг у нормі.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Обсяг у нормі, фандинг підвищений.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Обсяг у нормі, фандинг від’ємний.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Обсяг у нормі, фандинг нейтральний.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Обсяг у нормі, настрій трейдерів із плечем оптимістичний.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Обсяг у нормі, настрій трейдерів із плечем песимістичний.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Обсяг у нормі, настрій трейдерів із плечем нейтральний.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Топ-%1$d: найбільші монети за ринковою вартістю без стейблкоїнів; зміна за 24 години (CoinGecko).</string>

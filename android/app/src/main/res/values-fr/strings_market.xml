@@ -109,21 +109,21 @@
     <string name="pulse_lead_mixed">Les grandes cryptos évoluent en ordre dispersé.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding élevé.</string>
-    <string name="pulse_detail_fund_negative">Funding négatif.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutre.</string>
+    <string name="pulse_detail_fund_high">Humeur à effet de levier optimiste.</string>
+    <string name="pulse_detail_fund_negative">Humeur à effet de levier pessimiste.</string>
+    <string name="pulse_detail_fund_neutral">Humeur à effet de levier neutre.</string>
     <string name="pulse_detail_vol_above">Volume %1$s au-dessus de la normale.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volume %1$s au-dessus de la normale, funding élevé.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s au-dessus de la normale, funding négatif.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s au-dessus de la normale, funding neutre.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s au-dessus de la normale, humeur à effet de levier optimiste.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s au-dessus de la normale, humeur à effet de levier pessimiste.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s au-dessus de la normale, humeur à effet de levier neutre.</string>
     <string name="pulse_detail_vol_below">Volume %1$s en dessous de la normale.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volume %1$s en dessous de la normale, funding élevé.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s en dessous de la normale, funding négatif.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s en dessous de la normale, funding neutre.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s en dessous de la normale, humeur à effet de levier optimiste.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s en dessous de la normale, humeur à effet de levier pessimiste.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s en dessous de la normale, humeur à effet de levier neutre.</string>
     <string name="pulse_detail_vol_normal">Volume normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volume normal, funding élevé.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, funding négatif.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, funding neutre.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normal, humeur à effet de levier optimiste.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, humeur à effet de levier pessimiste.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, humeur à effet de levier neutre.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d : les plus grandes cryptos par valeur de marché, hors stablecoins ; variation sur 24 heures (CoinGecko).</string>

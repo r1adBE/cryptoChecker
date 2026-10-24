@@ -79,12 +79,6 @@ struct PlainSummary: Equatable, Sendable {
 
 enum MarketPlainSummary {
 
-    /// Darunter «kaum verändert» (Betrag in %).
-    static let flatBelowPercent = 1.0
-
-    /// Ab hier «deutlich» statt «etwas» (Betrag in %).
-    static let clearFromPercent = 3.0
-
     /// Der Index-Wert selbst gilt so lange (er erscheint einmal am Tag mit dem Tagesbeginn als
     /// Zeitpunkt; zwei Tage decken Zeitzone und späte Veröffentlichung ab). Älter: Anbieter hängt.
     static let fearGreedMaxAgeMillis: Int64 = 48 * 60 * 60_000
@@ -101,11 +95,14 @@ enum MarketPlainSummary {
         return PlainDirection(kind: directionKind(change), changePercent: change)
     }
 
+    /// «kaum» / «etwas» / «deutlich» nach der gemeinsamen Skala `MarketMoveScale.level` — dieselben
+    /// Schwellen wie Schlagzeile und Leitsatz des Pulses.
     static func directionKind(_ change: Double) -> PlainDirectionKind {
-        let size = abs(change)
-        if size < flatBelowPercent { return .flat }
-        if change > 0 { return size >= clearFromPercent ? .upClear : .upSlight }
-        return size >= clearFromPercent ? .downClear : .downSlight
+        switch MarketMoveScale.level(change) {
+        case .flat: return .flat
+        case .slight: return change > 0 ? .upSlight : .downSlight
+        case .clear: return change > 0 ? .upClear : .downClear
+        }
     }
 
     /// Satz 2: nur mit frischem Abruf und einem Index-Wert, der nicht älter als zwei Tage ist.

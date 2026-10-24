@@ -37,6 +37,8 @@ struct ExplorerMessage: Equatable, Identifiable {
     var alarmWatchId: Int64? = nil
     /// Gesetzt: DEX-Suche gescheitert — statt «Ansehen» der Knopf «Erneut versuchen» für diesen Begriff.
     var retryDexQuery: String? = nil
+    /// Gesetzt: nach dem Hinzufügen mehrerer Paare statt «Ansehen» der Knopf «Rückgängig» für diese neuen Paare.
+    var undoIds: [Int64]? = nil
 }
 
 /// Steuerung der Seite «Paar hinzufügen» (Gegenstück zu `ExplorerViewModel.kt`): Coin-Suche (Coin zuerst,

@@ -107,21 +107,21 @@
     <string name="pulse_lead_mixed">主要コインの動きがばらついています。</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">資金調達率は高め。</string>
-    <string name="pulse_detail_fund_negative">資金調達率はマイナス。</string>
-    <string name="pulse_detail_fund_neutral">資金調達率は中立。</string>
+    <string name="pulse_detail_fund_high">レバレッジ取引の心理は強気。</string>
+    <string name="pulse_detail_fund_negative">レバレッジ取引の心理は弱気。</string>
+    <string name="pulse_detail_fund_neutral">レバレッジ取引の心理は中立。</string>
     <string name="pulse_detail_vol_above">出来高は通常より %1$s 多い。</string>
-    <string name="pulse_detail_vol_above_fund_high">出来高は通常より %1$s 多い、資金調達率は高め。</string>
-    <string name="pulse_detail_vol_above_fund_negative">出来高は通常より %1$s 多い、資金調達率はマイナス。</string>
-    <string name="pulse_detail_vol_above_fund_neutral">出来高は通常より %1$s 多い、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_above_fund_high">出来高は通常より %1$s 多い、レバレッジ取引の心理は強気。</string>
+    <string name="pulse_detail_vol_above_fund_negative">出来高は通常より %1$s 多い、レバレッジ取引の心理は弱気。</string>
+    <string name="pulse_detail_vol_above_fund_neutral">出来高は通常より %1$s 多い、レバレッジ取引の心理は中立。</string>
     <string name="pulse_detail_vol_below">出来高は通常より %1$s 少ない。</string>
-    <string name="pulse_detail_vol_below_fund_high">出来高は通常より %1$s 少ない、資金調達率は高め。</string>
-    <string name="pulse_detail_vol_below_fund_negative">出来高は通常より %1$s 少ない、資金調達率はマイナス。</string>
-    <string name="pulse_detail_vol_below_fund_neutral">出来高は通常より %1$s 少ない、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_below_fund_high">出来高は通常より %1$s 少ない、レバレッジ取引の心理は強気。</string>
+    <string name="pulse_detail_vol_below_fund_negative">出来高は通常より %1$s 少ない、レバレッジ取引の心理は弱気。</string>
+    <string name="pulse_detail_vol_below_fund_neutral">出来高は通常より %1$s 少ない、レバレッジ取引の心理は中立。</string>
     <string name="pulse_detail_vol_normal">出来高は通常どおり。</string>
-    <string name="pulse_detail_vol_normal_fund_high">出来高は通常どおり、資金調達率は高め。</string>
-    <string name="pulse_detail_vol_normal_fund_negative">出来高は通常どおり、資金調達率はマイナス。</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">出来高は通常どおり、資金調達率は中立。</string>
+    <string name="pulse_detail_vol_normal_fund_high">出来高は通常どおり、レバレッジ取引の心理は強気。</string>
+    <string name="pulse_detail_vol_normal_fund_negative">出来高は通常どおり、レバレッジ取引の心理は弱気。</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">出来高は通常どおり、レバレッジ取引の心理は中立。</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">トップ%1$d：時価総額の大きいコイン（ステーブルコインを除く）、24時間の変動（CoinGecko）。</string>

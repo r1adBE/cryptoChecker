@@ -14,8 +14,7 @@
     <string name="portfolio_empty_action">Zadat první nákup</string>
     <string name="portfolio_empty_address">Jen sledovat adresu peněženky</string>
     <string name="portfolio_empty_csv">Koupeno na burze? Importovat soubor</string>
-    <string name="portfolio_empty_example_plain">Příklad: 0,01 BTC koupeno 1. března. Aplikace pak ukáže, kolik má dnes hodnotu a zda jsi v plusu, nebo v minusu – uloženo jen v tomto zařízení.</string>
-    <string name="portfolio_empty_text">Zadej svoje nákupy – aplikace ukáže, kolik mají dnes hodnotu a kolik jsi v plusu nebo v minusu.</string>
+    <string name="portfolio_empty_example_plain">Příklad: %1$s BTC koupeno 1. března. Aplikace pak ukáže, kolik má dnes hodnotu a zda jsi v plusu, nebo v minusu – uloženo jen v tomto zařízení.</string>
     <string name="portfolio_empty_title">Zatím žádné transakce</string>
     <string name="portfolio_enable_ask_text">Transakce je uložená. Karta Portfolio ukazuje tvůj stav a jeho hodnotu.</string>
     <string name="portfolio_enable_ask_title">Zapnout kartu Portfolio?</string>

@@ -62,6 +62,7 @@ internal fun PreciseSelection(
     val bulkQuotes by selection.bulkQuotes.collectAsStateWithLifecycle()
     val bulkQuote by selection.bulkQuote.collectAsStateWithLifecycle()
     val bulkStats by selection.bulkStats.collectAsStateWithLifecycle()
+    val bulkNew by selection.bulkNew.collectAsStateWithLifecycle()
 
     val market = exchange
     val isDex = market?.key == DEX_MARKET_KEY
@@ -127,6 +128,9 @@ internal fun PreciseSelection(
             emptyMessage = bulkEmpty,
             syncing = syncing,
             adding = bulkAddResult?.running == true,
+            addDone = bulkAddResult?.done ?: 0,
+            addTotal = bulkAddResult?.total ?: 0,
+            newCount = bulkNew,
             coin = coin,
             pairQuote = quote,
             contract = contract,

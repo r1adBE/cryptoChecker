@@ -11,8 +11,7 @@
     <string name="portfolio_empty_action">Tambahkan pembelian pertama</string>
     <string name="portfolio_empty_address">Cukup pantau alamat dompet</string>
     <string name="portfolio_empty_csv">Beli di bursa? Impor filenya</string>
-    <string name="portfolio_empty_example_plain">Contoh: 0,01 BTC dibeli pada 1 Maret. Aplikasi lalu menunjukkan nilainya hari ini dan apakah kamu untung atau rugi – hanya disimpan di perangkat ini.</string>
-    <string name="portfolio_empty_text">Masukkan apa yang kamu beli – aplikasi menunjukkan nilainya hari ini dan berapa untung atau rugimu.</string>
+    <string name="portfolio_empty_example_plain">Contoh: %1$s BTC dibeli pada 1 Maret. Aplikasi lalu menunjukkan nilainya hari ini dan apakah kamu untung atau rugi – hanya disimpan di perangkat ini.</string>
     <string name="portfolio_empty_title">Belum ada transaksi</string>
     <string name="portfolio_enable_ask_text">Transaksimu sudah disimpan. Tab Portofolio menampilkan kepemilikan dan nilainya.</string>
     <string name="portfolio_enable_ask_title">Aktifkan tab Portofolio?</string>

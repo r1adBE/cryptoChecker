@@ -8,20 +8,17 @@ package com.cryptochecker.app.ui.features.watchlist
 import androidx.compose.foundation.layout.heightIn
 import com.cryptochecker.app.ui.navigation.cappedTabSize
 import com.cryptochecker.app.ui.theme.ChipShape
-import com.cryptochecker.app.ui.theme.label
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.snap
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,26 +32,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntRect
-import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupPositionProvider
-import androidx.compose.ui.window.PopupProperties
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.ui.components.AssetKindIcon
 import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.WatchFilter
-import com.cryptochecker.app.ui.components.rememberReduceMotion
+import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.delay
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -74,8 +62,9 @@ import androidx.compose.ui.semantics.semantics
  * Gruppe (die erste legt man über das Aktionsblatt eines Paars an). Gibt es nichts davon, bleibt
  * die Zeile leer — ein einzelnes «Alle» wäre nur ein weiterer Knopf ([showsGroupChips]).
  * Ist eine vorübergehende Ansicht ([quickView]) an, ist keine Gruppe markiert (ausser ⚡ selbst).
- * Tippen auf einen Symbol-Chip zeigt zusätzlich kurz dessen Namen darunter ([ChipHintPopup]);
- * immer nur einer, ein weiterer Tipp ersetzt ihn.
+ * Der gewählte Symbol-Chip zeigt neben dem Symbol seinen Namen («Alle», «Favoriten» …); tippt man einen Symbol-Chip
+ * ab (⚡), zeigt er kurz den Namen darunter ([ChipHintPopup]) — immer nur einer, ein weiterer Tipp ersetzt ihn.
+ * Geht die Zeile über den Rand hinaus, blendet sie am Ende weich aus ([fadeEnd]) — Hinweis, dass sie weiter scrollt.
  */
 @Composable
 internal fun GroupChips(
@@ -106,9 +95,12 @@ internal fun GroupChips(
     }
     val showHint: (String) -> Unit = { hint = ChipHint(it) }
     val hintShown: (String) -> Boolean = { hint?.key == it }
+    val rowState = rememberLazyListState()
     LazyRow(
+        state = rowState,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fadeEnd { rowState.canScrollForward }
     ) {
         if (!showsGroupChips(groups, selected, hasFavorites, hasActivity || activitySelected, hasAlpha)) return@LazyRow
         item(key = "all") {
@@ -234,7 +226,8 @@ internal fun showsGroupChips(
  * Chip im Stil des Material-FilterChips, aber mit langem Drücken
  * (FilterChip kennt das nicht). Alle Chips neutral: Text und Symbol in onSurface, grauer Rand,
  * keine Füllung. Der gewählte bekommt Rand, Text und Symbol in der Themenfarbe (orange) —
- * ebenfalls ohne Füllung. Screenreader: Tab mit Zustand «ausgewählt» (wie iOS `.isSelected`).
+ * ebenfalls ohne Füllung; ein gewählter Symbol-Chip zeigt dazu seinen Namen ([description]) als Text.
+ * Screenreader: Tab mit Zustand «ausgewählt» (wie iOS `.isSelected`); der Name wird einmal gelesen.
  */
 @Composable
 private fun GroupChip(
@@ -248,7 +241,7 @@ private fun GroupChip(
     onLongClick: (() -> Unit)? = null,
     /** Vorgelesen statt [text] bzw. für das Symbol. */
     description: String? = null,
-    /** Nur Symbol-Chips: [description] kurz als Hinweis unter dem Chip zeigen. */
+    /** Nur Symbol-Chips: [description] kurz als Hinweis unter dem Chip (nur ungewählt; gewählt steht er daneben). */
     showHint: Boolean = false,
 ) {
     val shape = ChipShape
@@ -281,84 +274,47 @@ private fun GroupChip(
     ) {
         val contentColor = if (selected) accent else MaterialTheme.colorScheme.onSurface
         val a11y = if (description != null) Modifier.semantics { contentDescription = description } else Modifier
-        if (icon != null) {
-            Icon(
-                painterResource(icon),
-                contentDescription = null,
-                tint = contentColor,
-                modifier = Modifier.size(18.dp).then(a11y)
-            )
-            if (description != null) ChipHintPopup(visible = showHint, text = description)
-        } else if (kind != null) {
-            AssetKindIcon(kind = kind, tint = contentColor, size = 18.dp, modifier = a11y)
-            if (description != null) ChipHintPopup(visible = showHint, text = description)
+        // Schrift wächst bis 1,5-fach mit (wie die Tab-Leiste, [cappedTabSize]) — die Chip-Zeile bleibt eine Zeile
+        val label = MaterialTheme.typography.labelLarge
+        val labelStyle = label.copy(
+            fontSize = cappedTabSize(label.fontSize),
+            lineHeight = cappedTabSize(label.lineHeight),
+        )
+        if (icon != null || kind != null) {
+            // Gewählt: Symbol und Name («Alle»); der Name steht schon am Symbol für den Screenreader
+            val named = selected && description != null
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (icon != null) {
+                    Icon(
+                        painterResource(icon),
+                        contentDescription = null,
+                        tint = contentColor,
+                        modifier = Modifier.size(18.dp).then(a11y)
+                    )
+                } else if (kind != null) {
+                    AssetKindIcon(kind = kind, tint = contentColor, size = 18.dp, modifier = a11y)
+                }
+                if (named) {
+                    Text(
+                        text = description.orEmpty(),
+                        style = labelStyle,
+                        color = contentColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(start = Spacing.xs).clearAndSetSemantics { }
+                    )
+                }
+            }
+            if (description != null) ChipHintPopup(visible = showHint && !named, text = description)
         } else {
-            // Schrift wächst bis 1,5-fach mit (wie die Tab-Leiste, [cappedTabSize]) — die Chip-Zeile bleibt eine Zeile
-            val label = MaterialTheme.typography.labelLarge
             Text(
                 text = text.orEmpty(),
-                style = label.copy(fontSize = cappedTabSize(label.fontSize), lineHeight = cappedTabSize(label.lineHeight)),
+                style = labelStyle,
                 color = contentColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = a11y
             )
         }
-    }
-}
-
-/** Ein Tipp auf einen Symbol-Chip; absichtlich ohne `equals` (jeder Tipp zählt neu). */
-private class ChipHint(val key: String)
-
-/** So lange bleibt der Namenshinweis unter einem Symbol-Chip stehen. */
-private const val CHIP_HINT_MILLIS = 1500L
-
-/** Ein- und Ausblenden des Hinweises (mit «Bewegung reduzieren» sofort). */
-private const val CHIP_HINT_FADE_MILLIS = 150
-
-/**
- * Kleiner Namenshinweis unter einem Symbol-Chip (dunkle Blase, labelSmall). Als Popup, damit er
- * die Zeile nicht höher macht und die scrollende Chip-Zeile ihn nicht abschneidet. Für
- * Screenreader unsichtbar (sie lesen den Namen schon am Chip) und nicht fokussierbar.
- */
-@Composable
-private fun ChipHintPopup(visible: Boolean, text: String) {
-    val reduceMotion = rememberReduceMotion()
-    val alpha by animateFloatAsState(
-        targetValue = if (visible) 1f else 0f,
-        animationSpec = if (reduceMotion) snap<Float>() else tween<Float>(CHIP_HINT_FADE_MILLIS),
-        label = "chipHint"
-    )
-    // Ausgeblendet und fertig animiert: kein Popup mehr
-    if (!visible && alpha == 0f) return
-    val gap = with(LocalDensity.current) { 4.dp.roundToPx() }
-    val position = remember(gap) { BelowAnchorPosition(gap) }
-    Popup(popupPositionProvider = position, properties = PopupProperties(focusable = false)) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.label,
-            color = MaterialTheme.colorScheme.inverseOnSurface,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .graphicsLayer { this.alpha = alpha }
-                .clearAndSetSemantics { }
-                .background(MaterialTheme.colorScheme.inverseSurface, ChipShape)
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        )
-    }
-}
-
-/** Popup unter dem Anker, waagrecht mittig; am Fensterrand nach innen gerückt. */
-private class BelowAnchorPosition(private val gap: Int) : PopupPositionProvider {
-    override fun calculatePosition(
-        anchorBounds: IntRect,
-        windowSize: IntSize,
-        layoutDirection: LayoutDirection,
-        popupContentSize: IntSize,
-    ): IntOffset {
-        val maxX = (windowSize.width - popupContentSize.width).coerceAtLeast(0)
-        val x = (anchorBounds.center.x - popupContentSize.width / 2).coerceIn(0, maxX)
-        return IntOffset(x, anchorBounds.bottom + gap)
     }
 }

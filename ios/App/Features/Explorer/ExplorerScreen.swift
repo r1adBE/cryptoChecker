@@ -244,7 +244,8 @@ struct ExplorerScreen: View {
                 router.closeExplorerToWatchlist()
                 router.openAlarmsWatchId = watchId
             },
-            onRetryDex: { vm.searchDex($0) }
+            onRetryDex: { vm.searchDex($0) },
+            onUndo: { vm.undoBulkAdd($0) }
         )
     }
 
@@ -257,9 +258,15 @@ struct ExplorerScreen: View {
         )
     }
 
+    /// Titel nennt die neuen («312 Paare hinzufügen?»), der Text alle samt Hinweis auf vorhandene — wie Android.
     private var bulkConfirmTitle: String {
-        let n = vm.bulkPairs.count
+        let n = bulkNewCount
         return L("explorer_bulk_confirm_title", count: n, n)
+    }
+
+    /// Davon noch nicht in der Merkliste (`ExplorerBulkCount`); 0 = Knopf aus.
+    var bulkNewCount: Int {
+        ExplorerBulkCount.newCount(marketKey: vm.exchange?.key, pairs: vm.bulkPairs, watches: data.watches)
     }
 
     private var bulkConfirmText: String {

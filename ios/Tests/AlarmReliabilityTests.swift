@@ -51,4 +51,11 @@ final class AlarmReliabilityTests: XCTestCase {
             XCTAssertEqual(actual.warn, c["warn"] as? Bool, name)
         }
     }
+
+    /// Zeile nur, wenn etwas nicht stimmt: Normalfall (`.recent`) und `.hidden` ohne Zeile — wie Android.
+    func testLineShownOnlyWhenSomethingIsWrong() throws {
+        let expected = Set(try XCTUnwrap(S.fixture("alarm_reliability")["lineShownKinds"] as? [String]))
+        let actual = Set(AlarmReliability.Kind.allCases.filter { AlarmReliabilityLine.isShown($0) }.map(\.rawValue))
+        XCTAssertEqual(actual, expected)
+    }
 }

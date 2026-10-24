@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning.</string>
     <string name="oem_battery_oppo">Oppo/Realme kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning.</string>
     <string name="oem_battery_vivo">Vivo kan stoppa appen – då kommer inga larm. Tillåt ”Autostart” och hög strömförbrukning i bakgrunden under Batteri.</string>
-    <string name="alarm_reliability_recent">Senaste kontroll %1$s</string>
     <string name="alarm_reliability_stale">Senaste kontroll %1$s – larm kan komma sent</string>
     <string name="alarm_reliability_never">Larm på – ingen kontroll i bakgrunden än</string>
     <string name="alarm_reliability_notifications_off">Aviseringar av – larm kommer inte fram</string>

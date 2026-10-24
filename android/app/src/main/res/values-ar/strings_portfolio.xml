@@ -16,8 +16,7 @@
     <string name="portfolio_empty_action">أضف أول عملية شراء</string>
     <string name="portfolio_empty_address">مراقبة عنوان محفظة فقط</string>
     <string name="portfolio_empty_csv">اشتريت من منصة؟ استورد ملفها</string>
-    <string name="portfolio_empty_example_plain">مثال: شراء 0.01 BTC في 1 مارس. يعرض التطبيق بعدها قيمته اليوم وهل أنت رابح أم خاسر – يُحفظ على هذا الجهاز فقط.</string>
-    <string name="portfolio_empty_text">أدخل ما اشتريته – يعرض التطبيق قيمته اليوم ومقدار ربحك أو خسارتك.</string>
+    <string name="portfolio_empty_example_plain">مثال: شراء %1$s BTC في 1 مارس. يعرض التطبيق بعدها قيمته اليوم وهل أنت رابح أم خاسر – يُحفظ على هذا الجهاز فقط.</string>
     <string name="portfolio_empty_title">لا توجد عمليات بعد</string>
     <string name="portfolio_enable_ask_text">تم حفظ معاملتك. يعرض تبويب المحفظة أرصدتك وقيمتها.</string>
     <string name="portfolio_enable_ask_title">تفعيل تبويب المحفظة؟</string>

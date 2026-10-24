@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus může aplikaci ukončit – pak nepřijdou žádné alarmy. Povol „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
     <string name="oem_battery_oppo">Oppo/Realme může aplikaci ukončit – pak nepřijdou žádné alarmy. Povol „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
     <string name="oem_battery_vivo">Vivo může aplikaci ukončit – pak nepřijdou žádné alarmy. Povol „Automatické spuštění“ a v Baterie vysokou spotřebu na pozadí.</string>
-    <string name="alarm_reliability_recent">Poslední kontrola %1$s</string>
     <string name="alarm_reliability_stale">Poslední kontrola %1$s – alarmy mohou přijít pozdě</string>
     <string name="alarm_reliability_never">Alarmy zapnuté – zatím žádná kontrola na pozadí</string>
     <string name="alarm_reliability_notifications_off">Oznámení vypnuta – alarmy nepřijdou</string>

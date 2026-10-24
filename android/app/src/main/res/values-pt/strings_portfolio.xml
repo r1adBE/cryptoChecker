@@ -13,8 +13,7 @@
     <string name="portfolio_empty_action">Adicionar a primeira compra</string>
     <string name="portfolio_empty_address">Só acompanhar um endereço de carteira</string>
     <string name="portfolio_empty_csv">Compraste numa corretora? Importar o ficheiro</string>
-    <string name="portfolio_empty_example_plain">Exemplo: 0,01 BTC comprado a 1 de março. A app mostra quanto vale hoje e se estás a ganhar ou a perder – guardado só neste dispositivo.</string>
-    <string name="portfolio_empty_text">Indica o que compraste – a app mostra quanto vale hoje e quanto estás a ganhar ou a perder.</string>
+    <string name="portfolio_empty_example_plain">Exemplo: %1$s BTC comprado a 1 de março. A app mostra quanto vale hoje e se estás a ganhar ou a perder – guardado só neste dispositivo.</string>
     <string name="portfolio_empty_title">Ainda sem transações</string>
     <string name="portfolio_enable_ask_text">A tua transação foi guardada. O separador Portfólio mostra as tuas posições e o respetivo valor.</string>
     <string name="portfolio_enable_ask_title">Ativar o separador Portfólio?</string>

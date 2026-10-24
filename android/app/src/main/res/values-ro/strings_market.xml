@@ -109,21 +109,21 @@
     <string name="pulse_lead_mixed">Monedele mari merg în direcții diferite.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding ridicat.</string>
-    <string name="pulse_detail_fund_negative">Funding negativ.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutru.</string>
+    <string name="pulse_detail_fund_high">Starea pieței cu levier optimistă.</string>
+    <string name="pulse_detail_fund_negative">Starea pieței cu levier pesimistă.</string>
+    <string name="pulse_detail_fund_neutral">Starea pieței cu levier neutră.</string>
     <string name="pulse_detail_vol_above">Volum cu %1$s peste normal.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volum cu %1$s peste normal, funding ridicat.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volum cu %1$s peste normal, funding negativ.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volum cu %1$s peste normal, funding neutru.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volum cu %1$s peste normal, starea pieței cu levier optimistă.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volum cu %1$s peste normal, starea pieței cu levier pesimistă.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volum cu %1$s peste normal, starea pieței cu levier neutră.</string>
     <string name="pulse_detail_vol_below">Volum cu %1$s sub normal.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volum cu %1$s sub normal, funding ridicat.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volum cu %1$s sub normal, funding negativ.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volum cu %1$s sub normal, funding neutru.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volum cu %1$s sub normal, starea pieței cu levier optimistă.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volum cu %1$s sub normal, starea pieței cu levier pesimistă.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volum cu %1$s sub normal, starea pieței cu levier neutră.</string>
     <string name="pulse_detail_vol_normal">Volum normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volum normal, funding ridicat.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volum normal, funding negativ.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volum normal, funding neutru.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volum normal, starea pieței cu levier optimistă.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volum normal, starea pieței cu levier pesimistă.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volum normal, starea pieței cu levier neutră.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: cele mai mari monede după valoarea de piață, fără stablecoins; variație pe 24 de ore (CoinGecko).</string>

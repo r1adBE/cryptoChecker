@@ -14,8 +14,7 @@
     <string name="portfolio_empty_action">Dodaj pierwszy zakup</string>
     <string name="portfolio_empty_address">Tylko obserwuj adres portfela</string>
     <string name="portfolio_empty_csv">Kupione na giełdzie? Zaimportuj plik</string>
-    <string name="portfolio_empty_example_plain">Przykład: 0,01 BTC kupione 1 marca. Aplikacja pokaże, ile jest warte dziś i czy jesteś na plusie, czy na minusie – zapisane tylko na tym urządzeniu.</string>
-    <string name="portfolio_empty_text">Wpisz, co kupiłeś – aplikacja pokaże, ile to jest warte dziś i ile jesteś na plusie lub minusie.</string>
+    <string name="portfolio_empty_example_plain">Przykład: %1$s BTC kupione 1 marca. Aplikacja pokaże, ile jest warte dziś i czy jesteś na plusie, czy na minusie – zapisane tylko na tym urządzeniu.</string>
     <string name="portfolio_empty_title">Brak transakcji</string>
     <string name="portfolio_enable_ask_text">Transakcja została zapisana. Karta Portfel pokazuje twój stan i jego wartość.</string>
     <string name="portfolio_enable_ask_title">Włączyć kartę Portfel?</string>

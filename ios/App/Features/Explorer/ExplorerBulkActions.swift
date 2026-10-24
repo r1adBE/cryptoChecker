@@ -88,8 +88,30 @@ extension ExplorerViewModel {
             text += " " + L("explorer_bulk_not_added_limit", count: outcome.refused, outcome.refused,
                             LocaleNumbers.integer(WatchlistLimits.maxPairs, grouping: true))
         }
-        show(ExplorerMessage(text: text, long: true))
+        // Neue Paare angelegt: «Rückgängig» entfernt genau diese wieder — wie Android
+        show(ExplorerMessage(text: text, long: true, undoIds: anyAdded ? outcome.addedIds : nil))
         haptic(anyAdded ? .success : .warning)
         if anyAdded { requestNotifications() }
+    }
+
+    /// «Rückgängig» nach dem Hinzufügen: die eben neu angelegten Paare wieder entfernen (vorhandene bleiben).
+    func undoBulkAdd(_ ids: [Int64]) {
+        guard !ids.isEmpty else { return }
+        data.withWatchlistConfirm { [weak self] in _ = self?.data.deleteForUndo(ids: Set(ids)) }
+    }
+}
+
+/// Wie viele Paare von «Alle …-Paare» sind noch nicht in der Merkliste? Gleiche Identität wie beim Anlegen
+/// (`AppData.insertOutcome`, Kontrakttyp angeglichen) — wie Android `bulkNewCount`.
+enum ExplorerBulkCount {
+    static func newCount(marketKey: String?, pairs: [MarketPair], watches: [Watch]) -> Int {
+        guard let marketKey else { return 0 }
+        let present = Set(watches.map(\.identity))
+        return pairs.filter { p in
+            let contract = FuturesContractType.normalized(marketKey: marketKey, pairId: p.pairId, p.contractType)
+            let key = WatchIdentity.key(marketKey: marketKey, base: p.base, quote: p.quote,
+                                        contract: String(contract.rawValue), pairId: p.pairId)
+            return !present.contains(key)
+        }.count
     }
 }

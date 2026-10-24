@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Brak wyników.</string>
     <string name="explorer_search_hint">Szukaj monety, pary lub giełdy</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę. Para to moneta na giełdzie w jednej walucie, np. BTC/USDT na Binance.</string>
+    <string name="explorer_search_intro">Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Dodaj do obserwowanych</string>
@@ -140,4 +140,18 @@
         <item quantity="many">Nie dodano: %1$d. Twoja lista obserwowanych może zawierać maksymalnie %2$s par.</item>
         <item quantity="other">Nie dodano: %1$d. Twoja lista obserwowanych może zawierać maksymalnie %2$s par.</item>
     </plurals>
+    <string name="bulk_add_progress">Dodawanie par … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Dodaj %1$d nową parę do obserwowanych</item>
+        <item quantity="few">Dodaj %1$d nowe pary do obserwowanych</item>
+        <item quantity="many">Dodaj %1$d nowych par do obserwowanych</item>
+        <item quantity="other">Dodaj %1$d nowych par do obserwowanych</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nowa, %2$d już w obserwowanych</item>
+        <item quantity="few">%1$d nowe, %2$d już w obserwowanych</item>
+        <item quantity="many">%1$d nowych, %2$d już w obserwowanych</item>
+        <item quantity="other">%1$d nowych, %2$d już w obserwowanych</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Wszystkie są już w obserwowanych</string>
 </resources>

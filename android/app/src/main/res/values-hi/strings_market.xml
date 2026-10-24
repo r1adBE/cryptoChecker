@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">बड़े कॉइन अलग-अलग दिशा में चल रहे हैं।</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">फ़ंडिंग ऊँचा।</string>
-    <string name="pulse_detail_fund_negative">फ़ंडिंग नेगेटिव।</string>
-    <string name="pulse_detail_fund_neutral">फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_fund_high">लीवरेज ट्रेडरों का मूड आशावादी।</string>
+    <string name="pulse_detail_fund_negative">लीवरेज ट्रेडरों का मूड निराशावादी।</string>
+    <string name="pulse_detail_fund_neutral">लीवरेज ट्रेडरों का मूड न्यूट्रल।</string>
     <string name="pulse_detail_vol_above">वॉल्यूम सामान्य से %1$s ज़्यादा।</string>
-    <string name="pulse_detail_vol_above_fund_high">वॉल्यूम सामान्य से %1$s ज़्यादा, फ़ंडिंग ऊँचा।</string>
-    <string name="pulse_detail_vol_above_fund_negative">वॉल्यूम सामान्य से %1$s ज़्यादा, फ़ंडिंग नेगेटिव।</string>
-    <string name="pulse_detail_vol_above_fund_neutral">वॉल्यूम सामान्य से %1$s ज़्यादा, फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_vol_above_fund_high">वॉल्यूम सामान्य से %1$s ज़्यादा, लीवरेज ट्रेडरों का मूड आशावादी।</string>
+    <string name="pulse_detail_vol_above_fund_negative">वॉल्यूम सामान्य से %1$s ज़्यादा, लीवरेज ट्रेडरों का मूड निराशावादी।</string>
+    <string name="pulse_detail_vol_above_fund_neutral">वॉल्यूम सामान्य से %1$s ज़्यादा, लीवरेज ट्रेडरों का मूड न्यूट्रल।</string>
     <string name="pulse_detail_vol_below">वॉल्यूम सामान्य से %1$s कम।</string>
-    <string name="pulse_detail_vol_below_fund_high">वॉल्यूम सामान्य से %1$s कम, फ़ंडिंग ऊँचा।</string>
-    <string name="pulse_detail_vol_below_fund_negative">वॉल्यूम सामान्य से %1$s कम, फ़ंडिंग नेगेटिव।</string>
-    <string name="pulse_detail_vol_below_fund_neutral">वॉल्यूम सामान्य से %1$s कम, फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_vol_below_fund_high">वॉल्यूम सामान्य से %1$s कम, लीवरेज ट्रेडरों का मूड आशावादी।</string>
+    <string name="pulse_detail_vol_below_fund_negative">वॉल्यूम सामान्य से %1$s कम, लीवरेज ट्रेडरों का मूड निराशावादी।</string>
+    <string name="pulse_detail_vol_below_fund_neutral">वॉल्यूम सामान्य से %1$s कम, लीवरेज ट्रेडरों का मूड न्यूट्रल।</string>
     <string name="pulse_detail_vol_normal">वॉल्यूम सामान्य।</string>
-    <string name="pulse_detail_vol_normal_fund_high">वॉल्यूम सामान्य, फ़ंडिंग ऊँचा।</string>
-    <string name="pulse_detail_vol_normal_fund_negative">वॉल्यूम सामान्य, फ़ंडिंग नेगेटिव।</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">वॉल्यूम सामान्य, फ़ंडिंग न्यूट्रल।</string>
+    <string name="pulse_detail_vol_normal_fund_high">वॉल्यूम सामान्य, लीवरेज ट्रेडरों का मूड आशावादी।</string>
+    <string name="pulse_detail_vol_normal_fund_negative">वॉल्यूम सामान्य, लीवरेज ट्रेडरों का मूड निराशावादी।</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">वॉल्यूम सामान्य, लीवरेज ट्रेडरों का मूड न्यूट्रल।</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">टॉप %1$d: मार्केट वैल्यू के हिसाब से सबसे बड़े कॉइन, स्टेबलकॉइन के बिना; 24 घंटे में बदलाव (CoinGecko)।</string>

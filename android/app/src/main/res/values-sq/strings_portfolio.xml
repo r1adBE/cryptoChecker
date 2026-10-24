@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Shto blerjen e parë</string>
     <string name="portfolio_empty_address">Vetëm ndiq një adresë portofoli</string>
     <string name="portfolio_empty_csv">Blerë në një bursë? Importo skedarin</string>
-    <string name="portfolio_empty_example_plain">Shembull: 0,01 BTC blerë më 1 mars. Aplikacioni tregon sa vlen sot dhe nëse je në fitim apo në humbje – ruhet vetëm në këtë pajisje.</string>
-    <string name="portfolio_empty_text">Shëno çfarë ke blerë – aplikacioni tregon sa vlen sot dhe sa je në fitim apo në humbje.</string>
+    <string name="portfolio_empty_example_plain">Shembull: %1$s BTC blerë më 1 mars. Aplikacioni tregon sa vlen sot dhe nëse je në fitim apo në humbje – ruhet vetëm në këtë pajisje.</string>
     <string name="portfolio_empty_title">Ende pa transaksione</string>
     <string name="portfolio_enable_ask_text">Transaksioni yt u ruajt. Skeda Portofoli tregon zotërimet e tua dhe vlerën e tyre.</string>
     <string name="portfolio_enable_ask_title">Të aktivizohet skeda Portofoli?</string>

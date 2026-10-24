@@ -42,8 +42,10 @@ struct ExplorerStepHeader: View {
 
     var body: some View {
         HStack(spacing: Spacing.sm) {
+            // Erledigt: kleines Häkchen auf neutralem Grund (keine gefüllte Akzent-Plakette, die wie eine Checkbox
+            // wirkt); offen bzw. aktiv: Nummer — wie Android
             badge
-                .frame(width: 24, height: 24)
+                .frame(width: done ? 20 : 24, height: done ? 20 : 24)
                 .animation(.spring(duration: 0.35), value: done)
             Text(title)
                 .font(.headline)
@@ -55,12 +57,12 @@ struct ExplorerStepHeader: View {
     private var badge: some View {
         ZStack {
             Circle()
-                .fill(lit ? AnyShapeStyle(accent.primary.gradient) : AnyShapeStyle(AppColors.containerHighest))
+                .fill(lit && !done ? AnyShapeStyle(accent.primary.gradient) : AnyShapeStyle(AppColors.containerHighest))
             if done {
                 Image(systemName: "checkmark")
-                    .scaledFont(size: 11, weight: .heavy, relativeTo: .caption)
+                    .scaledFont(size: 10, weight: .bold, relativeTo: .caption)
                     .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                    .foregroundStyle(onAccent)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
                     .transition(.scale.combined(with: .opacity))
             } else {
                 Text(verbatim: LocaleNumbers.integer(number))

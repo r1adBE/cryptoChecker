@@ -13,8 +13,9 @@ struct BulkAddResult {
     var refused: Int = 0
     /// Merkliste gesperrt (`WatchlistStorageLock`): nichts angelegt, den Hinweis zeigt `.watchlistLockedHint`.
     var locked = false
+    /// Ids der neu angelegten Paare (für «Rückgängig»).
+    var addedIds: [Int64] = []
 }
-
 
 /// Verschieben im Sortiermodus.
 enum WatchMove { case top, up, down, bottom }

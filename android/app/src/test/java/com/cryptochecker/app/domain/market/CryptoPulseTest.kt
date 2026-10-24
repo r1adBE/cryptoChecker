@@ -17,7 +17,11 @@ class CryptoPulseTest {
         fng: Int? = 50,
         funding: Double? = 0.01,
         gas: Double? = 5.0,
-    ) = PulseInput(btc, eth, sol, ratio, fng, funding, gas, time = 1_000L)
+        market: Double? = null,
+    ) = PulseInput(
+        btc, eth, sol, ratio, fng, funding, gas, time = 1_000L,
+        marketCapUsd = market?.let { 3.0e12 }, marketCap24h = market,
+    )
 
     @Test
     fun missingMarketDataIsUnavailable() {
@@ -67,14 +71,18 @@ class CryptoPulseTest {
 
     @Test
     fun summaryRules() {
-        assertEquals(PulseSummary.BROAD_UP, CryptoPulse.summary(1.5, 2.0, 3.0, 1.0))
-        assertEquals(PulseSummary.BROAD_UP_VOLUME, CryptoPulse.summary(1.5, 2.0, 3.0, 1.5))
-        assertEquals(PulseSummary.BROAD_DOWN, CryptoPulse.summary(-1.5, -2.0, -3.0, null))
-        assertEquals(PulseSummary.BROAD_DOWN_VOLUME, CryptoPulse.summary(-1.5, -2.0, -3.0, 2.0))
-        assertEquals(PulseSummary.CALM, CryptoPulse.summary(0.9, -0.9, 0.0, 3.0))
-        assertEquals(PulseSummary.MIXED, CryptoPulse.summary(1.0, 0.0, 0.0, 1.0)) // |1.0| ist nicht < 1
-        assertEquals(PulseSummary.MIXED, CryptoPulse.summary(2.0, 2.0, 1.4, 2.0))
-        assertEquals(PulseSummary.MIXED, CryptoPulse.summary(3.0, -3.0, 3.0, 1.0))
+        fun summary(btc: Double, eth: Double, sol: Double, ratio: Double?, market: Double? = null) =
+            CryptoPulse.summary(MarketMoveScale.decide(btc, eth, sol, market, null), ratio)
+        assertEquals(PulseSummary.BROAD_UP, summary(1.5, 2.0, 3.0, 1.0))
+        assertEquals(PulseSummary.BROAD_UP_VOLUME, summary(1.5, 2.0, 3.0, 1.5))
+        assertEquals(PulseSummary.BROAD_DOWN, summary(-1.5, -2.0, -3.0, null))
+        assertEquals(PulseSummary.BROAD_DOWN_VOLUME, summary(-1.5, -2.0, -3.0, 2.0))
+        assertEquals(PulseSummary.CALM, summary(0.9, -0.9, 0.0, 3.0))
+        assertEquals(PulseSummary.MIXED, summary(1.0, 0.0, 0.0, 1.0)) // |1.0| ist nicht < 1, 0.0 im Rauschen
+        // alle drei gleichgerichtet → nie «gemischt», auch unter 1.5 %
+        assertEquals(PulseSummary.BROAD_UP_VOLUME, summary(2.0, 2.0, 1.4, 2.0))
+        assertEquals(PulseSummary.BROAD_DOWN, summary(-2.0, -2.6, -1.2, null, market = -3.1))
+        assertEquals(PulseSummary.MIXED, summary(3.0, -3.0, 3.0, 1.0))
     }
 
     @Test
@@ -112,28 +120,33 @@ class CryptoPulseTest {
 
     private fun lead(
         btc: Double, eth: Double, sol: Double,
-        ratio: Double? = null, funding: Double? = null,
+        ratio: Double? = null, funding: Double? = null, market: Double? = null,
     ): PulseLead = CryptoPulse.leadSentence(
-        CryptoPulse.evaluate(input(btc, eth, sol, ratio = ratio, funding = funding))!!
+        CryptoPulse.evaluate(input(btc, eth, sol, ratio = ratio, funding = funding, market = market))!!
     )
 
     @Test
     fun leadKinds() {
         assertEquals(PulseLeadKind.CALM, lead(0.5, -0.4, 0.9).kind)
+        // ohne Gesamtmarkt zählt der Schnitt der drei (−3.67 % → deutlich)
         assertEquals(PulseLeadKind.BROAD_DOWN, lead(-2.0, -4.0, -5.0).kind) // auch wenn Alts schwächer
-        assertEquals(PulseLeadKind.BTC_LEADS, lead(3.0, 2.9, 2.0).kind)
+        assertEquals(PulseLeadKind.BTC_LEADS, lead(3.0, 2.9, 2.0, market = 3.2).kind)
         assertEquals(PulseLeadKind.BTC_LEADS, lead(3.0, 3.0, 3.0).kind) // Gleichstand zählt für BTC
-        assertEquals(PulseLeadKind.ALTS_STRONGER, lead(3.2, 5.0, 6.0).kind) // breit, Alts klar stärker
-        assertEquals(PulseLeadKind.BROAD_UP, lead(2.0, 2.5, 2.4).kind) // breit, gleichauf, BTC nicht vorne
+        assertEquals(PulseLeadKind.ALTS_STRONGER, lead(3.2, 5.0, 6.0).kind) // deutlich, Alts klar stärker
+        assertEquals(PulseLeadKind.BROAD_UP, lead(2.0, 2.5, 2.4, market = 3.2).kind) // deutlich, BTC nicht vorne
+        // Gesamtmarkt nur «etwas» höher → «leicht», nie «breit»
+        assertEquals(PulseLeadKind.DRIFT_UP, lead(2.0, 2.5, 2.4, market = 2.9).kind)
+        assertEquals(PulseLeadKind.DRIFT_DOWN, lead(-2.0, -2.6, -1.2, market = -2.0).kind)
+        assertEquals(PulseLeadKind.BROAD_DOWN, lead(-2.0, -2.6, -1.2, market = -3.1).kind)
         assertEquals(PulseLeadKind.ALTS_STRONGER, lead(-1.0, 2.0, 1.0).kind) // gemischt, Alts stärker
         assertEquals(PulseLeadKind.BTC_STRONGER, lead(3.0, 0.1, 0.2).kind)
         assertEquals(PulseLeadKind.DRIFT_UP, lead(1.2, 0.3, 0.8).kind)
-        assertEquals(PulseLeadKind.DRIFT_UP, lead(1.2, 0.0, 1.0).kind)
+        assertEquals(PulseLeadKind.DRIFT_UP, lead(1.2, 0.0, 1.0, market = 1.1).kind) // ETH im Rauschen, Markt steigt
         assertEquals(PulseLeadKind.DRIFT_DOWN, lead(-1.2, -0.4, -1.4).kind)
         assertEquals(PulseLeadKind.MIXED, lead(1.2, -0.4, 0.5).kind)
 
         // «Bitcoin steigt am stärksten» nie zusammen mit «Altcoins stärker»
-        val report = CryptoPulse.evaluate(input(3.0, 2.9, 2.0))!!.copy(alts = PulseAlts.STRONGER)
+        val report = CryptoPulse.evaluate(input(3.0, 2.9, 2.0, market = 3.2))!!.copy(alts = PulseAlts.STRONGER)
         assertEquals(PulseLeadKind.ALTS_STRONGER, CryptoPulse.leadSentence(report).kind)
     }
 

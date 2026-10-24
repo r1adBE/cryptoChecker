@@ -138,19 +138,28 @@ extension ExplorerScreen {
             }
             .padding(.top, Spacing.md)
 
+            // Vorab gezählt: «312 neu, 434 schon in der Merkliste» (nur wenn schon welche da sind) — wie Android
+            let newCount = bulkNewCount
+            let total = vm.bulkPairs.count
+            if newCount < total {
+                ExplorerHint(text: L("explorer_bulk_counts", count: newCount, newCount, total - newCount))
+            }
+
             ExplorerGroupTargetSelector()
                 .padding(.top, Spacing.sm)
 
             Button {
                 confirmBulk = true
             } label: {
-                Text(L("explorer_add_all_pairs", count: vm.bulkPairs.count))
+                Text(newCount <= 0 ? L("explorer_bulk_all_present")
+                     : newCount < total ? L("explorer_add_new_pairs", count: newCount)
+                     : L("explorer_add_all_pairs", count: total))
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, Spacing.lg)
             }
             .buttonStyle(AccentButtonStyle())
-            .disabled(vm.syncing)
+            .disabled(vm.syncing || newCount <= 0)
             .padding(.top, 8)
 
             if showBulkList {

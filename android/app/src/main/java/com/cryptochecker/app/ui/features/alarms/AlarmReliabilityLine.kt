@@ -46,11 +46,20 @@ const val ALARM_RELIABILITY_TAG = "alarm_reliability_line"
 private const val LARGE_FONT_SCALE = 1.3f
 
 /**
- * Eine Zeile über der Merkliste: Kommen die Alarme an ([AlarmReliability])? Ruhig eine graue Zeile
- * «Letzte Prüfung vor 12 Min.», sonst Bernstein mit dem wichtigsten Grund; Tipp öffnet «Damit Alarme ankommen»
- * ([LocalOpenAlarmDelivery]). Liest denselben Zustand wie die Seite ([AlarmDeliveryViewModel], [AlarmReadinessProbe]),
- * nach der Rückkehr aus den Systemeinstellungen neu. Ohne Alarme oder ohne Navigation: nichts.
- * Wie `AlarmReliabilityLine.swift`.
+ * Zeigt die Zeile den Stand [kind]? Nur wenn es etwas zu tun oder zu wissen gibt: Im Normalfall (letzte Prüfung im
+ * Hintergrund rechtzeitig, [AlarmReliability.Kind.RECENT]) keine Zeile — erst wenn die Prüfung im Verzug ist
+ * (älter als [AlarmReliability.staleMillis], [AlarmReliability.Kind.STALE] bzw. [AlarmReliability.Kind.BATTERY]) oder
+ * etwas anderes fehlt. Wie `AlarmReliabilityLine.isShown` (iOS).
+ */
+internal fun alarmReliabilityLineShown(kind: AlarmReliability.Kind): Boolean =
+    kind != AlarmReliability.Kind.HIDDEN && kind != AlarmReliability.Kind.RECENT
+
+/**
+ * Eine Zeile über der Merkliste, nur wenn bei den Alarmen etwas nicht stimmt ([AlarmReliability],
+ * [alarmReliabilityLineShown]): meist Bernstein mit dem wichtigsten Grund («Letzte Prüfung vor 3 Std. – …»), grau nur
+ * «noch keine Prüfung»; Tipp öffnet «Damit Alarme ankommen» ([LocalOpenAlarmDelivery]). Liest denselben Zustand wie
+ * die Seite ([AlarmDeliveryViewModel], [AlarmReadinessProbe]), nach der Rückkehr aus den Systemeinstellungen neu.
+ * Ohne Alarme, im Normalfall oder ohne Navigation: nichts. Wie `AlarmReliabilityLine.swift`.
  *
  * @param now Uhr der Merkliste (tickt ohnehin für «vor 2 Min.»).
  */
@@ -95,10 +104,8 @@ private fun AlarmReliabilityContent(
     )
     // Alle gespeicherten Läufe gescheitert: Zeit des letzten Versuchs
     val checkedAt = lastCheck ?: lastFailedCheck
-    if (status.kind == AlarmReliability.Kind.HIDDEN) return
+    if (!alarmReliabilityLineShown(status.kind)) return
     val text = when (status.kind) {
-        AlarmReliability.Kind.RECENT ->
-            stringResource(R.string.alarm_reliability_recent, checkedAt?.let { ago(it, now) }.orEmpty())
         AlarmReliability.Kind.STALE ->
             stringResource(R.string.alarm_reliability_stale, checkedAt?.let { ago(it, now) }.orEmpty())
         AlarmReliability.Kind.NEVER -> stringResource(R.string.alarm_reliability_never)
@@ -106,7 +113,7 @@ private fun AlarmReliabilityContent(
         AlarmReliability.Kind.STORAGE_NO_KEY -> stringResource(R.string.alarm_reliability_storage_no_key)
         AlarmReliability.Kind.BATTERY -> stringResource(R.string.alarm_reliability_battery)
         AlarmReliability.Kind.BACKGROUND_REFRESH -> stringResource(R.string.alarm_reliability_background_refresh)
-        AlarmReliability.Kind.HIDDEN -> return
+        AlarmReliability.Kind.HIDDEN, AlarmReliability.Kind.RECENT -> return
     }
     val color = if (status.warn) AppColors.warningText else MaterialTheme.colorScheme.onSurfaceVariant
     // Grosse Schrift (ab 130 %): ganzer Satz statt abgeschnitten — wie iOS bei Bedienungshilfen-Grössen

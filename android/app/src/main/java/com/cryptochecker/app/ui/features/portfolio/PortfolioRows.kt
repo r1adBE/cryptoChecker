@@ -323,14 +323,14 @@ internal fun EmptyPortfolio(
     onAddAddress: (() -> Unit)? = null,
     onImportCsv: (() -> Unit)? = null,
 ) {
-    // Reihenfolge wie überall: Symbol → Titel → Text → Beispiel → Hauptknopf → Textknöpfe (wie iOS).
-    // Alltagssprache vor dem ersten Eintrag: Beispiel ohne Kaufkurs in USDT, Hauptweg «Ersten Kauf
-    // eintragen»; Börsen-Datei und Adresse nur als Nebenwege darunter
+    // Reihenfolge wie überall: Symbol → Titel → Beispiel → Hauptknopf → Textknöpfe → Fusstext (wie iOS).
+    // Nur ein Satz (das Beispiel) statt Text plus Beispiel, damit auf einem üblichen Telefon alles
+    // samt Fusstext ohne Scrollen sichtbar ist. Alltagssprache vor dem ersten Eintrag: Beispiel ohne
+    // Kaufkurs in USDT, Hauptweg «Ersten Kauf eintragen»; Börsen-Datei und Adresse nur als Nebenwege
     EmptyState(
         iconRes = R.drawable.ic_portfolio,
         title = stringResource(R.string.portfolio_empty_title),
-        message = stringResource(R.string.portfolio_empty_text),
-        example = stringResource(R.string.portfolio_empty_example_plain),
+        example = stringResource(R.string.portfolio_empty_example_plain, PortfolioEmptyExample.amountText()),
         actionLabel = stringResource(R.string.portfolio_empty_action),
         onAction = onAdd,
         actionIconRes = R.drawable.ic_add,
@@ -353,4 +353,12 @@ internal fun EmptyPortfolio(
         }
         PortfolioDisclaimer()
     }
+}
+
+/** Menge im Beispiel des leeren Portfolios («Beispiel: 0.01 BTC …»), im Zahlenformat der App. Wie iOS. */
+internal object PortfolioEmptyExample {
+    const val AMOUNT = 0.01
+
+    /** Menge wie die Bestände formatiert ([PriceFormat.amount]), de-CH «0.01», de-DE «0,01». */
+    fun amountText(): String = PriceFormat.amount(AMOUNT)
 }

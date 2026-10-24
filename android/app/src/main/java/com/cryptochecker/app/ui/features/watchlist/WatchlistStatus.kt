@@ -54,23 +54,45 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.util.A11ySpeech
+import java.util.Locale
+import kotlin.math.abs
 
 /** Weicher Wechsel von Farbe und Text der Status-Pille (z. B. nach einer Aktualisierung). */
 internal const val STATUS_FADE_MILLIS = 200
 
-/** «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts. */
+/** «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts, klein beginnend ([midSentence]). */
 @Composable
 internal fun ago(millis: Long, now: Long): String =
     if (now - millis < 60_000) stringResource(R.string.time_just_now)
-    else DateUtils.getRelativeTimeSpanString(
-        millis, now, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE
-    ).toString()
+    else midSentence(
+        DateUtils.getRelativeTimeSpanString(
+            millis, now, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE
+        ).toString(),
+        now - millis,
+    )
 
 /** Wie [ago], aber ausgeschrieben für den Screenreader: «vor 2 Minuten». */
 @Composable
 internal fun spokenAgo(millis: Long, now: Long): String =
     if (now - millis < 60_000) stringResource(R.string.time_just_now)
-    else DateUtils.getRelativeTimeSpanString(millis, now, DateUtils.MINUTE_IN_MILLIS).toString()
+    else midSentence(
+        DateUtils.getRelativeTimeSpanString(millis, now, DateUtils.MINUTE_IN_MILLIS).toString(),
+        now - millis,
+    )
+
+/** Ab diesem Abstand liefert [DateUtils.getRelativeTimeSpanString] ein Datum statt einer relativen Zeit. */
+private const val RELATIVE_SPAN_MAX_MILLIS = 7L * 24 * 60 * 60_000
+
+/**
+ * Relative Zeit für die Mitte eines Satzes: Android formt sie wie einen Satzanfang («Vor 10 Min.»), in der App steht
+ * sie aber hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.») — klein wie «gerade
+ * eben» und wie iOS (`formattingContext = .middleOfSentence`). Nur das erste Zeichen nach den Regeln der Sprache
+ * ([locale], z. B. Türkisch); Schriften ohne Gross/Klein bleiben unverändert. Ab einer Woche ([ageMillis]) ist es ein
+ * Datum («Oct 12») — Monatsnamen bleiben, wie sie sind.
+ */
+internal fun midSentence(relative: String, ageMillis: Long, locale: Locale = Locale.getDefault()): String =
+    if (abs(ageMillis) >= RELATIVE_SPAN_MAX_MILLIS) relative
+    else relative.replaceFirstChar { it.lowercase(locale) }
 
 /**
  * Sagt [spoken] höflich an, wenn der Status zwischen aktuell / veraltet / offline wechselt

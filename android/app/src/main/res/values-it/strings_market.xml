@@ -109,21 +109,21 @@
     <string name="pulse_lead_mixed">Le grandi monete vanno in direzioni diverse.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding elevato.</string>
-    <string name="pulse_detail_fund_negative">Funding negativo.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutro.</string>
+    <string name="pulse_detail_fund_high">Umore con leva ottimista.</string>
+    <string name="pulse_detail_fund_negative">Umore con leva pessimista.</string>
+    <string name="pulse_detail_fund_neutral">Umore con leva neutro.</string>
     <string name="pulse_detail_vol_above">Volume %1$s sopra il normale.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volume %1$s sopra il normale, funding elevato.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s sopra il normale, funding negativo.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s sopra il normale, funding neutro.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s sopra il normale, umore con leva ottimista.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s sopra il normale, umore con leva pessimista.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s sopra il normale, umore con leva neutro.</string>
     <string name="pulse_detail_vol_below">Volume %1$s sotto il normale.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volume %1$s sotto il normale, funding elevato.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s sotto il normale, funding negativo.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s sotto il normale, funding neutro.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s sotto il normale, umore con leva ottimista.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s sotto il normale, umore con leva pessimista.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s sotto il normale, umore con leva neutro.</string>
     <string name="pulse_detail_vol_normal">Volume normale.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volume normale, funding elevato.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volume normale, funding negativo.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volume normale, funding neutro.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normale, umore con leva ottimista.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normale, umore con leva pessimista.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normale, umore con leva neutro.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: le monete più grandi per valore di mercato, senza stablecoin; variazione su 24 ore (CoinGecko).</string>

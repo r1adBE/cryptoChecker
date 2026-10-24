@@ -5,7 +5,11 @@ import com.cryptochecker.app.domain.model.MarketPairsInfo
 import com.cryptochecker.app.domain.model.MarketTickerResult
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -50,6 +54,8 @@ class ExplorerSelection(
     val bulkQuote: StateFlow<String?>,
     /** Kennzahlen der Liste «Alle …-Paare» für die Schnellfilter, Schlüssel = Paar-Kennung. */
     val bulkStats: StateFlow<Map<String, PairStats>>,
+    /** Davon noch nicht in der Merkliste ([bulkNewCount]); 0 = Knopf aus. */
+    val bulkNew: StateFlow<Int>,
 )
 
 /** Abgleich der Paarliste der gewählten Börse: läuft gerade und/oder letzter Fehlertext. */
@@ -64,6 +70,11 @@ data class BulkAddResult(
     val skipped: Int,
     val running: Boolean = false,
     val refused: Int = 0,
+    /** Während der Aufnahme: verarbeitete und alle Paare (Fortschrittsbalken). */
+    val done: Int = 0,
+    val total: Int = 0,
+    /** Neu angelegte Paare (für «Rückgängig»). */
+    val addedIds: List<Long> = emptyList(),
 )
 
 /** Ausgang des Versuchs, ein Paar in die Merkliste zu übernehmen. */
@@ -105,7 +116,19 @@ internal fun ExplorerViewModel.buildSelection(exchangeList: List<MarketInfo>) = 
     bulkQuotes = bulkQuotes,
     bulkQuote = bulkQuote.asStateFlow(),
     bulkStats = bulkStats.asStateFlow(),
+    bulkNew = combine(bulkPairs, watchedKeys, exchange) { pairs, keys, market ->
+        market?.let { bulkNewCount(it.key, pairs, keys) } ?: 0
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0),
 )
+
+/**
+ * Wie viele von [pairs] sind noch nicht in der Merkliste ([watched], Schlüssel [watchKey] mit demselben Kontrakttyp wie
+ * die Dublettenprüfung beim Anlegen)? Gleiche Regel wie iOS `ExplorerBulk.newCount`.
+ */
+internal fun bulkNewCount(marketKey: String, pairs: List<MarketPair>, watched: Set<String>): Int = pairs.count { pair ->
+    val contract = FuturesContractType.normalized(marketKey, pair.pairId, pair.contractType)
+    watchKey(marketKey, pair.base, pair.quote, contract.name) !in watched
+}
 
 /**
  * Zuletzt gewählte Ziel-Gruppe — absichtlich nur im Speicher: gilt für die laufende Sitzung,

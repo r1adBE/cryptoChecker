@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Lägg till ditt första köp</string>
     <string name="portfolio_empty_address">Följ bara en plånboksadress</string>
     <string name="portfolio_empty_csv">Köpt på en börs? Importera filen</string>
-    <string name="portfolio_empty_example_plain">Exempel: 0,01 BTC köpt den 1 mars. Appen visar sedan vad den är värd i dag och om du ligger på plus eller minus – sparas bara på den här enheten.</string>
-    <string name="portfolio_empty_text">Ange vad du har köpt – appen visar vad det är värt i dag och hur mycket du ligger på plus eller minus.</string>
+    <string name="portfolio_empty_example_plain">Exempel: %1$s BTC köpt den 1 mars. Appen visar sedan vad den är värd i dag och om du ligger på plus eller minus – sparas bara på den här enheten.</string>
     <string name="portfolio_empty_title">Inga transaktioner ännu</string>
     <string name="portfolio_enable_ask_text">Din transaktion är sparad. Fliken Portfölj visar dina innehav och deras värde.</string>
     <string name="portfolio_enable_ask_title">Slå på fliken Portfölj?</string>

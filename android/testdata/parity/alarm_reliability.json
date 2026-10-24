@@ -1,7 +1,8 @@
 {
-  "_comment": "Zeile über der Merkliste: gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest.kt und AlarmReliabilityTests.swift. runs: gespeicherte Läufe wie check_runs.txt («at;trigger;result;dauer», neueste zuerst) — daraus CheckRunLog.lastBackgroundCheck und lastFailedBackgroundCheck statt lastBackgroundCheck. storageNoKey: Android-Merkliste ohne Schlüssel nur im Arbeitsspeicher.",
+  "_comment": "Zeile über der Merkliste: gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest.kt und AlarmReliabilityTests.swift. runs: gespeicherte Läufe wie check_runs.txt («at;trigger;result;dauer», neueste zuerst) — daraus CheckRunLog.lastBackgroundCheck und lastFailedBackgroundCheck statt lastBackgroundCheck. storageNoKey: Android-Merkliste ohne Schlüssel nur im Arbeitsspeicher. lineShownKinds: Sätze, bei denen die Zeile überhaupt erscheint (Normalfall «recent» und «hidden»: keine Zeile).",
   "staleMillis": 7200000,
   "staleMillisIos": 21600000,
+  "lineShownKinds": ["never", "notifications_off", "storage_no_key", "battery", "background_refresh", "stale"],
   "cases": [
     {
       "name": "keine Alarme: keine Zeile",

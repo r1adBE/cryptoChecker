@@ -1,0 +1,533 @@
+{
+ "description": "Headline of the market pulse and the shared 'slight'/'clear' scale (Android MarketMove.kt + CryptoPulse.kt / iOS MarketMove.swift + CryptoPulse.swift). input: 24-h changes in % of BTC, ETH, SOL; marketChange24h = change of the total market cap in % (null = unknown; tests pass it with a positive market cap); breadth = rising/falling/total of the top list (null = unknown; tests build topChanges as up x +1.0, down x -1.0, rest 0.0); btcVolumeRatio optional (null). expected: direction/level = MarketMoveScale.decide (level null unless UP/DOWN), summary = PulseSummary, lead = PulseLeadKind of the lead sentence, plainDirection = MarketPlainSummary.directionKind(marketChange24h) (null without market change).",
+ "cases": [
+  {
+   "name": "device example: 26 of 30 falling, market -3.1 %, BTC/ETH/SOL all negative -> clearly down, never mixed",
+   "input": {
+    "btc24h": -2.0,
+    "eth24h": -2.6,
+    "sol24h": -1.2,
+    "marketChange24h": -3.1,
+    "breadth": {
+     "up": 4,
+     "down": 26,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "CLEAR",
+    "summary": "BROAD_DOWN",
+    "lead": "BROAD_DOWN",
+    "plainDirection": "DOWN_CLEAR"
+   }
+  },
+  {
+   "name": "device example without market change: mean of BTC/ETH/SOL decides the strength (slight)",
+   "input": {
+    "btc24h": -2.0,
+    "eth24h": -2.6,
+    "sol24h": -1.2,
+    "marketChange24h": null,
+    "breadth": {
+     "up": 4,
+     "down": 26,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "SLIGHT",
+    "summary": "BROAD_DOWN",
+    "lead": "DRIFT_DOWN",
+    "plainDirection": null
+   }
+  },
+  {
+   "name": "all slightly positive",
+   "input": {
+    "btc24h": 1.2,
+    "eth24h": 1.4,
+    "sol24h": 1.1,
+    "marketChange24h": 1.3,
+    "breadth": {
+     "up": 20,
+     "down": 9,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP",
+    "lead": "DRIFT_UP",
+    "plainDirection": "UP_SLIGHT"
+   }
+  },
+  {
+   "name": "all slightly positive with high BTC volume",
+   "input": {
+    "btc24h": 1.2,
+    "eth24h": 1.4,
+    "sol24h": 1.1,
+    "marketChange24h": 1.3,
+    "breadth": {
+     "up": 20,
+     "down": 9,
+     "total": 30
+    },
+    "btcVolumeRatio": 1.6
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP_VOLUME",
+    "lead": "DRIFT_UP",
+    "plainDirection": "UP_SLIGHT"
+   }
+  },
+  {
+   "name": "big three disagree and breadth 50 % -> mixed",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": 0.5,
+    "breadth": {
+     "up": 15,
+     "down": 14,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": "FLAT"
+   }
+  },
+  {
+   "name": "big three disagree, breadth 50 %, market slightly down -> still mixed",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": -2.0,
+    "breadth": {
+     "up": 15,
+     "down": 15,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": "DOWN_SLIGHT"
+   }
+  },
+  {
+   "name": "big three disagree, breadth leans down, market down -> down",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": -1.5,
+    "breadth": {
+     "up": 10,
+     "down": 20,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "SLIGHT",
+    "summary": "BROAD_DOWN",
+    "lead": "DRIFT_DOWN",
+    "plainDirection": "DOWN_SLIGHT"
+   }
+  },
+  {
+   "name": "big three disagree, breadth leans down, market up -> mixed",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": 1.2,
+    "breadth": {
+     "up": 10,
+     "down": 20,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": "UP_SLIGHT"
+   }
+  },
+  {
+   "name": "big three disagree, breadth exactly 60 % up, no market -> up",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": null,
+    "breadth": {
+     "up": 18,
+     "down": 12,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP",
+    "lead": "DRIFT_UP",
+    "plainDirection": null
+   }
+  },
+  {
+   "name": "big three disagree, breadth 17 of 30 up (below 60 %) -> mixed",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": null,
+    "breadth": {
+     "up": 17,
+     "down": 13,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": null
+   }
+  },
+  {
+   "name": "big three disagree, no breadth, market exactly -1.0 -> down",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": -1.0,
+    "breadth": null
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "SLIGHT",
+    "summary": "BROAD_DOWN",
+    "lead": "DRIFT_DOWN",
+    "plainDirection": "DOWN_SLIGHT"
+   }
+  },
+  {
+   "name": "big three disagree, no breadth, market -0.99 -> mixed",
+   "input": {
+    "btc24h": 0.9,
+    "eth24h": -0.6,
+    "sol24h": 1.2,
+    "marketChange24h": -0.99,
+    "breadth": null
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": "FLAT"
+   }
+  },
+  {
+   "name": "noise threshold: BTC exactly +0.25 does not count as agreeing",
+   "input": {
+    "btc24h": 0.25,
+    "eth24h": 2.0,
+    "sol24h": 2.0,
+    "marketChange24h": 1.5,
+    "breadth": {
+     "up": 15,
+     "down": 15,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "ALTS_STRONGER",
+    "plainDirection": "UP_SLIGHT"
+   }
+  },
+  {
+   "name": "noise threshold: BTC +0.26 agrees -> up, never mixed",
+   "input": {
+    "btc24h": 0.26,
+    "eth24h": 2.0,
+    "sol24h": 2.0,
+    "marketChange24h": 1.5,
+    "breadth": {
+     "up": 15,
+     "down": 15,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP",
+    "lead": "ALTS_STRONGER",
+    "plainDirection": "UP_SLIGHT"
+   }
+  },
+  {
+   "name": "calm: everything just below 1 %",
+   "input": {
+    "btc24h": 0.99,
+    "eth24h": -0.99,
+    "sol24h": 0.5,
+    "marketChange24h": 0.99,
+    "breadth": {
+     "up": 16,
+     "down": 14,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "CALM",
+    "level": null,
+    "summary": "CALM",
+    "lead": "CALM",
+    "plainDirection": "FLAT"
+   }
+  },
+  {
+   "name": "calm broken by market exactly +1.0 %",
+   "input": {
+    "btc24h": 0.5,
+    "eth24h": 0.4,
+    "sol24h": 0.6,
+    "marketChange24h": 1.0,
+    "breadth": null
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP",
+    "lead": "DRIFT_UP",
+    "plainDirection": "UP_SLIGHT"
+   }
+  },
+  {
+   "name": "calm broken by BTC exactly 1.0 %, others flat -> mixed",
+   "input": {
+    "btc24h": 1.0,
+    "eth24h": 0.0,
+    "sol24h": 0.0,
+    "marketChange24h": null,
+    "breadth": null
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": null
+   }
+  },
+  {
+   "name": "clear threshold: market exactly -3.0 % -> clearly down",
+   "input": {
+    "btc24h": -2.5,
+    "eth24h": -3.5,
+    "sol24h": -4.0,
+    "marketChange24h": -3.0,
+    "breadth": {
+     "up": 3,
+     "down": 27,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "CLEAR",
+    "summary": "BROAD_DOWN",
+    "lead": "BROAD_DOWN",
+    "plainDirection": "DOWN_CLEAR"
+   }
+  },
+  {
+   "name": "clear threshold: market -2.99 % -> slightly down",
+   "input": {
+    "btc24h": -2.5,
+    "eth24h": -3.5,
+    "sol24h": -4.0,
+    "marketChange24h": -2.99,
+    "breadth": {
+     "up": 3,
+     "down": 27,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "SLIGHT",
+    "summary": "BROAD_DOWN",
+    "lead": "DRIFT_DOWN",
+    "plainDirection": "DOWN_SLIGHT"
+   }
+  },
+  {
+   "name": "clear threshold: market exactly +3.0 %, BTC moves most -> Bitcoin leads",
+   "input": {
+    "btc24h": 4.0,
+    "eth24h": 3.5,
+    "sol24h": 3.0,
+    "marketChange24h": 3.0,
+    "breadth": {
+     "up": 25,
+     "down": 5,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "CLEAR",
+    "summary": "BROAD_UP",
+    "lead": "BTC_LEADS",
+    "plainDirection": "UP_CLEAR"
+   }
+  },
+  {
+   "name": "clearly up, BTC not largest -> broad up",
+   "input": {
+    "btc24h": 3.0,
+    "eth24h": 3.5,
+    "sol24h": 4.0,
+    "marketChange24h": 3.4,
+    "breadth": {
+     "up": 26,
+     "down": 4,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "CLEAR",
+    "summary": "BROAD_UP",
+    "lead": "BROAD_UP",
+    "plainDirection": "UP_CLEAR"
+   }
+  },
+  {
+   "name": "clearly up, altcoins clearly stronger",
+   "input": {
+    "btc24h": 3.2,
+    "eth24h": 5.0,
+    "sol24h": 6.0,
+    "marketChange24h": 4.0,
+    "breadth": {
+     "up": 27,
+     "down": 3,
+     "total": 30
+    },
+    "btcVolumeRatio": 1.8
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "CLEAR",
+    "summary": "BROAD_UP_VOLUME",
+    "lead": "ALTS_STRONGER",
+    "plainDirection": "UP_CLEAR"
+   }
+  },
+  {
+   "name": "big three up while market clearly down: up, but only slight",
+   "input": {
+    "btc24h": 1.2,
+    "eth24h": 1.3,
+    "sol24h": 1.1,
+    "marketChange24h": -3.5,
+    "breadth": {
+     "up": 10,
+     "down": 20,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP",
+    "lead": "DRIFT_UP",
+    "plainDirection": "DOWN_CLEAR"
+   }
+  },
+  {
+   "name": "big three down while breadth leans up -> down, never mixed",
+   "input": {
+    "btc24h": -1.2,
+    "eth24h": -1.1,
+    "sol24h": -1.4,
+    "marketChange24h": -0.5,
+    "breadth": {
+     "up": 22,
+     "down": 8,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "SLIGHT",
+    "summary": "BROAD_DOWN",
+    "lead": "DRIFT_DOWN",
+    "plainDirection": "FLAT"
+   }
+  },
+  {
+   "name": "no market change: mean -3.5 % -> clearly down",
+   "input": {
+    "btc24h": -3.0,
+    "eth24h": -3.5,
+    "sol24h": -4.0,
+    "marketChange24h": null,
+    "breadth": null
+   },
+   "expected": {
+    "direction": "DOWN",
+    "level": "CLEAR",
+    "summary": "BROAD_DOWN",
+    "lead": "BROAD_DOWN",
+    "plainDirection": null
+   }
+  },
+  {
+   "name": "big three disagree, breadth leans up, BTC much weaker -> lead names the gap",
+   "input": {
+    "btc24h": -1.5,
+    "eth24h": 1.0,
+    "sol24h": 2.0,
+    "marketChange24h": 1.4,
+    "breadth": {
+     "up": 21,
+     "down": 9,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP",
+    "lead": "ALTS_STRONGER",
+    "plainDirection": "UP_SLIGHT"
+   }
+  }
+ ]
+}

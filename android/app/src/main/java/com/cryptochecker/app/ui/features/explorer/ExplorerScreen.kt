@@ -109,6 +109,7 @@ fun ExplorerScreen(
                 onSelectPair = vm::selectBulkPair,
                 onAddAll = vm::addBulkPairs,
                 onAddAllShown = vm::clearBulkAddResult,
+                onUndo = vm::undoBulkAdd,
                 onQuoteChanged = vm::setBulkQuote,
                 onNeedStats = vm::loadBulkStats,
             ),
@@ -172,6 +173,8 @@ internal class BulkActions(
     val onSelectPair: (MarketPair) -> Unit,
     val onAddAll: () -> Unit,
     val onAddAllShown: () -> Unit,
+    /** «Rückgängig» nach dem Hinzufügen: diese neu angelegten Paare wieder entfernen. */
+    val onUndo: (List<Long>) -> Unit,
     val onQuoteChanged: (String) -> Unit,
     /** Liste offen: Kennzahlen für die Schnellfilter laden (eine Sammelabfrage). */
     val onNeedStats: () -> Unit,
@@ -228,6 +231,7 @@ private fun ExplorerPage(
     val bulkQuote by selection.bulkQuote.collectAsStateWithLifecycle()
     val addResult by selection.addResult.collectAsStateWithLifecycle()
     val bulkAddResult by selection.bulkAddResult.collectAsStateWithLifecycle()
+    val bulkNew by selection.bulkNew.collectAsStateWithLifecycle()
 
     val logText by httpLogText.collectAsStateWithLifecycle()
 
@@ -247,11 +251,14 @@ private fun ExplorerPage(
         onOpenWatchlist = onOpenWatchlist,
         onAddResultShown = actions.onAddShown,
         onBulkAddResultShown = bulk.onAddAllShown,
+        onUndoBulk = bulk.onUndo,
     )
 
     if (askBulkConfirm) {
         BulkConfirmDialog(
-            count = bulkPairs.size,
+            // Titel nennt die neuen («312 Paare hinzufügen?»), der Text alle samt Hinweis auf vorhandene
+            count = bulkNew,
+            total = bulkPairs.size,
             quote = bulkQuote.orEmpty(),
             market = exchange?.name.orEmpty(),
             onConfirm = {

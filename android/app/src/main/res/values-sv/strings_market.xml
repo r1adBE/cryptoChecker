@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">De stora mynten går isär.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding förhöjd.</string>
-    <string name="pulse_detail_fund_negative">Funding negativ.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_fund_high">Hävstångsstämning optimistisk.</string>
+    <string name="pulse_detail_fund_negative">Hävstångsstämning pessimistisk.</string>
+    <string name="pulse_detail_fund_neutral">Hävstångsstämning neutral.</string>
     <string name="pulse_detail_vol_above">Volym %1$s över det normala.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volym %1$s över det normala, funding förhöjd.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volym %1$s över det normala, funding negativ.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volym %1$s över det normala, funding neutral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volym %1$s över det normala, hävstångsstämning optimistisk.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volym %1$s över det normala, hävstångsstämning pessimistisk.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volym %1$s över det normala, hävstångsstämning neutral.</string>
     <string name="pulse_detail_vol_below">Volym %1$s under det normala.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volym %1$s under det normala, funding förhöjd.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volym %1$s under det normala, funding negativ.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volym %1$s under det normala, funding neutral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volym %1$s under det normala, hävstångsstämning optimistisk.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volym %1$s under det normala, hävstångsstämning pessimistisk.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volym %1$s under det normala, hävstångsstämning neutral.</string>
     <string name="pulse_detail_vol_normal">Volym normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volym normal, funding förhöjd.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volym normal, funding negativ.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volym normal, funding neutral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volym normal, hävstångsstämning optimistisk.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volym normal, hävstångsstämning pessimistisk.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volym normal, hävstångsstämning neutral.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Topp %1$d: de största mynten efter marknadsvärde, utan stablecoins; förändring över 24 timmar (CoinGecko).</string>

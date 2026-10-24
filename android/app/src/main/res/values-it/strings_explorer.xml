@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Nessun risultato.</string>
     <string name="explorer_search_hint">Cerca moneta, coppia o exchange</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia. Una coppia è una moneta su un exchange in una valuta, ad es. BTC/USDT su Binance.</string>
+    <string name="explorer_search_intro">Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Aggiungi alla lista di osservazione</string>
@@ -131,4 +131,16 @@
         <item quantity="many">%1$d coppie non aggiunte: la tua lista di osservazione può contenere al massimo %2$s coppie.</item>
         <item quantity="other">%1$d coppie non aggiunte: la tua lista di osservazione può contenere al massimo %2$s coppie.</item>
     </plurals>
+    <string name="bulk_add_progress">Aggiunta delle coppie … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Aggiungi %1$d nuova coppia alla lista di osservazione</item>
+        <item quantity="many">Aggiungi %1$d nuove coppie alla lista di osservazione</item>
+        <item quantity="other">Aggiungi %1$d nuove coppie alla lista di osservazione</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nuova, %2$d già nella lista di osservazione</item>
+        <item quantity="many">%1$d nuove, %2$d già nella lista di osservazione</item>
+        <item quantity="other">%1$d nuove, %2$d già nella lista di osservazione</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Tutte già nella lista di osservazione</string>
 </resources>

@@ -257,10 +257,13 @@ enum WatchlistTime {
         let f = RelativeDateTimeFormatter()
         f.unitsStyle = .abbreviated
         f.dateTimeStyle = .numeric
+        // Steht immer hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.»): klein
+        // beginnend wie «gerade eben», nach den Regeln der Sprache — wie Android `midSentence`
+        f.formattingContext = .middleOfSentence
         return f
     }()
 
-    /// «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts.
+    /// «gerade eben» bzw. «vor 2 Min.» in der Sprache des Geräts, klein beginnend.
     static func ago(_ millis: Int64, now: Int64) -> String {
         if now - millis < 60_000 { return L("time_just_now") }
         return relative.localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
@@ -271,6 +274,7 @@ enum WatchlistTime {
         let f = RelativeDateTimeFormatter()
         f.unitsStyle = .full
         f.dateTimeStyle = .numeric
+        f.formattingContext = .middleOfSentence
         return f
     }()
 

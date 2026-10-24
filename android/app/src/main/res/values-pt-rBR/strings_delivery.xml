@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">A OnePlus pode parar o app – e aí nenhum alarme chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano.</string>
     <string name="oem_battery_oppo">A Oppo/Realme pode parar o app – e aí nenhum alarme chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano.</string>
     <string name="oem_battery_vivo">A Vivo pode parar o app – e aí nenhum alarme chega. Permita “Início automático” e, em Bateria, o alto consumo em segundo plano.</string>
-    <string name="alarm_reliability_recent">Última verificação %1$s</string>
     <string name="alarm_reliability_stale">Última verificação %1$s – os alarmes podem chegar atrasados</string>
     <string name="alarm_reliability_never">Alarmes ativos – ainda sem verificação em segundo plano</string>
     <string name="alarm_reliability_notifications_off">Notificações desativadas – os alarmes não vão chegar</string>

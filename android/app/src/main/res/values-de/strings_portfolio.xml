@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Ersten Kauf eintragen</string>
     <string name="portfolio_empty_address">Nur eine Wallet-Adresse beobachten</string>
     <string name="portfolio_empty_csv">An einer Börse gekauft? Datei übernehmen</string>
-    <string name="portfolio_empty_example_plain">Beispiel: 0,01 BTC am 1. März gekauft. Die App zeigt dann, was das heute wert ist und ob du im Plus oder im Minus bist – gespeichert nur auf diesem Gerät.</string>
-    <string name="portfolio_empty_text">Trag ein, was du gekauft hast – die App zeigt, was es heute wert ist und wie viel du im Plus oder Minus bist.</string>
+    <string name="portfolio_empty_example_plain">Beispiel: %1$s BTC am 1. März gekauft. Die App zeigt dann, was das heute wert ist und ob du im Plus oder im Minus bist – gespeichert nur auf diesem Gerät.</string>
     <string name="portfolio_empty_title">Noch keine Transaktionen</string>
     <string name="portfolio_enable_ask_text">Deine Transaktion ist gespeichert. Der Portfolio-Tab zeigt deine Bestände und ihren Wert.</string>
     <string name="portfolio_enable_ask_title">Portfolio-Tab einschalten?</string>

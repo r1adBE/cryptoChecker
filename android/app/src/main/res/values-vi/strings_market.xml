@@ -107,21 +107,21 @@
     <string name="pulse_lead_mixed">Các coin lớn đang đi theo các hướng khác nhau.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding cao.</string>
-    <string name="pulse_detail_fund_negative">Funding âm.</string>
-    <string name="pulse_detail_fund_neutral">Funding trung tính.</string>
+    <string name="pulse_detail_fund_high">Tâm lý giao dịch đòn bẩy lạc quan.</string>
+    <string name="pulse_detail_fund_negative">Tâm lý giao dịch đòn bẩy bi quan.</string>
+    <string name="pulse_detail_fund_neutral">Tâm lý giao dịch đòn bẩy trung tính.</string>
     <string name="pulse_detail_vol_above">Khối lượng cao hơn bình thường %1$s.</string>
-    <string name="pulse_detail_vol_above_fund_high">Khối lượng cao hơn bình thường %1$s, funding cao.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Khối lượng cao hơn bình thường %1$s, funding âm.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Khối lượng cao hơn bình thường %1$s, funding trung tính.</string>
+    <string name="pulse_detail_vol_above_fund_high">Khối lượng cao hơn bình thường %1$s, tâm lý giao dịch đòn bẩy lạc quan.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Khối lượng cao hơn bình thường %1$s, tâm lý giao dịch đòn bẩy bi quan.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Khối lượng cao hơn bình thường %1$s, tâm lý giao dịch đòn bẩy trung tính.</string>
     <string name="pulse_detail_vol_below">Khối lượng thấp hơn bình thường %1$s.</string>
-    <string name="pulse_detail_vol_below_fund_high">Khối lượng thấp hơn bình thường %1$s, funding cao.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Khối lượng thấp hơn bình thường %1$s, funding âm.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Khối lượng thấp hơn bình thường %1$s, funding trung tính.</string>
+    <string name="pulse_detail_vol_below_fund_high">Khối lượng thấp hơn bình thường %1$s, tâm lý giao dịch đòn bẩy lạc quan.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Khối lượng thấp hơn bình thường %1$s, tâm lý giao dịch đòn bẩy bi quan.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Khối lượng thấp hơn bình thường %1$s, tâm lý giao dịch đòn bẩy trung tính.</string>
     <string name="pulse_detail_vol_normal">Khối lượng bình thường.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Khối lượng bình thường, funding cao.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Khối lượng bình thường, funding âm.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Khối lượng bình thường, funding trung tính.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Khối lượng bình thường, tâm lý giao dịch đòn bẩy lạc quan.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Khối lượng bình thường, tâm lý giao dịch đòn bẩy bi quan.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Khối lượng bình thường, tâm lý giao dịch đòn bẩy trung tính.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: các coin lớn nhất theo giá trị thị trường, không gồm stablecoin; thay đổi trong 24 giờ (CoinGecko).</string>
