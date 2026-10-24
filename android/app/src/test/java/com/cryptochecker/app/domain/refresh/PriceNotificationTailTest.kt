@@ -120,4 +120,21 @@ class PriceNotificationTailTest {
         assertEquals(ids.filter { it != 5L }, f.store.notifiedPrices.map { it.first })
         assertEquals(1, f.store.refreshWrites.size)
     }
+
+    @Test
+    fun priceNotificationsSurviveAnErrorAfterTheSave() = runBlocking {
+        val f = fixture()
+        f.widgets.failure = IllegalStateException("Zeichnen gescheitert")
+        val now = System.currentTimeMillis()
+        val quotes = ids.associateWith { LiveQuote(price = 110.0 + it, change24h = 1.0, time = now) }
+
+        val result = runCatching { withTimeout(5_000) { f.live.applyLive(quotes, redrawWidgets = true) } }
+        // Der Fehler beim Zeichnen geht weiter, die Kurse sind aber gespeichert
+        assertEquals("Zeichnen gescheitert", result.exceptionOrNull()?.message)
+        assertEquals(1, f.store.refreshWrites.size)
+        // Die vorgemerkten Kurs-Meldungen kommen trotzdem, jede genau einmal, Meldekurs nur für gezeigte
+        withTimeout(5_000) { while (f.lock.isLocked || f.notifier.pricePosts.size < ids.size) delay(5) }
+        assertEquals(ids, f.notifier.pricePosts.toList())
+        assertEquals(ids.filter { it != 5L }, f.store.notifiedPrices.map { it.first })
+    }
 }

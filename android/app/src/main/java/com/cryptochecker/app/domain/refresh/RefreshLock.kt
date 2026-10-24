@@ -77,7 +77,8 @@ class RefreshLock @Inject constructor() {
      * Wie [withLock], aber [block] kann eine Nacharbeit zurückgeben, die die Sperre über sein Ende hinaus hält: Sie
      * läuft in [scope] und gibt die Sperre erst frei, wenn sie fertig ist (auch nach Fehler oder Abbruch). Der Aufrufer
      * ist so früher fertig, die Sperre wird dazwischen aber nie frei — kein anderer Schreiber kommt vor der Nacharbeit
-     * an die Reihe. Rückgabe: Ergebnis von [block] und der Job der Nacharbeit (null = keine).
+     * an die Reihe. Rückgabe: Ergebnis von [block] und der Job der Nacharbeit (null = keine). Mit [stageTail]
+     * vorgemerkte Nacharbeit läuft auch, wenn [block] danach mit Fehler oder Abbruch endet.
      */
     suspend fun <T> withLockThen(scope: CoroutineScope, block: suspend (RefreshLockScope) -> Locked<T>): Pair<T, Job?> {
         checkNotHeld()
@@ -106,31 +107,64 @@ class RefreshLock @Inject constructor() {
         return runThen(scope, block)
     }
 
-    /** [block] mit gehaltener Sperre; danach die Nacharbeit in [scope], die die Sperre freigibt (sonst gleich hier). */
+    /**
+     * Merkt [tail] als Nacharbeit des laufenden Blocks unter [withLockThen] (oder einer Variante) vor; ein späterer
+     * Aufruf ersetzt sie. Vorgemerkte Nacharbeit läuft auch, wenn der Block danach mit Fehler oder Abbruch endet (die
+     * Sperre bleibt bis zu ihrem Ende gehalten, der Fehler geht danach an den Aufrufer). Gibt der Block selbst eine
+     * Nacharbeit zurück, gilt diese. [lock] ist der Beweis der gehaltenen Sperre; ausserhalb eines solchen Blocks
+     * (auch unter [withLock]) [IllegalStateException].
+     */
+    suspend fun stageTail(@Suppress("UNUSED_PARAMETER") lock: RefreshLockScope, tail: LockedTail?) {
+        val slot = checkNotNull(currentCoroutineContext()[TailSlot]) {
+            "Nacharbeit vormerken nur in einem Block unter withLockThen"
+        }
+        slot.tail = tail
+    }
+
+    /**
+     * [block] mit gehaltener Sperre; danach die Nacharbeit (zurückgegeben oder vorgemerkt, [stageTail]) in [scope], die
+     * die Sperre freigibt (sonst gleich hier). Endet [block] mit Fehler oder Abbruch, startet eine vorgemerkte
+     * Nacharbeit trotzdem, danach geht der Fehler weiter.
+     */
     private suspend fun <T> runThen(
         scope: CoroutineScope,
         block: suspend (RefreshLockScope) -> Locked<T>,
     ): Pair<T, Job?> {
         var handedOver = false
+        val slot = TailSlot()
         try {
-            val (value, tail) = withContext(Held) { block(Token) }
-            if (tail == null) return value to null
-            val started = AtomicBoolean(false)
-            val job = scope.launch(Held) {
-                started.set(true)
-                try {
-                    tail(Token)
-                } finally {
-                    mutex.unlock()
+            val (value, returned) = try {
+                withContext(Held + slot) { block(Token) }
+            } catch (ex: Throwable) {
+                slot.tail?.let { staged ->
+                    handOver(scope, staged)
+                    handedOver = true
                 }
+                throw ex
             }
-            // Nie gestartet (Bereich schon beendet): dann gibt niemand sonst die Sperre frei
-            job.invokeOnCompletion { if (!started.get()) mutex.unlock() }
+            val tail = returned ?: slot.tail ?: return value to null
+            val job = handOver(scope, tail)
             handedOver = true
             return value to job
         } finally {
             if (!handedOver) mutex.unlock()
         }
+    }
+
+    /** Startet [tail] in [scope]; sie gibt die Sperre am Ende frei (auch nach Fehler, Abbruch oder ohne Start). */
+    private fun handOver(scope: CoroutineScope, tail: LockedTail): Job {
+        val started = AtomicBoolean(false)
+        val job = scope.launch(Held) {
+            started.set(true)
+            try {
+                tail(Token)
+            } finally {
+                mutex.unlock()
+            }
+        }
+        // Nie gestartet (Bereich schon beendet): dann gibt niemand sonst die Sperre frei
+        job.invokeOnCompletion { if (!started.get()) mutex.unlock() }
+        return job
     }
 
     /** true, solange jemand die Sperre hält (nur für Tests und Protokoll). */
@@ -148,6 +182,14 @@ class RefreshLock @Inject constructor() {
     /** Kontext-Merker «Sperre gehalten» für die Erkennung des Wiedereintritts. */
     private class HeldElement : AbstractCoroutineContextElement(HeldElement) {
         companion object Key : CoroutineContext.Key<HeldElement>
+    }
+
+    /** Kontext-Ablage der vorgemerkten Nacharbeit eines Blocks ([stageTail]); gilt nur für diesen einen Block. */
+    private class TailSlot : AbstractCoroutineContextElement(TailSlot) {
+        companion object Key : CoroutineContext.Key<TailSlot>
+
+        @Volatile
+        var tail: LockedTail? = null
     }
 
     private companion object {

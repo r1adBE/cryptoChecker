@@ -4,8 +4,9 @@ import Foundation
 // und Zeit zu speichern hiesse, alle paar Sekunden die ganze Merkliste zu kodieren, zu verschlüsseln und zu schreiben.
 // Jetzt höchstens alle `PriceSaveThrottle.intervalMillis` — die erste nach einer Pause sofort, weitere gesammelt am
 // Ende des Abstands (immer der dann aktuelle Stand). Sofort wie bisher bleibt alles andere: ausgelöste Alarme,
-// Mitteilungen, Fehlerzustände, jede Änderung des Nutzers (`mutate` ohne `quiet`). Beim Wechsel in den Hintergrund und
-// vor jedem Lesen von der Platte werden wartende Kurse sofort geschrieben (`flushPriceSave`).
+// Mitteilungen, Fehlerzustände, jede Änderung des Nutzers (`mutate` ohne `quiet`) — ein solches volles Schreiben nimmt
+// wartende Kurse samt Widget-Wünschen mit (`foldPendingPriceSave`). Beim Wechsel in den Hintergrund und vor jedem Lesen
+// von der Platte werden wartende Kurse sofort geschrieben (`flushPriceSave`).
 
 /// Abstand und wartende Widget-Aktualisierungen der zusammengefassten Kurs-Speicherungen — rein, ohne Uhr und Platte.
 struct PriceSaveThrottle: Equatable {
@@ -27,6 +28,14 @@ struct PriceSaveThrottle: Equatable {
         var all = false
         var kinds: Set<String> = []
         var isEmpty: Bool { !all && kinds.isEmpty }
+
+        /// Diese Wünsche mit denen eines anderen Schreibens (`reloadWidgets`, `widgetKinds`, nil = alle) vereinigt.
+        func merged(reloadWidgets: Bool, widgetKinds: [String]?) -> (reload: Bool, kinds: [String]?) {
+            if isEmpty { return (reloadWidgets, widgetKinds) }
+            if all || (reloadWidgets && widgetKinds == nil) { return (true, nil) }
+            let own = reloadWidgets ? (widgetKinds ?? []) : []
+            return (true, kinds.union(own).sorted())
+        }
     }
 
     private(set) var lastSaveAt: Int64?
@@ -83,6 +92,13 @@ extension AppData {
     func flushPriceSave() {
         guard priceSaves.pending else { return }
         writePendingPrices()
+    }
+
+    /// Ein volles Schreiben (`mutate` ohne `quiet`) enthält den aktuellen Stand, also auch wartende Kurse: Vormerkung
+    /// erledigt (die vorgemerkte Speicherung schreibt nicht noch einmal), Abstand ab jetzt; Rückgabe: die Widget-Wünsche
+    /// dieses Schreibens vereinigt mit den wartenden.
+    func foldPendingPriceSave(reloadWidgets: Bool, widgetKinds: [String]?) -> (reload: Bool, kinds: [String]?) {
+        priceSaves.take(now: TimeUtils.nowMillis).merged(reloadWidgets: reloadWidgets, widgetKinds: widgetKinds)
     }
 
     /// Wartende Kurse verwerfen («App zurücksetzen»: der Stand wird ohnehin neu geschrieben).

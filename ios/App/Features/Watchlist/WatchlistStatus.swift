@@ -3,11 +3,13 @@ import SwiftUI
 /// Statuszeile der Merkliste — wie `WatchlistStatus.kt`.
 extension WatchlistScreen {
     /// Ehrlicher Status: wie viele Kurse sind veraltet? Daneben die Dauer des
-    /// letzten Durchlaufs, ein Tipp zeigt die Aufschlüsselung.
-    func statusRow(_ watches: [Watch]) -> some View {
+    /// letzten Durchlaufs, ein Tipp zeigt die Aufschlüsselung. `state`: Status der Aktualisierung — die Statuszeile
+    /// wird in `RefreshStateReader` gezeigt und zeichnet bei dessen Wechsel allein neu.
+    func statusRow(_ watches: [Watch], state: RefreshState) -> some View {
         let staleAfter = data.staleAfterMillis
         // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.), «Live» nur mit allen (K-1, `LiveStatus`)
-        let liveIds = data.liveWatchIds
+        let liveIds = state.liveWatchIds
+        let lastRunMillis = state.lastRefreshMillis
         // «Nicht mehr gehandelt» ist kein Fehler: zählt weder als veraltet noch als gescheitert;
         // deaktivierte Paare zählen gar nicht (weder veraltet noch gescheitert noch «aktuell»)
         let traded = DisabledView.active(watches) { $0.disabled }.filter { !ConnectionErrors.isNotTraded($0.lastError) }
@@ -91,7 +93,7 @@ extension WatchlistScreen {
                     .fill(tone)
                     .frame(width: 8, height: 8)
                     .shadow(color: tone.opacity(0.7), radius: 4)
-                    .phaseAnimator(data.refreshing ? [0.35, 1.0] : [1.0]) { view, phase in
+                    .phaseAnimator(state.refreshing ? [0.35, 1.0] : [1.0]) { view, phase in
                         view.opacity(phase)
                     } animation: { _ in .easeInOut(duration: 0.6) }
                 // Einzeilig: zu eng (z. B. 390 pt mit «3 deaktiviert») → Kurzform «Börsenkurse · vor 1 Min.»,
@@ -124,11 +126,11 @@ extension WatchlistScreen {
 
             Spacer(minLength: 4)
 
-            if data.lastRefreshMillis > 0 {
+            if lastRunMillis > 0 {
                 Button { showReport = true } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "timer").scaledFont(size: 11, weight: .semibold, relativeTo: .caption)
-                        Text(L("watchlist_last_run", PriceFormat.duration(data.lastRefreshMillis)))
+                        Text(L("watchlist_last_run", PriceFormat.duration(lastRunMillis)))
                             .font(.caption.monospacedDigit())
                             .lineLimit(1)
                     }

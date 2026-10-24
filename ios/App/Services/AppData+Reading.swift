@@ -234,9 +234,11 @@ extension AppData {
         LiveStatus.pollingStaleAfterMillis(backgroundIntervalMinutes: settings.backgroundIntervalMinutes)
     }
 
-    /// Schwelle eines Paars: am Live-Strom (`liveWatchIds`) 2 Minuten, sonst `staleAfterMillis` (K-1).
+    /// Schwelle eines Paars: am Live-Strom (`RefreshState.liveWatchIds`) 2 Minuten, sonst `staleAfterMillis` (K-1).
+    /// Liest den Live-Stand nur: Eine Ansicht, die bei dessen Wechsel neu zeichnen muss, beobachtet `refreshState`.
     func staleAfterMillis(for watchId: Int64) -> Int64 {
-        LiveStatus.staleAfterMillis(onLiveSocket: liveWatchIds.contains(watchId), pollingAfter: staleAfterMillis)
+        LiveStatus.staleAfterMillis(onLiveSocket: refreshState.liveWatchIds.contains(watchId),
+                                    pollingAfter: staleAfterMillis)
     }
 }
 

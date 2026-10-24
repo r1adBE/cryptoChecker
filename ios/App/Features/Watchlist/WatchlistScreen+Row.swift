@@ -1,7 +1,7 @@
 import SwiftUI
 
 // Eine Paar-Zeile der Merkliste (Teil von `WatchlistScreen`, gezeigt in WatchlistList.swift): Werte auslesen,
-// `WatchlistRow` mit Gesten, VoiceOver-Aktionen und Wischen, darüber der Live-Kurs (`WatchlistLiveRow`).
+// `WatchlistRow` mit Gesten, VoiceOver-Aktionen und Wischen, darüber Live-Kurs und Status (`WatchlistLiveRow`).
 
 extension WatchlistScreen {
     /// `section`: sichtbare Abteilung (Favoriten bzw. übrige) für «Nach oben/unten» in VoiceOver.
@@ -11,20 +11,20 @@ extension WatchlistScreen {
         let index = section.firstIndex(where: { $0.id == watch.id })
         let canReorder = !searching && index != nil
         // Werte der Zeile hier auslesen (nicht in der Zeile), damit nur `WatchlistLiveRow` den
-        // Live-Kurs beobachtet: ein Tick zeichnet genau diese eine Zeile neu
-        // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille, K-1)
-        let staleAfter = data.staleAfterMillis(for: watch.id)
-        let outdatedAfter = data.staleAfterMillis(for: watch.id)
+        // Live-Kurs und den Status der Zeile beobachtet: ein Tick bzw. «wird aktualisiert» zeichnet genau diese
+        // eine Zeile neu
+        let pollingStaleAfter = data.staleAfterMillis
         let firedAt = data.alarmFiredAt[watch.id] ?? 0
         let pausedUntil = data.exchangePauses[watch.marketKey]
-        let rowRefreshing = data.refreshingWatchIds.contains(watch.id)
-        let allRefreshing = data.refreshing
         let sparklines = data.settings.watchlistSparkline && !watch.isNotTraded
         let target = convertTarget
         let rates = convertRates
         let fxTimes = convertFxTimes
         let usdtNotes = convertUsdtNotes
-        return WatchlistLiveRow(watch: watch, rollingBasis: !data.settings.changeBasis.isDay) { shown in
+        return WatchlistLiveRow(watch: watch, rollingBasis: !data.settings.changeBasis.isDay,
+                                state: data.refreshState) { shown, status in
+            // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille, K-1)
+            let staleAfter = LiveStatus.staleAfterMillis(onLiveSocket: status.onLive, pollingAfter: pollingStaleAfter)
             WatchlistRow(
                 watch: shown,
                 alarmCount: counts[watch.id] ?? 0,
@@ -32,9 +32,9 @@ extension WatchlistScreen {
                 kind: kinds[watch.id] ?? .TOKEN,
                 now: now,
                 staleAfter: staleAfter,
-                outdatedAfter: outdatedAfter,
+                outdatedAfter: staleAfter,
                 exchangePausedUntil: pausedUntil,
-                loading: rowRefreshing || (allRefreshing && shown.lastPrice == nil),
+                loading: status.loading,
                 highlighted: highlightedId == watch.id || (selecting && selectedIds.contains(watch.id)),
                 sorting: sorting,
                 shape: shape,
@@ -112,14 +112,27 @@ extension WatchlistScreen {
     }
 }
 
-/// Eine Zeile mit dem Live-Kurs darüber (`LivePrices`, nur Anzeige): Nur diese Ansicht liest den
-/// Kurs ihres Paars, ein WebSocket-Tick zeichnet also nur sie neu — nicht die ganze Merkliste.
+/// Status einer Zeile aus `RefreshState` (je Zeile beobachtet).
+struct WatchlistRowStatus {
+    /// «wird aktualisiert»: einzeln in Arbeit oder volle Aktualisierung bei einem Paar noch ohne Kurs.
+    let loading: Bool
+    /// Paar am Live-Strom (Frische-Schwelle 2 Min.).
+    let onLive: Bool
+}
+
+/// Eine Zeile mit dem Live-Kurs (`LivePrices`, nur Anzeige) und ihrem Status (`RefreshState.rowLoading`,
+/// `rowOnLive`) darüber: Nur diese Ansicht liest Kurs und Status ihres Paars, ein WebSocket-Tick bzw. ein
+/// Wechsel von «wird aktualisiert» oder Live zeichnet also nur sie neu — nicht die ganze Merkliste.
 private struct WatchlistLiveRow<Content: View>: View {
     let watch: Watch
     let rollingBasis: Bool
-    @ViewBuilder let content: (Watch) -> Content
+    let state: RefreshState
+    @ViewBuilder let content: (Watch, WatchlistRowStatus) -> Content
 
     var body: some View {
-        content(watch.withLive(LivePrices.shared.quote(for: watch.id), rollingBasis: rollingBasis))
+        let shown = watch.withLive(LivePrices.shared.quote(for: watch.id), rollingBasis: rollingBasis)
+        let status = WatchlistRowStatus(loading: state.rowLoading(watch.id, priceMissing: shown.lastPrice == nil),
+                                        onLive: state.rowOnLive(watch.id))
+        content(shown, status)
     }
 }

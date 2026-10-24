@@ -15,12 +15,12 @@ extension AppData {
     /// - Returns: das Ergebnis (für «Letzte Prüfungen»); nil = es lief schon eine.
     @discardableResult
     func refreshAll() async -> PriceRefresher.Outcome? {
-        guard !refreshing else { return nil }
-        refreshing = true
+        guard !refreshState.refreshing else { return nil }
+        refreshState.refreshing = true
         // Geht die App währenddessen in den Hintergrund: zu Ende abfragen und speichern
         let backgroundTask = BackgroundTaskGuard.begin("refreshAll")
         defer {
-            refreshing = false
+            refreshState.refreshing = false
             backgroundTask.end()
         }
         await waitForLiveApply()
@@ -42,7 +42,7 @@ extension AppData {
     /// der Menüpunkt ist grau mit Countdown (`WatchlistMenuHead`). Live-Takt und neue Paare laufen ohne Sperre.
     @discardableResult
     func refreshAllByUser() async -> RefreshDebounce.Decision {
-        let decision = RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
+        let decision = RefreshDebounce.decide(running: refreshState.refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
                                               now: TimeUtils.nowMillis)
         if decision == .start {
             // Von Hand aktualisiert: Charts im Aktionsblatt nicht mehr aus dem Zwischenspeicher
@@ -122,9 +122,9 @@ extension AppData {
     }
 
     func refreshOne(_ watchId: Int64) async {
-        guard !refreshingWatchIds.contains(watchId) else { return }
-        refreshingWatchIds.insert(watchId)
-        defer { refreshingWatchIds.remove(watchId) }
+        guard !refreshState.refreshingWatchIds.contains(watchId) else { return }
+        refreshState.refreshingWatchIds.insert(watchId)
+        defer { refreshState.refreshingWatchIds.remove(watchId) }
         await waitForLiveApply()
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, onlyWatchId: watchId)
         apply(outcome, full: false)
@@ -145,12 +145,12 @@ extension AppData {
                 SharedStorage.lastAlarmCheckAt = TimeUtils.nowMillis
             }
             SharedStorage.lastRefreshDuration = outcome.durationMillis
-            lastRefreshMillis = outcome.durationMillis
+            refreshState.lastRefreshMillis = outcome.durationMillis
         }
         // Bericht auch ohne einen einzigen Kurs (wie Android): dann zeigt er, welche Börse scheiterte
         if full, let report = outcome.report {
             SharedStorage.lastRefreshReport = report
-            lastRefreshReport = report
+            refreshState.lastRefreshReport = report
         }
         // Pausen je Börse hat der Durchlauf eben gespeichert (Live-Kurse ändern sie nicht)
         if !live { reloadExchangePauses() }

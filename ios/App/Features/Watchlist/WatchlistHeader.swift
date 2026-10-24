@@ -20,8 +20,11 @@ extension WatchlistScreen {
                     searchField
                         .transition(.opacity.combined(with: .scale(scale: 0.97, anchor: .trailing)))
                 } else {
-                    statusRow(statusWatches)
-                        .transition(.opacity)
+                    // Eigene Beobachtung des Aktualisierungs-Status: Kreis, «Live», Dauer zeichnen nur hier neu
+                    RefreshStateReader(state: data.refreshState) { state in
+                        statusRow(statusWatches, state: state)
+                    }
+                    .transition(.opacity)
                 }
             }
             .frame(minHeight: WatchlistSearch.rowHeight)
@@ -191,7 +194,7 @@ extension WatchlistScreen {
                     // Gleicher Anfang wie Markt und Portfolio: App (→ «Über»), Aktualisieren
                     // Eben erst aktualisiert: grau mit Countdown «Aktualisieren (5)» statt einer Meldung
                     WatchlistMenuHead(
-                        refreshing: data.refreshing,
+                        state: data.refreshState,
                         countdown: refreshCountdown,
                         onOpenAbout: { showAbout = true },
                         onRefresh: {

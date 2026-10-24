@@ -259,8 +259,12 @@ internal class FakeRefreshStats : RefreshStatsPort {
 
 internal class FakeRefreshWidgets : RefreshWidgets {
     var draws = 0
+
+    /** Gesetzt: Zeichnen scheitert mit diesem Fehler (nach dem Zählen). */
+    var failure: Exception? = null
     override suspend fun drawAll(deferWhenOff: Boolean, fetch: Boolean): Boolean {
         draws++
+        failure?.let { throw it }
         return false
     }
 }

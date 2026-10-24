@@ -32,7 +32,7 @@ jobs:
           set -eu
           failed=0
           # Every workflow with a schedule (android-device-tests.yml has its schedule commented out)
-          for wf in market-data.yml macro-calendar.yml exchange-live-check.yml osv.yml keepalive.yml; do
+          for wf in market-data.yml macro-calendar.yml exchange-live-check.yml osv.yml reproducible.yml mutation.yml ios-performance.yml keepalive.yml; do
             if gh api -X PUT "repos/$REPO/actions/workflows/$wf/enable" --silent; then
               echo "enabled: $wf"
             else

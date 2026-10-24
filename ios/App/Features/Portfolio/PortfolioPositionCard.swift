@@ -169,11 +169,10 @@ struct PortfolioOpenLotItem: Identifiable {
         }
     }
 
-    /// Nur die Zeilen, die gezeigt werden: zugeklappt keine, aufgeklappt die ersten `limit` (eine Id zählt nur die Posten
-    /// davor — dieselben Ids wie aus allen), im Blatt «Alle zeigen» alle.
-    static func shown(_ lots: [PortfolioOpenLot], expanded: Bool, showAll: Bool, limit: Int) -> [PortfolioOpenLotItem] {
-        if showAll { return of(lots) }
-        return expanded ? of(Array(lots.prefix(limit))) : []
+    /// Nur die Zeilen, die die Karte zeigt: zugeklappt keine, aufgeklappt die ersten `limit` (eine Id zählt nur die
+    /// Posten davor — dieselben Ids wie aus allen). Das Blatt «Alle zeigen» nimmt immer `of(lots)`.
+    static func shown(_ lots: [PortfolioOpenLot], expanded: Bool, limit: Int) -> [PortfolioOpenLotItem] {
+        expanded ? of(Array(lots.prefix(limit))) : []
     }
 }
 
@@ -193,7 +192,7 @@ struct PortfolioOpenLotsSection: View {
 
     var body: some View {
         // Zeilen nur bilden, wenn sie gezeigt werden (zugeklappt nichts)
-        let items = PortfolioOpenLotItem.shown(lots, expanded: expanded, showAll: showAll, limit: Self.shownLots)
+        let items = PortfolioOpenLotItem.shown(lots, expanded: expanded, limit: Self.shownLots)
         VStack(alignment: .leading, spacing: Spacing.xs) {
             Button {
                 withAnimation(.easeInOut(duration: 0.2)) { expanded.toggle() }
@@ -203,7 +202,7 @@ struct PortfolioOpenLotsSection: View {
             .buttonStyle(.plain)
             if expanded {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
-                    ForEach(items.prefix(Self.shownLots)) { item in
+                    ForEach(items) { item in
                         row(item.lot)
                     }
                     if lots.count > Self.shownLots {
@@ -221,7 +220,8 @@ struct PortfolioOpenLotsSection: View {
         }
         .sheet(isPresented: $showAll) {
             NavigationStack {
-                List(items) { item in row(item.lot) }
+                // Immer die ganze Liste, unabhängig von `showAll`: sonst spränge sie beim Schliessen auf die ersten 50
+                List(PortfolioOpenLotItem.of(lots)) { item in row(item.lot) }
                     .listStyle(.plain)
                     .navigationTitle(L("portfolio_open_lots", lots.count))
                     .navigationBarTitleDisplayMode(.inline)

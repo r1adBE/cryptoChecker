@@ -6,7 +6,9 @@ import Foundation
 
 extension TaxExport {
     /// Jahresübersicht der Vorlage `template` für das Steuerjahr ab `startYear` — ORIENTIERUNG, KEINE STEUERBERATUNG;
-    /// Posten und Regeln wie `yearSummary` (Android).
+    /// Posten und Regeln wie `yearSummary` (Android). `run`: dieselben Veräusserungen schon gerechnet — nur mit genau
+    /// diesen Eingaben (`trades`, `method`, Steuerjahr, `timeZone`, `priceAt`, `template.eventRules`, `walletFrom`); Debug
+    /// prüft das per `assert` (`GainsRun.matches`), `trades` und `priceAt` nicht (Closure): dafür bürgt der Aufrufer.
     static func yearSummary(_ trades: [PortfolioTx], template: TaxTemplate, method: TaxMethod, startYear: Int,
                             timeZone: TimeZone, currency: String, rates: [Int: Decimal]?,
                             priceAt: ((String, Int64) -> Decimal?)? = nil,
@@ -14,6 +16,8 @@ extension TaxExport {
                             today: LocalDay? = nil, yearEndCloses: CutoffCloses? = nil,
                             yearEndAddresses: AddressCutoffView? = nil, run: GainsRun? = nil) -> TaxYearSummary {
         let period = template.period(startYear)
+        assert(run?.matches(method: method, period: period, timeZone: timeZone, rules: template.eventRules,
+                            walletFrom: walletFrom) ?? true, "yearSummary: GainsRun aus anderen Eingaben")
         let fx = rates != nil || currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD"
         // `run`: dieselben Eingaben schon gerechnet (`PortfolioTaxExporter.summary`) — gleiche Zeilen ohne neue Rechnung
         let allRows = run?.gainRows(currency: currency, rates: rates ?? [:], usdtUsd: usdtUsd)

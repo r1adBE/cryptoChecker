@@ -36,9 +36,6 @@ import java.time.ZoneId
  * BOM, CRLF, Trenn-/Dezimalzeichen je Region ([CutoffCsvFormat]); Kopfzeilen (Methode, Währung, keine
  * Steuerberatung, App-Version) gibt der Aufrufer übersetzt mit.
  */
-/** Netzwerkgebühr-Einstände und nicht zugeordnete Gebühren eines Steuerjahrs aus einem Lauf ([TaxExport.feesIn]). */
-data class TaxFees(val lostFeeCosts: List<PortfolioLostFeeCost>, val unassignedFees: List<PortfolioUnassignedFee>)
-
 object TaxExport {
 
     /** Devisenkurs höchstens so viele Tage vor dem Datum (Wochenende, Feiertage). */
@@ -385,3 +382,6 @@ object TaxExport {
         return minOf(period.end.plusDays(window), maxOf(today, period.end))
     }
 }
+
+/** Netzwerkgebühr-Einstände und nicht zugeordnete Gebühren eines Steuerjahrs aus einem Lauf ([TaxExport.feesIn]). */
+data class TaxFees(val lostFeeCosts: List<PortfolioLostFeeCost>, val unassignedFees: List<PortfolioUnassignedFee>)

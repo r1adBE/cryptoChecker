@@ -1,0 +1,241 @@
+# iOS performance tests (ios/Tests/*PerformanceTests.swift) in a Release build: optimised (-O) like the App Store app,
+# without code coverage, unsigned, in the iOS Simulator. The regular unit-test job of ios.yml runs the same tests in
+# Debug with coverage on a shared Mac, where FIFO and tax export grow much faster with 4x the data than on Android; this
+# workflow shows whether that comes from the Debug/coverage build or from the code. For a direct comparison on the
+# same Mac it also runs the same classes in Debug with coverage (input debug_comparison; always on the weekly run).
+# The test target is compiled in Release with ENABLE_TESTABILITY=YES (for @testable import); all other test files are
+# left out of the build (EXCLUDED_SOURCE_FILE_NAMES), because some of them use test seams that exist only in Debug
+# builds. App code is compiled as for Release (-O, no DEBUG condition); only testability differs from the App Store
+# build (internal symbols stay visible, which can keep the optimiser from removing or inlining a few of them).
+# Result: the «[Performance]» lines (timings of the quarter and the full size, ratio ×N) as one notice per build on
+# the run page (readable without signing in), a comparison table in the job summary and the logs as an artifact.
+# Never a required check. Weekly on Thursdays, by hand (Actions -> iOS performance -> Run workflow) and on pull requests
+# that change the measurement.
+name: iOS performance
+
+on:
+  schedule:
+    - cron: '37 5 * * 4'   # Thursdays 05:37 UTC
+  # Pull requests only when the measurement itself changes (a new workflow can only be started by hand once it is on
+  # the default branch – this lets its first run happen on the pull request that adds it)
+  pull_request:
+    paths:
+      - '.github/workflows/ios-performance.yml'
+      - 'ios/Tests/PerformanceSupport.swift'
+      - 'ios/Tests/*PerformanceTests.swift'
+  workflow_dispatch:
+    inputs:
+      debug_comparison:
+        description: 'Also run the performance tests in Debug with coverage (as in ios.yml) for comparison'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-performance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  performance:
+    name: iOS performance tests (Release)
+    # Same toolchain as ios.yml (App Store uploads need Xcode 26 / the iOS 26 SDK)
+    runs-on: macos-26
+    timeout-minutes: 90
+    env:
+      # Weekly and pull-request runs have no inputs: comparison on
+      DEBUG_COMPARISON: ${{ github.event_name != 'workflow_dispatch' || inputs.debug_comparison }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Select Xcode 26
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
+        with:
+          xcode-version: '26'
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+
+      # Simulator for the tests: "iPhone 17" if the installed Xcode has it, otherwise its
+      # first available iPhone (as in ios.yml).
+      - name: Pick iOS Simulator
+        run: |
+          DEVICE="iPhone 17"
+          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
+            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+          fi
+          echo "Simulator: $DEVICE"
+          echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
+
+      # Test classes: every «final class …PerformanceTests» in ios/Tests (new classes are picked up automatically).
+      # Sources of the Release build: the performance files (*PerformanceTests.swift, *PerformanceSupport.swift); every
+      # other Swift file of ios/Tests goes into EXCLUDED_SOURCE_FILE_NAMES. The setting applies to all targets, so a
+      # test file whose name also exists in the app, widget or UI tests would remove that file too: that is an error.
+      - name: Performance test classes
+        working-directory: ios
+        run: |
+          CLASSES=$(grep -hoE '^final class [A-Za-z0-9_]+PerformanceTests' Tests/*PerformanceTests.swift \
+            | awk '{print $3}' | sort -u)
+          if [ -z "$CLASSES" ]; then
+            echo "::error title=iOS performance::no *PerformanceTests class in ios/Tests"
+            exit 1
+          fi
+          ONLY=""
+          for c in $CLASSES; do ONLY="$ONLY -only-testing:CryptoCheckerTests/$c"; done
+          echo "Classes: $(echo $CLASSES)"
+          EXCLUDE=$(find Tests -name '*.swift' ! -name '*PerformanceTests.swift' ! -name '*PerformanceSupport.swift' \
+            -exec basename {} \; | sort -u)
+          OTHERS=$(find App Shared Widgets UITests -name '*.swift' -exec basename {} \; | sort -u)
+          CLASH=$(comm -12 <(printf '%s\n' "$EXCLUDE") <(printf '%s\n' "$OTHERS"))
+          if [ -n "$CLASH" ]; then
+            echo "::error title=iOS performance::test file names also used outside ios/Tests: $(echo $CLASH)"
+            exit 1
+          fi
+          echo "Left out of the Release build: $(printf '%s\n' "$EXCLUDE" | grep -c .) test files"
+          echo "PERF_ONLY=$ONLY" >> "$GITHUB_ENV"
+          echo "PERF_EXCLUDE=$(echo $EXCLUDE)" >> "$GITHUB_ENV"
+
+      # Release with testability: the effective settings of the app (optimisation, compilation conditions) in the log,
+      # so the run shows what was measured. Purely informative.
+      - name: Release settings of the measured build
+        working-directory: ios
+        continue-on-error: true
+        run: |
+          xcodebuild -showBuildSettings \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Release \
+            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            ENABLE_TESTABILITY=YES \
+            2>/dev/null \
+            | grep -E '^ *(TARGET_NAME|SWIFT_OPTIMIZATION_LEVEL|SWIFT_ACTIVE_COMPILATION_CONDITIONS) =' || true
+
+      # Only the performance classes, one at a time (no parallel test clones that share the Mac), no coverage.
+      # CC_SKIP_PERFORMANCE is not set, so no class skips itself.
+      - name: Performance tests (Release)
+        working-directory: ios
+        timeout-minutes: 50
+        run: |
+          LOG="$RUNNER_TEMP/xcode-perf-release.log"
+          set +e
+          # shellcheck disable=SC2086 # PERF_ONLY: one word per class, no spaces in class names
+          xcodebuild test \
+            -enableCodeCoverage NO \
+            -parallel-testing-enabled NO \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Release \
+            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedDataRelease" \
+            $PERF_ONLY \
+            ENABLE_TESTABILITY=YES \
+            EXCLUDED_SOURCE_FILE_NAMES="$PERF_EXCLUDE" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 80 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      # Comparison on the same Mac: the same classes as in the unit-test job of ios.yml (Debug, coverage). Runs also
+      # when the Release step failed, so its numbers are still there.
+      - name: Performance tests (Debug + coverage, comparison)
+        if: ${{ !cancelled() && env.DEBUG_COMPARISON == 'true' }}
+        working-directory: ios
+        timeout-minutes: 50
+        run: |
+          LOG="$RUNNER_TEMP/xcode-perf-debug.log"
+          set +e
+          # shellcheck disable=SC2086 # PERF_ONLY: one word per class
+          xcodebuild test \
+            -enableCodeCoverage YES \
+            -parallel-testing-enabled NO \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedDataDebug" \
+            $PERF_ONLY \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 80 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      # One notice per build with its «[Performance]» lines (name, quarter and full size, ratio ×N; the limit part of
+      # each line stays in the log) and a table Release vs Debug in the job summary. Never fails the job.
+      - name: Performance results
+        if: always()
+        continue-on-error: true
+        run: |
+          python3 -I - "$RUNNER_TEMP/xcode-perf-release.log" "$RUNNER_TEMP/xcode-perf-debug.log" <<'PY' || true
+          import os, re, sys
+
+          LINE = re.compile(r"\[Performance\] (.+?)\s*$")
+          RATIO = re.compile(r"\(×([0-9.]+|nan)\)")
+
+          def esc(text):
+              return text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+          def lines(path):
+              if not os.path.isfile(path):
+                  return []
+              out = []
+              with open(path, encoding="utf-8", errors="replace") as f:
+                  for raw in f:
+                      m = LINE.search(raw)
+                      if m:
+                          out.append(m.group(1).split(" · Grenze")[0])
+              return out
+
+          builds = [("Release", sys.argv[1]), ("Debug + coverage", sys.argv[2])]
+          found = {}
+          for label, path in builds:
+              rows = lines(path)
+              found[label] = rows
+              if rows:
+                  print(f"::notice title=iOS performance ({esc(label)})::" + esc("\n".join(rows)))
+              elif os.path.isfile(path):
+                  print(f"::warning title=iOS performance ({esc(label)})::no [Performance] lines in the log")
+
+          def ratios(rows):
+              table = {}
+              for row in rows:
+                  name, _, rest = row.partition(": ")
+                  m = RATIO.search(rest)
+                  if m:
+                      table[name] = (m.group(1), rest)  # last value wins (re-measured after an outlier)
+              return table
+
+          release, debug = ratios(found["Release"]), ratios(found["Debug + coverage"])
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary and (release or debug):
+              with open(summary, "a", encoding="utf-8") as f:
+                  f.write("### iOS performance: ratio full size / quarter (linear = ×4)\n\n")
+                  f.write("| Measurement | Release | Debug + coverage |\n|---|---|---|\n")
+                  for name in list(dict.fromkeys(list(release) + list(debug))):
+                      r = release.get(name, ("–", ""))[0]
+                      d = debug.get(name, ("–", ""))[0]
+                      f.write(f"| {name.replace('|', '/')} | ×{r} | ×{d} |\n")
+                  f.write("\n")
+          print(f"[Performance] lines: Release {len(found['Release'])}, Debug {len(found['Debug + coverage'])}")
+          PY
+
+      - name: Upload Xcode logs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: xcode-logs-performance
+          path: |
+            ${{ runner.temp }}/xcode-perf-release.log
+            ${{ runner.temp }}/xcode-perf-debug.log
+          if-no-files-found: ignore
+          retention-days: 14

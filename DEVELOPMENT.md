@@ -506,6 +506,31 @@ audit, built-app inspection with the compiler-warning ceiling 0), «iOS unit tes
 «iOS UI tests» – and the job «iOS build» (the required check) is green only if all three are; logs on failure as
 artifacts `xcode-logs-release`, `-unit`, `-ui`. About 25 minutes instead of about 65 one after another.
 
+**iOS performance tests in Release.** The iOS performance tests (`ios/Tests/*PerformanceTests.swift`, timings via
+`PerformanceSupport.swift`) run in the unit-test job of `ios.yml` as a Debug build (`-Onone`) with coverage on a shared
+Mac; there FIFO and tax export grow ×6–7 with 4× the data (Android ×2–3), so on iOS those tests only check fixed
+limits. `.github/workflows/ios-performance.yml` (Actions › *iOS performance* › Run workflow; also weekly on Thursdays;
+never a required check) measures the same classes in a Release build: `-configuration Release` (`-O`, whole module, no
+`DEBUG` condition), `ENABLE_TESTABILITY=YES` for `@testable import`, no coverage, unsigned, Simulator «iPhone 17» (or
+the first iPhone), no parallel test clones, `-only-testing:CryptoCheckerTests/<class>` for every `…PerformanceTests`
+class found in `ios/Tests`. Every other file of `ios/Tests` is left out of that build (`EXCLUDED_SOURCE_FILE_NAMES`):
+some use test seams that exist only in Debug builds (`WatchlistNotSavedGate.appDataOverride`,
+`AppData.pairPickerKeyComputations`, `AlarmPairPicker.makeRowsCalls`, `StorageKey.replaceKeychainForTesting`), so the
+full test target does not compile in Release; the performance files need nothing but the app. With the input
+`debug_comparison` (default on, always on the weekly run) the same classes then run again on the same Mac in Debug with
+coverage, as in `ios.yml`. Result: the `[Performance]` lines (quarter and full size in ms, ratio ×N; linear = ×4) as
+one notice per build on the run page, a table «Release vs Debug» of the ratios in the job summary, logs as artifact
+`xcode-logs-performance`. Locally the same Release run:
+
+```sh
+cd ios
+xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker -configuration Release \
+  -destination 'platform=iOS Simulator,name=iPhone 17' -enableCodeCoverage NO -parallel-testing-enabled NO \
+  -only-testing:CryptoCheckerTests/TaxPerformanceTests -only-testing:CryptoCheckerTests/PortfolioPerformanceTests \
+  ENABLE_TESTABILITY=YES EXCLUDED_SOURCE_FILE_NAMES="$(find Tests -name '*.swift' ! -name '*Performance*.swift' \
+  -exec basename {} \; | tr '\n' ' ')" CODE_SIGNING_ALLOWED=NO 2>&1 | grep '\[Performance\]'
+```
+
 `gen_xcodeproj.py` (also with `--check`) fails when `ios/project.yml` (the XcodeGen fallback) carries a
 `MARKETING_VERSION` or `CURRENT_PROJECT_VERSION` different from the constants at the top of the script —
 change the version in both places. The build number (`versionCode` in `android/app/build.gradle.kts`,
@@ -2353,6 +2378,20 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 127: RefreshState (iOS, `AppData.refreshState`, an `ObservableObject` of its own): `refreshing`,
+  `refreshingWatchIds`, `lastRefreshMillis`, `lastRefreshReport`, `liveExchanges` and `liveWatchIds` publish only
+  there, not via `AppData.objectWillChange`, so the watchlist body is not recomputed for them. Views that show them
+  observe it: status row with circle and run time (`RefreshStateReader`), ⋯ menu (`WatchlistMenuHead`), report sheet,
+  action sheet, developer settings; countdown, clock and «only stale» via `WatchlistRefreshEvents`. Rows read
+  per-pair `@Observable` boxes (`rowLoading`, `rowOnLive`, like `LiveQuoteBox`): only the row whose «refreshing» or
+  live state changes redraws; a full run touches only rows without a price. `RefreshStateTests`.
+  Review fixes: `RefreshLock.stageTail` stages the tail of a `withLockThen` block early; a staged tail still runs
+  (lock handed over) when the block later fails or is cancelled, then the error propagates. `PriceRefresher` and
+  `LivePriceApplier` stage the price notifications right after `process` (report count via reference);
+  `applyLiveFinal` does not wait for the tail (it keeps the lock; waiting would only lengthen stopping the stream).
+  iOS: a full `mutate` folds a pending price save in (`foldPendingPriceSave`: `take`, widget wishes merged,
+  interval from now); `yearSummary(run:)` asserts `GainsRun.matches` in debug; the open-lots sheet always lists
+  `PortfolioOpenLotItem.of(lots)`; `TaxFees` sits below `object TaxExport`.
 * Build 126: Deeper performance points, results unchanged (each with an equality test against the previous way).
   Tax export: `TaxExport.allDisposals` (all years, without fx) is computed once per gains export / year summary and
   passed to `fxSpan(…, disposals)`, `gainRows(…, disposals)` and `yearSummary(…, disposals)`; CA (`CA_ACB`) rows keep

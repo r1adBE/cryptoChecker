@@ -133,7 +133,7 @@ extension WatchActionsSheet {
                     .font(.footnote.weight(.semibold))
                     .buttonStyle(.borderless)
                     .tint(accent.primary)
-                    .disabled(data.refreshingWatchIds.contains(watch.id))
+                    .disabled(refreshState.refreshingWatchIds.contains(watch.id))
                 }
             } else if let error = watch.lastError, !error.isEmpty, !ConnectionErrors.isNotTraded(error) {
                 // Jeder andere Fehler (auch ohne älteren Kurs): Fehlertext plus «Erneut versuchen» als nächster
@@ -149,7 +149,7 @@ extension WatchActionsSheet {
                     .font(.footnote.weight(.semibold))
                     .buttonStyle(.borderless)
                     .tint(accent.primary)
-                    .disabled(data.refreshingWatchIds.contains(watch.id))
+                    .disabled(refreshState.refreshingWatchIds.contains(watch.id))
                 }
             } else if let error = watch.lastError, !error.isEmpty {
                 Text(ConnectionErrors.display(error))
