@@ -381,7 +381,8 @@ extension ProtectedFileTests {
     private func isolatedDefaults() -> UserDefaults {
         let name = "PlainBackupExclusion-\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: name)!
-        addTeardownBlock { defaults.removePersistentDomain(forName: name) }
+        // Nur den Namen erfassen (UserDefaults nicht in den Abschluss-Block senden, Swift 6)
+        addTeardownBlock { UserDefaults(suiteName: name)?.removePersistentDomain(forName: name) }
         return defaults
     }
 
