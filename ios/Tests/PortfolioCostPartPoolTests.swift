@@ -83,7 +83,13 @@ final class PortfolioCostPartPoolTests: XCTestCase {
             }
         }
         if !expected.isEmpty {
-            XCTAssertEqual(Self.sum(expected), Self.sum(actual), "\(label) Summe", file: file, line: line)
+            // Decimal hat 38 Stellen: Summen in anderer Reihenfolge runden ab der 38. Stelle anders
+            let sumDiff = abs(Self.sum(expected) - Self.sum(actual))
+            if exact {
+                XCTAssertEqual(sumDiff, 0, "\(label) Summe", file: file, line: line)
+            } else {
+                XCTAssertLessThanOrEqual(sumDiff, Self.tolerance, "\(label) Summe", file: file, line: line)
+            }
         }
     }
 

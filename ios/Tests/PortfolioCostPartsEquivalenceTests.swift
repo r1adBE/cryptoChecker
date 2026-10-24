@@ -23,7 +23,9 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
                                      "\(label) Teil \(i) \(pair.0.usdt) / \(pair.1.usdt)", file: file, line: line)
         }
         if !expected.isEmpty {
-            XCTAssertEqual(Self.sum(expected), Self.sum(actual), "\(label) Summe", file: file, line: line)
+            // Decimal hat 38 Stellen: Summen in anderer Reihenfolge runden ab der 38. Stelle anders
+            XCTAssertLessThanOrEqual(abs(Self.sum(expected) - Self.sum(actual)), Self.tolerance, "\(label) Summe",
+                                     file: file, line: line)
         }
     }
 
