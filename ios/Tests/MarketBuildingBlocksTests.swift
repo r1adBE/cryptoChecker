@@ -7,7 +7,7 @@ import XCTest
 final class MarketBuildingBlocksTests: XCTestCase {
 
     /// Kleinste SimpleMarket-Börse: Fehlertext im Feld «err».
-    private final class Probe: SimpleMarket {
+    private final class Probe: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
         init(errorField: String? = "err") {
             super.init(key: "Probe", name: "Probe", pairListURL: "https://example.test/pairs",
                        tickerURL: "https://example.test/ticker/%1$s?depth=1", errorField: errorField)
@@ -20,7 +20,7 @@ final class MarketBuildingBlocksTests: XCTestCase {
     }
 
     /// Wie `Probe`, bildet die Kennung aber selbst («BASE-QUOTE»).
-    private final class DashProbe: SimpleMarket {
+    private final class DashProbe: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
         init() {
             super.init(key: "DashProbe", name: "DashProbe", pairListURL: "https://example.test/pairs",
                        tickerURL: "https://example.test/ticker?symbol=%1$s")
@@ -30,7 +30,7 @@ final class MarketBuildingBlocksTests: XCTestCase {
     }
 
     /// Sammelabfrage aus Zeilen {"id", "last"} über `bulkRowIfActive`.
-    private final class BulkProbe: Market {
+    private final class BulkProbe: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
         init() { super.init(key: "BulkProbe", name: "BulkProbe") }
 
         override func tickerAddress(call: Int, info: PairQuery) -> String { "" }

@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -43,7 +43,7 @@ internal fun WatchlistBulkAdd(
     viewModel: WatchlistBulkAddViewModel = hiltViewModel(),
 ) {
     val progress by viewModel.runner.progress.collectAsStateWithLifecycle()
-    val resources = LocalContext.current.resources
+    val resources = LocalResources.current
     val failedText = stringResource(R.string.something_went_wrong)
     val current = progress ?: return
     val result = current.result

@@ -12,7 +12,8 @@
           tag run (GITHUB_REF refs/tags/v*): tag != v<versionName>-<versionCode> of android/app/build.gradle.kts
   warning required store text empty or missing (title / name / description), no screenshots
           android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
-            versionCode / build number named there differs from android/app/build.gradle.kts
+            versionCode / build number named there (also tag examples and archive name) differs from
+            android/app/build.gradle.kts
           ROADMAP.md / TESTPLAN.md (private, only if present): "Build N" in the header (first lines) differs
             from versionCode or is missing
   notice  private guide missing (public repository): named as "not checked" instead of skipped silently
@@ -225,19 +226,25 @@ def self_test():
     return 0
 
 
-# Version mentions in the private store guides (not in the public repository). Only the current
-# version is named like this; history lines read «Build 91: …» and are not matched.
+# Version mentions in the private store guides (not in the public repository): headers, versionCode / build
+# fields, tag examples (v<version>-<build>) and the archive name. Only the current version is named like this;
+# history lines read «Build 91: …» and are not matched.
 DOC_PATTERNS = {
     "android/docs/PLAY_STORE.md": (
         r"versionCode\W{0,4}(\d+)",
         r"Version \**(\d+\.\d+\.\d+)\b",
         r"versionName\W{0,4}(\d+\.\d+\.\d+)",
+        r"\bv\d+\.\d+\.\d+-(\d+)\b",
+        r"\bv(\d+\.\d+\.\d+)-\d+\b",
     ),
     "ios/APP_STORE.md": (
         r"Version \**\d+\.\d+\.\d+\**\s*(?:\(|,|/)\s*Build\s+(\d+)",
         r"Identity › Build\*\s*=\s*`(\d+)`",
         r"geprüften Build (\d+)",
         r"Version \**(\d+\.\d+\.\d+)\b",
+        r"\bv\d+\.\d+\.\d+-(\d+)\b",
+        r"\bv(\d+\.\d+\.\d+)-\d+\b",
+        r"CryptoChecker-(\d+)\.xcarchive",
     ),
 }
 

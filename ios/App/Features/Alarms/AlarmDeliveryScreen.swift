@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 import UIKit
 import UserNotifications
@@ -44,7 +45,9 @@ struct AlarmDeliveryScreen: View {
             if phase == .active { Task { await refresh() } }
         }
         .onChange(of: data.settings) { _, _ in Task { await refresh() } }
-        .onReceive(NotificationCenter.default.publisher(for: .NSProcessInfoPowerStateDidChange)) { _ in
+        // Stromsparmodus: iOS meldet die Änderung nicht unbedingt auf dem Haupt-Thread
+        .onReceive(NotificationCenter.default.publisher(for: .NSProcessInfoPowerStateDidChange)
+            .receive(on: DispatchQueue.main)) { _ in
             Task { await refresh() }
         }
     }

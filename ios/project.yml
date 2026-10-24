@@ -10,12 +10,12 @@ options:
   # knownRegions werden von XcodeGen aus den .xcstrings-Dateien ermittelt
 settings:
   base:
-    SWIFT_VERSION: "5.0"
-    # Swift-5-Modus mit voller Concurrency-Prüfung: meldet Warnungen statt Fehler (siehe README «Swift 6 Migration»)
+    SWIFT_VERSION: "6.0"
+    # Swift-6-Sprachmodus: Concurrency-Befunde sind Fehler (siehe README «Swift 6 Migration»)
     SWIFT_STRICT_CONCURRENCY: complete
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "120"
+    CURRENT_PROJECT_VERSION: "121"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""

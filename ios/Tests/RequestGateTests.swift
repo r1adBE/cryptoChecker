@@ -51,8 +51,13 @@ final class RequestGateTests: XCTestCase {
         let gate = RequestGate(maxTotal: 32, maxPerHost: 1)
         let meter = Meter()
         // Langsame Anfrage 5 s (wird am Ende abgebrochen): viel Luft zur Schranke unten, auch auf einer langsamen Maschine
-        let slow = Task { try await Self.work(gate, meter, host: "slow.test", millis: 5_000) }
-        let queued = Task { try await Self.work(gate, meter, host: "slow.test", millis: 10) }
+        // Typname und Erfassungsliste statt `Self` im Task: Swift 6 (Region-Prüfung) kann `Self` hier nicht prüfen
+        let slow = Task { [gate, meter] in
+            try await RequestGateTests.work(gate, meter, host: "slow.test", millis: 5_000)
+        }
+        let queued = Task { [gate, meter] in
+            try await RequestGateTests.work(gate, meter, host: "slow.test", millis: 10)
+        }
         let started = Date()
         let other = try await Self.work(gate, meter, host: "fast.test", millis: 10)
         XCTAssertEqual(other, "fast.test")
@@ -92,7 +97,9 @@ final class RequestGateTests: XCTestCase {
         }
         let entered = await meter.peak["h.test"]
         XCTAssertEqual(entered, 1)
-        let waiter = Task { try await Self.work(gate, meter, host: "h.test", millis: 10) }
+        let waiter = Task { [gate, meter] in
+            try await RequestGateTests.work(gate, meter, host: "h.test", millis: 10)
+        }
         // Warten, bis er wirklich in der Schlange steht (statt fester 50 ms) — so prüft der Test sicher
         // das Verlassen der Schlange und nicht nur die Prüfung vor dem Einreihen
         for _ in 0..<500 {

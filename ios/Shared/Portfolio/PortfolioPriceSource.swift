@@ -34,6 +34,8 @@ enum PortfolioPriceSource {
     static let keyCoinsAt = "portfolio_coin_list_at"
 
     static let lock = NSLock()
+    // nonisolated(unsafe) (alle Zwischenspeicher hier und in den Erweiterungen): jeder Zugriff nur unter `lock`
+    // (NSLock); `…Locked`-Funktionen nur mit gehaltener Sperre aufrufen. Nicht privat nur für die Tests.
     /// Coin → (Kurs, Abfragezeit).
     nonisolated(unsafe) static var cache: [String: (price: Double, at: Int64)] = [:]
     /// Coins ohne Kurs, weil nur ein ungeprüfter Kerzenkurs da war (kein Bezug vorhanden).

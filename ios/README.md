@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 120 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 121 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -586,40 +586,57 @@ Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/` oder `Tests/` ablege
 
 ## Swift 6 Migration
 
-Alle Ziele bauen im Swift-5-Modus (`SWIFT_VERSION = 5.0`) mit voller Concurrency-Prüfung
-(`SWIFT_STRICT_CONCURRENCY = complete`, in `tools/gen_xcodeproj.py` und `project.yml`). Im Swift-5-Modus sind
-die Befunde Warnungen, keine Fehler — der CI-Build bleibt grün, die Warnungen stehen im Build-Log.
+Alle Ziele (App, Widgets, Unit- und UI-Tests) bauen im Swift-6-Sprachmodus (`SWIFT_VERSION = 6.0`,
+`SWIFT_STRICT_CONCURRENCY = complete`, in `tools/gen_xcodeproj.py` und `project.yml`). Concurrency-Befunde sind damit
+Fehler, nicht mehr Warnungen; dazu prüft Swift 6 die Isolation auch zur Laufzeit.
 
 Regeln für neuen Code:
 
 - Kein neues `nonisolated(unsafe)` ohne Sperre. Globale Einstellungen und Merker gehören in
-  `LockedBox` (`Shared/Util/Theme.swift`), nicht in ein nacktes `static var`.
-- Jedes `@unchecked Sendable` trägt auf derselben Zeile einen Kommentar, welche Sperre den Zustand schützt.
+  `LockedBox` (`Shared/Util/Theme.swift`), nicht in ein nacktes `static var`. Jede verbleibende Stelle trägt
+  einen Kommentar, welche Sperre sie schützt.
+- Jedes `@unchecked Sendable` trägt auf derselben Zeile einen Kommentar, welche Sperre den Zustand schützt (auch in
+  den Tests).
 - Kein `@MainActor` nachträglich auf Typen, die aus Hintergrund-Aufgaben, Widgets oder UIKit-Farb-Closures
   gelesen werden — dort lieber `LockedBox`.
+- Synchrone Rückrufe des Systems, die nicht garantiert auf dem Haupt-Thread kommen (`BGTaskScheduler`,
+  `NWPathMonitor`, `UIColor { traits in … }`, URLSession-Rückrufe, `NotificationCenter` mit `queue: nil`), nur in
+  nicht isolierten Typen anlegen oder die Closure ausdrücklich `@Sendable` machen; SwiftUI-`onReceive` mit
+  Mitteilungen aus beliebigen Threads über `.receive(on: DispatchQueue.main)`. `MainActor.assumeIsolated` nur, wo
+  Apple den Haupt-Thread zusagt (z. B. Ablauf von `beginBackgroundTask`).
+- Tests, die `@MainActor`-Code synchron nutzen (`AppData.shared`, SwiftUI-Views), tragen `@MainActor` an Klasse
+  oder Methode (`XCTestCase` ist nicht isoliert).
+- Keine nackten Regex-Literale `/…/` (im Swift-6-Modus möglich): `#/…/#` oder `Regex(…)`, damit die Quelltext-Wächter
+  (`ios_release_audit.py`, `WatchlistConfirmCallGuard`) exakt bleiben.
 
-Was vor dem Umstellen auf `SWIFT_VERSION = 6.0` noch fehlt:
+Erledigt (statisch geprüft, ohne Xcode — massgebend ist der erste CI-Lauf mit Swift 6):
 
-1. **Warnungen auswerten.** Der erste CI-Lauf mit `complete` liefert die Liste (`grep -E "warning: .*(Sendable|isolat|concurrency)" xcode-build.log`);
-   ohne Xcode wurden nur die offensichtlichen Stellen behoben. Erst wenn das Log keine Concurrency-Warnungen
-   mehr zeigt, kann Swift 6 kommen.
-2. **Portfolio.** `Shared/Portfolio/PortfolioPriceSource.swift`, `Shared/Portfolio/FxRateSource.swift`,
-   `App/Features/Portfolio/PortfolioHistorySource.swift` und `HistoricPriceSource.swift` haben zusammen 13
-   `nonisolated(unsafe) static var`-Zwischenspeicher, die noch nicht geprüft und kommentiert sind.
-3. **Nicht prüfbares `@unchecked Sendable`.** Rund 30 Klassen sind mit `NSLock` geschützt und kommentiert,
-   der Compiler kann das aber nicht nachprüfen. Ersatz: `OSAllocatedUnfairLock` mit `Sendable`-Zustand (ab
-   iOS 16, also schon möglich) oder `Mutex` (Synchronization, erst ab iOS 18). Besonders:
-   `Market` (nicht `final`, gilt nur, solange keine Unterklasse veränderlichen Zustand bekommt),
-   `LockedBox<Value>` und `FirstResult<T>` (Typparameter ohne `Sendable`-Einschränkung) und
-   `BackgroundTaskCompletion` (hält ein `BGTask`, das nicht `Sendable` ist).
-4. **Laufzeitprüfungen.** Swift 6 prüft die Isolation auch zur Laufzeit: Closures, die als `@MainActor`
-   gelten, aber vom System auf einem anderen Thread gerufen werden (Mitteilungs-Delegate, `BGTaskScheduler`,
-   `NWPathMonitor`, UIKit-Farb-Closures), brechen dann ab. Diese Einstiegspunkte vorher einzeln prüfen und
-   wo nötig mit `nonisolated` bzw. `@Sendable` kennzeichnen.
-5. **Widgets und App Intents.** Die statischen Eigenschaften der Intents sind jetzt `let`; `perform()`,
-   Timeline-Provider und `EntityQuery` müssen im Swift-6-Modus noch auf ihre Isolation geprüft werden.
-6. **Test-Fakes.** `FakeKeychain` (`Tests/ProtectedFileTests.swift`) und `FakeStore`
-   (`Tests/AlarmChainIntegrationTests.swift`) sind ohne Sperre und nur nacheinander benutzbar.
+1. **Warnungen der strikten Prüfung.** Der Release-Build meldete im Swift-5-Modus mit `complete` 0 Warnungen
+   (Schwelle 0); das Test-Ziel ist nicht an die Schwelle gebunden und wurde nur statisch durchgesehen.
+2. **Portfolio.** Die `nonisolated(unsafe) static var`-Zwischenspeicher in `PortfolioPriceSource` (samt `+Store`),
+   `FxRateSource`, `PortfolioHistorySource` (samt `+Chain`), `HistoricPriceSource` und `PortfolioRouteResolver` sind
+   geprüft und kommentiert: jeder Zugriff nur unter der genannten Sperre (auch in `PortfolioPriceSourceClearTests`).
+4. **Laufzeitprüfungen.** Einstiegspunkte durchgesehen: Mitteilungs-Delegate (`@preconcurrency`-Konformität,
+   `willPresent` `nonisolated`), `BGTaskScheduler`-Handler und `expirationHandler` (nicht isoliert),
+   `NWPathMonitor` (`NetworkStatus`, `UnmeteredNetwork`: nicht isoliert), UIKit-Farb-Closures (nur in nicht isolierten
+   Typen), `NotificationCenter`-Beobachter, Combine/`onReceive` (Stromsparmodus über den Haupt-Thread),
+   `AVSpeechSynthesizerDelegate` (`nonisolated`), WebSocket-Ping (`@Sendable`), `WidgetCenter.getCurrentConfigurations`.
+5. **Widgets und App Intents.** Timeline-Provider, `EntityQuery` und `perform()` sind `async` in nicht isolierten
+   Typen (kein synchroner Rückruf, der abbrechen könnte); Live-Aktivitäten laufen über `LiveActivityController`.
+6. **Test-Fakes.** `FakeStore` (`AlarmChainIntegrationTests`, `RefreshEffectsWiringTests`, `AlarmLogTests`) und der
+   Zähler `AlarmPairPicker.makeRowsCalls` sind jetzt mit Sperre.
+
+Noch offen:
+
+3. **Nicht prüfbares `@unchecked Sendable`.** Rund 35 Klassen sind mit `NSLock` geschützt und kommentiert, der
+   Compiler kann das aber nicht nachprüfen. Ersatz: `OSAllocatedUnfairLock` mit `Sendable`-Zustand (ab iOS 16, also
+   schon möglich) oder `Mutex` (Synchronization, erst ab iOS 18). Besonders: `Market` (nicht `final`, gilt nur, solange
+   keine Unterklasse veränderlichen Zustand bekommt), `LockedBox<Value>` und `FirstResult<T>` (Typparameter ohne
+   `Sendable`-Einschränkung) und `BackgroundTaskCompletion` (hält ein `BGTask`, das nicht `Sendable` ist).
+7. **Test-Fakes ohne Sperre.** `FakeKeychain` (`Tests/ProtectedFileTests.swift`) und `GenerationBox`
+   (`Tests/StorageKeyRenewTests.swift`) sind nur nacheinander benutzbar (kommentiert).
+8. **Laufzeit im CI bestätigen.** Ein Abbruch wegen falscher Isolation zeigt sich erst beim Ausführen: Unit- und
+   UI-Tests im ersten Swift-6-Lauf auf `EXC_BREAKPOINT`/«Incorrect actor executor assumption» prüfen.
 
 ## Falls sich das Projekt nicht öffnen lässt
 

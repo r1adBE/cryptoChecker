@@ -237,6 +237,7 @@ enum HistoricPriceSource {
     private static let fxSeriesTtlMillis: Int64 = 6 * 60 * 60_000
     private static let fxSeriesLock = NSLock()
     /// «Währung|von|bis» → (Tageskurse, Abfragezeit); nur im Speicher.
+    // nonisolated(unsafe): jeder Zugriff nur unter `fxSeriesLock` (NSLock)
     nonisolated(unsafe) private static var fxSeriesCache: [String: (rates: [Int: Double], at: Int64)] = [:]
 
     /// Tageskurse USD → `currency` von `from` bis `to` (EZB über Frankfurter, in Stücken von höchstens

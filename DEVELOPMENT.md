@@ -446,7 +446,12 @@ of `0.0123` can be 1.23 % (fraction) or 0.0123 % (percent) – compare it with
 ```sh
 cd android
 ./gradlew testDebugUnitTest        # or: ./gradlew test (debug + release, all modules)
+./gradlew :app:testDebugUnitTest -PperformanceTests=only   # performance tests alone (timings, 2000 pairs)
 ```
+
+The performance tests (`app/src/test/.../performance`) are excluded from the normal run: their timings vary when lint or
+other tests run in parallel. The *Android* workflow runs them in their own step («Performance tests») with nothing else
+running; `-PperformanceTests=true` includes them in a normal run.
 
 Reports: `android/app/build/reports/tests/testDebugUnitTest/index.html`.
 
@@ -683,10 +688,55 @@ touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (opt
   iOS is not covered (Xcode output is not byte-reproducible).
 
 The *Android* workflow also shows, never failing: lint warnings counted by id (top 20, one notice;
-`.github/scripts/lint_warnings.py`) and unit-test line coverage of `:app` and `:marketdata` (Kover, one notice;
-`.github/scripts/coverage_summary.py`). Kover is applied only with `-Pcoverage=true`, so the normal test run is not
-instrumented; locally: `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under
-`app/build/reports/kover/`).
+`.github/scripts/lint_warnings.py`) and unit-test line coverage (see below).
+
+**Coverage (display only, no threshold yet).** Both platforms report line coverage of the unit tests as ONE notice on
+the run page, each with two numbers: *total* (every measured source file) and *logic* – the share that tests are
+expected to cover. A threshold follows once the logic numbers are stable.
+
+* *Android* (`android.yml`, step «Coverage (display only)», `continue-on-error`): Kover is applied only with
+  `-Pcoverage=true` (no new plugin or dependency; lock files and `verification-metadata.xml` already cover it), so the
+  gate itself runs uninstrumented and this step re-runs the debug unit tests. `:app` merges `:marketdata` into its
+  report (`kover(project(":marketdata"))` in `app/build.gradle.kts`): the exchange parsers run mostly in the contract
+  tests of `:app` (`ExchangeContractTest` with `testdata/exchanges/exchange_*.json` and `recorded/*.json`), which the
+  `:marketdata` report alone would miss. `.github/scripts/coverage_summary.py --merged app app=app
+  marketdata=marketdata` attributes every file to the module whose `src/main` contains it and prints per module and in
+  total; `:marketdata`'s own report is listed as «own tests only». *Logic* leaves out UI – source files containing
+  `@Composable` (screens, components and their Compose-generated classes), `RemoteViews` or `androidx.glance` (widget
+  rendering) and `…Activity.kt` – and generated code (anything not in `src/main`: Hilt, Room `_Impl`, `BuildConfig`,
+  `R`). ViewModels and other classes in `ui/` packages without `@Composable` count as logic. `--self-test` checks the
+  classification and the merge. Locally: `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under
+  `app/build/reports/kover/`; the summary needs the XML: `:app:koverXmlReportDebug :marketdata:koverXmlReportDebug`),
+  then in `android/`: `python3 ../.github/scripts/coverage_summary.py --merged app app=app marketdata=marketdata`.
+* *iOS* (`ios.yml`, job «iOS unit tests»): the unit-test run itself records coverage (`-enableCodeCoverage YES`,
+  result bundle `UnitTests.xcresult`; same run, only the flag). The step «Coverage (display only)»
+  (`continue-on-error`, every command `|| true`) reads `xcrun xccov view --report --json` with
+  `.github/scripts/xccov_summary.py` (`--self-test`). Test bundles are left out; a file compiled into app and widget
+  extension counts once (best entry). *Logic* = files under `ios/Shared/` that define no SwiftUI view (no
+  `some View`). Locally: run the tests in Xcode with coverage on (scheme › Test › Options › Code Coverage), then
+  `xcrun xccov view --report --json <path to .xcresult> > /tmp/cov.json` and
+  `python3 .github/scripts/xccov_summary.py /tmp/cov.json`.
+* Where logic is still uncovered, prefer a parity fixture (`testdata/parity/`, same cases on both platforms) over a
+  single-platform test; network sources take an OkHttp `Interceptor` as fake provider (e.g. `FxRateSourceTest`).
+
+**Mutation tests (portfolio and tax logic).** `.github/workflows/mutation.yml` (Saturdays and by hand, never a required
+check) first runs `./gradlew :app:testDebugUnitTest` (must be green), then `.github/scripts/mutation_test.py`
+(standard library only, `--self-test` without Gradle). For each target file – `PortfolioFifo`, `PortfolioFifoLots`,
+`PortfolioCalculatorAverage`, `PortfolioFeeExpenses`, `PortfolioCostFx`, `TaxEngineCore/Uk/Ca/Fr/At/Jp` and
+`TaxExportRows` under `domain/portfolio` – it creates mutants by fixed rules (`<`↔`<=`, `>`↔`>=`, `==`↔`!=`,
+`&&`↔`||`, `+`↔`-`, `*`↔`/`, `+=`↔`-=`, `true`↔`false`, `.subtract(`→`.add(`, `.multiply(`↔`.divide(`, `.min(`↔`.max(`
+and `return` of a constant of the declared type; never in strings, comments or generics), at most 4 per file and 50 in
+total, chosen deterministically (hash of file, line, column and rule), no new mutant after 55 minutes. Each mutant is
+written into the file, the test classes listed for that file in `TARGETS` run with
+`./gradlew :app:testDebugUnitTest --tests '<pattern>' -q --offline`, and the file is restored in a `finally` (also when
+the run is cancelled). Result: «killed» (tests red), «survived» (tests green: a warning with file:line and the change)
+or «not compilable» (not counted); a notice per file with the share killed and one with the total, via `annotate.py`.
+The run is red only when the baseline or the script fails (missing target, a pattern that matches no test, a file that
+could not be restored). A surviving mutant means a missing test – or an equivalent change; add a case (preferably a
+parity fixture) rather than a filter. When a target file is renamed or its tests move, update `TARGETS` (the self-test
+checks that every target exists). Locally (repository root, after a green test run):
+`python3 .github/scripts/mutation_test.py --list` shows the chosen mutants,
+`python3 .github/scripts/mutation_test.py --findings /tmp/m.txt --only TaxEngineUk --online` runs them.
 
 ## 13. Market tab caching
 
@@ -796,7 +846,10 @@ symbols, coin names and (Add pair only) exchanges, accent- and case-insensitive.
 symbol → symbol prefix → name prefix → name contains → exchange; an exchange word needs ≥ 3
 characters («btc kraken»). Names come only from data already on the device (the saved logo/name
 list and stock names; Android `CoinLogoRepository.loadSavedNames` reads the saved file offline) —
-search never triggers a request.
+search never triggers a request. In the watchlist the folded search fields of each pair are cached
+while the search is open (`WatchSearchIndex` / `WatchlistSearchIndex`, keyed by pair id with the searched
+fields and coin name as fingerprint); a keystroke folds only the query (tests `WatchSearchIndexTest`,
+`WatchlistSearchIndexTests`).
 
 **Coin-first search (build 56)** (`ExplorerCoinSearch.kt` / `ExplorerCoinSearch.swift`, parity cases
 `coin_search.json`): «Add pair» lists coins first. Rank: exact symbol (or gold/silver alias) → exact name →
@@ -2291,6 +2344,11 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 121: Swift 6 language mode (`SWIFT_VERSION 6.0`, `ios/README.md` «Swift 6 Migration»), `WatchSearchIndex` /
+  `rememberWatchSearchResult` (iOS `WatchlistSearchIndex`), `coverage_summary.py` «logic» + Kover merge of :marketdata,
+  `xccov_summary.py`, `mutation_test.py` + `mutation.yml`, `indicators.json` parity, `rsi` period ≤ 0 → null (Android),
+  `release_readiness` guide patterns for tag examples / archive name, `-PperformanceTests` (only/true; performance
+  tests in their own CI step), `LocalResources` in `WatchlistBulkAdd`.
 * Build 120: `AlarmCheckStatus.batch` (Android), `BulkAddRunner` end states (cancelled/failed, finish time, undo window
   60 s, `deleteNewWatchesForUndo` without alarms), `BulkAddDisplay`, iOS `WatchInsertion`, `DenseRowText.convertedMaxLines`
   / `convertedLineLimit`, `lineStart` (relative time at line start), `MarketMoveScale` opposing market/breadth → mixed.

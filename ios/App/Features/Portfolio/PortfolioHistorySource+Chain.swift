@@ -36,6 +36,7 @@ extension PortfolioHistorySource {
     private static let chainMissMillis: Int64 = 60 * 60_000
     private static let chainParallel = 4
     private static let chainLock = NSLock()
+    // nonisolated(unsafe) (`chainMemory`, `chainMisses`): jeder Zugriff nur unter `chainLock` (NSLock).
     // Begrenzt (`BoundedCache`, 512 Coins wie `chainMemory`/`chainMisses` mit `MEMORY_CACHE_ENTRIES`,
     // Android) statt unbegrenzter Wörterbücher.
     /// Coin → (Reihe der Kette samt Weg, Abfragezeit); nur unter `chainLock`.

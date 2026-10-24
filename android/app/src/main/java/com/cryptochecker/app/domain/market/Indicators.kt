@@ -6,9 +6,9 @@ object Indicators {
     fun smaOfLast(values: List<Double>, n: Int): Double? =
         if (n > 0 && values.size >= n) values.takeLast(n).average() else null
 
-    /** RSI nach Wilder über [period] Schritte; null bei zu wenig Daten. */
+    /** RSI nach Wilder über [period] Schritte; null bei zu wenig Daten oder [period] nicht positiv (wie iOS). */
     fun rsi(closes: List<Double>, period: Int = 14): Double? {
-        if (closes.size <= period) return null
+        if (period <= 0 || closes.size <= period) return null
         var gain = 0.0
         var loss = 0.0
         for (i in 1..period) {

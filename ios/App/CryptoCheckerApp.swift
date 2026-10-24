@@ -238,7 +238,9 @@ struct CryptoCheckerApp: App {
 }
 
 // @preconcurrency: iOS ruft die Mitteilungs-Delegate-Methoden auf dem Haupt-Thread auf; das SDK markiert das
-// Protokoll aber nicht als MainActor (die Klasse ist es über UIApplicationDelegate).
+// Protokoll aber nicht als MainActor (die Klasse ist es über UIApplicationDelegate). Swift 6 prüft das zur Laufzeit
+// (Abbruch auf einem anderen Thread): `willPresent` braucht den MainActor nicht und ist darum `nonisolated`;
+// `didReceive` bleibt isoliert (springt zum Paar, ruft `completionHandler` erst nach dem Schreiben).
 final class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication,
@@ -279,8 +281,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUser
 
     // Mitteilungen auch zeigen, wenn die App offen ist — passive Kurs-Mitteilungen (Gruppe «prices») nur in der
     // Mitteilungszentrale: Die Kurse stehen ohnehin in der offenen App, ein Banner je Aktualisierung störte nur.
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter, willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
         if notification.request.content.threadIdentifier == "prices" {
             completionHandler([.list])
             return

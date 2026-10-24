@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 import UIKit
 
@@ -43,7 +44,9 @@ struct BackgroundOffBanner: View {
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { state = BackgroundAvailability.current() }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .NSProcessInfoPowerStateDidChange)) { _ in
+        // Stromsparmodus: iOS meldet die Änderung nicht unbedingt auf dem Haupt-Thread
+        .onReceive(NotificationCenter.default.publisher(for: .NSProcessInfoPowerStateDidChange)
+            .receive(on: DispatchQueue.main)) { _ in
             state = BackgroundAvailability.current()
         }
     }

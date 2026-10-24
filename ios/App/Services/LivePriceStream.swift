@@ -298,7 +298,8 @@ actor LivePriceStream {
                     }
                 } else if now - lastPing >= Self.protocolPingMillis {
                     lastPing = now
-                    socket.sendPing { error in
+                    // @Sendable: URLSession ruft die Antwort auf der eigenen Warteschlange (nicht auf diesem Akteur)
+                    socket.sendPing { @Sendable error in
                         if error != nil { socket.cancel(with: .goingAway, reason: nil) }
                     }
                 }

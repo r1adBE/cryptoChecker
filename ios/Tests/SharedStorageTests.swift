@@ -457,16 +457,11 @@ final class SharedStorageTests: XCTestCase {
 
     func testOnceGateLetsExactlyOneThrough() {
         let gate = OnceGate()
-        let lock = NSLock()
-        var passed = 0
+        let passed = LockedBox(0)
         DispatchQueue.concurrentPerform(iterations: 200) { _ in
-            if gate.claim() {
-                lock.lock()
-                passed += 1
-                lock.unlock()
-            }
+            if gate.claim() { passed.write { $0 += 1 } }
         }
-        XCTAssertEqual(passed, 1)
+        XCTAssertEqual(passed.current, 1)
         XCTAssertFalse(gate.claim())
     }
 

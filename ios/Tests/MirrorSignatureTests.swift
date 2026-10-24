@@ -262,7 +262,7 @@ private actor MirrorLoadGate {
 }
 
 /// Zählt Aufrufe (aus einer @Sendable-Closure); `wait(for:)` kehrt zurück, sobald so viele erfolgt sind.
-private final class MirrorCallSignal: @unchecked Sendable {
+private final class MirrorCallSignal: @unchecked Sendable { // @unchecked: Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var count = 0
     private var waiters: [(target: Int, continuation: CheckedContinuation<Void, Never>)] = []
@@ -292,7 +292,7 @@ private final class MirrorCallSignal: @unchecked Sendable {
 }
 
 /// Verstellbare Uhr für `MirrorTrust` (die Closure muss @Sendable sein).
-private final class MirrorTestClock: @unchecked Sendable {
+private final class MirrorTestClock: @unchecked Sendable { // @unchecked: `current` nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var current: Int64
 

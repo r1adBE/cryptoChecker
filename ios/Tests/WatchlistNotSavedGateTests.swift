@@ -101,7 +101,10 @@ final class WatchlistNotSavedGateTests: XCTestCase {
             return (0, false)
         }
         let atWrite = canAskAtWrite ?? canAsk
-        let write = { (0..<writes).filter { _ in !gate.needsConfirmation(notSaved: notSaved, canAsk: atWrite) }.count }
+        // Ausdrücklich @MainActor: runConsented nimmt eine MainActor-Funktion (in Swift 6 Sendable)
+        let write: @MainActor () -> Int = {
+            (0..<writes).filter { _ in !gate.needsConfirmation(notSaved: notSaved, canAsk: atWrite) }.count
+        }
         let written = skipConfirm ? write() : gate.runConsented(write)
         return (written, written == writes)
     }

@@ -54,8 +54,10 @@ struct AlarmPairPicker: View {
     @Environment(\.appAccent) private var accent
 
     #if DEBUG
-    /// Aufrufe von `makeRows` (nur Tests: Erzeugen des Structs rechnet nicht).
-    nonisolated(unsafe) static var makeRowsCalls = 0
+    /// Aufrufe von `makeRows` (nur Tests: Erzeugen des Structs rechnet nicht). Hinter einer Sperre, weil
+    /// `makeRows` im Hintergrund läuft.
+    nonisolated private static let makeRowsCounter = LockedBox(0)
+    nonisolated static var makeRowsCalls: Int { makeRowsCounter.current }
     #endif
 
     /// Schlüssel der Paare ohne Kurs (`Source`): Hash statt Array, billig in `body`.
@@ -69,7 +71,7 @@ struct AlarmPairPicker: View {
     /// Zeilen in der Reihenfolge der Merkliste — wie Android `alarmPickerRows`.
     nonisolated static func makeRows(_ watches: [Watch]) -> [Row] {
         #if DEBUG
-        makeRowsCalls += 1
+        makeRowsCounter.write { $0 += 1 }
         #endif
         return watches.map { watch in
             Row(id: watch.id, displayName: watch.displayName, marketName: watch.marketName, favorite: watch.favorite,

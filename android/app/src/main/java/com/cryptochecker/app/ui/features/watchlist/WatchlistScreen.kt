@@ -238,9 +238,8 @@ fun WatchlistScreen(
     val filtering = ui.searching && trimmedQuery.isNotEmpty()
     // Namen der Coins («bitcoin» findet BTC), einmal je Liste
     val searchNames = rememberSearchNames(visible)
-    val shown = remember(ordered, trimmedQuery, filtering, searchNames) {
-        if (filtering) ordered.filter { it.matchesSearch(trimmedQuery, searchNames[it.id]) } else ordered
-    }
+    // Suchschlüssel je Paar einmal gefaltet, solange die Suche offen ist; je Tastendruck nur die Anfrage
+    val shown = rememberWatchSearchResult(ordered, if (filtering) trimmedQuery else "", searchNames, ui.searching)
     // Kein Sprungknopf in der Mehrfachauswahl: unten steht dann die Leiste
     val jump = rememberWatchlistJump(listState, shown.size, ui.sortMode || ui.selecting, reduceMotion, scope)
 

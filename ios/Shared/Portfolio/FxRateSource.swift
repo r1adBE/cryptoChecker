@@ -18,6 +18,7 @@ enum FxRateSource {
     private static let staleMillis: Int64 = 24 * 60 * 60_000
 
     private static let lock = NSLock()
+    // nonisolated(unsafe) (`cache`, `rateTimes`, `bgnMissedAt`): jeder Zugriff nur unter `lock` (NSLock)
     /// Währung → (Kurs, Abfragezeit).
     nonisolated(unsafe) private static var cache: [String: (rate: Double, at: Int64)] = [:]
     private static let gate = PortfolioSerialGate()
