@@ -190,6 +190,7 @@ jobs:
 
       # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app). The same run records the line
       # coverage (-enableCodeCoverage, result bundle UnitTests.xcresult); the step «Coverage (display only)» reads it.
+      # -continueBuildingAfterErrors (also in the UI tests): all compile errors of the test target in one run.
       - name: Unit tests (iOS Simulator)
         working-directory: ios
         env:
@@ -199,6 +200,7 @@ jobs:
           echo "Thread Sanitizer: $TSAN"
           set +e
           xcodebuild test \
+            -continueBuildingAfterErrors \
             -enableThreadSanitizer "$TSAN" \
             -enableCodeCoverage YES \
             -project CryptoChecker.xcodeproj \
@@ -309,6 +311,7 @@ jobs:
           LOG="$RUNNER_TEMP/xcode-uitest.log"
           set +e
           xcodebuild test \
+            -continueBuildingAfterErrors \
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Debug \
