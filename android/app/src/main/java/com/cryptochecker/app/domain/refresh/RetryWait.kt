@@ -5,8 +5,9 @@ package com.cryptochecker.app.domain.refresh
  * Datenbank-Schlüssel beim Start noch nicht lesbar (Keystore vor dem ersten Entsperren), meldet der
  * Worker «erneut versuchen», und WorkManager startet ihn nach einem linearen Backoff neu. Solange
  * zeigt die Merkliste «Speicher noch gesperrt – neuer Versuch in 27 s» (zählt im Prozess herunter), das
- * Listen-Widget die feste Uhrzeit «Neuer Versuch um 14:32», der Bericht danach die Nummer des Versuchs. Reines Kotlin (JVM-testbar); nur Android — iOS kennt keinen
- * wiederholten Auftrag (der Widget-Knopf läuft dort direkt im Intent).
+ * Listen-Widget die feste Uhrzeit «Neuer Versuch um 14:32», der Bericht danach die Nummer des Versuchs.
+ * Reines Kotlin (JVM-testbar); nur Android — iOS kennt keinen wiederholten Auftrag (der Widget-Knopf läuft dort
+ * direkt im Intent).
  */
 object RetryWait {
 
@@ -48,6 +49,12 @@ object RetryWait {
      * Fest statt herunterzählend — ohne Neuzeichnen bleibt sie stehen, nie ein negativer Wert.
      */
     fun widgetRetryTime(retryAt: Long, now: Long): Long? = retryAt.takeIf { it > 0 && it > now }
+
+    /**
+     * Gemerkte Uhrzeit des Versuchs abgelaufen (gesetzt und nicht nach [now]) — beim App-Start löschen: endete der
+     * Prozess vor dem geplanten Löschen, bliebe sie sonst bis zum nächsten vollen Zeichnen gespeichert.
+     */
+    fun widgetRetryExpired(retryAt: Long, now: Long): Boolean = retryAt > 0 && retryAt <= now
 
     /** Nummer des Versuchs (1 = erster) aus WorkManagers runAttemptCount (0 = erster). */
     fun attemptNumber(runAttemptCount: Int): Int = runAttemptCount.coerceAtLeast(0) + 1

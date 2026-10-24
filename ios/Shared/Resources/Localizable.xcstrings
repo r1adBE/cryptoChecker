@@ -220017,6 +220017,197 @@
         }
       }
     },
+    "portfolio_csv_skip_amount_too_small" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الكمية صغيرة جدًا – تصبح 0 عند الحفظ"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "příliš malé množství – při uložení bude 0"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mængden er for lille – bliver 0 ved gemning"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menge zu klein – wird beim Speichern 0"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "πολύ μικρή ποσότητα – γίνεται 0 κατά την αποθήκευση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "amount too small – rounds to 0 when saved"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cantidad demasiado pequeña – al guardar queda en 0"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مقدار خیلی کم است – هنگام ذخیره 0 می‌شود"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "määrä liian pieni – tallennettaessa 0"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "quantité trop petite – vaut 0 à l’enregistrement"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הכמות קטנה מדי – תהיה 0 בשמירה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मात्रा बहुत कम – सहेजने पर 0 हो जाती है"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "túl kicsi mennyiség – mentéskor 0 lesz"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "jumlah terlalu kecil – menjadi 0 saat disimpan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "quantità troppo piccola – al salvataggio diventa 0"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数量が小さすぎます – 保存時に0になります"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "수량이 너무 작음 – 저장 시 0이 됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mengden er for liten – blir 0 ved lagring"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hoeveelheid te klein – wordt 0 bij opslaan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "za mała ilość – przy zapisie wyniesie 0"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "quantidade demasiado pequena – fica 0 ao guardar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "quantidade pequena demais – fica 0 ao salvar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cantitate prea mică – devine 0 la salvare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "слишком малое количество – при сохранении станет 0"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sasi shumë e vogël – bëhet 0 kur ruhet"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "för liten mängd – blir 0 när den sparas"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จำนวนน้อยเกินไป – จะเป็น 0 เมื่อบันทึก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "miktar çok küçük – kaydedilince 0 olur"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "замала кількість – під час збереження стане 0"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "số lượng quá nhỏ – thành 0 khi lưu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数量太小 – 保存时会变为 0"
+          }
+        }
+      }
+    },
     "portfolio_csv_skip_bad_date" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -220968,6 +221159,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你自己账户之间的移动 – 无需记账"
+          }
+        }
+      }
+    },
+    "portfolio_csv_skip_invalid_swap" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مبادلة بدون عملة مُستلَمة أو كمية مُستلَمة صالحة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "směna bez platné přijaté mince nebo přijatého množství"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bytte uden gyldig modtaget coin eller modtaget mængde"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tausch ohne gültigen erhaltenen Coin bzw. erhaltene Menge"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ανταλλαγή χωρίς έγκυρο νόμισμα ή ποσότητα που ελήφθη"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "swap without a valid coin or amount received"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "intercambio sin moneda o cantidad recibida válida"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تبادل بدون سکهٔ دریافتی یا مقدار دریافتی معتبر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vaihto ilman kelvollista saatua kolikkoa tai saatua määrää"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "échange sans coin reçu ni quantité reçue valide"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "החלפה בלי מטבע או כמות תקינים שהתקבלו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मान्य मिले कॉइन या मिली मात्रा के बिना स्वैप"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "csere érvényes kapott coin vagy kapott mennyiség nélkül"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tukar tanpa koin atau jumlah diterima yang valid"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "scambio senza moneta o quantità ricevuta valida"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効な受け取ったコインまたは数量のないスワップ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유효한 받은 코인 또는 수량이 없는 스왑"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bytte uten gyldig mottatt coin eller mottatt mengde"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ruil zonder geldige ontvangen munt of hoeveelheid"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "wymiana bez prawidłowej otrzymanej monety lub ilości"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "troca sem moeda ou quantidade recebida válida"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "troca sem moeda ou quantidade recebida válida"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "schimb fără monedă sau cantitate primită validă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "обмен без корректной полученной монеты или количества"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "shkëmbim pa monedhë ose sasi të marrë të vlefshme"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "byte utan giltigt mottaget mynt eller mottagen mängd"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สลับเหรียญโดยไม่มีเหรียญหรือจำนวนที่ได้รับที่ถูกต้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "geçerli alınan coin veya miktar olmadan takas"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "обмін без коректної отриманої монети або кількості"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hoán đổi không có coin hoặc số lượng nhận về hợp lệ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "兑换缺少有效的收到的币或数量"
           }
         }
       }

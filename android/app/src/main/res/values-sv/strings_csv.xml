@@ -84,4 +84,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">samma transaktions-ID med annat belopp – kontrollera manuellt</string>
     <string name="portfolio_csv_skip_staking_unpaired">stakingpost utan motpost – kontrollera innehavet</string>
+    <string name="portfolio_csv_skip_amount_too_small">för liten mängd – blir 0 när den sparas</string>
+    <string name="portfolio_csv_skip_invalid_swap">byte utan giltigt mottaget mynt eller mottagen mängd</string>
 </resources>

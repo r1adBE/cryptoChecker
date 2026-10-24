@@ -77,4 +77,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">ID transaksi sama dengan jumlah berbeda – periksa manual</string>
     <string name="portfolio_csv_skip_staking_unpaired">entri staking tanpa entri lawan – periksa saldo</string>
+    <string name="portfolio_csv_skip_amount_too_small">jumlah terlalu kecil – menjadi 0 saat disimpan</string>
+    <string name="portfolio_csv_skip_invalid_swap">tukar tanpa koin atau jumlah diterima yang valid</string>
 </resources>

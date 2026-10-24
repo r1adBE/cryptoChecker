@@ -46,6 +46,11 @@ enum CsvImportSkipReason: String {
     case DUPLICATE_TXID_DIFFERENT
     /// Kraken-Ein-/Auszahlung einer Staking-Variante («ETH2.S», «DOT.S») ohne Gegenbuchung — Bestand prüfen. Wie Android.
     case STAKING_UNPAIRED
+    /// Menge rundet auf den gespeicherten 18 Nachkommastellen auf 0 — würde beim Speichern abgelehnt
+    /// (`CsvImportMapping.unsavableReason`). Wie Android.
+    case AMOUNT_TOO_SMALL
+    /// Tausch ohne gültigen erhaltenen Coin bzw. ohne erhaltene Menge — würde beim Speichern abgelehnt. Wie Android.
+    case INVALID_SWAP
 }
 
 /// Übersprungene Zeile; `line` = Zeilennummer in der Datei (1 = erste Zeile).

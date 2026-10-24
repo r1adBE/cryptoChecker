@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.portfolio.csvimport
 
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
@@ -189,9 +190,11 @@ object CsvImportMapping {
     /**
      * Vorschau: Doppelte gegen [existingKeys] abtrennen, die neuen umrechnen ([fx] und [usdtUsd] wie [CsvImport.priceInUsdt])
      * und zuordnen. Binance: fast gleiche Geschäfte wie schon importierte ([CsvImportBinance.possibleDuplicates]) kommen
-     * in die Übersprungenen statt ein zweites Mal ins Portfolio. Umgerechnet wird in Blöcken zu [PREVIEW_BLOCK] Zeilen
-     * (jede Zeile für sich, das Ergebnis ist dasselbe); nach jedem Block [onRow] (fertig, gesamt) — für den Fortschritt
-     * und um abzubrechen (eine Ausnahme dort bricht die Vorschau ab).
+     * in die Übersprungenen statt ein zweites Mal ins Portfolio, ebenso Zeilen, die das Speichern ablehnen würde
+     * ([unsavableReason]; nach Zeile sortiert, bei gleicher Zeile Datei-Gründe, dann diese — sie fehlen auch in
+     * [CsvImportPreview.missingFx], [CsvImportPreview.missingPrice] und [CsvImportPreview.usdtApproximate]). Umgerechnet
+     * wird in Blöcken zu [PREVIEW_BLOCK] Zeilen (jede Zeile für sich, das Ergebnis ist dasselbe); nach jedem Block
+     * [onRow] (fertig, gesamt) — für den Fortschritt und um abzubrechen (eine Ausnahme dort bricht die Vorschau ab).
      */
     fun preview(
         result: CsvImportResult,
@@ -212,25 +215,56 @@ object CsvImportMapping {
             priced += CsvImport.priceInUsdt(block, zone, usdtUsd, fx)
             onRow?.invoke(priced.size, fresh.size)
         }
+        // Zeilen, die das Speichern ablehnen würde, schon hier als übersprungen: Vorschau und Speichern stimmen überein
+        val mapped = priced.map { it to toTx(it, withdrawalsAsTransfer) }
+        val reasons = mapped.map { unsavableReason(it.second) }
+        val kept = mapped.filterIndexed { i, _ -> reasons[i] == null }
+        val unsavable = mapped.mapIndexedNotNull { i, m -> reasons[i]?.let { CsvImportSkip(m.second.line, it) } }
+        val keptPriced = kept.map { it.first }
+        val heldSkips = split.fresh.filter { it.key in held }
+            .map { CsvImportSkip(it.line, CsvImportSkipReason.POSSIBLE_DUPLICATE) }
         return CsvImportPreview(
             format = result.format,
-            transactions = priced.map { toTx(it, withdrawalsAsTransfer) },
+            transactions = kept.map { it.second },
             duplicates = split.duplicates.size,
-            skipped = (result.skipped + split.fresh.filter { it.key in held }.map { CsvImportSkip(it.line, CsvImportSkipReason.POSSIBLE_DUPLICATE) })
-                .sortedBy { it.line },
-            missingFx = priced.filter { it.needsFx }.map { it.row.line },
-            missingPrice = priced.filter { it.missingPrice }.map { it.row.line },
+            skipped = (result.skipped + heldSkips + unsavable).sortedBy { it.line },
+            missingFx = keptPriced.filter { it.needsFx }.map { it.row.line },
+            missingPrice = keptPriced.filter { it.missingPrice }.map { it.row.line },
             zone = result.zone,
             localTimes = result.localTimes,
             dateOrder = result.dateOrder,
             dateOrderAmbiguous = result.dateOrderAmbiguous,
-            stableSwaps = fresh.any { it.stableSwap },
+            stableSwaps = keptPriced.any { it.row.stableSwap },
             decimalSample = result.decimalSample,
             decimalMark = result.decimalMark,
             columns = result.columns,
-            usdtApproximate = priced.filter { it.usdtApproximate }.map { it.row.line },
+            usdtApproximate = keptPriced.filter { it.usdtApproximate }.map { it.row.line },
             tooLarge = result.tooLarge,
         )
+    }
+
+    /** Höchstlänge des erhaltenen Coins eines Tauschs — dieselbe Grenze wie beim Speichern (`PortfolioJson.MAX_FEE_COIN`). */
+    const val MAX_TO_COIN = 15
+
+    /**
+     * Grund, warum das Speichern [tx] ablehnen würde (Bereinigung `cleanForSave` samt Prüfung in
+     * `PortfolioRepository.insertImported`), sonst null. Die Vorschau führt solche Zeilen als übersprungen, damit eine
+     * einzelne Zeile nie den ganzen Import kippt. Geprüft in dieser Reihenfolge:
+     *  - Coin nach trim/Grossschreibung leer → [CsvImportSkipReason.MISSING_FIELD]
+     *  - Menge auf 18 Nachkommastellen gerundet ([PortfolioDecimal.amount], halbe auf gerade) ≤ 0 →
+     *    [CsvImportSkipReason.AMOUNT_TOO_SMALL]
+     *  - nur Tausch: erhaltener Coin (trim/gross) fehlt, leer, länger als [MAX_TO_COIN] oder gleich dem Coin, oder
+     *    erhaltene Menge fehlt bzw. gerundet ≤ 0 → [CsvImportSkipReason.INVALID_SWAP]
+     */
+    fun unsavableReason(tx: CsvImportTx): CsvImportSkipReason? {
+        val coin = PortfolioCalculator.normalizeCoin(tx.coin)
+        if (coin.isEmpty()) return CsvImportSkipReason.MISSING_FIELD
+        if (PortfolioDecimal.amount(tx.amount).signum() <= 0) return CsvImportSkipReason.AMOUNT_TOO_SMALL
+        if (tx.type != PortfolioTxType.SWAP) return null
+        val toCoin = tx.toCoin?.let { PortfolioCalculator.normalizeCoin(it) }.orEmpty()
+        val toCoinOk = toCoin.isNotEmpty() && toCoin.length <= MAX_TO_COIN && toCoin != coin
+        val toAmountOk = tx.toAmount?.let { PortfolioDecimal.amount(it).signum() > 0 } == true
+        return if (toCoinOk && toAmountOk) null else CsvImportSkipReason.INVALID_SWAP
     }
 
     /**

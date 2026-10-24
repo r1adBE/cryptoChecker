@@ -17,6 +17,8 @@ enum PortfolioBackgroundWrite: Equatable, Sendable {
 /// Reihenfolge aller Schreibvorgänge von `portfolio.json` in diesem Prozess: jedes Schreiben unter einer Sperre (nie
 /// zwei gleichzeitig) mit fortlaufender Nummer. Ein Schreiben im Hintergrund nennt die Nummer, die beim Erfassen seines
 /// Stands galt; hat inzwischen ein anderes geschrieben, unterbleibt es (sein Stand wäre älter).
+/// Bewusst so: Schreibt gerade der Import einer grossen Datei im Hintergrund, warten synchrone Schreibwege auf dem
+/// MainActor kurz an der Sperre (Kodieren und Schreiben der Datei), statt neben ihm zu schreiben.
 final class PortfolioWriteOrder: @unchecked Sendable { // @unchecked: `generation` nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var generation = 0

@@ -172,6 +172,38 @@ final class PortfolioImportSaveTests: XCTestCase {
         XCTAssertEqual(order.current, fresh + 1)
     }
 
+    /// Gleichzeitige Threads: nie zwei Schreibvorgänge zugleich, jede Nummer genau einmal, keine verloren. Nicht auf
+    /// dem MainActor: die Arbeit läuft auf beliebigen Threads und fasst nur Sendable-Werte an.
+    nonisolated func testWriteOrderSerializesConcurrentWrites() {
+        let order = PortfolioWriteOrder()
+        let inside = LockedBox(0)
+        let overlaps = LockedBox(0)
+        let numbers = LockedBox<[Int]>([])
+        let skipped = LockedBox(0)
+        DispatchQueue.concurrentPerform(iterations: 400) { i in
+            let body = { () -> Int in
+                inside.write { $0 += 1 }
+                if inside.read({ $0 }) > 1 { overlaps.write { $0 += 1 } }
+                usleep(50)
+                inside.write { $0 -= 1 }
+                return i
+            }
+            if i.isMultiple(of: 2) {
+                _ = order.write(body)
+                numbers.write { $0.append(-1) }
+            } else if let done = order.write(ifUnchangedSince: order.current, body) {
+                numbers.write { $0.append(done.generation) }
+            } else {
+                skipped.write { $0 += 1 }
+            }
+        }
+        XCTAssertEqual(overlaps.read { $0 }, 0, "nie zwei Schreibvorgänge zugleich")
+        let conditional = numbers.read { $0 }.filter { $0 > 0 }
+        XCTAssertEqual(Set(conditional).count, conditional.count, "jede Nummer höchstens einmal")
+        XCTAssertEqual(order.current, numbers.read { $0.count }, "jedes Schreiben zählt genau einmal")
+        XCTAssertEqual(numbers.read { $0.count } + skipped.read { $0 }, 400)
+    }
+
     // MARK: Anzeige
 
     /// «Abbrechen»: Aufgabe abgebrochen, Anzeige weg; eine späte Meldung zählt nicht.
@@ -205,8 +237,9 @@ final class PortfolioImportSaveTests: XCTestCase {
         XCTAssertEqual(run.phase, .loading)
     }
 
+    /// Wartet höchstens 5 s (langsame CI-Runner).
     private func waitUntil(_ condition: () -> Bool) async throws {
-        for _ in 0..<200 where !condition() {
+        for _ in 0..<1_000 where !condition() {
             try await Task.sleep(nanoseconds: 5_000_000)
         }
         XCTAssertTrue(condition())

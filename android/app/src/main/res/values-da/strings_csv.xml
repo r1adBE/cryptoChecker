@@ -84,4 +84,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">samme transaktions-ID med andet beløb – tjek manuelt</string>
     <string name="portfolio_csv_skip_staking_unpaired">staking-postering uden modpostering – tjek beholdningen</string>
+    <string name="portfolio_csv_skip_amount_too_small">mængden er for lille – bliver 0 ved gemning</string>
+    <string name="portfolio_csv_skip_invalid_swap">bytte uden gyldig modtaget coin eller modtaget mængde</string>
 </resources>

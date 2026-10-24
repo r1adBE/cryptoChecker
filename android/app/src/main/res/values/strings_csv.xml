@@ -85,4 +85,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">same transaction ID with a different amount – check by hand</string>
     <string name="portfolio_csv_skip_staking_unpaired">staking entry without counter-entry – check holdings</string>
+    <string name="portfolio_csv_skip_amount_too_small">amount too small – rounds to 0 when saved</string>
+    <string name="portfolio_csv_skip_invalid_swap">swap without a valid coin or amount received</string>
 </resources>

@@ -138,8 +138,11 @@ extension AppData {
         clean.toAmountExact = swap ? tx.toAmountExact.flatMap { $0 > 0 ? $0 : nil } : nil
         clean.swapValueExact = swap ? tx.swapValueExact.flatMap { $0 >= 0 ? $0 : nil } : nil
         clean.importBatch = PortfolioImportBatch.clean(tx.importBatch)
-        if swap && (clean.toCoin == nil || clean.toAmountExact == nil) { return nil }
-        guard !clean.coin.isEmpty, clean.amountExact > 0 else { return nil }
+        // Ungültig (dieselbe Regel stuft die Zeile in der CSV-Vorschau als übersprungen ein): Coin leer, Menge gerundet
+        // ≤ 0, Tausch ohne gültigen erhaltenen Coin bzw. ohne erhaltene Menge
+        let invalid = CsvImportMapping.unsavableReason(coin: clean.coin, type: clean.type, amount: clean.amountExact,
+                                                       toCoin: clean.toCoin, toAmount: clean.toAmountExact)
+        guard invalid == nil else { return nil }
         return clean
     }
 

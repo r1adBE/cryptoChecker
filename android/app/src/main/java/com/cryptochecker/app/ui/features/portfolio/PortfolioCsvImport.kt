@@ -65,9 +65,11 @@ fun PortfolioCsvImportFlow(
     val links by viewModel.links.collectAsStateWithLifecycle()
     val linked by viewModel.linked.collectAsStateWithLifecycle()
     val progress by viewModel.progress.collectAsStateWithLifecycle()
-    // Saveable: die Dateiauswahl ist eine eigene Activity
+    // Saveable: die Dateiauswahl ist eine eigene Activity; [awaitingPick] = ihr Ergebnis steht noch aus
     var picked by rememberSaveable { mutableStateOf(false) }
+    var awaitingPick by rememberSaveable { mutableStateOf(false) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        awaitingPick = false
         if (uri == null) {
             viewModel.reset()
             onDismiss()
@@ -78,10 +80,15 @@ fun PortfolioCsvImportFlow(
     LaunchedEffect(Unit) {
         if (!picked) {
             picked = true
+            awaitingPick = true
             // Das ViewModel lebt länger als der Ablauf: keine Vorschau eines früheren Imports stehen lassen
             viewModel.reset()
             runCatchingCancellable { launcher.launch(CSV_MIME_TYPES) }
-                .onFailure { onDismiss() }
+                .onFailure { awaitingPick = false; onDismiss() }
+        } else if (csvImportOrphaned(picked, awaitingPick, viewModel.state.value)) {
+            // Prozess beendet und neu gestartet: das neue ViewModel kennt den Ablauf nicht mehr — schliessen statt
+            // unsichtbar offen zu bleiben (ein erneutes «CSV importieren» startet dann wieder)
+            onDismiss()
         }
     }
     val close = { viewModel.reset(); onDismiss() }
@@ -107,7 +114,7 @@ fun PortfolioCsvImportFlow(
         // Alle Zeilen angelegt: Verknüpfen der Umbuchungen läuft und ist nicht abbrechbar — dann kein «Abbrechen»
         CsvImportState.Loading, CsvImportState.Saving -> {
             val saving = s == CsvImportState.Saving
-            val cancellable = !saving || progress?.let { it.step == CsvImportStep.SAVE && it.done >= it.total } != true
+            val cancellable = canCancelSave(saving, progress)
             val cancel = { if (cancellable) { viewModel.cancelLoad(); if (!saving) onDismiss() } }
             AlertDialog(
                 onDismissRequest = cancel,
@@ -198,6 +205,14 @@ private fun CsvImportProgressText(saving: Boolean, progress: CsvImportProgress?)
         }
     }
 }
+
+/**
+ * Ablauf ohne Inhalt: Datei schon gewählt ([picked]), kein Ergebnis der Dateiauswahl ausstehend ([awaitingPick]) und
+ * das ViewModel im Zustand [CsvImportState.Idle] — so nur nach einem Prozessende (das ViewModel ist neu). Ein vor dem
+ * Prozessende gespeicherter Import bleibt gespeichert; nur die Meldung «N importiert» entfällt.
+ */
+internal fun csvImportOrphaned(picked: Boolean, awaitingPick: Boolean, state: CsvImportState): Boolean =
+    picked && !awaitingPick && state == CsvImportState.Idle
 
 /** Unterstützte Quellen (Markennamen, nicht übersetzt) — Untertitel im Menü. */
 internal const val CSV_IMPORT_SOURCES = "Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda"

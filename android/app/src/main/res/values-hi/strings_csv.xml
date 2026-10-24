@@ -84,4 +84,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">वही लेन-देन ID अलग राशि के साथ – हाथ से जाँचो</string>
     <string name="portfolio_csv_skip_staking_unpaired">बिना प्रति-प्रविष्टि की स्टेकिंग प्रविष्टि – शेष जाँचो</string>
+    <string name="portfolio_csv_skip_amount_too_small">मात्रा बहुत कम – सहेजने पर 0 हो जाती है</string>
+    <string name="portfolio_csv_skip_invalid_swap">मान्य मिले कॉइन या मिली मात्रा के बिना स्वैप</string>
 </resources>

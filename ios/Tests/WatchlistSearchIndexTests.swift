@@ -122,4 +122,31 @@ final class WatchlistSearchIndexTests: XCTestCase {
         _ = index.names(for: swapped, names: ["SOL": "Sol"], tradFiPairs: [], stockNames: { [:] })
         XCTAssertEqual(index.namesBuilt, 4)
     }
+
+    /// Geänderte TradFi-Paare bzw. Aktiennamen: neu zusammengestellt (wie direkt gerechnet); unverändert aus dem
+    /// Zwischenspeicher. Aktiennamen zählen nur mit TradFi-Paaren.
+    func testNamesReactToTradFiPairsAndStockNames() {
+        let stored = ["BTC": "Bitcoin"]
+        let index = WatchlistSearchIndex()
+        _ = index.names(for: watches, names: stored, tradFiPairs: [], stockNames: { ["XRP": "Ripple AG"] })
+        XCTAssertEqual(index.namesBuilt, 1)
+        // Ohne TradFi-Paare werden Aktiennamen nicht gelesen: andere zählen nicht
+        _ = index.names(for: watches, names: stored, tradFiPairs: [], stockNames: { ["XRP": "Andere AG"] })
+        XCTAssertEqual(index.namesBuilt, 1)
+        let pairs: Set<String> = [watches[3].logoPairKey]
+        let stocks = ["XRP": "Ripple AG"]
+        let withPairs = index.names(for: watches, names: stored, tradFiPairs: pairs, stockNames: { stocks })
+        XCTAssertEqual(index.namesBuilt, 2, "neue TradFi-Paare")
+        XCTAssertEqual(withPairs, WatchlistSearch.names(for: watches, names: stored, tradFiPairs: pairs,
+                                                        stockNames: { stocks }))
+        _ = index.names(for: watches, names: stored, tradFiPairs: pairs, stockNames: { stocks })
+        XCTAssertEqual(index.namesBuilt, 2, "unverändert: Zwischenspeicher")
+        let renamed = ["XRP": "Ripple Labs"]
+        let fresh = index.names(for: watches, names: stored, tradFiPairs: pairs, stockNames: { renamed })
+        XCTAssertEqual(index.namesBuilt, 3, "neue Aktiennamen")
+        XCTAssertEqual(fresh, WatchlistSearch.names(for: watches, names: stored, tradFiPairs: pairs,
+                                                    stockNames: { renamed }))
+        _ = index.names(for: watches, names: stored, tradFiPairs: [], stockNames: { renamed })
+        XCTAssertEqual(index.namesBuilt, 4, "TradFi-Paare wieder weg")
+    }
 }

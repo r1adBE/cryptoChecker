@@ -84,4 +84,6 @@
 
     <string name="portfolio_csv_skip_duplicate_txid_different">همان شناسه تراکنش با مبلغ متفاوت – دستی بررسی کن</string>
     <string name="portfolio_csv_skip_staking_unpaired">ثبت استیکینگ بدون ثبت مقابل – موجودی را بررسی کن</string>
+    <string name="portfolio_csv_skip_amount_too_small">مقدار خیلی کم است – هنگام ذخیره 0 می‌شود</string>
+    <string name="portfolio_csv_skip_invalid_swap">تبادل بدون سکهٔ دریافتی یا مقدار دریافتی معتبر</string>
 </resources>
