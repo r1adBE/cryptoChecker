@@ -18,6 +18,7 @@ import com.cryptochecker.app.domain.portfolio.summaryCsv
 import com.cryptochecker.app.domain.portfolio.yearSummary
 import com.cryptochecker.app.performance.PerformanceTiming.TRANSACTIONS
 import com.cryptochecker.app.performance.PerformanceTiming.assertLimitOnly
+import com.cryptochecker.app.performance.PerformanceTiming.assertScales
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -137,12 +138,12 @@ class TaxPerformanceTest {
 
     @Test
     fun unitedKingdom() {
-        // Share Pooling: wächst bekanntlich schneller als linear — der Section-104-Pool führt je Kalendertag mit Zugang
-        // einen Herkunftsteil (TaxPool mit Zeitzone), und jeder Abgang nimmt aus ALLEN Teilen anteilig (`takeParts`),
-        // dazu trägt jede Zeile alle Teile (Devisenkurs je Teil). Zugänge (bis zur Zahl der Tage) × Abgänge je Coin,
-        // zweimal je Export (Veräusserungen für Spanne, Übersicht und Gewinne; Vermerke). Nur die feste Grenze
-        // (Verhältnis zu 2500 im Protokoll)
-        assertLimitOnly("Steuer-Export UK $YEAR", 40_000.0, TRANSACTIONS) { n ->
+        // Share Pooling: der Section-104-Pool führt je Kalendertag mit Zugang einen Herkunftsteil (TaxPool mit
+        // Zeitzone); ein Abgang merkt sich nur seinen Anteil (PortfolioCostPartPool, O(1) bzw. O(log n)), und die
+        // Zeilen rechnen ihren Einstand in der Steuerwährung aus der laufenden Summe des Pools (weightedSum) statt Teil
+        // für Teil.
+        // Erwartet rund 300–900 ms
+        assertScales("Steuer-Export UK $YEAR", 5_000.0, TRANSACTIONS) { n ->
             val input = inputs(n, TaxTemplate.UK)
             medianMillis { export(TaxTemplate.UK, input) }
         }

@@ -86,7 +86,7 @@ internal class WatchlistRefreshController(
      * Ende der letzten vollständigen Aktualisierung (0 = noch keine): Daraus zählt «Aktualisieren»
      * im Menü die Sekunden der Sperre herunter ([RefreshDebounce.remainingSeconds]).
      */
-    fun lastFullRefreshAt(): Long = refreshStats.lastRefresh()
+    fun lastFullRefreshAt(): Long = refreshStats.lastFullRefresh()
 
     /** Ohne 15-s-Sperre, z. B. gleich nach dem Hinzufügen neuer Paare. */
     fun refreshAll() {

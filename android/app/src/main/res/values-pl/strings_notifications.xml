@@ -9,7 +9,7 @@
     <string name="notification_depeg_title">USDT po %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indeks wzrósł powyżej %1$d – według tego indeksu na rynku panuje chciwość.</string>
     <string name="notification_fng_below">Indeks spadł poniżej %1$d – według tego indeksu na rynku panuje strach.</string>
-    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_title">Indeks nastrojów (Fear &amp; Greed): %1$d</string>
     <string name="notification_gas_btc_text">Poniżej Twojego limitu %1$s sat/vB · Przelew ≈ %2$s</string>
     <string name="notification_gas_btc_title">Opłata Bitcoin: %1$s sat/vB</string>
     <string name="notification_gas_eth_text">Poniżej Twojego limitu %1$s gwei · Przelew ≈ %2$s</string>

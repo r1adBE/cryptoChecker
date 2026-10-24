@@ -1,0 +1,27 @@
+{
+  "description": "TaxRulesDate (Android TaxRulesDate.kt / iOS TaxRulesDate.swift): 'rulesDate' is the stand of the hard-coded country rules (YYYY-MM). 'month' = [year, month] or null when not YYYY-MM with ASCII digits and month 1-12. 'stale' = rulesStale(taxYear, rulesDate): the tax year (start year as in TaxTemplate.period) is after the year of rulesDate; unreadable rulesDate = false. The export dialog then shows a warning, it never blocks.",
+  "month": [
+    { "rulesDate": "2026-10", "month": [2026, 10] },
+    { "rulesDate": "2027-01", "month": [2027, 1] },
+    { "rulesDate": "2026-12", "month": [2026, 12] },
+    { "rulesDate": " 2026-10 ", "month": [2026, 10] },
+    { "rulesDate": "2026-13", "month": null },
+    { "rulesDate": "2026-00", "month": null },
+    { "rulesDate": "2026-1", "month": null },
+    { "rulesDate": "26-10", "month": null },
+    { "rulesDate": "2026/10", "month": null },
+    { "rulesDate": "2026-10-01", "month": null },
+    { "rulesDate": "٢٠٢٦-١٠", "month": null },
+    { "rulesDate": "", "month": null }
+  ],
+  "stale": [
+    { "name": "same year", "taxYear": 2026, "rulesDate": "2026-10", "stale": false },
+    { "name": "earlier year", "taxYear": 2024, "rulesDate": "2026-10", "stale": false },
+    { "name": "next year", "taxYear": 2027, "rulesDate": "2026-10", "stale": true },
+    { "name": "two years later", "taxYear": 2028, "rulesDate": "2026-10", "stale": true },
+    { "name": "rules from January, same year", "taxYear": 2027, "rulesDate": "2027-01", "stale": false },
+    { "name": "rules from December, next year", "taxYear": 2027, "rulesDate": "2026-12", "stale": true },
+    { "name": "unreadable rules date", "taxYear": 2030, "rulesDate": "2026-13", "stale": false },
+    { "name": "empty rules date", "taxYear": 2030, "rulesDate": "", "stale": false }
+  ]
+}

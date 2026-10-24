@@ -111,8 +111,7 @@ fun PortfolioExportDialog(
     // Kopfzeile jeder Datei: Vorlage, Methode, Steuerjahr, Währung, Version; Arbeitsunterlage – keine Steuerberatung
     val info = stringResource(R.string.tax_export_info_template, templateName, methodLabel, yearLabel, workCurrency, BuildConfig.VERSION_NAME)
     val disclaimer = stringResource(R.string.tax_export_workpaper_disclaimer)
-    // Länder-Vorlagen: Stand der hinterlegten Regeln in jeder Kopfzeile
-    val rulesLine = if (template != TaxTemplate.NEUTRAL) stringResource(R.string.tax_export_rules_date, TaxTemplate.RULES_DATE) else null
+    val rulesLine = taxRulesLine(template) // Länder-Vorlagen: Regelstand (Monat/Jahr der App-Sprache) in jeder Kopfzeile
     // Beträge in USDT, umgerechnet mit USD-Kursen × USDT/USD-Tagesschluss (ohne Schluss 1, je Zeile vermerkt) — in jeder Kopfzeile
     val usdtNote = stringResource(R.string.tax_export_usdt_usd_note)
     // Eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose): Schluss des UTC-Tags der Transaktion — in jeder Steuer-CSV
@@ -339,6 +338,7 @@ fun PortfolioExportDialog(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+                    TaxRulesNotice(template, taxYear) // Regelstand; Steuerjahr danach: Warnhinweis (blockiert nicht)
                     // Hinweise der Vorlage (was die App nicht kann bzw. wie sie zählt)
                     taxTemplateNotes(template).forEach { note ->
                         Text(

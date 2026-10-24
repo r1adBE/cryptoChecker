@@ -380,7 +380,7 @@ struct RefreshPricesIntent: AppIntent {
 
     func perform() async throws -> some IntentResult {
         let tap = WidgetRefreshState.onTap(running: WidgetRefresh.isRunning,
-                                           lastFinishedAt: SharedStorage.lastRefreshAt,
+                                           lastFinishedAt: SharedStorage.lastFullRefreshAt,
                                            now: TimeUtils.nowMillis)
         switch tap {
         case .start:

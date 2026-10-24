@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Az adó-CSV eltérhet a „realizált” értéktől (az ország adószabályai).</string>
     <string name="tax_export_rule">&gt; 1 év: eladás a vétel dátuma + 1 naptári év után. Dátumok helyi idő szerint. Árfolyamok: az ügylet napjának EKB napi árfolyama; ha nincs, az utolsó árfolyam legfeljebb 7 nappal korábbról.</string>
     <string name="tax_export_rules_date">Szabályok állapota: %1$s</string>
+    <string name="tax_export_rules_stale">A szabályok állapota: %1$s – %2$s esetén a kulcsok és a mentességek változhattak. Ellenőrizd az értékeket.</string>
     <string name="tax_export_spouse_gift">házastársnak/élettársnak – nincs nyereség, nincs veszteség</string>
     <string name="tax_export_summary">Éves összesítő %1$s (CSV)</string>
     <string name="tax_export_swap">csere</string>

@@ -33,7 +33,8 @@ object RefreshDebounce {
     /**
      * @param running läuft gerade eine vollständige Aktualisierung (gleich welcher Herkunft)?
      * @param lastFinishedAt Ende der letzten vollständigen Aktualisierung mit mindestens einem
-     *   Kurs; 0 = noch keine. Liegt sie in der Zukunft (Uhr verstellt), wird aktualisiert.
+     *   Kurs (`RefreshStats.lastFullRefresh`; Live-Takte zählen nicht); 0 = noch keine. Liegt sie in der Zukunft
+     *   (Uhr verstellt), wird aktualisiert.
      */
     fun decide(running: Boolean, lastFinishedAt: Long, now: Long, windowMillis: Long = WINDOW_MILLIS): Decision {
         if (running) return Decision.RUNNING

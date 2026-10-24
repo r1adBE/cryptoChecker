@@ -9,7 +9,7 @@
     <string name="notification_depeg_title">USDT по %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Індекс піднявся вище %1$d — за цим індексом на ринку жадібність.</string>
     <string name="notification_fng_below">Індекс упав нижче %1$d — за цим індексом на ринку страх.</string>
-    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_title">Індекс настроїв (Fear &amp; Greed): %1$d</string>
     <string name="notification_gas_btc_text">Нижче твоєї межі %1$s sat/vB · Переказ ≈ %2$s</string>
     <string name="notification_gas_btc_title">Комісія Bitcoin: %1$s sat/vB</string>
     <string name="notification_gas_eth_text">Нижче твоєї межі %1$s gwei · Переказ ≈ %2$s</string>

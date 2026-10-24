@@ -1,0 +1,14 @@
+{
+  "description": "15-s lock for the manual full refresh (Android RefreshDebounce.kt + RefreshStats.lastFullRefresh / iOS RefreshDebounce.swift + SharedStorage.lastFullRefreshAt). The lock reads only the end of the last FULL refresh (fullAgo, ms before now; null = none yet). Live ticks only move the display time of the widget header (liveAgo = lastRefreshAt, ms before now; null = none) and never block the manual refresh. expected: decide(running, lastFinishedAt = full, now); remainingSeconds: countdown in the menu (rounded up, 0 = free).",
+  "now": 1792000000000,
+  "cases": [
+    {"name": "live tick 5 s ago, last full refresh 10 min ago: start", "running": false, "fullAgo": 600000, "liveAgo": 5000, "expected": "start", "remainingSeconds": 0},
+    {"name": "live tick just now, no full refresh yet: start", "running": false, "fullAgo": null, "liveAgo": 0, "expected": "start", "remainingSeconds": 0},
+    {"name": "full refresh 8 s ago (no live): recent", "running": false, "fullAgo": 8000, "liveAgo": null, "expected": "recent", "remainingSeconds": 7},
+    {"name": "full refresh 8 s ago, live tick 1 s ago: still recent from the full refresh", "running": false, "fullAgo": 8000, "liveAgo": 1000, "expected": "recent", "remainingSeconds": 7},
+    {"name": "full refresh exactly 15 s ago: start", "running": false, "fullAgo": 15000, "liveAgo": 2000, "expected": "start", "remainingSeconds": 0},
+    {"name": "full refresh 14.2 s ago: 1 s left", "running": false, "fullAgo": 14200, "liveAgo": 200, "expected": "recent", "remainingSeconds": 1},
+    {"name": "running wins", "running": true, "fullAgo": 600000, "liveAgo": 5000, "expected": "running", "remainingSeconds": 0},
+    {"name": "full refresh in the future (clock set back): start", "running": false, "fullAgo": -5000, "liveAgo": 5000, "expected": "start", "remainingSeconds": 0}
+  ]
+}

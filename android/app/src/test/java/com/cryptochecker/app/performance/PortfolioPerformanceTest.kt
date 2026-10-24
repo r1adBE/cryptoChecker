@@ -6,7 +6,6 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.performance.PerformanceTiming.TRANSACTIONS
-import com.cryptochecker.app.performance.PerformanceTiming.assertLimitOnly
 import com.cryptochecker.app.performance.PerformanceTiming.assertScales
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
 import org.junit.Assert.assertEquals
@@ -71,8 +70,8 @@ class PortfolioPerformanceTest {
     @Test
     fun summaryAverage() {
         // Ø ohne Herkunftsteile (Karte in USDT, Widget, Alarme): linear wie FIFO; erwartet rund 50–150 ms für 10 000
-        // Transaktionen. Nur «Seit Kauf» in der Anzeigewährung und der Steuer-Export führen die Teile
-        // (PortfolioCalculatorAverage, `takeParts`: Zugänge × Abgänge je Coin) — deren Grenze prüft summaryAverageWithParts
+        // Transaktionen. Nur «Seit Kauf» in der Anzeigewährung und der Steuer-Export führen die Teile — siehe
+        // summaryAverageWithParts
         assertScales("Portfolio-Übersicht Ø", limitMillis = 1_500.0, sizes = TRANSACTIONS) { n ->
             val trades = PortfolioPerformanceData.trades(n)
             medianMillis {
@@ -86,10 +85,10 @@ class PortfolioPerformanceTest {
 
     @Test
     fun summaryAverageWithParts() {
-        // Ø mit Herkunftsteilen («Seit Kauf» in der Anzeigewährung): wächst schneller als linear — jeder Abgang nimmt aus
-        // ALLEN Teilen anteilig, bis der Bestand ganz weg ist. Darum nur die feste Grenze; erwartet rund 0,5–2 s für
-        // 10 000 Transaktionen (Verhältnis zu 2500 etwa ×10–16)
-        assertLimitOnly("Portfolio-Übersicht Ø mit Herkunftsteilen", limitMillis = 15_000.0, sizes = TRANSACTIONS) { n ->
+        // Ø mit Herkunftsteilen («Seit Kauf» in der Anzeigewährung): ein Abgang merkt sich nur seinen Anteil
+        // (PortfolioCostPartPool, O(1) bzw. O(log n) je Abgang), die abgegebenen Teile werden erst beim Auslesen
+        // gerechnet — die Karte liest nur die offenen Teile. Erwartet rund 60–200 ms für 10 000 Transaktionen
+        assertScales("Portfolio-Übersicht Ø mit Herkunftsteilen", limitMillis = 2_000.0, sizes = TRANSACTIONS) { n ->
             val trades = PortfolioPerformanceData.trades(n)
             medianMillis { summary(trades, CostMethod.AVERAGE) }
         }

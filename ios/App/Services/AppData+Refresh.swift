@@ -23,14 +23,19 @@ extension AppData {
             refreshState.refreshing = false
             backgroundTask.end()
         }
-        await waitForLiveApply()
+        // Übernimmt gerade ein anderer Schreiber (Live-Kurse, Einzelabfrage): abwarten, damit nicht zwei Durchläufe
+        // denselben Stand auswerten (Alarme doppelt). Abgebrochen: kein Durchlauf
+        guard await waitForLiveApply() else { return nil }
         let liveIds = liveCoveredIds()
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, liveIds: liveIds)
-        // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile) wie nach einer Aktualisierung
-        // (deaktivierte Paare zählen nicht: sie werden nie abgefragt)
+        // Übernehmen der Reihe nach (`PriceWriteGate`) — auch nach einem Abbruch: das Ergebnis ist schon geholt
+        _ = await priceWriteGate.acquire(cancellable: false)
+        defer { priceWriteGate.release() }
+        // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile, Sperre «Aktualisieren») wie nach einer
+        // Aktualisierung (deaktivierte Paare zählen nicht: sie werden nie abgefragt)
         // `lastAlarmCheckAt` (Sperre der Hintergrund-Aufgabe) bleibt: kein voller Lauf (wie Android)
         if outcome.checked == 0 && !liveIds.isEmpty && liveIds.count == snapshot.watches.filter({ !$0.disabled }).count {
-            SharedStorage.lastRefreshAt = TimeUtils.nowMillis
+            SharedStorage.markFullRefresh()
         }
         apply(outcome, full: true)
         analyzeActivity()
@@ -42,8 +47,8 @@ extension AppData {
     /// der Menüpunkt ist grau mit Countdown (`WatchlistMenuHead`). Live-Takt und neue Paare laufen ohne Sperre.
     @discardableResult
     func refreshAllByUser() async -> RefreshDebounce.Decision {
-        let decision = RefreshDebounce.decide(running: refreshState.refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
-                                              now: TimeUtils.nowMillis)
+        let decision = RefreshDebounce.decide(running: refreshState.refreshing,
+                                              lastFinishedAt: SharedStorage.lastFullRefreshAt, now: TimeUtils.nowMillis)
         if decision == .start {
             // Von Hand aktualisiert: Charts im Aktionsblatt nicht mehr aus dem Zwischenspeicher
             SheetChartStore.shared.invalidateAll()
@@ -125,11 +130,16 @@ extension AppData {
         guard !refreshState.refreshingWatchIds.contains(watchId) else { return }
         refreshState.refreshingWatchIds.insert(watchId)
         defer { refreshState.refreshingWatchIds.remove(watchId) }
-        await waitForLiveApply()
+        guard await waitForLiveApply() else { return }
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings, onlyWatchId: watchId)
+        // Der Reihe nach übernehmen; ein inzwischen neuerer Kurs (z. B. eine schnellere vollständige Aktualisierung)
+        // bleibt (`PriceWriteOrder` in `Outcome.apply(to:)`)
+        _ = await priceWriteGate.acquire(cancellable: false)
+        defer { priceWriteGate.release() }
         apply(outcome, full: false)
     }
 
+    /// Nur mit gehaltenem `priceWriteGate` aufrufen (Aufrufer: `refreshAll`, `refreshOne`, `applyLive`).
     /// - Parameter live: gespeicherte Live-Kurse (`applyLive`): Ändert das Ergebnis nur Kurs,
     ///   Änderung und Zeit (kein Alarm, keine Mitteilung, kein Fehler), wird der Stand still
     ///   übernommen (`mutate(…, quiet: true)`) — siehe `snapshot`.
@@ -139,7 +149,7 @@ extension AppData {
         // Ohne einen einzigen Kurs (z. B. offline) bleibt die Zeit der letzten
         // erfolgreichen Aktualisierung stehen.
         if full && outcome.failed < outcome.checked {
-            SharedStorage.lastRefreshAt = TimeUtils.nowMillis
+            SharedStorage.markFullRefresh()
             // Sperre der Hintergrund-Aufgabe: nur nach einer vollen Prüfung (die meisten Paare mit Kurs)
             if BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
                 SharedStorage.lastAlarmCheckAt = TimeUtils.nowMillis

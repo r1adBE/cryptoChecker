@@ -7,15 +7,14 @@ extension TaxEngines {
     /// CA: Verlust einer Zeile in der Steuerwährung (CAD) — Erlös zum Kurs des Verkaufs, Einstand je Herkunftsteil zum
     /// Kurs seines Datums (wie der Export); Rückgabe = Verlust als USDT-Betrag zum Kurs des Verkaufs, 0 = kein Verlust in
     /// CAD; nil = ein Kurs fehlt. Wie Android.
-    private static func caLossAtSaleRate(_ row: PortfolioDisposal, _ fx: (Int64) -> Decimal?) -> Decimal? {
+    private static func caLossAtSaleRate(_ row: PortfolioDisposal, _ fx: PortfolioPartWeight) -> Decimal? {
         guard let proceeds = row.proceedsUsdt, let cost = row.costUsdt,
-              let rate = fx(row.sellTime), rate > 0 else { return nil }
+              let rate = fx.of(row.sellTime), rate > 0 else { return nil }
         var costT: Decimal = 0
         if !row.costParts.isEmpty {
-            for p in row.costParts {
-                guard let r = fx(p.time) else { return nil }
-                costT += PortfolioDecimal.multiply(p.usdt, r)
-            }
+            // Σ Teil × Kurs seines Datums (grosse Ansichten des Pools ohne Auslesen, `weightedSum`)
+            guard let sum = row.costParts.weightedSum(fx) else { return nil }
+            costT = sum
         } else if cost != 0 {
             costT = PortfolioDecimal.multiply(cost, rate)
         }
@@ -27,6 +26,8 @@ extension TaxEngines {
                               _ lost: inout [PortfolioLostFeeCost],
                               _ unassigned: inout [PortfolioUnassignedFee],
                               _ fx: ((Int64) -> Decimal?)? = nil) -> [PortfolioDisposal] {
+        // Ein Gewicht für alle Zeilen (die laufende Summe je Pool wird so nur einmal gerechnet)
+        let fxWeight = fx.map { PortfolioPartWeight($0) }
         let days: [LocalDay] = steps.map { day($0.time, zone) }
         // Bestand nach jedem Schritt (nur Mengen) für «Bestand am Fensterende»
         var heldAfter: [Decimal] = []
@@ -127,7 +128,7 @@ extension TaxEngines {
                     // ein Gewinn sein); ohne Kurse in USDT
                     // Schenkung an Ehe-/Lebenspartner: kein Verlust (ITA 73(1))
                     guard !s.spouseGift, let g = rows[k].gainUsdt else { continue }
-                    let loss: Decimal = fx.flatMap { caLossAtSaleRate(rows[k], $0) } ?? max(0, -g)
+                    let loss: Decimal = fxWeight.flatMap { caLossAtSaleRate(rows[k], $0) } ?? max(0, -g)
                     guard loss > 0, rows[k].costUsdt != nil, s.qty > 0 else { continue }
                     let part: Decimal = n == s.qty ? loss : PortfolioDecimal.divide(loss * n, s.qty)
                     if part > 0 {

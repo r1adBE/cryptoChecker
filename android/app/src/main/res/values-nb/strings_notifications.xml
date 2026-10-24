@@ -9,7 +9,7 @@
     <string name="notification_depeg_title">USDT på %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indeksen steg over %1$d – ifølge denne indeksen regnes markedet som grådig.</string>
     <string name="notification_fng_below">Indeksen falt under %1$d – ifølge denne indeksen regnes markedet som redd.</string>
-    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_title">Stemningsindeks (Fear &amp; Greed): %1$d</string>
     <string name="notification_gas_btc_text">Under grensen din på %1$s sat/vB · Overføring ≈ %2$s</string>
     <string name="notification_gas_btc_title">Bitcoin-gebyr: %1$s sat/vB</string>
     <string name="notification_gas_eth_text">Under grensen din på %1$s gwei · Overføring ≈ %2$s</string>

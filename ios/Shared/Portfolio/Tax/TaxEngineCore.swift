@@ -69,25 +69,28 @@ struct TaxTaken: Sendable {
     let removed: Decimal
     let removedPriced: Decimal
     let cost: Decimal
-    let parts: [PortfolioCostPart]
+    let parts: PortfolioCostPartList
 
     var removedUnpriced: Decimal { removed - removedPriced }
 }
 
-/// Durchschnitts-Topf (Menge mit/ohne Kaufpreis, Einstand mit Herkunft) — wie `TaxPool` (Android). Mit `zone`: Herkunftsteile
-/// desselben Kalendertags zusammengefasst (gleicher Devisenkurs; kein O(Zugänge × Abgänge)).
+/// Durchschnitts-Topf (Menge mit/ohne Kaufpreis, Einstand mit Herkunft) — wie `TaxPool` (Android). Herkunftsteile in
+/// `PortfolioCostPartPool` (je Abgang O(1)); mit `zone` die Teile desselben Kalendertags zusammengefasst (gleicher
+/// Devisenkurs).
 struct TaxPool: Sendable {
     private(set) var priced: Decimal = 0
     private(set) var unpriced: Decimal = 0
     private(set) var cost: Decimal = 0
-    private(set) var parts: [PortfolioCostPart] = []
+    private var costParts: PortfolioCostPartPool
     private let zone: TimeZone?
-    /// Mit `zone`: Tag → Index in `parts` (erster Zeitpunkt des Tags bleibt).
-    private var dayIndex: [LocalDay: Int] = [:]
 
     init(zone: TimeZone? = nil) {
         self.zone = zone
+        costParts = PortfolioCostPartPool(zone: zone)
     }
+
+    /// Offene Herkunftsteile (Summe exakt `cost`).
+    var parts: [PortfolioCostPart] { costParts.toArray(total: cost) }
 
     var held: Decimal { priced + unpriced }
 
@@ -103,7 +106,7 @@ struct TaxPool: Sendable {
     }
 
     /// Zugang mit fortgeführtem Einstand (Herkunftsteile `from`).
-    mutating func addCarried(_ qty: Decimal, from: [PortfolioCostPart]) {
+    mutating func addCarried(_ qty: Decimal, from: PortfolioCostPartList) {
         guard qty > 0 else { return }
         priced += qty
         for p in from { addCost(p.time, p.usdt) }
@@ -112,24 +115,12 @@ struct TaxPool: Sendable {
     /// Einstand direkt zum Teil mit Kaufpreis.
     mutating func addCost(_ time: Int64, _ usdt: Decimal) {
         cost += usdt
-        guard usdt != 0 else { return }
-        guard let zone else {
-            parts.append(PortfolioCostPart(time: time, usdt: usdt))
-            return
-        }
-        let day = LocalDay(date: Date(timeIntervalSince1970: Double(time) / 1000), timeZone: zone)
-        if let i = dayIndex[day] {
-            parts[i] = PortfolioCostPart(time: parts[i].time, usdt: parts[i].usdt + usdt)
-        } else {
-            dayIndex[day] = parts.count
-            parts.append(PortfolioCostPart(time: time, usdt: usdt))
-        }
+        costParts.add(time, usdt)
     }
 
     /// Alle Herkunftsteile entfernen (samt Tag-Index).
     private mutating func clearParts() {
-        parts = []
-        dayIndex = [:]
+        costParts.clear()
     }
 
     /// Gebühr `extra` einer Umbuchung der Menge `amount` mit Netzwerkgebühr `coinFee` (vor dem Schritt `.networkFee`),
@@ -205,23 +196,8 @@ struct TaxPool: Sendable {
         return lost
     }
 
-    /// Nimmt `removed` Einstand anteilig aus allen Herkunftsteilen; Summe exakt `removed`.
-    private mutating func takeParts(_ removed: Decimal) -> [PortfolioCostPart] {
-        guard removed != 0, !parts.isEmpty else { return [] }
-        if removed >= cost {
-            let all = parts
-            clearParts()
-            return all
-        }
-        var out: [PortfolioCostPart] = []
-        var left = removed
-        for i in parts.indices {
-            let p = parts[i]
-            let r: Decimal = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * removed, cost)
-            left -= r
-            out.append(PortfolioCostPart(time: p.time, usdt: r))
-            parts[i] = PortfolioCostPart(time: p.time, usdt: p.usdt - r)
-        }
-        return out
+    /// Nimmt `removed` Einstand anteilig aus allen Herkunftsteilen; Summe exakt `removed` (Ansicht, O(1)).
+    private mutating func takeParts(_ removed: Decimal) -> PortfolioCostPartList {
+        costParts.take(removed, total: cost)
     }
 }

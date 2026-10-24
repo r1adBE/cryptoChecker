@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">קובץ ה-CSV למס עשוי להיות שונה מ\"ממומש\" (כללי המס של המדינה).</string>
     <string name="tax_export_rule">&gt; שנה: נמכר אחרי תאריך הקנייה + שנה קלנדרית. תאריכים בשעון מקומי. שערים: שער יומי של ה-ECB ביום העסקה; אם אין, השער האחרון עד 7 ימים לפני כן.</string>
     <string name="tax_export_rules_date">מצב הכללים: %1$s</string>
+    <string name="tax_export_rules_stale">מצב הכללים: %1$s – ייתכן שהשיעורים והפטורים השתנו עבור %2$s. בדקו את הערכים.</string>
     <string name="tax_export_spouse_gift">לבן/בת הזוג – ללא רווח וללא הפסד</string>
     <string name="tax_export_summary">סיכום שנתי %1$s (CSV)</string>
     <string name="tax_export_swap">החלפה</string>

@@ -38,7 +38,8 @@ extension TaxEngines {
         }
 
         /// Zugang mit fortgeführtem Einstand `parts` samt Gebührenteil `feeParts`.
-        mutating func addNewCarried(_ qty: Decimal, from parts: [PortfolioCostPart], feeParts: [PortfolioCostPart] = []) {
+        mutating func addNewCarried(_ qty: Decimal, from parts: PortfolioCostPartList,
+                                    feeParts: PortfolioCostPartList = []) {
             neu.addCarried(qty, from: parts)
             fees.addCarried(qty, from: feeParts)
         }
@@ -111,7 +112,7 @@ extension TaxEngines {
     private static func withFees(_ taken: TaxTaken, _ fees: TaxTaken) -> TaxTaken {
         if fees.cost == 0 { return taken }
         return TaxTaken(removed: taken.removed, removedPriced: taken.removedPriced, cost: taken.cost + fees.cost,
-                        parts: taken.parts + fees.parts)
+                        parts: PortfolioCostPartList(taken.parts.items + fees.parts.items))
     }
 
     /// Anschaffungskosten eines Zugangs im Neubestand — wie Android `newCost`: Menge × Preis ohne Gebühren (§ 27a Abs. 4 Z 2

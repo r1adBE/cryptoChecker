@@ -181775,187 +181775,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "مؤشر المزاج (Fear & Greed): %1$ld"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Index nálady (Fear & Greed): %1$ld"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Stemningsindeks (Fear & Greed): %1$ld"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Stimmungsbarometer (Fear & Greed): %1$ld"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Δείκτης διάθεσης (Fear & Greed): %1$ld"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Mood index (Fear & Greed): %1$ld"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Índice de ánimo (Fear & Greed): %1$ld"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "شاخص حال‌وهوا (Fear & Greed): %1$ld"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Tunnelmaindeksi (Fear & Greed): %1$ld"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed : %1$ld"
+            "value" : "Indice d’humeur (Fear & Greed) : %1$ld"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "מדד מצב הרוח (Fear & Greed): %1$ld"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "मूड सूचकांक (Fear & Greed): %1$ld"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Hangulatindex (Fear & Greed): %1$ld"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Indeks suasana (Fear & Greed): %1$ld"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Indice dell’umore (Fear & Greed): %1$ld"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "ムード指数（Fear & Greed）: %1$ld"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "심리 지수(Fear & Greed): %1$ld"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Stemningsindeks (Fear & Greed): %1$ld"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Stemmingsindex (Fear & Greed): %1$ld"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Indeks nastrojów (Fear & Greed): %1$ld"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Índice de sentimento (Fear & Greed): %1$ld"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Índice de sentimento (Fear & Greed): %1$ld"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Indicele de sentiment (Fear & Greed): %1$ld"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Индекс настроений (Fear & Greed): %1$ld"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Indeksi i disponimit (Fear & Greed): %1$ld"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Stämningsindex (Fear & Greed): %1$ld"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "ดัชนีอารมณ์ตลาด (Fear & Greed): %1$ld"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Duygu endeksi (Fear & Greed): %1$ld"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Індекс настроїв (Fear & Greed): %1$ld"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed: %1$ld"
+            "value" : "Chỉ số tâm lý (Fear & Greed): %1$ld"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fear & Greed：%1$ld"
+            "value" : "情绪指数（Fear & Greed）：%1$ld"
           }
         }
       }
@@ -225592,7 +225592,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Export holdings on a date…"
+            "value" : "Export (cutoff date, tax worksheet)…"
           }
         },
         "es" : {
@@ -227884,7 +227884,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "# Holdings on %1$@, currency %2$@, FX rate of %3$@"
+            "value" : "# Cutoff date %1$@, currency %2$@, FX rate of %3$@"
           }
         },
         "es" : {
@@ -228266,7 +228266,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Date"
+            "value" : "Cutoff date"
           }
         },
         "es" : {
@@ -230176,7 +230176,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Holdings on a date"
+            "value" : "Cutoff-date export"
           }
         },
         "es" : {
@@ -350319,6 +350319,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "规则截至：%1$@"
+          }
+        }
+      }
+    },
+    "tax_export_rules_stale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "القواعد من %1$@ – قد تكون النسب والإعفاءات قد تغيّرت لـ %2$@. تحقّق من القيم."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stav pravidel: %1$@ – pro období %2$@ se mohly změnit sazby a osvobozené částky. Zkontroluj hodnoty."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reglerne er fra %1$@ – for %2$@ kan satser og bundfradrag have ændret sig. Tjek værdierne."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Regeln stammen von %1$@ – für %2$@ können sich Sätze und Freibeträge geändert haben. Prüfe die Werte."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι κανόνες ισχύουν έως %1$@ – για το %2$@ οι συντελεστές και τα αφορολόγητα όρια μπορεί να έχουν αλλάξει. Έλεγξε τις τιμές."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The rules are from %1$@ – for %2$@, rates and allowances may have changed. Check the values."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las normas son de %1$@: para %2$@, los tipos y las exenciones pueden haber cambiado. Revisa los valores."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قواعد مربوط به %1$@ است – برای %2$@ ممکن است نرخ‌ها و معافیت‌ها تغییر کرده باشند. مقادیر را بررسی کن."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Säännöt ovat tilanteesta %1$@ – vuodelle %2$@ verokannat ja verovapaat määrät ovat voineet muuttua. Tarkista arvot."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les règles datent de %1$@ – pour %2$@, les taux et les abattements ont pu changer. Vérifie les valeurs."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מצב הכללים: %1$@ – ייתכן שהשיעורים והפטורים השתנו עבור %2$@. בדקו את הערכים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नियम %1$@ के हैं – %2$@ के लिए दरें और छूट बदल सकती हैं। मान जाँचो।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A szabályok állapota: %1$@ – %2$@ esetén a kulcsok és a mentességek változhattak. Ellenőrizd az értékeket."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aturan per %1$@ – untuk %2$@, tarif dan pembebasan mungkin sudah berubah. Periksa nilainya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le regole sono aggiornate a %1$@: per il %2$@ aliquote e franchigie potrebbero essere cambiate. Controlla i valori."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ルールは%1$@時点のものです。%2$@は税率や控除額が変わっている可能性があります。値を確認してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "규칙 기준은 %1$@입니다. %2$@에는 세율과 공제액이 바뀌었을 수 있습니다. 값을 확인하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reglene er fra %1$@ – for %2$@ kan satser og bunnfradrag ha endret seg. Sjekk verdiene."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De regels zijn van %1$@ – voor %2$@ kunnen tarieven en vrijstellingen gewijzigd zijn. Controleer de waarden."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stan przepisów: %1$@ – w roku %2$@ stawki i kwoty wolne mogły się zmienić. Sprawdź wartości."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As regras são de %1$@ – para %2$@, as taxas e isenções podem ter mudado. Verifica os valores."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As regras são de %1$@ – para %2$@, as alíquotas e isenções podem ter mudado. Confira os valores."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regulile sunt valabile la %1$@ – pentru %2$@, cotele și scutirile s-ar putea să se fi schimbat. Verifică valorile."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Правила на %1$@ – для %2$@ ставки и льготы могли измениться. Проверь значения."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rregullat janë të %1$@ – për %2$@ normat dhe përjashtimet mund të kenë ndryshuar. Kontrollo vlerat."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reglerna är från %1$@ – för %2$@ kan skattesatser och fribelopp ha ändrats. Kontrollera värdena."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กฎ ณ %1$@ – สำหรับ %2$@ อัตราภาษีและค่าลดหย่อนอาจเปลี่ยนไปแล้ว ตรวจสอบค่าต่าง ๆ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurallar %1$@ tarihli – %2$@ için oranlar ve muafiyetler değişmiş olabilir. Değerleri kontrol et."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Правила станом на %1$@ – для %2$@ ставки та пільги могли змінитися. Перевір значення."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quy tắc tính đến %1$@ – cho %2$@, thuế suất và mức miễn trừ có thể đã thay đổi. Hãy kiểm tra các giá trị."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "规则截至 %1$@——%2$@ 的税率和免税额可能已有变化。请核对这些数值。"
           }
         }
       }

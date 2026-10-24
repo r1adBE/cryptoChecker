@@ -62,10 +62,13 @@ class RefreshLock @Inject constructor() {
         }
     }
 
-    /** Wie [withLock], wartet aber höchstens [timeoutMillis]; danach null, [block] läuft nicht. */
+    /**
+     * Wie [withLock], wartet aber höchstens [timeoutMillis]; danach null, [block] läuft nicht. Greift die Frist erst,
+     * nachdem die Sperre schon erworben ist, gilt sie als erworben und [block] läuft ([lockWithin]).
+     */
     suspend fun <T> withLockWithin(timeoutMillis: Long, block: suspend (RefreshLockScope) -> T): T? {
         checkNotHeld()
-        withTimeoutOrNull(timeoutMillis) { mutex.lock() } ?: return null
+        if (!mutex.lockWithin(timeoutMillis)) return null
         try {
             return withContext(Held) { block(Token) }
         } finally {
@@ -96,14 +99,17 @@ class RefreshLock @Inject constructor() {
         return runThen(scope, block)
     }
 
-    /** Wie [withLockThen], wartet aber höchstens [timeoutMillis] (wie [withLockWithin]); danach null. */
+    /**
+     * Wie [withLockThen], wartet aber höchstens [timeoutMillis] (wie [withLockWithin]); danach null. Eine erst nach dem
+     * Erwerb greifende Frist zählt als erworben ([lockWithin]).
+     */
     suspend fun <T> withLockWithinThen(
         timeoutMillis: Long,
         scope: CoroutineScope,
         block: suspend (RefreshLockScope) -> Locked<T>,
     ): Pair<T, Job?>? {
         checkNotHeld()
-        withTimeoutOrNull(timeoutMillis) { mutex.lock() } ?: return null
+        if (!mutex.lockWithin(timeoutMillis)) return null
         return runThen(scope, block)
     }
 
@@ -195,4 +201,28 @@ class RefreshLock @Inject constructor() {
     private companion object {
         val Held: CoroutineContext.Element = HeldElement()
     }
+}
+
+/**
+ * Wartet höchstens [timeoutMillis] auf die Sperre; true = erworben (der Aufrufer muss sie freigeben), false = nicht
+ * erworben (nichts gehalten).
+ *
+ * `withTimeoutOrNull` kann auch dann null liefern, wenn [Mutex.lock] schon erfolgreich zurückkam (die Frist greift
+ * zwischen Erwerb und Rückkehr). Deshalb merkt sich `got` den Erwerb — zwischen `lock()` und `got = true` liegt kein
+ * Unterbrechungspunkt —, und eine so erst nach dem Erwerb greifende Frist zählt als erworben: Die Sperre wird nie
+ * gehalten zurückgelassen, und der Aufrufer gibt sie wie sonst frei. Endet das Warten mit einem anderen Fehler oder
+ * Abbruch des Aufrufers, wird eine schon erworbene Sperre hier freigegeben, bevor der Fehler weitergeht.
+ */
+internal suspend fun Mutex.lockWithin(timeoutMillis: Long): Boolean {
+    var got = false
+    try {
+        withTimeoutOrNull(timeoutMillis) {
+            lock()
+            got = true
+        }
+    } catch (ex: Throwable) {
+        if (got) unlock()
+        throw ex
+    }
+    return got
 }

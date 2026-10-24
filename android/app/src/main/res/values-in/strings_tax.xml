@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">CSV pajak bisa berbeda dari “terealisasi” (aturan pajak negara).</string>
     <string name="tax_export_rule">&gt; 1 tahun: dijual setelah tanggal beli + 1 tahun kalender. Tanggal dalam waktu lokal. Kurs: kurs harian ECB pada hari transaksi; jika tidak ada, kurs terakhir hingga 7 hari sebelumnya.</string>
     <string name="tax_export_rules_date">Aturan per: %1$s</string>
+    <string name="tax_export_rules_stale">Aturan per %1$s – untuk %2$s, tarif dan pembebasan mungkin sudah berubah. Periksa nilainya.</string>
     <string name="tax_export_spouse_gift">ke pasangan – tanpa untung, tanpa rugi</string>
     <string name="tax_export_summary">Ringkasan tahunan %1$s (CSV)</string>
     <string name="tax_export_swap">tukar</string>

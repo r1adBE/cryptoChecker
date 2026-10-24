@@ -235,6 +235,21 @@ enum SharedStorage {
         set { defaults.set(Double(newValue), forKey: "last_refresh_at") }
     }
 
+    /// Ende der letzten VOLLSTÄNDIGEN Aktualisierung mit mindestens einem Kurs (App, Hintergrund-Aufgabe, Widget), ms;
+    /// 0 = noch keine. Grundlage der 15-s-Sperre für «Aktualisieren» (`RefreshDebounce`) — Live-Takte setzen nur
+    /// `lastRefreshAt` (Uhrzeit im Widget) und sperren das Aktualisieren von Hand so nicht. Nicht in der Sicherung.
+    static var lastFullRefreshAt: Int64 {
+        get { Int64(defaults.double(forKey: "last_full_refresh_at")) }
+        set { defaults.set(Double(newValue), forKey: "last_full_refresh_at") }
+    }
+
+    /// Ende einer vollständigen Aktualisierung: Uhrzeit der Anzeige (`lastRefreshAt`) und der Sperre
+    /// (`lastFullRefreshAt`) zugleich.
+    static func markFullRefresh(at now: Int64 = TimeUtils.nowMillis) {
+        lastRefreshAt = now
+        lastFullRefreshAt = now
+    }
+
     /// Letzte Prüfung MIT allen Alarmen (App, Live-Strom, Hintergrund-Aufgabe), ms; 0 = noch nie. Das Widget
     /// prüft nur Kursalarme (setzt `lastRefreshAt`) — die Hintergrund-Aufgabe darf sich darum nur hiernach
     /// überspringen.

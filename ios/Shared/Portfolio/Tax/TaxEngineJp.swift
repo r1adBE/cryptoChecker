@@ -41,7 +41,7 @@ extension TaxEngines {
                 let c: Decimal = totPriced > 0 ? PortfolioDecimal.multiply(removedPriced, unit) : 0
                 costOut += c
                 return TaxTaken(removed: removed, removedPriced: removedPriced, cost: c,
-                                parts: scaleParts(parts, total: totCost, target: c))
+                                parts: PortfolioCostPartList(scaleParts(parts, total: totCost, target: c)))
             }
             var lastFee: TaxStep? = nil
             for s in ys {

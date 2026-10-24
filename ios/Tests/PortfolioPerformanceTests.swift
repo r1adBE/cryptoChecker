@@ -81,10 +81,10 @@ final class PortfolioPerformanceTests: XCTestCase {
     }
 
     func testSummaryAverageWithParts() {
-        // Ø mit Herkunftsteilen (Anzeigewährung ≠ USDT, wie der Steuer-Export): wächst schneller als linear — jeder
-        // Zugang führt einen Teil, jeder Abgang nimmt aus ALLEN Teilen anteilig (`takeParts`): Zugänge × Abgänge je
-        // Coin. Nur die feste Grenze; erwartet rund 2–8 s für 10 000 Transaktionen (Debug)
-        T.assertLimitOnly("Portfolio-Übersicht Ø mit Herkunftsteilen", limitMillis: 60_000, sizes: T.transactions) { n in
+        // Ø mit Herkunftsteilen (Anzeigewährung ≠ USDT, wie der Steuer-Export): ein Abgang merkt sich nur seinen Anteil
+        // (`PortfolioCostPartPool`, O(1) bzw. O(log n) je Abgang), die abgegebenen Teile werden erst beim Auslesen
+        // gerechnet — die Karte liest nur die offenen Teile. Erwartet rund 0,4–1,5 s für 10 000 Transaktionen (Debug)
+        T.assertScales("Portfolio-Übersicht Ø mit Herkunftsteilen", limitMillis: 15_000, sizes: T.transactions) { n in
             let trades = D.trades(n)
             return T.medianMillis(warmup: T.quickWarmupRuns, runs: T.quickMeasuredRuns) {
                 PortfolioPerformanceTests.summary(trades, .AVERAGE)

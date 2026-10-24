@@ -106,7 +106,7 @@ class ListWidgetRenderer @Inject constructor(
         // In der 15-s-Sperre nach einer vollständigen Aktualisierung (oder einem Tipp): Countdown statt Knopf
         val blockedUntil = WidgetRefreshState.blockedUntil(
             storedUntil = widgetPrefs.refreshBlockedUntil,
-            lastFinishedAt = lastRefresh,
+            lastFinishedAt = refreshStats.lastFullRefresh(),
             runningSince = priceRefresher.get().fullRefreshStartedAt,
             now = now,
         )

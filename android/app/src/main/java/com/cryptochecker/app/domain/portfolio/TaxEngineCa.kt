@@ -11,14 +11,15 @@ import java.time.ZoneId
  * zum Kurs seines Datums (wie der Export); Rückgabe = Verlust als USDT-Betrag zum Kurs des Verkaufs (der Export
  * rechnet ihn so exakt zurück), 0 = kein Verlust in CAD; null = ein Kurs fehlt.
  */
-private fun caLossAtSaleRate(row: PortfolioDisposal, fx: (Long) -> BigDecimal?): BigDecimal? {
+private fun caLossAtSaleRate(row: PortfolioDisposal, fx: PortfolioPartWeight): BigDecimal? {
     val mc = PortfolioDecimal.MC
     val proceeds = row.proceedsUsdt ?: return null
     val cost = row.costUsdt ?: return null
-    val rate = fx(row.sellTime)?.takeIf { it.signum() > 0 } ?: return null
+    val rate = fx.of(row.sellTime)?.takeIf { it.signum() > 0 } ?: return null
     var costT = BigDecimal.ZERO
     if (row.costParts.isNotEmpty()) {
-        for (p in row.costParts) costT += p.usdt.multiply(fx(p.time) ?: return null, mc)
+        // Σ Teil × Kurs seines Datums (grosse Ansichten des Pools ohne Auslesen, [weightedSum])
+        costT = row.costParts.weightedSum(fx) ?: return null
     } else if (cost.signum() != 0) {
         costT = cost.multiply(rate, mc)
     }
@@ -35,6 +36,8 @@ internal fun TaxEngines.caAcb(
     fx: ((Long) -> BigDecimal?)? = null,
 ): List<PortfolioDisposal> {
     val zero = BigDecimal.ZERO
+    // Ein Gewicht für alle Zeilen (die laufende Summe je Pool wird so nur einmal gerechnet)
+    val fxWeight = fx?.let(::PortfolioPartWeight)
     val days = steps.map { day(it.time, zone) }
     // Bestand nach jedem Schritt (nur Mengen) für «Bestand am Fensterende»
     val heldAfter = ArrayList<BigDecimal>(steps.size)
@@ -121,7 +124,8 @@ internal fun TaxEngines.caAcb(
                     val g = row.gainUsdt.takeUnless { s.spouseGift }
                     // Verlust in der Steuerwährung entscheiden (Schenkung an Partner: kein Verlust, ITA 73(1)) (CAD: gemeldet wird in CAD — ein USDT-Verlust kann in CAD
                     // ein Gewinn sein); ohne Kurse in USDT
-                    val loss = if (g == null) null else fx?.let { caLossAtSaleRate(row, it) } ?: g.negate().max(zero)
+                    val loss = if (g == null) null
+                        else fxWeight?.let { caLossAtSaleRate(row, it) } ?: g.negate().max(zero)
                     if (loss != null && loss.signum() > 0 && row.costUsdt != null && s.qty.signum() > 0) {
                         val part = if (n.compareTo(s.qty) == 0) loss else loss.multiply(n).divide(s.qty, PortfolioDecimal.MC)
                         if (part.signum() > 0) {

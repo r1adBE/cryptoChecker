@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">टैक्स CSV “प्राप्त” से अलग हो सकती है (देश के कर नियम)।</string>
     <string name="tax_export_rule">&gt; 1 वर्ष: खरीद तिथि + 1 कैलेंडर वर्ष के बाद बेचा गया। तिथियाँ स्थानीय समय में। दरें: लेन-देन के दिन की ECB दैनिक दर; न हो तो उससे पहले 7 दिनों के भीतर की अंतिम दर।</string>
     <string name="tax_export_rules_date">नियम इस तिथि तक: %1$s</string>
+    <string name="tax_export_rules_stale">नियम %1$s के हैं – %2$s के लिए दरें और छूट बदल सकती हैं। मान जाँचो।</string>
     <string name="tax_export_spouse_gift">जीवनसाथी/पार्टनर को – न लाभ, न हानि</string>
     <string name="tax_export_summary">वार्षिक सारांश %1$s (CSV)</string>
     <string name="tax_export_swap">स्वैप</string>

@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">CSV ภาษีอาจต่างจาก “ที่รับรู้แล้ว” (กฎภาษีของประเทศ)</string>
     <string name="tax_export_rule">&gt; 1 ปี: ขายหลังวันที่ซื้อ + 1 ปีปฏิทิน วันที่เป็นเวลาท้องถิ่น อัตรา: อัตรารายวันของ ECB ในวันที่ทำรายการ หากไม่มี ใช้อัตราล่าสุดย้อนหลังไม่เกิน 7 วัน</string>
     <string name="tax_export_rules_date">กฎ ณ วันที่: %1$s</string>
+    <string name="tax_export_rules_stale">กฎ ณ %1$s – สำหรับ %2$s อัตราภาษีและค่าลดหย่อนอาจเปลี่ยนไปแล้ว ตรวจสอบค่าต่าง ๆ</string>
     <string name="tax_export_spouse_gift">ให้คู่สมรส/คู่ชีวิต – ไม่มีกำไร ไม่มีขาดทุน</string>
     <string name="tax_export_summary">สรุปรายปี %1$s (CSV)</string>
     <string name="tax_export_swap">สลับเหรียญ</string>

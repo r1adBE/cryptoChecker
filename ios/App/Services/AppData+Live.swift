@@ -48,13 +48,15 @@ extension AppData {
 
     /// Live-Kurse gesammelt speichern und auswerten — derselbe Weg wie eine Aktualisierung
     /// (`PriceRefresher` mit `liveQuotes`): Alarme ohne doppelte Meldungen, Kurs-Mitteilungen.
-    /// Läuft gerade eine Aktualisierung: false, der Strom versucht es beim nächsten Mal.
+    /// Läuft gerade eine Aktualisierung oder hält ein anderer Schreiber das Gate: false, der Strom versucht es beim
+    /// nächsten Mal (wie Android `tryWithLock`).
     func applyLive(_ quotes: [Int64: LiveQuote], reloadWidgets: Bool) async -> Bool {
-        // Läuft eine Aktualisierung (alle oder ein Paar): nicht anstellen — der Puffer behält je
-        // Paar nur den neuesten Kurs, der Strom versucht es beim nächsten Mal (zusammengeführt)
-        guard !refreshState.refreshing, !liveApplying, refreshState.refreshingWatchIds.isEmpty else { return false }
-        liveApplying = true
-        defer { liveApplying = false }
+        // Läuft eine Aktualisierung (alle oder ein Paar) oder übernimmt gerade jemand Kurse: nicht anstellen — der
+        // Puffer behält je Paar nur den neuesten Kurs, der Strom versucht es beim nächsten Mal (zusammengeführt)
+        guard !refreshState.refreshing, refreshState.refreshingWatchIds.isEmpty, priceWriteGate.tryAcquire() else {
+            return false
+        }
+        defer { priceWriteGate.release() }
         let now = TimeUtils.nowMillis
         let rolling = !settings.changeBasis.isDay
         let stampCurrent = changeStamp == ChangeBasisMath.stamp(settings.changeBasis, now: now)
@@ -77,7 +79,8 @@ extension AppData {
         // Während der Abfrage «App zurücksetzen»: Ergebnis gehört zum gelöschten Stand
         guard resetGeneration == resetBefore else { return true }
         // Zeit zuerst (Widget-Kopfzeile), die Dauer des letzten Durchlaufs bleibt
-        // Live-Takte setzen nur die Uhrzeit — nicht `lastAlarmCheckAt` (keine volle Prüfung aller Alarme)
+        // Live-Takte setzen nur die Uhrzeit der Anzeige — weder `lastAlarmCheckAt` (keine volle Prüfung aller Alarme)
+        // noch `lastFullRefreshAt` (sonst sperrte jeder Takt «Aktualisieren» von Hand, `RefreshDebounce`)
         if reloadWidgets && outcome.checked > outcome.failed {
             SharedStorage.lastRefreshAt = TimeUtils.nowMillis
         }
@@ -85,12 +88,13 @@ extension AppData {
         return true
     }
 
-    /// Speichert der Strom gerade (höchstens ein paar hundert ms): abwarten, damit nicht zwei
-    /// Durchläufe denselben Stand auswerten (Alarme doppelt) — wie der Mutex in Android.
-    func waitForLiveApply() async {
-        while liveApplying {
-            try? await Task.sleep(nanoseconds: 50_000_000)
-        }
+    /// Speichert der Strom bzw. ein anderer Schreiber gerade (höchstens ein paar hundert ms): der Reihe nach abwarten
+    /// (`PriceWriteGate`, ohne Abfragen in Schleife), damit nicht zwei Durchläufe denselben Stand auswerten
+    /// (Alarme doppelt) — wie der Mutex in Android.
+    /// - Returns: false = abgebrochen, bevor das Gate an der Reihe war (der Aufrufer lässt den Durchlauf aus).
+    @discardableResult
+    func waitForLiveApply() async -> Bool {
+        await priceWriteGate.waitUntilFree()
     }
 
     /// Paare mit frischem Live-Kurs, die die REST-Abfrage diesmal auslässt (`LiveRules.skipRest`).

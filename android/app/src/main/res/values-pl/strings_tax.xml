@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Podatkowy plik CSV może różnić się od „zrealizowane” (przepisy podatkowe kraju).</string>
     <string name="tax_export_rule">&gt; 1 rok: sprzedaż po dacie zakupu + 1 rok kalendarzowy. Daty w czasie lokalnym. Kursy: dzienny kurs EBC z dnia transakcji; jeśli go brak, ostatni kurs do 7 dni wcześniej.</string>
     <string name="tax_export_rules_date">Stan przepisów: %1$s</string>
+    <string name="tax_export_rules_stale">Stan przepisów: %1$s – w roku %2$s stawki i kwoty wolne mogły się zmienić. Sprawdź wartości.</string>
     <string name="tax_export_spouse_gift">dla małżonka/partnera – bez zysku i straty</string>
     <string name="tax_export_summary">Podsumowanie roczne %1$s (CSV)</string>
     <string name="tax_export_swap">wymiana</string>

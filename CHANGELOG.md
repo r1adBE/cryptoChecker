@@ -15,6 +15,18 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 128)
+
+* Portfolio and tax worksheet: the cost origin of the average method and of the UK/CA/AT pools is no longer rewritten on every disposal – «Since purchase» in a display currency other than USDT and the UK export stay fast with many transactions (same numbers).
+* CSV import: matching withdrawals with deposits uses a time window per coin instead of comparing every pair.
+* Tax worksheet: the dialog shows the rules date; for a tax year after it, a warning says that rates and allowances may have changed.
+* Pull to refresh and the widget refresh button are no longer blocked for 15 s by a live price tick; only a full refresh starts the 15 s window.
+* Prices are taken only if they are not older than the stored one (a slower single refresh no longer overwrites a newer price); iOS applies refresh results one after another.
+* Android: a refresh lock that hit its time limit exactly when it became free is no longer left held.
+* Backups: pairs whose base or quote contains characters that do not belong in a symbol are skipped when restoring.
+* Android 8/8.1: the cloud backup no longer contains the settings (it cannot be end-to-end encrypted there); app language and favourites still are.
+* Fear & Greed notification names the mood index; English export menu matches the other languages; loading placeholders respect «Remove animations»; iOS arrows mirror in right-to-left languages.
+
 ## 16.2.2 (build 127)
 
 * iOS: the watchlist no longer redraws every row while a refresh is running.

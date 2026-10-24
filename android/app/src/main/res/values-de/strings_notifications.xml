@@ -9,7 +9,7 @@
     <string name="notification_depeg_title">USDT bei %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Fear &amp; Greed ist über %1$d gestiegen – nach diesem Index gilt der Markt als gierig.</string>
     <string name="notification_fng_below">Fear &amp; Greed ist unter %1$d gefallen – nach diesem Index gilt der Markt als ängstlich.</string>
-    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_title">Stimmungsbarometer (Fear &amp; Greed): %1$d</string>
     <string name="notification_gas_btc_text">Unter deiner Grenze von %1$s sat/vB · Überweisung ≈ %2$s</string>
     <string name="notification_gas_btc_title">Bitcoin-Gebühr: %1$s sat/vB</string>
     <string name="notification_gas_eth_text">Unter deiner Grenze von %1$s gwei · Überweisung ≈ %2$s</string>

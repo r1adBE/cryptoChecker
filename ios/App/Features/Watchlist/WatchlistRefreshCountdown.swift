@@ -21,7 +21,7 @@ final class WatchlistRefreshCountdown {
             return
         }
         while !Task.isCancelled {
-            let last = SharedStorage.lastRefreshAt
+            let last = SharedStorage.lastFullRefreshAt
             let now = TimeUtils.nowMillis
             seconds = RefreshDebounce.remainingSeconds(lastFinishedAt: last, now: now)
             if seconds == 0 { return }
@@ -46,7 +46,7 @@ struct WatchlistMenuHead: View {
         let seconds = refreshing ? 0 : countdown.seconds
         // Zusätzlich frisch geprüft: Gleich nach dem Ende einer Aktualisierung steht `seconds` noch kurz
         // auf 0, bis `run` neu gestartet hat — dann nicht für einen Augenblick aktiv
-        let free = RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastRefreshAt,
+        let free = RefreshDebounce.decide(running: refreshing, lastFinishedAt: SharedStorage.lastFullRefreshAt,
                                           now: TimeUtils.nowMillis) == .start
         AppMenuHead(
             refreshing: refreshing,

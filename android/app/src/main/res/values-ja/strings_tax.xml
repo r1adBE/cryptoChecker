@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">税務 CSV は「実現」と異なる場合があります（各国の税制）。</string>
     <string name="tax_export_rule">&gt; 1年：購入日 + 1暦年より後に売却。日付は現地時間。レート：取引日の ECB 日次レート（ない場合は 7 日前までの直近のレート）。</string>
     <string name="tax_export_rules_date">ルール時点：%1$s</string>
+    <string name="tax_export_rules_stale">ルールは%1$s時点のものです。%2$sは税率や控除額が変わっている可能性があります。値を確認してください。</string>
     <string name="tax_export_spouse_gift">配偶者・パートナーへ – 損益なし</string>
     <string name="tax_export_summary">年間サマリー %1$s（CSV）</string>
     <string name="tax_export_swap">スワップ</string>

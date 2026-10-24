@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Το φορολογικό CSV μπορεί να διαφέρει από το «πραγματοποιημένο» (φορολογικοί κανόνες της χώρας).</string>
     <string name="tax_export_rule">&gt; 1 έτος: πώληση μετά την ημερομηνία αγοράς + 1 ημερολογιακό έτος. Ημερομηνίες σε τοπική ώρα. Ισοτιμίες: ημερήσια ισοτιμία ΕΚΤ της ημέρας της συναλλαγής· αν λείπει, η τελευταία ισοτιμία έως 7 ημέρες πριν.</string>
     <string name="tax_export_rules_date">Κανόνες έως: %1$s</string>
+    <string name="tax_export_rules_stale">Οι κανόνες ισχύουν έως %1$s – για το %2$s οι συντελεστές και τα αφορολόγητα όρια μπορεί να έχουν αλλάξει. Έλεγξε τις τιμές.</string>
     <string name="tax_export_spouse_gift">σε σύζυγο/σύντροφο – χωρίς κέρδος, χωρίς ζημία</string>
     <string name="tax_export_summary">Ετήσια σύνοψη %1$s (CSV)</string>
     <string name="tax_export_swap">ανταλλαγή</string>

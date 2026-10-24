@@ -1,5 +1,5 @@
 {
-  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). «limitCases»: ganze Merkliste der Sicherung lesen, bereinigen und begrenzen (Android BackupWatchlistCodec.readWatchlist, iOS BackupManager.restoredWatchlist); Paare mit Ids 1…«pairs» (Basis «B<id>», Kennung «B<id>USDT»), «invalidPairIds» = Kennung mit Leerzeichen, «duplicates» = [id, gleiches Paar wie id], «alarms» = [Paar-Id, Anzahl] mit fortlaufenden Alarm-Ids; erwartet behaltene und wegen der Grenzen weggelassene Paare und Alarme. Optional «expectedHoldings» = gespeicherter Bestand (null = keiner); nur endliche Werte > 0 bleiben (Android wie iOS `Watch.validHoldings`). Zahlen, die JSON nicht fassen kann, als Zeichenkette («Infinity», «1e400»).",
+  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; Basis/Quote nur aus Buchstaben/Ziffern jeder Schrift und «. _ -» (ausser DexScreener: dort nur die Länge); «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). «limitCases»: ganze Merkliste der Sicherung lesen, bereinigen und begrenzen (Android BackupWatchlistCodec.readWatchlist, iOS BackupManager.restoredWatchlist); Paare mit Ids 1…«pairs» (Basis «B<id>», Kennung «B<id>USDT»), «invalidPairIds» = Kennung mit Leerzeichen, «duplicates» = [id, gleiches Paar wie id], «alarms» = [Paar-Id, Anzahl] mit fortlaufenden Alarm-Ids; erwartet behaltene und wegen der Grenzen weggelassene Paare und Alarme. Optional «expectedHoldings» = gespeicherter Bestand (null = keiner); nur endliche Werte > 0 bleiben (Android wie iOS `Watch.validHoldings`). Zahlen, die JSON nicht fassen kann, als Zeichenkette («Infinity», «1e400»).",
   "limits": {
     "maxMarketKey": 64,
     "maxMarketName": 60,
@@ -314,6 +314,193 @@
         "note": null
       },
       "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis mit Ziffern vorn bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "1000PEPE",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Quote mit Punkt bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "ARB",
+        "quoteAsset": "USDC.e",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis mit Bindestrich und Unterstrich bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC-PERP_X",
+        "quoteAsset": "USD",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis ohne Kennung (Adresse aus Basis/Quote) bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Coinbase",
+        "marketName": "Coinbase",
+        "baseAsset": "BTC",
+        "quoteAsset": "USD",
+        "contractType": "NONE",
+        "pairId": null,
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis mit «/..» fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "A/../B",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis mit «?» fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "A?x",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis mit «#» fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "A#",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis mit «&» fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "A&",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Quote mit «/» ohne Kennung fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Coinbase",
+        "marketName": "Coinbase",
+        "baseAsset": "BTC",
+        "quoteAsset": "USD/../x",
+        "contractType": "NONE",
+        "pairId": null,
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis mit Leerzeichen fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC X",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "DexScreener: Basis/Quote sind Anzeigetext, nur begrenzt",
+      "watch": {
+        "id": 1,
+        "marketKey": "DexScreener",
+        "marketName": "DexScreener",
+        "baseAsset": "$WIF",
+        "quoteAsset": "USD (solana)",
+        "contractType": "NONE",
+        "pairId": "solana/7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
       "group": null,
       "note": null
     },

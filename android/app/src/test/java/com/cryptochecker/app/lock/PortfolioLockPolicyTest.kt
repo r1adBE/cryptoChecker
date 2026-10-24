@@ -75,8 +75,8 @@ class PortfolioLockPolicyTest {
     }
 
     /**
-     * Sicherungsregeln: Android 8/8.1 (xml/, requireFlags wirkungslos) ohne Portfolio und ohne die unverschlüsselte
-     * Kopie der Hauptdatenbank, ab Android 9 (xml-v28/) mit beiden.
+     * Sicherungsregeln: Android 8/8.1 (xml/, requireFlags wirkungslos) ohne Portfolio, ohne die unverschlüsselte
+     * Kopie der Hauptdatenbank und ohne Einstellungen, ab Android 9 (xml-v28/) mit allen dreien.
      */
     @Test
     fun backupRulesKeepPortfolioAndDatabaseCopyOffAndroid8() {
@@ -89,7 +89,10 @@ class PortfolioLockPolicyTest {
         assertTrue(v28.contains("path=\"portfolio_system_backup.json\" requireFlags=\"clientSideEncryption\""))
         assertTrue(v28.contains("path=\"cryptochecker_system_backup.db\" requireFlags=\"clientSideEncryption\""))
         // Sonst gleicher Umfang
-        val onlyWithEncryption = setOf("portfolio_system_backup.json", "cryptochecker_system_backup.db", "cryptochecker_system_backup.db-wal")
+        val onlyWithEncryption = setOf(
+            "portfolio_system_backup.json", "cryptochecker_system_backup.db", "cryptochecker_system_backup.db-wal",
+            "datastore/settings.preferences_pb",
+        )
         assertEquals(include.findAll(v28).map { it.groupValues[1] }.toSet() - onlyWithEncryption, basePaths)
     }
 

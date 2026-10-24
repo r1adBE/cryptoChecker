@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">CSV-ul fiscal poate diferi de „realizat” (regulile fiscale ale țării).</string>
     <string name="tax_export_rule">&gt; 1 an: vândut după data cumpărării + 1 an calendaristic. Date în ora locală. Cursuri: cursul zilnic BCE din ziua tranzacției; dacă lipsește, ultimul curs de până la 7 zile înainte.</string>
     <string name="tax_export_rules_date">Reguli valabile la: %1$s</string>
+    <string name="tax_export_rules_stale">Regulile sunt valabile la %1$s – pentru %2$s, cotele și scutirile s-ar putea să se fi schimbat. Verifică valorile.</string>
     <string name="tax_export_spouse_gift">către soț/partener – fără câștig, fără pierdere</string>
     <string name="tax_export_summary">Rezumat anual %1$s (CSV)</string>
     <string name="tax_export_swap">schimb</string>

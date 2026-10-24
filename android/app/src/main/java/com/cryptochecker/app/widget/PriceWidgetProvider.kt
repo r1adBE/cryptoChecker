@@ -57,7 +57,7 @@ class PriceWidgetProvider : AppWidgetProvider() {
     private fun onRefreshTap() {
         val tap = WidgetRefreshState.onTap(
             running = priceRefresher.fullRefreshRunning.value,
-            lastFinishedAt = refreshStats.lastRefresh(),
+            lastFinishedAt = refreshStats.lastFullRefresh(),
             now = System.currentTimeMillis(),
         )
         when (tap) {

@@ -137,7 +137,8 @@ keys or other secrets never belong in this repository.
   Android 8/8.1 ignore `requireFlags="clientSideEncryption"`, so there the
   copy is not in the backup rules and the agent does not create it (since
   build 60): the watchlist and alarms are neither backed up nor restored on
-  those versions, only settings and favorites. The portfolio (transactions and portfolio alarms) lives in its own
+  those versions, and neither are the settings (they hold the address of an own
+  Bitcoin server), only the app language and favorites. The portfolio (transactions and portfolio alarms) lives in its own
   database file that is never in the backup rules; only with the switch
   «Portfolio in system backup» (default off) does the app keep a plain JSON copy
   in a backed-up file. The main database runs with `secure_delete` (deleted content

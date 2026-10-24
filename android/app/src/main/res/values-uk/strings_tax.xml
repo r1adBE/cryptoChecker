@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Податковий CSV може відрізнятися від «реалізовано» (податкові правила країни).</string>
     <string name="tax_export_rule">&gt; 1 року: продано пізніше дати купівлі + 1 календарний рік. Дати за місцевим часом. Курси: денний курс ЄЦБ на день операції; якщо його немає — останній курс не більше ніж за 7 днів до того.</string>
     <string name="tax_export_rules_date">Правила станом на: %1$s</string>
+    <string name="tax_export_rules_stale">Правила станом на %1$s – для %2$s ставки та пільги могли змінитися. Перевір значення.</string>
     <string name="tax_export_spouse_gift">чоловіку/дружині/партнеру – без прибутку й збитку</string>
     <string name="tax_export_summary">Річний підсумок %1$s (CSV)</string>
     <string name="tax_export_swap">обмін</string>

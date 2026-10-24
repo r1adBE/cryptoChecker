@@ -5,19 +5,28 @@ package com.cryptochecker.app.data
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
+import com.cryptochecker.app.domain.refresh.PriceWriteOrder
 import com.cryptochecker.app.domain.refresh.StoredError
 
-/** Einen Kurs speichern; mit [PriceWrite.pair] nur für dasselbe Paar. @return true = gespeichert */
+/**
+ * Einen Kurs speichern; mit [PriceWrite.pair] nur für dasselbe Paar, und nur, wenn er nicht älter ist als der
+ * gespeicherte ([PriceWriteOrder]). @return true = gespeichert
+ */
 suspend fun WatchRepository.updatePrice(write: PriceWrite): Boolean = writePrice(write)
 
-internal suspend fun WatchRepository.writePrice(write: PriceWrite): Boolean {
+internal suspend fun WatchRepository.writePrice(
+    write: PriceWrite,
+    now: Long = System.currentTimeMillis(),
+): Boolean {
     val pair = write.pair
+    val plausibleUntil = PriceWriteOrder.plausibleUntil(now)
     if (pair == null) {
-        watchDao.updatePrice(write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime)
-        return true
+        return watchDao.updatePrice(
+            write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime, plausibleUntil,
+        ) > 0
     }
     return watchDao.updatePriceForPair(
-        write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime,
+        write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime, plausibleUntil,
         pair.marketKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
     ) > 0
 }
@@ -48,7 +57,8 @@ suspend fun WatchRepository.fillChange(id: Long, time: Long, change: Double): Bo
  * jeder würde die Watchlist komplett neu geladen.
  *
  * @return Ids, deren Kurs gespeichert wurde. Fehlt eine Id, war der Eintrag inzwischen ein
- * anderes Paar ([PriceWrite.pair]) — dann darf auch kein Alarm mit diesem Kurs geprüft werden.
+ * anderes Paar ([PriceWrite.pair]) oder der gespeicherte Kurs neuer ([PriceWriteOrder]) — dann darf auch kein
+ * Alarm mit diesem Kurs geprüft werden.
  */
 suspend fun WatchRepository.applyRefresh(prices: List<PriceWrite>, errors: List<ErrorWrite>): Set<Long> {
     if (prices.isEmpty() && errors.isEmpty()) return emptySet()
