@@ -17,6 +17,7 @@
     <string name="a11y_note">nota: %1$s</string>
     <string name="a11y_price">preço %1$s</string>
     <string name="a11y_price_notification_off">Notificação de preço desativada</string>
+    <string name="a11y_price_notification_on">Notificação de preço ativada</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Cotação desatualizada</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

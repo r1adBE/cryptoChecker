@@ -17,6 +17,7 @@
     <string name="a11y_note">nota: %1$s</string>
     <string name="a11y_price">prezzo %1$s</string>
     <string name="a11y_price_notification_off">Notifica del prezzo disattiva</string>
+    <string name="a11y_price_notification_on">Notifica del prezzo attiva</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Prezzo non aggiornato</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

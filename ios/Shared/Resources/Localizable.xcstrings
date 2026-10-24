@@ -7259,6 +7259,197 @@
         }
       }
     },
+    "a11y_price_notification_on" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إشعار السعر مُفعّل"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oznámení kurzu zapnuto"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursnotifikation til"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursmitteilung an"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ειδοποίηση τιμής ενεργή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price notification on"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificación de precio activada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اعلان قیمت روشن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurssi-ilmoitus päällä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification de cours activée"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראת שער פעילה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "भाव सूचना चालू"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Árfolyam-értesítés be"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifikasi harga aktif"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifica del prezzo attiva"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "価格通知オン"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가격 알림 켜짐"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursvarsel på"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koersmelding aan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiadomienie o kursie wł."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificação de preço ativada"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificação de preço ativada"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificare de preț pornită"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведомление о курсе вкл."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Njoftimi i kursit ndezur"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursavisering på"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การแจ้งราคาเปิดอยู่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiyat bildirimi açık"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення про курс увімк."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thông báo giá đang bật"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "价格通知已开启"
+          }
+        }
+      }
+    },
     "a11y_price_outdated" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -81298,187 +81489,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "منذ آخر تحديث"
+            "value" : "آخر تحديث"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "od posl. obnovení"
+            "value" : "posl. aktualizace"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "siden sidste opdatering"
+            "value" : "sidste opdatering"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "seit letzt. Abruf"
+            "value" : "letzter Stand"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "από την τελ. ενημέρωση"
+            "value" : "τελ. ενημέρωση"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "since last refresh"
+            "value" : "last update"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "desde últ. actualización"
+            "value" : "últ. actualización"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "از آخرین تازه‌سازی"
+            "value" : "آخرین به‌روزرسانی"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ed. päivityksestä"
+            "value" : "ed. päivitys"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "depuis dern. actualisation"
+            "value" : "dern. mise à jour"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מאז הרענון האחרון"
+            "value" : "עדכון אחרון"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "पिछले अपडेट से"
+            "value" : "पिछला अपडेट"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "utolsó frissítés óta"
+            "value" : "utolsó frissítés"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sejak pembaruan terakhir"
+            "value" : "pembaruan terakhir"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "dall'ult. aggiornamento"
+            "value" : "ult. aggiornamento"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "前回の更新から"
+            "value" : "前回更新"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "마지막 새로고침 이후"
+            "value" : "마지막 업데이트"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "siden siste oppdatering"
+            "value" : "siste oppdatering"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sinds laatste vernieuwing"
+            "value" : "laatste update"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "od ost. odświeżenia"
+            "value" : "ost. aktualizacja"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "desde a últ. atualização"
+            "value" : "última atualização"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "desde a últ. atualização"
+            "value" : "última atualização"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "de la ultima actualizare"
+            "value" : "ultima actualizare"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "с посл. обновления"
+            "value" : "посл. обновление"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "që nga rifreskimi i fundit"
+            "value" : "përditësimi i fundit"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sedan senaste uppdatering"
+            "value" : "senaste uppdatering"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ตั้งแต่รีเฟรชล่าสุด"
+            "value" : "อัปเดตล่าสุด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "son yenilemeden beri"
+            "value" : "son güncelleme"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "з ост. оновлення"
+            "value" : "ост. оновлення"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "từ lần làm mới gần nhất"
+            "value" : "lần cập nhật cuối"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自上次刷新"
+            "value" : "上次更新"
           }
         }
       }

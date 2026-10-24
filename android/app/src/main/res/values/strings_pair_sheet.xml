@@ -38,8 +38,7 @@
     <string name="change_basis_utc_zone">Since 00:00 %1$s</string>
     <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
     <string name="change_candle_source">Change from %1$s candles</string>
-    <!-- Kurz (Spaltenkopf, Pille, Puls, Widgets) als Zeitraum; die Merklisten-Zeile lässt ihn weg, wenn der Spaltenkopf ihn zeigt -->
-    <string name="change_short_since_last">since last refresh</string>
+    <string name="change_short_since_last">last update</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
     <string name="change_short_today">today</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->

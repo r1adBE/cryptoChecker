@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Veränderung gemäss %-Basis (`Watch.change24h`): `ChangePill` und davor klein und grau der Zeitraum
-/// «24h», «seit letzt. Abruf», «heute» oder «heute UTC» — wie `DayChangePill` in Android. Ohne Bezug
+/// «24h», «letzter Stand», «heute» oder «heute UTC» — wie `DayChangePill` in Android. Ohne Bezug
 /// (oder bei veralteter Basis) ein graues «—»; die Veränderung seit der letzten
 /// Abfrage nur bei der Basis «Seit letzter Aktualisierung». VoiceOver: «gestiegen um 2.30% in 24 Stunden» / «… heute».
 struct WatchlistDayChangePill: View {

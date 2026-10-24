@@ -23,7 +23,7 @@ import com.cryptochecker.app.util.ChangeBasisText
 
 /**
  * Veränderung gemäss %-Basis (`WatchEntity.shownChange`, [LocalChangeView]): [ChangePill] und
- * davor klein und grau der Zeitraum «24h», «seit letzt. Abruf», «heute» oder «heute UTC». Ohne Bezug
+ * davor klein und grau der Zeitraum «24h», «letzter Stand», «heute» oder «heute UTC». Ohne Bezug
  * ein graues «—»; die Veränderung seit der letzten Abfrage nur bei der Basis
  * «Seit letzter Aktualisierung».
  * Screenreader: «up 2.30% in 24 hours» / «… today»; mit [mark] «Mark», mit [note] danach der Hinweis.

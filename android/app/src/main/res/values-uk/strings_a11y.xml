@@ -17,6 +17,7 @@
     <string name="a11y_note">нотатка: %1$s</string>
     <string name="a11y_price">ціна %1$s</string>
     <string name="a11y_price_notification_off">Сповіщення про курс вимк.</string>
+    <string name="a11y_price_notification_on">Сповіщення про курс увімк.</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Курс застарів</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -202,15 +201,13 @@ internal fun WatchlistBody(
                     )
             )
             Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                // Spaltenkopf «Name · Kurs · 24h»: nicht im Sortiermodus, erst ab zwei Paaren
-                val sortBarShown = !ui.sortMode && listed.size > 1
                 WatchlistList(
                     listState = listState,
                     inset = inset,
                     // Platz unten für den Sprungknopf bzw. die Leiste der Mehrfachauswahl
                     roomForJump = jump.eligible || ui.selecting,
                     pulse = pulse,
-                    sortBar = if (sortBarShown) {
+                    sortBar = if (!ui.sortMode && listed.size > 1) {
                         { WatchlistSortBar(sort = columnSort, onTap = viewModel::tapColumn) }
                     } else null,
                     sortMode = ui.sortMode,
@@ -238,8 +235,7 @@ internal fun WatchlistBody(
                         ?.let { group -> { ui.startEditingGroup(group) } },
                     shown = listed,
                 ) { watch, shape ->
-                    // Spaltenkopf da: «seit letzt. Abruf» steht dann nicht zusätzlich in jeder Zeile ([rowShowsPeriod])
-                    CompositionLocalProvider(LocalChangePeriodInHeader provides sortBarShown) { WatchlistItem(
+                    WatchlistItem(
                         watch = watch,
                         shape = shape,
                         reorder = reorder,
@@ -276,7 +272,7 @@ internal fun WatchlistBody(
                         onFavoriteWithBanner = { favoriteWithBanner(watch) },
                         onStartSelection = { ui.startSelectionWith(watch.id) },
                         onSourceHint = { text -> banner.show(text) },
-                    ) }
+                    )
                 }
                 // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.
                 // Steht ein Banner («… entfernt», «Rückgängig»), rückt der Knopf darüber.

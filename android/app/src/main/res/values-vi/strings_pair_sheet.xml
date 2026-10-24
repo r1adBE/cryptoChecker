@@ -38,7 +38,7 @@
     <string name="change_basis_utc_zone">Từ 00:00 %1$s</string>
     <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
     <string name="change_candle_source">Biến động theo nến %1$s</string>
-    <string name="change_short_since_last">từ lần làm mới gần nhất</string>
+    <string name="change_short_since_last">lần cập nhật cuối</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
     <string name="change_short_today">hôm nay</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->

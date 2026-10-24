@@ -127,9 +127,9 @@ extension WatchlistRow {
             }(),
             stateCoversError: freshness != .fresh,
             changeView: changeView,
-            // Art nur bei «TradFi» bzw. «Alpha-Token» — «Token» ist der Normalfall (wie die Marken,
-            // `WatchlistRowMarks`; wie Android)
-            kind: WatchlistRowMarks.showsKind(kind) ? L(Self.spokenKey(kind)) : nil
+            // Art vor der Glocke nur bei «TradFi» bzw. «Alpha-Token» — «Token» ist der Normalfall und
+            // stünde sonst in jeder Zeile (wie Android)
+            kind: kind == .TOKEN ? nil : L(Self.spokenKey(kind))
         )
     }
 }

@@ -17,6 +17,7 @@
     <string name="a11y_note">not: %1$s</string>
     <string name="a11y_price">fiyat %1$s</string>
     <string name="a11y_price_notification_off">Fiyat bildirimi kapalı</string>
+    <string name="a11y_price_notification_on">Fiyat bildirimi açık</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Fiyat güncel değil</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

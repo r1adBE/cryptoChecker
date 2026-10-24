@@ -17,6 +17,7 @@
     <string name="a11y_note">notitie: %1$s</string>
     <string name="a11y_price">koers %1$s</string>
     <string name="a11y_price_notification_off">Koersmelding uit</string>
+    <string name="a11y_price_notification_on">Koersmelding aan</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Koers verouderd</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

@@ -17,6 +17,7 @@
     <string name="a11y_note">메모: %1$s</string>
     <string name="a11y_price">가격 %1$s</string>
     <string name="a11y_price_notification_off">가격 알림 꺼짐</string>
+    <string name="a11y_price_notification_on">가격 알림 켜짐</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">시세가 오래됨</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

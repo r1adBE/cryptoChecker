@@ -17,6 +17,7 @@
     <string name="a11y_note">ghi chú: %1$s</string>
     <string name="a11y_price">giá %1$s</string>
     <string name="a11y_price_notification_off">Thông báo giá đang tắt</string>
+    <string name="a11y_price_notification_on">Thông báo giá đang bật</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Giá đã cũ</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->
