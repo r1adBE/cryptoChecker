@@ -27,7 +27,7 @@ internal object PerformanceTiming {
     const val SCALE_FACTOR = 5.0
 
     /** Feste Zugabe zur Skalierungsgrenze: kleine Messwerte schwanken absolut um einige Millisekunden. */
-    const val SCALE_SLACK_MILLIS = 15.0
+    const val SCALE_SLACK_MILLIS = 5.0
 
     private const val NANOS_PER_MILLI = 1_000_000.0
 

@@ -29,25 +29,25 @@ extension AppData {
     }
 
     /// Mehrere Paare: vorhandene übersprungen; ist die Merkliste voll, kommen die übrigen nicht mehr dazu (`refused`).
+    /// Ein Durchlauf in linearer Zeit (`WatchInsertion.insertAll`, gleiche Regeln wie `insertOutcome`).
     func addWatches(market: Market, pairs: [MarketPair], group: String? = nil) -> BulkAddResult {
         guard !watchlistWriteRefused() else { return BulkAddResult(added: 0, skipped: 0, locked: true) }
-        var added = 0, skipped = 0, refused = 0
-        var addedIds: [Int64] = []
+        var result = BulkAddResult(added: 0, skipped: 0)
         mutate { s in
-            for p in pairs {
-                switch Self.insertOutcome(&s, market: market, pair: p, group: group) {
-                case .added(let id):
-                    added += 1
-                    addedIds.append(id)
-                case .duplicate: skipped += 1
-                case .full: refused += 1
-                case .locked: break  // kommt hier nicht vor (`insertOutcome` sperrt nicht)
-                }
-            }
+            result = WatchInsertion.insertAll(&s, market: market, pairs: pairs, group: group)
         }
-        if added > 0 { markFirstPairAdded() }
+        if result.added > 0 { markFirstPairAdded() }
         pairs.forEach { noteTradFi(market: market, pair: $0) }
-        return BulkAddResult(added: added, skipped: skipped, refused: refused, addedIds: addedIds)
+        return result
+    }
+
+    /// «Rückgängig» nach «Mehrere Paare»: die neu angelegten Paare `ids` wieder löschen, ausser denen, die inzwischen
+    /// einen Alarm haben (auch ausgeschaltet; der Alarm ginge sonst ohne Hinweis mit) — wie Android
+    /// `WatchRepository.deleteWatchesWithoutAlarms`.
+    @discardableResult
+    func deleteNewWatchesForUndo(ids: Set<Int64>) -> [DeletedWatch] {
+        let withAlarms = Set(snapshot.alarms.map(\.watchId))
+        return deleteForUndo(ids: ids.subtracting(withAlarms))
     }
 
     // MARK: Bearbeiten

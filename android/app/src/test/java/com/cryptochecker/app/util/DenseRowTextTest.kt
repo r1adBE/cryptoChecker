@@ -60,4 +60,11 @@ class DenseRowTextTest {
         assertEquals(205.5f, DenseRowText.convertedMaxWidth(411f), 0.001f)
         assertEquals(160f, DenseRowText.convertedMaxWidth(320f), 0.001f)
     }
+
+    @Test
+    fun `Umrechnung bricht neben dem Paar auf zwei Zeilen um, gestapelt frei`() {
+        // «≈ 66’120.50 CHF · Kurs 08:15 · Umrechnung unsicher»: der Vermerk am Ende darf nicht im «…» verschwinden
+        assertEquals(2, DenseRowText.convertedMaxLines(stacked = false))
+        assertEquals(Int.MAX_VALUE, DenseRowText.convertedMaxLines(stacked = true))
+    }
 }

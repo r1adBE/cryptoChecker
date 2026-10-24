@@ -124,6 +124,36 @@ internal suspend fun collectBulkAdd(
     return BulkAddResult(added = added, skipped = skipped, refused = refused, addedIds = addedIds)
 }
 
+/**
+ * «Rückgängig» nach «Mehrere Paare» ([BulkAddRunner.undo]): die neu angelegten Paare [ids] löschen, ausser denen, die
+ * inzwischen einen Alarm haben (auch ausgeschaltet) — der Alarm ginge sonst per Fremdschlüssel ohne Hinweis mit.
+ * Prüfen und Löschen in einem Vorgang. Rückgabe wie [WatchRepository.deleteWatches].
+ */
+suspend fun WatchRepository.deleteWatchesWithoutAlarms(ids: Collection<Long>): Boolean {
+    if (ids.isEmpty() || userWriteRefused()) return false
+    database.withTransaction {
+        // Gelöscht werden nur Paare ohne Alarm: das Alarm-Protokoll bleibt unberührt
+        withoutAlarms(ids) { chunk -> watchDao.getWatchIdsWithAlarms(chunk) }.forEach { watchDao.deleteWatch(it) }
+    }
+    return true
+}
+
+/**
+ * Die Ids aus [ids] ohne Alarm; [withAlarms] liefert zu einem Teil (höchstens [ALARM_QUERY_CHUNK] Ids, Grenze der
+ * SQL-Variablen) die Ids mit Alarm. Ohne Room testbar (`BulkAddRunnerTest`).
+ */
+internal suspend fun withoutAlarms(
+    ids: Collection<Long>,
+    withAlarms: suspend (List<Long>) -> Collection<Long>,
+): List<Long> {
+    val unique = ids.distinct()
+    val taken = HashSet<Long>()
+    for (chunk in unique.chunked(ALARM_QUERY_CHUNK)) taken += withAlarms(chunk)
+    return unique.filter { it !in taken }
+}
+
+private const val ALARM_QUERY_CHUNK = 500
+
 /** Ausgang von [restore]. */
 enum class RestoreOutcome {
     RESTORED,

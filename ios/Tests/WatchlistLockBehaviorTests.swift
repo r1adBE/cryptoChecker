@@ -173,6 +173,10 @@ final class WatchlistLockBehaviorTests: XCTestCase {
             Write(key: "deleteForUndo(ids wanted") { d, l in
                 let r = d.deleteForUndo(ids: [btc.id]); whenLocked(l, r.isEmpty, "deleteForUndo(ids)")
             },
+            // ETH ohne Alarm (Paare mit Alarm bleiben bei diesem «Rückgängig»)
+            Write(key: "deleteNewWatchesForUndo(ids") { d, l in
+                let r = d.deleteNewWatchesForUndo(ids: [Self.eth.id]); whenLocked(l, r.isEmpty, "deleteNewWatchesForUndo")
+            },
             Write(key: "deleteNotTradedForUndo()", prepare: { $0.watches[0].lastError = NotTraded.marker }) { d, l in
                 let r = d.deleteNotTradedForUndo(); whenLocked(l, r.isEmpty, "deleteNotTradedForUndo")
             },
@@ -264,7 +268,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     /// Schreibwege des Nutzers: oben je mit Sperre und Gegenprobe geprüft.
     private static let writeKeys: Set<String> = [
         "addStarterCoins(_ coins", "changePair(_ watchId", "delete(_ watch", "deleteForUndo(_ watch", "restore(_ deleted",
-        "deleteForUndo(ids wanted", "deleteNotTradedForUndo()", "deleteAllForUndo()", "addWatch(market",
+        "deleteForUndo(ids wanted", "deleteNewWatchesForUndo(ids", "deleteNotTradedForUndo()", "deleteAllForUndo()", "addWatch(market",
         "tryAddWatch(market", "addWatches(market", "setNotificationEnabled(_ watch", "setAllNotifications(_ enabled",
         "setTtsEnabled(_ watch", "setNote(_ watch", "setGroup(_ watch", "setGroup(ids", "setFavorite(ids",
         "setDisabled(ids", "toggleFavorite(_ watch", "move(_ watch", "reorder(_ orderedIds", "applyGroupEdit(oldName",

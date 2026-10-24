@@ -88,8 +88,9 @@ jobs:
           ./gradlew test --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
 
       # Kotlin compiler warnings in the app and library sources: ceiling 0 (like lint and the iOS release build).
-      # A fresh checkout compiles every changed module in full, so all warnings of that module appear in the log;
-      # test sources are not counted.
+      # A fresh checkout compiles every changed module in full, so all warnings of that module appear in the log; a
+      # module whose compile output comes from the Gradle build cache prints none (it was unchanged and checked when it
+      # was compiled). Test sources are not counted.
       - name: Kotlin warnings
         run: |
           W=$(grep -E '^w: (file://)?[^ ]*/src/main/' "$RUNNER_TEMP/gradle-test.log" | sort -u || true)
@@ -104,6 +105,11 @@ jobs:
       - name: Unit test errors
         if: failure()
         run: |
+          # GitHub shows only about 10 annotations per step: failed tests with their assertion and the test-file line in
+          # ONE annotation (line breaks as %0A)
+          DETAILS=$(grep -E ' FAILED$|^\s+(java|kotlin|org\.junit)\.[A-Za-z.]*(Error|Exception|Failure)|^\s+at [^(]*\([A-Za-z]+Test\.kt:[0-9]+\)' \
+            "$RUNNER_TEMP/gradle-test.log" | head -60 | sed -E 's/^\s+//' | awk '{printf "%s%%0A", $0}' || true)
+          [ -z "$DETAILS" ] || echo "::error title=Failed unit tests (details)::$DETAILS"
           grep -E '^e: |FAILED|Exception|expected:' "$RUNNER_TEMP/gradle-test.log" | head -60 | sed 's/^/::error::/' || true
 
       # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only

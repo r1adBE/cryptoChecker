@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Tärkeiden Yhdysvaltain talouslukujen päivämäärät: inflaatio (CPI, PCE), tuottajahinnat (PPI), työllisyysraportti ja Yhdysvaltain keskuspankin korkopäätökset. Tällaiset luvut liikuttavat usein myös kryptovaluuttojen kursseja.</string>
     <string name="market_info_no_advice">Ei sijoitusneuvontaa.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · kurssit tunneittain, on-chain-arvot ladataan uudelleen 12 tunnin välein</string>
-    <string name="market_info_pulse_how">Otsikko kertoo suunnan; avattuna näkyvät yksityiskohdat. Laaja liike tarkoittaa, että useimmat suuret kolikot liikkuvat samaan suuntaan. Korkea rahoituskorko tarkoittaa, että moni lyö vipuvaikutuksella vetoa nousevista kursseista. Tilannekuva, ei ennuste.</string>
+    <string name="market_info_pulse_how">Otsikko kertoo suunnan; avattuna näkyvät yksityiskohdat. Laaja liike tarkoittaa, että useimmat suuret kolikot liikkuvat samaan suuntaan. Optimistinen vipukaupan tunnelma tarkoittaa, että moni lyö vipuvaikutuksella vetoa nousevista kursseista; mittarina on Bitcoin-futuurien rahoituskorko. Tilannekuva, ei ennuste.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · ladataan uudelleen noin 5 minuutin välein</string>
-    <string name="market_info_pulse_what">Lyhyt yhteenveto markkinasta viimeisten 24 tunnin ajalta: miten Bitcoin, Ethereum ja Solana liikkuvat, kuinka moni suurimmista kolikoista nousee tai laskee, kuinka paljon Bitcoinia käydään kauppaa juuri nyt ja millä tasolla Bitcoin-futuurien rahoituskorko on.</string>
+    <string name="market_info_pulse_what">Lyhyt yhteenveto markkinasta viimeisten 24 tunnin ajalta: miten Bitcoin, Ethereum ja Solana liikkuvat, kuinka moni suurimmista kolikoista nousee tai laskee, kuinka paljon Bitcoinia käydään kauppaa juuri nyt ja millainen vipukaupan tunnelma on (mittarina Bitcoin-futuurien rahoituskorko).</string>
     <string name="market_info_totals_how">Oikealla näkyy kokonaisarvon muutos 24 tunnissa. Suuri volyymi tarkoittaa, että kauppaa käydään paljon, mutta se ei kerro suuntaa. Näytetään mahdollisuuksien mukaan muunnosvaluuttana, muuten Yhdysvaltain dollareina.</string>
     <string name="market_info_totals_source">Kaikki kolikot · CoinGecko · ladataan uudelleen noin 30 minuutin välein</string>
     <string name="market_info_totals_what">Kaikkien kryptovaluuttojen yhteenlaskettu arvo (markkina-arvo: kurssi kertaa liikkeessä oleva määrä, laskettuna yhteen kaikista kolikoista) ja viimeisten 24 tunnin kaupankäyntivolyymi.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoinit ja Bitcoin liikkuvat samoin</string>
     <string name="pulse_alts_stronger">Altcoinit Bitcoinia vahvempia</string>
     <string name="pulse_alts_weaker">Bitcoin altcoineja vahvempi</string>
-    <string name="pulse_chip_funding_high">Funding koholla</string>
-    <string name="pulse_chip_funding_negative">Funding negatiivinen</string>
+    <string name="pulse_chip_funding_high">Vipukaupan tunnelma optimistinen</string>
+    <string name="pulse_chip_funding_negative">Vipukaupan tunnelma pessimistinen</string>
     <string name="pulse_funding_high">Funding selvästi positiivinen: paljon vipuvoimalla otettuja longeja</string>
     <string name="pulse_funding_negative">Funding negatiivinen: paljon shortteja</string>
     <string name="pulse_funding_neutral">Funding neutraali</string>

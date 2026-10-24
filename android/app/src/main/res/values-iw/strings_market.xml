@@ -63,9 +63,9 @@
     <string name="market_info_macro_what">מועדי נתונים כלכליים חשובים מארה״ב: אינפלציה (CPI,‏ PCE), מחירי יצרן (PPI), דוח התעסוקה והחלטות הריבית של הפדרל ריזרב. נתונים כאלה מזיזים לעיתים קרובות גם את מחירי המטבעות הקריפטוגרפיים.</string>
     <string name="market_info_no_advice">אין ייעוץ השקעות.</string>
     <string name="market_info_phase_source">Binance,‏ Coin Metrics · מחירים כל שעה, נתוני on-chain נטענים מחדש כל 12 שעות</string>
-    <string name="market_info_pulse_how">הכותרת מציינת את הכיוון; בכרטיס הפתוח מופיעים הפרטים. תנועה רחבה פירושה שרוב המטבעות הגדולים נעים לאותו כיוון. שיעור מימון גבוה פירושו שרבים מהמרים על עליית מחירים במינוף. תמונת מצב, לא תחזית.</string>
+    <string name="market_info_pulse_how">הכותרת מציינת את הכיוון; בכרטיס הפתוח מופיעים הפרטים. תנועה רחבה פירושה שרוב המטבעות הגדולים נעים לאותו כיוון. אווירת מינוף אופטימית פירושה שרבים מהמרים על עליית מחירים במינוף, לפי שיעור המימון בחוזים העתידיים על Bitcoin. תמונת מצב, לא תחזית.</string>
     <string name="market_info_pulse_source">Binance,‏ CoinGecko · נטען מחדש בערך כל 5 דקות</string>
-    <string name="market_info_pulse_what">סיכום קצר של השוק ב־24 השעות האחרונות: איך נעים Bitcoin,‏ Ethereum ו־Solana, כמה מהמטבעות הגדולים ביותר עולים או יורדים, כמה Bitcoin נסחר עכשיו ובאיזו רמה עומד שיעור המימון בחוזים העתידיים על Bitcoin.</string>
+    <string name="market_info_pulse_what">סיכום קצר של השוק ב־24 השעות האחרונות: איך נעים Bitcoin,‏ Ethereum ו־Solana, כמה מהמטבעות הגדולים ביותר עולים או יורדים, כמה Bitcoin נסחר עכשיו ומהי אווירת המינוף (לפי שיעור המימון בחוזים העתידיים על Bitcoin).</string>
     <string name="market_info_totals_how">לצד הערך מוצג השינוי בשווי הכולל ב־24 שעות. נפח גבוה פירושו שנסחר הרבה, אך הוא אינו מציין את הכיוון. מוצג במטבע להמרה כשאפשר, אחרת בדולר אמריקאי.</string>
     <string name="market_info_totals_source">כל המטבעות · CoinGecko · נטען מחדש בערך כל 30 דקות</string>
     <string name="market_info_totals_what">השווי הכולל של כל המטבעות הקריפטוגרפיים (שווי שוק: מחיר כפול הכמות במחזור, מסוכם לכל המטבעות) ונפח המסחר ב־24 השעות האחרונות.</string>
@@ -139,8 +139,8 @@
     <string name="pulse_alts_even">אלטקוינים ו-Bitcoin נעים באופן דומה</string>
     <string name="pulse_alts_stronger">אלטקוינים חזקים מ-Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin חזק מאלטקוינים</string>
-    <string name="pulse_chip_funding_high">מימון גבוה</string>
-    <string name="pulse_chip_funding_negative">מימון שלילי</string>
+    <string name="pulse_chip_funding_high">אווירת המינוף אופטימית</string>
+    <string name="pulse_chip_funding_negative">אווירת המינוף פסימית</string>
     <string name="pulse_funding_high">מימון חיובי בבירור: הרבה לונגים ממונפים</string>
     <string name="pulse_funding_negative">מימון שלילי: הרבה שורטים</string>
     <string name="pulse_funding_neutral">מימון ניטרלי</string>

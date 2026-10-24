@@ -29,8 +29,10 @@ object MirrorManifest {
         "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
 
     /**
-     * Reserve-Schlüssel (F-29): privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren oder wird er
-     * bekannt, signiert die Action mit dem Reserve-Schlüssel weiter, ohne dass die Apps ein Update brauchen.
+     * Reserve-Schlüssel (F-29): privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren, signiert die
+     * Action mit dem Reserve-Schlüssel weiter, ohne dass die Apps ein Update brauchen. Wird MIRROR_SIGNING_KEY bekannt
+     * (Leck), genügt das nicht: [PUBLIC_KEY] bleibt in [PUBLIC_KEYS] gültig, bis das nächste App-Update ihn entfernt —
+     * bis dahin werden auch damit signierte Manifeste angenommen.
      */
     const val RESERVE_PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k" +
         "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw=="

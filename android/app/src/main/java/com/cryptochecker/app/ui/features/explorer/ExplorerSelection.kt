@@ -64,7 +64,10 @@ data class PairListSync(
     val error: String? = null,
 )
 
-/** Ausgang von «Alle Paare übernehmen»; [running] solange es läuft, [refused] = wegen voller Merkliste nicht angelegt. */
+/**
+ * Ausgang von «Alle Paare übernehmen»; [running] solange es läuft, [refused] = wegen voller Merkliste nicht angelegt,
+ * [failed] = mit Fehler abgebrochen.
+ */
 data class BulkAddResult(
     val added: Int,
     val skipped: Int,
@@ -75,6 +78,9 @@ data class BulkAddResult(
     val total: Int = 0,
     /** Neu angelegte Paare (für «Rückgängig»). */
     val addedIds: List<Long> = emptyList(),
+    /** Ende der Aufnahme (ms) für das Fenster von «Rückgängig» (`BulkAddRunner.undoOffered`). */
+    val finishedAt: Long = 0,
+    val failed: Boolean = false,
 )
 
 /** Ausgang des Versuchs, ein Paar in die Merkliste zu übernehmen. */
@@ -116,10 +122,16 @@ internal fun ExplorerViewModel.buildSelection(exchangeList: List<MarketInfo>) = 
     bulkQuotes = bulkQuotes,
     bulkQuote = bulkQuote.asStateFlow(),
     bulkStats = bulkStats.asStateFlow(),
-    bulkNew = combine(bulkPairs, watchedKeys, exchange) { pairs, keys, market ->
-        market?.let { bulkNewCount(it.key, pairs, keys) } ?: 0
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0),
+    // Startwert gleich aus den aktuellen Werten: sonst stünde im ersten Bild «Alle schon in der Merkliste»
+    bulkNew = combine(bulkPairs, watchedKeys, exchange) { pairs, keys, market -> bulkNewOf(pairs, keys, market) }
+        .stateIn(
+            viewModelScope, SharingStarted.WhileSubscribed(5_000),
+            bulkNewOf(bulkPairs.value, watchedKeys.value, exchange.value),
+        ),
 )
+
+private fun bulkNewOf(pairs: List<MarketPair>, keys: Set<String>, market: MarketInfo?): Int =
+    market?.let { bulkNewCount(it.key, pairs, keys) } ?: 0
 
 /**
  * Wie viele von [pairs] sind noch nicht in der Merkliste ([watched], Schlüssel [watchKey] mit demselben Kontrakttyp wie

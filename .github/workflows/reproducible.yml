@@ -21,6 +21,7 @@ on:
     paths:
       - '.github/workflows/reproducible.yml'
       - '.github/scripts/repro_compare.py'
+      - '.github/scripts/sbom.py'
   schedule:
     - cron: '23 4 * * 0'   # Sundays 04:23 UTC
   workflow_dispatch:

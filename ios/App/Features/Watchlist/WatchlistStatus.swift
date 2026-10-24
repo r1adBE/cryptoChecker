@@ -257,8 +257,9 @@ enum WatchlistTime {
         let f = RelativeDateTimeFormatter()
         f.unitsStyle = .abbreviated
         f.dateTimeStyle = .numeric
-        // Steht immer hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.»): klein
-        // beginnend wie «gerade eben», nach den Regeln der Sprache — wie Android `midSentence`
+        // Steht meist hinter anderem Text («Börsenkurse · vor 10 Min.», «Letzte Prüfung vor 10 Min.»): klein
+        // beginnend wie «gerade eben», nach den Regeln der Sprache — wie Android `midSentence`. Am Zeilenanfang
+        // macht `lineStart` sie wieder gross
         f.formattingContext = .middleOfSentence
         return f
     }()
@@ -277,6 +278,15 @@ enum WatchlistTime {
         f.formattingContext = .middleOfSentence
         return f
     }()
+
+    /// Zeile, die mit der relativen Zeit `ago` beginnt («vor 5 Min. · Binance nicht erreichbar», Adresszeile
+    /// «vor 2 Std. · Etherscan»): erstes Zeichen gross nach den Regeln der Sprache (`locale`, z. B. Türkisch
+    /// «i» → «İ»). Mitten im Satz bleibt die Zeit klein; beginnt `line` nicht mit `ago` (andere Wortstellung),
+    /// bleibt sie unverändert. Wie Android `lineStart`.
+    static func lineStart(_ line: String, ago: String, locale: Locale = .current) -> String {
+        guard !ago.isEmpty, line.hasPrefix(ago), let first = line.first else { return line }
+        return String(first).uppercased(with: locale) + line.dropFirst()
+    }
 
     /// Wie `ago`, aber ausgeschrieben für VoiceOver: «vor 2 Minuten» — wie Android `spokenAgo`.
     static func spokenAgo(_ millis: Int64, now: Int64) -> String {

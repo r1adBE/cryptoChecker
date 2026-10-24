@@ -19,7 +19,7 @@ import com.cryptochecker.app.util.PriceFormat
 
 /**
  * Zustandstexte einer Zeile, auch für den Screenreader: [warning] ersetzt die Zeitzeile
- * («Binance · pausiert bis 19:45», «vor 41 Min · Binance nicht erreichbar», «Binance · veraltet · vor 4 Min.» bzw.
+ * («Binance · pausiert bis 19:45», «Vor 41 Min. · Binance nicht erreichbar», «Binance · veraltet · vor 4 Min.» bzw.
  * «Binance · letzter Handel vor 3 Std.»),
  * [error] ist der verständliche Fehler, [stale] der Hinweis «veraltet» ohne Warnung.
  */
@@ -51,10 +51,12 @@ internal fun watchRowStatus(
 ): WatchRowStatus {
     // Deaktiviert: weder Warnung noch Fehler noch «veraltet» — es wird bewusst nicht abgefragt
     if (watch.disabled) return WatchRowStatus(warning = null, error = null, stale = null, showErrorLine = false)
-    // Letzter Abruf gescheitert, aber es gibt einen älteren Kurs: «vor 41 Min · Binance nicht erreichbar»
+    // Letzter Abruf gescheitert, aber es gibt einen älteren Kurs: «Vor 41 Min. · Binance nicht erreichbar»
     val failed = watch.lastError != null && !isNotTraded(watch.lastError)
     val unreachableText = if (failed && watch.lastUpdate > 0) {
-        stringResource(R.string.watchlist_row_unreachable, ago(watch.lastUpdate, now), watch.marketName)
+        // Zeit steht hier am Zeilenanfang: gross beginnend
+        val age = ago(watch.lastUpdate, now)
+        lineStart(stringResource(R.string.watchlist_row_unreachable, age, watch.marketName), age)
     } else {
         null
     }

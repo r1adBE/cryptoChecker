@@ -61,9 +61,9 @@
     <string name="market_info_macro_what">วันประกาศข้อมูลเศรษฐกิจสำคัญของสหรัฐฯ: เงินเฟ้อ (CPI, PCE) ราคาผู้ผลิต (PPI) รายงานการจ้างงาน และการตัดสินใจอัตราดอกเบี้ยของธนาคารกลางสหรัฐฯ ตัวเลขเหล่านี้มักทำให้ราคาคริปโตเคลื่อนไหวด้วย</string>
     <string name="market_info_no_advice">ไม่ใช่คำแนะนำการลงทุน</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · ราคาทุกชั่วโมง ค่า on-chain โหลดใหม่ทุก 12 ชั่วโมง</string>
-    <string name="market_info_pulse_how">หัวข้อบอกทิศทาง เมื่อขยายการ์ดจะเห็นรายละเอียด การเคลื่อนไหวแบบกว้างหมายความว่าเหรียญใหญ่ส่วนมากไปทางเดียวกัน อัตรา funding สูงหมายความว่าหลายคนใช้เลเวอเรจเดิมพันว่าราคาจะขึ้น เป็นภาพ ณ ขณะนี้ ไม่ใช่การคาดการณ์</string>
+    <string name="market_info_pulse_how">หัวข้อบอกทิศทาง เมื่อขยายการ์ดจะเห็นรายละเอียด การเคลื่อนไหวแบบกว้างหมายความว่าเหรียญใหญ่ส่วนมากไปทางเดียวกัน อารมณ์การเทรดเลเวอเรจมองบวกหมายความว่าหลายคนใช้เลเวอเรจเดิมพันว่าราคาจะขึ้น โดยวัดจากอัตรา funding ของสัญญาฟิวเจอร์ส Bitcoin เป็นภาพ ณ ขณะนี้ ไม่ใช่การคาดการณ์</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · โหลดใหม่ประมาณทุก 5 นาที</string>
-    <string name="market_info_pulse_what">สรุปสั้น ๆ ของตลาดในช่วง 24 ชั่วโมงที่ผ่านมา: Bitcoin, Ethereum และ Solana เคลื่อนไหวอย่างไร เหรียญใหญ่ที่สุดขึ้นหรือลงกี่เหรียญ ตอนนี้มีการซื้อขาย Bitcoin มากแค่ไหน และอัตรา funding ของสัญญาฟิวเจอร์ส Bitcoin อยู่ที่ระดับใด</string>
+    <string name="market_info_pulse_what">สรุปสั้น ๆ ของตลาดในช่วง 24 ชั่วโมงที่ผ่านมา: Bitcoin, Ethereum และ Solana เคลื่อนไหวอย่างไร เหรียญใหญ่ที่สุดขึ้นหรือลงกี่เหรียญ ตอนนี้มีการซื้อขาย Bitcoin มากแค่ไหน และอารมณ์การเทรดเลเวอเรจเป็นอย่างไร (วัดจากอัตรา funding ของสัญญาฟิวเจอร์ส Bitcoin)</string>
     <string name="market_info_totals_how">ด้านข้างแสดงการเปลี่ยนแปลงของมูลค่ารวมใน 24 ชั่วโมง ปริมาณสูงหมายความว่ามีการซื้อขายมาก แต่ไม่ได้บอกทิศทาง แสดงเป็นสกุลเงินที่แปลงเมื่อทำได้ ไม่เช่นนั้นเป็นดอลลาร์สหรัฐ</string>
     <string name="market_info_totals_source">ทุกเหรียญ · CoinGecko · โหลดใหม่ประมาณทุก 30 นาที</string>
     <string name="market_info_totals_what">มูลค่ารวมของคริปโตทั้งหมด (มูลค่าตลาด: ราคาคูณจำนวนที่หมุนเวียน รวมทุกเหรียญ) และปริมาณซื้อขายใน 24 ชั่วโมงที่ผ่านมา</string>
@@ -137,8 +137,8 @@
     <string name="pulse_alts_even">อัลต์คอยน์และ Bitcoin เคลื่อนไหวไปด้วยกัน</string>
     <string name="pulse_alts_stronger">อัลต์คอยน์แข็งแกร่งกว่า Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin แข็งแกร่งกว่าอัลต์คอยน์</string>
-    <string name="pulse_chip_funding_high">Funding สูง</string>
-    <string name="pulse_chip_funding_negative">Funding ติดลบ</string>
+    <string name="pulse_chip_funding_high">อารมณ์การเทรดเลเวอเรจมองบวก</string>
+    <string name="pulse_chip_funding_negative">อารมณ์การเทรดเลเวอเรจมองลบ</string>
     <string name="pulse_funding_high">Funding เป็นบวกชัดเจน: มี Long ใช้เลเวอเรจจำนวนมาก</string>
     <string name="pulse_funding_negative">Funding เป็นลบ: มี Short จำนวนมาก</string>
     <string name="pulse_funding_neutral">Funding เป็นกลาง</string>

@@ -209,6 +209,10 @@ interface WatchDao {
     @Query("SELECT * FROM alarms WHERE watchId = :watchId ORDER BY id ASC")
     suspend fun getAlarms(watchId: Long): List<AlarmEntity>
 
+    /** Welche dieser Paare haben mindestens einen Alarm (auch ausgeschaltet)? Für «Rückgängig» nach «Mehrere Paare». */
+    @Query("SELECT DISTINCT watchId FROM alarms WHERE watchId IN (:watchIds)")
+    suspend fun getWatchIdsWithAlarms(watchIds: List<Long>): List<Long>
+
     @Query("SELECT * FROM alarms WHERE watchId = :watchId AND enabled = 1")
     suspend fun getEnabledAlarms(watchId: Long): List<AlarmEntity>
 

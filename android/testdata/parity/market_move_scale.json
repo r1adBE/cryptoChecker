@@ -450,11 +450,11 @@
    }
   },
   {
-   "name": "big three up while market clearly down: up, but only slight",
+   "name": "big three each +1 % while market -3.5 % and 20 of 30 falling -> mixed, never up",
    "input": {
-    "btc24h": 1.2,
-    "eth24h": 1.3,
-    "sol24h": 1.1,
+    "btc24h": 1.0,
+    "eth24h": 1.0,
+    "sol24h": 1.0,
     "marketChange24h": -3.5,
     "breadth": {
      "up": 10,
@@ -463,15 +463,78 @@
     }
    },
    "expected": {
-    "direction": "UP",
-    "level": "SLIGHT",
-    "summary": "BROAD_UP",
-    "lead": "DRIFT_UP",
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
     "plainDirection": "DOWN_CLEAR"
    }
   },
   {
-   "name": "big three down while breadth leans up -> down, never mixed",
+   "name": "big three each -1 % while market +3.5 % and 20 of 30 rising -> mixed, never down",
+   "input": {
+    "btc24h": -1.0,
+    "eth24h": -1.0,
+    "sol24h": -1.0,
+    "marketChange24h": 3.5,
+    "breadth": {
+     "up": 20,
+     "down": 10,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": "UP_CLEAR"
+   }
+  },
+  {
+   "name": "big three up, market exactly -1.0 % against, breadth 50 % -> mixed",
+   "input": {
+    "btc24h": 1.2,
+    "eth24h": 1.3,
+    "sol24h": 1.1,
+    "marketChange24h": -1.0,
+    "breadth": {
+     "up": 15,
+     "down": 15,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": "DOWN_SLIGHT"
+   }
+  },
+  {
+   "name": "big three up, market -0.99 % (below 'slight'), breadth 50 % -> up, only slight",
+   "input": {
+    "btc24h": 1.2,
+    "eth24h": 1.3,
+    "sol24h": 1.1,
+    "marketChange24h": -0.99,
+    "breadth": {
+     "up": 15,
+     "down": 15,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "UP",
+    "level": "SLIGHT",
+    "summary": "BROAD_UP",
+    "lead": "DRIFT_UP",
+    "plainDirection": "FLAT"
+   }
+  },
+  {
+   "name": "big three down while breadth leans up (22 of 30) -> mixed",
    "input": {
     "btc24h": -1.2,
     "eth24h": -1.1,
@@ -484,11 +547,53 @@
     }
    },
    "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": "FLAT"
+   }
+  },
+  {
+   "name": "big three down, no market, breadth exactly 60 % up -> mixed",
+   "input": {
+    "btc24h": -1.2,
+    "eth24h": -1.1,
+    "sol24h": -1.4,
+    "marketChange24h": null,
+    "breadth": {
+     "up": 18,
+     "down": 12,
+     "total": 30
+    }
+   },
+   "expected": {
+    "direction": "MIXED",
+    "level": null,
+    "summary": "MIXED",
+    "lead": "MIXED",
+    "plainDirection": null
+   }
+  },
+  {
+   "name": "big three down, no market, breadth 17 of 30 up (below 60 %) -> down",
+   "input": {
+    "btc24h": -1.2,
+    "eth24h": -1.1,
+    "sol24h": -1.4,
+    "marketChange24h": null,
+    "breadth": {
+     "up": 17,
+     "down": 13,
+     "total": 30
+    }
+   },
+   "expected": {
     "direction": "DOWN",
     "level": "SLIGHT",
     "summary": "BROAD_DOWN",
     "lead": "DRIFT_DOWN",
-    "plainDirection": "FLAT"
+    "plainDirection": null
    }
   },
   {

@@ -5,6 +5,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.marketdata.model.MarketPair
 import kotlinx.coroutines.*
@@ -97,38 +98,87 @@ fun ExplorerViewModel.addBulkPairs() {
     }
 }
 
-/** Stand von [com.cryptochecker.app.data.BulkAddRunner] als Anzeige des Explorers (Balken, Ergebnis). */
-internal fun bulkAddFromRunner(p: com.cryptochecker.app.data.BulkAddRunner.Progress?): BulkAddResult? = when {
-    p == null || p.locked -> null
-    p.running -> BulkAddResult(added = 0, skipped = 0, running = true, done = p.done, total = p.total)
-    else -> p.result?.let { BulkAddResult(added = it.added, skipped = it.skipped, refused = it.refused, addedIds = it.addedIds) }
-}
-
 /**
- * Stand der app-weiten Aufnahme übernehmen — auch nach Rückkehr auf den Bildschirm (neues ViewModel). Noch keine
- * Aufnahme (null) ändert nichts (Rückfrage läuft evtl. noch); gesperrt: keine Zählung.
+ * Stand von [BulkAddRunner] als Anzeige des Explorers (Balken, Ergebnis, Fehler). Gesperrt
+ * oder abgebrochen: nichts (Knopf wieder frei, kein Balken, keine Zählung).
  */
-internal suspend fun ExplorerViewModel.collectBulkRunner() {
-    bulkAddRunner.progress.collect { p ->
-        when {
-            p == null -> Unit
-            p.locked -> {
-                bulkAdd.value = null
-                bulkAddRunner.clearResult()
-            }
-            else -> bulkAdd.value = bulkAddFromRunner(p)
-        }
+internal fun bulkAddFromRunner(p: BulkAddRunner.Progress?): BulkAddResult? = when {
+    p == null || p.locked || p.cancelled -> null
+    p.failed -> BulkAddResult(added = 0, skipped = 0, failed = true)
+    p.running -> BulkAddResult(added = 0, skipped = 0, running = true, done = p.done, total = p.total)
+    else -> p.result?.let {
+        BulkAddResult(
+            added = it.added, skipped = it.skipped, refused = it.refused, addedIds = it.addedIds,
+            finishedAt = p.finishedAt,
+        )
     }
 }
+
+/** Stand der app-weiten Aufnahme übernehmen — auch nach Rückkehr auf den Bildschirm (neues ViewModel). */
+internal suspend fun ExplorerViewModel.collectBulkRunner() = bulkAddDisplay.collect()
+
+/** Der Explorer beginnt, das Ergebnis zu zeigen ([BulkAddDisplay.claim]). */
+fun ExplorerViewModel.markBulkAddClaimed() = bulkAddDisplay.claim()
 
 /** «Rückgängig» in der Rückmeldung: die eben neu angelegten Paare wieder entfernen. */
 fun ExplorerViewModel.undoBulkAdd(ids: List<Long>) {
     bulkAddRunner.undo(ids)
 }
 
-fun ExplorerViewModel.clearBulkAddResult() {
-    bulkAdd.value = null
-    bulkAddRunner.clearResult()
+/** Meldung zu: Anzeige weg. */
+fun ExplorerViewModel.clearBulkAddResult() = bulkAddDisplay.clear()
+
+/**
+ * Anzeige der app-weiten Aufnahme im Explorer ([shown] = `ExplorerViewModel.bulkAdd`): übernimmt den Stand des Runners
+ * und sorgt dafür, dass jedes Ende genau einmal gemeldet wird — vom Explorer oder von der Merkliste. Ohne ViewModel
+ * testbar (`BulkAddRunnerTest`).
+ */
+internal class BulkAddDisplay(
+    private val runner: BulkAddRunner,
+    private val shown: MutableStateFlow<BulkAddResult?>,
+) {
+    /** Ende in [shown], das der Explorer meldet ([claim]); bleibt stehen, auch wenn der Runner schon leer ist. */
+    private var claimed: BulkAddResult? = null
+
+    suspend fun collect() {
+        runner.progress.collect { apply(it) }
+    }
+
+    /**
+     * Gesperrt, abgebrochen oder Fehler: Anzeige danach ([bulkAddFromRunner]: Knopf frei, kein Balken; Fehler als
+     * Meldung des Explorers) und das Ende im Runner abräumen. Noch keine Aufnahme (null) ändert nichts (Rückfrage
+     * läuft evtl. noch); ein Ergebnis, das der Explorer noch nicht übernommen hat, hat dann die Merkliste gemeldet:
+     * nicht noch einmal zeigen.
+     */
+    fun apply(p: BulkAddRunner.Progress?) {
+        when {
+            p == null -> {
+                val current = shown.value
+                if (current != null && !current.running && current !== claimed) shown.value = null
+            }
+            p.running || p.result != null -> shown.value = bulkAddFromRunner(p)
+            else -> {
+                shown.value = bulkAddFromRunner(p)
+                claimed = shown.value
+                runner.clearResult()
+            }
+        }
+    }
+
+    /**
+     * Der Explorer beginnt, das Ergebnis zu zeigen: im Runner gilt es damit als gemeldet (die Merkliste zeigt es nicht
+     * noch einmal). [shown] bleibt unverändert bis [clear] — sonst bräche die laufende Snackbar ab.
+     */
+    fun claim() {
+        claimed = shown.value
+        runner.clearResult()
+    }
+
+    fun clear() {
+        shown.value = null
+        claimed = null
+        runner.clearResult()
+    }
 }
 
 /** Kennzahlen der Schnellfilter höchstens einmal pro Minute neu abfragen. */

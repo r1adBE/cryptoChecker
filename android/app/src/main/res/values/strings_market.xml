@@ -63,9 +63,9 @@
     <string name="market_info_macro_what">Dates of important US economic data: inflation (CPI, PCE), producer prices (PPI), the jobs report and interest rate decisions of the US Federal Reserve. Such figures often move crypto prices too.</string>
     <string name="market_info_no_advice">Not investment advice.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · prices hourly, on-chain values reloaded every 12 hours</string>
-    <string name="market_info_pulse_how">The headline names the direction; expand the card for details. A broad move means most large coins are moving the same way. A high funding rate means many traders are betting on rising prices with leverage. A snapshot, not a forecast.</string>
+    <string name="market_info_pulse_how">The headline names the direction; expand the card for details. A broad move means most large coins are moving the same way. An optimistic leverage mood means many traders are betting on rising prices with leverage, measured by the funding rate of Bitcoin futures. A snapshot, not a forecast.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · reloaded about every 5 minutes</string>
-    <string name="market_info_pulse_what">A short summary of the market over the last 24 hours: how Bitcoin, Ethereum and Solana are moving, how many of the largest coins are rising or falling, how much Bitcoin is being traded right now and where the funding rate on Bitcoin futures stands.</string>
+    <string name="market_info_pulse_what">A short summary of the market over the last 24 hours: how Bitcoin, Ethereum and Solana are moving, how many of the largest coins are rising or falling, how much Bitcoin is being traded right now and what the leverage mood is (measured by the funding rate of Bitcoin futures).</string>
     <string name="market_info_totals_how">On the right is the change in total value over 24 hours. High volume means a lot is being traded – it does not say in which direction. Shown in the conversion currency where possible, otherwise in US dollars.</string>
     <string name="market_info_totals_source">All coins · CoinGecko · reloaded about every 30 minutes</string>
     <string name="market_info_totals_what">The total value of all cryptocurrencies (market capitalization: price times circulating supply, added up over all coins) and the trading volume of the last 24 hours.</string>
@@ -140,8 +140,8 @@
     <string name="pulse_alts_even">Altcoins and Bitcoin move alike</string>
     <string name="pulse_alts_stronger">Altcoins stronger than Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin stronger than altcoins</string>
-    <string name="pulse_chip_funding_high">Funding elevated</string>
-    <string name="pulse_chip_funding_negative">Funding negative</string>
+    <string name="pulse_chip_funding_high">Leverage mood optimistic</string>
+    <string name="pulse_chip_funding_negative">Leverage mood pessimistic</string>
     <!-- Nur iOS: Android nutzt diese Texte nicht -->
     <string name="pulse_funding_high" tools:ignore="UnusedResources">Funding clearly positive: many leveraged longs</string>
     <string name="pulse_funding_negative" tools:ignore="UnusedResources">Funding negative: many shorts</string>

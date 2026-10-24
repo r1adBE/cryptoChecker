@@ -88,6 +88,7 @@ class ExplorerViewModel @Inject constructor(
     internal val bulkEmpty = MutableStateFlow(false)
     internal val bulkQuote = MutableStateFlow<String?>(null)
     internal val bulkAdd = MutableStateFlow<BulkAddResult?>(null)
+    internal val bulkAddDisplay = BulkAddDisplay(bulkAddRunner, bulkAdd)
     internal val addResult = MutableStateFlow<AddResult?>(null)
 
     /**

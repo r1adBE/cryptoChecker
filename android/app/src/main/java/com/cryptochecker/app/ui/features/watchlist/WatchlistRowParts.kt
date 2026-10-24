@@ -49,10 +49,12 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isSpecified
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -68,6 +70,7 @@ import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.body
+import com.cryptochecker.app.util.DenseRowText
 import com.cryptochecker.app.util.PriceFormat
 
 /** Coin-Plakette in der Zeile: in allen Coin-Listen gleich gross ([ListSegment.Logo]). */
@@ -158,7 +161,10 @@ internal fun RowLeading(
 internal fun RowPrice(
     watch: WatchEntity,
     converted: String?,
-    /** Höchstbreite der ≈ Umrechnung ([DenseRowText.convertedMaxWidth]), länger → «…»; Unspecified = frei (gestapelt). */
+    /**
+     * Höchstbreite der ≈ Umrechnung ([DenseRowText.convertedMaxWidth]); länger → Umbruch auf höchstens
+     * [DenseRowText.convertedMaxLines] Zeilen, erst danach «…»; Unspecified = frei (gestapelt).
+     */
     convertedMaxWidth: Dp = Dp.Unspecified,
     /** Deaktiviert: Kurs in onSurfaceVariant (nicht abgeblasst), Änderung neutral grau. */
     off: Boolean,
@@ -258,10 +264,12 @@ internal fun RowPrice(
         if (converted != null) {
             Text(
                 text = converted,
-                // Wie die Börsenzeile links (14 sp); die Spalte ist so breit wie ihr Inhalt
+                // Wie die Börsenzeile links (14 sp); die Spalte ist so breit wie ihr Inhalt. Vermerke am Ende
+                // («· Kurs 08:15», «· Umrechnung unsicher») rutschen in die zweite Zeile statt ins «…»
                 style = MaterialTheme.typography.body.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
+                textAlign = TextAlign.End,
+                maxLines = DenseRowText.convertedMaxLines(stacked = !convertedMaxWidth.isSpecified),
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.widthIn(max = convertedMaxWidth).padding(top = 2.dp, end = 4.dp)
             )

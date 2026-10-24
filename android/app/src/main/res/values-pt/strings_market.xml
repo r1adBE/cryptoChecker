@@ -63,9 +63,9 @@
     <string name="market_info_macro_what">Datas de dados económicos importantes dos EUA: inflação (CPI, PCE), preços no produtor (PPI), relatório de emprego e decisões de juros da Reserva Federal. Estes números movem muitas vezes também os preços das criptomoedas.</string>
     <string name="market_info_no_advice">Não é aconselhamento de investimento.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · preços de hora a hora, dados on-chain recarregados a cada 12 horas</string>
-    <string name="market_info_pulse_how">O título indica a direção; ao expandir o cartão veem-se os detalhes. Um movimento amplo significa que a maioria das grandes criptomoedas vai na mesma direção. Uma taxa de financiamento alta significa que muitos apostam na subida com alavancagem. Um retrato do momento, não uma previsão.</string>
+    <string name="market_info_pulse_how">O título indica a direção; ao expandir o cartão veem-se os detalhes. Um movimento amplo significa que a maioria das grandes criptomoedas vai na mesma direção. Um sentimento alavancado otimista significa que muitos apostam na subida com alavancagem, medido pela taxa de financiamento dos futuros de Bitcoin. Um retrato do momento, não uma previsão.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · recarregado cerca de 5 em 5 minutos</string>
-    <string name="market_info_pulse_what">Um breve resumo do mercado nas últimas 24 horas: como se movem a Bitcoin, a Ethereum e a Solana, quantas das maiores criptomoedas sobem ou descem, quanta Bitcoin está a ser negociada neste momento e em que nível está a taxa de financiamento dos futuros de Bitcoin.</string>
+    <string name="market_info_pulse_what">Um breve resumo do mercado nas últimas 24 horas: como se movem a Bitcoin, a Ethereum e a Solana, quantas das maiores criptomoedas sobem ou descem, quanta Bitcoin está a ser negociada neste momento e como está o sentimento alavancado (medido pela taxa de financiamento dos futuros de Bitcoin).</string>
     <string name="market_info_totals_how">À direita aparece a variação do valor total em 24 horas. Um volume alto significa que se negoceia muito, mas não diz em que direção. Mostrado, se possível, na moeda de conversão, caso contrário em dólares americanos.</string>
     <string name="market_info_totals_source">Todas as criptomoedas · CoinGecko · recarregado cerca de 30 em 30 minutos</string>
     <string name="market_info_totals_what">O valor total de todas as criptomoedas (capitalização de mercado: preço vezes quantidade em circulação, somado para todas) e o volume de negociação das últimas 24 horas.</string>
@@ -139,8 +139,8 @@
     <string name="pulse_alts_even">Altcoins e Bitcoin movem-se de forma semelhante</string>
     <string name="pulse_alts_stronger">Altcoins mais fortes do que a Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin mais forte do que as altcoins</string>
-    <string name="pulse_chip_funding_high">Funding elevado</string>
-    <string name="pulse_chip_funding_negative">Funding negativo</string>
+    <string name="pulse_chip_funding_high">Sentimento alavancado otimista</string>
+    <string name="pulse_chip_funding_negative">Sentimento alavancado pessimista</string>
     <string name="pulse_funding_high">Funding claramente positivo: muitos longs alavancados</string>
     <string name="pulse_funding_negative">Funding negativo: muitos shorts</string>
     <string name="pulse_funding_neutral">Funding neutro</string>

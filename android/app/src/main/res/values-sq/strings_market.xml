@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Datat e të dhënave të rëndësishme ekonomike të SHBA-së: inflacioni (CPI, PCE), çmimet e prodhuesve (PPI), raporti i punësimit dhe vendimet për normat e interesit të Rezervës Federale. Këto shifra shpesh lëvizin edhe çmimet e kriptomonedhave.</string>
     <string name="market_info_no_advice">Jo këshillë investimi.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · çmimet çdo orë, të dhënat on-chain rifreskohen çdo 12 orë</string>
-    <string name="market_info_pulse_how">Titulli tregon drejtimin; karta e hapur tregon hollësitë. Lëvizje e gjerë do të thotë që shumica e monedhave të mëdha lëvizin në të njëjtin drejtim. Normë e lartë financimi do të thotë që shumë vënë bast për rritje me levë. Një pamje e çastit, jo parashikim.</string>
+    <string name="market_info_pulse_how">Titulli tregon drejtimin; karta e hapur tregon hollësitë. Lëvizje e gjerë do të thotë që shumica e monedhave të mëdha lëvizin në të njëjtin drejtim. Disponim optimist me levë do të thotë që shumë vënë bast për rritje me levë, i matur me normën e financimit të kontratave të së ardhmes së Bitcoin. Një pamje e çastit, jo parashikim.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · rifreskohet afërsisht çdo 5 minuta</string>
-    <string name="market_info_pulse_what">Një përmbledhje e shkurtër e tregut për 24 orët e fundit: si lëvizin Bitcoin, Ethereum dhe Solana, sa nga monedhat më të mëdha rriten ose bien, sa Bitcoin tregtohet tani dhe në çfarë niveli është norma e financimit për kontratat e së ardhmes së Bitcoin.</string>
+    <string name="market_info_pulse_what">Një përmbledhje e shkurtër e tregut për 24 orët e fundit: si lëvizin Bitcoin, Ethereum dhe Solana, sa nga monedhat më të mëdha rriten ose bien, sa Bitcoin tregtohet tani dhe si është disponimi me levë (i matur me normën e financimit të kontratave të së ardhmes së Bitcoin).</string>
     <string name="market_info_totals_how">Djathtas shfaqet ndryshimi i vlerës totale për 24 orë. Vëllimi i lartë do të thotë që tregtohet shumë, por nuk tregon në cilin drejtim. Shfaqet sipas mundësisë në monedhën e konvertimit, përndryshe në dollarë amerikanë.</string>
     <string name="market_info_totals_source">Të gjitha monedhat · CoinGecko · rifreskohet afërsisht çdo 30 minuta</string>
     <string name="market_info_totals_what">Vlera totale e të gjitha kriptomonedhave (kapitalizimi i tregut: çmimi herë sasia në qarkullim, e mbledhur për të gjitha monedhat) dhe vëllimi i tregtimit i 24 orëve të fundit.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoin-et dhe Bitcoin lëvizin njësoj</string>
     <string name="pulse_alts_stronger">Altcoin-et më të fortë se Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin më i fortë se altcoin-et</string>
-    <string name="pulse_chip_funding_high">Funding i lartë</string>
-    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_chip_funding_high">Disponimi me levë optimist</string>
+    <string name="pulse_chip_funding_negative">Disponimi me levë pesimist</string>
     <string name="pulse_funding_high">Funding qartë pozitiv: shumë long me levë</string>
     <string name="pulse_funding_negative">Funding negativ: shumë short</string>
     <string name="pulse_funding_neutral">Funding neutral</string>

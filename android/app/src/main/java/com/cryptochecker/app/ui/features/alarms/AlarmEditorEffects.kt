@@ -82,9 +82,10 @@ internal fun AlarmEditorEffects(
                 scope.launch {
                     snackbar.currentSnackbarData?.dismiss()
                     if (off) {
-                        // Mit Aktion «Einstellungen» (Mitteilungs-Einstellungen der App)
+                        // Mit Aktion «Einstellungen» (Mitteilungs-Einstellungen der App). Info statt Erfolg: der Alarm
+                        // ist gespeichert, kommt so aber nicht an
                         val result = snackbar.showTimed(
-                            text, settingsLabel, SAVED_MILLIS, accessibilityManager, SnackbarKind.SUCCESS,
+                            text, settingsLabel, SAVED_MILLIS, accessibilityManager, SnackbarKind.INFO,
                         )
                         if (result == SnackbarResult.ActionPerformed) openAppNotificationSettings(context)
                     } else {

@@ -198,7 +198,7 @@ enum PerformanceTiming {
     static let measuredRuns = 5
     static let scaleFactor = 5.0
     /// Feste Zugabe zur Skalierungsgrenze: kleine Messwerte schwanken absolut um einige Millisekunden.
-    static let scaleSlackMillis = 50.0
+    static let scaleSlackMillis = 20.0
 
     /// Median der Laufzeit von `block` in Millisekunden; `setup` liefert je Lauf frische Eingaben (nicht gemessen).
     static func medianMillis<S, R>(setup: () throws -> S, _ block: (S) throws -> R) rethrows -> Double {

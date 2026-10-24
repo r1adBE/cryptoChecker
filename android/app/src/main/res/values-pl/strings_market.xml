@@ -64,9 +64,9 @@
     <string name="market_info_macro_what">Terminy ważnych danych gospodarczych z USA: inflacja (CPI, PCE), ceny producentów (PPI), raport z rynku pracy i decyzje Rezerwy Federalnej w sprawie stóp procentowych. Takie dane często poruszają też kursy kryptowalut.</string>
     <string name="market_info_no_advice">To nie jest porada inwestycyjna.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · kursy co godzinę, dane on-chain wczytywane ponownie co 12 godzin</string>
-    <string name="market_info_pulse_how">Nagłówek podaje kierunek, po rozwinięciu widać szczegóły. Szeroki ruch oznacza, że większość dużych monet zmierza w tę samą stronę. Wysoka stopa finansowania oznacza, że wielu gra na wzrosty z dźwignią. To migawka, nie prognoza.</string>
+    <string name="market_info_pulse_how">Nagłówek podaje kierunek, po rozwinięciu widać szczegóły. Szeroki ruch oznacza, że większość dużych monet zmierza w tę samą stronę. Optymistyczne nastroje na dźwigni oznaczają, że wielu gra na wzrosty z dźwignią; miarą jest stopa finansowania kontraktów futures na Bitcoina. To migawka, nie prognoza.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · wczytywane ponownie mniej więcej co 5 minut</string>
-    <string name="market_info_pulse_what">Krótkie podsumowanie rynku z ostatnich 24 godzin: jak poruszają się Bitcoin, Ethereum i Solana, ile z największych monet rośnie lub spada, ile Bitcoina jest teraz w obrocie i na jakim poziomie jest stopa finansowania kontraktów futures na Bitcoina.</string>
+    <string name="market_info_pulse_what">Krótkie podsumowanie rynku z ostatnich 24 godzin: jak poruszają się Bitcoin, Ethereum i Solana, ile z największych monet rośnie lub spada, ile Bitcoina jest teraz w obrocie i jakie są nastroje na dźwigni (mierzone stopą finansowania kontraktów futures na Bitcoina).</string>
     <string name="market_info_totals_how">Po prawej widać zmianę łącznej wartości w ciągu 24 godzin. Wysoki wolumen oznacza duży obrót, ale nie mówi, w którą stronę. W miarę możliwości w walucie przeliczenia, w przeciwnym razie w dolarach amerykańskich.</string>
     <string name="market_info_totals_source">Wszystkie monety · CoinGecko · wczytywane ponownie mniej więcej co 30 minut</string>
     <string name="market_info_totals_what">Łączna wartość wszystkich kryptowalut (kapitalizacja rynkowa: kurs razy podaż w obiegu, zsumowana dla wszystkich monet) i wolumen obrotu z ostatnich 24 godzin.</string>
@@ -140,8 +140,8 @@
     <string name="pulse_alts_even">Altcoiny i Bitcoin poruszają się podobnie</string>
     <string name="pulse_alts_stronger">Altcoiny silniejsze niż Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin silniejszy niż altcoiny</string>
-    <string name="pulse_chip_funding_high">Funding podwyższony</string>
-    <string name="pulse_chip_funding_negative">Funding ujemny</string>
+    <string name="pulse_chip_funding_high">Nastroje na dźwigni optymistyczne</string>
+    <string name="pulse_chip_funding_negative">Nastroje na dźwigni pesymistyczne</string>
     <string name="pulse_funding_high">Funding wyraźnie dodatni: wiele lewarowanych longów</string>
     <string name="pulse_funding_negative">Funding ujemny: wiele shortów</string>
     <string name="pulse_funding_neutral">Funding neutralny</string>

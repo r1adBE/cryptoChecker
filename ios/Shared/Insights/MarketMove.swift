@@ -48,7 +48,10 @@ enum MarketMoveScale {
     /// Schlagzeile aus Grosswerten, Gesamtmarkt (`marketChange`, nil = unbekannt) und Breite
     /// (`breadth`, nil = unbekannt) — gleiche Reihenfolge wie Android `MarketMoveScale.decide`:
     /// 1. Ruhig: alle drei Grosswerte und der Gesamtmarkt (falls bekannt) unter `flatBelowPercent`.
-    /// 2. Grosswerte gleichgerichtet (über `noisePercent`) → deren Richtung, nie «gemischt».
+    /// 2. Grosswerte gleichgerichtet (über `noisePercent`) → deren Richtung, ausser der Gesamtmarkt
+    ///    liegt mindestens `flatBelowPercent` in der Gegenrichtung oder die Breite neigt (ab
+    ///    `breadthLeanShare`) in die Gegenrichtung → gemischt. Die Schlagzeile folgt so dem ganzen
+    ///    Markt und widerspricht nie dem Satz zum Gesamtwert.
     /// 3. Sonst entscheidet die Breite (ab `breadthLeanShare`); widerspricht ihr der Gesamtmarkt
     ///    (mindestens `flatBelowPercent` in die Gegenrichtung) oder liegt sie um 50 % → gemischt.
     ///    Ohne Breite: Gesamtmarkt ab `flatBelowPercent`, sonst gemischt.
@@ -73,14 +76,18 @@ enum MarketMoveScale {
 
     /// +1 steigend, −1 fallend, nil = gemischt.
     private static func direction(big: [Double], market: Double?, breadth: PulseBreadth?) -> Int? {
-        if big.allSatisfy({ $0 > noisePercent }) { return 1 }
-        if big.allSatisfy({ $0 < -noisePercent }) { return -1 }
         var marketVote = 0
         if let market {
             if market >= flatBelowPercent { marketVote = 1 } else if market <= -flatBelowPercent { marketVote = -1 }
         }
-        guard let breadth, breadth.total > 0 else { return marketVote == 0 ? nil : marketVote }
-        let lean = breadthVote(breadth)
+        let lean: Int? = breadth.flatMap { $0.total > 0 ? breadthVote($0) : nil }
+        var bigVote = 0
+        if big.allSatisfy({ $0 > noisePercent }) { bigVote = 1 } else if big.allSatisfy({ $0 < -noisePercent }) {
+            bigVote = -1
+        }
+        // Grosswerte gleichgerichtet: gemischt, sobald Gesamtmarkt oder Breite klar dagegen stehen
+        if bigVote != 0 { return marketVote == -bigVote || lean == -bigVote ? nil : bigVote }
+        guard let lean else { return marketVote == 0 ? nil : marketVote }
         if lean == 0 || marketVote == -lean { return nil }
         return lean
     }

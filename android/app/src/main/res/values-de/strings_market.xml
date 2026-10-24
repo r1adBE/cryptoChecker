@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Termine wichtiger US-Wirtschaftsdaten: Inflation (CPI, PCE), Erzeugerpreise (PPI), Arbeitsmarktbericht und Zinsentscheide der US-Notenbank. Solche Zahlen bewegen oft auch die Kurse von Kryptowährungen.</string>
     <string name="market_info_no_advice">Keine Anlageberatung.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · Kurse stündlich, On-Chain-Werte alle 12 Stunden neu geladen</string>
-    <string name="market_info_pulse_how">Die Schlagzeile nennt die Richtung, aufgeklappt stehen die Einzelheiten. Eine breite Bewegung heisst: Die meisten grossen Coins bewegen sich in dieselbe Richtung. Ein hohes Funding heisst: Viele setzen mit Hebel auf steigende Kurse. Eine Momentaufnahme, keine Prognose.</string>
+    <string name="market_info_pulse_how">Die Schlagzeile nennt die Richtung, aufgeklappt stehen die Einzelheiten. Eine breite Bewegung heisst: Die meisten grossen Coins bewegen sich in dieselbe Richtung. Eine optimistische Hebel-Stimmung heisst: Viele setzen mit Hebel auf steigende Kurse, gemessen an der Funding-Rate der Bitcoin-Futures. Eine Momentaufnahme, keine Prognose.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · etwa alle 5 Minuten neu geladen</string>
-    <string name="market_info_pulse_what">Eine kurze Zusammenfassung des Markts der letzten 24 Stunden: wie sich Bitcoin, Ethereum und Solana bewegen, wie viele der grössten Coins steigen oder fallen, wie viel Bitcoin gerade gehandelt wird und wie die Funding-Rate bei Bitcoin-Futures steht.</string>
+    <string name="market_info_pulse_what">Eine kurze Zusammenfassung des Markts der letzten 24 Stunden: wie sich Bitcoin, Ethereum und Solana bewegen, wie viele der grössten Coins steigen oder fallen, wie viel Bitcoin gerade gehandelt wird und wie die Hebel-Stimmung ist (gemessen an der Funding-Rate der Bitcoin-Futures).</string>
     <string name="market_info_totals_how">Rechts steht die Veränderung des Gesamtwerts in 24 Stunden. Hohes Volumen heisst: Es wird viel gehandelt – in welche Richtung, sagt es nicht. Wenn möglich in deiner Währung, sonst in US-Dollar.</string>
     <string name="market_info_totals_source">Alle Coins · CoinGecko · etwa alle 30 Minuten neu geladen</string>
     <string name="market_info_totals_what">Der Gesamtwert aller Kryptowährungen (Marktkapitalisierung: Kurs mal umlaufende Menge, über alle Coins zusammengezählt) und das Handelsvolumen der letzten 24 Stunden.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoins und Bitcoin im Gleichschritt</string>
     <string name="pulse_alts_stronger">Altcoins stärker als Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin stärker als Altcoins</string>
-    <string name="pulse_chip_funding_high">Funding erhöht</string>
-    <string name="pulse_chip_funding_negative">Funding negativ</string>
+    <string name="pulse_chip_funding_high">Hebel-Stimmung optimistisch</string>
+    <string name="pulse_chip_funding_negative">Hebel-Stimmung pessimistisch</string>
     <string name="pulse_funding_high">Funding deutlich positiv: viele setzen mit Hebel auf steigende Kurse</string>
     <string name="pulse_funding_negative">Funding negativ: viele setzen auf fallende Kurse</string>
     <string name="pulse_funding_neutral">Funding ausgeglichen</string>

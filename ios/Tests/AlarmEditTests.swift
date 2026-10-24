@@ -272,6 +272,11 @@ final class AlarmEditTests: XCTestCase {
         store.markChecked(5)
         XCTAssertNil(store.unchecked(5))
         XCTAssertEqual(store.unchecked(6)?.reason, .noCandles)
+        // Erneut ausgelassen: «seit» bleibt die erste Auslassung, der Grund wird der neueste (gleiche Regel wie `unchecked`)
+        store.markUnchecked(6, reason: .noRate, now: 30)
+        XCTAssertEqual(store.unchecked(6), AlarmCheckStatus.Unchecked(reason: .noRate, since: 20))
+        store.markChecked(6)
+        XCTAssertNil(store.unchecked(6))
     }
 
     /// Eigene Alarmwährung nur, wenn die Quote umrechenbar ist — nie bei Fiat ohne Devisenkurs (NGN). Wie Android.

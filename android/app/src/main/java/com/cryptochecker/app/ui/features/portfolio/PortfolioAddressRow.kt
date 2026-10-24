@@ -44,6 +44,7 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.XpubScan
 import com.cryptochecker.app.ui.features.watchlist.ago
+import com.cryptochecker.app.ui.features.watchlist.lineStart
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
 
@@ -96,8 +97,12 @@ internal fun AddressRow(
                 // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
                 a.lastError != null -> stringResource(addressErrorText(a.lastError)) +
                     (if (a.lastUpdated > 0) " · " + ago(a.lastUpdated, now) else "")
-                a.lastUpdated > 0 -> ago(a.lastUpdated, now) + (a.lastProvider?.let { " · $it" } ?: "") +
-                    (if (partlyStale) " · " + stringResource(R.string.portfolio_address_tokens_partly_stale) else "")
+                // Zeit am Zeilenanfang: gross beginnend («Vor 2 Std. · Etherscan»)
+                a.lastUpdated > 0 -> ago(a.lastUpdated, now).let { age ->
+                    val stalePart = stringResource(R.string.portfolio_address_tokens_partly_stale)
+                    lineStart(age, age) + (a.lastProvider?.let { " · $it" } ?: "") +
+                        (if (partlyStale) " · $stalePart" else "")
+                }
                 else -> null
             }
             if (a.isXpub) {

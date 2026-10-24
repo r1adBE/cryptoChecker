@@ -99,9 +99,9 @@ class RefreshPerformanceTest {
     @Test
     fun alarmsWithoutExchangeRate() {
         // Kursmarken in EUR ohne Devisenkurs: jeder dieser Alarme wird als «nicht geprüft» vermerkt
-        // (`AlarmCheckStatus.markUnchecked`). Der Vermerk kopiert die ganze Karte je Alarm — wächst also mit der Zahl
-        // der vermerkten Alarme quadratisch; darum hier nur die feste Grenze (Verhältnis im Protokoll).
-        assertLimitOnly("Alarme ohne Devisenkurs (Vermerk «nicht geprüft»)", limitMillis = 5_000.0) { n ->
+        // (`AlarmCheckStatus.markUnchecked`). Der Durchlauf sammelt die Vermerke und veröffentlicht sie einmal
+        // (`AlarmCheckStatus.batch`) — wächst linear, darum mit Skalierungs-Prüfung.
+        assertScales("Alarme ohne Devisenkurs (Vermerk «nicht geprüft»)", limitMillis = 5_000.0) { n ->
             val watches = binanceWatches(n)
             val alarms = PerformanceData.alarms(watches, currency = "EUR")
             val body = PerformanceData.binanceBulkBody(PerformanceData.newPrices(watches))

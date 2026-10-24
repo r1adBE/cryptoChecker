@@ -65,11 +65,17 @@ def verification_hashes(metadata_text):
 
 
 def shipped_hash(files, name, version):
-    """SHA-256 of the binary that ends up in the app: .aar first, then the .jar (not -sources/-javadoc)."""
+    """SHA-256 of the binary that ends up in the app: .aar first, then the .jar (not -sources/-javadoc). The usual file
+    name is <name>-<version>.<ext>; Gradle module metadata may name the variant file differently (Compose «ui.aar»,
+    DataStore «datastore-release.aar»), then the only such binary of the component counts."""
     for ext in (".aar", ".jar"):
         value = files.get(f"{name}-{version}{ext}")
         if value:
             return value
+    for ext in (".aar", ".jar"):
+        binaries = sorted(f for f in files if f.endswith(ext) and not f.endswith(("-sources.jar", "-javadoc.jar")))
+        if len(binaries) == 1:
+            return files[binaries[0]]
     return None
 
 
@@ -175,7 +181,9 @@ def main(argv):
     write(os.path.join(out, "sbom-android.cdx.json"), android)
     write(os.path.join(out, "sbom-ios.cdx.json"), ios)
     print(f"::notice title=SBOM::Android {android['metadata']['component']['version']}: "
-          f"{len(android['components'])} components; iOS: no third-party packages")
+          f"{len(android['components'])} components, "
+          f"{sum(1 for c in android['components'] if 'hashes' in c)} with SHA-256 (the rest have no binary of their own: "
+          f"Kotlin multiplatform umbrella modules, BOMs); iOS: no third-party packages")
     return 0
 
 
@@ -197,6 +205,9 @@ def self_test():
     hashes = verification_hashes(meta)
     assert shipped_hash(hashes[("a.b", "lib", "1.0")], "lib", "1.0") == "aa"
     assert shipped_hash(hashes[("c.d", "other", "3.1")], "other", "3.1") == "dd"
+    # Variant file named differently (Gradle module metadata): the single binary of the component counts
+    assert shipped_hash({"ui.aar": "ee", "ui-1.0.module": "ff"}, "ui-android", "1.0") == "ee"
+    assert shipped_hash({"a-release.aar": "11", "b-release.aar": "22"}, "x", "1") is None
     assert version_info('versionCode = 118\n        versionName = "16.2.2"') == ("16.2.2", 118)
     with tempfile.TemporaryDirectory() as d:
         os.makedirs(os.path.join(d, "android", "app"))

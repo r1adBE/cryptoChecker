@@ -62,9 +62,9 @@
     <string name="market_info_macro_what">Ημερομηνίες σημαντικών οικονομικών στοιχείων των ΗΠΑ: πληθωρισμός (CPI, PCE), τιμές παραγωγού (PPI), έκθεση απασχόλησης και αποφάσεις επιτοκίων της Federal Reserve. Τέτοια στοιχεία συχνά κινούν και τις τιμές των κρυπτονομισμάτων.</string>
     <string name="market_info_no_advice">Όχι επενδυτική συμβουλή.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · τιμές κάθε ώρα, δεδομένα on-chain ανανεώνονται κάθε 12 ώρες</string>
-    <string name="market_info_pulse_how">Ο τίτλος δείχνει την κατεύθυνση· ανοιχτή η κάρτα δείχνει τις λεπτομέρειες. Ευρεία κίνηση σημαίνει ότι τα περισσότερα μεγάλα νομίσματα κινούνται προς την ίδια κατεύθυνση. Υψηλό επιτόκιο χρηματοδότησης σημαίνει ότι πολλοί ποντάρουν σε άνοδο με μόχλευση. Ένα στιγμιότυπο, όχι πρόβλεψη.</string>
+    <string name="market_info_pulse_how">Ο τίτλος δείχνει την κατεύθυνση· ανοιχτή η κάρτα δείχνει τις λεπτομέρειες. Ευρεία κίνηση σημαίνει ότι τα περισσότερα μεγάλα νομίσματα κινούνται προς την ίδια κατεύθυνση. Αισιόδοξη διάθεση μόχλευσης σημαίνει ότι πολλοί ποντάρουν σε άνοδο με μόχλευση, με μέτρο το επιτόκιο χρηματοδότησης στα συμβόλαια μελλοντικής εκπλήρωσης Bitcoin. Ένα στιγμιότυπο, όχι πρόβλεψη.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · ανανεώνεται περίπου κάθε 5 λεπτά</string>
-    <string name="market_info_pulse_what">Μια σύντομη σύνοψη της αγοράς των τελευταίων 24 ωρών: πώς κινούνται τα Bitcoin, Ethereum και Solana, πόσα από τα μεγαλύτερα νομίσματα ανεβαίνουν ή πέφτουν, πόσο Bitcoin διαπραγματεύεται αυτή τη στιγμή και σε ποιο επίπεδο βρίσκεται το επιτόκιο χρηματοδότησης στα συμβόλαια μελλοντικής εκπλήρωσης Bitcoin.</string>
+    <string name="market_info_pulse_what">Μια σύντομη σύνοψη της αγοράς των τελευταίων 24 ωρών: πώς κινούνται τα Bitcoin, Ethereum και Solana, πόσα από τα μεγαλύτερα νομίσματα ανεβαίνουν ή πέφτουν, πόσο Bitcoin διαπραγματεύεται αυτή τη στιγμή και ποια είναι η διάθεση μόχλευσης (με μέτρο το επιτόκιο χρηματοδότησης στα συμβόλαια μελλοντικής εκπλήρωσης Bitcoin).</string>
     <string name="market_info_totals_how">Δεξιά εμφανίζεται η μεταβολή της συνολικής αξίας σε 24 ώρες. Υψηλός όγκος σημαίνει ότι γίνονται πολλές συναλλαγές, αλλά όχι προς ποια κατεύθυνση. Εμφανίζεται, αν γίνεται, στο νόμισμα μετατροπής, αλλιώς σε δολάρια ΗΠΑ.</string>
     <string name="market_info_totals_source">Όλα τα νομίσματα · CoinGecko · ανανεώνεται περίπου κάθε 30 λεπτά</string>
     <string name="market_info_totals_what">Η συνολική αξία όλων των κρυπτονομισμάτων (κεφαλαιοποίηση αγοράς: τιμή επί ποσότητα σε κυκλοφορία, αθροισμένη για όλα τα νομίσματα) και ο όγκος συναλλαγών των τελευταίων 24 ωρών.</string>
@@ -138,8 +138,8 @@
     <string name="pulse_alts_even">Altcoins και Bitcoin κινούνται παρόμοια</string>
     <string name="pulse_alts_stronger">Τα altcoins πιο δυνατά από το Bitcoin</string>
     <string name="pulse_alts_weaker">Το Bitcoin πιο δυνατό από τα altcoins</string>
-    <string name="pulse_chip_funding_high">Funding αυξημένο</string>
-    <string name="pulse_chip_funding_negative">Funding αρνητικό</string>
+    <string name="pulse_chip_funding_high">Διάθεση μόχλευσης αισιόδοξη</string>
+    <string name="pulse_chip_funding_negative">Διάθεση μόχλευσης απαισιόδοξη</string>
     <string name="pulse_funding_high">Funding σαφώς θετικό: πολλά long με μόχλευση</string>
     <string name="pulse_funding_negative">Funding αρνητικό: πολλά short</string>
     <string name="pulse_funding_neutral">Funding ουδέτερο</string>

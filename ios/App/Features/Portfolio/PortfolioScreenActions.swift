@@ -15,7 +15,8 @@ extension PortfolioScreen {
             let off = await Notifier.isDenied()
             banner = WatchlistBannerMessage(
                 text: AlarmSavedText.text(condition: condition, repeating: alarm.repeating, notificationsOff: off),
-                kind: .success,
+                // Mitteilungen aus: Info statt Erfolg (gespeichert, kommt so aber nicht an) — wie Android
+                kind: off ? .info : .success,
                 action: off ? WatchlistBannerAction(title: L("settings_title"), perform: { NotificationsOffBanner.openSettings() }) : nil
             )
         }

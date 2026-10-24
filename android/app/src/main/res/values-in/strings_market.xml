@@ -61,9 +61,9 @@
     <string name="market_info_macro_what">Jadwal data ekonomi penting AS: inflasi (CPI, PCE), harga produsen (PPI), laporan tenaga kerja, dan keputusan suku bunga bank sentral AS. Angka-angka seperti ini sering juga menggerakkan harga kripto.</string>
     <string name="market_info_no_advice">Bukan saran investasi.</string>
     <string name="market_info_phase_source">Binance, Coin Metrics · harga setiap jam, nilai on-chain dimuat ulang setiap 12 jam</string>
-    <string name="market_info_pulse_how">Judul menyebut arah; saat kartu dibuka, detailnya terlihat. Gerakan luas berarti sebagian besar koin besar bergerak ke arah yang sama. Funding rate tinggi berarti banyak yang bertaruh harga naik dengan leverage. Sekadar gambaran saat ini, bukan prediksi.</string>
+    <string name="market_info_pulse_how">Judul menyebut arah; saat kartu dibuka, detailnya terlihat. Gerakan luas berarti sebagian besar koin besar bergerak ke arah yang sama. Sentimen leverage optimis berarti banyak yang bertaruh harga naik dengan leverage, diukur dari funding rate pada futures Bitcoin. Sekadar gambaran saat ini, bukan prediksi.</string>
     <string name="market_info_pulse_source">Binance, CoinGecko · dimuat ulang sekitar setiap 5 menit</string>
-    <string name="market_info_pulse_what">Ringkasan singkat pasar dalam 24 jam terakhir: bagaimana Bitcoin, Ethereum, dan Solana bergerak, berapa banyak koin terbesar yang naik atau turun, berapa banyak Bitcoin yang sedang diperdagangkan, dan di mana posisi funding rate pada futures Bitcoin.</string>
+    <string name="market_info_pulse_what">Ringkasan singkat pasar dalam 24 jam terakhir: bagaimana Bitcoin, Ethereum, dan Solana bergerak, berapa banyak koin terbesar yang naik atau turun, berapa banyak Bitcoin yang sedang diperdagangkan, dan bagaimana sentimen leverage (diukur dari funding rate pada futures Bitcoin).</string>
     <string name="market_info_totals_how">Di sampingnya tertera perubahan total nilai dalam 24 jam. Volume tinggi berarti banyak perdagangan, tetapi tidak menunjukkan arahnya. Ditampilkan dalam mata uang konversi jika memungkinkan, jika tidak dalam dolar AS.</string>
     <string name="market_info_totals_source">Semua koin · CoinGecko · dimuat ulang sekitar setiap 30 menit</string>
     <string name="market_info_totals_what">Total nilai semua mata uang kripto (kapitalisasi pasar: harga dikali jumlah beredar, dijumlahkan untuk semua koin) dan volume perdagangan 24 jam terakhir.</string>
@@ -137,8 +137,8 @@
     <string name="pulse_alts_even">Altcoin dan Bitcoin bergerak serupa</string>
     <string name="pulse_alts_stronger">Altcoin lebih kuat dari Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin lebih kuat dari altcoin</string>
-    <string name="pulse_chip_funding_high">Funding tinggi</string>
-    <string name="pulse_chip_funding_negative">Funding negatif</string>
+    <string name="pulse_chip_funding_high">Sentimen leverage optimis</string>
+    <string name="pulse_chip_funding_negative">Sentimen leverage pesimis</string>
     <string name="pulse_funding_high">Funding jelas positif: banyak long dengan leverage</string>
     <string name="pulse_funding_negative">Funding negatif: banyak short</string>
     <string name="pulse_funding_neutral">Funding netral</string>

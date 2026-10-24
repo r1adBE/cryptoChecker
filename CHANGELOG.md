@@ -15,6 +15,19 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 120)
+
+Fixes from the thirteenth review round (on build 119, end of phase B):
+
+* Market headline: when BTC, ETH and SOL move the same way but the whole market moves at least 1 % the other way or most coins do, the headline says «mixed» instead of following the three.
+* Adding many pairs: a cancelled or failed run frees the button again (with an error message on failure); the result is reported once (not again on the watchlist); «Undo» is offered only within 60 seconds and removes only new pairs that have no alarm yet; the button text no longer flickers; iOS adds all pairs in one pass (no hang with 2000 pairs) and shows «Undo» as long as Android.
+* Watchlist: the converted price may wrap to a second line, so «conversion uncertain» and an old exchange-rate time are never cut off; iOS filter chips no longer jump back to the start at the end of the row; relative times at the start of a line begin with a capital letter.
+* Market pulse: chips and info texts say «leverage mood» like the lead line (measured by the funding rate of Bitcoin futures).
+* «Alarm saved · notifications off» is shown as information, not as success.
+* Android: «not checked» marks of a refresh run are collected and published once (no copy of the whole list per alarm), like iOS.
+* SBOM: SHA-256 also for libraries whose variant file has a different name (Compose, DataStore, OkHttp, Room …); 122 of 172 components carry a hash, the rest have no binary of their own.
+* Tests and tooling: scaling checks for the paths made linear, a tighter tolerance; the mirror self-test compares the keys with the apps; the reproducible-build check also runs for SBOM changes; the iOS test seam for the save gate exists only in debug builds.
+
 ## 16.2.2 (build 119)
 
 * Messages at the bottom match the theme (dark in dark mode instead of a light pill); success shows a green outline with a check mark, errors a red outline with an exclamation mark (orange with the colour-vision palette), information only a quiet outline. Success stays green with swapped price colours; the meaning never depends on colour alone (both platforms).

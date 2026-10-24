@@ -29,9 +29,16 @@ enum DenseRowText {
         rowWidth < narrowRow ? sparklineWidthNarrow : sparklineWidthRegular
     }
 
-    /// Höchstbreite der ≈ Umrechnung neben dem Paar: die Hälfte der Zeile. Längeres (Vermerk dahinter) wird mit «…»
-    /// gekürzt — sonst drückt die Kurs-Spalte Paar, Name und Börse auf Breite 0 (Gerätetest 23.10.2026). Wie Android.
+    /// Höchstbreite der ≈ Umrechnung neben dem Paar: die Hälfte der Zeile — sonst drückt die Kurs-Spalte
+    /// Paar, Name und Börse auf Breite 0. Längeres bricht um (`convertedLineLimit`). Wie Android.
     static func convertedMaxWidth(rowWidth: Double) -> Double { rowWidth * 0.5 }
+
+    /// Zeilen der ≈ Umrechnung neben dem Paar; der Vermerk am Ende bleibt so sichtbar.
+    static let convertedMaxLines = 2
+
+    /// Zeilengrenze der ≈ Umrechnung: neben dem Paar (halbe Breite) `convertedMaxLines`, erst danach «…»;
+    /// gestapelt (volle Breite) ohne Grenze (nil). Wie Android `convertedMaxLines`.
+    static func convertedLineLimit(stacked: Bool) -> Int? { stacked ? nil : convertedMaxLines }
 
     /// Kurs der Merkliste eine Stufe grösser (iOS `.title3`, Android `titleLarge`)? Unter dem Paar
     /// (gestapelt) immer, daneben nur bei normaler Schrift in Zeilen ab `narrowRow` — sonst bliebe dem

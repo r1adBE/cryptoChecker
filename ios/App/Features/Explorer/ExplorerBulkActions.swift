@@ -95,10 +95,11 @@ extension ExplorerViewModel {
         if anyAdded { requestNotifications() }
     }
 
-    /// «Rückgängig» nach dem Hinzufügen: die eben neu angelegten Paare wieder entfernen (vorhandene bleiben).
+    /// «Rückgängig» nach dem Hinzufügen: die eben neu angelegten Paare wieder entfernen (vorhandene bleiben, ebenso
+    /// neue, die inzwischen einen Alarm haben).
     func undoBulkAdd(_ ids: [Int64]) {
         guard !ids.isEmpty else { return }
-        data.withWatchlistConfirm { [weak self] in _ = self?.data.deleteForUndo(ids: Set(ids)) }
+        data.withWatchlistConfirm { [weak self] in _ = self?.data.deleteNewWatchesForUndo(ids: Set(ids)) }
     }
 }
 

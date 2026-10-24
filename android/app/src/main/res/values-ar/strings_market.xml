@@ -66,9 +66,9 @@
     <string name="market_info_macro_what">مواعيد بيانات اقتصادية أمريكية مهمة: التضخم (CPI وPCE)، وأسعار المنتجين (PPI)، وتقرير الوظائف، وقرارات الفائدة لدى الاحتياطي الفيدرالي الأمريكي. كثيرًا ما تحرّك هذه الأرقام أسعار العملات المشفرة أيضًا.</string>
     <string name="market_info_no_advice">ليست نصيحة استثمارية.</string>
     <string name="market_info_phase_source">Binance وCoin Metrics · الأسعار كل ساعة، وبيانات السلسلة يُعاد تحميلها كل 12 ساعة</string>
-    <string name="market_info_pulse_how">يذكر العنوان الاتجاه، وعند فتح البطاقة تظهر التفاصيل. الحركة الواسعة تعني أن معظم العملات الكبيرة تتحرك في الاتجاه نفسه. ومعدل التمويل المرتفع يعني أن كثيرين يراهنون على ارتفاع الأسعار باستخدام الرافعة المالية. لقطة للحظة، وليست توقعًا.</string>
+    <string name="market_info_pulse_how">يذكر العنوان الاتجاه، وعند فتح البطاقة تظهر التفاصيل. الحركة الواسعة تعني أن معظم العملات الكبيرة تتحرك في الاتجاه نفسه. ومزاج التداول بالرافعة المتفائل يعني أن كثيرين يراهنون على ارتفاع الأسعار باستخدام الرافعة المالية، ويُقاس بمعدل التمويل في عقود Bitcoin الآجلة. لقطة للحظة، وليست توقعًا.</string>
     <string name="market_info_pulse_source">Binance وCoinGecko · يُعاد التحميل كل 5 دقائق تقريبًا</string>
-    <string name="market_info_pulse_what">ملخص قصير للسوق خلال آخر 24 ساعة: كيف تتحرك Bitcoin وEthereum وSolana، وكم من أكبر العملات يرتفع أو ينخفض، وكم من Bitcoin يجري تداوله الآن، وأين يقف معدل التمويل في عقود Bitcoin الآجلة.</string>
+    <string name="market_info_pulse_what">ملخص قصير للسوق خلال آخر 24 ساعة: كيف تتحرك Bitcoin وEthereum وSolana، وكم من أكبر العملات يرتفع أو ينخفض، وكم من Bitcoin يجري تداوله الآن، وكيف هو مزاج التداول بالرافعة (يُقاس بمعدل التمويل في عقود Bitcoin الآجلة).</string>
     <string name="market_info_totals_how">على الجانب يظهر تغير القيمة الإجمالية خلال 24 ساعة. الحجم المرتفع يعني أن هناك تداولًا كثيرًا، لكنه لا يحدد الاتجاه. يُعرض بعملة التحويل إن أمكن، وإلا بالدولار الأمريكي.</string>
     <string name="market_info_totals_source">جميع العملات · CoinGecko · يُعاد التحميل كل 30 دقيقة تقريبًا</string>
     <string name="market_info_totals_what">القيمة الإجمالية لجميع العملات المشفرة (القيمة السوقية: السعر مضروبًا في الكمية المتداولة، مجموعًا لكل العملات) وحجم التداول خلال آخر 24 ساعة.</string>
@@ -142,8 +142,8 @@
     <string name="pulse_alts_even">العملات البديلة وBitcoin تتحرك بالتساوي</string>
     <string name="pulse_alts_stronger">العملات البديلة أقوى من Bitcoin</string>
     <string name="pulse_alts_weaker">Bitcoin أقوى من العملات البديلة</string>
-    <string name="pulse_chip_funding_high">التمويل مرتفع</string>
-    <string name="pulse_chip_funding_negative">التمويل سلبي</string>
+    <string name="pulse_chip_funding_high">مزاج التداول بالرافعة متفائل</string>
+    <string name="pulse_chip_funding_negative">مزاج التداول بالرافعة متشائم</string>
     <string name="pulse_funding_high">التمويل إيجابي بوضوح: كثير من مراكز الشراء بالرافعة</string>
     <string name="pulse_funding_negative">التمويل سلبي: كثير من مراكز البيع</string>
     <string name="pulse_funding_neutral">التمويل محايد</string>

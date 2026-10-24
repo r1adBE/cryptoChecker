@@ -33,10 +33,19 @@ object DenseRowText {
     fun sparklineWidth(rowWidth: Float): Float = if (rowWidth < NARROW_ROW) SPARKLINE_WIDTH_NARROW else SPARKLINE_WIDTH_REGULAR
 
     /**
-     * Höchstbreite der ≈ Umrechnung neben dem Paar: die Hälfte der Zeile. Längeres (Vermerk dahinter) wird mit «…»
-     * gekürzt — sonst drückt die Kurs-Spalte Paar, Name und Börse auf Breite 0 (Gerätetest 23.10.2026).
+     * Höchstbreite der ≈ Umrechnung neben dem Paar: die Hälfte der Zeile — sonst drückt die Kurs-Spalte
+     * Paar, Name und Börse auf Breite 0. Längeres bricht um ([convertedMaxLines]).
      */
     fun convertedMaxWidth(rowWidth: Float): Float = rowWidth * CONVERTED_MAX_SHARE
+
+    /** Zeilen der ≈ Umrechnung neben dem Paar; der Vermerk am Ende bleibt so sichtbar. */
+    const val CONVERTED_MAX_LINES = 2
+
+    /**
+     * Höchstzahl Zeilen der ≈ Umrechnung: neben dem Paar (halbe Breite) [CONVERTED_MAX_LINES], erst danach
+     * «…»; gestapelt (volle Breite) ohne Grenze.
+     */
+    fun convertedMaxLines(stacked: Boolean): Int = if (stacked) Int.MAX_VALUE else CONVERTED_MAX_LINES
 
     /**
      * Kurs der Merkliste eine Stufe grösser (Android `titleLarge`, iOS `.title3`)? Unter dem Paar

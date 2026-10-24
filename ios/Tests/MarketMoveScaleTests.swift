@@ -69,24 +69,35 @@ final class MarketMoveScaleTests: XCTestCase {
         }
     }
 
-    /// Raster: nie «gemischt» bei gleichgerichteten Grosswerten, nie «leicht» neben «deutlich».
+    /// Raster: gleichgerichtete Grosswerte → deren Richtung, ausser Gesamtmarkt (ab 1 %) oder Breite
+    /// stehen dagegen, dann «gemischt» (ruhige Fälle ausgenommen); nie «leicht» neben «deutlich».
     func testHeadlineNeverContradictsTheNumbers() throws {
         let steps = [-4.0, -3.0, -2.0, -1.2, -0.5, 0.0, 0.5, 1.2, 2.0, 3.0, 4.0]
-        let markets: [Double?] = [nil, -3.5, -3.0, -1.5, -0.5, 0.5, 1.5, 3.0, 3.5]
-        let top = changes(up: 4, down: 26, total: 30)
-        for btc in steps { for eth in steps { for sol in steps { for market in markets {
+        let markets: [Double?] = [nil, -3.5, -3.0, -1.5, -1.0, -0.5, 0.5, 1.0, 1.5, 3.0, 3.5]
+        // Breite: 26 von 30 fallend (−1) bzw. steigend (+1)
+        let breadths = [(-1, changes(up: 4, down: 26, total: 30)), (1, changes(up: 26, down: 4, total: 30))]
+        let noise = MarketMoveScale.noisePercent
+        let flat = MarketMoveScale.flatBelowPercent
+        for btc in steps { for eth in steps { for sol in steps { for market in markets { for (lean, top) in breadths {
             let big = [btc, eth, sol]
             let r = try makeReport(btc: btc, eth: eth, sol: sol, market: market, top: top, ratio: nil)
             let lead = CryptoPulse.leadSentence(r).kind
-            let label = "btc=\(btc) eth=\(eth) sol=\(sol) market=\(String(describing: market))"
-            let noise = MarketMoveScale.noisePercent
-            if big.allSatisfy({ $0 > noise }) || big.allSatisfy({ $0 < -noise }) {
-                XCTAssertNotEqual(r.summary, .mixed, label)
+            let label = "btc=\(btc) eth=\(eth) sol=\(sol) market=\(String(describing: market)) lean=\(lean)"
+            var bigSign = 0
+            if big.allSatisfy({ $0 > noise }) { bigSign = 1 } else if big.allSatisfy({ $0 < -noise }) { bigSign = -1 }
+            if bigSign != 0 && r.summary != .calm {
+                let marketAgainst = market.map { $0 * Double(bigSign) <= -flat } ?? false
+                let expected: PulseSummary = marketAgainst || lean == -bigSign
+                    ? .mixed : (bigSign > 0 ? .broadUp : .broadDown)
+                XCTAssertEqual(r.summary, expected, label)
             }
             let plain = market.map { MarketPlainSummary.directionKind($0) }
             if plain == .downClear { XCTAssertNotEqual(lead, .driftDown, label) }
             if plain == .upClear { XCTAssertNotEqual(lead, .driftUp, label) }
-        } } } }
+            // Gesamtwert zeigt in eine Richtung (ab 1 %) → Schlagzeile nie in die Gegenrichtung
+            if let market, market >= flat { XCTAssertNotEqual(r.summary, .broadDown, label) }
+            if let market, market <= -flat { XCTAssertNotEqual(r.summary, .broadUp, label) }
+        } } } } }
     }
 
     func testLevelThresholds() {
