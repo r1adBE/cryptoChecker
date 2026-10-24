@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Daňové CSV se může lišit od „realizováno“ (daňová pravidla země).</string>
     <string name="tax_export_rule">&gt; 1 rok: prodáno po datu nákupu + 1 kalendářní rok. Data v místním čase. Kurzy: denní kurz ECB ze dne transakce; pokud chybí, poslední kurz nejvýše 7 dní předtím.</string>
     <string name="tax_export_rules_date">Stav pravidel: %1$s</string>
+    <string name="tax_export_rules_stale">Stav pravidel: %1$s – pro období %2$s se mohly změnit sazby a osvobozené částky. Zkontroluj hodnoty.</string>
     <string name="tax_export_spouse_gift">manželovi/partnerovi – bez zisku a ztráty</string>
     <string name="tax_export_summary">Roční přehled %1$s (CSV)</string>
     <string name="tax_export_swap">směna</string>

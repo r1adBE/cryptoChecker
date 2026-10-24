@@ -163,9 +163,10 @@ struct PortfolioExportSheet: View {
           version)
     }
 
-    /// Länder-Vorlagen: Stand der hinterlegten Regeln in jeder Kopfzeile («Regelstand: 2026-10») — wie Android.
+    /// Länder-Vorlagen: Stand der hinterlegten Regeln in jeder Kopfzeile («Regelstand: Okt. 2026», Monat und Jahr in
+    /// Sprache und Ziffern der App) — wie Android.
     var rulesLine: [String] {
-        taxTemplate == .NEUTRAL ? [] : [L("tax_export_rules_date", TaxTemplate.rulesDate)]
+        taxTemplate == .NEUTRAL ? [] : [L("tax_export_rules_date", TaxRulesDate.label())]
     }
 
     /// Vorlage erlaubt die Einstandsmethode der App nicht: offen sagen, womit der Export rechnet (Kopfzeile und Blatt) —
@@ -241,6 +242,8 @@ struct PortfolioExportSheet: View {
             PortfolioHint(text: L("tax_export_period", Self.dayText(period.start), Self.dayText(period.end)) + "\n"
                 + L("tax_export_year_local_zone", taxTemplate.zone().identifier))
                 .padding(.horizontal, 4)
+            // Regelstand; Steuerjahr danach: Warnhinweis (blockiert nicht) — wie Android
+            PortfolioTaxRulesNotice(template: taxTemplate, taxYear: year)
             ForEach(templateNotes, id: \.self) { note in
                 PortfolioHint(text: note)
                     .padding(.horizontal, 4)

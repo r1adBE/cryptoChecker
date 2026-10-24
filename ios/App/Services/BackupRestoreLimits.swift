@@ -8,7 +8,11 @@ import Foundation
 ///   gemeint ist). Gezählt werden Unicode-Codepunkte, auf beiden Plattformen gleich.
 /// - Paar-Kennung nur aus Buchstaben und Ziffern jeder Schrift (Binance führt Coins mit chinesischem Namen) sowie
 ///   «/ _ : . -»; Leerzeichen, «@», «&», «?» u. Ä. kommen in keiner Börse vor.
-/// - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» (`DexScreener.isSafePairId`).
+/// - Basis und Quote wie Symbole (`validAsset`): Buchstaben und Ziffern jeder Schrift sowie «. _ -» («1000PEPE»,
+///   «USDC.e», «BTC-PERP», «币安人生»). Ohne Kennung bauen die Börsen die Adresse daraus («BTC-USD»); «/», «?», «#»,
+///   «&» u. Ä. veränderten sonst Pfad oder Abfrage.
+/// - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» (`DexScreener.isSafePairId`); nur diese kommt in die
+///   Adresse, Basis und Quote sind dort Anzeigetext der Börse («USD (ethereum)», «$WIF») und nur begrenzt.
 /// - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`), nur begrenzt.
 /// - Höchstens `maxPairs` Paare (die ersten der Datei) und je Paar `maxAlarmsPerPair` Alarme.
 enum BackupRestoreLimits {
@@ -28,8 +32,8 @@ enum BackupRestoreLimits {
     static func acceptsPair(marketKey: String, marketName: String, base: String, quote: String, pairId: String?) -> Bool {
         marketKey.unicodeScalars.count <= maxMarketKey
             && marketName.unicodeScalars.count <= maxMarketName
-            && base.unicodeScalars.count <= maxAsset
-            && quote.unicodeScalars.count <= maxAsset
+            && assetAllowed(marketKey: marketKey, base)
+            && assetAllowed(marketKey: marketKey, quote)
             && (pairId.map(validPairId) ?? true)
             // DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
             && (marketKey != DexScreener.key || pairId.map(DexScreener.isSafePairId) == true)
@@ -38,14 +42,28 @@ enum BackupRestoreLimits {
     /// Kennung höchstens `maxPairId` Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «/ _ : . -».
     static func validPairId(_ pairId: String) -> Bool {
         guard pairId.unicodeScalars.count <= maxPairId else { return false }
-        return pairId.unicodeScalars.allSatisfy { s in
-            if s.isASCII, "/_:.-".unicodeScalars.contains(s) { return true }
-            switch s.properties.generalCategory {
-            case .uppercaseLetter, .lowercaseLetter, .titlecaseLetter, .modifierLetter, .otherLetter, .decimalNumber:
-                return true
-            default:
-                return false
-            }
+        return pairId.unicodeScalars.allSatisfy { isAllowed($0, punctuation: "/_:.-") }
+    }
+
+    /// Basis bzw. Quote höchstens `maxAsset` Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «. _ -».
+    static func validAsset(_ asset: String) -> Bool {
+        guard asset.unicodeScalars.count <= maxAsset else { return false }
+        return asset.unicodeScalars.allSatisfy { isAllowed($0, punctuation: "._-") }
+    }
+
+    /// DexScreener: Basis/Quote nur begrenzt (Anzeigetext, nie in der Adresse); sonst wie Symbole (`validAsset`).
+    private static func assetAllowed(marketKey: String, _ asset: String) -> Bool {
+        marketKey == DexScreener.key ? asset.unicodeScalars.count <= maxAsset : validAsset(asset)
+    }
+
+    /// Buchstabe (alle L-Kategorien), Dezimalziffer oder eines der ASCII-Zeichen in `punctuation`.
+    private static func isAllowed(_ s: Unicode.Scalar, punctuation: String) -> Bool {
+        if s.isASCII, punctuation.unicodeScalars.contains(s) { return true }
+        switch s.properties.generalCategory {
+        case .uppercaseLetter, .lowercaseLetter, .titlecaseLetter, .modifierLetter, .otherLetter, .decimalNumber:
+            return true
+        default:
+            return false
         }
     }
 

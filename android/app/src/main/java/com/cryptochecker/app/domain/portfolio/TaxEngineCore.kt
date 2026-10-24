@@ -1,8 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
 import java.math.BigDecimal
-import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
 
 /** Art eines Schritts der Steuer-Rechnung ([TaxEngines]). */
@@ -66,14 +64,15 @@ internal class TaxTaken(
 /**
  * Durchschnitts-Topf (Menge mit/ohne Kaufpreis, Einstand mit Herkunft je Zeitpunkt) — dieselbe Rechnung wie der Ø in
  * [PortfolioCalculator]: ein Abgang nimmt beide Teile anteilig und den Einstand zum Durchschnitt mit; die Herkunftsteile
- * ([PortfolioCostPart]) erlauben die Umrechnung jedes Zugangs zum Devisenkurs seines Datums.
+ * ([PortfolioCostPart], geführt von [PortfolioCostPartPool]: je Abgang O(1)) erlauben die Umrechnung jedes Zugangs zum
+ * Devisenkurs seines Datums.
  */
 internal class TaxPool(
     /**
      * Zeitzone der Kalendertage: Herkunftsteile desselben Tags werden zusammengefasst (gleicher Devisenkurs; die Liste
-     * wächst mit den Tagen statt mit den Zugängen — kein O(Zugänge × Abgänge)). null = jeder Teil einzeln.
+     * wächst mit den Tagen statt mit den Zugängen). null = jeder Teil einzeln.
      */
-    private val zone: ZoneId? = null,
+    zone: ZoneId? = null,
 ) {
     var priced: BigDecimal = BigDecimal.ZERO
         private set
@@ -81,9 +80,10 @@ internal class TaxPool(
         private set
     var cost: BigDecimal = BigDecimal.ZERO
         private set
-    val parts = ArrayList<PortfolioCostPart>()
-    /** Mit [zone]: Tag → Index in [parts] (erster Zeitpunkt des Tags bleibt). */
-    private val dayIndex = HashMap<LocalDate, Int>()
+    private val costParts = PortfolioCostPartPool(zone)
+
+    /** Offene Herkunftsteile (Summe exakt [cost]). */
+    val parts: List<PortfolioCostPart> get() = costParts.toList(cost)
     val held: BigDecimal get() = priced + unpriced
 
     /** Zugang [qty] mit Einstand [cost] (null = ohne Kaufpreis), Herkunft [time]. */
@@ -107,27 +107,11 @@ internal class TaxPool(
     /** Einstand direkt zum Teil mit Kaufpreis (z. B. nicht abziehbarer Verlust). */
     fun addCost(time: Long, usdt: BigDecimal) {
         cost += usdt
-        if (usdt.signum() == 0) return
-        val z = zone
-        if (z == null) {
-            parts += PortfolioCostPart(time, usdt)
-            return
-        }
-        val day = Instant.ofEpochMilli(time).atZone(z).toLocalDate()
-        val i = dayIndex[day]
-        if (i != null) {
-            parts[i] = PortfolioCostPart(parts[i].time, parts[i].usdt + usdt)
-        } else {
-            dayIndex[day] = parts.size
-            parts += PortfolioCostPart(time, usdt)
-        }
+        costParts.add(time, usdt)
     }
 
     /** Alle Herkunftsteile entfernen (samt Tag-Index). */
-    private fun clearParts() {
-        parts.clear()
-        dayIndex.clear()
-    }
+    private fun clearParts() = costParts.clear()
 
     /**
      * Gebühr [extra] einer Umbuchung der Menge [amount] mit Netzwerkgebühr [coinFee] (vor dem Schritt
@@ -151,7 +135,7 @@ internal class TaxPool(
     fun absorb(other: TaxPool) {
         priced += other.priced
         unpriced += other.unpriced
-        // Einstand unverändert, Herkunft je Teil (mit [zone] nach Tag zusammengefasst)
+        // Einstand unverändert, Herkunft je Teil (mit Zeitzone nach Tag zusammengefasst)
         val c = cost
         other.parts.forEach { addCost(it.time, it.usdt) }
         cost = c + other.cost
@@ -206,25 +190,8 @@ internal class TaxPool(
         return lost
     }
 
-    /** Nimmt [removed] Einstand anteilig aus allen Herkunftsteilen; Summe exakt [removed]. */
-    private fun takeParts(removed: BigDecimal): List<PortfolioCostPart> {
-        if (removed.signum() == 0 || parts.isEmpty()) return emptyList()
-        if (removed >= cost) {
-            val all = parts.toList()
-            clearParts()
-            return all
-        }
-        val out = ArrayList<PortfolioCostPart>(parts.size)
-        var left = removed
-        for (i in parts.indices) {
-            val p = parts[i]
-            val r = if (i == parts.size - 1) left else p.usdt.multiply(removed).divide(cost, PortfolioDecimal.MC)
-            left -= r
-            out += PortfolioCostPart(p.time, r)
-            parts[i] = PortfolioCostPart(p.time, p.usdt - r)
-        }
-        return out
-    }
+    /** Nimmt [removed] Einstand anteilig aus allen Herkunftsteilen; Summe exakt [removed] (Ansicht, O(1)). */
+    private fun takeParts(removed: BigDecimal): List<PortfolioCostPart> = costParts.take(removed, cost)
 }
 
 /** Ein Teil einer Veräusserung vor der Erlös-Verteilung. */

@@ -306,8 +306,8 @@ object PortfolioCalculator {
 
     /**
      * [summarize] mit Wahl, ob Ø die Herkunftsteile des Einstands führt ([CoinPosition.pricedCostParts], nur für
-     * «Seit Kauf»/Einstand in der Anzeigewährung, [PortfolioCostFx]). Ohne Teile ([withParts] false) linear statt
-     * Zugänge × Abgänge — alle übrigen Zahlen identisch. FIFO führt seine Teile je Posten ohnehin (linear).
+     * «Seit Kauf»/Einstand in der Anzeigewährung, [PortfolioCostFx]; [PortfolioCostPartPool]). Ohne Teile ([withParts]
+     * false) bleiben sie leer — alle übrigen Zahlen identisch. FIFO führt seine Teile je Posten ohnehin.
      */
     fun summarize(
         trades: List<PortfolioTrade>,

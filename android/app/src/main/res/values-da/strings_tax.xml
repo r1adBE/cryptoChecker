@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Skatte-CSV’en kan afvige fra »realiseret« (landets skatteregler).</string>
     <string name="tax_export_rule">&gt; 1 år: solgt efter købsdato + 1 kalenderår. Datoer i lokal tid. Kurser: ECB-dagskurs på transaktionsdagen; mangler den, den seneste kurs op til 7 dage før.</string>
     <string name="tax_export_rules_date">Regler pr.: %1$s</string>
+    <string name="tax_export_rules_stale">Reglerne er fra %1$s – for %2$s kan satser og bundfradrag have ændret sig. Tjek værdierne.</string>
     <string name="tax_export_spouse_gift">til ægtefælle/partner – ingen gevinst, intet tab</string>
     <string name="tax_export_summary">Årsoversigt %1$s (CSV)</string>
     <string name="tax_export_swap">bytte</string>

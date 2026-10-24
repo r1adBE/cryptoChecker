@@ -171,7 +171,7 @@ struct PortfolioDisposal: Sendable, Equatable {
     /// Herkunft von `costUsdt` (Summe = `costUsdt`) für die Umrechnung je Teil zum Kurs seines Datums: FIFO der Posten
     /// (Erwerb plus zugeschlagene Gebühren je zu ihrem Zeitpunkt), Ø anteilig aus dem Topf; leer ohne Kaufpreis bzw. bei
     /// Einstand 0 und bei Gebühr-Aufwänden.
-    var costParts: [PortfolioCostPart] = []
+    var costParts: PortfolioCostPartList = []
     /// Teil über den erfassten Bestand hinaus (mehr verkauft als erfasst): Kaufpreis fehlt.
     var uncovered = false
     /// `.FIFO_WALLET`: Wallet des Abgangs (`PortfolioWallets.unspecified` = ohne Angabe); sonst nil.

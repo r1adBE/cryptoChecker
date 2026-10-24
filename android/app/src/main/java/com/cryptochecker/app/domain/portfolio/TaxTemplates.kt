@@ -296,7 +296,10 @@ enum class TaxTemplate {
          */
         val AT_OPTION_FROM: LocalDate = LocalDate.of(2022, 1, 1)
 
-        /** Stand der hinterlegten Regeln (Kopfzeile «Regelstand: 2026-10» der Länder-Vorlagen). */
+        /**
+         * Stand der hinterlegten Regeln («JJJJ-MM»; Dialog und Kopfzeile der Länder-Vorlagen zeigen ihn als Monat und Jahr,
+         * Hinweis bei jüngerem Steuerjahr: [TaxRulesDate]).
+         */
         const val RULES_DATE = "2026-10"
 
         /** US: erstes Steuerjahr mit Einstand Wallet für Wallet (Rev. Proc. 2024-28, ab 01.01.2025). */

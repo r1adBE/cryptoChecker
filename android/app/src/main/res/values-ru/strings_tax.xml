@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Налоговый CSV может отличаться от «реализовано» (налоговые правила страны).</string>
     <string name="tax_export_rule">&gt; 1 года: продано позже даты покупки + 1 календарный год. Даты по местному времени. Курсы: дневной курс ЕЦБ на день операции; если его нет — последний курс не более чем за 7 дней до этого.</string>
     <string name="tax_export_rules_date">Правила на: %1$s</string>
+    <string name="tax_export_rules_stale">Правила на %1$s – для %2$s ставки и льготы могли измениться. Проверь значения.</string>
     <string name="tax_export_spouse_gift">супругу/партнёру – без прибыли и убытка</string>
     <string name="tax_export_summary">Годовая сводка %1$s (CSV)</string>
     <string name="tax_export_swap">обмен</string>

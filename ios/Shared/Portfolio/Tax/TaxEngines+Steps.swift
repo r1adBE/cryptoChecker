@@ -76,7 +76,7 @@ extension TaxEngines {
     struct Piece {
         let amount: Decimal
         let cost: Decimal?
-        var parts: [PortfolioCostPart] = []
+        var parts: PortfolioCostPartList = []
         var acquiredTime: Int64? = nil
         var lotTxId: Int64? = nil
         var lotKind: PortfolioTxType? = nil

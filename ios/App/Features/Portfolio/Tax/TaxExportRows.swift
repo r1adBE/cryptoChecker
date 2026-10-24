@@ -149,6 +149,15 @@ extension TaxExport {
         // Auszahlungsgebühr USDT/Fiat nur Information (`TaxEventRules.quoteFeeIsInfo`); FR ebenso — die Gebühr mindert den
         // Gewinn nicht (art. 150 VH bis), wie in der Jahresübersicht, sonst stünde sie in der Summe der Gewinne-CSV
         let feeInfo = (rules ?? .of(method)).quoteFeeIsInfo || method == .FR_PTA
+        // Herkunftsteile: Kurs und USDT-Näherung je Teil, je ein Objekt für alle Zeilen (grosse Ansichten eines Pools
+        // rechnet `weightedSum`/`anyTime` so ohne Auslesen)
+        let partRate = PortfolioPartWeight { t in
+            TaxExport.rateOn(rates, date: TaxExport.localDay(t, timeZone: timeZone), currency: currency,
+                             usdtUsd: usdtUsd)
+        }
+        let partUsdtApproximate = PortfolioPartTest { t in
+            TaxExport.usdtApproximateOn(usdtUsd, date: TaxExport.localDay(t, timeZone: timeZone))
+        }
         return disposals.map { d -> TaxGainRow in
             let sold = localDay(d.sellTime, timeZone: timeZone)
             let acquired = d.acquiredTime.map { localDay($0, timeZone: timeZone) }
@@ -160,17 +169,7 @@ extension TaxExport {
             // Herkunftsteile je zum Kurs ihres Datums (fehlt einer: leer); FIFO-Posten zum Kurs des Kaufdatums
             let costTarget: Decimal? = {
                 guard let c = d.costUsdt else { return nil }
-                if !d.costParts.isEmpty {
-                    var sum: Decimal = 0
-                    for part in d.costParts {
-                        guard let r = rateOn(rates, date: localDay(part.time, timeZone: timeZone), currency: currency,
-                                             usdtUsd: usdtUsd) else {
-                            return nil
-                        }
-                        sum += PortfolioDecimal.multiply(part.usdt, r)
-                    }
-                    return sum
-                }
+                if !d.costParts.isEmpty { return d.costParts.weightedSum(partRate) }
                 if let acquired {
                     return rateOn(rates, date: acquired, currency: currency, usdtUsd: usdtUsd)
                         .map { PortfolioDecimal.multiply(c, $0) }
@@ -231,8 +230,9 @@ extension TaxExport {
             // `.TRANSFER`-Zeilen gibt es nur mit dieser Regel (`TaxEngines.disposals`)
             row.feeInfoOnly = d.feeExpense == .TRANSFER || (feeInfo && d.feeExpense == .WITHDRAWAL)
             // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
-            let usdtDays = [sold] + (acquired.map { [$0] } ?? []) + d.costParts.map { localDay($0.time, timeZone: timeZone) }
+            let usdtDays = [sold] + (acquired.map { [$0] } ?? [])
             row.usdtApproximate = usdtDays.contains { usdtApproximateOn(usdtUsd, date: $0) }
+                || d.costParts.anyTime(partUsdtApproximate)
             row.proceedsBeforeFeesUsdt = d.proceedsBeforeFeesUsdt
             row.proceedsBeforeFeesTarget = atSale(d.proceedsBeforeFeesUsdt)
             return row

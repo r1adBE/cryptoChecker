@@ -298,11 +298,18 @@ extension PriceRefresher {
 
         /// Ausgelöste Alarme ohne die, deren Eintrag in `watches` (frisch gespeicherter Stand) inzwischen ein anderes
         /// Paar ist (Bearbeiten, Wiederherstellung mit gleicher Id): Sie gehören nicht mehr zum abgefragten Kurs und
-        /// werden nicht gemeldet — der Alarm bleibt scharf. Vor `deliverAlarms` in App, Hintergrund und Widget.
+        /// werden nicht gemeldet — der Alarm bleibt scharf. Ebenso Alarme eines Kurses, den `apply(to:)` als älter
+        /// verworfen hat (`PriceWriteOrder`: gespeichert ist ein neuerer). Vor `deliverAlarms` in App, Hintergrund
+        /// und Widget.
         func keepingCurrentPairs(_ watches: [Watch]) -> Outcome {
             var kept = self
-            let identities = Dictionary(watches.map { ($0.id, $0.identity) }, uniquingKeysWith: { first, _ in first })
-            kept.pendingAlarms.removeAll { identities[$0.watch.id] != $0.watch.identity }
+            var byId: [Int64: Watch] = [:]
+            for w in watches where byId[w.id] == nil { byId[w.id] = w }
+            kept.pendingAlarms.removeAll { item in
+                guard let stored = byId[item.watch.id], stored.identity == item.watch.identity else { return true }
+                guard let u = prices[item.watch.id], u.price != nil else { return false }
+                return stored.lastUpdate > u.time
+            }
             return kept
         }
 
@@ -312,17 +319,24 @@ extension PriceRefresher {
             alarmLease?.release()
         }
 
-        /// Überträgt die Ergebnisse auf den aktuellen Stand.
-        func apply(to snapshot: inout SharedStorage.Snapshot) {
-            // Einträge, deren Paar sich seit der Abfrage geändert hat: weder Kurs noch Alarm-Bezug übernehmen
-            var changedPair = Set<Int64>()
+        /// Überträgt die Ergebnisse auf den aktuellen Stand. Ein Kurs, der älter ist als der gespeicherte
+        /// (`PriceWriteOrder`, z. B. eine langsame Einzelabfrage nach einer schnelleren vollständigen), bleibt weg —
+        /// samt den Alarm-Änderungen dieses Paars (wie Android: Alarme nur für tatsächlich geschriebene Kurse).
+        func apply(to snapshot: inout SharedStorage.Snapshot, now: Int64 = TimeUtils.nowMillis) {
+            // Einträge, deren Paar sich seit der Abfrage geändert hat oder deren Kurs älter ist als der gespeicherte:
+            // weder Kurs noch Alarm-Bezug übernehmen
+            var skipped = Set<Int64>()
             for i in snapshot.watches.indices {
                 let id = snapshot.watches[i].id
                 if let pair = prices[id]?.pair, pair != snapshot.watches[i].identity {
-                    changedPair.insert(id)
+                    skipped.insert(id)
                     continue
                 }
-                if let u = prices[id] {
+                if let u = prices[id], u.price != nil,
+                   !PriceWriteOrder.accepts(newTime: u.time, storedTime: snapshot.watches[i].lastUpdate, now: now) {
+                    // Älter als der gespeicherte Kurs: Kurs bleibt; eine schon gezeigte Kurs-Mitteilung zählt trotzdem
+                    skipped.insert(id)
+                } else if let u = prices[id] {
                     if let price = u.price {
                         snapshot.watches[i].previousPrice = snapshot.watches[i].lastPrice
                         snapshot.watches[i].lastPrice = price
@@ -348,7 +362,7 @@ extension PriceRefresher {
             // Nur auf unveränderte Alarme: eine Bearbeitung während der Abfrage bleibt
             let index = AlarmUpdate.Index(snapshot)
             for (id, update) in alarms {
-                if !changedPair.isEmpty, let i = index.alarmPosition[id], changedPair.contains(snapshot.alarms[i].watchId) {
+                if !skipped.isEmpty, let i = index.alarmPosition[id], skipped.contains(snapshot.alarms[i].watchId) {
                     continue
                 }
                 update.apply(toAlarm: id, in: &snapshot, index: index)

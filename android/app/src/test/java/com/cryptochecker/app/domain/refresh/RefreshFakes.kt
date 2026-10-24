@@ -63,6 +63,8 @@ internal class FakeRefreshStore(
             val old = watches[p.id] ?: continue
             // Wie WatchDao.updatePriceForPair: Kurs eines inzwischen anderen Paars wird verworfen
             if (p.pair != null && p.pair != old.pairIdentity) continue
+            // Wie die Bedingung in WatchDao: ein älterer Kurs als der gespeicherte wird verworfen (PriceWriteOrder)
+            if (!PriceWriteOrder.accepts(p.time, old.lastUpdate, System.currentTimeMillis())) continue
             watches[p.id] = old.copy(
                 previousPrice = old.lastPrice,
                 lastPrice = p.price,

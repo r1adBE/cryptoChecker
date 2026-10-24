@@ -177,7 +177,7 @@ class PriceRefresher @Inject constructor(
         val allWatches = watchRepository.getWatches().filterNot { it.disabled }
 
         if (allWatches.isEmpty()) {
-            refreshStats.setLastRefresh(System.currentTimeMillis() - startedAt)
+            refreshStats.setLastFullRefresh(System.currentTimeMillis() - startedAt)
             // Unter der Sperre ohne Netz zeichnen, Charts danach (refreshAll)
             if (liveWidgetGate.drawAll(deferWhenOff = false, fetch = false)) chartRefresher.markIfStale()
             return RefreshSummary(
@@ -210,7 +210,7 @@ class PriceRefresher @Inject constructor(
         if (watches.isEmpty()) {
             // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile) wie nach einer Aktualisierung
             Timber.i("Aktualisierung: alle %d Paare live", allWatches.size)
-            refreshStats.setLastRefresh(refreshStats.lastDurationMillis.value)
+            refreshStats.setLastFullRefresh(refreshStats.lastDurationMillis.value)
             return RefreshSummary(durationMillis = System.currentTimeMillis() - startedAt)
         }
         val dayStart = changeStamp.dayStart.takeIf { settings.changeBasis.isDay }
@@ -336,7 +336,7 @@ class PriceRefresher @Inject constructor(
         val duration = System.currentTimeMillis() - startedAt
         // Nur wenn mindestens ein Kurs kam: Ohne Verbindung bleibt im Widget die
         // Zeit der letzten ERFOLGREICHEN Aktualisierung stehen.
-        if (processed.failed < processed.checked) refreshStats.setLastRefresh(duration)
+        if (processed.failed < processed.checked) refreshStats.setLastFullRefresh(duration)
         // Sperre gegen doppelte Hintergrund-Läufe: nur nach einer vollen Prüfung (nicht live, nicht Teil-Lauf)
         if (BackgroundSchedule.isFullCheck(processed.checked, processed.failed)) refreshStats.setLastFullCheck()
 

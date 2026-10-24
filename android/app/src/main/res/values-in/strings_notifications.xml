@@ -9,7 +9,7 @@
     <string name="notification_depeg_title">USDT di %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indeks naik di atas %1$d – menurut indeks ini, pasar sedang serakah.</string>
     <string name="notification_fng_below">Indeks turun di bawah %1$d – menurut indeks ini, pasar sedang takut.</string>
-    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_title">Indeks suasana (Fear &amp; Greed): %1$d</string>
     <string name="notification_gas_btc_text">Di bawah batasmu %1$s sat/vB · Transfer ≈ %2$s</string>
     <string name="notification_gas_btc_title">Biaya Bitcoin: %1$s sat/vB</string>
     <string name="notification_gas_eth_text">Di bawah batasmu %1$s gwei · Transfer ≈ %2$s</string>

@@ -34,47 +34,55 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.Spacing
 
-/** Drei graue, sanft pulsierende Zeilen statt eines Kreisels. */
+/**
+ * Drei graue, sanft pulsierende Zeilen statt eines Kreisels — Puls über [SkeletonPulse], bei reduzierter Bewegung
+ * («Animationen entfernen») stehend. Für Screenreader ein Knoten «Wird geladen…» mit unbestimmtem Fortschritt.
+ * [reduceMotion] nur für Tests vorgeben.
+ */
 @Composable
-fun SkeletonList(modifier: Modifier = Modifier, rows: Int = 3) {
-    val transition = rememberInfiniteTransition(label = "skeleton")
-    val pulse by transition.animateFloat(
-        initialValue = 0.45f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
-        label = "pulse"
-    )
+fun SkeletonList(modifier: Modifier = Modifier, rows: Int = 3, reduceMotion: Boolean = rememberReduceMotion()) {
     val block = MaterialTheme.colorScheme.surfaceContainerHighest
+    val loading = stringResource(R.string.loading_hint)
 
-    Column(
-        // Puls erst beim Zeichnen gelesen: kein Neuaufbau der Liste je Bild
-        modifier = modifier.readableWidth().padding(16.dp).graphicsLayer { alpha = pulse },
-        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
+    SkeletonPulse(
+        modifier = modifier.readableWidth().padding(16.dp).semantics {
+            contentDescription = loading
+            progressBarRangeInfo = ProgressBarRangeInfo.Indeterminate
+        },
+        reduceMotion = reduceMotion,
     ) {
-        repeat(rows) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(MaterialTheme.shapes.medium)
-                    .background(MaterialTheme.colorScheme.surfaceContainer)
-                    .padding(16.dp)
-            ) {
-                Box(Modifier.size(24.dp).clip(CircleShape).background(block))
-                Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
-                    Box(Modifier.width(110.dp).height(14.dp).clip(RoundedCornerShape(50)).background(block))
-                    Box(Modifier.padding(top = 8.dp).width(70.dp).height(10.dp).clip(RoundedCornerShape(50)).background(block))
-                }
-                Column(horizontalAlignment = Alignment.End) {
-                    Box(Modifier.width(80.dp).height(14.dp).clip(RoundedCornerShape(50)).background(block))
-                    Box(Modifier.padding(top = 8.dp).width(48.dp).height(12.dp).clip(RoundedCornerShape(6.dp)).background(block))
+        Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+            repeat(rows) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(MaterialTheme.shapes.medium)
+                        .background(MaterialTheme.colorScheme.surfaceContainer)
+                        .padding(16.dp)
+                ) {
+                    Box(Modifier.size(24.dp).clip(CircleShape).background(block))
+                    Column(modifier = Modifier.weight(1f).padding(start = 12.dp)) {
+                        Box(Modifier.width(110.dp).height(14.dp).clip(RoundedCornerShape(50)).background(block))
+                        Box(Modifier.padding(top = 8.dp).width(70.dp).height(10.dp).clip(RoundedCornerShape(50)).background(block))
+                    }
+                    Column(horizontalAlignment = Alignment.End) {
+                        Box(Modifier.width(80.dp).height(14.dp).clip(RoundedCornerShape(50)).background(block))
+                        Box(Modifier.padding(top = 8.dp).width(48.dp).height(12.dp).clip(RoundedCornerShape(6.dp)).background(block))
+                    }
                 }
             }
         }
@@ -82,29 +90,34 @@ fun SkeletonList(modifier: Modifier = Modifier, rows: Int = 3) {
 }
 
 /**
- * Hülle für form-gleiche Platzhalter (z. B. Karten des Markt-Tabs): pulsiert wie
- * [SkeletonList]; bei reduzierter Bewegung stehend. Der Puls wirkt nur auf die
- * Ebene ([graphicsLayer]) und setzt den Inhalt nicht jedes Bild neu zusammen.
+ * Hülle für form-gleiche Platzhalter (z. B. Karten des Markt-Tabs, [SkeletonList]): pulsiert sanft
+ * (0,45 … 1 in 900 ms hin und zurück); bei reduzierter Bewegung stehend (Deckkraft [STILL_ALPHA]).
+ * Der Puls wirkt nur auf die Ebene ([graphicsLayer]) und setzt den Inhalt nicht jedes Bild neu zusammen.
+ * [reduceMotion] nur für Tests vorgeben.
  */
 @Composable
 fun SkeletonPulse(
     modifier: Modifier = Modifier,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+    reduceMotion: Boolean = rememberReduceMotion(),
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    // Wert ändert sich zur Laufzeit nicht (einmal gelesen) — der bedingte Aufruf ist stabil
-    val pulse = if (rememberReduceMotion()) null else rememberInfiniteTransition(label = "skeleton").animateFloat(
+    // Wechselt «Animationen entfernen» zur Laufzeit, baut Compose den Zweig neu auf (bedingter Aufruf als eigene Gruppe)
+    val pulse = if (reduceMotion) null else rememberInfiniteTransition(label = "skeleton").animateFloat(
         initialValue = 0.45f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
         label = "pulse"
     )
     Column(
-        modifier = modifier.graphicsLayer { alpha = pulse?.value ?: 0.7f },
+        modifier = modifier.graphicsLayer { alpha = pulse?.value ?: STILL_ALPHA },
         horizontalAlignment = horizontalAlignment,
         content = content,
     )
 }
+
+/** Deckkraft der Platzhalter bei reduzierter Bewegung (stehend, wie iOS `SkeletonPulse`). */
+internal const val STILL_ALPHA = 0.7f
 
 /**
  * Grauer Balken anstelle einer Textzeile in [style]: genau so hoch wie die echte

@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Vergi CSV’si “gerçekleşen”den farklı olabilir (ülkenin vergi kuralları).</string>
     <string name="tax_export_rule">&gt; 1 yıl: alış tarihi + 1 takvim yılından sonra satıldı. Tarihler yerel saatle. Kurlar: işlem gününün ECB günlük kuru; yoksa en fazla 7 gün öncesine kadarki son kur.</string>
     <string name="tax_export_rules_date">Kurallar tarihi: %1$s</string>
+    <string name="tax_export_rules_stale">Kurallar %1$s tarihli – %2$s için oranlar ve muafiyetler değişmiş olabilir. Değerleri kontrol et.</string>
     <string name="tax_export_spouse_gift">eşe/partnere – kâr yok, zarar yok</string>
     <string name="tax_export_summary">Yıllık özet %1$s (CSV)</string>
     <string name="tax_export_swap">takas</string>

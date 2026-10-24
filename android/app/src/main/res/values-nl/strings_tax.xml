@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">De belasting-CSV kan afwijken van ‘gerealiseerd’ (belastingregels van het land).</string>
     <string name="tax_export_rule">&gt; 1 jaar: verkocht na aankoopdatum + 1 kalenderjaar. Datums in lokale tijd. Koersen: ECB-dagkoers van de transactiedag; ontbreekt die, de laatste koers tot 7 dagen ervoor.</string>
     <string name="tax_export_rules_date">Regels per: %1$s</string>
+    <string name="tax_export_rules_stale">De regels zijn van %1$s – voor %2$s kunnen tarieven en vrijstellingen gewijzigd zijn. Controleer de waarden.</string>
     <string name="tax_export_spouse_gift">aan echtgenoot/partner – geen winst, geen verlies</string>
     <string name="tax_export_summary">Jaaroverzicht %1$s (CSV)</string>
     <string name="tax_export_swap">ruil</string>

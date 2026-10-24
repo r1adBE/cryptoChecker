@@ -15,7 +15,11 @@ import com.cryptochecker.marketdata.model.market.DexScreener
  * - Paar-Kennung nur aus Buchstaben und Ziffern jeder Schrift (Binance führt Coins mit chinesischem Namen) sowie
  *   «/ _ : . -» (DexScreener «chain/adresse», Bitfinex «tBTC:USD», Coinbase «BTC-USD»); Leerzeichen, «@», «&», «?»
  *   u. Ä. kommen in keiner Börse vor und landeten sonst unverändert in einer Adresse.
- * - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» ([DexScreener.isSafePairId]).
+ * - Basis und Quote wie Symbole ([validAsset]): Buchstaben und Ziffern jeder Schrift sowie «. _ -» («1000PEPE»,
+ *   «USDC.e», «BTC-PERP», «币安人生»). Ohne Kennung bauen die Börsen die Adresse daraus («BTC-USD»); «/», «?», «#»,
+ *   «&» u. Ä. veränderten sonst Pfad oder Abfrage.
+ * - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» ([DexScreener.isSafePairId]); nur diese kommt in die
+ *   Adresse, Basis und Quote sind dort Anzeigetext der Börse («USD (ethereum)», «$WIF») und nur begrenzt.
  * - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`, z. B. eine inzwischen entfernte Börse), nur begrenzt.
  * - Höchstens [MAX_PAIRS] Paare (die ersten der Datei) und je Paar [MAX_ALARMS_PER_PAIR] Alarme.
  */
@@ -35,8 +39,8 @@ internal object BackupRestoreLimits {
     fun acceptsPair(marketKey: String, marketName: String, base: String, quote: String, pairId: String?): Boolean =
         codePoints(marketKey) <= MAX_MARKET_KEY &&
             codePoints(marketName) <= MAX_MARKET_NAME &&
-            codePoints(base) <= MAX_ASSET &&
-            codePoints(quote) <= MAX_ASSET &&
+            assetAllowed(marketKey, base) &&
+            assetAllowed(marketKey, quote) &&
             (pairId == null || validPairId(pairId)) &&
             // DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
             (marketKey != DexScreener.KEY || (pairId != null && DexScreener.isSafePairId(pairId)))
@@ -46,6 +50,18 @@ internal object BackupRestoreLimits {
         if (codePoints(pairId) > MAX_PAIR_ID) return false
         return pairId.codePoints().allMatch { cp -> (cp < 0x80 && cp.toChar() in PAIR_ID_PUNCTUATION) || isLetterOrDigit(cp) }
     }
+
+    /** Basis bzw. Quote höchstens [MAX_ASSET] Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «. _ -». */
+    fun validAsset(asset: String): Boolean {
+        if (codePoints(asset) > MAX_ASSET) return false
+        return asset.codePoints().allMatch { cp ->
+            (cp < 0x80 && cp.toChar() in ASSET_PUNCTUATION) || isLetterOrDigit(cp)
+        }
+    }
+
+    /** DexScreener: Basis/Quote nur begrenzt (Anzeigetext, nie in der Adresse); sonst wie Symbole ([validAsset]). */
+    private fun assetAllowed(marketKey: String, asset: String): Boolean =
+        if (marketKey == DexScreener.KEY) codePoints(asset) <= MAX_ASSET else validAsset(asset)
 
     /**
      * Was nach [accept] bzw. [limit] übernommen wird; [droppedPairs]/[droppedAlarms] = wie viele wegen der Grenzen
@@ -97,4 +113,5 @@ internal object BackupRestoreLimits {
     }
 
     private const val PAIR_ID_PUNCTUATION = "/_:.-"
+    private const val ASSET_PUNCTUATION = "._-"
 }

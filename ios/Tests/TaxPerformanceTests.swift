@@ -132,13 +132,13 @@ final class TaxPerformanceTests: XCTestCase {
     }
 
     func testUnitedKingdom() {
-        // Share Pooling: wächst bekanntlich schneller als linear — der Section-104-Pool führt je Kalendertag mit Zugang
-        // einen Herkunftsteil (TaxPool mit Zeitzone), und jeder Abgang nimmt aus ALLEN Teilen anteilig (`takeParts`),
-        // dazu trägt jede Zeile alle Teile (Devisenkurs je Teil). Zugänge (bis zur Zahl der Tage) × Abgänge je Coin,
-        // dreimal je Durchgang (Übersicht, Gewinne, Vermerk-Listen zusammen). Nur die feste Grenze; erwartet rund
-        // 10–30 s für 10 000 Transaktionen (Debug; Verhältnis zu 2500 etwa ×10–16)
-        T.assertLimitOnly("Steuer-Export UK \(TaxPerformanceTests.year)", limitMillis: 180_000,
-                          sizes: T.transactions) { n in
+        // Share Pooling: der Section-104-Pool führt je Kalendertag mit Zugang einen Herkunftsteil (TaxPool mit
+        // Zeitzone); ein Abgang merkt sich nur seinen Anteil (`PortfolioCostPartPool`, O(1) bzw. O(log n)), und die
+        // Zeilen rechnen ihren Einstand in der Steuerwährung aus der laufenden Summe des Pools (`weightedSum`) statt
+        // Teil für Teil.
+        // Erwartet rund 1,5–5 s für 10 000 Transaktionen (Debug)
+        T.assertScales("Steuer-Export UK \(TaxPerformanceTests.year)", limitMillis: 30_000,
+                       sizes: T.transactions) { n in
             let input = TaxPerformanceTests.inputs(n, .UK)
             // Sekunden je Lauf: 1 Aufwärm- und 3 Messläufe
             return T.medianMillis(warmup: T.quickWarmupRuns, runs: T.quickMeasuredRuns) {

@@ -9,9 +9,9 @@ import java.math.BigDecimal
  * der ungedeckte Rest bei «mehr verkauft als erfasst»). Mit [withParts] wird der Einstand zusätzlich nach Herkunft
  * geführt ([PortfolioCostPart]: Zeitpunkt und Betrag je Zugang/Gebühr); ein Abgang nimmt alle Teile anteilig mit —
  * so rechnen der Steuer-Export und «Seit Kauf» in der Anzeigewährung ([PortfolioCostFx]) den Ø-Einstand zum
- * Devisenkurs JE Zugang um. Das kostet je Abgang alle bisherigen Teile (Zugänge × Abgänge); ohne [withParts] bleiben
- * [PortfolioDisposal.costParts] und [PortfolioBookResult.openParts] leer, alle anderen Zahlen sind identisch und die
- * Rechnung linear.
+ * Devisenkurs JE Zugang um. Die Teile führt [PortfolioCostPartPool] (je Abgang O(1), abgegebene Teile als Ansicht);
+ * ohne [withParts] bleiben [PortfolioDisposal.costParts] und [PortfolioBookResult.openParts] leer, alle anderen Zahlen
+ * sind identisch.
  */
 internal fun PortfolioCalculator.average(
     symbol: String,
@@ -24,7 +24,7 @@ internal fun PortfolioCalculator.average(
     var priced = zero       // Menge mit Kaufpreis
     var unpriced = zero     // Menge ohne Kaufpreis
     var cost = zero         // Einstand des Teils mit Kaufpreis (inkl. Gebühren in USDT)
-    val parts = ArrayList<PortfolioCostPart>() // Herkunft von [cost]
+    val parts = PortfolioCostPartPool() // Herkunft von [cost]
     var realized = zero
     var unknownSold = zero  // verkaufte Menge mit unbekanntem Gewinn/Verlust
     var soldTotal = zero
@@ -47,32 +47,10 @@ internal fun PortfolioCalculator.average(
         val partsRemoved: List<PortfolioCostPart>,
     )
 
+    // Ohne [withParts] bleibt [parts] leer
     fun addCost(time: Long, usdt: BigDecimal) {
         cost += usdt
-        if (withParts && usdt.signum() != 0) parts += PortfolioCostPart(time, usdt)
-    }
-
-    /**
-     * Nimmt [removed] von [before] (Einstand davor) anteilig aus allen Herkunftsteilen; Summe exakt [removed]. Ohne
-     * [withParts] ist [parts] immer leer.
-     */
-    fun takeParts(removed: BigDecimal, before: BigDecimal): List<PortfolioCostPart> {
-        if (removed.signum() == 0 || parts.isEmpty()) return emptyList()
-        if (removed >= before) {
-            val all = parts.toList()
-            parts.clear()
-            return all
-        }
-        val out = ArrayList<PortfolioCostPart>(parts.size)
-        var left = removed
-        for (i in parts.indices) {
-            val p = parts[i]
-            val r = if (i == parts.size - 1) left else p.usdt.multiply(removed).divide(before, mc)
-            left -= r
-            out += PortfolioCostPart(p.time, r)
-            parts[i] = PortfolioCostPart(p.time, p.usdt - r)
-        }
-        return out
+        if (withParts) parts.add(time, usdt)
     }
 
     /** Gibt [requested] ab (gekappt auf den Bestand > 0), beide Teile anteilig samt Einstand. */
@@ -87,7 +65,8 @@ internal fun PortfolioCalculator.average(
             removedPriced >= priced -> cost
             else -> cost.multiply(removedPriced).divide(priced, mc)
         }
-        val partsRemoved = takeParts(costRemoved, cost)
+        // Anteilig aus allen Herkunftsteilen, Summe exakt [costRemoved]
+        val partsRemoved = parts.take(costRemoved, cost)
         // Gesamtbestand bleibt exakt; der Teil ohne Preis ist der Rest
         val rest = holdings - removed
         priced -= removedPriced
@@ -328,6 +307,6 @@ internal fun PortfolioCalculator.average(
         lots = emptyList(), disposals = disposals, withdrawals = withdrawals,
         lostFeeCosts = lostFeeCosts,
         unassignedFees = unassignedFees,
-        openParts = parts.toList(),
+        openParts = parts.toList(cost),
     )
 }

@@ -143,7 +143,7 @@ enum WidgetRefresh {
         if gotPrices {
             // Nur Kursalarme: `lastAlarmCheckAt` bleibt, sonst übersprünge die Hintergrund-Aufgabe die Alarme
             // mit Zusatzdaten
-            SharedStorage.lastRefreshAt = TimeUtils.nowMillis
+            SharedStorage.markFullRefresh()
             SharedStorage.lastRefreshDuration = outcome.durationMillis
         }
         if let report = outcome.report { SharedStorage.lastRefreshReport = report }

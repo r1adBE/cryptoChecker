@@ -47,9 +47,9 @@ struct WatchlistEntry: TimelineEntry {
                                    accent: SharedStorage.loadSettings().accentColor)
         entry.title = WidgetData.headerTitle(group: selection.group)
         // In der 15-s-Sperre nach einer vollständigen Aktualisierung (oder einem Tipp): Countdown statt Knopf;
-        // gleiche Zeit wie der Countdown der App (`SharedStorage.lastRefreshAt`)
+        // gleiche Zeit wie der Countdown der App (`SharedStorage.lastFullRefreshAt`; Live-Takte zählen nicht)
         entry.refreshBlockedUntil = WidgetRefreshState.blockedUntil(stored: WidgetRefresh.blockedUntil,
-                                                                    lastFinishedAt: entry.lastRefreshAt,
+                                                                    lastFinishedAt: SharedStorage.lastFullRefreshAt,
                                                                     runningSince: WidgetRefresh.runningSince,
                                                                     now: Int64(entry.date.timeIntervalSince1970 * 1000))
         return entry

@@ -2215,9 +2215,9 @@ next start.
   `data_extraction_rules.xml` (12+), **not** `xml/backup_rules.xml` (Android 8/8.1, since build 60): API 26/27
   ignore `requireFlags="clientSideEncryption"` and would upload the plaintext copy without end-to-end encryption.
   There `SystemBackupAgent` does not create the copy at all (`SystemBackupScope.writesDatabaseCopy(sdkInt)`, same
-  limit 28 as `PortfolioLockPolicy.SYSTEM_BACKUP_MIN_SDK`) and only runs the rule-based backup (settings,
-  favorites, language, migration flag); a restore on such a device brings no watchlist (the redirected file is
-  not in the rules and Android drops it). `PortfolioLockPolicyTest` checks the three rule files. `SystemBackupAgent` (`android:backupAgent`,
+  limit 28 as `PortfolioLockPolicy.SYSTEM_BACKUP_MIN_SDK`) and only runs the rule-based backup (favorites,
+  language, migration flag – not the settings DataStore, which holds the own Esplora server address); a restore on such a device brings no watchlist (the redirected file is
+  not in the rules and Android drops it). `PortfolioLockPolicyTest` checks the three rule files, `BackupRulesAndroid8Test` the Android 8/8.1 allow-list. `SystemBackupAgent` (`android:backupAgent`,
   `fullBackupOnly`) writes and verifies that plaintext copy only inside `onFullBackup`, runs the normal rule-based
   backup (`super`) and deletes it; if the copy fails, the backup run is aborted so the previous backup survives.
   `onRestoreFinished` turns the restored copy into `cryptochecker.db`, which the next start encrypts like an update.
@@ -2378,6 +2378,19 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 128: `PortfolioCostPartPool` (Android/iOS) keeps cost-origin parts lazily: a disposal stores the remaining
+  share instead of rewriting every part, parts are materialised on read; large lists (> 64 parts) give export cost,
+  «USDT ≈ 1» and date span from running sums. Used by the average method, `TaxPool` (UK/CA/AT) and the CA loss check;
+  equivalence tests against the previous code (`PortfolioAverageReference`, `TaxPoolReference`), performance tests use
+  `assertScales`. `CsvTransferWindow`: deposits per coin sorted by time, window by binary search (same pairs as the
+  nested loop). `PriceWriteOrder`: a price is written only if not older than the stored one (stored time more than 1 h
+  in the future counts as a reset clock); Android in the `WatchDao` update, iOS in `Outcome.apply`. iOS
+  `PriceWriteGate` (FIFO, continuations) serialises applying results of `refreshAll`, `refreshOne`, live and the
+  background task; `applyLive` only tries. `lastFullRefreshAt` (iOS `SharedStorage`, Android `RefreshStats`) drives
+  the 15 s debounce of pull to refresh and the widget button; live ticks set only `lastRefreshAt`. `RefreshLock`
+  `lockWithin` never leaves an acquired mutex behind after a timeout. `BackupRestoreLimits.validAsset` (letters and
+  digits of any script and `._-`; DexScreener pairs length only). `TaxRulesDate.rulesStale`. Fixtures
+  `price_write_order.json`, `refresh_debounce.json`, `tax_rules_stale.json`, `backup_limits.json`.
 * Build 127: RefreshState (iOS, `AppData.refreshState`, an `ObservableObject` of its own): `refreshing`,
   `refreshingWatchIds`, `lastRefreshMillis`, `lastRefreshReport`, `liveExchanges` and `liveWatchIds` publish only
   there, not via `AppData.objectWillChange`, so the watchlist body is not recomputed for them. Views that show them

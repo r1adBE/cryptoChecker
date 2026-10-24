@@ -63,7 +63,7 @@ class ManualRefresh @Inject constructor(
         val decision = synchronized(this) {
             val decision = RefreshDebounce.decide(
                 running = _running.value || otherRunning || priceRefresher.fullRefreshRunning.value,
-                lastFinishedAt = refreshStats.lastRefresh(),
+                lastFinishedAt = refreshStats.lastFullRefresh(),
                 now = System.currentTimeMillis(),
             )
             if (decision == RefreshDebounce.Decision.START) _running.value = true

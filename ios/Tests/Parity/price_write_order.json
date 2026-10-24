@@ -1,0 +1,16 @@
+{
+  "description": "Order of price writers (Android PriceWriteOrder.kt + WatchDao.updatePriceForPair / iOS PriceWriteOrder.swift + Outcome.apply(to:)). A result only takes its price if it is not older than the stored one: accepts(newTime, storedTime, now) = newTime >= storedTime, or the stored time lies more than futureToleranceMillis (1 h) ahead of now (implausible, clock set back). storedTime 0 = no price yet. Times relative to now in ms (null storedAgo = 0 = no price yet).",
+  "now": 1792000000000,
+  "futureToleranceMillis": 3600000,
+  "cases": [
+    {"name": "newer result replaces older stored price", "newAgo": 1000, "storedAgo": 60000, "accepted": true},
+    {"name": "older result (slow single refresh after faster full refresh) is dropped", "newAgo": 60000, "storedAgo": 1000, "accepted": false},
+    {"name": "same time counts as new", "newAgo": 5000, "storedAgo": 5000, "accepted": true},
+    {"name": "1 ms older is dropped", "newAgo": 5001, "storedAgo": 5000, "accepted": false},
+    {"name": "no stored price yet", "newAgo": 86400000, "storedAgo": null, "accepted": true},
+    {"name": "stored slightly ahead of device clock (exchange time): older result still dropped", "newAgo": 0, "storedAgo": -2000, "accepted": false},
+    {"name": "stored exactly 1 h ahead: still plausible", "newAgo": 0, "storedAgo": -3600000, "accepted": false},
+    {"name": "stored more than 1 h ahead (clock set back): new price taken", "newAgo": 0, "storedAgo": -3600001, "accepted": true},
+    {"name": "stored a year ahead (clock was wrong): new price taken", "newAgo": 10000, "storedAgo": -31536000000, "accepted": true}
+  ]
+}

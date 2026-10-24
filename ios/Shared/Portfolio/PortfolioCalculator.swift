@@ -284,7 +284,7 @@ enum PortfolioCalculator {
     /// im Gesamtwert, aber nicht in Einstand und «Seit Kauf» — ein Coin nur aus Adressen fehlt dort ohne
     /// «ohne Kaufpreis»-Hinweis (`missingCostCoins` nennt nur eigene Bestände ohne Kaufpreis). Wie Android.
     /// `withParts`: Herkunft des Ø-Einstands (`CoinPosition.pricedCostParts`) führen — nur für den Einstand in einer
-    /// Anzeigewährung (`PortfolioCostFx`); ohne bleiben alle anderen Zahlen gleich und die Ø-Rechnung linear.
+    /// Anzeigewährung (`PortfolioCostFx`; `PortfolioCostPartPool`); ohne bleiben sie leer, alle anderen Zahlen gleich.
     static func summarize(_ trades: [PortfolioTx], prices: [String: Double],
                           method: CostMethod = .defaultMethod,
                           withdrawalPrice: ((String, Int64) -> Double?)? = nil,

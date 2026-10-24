@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">CSV مالیاتی ممکن است با «تحقق‌یافته» فرق کند (قواعد مالیاتی کشور).</string>
     <string name="tax_export_rule">&gt; 1 سال: فروش پس از تاریخ خرید + 1 سال تقویمی. تاریخ‌ها به وقت محلی. نرخ‌ها: نرخ روزانهٔ بانک مرکزی اروپا در روز تراکنش؛ اگر نباشد، آخرین نرخ تا 7 روز پیش از آن.</string>
     <string name="tax_export_rules_date">قواعد تا: %1$s</string>
+    <string name="tax_export_rules_stale">قواعد مربوط به %1$s است – برای %2$s ممکن است نرخ‌ها و معافیت‌ها تغییر کرده باشند. مقادیر را بررسی کن.</string>
     <string name="tax_export_spouse_gift">به همسر/شریک – بدون سود و زیان</string>
     <string name="tax_export_summary">خلاصهٔ سالانه %1$s (CSV)</string>
     <string name="tax_export_swap">تبادل</string>

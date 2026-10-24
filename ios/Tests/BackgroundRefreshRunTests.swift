@@ -38,6 +38,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
     private struct SavedState {
         var lastAlarmCheckAt: Int64
         var lastRefreshAt: Int64
+        var lastFullRefreshAt: Int64
         var lastRefreshDuration: Int64
         var lastRefreshReport: RefreshReport?
         var changeStamp: ChangeStamp?
@@ -65,6 +66,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         let pending = await BGTaskScheduler.shared.pendingTaskRequests()
             .first { $0.identifier == BackgroundRefresh.refreshId }
         saved = SavedState(lastAlarmCheckAt: SharedStorage.lastAlarmCheckAt, lastRefreshAt: SharedStorage.lastRefreshAt,
+                           lastFullRefreshAt: SharedStorage.lastFullRefreshAt,
                            lastRefreshDuration: SharedStorage.lastRefreshDuration,
                            lastRefreshReport: SharedStorage.lastRefreshReport, changeStamp: SharedStorage.changeStamp,
                            checkRuns: try? Data(contentsOf: CheckRunStore.url),
@@ -84,6 +86,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         guard let saved else { return }
         SharedStorage.lastAlarmCheckAt = saved.lastAlarmCheckAt
         SharedStorage.lastRefreshAt = saved.lastRefreshAt
+        SharedStorage.lastFullRefreshAt = saved.lastFullRefreshAt
         SharedStorage.lastRefreshDuration = saved.lastRefreshDuration
         SharedStorage.lastRefreshReport = saved.lastRefreshReport
         SharedStorage.changeStamp = saved.changeStamp

@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Die Steuer-CSV kann von ‹realisiert› abweichen (Steuerregeln des Landes).</string>
     <string name="tax_export_rule">&gt; 1 Jahr: Verkauf nach Kaufdatum + 1 Kalenderjahr. Daten in Ortszeit. Kurse: EZB-Tageskurs des Transaktionstags; fehlt er, der letzte Kurs bis 7 Tage davor.</string>
     <string name="tax_export_rules_date">Regelstand: %1$s</string>
+    <string name="tax_export_rules_stale">Die Regeln stammen von %1$s – für %2$s können sich Sätze und Freibeträge geändert haben. Prüfe die Werte.</string>
     <string name="tax_export_spouse_gift">an Ehe-/Lebenspartner – kein Gewinn/Verlust</string>
     <string name="tax_export_summary">Jahresübersicht %1$s (CSV)</string>
     <string name="tax_export_swap">Tausch</string>

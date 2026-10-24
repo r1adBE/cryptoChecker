@@ -164,7 +164,12 @@ fun TaxExport.gainRows(
      * rechnen. CA rechnet immer selbst: dort entscheiden die Devisenkurse den Superficial Loss.
      */
     disposals: List<PortfolioDisposal>? = null,
-): List<TaxGainRow> = (
+): List<TaxGainRow> {
+    // Herkunftsteile: Kurs und USDT-Näherung je Teil, je ein Objekt für alle Zeilen (grosse Ansichten eines Pools
+    // rechnet [weightedSum]/[anyTime] so ohne Auslesen)
+    val partRate = PortfolioPartWeight { t -> rateOn(rates, localDate(t, zone), currency, usdtUsd) }
+    val partUsdtApproximate = PortfolioPartTest { t -> usdtApproximateOn(usdtUsd, localDate(t, zone)) }
+    return (
     disposals?.takeIf { method != TaxMethod.CA_ACB }?.filter { localDate(it.sellTime, zone) in period }
         ?: disposalsIn(
             trades, method, period, zone, priceAt,
@@ -182,14 +187,7 @@ fun TaxExport.gainRows(
     var costFxMissing = false
     val costTarget: BigDecimal? = d.costUsdt?.let { c ->
         when {
-            d.costParts.isNotEmpty() -> {
-                var sum: BigDecimal? = BigDecimal.ZERO
-                for (part in d.costParts) {
-                    val r = rateOn(rates, localDate(part.time, zone), currency, usdtUsd)
-                    sum = if (r == null || sum == null) null else sum + part.usdt.multiply(r, PortfolioDecimal.MC)
-                }
-                sum
-            }
+            d.costParts.isNotEmpty() -> d.costParts.weightedSum(partRate)
             acquired != null -> rateOn(rates, acquired, currency, usdtUsd)?.let { c.multiply(it, PortfolioDecimal.MC) }
             // Einstand 0 (z. B. Belohnung zum Wert 0): nichts umzurechnen
             c.signum() == 0 -> BigDecimal.ZERO
@@ -246,11 +244,12 @@ fun TaxExport.gainRows(
         feeInfoOnly = d.feeExpense == PortfolioFeeExpense.TRANSFER ||
             ((rules.quoteFeeIsInfo || method == TaxMethod.FR_PTA) && d.feeExpense == PortfolioFeeExpense.WITHDRAWAL),
         // USDT = 1 als Näherung an einem der Tage, deren Kurs die Zeile braucht (Verkauf, Kauf, Herkunftsteile)
-        usdtApproximate = (listOf(sold) + listOfNotNull(acquired) + d.costParts.map { localDate(it.time, zone) })
-            .any { usdtApproximateOn(usdtUsd, it) },
+        usdtApproximate = (listOf(sold) + listOfNotNull(acquired)).any { usdtApproximateOn(usdtUsd, it) } ||
+            d.costParts.anyTime(partUsdtApproximate),
         proceedsBeforeFeesUsdt = d.proceedsBeforeFeesUsdt,
         proceedsBeforeFeesTarget = atSale(d.proceedsBeforeFeesUsdt),
     )
+}
 }
 
 fun TaxExport.incomeRows(

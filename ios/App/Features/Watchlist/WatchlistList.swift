@@ -265,7 +265,7 @@ extension WatchlistScreen {
     /// Kreisel kurz drehen (`.refreshable` wartet so lange) und dann «Gerade aktualisiert · vor N s».
     func refreshByUser() async {
         let decision = await data.refreshAllByUser()
-        guard let ago = RefreshDebounce.pullEchoSeconds(decision, lastFinishedAt: SharedStorage.lastRefreshAt,
+        guard let ago = RefreshDebounce.pullEchoSeconds(decision, lastFinishedAt: SharedStorage.lastFullRefreshAt,
                                                         now: TimeUtils.nowMillis) else { return }
         try? await Task.sleep(nanoseconds: UInt64(RefreshDebounce.pullEchoMillis) * 1_000_000)
         let text = L("watchlist_refresh_just_done", ago)

@@ -117,9 +117,9 @@ final class AppData: ObservableObject {
     var liveTickAt: [Int64: Int64] = [:]
     /// «Paar bearbeiten» je Watch-Id (ms): Live-Kurse von davor gehören zum alten Paar (`applyLive` verwirft sie).
     var pairChangedAt: [Int64: Int64] = [:]
-    /// Live-Kurse werden gerade gespeichert (`applyLive`): eine volle bzw. einzelne Aktualisierung
-    /// wartet so lange; umgekehrt lässt `applyLive` aus, solange eine Aktualisierung läuft.
-    var liveApplying = false
+    /// Schreib-Gate der Kurse (geteilt mit der Hintergrund-Aufgabe im App-Prozess): Aktualisierungen und Live-Kurse
+    /// übernehmen ihre Ergebnisse nacheinander (`PriceWriteGate`).
+    var priceWriteGate: PriceWriteGate { .shared }
 
     /// Gelesener Stand von `portfolio.json` (beim Start im Hintergrund, beim ersten Zugriff sonst sofort): Zugriff nur
     /// über `portfolio`, `portfolioFile`, `portfolioIntact` (AppData+PortfolioLoad.swift).

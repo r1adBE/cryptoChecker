@@ -229,20 +229,23 @@ enum CsvTransferMatch {
             }
         }
         var found: [CsvTransferLink] = []
-        for w in outs {
-            for d in ins where fits(w, d) {
-                let diff = w.total - d.total
-                let coinDiff = diff > 0
-                found.append(CsvTransferLink(
-                    key: linkId(w.key, d.key), coin: w.coin, withdrawalKey: w.key, depositKey: d.key,
-                    withdrawalId: w.id, depositId: d.id, sent: w.total, received: d.total,
-                    fee: coinDiff ? diff : w.quoteFee,
-                    feeUnit: coinDiff ? .COIN : (w.quoteFee == nil ? nil : .QUOTE),
-                    feeCoin: w.feeCoin, feeCoinAmount: w.feeCoinAmount,
-                    withdrawalTime: w.time, depositTime: d.time, from: w.place, to: d.place,
-                    unambiguous: false, stored: w.stored ?? d.stored,
-                    absorbed: w.stored != nil ? d.tx : (d.stored != nil ? w.tx : nil)))
-            }
+        // Nur Einzahlungen desselben Coins im Zeitfenster prüfen (`fits` verlangt beides)
+        let pairs = CsvTransferWindow.pairs(outs, ins, coin: \.coin, time: \.time, early: earlyMillis,
+                                            window: windowMillis, fits: fits)
+        for (wi, di) in pairs {
+            let w = outs[wi]
+            let d = ins[di]
+            let diff = w.total - d.total
+            let coinDiff = diff > 0
+            found.append(CsvTransferLink(
+                key: linkId(w.key, d.key), coin: w.coin, withdrawalKey: w.key, depositKey: d.key,
+                withdrawalId: w.id, depositId: d.id, sent: w.total, received: d.total,
+                fee: coinDiff ? diff : w.quoteFee,
+                feeUnit: coinDiff ? .COIN : (w.quoteFee == nil ? nil : .QUOTE),
+                feeCoin: w.feeCoin, feeCoinAmount: w.feeCoinAmount,
+                withdrawalTime: w.time, depositTime: d.time, from: w.place, to: d.place,
+                unambiguous: false, stored: w.stored ?? d.stored,
+                absorbed: w.stored != nil ? d.tx : (d.stored != nil ? w.tx : nil)))
         }
         var perOut: [String: Int] = [:]
         var perIn: [String: Int] = [:]

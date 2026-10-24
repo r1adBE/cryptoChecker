@@ -181,8 +181,12 @@ enum BackgroundRefresh {
             let budget = RefreshBudget(start: TimeUtils.nowMillis)
             let deadline = budget.deadline
             let outcome = await seams.refresh(snapshot, settings, deadline)
-            // Von iOS abgebrochen: abgebrochene Anfragen nicht als Fehler speichern.
-            if Task.isCancelled {
+            // Speichern der Reihe nach mit den Schreibern der App (`PriceWriteGate`: Aktualisierung, Live-Kurse).
+            // Von iOS abgebrochen (auch während des Wartens aufs Gate): abgebrochene Anfragen nicht als Fehler speichern.
+            let gate = PriceWriteGate.shared
+            let entered = await gate.acquire()
+            if Task.isCancelled || !entered {
+                if entered { gate.release() }
                 // Nicht gespeichert → auch nichts melden; die Alarme bleiben scharf.
                 outcome.releaseAlarmLease()
                 if logGate.claim() { await CheckRunStore.logDetached(.bgTask, .failed, startedAt: startedAt).value }
@@ -193,6 +197,7 @@ enum BackgroundRefresh {
             // übertragen — als ein abgestimmter Schritt mit Widget und App (der Nutzer könnte inzwischen
             // etwas geändert haben). Unlesbare oder gerade nicht zugreifbare Datei: nichts schreiben.
             let saved = await offMain { SharedStorage.updateSnapshot { outcome.apply(to: &$0) } }
+            gate.release()
             let current = saved ?? snapshot
             // Ergebnis für «Letzte Prüfungen»: Kurse geholt, aber nicht gespeichert zählt als fehlgeschlagen
             let priceResult: CheckResult = (saved == nil && outcome.checked > 0)
@@ -212,7 +217,7 @@ enum BackgroundRefresh {
             // Uhrzeit nur mit gespeichertem Stand: Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse
             // auf der Platte sonst für frisch (`WidgetDataFreshness`)
             if saved != nil && outcome.failed < outcome.checked {
-                SharedStorage.lastRefreshAt = TimeUtils.nowMillis
+                SharedStorage.markFullRefresh()
                 SharedStorage.lastRefreshDuration = outcome.durationMillis
                 // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
                 // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht

@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">CSV-ja tatimore mund të ndryshojë nga “realizuar” (rregullat tatimore të vendit).</string>
     <string name="tax_export_rule">&gt; 1 vit: shitur pas datës së blerjes + 1 vit kalendarik. Datat në orën lokale. Kurset: kursi ditor i BQE i ditës së transaksionit; nëse mungon, kursi i fundit deri në 7 ditë më parë.</string>
     <string name="tax_export_rules_date">Rregullat në: %1$s</string>
+    <string name="tax_export_rules_stale">Rregullat janë të %1$s – për %2$s normat dhe përjashtimet mund të kenë ndryshuar. Kontrollo vlerat.</string>
     <string name="tax_export_spouse_gift">për bashkëshortin/partnerin – pa fitim, pa humbje</string>
     <string name="tax_export_summary">Përmbledhje vjetore %1$s (CSV)</string>
     <string name="tax_export_swap">shkëmbim</string>

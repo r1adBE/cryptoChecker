@@ -358,7 +358,7 @@ object TaxExport {
         val inSpan = disposals?.filter { localDate(it.sellTime, zone) in upTo }
             ?: disposalsIn(trades, method, upTo, zone, priceAt, rules = rules, walletFrom = walletFrom)
         val times = inSpan
-            .flatMap { d -> listOfNotNull(d.acquiredTime, d.matchedTime) + d.costParts.map { it.time } }
+            .flatMap { d -> listOfNotNull(d.acquiredTime, d.matchedTime) + d.costParts.timeBounds() }
         val first = times.minOrNull()?.let { localDate(it, zone) }
         val from = if (first != null && first.isBefore(period.start)) first else period.start
         val last = times.maxOrNull()?.let { localDate(it, zone) }

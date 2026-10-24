@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">税务 CSV 可能与“已实现”不同（各国税务规则）。</string>
     <string name="tax_export_rule">&gt; 1 年：在买入日期 + 1 个日历年之后卖出。日期为本地时间。汇率：交易当日的欧洲央行每日汇率；若无，则取此前最多 7 天内的最近汇率。</string>
     <string name="tax_export_rules_date">规则截至：%1$s</string>
+    <string name="tax_export_rules_stale">规则截至 %1$s——%2$s 的税率和免税额可能已有变化。请核对这些数值。</string>
     <string name="tax_export_spouse_gift">给配偶/伴侣 – 无盈亏</string>
     <string name="tax_export_summary">年度汇总 %1$s（CSV）</string>
     <string name="tax_export_swap">兑换</string>

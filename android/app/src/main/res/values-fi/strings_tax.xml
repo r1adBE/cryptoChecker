@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">Vero-CSV voi poiketa kohdasta ”toteutunut” (maan verosäännöt).</string>
     <string name="tax_export_rule">&gt; 1 vuosi: myyty ostopäivän + 1 kalenterivuoden jälkeen. Päivämäärät paikallista aikaa. Kurssit: EKP:n päiväkurssi tapahtumapäivältä; jos sitä ei ole, viimeisin kurssi enintään 7 päivää aiemmin.</string>
     <string name="tax_export_rules_date">Säännöt tilanteessa: %1$s</string>
+    <string name="tax_export_rules_stale">Säännöt ovat tilanteesta %1$s – vuodelle %2$s verokannat ja verovapaat määrät ovat voineet muuttua. Tarkista arvot.</string>
     <string name="tax_export_spouse_gift">puolisolle/kumppanille – ei voittoa, ei tappiota</string>
     <string name="tax_export_summary">Vuosikooste %1$s (CSV)</string>
     <string name="tax_export_swap">vaihto</string>

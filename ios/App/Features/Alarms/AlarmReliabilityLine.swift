@@ -87,7 +87,7 @@ struct AlarmReliabilityLine: View {
                 // Grosse Schrift (Bedienungshilfen): ganzer Satz statt abgeschnitten
                 .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Image(systemName: "chevron.right")
+            Image(systemName: "chevron.forward")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .accessibilityHidden(true)

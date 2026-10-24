@@ -267,7 +267,7 @@ enum TaxExport {
                 var out: [Int64] = []
                 if let a = d.acquiredTime { out.append(a) }
                 if let m = d.matchedTime { out.append(m) }
-                return out + d.costParts.map(\.time)
+                return out + d.costParts.timeBounds
             }
         var from = period.start
         if let first = times.min().map({ localDay($0, timeZone: timeZone) }), first < period.start { from = first }

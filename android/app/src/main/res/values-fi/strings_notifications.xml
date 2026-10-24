@@ -9,7 +9,7 @@
     <string name="notification_depeg_title">USDT %1$s USD (%2$s)</string>
     <string name="notification_fng_above">Indeksi nousi yli %1$d – tämän indeksin mukaan markkinoilla vallitsee ahneus.</string>
     <string name="notification_fng_below">Indeksi laski alle %1$d – tämän indeksin mukaan markkinoilla vallitsee pelko.</string>
-    <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
+    <string name="notification_fng_title">Tunnelmaindeksi (Fear &amp; Greed): %1$d</string>
     <string name="notification_gas_btc_text">Alle rajasi %1$s sat/vB · Siirto ≈ %2$s</string>
     <string name="notification_gas_btc_title">Bitcoin-maksu: %1$s sat/vB</string>
     <string name="notification_gas_eth_text">Alle rajasi %1$s gwei · Siirto ≈ %2$s</string>

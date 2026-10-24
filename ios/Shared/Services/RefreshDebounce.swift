@@ -24,7 +24,8 @@ enum RefreshDebounce {
     /// - Parameters:
     ///   - running: läuft gerade eine vollständige Aktualisierung (gleich welcher Herkunft)?
     ///   - lastFinishedAt: Ende der letzten vollständigen Aktualisierung mit mindestens einem
-    ///     Kurs; 0 = noch keine. Liegt sie in der Zukunft (Uhr verstellt), wird aktualisiert.
+    ///     Kurs (`SharedStorage.lastFullRefreshAt`; Live-Takte zählen nicht); 0 = noch keine. Liegt sie in der
+    ///     Zukunft (Uhr verstellt), wird aktualisiert.
     static func decide(running: Bool, lastFinishedAt: Int64, now: Int64,
                        windowMillis: Int64 = RefreshDebounce.windowMillis) -> Decision {
         if running { return .running }

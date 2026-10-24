@@ -12,7 +12,7 @@ extension PortfolioCalculator {
         let share: Decimal
         let costRemoved: Decimal
         let removedPriced: Decimal
-        let partsRemoved: [PortfolioCostPart]
+        let partsRemoved: PortfolioCostPartList
     }
 
     /// Bestand eines Coins während der Rechnung (Teil mit/ohne Kaufpreis, Einstand samt Herkunft).
@@ -20,42 +20,22 @@ extension PortfolioCalculator {
         var priced: Decimal = 0      // Menge mit Kaufpreis
         var unpriced: Decimal = 0    // Menge ohne Kaufpreis
         var cost: Decimal = 0        // Einstand des Teils mit Kaufpreis (inkl. Gebühren in USDT)
-        var parts: [PortfolioCostPart] = [] // Herkunft von `cost` (nur mit `withParts`)
-        /// Herkunft führen? Ohne bleibt `parts` leer und jeder Schritt kostet gleich viel (linear statt Zugänge × Abgänge).
+        var parts = PortfolioCostPartPool() // Herkunft von `cost` (nur mit `withParts`; je Abgang O(1))
+        /// Herkunft führen? Ohne bleibt `parts` leer.
         let withParts: Bool
 
         var holdings: Decimal { priced + unpriced }
 
         mutating func addCost(_ time: Int64, _ usdt: Decimal) {
             cost += usdt
-            if withParts && usdt != 0 { parts.append(PortfolioCostPart(time: time, usdt: usdt)) }
+            if withParts { parts.add(time, usdt) }
         }
 
         /// Einstand und Herkunft ganz verwerfen (Teil mit Kaufpreis ist leer).
         mutating func resetPriced() {
             priced = 0
             cost = 0
-            parts = []
-        }
-
-        /// Nimmt `removed` von `before` (Einstand davor) anteilig aus allen Herkunftsteilen; Summe exakt `removed`.
-        mutating func takeParts(_ removed: Decimal, before: Decimal) -> [PortfolioCostPart] {
-            guard removed != 0, !parts.isEmpty else { return [] }
-            if removed >= before {
-                let all = parts
-                parts = []
-                return all
-            }
-            var out: [PortfolioCostPart] = []
-            var left = removed
-            for i in parts.indices {
-                let p = parts[i]
-                let r = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * removed, before)
-                left -= r
-                out.append(PortfolioCostPart(time: p.time, usdt: r))
-                parts[i] = PortfolioCostPart(time: p.time, usdt: p.usdt - r)
-            }
-            return out
+            parts.clear()
         }
 
         /// Gibt `requested` ab (gekappt auf den Bestand > 0), beide Teile anteilig samt Einstand — wie `take` (Android).
@@ -74,7 +54,8 @@ extension PortfolioCalculator {
             } else {
                 costRemoved = PortfolioDecimal.divide(cost * removedPriced, priced)
             }
-            let partsRemoved = takeParts(costRemoved, before: cost)
+            // Anteilig aus allen Herkunftsteilen, Summe exakt `costRemoved`
+            let partsRemoved = parts.take(costRemoved, total: cost)
             // Gesamtbestand bleibt exakt; der Teil ohne Preis ist der Rest
             let rest = total - removed
             priced -= removedPriced
@@ -90,7 +71,7 @@ extension PortfolioCalculator {
     /// Durchschnittskosten-Methode (siehe oben), mit einer Veräusserung je Verkauf (Teil mit/ohne Kaufpreis, dazu der
     /// ungedeckte Rest bei «mehr verkauft als erfasst»). Der Einstand wird zusätzlich nach Herkunft geführt
     /// (`PortfolioCostPart`); ein Abgang nimmt alle Teile anteilig mit — so rechnet der Steuer-Export den Ø-Einstand zum
-    /// Devisenkurs JE Zugang um. Wie Android.
+    /// Devisenkurs JE Zugang um (`PortfolioCostPartPool`: je Abgang O(1), abgegebene Teile als Ansicht). Wie Android.
     /// `withParts`: Herkunft führen (Steuer-Export, Einstand der Karte in einer Anzeigewährung). Ohne sind
     /// `PortfolioDisposal.costParts` und `openParts` leer, alle Zahlen (Bestand, Einstand, realisiert …) gleich.
     static func average(_ symbol: String, events: [PortfolioLedgerEvent], withParts: Bool = true) -> PortfolioBookResult {
@@ -116,7 +97,7 @@ extension PortfolioCalculator {
             let payment = !feeLeg && t.type == .PAYMENT && !t.fromGift
             let estimated = !feeLeg && t.valueEstimated
             func add(_ amount: Decimal, cost: Decimal?, proceeds part: Decimal?, gain: Decimal?,
-                     costParts: [PortfolioCostPart] = [], isUncovered: Bool = false) {
+                     costParts: PortfolioCostPartList = [], isUncovered: Bool = false) {
                 guard amount > 0 else { return }
                 disposals.append(PortfolioDisposal(
                     coin: symbol, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
@@ -322,6 +303,6 @@ extension PortfolioCalculator {
             unknownSold: unknownSold, soldTotal: soldTotal, withdrawn: withdrawn, oversold: oversold,
             feeValueMissing: feeValueMissing, realizedFeeMissing: realizedFeeMissing,
             lots: [], disposals: disposals, withdrawals: withdrawals, lostFeeCosts: lostFeeCosts,
-            unassignedFees: unassignedFees, openParts: book.parts)
+            unassignedFees: unassignedFees, openParts: book.parts.toArray(total: book.cost))
     }
 }

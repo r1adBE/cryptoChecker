@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Auto Backup Android 9 bis 11 (android:fullBackupContent, xml-v28). Gleicher Umfang wie
      data_extraction_rules.xml (ab Android 12); Android 8/8.1: xml/backup_rules.xml ohne
-     Portfolio-Kopie und ohne Kopie der Hauptdatenbank — bei Änderungen alle drei anpassen. -->
+     Portfolio-Kopie, ohne Kopie der Hauptdatenbank und ohne Einstellungen — bei Änderungen alle drei
+     anpassen. -->
 <full-backup-content>
     <!-- requireFlags (ab Android 9, wie disableIfNoEncryptionCapabilities ab 12): jede Datei nur
          bei Ende-zu-Ende-verschlüsselter Cloud-Sicherung (Bildschirmsperre) ODER bei der Übertragung

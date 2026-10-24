@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">قد يختلف ملف CSV الضريبي عن «المحقَّق» (القواعد الضريبية للبلد).</string>
     <string name="tax_export_rule">&gt; سنة: بيع بعد تاريخ الشراء + سنة تقويمية. التواريخ بالتوقيت المحلي. الأسعار: السعر اليومي للبنك المركزي الأوروبي ليوم المعاملة؛ وإن لم يتوفر، فآخر سعر خلال 7 أيام قبله.</string>
     <string name="tax_export_rules_date">القواعد حتى: %1$s</string>
+    <string name="tax_export_rules_stale">القواعد من %1$s – قد تكون النسب والإعفاءات قد تغيّرت لـ %2$s. تحقّق من القيم.</string>
     <string name="tax_export_spouse_gift">إلى الزوج/الشريك – بلا ربح ولا خسارة</string>
     <string name="tax_export_summary">ملخص سنوي %1$s (CSV)</string>
     <string name="tax_export_swap">مبادلة</string>

@@ -264,7 +264,11 @@ object CsvTransferMatch {
             }
         }
         val links = ArrayList<CsvTransferLink>()
-        for (w in outs) for (d in ins) if (fits(w, d)) {
+        // Nur Einzahlungen desselben Coins im Zeitfenster prüfen ([fits] verlangt beides)
+        val pairs = CsvTransferWindow.pairs(outs, ins, End::coin, End::time, EARLY_MILLIS, WINDOW_MILLIS, ::fits)
+        for ((wi, di) in pairs) {
+            val w = outs[wi]
+            val d = ins[di]
             val diff = w.total - d.total
             val coinDiff = diff.signum() > 0
             links += CsvTransferLink(

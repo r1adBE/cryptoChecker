@@ -296,7 +296,8 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     /// AT: Realisationen von Neuvermögen ab diesem Tag bis vor `atSwapNeutralFrom` können auf Antrag schon nach neuer
     /// Rechtslage (27,5 %) besteuert werden (§ 124b Z 384 lit. c EStG); die vom 1.3. bis 31.12.2021 nicht. Wie Android.
     static let atOptionFrom = LocalDay(2022, 1, 1)
-    /// Stand der hinterlegten Regeln (Kopfzeile «Regelstand: 2026-10» der Länder-Vorlagen) — wie Android `RULES_DATE`.
+    /// Stand der hinterlegten Regeln («JJJJ-MM»; Blatt und Kopfzeile der Länder-Vorlagen zeigen ihn als Monat und Jahr,
+    /// Hinweis bei jüngerem Steuerjahr: `TaxRulesDate`) — wie Android `RULES_DATE`.
     static let rulesDate = "2026-10"
     /// US: erstes Steuerjahr mit Einstand Wallet für Wallet (Rev. Proc. 2024-28, ab 01.01.2025).
     static let usWalletFromYear = 2025

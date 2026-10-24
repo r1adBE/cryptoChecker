@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">CSV thuế có thể khác với “đã thực hiện” (quy định thuế của quốc gia).</string>
     <string name="tax_export_rule">&gt; 1 năm: bán sau ngày mua + 1 năm dương lịch. Ngày theo giờ địa phương. Tỷ giá: tỷ giá ngày của ECB vào ngày giao dịch; nếu không có, tỷ giá gần nhất trong vòng 7 ngày trước đó.</string>
     <string name="tax_export_rules_date">Quy tắc tính đến: %1$s</string>
+    <string name="tax_export_rules_stale">Quy tắc tính đến %1$s – cho %2$s, thuế suất và mức miễn trừ có thể đã thay đổi. Hãy kiểm tra các giá trị.</string>
     <string name="tax_export_spouse_gift">cho vợ/chồng/bạn đời – không lãi, không lỗ</string>
     <string name="tax_export_summary">Tổng hợp năm %1$s (CSV)</string>
     <string name="tax_export_swap">hoán đổi</string>

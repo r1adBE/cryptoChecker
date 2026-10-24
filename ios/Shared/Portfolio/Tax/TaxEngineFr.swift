@@ -114,7 +114,8 @@ extension TaxEngines {
                         var d = PortfolioDisposal(
                             coin: feeCoin, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
                             amount: covered, costUsdt: cost, proceedsUsdt: coveredGross, gainUsdt: gain, holdingDays: nil,
-                            feeLeg: feeLeg, feeValueMissing: false, method: .AVERAGE, costParts: parts, uncovered: false)
+                            feeLeg: feeLeg, feeValueMissing: false, method: .AVERAGE,
+                            costParts: PortfolioCostPartList(parts), uncovered: false)
                         d.costIncomplete = wasIncomplete || cost == nil
                         d.portfolioValueUsdt = value
                         d.grossProceedsUsdt = coveredGross
@@ -190,7 +191,7 @@ extension TaxEngines {
                             coin: coin, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
                             amount: removed, costUsdt: cost, proceedsUsdt: netCovered, gainUsdt: gain, holdingDays: nil,
                             feeLeg: false, feeValueMissing: feeMissing, method: .AVERAGE,
-                            costParts: parts, uncovered: false)
+                            costParts: PortfolioCostPartList(parts), uncovered: false)
                         // Ohne Gesamtwert (Kurs fehlt) ist schon diese Abtretung unvollständig
                         d.costIncomplete = wasIncomplete || cost == nil
                         d.portfolioValueUsdt = value

@@ -32,7 +32,10 @@ class RefreshStats @Inject constructor(
     /** Dauer des letzten vollständigen Durchlaufs. */
     val lastDurationMillis: StateFlow<Long> = _lastDurationMillis.asStateFlow()
 
-    /** Zeitpunkt des letzten vollständigen Durchlaufs. */
+    /**
+     * Zeitpunkt der letzten Kurse mit Uhrzeit für die Anzeige (Widget-Kopfzeile): vollständiger Durchlauf oder
+     * Live-Takt. Die Sperre für «Aktualisieren» liest [lastFullRefresh].
+     */
     val lastRefreshAt: StateFlow<Long> = _lastRefreshAt.asStateFlow()
 
     /**
@@ -64,6 +67,24 @@ class RefreshStats @Inject constructor(
         if (_changeStamp.value == stamp) return
         prefs.edit { putString(KEY_CHANGE_STAMP, stamp.encode()) }
         _changeStamp.value = stamp
+    }
+
+    /**
+     * Ende der letzten VOLLSTÄNDIGEN Aktualisierung mit mindestens einem Kurs (App, Hintergrund, Widget-Knopf);
+     * 0 = noch keine. Grundlage der 15-s-Sperre für «Aktualisieren» (`RefreshDebounce`, auch Widget-Knopf) —
+     * Live-Takte setzen nur [lastRefreshAt] (Uhrzeit im Widget) und sperren das Aktualisieren von Hand so nicht.
+     * Wie [lastRefreshAt] nicht in der Sicherung (refresh_stats).
+     */
+    @Volatile
+    private var lastFullRefreshAt: Long = prefs.getLong(KEY_LAST_FULL_REFRESH_AT, 0)
+
+    fun lastFullRefresh(): Long = lastFullRefreshAt
+
+    /** Ende einer vollständigen Aktualisierung: Uhrzeit und Dauer ([setLastRefresh]) und Sperre zugleich. */
+    fun setLastFullRefresh(durationMillis: Long, at: Long = System.currentTimeMillis()) {
+        prefs.edit { putLong(KEY_LAST_FULL_REFRESH_AT, at) }
+        lastFullRefreshAt = at
+        setLastRefresh(durationMillis, at)
     }
 
     fun setLastRefresh(
@@ -139,6 +160,7 @@ class RefreshStats @Inject constructor(
         const val KEY_LAST_DURATION = "last_refresh_duration"
         const val KEY_LAST_REFRESH_AT = "last_refresh_at"
         const val KEY_LAST_FULL_CHECK_AT = "last_full_check_at"
+        const val KEY_LAST_FULL_REFRESH_AT = "last_full_refresh_at"
         const val KEY_LAST_REPORT = "last_refresh_report_v2"
         const val KEY_LEGACY_REPORT = "last_refresh_report"
         const val KEY_CHANGE_STAMP = "change_basis_stamp"

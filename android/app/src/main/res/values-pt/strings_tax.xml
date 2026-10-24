@@ -76,6 +76,7 @@
     <string name="tax_export_realized_differs">O CSV fiscal pode diferir de «realizado» (regras fiscais do país).</string>
     <string name="tax_export_rule">&gt; 1 ano: vendido após a data de compra + 1 ano civil. Datas em hora local. Câmbios: taxa diária do BCE do dia da transação; se não existir, a última taxa até 7 dias antes.</string>
     <string name="tax_export_rules_date">Regras em vigor a: %1$s</string>
+    <string name="tax_export_rules_stale">As regras são de %1$s – para %2$s, as taxas e isenções podem ter mudado. Verifica os valores.</string>
     <string name="tax_export_spouse_gift">ao cônjuge/parceiro – sem ganho nem perda</string>
     <string name="tax_export_summary">Resumo anual %1$s (CSV)</string>
     <string name="tax_export_swap">troca</string>

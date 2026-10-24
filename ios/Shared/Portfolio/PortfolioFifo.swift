@@ -198,7 +198,7 @@ enum PortfolioFifo {
                     lotTxId: s.txId, acquiredTime: s.acquired, lotKind: s.kind,
                     amount: s.amount, costUsdt: s.cost, proceedsUsdt: share, gainUsdt: gain,
                     holdingDays: holdingDays(from: s.acquired, to: t.time),
-                    feeLeg: feeLeg, feeValueMissing: feeMissing, method: method, costParts: s.parts, wallet: wallet, swap: swap,
+                    feeLeg: feeLeg, feeValueMissing: feeMissing, method: method, costParts: PortfolioCostPartList(s.parts), wallet: wallet, swap: swap,
                     gift: gift, payment: payment, valueEstimated: estimated))
             }
             if uncovered > 0 {

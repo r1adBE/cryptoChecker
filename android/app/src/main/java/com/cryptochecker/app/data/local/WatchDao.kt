@@ -77,13 +77,19 @@ interface WatchDao {
     @Query("UPDATE OR IGNORE watches SET contractType = :contractType WHERE id IN (:ids)")
     suspend fun updateContractType(ids: List<Long>, contractType: String): Int
 
+    /**
+     * Kurs speichern — nur, wenn er nicht älter ist als der gespeicherte
+     * ([com.cryptochecker.app.domain.refresh.PriceWriteOrder]: `lastUpdate <= :time`; ein mehr als eine Stunde in der
+     * Zukunft liegender gespeicherter Zeitpunkt gilt als unplausibel).
+     * @return geänderte Zeilen (0 oder 1)
+     */
     @Query(
         """
         UPDATE watches
         SET previousPrice = lastPrice, lastPrice = :price,
             lastUpdate = :time, lastError = NULL, change24h = :change24h,
             priceChangedAt = :priceChangedAt, exchangeTime = :exchangeTime
-        WHERE id = :id
+        WHERE id = :id AND (lastUpdate <= :time OR lastUpdate > :plausibleUntil)
         """
     )
     suspend fun updatePrice(
@@ -95,13 +101,16 @@ interface WatchDao {
         priceChangedAt: Long,
         /** Zeit laut Börse, null = keine. */
         exchangeTime: Long?,
-    )
+        /** `PriceWriteOrder.plausibleUntil` zu jetzt. */
+        plausibleUntil: Long,
+    ): Int
 
     /**
      * Wie [updatePrice], aber nur, wenn der Eintrag noch DASSELBE Paar ist (Börse, Basis, Quote,
      * Kontrakt, Kennung — `IS`, weil die Kennung null sein darf). Nach «Paar bearbeiten» oder dem
      * Wiederherstellen einer Sicherung (gleiche Id, anderes Paar) wird ein verspäteter Kurs des alten
-     * Paars so verworfen, statt zum Bezug des neuen zu werden. @return geänderte Zeilen (0 oder 1)
+     * Paars so verworfen, statt zum Bezug des neuen zu werden. Ebenso ein älterer Kurs als der gespeicherte
+     * (`PriceWriteOrder`, wie [updatePrice]). @return geänderte Zeilen (0 oder 1)
      */
     @Query(
         """
@@ -111,6 +120,7 @@ interface WatchDao {
             priceChangedAt = :priceChangedAt, exchangeTime = :exchangeTime
         WHERE id = :id AND marketKey = :marketKey AND baseAsset = :base AND quoteAsset = :quote
             AND contractType = :contractType AND pairId IS :pairId
+            AND (lastUpdate <= :time OR lastUpdate > :plausibleUntil)
         """
     )
     suspend fun updatePriceForPair(
@@ -120,6 +130,7 @@ interface WatchDao {
         change24h: Double?,
         priceChangedAt: Long,
         exchangeTime: Long?,
+        plausibleUntil: Long,
         marketKey: String,
         base: String,
         quote: String,
