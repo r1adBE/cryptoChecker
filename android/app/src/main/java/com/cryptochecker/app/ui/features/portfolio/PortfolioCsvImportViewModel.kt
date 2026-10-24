@@ -79,7 +79,7 @@ sealed interface CsvImportState {
  */
 @HiltViewModel
 class PortfolioCsvImportViewModel @Inject constructor(
-    @param:ApplicationContext context: Context,
+    @ApplicationContext context: Context,
     private val repository: PortfolioRepository,
     historic: HistoricPriceSource,
     historySource: PortfolioHistorySource,
