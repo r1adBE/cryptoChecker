@@ -39,6 +39,10 @@ final class WatchlistNotSavedGate: ObservableObject {
     nonisolated static let actionConsent = TaskLocal<Bool>(wrappedValue: false)
     /// Wartende Aktionen, je mit eigener Kennung, damit ein abgebrochener Wartender sich austragen kann.
     private var waiters: [UUID: CheckedContinuation<Bool, Never>] = [:]
+    /// Testnaht: Tor und Lage, die `AppData` statt `shared` und der echten Lage benutzt; im Betrieb immer nil. Nur
+    /// Tests setzen sie (`WatchlistConsentBehaviorTests`), damit die Schreibwege von AppData samt Sicherung mit eigenem
+    /// Tor prüfbar sind.
+    static var appDataOverride: (gate: WatchlistNotSavedGate, notSaved: Bool, canAsk: Bool)?
 
     init() {
         #if DEBUG

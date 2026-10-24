@@ -173,7 +173,6 @@ struct PortfolioCoinDetail: View {
         // Banner zuerst: sonst ginge die Ansicht bei der letzten Transaktion gleich zurück
         banner = WatchlistBannerMessage(
             text: text,
-            icon: "trash",
             action: WatchlistBannerAction.undo {
                 var saved = true
                 withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs([tx]) }

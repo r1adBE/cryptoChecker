@@ -39,7 +39,7 @@ extension PortfolioExportSheet {
             running = false
             guard let data = csv.data(using: .utf8) else {
                 Haptics.play(.error)
-                toast = ToastMessage(L("portfolio_export_failed"))
+                toast = ToastMessage(L("portfolio_export_failed"), kind: .error)
                 return
             }
             document = CutoffCsvDocument(data: data)
@@ -85,7 +85,7 @@ extension PortfolioExportSheet {
             running = false
             guard let data = csv.data(using: .utf8) else {
                 Haptics.play(.error)
-                toast = ToastMessage(L("portfolio_export_failed"))
+                toast = ToastMessage(L("portfolio_export_failed"), kind: .error)
                 return
             }
             document = CutoffCsvDocument(data: data)
@@ -138,7 +138,7 @@ extension PortfolioExportSheet {
             running = false
             guard let data = csv.data(using: .utf8) else {
                 Haptics.play(.error)
-                toast = ToastMessage(L("portfolio_export_failed"))
+                toast = ToastMessage(L("portfolio_export_failed"), kind: .error)
                 return
             }
             document = CutoffCsvDocument(data: data)

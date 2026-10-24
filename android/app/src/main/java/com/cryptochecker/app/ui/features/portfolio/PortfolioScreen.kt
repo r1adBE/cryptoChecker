@@ -8,7 +8,7 @@ import com.cryptochecker.app.ui.navigation.OnTabReselect
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,6 +38,7 @@ import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Portfolio-Tab: Gesamtwert, Coins nach Wert, Erfassen per «+». Bedienung wie in der
@@ -222,7 +223,9 @@ fun PortfolioScreen(
     var askDeleteCoin by rememberSaveable { mutableStateOf<String?>(null) }
     val coinHaptics = rememberHaptics()
     // Nicht geschrieben: gesperrt bzw. Fehler nennen statt «entfernt» (wie iOS)
-    val notSaved = { result: PortfolioWriteResult -> banner.show(resources.getString(result.notSavedText())) }
+    val notSaved = { result: PortfolioWriteResult ->
+        banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
+    }
     fun deleteCoin(coin: String) {
         viewModel.deleteCoin(coin, onFailed = notSaved) { removed ->
             if (removed.isNotEmpty()) coinHaptics.play(HapticEvent.DESTRUCTIVE)
@@ -270,7 +273,7 @@ fun PortfolioScreen(
                 }
             )
         },
-        snackbarHost = { SnackbarHost(banner.host) },
+        snackbarHost = { AppSnackbarHost(banner.host) },
         floatingActionButton = {
             if (hasData) {
                 AppFab(onClick = { sheet = TxDraft() }, contentDescription = stringResource(R.string.portfolio_add_tx))

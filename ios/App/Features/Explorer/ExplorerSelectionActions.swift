@@ -243,14 +243,15 @@ extension ExplorerViewModel {
         // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
         if outcome == .locked { return }
         guard case .added(let id) = outcome else {
-            show(outcome == .full ? ExplorerMessage(text: WatchlistLimitText.full, long: true) : ExplorerMessage(text: duplicateText))
+            show(outcome == .full ? ExplorerMessage(text: WatchlistLimitText.full, long: true, kind: .error)
+                 : ExplorerMessage(text: duplicateText))
             haptic(.warning)
             return
         }
         if firstEver {
             showFirstAdd(id)
         } else {
-            show(ExplorerMessage(text: addedText))
+            show(ExplorerMessage(text: addedText, kind: .success))
         }
         haptic(.success)
         requestNotifications()

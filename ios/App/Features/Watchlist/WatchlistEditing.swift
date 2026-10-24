@@ -17,8 +17,7 @@ extension WatchlistScreen {
             guard !data.watchlistWritesBlocked else { return }
             swipeFavoriteTick += 1
             banner = WatchlistBannerMessage(
-                text: L(nowFavorite ? "favorite_added" : "favorite_removed", watch.displayPair),
-                icon: nowFavorite ? "star.fill" : "star"
+                text: L(nowFavorite ? "favorite_added" : "favorite_removed", watch.displayPair)
             )
         }
     }
@@ -52,7 +51,7 @@ extension WatchlistScreen {
     private func showRemoved(_ deleted: [DeletedWatch], text: String) {
         guard !deleted.isEmpty else { return }
         swipeDeleteTick += 1
-        banner = WatchlistBannerMessage(text: text, icon: "trash", action: WatchlistBannerAction.undo { undoRestore(deleted) })
+        banner = WatchlistBannerMessage(text: text, action: WatchlistBannerAction.undo { undoRestore(deleted) })
         announce(text)
     }
 
@@ -97,7 +96,7 @@ extension WatchlistScreen {
     /// «n nicht zurückgeholt – Merkliste voll» (wie Android).
     func showUndoFull(_ result: UndoRestoreResult) {
         guard result.full > 0 else { return }
-        banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full), icon: "exclamationmark.circle",
+        banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full), kind: .error,
                                         long: true)
     }
 
@@ -183,8 +182,7 @@ extension WatchlistScreen {
     /// `before` = Stand vor dem Wechsel.
     func disabledChanged(_ before: Watch) {
         banner = WatchlistBannerMessage(
-            text: L(before.disabled ? "watch_enabled_banner" : "watch_disabled_banner", before.displayName),
-            icon: before.disabled ? "play.circle.fill" : "pause.circle.fill"
+            text: L(before.disabled ? "watch_enabled_banner" : "watch_disabled_banner", before.displayName)
         )
     }
 

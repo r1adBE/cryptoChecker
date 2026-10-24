@@ -27,7 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -59,6 +59,8 @@ import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Übersicht aller Alarme: Welche sind scharf, auf welchem Paar? Ein Tipp
@@ -112,9 +114,12 @@ fun AlarmsOverviewScreen(
     val notificationsEnabled = com.cryptochecker.app.ui.components.rememberNotificationsEnabled()
     // Merkliste gesperrt: Schalter abgelehnt (bleibt beim echten Zustand) — kurz sagen, warum (wie die Alarme des Paars)
     val snackbar = remember { SnackbarHostState() }
-    com.cryptochecker.app.ui.components.WatchlistLockedHint { snackbar.currentSnackbarData?.dismiss(); snackbar.showSnackbar(it) }
+    com.cryptochecker.app.ui.components.WatchlistLockedHint {
+        snackbar.currentSnackbarData?.dismiss()
+        snackbar.showAppSnackbar(it, SnackbarKind.ERROR)
+    }
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbar) },
+        snackbarHost = { AppSnackbarHost(snackbar) },
         topBar = {
             TopAppBar(
                 title = {

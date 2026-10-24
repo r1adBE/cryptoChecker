@@ -143,7 +143,7 @@ struct AlarmsOverviewScreen: View {
         }
         .background(AppColors.background.ignoresSafeArea())
         // Schalter abgelehnt (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik — wie die Alarme des Paars
-        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
+        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, kind: .error, long: true) }
         .overlay(alignment: .bottom) {
             WatchlistBanner(message: $banner) { _ in }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)

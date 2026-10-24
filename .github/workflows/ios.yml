@@ -1,4 +1,4 @@
-# Builds the iOS app (ios/) for the iOS Simulator without code signing, runs the
+# Builds the iOS app (ios/) without code signing (Release for devices with the release checks), runs the
 # unit tests (target CryptoCheckerTests, incl. the shared Android/iOS cases in Tests/Parity)
 # and the UI tests of the main flows (target CryptoCheckerUITests: add a coin, price alarm,
 # CSV import, backup — app started with -uiTesting: empty storage, fake exchange answers).
@@ -41,12 +41,14 @@ permissions:
   contents: read
 
 jobs:
-  build:
-    name: iOS build
+  # Three Macs in parallel (release build, unit tests, UI tests) instead of one after another; the job «iOS build»
+  # at the end collects their results under the name of the required check.
+  release:
+    name: iOS release build
     # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
     # so CI builds with the same toolchain.
     runs-on: macos-26
-    timeout-minutes: 120
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -61,51 +63,6 @@ jobs:
         run: |
           xcodebuild -version
           xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
-
-      # The whole log goes to a file (it used to be «| tail -n 200», which cut off the error
-      # lines). Compiler errors are printed at the end and turned into annotations, so they
-      # show on the run page even without signing in.
-      - name: Build for iOS Simulator (no signing)
-        working-directory: ios
-        run: |
-          LOG="$RUNNER_TEMP/xcode-build.log"
-          set +e
-          xcodebuild build \
-            -project CryptoChecker.xcodeproj \
-            -scheme CryptoChecker \
-            -configuration Debug \
-            -destination 'generic/platform=iOS Simulator' \
-            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-            > "$LOG" 2>&1
-          status=$?
-          set -e
-          tail -n 60 "$LOG"
-          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
-          exit $status
-
-      # Release configuration as archived for the App Store (no DEBUG branches, optimised):
-      # catches compile errors that only show up there before anyone archives on a Mac.
-      # GIT_COMMIT: source commit in Info.plist (CCGitCommit, shown in "Share diagnostics"); local builds say "local".
-      - name: Build Release configuration (no signing)
-        working-directory: ios
-        run: |
-          LOG="$RUNNER_TEMP/xcode-build-release.log"
-          set +e
-          xcodebuild build \
-            -project CryptoChecker.xcodeproj \
-            -scheme CryptoChecker \
-            -configuration Release \
-            -destination 'generic/platform=iOS Simulator' \
-            -derivedDataPath "$RUNNER_TEMP/DerivedDataRelease" \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-            GIT_COMMIT="$GITHUB_SHA" \
-            > "$LOG" 2>&1
-          status=$?
-          set -e
-          tail -n 60 "$LOG"
-          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
-          exit $status
 
       # Release build settings of app and widget as annotations (ios_release_audit.py settings):
       # error for DEBUG conditions, testability or a version different from Android; warning for
@@ -152,7 +109,7 @@ jobs:
 
       # The built Release app: Info.plist (version = Android, background tasks, export compliance),
       # privacy manifests in app and widget, no UI test hooks or XCTest in the binaries, compiler
-      # warnings (count + first 8). Device build if it exists, otherwise the Simulator Release build.
+      # warnings (count + first 8; ceiling 0) from the device Release build.
       - name: Inspect Release app
         working-directory: ios
         run: |
@@ -160,17 +117,65 @@ jobs:
           : > "$F"
           APP="$RUNNER_TEMP/DerivedDataDevice/Build/Products/Release-iphoneos/CryptoChecker.app"
           LOG="$RUNNER_TEMP/xcode-build-device.log"
-          if [ ! -d "$APP" ]; then
-            APP="$RUNNER_TEMP/DerivedDataRelease/Build/Products/Release-iphonesimulator/CryptoChecker.app"
-            LOG="$RUNNER_TEMP/xcode-build-release.log"
-            echo "::notice title=iOS Release app::Device build missing, inspecting the Simulator Release build"
-          fi
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/ios_release_audit.py" app "$APP" \
             CryptoCheckerWidgetsExtension "$GITHUB_WORKSPACE/android/app/build.gradle.kts" \
             "$GITHUB_WORKSPACE/ios" "$LOG" "$F"
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$F" "iOS Release app"
 
-      # Simulator for both test steps: "iPhone 17" if the installed Xcode has it, otherwise its
+      - name: Upload Xcode logs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: xcode-logs-release
+          path: |
+            ${{ runner.temp }}/xcode-build-device.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+  unit:
+    name: iOS unit tests
+    # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
+    # so CI builds with the same toolchain.
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Select Xcode 26
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
+        with:
+          xcode-version: '26'
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+
+      # The whole log goes to a file (it used to be «| tail -n 200», which cut off the error
+      # lines). Compiler errors are printed at the end and turned into annotations, so they
+      # show on the run page even without signing in.
+      - name: Build for iOS Simulator (no signing)
+        working-directory: ios
+        run: |
+          LOG="$RUNNER_TEMP/xcode-build.log"
+          set +e
+          xcodebuild build \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 60 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      # Simulator for the tests: "iPhone 17" if the installed Xcode has it, otherwise its
       # first available iPhone.
       - name: Pick iOS Simulator
         run: |
@@ -234,7 +239,50 @@ jobs:
           fi
           exit $status
 
-      # UI tests of the main flows (target CryptoCheckerUITests, XCUITest) in the same Simulator.
+      - name: Upload Xcode logs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: xcode-logs-unit
+          path: |
+            ${{ runner.temp }}/xcode-build.log
+            ${{ runner.temp }}/xcode-test.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+  ui:
+    name: iOS UI tests
+    # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
+    # so CI builds with the same toolchain.
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Select Xcode 26
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
+        with:
+          xcode-version: '26'
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+
+      # Simulator for the tests: "iPhone 17" if the installed Xcode has it, otherwise its
+      # first available iPhone.
+      - name: Pick iOS Simulator
+        run: |
+          DEVICE="iPhone 17"
+          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
+            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+          fi
+          echo "Simulator: $DEVICE"
+          echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
+
+      # UI tests of the main flows (target CryptoCheckerUITests, XCUITest) in the Simulator.
       # The app runs with -uiTesting (Debug build only): empty storage per launch, fixed exchange
       # answers (no network), test files instead of the document picker. A failed test is retried
       # once (Simulator hiccups); the result bundle (screenshots, logs) is uploaded on failure.
@@ -317,9 +365,29 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: xcode-logs
+          name: xcode-logs-ui
           path: |
-            ${{ runner.temp }}/xcode-*.log
+            ${{ runner.temp }}/xcode-uitest.log
             ${{ runner.temp }}/UITests.xcresult
           if-no-files-found: ignore
           retention-days: 14
+
+  # Required check (ruleset «protect-main»): green only if all three iOS jobs are green
+  build:
+    name: iOS build
+    needs: [release, unit, ui]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Result of the iOS jobs
+        env:
+          RELEASE: ${{ needs.release.result }}
+          UNIT: ${{ needs.unit.result }}
+          UI: ${{ needs.ui.result }}
+        run: |
+          echo "release build: $RELEASE, unit tests: $UNIT, UI tests: $UI"
+          [ "$RELEASE" = success ] && [ "$UNIT" = success ] && [ "$UI" = success ] || {
+            echo "::error title=iOS::release build $RELEASE, unit tests $UNIT, UI tests $UI"
+            exit 1
+          }

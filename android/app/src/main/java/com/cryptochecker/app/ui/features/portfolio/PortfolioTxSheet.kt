@@ -17,7 +17,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -50,6 +50,8 @@ import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Transaktion erfassen bzw. bearbeiten (id ≠ 0): Kauf, Verkauf, Umbuchung, Belohnung, Ein-/Auszahlung —
@@ -199,7 +201,9 @@ fun PortfolioTxSheet(
                         } else {
                             haptics.play(HapticEvent.ERROR)
                             val text = if (result == PortfolioWriteResult.LOCKED) storageLockedText else writeFailedText
-                            scope.launch { saveErrorHost.showSnackbar(text, duration = SnackbarDuration.Long) }
+                            scope.launch {
+                                saveErrorHost.showAppSnackbar(text, SnackbarKind.ERROR, duration = SnackbarDuration.Long)
+                            }
                         }
                     }
                 }) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
@@ -289,8 +293,9 @@ fun PortfolioTxSheet(
                                     val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
                                     // Lang: Sperr-Hinweis ist länger, Screenreader brauchen die Zeit (wie AlarmsScreen)
                                     scope.launch {
-                                        saveErrorHost.showSnackbar(
-                                            if (locked) storageLockedText else saveFailedText, duration = SnackbarDuration.Long,
+                                        saveErrorHost.showAppSnackbar(
+                                            if (locked) storageLockedText else saveFailedText, SnackbarKind.ERROR,
+                                            duration = SnackbarDuration.Long,
                                         )
                                     }
                                 },
@@ -299,7 +304,7 @@ fun PortfolioTxSheet(
                     },
                 )
             }
-            SnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
+            AppSnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
         } }
     }
 }

@@ -35,6 +35,7 @@ import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import kotlinx.coroutines.flow.map
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Blätter und Dialoge des Portfolio-Tabs: Erfassen, Adressen, CSV-Import, Importe, Umrechnungswährung, Export,
@@ -70,7 +71,9 @@ internal fun PortfolioScreenDialogs(
     val context = LocalContext.current
     val haptics = rememberHaptics()
     // Nicht geschrieben: gesperrt bzw. Fehler nennen statt still (wie iOS)
-    val notSaved = { result: PortfolioWriteResult -> banner.show(resources.getString(result.notSavedText())) }
+    val notSaved = { result: PortfolioWriteResult ->
+        banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
+    }
     // Ungültige Einträge aus der Systemsicherung einmal nennen
     SystemRestoreNoticeDialog()
     sheet?.let { draft ->
@@ -88,7 +91,8 @@ internal fun PortfolioScreenDialogs(
         PortfolioCsvImportFlow(
             onDismiss = { onCsvImportOpenChange(false) },
             onImported = { count ->
-                banner.show(resources.getQuantityString(R.plurals.portfolio_csv_import_done, count, count))
+                val text = resources.getQuantityString(R.plurals.portfolio_csv_import_done, count, count)
+                banner.show(text, SnackbarKind.SUCCESS)
             },
             // Erste Transaktion mit ausgeschaltetem Portfolio schaltet es ein (wie von Hand)
             onPortfolioEnabled = { banner.show(resources.getString(R.string.portfolio_enabled_banner)) },
@@ -121,7 +125,8 @@ internal fun PortfolioScreenDialogs(
         PortfolioExportDialog(
             currency = currency,
             onDismiss = { onExportOpenChange(false) },
-            onDone = { banner.show(it) },
+            // Nur nach gelungenem Export (Fehler zeigt der Dialog selbst)
+            onDone = { banner.show(it, SnackbarKind.SUCCESS) },
         )
     }
     if (alarmOpen) {
@@ -136,11 +141,13 @@ internal fun PortfolioScreenDialogs(
                     val condition = PortfolioAlarmTexts.sentence(context, alarm, changeBasis, hideAmounts)
                     val text = com.cryptochecker.app.ui.features.alarms.savedText(context, condition, alarm.repeating, off)
                     if (off) {
-                        banner.showAction(text, resources.getString(R.string.settings_title), SAVED_ALARM_MILLIS) {
+                        banner.showAction(
+                            text, resources.getString(R.string.settings_title), SAVED_ALARM_MILLIS, SnackbarKind.SUCCESS,
+                        ) {
                             com.cryptochecker.app.ui.components.openAppNotificationSettings(context)
                         }
                     } else {
-                        banner.show(text)
+                        banner.show(text, SnackbarKind.SUCCESS)
                     }
                 }
                 onAlarmOpenChange(false)

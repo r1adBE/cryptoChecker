@@ -302,7 +302,7 @@ struct PricePairsPage: View {
             }
         }
         // Schalter bzw. «Alle an/aus» abgelehnt (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
-        .watchlistLockedHint { toast = ToastMessage($0) }
+        .watchlistLockedHint { toast = ToastMessage($0, kind: .error) }
         .toast($toast)
     }
 }

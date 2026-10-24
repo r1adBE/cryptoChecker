@@ -5,8 +5,9 @@ import SwiftUI
 struct WatchlistBannerMessage: Identifiable, Equatable {
     let id = UUID()
     let text: String
-    /// SF Symbol links.
-    var icon = "checkmark.circle.fill"
+    /// Art der Meldung: Rahmen und Symbol (Erfolg: Häkchen, Fehler: Ausrufezeichen, Info: keines) — wie Android
+    /// `WatchlistBanner.show(text, kind)`.
+    var kind: SnackbarKind = .info
     /// Gelöschtes Paar — dann mit «Rückgängig».
     var undo: DeletedWatch?
     /// Länger stehen lassen (Erst-Hinzufügen).
@@ -26,12 +27,11 @@ struct WatchlistBannerMessage: Identifiable, Equatable {
     ) -> WatchlistBannerMessage {
         let all = (previous?.removed ?? []) + [deleted]
         guard all.count > 1 else {
-            return WatchlistBannerMessage(text: L("watchlist_removed", deleted.watch.displayPair), icon: "trash",
-                                          undo: deleted, removed: all)
+            return WatchlistBannerMessage(text: L("watchlist_removed", deleted.watch.displayPair), undo: deleted,
+                                          removed: all)
         }
         return WatchlistBannerMessage(
             text: L("watchlist_removed_count", count: all.count),
-            icon: "trash",
             action: WatchlistBannerAction.undo { restore(all) },
             removed: all
         )
@@ -60,8 +60,8 @@ struct WatchlistBannerAction {
     }
 }
 
-/// Wie `ExplorerSnackbar`, dazu optional «Rückgängig». Nach unten wischen schliesst;
-/// Weniger Bewegung: nur einblenden.
+/// Wie `ExplorerSnackbar`, dazu optional «Rückgängig». Fläche und Rahmen je Art: `snackbarSurface`. Nach unten wischen
+/// schliesst; Weniger Bewegung: nur einblenden.
 struct WatchlistBanner: View {
     @Binding var message: WatchlistBannerMessage?
     let onUndo: (DeletedWatch) -> Void
@@ -73,12 +73,10 @@ struct WatchlistBanner: View {
         if let message {
             let nanos = message.nanos(voiceOver: voiceOver)
             HStack(spacing: 12) {
-                Image(systemName: message.icon)
-                    .foregroundStyle(accent.primary)
-                    .accessibilityHidden(true)
+                SnackbarKindIcon(kind: message.kind)
                 Text(message.text)
                     .font(.subheadline.weight(.medium))
-                    .foregroundStyle(AppColors.onToast)
+                    .foregroundStyle(AppColors.onSurface)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if let undo = message.undo {
                     Button {
@@ -112,7 +110,7 @@ struct WatchlistBanner: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, Spacing.lg)
-            .background(AppColors.toastBackground, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+            .snackbarSurface(message.kind)
             .shadow(color: AppColors.shadow.opacity(0.25), radius: 16, y: 6)
             .padding(.horizontal, 16)
             .padding(.bottom, 12)

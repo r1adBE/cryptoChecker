@@ -14,11 +14,14 @@ import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberOneShotGate
+import com.cryptochecker.app.ui.components.showAppSnackbar
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Rückmeldungen als Snackbar statt Text, der das Layout verschiebt: Paar übernommen bzw. schon
  * da, DEX-Pool, mehrere Paare. Mit «Ansehen» zur Merkliste. Neue Paare haben Meldungen an —
- * die Erlaubnis wird jetzt gefragt, nicht beim Start.
+ * die Erlaubnis wird jetzt gefragt, nicht beim Start. Übernommen = Erfolg, gesperrt, voll oder DEX-Suche
+ * gescheitert = Fehler, sonst Info ([SnackbarKind]).
  */
 @Composable
 internal fun ExplorerFeedback(
@@ -53,7 +56,7 @@ internal fun ExplorerFeedback(
     // Paar nicht übernommen, weil die Merkliste gesperrt ist (WatchlistStorageLock): kurzer Hinweis mit Warn-Haptik
     com.cryptochecker.app.ui.components.WatchlistLockedHint {
         snackbar.currentSnackbarData?.dismiss()
-        snackbar.showSnackbar(it)
+        snackbar.showAppSnackbar(it, SnackbarKind.ERROR)
     }
     LaunchedEffect(addResult) {
         if (!addGate.claim(addResult)) {
@@ -66,12 +69,17 @@ internal fun ExplorerFeedback(
         // Erst nach dem Schliessen zurücksetzen — sonst bricht der neue
         // Schlüssel die laufende Snackbar sofort ab.
         try {
-            val result = snackbar.showSnackbar(
-                message = when (state) {
+            val result = snackbar.showAppSnackbar(
+                text = when (state) {
                     AddResult.ADDED -> addedText
                     AddResult.ALREADY_IN_LIST -> alreadyText
                     AddResult.NO_PAIR_SELECTED -> noPairText
                     AddResult.WATCHLIST_FULL -> fullText
+                },
+                kind = when (state) {
+                    AddResult.ADDED -> SnackbarKind.SUCCESS
+                    AddResult.WATCHLIST_FULL -> SnackbarKind.ERROR
+                    else -> SnackbarKind.INFO
                 },
                 actionLabel = if (state == AddResult.NO_PAIR_SELECTED) null else viewLabel,
                 // Volle Merkliste: Zeit zum Lesen (auch mit Screenreader), «Ansehen» führt zum Aufräumen
@@ -117,8 +125,13 @@ internal fun ExplorerFeedback(
             haptics.play(if (dexMessage is DexMessage.Added) HapticEvent.SUCCESS else HapticEvent.WARNING)
         }
         try {
-            val result = snackbar.showSnackbar(
-                message = text,
+            val result = snackbar.showAppSnackbar(
+                text = text,
+                kind = when (dexMessage) {
+                    is DexMessage.Added -> SnackbarKind.SUCCESS
+                    is DexMessage.Failed -> SnackbarKind.ERROR
+                    else -> SnackbarKind.INFO
+                },
                 actionLabel = if (dexMessage is DexMessage.Failed) retryLabel else viewLabel,
                 // Mit «Erneut versuchen» länger stehen lassen (Zeit zum Antippen, auch mit Screenreader)
                 duration = if (dexMessage is DexMessage.Failed) SnackbarDuration.Long else SnackbarDuration.Short
@@ -144,8 +157,9 @@ internal fun ExplorerFeedback(
         // Neue Paare angelegt: «Rückgängig» (genau diese wieder entfernen); sonst «Ansehen»
         val undoable = state.addedIds.isNotEmpty()
         try {
-            val result = snackbar.showSnackbar(
-                message = bulkAddedText(resources, state),
+            val result = snackbar.showAppSnackbar(
+                text = bulkAddedText(resources, state),
+                kind = bulkAddedKind(state),
                 actionLabel = if (undoable) undoLabel else viewLabel,
                 duration = SnackbarDuration.Long
             )
@@ -167,6 +181,13 @@ internal fun bulkAddedText(resources: android.content.res.Resources, state: Bulk
         state.refused, LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
     )
     return "$added $refused"
+}
+
+/** Art der Meldung nach «Mehrere Paare»: etwas angelegt = Erfolg, nichts angelegt weil voll = Fehler, sonst Info. */
+internal fun bulkAddedKind(state: BulkAddResult): SnackbarKind = when {
+    state.added > 0 -> SnackbarKind.SUCCESS
+    state.refused > 0 -> SnackbarKind.ERROR
+    else -> SnackbarKind.INFO
 }
 
 /** «Deine Merkliste kann höchstens 2’000 Paare enthalten.» (Zahl im Format der App-Sprache). */

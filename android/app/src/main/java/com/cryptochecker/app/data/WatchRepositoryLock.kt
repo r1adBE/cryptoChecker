@@ -17,7 +17,19 @@ import com.cryptochecker.app.data.local.WatchlistWriteRefusal
  */
 internal suspend fun WatchRepository.userWriteRefused(notify: Boolean = true): Boolean {
     val blocked = database.withTransaction { WatchlistStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }
-    if (blocked && notify) WatchlistWriteRefusal.report()
+    return writeRefused(blocked, notify)
+}
+
+/**
+ * Entscheidung von [userWriteRefused] nach dem Öffnen der Datenbank ([blocked] = gesperrt), ohne Room testbar
+ * (`WatchlistWriteConsentTest`). [report] (Hinweis auslösen) ist nur für Tests austauschbar.
+ */
+internal suspend fun writeRefused(
+    blocked: Boolean,
+    notify: Boolean,
+    report: () -> Unit = { WatchlistWriteRefusal.report() },
+): Boolean {
+    if (blocked && notify) report()
     if (blocked) return true
     // F-08, ARC3-R02: nur im Arbeitsspeicher ohne gespeicherten Stand fragt die AKTION vorher
     // ([confirmUserWrite]) — hier nur die Sicherung: ohne Bestätigung ablehnen, ohne Hinweis und ohne zu warten (nie unter

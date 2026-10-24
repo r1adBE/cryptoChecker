@@ -121,7 +121,7 @@ struct PortfolioExportSheet: View {
             case .failure(let error):
                 if (error as? CocoaError)?.code != .userCancelled {
                     Haptics.play(.error)
-                    toast = ToastMessage(L("portfolio_export_failed"))
+                    toast = ToastMessage(L("portfolio_export_failed"), kind: .error)
                 }
             }
         }

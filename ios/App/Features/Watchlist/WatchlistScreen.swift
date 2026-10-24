@@ -189,7 +189,7 @@ struct WatchlistScreen: View {
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
         // Schreibweg abgelehnt (Merkliste gesperrt, `WatchlistStorageLock`): kurzer Hinweis mit Warn-Haptik
-        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
+        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, kind: .error, long: true) }
         // Banner «Alarm setzen» weg (abgelaufen, weggewischt, ersetzt): jetzt nach Mitteilungen fragen
         .onChange(of: banner?.id) { _, _ in askNotificationsAfterHint() }
         .haptic(.success, trigger: firstAddHaptic)
@@ -282,8 +282,8 @@ struct WatchlistScreen: View {
             router.pendingEditAlarmId = nil
             // Merkliste nur gesperrt (nicht lesbar): das sagen statt «Nicht in der Merkliste»
             banner = data.watchlistLocked
-                ? WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
-                : WatchlistBannerMessage(text: L("watch_preview_not_watched"), icon: "info.circle.fill")
+                ? WatchlistBannerMessage(text: L("alarm_save_storage_locked"), kind: .error, long: true)
+                : WatchlistBannerMessage(text: L("watch_preview_not_watched"))
             return
         }
         actionsFor = nil

@@ -10,6 +10,9 @@ import XCTest
 /// Review ARC7-02: `confirmWatchlistWrite` ist privat (die Aktion läuft nur über `withWatchlistConfirm` unter
 /// `runConsented`), ein direkter Aufruf zählt nie; ein Schreibweg in einer losgelösten Ausführung im Block
 /// (`Task.detached`, `DispatchQueue….async`/`asyncAfter`) ist ein Befund — ein erbender `Task { … }` nicht.
+/// Abgrenzung: Das Verhalten der Zustimmung selbst (ohne abgelehnt, mit geschrieben, erbender Task ja, `Task.detached`
+/// nein) prüft `WatchlistConsentBehaviorTests` an den Schreibwegen von AppData. Dieser Wächter sichert zusätzlich, was
+/// kein Verhaltenstest abdeckt: dass JEDER Aufruf in den Bildschirmen vorher fragt.
 @MainActor
 final class WatchlistConfirmCallGuardTests: XCTestCase {
 

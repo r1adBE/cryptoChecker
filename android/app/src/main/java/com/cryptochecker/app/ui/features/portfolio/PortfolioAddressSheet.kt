@@ -21,7 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -63,6 +63,7 @@ import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Portfolio ⋯ › «Adressen»: beobachtete öffentliche Adressen (nur lesen) — Liste mit Guthaben, Stand bzw.
@@ -217,16 +218,16 @@ internal fun PortfolioAddressSheet(
         val failedText = resources.getString(R.string.portfolio_address_remove_failed)
         viewModel.removeWatchedAddress(
             target.id,
-            onLocked = { banner.show(lockedText) },
+            onLocked = { banner.show(lockedText, SnackbarKind.ERROR) },
             // Nicht geschrieben: nennen statt still nichts zu tun
-            onFailed = { banner.show(failedText) },
+            onFailed = { banner.show(failedText, SnackbarKind.ERROR) },
         ) { row ->
             haptics.play(HapticEvent.DESTRUCTIVE)
             val name = target.label ?: WatchedAddressRules.shortAddress(target.address)
             banner.show(resources.getString(R.string.watchlist_removed, name)) {
                 // Nicht zurückgeholt: Grund nennen statt still nichts zu tun
-                viewModel.restoreWatchedAddress(row, onLocked = { banner.show(lockedText) }) { failure ->
-                    banner.show(resources.getString(restoreFailedText(failure)))
+                viewModel.restoreWatchedAddress(row, onLocked = { banner.show(lockedText, SnackbarKind.ERROR) }) { failure ->
+                    banner.show(resources.getString(restoreFailedText(failure)), SnackbarKind.ERROR)
                 }
             }
         }
@@ -353,7 +354,7 @@ internal fun PortfolioAddressSheet(
                     }
                 }
             }
-            SnackbarHost(banner.host, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
+            AppSnackbarHost(banner.host, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
         }
     }
 }

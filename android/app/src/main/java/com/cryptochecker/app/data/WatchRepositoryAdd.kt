@@ -56,9 +56,7 @@ suspend fun WatchRepository.tryAddWatch(
         contractType.name,
         WatchIdentity.pool(market.key, pair.pairId),
     )
-    if (existing != null) return@withTransaction AddWatchOutcome.Duplicate
-    // Schon vorhanden geht vor «voll»: ein bekanntes Paar ist kein Fehler
-    if (!WatchlistLimits.canAddPair(watchDao.countWatches())) return@withTransaction AddWatchOutcome.Full
+    addBlocker(existing != null) { watchDao.countWatches() }?.let { return@withTransaction it }
 
     val id = watchDao.insertWatch(
         WatchEntity(
@@ -89,15 +87,27 @@ suspend fun WatchRepository.addWatches(
     pairs: List<MarketPair>,
     group: String? = null,
     onProgress: (Int) -> Unit = {},
+): BulkAddResult =
+    collectBulkAdd(pairs, refused = { userWriteRefused() }, add = { tryAddWatch(market, it, group) }, onProgress)
+
+/**
+ * Ablauf von [addWatches] ohne Room ([refused] = Sperre und Sicherung F-08, [add] = ein Paar anlegen): testbar mit
+ * Fälschungen (`BulkAddRunnerTest`, `WatchlistWriteConsentTest`).
+ */
+internal suspend fun collectBulkAdd(
+    pairs: List<MarketPair>,
+    refused: suspend () -> Boolean,
+    add: suspend (MarketPair) -> AddWatchOutcome,
+    onProgress: (Int) -> Unit,
 ): BulkAddResult {
-    if (userWriteRefused()) return BulkAddResult(added = 0, skipped = 0, locked = true)
+    if (refused()) return BulkAddResult(added = 0, skipped = 0, locked = true)
     var added = 0
     var skipped = 0
     var refused = 0
     val addedIds = ArrayList<Long>()
 
     for (pair in pairs) {
-        when (val outcome = tryAddWatch(market, pair, group)) {
+        when (val outcome = add(pair)) {
             is AddWatchOutcome.Added -> {
                 added++
                 addedIds += outcome.id
@@ -138,14 +148,30 @@ suspend fun WatchRepository.restore(snapshot: WatchSnapshot): RestoreOutcome =
                 watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name,
                 WatchIdentity.pool(watch.marketKey, watch.pairId),
             ) != null
-        when {
-            blocked -> RestoreOutcome.BLOCKED
-            // Schon vorhanden geht vor «voll» (wie beim Anlegen)
-            !WatchlistLimits.canAddPair(watchDao.countWatches()) -> RestoreOutcome.FULL
-            watchDao.insertWatch(watch) == watch.id -> {
-                snapshot.alarms.forEach { watchDao.insertAlarm(it.copy(watchId = watch.id)) }
-                RestoreOutcome.RESTORED
-            }
-            else -> RestoreOutcome.BLOCKED
+        restoreBlocker(blocked) { watchDao.countWatches() } ?: if (watchDao.insertWatch(watch) == watch.id) {
+            snapshot.alarms.forEach { watchDao.insertAlarm(it.copy(watchId = watch.id)) }
+            RestoreOutcome.RESTORED
+        } else {
+            RestoreOutcome.BLOCKED
         }
     }
+
+/**
+ * Vor dem Anlegen ([tryAddWatch]): schon vorhanden ([exists]) geht vor «voll» — ein bekanntes Paar ist kein Fehler;
+ * null = anlegen. [count] (Paare jetzt) wird nur ohne Dublette gelesen. Rein, testbar (`WatchAddRulesTest`).
+ */
+internal inline fun addBlocker(exists: Boolean, count: () -> Int): AddWatchOutcome? = when {
+    exists -> AddWatchOutcome.Duplicate
+    !WatchlistLimits.canAddPair(count()) -> AddWatchOutcome.Full
+    else -> null
+}
+
+/**
+ * Vor dem Zurückholen ([restore], Review FUN-03): Paar noch bzw. wieder da ([present]) geht vor «voll» (wie beim
+ * Anlegen); null = zurückholen. «Rückgängig» umgeht so die Obergrenze nicht. Rein, testbar (`WatchAddRulesTest`).
+ */
+internal inline fun restoreBlocker(present: Boolean, count: () -> Int): RestoreOutcome? = when {
+    present -> RestoreOutcome.BLOCKED
+    !WatchlistLimits.canAddPair(count()) -> RestoreOutcome.FULL
+    else -> null
+}

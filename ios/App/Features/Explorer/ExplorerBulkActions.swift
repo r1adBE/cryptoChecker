@@ -89,7 +89,8 @@ extension ExplorerViewModel {
                             LocaleNumbers.integer(WatchlistLimits.maxPairs, grouping: true))
         }
         // Neue Paare angelegt: «Rückgängig» entfernt genau diese wieder — wie Android
-        show(ExplorerMessage(text: text, long: true, undoIds: anyAdded ? outcome.addedIds : nil))
+        show(ExplorerMessage(text: text, long: true, undoIds: anyAdded ? outcome.addedIds : nil,
+                             kind: SnackbarKind.bulkAdded(added: outcome.added, refused: outcome.refused)))
         haptic(anyAdded ? .success : .warning)
         if anyAdded { requestNotifications() }
     }

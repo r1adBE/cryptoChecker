@@ -105,7 +105,8 @@ struct ExplorerSyncSheet: View {
 
 // MARK: Rückmeldung
 
-/// Meldung am unteren Rand mit optionalem Knopf: «Ansehen» (zur Merkliste) oder «Alarm setzen».
+/// Meldung am unteren Rand mit optionalem Knopf: «Ansehen» (zur Merkliste) oder «Alarm setzen». Fläche, Rahmen und
+/// Symbol je Art (`ExplorerMessage.kind`, `snackbarSurface`).
 struct ExplorerSnackbar: View {
     @Binding var message: ExplorerMessage?
     let onView: () -> Void
@@ -131,18 +132,17 @@ struct ExplorerSnackbar: View {
     var body: some View {
         if let note = message {
             HStack(spacing: 12) {
-                // Fehler mit «Erneut versuchen»: kein Haken (sähe nach Erfolg aus)
-                Image(systemName: note.retryDexQuery == nil ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
-                    .foregroundStyle(accent.primary)
+                // Symbol nach Art (Erfolg Häkchen, Fehler Ausrufezeichen, Info keines) — wie Android
+                SnackbarKindIcon(kind: note.kind)
                 Text(note.text)
                     .font(.subheadline.weight(.medium))
-                    .foregroundStyle(AppColors.onToast)
+                    .foregroundStyle(AppColors.onSurface)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 actionButton(for: note)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, Spacing.lg)
-            .background(AppColors.toastBackground, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+            .snackbarSurface(note.kind)
             .shadow(color: AppColors.shadow.opacity(0.25), radius: 16, y: 6)
             .padding(.horizontal, 16)
             .padding(.bottom, 12)

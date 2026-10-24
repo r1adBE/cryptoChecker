@@ -30,7 +30,8 @@ extension ExplorerViewModel {
                 self.dexSearching = false
                 // Wie die Merkliste einordnen (kein Netz / Dienst nicht erreichbar), mit «Erneut versuchen»
                 let cause = RefreshReportLogic.classify(MarketFailure.of(error), ConnectionErrors.describe(error))
-                self.show(ExplorerMessage(text: L(DexFailure.of(cause).messageKey), showView: false, retryDexQuery: term))
+                self.show(ExplorerMessage(text: L(DexFailure.of(cause).messageKey), showView: false, retryDexQuery: term,
+                                          kind: .error))
             }
         }
     }

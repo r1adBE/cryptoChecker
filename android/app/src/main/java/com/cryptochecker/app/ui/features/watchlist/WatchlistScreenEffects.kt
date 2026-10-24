@@ -33,6 +33,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.mutableLongStateOf
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Erst-Moment (Start-Merkliste, allererstes Paar): einmal abspielen, sobald die neuen Zeilen da
@@ -56,7 +57,7 @@ internal fun rememberAddMoment(
     // Hier statt in `WatchlistScreen`: Dieser Effekt hat das Banner schon und läuft auf jedem Stand der Merkliste
     WatchlistStorageNotice(banner)
     // Schreibweg abgelehnt (Merkliste gesperrt, WatchlistStorageLock): kurzer Hinweis mit Warn-Haptik
-    com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it) }
+    com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it, SnackbarKind.ERROR) }
     val pendingMoment by viewModel.addMoment.collectAsStateWithLifecycle()
     val haptics = rememberHaptics()
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
@@ -87,9 +88,11 @@ internal fun rememberAddMoment(
         }
         // Der SnackbarHost meldet Text und Aktion dem Screenreader (Live-Region)
         if (first != null && added.none { (alarmCounts[it.id] ?: 0) > 0 }) {
-            banner.showAction(text, alarmActionLabel, ALARM_HINT_MILLIS, onClosed = onHintClosed) { onOpenAlarms(first.id) }
+            banner.showAction(text, alarmActionLabel, ALARM_HINT_MILLIS, SnackbarKind.SUCCESS, onHintClosed) {
+                onOpenAlarms(first.id)
+            }
         } else {
-            banner.show(text, onClosed = onHintClosed)
+            banner.show(text, SnackbarKind.SUCCESS, onClosed = onHintClosed)
         }
         viewModel.consumeAddMoment(m)
     }

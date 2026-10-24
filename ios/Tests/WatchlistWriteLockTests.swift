@@ -3,8 +3,10 @@ import XCTest
 
 /// Sperre der Merkliste (Review F-08), wie Android `WatchRepositoryLockTest`: Ist die gespeicherte
 /// Merkliste gerade nicht lesbar (`watchlistLocked`), lehnt `AppData` jeden Schreibweg des Nutzers ab, Hintergrund nicht;
-/// der Hinweis ist gedrosselt und erscheint nur auf dem zuletzt erschienenen Bildschirm. Die Schreibwege prüft der Test
-/// an der Quelle, weil `AppData` die echte App Group nutzt.
+/// der Hinweis ist gedrosselt und erscheint nur auf dem zuletzt erschienenen Bildschirm. Das Verhalten prüfen
+/// `WatchlistLockBehaviorTests` (jeder Schreibweg gesperrt) und `WatchlistConsentBehaviorTests` (Rückfrage F-08 am
+/// Schreibweg); dieser Test sichert an der Quelle zusätzlich, dass jeder Weg dieselbe Sicherung (`watchlistWriteRefused`)
+/// nutzt — nur so gilt auch F-08 für jeden — und dass Bildschirme vorher fragen.
 @MainActor
 final class WatchlistWriteLockTests: XCTestCase {
 
@@ -92,7 +94,7 @@ final class WatchlistWriteLockTests: XCTestCase {
     func testActionsConfirmFirstAndWritePathsOnlyRefuse() throws {
         let lock = try source("AppData+WatchlistLock.swift")
         XCTAssertFalse(lock.contains("retry"), "Schreibweg führt nach «Trotzdem» nichts mehr erneut aus")
-        XCTAssertTrue(body(lock, "func watchlistWriteRefused(").contains("needsConfirmation("))
+        // «Ohne Zustimmung abgelehnt, ohne Frage» als Verhalten: `WatchlistConsentBehaviorTests`
         // ARC7-02: nur über `withWatchlistConfirm` (Aktion unter `runConsented`), nicht direkt aus Bildschirmen
         XCTAssertTrue(lock.contains("private func confirmWatchlistWrite() async -> Bool"))
         for file in ["AppData+Watchlist.swift", "AppData+WatchEdits.swift", "AppData+Reading.swift", "AppData+Alarms.swift"] {

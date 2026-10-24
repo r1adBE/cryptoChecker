@@ -37,7 +37,7 @@ extension AppData {
     func watchlistWriteRefused(notify: Bool = true, now: Int64 = WatchlistWriteRefusal.nowMillis) -> Bool {
         guard watchlistWritesBlocked else {
             guard notify else { return false }
-            return WatchlistNotSavedGate.shared.needsConfirmation(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk)
+            return watchlistGate.needsConfirmation(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk)
         }
         if notify, WatchlistWriteRefusal.shouldNotify(lastAt: watchlistLockedHintAt, now: now) {
             watchlistLockedHintAt = now
@@ -47,10 +47,17 @@ extension AppData {
     }
 
     /// Lage für die Rückfrage F-08: wird die Merkliste gerade nicht gespeichert?
-    var watchlistGateNotSaved: Bool { watchlistStorageNotice == .notSaved }
+    var watchlistGateNotSaved: Bool {
+        WatchlistNotSavedGate.appDataOverride?.notSaved ?? (watchlistStorageNotice == .notSaved)
+    }
 
     /// Kann die App jetzt fragen (aktiv, Fenster für die Frage vorhanden, `WatchlistNotSavedGatePresenter`)?
-    var watchlistGateCanAsk: Bool { appActive && WatchlistNotSavedGatePresenter.shared.attached }
+    var watchlistGateCanAsk: Bool {
+        WatchlistNotSavedGate.appDataOverride?.canAsk ?? (appActive && WatchlistNotSavedGatePresenter.shared.attached)
+    }
+
+    /// Tor der Rückfrage F-08: `WatchlistNotSavedGate.shared`, ausser ein Test gibt eines vor (`appDataOverride`).
+    private var watchlistGate: WatchlistNotSavedGate { WatchlistNotSavedGate.appDataOverride?.gate ?? .shared }
 
     /// Review UX3-02/05, IOS3-R04: Rückfrage «Merkliste wird nicht gespeichert» EINMAL je Nutzeraktion,
     /// VOR der Aktion; false = «Abbrechen» (nichts tun, kein Banner, keine Haptik). Danach läuft der normale Weg mit
@@ -61,8 +68,8 @@ extension AppData {
     /// (sonst fehlte ihr nach einem Durchlass ohne Szene die Zustimmung, und der Schreibweg lehnte still ab).
     private func confirmWatchlistWrite() async -> Bool {
         if watchlistWritesBlocked { return true }
-        return await WatchlistNotSavedGate.shared.confirm(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk,
-                                                          awaitAsker: { await self.awaitWatchlistGateAsker() })
+        return await watchlistGate.confirm(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk,
+                                           awaitAsker: { await self.awaitWatchlistGateAsker() })
     }
 
     /// Höchstens `WatchlistNotSavedGate.askerWaitMillis` auf eine Szene warten, die fragen kann; true = da.
@@ -81,7 +88,7 @@ extension AppData {
     /// Auch ohne sichtbare Szene über `confirmWatchlistWrite` (wartet kurz auf sie), sobald gefragt werden kann.
     /// Ablauf in `WatchlistNotSavedGate.run` (dort mit eigenem Tor testbar, IOS6-02).
     func withWatchlistConfirm(_ action: @escaping @MainActor () -> Void, cancelled: (@MainActor () -> Void)? = nil) {
-        WatchlistNotSavedGate.shared.run(blocked: watchlistWritesBlocked, notSaved: watchlistGateNotSaved,
-                                         confirm: { await self.confirmWatchlistWrite() }, action, cancelled: cancelled)
+        watchlistGate.run(blocked: watchlistWritesBlocked, notSaved: watchlistGateNotSaved,
+                          confirm: { await self.confirmWatchlistWrite() }, action, cancelled: cancelled)
     }
 }

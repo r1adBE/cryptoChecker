@@ -20,7 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.cryptochecker.app.ui.components.AppSnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -57,6 +57,7 @@ import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
  * Ein Coin: Kennzahlen und seine Transaktionen. Tipp = bearbeiten; nach links wischen = löschen,
@@ -116,7 +117,7 @@ fun PortfolioDetailScreen(
         viewModel.restore(listOf(tx)) { result ->
             if (result != PortfolioWriteResult.OK) {
                 restorePending = false
-                banner.show(resources.getString(result.notSavedText()))
+                banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
             }
         }
     }
@@ -130,7 +131,7 @@ fun PortfolioDetailScreen(
                 awaitingBanner = true
                 banner.show(removedText) { undo(tx) }
             } else {
-                banner.show(resources.getString(result.notSavedText()))
+                banner.show(resources.getString(result.notSavedText()), SnackbarKind.ERROR)
             }
         }
     }
@@ -163,7 +164,7 @@ fun PortfolioDetailScreen(
                 }
             )
         },
-        snackbarHost = { SnackbarHost(banner.host) },
+        snackbarHost = { AppSnackbarHost(banner.host) },
         floatingActionButton = {
             // «+» wählt den Coin schon vor
             AppFab(onClick = { sheet = TxDraft(coin = symbol) }, contentDescription = stringResource(R.string.portfolio_add_tx))
