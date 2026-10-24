@@ -5,6 +5,7 @@
     <string name="action_cancel">ביטול</string>
     <string name="action_clear">ניקוי</string>
     <string name="action_close">סגירה</string>
+    <string name="action_keep">השאירו</string>
     <string name="action_delete">מחיקה</string>
     <string name="action_edit">עריכה</string>
     <string name="action_more">אפשרויות נוספות</string>

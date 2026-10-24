@@ -88,7 +88,7 @@ class SingleWidgetRenderer @Inject constructor(
         val watches = watchRepository.getWatches().associateBy { it.id }
         val now = System.currentTimeMillis()
         val outdatedAfter = WidgetOutdated.afterMillis(settings)
-        val changeView = toolkit.changeView(settings.changeBasis, now, showPeriod = settings.showChangePeriod)
+        val changeView = toolkit.changeView(settings.changeBasis, now)
 
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
@@ -140,8 +140,7 @@ class SingleWidgetRenderer @Inject constructor(
                 // Chart daneben kann einen anderen Zeitraum zeigen. Ohne Bezug «—», ebenso bei
                 // nicht mehr gehandelten Paaren (dann auch kein Chart) und veralteter Basis.
                 val change = watch.shownChange(changeView)
-                // Zeitraum nur, wenn eingeschaltet (Einstellungen › %-Änderung)
-                val day = if (changeView.showPeriod) ChangeBasisText.shortLabel(context, changeView.basis) else ""
+                val day = ChangeBasisText.shortLabel(context, changeView.basis)
                 // Pfeil wie in der Merkliste (folgt dem Vorzeichen, nie dem Farbtausch)
                 val valueText = when {
                     change == null -> "—"

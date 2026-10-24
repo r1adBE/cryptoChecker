@@ -132,4 +132,10 @@
         <item quantity="other">%1$d nya, %2$d redan i bevakningslistan</item>
     </plurals>
     <string name="explorer_bulk_all_present">Alla finns redan i bevakningslistan</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Ta bort %1$d par igen?</item>
+        <item quantity="other">Ta bort %1$d par igen?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Par som du har ställt in larm för under tiden finns kvar.</string>
 </resources>

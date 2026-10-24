@@ -251,10 +251,7 @@ fun WatchlistScreen(
     // (Basis gewechselt, neuer Tag — die 30-s-Uhr prüft das), «—» bis neu gerechnet ist
     val changeBasis = display.changeBasis
     val changeStamp = live.changeStamp
-    val showChangePeriod = display.showChangePeriod
-    val changeView = remember(changeBasis, changeStamp, now, showChangePeriod) {
-        ChangeView.of(changeStamp, changeBasis, now, showPeriod = showChangePeriod)
-    }
+    val changeView = remember(changeBasis, changeStamp, now) { ChangeView.of(changeStamp, changeBasis, now) }
     // Sortieren nach Spalte (nicht im Sortiermodus): Favoriten oben, unter sich sortiert; Kurse
     // über CHF verglichen (im Hintergrund umgerechnet, auch ohne «≈ Umrechnung»)
     val columnSort = display.columnSort

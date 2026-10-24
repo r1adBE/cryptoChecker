@@ -132,4 +132,10 @@
         <item quantity="other">%1$d të reja, %2$d tashmë në listën e ndjekjes</item>
     </plurals>
     <string name="explorer_bulk_all_present">Të gjitha janë tashmë në listën e ndjekjes</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Të hiqet sërish %1$d çift?</item>
+        <item quantity="other">Të hiqen sërish %1$d çifte?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Çiftet për të cilat ke vendosur ndërkohë një alarm mbeten.</string>
 </resources>

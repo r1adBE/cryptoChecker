@@ -161,7 +161,6 @@ internal fun MarketCoinSheets(
     val sheetChartLine by watchlist.sheetChartLine.collectAsStateWithLifecycle()
     val changeBasis by watchlist.changeBasis.collectAsStateWithLifecycle()
     val changeStamp by watchlist.changeStamp.collectAsStateWithLifecycle()
-    val showChangePeriod by watchlist.showChangePeriod.collectAsStateWithLifecycle()
     val groups = remember(watches) { groupsOf(watches) }
 
     // Portfolio-Sperre wie in der Merkliste: Erfassen-Blatt erst nach dem Entsperren
@@ -206,13 +205,9 @@ internal fun MarketCoinSheets(
     LaunchedEffect(showStored) { if (showStored && state.previewSymbol != null) state.closePreview() }
 
     val now = remember(changeStamp, changeBasis, stored?.lastUpdate) { System.currentTimeMillis() }
-    val changeView = remember(changeBasis, changeStamp, now, showChangePeriod) {
-        ChangeView.of(changeStamp, changeBasis, now, showPeriod = showChangePeriod)
-    }
+    val changeView = remember(changeBasis, changeStamp, now) { ChangeView.of(changeStamp, changeBasis, now) }
     // Vorschau: rollende 24 h aus dem Ticker — so heisst es auch neben der Änderung
-    val previewView = remember(showChangePeriod) {
-        ChangeView(basis = ChangeBasis.ROLLING_24H, current = true, showPeriod = showChangePeriod)
-    }
+    val previewView = remember { ChangeView(basis = ChangeBasis.ROLLING_24H, current = true) }
 
     val shown = when {
         showStored -> stored

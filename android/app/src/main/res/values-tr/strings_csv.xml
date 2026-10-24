@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Biçim: %1$s</string>
     <string name="portfolio_csv_import_line">Satır %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Dosya ve günlük kurlar okunuyor…</string>
+    <string name="portfolio_csv_import_progress">Satır %1$s / %2$s</string>
+    <string name="portfolio_csv_import_saving">İşlemler kaydediliyor…</string>
     <string name="portfolio_csv_import_missing_fx">Günlük kur yok (satır %1$s) – fiyat ve ücret olmadan aktarıldı.</string>
     <string name="portfolio_csv_import_missing_price">Dosyada fiyat yok (satır %1$s) – fiyatsız aktarıldı.</string>
     <string name="portfolio_csv_import_more">+ %1$d tane daha</string>

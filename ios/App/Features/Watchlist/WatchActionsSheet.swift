@@ -97,8 +97,7 @@ struct WatchActionsSheet: View {
     private func previewContent(_ watch: Watch) -> some View {
         content(watch, isPreview: true)
             // Rollende 24 h aus dem Ticker — so heisst es auch neben der Änderung
-            .environment(\.changeView, ChangeView(basis: .ROLLING_24H, current: true,
-                                                   showPeriod: data.settings.showChangePeriod))
+            .environment(\.changeView, ChangeView(basis: .ROLLING_24H, current: true))
             .task(id: "\(watch.baseAsset)|\(previewReload)") {
                 guard let preview else { return }
                 previewQuoted = await WatchPreview.fetchQuote(previewQuoted ?? preview)

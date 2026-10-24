@@ -45,7 +45,6 @@ interface SettingsBackupTarget {
     suspend fun setPriceColorScheme(scheme: PriceColorScheme)
     suspend fun setWatchlistSparkline(show: Boolean)
     suspend fun setWatchlistNames(show: Boolean)
-    suspend fun setShowChangePeriod(show: Boolean)
     suspend fun setAppIconBadge(show: Boolean)
     suspend fun setWatchlistActivityCard(show: Boolean)
     suspend fun setCoinLogos(show: Boolean)

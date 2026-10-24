@@ -145,7 +145,7 @@ private struct SingleHeader: View {
             Spacer(minLength: 4)
             // Veränderung gemäss %-Basis als farbiger Text (keine Pille); der Chart kann einen anderen Zeitraum zeigen
             WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 12, showsArrow: true, day: true,
-                              suffix: changeView.showPeriod ? A11y.changeShortLabel(changeView.basis) : nil, basis: changeView.basis,
+                              suffix: A11y.changeShortLabel(changeView.basis), basis: changeView.basis,
                               neutral: watch.disabled)
                 .fixedSize(horizontal: true, vertical: false)
                 .layoutPriority(2)
@@ -253,7 +253,7 @@ private struct SingleMediumView: View {
                 if watch.lastPrice != nil {
                     // Farbiger Text ohne Pille (deaktiviert grau), Zeitraum dahinter grau — wie Android
                     WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 12, showsArrow: true, day: true,
-                                      suffix: changeView.showPeriod ? A11y.changeShortLabel(changeView.basis) : nil, basis: changeView.basis,
+                                      suffix: A11y.changeShortLabel(changeView.basis), basis: changeView.basis,
                                       neutral: watch.disabled)
                         .padding(.top, 4)
                         .invalidatableContent()

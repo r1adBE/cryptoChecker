@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prints the Kover line coverage per module and in total as ONE notice annotation (display only, no threshold).
+"""Prints the Kover line coverage per module and in total as ONE notice annotation; with «--min-logic P» also a gate.
 
 Two numbers each: «total» (every class in the report) and «logic» (without UI and generated code):
   - UI: a source file containing «@Composable» (screens, components, Compose-generated lambdas and
@@ -17,10 +17,15 @@ Each argument is «name=module dir»; the first Kover XML report (JaCoCo format)
 the total comes from it, files are attributed to the module whose sources contain them, and the other modules' own
 reports are listed as «own tests only». Missing reports are listed, never an error.
 
-Usage: python3 -I coverage_summary.py --merged app app=app marketdata=marketdata
+«--min-logic P»: exit 1 with an error annotation when the total «logic» coverage is below P percent or there is no
+coverage data at all (a missing report must not pass the gate silently). Without it: display only, always exit 0.
+
+Usage: python3 -I coverage_summary.py --merged app [--min-logic 58] app=app marketdata=marketdata
        python3 -I coverage_summary.py --self-test
 """
+import contextlib
 import glob
+import io
 import os
 import re
 import sys
@@ -131,6 +136,22 @@ def tally(report, owner, sources):
 
 
 def summary(modules, merged=None):
+    head, lines, _ = summary_tally(modules, merged)
+    return head, lines
+
+
+def logic_gate(total, minimum):
+    """(ok, message) of the gate «logic coverage at least [minimum] percent»; no data = not ok."""
+    lines = total.logic_missed + total.logic_covered
+    if not lines:
+        return False, f"no logic coverage data (gate: at least {minimum:g} %)"
+    value = 100.0 * total.logic_covered / lines
+    if value < minimum:
+        return False, f"logic coverage {value:.1f} % is below the gate of {minimum:g} %"
+    return True, f"logic coverage {value:.1f} % ≥ gate {minimum:g} %"
+
+
+def summary_tally(modules, merged=None):
     sources = [(name, source_roots(module_dir)) for name, module_dir in modules]
     dirs = dict(modules)
     merged_report = find_report(dirs[merged]) if merged in dirs else None
@@ -166,7 +187,7 @@ def summary(modules, merged=None):
             lines.append(f"{name}: {part.text()}")
         head = f"Line coverage (unit tests, debug): {total.text()}"
     lines.append("logic = without UI (files with @Composable, widget rendering, activities) and generated code")
-    return head, lines
+    return head, lines, total
 
 
 def escape(text):
@@ -241,6 +262,17 @@ def self_test():
                '<counter type="LINE" missed="30" covered="10"/></report>')
         _, lines = summary([("flat", flat)])
         assert lines[0] == "flat: total 25.0 % (10/40) · logic 25.0 % (10/40)", lines
+    gate = Tally()
+    assert logic_gate(gate, 58)[0] is False and "no logic coverage data" in logic_gate(gate, 58)[1]
+    gate.logic_covered, gate.logic_missed = 60, 40
+    assert logic_gate(gate, 58) == (True, "logic coverage 60.0 % ≥ gate 58 %"), logic_gate(gate, 58)
+    assert logic_gate(gate, 61)[0] is False and "below the gate of 61 %" in logic_gate(gate, 61)[1]
+    # Gate im Aufruf: ohne Bericht rot (nie still grün); Ausgabe abgefangen (keine Annotationen im Selbsttest)
+    out = io.StringIO()
+    with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(out):
+        assert main(["--min-logic", "58", f"none={os.path.join(tmp, 'none')}"]) == 1
+        assert main([f"none={os.path.join(tmp, 'none')}"]) == 0
+    assert "::error title=Coverage gate::no logic coverage data" in out.getvalue(), out.getvalue()
     print("coverage_summary self-test ok")
     return 0
 
@@ -248,19 +280,26 @@ def self_test():
 def main(argv):
     if argv == ["--self-test"]:
         return self_test()
-    merged, modules, args = None, [], list(argv)
+    merged, minimum, modules, args = None, None, [], list(argv)
     while args:
         arg = args.pop(0)
         if arg == "--merged" and args:
             merged = args.pop(0)
             continue
+        if arg == "--min-logic" and args:
+            minimum = float(args.pop(0))
+            continue
         name, _, module_dir = arg.partition("=")
         modules.append((name, module_dir or name))
-    head, lines = summary(modules, merged)
+    head, lines, total = summary_tally(modules, merged)
     print(head)
     print("\n".join(lines))
     print(f"::notice title=Coverage::{escape(head + chr(10) + chr(10).join(lines))}")
-    return 0
+    if minimum is None:
+        return 0
+    ok, message = logic_gate(total, minimum)
+    print(f"::{'notice' if ok else 'error'} title=Coverage gate::{message}")
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

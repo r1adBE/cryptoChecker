@@ -154,4 +154,12 @@
         <item quantity="other">%1$d нової, %2$d вже в списку</item>
     </plurals>
     <string name="explorer_bulk_all_present">Усі вже в списку</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Знову видалити %1$d пару?</item>
+        <item quantity="few">Знову видалити %1$d пари?</item>
+        <item quantity="many">Знову видалити %1$d пар?</item>
+        <item quantity="other">Знову видалити %1$d пари?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Пари, для яких тим часом з’явився сигнал, залишаться.</string>
 </resources>

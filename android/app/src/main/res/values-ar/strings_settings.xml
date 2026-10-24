@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">لا يؤثر ذلك على التنبيهات.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» يقارن بسعر التحديث السابق. مع الأسعار المباشرة يبقى قريبًا من 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">إظهار المدة بجانب التغيّر</string>
-    <string name="settings_change_period_hint">«24h» أو «اليوم» أو «آخر تحديث» بخط صغير بجانب التغيّر في سطر النبض وأداة العملة الواحدة. تعرضه قائمة المتابعة دائمًا، ويذكره قارئ الشاشة دائمًا.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">عملة التحويل</string>

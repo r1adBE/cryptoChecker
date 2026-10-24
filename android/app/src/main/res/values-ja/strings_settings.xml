@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">アラームには影響しません。</string>
     <string name="settings_change_basis_hint_since_last">「%1$s」は前回の更新時の価格と比較します。ライブ価格では0%%付近にとどまります。</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">変動の横に期間を表示</string>
-    <string name="settings_change_period_hint">パルス行と単一コインのウィジェットで、変動の横に「24h」「今日」「前回更新」を小さく表示します。ウォッチリストでは常に表示され、スクリーンリーダーは常に読み上げます。</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">換算通貨</string>

@@ -15,6 +15,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 122)
+
+Phase C, continued:
+
+* Portfolio CSV import of large files (e.g. 10 000 lines) runs in the background with a progress bar «Line X of Y» and «Cancel»; cancelling leaves the portfolio unchanged. On iPhone the import no longer blocks the app while saving.
+* Watchlist: without own groups the group row shows «Your groups will appear here» with «New group» from the first start (it used to stay empty until the first alert).
+* iOS: the UK tax pool finds the 30-day matches faster (same result).
+* Tests and tooling: line coverage is now a gate (logic at least 58 % on Android, 78 % on iOS, just under today's values); performance tests with 10 000 portfolio transactions (holdings and tax years for NEUTRAL, CH, DE, UK, US); synthetic error responses (broken, empty, HTTP 429, rate-limit texts) for 14 exchanges; shared cases for quiet hours (including daylight-saving changes) and currency conversion; iOS checks currency codes and the rate-limit length exactly like Android.
+
 ## 16.2.2 (build 121)
 
 Start of phase C (quality and tests):

@@ -76,6 +76,13 @@ enum UiTestTags {
     /// (der Android-Test prüft stattdessen die geschriebene Datei).
     static let toast = "toast"
 
+    /// Schliessen-✕ einer Meldung mit Aktion (Snackbar bzw. Banner).
+    static let snackbarDismiss = "snackbar_dismiss"
+
+    /// Rückfrage nach «Rückgängig» der Sammelaufnahme: «Behalten» bzw. «Entfernen».
+    static let bulkUndoKeep = "bulk_undo_keep"
+    static let bulkUndoRemove = "bulk_undo_remove"
+
     /// Hinweis unter einem Passwortfeld (z. B. «falsches Passwort»): Kennung des Felds + «_hint».
     static func hint(_ fieldTag: String) -> String { fieldTag + "_hint" }
 }

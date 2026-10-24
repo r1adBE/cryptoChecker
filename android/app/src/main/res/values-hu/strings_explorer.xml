@@ -132,4 +132,10 @@
         <item quantity="other">%1$d új, %2$d már a figyelőlistán</item>
     </plurals>
     <string name="explorer_bulk_all_present">Már mind a figyelőlistán van</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Újra eltávolítasz %1$d párt?</item>
+        <item quantity="other">Újra eltávolítasz %1$d párt?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Azok a párok, amelyekre közben riasztást állítottál be, megmaradnak.</string>
 </resources>

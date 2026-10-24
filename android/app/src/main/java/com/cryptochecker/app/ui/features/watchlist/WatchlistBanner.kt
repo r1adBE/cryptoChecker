@@ -59,7 +59,10 @@ internal class WatchlistBanner(
         job?.cancel()
         job = scope.launch {
             host.currentSnackbarData?.dismiss()
-            host.showAppSnackbar(text, actionLabel = label, duration = SnackbarDuration.Indefinite)
+            // Die Aktion ist selbst «Schliessen»: kein zusätzliches ✕
+            host.showAppSnackbar(
+                text, actionLabel = label, duration = SnackbarDuration.Indefinite, withDismissAction = false,
+            )
         }
     }
 
@@ -113,13 +116,16 @@ internal class WatchlistBanner(
     }
 
     /**
-     * Kurzes Banner der Art [kind]; mit [onUndo] steht «Rückgängig» daneben ([UNDO_MILLIS]). [onClosed] wie bei
-     * [showAction].
+     * Kurzes Banner der Art [kind]; mit [onUndo] steht «Rückgängig» daneben ([undoMillis], Standard [UNDO_MILLIS]).
+     * [undoHaptic]: Erfolgs-Haptik beim Tippen auf «Rückgängig» — aus, wenn [onUndo] erst nachfragt (die Haptik kommt
+     * dann beim Bestätigen). [onClosed] wie bei [showAction].
      */
     fun show(
         text: String,
         kind: SnackbarKind = SnackbarKind.INFO,
         onClosed: ((actionPerformed: Boolean) -> Unit)? = null,
+        undoMillis: Long = UNDO_MILLIS,
+        undoHaptic: Boolean = true,
         onUndo: (() -> Unit)? = null,
     ) {
         if (onUndo == null) {
@@ -134,8 +140,8 @@ internal class WatchlistBanner(
                 restoreRestingAfter(coroutineContext[Job])
             }
         } else {
-            showAction(text, undoLabel, UNDO_MILLIS, kind, onClosed = onClosed) {
-                haptics?.play(HapticEvent.SUCCESS)
+            showAction(text, undoLabel, undoMillis, kind, onClosed = onClosed) {
+                if (undoHaptic) haptics?.play(HapticEvent.SUCCESS)
                 onUndo()
             }
         }
@@ -154,3 +160,9 @@ internal fun rememberWatchlistBanner(scope: CoroutineScope): WatchlistBanner {
 
 /** So lange bleibt «Rückgängig» nach dem Löschen per Wischen stehen (ohne Screenreader). */
 private const val UNDO_MILLIS = 5_000L
+
+/**
+ * So lange steht «Rückgängig» nach «Mehrere Paare auf einmal» (ohne Screenreader) — wie die Meldung im Explorer
+ * (`SnackbarDuration.Long`) und iOS `ExplorerSnackbar.undoSeconds`.
+ */
+internal const val BULK_UNDO_MILLIS = 10_000L

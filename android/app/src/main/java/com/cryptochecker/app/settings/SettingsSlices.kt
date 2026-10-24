@@ -29,7 +29,6 @@ data class WatchlistSettings(
     val usageDays: Int,
     val backgroundIntervalMinutes: Int,
     val changeBasis: ChangeBasis,
-    val showChangePeriod: Boolean,
     val priceNotifications: Boolean,
 ) {
     companion object {
@@ -48,7 +47,6 @@ data class WatchlistSettings(
             usageDays = s.usageDays,
             backgroundIntervalMinutes = s.backgroundIntervalMinutes,
             changeBasis = s.changeBasis,
-            showChangePeriod = s.showChangePeriod,
             priceNotifications = s.priceNotifications,
         )
     }

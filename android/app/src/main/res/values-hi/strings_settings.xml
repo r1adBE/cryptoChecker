@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">अलार्म पर इसका असर नहीं होता।</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” पिछले अपडेट के भाव से तुलना करता है। लाइव भाव में यह 0%% के करीब रहता है।</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">बदलाव के पास अवधि दिखाओ</string>
-    <string name="settings_change_period_hint">पल्स लाइन और एक-कॉइन विजेट में बदलाव के पास छोटा “24h”, “आज” या “पिछला अपडेट”। वॉचलिस्ट इसे हमेशा दिखाती है; स्क्रीन रीडर इसे हमेशा बोलता है।</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">रूपांतरण मुद्रा</string>

@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">Alarme sind davon nicht betroffen.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» vergleicht mit dem Kurs der vorherigen Aktualisierung. Bei Live-Kursen bleibt der Wert nahe 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">Zeitraum neben der Änderung zeigen</string>
-    <string name="settings_change_period_hint">Klein «24h», «heute» oder «letzter Stand» neben der Änderung in der Puls-Zeile und im Einzel-Widget. Die Merkliste zeigt ihn immer, der Screenreader nennt ihn immer.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Anzeigewährung</string>

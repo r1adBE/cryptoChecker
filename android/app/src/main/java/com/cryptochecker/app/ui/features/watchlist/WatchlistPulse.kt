@@ -43,7 +43,6 @@ import com.cryptochecker.app.util.PriceFormat
 internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     // Zeitraum wie die Änderungen der Zeilen (%-Basis): «24h», «heute», «heute UTC»
-    val showPeriod = LocalChangeView.current.showPeriod
     val basis = LocalChangeView.current.basis
     // Ø mit Vorzeichen wie die Änderung der Zeilen, ohne Pfeil (0.00% ohne Vorzeichen)
     val average = PriceFormat.changePercent(pulse.average) ?: PriceFormat.zeroPercent()
@@ -95,15 +94,13 @@ internal fun WatchPulseLine(pulse: WatchPulse, modifier: Modifier = Modifier) {
                 rollingValue = pulse.average,
             )
             // Zeitraum klein und grau wie neben den Änderungen der Zeilen: «Ø +1.80% 24h»
-            if (showPeriod) {
-                Text(
-                    text = ChangeBasisText.shortLabel(basis),
-                    style = MaterialTheme.typography.label,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    modifier = Modifier.padding(start = 4.dp),
-                )
-            }
+            Text(
+                text = ChangeBasisText.shortLabel(basis),
+                style = MaterialTheme.typography.label,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                modifier = Modifier.padding(start = 4.dp),
+            )
         }
         // Klein und grau: «· 510 ohne 24h-Wert»
         if (pulse.missing > 0) {

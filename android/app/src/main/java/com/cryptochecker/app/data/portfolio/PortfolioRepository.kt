@@ -17,6 +17,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportedRef
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -303,21 +304,24 @@ class PortfolioRepository @Inject constructor(
      * von Hand). Zeilen, deren [PortfolioTxEntity.importKey] oder [PortfolioTxEntity.linkedImportKey] inzwischen schon
      * da ist, werden übersprungen.
      * [batch] = Kennung des Importlaufs ([PortfolioImportBatch.newId]) für alle angelegten Transaktionen (null = keine).
+     * [onRow] nach jeder Zeile (fertige Zeilen); [cancelled] vor jeder Zeile geprüft — dann rollt die Transaktion zurück
+     * ([CsvImportInsert.run]), nichts ist angelegt.
      * @return Anzahl angelegter Transaktionen.
      * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar ([PortfolioStorageLock])
+     * @throws com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException abgebrochen ([cancelled])
      */
-    suspend fun insertImported(transactions: List<PortfolioTxEntity>, batch: String? = null): Int = database.withTransaction {
+    suspend fun insertImported(
+        transactions: List<PortfolioTxEntity>,
+        batch: String? = null,
+        onRow: (Int) -> Unit = {},
+        cancelled: () -> Boolean = { false },
+    ): Int = database.withTransaction {
         // Gesperrt ([PortfolioStorageLock]): ganz ablehnen statt jede Zeile still zu überspringen
         ensureWritable()
         val known = portfolioDao.getImportKeys().toHashSet()
-        var count = 0
-        for (tx in transactions) {
-            val keys = listOfNotNull(tx.importKey, tx.linkedImportKey)
-            if (keys.any { it in known }) continue
-            known += keys
-            runCatchingCancellable { save(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)) }.onSuccess { count++ }
+        CsvImportInsert.run(transactions, known, { listOfNotNull(it.importKey, it.linkedImportKey) }, cancelled, onRow) { tx ->
+            runCatchingCancellable { save(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)) }.isSuccess
         }
-        count
     }
 
     /** CSV-Importläufe mit Anzahl, Zeit und Format, neueste zuerst ([PortfolioImportBatch.summarize]). */

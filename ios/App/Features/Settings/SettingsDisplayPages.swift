@@ -292,14 +292,6 @@ struct ChangeBasisSettingsPage: View {
             .padding(.horizontal, 16)
             .padding(.bottom, Spacing.sm)
             SettingsCard {
-                SwitchRow(
-                    title: L("settings_change_period"),
-                    subtitle: L("settings_change_period_hint"),
-                    isOn: $data.settings.showChangePeriod
-                )
-                .settingsAnchor("change.period")
-            }
-            SettingsCard {
                 ForEach(Array(ChangeBasis.allCases.enumerated()), id: \.offset) { _, basis in
                     row(basis)
                 }

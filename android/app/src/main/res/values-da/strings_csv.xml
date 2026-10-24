@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Format: %1$s</string>
     <string name="portfolio_csv_import_line">Linje %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Læser fil og dagskurser…</string>
+    <string name="portfolio_csv_import_progress">Linje %1$s af %2$s</string>
+    <string name="portfolio_csv_import_saving">Gemmer transaktioner…</string>
     <string name="portfolio_csv_import_missing_fx">Ingen dagskurs for linje %1$s – importeret uden pris og gebyr.</string>
     <string name="portfolio_csv_import_missing_price">Ingen pris i filen for linje %1$s – importeret uden pris.</string>
     <string name="portfolio_csv_import_more">+ %1$d mere</string>

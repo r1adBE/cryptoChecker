@@ -40,14 +40,15 @@ extension TaxEngines {
             pieces[i] = []
         }
         // 1. Gleicher Tag: alle Abgänge des Tags gemeinsam gegen die Zugänge des Tags, anteilig nach Menge
+        // Gruppen in der Reihenfolge ihres ersten Abgangs; Tag → Gruppe über ein Verzeichnis (kein Suchen je Abgang)
         var groups: [(day: LocalDay, idx: [Int])] = []
+        var groupOf: [LocalDay: Int] = [:]
         for i in disposeIdx {
             let d = day(steps[i].time, zone)
-            if let last = groups.indices.last, groups[last].day == d {
-                groups[last].idx.append(i)
-            } else if let k = groups.firstIndex(where: { $0.day == d }) {
+            if let k = groupOf[d] {
                 groups[k].idx.append(i)
             } else {
+                groupOf[d] = groups.count
                 groups.append((d, [i]))
             }
         }
@@ -70,7 +71,15 @@ extension TaxEngines {
         for i in disposeIdx {
             let d = day(steps[i].time, zone)
             let to = d.plusDays(TaxTemplate.ukBbDays)
-            for ad in poolDays where d < ad && !(to < ad) {
+            // Erster Zugangstag nach `d` per binärer Suche, dann nur die Tage bis `to` — wie `subMap` (Android)
+            var lo = 0
+            var hi = poolDays.count
+            while lo < hi {
+                let mid = (lo + hi) / 2
+                if d < poolDays[mid] { hi = mid } else { lo = mid + 1 }
+            }
+            for ad in poolDays[lo...] {
+                if to < ad { break }
                 let r = remaining[i] ?? 0
                 if r <= 0 { break }
                 guard var pool = dayPools[ad], pool.held > 0 else { continue }

@@ -5,6 +5,7 @@
     <string name="action_cancel">キャンセル</string>
     <string name="action_clear">クリア</string>
     <string name="action_close">閉じる</string>
+    <string name="action_keep">残す</string>
     <string name="action_delete">削除</string>
     <string name="action_edit">編集</string>
     <string name="action_more">その他のオプション</string>

@@ -69,6 +69,13 @@ object UiTestTags {
      */
     const val TOAST = "toast"
 
+    /** Schliessen-✕ einer Meldung mit Aktion (Snackbar bzw. Banner). */
+    const val SNACKBAR_DISMISS = "snackbar_dismiss"
+
+    /** Rückfrage nach «Rückgängig» der Sammelaufnahme: «Behalten» bzw. «Entfernen». */
+    const val BULK_UNDO_KEEP = "bulk_undo_keep"
+    const val BULK_UNDO_REMOVE = "bulk_undo_remove"
+
     /** Hinweis unter einem Passwortfeld (z. B. «falsches Passwort»): Kennung des Felds + «_hint». */
     fun hint(fieldTag: String): String = fieldTag + "_hint"
 }

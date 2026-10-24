@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">Alarmer påvirkes ikke.</string>
     <string name="settings_change_basis_hint_since_last">”%1$s” sammenligner med kursen fra den forrige opdatering. Med live-kurser forbliver den tæt på 0 %%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">Vis periode ved ændringen</string>
-    <string name="settings_change_period_hint">Lille ”24h”, ”i dag” eller ”sidste opdatering” ved ændringen i pulslinjen og i widgetten med én mønt. Overvågningslisten viser den altid; skærmlæseren siger den altid.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Omregningsvaluta</string>

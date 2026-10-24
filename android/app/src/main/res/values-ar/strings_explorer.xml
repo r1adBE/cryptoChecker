@@ -176,4 +176,14 @@
         <item quantity="other">جديدة: %1$d، موجودة في قائمة المتابعة: %2$d</item>
     </plurals>
     <string name="explorer_bulk_all_present">كلها موجودة في قائمة المتابعة</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="zero">إزالة %1$d زوج مرة أخرى؟</item>
+        <item quantity="one">إزالة %1$d زوج مرة أخرى؟</item>
+        <item quantity="two">إزالة %1$d زوج مرة أخرى؟</item>
+        <item quantity="few">إزالة %1$d أزواج مرة أخرى؟</item>
+        <item quantity="many">إزالة %1$d زوجًا مرة أخرى؟</item>
+        <item quantity="other">إزالة %1$d زوج مرة أخرى؟</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">تبقى الأزواج التي ضبطت لها تنبيهًا في هذه الأثناء.</string>
 </resources>

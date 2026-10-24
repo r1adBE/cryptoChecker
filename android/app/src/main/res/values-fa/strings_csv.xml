@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">قالب: %1$s</string>
     <string name="portfolio_csv_import_line">سطر %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">در حال خواندن فایل و نرخ‌های روزانه…</string>
+    <string name="portfolio_csv_import_progress">سطر %1$s از %2$s</string>
+    <string name="portfolio_csv_import_saving">در حال ذخیرهٔ تراکنش‌ها…</string>
     <string name="portfolio_csv_import_missing_fx">نرخ روزانه برای سطر %1$s نیست – بدون قیمت و کارمزد وارد شد.</string>
     <string name="portfolio_csv_import_missing_price">در فایل برای سطر %1$s قیمتی نیست – بدون قیمت وارد شد.</string>
     <string name="portfolio_csv_import_more">+ %1$d مورد دیگر</string>

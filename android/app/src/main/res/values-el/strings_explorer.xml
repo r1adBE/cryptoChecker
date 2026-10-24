@@ -132,4 +132,10 @@
         <item quantity="other">%1$d νέα, %2$d ήδη στη λίστα</item>
     </plurals>
     <string name="explorer_bulk_all_present">Όλα είναι ήδη στη λίστα</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Αφαίρεση %1$d ζεύγους ξανά;</item>
+        <item quantity="other">Αφαίρεση %1$d ζευγών ξανά;</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Τα ζεύγη για τα οποία όρισες στο μεταξύ συναγερμό παραμένουν.</string>
 </resources>

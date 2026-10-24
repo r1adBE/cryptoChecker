@@ -245,9 +245,9 @@ internal fun RowPrice(
             // Deaktiviert: letzter Wert in neutralem Grau, ohne Kursfarbe
             if (watch.lastPrice != null) {
                 val view = LocalChangeView.current
-                // Zeitraum («24h», «letzter Stand», «heute») in der Zeile immer klein an der Änderung, damit die
-                // Basis der Prozentzahl nie verborgen ist; der Schalter gilt weiter für Puls und Einzel-Widget
-                CompositionLocalProvider(LocalChangeView provides view.copy(showPeriod = true)) { DayChangePill(
+                // Zeitraum («24h», «letzter Stand», «heute») klein an der Änderung: die Basis der Prozentzahl
+                // ist nie verborgen
+                DayChangePill(
                     change = watch.shownChange(view),
                     neutral = watch.disabled,
                     // Änderung gegen den Mark-Preis (Market.changeIsMark): als «Mark» benennen
@@ -258,7 +258,7 @@ internal fun RowPrice(
                     marker = changeMarker,
                     markerLabel = changeMarkerLabel,
                     onMarkerClick = onChangeMarkerClick,
-                ) }
+                )
             }
         }
         if (converted != null) {

@@ -33,8 +33,6 @@ struct SingleEntry: TimelineEntry {
     /// «Basis der %-Änderung» und Stempel der gespeicherten Werte (beim Erstellen gelesen).
     var changeBasis: ChangeBasis
     var changeStamp: ChangeStamp? = SharedStorage.changeStamp
-    /// Einstellung «Zeitraum zur Änderung zeigen».
-    var showPeriod: Bool
     /// Coin-Logo des Paares (`WidgetLogos`); leer = Initialen.
     var logos: [String: UIImage] = [:]
     /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
@@ -56,14 +54,12 @@ struct SingleEntry: TimelineEntry {
         highContrast = settings.highContrast
         priceColorsInverted = settings.priceColorsInverted
         changeBasis = settings.changeBasis
-        showPeriod = settings.showChangePeriod
         showLogos = settings.widgetCoinLogos
     }
 
     /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
     var changeView: ChangeView {
-        ChangeView.of(stamp: changeStamp, basis: changeBasis, now: Int64(date.timeIntervalSince1970 * 1000),
-                      showPeriod: showPeriod)
+        ChangeView.of(stamp: changeStamp, basis: changeBasis, now: Int64(date.timeIntervalSince1970 * 1000))
     }
 
     /// Das Paar, wie es gezeigt wird: Veränderung nur, wenn sie zur %-Basis passt.

@@ -189,7 +189,7 @@ jobs:
           echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
 
       # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app). The same run records the line
-      # coverage (-enableCodeCoverage, result bundle UnitTests.xcresult); the step «Coverage (display only)» reads it.
+      # coverage (-enableCodeCoverage, result bundle UnitTests.xcresult); the step «Coverage (logic gate)» reads it.
       - name: Unit tests (iOS Simulator)
         working-directory: ios
         env:
@@ -244,16 +244,17 @@ jobs:
           fi
           exit $status
 
-      # Line coverage of the unit-test run above as ONE notice (display only, no threshold): total and «logic»
-      # (files under Shared/ without SwiftUI views). continue-on-error and «|| true»: never turns the job red.
-      - name: Coverage (display only)
-        if: ${{ !cancelled() }}
-        continue-on-error: true
+      # Line coverage of the unit-test run above as ONE notice: total and «logic» (files under Shared/ without SwiftUI
+      # views). Gate: «logic» must not fall below MIN_LOGIC (just under the measured value: stops regressions without
+      # forcing new work; raise it when coverage grows). Only after green unit tests; a missing report is red.
+      - name: Coverage (logic gate)
         timeout-minutes: 5
+        env:
+          MIN_LOGIC: '78'
         run: |
-          python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" --self-test || true
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" --self-test
           xcrun xccov view --report --json "$RUNNER_TEMP/UnitTests.xcresult" > "$RUNNER_TEMP/xccov.json" || true
-          python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" "$RUNNER_TEMP/xccov.json" || true
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" --min-logic "$MIN_LOGIC" "$RUNNER_TEMP/xccov.json"
 
       - name: Upload Xcode logs
         if: failure()

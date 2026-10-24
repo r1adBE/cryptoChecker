@@ -37,10 +37,6 @@ internal data class WatchlistHeaderState(
     val notTradedCount: Int = 0,
     /** Suche offen: dann kein Hinweis in der leeren Chip-Zeile. */
     val searching: Boolean = false,
-    /** Paare in der Merkliste (alle Gruppen): der Gruppen-Hinweis erst ab [GROUPS_HINT_MIN_PAIRS]. */
-    val pairCount: Int = GROUPS_HINT_MIN_PAIRS,
-    /** Erster Gebrauch vorbei ([com.cryptochecker.app.domain.watch.WatchlistOnboarding]): erst dann der Gruppen-Hinweis. */
-    val groupsHintAllowed: Boolean = true,
 )
 
 /** Was die Kopfzeile auslöst (Chips, Glocke, Menü, Mehrfachauswahl, Sortiermodus). */
@@ -108,14 +104,4 @@ internal fun headerStateOf(
     canClear = state.watches.isNotEmpty(),
     notTradedCount = notTradedCount,
     searching = searching,
-    // Erster Gebrauch: Gruppen-Hinweis erst ab einigen Paaren (G-14)
-    pairCount = state.watches.size,
-    // Erster Bildschirm nur für Kurse und den ersten Alarm: Gruppen-Hinweis erst danach
-    groupsHintAllowed = state.onboarding.groupsHint,
 )
-
-/**
- * Ab so vielen Paaren lohnt sich Gruppieren: vorher bleibt die leere Chip-Zeile ohne Hinweis
- * (Gruppen oder Favoriten zeigen die Chips trotzdem). Wie `WatchlistGroupChips.hintMinPairs` (iOS).
- */
-internal const val GROUPS_HINT_MIN_PAIRS = 5

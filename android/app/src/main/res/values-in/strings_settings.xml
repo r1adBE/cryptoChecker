@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">Alarm tidak terpengaruh.</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” membandingkan dengan harga pembaruan sebelumnya. Dengan harga langsung, nilainya tetap mendekati 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">Tampilkan periode di samping perubahan</string>
-    <string name="settings_change_period_hint">“24h”, “hari ini”, atau “pembaruan terakhir” kecil di samping perubahan di baris ringkasan dan widget satu koin. Daftar pantau selalu menampilkannya; pembaca layar selalu menyebutkannya.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Mata uang konversi</string>

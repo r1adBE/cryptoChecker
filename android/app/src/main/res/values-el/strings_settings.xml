@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">Οι συναγερμοί δεν επηρεάζονται.</string>
     <string name="settings_change_basis_hint_since_last">Το «%1$s» συγκρίνει με την τιμή της προηγούμενης ενημέρωσης. Με ζωντανές τιμές παραμένει κοντά στο 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">Εμφάνιση περιόδου δίπλα στη μεταβολή</string>
-    <string name="settings_change_period_hint">Μικρό «24h», «σήμερα» ή «τελ. ενημέρωση» δίπλα στη μεταβολή στη γραμμή παλμού και στο widget ενός νομίσματος. Η λίστα παρακολούθησης το δείχνει πάντα· ο αναγνώστης οθόνης το λέει πάντα.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Νόμισμα μετατροπής</string>

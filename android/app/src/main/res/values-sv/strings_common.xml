@@ -5,6 +5,7 @@
     <string name="action_cancel">Avbryt</string>
     <string name="action_clear">Rensa</string>
     <string name="action_close">Stäng</string>
+    <string name="action_keep">Behåll</string>
     <string name="action_delete">Ta bort</string>
     <string name="action_edit">Redigera</string>
     <string name="action_more">Fler alternativ</string>

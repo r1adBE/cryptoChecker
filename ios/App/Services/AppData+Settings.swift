@@ -76,10 +76,6 @@ extension AppData {
                 await PortfolioWidgetStore.refresh()
             }
         }
-        if old.showChangePeriod != settings.showChangePeriod {
-            // Zeitraum neben der %-Änderung: Einzel-Widget gleich neu zeichnen (Live-Aktivität beim nächsten Kurs)
-            WidgetCenter.shared.reloadAllTimelines()
-        }
         if old.portfolioEnabled != settings.portfolioEnabled {
             // Abgelegtes Portfolio-Widget: Werte bzw. «Portfolio ist aus»
             WidgetCenter.shared.reloadTimelines(ofKind: PortfolioWidgetStore.kind)

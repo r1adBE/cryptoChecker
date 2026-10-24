@@ -132,4 +132,10 @@
         <item quantity="other">%1$d yeni, %2$d zaten izleme listesinde</item>
     </plurals>
     <string name="explorer_bulk_all_present">Hepsi zaten izleme listesinde</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">%1$d çift yeniden kaldırılsın mı?</item>
+        <item quantity="other">%1$d çift yeniden kaldırılsın mı?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Bu arada alarm kurduğun çiftler kalır.</string>
 </resources>

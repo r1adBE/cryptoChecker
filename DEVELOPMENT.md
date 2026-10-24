@@ -688,13 +688,15 @@ touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (opt
   iOS is not covered (Xcode output is not byte-reproducible).
 
 The *Android* workflow also shows, never failing: lint warnings counted by id (top 20, one notice;
-`.github/scripts/lint_warnings.py`) and unit-test line coverage (see below).
+`.github/scripts/lint_warnings.py`). Unit-test line coverage is shown and gated (see below).
 
-**Coverage (display only, no threshold yet).** Both platforms report line coverage of the unit tests as ONE notice on
-the run page, each with two numbers: *total* (every measured source file) and *logic* – the share that tests are
-expected to cover. A threshold follows once the logic numbers are stable.
+**Coverage (logic gate).** Both platforms report line coverage of the unit tests as ONE notice on the run page, each
+with two numbers: *total* (every measured source file) and *logic* – the share that tests are expected to cover. The
+*logic* number is a gate: below `MIN_LOGIC` (workflow env, set just under the first measured value – Android 58 %
+of 60.6 %, iOS 78 % of 80.0 % in build 121) or without a report the job is red. It stops regressions without forcing
+new work; raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without it they only display.)
 
-* *Android* (`android.yml`, step «Coverage (display only)», `continue-on-error`): Kover is applied only with
+* *Android* (`android.yml`, step «Coverage (logic gate)»): Kover is applied only with
   `-Pcoverage=true` (no new plugin or dependency; lock files and `verification-metadata.xml` already cover it), so the
   gate itself runs uninstrumented and this step re-runs the debug unit tests. `:app` merges `:marketdata` into its
   report (`kover(project(":marketdata"))` in `app/build.gradle.kts`): the exchange parsers run mostly in the contract
@@ -707,15 +709,16 @@ expected to cover. A threshold follows once the logic numbers are stable.
   `R`). ViewModels and other classes in `ui/` packages without `@Composable` count as logic. `--self-test` checks the
   classification and the merge. Locally: `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under
   `app/build/reports/kover/`; the summary needs the XML: `:app:koverXmlReportDebug :marketdata:koverXmlReportDebug`),
-  then in `android/`: `python3 ../.github/scripts/coverage_summary.py --merged app app=app marketdata=marketdata`.
+  then in `android/`: `python3 ../.github/scripts/coverage_summary.py --merged app --min-logic 58 app=app
+  marketdata=marketdata`.
 * *iOS* (`ios.yml`, job «iOS unit tests»): the unit-test run itself records coverage (`-enableCodeCoverage YES`,
-  result bundle `UnitTests.xcresult`; same run, only the flag). The step «Coverage (display only)»
-  (`continue-on-error`, every command `|| true`) reads `xcrun xccov view --report --json` with
+  result bundle `UnitTests.xcresult`; same run, only the flag). The step «Coverage (logic gate)»
+  (only after green unit tests) reads `xcrun xccov view --report --json` with
   `.github/scripts/xccov_summary.py` (`--self-test`). Test bundles are left out; a file compiled into app and widget
   extension counts once (best entry). *Logic* = files under `ios/Shared/` that define no SwiftUI view (no
   `some View`). Locally: run the tests in Xcode with coverage on (scheme › Test › Options › Code Coverage), then
   `xcrun xccov view --report --json <path to .xcresult> > /tmp/cov.json` and
-  `python3 .github/scripts/xccov_summary.py /tmp/cov.json`.
+  `python3 .github/scripts/xccov_summary.py --min-logic 78 /tmp/cov.json`.
 * Where logic is still uncovered, prefer a parity fixture (`testdata/parity/`, same cases on both platforms) over a
   single-platform test; network sources take an OkHttp `Interceptor` as fake provider (e.g. `FxRateSourceTest`).
 
@@ -2344,6 +2347,11 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 122: `CsvImportProgress` (throttled progress, cancellable insert; iOS `CsvImportBackground`, `CsvImportRun`,
+  `AppData+PortfolioImport`), `BulkAddProgress(text:)`, coverage gate `--min-logic` (`MIN_LOGIC` 58 / 78),
+  `PortfolioPerformanceTest` / `TaxPerformanceTest` (+ iOS), `PerformanceTiming.Sizes`, `exchange_errors_synthetic.json`
+  + `ExchangeErrorContractTest`, parity `quiet_hours.json` / `currency_conversion.json`, groups hint without
+  onboarding/minimum (`showsGroupsHint`), iOS `TaxEngineUk` binary search, `RateLimitSignal` UTF-16 length.
 * Build 121: Swift 6 language mode (`SWIFT_VERSION 6.0`, `ios/README.md` «Swift 6 Migration»), `WatchSearchIndex` /
   `rememberWatchSearchResult` (iOS `WatchlistSearchIndex`), `coverage_summary.py` «logic» + Kover merge of :marketdata,
   `xccov_summary.py`, `mutation_test.py` + `mutation.yml`, `indicators.json` parity, `rsi` period ≤ 0 → null (Android),

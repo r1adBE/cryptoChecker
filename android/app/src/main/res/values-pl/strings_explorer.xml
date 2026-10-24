@@ -154,4 +154,12 @@
         <item quantity="other">%1$d nowych, %2$d już w obserwowanych</item>
     </plurals>
     <string name="explorer_bulk_all_present">Wszystkie są już w obserwowanych</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Usunąć ponownie %1$d parę?</item>
+        <item quantity="few">Usunąć ponownie %1$d pary?</item>
+        <item quantity="many">Usunąć ponownie %1$d par?</item>
+        <item quantity="other">Usunąć ponownie %1$d par?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Pary, które w międzyczasie dostały alarm, zostaną.</string>
 </resources>

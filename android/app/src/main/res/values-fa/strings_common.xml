@@ -5,6 +5,7 @@
     <string name="action_cancel">لغو</string>
     <string name="action_clear">پاک کردن</string>
     <string name="action_close">بستن</string>
+    <string name="action_keep">نگه دار</string>
     <string name="action_delete">حذف</string>
     <string name="action_edit">ویرایش</string>
     <string name="action_more">گزینه‌های بیشتر</string>

@@ -227,12 +227,6 @@ class WatchlistViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.changeBasis)
 
-    /** Zeitraum («24h», «heute») neben der Änderung und Puls zeigen (Einstellungen › %-Änderung). */
-    val showChangePeriod: StateFlow<Boolean> = watchlistSettings
-        .map { it.showChangePeriod }
-        .distinctUntilChanged()
-        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.showChangePeriod)
-
     /** Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden. */
     val changeStamp: StateFlow<ChangeStamp?> get() = refresh.changeStamp
 

@@ -154,4 +154,12 @@
         <item quantity="other">%1$d nových, %2$d už ve sledovaných</item>
     </plurals>
     <string name="explorer_bulk_all_present">Všechny už jsou ve sledovaných</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="one">Znovu odebrat %1$d pár?</item>
+        <item quantity="few">Znovu odebrat %1$d páry?</item>
+        <item quantity="many">Znovu odebrat %1$d párů?</item>
+        <item quantity="other">Znovu odebrat %1$d párů?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Páry, které mezitím dostaly alarm, zůstanou.</string>
 </resources>

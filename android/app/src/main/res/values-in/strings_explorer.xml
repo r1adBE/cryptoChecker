@@ -121,4 +121,9 @@
         <item quantity="other">%1$d baru, %2$d sudah ada di daftar pantau</item>
     </plurals>
     <string name="explorer_bulk_all_present">Semua sudah ada di daftar pantau</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="other">Hapus lagi %1$d pasangan?</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">Pasangan yang sudah kamu pasangi alarm sementara itu tetap ada.</string>
 </resources>

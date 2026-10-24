@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Formátum: %1$s</string>
     <string name="portfolio_csv_import_line">%1$d. sor: %2$s</string>
     <string name="portfolio_csv_import_loading">Fájl és napi árfolyamok beolvasása…</string>
+    <string name="portfolio_csv_import_progress">%1$s. sor / %2$s</string>
+    <string name="portfolio_csv_import_saving">Tranzakciók mentése…</string>
     <string name="portfolio_csv_import_missing_fx">Nincs napi árfolyam ehhez a sorhoz: %1$s – ár és díj nélkül importálva.</string>
     <string name="portfolio_csv_import_missing_price">A fájlban nincs ár ehhez a sorhoz: %1$s – ár nélkül importálva.</string>
     <string name="portfolio_csv_import_more">+ még %1$d</string>

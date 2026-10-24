@@ -185,15 +185,28 @@ enum PerformanceData {
 /// `warmupRuns` Aufwärmläufe, dann der Median aus `measuredRuns` Läufen mit `ContinuousClock`; Eingaben je Lauf
 /// frisch und ungemessen (`setup`).
 ///
-/// Geprüft werden eine feste, grosszügige Obergrenze für `large` Paare (CI-Runner sind langsam und schwanken, die
-/// Tests laufen als Debug-Build ohne Optimierung) und die Skalierung gegenüber `small` Paaren — höchstens
+/// Geprüft werden eine feste, grosszügige Obergrenze für die grosse Menge (CI-Runner sind langsam und schwanken, die
+/// Tests laufen als Debug-Build ohne Optimierung) und die Skalierung gegenüber einem Viertel davon — höchstens
 /// `scaleFactor`-mal so lang plus `scaleSlackMillis`. Linear wäre das 4-Fache, n·log n knapp das 5-Fache,
-/// quadratisch das 16-Fache. Alle Werte stehen mit «[Performance]» im Testprotokoll. Wie `PerformanceTiming.kt`.
+/// quadratisch das 16-Fache. Grössen: `pairs` (Merkliste, Standard) oder `transactions` (Portfolio). Alle Werte stehen
+/// mit «[Performance]» im Testprotokoll. Wie `PerformanceTiming.kt`.
 enum PerformanceTiming {
     /// Obergrenze der Merkliste.
     static let large = WatchlistLimits.maxPairs
     /// Vergleichsgrösse für die Skalierung.
     static let small = WatchlistLimits.maxPairs / 4
+
+    /// Grössen einer Messung: `small` und `large` (ein Viertel bzw. das Ganze), im Protokoll als `unit`.
+    struct Sizes: Sendable {
+        let small: Int
+        let large: Int
+        let unit: String
+    }
+
+    /// Paare der Merkliste: `small` und `large`.
+    static let pairs = Sizes(small: WatchlistLimits.maxPairs / 4, large: WatchlistLimits.maxPairs, unit: "Paare")
+    /// Transaktionen im Portfolio: 10 000 (sehr grosses Portfolio) und ein Viertel davon.
+    static let transactions = Sizes(small: 2_500, large: 10_000, unit: "Transaktionen")
     static let warmupRuns = 2
     static let measuredRuns = 5
     static let scaleFactor = 5.0
@@ -225,31 +238,35 @@ enum PerformanceTiming {
         try medianMillis(setup: {}, { _ in try block() })
     }
 
-    /// Misst `measure` (Anzahl Paare → Median in ms) für `small` und `large` Paare, schreibt beide Werte ins
-    /// Testprotokoll und prüft `limitMillis` für `large` sowie die Skalierung.
-    static func assertScales(_ name: String, limitMillis: Double, file: StaticString = #filePath, line: UInt = #line,
+    /// Misst `measure` (Anzahl → Median in ms) für die kleine und die grosse Menge von `sizes`, schreibt beide Werte
+    /// ins Testprotokoll und prüft `limitMillis` für die grosse sowie die Skalierung.
+    static func assertScales(_ name: String, limitMillis: Double, sizes: Sizes = PerformanceTiming.pairs,
+                             file: StaticString = #filePath, line: UInt = #line,
                              _ measure: (Int) throws -> Double) rethrows {
-        let smallMillis = try measure(small)
-        let largeMillis = try measure(large)
+        let smallMillis = try measure(sizes.small)
+        let largeMillis = try measure(sizes.large)
         let scaleLimit = scaleFactor * smallMillis + scaleSlackMillis
-        report(name, smallMillis, largeMillis, limitMillis, scale: "Skalierung ≤ \(format(scaleLimit)) ms")
+        report(name, sizes, smallMillis, largeMillis, limitMillis, scale: "Skalierung ≤ \(format(scaleLimit)) ms")
         XCTAssertLessThanOrEqual(largeMillis, limitMillis,
-                                 "\(name): \(format(largeMillis)) ms für \(large) Paare", file: file, line: line)
+                                 "\(name): \(format(largeMillis)) ms für \(sizes.large) \(sizes.unit)",
+                                 file: file, line: line)
         XCTAssertLessThanOrEqual(largeMillis, scaleLimit,
-                                 "\(name): \(format(largeMillis)) ms für \(large) Paare gegenüber "
-                                     + "\(format(smallMillis)) ms für \(small) — wächst schneller als n·log n",
+                                 "\(name): \(format(largeMillis)) ms für \(sizes.large) \(sizes.unit) gegenüber "
+                                     + "\(format(smallMillis)) ms für \(sizes.small) — wächst schneller als n·log n",
                                  file: file, line: line)
     }
 
-    /// Nur die feste Grenze; das Verhältnis `large` zu `small` steht bloss im Protokoll. Für Abläufe, die
+    /// Nur die feste Grenze; das Verhältnis der grossen zur kleinen Menge steht bloss im Protokoll. Für Abläufe, die
     /// bekanntlich schneller als linear wachsen (im jeweiligen Test begründet).
-    static func assertLimitOnly(_ name: String, limitMillis: Double, file: StaticString = #filePath, line: UInt = #line,
+    static func assertLimitOnly(_ name: String, limitMillis: Double, sizes: Sizes = PerformanceTiming.pairs,
+                                file: StaticString = #filePath, line: UInt = #line,
                                 _ measure: (Int) throws -> Double) rethrows {
-        let smallMillis = try measure(small)
-        let largeMillis = try measure(large)
-        report(name, smallMillis, largeMillis, limitMillis, scale: "Skalierung nicht geprüft")
+        let smallMillis = try measure(sizes.small)
+        let largeMillis = try measure(sizes.large)
+        report(name, sizes, smallMillis, largeMillis, limitMillis, scale: "Skalierung nicht geprüft")
         XCTAssertLessThanOrEqual(largeMillis, limitMillis,
-                                 "\(name): \(format(largeMillis)) ms für \(large) Paare", file: file, line: line)
+                                 "\(name): \(format(largeMillis)) ms für \(sizes.large) \(sizes.unit)",
+                                 file: file, line: line)
     }
 
     /// Grösse (z. B. einer Sicherung) ins Testprotokoll.
@@ -258,12 +275,12 @@ enum PerformanceTiming {
               + "Grenze \(limitBytes) Bytes")
     }
 
-    private static func report(_ name: String, _ smallMillis: Double, _ largeMillis: Double, _ limitMillis: Double,
-                               scale: String) {
+    private static func report(_ name: String, _ sizes: Sizes, _ smallMillis: Double, _ largeMillis: Double,
+                               _ limitMillis: Double, scale: String) {
         let ratio = smallMillis > 0 ? largeMillis / smallMillis : .nan
-        print("[Performance] \(name): \(small) Paare \(format(smallMillis)) ms · \(large) Paare "
-              + "\(format(largeMillis)) ms (×\(String(format: "%.1f", ratio))) · Grenze \(format(limitMillis)) ms · "
-              + scale)
+        print("[Performance] \(name): \(sizes.small) \(sizes.unit) \(format(smallMillis)) ms · \(sizes.large) "
+              + "\(sizes.unit) \(format(largeMillis)) ms (×\(String(format: "%.1f", ratio))) · "
+              + "Grenze \(format(limitMillis)) ms · " + scale)
     }
 
     private static func millis(_ duration: Duration) -> Double {

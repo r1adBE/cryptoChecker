@@ -33,7 +33,6 @@
   "priceColorScheme": "TRADITIONAL",
   "watchlistSparkline": true,
   "watchlistNames": false,
-  "showChangePeriod": true,
   "appIconBadge": false,
   "watchlistActivityCard": false,
   "coinLogos": false,

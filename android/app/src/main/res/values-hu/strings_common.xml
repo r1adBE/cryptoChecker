@@ -5,6 +5,7 @@
     <string name="action_cancel">Mégse</string>
     <string name="action_clear">Törlés</string>
     <string name="action_close">Bezárás</string>
+    <string name="action_keep">Megtartás</string>
     <string name="action_delete">Törlés</string>
     <string name="action_edit">Szerkesztés</string>
     <string name="action_more">További lehetőségek</string>

@@ -238,7 +238,6 @@ class SettingsRepository @Inject constructor(
     /** Mini-Chart in der Merkliste. */
     override suspend fun setWatchlistSparkline(show: Boolean) = edit { it[SettingsKeys.watchlistSparkline] = show }
     override suspend fun setWatchlistNames(show: Boolean) = edit { it[SettingsKeys.watchlistNames] = show }
-    override suspend fun setShowChangePeriod(show: Boolean) = edit { it[SettingsKeys.showChangePeriod] = show }
     override suspend fun setAppIconBadge(show: Boolean) = edit { it[SettingsKeys.appIconBadge] = show }
 
     override suspend fun setWatchlistActivityCard(show: Boolean) = edit { it[SettingsKeys.watchlistActivityCard] = show }

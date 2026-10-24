@@ -121,4 +121,9 @@
         <item quantity="other">新增 %1$d 个，%2$d 个已在自选中</item>
     </plurals>
     <string name="explorer_bulk_all_present">已全部在自选中</string>
+    <!-- Rückfrage nach «Rückgängig» der Sammelaufnahme -->
+    <plurals name="bulk_undo_confirm_title">
+        <item quantity="other">再次移除 %1$d 个交易对？</item>
+    </plurals>
+    <string name="bulk_undo_confirm_text">在此期间你已设置提醒的交易对会保留。</string>
 </resources>

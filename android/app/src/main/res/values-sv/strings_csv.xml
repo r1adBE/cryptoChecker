@@ -25,6 +25,8 @@
     <string name="portfolio_csv_import_format">Format: %1$s</string>
     <string name="portfolio_csv_import_line">Rad %1$d: %2$s</string>
     <string name="portfolio_csv_import_loading">Läser fil och dagskurser…</string>
+    <string name="portfolio_csv_import_progress">Rad %1$s av %2$s</string>
+    <string name="portfolio_csv_import_saving">Sparar transaktioner…</string>
     <string name="portfolio_csv_import_missing_fx">Ingen dagskurs för rad %1$s – importerat utan pris och avgift.</string>
     <string name="portfolio_csv_import_missing_price">Inget pris i filen för rad %1$s – importerat utan pris.</string>
     <string name="portfolio_csv_import_more">+ %1$d till</string>

@@ -141,7 +141,10 @@ data class ChangeStamp(val basis: ChangeBasis, val dayStart: Long) {
 data class ChangeView(
     val basis: ChangeBasis = ChangeBasis.DEFAULT,
     val current: Boolean = true,
-    /** Zeitraum («24h», «heute», «letzter Stand») neben der Änderung, Puls und Einzel-Widget zeigen? Ab Werk aus. */
+    /**
+     * Zeitraum («24h», «heute», «letzter Stand») klein an der Änderung zeigen — überall ja; nein nur, wo er
+     * schon in der Zeile dahinter steht (Kopf des Aktionsblatts).
+     */
     val showPeriod: Boolean = true,
 ) {
 
@@ -163,8 +166,7 @@ data class ChangeView(
             basis: ChangeBasis,
             now: Long,
             zone: ZoneId = ZoneId.systemDefault(),
-            showPeriod: Boolean = true,
-        ): ChangeView = ChangeView(basis, ChangeBasisMath.isCurrent(stamp, basis, now, zone), showPeriod)
+        ): ChangeView = ChangeView(basis, ChangeBasisMath.isCurrent(stamp, basis, now, zone))
     }
 }
 

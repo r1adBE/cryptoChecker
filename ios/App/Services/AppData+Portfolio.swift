@@ -35,34 +35,8 @@ extension AppData {
     /// Umbuchungen (`linkedImportKey`: beide Seiten gelten als importiert) — wie `PortfolioRepository.importKeys`.
     var portfolioImportKeys: Set<String> { Self.importKeys(portfolio) }
 
-    private static func importKeys(_ txs: [PortfolioTx]) -> Set<String> {
+    nonisolated static func importKeys(_ txs: [PortfolioTx]) -> Set<String> {
         Set(txs.compactMap(\.importKey) + txs.compactMap(\.linkedImportKey))
-    }
-
-    /// Importierte Transaktionen in einem Schreibvorgang anlegen (gleiche Bereinigung wie von Hand); Zeilen, deren
-    /// Herkunftsschlüssel (`importKey` oder `linkedImportKey`) schon da ist, werden übersprungen — wie
-    /// `PortfolioRepository.insertImported`.
-    /// `batch` = Kennung des Importlaufs (`PortfolioImportBatch.newId`) für alle angelegten Transaktionen (nil = keine).
-    /// - Returns: Anzahl angelegter Transaktionen; nil = nicht geschrieben (der Import meldet den Fehler statt «0 importiert»).
-    @discardableResult
-    func insertImportedPortfolioTxs(_ list: [PortfolioTx], batch: String? = nil) -> Int? {
-        var file = currentPortfolioFile()
-        var known = Self.importKeys(file.transactions)
-        var count = 0
-        for tx in list {
-            let keys = [tx.importKey, tx.linkedImportKey].compactMap { $0 }
-            if keys.contains(where: { known.contains($0) }) { continue }
-            known.formUnion(keys)
-            var item = tx
-            item.id = 0
-            if let batch { item.importBatch = batch }
-            guard let clean = Self.cleanedPortfolioTx(item) else { continue }
-            PortfolioStore.insert(clean, into: &file)
-            count += 1
-        }
-        guard count > 0 else { return 0 }
-        guard setPortfolioFile(file) else { return nil }
-        return count
     }
 
     /// CSV-Importläufe mit Anzahl, Zeit und Format, neueste zuerst — wie `PortfolioRepository.importBatches`.
@@ -132,8 +106,9 @@ extension AppData {
         return touched
     }
 
-    /// Bereinigt wie `PortfolioRepository.save`; ungültig (ohne Coin, Menge ≤ 0) = nil.
-    private static func cleanedPortfolioTx(_ tx: PortfolioTx) -> PortfolioTx? {
+    /// Bereinigt wie `PortfolioRepository.save`; ungültig (ohne Coin, Menge ≤ 0) = nil. Rein (auch im Hintergrund,
+    /// `withImported`).
+    nonisolated static func cleanedPortfolioTx(_ tx: PortfolioTx) -> PortfolioTx? {
         var clean = tx
         clean.coin = PortfolioCalculator.normalizeCoin(tx.coin)
         clean.note = tx.note.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.flatMap { $0.isEmpty ? nil : $0 }

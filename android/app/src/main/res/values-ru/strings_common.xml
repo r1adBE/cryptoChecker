@@ -5,6 +5,7 @@
     <string name="action_cancel">Отмена</string>
     <string name="action_clear">Очистить</string>
     <string name="action_close">Закрыть</string>
+    <string name="action_keep">Оставить</string>
     <string name="action_delete">Удалить</string>
     <string name="action_edit">Изменить</string>
     <string name="action_more">Другие действия</string>

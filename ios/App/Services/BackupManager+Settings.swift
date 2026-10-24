@@ -66,7 +66,6 @@ extension BackupManager {
             "priceColorScheme": s.priceColorScheme.rawValue,
             "watchlistSparkline": s.watchlistSparkline,
             "watchlistNames": s.watchlistNames,
-            "showChangePeriod": s.showChangePeriod,
             "appIconBadge": s.appIconBadge,
             "watchlistActivityCard": s.watchlistActivityCard,
             "coinLogos": s.coinLogos,
@@ -159,7 +158,8 @@ extension BackupManager {
         if let v = bool(o, "watchlistSparkline") { s.watchlistSparkline = v }
         // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus) — wie Android
         s.watchlistNames = bool(o, "watchlistNames") ?? AppSettings.legacyWatchlistNames
-        if let v = bool(o, "showChangePeriod") { s.showChangePeriod = v }
+        // «showChangePeriod» (früherer Schalter «Zeitraum neben der Änderung») in älteren Sicherungen wird
+        // übergangen — der Zeitraum steht immer da (wie Android)
         if let v = bool(o, "appIconBadge") { s.appIconBadge = v }
         if let v = bool(o, "watchlistActivityCard") { s.watchlistActivityCard = v }
         if let v = bool(o, "coinLogos") { s.coinLogos = v }

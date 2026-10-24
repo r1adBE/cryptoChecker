@@ -120,9 +120,6 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         // Alle Zonen in einem Text: «UTC+8» findet die Seite einmal, nicht 27 fast gleiche Treffer
         ChangeBasis.entries.filter { it.kind == ChangeBasis.Kind.UTC_DAY }
             .joinToString(" ") { ChangeBasisText.zoneChoice(it) })
-    add("change.period", stringResource(R.string.settings_change_period), changeBasis,
-        SettingsSearchTarget.Page(SettingsPage.CHANGE_BASIS, "change.period"),
-        stringResource(R.string.settings_change_period_hint))
     val logos = stringResource(R.string.settings_coin_logos)
     addPage(SettingsPage.COIN_LOGOS, logos,
         stringResource(R.string.settings_coin_logos_footer), "CoinGecko")

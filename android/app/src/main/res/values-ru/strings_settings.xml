@@ -141,8 +141,6 @@
     <string name="settings_change_basis_hint_3">На оповещения это не влияет.</string>
     <string name="settings_change_basis_hint_since_last">«%1$s» сравнивает с ценой предыдущего обновления. При ценах в реальном времени значение остаётся около 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">Показывать период рядом с изменением</string>
-    <string name="settings_change_period_hint">Мелко «24ч», «сегодня» или «посл. обновление» рядом с изменением в строке пульса и в виджете одной монеты. Список наблюдения показывает его всегда; экранный диктор называет его всегда.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Валюта пересчёта</string>

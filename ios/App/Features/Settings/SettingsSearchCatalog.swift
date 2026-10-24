@@ -87,8 +87,6 @@ enum SettingsSearchCatalog {
             [L("settings_change_basis_hint_1"), L("change_basis_rolling"), L("change_basis_since_last"), L("change_basis_device", "UTC"),
              // Alle Zonen in einem Text: «UTC+8» findet die Seite einmal, nicht 27 fast gleiche Treffer
              ChangeBasis.allCases.filter { $0.kind == .utcDay }.map { A11y.changeZoneChoice($0) }.joined(separator: " ")])
-        add("change.period", L("settings_change_period"), changeBasis, .page(.changeBasis, anchor: "change.period"),
-            [L("settings_change_period_hint")])
         let logos = L("settings_coin_logos")
         addPage("page.coin_logos", .coinLogos, logos,
             [L("settings_coin_logos_footer"), "CoinGecko"])
