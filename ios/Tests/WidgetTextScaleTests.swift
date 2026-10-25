@@ -46,37 +46,39 @@ final class WidgetTextScaleTests: XCTestCase {
         return CGFloat(renderer.cgImage?.height ?? 0)
     }
 
-    private func bars() -> some View {
-        WidgetPrimaryFit(in: .vertical) { scale in
+    /// `dynamic` = Faktor, den `@ScaledMetric` bei der jeweiligen Grösse liefert (fest vorgegeben, siehe
+    /// `WidgetPrimaryFit.fixedScale`): Standard 1, «xxxLarge» ≈ 1.35, «accessibility5» ≈ 3.
+    private func bars(_ dynamic: CGFloat) -> some View {
+        WidgetPrimaryFit(in: .vertical, fixedScale: dynamic) { scale in
             Color.black.frame(width: 10, height: 20 * scale)
         }
     }
 
     func testGrowsAtLargeTextWhenThereIsRoom() {
         // Bild in ganzen Punkten: ± 1 für Rundung
-        XCTAssertEqual(renderedHeight(.large, height: 100) { bars() }, 20, accuracy: 1)
-        XCTAssertEqual(renderedHeight(.xxxLarge, height: 100) { bars() }, 26, accuracy: 1)
-        XCTAssertEqual(renderedHeight(.accessibility5, height: 100) { bars() }, 26, accuracy: 1, "Obergrenze 1.3 ×")
+        XCTAssertEqual(renderedHeight(.large, height: 100) { bars(1) }, 20, accuracy: 1)
+        XCTAssertEqual(renderedHeight(.xxxLarge, height: 100) { bars(1.35) }, 26, accuracy: 1)
+        XCTAssertEqual(renderedHeight(.accessibility5, height: 100) { bars(3) }, 26, accuracy: 1, "Obergrenze 1.3 ×")
     }
 
     func testFallsBackToBaseWhenTooTight() {
-        XCTAssertEqual(renderedHeight(.xxxLarge, height: 22) { bars() }, 20, accuracy: 1)
+        XCTAssertEqual(renderedHeight(.xxxLarge, height: 22) { bars(1.35) }, 20, accuracy: 1)
     }
 
     /// Zeile wie in der Merkliste (Name/Börse links, Kurs/Veränderung rechts): Bei «xxxLarge» bleibt die Zeile in
     /// jeder Höhe ab der Grundgrösse innerhalb der Höhe — gewachsen, wo es passt, sonst in Grundgrösse.
     func testWatchRowNeverOverflows() {
-        let base = renderedHeight(.large, height: 500) { row() }
-        let grown = renderedHeight(.xxxLarge, height: 500) { row() }
+        let base = renderedHeight(.large, height: 500) { row(1) }
+        let grown = renderedHeight(.xxxLarge, height: 500) { row(1.35) }
         XCTAssertGreaterThan(grown, base, "Haupttexte wachsen bei grosser Schrift")
         for height in stride(from: base, through: grown + 8, by: 2) {
-            let shown = renderedHeight(.xxxLarge, height: height) { row() }
+            let shown = renderedHeight(.xxxLarge, height: height) { row(1.35) }
             XCTAssertLessThanOrEqual(shown, height + 1, "Überlauf bei Zeilenhöhe \(height)")
         }
     }
 
-    private func row() -> some View {
-        WidgetPrimaryFit(in: .vertical) { scale in
+    private func row(_ dynamic: CGFloat) -> some View {
+        WidgetPrimaryFit(in: .vertical, fixedScale: dynamic) { scale in
             HStack(spacing: 8) {
                 VStack(alignment: .leading, spacing: 1) {
                     Text(verbatim: "BTC/USDT").font(.system(size: 14 * scale, weight: .bold)).lineLimit(1)

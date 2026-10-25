@@ -42,15 +42,20 @@ enum WidgetTextSize {
 struct WidgetPrimaryFit<Content: View>: View {
     let axes: Axis.Set
     @ViewBuilder let content: (CGFloat) -> Content
+    /// Nur Tests: fester Faktor statt Dynamic Type (`@ScaledMetric` folgt beim Rendern mit `ImageRenderer` nicht
+    /// `.dynamicTypeSize`).
+    let fixedScale: CGFloat?
     @ScaledMetric(relativeTo: .body) private var scale: CGFloat = 1
 
-    init(in axes: Axis.Set = .vertical, @ViewBuilder content: @escaping (CGFloat) -> Content) {
+    init(in axes: Axis.Set = .vertical, fixedScale: CGFloat? = nil,
+         @ViewBuilder content: @escaping (CGFloat) -> Content) {
         self.axes = axes
+        self.fixedScale = fixedScale
         self.content = content
     }
 
     var body: some View {
-        let grown = WidgetTextSize.primaryScale(scale)
+        let grown = WidgetTextSize.primaryScale(fixedScale ?? scale)
         if grown > 1 {
             ViewThatFits(in: axes) {
                 content(grown)
