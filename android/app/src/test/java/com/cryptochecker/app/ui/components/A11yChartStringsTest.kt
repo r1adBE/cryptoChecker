@@ -31,7 +31,7 @@ class A11yChartStringsTest {
             }
             val twoSeries = Regex("""<string name="a11y_chart_two_series">([^<]+)</string>""")
                 .find(text)!!.groupValues[1]
-            val order = Regex("""%(\d)\$s""").findAll(twoSeries).map { it.groupValues[1] }.toList()
+            val order = Regex("%(\\d)\\\$s").findAll(twoSeries).map { it.groupValues[1] }.toList()
             assertEquals("a11y_chart_two_series in ${file.parentFile.name}", listOf("1", "2", "3", "4"), order)
         }
     }
