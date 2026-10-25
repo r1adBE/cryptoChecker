@@ -109,7 +109,9 @@ final class LaunchSnapshotPerformanceTests: XCTestCase {
         let limit = LaunchSnapshotPerformanceTests.limitMillis
         T.assertScales("Lesen beim Start (Verschlüsselung + Merkliste)", limitMillis: limit, sizes: T.pairs) { n in
             guard let fixture = ready[n] else { return .infinity }
-            return T.medianMillis(warmup: T.quickWarmupRuns, runs: T.quickMeasuredRuns) {
+            // Volle Zahl der Läufe: Datei-Zugriffe und Entschlüsseln streuen im Debug-Lauf mit Abdeckung stärker
+            // (Build 130: einmal ×6.1 bei 3 Läufen, Release ×3.8)
+            return T.medianMillis(warmup: T.warmupRuns, runs: T.measuredRuns) {
                 fixture.launchRead().snapshot?.alarms.count ?? 0
             }
         }
