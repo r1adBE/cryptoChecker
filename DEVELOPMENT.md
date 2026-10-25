@@ -2479,6 +2479,8 @@ after the encryption step.
   frozen, so the chronometer never counts below zero; the alarm (now waking, allow-while-idle) stays as fallback.
   iOS audit waits 1.5 s before each audit and first closes the watchlist storage notice (always shown in the unsigned
   simulator; the audit reported «Contrast failed» for it and the starter title beneath, although the text has ~13:1).
+  Contrast findings for text reaching under the translucent tab bar or out of the window (largest text, Arabic) are
+  only logged. Portfolio empty state: «Import its file» and the address link get a 44 pt tap height (same look).
   `check_theme_contrast.py` (CI, reads the colour sources). CI: `swift_escape_hatches.py`, `code_metrics.py`,
   `user_agent_check.py`, `RoomSchemaRulesTest`, signed macro calendar (`macro_events.json` in the manifest),
   provenance attestation on tags, PGP keyring via supply-chain-update, fastlane `store_build`. iOS coverage gate on

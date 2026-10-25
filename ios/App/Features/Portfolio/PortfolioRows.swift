@@ -75,14 +75,20 @@ extension PortfolioScreen {
                     action: { sheet = PortfolioTxDraft() }
                 )
                 // Nebenweg: Datei einer Börse übernehmen (CSV-Import)
-                Button(L("portfolio_empty_csv")) { csvPickerOpen = true }
+                // Tippfläche mindestens 44 pt hoch (HIG, Audit «Hit area»); der Abstand darunter um die zusätzliche Höhe
+                // kleiner, damit es gleich aussieht
+                Button { csvPickerOpen = true } label: {
+                    Text(L("portfolio_empty_csv")).frame(minHeight: 44).contentShape(Rectangle())
+                }
                     .accessibilityIdentifier(UiTestTags.portfolioImportCsv)
                     .font(.subheadline.weight(.semibold))
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 4)
                 // Nebenweg: öffentliche Adresse nur beobachten (Bestand ohne Kaufpreis)
-                Button(L("portfolio_empty_address")) { addressesOpen = true }
+                Button { addressesOpen = true } label: {
+                    Text(L("portfolio_empty_address")).frame(minHeight: 44).contentShape(Rectangle())
+                }
                     .font(.subheadline.weight(.semibold))
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 4)
                 PortfolioDisclaimer()
             }
             .padding(.top, 48)
