@@ -15,19 +15,23 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -320,18 +324,28 @@ internal fun AddPairButton(
     labelled: Boolean = true,
 ) {
     val label = stringResource(R.string.shortcut_add)
+    // Druck-Rückmeldung nur auf der sichtbaren Pille, nicht auf der grösseren Tippfläche
+    val interaction = remember { MutableInteractionSource() }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
         modifier = modifier
-            // Tippfläche mindestens 48 dp, sichtbar bleibt die 34-dp-Pille (wie Material-Knöpfe)
-            .minimumInteractiveComponentSize()
+            // Tippfläche (antippbarer Knoten) mindestens 48 × 48 dp, darin mittig die sichtbare 34-dp-Pille
+            .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
+            .testTag(UiTestTags.WATCHLIST_ADD_PAIR)
+            .clickable(
+                interactionSource = interaction,
+                indication = null,
+                onClickLabel = label,
+                role = Role.Button,
+                onClick = onClick
+            )
+            .wrapContentSize()
             .heightIn(min = SearchRowHeight)
             .then(if (labelled) Modifier else Modifier.size(SearchRowHeight))
             .clip(RoundedCornerShape(50))
             .background(MaterialTheme.colorScheme.primary)
-            .testTag(UiTestTags.WATCHLIST_ADD_PAIR)
-            .clickable(onClickLabel = label, role = Role.Button, onClick = onClick)
+            .indication(interaction, LocalIndication.current)
             .padding(horizontal = if (labelled) 12.dp else 0.dp)
     ) {
         Icon(

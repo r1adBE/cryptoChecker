@@ -71,15 +71,17 @@ internal fun WatchlistStatusPill(
 ) {
     val retrySeconds = rememberRetrySeconds(retryAt)
     val clickLabel = stringResource(if (staleOnly) R.string.watchlist_show_all else R.string.watchlist_show_only_stale)
+    // Druck-Rückmeldung nur auf der sichtbaren Pille, nicht auf der höheren Tippfläche
+    val interaction = remember { MutableInteractionSource() }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .clip(RoundedCornerShape(50))
             .then(
-                if (onClick != null) Modifier.clickable(onClickLabel = clickLabel, role = Role.Button, onClick = onClick)
-                else Modifier
+                if (onClick != null) Modifier.pillTouchArea(interaction, clickLabel, onClick) else Modifier
             )
+            .clip(RoundedCornerShape(50))
             .background(tone.copy(alpha = 0.12f))
+            .then(if (onClick != null) Modifier.indication(interaction, LocalIndication.current) else Modifier)
             .animateContentSize(if (reduceMotion) snap() else tween(STATUS_FADE_MILLIS))
             .padding(horizontal = 12.dp, vertical = Spacing.sm)
     ) {
@@ -173,6 +175,35 @@ internal fun WatchlistStatusPill(
         }
     }
 }
+
+/**
+ * Tippfläche der Status-Pille 48 dp hoch (wie «N deaktiviert»): je [STATUS_TOUCH_EXTRA] über und unter der
+ * Pille; nach aussen meldet sie nur die Pillen-Höhe, die Statuszeile wächst nicht. Ohne eigene
+ * Druck-Rückmeldung — die zeichnet die Pille selbst ([indication] mit [interaction]).
+ */
+private fun Modifier.pillTouchArea(
+    interaction: MutableInteractionSource,
+    clickLabel: String,
+    onClick: () -> Unit,
+): Modifier = this
+    .layout { measurable, constraints ->
+        val extra = STATUS_TOUCH_EXTRA.roundToPx()
+        val placeable = measurable.measure(constraints.offset(vertical = 2 * extra))
+        layout(placeable.width, (placeable.height - 2 * extra).coerceAtLeast(0)) {
+            placeable.placeRelative(0, -extra)
+        }
+    }
+    .clickable(
+        interactionSource = interaction,
+        indication = null,
+        onClickLabel = clickLabel,
+        role = Role.Button,
+        onClick = onClick
+    )
+    .padding(vertical = STATUS_TOUCH_EXTRA)
+
+/** Tippfläche über und unter der Status-Pille: 32 + 2 × 8 = 48 dp. */
+private val STATUS_TOUCH_EXTRA = 8.dp
 
 /**
  * Erste der [variants], die einzeilig in die Breite passt; passt keine, die letzte (mit «…»).

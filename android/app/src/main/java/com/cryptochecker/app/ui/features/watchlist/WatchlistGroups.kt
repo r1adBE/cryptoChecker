@@ -8,18 +8,22 @@ package com.cryptochecker.app.ui.features.watchlist
 import androidx.compose.foundation.layout.heightIn
 import com.cryptochecker.app.ui.navigation.cappedTabSize
 import com.cryptochecker.app.ui.theme.ChipShape
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -189,16 +193,20 @@ internal fun GroupChips(
             )
         }
         if (groups.isNotEmpty()) item(key = "add") {
+            // Druck-Rückmeldung nur auf dem sichtbaren Feld, nicht auf der grösseren Tippfläche
+            val addInteraction = remember { MutableInteractionSource() }
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    // Tippfläche 48 dp, sichtbar bleibt das kleine Feld
-                    .minimumInteractiveComponentSize()
+                    // Tippfläche (antippbarer Knoten) 48 × 48 dp, darin mittig das kleine Feld
+                    .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
+                    .clickable(interactionSource = addInteraction, indication = null, onClick = onAdd)
+                    .wrapContentSize()
                     .size(32.dp)
                     .clip(ChipShape)
                     // Rand ist die einzige Kontur: outline (≥ 3:1, WCAG 1.4.11) statt outlineVariant (≈ 2:1)
                     .border(1.dp, MaterialTheme.colorScheme.outline, ChipShape)
-                    .clickable(onClick = onAdd)
+                    .indication(addInteraction, LocalIndication.current)
             ) {
                 Icon(
                     painterResource(R.drawable.ic_add),
@@ -248,12 +256,24 @@ private fun GroupChip(
     val longClickLabel = stringResource(R.string.group_edit_title)
     val accent = MaterialTheme.colorScheme.primary
     val chipSelected = selected
+    val interaction = remember { MutableInteractionSource() }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            // Tippfläche 48 dp hoch, sichtbar bleibt der Chip mit mindestens 32 dp — bei grosser Schrift
-            // wächst er mit, statt den Text abzuschneiden
-            .minimumInteractiveComponentSize()
+            // Tippfläche (antippbarer Knoten) mindestens 48 × 48 dp, darin mittig der sichtbare Chip mit
+            // mindestens 32 dp Höhe — bei grosser Schrift wächst er mit, statt den Text abzuschneiden
+            .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
+            // Screenreader: «Gruppe bearbeiten» als benannte Aktion des langen Drückens
+            .combinedClickable(
+                interactionSource = interaction,
+                indication = null,
+                role = Role.Tab,
+                onClick = onClick,
+                onLongClick = onLongClick,
+                onLongClickLabel = if (onLongClick != null) longClickLabel else null,
+            )
+            .semantics { this.selected = chipSelected }
+            .wrapContentSize()
             .heightIn(min = 32.dp)
             .clip(shape)
             .border(
@@ -262,14 +282,8 @@ private fun GroupChip(
                 if (selected) accent else MaterialTheme.colorScheme.outline,
                 shape
             )
-            // Screenreader: «Gruppe bearbeiten» als benannte Aktion des langen Drückens
-            .combinedClickable(
-                role = Role.Tab,
-                onClick = onClick,
-                onLongClick = onLongClick,
-                onLongClickLabel = if (onLongClick != null) longClickLabel else null,
-            )
-            .semantics { this.selected = chipSelected }
+            // Druck-Rückmeldung nur auf dem sichtbaren Chip, nicht auf der grösseren Tippfläche
+            .indication(interaction, LocalIndication.current)
             .padding(horizontal = if (icon != null || kind != null) 12.dp else 16.dp)
     ) {
         val contentColor = if (selected) accent else MaterialTheme.colorScheme.onSurface

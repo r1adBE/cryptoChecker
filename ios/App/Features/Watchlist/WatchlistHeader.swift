@@ -110,9 +110,14 @@ extension WatchlistScreen {
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .lineLimit(1)
                 .truncationMode(.tail)
-            Button(L("group_add")) {
+            Button {
                 newGroupName = ""
                 askNewGroup = true
+            } label: {
+                // Tippfläche 44 pt hoch (Höhe der Kopfzeile), sichtbar bleibt der Text
+                Text(L("group_add"))
+                    .frame(minHeight: Self.headerHeight)
+                    .contentShape(Rectangle())
             }
             .font(.subheadline.weight(.semibold))
             .tint(accent.primary)
