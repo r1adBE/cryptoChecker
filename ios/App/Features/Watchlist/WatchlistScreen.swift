@@ -117,6 +117,16 @@ struct WatchlistScreen: View {
     var sorting: Bool { editMode.isEditing }
 
     var body: some View {
+        // Stand beim Start noch nicht gelesen (AppData+SnapshotLoad.swift): Platzhalter-Zeilen, ohne den Stand
+        // anzufassen — ein Zugriff läse ihn sonst hier sofort auf dem Haupt-Thread
+        if data.snapshotLoaded {
+            loadedBody
+        } else {
+            WatchlistLoadingRows()
+        }
+    }
+
+    private var loadedBody: some View {
         // %-Basis für Änderungen, Puls und Aktionsblatt; passt der Stempel der gespeicherten Werte nicht
         // (Basis gewechselt, neuer Tag — die 30-s-Uhr prüft das), «—» bis neu gerechnet ist
         let changeView = data.changeView(now: now)

@@ -102,7 +102,7 @@ struct AlarmLogScreen: View {
                     EmptyStateView(systemImage: "list.bullet.rectangle",
                                    title: L("alarm_log_empty_title"),
                                    message: L("alarm_log_empty_message"))
-                        .containerRelativeFrame(.vertical, alignment: .center)
+                        .emptyStateFrame()
                 }
             } else {
                 ScrollView {

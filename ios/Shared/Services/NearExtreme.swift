@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Alarm «Nahe am Hoch / Tief» — wie `NearExtreme.kt`: Abstand des aktuellen Kurses
 /// zum Hoch bzw. Tief der letzten 30 / 90 / 365 Tage (Tageskerzen).
@@ -192,10 +193,13 @@ enum NearExtremeDataSource {
     /// 2: mit letztem Schluss und Anbieter (ältere Dateien werden neu geladen).
     private static let formatVersion = 2
     private static let missingMillis: Int64 = 60 * 60_000
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var memory: [String: NearExtremeRanges] = [:]
-    nonisolated(unsafe) private static var missing: [String: Int64] = [:]
+    /// Spannen im Speicher und Paare ohne Daten (Zeitpunkt), zusammen hinter einer Sperre.
+    private struct Memory: Sendable {
+        var ranges: [String: NearExtremeRanges] = [:]
+        var missing: [String: Int64] = [:]
+    }
+
+    private static let memory = OSAllocatedUnfairLock(initialState: Memory())
 
     private struct Entry: Codable {
         let version: Int
@@ -268,27 +272,25 @@ enum NearExtremeDataSource {
     }
 
     private static func fromMemory(_ key: String, now: Int64) -> NearExtremeRanges? {
-        lock.lock(); defer { lock.unlock() }
-        guard let hit = memory[key], fresh(hit.savedAt, now: now) else { return nil }
+        guard let hit = memory.withLock({ $0.ranges[key] }), fresh(hit.savedAt, now: now) else { return nil }
         return hit
     }
 
     private static func remember(_ key: String, _ value: NearExtremeRanges) {
-        lock.lock(); defer { lock.unlock() }
-        memory[key] = value
-        missing[key] = nil
+        memory.withLock {
+            $0.ranges[key] = value
+            $0.missing[key] = nil
+        }
     }
 
     private static func isMissing(_ key: String, now: Int64) -> Bool {
-        lock.lock(); defer { lock.unlock() }
-        guard let at = missing[key] else { return false }
+        guard let at = memory.withLock({ $0.missing[key] }) else { return false }
         let age = now - at
         return age >= 0 && age < missingMillis
     }
 
     private static func markMissing(_ key: String, now: Int64) {
-        lock.lock(); defer { lock.unlock() }
-        missing[key] = now
+        memory.withLock { $0.missing[key] = now }
     }
 
     // MARK: Datei

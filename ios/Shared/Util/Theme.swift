@@ -250,9 +250,10 @@ enum ColorTokens {
     /// Trennlinien: hell #ADA9A0 ≈ 2.2:1 auf #FBF9F6 (vorher #C9C6BF 1.6:1) — wie Android.
     static let outlineVariant = Pair(light: 0xADA9A0, dark: 0x474747)
     /// Fehler in Hell und Dunkel warmes Orange-Rot statt Material-Rot/-Rosa — wie Android `ErrorColors.kt`.
-    /// Hell #B8361A: 5.58:1 auf #FBF9F6, 4.53:1 auf #E5E2DB, Weiss darauf 5.86:1; dunkel #FF5833: 5.9:1 auf #131313.
-    /// Hoher Kontrast lässt sie unverändert (wie Android). Fehlerflächen: `error` mit geringer Deckkraft.
-    static let error = Pair(light: 0xB8361A, dark: 0xFF5833)
+    /// Hell #B13419: 5.92:1 auf #FBF9F6, 4.81:1 auf #E5E2DB, Weiss darauf 6.22:1, auf der eigenen Fehlerfläche
+    /// (`error` · 0.12 über #F1EEE9) 4.5:1; dunkel #FF5833: 5.9:1 auf #131313.
+    /// Hoher Kontrast lässt sie unverändert (wie Android). Fehlerflächen: `error` mit geringer Deckkraft (≤ 0.12).
+    static let error = Pair(light: 0xB13419, dark: 0xFF5833)
     /// Tiefere Fläche im Widget (unter der Grundfläche `surfaceContainer`).
     static let widgetSurfaceDeep = Pair(light: 0xE7E4DD, dark: 0x151515)
     /// «Unverändert» im Widget (`WidgetPalette.neutral`): hell #5F5F5F statt `outline` #777777

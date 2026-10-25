@@ -16,6 +16,20 @@ final class AddressPrivacyParityTests: XCTestCase {
         }
     }
 
+    /// Weder App-Name noch App-Version (Beispiele und Version dieser App), wie Android.
+    func testNeutralerUserAgentOhneAppNameUndVersion() throws {
+        let fixture = try S.fixture("address_privacy")
+        var versions = try XCTUnwrap(fixture["appVersionSamples"] as? [String])
+        let ownVersion = HttpUserAgent.value.split(separator: "/").last.map(String.init) ?? ""
+        XCTAssertFalse(ownVersion.isEmpty)
+        versions.append(ownVersion)
+        for version in versions {
+            let appAgent = HttpUserAgent.ios(version)
+            XCTAssertNil(HttpUserAgent.neutral.range(of: appAgent, options: .caseInsensitive), appAgent)
+            XCTAssertFalse(HttpUserAgent.neutral.contains(version), "Version \(version) im User-Agent")
+        }
+    }
+
     /// Host → User-Agent wie Android.
     func testHostRegelWieGemeinsameFaelle() throws {
         let fixture = try S.fixture("address_privacy")

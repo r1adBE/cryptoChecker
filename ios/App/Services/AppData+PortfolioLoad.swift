@@ -89,13 +89,17 @@ extension AppData {
     var portfolioUnreadable: Bool { portfolioState.loaded && !portfolioState.intact }
 
     /// Noch nicht gelesen: jetzt sofort lesen (Hauptfaden, wie bisher beim Start). Ohne Veröffentlichung — vorher konnte
-    /// niemand einen anderen Stand sehen (jeder Zugriff kommt hier vorbei).
+    /// niemand einen anderen Stand sehen (jeder Zugriff kommt hier vorbei). Zuerst das Lesen beim Start (es verschlüsselt
+    /// die Dateien vor dem ersten Lesen, `LaunchRead`).
     func ensurePortfolioLoaded() {
+        guard !portfolioState.loaded else { return }
+        ensureSnapshotLoaded()
         guard !portfolioState.loaded else { return }
         adoptPortfolioRead(PortfolioRead.read())
     }
 
-    /// Beim Start: `portfolio.json` abseits des Hauptfadens lesen und übernehmen, falls bis dahin niemand zugegriffen hat.
+    /// Nach dem Lesen beim Start (`finishLaunchLoad`): `portfolio.json` abseits des Hauptfadens lesen und übernehmen,
+    /// falls bis dahin niemand zugegriffen hat.
     func startPortfolioPrefetch() {
         Task { [weak self] in
             let read = await Task.detached(priority: .userInitiated) { PortfolioRead.read() }.value

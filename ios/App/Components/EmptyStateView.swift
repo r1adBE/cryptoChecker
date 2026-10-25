@@ -46,16 +46,15 @@ struct EmptyStateView: View {
                 .foregroundStyle(accent.primary)
                 .padding(Spacing.xl)
                 .background(colorScheme == .dark ? accent.tint(0.3) : accent.container.opacity(0.5), in: Circle())
+                // Nur Schmuck: der Titel sagt, worum es geht (wie Android `contentDescription = null`)
+                .accessibilityHidden(true)
             Text(title)
                 .font(.title3.weight(.semibold))
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader)
-            if let message {
-                Text(message).font(.subheadline).foregroundStyle(AppColors.onSurfaceVariant).multilineTextAlignment(.center)
-            }
-            if let example {
-                Text(example).font(.subheadline).foregroundStyle(AppColors.onSurfaceVariant).multilineTextAlignment(.center)
-            }
+            if let message { secondary(message) }
+            if let example { secondary(example) }
             if let actionTitle, let action {
                 Button(action: action) {
                     Text(actionTitle).font(.headline).padding(.horizontal, Spacing.xl).padding(.vertical, 12)
@@ -67,9 +66,27 @@ struct EmptyStateView: View {
         .padding(32)
         .frame(maxWidth: .infinity)
     }
+
+    /// Text und Beispiel: Nebentext, mehrzeilig in voller Höhe.
+    private func secondary(_ text: String) -> some View {
+        Text(text)
+            .font(.subheadline)
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+    }
 }
 
 extension View {
+    /// Leerer Zustand in einer `ScrollView`: mindestens so hoch wie der sichtbare Bereich und darin mittig; braucht der
+    /// Inhalt (grosse Schrift) mehr Platz, wird er höher und scrollt, statt abgeschnitten zu werden.
+    func emptyStateFrame() -> some View {
+        ZStack {
+            Color.clear.containerRelativeFrame(.vertical)
+            self
+        }
+    }
+
     /// Large Content Viewer für Bedienelemente nur mit Symbol bzw. mit bei `.xxxLarge` gedeckelter
     /// Grösse (Tableiste, Glocke, Menü, «+»): bei Bedienungshilfen-Schriftgrössen zeigt langes Drücken
     /// Symbol und Namen gross — der HIG-Ersatz dafür, dass solche Elemente nicht unbegrenzt mitwachsen

@@ -109,7 +109,7 @@ struct WatchGroupEditSheet: View {
             }
             .safeAreaInset(edge: .bottom) { footer }
             .alert(L("group_rename"), isPresented: $renaming) {
-                TextField(L("group_name"), text: $renameText)
+                TextField(placeholder: L("group_name"), text: $renameText)
                     .textInputAutocapitalization(.words)
                 Button(L("action_save")) { applyRename() }
                 Button(L("action_cancel"), role: .cancel) {}

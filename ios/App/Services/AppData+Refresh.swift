@@ -112,7 +112,9 @@ extension AppData {
     func reloadActivity() {
         // Nicht mehr gehandelte und deaktivierte Paare haben keine Signale (siehe `NotTraded`)
         let ids = Set(snapshot.watches.filter { !$0.isNotTraded && !$0.disabled }.map(\.id))
-        activityReports = ActivityRepository.reports().filter { ids.contains($0.key) }
+        let reports = ActivityRepository.reports().filter { ids.contains($0.key) }
+        // Nur bei Änderung veröffentlichen
+        if reports != activityReports { activityReports = reports }
     }
 
     /// Daten für «Was bewegt sich mit?»; nil, wenn abgebrochen.
@@ -167,7 +169,7 @@ extension AppData {
         // Mit dieser %-Basis gerechnet (Anzeige prüft das, siehe `changeView`)
         if full, let stamp = outcome.changeStamp {
             SharedStorage.changeStamp = stamp
-            changeStamp = stamp
+            if changeStamp != stamp { changeStamp = stamp }
         }
         // Ein einzelnes Paar: nur Merkliste- und Einzel-Widgets neu laden. Das Portfolio-Widget
         // lädt sich selbst, wenn sich seine Momentaufnahme ändert; «Was gerade auffällt» hängt

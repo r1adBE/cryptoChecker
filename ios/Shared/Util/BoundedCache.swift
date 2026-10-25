@@ -3,7 +3,7 @@ import Foundation
 /// Zwischenspeicher mit höchstens `maxEntries` Einträgen: der am längsten nicht benutzte fällt heraus (LRU) — wie
 /// `BoundedCache.kt` (Android). Statt eines unbegrenzten Wörterbuchs: dort wurden abgelaufene Einträge nie
 /// entfernt, jedes je geprüfte Paar blieb bis zum Prozessende im Speicher. Nicht selbst threadsicher: Aufrufer
-/// schützen ihn (z. B. mit einem `NSLock`).
+/// schützen ihn (z. B. als Zustand eines `OSAllocatedUnfairLock`).
 struct BoundedCache<Key: Hashable, Value> {
     /// Übliche Grenze für Zwischenspeicher je Paar bzw. Coin (wie `MEMORY_CACHE_ENTRIES`, Android).
     static var defaultMaxEntries: Int { 512 }
@@ -45,3 +45,6 @@ struct BoundedCache<Key: Hashable, Value> {
         for key in entries.keys where predicate(key) { entries.removeValue(forKey: key) }
     }
 }
+
+/// Sendable, wenn Schlüssel und Werte es sind — als Zustand einer Sperre (`OSAllocatedUnfairLock`) nutzbar.
+extension BoundedCache: Sendable where Key: Sendable, Value: Sendable {}

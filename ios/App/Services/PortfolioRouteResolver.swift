@@ -1,13 +1,13 @@
 import Foundation
+import os
 
 /// Löst die eingetragenen Börsen des Portfolios zu Paaren auf (`PortfolioExchangeRoute`) und legt die Wege in
 /// der App Group ab (`PortfolioExchangeRouteStore`) — die Paarlisten liegen in der App (`PairCache`), Widget und
 /// Hintergrund lesen nur die fertigen Wege. Fehlt die Paarliste einer Börse, wird sie höchstens alle 6 Std.
 /// einmal geladen. Wie `PortfolioPriceSource.applyExchangeRoutes` (Android, dort in einem Schritt).
 enum PortfolioRouteResolver {
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var pairListAttempts: [String: Int64] = [:]
-    private static let lock = NSLock()
+    /// Letzter Ladeversuch der Paarliste je Börse (Millisekunden), hinter einer Sperre mit Zustand.
+    private static let pairListAttempts = OSAllocatedUnfairLock(initialState: [String: Int64]())
     private static let retryMillis: Int64 = 6 * 60 * 60_000
 
     static func resolve(_ transactions: [PortfolioTx]) async {
@@ -46,11 +46,13 @@ enum PortfolioRouteResolver {
     }
 
     private static func mayLoadPairs(_ key: String) -> Bool {
-        lock.lock(); defer { lock.unlock() }
         let now = TimeUtils.nowMillis
-        if let last = pairListAttempts[key], now - last >= 0, now - last < retryMillis { return false }
-        pairListAttempts[key] = now
-        return true
+        let retry = retryMillis
+        return pairListAttempts.withLock { attempts in
+            if let last = attempts[key], now - last >= 0, now - last < retry { return false }
+            attempts[key] = now
+            return true
+        }
     }
 
     /// Namen der Spot-Börsen der App (alphabetisch) für das Feld «Börse» — wie `spotMarketNames` (Android).

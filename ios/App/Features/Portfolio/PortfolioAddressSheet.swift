@@ -52,7 +52,7 @@ struct PortfolioAddressSheet: View {
                         }
                 }
                 Section {
-                    TextField(L("portfolio_address_hint"), text: $input, axis: .vertical)
+                    TextField(placeholder: L("portfolio_address_hint"), text: $input, axis: .vertical)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                         // Nur ASCII, keine Vorschläge aus der Adresse (wie Android)
@@ -64,7 +64,7 @@ struct PortfolioAddressSheet: View {
                     } else if let chain = check.chain {
                         Text(chain.coin).font(.footnote).foregroundStyle(AppColors.onSurfaceVariant)
                     }
-                    TextField(L("portfolio_address_label"), text: $label)
+                    TextField(placeholder: L("portfolio_address_label"), text: $label)
                         .onChange(of: label) { _, value in
                             if value.unicodeScalars.count > WatchedAddressRules.maxLabel {
                                 label = String(String.UnicodeScalarView(value.unicodeScalars.prefix(WatchedAddressRules.maxLabel)))

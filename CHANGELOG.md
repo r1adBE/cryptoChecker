@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 130)
+
+* iOS starts faster: the watchlist is read and decrypted in the background, placeholder rows show until it is there (nothing is saved before it is loaded); frequently changing status values no longer redraw every screen.
+* iOS FIFO and other portfolio decimals compute faster (digits counted without text conversion).
+* Accessibility: alerts overview title and count follow large text (count moves into the list when the bar is too small), empty states scroll instead of clipping, decorative bell hidden from VoiceOver; iOS placeholders in text and search fields as dark as on Android; error colour (light) slightly darker; empty favourite star in a selected row darker.
+* Portfolio menu: «Cutoff-date export…» and «Worksheet…» (page title «Worksheet»).
+* Macro calendar is accepted only when it is listed in the signed market-data manifest.
+* Smaller Android app: exchange classes are no longer exempt from R8 shrinking.
+* iOS portfolio start page: the file import and address links are easier to tap (44 pt).
+* Android watchlist widget: after the 15-second refresh lock the refresh symbol reliably returns – the countdown no longer runs into negative values («−01:05»).
+
 ## 16.2.2 (build 129)
 
 * Portfolio menu: «Cutoff-date export…» and «Tax worksheet…» are separate; the tax worksheet is a page of its own (template selectable there, rules date and warning, the four exports and the year summary; it stays open after an export).

@@ -147,7 +147,8 @@ struct PortfolioAlarmSheet: View {
                 }
                 Section {
                     HStack {
-                        TextField(kind.isValue ? L("portfolio_alarm_amount", currency) : L("alarm_field_percent"), text: $text)
+                        TextField(placeholder: kind.isValue ? L("portfolio_alarm_amount", currency) : L("alarm_field_percent"),
+                                  text: $text)
                             .keyboardType(.decimalPad)
                             .focused($focused)
                             .font(.body.monospacedDigit())

@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Kerze (OHLCV) eines beliebigen Intervalls — wie `HourCandle` in der Android-Fassung.
 /// Listen sind zeitlich aufsteigend; die letzte Kerze läuft in der Regel noch.
@@ -56,7 +57,7 @@ enum CandleInterval: String, Sendable, CaseIterable {
 /// diese Kette ist der Ausweich-Weg.
 enum CandleDataSource {
 
-    private enum Source: String, CaseIterable {
+    private enum Source: String, CaseIterable, Sendable {
         case binanceVision = "data-api.binance.vision"
         case binanceSpot = "api.binance.com"
         case binanceFutures = "fapi.binance.com"
@@ -81,24 +82,17 @@ enum CandleDataSource {
     }()
 
     // Zuletzt erfolgreiche Quelle je «BASE|QUOTE|INTERVALL»
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var working: [String: (source: Source, time: Int64)] = [:]
+    private static let working = OSAllocatedUnfairLock(initialState: [String: (source: Source, time: Int64)]())
 
     private static func preferredSource(_ key: String) -> Source? {
-        lock.lock(); defer { lock.unlock() }
-        guard let entry = working[key] else { return nil }
+        guard let entry = working.withLock({ $0[key] }) else { return nil }
         let age = TimeUtils.nowMillis - entry.time
         return age >= 0 && age < workingMillis ? entry.source : nil
     }
 
     private static func remember(_ key: String, _ source: Source?) {
-        lock.lock(); defer { lock.unlock() }
-        if let source {
-            working[key] = (source: source, time: TimeUtils.nowMillis)
-        } else {
-            working[key] = nil
-        }
+        let entry = source.map { (source: $0, time: TimeUtils.nowMillis) }
+        working.withLock { $0[key] = entry }
     }
 
     /// Bis zu `limit` Kerzen, aufsteigend; nil, wenn keine Quelle das Paar liefert.

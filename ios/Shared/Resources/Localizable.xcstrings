@@ -248945,187 +248945,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ورقة عمل ضريبية…"
+            "value" : "ورقة عمل…"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daňový pracovní podklad…"
+            "value" : "Pracovní podklad…"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skattemæssigt arbejdspapir…"
+            "value" : "Arbejdspapir…"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Steuer-Arbeitsunterlage…"
+            "value" : "Arbeitsunterlage…"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Φορολογικό έγγραφο εργασίας…"
+            "value" : "Έγγραφο εργασίας…"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tax worksheet…"
+            "value" : "Worksheet…"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Documento de trabajo fiscal…"
+            "value" : "Documento de trabajo…"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "برگهٔ کاری مالیاتی…"
+            "value" : "برگهٔ کاری…"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verotuksen työpaperi…"
+            "value" : "Työpaperi…"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Document de travail fiscal…"
+            "value" : "Document de travail…"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מסמך עבודה למס…"
+            "value" : "מסמך עבודה…"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "टैक्स कार्य-पत्र…"
+            "value" : "कार्य-पत्र…"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adózási munkaanyag…"
+            "value" : "Munkaanyag…"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kertas kerja pajak…"
+            "value" : "Kertas kerja…"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Documento di lavoro fiscale…"
+            "value" : "Documento di lavoro…"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "税務作業資料…"
+            "value" : "作業資料…"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "세무 작업 자료…"
+            "value" : "작업 자료…"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skattemessig arbeidsdokument…"
+            "value" : "Arbeidsdokument…"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fiscaal werkdocument…"
+            "value" : "Werkdocument…"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Podatkowy dokument roboczy…"
+            "value" : "Dokument roboczy…"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Documento de trabalho fiscal…"
+            "value" : "Documento de trabalho…"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Documento de trabalho fiscal…"
+            "value" : "Documento de trabalho…"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Document de lucru fiscal…"
+            "value" : "Document de lucru…"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Налоговый рабочий документ…"
+            "value" : "Рабочий документ…"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dokument pune tatimor…"
+            "value" : "Dokument pune…"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skatteunderlag…"
+            "value" : "Underlag…"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เอกสารประกอบงานภาษี…"
+            "value" : "เอกสารประกอบงาน…"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vergi çalışma belgesi…"
+            "value" : "Çalışma belgesi…"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Податковий робочий документ…"
+            "value" : "Робочий документ…"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tài liệu làm việc thuế…"
+            "value" : "Tài liệu làm việc…"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "税务工作底稿…"
+            "value" : "工作底稿…"
           }
         }
       }
@@ -355134,7 +355134,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tax worksheet"
+            "value" : "Worksheet"
           }
         },
         "es" : {

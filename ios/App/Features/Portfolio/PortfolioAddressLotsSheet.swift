@@ -145,13 +145,15 @@ struct PortfolioAddressLotEditor: View {
                         .pickerStyle(.segmented)
                 }
                 DatePicker(L("address_lots_date"), selection: $date, in: ...Date(), displayedComponents: .date)
-                TextField(L("address_lots_amount") + " (\(coin))", text: $amountText).keyboardType(.decimalPad)
+                TextField(placeholder: L("address_lots_amount") + " (\(coin))", text: $amountText)
+                    .keyboardType(.decimalPad)
                 Picker("", selection: $perCoin) {
                     Text(L("address_lots_mode_total")).tag(false)
                     Text(L("address_lots_mode_price")).tag(true)
                 }
                 .pickerStyle(.segmented)
-                TextField(L(perCoin ? "address_lots_price" : "address_lots_total"), text: $valueText).keyboardType(.decimalPad)
+                TextField(placeholder: L(perCoin ? "address_lots_price" : "address_lots_total"), text: $valueText)
+                    .keyboardType(.decimalPad)
                 if let c = close, let suggested = perCoin ? c : amount.flatMap({ AddressCostLots.suggestion(amount: $0, close: c) }) {
                     Text(L("cost_gap_suggestion", PortfolioFormat.date(date.millis), PortfolioFormat.usdtValue(PortfolioDecimal.double(suggested))))
                         .font(.subheadline)

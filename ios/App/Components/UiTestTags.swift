@@ -95,6 +95,10 @@ enum UiTestTags {
     /// Schliessen-✕ einer Meldung mit Aktion (Snackbar bzw. Banner).
     static let snackbarDismiss = "snackbar_dismiss"
 
+    /// «Schliessen» des Speicher-Hinweises der Merkliste (`WatchlistStorageNotice`). Im UI-Test steht er immer (der
+    /// unsignierte Simulator hat keinen Schlüsselbund der App Group); das Audit schliesst ihn vor der Prüfung.
+    static let storageNoticeClose = "storage_notice_close"
+
     /// Rückfrage nach «Rückgängig» der Sammelaufnahme: «Behalten» bzw. «Entfernen».
     static let bulkUndoKeep = "bulk_undo_keep"
     static let bulkUndoRemove = "bulk_undo_remove"

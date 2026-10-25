@@ -2,8 +2,8 @@ import Foundation
 
 // Merkliste beim Wechsel nach vorne im Hintergrund neu lesen (Teil von `AppData`): Lesen, Entschlüsseln und Dekodieren
 // von `watchlist.json` liefen bisher auf dem Haupt-Thread und konnten über `NSFileCoordinator` auf das Widget warten.
-// `AppData.init` liest weiter synchron: Bis zum ersten Lesen gäbe es sonst keinen Stand, und jedes frühe Speichern
-// (Hintergrund-Aufgabe, Widget-Aktion) überschriebe die Datei mit einer leeren Merkliste.
+// Vor dem Lesen beim Start (AppData+SnapshotLoad.swift) wartet ein Neulesen darauf: erst danach gibt es einen Stand im
+// Speicher, mit dem verglichen und zusammengeführt wird.
 
 /// Marke eines Lesens im Hintergrund: Übernommen wird nur, was noch zum Stand im Speicher passt.
 struct DiskReloadTicket: Equatable {
@@ -38,6 +38,11 @@ extension AppData {
     /// Haupt-Thread (`applyDiskRead`). Bis dahin zeigt die App den Stand im Speicher. Reihenfolge: `readSnapshot` wartet
     /// alle schon eingereihten Schreibvorgänge ab; wird inzwischen geändert, gilt der Speicher (einmal neu gelesen).
     func reloadFromDiskInBackground(retries: Int = 1) {
+        // Stand beim Start noch nicht gelesen: danach (sonst läse `prepareDiskReload` ihn hier sofort auf Main)
+        guard snapshotLoaded else {
+            whenSnapshotLoaded { [weak self] in self?.reloadFromDiskInBackground(retries: retries) }
+            return
+        }
         guard prepareDiskReload() else { return }
         // Einstellungen und geschützte Dateien (Verschlüsselung nachholen) gleich hier, vor dem Lesen: Die Aufrufe nach dem
         // Wechsel nach vorne nutzen die Einstellungen sofort (bisher lief das synchron im selben Schritt)
@@ -57,8 +62,9 @@ extension AppData {
     /// ohne den Haupt-Thread zu blockieren: `readSnapshot` wartet die Schreib-Warteschlange synchron ab, und
     /// ein Schreiben kann über `NSFileCoordinator` auf das Widget warten — darum Abwarten und Lesen auf `diskReader`,
     /// übernommen auf dem Haupt-Thread. Wird inzwischen im Speicher geändert, gilt der Speicher (einmal neu gelesen),
-    /// wie beim Wechsel nach vorne. Das Lesen beim Start (`AppData.init`) bleibt bewusst synchron.
+    /// wie beim Wechsel nach vorne. Vor dem Lesen beim Start wartet es dieses ab (`waitForSnapshot`).
     func reloadFromDisk() async {
+        await waitForSnapshot()
         for attempt in 0...1 {
             // Vor jedem Lesen (auch dem zweiten): ausstehende Speicherungen nachholen, wie `reloadFromDiskInBackground`
             guard prepareDiskReload() else { return }

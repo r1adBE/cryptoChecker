@@ -187,6 +187,12 @@ keys or other secrets never belong in this repository.
   anything signed only with it. If the two keys revoke each other (in either order),
   both stay revoked and the apps stop trusting the mirror until an app update brings
   new keys — they then ask the providers directly.
+* **Integrity of the economic calendar.** The calendar of US economic releases
+  (`macro/events.json` on the project's GitHub Pages site) is covered by the same
+  signed manifest (entry `macro_events.json`). The apps use a downloaded calendar only
+  if its SHA-256 is listed in a valid manifest; a changed or unlisted file is treated
+  like a download error and the app keeps its cached calendar or the one built into
+  the app.
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.

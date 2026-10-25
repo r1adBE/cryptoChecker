@@ -1,21 +1,27 @@
 import Foundation
+import os
 
 /// Holt die Marktdaten für «Ungewöhnliche Aktivität» und «Warum bewegt sich das?»
 /// und gibt sie an den reinen `ActivityAnalyzer` — wie `ActivityMonitor.kt`.
 /// Fehler bleiben still: Ohne Daten gibt es eben keine Signale.
 ///
-/// Nur Foundation, kein App-Code: auch aus dem Widget-Prozess nutzbar.
+/// Nur Systemmodule (Foundation, os), kein App-Code: auch aus dem Widget-Prozess nutzbar.
 enum ActivityMonitor {
     static let maxParallel = 4
     static let budgetMillis: Int64 = 20_000
     static let sourceTimeoutMillis: Int64 = 8_000
     private static let fngCacheMillis: Int64 = 10 * 60_000
 
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    /// Nur eine Auswertung zur Zeit; läuft schon eine, wird die neue übersprungen.
-    nonisolated(unsafe) private static var running = false
-    nonisolated(unsafe) private static var fearGreedCache: (time: Int64, value: FearGreed)? = nil
+    /// Prozessweiter Stand, gemeinsam hinter einer Sperre.
+    private struct State: Sendable {
+        /// Nur eine Auswertung zur Zeit; läuft schon eine, wird die neue übersprungen.
+        var running = false
+        var fearGreedCache: (time: Int64, value: FearGreed)?
+        /// Letzter Versuch je Paar in diesem Prozess (auch ohne Ergebnis) — für `ActivityDueOrder`.
+        var attempts: [Int64: Int64] = [:]
+    }
+
+    private static let state = OSAllocatedUnfairLock(initialState: State())
 
     // MARK: Auswertung aller Paare
 
@@ -32,46 +38,41 @@ enum ActivityMonitor {
         return true
     }
 
-    /// Letzter Versuch je Paar in diesem Prozess (auch ohne Ergebnis) — für `ActivityDueOrder`; nur unter `lock`.
-    nonisolated(unsafe) private static var attempts: [Int64: Int64] = [:]
-
     private static func markAttempt(_ id: Int64, _ now: Int64) {
-        lock.lock(); defer { lock.unlock() }
-        attempts[id] = now
+        state.withLock { $0.attempts[id] = now }
     }
 
     /// Versuche der Paare `ids` (übrige vergessen).
     private static func attemptsSnapshot(retaining ids: Set<Int64>) -> [Int64: Int64] {
-        lock.lock(); defer { lock.unlock() }
-        attempts = attempts.filter { ids.contains($0.key) }
-        return attempts
+        state.withLock { s in
+            s.attempts = s.attempts.filter { ids.contains($0.key) }
+            return s.attempts
+        }
     }
 
     private static func tryStart() -> Bool {
-        lock.lock(); defer { lock.unlock() }
-        if running { return false }
-        running = true
-        return true
+        state.withLock { s in
+            if s.running { return false }
+            s.running = true
+            return true
+        }
     }
 
     private static func finish() {
-        lock.lock(); defer { lock.unlock() }
-        running = false
+        state.withLock { $0.running = false }
     }
 
     /// Ergebnisse der parallelen Prüfungen, threadsicher gesammelt.
-    private final class Collector: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-        private let lock = NSLock()
-        private var items: [Int64: (watch: Watch, merge: ActivityAnalyzer.Merge)] = [:]
+    private final class Collector: Sendable {
+        private let items = OSAllocatedUnfairLock(
+            initialState: [Int64: (watch: Watch, merge: ActivityAnalyzer.Merge)]())
 
         func put(_ watch: Watch, _ merge: ActivityAnalyzer.Merge) {
-            lock.lock(); defer { lock.unlock() }
-            items[watch.id] = (watch: watch, merge: merge)
+            items.withLock { $0[watch.id] = (watch: watch, merge: merge) }
         }
 
         var all: [Int64: (watch: Watch, merge: ActivityAnalyzer.Merge)] {
-            lock.lock(); defer { lock.unlock() }
-            return items
+            items.withLock { $0 }
         }
     }
 
@@ -340,13 +341,12 @@ enum ActivityMonitor {
     }
 
     private static func storeFearGreed(_ value: FearGreed) {
-        lock.lock(); defer { lock.unlock() }
-        fearGreedCache = (time: TimeUtils.nowMillis, value: value)
+        let entry = (time: TimeUtils.nowMillis, value: value)
+        state.withLock { $0.fearGreedCache = entry }
     }
 
     private static func cachedFearGreed(now: Int64) -> FearGreed? {
-        lock.lock(); defer { lock.unlock() }
-        guard let entry = fearGreedCache else { return nil }
+        guard let entry = state.withLock({ $0.fearGreedCache }) else { return nil }
         let age = now - entry.time
         return age >= 0 && age < fngCacheMillis ? entry.value : nil
     }

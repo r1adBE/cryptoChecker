@@ -1,6 +1,8 @@
 # Store readiness without a build, on every pull request and push to main (fast, ubuntu):
 # store text limits (Play and App Store), https store URLs, screenshots, the same version and build
 # number on Android and iOS, and that ios/CryptoChecker.xcodeproj matches ios/tools/gen_xcodeproj.py.
+# Also the neutral User-Agent of the address queries (user_agent_check.py): same value on both platforms (else
+# error), no app name or version, and a warning once its Firefox version is estimated older than 6 months.
 # Results as annotations (release_readiness.py, annotate.py). The folder review_information is never read.
 name: Release readiness
 
@@ -31,8 +33,8 @@ jobs:
         with:
           persist-credentials: false
 
-      # Errors: text over the limit, URL without https, version differs. Warnings: empty texts,
-      # no screenshots.
+      # Errors: text over the limit, URL without https, version differs, neutral User-Agent differs between the
+      # platforms. Warnings: empty texts, no screenshots, neutral User-Agent older than about 6 months.
       - name: Store metadata and versions
         run: |
           F="$RUNNER_TEMP/readiness-findings.tsv"
@@ -41,6 +43,8 @@ jobs:
           # Required Reason APIs in the iOS sources vs ios/App/PrivacyInfo.xcprivacy (ITMS-91053)
           python3 -I .github/scripts/ios_release_audit.py --self-test
           python3 -I .github/scripts/release_readiness.py --self-test
+          python3 -I .github/scripts/user_agent_check.py --self-test
+          python3 -I .github/scripts/user_agent_check.py "$GITHUB_WORKSPACE" "$F"
           if [ -d ios/App ]; then python3 -I .github/scripts/ios_release_audit.py privacy "$GITHUB_WORKSPACE/ios" "$F"; fi
           python3 -I .github/scripts/annotate.py "$F" "Release readiness"
 

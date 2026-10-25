@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Stichtag-Export: historische Kurse und Devisenkurse — wie `HistoricPriceSource.kt` (Android).
 
@@ -235,10 +236,9 @@ enum HistoricPriceSource {
     // MARK: Devisen-Tageskurse für den Wertverlauf
 
     private static let fxSeriesTtlMillis: Int64 = 6 * 60 * 60_000
-    private static let fxSeriesLock = NSLock()
-    /// «Währung|von|bis» → (Tageskurse, Abfragezeit); nur im Speicher.
-    // nonisolated(unsafe): jeder Zugriff nur unter `fxSeriesLock` (NSLock)
-    nonisolated(unsafe) private static var fxSeriesCache: [String: (rates: [Int: Double], at: Int64)] = [:]
+    /// «Währung|von|bis» → (Tageskurse, Abfragezeit); nur im Speicher, hinter einer Sperre mit Zustand.
+    private static let fxSeriesCache = OSAllocatedUnfairLock(
+        initialState: [String: (rates: [Int: Double], at: Int64)]())
 
     /// Tageskurse USD → `currency` von `from` bis `to` (EZB über Frankfurter, in Stücken von höchstens
     /// `PortfolioHistoryFx.fxChunkDays` Tagen): Tag (epochDay) → Kurs, nur Geschäftstage — Wochenenden und Feiertage
@@ -250,8 +250,9 @@ enum HistoricPriceSource {
         guard FxRateSource.isCurrencyCode(target), from <= to else { return nil }
         let key = "\(target)|\(from)|\(to)"
         let now = TimeUtils.nowMillis
-        let cached: [Int: Double]? = fxSeriesLock.withLock {
-            guard let entry = fxSeriesCache[key], now - entry.at >= 0, now - entry.at < fxSeriesTtlMillis else { return nil }
+        let ttl = fxSeriesTtlMillis
+        let cached: [Int: Double]? = fxSeriesCache.withLock {
+            guard let entry = $0[key], now - entry.at >= 0, now - entry.at < ttl else { return nil }
             return entry.rates
         }
         if let cached { return cached }
@@ -270,7 +271,8 @@ enum HistoricPriceSource {
             merged.merge(part) { _, new in new }
         }
         guard !merged.isEmpty else { return nil }
-        fxSeriesLock.withLock { fxSeriesCache[key] = (rates: merged, at: TimeUtils.nowMillis) }
+        let entry = (rates: merged, at: TimeUtils.nowMillis)
+        fxSeriesCache.withLock { $0[key] = entry }
         return merged
     }
 

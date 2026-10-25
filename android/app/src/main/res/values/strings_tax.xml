@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
     <string name="portfolio_cutoff_export_action">Cutoff-date export…</string>
-    <string name="portfolio_tax_worksheet_action">Tax worksheet…</string>
+    <string name="portfolio_tax_worksheet_action">Worksheet…</string>
     <string name="portfolio_export_address_unobserved">address not observed on this date – not included</string>
     <string name="portfolio_export_button">Export CSV</string>
     <string name="portfolio_export_col_amount">Amount</string>
@@ -96,7 +96,7 @@
     <string name="tax_export_withdrawal_fee">Withdrawal fee</string>
     <string name="tax_export_withdrawal_fee_info">Withdrawal fee in USDT/cash – not a loss, information only</string>
     <string name="tax_export_workpaper_disclaimer">Tax worksheet – not a tax return and not tax advice</string>
-    <string name="tax_export_workpaper_title">Tax worksheet</string>
+    <string name="tax_export_workpaper_title">Worksheet</string>
     <string name="tax_export_year_local_zone">Dates in local time (%1$s)</string>
     <string name="tax_export_yes">yes</string>
 

@@ -201,7 +201,7 @@ final class CryptoCheckerUITests: XCTestCase {
         let app = launchApp(csv: try fixture(Self.csvFixture))
         importFixtureCsv(app)
         tap(app, UiTestTags.portfolioMenu)
-        tapMenuItem(app, UiTestTags.portfolioTaxExport, label: "Tax worksheet…")
+        tapMenuItem(app, UiTestTags.portfolioTaxExport, label: "Worksheet…")
         let page = app.tagged(UiTestTags.taxWorksheetScreen)
         XCTAssertTrue(page.waitForExistence(timeout: uiTimeout), "worksheet missing")
         tap(app, UiTestTags.taxWorksheetTemplate)

@@ -38,9 +38,13 @@ struct MacroHint: Equatable, Sendable {
 }
 
 /// Kalender wichtiger US-Wirtschaftsdaten — reine Logik, wie `MacroCalendar.kt` (dort mit Tests).
+/// Die Datei von GitHub Pages gilt nur, wenn ihr SHA-256 im signierten Spiegel-Manifest steht (`manifestFile`,
+/// `parseVerified`).
 /// Format: `{"version":1,"generated":"…","source":"…","events":[{"type":"CPI","time":"2026-10-14T12:30:00Z"},…]}`.
 enum MacroCalendar {
     static let url = "https://r1adbe.github.io/cryptoChecker/macro/events.json"
+    /// Eintrag der Datei im signierten Spiegel-Manifest (`MirrorManifest`; mirror_data.py `--signed-extra`).
+    static let manifestFile = "macro_events.json"
     static let ttlMillis: Int64 = 24 * 60 * 60_000
     static let lookaheadMillis: Int64 = 18 * 60 * 60_000
     static let releasedAfterMillis: Int64 = 2 * 60 * 60_000
@@ -72,6 +76,14 @@ enum MacroCalendar {
             if a.time != b.time { return a.time < b.time }
             return (order.firstIndex(of: a.type) ?? 0) < (order.firstIndex(of: b.type) ?? 0)
         }
+    }
+
+    /// Geladene Datei lesen, aber nur, wenn `verify` sie als `manifestFile` bestätigt (SHA-256 im gültig signierten,
+    /// frischen Manifest); sonst nil wie eine ungültige Datei (dann gilt die nächste Quelle).
+    static func parseVerified(_ text: String, now: Int64,
+                              verify: @Sendable (String, String) async -> Bool) async -> [MacroEvent]? {
+        guard await verify(manifestFile, text) else { return nil }
+        return parse(text, now: now)
     }
 
     /// ISO-8601-Zeitpunkt («2026-10-14T12:30:00Z», auch mit Versatz oder Sekundenbruchteilen).

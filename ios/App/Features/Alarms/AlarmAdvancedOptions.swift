@@ -243,7 +243,7 @@ extension AlarmEditorSheet {
             : (fieldFocused ? accent.primary : AppColors.outlineVariant.opacity(0.5))
         let strokeWidth: CGFloat = fieldFocused || error ? 1.5 : 1
         return HStack(spacing: 8) {
-            TextField(placeholder, text: $draft.thresholdText)
+            TextField(placeholder: placeholder, text: $draft.thresholdText)
                 .keyboardType(.decimalPad)
                 .focused($fieldFocused)
                 .accessibilityIdentifier(UiTestTags.alarmThreshold)

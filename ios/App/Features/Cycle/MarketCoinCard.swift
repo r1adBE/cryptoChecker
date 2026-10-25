@@ -215,6 +215,9 @@ struct CycleCoinPickerSheet: View {
     private func row(_ coin: String) -> some View {
         let isFavorite = viewModel.favoriteCoins.contains(coin)
         let isSelected = coin == viewModel.selectedCoin
+        // Leerer Stern auf der getönten gewählten Zeile in onSurfaceVariant: outline hielt dort < 3:1
+        let emptyStar: Color = isSelected ? AppColors.onSurfaceVariant : AppColors.outline
+        let starColor: Color = isFavorite ? accent.primary : emptyStar
         return HStack(spacing: 8) {
             Text(coin)
                 .font(.body)
@@ -226,7 +229,7 @@ struct CycleCoinPickerSheet: View {
             } label: {
                 Image(systemName: isFavorite ? "star.fill" : "star")
                     .font(.body)
-                    .foregroundStyle(isFavorite ? accent.primary : AppColors.outline)
+                    .foregroundStyle(starColor)
                     .frame(width: 36, height: 36)
                     // Trefferfläche 44 × 44 pt (Bedienungshilfen), die Zeile bleibt gleich hoch
                     .frame(minWidth: 44, minHeight: 44)

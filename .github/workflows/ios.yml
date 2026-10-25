@@ -24,6 +24,7 @@ on:
       - '.github/scripts/ios_release_audit.py'
       - '.github/scripts/annotate.py'
       - '.github/scripts/xccov_summary.py'
+      - '.github/scripts/swift_escape_hatches.py'
       - 'android/app/build.gradle.kts'
   # Pull requests always run this workflow (no paths filter): its job is a required check, and a required check
   # whose workflow is skipped by a paths filter would wait forever («Expected»).
@@ -56,6 +57,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
+      # Escape hatches of the strict concurrency checks (@unchecked Sendable, nonisolated(unsafe),
+      # DispatchSemaphore) in ios/App, ios/Shared, ios/Widgets: more than the ceiling in the script is red, so a new one
+      # needs a deliberate raise there; fewer is a notice to lower it. Fails fast, before Xcode is needed.
+      - name: Swift escape hatches
+        run: |
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/swift_escape_hatches.py" --self-test
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/swift_escape_hatches.py" "$GITHUB_WORKSPACE"
 
       - name: Select Xcode 26
         uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
@@ -255,15 +264,16 @@ jobs:
       # Line coverage of the unit-test run above as ONE notice: total, «logic» (files under Shared/ and App/ without
       # SwiftUI views) and «shared logic» (Shared/ only). Gate: the number chosen by GATE_SCOPE (shared = «shared logic»,
       # logic = «logic») must not fall below MIN_LOGIC (just under the measured value: stops regressions without
-      # forcing new work; raise it when coverage grows). MIN_LOGIC is calibrated for «shared logic»; switch GATE_SCOPE
-      # to logic only together with a MIN_LOGIC measured for it. Only after green unit tests; a missing report is red.
+      # forcing new work; raise it when coverage grows). MIN_LOGIC is calibrated for «logic» (measured 71.9 %, shared
+      # logic 80.8 %); change GATE_SCOPE only together with a MIN_LOGIC measured for it. Only after green unit tests;
+      # a missing report is red.
       # Thread Sanitizer run (manual): display only, no gate - the skipped performance tests also cover logic, so the
       # number is not comparable with MIN_LOGIC; the regular runs (without TSAN) keep the gate.
       - name: Coverage (logic gate)
         timeout-minutes: 5
         env:
-          MIN_LOGIC: '78'
-          GATE_SCOPE: shared
+          MIN_LOGIC: '70'
+          GATE_SCOPE: logic
           TSAN: ${{ inputs.thread_sanitizer && 'YES' || 'NO' }}
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/xccov_summary.py" --self-test
@@ -355,6 +365,18 @@ jobs:
           tail -n 120 "$LOG"
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
           exit $status
+
+      # Findings of the accessibility audit (AccessibilityAuditTests prints «A11Y-AUDIT …» while it only reports): one
+      # warning annotation each, deduplicated, so they can be read on the run page. Purely informative.
+      - name: Accessibility audit findings
+        if: always()
+        continue-on-error: true
+        run: |
+          LOG="$RUNNER_TEMP/xcode-uitest.log"
+          [ -f "$LOG" ] || exit 0
+          grep -o 'A11Y-AUDIT .*' "$LOG" | sort -u | head -50 | while IFS= read -r line; do
+            printf '::warning title=Accessibility audit::%s\n' "${line#A11Y-AUDIT }"
+          done || true
 
       # Tests that only passed on the retry (-retry-tests-on-failure, not on main/tags) as a warning: green, but flaky. Read from the result
       # bundle (xcresulttool, Xcode 16+ format), else from the xcodebuild log (a test case both failed and passed).

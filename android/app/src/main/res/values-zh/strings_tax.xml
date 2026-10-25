@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
     <string name="portfolio_cutoff_export_action">基准日导出…</string>
-    <string name="portfolio_tax_worksheet_action">税务工作底稿…</string>
+    <string name="portfolio_tax_worksheet_action">工作底稿…</string>
     <string name="portfolio_export_address_unobserved">该日期未观察此地址——未计入</string>
     <string name="portfolio_export_button">导出 CSV</string>
     <string name="portfolio_export_col_amount">数量</string>

@@ -61,7 +61,7 @@ jobs:
           persist-credentials: false
           sparse-checkout: .github/scripts
 
-      # actions/download-artifact is not pinned in this repository yet: gh (preinstalled) with this run's artifact
+      # gh (preinstalled) downloads this run's artifact
       - name: Download artifact
         env:
           GH_TOKEN: ${{ github.token }}

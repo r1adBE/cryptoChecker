@@ -1,7 +1,9 @@
 package com.cryptochecker.app.data
 
 import android.content.Context
+import com.cryptochecker.app.data.remote.MirrorTrust
 import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.mirrorLoader
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.macro.MacroEvent
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -22,9 +24,10 @@ import javax.inject.Singleton
  *
  * Quelle: eine öffentliche Datei auf der App-Webseite ([MacroCalendar.URL], GitHub Pages,
  * wöchentlich aus den offiziellen Terminplänen erzeugt) — höchstens einmal am Tag geholt,
- * ohne Schlüssel und ohne Angaben zum Gerät. Zwischenspeicher 24 h ([CycleCacheStore]);
- * bei Fehlern der Zwischenspeicher (auch abgelaufen), sonst die mitgelieferte Datei
- * `assets/macro_events.json`.
+ * ohne Schlüssel und ohne Angaben zum Gerät. Angenommen nur, wenn ihr SHA-256 im signierten
+ * Spiegel-Manifest steht ([MirrorTrust], [MacroCalendar.parseVerified]); eine veränderte Datei
+ * gilt als Fehler. Zwischenspeicher 24 h ([CycleCacheStore]); bei Fehlern der Zwischenspeicher
+ * (auch abgelaufen), sonst die mitgelieferte Datei `assets/macro_events.json`.
  */
 @Singleton
 class MacroCalendarRepository @Inject constructor(
@@ -54,8 +57,8 @@ class MacroCalendarRepository @Inject constructor(
                 memory = now to fresh
                 return@withContext fresh
             }
-            // Netz gescheitert: Zwischenspeicher (auch abgelaufen), sonst die mitgelieferte Datei.
-            // Im Speicher so merken, dass es frühestens in 30 Min. wieder versucht wird.
+            // Netz gescheitert oder Datei nicht bestätigt: Zwischenspeicher (auch abgelaufen), sonst die
+            // mitgelieferte Datei. Im Speicher so merken, dass es frühestens in 30 Min. wieder versucht wird.
             val fallback = cached?.value ?: bundled(now)
             memory = (now - MacroCalendar.TTL_MILLIS + RETRY_MILLIS) to fallback
             fallback
@@ -63,7 +66,13 @@ class MacroCalendarRepository @Inject constructor(
     }
 
     private suspend fun download(now: Long): List<MacroEvent>? = try {
-        withTimeoutOrNull(TIMEOUT_MILLIS) { MacroCalendar.parse(httpClient.callMarket(MacroCalendar.URL, null), now) }
+        withTimeoutOrNull(TIMEOUT_MILLIS) {
+            val text = httpClient.callMarket(MacroCalendar.URL, null)
+            MacroCalendar.parseVerified(text, now) { file, body ->
+                MirrorTrust.shared.verified(file, body, httpClient.mirrorLoader(TIMEOUT_MILLIS))
+                    .also { ok -> if (!ok) Timber.d("Wirtschaftsdaten: SHA-256 nicht im gültigen Manifest") }
+            }
+        }
     } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
         Timber.d(e, "Wirtschaftsdaten: Zeitüberschreitung")
         null

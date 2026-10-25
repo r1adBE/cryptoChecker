@@ -7,6 +7,9 @@
 # Nothing is committed. The apps fall back to the providers when a file is too old.
 # Signed: the publish job adds manifest.json (SHA-256 of every file, creation time) and manifest.json.sig (ECDSA P-256,
 # secret MIRROR_SIGNING_KEY, environment mirror-signing, main only); the apps use mirror files only with a valid signature (DEVELOPMENT.md, «Data mirror»).
+# The manifest also signs the hash of the macro calendar docs/macro/events.json of the checked-out commit (entry
+# «macro_events.json»; the file itself is served by GitHub Pages, not uploaded here). macro-calendar.yml starts this
+# workflow after committing a new calendar, so the manifest follows within minutes.
 # CoinGecko data is never mirrored (CoinGecko API terms); the apps ask CoinGecko directly.
 name: Market data
 
@@ -70,11 +73,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.sha }}
-          sparse-checkout: .github/scripts
+          # docs/macro: Hash des Wirtschaftskalenders fürs Manifest (die Datei selbst liefert GitHub Pages)
+          sparse-checkout: |
+            .github/scripts
+            docs/macro
           # Hochladen mit GH_TOKEN aus env; kein Token in .git/config liegen lassen
           persist-credentials: false
 
-      # actions/download-artifact ist im Repository noch nicht gepinnt: gh (vorinstalliert) mit dem Artefakt dieses Laufs
+      # gh (vorinstalliert) lädt das Artefakt dieses Laufs
       - name: Download artifact
         env:
           GH_TOKEN: ${{ github.token }}
@@ -97,7 +103,7 @@ jobs:
           gh release download data --repo "$GITHUB_REPOSITORY" --pattern manifest.json --pattern manifest.json.sig \
             --dir "$RUNNER_TEMP/previous" || echo "No previous manifest"
           python3 -I .github/scripts/mirror_data.py --output "$RUNNER_TEMP/data" --manifest "$RUNNER_TEMP/manifest" \
-            --previous "$RUNNER_TEMP/previous"
+            --previous "$RUNNER_TEMP/previous" --signed-extra macro_events.json=docs/macro/events.json
           python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/manifest" --profile mirror_manifest
 
       - name: Upload
@@ -112,7 +118,7 @@ jobs:
           - onchain.txt, btcprice.txt: Coin Metrics Community Data (https://coinmetrics.io/community-network-data/), licensed CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Source: Coin Metrics.
           - altseason.txt: computed from public Binance daily candles (data-api.binance.vision).
           - coin_meta.json: symbols currently traded on Binance Spot, from the documented public Binance Spot API endpoint GET /api/v3/exchangeInfo (data-api.binance.vision, else api.binance.com). Only used by the apps as a fallback; no names, logos or images are mirrored.
-          - manifest.json, manifest.json.sig: SHA-256 of the files above and its signature (ECDSA P-256); the apps use a file only if both match.
+          - manifest.json, manifest.json.sig: SHA-256 of the files above (and of the macro calendar served at https://r1adbe.github.io/cryptoChecker/macro/events.json, entry macro_events.json) and its signature (ECDSA P-256); the apps use a file only if both match.
 
           No CoinGecko data is mirrored here. Updated by the Market data workflow.'
           if ! gh release view data >/dev/null 2>&1; then

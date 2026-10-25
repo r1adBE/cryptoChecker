@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
     <string name="portfolio_cutoff_export_action">Fordulónapi export…</string>
-    <string name="portfolio_tax_worksheet_action">Adózási munkaanyag…</string>
+    <string name="portfolio_tax_worksheet_action">Munkaanyag…</string>
     <string name="portfolio_export_address_unobserved">a cím ezen a napon nem volt figyelve – nem szerepel</string>
     <string name="portfolio_export_button">CSV exportálása</string>
     <string name="portfolio_export_col_amount">Mennyiség</string>

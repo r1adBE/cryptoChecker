@@ -10,7 +10,7 @@ extension ExplorerScreen {
             Image(systemName: "magnifyingglass")
                 .font(.body.weight(.semibold))
                 .foregroundStyle(searchFocused ? accent.primary : AppColors.onSurfaceVariant)
-            TextField(L("explorer_search_hint"), text: Binding(
+            TextField(placeholder: L("explorer_search_hint"), text: Binding(
                 get: { vm.searchQuery },
                 set: { vm.setSearchQuery($0) }
             ))

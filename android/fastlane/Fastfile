@@ -1,0 +1,41 @@
+# Store-Build für den Play Store (docs/PLAY_STORE.md, Abschnitt 3). Im Ordner android:
+#   fastlane android store_build public:<Pfad zum öffentlichen Klon>
+# Optional tag:v<versionName>-<versionCode> (Standard: aus app/build.gradle.kts).
+#
+# Setzt IMMER -PrequireReleaseSigning=true (ohne vollständige keystore.properties bricht Gradle ab, statt still ein
+# unsigniertes Bundle zu bauen) und -PgitCommit=<voller Commit des Tags aus dem öffentlichen Klon> («Diagnose teilen»
+# zeigt ihn als «Source:»). Bricht ab, wenn der Tag fehlt, nicht zu versionName/versionCode passt oder der Klon
+# lokale Änderungen hat. Ergebnis: app/build/outputs/bundle/release/app-release.aab (Hochladen bleibt Handarbeit).
+default_platform(:android)
+
+platform :android do
+  desc "Signiertes Release-Bundle (AAB) aus dem markierten Stand: requireReleaseSigning und gitCommit erzwungen"
+  lane :store_build do |options|
+    android_dir = File.expand_path("..", __dir__)
+    gradle_file = File.read(File.join(android_dir, "app", "build.gradle.kts"), encoding: "UTF-8")
+    version_name = gradle_file[/versionName\s*=\s*"([^"]+)"/, 1]
+    version_code = gradle_file[/versionCode\s*=\s*(\d+)/, 1]
+    UI.user_error!("versionName/versionCode nicht in app/build.gradle.kts gefunden") unless version_name && version_code
+    expected_tag = "v#{version_name}-#{version_code}"
+    tag = (options[:tag] || expected_tag).to_s
+    UI.user_error!("Tag #{tag} passt nicht zu app/build.gradle.kts (#{expected_tag})") unless tag == expected_tag
+
+    public_clone = options[:public].to_s
+    UI.user_error!("public:<Pfad zum öffentlichen Klon> angeben") if public_clone.empty?
+    public_clone = File.expand_path(public_clone)
+    dirty = sh("git", "-C", public_clone, "status", "--porcelain", log: false).strip
+    UI.user_error!("Öffentlicher Klon hat lokale Änderungen – erst abgleichen und committen") unless dirty.empty?
+    commit = sh("git", "-C", public_clone, "rev-parse", "#{tag}^{commit}", log: false).strip
+    UI.user_error!("Kein voller Commit-Hash für #{tag}: #{commit}") unless commit.match?(/\A[0-9a-f]{40}\z/)
+    UI.message("Store-Build #{tag}, Commit #{commit}")
+
+    gradlew = File.join(android_dir, Gem.win_platform? ? "gradlew.bat" : "gradlew")
+    gradle(
+      task: "clean bundleRelease",
+      project_dir: android_dir,
+      gradle_path: gradlew,
+      properties: { "requireReleaseSigning" => "true", "gitCommit" => commit },
+    )
+    UI.success("Fertig: app/build/outputs/bundle/release/app-release.aab – mapping.txt mit dem Tag ablegen")
+  end
+end

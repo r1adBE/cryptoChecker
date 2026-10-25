@@ -238,9 +238,9 @@ private struct BackupPasswordInput: View {
             HStack(spacing: 8) {
                 Group {
                     if visible {
-                        TextField(title, text: $text)
+                        TextField(placeholder: title, text: $text)
                     } else {
-                        SecureField(title, text: $text)
+                        SecureField(placeholder: title, text: $text)
                     }
                 }
                 .accessibilityIdentifier(testTag)

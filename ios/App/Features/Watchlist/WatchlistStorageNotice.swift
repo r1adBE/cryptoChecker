@@ -32,6 +32,7 @@ struct WatchlistStorageNotice: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.borderless)
+                    .accessibilityIdentifier(UiTestTags.storageNoticeClose)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, Spacing.lg)

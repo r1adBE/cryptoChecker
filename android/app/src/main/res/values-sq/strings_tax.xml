@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
     <string name="portfolio_cutoff_export_action">Eksport në datën e referencës…</string>
-    <string name="portfolio_tax_worksheet_action">Dokument pune tatimor…</string>
+    <string name="portfolio_tax_worksheet_action">Dokument pune…</string>
     <string name="portfolio_export_address_unobserved">adresa nuk ndiqej në këtë datë – nuk përfshihet</string>
     <string name="portfolio_export_button">Eksporto CSV</string>
     <string name="portfolio_export_col_amount">Sasia</string>

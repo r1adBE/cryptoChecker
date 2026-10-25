@@ -26,12 +26,7 @@ import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
@@ -55,12 +50,8 @@ class ListWidgetRenderer @Inject constructor(
     /** Lazy: PriceRefresher zeichnet selbst über WidgetUpdater (sonst ein Abhängigkeitskreis). */
     private val priceRefresher: dagger.Lazy<PriceRefresher>,
 ) {
-    /** Neuzeichnen am Ende der Sperre ([scheduleUnlock]); läuft unabhängig vom Aufrufer weiter. */
-    private val unlockScope = appScope(Dispatchers.Default, "ListWidgetRenderer")
-
     /** Ende der Sperre, für das das Neuzeichnen schon geplant ist (nur einmal je Sperre). */
     @Volatile private var unlockScheduledFor = 0L
-    @Volatile private var unlockJob: Job? = null
 
     /**
      * Nacheinander zeichnen: Läuft beim Speichern der Einrichtung (neue Gruppe) noch ein Zeichnen der
@@ -238,21 +229,16 @@ class ListWidgetRenderer @Inject constructor(
     }
 
     /**
-     * Genau ein Neuzeichnen zum Ende der Sperre, damit das Symbol zurückkommt: pünktlich im Prozess, als
-     * Absicherung (Prozess beendet oder eingefroren) der Wecker [WidgetRefreshUnlock].
+     * Genau ein Neuzeichnen zum Ende der Sperre, damit das Symbol zurückkommt: ein Empfänger wartet bis dahin
+     * ([WidgetRefreshUnlock.hold], der Prozess wird so nicht eingefroren), als Absicherung (Prozess beendet) der
+     * Wecker [WidgetRefreshUnlock.schedule].
      */
     private fun scheduleUnlock(blockedUntil: Long, now: Long) {
-        // Nur überspringen, solange das Neuzeichnen für dieses Ende noch aussteht (sonst nie wieder eins)
-        if (unlockScheduledFor == blockedUntil && unlockJob?.isActive == true) return
+        // Nur einmal je Sperre (neuer Prozess: wieder 0, dann neu geplant)
+        if (unlockScheduledFor == blockedUntil) return
         unlockScheduledFor = blockedUntil
         WidgetRefreshUnlock.schedule(context, blockedUntil, now)
-        unlockJob?.cancel()
-        unlockJob = unlockScope.launch {
-            // Etwas nach dem Ende: dann ist die Sperre sicher vorbei und es kommt das Symbol, kein «0»
-            delay((blockedUntil - System.currentTimeMillis()).coerceAtLeast(0) + WidgetRefreshState.UNLOCK_SLACK_MILLIS)
-            runCatchingCancellable { update(toolkit.ids(PriceWidgetProvider::class.java)) }
-                .onFailure { Timber.w(it, "Listen-Widgets nach der Sperre nicht neu gezeichnet") }
-        }
+        WidgetRefreshUnlock.hold(context, blockedUntil)
     }
 
     /**

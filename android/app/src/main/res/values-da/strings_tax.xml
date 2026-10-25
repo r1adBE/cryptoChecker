@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
     <string name="portfolio_cutoff_export_action">Skæringsdato-eksport…</string>
-    <string name="portfolio_tax_worksheet_action">Skattemæssigt arbejdspapir…</string>
+    <string name="portfolio_tax_worksheet_action">Arbejdspapir…</string>
     <string name="portfolio_export_address_unobserved">adresse ikke overvåget på denne dato – ikke medtaget</string>
     <string name="portfolio_export_button">Eksportér CSV</string>
     <string name="portfolio_export_col_amount">Mængde</string>

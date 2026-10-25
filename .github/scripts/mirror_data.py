@@ -45,7 +45,11 @@ Signed manifest (--manifest DIR, run in the publish job after artifact_check.py)
 The apps (MirrorManifest.kt / MirrorManifest.swift) check the signature with the built-in public key
 PUBLIC_KEY, the age of "created" (at most 7 days) and the SHA-256 of every mirror file; otherwise they
 ignore the mirror and ask the sources directly. Files not renewed in this run keep their hash from the
-previous manifest, but only if that one is validly signed (--previous DIR). Without the secret the
+previous manifest, but only if that one is validly signed (--previous DIR).
+--signed-extra NAME=PATH adds the hash of a file that is published elsewhere and not uploaded to the release: the
+macro calendar «macro_events.json» = docs/macro/events.json of the checked-out commit, served by GitHub Pages
+(MacroCalendar.kt / MacroCalendar.swift accept it only if its hash is in a valid manifest). A missing file is
+left out with a warning (the apps then keep their cache or the built-in calendar). Without the secret the
 manifest is published unsigned with a warning (the apps then use the sources directly).
 Python 3.9+ standard library only (plus the openssl command line tool for the manifest).
 """
@@ -335,6 +339,8 @@ PUBLIC_KEYS = (PUBLIC_KEY, RESERVE_PUBLIC_KEY)
 # switch MIRROR_SIGNING_KEY to the other key and add the id of the leaked key here (DEVELOPMENT.md, "Reserve key")
 REVOKED_KEY_IDS = ()
 MANIFEST_MAX_AGE_MILLIS = 7 * 24 * 60 * 60 * 1000
+# Macro calendar (GitHub Pages docs/macro/events.json) in the manifest: same name as MacroCalendar.MANIFEST_FILE
+MACRO_FILE = "macro_events.json"
 MANIFEST_MAX_BYTES = 64 * 1024
 # Files whose hash may be carried over from the previous signed manifest (old asset stays on the release)
 CARRIED = ("fng.txt", "onchain.txt", "btcprice.txt", "altseason.txt", "coin_meta.json")
@@ -438,11 +444,19 @@ def previous_hashes(previous_dir, public_b64, now_millis):
 
 
 def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEYS, previous_dir=None, now_millis=None,
-                   revoked=REVOKED_KEY_IDS):
-    """Writes manifest.json (and manifest.json.sig if the key works) to out_dir; returns "signed"/"unsigned"."""
+                   revoked=REVOKED_KEY_IDS, extra=None):
+    """Writes manifest.json (and manifest.json.sig if the key works) to out_dir; returns "signed"/"unsigned".
+    extra: {name: path} of files published elsewhere (not in data_dir) whose hash is signed as well."""
     now_millis = now_millis if now_millis is not None else int(time.time() * 1000)
     files = {name: sha256_file(os.path.join(data_dir, name)) for name in sorted(os.listdir(data_dir))
              if name not in (MANIFEST, SIGNATURE) and os.path.isfile(os.path.join(data_dir, name))}
+    for name, path in sorted((extra or {}).items()):
+        if not FILE_NAME.match(name) or name in files or name in (MANIFEST, SIGNATURE):
+            raise ValueError(f"invalid extra manifest entry: {name}")
+        if os.path.isfile(path):
+            files[name] = sha256_file(path)
+        else:
+            print(f"::warning title=Mirror manifest::{name}: {path} not found, left out of the manifest")
     previous = previous_hashes(previous_dir, public_b64, now_millis)
     for name in CARRIED:
         if name not in files and name in previous:
@@ -510,6 +524,23 @@ def _selftest_manifest():
         assert raw.endswith(b',"revoked":[],"v":1}') and doc["revoked"] == []
         assert doc["files"]["coin_meta.json"] == hashlib.sha256('{"binance":[{"name":"Ä"}]}'.encode()).hexdigest()
         assert sorted(doc["files"]) == ["coin_meta.json", "fng.txt", "status.json"]
+        # Macro calendar from the checkout: hashed into the manifest, not part of the uploaded data; missing = left out
+        events = os.path.join(d, "events.json")
+        with open(events, "w", encoding="utf-8") as f:
+            f.write('{"version":1,"events":[]}\n')
+        out_extra = os.path.join(d, "out_extra")
+        assert build_manifest(data, out_extra, key, pub, None, now, extra={MACRO_FILE: events}) == "signed"
+        extra_doc = parse_manifest(open(os.path.join(out_extra, MANIFEST), "rb").read())
+        assert extra_doc["files"][MACRO_FILE] == hashlib.sha256(b'{"version":1,"events":[]}\n').hexdigest()
+        assert MACRO_FILE not in os.listdir(data)
+        assert build_manifest(data, out_extra, key, pub, None, now, extra={MACRO_FILE: events + ".x"}) == "signed"
+        assert MACRO_FILE not in parse_manifest(open(os.path.join(out_extra, MANIFEST), "rb").read())["files"]
+        for bad in ({"a/b": events}, {"fng.txt": events}, {MANIFEST: events}):
+            try:
+                build_manifest(data, out_extra, key, pub, None, now, extra=bad)
+                raise AssertionError(f"extra entry accepted: {bad}")
+            except ValueError:
+                pass
         sig = base64.b64decode(open(os.path.join(out, SIGNATURE), "rb").read(), validate=True)
         assert openssl_verify(raw, sig, pub) and not openssl_verify(raw + b" ", sig, pub)
         # Not renewed: hash from the previous signed manifest; tampered or too old: nothing carried
@@ -560,6 +591,11 @@ def _selftest_manifest():
         assert (keys["productionPublicKey"], keys["productionReservePublicKey"]) == PUBLIC_KEYS, "keys differ from the apps"
         # Key ids computed like the apps (MirrorManifest.keyId)
         assert all(key_id(k["publicKey"]) == k["id"] for k in keys["keyIds"]), "key id differs from the apps"
+    # Name of the macro calendar entry as in the apps (parity fixture macro_calendar_signature.json)
+    macro_fixture = os.path.join(os.path.dirname(fixture), "macro_calendar_signature.json")
+    if os.path.isfile(macro_fixture):
+        with open(macro_fixture, encoding="utf-8") as f:
+            assert json.load(f)["manifestFile"] == MACRO_FILE, "macro calendar entry differs from the apps"
     # SubjectPublicKeyInfo of a P-256 key (91 bytes); active and reserve key differ
     assert all(base64.b64decode(k)[:2] == b"\x30\x59" for k in PUBLIC_KEYS) and len(set(PUBLIC_KEYS)) == 2
 
@@ -570,9 +606,13 @@ def main():
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--manifest", metavar="DIR", help="write manifest.json(.sig) for the files in --output to DIR")
     ap.add_argument("--previous", metavar="DIR", help="previous manifest.json(.sig) for not renewed files")
+    ap.add_argument("--signed-extra", metavar="NAME=PATH", action="append", default=[],
+                    help="also sign the hash of PATH as NAME (file published elsewhere, e.g. the macro calendar)")
     args = ap.parse_args()
     if args.manifest:
-        build_manifest(args.output, args.manifest, os.environ.get("MIRROR_SIGNING_KEY", ""), previous_dir=args.previous)
+        extra = dict(item.split("=", 1) for item in args.signed_extra)
+        build_manifest(args.output, args.manifest, os.environ.get("MIRROR_SIGNING_KEY", ""), previous_dir=args.previous,
+                       extra=extra)
         return 0
     if args.selftest:
         assert wrap('{"a":1}', 5) == 'CCDM1 5\n{"a":1}'

@@ -75,7 +75,7 @@ struct AlarmsScreen: View {
                         actionTitle: watch == nil ? nil : L("alarms_add"),
                         action: watch == nil ? nil : { draft = AlarmDraft.blankFor() }
                     )
-                    .containerRelativeFrame(.vertical, alignment: .center)
+                    .emptyStateFrame()
                 }
             } else {
                 List {

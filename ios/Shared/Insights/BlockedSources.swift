@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Quellen, die mit 451/403 geantwortet haben (Geo-Sperre, z. B. Binance in den USA).
 /// Sie werden 6 h übersprungen. Geteilt von Kerzen und Futures-Kennzahlen;
@@ -11,25 +12,28 @@ import Foundation
 /// Richtungen ab (`pauseGroup`, `groupPausedUntil`) — wie `BlockedSources` in `CandleDataSource.kt`.
 enum BlockedSources {
     private static let blockMillis: Int64 = 6 * 60 * 60_000
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var blockedUntil: [String: Int64] = [:]
-    /// Gemeinsame Pausen je Gruppe (`ExchangeBackoff.sharedGroup`); nur unter `lock`.
-    nonisolated(unsafe) private static var groupPauses: [String: ExchangeBackoff.State] = [:]
+    /// Sperren je Quelle und gemeinsame Pausen je Gruppe (`ExchangeBackoff.sharedGroup`), zusammen hinter einer Sperre.
+    private struct Entries: Sendable {
+        var blockedUntil: [String: Int64] = [:]
+        var groupPauses: [String: ExchangeBackoff.State] = [:]
+    }
+
+    private static let entries = OSAllocatedUnfairLock(initialState: Entries())
 
     static func isBlocked(_ key: String) -> Bool {
         if groupPausedUntil(key) != nil { return true }
-        lock.lock(); defer { lock.unlock() }
-        guard let until = blockedUntil[key] else { return false }
-        if TimeUtils.nowMillis < until { return true }
-        blockedUntil[key] = nil
-        return false
+        let now = TimeUtils.nowMillis
+        return entries.withLock { e in
+            guard let until = e.blockedUntil[key] else { return false }
+            if now < until { return true }
+            e.blockedUntil[key] = nil
+            return false
+        }
     }
 
     /// Sperre (451/403) dieser Quelle aufheben, z. B. eigener Bitcoin-Server nach Speichern oder erfolgreichem Test.
     static func unblock(_ key: String) {
-        lock.lock(); defer { lock.unlock() }
-        blockedUntil[key] = nil
+        entries.withLock { $0.blockedUntil[key] = nil }
     }
 
     /// Wertet einen Fehler aus; true = Sperr- bzw. Pausen-Antwort, Quelle ist jetzt vermerkt.
@@ -38,16 +42,19 @@ enum BlockedSources {
     static func noteFailure(_ key: String, _ error: Error) -> Bool {
         guard let http = error as? HttpMarketError else { return false }
         if http.httpCode == 451 || http.httpCode == 403 {
-            lock.lock(); defer { lock.unlock() }
-            blockedUntil[key] = TimeUtils.nowMillis + blockMillis
+            let until = TimeUtils.nowMillis + blockMillis
+            entries.withLock { $0.blockedUntil[key] = until }
             return true
         }
         if ExchangeBackoff.isRateLimitCode(http.httpCode) {
             guard let group = ExchangeBackoff.sharedGroup(key) else { return false }
             let now = TimeUtils.nowMillis
-            lock.lock(); defer { lock.unlock() }
-            groupPauses[group] = ExchangeBackoff.groupPause(groupPauses[group], now: now, httpCode: http.httpCode,
-                                                           retryAfterSeconds: http.retryAfterSeconds)
+            let code = http.httpCode
+            let retryAfter = http.retryAfterSeconds
+            entries.withLock {
+                $0.groupPauses[group] = ExchangeBackoff.groupPause($0.groupPauses[group], now: now, httpCode: code,
+                                                                   retryAfterSeconds: retryAfter)
+            }
             return true
         }
         return false
@@ -57,16 +64,20 @@ enum BlockedSources {
     /// der Kursabfrage); nil = keine Pause.
     static func groupPausedUntil(_ hostOrMarketKey: String) -> Int64? {
         guard let group = ExchangeBackoff.sharedGroup(hostOrMarketKey) else { return nil }
-        lock.lock(); defer { lock.unlock() }
-        guard let state = groupPauses[group], ExchangeBackoff.isPaused(state, now: TimeUtils.nowMillis) else { return nil }
+        let now = TimeUtils.nowMillis
+        guard let state = entries.withLock({ $0.groupPauses[group] }), ExchangeBackoff.isPaused(state, now: now) else {
+            return nil
+        }
         return state.pausedUntil
     }
 
     /// Pause aus der Kursabfrage übernehmen (429/418 beim Ticker); verkürzt nie eine laufende.
     static func pauseGroup(_ hostOrMarketKey: String, until: Int64) {
         guard let group = ExchangeBackoff.sharedGroup(hostOrMarketKey) else { return }
-        lock.lock(); defer { lock.unlock() }
+        let now = TimeUtils.nowMillis
         // Eine unmögliche alte Pause (`ExchangeBackoff.isPaused`: zu weit in der Zukunft) blockiert die neue nicht
-        groupPauses[group] = ExchangeBackoff.adoptedPause(groupPauses[group], until: until, now: TimeUtils.nowMillis)
+        entries.withLock {
+            $0.groupPauses[group] = ExchangeBackoff.adoptedPause($0.groupPauses[group], until: until, now: now)
+        }
     }
 }
