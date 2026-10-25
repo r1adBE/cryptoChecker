@@ -213,9 +213,7 @@ final class CryptoCheckerUITests: XCTestCase {
         XCTAssertFalse(app.tagged(UiTestTags.exportRetry).exists, "export failed")
         let close = app.navigationBars.buttons["Cancel"]
         XCTAssertTrue(waitForAny([app.buttons["Move"], app.buttons["Save"], close]), "file exporter not shown")
-        // Das Systemblatt kann sich beim Antippen schon umbauen: nur schliessen, solange «Cancel» antippbar ist
-        // (jeder Test startet die App ohnehin neu)
-        if close.exists && close.isHittable { close.tap() }
+        // Das Systemblatt nicht selbst schliessen (es baut sich beim Antippen um); jeder Test startet die App neu
     }
 
     // MARK: Gemeinsame Schritte
