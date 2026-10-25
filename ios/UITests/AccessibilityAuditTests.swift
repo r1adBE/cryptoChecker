@@ -88,9 +88,14 @@ final class AccessibilityAuditTests: XCTestCase {
     /// Audit aller Arten; Ausnahmen aus `exceptions` gelten als erledigt (Handler gibt `true` zurück).
     @MainActor
     private func audit(_ app: XCUIApplication, _ screen: String) throws {
+        // Untere Kante der Tableiste: ihre Beschriftungen sind bewusst gedeckelt (`AppTabBarMetrics`); die Texte darin
+        // haben keine eigene Kennung, darum über die Lage erkannt
+        let tabTop = app.tagged(UiTestTags.tabWatchlist).frame.minY
         try app.performAccessibilityAudit(for: .all) { issue in
             let identifier = issue.element?.identifier ?? ""
-            let known = AccessibilityAuditTests.exceptions.contains { exception in
+            let inTabBar = issue.auditType == .dynamicType && tabTop > 0
+                && (issue.element?.frame.midY ?? 0) >= tabTop - 1
+            let known = inTabBar || AccessibilityAuditTests.exceptions.contains { exception in
                 issue.auditType == exception.type && identifier.hasPrefix(exception.identifierPrefix)
             }
             if !known {
