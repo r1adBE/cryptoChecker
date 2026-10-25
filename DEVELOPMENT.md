@@ -2477,7 +2477,7 @@ after the encryption step.
   `maxImageBytes`), failure memory key v2. iOS `AppStatus` also holds exchangePauses, changeStamp, activityReports,
   portfolioSavePending. Android audit: `TestDisplayOverride` (Compose locals only: font scale, locale, layout
   direction) set by `DeviceOverridesRule`; runs in standard size, font ×2 and Arabic plus the alerts overview (bell).
-  iOS audit blocking again; nav-bar dynamic type and element-less text detections logged only; tab tap and audit
+  iOS audit still report-only (findings in settings come with the settings redesign); nav-bar dynamic type and element-less text detections logged only; tab tap and audit
   timeout retried once.
 * Build 130: iOS `AppData+SnapshotLoad` (launch read off main, `whenSnapshotLoaded`/`waitForSnapshot`, guarded
   accessors, `WatchlistLoadingRows`), `AppStatus` (@Observable: online, appStartMillis, watchlistSavePending,
