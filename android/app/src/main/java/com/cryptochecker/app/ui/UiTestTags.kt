@@ -20,6 +20,9 @@ object UiTestTags {
     const val WATCHLIST_ADD_PAIR = "watchlist_add_pair"
     const val WATCH_ACTION_ALARM = "watch_action_alarm"
 
+    /** Glocke im Kopf der Merkliste (mit Alarmen: Alarm-Übersicht). */
+    const val WATCH_BELL = "watch_bell"
+
     // ── Mitteilungen ──
     /** «Weiter» der Erklärung vor der System-Abfrage (`NotificationPrePrompt`). */
     const val NOTIFICATION_PREPROMPT_CONTINUE = "notification_preprompt_continue"
@@ -39,6 +42,9 @@ object UiTestTags {
     const val ALARM_SAVE = "alarm_save"
     const val ALARM_MORE = "alarm_more"
     const val ALARM_CARD = "alarm_card"
+
+    /** Liste der Alarm-Übersicht («Alle Alarme»). */
+    const val ALARMS_OVERVIEW = "alarms_overview"
 
     // ── Portfolio und CSV-Import ──
     const val PORTFOLIO_MENU = "portfolio_menu"

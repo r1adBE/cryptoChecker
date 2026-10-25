@@ -5,6 +5,7 @@ import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.unit.LayoutDirection
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.local.model.AlarmCondition
@@ -14,6 +15,8 @@ import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.ComposeA11yAudit
+import com.cryptochecker.app.testing.DeviceOverride
+import com.cryptochecker.app.testing.DeviceOverridesRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.marketdata.model.MarketPair
@@ -21,6 +24,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -28,10 +32,10 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Automatische Barrierefreiheits-Prüfung ([ComposeA11yAudit]) der Hauptbereiche Merkliste, Portfolio und Einstellungen
- * in Standardgrösse — wie `AccessibilityAuditTests` in iOS (`performAccessibilityAudit`). Läufe mit grosser Schrift und
- * auf Arabisch sowie die Alarm-Übersicht folgen (brauchen eine vor dem Start umgestellte Gerätekonfiguration,
- * [com.cryptochecker.app.testing.DeviceOverrides]).
+ * Automatische Barrierefreiheits-Prüfung ([ComposeA11yAudit]) der Hauptbereiche Merkliste, Portfolio, Einstellungen und
+ * der Alarm-Übersicht (Glocke) — wie `AccessibilityAuditTests` in iOS (`performAccessibilityAudit`): je ein Lauf in
+ * Standardgrösse, mit doppelter Schrift und auf Arabisch (Rechts nach links). Schrift und Sprache gelten nur für die
+ * Oberfläche der App ([DeviceOverride], [com.cryptochecker.app.ui.TestDisplayOverride]), nie für das ganze Gerät.
  *
  * Ausführen: `./gradlew :app:connectedDebugAndroidTest` (Emulator oder Gerät).
  */
@@ -45,6 +49,9 @@ class AccessibilityAuditTest {
     val environment = AppTestEnvironmentRule()
 
     @get:Rule(order = 2)
+    val overrides = DeviceOverridesRule()
+
+    @get:Rule(order = 3)
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var watchRepository: WatchRepository
@@ -82,16 +89,41 @@ class AccessibilityAuditTest {
     }
 
     @Test
-    fun mainScreensPassAudit() {
+    fun mainScreensPassAudit() = auditMainScreens()
+
+    @Test
+    @DeviceOverride(fontScale = 2f)
+    fun mainScreensPassAuditWithLargeFont() = auditMainScreens()
+
+    @Test
+    @DeviceOverride(language = "ar")
+    fun mainScreensPassAuditInArabic() {
+        waitForTag(UiTestTags.WATCH_ROW)
+        assertEquals("Arabisch: rechts nach links", LayoutDirection.Rtl, layoutDirection())
+        auditMainScreens()
+    }
+
+    /** Merkliste, Alarm-Übersicht (Glocke, es gibt einen Alarm), Portfolio und Einstellungen. */
+    private fun auditMainScreens() {
         val findings = mutableListOf<String>()
         waitForTag(UiTestTags.WATCH_ROW)
         findings += ComposeA11yAudit.findings(compose, "watchlist", SUPPRESSIONS)
+        clickTag(UiTestTags.WATCH_BELL)
+        waitForTag(UiTestTags.ALARMS_OVERVIEW)
+        findings += ComposeA11yAudit.findings(compose, "alarms", SUPPRESSIONS)
+        compose.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+        waitForTag(UiTestTags.WATCH_ROW)
         clickTag(UiTestTags.TAB_PORTFOLIO)
         findings += ComposeA11yAudit.findings(compose, "portfolio", SUPPRESSIONS)
         clickTag(UiTestTags.TAB_SETTINGS)
         findings += ComposeA11yAudit.findings(compose, "settings", SUPPRESSIONS)
         assertTrue("Barrierefreiheits-Befunde:\n" + findings.joinToString("\n"), findings.isEmpty())
     }
+
+    /** Leserichtung der Oberfläche, wie Compose sie anwendet (Wurzel der Merkliste). */
+    private fun layoutDirection(): LayoutDirection =
+        compose.onAllNodes(hasTestTag(UiTestTags.WATCH_ROW), useUnmergedTree = true).fetchSemanticsNodes()
+            .first().layoutInfo.layoutDirection
 
     private fun clickTag(tag: String) {
         val enabled = hasTestTag(tag) and isEnabled()

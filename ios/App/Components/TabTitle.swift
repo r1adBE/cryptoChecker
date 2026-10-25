@@ -23,6 +23,11 @@ struct TabTitle: View {
         .foregroundStyle(AppColors.onSurface)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isHeader)
+        // Die Leiste deckelt die Schrift: langes Drücken zeigt den Titel gross (HIG, wie die Tableiste)
+        .accessibilityShowsLargeContentViewer {
+            symbol
+            Text(title)
+        }
     }
 
     @ViewBuilder

@@ -15,6 +15,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 131)
+
+* Coin logos: images up to 4 MB are loaded – Binance has uploaded high-resolution logos since 2025 (e.g. SATS, ACE, RATS, MOG showed initials); images that failed under the old limit are tried again at once.
+* FIFO: the transfer fee spread over all lots is stored once per transfer and its parts are worked out only when needed – portfolio overview and tax export with many transfers are faster (amounts unchanged up to the last of 34 digits).
+* iOS: exchange pauses, change basis, unusual activity and pending portfolio saves no longer redraw every screen; tab page titles show in the large content viewer on long press.
+* Accessibility audits: iOS blocking again; Android also checks double text size, Arabic (right to left) and the alerts overview.
+
 ## 16.2.2 (build 130)
 
 * iOS starts faster: the watchlist is read and decrypted in the background, placeholder rows show until it is there (nothing is saved before it is loaded); frequently changing status values no longer redraw every screen.

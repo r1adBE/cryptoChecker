@@ -2470,6 +2470,15 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
+  factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
+  joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on
+  Android); open parts aggregate the stream once per queue. Logo image limit 4 MB (`MAX_IMAGE_BYTES` /
+  `maxImageBytes`), failure memory key v2. iOS `AppStatus` also holds exchangePauses, changeStamp, activityReports,
+  portfolioSavePending. Android audit: `TestDisplayOverride` (Compose locals only: font scale, locale, layout
+  direction) set by `DeviceOverridesRule`; runs in standard size, font ×2 and Arabic plus the alerts overview (bell).
+  iOS audit blocking again; nav-bar dynamic type and element-less text detections logged only; tab tap and audit
+  timeout retried once.
 * Build 130: iOS `AppData+SnapshotLoad` (launch read off main, `whenSnapshotLoaded`/`waitForSnapshot`, guarded
   accessors, `WatchlistLoadingRows`), `AppStatus` (@Observable: online, appStartMillis, watchlistSavePending,
   watchlistLockedHints). `PortfolioDecimal.mantissaDigits`. Accessibility audits: iOS still report-only in build 130

@@ -103,15 +103,7 @@ final class AppData: ObservableObject {
     /// beobachtbares Objekt, damit eine Änderung nicht alle Ansichten von `AppData` neu aufbaut (`RefreshState`).
     let refreshState = RefreshState(lastRefreshMillis: SharedStorage.lastRefreshDuration,
                                     lastRefreshReport: SharedStorage.lastRefreshReport)
-    /// Ende der Pause je Börsen-Schlüssel (`RowPause.pauses`): «Binance · pausiert bis 19:45» in der Zeitzeile ihrer
-    /// Paare; ob eine Pause noch läuft, entscheidet die Zeile mit der aktuellen Zeit (`RowPause.shownUntil`).
-    @Published var exchangePauses: [String: Int64] = RowPause.pauses(SharedStorage.exchangeBackoff)
-    /// %-Basis und Tagesbeginn, mit denen die gespeicherten Veränderungen gerechnet wurden.
-    @Published var changeStamp: ChangeStamp? = SharedStorage.changeStamp
     @Published var favorites: [FavoriteKind: Set<String>] = [:]
-    /// «Ungewöhnliche Aktivität» je Paar (Watch-Id); abgelaufene Signale filtert
-    /// `ActivityReport.active(now:)`.
-    @Published var activityReports: [Int64: ActivityReport] = [:]
     /// Beobachtete Adressen samt Datei-Stand — Zugriff nur über `watchedAddresses`, `watchedAddressFile` und
     /// `watchedAddressIntact` (AppData+SnapshotLoad.swift: erst nach dem Lesen beim Start).
     var watchedState = WatchedAddressState()
@@ -124,9 +116,12 @@ final class AppData: ObservableObject {
     var watchedAddressSavePending = false
     /// Ausstehender «Erst-Hinzufügen»-Moment; die Merkliste holt ihn ab (`takeAddCelebration`).
     @Published var addCelebration: AddCelebration?
-    /// Netz, App-Start, «wird nicht gespeichert» und Hinweis-Zähler: eigenes beobachtbares Objekt, damit ein Wechsel
-    /// nicht alle Ansichten von `AppData` neu aufbaut (`AppStatus`; gelesen über `online`, `appStartMillis` …).
-    let status = AppStatus(online: NetworkStatus.shared.isOnline, appStartMillis: SharedStorage.appStartMillis)
+    /// Netz, App-Start, «wird nicht gespeichert», Hinweis-Zähler, Börsen-Pausen, %-Stempel, Aktivität und wartendes
+    /// Portfolio-Speichern: eigenes beobachtbares Objekt, damit ein Wechsel nicht alle Ansichten von `AppData` neu aufbaut
+    /// (`AppStatus`; gelesen über `online`, `appStartMillis`, `exchangePauses` …).
+    let status = AppStatus(online: NetworkStatus.shared.isOnline, appStartMillis: SharedStorage.appStartMillis,
+                           exchangePauses: RowPause.pauses(SharedStorage.exchangeBackoff),
+                           changeStamp: SharedStorage.changeStamp)
     // Live-Kurse je Paar: `LivePrices` (eigener, je Zeile beobachteter Speicher), Börsen und Paare am Strom:
     // `refreshState` — ein Tick veröffentlicht hier nichts, sonst würden Markt, Portfolio und Einstellungen neu aufgebaut.
     /// Letzter Live-Kurs je Watch-Id (ms) — Paare mit frischem Kurs lässt die REST-Abfrage aus.
@@ -146,10 +141,6 @@ final class AppData: ObservableObject {
     var readCache = WatchlistReadCache()
     /// Letztes `setPortfolioFile` scheiterte an der Sperre (Datei/Schlüssel), nicht an einem Schreibfehler.
     var portfolioWriteLocked = false
-    /// Portfolio bzw. Portfolio-Alarme konnten nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar) und
-    /// warten im Speicher — nie im Klartext geschrieben. Das Portfolio nennt es; das nächste Speichern bzw. die Rückkehr
-    /// der App nach vorne versucht es erneut (`retryPendingPortfolioSaves`).
-    @Published var portfolioSavePending = false
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
     /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Schreibwege des Nutzers sind gesperrt. Neu bei jedem Lesen.
     /// Setzen nur beim Lesen; von aussen setzbar allein für den Verhaltenstest (WatchlistLockBehaviorTests). Zugriff über

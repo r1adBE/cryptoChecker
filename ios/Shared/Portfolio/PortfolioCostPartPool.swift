@@ -102,6 +102,8 @@ struct PortfolioCostPartList: RandomAccessCollection, ExpressibleByArrayLiteral,
     private enum Storage: Sendable {
         case parts([PortfolioCostPart])
         case view(PortfolioScaledParts)
+        /// FIFO-Veräusserung: Einträge, ausgelesen beim ersten Zugriff (PortfolioFifoParts.swift).
+        case fifo(PortfolioFifoParts)
     }
 
     /// Bis zu so vielen Teilen rechnen `weightedSum`/`anyTime` Teil für Teil (exakt wie die Teile selbst).
@@ -121,12 +123,22 @@ struct PortfolioCostPartList: RandomAccessCollection, ExpressibleByArrayLiteral,
         storage = .view(view)
     }
 
+    /// Herkunftsteile einer FIFO-Veräusserung aus ihren Einträgen (Summe `total`); nil-Einstand: keine Teile.
+    init(fifo entries: [PortfolioFifo.Entry], total: Decimal?) {
+        guard let total, !entries.isEmpty else {
+            storage = .parts([])
+            return
+        }
+        storage = .fifo(PortfolioFifoParts(entries: entries, total: total))
+    }
+
     var startIndex: Int { 0 }
 
     var endIndex: Int {
         switch storage {
         case .parts(let parts): return parts.count
         case .view(let view): return view.len
+        case .fifo(let fifo): return fifo.items.count
         }
     }
 
@@ -137,6 +149,7 @@ struct PortfolioCostPartList: RandomAccessCollection, ExpressibleByArrayLiteral,
         switch storage {
         case .parts(let parts): return parts
         case .view(let view): return view.items
+        case .fifo(let fifo): return fifo.items
         }
     }
 
@@ -185,6 +198,10 @@ struct PortfolioCostPartList: RandomAccessCollection, ExpressibleByArrayLiteral,
             return [lo, hi]
         case .view(let view):
             return view.len == 0 ? [] : view.store.timeBounds(view.len)
+        case .fifo:
+            let all = items
+            guard let first = all.first else { return [] }
+            return [all.reduce(first.time) { Swift.min($0, $1.time) }, all.reduce(first.time) { Swift.max($0, $1.time) }]
         }
     }
 }

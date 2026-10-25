@@ -36,7 +36,8 @@ actor CoinLogoStore {
     // «v5»: Einträge der früheren GitHub-Liste fallen beim Lesen weg (`isAllowedURL`), dann neu direkt
     private static let mapTimeKey = "coin_logos_map_time_v5"
     private static let mapAttemptKey = "coin_logos_map_attempt_v5"
-    static let failedKey = "coin_logos_failed"
+    /// «v2» (Build 131): Fehlschläge unter der früheren 512-KB-Grenze nicht 24 h abwarten.
+    static let failedKey = "coin_logos_failed_v2"
     /// Kürzel, die nur die Zusatzseiten der Rangliste bringen (`CoinLogos.extraOnlyKeys`).
     static let extraOnlyKey = "coin_logos_extra_only_v1"
     /// Zeitpunkt der zuletzt direkt geholten Binance-Symbolliste bzw. des letzten Versuchs.

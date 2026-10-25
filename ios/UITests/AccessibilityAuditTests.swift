@@ -90,6 +90,8 @@ final class AccessibilityAuditTests: XCTestCase {
         let tab = app.tagged(tag)
         XCTAssertTrue(tab.waitForExistence(timeout: uiTimeout), "\(tag) missing")
         tab.tap()
+        // Langsamer CI-Mac: kam der Tipp nicht an (Tab nicht gewählt), einmal erneut tippen
+        if !wait(tab, "isSelected == true", timeout: 5) { tab.tap() }
         XCTAssertTrue(wait(tab, "isSelected == true"), "\(tag) not selected")
     }
 
@@ -106,7 +108,8 @@ final class AccessibilityAuditTests: XCTestCase {
         let tabFrames: [CGRect] = tabButtons.map { $0.frame.insetBy(dx: -1, dy: -1) }
         let tabTop = tabFrames.map(\.minY).filter { $0 > 0 }.min() ?? 0
         let window = app.windows.firstMatch.frame
-        try app.performAccessibilityAudit(for: .all) { issue in
+        let navBar = app.navigationBars.firstMatch.exists ? app.navigationBars.firstMatch.frame.insetBy(dx: -1, dy: -1) : .zero
+        let handler: (XCUIAccessibilityAuditIssue) throws -> Bool = { issue in
             let identifier = issue.element?.identifier ?? ""
             let frame = issue.element?.frame ?? .zero
             let inTabBar = issue.auditType == .dynamicType && !frame.isEmpty
@@ -116,19 +119,33 @@ final class AccessibilityAuditTests: XCTestCase {
             // haben genug Kontrast (Theme.swift, z. B. #474747 auf #FBF9F6 rund 9:1); nur protokolliert
             let underBar = issue.auditType == .contrast && !frame.isEmpty
                 && ((tabTop > 0 && frame.maxY > tabTop) || (!window.isEmpty && !window.contains(frame)))
+            // Navigationsleiste: UIKit deckelt die Schrift des Titels (wie die Tableiste); langes Drücken zeigt ihn im
+            // Large Content Viewer (`TabTitle`). Elementlose «Potentially inaccessible text»-Treffer (Texterkennung im
+            // Bild ohne zugehöriges Element, nicht zuzuordnen): nur protokolliert
+            let inNavBar = issue.auditType == .dynamicType && !frame.isEmpty && !navBar.isEmpty && navBar.contains(frame)
+            let unattributed = issue.auditType == .elementDetection && issue.element == nil
+            if inNavBar || unattributed {
+                print("A11Y-AUDIT [\(screen)] (Leiste bzw. ohne Element, nicht gewertet) \(issue.compactDescription)")
+            }
             if underBar {
                 print("A11Y-AUDIT [\(screen)] (unter der Leiste, nicht gewertet) \(issue.compactDescription) — "
                       + "«\(issue.element?.label ?? "")»")
             }
-            let known = inTabBar || underBar || AccessibilityAuditTests.exceptions.contains { exception in
+            let known = inTabBar || underBar || inNavBar || unattributed || AccessibilityAuditTests.exceptions.contains { exception in
                 issue.auditType == exception.type && identifier.hasPrefix(exception.identifierPrefix)
             }
             if !known {
                 let label = issue.element?.label ?? ""
                 print("A11Y-AUDIT [\(screen)] \(issue.compactDescription) — id «\(identifier)», «\(label)»")
             }
-            // Build 130: nur gemeldet (Zeilen «A11Y-AUDIT» und Warnungen); Build 131 macht die Prüfung wieder blockierend
-            return true
+            return known
+        }
+        // Langsamer CI-Mac: «Audit failed to complete in time» (Code -56) einmal wiederholen, dann zählt der Fehler
+        do {
+            try app.performAccessibilityAudit(for: .all, handler)
+        } catch let error as NSError where error.code == -56 {
+            print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits, zweiter Versuch")
+            try app.performAccessibilityAudit(for: .all, handler)
         }
     }
 }

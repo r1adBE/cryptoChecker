@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import com.cryptochecker.app.ui.theme.Spacing
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,6 +42,7 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.watch.AlarmPulse
 import com.cryptochecker.app.domain.watch.QuickView
@@ -237,7 +239,7 @@ private fun AlarmBell(
         else -> pluralStringResource(R.plurals.watchlist_alarms_count, alarmTotal, alarmTotal)
     }
     // Antippbarer Knoten 48 × 48 dp (Standard 40 dp in 48 dp Platz); sichtbar bleibt das 24-dp-Symbol
-    IconButton(onClick = onClick, modifier = modifier.size(MinTouchTarget)) {
+    IconButton(onClick = onClick, modifier = modifier.size(MinTouchTarget).testTag(UiTestTags.WATCH_BELL)) {
         Icon(
             painterResource(if (active) R.drawable.ic_notifications_active else R.drawable.ic_notifications_active_outline),
             contentDescription = label,

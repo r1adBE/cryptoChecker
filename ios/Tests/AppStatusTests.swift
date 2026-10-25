@@ -44,6 +44,34 @@ final class AppStatusTests: XCTestCase {
         watchers.removeAll()
     }
 
+    /// Seit Build 131 auch Börsen-Pausen, %-Stempel, Aktivität und wartendes Portfolio-Speichern.
+    func testMovedValuesDoNotPublishOnAppData() {
+        let data = AppData.shared
+        let savedPauses = data.exchangePauses
+        let savedStamp = data.changeStamp
+        let savedReports = data.activityReports
+        let savedPortfolio = data.portfolioSavePending
+        defer {
+            data.exchangePauses = savedPauses
+            data.changeStamp = savedStamp
+            data.activityReports = savedReports
+            data.portfolioSavePending = savedPortfolio
+        }
+        let appChanges = Counter()
+        var watchers: [AnyCancellable] = []
+        data.objectWillChange.sink { _ in appChanges.count += 1 }.store(in: &watchers)
+
+        data.exchangePauses["test"] = 42
+        data.changeStamp = nil
+        data.activityReports[-1] = nil
+        data.portfolioSavePending = !savedPortfolio
+        XCTAssertEqual(appChanges.count, 0, "AppData darf bei diesen Werten nicht veröffentlichen")
+        XCTAssertEqual(data.status.exchangePauses["test"], 42)
+        XCTAssertNil(data.status.changeStamp)
+        XCTAssertEqual(data.status.portfolioSavePending, !savedPortfolio)
+        watchers.removeAll()
+    }
+
     func testReadersOfAValueAreNotified() {
         let status = AppStatus(online: true, appStartMillis: nil)
         let onlineChanged = expectation(description: "online")

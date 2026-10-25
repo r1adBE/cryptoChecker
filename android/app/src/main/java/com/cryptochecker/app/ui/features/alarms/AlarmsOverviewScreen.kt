@@ -40,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -51,6 +52,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
@@ -198,7 +200,7 @@ fun AlarmsOverviewScreen(
         // Tablet/Querformat: Inhalt höchstens 640 dp breit, Liste bleibt voll breit scrollbar
         ReadableInset { inset ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize().padding(padding),
+                modifier = Modifier.fillMaxSize().padding(padding).testTag(UiTestTags.ALARMS_OVERVIEW),
                 contentPadding = PaddingValues(start = 16.dp + inset, top = 16.dp, end = 16.dp + inset, bottom = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
