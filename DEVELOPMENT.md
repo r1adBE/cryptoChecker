@@ -2477,7 +2477,8 @@ after the encryption step.
   Android widget lock end: `WidgetRefreshUnlock.hold` sends a broadcast to `PriceWidgetProvider` that waits with
   goAsync in steps of at most 6 s (`holdStep`) and then redraws – a running receiver keeps the process from being
   frozen, so the chronometer never counts below zero; the alarm (now waking, allow-while-idle) stays as fallback.
-  iOS audit waits 1.5 s before each audit so fading views are not measured half-transparent.
+  iOS audit waits 1.5 s before each audit and first closes the watchlist storage notice (always shown in the unsigned
+  simulator; the audit reported «Contrast failed» for it and the starter title beneath, although the text has ~13:1).
   `check_theme_contrast.py` (CI, reads the colour sources). CI: `swift_escape_hatches.py`, `code_metrics.py`,
   `user_agent_check.py`, `RoomSchemaRulesTest`, signed macro calendar (`macro_events.json` in the manifest),
   provenance attestation on tags, PGP keyring via supply-chain-update, fastlane `store_build`. iOS coverage gate on

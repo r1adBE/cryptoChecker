@@ -63,6 +63,14 @@ final class AccessibilityAuditTests: XCTestCase {
     @MainActor
     private func auditMainScreens(_ app: XCUIApplication) throws {
         XCTAssertTrue(app.tagged(UiTestTags.tabWatchlist).waitForExistence(timeout: uiTimeout), "watchlist not loaded")
+        // Speicher-Hinweis: nur im unsignierten Simulator (kein Schlüsselbund der App Group), auf dem Gerät nur ohne
+        // Schlüssel. Schwebt über der Liste; das Audit meldet dort «Contrast failed» für ihn und den verdeckten Titel,
+        // obwohl Text #1B1B1B auf der Fläche #E5E2DB rund 13:1 hat — vorher schliessen
+        let noticeClose = app.tagged(UiTestTags.storageNoticeClose)
+        if noticeClose.waitForExistence(timeout: 3) {
+            noticeClose.tap()
+            XCTAssertTrue(wait(noticeClose, "exists == false"), "storage notice not closed")
+        }
         try audit(app, "watchlist")
 
         openTab(app, UiTestTags.tabPortfolio)
@@ -89,8 +97,7 @@ final class AccessibilityAuditTests: XCTestCase {
     /// Befund lässt den Test scheitern (und steht zusätzlich als Zeile «A11Y-AUDIT» im Log).
     @MainActor
     private func audit(_ app: XCUIApplication, _ screen: String) throws {
-        // Erst wenn Ein- und Ausblendungen fertig sind (z. B. der Speicher-Hinweis, der nach dem Lesen beim Start
-        // einblendet): Mitten in der Blende misst das Audit halbtransparenten Text und meldet zu wenig Kontrast
+        // Erst wenn Ein- und Ausblendungen fertig sind: mitten in der Blende misst das Audit halbtransparenten Text
         _ = XCTWaiter.wait(for: [XCTestExpectation(description: "settle")], timeout: 1.5)
         // Tableiste: ihre Beschriftungen sind bewusst gedeckelt (`AppTabBarMetrics`) und haben keine eigene Kennung —
         // erkannt über die Lage innerhalb einer Taste `tab_*` oder unterhalb der Oberkante der Leiste
