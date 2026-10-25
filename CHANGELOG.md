@@ -23,6 +23,7 @@ Detailed build history below.
 * Portfolio menu: «Cutoff-date export…» and «Worksheet…» (page title «Worksheet»).
 * Macro calendar is accepted only when it is listed in the signed market-data manifest.
 * Smaller Android app: exchange classes are no longer exempt from R8 shrinking.
+* Android watchlist widget: after the 15-second refresh lock the refresh symbol reliably returns – the countdown no longer runs into negative values («−01:05»).
 
 ## 16.2.2 (build 129)
 

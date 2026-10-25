@@ -11,6 +11,7 @@ import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.util.launchAsync
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 /** Watchlist-Widget für den Startbildschirm. */
@@ -37,6 +38,19 @@ class PriceWidgetProvider : AppWidgetProvider() {
             ACTION_REFRESH_UNLOCKED -> {
                 launchAsync("Listen-Widgets nach der Sperre neu zeichnen") {
                     widgetUpdater.update(widgetUpdater.widgetIds())
+                }
+            }
+            // Bis zum Ende der Sperre warten, dann neu zeichnen (oder an den nächsten Empfang weiterreichen)
+            ACTION_REFRESH_HOLD -> {
+                val blockedUntil = intent.getLongExtra(EXTRA_BLOCKED_UNTIL, 0L)
+                launchAsync("Listen-Widgets am Ende der Sperre neu zeichnen") {
+                    val step = WidgetRefreshUnlock.holdStep(blockedUntil, System.currentTimeMillis())
+                    delay(step.waitMillis)
+                    if (step.redraw) {
+                        widgetUpdater.update(widgetUpdater.widgetIds())
+                    } else {
+                        WidgetRefreshUnlock.hold(context, blockedUntil)
+                    }
                 }
             }
             // Ein angezeigter Stand ist inzwischen veraltet: ohne Netz neu zeichnen («veraltet · 06:42»)
@@ -116,6 +130,10 @@ class PriceWidgetProvider : AppWidgetProvider() {
         const val ACTION_REFRESH = "com.cryptochecker.app.action.WIDGET_REFRESH"
         /** Wecker aus [WidgetRefreshUnlock.schedule]: Sperre des Knopfs vorbei, Symbol wieder zeigen. */
         const val ACTION_REFRESH_UNLOCKED = "com.cryptochecker.app.action.WIDGET_REFRESH_UNLOCKED"
+        /** Empfang aus [WidgetRefreshUnlock.hold]: bis zum Ende der Sperre warten, dann Symbol statt Countdown. */
+        const val ACTION_REFRESH_HOLD = "com.cryptochecker.app.action.WIDGET_REFRESH_HOLD"
+        /** Ende der Sperre (Wanduhr, ms) zu [ACTION_REFRESH_HOLD]. */
+        const val EXTRA_BLOCKED_UNTIL = "com.cryptochecker.app.extra.BLOCKED_UNTIL"
         /** Wecker aus [WidgetOutdated.schedule]: Widgets mit inzwischen veraltetem Stand neu zeichnen. */
         const val ACTION_OUTDATED_CHECK = "com.cryptochecker.app.action.WIDGET_OUTDATED_CHECK"
     }
