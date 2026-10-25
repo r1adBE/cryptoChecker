@@ -2473,7 +2473,7 @@ after the encryption step.
 * Build 130: iOS `AppData+SnapshotLoad` (launch read off main, `whenSnapshotLoaded`/`waitForSnapshot`, guarded
   accessors, `WatchlistLoadingRows`), `AppStatus` (@Observable: online, appStartMillis, watchlistSavePending,
   watchlistLockedHints). `PortfolioDecimal.mantissaDigits`. Accessibility audits blocking again (iOS, with tab bar
-  exception by position; Android `DeviceOverridesRule` for font scale 2.0 and Arabic, alerts overview).
+  exception by position; Android in standard size – large text, Arabic and the alerts overview follow).
   `check_theme_contrast.py` (CI, reads the colour sources). CI: `swift_escape_hatches.py`, `code_metrics.py`,
   `user_agent_check.py`, `RoomSchemaRulesTest`, signed macro calendar (`macro_events.json` in the manifest),
   provenance attestation on tags, PGP keyring via supply-chain-update, fastlane `store_build`. iOS coverage gate on
