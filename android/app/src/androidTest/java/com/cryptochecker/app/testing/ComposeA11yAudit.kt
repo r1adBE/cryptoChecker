@@ -1,5 +1,6 @@
 package com.cryptochecker.app.testing
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsConfiguration
 import androidx.compose.ui.semantics.SemanticsNode
@@ -27,6 +28,9 @@ object ComposeA11yAudit {
     data class Suppression(val check: Check, val match: String, val reason: String)
 
     private const val MIN_TARGET_DP = 48f
+
+    /** Sichtbare Mindesthöhe der Material-Knöpfe ([materialMinimum]). */
+    private const val MATERIAL_VISIBLE_DP = 40f
 
     /**
      * Alle Befunde aller Fenster (Hauptfenster, Dialoge, Menüs) als lesbare Zeilen, `screen` vorangestellt;
@@ -58,10 +62,23 @@ object ComposeA11yAudit {
         val bounds = node.boundsInRoot
         val fullyVisible = bounds.width >= node.size.width - 1 && bounds.height >= node.size.height - 1
         val minSide = minOf(node.size.width, node.size.height) / density
-        if (fullyVisible && minSide < MIN_TARGET_DP - 0.5f && !suppressed(Check.TOUCH_TARGET)) {
+        if (fullyVisible && minSide < MIN_TARGET_DP - 0.5f && !materialMinimum(config, minSide) &&
+            !suppressed(Check.TOUCH_TARGET)
+        ) {
             found += "${Check.TOUCH_TARGET}: ${String.format(Locale.ROOT, "%.1f", minSide)} dp < 48 dp ($name, $bounds)"
         }
         return found
+    }
+
+    /**
+     * Material-Bausteine (Button, Checkbox, Switch, RadioButton) sind sichtbar 40 dp gross und erweitern ihre Tippfläche
+     * über `minimumInteractiveComponentSize` unsichtbar auf 48 dp; der Semantik-Knoten zeigt nur die sichtbare Grösse
+     * (die erweiterte Tippfläche ist in Compose nicht öffentlich lesbar). Diese Rollen gelten ab 40 dp als erfüllt.
+     */
+    private fun materialMinimum(config: SemanticsConfiguration, minSide: Float): Boolean {
+        val role = config.getOrNull(SemanticsProperties.Role) ?: return false
+        val material = role == Role.Button || role == Role.Checkbox || role == Role.Switch || role == Role.RadioButton
+        return material && minSide >= MATERIAL_VISIBLE_DP - 0.5f
     }
 
     private fun hidden(config: SemanticsConfiguration): Boolean =
