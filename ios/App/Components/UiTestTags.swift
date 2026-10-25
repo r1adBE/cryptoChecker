@@ -95,6 +95,9 @@ enum UiTestTags {
     /// Schliessen-✕ einer Meldung mit Aktion (Snackbar bzw. Banner).
     static let snackbarDismiss = "snackbar_dismiss"
 
+    /// Hinweis «Arbeitshilfe, keine Steuer- oder Anlageberatung» unten im Portfolio (`PortfolioDisclaimer`).
+    static let portfolioDisclaimer = "portfolio_disclaimer"
+
     /// «Schliessen» des Speicher-Hinweises der Merkliste (`WatchlistStorageNotice`). Im UI-Test steht er immer (der
     /// unsignierte Simulator hat keinen Schlüsselbund der App Group); das Audit schliesst ihn vor der Prüfung.
     static let storageNoticeClose = "storage_notice_close"

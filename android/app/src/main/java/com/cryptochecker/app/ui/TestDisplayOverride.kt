@@ -52,8 +52,9 @@ object TestDisplayOverride {
         }
         val context = LocalContext.current
         val density = LocalDensity.current
-        val configured = remember(context, scale, tag) {
-            val config = Configuration(context.resources.configuration)
+        val current = LocalConfiguration.current
+        val configured = remember(context, current, scale, tag) {
+            val config = Configuration(current)
             if (scale > 0f) config.fontScale = scale
             if (tag.isNotEmpty()) {
                 val locale = Locale.forLanguageTag(tag)
