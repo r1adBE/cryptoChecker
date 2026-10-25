@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">Εξαγωγή (ημερομηνία αναφοράς, έγγραφο εργασίας)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">Εξαγωγή ημερομηνίας αναφοράς…</string>
+    <string name="portfolio_tax_worksheet_action">Φορολογικό έγγραφο εργασίας…</string>
     <string name="portfolio_export_address_unobserved">η διεύθυνση δεν παρακολουθούνταν αυτή την ημερομηνία – δεν περιλαμβάνεται</string>
     <string name="portfolio_export_button">Εξαγωγή CSV</string>
     <string name="portfolio_export_col_amount">Ποσότητα</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">Η εξαγωγή αποθηκεύτηκε</string>
     <string name="portfolio_export_estv_note">Για τον φόρο περιουσίας ισχύουν οι επίσημες τιμές τέλους έτους του καταλόγου τιμών ESTV %1$s (όπου αναφέρονται): %2$s</string>
     <string name="portfolio_export_failed">Η εξαγωγή απέτυχε</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Η εξαγωγή απέτυχε: το αρχείο δεν μπόρεσε να γραφτεί – η θέση αποθήκευσης δεν υπάρχει πια ή δεν επιτρέπει εγγραφή</string>
+    <string name="portfolio_export_failed_prices">Η εξαγωγή απέτυχε: λείπουν τιμές – χωρίς σύνδεση ή το ανταλλακτήριο δεν απαντά</string>
     <string name="portfolio_export_from_address">από διεύθυνση – χωρίς τιμή αγοράς</string>
     <string name="portfolio_export_hint">Κατοχή στο τέλος της επιλεγμένης ημέρας, αποτιμημένη στην τιμή κλεισίματος της ημέρας (UTC) σε USDT και μετατρεπόμενη με την ισοτιμία αναφοράς της ΕΚΤ εκείνης της ημέρας. Άλλαξε το νόμισμα από το «Μετατροπή σε».</string>
     <string name="portfolio_export_incomplete">ελλιπές</string>

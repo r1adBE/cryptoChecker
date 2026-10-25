@@ -10,6 +10,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -26,9 +30,11 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistoryView
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
+import com.cryptochecker.app.ui.components.ChartPointStep
 import com.cryptochecker.app.ui.components.SkeletonBlock
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
+import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
@@ -276,6 +282,14 @@ private fun SingleChart(history: PortfolioHistoryUi, change: Double, period: Str
     val chartSentence = A11yText.chart(context, period, values) {
         if (hidden) hiddenSpoken else if (pnl) signedValue(it, history.unit) else PriceFormat.valueWithCurrency(it, history.unit)
     }
+    // Screenreader: Tag für Tag (Aktionen «Nächster/Vorheriger Punkt»); bei verborgenen Beträgen nur der Chart-Satz
+    var a11yPoint by remember(points, pnl) { mutableStateOf<Int?>(null) }
+    val stepCount = if (hidden) 0 else points.size
+    val pointText = a11yPoint?.let { points.getOrNull(it) }?.takeIf { !hidden }?.let {
+        val amount =
+            if (pnl) signedValue(it.value, history.unit) else PriceFormat.valueWithCurrency(it.value, history.unit)
+        stringResource(R.string.label_value, PortfolioFormat.date(dayMillis(it.epochDay)), amount)
+    }
     HistoryChart(
         points = points,
         unit = history.unit,
@@ -286,7 +300,16 @@ private fun SingleChart(history: PortfolioHistoryUi, change: Double, period: Str
             .fillMaxWidth()
             .height(HISTORY_CHART_HEIGHT)
             .padding(top = Spacing.sm)
-            .clearAndSetSemantics { contentDescription = chartSentence }
+            .chartPointSemantics(
+                chartSentence,
+                stepCount,
+                pointText,
+                stringResource(R.string.a11y_chart_next_point),
+                stringResource(R.string.a11y_chart_previous_point),
+            ) { forward ->
+                a11yPoint = if (forward) ChartPointStep.next(a11yPoint, stepCount)
+                else ChartPointStep.previous(a11yPoint, stepCount)
+            }
     )
     // Beginn und Ende der Achse (für Screenreader im Chart-Satz enthalten).
     // Wie der Chart darüber: Beginn links, «heute» rechts — auch bei Rechts-nach-links-Sprachen

@@ -2,8 +2,8 @@ import Foundation
 
 /// Regelstand der Länder-Vorlagen (`TaxTemplate.rulesDate`, «JJJJ-MM»): Sätze, Freibeträge und Grenzen (z. B.
 /// `TaxTemplate.caInclusion`, `TaxTemplate.frExemptEur`) sind fest hinterlegt. Für ein Steuerjahr nach dem Jahr des
-/// Regelstands können sie veraltet sein — das Export-Blatt weist dann darauf hin, ohne zu blockieren.
-/// Wie Android `TaxRulesDate`; gemeinsame Fälle in `tax_rules_stale.json`.
+/// Regelstands können sie veraltet sein — die Seite «Steuer-Arbeitsunterlage» weist dann darauf hin, ohne zu
+/// blockieren. Wie Android `TaxRulesDate`; gemeinsame Fälle in `tax_rules_stale.json`.
 enum TaxRulesDate {
     /// Jahr und Monat des Regelstands; nil = nicht «JJJJ-MM» mit Ziffern 0–9 oder Monat ausserhalb 1–12.
     static func month(_ rulesDate: String) -> (year: Int, month: Int)? {

@@ -2,7 +2,7 @@ import Accessibility
 import SwiftUI
 
 // Leiste oben der Portfolio-Seite (Teil von `PortfolioScreen`): Beträge verbergen, Umrechnung, Adressen, CSV-Import
-// und das Menü ⋯ (Importe, Export, Alarm, alles löschen).
+// und das Menü ⋯ (Importe, Stichtag-Export, Steuer-Arbeitsunterlage, Alarm, alles löschen).
 // Eigene Datei, weil Leiste und Menü für sich lesbar sein sollen.
 
 extension PortfolioScreen {
@@ -67,12 +67,20 @@ extension PortfolioScreen {
                     .accessibilityIdentifier(UiTestTags.portfolioImports)
                 }
                 if hasTransactions {
-                    // Stichtag-Export (z. B. Bestand per 31.12. für die Steuererklärung)
+                    // Stichtag-Export (z. B. Bestand per 31.12. für die Vermögenssteuer)
                     Button {
                         exportOpen = true
                     } label: {
-                        Label(L("portfolio_export_action"), systemImage: "doc.text")
+                        Label(L("portfolio_cutoff_export_action"), systemImage: "doc.text")
                     }
+                    .accessibilityIdentifier(UiTestTags.portfolioCutoffExport)
+                    // Steuer-Arbeitsunterlage: eigene Seite
+                    Button {
+                        taxWorksheetOpen = true
+                    } label: {
+                        Label(L("portfolio_tax_worksheet_action"), systemImage: "list.bullet.rectangle")
+                    }
+                    .accessibilityIdentifier(UiTestTags.portfolioTaxExport)
                 }
                 if hasData {
                     // Alarm «Portfolio-Wert»

@@ -1,5 +1,5 @@
 {
-  "_comment": "Obergrenze der Kurs-Mitteilungen (Android und iOS): höchstens 20 einzeln, der Rest in EINER Sammelmeldung; priceSlots = Plätze bei anderen offenen Mitteilungen, planPrices = Verteilung (shown = einzeln offen, neueste zuerst; overflowBefore = bisher in der Sammelmeldung; posts = jetzt zu melden). Gemeinsam für NotificationBudgetParityTest.kt und NotificationBudgetTests.swift.",
+  "_comment": "Obergrenze der Kurs-Mitteilungen (Android und iOS): höchstens 20 einzeln, der Rest in EINER Sammelmeldung; priceSlots = Plätze bei anderen offenen Mitteilungen, planPrices = Verteilung (shown = einzeln offen, neueste zuerst; overflowBefore = bisher in der Sammelmeldung; posts = jetzt zu melden). overflowBody = aufgeklappter Text der Sammelmeldung (Zeilen mit Zeilenumbruch verbunden): die ersten 5 Zeilen, danach «…». Gemeinsam für NotificationBudgetParityTest.kt und NotificationBudgetTests.swift.",
   "maxPrice": 20,
   "priceSlots": [
     {
@@ -404,6 +404,44 @@
       ],
       "overflow": [],
       "demoted": []
+    }
+  ],
+  "overflowBody": [
+    {
+      "name": "zwei Zeilen",
+      "lines": [
+        "a",
+        "b"
+      ],
+      "body": "a\nb"
+    },
+    {
+      "name": "genau fünf Zeilen, kein «…»",
+      "lines": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "body": "1\n2\n3\n4\n5"
+    },
+    {
+      "name": "sechs Zeilen: fünf und «…»",
+      "lines": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "body": "1\n2\n3\n4\n5\n…"
+    },
+    {
+      "name": "leer",
+      "lines": [],
+      "body": ""
     }
   ]
 }

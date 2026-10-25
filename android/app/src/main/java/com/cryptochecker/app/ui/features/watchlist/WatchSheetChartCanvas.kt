@@ -31,8 +31,7 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +39,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.ui.theme.AppColors
@@ -57,11 +57,14 @@ import com.cryptochecker.app.widget.WidgetChartType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.ZoneId
+import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import com.cryptochecker.app.ui.components.ChartPointStep
 import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.components.rememberHaptics
 
 /** Ein gezeichneter Verlauf: Zustand der Überblendung. */
@@ -80,7 +83,8 @@ private class GeometryHolder {
 /**
  * Zeichnet mit der Geometrie des Einzel-Widgets ([WidgetChartGeometry]) auf ein Compose-
  * Canvas — gleiche Farben und Regeln wie [com.cryptochecker.app.widget.WidgetChartRenderer].
- * Für Screenreader ein Element mit dem Chart-Satz (Start, Ende, Hoch, Tief).
+ * Für Screenreader ein Element mit dem Chart-Satz (Start, Ende, Hoch, Tief); die Aktionen «Nächster Punkt» /
+ * «Vorheriger Punkt» sagen Kerze für Kerze Zeit und Schlusskurs an ([chartPointSemantics]).
  */
 @Composable
 internal fun SheetChartCanvas(
@@ -102,6 +106,8 @@ internal fun SheetChartCanvas(
     val measurer = rememberTextMeasurer()
     val holder = remember { GeometryHolder() }
     var scrub by remember(candles, type) { mutableStateOf<Int?>(null) }
+    // Vom Screenreader gewählte Kerze (Aktionen «Nächster/Vorheriger Punkt»)
+    var a11yPoint by remember(candles, type) { mutableStateOf<Int?>(null) }
     // Volumen-Balken nur, wenn die Kerzen Umsätze tragen (sonst null = ausblenden)
     val volumes = remember(candles) { SheetChart.volumeFractions(candles.map { it.volume }) }
 
@@ -186,6 +192,16 @@ internal fun SheetChartCanvas(
             locale,
         ).apply { timeZone = icuTimeZone(zone) }
     }
+    val pointCandle = a11yPoint?.let { candles.getOrNull(it) }
+    val pointText = pointCandle?.let {
+        stringResource(
+            R.string.label_value,
+            timeFormat.format(Date(it.openTime)),
+            PriceFormat.priceWithCurrency(it.close, quote),
+        )
+    }
+    val nextLabel = stringResource(R.string.a11y_chart_next_point)
+    val previousLabel = stringResource(R.string.a11y_chart_previous_point)
 
     Box(
         modifier = Modifier
@@ -193,7 +209,10 @@ internal fun SheetChartCanvas(
             .padding(top = Spacing.sm)
             .height(CHART_HEIGHT)
             .onSizeChanged { canvasSize = it }
-            .clearAndSetSemantics { contentDescription = summary }
+            .chartPointSemantics(summary, candles.size, pointText, nextLabel, previousLabel) { forward ->
+                a11yPoint = if (forward) ChartPointStep.next(a11yPoint, candles.size)
+                else ChartPointStep.previous(a11yPoint, candles.size)
+            }
             .pointerInput(candles, type) {
                 // Waagrecht ziehen oder lange drücken = Kerze zeigen; senkrecht bleibt dem Blatt
                 awaitEachGesture {

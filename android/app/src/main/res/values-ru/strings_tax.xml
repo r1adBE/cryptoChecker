@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">Экспорт (отчётная дата, рабочий документ)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">Экспорт на отчётную дату…</string>
+    <string name="portfolio_tax_worksheet_action">Налоговый рабочий документ…</string>
     <string name="portfolio_export_address_unobserved">адрес в эту дату не отслеживался – не включён</string>
     <string name="portfolio_export_button">Экспорт CSV</string>
     <string name="portfolio_export_col_amount">Количество</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">Экспорт сохранён</string>
     <string name="portfolio_export_estv_note">Для налога на имущество действуют официальные курсы на конец года из курсового листа ESTV %1$s (если указаны): %2$s</string>
     <string name="portfolio_export_failed">Ошибка экспорта</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Ошибка экспорта: не удалось записать файл – место сохранения больше недоступно или защищено от записи</string>
+    <string name="portfolio_export_failed_prices">Ошибка экспорта: нет цен – нет соединения или биржа не отвечает</string>
     <string name="portfolio_export_from_address">с адреса – без цены покупки</string>
     <string name="portfolio_export_hint">Активы на конец выбранного дня, оценённые по цене закрытия дня (UTC) в USDT и пересчитанные по референсному курсу ЕЦБ на этот день. Валюту можно изменить в «Пересчитать в».</string>
     <string name="portfolio_export_incomplete">неполные данные</string>

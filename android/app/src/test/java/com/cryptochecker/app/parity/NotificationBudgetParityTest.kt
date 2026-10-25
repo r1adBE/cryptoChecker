@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.notification.AppNotifierDeliveryPlan
 import com.cryptochecker.app.notification.NotificationBudget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -39,6 +40,19 @@ class NotificationBudgetParityTest {
             assertEquals(name, ids(c["demoted"]), plan.demoted)
             // Nie mehr als 20 einzeln (die Sammelmeldung ist EINE Mitteilung)
             assertTrue(name, plan.individual.size <= NotificationBudget.MAX_PRICE)
+        }
+    }
+
+    /** Aufgeklappter Text der Sammelmeldung: Android zeigt die Zeilen einzeln, iOS als Text mit Zeilenumbrüchen. */
+    @Test
+    fun overflowBody() {
+        data["overflowBody"].list().map { it.obj() }.forEach { c ->
+            val lines = c["lines"].list().map { it as String }
+            assertEquals(
+                c["name"] as String,
+                c["body"] as String,
+                AppNotifierDeliveryPlan.overflowInboxLines(lines).joinToString("\n"),
+            )
         }
     }
 }

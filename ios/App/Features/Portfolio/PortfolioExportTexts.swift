@@ -1,10 +1,10 @@
 import SwiftUI
 
-// Hinweise und Quellen der Steuer-Vorlagen für die Arbeitsunterlage des Export-Blatts.
-// Eigene Datei, weil es reine Textzuordnungen sind – `PortfolioExportSheet` bleibt so kurz
+// Hinweise und Quellen der Steuer-Vorlagen für die Seite «Steuer-Arbeitsunterlage».
+// Eigene Datei, weil es reine Textzuordnungen sind – `TaxWorksheetPage` bleibt so kurz
 // (wie `PortfolioExportTexts.kt`).
 
-extension PortfolioExportSheet {
+extension TaxWorksheetPage {
     /// Hinweise der Vorlage (was die App nicht kann bzw. wie sie zählt), übersetzt — wie `taxTemplateNotes` (Android).
     /// Netzwerkgebühr und Schenkung an Partner nennen die Quelle der Vorlage; Quellen sind Eigennamen (unübersetzt).
     var templateNotes: [String] {

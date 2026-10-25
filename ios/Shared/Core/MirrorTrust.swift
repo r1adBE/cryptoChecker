@@ -5,9 +5,11 @@ import Foundation
 /// nach `failTTLMillis` wieder versucht — so kostet ein fehlendes Manifest nicht jede Spiegel-Anfrage zwei Abrufe.
 /// Passt eine Datei nicht zum gemerkten Manifest (die Action lief seither), wird es einmal neu geholt, höchstens
 /// einmal je `reloadAfterMillis`. Manifest höchstens `MirrorManifest.maxBytes`, Signatur höchstens
-/// `MirrorManifest.signatureMaxBytes` (grösser → wie fehlend). Gleich wie Android `MirrorTrust.kt`.
+/// `MirrorManifest.signatureMaxBytes` (grösser → wie fehlend). Gesperrte Schlüssel (`MirrorRevocations`) zählen bei
+/// jeder Prüfung nicht; eine neue Sperre aus einem gültigen Manifest wird sofort dauerhaft gemerkt.
+/// Gleich wie Android `MirrorTrust.kt`.
 actor MirrorTrust {
-    /// Einzige Instanz der App: eingebaute Schlüssel (`MirrorManifest.publicKeys`), Systemuhr.
+    /// Einzige Instanz der App: eingebaute Schlüssel (`MirrorManifest.publicKeys`), Systemuhr, gemeinsame Sperrliste.
     static let shared = MirrorTrust(publicKeys: MirrorManifest.publicKeys, now: { TimeUtils.nowMillis })
 
     /// Lädt eine Adresse mit Höchstgrösse (Bytes); nil bei jedem Fehler (auch zu gross).
@@ -22,11 +24,14 @@ actor MirrorTrust {
     private var loading: Task<MirrorManifest.Verification, Never>?
     private let publicKeys: [String]
     private let clock: @Sendable () -> Int64
+    private let revocations: MirrorRevocations
 
-    /// Schlüssel und Uhr nur in Tests anders (Test-Schlüsselpaar aus `mirror_signature.json`); die App nutzt `shared`.
-    init(publicKeys: [String], now: @escaping @Sendable () -> Int64) {
+    /// Schlüssel, Uhr und Sperrliste nur in Tests anders (Test-Schlüssel aus `mirror_signature.json`); die App nutzt
+    /// `shared`.
+    init(publicKeys: [String], now: @escaping @Sendable () -> Int64, revocations: MirrorRevocations = .shared) {
         self.publicKeys = publicKeys
         self.clock = now
+        self.revocations = revocations
     }
 
     /// Nur Tests: ein einzelner Schlüssel.
@@ -62,7 +67,8 @@ actor MirrorTrust {
         if let loading { return await loading.value }
         let keys = publicKeys
         let clockNow = self.clock
-        let task = Task { await Self.fetch(load, publicKeys: keys, now: clockNow) }
+        let store = revocations
+        let task = Task { await MirrorTrust.fetch(load, publicKeys: keys, revocations: store, now: clockNow) }
         loading = task
         let verification = await task.value
         loading = nil
@@ -71,12 +77,15 @@ actor MirrorTrust {
         return verification
     }
 
-    private static func fetch(_ load: Loader, publicKeys: [String],
+    private static func fetch(_ load: Loader, publicKeys: [String], revocations: MirrorRevocations,
                               now: @Sendable () -> Int64) async -> MirrorManifest.Verification {
         guard let manifest = await load(MirrorManifest.url, MirrorManifest.maxBytes) else {
             return MirrorManifest.verify(nil, signature: nil, now: now(), publicKeys: publicKeys)
         }
         let signature = await load(MirrorManifest.signatureURL, MirrorManifest.signatureMaxBytes)
-        return MirrorManifest.verify(manifest, signature: signature, now: now(), publicKeys: publicKeys)
+        let verification = MirrorManifest.verify(manifest, signature: signature, now: now(), publicKeys: publicKeys,
+                                                 revoked: revocations.current())
+        if !verification.revoke.isEmpty { revocations.add(verification.revoke) }
+        return verification
     }
 }

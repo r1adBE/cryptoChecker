@@ -1,8 +1,8 @@
 import SwiftUI
 
-/// Regelstand im Export-Blatt (nur Länder-Vorlagen). Liegt das Steuerjahr nach dem Jahr des Regelstands
-/// (`TaxRulesDate.rulesStale`), darunter ein deutlicher Hinweis in Bernstein mit ⚠ — Sätze und Freibeträge sind fest
-/// hinterlegt und können sich geändert haben. Für VoiceOver «Warnung, …». Blockiert keinen Export.
+/// Regelstand auf der Seite «Steuer-Arbeitsunterlage» (nur Länder-Vorlagen). Liegt das Steuerjahr nach dem Jahr des
+/// Regelstands (`TaxRulesDate.rulesStale`), darunter ein deutlicher Hinweis in Bernstein mit ⚠ — Sätze und Freibeträge
+/// sind fest hinterlegt und können sich geändert haben. Für VoiceOver «Warnung, …». Blockiert keinen Export.
 /// Wie Android `TaxRulesNotice`.
 struct PortfolioTaxRulesNotice: View {
     let template: TaxTemplate

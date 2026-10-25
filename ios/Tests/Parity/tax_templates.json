@@ -3840,6 +3840,332 @@
       ]
     },
     {
+      "name": "[TST-3] JP 総平均法: Übertrag über mehrere Jahre (年末評価額 = Ø-Stückpreis × Restmenge = Anfangsbestand des Folgejahrs)",
+      "_calc": "Von Hand nach 総平均法 (所得税法施行令 119条の2: Stückpreis je Kalenderjahr = (Anfangsbestand-Einstand + Zugänge des Jahres) / (Anfangsmenge + Zugangsmenge), jede Veräusserung des Jahres zu diesem Stückpreis). 2024: (2×100 + 2×200)/4 = 150; Verkauf 1 zu 300: Einstand 150, Gewinn 150; Jahresende 3 × 150 = 450. 2025 ohne Zugang: 450/3 = 150; Verkauf 1 zu 120: Einstand 150, Verlust −30; Jahresende 2 × 150 = 300. 2026: (300 + 1×450)/(2 + 1) = 250 — auch der Kauf NACH dem Verkauf zählt (Jahres-Durchschnitt, nicht 移動平均法: dort wären es 150); Verkauf 2 zu 300: Einstand 500, Gewinn 100.",
+      "method": "JP_TOTAL_AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1704888000000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1712750400000,
+          "price": "200"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1717243200000,
+          "price": "300"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "120"
+        },
+        {
+          "id": 5,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "time": 1772366400000,
+          "price": "300"
+        },
+        {
+          "id": 6,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1788264000000,
+          "price": "450"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2024-06-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "150",
+          "proceeds": "300",
+          "gain": "150"
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "150",
+          "proceeds": "120",
+          "gain": "-30"
+        },
+        {
+          "coin": "BTC",
+          "sold": "2026-03-01",
+          "acquired": null,
+          "amount": "2",
+          "cost": "500",
+          "proceeds": "600",
+          "gain": "100"
+        }
+      ]
+    },
+    {
+      "name": "[TST-3] JP 総平均法: kompletter Verkauf (zweimal im Jahr alles verkauft; nichts in den Folgejahr-Einstand)",
+      "_calc": "Von Hand nach 総平均法: 2025 Zugänge 1×1000 + 2×3000 = 7000 für 3 → Stückpreis 7000/3 = 2333,33333333…; gilt für BEIDE Verkäufe des Jahres, auch den im März vor dem Kauf im November. Verkauf 1 zu 2000: Einstand 2333,33333333, Verlust −333,33333333. Verkauf 2 zu 4000: Einstand 4666,66666667, Gewinn 3333,33333333. Jahresende Menge 0 → Einstand 0 (Rundungsrest der Teilung verfällt mit der Menge). 2026: nur der neue Kauf 1 zu 500 → Stückpreis 500; Verkauf 1 zu 800: Einstand 500, Gewinn 300.",
+      "method": "JP_TOTAL_AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "1000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "2000"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1762776000000,
+          "price": "3000"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "2",
+          "time": 1764590400000,
+          "price": "4000"
+        },
+        {
+          "id": 5,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1768046400000,
+          "price": "500"
+        },
+        {
+          "id": 6,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1772366400000,
+          "price": "800"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "2333.33333333",
+          "proceeds": "2000",
+          "gain": "-333.33333333"
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-12-01",
+          "acquired": null,
+          "amount": "2",
+          "cost": "4666.66666667",
+          "proceeds": "8000",
+          "gain": "3333.33333333"
+        },
+        {
+          "coin": "ETH",
+          "sold": "2026-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "500",
+          "proceeds": "800",
+          "gain": "300"
+        }
+      ]
+    },
+    {
+      "name": "[TST-3] JP 総平均法: Einzahlung ohne Kaufpreis (Einstand unbekannt bleibt unbekannt, auch im Übertrag)",
+      "_calc": "Die App setzt keinen Schätzwert ein (Arbeitsunterlage): Einzahlung 1 ohne Kaufpreis ist Bestand mit unbekanntem Einstand. 総平均法 über die Zugänge mit Kaufpreis: 3×100/3 = 100. Jeder Abgang nimmt bekannten und unbekannten Teil nach Menge (3 : 1 → Anteil 0,75). 2025 Verkauf 2 zu 200: 1,5 mit Einstand 1,5 × 100 = 150, Erlös 300, Gewinn 150; 0,5 ohne Einstand, Erlös 100, Gewinn unbekannt. Jahresende 2 = 1,5 bekannt (Einstand 150) + 0,5 unbekannt. 2026 ohne Zugang: Stückpreis 150/1,5 = 100, Anteil weiter 0,75; Verkauf 2 zu 300: 1,5 → Einstand 150, Erlös 450, Gewinn 300; 0,5 → Erlös 150, Gewinn unbekannt.",
+      "method": "JP_TOTAL_AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "SOL",
+          "type": "BUY",
+          "amount": "3",
+          "time": 1736510400000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "SOL",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 1738411200000
+        },
+        {
+          "id": 3,
+          "coin": "SOL",
+          "type": "SELL",
+          "amount": "2",
+          "time": 1740830400000,
+          "price": "200"
+        },
+        {
+          "id": 4,
+          "coin": "SOL",
+          "type": "SELL",
+          "amount": "2",
+          "time": 1772366400000,
+          "price": "300"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "SOL",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1.5",
+          "cost": "150",
+          "proceeds": "300",
+          "gain": "150"
+        },
+        {
+          "coin": "SOL",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.5",
+          "cost": null,
+          "proceeds": "100",
+          "gain": null
+        },
+        {
+          "coin": "SOL",
+          "sold": "2026-03-01",
+          "acquired": null,
+          "amount": "1.5",
+          "cost": "150",
+          "proceeds": "450",
+          "gain": "300"
+        },
+        {
+          "coin": "SOL",
+          "sold": "2026-03-01",
+          "acquired": null,
+          "amount": "0.5",
+          "cost": null,
+          "proceeds": "150",
+          "gain": null
+        }
+      ]
+    },
+    {
+      "name": "[TST-3] JP 総平均法: Netzwerkgebühr frisst den Rest bis auf Staub (1E-21) — kein Rest-Einstand ins Folgejahr",
+      "_calc": "Netzwerkgebühr in Krypto = 譲渡 zum Marktwert (国税庁 FAQ; Tagesschluss 150). 2025: Stückpreis 100/1 = 100. Verkauf 0,9 zu 200: Einstand 90, Gewinn 90. Gebühr 0,099999999999999999999 (≈ 0,1): Einstand ≈ 10, Erlös ≈ 15, Gewinn ≈ 5 (8 Stellen). Rest 1E-21 = Staub; 年末評価額 = 100 × 1E-21 ≈ 0 — die Gebühr ist veräussert, also bleibt kein Gebühr-Einstand liegen (nichts vermerkt, nichts übertragen). 2026: (≈0 + 300)/(≈0 + 1) = 300 (8 Stellen); Verkauf 1 zu 400: Einstand 300, Gewinn 100. Falsch wäre ein Übertrag des Gebühr-Einstands (Stückpreis 310).",
+      "method": "JP_TOTAL_AVERAGE",
+      "prices": {
+        "X": "150"
+      },
+      "trades": [
+        {
+          "id": 1,
+          "coin": "X",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "X",
+          "type": "SELL",
+          "amount": "0.9",
+          "time": 1738411200000,
+          "price": "200"
+        },
+        {
+          "id": 3,
+          "coin": "X",
+          "type": "TRANSFER",
+          "amount": "0.05",
+          "time": 1740830400000,
+          "fee": "0.099999999999999999999",
+          "feeUnit": "COIN",
+          "transferFrom": "A",
+          "transferTo": "B"
+        },
+        {
+          "id": 4,
+          "coin": "X",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1768046400000,
+          "price": "300"
+        },
+        {
+          "id": 5,
+          "coin": "X",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1772366400000,
+          "price": "400"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "X",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.9",
+          "cost": "90",
+          "proceeds": "180",
+          "gain": "90"
+        },
+        {
+          "coin": "X",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.1",
+          "cost": "10",
+          "proceeds": "15",
+          "gain": "5"
+        },
+        {
+          "coin": "X",
+          "sold": "2026-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "300",
+          "proceeds": "400",
+          "gain": "100"
+        }
+      ]
+    },
+    {
       "name": "[B57] DE unverändert: Gebühr USDT einer Umbuchung erhöht den Einstand (keine Verwaltungsauffassung zu Transfergebühren zwischen eigenen Wallets), keine eigene Zeile",
       "method": "FIFO",
       "template": "DE",
@@ -4702,6 +5028,194 @@
           null
         ]
       ]
+    },
+    {
+      "template": "JP",
+      "method": "JP_TOTAL_AVERAGE",
+      "year": 2025,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1704888000000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1712750400000,
+          "price": "200"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1717243200000,
+          "price": "300"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "120"
+        },
+        {
+          "id": 5,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "time": 1772366400000,
+          "price": "300"
+        },
+        {
+          "id": 6,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1788264000000,
+          "price": "450"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "LOSSES",
+          "-30",
+          "-30",
+          null
+        ],
+        [
+          "NET",
+          "-30",
+          "-30",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "120",
+          "120",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "JP_MISC",
+          "-30",
+          "-30",
+          null
+        ]
+      ],
+      "_calc": "[TST-3] Übertrag aus 2024 (3 Stück, Einstand 450 → 150/Stück), 2025 ohne Zugang: Verkauf 1 zu 120 = Verlust −30; Erlös 120; 雑所得 netto −30 (ein Verlust mindert andere Einkünfte nicht — der Posten zeigt nur die Summe)."
+    },
+    {
+      "template": "JP",
+      "method": "JP_TOTAL_AVERAGE",
+      "year": 2026,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1704888000000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "2",
+          "time": 1712750400000,
+          "price": "200"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1717243200000,
+          "price": "300"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "120"
+        },
+        {
+          "id": 5,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "time": 1772366400000,
+          "price": "300"
+        },
+        {
+          "id": 6,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1788264000000,
+          "price": "450"
+        }
+      ],
+      "lines": [
+        [
+          "GAINS",
+          "100",
+          "100",
+          null
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "100",
+          "100",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "600",
+          "600",
+          null
+        ],
+        [
+          "INCOME",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "JP_MISC",
+          "100",
+          "100",
+          null
+        ]
+      ],
+      "_calc": "[TST-3] 2026: (Übertrag 300 + Kauf 450)/(2 + 1) = 250 je Stück, auch für den Verkauf vor dem Kauf; Verkauf 2 zu 300: Gewinn 600 − 500 = 100."
     },
     {
       "template": "FR",

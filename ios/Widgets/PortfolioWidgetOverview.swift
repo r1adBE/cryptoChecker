@@ -16,6 +16,11 @@ extension PortfolioHomeView {
         let usdt = PortfolioWidgetText.usdt(s, wants: entry.wantsUsdt, hidden: entry.hideAmounts)
         let wide = family != .systemSmall
         return ViewThatFits(in: .vertical) {
+            // Dynamic Type: zuerst alles mit gewachsenem Gesamtwert, passt das nicht, die Stufen in Grundgrösse
+            if primaryScale > 1 {
+                overviewContent(s, plan: plan, figures: figures, usdt: usdt, footer: true, amounts: wide,
+                                scale: primaryScale)
+            }
             overviewContent(s, plan: plan, figures: figures, usdt: usdt, footer: true, amounts: wide)
             overviewContent(s, plan: plan, figures: figures, usdt: usdt, footer: true, amounts: false)
             overviewContent(s, plan: plan, figures: figures, usdt: nil, footer: true, amounts: false)
@@ -28,7 +33,7 @@ extension PortfolioHomeView {
 
     private func overviewContent(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan, figures: [PortfolioFigure],
                                  usdt: String?, footer showsFooter: Bool, amounts: Bool,
-                                 change: Bool = true) -> some View {
+                                 change: Bool = true, scale: CGFloat = 1) -> some View {
         let large = family == .systemLarge
         let missing = PortfolioWidgetText.missing(s, plan: plan, overview: true)
         // Ohne zweite Zeile: «ohne 1 Coin» / «Heute ohne SOL» in die Fusszeile
@@ -36,7 +41,7 @@ extension PortfolioHomeView {
         return VStack(alignment: .leading, spacing: 0) {
             header()
             Spacer(minLength: 2)
-            totalText(s, size: large ? 30 : (family == .systemSmall ? 20 : 24))
+            totalText(s, size: large ? 30 : (family == .systemSmall ? 20 : 24), scale: scale)
             if change { changeLine(s, plan: plan) }
             if usdt != nil { usdtLine(usdt, missing: missing) }
             Spacer(minLength: 4)

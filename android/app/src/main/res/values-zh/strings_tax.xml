@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">导出（基准日、工作底稿）…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">基准日导出…</string>
+    <string name="portfolio_tax_worksheet_action">税务工作底稿…</string>
     <string name="portfolio_export_address_unobserved">该日期未观察此地址——未计入</string>
     <string name="portfolio_export_button">导出 CSV</string>
     <string name="portfolio_export_col_amount">数量</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">导出已保存</string>
     <string name="portfolio_export_estv_note">财富税适用 ESTV 价目表 %1$s 中的官方年末价格（如有列出）：%2$s</string>
     <string name="portfolio_export_failed">导出失败</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">导出失败：无法写入文件——保存位置已不存在或不可写入</string>
+    <string name="portfolio_export_failed_prices">导出失败：缺少价格——无连接或交易所无响应</string>
     <string name="portfolio_export_from_address">来自地址——无买入价</string>
     <string name="portfolio_export_hint">所选日期结束时的持仓，按 USDT 计的当日收盘价（UTC）估值，并按当日欧洲央行参考汇率换算。可在“换算为”中更改货币。</string>
     <string name="portfolio_export_incomplete">不完整</string>

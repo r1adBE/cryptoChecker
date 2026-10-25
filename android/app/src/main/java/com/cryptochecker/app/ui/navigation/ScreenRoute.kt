@@ -66,6 +66,10 @@ sealed interface ScreenRoute {
     @Serializable
     data class PortfolioCoin(val coin: String) : ScreenRoute
 
+    /** Steuer-Arbeitsunterlage (Portfolio ⋯ › «Steuer-Arbeitsunterlage…»). */
+    @Serializable
+    data object PortfolioTaxWorksheet : ScreenRoute
+
     companion object {
         /** Schlüssel von [Alarms.watchId] im SavedStateHandle (= Feldname). */
         const val AlarmsArgWatchId = "watchId"

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">تصدير (تاريخ مرجعي، ورقة عمل)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">تصدير بتاريخ مرجعي…</string>
+    <string name="portfolio_tax_worksheet_action">ورقة عمل ضريبية…</string>
     <string name="portfolio_export_address_unobserved">العنوان لم يكن مراقَبًا في هذا التاريخ – غير مشمول</string>
     <string name="portfolio_export_button">تصدير CSV</string>
     <string name="portfolio_export_col_amount">الكمية</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">تم حفظ التصدير</string>
     <string name="portfolio_export_estv_note">لضريبة الثروة تُطبَّق أسعار نهاية السنة الرسمية في قائمة أسعار ESTV %1$s (إن وُجدت): %2$s</string>
     <string name="portfolio_export_failed">فشل التصدير</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">فشل التصدير: تعذّرت كتابة الملف – موقع الحفظ لم يعد موجودًا أو غير قابل للكتابة</string>
+    <string name="portfolio_export_failed_prices">فشل التصدير: تعذّر تحميل الأسعار – لا يوجد اتصال أو المنصة لا تستجيب</string>
     <string name="portfolio_export_from_address">من عنوان – بلا سعر شراء</string>
     <string name="portfolio_export_hint">الرصيد في نهاية اليوم المختار، مقيّمًا بسعر إغلاق اليوم (UTC) بـ USDT ومحوّلًا بالسعر المرجعي للبنك المركزي الأوروبي في ذلك اليوم. غيّر العملة من «التحويل إلى».</string>
     <string name="portfolio_export_incomplete">غير مكتمل</string>

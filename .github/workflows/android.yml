@@ -75,8 +75,14 @@ jobs:
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" "$GITHUB_WORKSPACE"
 
-      # "test" = testDebugUnitTest + testReleaseUnitTest of all modules, including the
-      # Android/iOS parity cases in testdata/parity (ParityFixturesTest).
+      # Manifest policy rules (exported widget setup activities allowed only as listed) — fails fast without Gradle;
+      # the policy itself runs on the merged release manifest in the release audit
+      - name: Manifest policy self-test
+        run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/manifest_policy.py" --self-test
+
+      # testDebugUnitTest of all modules, including the Android/iOS parity cases in testdata/parity
+      # (ParityFixturesTest), ONCE and with Kover (-Pcoverage=true): the coverage reports of :app and :marketdata for
+      # the step «Coverage (logic gate)» come from this same run.
       # The source guards must find the Swift sources (whole repo checked out); without the variable a missing ios/
       # only marks those tests as skipped (Android-only checkout)
       - name: Unit tests
@@ -85,7 +91,18 @@ jobs:
         run: |
           chmod +x gradlew
           set -o pipefail
-          ./gradlew test --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
+          ./gradlew -Pcoverage=true testDebugUnitTest :app:koverXmlReportDebug :marketdata:koverXmlReportDebug \
+            --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
+
+      # testReleaseUnitTest of all modules (release source sets, e.g. src/withoutHttpLog) only on main and release
+      # tags; pull requests and other branches run the debug unit tests only.
+      - name: Release unit tests
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+        env:
+          REQUIRE_IOS_SOURCES: 'true'
+        run: |
+          set -o pipefail
+          ./gradlew testReleaseUnitTest --stacktrace 2>&1 | tee -a "$RUNNER_TEMP/gradle-test.log"
 
       # Performance tests (app/src/test/.../performance: timings with 2000 pairs and 10 000 portfolio transactions) on
       # their own, after the unit tests and before lint: nothing else runs in parallel, so the timings do not depend on
@@ -122,7 +139,8 @@ jobs:
 
       # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only
       # compiled here: running them needs an emulator (locally: ./gradlew :app:connectedDebugAndroidTest;
-      # in CI: workflow «Android device tests» on every push to main and by hand).
+      # in CI: workflow «Android device tests» on every push to main and by hand; on pull requests that touch the
+      # databases only the migration and encryption tests).
       - name: Compile instrumented tests
         run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
 
@@ -200,9 +218,9 @@ jobs:
 
       # Unit-test line coverage of :app and :marketdata as ONE notice: total and «logic» (without Compose/widget
       # rendering, activities and generated code). The :app report also measures :marketdata (its exchange parsers run
-      # mostly in the contract tests of :app); :marketdata's own report is listed as «own tests only». Kover is applied
-      # only with -Pcoverage=true, so the gate above runs uninstrumented; this re-runs the debug unit tests with the
-      # agent. Gate: the merged «logic» coverage must not fall below MIN_LOGIC (set just under the measured value, so
+      # mostly in the contract tests of :app); :marketdata's own report is listed as «own tests only». The reports come
+      # from the debug unit-test run of the step «Unit tests» (Kover via -Pcoverage=true); no tests run again here.
+      # Gate: the merged «logic» coverage must not fall below MIN_LOGIC (set just under the measured value, so
       # it stops regressions without forcing new work; raise it when coverage grows). No report = red.
       - name: Coverage (logic gate)
         timeout-minutes: 15
@@ -211,7 +229,6 @@ jobs:
           MIN_LOGIC: '58'
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
-          ./gradlew -Pcoverage=true :app:koverXmlReportDebug :marketdata:koverXmlReportDebug --stacktrace
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
             app=app marketdata=marketdata
 

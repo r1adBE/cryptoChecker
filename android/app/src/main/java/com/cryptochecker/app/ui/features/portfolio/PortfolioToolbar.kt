@@ -25,7 +25,8 @@ import com.cryptochecker.app.ui.components.AppMenuHead
 
 /**
  * Knöpfe oben rechts im Portfolio-Tab: «Beträge verbergen» und das Menü ⋯ (App, Aktualisieren, Umrechnen,
- * Adressen, CSV-Import, Importe, Export, Alarm, Portfolio leeren). Der Zustand des Menüs bleibt im Bildschirm.
+ * Adressen, CSV-Import, Importe, Stichtag-Export, Steuer-Arbeitsunterlage, Alarm, Portfolio leeren). Der Zustand des
+ * Menüs bleibt im Bildschirm.
  */
 @Composable
 internal fun PortfolioToolbarActions(
@@ -44,6 +45,7 @@ internal fun PortfolioToolbarActions(
     onOpenCsvImport: () -> Unit,
     onOpenImports: () -> Unit,
     onOpenExport: () -> Unit,
+    onOpenTaxWorksheet: () -> Unit,
     onOpenAlarm: () -> Unit,
     onAskClear: () -> Unit,
 ) {
@@ -110,10 +112,18 @@ internal fun PortfolioToolbarActions(
             }
             if (hasTransactions) {
                 DropdownMenuItem(
-                    text = { Text(stringResource(R.string.portfolio_export_action)) },
+                    text = { Text(stringResource(R.string.portfolio_cutoff_export_action)) },
                     // Export = aus der App hinaus (Pfeil nach oben)
                     leadingIcon = { Icon(painterResource(R.drawable.ic_upload), null) },
-                    onClick = { onMenuOpenChange(false); onOpenExport() }
+                    onClick = { onMenuOpenChange(false); onOpenExport() },
+                    modifier = Modifier.testTag(UiTestTags.PORTFOLIO_CUTOFF_EXPORT)
+                )
+                // Steuer-Arbeitsunterlage: eigene Seite
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.portfolio_tax_worksheet_action)) },
+                    leadingIcon = { Icon(painterResource(R.drawable.ic_note), null) },
+                    onClick = { onMenuOpenChange(false); onOpenTaxWorksheet() },
+                    modifier = Modifier.testTag(UiTestTags.PORTFOLIO_TAX_EXPORT)
                 )
             }
             if (hasData) {

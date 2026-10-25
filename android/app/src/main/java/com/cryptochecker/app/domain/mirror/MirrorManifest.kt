@@ -10,13 +10,20 @@ import java.util.Base64
 
 /**
  * Signiertes Manifest des Daten-Spiegels ([DataMirror]). Die Action «Market data» legt neben die Spiegel-Dateien
- * `manifest.json` (`{"created":<ms>,"files":{"<Datei>":"<SHA-256 hex>"…},"v":1}`) und `manifest.json.sig` (Base64
+ * `manifest.json` (`{"created":<ms>,"files":{"<Datei>":"<SHA-256 hex>"…},"revoked":[…],"v":1}`) und
+ * `manifest.json.sig` (Base64
  * der DER-Signatur ECDSA P-256 mit SHA-256 über die genauen Bytes des Manifests, erzeugt mit dem Secret
  * MIRROR_SIGNING_KEY in `mirror_data.py --manifest`). Die App nimmt eine Spiegel-Datei nur, wenn die Signatur zum
  * eingebauten Schlüssel [PUBLIC_KEY] passt, das Manifest höchstens [MAX_AGE_MILLIS] alt ist (Schutz gegen alte,
  * wieder eingespielte Daten) und der SHA-256 der Datei stimmt — sonst fragt sie die Anbieter direkt, wie bei einem
- * Ausfall des Spiegels. Reines Kotlin (Plattform-Krypto, ab API 26), gleich in iOS `MirrorManifest.swift`,
- * gemeinsame Testfälle `mirror_signature.json` (mit eigenem Test-Schlüsselpaar).
+ * Ausfall des Spiegels. Sperrliste «revoked» (fehlt = leer): Schlüssel-Ids ([keyId]) gesperrter Schlüssel — gilt nur
+ * in einem gültigen Manifest, das mit dem ANDEREN, nicht gesperrten eingebauten Schlüssel signiert ist; die eigene Id
+ * (Selbstsperre) und unbekannte Ids zählen nicht. Die App merkt sich gesperrte Schlüssel dauerhaft
+ * ([MirrorRevocations]) und nimmt danach kein Manifest mehr an, das nur damit signiert ist. Gegenseitige Sperre (A
+ * sperrt B, B sperrt A, je in einem frischen, gültig signierten Manifest, Reihenfolge egal): beide gesperrt, Spiegel
+ * aus bis zu einem App-Update mit neuen Schlüsseln.
+ * Reines Kotlin (Plattform-Krypto, ab API 26), gleich in iOS `MirrorManifest.swift`,
+ * gemeinsame Testfälle `mirror_signature.json` (mit eigenen Test-Schlüsselpaaren).
  */
 object MirrorManifest {
     const val FILE = "manifest.json"
@@ -31,8 +38,8 @@ object MirrorManifest {
     /**
      * Reserve-Schlüssel (F-29): privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren, signiert die
      * Action mit dem Reserve-Schlüssel weiter, ohne dass die Apps ein Update brauchen. Wird MIRROR_SIGNING_KEY bekannt
-     * (Leck), genügt das nicht: [PUBLIC_KEY] bleibt in [PUBLIC_KEYS] gültig, bis das nächste App-Update ihn entfernt —
-     * bis dahin werden auch damit signierte Manifeste angenommen.
+     * (Leck), signiert die Action mit dem Reserve-Schlüssel und sperrt den alten über «revoked»: Jede App, die dieses
+     * Manifest einmal gesehen hat, nimmt nichts mehr an, was nur mit dem alten Schlüssel signiert ist.
      */
     const val RESERVE_PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k" +
         "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw=="
@@ -59,11 +66,15 @@ object MirrorManifest {
 
     enum class FileStatus { OK, HASH_MISMATCH, NOT_LISTED }
 
-    /** Geprüftes Manifest: Erstellzeit (ms) und SHA-256 (hex, klein) je Datei. */
-    data class Manifest(val created: Long, val files: Map<String, String>)
+    /** Geprüftes Manifest: Erstellzeit (ms), SHA-256 (hex, klein) je Datei und die Sperrliste (Schlüssel-Ids). */
+    data class Manifest(val created: Long, val files: Map<String, String>, val revoked: List<String> = emptyList())
 
-    /** Ergebnis von [verify]; [manifest] nur bei [Status.OK]. */
-    data class Verification(val status: Status, val manifest: Manifest?)
+    /**
+     * Ergebnis von [verify]; [manifest] nur bei [Status.OK]. [revoke]: Schlüssel-Ids, die ab jetzt dauerhaft gesperrt
+     * sind — aus einem frischen, gültig signierten Manifest; bei [Status.INVALID] nur die gegenseitige Sperre (Manifest
+     * eines schon gesperrten Schlüssels sperrt den anderen). Der Aufrufer merkt sie sich ([MirrorRevocations]).
+     */
+    data class Verification(val status: Status, val manifest: Manifest?, val revoke: Set<String> = emptySet())
 
     /** Spiegel-Datei, die gegen das Manifest geprüft wird (alles unter [DataMirror.BASE] ausser Manifest und Signatur). */
     fun isSignedFile(url: String): Boolean =
@@ -72,7 +83,8 @@ object MirrorManifest {
     /**
      * Manifest und Signatur prüfen. Fehlt eines (null/leer) → [Status.MISSING]; Signatur ungültig, Inhalt unbekannt
      * oder Erstellzeit mehr als 5 Minuten in der Zukunft → [Status.INVALID]; [MAX_AGE_MILLIS] oder älter →
-     * [Status.TOO_OLD]. Gültig, wenn die Signatur zu einem der [publicKeys] passt; andere Schlüssel nur für Tests.
+     * [Status.TOO_OLD]. Gültig, wenn die Signatur zu einem der [publicKeys] passt, der nicht in [revoked] (Schlüssel-Ids)
+     * steht; andere Schlüssel nur für Tests.
      */
     fun verify(manifestText: String?, signatureText: String?, now: Long, publicKey: String): Verification =
         verify(manifestText, signatureText, now, listOf(publicKey))
@@ -82,18 +94,48 @@ object MirrorManifest {
         signatureText: String?,
         now: Long,
         publicKeys: List<String> = PUBLIC_KEYS,
+        revoked: Set<String> = emptySet(),
     ): Verification {
         val signature = signatureText?.trim().orEmpty()
         if (manifestText.isNullOrBlank() || signature.isEmpty()) return Verification(Status.MISSING, null)
         val der = decodeBase64(signature)
-        if (der == null || publicKeys.none { signatureValid(manifestText.toByteArray(Charsets.UTF_8), der, it) }) {
-            return Verification(Status.INVALID, null)
-        }
+        val bytes = manifestText.toByteArray(Charsets.UTF_8)
+        // Signiert mit einem eingebauten Schlüssel; gesperrte zählen für die Annahme nicht mehr
+        val signer = der?.let { d -> publicKeys.firstOrNull { signatureValid(bytes, d, it) } }
+            ?: return Verification(Status.INVALID, null)
         val manifest = parse(manifestText) ?: return Verification(Status.INVALID, null)
         if (manifest.created > now + CLOCK_SKEW_MILLIS) return Verification(Status.INVALID, null)
         if (now - manifest.created >= MAX_AGE_MILLIS) return Verification(Status.TOO_OLD, null)
-        return Verification(Status.OK, manifest)
+        val revoke = newlyRevoked(manifest.revoked, signer, publicKeys, revoked)
+        // Gesperrter Schlüssel: Manifest abgelehnt; sperrt er seinerseits den anderen (gegenseitige Sperre), sind
+        // danach beide gesperrt und der Spiegel ist aus, bis ein App-Update neue Schlüssel bringt
+        if (keyId(signer) in revoked) return Verification(Status.INVALID, null, revoke)
+        return Verification(Status.OK, manifest, revoke)
     }
+
+    /**
+     * Schlüssel-Ids aus der Sperrliste [listed] eines gültigen, mit [signer] signierten Manifests, die ab jetzt
+     * gesperrt sind: nur andere eingebaute Schlüssel ([publicKeys]) — die eigene Id (Selbstsperre) und unbekannte Ids
+     * zählen nicht; schon gesperrte ([revoked]) kommen nicht nochmals.
+     */
+    fun newlyRevoked(
+        listed: List<String>,
+        signer: String,
+        publicKeys: List<String>,
+        revoked: Set<String>,
+    ): Set<String> {
+        val own = keyId(signer)
+        val known = publicKeys.mapNotNullTo(HashSet()) { keyId(it) }
+        return listed.filterTo(LinkedHashSet()) { it in known && it != own && it !in revoked }
+    }
+
+    /** Schlüssel-Id: SHA-256 (hex, klein) der DER-Bytes des öffentlichen Schlüssels [publicKey]; sonst null. */
+    fun keyId(publicKey: String): String? =
+        try {
+            hex(MessageDigest.getInstance("SHA-256").digest(Base64.getDecoder().decode(publicKey)))
+        } catch (e: IllegalArgumentException) {
+            null
+        }
 
     /** Passt [text] (als UTF-8-Bytes) zum Eintrag von [file] im geprüften Manifest? */
     fun fileStatus(manifest: Manifest, file: String, text: String): FileStatus {
@@ -102,8 +144,10 @@ object MirrorManifest {
     }
 
     fun sha256Hex(text: String): String =
-        MessageDigest.getInstance("SHA-256").digest(text.toByteArray(Charsets.UTF_8))
-            .joinToString("") { (it.toInt() and 0xff).toString(16).padStart(2, '0') }
+        hex(MessageDigest.getInstance("SHA-256").digest(text.toByteArray(Charsets.UTF_8)))
+
+    private fun hex(bytes: ByteArray): String =
+        bytes.joinToString("") { (it.toInt() and 0xff).toString(16).padStart(2, '0') }
 
     /** Streng: Länge ein Vielfaches von 4, nur das Base64-Alphabet (wie iOS `Data(base64Encoded:)`). */
     private fun decodeBase64(text: String): ByteArray? {
@@ -144,7 +188,13 @@ object MirrorManifest {
             if (name !is String || hash !is String || !validName(name) || !validHash(hash)) return null
             out[name] = hash
         }
-        return Manifest(created, out)
+        // Sperrliste: fehlt = leer; sonst nur Schlüssel-Ids (wie ein SHA-256), alles andere macht das Manifest ungültig
+        val revoked = when (val r = o["revoked"]) {
+            null -> if (o.containsKey("revoked")) return null else emptyList()
+            is List<*> -> r.map { id -> (id as? String)?.takeIf { validHash(it) } ?: return null }
+            else -> return null
+        }
+        return Manifest(created, out, revoked)
     }
 
     private fun validName(name: String) = name.length in 1..64 && name.all { it in FILE_NAME_CHARS }

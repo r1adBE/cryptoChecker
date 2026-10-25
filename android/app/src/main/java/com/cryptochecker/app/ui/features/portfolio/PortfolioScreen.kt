@@ -50,6 +50,8 @@ import com.cryptochecker.app.ui.theme.SnackbarKind
 fun PortfolioScreen(
     onOpenCoin: (String) -> Unit,
     onOpenAbout: () -> Unit = {},
+    /** ⋯ › «Steuer-Arbeitsunterlage…»: eigene Seite. */
+    onOpenTaxWorksheet: () -> Unit = {},
     viewModel: PortfolioViewModel = hiltViewModel(),
 ) {
     val transactions by viewModel.transactions.collectAsStateWithLifecycle()
@@ -267,6 +269,7 @@ fun PortfolioScreen(
                         onOpenCsvImport = { csvImportOpen = true },
                         onOpenImports = { importsOpen = true },
                         onOpenExport = { exportOpen = true },
+                        onOpenTaxWorksheet = onOpenTaxWorksheet,
                         onOpenAlarm = { alarmOpen = true },
                         onAskClear = { askClear = true },
                     )

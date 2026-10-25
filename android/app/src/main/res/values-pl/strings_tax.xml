@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">Eksport (stan na dzień, dokument roboczy)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">Eksport stanu na dzień…</string>
+    <string name="portfolio_tax_worksheet_action">Podatkowy dokument roboczy…</string>
     <string name="portfolio_export_address_unobserved">adres nieobserwowany w tym dniu – nie uwzględniono</string>
     <string name="portfolio_export_button">Eksportuj CSV</string>
     <string name="portfolio_export_col_amount">Ilość</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">Eksport zapisany</string>
     <string name="portfolio_export_estv_note">Dla podatku od majątku obowiązują oficjalne kursy na koniec roku z listy kursów ESTV %1$s (jeśli są na niej): %2$s</string>
     <string name="portfolio_export_failed">Eksport nieudany</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Eksport nieudany: nie można zapisać pliku – miejsce zapisu już nie istnieje lub jest tylko do odczytu</string>
+    <string name="portfolio_export_failed_prices">Eksport nieudany: brak cen – brak połączenia lub giełda nie odpowiada</string>
     <string name="portfolio_export_from_address">z adresu – bez ceny zakupu</string>
     <string name="portfolio_export_hint">Stan posiadania na koniec wybranego dnia, wyceniony po dziennym kursie zamknięcia (UTC) w USDT i przeliczony po kursie referencyjnym EBC z tego dnia. Walutę zmienisz w „Przelicz na”.</string>
     <string name="portfolio_export_incomplete">niekompletne</string>

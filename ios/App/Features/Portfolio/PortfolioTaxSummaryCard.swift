@@ -1,7 +1,7 @@
 import SwiftUI
 
 // Karte «Jahresübersicht» der Arbeitsunterlage. Eigene Datei, weil sie eine eigenständige Anzeige ist,
-// die das Export-Blatt nur einbettet (wie `PortfolioTaxSummaryCard.kt`).
+// die die Seite «Steuer-Arbeitsunterlage» nur einbettet (wie `PortfolioTaxSummaryCard.kt`).
 
 /// Karte «Jahresübersicht» der Vorlage: Tatsachen-Posten (Summen in der Währung der Vorlage, ohne Devisenkurse USDT) mit
 /// dem Hinweis «Orientierung – keine Steuererklärung» (`texts.disclaimer`) unter dem Titel und unter den Summen, dann

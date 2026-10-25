@@ -38,6 +38,13 @@ final class NotificationBudgetTests: XCTestCase {
         XCTAssertEqual(NotificationBudget.overflowBody(["1", "2", "3", "4", "5", "6"]), "1\n2\n3\n4\n5\n…")
     }
 
+    func testOverflowBodyParity() throws {
+        for c in S.list(try S.fixture("notification_budget")["overflowBody"]) {
+            let lines = (c["lines"] as? [Any] ?? []).compactMap { $0 as? String }
+            XCTAssertEqual(NotificationBudget.overflowBody(lines), c["body"] as? String, c["name"] as? String ?? "")
+        }
+    }
+
     /// Zugestellte Mitteilungen: einzelne Kurse (neueste zuerst), Sammelmeldung mit Paaren und Zeilen, Rest = andere.
     func testDeliveredStateReadsPricesOverflowAndOthers() {
         typealias E = PriceDeliveredState.Entry

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">ส่งออก (วันที่อ้างอิง เอกสารประกอบงาน)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">ส่งออก ณ วันที่อ้างอิง…</string>
+    <string name="portfolio_tax_worksheet_action">เอกสารประกอบงานภาษี…</string>
     <string name="portfolio_export_address_unobserved">ไม่ได้ติดตามที่อยู่นี้ในวันที่นี้ – ไม่รวม</string>
     <string name="portfolio_export_button">ส่งออก CSV</string>
     <string name="portfolio_export_col_amount">จำนวน</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">บันทึกการส่งออกแล้ว</string>
     <string name="portfolio_export_estv_note">สำหรับภาษีทรัพย์สิน ใช้ราคาสิ้นปีอย่างเป็นทางการจากรายการราคา ESTV %1$s (หากมีในรายการ): %2$s</string>
     <string name="portfolio_export_failed">ส่งออกไม่สำเร็จ</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">ส่งออกไม่สำเร็จ: เขียนไฟล์ไม่ได้ – ตำแหน่งจัดเก็บไม่มีอยู่แล้วหรือเขียนไม่ได้</string>
+    <string name="portfolio_export_failed_prices">ส่งออกไม่สำเร็จ: ไม่มีราคา – ไม่มีการเชื่อมต่อหรือกระดานเทรดไม่ตอบสนอง</string>
     <string name="portfolio_export_from_address">จากที่อยู่ – ไม่มีราคาซื้อ</string>
     <string name="portfolio_export_hint">ยอดถือครอง ณ สิ้นวันที่เลือก ประเมินมูลค่าด้วยราคาปิดรายวัน (UTC) เป็น USDT และแปลงด้วยอัตราอ้างอิงของ ECB ในวันนั้น เปลี่ยนสกุลเงินได้ที่ “แปลงเป็น”</string>
     <string name="portfolio_export_incomplete">ไม่ครบถ้วน</string>

@@ -70,12 +70,53 @@ extension WatchSheetChartView {
         .haptic(.selection, trigger: scrub) { old, new in
             candles.count <= Self.maxTickCandles && SheetChart.isNewCandle(previous: old, current: new)
         }
-        // VoiceOver: ein Element mit dem Chart-Satz (Start, Ende, Hoch, Tief); Ziehen nicht nötig
+        // VoiceOver: ein Element mit dem Chart-Satz (Start, Ende, Hoch, Tief); Ziehen nicht nötig. Dazu der Audio Graph
+        // («Diagramm-Details») mit Zeit- und Kursachse, Kerze für Kerze (Schlusskurs)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(WidgetChartGeometry.accessibility(candles, type: type, range: chartRange,
                                                               quote: watch.quoteAsset, period: periodLong))
+        .accessibilityChartDescriptor(audioGraph(p))
+        // Wischen hoch/runter: Kerze für Kerze «Zeit: Schlusskurs» (wie Android, Aktionen «Nächster Punkt»)
+        .chartPointAdjustable(count: candles.count, resetKey: pointResetKey(p)) { index in
+            pointText(p, index: index)
+        }
         // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen)
         .environment(\.layoutDirection, .leftToRight)
+    }
+
+    /// Audio Graph des Kursdiagramms: Zeit der Kerze (Format wie beim Ziehen) und Schlusskurs mit Währung.
+    func audioGraph(_ p: SheetChartPrepared) -> ChartAudioGraph {
+        let quote = watch.quoteAsset
+        let formatter = Self.timeFormatter(p.range, timeZone: ChangeBasisMath.chartTimeZone(changeView.basis))
+        return ChartAudioGraph(
+            title: watch.displayName,
+            summary: WidgetChartGeometry.accessibility(p.candles, type: p.type, range: p.range, quote: quote,
+                                                       period: periodLong),
+            seriesName: watch.displayName,
+            xTitle: L("a11y_chart_axis_time"),
+            yTitle: L("a11y_chart_axis_price"),
+            points: p.candles.map { ChartAudioGraph.Point(millis: $0.openTime, value: $0.close) },
+            timeText: { formatter.string(from: Date(millis: $0)) },
+            valueText: { PriceFormat.priceWithCurrency($0, quote) }
+        )
+    }
+
+    /// «Di 14:00: 98’450 USDT» der Kerze `index` (Zeit wie beim Ziehen, `label_value`).
+    func pointText(_ p: SheetChartPrepared, index: Int) -> String {
+        let candle = p.candles[index]
+        let formatter = Self.timeFormatter(p.range, timeZone: ChangeBasisMath.chartTimeZone(changeView.basis))
+        return L("label_value", formatter.string(from: Date(millis: candle.openTime)),
+                 PriceFormat.priceWithCurrency(candle.close, watch.quoteAsset))
+    }
+
+    /// Neue Kerzen, anderer Zeitraum oder Typ: Auswahl der Punkte aufheben.
+    func pointResetKey(_ p: SheetChartPrepared) -> Int {
+        var hasher = Hasher()
+        hasher.combine(p.candles.count)
+        hasher.combine(p.candles.first?.openTime)
+        hasher.combine(p.candles.last?.openTime)
+        hasher.combine("\(p.range)|\(p.type)")
+        return hasher.finalize()
     }
 
     /// Volumen unten (18 % der Fläche), dezent in den Kursfarben; mit `.destinationOver` HINTER

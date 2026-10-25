@@ -40,6 +40,7 @@ import javax.inject.Inject
  *  3. CSV-Import: Datei → Vorschau → Importieren → Positionen sichtbar; «Importe › Rückgängig» entfernt sie.
  *  4. Sichern: mit Passwort sichern → Daten leeren → falsches Passwort abgelehnt → richtiges stellt
  *     Merkliste und Portfolio wieder her.
+ *  5. Steuer-Arbeitsunterlage: eigene Seite → Vorlage wählen → Export → Dateiauswahl erscheint.
  *
  * Kein Netz: Börsen-Antworten aus [com.cryptochecker.app.testing.FakeMarket] (Binance, Coinbase), alles
  * andere 404. Die Dateiauswahl des Systems ersetzt [DocumentPickerStub]. Texte kommen aus den Ressourcen,
@@ -177,6 +178,32 @@ class UiFlowsTest {
         assertEquals(setOf("BTC", "ETH"), transactions().map { it.coin }.toSet())
     }
 
+    // ── 5. Steuer-Arbeitsunterlage ──
+
+    /**
+     * Portfolio aus der Testdatei → ⋯ › «Steuer-Arbeitsunterlage…» → eigene Seite → Vorlage «Deutschland» wählen
+     * (Beta-Hinweis mit OK) → «Einkünfte» → die Dateiauswahl des Systems öffnet sich ([DocumentPickerStub]) und die
+     * Datei wird geschrieben.
+     */
+    @Test
+    fun testTaxExportWorksheet() {
+        importFixtureCsv()
+        val file = DocumentPickerStub.cacheFile(WORKSHEET_FILE)
+        picker.uri = android.net.Uri.fromFile(file)
+
+        clickTag(UiTestTags.PORTFOLIO_MENU)
+        clickTag(UiTestTags.PORTFOLIO_TAX_EXPORT)
+        waitForTag(UiTestTags.TAX_WORKSHEET_SCREEN)
+        clickTag(UiTestTags.TAX_WORKSHEET_TEMPLATE)
+        clickTag(UiTestTags.taxTemplateOption("DE"))
+        // Erste Länder-Vorlage: Hinweis «Beta» einmal bestätigen
+        dismissOkDialogs()
+        val launchesBefore = picker.launches
+        clickTag(UiTestTags.TAX_WORKSHEET_INCOME)
+        assertEquals("file picker opened once", launchesBefore + 1, picker.launches)
+        compose.waitUntil(LIST_TIMEOUT) { file.length() > 0 }
+    }
+
     // ── Gemeinsame Schritte ──
 
     /** Ablauf 1: über die Coin-Suche Bitcoin hinzufügen, zurück zur Merkliste; gibt die Id des Paars zurück. */
@@ -310,6 +337,7 @@ class UiFlowsTest {
         /** Zeilen in [CSV_FIXTURE]: Kauf BTC, Kauf ETH. */
         const val FIXTURE_TRANSACTIONS = 2
         const val BACKUP_FILE = "uitest_backup.json"
+        const val WORKSHEET_FILE = "uitest_worksheet.csv"
         const val TEST_PASSPHRASE = "Kiwi-Harbor-4821!"
         const val WRONG_PASSPHRASE = "Lemon-Valley-9034?"
     }

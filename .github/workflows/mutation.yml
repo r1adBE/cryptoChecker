@@ -1,6 +1,8 @@
 # Mutation tests of the Android portfolio and tax logic (FIFO, average cost, fee expenses, display-currency
-# conversion, tax engines, tax export rows): .github/scripts/mutation_test.py changes one operator, literal or return
-# value at a time, runs the unit-test classes that cover the file and reports whether the tests noticed it. A surviving
+# conversion, tax engines, tax export rows, CSV import parsers, currency conversion): .github/scripts/mutation_test.py
+# changes one operator, literal or return value at a time, runs the unit-test classes that cover the file and reports
+# whether the tests noticed it. The choice of mutants uses the ISO calendar week (UTC) as seed, so every week tests
+# another sample; the seed is printed in the log (rerun a week with --seed <week> --list locally). A surviving
 # mutant is a warning (a gap in the tests, not a bug); the run is red only when the baseline unit tests fail or the
 # script itself fails (missing target file, test filter without tests, a file that could not be restored).
 # Never a required check. Weekly on Saturdays and by hand.
@@ -78,11 +80,14 @@ jobs:
             case "$v" in ''|*[!0-9]*) echo "::error title=Mutation tests::not a number: $v"; exit 1 ;; esac
           done
           python3 -I .github/scripts/mutation_test.py --self-test
+          # Seed of the mutant choice: ISO year and calendar week in UTC (e.g. 2026-W43)
+          SEED=$(date -u +%G-W%V)
+          echo "Mutant selection seed (ISO week): $SEED"
           F="$RUNNER_TEMP/mutation-findings.txt"
           : > "$F"
           set +e
           python3 -I .github/scripts/mutation_test.py --findings "$F" --per-file "$PER_FILE" --max-total "$MAX_TOTAL" \
-            --time-limit 55 --mutant-timeout 600 --only "$ONLY"
+            --time-limit 55 --mutant-timeout 600 --only "$ONLY" --seed "$SEED"
           code=$?
           set -e
           # Surviving mutants are warnings (annotate.py exits 0 for them); the step fails only with the script

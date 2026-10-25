@@ -94,11 +94,7 @@ fun AppNotifier.showIndicatorAlert(kind: com.cryptochecker.app.domain.market.Ind
  */
 fun AppNotifier.canShowMarketNotice(): Boolean {
     if (!hasPermission() || !manager.areNotificationsEnabled()) return false
-    return runCatching {
-        val channel = context.getSystemService(android.app.NotificationManager::class.java)
-            ?.getNotificationChannel(marketOrQuietChannel(isQuietNow()))
-        channel == null || channel.importance != android.app.NotificationManager.IMPORTANCE_NONE
-    }.getOrDefault(true)
+    return runCatching { channelDelivers(marketOrQuietChannel(isQuietNow())) }.getOrDefault(true)
 }
 
 // ---------------- Gas ----------------
@@ -131,5 +127,6 @@ fun AppNotifier.showGas(
     return notifyChecked(id, notification)
 }
 
+/** Markt-Kanal bzw. in der Nachtruhe der lautlose ([AppNotifierDeliveryPlan.marketChannel]). */
 private fun AppNotifier.marketOrQuietChannel(quiet: Boolean): String =
-    if (quiet) NotificationChannels.ensureQuietAlarmChannel(context) else NotificationChannels.MARKET
+    channelIdFor(AppNotifierDeliveryPlan.marketChannel(quiet), settingsRepository.cached.alarmSignal)

@@ -9,7 +9,9 @@ import WidgetKit
 struct WatchlistListView: View {
     let entry: WatchlistEntry
     let palette: WidgetPalette
+    /// Zeilen in der Grundgrösse; mit grosser Schrift weniger (`WidgetRows.rowsFor`), damit sie Platz hat.
     let rows: Int
+    @ScaledMetric(relativeTo: .body) private var textScale: CGFloat = 1
 
     /// Dünne Linie zwischen den Paaren.
     // 1 pt wie 1 dp auf Android – dünn, aber auf 3x-Displays noch sichtbar
@@ -21,7 +23,10 @@ struct WatchlistListView: View {
             if entry.watches.isEmpty {
                 empty
             } else {
-                list
+                GeometryReader { geometry in
+                    list(rows: WidgetRows.rowsFor(height: Double(geometry.size.height), scale: Double(textScale),
+                                                  baseRows: rows))
+                }
             }
         }
         .padding(.horizontal, 12)
@@ -58,7 +63,7 @@ struct WatchlistListView: View {
         .frame(maxWidth: .infinity)
     }
 
-    private var list: some View {
+    private func list(rows: Int) -> some View {
         let shown = Array(entry.watches.prefix(rows))
         return VStack(spacing: 0) {
             ForEach(0..<rows, id: \.self) { index in
@@ -195,7 +200,18 @@ private struct WatchlistWidgetRow: View {
         return outdated ? WidgetOutdated.spoken(watch, at: date, afterMillis: outdatedAfter) : unchanged
     }
 
+    /// Coin-Name und Kurs wachsen mit Dynamic Type (`WidgetPrimaryFit`), solange die Zeile in der Höhe Platz hat;
+    /// sonst Grundgrösse. Der Name schrumpft bei Platzmangel höchstens bis zur Grundgrösse.
     var body: some View {
+        WidgetPrimaryFit(in: .vertical) { scale in
+            content(scale: scale)
+        }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(A11y.watchRow(watch, stale: spokenState, changeView: changeView))
+    }
+
+    private func content(scale: CGFloat) -> some View {
         HStack(spacing: 8) {
             WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 24, dark: palette.dark, accent: palette.accent,
                             logo: CoinLogos.allowed(forMarket: watch.marketKey))
@@ -203,9 +219,10 @@ private struct WatchlistWidgetRow: View {
                 .opacity(watch.disabled ? 0.45 : 1)
             VStack(alignment: .leading, spacing: 1) {
                 Text(watch.displayName)
-                    .font(.system(size: 14, weight: .bold))
+                    .font(.system(size: WidgetFont.body * scale, weight: .bold))
                     .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
                     .lineLimit(1)
+                    .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
                 Text(marketLine)
                     .font(.system(size: 12))
                     .foregroundStyle(palette.secondary)
@@ -213,20 +230,17 @@ private struct WatchlistWidgetRow: View {
             }
             .layoutPriority(1)
             Spacer(minLength: 4)
-            priceColumn
+            priceColumn(scale: scale)
                 .layoutPriority(2)
         }
-        .contentShape(Rectangle())
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(A11y.watchRow(watch, stale: spokenState, changeView: changeView))
     }
 
-    private var priceColumn: some View {
+    private func priceColumn(scale: CGFloat) -> some View {
         VStack(alignment: .trailing, spacing: 1) {
             // Deaktiviert: Kurs grau (palette.secondary) statt 60 % Deckkraft — wie Android
-            WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 14,
+            WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: WidgetFont.body,
                             palette: palette, weight: .bold,
-                            color: watch.disabled ? palette.secondary : nil)
+                            color: watch.disabled ? palette.secondary : nil, scale: scale)
             if watch.lastPrice == nil, watch.lastError != nil, !watch.disabled {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.system(size: 9))
@@ -258,38 +272,9 @@ struct WatchlistSmallView: View {
             }
             Spacer(minLength: 4)
             if let watch {
-                VStack(alignment: .leading, spacing: 0) {
-                    HStack(spacing: 4) {
-                        WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 20, dark: palette.dark, accent: palette.accent,
-                                        logo: CoinLogos.allowed(forMarket: watch.marketKey))
-                        Text(watch.displayName)
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundStyle(palette.text)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.75)
-                    }
-                    // Deaktiviert: «Binance · deaktiviert», Kurs und Veränderung grau
-                    Text(watch.disabled ? L("watchlist_row_disabled", BidiText.isolate(watch.marketName)) : watch.marketName)
-                        .widgetSecondaryFont()
-                        .foregroundStyle(palette.secondary)
-                        .lineLimit(1)
-                        .padding(.top, 2)
-                    WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 24, palette: palette,
-                                    color: watch.disabled ? palette.secondary : nil)
-                        .padding(.top, 2)
-                    HStack {
-                        WidgetChangeLabel(change: entry.changeView.shown(watch), palette: palette, size: 12,
-                                          showsArrow: true, day: true, basis: entry.changeBasis, neutral: watch.disabled)
-                        Spacer(minLength: 4)
-                        // Kein Platz für «Kurs unverändert seit …»: dann die Zeit der letzten Änderung
-                        Text(WidgetOutdated.timeText(watch, outdated: outdated, at: entry.date,
-                                                     afterMillis: entry.outdatedAfter, allowsHint: false))
-                            .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
-                            .foregroundStyle(palette.secondary)
-                            .lineLimit(1)
-                            .invalidatableContent()
-                    }
-                    .padding(.top, 1)
+                // Coin-Name und Kurs wachsen mit Dynamic Type, solange das Widget in der Höhe Platz hat
+                WidgetPrimaryFit(in: .vertical) { scale in
+                    smallPair(watch, outdated: outdated, scale: scale)
                 }
                 // VoiceOver: das Paar als ein Satz (veraltet mit «veraltet, letzte Aktualisierung …»)
                 .accessibilityElement(children: .combine)
@@ -307,5 +292,42 @@ struct WatchlistSmallView: View {
         }
         .padding(12)
         .widgetURL(watch.flatMap { WidgetData.watchURL($0.id) } ?? WidgetData.addURL)
+    }
+
+    /// Paar, Börse, Kurs und Veränderung; `scale` = Faktor der Haupttexte (`WidgetPrimaryFit`).
+    private func smallPair(_ watch: Watch, outdated: Bool, scale: CGFloat) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 4) {
+                WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 20, dark: palette.dark, accent: palette.accent,
+                                logo: CoinLogos.allowed(forMarket: watch.marketKey))
+                Text(watch.displayName)
+                    .font(.system(size: 13 * scale, weight: .semibold))
+                    .foregroundStyle(palette.text)
+                    .lineLimit(1)
+                    .minimumScaleFactor(WidgetTextSize.minimumFactor(0.75, primaryScale: scale))
+            }
+            // Deaktiviert: «Binance · deaktiviert», Kurs und Veränderung grau
+            Text(watch.disabled ? L("watchlist_row_disabled", BidiText.isolate(watch.marketName)) : watch.marketName)
+                .widgetSecondaryFont()
+                .foregroundStyle(palette.secondary)
+                .lineLimit(1)
+                .padding(.top, 2)
+            WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 24, palette: palette,
+                            color: watch.disabled ? palette.secondary : nil, scale: scale)
+                .padding(.top, 2)
+            HStack {
+                WidgetChangeLabel(change: entry.changeView.shown(watch), palette: palette, size: 12,
+                                  showsArrow: true, day: true, basis: entry.changeBasis, neutral: watch.disabled)
+                Spacer(minLength: 4)
+                // Kein Platz für «Kurs unverändert seit …»: dann die Zeit der letzten Änderung
+                Text(WidgetOutdated.timeText(watch, outdated: outdated, at: entry.date,
+                                             afterMillis: entry.outdatedAfter, allowsHint: false))
+                    .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
+                    .foregroundStyle(palette.secondary)
+                    .lineLimit(1)
+                    .invalidatableContent()
+            }
+            .padding(.top, 1)
+        }
     }
 }

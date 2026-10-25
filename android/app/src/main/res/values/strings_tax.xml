@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">Export (cutoff date, tax worksheet)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">Cutoff-date export…</string>
+    <string name="portfolio_tax_worksheet_action">Tax worksheet…</string>
     <string name="portfolio_export_address_unobserved">address not observed on this date – not included</string>
     <string name="portfolio_export_button">Export CSV</string>
     <string name="portfolio_export_col_amount">Amount</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">Export saved</string>
     <string name="portfolio_export_estv_note">For wealth tax the official year-end values of the ESTV price list %1$s apply where listed: %2$s</string>
     <string name="portfolio_export_failed">Export failed</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Export failed: the file couldn\'t be written – the storage location is gone or not writable</string>
+    <string name="portfolio_export_failed_prices">Export failed: prices couldn\'t be loaded – no connection or the exchange isn\'t responding</string>
     <string name="portfolio_export_from_address">from address – no purchase price</string>
     <string name="portfolio_export_hint">Holdings at the end of the chosen day, valued at the daily close (UTC) in USDT and converted with the ECB reference rate of that day. Change the currency with “Convert to”.</string>
     <string name="portfolio_export_incomplete">incomplete</string>

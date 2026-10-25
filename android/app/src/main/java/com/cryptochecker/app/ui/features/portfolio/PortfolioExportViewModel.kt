@@ -49,14 +49,6 @@ import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
 
-/** Ablauf des Stichtag-Exports. */
-sealed interface CutoffExportState {
-    data object Idle : CutoffExportState
-    data object Running : CutoffExportState
-    data object Done : CutoffExportState
-    data object Failed : CutoffExportState
-}
-
 /** Welche Datei des Steuer-Exports ([TaxExport]). */
 enum class TaxExportKind { GAINS, INCOME }
 
@@ -66,10 +58,11 @@ enum class TaxExportKind { GAINS, INCOME }
  * Arbeitsunterlage ([exportTax], [exportSummary]): nach der Steuer-Vorlage (Einstellung «tax_template») — Methode
  * [TaxTemplate.methodFor], Steuerjahr der Vorlage, Währung der Vorlage (Neutral: Anzeigewährung); Devisen-Tageskurse über
  * [HistoricPriceSource.usdToSeries]; FR zusätzlich Tagesschlusskurse für den Gesamtwert des Portfolios bei jedem Verkauf.
+ * Ablauf, Abbrechen und «Erneut versuchen» übernimmt [ExportRunner].
  */
 @HiltViewModel
 class PortfolioExportViewModel @Inject constructor(
-    @param:ApplicationContext private val context: Context,
+    @ApplicationContext context: Context,
     internal val repository: PortfolioRepository,
     internal val historic: HistoricPriceSource,
     internal val priceSource: PortfolioPriceSource,
@@ -80,8 +73,8 @@ class PortfolioExportViewModel @Inject constructor(
     internal val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<CutoffExportState>(CutoffExportState.Idle)
-    val state: StateFlow<CutoffExportState> = _state.asStateFlow()
+    private val runner = ExportRunner(viewModelScope, UriExportTarget(context))
+    val state: StateFlow<CutoffExportState> = runner.state
 
     /** Einstandsmethode (Methode der Vorlage, [TaxTemplate.methodFor]). */
     val costMethod: StateFlow<CostMethod> = settingsRepository.settings
@@ -228,33 +221,18 @@ class PortfolioExportViewModel @Inject constructor(
 
     /** CSV «Jahresübersicht» (Vorlage, Orientierung) für [year] in die Datei [uri]. */
     fun exportSummary(uri: Uri, year: Int, displayCurrency: String, texts: TaxSummaryTexts, header: List<String>, zoneLine: String) {
-        if (_state.value == CutoffExportState.Running) return
-        _state.value = CutoffExportState.Running
-        viewModelScope.launch {
-            _state.value = try {
-                val tpl = taxTemplate.value
-                val method = tpl.methodFor(costMethod.value, year)
-                val currency = workCurrency(tpl, displayCurrency)
-                val summary = _summary.value?.takeIf {
-                    it.period.startYear == year && it.template == tpl && it.method == method && it.currency == currency &&
-                        it.walletFrom == tpl.walletFrom(costMethod.value, year)
-                } ?: buildSummary(year, tpl, method, currency)
-                val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
-                // Hinweiszeile zum CH-Vermögen kommt aus der Übersicht selbst ([TaxWealth.addressNote])
-                write(uri, TaxExport.summaryCsv(summary, texts, header, zoneLine, format))
-                CutoffExportState.Done
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.w(e, "Jahresübersicht fehlgeschlagen")
-                CutoffExportState.Failed
-            }
+        runner.start(uri, "Jahresübersicht fehlgeschlagen") {
+            val tpl = taxTemplate.value
+            val method = tpl.methodFor(costMethod.value, year)
+            val currency = workCurrency(tpl, displayCurrency)
+            val summary = _summary.value?.takeIf {
+                it.period.startYear == year && it.template == tpl && it.method == method && it.currency == currency &&
+                    it.walletFrom == tpl.walletFrom(costMethod.value, year)
+            } ?: buildSummary(year, tpl, method, currency)
+            val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
+            // Hinweiszeile zum CH-Vermögen kommt aus der Übersicht selbst ([TaxWealth.addressNote])
+            TaxExport.summaryCsv(summary, texts, header, zoneLine, format)
         }
-    }
-
-    private suspend fun write(uri: Uri, csv: String) = withContext(Dispatchers.IO) {
-        val stream = context.contentResolver.openOutputStream(uri, "wt") ?: error("Datei kann nicht geschrieben werden")
-        stream.use { it.write(csv.toByteArray(Charsets.UTF_8)) }
     }
 
     /**
@@ -262,19 +240,7 @@ class PortfolioExportViewModel @Inject constructor(
      * Vorlage/Methode/Steuerjahr/Währung, Arbeitsunterlage – keine Steuererklärung, keine Steuerberatung).
      */
     fun exportTax(uri: Uri, kind: TaxExportKind, year: Int, displayCurrency: String, texts: TaxCsvTexts, header: List<String>) {
-        if (_state.value == CutoffExportState.Running) return
-        _state.value = CutoffExportState.Running
-        viewModelScope.launch {
-            _state.value = try {
-                write(uri, buildTax(kind, year, displayCurrency, texts, header))
-                CutoffExportState.Done
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.w(e, "Steuer-Export fehlgeschlagen")
-                CutoffExportState.Failed
-            }
-        }
+        runner.start(uri, "Steuer-Export fehlgeschlagen") { buildTax(kind, year, displayCurrency, texts, header) }
     }
 
     private suspend fun buildTax(kind: TaxExportKind, year: Int, displayCurrency: String, texts: TaxCsvTexts, header: List<String>): String {
@@ -339,27 +305,22 @@ class PortfolioExportViewModel @Inject constructor(
         zone: ZoneId = ZoneId.systemDefault(),
         method: CostMethod? = null,
     ) {
-        if (_state.value == CutoffExportState.Running) return
-        _state.value = CutoffExportState.Running
-        viewModelScope.launch {
-            _state.value = try {
-                val csv = build(date, currency, texts, header, zone, method)
-                withContext(Dispatchers.IO) {
-                    val stream = context.contentResolver.openOutputStream(uri, "wt")
-                        ?: error("Datei kann nicht geschrieben werden")
-                    stream.use { it.write(csv.toByteArray(Charsets.UTF_8)) }
-                }
-                CutoffExportState.Done
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.w(e, "Stichtag-Export fehlgeschlagen")
-                CutoffExportState.Failed
-            }
-        }
+        runner.start(uri, "Stichtag-Export fehlgeschlagen") { build(date, currency, texts, header, zone, method) }
     }
 
-    fun consume() {
-        if (_state.value != CutoffExportState.Running) _state.value = CutoffExportState.Idle
+    /** «Abbrechen» während des Exports: Lauf beenden, angefangene Datei löschen. */
+    fun cancelExport() = runner.cancel()
+
+    /** «Erneut versuchen»; [uri] = neu gewählte Datei (Speicherort weg), null = dieselbe. */
+    fun retryExport(uri: Uri? = null) = runner.retry(uri)
+
+    /** Fehlermeldung geschlossen. */
+    fun dismissFailure() = runner.dismissFailure()
+
+    fun consume() = runner.consume()
+
+    /** Seite verlassen, während ein Export läuft: abbrechen und die angefangene Datei löschen. */
+    override fun onCleared() {
+        runner.cancel()
     }
 }

@@ -48,6 +48,8 @@ import com.cryptochecker.app.ui.features.info.MarketPhaseScreen
 import com.cryptochecker.app.ui.features.info.MarketSectionScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioDetailScreen
 import com.cryptochecker.app.ui.features.portfolio.PortfolioScreen
+import com.cryptochecker.app.ui.features.portfolio.PortfolioViewModel
+import com.cryptochecker.app.ui.features.portfolio.TaxWorksheetScreen
 import com.cryptochecker.app.ui.features.settings.SettingsPage
 import com.cryptochecker.app.ui.features.watchlist.WatchlistScreen
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
@@ -68,8 +70,10 @@ fun AppNavHost(
     val currentDestination = backStackEntry?.destination
     // Muster der aktuellen Route (nur als Schlüssel der Effekte unten, verglichen wird typsicher)
     val currentRoute = currentDestination?.route
-    val onPortfolioCoin = currentDestination?.hasRoute<ScreenRoute.PortfolioCoin>() == true
-    val onPortfolio = onPortfolioCoin || currentDestination?.hasRoute<ScreenRoute.Portfolio>() == true
+    // Unterseiten des Portfolios (Coin-Detail, Steuer-Arbeitsunterlage): gesperrt zurück zum Tab
+    val onPortfolioSubpage = currentDestination?.hasRoute<ScreenRoute.PortfolioCoin>() == true ||
+        currentDestination?.hasRoute<ScreenRoute.PortfolioTaxWorksheet>() == true
+    val onPortfolio = onPortfolioSubpage || currentDestination?.hasRoute<ScreenRoute.Portfolio>() == true
     val portfolioEnabled by navViewModel.portfolioEnabled.collectAsStateWithLifecycle()
     val bottomTabs = remember(portfolioEnabled) { buildBottomTabs(portfolioEnabled) }
     // Gewählter Tab; null auf Seiten ohne Tableiste (Alarme, Unterseiten, «Paar hinzufügen»)
@@ -126,9 +130,9 @@ fun AppNavHost(
         }
     )
 
-    // Gesperrt, während eine Coin-Detailansicht offen ist: zurück zum (gesperrten) Portfolio-Tab
+    // Gesperrt, während eine Unterseite des Portfolios offen ist: zurück zum (gesperrten) Portfolio-Tab
     androidx.compose.runtime.LaunchedEffect(portfolioAccess, currentRoute) {
-        if (portfolioAccess == PortfolioAccess.LOCKED && onPortfolioCoin) {
+        if (portfolioAccess == PortfolioAccess.LOCKED && onPortfolioSubpage) {
             runCatchingCancellable { navigation.popBackStack<ScreenRoute.Portfolio>(inclusive = false) }
         }
     }
@@ -320,6 +324,9 @@ fun AppNavHost(
                     PortfolioGate(portfolioAccess, requestUnlock, lockViewModel) {
                         PortfolioScreen(
                             onOpenCoin = { coin -> navigation.navigate(ScreenRoute.PortfolioCoin(coin)) },
+                            onOpenTaxWorksheet = {
+                                navigation.navigate(ScreenRoute.PortfolioTaxWorksheet) { launchSingleTop = true }
+                            },
                             onOpenAbout = {
                                 navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.ABOUT.name)) { launchSingleTop = true }
                             }
@@ -339,6 +346,18 @@ fun AppNavHost(
                             onBack = { navigation.popBackStack() },
                             viewModel = hiltViewModel(viewModelStoreOwner = portfolioOwner),
                         )
+                    }
+                }
+
+                composable<ScreenRoute.PortfolioTaxWorksheet> { entry ->
+                    // Anzeigewährung aus der Instanz des Tabs (wie das Coin-Detail)
+                    val portfolioOwner = androidx.compose.runtime.remember(entry) {
+                        runCatching { navigation.getBackStackEntry<ScreenRoute.Portfolio>() }.getOrNull() ?: entry
+                    }
+                    val portfolio: PortfolioViewModel = hiltViewModel(viewModelStoreOwner = portfolioOwner)
+                    val currency by portfolio.currency.collectAsStateWithLifecycle()
+                    PortfolioGate(portfolioAccess, requestUnlock, lockViewModel) {
+                        TaxWorksheetScreen(currency = currency, onBack = { navigation.popBackStack() })
                     }
                 }
 

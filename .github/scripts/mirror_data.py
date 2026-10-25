@@ -34,8 +34,12 @@ CoinGecko data is NOT mirrored: the CoinGecko API terms forbid re-distributing a
 their data, so the apps ask CoinGecko directly.
 
 Signed manifest (--manifest DIR, run in the publish job after artifact_check.py):
-  manifest.json      {"created":<ms>,"files":{"<file>":"<sha-256 hex of the file bytes>"…},"v":1}
+  manifest.json      {"created":<ms>,"files":{"<file>":"<sha-256 hex of the file bytes>"…},"revoked":[…],"v":1}
                      (compact, sorted keys, ASCII; the signature covers exactly these bytes)
+                     "revoked": key ids (SHA-256 hex of the public key DER, key_id) of revoked signing keys,
+                     normally empty (REVOKED_KEY_IDS). The apps honour an id only in a fresh manifest signed with
+                     the OTHER key and then reject that key for good; keys that revoke each other are both
+                     revoked (mirror off until an app update); a missing field means empty.
   manifest.json.sig  Base64 of the DER ECDSA P-256/SHA-256 signature, made with the secret
                      MIRROR_SIGNING_KEY (PEM, PKCS#8) via the openssl command line tool
 The apps (MirrorManifest.kt / MirrorManifest.swift) check the signature with the built-in public key
@@ -327,6 +331,9 @@ PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpb
 RESERVE_PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k"
                       "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw==")
 PUBLIC_KEYS = (PUBLIC_KEY, RESERVE_PUBLIC_KEY)
+# Revocation list written into every manifest (key ids, see key_id). Empty while no key has leaked. After a leak:
+# switch MIRROR_SIGNING_KEY to the other key and add the id of the leaked key here (DEVELOPMENT.md, "Reserve key")
+REVOKED_KEY_IDS = ()
 MANIFEST_MAX_AGE_MILLIS = 7 * 24 * 60 * 60 * 1000
 MANIFEST_MAX_BYTES = 64 * 1024
 # Files whose hash may be carried over from the previous signed manifest (old asset stays on the release)
@@ -335,8 +342,14 @@ FILE_NAME = re.compile(r"[A-Za-z0-9._-]{1,64}\Z")
 SHA256_HEX = re.compile(r"[0-9a-f]{64}\Z")
 
 
-def manifest_bytes(files, created_millis):
-    doc = {"v": MANIFEST_VERSION, "created": created_millis, "files": dict(sorted(files.items()))}
+def key_id(public_b64):
+    """Key id as in the apps (MirrorManifest.keyId): SHA-256 hex of the public key DER bytes."""
+    return hashlib.sha256(base64.b64decode("".join(public_b64.split()), validate=True)).hexdigest()
+
+
+def manifest_bytes(files, created_millis, revoked=()):
+    doc = {"v": MANIFEST_VERSION, "created": created_millis, "files": dict(sorted(files.items())),
+           "revoked": sorted(set(revoked))}
     return json.dumps(doc, separators=(",", ":"), sort_keys=True).encode("ascii")
 
 
@@ -354,7 +367,11 @@ def parse_manifest(data):
     if not all(isinstance(k, str) and FILE_NAME.match(k) and isinstance(v, str) and SHA256_HEX.match(v)
                for k, v in files.items()):
         return None
-    return {"created": created, "files": files}
+    # Revocation list: missing = empty (older manifests), otherwise only key ids
+    revoked = doc.get("revoked", [])
+    if not isinstance(revoked, list) or not all(isinstance(r, str) and SHA256_HEX.match(r) for r in revoked):
+        return None
+    return {"created": created, "files": files, "revoked": revoked}
 
 
 def sha256_file(path):
@@ -420,7 +437,8 @@ def previous_hashes(previous_dir, public_b64, now_millis):
     return doc["files"]
 
 
-def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEYS, previous_dir=None, now_millis=None):
+def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEYS, previous_dir=None, now_millis=None,
+                   revoked=REVOKED_KEY_IDS):
     """Writes manifest.json (and manifest.json.sig if the key works) to out_dir; returns "signed"/"unsigned"."""
     now_millis = now_millis if now_millis is not None else int(time.time() * 1000)
     files = {name: sha256_file(os.path.join(data_dir, name)) for name in sorted(os.listdir(data_dir))
@@ -430,7 +448,7 @@ def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEYS, previous_
         if name not in files and name in previous:
             files[name] = previous[name]
             print(f"{name}: not renewed, hash carried over from the previous manifest")
-    data = manifest_bytes(files, now_millis)
+    data = manifest_bytes(files, now_millis, revoked)
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, MANIFEST), "wb") as f:
         f.write(data)
@@ -448,9 +466,14 @@ def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEYS, previous_
         print("::error title=Mirror signature::MIRROR_SIGNING_KEY does not match the public key in the apps: "
               "manifest.json published without signature")
         return "unsigned"
+    keys = public_b64 if isinstance(public_b64, (tuple, list)) else (public_b64,)
+    signer = [k for k in keys if openssl_verify(data, sig, k)]
+    if signer and key_id(signer[0]) in set(revoked):
+        print("::warning title=Mirror signature::MIRROR_SIGNING_KEY is on the revocation list: the apps that already "
+              "know the revocation reject this manifest; sign with the other key")
     with open(os.path.join(out_dir, SIGNATURE), "wb") as f:
         f.write(base64.b64encode(sig))
-    print(f"{MANIFEST}: {len(files)} files, signed")
+    print(f"{MANIFEST}: {len(files)} files, {len(set(revoked))} revoked key(s), signed")
     return "signed"
 
 
@@ -483,6 +506,8 @@ def _selftest_manifest():
         raw = open(os.path.join(out, MANIFEST), "rb").read()
         doc = parse_manifest(raw)
         assert raw == manifest_bytes(doc["files"], now) and raw.startswith(b'{"created":1800000000000,"files":{')
+        # Revocation list always written, empty by default (the apps read a missing field as empty)
+        assert raw.endswith(b',"revoked":[],"v":1}') and doc["revoked"] == []
         assert doc["files"]["coin_meta.json"] == hashlib.sha256('{"binance":[{"name":"Ä"}]}'.encode()).hexdigest()
         assert sorted(doc["files"]) == ["coin_meta.json", "fng.txt", "status.json"]
         sig = base64.b64decode(open(os.path.join(out, SIGNATURE), "rb").read(), validate=True)
@@ -511,7 +536,18 @@ def _selftest_manifest():
         assert openssl_verify(raw4, sig4, (pub, other_pub)) and not openssl_verify(raw4, sig4, (pub,))
         out5 = os.path.join(d, "out5")
         assert build_manifest(data, out5, other, (pub,), None, now) == "unsigned"
+        # Revocation of the other key: listed (sorted, once) and covered by the signature
+        out6 = os.path.join(d, "out6")
+        assert build_manifest(data, out6, other, (pub, other_pub), None, now, (key_id(pub), key_id(pub))) == "signed"
+        raw6 = open(os.path.join(out6, MANIFEST), "rb").read()
+        assert parse_manifest(raw6)["revoked"] == [key_id(pub)]
+        sig6 = base64.b64decode(open(os.path.join(out6, SIGNATURE), "rb").read(), validate=True)
+        assert openssl_verify(raw6, sig6, other_pub)
     assert parse_manifest(b'{"v":true,"created":1,"files":{}}') is None
+    assert parse_manifest(b'{"v":1,"created":1,"files":{}}')["revoked"] == []
+    assert parse_manifest(b'{"v":1,"created":1,"files":{},"revoked":"x"}') is None
+    assert parse_manifest(b'{"v":1,"created":1,"files":{},"revoked":["' + b"A" * 64 + b'"]}') is None
+    assert REVOKED_KEY_IDS == () or all(SHA256_HEX.match(r) for r in REVOKED_KEY_IDS)
     assert parse_manifest(b'{"v":1,"created":1,"files":{"a/b":"' + b"0" * 64 + b'"}}') is None
     assert parse_manifest(b'{"v":1,"created":1.5,"files":{}}') is None
     # The apps' keys (parity fixture productionPublicKey / productionReservePublicKey) are exactly these: a typo in
@@ -522,6 +558,8 @@ def _selftest_manifest():
         with open(fixture, encoding="utf-8") as f:
             keys = json.load(f)
         assert (keys["productionPublicKey"], keys["productionReservePublicKey"]) == PUBLIC_KEYS, "keys differ from the apps"
+        # Key ids computed like the apps (MirrorManifest.keyId)
+        assert all(key_id(k["publicKey"]) == k["id"] for k in keys["keyIds"]), "key id differs from the apps"
     # SubjectPublicKeyInfo of a P-256 key (91 bytes); active and reserve key differ
     assert all(base64.b64decode(k)[:2] == b"\x30\x59" for k in PUBLIC_KEYS) and len(set(PUBLIC_KEYS)) == 2
 

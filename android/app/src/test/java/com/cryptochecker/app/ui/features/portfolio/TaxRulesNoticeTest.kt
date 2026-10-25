@@ -10,7 +10,8 @@ import java.io.File
 import java.util.Locale
 
 /**
- * Regelstand im Export-Dialog und in der CSV-Kopfzeile ([taxRulesDateLabel]): Monat und Jahr in Sprache und Ziffern
+ * Regelstand auf der Seite «Steuer-Arbeitsunterlage» und in der CSV-Kopfzeile ([taxRulesDateLabel]): Monat und Jahr
+ * in Sprache und Ziffern
  * der App statt «2026-10»; der Hinweis selbst ([TaxRulesNotice]) hängt an `TaxRulesDate.rulesStale`
  * (`TaxRulesStaleParityTest`). Muster fest mitgegeben (android.icu fehlt in JVM-Tests).
  */
@@ -43,13 +44,15 @@ class TaxRulesNoticeTest {
         assertFalse(text, text == TaxTemplate.RULES_DATE)
     }
 
-    /** Dialog zeigt den Regelstand samt Hinweis, die CSV-Kopfzeilen nutzen dieselbe Formatierung. */
+    /** Seite «Steuer-Arbeitsunterlage» zeigt den Regelstand samt Hinweis; die CSV-Kopfzeilen formatieren gleich. */
     @Test
-    fun dialogNutztHinweisUndFormatierteKopfzeile() {
-        val rel = "src/main/java/com/cryptochecker/app/ui/features/portfolio/PortfolioExportDialog.kt"
-        val dialog = listOf(File(rel), File("app/$rel")).first { it.exists() }.readText()
-        assertTrue(dialog.contains("TaxRulesNotice(template, taxYear)"))
-        assertTrue(dialog.contains("taxRulesLine(template)"))
-        assertFalse("Rohwert RULES_DATE im Dialog", dialog.contains("TaxTemplate.RULES_DATE"))
+    fun arbeitsunterlageNutztHinweisUndFormatierteKopfzeile() {
+        val page = listOf("TaxWorksheetScreen.kt", "TaxWorksheetContent.kt").joinToString("\n") { name ->
+            val rel = "src/main/java/com/cryptochecker/app/ui/features/portfolio/$name"
+            listOf(File(rel), File("app/$rel")).first { it.exists() }.readText()
+        }
+        assertTrue(page.contains("TaxRulesNotice(template, taxYear)"))
+        assertTrue(page.contains("taxRulesLine(template)"))
+        assertFalse("Rohwert RULES_DATE auf der Seite", page.contains("TaxTemplate.RULES_DATE"))
     }
 }

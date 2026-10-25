@@ -29,6 +29,11 @@ struct PortfolioHistoryCompareSection: View {
                 .padding(.top, Spacing.xs)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Self.spoken(compare, currency: currency, period: period))
+                // Audio Graph mit beiden Linien; Wischen hoch/runter sagt Tag für Tag beide an (wie Android)
+                .accessibilityChartDescriptor(Self.audioGraph(compare, currency: currency, period: period))
+                .chartPointAdjustable(count: compare.epochDays.count, resetKey: Self.resetKey(compare)) { index in
+                    Self.pointText(compare, currency: currency, index: index)
+                }
             axis
                 .padding(.top, 4)
             Text(L("portfolio_currency_effect", PortfolioFormat.signedPercent(effect)))
@@ -74,6 +79,38 @@ struct PortfolioHistoryCompareSection: View {
         .foregroundStyle(AppColors.onSurfaceVariant)
         .environment(\.layoutDirection, .leftToRight)
         .accessibilityHidden(true)
+    }
+
+    /// «12. März 2026: CHF gestiegen um 2.10%, USDT gestiegen um 1.50%» am Tag `index`.
+    static func pointText(_ compare: PortfolioCompareSeries, currency: String, index: Int) -> String {
+        let day = PortfolioFormat.date(LocalDay(epochDay: compare.epochDays[index]).date.millis)
+        let c = A11y.change(compare.currency.indices.contains(index) ? compare.currency[index] : nil) ?? ""
+        let u = A11y.change(compare.usdt.indices.contains(index) ? compare.usdt[index] : nil) ?? ""
+        return L("label_value", day, L("a11y_chart_two_series", currency, c, PortfolioFormat.usdt, u))
+    }
+
+    /// Audio Graph: Linien «CHF» und «USDT» in Prozent über die Tage.
+    static func audioGraph(_ compare: PortfolioCompareSeries, currency: String, period: String) -> ChartAudioGraph {
+        let millis = compare.epochDays.map { LocalDay(epochDay: $0).date.millis }
+        func line(_ name: String, _ values: [Double]) -> ChartAudioGraph.Series {
+            let points = zip(millis, values).map { ChartAudioGraph.Point(millis: $0, value: $1) }
+            return ChartAudioGraph.Series(name: name, points: points)
+        }
+        return ChartAudioGraph(
+            title: L("portfolio_title"), summary: spoken(compare, currency: currency, period: period),
+            xTitle: L("a11y_chart_axis_time"), yTitle: L("a11y_chart_axis_change"),
+            series: [line(currency, compare.currency), line(PortfolioFormat.usdt, compare.usdt)],
+            timeText: { PortfolioFormat.date($0) },
+            valueText: { PortfolioFormat.signedPercent($0) })
+    }
+
+    /// Neue Tage: Auswahl der Punkte aufheben.
+    static func resetKey(_ compare: PortfolioCompareSeries) -> Int {
+        var hasher = Hasher()
+        hasher.combine(compare.epochDays.count)
+        hasher.combine(compare.epochDays.first)
+        hasher.combine(compare.epochDays.last)
+        return hasher.finalize()
     }
 
     /// «Vergleich in Prozent, 30 Tage: CHF gestiegen um 7.00%, USDT gestiegen um 12.10%. Währungseffekt: −5.10%».

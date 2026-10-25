@@ -29,12 +29,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCompareSeries
+import com.cryptochecker.app.ui.components.ChartPointStep
+import com.cryptochecker.app.ui.components.chartPointSemantics
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.util.A11yText
@@ -42,7 +43,8 @@ import com.cryptochecker.app.util.A11yText
 /**
  * «Vergleich»: Legende, beide Kurven in Prozent seit dem Ausgangspunkt, Achse und darunter
  * «Währungseffekt: −5.10%» — am letzten Tag bzw. am gezogenen Tag (dann mit beiden Werten).
- * Screenreader: ein Chart-Satz mit beiden Prozenten und dem Währungseffekt.
+ * Screenreader: ein Chart-Satz mit beiden Prozenten und dem Währungseffekt; die Aktionen «Nächster/Vorheriger Punkt»
+ * sagen Tag für Tag beide Linien an («12. März 2026: CHF gestiegen um 2.10%, USDT gestiegen um 1.50%»).
  */
 @Composable
 internal fun CompareChart(history: PortfolioHistoryUi, compare: PortfolioCompareSeries, period: String) {
@@ -59,6 +61,18 @@ internal fun CompareChart(history: PortfolioHistoryUi, compare: PortfolioCompare
         A11yText.change(context, compare.currency.last()),
         A11yText.change(context, compare.usdt.last()),
     ) + ". " + effectText
+    var a11yPoint by remember(compare) { mutableStateOf<Int?>(null) }
+    val pointCount = compare.epochDays.size
+    val pointText = a11yPoint?.takeIf { it in 0..compare.lastIndex }?.let { i ->
+        val lines = stringResource(
+            R.string.a11y_chart_two_series,
+            currency,
+            A11yText.change(context, compare.currency.getOrNull(i)),
+            PortfolioFormat.USDT,
+            A11yText.change(context, compare.usdt.getOrNull(i)),
+        )
+        stringResource(R.string.label_value, PortfolioFormat.date(dayMillis(compare.epochDays[i])), lines)
+    }
 
     CompareLegend(currency, color, grey)
     HistoryCompareChart(
@@ -71,7 +85,16 @@ internal fun CompareChart(history: PortfolioHistoryUi, compare: PortfolioCompare
             .fillMaxWidth()
             .height(HISTORY_CHART_HEIGHT)
             .padding(top = Spacing.xs)
-            .clearAndSetSemantics { contentDescription = chartSentence }
+            .chartPointSemantics(
+                chartSentence,
+                pointCount,
+                pointText,
+                stringResource(R.string.a11y_chart_next_point),
+                stringResource(R.string.a11y_chart_previous_point),
+            ) { forward ->
+                a11yPoint = if (forward) ChartPointStep.next(a11yPoint, pointCount)
+                else ChartPointStep.previous(a11yPoint, pointCount)
+            }
     )
     // Beginn (Ausgangspunkt) und Ende der Achse; wie der Chart immer von links nach rechts
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {

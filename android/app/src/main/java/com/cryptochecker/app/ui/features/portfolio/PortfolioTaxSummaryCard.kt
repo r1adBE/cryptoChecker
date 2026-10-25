@@ -1,5 +1,5 @@
 // Karte «Jahresübersicht» der Arbeitsunterlage (Summen je Zeile, Freigrenzen-Status, Hinweise).
-// Eigene Datei, weil sie eine eigenständige Anzeige ist, die der Export-Dialog nur einbettet
+// Eigene Datei, weil sie eine eigenständige Anzeige ist, die die Seite «Steuer-Arbeitsunterlage» nur einbettet
 // (wie `PortfolioTaxSummaryCard.swift`).
 package com.cryptochecker.app.ui.features.portfolio
 

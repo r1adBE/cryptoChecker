@@ -244,5 +244,220 @@
       "text": "CCDM1 1791999000000\n{\"data\":[{\"value\":\"40\"}]}",
       "expected": "not_listed"
     }
+  ],
+  "_revocationComment": "Revocation list (F-29): optional manifest field \"revoked\" = key ids (SHA-256 hex, lower case, of the public key DER bytes; missing = empty; anything else = invalid). Keys revocationKeys.a/b are TEST keys. A case verifies with publicKeys [a, b] and the locally stored revokedBefore; a key in revokedBefore is never used. A listed id counts only in a fresh, validly signed manifest of the OTHER known key: own id (self-revocation) and unknown ids are ignored. A manifest signed with an already revoked key is rejected (invalid), but if it revokes the other key that one is revoked too (mutual revocation, order does not matter): both revoked, mirror off until an app update. revoke = ids the app stores from now on (never removed).",
+  "revocationKeys": {
+    "a": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIHsP2dIaMzJVLjUVYYCU9X9LGqEvoCYPJfmMwuWamXZD37DJdTGhgYHHSp/ljwBn4cCy1sh5TKoLdJMs0npEmQ==",
+    "b": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEJRmlhMDiBW9DO9AaUPB6vDS5v5qG3Ynd8v/SaS40KDqKDFL46D1iUMFCF3s6Cg4AEaY3flnbKxcMtaLzK8K1bQ=="
+  },
+  "keyIds": [
+    {
+      "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIHsP2dIaMzJVLjUVYYCU9X9LGqEvoCYPJfmMwuWamXZD37DJdTGhgYHHSp/ljwBn4cCy1sh5TKoLdJMs0npEmQ==",
+      "id": "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+    },
+    {
+      "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEJRmlhMDiBW9DO9AaUPB6vDS5v5qG3Ynd8v/SaS40KDqKDFL46D1iUMFCF3s6Cg4AEaY3flnbKxcMtaLzK8K1bQ==",
+      "id": "ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1"
+    }
+  ],
+  "revocation": [
+    {
+      "name": "reserve key revokes the active key: ok, active key revoked from now on",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEUCIQC0AvlICmBnVhp5XCYhVuU+mhncb59uqM3opPDsIq9CtAIgSdeJd8EC9MDWUJHEL67d47PFv0a8oFJn5Asnsl4UCUU=",
+      "revokedBefore": [],
+      "expected": "ok",
+      "revoke": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ]
+    },
+    {
+      "name": "manifest signed only with the revoked key: rejected",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[],\"v\":1}",
+      "signature": "MEYCIQCKI54poFLynVj8XK28waE60DlX9oHc1JN64VwJlFeArgIhAN5OxnSabSkYL/xpYxyNvrgG8WDOxlhBptKPP+YlCE1q",
+      "revokedBefore": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ],
+      "expected": "invalid",
+      "revoke": []
+    },
+    {
+      "name": "same manifest without stored revocation: ok",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[],\"v\":1}",
+      "signature": "MEYCIQC5c0kNZe0nePp6la5vajj6QmVPatB6h+YMkpEJOgf6sAIhAOPx4tRhKI4yEn2sJt+krDxinrwi93imAbYTtbgDPNQ6",
+      "revokedBefore": [],
+      "expected": "ok",
+      "revoke": []
+    },
+    {
+      "name": "active key revokes the reserve key, reserve key already revoked: nothing new",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1\"],\"v\":1}",
+      "signature": "MEYCIQCJ5eMj+YMi+mlrwdnuIMF1KINqaqpwrtV6FNmX0zP8OQIhAK8WjC6EbcaEY9+ODGhPu+PoUJw2h9T9fzoUJ6P9B1gn",
+      "revokedBefore": [
+        "ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1"
+      ],
+      "expected": "ok",
+      "revoke": []
+    },
+    {
+      "name": "mutual: reserve key (already revoked) revokes the active key: rejected, both revoked",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEUCIQDG+uw5xZL64Q7vKv3p2LXL9JFTLAlxrotyp+io5G7aNgIgA+7149kZoVEZYbD9ro7PEgfPJNPhSSFvyrI9kVXqDx8=",
+      "revokedBefore": [
+        "ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1"
+      ],
+      "expected": "invalid",
+      "revoke": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ]
+    },
+    {
+      "name": "mutual, other order: active key (already revoked) revokes the reserve key: rejected, both revoked",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1\"],\"v\":1}",
+      "signature": "MEUCIEqeryno9+THlSv30DdHR+R7ahgNWyFBGotIrvY1bpWqAiEAjB1rdGtcIHP4UAvqKiCIahsh5TRKqpSz4rreWnJKCG4=",
+      "revokedBefore": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ],
+      "expected": "invalid",
+      "revoke": [
+        "ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1"
+      ]
+    },
+    {
+      "name": "both revoked: manifest of the active key rejected",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[],\"v\":1}",
+      "signature": "MEUCIQDvdcGBj6fGZnu4Gtx4MVt+i7YAqg2jEQdXSri2j/WepwIgN94C4mZwCZuwoqEmDXGGlFL9J9cFtYRbFdgi4H/9lIM=",
+      "revokedBefore": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317",
+        "ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1"
+      ],
+      "expected": "invalid",
+      "revoke": []
+    },
+    {
+      "name": "both revoked: manifest of the reserve key rejected",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEQCICOG/xvYtAfo9Bjo9ZIIjOx8g2/G4Uv6YPvUg+ZGPkvIAiBRVqIH+AN7hpNbx+6e6Lmt1X03+oDU0HsKyQHEeSllyA==",
+      "revokedBefore": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317",
+        "ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1"
+      ],
+      "expected": "invalid",
+      "revoke": []
+    },
+    {
+      "name": "revoked key only revokes itself: rejected, nothing new",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEUCIEVgMmDZAinL4/FUq0CzMe1tCnBop59WFlfcQEYYQSQaAiEAjh6Fzf9SdrVI8xmhvzbUEEl9kw24MHbZd7ZYv7V/6WQ=",
+      "revokedBefore": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ],
+      "expected": "invalid",
+      "revoke": []
+    },
+    {
+      "name": "revoked key, mutual revocation in a manifest that is too old: not applied",
+      "manifest": "{\"created\":1791000000000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1\"],\"v\":1}",
+      "signature": "MEQCIEA9JVqp6TuT0+kmfTuK13bRib4Wyu3QnuOXPrBe6PDnAiAe/NINucGO//i/hMRIsaIoGu1fD0s1p0yMqbNImhyaEA==",
+      "revokedBefore": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ],
+      "expected": "too_old",
+      "revoke": []
+    },
+    {
+      "name": "self-revocation ignored",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEYCIQCZor4w69nOIpClqY0FfR/mjDBclaoR1bLurCnVx2q6jwIhAMu8wrzgqt43da6Hq+cbh4JuT5rejOP+9PeKb8sUjdX9",
+      "revokedBefore": [],
+      "expected": "ok",
+      "revoke": []
+    },
+    {
+      "name": "unknown key id ignored",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"4efb69b9e37fc631dca0c80ae9e9339cc6890a3e67b8282e725e48ffcf16e35d\"],\"v\":1}",
+      "signature": "MEUCIQCBO+gYQkjqPSVIc9XWUnElgft94pRyPwGUTdBN9qoN/AIgVdxmOLcu8l5hsc5zdphL+ZDRlRn3gF4fcIQ2guSVQ0w=",
+      "revokedBefore": [],
+      "expected": "ok",
+      "revoke": []
+    },
+    {
+      "name": "empty list (as written by mirror_data.py)",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[],\"v\":1}",
+      "signature": "MEUCIQDgxuoG30NTyVmQvHw/+glgqnWXcHNyRZXN8IIHRk3+4wIgf9bmaiv4L2N/PrmTzpIT3kjHqjm5Z0P4mlHliiWfV84=",
+      "revokedBefore": [],
+      "expected": "ok",
+      "revoke": []
+    },
+    {
+      "name": "revocation already stored: nothing new",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEUCIGRsk+jmsBN4u8VB7qd2AbgGNP28bL2Du56Rm27Cz8eTAiEAlwu1DOu/Yj8yEY54qb04ECm745O0O7S0smlrzfJj3N4=",
+      "revokedBefore": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ],
+      "expected": "ok",
+      "revoke": []
+    },
+    {
+      "name": "other key and unknown id together: only the known key",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"4efb69b9e37fc631dca0c80ae9e9339cc6890a3e67b8282e725e48ffcf16e35d\",\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEUCIDAOZalpNhoNKU8WOujTLKMhRc0SamaMgToDPD24Y7HhAiEAi5M+JYM4lVG0TacS1Bgu8jTtfM7zsP5Jl0qYoc0Hdow=",
+      "revokedBefore": [],
+      "expected": "ok",
+      "revoke": [
+        "79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317"
+      ]
+    },
+    {
+      "name": "active key revokes the reserve key",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1\"],\"v\":1}",
+      "signature": "MEYCIQChG4B7niYxigy3ySM7UYjGsEP8qnzo183eFxPVTtvT1AIhANLXo2WcrJnGj/OxYiIIOUUBprrLU6npbtc5yYOZ/L1Y",
+      "revokedBefore": [],
+      "expected": "ok",
+      "revoke": [
+        "ecf6124cf126e82cdc9052c1820e8426762b2f413adfac49ca351b1f628696b1"
+      ]
+    },
+    {
+      "name": "revocation in a manifest that is too old: not applied",
+      "manifest": "{\"created\":1791000000000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\"],\"v\":1}",
+      "signature": "MEQCIHkUUZaPt9sIqaDJyK2uaiSsFFpT89cky/FAhOpYThMfAiAcxba+q7HXq+7+uuGOMfiWmTlKrG0YeUOW2EXgRpUfow==",
+      "revokedBefore": [],
+      "expected": "too_old",
+      "revoke": []
+    },
+    {
+      "name": "revoked not a list: invalid",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f86185411317\",\"v\":1}",
+      "signature": "MEUCIQC+y3sEV1UAo2jj/tfv9SAZrFUlYq7VqqWZrCSAPTAHiAIgZ8Y4DVfRfFZOlu+pcoDEaSxRDRi8KkpwYBBXRwUO6g0=",
+      "revokedBefore": [],
+      "expected": "invalid",
+      "revoke": []
+    },
+    {
+      "name": "revoked id upper case: invalid",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820FD5E2EB93A9F9820627E975259F6DF2EBB787E0BEAED232F86185411317\"],\"v\":1}",
+      "signature": "MEQCIHS+dUih8V4zcYZL6e09vszF97dEICnobCmv0dWcsLmaAiAYtiDNONuNJcxJH/VJj+3ppO7XTE0RNKOn80RdPnz2Zg==",
+      "revokedBefore": [],
+      "expected": "invalid",
+      "revoke": []
+    },
+    {
+      "name": "revoked id too short: invalid",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[\"79820fd5e2eb93a9f9820627e975259f6df2ebb787e0beaed232f8618541131\"],\"v\":1}",
+      "signature": "MEUCIQC+sMZqxHtwzdC+/Bp0ZbqQwaXAv0bTv++HRAPLex/5YgIgSzzx/4ixvWXN/u0AdnTc0h/SaHM9xxpFNIYJ+GzAZQw=",
+      "revokedBefore": [],
+      "expected": "invalid",
+      "revoke": []
+    },
+    {
+      "name": "revoked id not a string: invalid",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"revoked\":[1],\"v\":1}",
+      "signature": "MEQCIDIOv4RWifYCkblOQ5f8GPi/Em34Yon9U31wyXRq71BRAiB4tkoQkXrTBJp5xIVHJ3doSit5I3VDRyMPVNw8jnvIKQ==",
+      "revokedBefore": [],
+      "expected": "invalid",
+      "revoke": []
+    }
   ]
 }

@@ -147,18 +147,12 @@ class AppNotifier @Inject constructor(
         overflow: List<Long>,
         byId: Map<Long, WatchEntity>,
         active: ActiveState?,
-    ): LinkedHashMap<Long, String> {
-        val lines = LinkedHashMap<Long, String>()
-        for (id in overflow) {
-            if (id in cancelledDuringRun) continue
+    ): LinkedHashMap<Long, String> =
+        AppNotifierDeliveryPlan.overflowLines(overflow, cancelledDuringRun, active?.overflow, active?.prices) { id ->
             val watch = byId[id]
             val price = watch?.lastPrice
-            val line = if (watch != null && price != null) priceTitle(watch, price)
-            else active?.overflow?.get(id) ?: active?.prices?.get(id)
-            if (!line.isNullOrEmpty()) lines[id] = line
+            if (watch != null && price != null) priceTitle(watch, price) else null
         }
-        return lines
-    }
 
     /** Hält Kurs-Durchläufe ([showPrices]) nacheinander, ohne die Objektsperre zu belegen; wartet, ohne zu blockieren. */
     private val priceRunLock = Mutex()
@@ -340,9 +334,6 @@ class AppNotifier @Inject constructor(
         PRICES("com.cryptochecker.app.group.PRICES", PRICE_SUMMARY_ID, R.string.channel_prices, R.drawable.ic_stat_logo),
         ALARMS("com.cryptochecker.app.group.ALARMS", ALARM_SUMMARY_ID, R.string.channel_alarms, R.drawable.ic_stat_logo),
     }
-
-    /** [children] wie [activeInGroup]; [summaryOngoing] = Zusammenfassung offen (dauerhaft ja/nein), null = keine. */
-    internal class GroupState(val children: Int, val summaryOngoing: Boolean?)
 
     companion object {
         // 1 war die Meldung des früheren Live-Dienstes «Immer kurz», 3 die frühere «Marktphase gewechselt» (nie wiederverwenden)

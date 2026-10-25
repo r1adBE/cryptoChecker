@@ -25,12 +25,14 @@ extension PortfolioHomeView {
     private func listContent(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan, height: Double) -> some View {
         let wide = family != .systemSmall
         let sorted = PortfolioWidgetViews.sortedByValue(s.topPositions)
-        let row = PortfolioWidgetViews.rowHeight(wide: wide)
+        // Dynamic Type: Kürzel und Werte wachsen (Zeilen höher, also weniger), solange noch eine Position Platz hat;
+        // sonst Grundgrösse
+        let grown = listFit(height: height, count: sorted.count, wide: wide, scale: Double(primaryScale))
+        let scale: Double = primaryScale > 1 && (sorted.isEmpty || grown.rows > 0) ? Double(primaryScale) : 1
+        let row = PortfolioWidgetViews.rowHeight(wide: wide, fontScale: scale)
         // Total-Zeile geht den Zeilen vor (`listRowsBelowTotal`, wie Android `listLayout`)
-        let fit = PortfolioWidgetViews.listRowsBelowTotal(height: height, header: Self.listHeaderHeight,
-                                                          gap: Self.listGap, row: row,
-                                                          footer: Self.listFooterHeight, count: sorted.count,
-                                                          wide: wide)
+        let fit = listFit(height: height, count: sorted.count, wide: wide, scale: scale)
+        let textScale = CGFloat(scale)
         let shown = Array(sorted.prefix(fit.rows))
         let more = sorted.count - shown.count + Swift.max(0, s.otherPositions ?? 0)
         let moreText: String? = more > 0 && !sorted.isEmpty ? L("widget_portfolio_more", count: more) : nil
@@ -45,13 +47,13 @@ extension PortfolioHomeView {
                     message(L("widget_portfolio_list_hint"))
                         .padding(.top, 8)
                 } else {
-                    listRows(shown, currency: s.currency, basis: basis, wide: wide, row: row)
+                    listRows(shown, currency: s.currency, basis: basis, wide: wide, scale: textScale, row: row)
                         .padding(.top, CGFloat(Self.listGap))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .clipped()
-            listTotal(s, change: change, basis: basis, wide: wide)
+            listTotal(s, change: change, basis: basis, wide: wide, scale: textScale)
             // «Stand …» (samt «Heute ohne …») immer sichtbar — die Zeilen weichen zuerst
             listFooter(s, missing: missing, more: moreText)
                 .fixedSize(horizontal: false, vertical: true)
@@ -62,21 +64,29 @@ extension PortfolioHomeView {
                                               basis: basis, empty: sorted.isEmpty))
     }
 
+    /// Zeilen unter der Total-Zeile bei der Höhe `height` und dem Schriftfaktor `scale` (`listRowsBelowTotal`).
+    private func listFit(height: Double, count: Int, wide: Bool, scale: Double) -> (rows: Int, footer: Bool) {
+        PortfolioWidgetViews.listRowsBelowTotal(height: height, header: Self.listHeaderHeight, gap: Self.listGap,
+                                                row: PortfolioWidgetViews.rowHeight(wide: wide, fontScale: scale),
+                                                footer: Self.listFooterHeight, count: count, fontScale: scale,
+                                                wide: wide)
+    }
+
     /// Total-Zeile (immer sichtbar), gestaltet wie die Listenzeilen ohne Logo (`wide` einzeilig, sonst
     /// zweizeilig): «Gesamt» (fett wie das Kürzel) und «100%» (wie der Anteil), dazu der Wert (Währung klein und grau;
     /// verborgen «•••») und MEIN Gewinn/Verlust wie in den Zeilen («24h +1’500.00 CHF · +1.61%», die Summe der Zeilen);
     /// ohne Betrag bleibt der Platz leer. Darüber die Trennlinie — wie Android `bindListTotal`.
     private func listTotal(_ s: PortfolioWidgetSnapshot, change: PortfolioListTotalChange?,
-                           basis: ChangeBasis, wide: Bool) -> some View {
+                           basis: ChangeBasis, wide: Bool, scale: CGFloat) -> some View {
         VStack(spacing: 0) {
             Rectangle()
                 .fill(palette.divider)
                 .frame(height: 1)
             if wide {
-                listTotalWide(s, change: change, basis: basis)
+                listTotalWide(s, change: change, basis: basis, scale: scale)
                     .padding(.vertical, 4)
             } else {
-                listTotalNarrow(s, change: change, basis: basis)
+                listTotalNarrow(s, change: change, basis: basis, scale: scale)
                     .padding(.vertical, 4)
             }
         }
@@ -85,13 +95,13 @@ extension PortfolioHomeView {
 
     /// Total einzeilig wie `listRow` (breit): «Gesamt», Anteil, Wert, Gewinn/Verlust nebeneinander.
     private func listTotalWide(_ s: PortfolioWidgetSnapshot, change: PortfolioListTotalChange?,
-                               basis: ChangeBasis) -> some View {
+                               basis: ChangeBasis, scale: CGFloat) -> some View {
         HStack(spacing: 4) {
-            listTotalLabel()
+            listTotalLabel(scale: scale)
                 .frame(minWidth: 38, alignment: .leading)
             listTotalShare()
             Spacer(minLength: 4)
-            listTotalValue(s)
+            listTotalValue(s, scale: scale)
             // Ohne Betrag kein Platzhalter (Android: pl_change ausgeblendet)
             if let change {
                 WidgetPnlLabel(change: change, currency: s.currency, palette: palette, hidden: entry.hideAmounts,
@@ -103,16 +113,16 @@ extension PortfolioHomeView {
 
     /// Total zweizeilig wie `listRow` (schmal).
     private func listTotalNarrow(_ s: PortfolioWidgetSnapshot, change: PortfolioListTotalChange?,
-                                 basis: ChangeBasis) -> some View {
+                                 basis: ChangeBasis, scale: CGFloat) -> some View {
         HStack(spacing: 4) {
             VStack(alignment: .leading, spacing: 1) {
-                listTotalLabel()
+                listTotalLabel(scale: scale)
                 listTotalShare()
             }
             .layoutPriority(1)
             Spacer(minLength: 2)
             VStack(alignment: .trailing, spacing: 1) {
-                listTotalValue(s)
+                listTotalValue(s, scale: scale)
                 if let change {
                     WidgetPnlLabel(change: change, currency: s.currency, palette: palette, hidden: entry.hideAmounts,
                                    prefix: A11y.changeShortLabel(basis))
@@ -122,12 +132,12 @@ extension PortfolioHomeView {
         }
     }
 
-    private func listTotalLabel() -> some View {
+    private func listTotalLabel(scale: CGFloat) -> some View {
         Text(L("portfolio_card_total"))
-            .font(.system(size: WidgetFont.label, weight: .semibold))
+            .font(.system(size: WidgetFont.label * scale, weight: .semibold))
             .foregroundStyle(palette.text)
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
     }
 
     private func listTotalShare() -> some View {
@@ -138,14 +148,14 @@ extension PortfolioHomeView {
             .lineLimit(1)
     }
 
-    private func listTotalValue(_ s: PortfolioWidgetSnapshot) -> some View {
+    private func listTotalValue(_ s: PortfolioWidgetSnapshot, scale: CGFloat) -> some View {
         let value: String = entry.hideAmounts ? PortfolioInsights.hidden
             : PriceFormat.valueWithCurrency(s.total, s.currency)
-        return Text.quoted(value, quote: s.currency, size: WidgetFont.label, quoteColor: palette.secondary)
+        return Text.quoted(value, quote: s.currency, size: WidgetFont.label * scale, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.text)
             .lineLimit(1)
-            .minimumScaleFactor(0.6)
+            .minimumScaleFactor(WidgetTextSize.minimumFactor(0.6, primaryScale: scale))
             .privacySensitive()
     }
 
@@ -163,10 +173,11 @@ extension PortfolioHomeView {
     }
 
     private func listRows(_ shown: [PortfolioWidgetPosition], currency: String, basis: ChangeBasis, wide: Bool,
+                          scale: CGFloat,
                           row: Double) -> some View {
         VStack(spacing: 0) {
             ForEach(Array(shown.enumerated()), id: \.element.symbol) { index, p in
-                listRow(p, currency: currency, basis: basis, wide: wide)
+                listRow(p, currency: currency, basis: basis, wide: wide, scale: scale)
                     .frame(height: CGFloat(row) - 1)
                 // Trennlinie wie in der Merkliste, nicht nach der letzten Zeile
                 Rectangle()
@@ -180,17 +191,18 @@ extension PortfolioHomeView {
     /// klein und grau) und MEIN Gewinn/Verlust je Coin nach der %-Basis («24h +1’250.00 CHF · +1.50%», eng nur der
     /// Betrag; unbekannt «—») — wie Android `listRow`.
     @ViewBuilder
-    private func listRow(_ p: PortfolioWidgetPosition, currency: String, basis: ChangeBasis, wide: Bool) -> some View {
+    private func listRow(_ p: PortfolioWidgetPosition, currency: String, basis: ChangeBasis, wide: Bool,
+                         scale: CGFloat) -> some View {
         if wide {
             HStack(spacing: 4) {
                 listBadge(p, size: 20)
                 quantityPrefixed(p, size: 12) {
-                    listSymbol(p)
+                    listSymbol(p, scale: scale)
                         .frame(minWidth: 38, alignment: .leading)
                 }
                 listShare(p)
                 Spacer(minLength: 4)
-                listValue(p, currency: currency)
+                listValue(p, currency: currency, scale: scale)
                 WidgetPnlLabel(change: PortfolioWidgetViews.rowPnl(p), currency: currency, palette: palette,
                                hidden: entry.hideAmounts, prefix: A11y.changeShortLabel(basis))
                     .frame(minWidth: 58, alignment: .trailing)
@@ -199,13 +211,13 @@ extension PortfolioHomeView {
             HStack(spacing: 4) {
                 listBadge(p, size: 22)
                 VStack(alignment: .leading, spacing: 1) {
-                    quantityPrefixed(p, size: 12) { listSymbol(p) }
+                    quantityPrefixed(p, size: 12) { listSymbol(p, scale: scale) }
                     listShare(p)
                 }
                 .layoutPriority(1)
                 Spacer(minLength: 2)
                 VStack(alignment: .trailing, spacing: 1) {
-                    listValue(p, currency: currency)
+                    listValue(p, currency: currency, scale: scale)
                     WidgetPnlLabel(change: PortfolioWidgetViews.rowPnl(p), currency: currency, palette: palette,
                                    hidden: entry.hideAmounts, prefix: A11y.changeShortLabel(basis))
                 }
@@ -219,12 +231,12 @@ extension PortfolioHomeView {
                         accent: palette.accent)
     }
 
-    private func listSymbol(_ p: PortfolioWidgetPosition) -> some View {
+    private func listSymbol(_ p: PortfolioWidgetPosition, scale: CGFloat) -> some View {
         Text(p.symbol)
-            .font(.system(size: WidgetFont.label, weight: .semibold))
+            .font(.system(size: WidgetFont.label * scale, weight: .semibold))
             .foregroundStyle(palette.text)
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
     }
 
     /// Menge klein und grau vor dem Kürzel («1.3 BTC»), wie Android `pl_quantity`: bei knapper Breite wird
@@ -255,13 +267,13 @@ extension PortfolioHomeView {
     }
 
     /// Wert «7’420.10 CHF», die Währung klein und grau; verborgen «•••».
-    private func listValue(_ p: PortfolioWidgetPosition, currency: String) -> some View {
+    private func listValue(_ p: PortfolioWidgetPosition, currency: String, scale: CGFloat) -> some View {
         let text = entry.hideAmounts ? PortfolioInsights.hidden : PriceFormat.valueWithCurrency(p.value, currency)
-        return Text.quoted(text, quote: currency, size: WidgetFont.label, quoteColor: palette.secondary)
+        return Text.quoted(text, quote: currency, size: WidgetFont.label * scale, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.text)
             .lineLimit(1)
-            .minimumScaleFactor(0.6)
+            .minimumScaleFactor(WidgetTextSize.minimumFactor(0.6, primaryScale: scale))
             .privacySensitive()
     }
 

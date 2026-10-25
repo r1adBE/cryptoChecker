@@ -10,6 +10,7 @@ import XCTest
 ///  5. Ergebnis als Dialog (nur iOS): Sicherung ohne Passwort mit eigenem Bitcoin-Server → Rückfrage → Ergebnis mit
 ///     Hinweis erscheint als Dialog, nachdem die Rückfrage zu ist; ebenso «Sicherung nicht bestätigt» nach dem
 ///     Blatt «Sichern» (Prüfung erzwungen fehlgeschlagen).
+///  6. Steuer-Arbeitsunterlage: eigene Seite → Vorlage wählen → Export → Dateiablage erscheint.
 ///
 /// Jeder Start beginnt mit leerem Speicher und festen Börsen-Antworten (Startargument `-uiTesting`, nur im
 /// Debug-Build, siehe `UITesting` in der App); die Dateiauswahl ersetzen Testdateien. Kein Netz.
@@ -189,6 +190,30 @@ final class CryptoCheckerUITests: XCTestCase {
         close.tap()
         XCTAssertTrue(wait(dialog, "exists == false", timeout: uiTimeout), "result dialog not closed")
         XCTAssertTrue(app.tagged(UiTestTags.backupExport).waitForExistence(timeout: uiTimeout), "backup page left")
+    }
+
+    // MARK: 6. Steuer-Arbeitsunterlage
+
+    /// Portfolio aus der Testdatei → ⋯ › «Steuer-Arbeitsunterlage…» → eigene Seite → Vorlage «Germany» (Beta-Hinweis
+    /// mit OK) → «Income» → die Dateiablage des Systems erscheint (eigener Prozess: nur das Erscheinen, dann zu).
+    @MainActor
+    func testTaxExportWorksheet() throws {
+        let app = launchApp(csv: try fixture(Self.csvFixture))
+        importFixtureCsv(app)
+        tap(app, UiTestTags.portfolioMenu)
+        tapMenuItem(app, UiTestTags.portfolioTaxExport, label: "Tax worksheet…")
+        let page = app.tagged(UiTestTags.taxWorksheetScreen)
+        XCTAssertTrue(page.waitForExistence(timeout: uiTimeout), "worksheet missing")
+        tap(app, UiTestTags.taxWorksheetTemplate)
+        tapMenuItem(app, UiTestTags.taxTemplateOption("DE"), label: "Germany")
+        dismissAppAlerts(app)
+        tap(app, UiTestTags.taxWorksheetIncome)
+        let running = app.tagged(UiTestTags.exportCancel)
+        XCTAssertTrue(wait(running, "exists == false", timeout: uiListTimeout), "export still running")
+        XCTAssertFalse(app.tagged(UiTestTags.exportRetry).exists, "export failed")
+        let close = app.navigationBars.buttons["Cancel"]
+        XCTAssertTrue(waitForAny([app.buttons["Move"], app.buttons["Save"], close]), "file exporter not shown")
+        if close.exists { close.tap() }
     }
 
     // MARK: Gemeinsame Schritte

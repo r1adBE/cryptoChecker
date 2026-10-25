@@ -1,5 +1,6 @@
 // Zustellung der Mitteilungen (Teil von `AppNotifier`): geprüft melden, Gruppen mit Zusammenfassung, Platz
-// für einen Alarm schaffen, auf die Anzeige warten und die Tipp-Ziele (App, Ziel-Seite, «Was bewegt sich mit?»).
+// für einen Alarm schaffen, Kanal wählen, auf die Anzeige warten und die Tipp-Ziele (App, Ziel-Seite, «Was bewegt
+// sich mit?»). Die Entscheidungen dazu trifft `AppNotifierDeliveryPlan` (ohne Android-Typen).
 // Eigene Datei, weil alle Arten von Mitteilungen diesen Weg teilen; Erweiterungsfunktionen.
 package com.cryptochecker.app.notification
 
@@ -9,6 +10,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.ui.MainActivity
 import kotlinx.coroutines.delay
 import timber.log.Timber
@@ -18,50 +20,37 @@ import com.cryptochecker.app.notification.AppNotifier.Companion.VERIFY_STEP_MILL
 import com.cryptochecker.app.notification.AppNotifier.Companion.ACTION_OPEN_NOTIFICATION
 import com.cryptochecker.app.notification.AppNotifier.Companion.WHY_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Group
-import com.cryptochecker.app.notification.AppNotifier.GroupState
 import com.cryptochecker.app.ui.withOpenToken
 
 /**
- * Alarme haben Vorrang: Nahe an der Grenze von Android (rund 50 offene Mitteilungen je App)
- * wandern zuerst Kurs-Mitteilungen (die ältesten) in die Sammelmeldung, danach weichen
- * Aktivitäts-Meldungen, die Sammelmeldung selbst und zuletzt die ältesten Alarm-Meldungen.
+ * Platz für den Alarm [id] schaffen — welche Mitteilungen weichen, entscheidet
+ * [AppNotifierDeliveryPlan.alarmRoom]; hier wird der Plan in seiner Reihenfolge ausgeführt.
  */
 internal fun AppNotifier.makeRoomForAlarm(id: Int) {
     // Gleiche Sperre wie die @Synchronized-Funktionen der Klasse (@Synchronized auf Datei-Ebene sperrte die Datei-Klasse)
     synchronized(this) {
         val active = activeState() ?: return
-        val need = NotificationBudget.neededForAlarm(active.total, id in active.ids, ALARM_SUMMARY_ID in active.ids)
-        if (need == 0) return
-        val room = NotificationBudget.roomForAlarm(need, active.prices.size, active.overflowShown)
-        var overflowGone = false
-        if (room.demote > 0) {
-            val moved = active.prices.entries.toList().takeLast(room.demote)
-            moved.forEach { cancelPriceSingle(it.key) }
-            if (room.merge) {
-                val lines = LinkedHashMap<Long, String>()
-                moved.filter { it.value.isNotEmpty() }.forEach { lines[it.key] = it.value }
-                lines.putAll(active.overflow)
-                postOverflow(lines, ongoing = settingsRepository.cached.ongoingNotifications)
-            }
-        }
-        var remaining = room.remaining
-        for (activityId in active.activity) {
-            if (remaining <= 0) break
-            manager.cancel(activityId)
-            remaining--
-        }
-        if (remaining > 0 && active.overflowShown) {
-            postOverflow(LinkedHashMap(), ongoing = false)
-            overflowGone = true
-            remaining--
-        }
-        // Zuletzt die ältesten Alarm-Meldungen: sonst verwarf Android ab rund 48 offenen Alarmen jeden neuen still,
-        // er blieb unbestätigt und meldete sich endlos alle paar Minuten erneut
-        val evicted = NotificationBudget.alarmsToEvict(remaining, active.alarms, id)
-        evicted.forEach { manager.cancel(it) }
+        val plan = AppNotifierDeliveryPlan.alarmRoom(
+            AppNotifierDeliveryPlan.AlarmRoomInput(
+                total = active.total,
+                alarmShown = id in active.ids,
+                summaryShown = ALARM_SUMMARY_ID in active.ids,
+                prices = active.prices.entries.map { it.key to it.value },
+                overflow = active.overflow,
+                overflowShown = active.overflowShown,
+                activity = active.activity,
+                alarms = active.alarms,
+                newId = id,
+            )
+        ) ?: return
+        plan.demote.forEach { cancelPriceSingle(it) }
+        plan.overflowLines?.let { postOverflow(it, ongoing = settingsRepository.cached.ongoingNotifications) }
+        plan.cancelActivity.forEach { manager.cancel(it) }
+        if (plan.removeOverflow) postOverflow(LinkedHashMap(), ongoing = false)
+        plan.evictAlarms.forEach { manager.cancel(it) }
         Timber.d(
             "Platz für Alarm: %d Kurs-Mitteilungen verschoben, Sammelmeldung entfernt: %b, ältere Alarme entfernt: %d",
-            room.demote, overflowGone, evicted.size,
+            plan.demote.size, plan.removeOverflow, plan.evictAlarms.size,
         )
     }
 }
@@ -102,7 +91,7 @@ internal fun AppNotifier.notifyInGroup(id: Int, notification: Notification, grou
     if (!posted) return false
     val state = groupState(group, exclude = setOf(id)) ?: return true
     val ongoing = (notification.flags and Notification.FLAG_ONGOING_EVENT) != 0
-    if (state.children >= 1 && state.summaryOngoing != ongoing) {
+    if (AppNotifierDeliveryPlan.repostSummary(state, ongoing)) {
         postSummary(group, notification.channelId, ongoing = ongoing)
     }
     return true
@@ -134,7 +123,7 @@ internal fun AppNotifier.postSummary(group: Group, channelId: String, ongoing: B
 
 /** Zusammenfassung entfernen, wenn ausser [removed] keine Mitteilung der Gruppe mehr offen ist. */
 internal fun AppNotifier.cancelSummaryIfEmpty(group: Group, removed: Set<Int>) {
-    if (activeInGroup(group, exclude = removed) == 0) manager.cancel(group.summaryId)
+    if (AppNotifierDeliveryPlan.cancelSummary(activeInGroup(group, exclude = removed))) manager.cancel(group.summaryId)
 }
 
 /**
@@ -143,20 +132,39 @@ internal fun AppNotifier.cancelSummaryIfEmpty(group: Group, removed: Set<Int>) {
  */
 internal fun AppNotifier.activeInGroup(group: Group, exclude: Set<Int>): Int? = groupState(group, exclude)?.children
 
-internal fun AppNotifier.groupState(group: Group, exclude: Set<Int>): GroupState? = runCatching {
+/** Offene Mitteilungen der Gruppe ([AppNotifierDeliveryPlan.groupCount]); null, wenn das nicht abfragbar ist. */
+internal fun AppNotifier.groupState(
+    group: Group,
+    exclude: Set<Int>,
+): AppNotifierDeliveryPlan.GroupCount? = runCatching {
     val list = context.getSystemService(android.app.NotificationManager::class.java)?.activeNotifications
         ?: return@runCatching null
-    var children = 0
-    var summaryOngoing: Boolean? = null
-    for (sbn in list) {
+    val entries = list.map { sbn ->
         val n = sbn.notification
-        when {
-            sbn.id == group.summaryId -> summaryOngoing = (n.flags and Notification.FLAG_ONGOING_EVENT) != 0
-            sbn.id !in exclude && n.group == group.key && (n.flags and Notification.FLAG_GROUP_SUMMARY) == 0 -> children++
-        }
+        AppNotifierDeliveryPlan.GroupEntry(
+            id = sbn.id,
+            group = n.group,
+            summary = (n.flags and Notification.FLAG_GROUP_SUMMARY) != 0,
+            ongoing = (n.flags and Notification.FLAG_ONGOING_EVENT) != 0,
+        )
     }
-    GroupState(children, summaryOngoing)
+    AppNotifierDeliveryPlan.groupCount(entries, group.key, group.summaryId, exclude)
 }.getOrNull()
+
+/** Kanal-Id zur Wahl [channel]; [signal] gilt nur für den Kanal des «Alarm-Signals» (legt Kanäle bei Bedarf an). */
+internal fun AppNotifier.channelIdFor(channel: AppNotifierDeliveryPlan.Channel, signal: AlarmSignal): String =
+    when (channel) {
+        AppNotifierDeliveryPlan.Channel.QUIET_ALARM -> NotificationChannels.ensureQuietAlarmChannel(context)
+        AppNotifierDeliveryPlan.Channel.ALARM_SIGNAL -> alarmChannel(signal)
+        AppNotifierDeliveryPlan.Channel.MARKET -> NotificationChannels.MARKET
+    }
+
+/** Ist der Kanal [channelId] nicht stummgeschaltet ([AppNotifierDeliveryPlan.channelDelivers])? */
+internal fun AppNotifier.channelDelivers(channelId: String): Boolean {
+    val channel = context.getSystemService(android.app.NotificationManager::class.java)
+        ?.getNotificationChannel(channelId)
+    return AppNotifierDeliveryPlan.channelDelivers(channel?.importance, android.app.NotificationManager.IMPORTANCE_NONE)
+}
 
 /** Wie [notify]; true, wenn die Meldung ans System ging (Erlaubnis da, kein Fehler). */
 // Erlaubnis prüft hasPermission() direkt davor (Android 13+); SecurityException fängt runCatching
