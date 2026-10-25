@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -94,7 +96,12 @@ internal fun WatchlistHeader(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f, fill = false)
                     )
-                    TextButton(onClick = actions.onAddGroup, contentPadding = PaddingValues(horizontal = Spacing.sm)) {
+                    // Tippfläche 48 dp hoch (Standard 40 dp); der Knopf hat keine Füllung, sichtbar bleibt der Text
+                    TextButton(
+                        onClick = actions.onAddGroup,
+                        contentPadding = PaddingValues(horizontal = Spacing.sm),
+                        modifier = Modifier.heightIn(min = MinTouchTarget)
+                    ) {
                         Text(stringResource(R.string.group_add), maxLines = 1)
                     }
                 }
@@ -229,7 +236,8 @@ private fun AlarmBell(
         alarmTotal == 0 -> stringResource(R.string.alarms_add)
         else -> pluralStringResource(R.plurals.watchlist_alarms_count, alarmTotal, alarmTotal)
     }
-    IconButton(onClick = onClick, modifier = modifier) {
+    // Antippbarer Knoten 48 × 48 dp (Standard 40 dp in 48 dp Platz); sichtbar bleibt das 24-dp-Symbol
+    IconButton(onClick = onClick, modifier = modifier.size(MinTouchTarget)) {
         Icon(
             painterResource(if (active) R.drawable.ic_notifications_active else R.drawable.ic_notifications_active_outline),
             contentDescription = label,
@@ -284,7 +292,8 @@ private fun WatchlistMenu(
         }
     }
     Box {
-        IconButton(onClick = { menuOpen = true }) {
+        // Antippbarer Knoten 48 × 48 dp (Standard 40 dp in 48 dp Platz); sichtbar bleibt das 24-dp-Symbol
+        IconButton(onClick = { menuOpen = true }, modifier = Modifier.size(MinTouchTarget)) {
             Icon(
                 painterResource(R.drawable.ic_more_vert),
                 contentDescription = stringResource(R.string.action_more)

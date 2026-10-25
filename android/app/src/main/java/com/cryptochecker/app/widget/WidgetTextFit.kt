@@ -120,4 +120,56 @@ object WidgetTextFit {
         val suffix = PERIOD_SEPARATOR + period
         return if (text.endsWith(suffix) && text.length > suffix.length) text.length - suffix.length + 1 else null
     }
+
+    /** Merklisten-Zeile: Rand des Widgets 2 × 8, der Zeile 2 × 4, Abstand vor dem Kurs 4 (dp, widget_list*.xml). */
+    const val LIST_ROW_FIXED_DP = 2 * 8f + 2 * 4f + 4f
+
+    /** Coin-Logo der Merklisten-Zeile samt Abstand dahinter (dp, widget_list_item.xml). */
+    const val LIST_ROW_LOGO_DP = 24f + 8f
+
+    /** Kleinste Kursgrösse der Merklisten-Zeile, solange der Paarname noch ganz Platz haben soll: 70 % der
+     * Grundgrösse bei normaler Systemschrift. */
+    const val LIST_PRICE_MIN_FACTOR = 0.7f
+
+    /** Kurs der Merklisten-Zeile: Schriftgrösse (sp) und Breite, die dem Paarnamen bleibt (dp, ≥ 0). */
+    data class ListPriceFit(val sp: Float, val nameDp: Float)
+
+    /**
+     * Merklisten-Zeile mit [availableDp] für Paarname und Kurs (Layout: Kurs-Spalte `wrap_content` bekommt zuerst
+     * ihre Breite, der Paarname mit Gewicht 1 nur den Rest, einzeilig, am Ende gekürzt). Breiten gemessen in [baseSp]
+     * mit der Systemschrift ([priceWidthDp], [nameWidthDp]). Der Kurs ist immer vollständig:
+     *  1. passen beide: [baseSp] (wächst mit der Systemschrift, keine Obergrenze);
+     *  2. sonst (nur bei vergrösserter Systemschrift, [fontScale] > 1) wird der Kurs kleiner, damit der Name ganz
+     *     bleibt — höchstens bis [listPriceFloorSp]; bei normaler Schrift weicht gleich der Name, der Kurs bleibt
+     *     [baseSp] (wie bisher);
+     *  3. reicht das nicht, weicht der Name (gekürzt), der Kurs bleibt bei der Untergrenze;
+     *  4. passt der Kurs selbst ohne Namen nicht, wird er so klein, dass er genau passt (Name leer).
+     * Unbekannte Breite (null oder ≤ 0): [baseSp], Name unbegrenzt ([Float.MAX_VALUE]).
+     */
+    fun listPriceFit(
+        baseSp: Float,
+        fontScale: Float,
+        priceWidthDp: Float,
+        nameWidthDp: Float,
+        availableDp: Float?,
+    ): ListPriceFit {
+        if (availableDp == null || availableDp <= 0f) return ListPriceFit(baseSp, Float.MAX_VALUE)
+        val price = maxOf(priceWidthDp, 0f)
+        val name = maxOf(nameWidthDp, 0f)
+        if (price + name <= availableDp || price == 0f) return ListPriceFit(baseSp, availableDp - price)
+        if (fontScale <= 1f) {
+            return if (price <= availableDp) ListPriceFit(baseSp, availableDp - price)
+            else ListPriceFit(baseSp * availableDp / price, 0f)
+        }
+        val floor = minOf(listPriceFloorSp(baseSp, fontScale), baseSp)
+        val keepName = baseSp * (availableDp - name) / price
+        if (keepName >= floor) return ListPriceFit(keepName, availableDp - price * keepName / baseSp)
+        val atFloor = price * floor / baseSp
+        if (atFloor <= availableDp) return ListPriceFit(floor, availableDp - atFloor)
+        return ListPriceFit(baseSp * availableDp / price, 0f)
+    }
+
+    /** Untergrenze der Kursgrösse bei [fontScale] (sp): [LIST_PRICE_MIN_FACTOR] × [baseSp] in wirklicher Grösse. */
+    fun listPriceFloorSp(baseSp: Float, fontScale: Float): Float =
+        baseSp * LIST_PRICE_MIN_FACTOR / (if (fontScale > 0f) fontScale else 1f)
 }

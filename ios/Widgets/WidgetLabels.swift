@@ -161,7 +161,8 @@ struct WidgetRefreshButton: View {
     }
 }
 
-/// Kurs gross, Gegenwert klein daneben.
+/// Kurs gross, Gegenwert klein daneben. `scale`: Dynamic-Type-Faktor der Haupttexte (`WidgetPrimaryFit`); der
+/// Kurs wird nie gekürzt, bei Platzmangel nur kleiner — höchstens bis 45 % der Grundgrösse `size`.
 struct WidgetPriceText: View {
     let price: Double?
     let quote: String
@@ -170,19 +171,21 @@ struct WidgetPriceText: View {
     var weight: Font.Weight = .bold
     /// Farbe des Kurses; nil = `palette.text`. Deaktiviert: `palette.secondary` statt Deckkraft (wie Android).
     var color: Color? = nil
+    var scale: CGFloat = 1
 
     var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: size * 0.18) {
+        let shown = size * scale
+        HStack(alignment: .firstTextBaseline, spacing: shown * 0.18) {
             Text(PriceFormat.price(price))
-                .font(.system(size: size, weight: weight, design: .rounded))
+                .font(.system(size: shown, weight: weight, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(color ?? palette.text)
                 .lineLimit(1)
-                .minimumScaleFactor(0.45)
+                .minimumScaleFactor(WidgetTextSize.minimumFactor(0.45, primaryScale: scale))
                 .invalidatableContent()
             if price != nil, (price ?? 0) > 0 {
                 Text(quote)
-                    .font(.system(size: max(CGFloat(WidgetQuoteText.minQuoteSize), size * 0.42), weight: .semibold))
+                    .font(.system(size: max(CGFloat(WidgetQuoteText.minQuoteSize), shown * 0.42), weight: .semibold))
                     .foregroundStyle(palette.secondary)
                     .lineLimit(1)
                     .fixedSize()

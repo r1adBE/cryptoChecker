@@ -121,46 +121,6 @@ private func singleMarketLine(_ watch: Watch, foreignChart: String? = nil) -> St
     return watch.marketName + " · " + L("watch_row_source_chart", BidiText.isolate(foreignChart))
 }
 
-private struct SingleHeader: View {
-    let watch: Watch
-    let palette: WidgetPalette
-    var badge: CGFloat = 20
-    @Environment(\.changeView) private var changeView
-
-    /// Volles Paar («BTC/USDT»), wenn es neben der Veränderung Platz hat, sonst nur die
-    /// Basis («BTC» statt «BT…»). Die Veränderung wird nie gekürzt (feste Breite, Vorrang).
-    var body: some View {
-        HStack(spacing: 4) {
-            WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: badge, dark: palette.dark, accent: palette.accent,
-                            logo: CoinLogos.allowed(forMarket: watch.marketKey))
-                // Deaktiviert: grau (wie die Zeile in der App)
-                .opacity(watch.disabled ? 0.45 : 1)
-            ViewThatFits(in: .horizontal) {
-                pairText(watch.displayName)
-                    .fixedSize(horizontal: true, vertical: false)
-                pairText(watch.baseAsset)
-                    .minimumScaleFactor(0.7)
-            }
-            .layoutPriority(1)
-            Spacer(minLength: 4)
-            // Veränderung gemäss %-Basis als farbiger Text (keine Pille); der Chart kann einen anderen Zeitraum zeigen
-            WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 12, showsArrow: true, day: true,
-                              suffix: A11y.changeShortLabel(changeView.basis), basis: changeView.basis,
-                              neutral: watch.disabled)
-                .fixedSize(horizontal: true, vertical: false)
-                .layoutPriority(2)
-                .invalidatableContent()
-        }
-    }
-
-    private func pairText(_ text: String) -> some View {
-        Text(text)
-            .font(.system(size: WidgetFont.body, weight: .bold))
-            .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
-            .lineLimit(1)
-    }
-}
-
 /// Klein: Paar, Börse, Kurs gross, Mini-Chart, Uhrzeit.
 private struct SingleSmallView: View {
     let watch: Watch
@@ -177,16 +137,20 @@ private struct SingleSmallView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-                SingleHeader(watch: watch, palette: palette)
-                Text(singleMarketLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
-                    .widgetSecondaryFont()
-                    .foregroundStyle(palette.secondary)
-                    .lineLimit(1)
-                    .padding(.top, 2)
-                WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 24, palette: palette,
-                                    color: watch.disabled ? palette.secondary : nil)  // L-19: grau statt 60 % Deckkraft (wie Android)
-                    .padding(.top, 3)
+            // Paar und Kurs wachsen mit Dynamic Type, solange sie in der Höhe Platz haben (der Chart gibt nach)
+            WidgetPrimaryFit(in: .vertical) { scale in
+                VStack(alignment: .leading, spacing: 0) {
+                    SingleHeader(watch: watch, palette: palette, scale: scale)
+                    Text(singleMarketLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
+                        .widgetSecondaryFont()
+                        .foregroundStyle(palette.secondary)
+                        .lineLimit(1)
+                        .padding(.top, 2)
+                    // Deaktiviert grau statt 60 % Deckkraft (wie Android)
+                    WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 24, palette: palette,
+                                    color: watch.disabled ? palette.secondary : nil, scale: scale)
+                        .padding(.top, 3)
+                }
             }
             .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
             Group {
@@ -230,43 +194,8 @@ private struct SingleMediumView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 4) {
-                    WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 24, dark: palette.dark, accent: palette.accent,
-                                    logo: CoinLogos.allowed(forMarket: watch.marketKey))
-                        .opacity(watch.disabled ? 0.45 : 1)
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(watch.displayName)
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.7)
-                        Text(singleMarketLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
-                            .widgetSecondaryFont()
-                            .foregroundStyle(palette.secondary)
-                            .lineLimit(1)
-                    }
-                }
-                Spacer(minLength: 4)
-                WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 28, palette: palette,
-                                    color: watch.disabled ? palette.secondary : nil)  // L-19: grau statt 60 % Deckkraft (wie Android)
-                if watch.lastPrice != nil {
-                    // Farbiger Text ohne Pille (deaktiviert grau), Zeitraum dahinter grau — wie Android
-                    WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 12, showsArrow: true, day: true,
-                                      suffix: A11y.changeShortLabel(changeView.basis), basis: changeView.basis,
-                                      neutral: watch.disabled)
-                        .padding(.top, 4)
-                        .invalidatableContent()
-                }
-                Spacer(minLength: 4)
-                // Zeitraum des Charts neben der Uhrzeit, z. B. «14:05 · 7T»; veraltet «veraltet · 06:42 · 7T»;
-                // stehender Kurs: «Kurs unverändert seit 11:02 · 7T»
-                Text(WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
-                    .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
-                    .foregroundStyle(palette.secondary)
-                    .lineLimit(1)
-                    .invalidatableContent()
-            }
+            // Paar und Kurs wachsen mit Dynamic Type, solange die Spalte in der Höhe Platz hat
+            WidgetPrimaryFit(in: .vertical) { scale in summary(scale: scale) }
             .frame(maxWidth: .infinity, alignment: .leading)
             .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
 
@@ -280,6 +209,48 @@ private struct SingleMediumView: View {
             }
         }
         .padding(12)
+    }
+
+    /// Angaben links; `scale` = Faktor der Haupttexte.
+    private func summary(scale: CGFloat) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 4) {
+                WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 24, dark: palette.dark, accent: palette.accent,
+                                logo: CoinLogos.allowed(forMarket: watch.marketKey))
+                    .opacity(watch.disabled ? 0.45 : 1)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(watch.displayName)
+                        .font(.system(size: WidgetFont.body * scale, weight: .bold))
+                        .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
+                        .lineLimit(1)
+                        .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
+                    Text(singleMarketLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
+                        .widgetSecondaryFont()
+                        .foregroundStyle(palette.secondary)
+                        .lineLimit(1)
+                }
+            }
+            Spacer(minLength: 4)
+            // Deaktiviert grau statt 60 % Deckkraft (wie Android)
+            WidgetPriceText(price: watch.lastPrice, quote: watch.quoteAsset, size: 28, palette: palette,
+                            color: watch.disabled ? palette.secondary : nil, scale: scale)
+            if watch.lastPrice != nil {
+                // Farbiger Text ohne Pille (deaktiviert grau), Zeitraum dahinter grau — wie Android
+                WidgetChangeLabel(change: watch.shownChange24h, palette: palette, size: 12, showsArrow: true, day: true,
+                                  suffix: A11y.changeShortLabel(changeView.basis), basis: changeView.basis,
+                                  neutral: watch.disabled)
+                    .padding(.top, 4)
+                    .invalidatableContent()
+            }
+            Spacer(minLength: 4)
+            // Zeitraum des Charts neben der Uhrzeit, z. B. «14:05 · 7T»; veraltet «veraltet · 06:42 · 7T»;
+            // stehender Kurs: «Kurs unverändert seit 11:02 · 7T»
+            Text(WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter) + " · " + range.shortLabel)
+                .widgetSecondaryFont(weight: .medium, monospacedDigit: true)
+                .foregroundStyle(palette.secondary)
+                .lineLimit(1)
+                .invalidatableContent()
+        }
     }
 }
 
@@ -326,43 +297,49 @@ private struct SingleRectangularView: View {
 
     var body: some View {
         if let watch {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 4) {
-                    Text(watch.displayName)
-                        .font(.system(size: 13, weight: .semibold))
-                        .lineLimit(1)
-                    Spacer(minLength: 2)
-                    if let change = PriceFormat.changePercent(watch.shownChange24h) {
-                        HStack(spacing: 2) {
-                            ChangeArrowIcon(change: watch.shownChange24h)
-                                .font(.system(size: 9, weight: .bold))
-                            Text(change)
-                                .font(.system(size: 12, weight: .semibold))
-                                .monospacedDigit()
-                                .lineLimit(1)
-                        }
-                    }
-                }
-                // Währung klein und grau wie auf dem Startbildschirm (`Text.quoted`)
-                Text.quoted(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset), quote: watch.quoteAsset,
-                            size: 19, weight: .bold, design: .rounded, quoteColor: .secondary)
-                    .monospacedDigit()
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
-                    .widgetAccentable()
-                // Stehender Kurs: «Kraken · Kurs unverändert seit 11:02», passt das nicht, die Zeit der
-                // letzten Änderung statt der frischen Abrufzeit
-                ViewThatFits(in: .horizontal) {
-                    rectangularMeta(watch, hint: true)
-                        .fixedSize(horizontal: true, vertical: false)
-                    rectangularMeta(watch, hint: false)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
+            // Paar und Kurs wachsen mit Dynamic Type, solange sie in der Höhe Platz haben
+            WidgetPrimaryFit(in: .vertical) { scale in content(watch, scale: scale) }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .modifier(SingleSummaryA11y(watch: watch, outdated: outdated, date: date, outdatedAfter: outdatedAfter))
         } else {
             Text(L("single_widget_choose"))
                 .font(.system(size: 13, weight: .semibold))
+        }
+    }
+
+    private func content(_ watch: Watch, scale: CGFloat) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 4) {
+                Text(watch.displayName)
+                    .font(.system(size: 13 * scale, weight: .semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
+                Spacer(minLength: 2)
+                if let change = PriceFormat.changePercent(watch.shownChange24h) {
+                    HStack(spacing: 2) {
+                        ChangeArrowIcon(change: watch.shownChange24h)
+                            .font(.system(size: 9, weight: .bold))
+                        Text(change)
+                            .font(.system(size: 12, weight: .semibold))
+                            .monospacedDigit()
+                            .lineLimit(1)
+                    }
+                }
+            }
+            // Währung klein und grau wie auf dem Startbildschirm (`Text.quoted`)
+            Text.quoted(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset), quote: watch.quoteAsset,
+                        size: 19 * scale, weight: .bold, design: .rounded, quoteColor: .secondary)
+                .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(WidgetTextSize.minimumFactor(0.6, primaryScale: scale))
+                .widgetAccentable()
+            // Stehender Kurs: «Kraken · Kurs unverändert seit 11:02», passt das nicht, die Zeit der
+            // letzten Änderung statt der frischen Abrufzeit
+            ViewThatFits(in: .horizontal) {
+                rectangularMeta(watch, hint: true)
+                    .fixedSize(horizontal: true, vertical: false)
+                rectangularMeta(watch, hint: false)
+            }
         }
     }
 

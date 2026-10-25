@@ -22,16 +22,19 @@ struct PriceLiveActivityWidget: Widget {
                 DynamicIslandExpandedRegion(.leading) {
                     // Dynamic Island: immer schwarzer Grund → Dunkel-Fassung der Palette
                     LiveActivityThemed(dark: true) { palette in
-                        VStack(alignment: .leading, spacing: Spacing.xs) {
-                            Text(context.attributes.pairLabel)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundStyle(palette.text)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.7)
-                            Text(context.attributes.exchangeName)
-                                .widgetSecondaryFont()
-                                .foregroundStyle(palette.secondary)
-                                .lineLimit(1)
+                        // Paar wächst mit Dynamic Type, solange es in der Höhe Platz hat
+                        WidgetPrimaryFit(in: .vertical) { scale in
+                            VStack(alignment: .leading, spacing: Spacing.xs) {
+                                Text(context.attributes.pairLabel)
+                                    .font(.system(size: 14 * scale, weight: .semibold))
+                                    .foregroundStyle(palette.text)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
+                                Text(context.attributes.exchangeName)
+                                    .widgetSecondaryFont()
+                                    .foregroundStyle(palette.secondary)
+                                    .lineLimit(1)
+                            }
                         }
                         .padding(.leading, Spacing.xs)
                     }
@@ -44,11 +47,13 @@ struct PriceLiveActivityWidget: Widget {
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     LiveActivityThemed(dark: true) { palette in
-                        HStack(alignment: .firstTextBaseline, spacing: 0) {
-                            PriceActivityPrice(attributes: context.attributes, state: context.state,
-                                               palette: palette, size: 22, stale: false)
-                            Spacer(minLength: Spacing.sm)
-                            PriceActivityUpdated(date: context.state.updatedAt, palette: palette)
+                        WidgetPrimaryFit(in: .vertical) { scale in
+                            HStack(alignment: .firstTextBaseline, spacing: 0) {
+                                PriceActivityPrice(attributes: context.attributes, state: context.state,
+                                                   palette: palette, size: 22, stale: false, scale: scale)
+                                Spacer(minLength: Spacing.sm)
+                                PriceActivityUpdated(date: context.state.updatedAt, palette: palette)
+                            }
                         }
                         .padding(.horizontal, Spacing.xs)
                     }
@@ -92,16 +97,30 @@ private struct PriceActivityLockScreenView: View {
     let isStale: Bool
     let palette: WidgetPalette
 
+    /// Paar und Kurs wachsen mit Dynamic Type, solange sie in der Höhe Platz haben (`WidgetPrimaryFit`).
     var body: some View {
+        WidgetPrimaryFit(in: .vertical) { scale in content(scale: scale) }
+            .padding(Spacing.lg)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(A11y.join([
+                L("a11y_row_pair", attributes.pairLabel, attributes.exchangeName),
+                state.priceText,
+                A11y.change(state.change24h, basis: state.basis ?? .default),
+                PriceActivityText.updated(state.updatedAt),
+            ]))
+    }
+
+    private func content(scale: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             HStack(spacing: Spacing.sm) {
                 // Plakette wie in den Widgets: Initialen in der Akzentfarbe
                 WidgetCoinBadge(symbol: attributes.symbol, size: 22, dark: palette.dark,
                                 accent: palette.accent, always: true)
                 Text(attributes.pairLabel)
-                    .font(.system(size: 15, weight: .semibold))
+                    .font(.system(size: 15 * scale, weight: .semibold))
                     .foregroundStyle(palette.text)
                     .lineLimit(1)
+                    .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
                 Text(attributes.exchangeName)
                     .widgetSecondaryFont(13)
                     .foregroundStyle(palette.secondary)
@@ -110,19 +129,12 @@ private struct PriceActivityLockScreenView: View {
                 PriceActivityChange(state: state, palette: palette, size: 14)
             }
             HStack(alignment: .firstTextBaseline, spacing: 0) {
-                PriceActivityPrice(attributes: attributes, state: state, palette: palette, size: 28, stale: isStale)
+                PriceActivityPrice(attributes: attributes, state: state, palette: palette, size: 28, stale: isStale,
+                                   scale: scale)
                 Spacer(minLength: Spacing.sm)
                 PriceActivityUpdated(date: state.updatedAt, palette: palette)
             }
         }
-        .padding(Spacing.lg)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(A11y.join([
-            L("a11y_row_pair", attributes.pairLabel, attributes.exchangeName),
-            state.priceText,
-            A11y.change(state.change24h, basis: state.basis ?? .default),
-            PriceActivityText.updated(state.updatedAt),
-        ]))
     }
 }
 
@@ -134,14 +146,16 @@ private struct PriceActivityPrice: View {
     let palette: WidgetPalette
     let size: CGFloat
     let stale: Bool
+    /// Faktor der Haupttexte (`WidgetPrimaryFit`); verkleinert nie unter 50 % der Grundgrösse.
+    var scale: CGFloat = 1
 
     var body: some View {
-        Text.quoted(state.priceText, quote: PriceActivityText.quote(attributes.pairLabel), size: size,
+        Text.quoted(state.priceText, quote: PriceActivityText.quote(attributes.pairLabel), size: size * scale,
                     weight: .bold, design: .rounded, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(stale ? palette.secondary : palette.text)
             .lineLimit(1)
-            .minimumScaleFactor(0.5)
+            .minimumScaleFactor(WidgetTextSize.minimumFactor(0.5, primaryScale: scale))
     }
 }
 

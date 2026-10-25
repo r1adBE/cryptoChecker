@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Mutation tests for the Android portfolio and tax logic (workflow «Mutation tests», mutation.yml).
 
-For every target file (pure Kotlin logic under android/app/src/main/java/.../domain/portfolio: FIFO, average cost,
-fee expenses, display-currency conversion, the tax engines and the tax export rows) the script creates mutants by
+For every target file (pure Kotlin logic under android/app/src/main/java/.../domain: FIFO, average cost, fee
+expenses, display-currency conversion, the tax engines, the tax export rows, the CSV import parsers and the currency
+conversion of domain/convert) the script creates mutants by
 fixed rules, runs the unit-test classes configured for that file with Gradle and reports whether the tests noticed
 the change («killed», tests red) or not («survived»). The file is always restored afterwards (try/finally, also on
 Ctrl-C / SIGTERM of a cancelled run; written atomically via a temporary file in the same folder and os.replace, so
@@ -18,8 +19,9 @@ Rules (only in code: never inside strings, character literals, comments or gener
 Binary operators are only taken in the code style of the sources (one space on both sides), so `List<Lot>`,
 `compareBy<X> {`, `-1`, `->` and `!!` are never mutated.
 
-Selection: per file at most --per-file mutants, chosen deterministically (sorted by a hash of file, line, column and
-rule — the same sources always give the same mutants), at most --max-total over all files (round robin, so every
+Selection: per file at most --per-file mutants, chosen deterministically (sorted by a hash of --seed, file, line,
+column and rule — the same sources and seed always give the same mutants; the workflow passes the ISO calendar week,
+so the sample changes every week), at most --max-total over all files (round robin, so every
 file gets its share) and no new mutant after --time-limit minutes. A mutant that does not compile is reported as
 «not compilable» and not counted; a Gradle run that hits --mutant-timeout counts as killed. After such a timeout the
 Gradle daemons are stopped (`gradlew --stop`, own short timeout, failures ignored): killing the client does not stop
@@ -51,6 +53,9 @@ PORTFOLIO = "android/app/src/main/java/com/cryptochecker/app/domain/portfolio/"
 PARITY_PORTFOLIO = "*.PortfolioParityTest"
 PARITY_TAX = "*.TaxTemplatesParityTest"
 PARITY_EXPORT = "*.TaxExportParityTest"
+CSV_IMPORT = PORTFOLIO + "csvimport/"
+CSV_PARSER_TESTS = ["*.CsvImportParityTest", "*.CsvExchangeImportParityTest", "*.CsvTokenizeLimitsTest"]
+CONVERT = "android/app/src/main/java/com/cryptochecker/app/domain/convert/"
 
 # Target file (relative to the repository root) -> Gradle test filters (--tests) that cover it
 TARGETS = [
@@ -66,6 +71,11 @@ TARGETS = [
     (PORTFOLIO + "TaxEngineAt.kt", [PARITY_TAX]),
     (PORTFOLIO + "TaxEngineJp.kt", [PARITY_TAX]),
     (PORTFOLIO + "TaxExportRows.kt", [PARITY_EXPORT, "*.TaxCsvRoundingTest", "*.TaxExportWindowParityTest"]),
+] + [(CSV_IMPORT + name + ".kt", CSV_PARSER_TESTS) for name in (
+    "CsvImportParser", "CsvImportParserRows", "CsvImportParserText", "CsvImportNumbers", "CsvImportTime",
+    "CsvImportFormatDetect", "CsvImportBinance", "CsvImportBinanceTrades", "CsvImportBitpanda", "CsvImportCoinbase",
+    "CsvImportKraken")] + [
+    (CONVERT + "CurrencyConversion.kt", ["*.CurrencyConversionTest", "*.CurrencyConversionParityTest"]),
 ]
 
 OPERATOR_SWAPS = {
@@ -640,6 +650,11 @@ def self_test():
     a, b = select(many, 3), select(list(reversed(many)), 3)
     assert [m.key() for m in a] == [m.key() for m in b] and len(a) == 3
     assert [m.offset for m in a] == sorted(m.offset for m in a)
+    # Seed (the workflow passes the ISO week): same seed = same choice, another seed = another choice
+    week = select(many, 3, "2026-W43")
+    assert [m.key() for m in week] == [m.key() for m in select(list(reversed(many)), 3, "2026-W43")]
+    weeks = {tuple(m.key() for m in select(many, 3, f"2026-W{n:02d}")) for n in range(1, 11)}
+    assert len(weeks) > 1, "the seed must change the choice"
     mixed = interleave([[1, 2, 3], [4], [5, 6]], 5)
     assert mixed == [1, 4, 5, 2, 6], mixed
 
@@ -776,6 +791,9 @@ def self_test():
     if os.path.isdir(os.path.join(repo, "android", "app")):
         missing = [rel for rel, _ in TARGETS if not os.path.isfile(os.path.join(repo, rel))]
         assert not missing, missing
+    paths = [rel for rel, _ in TARGETS]
+    assert len(paths) == len(set(paths)), "duplicate target"
+    assert CSV_IMPORT + "CsvImportParser.kt" in paths and CONVERT + "CurrencyConversion.kt" in paths
     print("mutation_test self-test ok")
     return 0
 

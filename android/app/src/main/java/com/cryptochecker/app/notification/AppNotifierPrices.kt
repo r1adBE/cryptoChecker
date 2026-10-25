@@ -87,8 +87,7 @@ internal fun AppNotifier.postOverflow(lines: LinkedHashMap<Long, String>, ongoin
     val count = lines.size
     val title = context.resources.getQuantityString(R.plurals.notification_price_overflow_title, count, count)
     val style = NotificationCompat.InboxStyle().setBigContentTitle(title)
-    lines.values.take(NotificationBudget.OVERFLOW_LINES).forEach { style.addLine(it) }
-    if (count > NotificationBudget.OVERFLOW_LINES) style.addLine("…")
+    AppNotifierDeliveryPlan.overflowInboxLines(lines.values.toList()).forEach { style.addLine(it) }
     val builder = NotificationCompat.Builder(context, NotificationChannels.PRICES)
         .setSmallIcon(R.drawable.ic_stat_logo)
         .setColor(settings.accentColor.seed)
@@ -152,7 +151,7 @@ internal fun AppNotifier.cancelPriceSingle(watchId: Long) {
     recentPrices.remove(watchId)
 }
 
-/** null, wenn der Systemdienst nicht abfragbar ist. */
+/** Offene Mitteilungen nach Art ([AppNotifierDeliveryPlan.splitActive]); null = Systemdienst nicht abfragbar. */
 internal fun AppNotifier.activeState(): ActiveState? {
     val list = runCatching {
         context.getSystemService(android.app.NotificationManager::class.java)?.activeNotifications
@@ -160,54 +159,48 @@ internal fun AppNotifier.activeState(): ActiveState? {
     val now = System.currentTimeMillis()
     recentPrices.entries.removeAll { now - it.value.first !in 0 until RECENT_MILLIS }
     val ids = list.mapTo(HashSet()) { it.id }
-    val listed = LinkedHashMap<Long, String>()
-    var other = 0
-    var overflowSbn: StatusBarNotification? = null
-    val activity = ArrayList<StatusBarNotification>()
-    val alarms = ArrayList<StatusBarNotification>()
-    for (sbn in list.sortedByDescending { it.postTime }) {
+    val entries = list.map { sbn ->
         val n = sbn.notification
-        when {
-            sbn.id == PRICE_OVERFLOW_ID -> overflowSbn = sbn
-            sbn.id == PRICE_SUMMARY_ID -> Unit
-            n.group == Group.PRICES.key && (n.flags and Notification.FLAG_GROUP_SUMMARY) == 0 -> {
-                val watchId = watchIdOf(sbn)
-                if (watchId == null) other++
-                else listed[watchId] = n.extras?.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
-            }
-            else -> {
-                other++
-                if (NotificationIds.isKind(NotificationIds.Kind.ACTIVITY, sbn.id)) activity += sbn
-                if (NotificationIds.isKind(NotificationIds.Kind.ALARM, sbn.id) ||
-                    NotificationIds.isKind(NotificationIds.Kind.PORTFOLIO_ALARM, sbn.id)
-                ) alarms += sbn
-            }
+        val priceChild = sbn.id != PRICE_OVERFLOW_ID && sbn.id != PRICE_SUMMARY_ID &&
+            n.group == Group.PRICES.key && (n.flags and Notification.FLAG_GROUP_SUMMARY) == 0
+        if (priceChild) {
+            AppNotifierDeliveryPlan.ActiveEntry(
+                id = sbn.id,
+                postTime = sbn.postTime,
+                priceChild = true,
+                watchId = watchIdOf(sbn),
+                title = n.extras?.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty(),
+            )
+        } else {
+            AppNotifierDeliveryPlan.ActiveEntry(sbn.id, sbn.postTime, priceChild = false)
         }
     }
+    val split = AppNotifierDeliveryPlan.splitActive(entries, PRICE_SUMMARY_ID, PRICE_OVERFLOW_ID)
     // Eben gemeldete, noch nicht geführte zuerst (sie sind die neuesten)
-    val prices = LinkedHashMap<Long, String>()
-    recentPrices.entries.sortedByDescending { it.value.first }
-        .filter { it.key !in listed }
-        .forEach { prices[it.key] = it.value.second }
-    prices.putAll(listed)
+    val prices = AppNotifierDeliveryPlan.orderPrices(recentPrices, split.listed)
     val cache = overflowCache
-    val overflowShown = overflowSbn != null || (cache != null && now - overflowPostedAt in 0 until RECENT_MILLIS)
+    val overflowShown =
+        AppNotifierDeliveryPlan.overflowShown(split.overflowListed, cache != null, now, overflowPostedAt, RECENT_MILLIS)
     val overflow = when {
         !overflowShown -> {
             overflowCache = null
             LinkedHashMap()
         }
         cache != null -> LinkedHashMap(cache)
-        else -> decodeOverflow(overflowSbn?.notification?.extras).also { overflowCache = LinkedHashMap(it) }
+        else -> {
+            // Bei mehreren Meldungen mit dieser Nummer die älteste
+            val overflowSbn = list.sortedByDescending { it.postTime }.lastOrNull { it.id == PRICE_OVERFLOW_ID }
+            decodeOverflow(overflowSbn?.notification?.extras).also { overflowCache = LinkedHashMap(it) }
+        }
     }
     return ActiveState(
         ids = ids,
         prices = prices,
         overflow = overflow,
         overflowShown = overflowShown,
-        other = other,
-        activity = activity.sortedBy { it.postTime }.map { it.id },
-        alarms = alarms.sortedBy { it.postTime }.map { it.id },
+        other = split.other,
+        activity = split.activity,
+        alarms = split.alarms,
         total = list.size,
     )
 }

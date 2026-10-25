@@ -47,9 +47,10 @@ internal fun taxRulesLine(template: TaxTemplate): String? =
     if (template != TaxTemplate.NEUTRAL) stringResource(R.string.tax_export_rules_date, taxRulesDateText()) else null
 
 /**
- * Regelstand im Export-Dialog (nur Länder-Vorlagen). Liegt das Steuerjahr [taxYear] nach dem Jahr des Regelstands
- * ([TaxRulesDate.rulesStale]), darunter ein deutlicher Hinweis in Bernstein mit ⚠ — Sätze und Freibeträge sind fest
- * hinterlegt und können sich geändert haben. Für Screenreader «Warnung, …». Blockiert keinen Export. Wie iOS.
+ * Regelstand auf der Seite «Steuer-Arbeitsunterlage» (nur Länder-Vorlagen). Liegt das Steuerjahr [taxYear] nach dem
+ * Jahr des Regelstands ([TaxRulesDate.rulesStale]), darunter ein deutlicher Hinweis in Bernstein mit ⚠ — Sätze und
+ * Freibeträge sind fest hinterlegt und können sich geändert haben. Für Screenreader «Warnung, …». Blockiert keinen
+ * Export. Wie iOS.
  */
 @Composable
 internal fun TaxRulesNotice(template: TaxTemplate, taxYear: Int) {

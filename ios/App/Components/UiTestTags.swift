@@ -61,6 +61,22 @@ enum UiTestTags {
     /// Zeile einer offenen Position im Portfolio («portfolio_coin_BTC»).
     static func portfolioCoin(_ coin: String) -> String { "portfolio_coin_" + coin }
 
+    // Stichtag-Export und Steuer-Arbeitsunterlage
+    static let portfolioCutoffExport = "portfolio_cutoff_export"
+    static let portfolioTaxExport = "portfolio_tax_export"
+    static let taxWorksheetScreen = "tax_worksheet_screen"
+    static let taxWorksheetTemplate = "tax_worksheet_template"
+    static let taxWorksheetGains = "tax_worksheet_gains"
+    static let taxWorksheetIncome = "tax_worksheet_income"
+    static let taxWorksheetHoldings = "tax_worksheet_holdings"
+    static let taxWorksheetSummary = "tax_worksheet_summary"
+    /// «Abbrechen» eines laufenden Exports bzw. «Erneut versuchen» nach einem Fehler.
+    static let exportCancel = "export_cancel"
+    static let exportRetry = "export_retry"
+
+    /// Eintrag der Vorlagen-Liste der Arbeitsunterlage («tax_template_option_DE»; `TaxTemplate.rawValue`).
+    static func taxTemplateOption(_ name: String) -> String { "tax_template_option_" + name }
+
     // MARK: Sichern und Wiederherstellen
     static let settingsBackup = "settings_backup"
     static let backupExport = "backup_export"

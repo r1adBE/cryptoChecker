@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">ייצוא (תאריך קובע, מסמך עבודה)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">ייצוא לתאריך קובע…</string>
+    <string name="portfolio_tax_worksheet_action">מסמך עבודה למס…</string>
     <string name="portfolio_export_address_unobserved">הכתובת לא הייתה במעקב בתאריך זה – לא נכללה</string>
     <string name="portfolio_export_button">ייצוא CSV</string>
     <string name="portfolio_export_col_amount">כמות</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">הייצוא נשמר</string>
     <string name="portfolio_export_estv_note">למס עושר חלים שערי סוף השנה הרשמיים של רשימת השערים של ESTV %1$s (אם מופיעים): %2$s</string>
     <string name="portfolio_export_failed">הייצוא נכשל</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">הייצוא נכשל: לא ניתן לכתוב את הקובץ – מיקום השמירה כבר לא קיים או מוגן מפני כתיבה</string>
+    <string name="portfolio_export_failed_prices">הייצוא נכשל: חסרים מחירים – אין חיבור או שהבורסה לא מגיבה</string>
     <string name="portfolio_export_from_address">מכתובת – בלי מחיר קנייה</string>
     <string name="portfolio_export_hint">האחזקות בסוף היום שנבחר, לפי מחיר הסגירה היומי (UTC) ב-USDT, מומרות לפי שער הייחוס של ה-ECB באותו יום. אפשר לשנות את המטבע דרך ״המרה ל״.</string>
     <string name="portfolio_export_incomplete">חלקי</string>

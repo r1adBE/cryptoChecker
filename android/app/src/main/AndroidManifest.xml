@@ -158,10 +158,15 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
 
+        <!-- Einrichten-Activities der Widgets: exportiert, weil Startbildschirme sie direkt öffnen (beim Ablegen und
+             «Widget neu einrichten» ab Android 12, widgetFeatures="reconfigurable"). Jede arbeitet nur mit der Id eines
+             eigenen Widgets ihres Anbieters (WidgetConfigureGuard), sonst schliesst sie sich ohne Ergebnis;
+             taskAffinity="" wie MainActivity (kein Task-Hijacking). -->
         <!-- Auswahl des Paares beim Ablegen eines Widgets -->
         <activity
             android:name=".widget.WidgetConfigureActivity"
-            android:exported="false"
+            android:exported="true"
+            android:taskAffinity=""
             android:theme="@style/Theme.CryptoChecker">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -184,7 +189,8 @@
         <!-- Einzel-Widget: ein Coin gross -->
         <activity
             android:name=".widget.SingleWidgetConfigureActivity"
-            android:exported="false"
+            android:exported="true"
+            android:taskAffinity=""
             android:theme="@style/Theme.CryptoChecker">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -206,7 +212,8 @@
         <!-- Portfolio-Widget: Einrichten (Anzeige ≈ USDT, Hintergrund, Deckkraft); optional ab Android 12 -->
         <activity
             android:name=".widget.PortfolioWidgetConfigureActivity"
-            android:exported="false"
+            android:exported="true"
+            android:taskAffinity=""
             android:theme="@style/Theme.CryptoChecker">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -229,7 +236,8 @@
         <!-- Widget «Was gerade auffällt» (Crypto Pulse): Einrichten optional (Hintergrund, Deckkraft) -->
         <activity
             android:name=".widget.PulseWidgetConfigureActivity"
-            android:exported="false"
+            android:exported="true"
+            android:taskAffinity=""
             android:theme="@style/Theme.CryptoChecker">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

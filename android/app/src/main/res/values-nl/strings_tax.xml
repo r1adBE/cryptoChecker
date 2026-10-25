@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">Export (peildatum, werkdocument)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">Peildatum-export…</string>
+    <string name="portfolio_tax_worksheet_action">Fiscaal werkdocument…</string>
     <string name="portfolio_export_address_unobserved">adres op deze datum niet gevolgd – niet opgenomen</string>
     <string name="portfolio_export_button">CSV exporteren</string>
     <string name="portfolio_export_col_amount">Hoeveelheid</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">Export opgeslagen</string>
     <string name="portfolio_export_estv_note">Voor de vermogensbelasting gelden de officiële eindejaarskoersen van de ESTV-koerslijst %1$s (indien vermeld): %2$s</string>
     <string name="portfolio_export_failed">Export mislukt</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Export mislukt: bestand kan niet worden geschreven – de opslaglocatie bestaat niet meer of is alleen-lezen</string>
+    <string name="portfolio_export_failed_prices">Export mislukt: koersen ontbreken – geen verbinding of de beurs reageert niet</string>
     <string name="portfolio_export_from_address">van adres – zonder aankoopprijs</string>
     <string name="portfolio_export_hint">Bezit aan het einde van de gekozen dag, gewaardeerd tegen de slotkoers van die dag (UTC) in USDT en omgerekend met de ECB-referentiekoers van die dag. Valuta wijzigen via ‘Omrekenen naar’.</string>
     <string name="portfolio_export_incomplete">onvolledig</string>

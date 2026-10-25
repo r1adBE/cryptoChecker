@@ -58,10 +58,14 @@ struct WatchlistStarterPicker: View {
                         .accessibilityHidden(true)
                     Text(L("offline_status"))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(L("try_again")) { retryTick += 1 }
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(accent.primary)
-                        .frame(minHeight: 44)
+                    Button { retryTick += 1 } label: {
+                        // Tippfläche mindestens 44 × 44 pt (nicht nur der Text)
+                        Text(L("try_again"))
+                            .frame(minWidth: 44, minHeight: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(accent.primary)
                 }
                 .font(.subheadline)
                 .foregroundStyle(AppColors.onSurfaceVariant)

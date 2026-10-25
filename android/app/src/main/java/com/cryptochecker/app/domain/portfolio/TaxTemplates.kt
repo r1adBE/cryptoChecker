@@ -150,8 +150,8 @@ enum class TaxTemplate {
 
     /**
      * Die Vorlage erlaubt die Einstandsmethode [app] nicht — der Export rechnet still mit [methodFor]. Darum Hinweis
-     * «Vorlage verlangt FIFO – App-Einstellung Ø, Export rechnet FIFO» in der Kopfzeile, im Export-Dialog und bei der
-     * Vorlage in den Einstellungen.
+     * «Vorlage verlangt FIFO – App-Einstellung Ø, Export rechnet FIFO» in der Kopfzeile, auf der Seite
+     * «Steuer-Arbeitsunterlage» und bei der Vorlage in den Einstellungen.
      */
     fun methodOverridden(app: CostMethod, startYear: Int? = null): Boolean = TaxMethod.of(app) !in methodsIn(startYear)
 

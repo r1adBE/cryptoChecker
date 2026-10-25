@@ -213,6 +213,8 @@ struct PortfolioHistoryCard: View {
             .accessibilityLabel(A11y.chart(period: period, values: values,
                                            format: { hideAmounts ? L("a11y_amount_hidden")
                                                : (pnl ? Self.signedValue($0, unit: history.unit) : PriceFormat.valueWithCurrency($0, history.unit)) }))
+            // Audio Graph und Wischen hoch/runter Tag für Tag; bei verborgenen Beträgen nur der Chart-Satz
+            .modifier(PortfolioAudioGraph(points: hideAmounts ? [] : points, unit: history.unit, pnl: pnl, period: period))
 
         // Beginn und Ende der Achse (für VoiceOver im Chart-Satz enthalten)
         HStack {
@@ -272,8 +274,8 @@ struct PortfolioHistoryCard: View {
         return "\(amount) (\(PortfolioFormat.signedPercent(percent)))"
     }
 
-    /// «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF».
-    static func signedValue(_ value: Double, unit: String) -> String {
+    /// «+1’234.56 CHF» / «−12.00 CHF» / «0.00 CHF». Ohne Akteur, damit auch der Audio Graph ihn nutzen kann.
+    nonisolated static func signedValue(_ value: Double, unit: String) -> String {
         let sign = PortfolioFormat.isZero(value) ? "" : (value > 0 ? "+" : "−")
         return sign + PriceFormat.valueWithCurrency(abs(value), unit)
     }
@@ -296,5 +298,63 @@ struct PortfolioHistoryCard: View {
         }
         let gain = A11y.join([amount, series.pnlPercent.flatMap { A11y.change($0) }])
         return L("portfolio_history_gain_a11y", value, range.longLabel, gain)
+    }
+}
+
+/// Audio Graph des Wertverlaufs (`ChartAudioGraph`) und Punkt für Punkt (`chartPointAdjustable`): Tag
+/// (`PortfolioFormat.date`) und Wert bzw. Gewinn/Verlust mit Währung; ohne Punkte nichts davon.
+private struct PortfolioAudioGraph: ViewModifier {
+    let points: [PortfolioHistoryPoint]
+    let unit: String
+    let pnl: Bool
+    let period: String
+
+    func body(content: Content) -> some View {
+        if points.isEmpty {
+            content
+        } else {
+            content
+                .accessibilityChartDescriptor(graph)
+                .chartPointAdjustable(count: points.count, resetKey: resetKey) { index in
+                    let point = points[index]
+                    return L("label_value", PortfolioFormat.date(LocalDay(epochDay: point.epochDay).date.millis),
+                             amount(point.value))
+                }
+        }
+    }
+
+    private func amount(_ value: Double) -> String {
+        pnl ? PortfolioHistoryCard.signedValue(value, unit: unit) : PriceFormat.valueWithCurrency(value, unit)
+    }
+
+    private var resetKey: Int {
+        var hasher = Hasher()
+        hasher.combine(points.count)
+        hasher.combine(points.first?.epochDay)
+        hasher.combine(points.last?.epochDay)
+        hasher.combine(pnl)
+        return hasher.finalize()
+    }
+
+    private var graph: ChartAudioGraph {
+        let unit = self.unit
+        let pnl = self.pnl
+        let values = points.map(\.value)
+        return ChartAudioGraph(
+            title: L("portfolio_title"),
+            summary: A11y.chart(period: period, values: values, format: {
+                pnl ? PortfolioHistoryCard.signedValue($0, unit: unit) : PriceFormat.valueWithCurrency($0, unit)
+            }),
+            seriesName: L("portfolio_title"),
+            xTitle: L("a11y_chart_axis_time"),
+            yTitle: L("a11y_chart_axis_value"),
+            points: points.map {
+                ChartAudioGraph.Point(millis: LocalDay(epochDay: $0.epochDay).date.millis, value: $0.value)
+            },
+            timeText: { PortfolioFormat.date($0) },
+            valueText: {
+                pnl ? PortfolioHistoryCard.signedValue($0, unit: unit) : PriceFormat.valueWithCurrency($0, unit)
+            }
+        )
     }
 }

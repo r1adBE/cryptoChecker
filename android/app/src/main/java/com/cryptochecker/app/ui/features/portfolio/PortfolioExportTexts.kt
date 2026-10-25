@@ -1,6 +1,6 @@
 // Texte der Export-Dateien und der Steuer-Vorlagen: Spaltenköpfe und Notizen der CSV (Steuer- und
 // Stichtag-Export), Namen von Vorlage, Methode und Zeilen, Hinweise und Quellen der Vorlage.
-// Eigene Datei, weil es reine Textzuordnungen sind – der Dialog `PortfolioExportDialog` bleibt so kurz
+// Eigene Datei, weil es reine Textzuordnungen sind – `PortfolioExportDialog` und `TaxWorksheetScreen` bleiben so kurz
 // (wie `PortfolioExportTexts.swift`).
 package com.cryptochecker.app.ui.features.portfolio
 

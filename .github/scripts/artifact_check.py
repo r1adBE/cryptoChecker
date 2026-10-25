@@ -93,16 +93,24 @@ def mirror_status(data, name):
     need(isinstance(doc["lastRun"], str) and ISO_UTC.match(doc["lastRun"]), f"{name}: unexpected lastRun")
     need(isinstance(doc["files"], dict) and all(isinstance(k, str) and isinstance(v, str) and len(v) <= 300
                                                 for k, v in doc["files"].items()), f"{name}: unexpected files")
+    revoked = doc.get("revoked", [])
+    need(isinstance(revoked, list) and len(revoked) <= 10 and all(isinstance(r, str) and SHA256_HEX.match(r)
+                                                                   for r in revoked), f"{name}: unexpected revoked")
 
 
 def mirror_manifest(data, name):
     doc = load_json(data, name)
-    need(isinstance(doc, dict) and set(doc) == {"v", "created", "files"} and doc["v"] == 1, f"{name}: unexpected keys")
+    # "revoked" (key ids of revoked signing keys, mirror_data.py REVOKED_KEY_IDS) is optional: missing = empty
+    need(isinstance(doc, dict) and set(doc) in ({"v", "created", "files"}, {"v", "created", "files", "revoked"})
+         and doc["v"] == 1, f"{name}: unexpected keys")
     need(isinstance(doc["created"], int) and not isinstance(doc["created"], bool) and doc["created"] > 0,
          f"{name}: unexpected created")
     need(isinstance(doc["files"], dict) and 0 < len(doc["files"]) <= 20, f"{name}: unexpected files")
     need(all(isinstance(k, str) and MIRROR_FILE_NAME.match(k) and isinstance(v, str) and SHA256_HEX.match(v)
              for k, v in doc["files"].items()), f"{name}: unexpected files")
+    revoked = doc.get("revoked", [])
+    need(isinstance(revoked, list) and len(revoked) <= 10 and all(isinstance(r, str) and SHA256_HEX.match(r)
+                                                                   for r in revoked), f"{name}: unexpected revoked")
 
 
 def mirror_signature(data, name):
@@ -203,6 +211,18 @@ def self_test():
     with tempfile.TemporaryDirectory() as d:
         write(d, "manifest.json", b'{"created":1,"files":{"fng.txt":"' + b"a" * 64 + b'"},"v":1}')
         assert check(d, "mirror_manifest") == ["manifest.json"]
+        write(d, "manifest.json", b'{"created":1,"files":{"fng.txt":"' + b"a" * 64 + b'"},"revoked":[],"v":1}')
+        assert check(d, "mirror_manifest") == ["manifest.json"]
+        write(d, "manifest.json", b'{"created":1,"files":{"fng.txt":"' + b"a" * 64 + b'"},"revoked":["' + b"b" * 64
+              + b'"],"v":1}')
+        assert check(d, "mirror_manifest") == ["manifest.json"]
+        write(d, "manifest.json", b'{"created":1,"files":{"fng.txt":"' + b"a" * 64 + b'"},"revoked":"x","v":1}')
+        try:
+            check(d, "mirror_manifest")
+            raise AssertionError("bad revoked accepted")
+        except Invalid:
+            pass
+        write(d, "manifest.json", b'{"created":1,"files":{"fng.txt":"' + b"a" * 64 + b'"},"v":1}')
         write(d, "manifest.json.sig", b"MEUCIQ" + b"A" * 90)
         assert check(d, "mirror_manifest") == ["manifest.json", "manifest.json.sig"]
         write(d, "manifest.json.sig", b"-----BEGIN")

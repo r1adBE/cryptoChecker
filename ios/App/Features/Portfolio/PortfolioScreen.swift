@@ -20,6 +20,8 @@ struct PortfolioScreen: View {
     var hideAmounts: Bool { data.settings.hidePortfolioAmounts }
     @State var showClosed = false
     @State var exportOpen = false
+    /// ⋯ › «Steuer-Arbeitsunterlage…»: eigene Seite.
+    @State var taxWorksheetOpen = false
     /// Neuer Alarm «Portfolio-Wert» (erscheint in der Alarm-Übersicht).
     @State var alarmOpen = false
     @State private var toast: ToastMessage?
@@ -181,6 +183,11 @@ struct PortfolioScreen: View {
         .navigationDestination(isPresented: $showAbout) {
             AboutSettingsPage()
         }
+        .navigationDestination(isPresented: $taxWorksheetOpen) {
+            TaxWorksheetPage()
+                .environmentObject(data)
+                .environment(\.appAccent, accent)
+        }
         .sheet(isPresented: $alarmOpen) {
             PortfolioAlarmSheet(currency: data.settings.portfolioCurrency, basis: data.settings.changeBasis.storage) { kind, threshold, repeating in
                 // Merkliste gesperrt: nichts angelegt — sagen warum statt «gespeichert»
@@ -207,10 +214,6 @@ struct PortfolioScreen: View {
                 transactions: data.portfolio,
                 currency: data.settings.portfolioCurrency,
                 costMethod: data.settings.costMethod,
-                taxTemplate: data.settings.taxTemplate,
-                onTaxTemplate: { data.settings.taxTemplate = $0 },
-                taxTemplateConfirmed: data.settings.taxTemplateConfirmed,
-                onConfirmTemplate: { data.settings.taxTemplateConfirmed = true },
                 onExported: {
                     exportOpen = false
                     toast = ToastMessage(L("portfolio_export_done"), kind: .success)

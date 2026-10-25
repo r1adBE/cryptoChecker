@@ -134,9 +134,10 @@ suspend fun AppNotifier.showAlarm(
 }
 
 /** Kanal eines Paar-Alarms: in der Nachtruhe der lautlose, sonst der des «Alarm-Signals». */
-private fun AppNotifier.pairAlarmChannel(alarm: AlarmEntity, quiet: Boolean): String =
-    if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)
-    else alarmChannel(AlarmSignal.effective(settingsRepository.cached.alarmSignal, alarm.sound, alarm.vibrate))
+private fun AppNotifier.pairAlarmChannel(alarm: AlarmEntity, quiet: Boolean): String = channelIdFor(
+    AppNotifierDeliveryPlan.alarmChannel(quiet),
+    AlarmSignal.effective(settingsRepository.cached.alarmSignal, alarm.sound, alarm.vibrate),
+)
 
 /**
  * Käme die Meldung dieses Alarms jetzt an? Erlaubnis (Android 13+), App-Benachrichtigungen an
@@ -145,21 +146,13 @@ private fun AppNotifier.pairAlarmChannel(alarm: AlarmEntity, quiet: Boolean): St
  */
 fun AppNotifier.canShowAlarm(alarm: AlarmEntity): Boolean {
     if (!hasPermission() || !manager.areNotificationsEnabled()) return false
-    return runCatching {
-        val channel = context.getSystemService(android.app.NotificationManager::class.java)
-            ?.getNotificationChannel(pairAlarmChannel(alarm, isQuietNow()))
-        channel == null || channel.importance != android.app.NotificationManager.IMPORTANCE_NONE
-    }.getOrDefault(true)
+    return runCatching { channelDelivers(pairAlarmChannel(alarm, isQuietNow())) }.getOrDefault(true)
 }
 
 /** Kann eine Portfolio-Alarm-Meldung gerade ankommen (Erlaubnis, Mitteilungen an, Kanal nicht stumm)? */
 fun AppNotifier.canShowPortfolioAlarm(): Boolean {
     if (!hasPermission() || !manager.areNotificationsEnabled()) return false
-    return runCatching {
-        val channel = context.getSystemService(android.app.NotificationManager::class.java)
-            ?.getNotificationChannel(alarmChannel(settingsRepository.cached.alarmSignal))
-        channel == null || channel.importance != android.app.NotificationManager.IMPORTANCE_NONE
-    }.getOrDefault(true)
+    return runCatching { channelDelivers(alarmChannel(settingsRepository.cached.alarmSignal)) }.getOrDefault(true)
 }
 
 /**
@@ -186,8 +179,7 @@ suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured
         listOf(if (usdtAssumed) context.getString(R.string.portfolio_usdt_assumed) else null),
     )
     val quiet = isQuietNow()
-    val channelId = if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)
-    else alarmChannel(settings.alarmSignal)
+    val channelId = channelIdFor(AppNotifierDeliveryPlan.alarmChannel(quiet), settings.alarmSignal)
     val builder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_stat_logo)
         .setColor(settings.accentColor.seed)
@@ -236,10 +228,7 @@ fun AppNotifier.alarmChannel(signal: AlarmSignal): String {
  */
 fun AppNotifier.alarmsAllowed(): Boolean {
     if (!hasPermission() || !manager.areNotificationsEnabled()) return false
-    val channelId = alarmChannel(settingsRepository.cached.alarmSignal)
-    val channel = context.getSystemService(android.app.NotificationManager::class.java)
-        ?.getNotificationChannel(channelId)
-    return channel == null || channel.importance != android.app.NotificationManager.IMPORTANCE_NONE
+    return channelDelivers(alarmChannel(settingsRepository.cached.alarmSignal))
 }
 
 /**
@@ -280,8 +269,7 @@ fun AppNotifier.canShowDepegAlarm(): Boolean = canShowPortfolioAlarm()
 suspend fun AppNotifier.showDepeg(title: String, text: String, exchangeUrl: String): Boolean {
     val settings = settingsRepository.cached
     val quiet = isQuietNow()
-    val channelId = if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)
-    else alarmChannel(settings.alarmSignal)
+    val channelId = channelIdFor(AppNotifierDeliveryPlan.alarmChannel(quiet), settings.alarmSignal)
     val openExchange = PendingIntent.getActivity(
         context,
         DEPEG_EXCHANGE_REQUEST_CODE,

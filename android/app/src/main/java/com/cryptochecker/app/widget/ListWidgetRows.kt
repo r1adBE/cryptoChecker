@@ -3,7 +3,9 @@ package com.cryptochecker.app.widget
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.ui.features.watchlist.assetKind
+import android.appwidget.AppWidgetManager
 import android.content.Context
+import android.util.TypedValue
 import android.content.Intent
 import android.view.View
 import android.widget.RemoteViews
@@ -33,6 +35,8 @@ internal class ListWidgetRowData(
     val outdatedAfter: Long,
     /** Coin-Logo bzw. Initialen-Kreis je Basis-Symbol; null = Schalter «Coin-Logos in Widgets» aus. */
     val logos: Map<String, android.graphics.Bitmap>? = null,
+    /** Breite des Widgets (dp, 0 = unbekannt): Kurs bei sehr grosser Schrift kleiner statt abgeschnitten. */
+    val widthDp: Int = 0,
 )
 
 /**
@@ -72,6 +76,7 @@ class ListWidgetRows @Inject constructor(
             changeView = toolkit.changeView(settings.changeBasis),
             outdatedAfter = WidgetOutdated.afterMillis(settings),
             logos = if (settings.widgetCoinLogos) widgetLogos(watches, background) else null,
+            widthDp = toolkit.sizeDp(AppWidgetManager.getInstance(context), appWidgetId).first,
         )
     }
 
@@ -114,6 +119,20 @@ class ListWidgetRows @Inject constructor(
     private fun logoKey(watch: WatchEntity): String =
         if (CoinLogos.allowedFor(watch.marketKey)) coinLogos.logoKey(watch) else "${watch.marketKey}|${watch.baseAsset}"
 
+    /**
+     * Kursgrösse der Zeile: [PRICE_SP]; bei zu wenig Breite kleiner, dann weicht der Name
+     * ([WidgetTextFit.listPriceFit]).
+     */
+    private fun listPriceSp(data: ListWidgetRowData, priceText: String, name: String, withLogo: Boolean): Float {
+        if (data.widthDp <= 0) return PRICE_SP
+        val available = data.widthDp - WidgetTextFit.LIST_ROW_FIXED_DP - WidgetTextFit.SAFETY_DP -
+            if (withLogo) WidgetTextFit.LIST_ROW_LOGO_DP else 0f
+        val price = toolkit.textWidthDp(priceText, PRICE_SP, bold = true, tabular = true)
+        val nameWidth = toolkit.textWidthDp(name, PRICE_SP, bold = true, tabular = true)
+        val fontScale = context.resources.configuration.fontScale
+        return WidgetTextFit.listPriceFit(PRICE_SP, fontScale, price, nameWidth, available).sp
+    }
+
     /** Zeile [position]; ausserhalb der Liste eine leere Zeile. */
     internal fun row(data: ListWidgetRowData, position: Int): RemoteViews {
         val views = RemoteViews(context.packageName, R.layout.widget_list_item)
@@ -155,10 +174,15 @@ class ListWidgetRows @Inject constructor(
         )
         views.setTextColor(R.id.item_market, background.secondaryTextColor)
 
-        // Währung klein und grau wie der Börsenname darunter (14 sp, widget_list_item.xml)
+        // Währung klein und grau wie der Börsenname darunter (14 sp, widget_list_item.xml); passt der Kurs bei sehr
+        // grosser Schrift nicht in die Zeile, wird er kleiner, dann weicht der Paarname — der Kurs ist immer
+        // vollständig ([WidgetTextFit.listPriceFit])
+        val priceText = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset)
+        val priceSp = listPriceSp(data, priceText, watch.displayName, logo != null)
+        if (priceSp < PRICE_SP) views.setTextViewTextSize(R.id.item_price, TypedValue.COMPLEX_UNIT_SP, priceSp)
         views.setAmountText(
             R.id.item_price,
-            toolkit.quoteText(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset), watch.quoteAsset, 14f, background.secondaryTextColor)
+            toolkit.quoteText(priceText, watch.quoteAsset, priceSp, background.secondaryTextColor)
         )
         views.setTextColor(R.id.item_price, mainText)
 
@@ -236,3 +260,6 @@ private const val DISABLED_LOGO_ALPHA = 115
 
 /** Ohne 24-h-Bezug: Strich statt Zahl (nie die Veränderung seit der letzten Abfrage). */
 private const val NO_CHANGE = "—"
+
+/** Kursgrösse der Merklisten-Zeile (widget_list_item.xml `item_price`). */
+private const val PRICE_SP = 14f

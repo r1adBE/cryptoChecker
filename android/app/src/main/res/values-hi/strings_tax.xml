@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">एक्सपोर्ट (कट-ऑफ़ तारीख़, कार्य-पत्र)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">कट-ऑफ़ तारीख़ एक्सपोर्ट…</string>
+    <string name="portfolio_tax_worksheet_action">टैक्स कार्य-पत्र…</string>
     <string name="portfolio_export_address_unobserved">इस तारीख को पता देखा नहीं जा रहा था – शामिल नहीं</string>
     <string name="portfolio_export_button">CSV एक्सपोर्ट करो</string>
     <string name="portfolio_export_col_amount">मात्रा</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">एक्सपोर्ट सहेजा गया</string>
     <string name="portfolio_export_estv_note">संपत्ति कर के लिए ESTV मूल्य सूची %1$s के आधिकारिक वर्षांत मूल्य लागू होते हैं (जहाँ सूचीबद्ध हों): %2$s</string>
     <string name="portfolio_export_failed">एक्सपोर्ट विफल</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">एक्सपोर्ट विफल: फ़ाइल नहीं लिखी जा सकी – सेव करने की जगह अब नहीं है या उस पर लिखा नहीं जा सकता</string>
+    <string name="portfolio_export_failed_prices">एक्सपोर्ट विफल: भाव नहीं मिले – कनेक्शन नहीं है या एक्सचेंज जवाब नहीं दे रहा</string>
     <string name="portfolio_export_from_address">पते से – बिना खरीद भाव</string>
     <string name="portfolio_export_hint">चुने गए दिन के अंत में होल्डिंग, दिन के क्लोज़िंग भाव (UTC) पर USDT में आंकी गई और उस दिन की ECB संदर्भ दर से बदली गई। मुद्रा “इसमें बदलो” से बदलो।</string>
     <string name="portfolio_export_incomplete">अधूरा</string>

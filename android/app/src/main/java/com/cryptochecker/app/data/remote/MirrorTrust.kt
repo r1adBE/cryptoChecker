@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.mirror.MirrorManifest
+import com.cryptochecker.app.domain.mirror.MirrorRevocations
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
@@ -18,12 +19,17 @@ internal typealias MirrorLoader = suspend (url: String, maxBytes: Long) -> Strin
  * einmal je [RELOAD_AFTER_MILLIS]. Manifest höchstens [MirrorManifest.MAX_BYTES], Signatur höchstens
  * [MirrorManifest.SIGNATURE_MAX_BYTES]. Gleich in iOS `MirrorTrust.swift`.
  *
- * Die App nutzt nur [shared] (eingebaute Schlüssel [MirrorManifest.PUBLIC_KEYS], Systemuhr); Schlüssel und Uhr setzen nur Tests über den
- * internen Konstruktor (Test-Schlüsselpaar aus `mirror_signature.json`).
+ * Gesperrte Schlüssel ([MirrorRevocations]) zählen bei jeder Prüfung nicht; eine neue Sperre aus einem gültigen
+ * Manifest wird sofort dauerhaft gemerkt.
+ *
+ * Die App nutzt nur [shared] (eingebaute Schlüssel [MirrorManifest.PUBLIC_KEYS], Systemuhr,
+ * [MirrorRevocations.shared]); Schlüssel, Uhr und Sperrliste setzen nur Tests über den internen Konstruktor
+ * (Test-Schlüssel aus `mirror_signature.json`).
  */
 internal class MirrorTrust internal constructor(
     private val publicKeys: List<String>,
     private val clock: () -> Long,
+    private val revocations: () -> MirrorRevocations = { MirrorRevocations.shared },
 ) {
     /** Nur Tests: ein einzelner Schlüssel. */
     internal constructor(publicKey: String, clock: () -> Long) : this(listOf(publicKey), clock)
@@ -64,7 +70,12 @@ internal class MirrorTrust internal constructor(
         // Abgebrochen (auch wenn der Lader dabei null lieferte): nichts merken, sonst gälte «fehlt» auch für
         // parallel Wartende
         currentCoroutineContext().ensureActive()
-        val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKeys)
+        val store = revocations()
+        val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKeys, store.current())
+        if (verification.revoke.isNotEmpty()) {
+            store.add(verification.revoke)
+            Timber.w("Spiegel-Manifest: %d Schlüssel gesperrt", verification.revoke.size)
+        }
         if (verification.status != MirrorManifest.Status.OK) Timber.d("Spiegel-Manifest: %s", verification.status)
         cached = Cached(now, verification)
         verification

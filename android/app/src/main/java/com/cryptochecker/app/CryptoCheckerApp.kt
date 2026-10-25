@@ -10,6 +10,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.domain.mirror.MirrorRevocations
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.settings.AppLanguages
@@ -106,6 +107,10 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         // Phemex: Faktoren (Ep/Ev) der Produktliste auf dem Gerät — nach einem Neustart nie ein geratener Faktor
         com.cryptochecker.marketdata.model.market.PhemexScales.store =
             com.cryptochecker.marketdata.model.market.PhemexScales.FileStore(java.io.File(noBackupFilesDir, "phemex_scales.json"))
+        // Daten-Spiegel: gesperrte Signatur-Schlüssel bleiben über Neustarts gesperrt
+        MirrorRevocations.shared = MirrorRevocations(
+            MirrorRevocations.FileStore(java.io.File(noBackupFilesDir, MirrorRevocations.FILE_NAME))
+        )
 
         NotificationChannels.createAll(this)
 

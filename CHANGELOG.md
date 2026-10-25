@@ -15,6 +15,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 129)
+
+* Portfolio menu: «Cutoff-date export…» and «Tax worksheet…» are separate; the tax worksheet is a page of its own (template selectable there, rules date and warning, the four exports and the year summary; it stays open after an export).
+* Exports can be cancelled while running (no half-written file remains); errors name the cause (file location, missing prices, other) and offer «Try again».
+* Widgets follow larger text sizes: iOS watchlist, single-pair, portfolio, pulse and lock-screen widgets and the Live Activity grow up to 1.3× (fewer watchlist rows when needed, amounts never shortened); Android keeps the price in the watchlist widget complete and shortens the pair name instead.
+* Charts for screen readers: iOS Audio Graph and swipe up/down point by point, Android «Next/Previous point» actions; the portfolio comparison names both lines.
+* Android 12+: «Reconfigure widget» opens the widget setup.
+* Market-data mirror: the signed manifest can revoke a signing key; keys revoking each other turn the mirror off until an app update.
+
 ## 16.2.2 (build 128)
 
 * Portfolio and tax worksheet: the cost origin of the average method and of the UK/CA/AT pools is no longer rewritten on every disposal – «Since purchase» in a display currency other than USDT and the UK export stay fast with many transactions (same numbers).

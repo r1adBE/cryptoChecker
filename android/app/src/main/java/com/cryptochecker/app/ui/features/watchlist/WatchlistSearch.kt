@@ -6,20 +6,24 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -51,6 +55,9 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 
 /** Gemeinsame Höhe von Statuszeile und Suchfeld, damit nichts springt; auch Kreis von «+» und Lupe (wie iOS). */
 internal val SearchRowHeight = 34.dp
+
+/** Mindestgrösse einer Tippfläche (antippbarer Knoten) in der Kopf- und Statuszeile der Merkliste. */
+internal val MinTouchTarget = 48.dp
 
 /**
  * Trifft die Suche dieses Paar? Gross-/Kleinschreibung und Akzente egal; mehrere Wörter
@@ -283,14 +290,18 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
                 modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).semantics { contentDescription = hint }
             )
         }
+        // Druck-Rückmeldung nur auf dem kleinen Kreis, nicht auf der grösseren Tippfläche
+        val closeInteraction = remember { MutableInteractionSource() }
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                // Tippfläche 48 dp, sichtbar bleibt der kleine Kreis
-                .minimumInteractiveComponentSize()
+                // Tippfläche (antippbarer Knoten) 48 × 48 dp, darin mittig der kleine Kreis
+                .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
+                .clickable(interactionSource = closeInteraction, indication = null, onClick = onClose)
+                .wrapContentSize()
                 .size(SearchRowHeight)
                 .clip(RoundedCornerShape(50))
-                .clickable(onClick = onClose)
+                .indication(closeInteraction, LocalIndication.current)
         ) {
             Icon(
                 painterResource(R.drawable.ic_close),
@@ -305,17 +316,21 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
 /** Lupe rechts neben dem Status: öffnet die Suche. */
 @Composable
 internal fun SearchButton(onClick: () -> Unit) {
+    // Druck-Rückmeldung nur auf dem sichtbaren Kreis, nicht auf der grösseren Tippfläche
+    val interaction = remember { MutableInteractionSource() }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .padding(start = 8.dp)
-            // Tippfläche 48 dp, sichtbar bleibt der kleine Kreis
-            .minimumInteractiveComponentSize()
+            // Tippfläche (antippbarer Knoten) 48 × 48 dp, darin mittig der sichtbare kleine Kreis
+            .sizeIn(minWidth = MinTouchTarget, minHeight = MinTouchTarget)
+            .clickable(interactionSource = interaction, indication = null, onClick = onClick)
+            .wrapContentSize()
             .size(SearchRowHeight)
             .clip(RoundedCornerShape(50))
             // Gefüllter Kreis wie «+» daneben (neutral statt Akzentfarbe)
             .background(MaterialTheme.colorScheme.surfaceContainerHighest)
-            .clickable(onClick = onClick)
+            .indication(interaction, LocalIndication.current)
     ) {
         Icon(
             painterResource(R.drawable.ic_search),

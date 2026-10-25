@@ -192,8 +192,8 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     }
 
     /// Die Vorlage erlaubt die Einstandsmethode `app` nicht — der Export rechnet still mit `methodFor`. Darum Hinweis
-    /// «Vorlage verlangt FIFO – App-Einstellung Ø, Export rechnet FIFO» in der Kopfzeile, im Export-Blatt und bei der
-    /// Vorlage in den Einstellungen (wie Android).
+    /// «Vorlage verlangt FIFO – App-Einstellung Ø, Export rechnet FIFO» in der Kopfzeile, auf der Seite
+    /// «Steuer-Arbeitsunterlage» und bei der Vorlage in den Einstellungen (wie Android).
     func methodOverridden(_ app: CostMethod, _ startYear: Int? = nil) -> Bool { !methodsIn(startYear).contains(TaxMethod.of(app)) }
 
     /// Haltedauer-Gruppen ≤ 1 Jahr / > 1 Jahr in der Jahresübersicht (DE, US, AU, Neutral).

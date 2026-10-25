@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <string name="portfolio_export_action">Exportar (data de referência, documento de trabalho)…</string>
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <string name="portfolio_cutoff_export_action">Exportação à data de referência…</string>
+    <string name="portfolio_tax_worksheet_action">Documento de trabalho fiscal…</string>
     <string name="portfolio_export_address_unobserved">endereço não observado nesta data – não incluído</string>
     <string name="portfolio_export_button">Exportar CSV</string>
     <string name="portfolio_export_col_amount">Quantidade</string>
@@ -18,6 +20,9 @@
     <string name="portfolio_export_done">Exportação guardada</string>
     <string name="portfolio_export_estv_note">Para o imposto sobre o património aplicam-se os valores oficiais de fim de ano da lista de cotações da ESTV %1$s (quando constem): %2$s</string>
     <string name="portfolio_export_failed">Falha na exportação</string>
+    <!-- Export-Fehler nach Art (ExportFailureKind): Datei nicht schreibbar, Kurse fehlen; sonst portfolio_export_failed -->
+    <string name="portfolio_export_failed_file">Falha na exportação: não foi possível gravar o ficheiro – a localização já não existe ou não permite escrita</string>
+    <string name="portfolio_export_failed_prices">Falha na exportação: faltam preços – sem ligação ou a exchange não está a responder</string>
     <string name="portfolio_export_from_address">do endereço – sem preço de compra</string>
     <string name="portfolio_export_hint">Posse no fim do dia escolhido, avaliada ao preço de fecho diário (UTC) em USDT e convertida com a taxa de referência do BCE desse dia. Altera a moeda em «Converter para».</string>
     <string name="portfolio_export_incomplete">incompleto</string>

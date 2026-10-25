@@ -181,6 +181,12 @@ keys or other secrets never belong in this repository.
   private key exists only as a GitHub Actions secret in the environment `mirror-signing`, usable
   from `main` only; a run that cannot sign ends red. The reserve private key is kept
   offline by the maintainer, so a lost or leaked key can be replaced without an app update.
+  A leaked key can also be revoked: the manifest has a revocation list that counts only
+  when a fresh manifest is signed with the other key (a key cannot revoke or restore
+  itself); the apps then remember the revoked key permanently and no longer accept
+  anything signed only with it. If the two keys revoke each other (in either order),
+  both stay revoked and the apps stop trusting the mirror until an app update brings
+  new keys — they then ask the providers directly.
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.
@@ -188,7 +194,9 @@ keys or other secrets never belong in this repository.
   widget taps) can only open fixed screens; they never change data. The Android
   boot receiver accepts only the protected system broadcasts `BOOT_COMPLETED` and
   `MY_PACKAGE_REPLACED` (no `QUICKBOOT_POWERON`, which any app could send) and only
-  reschedules the background update.
+  reschedules the background update. The widget setup screens are exported (launchers
+  open them, also for «reconfigure» on Android 12+), but each works only with the id of
+  one of the app's own widgets of its kind and closes otherwise.
 
 ### Kurz auf Deutsch
 

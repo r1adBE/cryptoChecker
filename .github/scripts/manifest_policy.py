@@ -13,14 +13,18 @@ Errors (each one blocks a store release):
     store text), not a side effect of a library update
   - a service with android:foregroundServiceType
   - application debuggable, testOnly or usesCleartextTraffic="true"
-  - an exported component without a permission, except MainActivity, BootReceiver and the
-    launcher activity-aliases (MAIN/LAUNCHER)
+  - an exported component without a permission, except MainActivity, BootReceiver, the
+    launcher activity-aliases (MAIN/LAUNCHER) and the widget configure activities (WIDGET_CONFIGURE;
+    only with the APPWIDGET_CONFIGURE action — they check the widget id themselves, WidgetConfigureGuard)
   - an exported activity without android:taskAffinity="" (task hijacking).
     activity-alias has no taskAffinity attribute, it uses the one of its target activity
 
 Usage: python3 -I manifest_policy.py <AndroidManifest.xml> <findings file> <summary file>
+       python3 -I manifest_policy.py --self-test
 """
+import os
 import sys
+import tempfile
 import xml.etree.ElementTree as ET
 
 A = "{http://schemas.android.com/apk/res/android}"
@@ -51,6 +55,16 @@ EXPECTED = {
 # Exported on purpose: the start activity (target of the launcher aliases, also opened by
 # notifications and widgets) and the boot receiver (protected system broadcasts only).
 ALLOWED_EXPORTED = {"com.cryptochecker.app.ui.MainActivity", "com.cryptochecker.app.work.BootReceiver"}
+# Widget configure activities: launchers open them directly (adding a widget, «reconfigure» on Android 12+), so they
+# are exported without a permission. Each one works only with the id of an own widget of its provider
+# (WidgetConfigureGuard) and may have no intent filter other than APPWIDGET_CONFIGURE.
+WIDGET_CONFIGURE = {
+    "com.cryptochecker.app.widget.WidgetConfigureActivity",
+    "com.cryptochecker.app.widget.SingleWidgetConfigureActivity",
+    "com.cryptochecker.app.widget.PortfolioWidgetConfigureActivity",
+    "com.cryptochecker.app.widget.PulseWidgetConfigureActivity",
+}
+CONFIGURE_ACTION = "android.appwidget.action.APPWIDGET_CONFIGURE"
 COMPONENTS = ("activity", "activity-alias", "service", "receiver", "provider")
 
 
@@ -73,11 +87,85 @@ def is_launcher(comp):
     return False
 
 
+def is_widget_configure(tag, name, comp):
+    """Exported on purpose: a listed widget configure activity whose intent filters only carry APPWIDGET_CONFIGURE."""
+    if tag != "activity" or name not in WIDGET_CONFIGURE:
+        return False
+    filters = comp.findall("intent-filter")
+    actions = {a.get(A + "name") for f in filters for a in f.findall("action")}
+    extra = [c for f in filters for c in f if c.tag != "action"]
+    return bool(filters) and actions == {CONFIGURE_ACTION} and not extra
+
+
 def is_true(value):
     return (value or "").strip().lower() == "true"
 
 
+SELF_TEST_MANIFEST = """<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.cryptochecker.app">
+  <application>
+    <activity android:name=".ui.MainActivity" android:exported="true" android:taskAffinity="" />
+    <activity android:name=".widget.WidgetConfigureActivity" android:exported="true" android:taskAffinity="">
+      <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
+    </activity>
+    %s
+  </application>
+</manifest>
+"""
+
+
+def self_test():
+    """Widget configure activities: allowed exported only as listed, with taskAffinity="" and only the configure action."""
+    cases = [
+        ("configure activity allowed", "", []),
+        ("unlisted exported activity", '<activity android:name=".widget.OtherActivity" android:exported="true" '
+                                       'android:taskAffinity="" />', ["Exported component"]),
+        ("configure activity with a second action",
+         '<activity android:name=".widget.PulseWidgetConfigureActivity" android:exported="true" android:taskAffinity="">'
+         '<intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />'
+         '<action android:name="android.intent.action.VIEW" /></intent-filter></activity>', ["Exported component"]),
+        ("configure activity with a category",
+         '<activity android:name=".widget.SingleWidgetConfigureActivity" android:exported="true" android:taskAffinity="">'
+         '<intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />'
+         '<category android:name="android.intent.category.BROWSABLE" /></intent-filter></activity>',
+         ["Exported component"]),
+        ("configure activity without taskAffinity",
+         '<activity android:name=".widget.PortfolioWidgetConfigureActivity" android:exported="true">'
+         '<intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>'
+         '</activity>', ["taskAffinity"]),
+    ]
+    failed = 0
+    with tempfile.TemporaryDirectory() as tmp:
+        for name, extra, expected in cases:
+            manifest = os.path.join(tmp, "AndroidManifest.xml")
+            findings = os.path.join(tmp, "findings.txt")
+            summary = os.path.join(tmp, "summary.txt")
+            with open(manifest, "w", encoding="utf-8") as f:
+                f.write(SELF_TEST_MANIFEST % extra)
+            open(findings, "w", encoding="utf-8").close()
+            sys.argv = ["manifest_policy.py", manifest, findings, summary]
+            stdout = sys.stdout
+            sys.stdout = open(os.devnull, "w", encoding="utf-8")
+            try:
+                main()
+            finally:
+                sys.stdout.close()
+                sys.stdout = stdout
+            with open(findings, encoding="utf-8") as f:
+                errors = [line for line in f.read().splitlines() if line.startswith("error")]
+            ok = len(errors) == len(expected) and all(any(e in line for line in errors) for e in expected)
+            if not ok:
+                failed += 1
+                print(f"FAIL {name}: {errors}")
+    if failed:
+        print(f"manifest_policy self-test: {failed} failure(s)")
+        return 1
+    print("manifest_policy self-test ok")
+    return 0
+
+
 def main():
+    if len(sys.argv) == 2 and sys.argv[1] == "--self-test":
+        return self_test()
     if len(sys.argv) != 4:
         print(__doc__)
         return 2
@@ -162,7 +250,8 @@ def main():
                         exported_list.append(name)
                         if tag == "activity" and comp.get(A + "taskAffinity") != "":
                             affinity_open.append(name)
-                        allowed = name in ALLOWED_EXPORTED or (tag == "activity-alias" and is_launcher(comp))
+                        allowed = (name in ALLOWED_EXPORTED or (tag == "activity-alias" and is_launcher(comp))
+                                   or is_widget_configure(tag, name, comp))
                         if not permission and not allowed:
                             exported_open.append(f"{tag} {name}")
             if exported_open:

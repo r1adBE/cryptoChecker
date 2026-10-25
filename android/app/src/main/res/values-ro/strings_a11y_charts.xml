@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Diagramme für Screenreader: Punkt für Punkt (Android: Aktionen) und Achsen des Audio Graph (nur iOS) -->
+    <string name="a11y_chart_next_point">Punctul următor</string>
+    <string name="a11y_chart_previous_point">Punctul anterior</string>
+    <string name="a11y_chart_axis_time" tools:ignore="UnusedResources">Timp</string>
+    <string name="a11y_chart_axis_price" tools:ignore="UnusedResources">Preț</string>
+    <string name="a11y_chart_axis_value" tools:ignore="UnusedResources">Valoare</string>
+    <!-- Vergleichsdiagramm: beide Linien am gewählten Punkt («CHF gestiegen um 2.10%, USDT gestiegen um 1.50%») -->
+    <string name="a11y_chart_two_series">%1$s %2$s, %3$s %4$s</string>
+    <string name="a11y_chart_axis_change" tools:ignore="UnusedResources">Variație</string>
+</resources>

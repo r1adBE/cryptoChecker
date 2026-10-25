@@ -15,6 +15,10 @@ struct PortfolioHomeView: View {
     /// So viele Positionen zeigt die grosse Stufe.
     private static let largeRows = 3
 
+    /// Dynamic Type der Haupttexte (Gesamtwert, Kürzel, Werte): Faktor über `WidgetPrimaryFit` bzw. `primaryScale`.
+    @ScaledMetric(relativeTo: .body) var textScale: CGFloat = 1
+    var primaryScale: CGFloat { WidgetTextSize.primaryScale(textScale) }
+
     /// Gesperrtes Gerät (StandBy): Beträge sind `privacySensitive` und werden verdeckt.
     @Environment(\.redactionReasons) var redactionReasons
 
@@ -112,14 +116,17 @@ struct PortfolioHomeView: View {
 
     private func smallBody(_ s: PortfolioWidgetSnapshot, plan: PortfolioChartPlan) -> some View {
         let usdt = PortfolioWidgetText.usdt(s, wants: entry.wantsUsdt, hidden: entry.hideAmounts)
-        return VStack(alignment: .leading, spacing: 0) {
-            header()
-            Spacer(minLength: 4)
-            totalText(s, size: 22)
-            changeLine(s, plan: plan)
-            usdtLine(usdt, missing: PortfolioWidgetText.missing(s, plan: plan))
-            Spacer(minLength: 4)
-            footer(s, period: nil, hint: PortfolioWidgetText.fallbackHint(plan))
+        // Gesamtwert wächst mit Dynamic Type, solange das Widget in der Höhe Platz hat
+        return WidgetPrimaryFit(in: .vertical) { scale in
+            VStack(alignment: .leading, spacing: 0) {
+                header()
+                Spacer(minLength: 4)
+                totalText(s, size: 22, scale: scale)
+                changeLine(s, plan: plan)
+                usdtLine(usdt, missing: PortfolioWidgetText.missing(s, plan: plan))
+                Spacer(minLength: 4)
+                footer(s, period: nil, hint: PortfolioWidgetText.fallbackHint(plan))
+            }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(PortfolioWidgetText.accessibility(s, plan: plan, outdated: entry.outdated, at: entry.date,
@@ -136,13 +143,15 @@ struct PortfolioHomeView: View {
         return VStack(alignment: .leading, spacing: 0) {
             header()
             HStack(alignment: .top, spacing: 12) {
-                VStack(alignment: .leading, spacing: 0) {
-                    totalText(s, size: 24)
-                    changeLine(s, plan: plan)
-                    usdtLine(usdt, missing: PortfolioWidgetText.missing(s, plan: plan))
-                    Spacer(minLength: 4)
-                    footer(s, period: plan.hasChart ? PortfolioWidgetText.period(plan, basis: basis, short: true) : nil,
-                           hint: PortfolioWidgetText.fallbackHint(plan))
+                WidgetPrimaryFit(in: .vertical) { scale in
+                    VStack(alignment: .leading, spacing: 0) {
+                        totalText(s, size: 24, scale: scale)
+                        changeLine(s, plan: plan)
+                        usdtLine(usdt, missing: PortfolioWidgetText.missing(s, plan: plan))
+                        Spacer(minLength: 4)
+                        footer(s, period: plan.hasChart ? PortfolioWidgetText.period(plan, basis: basis, short: true)
+                               : nil, hint: PortfolioWidgetText.fallbackHint(plan))
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 chart(plan)
@@ -166,7 +175,8 @@ struct PortfolioHomeView: View {
         let shown = Array(s.topPositions.prefix(Self.largeRows))
         return VStack(alignment: .leading, spacing: 0) {
             header()
-            totalText(s, size: 30)
+            // Gesamtwert und Kürzel wachsen mit Dynamic Type; der Chart gibt den Platz (mindestens 44 pt)
+            totalText(s, size: 30, scale: primaryScale)
                 .padding(.top, 8)
             changeLine(s, plan: plan)
             usdtLine(usdt, missing: PortfolioWidgetText.missing(s, plan: plan))
@@ -204,10 +214,10 @@ struct PortfolioHomeView: View {
         HStack(spacing: 8) {
             quantityPrefixed(p, size: 12) {
                 Text(p.symbol)
-                    .font(.system(size: WidgetFont.label, weight: .bold))
+                    .font(.system(size: WidgetFont.label * primaryScale, weight: .bold))
                     .foregroundStyle(palette.text)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+                    .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: primaryScale))
                     .frame(minWidth: 38, alignment: .leading)
             }
             GeometryReader { geo in
@@ -233,17 +243,18 @@ struct PortfolioHomeView: View {
 
     // MARK: Bausteine
 
-    func totalText(_ s: PortfolioWidgetSnapshot, size: CGFloat) -> some View {
+    /// Gesamtwert; `scale` = Faktor der Haupttexte (nie unter 70 % der Grundgrösse, sonst zweite Zeile).
+    func totalText(_ s: PortfolioWidgetSnapshot, size: CGFloat, scale: CGFloat = 1) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 4) {
             Text(entry.hideAmounts ? PortfolioInsights.hidden
                  : PriceFormat.valueWithCurrency(s.total, "").trimmingCharacters(in: .whitespaces))
-                .font(.system(size: size, weight: .bold, design: .rounded))
+                .font(.system(size: size * scale, weight: .bold, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(palette.text)
                 // Lesbar bleiben: höchstens auf 70 % verkleinern, ein sehr langer Betrag bricht
                 // stattdessen in eine zweite Zeile um (Platz geben die Abstände darunter bzw. der Chart) — vorher bis 45 %
                 .lineLimit(2)
-                .minimumScaleFactor(0.7)
+                .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
             Text(s.currency)
                 .font(.system(size: size >= 26 ? 12 : 11, weight: .semibold))
                 .foregroundStyle(palette.secondary)
@@ -307,35 +318,6 @@ struct PortfolioHomeView: View {
             text = text + Text(verbatim: " · " + period).font(font).foregroundStyle(palette.secondary)
         }
         return text
-    }
-
-    /// «≈ 92’310.00 USDT» (je Widget wählbar), kleiner und schwächer, dazu «ohne 1 Coin» (Coins ohne
-    /// Kurs zählen im Gesamtwert als 0); wird es eng, bleibt nur der Hinweis. Beides nil = keine Zeile.
-    @ViewBuilder
-    func usdtLine(_ usdt: String?, missing: String?) -> some View {
-        if let usdt, let missing {
-            ViewThatFits(in: .horizontal) {
-                secondLine("≈ " + usdt + " · " + missing)
-                secondLine(missing)
-            }
-            .privacySensitive()
-            .padding(.top, 1)
-        } else if let usdt {
-            secondLine("≈ " + usdt)
-                .privacySensitive()
-                .padding(.top, 1)
-        } else if let missing {
-            secondLine(missing)
-                .padding(.top, 1)
-        }
-    }
-
-    private func secondLine(_ text: String) -> some View {
-        Text.quoted(text, quote: "USDT", size: 12, weight: .medium, quoteColor: palette.secondary)
-            .monospacedDigit()
-            .foregroundStyle(palette.secondary)
-            .lineLimit(1)
-            .minimumScaleFactor(0.7)
     }
 
     /// Chart wie in der App oder, solange es zu wenige Werte gibt, ruhig «Verlauf folgt».

@@ -52,6 +52,23 @@ object UiTestTags {
     /** Zeile einer offenen Position im Portfolio («portfolio_coin_BTC»). */
     fun portfolioCoin(coin: String): String = PORTFOLIO_COIN + coin
 
+    // ── Stichtag-Export und Steuer-Arbeitsunterlage ──
+    const val PORTFOLIO_CUTOFF_EXPORT = "portfolio_cutoff_export"
+    const val PORTFOLIO_TAX_EXPORT = "portfolio_tax_export"
+    const val TAX_WORKSHEET_SCREEN = "tax_worksheet_screen"
+    const val TAX_WORKSHEET_TEMPLATE = "tax_worksheet_template"
+    const val TAX_WORKSHEET_GAINS = "tax_worksheet_gains"
+    const val TAX_WORKSHEET_INCOME = "tax_worksheet_income"
+    const val TAX_WORKSHEET_HOLDINGS = "tax_worksheet_holdings"
+    const val TAX_WORKSHEET_SUMMARY = "tax_worksheet_summary"
+    /** «Abbrechen» eines laufenden Exports bzw. «Erneut versuchen» nach einem Fehler. */
+    const val EXPORT_CANCEL = "export_cancel"
+    const val EXPORT_RETRY = "export_retry"
+    private const val TAX_TEMPLATE_OPTION = "tax_template_option_"
+
+    /** Eintrag der Vorlagen-Liste der Arbeitsunterlage («tax_template_option_DE»; Name aus `TaxTemplate`). */
+    fun taxTemplateOption(name: String): String = TAX_TEMPLATE_OPTION + name
+
     // ── Sichern und Wiederherstellen ──
     const val SETTINGS_BACKUP = "settings_backup"
     const val BACKUP_EXPORT = "backup_export"

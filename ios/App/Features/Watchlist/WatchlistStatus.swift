@@ -112,7 +112,11 @@ extension WatchlistScreen {
             .padding(.horizontal, 12)
             .padding(.vertical, Spacing.sm)
             .background(tone.opacity(0.12), in: Capsule())
-            .contentShape(Capsule())
+            // Tippfläche 48 pt hoch (wie «N deaktiviert» und Android): je 8 pt über und unter der Pille;
+            // nach aussen wieder die Pillen-Höhe, die Statuszeile wächst nicht
+            .padding(.vertical, Self.statusTouchExtra)
+            .contentShape(Rectangle())
+            .padding(.vertical, -Self.statusTouchExtra)
             .onTapGesture { if tappable { toggleQuickView(.stale) } }
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(tappable ? .isButton : [])
@@ -201,6 +205,9 @@ extension WatchlistScreen {
             .foregroundStyle(AppColors.onSurface)
             .lineLimit(1)
     }
+
+    /// Tippfläche über und unter der Status-Pille.
+    private static let statusTouchExtra: CGFloat = Spacing.sm
 
     /// Tippfläche über und unter der Pille «N deaktiviert».
     private static let disabledTouchExtra: CGFloat = Spacing.sm

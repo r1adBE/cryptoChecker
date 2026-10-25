@@ -133,25 +133,15 @@ struct LiveActivityThemed<Content: View>: View {
 
 /// Schriftstufen der Widgets (pt) = Stufen der App wie Android `WidgetType`: Label 12, Body 14, Title 16 —
 /// Titel der Widgets in Body (eng: Label), Schlagzeile des Puls in Title, Zeilen der Portfolio-Liste in Label.
-/// Beträge bleiben SF Rounded (wie die App).
+/// Beträge bleiben SF Rounded (wie die App). Grundgrössen: Coin-Name und Kurs der Merkliste und des
+/// Einzelpaar-Widgets wachsen davon aus mit Dynamic Type (`WidgetPrimaryFit`, höchstens 1.3 ×).
 enum WidgetFont {
     static let label: CGFloat = 12
     static let body: CGFloat = 14
     static let title: CGFloat = 16
 }
 
-/// J-18: Nebentexte in Widgets (Uhrzeit, Börse, Fusszeilen) — mindestens 12 pt (wie Android 12 sp) und mit Dynamic Type
-/// (`@ScaledMetric` zu `.caption2`), höchstens 1.25 × gross, damit das Widget nicht überläuft.
-enum WidgetTextSize {
-    static let minSecondary: CGFloat = 12
-    static let maxScale: CGFloat = 1.25
-
-    /// Grösse für `base` beim Dynamic-Type-Faktor `scale`: nie unter 12 pt, nie kleiner als `base`,
-    /// höchstens `maxScale` × `base`.
-    static func secondary(_ base: CGFloat, scale: CGFloat = 1) -> CGFloat {
-        max(base, minSecondary) * min(max(scale, 1), maxScale)
-    }
-}
+// Nebentexte (Uhrzeit, Börse, Fusszeilen): Grössen und Obergrenze in `WidgetTextSize` (Shared/Util/WidgetTextScale.swift).
 
 private struct WidgetSecondaryFont: ViewModifier {
     let size: CGFloat

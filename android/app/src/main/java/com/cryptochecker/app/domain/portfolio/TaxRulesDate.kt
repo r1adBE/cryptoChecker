@@ -5,8 +5,8 @@ import java.time.YearMonth
 /**
  * Regelstand der Länder-Vorlagen ([TaxTemplate.RULES_DATE], «JJJJ-MM»): Sätze, Freibeträge und Grenzen (z. B.
  * [TaxTemplate.CA_INCLUSION], [TaxTemplate.FR_EXEMPT_EUR]) sind fest hinterlegt. Für ein Steuerjahr nach dem Jahr des
- * Regelstands können sie veraltet sein — der Export-Dialog weist dann darauf hin, ohne zu blockieren.
- * Wie iOS `TaxRulesDate`; gemeinsame Fälle in `tax_rules_stale.json`.
+ * Regelstands können sie veraltet sein — die Seite «Steuer-Arbeitsunterlage» weist dann darauf hin, ohne zu
+ * blockieren. Wie iOS `TaxRulesDate`; gemeinsame Fälle in `tax_rules_stale.json`.
  */
 object TaxRulesDate {
 

@@ -16,6 +16,9 @@ struct PulseHomeView: View {
     /// Mittel und gross: drei Coins, Fear & Greed, Marktbreite (klein unverändert).
     private var wide: Bool { size != .small }
 
+    /// Dynamic Type der Schlagzeile und des Leitsatzes (`WidgetTextSize.primaryScale`, höchstens 1.3 ×).
+    @ScaledMetric(relativeTo: .body) private var textScale: CGFloat = 1
+
     /// Innenrand (pt, wie Android 12 dp) — auch für die Breite beim Messen des ersten Satzes.
     private var inset: CGFloat { 12 }
 
@@ -84,11 +87,13 @@ struct PulseHomeView: View {
         }
     }
 
-    /// Eine Fassung für `ViewThatFits`: zweite Nebenzeile erlaubt (`twoLines`) und so viele Sätze von
-    /// «Kurz gesagt» (`plainCount`, nur gross).
+    /// Eine Fassung für `ViewThatFits`: zweite Nebenzeile erlaubt (`twoLines`), so viele Sätze von
+    /// «Kurz gesagt» (`plainCount`, nur gross) und Schriftfaktor (`scale`).
     private struct Variant: Hashable {
         let twoLines: Bool
         let plainCount: Int
+        /// Faktor der Schlagzeile und des Leitsatzes (Dynamic Type, 1 = Grundgrösse).
+        let scale: CGFloat
     }
 
     /// Leitsatz: mittel der erste Satz von «Kurz gesagt», wenn er ganz in die 2 Zeilen des Leitsatzes passt
@@ -118,12 +123,17 @@ struct PulseHomeView: View {
         // Widget so viele ganze Sätze, wie noch passen — die Coins behalten ihren Platz, Sätze fallen von hinten weg
         let twoLineOptions = fearGreedText != nil && breadth != nil ? [true, false] : [false]
         let counts = size == .large ? PulseWidgetPlain.candidateCounts(sentences.count) : [0]
-        let variants = twoLineOptions.flatMap { two in counts.map { Variant(twoLines: two, plainCount: $0) } }
+        // Dynamic Type: zuerst alle Fassungen mit gewachsener Schlagzeile und Leitsatz, dann in Grundgrösse
+        let grown = WidgetTextSize.primaryScale(textScale)
+        let scales: [CGFloat] = grown > 1 ? [grown, 1] : [1]
+        let variants = scales.flatMap { scale in
+            twoLineOptions.flatMap { two in counts.map { Variant(twoLines: two, plainCount: $0, scale: scale) } }
+        }
         return ViewThatFits(in: .vertical) {
             ForEach(variants, id: \.self) { variant in
                 let plain = Array(sentences.prefix(variant.plainCount))
                 stack(report, coins: coins, time: time, fearGreed: fearGreedText, breadth: breadth,
-                      twoLines: variant.twoLines, lead: leadText, plain: plain)
+                      twoLines: variant.twoLines, lead: leadText, plain: plain, scale: variant.scale)
                     // Je Fassung ein eigener Satz für VoiceOver: genau das, was sie zeigt
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(PulseWidgetText.spoken(report, coins: coins, fearGreed: fearGreed, time: time,
@@ -137,10 +147,11 @@ struct PulseHomeView: View {
     /// Schlagzeile, Leitsatz, Coins und Fusszeile; `twoLines` erlaubt die Marktbreite in einer zweiten Zeile;
     /// darunter «Kurz gesagt» mit den Sätzen `plain` (leer = kein Block).
     private func stack(_ report: PulseReport, coins: [PulseCoinLine], time: String?, fearGreed fearGreedText: Text?,
-                       breadth: Text?, twoLines: Bool, lead leadText: String, plain: [String]) -> some View {
+                       breadth: Text?, twoLines: Bool, lead leadText: String, plain: [String],
+                       scale: CGFloat) -> some View {
         let glyph = PulseWidgetText.glyph(report.summary)
         let direction = PulseWidgetText.direction(report.summary)
-        let headlineSize: CGFloat = WidgetFont.title
+        let headlineSize: CGFloat = WidgetFont.title * scale
         return VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 if let glyph {
@@ -158,9 +169,11 @@ struct PulseHomeView: View {
             }
             .padding(.top, 4)
             Text(leadText)
-                .font(.system(size: PulseWidgetPlain.leadSize))
+                .font(.system(size: PulseWidgetPlain.leadSize * scale))
                 .foregroundStyle(palette.text)
                 .lineLimit(2)
+                // Gewachsen nie mehr gekürzt als in der Grundgrösse: notfalls zurück auf sie
+                .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 3)
             Spacer(minLength: 4)

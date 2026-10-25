@@ -2,13 +2,20 @@ import CryptoKit
 import Foundation
 
 /// Signiertes Manifest des Daten-Spiegels (`DataMirror`). Die Action «Market data» legt neben die Spiegel-Dateien
-/// `manifest.json` (`{"created":<ms>,"files":{"<Datei>":"<SHA-256 hex>"…},"v":1}`) und `manifest.json.sig` (Base64
+/// `manifest.json` (`{"created":<ms>,"files":{"<Datei>":"<SHA-256 hex>"…},"revoked":[…],"v":1}`) und
+/// `manifest.json.sig` (Base64
 /// der DER-Signatur ECDSA P-256 mit SHA-256 über die genauen Bytes des Manifests, erzeugt mit dem Secret
 /// MIRROR_SIGNING_KEY in `mirror_data.py --manifest`). Die App nimmt eine Spiegel-Datei nur, wenn die Signatur zum
 /// eingebauten Schlüssel `publicKey` passt, das Manifest höchstens `maxAgeMillis` alt ist (Schutz gegen alte, wieder
 /// eingespielte Daten) und der SHA-256 der Datei stimmt — sonst fragt sie die Anbieter direkt, wie bei einem Ausfall
-/// des Spiegels. Gleich wie Android `MirrorManifest.kt`, gemeinsame Testfälle `mirror_signature.json` (mit eigenem
-/// Test-Schlüsselpaar).
+/// des Spiegels. Sperrliste «revoked» (fehlt = leer): Schlüssel-Ids (`keyId`) gesperrter Schlüssel — gilt nur in einem
+/// gültigen Manifest, das mit dem ANDEREN, nicht gesperrten eingebauten Schlüssel signiert ist; die eigene Id
+/// (Selbstsperre) und unbekannte Ids zählen nicht. Die App merkt sich gesperrte Schlüssel dauerhaft
+/// (`MirrorRevocations`) und nimmt danach kein Manifest mehr an, das nur damit signiert ist. Gegenseitige Sperre
+/// (A sperrt B, B sperrt A, je in einem frischen, gültig signierten Manifest, Reihenfolge egal): beide gesperrt,
+/// Spiegel aus bis zu einem App-Update mit neuen Schlüsseln.
+/// Gleich wie Android `MirrorManifest.kt`, gemeinsame Testfälle `mirror_signature.json` (mit eigenen
+/// Test-Schlüsselpaaren).
 enum MirrorManifest {
     static let file = "manifest.json"
     static let signatureFile = "manifest.json.sig"
@@ -20,8 +27,8 @@ enum MirrorManifest {
         + "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
     /// Reserve-Schlüssel (F-29): privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren, signiert
     /// die Action mit dem Reserve-Schlüssel weiter, ohne dass die Apps ein Update brauchen. Wird MIRROR_SIGNING_KEY
-    /// bekannt (Leck), genügt das nicht: `publicKey` bleibt in `publicKeys` gültig, bis das nächste App-Update ihn
-    /// entfernt — bis dahin werden auch damit signierte Manifeste angenommen.
+    /// bekannt (Leck), signiert die Action mit dem Reserve-Schlüssel und sperrt den alten über «revoked»: Jede App, die
+    /// dieses Manifest einmal gesehen hat, nimmt nichts mehr an, was nur mit dem alten Schlüssel signiert ist.
     static let reservePublicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k"
         + "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw=="
     /// Alle Schlüssel, mit denen ein Manifest gültig ist (aktiver und Reserve-Schlüssel).
@@ -50,16 +57,20 @@ enum MirrorManifest {
         case notListed = "not_listed"
     }
 
-    /// Geprüftes Manifest: Erstellzeit (ms) und SHA-256 (hex, klein) je Datei.
+    /// Geprüftes Manifest: Erstellzeit (ms), SHA-256 (hex, klein) je Datei und die Sperrliste (Schlüssel-Ids).
     struct Manifest: Equatable, Sendable {
         let created: Int64
         let files: [String: String]
+        var revoked: [String] = []
     }
 
-    /// Ergebnis von `verify`; `manifest` nur bei `.ok`.
+    /// Ergebnis von `verify`; `manifest` nur bei `.ok`. `revoke`: Schlüssel-Ids, die ab jetzt dauerhaft gesperrt sind —
+    /// aus einem frischen, gültig signierten Manifest; bei `.invalid` nur die gegenseitige Sperre (Manifest eines schon
+    /// gesperrten Schlüssels sperrt den anderen). Der Aufrufer merkt sie sich (`MirrorRevocations`).
     struct Verification: Equatable, Sendable {
         let status: Status
         let manifest: Manifest?
+        var revoke: Set<String> = []
     }
 
     /// Spiegel-Datei wird geprüft und nicht genutzt (wie Android `ParseError`); kein Netzfehler.
@@ -74,25 +85,50 @@ enum MirrorManifest {
 
     /// Manifest und Signatur prüfen — gleiche Regeln wie Android: fehlt eines (nil/leer) → `.missing`; Signatur
     /// ungültig, Inhalt unbekannt oder Erstellzeit mehr als 5 Minuten in der Zukunft → `.invalid`; `maxAgeMillis`
-    /// oder älter → `.tooOld`. Gültig, wenn die Signatur zu einem der `publicKeys` passt; andere Schlüssel nur
-    /// für Tests.
+    /// oder älter → `.tooOld`. Gültig, wenn die Signatur zu einem der `publicKeys` passt, der nicht in `revoked`
+    /// (Schlüssel-Ids) steht; andere Schlüssel nur für Tests.
     static func verify(_ manifestText: String?, signature signatureText: String?, now: Int64,
                        publicKey: String) -> Verification {
         verify(manifestText, signature: signatureText, now: now, publicKeys: [publicKey])
     }
 
     static func verify(_ manifestText: String?, signature signatureText: String?, now: Int64,
-                       publicKeys: [String] = MirrorManifest.publicKeys) -> Verification {
+                       publicKeys: [String] = MirrorManifest.publicKeys,
+                       revoked: Set<String> = []) -> Verification {
         let signature = (signatureText ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         guard let manifestText, !manifestText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               !signature.isEmpty
         else { return Verification(status: .missing, manifest: nil) }
         let bytes = Data(manifestText.utf8)
-        guard publicKeys.contains(where: { signatureValid(bytes, signature: signature, publicKey: $0) }),
-              let manifest = parse(manifestText), manifest.created <= now + clockSkewMillis
+        // Signiert mit einem eingebauten Schlüssel; gesperrte zählen für die Annahme nicht mehr
+        let signer = publicKeys.first { signatureValid(bytes, signature: signature, publicKey: $0) }
+        guard let signer, let manifest = parse(manifestText), manifest.created <= now + clockSkewMillis
         else { return Verification(status: .invalid, manifest: nil) }
         if now - manifest.created >= maxAgeMillis { return Verification(status: .tooOld, manifest: nil) }
-        return Verification(status: .ok, manifest: manifest)
+        let revoke = newlyRevoked(manifest.revoked, signer: signer, publicKeys: publicKeys, revoked: revoked)
+        // Gesperrter Schlüssel: Manifest abgelehnt; sperrt er seinerseits den anderen (gegenseitige Sperre), sind
+        // danach beide gesperrt und der Spiegel ist aus, bis ein App-Update neue Schlüssel bringt
+        if let own = keyId(signer), revoked.contains(own) {
+            return Verification(status: .invalid, manifest: nil, revoke: revoke)
+        }
+        return Verification(status: .ok, manifest: manifest, revoke: revoke)
+    }
+
+    /// Schlüssel-Ids aus der Sperrliste `listed` eines gültigen, mit `signer` signierten Manifests, die ab jetzt
+    /// gesperrt sind: nur andere eingebaute Schlüssel (`publicKeys`) — die eigene Id (Selbstsperre) und unbekannte Ids
+    /// zählen nicht; schon gesperrte (`revoked`) kommen nicht nochmals. Wie Android `newlyRevoked`.
+    static func newlyRevoked(_ listed: [String], signer: String, publicKeys: [String],
+                             revoked: Set<String>) -> Set<String> {
+        let own = keyId(signer)
+        let known = Set(publicKeys.compactMap { keyId($0) })
+        return Set(listed.filter { known.contains($0) && $0 != own && !revoked.contains($0) })
+    }
+
+    /// Schlüssel-Id: SHA-256 (hex, klein) der DER-Bytes des öffentlichen Schlüssels `publicKey` (Base64);
+    /// nil = kein Base64.
+    static func keyId(_ publicKey: String) -> String? {
+        guard let der = Data(base64Encoded: publicKey) else { return nil }
+        return SHA256.hash(data: der).map { String(format: "%02x", $0) }.joined()
     }
 
     /// Passt `text` (als UTF-8-Bytes) zum Eintrag von `file` im geprüften Manifest?
@@ -126,7 +162,16 @@ enum MirrorManifest {
             guard let hash = value as? String, validName(name), validHash(hash) else { return nil }
             out[name] = hash
         }
-        return Manifest(created: Int64(created), files: out)
+        // Sperrliste: fehlt = leer; sonst nur Schlüssel-Ids (wie ein SHA-256), alles andere macht das Manifest ungültig
+        var revoked: [String] = []
+        if let raw = o["revoked"] {
+            guard let list = raw as? [Any] else { return nil }
+            for item in list {
+                guard let id = item as? String, validHash(id) else { return nil }
+                revoked.append(id)
+            }
+        }
+        return Manifest(created: Int64(created), files: out, revoked: revoked)
     }
 
     /// JSON-Zahl (nie true/false, die als NSNumber ankommen).

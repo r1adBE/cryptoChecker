@@ -96,12 +96,9 @@ class WidgetConfigureActivity : AppCompatActivity() {
         // Bricht der Nutzer ab, darf kein Widget entstehen.
         setResult(Activity.RESULT_CANCELED)
 
-        val widgetId = intent?.extras?.getInt(
-            AppWidgetManager.EXTRA_APPWIDGET_ID,
-            AppWidgetManager.INVALID_APPWIDGET_ID
-        ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
-
-        if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+        // Exportiert: nur mit der Id eines eigenen Widgets dieser Art arbeiten (WidgetConfigureGuard)
+        val widgetId = ownWidgetId(PriceWidgetProvider::class.java)
+        if (widgetId == null) {
             finish()
             return
         }

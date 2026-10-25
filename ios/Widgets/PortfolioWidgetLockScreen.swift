@@ -6,12 +6,21 @@ import WidgetKit
 struct PortfolioRectangularView: View {
     let entry: PortfolioEntry
 
+    /// Titel und Gesamtwert wachsen mit Dynamic Type, solange sie in der Höhe Platz haben (`WidgetPrimaryFit`).
     var body: some View {
+        WidgetPrimaryFit(in: .vertical) { scale in content(scale: scale) }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
+            .modifier(PortfolioRectangularA11y(entry: entry))
+    }
+
+    private func content(scale: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             // Portfolio aus: nur kurz «Portfolio aus» (keine Beträge)
             Text(L(entry.state == .off ? "widget_portfolio_off_short" : "widget_portfolio_name"))
-                .font(.system(size: 13, weight: .semibold))
+                .font(.system(size: 13 * scale, weight: .semibold))
                 .lineLimit(1)
+                .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
             if entry.state == .off {
                 EmptyView()
             } else if entry.locked {
@@ -27,11 +36,11 @@ struct PortfolioRectangularView: View {
             } else if let s = entry.shown, !s.empty {
                 let plan = entry.plan(for: s)
                 // Währung klein und grau (`Text.quoted`)
-                Text.quoted(PortfolioWidgetText.total(s, hidden: entry.hideAmounts), quote: s.currency, size: 17,
-                            weight: .bold, design: .rounded, quoteColor: .secondary)
+                Text.quoted(PortfolioWidgetText.total(s, hidden: entry.hideAmounts), quote: s.currency,
+                            size: 17 * scale, weight: .bold, design: .rounded, quoteColor: .secondary)
                     .monospacedDigit()
                     .lineLimit(1)
-                    .minimumScaleFactor(0.6)
+                    .minimumScaleFactor(WidgetTextSize.minimumFactor(0.6, primaryScale: scale))
                     .widgetAccentable()
                     .privacySensitive()
                 if let line = PortfolioWidgetText.changeLine(plan, s, hidden: entry.hideAmounts) {
@@ -53,9 +62,6 @@ struct PortfolioRectangularView: View {
                     .lineLimit(2)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
-        .modifier(PortfolioRectangularA11y(entry: entry))
     }
 }
 

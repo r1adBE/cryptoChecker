@@ -809,7 +809,7 @@ needs the same entry in `mirror_data.py`, both `DataMirror` files and `data_mirr
 
 **Signed mirror** (`MirrorManifest.kt` / `MirrorManifest.swift`, cache `MirrorTrust.kt` / `MirrorTrust.swift`,
 parity cases `mirror_signature.json`): the publish job of `market-data.yml` writes, after `artifact_check.py`,
-`manifest.json` (`{"created":<ms>,"files":{"<file>":"<SHA-256 hex>"…},"v":1}`, compact, sorted keys) and
+`manifest.json` (`{"created":<ms>,"files":{"<file>":"<SHA-256 hex>"…},"revoked":[…],"v":1}`, compact, sorted keys) and
 `manifest.json.sig` (Base64 of the DER ECDSA P-256 / SHA-256 signature over the exact manifest bytes) with
 `mirror_data.py --manifest`, signed with the secret `MIRROR_SIGNING_KEY` (PEM, PKCS#8) through the
 preinstalled `openssl` command line tool — no package is installed in the job that holds the write token. Both are
@@ -839,6 +839,23 @@ trusting the mirror without an update. Then create a new reserve pair and ship i
 (the used one becomes `PUBLIC_KEY`; drop the leaked key from the apps in the same release).
 Backup rule: every private signing key exists in two offline places before its public key ships; never in the
 repository, a chat, a ticket or a CI log.
+
+*Revocation list* (F-29): every manifest carries `"revoked"` — key ids (`keyId` / `key_id`: SHA-256 hex of the public
+key DER bytes) of revoked signing keys; `mirror_data.py` writes `REVOKED_KEY_IDS`, normally an empty list (a missing
+field counts as empty, so older manifests stay valid; `artifact_check.py` accepts both). The apps honour an id only in
+a fresh, validly signed manifest of the OTHER built-in key; their own id (self-revocation) and unknown ids are
+ignored. A revoked key id is stored for good (`MirrorRevocations`: Android `noBackupFilesDir/
+mirror_revoked.txt`, iOS `mirror_revoked.txt` in the App Group folder) and from then on a manifest signed only with
+that key is rejected. After a leak of `MIRROR_SIGNING_KEY`: set the secret to the reserve private key, add the id of
+the leaked key to `REVOKED_KEY_IDS` (`python3 -c "import base64,hashlib;print(hashlib.sha256(base64.b64decode('<public
+key>')).hexdigest())"`) and keep it there until no supported app version has the leaked key any more (apps that were
+offline, reinstalled or restored learn the revocation only from a current manifest). Mutual revocation: a fresh,
+validly signed manifest of an already revoked key is rejected, but if it revokes the other key, that one is revoked
+too — A revokes B and B revokes A (in either order) leaves both revoked; the apps then ignore the mirror for good
+(market data from the providers / local fallbacks, as with an invalid manifest) until an app update ships new keys.
+So whoever holds a leaked key can at worst switch the mirror off, never keep it trusted alone. Revocations only come
+from manifests younger than 7 days. Parity cases: `revocation` and `keyIds` in `mirror_signature.json` (own test key
+pairs).
 
 *Changing the key*: create a new pair (`openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out
 mirror_key.pem`; public key for the apps: `openssl pkey -in mirror_key.pem -pubout -outform DER | base64 -w0`), put
@@ -2378,6 +2395,16 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 129: tax worksheet page (Android `ScreenRoute.PortfolioTaxWorksheet`, `TaxWorksheetScreen`; iOS
+  `TaxWorksheetPage`), cutoff dialog/sheet only for the cutoff export. `ExportRunner` / `ExportRun`: cancellable runs,
+  Android deletes a partially written target after the write finishes; error kinds file / prices / other
+  (`export_errors.json`). Widgets: `WidgetPrimaryFit` (iOS, `@ScaledMetric`, cap 1.3×, `ViewThatFits` fallback),
+  `WidgetRows.rowsFor` / `WidgetListRows` (`widget_list_rows.json`), Android `WidgetTextFit.listPriceSp`. Charts:
+  `ChartAudioGraph`, `ChartPointAdjustable` (iOS), `ChartPointSemantics` (Android). `AppNotifierDeliveryPlan` (pure
+  decisions of the Android notifier). Widget configure activities exported with `WidgetConfigureGuard`. Mirror
+  manifest `revoked` (key id = SHA-256 of the DER public key), `MirrorRevocations` stored permanently; mutual
+  revocation disables the mirror. Accessibility audits: `AccessibilityAuditTest` (Android, `ComposeA11yAudit`),
+  `AccessibilityAuditTests` (iOS `performAccessibilityAudit`), each also with large text and Arabic.
 * Build 128: `PortfolioCostPartPool` (Android/iOS) keeps cost-origin parts lazily: a disposal stores the remaining
   share instead of rewriting every part, parts are materialised on read; large lists (> 64 parts) give export cost,
   «USDT ≈ 1» and date span from running sums. Used by the average method, `TaxPool` (UK/CA/AT) and the CA loss check;
