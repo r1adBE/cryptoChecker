@@ -123,7 +123,7 @@ object CoinLogos {
 
     /**
      * Höchstens so viele Pixel (Breite × Höhe laut Bildkopf) hat ein Logo-Quellbild; grössere werden verworfen,
-     * ohne sie zu dekodieren. Die Übertragungsgrenze (512 KB) schützt nicht: Ein stark komprimiertes PNG kann
+     * ohne sie zu dekodieren. Die Übertragungsgrenze (4 MB) schützt nicht: Ein stark komprimiertes PNG kann
      * 20'000 × 20'000 Pixel ankündigen. Wie iOS `CoinLogos.maxSourcePixels`.
      */
     const val MAX_SOURCE_PIXELS = 4096L * 4096L

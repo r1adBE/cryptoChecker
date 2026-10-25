@@ -193,6 +193,7 @@ struct PortfolioDisclaimer: View {
     var body: some View {
         Text(L("portfolio_footer_short"))
             .font(.caption2)
+            .accessibilityIdentifier(UiTestTags.portfolioDisclaimer)
             .foregroundStyle(AppColors.onSurfaceVariant)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)

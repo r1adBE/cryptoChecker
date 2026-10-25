@@ -6,8 +6,10 @@ import UIKit
 // Fehlschläge einen Tag sperren, Verkleinern auf `CoinLogos.storedPixels` (`CoinLogoDecode`); dazu die Erkennung von teurem Netz.
 
 extension CoinLogoStore {
-    /// Höchstgrösse eines Bildes (wie Android `MAX_IMAGE_BYTES`); grössere werden gar nicht erst ganz gelesen.
-    static let maxImageBytes = 512 * 1024
+    /// Höchstgrösse eines Bildes (wie Android `MAX_IMAGE_BYTES`); grössere werden gar nicht erst ganz gelesen. 4 MB:
+    /// Binance lädt Logos seit 2025 in hoher Auflösung hoch (über 512 KB, dann standen Initialen). Gespeichert wird
+    /// nur das verkleinerte Bild; die Pixel-Grenze (`CoinLogos.maxSourcePixels`) bleibt.
+    static let maxImageBytes = 4 * 1024 * 1024
     /// Bild-Abrufe gleichzeitig je Server (CoinGecko, Binance).
     private static let perHostParallel = 6
     /// Bremst ein Server höchstens so kurz, werden seine Bilder nach der Pause gleich nachgeholt.

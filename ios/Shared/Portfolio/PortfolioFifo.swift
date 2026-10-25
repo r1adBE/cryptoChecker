@@ -22,8 +22,9 @@ import Foundation
 ///    je Wallet ebenso der Anteil der Menge über Bestand − Netzwerkgebühr, `PortfolioFeeExpenses.transferUncovered`, markiert oversold).
 ///  - Herkunft des Einstands: jeder Posten führt seinen Einstand in Teilen mit Zeitpunkt (Erwerb, Umbuchungsgebühr zum
 ///    Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen); ein Abgang nimmt sie anteilig mit
-///    (`PortfolioDisposal.costParts`), der Steuer-Export rechnet jeden Teil zum Kurs SEINES Datums um. Anfangsposten des
-///    US-Übergangs tragen nur ihr Erwerbsdatum (Steuerwährung USD, Kurs 1).
+///    (`PortfolioDisposal.costParts`), der Steuer-Export rechnet jeden Teil zum Kurs SEINES Datums um. Die Umbuchungsgebühr
+///    auf alle Posten steht nur einmal je Umbuchung da (Anteil je Coin, `FeeStream`), gerechnet erst beim Auslesen
+///    (PortfolioFifoParts.swift). Anfangsposten des US-Übergangs tragen nur ihr Erwerbsdatum (Steuerwährung USD, Kurs 1).
 ///  - Gebühr im dritten Coin: Veräusserung des Gebühr-Coins (FIFO) zum Gebühr-Preis (`feeLeg`).
 ///  - Tausch: im abgegebenen Coin wie ein Verkauf (Erlös = Wert − Gebühr USDT − Wert der Gebühr im dritten Coin), im
 ///    erhaltenen Coin ein Posten `.SWAP` (Einstand = Wert, Erwerb = Zeit des Tauschs, Menge − Gebühr im erhaltenen Coin).
@@ -76,10 +77,10 @@ enum PortfolioFifo {
 
         /// Neuer Posten an seinem Platz (meist hinten); ein Posten mit Kaufpreis übernimmt wartenden Gebühr-Einstand.
         func insert(_ q: Queue, _ lot: Lot) {
-            if lot.cost != nil, !q.pendingLost.isEmpty {
-                lot.addParts(q.pendingParts)
+            if lot.priced, !q.pendingLost.isEmpty {
+                lot.addEntries(q.pending.items)
                 q.pendingLost.removeAll()
-                q.pendingParts.removeAll()
+                q.pending.removeAll()
             }
             q.insert(lot)
         }
@@ -91,21 +92,21 @@ enum PortfolioFifo {
             while left > 0, let lot = q.first {
                 let qty = min(left, lot.amount)
                 // Einstand anteilig samt Herkunft (vor dem Kürzen der Menge)
-                let taken = lot.takeCost(qty)
+                let taken = lot.take(qty)
+                q.reduce(lot, by: qty)
                 lot.amount -= qty
-                q.held -= qty
                 if lot.amount <= 0 { q.removeFirst() }
                 left -= qty
                 out.append(Slice(txId: lot.txId, acquired: lot.acquired, time: lot.time, kind: lot.kind, amount: qty,
-                                 cost: taken?.cost, parts: taken?.parts ?? []))
+                                 cost: taken?.cost, entries: taken?.entries ?? []))
             }
-            if q.isEmpty { q.held = 0 }
+            q.clearHeldIfEmpty()
             return out
         }
 
-        /// Gebühr USDT + Wert der Gebühr im dritten Coin (`extra`) einer Umbuchung zum Zeitpunkt `at` nach Menge auf `lots`
-        /// (Summe `h`); der letzte Posten bekommt den Rest, wenn alle einen Kaufpreis haben. Rückgabe = Anteil der Posten
-        /// OHNE Kaufpreis (`unassign`); 0 = alles zugeordnet.
+        /// Je Wallet: Gebühr USDT + Wert der Gebühr im dritten Coin (`extra`) einer Umbuchung zum Zeitpunkt `at` nach Menge
+        /// auf die verschobenen Posten `lots` (Summe `h`, je Posten ein Teil); der letzte bekommt den Rest, wenn alle einen
+        /// Kaufpreis haben. Rückgabe = Anteil der Posten OHNE Kaufpreis (`unassign`); 0 = alles zugeordnet.
         func spread(_ lots: ArraySlice<Lot>, _ extra: Decimal, _ h: Decimal, at: Int64) -> Decimal {
             guard extra > 0, h > 0 else { return 0 }
             let allPriced = lots.allSatisfy { $0.cost != nil }
@@ -129,14 +130,14 @@ enum PortfolioFifo {
             let cost = costSum(carried)
             if cost == 0 { return }
             q.pendingLost.append(PortfolioLostFeeCost(coin: symbol, txId: t.id, time: t.time, costUsdt: cost))
-            for s in carried { for p in s.parts { PortfolioCostParts.add(&q.pendingParts, p.time, p.usdt) } }
+            for s in carried { for e in s.entries { q.pending.add(e) } }
         }
 
         /// Netzwerkgebühr-Einstand `carried` auf `target` (Posten mit Kaufpreis), sonst wartend in `q` (`lose`).
         func carry(_ target: Lot?, _ q: Queue, _ t: PortfolioTx, _ carried: [Slice]) {
             if costSum(carried) == 0 { return }
             if let target {
-                for s in carried { target.addParts(s.parts) }
+                target.addEntries(carried.flatMap(\.entries))
             } else {
                 lose(q, t, carried)
             }
@@ -198,7 +199,8 @@ enum PortfolioFifo {
                     lotTxId: s.txId, acquiredTime: s.acquired, lotKind: s.kind,
                     amount: s.amount, costUsdt: s.cost, proceedsUsdt: share, gainUsdt: gain,
                     holdingDays: holdingDays(from: s.acquired, to: t.time),
-                    feeLeg: feeLeg, feeValueMissing: feeMissing, method: method, costParts: PortfolioCostPartList(s.parts), wallet: wallet, swap: swap,
+                    feeLeg: feeLeg, feeValueMissing: feeMissing, method: method,
+                    costParts: PortfolioCostPartList(fifo: s.entries, total: s.cost), wallet: wallet, swap: swap,
                     gift: gift, payment: payment, valueEstimated: estimated))
             }
             if uncovered > 0 {
@@ -323,7 +325,7 @@ enum PortfolioFifo {
                     let carried = consume(src, coinFee)
                     let moved = consume(src, amount).map {
                         Lot(txId: $0.txId, acquired: $0.acquired, time: $0.time, kind: $0.kind, amount: $0.amount, cost: $0.cost,
-                            parts: $0.parts)
+                            entries: $0.entries)
                     }
                     // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil ohne
                     // Kaufpreis und der Anteil der nicht angekommenen Menge werden vermerkt
@@ -351,8 +353,8 @@ enum PortfolioFifo {
                 }
                 // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der Anteil
                 // der Posten ohne Kaufpreis wird vermerkt
-                if feeValue == nil && q.lots.contains(where: { $0.cost != nil }) { r.feeValueMissing = true }
-                unassign(t, lost + spread(q.lots, t.quoteFeeExact + (feeValue ?? 0) - lost, h, at: t.time))
+                if feeValue == nil && q.hasPriced { r.feeValueMissing = true }
+                unassign(t, lost + spreadQueue(q, t.quoteFeeExact + (feeValue ?? 0) - lost, h, at: t.time))
                 // Netzwerkgebühr im Coin: Menge sinkt (älteste zuerst), ihr Einstand geht auf den nächsten Posten mit
                 // Kaufpreis über (Kosten des Haltens, keine Veräusserung)
                 if coinFee > 0 {
@@ -375,7 +377,6 @@ enum PortfolioFifo {
                 if let cost = l.cost {
                     r.priced += l.amount
                     r.cost += cost
-                    r.openParts += l.parts
                 } else {
                     r.unpriced += l.amount
                 }
@@ -384,6 +385,7 @@ enum PortfolioFifo {
             }
         }
         r.lots = outLots
+        r.openParts = openParts(queues, total: r.cost)
         return r
     }
 }

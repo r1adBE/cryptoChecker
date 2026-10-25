@@ -1,47 +1,38 @@
 package com.cryptochecker.app.testing
 
-import android.content.res.Resources
-import android.os.SystemClock
-import androidx.test.platform.app.InstrumentationRegistry
-import com.cryptochecker.app.settings.AppLanguages
-import kotlin.math.abs
+import com.cryptochecker.app.ui.TestDisplayOverride
+import org.junit.rules.TestRule
+import org.junit.runner.Description
+import org.junit.runners.model.Statement
 
 /**
- * Systemschrift (`font_scale`) und App-Sprache für einen Testlauf setzen und danach zurücksetzen — vor dem Start
- * der Activity aufrufen, damit sie in der neuen Konfiguration startet.
+ * Schriftgrösse ([fontScale], z. B. 2.0; 0 = unverändert) und Sprache ([language], z. B. «ar»; leer = unverändert) für
+ * eine Testmethode. Gelesen von [DeviceOverridesRule].
  */
-object DeviceOverrides {
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.FUNCTION)
+annotation class DeviceOverride(val fontScale: Float = 0f, val language: String = "")
 
-    private const val SETTLE_MS = 5_000L
-
-    fun <T> with(fontScale: Float? = null, languageTag: String? = null, block: () -> T): T {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val context = instrumentation.targetContext
-        val oldScale = fontScale?.let { AppTestEnvironmentRule.shell("settings get system font_scale").trim() }
-        val oldTag = languageTag?.let { AppLanguages.currentTag(context) }
-        try {
-            fontScale?.let { setFontScale(it) }
-            languageTag?.let { tag -> instrumentation.runOnMainSync { AppLanguages.select(context, tag) } }
-            instrumentation.waitForIdleSync()
-            return block()
-        } finally {
-            oldTag?.let { tag -> instrumentation.runOnMainSync { AppLanguages.select(context, tag) } }
-            oldScale?.let { old ->
-                if (old.isEmpty() || old == "null") AppTestEnvironmentRule.shell("settings delete system font_scale")
-                else AppTestEnvironmentRule.shell("settings put system font_scale $old")
+/**
+ * Setzt die [DeviceOverride] der Testmethode allein für die Oberfläche der App ([TestDisplayOverride]: Schrift, Sprache,
+ * Leserichtung in Compose) — nicht systemweit, ohne `settings put` und ohne Wechsel der App-Sprache. Darum bleibt nichts
+ * für die übrigen Tests zurück (der Versuch in Build 130 über die Gerätekonfiguration stellte nicht sauber zurück und
+ * brachte danach `UiFlowsTest` zum Absturz). Muss vor der Compose-Regel stehen (`order` kleiner), damit die Activity
+ * gleich mit der Einstellung zeichnet; danach immer zurückgesetzt. Ohne Annotation tut die Regel nichts.
+ */
+class DeviceOverridesRule : TestRule {
+    override fun apply(base: Statement, description: Description): Statement {
+        val config = description.getAnnotation(DeviceOverride::class.java) ?: return base
+        return object : Statement() {
+            override fun evaluate() {
+                TestDisplayOverride.fontScale = config.fontScale
+                TestDisplayOverride.languageTag = config.language
+                try {
+                    base.evaluate()
+                } finally {
+                    TestDisplayOverride.reset()
+                }
             }
-            instrumentation.waitForIdleSync()
-        }
-    }
-
-    /** Setzt `font_scale` und wartet, bis das System die neue Grösse meldet (höchstens [SETTLE_MS]). */
-    private fun setFontScale(scale: Float) {
-        AppTestEnvironmentRule.shell("settings put system font_scale $scale")
-        val until = SystemClock.uptimeMillis() + SETTLE_MS
-        while (abs(Resources.getSystem().configuration.fontScale - scale) > 0.01f &&
-            SystemClock.uptimeMillis() < until
-        ) {
-            SystemClock.sleep(100)
         }
     }
 }

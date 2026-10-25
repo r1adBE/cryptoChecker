@@ -95,31 +95,34 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            CryptoCheckerTheme(
-                dark = settings.darkMode ?: isSystemInDarkTheme(),
-                accent = settings.accentColor,
-                priceColors = settings.priceColorScheme,
-                highContrast = rememberHighContrast(settings.highContrast),
-                priceColorsInverted = settings.priceColorsInverted,
-            ) {
-                // Coin-Logos je Schalter (App, Portfolio); aus → null, keine Plakette
-                val repositorySource = remember { RepositoryLogoSource(coinLogoRepository) }
-                CompositionLocalProvider(
-                    LocalCoinLogoSource provides repositorySource.takeIf { settings.coinLogos },
-                    LocalPortfolioCoinLogoSource provides repositorySource.takeIf { settings.portfolioCoinLogos },
-                    LocalCoinNameSource provides repositorySource.takeIf { settings.watchlistNames },
-                    LocalCoinSearchNameSource provides repositorySource,
+            // Nur in instrumentierten Tests gesetzt (Audit mit grosser Schrift / Arabisch), sonst unverändert
+            TestDisplayOverride.Provide {
+                CryptoCheckerTheme(
+                    dark = settings.darkMode ?: isSystemInDarkTheme(),
+                    accent = settings.accentColor,
+                    priceColors = settings.priceColorScheme,
+                    highContrast = rememberHighContrast(settings.highContrast),
+                    priceColorsInverted = settings.priceColorsInverted,
                 ) {
-                    // Die App ist nie ganz gesperrt: Die Portfolio-Sperre prüft AppNavHost
-                    // für den Portfolio-Tab und seine Unterseiten.
-                    // Benachrichtigungs-Erlaubnis erst, wenn eine Meldung eingeschaltet wird.
-                    AppNavHost(
-                        navigation = navController,
-                        openTarget = openTarget.value,
-                        onOpenTargetHandled = { openTarget.value = null }
-                    )
-                    // F-08: Frage vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
-                    com.cryptochecker.app.ui.components.WatchlistNotSavedGateHost()
+                    // Coin-Logos je Schalter (App, Portfolio); aus → null, keine Plakette
+                    val repositorySource = remember { RepositoryLogoSource(coinLogoRepository) }
+                    CompositionLocalProvider(
+                        LocalCoinLogoSource provides repositorySource.takeIf { settings.coinLogos },
+                        LocalPortfolioCoinLogoSource provides repositorySource.takeIf { settings.portfolioCoinLogos },
+                        LocalCoinNameSource provides repositorySource.takeIf { settings.watchlistNames },
+                        LocalCoinSearchNameSource provides repositorySource,
+                    ) {
+                        // Die App ist nie ganz gesperrt: Die Portfolio-Sperre prüft AppNavHost
+                        // für den Portfolio-Tab und seine Unterseiten.
+                        // Benachrichtigungs-Erlaubnis erst, wenn eine Meldung eingeschaltet wird.
+                        AppNavHost(
+                            navigation = navController,
+                            openTarget = openTarget.value,
+                            onOpenTargetHandled = { openTarget.value = null }
+                        )
+                        // F-08: Frage vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
+                        com.cryptochecker.app.ui.components.WatchlistNotSavedGateHost()
+                    }
                 }
             }
         }

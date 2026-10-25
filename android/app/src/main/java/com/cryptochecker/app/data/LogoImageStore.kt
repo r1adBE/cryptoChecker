@@ -345,7 +345,12 @@ class LogoImageStore @Inject constructor(
         /** Bild-Abrufe gleichzeitig: insgesamt und je Server (CoinGecko, Binance). */
         const val MAX_PARALLEL_DOWNLOADS = 12
         const val PER_HOST_PARALLEL = 6
-        const val MAX_IMAGE_BYTES = 512L * 1024
+        /**
+         * Höchstgrösse eines Quellbilds (wie iOS `CoinLogoStore.maxImageBytes`): 4 MB — Binance lädt Logos seit 2025
+         * in hoher Auflösung hoch (über 512 KB, dann standen Initialen). Gespeichert wird nur das verkleinerte Bild
+         * ([CoinLogos.STORED_PX]); die Pixel-Grenze [CoinLogos.MAX_SOURCE_PIXELS] bleibt.
+         */
+        const val MAX_IMAGE_BYTES = 4L * 1024 * 1024
 
         /** Bremst ein Server höchstens so kurz, werden seine Bilder nach der Pause gleich nachgeholt. */
         const val SHORT_PAUSE_MAX_MILLIS = 2 * 60_000L

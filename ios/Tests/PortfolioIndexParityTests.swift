@@ -37,9 +37,10 @@ final class PortfolioIndexParityTests: XCTestCase {
                     let qty = whole ? amount : amount * Decimal(Int(1 + rng.next() % 9)) / 10
                     let removed = qty == amount ? cost : PortfolioDecimal.divide(cost * qty, amount)
                     let expectedTaken = PortfolioCostParts.take(&plain, total: cost, target: removed)
-                    let taken = lot.takeCost(qty)
+                    let taken = lot.take(qty)
                     XCTAssertEqual(taken?.cost, removed, "Runde \(round) Schritt \(step)")
-                    XCTAssertEqual(taken?.parts, expectedTaken, "Runde \(round) Schritt \(step)")
+                    XCTAssertEqual(taken.map { PortfolioFifo.parts($0.entries, total: $0.cost) }, expectedTaken,
+                                   "Runde \(round) Schritt \(step)")
                     cost -= removed
                     amount -= qty
                     if plain.isEmpty { emptied += 1 }
@@ -49,7 +50,7 @@ final class PortfolioIndexParityTests: XCTestCase {
                 }
                 XCTAssertEqual(lot.parts, plain, "Runde \(round) Schritt \(step)")
             }
-            XCTAssertEqual(lot.takeCost(lot.amount)?.cost, cost, "Runde \(round) Rest")
+            XCTAssertEqual(lot.take(lot.amount)?.cost, cost, "Runde \(round) Rest")
             _ = PortfolioCostParts.take(&plain, total: cost, target: cost)
             XCTAssertEqual(lot.parts, plain, "Runde \(round) Rest")
         }

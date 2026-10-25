@@ -9,6 +9,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.carry
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.consume
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.insert
 import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spread
+import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spreadQueue
 
 /**
  * FIFO-Buchhaltung eines Coins (reines Kotlin, Spiegel: `Shared/Portfolio/PortfolioFifo.swift`):
@@ -43,7 +44,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spread
  *  - Herkunft des Einstands: jeder Posten führt seinen Einstand in Teilen mit Zeitpunkt ([PortfolioCostPart]: Erwerb,
  *    zugeschlagene Umbuchungsgebühr zum Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen);
  *    ein Abgang nimmt die Teile anteilig mit ([PortfolioDisposal.costParts]) — der Steuer-Export rechnet so jeden Teil
- *    zum Devisenkurs SEINES Datums um (Posten 2018 + Umbuchungsgebühr 2024: je zum eigenen Kurs). US-Übergang
+ *    zum Devisenkurs SEINES Datums um (Posten 2018 + Umbuchungsgebühr 2024: je zum eigenen Kurs; Umbuchungsgebühr einmal
+ *    je Umbuchung, gerechnet erst beim Auslesen: [PortfolioFifoParts]). US-Übergang
  *    ([TaxEngines.usTransition]): Anfangsposten tragen nur ihr Erwerbsdatum (Steuerwährung USD, Kurs 1).
  *  - Gebühr im dritten Coin: im Gebühr-Coin eine Veräusserung (FIFO) zum Gebühr-Preis ([PortfolioDisposal.feeLeg]);
  *    Gewinn nur mit Gebühr-Preis bekannt. In der Haupttransaktion zählt ihr Wert zum Einstand (Kauf) bzw.
@@ -199,7 +201,7 @@ internal object PortfolioFifo {
                     amount = s.amount, costUsdt = s.cost, proceedsUsdt = share, gainUsdt = gain,
                     holdingDays = holdingDays(s.lot.acquired, t.time),
                     feeLeg = feeLeg, feeValueMissing = feeMissing, method = method,
-                    costParts = s.parts,
+                    costParts = if (s.cost != null && s.entries.isNotEmpty()) PortfolioFifoParts(s.entries, s.cost) else emptyList(),
                     wallet = wallet, swap = swap, gift = gift, payment = payment, valueEstimated = estimated,
                 )
             }
@@ -332,18 +334,18 @@ internal object PortfolioFifo {
                         // Netzwerkgebühr zuerst (älteste Posten der Quelle); ihr Einstand wandert mit
                         val carried = consume(src, coinFee)
                         val moved = consume(src, amount).map { s ->
-                            Lot(s.lot.txId, s.lot.acquired, s.lot.time, s.lot.kind, s.amount, s.cost, s.parts)
+                            Lot(s.lot.txId, s.lot.acquired, s.lot.time, s.lot.kind, s.amount, s.cost, s.entries)
                         }
                         // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil
                         // ohne Kaufpreis und der Anteil der nicht angekommenen Menge werden vermerkt
-                        if (feeValue == null && moved.any { it.cost != null }) feeValueMissing = true
+                        if (feeValue == null && moved.any { it.priced }) feeValueMissing = true
                         val movedAmount = moved.fold(zero) { acc, l -> acc + l.amount }
                         val lost = PortfolioFeeExpenses.transferUncovered(t, movedAmount)
                         unassign(t, lost + spread(moved, t.quoteFee + (feeValue ?: zero) - lost, movedAmount, t.time))
                         // Nächster Posten mit Kaufpreis: verschoben, Rest der Quelle, sonst im Ziel; erst ohne jeden
                         // wartet der Einstand (bei den verschobenen Coins im Ziel, sonst in der Quelle)
-                        val target = moved.firstOrNull { it.cost != null } ?: src.lots.firstOrNull { it.cost != null }
-                            ?: dst.lots.firstOrNull { it.cost != null }
+                        val target = moved.firstOrNull { it.priced } ?: src.lots.firstOrNull { it.priced }
+                            ?: dst.lots.firstOrNull { it.priced }
                         carry(symbol, target, if (moved.isEmpty()) src else dst, t, carried)
                         moved.forEach { insert(dst, it) }
                         continue
@@ -357,30 +359,28 @@ internal object PortfolioFifo {
                     if (h.signum() <= 0) { unassign(t, lost); continue }
                     // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der
                     // Anteil der Posten ohne Kaufpreis wird vermerkt
-                    if (feeValue == null && q.lots.any { it.cost != null }) feeValueMissing = true
-                    unassign(t, lost + spread(q.lots, t.quoteFee + (feeValue ?: zero) - lost, h, t.time))
+                    if (feeValue == null && q.hasPriced) feeValueMissing = true
+                    unassign(t, lost + spreadQueue(q, t.quoteFee + (feeValue ?: zero) - lost, h, t.time))
                     // Netzwerkgebühr im Coin: Menge sinkt (älteste zuerst), ihr Einstand geht auf den nächsten
                     // Posten mit Kaufpreis über (Begründung oben: Kosten des Haltens, keine Veräusserung)
                     if (coinFee.signum() > 0) {
                         val carried = consume(q, coinFee)
-                        carry(symbol, q.lots.firstOrNull { it.cost != null }, q, t, carried)
+                        carry(symbol, q.lots.firstOrNull { it.priced }, q, t, carried)
                     }
                 }
             }
         }
-
         var priced = zero
         var unpriced = zero
         var cost = zero
         val outLots = ArrayList<PortfolioLot>()
-        val openParts = ArrayList<PortfolioCostPart>()
         // Gebühr-Einstand, für den bis zum Ende kein Posten mit Kaufpreis kam: vermerkt (zeitlich)
         queues.values.flatMapTo(lostFeeCosts) { it.pendingLost }
         lostFeeCosts.sortWith(compareBy<PortfolioLostFeeCost> { it.time }.thenBy { it.txId })
         for (q in queues.values) {
             for (l in q.lots) {
                 val lotCost = l.cost
-                if (lotCost != null) { priced += l.amount; cost += lotCost; openParts += l.parts } else unpriced += l.amount
+                if (lotCost != null) { priced += l.amount; cost += lotCost } else unpriced += l.amount
                 outLots += PortfolioLot(symbol, l.txId, l.acquired, l.kind, l.amount, l.cost, walletOf(q))
             }
         }
@@ -394,7 +394,7 @@ internal object PortfolioFifo {
             shortfalls = shortfalls,
             lostFeeCosts = lostFeeCosts,
             unassignedFees = unassignedFees,
-            openParts = openParts,
+            openParts = PortfolioFifoParts.openParts(queues.values, cost),
         )
     }
 }
