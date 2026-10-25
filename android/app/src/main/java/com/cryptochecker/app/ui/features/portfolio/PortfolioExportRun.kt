@@ -156,9 +156,12 @@ class ExportRunner<T : Any>(
         job = null
         current = null
         _state.value = CutoffExportState.Idle
-        scope.launch(NonCancellable) {
-            running.cancelAndJoin()
-            if (to != null) target.delete(to)
+        // Sofort betreten und nicht abbrechbar: das Löschen läuft auch, wenn der Bereich gerade endet (Seite verlassen)
+        scope.launch(start = CoroutineStart.UNDISPATCHED) {
+            withContext(NonCancellable) {
+                running.cancelAndJoin()
+                if (to != null) target.delete(to)
+            }
         }
     }
 
