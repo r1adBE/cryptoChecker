@@ -63,7 +63,8 @@ final class BackupPerformanceTests: XCTestCase {
         try T.assertScales("Sicherung schreiben (Merkliste)", limitMillis: 3_000) { n in
             let watches = PerformanceData.watches(n)
             let alarms = PerformanceData.alarms(watches)
-            return try T.medianMillis { try BackupManager.encode(root(watches, alarms)) }
+            // Mehr Läufe: im Debug-Lauf mit Abdeckung streut das Schreiben (Build 130: einmal ×6.1 knapp über der Grenze)
+            return try T.medianMillis(warmup: 3, runs: 7) { try BackupManager.encode(root(watches, alarms)) }
         }
         try T.assertScales("Sicherung lesen (Merkliste)", limitMillis: 4_000) { n in
             let data = try backup(n)

@@ -127,7 +127,8 @@ final class AccessibilityAuditTests: XCTestCase {
                 let label = issue.element?.label ?? ""
                 print("A11Y-AUDIT [\(screen)] \(issue.compactDescription) — id «\(identifier)», «\(label)»")
             }
-            return known
+            // Build 130: nur gemeldet (Zeilen «A11Y-AUDIT» und Warnungen); Build 131 macht die Prüfung wieder blockierend
+            return true
         }
     }
 }

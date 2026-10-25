@@ -2472,8 +2472,8 @@ after the encryption step.
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
 * Build 130: iOS `AppData+SnapshotLoad` (launch read off main, `whenSnapshotLoaded`/`waitForSnapshot`, guarded
   accessors, `WatchlistLoadingRows`), `AppStatus` (@Observable: online, appStartMillis, watchlistSavePending,
-  watchlistLockedHints). `PortfolioDecimal.mantissaDigits`. Accessibility audits blocking again (iOS, with tab bar
-  exception by position; Android in standard size – large text, Arabic and the alerts overview follow).
+  watchlistLockedHints). `PortfolioDecimal.mantissaDigits`. Accessibility audits: iOS still report-only in build 130
+  (findings as warnings; blocking again in 131, tab bar exception by position); Android in standard size.
   Android widget lock end: `WidgetRefreshUnlock.hold` sends a broadcast to `PriceWidgetProvider` that waits with
   goAsync in steps of at most 6 s (`holdStep`) and then redraws – a running receiver keeps the process from being
   frozen, so the chronometer never counts below zero; the alarm (now waking, allow-while-idle) stays as fallback.
