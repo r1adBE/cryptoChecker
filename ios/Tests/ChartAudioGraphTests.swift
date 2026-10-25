@@ -31,8 +31,8 @@ final class ChartAudioGraphTests: XCTestCase {
         XCTAssertEqual(series.name, "BTC/USDT")
         XCTAssertTrue(series.isContinuous)
         XCTAssertEqual(series.dataPoints.count, 4)
-        XCTAssertEqual(series.dataPoints[1].xValue.number, Double(start + hour))
-        XCTAssertEqual(series.dataPoints[2].yValue?.number, 90)
+        XCTAssertEqual(Self.number(series.dataPoints[1].xValue), Double(start + hour))
+        XCTAssertEqual(series.dataPoints[2].yValue.flatMap(Self.number), 90)
 
         let xAxis = try XCTUnwrap(descriptor.xAxis as? AXNumericDataAxisDescriptor)
         XCTAssertEqual(xAxis.title, "Time")
@@ -91,5 +91,11 @@ final class ChartAudioGraphTests: XCTestCase {
         let yAxis = try XCTUnwrap(descriptor.yAxis)
         XCTAssertEqual(yAxis.range, -1.5...4.0)
         XCTAssertEqual(yAxis.title, "Change")
+    }
+
+    /// Zahl eines Datenpunkts (Audio Graph speichert x/y als Zahl oder Kategorie).
+    private static func number(_ value: AXDataPointValue) -> Double? {
+        if case .number(let n) = value { return n }
+        return nil
     }
 }
