@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Devisenkurs USD → Zielwährung für die Umrechnungszeile im Portfolio — wie `FxRateSource.kt`.
 /// USDT gilt als USD. Quelle: Frankfurter (EZB, ohne Schlüssel), sonst
@@ -17,14 +18,19 @@ enum FxRateSource {
     private static let ttlMillis: Int64 = CurrencyConversion.fxStaleMillis
     private static let staleMillis: Int64 = 24 * 60 * 60_000
 
-    private static let lock = NSLock()
-    // nonisolated(unsafe) (`cache`, `rateTimes`, `bgnMissedAt`): jeder Zugriff nur unter `lock` (NSLock)
-    /// Währung → (Kurs, Abfragezeit).
-    nonisolated(unsafe) private static var cache: [String: (rate: Double, at: Int64)] = [:]
+    /// Zwischenspeicher der Kurse, zusammen hinter einer Sperre.
+    private struct Memory: Sendable {
+        /// Währung → (Kurs, Abfragezeit).
+        var cache: [String: (rate: Double, at: Int64)] = [:]
+        /// Währung → Zeitpunkt des Kurses laut Quelle (EZB-Datum bzw. letzte Aktualisierung von open.er-api), für
+        /// das Alter im Fiat-Alarm (`rateTime`); fehlt er, gilt die Abrufzeit.
+        var rateTimes: [String: Int64] = [:]
+        /// Letzter Abruf ohne eigenen BGN-Kurs (Epoch-ms).
+        var bgnMissedAt: Int64?
+    }
+
+    private static let memory = OSAllocatedUnfairLock(initialState: Memory())
     private static let gate = PortfolioSerialGate()
-    /// Währung → Zeitpunkt des Kurses laut Quelle (EZB-Datum bzw. letzte Aktualisierung von open.er-api), für das Alter
-    /// im Fiat-Alarm (`rateTime`); fehlt er, gilt die Abrufzeit.
-    nonisolated(unsafe) private static var rateTimes: [String: Int64] = [:]
 
     /// Dreistelliger Code aus A–Z, z. B. «CHF».
     static func isCurrencyCode(_ code: String) -> Bool {
@@ -70,17 +76,12 @@ enum FxRateSource {
         return derivedBgn(currency: target, usdToEur: eur)
     }
 
-    /// Letzter Abruf ohne eigenen BGN-Kurs (Epoch-ms).
-    nonisolated(unsafe) private static var bgnMissedAt: Int64?
-
     private static func bgnMissed() -> Int64? {
-        lock.lock(); defer { lock.unlock() }
-        return bgnMissedAt
+        memory.withLock { $0.bgnMissedAt }
     }
 
     private static func setBgnMissed(_ time: Int64) {
-        lock.lock(); defer { lock.unlock() }
-        bgnMissedAt = time
+        memory.withLock { $0.bgnMissedAt = time }
     }
 
     private static func loadUsdTo(_ target: String) async -> Double? {
@@ -132,8 +133,7 @@ enum FxRateSource {
         let now = TimeUtils.nowMillis
         let ownFresh = entry(target).map { now - $0.at >= 0 && now - $0.at < staleMillis } ?? false
         let code = !ownFresh && target == "BGN" ? "EUR" : target
-        lock.lock(); defer { lock.unlock() }
-        return rateTimes[code] ?? fetched
+        return memory.withLock { $0.rateTimes[code] } ?? fetched
     }
 
     /// Kurs und Abrufzeit aus dem Zwischenspeicher (höchstens 24 h alt); BGN ohne eigenen aus EUR (`fxWithTime`).
@@ -158,14 +158,14 @@ enum FxRateSource {
     }
 
     private static func entry(_ code: String) -> (rate: Double, at: Int64)? {
-        lock.lock(); defer { lock.unlock() }
-        return cache[code]
+        memory.withLock { $0.cache[code] }
     }
 
     private static func put(_ code: String, _ rate: Double, at time: Int64, rateTime: Int64? = nil) {
-        lock.lock(); defer { lock.unlock() }
-        cache[code] = (rate: rate, at: time)
-        rateTimes[code] = rateTime
+        memory.withLock {
+            $0.cache[code] = (rate: rate, at: time)
+            $0.rateTimes[code] = rateTime
+        }
     }
 
     /// Kurs und Zeitpunkt des EZB-Tageskurses («date», `FiatAlarmGuard.rateTime(ofIsoDate:)`).

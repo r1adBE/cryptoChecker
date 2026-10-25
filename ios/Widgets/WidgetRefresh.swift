@@ -55,50 +55,46 @@ enum WidgetRefresh {
 
     /// Läuft gerade eine Aktualisierung aus den Widgets (in diesem Prozess oder, innerhalb der Frist, anderswo)?
     static var isRunning: Bool {
-        runLock.lock()
-        let inProcess = runningInProcess
-        runLock.unlock()
+        let inProcess = runningInProcess.withLock { $0 }
         return inProcess || runningSince > 0
     }
 
     /// Beginn der laufenden Aktualisierung aus den Widgets (ms, innerhalb der Frist); 0 = keine. Das
     /// Merkliste-Widget unterscheidet so eine neu begonnene von der eben fertigen (`WidgetRefreshState.blockedUntil`).
     static var runningSince: Int64 {
-        runLock.lock()
-        defer { runLock.unlock() }
-        let running = Int64(SharedStorage.defaults.double(forKey: runningKey))
-        let age = TimeUtils.nowMillis - running
-        return running > 0 && age >= 0 && age < runningTimeoutMillis ? running : 0
+        runningInProcess.withLock { _ in
+            let running = Int64(SharedStorage.defaults.double(forKey: runningKey))
+            let age = TimeUtils.nowMillis - running
+            return running > 0 && age >= 0 && age < runningTimeoutMillis ? running : 0
+        }
     }
 
     /// Schützt Prüfen und Setzen von `runningKey` im selben Prozess: zwei gleichzeitige Timeline-Anfragen sahen sonst
     /// beide «frei» und aktualisierten doppelt. Prozessübergreifend bleibt der Zeitstempel in den App-Group-Defaults.
-    private static let runLock = NSLock()
-    /// Läuft in diesem Prozess gerade eine Aktualisierung? Nur unter `runLock` lesen oder schreiben.
-    // nonisolated(unsafe): jeder Zugriff nur unter `runLock` (NSLock)
-    nonisolated(unsafe) private static var runningInProcess = false
+    /// Zustand der Sperre: Läuft in diesem Prozess gerade eine Aktualisierung?
+    private static let runningInProcess = OSAllocatedUnfairLock(initialState: false)
 
     /// Aktualisierung übernehmen (atomar im Prozess); false = läuft schon (hier oder, innerhalb der Frist, anderswo).
     private static func claimRun(started: Int64) -> Bool {
-        runLock.lock()
-        defer { runLock.unlock() }
-        guard !runningInProcess else { return false }
-        let defaults = SharedStorage.defaults
-        let running = Int64(defaults.double(forKey: runningKey))
-        if running > 0, started - running >= 0, started - running < runningTimeoutMillis { return false }
-        defaults.set(Double(started), forKey: runningKey)
-        runningInProcess = true
-        return true
+        runningInProcess.withLock { inProcess in
+            guard !inProcess else { return false }
+            let defaults = SharedStorage.defaults
+            let running = Int64(defaults.double(forKey: runningKey))
+            if running > 0, started - running >= 0, started - running < runningTimeoutMillis { return false }
+            defaults.set(Double(started), forKey: runningKey)
+            inProcess = true
+            return true
+        }
     }
 
     /// Nur der Besitzer gibt frei: Den Zeitstempel löschen, solange es noch der eigene ist (hat nach Ablauf der Frist
     /// ein anderer Prozess übernommen, bleibt dessen Merker stehen).
     private static func releaseRun(started: Int64) {
-        runLock.lock()
-        defer { runLock.unlock() }
-        runningInProcess = false
-        let defaults = SharedStorage.defaults
-        if Int64(defaults.double(forKey: runningKey)) == started { defaults.removeObject(forKey: runningKey) }
+        runningInProcess.withLock { inProcess in
+            inProcess = false
+            let defaults = SharedStorage.defaults
+            if Int64(defaults.double(forKey: runningKey)) == started { defaults.removeObject(forKey: runningKey) }
+        }
     }
 
     /// Ist der letzte misslungene Versuch jünger als `retryAfterMillis`? (Uhr zurückgestellt: nein.)
@@ -211,25 +207,26 @@ enum WidgetRefresh {
 }
 
 /// Lässt eine Fortsetzung genau einmal weiterlaufen (Ergebnis oder Zeitgrenze).
-private final class WidgetDeadlineGate: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var continuation: CheckedContinuation<Bool, Never>?
-    private var done = false
+private final class WidgetDeadlineGate: Sendable {
+    private struct State: Sendable {
+        var continuation: CheckedContinuation<Bool, Never>?
+        var done = false
+    }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     func set(_ c: CheckedContinuation<Bool, Never>) {
-        lock.lock()
-        continuation = c
-        lock.unlock()
+        state.withLock { $0.continuation = c }
     }
 
     /// true, wenn dieser Aufruf die Fortsetzung ausgelöst hat.
     func finish(_ value: Bool) -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        guard !done, let c = continuation else { return false }
-        done = true
-        continuation = nil
-        c.resume(returning: value)
-        return true
+        state.withLock { s in
+            guard !s.done, let c = s.continuation else { return false }
+            s.done = true
+            s.continuation = nil
+            c.resume(returning: value)
+            return true
+        }
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Funding Rate und Open Interest eines Perpetual-Kontrakts.
 struct FuturesInfo: Equatable, Sendable {
@@ -336,28 +337,24 @@ enum FuturesDataSource {
     }
 }
 
-/// Abrechnungsintervalle von Binance (Symbol → Stunden), prozessweit; mit Lock wie die anderen Caches
+/// Abrechnungsintervalle von Binance (Symbol → Stunden), prozessweit; hinter einer Sperre wie die anderen Caches
 /// (mehrere Abfragen können gleichzeitig lesen und schreiben).
 private enum BinanceIntervalCache {
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var stored: (time: Int64, map: [String: Int])?
+    private static let stored = OSAllocatedUnfairLock<(time: Int64, map: [String: Int])?>(initialState: nil)
 
     static var value: (time: Int64, map: [String: Int])? {
-        get { lock.lock(); defer { lock.unlock() }; return stored }
-        set { lock.lock(); stored = newValue; lock.unlock() }
+        get { stored.withLock { $0 } }
+        set { stored.withLock { $0 = newValue } }
     }
 }
 
-/// Kontraktwerte von Binance COIN-M (Symbol → USD je Kontrakt), prozessweit; mit Lock wie
+/// Kontraktwerte von Binance COIN-M (Symbol → USD je Kontrakt), prozessweit; hinter einer Sperre wie
 /// `BinanceIntervalCache`.
 private enum BinanceCoinMSizeCache {
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var stored: (time: Int64, map: [String: Double])?
+    private static let stored = OSAllocatedUnfairLock<(time: Int64, map: [String: Double])?>(initialState: nil)
 
     static var value: (time: Int64, map: [String: Double])? {
-        get { lock.lock(); defer { lock.unlock() }; return stored }
-        set { lock.lock(); stored = newValue; lock.unlock() }
+        get { stored.withLock { $0 } }
+        set { stored.withLock { $0 = newValue } }
     }
 }

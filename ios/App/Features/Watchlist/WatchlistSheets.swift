@@ -67,7 +67,7 @@ extension WatchlistScreen {
                 .presentationBackground(AppColors.background)
             }
             .alert(L("group_add"), isPresented: $askNewGroup) {
-                TextField(L("group_name"), text: $newGroupName)
+                TextField(placeholder: L("group_name"), text: $newGroupName)
                     .textInputAutocapitalization(.words)
                 Button(L("group_next")) { startNewGroup() }
                 Button(L("action_cancel"), role: .cancel) {}

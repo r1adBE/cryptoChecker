@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Tagesschlüsse eines Coins und wie viele Tage bis heute dafür abgefragt wurden (`span`);
 /// `ranges` = Eröffnung/Hoch/Tief derselben Kerzen (nil bei Einträgen älterer Versionen — Kerzen
@@ -75,13 +76,14 @@ enum PortfolioHistorySource {
         (host: "api.binance.com", endpoint: "https://api.binance.com/api/v3/klines"),
     ]
 
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Begrenzt (`BoundedCache`, 512 Coins
-    // wie `MEMORY_CACHE_ENTRIES` in PortfolioHistorySource.kt, Android) statt unbegrenzter Wörterbücher.
+    // Je hinter einer Sperre mit Zustand. Begrenzt (`BoundedCache`, 512 Coins wie `MEMORY_CACHE_ENTRIES` in
+    // PortfolioHistorySource.kt, Android) statt unbegrenzter Wörterbücher.
     /// Coin → (Schlüsse samt Spanne, Abfragezeit); leere Karte = kein Binance-Paar.
-    nonisolated(unsafe) private static var memory = BoundedCache<String, (entry: PortfolioCoinCloses, at: Int64)>()
+    private static let memory = OSAllocatedUnfairLock(
+        initialState: BoundedCache<String, (entry: PortfolioCoinCloses, at: Int64)>())
     /// Coin → (eigene Tageskerzen in USDT, Abfragezeit).
-    nonisolated(unsafe) private static var ownMemory = BoundedCache<String, (entry: PortfolioOwnCloses, at: Int64)>()
+    private static let ownMemory = OSAllocatedUnfairLock(
+        initialState: BoundedCache<String, (entry: PortfolioOwnCloses, at: Int64)>())
     /// Eigene Tageskerzen höchstens so viele (Grenze der eigenen Kerzen); davor Binance angeglichen.
     private static let maxOwnDays = 1000
 
@@ -209,13 +211,11 @@ enum PortfolioHistorySource {
     }
 
     private static func cachedOwn(_ coin: String) -> (entry: PortfolioOwnCloses, at: Int64)? {
-        lock.lock(); defer { lock.unlock() }
-        return ownMemory.get(coin)
+        ownMemory.withLock { $0.get(coin) }
     }
 
     private static func rememberOwn(_ coin: String, _ entry: PortfolioOwnCloses, at: Int64) {
-        lock.lock(); defer { lock.unlock() }
-        ownMemory.set(coin, (entry: entry, at: at))
+        ownMemory.withLock { $0.set(coin, (entry: entry, at: at)) }
     }
 
     /// Eigene Tageskerzen (USDT) des Wegs `route`: Speicher, Gerät, sonst Abfrage; nil = keine.
@@ -293,13 +293,11 @@ enum PortfolioHistorySource {
     }
 
     private static func cached(_ coin: String) -> (entry: PortfolioCoinCloses, at: Int64)? {
-        lock.lock(); defer { lock.unlock() }
-        return memory.get(coin)
+        memory.withLock { $0.get(coin) }
     }
 
     private static func remember(_ coin: String, _ entry: PortfolioCoinCloses, at: Int64) {
-        lock.lock(); defer { lock.unlock() }
-        memory.set(coin, (entry: entry, at: at))
+        memory.withLock { $0.set(coin, (entry: entry, at: at)) }
     }
 
     private static func closes(of coin: String, span: Int) async -> PortfolioCoinCloses? {

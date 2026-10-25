@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.portfolio.WatchedAddressSource
 import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
@@ -30,6 +31,17 @@ class AddressPrivacyParityTest {
         assertEquals(fixture["userAgent"], HttpUserAgent.NEUTRAL)
         for (part in fixture["forbiddenParts"].list()) {
             assertFalse("$part im User-Agent", HttpUserAgent.NEUTRAL.contains(part as String, ignoreCase = true))
+        }
+    }
+
+    /** Weder App-Name noch App-Version (Beispiele und Version dieser App), wie iOS. */
+    @Test
+    fun neutralerUserAgentOhneAppNameUndVersion() {
+        val versions = fixture["appVersionSamples"].list().map { it as String } + BuildConfig.VERSION_NAME
+        for (version in versions) {
+            val appAgent = HttpUserAgent.android(version)
+            assertFalse(appAgent, HttpUserAgent.NEUTRAL.contains(appAgent, ignoreCase = true))
+            assertFalse("Version $version im User-Agent", HttpUserAgent.NEUTRAL.contains(version.trim()))
         }
     }
 

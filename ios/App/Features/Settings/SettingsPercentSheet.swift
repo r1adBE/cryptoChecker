@@ -25,7 +25,7 @@ struct SettingsPercentSheet: View {
         NavigationStack {
             VStack(alignment: .leading, spacing: Spacing.sm) {
                 HStack(spacing: Spacing.sm) {
-                    TextField("0", text: $text)
+                    TextField(placeholder: "0", text: $text)
                         .keyboardType(.decimalPad)
                         .focused($focused)
                         .onChange(of: text) { _, value in

@@ -1,11 +1,11 @@
 {
-  "description": "Short messages at the bottom (Android AppSnackbarHost / iOS snackbar surface): colour of the 1.5 dp/pt border and leading symbol per kind x price-colour scheme x accent (null = without accent) x dark x highContrast, as RGB hex (null = INFO: no coloured border, no symbol). SUCCESS = the scheme's rising colour without swap (never the swapped colour: success is not a price direction), ERROR = the app error colour (light B8361A, dark FF5833, unchanged in high contrast), but with a colour-vision scheme (BLUE_ORANGE, CALM_COLOR_VISION) the scheme's falling colour without swap. Derived from price_colors.json (inverted = false); the 'Swap colours' setting never changes these values.",
+  "description": "Short messages at the bottom (Android AppSnackbarHost / iOS snackbar surface): colour of the 1.5 dp/pt border and leading symbol per kind x price-colour scheme x accent (null = without accent) x dark x highContrast, as RGB hex (null = INFO: no coloured border, no symbol). SUCCESS = the scheme's rising colour without swap (never the swapped colour: success is not a price direction), ERROR = the app error colour (light B13419, dark FF5833, unchanged in high contrast), but with a colour-vision scheme (BLUE_ORANGE, CALM_COLOR_VISION) the scheme's falling colour without swap. Derived from price_colors.json (inverted = false); the 'Swap colours' setting never changes these values.",
   "colorVisionSchemes": [
     "BLUE_ORANGE",
     "CALM_COLOR_VISION"
   ],
   "error": {
-    "light": "B8361A",
+    "light": "B13419",
     "dark": "FF5833"
   },
   "cases": [
@@ -23,7 +23,7 @@
       "accent": null,
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -47,7 +47,7 @@
       "accent": null,
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -119,7 +119,7 @@
       "accent": "ORANGE",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -143,7 +143,7 @@
       "accent": "ORANGE",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -215,7 +215,7 @@
       "accent": "RED",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -239,7 +239,7 @@
       "accent": "RED",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -311,7 +311,7 @@
       "accent": "BLUE",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -335,7 +335,7 @@
       "accent": "BLUE",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -407,7 +407,7 @@
       "accent": "GREEN",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -431,7 +431,7 @@
       "accent": "GREEN",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -503,7 +503,7 @@
       "accent": "MARRS_GREEN",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -527,7 +527,7 @@
       "accent": "MARRS_GREEN",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -599,7 +599,7 @@
       "accent": null,
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -623,7 +623,7 @@
       "accent": null,
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -695,7 +695,7 @@
       "accent": "ORANGE",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -719,7 +719,7 @@
       "accent": "ORANGE",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -791,7 +791,7 @@
       "accent": "RED",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -815,7 +815,7 @@
       "accent": "RED",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -887,7 +887,7 @@
       "accent": "BLUE",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -911,7 +911,7 @@
       "accent": "BLUE",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -983,7 +983,7 @@
       "accent": "GREEN",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1007,7 +1007,7 @@
       "accent": "GREEN",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1079,7 +1079,7 @@
       "accent": "MARRS_GREEN",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1103,7 +1103,7 @@
       "accent": "MARRS_GREEN",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1175,7 +1175,7 @@
       "accent": null,
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1199,7 +1199,7 @@
       "accent": null,
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1271,7 +1271,7 @@
       "accent": "ORANGE",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1295,7 +1295,7 @@
       "accent": "ORANGE",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1367,7 +1367,7 @@
       "accent": "RED",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1391,7 +1391,7 @@
       "accent": "RED",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1463,7 +1463,7 @@
       "accent": "BLUE",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1487,7 +1487,7 @@
       "accent": "BLUE",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1559,7 +1559,7 @@
       "accent": "GREEN",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1583,7 +1583,7 @@
       "accent": "GREEN",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1655,7 +1655,7 @@
       "accent": "MARRS_GREEN",
       "dark": false,
       "highContrast": false,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",
@@ -1679,7 +1679,7 @@
       "accent": "MARRS_GREEN",
       "dark": false,
       "highContrast": true,
-      "tone": "B8361A"
+      "tone": "B13419"
     },
     {
       "kind": "INFO",

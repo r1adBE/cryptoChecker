@@ -77,7 +77,7 @@ struct SettingsChoiceSearchField: View {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .accessibilityHidden(true)
-            TextField(placeholder, text: $query)
+            TextField(placeholder: placeholder, text: $query)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
                 .submitLabel(.search)

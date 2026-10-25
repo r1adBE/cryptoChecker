@@ -24,6 +24,11 @@ struct AlarmsOverviewScreen: View {
     /// stehen. Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
     @State private var refusedToggles = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var typeSize
+
+    /// Titel und Zahl passen zweizeilig nur bis `.xLarge` in die Navigationsleiste (feste Höhe); bei grösserer Schrift
+    /// steht die Zahl als erste Zeile des Inhalts, statt verkleinert zu werden — wie Android `COUNT_IN_BAR_MAX_SCALE`.
+    private var countInBar: Bool { typeSize <= .xLarge }
 
     /// Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie niemand).
     private var portfolioAlarms: [PortfolioAlarm] {
@@ -85,7 +90,7 @@ struct AlarmsOverviewScreen: View {
                             }
                         }
                     )
-                    .containerRelativeFrame(.vertical, alignment: .center)
+                    .emptyStateFrame()
                 }
                 // Eigenes Blatt mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
                 .sheet(isPresented: $pickPair, onDismiss: {
@@ -107,6 +112,11 @@ struct AlarmsOverviewScreen: View {
             } else {
                 ScrollView {
                     LazyVStack(spacing: 12) {
+                        if !countInBar {
+                            activeLine(active)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 4)
+                        }
                         NotificationsOffBanner()
                         // Hintergrundaktualisierung aus / Stromsparmodus: bei geschlossener App kommen dann keine Alarme
                         BackgroundOffBanner()
@@ -167,10 +177,7 @@ struct AlarmsOverviewScreen: View {
             ToolbarItem(placement: .principal) {
                 VStack(spacing: 0) {
                     Text(L("alarms_overview_title")).font(.headline)
-                    Text(L("alarms_overview_active", count: active))
-                        .font(.caption.monospacedDigit())
-                        .foregroundStyle(active > 0 ? accent.primary : AppColors.onSurfaceVariant)
-                        .contentTransition(.numericText(value: Double(active)))
+                    if countInBar { activeLine(active) }
                 }
                 .accessibilityElement(children: .combine)
                 .animation(.snappy, value: active)
@@ -194,6 +201,14 @@ struct AlarmsOverviewScreen: View {
                 .accessibilityLabel(L("alarm_log_title"))
             }
         }
+    }
+
+    /// «3 aktiv» — in der Leiste unter dem Titel oder (grosse Schrift) als erste Zeile des Inhalts.
+    private func activeLine(_ active: Int) -> some View {
+        Text(L("alarms_overview_active", count: active))
+            .font(.caption.monospacedDigit())
+            .foregroundStyle(active > 0 ? accent.primary : AppColors.onSurfaceVariant)
+            .contentTransition(.numericText(value: Double(active)))
     }
 
     private func groupCard(watch: Watch, items: [AlarmWithWatch]) -> some View {

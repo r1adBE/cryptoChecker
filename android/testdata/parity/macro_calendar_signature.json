@@ -1,0 +1,50 @@
+{
+  "_comment": "Macro calendar in the signed mirror manifest (MacroCalendar.kt / MacroCalendar.swift, mirror_data.py --signed-extra): the apps accept events.json from GitHub Pages only if its SHA-256 (bytes as served) is listed under manifestFile in a validly signed, fresh manifest; otherwise they keep their cache or the built-in calendar. Signatures made with a TEST key pair (publicKey), never with the real key. cases: text checked against the manifest named by «manifest» (with = lists macro_events.json, without = does not); accepted = events used, events = number of parsed events then.",
+  "manifestFile": "macro_events.json",
+  "url": "https://r1adbe.github.io/cryptoChecker/macro/events.json",
+  "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEjC8i8rF6sJYXYrpqY8dkzjq8zd+pKrqKWHSkwmyMp8EMCVEP2LFgG5P4jf3VUpYdEpaoC04VYrIVql/2C0yoeQ==",
+  "now": 1792000000000,
+  "manifests": {
+    "with": {
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"5cb9d6b9b903c4a2c5ff303b919529fac386c210c18720d191c12212f75bc574\",\"macro_events.json\":\"446b23041d8334620d31c1ebdc7bbde8cc6e9c5fa1cbb4412de505f98957f218\"},\"revoked\":[],\"v\":1}",
+      "signature": "MEQCIG4r72fuyP3Vq4Ypp7YzLhLOJXHoyeiRAFiYTdRZ6edAAiBq3TZHMOYqFMWxibeba7DocXpwrNY8QamzHHi5TNScdQ=="
+    },
+    "without": {
+      "manifest": "{\"created\":1791996400000,\"files\":{\"fng.txt\":\"5cb9d6b9b903c4a2c5ff303b919529fac386c210c18720d191c12212f75bc574\"},\"revoked\":[],\"v\":1}",
+      "signature": "MEUCIQCljprWfLZvUqjLyYvG+iggCNHHBzXSFKSCLms47a1x1gIgCv00B/uWsHDGGKYmTXnoESZ6+G7aeiaBd73e8HIxIU8="
+    }
+  },
+  "cases": [
+    {
+      "name": "unchanged file",
+      "manifest": "with",
+      "text": "{\"version\":1,\"generated\":\"2026-10-19T05:17:00Z\",\"source\":\"BLS, Federal Reserve, BEA\",\"events\":[{\"type\":\"CPI\",\"time\":\"2026-11-12T13:30:00Z\"},{\"type\":\"FOMC\",\"time\":\"2026-12-09T19:00:00Z\"}]}\n",
+      "accepted": true,
+      "events": 2
+    },
+    {
+      "name": "event time changed",
+      "manifest": "with",
+      "text": "{\"version\":1,\"generated\":\"2026-10-19T05:17:00Z\",\"source\":\"BLS, Federal Reserve, BEA\",\"events\":[{\"type\":\"CPI\",\"time\":\"2026-11-13T13:30:00Z\"},{\"type\":\"FOMC\",\"time\":\"2026-12-09T19:00:00Z\"}]}\n",
+      "accepted": false
+    },
+    {
+      "name": "event added",
+      "manifest": "with",
+      "text": "{\"version\":1,\"generated\":\"2026-10-19T05:17:00Z\",\"source\":\"BLS, Federal Reserve, BEA\",\"events\":[{\"type\":\"NFP\",\"time\":\"2026-11-06T13:30:00Z\"},{\"type\":\"CPI\",\"time\":\"2026-11-12T13:30:00Z\"},{\"type\":\"FOMC\",\"time\":\"2026-12-09T19:00:00Z\"}]}\n",
+      "accepted": false
+    },
+    {
+      "name": "trailing newline removed",
+      "manifest": "with",
+      "text": "{\"version\":1,\"generated\":\"2026-10-19T05:17:00Z\",\"source\":\"BLS, Federal Reserve, BEA\",\"events\":[{\"type\":\"CPI\",\"time\":\"2026-11-12T13:30:00Z\"},{\"type\":\"FOMC\",\"time\":\"2026-12-09T19:00:00Z\"}]}",
+      "accepted": false
+    },
+    {
+      "name": "unchanged but not listed",
+      "manifest": "without",
+      "text": "{\"version\":1,\"generated\":\"2026-10-19T05:17:00Z\",\"source\":\"BLS, Federal Reserve, BEA\",\"events\":[{\"type\":\"CPI\",\"time\":\"2026-11-12T13:30:00Z\"},{\"type\":\"FOMC\",\"time\":\"2026-12-09T19:00:00Z\"}]}\n",
+      "accepted": false
+    }
+  ]
+}

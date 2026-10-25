@@ -1,13 +1,13 @@
 import Foundation
+import os
 
 // Funding-Verlauf für «Warum?» (Teil von `FuturesDataSource`) — wie `fundingHistory` in `FuturesDataSource.kt`.
 
 extension FuturesDataSource {
     private typealias HistoryAttempt = (host: String, run: () async throws -> FundingHistory)
 
-    private static let historyLock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `historyLock` (NSLock)
-    nonisolated(unsafe) private static var historyCache: [String: (time: Int64, value: FundingHistory)] = [:]
+    private static let historyCache = OSAllocatedUnfairLock(
+        initialState: [String: (time: Int64, value: FundingHistory)]())
     private static let historyCacheMillis: Int64 = 10 * 60_000
 
     /// Die letzten `FundingTrendRules.limit` abgerechneten Funding Rates — gleiche Ausweich-Kette
@@ -114,14 +114,13 @@ extension FuturesDataSource {
     }
 
     private static func cachedHistory(_ key: String, now: Int64) -> FundingHistory? {
-        historyLock.lock(); defer { historyLock.unlock() }
-        guard let entry = historyCache[key] else { return nil }
+        guard let entry = historyCache.withLock({ $0[key] }) else { return nil }
         let age = now - entry.time
         return age >= 0 && age < historyCacheMillis ? entry.value : nil
     }
 
     private static func storeHistory(_ key: String, _ value: FundingHistory) {
-        historyLock.lock(); defer { historyLock.unlock() }
-        historyCache[key] = (time: TimeUtils.nowMillis, value: value)
+        let entry = (time: TimeUtils.nowMillis, value: value)
+        historyCache.withLock { $0[key] = entry }
     }
 }

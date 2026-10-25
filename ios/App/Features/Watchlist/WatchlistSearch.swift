@@ -9,9 +9,7 @@ extension WatchlistScreen {
                 .scaledFont(size: 13, weight: .semibold, relativeTo: .footnote)
                 .foregroundStyle(searchFocused ? accent.primary : AppColors.onSurfaceVariant)
             // Platzhalter in onSurfaceVariant (≥ 4.5:1) statt des blassen Systemgraus — wie Android
-            TextField(text: $query, prompt: Text(L("watchlist_search_hint")).foregroundStyle(AppColors.onSurfaceVariant)) {
-                Text(L("watchlist_search_hint"))
-            }
+            TextField(placeholder: L("watchlist_search_hint"), text: $query)
                 .font(.subheadline)
                 .foregroundStyle(AppColors.onSurface)
                 .focused($searchFocused)

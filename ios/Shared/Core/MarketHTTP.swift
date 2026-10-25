@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Antwort einer Börse mit HTTP-Fehlercode (nicht 2xx, oder als Bremse erkannt). Der Text ist technisch (Bericht,
 /// gespeicherter Fehler) und erscheint nie roh in der Oberfläche (`ConnectionErrors.display`). Android:
@@ -131,7 +132,8 @@ enum MarketHTTP {
     }
 
     /// Signatur und SHA-256 der Spiegel-Datei prüfen (`MirrorTrust`); Manifest und Signatur über dieselbe Session.
-    private static func verifiedMirror(file: String, text: String, session: URLSession) async -> Bool {
+    /// Nicht privat: auch der Wirtschaftskalender (`MacroCalendarSource`) prüft so.
+    static func verifiedMirror(file: String, text: String, session: URLSession = MarketHTTP.session) async -> Bool {
         await MirrorTrust.shared.verified(file: file, text: text) { address, limit in
             await loadMirrorMeta(address, limit: limit, session: session)
         }
@@ -325,9 +327,7 @@ actor InFlightRequests {
 /// Zeilen. Android: `HttpLogger`.
 enum HttpLog {
     private static let capacity = 200
-    private static let guardLock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `guardLock` (NSLock)
-    nonisolated(unsafe) private static var entries: [String] = []
+    private static let entries = OSAllocatedUnfairLock(initialState: [String]())
 
     /// Hängt `line` mit der Uhrzeit («HH:mm:ss») an; die ältesten Zeilen fallen weg. Nur in Debug-Builds (das Protokoll
     /// ist nur dort sichtbar, `DeveloperOptions.available`) — im Release wird nichts mitgeschnitten, auch nicht im Speicher.
@@ -336,15 +336,16 @@ enum HttpLog {
         let clock = DateFormatter()
         clock.dateFormat = "HH:mm:ss"
         let stamped = clock.string(from: Date()) + " " + line
-        guardLock.withLock {
-            entries.append(stamped)
-            let excess = entries.count - capacity
-            if excess > 0 { entries.removeFirst(excess) }
+        let limit = capacity
+        entries.withLock { lines in
+            lines.append(stamped)
+            let excess = lines.count - limit
+            if excess > 0 { lines.removeFirst(excess) }
         }
         #endif
     }
 
-    static var all: [String] { guardLock.withLock { entries } }
+    static var all: [String] { entries.withLock { $0 } }
 
     /// Adresse für das Protokoll: Host und Pfad ohne Abfrage; lange Pfadteile (Adressen, Schlüssel) gekürzt.
     static func redacted(_ text: String) -> String {
@@ -356,6 +357,6 @@ enum HttpLog {
     }
 
     static func clear() {
-        guardLock.withLock { entries.removeAll() }
+        entries.withLock { $0.removeAll() }
     }
 }

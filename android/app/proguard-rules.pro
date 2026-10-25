@@ -1,8 +1,3 @@
-# Börsenklassen: Market.key ist ein fester Text je Börse (früher der Klassenname). Die Regel
-# bleibt als zweite Sicherung neben marketdata/consumer-rules.pro, damit Stacktraces und ältere
-# Annahmen auf Klassennamen weiter stimmen.
--keep class com.cryptochecker.marketdata.model.market.** { *; }
-
 # Fehlerklassen: Ohne Meldungstext zeigt die App den einfachen Klassennamen (Bericht der
 # Aktualisierung, Explorer, «Paar bearbeiten», Drosselung). Umbenannt stünde dort «a» oder «b».
 # keepnames: nur die Namen bleiben, ungenutzte Klassen darf R8 weiterhin entfernen.

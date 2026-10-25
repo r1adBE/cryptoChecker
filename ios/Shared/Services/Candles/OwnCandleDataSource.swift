@@ -1,21 +1,22 @@
 import Foundation
+import os
 
 /// Pausen nach «zu viele Anfragen» (429/418 oder Fehlertext in der Antwort) je Host der eigenen
 /// Kerzen — für Hosts ohne gemeinsame Gruppe (`ExchangeBackoff.sharedGroup`; Binance pausiert über
 /// `BlockedSources`). Dauer wie dort (`ExchangeBackoff.groupPause`). Wie `CandleHostPauses` (Android).
 enum CandleHostPauses {
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var pauses: [String: ExchangeBackoff.State] = [:]
+    private static let pauses = OSAllocatedUnfairLock(initialState: [String: ExchangeBackoff.State]())
 
     static func isPaused(_ host: String, now: Int64 = TimeUtils.nowMillis) -> Bool {
-        lock.lock(); defer { lock.unlock() }
-        return ExchangeBackoff.isPaused(pauses[host], now: now)
+        let state = pauses.withLock { $0[host] }
+        return ExchangeBackoff.isPaused(state, now: now)
     }
 
     static func pause(_ host: String, httpCode: Int, retryAfterSeconds: Int64?, now: Int64 = TimeUtils.nowMillis) {
-        lock.lock(); defer { lock.unlock() }
-        pauses[host] = ExchangeBackoff.groupPause(pauses[host], now: now, httpCode: httpCode, retryAfterSeconds: retryAfterSeconds)
+        pauses.withLock {
+            $0[host] = ExchangeBackoff.groupPause($0[host], now: now, httpCode: httpCode,
+                                                  retryAfterSeconds: retryAfterSeconds)
+        }
     }
 }
 

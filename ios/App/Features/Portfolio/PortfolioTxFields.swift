@@ -65,7 +65,7 @@ extension PortfolioTxSheet {
             HStack(spacing: Spacing.sm) {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(AppColors.onSurfaceVariant)
-                TextField(L("portfolio_coin_search"), text: Binding(
+                TextField(placeholder: L("portfolio_coin_search"), text: Binding(
                     get: { coinQuery },
                     set: { coinQuery = String($0.prefix(15)) }
                 ))
@@ -136,7 +136,7 @@ extension PortfolioTxSheet {
         return VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L(isSwap ? "portfolio_tx_swap_given_amount" : "portfolio_tx_amount"))
             HStack(spacing: Spacing.sm) {
-                TextField("0", text: $amountText)
+                TextField(placeholder: "0", text: $amountText)
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.title3, weight: .semibold))
                     .focused($focusedField, equals: .amount)
@@ -163,7 +163,7 @@ extension PortfolioTxSheet {
             fieldLabel(L(label))
             HStack(spacing: Spacing.sm) {
                 // Getippt = nicht mehr automatisch ersetzen
-                TextField("0", text: Binding(
+                TextField(placeholder: "0", text: Binding(
                     get: { priceText },
                     set: { priceText = $0; priceAuto = false; priceHistoricDay = nil }
                 ))
@@ -225,7 +225,7 @@ extension PortfolioTxSheet {
             HStack(spacing: Spacing.sm) {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(AppColors.onSurfaceVariant)
-                TextField(L("portfolio_coin_search"), text: Binding(
+                TextField(placeholder: L("portfolio_coin_search"), text: Binding(
                     get: { toCoinQuery },
                     set: { toCoinQuery = String($0.prefix(15)) }
                 ))
@@ -265,7 +265,7 @@ extension PortfolioTxSheet {
             fieldLabel(L("portfolio_tx_swap_received_amount"))
                 .padding(.top, Spacing.xs)
             HStack(spacing: Spacing.sm) {
-                TextField("0", text: $toAmountText)
+                TextField(placeholder: "0", text: $toAmountText)
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.title3, weight: .semibold))
                     .focused($focusedField, equals: .toAmount)
@@ -324,7 +324,7 @@ extension PortfolioTxSheet {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L("portfolio_tx_swap_value"))
             HStack(spacing: Spacing.sm) {
-                TextField("0", text: $swapValueText)
+                TextField(placeholder: "0", text: $swapValueText)
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.title3, weight: .semibold))
                     .focused($focusedField, equals: .swapValue)

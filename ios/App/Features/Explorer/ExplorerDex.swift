@@ -21,7 +21,7 @@ extension ExplorerScreen {
                 .padding(.bottom, 12)
 
             HStack(spacing: 8) {
-                TextField(L("dex_search_hint"), text: $dexQuery)
+                TextField(placeholder: L("dex_search_hint"), text: $dexQuery)
                     .focused($dexFocused)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()

@@ -228,7 +228,7 @@ extension PortfolioTxSheet {
         return VStack(alignment: .leading, spacing: Spacing.xs) {
             fieldLabel(L(label))
             HStack(spacing: Spacing.sm) {
-                TextField("0", text: $feeText)
+                TextField(placeholder: "0", text: $feeText)
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.body, weight: .semibold))
                     .focused($focusedField, equals: .fee)
@@ -272,7 +272,7 @@ extension PortfolioTxSheet {
             HStack(spacing: Spacing.sm) {
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     fieldLabel(L("portfolio_tx_third_fee_coin"))
-                    TextField("BNB", text: Binding(
+                    TextField(placeholder: "BNB", text: Binding(
                         get: { feeCoinText },
                         set: { feeCoinText = String($0.prefix(PortfolioTx.maxFeeCoin)) }
                     ))
@@ -284,7 +284,7 @@ extension PortfolioTxSheet {
                 }
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     fieldLabel(L("portfolio_tx_third_fee_amount"))
-                    TextField("0", text: $feeCoinAmountText)
+                    TextField(placeholder: "0", text: $feeCoinAmountText)
                         .keyboardType(.decimalPad)
                         .focused($focusedField, equals: .feeCoinAmount)
                         .modifier(PortfolioFieldStyle(error: invalid, focused: focusedField == .feeCoinAmount))
@@ -304,7 +304,7 @@ extension PortfolioTxSheet {
             } else {
                 fieldLabel(L("portfolio_tx_third_fee_price"))
                 HStack(spacing: Spacing.sm) {
-                    TextField("0", text: Binding(
+                    TextField(placeholder: "0", text: Binding(
                         get: { feeCoinPriceText },
                         set: { feeCoinPriceText = $0; feeCoinPriceAuto = false }
                     ))

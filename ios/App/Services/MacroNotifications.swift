@@ -3,8 +3,10 @@ import UserNotifications
 
 /// Kalender wichtiger US-Wirtschaftsdaten — wie `MacroCalendarRepository.kt`.
 /// Quelle: öffentliche Datei der App-Webseite (`MacroCalendar.url`, GitHub Pages), höchstens einmal
-/// am Tag geholt (ohne Schlüssel, ohne Angaben zum Gerät). Zwischenspeicher 24 h; bei Fehlern der
-/// Zwischenspeicher (auch abgelaufen), sonst die mitgelieferte Datei `macro_events.json`.
+/// am Tag geholt (ohne Schlüssel, ohne Angaben zum Gerät), angenommen nur mit SHA-256 im signierten
+/// Spiegel-Manifest (`MirrorTrust`, `MacroCalendar.parseVerified`; eine veränderte Datei gilt als Fehler).
+/// Zwischenspeicher 24 h; bei Fehlern der Zwischenspeicher (auch abgelaufen), sonst die mitgelieferte
+/// Datei `macro_events.json`.
 actor MacroCalendarSource {
     static let shared = MacroCalendarSource()
 
@@ -31,7 +33,9 @@ actor MacroCalendarSource {
         }
         let downloaded: [MacroEvent]?? = try? await AsyncTimeout.run(seconds: Self.timeoutSeconds) {
             let text = try await MarketHTTP.call(MacroCalendar.url)
-            return MacroCalendar.parse(text, now: now)
+            return await MacroCalendar.parseVerified(text, now: now) { file, body in
+                await MarketHTTP.verifiedMirror(file: file, text: body)
+            }
         }
         if let fresh = downloaded ?? nil {
             if let data = try? JSONEncoder().encode(fresh) {

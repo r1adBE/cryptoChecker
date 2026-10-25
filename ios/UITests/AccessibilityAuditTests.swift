@@ -85,27 +85,29 @@ final class AccessibilityAuditTests: XCTestCase {
         XCTAssertTrue(wait(tab, "isSelected == true"), "\(tag) not selected")
     }
 
-    /// Audit aller Arten; Ausnahmen aus `exceptions` gelten als erledigt, alle übrigen Befunde werden vorerst nur
-    /// gemeldet (Log «A11Y-AUDIT»), der Test bleibt grün.
+    /// Audit aller Arten; Ausnahmen aus `exceptions` und die gedeckelte Tableiste gelten als erledigt, jeder andere
+    /// Befund lässt den Test scheitern (und steht zusätzlich als Zeile «A11Y-AUDIT» im Log).
     @MainActor
     private func audit(_ app: XCUIApplication, _ screen: String) throws {
-        // Untere Kante der Tableiste: ihre Beschriftungen sind bewusst gedeckelt (`AppTabBarMetrics`); die Texte darin
-        // haben keine eigene Kennung, darum über die Lage erkannt
-        let tabTop = app.tagged(UiTestTags.tabWatchlist).frame.minY
+        // Tableiste: ihre Beschriftungen sind bewusst gedeckelt (`AppTabBarMetrics`) und haben keine eigene Kennung —
+        // erkannt über die Lage innerhalb einer Taste `tab_*` oder unterhalb der Oberkante der Leiste
+        let tabButtons = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "identifier BEGINSWITH %@", "tab_")).allElementsBoundByIndex
+        let tabFrames: [CGRect] = tabButtons.map { $0.frame.insetBy(dx: -1, dy: -1) }
+        let tabTop = tabFrames.map(\.minY).filter { $0 > 0 }.min() ?? 0
         try app.performAccessibilityAudit(for: .all) { issue in
             let identifier = issue.element?.identifier ?? ""
-            let inTabBar = issue.auditType == .dynamicType && tabTop > 0
-                && (issue.element?.frame.midY ?? 0) >= tabTop - 1
+            let frame = issue.element?.frame ?? .zero
+            let inTabBar = issue.auditType == .dynamicType && !frame.isEmpty
+                && (tabFrames.contains { $0.contains(frame) } || (tabTop > 0 && frame.midY >= tabTop))
             let known = inTabBar || AccessibilityAuditTests.exceptions.contains { exception in
                 issue.auditType == exception.type && identifier.hasPrefix(exception.identifierPrefix)
             }
             if !known {
                 let label = issue.element?.label ?? ""
-                // Vorerst nur gemeldet, nicht rot: alle Befunde aller Bildschirme in einem Lauf sammeln
-                // (Zeilen «A11Y-AUDIT» im Log); danach wird der Audit wieder blockierend
                 print("A11Y-AUDIT [\(screen)] \(issue.compactDescription) — id «\(identifier)», «\(label)»")
             }
-            return true
+            return known
         }
     }
 }

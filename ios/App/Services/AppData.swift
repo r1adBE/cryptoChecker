@@ -52,15 +52,35 @@ struct DeletedWatch {
 final class AppData: ObservableObject {
     static let shared = AppData()
 
-    /// Gespeicherter Stand. Von Hand veröffentlicht statt `@Published`: Speichert der Live-Strom
+    /// Gespeicherter Stand. Beim Start abseits des Haupt-Threads gelesen (AppData+SnapshotLoad.swift); wer vorher
+    /// zugreift, liest ihn sofort selbst (`ensureSnapshotLoaded`) — nie ein leerer «noch nicht gelesener» Stand.
+    private(set) var snapshot: SharedStorage.Snapshot {
+        get {
+            ensureSnapshotLoaded()
+            return storedSnapshot
+        }
+        set {
+            ensureSnapshotLoaded()
+            storedSnapshot = newValue
+        }
+    }
+    /// Inhalt von `snapshot`. Von Hand veröffentlicht statt `@Published`: Speichert der Live-Strom
     /// nur Kurs, Änderung und Zeit (`applyLive`), bleibt die Veröffentlichung aus — die Zeilen
     /// zeigen diese Werte schon über ihre `LiveQuoteBox` (`LivePrices`), und Markt, Portfolio und
     /// Einstellungen bauen nicht alle 10 s neu. Gelesen wird trotzdem immer der aktuelle Stand.
-    private(set) var snapshot: SharedStorage.Snapshot {
+    private var storedSnapshot = SharedStorage.Snapshot() {
         willSet { if !quietPriceSave { objectWillChange.send() } }
         // Jede Übernahme (Ändern, Lesen) zählt: Ein im Hintergrund gelesener Stand gilt nur ohne Übernahme seither
         didSet { snapshotGeneration &+= 1 }
     }
+    /// Stand beim Start gelesen und übernommen (`setLaunchSnapshot`); vorher zeigt die Merkliste Platzhalter-Zeilen.
+    private(set) var snapshotLoaded = false
+    /// Lesen beim Start (Verschlüsselung, Merkliste, Adressen), einmal — im Hintergrund oder bei frühem Zugriff sofort.
+    let launchLoader = LaunchStorageLoader()
+    /// Warten auf das Lesen beim Start (`whenSnapshotLoaded`, `waitForSnapshot`).
+    var snapshotWaiters: [@MainActor () -> Void] = []
+    /// Zustand der Einstellungen beim Start (für «Portfolio wieder an» nach dem Lesen, `finishLaunchLoad`).
+    var launchSettingsState: SharedStorage.SettingsReadState = .ok
     /// Zähler der Übernahmen in `snapshot` (`reloadFromDiskInBackground`, `DiskReloadTicket`).
     private(set) var snapshotGeneration = 0
     /// Zuletzt begonnenes Lesen im Hintergrund: nur dieses darf übernehmen.
@@ -92,25 +112,21 @@ final class AppData: ObservableObject {
     /// «Ungewöhnliche Aktivität» je Paar (Watch-Id); abgelaufene Signale filtert
     /// `ActivityReport.active(now:)`.
     @Published var activityReports: [Int64: ActivityReport] = [:]
-    /// Beobachtete Adressen in Reihenfolge des Hinzufügens (wie `PortfolioRepository.watchedAddresses`);
-    /// Zugriff über `AppData+WatchedAddresses.swift`.
-    @Published var watchedAddresses: [WatchedAddress] = []
-    /// Stand von `watched_addresses.json`; false = Datei da, aber nicht lesbar (dann vor dem Schreiben neu lesen).
-    var watchedAddressFile = WatchedAddressFile()
+    /// Beobachtete Adressen samt Datei-Stand — Zugriff nur über `watchedAddresses`, `watchedAddressFile` und
+    /// `watchedAddressIntact` (AppData+SnapshotLoad.swift: erst nach dem Lesen beim Start).
+    var watchedState = WatchedAddressState()
     /// Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? Dann misst
     /// `DepegAlarmCheck` USDT/USD auch ohne Alarm — wie `PortfolioRepository.hasData` (Android).
     var hasPortfolioData: Bool { !portfolio.isEmpty || !watchedAddresses.isEmpty }
-    var watchedAddressIntact = true
     /// `watched_addresses.json` konnte nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar): der Stand
     /// wartet im Speicher, nie im Klartext — zählt wie das Portfolio zu `portfolioSavePending` (gleicher Hinweis, gleiches
     /// erneutes Speichern in `retryPendingPortfolioSaves`).
     var watchedAddressSavePending = false
     /// Ausstehender «Erst-Hinzufügen»-Moment; die Merkliste holt ihn ab (`takeAddCelebration`).
     @Published var addCelebration: AddCelebration?
-    /// Gerät hat Internet? Ohne: ruhige Statuszeile «Offline · Stand …», keine Aktualisierung.
-    @Published private(set) var online = NetworkStatus.shared.isOnline
-    /// App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen), für den Bericht «Ablauf».
-    @Published private(set) var appStartMillis: Int64? = SharedStorage.appStartMillis
+    /// Netz, App-Start, «wird nicht gespeichert» und Hinweis-Zähler: eigenes beobachtbares Objekt, damit ein Wechsel
+    /// nicht alle Ansichten von `AppData` neu aufbaut (`AppStatus`; gelesen über `online`, `appStartMillis` …).
+    let status = AppStatus(online: NetworkStatus.shared.isOnline, appStartMillis: SharedStorage.appStartMillis)
     // Live-Kurse je Paar: `LivePrices` (eigener, je Zeile beobachteter Speicher), Börsen und Paare am Strom:
     // `refreshState` — ein Tick veröffentlicht hier nichts, sonst würden Markt, Portfolio und Einstellungen neu aufgebaut.
     /// Letzter Live-Kurs je Watch-Id (ms) — Paare mit frischem Kurs lässt die REST-Abfrage aus.
@@ -134,17 +150,12 @@ final class AppData: ObservableObject {
     /// warten im Speicher — nie im Klartext geschrieben. Das Portfolio nennt es; das nächste Speichern bzw. die Rückkehr
     /// der App nach vorne versucht es erneut (`retryPendingPortfolioSaves`).
     @Published var portfolioSavePending = false
-    /// `watchlist.json` konnte nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar, nie im Klartext):
-    /// Merkliste und Alarme warten im Speicher — `reloadFromDisk` ersetzt sie dann nicht durch den älteren Stand der Datei,
-    /// versucht das Speichern erneut, und jedes weitere Speichern (`mutate`) schreibt den ganzen Stand.
-    @Published private(set) var watchlistSavePending = false
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
     /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Schreibwege des Nutzers sind gesperrt. Neu bei jedem Lesen.
-    /// Setzen nur hier beim Lesen; von aussen setzbar allein für den Verhaltenstest (WatchlistLockBehaviorTests).
-    @Published var watchlistLocked = false
-    /// Zähler der gemeldeten Ablehnungen (`watchlistWriteRefused`, gedrosselt): Bildschirme zeigen je Erhöhung den kurzen
-    /// Hinweis «watchlist_storage_locked» (`.watchlistLockedHint`). Zeit des letzten Hinweises (monotone ms) dazu.
-    @Published var watchlistLockedHints = 0
+    /// Setzen nur beim Lesen; von aussen setzbar allein für den Verhaltenstest (WatchlistLockBehaviorTests). Zugriff über
+    /// `watchlistLocked` (AppData+SnapshotLoad.swift: erst nach dem Lesen beim Start).
+    @Published var watchlistLockedValue = false
+    /// Zeit des letzten Hinweises «watchlist_storage_locked» (monotone ms, `AppStatus.watchlistLockedHints`).
     var watchlistLockedHintAt: Int64?
     /// Noch keine `watchlist.json` und kein Schlüssel zum Versiegeln (`WatchlistStorageLock.waitsForKey`): Was jetzt
     /// angelegt wird, kann nicht gespeichert werden — die Merkliste sagt es gleich, nicht erst nach dem ersten Speichern.
@@ -169,36 +180,17 @@ final class AppData: ObservableObject {
     @Published var addTargetGroup: String?
 
     private init() {
-        // Vor dem ersten Lesen: Dateien mit Nutzerdaten verschlüsseln (einmalig); ohne Schlüssel unlesbare beiseitelegen
-        // und nennen, bis bestätigt (`StorageRecoveryNotice`); öffnen sie doch mit dem Schlüssel, kommen sie zurück (einmal genannt)
-        let protection = ProtectedStorage.prepareAtLaunch()
-        if !protection.setAside.isEmpty { StorageRecoveryNotice.record(); AlarmDelivery.removeAllMarkers() }
-        if !protection.restored.isEmpty && protection.setAside.isEmpty { StorageRecoveryNotice.recordRestored() }
-        encryptionPending = protection.encryptionPending
-        let read = SharedStorage.readSnapshot()
-        snapshot = read.snapshot ?? SharedStorage.Snapshot()
-        watchlistLocked = WatchlistStorageLock.isLocked(read)
-        watchlistReadOnce = WatchlistStorageLock.holdsStoredState(read)
-        watchlistWaitsForKey = WatchlistStorageLock.waitsForKey(read, keyAvailable: StorageKey.shared.isAvailable)
         let loadedSettings = AppData.readSettings()
         settings = loadedSettings.settings
         settingsAccessible = loadedSettings.state != .inaccessible
+        launchSettingsState = loadedSettings.state
         if loadedSettings.state == .missing { SharedStorage.markSettingsReadable() }
         // Unlesbare Einstellungen: einmal melden und gleich durch die Standardwerte ersetzen wie Android —
         // sonst meldete jeder Start dieselben unlesbaren Daten erneut
         if loadedSettings.corrupt { AppData.settingsWereReset(loadedSettings.settings) }
-        // Portfolio im Hintergrund lesen: das erste Bild der Merkliste wartet nicht darauf; wer es vorher braucht, liest
-        // es beim ersten Zugriff sofort (`ensurePortfolioLoaded`) — nie ein leerer «noch nicht gelesener» Stand
-        startPortfolioPrefetch()
-        // Einmalig: Portfolio-Alarme aus `watchlist.json` in die eigene Datei (Backup-Merkmal wie
-        // `portfolio.json`); wiederholbar, ohne Verlust (siehe `SharedStorage.writeFiles`)
-        if snapshot.portfolioAlarms != nil
-            && !FileManager.default.fileExists(atPath: SharedStorage.portfolioAlarmsURL.path) {
-            SharedStorage.updateSnapshot { _ in }
-        }
-        // «Portfolio in Systemsicherung»: auch für eine schon vorhandene Datei (Update, Wiederherstellung) —
-        // nicht mit Standardwerten, solange die Einstellungen nicht zugänglich sind
-        if settingsAccessible { PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup) }
+        // Verschlüsselung, Merkliste und Adressen abseits des Haupt-Threads lesen: das erste Bild wartet nicht auf
+        // Schlüsselbund, Entschlüsseln und Dekodieren (bis dahin Platzhalter-Zeilen); danach `finishLaunchLoad`
+        startSnapshotLoad()
         // didSet läuft im init nicht — Kursfarben hier setzen
         PriceColors.scheme = settings.priceColorScheme
         HighContrast.setting = settings.highContrast
@@ -208,31 +200,6 @@ final class AppData: ObservableObject {
         activityReports = ActivityRepository.reports()
         // Namensdatei vorwärmen, sonst liest `watchKinds` sie beim ersten Zeichnen auf Main — wie Android
         Task.detached(priority: .utility) { TokenIdentityStore.shared.warmUp() }
-        let watched = WatchedAddressStore.loadChecked()
-        watchedAddressFile = watched.file
-        watchedAddressIntact = watched.intact
-        watchedAddresses = Self.sortedWatched(watched.file.addresses)
-        // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
-        migrateHoldingsOnce()
-        // Einstellungen fehlten oder waren unlesbar (Standardwerte), Portfolio-Daten sind aber da: Portfolio an — auch
-        // mit offenem Merker aus einem früheren Start (`portfolioRecoveryDeferred`, gespeichert)
-        if settingsAccessible && (loadedSettings.state == .missing || portfolioRecoveryDeferred) {
-            let recovered = portfolioRecovered(settings, state: loadedSettings.state)
-            if recovered.portfolioEnabled != settings.portfolioEnabled {
-                settings = recovered
-                SharedStorage.saveSettings(settings)
-            }
-        }
-        // Update mit vorhandenen Alarmen: die Erst-Alarm-Bestätigung gilt als gezeigt
-        if settingsAccessible && !settings.firstAlarmShown && !snapshot.alarms.isEmpty {
-            settings.firstAlarmShown = true
-            SharedStorage.saveSettings(settings)
-        }
-        // Update mit vorhandenen Paaren: das erste Hinzufügen gilt als erledigt
-        if settingsAccessible && !settings.firstPairAdded && !snapshot.watches.isEmpty {
-            settings.firstPairAdded = true
-            SharedStorage.saveSettings(settings)
-        }
         // Netz weg/zurück (#22/#23): Statuszeile; zurück → genau eine Aktualisierung
         NetworkStatus.shared.observe { online in
             Task { @MainActor in AppData.shared.networkChanged(online) }
@@ -242,7 +209,23 @@ final class AppData: ObservableObject {
                                                    object: nil, queue: .main) { _ in
             Task { @MainActor in AppData.shared.reloadSettingsIfInaccessible() }
         }
-        primeBackgroundDemand() // Basis des Hintergrund-Bedarfs schon beim Start
+    }
+
+    /// Gelesenen Stand beim Start übernehmen (`adoptLaunchRead`): Merkliste, Sperrzustand, Verschlüsselung. `quiet` =
+    /// ohne Veröffentlichung (sofortiges Lesen mitten im Zeichnen — `adoptLaunchRead` veröffentlicht danach).
+    func setLaunchSnapshot(_ launch: LaunchRead, quiet: Bool) {
+        snapshotLoaded = true
+        encryptionPending = launch.encryptionPending
+        let read = launch.read
+        quietPriceSave = quiet
+        storedSnapshot = read.snapshot ?? SharedStorage.Snapshot()
+        quietPriceSave = false
+        // Nur bei Abweichung vom Anfangswert setzen (veröffentlicht sonst auch beim stillen Übernehmen)
+        let locked = WatchlistStorageLock.isLocked(read)
+        if watchlistLockedValue != locked { watchlistLockedValue = locked }
+        watchlistReadOnce = WatchlistStorageLock.holdsStoredState(read)
+        let waitsForKey = WatchlistStorageLock.waitsForKey(read, keyAvailable: launch.keyAvailable)
+        if watchlistWaitsForKey != waitsForKey { watchlistWaitsForKey = waitsForKey }
     }
 
     /// Portfolio-Sperre wirksam: eingeschaltet — oder unbekannt, solange die Einstellungen nicht zugänglich sind.
@@ -270,6 +253,8 @@ final class AppData: ObservableObject {
     /// leer, und die Verschlüsselung (`prepareAtLaunch`) stand aus. Sobald die geschützten Daten zugänglich sind
     /// (Entsperren, App aktiv, `reloadFromDisk`), hier nachholen — sonst bliebe das Portfolio die ganze Sitzung leer.
     func reloadProtectedFilesIfNeeded() {
+        // Vor dem Lesen beim Start nichts nachholen: das übernimmt `finishLaunchLoad`
+        guard snapshotLoaded else { return }
         // Dateien schon lesbar (z. B. inzwischen über `current…File()` gelesen): aufgeschobene Prüfung nicht verpassen
         recoverPortfolioIfDeferred()
         guard UIApplication.shared.isProtectedDataAvailable else { return }
@@ -289,7 +274,7 @@ final class AppData: ObservableObject {
 
     private func networkChanged(_ isOnline: Bool) {
         let previous = online
-        online = isOnline
+        if status.online != isOnline { status.online = isOnline }
         if OfflineGate.resumeOnChange(previous: previous, online: isOnline) && appActive {
             Task { await refreshAll() }
         }
@@ -300,7 +285,7 @@ final class AppData: ObservableObject {
     /// Erstes Bild der Merkliste nach dem Start gemessen (nur lokal gespeichert).
     func recordAppStart(_ millis: Int64) {
         SharedStorage.appStartMillis = millis
-        appStartMillis = millis
+        status.appStartMillis = millis
     }
 
     // MARK: Speichern
@@ -335,7 +320,7 @@ final class AppData: ObservableObject {
             if SharedStorage.portfolioAlarmsPending { self?.portfolioSavePending = true }
             // Nur bei Änderung veröffentlichen (auch nach den zusammengefassten Live-Kursen)
             let waiting = SharedStorage.watchlistPending
-            if self?.watchlistSavePending != waiting { self?.watchlistSavePending = waiting }
+            if self?.status.watchlistSavePending != waiting { self?.status.watchlistSavePending = waiting }
             guard reloadWidgets else { return }
             if let widgetKinds {
                 widgetKinds.forEach { WidgetCenter.shared.reloadTimelines(ofKind: $0) }
@@ -361,7 +346,7 @@ final class AppData: ObservableObject {
     /// Gelesenen Stand übernehmen (Haupt-Thread); `read` nil = verworfen (seither geändert), nur die übrigen Werte neu.
     func applyDiskRead(_ read: SharedStorage.SnapshotRead?, keyAvailable: Bool) {
         let waiting = SharedStorage.watchlistPending
-        if watchlistSavePending != waiting { watchlistSavePending = waiting }
+        if status.watchlistSavePending != waiting { status.watchlistSavePending = waiting }
         if let read {
             let locked = WatchlistStorageLock.isLocked(read, readBefore: watchlistReadOnce)
             if watchlistLocked != locked { watchlistLocked = locked }
@@ -383,8 +368,11 @@ final class AppData: ObservableObject {
         let report = SharedStorage.lastRefreshReport
         if refreshState.lastRefreshReport != report { refreshState.lastRefreshReport = report }
         reloadExchangePauses()
-        changeStamp = SharedStorage.changeStamp
-        activityReports = ActivityRepository.reports()
+        // Nur bei Änderung veröffentlichen (jedes Lesen von der Platte, z. B. jeder Wechsel nach vorne)
+        let stamp = SharedStorage.changeStamp
+        if changeStamp != stamp { changeStamp = stamp }
+        let reports = ActivityRepository.reports()
+        if activityReports != reports { activityReports = reports }
         dropMissingWatchlistGroup()
     }
 

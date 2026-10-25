@@ -36,7 +36,7 @@ struct SettingsAddressServerCard: View {
         SettingsCard(title: L("settings_address_server_title")) {
             VStack(alignment: .leading, spacing: 0) {
                 SettingsHint(text: L("settings_address_server_hint"))
-                TextField(L("settings_address_server_field"), text: $input)
+                TextField(placeholder: L("settings_address_server_field"), text: $input)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .keyboardType(.URL)

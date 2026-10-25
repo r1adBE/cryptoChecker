@@ -46,8 +46,11 @@ final class PortfolioPerformanceTests: XCTestCase {
 
     func testSummaryFifo() {
         // Karte mit FIFO-Posten über alle Wallets: rund 1 s für 10 000 Transaktionen (Debug, mit Abdeckung). Nur die
-        // feste Grenze: im iOS-Lauf (Debug, Abdeckung, geteilter Mac) gemessen ×6,9 bei vierfacher Menge, auf Android
-        // ×2,4 (dort mit Skalierungsprüfung) — Ursache offen, steht auf der Performance-Liste
+        // feste Grenze: die Zahl der Teilungen wächst mit Umbuchungen × offenen Posten (Gebühr USDT nach Menge auf
+        // jeden offenen Posten, je ein Herkunftsteil) und mit den Herkunftsteilen je anteiligem Abgang — in diesen
+        // Daten das 7,5-Fache bei vierfacher Menge, auf beiden Plattformen gleich. Auf Android fällt das kaum ins
+        // Gewicht (×2,4, dort mit Skalierungsprüfung); iOS rundet jede Teilung auf 34 Stellen
+        // (`PortfolioDecimal.roundSignificant`, Ziffern ohne Text gezählt), der Anteil ist trotzdem grösser
         T.assertLimitOnly("Portfolio-Übersicht FIFO", limitMillis: 10_000, sizes: T.transactions) { n in
             let trades = D.trades(n)
             return T.medianMillis { PortfolioPerformanceTests.summary(trades, .FIFO) }
@@ -57,7 +60,7 @@ final class PortfolioPerformanceTests: XCTestCase {
 
     func testSummaryFifoPerWallet() {
         // FIFO je Wallet (Umbuchungen verschieben Posten): rund 0,5 s (Debug). Nur die feste Grenze, gleicher Grund wie
-        // oben (iOS ×5,7, Android ×2,2)
+        // oben (Teilungen je Herkunftsteil der verschobenen und abgegebenen Posten)
         T.assertLimitOnly("Portfolio-Übersicht FIFO je Wallet", limitMillis: 12_000, sizes: T.transactions) { n in
             let trades = D.trades(n)
             return T.medianMillis { PortfolioPerformanceTests.summary(trades, .FIFO_WALLET) }

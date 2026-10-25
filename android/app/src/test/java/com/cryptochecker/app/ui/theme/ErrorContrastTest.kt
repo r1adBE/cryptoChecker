@@ -22,7 +22,7 @@ class ErrorContrastTest {
     fun `helle Fehlerfarben wie spezifiziert, fuer jede Akzentfarbe`() {
         for (accent in AccentColor.entries) {
             val s = appColorScheme(accent, dark = false)
-            assertEquals(accent.name, 0xFFB8361A.toInt(), s.error.toArgb())
+            assertEquals(accent.name, 0xFFB13419.toInt(), s.error.toArgb())
             assertEquals(accent.name, 0xFFFFFFFF.toInt(), s.onError.toArgb())
             assertEquals(accent.name, 0xFFFFDBD0.toInt(), s.errorContainer.toArgb())
             assertEquals(accent.name, 0xFF4A1C10.toInt(), s.onErrorContainer.toArgb())
@@ -73,7 +73,7 @@ class ErrorContrastTest {
         }
     }
 
-    /** Hoher Kontrast übernimmt die Fehlerfarbe (#B8361A erreicht AA schon auf der dunkelsten Karte). */
+    /** Hoher Kontrast übernimmt die Fehlerfarbe (#B13419 erreicht AA schon auf der dunkelsten Karte). */
     @Test
     fun `hoher Kontrast setzt die Fehlerfarbe nicht neu`() {
         val source = SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/theme/Theme.kt"), "ui/theme/Theme.kt")

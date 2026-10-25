@@ -328,7 +328,12 @@ private fun ComboRow(
                 Icon(
                     painterResource(if (favorite) R.drawable.ic_star else R.drawable.ic_star_outline),
                     contentDescription = toggleLabel,
-                    tint = if (favorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+                    // Leerer Stern auf der getönten gewählten Zeile in onSurfaceVariant: outline hielt dort < 3:1
+                    tint = when {
+                        favorite -> MaterialTheme.colorScheme.primary
+                        selected -> MaterialTheme.colorScheme.onSurfaceVariant
+                        else -> MaterialTheme.colorScheme.outline
+                    },
                     modifier = Modifier.size(20.dp),
                 )
             }

@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Alarme für Perpetual-Futures: «Funding über/unter x %» (FUNDING_ABOVE/FUNDING_BELOW, Schwelle pro
 /// 8 Stunden, stündliches Funding umgerechnet: `fundingPer8h`) und
@@ -242,9 +243,7 @@ enum DerivativesAlarmData {
         var referenceSource: String? = nil
     }
 
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var cache: [String: Values] = [:]
+    private static let cache = OSAllocatedUnfairLock(initialState: [String: Values]())
 
     /// Schlüssel mit Börse und Paar: Wird ein Paar bearbeitet (gleiche Id), gilt der alte Wert nicht.
     private static func key(_ watch: Watch) -> String {
@@ -252,13 +251,11 @@ enum DerivativesAlarmData {
     }
 
     private static func cached(_ key: String) -> Values? {
-        lock.lock(); defer { lock.unlock() }
-        return cache[key]
+        cache.withLock { $0[key] }
     }
 
     private static func store(_ key: String, _ values: Values) {
-        lock.lock(); defer { lock.unlock() }
-        cache[key] = values
+        cache.withLock { $0[key] = values }
     }
 
     /// Aktuelle Werte (zwischengespeichert); `price` = letzter Kurs, um den USD-Wert des Open

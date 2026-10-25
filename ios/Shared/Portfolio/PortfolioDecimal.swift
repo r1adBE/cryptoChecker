@@ -89,14 +89,46 @@ enum PortfolioDecimal {
         guard value != 0, !value.isNaN, value.isFinite else { return value }
         var compact = value
         NSDecimalCompact(&compact)
-        // Anzahl Ziffern der Mantisse (ohne Nullen am Ende): Mantisse mit Exponent 0 als Text
-        var mantissa = compact.significand
-        let count = NSDecimalString(&mantissa, posix).filter(\.isNumber).count
-        let excess = count - digits
+        // Anzahl Ziffern der Mantisse (ohne Nullen am Ende), ohne Text: Teilungen laufen je Posten und Herkunftsteil
+        let excess = mantissaDigits(compact) - digits
         guard excess > 0 else { return compact }
         var rounded = Decimal()
         NSDecimalRound(&rounded, &compact, -(Int(compact.exponent) + excess), .bankers)
         return rounded
+    }
+
+    /// 10⁰ … 10³⁸ als 128-Bit-Zahl (obere, untere 64 Bit) — alle Werte, die eine Mantisse von `Decimal` erreicht.
+    private static let tenPowers: [(hi: UInt64, lo: UInt64)] = {
+        var out: [(hi: UInt64, lo: UInt64)] = [(0, 1)]
+        for _ in 1...38 {
+            let last = out[out.count - 1]
+            let low = last.lo.multipliedFullWidth(by: 10)
+            out.append((last.hi &* 10 &+ low.high, low.low))
+        }
+        return out
+    }()
+
+    /// Anzahl Dezimalziffern der Mantisse von `value` (Betrag, Exponent unbeachtet; 0 → 0) — gleich der Länge von
+    /// `NSDecimalString` der Mantisse, aber ohne Text: die Mantisse als 128-Bit-Zahl gegen die Zehnerpotenzen.
+    static func mantissaDigits(_ value: Decimal) -> Int {
+        let m = value._mantissa
+        let length = Int(value._length)
+        func word(_ i: Int, _ w: UInt16) -> UInt64 { i < length ? UInt64(w) : 0 }
+        var lo: UInt64 = word(0, m.0)
+        lo |= word(1, m.1) << 16
+        lo |= word(2, m.2) << 32
+        lo |= word(3, m.3) << 48
+        var hi: UInt64 = word(4, m.4)
+        hi |= word(5, m.5) << 16
+        hi |= word(6, m.6) << 32
+        hi |= word(7, m.7) << 48
+        var count = 0
+        for p in tenPowers {
+            // Mantisse ≥ 10^count: eine Ziffer mehr
+            guard hi > p.hi || (hi == p.hi && lo >= p.lo) else { break }
+            count += 1
+        }
+        return count
     }
 
     /// Anteilige Menge (Teil mit Kaufpreis bei einem Abgang) auf `maxScale` Nachkommastellen (halbe auf gerade).

@@ -26,6 +26,7 @@ on:
       - '.github/scripts/lint_errors.sh'
       - '.github/scripts/room_schema_drift.py'
       - '.github/scripts/line_limit.py'
+      - '.github/scripts/code_metrics.py'
       - '.github/scripts/lint_warnings.py'
       - '.github/scripts/coverage_summary.py'
       - '.github/scripts/sbom.py'
@@ -74,6 +75,19 @@ jobs:
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" "$GITHUB_WORKSPACE"
+
+      # Theme colours (every accent, light/dark, high contrast, selection tints, error fills, placeholders) against
+      # WCAG 4.5:1 / 3:1; the script cross-checks its values with AppColorSchemes.kt, ErrorColors.kt and Theme.swift
+      - name: Theme contrast
+        run: python3 -I "$GITHUB_WORKSPACE/android/tools/check_theme_contrast.py"
+
+      # Size of the Hilt-wired Kotlin classes (android/*/src/main), next to the line limit: constructor dependencies of
+      # @HiltViewModel / @Inject classes (warning from 15, red above the ceiling 20) and private/internal properties
+      # in a ViewModel body (red above the ceiling) — ceilings = today's maximum, so no class grows past it.
+      - name: Code metrics
+        run: |
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" --self-test
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/code_metrics.py" "$GITHUB_WORKSPACE"
 
       # Manifest policy rules (exported widget setup activities allowed only as listed) — fails fast without Gradle;
       # the policy itself runs on the merged release manifest in the release audit

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Bestand an einem Stichtag (CSV, Vermögenssteuer) -->
-    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Steuer-Arbeitsunterlage (eigene Seite) -->
+    <!-- Portfolio-Menü: Stichtag-Export (Dialog) und Arbeitsunterlage (eigene Seite); kein «Steuer» im Menü (Store-Screenshots) -->
     <string name="portfolio_cutoff_export_action">기준일 내보내기…</string>
-    <string name="portfolio_tax_worksheet_action">세무 작업 자료…</string>
+    <string name="portfolio_tax_worksheet_action">작업 자료…</string>
     <string name="portfolio_export_address_unobserved">이 날짜에는 주소를 관찰하지 않았습니다 – 포함 안 됨</string>
     <string name="portfolio_export_button">CSV 내보내기</string>
     <string name="portfolio_export_col_amount">수량</string>

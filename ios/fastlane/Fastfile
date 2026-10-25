@@ -1,0 +1,45 @@
+# Store-Build für den App Store (APP_STORE.md, Abschnitte 4.6 und 5). Im Ordner ios:
+#   fastlane ios store_build public:<Pfad zum öffentlichen Klon>
+# Optional tag:v<Version>-<Build> (Standard: MARKETING_VERSION / CURRENT_PROJECT_VERSION aus project.yml).
+#
+# Archiviert IMMER mit REQUIRE_GIT_COMMIT=YES und GIT_COMMIT=<voller Commit des Tags aus dem öffentlichen Klon>
+# (die Build-Phase «Check source commit» bricht sonst ab; «Diagnose teilen» zeigt den Commit als «Source:»). Bricht
+# ab, wenn der Tag fehlt, nicht zur Version passt oder der Klon lokale Änderungen hat. Ergebnis:
+# build/CryptoChecker-<Build>.xcarchive; Hochladen weiter im Organizer (Abschnitt 5, Schritt 3).
+# Lädt nichts hoch und liest fastlane/metadata nicht (das macht nur deliver mit dem Deliverfile).
+default_platform(:ios)
+
+platform :ios do
+  desc "Release-Archiv aus dem markierten Stand: REQUIRE_GIT_COMMIT=YES und GIT_COMMIT erzwungen"
+  lane :store_build do |options|
+    ios_dir = File.expand_path("..", __dir__)
+    project_yml = File.read(File.join(ios_dir, "project.yml"), encoding: "UTF-8")
+    version = project_yml[/MARKETING_VERSION:\s*"?([0-9.]+)"?/, 1]
+    build = project_yml[/CURRENT_PROJECT_VERSION:\s*"?(\d+)"?/, 1]
+    UI.user_error!("MARKETING_VERSION/CURRENT_PROJECT_VERSION nicht in project.yml gefunden") unless version && build
+    expected_tag = "v#{version}-#{build}"
+    tag = (options[:tag] || expected_tag).to_s
+    UI.user_error!("Tag #{tag} passt nicht zu project.yml (#{expected_tag})") unless tag == expected_tag
+
+    public_clone = options[:public].to_s
+    UI.user_error!("public:<Pfad zum öffentlichen Klon> angeben") if public_clone.empty?
+    public_clone = File.expand_path(public_clone)
+    dirty = sh("git", "-C", public_clone, "status", "--porcelain", log: false).strip
+    UI.user_error!("Öffentlicher Klon hat lokale Änderungen – erst abgleichen und committen") unless dirty.empty?
+    commit = sh("git", "-C", public_clone, "rev-parse", "#{tag}^{commit}", log: false).strip
+    UI.user_error!("Kein voller Commit-Hash für #{tag}: #{commit}") unless commit.match?(/\A[0-9a-f]{40}\z/)
+    UI.message("Store-Build #{tag}, Commit #{commit}")
+
+    archive = File.join(ios_dir, "build", "CryptoChecker-#{build}.xcarchive")
+    sh(
+      "xcodebuild", "archive",
+      "-project", File.join(ios_dir, "CryptoChecker.xcodeproj"),
+      "-scheme", "CryptoChecker",
+      "-configuration", "Release",
+      "-destination", "generic/platform=iOS",
+      "-archivePath", archive,
+      "GIT_COMMIT=#{commit}", "REQUIRE_GIT_COMMIT=YES",
+    )
+    UI.success("Fertig: #{archive} – mit «open» im Organizer öffnen und hochladen")
+  end
+end

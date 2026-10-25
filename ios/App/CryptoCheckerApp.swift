@@ -158,6 +158,8 @@ struct CryptoCheckerApp: App {
         SharedStorage.migrateFallbackIfNeeded()
         // App-Start bis zum ersten Bild der Merkliste (Bericht «Ablauf»)
         AppStartClock.onAppInit()
+        // Platzhalter der Suchfelder (.searchable) in onSurfaceVariant statt System-Grau, wie Android
+        SearchFieldPlaceholder.apply()
     }
 
     var body: some Scene {
@@ -169,8 +171,12 @@ struct CryptoCheckerApp: App {
                 // «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung
                 .storageRecoveryNotice(onRestoreBackup: { router.openBackupSettings() })
                 // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken;
-                // danach einmalig «fällt um ≥ 100 %»-Alarme ausschalten
-                .task { BackupManager.recoverInterruptedRestore(data); data.disableInvalidFallAlarmsOnce() }
+                // danach einmalig «fällt um ≥ 100 %»-Alarme ausschalten — beides mit dem beim Start gelesenen Stand
+                .task {
+                    await data.waitForSnapshot()
+                    BackupManager.recoverInterruptedRestore(data)
+                    data.disableInvalidFallAlarmsOnce()
+                }
                 // Portfolio-Sperre: gesperrt ist nur der Portfolio-Tab (RootView); hier nur der
                 // Sichtschutz im App-Umschalter, solange die Sperre an ist
                 .overlay {
@@ -352,6 +358,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // Datei, gespeichert wie der Schalter in der Liste; nur wenn der Alarm im Speicher steht (sonst nichts zu
         // ändern, z. B. Merkliste gesperrt und leer)
         let app = AppData.shared
+        // Mit dem beim Start gelesenen Stand (App eben erst gestartet: nicht auf dem Haupt-Thread darauf warten)
+        await app.waitForSnapshot()
         var probe = app.snapshot
         if AlarmSnooze.rearm(alarmId, in: &probe) {
             app.mutate({ _ = AlarmSnooze.rearm(alarmId, in: &$0) }, reloadWidgets: false)

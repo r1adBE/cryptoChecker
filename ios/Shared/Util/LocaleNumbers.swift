@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Zahlen für Text, den Menschen lesen, in den Ziffern der App-Sprache: Arabisch «٧٢»,
 /// Persisch «۷۲», sonst «72» — überall gleich (Werte, Zähler, Gebühren, Achsen). Wie
@@ -15,22 +16,20 @@ enum LocaleNumbers {
     static var appLocale: Locale { Locale.current }
 
     /// Ergebnis von `usesIndianGrouping` je Locale-Kennung (Formatierer sind teuer).
-    private static let indianGroupingLock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `indianGroupingLock` (NSLock)
-    nonisolated(unsafe) private static var indianGroupingCache: [String: Bool] = [:]
+    private static let indianGroupingCache = OSAllocatedUnfairLock(initialState: [String: Bool]())
 
     /// Gruppiert `locale` Zahlen indisch, mit Zweier-Nebengruppen («1,00,000», z. B. hi-IN, en-IN)?
     /// Aus den CLDR-Daten des Formatierers. Wie Android `LocaleNumbers.usesIndianGrouping`.
     static func usesIndianGrouping(_ locale: Locale) -> Bool {
-        indianGroupingLock.lock()
-        defer { indianGroupingLock.unlock() }
-        if let cached = indianGroupingCache[locale.identifier] { return cached }
-        let formatter = NumberFormatter()
-        formatter.locale = locale
-        formatter.numberStyle = .decimal
-        let indian = formatter.secondaryGroupingSize == 2
-        indianGroupingCache[locale.identifier] = indian
-        return indian
+        indianGroupingCache.withLock { cache in
+            if let cached = cache[locale.identifier] { return cached }
+            let formatter = NumberFormatter()
+            formatter.locale = locale
+            formatter.numberStyle = .decimal
+            let indian = formatter.secondaryGroupingSize == 2
+            cache[locale.identifier] = indian
+            return indian
+        }
     }
 
     /// Sprache + Region wie Android `LocaleNumbers.formatLocale`: ungültige oder leere Region →

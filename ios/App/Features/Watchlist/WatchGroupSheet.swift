@@ -44,7 +44,7 @@ struct WatchGroupSheet: View {
                         }
                     }
                     if creating {
-                        TextField(L("group_name"), text: $name)
+                        TextField(placeholder: L("group_name"), text: $name)
                             .focused($nameFocused)
                             .textInputAutocapitalization(.words)
                             .submitLabel(.done)

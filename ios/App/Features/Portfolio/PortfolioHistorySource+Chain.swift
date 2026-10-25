@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Ausweich-Kette des Wertverlaufs und USDT/USD-Tagesschlüsse (Teil von `PortfolioHistorySource`): Coins, die Binance
 // nicht führt (oder bei nicht erreichbarem Binance) und ohne eingetragene Börse, bekommen Tageskerzen von Coinbase →
@@ -35,14 +36,16 @@ extension PortfolioHistorySource {
     /// Nach einer Abfrage ohne Treffer so lange nicht erneut alle Börsen fragen (nur im Speicher).
     private static let chainMissMillis: Int64 = 60 * 60_000
     private static let chainParallel = 4
-    private static let chainLock = NSLock()
-    // nonisolated(unsafe) (`chainMemory`, `chainMisses`): jeder Zugriff nur unter `chainLock` (NSLock).
-    // Begrenzt (`BoundedCache`, 512 Coins wie `chainMemory`/`chainMisses` mit `MEMORY_CACHE_ENTRIES`,
-    // Android) statt unbegrenzter Wörterbücher.
-    /// Coin → (Reihe der Kette samt Weg, Abfragezeit); nur unter `chainLock`.
-    nonisolated(unsafe) private static var chainMemory = BoundedCache<String, (entry: PortfolioOwnCloses, at: Int64)>()
-    /// Coin → Zeit der letzten Abfrage ohne Treffer; nur unter `chainLock`.
-    nonisolated(unsafe) private static var chainMisses = BoundedCache<String, Int64>()
+    /// Zwischenspeicher der Kette, zusammen hinter einer Sperre. Begrenzt (`BoundedCache`, 512 Coins wie
+    /// `chainMemory`/`chainMisses` mit `MEMORY_CACHE_ENTRIES`, Android) statt unbegrenzter Wörterbücher.
+    private struct ChainMemory: Sendable {
+        /// Coin → (Reihe der Kette samt Weg, Abfragezeit).
+        var series = BoundedCache<String, (entry: PortfolioOwnCloses, at: Int64)>()
+        /// Coin → Zeit der letzten Abfrage ohne Treffer.
+        var misses = BoundedCache<String, Int64>()
+    }
+
+    private static let chainMemory = OSAllocatedUnfairLock(initialState: ChainMemory())
 
     private static func chainCacheKey(_ coin: String) -> String { "phistc_" + coin }
 
@@ -78,26 +81,27 @@ extension PortfolioHistorySource {
     /// Bezug (`chainReference`) — sonst höchstens ein älterer Stand (den der Verlauf noch gegen den Kurs prüft).
     private static func chainCloses(of coin: String, span: Int, usdtUsd: [Int: Double]) async -> PortfolioOwnCloses? {
         let now = TimeUtils.nowMillis
-        let hit: (entry: PortfolioOwnCloses, at: Int64)? = chainLock.withLock { chainMemory.get(coin) }
+        let hit: (entry: PortfolioOwnCloses, at: Int64)? = chainMemory.withLock { $0.series.get(coin) }
         if let hit, hit.entry.entry.span >= span, CycleCachePolicy.isFresh(savedAt: hit.at, now: now, ttl: ttl) {
             return hit.entry
         }
         let stored = CycleCache.read(chainCacheKey(coin), as: PortfolioOwnCloses.self)
         if let stored, stored.value.entry.span >= span, CycleCachePolicy.isFresh(savedAt: stored.savedAt, now: now, ttl: ttl) {
-            chainLock.withLock { chainMemory.set(coin, (entry: stored.value, at: stored.savedAt)) }
+            let entry = (entry: stored.value, at: stored.savedAt)
+            chainMemory.withLock { $0.series.set(coin, entry) }
             return stored.value
         }
         let older = stored?.value ?? hit?.entry
-        let missAt: Int64? = chainLock.withLock { chainMisses.get(coin) }
+        let missAt: Int64? = chainMemory.withLock { $0.misses.get(coin) }
         if let missAt, now - missAt >= 0, now - missAt < chainMissMillis { return older }
         guard let reference = await chainReference(coin) else { return older }
         guard let fresh = await fetchChain(coin, span: span, now: now, usdtUsd: usdtUsd, reference: reference) else {
-            chainLock.withLock { chainMisses.set(coin, now) }
+            chainMemory.withLock { $0.misses.set(coin, now) }
             return older
         }
-        chainLock.withLock {
-            chainMisses.removeValue(forKey: coin)
-            chainMemory.set(coin, (entry: fresh, at: now))
+        chainMemory.withLock {
+            $0.misses.removeValue(forKey: coin)
+            $0.series.set(coin, (entry: fresh, at: now))
         }
         CycleCache.write(chainCacheKey(coin), fresh, savedAt: now)
         return fresh

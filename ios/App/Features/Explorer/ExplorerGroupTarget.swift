@@ -69,7 +69,7 @@ struct ExplorerGroupTargetSelector: View {
             .contentShape(Rectangle())
         }
         .alert(L("group_add"), isPresented: $naming) {
-            TextField(L("group_name"), text: $newName)
+            TextField(placeholder: L("group_name"), text: $newName)
                 .textInputAutocapitalization(.words)
             Button(L("action_save")) {
                 guard let clean = WatchGroupNames.clean(newName) else { return }

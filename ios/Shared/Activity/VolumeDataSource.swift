@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Volumen der letzten abgeschlossenen Stunde im Vergleich zum Schnitt der 24 Stunden davor.
 struct VolumeSpike: Equatable, Sendable {
@@ -30,9 +31,9 @@ enum VolumeDataSource {
     private static let cacheMillis: Int64 = 5 * 60_000
 
     // Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter
-    private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Begrenzt (`BoundedCache`).
-    nonisolated(unsafe) private static var cache = BoundedCache<String, (time: Int64, candles: Sourced<[MarketCandle]>?)>()
+    /// Begrenzt (`BoundedCache`), hinter einer Sperre mit Zustand.
+    private static let cache = OSAllocatedUnfairLock(
+        initialState: BoundedCache<String, (time: Int64, candles: Sourced<[MarketCandle]>?)>())
 
     /// Markt-Referenz (z. B. BTC/USDT für den Puls) direkt aus der Ausweich-Kette.
     static func hourlySpike(base: String, quote: String) async -> VolumeSpike? {
@@ -115,15 +116,14 @@ enum VolumeDataSource {
     }
 
     private static func cached(_ key: String, now: Int64) -> (time: Int64, candles: Sourced<[MarketCandle]>?)? {
-        lock.lock(); defer { lock.unlock() }
-        guard let entry = cache.get(key) else { return nil }
+        guard let entry = cache.withLock({ $0.get(key) }) else { return nil }
         let age = now - entry.time
         return age >= 0 && age < cacheMillis ? entry : nil
     }
 
     private static func store(_ key: String, _ candles: Sourced<[MarketCandle]>?) {
-        lock.lock(); defer { lock.unlock() }
-        cache.set(key, (time: TimeUtils.nowMillis, candles: candles))
+        let entry = (time: TimeUtils.nowMillis, candles: candles)
+        cache.withLock { $0.set(key, entry) }
     }
 
     /// Binance-Symbol, z. B. BTC + USD → BTCUSDT.

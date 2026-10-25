@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Faktoren der Phemex-Spot-Produkte aus `/public/products` — mit der Paarliste geladen, im Speicher gehalten und als
 /// Datei in der App Group abgelegt (`storeURL`). Wie `PhemexScales` (Android): `priceScale` je Symbol (Ep; ohne Feld kein
@@ -38,20 +39,24 @@ struct PhemexScales: Sendable {
 
     // MARK: Geteilter Stand
 
-    private static let guardLock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `guardLock` (NSLock)
-    nonisolated(unsafe) private static var shared = PhemexScales()
-    nonisolated(unsafe) private static var diskChecked = false
-    nonisolated(unsafe) private static var diskFile: URL? = SharedStorage.directory.appendingPathComponent("phemex_scales.json")
+    /// Geteilte Faktoren, ob die Datei schon versucht wurde, und die Ablage — gemeinsam hinter einer Sperre.
+    private struct SharedState: Sendable {
+        var scales = PhemexScales()
+        var diskChecked = false
+        var diskFile: URL?
+    }
+
+    private static let state = OSAllocatedUnfairLock(
+        initialState: SharedState(diskFile: SharedStorage.directory.appendingPathComponent("phemex_scales.json")))
 
     /// Ablage auf dem Gerät (App Group, auch für die Widgets); nil = nur im Speicher (Tests). Neu setzen erlaubt
     /// einen neuen Ladeversuch. Wie Android `PhemexScales.store`.
     static var storeURL: URL? {
-        get { guardLock.withLock { diskFile } }
+        get { state.withLock { $0.diskFile } }
         set {
-            guardLock.withLock {
-                diskFile = newValue
-                diskChecked = false
+            state.withLock {
+                $0.diskFile = newValue
+                $0.diskChecked = false
             }
         }
     }
@@ -60,20 +65,20 @@ struct PhemexScales: Sendable {
     /// Neue Faktoren aus der Produktliste werden sofort abgelegt.
     static var current: PhemexScales {
         get {
-            guardLock.lock()
-            defer { guardLock.unlock() }
-            guard !shared.loaded, !diskChecked else { return shared }
-            diskChecked = true
-            if let file = diskFile, let bytes = try? Data(contentsOf: file),
-               let fromDisk = decode(String(decoding: bytes, as: UTF8.self)) {
-                shared = fromDisk
+            state.withLock { s in
+                guard !s.scales.loaded, !s.diskChecked else { return s.scales }
+                s.diskChecked = true
+                if let file = s.diskFile, let bytes = try? Data(contentsOf: file),
+                   let fromDisk = decode(String(decoding: bytes, as: UTF8.self)) {
+                    s.scales = fromDisk
+                }
+                return s.scales
             }
-            return shared
         }
         set {
-            let target: URL? = guardLock.withLock {
-                shared = newValue
-                return diskFile
+            let target: URL? = state.withLock {
+                $0.scales = newValue
+                return $0.diskFile
             }
             guard newValue.loaded, let file = target, let bytes = newValue.encode().data(using: .utf8) else { return }
             try? bytes.write(to: file, options: .atomic)

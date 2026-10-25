@@ -25,7 +25,7 @@ struct WatchNoteSheet: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 8) {
-                TextField(L("note_hint"), text: $text, axis: .vertical)
+                TextField(placeholder: L("note_hint"), text: $text, axis: .vertical)
                     .lineLimit(3...6)
                     .focused($focused)
                     .textInputAutocapitalization(.sentences)

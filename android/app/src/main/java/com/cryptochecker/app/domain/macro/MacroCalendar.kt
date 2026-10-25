@@ -46,13 +46,17 @@ data class MacroHintItem(val event: MacroEvent, val tomorrow: Boolean)
 /**
  * Kalender wichtiger US-Wirtschaftsdaten — reine Logik, testbar; wie `MacroCalendar.swift` (iOS).
  *
- * Quelle: eine öffentliche Datei auf GitHub Pages (einmal am Tag, 24 h zwischengespeichert),
- * bei Fehlern der Zwischenspeicher, sonst die mitgelieferte Datei (`assets/macro_events.json`).
+ * Quelle: eine öffentliche Datei auf GitHub Pages (einmal am Tag, 24 h zwischengespeichert), nur angenommen, wenn
+ * ihr SHA-256 im signierten Spiegel-Manifest steht ([MANIFEST_FILE], [parseVerified]); bei Fehlern der
+ * Zwischenspeicher, sonst die mitgelieferte Datei (`assets/macro_events.json`).
  * Format: `{"version":1,"generated":"…","source":"…","events":[{"type":"CPI","time":"2026-10-14T12:30:00Z"},…]}`.
  */
 object MacroCalendar {
     /** Datei der App-Webseite (GitHub Pages). */
     const val URL = "https://r1adbe.github.io/cryptoChecker/macro/events.json"
+
+    /** Eintrag der Datei im signierten Spiegel-Manifest (MirrorManifest; mirror_data.py `--signed-extra`). */
+    const val MANIFEST_FILE = "macro_events.json"
 
     /** Zwischenspeicher gilt einen Tag. */
     const val TTL_MILLIS = 24 * 60 * 60_000L
@@ -99,6 +103,16 @@ object MacroCalendar {
             .distinct()
             .sortedWith(compareBy<MacroEvent> { it.time }.thenBy { it.type.ordinal })
     }
+
+    /**
+     * Geladene Datei lesen, aber nur, wenn [verify] sie als [MANIFEST_FILE] bestätigt (SHA-256 im gültig signierten,
+     * frischen Manifest); sonst null wie eine ungültige Datei (dann gilt die nächste Quelle).
+     */
+    suspend fun parseVerified(
+        json: String,
+        now: Long,
+        verify: suspend (file: String, text: String) -> Boolean,
+    ): List<MacroEvent>? = if (verify(MANIFEST_FILE, json)) parse(json, now) else null
 
     /** ISO-8601-Zeitpunkt («2026-10-14T12:30:00Z», auch mit Versatz); null wenn ungültig. */
     fun parseInstant(text: String): Long? = try {

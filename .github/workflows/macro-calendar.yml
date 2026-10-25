@@ -4,6 +4,9 @@
 # Health check: a source failing on 2+ consecutive runs (counters in docs/macro/status.json) or an
 # event type without dates newer than 14 days opens/updates ONE issue "Macro calendar check failed"
 # (closed again once healthy). The run stays green for that; red only if a script or the artifact check fails.
+# Signed: the apps accept events.json only if its SHA-256 is in the signed mirror manifest (entry macro_events.json,
+# written by market-data.yml from the committed file); after a commit this workflow starts «Market data» so the
+# manifest follows within minutes (until then the apps keep their cache or the built-in calendar).
 name: Macro calendar
 
 on:
@@ -54,7 +57,7 @@ jobs:
       contents: write   # commit and push docs/macro
       pages: write      # request a Pages build
       issues: write     # health-check issue (macro_calendar.py)
-      actions: read     # download the artifact of this run (gh run download)
+      actions: write    # download the artifact of this run (gh run download); start «Market data» after a commit
     timeout-minutes: 10
     steps:
       # Fresh checkout of the tested commit; the token is not stored in .git/config
@@ -63,7 +66,7 @@ jobs:
           ref: ${{ github.sha }}
           persist-credentials: false
 
-      # actions/download-artifact is not pinned in this repository yet: gh (preinstalled) with this run's artifact
+      # gh (preinstalled) downloads this run's artifact
       - name: Download artifact
         env:
           GH_TOKEN: ${{ github.token }}
@@ -116,3 +119,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "Pages build request skipped."
+
+      # New hash into the signed manifest (market-data.yml checks out main and signs docs/macro/events.json)
+      - name: Renew mirror manifest
+        if: steps.commit.outputs.changed == 'true' && github.ref == 'refs/heads/main'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run market-data.yml --repo "$GITHUB_REPOSITORY" --ref main \
+            || echo "::warning::Market data not started; the manifest follows with its next hourly run"

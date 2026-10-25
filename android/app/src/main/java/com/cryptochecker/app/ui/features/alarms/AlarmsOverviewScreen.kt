@@ -41,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -66,6 +67,9 @@ import com.cryptochecker.app.ui.theme.SnackbarKind
  * Übersicht aller Alarme: Welche sind scharf, auf welchem Paar? Ein Tipp
  * auf ein Paar öffnet dessen Alarme zum Bearbeiten.
  */
+/** Grösste Systemschrift, bei der Titel und Zahl der aktiven Alarme zweizeilig in die Leiste passen. */
+private const val COUNT_IN_BAR_MAX_SCALE = 1.3f
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmsOverviewScreen(
@@ -90,6 +94,10 @@ fun AlarmsOverviewScreen(
     var askDeletePortfolio by remember { mutableStateOf<PortfolioAlarmEntity?>(null) }
     val context = LocalContext.current
     val active = groups.sumOf { g -> g.count { it.alarm.enabled } } + portfolioAlarms.count { it.enabled }
+    // Titel und Zahl passen zweizeilig nur bis [COUNT_IN_BAR_MAX_SCALE] in die Leiste (feste Höhe); bei grösserer
+    // Schrift steht die Zahl als erste Zeile der Liste, statt abgeschnitten zu werden (wie iOS)
+    val countInBar = LocalDensity.current.fontScale <= COUNT_IN_BAR_MAX_SCALE
+    val activeText = pluralStringResource(R.plurals.alarms_overview_active, active, active)
 
     askDeletePortfolio?.let { alarm ->
         AlertDialog(
@@ -125,10 +133,7 @@ fun AlarmsOverviewScreen(
                 title = {
                     Column {
                         Text(stringResource(R.string.alarms_overview_title))
-                        Text(
-                            pluralStringResource(R.plurals.alarms_overview_active, active, active),
-                            style = MaterialTheme.typography.bodySmall
-                        )
+                        if (countInBar) Text(activeText, style = MaterialTheme.typography.bodySmall)
                     }
                 },
                 navigationIcon = {
@@ -197,6 +202,9 @@ fun AlarmsOverviewScreen(
                 contentPadding = PaddingValues(start = 16.dp + inset, top = 16.dp, end = 16.dp + inset, bottom = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+                if (!countInBar) {
+                    item(key = "active") { Text(activeText, style = MaterialTheme.typography.bodySmall) }
+                }
                 if (!notificationsEnabled) {
                     item(key = "notifications_off") { com.cryptochecker.app.ui.components.NotificationsOffBanner() }
                 }

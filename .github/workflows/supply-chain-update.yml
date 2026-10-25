@@ -1,13 +1,23 @@
 # Writes the Gradle supply-chain files of the Android build and pushes ONLY them to the branch supply-chain/update:
 #   android/gradle/verification-metadata.xml  sha256 of every dependency, plugin and tool artifact (Gradle checks them
-#                                             on every build as soon as the file exists)
+#                                             on every build as soon as the file exists); with the input «signatures»
+#                                             also verify-signatures=true and the trusted PGP keys
+#   android/gradle/verification-keyring.keys  (input «signatures» only) the public keys of those signatures, armored;
+#                                             builds verify against it without asking a key server
 #   android/*/gradle.lockfile                 locked versions per module (android/build.gradle.kts: DEFAULT mode once
 #                                             the file exists, LENIENT before)
 # Run by hand (Actions › Supply chain update › Run workflow) after any dependency, plugin or Gradle change; then
 # open a pull request from supply-chain/update (see DEVELOPMENT.md, «Supply chain»).
+# Signatures: the committed file keeps verify-signatures=false until this workflow has run once with «signatures»
+# checked (the default) and its pull request is merged - a keyring cannot be created offline, and switching the flag
+# by hand without it breaks every build. Gradle writes --write-verification-metadata sha256,pgp --export-keys:
+# signed artifacts are covered by <trusted-keys> (each key limited to its groups), unsigned ones and those whose key
+# no key server has keep their sha256 entry (origin «… wasn't signed» / «… couldn't be downloaded», such keys in
+# <ignored-keys>); supply_chain_files.py adds the sha256 of every other artifact for the SBOM and lists these
+# exceptions in the job summary of «publish». Uncheck «signatures» to fall back to checksums only.
 # Jobs: «linux» runs the CI task set (unit tests, lint, instrumented-test APK, debug/release/AAB) with
-# --write-verification-metadata sha256 --write-locks, then Kover, the baseline-profile module and (optional) the
-# device tests on an emulator with --write-verification-metadata only; «windows» and «macos» add the
+# --write-verification-metadata sha256 (sha256,pgp --export-keys with «signatures») --write-locks, then Kover, the
+# baseline-profile module and (optional) the device tests on an emulator with --write-verification-metadata only; «windows» and «macos» add the
 # platform-specific artifacts (aapt2) for local builds. These jobs have read-only tokens and run third-party build
 # code; «publish» (contents: write, no Gradle) checks the artifact strictly and pushes it to the branch.
 name: Supply chain update
@@ -15,6 +25,10 @@ name: Supply chain update
 on:
   workflow_dispatch:
     inputs:
+      signatures:
+        description: 'Verify PGP signatures (verify-signatures=true, keyring gradle/verification-keyring.keys)'
+        type: boolean
+        default: true
       device_tests:
         description: 'Also resolve the device-test tooling (emulator run of one test class)'
         type: boolean
@@ -35,8 +49,12 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # One flag set for every write run: no configuration or build cache (every artifact is resolved and checksummed)
-  GRADLE_WRITE_FLAGS: --no-configuration-cache --no-build-cache --write-verification-metadata sha256 --stacktrace
+  # One flag set for every write run: no configuration or build cache (every artifact is resolved and checksummed);
+  # with «signatures» Gradle also records the signing keys and exports them to gradle/verification-keyring.keys
+  GRADLE_WRITE_FLAGS: >-
+    --no-configuration-cache --no-build-cache --stacktrace
+    --write-verification-metadata ${{ inputs.signatures && 'sha256,pgp --export-keys' || 'sha256' }}
+  SIGNATURES: ${{ inputs.signatures && 'true' || 'false' }}
 
 jobs:
   linux:
@@ -67,8 +85,11 @@ jobs:
       # Start from scratch: no stale checksums or locks; the seed only holds the configuration block
       - name: Seed verification metadata
         run: |
-          rm -f gradle/verification-metadata.xml gradle.lockfile */gradle.lockfile
-          python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --seed gradle/verification-metadata.xml
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --self-test
+          rm -f gradle/verification-metadata.xml gradle/verification-keyring.* gradle.lockfile */gradle.lockfile
+          if [ "$SIGNATURES" = true ]; then SEED_MODE=--signatures; else SEED_MODE=; fi
+          # shellcheck disable=SC2086
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --seed gradle/verification-metadata.xml $SEED_MODE
 
       # Same tasks as android.yml (and record-exchange-fixtures.yml / android-device-tests.yml builds): every
       # configuration CI resolves gets its checksums and its lock state
@@ -122,10 +143,17 @@ jobs:
           emulator-boot-timeout: 900
           script: ./gradlew $GRADLE_WRITE_FLAGS :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.TextLimitDeviceTest || echo "::warning::Device test run failed; check that the test platform artifacts are in the checksums"
 
+      # Signatures: Gradle leaves out the checksum of artifacts covered by a trusted key; the SBOM needs it, so the
+      # sha256 of every artifact this fresh cache holds is added (existing entries stay)
       - name: Collect files
         run: |
           STAGE="$RUNNER_TEMP/supply-chain"
           mkdir -p "$STAGE/gradle"
+          if [ "$SIGNATURES" = true ]; then
+            python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --fill-checksums \
+              gradle/verification-metadata.xml "${GRADLE_USER_HOME:-$HOME/.gradle}/caches/modules-2/files-2.1"
+            cp gradle/verification-keyring.keys "$STAGE/gradle/"
+          fi
           cp gradle/verification-metadata.xml "$STAGE/gradle/"
           for f in gradle.lockfile */gradle.lockfile; do
             if [ -f "$f" ]; then mkdir -p "$STAGE/$(dirname "$f")"; cp "$f" "$STAGE/$f"; fi
@@ -177,6 +205,9 @@ jobs:
           # shellcheck disable=SC2086
           ./gradlew $GRADLE_WRITE_FLAGS :app:assembleDebug :app:bundleRelease
           cp gradle/verification-metadata.xml "$RUNNER_TEMP/supply-chain/gradle/verification-metadata.xml"
+          if [ "$SIGNATURES" = true ]; then
+            cp gradle/verification-keyring.keys "$RUNNER_TEMP/supply-chain/gradle/verification-keyring.keys"
+          fi
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: supply-chain-windows
@@ -223,6 +254,9 @@ jobs:
           # shellcheck disable=SC2086
           ./gradlew $GRADLE_WRITE_FLAGS :app:assembleDebug :app:bundleRelease
           cp gradle/verification-metadata.xml "$RUNNER_TEMP/supply-chain/gradle/verification-metadata.xml"
+          if [ "$SIGNATURES" = true ]; then
+            cp gradle/verification-keyring.keys "$RUNNER_TEMP/supply-chain/gradle/verification-keyring.keys"
+          fi
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: supply-chain-macos
@@ -265,11 +299,18 @@ jobs:
           echo "::error::No supply-chain artifact found"
           exit 1
 
-      # Only the expected files, size, well-formed XML, plain lock lines; nothing from the artifact is executed
+      # Only the expected files, size, well-formed XML, the seed configuration (plus well-formed keys in signatures
+      # mode), public keys only, plain lock lines; nothing from the artifact is executed. The summary lists the trusted
+      # keys, ignored keys and the artifacts checked by sha256 only. The SBOM must still find every shipped checksum.
       - name: Check artifact
         run: |
-          python3 -I .github/scripts/supply_chain_files.py --check "$RUNNER_TEMP/supply-chain"
+          python3 -I .github/scripts/supply_chain_files.py --check "$RUNNER_TEMP/supply-chain" --summary "$GITHUB_STEP_SUMMARY"
+          if [ "$SIGNATURES" = true ] && [ ! -f "$RUNNER_TEMP/supply-chain/gradle/verification-keyring.keys" ]; then
+            echo "::error::signatures requested but no keyring in the artifact"
+            exit 1
+          fi
           cp -R "$RUNNER_TEMP/supply-chain/." android/
+          python3 -I .github/scripts/sbom.py . "$RUNNER_TEMP/sbom"
 
       - name: Push branch supply-chain/update
         env:
@@ -280,6 +321,12 @@ jobs:
           git config user.email '68864596+r1adBE@users.noreply.github.com'
           git checkout -B "$BRANCH"
           git add -- android/gradle/verification-metadata.xml
+          # Keyring only with signatures; in checksums mode an old keyring is removed (Gradle would not read it)
+          if [ -f android/gradle/verification-keyring.keys ] && [ "$SIGNATURES" = true ]; then
+            git add -- android/gradle/verification-keyring.keys
+          else
+            git rm -q --ignore-unmatch -- android/gradle/verification-keyring.keys
+          fi
           for f in android/gradle.lockfile android/*/gradle.lockfile; do
             if [ -f "$f" ]; then git add -- "$f"; fi
           done
@@ -287,7 +334,8 @@ jobs:
             echo "Files unchanged against $GITHUB_SHA; branch not updated."
             exit 0
           fi
-          git commit -m "Update Gradle verification metadata and lock files ($(date -u +%Y-%m-%d))"
+          if [ "$SIGNATURES" = true ]; then WHAT='signatures, keyring'; else WHAT='checksums'; fi
+          git commit -m "Update Gradle verification metadata ($WHAT) and lock files ($(date -u +%Y-%m-%d))"
           # checkout ran with persist-credentials: false, so pass the token for this step only
           AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
           echo "::add-mask::$AUTH"
