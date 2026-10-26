@@ -48,7 +48,9 @@ import urllib.error
 import urllib.request
 from zoneinfo import ZoneInfo
 
-USER_AGENT = "cryptoChecker-macro-calendar (+https://github.com/r1adBE/cryptoChecker)"
+# BLS answers 403 to a User-Agent without a contact e-mail (also with a repository URL or a GitHub noreply
+# address); the public contact address of the project (privacy page) is let through
+USER_AGENT = "cryptoChecker-macro-calendar (contact: riad.work@outlook.com)"
 ET = ZoneInfo("America/New_York")
 UTC = dt.timezone.utc
 
@@ -106,11 +108,16 @@ def month_number(token):
     return None
 
 
+# Inline tags are removed without a space: BEA writes «News» as <span>N</span><span>ews</span>
+INLINE_TAGS = r"(?:span|a|b|i|em|strong|small|sup|sub|abbr|font|u|mark)"
+
+
 def html_to_text(page):
     """Strip tags/scripts and collapse whitespace, so parsers don't depend on markup."""
     page = re.sub(r"(?is)<(script|style|noscript)\b.*?</\1\s*>", " ", page)
     page = re.sub(r"(?s)<!--.*?-->", " ", page)
     page = re.sub(r"(?i)<br\s*/?>", " ", page)
+    page = re.sub(r"(?i)</?" + INLINE_TAGS + r"\b[^>]*>", "", page)
     page = re.sub(r"<[^>]+>", " ", page)
     page = html.unescape(page).replace(" ", " ")
     return re.sub(r"\s+", " ", page).strip()
@@ -242,7 +249,7 @@ def parse_bea(page):
     text = html_to_text(page)
     rx = re.compile(
         r"(" + MONTH_RE + r")\.?\s+(\d{1,2})(?:,\s*(\d{4}))?\s+"
-        r"(\d{1,2}:\d{2}\s*[AaPp]\.?\s*[Mm]\.?)\s+(?:(?:News|Data|Article|Release)\s+)?"
+        r"(\d{1,2}:\d{2}\s*[AaPp]\.?\s*[Mm]\.?)\s+(?:(?:N\s*ews|D\s*ata|A\s*rticle|R\s*elease)\s+)?"
         r"Personal Income and Outlays,\s+(" + MONTH_RE + r")\.?\s+(\d{4})")
     out = []
     for m in rx.finditer(text):
@@ -515,7 +522,39 @@ def health_only(output, now, status_path=None):
     return health(load_failures(status_path), load_previous(output), now)
 
 
+SAMPLE_BEA = ('<tr><td class="release-date">October 29</td><td>8:30 AM</td><td><span>N</span><span>ews</span>'
+              '</td><td><a href="/news/2026/x">Personal Income and Outlays, September 2026</a></td></tr>'
+              '<tr><td>December 23</td><td>8:30 AM</td><td><span>N</span><span>ews</span></td>'
+              '<td>Personal Income and Outlays, November 2026</td></tr>'
+              '<tr><td>January 29</td><td>8:30 AM</td><td>News</td>'
+              '<td>Personal Income and Outlays, December 2026</td></tr>')
+SAMPLE_BLS_SCHEDULE = ('<tr><td>Tuesday, October 14, 2026</td><td>08:30 AM</td>'
+                       '<td><strong>Consumer Price Index</strong> for September 2026</td></tr>'
+                       '<tr><td>Friday, November 6, 2026</td><td>08:30 AM</td>'
+                       '<td>Employment Situation for October 2026</td></tr>')
+SAMPLE_BLS_PAGE = '<tr><td>September 2026</td><td>Oct. 15, 2026</td><td>08:30 AM</td></tr>'
+
+
+def self_test():
+    """Parsers against stored markup (BEA inline spans, BLS tables) and the User-Agent rule."""
+    assert "@" in USER_AGENT and "http" not in USER_AGENT, "BLS needs a contact e-mail, no URL"
+    assert html_to_text("<td><span>N</span><span>ews</span></td>") == "News"
+    assert html_to_text("<td>a</td><td>b</td>") == "a b"
+    pce = parse_bea(SAMPLE_BEA)
+    assert [e["time"] for e in pce] == ["2026-10-29T12:30:00Z", "2026-12-23T13:30:00Z",
+                                        "2027-01-29T13:30:00Z"], pce
+    bls = parse_bls_schedule(SAMPLE_BLS_SCHEDULE)
+    assert [(e["type"], e["time"]) for e in bls] == [("CPI", "2026-10-14T12:30:00Z"),
+                                                     ("NFP", "2026-11-06T13:30:00Z")], bls
+    page = parse_bls_release_page(SAMPLE_BLS_PAGE, "PPI")
+    assert page == [{"type": "PPI", "time": "2026-10-15T12:30:00Z"}], page
+    print("macro_calendar self-test ok")
+    return 0
+
+
 def main(argv=None):
+    if argv is None and "--self-test" in sys.argv[1:]:
+        return self_test()
     ap = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     ap.add_argument("--output", default=os.path.join("docs", "macro", "events.json"))
     ap.add_argument("--dry-run", action="store_true", help="no GitHub issue, only print problems")

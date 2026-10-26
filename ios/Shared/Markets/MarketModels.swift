@@ -163,7 +163,7 @@ struct MarketPair: Codable, Hashable, Comparable, Sendable, CustomStringConverti
     var contractType: FuturesContractType = .none
     /// Kontrakt auf etwas anderes als einen Krypto-Token: Aktie, Rohstoff (etwa Gold), Devisen oder eine Firma
     /// vor dem Börsengang (Binance «TradFi-Perpetuals»). Ob die Auswahl solche Paare zeigt, regelt «Token &
-    /// TradFi» unter Einstellungen › Erweitert. nil: Die Börse sagt dazu nichts oder die Liste stammt aus einer
+    /// TradFi» unter Einstellungen › Merkliste. nil: Die Börse sagt dazu nichts oder die Liste stammt aus einer
     /// älteren Version (zählt als Krypto). Wie `MarketPair.tradFi` auf Android.
     var tradFi: Bool?
 

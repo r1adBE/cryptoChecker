@@ -121,7 +121,7 @@
     <string name="watchlist_groups_empty_hint">Aquí aparecerán tus grupos</string>
     <string name="watchlist_notification">Notificación de precio</string>
     <string name="watchlist_tts">Decir precio</string>
-    <string name="watchlist_tts_speech_on">La salida de voz está activada. Puedes cambiarla en Ajustes › Avanzado › Salida de voz.</string>
+    <string name="watchlist_tts_speech_on">La salida de voz está activada. Puedes cambiarla en Ajustes › Alarmas › Salida de voz.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Añadir como widget</string>

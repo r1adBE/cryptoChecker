@@ -320336,197 +320336,6 @@
         }
       }
     },
-    "settings_row_advanced" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "متقدم"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rozšířené"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avanceret"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erweitert"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Για προχωρημένους"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Advanced"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avanzado"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پیشرفته"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lisäasetukset"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avancé"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "מתקדם"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "उन्नत"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Speciális"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lanjutan"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avanzate"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "詳細設定"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "고급"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avansert"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Geavanceerd"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zaawansowane"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avançado"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avançado"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avansat"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Дополнительно"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Të avancuara"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avancerat"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ขั้นสูง"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gelişmiş"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Додатково"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nâng cao"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "高级"
-          }
-        }
-      }
-    },
     "settings_row_alarms" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -408178,187 +407987,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "النطق مفعّل. يمكنك تغييره من الإعدادات › متقدم › الإخراج الصوتي."
+            "value" : "النطق مفعّل. يمكنك تغييره من الإعدادات › التنبيهات › الإخراج الصوتي."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hlasový výstup je zapnutý. Změníš ho v Nastavení › Rozšířené › Hlasový výstup."
+            "value" : "Hlasový výstup je zapnutý. Změníš ho v Nastavení › Alarmy › Hlasový výstup."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oplæsning er slået til. Du kan ændre det under Indstillinger › Avanceret › Oplæsning."
+            "value" : "Oplæsning er slået til. Du kan ændre det under Indstillinger › Alarmer › Oplæsning."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Sprachausgabe ist an. Ändern kannst du das unter Einstellungen › Erweitert › Sprachausgabe."
+            "value" : "Die Sprachausgabe ist an. Ändern kannst du das unter Einstellungen › Alarme › Sprachausgabe."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Η φωνητική έξοδος είναι ενεργή. Μπορείς να την αλλάξεις στο Ρυθμίσεις › Για προχωρημένους › Φωνητική έξοδος."
+            "value" : "Η φωνητική έξοδος είναι ενεργή. Μπορείς να την αλλάξεις στο Ρυθμίσεις › Συναγερμοί › Φωνητική έξοδος."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spoken output is on. You can change it in Settings › Advanced › Spoken output."
+            "value" : "Spoken output is on. You can change it in Settings › Alerts › Spoken output."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La salida de voz está activada. Puedes cambiarla en Ajustes › Avanzado › Salida de voz."
+            "value" : "La salida de voz está activada. Puedes cambiarla en Ajustes › Alarmas › Salida de voz."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "خواندن صوتی روشن است. می‌توانی آن را اینجا تغییر دهی: تنظیمات › پیشرفته › خروجی صوتی."
+            "value" : "خواندن صوتی روشن است. می‌توانی آن را اینجا تغییر دهی: تنظیمات › هشدارها › خروجی صوتی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Puhe on päällä. Voit muuttaa sitä kohdassa Asetukset › Lisäasetukset › Ääneenluku."
+            "value" : "Puhe on päällä. Voit muuttaa sitä kohdassa Asetukset › Hälytykset › Ääneenluku."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L’annonce vocale est activée. Tu peux la modifier dans Paramètres › Avancé › Annonce vocale."
+            "value" : "L’annonce vocale est activée. Tu peux la modifier dans Paramètres › Alertes › Annonce vocale."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ההקראה פעילה. אפשר לשנות זאת כאן: הגדרות › מתקדם › הקראה קולית."
+            "value" : "ההקראה פעילה. אפשר לשנות זאת כאן: הגדרות › התראות › הקראה קולית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बोलकर सुनाना चालू है। इसे यहाँ बदल सकते हैं: सेटिंग्स › उन्नत › बोलकर आउटपुट।"
+            "value" : "बोलकर सुनाना चालू है। इसे यहाँ बदल सकते हैं: सेटिंग्स › अलार्म › बोलकर आउटपुट।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A felolvasás be van kapcsolva. Módosíthatod itt: Beállítások › Speciális › Hangkimenet."
+            "value" : "A felolvasás be van kapcsolva. Módosíthatod itt: Beállítások › Riasztások › Hangkimenet."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suara aktif. Kamu bisa mengubahnya di Pengaturan › Lanjutan › Output suara."
+            "value" : "Suara aktif. Kamu bisa mengubahnya di Pengaturan › Alarm › Output suara."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La sintesi vocale è attiva. Puoi cambiarla in Impostazioni › Avanzate › Lettura vocale."
+            "value" : "La sintesi vocale è attiva. Puoi cambiarla in Impostazioni › Allarmi › Lettura vocale."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "読み上げをオンにしました。変更は「設定 › 詳細設定 › 音声出力」で行えます。"
+            "value" : "読み上げをオンにしました。変更は「設定 › アラーム › 音声出力」で行えます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "음성 출력이 켜졌습니다. 변경: 설정 › 고급 › 음성 출력."
+            "value" : "음성 출력이 켜졌습니다. 변경: 설정 › 경보 › 음성 출력."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opplesning er på. Du kan endre det under Innstillinger › Avansert › Opplesning."
+            "value" : "Opplesning er på. Du kan endre det under Innstillinger › Alarmer › Opplesning."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spraak staat aan. Je kunt dit wijzigen bij Instellingen › Geavanceerd › Gesproken uitvoer."
+            "value" : "Spraak staat aan. Je kunt dit wijzigen bij Instellingen › Alarmen › Gesproken uitvoer."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mowa jest włączona. Możesz to zmienić w Ustawienia › Zaawansowane › Komunikaty głosowe."
+            "value" : "Mowa jest włączona. Możesz to zmienić w Ustawienia › Alarmy › Komunikaty głosowe."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saída de voz está ativa. Podes alterá-la em Definições › Avançado › Saída de voz."
+            "value" : "A saída de voz está ativa. Podes alterá-la em Definições › Alarmes › Saída de voz."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saída de voz está ativada. Você pode mudar em Configurações › Avançado › Saída de voz."
+            "value" : "A saída de voz está ativada. Você pode mudar em Configurações › Alarmes › Saída de voz."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vocea este activată. O poți schimba în Setări › Avansat › Ieșire vocală."
+            "value" : "Vocea este activată. O poți schimba în Setări › Alarme › Ieșire vocală."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Озвучивание включено. Изменить можно в разделе Настройки › Дополнительно › Озвучивание."
+            "value" : "Озвучивание включено. Изменить можно в разделе Настройки › Оповещения › Озвучивание."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zëri është aktiv. Mund ta ndryshosh te Cilësimet › Të avancuara › Dalja zanore."
+            "value" : "Zëri është aktiv. Mund ta ndryshosh te Cilësimet › Alarmet › Dalja zanore."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uppläsning är på. Du kan ändra det under Inställningar › Avancerat › Uppläsning."
+            "value" : "Uppläsning är på. Du kan ändra det under Inställningar › Larm › Uppläsning."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เปิดเสียงอ่านแล้ว เปลี่ยนได้ที่ ตั้งค่า › ขั้นสูง › อ่านออกเสียง"
+            "value" : "เปิดเสียงอ่านแล้ว เปลี่ยนได้ที่ ตั้งค่า › สัญญาณเตือน › อ่านออกเสียง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sesli okuma açık. Değiştirmek için: Ayarlar › Gelişmiş › Sesli çıkış."
+            "value" : "Sesli okuma açık. Değiştirmek için: Ayarlar › Alarmlar › Sesli çıkış."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Озвучення увімкнено. Змінити можна в розділі Налаштування › Додатково › Голосовий вивід."
+            "value" : "Озвучення увімкнено. Змінити можна в розділі Налаштування › Сигнали › Голосовий вивід."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đọc giọng nói đã bật. Bạn có thể đổi trong Cài đặt › Nâng cao › Đọc bằng giọng nói."
+            "value" : "Đọc giọng nói đã bật. Bạn có thể đổi trong Cài đặt › Cảnh báo › Đọc bằng giọng nói."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "语音播报已开启。可在此更改：设置 › 高级 › 语音播报。"
+            "value" : "语音播报已开启。可在此更改：设置 › 提醒 › 语音播报。"
           }
         }
       }

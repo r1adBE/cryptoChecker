@@ -89,22 +89,20 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(SettingsSearch.search(zh, query: "价格", locale: Locale(identifier: "zh")).map(\.id), ["a", "b"])
     }
 
-    /// Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
-    /// Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler; %-Änderung steht auf
-    /// «Merkliste». Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest.kt`.
+    /// Kurs-Aktualisierung unter «Allgemein», Widgets und Coin-Logos unter «Darstellung»; kein «Erweitert» mehr
+    /// (Build 132): %-Änderung und Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme»,
+    /// Lizenzen und Entwickler auf «Über die App». Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest.kt`.
     func testPagesSitWhereTheMainPageShowsThem() {
         XCTAssertEqual(SettingsSearchPage.updates.home, .general)
         XCTAssertEqual(SettingsSearchPage.alarms.home, .general)
         XCTAssertEqual(SettingsSearchPage.widgets.home, .appearance)
         XCTAssertEqual(SettingsSearchPage.priceColors.home, .appearance)
+        XCTAssertEqual(SettingsSearchPage.coinLogos.home, .appearance)
         XCTAssertEqual(SettingsSearchPage.portfolio.home, .general)
-        let advanced: [SettingsSearchPage] = [.markets, .marketAlerts, .speech, .coinLogos, .developer]
-        for page in advanced {
-            XCTAssertEqual(page.home, .advanced, "\(page)")
+        let nested: [SettingsSearchPage] = [.markets, .marketAlerts, .speech, .developer, .licenses, .changeBasis]
+        for page in nested {
+            XCTAssertNil(page.home, "\(page)")
         }
-        XCTAssertEqual(SettingsSearchPage.advanced.home, .more)
-        XCTAssertNil(SettingsSearchPage.licenses.home)
-        XCTAssertNil(SettingsSearchPage.changeBasis.home)
     }
 
     /// Der Pfad eines Treffers folgt dem Ort der Seite.
@@ -114,8 +112,11 @@ final class SettingsSearchTests: XCTestCase {
         func path(_ id: String) -> String? { items.first { $0.entry.id == id }?.entry.path }
         XCTAssertEqual(path("page.updates"), L("settings_group_general"))
         XCTAssertEqual(path("page.widgets"), L("settings_section_appearance"))
-        XCTAssertEqual(path("page.coin_logos"), L("settings_row_advanced"))
-        XCTAssertEqual(path("page.advanced"), L("settings_group_more"))
+        XCTAssertEqual(path("page.coin_logos"), L("settings_section_appearance"))
+        XCTAssertEqual(path("page.markets"), L("settings_row_watchlist"))
+        XCTAssertEqual(path("page.market_alerts"), L("settings_row_alarms"))
+        XCTAssertEqual(path("page.speech"), L("settings_row_alarms"))
+        XCTAssertNil(path("page.advanced"))
         XCTAssertEqual(path("page.portfolio"), L("settings_group_general"))
         XCTAssertNil(path("main.portfolio"))
     }

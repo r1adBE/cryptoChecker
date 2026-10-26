@@ -97,7 +97,7 @@
     <string name="watchlist_groups_empty_hint">กลุ่มของคุณจะแสดงที่นี่</string>
     <string name="watchlist_notification">การแจ้งเตือนราคา</string>
     <string name="watchlist_tts">อ่านราคา</string>
-    <string name="watchlist_tts_speech_on">เปิดเสียงอ่านแล้ว เปลี่ยนได้ที่ ตั้งค่า › ขั้นสูง › อ่านออกเสียง</string>
+    <string name="watchlist_tts_speech_on">เปิดเสียงอ่านแล้ว เปลี่ยนได้ที่ ตั้งค่า › สัญญาณเตือน › อ่านออกเสียง</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">เพิ่มเป็นวิดเจ็ต</string>

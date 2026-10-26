@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Hier erscheinen deine Gruppen</string>
     <string name="watchlist_notification">Kursbenachrichtigung</string>
     <string name="watchlist_tts">Kurs vorlesen</string>
-    <string name="watchlist_tts_speech_on">Die Sprachausgabe ist an. Ändern kannst du das unter Einstellungen › Erweitert › Sprachausgabe.</string>
+    <string name="watchlist_tts_speech_on">Die Sprachausgabe ist an. Ändern kannst du das unter Einstellungen › Alarme › Sprachausgabe.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Als Widget hinzufügen</string>

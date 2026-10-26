@@ -27,22 +27,19 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         items += SettingsSearchItem(SettingsSearchEntry(id, title, path, synonyms.toList()), target)
     }
 
-    // Hauptseite Allgemein · Darstellung · Mehr; der Rest unter «Erweitert». Der Pfad einer Seite kommt
+    // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr, Build 132). Der Pfad einer Seite kommt
     // aus ihrem Ort (SettingsPage.home), damit er nach jeder Umstellung zur Anordnung passt
     val general = stringResource(R.string.settings_group_general)
     val appearance = stringResource(R.string.settings_section_appearance)
     val more = stringResource(R.string.settings_group_more)
-    val advanced = stringResource(R.string.settings_row_advanced)
     fun homePath(page: SettingsPage): String = when (page.home) {
         SettingsHome.GENERAL -> general
         SettingsHome.APPEARANCE -> appearance
         SettingsHome.MORE -> more
-        SettingsHome.ADVANCED -> advanced
         null -> ""
     }
     fun addPage(page: SettingsPage, title: String, vararg synonyms: String) =
         add("page." + page.name.lowercase(), title, homePath(page), SettingsSearchTarget.Page(page), *synonyms)
-    addPage(SettingsPage.ADVANCED, advanced)
     // Seite «Portfolio» (Zeile unter «Allgemein», einziger Ort für alles zum Portfolio): früh im Index, damit sie
     // bei «Portfolio» vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» steht (gleich viele Punkte →
     // frühere Stelle zuerst)
@@ -169,7 +166,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         SettingsSearchTarget.Page(SettingsPage.ALARMS, "alarms.test"),
         stringResource(R.string.alarm_test_hint))
     val market = stringResource(R.string.settings_market_alerts)
-    add("page.market_alerts", market, advanced, SettingsSearchTarget.MarketAlerts())
+    add("page.market_alerts", market, alarms, SettingsSearchTarget.MarketAlerts())
     add("market.fng_below", stringResource(R.string.settings_fng_below), market,
         SettingsSearchTarget.MarketAlerts("market.fng_below"))
     add("market.fng_above", stringResource(R.string.settings_fng_above), market,
@@ -188,7 +185,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("market.macro", stringResource(R.string.settings_macro_notifications), market,
         SettingsSearchTarget.MarketAlerts("market.macro"), stringResource(R.string.settings_macro_notifications_hint))
     val speech = stringResource(R.string.settings_tts)
-    add("page.speech", speech, advanced, SettingsSearchTarget.Speech("speech.enabled"),
+    add("page.speech", speech, alarms, SettingsSearchTarget.Speech("speech.enabled"),
         stringResource(R.string.settings_tts_hint_silent))
     add("speech.alarms_only", stringResource(R.string.settings_tts_alarms_only), speech,
         SettingsSearchTarget.Speech("speech.alarms_only"), stringResource(R.string.settings_tts_alarms_only_hint))
@@ -227,10 +224,10 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
     add("main.reset", stringResource(R.string.settings_reset_app), "", SettingsSearchTarget.Main("main.reset"),
         stringResource(R.string.settings_reset_app_confirm))
-    // «Token & TradFi» mit Alpha und QTLY: eigene Seite unter «Erweitert» (vorher «Merkliste»);
-    // frühere Namen bleiben Suchwörter
+    // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste» (Build 132); frühere Namen bleiben
+    // Suchwörter
     val futures = stringResource(R.string.settings_asset_scope_title)
-    addPage(SettingsPage.MARKETS, futures)
+    add("page.markets", futures, watchlist, SettingsSearchTarget.Page(SettingsPage.MARKETS))
     add("futures.scope", stringResource(R.string.settings_asset_scope_title), futures,
         SettingsSearchTarget.Page(SettingsPage.MARKETS, "futures.scope"),
         stringResource(R.string.settings_asset_scope_tokens), stringResource(R.string.settings_asset_scope_tokens_hint),
@@ -258,10 +255,10 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("about.diagnostics", stringResource(R.string.diagnostics_share), about,
         SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.diagnostics"),
         stringResource(R.string.diagnostics_share_hint))
-    // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile unter «Erweitert»)
+    // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile auf «Über die App»)
     if (settings.developerUnlocked && BuildConfig.DEBUG) {
         val developer = stringResource(R.string.settings_section_developer)
-        addPage(SettingsPage.DEVELOPER, developer)
+        add("page.developer", developer, about, SettingsSearchTarget.Page(SettingsPage.DEVELOPER))
         add("developer.http_log", stringResource(R.string.settings_http_log), developer,
             SettingsSearchTarget.Page(SettingsPage.DEVELOPER, "developer.http_log"),
             stringResource(R.string.settings_http_log_hint))

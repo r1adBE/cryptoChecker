@@ -121,7 +121,7 @@
     <string name="watchlist_groups_empty_hint">Qui compariranno i tuoi gruppi</string>
     <string name="watchlist_notification">Notifica di prezzo</string>
     <string name="watchlist_tts">Leggi prezzo</string>
-    <string name="watchlist_tts_speech_on">La sintesi vocale è attiva. Puoi cambiarla in Impostazioni › Avanzate › Lettura vocale.</string>
+    <string name="watchlist_tts_speech_on">La sintesi vocale è attiva. Puoi cambiarla in Impostazioni › Allarmi › Lettura vocale.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Aggiungi come widget</string>

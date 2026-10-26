@@ -6,7 +6,6 @@
     <string name="settings_group_more">Daha fazla</string>
     <string name="settings_minutes">%1$d dk</string>
     <string name="settings_row_about">Uygulama hakkında</string>
-    <string name="settings_row_advanced">Gelişmiş</string>
     <string name="settings_row_alarms">Alarmlar</string>
     <string name="settings_row_currency">Para birimi</string>
     <string name="settings_row_dated_futures">Vade tarihli kontratlar</string>

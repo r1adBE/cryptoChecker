@@ -97,7 +97,7 @@
     <string name="watchlist_groups_empty_hint">你的分组会显示在这里</string>
     <string name="watchlist_notification">价格通知</string>
     <string name="watchlist_tts">播报价格</string>
-    <string name="watchlist_tts_speech_on">语音播报已开启。可在此更改：设置 › 高级 › 语音播报。</string>
+    <string name="watchlist_tts_speech_on">语音播报已开启。可在此更改：设置 › 提醒 › 语音播报。</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">添加为小部件</string>

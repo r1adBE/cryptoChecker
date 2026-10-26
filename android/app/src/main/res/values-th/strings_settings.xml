@@ -6,7 +6,6 @@
     <string name="settings_group_more">เพิ่มเติม</string>
     <string name="settings_minutes">%1$d นาที</string>
     <string name="settings_row_about">เกี่ยวกับแอป</string>
-    <string name="settings_row_advanced">ขั้นสูง</string>
     <string name="settings_row_alarms">สัญญาณเตือน</string>
     <string name="settings_row_currency">สกุลเงิน</string>
     <string name="settings_row_dated_futures">ฟิวเจอร์สที่มีวันหมดอายุ</string>

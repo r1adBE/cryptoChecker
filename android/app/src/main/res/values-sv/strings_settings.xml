@@ -6,7 +6,6 @@
     <string name="settings_group_more">Mer</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_row_about">Om appen</string>
-    <string name="settings_row_advanced">Avancerat</string>
     <string name="settings_row_alarms">Larm</string>
     <string name="settings_row_currency">Valuta</string>
     <string name="settings_row_dated_futures">Terminer med förfall</string>

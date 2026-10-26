@@ -121,7 +121,7 @@
     <string name="watchlist_groups_empty_hint">Aici vor apărea grupurile tale</string>
     <string name="watchlist_notification">Notificare de preț</string>
     <string name="watchlist_tts">Citește prețul</string>
-    <string name="watchlist_tts_speech_on">Vocea este activată. O poți schimba în Setări › Avansat › Ieșire vocală.</string>
+    <string name="watchlist_tts_speech_on">Vocea este activată. O poți schimba în Setări › Alarme › Ieșire vocală.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Adaugă ca widget</string>

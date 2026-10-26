@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Gruppene dine vises her</string>
     <string name="watchlist_notification">Kursvarsel</string>
     <string name="watchlist_tts">Les opp kurs</string>
-    <string name="watchlist_tts_speech_on">Opplesning er på. Du kan endre det under Innstillinger › Avansert › Opplesning.</string>
+    <string name="watchlist_tts_speech_on">Opplesning er på. Du kan endre det under Innstillinger › Alarmer › Opplesning.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Legg til som widget</string>

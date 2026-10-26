@@ -20,6 +20,7 @@ struct SettingsCard<Content: View>: View {
                 Text(title)
                     .sectionTitleStyle()
                     .accessibilityAddTraits(.isHeader)
+                    .accessibilityIdentifier(UiTestTags.settingsSectionTitle)
                     .padding(.top, 8)
                     .padding(.bottom, 4)
             }

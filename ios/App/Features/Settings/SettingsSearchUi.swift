@@ -11,27 +11,26 @@ enum SettingsSearchPage: Hashable {
     case alarms, marketAlerts, speech, portfolio, backup, about, developer
     /// Widget-Seite (Zeile «Widgets» unter «Darstellung»).
     case widgets
-    /// «Erweitert», «Token & TradFi» und die Lizenzhinweise (auf «Über die App»).
-    case advanced, markets, licenses
+    /// «Token & TradFi» (auf «Merkliste») und die Lizenzhinweise (auf «Über die App»).
+    case markets, licenses
 
-    /// Wo die Zeile zu dieser Seite steht (Kurs-Aktualisierung und Portfolio unter «Allgemein», Widgets unter
-    /// «Darstellung»); nil = Unterseite einer Unterseite (Lizenzen unter «Über die App», %-Änderung unter «Merkliste»).
-    /// Die Suche zeigt daraus den Pfad ihrer Treffer, damit er zur Anordnung passt — wie `SettingsPage.home` (Android).
+    /// Wo die Zeile zu dieser Seite steht (Kurs-Aktualisierung und Portfolio unter «Allgemein», Widgets und Coin-Logos
+    /// unter «Darstellung»); nil = Unterseite einer Unterseite (%-Änderung und Token & TradFi auf «Merkliste»,
+    /// Markt-Meldungen und Sprachausgabe auf «Alarme», Lizenzen und Entwickler auf «Über die App»). Kein «Erweitert»
+    /// mehr (Build 132). Die Suche zeigt daraus den Pfad ihrer Treffer — wie `SettingsPage.home` (Android).
     var home: SettingsHome? {
         switch self {
         case .currency, .watchlist, .portfolio, .alarms, .updates: return .general
-        case .displayMode, .theme, .priceColors, .widgets: return .appearance
-        case .backup, .advanced, .about: return .more
-        case .markets, .marketAlerts, .speech, .coinLogos, .developer: return .advanced
-        // %-Änderung steht auf «Merkliste» (Review D13)
-        case .licenses, .changeBasis: return nil
+        case .displayMode, .theme, .priceColors, .coinLogos, .widgets: return .appearance
+        case .backup, .about: return .more
+        case .licenses, .changeBasis, .markets, .marketAlerts, .speech, .developer: return nil
         }
     }
 }
 
-/// Ort einer Unterseite: Gruppe der Hauptseite oder die Seite «Erweitert» — wie `SettingsHome` (Android).
+/// Ort einer Unterseite: Gruppe der Hauptseite — wie `SettingsHome` (Android).
 enum SettingsHome {
-    case general, appearance, more, advanced
+    case general, appearance, more
 }
 
 /// Wohin ein Treffer führt; `anchor` ist der Punkt, der kurz hervorgehoben wird.

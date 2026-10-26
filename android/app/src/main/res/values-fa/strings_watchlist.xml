@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">گروه‌هایت اینجا نمایش داده می‌شوند</string>
     <string name="watchlist_notification">اعلان قیمت</string>
     <string name="watchlist_tts">خواندن قیمت</string>
-    <string name="watchlist_tts_speech_on">خواندن صوتی روشن است. می‌توانی آن را اینجا تغییر دهی: تنظیمات › پیشرفته › خروجی صوتی.</string>
+    <string name="watchlist_tts_speech_on">خواندن صوتی روشن است. می‌توانی آن را اینجا تغییر دهی: تنظیمات › هشدارها › خروجی صوتی.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">افزودن به‌عنوان ابزارک</string>

@@ -6,7 +6,6 @@
     <string name="settings_group_more">Ещё</string>
     <string name="settings_minutes">%1$d мин</string>
     <string name="settings_row_about">О приложении</string>
-    <string name="settings_row_advanced">Дополнительно</string>
     <string name="settings_row_alarms">Оповещения</string>
     <string name="settings_row_currency">Валюта</string>
     <string name="settings_row_dated_futures">Срочные фьючерсы</string>

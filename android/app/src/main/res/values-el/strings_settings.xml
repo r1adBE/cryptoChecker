@@ -6,7 +6,6 @@
     <string name="settings_group_more">Περισσότερα</string>
     <string name="settings_minutes">%1$d λεπ.</string>
     <string name="settings_row_about">Σχετικά με την εφαρμογή</string>
-    <string name="settings_row_advanced">Για προχωρημένους</string>
     <string name="settings_row_alarms">Συναγερμοί</string>
     <string name="settings_row_currency">Νόμισμα</string>
     <string name="settings_row_dated_futures">Futures με λήξη</string>

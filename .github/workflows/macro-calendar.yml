@@ -34,6 +34,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # Parsers against stored markup (BEA inline spans, BLS tables) before touching the pages
+      - name: Parser self-test
+        run: python3 -I .github/scripts/macro_calendar.py --self-test
+
       # Third-party web pages; no write token exists in this job
       - name: Build events.json
         env:

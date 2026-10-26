@@ -97,7 +97,7 @@
     <string name="watchlist_groups_empty_hint">Grupmu akan muncul di sini</string>
     <string name="watchlist_notification">Notifikasi harga</string>
     <string name="watchlist_tts">Ucapkan harga</string>
-    <string name="watchlist_tts_speech_on">Suara aktif. Kamu bisa mengubahnya di Pengaturan › Lanjutan › Output suara.</string>
+    <string name="watchlist_tts_speech_on">Suara aktif. Kamu bisa mengubahnya di Pengaturan › Alarm › Output suara.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Tambah sebagai widget</string>

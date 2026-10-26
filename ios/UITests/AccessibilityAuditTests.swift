@@ -17,6 +17,9 @@ final class AccessibilityAuditTests: XCTestCase {
     }
 
     private static let exceptions: [Exception] = [
+        Exception(type: .dynamicType, identifierPrefix: "settings_section_title",
+                  reason: "Kartenüberschrift in Font.headline (wächst mit Dynamic Type, Strich mit @ScaledMetric); das "
+                      + "Audit meldet «teilweise» (Fehlalarm; auf dem Gerät mit grösster Schrift zu prüfen, ROADMAP)"),
         Exception(type: .dynamicType, identifierPrefix: "portfolio_disclaimer",
                   reason: "Schrift .caption2 wächst mit (Dynamic Type); das Audit meldet den mehrzeiligen, zentrierten "
                       + "Hinweis trotzdem als «teilweise» (Fehlalarm; auf dem Gerät mit grösster Schrift zu prüfen, ROADMAP)"),
@@ -146,9 +149,7 @@ final class AccessibilityAuditTests: XCTestCase {
                 let label = issue.element?.label ?? ""
                 print("A11Y-AUDIT [\(screen)] \(issue.compactDescription) — id «\(identifier)», «\(label)»")
             }
-            // Build 131: nur gemeldet (Zeilen «A11Y-AUDIT» und Warnungen) — Befunde in den Einstellungen kommen mit deren
-            // Umbau, danach wieder blockierend (`return known`)
-            return true
+            return known
         }
         // Langsamer CI-Mac: «Audit failed to complete in time» (Code -56) einmal wiederholen, dann zählt der Fehler
         do {

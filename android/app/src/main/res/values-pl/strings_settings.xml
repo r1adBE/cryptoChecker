@@ -6,7 +6,6 @@
     <string name="settings_group_more">Więcej</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_row_about">O aplikacji</string>
-    <string name="settings_row_advanced">Zaawansowane</string>
     <string name="settings_row_alarms">Alarmy</string>
     <string name="settings_row_currency">Waluta</string>
     <string name="settings_row_dated_futures">Kontrakty terminowe</string>

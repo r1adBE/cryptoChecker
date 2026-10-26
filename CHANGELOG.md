@@ -15,6 +15,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 132)
+
+* Settings simplified: no «Advanced» page any more – «Token & TradFi» is on «Watchlist», market alerts and spoken output on «Alerts», coin logos under «Appearance», developer options (debug builds only) on «About the app». Search finds everything at its new place.
+* iOS: the «Allow notifications» row no longer cuts its button text; with very large text the button moves below the sentence.
+* Macro calendar: US release dates (CPI, PPI, jobs report, PCE) load again – the BLS pages need a contact address in the request, the BEA page splits words with inline markup.
+* iOS accessibility audit blocking again.
+
 ## 16.2.2 (build 131)
 
 * Coin logos: images up to 4 MB are loaded – Binance has uploaded high-resolution logos since 2025 (e.g. SATS, ACE, RATS, MOG showed initials); images that failed under the old limit are tried again at once.

@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Hier verschijnen je groepen</string>
     <string name="watchlist_notification">Koersmelding</string>
     <string name="watchlist_tts">Koers voorlezen</string>
-    <string name="watchlist_tts_speech_on">Spraak staat aan. Je kunt dit wijzigen bij Instellingen › Geavanceerd › Gesproken uitvoer.</string>
+    <string name="watchlist_tts_speech_on">Spraak staat aan. Je kunt dit wijzigen bij Instellingen › Alarmen › Gesproken uitvoer.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Als widget toevoegen</string>

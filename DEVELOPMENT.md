@@ -2470,6 +2470,15 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 132: settings without «Advanced» (`SettingsPage.ADVANCED`/`SettingsHome.ADVANCED` and iOS `.advanced`
+  removed; old route name falls back): MARKETS row on WatchlistPage, market alerts and speech rows on AlarmsPage,
+  COIN_LOGOS under Appearance, DEVELOPER row on AboutPage; search paths follow (`page.markets` → Watchlist,
+  `page.market_alerts`/`page.speech` → Alerts, `page.developer` → About). String `settings_row_advanced` and
+  `ic_settings_advanced` removed; `watchlist_tts_speech_on` points to Settings › Alerts › Spoken output in all
+  languages. `macro_calendar.py`: User-Agent with the public contact e-mail (BLS answers 403 otherwise), inline tags
+  removed without a space (BEA «<span>N</span><span>ews</span>»), `--self-test` with stored markup, run in the
+  workflow. `room_schema_drift.py` skips outside a git work tree. iOS audit blocking again (settings section titles
+  and the portfolio note excepted as dynamic-type false positives, to be checked on a device).
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on

@@ -63,13 +63,14 @@ import kotlinx.coroutines.withContext
  * ([SettingsPageScreen], Markt-Meldungen, Sprachausgabe). Schlüssel und Verhalten unverändert.
  *
  * Gruppen: Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
- * · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
+ * · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Coin-Logos, Widgets) · Mehr (Sicherung, Über die App)
  * · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
  * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
  * genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
- * und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. «Erweitert»
- * ([AdvancedPage]) trägt Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler;
- * Datenschutz, Börse wünschen, Quellcode und Lizenzen stehen auf «Über die App».
+ * und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Kein «Erweitert» mehr
+ * (Build 132): was zur Merkliste gehört, steht auf «Merkliste» (auch Token & TradFi), Meldungen auf «Alarme»
+ * (Markt-Meldungen, Sprachausgabe), Aussehen unter «Darstellung» (Coin-Logos); Datenschutz, Börse wünschen,
+ * Quellcode, Lizenzen und (freigeschaltet) Entwickler stehen auf «Über die App».
  * Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
  * Merkliste wie der Tab, nur «App zurücksetzen» rot.
  */
@@ -236,6 +237,15 @@ fun SettingsScreen(
                             valueContent = { PriceArrows(settings.priceColorScheme, settings.priceColorsInverted) },
                             onClick = { onOpenPage(SettingsPage.PRICE_COLORS) }
                         )
+                        // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (Build 132: von «Erweitert» hierher)
+                        SettingsAnchor("main.coin_logos") {
+                            SettingsNavRow(
+                                title = stringResource(R.string.settings_coin_logos),
+                                icon = R.drawable.ic_settings_coin_logos,
+                                value = coinLogosSummary(settings),
+                                onClick = { onOpenPage(SettingsPage.COIN_LOGOS) }
+                            )
+                        }
                         // Widgets direkt aus der App auf den Startbildschirm
                         SettingsNavRow(
                             title = stringResource(R.string.settings_widgets),
@@ -244,19 +254,15 @@ fun SettingsScreen(
                         )
                     }
 
-                    // 3 Mehr: Sicherung, «Erweitert» (Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos,
-                    // Entwickler), Über die App
+                    // 3 Mehr: Sicherung, Über die App (seit Build 132 ohne «Erweitert»: Token & TradFi auf «Merkliste»,
+                    // Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter «Darstellung», Entwickler auf
+                    // «Über die App»)
                     SettingsSection(stringResource(R.string.settings_group_more)) {
                         SettingsNavRow(
                             title = stringResource(R.string.backup_title),
                             icon = R.drawable.ic_settings_backup,
                             modifier = Modifier.testTag(UiTestTags.SETTINGS_BACKUP),
                             onClick = { onOpenPage(SettingsPage.BACKUP) }
-                        )
-                        SettingsNavRow(
-                            title = stringResource(R.string.settings_row_advanced),
-                            icon = R.drawable.ic_settings_advanced,
-                            onClick = { onOpenPage(SettingsPage.ADVANCED) }
                         )
                         SettingsNavRow(
                             title = stringResource(R.string.settings_row_about),

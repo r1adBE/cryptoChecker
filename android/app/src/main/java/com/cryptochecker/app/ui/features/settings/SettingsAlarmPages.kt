@@ -29,13 +29,16 @@ import com.cryptochecker.app.util.PercentText
 // ── Alarme ───────────────────────────────────────────────────────────────────
 
 /**
- * Alarme: «Wie aktuell?» (öffnet «Aktualisierung», [onOpenPage]), Kurs-Mitteilungen, Ruhezeit, Ton,
+ * Alarme: «Wie aktuell?» (öffnet «Aktualisierung», [onOpenPage]), Markt-Meldungen ([onOpenMarketAlerts]) und
+ * Sprachausgabe ([onOpenSpeech]) — seit Build 132 hier statt unter «Erweitert» —, Kurs-Mitteilungen, Ruhezeit, Ton,
  * Alarm-Signal, Nachtruhe, Probe-Alarm.
  */
 @Composable
 internal fun AlarmsPage(
     onBack: () -> Unit,
     onOpenPage: (SettingsPage) -> Unit = {},
+    onOpenMarketAlerts: () -> Unit = {},
+    onOpenSpeech: () -> Unit = {},
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
@@ -71,6 +74,23 @@ internal fun AlarmsPage(
                             onClick = openDelivery,
                         )
                     }
+                }
+                SettingsAnchor("alarms.market_alerts") {
+                    SettingsNavRow(
+                        title = stringResource(R.string.settings_market_alerts),
+                        // Blitz wie «Ungewöhnliche Aktivität»
+                        icon = R.drawable.ic_bolt,
+                        value = marketAlertsSummary(settings),
+                        onClick = onOpenMarketAlerts
+                    )
+                }
+                SettingsAnchor("alarms.speech") {
+                    SettingsNavRow(
+                        title = stringResource(R.string.settings_tts),
+                        icon = R.drawable.ic_settings_speech,
+                        value = speechSummary(settings),
+                        onClick = onOpenSpeech
+                    )
                 }
             }
         }

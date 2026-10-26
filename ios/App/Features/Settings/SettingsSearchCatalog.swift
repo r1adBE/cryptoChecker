@@ -17,25 +17,22 @@ enum SettingsSearchCatalog {
                                             target: target))
         }
 
-        // Hauptseite Allgemein · Darstellung · Mehr; der Rest unter «Erweitert». Der Pfad einer Seite kommt
+        // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr, Build 132). Der Pfad einer Seite kommt
         // aus ihrem Ort (`SettingsSearchPage.home`), damit er nach jeder Umstellung zur Anordnung passt
         let general = L("settings_group_general")
         let appearance = L("settings_section_appearance")
         let more = L("settings_group_more")
-        let advanced = L("settings_row_advanced")
         func homePath(_ page: SettingsSearchPage) -> String {
             switch page.home {
             case .general: return general
             case .appearance: return appearance
             case .more: return more
-            case .advanced: return advanced
             case nil: return ""
             }
         }
         func addPage(_ id: String, _ page: SettingsSearchPage, _ title: String, anchor: String? = nil, _ synonyms: [String] = []) {
             add(id, title, homePath(page), .page(page, anchor: anchor), synonyms)
         }
-        addPage("page.advanced", .advanced, advanced)
         // Seite «Portfolio» (Zeile unter «Allgemein», einziger Ort für alles zum Portfolio): früh im Index, damit sie
         // bei «Portfolio» vor «Portfolio-Sperre» und «Portfolio in Systemsicherung» steht (gleich viele Punkte →
         // frühere Stelle zuerst) — wie Android
@@ -81,7 +78,7 @@ enum SettingsSearchCatalog {
             [L("settings_price_colors_hint")] + PriceColorScheme.allCases.map { L($0.labelKey) })
         add("price_colors.swap", L("price_colors_swap"), L("settings_price_colors"), .page(.priceColors, anchor: "price_colors.swap"),
             [L("price_colors_red_up_hint")])
-        // %-Änderung unter «Merkliste» (Review D13), Coin-Logos unter «Erweitert», Widgets unter «Darstellung»
+        // %-Änderung unter «Merkliste» (Review D13), Coin-Logos und Widgets unter «Darstellung»
         let changeBasis = L("settings_change_basis", "%")
         add("page.change_basis", changeBasis, watchlist, .page(.changeBasis, anchor: nil),
             [L("settings_change_basis_hint_1"), L("change_basis_rolling"), L("change_basis_since_last"), L("change_basis_device", "UTC"),
@@ -98,7 +95,7 @@ enum SettingsSearchCatalog {
             [L("settings_coin_logos_widgets_hint")])
         addPage("page.widgets", .widgets, L("settings_widgets"))
 
-        // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe unter «Erweitert»
+        // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe auf «Alarme»
         let alarms = L("settings_row_alarms")
         addPage("page.alarms", .alarms, alarms)
         // «Damit Alarme ankommen»: Zeile oben auf der Seite, öffnet die Übersicht (Mitteilungen, Hintergrund, letzte Prüfung)
@@ -121,7 +118,7 @@ enum SettingsSearchCatalog {
             [L("settings_depeg_alarm_hint"), "USDT", "Depeg"])
         add("alarms.test", L("alarm_test"), alarms, .page(.alarms, anchor: "alarms.test"), [L("alarm_test_hint")])
         let market = L("settings_market_alerts")
-        addPage("page.market_alerts", .marketAlerts, market)
+        add("page.market_alerts", market, alarms, .page(.marketAlerts, anchor: nil))
         add("market.fng_below", L("settings_fng_below"), market, .page(.marketAlerts, anchor: "market.fng_below"))
         add("market.fng_above", L("settings_fng_above"), market, .page(.marketAlerts, anchor: "market.fng_above"))
         add("market.gas_eth", L("settings_gas_eth_below"), market, .page(.marketAlerts, anchor: "market.gas_eth"),
@@ -137,7 +134,7 @@ enum SettingsSearchCatalog {
         add("market.macro", L("settings_macro_notifications"), market, .page(.marketAlerts, anchor: "market.macro"),
             [L("settings_macro_notifications_hint")])
         let speech = L("settings_tts")
-        addPage("page.speech", .speech, speech, anchor: "speech.enabled", [L("settings_tts_hint_silent")])
+        add("page.speech", speech, alarms, .page(.speech, anchor: "speech.enabled"), [L("settings_tts_hint_silent")])
         add("speech.alarms_only", L("settings_tts_alarms_only"), speech, .page(.speech, anchor: "speech.alarms_only"),
             [L("settings_tts_alarms_only_hint")])
         add("speech.test", L("settings_tts_test"), speech, .page(.speech, anchor: "speech.test"))
@@ -165,10 +162,10 @@ enum SettingsSearchCatalog {
         add("backup.import", L("backup_import"), backup, .page(.backup, anchor: "backup.actions"))
         // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
         add("main.reset", L("settings_reset_app"), "", .main("main.reset"), [L("settings_reset_app_confirm")])
-        // «Token & TradFi» mit Alpha und QTLY: eigene Seite unter «Erweitert» (vorher «Merkliste»);
+        // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste» (Build 132);
         // frühere Namen bleiben Suchwörter
         let futures = L("settings_asset_scope_title")
-        addPage("page.markets", .markets, futures)
+        add("page.markets", futures, watchlist, .page(.markets, anchor: nil))
         let scopeWords: [String] = [
             L("settings_asset_scope_tokens"), L("settings_asset_scope_tokens_hint"),
             L("settings_asset_scope_tradfi"), L("settings_asset_scope_tradfi_hint"),
@@ -191,10 +188,10 @@ enum SettingsSearchCatalog {
         add("about.licenses", L("about_licenses"), about, .page(.licenses, anchor: nil))
         add("about.diagnostics", L("diagnostics_share"), about, .page(.about, anchor: "about.diagnostics"),
             [L("diagnostics_share_hint")])
-        // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile unter «Erweitert»)
+        // Entwickler nur, wenn freigeschaltet und im Debug-Build (wie die Zeile auf «Über die App»)
         if settings.developerUnlocked && DeveloperOptions.available {
             let developer = L("settings_section_developer")
-            addPage("page.developer", .developer, developer)
+            add("page.developer", developer, about, .page(.developer, anchor: nil))
             add("developer.http_log", L("settings_http_log"), developer, .page(.developer, anchor: "developer.http_log"),
                 [L("settings_http_log_hint")])
         }
@@ -221,7 +218,6 @@ enum SettingsSearchCatalog {
         case .about: AboutSettingsPage()
         case .developer: DeveloperSettingsPage()
         case .widgets: WidgetsSearchDestination()
-        case .advanced: AdvancedSettingsPage()
         case .markets: MarketsSettingsPage()
         case .licenses: LicensesSheet(asPage: true)
         }

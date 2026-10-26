@@ -6,7 +6,6 @@
     <string name="settings_group_more">更多</string>
     <string name="settings_minutes">%1$d 分钟</string>
     <string name="settings_row_about">关于应用</string>
-    <string name="settings_row_advanced">高级</string>
     <string name="settings_row_alarms">提醒</string>
     <string name="settings_row_currency">货币</string>
     <string name="settings_row_dated_futures">交割合约</string>

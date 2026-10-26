@@ -6,7 +6,6 @@
     <string name="settings_group_more">Lisää</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_row_about">Tietoja sovelluksesta</string>
-    <string name="settings_row_advanced">Lisäasetukset</string>
     <string name="settings_row_alarms">Hälytykset</string>
     <string name="settings_row_currency">Valuutta</string>
     <string name="settings_row_dated_futures">Määräaikaiset futuurit</string>

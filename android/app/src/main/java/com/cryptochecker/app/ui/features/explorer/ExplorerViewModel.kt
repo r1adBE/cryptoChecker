@@ -132,7 +132,7 @@ class ExplorerViewModel @Inject constructor(
     // =============================================================================================
 
     /**
-     * «Token & TradFi» (Einstellungen › Erweitert): welche Börsen und Paare Auswahl, Suche und
+     * «Token & TradFi» (Einstellungen › Merkliste): welche Börsen und Paare Auswahl, Suche und
      * «Alle …-Paare» zeigen. Die Listen im Speicher bleiben vollständig; gefiltert wird erst beim
      * Anzeigen, damit ein Wechsel sofort wirkt.
      */

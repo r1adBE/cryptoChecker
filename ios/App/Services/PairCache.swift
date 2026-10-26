@@ -180,7 +180,7 @@ actor PairCache {
 
     /// Liste der Börse (gespeichert, sonst die fest eingebauten Paare mit Datum 0). TradFi-Futures
     /// (Aktien, Rohstoffe, Devisen, Pre-IPO – `MarketPair.tradFi`) erscheinen nur, wenn
-    /// Einstellungen › Erweitert › Token & TradFi sie erlaubt; die Datei behält immer alles, ein
+    /// Einstellungen › Merkliste › Token & TradFi sie erlaubt; die Datei behält immer alles, ein
     /// Umschalten greift also ohne neues Laden.
     func pairs(for key: String) -> MarketPairsInfo {
         visible(storedPairs(for: key))

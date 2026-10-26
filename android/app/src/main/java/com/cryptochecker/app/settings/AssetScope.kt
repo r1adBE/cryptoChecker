@@ -8,7 +8,7 @@ import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
 
 /**
- * «Token & TradFi» (Einstellungen › Erweitert): Was die Paar-Auswahl (Paar hinzufügen, Suche über
+ * «Token & TradFi» (Einstellungen › Merkliste): Was die Paar-Auswahl (Paar hinzufügen, Suche über
  * alle Börsen, «Alle …-Paare») zeigt.
  *
  *  - [TOKENS] (Standard): nur Krypto — Spot, Perpetuals und (mit QTLY) Laufzeit-Futures.
