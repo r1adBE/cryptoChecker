@@ -839,9 +839,12 @@ System-Broadcasts.
 
 ```
 marketdata/   Börsen, Handelspaare, Ticker-Parser
+domain/       Fachlogik ohne Oberfläche und Datenbank-Zugriff (seit Build 136): Regeln und
+              Berechnungen (Alarme, Portfolio, Frische, Fehlerarten, Markt-Kennzahlen) und die
+              Datenbank-Modelle; gleiche Pakete com.cryptochecker.app.* wie in app/
 app/
   data/       Room (watches, alarms, markets), Repositories, OkHttp
-  domain/     AlarmEvaluator; PriceRefresher steuert die Aktualisierung, dazu
+  domain/     Abläufe, die noch Speicher oder Netz brauchen: PriceRefresher steuert die Aktualisierung, dazu
               PriceFetcher (Kurse holen), DayReferences (24-h-/Tages-Bezüge),
               RefreshEffects (Alarme, Kurs-Meldungen, Ansagen)
   di/         Hilt-Module

@@ -167,7 +167,7 @@ object LiveParser {
     }
 
     /** Zahl oder Zahl als Text; NaN/∞ → null. */
-    internal fun finite(value: Any?): Double? {
+    fun finite(value: Any?): Double? {
         val d = when (value) {
             is Number -> value.toDouble()
             is String -> value.trim().toDoubleOrNull()

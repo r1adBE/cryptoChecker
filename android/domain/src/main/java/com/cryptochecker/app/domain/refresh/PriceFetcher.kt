@@ -40,7 +40,7 @@ class PriceFetcher @Inject constructor(
      * [deadlineAt] (exakter Wecker, [CheckBudget]): danach keine Abfrage mehr — was bis dahin kam,
      * zählt, der Rest gilt als Zeitüberschreitung dieses Paares.
      */
-    internal suspend fun fetchGroup(
+    suspend fun fetchGroup(
         group: List<WatchEntity>,
         includeRollingFutures: Boolean,
         deadlineAt: Long? = null,
@@ -218,7 +218,7 @@ class PriceFetcher @Inject constructor(
         }
     }
 
-    internal suspend fun fetchSingle(watch: WatchEntity): Fetched {
+    suspend fun fetchSingle(watch: WatchEntity): Fetched {
         return runCatchingCancellable {
             marketRepository.getMarketTicker(
                 MarketInfo(watch.marketKey, watch.marketName),
@@ -269,7 +269,7 @@ class PriceFetcher @Inject constructor(
  * Fehlertext — samt «retry-after», die Pause je Börse ([ExchangeBackoff]) wirkt wie bisher. Schon laufende
  * Abfragen laufen zu Ende. Je Börse und Durchlauf eine Instanz. Wie `SingleRateGate` in `PriceFetcher.swift`.
  */
-internal class SingleRateGate {
+class SingleRateGate {
     /** Text und Art zusammen, damit beide immer vom selben Fehler stammen. */
     private class Block(val error: String, val failure: MarketFailure?)
 
@@ -285,7 +285,7 @@ internal class SingleRateGate {
     }
 
     /** [single] senden, ausser die Börse hat schon abgelehnt; dann derselbe Fehler ohne Anfrage. */
-    internal suspend fun send(single: suspend () -> Fetched): Fetched {
+    suspend fun send(single: suspend () -> Fetched): Fetched {
         block?.let { return Fetched(null, it.error, failure = it.failure) }
         return single().also { if (it.ticker == null || it.error != null) note(it.error, it.failure) }
     }
@@ -297,7 +297,7 @@ internal class SingleRateGate {
 }
 
 /** Ergebnis der Netzabfrage für ein Paar; ticker == null heisst gescheitert. */
-internal class Fetched(
+class Fetched(
     val ticker: Ticker?,
     val error: String?,
     val fromSingle: Boolean = false,
@@ -319,7 +319,7 @@ private class BulkResult(val data: BulkTickers, val budgetCut: Boolean = false) 
 }
 
 /** Bericht einer Börse plus was die Pause je Börse ([ExchangeBackoff]) braucht. */
-internal class FetchedGroup(
+class FetchedGroup(
     val marketKey: String,
     val report: MarketRefresh,
     /** Ursachen aller Fehler (auch einer gescheiterten Sammelabfrage). */

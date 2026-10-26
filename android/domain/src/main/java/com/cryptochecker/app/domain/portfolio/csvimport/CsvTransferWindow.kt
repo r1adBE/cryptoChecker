@@ -5,7 +5,7 @@ package com.cryptochecker.app.domain.portfolio.csvimport
  * Einzahlung»: Einzahlungen je Coin nach Zeit sortiert, das Zeitfenster per Binärsuche — O((A + E) · log E) plus die
  * Einzahlungen im Fenster statt A × E. Wie `CsvTransferWindow` (iOS).
  */
-internal object CsvTransferWindow {
+object CsvTransferWindow {
 
     /**
      * Alle Paare (Index in [outs], Index in [ins]) mit [fits], in derselben Reihenfolge wie die doppelte Schleife über

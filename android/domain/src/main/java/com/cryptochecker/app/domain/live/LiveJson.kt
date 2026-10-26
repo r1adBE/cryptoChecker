@@ -10,7 +10,7 @@ package com.cryptochecker.app.domain.live
  * Nachricht «[[[[…» liesse den Stapel des OkHttp-Threads überlaufen (StackOverflowError — ein Error, den der Strom
  * sonst nicht fängt: Absturz). Echte Nachrichten der Börsen liegen bei Tiefe < 10.
  */
-internal object LiveJson {
+object LiveJson {
 
     /** Höchste Verschachtelung einer Nachricht; tiefer → ungültig (null). */
     const val MAX_DEPTH = 128

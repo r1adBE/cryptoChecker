@@ -186,7 +186,7 @@ object MacroCalendar {
  * Zahlen → Double, dazu String, Boolean und null. Wirft [IllegalArgumentException] bei
  * ungültigem Inhalt.
  */
-internal object MiniJson {
+object MiniJson {
     fun parse(text: String): Any? {
         val reader = Reader(text)
         reader.skipSpace()

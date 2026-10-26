@@ -100,7 +100,7 @@ jobs:
           chmod +x gradlew
           # shellcheck disable=SC2086
           ./gradlew $GRADLE_WRITE_FLAGS --write-locks \
-            test :app:lintDebug :app:lintRelease :marketdata:lintRelease \
+            test :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease \
             :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
 
       # Kover (coverage step in android.yml, -Pcoverage=true): agent and reporter; checksums only

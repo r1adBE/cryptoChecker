@@ -40,7 +40,7 @@ object PercentText {
     )
 
     /** Abstand vor «%» für [language] in [region] nach CLDR (ohne Türkisch und arabische Ziffern). */
-    internal fun isSpaced(language: String, region: String): Boolean {
+    fun isSpaced(language: String, region: String): Boolean {
         val r = region.uppercase()
         return if (language in SPACED) {
             r !in UNSPACED_REGIONS[language].orEmpty()

@@ -38,7 +38,8 @@ import xml.etree.ElementTree as ET
 
 METADATA = "gradle/verification-metadata.xml"
 KEYRING = "gradle/verification-keyring.keys"
-LOCKFILES = ("gradle.lockfile", "app/gradle.lockfile", "marketdata/gradle.lockfile", "baselineprofile/gradle.lockfile")
+LOCKFILES = ("gradle.lockfile", "app/gradle.lockfile", "marketdata/gradle.lockfile", "domain/gradle.lockfile",
+             "baselineprofile/gradle.lockfile")
 REQUIRED = (METADATA, "app/gradle.lockfile", "marketdata/gradle.lockfile")
 MAX_BYTES = {METADATA: 20 * 1024 * 1024, KEYRING: 10 * 1024 * 1024}
 MAX_LOCK_BYTES = 2 * 1024 * 1024

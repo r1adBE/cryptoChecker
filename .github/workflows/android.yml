@@ -168,7 +168,7 @@ jobs:
       # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
       # The exchange module (marketdata) on its own as well, with its own lint settings.
       - name: Lint
-        run: ./gradlew :app:lintDebug :app:lintRelease :marketdata:lintRelease --stacktrace
+        run: ./gradlew :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease --stacktrace
 
       # Lint warnings counted by id as ONE notice (top 20), to reduce them step by step; never fails. XML report if
       # present, else the text report (same paths as «Lint errors»)
@@ -181,6 +181,7 @@ jobs:
             --report app/build/reports/lint-results-debug.xml,app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt \
             --report app/build/reports/lint-results-release.xml,app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --report marketdata/build/reports/lint-results-release.xml,marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
+            --report domain/build/reports/lint-results-release.xml,domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --details
 
       # Lint errors as annotations (the log shows only the first one; the run page shows these
@@ -191,6 +192,7 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
+          bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
 
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --stacktrace
@@ -274,6 +276,7 @@ jobs:
             android/**/build/reports/tests/
             android/app/build/reports/lint-results-*.html
             android/marketdata/build/reports/lint-results-*.html
+            android/domain/build/reports/lint-results-*.html
             android/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
             android/app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           if-no-files-found: ignore

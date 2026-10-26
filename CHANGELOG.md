@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 136)
+
+* Android code structure (no change for users): new Gradle module `:domain` with the rules, calculations and models that need neither screens nor storage (139 files, packages unchanged). First step of splitting the app into modules; CI lints the new module, the device tests and the supply-chain update know it.
+
 ## 16.2.2 (build 135)
 
 * Tests: all Android instrumented UI tests use the v2 Compose test rule (Compose coroutines on the UI thread); the deprecated v1 rule is gone.

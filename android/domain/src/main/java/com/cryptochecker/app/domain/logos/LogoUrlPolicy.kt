@@ -13,7 +13,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
  * - der Parser (OkHttp) muss denselben Host, Port 443, kein Benutzer/Passwort und kein Fragment ergeben
  * - Host `coingecko.com`, `*.coingecko.com` oder `*.bnbstatic.com`; kein Platzhalter `/missing_…`
  */
-internal object LogoUrlPolicy {
+object LogoUrlPolicy {
     private const val PREFIX = "https://"
     private const val URL_PUNCTUATION = "-._~:/?@!$&'()*+,;=%"
     private val LABEL = Regex("[a-z0-9]([a-z0-9-]*[a-z0-9])?")

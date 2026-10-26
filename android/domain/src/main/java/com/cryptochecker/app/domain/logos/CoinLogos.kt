@@ -283,7 +283,7 @@ object CoinLogos {
     /** Höchstlänge eines Namens in der Merkliste. */
     const val NAME_MAX = 40
 
-    internal val SPACES = Regex("""\s+""")
+    val SPACES = Regex("""\s+""")
 
     // ---- Aktiennamen aus der Nasdaq-Symbolliste (alle US-Aktien, zwei Textdateien)
 

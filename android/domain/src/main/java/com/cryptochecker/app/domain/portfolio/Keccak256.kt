@@ -11,7 +11,7 @@ object Keccak256 {
     fun hash(input: ByteArray): ByteArray = sponge(input, 0x01)
 
     /** SHA3-256 (FIPS 202) — nur für Tests der Permutation gegen bekannte Werte. */
-    internal fun sha3(input: ByteArray): ByteArray = sponge(input, 0x06)
+    fun sha3(input: ByteArray): ByteArray = sponge(input, 0x06)
 
     fun hex(input: ByteArray): String = hash(input).joinToString("") { "%02x".format(it.toInt() and 0xff) }
 

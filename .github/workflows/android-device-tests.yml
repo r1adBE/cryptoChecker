@@ -34,6 +34,8 @@ on:
   pull_request:
     paths:
       - 'android/app/src/main/java/**/data/local/**'
+      - 'android/domain/src/main/java/**/data/local/**'
+      - 'android/domain/build.gradle.kts'
       - 'android/app/src/main/java/**/data/portfolio/**'
       - 'android/app/schemas/**'
       - 'android/app/proguard-rules.pro'
@@ -80,10 +82,10 @@ jobs:
           printf 'Changed files:\n%s\n' "$CHANGED"
           MIGRATION=false
           RELEASE=false
-          if printf '%s\n' "$CHANGED" | grep -qE '^android/app/src/main/java/(.+/)?data/(local|portfolio)/|^android/app/schemas/|^\.github/workflows/android-device-tests\.yml$'; then
+          if printf '%s\n' "$CHANGED" | grep -qE '^android/(app|domain)/src/main/java/(.+/)?data/(local|portfolio)/|^android/app/schemas/|^\.github/workflows/android-device-tests\.yml$'; then
             MIGRATION=true
           fi
-          if printf '%s\n' "$CHANGED" | grep -qxE 'android/app/proguard-rules\.pro|android/app/build\.gradle\.kts|android/gradle/libs\.versions\.toml|android/marketdata/(consumer|proguard)-rules\.pro|\.github/scripts/android_smoke_test\.sh|\.github/workflows/android-device-tests\.yml'; then
+          if printf '%s\n' "$CHANGED" | grep -qxE 'android/app/proguard-rules\.pro|android/app/build\.gradle\.kts|android/domain/build\.gradle\.kts|android/gradle/libs\.versions\.toml|android/marketdata/(consumer|proguard)-rules\.pro|\.github/scripts/android_smoke_test\.sh|\.github/workflows/android-device-tests\.yml'; then
             RELEASE=true
           fi
           echo "migration tests: $MIGRATION · release smoke: $RELEASE"

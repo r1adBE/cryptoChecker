@@ -70,7 +70,7 @@ object RateLimitSignal {
      * data.code 10009 bei success 0); eine JSON-Liste nie (das
      * sind Kurse). Unlesbare Antwort (kein JSON, abgeschnitten, HTML): der ganze Text wie bisher.
      */
-    internal fun okBodyRateLimited(body: String): Boolean {
+    fun okBodyRateLimited(body: String): Boolean {
         val trimmed = body.trim()
         when {
             trimmed.startsWith("{") -> {
