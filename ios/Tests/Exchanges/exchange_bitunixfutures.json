@@ -1,0 +1,138 @@
+{
+  "exchange": "BitunixFutures",
+  "description": "Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Bodies are raw response text (shortened from live responses recorded on 26 October 2026 by a temporary workflow), expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set).",
+  "endpoints": {
+    "single": "GET https://fapi.bitunix.com/api/v1/futures/market/tickers?symbols=BTCUSDT",
+    "bulk": "GET https://fapi.bitunix.com/api/v1/futures/market/tickers",
+    "pairs": "GET https://fapi.bitunix.com/api/v1/futures/market/trading_pairs"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "tickers?symbols=BTCUSDT: lastPrice, 24 h change against open, no exchange time",
+      "market": "BitunixFutures",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"data\":[{\"symbol\":\"BTCUSDT\",\"markPrice\":\"80320.9\",\"lastPrice\":\"80319.8\",\"open\":\"80817.8\",\"last\":\"80338.9\",\"quoteVol\":\"2126614415.89664\",\"baseVol\":\"26552.5807\",\"high\":\"80820.9\",\"low\":\"79323\"}],\"msg\":\"Success\"}",
+      "expect": {
+        "last": 80319.8,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": 80820.9,
+        "low": 79323.0,
+        "vol": 26552.5807,
+        "volQuote": 2126614415.89664,
+        "change24hPercent": -0.6162008864383837,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "single",
+      "name": "other symbol only: no data, no error text (code 0)",
+      "market": "BitunixFutures",
+      "pair": {
+        "base": "ETH",
+        "quote": "USDT",
+        "id": "ETHUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":0,\"data\":[{\"symbol\":\"BTCUSDT\",\"markPrice\":\"80320.9\",\"lastPrice\":\"80319.8\",\"open\":\"80817.8\",\"last\":\"80338.9\",\"quoteVol\":\"2126614415.89664\",\"baseVol\":\"26552.5807\",\"high\":\"80820.9\",\"low\":\"79323\"}],\"msg\":\"Success\"}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown contract: code 20015, msg is the error text",
+      "market": "BitunixFutures",
+      "pair": {
+        "base": "NOSUCHPAIR",
+        "quote": "USDT",
+        "id": "NOSUCHPAIRUSDT",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "{\"code\":20015,\"data\":null,\"msg\":\"this Futures is not allowed to trade.\"}",
+      "expect": {
+        "error": true,
+        "message": "this Futures is not allowed to trade."
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers (all): rows by symbol, empty lastPrice skipped",
+      "market": "BitunixFutures",
+      "requestId": 0,
+      "body": "{\"code\":0,\"data\":[{\"symbol\":\"BTCUSDT\",\"markPrice\":\"80320.9\",\"lastPrice\":\"80319.8\",\"open\":\"80817.8\",\"last\":\"80338.9\",\"quoteVol\":\"2126614415.89664\",\"baseVol\":\"26552.5807\",\"high\":\"80820.9\",\"low\":\"79323\"},{\"symbol\":\"ETHUSDT\",\"markPrice\":\"2325.53\",\"lastPrice\":\"2325.43\",\"open\":\"2358.78\",\"last\":\"2326.18\",\"quoteVol\":\"1203708967.90499\",\"baseVol\":\"518474.257\",\"high\":\"2358.89\",\"low\":\"2292.01\"},{\"symbol\":\"1000PEPEUSDT\",\"markPrice\":\"0.0043648\",\"lastPrice\":\"0.0043648\",\"open\":\"0.0043973\",\"last\":\"0.0043647\",\"quoteVol\":\"16913733.9019811\",\"baseVol\":\"3890833385\",\"high\":\"0.0044661\",\"low\":\"0.0042083\"},{\"symbol\":\"DEADUSDT\",\"markPrice\":\"2325.53\",\"lastPrice\":\"\",\"open\":\"2358.78\",\"last\":\"2326.18\",\"quoteVol\":\"1203708967.90499\",\"baseVol\":\"518474.257\",\"high\":\"2358.89\",\"low\":\"2292.01\"}],\"msg\":\"Success\"}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "DEADUSDT"
+        ],
+        "tickers": {
+          "BTCUSDT": {
+            "last": 80319.8,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": 80820.9,
+            "low": 79323.0,
+            "vol": 26552.5807,
+            "volQuote": 2126614415.89664,
+            "change24hPercent": -0.6162008864383837,
+            "exchangeTime": null,
+            "markFallback": false
+          },
+          "1000PEPEUSDT": {
+            "last": 0.0043648,
+            "change24hPercent": -0.7390898960725797
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "trading_pairs: only OPEN; 1000PEPEUSDT keeps the multiplier in the base; stocks are not marked TradFi (no type in the API)",
+      "market": "BitunixFutures",
+      "requestId": 0,
+      "body": "{\"code\":0,\"data\":[{\"symbol\":\"BTCUSDT\",\"base\":\"BTC\",\"quote\":\"USDT\",\"minTradeVolume\":\"0.0001\",\"minBuyPriceOffset\":\"-0.5\",\"maxSellPriceOffset\":\"100\",\"maxLimitOrderVolume\":\"1200\",\"maxMarketOrderVolume\":\"120\",\"basePrecision\":4,\"quotePrecision\":1,\"maxLeverage\":200,\"minLeverage\":1,\"defaultLeverage\":10,\"defaultMarginMode\":\"2\",\"priceProtectScope\":\"0.01\",\"symbolStatus\":\"OPEN\",\"isApiSupported\":true,\"maxFundingRate\":\"0.3\",\"minFundingRate\":\"-0.3\",\"launchTime\":\"1719403200000\"},{\"symbol\":\"1000PEPEUSDT\",\"base\":\"PEPE\",\"quote\":\"USDT\",\"minTradeVolume\":\"790\",\"minBuyPriceOffset\":\"-0.85\",\"maxSellPriceOffset\":\"100\",\"maxLimitOrderVolume\":\"800000000\",\"maxMarketOrderVolume\":\"100000000\",\"basePrecision\":0,\"quotePrecision\":7,\"maxLeverage\":75,\"minLeverage\":1,\"defaultLeverage\":10,\"defaultMarginMode\":\"2\",\"priceProtectScope\":\"0.05\",\"symbolStatus\":\"OPEN\",\"isApiSupported\":true,\"maxFundingRate\":\"2\",\"minFundingRate\":\"-2\",\"launchTime\":\"1710403200000\"},{\"symbol\":\"AAVEUSDC\",\"base\":\"AAVE\",\"quote\":\"USDC\",\"minTradeVolume\":\"0.1\",\"minBuyPriceOffset\":null,\"maxSellPriceOffset\":null,\"maxLimitOrderVolume\":\"15000\",\"maxMarketOrderVolume\":\"1500\",\"basePrecision\":1,\"quotePrecision\":2,\"maxLeverage\":75,\"minLeverage\":1,\"defaultLeverage\":10,\"defaultMarginMode\":\"2\",\"priceProtectScope\":\"0.05\",\"symbolStatus\":\"OPEN\",\"isApiSupported\":true,\"maxFundingRate\":\"0.75\",\"minFundingRate\":\"-0.75\",\"launchTime\":\"1766052000000\"},{\"symbol\":\"TSLAUSDT\",\"base\":\"TSLA\",\"quote\":\"USDT\",\"minTradeVolume\":\"0.02\",\"minBuyPriceOffset\":null,\"maxSellPriceOffset\":null,\"maxLimitOrderVolume\":\"3000\",\"maxMarketOrderVolume\":\"300\",\"basePrecision\":2,\"quotePrecision\":2,\"maxLeverage\":50,\"minLeverage\":1,\"defaultLeverage\":10,\"defaultMarginMode\":\"2\",\"priceProtectScope\":\"0.05\",\"symbolStatus\":\"OPEN\",\"isApiSupported\":true,\"maxFundingRate\":\"2\",\"minFundingRate\":\"-2\",\"launchTime\":\"1773388800000\",\"delistTime\":\"1806511764000\"},{\"symbol\":\"FDUSDUSDT\",\"base\":\"FDUSD\",\"quote\":\"USDT\",\"minTradeVolume\":\"1\",\"minBuyPriceOffset\":null,\"maxSellPriceOffset\":null,\"maxLimitOrderVolume\":\"100000\",\"maxMarketOrderVolume\":\"50000\",\"basePrecision\":4,\"quotePrecision\":2,\"maxLeverage\":25,\"minLeverage\":1,\"defaultLeverage\":10,\"defaultMarginMode\":\"2\",\"priceProtectScope\":\"0.05\",\"symbolStatus\":\"PREVIEW\",\"isApiSupported\":true,\"maxFundingRate\":\"1.125\",\"minFundingRate\":\"-1.125\",\"launchTime\":\"1866974422000\"}],\"msg\":\"Success\"}",
+      "expect": {
+        "count": 4,
+        "absent": [
+          "FDUSDUSDT"
+        ],
+        "pairs": {
+          "BTCUSDT": {
+            "base": "BTC",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "1000PEPEUSDT": {
+            "base": "1000PEPE",
+            "quote": "USDT",
+            "contract": "PERPETUAL"
+          },
+          "AAVEUSDC": {
+            "base": "AAVE",
+            "quote": "USDC",
+            "contract": "PERPETUAL"
+          },
+          "TSLAUSDT": {
+            "base": "TSLA",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          }
+        }
+      }
+    }
+  ]
+}
