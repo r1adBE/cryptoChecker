@@ -13,7 +13,7 @@ EHRLICH BEI DEN DATEN
 • Beträge verlassen das Gerät nur per Export (CSV, Sicherung) oder verschlüsselt im iCloud-/Geräte-Backup. Für Kurse gehen nur Paar-Kürzel an die Börse des jeweiligen Paars; dazu Devisenkurse (Frankfurter), Marktdaten und Logos (CoinGecko, Binance), Daten-Spiegel (GitHub). Beobachtest du Adressen oder einen xpub, sehen öffentliche Blockchain-Knoten die Adressen (beim xpub die abgeleiteten) und deine IP.
 
 MERKLISTE
-• 54 Märkte auf 44 Börsen: Spot und Futures, DEX-Token über DexScreener, auf Wunsch Aktien, Gold und Devisen (TradFi)
+• 56 Märkte auf 45 Börsen: Spot und Futures, DEX-Token über DexScreener, auf Wunsch Aktien, Gold und Devisen (TradFi)
 • Zweite Zeile «≈ Wert» in einer von 31 Währungen (EUR, CHF, USD …), umgerechnet zum Devisenkurs
 • Mini-Chart und %-Änderung über 24 Std. oder seit 00:00 in deiner Zeitzone
 • Gruppen, Favoriten, Sortieren per Ziehen und eine Notiz pro Coin

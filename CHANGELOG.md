@@ -22,7 +22,7 @@ Detailed build history below.
 * New exchange: Bitunix Futures (perpetuals; Bitunix spot has no 24 h ticker). The API names no contract type, so stock contracts are not marked TradFi.
 * DEX pools: GeckoTerminal as fallback when DexScreener answers with a server error or no longer knows a pool; a GeckoTerminal rate limit never pauses DexScreener.
 * Forex: daily ECB reference rates (via Frankfurter) as currency pairs, labelled «reference rate, daily», never live and without alerts.
-* Privacy page: Bitunix, GeckoTerminal, the one-time exchange lists of CoinGecko and the forex reference rates.
+* Privacy page: Bitunix, GeckoTerminal, the one-time exchange lists of CoinGecko and the forex reference rates. Store descriptions: 56 markets on 45 exchanges.
 
 ## 16.2.2 (build 132)
 

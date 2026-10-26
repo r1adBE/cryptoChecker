@@ -13,7 +13,7 @@ VERİ KONUSUNDA DÜRÜST
 • Tutarlar cihazdan sadece dışa aktarma (CSV, yedek) veya şifreli iCloud/cihaz yedeğiyle çıkar. Fiyatlar için yalnızca çift sembolleri o çiftin borsasına gider; ayrıca döviz kurları (Frankfurter), piyasa verileri ve logolar (CoinGecko, Binance), veri aynaları (GitHub). Adresleri veya bir xpub’ı izlersen, herkese açık blokzincir düğümleri adresleri (xpub’da türetilenleri) ve IP’ni görür.
 
 TAKİP LİSTESİ
-• 44 borsada 54 piyasa: spot ve vadeli, DexScreener üzerinden DEX tokenleri, istersen hisse, altın ve döviz (TradFi)
+• 45 borsada 56 piyasa: spot ve vadeli, DexScreener üzerinden DEX tokenleri, istersen hisse, altın ve döviz (TradFi)
 • 31 para biriminden birinde ikinci satır “≈ değer” (EUR, CHF, USD …), döviz kuruyla çevrilmiş
 • Mini grafik ve 24 saatlik ya da kendi saat diliminde 00:00’dan beri % değişim
 • Gruplar, favoriler, sürükleyerek sıralama ve her coin için not

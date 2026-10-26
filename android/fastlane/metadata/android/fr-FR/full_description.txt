@@ -13,7 +13,7 @@ TRANSPARENT SUR LES DONNÉES
 • Les montants ne quittent l’appareil que par export ou sauvegarde système Android. Pour les cours, seuls les symboles de la paire vont à sa plateforme ; plus les taux de change (Frankfurter), données de marché et logos (CoinGecko, Binance), miroirs de données (GitHub). Si tu suis des adresses ou une xpub, des nœuds blockchain publics voient les adresses (pour une xpub, les dérivées) et ton IP.
 
 LISTE DE SUIVI
-• 54 marchés sur 44 plateformes : spot et futures, tokens DEX via DexScreener, en option actions, or et devises (TradFi)
+• 56 marchés sur 45 plateformes : spot et futures, tokens DEX via DexScreener, en option actions, or et devises (TradFi)
 • Deuxième ligne « ≈ valeur » en 31 devises (EUR, CHF, USD …), au taux de change
 • Mini-graphique et variation en % sur 24 h ou depuis 00:00 (ton fuseau)
 • Groupes, favoris, glisser-déposer et une note par crypto

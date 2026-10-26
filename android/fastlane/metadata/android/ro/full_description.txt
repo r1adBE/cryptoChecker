@@ -13,7 +13,7 @@ SINCER DESPRE DATE
 • Sumele părăsesc dispozitivul doar prin export sau backupul de sistem Android. Pentru prețuri, doar simbolurile perechii ajung la bursa perechii respective; în plus cursuri valutare (Frankfurter), date de piață și logo-uri (CoinGecko, Binance), oglinzi de date (GitHub). Dacă urmărești adrese sau un xpub, nodurile blockchain publice văd adresele (la xpub, cele derivate) și IP-ul tău.
 
 LISTA DE URMĂRIRE
-• 54 de piețe pe 44 de burse: spot și futures, tokenuri DEX prin DexScreener, opțional acțiuni, aur și valute (TradFi)
+• 56 de piețe pe 45 de burse: spot și futures, tokenuri DEX prin DexScreener, opțional acțiuni, aur și valute (TradFi)
 • A doua linie „≈ valoare” într-una din 31 de monede (EUR, CHF, USD …), convertită la cursul valutar
 • Minigrafic și variație în % pe 24 h sau de la 00:00 în fusul tău orar
 • Grupuri, favorite, sortare prin tragere și o notă pentru fiecare monedă

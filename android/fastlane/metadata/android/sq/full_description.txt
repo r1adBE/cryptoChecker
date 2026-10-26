@@ -13,7 +13,7 @@ TË SINQERTË PËR TË DHËNAT
 • Shumat dalin nga pajisja vetëm me eksport ose kopje rezervë të Android-it. Për çmimet, vetëm simbolet e çiftit shkojnë te bursa e atij çifti; përveç kësaj kurset e këmbimit (Frankfurter), të dhënat e tregut dhe logot (CoinGecko, Binance), pasqyrat e të dhënave (GitHub). Nëse ndjek adresa ose një xpub, nyjet publike blockchain shohin adresat (te xpub ato të derivuara) dhe IP-në tënde.
 
 LISTA E NDJEKJES
-• 54 tregje në 44 bursa: spot dhe futures, tokenë DEX përmes DexScreener, sipas dëshirës aksione, ar dhe valuta (TradFi)
+• 56 tregje në 45 bursa: spot dhe futures, tokenë DEX përmes DexScreener, sipas dëshirës aksione, ar dhe valuta (TradFi)
 • Rreshti i dytë «≈ vlera» në një nga 31 monedha (EUR, CHF, USD …), e konvertuar me kursin e këmbimit
 • Mini-grafik dhe ndryshim në % për 24 orë ose që nga 00:00 në zonën tënde kohore
 • Grupe, të preferuara, renditje me tërheqje dhe një shënim për çdo monedhë
