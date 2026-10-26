@@ -491,7 +491,7 @@ def cmd_app(app, widget, gradle, src, log, out):
     if not os.path.isfile(os.path.join(app, "PrivacyInfo.xcprivacy")):
         add("error", "PrivacyInfo.xcprivacy missing in the app bundle")
     else:
-        # SEC3-01: Required-Reason-APIs der Quellen gegen das Manifest im Bundle
+        # SEC3-01: required-reason APIs in the sources against the manifest in the bundle
         privacy_from_files(src, os.path.join(app, "PrivacyInfo.xcprivacy"))
     appex = os.path.join(app, "PlugIns", f"{widget}.appex")
     binaries = [os.path.join(app, str(info.get("CFBundleExecutable", "CryptoChecker")))]

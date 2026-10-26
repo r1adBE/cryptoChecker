@@ -166,6 +166,6 @@
     <string name="explorer_section_spot">Спот</string>
     <string name="explorer_section_futures">Фьючерсы</string>
     <string name="explorer_section_dex">DEX-пулы</string>
-    <string name="explorer_section_forex">Forex (справочный курс)</string>
+    <string name="explorer_section_forex">Forex (референсный курс)</string>
     <string name="explorer_forex_hint">Дневной курс Европейского центрального банка (через Frankfurter), не в реальном времени – без оповещений.</string>
 </resources>

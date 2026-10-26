@@ -59,8 +59,8 @@
     </plurals>
     <string name="widget_portfolio_name">Portfólio</string>
     <string name="widget_portfolio_off_hint">Ativa-o em %1$s.</string>
-    <string name="widget_portfolio_off_short">Portefólio desativado</string>
-    <string name="widget_portfolio_off_title">Portefólio desativado</string>
+    <string name="widget_portfolio_off_short">Portfólio desativado</string>
+    <string name="widget_portfolio_off_title">Portfólio desativado</string>
     <string name="widget_portfolio_partly_stale">preço em parte antigo</string>
     <string name="widget_portfolio_period">Período</string>
     <string name="widget_portfolio_period_without">%1$s sem %2$s</string>

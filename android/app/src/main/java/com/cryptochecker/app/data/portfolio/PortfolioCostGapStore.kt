@@ -12,7 +12,7 @@ import javax.inject.Singleton
 /**
  * «Unbekannt lassen» bei Einträgen ohne Einstand ([com.cryptochecker.app.domain.portfolio.PortfolioCostGaps]): Ids der
  * Transaktionen, deren Einstand der Nutzer bewusst offen lässt — die Karte «N Einträge ohne Einstand» zählt sie nicht
- * mehr (gespiegelt in `PortfolioCostGapStore.swift`). Nur Ids, keine Beträge; gehört zu diesem Gerät (eigene Datei
+ * mehr (gespiegelt in `PortfolioCostGapUi.unknownKey`, PortfolioCostGapUi.swift). Nur Ids, keine Beträge; gehört zu diesem Gerät (eigene Datei
  * [PREFS], nicht in den Sicherungsregeln). Merker ohne Lücke mehr räumt [prune] weg.
  */
 @Singleton

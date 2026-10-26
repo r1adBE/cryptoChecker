@@ -7755,7 +7755,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@, %2$@ van de portefeuille, %3$@"
+            "value" : "%1$@, %2$@ van het portfolio, %3$@"
           }
         },
         "pl" : {
@@ -15501,7 +15501,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A lista, os alarmes e o portefólio ficam encriptados neste dispositivo; sem conta, sem servidor próprio."
+            "value" : "A lista, os alarmes e o portfólio ficam encriptados neste dispositivo; sem conta, sem servidor próprio."
           }
         },
         "pt-BR" : {
@@ -65812,7 +65812,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Referenční kurzy ECB se stanovují jen jednou denně – nejsou pro ně žádná upozornění."
+            "value" : "Referenční kurzy ECB se stanovují jen jednou denně – nejsou pro ně žádné alarmy."
           }
         },
         "da" : {
@@ -65830,7 +65830,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Οι ισοτιμίες αναφοράς της ΕΚΤ ορίζονται μόνο μία φορά την ημέρα – δεν υπάρχουν ειδοποιήσεις γι’ αυτές."
+            "value" : "Οι ισοτιμίες αναφοράς της ΕΚΤ ορίζονται μόνο μία φορά την ημέρα – δεν υπάρχουν συναγερμοί γι’ αυτές."
           }
         },
         "en" : {
@@ -65860,7 +65860,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les cours de référence de la BCE ne sont fixés qu’une fois par jour – il n’y a pas d’alertes pour eux."
+            "value" : "Les taux de référence de la BCE ne sont fixés qu’une fois par jour – il n’y a pas d’alertes pour eux."
           }
         },
         "he" : {
@@ -65872,7 +65872,7 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ECB की संदर्भ दरें दिन में सिर्फ़ एक बार तय होती हैं – इनके लिए कोई अलर्ट नहीं है।"
+            "value" : "ECB की संदर्भ दरें दिन में सिर्फ़ एक बार तय होती हैं – इनके लिए कोई अलार्म नहीं है।"
           }
         },
         "hu" : {
@@ -65884,19 +65884,19 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs referensi ECB hanya ditetapkan sekali sehari – tidak ada peringatan untuknya."
+            "value" : "Kurs acuan ECB hanya ditetapkan sekali sehari – tidak ada alarm untuknya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I cambi di riferimento della BCE vengono fissati solo una volta al giorno – non ci sono allarmi per questi."
+            "value" : "I tassi di riferimento della BCE vengono fissati solo una volta al giorno – non ci sono allarmi per questi."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ECBの参考レートは1日に1回だけ決まるため、アラームはありません。"
+            "value" : "ECBの参照レートは1日に1回だけ決まるため、アラームはありません。"
           }
         },
         "ko" : {
@@ -65920,31 +65920,31 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kursy referencyjne EBC są ustalane tylko raz dziennie – nie ma dla nich alertów."
+            "value" : "Kursy referencyjne EBC są ustalane tylko raz dziennie – nie ma dla nich alarmów."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "As taxas de referência do BCE são fixadas apenas uma vez por dia – não há alertas para elas."
+            "value" : "As taxas de referência do BCE são fixadas apenas uma vez por dia – não há alarmes para elas."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "As taxas de referência do BCE são definidas só uma vez por dia – não há alertas para elas."
+            "value" : "As taxas de referência do BCE são definidas só uma vez por dia – não há alarmes para elas."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cursurile de referință ale BCE se stabilesc doar o dată pe zi – pentru ele nu există alerte."
+            "value" : "Cursurile de referință ale BCE se stabilesc doar o dată pe zi – pentru ele nu există alarme."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Справочные курсы ЕЦБ устанавливаются только раз в день – оповещений для них нет."
+            "value" : "Референсные курсы ЕЦБ устанавливаются только раз в день – оповещений для них нет."
           }
         },
         "sq" : {
@@ -65974,7 +65974,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Довідкові курси ЄЦБ встановлюються лише раз на день – сповіщень для них немає."
+            "value" : "Референсні курси ЄЦБ встановлюються лише раз на день – сигналів для них немає."
           }
         },
         "vi" : {
@@ -65986,7 +65986,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "欧洲央行的参考汇率每天只确定一次 – 因此没有提醒。"
+            "value" : "欧洲央行的参考汇率每天只确定一次——因此没有提醒。"
           }
         }
       }
@@ -66308,13 +66308,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Configura um bloqueio de ecrã para abrir a carteira."
+            "value" : "Configura um bloqueio de ecrã para abrir o portfólio."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Configure um bloqueio de tela para abrir a carteira."
+            "value" : "Configure um bloqueio de tela para abrir o portfólio."
           }
         },
         "ro" : {
@@ -66499,13 +66499,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desligar bloqueio da carteira"
+            "value" : "Desligar bloqueio do portfólio"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desativar bloqueio da carteira"
+            "value" : "Desativar bloqueio do portfólio"
           }
         },
         "ro" : {
@@ -66690,13 +66690,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sem bloqueio de ecrã não é possível desbloquear a carteira. Desligado, a app volta a mostrar a carteira sem perguntar. Depois de configurares um bloqueio de ecrã, podes voltar a ligar o bloqueio nas Definições."
+            "value" : "Sem bloqueio de ecrã não é possível desbloquear o portfólio. Desligado, a app volta a mostrar o portfólio sem perguntar. Depois de configurares um bloqueio de ecrã, podes voltar a ligar o bloqueio nas Definições."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sem bloqueio de tela não é possível desbloquear a carteira. Desativado, o app volta a mostrar sua carteira sem perguntar. Depois de configurar um bloqueio de tela, você pode reativar o bloqueio nas Configurações."
+            "value" : "Sem bloqueio de tela não é possível desbloquear o portfólio. Desativado, o app volta a mostrar seu portfólio sem perguntar. Depois de configurar um bloqueio de tela, você pode reativar o bloqueio nas Configurações."
           }
         },
         "ro" : {
@@ -66881,13 +66881,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desligar o bloqueio da carteira?"
+            "value" : "Desligar o bloqueio do portfólio?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desativar o bloqueio da carteira?"
+            "value" : "Desativar o bloqueio do portfólio?"
           }
         },
         "ro" : {
@@ -73196,7 +73196,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefólio: transações com quantidades e preços"
+            "value" : "Portfólio: transações com quantidades e preços"
           }
         },
         "pt-BR" : {
@@ -74151,13 +74151,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A app foi fechada durante o restauro de uma cópia de segurança e os dados anteriores não puderam ser totalmente repostos. Verifica a lista de observação e a carteira, ou restaura novamente a cópia em «%1$@» nas Definições."
+            "value" : "A app foi fechada durante o restauro de uma cópia de segurança e os dados anteriores não puderam ser totalmente repostos. Verifica a lista de observação e o portfólio, ou restaura novamente a cópia em «%1$@» nas Definições."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O app foi fechado durante a restauração de um backup e os dados anteriores não puderam ser totalmente recolocados. Confira sua lista de observação e sua carteira, ou restaure o backup de novo em “%1$@” nas Configurações."
+            "value" : "O app foi fechado durante a restauração de um backup e os dados anteriores não puderam ser totalmente recolocados. Confira sua lista de observação e seu portfólio, ou restaure o backup de novo em “%1$@” nas Configurações."
           }
         },
         "ro" : {
@@ -75021,19 +75021,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld entradas da cópia (portefólio ou alarmes) são inválidas e não serão importadas."
+                  "value" : "%lld entradas da cópia (portfólio ou alarmes) são inválidas e não serão importadas."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld entrada da cópia (portefólio ou alarme) é inválida e não será importada."
+                  "value" : "%lld entrada da cópia (portfólio ou alarme) é inválida e não será importada."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld entradas da cópia (portefólio ou alarmes) são inválidas e não serão importadas."
+                  "value" : "%lld entradas da cópia (portfólio ou alarmes) são inválidas e não serão importadas."
                 }
               }
             }
@@ -79190,7 +79190,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Android 可能会延迟检查——请将电池设为 「无限制」"
+            "value" : "Android 可能会延迟检查——请将电池设为“无限制”"
           }
         }
       }
@@ -99782,7 +99782,7 @@
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live Activity"
+            "value" : "Live-aktivitet"
           }
         },
         "de" : {
@@ -99818,7 +99818,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live Activity"
+            "value" : "Reaaliaikainen toiminto"
           }
         },
         "fr" : {
@@ -99914,7 +99914,7 @@
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivitet i drejtpërdrejtë"
+            "value" : "Aktivitet live"
           }
         },
         "sv" : {
@@ -99938,7 +99938,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Live Activity"
+            "value" : "Активність наживо"
           }
         },
         "vi" : {
@@ -107025,7 +107025,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ficheiro de texto para o suporte: versão, dispositivo, definições de alarmes, últimas verificações e registo de alarmes – sem carteira, montantes, endereços nem notas. É mostrado primeiro; nada é enviado automaticamente."
+            "value" : "Ficheiro de texto para o suporte: versão, dispositivo, definições de alarmes, últimas verificações e registo de alarmes – sem portfólio, montantes, endereços nem notas. É mostrado primeiro; nada é enviado automaticamente."
           }
         },
         "pt-BR" : {
@@ -120346,7 +120346,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Denní kurz Evropské centrální banky (přes Frankfurter), ne živě – bez upozornění."
+            "value" : "Denní kurz Evropské centrální banky (přes Frankfurter), ne živě – bez alarmů."
           }
         },
         "da" : {
@@ -120364,7 +120364,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας (μέσω Frankfurter), όχι ζωντανά – χωρίς ειδοποιήσεις."
+            "value" : "Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας (μέσω Frankfurter), όχι ζωντανά – χωρίς συναγερμούς."
           }
         },
         "en" : {
@@ -120406,7 +120406,7 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "यूरोपीय सेंट्रल बैंक की दैनिक दर (Frankfurter के ज़रिए), लाइव नहीं – कोई अलर्ट नहीं।"
+            "value" : "यूरोपीय सेंट्रल बैंक की दैनिक दर (Frankfurter के ज़रिए), लाइव नहीं – कोई अलार्म नहीं।"
           }
         },
         "hu" : {
@@ -120418,7 +120418,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kurs harian Bank Sentral Eropa (melalui Frankfurter), bukan live – tanpa peringatan."
+            "value" : "Kurs harian Bank Sentral Eropa (melalui Frankfurter), bukan live – tanpa alarm."
           }
         },
         "it" : {
@@ -120454,25 +120454,25 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dzienny kurs Europejskiego Banku Centralnego (przez Frankfurter), nie na żywo – bez alertów."
+            "value" : "Dzienny kurs Europejskiego Banku Centralnego (przez Frankfurter), nie na żywo – bez alarmów."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alertas."
+            "value" : "Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alertas."
+            "value" : "Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alerte."
+            "value" : "Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alarme."
           }
         },
         "ru" : {
@@ -120508,7 +120508,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Денний курс Європейського центрального банку (через Frankfurter), не в реальному часі – без сповіщень."
+            "value" : "Денний курс Європейського центрального банку (через Frankfurter), не в реальному часі – без сигналів."
           }
         },
         "vi" : {
@@ -120520,7 +120520,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "欧洲中央银行的每日汇率（通过 Frankfurter），非实时 – 没有提醒。"
+            "value" : "欧洲中央银行的每日汇率（通过 Frankfurter），非实时——没有提醒。"
           }
         }
       }
@@ -125997,7 +125997,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forex (cours de référence)"
+            "value" : "Forex (taux de référence)"
           }
         },
         "he" : {
@@ -126021,19 +126021,19 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forex (kurs referensi)"
+            "value" : "Forex (kurs acuan)"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forex (cambio di riferimento)"
+            "value" : "Forex (tasso di riferimento)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "外国為替（参考レート）"
+            "value" : "外国為替（参照レート）"
           }
         },
         "ko" : {
@@ -126081,13 +126081,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forex (справочный курс)"
+            "value" : "Forex (референсный курс)"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forex (kurs reference)"
+            "value" : "Forex (kursi i referencës)"
           }
         },
         "sv" : {
@@ -126111,7 +126111,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Forex (довідковий курс)"
+            "value" : "Forex (референсний курс)"
           }
         },
         "vi" : {
@@ -126158,7 +126158,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Συμβόλαια μελλοντικής εκπλήρωσης"
+            "value" : "Futures"
           }
         },
         "en" : {
@@ -126248,7 +126248,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Futures"
+            "value" : "Kontrakty terminowe"
           }
         },
         "pt" : {
@@ -126499,7 +126499,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Giao ngay"
+            "value" : "Spot"
           }
         },
         "zh-Hans" : {
@@ -139033,7 +139033,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fall fra all-time high"
+            "value" : "Fall fra rekorden"
           }
         },
         "nl" : {
@@ -146878,13 +146878,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquear a tua carteira com Face ID."
+            "value" : "Desbloquear o teu portfólio com Face ID."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloqueie sua carteira com o Face ID."
+            "value" : "Desbloqueie seu portfólio com o Face ID."
           }
         },
         "ro" : {
@@ -155546,7 +155546,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivity živě jsou pro Crypto Checker v nastavení iOS vypnuté."
+            "value" : "Živé aktivity jsou pro Crypto Checker v nastavení iOS vypnuté."
           }
         },
         "da" : {
@@ -155600,7 +155600,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "פעילויות בזמן אמת כבויות עבור Crypto Checker בהגדרות iOS."
+            "value" : "פעילויות חיות כבויות עבור Crypto Checker בהגדרות iOS."
           }
         },
         "hi" : {
@@ -155654,7 +155654,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Działania na żywo są wyłączone dla Crypto Checker w ustawieniach iOS."
+            "value" : "Aktywności na żywo są wyłączone dla Crypto Checker w ustawieniach iOS."
           }
         },
         "pt" : {
@@ -155779,7 +155779,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Päivittyy aina, kun sovellus tarkistaa kurssit – taustalla iOS päättää, kuinka usein. iOS lopettaa live-toiminnon viimeistään 8 tunnin kuluttua; käynnistä se tarvittaessa uudelleen täältä."
+            "value" : "Päivittyy aina, kun sovellus tarkistaa kurssit – taustalla iOS päättää, kuinka usein. iOS lopettaa reaaliaikaisen toiminnon viimeistään 8 tunnin kuluttua; käynnistä se tarvittaessa uudelleen täältä."
           }
         },
         "fr" : {
@@ -155821,7 +155821,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリが価格を確認するたびに更新されます – バックグラウンドでの頻度は iOS が決めます。 iOS はライブアクティビティを最長 8 時間で終了します。必要ならここで再びオンにしてください。"
+            "value" : "アプリが価格を確認するたびに更新されます – バックグラウンドでの頻度は iOS が決めます。iOS はライブアクティビティを最長 8 時間で終了します。必要ならここで再びオンにしてください。"
           }
         },
         "ko" : {
@@ -155869,7 +155869,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обновляется каждый раз, когда приложение проверяет курсы – в фоне iOS решает, как часто. iOS завершает активность Live не позже чем через 8 часов; при необходимости включи её здесь снова."
+            "value" : "Обновляется каждый раз, когда приложение проверяет курсы – в фоне iOS решает, как часто. iOS завершает Live Activity не позже чем через 8 часов; при необходимости включи её здесь снова."
           }
         },
         "sq" : {
@@ -155899,7 +155899,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Оновлюється щоразу, коли застосунок перевіряє курси – у фоні iOS вирішує, як часто. iOS завершує активність Live щонайпізніше через 8 годин; за потреби увімкни її тут знову."
+            "value" : "Оновлюється щоразу, коли застосунок перевіряє курси – у фоні iOS вирішує, як часто. iOS завершує активність наживо щонайпізніше через 8 годин; за потреби увімкни її тут знову."
           }
         },
         "vi" : {
@@ -155911,7 +155911,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "每当应用检查行情时更新——在后台由 iOS 决定频率。 iOS 最迟会在 8 小时后结束实时活动；如有需要，请在此重新开启。"
+            "value" : "每当应用检查行情时更新——在后台由 iOS 决定频率。iOS 最迟会在 8 小时后结束实时活动；如有需要，请在此重新开启。"
           }
         }
       }
@@ -193232,7 +193232,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Já registas %1$@ com as tuas próprias transações. Somar o saldo deste endereço ao portefólio ou apenas mostrá-lo?"
+            "value" : "Já registas %1$@ com as tuas próprias transações. Somar o saldo deste endereço ao portfólio ou apenas mostrá-lo?"
           }
         },
         "pt-BR" : {
@@ -196806,7 +196806,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apenas mostrar, sem somar ao portefólio"
+            "value" : "Apenas mostrar, sem somar ao portfólio"
           }
         },
         "pt-BR" : {
@@ -202592,7 +202592,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen controleren zonder %1$@: saldo al meer dan 24 uur niet geladen"
+            "value" : "Portfolio-alarmen controleren zonder %1$@: saldo al meer dan 24 uur niet geladen"
           }
         },
         "pl" : {
@@ -202604,13 +202604,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os alarmes da carteira verificam sem %1$@: saldo não carregado há mais de 24 horas"
+            "value" : "Os alarmes do portfólio verificam sem %1$@: saldo não carregado há mais de 24 horas"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os alarmes da carteira verificam sem %1$@: saldo não carregado há mais de 24 horas"
+            "value" : "Os alarmes do portfólio verificam sem %1$@: saldo não carregado há mais de 24 horas"
           }
         },
         "ro" : {
@@ -202783,7 +202783,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen controleren zonder adressen waarvan het saldo al meer dan 24 uur niet laadt"
+            "value" : "Portfolio-alarmen controleren zonder adressen waarvan het saldo al meer dan 24 uur niet laadt"
           }
         },
         "pl" : {
@@ -202795,13 +202795,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os alarmes da carteira verificam sem os endereços cujo saldo não carrega há mais de 24 horas"
+            "value" : "Os alarmes do portfólio verificam sem os endereços cujo saldo não carrega há mais de 24 horas"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os alarmes da carteira verificam sem os endereços cujo saldo não carrega há mais de 24 horas"
+            "value" : "Os alarmes do portfólio verificam sem os endereços cujo saldo não carrega há mais de 24 horas"
           }
         },
         "ro" : {
@@ -202974,7 +202974,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen gepauzeerd: saldi van gevolgde adressen nog niet geladen"
+            "value" : "Portfolio-alarmen gepauzeerd: saldi van gevolgde adressen nog niet geladen"
           }
         },
         "pl" : {
@@ -202986,13 +202986,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira em pausa: saldos dos endereços vigiados ainda não carregados"
+            "value" : "Alarmes do portfólio em pausa: saldos dos endereços vigiados ainda não carregados"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira pausados: saldos dos endereços monitorados ainda não carregados"
+            "value" : "Alarmes do portfólio pausados: saldos dos endereços monitorados ainda não carregados"
           }
         },
         "ro" : {
@@ -203165,7 +203165,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen gepauzeerd: geen actuele koers voor %1$@"
+            "value" : "Portfolio-alarmen gepauzeerd: geen actuele koers voor %1$@"
           }
         },
         "pl" : {
@@ -203177,13 +203177,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira em pausa: sem cotação atual para %1$@"
+            "value" : "Alarmes do portfólio em pausa: sem cotação atual para %1$@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira pausados: sem cotação atual para %1$@"
+            "value" : "Alarmes do portfólio pausados: sem cotação atual para %1$@"
           }
         },
         "ro" : {
@@ -203356,7 +203356,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen gepauzeerd: niet alle coins hebben een actuele koers"
+            "value" : "Portfolio-alarmen gepauzeerd: niet alle coins hebben een actuele koers"
           }
         },
         "pl" : {
@@ -203368,13 +203368,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira em pausa: nem todas as moedas têm cotação atual"
+            "value" : "Alarmes do portfólio em pausa: nem todas as moedas têm cotação atual"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira pausados: nem todas as moedas têm cotação atual"
+            "value" : "Alarmes do portfólio pausados: nem todas as moedas têm cotação atual"
           }
         },
         "ro" : {
@@ -203547,7 +203547,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen gepauzeerd: tokensaldi van %1$@ deels verouderd"
+            "value" : "Portfolio-alarmen gepauzeerd: tokensaldi van %1$@ deels verouderd"
           }
         },
         "pl" : {
@@ -203559,13 +203559,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira em pausa: saldos de tokens de %1$@ parcialmente desatualizados"
+            "value" : "Alarmes do portfólio em pausa: saldos de tokens de %1$@ parcialmente desatualizados"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira pausados: saldos de tokens de %1$@ parcialmente desatualizados"
+            "value" : "Alarmes do portfólio pausados: saldos de tokens de %1$@ parcialmente desatualizados"
           }
         },
         "ro" : {
@@ -203738,7 +203738,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen gepauzeerd: tokensaldi van gevolgde adressen deels verouderd"
+            "value" : "Portfolio-alarmen gepauzeerd: tokensaldi van gevolgde adressen deels verouderd"
           }
         },
         "pl" : {
@@ -203750,13 +203750,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira em pausa: saldos de tokens dos endereços vigiados parcialmente desatualizados"
+            "value" : "Alarmes do portfólio em pausa: saldos de tokens dos endereços vigiados parcialmente desatualizados"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira pausados: saldos de tokens dos endereços monitorados parcialmente desatualizados"
+            "value" : "Alarmes do portfólio pausados: saldos de tokens dos endereços monitorados parcialmente desatualizados"
           }
         },
         "ro" : {
@@ -203929,7 +203929,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen gepauzeerd: koers niet gecontroleerd voor %1$@"
+            "value" : "Portfolio-alarmen gepauzeerd: koers niet gecontroleerd voor %1$@"
           }
         },
         "pl" : {
@@ -203941,13 +203941,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira em pausa: preço não verificado para %1$@"
+            "value" : "Alarmes do portfólio em pausa: preço não verificado para %1$@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira pausados: preço não verificado para %1$@"
+            "value" : "Alarmes do portfólio pausados: preço não verificado para %1$@"
           }
         },
         "ro" : {
@@ -204120,7 +204120,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuillealarmen gepauzeerd: koers van sommige coins niet gecontroleerd"
+            "value" : "Portfolio-alarmen gepauzeerd: koers van sommige coins niet gecontroleerd"
           }
         },
         "pl" : {
@@ -204132,13 +204132,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira em pausa: preço de algumas moedas não verificado"
+            "value" : "Alarmes do portfólio em pausa: preço de algumas moedas não verificado"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmes da carteira pausados: preço de algumas moedas não verificado"
+            "value" : "Alarmes do portfólio pausados: preço de algumas moedas não verificado"
           }
         },
         "ro" : {
@@ -213377,7 +213377,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tudo sai do portefólio"
+            "value" : "Tudo sai do portfólio"
           }
         },
         "pt-BR" : {
@@ -213950,7 +213950,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sai do portefólio (levantamento)"
+            "value" : "Sai do portfólio (levantamento)"
           }
         },
         "pt-BR" : {
@@ -228165,7 +228165,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefólio ativado – encontra-lo no separador Portefólio."
+            "value" : "Portfólio ativado – encontra-lo no separador Portfólio."
           }
         },
         "pt-BR" : {
@@ -247660,13 +247660,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "As alterações da carteira aguardam ser guardadas cifradas. Serão guardadas assim que o porta-chaves voltar a estar disponível."
+            "value" : "As alterações do portfólio aguardam ser guardadas cifradas. Serão guardadas assim que o porta-chaves voltar a estar disponível."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "As alterações da carteira aguardam ser salvas criptografadas. Elas serão salvas assim que as chaves voltarem a estar disponíveis."
+            "value" : "As alterações do portfólio aguardam ser salvas criptografadas. Elas serão salvas assim que as chaves voltarem a estar disponíveis."
           }
         },
         "ro" : {
@@ -248997,13 +248997,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Encriptação ainda não ativa – a carteira não está a ser guardada e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque."
+            "value" : "Encriptação ainda não ativa – o portfólio não está a ser guardado e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Criptografia ainda não ativa – a carteira não está sendo salva e as alterações se perdem ao fechar o app. O app tentará de novo na próxima abertura."
+            "value" : "Criptografia ainda não ativa – o portfólio não está sendo salvo e as alterações se perdem ao fechar o app. O app tentará de novo na próxima abertura."
           }
         },
         "ro" : {
@@ -249176,7 +249176,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opgeslagen gegevens zijn nu niet leesbaar, dus de portefeuille wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw."
+            "value" : "Opgeslagen gegevens zijn nu niet leesbaar, dus het portfolio wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw."
           }
         },
         "pl" : {
@@ -249188,7 +249188,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os dados guardados não podem ser lidos agora, por isso o portefólio não é mostrado nem pode ser alterado. Reinicia a app."
+            "value" : "Os dados guardados não podem ser lidos agora, por isso o portfólio não é mostrado nem pode ser alterado. Reinicia a app."
           }
         },
         "pt-BR" : {
@@ -254031,7 +254031,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A posição sai do portefólio – sem venda, sem ganho"
+            "value" : "A posição sai do portfólio – sem venda, sem ganho"
           }
         },
         "pt-BR" : {
@@ -305645,7 +305645,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FIFO (default)"
+            "value" : "FIFO (bawaan)"
           }
         },
         "it" : {
@@ -311303,7 +311303,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS rozhoduje, kdy smí aplikace aktualizovat na pozadí – interval tedy znamená „nejdříve každých …“. Když je aplikace otevřená, kontroluje se včas. Aktuální kurzy na první pohled ukazují widgety a aktivita živě."
+            "value" : "iOS rozhoduje, kdy smí aplikace aktualizovat na pozadí – interval tedy znamená „nejdříve každých …“. Když je aplikace otevřená, kontroluje se včas. Aktuální kurzy na první pohled ukazují widgety a živá aktivita."
           }
         },
         "da" : {
@@ -311357,7 +311357,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS מחליט מתי האפליקציה רשאית להתעדכן ברקע, ולכן המרווח פירושו: לכל המוקדם כל …. כשהאפליקציה פתוחה, הבדיקות מתבצעות בזמן. הווידג׳טים והפעילות בזמן אמת מציגים את השערים העדכניים במבט אחד."
+            "value" : "iOS מחליט מתי האפליקציה רשאית להתעדכן ברקע, ולכן המרווח פירושו: לכל המוקדם כל …. כשהאפליקציה פתוחה, הבדיקות מתבצעות בזמן. הווידג׳טים והפעילות החיה מציגים את השערים העדכניים במבט אחד."
           }
         },
         "hi" : {
@@ -311411,7 +311411,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iOS decyduje, kiedy aplikacja może odświeżać w tle – interwał oznacza więc „najwcześniej co …”. Gdy aplikacja jest otwarta, sprawdzanie odbywa się na czas. Widżety i działanie na żywo pokazują bieżące kursy na pierwszy rzut oka."
+            "value" : "iOS decyduje, kiedy aplikacja może odświeżać w tle – interwał oznacza więc „najwcześniej co …”. Gdy aplikacja jest otwarta, sprawdzanie odbywa się na czas. Widżety i aktywność na żywo pokazują bieżące kursy na pierwszy rzut oka."
           }
         },
         "pt" : {
@@ -316260,7 +316260,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Requer Android 9 ou posterior – versões anteriores guardariam o portefólio sem encriptação na cópia da Google."
+            "value" : "Requer Android 9 ou posterior – versões anteriores guardariam o portfólio sem encriptação na cópia da Google."
           }
         },
         "pt-BR" : {
@@ -338141,7 +338141,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La copia del portafolio de la copia de seguridad del sistema Android no se pudo leer, ni siquiera en un segundo intento, y se ha eliminado. Si tienes un archivo de copia, restáuralo en Ajustes, en «%1$@»."
+            "value" : "La copia de la cartera de la copia de seguridad del sistema Android no se pudo leer, ni siquiera en un segundo intento, y se ha eliminado. Si tienes un archivo de copia, restáuralo en Ajustes, en «%1$@»."
           }
         },
         "fa" : {
@@ -338225,7 +338225,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A cópia do portefólio da cópia de segurança do sistema Android não pôde ser lida, nem numa segunda tentativa, e foi eliminada. Se tiveres um ficheiro de cópia, restaura-o nas Definições, em «%1$@»."
+            "value" : "A cópia do portfólio da cópia de segurança do sistema Android não pôde ser lida, nem numa segunda tentativa, e foi eliminada. Se tiveres um ficheiro de cópia, restaura-o nas Definições, em «%1$@»."
           }
         },
         "pt-BR" : {
@@ -338332,7 +338332,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El portafolio no se restauró desde la copia del sistema"
+            "value" : "La cartera no se restauró desde la copia del sistema"
           }
         },
         "fa" : {
@@ -338416,7 +338416,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefólio não restaurado da cópia de segurança do sistema"
+            "value" : "Portfólio não restaurado da cópia de segurança do sistema"
           }
         },
         "pt-BR" : {
@@ -346629,7 +346629,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valor do portefólio %1$@"
+            "value" : "Valor do portfólio %1$@"
           }
         },
         "pt-BR" : {
@@ -347572,7 +347572,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Marktwaarden zonder ingevoerde prijs (kosten, weggegeven/betaald, ruil, beloningen, netwerkkosten, portefeuillewaarde) tegen de dagslotkoers (UTC) van de transactiedag"
+            "value" : "Marktwaarden zonder ingevoerde prijs (kosten, weggegeven/betaald, ruil, beloningen, netwerkkosten, portfoliowaarde) tegen de dagslotkoers (UTC) van de transactiedag"
           }
         },
         "pl" : {
@@ -347584,13 +347584,13 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valores de mercado sem preço registado (comissões, oferecido/pago, troca, recompensas, comissões de rede, valor da carteira) ao fecho diário (UTC) do dia da transação"
+            "value" : "Valores de mercado sem preço registado (comissões, oferecido/pago, troca, recompensas, comissões de rede, valor do portfólio) ao fecho diário (UTC) do dia da transação"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valores de mercado sem preço registrado (taxas, doado/pago, troca, recompensas, taxas de rede, valor da carteira) pelo fechamento diário (UTC) do dia da transação"
+            "value" : "Valores de mercado sem preço registrado (taxas, doado/pago, troca, recompensas, taxas de rede, valor do portfólio) pelo fechamento diário (UTC) do dia da transação"
           }
         },
         "ro" : {
@@ -364392,7 +364392,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "As vendas e as comissões pagas em cripto são cessões – as trocas são diferidas. Uma comissão em cripto numa venda conta no preço antes das comissões – caso contrário é uma cessão própria pelo seu valor. Valor do portefólio a partir dos fechos diários – se faltar um o custo fica vazio."
+            "value" : "As vendas e as comissões pagas em cripto são cessões – as trocas são diferidas. Uma comissão em cripto numa venda conta no preço antes das comissões – caso contrário é uma cessão própria pelo seu valor. Valor do portfólio a partir dos fechos diários – se faltar um o custo fica vazio."
           }
         },
         "pt-BR" : {
@@ -387246,7 +387246,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "cours de référence, quotidien"
+            "value" : "taux de référence, quotidien"
           }
         },
         "he" : {
@@ -387270,19 +387270,19 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "kurs referensi, harian"
+            "value" : "kurs acuan, harian"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "cambio di riferimento, giornaliero"
+            "value" : "tasso di riferimento, giornaliero"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "参考レート（日次）"
+            "value" : "参照レート（日次）"
           }
         },
         "ko" : {
@@ -387330,13 +387330,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "справочный курс, ежедневно"
+            "value" : "референсный курс, ежедневно"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "kurs reference, ditor"
+            "value" : "kursi i referencës, ditor"
           }
         },
         "sv" : {
@@ -387360,7 +387360,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "довідковий курс, щоденно"
+            "value" : "референсний курс, щоденно"
           }
         },
         "vi" : {
@@ -444750,7 +444750,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefólio desativado"
+            "value" : "Portfólio desativado"
           }
         },
         "pt-BR" : {
@@ -444941,7 +444941,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefólio desativado"
+            "value" : "Portfólio desativado"
           }
         },
         "pt-BR" : {

@@ -140,8 +140,8 @@
     <string name="bulk_undo_confirm_text">Τα ζεύγη για τα οποία όρισες στο μεταξύ συναγερμό παραμένουν.</string>
     <string name="bulk_undo_expired">Η αναίρεση δεν είναι πλέον δυνατή – τα ζεύγη παραμένουν στη λίστα παρακολούθησης.</string>
     <string name="explorer_section_spot">Spot</string>
-    <string name="explorer_section_futures">Συμβόλαια μελλοντικής εκπλήρωσης</string>
+    <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_dex">Pools DEX</string>
     <string name="explorer_section_forex">Forex (ισοτιμία αναφοράς)</string>
-    <string name="explorer_forex_hint">Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας (μέσω Frankfurter), όχι ζωντανά – χωρίς ειδοποιήσεις.</string>
+    <string name="explorer_forex_hint">Ημερήσια ισοτιμία της Ευρωπαϊκής Κεντρικής Τράπεζας (μέσω Frankfurter), όχι ζωντανά – χωρίς συναγερμούς.</string>
 </resources>

@@ -154,6 +154,6 @@
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_dex">Pools DEX</string>
-    <string name="explorer_section_forex">Forex (cours de référence)</string>
+    <string name="explorer_section_forex">Forex (taux de référence)</string>
     <string name="explorer_forex_hint">Cours quotidien de la Banque centrale européenne (via Frankfurter), pas en direct – pas d’alertes.</string>
 </resources>

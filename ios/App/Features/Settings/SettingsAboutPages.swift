@@ -17,7 +17,7 @@ struct AboutSettingsPage: View {
                     .padding(.vertical, Spacing.sm)
             }
             // «Deine Daten»: das Wichtigste der Datenschutzerklärung in vier Sätzen, direkt über dem Link zur vollen
-            // Fassung — wie Android. Die Sätze müssen zur Erklärung (public/docs/privacy) passen.
+            // Fassung — wie Android. Die Sätze müssen zur Erklärung (docs/privacy) passen.
             SettingsCard(title: L("about_your_data_title")) {
                 VStack(alignment: .leading, spacing: 0) {
                     yourDataLine("about_data_device_label", "about_data_device")

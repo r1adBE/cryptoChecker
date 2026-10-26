@@ -90,7 +90,7 @@
     <string name="check_trigger_worker">后台</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android 可能会延迟检查——请将电池设为 「无限制」</string>
+    <string name="battery_delay_hint">Android 可能会延迟检查——请将电池设为“无限制”</string>
     <string name="battery_later">稍后</string>
     <string name="battery_message">Android 会为了省电而推迟后台任务——价格和小部件可能因此滞后数小时。将电池使用设为“不受限制”可保持其最新。你可以随时在 Android 设置中更改。</string>
     <string name="battery_open_settings">打开电池设置</string>

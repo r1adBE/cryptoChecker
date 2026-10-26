@@ -130,7 +130,8 @@ internal fun LanguagePage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
 
 /**
  * Aktualisierung: «Wie aktuell?» (eine Wahl: Sparsam oder Live, solange offen), darunter die
- * Feinheiten (Hintergrund-Intervall, feste Mitteilung), ganz unten die Akkunutzung. Wie iOS
+ * Feinheiten (Hintergrund-Intervall, Pünktlich prüfen, feste Mitteilung), dann die Akkunutzung und ganz
+ * unten «Letzte Prüfungen». Wie iOS
  * `UpdatesPage`. «Immer kurz» (Vordergrunddienst) gibt es seit 1.0 nicht mehr.
  */
 @Composable
@@ -186,7 +187,7 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                 )
             }
         }
-        // Akkunutzung ganz unten: Hinweis und Weg in die Android-Einstellungen
+        // Akkunutzung über «Letzte Prüfungen»: Hinweis und Weg in die Android-Einstellungen
         Spacer(Modifier.height(12.dp))
         SettingsAnchor("updates.battery") {
             GroupCard {

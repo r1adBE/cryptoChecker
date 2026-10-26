@@ -1,12 +1,12 @@
-# cryptoChecker
+# Crypto Checker (Android)
 
 **Crypto Checker ist ein Krypto-Checker: Kurse direkt von deiner Börse; Hinweise, wenn beim Nachsehen eine
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
-Sprachausgabe und Startbildschirm-Widgets über 54 Märkte – 45 Börsen (teils
-mit Spot und Futures) plus DexScreener für DEX-Token und EZB-Referenzkurse für Devisen. 31 Sprachen, kein Konto,
+Sprachausgabe und Startbildschirm-Widgets über 56 Märkte: 54 auf 45 Börsen (teils mit Spot und Futures),
+dazu DexScreener für DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen. 31 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
 r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Datenschutzerklärung `docs/privacy/index.html`)
@@ -18,16 +18,45 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
-## Neu in 16.2.2
+## Stand 16.2.2 (Build 133)
 
-### Zuletzt dazugekommen
+* **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über
+  alle Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
+  Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. Neu Bitunix Futures; DEX-Pools mit GeckoTerminal als
+  Reserve; Devisen als tägliche EZB-Referenzkurse (über Frankfurter), nie live und ohne Alarme.
+* **Einstellungen ohne «Erweitert»** (Build 132) — Hauptseite Allgemein (Sprache, Währung, Merkliste, Portfolio,
+  Alarme, Kurs-Aktualisierung) · Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets) · Mehr
+  (Sicherung, Über die App) · «App zurücksetzen». «Token & TradFi» und %-Änderung auf der Seite «Merkliste»,
+  Markt-Meldungen und Sprachausgabe auf «Alarme», Entwickleroptionen (nur Debug-Builds) auf «Über die App»; die Suche
+  findet alles am neuen Ort.
+* **Steuer-Arbeitsunterlage als eigene Seite** (Build 129) — im Portfolio-Menü getrennt vom Stichtag-Export: Vorlage,
+  Stand der Regeln mit Warnung für spätere Steuerjahre, die vier Exporte und die Jahresübersicht; Exporte lassen sich
+  abbrechen und nennen bei Fehlern die Ursache.
+* **Portfolio-Leistung** (Builds 122–131) — grosse CSV-Dateien im Hintergrund mit Fortschritt «Zeile X von Y» und
+  «Abbrechen»; FIFO, Durchschnittskosten, Wertverlauf, «7 T»/«1 J» und Steuer-Export bleiben auch mit vielen
+  Transaktionen schnell (gleiche Zahlen).
+* **Barrierefreiheit** (Builds 129–131) — Charts für TalkBack Punkt für Punkt («Nächster/Vorheriger Punkt»), das
+  Merklisten-Widget zeigt bei grosser Schrift den Kurs vollständig; Barrierefreiheits-Prüfungen auch mit doppelter
+  Schriftgrösse und Arabisch (rechts nach links).
+* **CSV-Import** aus Relai, Swissquote, Kraken, Bitpanda, Binance und Coinbase (dazu eine allgemeine Zuordnung;
+  `domain/portfolio/csvimport/`).
+* **Coin-Logos** bis 4 MB (Build 131), damit auch die hochauflösenden Binance-Logos statt Initialen.
+
+Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
+
+## Verlauf
+
+Frühere Stände zum Nachlesen; einzelne Punkte sind inzwischen überholt (aktuell gilt «Stand 16.2.2» oben und
+`CHANGELOG.md`).
+
+### Builds 35–46
 
 * **Build 46 – Portfolio als echtes Kontobuch** — neue Arten Umbuchung, Belohnung, Einzahlung und
   Auszahlung sowie Gebühr in einem dritten Coin; gemeinsame Regeln in `PortfolioLedger` (Kotlin/Swift, Paritäts-Fixture
   `portfolio.json`), Portfolio-Datenbank 3 (`MIGRATION_2_3`: Umbuchung von/nach, Gebühr-Coin, `importKey`, Tabelle für
   beobachtete Adressen). Beobachtete BTC-/ETH-Adressen nur lesend (`AddressValidation`, `AddressBalance`,
   `WatchedAddressSource`; mempool.space/blockstream.info, publicnode.com/llamarpc.com), zählen ohne Kaufpreis.
-  CSV-Import Relai/Swissquote/Kraken-Ledger (`csvimport/`, Kraken: `CsvImportKraken`, Vorschau, Duplikate per `importKey`, Tageskurs-Umrechnung).
+  CSV-Import Relai/Swissquote/Kraken-Ledger (später dazu Bitpanda, Binance, Coinbase; `csvimport/`, Kraken: `CsvImportKraken`, Vorschau, Duplikate per `importKey`, Tageskurs-Umrechnung).
   Stichtag-CSV exakt (BigDecimal/Decimal). Portfolio-Widgets mit Menge vor dem Kürzel (`WidgetQuantityFormat`).
   Store-Texte zugespitzt. Wertverlauf mit Umschalter «Wert | Gewinn/Verlust» (Gewinnkurve = Wert minus netto
   eingesetztes Geld, Kopfzeile «Wert · Gewinn»); Coin-Zeilen in App und Widgets zeigen den eigenen Gewinn/Verlust
@@ -38,7 +67,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Auszahlung ohne Preis, Binance-Futures-Kontrakt, Frische ohne `closeTime`). Tausch als eigene Art, FIFO je Wallet
   (Option), Importe rückgängig, offene Kauf-Posten, Jahresübersicht DE, Preis in CHF/EUR; beobachtete Adressen mit
   xpub, EVM-Netzen und Tokens, Solana, TRON, XRP, Litecoin, TON, Cardano; eine UTC-Tagesgrenze; Token-Identität;
-  warmer Hellmodus, kurze Tab-Namen, «Erweitert» in den Einstellungen.
+  warmer Hellmodus, kurze Tab-Namen, «Erweitert» in den Einstellungen (seit Build 132 wieder entfernt).
   Namen und Alpha sofort (Listen zuerst, Startliste und CC0-Icons in der App, `coin_meta.json` als Ersatz),
   Arbeitsunterlage mit Länder-Vorlagen (DE, AT, CH, UK, US, CA, AU, FR, JP), ruhigere Portfolio-Karte.
 * **Build 45 – nur geprüfte Kurse zählen, ruhigere Zeilen, strengere Sicherung** — Transaktion erfassen: der Kurs
@@ -92,7 +121,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Dritter nicht unter MIT. Alarme: Vorschlag ±5 % vom Kurs (`AlarmTemplates.suggestedThresholdText`), Rückfrage «Alarm
   löst sofort aus» (`AlarmEdit.firesNow`), Bearbeiten stellt nur bei geänderter Bedingung neu scharf (`AlarmEdit.merged`),
   «Konnte nicht geprüft werden (kein Devisenkurs / keine Kerzendaten)» in der Alarmliste (`AlarmCheckStatus`, nur im
-  Speicher). Neue Installationen: «Nicht wegwischbar» aus, neue Paare ohne Kurs-Benachrichtigung (bestehende behalten
+  Speicher). Neue Installationen: «Dauerhaft in den Benachrichtigungen» (damals «Nicht wegwischbar») aus, neue Paare ohne Kurs-Benachrichtigung (bestehende behalten
   ihren Wert, `OngoingNotificationsMigration`); «+ Paar hinzufügen» mit Text, Glocke immer sichtbar; veraltete Kurse
   in `onSurfaceVariant` statt halb durchsichtig.
 * **Build 41 – Alarme, Charts, ruhigere Screens** — Alarme warten auf eine zustellbare Mitteilung, auch wiederholende
@@ -191,10 +220,10 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Gerät, keine neue Abfrage. Tests
   `PortfolioStablesTest`, `PricePlausibilityTest`.
 * **Ehrlicher Alarm-Takt** — der Hinweis zum Prüftakt erscheint einmal nach dem Speichern des ersten Alarms (in der
-  Erst-Bestätigung «… nicht öfter als alle 15 Minuten und oft später …»; nie zwei Dialoge nacheinander; sonst
-  einmal «Wann Alarme geprüft werden», solange «Häufig aktualisieren» aus ist) und steht dauerhaft hinter dem (i)
-  neben «Bei geschlossener App…» im Alarm-Editor und im Portfolio-Alarm-Blatt. Pfad im Text: «Einstellungen ›
-  Erweitert › Aktualisierung › Häufig aktualisieren» (`domain/alarm/AlarmTimingHint.kt`, `AlarmTimingHintTest`). Merker `alarm_timing_hint_shown` nur auf dem Gerät, nicht in der Sicherung.
+  Erst-Bestätigung; nie zwei Dialoge nacheinander) und steht dauerhaft hinter dem (i)
+  neben «Bei geschlossener App…» im Alarm-Editor und im Portfolio-Alarm-Blatt. Heute ein Satz: ohne «Pünktlich
+  prüfen» prüft Android bei ruhendem Gerät unregelmässig, damit etwa alle 15 Minuten; Pfad im Text «Einstellungen ›
+  Kurs-Aktualisierung» (`domain/alarm/AlarmTimingHint.kt`, `AlarmTimingHintTest`). Merker `alarm_timing_hint_shown` nur auf dem Gerät, nicht in der Sicherung.
 * **Portfolio-Tab: neu aus, bestehend an** — seit Build 44 bei Neuinstallationen ab Werk aus
   (`AppSettings.portfolioEnabled = false`); bestehende Installationen behalten den bisherigen Standard an
   (`LEGACY_PORTFOLIO_ENABLED`, einmalig festgeschrieben von `InstallDefaultsMigration`), eine eigene Wahl bleibt;
@@ -202,7 +231,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Aktionsblatt ruhiger** — doppelte Änderungs-Zeile entfernt; unter dem Kurs eine Zeile «↗ +41.71% · 24h · Aktualisiert …»,
   dann direkt die Kacheln Alarm · Warum? · Favorit, dann Chart, Zeitraum, Marktdaten, Mehr; am Zeitraum keine zweite
   24h-Änderung (bei 7T/30T/1J bleibt sie als farbige Schrift, sie zeigt die Veränderung des Zeitraums) (`WatchActionsSheet.kt`).
-* **Einstellungen mit «Erweitert»** — Hauptseite Allgemein (Sprache, Währung, Merkliste, Portfolio), Darstellung
+* **Einstellungen mit «Erweitert»** (bis Build 131; seit Build 132 ohne diese Seite, siehe «Stand 16.2.2») — Hauptseite Allgemein (Sprache, Währung, Merkliste, Portfolio), Darstellung
   (Hell/Dunkel, Akzentfarbe), Alarme (Alarme, Markt-Meldungen), Daten (Sicherung), Zeile «Erweitert»
   (`AdvancedSettingsPage` in `ui/features/settings/SettingsScreen.kt`: Aktualisierung, Kursfarben, %-Änderung, Coin-Logos, Widgets, Sprachausgabe), Über, «App zurücksetzen» als eigene Karte ganz unten; die
   Suche findet alles, Punkte der Seite «Erweitert» mit dem Pfad «Erweitert › …» (`SettingsSearchUi.kt`).
@@ -337,11 +366,10 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   abgeschnitten.
 * **Ehrliche Meldungen und Gerätetests** — Markt-Meldungen (Marktphase, Fear & Greed) beachten Nachtruhe
   und Mitteilungs-Erlaubnis (`domain/market/MarketNoticeGate.kt`; «zuletzt gemeldet» rückt nur nach einer
-  gezeigten Meldung vor); `PriceUpdateWorker` startet einen beendeten «Häufig aktualisieren»-Dienst neu
-  (`service/LiveServiceGate.kt`); Banner nach dem Speichern eines Alarms, ehrlich bei ausgeschalteten
+  gezeigten Meldung vor); Banner nach dem Speichern eines Alarms, ehrlich bei ausgeschalteten
   Mitteilungen (`domain/alarm/AlarmSavedText.kt`); Quelle der Tagesveränderung «Binance USDT» mit
   Devisen-Prüfung für Nicht-USDT-Quotes (`FxRateSource`); instrumentierte Tests auf dem Emulator über den
-  Workflow «Android device tests» (von Hand, siehe `DEVELOPMENT.md`).
+  Workflow «Android device tests» (siehe «Öffentliches Repository» unten und `DEVELOPMENT.md`).
 * **Portfolio-Widget mit Optionen** — je Widget einstellbar und nachträglich änderbar
   (`PortfolioWidgetConfigureActivity`): Ansicht «Übersicht / Chart / Liste» (`widget/PortfolioWidgetViews.kt`),
   Anzeige «Nur USDT / Nur Umrechnung / Umrechnung + USDT», Zeitraum
@@ -383,7 +411,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   «Alles aktuell · vor …» statt Titel «Jetzt» (`MarketStatusPill`).
 * **Feinschliff vor dem Store-Test** — eine Frische-Schwelle für Pille, Zeile und Screenreader
   (`OutdatedRule`); «Häufig aktualisieren» bei dunklem Bildschirm höchstens alle 5 Minuten
-  (`LiveInterval`, Hintergrund-15-Min.-Takt unverändert); «Favoriten»-Chip und Gruppen-«+» nur
+  (Hintergrund-15-Min.-Takt unverändert; der Dienst ist seit Build 40 entfernt); «Favoriten»-Chip und Gruppen-«+» nur
   bei Bedarf; kein Sortieren per langem Drücken (⋯ › Sortieren); Gesten-Hinweis mit Richtung;
   48-dp-Tippflächen; Favorit-Stern ohne Logos; leere Alarm-Übersicht mit «Neuer Alarm»; Suche
   ohne Treffer mit «Börse und Paar selbst wählen»; Hinweis «Mitteilungen sind aus» bei den Alarmen;
@@ -415,10 +443,10 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (API-Bedingungen) — die App fragt CoinGecko direkt.
 * **Live-Kurse per WebSocket** — solange die Merkliste offen ist, kommen die Kurse
   von Binance, Bybit, OKX, Coinbase und Kraken live (REST bleibt Rückfall); «Live»
-  in der Status-Pille nur, wenn alle sichtbaren gehandelten Paare live und frisch sind (Build 44), Schalter unter Einstellungen › Erweitert › Aktualisierung
+  in der Status-Pille nur, wenn alle sichtbaren gehandelten Paare live und frisch sind (Build 44), Wahl unter Einstellungen › Kurs-Aktualisierung › Wie aktuell? («Live, solange offen»)
   (`domain/live/LiveFeed.kt`, `data/live/LivePriceStream.kt`, siehe `DEVELOPMENT.md`).
 * **4 Tabs** — Merkliste · Markt · Portfolio (optional; bei Neuinstallation seit Build 44 aus, unter Einstellungen ›
-  Einstellungen › Portfolio auf der Startseite, Gruppe «Allgemein», einschaltbar – seit Build 83 der einzige Ort) · Einstellungen; «Paar
+  Portfolio auf der Startseite, Gruppe «Allgemein», einschaltbar – seit Build 83 der einzige Ort) · Einstellungen; «Paar
   hinzufügen» öffnet sich über «+» in der Merkliste, kein eigener Such-Tab mehr.
 * **Kein Willkommensdialog** — eine Neuinstallation zeigt direkt die Startauswahl;
   «Was die App kann» steht unter Einstellungen › Über.
@@ -595,13 +623,13 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (Einstellungen › Alarme › Markt-Meldungen › «Wirtschaftstermine», Standard aus)
   (`domain/macro/MacroCalendar.kt`, `data/MacroCalendarRepository.kt`, `work/MacroNotifyWorker.kt`).
 * **«Was bewegt sich mit …?» als Checkliste** — oben «Kurz gesagt» in einem Satz
-  (heute als Karte «Kurz gesagt · Stand HH:MM», siehe «Zuletzt dazugekommen»), die Faktoren
+  (heute als Karte «Kurz gesagt · Stand HH:MM», siehe «Builds 35–46»), die Faktoren
   (Markt vs. Coin, Bitcoin gibt die Richtung vor, Volumen, Hebel, Schwankung 1h, Fear & Greed)
   mit ✓ (stützt die Bewegung), ! (erhöht) oder – (neutral) unter «Alle Werte und Quellen»,
   Fusszeile «Zeitgleich heisst nicht Ursache · Keine Anlageberatung» (`domain/activity/WhySummary.kt`,
   `ui/features/watchlist/WatchWhySheet.kt`, `WatchWhyFactors.kt`).
-* **Einstellungen in Gruppen** — Allgemein · Darstellung · Alarme · Daten · Zeile «Erweitert»
-  (eigene Seite) · Über · «App zurücksetzen» (`ui/features/settings/SettingsScreen.kt`), mit Suchfeld oben
+* **Einstellungen in Gruppen** — heute Allgemein · Darstellung · Mehr · «App zurücksetzen» (seit Build 132 ohne
+  Seite «Erweitert»; `ui/features/settings/SettingsScreen.kt`), mit Suchfeld oben
   (`ui/features/settings/SettingsSearchUi.kt`).
 * **Aktionsblatt** — Tippen auf eine Zeile öffnet die Aktionen; unter dem Kurs die Zeile «24h · Aktualisiert: …»,
   gleich darunter die drei häufigsten gleich gross: Alarm, Warum?, Favorit. Nach dem Hinzufügen bietet
@@ -693,7 +721,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (`widget/Portfolio*`, Regeln in `domain/portfolio/PortfolioWidgetMath.kt`).
   Klein (z. B. 2 × 1) kompakter, damit «≈ … USDT» noch passt; ist «heute» zu
   breit, nur der Prozentwert. Anzeige, Zeitraum (24 h / 7 T / 30 T / 1 J) und Kerzen/Linie
-  je Widget, siehe «Zuletzt dazugekommen».
+  je Widget, siehe «Builds 35–46».
 * **Widget «Auffällig»** — Crypto Pulse auf dem Startbildschirm:
   Schlagzeile mit ↗/↘ in der Kursfarbe, Leitsatz (2 Zeilen), Coins als farbiger Text (so viele
   von BTC/ETH/SOL, wie ganz passen); Titel und Schlagzeile werden kleiner bzw.
@@ -709,12 +737,13 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Alarm als Satz** — «Sag mir Bescheid, wenn BTC unter 60 000 CHF fällt.» in
   der Alarmliste; der Editor beginnt mit «Wenn BTC über … geht» (`domain/alarm/AlarmSentence.kt`).
 * **Veralteter Kurs sichtbar** — «vor 41 Min · Binance nicht erreichbar» bzw.
-  «veraltet» ab 3 × Intervall (mind. 15 Min), auch für TalkBack. Mit «Häufig aktualisieren»
+  «veraltet» ab 3 × Intervall (mind. 15 Min), auch für TalkBack. Am Live-Strom («Live, solange offen»)
   schon nach 2 Minuten.
 * **Erklärungen** — ⓘ bei jeder Zeile der Markt-Karten (u. a. Funding Rate, Open Interest, RSI, Pi-Cycle);
   DEX-Intro und «Gewinn/Verlust, noch nicht verkauft» verständlicher.
-* **Einstellungen «Erweitert»** — eigene Seite mit Aktualisierung («Häufig aktualisieren», feste
-  Mitteilung, Live-Kurse), Kursfarben, %-Änderung, Coin-Logos, Widgets und Sprachausgabe.
+* **Einstellungen «Erweitert»** (bis Build 131) — eigene Seite mit Aktualisierung, Kursfarben, %-Änderung,
+  Coin-Logos, Widgets und Sprachausgabe; seit Build 132 an ihren Orten auf der Hauptseite bzw. den Seiten
+  «Merkliste», «Alarme» und «Kurs-Aktualisierung» (siehe «Stand 16.2.2»).
 * **Ruhiger Feinschliff** — Puls-Zeile ganz oben in der Merkliste als farbige Schrift («↗ 233 steigen» grün,
   «↘ 295 fallen» rot und «Ø +0.32%» in der gelben Warn-Schriftfarbe; Grundlage ist derselbe Wert wie die Prozent-Änderung
   der Zeilen, also die Veränderung über 24 Stunden; Paare ohne 24-h-Wert zählen nicht; folgt der Gruppe,
@@ -727,7 +756,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   der Text) zwischen den Paaren, nicht unter dem letzten.
 * **Android 15** — Live-Dienst (dataSync) beendet sich beim 6-Stunden-Limit
   sauber (`PriceService.onTimeout`) und wird nach einem Neustart nicht mehr aus
-  `BOOT_COMPLETED` gestartet, sondern beim Öffnen der App.
+  `BOOT_COMPLETED` gestartet, sondern beim Öffnen der App (der Dienst ist seit Build 40 ganz entfernt).
 
 ## Funktionen
 
@@ -749,7 +778,8 @@ oben) und speichern das als eigene Reihenfolge (`domain/watch/AutoOrder.kt`, iOS
 
 **Benachrichtigungen** — je Paar wahlweise eine lautlose Kurs-Benachrichtigung mit Kurs,
 Veränderung in Prozent und Uhrzeit (neue Paare ab Build 42 ohne; einschalten im Paar-Menü).
-Wahlweise wegwischbar oder fest («Nicht wegwischbar», bei neuen Installationen aus).
+Wahlweise wegwischbar oder fest («Dauerhaft in den Benachrichtigungen» unter Einstellungen › Kurs-Aktualisierung,
+bei neuen Installationen aus).
 
 **Alarme** — Kurs über/unter einem Wert, Anstieg oder Fall um x Prozent,
 Bewegung um x % in y Stunden, Volumen-Spike, nahe am Hoch/Tief, Funding und Open
@@ -796,13 +826,14 @@ auch im Doze; ohne Berechtigung zurück auf WorkManager. Hinweis bei Akku-Einsch
 (`CheckRunLog`, 20 Einträge in `noBackupFilesDir/check_runs.txt`, iOS gleich) zeigt Auslöser und Ergebnis; zwei Prüfungen
 innerhalb von 5 Minuten werden zusammengelegt (`BackgroundSchedule`).
 
-**Aktualisierung** — WorkManager im Hintergrund (ab 15 Minuten, Android-Grenze)
-und ein Vordergrunddienst «Häufig aktualisieren» für kurze Intervalle ab 15 Sekunden.
-In der geöffneten Merkliste kommen die Kurse der unterstützten Börsen live per
-WebSocket (Schalter «Live-Kurse»); Hintergrund und Widgets bleiben bei REST.
+**Aktualisierung** — Einstellungen › Kurs-Aktualisierung › «Wie aktuell?» (`settings/UpdateMode.kt`):
+**Sparsam** (Standard, empfohlen) aktualisiert bei geschlossener App über WorkManager im gewählten Intervall
+(ab 15 Minuten, Android-Grenze, oft später) und bei jedem Öffnen; **Live, solange offen** holt zusätzlich in der
+geöffneten Merkliste die Kurse der unterstützten Börsen live per WebSocket. Hintergrund und Widgets bleiben bei REST;
+einen Vordergrunddienst gibt es nicht. Für regelmässigere Prüfungen bei ruhendem Gerät siehe «Pünktlich prüfen» oben.
 Ein Boot-Receiver plant nach einem Neustart (`BOOT_COMPLETED`) und nach einem App-Update
-(`MY_PACKAGE_REPLACED`) die Hintergrundaktualisierung neu – nur diese geschützten System-Broadcasts;
-«Häufig aktualisieren» startet die App ab Android 15 erst beim nächsten Öffnen.
+(`MY_PACKAGE_REPLACED`) die Hintergrundaktualisierung und die exakten Prüfungen neu – nur diese geschützten
+System-Broadcasts.
 
 ## Aufbau
 
@@ -813,10 +844,13 @@ app/
   domain/     AlarmEvaluator; PriceRefresher steuert die Aktualisierung, dazu
               PriceFetcher (Kurse holen), DayReferences (24-h-/Tages-Bezüge),
               RefreshEffects (Alarme, Kurs-Meldungen, Ansagen)
+  di/         Hilt-Module
+  lock/       Portfolio-Sperre (Regeln)
   notification/ Kanäle und Benachrichtigungen
+  settings/   Einstellungen (DataStore), «Wie aktuell?», Einstellungs-Suche
   tts/        Sprachausgabe
-  service/    Vordergrunddienst
-  work/       WorkManager, Boot-Receiver
+  util/       Hilfen (Zahlen-Eingabe, TalkBack-Texte, Chart-Beschreibungen)
+  work/       WorkManager, exakte Prüfungen («Pünktlich prüfen»), Boot-Receiver
   widget/     Widget-Provider und Einrichtung; je Widget-Art ein Renderer
               (ListWidgetRenderer, SingleWidgetRenderer, PortfolioWidgetRenderer,
               PulseWidgetRenderer), WidgetUpdater entscheidet, was neu muss;
@@ -873,9 +907,8 @@ sind über `marketdata/consumer-rules.pro` und `proguard-rules.pro` geschützt. 
 (`Market.key`) ist ein fester Text je Börse (gleich dem früheren Klassennamen).
 
 **Room-Schemas – nach dem nächsten Build `app/schemas/…` committen:** Im Repository liegen
-die Schemas 1–3, 13, 14 und 15 (`app/schemas/com.cryptochecker.app.data.local.AppDatabase/`). **Ausnahme 15
-(Build 44):** von Hand geschrieben (Spalten `exchangeTime`, `priceChangedAt`); ihr `identityHash` stimmt erst,
-wenn ein echter Build die Datei neu erzeugt hat — danach die erzeugte Fassung committen.
+die Schemas 1–3 und 13–16 (`app/schemas/com.cryptochecker.app.data.local.AppDatabase/`) sowie 1–6 der
+Portfolio-Datenbank (`app/schemas/com.cryptochecker.app.data.portfolio.PortfolioDatabase/`).
 `exportSchema = true` und `room { schemaDirectory("$projectDir/schemas") }` sind gesetzt;
 der Build (z. B. `./gradlew :app:assembleDebug`) schreibt das Schema der aktuellen
 Datenbank-Version (`AppDatabase.VERSION`); 4–12 lassen sich nicht mehr erzeugen. Diese JSON-Dateien mitcommitten und nie von Hand
@@ -883,13 +916,9 @@ schreiben – sie sind die Grundlage für Migrationstests und für jede weitere 
 
 ## Umfang
 
-* 41 Märkte: Coinbase, Kraken, Gate.io, Binance, Binance.US, KuCoin,
-  OKX (+ Futures), Binance Futures, Bybit (+ Futures), Bitget (+ Futures),
-  MEXC (+ Futures), HTX (+ Futures), Bitfinex, Bitstamp, Bitvavo, Crypto.com,
-  Gemini, Hyperliquid, WOO X (+ Futures), Deribit (Perpetuals), Phemex
-  (+ Futures), Poloniex (API v3), One Trading (ehem. Bitpanda Pro), Upbit,
-  Bithumb, bitFlyer, BtcTurk, Bitso, Indodax, ZebPay, Independent Reserve,
-  LATOKEN, NonKYC und DexScreener (`marketdata/.../config/MarketsConfig.kt`).
+* 56 Märkte: 54 auf 45 Börsen (teils mit Spot und Futures), dazu DexScreener für DEX-Token (GeckoTerminal als
+  Reserve) und EZB-Referenzkurse für Devisen. Die vollständige Liste in Anzeigereihenfolge steht in
+  `marketdata/src/main/java/com/cryptochecker/marketdata/config/MarketsConfig.kt`.
   Xcalibra ist seit Januar 2025 geschlossen.
 * Belegt abgeschaltete Dienste entfernt: Poloniex (Legacy-API 28.02.2023),
   Uniswap V2 (The-Graph-Hosted-Service 12.06.2024), Bitpanda Pro
@@ -926,11 +955,12 @@ Startseite und nicht in den Store-Texten (Apple 3.1.1, Google Play Billing).
 Der komplette Quellcode ist öffentlich unter MIT:
 <https://github.com/r1adBE/cryptoChecker> (dieser Ordner als `android/`, die
 iOS-App als `ios/`, dazu Datenschutzseite unter `docs/`). Anleitung für neue
-Börsen: `DEVELOPMENT.md` im Repository (lokal `public/DEVELOPMENT.md`).
-GitHub Actions bauen und testen die App bei jeder Änderung; die instrumentierten Tests laufen von Hand
-auf einem Emulator (Actions › «Android device tests», `.github/workflows/android-device-tests.yml`). Hochladen mit
-`setup-github-public.ps1` im Hauptordner, siehe dort; Schlüssel,
-`keystore.properties` und `local.properties` werden nie hochgeladen.
+Börsen: `DEVELOPMENT.md` im Repository-Hauptordner.
+GitHub Actions bauen und testen die App bei jeder Änderung. Die instrumentierten Tests auf dem Emulator
+(Workflow «Android device tests», `.github/workflows/android-device-tests.yml`) laufen bei jedem Push auf `main`,
+der die Android-App betrifft, bei jedem Release-Tag und von Hand; bei Pull Requests nur die Migrations- bzw.
+Release-Smoke-Tests, wenn Datenbank bzw. Release-Build betroffen sind. Schlüssel,
+`keystore.properties` und `local.properties` liegen nie im Repository.
 
 ## Lizenz
 

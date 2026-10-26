@@ -37,7 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Lizenz der App selbst — byte-gleich mit der Datei `LICENSE` des Projekts (public/LICENSE), samt den ursprünglichen
+ * Lizenz der App selbst — byte-gleich mit der Datei `LICENSE` im Repository-Hauptordner, samt den ursprünglichen
  * MIT-Vermerken von BitcoinChecker (mobnetic, Aneonex Software), die beim Weitergeben erhalten bleiben müssen.
  */
 private const val ASSET_APP = "licenses/MIT-cryptochecker.txt"

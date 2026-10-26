@@ -267,8 +267,10 @@ class WatchRepository @Inject constructor(
         if (!userWriteRefused()) watchDao.setNote(id, TextLimit.clean(note, NOTE_MAX))
     }
 
-    /** Gruppe setzen (höchstens [GROUP_NAME_MAX] Zeichen); null oder leer = keine Gruppe. */
-    /** true = geschrieben, false = abgelehnt: die Mehrfachauswahl bleibt dann stehen. */
+    /**
+     * Gruppe setzen (höchstens [GROUP_NAME_MAX] Zeichen); null oder leer = keine Gruppe.
+     * true = geschrieben, false = abgelehnt: die Mehrfachauswahl bleibt dann stehen.
+     */
     suspend fun setGroup(id: Long, groupName: String?): Boolean {
         if (userWriteRefused()) return false
         watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX))

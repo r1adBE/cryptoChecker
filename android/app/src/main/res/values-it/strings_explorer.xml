@@ -154,6 +154,6 @@
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_dex">Pool DEX</string>
-    <string name="explorer_section_forex">Forex (cambio di riferimento)</string>
+    <string name="explorer_section_forex">Forex (tasso di riferimento)</string>
     <string name="explorer_forex_hint">Cambio giornaliero della Banca centrale europea (tramite Frankfurter), non in tempo reale – niente allarmi.</string>
 </resources>

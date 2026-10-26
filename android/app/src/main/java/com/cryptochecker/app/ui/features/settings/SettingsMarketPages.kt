@@ -1,4 +1,4 @@
-// Einstellungs-Seiten «Merkliste» und «Märkte» samt Auswahl «Token & TradFi».
+// Einstellungs-Seiten «Merkliste» und «Token & TradFi».
 // Eigene Datei, weil `SettingsGeneralPages` sonst zu lang würde.
 package com.cryptochecker.app.ui.features.settings
 

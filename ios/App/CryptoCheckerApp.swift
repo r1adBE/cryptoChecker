@@ -4,7 +4,7 @@ import UserNotifications
 import WidgetKit
 
 /// Tabs der App — wie die Tabs der Android-Fassung: Merkliste · Markt · (Portfolio) · Einstellungen.
-/// `portfolio` gibt es nur, wenn der Bereich in den Optionen eingeschaltet ist. «Paar hinzufügen»
+/// `portfolio` gibt es nur, wenn der Bereich unter Einstellungen › Portfolio eingeschaltet ist. «Paar hinzufügen»
 /// ist seit Runde 31 kein Tab mehr, sondern eine Seite über der Merkliste (`showExplorer`).
 enum AppTab: Hashable {
     case watchlist, cycle, portfolio, settings
@@ -80,7 +80,7 @@ final class AppRouter: ObservableObject {
         }
     }
 
-    /// K-10: Tab «Einstellungen» mit der Seite «Aktualisierung» darüber.
+    /// K-10: Tab «Einstellungen» mit der Seite «Kurs-Aktualisierung» darüber.
     func openUpdateSettings() {
         tab = .settings
         showUpdateSettings = true

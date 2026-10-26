@@ -91,7 +91,7 @@ struct UpdatesSettingsPage: View {
 }
 
 /// «Wie aktuell?»: Wahlen als Auswahlzeilen mit ehrlichem Satz (Intervall aus den Feinheiten);
-/// «Live, solange offen» ist empfohlen (Standard). iOS ohne «Immer kurz» (`UpdateMode.iosChoices`).
+/// «Sparsam» ist empfohlen (Standard); «Live, solange offen» für Profis. iOS ohne «Immer kurz» (`UpdateMode.iosChoices`).
 /// Wie `UpdateModeCard` (Android).
 @MainActor
 private struct UpdateModeCard: View {
@@ -137,7 +137,7 @@ private struct UpdateModeCard: View {
     }
 }
 
-/// Merkliste: Mini-Chart und «≈ Umrechnung» in den Zeilen.
+/// Merkliste: Namen, Mini-Chart, «≈ Umrechnung», Aktivitätskarte; dazu Basis der %-Änderung und «Token & TradFi».
 @MainActor
 struct WatchlistSettingsPage: View {
     @EnvironmentObject private var data: AppData

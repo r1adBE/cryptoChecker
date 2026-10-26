@@ -46,7 +46,7 @@
     <string name="delivery_low_power">Режим енергозбереження</string>
     <string name="delivery_swipe_away">Застосунок змахнуто?</string>
     <string name="delivery_swipe_away_note">Якщо змахнути застосунок у перемикачі застосунків, iOS перестає перевіряти у фоні, доки ти знову його не відкриєш.</string>
-    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity">Активність наживо</string>
     <string name="delivery_live_activity_note">Показує курс на замкненому екрані, але оновлюється лише під час перевірки застосунком – сигнали від цього не перевіряються частіше.</string>
 
     <string name="alarm_first_check">Перевірити, чи надходять сигнали</string>

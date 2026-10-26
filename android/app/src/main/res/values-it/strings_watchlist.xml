@@ -228,6 +228,6 @@
     <string name="watchlist_sort_by_coin">Ordina per moneta</string>
     <string name="watchlist_sort_by_exchange">Ordina per exchange</string>
     <string name="watchlist_limit_reached">La tua lista di osservazione può contenere al massimo %1$s coppie.</string>
-    <string name="watch_price_reference">cambio di riferimento, giornaliero</string>
+    <string name="watch_price_reference">tasso di riferimento, giornaliero</string>
     <string name="watch_price_daily">giornaliero</string>
 </resources>

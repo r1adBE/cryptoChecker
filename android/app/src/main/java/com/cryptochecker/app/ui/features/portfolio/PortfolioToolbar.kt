@@ -68,7 +68,7 @@ internal fun PortfolioToolbarActions(
             )
         }
         DropdownMenu(expanded = menuOpen, onDismissRequest = { onMenuOpenChange(false) }) {
-            // Gleicher Anfang wie Merkliste und Markt: App (→ «Über»), Aktualisieren
+            // Gleicher Anfang wie Merkliste und Markt: App (→ «Über die App»), Aktualisieren
             AppMenuHead(
                 refreshing = refreshing,
                 onClose = { onMenuOpenChange(false) },

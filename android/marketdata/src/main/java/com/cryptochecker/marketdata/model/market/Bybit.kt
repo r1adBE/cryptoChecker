@@ -136,7 +136,7 @@ abstract class BybitBase(
 
 /**
  * Bybit liefert `nextPageCursor` teils schon URL-kodiert («first%3DBTCUSDT%26last%3DETHUSDT») — dann so
- * anhängen, sonst kodieren. Wie `BybitBase.cursorParam` (iOS).
+ * anhängen, sonst kodieren. Wie `bybitCursorParam` (iOS).
  */
 internal fun bybitCursorParam(cursor: String): String =
     if ('%' in cursor) cursor else URLEncoder.encode(cursor, "UTF-8")

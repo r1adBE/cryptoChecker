@@ -130,6 +130,6 @@
     <string name="explorer_section_spot">現物</string>
     <string name="explorer_section_futures">先物</string>
     <string name="explorer_section_dex">DEXプール</string>
-    <string name="explorer_section_forex">外国為替（参考レート）</string>
+    <string name="explorer_section_forex">外国為替（参照レート）</string>
     <string name="explorer_forex_hint">欧州中央銀行の日次レート（Frankfurter経由）です。リアルタイムではなく、アラームはありません。</string>
 </resources>

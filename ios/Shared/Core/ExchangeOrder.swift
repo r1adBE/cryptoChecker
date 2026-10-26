@@ -3,7 +3,7 @@ import Foundation
 /// Reihenfolge der Börsenauswahl (Build 133): Abschnitte Spot · Futures · DEX-Pools · Forex, darin nach dem
 /// Handelsvolumen am Tag der Installation (einmal von CoinGecko geholt, `ExchangeRankingStore`), ohne Ranking in der
 /// Eingabe-Reihenfolge (Explorer: alphabetisch). Reine Logik — wie Android `ExchangeOrder`
-/// (`testdata/parity/exchange_order.json`).
+/// (`testdata/parity/picker_order.json`).
 enum ExchangeOrder {
     /// Öffentliche Liste der Spot-Börsen (ohne Schlüssel), Feld `trade_volume_24h_btc`.
     static let spotURL = "https://api.coingecko.com/api/v3/exchanges?per_page=250&page=1"

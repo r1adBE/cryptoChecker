@@ -228,6 +228,6 @@
     <string name="watchlist_sort_by_coin">Trier par crypto</string>
     <string name="watchlist_sort_by_exchange">Trier par plateforme</string>
     <string name="watchlist_limit_reached">Ta liste de suivi peut contenir au maximum %1$s paires.</string>
-    <string name="watch_price_reference">cours de référence, quotidien</string>
+    <string name="watch_price_reference">taux de référence, quotidien</string>
     <string name="watch_price_daily">quotidien</string>
 </resources>

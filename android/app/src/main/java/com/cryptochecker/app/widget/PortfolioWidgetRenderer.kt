@@ -61,17 +61,6 @@ class PortfolioWidgetRenderer @Inject constructor(
         private set
 
     /**
-     * Portfolio-Widgets aus der letzten Momentaufnahme ([PortfolioSnapshotStore]) zeichnen —
-     * ohne Netz. Je Widget: Anzeige, Zeitraum und Chart-Art ([WidgetPrefs], [PortfolioWidgetChart.plan]).
-     * Layout je Stufe ([PortfolioWidgetMath.size]): klein = Kopfzeile, Gesamtwert, Betrag und Prozent
-     * über den Zeitraum; schmal-hoch = dazu der Chart darunter; mittel = Werte links, Chart
-     * rechts; gross = dazu die drei grössten Positionen. Ab Android 12 je
-     * Grösse des Launchers ein eigenes Layout (RemoteViews mit Grössen-Zuordnung), sonst nach
-     * der Grösse aus den Widget-Optionen. Das gilt für die Ansicht «Chart»; «Übersicht» und «Liste»
-     * zeigen, was in die Grösse passt ([PortfolioWidgetViews]). Mit Portfolio-Sperre nur Titel, Schloss und
-     * «Gesperrt – in der App entsperren», ohne Werte.
-     */
-    /**
      * Gemerkter Devisenkurs für «Umrechnung». Fehlt er, obwohl die Aufnahme in einer anderen Währung liegt (in USD
      * aufgenommen: keine Aufnahme mit Kurs, z. B. weil zu wenig frische Kurse oder ein frischer Prozess), wird er
      * hier einmal geholt und gemerkt — sonst blieb das Widget trotz «Umrechnung» bei USDT, bis eine Aufnahme gelang.
@@ -95,6 +84,17 @@ class PortfolioWidgetRenderer @Inject constructor(
         return toSave
     }
 
+    /**
+     * Portfolio-Widgets aus der letzten Momentaufnahme ([PortfolioSnapshotStore]) zeichnen —
+     * ohne Netz. Je Widget: Anzeige, Zeitraum und Chart-Art ([WidgetPrefs], [PortfolioWidgetChart.plan]).
+     * Layout je Stufe ([PortfolioWidgetMath.size]): klein = Kopfzeile, Gesamtwert, Betrag und Prozent
+     * über den Zeitraum; schmal-hoch = dazu der Chart darunter; mittel = Werte links, Chart
+     * rechts; gross = dazu die drei grössten Positionen. Ab Android 12 je
+     * Grösse des Launchers ein eigenes Layout (RemoteViews mit Grössen-Zuordnung), sonst nach
+     * der Grösse aus den Widget-Optionen. Das gilt für die Ansicht «Chart»; «Übersicht» und «Liste»
+     * zeigen, was in die Grösse passt ([PortfolioWidgetViews]). Mit Portfolio-Sperre nur Titel, Schloss und
+     * «Gesperrt – in der App entsperren», ohne Werte.
+     */
     suspend fun update(appWidgetIds: IntArray): Boolean {
         if (appWidgetIds.isEmpty()) return false
         val manager = AppWidgetManager.getInstance(context) ?: return false

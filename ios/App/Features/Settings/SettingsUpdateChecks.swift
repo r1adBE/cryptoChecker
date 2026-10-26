@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// «Letzte Prüfungen» in «Aktualisierung»: ehrlicher Satz, dann je Lauf Zeit, Auslöser,
+/// «Letzte Prüfungen» in «Kurs-Aktualisierung»: ehrlicher Satz, dann je Lauf Zeit, Auslöser,
 /// Ergebnis und Dauer (neueste zuerst, aus `CheckRunStore`). Wie `CheckRunsCard` (Android,
 /// SettingsUpdateChecks.kt); «Pünktlich prüfen» und Akku-Hinweis gibt es nur dort.
 @MainActor

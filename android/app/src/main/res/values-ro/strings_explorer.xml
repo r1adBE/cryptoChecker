@@ -155,5 +155,5 @@
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_dex">Pooluri DEX</string>
     <string name="explorer_section_forex">Forex (curs de referință)</string>
-    <string name="explorer_forex_hint">Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alerte.</string>
+    <string name="explorer_forex_hint">Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alarme.</string>
 </resources>

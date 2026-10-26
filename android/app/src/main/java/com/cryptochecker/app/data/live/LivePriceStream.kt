@@ -52,7 +52,7 @@ import javax.inject.Singleton
  * - Neu verbinden mit wachsender Pause ([LiveBackoff]); pausierte Börsen ([ExchangeBackoff])
  *   werden nicht verbunden. Ping je nach Börse als Text, sonst WebSocket-Ping-Frames.
  *
- * Kein WebSocket im Hintergrund oder in Widgets. Siehe DEVELOPMENT.md, «Live prices».
+ * Kein WebSocket im Hintergrund oder in Widgets. Siehe DEVELOPMENT.md (Repository-Hauptordner), «Live prices».
  */
 @Singleton
 class LivePriceStream @Inject constructor(

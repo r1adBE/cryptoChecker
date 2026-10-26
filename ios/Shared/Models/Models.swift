@@ -221,7 +221,7 @@ struct AlarmWithWatch: Identifiable, Hashable {
     var id: Int64 { alarm.id }
 }
 
-/// Welche Auswahlliste im Hinzufügen-Tab: Börsen, Coins oder Gegenwerte.
+/// Welche Auswahlliste auf der Seite «Paar hinzufügen»: Börsen, Coins oder Gegenwerte.
 enum FavoriteKind: String, CaseIterable, Codable, Sendable {
     case MARKET, COIN, QUOTE
 }
@@ -276,7 +276,7 @@ extension Watch {
     /// Notiz getrimmt, gekürzt und nochmals getrimmt; leer = keine Notiz (wie Android `TextLimit.clean`).
     static func validNote(_ text: String?) -> String? { TextLimit.clean(text, max: noteMax) }
 
-    /// Bestand nur, wenn endlich und grösser als 0 — sonst nil (wie `setHoldings` in Android).
+    /// Bestand nur, wenn endlich und grösser als 0 — sonst nil (wie das Lesen von «holdings» in `BackupWatchlistCodec.kt`, Android).
     static func validHoldings(_ value: Double?) -> Double? {
         guard let value, value.isFinite, value > 0 else { return nil }
         return value

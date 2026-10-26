@@ -202,7 +202,7 @@ fun SettingsScreen(
                         )
                     }
 
-                    // 2 Darstellung: Hell/Dunkel, Akzentfarbe, Kursfarben, Widgets
+                    // 2 Darstellung: Hell/Dunkel, Akzentfarbe, Kursfarben, Coin-Logos, Widgets
                     SettingsSection(stringResource(R.string.settings_section_appearance)) {
                         SettingsNavRow(
                             title = stringResource(R.string.settings_theme_mode),

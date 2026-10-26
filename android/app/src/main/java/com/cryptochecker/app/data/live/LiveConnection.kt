@@ -78,7 +78,7 @@ internal class LiveConnection(
             override fun onMessage(webSocket: WebSocket, text: String) {
                 // Übergrosse Nachricht verwerfen und trennen wie bei einem Fehler. Die Grenze greift
                 // erst nach dem Empfang: OkHttp liest (und entpackt bei permessage-deflate) die ganze Nachricht ohne
-                // eigene Obergrenze; iOS begrenzt im System (maximumMessageSize). Restrisiko: public/DEVELOPMENT.md.
+                // eigene Obergrenze; iOS begrenzt im System (maximumMessageSize). Restrisiko: DEVELOPMENT.md (Repository-Hauptordner).
                 if (LiveRules.isMessageTooLarge(text)) {
                     Timber.d("Live-Kurse: %s Nachricht zu gross (%d Zeichen)", spec.exchange, text.length)
                     webSocket.cancel()

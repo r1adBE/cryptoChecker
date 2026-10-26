@@ -7,7 +7,7 @@ import org.json.JSONArray
  * Reihenfolge der Börsenauswahl (Build 133): Abschnitte Spot · Futures · DEX-Pools · Forex, darin nach dem
  * Handelsvolumen am Tag der Installation (einmal von CoinGecko geholt, `ExchangeRankingStore`), ohne Ranking in der
  * Reihenfolge der Registry (`MarketsConfig`). Reine Logik — wie iOS `ExchangeOrder`
- * (`testdata/parity/exchange_order.json`).
+ * (`testdata/parity/picker_order.json`).
  */
 object ExchangeOrder {
 

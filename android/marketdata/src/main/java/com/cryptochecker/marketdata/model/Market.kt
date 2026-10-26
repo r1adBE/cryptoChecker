@@ -60,13 +60,13 @@ abstract class Market(
      */
     open val changeIsMark: Boolean get() = false
 
-    /** Abschnitt in der Börsenauswahl ([MarketCategory]); Standard Spot. iOS: `category`. */
+    /** Section in the exchange picker ([MarketCategory]); default spot. iOS: `category`. */
     open val category: MarketCategory get() = MarketCategory.SPOT
 
-    /** false: keine Alarme (EZB-Referenzkurse: kein «Hinzufügen», nie ausgewertet). iOS: `allowsAlarms`. */
+    /** false: no alarms (ECB reference rates: no «Add», never evaluated). iOS: `allowsAlarms`. */
     open val allowsAlarms: Boolean get() = true
 
-    /** true: der Kurs ist ein täglicher Referenzkurs (EZB), kein Handel — Zeile und Aktionsblatt sagen es. iOS gleich. */
+    /** true: the price is a daily reference rate (ECB), not a trade — the row and action sheet say so. Same on iOS. */
     open val priceIsDailyReference: Boolean get() = false
 
     // ── Einzelkurs ───────────────────────────────────────────────────────────────
@@ -111,16 +111,16 @@ abstract class Market(
     protected open fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) = Unit
 
     /**
-     * Ausweichadresse (GET), wenn Einzelanfrage [call] mit einem Serverfehler (HTTP 5xx) scheitert; null = keine
-     * (Standard). Die Antwort liest [readTickerFallback]; bringt sie keinen gültigen Kurs, bleibt der Serverfehler
-     * (App: `SingleTickerFallback`). iOS gleich.
+     * Fallback address (GET) when single request [call] fails with a server error (HTTP 5xx); null = none
+     * (default). [readTickerFallback] reads the response; if it brings no valid price, the server error stands
+     * (app: `SingleTickerFallback`). Same on iOS.
      */
     open fun tickerFallbackAddress(call: Int, info: PairQuery): String? = null
 
-    /** true: nach diesem Lesefehler [tickerFallbackAddress] versuchen (DexScreener «Pool not found» → GeckoTerminal). */
+    /** true: try [tickerFallbackAddress] after this parse error (DexScreener «Pool not found» → GeckoTerminal). */
     open fun tickerFallbackOnParseError(call: Int, error: Exception): Boolean = false
 
-    /** Wie [readTicker], für die Antwort von [tickerFallbackAddress] (über [fillTickerFallback]). */
+    /** Like [readTicker], for the response of [tickerFallbackAddress] (via [fillTickerFallback]). */
     @Throws(Exception::class)
     fun readTickerFallback(call: Int, body: String, ticker: Ticker, info: PairQuery): Ticker {
         fillTickerFallback(call, body, ticker, info)
@@ -128,7 +128,7 @@ abstract class Market(
         return ticker
     }
 
-    /** Hook zu [tickerFallbackAddress]: fehlt das Paar in der Antwort, werfen. Standard: kein Ausweg. */
+    /** Hook for [tickerFallbackAddress]: throw if the pair is missing from the response. Default: no fallback. */
     protected open fun fillTickerFallback(call: Int, body: String, ticker: Ticker, info: PairQuery): Unit =
         throw MarketParseException(MarketParseException.NO_DATA)
 
@@ -150,10 +150,10 @@ abstract class Market(
     protected fun noErrorText(): Nothing = throw MarketParseException(NO_ERROR_TEXT)
 
     /**
-     * Die Leser schreiben eine allfällige Börsenzeit (s, ms, µs oder ns) in [Ticker.timestamp]. Hier wird sie in
-     * ms nach [Ticker.exchangeTime] verschoben (≤ 0 = keine) und [Ticker.timestamp] auf jetzt gesetzt. Eine Zeit
-     * mehr als [EXCHANGE_TIME_FUTURE_TOLERANCE_MS] in der Zukunft ist falsch gelesen (Ortszeit als Epoche wie
-     * Bithumbs KST, falsche Einheit) und fällt weg: Sie liesse einen stehenden Kurs stundenlang frisch aussehen.
+     * Parsers write any exchange time (s, ms, µs or ns) into [Ticker.timestamp]. Here it is moved to
+     * [Ticker.exchangeTime] in ms (≤ 0 = none) and [Ticker.timestamp] is set to now. A time more than
+     * [EXCHANGE_TIME_FUTURE_TOLERANCE_MS] in the future was misread (local time as epoch like Bithumb's KST,
+     * wrong unit) and is dropped: it would make a frozen price look fresh for hours.
      */
     private fun markFetched(ticker: Ticker) {
         val now = System.currentTimeMillis()
@@ -234,7 +234,7 @@ abstract class Market(
         val good = LinkedHashMap<String, Ticker>()
         val broken = LinkedHashSet<String>()
         parseBulkTickers(call, body, good, broken)
-        // Ein Paar, das doch noch gelesen wurde, gilt nicht als Fehler
+        // A pair that was read after all does not count as broken
         broken -= good.keys
 
         if (BulkTickerRows.isFormatFailure(good.size, broken.size)) {
@@ -367,7 +367,7 @@ abstract class Market(
     /** Hook for exchanges with [pairListCombined]: parses all collected responses at once. */
     protected open fun fillPairListCombined(bodies: List<String>, out: MutableList<MarketPair>) = Unit
 
-    // Reines Kotlin (kein TextUtils), damit die Vertragstests der Paarlisten auf der JVM laufen
+    // Pure Kotlin (no TextUtils) so that the pair-list contract tests run on the JVM
     private fun dropIncomplete(out: MutableList<MarketPair>) {
         out.removeAll { pair -> pair.base.isEmpty() || pair.quote.isEmpty() }
     }
@@ -392,7 +392,7 @@ abstract class Market(
         /** Message of [noErrorText]; never reaches the UI (the parse error is shown instead). */
         const val NO_ERROR_TEXT = "No error text"
 
-        /** Uhren gehen nie ganz gleich: so weit darf eine Börsenzeit vor der Uhr des Geräts liegen (5 min). iOS gleich. */
+        /** Clocks never agree exactly: an exchange time may be this far ahead of the device clock (5 min). Same on iOS. */
         const val EXCHANGE_TIME_FUTURE_TOLERANCE_MS = 5L * 60 * 1000
     }
 }

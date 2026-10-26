@@ -130,6 +130,6 @@
     <string name="explorer_section_spot">Spot</string>
     <string name="explorer_section_futures">Futures</string>
     <string name="explorer_section_dex">Pool DEX</string>
-    <string name="explorer_section_forex">Forex (kurs referensi)</string>
-    <string name="explorer_forex_hint">Kurs harian Bank Sentral Eropa (melalui Frankfurter), bukan live – tanpa peringatan.</string>
+    <string name="explorer_section_forex">Forex (kurs acuan)</string>
+    <string name="explorer_forex_hint">Kurs harian Bank Sentral Eropa (melalui Frankfurter), bukan live – tanpa alarm.</string>
 </resources>

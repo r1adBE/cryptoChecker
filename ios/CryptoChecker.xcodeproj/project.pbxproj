@@ -323,6 +323,7 @@
 		2DD1190DD41141D770EB3865 /* SettingsDisplayPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FA8FBEFB066BF2E3C045EE /* SettingsDisplayPages.swift */; };
 		2E04CEDA2E0B9B97E6820278 /* CsvImportParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400960D6FBA69442AA3AE7C7 /* CsvImportParser.swift */; };
 		2E3944B8EBC1F34C3B87C2BD /* WatchlistStorageLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED9A2AD63F5962D102A4BF /* WatchlistStorageLock.swift */; };
+		2E56A6BCD37DB31C5B8303BF /* picker_order.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F569FD6B7BE2D3A20312394 /* picker_order.json */; };
 		2E8233F5D262B5E74BA2AEAF /* PortfolioToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47761A48C975DC1AD78E9EB8 /* PortfolioToolbar.swift */; };
 		2EB41D03CDD7655E0D645FA2 /* AppData+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BD81ADE63E0868082CA13 /* AppData+Refresh.swift */; };
 		2EC3215C1BA9EE0B6FF550EE /* LegacyStorageMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6239EA25F613BCF469549A36 /* LegacyStorageMigration.swift */; };
@@ -1287,7 +1288,6 @@
 		BCD9EB91037D0A91F0B6B758 /* ColumnSortTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471878183418A8B6325CB2E3 /* ColumnSortTests.swift */; };
 		BD143F851EEFBF517AB55993 /* PortfolioSummaryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6FB4A7F9332DFB50BA0A26 /* PortfolioSummaryCache.swift */; };
 		BD185E901505A6AD5AA321F9 /* ActivityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F8FF681A89D32E11408932 /* ActivityRepository.swift */; };
-		BD3CD127912D73DCBF543D6E /* exchange_order.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CAFA341AB87137B81D4BEA4 /* exchange_order.json */; };
 		BD5D02D049287DA15C8EAF1D /* Phemex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F334C55C5E99C40248E8FAB /* Phemex.swift */; };
 		BD67021D9E54B0114CDDB1A9 /* CoinLogoStore+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DA769E07286C77D5DEBB22 /* CoinLogoStore+Download.swift */; };
 		BD67E247813675AEC81595EA /* NumberFormatterCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF481F5CC6F1AABC6608288 /* NumberFormatterCache.swift */; };
@@ -1847,7 +1847,6 @@
 		0BC4958B500EA5E212340899 /* WatchlistScreen+HintCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchlistScreen+HintCards.swift"; sourceTree = "<group>"; };
 		0BC9D336024BC177B5FE8577 /* LocaleCompactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleCompactTests.swift; sourceTree = "<group>"; };
 		0C0CD883986697DC08CFA537 /* PortfolioPauseText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPauseText.swift; sourceTree = "<group>"; };
-		0CAFA341AB87137B81D4BEA4 /* exchange_order.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exchange_order.json; sourceTree = "<group>"; };
 		0CEE3A4710D6AE62DE15BE5D /* PortfolioHistorySource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioHistorySource.swift; sourceTree = "<group>"; };
 		0D7CFF3C0BEAFC89266A59FE /* HoldingsMethodParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingsMethodParityTests.swift; sourceTree = "<group>"; };
 		0DDA326E05055A0F8A71F5F3 /* Bitbank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitbank.swift; sourceTree = "<group>"; };
@@ -2353,6 +2352,7 @@
 		6F1FB42DC4AE7EE382F342C5 /* PerKeyDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerKeyDefaults.swift; sourceTree = "<group>"; };
 		6F23EA2352D64026CFE9F163 /* AddWidgetHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWidgetHelp.swift; sourceTree = "<group>"; };
 		6F46A4B7649B72692DC8A4D9 /* stored_error_detail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = stored_error_detail.json; sourceTree = "<group>"; };
+		6F569FD6B7BE2D3A20312394 /* picker_order.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = picker_order.json; sourceTree = "<group>"; };
 		6F664B3B484D084DF65CA79F /* CycleExtremes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleExtremes.swift; sourceTree = "<group>"; };
 		6F7F535A331F28A9B27F5305 /* WidgetFreshnessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFreshnessTests.swift; sourceTree = "<group>"; };
 		6FB1DCADFF65F68A0E4A26DF /* watch_identity.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = watch_identity.json; sourceTree = "<group>"; };
@@ -4041,7 +4041,6 @@
 				C40A72EFCD5CE66343C3E9F8 /* diagnostic_redact.json */,
 				2315EACA42BC74C73599EFC8 /* estv_kursliste.json */,
 				75B6B3E5F72AC248DA02589B /* exchange_backoff.json */,
-				0CAFA341AB87137B81D4BEA4 /* exchange_order.json */,
 				5541BAFD4872456F63316426 /* export_errors.json */,
 				5A57D0A4F4A4441F5B90A080 /* fiat_alarm_guard.json */,
 				40B0DE9F4BBA1EAC6D408C3F /* gas_fees.json */,
@@ -4067,6 +4066,7 @@
 				08F8CBB74F5A6BF59D1CFCDA /* own_candles.json */,
 				6EA7F10A27115F89CB93F657 /* percent_text.json */,
 				5CDEE98CA83291848DDEA820 /* periodic_needed.json */,
+				6F569FD6B7BE2D3A20312394 /* picker_order.json */,
 				F436943F695834EA49F1D251 /* portfolio.json */,
 				FC8F5BD159567E69E8F147A1 /* portfolio_alarm.json */,
 				5EFD148DE513CE4B5FA70190 /* portfolio_price_identity.json */,
@@ -5097,7 +5097,6 @@
 				92D35E2200B8A5F6683FBD42 /* diagnostic_redact.json in Resources */,
 				2284D753D8FB151BCF3E6116 /* estv_kursliste.json in Resources */,
 				1E2E7E5789269F0AEF3EB4D7 /* exchange_backoff.json in Resources */,
-				BD3CD127912D73DCBF543D6E /* exchange_order.json in Resources */,
 				AF61DF9E4F7C11495D2C15A1 /* export_errors.json in Resources */,
 				DFC911D5CA8F25463784305E /* fiat_alarm_guard.json in Resources */,
 				5441EAB6E0A613E24408F32E /* gas_fees.json in Resources */,
@@ -5123,6 +5122,7 @@
 				350149CB69E4262DFC592F81 /* own_candles.json in Resources */,
 				65C6C3959041BEFC316B84FF /* percent_text.json in Resources */,
 				470B73EC86F80CBD70742B1B /* periodic_needed.json in Resources */,
+				2E56A6BCD37DB31C5B8303BF /* picker_order.json in Resources */,
 				27E54F313CAA5F7F7E65CB4B /* portfolio.json in Resources */,
 				514B058F11FCF9D9AC89A4AA /* portfolio_alarm.json in Resources */,
 				CD1C9BBE63977D80329636E4 /* portfolio_price_identity.json in Resources */,

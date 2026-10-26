@@ -44,7 +44,7 @@ private const val DEVELOPER_COUNTDOWN_FROM = 3
 
 /**
  * Über die App: Zweck, Version (7 Tipps schalten «Entwickler» frei), Hinweis zu den Daten; darunter
- * Datenschutz, Börse wünschen, Quellcode und Lizenzen und «Diagnose teilen».
+ * Datenschutz, Börse wünschen, Quellcode, Lizenzen, (freigeschaltet, nur Debug) Entwickler und «Diagnose teilen».
  */
 @Composable
 internal fun AboutPage(
@@ -89,7 +89,7 @@ internal fun AboutPage(
             }
         }
         // «Deine Daten»: das Wichtigste der Datenschutzerklärung in vier Sätzen, direkt über dem Link zur vollen
-        // Fassung. Die Sätze müssen zur Erklärung (public/docs/privacy) passen — bei Änderungen dort mitziehen.
+        // Fassung. Die Sätze müssen zur Erklärung (docs/privacy) passen — bei Änderungen dort mitziehen.
         Spacer(Modifier.height(12.dp))
         GroupCard(title = stringResource(R.string.about_your_data_title)) {
             Column(modifier = Modifier.padding(bottom = 8.dp)) {

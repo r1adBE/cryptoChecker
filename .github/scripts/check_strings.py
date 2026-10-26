@@ -192,7 +192,7 @@ def check_ios(ios, android):
             if phs(s) != want:
                 problem("IOS EXTRA PLACEHOLDER", k, lang, repr(s))
 
-    # iOS-eigene Fassungen (tools/ios_overrides.json): Schlüssel gibt es auf Android, gleiche Platzhalter wie Englisch
+    # iOS-specific versions (tools/ios_overrides.json): key exists on Android, same placeholders as English
     overrides_path = os.path.join(tools, "ios_overrides.json")
     if os.path.isfile(overrides_path):
         base = {}

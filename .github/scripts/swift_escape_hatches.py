@@ -19,7 +19,7 @@ IOS_AREAS = ("App", "Shared", "Widgets")
 
 # Allowed number per kind (count in code, without comments). Raise only deliberately; lower when the code shrinks.
 CEILINGS = {
-    "@unchecked Sendable": 103,  # +2 BitunixFutures, EcbReference (Adapter wie alle Börsen, Build 133)
+    "@unchecked Sendable": 103,  # +2 BitunixFutures, EcbReference (adapters like all exchanges, build 133)
     "nonisolated(unsafe)": 13,
     "DispatchSemaphore": 0,
 }

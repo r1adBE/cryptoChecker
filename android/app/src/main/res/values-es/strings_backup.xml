@@ -80,9 +80,9 @@
     <string name="backup_not_verified">No se pudo verificar el archivo de copia tras guardarlo: al leerlo de nuevo es distinto. Guarda la copia en un archivo nuevo.</string>
 
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
-    <string name="system_backup_not_imported_title">El portafolio no se restauró desde la copia del sistema</string>
+    <string name="system_backup_not_imported_title">La cartera no se restauró desde la copia del sistema</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">La copia del portafolio de la copia de seguridad del sistema Android no se pudo leer, ni siquiera en un segundo intento, y se ha eliminado. Si tienes un archivo de copia, restáuralo en Ajustes, en «%1$s».</string>
+    <string name="system_backup_not_imported_message">La copia de la cartera de la copia de seguridad del sistema Android no se pudo leer, ni siquiera en un segundo intento, y se ha eliminado. Si tienes un archivo de copia, restáuralo en Ajustes, en «%1$s».</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">Ahora no se pueden leer los datos guardados, así que la cartera no se muestra ni se puede cambiar. Reinicia la app.</string>

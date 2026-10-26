@@ -3,7 +3,7 @@ package com.cryptochecker.app.settings
 /** Momentaufnahme aller Einstellungen. */
 data class AppSettings(
     /**
-     * «Wie aktuell?»: Sparsam oder Live, solange offen (Standard) ([UpdateMode]). Ersetzt
+     * «Wie aktuell?»: Sparsam (Standard) oder Live, solange offen ([UpdateMode]). Ersetzt
      * die früheren Schalter «backgroundUpdates», «liveService» und «liveWebSocket»; die
      * Hintergrund-Aktualisierung (WorkManager) läuft in jeder Wahl.
      */
@@ -76,7 +76,7 @@ data class AppSettings(
     /** Dunkles Erscheinungsbild für App und Widgets. null = wie das System (Standard bei neuer Installation). */
     val darkMode: Boolean? = null,
 
-    /** Entwickleroption: HTTP-Protokoll unten im Märkte-Tab anzeigen. */
+    /** Entwickleroption: HTTP-Protokoll unten im Explorer («Paar hinzufügen») anzeigen. */
     val showHttpLog: Boolean = false,
 
     /** Entwickler-Bereich freigeschaltet (sieben Mal auf die Version tippen). */
@@ -84,7 +84,7 @@ data class AppSettings(
 
     /**
      * Fear & Greed: melden, wenn der Index unter/über diesen Wert fällt/steigt (0 = aus). Ab Werk
-     * aus — am ersten Tag soll nur kommen, was man selbst eingestellt hat (nur die Marktphase ist an).
+     * aus — am ersten Tag soll nur kommen, was man selbst eingestellt hat.
      */
     val fearGreedBelow: Int = 0,
     val fearGreedAbove: Int = 0,
@@ -146,7 +146,7 @@ data class AppSettings(
     /** Lokaler Epoch-Tag des letzten gezählten Öffnens ([usageDays]); null = noch nie. */
     val usageLastDay: Long? = null,
 
-    /** Der Willkommensdialog wurde bereits bestätigt. */
+    /** Früher: Willkommensdialog bestätigt (seit Runde 32 keine Begrüssung mehr); nur noch gespeichert, ohne Wirkung. */
     val aboutSeen: Boolean = false,
 
     /** Der Hinweis zur Akku-Optimierung wurde bereits gezeigt. */
@@ -172,7 +172,7 @@ data class AppSettings(
     val macroNotifications: Boolean = false,
 
     /**
-     * Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). Für neue Installationen
+     * Optionaler Bereich «Portfolio» (eigener Tab vor den Einstellungen). Für neue Installationen
      * ab Werk aus; bestehende Installationen behalten den bisherigen Standard an
      * ([LEGACY_PORTFOLIO_ENABLED], einmalig festgeschrieben von InstallDefaultsMigration), wer ihn
      * umgeschaltet hat, behält seine Wahl.
@@ -217,7 +217,7 @@ data class AppSettings(
 
     /**
      * Echte Coin-Logos (alle auf einmal von CoinGecko geladen, auf dem Gerät gespeichert) in
-     * Merkliste, Aktionsblatt, Start-Auswahl und Markt-Karten. Aus (Standard): keine Plakette.
+     * Merkliste, Aktionsblatt, Start-Auswahl und Markt-Karten. Ab Werk an.
      */
     val coinLogos: Boolean = true,
 
@@ -305,8 +305,8 @@ data class AppSettings(
     val portfolioHistoryExpanded: Boolean = false,
 
     /**
-     * Der Markt-Tab wurde schon einmal gesehen (mindestens 3 s sichtbar): «Einordnung» und
-     * «Daten» beginnen danach zugeklappt. Nur auf diesem Gerät, nicht in der Sicherung.
+     * Früher: Markt-Tab gesehen («Einordnung» und «Daten» danach zugeklappt). Seit den Registern
+     * ohne Wirkung, nur noch gespeichert. Nur auf diesem Gerät, nicht in der Sicherung.
      */
     val marketTabSeen: Boolean = false,
 

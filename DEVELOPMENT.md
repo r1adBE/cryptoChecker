@@ -1,8 +1,11 @@
-# Adding an exchange
+# Development guide
 
-> **Deutsch:** Anleitung für neue Börsen-Adapter in der Börsen-Bibliothek
-> (Android/Kotlin und iOS/Swift): Aufbau, Dateien, Paarliste, Einzel- und
-> Massenabfrage, Tests. Fragen und Pull Requests gern auf Deutsch oder Englisch.
+Sections 1–11 explain the exchange adapters (adding an exchange); the later sections cover tests, CI, the app's
+UI, portfolio and storage rules and the build history.
+
+> **Deutsch:** Entwicklerhandbuch. Abschnitte 1–11: neue Börsen-Adapter in der Börsen-Bibliothek
+> (Android/Kotlin und iOS/Swift) – Aufbau, Dateien, Paarliste, Einzel- und Massenabfrage, Tests; danach Tests,
+> CI, Regeln der App und die Build-Geschichte. Fragen und Pull Requests gern auf Deutsch oder Englisch.
 
 <!-- DEVELOPMENT.md at the repository root: paths and links are relative to the root. -->
 
@@ -320,8 +323,8 @@ static let all: [Market] = [
 
 The **key** identifies the exchange in saved watchlists, alarms and backups:
 
-* Android uses the class name (`Bitstamp`), iOS the `key:` parameter – they must
-  be equal.
+* Android declares `key` explicitly (equal to the former class name, `Bitstamp`), iOS passes the `key:`
+  parameter – they must be equal.
 * Never rename an adapter class or key once it is released; saved pairs would
   lose their exchange.
 
@@ -552,7 +555,7 @@ published 16.2 – and the test builds' v13–v15 built from them with the app's
 them, and lets Room open them – Room runs the migrations (the whole chain up to the current version, plus the
 one-time move of the portfolio into its own database and portfolio database v1 → current) and validates the
 result against the entities. `RoomSchemaMigrationTest` (since build 103) checks the same paths against the
-exported schemas with `MigrationTestHelper` (AppDatabase v1–v3 and v13–v15, PortfolioDatabase all versions; the
+exported schemas with `MigrationTestHelper` (AppDatabase v1–v3 and v13–v16, PortfolioDatabase all versions; the
 AppDatabase schemas 4–12 were never exported). Needs an emulator or a device.
 
 *Golden schemas*: `app/schemas/com.cryptochecker.app.data.local.AppDatabase/16.json` is the golden schema of the
@@ -580,8 +583,9 @@ for every push, so it has its own workflow:
 **Android device tests** (`.github/workflows/android-device-tests.yml`): on every push to `main` that touches
 `android/` (or the workflow and its smoke script), on every release tag `v*` (since build 104; GitHub ignores the
 paths filter for tags) and by hand under *Actions › Android device tests › Run workflow*; a weekly schedule is
-prepared but commented out. On pull requests only the job `release-smoke` runs, and only when a file changes that
-decides about the R8 release build (keep rules, build script, dependency versions, the smoke test). It uses the same toolchain as `android.yml` (JDK 17, Gradle with
+prepared but commented out. On pull requests only two jobs can run: `migration-tests` when a database file
+changes (entities, DAOs, schemas) and `release-smoke` when a file changes that decides about the R8 release build
+(keep rules, build script, dependency versions, the smoke test). It uses the same toolchain as `android.yml` (JDK 17, Gradle with
 cache), builds `:app:assembleDebug` and `:app:assembleDebugAndroidTest` before the emulator
 starts, then runs `:app:connectedDebugAndroidTest` on an x86_64 emulator with KVM
 (`reactivecircus/android-emulator-runner`: API 34, `google_apis`, Pixel 6 profile, animations
@@ -665,8 +669,8 @@ artifact); pull requests run a dependency review
 that fails on new dependencies with known high-severity vulnerabilities.
 `.github/dependabot.yml` opens monthly version update PRs for GitHub Actions (at most two open);
 Gradle (version catalog `android/gradle/libs.versions.toml`) only gets security updates. The *iOS*
-workflow builds and tests in the Simulator (unit tests, then UI tests) when `ios/`, the shared parity
-cases or the UI-test files change.
+workflow builds and tests in the Simulator (unit tests, then UI tests) on every pull request; on pushes to
+`main` only when `ios/`, the shared parity cases or the UI-test files change.
 
 **Exchange API check** (`.github/workflows/exchange-live-check.yml`, weekly on Wednesdays and
 by hand): `.github/scripts/exchange_live_check.py` calls the public single-ticker endpoint of
@@ -727,7 +731,8 @@ touching GitHub: `python3 -I .github/scripts/exchange_live_check.py --dry-run` (
   weekly on Tuesdays) resolves `:app` `releaseRuntimeClasspath` and checks every coordinate against the OSV database
   (`.github/scripts/osv_check.py`, `--self-test`). A vulnerability with a fixed version is an error on `main`, tags
   and the weekly run, a warning on pull requests; without a fix or when OSV is unreachable it is a warning. An
-  accepted finding goes into `.github/osv-ignore.txt` (`ID  # reason`) and is then only a notice.
+  accepted finding goes into `.github/osv-ignore.txt` (`ID  # reason`; optional, created when first needed) and is
+  then only a notice.
 * *SBOM*: the *Android* workflow writes a CycloneDX 1.5 software bill of materials (`.github/scripts/sbom.py`,
   `--self-test`) after the release build and keeps it as artifact `sbom` (90 days): `sbom-android.cdx.json` lists every
   `releaseRuntimeClasspath` coordinate of the committed lock files (`:app`, `:marketdata`; not the baseline-profile
@@ -1063,8 +1068,8 @@ Changing a TTL: update both platforms, `CycleCachePolicyTest` (Android),
 
 While the **watchlist is on screen and the app is in the foreground**, prices of the
 visible pairs (the selected group) come from the exchanges' public WebSocket tickers instead
-of REST polling. Setting: *Settings › Price updates › «How current?»* — `UpdateMode`
-(`SPARSAM` «Economical» = default and recommended for new installs since build 43, `LIVE_OFFEN` «Live while open» = labelled «for pros»; never call Live the recommended choice); `liveWebSocket` is derived from
+of REST polling. Setting: *Settings › Price updates › «Update frequency»* — `UpdateMode`
+(`SPARSAM` «Economical» = default and recommended for new installs since build 43, `LIVE_OFFEN` «Live while open» = labelled «needs more data and battery»; never call Live the recommended choice); `liveWebSocket` is derived from
 it. `IMMER_KURZ` («Always frequent», removed before 1.0) is only read from old data and backups and
 always becomes `LIVE_OFFEN` (`withoutService`); a stored value is rewritten once by
 `UpdateModeMigration` (DataStore), which also migrates the old switches. Backups write `updateMode`
@@ -1135,7 +1140,7 @@ Android `domain/watch/LiveStatus.kt`, iOS `ios/Shared/Util/LiveStatus.swift`, te
   12 min ago»), and the time is the newest **polled** pair (`shownTime`), so live pairs do not make an
   old poll look fresh.
 * Widgets are never live: they always use the polling threshold (`WidgetFreshness.afterMillis`).
-* Texts must stay honest: «Live while open» is described as «for pros» (battery, foreground only),
+* Texts must stay honest: «Live while open» is described as «needs more data and battery» (foreground only),
   «Economical» is the default and the recommended choice.
 
 Tests: `LiveFeedTest.kt` / `LiveFeedTests.swift` (parser samples per exchange, symbols,
@@ -2004,7 +2009,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 * **Settings structure.** Main page (`SettingsScreen.kt` / `SettingsScreen.swift`): **General**
   (Language – on iOS it opens the system Settings app –, Currency, Watchlist, Portfolio, Alarms, Price updates),
   **Appearance** (Mode, Theme, Price colours, Coin logos, Widgets), **More** (Data / backup, About) and
-  «Reset app» alone in its own red card at the very bottom (build 53 «Weg 1», regrouped in build 55). Since build 83
+  «Reset app» alone in its own red card at the very bottom (build 53, regrouped in build 55). Since build 83
   Portfolio has exactly one place: the row under General opens the Portfolio page (`PortfolioPage` /
   `PortfolioSettingsPage`) with the «Show Portfolio tab» switch on top, then lock, hide amounts, cost method, tax
   template and «Portfolio in system backup» – so «Settings › Portfolio» in hints and the widget is literally true;
@@ -2502,7 +2507,7 @@ after the encryption step.
   failure keeps the original error. In the 5xx path a rate limit of the fallback only passes when it is the same host
   (`sameHost`), so GeckoTerminal never pauses DexScreener. Fixtures: `exchange_bitunixfutures.json`,
   `exchange_ecbreference.json`, GeckoTerminal `singleFallback` cases in `exchange_dexscreener.json`, parity
-  `exchange_order.json` and `gecko_terminal_network.json`. Escape-hatch ceiling 103 (two new Swift adapters).
+  `picker_order.json` and `gecko_terminal_network.json`. Escape-hatch ceiling 103 (two new Swift adapters).
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on

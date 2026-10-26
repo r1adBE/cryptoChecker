@@ -14,7 +14,7 @@ on:
     paths:
       - 'android/**'
       # The source guards in the unit tests (FileLengthTest, HapticsUsageTest, licences, typography, …) also
-      # check the Swift sources: a pull request that only touches iOS must run them too
+      # check the Swift sources: a push to main that only touches iOS must run them too
       - 'ios/App/**'
       - 'ios/Shared/**'
       - 'ios/Widgets/**'
@@ -282,9 +282,9 @@ jobs:
   # Only when «Dependency graph» is on in the repository settings AND the repository variable
   # DEPENDENCY_GRAPH is «true» (Settings › Secrets and variables › Actions › Variables);
   # otherwise GitHub rejects the upload with «The Dependency graph is disabled».
-  # Zwei Jobs: «dependency-graph» löst die Abhängigkeiten mit Gradle auf (nur Leserecht) und legt den Graphen als
-  # Artefakt dieses Laufs ab; «dependency-submission» (Schreibrecht) führt kein Gradle aus und reicht nur dieses
-  # Artefakt ein. So läuft der fremde Build-Code (lenient, Plugin der Action) nie mit einem Schreib-Token.
+  # Two jobs: «dependency-graph» resolves the dependencies with Gradle (read permission only) and stores the graph as
+  # an artifact of this run; «dependency-submission» (write permission) runs no Gradle and only submits that
+  # artifact. This way the third-party build code (lenient, the action's plugin) never runs with a write token.
   dependency-graph:
     if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-24.04
@@ -316,7 +316,7 @@ jobs:
     permissions:
       contents: write   # Dependency Submission API
     steps:
-      # Kein Checkout, kein Gradle: lädt nur das Graph-Artefakt dieses Laufs und reicht es ein
+      # No checkout, no Gradle: only downloads this run's graph artifact and submits it
       - name: Submit Gradle dependency graph
         uses: gradle/actions/dependency-submission@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
         with:

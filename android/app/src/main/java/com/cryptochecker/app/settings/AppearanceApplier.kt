@@ -47,8 +47,10 @@ class AppearanceApplier @Inject constructor(
         pm.setComponentEnabledSetting(component, state, PackageManager.DONT_KILL_APP)
     }
 
-    /** Hell/Dunkel für alles, was nicht Compose ist (Fensterhintergrund, Systemdialoge). */
-    /** null = dem System folgen. Merkt sich die Wahl zusätzlich im kleinen Start-Zwischenspeicher. */
+    /**
+     * Hell/Dunkel für alles, was nicht Compose ist (Fensterhintergrund, Systemdialoge).
+     * null = dem System folgen. Merkt sich die Wahl zusätzlich im kleinen Start-Zwischenspeicher.
+     */
     fun applyNightMode(dark: Boolean?) {
         writeCachedNightMode(dark)
         AppCompatDelegate.setDefaultNightMode(

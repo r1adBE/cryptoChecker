@@ -168,7 +168,7 @@ internal fun SettingsSubPage(
     }
 }
 
-/** Markt-Meldungen: Fear & Greed, Gas, ungewöhnliche Aktivität, Wirtschaftstermine. */
+/** Markt-Meldungen: Fear & Greed, Gas, Bitcoin-Kennzahlen, ungewöhnliche Aktivität, Wirtschaftstermine. */
 @Composable
 fun MarketAlertsSettingsScreen(
     onBack: () -> Unit,

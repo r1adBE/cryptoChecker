@@ -174,5 +174,5 @@
     <string name="alarm_editor_more_summary">クイックアラーム、その他の条件、サウンドと読み上げ</string>
     <string name="alarm_reliability_storage_no_key">バックグラウンドのアラームは一時停止中 – ウォッチリストは保存されていません</string>
     <string name="alarms_limit_reached">1つのペアに設定できるアラームは最大%1$s件です。</string>
-    <string name="alarms_reference_rate_hint">ECBの参考レートは1日に1回だけ決まるため、アラームはありません。</string>
+    <string name="alarms_reference_rate_hint">ECBの参照レートは1日に1回だけ決まるため、アラームはありません。</string>
 </resources>

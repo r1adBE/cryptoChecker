@@ -5,7 +5,7 @@ import SwiftUI
 /// 10 % grösser und in der Themenfarbe, die Beschriftung immer gleich — das
 /// lässt `TabView`/`UITabBar` nicht zu (feste Leistenhöhe 49 pt, Symbolgrösse vom System). Die
 /// `TabView` bleibt für die Tabs selbst (eigener Navigationsstapel und Zustand je Tab).
-/// Der Portfolio-Tab erscheint nur, wenn er in den Optionen eingeschaltet ist. «Paar hinzufügen»
+/// Der Portfolio-Tab erscheint nur, wenn er unter Einstellungen › Portfolio eingeschaltet ist. «Paar hinzufügen»
 /// öffnet sich als Seite über der Merkliste («+» in deren Kopfzeile), dort ohne Tableiste.
 struct RootView: View {
     @EnvironmentObject private var data: AppData
@@ -145,12 +145,12 @@ enum AppTabBarMetrics {
     /// Das Symbol des gewählten Tabs ist 10 % grösser — wie `TAB_ICON_SELECTED_SCALE` (Android).
     static let selectedScale: CGFloat = 1.1
     /// Anzeiger (Pille) hinter dem Symbol des gewählten Tabs — wie `TAB_INDICATOR_WIDTH`/`_HEIGHT` (Android).
-    static let indicatorWidth: CGFloat = 64
-    static let indicatorHeight: CGFloat = 32
     /// Pille in der vollen Akzentfarbe, Symbol darauf onAccent: hebt sich mit ≥ 3:1 von der Leiste ab (vorher
     /// Akzent 30 % bzw. #404040: nur 1.5–1.6:1). Hell primary auf #F1EEE9 → 5.04–5.09:1, Weiss darauf 5.84–5.89:1;
     /// dunkel primary auf #1F1F1F → 6.17–7.05:1, onPrimary darauf 6.15–6.70:1 (wie Android, TabIndicatorContrastTest).
     /// Gewählt zudem an fetter Beschriftung erkennbar.
+    static let indicatorWidth: CGFloat = 64
+    static let indicatorHeight: CGFloat = 32
     /// Dauer der Vergrösserung beim Wechsel des Tabs (s) — wie `TAB_ICON_SCALE_MILLIS` (Android).
     static let scaleDuration: Double = 0.15
 }

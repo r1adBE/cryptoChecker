@@ -302,7 +302,7 @@ private fun WatchlistMenu(
             )
         }
         DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-            // Gleicher Anfang wie Markt und Portfolio: App (→ «Über»), Aktualisieren
+            // Gleicher Anfang wie Markt und Portfolio: App (→ «Über die App»), Aktualisieren
             AppMenuHead(
                 refreshing = refreshing,
                 onClose = { menuOpen = false },

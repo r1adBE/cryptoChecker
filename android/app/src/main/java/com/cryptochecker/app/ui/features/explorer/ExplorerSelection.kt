@@ -109,7 +109,7 @@ sealed interface ExplorerLoad {
 /**
  * Börsenauswahl in Abschnitten Spot · Futures · DEX-Pools · Forex ([ExchangeOrder]), darin nach dem Volumen am Tag der
  * Installation; ohne Ranking bleibt die Reihenfolge von [alphabetical] (wie vor Build 133). Liefert die Börsen und je
- * Eintrag den Abschnitt. Wie iOS `ExplorerViewModel.exchangeSections`.
+ * Eintrag den Abschnitt. Wie iOS `ExplorerViewModel.marketSections` (ExplorerMarketSections.swift).
  */
 internal fun exchangeSections(
     alphabetical: List<MarketInfo>,

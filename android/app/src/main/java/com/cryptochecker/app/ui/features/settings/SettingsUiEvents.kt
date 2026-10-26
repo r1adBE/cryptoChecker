@@ -1,6 +1,7 @@
-// Einstellungen › Kursmitteilungen: Erlaubnis-Abfrage nach dem Schreiben als Einmal-Ereignis für den GERADE gezeigten
-// Bildschirm (Review ARC6-R01/UX6-R1, Muster wie `WatchUiEvents`/`AlarmEditorEffects`). Vorher ein Rückruf in die
-// Komposition, die beim Tippen bestand: nach dem Drehen während der Rückfrage F-08 traf er den abgemeldeten Launcher.
+// Einstellungen › Alarme › Kursbenachrichtigungen › Paare: Erlaubnis-Abfrage nach dem Schreiben als Einmal-Ereignis
+// für den GERADE gezeigten Bildschirm (Review ARC6-R01/UX6-R1, Muster wie `WatchUiEvents`/`AlarmEditorEffects`).
+// Vorher ein Rückruf in die Komposition, die beim Tippen bestand: nach dem Drehen während der Rückfrage F-08 traf er
+// den abgemeldeten Launcher.
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.compose.runtime.Composable
@@ -8,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cryptochecker.app.ui.components.ScreenEvents
 
-/** Ereignisse der Seite «Kursmitteilungen»; ein ViewModel des Nav-Eintrags, übersteht das Neuerstellen der Activity. */
+/** Ereignisse der Seite «Paare» (Kursbenachrichtigungen je Paar); ein ViewModel des Nav-Eintrags, übersteht das Neuerstellen der Activity. */
 internal class SettingsUiEventsHolder : ViewModel() {
     /** Mitteilungen eingeschaltet und geschrieben: jetzt die Erlaubnis fragen. */
     val requestNotifications = ScreenEvents<Unit>()

@@ -22,7 +22,7 @@ data class DayReference(val open: Double, val lastClose: Double) {
  *
  * Reihenfolge ([choose]):
  *  0. Rollende 24-h-Veränderung, die die Börse im Ticker mitliefert
- *     (`Ticker.change24hPercent`, siehe DEVELOPMENT.md «24 h change») — gilt für das Paar
+ *     (`Ticker.change24hPercent`, siehe DEVELOPMENT.md (Repository-Hauptordner) «24 h change») — gilt für das Paar
  *     selbst, also schon in seiner Quote. Nur endlich und |x| < [MAX_TICKER_CHANGE].
  * Fehlt er, kommt der Bezug aus Stundenkerzen ([select]):
  *  1. Kerzen des Paars selbst (USD-artige Quotes teilen sich die USDT-Reihe des

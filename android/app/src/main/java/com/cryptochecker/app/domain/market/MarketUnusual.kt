@@ -134,7 +134,6 @@ object MarketUnusual {
     /** «Gegen den Markt» wiegt etwas mehr als derselbe Abstand zu BTC. */
     private const val AGAINST_WEIGHT = 1.25
 
-    /** Umsatz-Anteil (24-h-Umsatz ÷ Marktkapitalisierung); null ohne gültige Werte. */
     /** Ein 24-h-Ticker gilt als laufend, wenn sein Fenster höchstens so lange zurück endet. */
     const val TICKER_STALE_MILLIS = 2 * 60 * 60_000L
 
@@ -149,6 +148,7 @@ object MarketUnusual {
         return true
     }
 
+    /** Umsatz-Anteil (24-h-Umsatz ÷ Marktkapitalisierung); null ohne gültige Werte. */
     fun turnover(coin: UnusualCoin): Double? {
         val volume = coin.quoteVolume ?: return null
         val cap = coin.marketCap ?: return null

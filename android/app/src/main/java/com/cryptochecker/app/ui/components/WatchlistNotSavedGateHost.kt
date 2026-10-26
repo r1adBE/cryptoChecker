@@ -13,7 +13,7 @@ import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 /**
  * F-08: Frage «Änderungen werden gerade nicht gespeichert …» vor der ersten Änderung der Merkliste je
  * App-Lauf ([WatchlistNotSavedGate]). Einmal in der MainActivity; sammelt nur, solange die App sichtbar ist — sonst fragt
- * der Schreibweg nicht (Hintergrund nie). Wie iOS `WatchlistNotSavedGateModifier`.
+ * der Schreibweg nicht (Hintergrund nie). Wie iOS `WatchlistNotSavedGatePresenter`.
  */
 @Composable
 fun WatchlistNotSavedGateHost() {

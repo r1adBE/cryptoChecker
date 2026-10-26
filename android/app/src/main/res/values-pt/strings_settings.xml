@@ -157,7 +157,7 @@
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portfólio na cópia do sistema</string>
     <string name="settings_portfolio_system_backup_hint">Desligado: as tuas transações não são incluídas na cópia do sistema do dispositivo nem na transferência para um novo telemóvel. Para as mudar, usa a cópia de segurança da app com palavra-passe.</string>
-    <string name="settings_portfolio_system_backup_unavailable">Requer Android 9 ou posterior – versões anteriores guardariam o portefólio sem encriptação na cópia da Google.</string>
+    <string name="settings_portfolio_system_backup_unavailable">Requer Android 9 ou posterior – versões anteriores guardariam o portfólio sem encriptação na cópia da Google.</string>
     <string name="settings_portfolio_tab">Mostrar separador Portfólio</string>
     <string name="settings_portfolio_value_locked">Sim, com bloqueio</string>
     <string name="settings_show_converted">Preços convertidos</string>
@@ -270,7 +270,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">No dispositivo</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device">A lista, os alarmes e o portefólio ficam encriptados neste dispositivo; sem conta, sem servidor próprio.</string>
+    <string name="about_data_device">A lista, os alarmes e o portfólio ficam encriptados neste dispositivo; sem conta, sem servidor próprio.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">Ligações</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -286,7 +286,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Partilhar diagnóstico</string>
-    <string name="diagnostics_share_hint">Ficheiro de texto para o suporte: versão, dispositivo, definições de alarmes, últimas verificações e registo de alarmes – sem carteira, montantes, endereços nem notas. É mostrado primeiro; nada é enviado automaticamente.</string>
+    <string name="diagnostics_share_hint">Ficheiro de texto para o suporte: versão, dispositivo, definições de alarmes, últimas verificações e registo de alarmes – sem portfólio, montantes, endereços nem notas. É mostrado primeiro; nada é enviado automaticamente.</string>
     <string name="diagnostics_preview_title">Diagnóstico – pré-visualização</string>
     <string name="diagnostics_action_share">Partilhar</string>
 </resources>

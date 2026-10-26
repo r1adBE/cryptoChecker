@@ -64,7 +64,8 @@ object StoredError {
      * Hosts, IP-Adressen, Ausnahme-Klassen und Zeichenfolgen, die nach Schlüssel oder Kennung aussehen
      * (mindestens 5 Ziffern, oder ab 12 Zeichen mit Ziffern), höchstens [MAX_DETAIL] Zeichen. null, wenn
      * der Text nichts über die allgemeine Ursache hinaus sagt (eigene Marker, HTTP-Code, Netz, Zeit,
-     * Rate-Limit) oder danach kaum etwas übrig bleibt. Wie StoredError.swift (Fälle in exchange_detail.json).
+     * Rate-Limit) oder danach kaum etwas übrig bleibt. Wie StoredError.swift (Fälle in
+     * `testdata/parity/stored_error_detail.json`).
      */
     fun exchangeDetail(raw: String?): String? {
         val text = raw?.trim().orEmpty()

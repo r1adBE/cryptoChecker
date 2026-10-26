@@ -125,7 +125,6 @@ data class AlarmDraft(
         }
     }
 
-    /** Steht noch der Vorschlag im Feld (nicht angetippt)? */
     /**
      * Fehlertext, der unter dem Feld steht: wie [thresholdProblem], nur «leer» nicht, solange im
      * neuen Alarm noch nichts getippt wurde ([blankStart]) — er beginnt leer, ohne gleich rot zu
@@ -161,6 +160,7 @@ data class AlarmDraft(
                 .replace('.', ThresholdParser.normalized(decimalSeparator))
         }
 
+    /** Steht noch der Vorschlag im Feld (nicht angetippt)? */
     val isUntouchedSuggestion: Boolean
         get() = !suggestedText.isNullOrEmpty() && thresholdText == suggestedText
 
@@ -283,10 +283,6 @@ data class AlarmDraft(
             if (value % 1.0 == 0.0) value.toLong().toString() else value.toString()
 
         /**
-         * Neuer Alarm im einfachen Modus: «Wenn BTC über [Betrag] geht», Betrag = 5 % über dem
-         * aktuellen Kurs, auf drei gültige Stellen ([AlarmTemplates.suggestedThresholdText]).
-         */
-        /**
          * Neuer Alarm mit leerem Feld; der aktuelle Kurs steht als Platzhalter ([pricePlaceholder],
          * aus [priceHint]). «über» wie bei [newFor].
          */
@@ -296,6 +292,10 @@ data class AlarmDraft(
         /** Gültige Stellen des Kurses als Platzhalter ([pricePlaceholder]). */
         const val PLACEHOLDER_DIGITS = 6
 
+        /**
+         * Neuer Alarm im einfachen Modus: «Wenn BTC über [Betrag] geht», Betrag = 5 % über dem
+         * aktuellen Kurs, auf drei gültige Stellen ([AlarmTemplates.suggestedThresholdText]).
+         */
         fun newFor(lastPrice: Double?, decimalSeparator: Char = localeDecimalSeparator()): AlarmDraft {
             val text = AlarmTemplates.suggestedThresholdText(lastPrice, AlarmCondition.PRICE_ABOVE, decimalSeparator)
             return AlarmDraft(thresholdText = text, decimalSeparator = decimalSeparator, suggestedText = text)

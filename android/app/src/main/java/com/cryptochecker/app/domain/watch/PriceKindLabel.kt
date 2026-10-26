@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
 /**
- * Wie das Aktionsblatt den Kurs benennt, wenn er kein letzter Handel ist (reine Logik, wie `PriceKindLabel.swift`):
+ * Wie das Aktionsblatt den Kurs benennt, wenn er kein letzter Handel ist (reine Logik, wie iOS `PriceKindLabel` in `MarkFallback.swift`):
  *  - [MARK]: Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch) — geht allem vor, denn darauf
  *    lösen auch keine Alarme aus.
  *  - [MID]: Börse meldet den Mittelkurs ([com.cryptochecker.marketdata.model.Market.priceIsMid]).

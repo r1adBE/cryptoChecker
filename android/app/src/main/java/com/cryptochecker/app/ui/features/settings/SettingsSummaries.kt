@@ -16,7 +16,7 @@ import com.cryptochecker.app.settings.UpdateMode
 internal fun onOff(on: Boolean): String =
     stringResource(if (on) R.string.settings_summary_on else R.string.option_off)
 
-/** Kurzwert «Aktualisierung»: die Wahl von «Wie aktuell?» («Sparsam» oder «Live, solange offen»). */
+/** Kurzwert «Kurs-Aktualisierung»: die Wahl von «Wie aktuell?» («Sparsam» oder «Live, solange offen»). */
 @Composable
 internal fun updatesSummary(settings: AppSettings): String =
     if (settings.updateMode == UpdateMode.SPARSAM) stringResource(R.string.update_mode_sparsam)

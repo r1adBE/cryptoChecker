@@ -164,8 +164,8 @@
     <string name="bulk_undo_confirm_text">Pary, które w międzyczasie dostały alarm, zostaną.</string>
     <string name="bulk_undo_expired">Cofnięcie nie jest już możliwe – pary zostają na liście obserwowanych.</string>
     <string name="explorer_section_spot">Spot</string>
-    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_futures">Kontrakty terminowe</string>
     <string name="explorer_section_dex">Pule DEX</string>
     <string name="explorer_section_forex">Forex (kurs referencyjny)</string>
-    <string name="explorer_forex_hint">Dzienny kurs Europejskiego Banku Centralnego (przez Frankfurter), nie na żywo – bez alertów.</string>
+    <string name="explorer_forex_hint">Dzienny kurs Europejskiego Banku Centralnego (przez Frankfurter), nie na żywo – bez alarmów.</string>
 </resources>

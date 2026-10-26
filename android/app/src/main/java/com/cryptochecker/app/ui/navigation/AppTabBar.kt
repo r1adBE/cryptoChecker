@@ -69,7 +69,7 @@ internal data class BottomTab(
 
 /**
  * Merkliste · Markt · (Portfolio) · Einstellungen (Runde 31: ohne Tab «Suchen»).
- * Der Portfolio-Tab erscheint nur, wenn er in den Optionen eingeschaltet ist. Paare sucht und
+ * Der Portfolio-Tab erscheint nur, wenn er unter Einstellungen › Portfolio eingeschaltet ist. Paare sucht und
  * fügt man auf einer eigenen Seite hinzu ([ScreenRoute.Explorer]), geöffnet mit «+» der Merkliste.
  */
 internal fun buildBottomTabs(portfolioEnabled: Boolean) = buildList {

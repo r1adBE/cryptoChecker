@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-/// «Basis der %-Änderung» (Einstellungen › Darstellung, wie bei Binance «Change(%) & Chart
+/// «Basis der %-Änderung» (Einstellungen › Merkliste, wie bei Binance «Change(%) & Chart
 /// Timezone») — wie `ChangeBasis.kt`. Worauf sich Prozent-Änderung, Puls-Zeile, Aktionsblatt,
 /// Widgets und Live Activity beziehen; Alarme rechnen unabhängig davon.
 ///  - `ROLLING_24H`: rollende 24 Stunden (Standard).

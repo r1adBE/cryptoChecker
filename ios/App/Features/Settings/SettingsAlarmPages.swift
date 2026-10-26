@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Alarme: «Wie aktuell?» (öffnet «Aktualisierung»), Markt-Meldungen und Sprachausgabe (seit Build 132 hier statt unter
+/// Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung»), Markt-Meldungen und Sprachausgabe (seit Build 132 hier statt unter
 /// «Erweitert»), Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
 @MainActor
 struct AlarmSettingsPage: View {
@@ -48,7 +48,7 @@ struct AlarmSettingsPage: View {
     var body: some View {
         SettingsSubPage(title: L("settings_row_alarms")) {
             // «Wie aktuell?» zuerst: davon hängt ab, wie zeitnah Alarme melden (dieselbe Seite wie
-            // «Aktualisierung» unter «Allgemein») — wie `AlarmsPage` (Android)
+            // «Kurs-Aktualisierung» unter «Allgemein») — wie `AlarmsPage` (Android)
             SettingsNavRow(title: L("update_mode_title"), icon: .system("arrow.clockwise"),
                            value: SettingsSummary.updatesText(settings)) {
                 UpdatesSettingsPage()
@@ -155,7 +155,7 @@ struct AlarmSettingsPage: View {
                 .padding(.bottom, Spacing.xs)
             }
             RowDivider()
-            // Zahl am App-Symbol: zählt neue Alarme, beim Öffnen der App wieder 0
+            // Zahl am App-Symbol: zählt neue Alarme und Markt-Meldungen, beim Öffnen der App wieder 0
             SwitchRow(
                 title: L("settings_app_badge"),
                 subtitle: L("ios_settings_app_badge_hint"),

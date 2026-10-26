@@ -9,7 +9,7 @@ import Foundation
 ///   `liveIntervalSeconds` bleibt nur für Sicherungen erhalten.
 /// - `ongoingNotifications` hat auf iOS keine Wirkung, bleibt aber für Sicherungen erhalten.
 struct AppSettings: Codable, Equatable, Sendable {
-    /// «Wie aktuell?»: Sparsam oder Live, solange offen (Standard) — wie Android (`UpdateMode`).
+    /// «Wie aktuell?»: Sparsam (Standard) oder Live, solange offen — wie Android (`UpdateMode`).
     /// Ersetzt die früheren Schalter «backgroundUpdates», «liveService» und «liveWebSocket»; die
     /// Hintergrund-Aktualisierung läuft in jeder Wahl.
     var updateMode: UpdateMode = .default
@@ -76,7 +76,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     var activitySensitivity: ActivitySensitivity = .NORMAL
     /// Morgen-Mitteilung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten.
     var macroNotifications: Bool = false
-    /// Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). Für neue Installationen
+    /// Optionaler Bereich «Portfolio» (eigener Tab vor den Einstellungen). Für neue Installationen
     /// ab Werk aus; gespeicherte Einstellungen ohne den Wert behalten den bisherigen Standard an
     /// (`legacyPortfolioEnabled`) — wie Android.
     var portfolioEnabled: Bool = false
@@ -110,7 +110,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// stellt man unter Markt-Meldungen ein, das ⚡ an den Paaren bleibt.
     var watchlistActivityCard: Bool = true
     /// Echte Coin-Logos (alle auf einmal von CoinGecko geladen, auf dem Gerät gespeichert) in
-    /// Merkliste, Aktionsblatt, Markt und «Paar hinzufügen». Aus (Standard): Initialen.
+    /// Merkliste, Aktionsblatt, Markt und «Paar hinzufügen». Aus: Initialen. Ab Werk an.
     var coinLogos: Bool = true
     /// Coin-Logos im Portfolio (Positionen, Coin-Details, Auswertungen) — ab Werk an.
     var portfolioCoinLogos: Bool = true
@@ -148,7 +148,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Hinweis «Wann Alarme geprüft werden» (`AlarmTimingHint`) wurde einmal gezeigt. Reiner Merker der
     /// Oberfläche: nur auf diesem Gerät, nicht in der Sicherung — wie Android.
     var alarmTimingHintShown: Bool = false
-    /// Erstes Paar überhaupt hinzugefügt (Start-Tipp oder Hinzufügen-Tab) — danach
+    /// Erstes Paar überhaupt hinzugefügt (Start-Tipp oder Seite «Paar hinzufügen») — danach
     /// kein «Erst-Hinzufügen»-Moment mehr. Gleicher Schlüssel wie Android; nicht in der Sicherung.
     var firstPairAdded: Bool = false
     /// Chart im Aktionsblatt eines Paars als Linie statt Kerzen (zuletzt gewählt, für alle Paare

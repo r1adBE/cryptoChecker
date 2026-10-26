@@ -20,7 +20,7 @@ import com.cryptochecker.app.ui.theme.LocalDarkTheme
 
 /**
  * Gleicher Anfang im ⋯-Menü von Merkliste, Markt und Portfolio: App-Logo und Name (öffnet
- * «Über»), Trennlinie, «Aktualisieren» (läuft es, dreht ein Kreis statt des Symbols). Danach
+ * «Über die App»), Trennlinie, «Aktualisieren» (läuft es, dreht ein Kreis statt des Symbols). Danach
  * folgen die eigenen Einträge des Tabs. [onClose] schliesst das Menü vor jeder Aktion.
  */
 @Composable

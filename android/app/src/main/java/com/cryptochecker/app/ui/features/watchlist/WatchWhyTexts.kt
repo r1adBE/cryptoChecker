@@ -244,7 +244,6 @@ internal fun fundingTrendText(trend: FundingTrend): String = pluralStringResourc
     trend.hours,
 )
 
-/** Funding mit drei Nachkommastellen, z. B. «+0.080 %». */
 /** Funding-Satz der Börse; stündlich abgerechnet ([intervalHours] = 1, Hyperliquid) mit «pro Std.». */
 @Composable
 internal fun fundingText(value: Double, intervalHours: Int?): String =

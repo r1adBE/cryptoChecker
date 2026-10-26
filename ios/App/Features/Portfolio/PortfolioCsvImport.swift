@@ -324,7 +324,7 @@ struct PortfolioCsvImportSheet: View {
     /// Portfolio bei Bedarf einschalten, melden und schliessen.
     private func finishSave(inserted: Int, storedUpdates: [CsvStoredTransfer], batch: String, closed: Bool) {
         // Gespeicherte Seiten verknüpfter Umbuchungen: neu gelesen, inzwischen gelöscht oder verknüpft → ausgelassen;
-        // die Transaktion wechselt in diesen Importlauf («Import rückgängig» setzt sie zurück) — wie Android `linkStored`
+        // die Transaktion wechselt in diesen Importlauf («Import rückgängig» setzt sie zurück) — wie Android `linkStoredTransfers`
         var linkedStored = 0
         var linkFailed = false
         for u in storedUpdates {

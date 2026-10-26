@@ -113,8 +113,7 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch { widgetUpdater.updateAll() }
     }
 
-    /** Hell/Dunkel für App und Widgets. */
-    /** null = wie das System. */
+    /** Hell/Dunkel für App und Widgets; null = wie das System. */
     fun setDarkMode(dark: Boolean?) = update {
         settingsRepository.setDarkMode(dark)
         appearanceApplier.applyNightMode(dark)

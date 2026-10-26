@@ -10,7 +10,7 @@ import java.math.BigDecimal
  *  - [INCOME_RECEIPT_VALUE]: Belohnung/Airdrop ohne Wert — der Einstand ist rechtlich der Wert beim Zufluss (Einkommen);
  *    der Steuer-Export rechnet ihn schon zum Tagesschluss ([PortfolioLedger.valueRewardsAtDayClose]). Kein Angebot, ihn zu
  *    ändern — nur der Hinweis «Einstand = Wert bei Zufluss (Einkommen)».
- *  - [INCOME_ZERO]: AT, Belohnung ohne Zins ([TaxEngineAt]: Staking/Airdrop mit Anschaffungskosten 0, § 27b Abs. 2 EStG) —
+ *  - [INCOME_ZERO]: AT, Belohnung ohne Zins ([TaxEngines.atSplit]: Staking/Airdrop mit Anschaffungskosten 0, § 27b Abs. 2 EStG) —
  *    ebenfalls nicht zu ändern.
  */
 enum class CostGapKind { EDITABLE, INCOME_RECEIPT_VALUE, INCOME_ZERO }

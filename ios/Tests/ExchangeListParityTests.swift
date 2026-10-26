@@ -1,9 +1,9 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Börsenliste (Build 133): Abschnitte und Volumen-Reihenfolge (`exchange_order.json`), Netzwerke von GeckoTerminal
+/// Börsenliste (Build 133): Abschnitte und Volumen-Reihenfolge (`picker_order.json`), Netzwerke von GeckoTerminal
 /// (`gecko_terminal_network.json`), EZB-Referenzkurse (Gruppen, Adresse, Lesen) und der Ausweg der DEX-Kurse über
-/// GeckoTerminal. Wie Android `ExchangeOrderParityTest.kt`, `GeckoTerminalParityTest.kt`, `EcbReferenceTest.kt`.
+/// GeckoTerminal. Wie Android `ExchangeOrderParityTest.kt` (auch GeckoTerminal-Netzwerke), `DexGeckoTerminalFallbackTest.kt`, `NewMarketsTest.kt`.
 final class ExchangeListParityTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -11,7 +11,7 @@ final class ExchangeListParityTests: XCTestCase {
     // MARK: Abschnitte und Volumen
 
     func testExchangeOrderSections() throws {
-        let data = try S.fixture("exchange_order")
+        let data = try S.fixture("picker_order")
         let cases = S.list(data["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 3, "cases")
         for c in cases {
@@ -30,7 +30,7 @@ final class ExchangeListParityTests: XCTestCase {
     }
 
     func testExchangeOrderParseVolumes() throws {
-        let data = try S.fixture("exchange_order")
+        let data = try S.fixture("picker_order")
         let parse = try XCTUnwrap(data["parse"] as? [String: Any])
         let spot = try JSONSerialization.data(withJSONObject: parse["spot"] ?? [])
         let derivatives = try JSONSerialization.data(withJSONObject: parse["derivatives"] ?? [])

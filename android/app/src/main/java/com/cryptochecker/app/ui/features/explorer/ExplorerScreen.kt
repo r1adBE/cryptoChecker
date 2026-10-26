@@ -368,7 +368,7 @@ private fun BrowseContent(
 
     ExchangeMissingRow()
 
-    // Entwickleroption: HTTP-Protokoll (Einstellungen → Entwickler)
+    // Entwickleroption: HTTP-Protokoll (Einstellungen › Über die App › Entwickler, nur Debug)
     if (showHttpLog) {
         Spacer(modifier = Modifier.size(12.dp))
         LogBox(logText)

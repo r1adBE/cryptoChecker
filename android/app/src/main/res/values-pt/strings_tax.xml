@@ -47,7 +47,7 @@
     <string name="tax_export_col_gain">Ganho %1$s</string>
     <string name="tax_export_col_gross">Preço antes das comissões %1$s</string>
     <string name="tax_export_col_long_term">detido &gt; 1 ano</string>
-    <string name="tax_export_col_portfolio_value">Valor do portefólio %1$s</string>
+    <string name="tax_export_col_portfolio_value">Valor do portfólio %1$s</string>
     <string name="tax_export_col_proceeds">Receita %1$s</string>
     <string name="tax_export_col_sold">Data de venda</string>
     <string name="tax_export_cost_incomplete">custo total de aquisição incompleto</string>
@@ -181,7 +181,7 @@
     <string name="tax_method_uk_pool">Conjunto comum segundo a Section 104 (Section 104 pool – mesmo dia / 30 dias)</string>
     <string name="tax_note_at">Média móvel por moeda e carteira – não entre todas as carteiras (KryptowährungsVO § 2). As recompensas entram na nova posição com custo de aquisição 0 (BMF: staking / airdrops) – o ficheiro de rendimentos lista-as ao valor na receção. As comissões não são dedutíveis para a posição adquirida a partir de 1.3.2021 (§ 27a n.º 4 al. 2, § 20 n.º 2 EStG): custo e receita sem comissões. Os juros de lending (tipo da importação CSV ou nota) são rendimento na receção a 27,5 por cento e mantêm esse valor como custo de aquisição.</string>
     <string name="tax_note_at_staking">Staking com moedas próprias e airdrops: o valor no recebimento não conta para efeitos fiscais – por lei o custo de aquisição é 0 (§ 27b Abs. 2 EStG; BMF «Kryptowährungen»). O imposto só se aplica na venda.</string>
-    <string name="tax_note_fr">As vendas e as comissões pagas em cripto são cessões – as trocas são diferidas. Uma comissão em cripto numa venda conta no preço antes das comissões – caso contrário é uma cessão própria pelo seu valor. Valor do portefólio a partir dos fechos diários – se faltar um o custo fica vazio.</string>
+    <string name="tax_note_fr">As vendas e as comissões pagas em cripto são cessões – as trocas são diferidas. Uma comissão em cripto numa venda conta no preço antes das comissões – caso contrário é uma cessão própria pelo seu valor. Valor do portfólio a partir dos fechos diários – se faltar um o custo fica vazio.</string>
     <string name="tax_note_network_fee">Uma comissão de rede paga em cripto (transferência para a tua própria carteira, levantamento) é uma alienação das moedas da comissão ao valor de mercado – ganho ou perda só nessas moedas, não uma perda da comissão inteira (%1$s). Sem preço registado: fecho do mesmo dia (UTC); sem fecho o valor de venda fica vazio.</string>
     <string name="tax_note_specific_id">A identificação específica (Specific Identification) não é suportada – aplica-se FIFO (primeiro comprado – primeiro vendido).</string>
     <string name="tax_note_spouse_gift">Uma doação marcada «ao cônjuge / parceiro» não tem ganho nem perda: valor de venda = o teu custo, que o parceiro assume (%1$s).</string>
@@ -253,5 +253,5 @@
     <string name="tax_summary_fr_address_no_cost">Os endereços observados contam para o valor total, mas não têm custo de aquisição – o ganho tende, por isso, a ser demasiado alto. Regista o custo como compra.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Valores de mercado sem preço registado (comissões, oferecido/pago, troca, recompensas, comissões de rede, valor da carteira) ao fecho diário (UTC) do dia da transação</string>
+    <string name="tax_export_day_close_rule">Valores de mercado sem preço registado (comissões, oferecido/pago, troca, recompensas, comissões de rede, valor do portfólio) ao fecho diário (UTC) do dia da transação</string>
 </resources>

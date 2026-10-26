@@ -53,7 +53,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-// «Diagnose teilen» unter Einstellungen › Über die App — wie iOS `DiagnosticsRow`.
+// «Diagnose teilen» unter Einstellungen › Über die App — wie iOS `DiagnosticsCard`.
 
 /**
  * Baut den Bericht ([DiagnosticReport]) nur aus Daten auf dem Gerät: Einstellungen für Alarme, Zustand von

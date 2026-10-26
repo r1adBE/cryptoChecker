@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 
 /**
  * Lesbare Höchstbreite des Inhalts auf breiten Bildschirmen (Tablet, Querformat):
- * Karten laufen nicht mehr über 1000 dp, sondern stehen mittig. Hintergründe,
+ * Karten laufen nicht mehr über 640 dp, sondern stehen mittig. Hintergründe,
  * Kopfzeilen und die Scroll-Fläche bleiben voll breit. Wie iOS `readableContentWidth()`.
  */
 val ReadableMaxWidth: Dp = 640.dp

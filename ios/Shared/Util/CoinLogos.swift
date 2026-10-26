@@ -22,7 +22,7 @@ import Foundation
 ///   (`pickTradFi`, Schlüssel `tradFiKey`); ohne Treffer Initialen.
 /// - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS (`isAllowedURL`). Kein eigenes
 ///   Logo-Paket (CoinGecko-API-Bedingungen verbieten Weitergabe und Speicherung ihrer Daten).
-/// - Mitgeliefert: das freie Icon-Paket «Cryptocurrency Icons» (CC0, `iconPackFile`, rund
+/// - Mitgeliefert: das freie Icon-Paket «Cryptocurrency Icons» (CC0, `iconPackName`, rund
 ///   480 grössere Coins) — sofort und ohne Netz; Reihenfolge: CoinGecko → Binance-Liste/Alpha →
 ///   mitgeliefertes Icon → Initialen. Kein Abruf bei jsDelivr mehr.
 /// - Kein Logo (unbekannt, Fehler, Schalter aus): Kreis mit `initials` — nie ein kaputtes Bild.

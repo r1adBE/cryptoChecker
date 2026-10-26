@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 import com.cryptochecker.app.settings.AccentColor
 
 /**
- * Semantische Farben der App (wie `AppColors`/`AppSemantic` in iOS `Theme.swift`).
+ * Semantische Farben der App (wie `AppColors` in iOS `Theme.swift`).
  * Ansichten nehmen diese Namen statt fester Farbwerte:
  *
  * - [brand] — Akzentfarbe (Knöpfe, Hervorhebungen), aus dem Farbschema
@@ -92,7 +92,7 @@ object AssetColors {
 /**
  * K3: Farbe, die Knöpfe mit dieser Akzentfarbe tatsächlich haben (primary des Schemas für hell bzw.
  * dunkel) — für den Farbpunkt in den Einstellungen statt der Grundfarbe (Orange: hell #A64827,
- * dunkel #ED835E = Grundfarbe und App-Icon). Wie iOS `AppAccent.primary`.
+ * dunkel #ED835E = Grundfarbe und App-Icon). Wie iOS `AccentColor.primary`.
  *
  * Ein Orange: #ED835E ist Markenfarbe, Icon und Akzent dunkel; #A64827 ist nur die
  * dunklere Stufe desselben Oranges für Knöpfe im hellen Modus (AA 4.5:1 auf heller Fläche).

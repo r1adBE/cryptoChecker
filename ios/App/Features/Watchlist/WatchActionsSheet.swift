@@ -115,7 +115,7 @@ struct WatchActionsSheet: View {
     /// So lange bleibt die Vorschau nach «Hinzufügen» höchstens stehen, bis der erste Kurs da ist.
     private static let addHoldNanos: UInt64 = 6_000_000_000
 
-    /// Vorschau › «Zur Merkliste hinzufügen»: wie der Hinzufügen-Tab — Dublettenprüfung
+    /// Vorschau › «Zur Merkliste hinzufügen»: wie die Seite «Paar hinzufügen» — Dublettenprüfung
     /// (`addWatch`), Kurs-Mitteilung an, Erst-Moment beim allerersten Paar, Erlaubnis für
     /// Mitteilungen jetzt fragen; danach gleich den Kurs holen. Stand das Paar schon in der
     /// Merkliste, zeigt das Blatt einfach jenes.

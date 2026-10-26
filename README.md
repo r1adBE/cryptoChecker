@@ -1,6 +1,6 @@
 # Crypto Checker
 
-**Crypto Checker is a crypto checker: prices straight from your exchange, and a notice when a check finds
+**Crypto Checker: prices straight from your exchange, and a notice when a check finds
 your level reached – no account.** It checks when it looks (with the app closed, the phone decides how often), not
 at the moment a price is hit. Watchlist, widgets and a market overview; as an extra, “What is moving with it?”
 shows what moves at the same time as a single coin – no cause, no forecast, no investment advice.
@@ -35,7 +35,7 @@ themselves contain no donation feature.
 | [`ios/`](ios) | iOS (iPhone) app with widgets (Swift, SwiftUI), Xcode project `CryptoChecker.xcodeproj` |
 | [`docs/`](docs) | Website and privacy policy (GitHub Pages) |
 | [`docs/macro/`](docs/macro) | Calendar of major US economic releases (CPI, PPI, jobs report, Fed decisions, PCE) used by the app's economic-data hint |
-| [`DEVELOPMENT.md`](DEVELOPMENT.md) | How exchange adapters work and how to add an exchange |
+| [`DEVELOPMENT.md`](DEVELOPMENT.md) | Development guide: exchange adapters (how to add an exchange), tests, CI and app rules |
 | [`.github/`](.github) | Issue templates, CI workflows and scripts |
 
 ## Build
@@ -123,7 +123,8 @@ made with the GitHub noreply address only. The app reads this file at most
 once a day and sends no personal data; it also ships a built-in copy.
 GitHub disables scheduled workflows after 60 days without repository activity, so
 [`.github/workflows/keepalive.yml`](.github/workflows/keepalive.yml) re-enables the scheduled
-workflows (market data, economic calendar, exchange check) once a week through the API – without commits.
+workflows (all scheduled ones: market data, economic calendar, exchange check and the other weekly checks) once a
+week through the API – without commits.
 
 > **Deutsch:** Termine wichtiger US-Wirtschaftsdaten für den Hinweis
 > «Wirtschaftsdaten» in der App, wöchentlich automatisch aus den offiziellen
@@ -149,7 +150,8 @@ trademarks of their projects. The settings page «Coin logos» shows «Powered b
 ## Portfolio (optional, off by default)
 
 An optional portfolio on the device: transactions you enter yourself (buy, sell, swap,
-transfer, reward, deposit, withdrawal, gift/payment), CSV import (Relai, Swissquote, Kraken),
+transfer, reward, deposit, withdrawal, gift/payment), CSV import (Relai, Swissquote, Kraken,
+Bitpanda, Binance, Coinbase),
 read-only watched addresses (public BTC/ETH/… addresses, xpub and Taproot `tr(…)` descriptors — never a seed), value history,
 portfolio alarms and widgets, and CSV exports: cut-off holdings and realized gains. Country tax
 templates (DE, AT, CH, UK, US, CA, AU, FR, JP) are marked **Beta**: simplified rules for
@@ -213,7 +215,7 @@ MIT, see [`LICENSE`](LICENSE). Anyone may use, copy, modify and distribute the
 code, provided the copyright notice and the license text are kept.
 Portions derived from BitcoinChecker by mobnetic and Aneonex Software (MIT); their
 original copyright notices are kept in [`LICENSE`](LICENSE).
-The licence file shown in the apps is byte-identical with `LICENSE`; the origin and third-party notes follow
+The license file shown in the apps is byte-identical with `LICENSE`; the origin and third-party notes follow
 from a separate `NOTICE-origin.txt`.
 Third-party licenses used by the apps (e.g. the Rubik font, SIL Open
 Font License 1.1) are listed in the apps under *About › Licenses*.

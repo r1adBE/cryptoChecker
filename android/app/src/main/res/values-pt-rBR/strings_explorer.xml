@@ -155,5 +155,5 @@
     <string name="explorer_section_futures">Futuros</string>
     <string name="explorer_section_dex">Pools DEX</string>
     <string name="explorer_section_forex">Forex (taxa de referência)</string>
-    <string name="explorer_forex_hint">Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alertas.</string>
+    <string name="explorer_forex_hint">Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes.</string>
 </resources>

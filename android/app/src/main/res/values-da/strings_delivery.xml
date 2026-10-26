@@ -46,7 +46,7 @@
     <string name="delivery_low_power">Strømsparetilstand</string>
     <string name="delivery_swipe_away">Appen swipet væk?</string>
     <string name="delivery_swipe_away_note">Hvis du swiper appen væk i appskifteren, tjekker iOS ikke længere i baggrunden, før du åbner den igen.</string>
-    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity">Live-aktivitet</string>
     <string name="delivery_live_activity_note">Viser kursen på låseskærmen, men opdateres kun, når appen tjekker – alarmer bliver ikke tjekket oftere af den grund.</string>
 
     <string name="alarm_first_check">Tjek, at alarmer når frem</string>

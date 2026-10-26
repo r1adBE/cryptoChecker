@@ -11,12 +11,12 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Reihenfolge der Börsenauswahl (`testdata/parity/exchange_order.json`) und Netzwerke des DEX-Auswegs
+ * Reihenfolge der Börsenauswahl (`testdata/parity/picker_order.json`) und Netzwerke des DEX-Auswegs
  * (`gecko_terminal_network.json`). Gegenstück: `Tests/ParityFixtureTests.swift`.
  */
 class ExchangeOrderParityTest {
 
-    private val order = ParityJson.load("exchange_order.json")
+    private val order = ParityJson.load("picker_order.json")
     private val networks = ParityJson.load("gecko_terminal_network.json")
 
     @Test

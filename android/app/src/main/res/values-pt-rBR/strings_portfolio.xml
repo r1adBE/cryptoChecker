@@ -272,10 +272,10 @@
 
     <string name="portfolio_tx_interest">Juros (empréstimo)</string>
     <string name="portfolio_tx_interest_hint">Conta como renda ao ser recebido (Áustria). Deixe desligado para recompensas de staking e airdrops.</string>
-    <string name="app_lock_no_screen_lock">Configure um bloqueio de tela para abrir a carteira.</string>
-    <string name="app_lock_turn_off_action">Desativar bloqueio da carteira</string>
-    <string name="app_lock_turn_off_confirm_title">Desativar o bloqueio da carteira?</string>
-    <string name="app_lock_turn_off_confirm_message">Sem bloqueio de tela não é possível desbloquear a carteira. Desativado, o app volta a mostrar sua carteira sem perguntar. Depois de configurar um bloqueio de tela, você pode reativar o bloqueio nas Configurações.</string>
+    <string name="app_lock_no_screen_lock">Configure um bloqueio de tela para abrir o portfólio.</string>
+    <string name="app_lock_turn_off_action">Desativar bloqueio do portfólio</string>
+    <string name="app_lock_turn_off_confirm_title">Desativar o bloqueio do portfólio?</string>
+    <string name="app_lock_turn_off_confirm_message">Sem bloqueio de tela não é possível desbloquear o portfólio. Desativado, o app volta a mostrar seu portfólio sem perguntar. Depois de configurar um bloqueio de tela, você pode reativar o bloqueio nas Configurações.</string>
 
     <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
     <string name="ledger_cost_fx_note">“Desde a compra” e custo de aquisição em %1$s: custo pelo câmbio do dia da compra, valor pelo câmbio de hoje.</string>

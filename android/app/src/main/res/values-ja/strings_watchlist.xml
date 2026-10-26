@@ -204,6 +204,6 @@
     <string name="watchlist_sort_by_coin">コイン別に並べ替え</string>
     <string name="watchlist_sort_by_exchange">取引所別に並べ替え</string>
     <string name="watchlist_limit_reached">ウォッチリストに登録できるペアは最大%1$s件です。</string>
-    <string name="watch_price_reference">参考レート（日次）</string>
+    <string name="watch_price_reference">参照レート（日次）</string>
     <string name="watch_price_daily">日次</string>
 </resources>

@@ -192,5 +192,5 @@
     <string name="alarm_editor_more_summary">Szybkie alarmy, inne warunki, dźwięk i czytanie</string>
     <string name="alarm_reliability_storage_no_key">Alarmy w tle wstrzymane – lista nie jest zapisana</string>
     <string name="alarms_limit_reached">Para może mieć maksymalnie %1$s alarmów.</string>
-    <string name="alarms_reference_rate_hint">Kursy referencyjne EBC są ustalane tylko raz dziennie – nie ma dla nich alertów.</string>
+    <string name="alarms_reference_rate_hint">Kursy referencyjne EBC są ustalane tylko raz dziennie – nie ma dla nich alarmów.</string>
 </resources>

@@ -100,7 +100,8 @@ class BitunixFutures : SimpleMarket(
     companion object {
         /**
          * Basis eines Kontrakts: das Symbol ohne die Gegenwährung, wenn es darauf endet («1000PEPEUSDT» → «1000PEPE»;
-         * `base` hiesse «PEPE», der Kurs gilt aber für 1000 Stück). Sonst `base`. Wie iOS `BitunixFutures.baseOf`.
+         * `base` hiesse «PEPE», der Kurs gilt aber für 1000 Stück). Sonst `base`.
+         * Wie iOS `BitunixFutures.base(symbol:base:quote:)`.
          */
         fun baseOf(symbol: String, base: String, quote: String): String =
             if (quote.isNotEmpty() && symbol.length > quote.length && symbol.endsWith(quote)) {

@@ -68,7 +68,7 @@ SEED = """<?xml version="1.0" encoding="UTF-8"?>
 </verification-metadata>
 """
 
-# Signaturen an; nur der armored Schlüsselbund (verification-keyring.keys) wird geschrieben und gelesen
+# Signatures on; only the armored keyring (verification-keyring.keys) is written and read
 SEED_SIGNED = SEED.replace(
     "      <verify-signatures>false</verify-signatures>\n",
     "      <verify-signatures>true</verify-signatures>\n      <keyring-format>armored</keyring-format>\n")
@@ -79,7 +79,7 @@ class Invalid(Exception):
 
 
 def canonical(element):
-    """Element als vergleichbares Tupel: Name, Attribute sortiert, Text ohne Leerraum, Kinder in Reihenfolge."""
+    """Element as a comparable tuple: name, sorted attributes, text without whitespace, children in order."""
     return (element.tag, tuple(sorted(element.attrib.items())), (element.text or "").strip(),
             tuple(canonical(child) for child in element))
 
@@ -89,7 +89,7 @@ def seed_configuration(text):
 
 
 def check_scope(rel, attrs, where):
-    """Geltungsbereich eines vertrauten Schlüssels: bekannte Attribute, eine Gruppe, keine Alles-Regex."""
+    """Scope of a trusted key: known attributes, one group, no match-everything regex."""
     unknown = set(attrs) - SCOPE_ATTRS
     if unknown:
         raise Invalid(f"{rel}: {where}: unexpected attributes {sorted(unknown)}")
@@ -130,7 +130,7 @@ def check_keys(rel, config):
 
 
 def check_configuration(rel, root):
-    """Konfiguration eines der beiden SEEDs; Schlüssel nur im Signaturmodus. Ergibt True im Signaturmodus."""
+    """Configuration of one of the two SEEDs; keys only in signature mode. Returns True in signature mode."""
     configs = root.findall(NS + "configuration")
     if len(configs) != 1:
         raise Invalid(f"{rel}: expected exactly one <configuration>")
@@ -142,7 +142,7 @@ def check_configuration(rel, root):
     signed = signatures_element is not None and (signatures_element.text or "").strip() == "true"
     if signed:
         check_keys(rel, config)
-        # Reihenfolge der Abschnitte egal (Gradle schreibt keyring-format je nach Version an anderer Stelle)
+        # Section order does not matter (Gradle writes keyring-format in a different place depending on the version)
         rest = sorted(canonical(child) for child in config if child.tag not in (NS + "trusted-keys", NS + "ignored-keys"))
         seed_config = ET.fromstring(SEED_SIGNED.encode("utf-8")).find(NS + "configuration")
         if rest != sorted(canonical(child) for child in seed_config) or config.attrib:
@@ -177,7 +177,7 @@ def sha256_of(path):
 
 
 def fill_checksums(path, cache):
-    """Ergänzt sha256 aus dem Gradle-Cache (<group>/<name>/<version>/<hash>/<file>); ergibt die Zahl neuer Einträge."""
+    """Adds sha256 from the Gradle cache (<group>/<name>/<version>/<hash>/<file>); returns the number of new entries."""
     ET.register_namespace("", NS_URI)
     ET.register_namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance")
     tree = ET.parse(path)
@@ -339,7 +339,7 @@ def self_test():
         expect_invalid(tmp, "unexpected file")
         os.remove(os.path.join(tmp, "app/build.gradle.kts"))
         good = SEED.replace("<components>", component)
-        # Gleiche Konfiguration mit anderem Leerraum und anderer Attributreihenfolge bleibt gültig
+        # The same configuration with different whitespace and attribute order stays valid
         same = good.replace('<trust file=".*-javadoc[.]jar" regex="true"', '<trust   regex="true" file=".*-javadoc[.]jar"')
         key = "0123456789ABCDEF0123456789ABCDEF01234567"
         configuration_cases = [

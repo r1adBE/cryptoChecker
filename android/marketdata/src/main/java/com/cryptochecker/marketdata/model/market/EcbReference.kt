@@ -91,7 +91,7 @@ class EcbReference : Market("ECB (Frankfurter)", "E C B") {
         private val CODE = Regex("[A-Z]{3}")
         private val PAIR_ID = Regex("[A-Z]{6}")
 
-        /** Zeitreihe ab [today] − [WINDOW_DAYS]: `/{start}..?base=B&symbols=Q1,Q2`. Wie iOS `seriesUrl`. */
+        /** Zeitreihe ab [today] − [WINDOW_DAYS]: `/{start}..?base=B&symbols=Q1,Q2`. Wie iOS `seriesURL`. */
         fun seriesUrl(base: String, quotes: List<String>, today: LocalDate): String =
             "$FRANKFURTER_API/${today.minusDays(WINDOW_DAYS)}..?base=$base&symbols=${quotes.joinToString(",")}"
 
