@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Çiftet për të cilat ke vendosur ndërkohë një alarm mbeten.</string>
     <string name="bulk_undo_expired">Zhbërja nuk është më e mundur – çiftet mbeten në listën e ndjekjes.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">Pool-e DEX</string>
+    <string name="explorer_section_forex">Forex (kurs reference)</string>
+    <string name="explorer_forex_hint">Kursi ditor i Bankës Qendrore Evropiane (nëpërmjet Frankfurter), jo live – pa alarme.</string>
 </resources>

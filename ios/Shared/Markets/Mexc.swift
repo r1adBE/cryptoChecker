@@ -74,6 +74,9 @@ final class Mexc: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market
 
 /// MEXC USDT-Perpetuals (contract.mexc.com).
 final class MexcFutures: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(
             key: "MexcFutures",

@@ -204,4 +204,6 @@
     <string name="watchlist_sort_by_coin">Sắp xếp theo coin</string>
     <string name="watchlist_sort_by_exchange">Sắp xếp theo sàn</string>
     <string name="watchlist_limit_reached">Danh sách theo dõi của bạn chỉ có thể có tối đa %1$s cặp.</string>
+    <string name="watch_price_reference">tỷ giá tham chiếu, hằng ngày</string>
+    <string name="watch_price_daily">hằng ngày</string>
 </resources>

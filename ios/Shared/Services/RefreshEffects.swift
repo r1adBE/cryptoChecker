@@ -14,6 +14,8 @@ extension PriceRefresher {
     static func checkAlarms(_ alarms: [Alarm], watch: Watch, updated: Watch, price: Double, now: Int64,
                             settings: AppSettings, speechAllowed: Bool, inputs: AlarmInputs,
                             outcome: inout Outcome) -> Bool {
+        // Quelle ohne Alarme (EZB-Referenzkurse, `Market.allowsAlarms`): auch importierte Alarme lösen nie aus
+        if MarketsConfig.market(watch.marketKey)?.allowsAlarms == false { return false }
         // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus (`DexLiquidity`)
         if DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId) {
             // Alarm-Protokoll: nur festhalten, warum nicht

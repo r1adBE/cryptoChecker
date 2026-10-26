@@ -35,6 +35,9 @@ final class Htx: HtxBase, @unchecked Sendable { // @unchecked: wie `Market` (kei
 
 /// HTX USDT-Perpetuals (linear swap). Kennung = `contract_code` («BTC-USDT»).
 final class HtxFutures: HtxBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(
             key: "HtxFutures",

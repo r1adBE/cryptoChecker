@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -23,6 +24,7 @@ private val DERIBIT_SETTLE_CURRENCIES = listOf("BTC", "ETH", "USDC")
  */
 class Deribit : Market("Deribit", "Deribit") {
     override val key = "Deribit"
+    override val category = MarketCategory.FUTURES
 
     // ── Einzelkurs ──
 

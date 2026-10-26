@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Parit, joille olet sillä välin asettanut hälytyksen, jäävät.</string>
     <string name="bulk_undo_expired">Kumoaminen ei ole enää mahdollista – parit jäävät seurantalistalle.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futuurit</string>
+    <string name="explorer_section_dex">DEX-poolit</string>
+    <string name="explorer_section_forex">Forex (viitekurssi)</string>
+    <string name="explorer_forex_hint">Euroopan keskuspankin päiväkurssi (Frankfurterin kautta), ei reaaliaikainen – ei hälytyksiä.</string>
 </resources>

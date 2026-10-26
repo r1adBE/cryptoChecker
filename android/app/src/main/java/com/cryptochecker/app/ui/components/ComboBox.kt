@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -46,6 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -69,24 +71,6 @@ private val ListScreenMargin = 32.dp
 /** Höchstens so viele Zeilen sichtbar, darüber wird gerollt. */
 private const val MAX_VISIBLE_ROWS = 10
 
-/** Eintrag der Aufklappliste: Stelle in der vollen Liste und Text. */
-private data class ComboEntry(val index: Int, val text: String)
-
-/**
- * Einträge in Anzeigereihenfolge. Mit Suchtext nur Treffer — erst die, die damit beginnen, dann
- * die, die ihn enthalten (ohne Gross-/Kleinschreibung). Favoriten stehen jeweils vorne.
- */
-private fun comboEntries(items: List<String>, query: String?, favorites: Set<String>): List<ComboEntry> {
-    val needle = query?.trim().orEmpty()
-    val all = items.mapIndexed(::ComboEntry)
-    val matching = if (needle.isEmpty()) all else {
-        val (prefix, rest) = all.partition { it.text.startsWith(needle, ignoreCase = true) }
-        prefix + rest.filter { it.text.contains(needle, ignoreCase = true) }
-    }
-    val (favored, others) = matching.partition { it.text in favorites }
-    return favored + others
-}
-
 /**
  * Auswahlfeld mit Aufklappliste.
  *
@@ -96,6 +80,8 @@ private fun comboEntries(items: List<String>, query: String?, favorites: Set<Str
  * @param favorites Einträge mit Stern, stehen vorne.
  * @param onToggleFavorite gesetzt: Stern je Zeile und langes Drücken schalten den Favoriten um.
  * @param emptyText blasser Text im Feld, solange nichts gewählt ist.
+ * @param sections Abschnittstitel je Eintrag (gleiche Länge wie [itemList], Build 133: Börsenauswahl Spot · Futures ·
+ *   DEX-Pools · Forex); die Liste zeigt dann Titelzeilen, die Suche geht über alle Abschnitte.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,6 +96,7 @@ fun ComboBox(
     onToggleFavorite: ((String) -> Unit)? = null,
     enabled: Boolean = true,
     emptyText: String? = null,
+    sections: List<String>? = null,
 ) {
     val focusManager = LocalFocusManager.current
     var open by remember { mutableStateOf(false) }
@@ -119,7 +106,7 @@ fun ComboBox(
     val selectedText = itemList.getOrNull(selectedIndex).orEmpty()
     // Nichts gewählt: «Bitte auswählen» blass im Feld statt leer
     val showsEmptyText = selectedText.isEmpty() && typed == null && !emptyText.isNullOrEmpty()
-    val entries = remember(itemList, typed, favorites) { comboEntries(itemList, typed, favorites) }
+    val entries = remember(itemList, typed, favorites, sections) { comboEntries(itemList, typed, favorites, sections) }
 
     fun close() {
         open = false
@@ -186,7 +173,7 @@ fun ComboBox(
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
-                    val first = entries.firstOrNull()
+                    val first = entries.firstOrNull { !it.header }
                     if (first != null) choose(first.index) else close()
                 },
             ),
@@ -212,7 +199,7 @@ fun ComboBox(
             // Ohne Suche zur aktuellen Auswahl rollen (zwei Zeilen Vorlauf), mit Suche nach oben
             LaunchedEffect(open, typed) {
                 if (typed.isNullOrEmpty()) {
-                    val at = entries.indexOfFirst { it.index == selectedIndex }
+                    val at = if (selectedIndex < 0) -1 else entries.indexOfFirst { !it.header && it.index == selectedIndex }
                     if (at > 2) listState.scrollToItem(at - 2)
                 } else {
                     listState.scrollToItem(0)
@@ -248,6 +235,10 @@ private fun ComboList(
             .height(rowHeight * rows),
     ) {
         items(entries) { entry ->
+            if (entry.header) {
+                ComboHeader(entry.text, rowHeight)
+                return@items
+            }
             ComboRow(
                 entry = entry,
                 selected = entry.index == selectedIndex,
@@ -258,6 +249,24 @@ private fun ComboList(
             )
         }
     }
+}
+
+/** Titelzeile eines Abschnitts: nicht wählbar, für Bedienungshilfen eine Überschrift. */
+@Composable
+private fun ComboHeader(title: String, rowHeight: Dp) {
+    Text(
+        text = title,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.primary,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = rowHeight)
+            .wrapContentHeight(Alignment.CenterVertically)
+            .padding(horizontal = 12.dp)
+            .semantics { heading() },
+    )
 }
 
 /** Zeilenhöhe: eine Textzeile bodyLarge plus Innenabstand, nie unter 48 dp (wächst mit der Schrift). */

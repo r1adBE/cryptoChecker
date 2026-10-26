@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -91,6 +92,7 @@ class MexcFutures : SimpleMarket(
     errorField = "message",
 ) {
     override val key = "MexcFutures"
+    override val category = MarketCategory.FUTURES
 
     // ── Einzelkurs ──
 

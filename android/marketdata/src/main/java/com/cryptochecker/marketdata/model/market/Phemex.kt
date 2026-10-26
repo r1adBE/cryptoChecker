@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -141,6 +142,7 @@ class PhemexFutures : PhemexBase(
     contractType = FuturesContractType.PERPETUAL,
 ) {
     override val key = "PhemexFutures"
+    override val category = MarketCategory.FUTURES
 
     // ── Einzelkurs ──
 

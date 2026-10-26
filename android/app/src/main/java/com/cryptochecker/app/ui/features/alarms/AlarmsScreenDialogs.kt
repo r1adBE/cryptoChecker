@@ -187,6 +187,16 @@ internal fun DexLowLiquidityNote() {
     }
 }
 
+/** EZB-Referenzkurs (Forex, [com.cryptochecker.marketdata.model.Market.allowsAlarms] false): keine Alarme. */
+@Composable
+internal fun ReferenceRateNote() {
+    Text(
+        stringResource(R.string.alarms_reference_rate_hint),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+}
+
 /** «Ein Paar kann höchstens 10 Alarme haben.» (Zahl im Format der App-Sprache, [WatchlistLimits]). */
 @Composable
 internal fun alarmLimitText(): String =

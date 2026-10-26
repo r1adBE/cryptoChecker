@@ -180,4 +180,5 @@
     <string name="alarm_editor_more_summary">Snelle alarmen, meer voorwaarden, geluid en voorlezen</string>
     <string name="alarm_reliability_storage_no_key">Alarmen op de achtergrond gepauzeerd – volglijst niet opgeslagen</string>
     <string name="alarms_limit_reached">Een paar kan maximaal %1$s alarmen hebben.</string>
+    <string name="alarms_reference_rate_hint">Referentiekoersen van de ECB worden maar één keer per dag vastgesteld – daarvoor zijn er geen alarmen.</string>
 </resources>

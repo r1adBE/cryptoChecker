@@ -27,12 +27,14 @@ data class CoinHit(
 
 /**
  * Was beim Vorschlag des Standard-Paars zählt: die Start-Börse der Region (wie die Start-Merkliste,
- * `StarterPairs.marketKey`), die Lieblingsbörsen und die Umrechnungswährung der Einstellungen.
+ * `StarterPairs.marketKey`), die Lieblingsbörsen, die Umrechnungswährung der Einstellungen und der Volumenrang der
+ * Börsen am Tag der Installation ([exchangeRank], Build 133: 0 = grösstes Volumen; fehlt er, alphabetisch).
  */
 data class CoinPairPreference(
     val defaultExchange: String? = null,
     val favoriteExchanges: Set<String> = emptySet(),
     val displayCurrency: String? = null,
+    val exchangeRank: Map<String, Int> = emptyMap(),
 ) {
     /**
      * Gegenwährungen in dieser Reihenfolge: zuerst die eigene Währung (Kurs ohne Umrechnung), dann die
@@ -197,7 +199,8 @@ object CoinSearch {
     /**
      * Alle Paare von [coin] über die geladenen Listen, der Vorschlag zuerst: Start-Börse der Region, dann
      * Lieblingsbörsen, dann die übrigen; darin Spot vor Perpetual vor Laufzeit, die Gegenwährungen in der
-     * Reihenfolge von [preference], dann die Börse (alphabetisch).
+     * Reihenfolge von [preference], dann die Börse nach Volumenrang ([CoinPairPreference.exchangeRank]), sonst
+     * alphabetisch.
      */
     fun pairsFor(
         coin: CoinHit,
@@ -236,6 +239,7 @@ object CoinSearch {
                 compareBy<SearchHit> { exchangeTier(it.market.key) }
                     .thenBy { contractGroup(it.pair.contractType) }
                     .thenBy { quoteRank(it.pair.quote) }
+                    .thenBy { preference.exchangeRank[it.market.key] ?: Int.MAX_VALUE }
                     .thenBy { it.market.name.lowercase() }
                     .thenBy { it.pair.quote.uppercase() }
                     .thenBy { PairSearch.contractRank(it.pair.contractType) }

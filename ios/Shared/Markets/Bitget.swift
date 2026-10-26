@@ -26,6 +26,9 @@ final class Bitget: BitgetBase, @unchecked Sendable { // @unchecked: wie `Market
 
 /// Bitget USDT-Perpetuals.
 final class BitgetFutures: BitgetBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(
             key: "BitgetFutures",

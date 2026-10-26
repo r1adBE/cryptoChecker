@@ -192,4 +192,5 @@
     <string name="alarm_editor_more_summary">Rychlé alarmy, další podmínky, zvuk a hlas</string>
     <string name="alarm_reliability_storage_no_key">Alarmy na pozadí pozastaveny – seznam není uložen</string>
     <string name="alarms_limit_reached">Pár může mít nejvýše %1$s alarmů.</string>
+    <string name="alarms_reference_rate_hint">Referenční kurzy ECB se stanovují jen jednou denně – nejsou pro ně žádná upozornění.</string>
 </resources>

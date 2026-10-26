@@ -374,6 +374,13 @@ class MarketRemoteDataSource @Inject constructor(
             throw known
         } catch (readFailure: Exception) {
             readFailure.rethrowIfCritical()
+            // Pool unbekannt (DexScreener): derselbe Pool über die Ausweichadresse (GeckoTerminal), sonst der Fehler
+            if (market.tickerFallbackOnParseError(call, readFailure)) {
+                SingleTickerFallback.loadAfterMissing(market, call, info, ticker, readFailure) { fallback ->
+                    bulkClient.callMarket(fallback, null, HttpBodyLimit.BULK_MAX_BYTES)
+                }
+                return
+            }
             val exchangeMessage = try {
                 market.readError(call, body, info)
             } catch (noMessage: Exception) {

@@ -15,6 +15,9 @@ final class BingX: BingXBase, @unchecked Sendable { // @unchecked: wie `Market` 
 
 /// BingX USDT-Perpetuals (Swap V2). API: https://bingx-api.github.io/docs/#/en-us/swapV2/market-api.html
 final class BingXFutures: BingXBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(key: "BingXFutures", name: "BingX Futures", contractType: .perpetual,
                    pairListPath: "/swap/v2/quote/contracts", tickerPath: "/swap/v2/quote/ticker")

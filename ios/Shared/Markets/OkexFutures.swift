@@ -7,6 +7,9 @@ private let okxSwapTickers = "https://www.okx.com/api/v5/market/tickers?instType
 /// `instCategory` (Krypto, Aktie, Rohstoff …) und `state` — sonst liefen NVDA-, AAPL- oder XAU-Swaps als Krypto-Token.
 /// Gegenstück: `OkexFutures.kt`.
 final class OkexFutures: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(
             key: "OkexFutures",

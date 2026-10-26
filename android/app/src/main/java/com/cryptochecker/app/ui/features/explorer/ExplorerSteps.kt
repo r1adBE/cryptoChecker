@@ -1,5 +1,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import androidx.compose.runtime.remember
+import com.cryptochecker.marketdata.model.MarketCategory
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -47,6 +49,8 @@ private val FieldGap = 12.dp
 @Composable
 internal fun MarketStepCard(
     exchanges: List<MarketInfo>,
+    /** Abschnitt je Börse (gleiche Länge wie [exchanges]): Titelzeilen der Auswahl. */
+    categories: List<MarketCategory>,
     exchange: MarketInfo?,
     isDex: Boolean,
     hasPairs: Boolean,
@@ -59,6 +63,8 @@ internal fun MarketStepCard(
     onReload: () -> Unit,
 ) {
     val exchangeLabel = stringResource(R.string.explorer_field_exchange)
+    val titles = MarketCategory.entries.associateWith { stringResource(sectionTitle(it)) }
+    val sections = remember(categories, titles) { categories.map { titles.getValue(it) } }
     StepCard {
         StepHeader(
             number = 1,
@@ -78,6 +84,7 @@ internal fun MarketStepCard(
                 favorites = favorites.markets,
                 onToggleFavorite = { favorites.onToggle(FavoriteKind.MARKET, it) },
                 onValueChange = { picked -> onExchangeChanged(exchanges[picked]) },
+                sections = sections.takeIf { it.size == exchanges.size },
             )
             if (!isDex) {
                 Spacer(modifier = Modifier.size(8.dp))
@@ -94,7 +101,20 @@ internal fun MarketStepCard(
             pairList = pairList,
             onReload = onReload,
         )
+        // EZB-Referenzkurse: täglich, nicht live, keine Alarme — gleich bei der Wahl sagen
+        if (exchange != null && categories.getOrNull(exchanges.indexOf(exchange)) == MarketCategory.FOREX) {
+            StepHint(stringResource(R.string.explorer_forex_hint))
+        }
     }
+}
+
+/** Titel eines Abschnitts der Börsenauswahl. */
+@androidx.annotation.StringRes
+private fun sectionTitle(category: MarketCategory): Int = when (category) {
+    MarketCategory.SPOT -> R.string.explorer_section_spot
+    MarketCategory.FUTURES -> R.string.explorer_section_futures
+    MarketCategory.DEX -> R.string.explorer_section_dex
+    MarketCategory.FOREX -> R.string.explorer_section_forex
 }
 
 /** Runder Knopf «Paare neu laden» neben der Börse; aktiv erst mit gewählter Börse. */

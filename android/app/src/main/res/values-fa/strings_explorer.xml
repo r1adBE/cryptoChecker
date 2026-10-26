@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">جفت‌هایی که در این فاصله برایشان هشدار تنظیم کرده‌ای، می‌مانند.</string>
     <string name="bulk_undo_expired">واگرد دیگر ممکن نیست – جفت‌ها در واچ‌لیست می‌مانند.</string>
+    <string name="explorer_section_spot">اسپات</string>
+    <string name="explorer_section_futures">فیوچرز</string>
+    <string name="explorer_section_dex">استخرهای DEX</string>
+    <string name="explorer_section_forex">فارکس (نرخ مرجع)</string>
+    <string name="explorer_forex_hint">نرخ روزانهٔ بانک مرکزی اروپا (از طریق Frankfurter)، نه زنده – بدون هشدار.</string>
 </resources>

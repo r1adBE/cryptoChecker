@@ -29,6 +29,9 @@ private let lighterNoTradesWindowMillis: Int64 = 24 * 60 * 60 * 1000
 /// Frische ab Abruf. TradFi (SPY, NATGAS, US10Y …) erkennt erst `tokenlist` (`asset_type` «RWA»), darum liest die
 /// Paarliste zwei Antworten gemeinsam; `tokenlist` liefert auch die vollen Namen.
 final class Lighter: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(key: "Lighter", name: "Lighter", ttsName: "Lighter")
     }

@@ -180,4 +180,5 @@
     <string name="alarm_editor_more_summary">Hurtigalarmer, flere betingelser, lyd og opplesning</string>
     <string name="alarm_reliability_storage_no_key">Alarmer satt på pause i bakgrunnen – overvåkingslisten er ikke lagret</string>
     <string name="alarms_limit_reached">Et par kan ha maks %1$s alarmer.</string>
+    <string name="alarms_reference_rate_hint">ECBs referansekurser fastsettes bare én gang om dagen – det finnes ingen alarmer for dem.</string>
 </resources>

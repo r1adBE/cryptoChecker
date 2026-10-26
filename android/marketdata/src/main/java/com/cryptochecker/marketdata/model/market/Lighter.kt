@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Market
@@ -47,6 +48,7 @@ private const val NO_TRADES_WINDOW_MS = 24L * 60 * 60 * 1000
  */
 class Lighter : Market("Lighter", "Lighter") {
     override val key = "Lighter"
+    override val category = MarketCategory.FUTURES
 
     // ── Einzelkurs: dieselbe Antwort wie die Sammelabfrage, daraus das gesuchte Symbol ──
 

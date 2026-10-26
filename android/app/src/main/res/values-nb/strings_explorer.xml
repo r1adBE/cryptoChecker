@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Par du har satt alarm for i mellomtiden, blir værende.</string>
     <string name="bulk_undo_expired">Angre er ikke lenger mulig – parene blir værende i overvåkingslisten.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">DEX-pooler</string>
+    <string name="explorer_section_forex">Forex (referansekurs)</string>
+    <string name="explorer_forex_hint">Dagskurs fra Den europeiske sentralbanken (via Frankfurter), ikke live – ingen alarmer.</string>
 </resources>

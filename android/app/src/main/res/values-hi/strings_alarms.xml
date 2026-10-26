@@ -180,4 +180,5 @@
     <string name="alarm_editor_more_summary">त्वरित अलार्म, अन्य शर्तें, आवाज़ और बोलकर सुनाना</string>
     <string name="alarm_reliability_storage_no_key">बैकग्राउंड में अलार्म रुके हुए हैं – वॉचलिस्ट सहेजी नहीं गई</string>
     <string name="alarms_limit_reached">एक पेयर पर अधिकतम %1$s अलार्म हो सकते हैं।</string>
+    <string name="alarms_reference_rate_hint">ECB की संदर्भ दरें दिन में सिर्फ़ एक बार तय होती हैं – इनके लिए कोई अलर्ट नहीं है।</string>
 </resources>

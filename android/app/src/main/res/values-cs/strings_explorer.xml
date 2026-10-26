@@ -163,4 +163,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Páry, které mezitím dostaly alarm, zůstanou.</string>
     <string name="bulk_undo_expired">Vrátit zpět už nejde – páry zůstanou ve sledovaných.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">DEX pooly</string>
+    <string name="explorer_section_forex">Forex (referenční kurz)</string>
+    <string name="explorer_forex_hint">Denní kurz Evropské centrální banky (přes Frankfurter), ne živě – bez upozornění.</string>
 </resources>

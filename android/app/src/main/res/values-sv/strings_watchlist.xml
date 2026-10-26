@@ -216,4 +216,6 @@
     <string name="watchlist_sort_by_coin">Sortera efter mynt</string>
     <string name="watchlist_sort_by_exchange">Sortera efter börs</string>
     <string name="watchlist_limit_reached">Din bevakningslista kan innehålla högst %1$s par.</string>
+    <string name="watch_price_reference">referenskurs, daglig</string>
+    <string name="watch_price_daily">daglig</string>
 </resources>

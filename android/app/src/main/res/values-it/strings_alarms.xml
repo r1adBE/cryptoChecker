@@ -186,4 +186,5 @@
     <string name="alarm_editor_more_summary">Allarmi rapidi, altre condizioni, suono e lettura</string>
     <string name="alarm_reliability_storage_no_key">Allarmi in pausa in background – lista non salvata</string>
     <string name="alarms_limit_reached">Una coppia può avere al massimo %1$s allarmi.</string>
+    <string name="alarms_reference_rate_hint">I cambi di riferimento della BCE vengono fissati solo una volta al giorno – non ci sono allarmi per questi.</string>
 </resources>

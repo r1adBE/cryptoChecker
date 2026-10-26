@@ -180,4 +180,5 @@
     <string name="alarm_editor_more_summary">Alarme të shpejta, kushte të tjera, tingull dhe lexim me zë</string>
     <string name="alarm_reliability_storage_no_key">Alarmet në sfond janë pezulluar – lista nuk është ruajtur</string>
     <string name="alarms_limit_reached">Një çift mund të ketë më së shumti %1$s alarme.</string>
+    <string name="alarms_reference_rate_hint">Kurset e referencës së BQE-së caktohen vetëm një herë në ditë – për to nuk ka alarme.</string>
 </resources>

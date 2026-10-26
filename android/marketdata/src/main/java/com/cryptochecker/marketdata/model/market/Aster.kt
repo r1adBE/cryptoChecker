@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -29,6 +30,7 @@ class Aster : SimpleMarket(
     errorField = "msg",
 ) {
     override val key = "Aster"
+    override val category = MarketCategory.FUTURES
 
     // ── Einzelkurs ──
 

@@ -121,6 +121,9 @@ final class ExplorerViewModel: ObservableObject {
 
     @Published var message: ExplorerMessage?
 
+    /// Gespeichertes Volumen-Ranking der Börsen (`ExchangeRankingStore`); nil = Registry-Reihenfolge.
+    @Published var exchangeRanking: [String: Double]? = ExchangeRankingStore.volumes()
+
     // MARK: Laufende Arbeiten
 
     var exchangeLoadTask: Task<Void, Never>?
@@ -150,6 +153,8 @@ final class ExplorerViewModel: ObservableObject {
 
     init(appliesAssetScope: Bool = true) {
         self.appliesAssetScope = appliesAssetScope
+        // Explorer geöffnet: Ranking einmal holen, falls es fehlt (höchstens einmal je Sitzung)
+        if appliesAssetScope { loadExchangeRanking() }
     }
 
     // MARK: Filter «Token & TradFi»

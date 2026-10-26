@@ -216,4 +216,6 @@
     <string name="watchlist_sort_by_coin">Sortér efter mønt</string>
     <string name="watchlist_sort_by_exchange">Sortér efter børs</string>
     <string name="watchlist_limit_reached">Din overvågningsliste kan højst indeholde %1$s par.</string>
+    <string name="watch_price_reference">referencekurs, daglig</string>
+    <string name="watch_price_daily">daglig</string>
 </resources>

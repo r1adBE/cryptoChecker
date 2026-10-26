@@ -127,4 +127,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Các cặp đã được đặt cảnh báo trong thời gian này sẽ được giữ lại.</string>
     <string name="bulk_undo_expired">Không thể hoàn tác nữa – các cặp vẫn ở trong danh sách theo dõi.</string>
+    <string name="explorer_section_spot">Giao ngay</string>
+    <string name="explorer_section_futures">Hợp đồng tương lai</string>
+    <string name="explorer_section_dex">Pool DEX</string>
+    <string name="explorer_section_forex">Ngoại hối (tỷ giá tham chiếu)</string>
+    <string name="explorer_forex_hint">Tỷ giá hằng ngày của Ngân hàng Trung ương châu Âu (qua Frankfurter), không trực tiếp – không có cảnh báo.</string>
 </resources>

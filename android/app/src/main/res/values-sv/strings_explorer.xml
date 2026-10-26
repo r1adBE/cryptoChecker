@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Par som du har ställt in larm för under tiden finns kvar.</string>
     <string name="bulk_undo_expired">Det går inte längre att ångra – paren finns kvar i bevakningslistan.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Terminer</string>
+    <string name="explorer_section_dex">DEX-pooler</string>
+    <string name="explorer_section_forex">Forex (referenskurs)</string>
+    <string name="explorer_forex_hint">Dagskurs från Europeiska centralbanken (via Frankfurter), inte live – inga larm.</string>
 </resources>

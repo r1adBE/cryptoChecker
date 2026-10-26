@@ -186,4 +186,5 @@
     <string name="alarm_editor_more_summary">Alarme rapide, alte condiții, sunet și citire</string>
     <string name="alarm_reliability_storage_no_key">Alarme întrerupte în fundal – lista nu este salvată</string>
     <string name="alarms_limit_reached">O pereche poate avea cel mult %1$s alarme.</string>
+    <string name="alarms_reference_rate_hint">Cursurile de referință ale BCE se stabilesc doar o dată pe zi – pentru ele nu există alerte.</string>
 </resources>

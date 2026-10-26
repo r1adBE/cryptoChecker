@@ -9,6 +9,9 @@ private let deribitSettleCurrencies = ["BTC", "ETH", "USDC"]
 /// USDC-Perpetuals (z. B. SOL_USDC-PERPETUAL). Eine Paarliste je Abrechnungswährung, darum kein `SimpleMarket`.
 /// API v2: https://docs.deribit.com
 final class Deribit: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() { super.init(key: "Deribit", name: "Deribit") }
 
     // MARK: Einzelkurs

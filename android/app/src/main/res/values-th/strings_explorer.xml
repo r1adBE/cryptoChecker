@@ -127,4 +127,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">คู่ที่ตั้งสัญญาณเตือนไว้ในระหว่างนี้จะยังคงอยู่</string>
     <string name="bulk_undo_expired">เลิกทำไม่ได้แล้ว คู่ต่างๆ จะยังคงอยู่ในรายการติดตาม</string>
+    <string name="explorer_section_spot">สปอต</string>
+    <string name="explorer_section_futures">ฟิวเจอร์ส</string>
+    <string name="explorer_section_dex">พูล DEX</string>
+    <string name="explorer_section_forex">ฟอเร็กซ์ (อัตราอ้างอิง)</string>
+    <string name="explorer_forex_hint">อัตรารายวันของธนาคารกลางยุโรป (ผ่าน Frankfurter) ไม่ใช่แบบเรียลไทม์ – ไม่มีสัญญาณเตือน</string>
 </resources>

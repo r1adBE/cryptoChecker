@@ -317,6 +317,7 @@ struct ExplorerScreen: View {
                 items: offered.map(\.name),
                 selected: vm.exchange?.name,
                 favoriteKind: .MARKET,
+                sections: vm.marketSections.map { (title: $0.title, items: $0.markets.map(\.name)) },
                 data: data
             ) { name in
                 guard let chosen = offered.first(where: { $0.name == name }) else { return }

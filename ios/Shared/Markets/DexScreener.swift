@@ -1,6 +1,7 @@
 import Foundation
 
 private let dexScreenerAPI = "https://api.dexscreener.com"
+private let geckoTerminalAPI = "https://api.geckoterminal.com/api/v2"
 
 /// Ein DEX-Pool aus der Suche.
 struct DexPool: Hashable, Sendable, Identifiable {
@@ -34,7 +35,7 @@ struct DexPool: Hashable, Sendable, Identifiable {
 /// Kurse dezentraler Börsen (Uniswap, PancakeSwap, Raydium …) über DexScreener. Keine Paarliste (Pools findet die
 /// Suche, `searchURL`), darum kein `SimpleMarket`. Mehrere Pools derselben Chain kommen gesammelt
 /// (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens `bulkMaxPools` je Anfrage), einzelne über dieselbe Adresse. Frei
-/// und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
+/// und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute. Reserve für den Einzelkurs: GeckoTerminal.
 final class DexScreener: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     /// Schlüssel der Börse (Sicherung, Merkliste).
     static let key = "DexScreener"
@@ -44,6 +45,9 @@ final class DexScreener: Market, @unchecked Sendable { // @unchecked: wie `Marke
     init() {
         super.init(key: DexScreener.key, name: "DexScreener", ttsName: "Dex Screener")
     }
+
+    /// Abschnitt «DEX-Pools» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .dex }
 
     // MARK: Einzelkurs
 
@@ -69,6 +73,53 @@ final class DexScreener: Market, @unchecked Sendable { // @unchecked: wie `Marke
         }
         guard let pool = found else { throw JSONError(message: DexScreener.poolNotFound) }
         try DexScreener.copyPool(pool, into: &ticker)
+    }
+
+    // MARK: Reserve GeckoTerminal
+
+    /// Serverfehler oder «Pool not found» bei DexScreener: derselbe Pool bei GeckoTerminal — ein Pool je Anfrage,
+    /// frei und ohne Schlüssel, aber eng gebremst (rund 30 Abfragen pro Minute), darum nur für den Einzelkurs.
+    /// nil ohne sichere Kennung (`isSafePairId`).
+    override func tickerFallbackAddress(call: Int, info: PairQuery) -> String? {
+        guard let id = info.pairId?.trimmingCharacters(in: .whitespacesAndNewlines), DexScreener.isSafePairId(id),
+              let cut = id.firstIndex(of: "/") else { return nil }
+        return DexScreener.geckoTerminalUrl(chainId: String(id[..<cut]), address: String(id[id.index(after: cut)...]))
+    }
+
+    /// Nur «Pool not found» aus der Antwort (nicht die abgelehnte Kennung, die gar nicht angefragt wird).
+    override func tickerFallbackOnParseError(call: Int, error: Error) -> Bool {
+        (error as? JSONError)?.message == DexScreener.poolNotFound
+    }
+
+    /// {"data": {"attributes": {address, base_token_price_usd, price_change_percentage.h24, volume_usd.h24,
+    /// reserve_in_usd}}}. Nur der gemerkte Pool zählt: andere Adresse oder keine Daten (z. B. Bremse) → «Pool not
+    /// found».
+    override func fillTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+        guard let attributes = try JObject(string: body).optObject("data")?.optObject("attributes") else {
+            throw JSONError(message: DexScreener.poolNotFound)
+        }
+        let address = attributes.optString("address")
+        let id = info.pairId ?? ""
+        guard let cut = id.firstIndex(of: "/"), !address.isEmpty,
+              address.caseInsensitiveCompare(id[id.index(after: cut)...]) == .orderedSame else {
+            throw JSONError(message: DexScreener.poolNotFound)
+        }
+        let priceText = try attributes.string("base_token_price_usd")
+        guard let price = Double(priceText) else {
+            throw JSONError(message: "base_token_price_usd ist keine Zahl: \(priceText)")
+        }
+        ticker.last = price
+        ticker.change24hPercent = attributes.optObject("price_change_percentage")
+            .flatMap { Change24h.percent($0.optDouble("h24")) }
+        if let volume = attributes.optObject("volume_usd") { ticker.volQuote = volume.optDoubleOrMissing("h24") }
+        let reserve = attributes.optDouble("reserve_in_usd")
+        ticker.liquidityUsd = reserve.isFinite && reserve >= 0 ? reserve : nil
+    }
+
+    /// `https://api.geckoterminal.com/api/v2/networks/{net}/pools/{address}`, net = `GeckoTerminalNetworks.network`.
+    /// Wie Android (`testdata/parity/gecko_terminal_network.json`).
+    static func geckoTerminalUrl(chainId: String, address: String) -> String {
+        geckoTerminalAPI + "/networks/" + GeckoTerminalNetworks.network(chainId) + "/pools/" + address
     }
 
     // MARK: Sammelabfrage: Pools derselben Chain gemeinsam

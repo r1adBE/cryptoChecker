@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -38,6 +39,7 @@ class BingXFutures : BingXBase(
     tickerPath = "/swap/v2/quote/ticker",
 ) {
     override val key = "BingXFutures"
+    override val category = MarketCategory.FUTURES
 }
 
 /**

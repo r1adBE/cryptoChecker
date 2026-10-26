@@ -174,4 +174,5 @@
     <string name="alarm_editor_more_summary">สัญญาณเตือนด่วน เงื่อนไขอื่น เสียงและการอ่านออกเสียง</string>
     <string name="alarm_reliability_storage_no_key">สัญญาณเตือนเบื้องหลังหยุดชั่วคราว – รายการติดตามไม่ได้บันทึก</string>
     <string name="alarms_limit_reached">หนึ่งคู่ตั้งสัญญาณเตือนได้สูงสุด %1$s รายการ</string>
+    <string name="alarms_reference_rate_hint">อัตราอ้างอิงของ ECB กำหนดเพียงวันละครั้ง – จึงไม่มีสัญญาณเตือนสำหรับอัตรานี้</string>
 </resources>

@@ -32,6 +32,8 @@ class PortfolioExchangeRouteTest {
         assertNull(PortfolioExchangeRoute.market("Meine Bank", markets))
         assertTrue(PortfolioExchangeRoute.isSpot("Kraken"))
         assertFalse(PortfolioExchangeRoute.isSpot("BybitFutures"))
+        assertFalse(PortfolioExchangeRoute.isSpot("EcbReference"))
+        assertFalse(PortfolioExchangeRoute.isSpot("BitunixFutures"))
     }
 
     @Test

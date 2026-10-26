@@ -163,4 +163,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Пари, для яких тим часом з’явився сигнал, залишаться.</string>
     <string name="bulk_undo_expired">Скасувати вже не можна – пари залишаться у списку.</string>
+    <string name="explorer_section_spot">Спот</string>
+    <string name="explorer_section_futures">Ф’ючерси</string>
+    <string name="explorer_section_dex">DEX-пули</string>
+    <string name="explorer_section_forex">Forex (довідковий курс)</string>
+    <string name="explorer_forex_hint">Денний курс Європейського центрального банку (через Frankfurter), не в реальному часі – без сповіщень.</string>
 </resources>

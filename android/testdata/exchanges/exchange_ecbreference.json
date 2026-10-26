@@ -1,0 +1,158 @@
+{
+  "exchange": "EcbReference",
+  "description": "Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Bodies are raw response text (shortened from live responses recorded on 26 October 2026 by a temporary workflow), expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). ECB reference rates via Frankfurter: newest daily value, change against the previous ECB day.",
+  "endpoints": {
+    "single": "GET https://api.frankfurter.dev/v1/{today-10d}..?base=EUR&symbols=USD",
+    "bulk": "GET https://api.frankfurter.dev/v1/{today-10d}..?base=EUR&symbols=CHF,USD",
+    "pairs": "GET https://api.frankfurter.dev/v1/currencies"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "time series: newest day is the price, change against the previous ECB day (weekend skipped)",
+      "market": "EcbReference",
+      "pair": {
+        "base": "EUR",
+        "quote": "USD",
+        "id": "EURUSD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-21\":{\"CHF\":0.9256,\"USD\":1.1234},\"2026-10-22\":{\"CHF\":0.9211,\"USD\":1.1205},\"2026-10-23\":{\"CHF\":0.9227,\"USD\":1.1193},\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "expect": {
+        "last": 1.1188,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": -0.044670776378088535,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "single",
+      "name": "only one day in the window: price without change",
+      "market": "EcbReference",
+      "pair": {
+        "base": "EUR",
+        "quote": "CHF",
+        "id": "EURCHF",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "expect": {
+        "last": 0.9243,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "single",
+      "name": "quote missing in the series: no data, no error text",
+      "market": "EcbReference",
+      "pair": {
+        "base": "EUR",
+        "quote": "JPY",
+        "id": "EURJPY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-21\":{\"CHF\":0.9256,\"USD\":1.1234},\"2026-10-22\":{\"CHF\":0.9211,\"USD\":1.1205},\"2026-10-23\":{\"CHF\":0.9227,\"USD\":1.1193},\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "unknown currency: Frankfurter answers {message}",
+      "market": "EcbReference",
+      "pair": {
+        "base": "EUR",
+        "quote": "XYZ",
+        "id": "EURXYZ",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"message\":\"not found\"}",
+      "expect": {
+        "error": true,
+        "message": "not found"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "one series per base currency: every quote becomes base+quote",
+      "market": "EcbReference",
+      "requestId": 0,
+      "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-21\":{\"CHF\":0.9256,\"USD\":1.1234},\"2026-10-22\":{\"CHF\":0.9211,\"USD\":1.1205},\"2026-10-23\":{\"CHF\":0.9227,\"USD\":1.1193},\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "EURUSD": {
+            "last": 1.1188,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": -1.0,
+            "low": -1.0,
+            "vol": -1.0,
+            "volQuote": -1.0,
+            "change24hPercent": -0.044670776378088535,
+            "exchangeTime": null,
+            "markFallback": false
+          },
+          "EURCHF": {
+            "last": 0.9243,
+            "bid": -1.0,
+            "ask": -1.0,
+            "high": -1.0,
+            "low": -1.0,
+            "vol": -1.0,
+            "volQuote": -1.0,
+            "change24hPercent": 0.17340414002384805,
+            "exchangeTime": null,
+            "markFallback": false
+          }
+        }
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "currencies: all ordered pairs of valid three-letter codes",
+      "market": "EcbReference",
+      "requestId": 0,
+      "body": "{\"AUD\":\"Australian Dollar\",\"CHF\":\"Swiss Franc\",\"EUR\":\"Euro\",\"USD\":\"United States Dollar\",\"xx1\":\"broken\"}",
+      "expect": {
+        "count": 12,
+        "absent": [
+          "EUREUR",
+          "xx1EUR"
+        ],
+        "pairs": {
+          "EURUSD": {
+            "base": "EUR",
+            "quote": "USD",
+            "contract": "NONE",
+            "tradFi": false
+          },
+          "CHFAUD": {
+            "base": "CHF",
+            "quote": "AUD",
+            "contract": "NONE"
+          }
+        }
+      }
+    }
+  ]
+}

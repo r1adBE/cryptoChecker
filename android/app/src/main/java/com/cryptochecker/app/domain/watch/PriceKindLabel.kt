@@ -6,16 +6,23 @@ package com.cryptochecker.app.domain.watch
  *    lösen auch keine Alarme aus.
  *  - [MID]: Börse meldet den Mittelkurs ([com.cryptochecker.marketdata.model.Market.priceIsMid]).
  *  - [HOURLY]: Schluss der jüngsten Stundenkerze ([com.cryptochecker.marketdata.model.Market.priceIsHourlyClose], WOO X Spot).
+ *  - [DAILY_REFERENCE]: täglicher Referenzkurs der EZB ([com.cryptochecker.marketdata.model.Market.priceIsDailyReference]).
  * null = gewöhnlicher letzter Kurs, kein Zusatz.
  */
 enum class PriceKindLabel {
-    MARK, MID, HOURLY;
+    MARK, MID, HOURLY, DAILY_REFERENCE;
 
     companion object {
-        fun of(priceIsMid: Boolean, markFallback: Boolean, hourlyClose: Boolean): PriceKindLabel? = when {
+        fun of(
+            priceIsMid: Boolean,
+            markFallback: Boolean,
+            hourlyClose: Boolean,
+            dailyReference: Boolean = false,
+        ): PriceKindLabel? = when {
             markFallback -> MARK
             priceIsMid -> MID
             hourlyClose -> HOURLY
+            dailyReference -> DAILY_REFERENCE
             else -> null
         }
     }

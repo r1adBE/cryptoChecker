@@ -214,10 +214,12 @@ internal fun WatchActionsHeader(
             priceIsMid = market.priceIsMid,
             markFallback = watch.id in LocalMarkFallback.current,
             hourlyClose = market.priceIsHourlyClose,
+            dailyReference = market.priceIsDailyReference,
         )) {
             com.cryptochecker.app.domain.watch.PriceKindLabel.MARK -> " · " + stringResource(R.string.watch_price_mark_fallback)
             com.cryptochecker.app.domain.watch.PriceKindLabel.MID -> " · " + stringResource(R.string.watch_price_mid)
             com.cryptochecker.app.domain.watch.PriceKindLabel.HOURLY -> " · " + stringResource(R.string.watch_price_hourly)
+            com.cryptochecker.app.domain.watch.PriceKindLabel.DAILY_REFERENCE -> " · " + stringResource(R.string.watch_price_reference)
             null -> ""
         }
         Row(verticalAlignment = Alignment.CenterVertically) {

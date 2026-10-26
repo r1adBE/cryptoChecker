@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -40,6 +41,7 @@ class BitgetFutures : BitgetBase(
     allTickersUrl = "$BITGET_API/mix/market/tickers?$BITGET_USDT_FUTURES",
 ) {
     override val key = "BitgetFutures"
+    override val category = MarketCategory.FUTURES
 
     override fun pairOf(entry: JSONObject): MarketPair? {
         val perpetual = entry.optString("symbolType") == "perpetual"

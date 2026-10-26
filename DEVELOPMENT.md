@@ -71,6 +71,8 @@ For a new exchange «Example»:
 | Android | `android/app/…/data/remote/candles/ExchangeCandleSources*.kt` | optional: own candles (`ExchangeCandleSource` + `ExchangeCandleRegistry`) |
 | iOS | `ios/Shared/Services/Candles/ExchangeCandleSources*.swift` | the same candle source in Swift, case in `testdata/parity/own_candles.json` |
 | Both | ticker parsing | set `exchangeTime` when the API sends the time of the price (see [section 15](#15-ui-rules-for-numbers), «Exchange time vs fetch time») |
+| Both | the adapter | `category` when it is not Spot (FUTURES, DEX, FOREX: section of the exchange picker) |
+| Both | `ExchangeOrder` (Android `app/…/domain/market`, iOS `Shared/Core`) | CoinGecko id in `SPOT_IDS`/`spotIds` or `DERIVATIVES_IDS`/`derivativesIds`, so the volume order of the install date includes it |
 
 After adding a Swift file, regenerate the Xcode project with
 `python3 -I ios/tools/gen_xcodeproj.py` (it picks up new files by itself).
@@ -2482,6 +2484,25 @@ after the encryption step.
   posted to the main thread with a run counter (`postProgress`/`clearProgress`); setting the StateFlow from the worker
   let the Compose test clock apply changes on that thread (CalledFromWrongThread, corrupt slot table, crash on
   activity destroy in UiFlowsTest.importCsvAndUndo).
+* Build 133: exchange list. `MarketCategory` (SPOT, FUTURES, DEX, FOREX) and `Market.category` on both platforms
+  (futures classes, Hyperliquid, Aster, Lighter, Deribit = FUTURES; DexScreener = DEX; EcbReference = FOREX; Bybit's
+  constructor field is now `apiCategory`). `ExchangeOrder` (app domain / iOS Shared/Core): sections in category
+  order, within by the install-date volume, without it the input order (the explorer passes the alphabetical list);
+  `parseVolumes` reads CoinGecko `/exchanges` (spot ids) and `/derivatives/exchanges` (futures ids), `ranks` feeds
+  `CoinPairPreference.exchangeRank` (coin search: exchange tier → contract group → quote → volume rank → name).
+  `ExchangeRankingStore` (SharedPreferences `exchange_ranking` / UserDefaults `exchangeRanking.*`, not backed up)
+  fetches once per session until one fetch succeeds, then never again. `ComboBox(sections =)` / iOS picker draw
+  section headers (heading semantics); favourites stay on top without a header. New adapters `BitunixFutures`
+  (base keeps multipliers like «1000PEPE», no TradFi flag) and `EcbReference` (Frankfurter time series of 10 days,
+  change against the previous ECB day, bulk per base currency, `allowsAlarms` false, `priceIsDailyReference` →
+  `PriceKindLabel.DAILY_REFERENCE`, row label `watch_price_daily`). Alerts screen: no add/edit for
+  `!allowsAlarms`, `alarms_reference_rate_hint`; `RefreshResultProcessor` / `RefreshEffects` never evaluate them.
+  DexScreener → GeckoTerminal: `tickerFallbackAddress` (`GeckoTerminalNetworks` maps chain ids) and the new hook
+  `Market.tickerFallbackOnParseError` («Pool not found») → `SingleTickerFallback.loadAfterMissing`; any fallback
+  failure keeps the original error. In the 5xx path a rate limit of the fallback only passes when it is the same host
+  (`sameHost`), so GeckoTerminal never pauses DexScreener. Fixtures: `exchange_bitunixfutures.json`,
+  `exchange_ecbreference.json`, GeckoTerminal `singleFallback` cases in `exchange_dexscreener.json`, parity
+  `exchange_order.json` and `gecko_terminal_network.json`. Escape-hatch ceiling 103 (two new Swift adapters).
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on

@@ -60,6 +60,15 @@ abstract class Market(
      */
     open val changeIsMark: Boolean get() = false
 
+    /** Abschnitt in der Börsenauswahl ([MarketCategory]); Standard Spot. iOS: `category`. */
+    open val category: MarketCategory get() = MarketCategory.SPOT
+
+    /** false: keine Alarme (EZB-Referenzkurse: kein «Hinzufügen», nie ausgewertet). iOS: `allowsAlarms`. */
+    open val allowsAlarms: Boolean get() = true
+
+    /** true: der Kurs ist ein täglicher Referenzkurs (EZB), kein Handel — Zeile und Aktionsblatt sagen es. iOS gleich. */
+    open val priceIsDailyReference: Boolean get() = false
+
     // ── Einzelkurs ───────────────────────────────────────────────────────────────
 
     /** Number of requests per price; `call` runs from 0 to count − 1. Default: one request. */
@@ -107,6 +116,9 @@ abstract class Market(
      * (App: `SingleTickerFallback`). iOS gleich.
      */
     open fun tickerFallbackAddress(call: Int, info: PairQuery): String? = null
+
+    /** true: nach diesem Lesefehler [tickerFallbackAddress] versuchen (DexScreener «Pool not found» → GeckoTerminal). */
+    open fun tickerFallbackOnParseError(call: Int, error: Exception): Boolean = false
 
     /** Wie [readTicker], für die Antwort von [tickerFallbackAddress] (über [fillTickerFallback]). */
     @Throws(Exception::class)

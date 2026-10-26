@@ -204,4 +204,6 @@
     <string name="watchlist_sort_by_coin">코인별 정렬</string>
     <string name="watchlist_sort_by_exchange">거래소별 정렬</string>
     <string name="watchlist_limit_reached">관심 목록에는 거래쌍을 최대 %1$s개까지 추가할 수 있습니다.</string>
+    <string name="watch_price_reference">기준 환율, 일일</string>
+    <string name="watch_price_daily">일일</string>
 </resources>

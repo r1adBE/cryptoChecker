@@ -228,4 +228,6 @@
     <string name="watchlist_sort_by_coin">מיון לפי מטבע</string>
     <string name="watchlist_sort_by_exchange">מיון לפי בורסה</string>
     <string name="watchlist_limit_reached">רשימת המעקב יכולה להכיל עד %1$s צמדים.</string>
+    <string name="watch_price_reference">שער ייחוס, יומי</string>
+    <string name="watch_price_daily">יומי</string>
 </resources>

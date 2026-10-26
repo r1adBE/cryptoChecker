@@ -1,6 +1,6 @@
 {
   "exchange": "DexScreener",
-  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set; liquidityUsd = pool liquidity in USD, basis of the alarm gate DEX_MIN_ALARM_LIQUIDITY_USD). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set; liquidityUsd = pool liquidity in USD, basis of the alarm gate DEX_MIN_ALARM_LIQUIDITY_USD). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Kind singleFallback (build 133): body is the GeckoTerminal answer for the same pool (fallback after a server error or «Pool not found»), read via readTickerFallback.",
   "endpoints": {
     "single": "GET https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
     "bulk": "GET https://api.dexscreener.com/latest/dex/pairs/{chainId}/{address1,address2,...} (at most 30 addresses of one chain per request)"
@@ -212,6 +212,68 @@
         }
       },
       "note": "Body copied verbatim from testdata/exchanges/recorded/recorded_dexscreener.json: a live answer of the endpoint the batch uses."
+    },
+    {
+      "kind": "singleFallback",
+      "name": "GeckoTerminal fallback (recorded 26.10.2026): base_token_price_usd, price_change_percentage.h24, volume_usd.h24",
+      "market": "DexScreener",
+      "pair": {
+        "base": "WETH",
+        "quote": "USDC",
+        "id": "ethereum/0x88E6A0c2dDD26FEEb64F039a2c41296FcB3f5640",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 503,
+      "body": "{\"data\":{\"id\":\"eth_0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640\",\"type\":\"pool\",\"attributes\":{\"base_token_price_usd\":\"2323.61\",\"base_token_price_native_currency\":\"1.0\",\"quote_token_price_usd\":\"0.999902978761472\",\"quote_token_price_native_currency\":\"0.000429833531103257\",\"base_token_price_quote_token\":\"2326.482062563\",\"quote_token_price_base_token\":\"0.0004298335311\",\"address\":\"0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640\",\"name\":\"WETH / USDC 0.05%\",\"pool_name\":\"WETH / USDC\",\"pool_fee_percentage\":\"0.05\",\"pool_created_at\":\"2021-12-29T12:35:14Z\",\"fdv_usd\":\"5175966843.80625\",\"market_cap_usd\":\"5171460194.8893\",\"price_change_percentage\":{\"m5\":\"0.161\",\"m15\":\"0.092\",\"m30\":\"0.048\",\"h1\":\"0.259\",\"h6\":\"-0.378\",\"h24\":\"-1.41\"},\"transactions\":{\"m5\":{\"buys\":6,\"sells\":4,\"buyers\":6,\"sellers\":4},\"m15\":{\"buys\":21,\"sells\":15,\"buyers\":20,\"sellers\":10},\"m30\":{\"buys\":57,\"sells\":51,\"buyers\":43,\"sellers\":34},\"h1\":{\"buys\":110,\"sells\":109,\"buyers\":67,\"sellers\":62},\"h6\":{\"buys\":857,\"sells\":884,\"buyers\":407,\"sellers\":417},\"h24\":{\"buys\":2624,\"sells\":2414,\"buyers\":910,\"sellers\":909}},\"volume_usd\":{\"m5\":\"145607.854436224\",\"m15\":\"416539.541359808\",\"m30\":\"1302352.02381172\",\"h1\":\"1953003.93742964\",\"h6\":\"17111727.7882281\",\"h24\":\"43684163.3595396\"},\"reserve_in_usd\":\"81184541.9406\",\"locked_liquidity_percentage\":\"0.0\"},\"relationships\":{\"base_token\":{\"data\":{\"id\":\"eth_0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\"type\":\"token\"}},\"quote_token\":{\"data\":{\"id\":\"eth_0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"type\":\"token\"}},\"dex\":{\"data\":{\"id\":\"uniswap_v3\",\"type\":\"dex\"}}}}}",
+      "expect": {
+        "last": 2323.61,
+        "bid": -1.0,
+        "ask": -1.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": -1.0,
+        "volQuote": 43684163.3595396,
+        "change24hPercent": -1.41,
+        "exchangeTime": null,
+        "markFallback": false
+      }
+    },
+    {
+      "kind": "singleFallback",
+      "name": "GeckoTerminal fallback: another pool's address = not found",
+      "market": "DexScreener",
+      "pair": {
+        "base": "WETH",
+        "quote": "USDC",
+        "id": "ethereum/0x11b815efb8f581194ae79006d24e0d814b7697f6",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 503,
+      "body": "{\"data\":{\"id\":\"eth_0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640\",\"type\":\"pool\",\"attributes\":{\"base_token_price_usd\":\"2323.61\",\"base_token_price_native_currency\":\"1.0\",\"quote_token_price_usd\":\"0.999902978761472\",\"quote_token_price_native_currency\":\"0.000429833531103257\",\"base_token_price_quote_token\":\"2326.482062563\",\"quote_token_price_base_token\":\"0.0004298335311\",\"address\":\"0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640\",\"name\":\"WETH / USDC 0.05%\",\"pool_name\":\"WETH / USDC\",\"pool_fee_percentage\":\"0.05\",\"pool_created_at\":\"2021-12-29T12:35:14Z\",\"fdv_usd\":\"5175966843.80625\",\"market_cap_usd\":\"5171460194.8893\",\"price_change_percentage\":{\"m5\":\"0.161\",\"m15\":\"0.092\",\"m30\":\"0.048\",\"h1\":\"0.259\",\"h6\":\"-0.378\",\"h24\":\"-1.41\"},\"transactions\":{\"m5\":{\"buys\":6,\"sells\":4,\"buyers\":6,\"sellers\":4},\"m15\":{\"buys\":21,\"sells\":15,\"buyers\":20,\"sellers\":10},\"m30\":{\"buys\":57,\"sells\":51,\"buyers\":43,\"sellers\":34},\"h1\":{\"buys\":110,\"sells\":109,\"buyers\":67,\"sellers\":62},\"h6\":{\"buys\":857,\"sells\":884,\"buyers\":407,\"sellers\":417},\"h24\":{\"buys\":2624,\"sells\":2414,\"buyers\":910,\"sellers\":909}},\"volume_usd\":{\"m5\":\"145607.854436224\",\"m15\":\"416539.541359808\",\"m30\":\"1302352.02381172\",\"h1\":\"1953003.93742964\",\"h6\":\"17111727.7882281\",\"h24\":\"43684163.3595396\"},\"reserve_in_usd\":\"81184541.9406\",\"locked_liquidity_percentage\":\"0.0\"},\"relationships\":{\"base_token\":{\"data\":{\"id\":\"eth_0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\"type\":\"token\"}},\"quote_token\":{\"data\":{\"id\":\"eth_0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\",\"type\":\"token\"}},\"dex\":{\"data\":{\"id\":\"uniswap_v3\",\"type\":\"dex\"}}}}}",
+      "expect": {
+        "error": true,
+        "thrown": "Pool not found"
+      }
+    },
+    {
+      "kind": "singleFallback",
+      "name": "GeckoTerminal rate limit body: no data = original error stays",
+      "market": "DexScreener",
+      "pair": {
+        "base": "WETH",
+        "quote": "USDC",
+        "id": "ethereum/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 503,
+      "body": "{\"status\":{\"error_code\":429,\"error_message\":\"You've exceeded the Rate Limit. Please visit https://www.coingecko.com/en/api/pricing to subscribe to our API plans for higher rate limits and use the onchain endpoints: https://docs.coingecko.com/reference/endpoint-overview\"}}",
+      "expect": {
+        "error": true,
+        "thrown": "Pool not found"
+      }
     }
   ]
 }

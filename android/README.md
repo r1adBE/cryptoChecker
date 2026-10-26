@@ -5,8 +5,8 @@ Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was b
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
-Sprachausgabe und Startbildschirm-Widgets über 53 Märkte – 44 Börsen (teils
-mit Spot und Futures) plus DexScreener für DEX-Token. 31 Sprachen, kein Konto,
+Sprachausgabe und Startbildschirm-Widgets über 54 Märkte – 45 Börsen (teils
+mit Spot und Futures) plus DexScreener für DEX-Token und EZB-Referenzkurse für Devisen. 31 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
 r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Datenschutzerklärung `docs/privacy/index.html`)

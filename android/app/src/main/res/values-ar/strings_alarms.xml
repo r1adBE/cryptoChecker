@@ -204,4 +204,5 @@
     <string name="alarm_editor_more_summary">تنبيهات سريعة، شروط إضافية، الصوت والنطق</string>
     <string name="alarm_reliability_storage_no_key">التنبيهات متوقفة مؤقتًا في الخلفية – قائمة المتابعة غير محفوظة</string>
     <string name="alarms_limit_reached">يمكن أن يحتوي الزوج على %1$s تنبيهات كحد أقصى.</string>
+    <string name="alarms_reference_rate_hint">تُحدَّد الأسعار المرجعية للبنك المركزي الأوروبي مرة واحدة يوميًا فقط – لا توجد تنبيهات لها.</string>
 </resources>

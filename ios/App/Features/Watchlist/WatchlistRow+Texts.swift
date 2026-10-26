@@ -101,9 +101,13 @@ extension WatchlistRow {
                 // Stundenkurs (WOO X Spot) wie die Marke der Zeile — wie Android
                 let hourlyPrice = !markPrice && watch.lastPrice != nil
                     && MarketsConfig.market(watch.marketKey)?.priceIsHourlyClose == true
+                // EZB-Referenzkurs: «Referenzkurs, täglich» wie die Marke der Zeile
+                let referencePrice = !markPrice && watch.lastPrice != nil
+                    && MarketsConfig.market(watch.marketKey)?.priceIsDailyReference == true
                 let parts = [changeMarker.map { L("change_candle_source", $0) },
                              markPrice ? L("watch_price_mark_fallback") : nil,
-                             hourlyPrice ? L("watch_price_hourly") : nil].compactMap { $0 }
+                             hourlyPrice ? L("watch_price_hourly") : nil,
+                             referencePrice ? L("watch_price_reference") : nil].compactMap { $0 }
                 return parts.isEmpty ? nil : parts.joined(separator: ", ")
             }(),
             converted: convertedA11y ?? converted,

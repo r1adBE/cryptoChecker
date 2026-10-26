@@ -15,6 +15,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 133)
+
+* Exchange picker in sections: Spot · Futures · DEX pools · Forex (reference rate), favourites on top, search across all sections. Within a section the exchanges are sorted by trading volume on the install date (fetched once from CoinGecko's public exchange lists); without it alphabetically as before.
+* Coin search: after the start exchange and your favourites, the pairs of the largest exchanges come first (volume instead of alphabet).
+* New exchange: Bitunix Futures (perpetuals; Bitunix spot has no 24 h ticker). The API names no contract type, so stock contracts are not marked TradFi.
+* DEX pools: GeckoTerminal as fallback when DexScreener answers with a server error or no longer knows a pool; a GeckoTerminal rate limit never pauses DexScreener.
+* Forex: daily ECB reference rates (via Frankfurter) as currency pairs, labelled «reference rate, daily», never live and without alerts.
+* Privacy page: Bitunix, GeckoTerminal, the one-time exchange lists of CoinGecko and the forex reference rates.
+
 ## 16.2.2 (build 132)
 
 * Settings simplified: no «Advanced» page any more – «Token & TradFi» is on «Watchlist», market alerts and spoken output on «Alerts», coin logos under «Appearance», developer options (debug builds only) on «About the app». Search finds everything at its new place. The privacy page names the new places (coin logos, market alerts, Token & TradFi).

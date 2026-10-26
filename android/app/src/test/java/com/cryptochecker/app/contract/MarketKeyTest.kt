@@ -67,7 +67,9 @@ class MarketKeyTest {
         IndependentReserve() to "IndependentReserve",
         Latoken() to "Latoken",
         NonKyc() to "NonKyc",
+        BitunixFutures() to "BitunixFutures",
         DexScreener() to "DexScreener",
+        EcbReference() to "EcbReference",
         UnknownMarket() to "UnknownMarket",
     )
 

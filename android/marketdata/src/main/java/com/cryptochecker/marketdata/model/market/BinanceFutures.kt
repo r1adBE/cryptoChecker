@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -37,6 +38,7 @@ private val BINANCE_EXPIRY_CODE: DateTimeFormatter = DateTimeFormatter.ofPattern
  */
 class BinanceFutures : Market("Binance Futures", "Binance Futures") {
     override val key = "BinanceFutures"
+    override val category = MarketCategory.FUTURES
 
     /**
      * Darf der Kontrakt gewählt werden? Nur «TRADING» — abgelaufene, abrechnende oder geschlossene

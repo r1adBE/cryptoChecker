@@ -216,4 +216,6 @@
     <string name="watchlist_sort_by_coin">مرتب‌سازی بر اساس کوین</string>
     <string name="watchlist_sort_by_exchange">مرتب‌سازی بر اساس صرافی</string>
     <string name="watchlist_limit_reached">واچ‌لیستت حداکثر می‌تواند %1$s جفت داشته باشد.</string>
+    <string name="watch_price_reference">نرخ مرجع، روزانه</string>
+    <string name="watch_price_daily">روزانه</string>
 </resources>

@@ -312,9 +312,11 @@ enum PriceRefresher {
 
             // Kurs laut Börse zu alt (`AlarmFreshness`, Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen
             // aber nicht aus
-            let alarmsAllowed = !AlarmFreshness.blocksAlarms(updated.exchangeTime, markFallback: ticker.markFallback,
-                                                             now: now)
-            if !alarmsAllowed, let blocked = logAlarmsByWatch[watch.id] {
+            // Quelle ohne Alarme (EZB-Referenzkurse, `Market.allowsAlarms`): nie auswerten, nichts protokollieren
+            let sourceAllowsAlarms = MarketsConfig.market(watch.marketKey)?.allowsAlarms ?? true
+            let alarmsAllowed = sourceAllowsAlarms
+                && !AlarmFreshness.blocksAlarms(updated.exchangeTime, markFallback: ticker.markFallback, now: now)
+            if sourceAllowsAlarms, !alarmsAllowed, let blocked = logAlarmsByWatch[watch.id] {
                 // Alarm-Protokoll: nur festhalten, warum nicht (dieselbe Reihenfolge der Gründe wie Android)
                 outcome.alarmLog += blockedAlarmLog(
                     blocked, watch: watch, updated: updated,

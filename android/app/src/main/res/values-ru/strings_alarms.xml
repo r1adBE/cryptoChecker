@@ -192,4 +192,5 @@
     <string name="alarm_editor_more_summary">Быстрые оповещения, другие условия, звук и озвучивание</string>
     <string name="alarm_reliability_storage_no_key">Оповещения в фоне приостановлены – список не сохранён</string>
     <string name="alarms_limit_reached">У пары может быть не больше %1$s оповещений.</string>
+    <string name="alarms_reference_rate_hint">Справочные курсы ЕЦБ устанавливаются только раз в день – оповещений для них нет.</string>
 </resources>

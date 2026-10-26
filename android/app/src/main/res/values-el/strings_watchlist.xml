@@ -216,4 +216,6 @@
     <string name="watchlist_sort_by_coin">Ταξινόμηση ανά νόμισμα</string>
     <string name="watchlist_sort_by_exchange">Ταξινόμηση ανά ανταλλακτήριο</string>
     <string name="watchlist_limit_reached">Η λίστα παρακολούθησης μπορεί να έχει έως %1$s ζεύγη.</string>
+    <string name="watch_price_reference">ισοτιμία αναφοράς, ημερήσια</string>
+    <string name="watch_price_daily">ημερήσια</string>
 </resources>
