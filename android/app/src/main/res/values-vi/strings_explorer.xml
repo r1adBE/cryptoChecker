@@ -10,6 +10,9 @@
     <string name="explorer_coin_show_pairs">Xem các cặp</string>
     <string name="explorer_coin_suggested">Gợi ý</string>
     <string name="explorer_coins_title">Coin</string>
+    <plurals name="explorer_lists_failed">
+        <item quantity="other">%1$s hiện không phản hồi – chưa tải được danh sách cặp. Vui lòng thử lại sau.</item>
+    </plurals>
     <string name="explorer_lists_load">Tải danh sách</string>
     <string name="explorer_lists_loading">Đang tải danh sách cặp… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

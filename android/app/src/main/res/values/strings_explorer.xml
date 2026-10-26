@@ -11,6 +11,10 @@
     <string name="explorer_coin_show_pairs">Show pairs</string>
     <string name="explorer_coin_suggested">Suggested</string>
     <string name="explorer_coins_title">Coins</string>
+    <plurals name="explorer_lists_failed">
+        <item quantity="one">%1$s isn’t responding right now – pair list not loaded. Try again later.</item>
+        <item quantity="other">%1$s aren’t responding right now – pair lists not loaded. Try again later.</item>
+    </plurals>
     <string name="explorer_lists_load">Load lists</string>
     <string name="explorer_lists_loading">Loading pair lists… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

@@ -13,6 +13,12 @@
     <string name="explorer_coin_show_pairs">Pokaż pary</string>
     <string name="explorer_coin_suggested">Propozycja</string>
     <string name="explorer_coins_title">Monety</string>
+    <plurals name="explorer_lists_failed">
+        <item quantity="one">%1$s nie odpowiada w tej chwili – lista par nie została wczytana. Spróbuj później.</item>
+        <item quantity="few">%1$s nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później.</item>
+        <item quantity="many">%1$s nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później.</item>
+        <item quantity="other">%1$s nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później.</item>
+    </plurals>
     <string name="explorer_lists_load">Wczytaj listy</string>
     <string name="explorer_lists_loading">Wczytywanie list par… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

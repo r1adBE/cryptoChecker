@@ -16,6 +16,8 @@ struct ExplorerSearchLists: Equatable {
     var reading = false
     var missing = 0
     var progress: ExplorerSearchProgress?
+    /// Namen der Börsen, die beim letzten Laden nicht antworteten (wie `SearchLists.failed` in Android).
+    var failed: [String] = []
 }
 
 /// Was die Kursvorschau des gewählten Paars gerade zeigt.
@@ -143,6 +145,7 @@ final class ExplorerViewModel: ObservableObject {
     var unloadedMarkets: [Market] = []
     var pendingListMarkets: [Market] = []
     var listsLoadedCount = 0
+    var failedListKeys: Set<String> = []
     var storedListsTask: Task<Void, Never>?
     var missingListsTask: Task<Void, Never>?
     var searchTask: Task<Void, Never>?

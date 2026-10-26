@@ -11,6 +11,10 @@
     <string name="explorer_coin_show_pairs">Näytä parit</string>
     <string name="explorer_coin_suggested">Ehdotus</string>
     <string name="explorer_coins_title">Kolikot</string>
+    <plurals name="explorer_lists_failed">
+        <item quantity="one">%1$s ei vastaa juuri nyt – parilistaa ei ladattu. Yritä myöhemmin uudelleen.</item>
+        <item quantity="other">%1$s eivät vastaa juuri nyt – parilistoja ei ladattu. Yritä myöhemmin uudelleen.</item>
+    </plurals>
     <string name="explorer_lists_load">Lataa listat</string>
     <string name="explorer_lists_loading">Ladataan parilistoja… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

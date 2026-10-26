@@ -224,7 +224,7 @@ internal fun WatchActionsSheet(
                     modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
                 ) {
                     Text(
-                        text = friendlyError(watch.lastError),
+                        text = friendlyError(watch.lastError.orEmpty()),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier.weight(1f)

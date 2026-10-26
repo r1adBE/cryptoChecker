@@ -221,7 +221,7 @@ internal fun RowPrice(
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.alignByBaseline()
                 )
-                if (watch.lastPrice != null && watch.lastPrice > 0.0) {
+                if ((watch.lastPrice ?: 0.0) > 0.0) {
                     Text(
                         text = watch.quoteAsset,
                         style = MaterialTheme.typography.bodySmall,

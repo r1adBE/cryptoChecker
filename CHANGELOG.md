@@ -17,6 +17,7 @@ Detailed build history below.
 
 ## 16.2.2 (build 136)
 
+* Add pair (both platforms): if an exchange doesn’t answer while its pair list loads (maintenance, timeout, no network), the card names it – «LATOKEN isn’t responding right now – pair list not loaded. Try again later.» – and the button reads «Try again» instead of showing the same card without a word.
 * Android code structure (no change for users): new Gradle module `:domain` with the rules, calculations and models that need neither screens nor storage (139 files, packages unchanged). First step of splitting the app into modules; CI lints the new module, the device tests and the supply-chain update know it.
 
 ## 16.2.2 (build 135)

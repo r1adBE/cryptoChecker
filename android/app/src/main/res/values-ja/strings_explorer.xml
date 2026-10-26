@@ -10,6 +10,9 @@
     <string name="explorer_coin_show_pairs">ペアを表示</string>
     <string name="explorer_coin_suggested">おすすめ</string>
     <string name="explorer_coins_title">コイン</string>
+    <plurals name="explorer_lists_failed">
+        <item quantity="other">%1$s が現在応答していません – ペアリストを読み込めませんでした。しばらくしてからもう一度お試しください。</item>
+    </plurals>
     <string name="explorer_lists_load">一覧を読み込む</string>
     <string name="explorer_lists_loading">ペア一覧を読み込み中… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">
