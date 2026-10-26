@@ -2513,6 +2513,14 @@ after the encryption step.
   (`flowOn(Dispatchers.Default)` flows, DataStore) and wrote snapshot state there – the rare «Reentrant composition» /
   `SlotTable` crashes of `importCsvAndUndo`. New instrumented UI tests use the v2 rule. iOS `AccessibilityAuditTests`
   taps the storage notice's close button a second time when the first tap was missed.
+* Build 135 (audit 134, F-10/F-19/F-23): every instrumented Compose test uses the v2 rule
+  (`androidx.compose.ui.test.junit4.v2.createAndroidComposeRule`). `macro_calendar.py --self-test` also runs
+  `recorded_pages_test` against the gzip-compressed real pages in `.github/scripts/testdata/macro` (BLS schedule and
+  release pages, FOMC, BEA; expected counts and first/last dates; refresh them with the parser). Test-source Kotlin
+  warnings fixed (redundant `!!`/conversions, unchecked casts suppressed locally, nullable `parentFile`).
+  `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
+  verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
+  comes from an applied plugin, not from the build scripts.
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on

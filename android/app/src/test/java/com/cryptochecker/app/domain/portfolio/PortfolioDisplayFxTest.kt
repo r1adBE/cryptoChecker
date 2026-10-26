@@ -42,7 +42,7 @@ class PortfolioDisplayFxTest {
         val widget = PortfolioDisplayFigures.unrealized(summary.open, "CHF", 0.8, memo)!!
         assertEquals(6000.0, widget.amount, 1e-6)
         assertEquals(figures.unrealizedPercent!!, widget.percent!!, 1e-9)
-        assertEquals(100.0 / 3.0, widget.percent!!, 1e-9)
+        assertEquals(100.0 / 3.0, widget.percent, 1e-9)
         assertEquals(listOf("SOL"), widget.skipped)
         // Später, Kurs gestiegen: mit dem aktuellen Wert nachgerechnet (Einstand zum Kurs der Erwerbstage bleibt)
         val later = PortfolioCalculator.summarize(trades, mapOf("BTC" to 40_000.0, "SOL" to 150.0))

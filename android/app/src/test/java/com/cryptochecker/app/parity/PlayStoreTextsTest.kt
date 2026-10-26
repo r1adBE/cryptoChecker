@@ -10,7 +10,7 @@ import java.io.File
  */
 class PlayStoreTextsTest {
 
-    private val root = File(ParityJson.dir().parentFile.parentFile, "fastlane/metadata/android")
+    private val root = File(ParityJson.dir().parentFile!!.parentFile, "fastlane/metadata/android")
 
     private fun chars(f: File): Int = f.readText(Charsets.UTF_8).let { it.codePointCount(0, it.length) }
 

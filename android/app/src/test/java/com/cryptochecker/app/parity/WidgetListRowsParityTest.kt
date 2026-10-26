@@ -20,8 +20,8 @@ class WidgetListRowsParityTest {
         cases.forEach { raw ->
             val c = raw.obj()
             val rows = WidgetListRows.rowsFor(
-                height = c["height"].num()!!.toDouble(),
-                scale = c["scale"].num()!!.toDouble(),
+                height = c["height"].num()!!,
+                scale = c["scale"].num()!!,
                 baseRows = c["baseRows"].num()!!.toInt(),
             )
             assertEquals(c["name"] as String, c["rows"].num()!!.toInt(), rows)

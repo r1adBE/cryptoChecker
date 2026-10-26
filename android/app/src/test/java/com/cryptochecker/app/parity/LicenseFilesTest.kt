@@ -14,7 +14,7 @@ import java.io.File
 class LicenseFilesTest {
 
     /** Ordner `android/` (über `testdata/parity`). */
-    private val android: File = ParityJson.dir().parentFile.parentFile
+    private val android: File = ParityJson.dir().parentFile!!.parentFile!!
 
     private fun bytes(path: String): ByteArray = File(android, path).readBytes()
 

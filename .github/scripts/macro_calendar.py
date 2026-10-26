@@ -37,6 +37,7 @@ Behaviour:
 Python 3.9+ standard library only.
 """
 import argparse
+import gzip
 import datetime as dt
 import html
 import json
@@ -535,6 +536,41 @@ SAMPLE_BLS_SCHEDULE = ('<tr><td>Tuesday, October 14, 2026</td><td>08:30 AM</td>'
 SAMPLE_BLS_PAGE = '<tr><td>September 2026</td><td>Oct. 15, 2026</td><td>08:30 AM</td></tr>'
 
 
+RECORDED = os.path.join(os.path.dirname(os.path.abspath(__file__)), "testdata", "macro")
+
+
+def recorded(name):
+    """A real page as served on 26 Oct 2026 (gzip, testdata/macro), decoded like fetch()."""
+    with gzip.open(os.path.join(RECORDED, name + ".html.gz"), "rb") as f:
+        return f.read().decode("utf-8", errors="replace")
+
+
+def recorded_pages_test():
+    """Parsers against the real pages of 26 Oct 2026 (BLS schedule and release pages, FOMC calendar, BEA schedule):
+    each page must still yield its known number of dates, first and last included. A page layout change that a
+    hand-written sample would not show fails here; refresh the files when the sites change (see README in
+    testdata/macro)."""
+    schedule = parse_bls_schedule(recorded("bls_current_year"))
+    assert len(schedule) == 37, len(schedule)
+    assert schedule[0] == {"type": "NFP", "time": "2026-01-09T13:30:00Z"}, schedule[0]
+    assert schedule[-1] == {"type": "PPI", "time": "2026-12-15T13:30:00Z"}, schedule[-1]
+    for name, kind, first, last in (
+            ("bls_cpi", "CPI", "2026-11-10T13:30:00Z", "2027-12-10T13:30:00Z"),
+            ("bls_ppi", "PPI", "2026-11-13T13:30:00Z", "2027-12-15T13:30:00Z"),
+            ("bls_empsit", "NFP", "2026-11-06T13:30:00Z", "2027-12-03T13:30:00Z")):
+        page = parse_bls_release_page(recorded(name), kind)
+        # At least a year ahead per page (14 dates today); fewer means the table is no longer recognised
+        assert len(page) >= 12, (name, len(page))
+        assert page[0]["time"] == first and page[-1]["time"] == last, (name, page[0], page[-1])
+    fomc = parse_fomc(recorded("fomc"))
+    assert len(fomc) == 56, len(fomc)
+    assert {"type": "FOMC", "time": "2026-01-28T19:00:00Z"} in fomc
+    assert {"type": "FOMC", "time": "2027-12-08T19:00:00Z"} in fomc
+    pce = parse_bea(recorded("bea_schedule"))
+    assert [e["time"] for e in pce] == ["2026-10-29T12:30:00Z", "2026-11-25T13:30:00Z",
+                                        "2026-12-23T13:30:00Z"], pce
+
+
 def self_test():
     """Parsers against stored markup (BEA inline spans, BLS tables) and the User-Agent rule."""
     assert "@" in USER_AGENT and "http" not in USER_AGENT, "BLS needs a contact e-mail, no URL"
@@ -548,6 +584,7 @@ def self_test():
                                                      ("NFP", "2026-11-06T13:30:00Z")], bls
     page = parse_bls_release_page(SAMPLE_BLS_PAGE, "PPI")
     assert page == [{"type": "PPI", "time": "2026-10-15T12:30:00Z"}], page
+    recorded_pages_test()
     print("macro_calendar self-test ok")
     return 0
 
