@@ -6,7 +6,6 @@
     <string name="settings_group_more">More</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_row_about">About the app</string>
-    <string name="settings_row_advanced">Advanced</string>
     <string name="settings_row_alarms">Alerts</string>
     <string name="settings_row_currency">Currency</string>
     <string name="settings_row_dated_futures">Dated futures</string>

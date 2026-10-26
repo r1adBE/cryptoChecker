@@ -1061,7 +1061,7 @@ Changing a TTL: update both platforms, `CycleCachePolicyTest` (Android),
 
 While the **watchlist is on screen and the app is in the foreground**, prices of the
 visible pairs (the selected group) come from the exchanges' public WebSocket tickers instead
-of REST polling. Setting: *Settings › Advanced › Price updates › «How current?»* — `UpdateMode`
+of REST polling. Setting: *Settings › Price updates › «How current?»* — `UpdateMode`
 (`SPARSAM` «Economical» = default and recommended for new installs since build 43, `LIVE_OFFEN` «Live while open» = labelled «for pros»; never call Live the recommended choice); `liveWebSocket` is derived from
 it. `IMMER_KURZ` («Always frequent», removed before 1.0) is only read from old data and backups and
 always becomes `LIVE_OFFEN` (`withoutService`); a stored value is rewritten once by
@@ -2001,22 +2001,21 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 
 * **Settings structure.** Main page (`SettingsScreen.kt` / `SettingsScreen.swift`): **General**
   (Language – on iOS it opens the system Settings app –, Currency, Watchlist, Portfolio, Alarms, Price updates),
-  **Appearance** (Mode, Theme, Price colours, Widgets), **More** (Data / backup, one row **Advanced**, About) and
+  **Appearance** (Mode, Theme, Price colours, Coin logos, Widgets), **More** (Data / backup, About) and
   «Reset app» alone in its own red card at the very bottom (build 53 «Weg 1», regrouped in build 55). Since build 83
   Portfolio has exactly one place: the row under General opens the Portfolio page (`PortfolioPage` /
   `PortfolioSettingsPage`) with the «Show Portfolio tab» switch on top, then lock, hide amounts, cost method, tax
   template and «Portfolio in system backup» – so «Settings › Portfolio» in hints and the widget is literally true;
   the search lists that page first for «Portfolio».
-  «Advanced» (`AdvancedSettingsPage` on both platforms) holds Token & TradFi, Market alerts, Speech
-  output, Coin logos and Developer; its sub-pages
-  are unchanged and «back» returns to the Advanced page. **Rule: the main page stays short.** A new
-  detail or fine-tuning setting goes under «Advanced» (onto an existing sub-page there, or a new
-  sub-page reached from the Advanced page) – never as a new row or group on the main page. Only a
-  setting most users need goes onto an existing main-page sub-page (e.g. Watchlist, Portfolio). The
-  settings search (`SettingsSearch` / `SettingsSearchUi`) must still find **every** item: entries on
-  the Advanced page show the breadcrumb «Advanced › …» and open their sub-page with the item
-  highlighted. New items need a search entry (and a backup field, unless they are device-only flags).
-  Hints that name a path use the full path, e.g. «Settings › Advanced › Price updates › Live while open».
+  Since build 132 there is no «Advanced» page: every setting sits where it belongs – Token & TradFi on the
+  Watchlist page, Market alerts and Speech output on the Alerts page, Coin logos under Appearance, Developer on
+  the About page (debug builds only). **Rule: the main page stays short.** A new detail or fine-tuning setting
+  goes onto the existing sub-page it belongs to (watchlist → Watchlist, looks → Appearance, alerts → Alerts) or a
+  new sub-page reached from there – never as a new row or group on the main page. The settings search
+  (`SettingsSearch` / `SettingsSearchUi`) must still find **every** item: entries show the breadcrumb of the
+  page that holds them and open it with the item highlighted. New items need a search entry (and a backup
+  field, unless they are device-only flags). Hints that name a path use the full path, e.g. «Settings › Price
+  updates › Live while open».
 * **Settings icons.** The line icons before the main-page rows are monochrome in the text colour
   (white in dark mode, black in light mode) – Alarms a bell, Market alerts a lightning bolt; only
   «Reset app» keeps the error colour. The accent colour is reserved for the heading markers
@@ -2470,6 +2469,19 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 132: settings without «Advanced» (`SettingsPage.ADVANCED`/`SettingsHome.ADVANCED` and iOS `.advanced`
+  removed; old route name falls back): MARKETS row on WatchlistPage, market alerts and speech rows on AlarmsPage,
+  COIN_LOGOS under Appearance, DEVELOPER row on AboutPage; search paths follow (`page.markets` → Watchlist,
+  `page.market_alerts`/`page.speech` → Alerts, `page.developer` → About). String `settings_row_advanced` and
+  `ic_settings_advanced` removed; `watchlist_tts_speech_on` points to Settings › Alerts › Spoken output in all
+  languages. `macro_calendar.py`: User-Agent with the public contact e-mail (BLS answers 403 otherwise), inline tags
+  removed without a space (BEA «<span>N</span><span>ews</span>»), `--self-test` with stored markup, run in the
+  workflow. `room_schema_drift.py` skips outside a git work tree. iOS audit blocking again (settings section titles
+  and the portfolio note excepted as dynamic-type false positives, to be checked on a device).
+  `PortfolioCsvImportViewModel`: progress from the matching (Dispatchers.Default) and the save (database thread) is
+  posted to the main thread with a run counter (`postProgress`/`clearProgress`); setting the StateFlow from the worker
+  let the Compose test clock apply changes on that thread (CalledFromWrongThread, corrupt slot table, crash on
+  activity destroy in UiFlowsTest.importCsvAndUndo).
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on

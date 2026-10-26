@@ -121,7 +121,7 @@
     <string name="watchlist_groups_empty_hint">הקבוצות שלך יופיעו כאן</string>
     <string name="watchlist_notification">עדכון מחיר</string>
     <string name="watchlist_tts">הקראת מחיר</string>
-    <string name="watchlist_tts_speech_on">ההקראה פעילה. אפשר לשנות זאת כאן: הגדרות › מתקדם › הקראה קולית.</string>
+    <string name="watchlist_tts_speech_on">ההקראה פעילה. אפשר לשנות זאת כאן: הגדרות › התראות › הקראה קולית.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">הוספה כווידג׳ט</string>

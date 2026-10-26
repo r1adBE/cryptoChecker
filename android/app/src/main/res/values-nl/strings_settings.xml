@@ -6,7 +6,6 @@
     <string name="settings_group_more">Meer</string>
     <string name="settings_minutes">%1$d min</string>
     <string name="settings_row_about">Over de app</string>
-    <string name="settings_row_advanced">Geavanceerd</string>
     <string name="settings_row_alarms">Alarmen</string>
     <string name="settings_row_currency">Valuta</string>
     <string name="settings_row_dated_futures">Futures met looptijd</string>

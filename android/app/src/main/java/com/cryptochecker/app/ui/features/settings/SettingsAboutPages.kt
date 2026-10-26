@@ -133,6 +133,16 @@ internal fun AboutPage(
                     onClick = { onOpenPage(SettingsPage.LICENSES) }
                 )
             }
+            // «Entwickler» erst nach 7 Tipps auf die Version (oben); nur im Debug-Build, der Release enthält keinen
+            // HTTP-Mitschnitt (Build 132 von «Erweitert» hierher, gleich neben der Freischaltung)
+            if (settings.developerUnlocked && BuildConfig.DEBUG) {
+                SettingsNavRow(
+                    title = stringResource(R.string.settings_section_developer),
+                    icon = R.drawable.ic_settings_developer,
+                    value = onOff(settings.showHttpLog),
+                    onClick = { onOpenPage(SettingsPage.DEVELOPER) }
+                )
+            }
         }
         Spacer(Modifier.height(12.dp))
         // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg

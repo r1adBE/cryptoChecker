@@ -119,6 +119,25 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private val _progress = MutableStateFlow<CsvImportProgress?>(null)
     val progress: StateFlow<CsvImportProgress?> = _progress.asStateFlow()
 
+    /**
+     * Lauf des Fortschritts: steigt bei jedem Zurücksetzen ([clearProgress]). Meldungen kommen vom Abgleich
+     * (Dispatchers.Default) bzw. vom Datenbank-Thread und werden auf dem Main-Thread gesetzt ([postProgress]); eine
+     * verspätete Meldung eines früheren Laufs fällt weg. Vorher setzte der Hintergrund den Wert direkt — in UI-Tests
+     * zeichnete Compose dann auf dem Hintergrund-Thread («CalledFromWrongThread») und stürzte beim Beenden der
+     * Activity ab (UiFlowsTest.importCsvAndUndo, Build 130/131).
+     */
+    private var progressRun = 0
+
+    private fun clearProgress() {
+        progressRun++
+        _progress.value = null
+    }
+
+    /** Fortschritt [p] des Laufs [run] auf dem Main-Thread setzen (nur, solange dieser Lauf gilt). */
+    private fun postProgress(p: CsvImportProgress, run: Int) {
+        viewModelScope.launch(Dispatchers.Main.immediate) { if (run == progressRun) _progress.value = p }
+    }
+
     /** «Abbrechen» beim Speichern: vor jeder Zeile geprüft ([PortfolioRepository.insertImported]), dann nichts gespeichert. */
     private val saveCancelled = AtomicBoolean(false)
 
@@ -142,7 +161,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
 
     fun load(uri: Uri) {
         _state.value = CsvImportState.Loading
-        _progress.value = null
+        clearProgress()
         loadJob?.cancel()
         loadJob = viewModelScope.launch {
             // Gesperrt: gar nicht erst lesen — die Vorschau endete sonst ohne Grund in «0 importiert»
@@ -211,7 +230,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
         val read = reader.prepare(reader.readText(uri), chosen)
         input = read
         // Vorschau umrechnen mit Fortschritt «Zeile X von Y» im Ladedialog
-        return mapCsvPreview(read) { _progress.value = it }
+        val run = progressRun
+        return mapCsvPreview(read) { postProgress(it, run) }
     }
 
     /**
@@ -284,7 +304,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
         val choices = _choices.value
         val destinations = _proposals.value.associate { it.importKey to it.transferTo }
         _state.value = CsvImportState.Saving
-        _progress.value = null
+        clearProgress()
         saveCancelled.set(false)
         viewModelScope.launch {
             val result = runCsvImportSave(
@@ -303,7 +323,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
                 return@launch
             }
             if (result == CsvImportState.Locked || result == CsvImportState.SaveFailed) reset()
-            if (result is CsvImportState.Done) _progress.value = null
+            if (result is CsvImportState.Done) clearProgress()
             _state.value = result
         }
     }
@@ -314,7 +334,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * Gespeicherten.
      */
     private suspend fun save(plan: CsvImportSavePlan): CsvImportSaveOutcome {
-        val throttle = CsvProgressThrottle(CsvImportStep.SAVE, plan.entities.size) { _progress.value = it }
+        val run = progressRun
+        val throttle = CsvProgressThrottle(CsvImportStep.SAVE, plan.entities.size) { postProgress(it, run) }
         throttle.start()
         return withContext(NonCancellable) {
             saveCsvImport(
@@ -360,7 +381,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
 
     fun reset() {
         _state.value = CsvImportState.Idle
-        _progress.value = null
+        clearProgress()
         input = null
         clearChoices()
         chosen = CsvReadChoice()

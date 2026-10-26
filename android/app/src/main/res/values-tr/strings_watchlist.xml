@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Grupların burada görünecek</string>
     <string name="watchlist_notification">Fiyat bildirimi</string>
     <string name="watchlist_tts">Fiyatı sesli oku</string>
-    <string name="watchlist_tts_speech_on">Sesli okuma açık. Değiştirmek için: Ayarlar › Gelişmiş › Sesli çıkış.</string>
+    <string name="watchlist_tts_speech_on">Sesli okuma açık. Değiştirmek için: Ayarlar › Alarmlar › Sesli çıkış.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Widget olarak ekle</string>

@@ -59,7 +59,7 @@ class SettingsSearchTest {
     @Test
     fun portfolio_pageComesFirst() {
         val catalog = listOf(
-            SettingsSearchEntry("page.advanced", "Erweitert", "Mehr"),
+            SettingsSearchEntry("page.backup", "Sicherung", "Mehr"),
             SettingsSearchEntry("page.portfolio", "Portfolio", "Allgemein", listOf("Portfolio-Tab anzeigen")),
             SettingsSearchEntry("portfolio.tab", "Portfolio-Tab anzeigen", "Portfolio"),
             SettingsSearchEntry("portfolio.lock", "Portfolio-Sperre", "Portfolio"),

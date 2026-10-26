@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Grupet e tua do të shfaqen këtu</string>
     <string name="watchlist_notification">Njoftimi i çmimit</string>
     <string name="watchlist_tts">Lexo çmimin</string>
-    <string name="watchlist_tts_speech_on">Zëri është aktiv. Mund ta ndryshosh te Cilësimet › Të avancuara › Dalja zanore.</string>
+    <string name="watchlist_tts_speech_on">Zëri është aktiv. Mund ta ndryshosh te Cilësimet › Alarmet › Dalja zanore.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Shto si widget</string>

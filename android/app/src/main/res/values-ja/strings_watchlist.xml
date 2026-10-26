@@ -97,7 +97,7 @@
     <string name="watchlist_groups_empty_hint">ここにグループが表示されます</string>
     <string name="watchlist_notification">価格通知</string>
     <string name="watchlist_tts">価格を読み上げ</string>
-    <string name="watchlist_tts_speech_on">読み上げをオンにしました。変更は「設定 › 詳細設定 › 音声出力」で行えます。</string>
+    <string name="watchlist_tts_speech_on">読み上げをオンにしました。変更は「設定 › アラーム › 音声出力」で行えます。</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">ウィジェットとして追加</string>

@@ -6,7 +6,6 @@
     <string name="settings_group_more">المزيد</string>
     <string name="settings_minutes">%1$d د</string>
     <string name="settings_row_about">حول التطبيق</string>
-    <string name="settings_row_advanced">متقدم</string>
     <string name="settings_row_alarms">التنبيهات</string>
     <string name="settings_row_currency">العملة</string>
     <string name="settings_row_dated_futures">عقود آجلة ذات استحقاق</string>

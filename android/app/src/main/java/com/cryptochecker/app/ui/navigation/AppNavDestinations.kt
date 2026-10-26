@@ -62,7 +62,7 @@ internal fun NavGraphBuilder.settingsDestinations(
             SettingsPageScreen(
                 page = SettingsPage.fromName(entry.toRoute<ScreenRoute.SettingsSubpage>().page),
                 onBack = { navigation.popBackStack() },
-                // «Alarme», «Erweitert» und «Über» öffnen weitere Unterseiten; Zurück führt wieder dorthin.
+                // «Merkliste», «Alarme» und «Über» öffnen weitere Unterseiten; Zurück führt wieder dorthin.
                 // Ohne launchSingleTop: gleiches Ziel (SettingsSubpage) würde sonst den
                 // Eintrag «Alarme» ersetzen statt darüber zu legen
                 onOpenPage = { page ->
@@ -70,7 +70,7 @@ internal fun NavGraphBuilder.settingsDestinations(
                         navigation.navigate(ScreenRoute.SettingsSubpage(page.name))
                     }
                 },
-                // «Erweitert»: Markt-Meldungen und Sprachausgabe haben eigene Routen
+                // «Alarme»: Markt-Meldungen und Sprachausgabe haben eigene Routen
                 onOpenMarketAlerts = {
                     if (entry.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                         navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }

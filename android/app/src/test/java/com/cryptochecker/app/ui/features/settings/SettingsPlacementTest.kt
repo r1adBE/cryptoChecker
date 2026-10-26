@@ -5,11 +5,11 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
- * Token & TradFi, Coin-Logos und Entwickler; %-Änderung steht auf «Merkliste» (Markt-Meldungen und Sprachausgabe
- * haben eigene Routen). Portfolio hat genau einen Ort, die Zeile unter «Allgemein» (Einstellungen ›
- * Portfolio) — kein Schalter mehr in «Mehr», keine Zeile mehr unter «Erweitert». Die Suche zeigt den Pfad aus
- * diesem Ort — wie `testPagesSitWhereTheMainPageShowsThem` (iOS, SettingsSearchTests).
+ * Kurs-Aktualisierung unter «Allgemein», Widgets und Coin-Logos unter «Darstellung»; kein «Erweitert» mehr
+ * (Build 132): %-Änderung und Token & TradFi stehen auf «Merkliste», Entwickler auf «Über die App» (Markt-Meldungen
+ * und Sprachausgabe haben eigene Routen, Zeilen auf «Alarme»). Portfolio hat genau einen Ort, die Zeile unter
+ * «Allgemein» (Einstellungen › Portfolio). Die Suche zeigt den Pfad aus diesem Ort — wie
+ * `testPagesSitWhereTheMainPageShowsThem` (iOS, SettingsSearchTests).
  */
 class SettingsPlacementTest {
 
@@ -20,16 +20,19 @@ class SettingsPlacementTest {
         assertEquals(SettingsHome.APPEARANCE, SettingsPage.WIDGETS.home)
         assertEquals(SettingsHome.APPEARANCE, SettingsPage.PRICE_COLORS.home)
         assertEquals(SettingsHome.GENERAL, SettingsPage.PORTFOLIO.home)
-        listOf(SettingsPage.MARKETS, SettingsPage.COIN_LOGOS, SettingsPage.DEVELOPER)
-            .forEach { assertEquals(it.name, SettingsHome.ADVANCED, it.home) }
-        assertEquals(SettingsHome.MORE, SettingsPage.ADVANCED.home)
+        assertEquals(SettingsHome.APPEARANCE, SettingsPage.COIN_LOGOS.home)
+        assertEquals(setOf(SettingsHome.GENERAL, SettingsHome.APPEARANCE, SettingsHome.MORE), SettingsHome.entries.toSet())
+        assertNull("frühere Route «Erweitert» führt zurück", SettingsPage.fromName("ADVANCED"))
     }
 
     @Test
     fun subpagesOfSubpagesHaveNoHome() {
-        // Preis-Paare stehen auf «Alarme», Lizenzen auf «Über die App», %-Änderung auf «Merkliste»
+        // Preis-Paare stehen auf «Alarme», Lizenzen und Entwickler auf «Über die App», %-Änderung und Token & TradFi
+        // auf «Merkliste»
         assertNull(SettingsPage.PRICE_PAIRS.home)
         assertNull(SettingsPage.CHANGE_BASIS.home)
+        assertNull(SettingsPage.MARKETS.home)
         assertNull(SettingsPage.LICENSES.home)
+        assertNull(SettingsPage.DEVELOPER.home)
     }
 }

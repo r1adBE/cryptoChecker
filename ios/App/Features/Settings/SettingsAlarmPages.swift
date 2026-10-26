@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// Alarme: «Wie aktuell?» (öffnet «Aktualisierung»), Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
+/// Alarme: «Wie aktuell?» (öffnet «Aktualisierung»), Markt-Meldungen und Sprachausgabe (seit Build 132 hier statt unter
+/// «Erweitert»), Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
 @MainActor
 struct AlarmSettingsPage: View {
     @EnvironmentObject private var data: AppData
@@ -58,6 +59,18 @@ struct AlarmSettingsPage: View {
                 AlarmDeliveryScreen()
             }
             .settingsAnchor("alarms.delivery")
+            RowDivider()
+            // Blitz wie «Ungewöhnliche Aktivität»
+            SettingsNavRow(title: L("settings_market_alerts"), icon: .system("bolt.fill"),
+                           value: SettingsSummary.marketAlertsText(settings)) {
+                MarketAlertsSettingsPage()
+            }
+            .settingsAnchor("alarms.market_alerts")
+            RowDivider()
+            SettingsNavRow(title: L("settings_tts"), icon: .system("speaker.wave.2"), value: SettingsSummary.speechText(settings)) {
+                SpeechSettingsPage()
+            }
+            .settingsAnchor("alarms.speech")
             RowDivider()
             SwitchRow(
                 title: L("settings_price_notifications"),
@@ -221,9 +234,15 @@ struct NotificationPermissionRow: View {
     let denied: Bool
     let action: () -> Void
     @Environment(\.appAccent) private var accent
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
-        HStack(spacing: 12) {
+        // Grosse Schrift: Knopf unter den Text statt daneben — nebeneinander wurde «Mitteilungen erlauben» abgeschnitten
+        // (Audit «Text clipped», Build 131)
+        let layout = typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
+            : AnyLayout(HStackLayout(spacing: 12))
+        layout {
             Image(systemName: denied ? "bell.slash.fill" : "bell.fill")
                 .font(.body.weight(.semibold))
                 .foregroundStyle(denied ? AppColors.error : accent.primary)
@@ -237,11 +256,13 @@ struct NotificationPermissionRow: View {
             Button(action: action) {
                 Text(L(denied ? "ios_open_settings" : "ios_allow_notifications"))
                     .font(.footnote.weight(.semibold))
-                    .lineLimit(1)
+                    .multilineTextAlignment(.center)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
             }
             .buttonStyle(TonalButtonStyle())
+            // Knopf behält seine Breite, der Text daneben bricht um (nie «Mitteilungen erl…»)
+            .fixedSize(horizontal: !typeSize.isAccessibilitySize, vertical: true)
         }
         .padding(.vertical, Spacing.sm)
     }

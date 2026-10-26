@@ -30,7 +30,10 @@ import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.ChangeBasisText
 
-/** Merkliste: Namen, Mini-Chart, «≈ Umrechnung», ⚡ «Ungewöhnliche Aktivität» und die Basis der %-Änderung. */
+/**
+ * Merkliste: Namen, Mini-Chart, «≈ Umrechnung», ⚡ «Ungewöhnliche Aktivität», die Basis der %-Änderung und «Token &
+ * TradFi» (was die Paar-Auswahl zeigt; Build 132 von «Erweitert» hierher — alles zur Merkliste an einem Ort).
+ */
 @Composable
 internal fun WatchlistPage(
     onBack: () -> Unit,
@@ -87,12 +90,20 @@ internal fun WatchlistPage(
                     onClick = { onOpenPage(SettingsPage.CHANGE_BASIS) }
                 )
             }
+            SettingsAnchor("watchlist.markets") {
+                SettingsNavRow(
+                    title = stringResource(R.string.settings_asset_scope_title),
+                    icon = R.drawable.ic_settings_exchange,
+                    value = stringResource(settings.assetScope.titleRes),
+                    onClick = { onOpenPage(SettingsPage.MARKETS) }
+                )
+            }
         }
     }
 }
 
 /**
- * «Token & TradFi» (unter «Erweitert», vorher auf «Merkliste»): was die Paar-Auswahl zeigt,
+ * «Token & TradFi» (Zeile auf «Merkliste»): was die Paar-Auswahl zeigt,
  * dazu Alpha-Tokens und QTLY (gehören zu Token). Gleiche Anker wie zuvor.
  */
 @Composable

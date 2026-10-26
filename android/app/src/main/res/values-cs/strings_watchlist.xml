@@ -133,7 +133,7 @@
     <string name="watchlist_groups_empty_hint">Zde se zobrazí tvoje skupiny</string>
     <string name="watchlist_notification">Cenové oznámení</string>
     <string name="watchlist_tts">Číst cenu nahlas</string>
-    <string name="watchlist_tts_speech_on">Hlasový výstup je zapnutý. Změníš ho v Nastavení › Rozšířené › Hlasový výstup.</string>
+    <string name="watchlist_tts_speech_on">Hlasový výstup je zapnutý. Změníš ho v Nastavení › Alarmy › Hlasový výstup.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Přidat jako widget</string>

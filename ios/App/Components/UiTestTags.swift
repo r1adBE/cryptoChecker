@@ -95,6 +95,9 @@ enum UiTestTags {
     /// Schliessen-✕ einer Meldung mit Aktion (Snackbar bzw. Banner).
     static let snackbarDismiss = "snackbar_dismiss"
 
+    /// Überschrift einer Karte der Einstellungen («Allgemein», «Darstellung», «Mehr»; `SettingsCard`).
+    static let settingsSectionTitle = "settings_section_title"
+
     /// Hinweis «Arbeitshilfe, keine Steuer- oder Anlageberatung» unten im Portfolio (`PortfolioDisclaimer`).
     static let portfolioDisclaimer = "portfolio_disclaimer"
 

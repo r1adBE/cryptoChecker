@@ -6,7 +6,6 @@
     <string name="settings_group_more">Thêm</string>
     <string name="settings_minutes">%1$d phút</string>
     <string name="settings_row_about">Giới thiệu ứng dụng</string>
-    <string name="settings_row_advanced">Nâng cao</string>
     <string name="settings_row_alarms">Cảnh báo</string>
     <string name="settings_row_currency">Tiền tệ</string>
     <string name="settings_row_dated_futures">Futures có kỳ hạn</string>

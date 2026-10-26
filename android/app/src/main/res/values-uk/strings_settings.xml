@@ -6,7 +6,6 @@
     <string name="settings_group_more">Більше</string>
     <string name="settings_minutes">%1$d хв</string>
     <string name="settings_row_about">Про застосунок</string>
-    <string name="settings_row_advanced">Додатково</string>
     <string name="settings_row_alarms">Сигнали</string>
     <string name="settings_row_currency">Валюта</string>
     <string name="settings_row_dated_futures">Строкові ф’ючерси</string>

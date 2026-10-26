@@ -1,6 +1,6 @@
 import Foundation
 
-/// «Token & TradFi» (Einstellungen › Erweitert) — wie `AssetScope.kt`: Was die Paar-Auswahl
+/// «Token & TradFi» (Einstellungen › Merkliste) — wie `AssetScope.kt`: Was die Paar-Auswahl
 /// (Paar hinzufügen, Suche über alle Börsen, «Alle …-Paare») zeigt.
 ///
 ///  - `TOKENS` (Standard): nur Krypto — Spot, Perpetuals und (mit QTLY) Laufzeit-Futures.

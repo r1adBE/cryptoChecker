@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Εδώ θα εμφανίζονται οι ομάδες σου</string>
     <string name="watchlist_notification">Ειδοποίηση τιμής</string>
     <string name="watchlist_tts">Εκφώνηση τιμής</string>
-    <string name="watchlist_tts_speech_on">Η φωνητική έξοδος είναι ενεργή. Μπορείς να την αλλάξεις στο Ρυθμίσεις › Για προχωρημένους › Φωνητική έξοδος.</string>
+    <string name="watchlist_tts_speech_on">Η φωνητική έξοδος είναι ενεργή. Μπορείς να την αλλάξεις στο Ρυθμίσεις › Συναγερμοί › Φωνητική έξοδος.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Προσθήκη ως widget</string>

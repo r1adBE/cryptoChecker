@@ -5,6 +5,8 @@ Usage: python3 -I room_schema_drift.py <schema dir relative to the current direc
 Fails (exit 1, error annotation) when a committed schema file now has another identity hash (an entity
 changed without a new database version) or when the build produced a schema file that is not committed
 (new version without its schema in the repository). Formatting differences are ignored.
+Outside a git work tree (e.g. an unpacked source ZIP) there is nothing committed to compare against: the script says
+so and exits 0 instead of reporting every file as uncommitted.
 """
 import json
 import os
@@ -19,8 +21,19 @@ def identity(text):
         return None
 
 
+def in_git_work_tree():
+    try:
+        done = subprocess.run(["git", "rev-parse", "--is-inside-work-tree"], capture_output=True, text=True)
+    except OSError:
+        return False
+    return done.returncode == 0 and done.stdout.strip() == "true"
+
+
 def main():
     root = sys.argv[1]
+    if not in_git_work_tree():
+        print("Room schema drift: no git work tree here, nothing committed to compare (skipped)")
+        return 0
     problems = []
     for dirpath, _, files in os.walk(root):
         for name in sorted(files):

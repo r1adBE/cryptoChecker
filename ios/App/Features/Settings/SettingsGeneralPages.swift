@@ -183,12 +183,20 @@ struct WatchlistSettingsPage: View {
                     ChangeBasisSettingsPage()
                 }
                 .settingsAnchor("watchlist.change_basis")
+                RowDivider()
+                // «Token & TradFi»: was die Paar-Auswahl zeigt (Build 132 von «Erweitert» hierher — alles zur Merkliste
+                // an einem Ort). Wie Android
+                SettingsNavRow(title: L("settings_asset_scope_title"), icon: .system("building.columns"),
+                               value: L(AssetScopePicker.titleKey(data.settings.assetScope))) {
+                    MarketsSettingsPage()
+                }
+                .settingsAnchor("watchlist.markets")
             }
         }
     }
 }
 
-/// «Token & TradFi» (unter «Erweitert»): was die Paar-Auswahl zeigt,
+/// «Token & TradFi» (Zeile auf «Merkliste»): was die Paar-Auswahl zeigt,
 /// dazu Alpha-Tokens und QTLY (gehören zu Token). Gleiche Anker wie zuvor — wie `MarketsPage` (Android).
 @MainActor
 struct MarketsSettingsPage: View {

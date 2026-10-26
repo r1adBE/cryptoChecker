@@ -42,7 +42,7 @@ class MarketRepositoryImpl @Inject constructor(
 
     /**
      * Paarliste einer Börse. TradFi-Futures (Aktien, Rohstoffe, Devisen, Pre-IPO, [MarketPair.tradFi])
-     * nur, wenn «Token & TradFi» (Einstellungen › Erweitert) sie erlaubt; gespeichert bleibt stets die
+     * nur, wenn «Token & TradFi» (Einstellungen › Merkliste) sie erlaubt; gespeichert bleibt stets die
      * ganze Liste, damit ein Wechsel ohne neuen Abruf wirkt. Krypto-Paare bleiben hier immer drin
      * (Portfolio, Start-Auswahl, Info); «Nur TradFi» blendet sie erst in der Paar-Auswahl aus
      * ([com.cryptochecker.app.settings.scoped]).

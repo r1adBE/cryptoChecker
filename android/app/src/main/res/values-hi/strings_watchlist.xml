@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">तुम्हारे समूह यहाँ दिखेंगे</string>
     <string name="watchlist_notification">प्राइस नोटिफ़िकेशन</string>
     <string name="watchlist_tts">कीमत बोलो</string>
-    <string name="watchlist_tts_speech_on">बोलकर सुनाना चालू है। इसे यहाँ बदल सकते हैं: सेटिंग्स › उन्नत › बोलकर आउटपुट।</string>
+    <string name="watchlist_tts_speech_on">बोलकर सुनाना चालू है। इसे यहाँ बदल सकते हैं: सेटिंग्स › अलार्म › बोलकर आउटपुट।</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">विजेट के रूप में जोड़ो</string>

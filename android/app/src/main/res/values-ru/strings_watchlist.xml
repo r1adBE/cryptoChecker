@@ -133,7 +133,7 @@
     <string name="watchlist_groups_empty_hint">Здесь появятся твои группы</string>
     <string name="watchlist_notification">Уведомление о цене</string>
     <string name="watchlist_tts">Озвучивать цену</string>
-    <string name="watchlist_tts_speech_on">Озвучивание включено. Изменить можно в разделе Настройки › Дополнительно › Озвучивание.</string>
+    <string name="watchlist_tts_speech_on">Озвучивание включено. Изменить можно в разделе Настройки › Оповещения › Озвучивание.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Добавить как виджет</string>

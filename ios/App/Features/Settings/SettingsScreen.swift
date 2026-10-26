@@ -7,13 +7,14 @@ import UserNotifications
 /// darin Zeilen mit Titel, aktuellem Wert in Grau und Pfeil;
 /// alles Ausführliche steht auf Unterseiten (`Settings…Pages.swift` je Gruppe, Markt-Meldungen, Sprachausgabe).
 /// Gruppen: Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
-/// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Widgets) · Mehr (Sicherung, «Erweitert», Über die App)
+/// · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Coin-Logos, Widgets) · Mehr (Sicherung, Über die App)
 /// · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
 /// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
 /// genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
-/// und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. «Erweitert»
-/// (`AdvancedSettingsPage`) trägt Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos und Entwickler;
-/// Datenschutz, Börse wünschen, Quellcode und Lizenzen stehen auf «Über die App» — wie Android.
+/// und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Kein «Erweitert» mehr
+/// (Build 132): Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter
+/// «Darstellung»; Datenschutz, Börse wünschen, Quellcode, Lizenzen und (freigeschaltet) Entwickler stehen auf «Über die
+/// App» — wie Android.
 /// Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
 /// Merkliste wie der Tab, nur «App zurücksetzen» rot.
 ///
@@ -197,6 +198,13 @@ struct SettingsScreen: View {
             RowDivider()
             priceColorsRow
             RowDivider()
+            // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (Build 132: von «Erweitert» hierher)
+            SettingsNavRow(title: L("settings_coin_logos"), icon: .system("circle.circle"),
+                           value: SettingsSummary.coinLogosText(settings)) {
+                CoinLogosSettingsPage()
+            }
+            .settingsAnchor("main.coin_logos")
+            RowDivider()
             // Widgets fügt man über den Startbildschirm hinzu: die Seite erklärt, wie
             SettingsNavRow(title: L("settings_widgets"), icon: .system("square.grid.2x2"), value: nil) {
                 AddWidgetHelpSheet(portfolioEnabled: settings.portfolioEnabled, asPage: true)
@@ -229,17 +237,13 @@ struct SettingsScreen: View {
 
     // MARK: Mehr
 
-    /// Sicherung, «Erweitert» und Über die App — wie Android.
+    /// Sicherung und Über die App — wie Android (kein «Erweitert» mehr seit Build 132).
     private var moreSection: some View {
         SettingsCard(title: L("settings_group_more")) {
             SettingsNavRow(title: L("backup_title"), icon: .system("square.and.arrow.up"), value: nil) {
                 BackupSettingsPage()
             }
             .accessibilityIdentifier(UiTestTags.settingsBackup)
-            RowDivider()
-            SettingsNavRow(title: L("settings_row_advanced"), icon: .system("slider.horizontal.3"), value: nil) {
-                AdvancedSettingsPage()
-            }
             RowDivider()
             SettingsNavRow(title: L("settings_row_about"), icon: .system("info.circle"), value: AboutContent.versionText) {
                 AboutSettingsPage()

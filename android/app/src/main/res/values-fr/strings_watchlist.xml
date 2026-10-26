@@ -121,7 +121,7 @@
     <string name="watchlist_groups_empty_hint">Tes groupes s\'afficheront ici</string>
     <string name="watchlist_notification">Notification de prix</string>
     <string name="watchlist_tts">Annoncer le prix</string>
-    <string name="watchlist_tts_speech_on">L’annonce vocale est activée. Tu peux la modifier dans Paramètres › Avancé › Annonce vocale.</string>
+    <string name="watchlist_tts_speech_on">L’annonce vocale est activée. Tu peux la modifier dans Paramètres › Alertes › Annonce vocale.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Ajouter en widget</string>

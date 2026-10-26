@@ -110,7 +110,7 @@
     <string name="watchlist_groups_empty_hint">Your groups will appear here</string>
     <string name="watchlist_notification">Price notification</string>
     <string name="watchlist_tts">Speak price</string>
-    <string name="watchlist_tts_speech_on">Spoken output is on. You can change it in Settings › Advanced › Spoken output.</string>
+    <string name="watchlist_tts_speech_on">Spoken output is on. You can change it in Settings › Alerts › Spoken output.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Add as widget</string>

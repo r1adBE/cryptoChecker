@@ -6,7 +6,6 @@
     <string name="settings_group_more">더보기</string>
     <string name="settings_minutes">%1$d분</string>
     <string name="settings_row_about">앱 정보</string>
-    <string name="settings_row_advanced">고급</string>
     <string name="settings_row_alarms">경보</string>
     <string name="settings_row_currency">통화</string>
     <string name="settings_row_dated_futures">만기 선물</string>

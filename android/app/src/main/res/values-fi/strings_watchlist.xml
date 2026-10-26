@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Ryhmäsi näkyvät tässä</string>
     <string name="watchlist_notification">Hintailmoitus</string>
     <string name="watchlist_tts">Lue hinta ääneen</string>
-    <string name="watchlist_tts_speech_on">Puhe on päällä. Voit muuttaa sitä kohdassa Asetukset › Lisäasetukset › Ääneenluku.</string>
+    <string name="watchlist_tts_speech_on">Puhe on päällä. Voit muuttaa sitä kohdassa Asetukset › Hälytykset › Ääneenluku.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Lisää widgetiksi</string>

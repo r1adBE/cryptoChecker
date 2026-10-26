@@ -133,7 +133,7 @@
     <string name="watchlist_groups_empty_hint">Тут з’являться твої групи</string>
     <string name="watchlist_notification">Цінове сповіщення</string>
     <string name="watchlist_tts">Озвучувати ціну</string>
-    <string name="watchlist_tts_speech_on">Озвучення увімкнено. Змінити можна в розділі Налаштування › Додатково › Голосовий вивід.</string>
+    <string name="watchlist_tts_speech_on">Озвучення увімкнено. Змінити можна в розділі Налаштування › Сигнали › Голосовий вивід.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Додати як віджет</string>

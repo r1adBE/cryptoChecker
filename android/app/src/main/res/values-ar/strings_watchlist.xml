@@ -157,7 +157,7 @@
     <string name="watchlist_groups_empty_hint">ستظهر مجموعاتك هنا</string>
     <string name="watchlist_notification">إشعار السعر</string>
     <string name="watchlist_tts">نطق السعر</string>
-    <string name="watchlist_tts_speech_on">النطق مفعّل. يمكنك تغييره من الإعدادات › متقدم › الإخراج الصوتي.</string>
+    <string name="watchlist_tts_speech_on">النطق مفعّل. يمكنك تغييره من الإعدادات › التنبيهات › الإخراج الصوتي.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">إضافة كأداة</string>

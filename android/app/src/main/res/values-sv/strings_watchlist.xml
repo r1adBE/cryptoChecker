@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Dina grupper visas här</string>
     <string name="watchlist_notification">Kursavisering</string>
     <string name="watchlist_tts">Läs upp kurs</string>
-    <string name="watchlist_tts_speech_on">Uppläsning är på. Du kan ändra det under Inställningar › Avancerat › Uppläsning.</string>
+    <string name="watchlist_tts_speech_on">Uppläsning är på. Du kan ändra det under Inställningar › Larm › Uppläsning.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Lägg till som widget</string>

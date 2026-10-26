@@ -133,7 +133,7 @@
     <string name="watchlist_groups_empty_hint">Tu pojawią się Twoje grupy</string>
     <string name="watchlist_notification">Powiadomienie o cenie</string>
     <string name="watchlist_tts">Czytaj cenę</string>
-    <string name="watchlist_tts_speech_on">Mowa jest włączona. Możesz to zmienić w Ustawienia › Zaawansowane › Komunikaty głosowe.</string>
+    <string name="watchlist_tts_speech_on">Mowa jest włączona. Możesz to zmienić w Ustawienia › Alarmy › Komunikaty głosowe.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Dodaj jako widżet</string>

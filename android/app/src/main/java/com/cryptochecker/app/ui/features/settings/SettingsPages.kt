@@ -47,17 +47,16 @@ enum class SettingsPage {
     PORTFOLIO,
     BACKUP,
     ABOUT, LICENSES, WIDGETS, DEVELOPER,
-    // «Erweitert» (Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos, Entwickler)
-    // und «Token & TradFi» als eigene Seite
-    ADVANCED, MARKETS;
+    // «Token & TradFi» (Zeile auf «Merkliste»); die frühere Seite «Erweitert» gibt es nicht mehr (Build 132)
+    MARKETS;
 
     companion object {
         fun fromName(name: String?): SettingsPage? = entries.firstOrNull { it.name == name }
     }
 }
 
-/** Ort einer Unterseite: Gruppe der Hauptseite oder die Seite «Erweitert». */
-enum class SettingsHome { GENERAL, APPEARANCE, MORE, ADVANCED }
+/** Ort einer Unterseite: Gruppe der Hauptseite. */
+enum class SettingsHome { GENERAL, APPEARANCE, MORE }
 
 /**
  * Wo die Zeile zu dieser Seite steht (Kurs-Aktualisierung und Portfolio unter «Allgemein», Widgets
@@ -69,18 +68,19 @@ val SettingsPage.home: SettingsHome?
     get() = when (this) {
         SettingsPage.LANGUAGE, SettingsPage.CURRENCY, SettingsPage.WATCHLIST, SettingsPage.PORTFOLIO,
         SettingsPage.ALARMS, SettingsPage.UPDATES -> SettingsHome.GENERAL
-        SettingsPage.DISPLAY_MODE, SettingsPage.THEME, SettingsPage.PRICE_COLORS, SettingsPage.WIDGETS ->
-            SettingsHome.APPEARANCE
-        SettingsPage.BACKUP, SettingsPage.ADVANCED, SettingsPage.ABOUT -> SettingsHome.MORE
-        SettingsPage.MARKETS, SettingsPage.COIN_LOGOS, SettingsPage.DEVELOPER -> SettingsHome.ADVANCED
-        // %-Änderung steht auf «Merkliste» (Review D13), Preis-Paare auf «Alarme», Lizenzen auf «Über die App»
-        SettingsPage.CHANGE_BASIS, SettingsPage.PRICE_PAIRS, SettingsPage.LICENSES -> null
+        SettingsPage.DISPLAY_MODE, SettingsPage.THEME, SettingsPage.PRICE_COLORS, SettingsPage.COIN_LOGOS,
+        SettingsPage.WIDGETS -> SettingsHome.APPEARANCE
+        SettingsPage.BACKUP, SettingsPage.ABOUT -> SettingsHome.MORE
+        // %-Änderung und Token & TradFi stehen auf «Merkliste», Preis-Paare auf «Alarme», Lizenzen und Entwickler auf
+        // «Über die App»
+        SettingsPage.CHANGE_BASIS, SettingsPage.MARKETS, SettingsPage.PRICE_PAIRS, SettingsPage.LICENSES,
+        SettingsPage.DEVELOPER -> null
     }
 
 /**
- * Zeigt eine Unterseite; ein unbekannter Name (alte Route) führt gleich zurück. [onOpenPage] brauchen
- * «Alarme» und «Erweitert» (öffnen weitere Unterseiten); «Erweitert» öffnet auch Markt-Meldungen
- * ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]), die eigene Routen haben.
+ * Zeigt eine Unterseite; ein unbekannter Name (alte Route, z. B. die frühere Seite «Erweitert») führt gleich zurück.
+ * [onOpenPage] brauchen «Merkliste», «Alarme» und «Über die App» (öffnen weitere Unterseiten); «Alarme» öffnet auch
+ * Markt-Meldungen ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]), die eigene Routen haben.
  */
 @Composable
 fun SettingsPageScreen(
@@ -100,7 +100,7 @@ fun SettingsPageScreen(
         SettingsPage.PRICE_COLORS -> PriceColorsPage(onBack)
         SettingsPage.CHANGE_BASIS -> ChangeBasisPage(onBack)
         SettingsPage.COIN_LOGOS -> CoinLogosPage(onBack)
-        SettingsPage.ALARMS -> AlarmsPage(onBack, onOpenPage)
+        SettingsPage.ALARMS -> AlarmsPage(onBack, onOpenPage, onOpenMarketAlerts, onOpenSpeech)
         SettingsPage.PRICE_PAIRS -> PricePairsPage(onBack)
         SettingsPage.PORTFOLIO -> PortfolioPage(onBack)
         SettingsPage.BACKUP -> BackupPage(onBack)
@@ -108,7 +108,6 @@ fun SettingsPageScreen(
         SettingsPage.LICENSES -> LicensesPage(onBack)
         SettingsPage.WIDGETS -> WidgetsPage(onBack)
         SettingsPage.DEVELOPER -> DeveloperPage(onBack)
-        SettingsPage.ADVANCED -> AdvancedPage(onBack, onOpenPage, onOpenMarketAlerts, onOpenSpeech)
         SettingsPage.MARKETS -> MarketsPage(onBack)
         null -> LaunchedEffect(Unit) { onBack() }
     }

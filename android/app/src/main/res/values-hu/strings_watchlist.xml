@@ -109,7 +109,7 @@
     <string name="watchlist_groups_empty_hint">Itt jelennek meg a csoportjaid</string>
     <string name="watchlist_notification">Árértesítés</string>
     <string name="watchlist_tts">Ár felolvasása</string>
-    <string name="watchlist_tts_speech_on">A felolvasás be van kapcsolva. Módosíthatod itt: Beállítások › Speciális › Hangkimenet.</string>
+    <string name="watchlist_tts_speech_on">A felolvasás be van kapcsolva. Módosíthatod itt: Beállítások › Riasztások › Hangkimenet.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Hozzáadás widgetként</string>

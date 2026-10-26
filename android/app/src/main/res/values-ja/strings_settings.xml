@@ -6,7 +6,6 @@
     <string name="settings_group_more">その他</string>
     <string name="settings_minutes">%1$d 分</string>
     <string name="settings_row_about">アプリについて</string>
-    <string name="settings_row_advanced">詳細設定</string>
     <string name="settings_row_alarms">アラーム</string>
     <string name="settings_row_currency">通貨</string>
     <string name="settings_row_dated_futures">期日付き先物</string>
