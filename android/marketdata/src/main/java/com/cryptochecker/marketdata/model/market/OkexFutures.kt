@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -27,6 +28,7 @@ class OkexFutures : SimpleMarket(
     tickerUrl = "https://www.okx.com/api/v5/market/ticker?instId=%1\$s",
 ) {
     override val key = "OkexFutures"
+    override val category = MarketCategory.FUTURES
 
     // ── Einzelkurs ──
 

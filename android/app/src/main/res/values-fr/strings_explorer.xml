@@ -151,4 +151,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Les paires pour lesquelles tu as créé une alerte entre-temps restent.</string>
     <string name="bulk_undo_expired">Il n\'est plus possible d\'annuler – les paires restent dans la liste de suivi.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">Pools DEX</string>
+    <string name="explorer_section_forex">Forex (taux de référence)</string>
+    <string name="explorer_forex_hint">Cours quotidien de la Banque centrale européenne (via Frankfurter), pas en direct – pas d’alertes.</string>
 </resources>

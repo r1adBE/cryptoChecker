@@ -9,6 +9,9 @@ final class Bybit: BybitBase, @unchecked Sendable { // @unchecked: wie `Market` 
 
 /// Bybit USDT-/USDC-Perpetuals (Kategorie «linear»).
 final class BybitFutures: BybitBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() { super.init(key: "BybitFutures", name: "Bybit Futures", category: "linear", contractType: .perpetual) }
 }
 
@@ -16,11 +19,12 @@ final class BybitFutures: BybitBase, @unchecked Sendable { // @unchecked: wie `M
 /// {"retCode", "retMsg", "result": {"list": [...]}}. Die Paarliste fragt «limit=1000» an: linear hat über 500
 /// Symbole, ohne Angabe kämen nur 500.
 class BybitBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
-    private let category: String
+    /// Bybit-Kategorie der Adressen («spot», «linear»); nicht `category` (Abschnitt der Börsenauswahl, `Market`).
+    private let apiCategory: String
     private let contractType: FuturesContractType
 
     init(key: String, name: String, category: String, contractType: FuturesContractType) {
-        self.category = category
+        self.apiCategory = category
         self.contractType = contractType
         super.init(
             key: key,
@@ -55,7 +59,7 @@ class BybitBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market`
     /// Enthält alle gehandelten Symbole der Kategorie.
     override var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { "\(bybitAPI)/tickers?category=\(category)" }
+    override func bulkTickersURL(call: Int) -> String? { "\(bybitAPI)/tickers?category=\(apiCategory)" }
 
     /// Die Serverzeit `time` wird nicht auf die Paare übertragen (siehe `fillTicker`).
     override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {

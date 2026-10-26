@@ -115,7 +115,7 @@ struct ExplorerScreen: View {
                         .transition(.opacity)
                 }
 
-                // Entwickleroption (Einstellungen → Entwickler): HTTP-Protokoll, nur im Debug-Build
+                // Entwickleroption (Einstellungen › Über die App › Entwickler): HTTP-Protokoll, nur im Debug-Build
                 if DeveloperOptions.available && data.settings.showHttpLog && data.settings.developerUnlocked {
                     ExplorerLogBox()
                         .padding(.top, 8)
@@ -317,6 +317,7 @@ struct ExplorerScreen: View {
                 items: offered.map(\.name),
                 selected: vm.exchange?.name,
                 favoriteKind: .MARKET,
+                sections: vm.marketSections.map { (title: $0.title, items: $0.markets.map(\.name)) },
                 data: data
             ) { name in
                 guard let chosen = offered.first(where: { $0.name == name }) else { return }
@@ -362,8 +363,8 @@ enum ExplorerPickerKind: String, Identifiable {
 }
 
 /// Ob «Erweitert / nach Börse» und «Mehrere Paare auf einmal» offen sind, bleibt bis zum Beenden der App
-/// erhalten. Anfangs beide zu, weil die Suche der Hauptweg ist. Gegenstück zu `ExplorerSections`
-/// in `ExplorerScreen.kt`.
+/// erhalten. Anfangs beide zu, weil die Suche der Hauptweg ist. Gegenstück zu `ExplorerSectionsState`
+/// (`rememberExplorerSections`) in `ExplorerComponents.kt`.
 enum ExplorerSectionMemory {
     // Hinter einer Sperre statt `nonisolated(unsafe)`: thread-sicher, ohne Aufrufer an den MainActor zu binden
     private static let state = LockedBox((precise: false, bulk: false))

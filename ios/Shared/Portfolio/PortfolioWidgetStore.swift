@@ -11,7 +11,7 @@ import WidgetKit
 /// Σ heutiger Bestand × (Kurs jetzt − Kurs damals) — Käufe und Verkäufe dazwischen
 /// zählen so nicht als Gewinn oder Verlust; Coins ohne Kurs von damals fehlen in
 /// Betrag und Prozent. Ohne passenden Stand (App/Hintergrund lief vor 20–48 h nicht)
-/// zeigt das Widget keine Veränderung. Gleiche Regeln wie `PortfolioSnapshotMath.kt`.
+/// zeigt das Widget keine Veränderung. Gleiche Regeln wie `PortfolioSnapshotMath` in `PortfolioSnapshot.kt`.
 ///
 /// Hier Lesen, Schreiben und Aktualisieren; die reine Berechnung in `PortfolioWidgetStore+Compute.swift`, die Typen
 /// des Stands in `PortfolioWidgetSnapshot.swift`.

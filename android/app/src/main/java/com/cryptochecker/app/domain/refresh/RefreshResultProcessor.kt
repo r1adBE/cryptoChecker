@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.marketdata.util.MarketsConfigUtils
 import com.cryptochecker.app.data.DexLiquidityStore
 import com.cryptochecker.app.data.MarkFallbackStore
 import com.cryptochecker.app.data.ErrorWrite
@@ -210,7 +211,10 @@ class RefreshResultProcessor internal constructor(
         for (watch in updatedWatches) {
             val price = watch.lastPrice ?: continue
             // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
-            val triggered = if (dexLiquidity.blocksAlarms(watch.marketKey, watch.pairId)) {
+            val triggered = if (!MarketsConfigUtils.getMarketByKey(watch.marketKey).allowsAlarms) {
+                // Referenzkurs (EZB, Forex): nie Alarme — auch aus einer Sicherung übernommene lösen nicht aus
+                0
+            } else if (dexLiquidity.blocksAlarms(watch.marketKey, watch.pairId)) {
                 // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
                 log.noteBlocked(
                     watch, alarmsByWatch[watch.id].orEmpty(), lowLiquidity = true,

@@ -6,6 +6,14 @@ import UIKit
 // Eigene Datei, weil `WatchlistRow` nur Gesten, VoiceOver-Text und Anordnung regelt (wie `WatchlistRowParts.kt`).
 
 extension WatchlistRow {
+    /// Kleine Marke hinter dem Kurs: «Stundenkurs» (WOO X Spot) bzw. «täglich» (EZB-Referenzkurs, vorgelesen
+    /// «Referenzkurs, täglich»); sonst nil.
+    static func priceMarker(_ market: Market?) -> String? {
+        if market?.priceIsHourlyClose == true { return L("watch_price_hourly") }
+        if market?.priceIsDailyReference == true { return L("watch_price_daily") }
+        return nil
+    }
+
     /// Paar in zwei Teilen: Basis gross und halbfett («BTC»), dahinter klein und grau «/USDT», auf
     /// gemeinsamer Grundlinie. Die Basis — das Wichtigste der Zeile — wird nie zugunsten der Quote
     /// gekürzt: «/QUOTE» (bei Futures «/QUOTE PERP») erscheint nur, wenn es ganz Platz hat, sonst entfällt es (die Quote steht
@@ -232,9 +240,10 @@ extension WatchlistRow {
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                 // Kurs ist der Mark-Preis (kein Mittelkurs, `MarkFallbackStore`): klein «Mark» dahinter; Schluss der
-                // laufenden Stundenkerze (WOO X Spot): «Stundenkurs» wie im Aktionsblatt — beides wie Android
+                // laufenden Stundenkerze (WOO X Spot): «Stundenkurs» wie im Aktionsblatt; EZB: «täglich»
+                // — alles wie Android
                 if let marker = MarkFallbackStore.contains(watch.id) ? L("watch_change_mark")
-                    : MarketsConfig.market(watch.marketKey)?.priceIsHourlyClose == true ? L("watch_price_hourly") : nil {
+                    : WatchlistRow.priceMarker(MarketsConfig.market(watch.marketKey)) {
                     Text(marker)
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)

@@ -1,7 +1,7 @@
 import Foundation
 
 // Reine Berechnung des Portfolio-Widgets (Teil von `PortfolioWidgetStore`): Vergleichsstand, Veränderung je Coin,
-// grösste Positionen, Wertverlauf und der ganze Stand (`compute`) — gleiche Regeln wie `PortfolioSnapshotMath.kt`.
+// grösste Positionen, Wertverlauf und der ganze Stand (`compute`) — gleiche Regeln wie `PortfolioSnapshotMath` in `PortfolioSnapshot.kt`.
 
 extension PortfolioWidgetStore {
     // MARK: Reine Berechnung

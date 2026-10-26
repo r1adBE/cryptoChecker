@@ -151,4 +151,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Perechile pentru care ai setat între timp o alarmă rămân.</string>
     <string name="bulk_undo_expired">Anularea nu mai este posibilă – perechile rămân în lista de urmărire.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">Pooluri DEX</string>
+    <string name="explorer_section_forex">Forex (curs de referință)</string>
+    <string name="explorer_forex_hint">Cursul zilnic al Băncii Centrale Europene (prin Frankfurter), nu în timp real – fără alarme.</string>
 </resources>

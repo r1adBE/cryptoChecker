@@ -174,4 +174,5 @@
     <string name="alarm_editor_more_summary">快捷提醒、更多条件、声音和语音播报</string>
     <string name="alarm_reliability_storage_no_key">后台提醒已暂停 – 自选列表未保存</string>
     <string name="alarms_limit_reached">每个交易对最多可设置 %1$s 个提醒。</string>
+    <string name="alarms_reference_rate_hint">欧洲央行的参考汇率每天只确定一次——因此没有提醒。</string>
 </resources>

@@ -28,7 +28,7 @@ struct AddCelebration: Equatable, Identifiable {
     let watchIds: [Int64]
     /// «BTC/USDT wird jetzt überwacht» bzw. «BTC, ETH, XRP, BNB, SOL wird jetzt überwacht».
     let message: String
-    /// Banner, Haptik und Ansage zeigt die Merkliste (Start-Tipp). Beim Hinzufügen-Tab
+    /// Banner, Haptik und Ansage zeigt die Merkliste (Start-Tipp). Beauf der Seite «Paar hinzufügen»
     /// übernimmt das der Tab selbst; die Merkliste spielt nur die Zeilen ab.
     let announceInWatchlist: Bool
 }

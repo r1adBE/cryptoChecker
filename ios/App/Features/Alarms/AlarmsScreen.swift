@@ -50,6 +50,12 @@ struct AlarmsScreen: View {
         return DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId)
     }
 
+    /// Quelle ohne Alarme (EZB-Referenzkurse, `Market.allowsAlarms`)?
+    private static func referenceRate(_ watch: Watch?) -> Bool {
+        guard let watch else { return false }
+        return MarketsConfig.market(watch.marketKey)?.allowsAlarms == false
+    }
+
     var body: some View {
         // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
         let _ = refusedToggles
@@ -57,13 +63,18 @@ struct AlarmsScreen: View {
         let alarms = data.alarms(for: watchId)
         // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor) — wie Android
         let lowLiquidity = Self.lowLiquidity(watch)
+        // EZB-Referenzkurs: weder neuer Alarm noch Bearbeiten, Hinweis statt Editor — wie Android
+        let referenceRate = Self.referenceRate(watch)
+        let blocked = lowLiquidity || referenceRate
         // Höchstzahl Alarme am Paar erreicht (`WatchlistLimits`): kein «Neuer Alarm», Hinweis über der Liste — wie Android
         let alarmsFull = !WatchlistLimits.canAddAlarm(alarms.count)
         Group {
-            if alarms.isEmpty && lowLiquidity {
+            if alarms.isEmpty && blocked {
                 ScrollView {
-                    DexLowLiquidityNote()
-                        .padding(16)
+                    Group {
+                        if referenceRate { ReferenceRateAlarmNote() } else { DexLowLiquidityNote() }
+                    }
+                    .padding(16)
                 }
             } else if alarms.isEmpty {
                 ScrollView {
@@ -88,7 +99,12 @@ struct AlarmsScreen: View {
                         .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                    if lowLiquidity {
+                    if referenceRate {
+                        ReferenceRateAlarmNote()
+                            .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                    } else if lowLiquidity {
                         DexLowLiquidityNote()
                             .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                             .listRowSeparator(.hidden)
@@ -118,7 +134,7 @@ struct AlarmsScreen: View {
                                 markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false
                             ),
                             onToggle: { enabled in toggleAlarm(alarm.id, enabled: enabled) },
-                            onEdit: { if !lowLiquidity { draft = AlarmDraft.from(alarm) } },
+                            onEdit: { if !blocked { draft = AlarmDraft.from(alarm) } },
                             onDelete: { askDelete = alarm }
                         )
                         .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
@@ -158,7 +174,8 @@ struct AlarmsScreen: View {
             // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste — nicht bei gesperrter Merkliste (wie Android)
             guard !autoOpenDone else { return }
             autoOpenDone = true
-            if watch != nil && alarms.isEmpty && !Self.lowLiquidity(watch) && !data.alarmSaveBlocked { draft = AlarmDraft.blankFor() }
+            if watch != nil && alarms.isEmpty && !Self.lowLiquidity(watch) && !Self.referenceRate(watch)
+                && !data.alarmSaveBlocked { draft = AlarmDraft.blankFor() }
         }
         // «Anpassen» aus der Alarm-Mitteilung: Editor dieses Alarms öffnen — nur der Bildschirm seines Paars;
         // bei zu wenig DEX-Liquidität bleibt die Liste mit dem Hinweis (wie Android)
@@ -170,7 +187,7 @@ struct AlarmsScreen: View {
                 return
             }
             router.pendingEditAlarmId = nil
-            if !lowLiquidity { draft = AlarmDraft.from(alarm) }
+            if !blocked { draft = AlarmDraft.from(alarm) }
         }
         .navigationTitle(L("alarms_title"))
         .navigationBarTitleDisplayMode(.inline)
@@ -188,7 +205,7 @@ struct AlarmsScreen: View {
                 .accessibilityElement(children: .combine)
             }
             ToolbarItem(placement: .topBarTrailing) {
-                if watch != nil && !lowLiquidity && !alarmsFull {
+                if watch != nil && !blocked && !alarmsFull {
                     Button {
                         draft = AlarmDraft.blankFor()
                     } label: {

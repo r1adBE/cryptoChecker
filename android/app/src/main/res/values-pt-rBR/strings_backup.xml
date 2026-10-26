@@ -76,7 +76,7 @@
     <string name="settings_reset_notice">Não foi possível ler as configurações, que foram redefinidas para os valores padrão. Verifique o bloqueio do portfólio, o intervalo dos alarmes e a moeda.</string>
     <string name="backup_restore_interrupted_title">A restauração foi interrompida</string>
     <string name="backup_restore_interrupted_rolled_back">O app foi fechado durante a restauração de um backup. Seus dados anteriores foram recolocados; nada do backup foi mantido.</string>
-    <string name="backup_restore_interrupted_incomplete">O app foi fechado durante a restauração de um backup e os dados anteriores não puderam ser totalmente recolocados. Confira sua lista de observação e sua carteira, ou restaure o backup de novo em “%1$s” nas Configurações.</string>
+    <string name="backup_restore_interrupted_incomplete">O app foi fechado durante a restauração de um backup e os dados anteriores não puderam ser totalmente recolocados. Confira sua lista de observação e seu portfólio, ou restaure o backup de novo em “%1$s” nas Configurações.</string>
     <string name="backup_not_verified">Não foi possível verificar o arquivo de backup depois de salvo – ao ser lido de novo ele é diferente. Salve o backup em um arquivo novo.</string>
 
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
@@ -97,7 +97,7 @@
     <string name="backup_restore_journal_unavailable">Não é possível importar agora: não foi possível salvar a cópia de segurança dos seus dados atuais (chave indisponível no momento). Nada foi alterado. Tente mais tarde ou reinicie o app.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">Criptografia ainda não ativa – a carteira não está sendo salva e as alterações se perdem ao fechar o app. O app tentará de novo na próxima abertura.</string>
+    <string name="portfolio_storage_in_memory">Criptografia ainda não ativa – o portfólio não está sendo salvo e as alterações se perdem ao fechar o app. O app tentará de novo na próxima abertura.</string>
 
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Os dados salvos não podem ser lidos agora, por isso não é possível fazer alterações. Reinicie o app.</string>

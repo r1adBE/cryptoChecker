@@ -228,4 +228,6 @@
     <string name="watchlist_sort_by_coin">Ordenar por moneda</string>
     <string name="watchlist_sort_by_exchange">Ordenar por exchange</string>
     <string name="watchlist_limit_reached">Tu lista de seguimiento puede tener como máximo %1$s pares.</string>
+    <string name="watch_price_reference">tipo de referencia, diario</string>
+    <string name="watch_price_daily">diario</string>
 </resources>

@@ -3,8 +3,10 @@ package com.cryptochecker.marketdata.model.market
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Market
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.GeckoTerminalNetworks
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.forEachOptJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
@@ -13,6 +15,9 @@ import java.net.URLEncoder
 import java.util.SortedSet
 
 private const val DEXSCREENER_API = "https://api.dexscreener.com"
+
+/** Ausweg der Einzelkurse (Build 133): öffentliche Pool-Abfrage von GeckoTerminal, ohne Schlüssel. */
+private const val GECKOTERMINAL_API = "https://api.geckoterminal.com/api/v2"
 
 /** Ein DEX-Pool aus der Suche. */
 data class DexPool(
@@ -50,9 +55,14 @@ data class DexPool(
  * Suche, [searchUrl]), darum kein `SimpleMarket`. Mehrere Pools derselben Chain kommen gesammelt
  * (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens [BULK_MAX_POOLS] je Anfrage), einzelne über dieselbe Adresse. Frei
  * und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
+ *
+ * Ausweg (Build 133): Scheitert ein Einzelkurs mit einem Serverfehler oder kennt DexScreener den Pool nicht
+ * ([POOL_NOT_FOUND]), fragt die App denselben Pool bei GeckoTerminal ab ([tickerFallbackAddress],
+ * [fillTickerFallback]) — nur einzeln, denn GeckoTerminal erlaubt ohne Schlüssel nur rund 30 Abfragen pro Minute.
  */
 class DexScreener : Market("DexScreener", "Dex Screener") {
     override val key = KEY
+    override val category = MarketCategory.DEX
 
     // ── Einzelkurs ──
 
@@ -71,6 +81,39 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
         val pool = poolsIn(json).firstOrNull { isPool(it.optString("chainId"), it.optString("pairAddress"), info.pairId) }
             ?: throw MarketParseException(POOL_NOT_FOUND)
         copyPool(pool, ticker)
+    }
+
+    // ── Ausweg: GeckoTerminal ──
+
+    /** Derselbe Pool bei GeckoTerminal (`/networks/{netz}/pools/{adresse}`); ungültige Kennung → kein Ausweg. */
+    override fun tickerFallbackAddress(call: Int, info: PairQuery): String? {
+        val pairId = info.pairId?.trim() ?: return null
+        if (!isSafePairId(pairId)) return null
+        val cut = pairId.indexOf('/')
+        return geckoTerminalUrl(pairId.substring(0, cut), pairId.substring(cut + 1))
+    }
+
+    /** «Pool nicht gefunden» bei DexScreener: GeckoTerminal versuchen. */
+    override fun tickerFallbackOnParseError(call: Int, error: Exception): Boolean =
+        error is MarketParseException && error.message == POOL_NOT_FOUND
+
+    /**
+     * Antwort von GeckoTerminal: {data: {attributes: {address, base_token_price_usd, price_change_percentage.h24,
+     * volume_usd.h24, reserve_in_usd}}}. Nur der gemerkte Pool zählt (Adresse ohne Gross-/Kleinschreibung).
+     */
+    override fun fillTickerFallback(call: Int, body: String, ticker: Ticker, info: PairQuery) {
+        val attributes = JSONObject(body).optJSONObject("data")?.optJSONObject("attributes")
+            ?: throw MarketParseException(POOL_NOT_FOUND)
+        val wanted = info.pairId?.trim().orEmpty()
+        val address = wanted.substringAfter('/', "")
+        if (address.isEmpty() || !attributes.optString("address").equals(address, ignoreCase = true)) {
+            throw MarketParseException(POOL_NOT_FOUND)
+        }
+        ticker.last = attributes.getString("base_token_price_usd").toDouble()
+        attributes.optJSONObject("volume_usd")?.let { ticker.volQuote = it.optDoubleOrMissing("h24") }
+        ticker.change24hPercent = attributes.optJSONObject("price_change_percentage")
+            ?.let { Change24h.percent(it.optDouble("h24")) }
+        ticker.liquidityUsd = attributes.optDouble("reserve_in_usd").takeIf { it.isFinite() && it >= 0.0 }
     }
 
     // ── Sammelabfrage: Pools derselben Chain gemeinsam ──
@@ -204,6 +247,10 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
         /** Adresse einer Gruppe: `/latest/dex/pairs/{chain}/{a,b,…}`. */
         fun bulkUrl(group: Pair<String, List<String>>): String =
             "$DEXSCREENER_API/latest/dex/pairs/${group.first}/${group.second.joinToString(",")}"
+
+        /** Pool-Abfrage bei GeckoTerminal; das Netz folgt [GeckoTerminalNetworks]. Wie iOS. */
+        fun geckoTerminalUrl(chainId: String, address: String): String =
+            "$GECKOTERMINAL_API/networks/${GeckoTerminalNetworks.network(chainId)}/pools/$address"
 
         fun searchUrl(query: String): String {
             val encoded = URLEncoder.encode(query.trim(), "UTF-8")

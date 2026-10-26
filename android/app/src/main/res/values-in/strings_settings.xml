@@ -146,7 +146,7 @@
     <string name="settings_cost_method">Metode biaya perolehan</string>
     <string name="settings_cost_method_average">Rata-rata (Ø)</string>
     <string name="settings_cost_method_average_hint">Penjualan dinilai dengan harga beli rata-rata bergerak.</string>
-    <string name="settings_cost_method_fifo">FIFO (default)</string>
+    <string name="settings_cost_method_fifo">FIFO (bawaan)</string>
     <string name="settings_cost_method_fifo_hint">Koin tertua dijual lebih dulu, di semua bursa dan dompet.</string>
     <string name="settings_cost_method_fifo_wallet">FIFO per dompet/bursa</string>
     <string name="settings_cost_method_fifo_wallet_hint">Koin tertua lebih dulu di tiap bursa atau dompet; transfer memindahkan lot beserta tanggal belinya.</string>

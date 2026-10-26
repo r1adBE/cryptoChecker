@@ -204,4 +204,6 @@
     <string name="watchlist_sort_by_coin">按币种排序</string>
     <string name="watchlist_sort_by_exchange">按交易所排序</string>
     <string name="watchlist_limit_reached">自选最多可添加 %1$s 个交易对。</string>
+    <string name="watch_price_reference">参考汇率，每日</string>
+    <string name="watch_price_daily">每日</string>
 </resources>

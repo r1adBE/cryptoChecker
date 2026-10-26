@@ -49,8 +49,8 @@ jobs:
             python3 android/tools/record_exchange_fixtures.py
           fi
 
-      # Kurzauszug der eben aufgezeichneten Märkte als Annotation (Artefakte sind nicht überall abrufbar):
-      # je Fall die ersten 900 Zeichen. Höchstens 10 Hinweise je Schritt, daher zwei Schritte.
+      # Short excerpt of the markets just recorded as annotations (artifacts are not accessible everywhere):
+      # the first 900 characters per case. At most 10 notices per step, hence two steps.
       - name: Summaries (1)
         if: always()
         env:
@@ -92,7 +92,7 @@ jobs:
           chmod +x gradlew
           ./gradlew :app:testDebugUnitTest --tests 'com.cryptochecker.app.contract.ExchangeContractTest' --stacktrace
 
-      # Fehlgeschlagene Vertragstests als Annotation (Testberichte liegen sonst nur im Artefakt).
+      # Failed contract tests as annotations (otherwise the test reports are only in the artifact).
       - name: Contract test failures
         if: ${{ failure() && inputs.run_contract_test }}
         run: python3 android/tools/junit_failures.py android/app/build/test-results

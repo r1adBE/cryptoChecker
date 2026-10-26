@@ -52,7 +52,7 @@ enum ConnectionErrors {
         }
     }
 
-    /// Fehler einer Abfrage direkt → Anzeige (z. B. im Hinzufügen-Tab).
+    /// Fehler einer Abfrage direkt → Anzeige (z. B. auf der Seite «Paar hinzufügen»).
     static func friendly(_ error: Error) -> String {
         display(describe(error))
     }

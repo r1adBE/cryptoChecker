@@ -62,7 +62,7 @@ internal fun NavGraphBuilder.settingsDestinations(
             SettingsPageScreen(
                 page = SettingsPage.fromName(entry.toRoute<ScreenRoute.SettingsSubpage>().page),
                 onBack = { navigation.popBackStack() },
-                // «Merkliste», «Alarme» und «Über» öffnen weitere Unterseiten; Zurück führt wieder dorthin.
+                // «Merkliste», «Alarme» und «Über die App» öffnen weitere Unterseiten; Zurück führt wieder dorthin.
                 // Ohne launchSingleTop: gleiches Ziel (SettingsSubpage) würde sonst den
                 // Eintrag «Alarme» ersetzen statt darüber zu legen
                 onOpenPage = { page ->

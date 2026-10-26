@@ -151,4 +151,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Os pares em que você criou um alarme nesse meio-tempo continuam.</string>
     <string name="bulk_undo_expired">Não é mais possível desfazer – os pares continuam na lista de acompanhamento.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futuros</string>
+    <string name="explorer_section_dex">Pools DEX</string>
+    <string name="explorer_section_forex">Forex (taxa de referência)</string>
+    <string name="explorer_forex_hint">Taxa diária do Banco Central Europeu (via Frankfurter), não em tempo real – sem alarmes.</string>
 </resources>

@@ -6,13 +6,13 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.util.PriceFormat
 
+/** Quote für Faktor und Schlüssel der Umrechnung ([CurrencyConversion.conversionQuote]: Aster «U» = USD). */
+internal val WatchEntity.conversionQuote: String get() = CurrencyConversion.conversionQuote(marketKey, quoteAsset)
+
 /**
  * «≈ 61’234 CHF» für die Merkliste: nur mit Zielwährung, bekanntem Faktor,
  * gültigem Kurs und wenn die Quote nicht schon die Zielwährung ist.
  */
-/** Quote für Faktor und Schlüssel der Umrechnung ([CurrencyConversion.conversionQuote]: Aster «U» = USD). */
-internal val WatchEntity.conversionQuote: String get() = CurrencyConversion.conversionQuote(marketKey, quoteAsset)
-
 internal fun convertedPrice(watch: WatchEntity, target: String?, rates: Map<String, Double>): String? {
     val quote = watch.conversionQuote
     if (target == null || CurrencyConversion.sameCurrency(quote, target)) return null

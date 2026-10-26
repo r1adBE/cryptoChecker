@@ -2,7 +2,7 @@ import Foundation
 
 /// Reihenfolge, in der die Teile des Markt-Tabs von oben nach unten erscheinen — je Register
 /// (`MarketSections.of`) eine eigene Kette (`CycleReveal`); die Überschrift «Jetzt» gehört zu
-/// `pulse`. Wie `MarketRevealSlot.kt`:
+/// `pulse`. Wie `MarketRevealSlot` in `MarketReveal.kt`:
 /// Jetzt (Pulse, «Heute auffällig» — Karten) → Einordnung (Fear & Greed, Marktphase, Dominanz
 /// mit Altcoin-Saison, Zyklus/Halving) → Daten (Krypto-Markt, Gas, Wirtschaftsdaten, Coin) —
 /// Einordnung und Daten als Zeilen ohne Karte.

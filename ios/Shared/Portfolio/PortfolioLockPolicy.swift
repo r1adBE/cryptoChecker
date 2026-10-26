@@ -14,7 +14,7 @@ enum PortfolioAccess: Equatable, Sendable {
 ///
 /// Gesperrt ist nur das Portfolio (Tab, Detailansicht, Erfassen-Blätter, Stichtag-Export,
 /// Sicherung mit Portfolio-Daten, Portfolio-Widget). Merkliste, Hinzufügen, Zyklus,
-/// Optionen und die übrigen Widgets sind immer frei. Entsperrt wird einmal je Sitzung;
+/// Einstellungen und die übrigen Widgets sind immer frei. Entsperrt wird einmal je Sitzung;
 /// nach mehr als `backgroundLimitSeconds` im Hintergrund wird wieder gesperrt.
 enum PortfolioLockPolicy {
     /// Länger im Hintergrund → beim Zurückkehren wieder sperren (wie bisher die App-Sperre).
@@ -72,7 +72,7 @@ enum PortfolioLockPolicy {
     /// «Zum Portfolio hinzufügen» aus der Merkliste (Blatt zeigt Bestände) verlangt Entsperren, solange gesperrt.
     static func quickAddNeedsUnlock(locked: Bool) -> Bool { locked }
 
-    /// Zeile «Portfolio-Sperre» in den Optionen nur mit eingeschaltetem Portfolio
+    /// Zeile «Portfolio-Sperre» unter Einstellungen › Portfolio nur mit eingeschaltetem Portfolio
     /// (der Wert bleibt beim Ausblenden erhalten).
     static func showSetting(portfolioEnabled: Bool) -> Bool { portfolioEnabled }
 

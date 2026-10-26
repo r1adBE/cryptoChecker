@@ -13,7 +13,7 @@ MINH BẠCH VỀ DỮ LIỆU
 • Số tiền chỉ rời thiết bị khi bạn xuất ra (CSV, bản sao lưu) hoặc ở dạng mã hóa trong bản sao lưu iCloud hoặc máy tính. Để lấy giá, chỉ mã cặp được gửi đến sàn của cặp đó; thêm vào đó là tỷ giá (Frankfurter), dữ liệu thị trường và logo (CoinGecko, Binance), bản sao dữ liệu (GitHub). Nếu bạn theo dõi địa chỉ hoặc xpub, các nút blockchain công khai thấy các địa chỉ (với xpub là các địa chỉ dẫn xuất) và IP của bạn.
 
 DANH SÁCH THEO DÕI
-• 54 thị trường trên 44 sàn: spot và futures, token DEX qua DexScreener, tùy chọn cổ phiếu, vàng và ngoại hối (TradFi)
+• 56 thị trường trên 45 sàn: spot và futures, token DEX qua DexScreener, tùy chọn cổ phiếu, vàng và ngoại hối (TradFi)
 • Dòng thứ hai “≈ giá trị” bằng một trong 31 loại tiền (EUR, CHF, USD …), quy đổi theo tỷ giá
 • Biểu đồ mini và % thay đổi trong 24 giờ hoặc từ 00:00 theo múi giờ của bạn
 • Nhóm, yêu thích, kéo để sắp xếp và ghi chú cho từng coin

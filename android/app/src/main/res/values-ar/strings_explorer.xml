@@ -187,4 +187,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">تبقى الأزواج التي ضبطت لها تنبيهًا في هذه الأثناء.</string>
     <string name="bulk_undo_expired">لم يعد التراجع ممكنًا – تبقى الأزواج في قائمة المتابعة.</string>
+    <string name="explorer_section_spot">فوري</string>
+    <string name="explorer_section_futures">العقود الآجلة</string>
+    <string name="explorer_section_dex">مجمّعات DEX</string>
+    <string name="explorer_section_forex">الفوركس (سعر مرجعي)</string>
+    <string name="explorer_forex_hint">السعر اليومي للبنك المركزي الأوروبي (عبر Frankfurter)، ليس مباشرًا – بلا تنبيهات.</string>
 </resources>

@@ -151,4 +151,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">צמדים שהוגדרה להם התראה בינתיים יישארו.</string>
     <string name="bulk_undo_expired">כבר אי אפשר לבטל – הצמדים יישארו ברשימת המעקב.</string>
+    <string name="explorer_section_spot">ספוט</string>
+    <string name="explorer_section_futures">חוזים עתידיים</string>
+    <string name="explorer_section_dex">מאגרי DEX</string>
+    <string name="explorer_section_forex">פורקס (שער ייחוס)</string>
+    <string name="explorer_forex_hint">שער יומי של הבנק המרכזי האירופי (דרך Frankfurter), לא בזמן אמת – ללא התראות.</string>
 </resources>

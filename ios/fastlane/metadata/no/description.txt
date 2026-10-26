@@ -13,7 +13,7 @@ DET SOM GJØR DEN ANNERLEDES
 • Beløp forlater bare enheten via din eksport (CSV, sikkerhetskopi) eller kryptert i iCloud-/enhetsbackup. For kurser sendes bare parets symbol til børsen for det aktuelle paret; i tillegg valutakurser (Frankfurter), markedsdata og logoer (CoinGecko, Binance) og dataspeil (GitHub). Følger du adresser eller en xpub, ser offentlige blokkjede-noder adressene (ved xpub de avledede) og IP-en din.
 
 OVERVÅKINGSLISTE
-• 54 markeder på 44 børser: spot og futures, DEX-tokens via DexScreener, valgfritt aksjer, gull og valuta (TradFi)
+• 56 markeder på 45 børser: spot og futures, DEX-tokens via DexScreener, valgfritt aksjer, gull og valuta (TradFi)
 • Andre linje «≈ verdi» i én av 31 valutaer (EUR, CHF, USD …), omregnet til valutakurs
 • Minigraf og %-endring over 24 t eller siden 00:00 i din tidssone
 • Grupper, favoritter, sortering med dra og slipp og et notat per coin

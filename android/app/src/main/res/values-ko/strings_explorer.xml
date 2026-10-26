@@ -127,4 +127,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">그사이 경보를 설정한 거래쌍은 그대로 남아요.</string>
     <string name="bulk_undo_expired">이제 실행 취소할 수 없습니다. 거래쌍은 관심 목록에 그대로 남습니다.</string>
+    <string name="explorer_section_spot">현물</string>
+    <string name="explorer_section_futures">선물</string>
+    <string name="explorer_section_dex">DEX 풀</string>
+    <string name="explorer_section_forex">외환(기준 환율)</string>
+    <string name="explorer_forex_hint">유럽중앙은행의 일일 환율(Frankfurter 경유)입니다. 실시간이 아니며 경보가 없습니다.</string>
 </resources>

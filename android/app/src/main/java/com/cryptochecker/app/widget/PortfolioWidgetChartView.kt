@@ -185,7 +185,7 @@ internal suspend fun PortfolioWidgetRenderer.portfolioViews(
 /**
  * Grössen des Widgets in dp: ab Android 12 alle, die der Launcher meldet (Hoch- und
  * Querformat, höchstens [MAX_PORTFOLIO_SIZES]); sonst bzw. ohne Angabe die eine aus
- * [widgetSizeDp]. Leer nie — unbekannt ist (0, 0).
+ * [WidgetToolkit.sizeDp]. Leer nie — unbekannt ist (0, 0).
  */
 internal fun PortfolioWidgetRenderer.portfolioSizesDp(manager: AppWidgetManager, appWidgetId: Int): List<Pair<Int, Int>> {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

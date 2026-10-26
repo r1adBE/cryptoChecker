@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Paren waarvoor je intussen een alarm hebt ingesteld, blijven staan.</string>
     <string name="bulk_undo_expired">Ongedaan maken kan niet meer – de paren blijven in de volglijst.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">DEX-pools</string>
+    <string name="explorer_section_forex">Forex (referentiekoers)</string>
+    <string name="explorer_forex_hint">Dagkoers van de Europese Centrale Bank (via Frankfurter), niet live – geen alarmen.</string>
 </resources>

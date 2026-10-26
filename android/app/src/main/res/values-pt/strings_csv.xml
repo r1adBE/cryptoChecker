@@ -3,10 +3,10 @@
     <!-- Portfolio: CSV-Import -->
     <string name="portfolio_csv_import_action">Importar CSV</string>
     <string name="portfolio_csv_import_all_transfer">Tudo para carteira própria</string>
-    <string name="portfolio_csv_import_all_withdrawal">Tudo sai do portefólio</string>
+    <string name="portfolio_csv_import_all_withdrawal">Tudo sai do portfólio</string>
     <string name="portfolio_csv_import_choice_proposed">Sugestão: corresponde a %1$s</string>
     <string name="portfolio_csv_import_choice_transfer">Para carteira própria (transferência)</string>
-    <string name="portfolio_csv_import_choice_withdrawal">Sai do portefólio (levantamento)</string>
+    <string name="portfolio_csv_import_choice_withdrawal">Sai do portfólio (levantamento)</string>
     <string name="portfolio_csv_import_choose_each">Escolhe para cada levantamento para onde foi.</string>
     <string name="portfolio_csv_import_columns">Colunas reconhecidas: %1$s</string>
     <string name="portfolio_csv_import_confirm">Importar (%1$d)</string>

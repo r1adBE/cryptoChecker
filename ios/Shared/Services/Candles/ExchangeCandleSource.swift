@@ -3,7 +3,7 @@ import Foundation
 /// Paar für Kerzen von der EIGENEN Börse: Schlüssel und Name der Börse, Kürzel, Kennung der Börse
 /// (`Watch.pairId`, z. B. Kraken «XXBTZUSD», OKX «BTC-USDT-SWAP», Binance COIN-M «2:BTCUSD_PERP») und
 /// Vertragsart. `tradFi` = Aktie, Rohstoff, Devise: nie Kerzen eines gleichnamigen Krypto-Tokens.
-/// Wie `CandlePair.kt`.
+/// Wie `CandlePair` in `ExchangeCandleSource.kt`.
 struct CandlePair: Equatable, Sendable {
     static let dexMarketKey = "DexScreener"
 

@@ -216,4 +216,6 @@
     <string name="watchlist_sort_by_coin">Järjestä kolikon mukaan</string>
     <string name="watchlist_sort_by_exchange">Järjestä pörssin mukaan</string>
     <string name="watchlist_limit_reached">Seurantalistallasi voi olla enintään %1$s paria.</string>
+    <string name="watch_price_reference">viitekurssi, päivittäin</string>
+    <string name="watch_price_daily">päivittäin</string>
 </resources>

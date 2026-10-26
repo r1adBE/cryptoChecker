@@ -228,4 +228,6 @@
     <string name="watchlist_sort_by_coin">Ordenar por moeda</string>
     <string name="watchlist_sort_by_exchange">Ordenar por corretora</string>
     <string name="watchlist_limit_reached">Sua lista de acompanhamento pode ter no máximo %1$s pares.</string>
+    <string name="watch_price_reference">taxa de referência, diária</string>
+    <string name="watch_price_daily">diária</string>
 </resources>

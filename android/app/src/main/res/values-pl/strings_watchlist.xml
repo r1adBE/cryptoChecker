@@ -240,4 +240,6 @@
     <string name="watchlist_sort_by_coin">Sortuj według monety</string>
     <string name="watchlist_sort_by_exchange">Sortuj według giełdy</string>
     <string name="watchlist_limit_reached">Twoja lista obserwowanych może zawierać maksymalnie %1$s par.</string>
+    <string name="watch_price_reference">kurs referencyjny, dzienny</string>
+    <string name="watch_price_daily">dzienny</string>
 </resources>

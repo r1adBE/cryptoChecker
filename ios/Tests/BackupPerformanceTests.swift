@@ -33,7 +33,7 @@ final class BackupPerformanceTests: XCTestCase {
         return snapshot
     }
 
-    /// Wie `SharedStorage.loadMain`: mit Zähler übersprungener Einträge.
+    /// Wie `SharedStorage.readFiles`: mit Zähler übersprungener Einträge.
     private static func decodeSnapshot(_ data: Data) throws -> SharedStorage.Snapshot {
         let decoder = JSONDecoder()
         decoder.userInfo[SharedStorage.DropCounter.key] = SharedStorage.DropCounter()

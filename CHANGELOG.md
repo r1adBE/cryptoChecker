@@ -2,18 +2,29 @@
 
 ## 16.2.2 – first public release
 
-* Last price straight from the exchange that lists the pair – 44 exchanges, including futures and DEX pools.
+* Last price straight from the exchange that lists the pair – 56 markets on 45 exchanges, including futures and DEX pools.
 * Alerts run locally on the device when the app checks prices (with the app closed, often only after hours) – no account, no server.
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
-* Watchlist, alarms and portfolio are stored encrypted on the device (Android: a database created unencrypted by an older version is converted once a device key is available; until then it is only read without a key – see the privacy page).
+* Watchlist, alerts and portfolio are stored encrypted on the device (Android: a database created unencrypted by an older version is converted once a device key is available; until then it is only read without a key – see the privacy page).
 * Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
 * 31 languages.
 * Full source code of both apps under the MIT license.
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 133)
+
+* Exchange picker in sections: Spot · Futures · DEX pools · Forex (reference rate), favorites on top, search across all sections. Within a section the exchanges are sorted by trading volume on the install date (fetched once from CoinGecko's public exchange lists); without it alphabetically as before.
+* Coin search: after the start exchange and your favorites, the pairs of the largest exchanges come first (volume instead of alphabet).
+* New exchange: Bitunix Futures (perpetuals; Bitunix spot has no 24 h ticker). The API names no contract type, so stock contracts are not marked TradFi.
+* DEX pools: GeckoTerminal as fallback when DexScreener answers with a server error or no longer knows a pool; a GeckoTerminal rate limit never pauses DexScreener.
+* Forex: daily ECB reference rates (via Frankfurter) as currency pairs, labelled «reference rate, daily», never live and without alerts.
+* Privacy page: Bitunix, GeckoTerminal, the one-time exchange lists of CoinGecko and the forex reference rates. Store descriptions: 56 markets on 45 exchanges.
+* CI on main: release unit tests run again (AGP 9 had stopped creating `testReleaseUnitTest`).
+* Clean-up before the next review: code comments (Android and iOS), both app READMEs, DEVELOPMENT, CONTRIBUTING, SECURITY, the privacy page and the CI comments checked against the app and corrected; translations made consistent (Portuguese, Dutch and Spanish portfolio terms, one name for Live Activities per language, newest texts use each language's word for alerts).
 
 ## 16.2.2 (build 132)
 

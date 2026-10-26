@@ -81,7 +81,9 @@ final class CoinSearchParityTests: XCTestCase {
                                        name: nil, exchanges: 0, pairs: 0)
             let preference = ExplorerCoinPairPreference(defaultExchange: c["defaultExchange"] as? String,
                                                         favoriteExchanges: Set(c["favorites"] as? [String] ?? []),
-                                                        displayCurrency: c["displayCurrency"] as? String)
+                                                        displayCurrency: c["displayCurrency"] as? String,
+                                                        exchangeRank: (c["exchangeRank"] as? [String: Any] ?? [:])
+                                                            .compactMapValues { ($0 as? NSNumber)?.intValue })
             let actual = ExplorerCoinSearch.pairs(for: coin, markets: s.markets, cache: s.cache, preference: preference,
                                                   scope: scope(c)).map {
                 "\($0.market.key) \($0.pair.base)/\($0.pair.quote) \($0.pair.contractType.backupName)"

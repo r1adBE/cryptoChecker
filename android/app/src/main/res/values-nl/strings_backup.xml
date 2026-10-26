@@ -82,7 +82,7 @@
     <string name="system_backup_not_imported_message">De portfoliokopie uit de Android-systeemback-up kon ook bij een tweede poging niet worden gelezen en is verwijderd. Heb je een back-upbestand, zet het dan terug via “%1$s” in Instellingen.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Opgeslagen gegevens zijn nu niet leesbaar, dus de portefeuille wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw.</string>
+    <string name="portfolio_storage_kept_in_memory">Opgeslagen gegevens zijn nu niet leesbaar, dus het portfolio wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Opgeslagen gegevens zijn nu niet leesbaar, dus de volglijst wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw.</string>
     <string name="watchlist_storage_locked">De volglijst kan niet worden gewijzigd: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw.</string>

@@ -96,7 +96,7 @@ fun MarketPhaseScreen(
     onOpenExplorer: (String) -> Unit = {},
     /** Aktionsblatt › Alarm: Seite «Alarme» des Paars (zurück öffnet das Blatt wieder). */
     onOpenAlarms: (Long) -> Unit = {},
-    /** ⋯ › App-Logo und Name: Einstellungen › «Über». */
+    /** ⋯ › App-Logo und Name: Einstellungen › «Über die App». */
     onOpenAbout: () -> Unit = {},
     /** Zeile «Einordnung» bzw. «Daten»: eigene Unterseite mit den Karten (zurück führt hierher). */
     onOpenSection: (MarketSection) -> Unit = {},
@@ -202,7 +202,7 @@ fun MarketPhaseScreen(
             TopAppBar(
                 title = { TabTitle(stringResource(R.string.tab_market_phase), R.drawable.ic_tab_market) },
                 actions = {
-                    // ⋯ wie in Merkliste und Portfolio: App (→ «Über»), Aktualisieren
+                    // ⋯ wie in Merkliste und Portfolio: App (→ «Über die App»), Aktualisieren
                     var menuOpen by remember { mutableStateOf(false) }
                     Box {
                         IconButton(onClick = { menuOpen = true }) {

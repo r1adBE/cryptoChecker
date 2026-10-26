@@ -70,7 +70,7 @@ fun WatchlistScreen(
     onAddClick: () -> Unit,
     onOpenAlarms: (Long) -> Unit,
     onOpenAllAlarms: () -> Unit = {},
-    /** Einstellungen → Markt-Meldungen (Empfindlichkeit); früher «Anpassen» in der Aktivitätskarte. */
+    /** Einstellungen › Alarme › Markt-Meldungen (Empfindlichkeit); früher «Anpassen» in der Aktivitätskarte. */
     onOpenActivitySettings: () -> Unit = {},
     /** Logo mit App-Namen im Überlaufmenü: «Über die App». */
     onOpenAbout: () -> Unit = {},

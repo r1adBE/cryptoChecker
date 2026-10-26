@@ -1,5 +1,5 @@
 // Nach dem Durchlauf ausserhalb der Sperre: Kurs-Meldungen abwarten, Widget-Charts und Nebenprüfungen (Teil von
-// `PriceRefresher`, gespiegelt in `PriceRefresher+After.swift`). Erweiterungsfunktionen; Abhängigkeiten in der Klasse.
+// `PriceRefresher`; ohne eigenes Gegenstück in iOS). Erweiterungsfunktionen; Abhängigkeiten in der Klasse.
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.refresh.PriceRefresher.Companion.SIDE_CHECK_RESERVE_MILLIS

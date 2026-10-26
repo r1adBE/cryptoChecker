@@ -29,7 +29,7 @@ struct CoinReport: Equatable, Sendable, Codable {
 
 /// Kennzahlen für beliebige Coins — nur aus dem Kursverlauf, weil On-Chain-Daten frei nur
 /// für Bitcoin verfügbar sind. Reine Messwerte ohne Zonen, Scores oder Deutung, wie
-/// `BitcoinIndicatorModel`. Wie `CoinIndicatorModel.kt`.
+/// `BitcoinIndicatorModel`. Wie `CoinIndicatorModel` in `CoinCycleModel.kt`.
 enum CoinIndicatorModel {
 
     static func evaluate(symbol: String, input: CoinInputs) -> CoinReport {

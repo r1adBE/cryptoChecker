@@ -4,6 +4,7 @@
 // Erweiterungsfunktionen auf dem ViewModel, der Zustand bleibt in der Klasse (wie `ExplorerSearchActions.swift`).
 package com.cryptochecker.app.ui.features.explorer
 
+import com.cryptochecker.app.domain.market.ExchangeOrder
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -163,7 +164,7 @@ private data class SearchResult(
 
 /**
  * Vorschlag der Coin-Suche: Start-Börse der Region (bei Standort-Sperre Binance.US, wie die Start-Merkliste),
- * Lieblingsbörsen (gemerkt als Anzeigename) und die Umrechnungswährung.
+ * Lieblingsbörsen (gemerkt als Anzeigename), die Umrechnungswährung und der Volumenrang der Börsen.
  */
 internal fun ExplorerViewModel.pairPreference(markets: List<MarketInfo>): CoinPairPreference {
     val favoriteNames = favoriteMarkets.value
@@ -171,6 +172,7 @@ internal fun ExplorerViewModel.pairPreference(markets: List<MarketInfo>): CoinPa
         defaultExchange = StarterPairs.marketKey(starterCoinsRepository.starterRegion(deviceRegionLocale().country)),
         favoriteExchanges = markets.filter { it.name in favoriteNames }.mapTo(HashSet()) { it.key },
         displayCurrency = displayCurrency.value,
+        exchangeRank = ExchangeOrder.ranks(exchangeRanking.volumes.value),
     )
 }
 

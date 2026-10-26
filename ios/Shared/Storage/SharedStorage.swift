@@ -320,7 +320,7 @@ enum SharedStorage {
         }
     }
 
-    // MARK: Favoriten (Hinzufügen-Tab)
+    // MARK: Favoriten (Seite «Paar hinzufügen»)
 
     static func favorites(_ kind: FavoriteKind) -> Set<String> {
         Set(defaults.stringArray(forKey: "fav_" + kind.rawValue.lowercased()) ?? [])

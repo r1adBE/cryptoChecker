@@ -50,8 +50,10 @@ class SingleWidgetRenderer @Inject constructor(
     private val coinLogos: WidgetCoinLogos,
     internal val tokenIdentityStore: com.cryptochecker.app.data.TokenIdentityStore,
 ) {
-    /** Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie). */
-    /** Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    /**
+     * Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie).
+     * Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende).
+     */
     internal val sparkCache = BoundedCache<String, Pair<Long, List<WidgetCandle>>>(MEMORY_CACHE_ENTRIES)
 
     /**
@@ -265,7 +267,6 @@ class SingleWidgetRenderer @Inject constructor(
         return true
     }
 
-    /** Einrichten eines Einzel-Widgets öffnen (Tippen auf ein Widget ohne Paar). */
     /** Öffnet die App beim Paar [watchId] ([MainActivity.EXTRA_WATCH_ID]); eigene data-Uri je Widget. */
     private fun openPair(appWidgetId: Int, watchId: Long): PendingIntent {
         val intent = Intent(context, MainActivity::class.java).apply {
@@ -282,6 +283,7 @@ class SingleWidgetRenderer @Inject constructor(
         )
     }
 
+    /** Einrichten eines Einzel-Widgets öffnen (Tippen auf ein Widget ohne Paar). */
     private fun configureSingle(appWidgetId: Int): PendingIntent {
         val intent = Intent(context, SingleWidgetConfigureActivity::class.java).apply {
             action = AppWidgetManager.ACTION_APPWIDGET_CONFIGURE

@@ -26,6 +26,10 @@ extension ExplorerScreen {
             }
 
             marketStatusLine
+            // EZB-Referenzkurse: täglich festgelegt, nicht live, keine Alarme
+            if vm.isReferenceRate {
+                ExplorerHint(text: L("explorer_forex_hint"))
+            }
         }
     }
 

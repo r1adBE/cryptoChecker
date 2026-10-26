@@ -31,11 +31,15 @@ enum MarkFallbackStore {
 /// `hourly` (Schluss der jüngsten Stundenkerze, `Market.priceIsHourlyClose`, WOO X Spot). nil = kein Zusatz.
 enum PriceKindLabel: Equatable {
     case mark, mid, hourly
+    /// Täglicher Referenzkurs (EZB, `Market.priceIsDailyReference`): «Referenzkurs, täglich».
+    case dailyReference
 
-    static func of(priceIsMid: Bool, markFallback: Bool, hourlyClose: Bool) -> PriceKindLabel? {
+    static func of(priceIsMid: Bool, markFallback: Bool, hourlyClose: Bool,
+                   dailyReference: Bool = false) -> PriceKindLabel? {
         if markFallback { return .mark }
         if priceIsMid { return .mid }
         if hourlyClose { return .hourly }
+        if dailyReference { return .dailyReference }
         return nil
     }
 }

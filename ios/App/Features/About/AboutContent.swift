@@ -70,7 +70,7 @@ struct AboutFeatures: View {
 }
 
 /// Kurzinfo zur App mit Kontaktadresse — wie `AboutContent.kt`.
-/// Steht in den Einstellungen unter «Über».
+/// Steht in den Einstellungen unter «Über die App».
 @MainActor
 struct AboutContent: View {
     /// Siebenmal tippen schaltet die Entwickleroptionen frei.

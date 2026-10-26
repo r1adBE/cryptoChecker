@@ -266,7 +266,7 @@ enum WatchPreview {
     static let quoteAsset = "USDT"
 
     /// Vorschau-Paar zu `symbol`; nil, wenn es Binance nicht gibt oder die gespeicherte Paarliste das
-    /// Spot-Paar nicht führt (dann wie bisher die Suche im Hinzufügen-Tab). Die Zeilen kommen ohnehin
+    /// Spot-Paar nicht führt (dann wie bisher die Suche auf der Seite «Paar hinzufügen»). Die Zeilen kommen ohnehin
     /// aus den Binance-Tickern «…USDT», die Prüfung ist nur die Absicherung.
     static func watch(symbol: String) async -> Watch? {
         let base = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

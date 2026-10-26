@@ -216,4 +216,6 @@
     <string name="watchlist_sort_by_coin">Rendit sipas monedhës</string>
     <string name="watchlist_sort_by_exchange">Rendit sipas bursës</string>
     <string name="watchlist_limit_reached">Lista jote e ndjekjes mund të ketë më së shumti %1$s çifte.</string>
+    <string name="watch_price_reference">kursi i referencës, ditor</string>
+    <string name="watch_price_daily">ditor</string>
 </resources>

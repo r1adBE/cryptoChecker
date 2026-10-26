@@ -37,7 +37,7 @@ enum AlarmLogOutcome: String, CaseIterable, Sendable {
 
 /// Was die Prüfung eines Alarms an den bestehenden Entscheidungsstellen gesehen hat (nur beobachtet — die Entscheidung
 /// selbst fällt unverändert in `AlarmEvaluator`, `AlarmFreshness`, `AlarmDelivery` usw.). `AlarmLog.outcome` macht daraus
-/// genau ein Ergebnis; welche Stelle zuerst greift, legt allein diese Reihenfolge fest. Wie `AlarmLogTrace.kt`.
+/// genau ein Ergebnis; welche Stelle zuerst greift, legt allein diese Reihenfolge fest. Wie `AlarmLogTrace` in `AlarmLog.kt`.
 struct AlarmLogTrace: Equatable, Sendable {
     var noPrice = false
     var lowLiquidity = false

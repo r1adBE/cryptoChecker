@@ -18,7 +18,7 @@
     <string name="portfolio_enable_ask_text">A tua transação foi guardada. O separador Portfólio mostra as tuas posições e o respetivo valor.</string>
     <string name="portfolio_enable_ask_title">Ativar o separador Portfólio?</string>
     <string name="portfolio_enable_later_hint">Transação guardada. Podes ativar o separador Portfólio em Definições › Portfólio.</string>
-    <string name="portfolio_enabled_banner">Portefólio ativado – encontra-lo no separador Portefólio.</string>
+    <string name="portfolio_enabled_banner">Portfólio ativado – encontra-lo no separador Portfólio.</string>
     <string name="portfolio_lock_reason">Desbloquear portfólio</string>
     <string name="portfolio_locked_text">Desbloqueia para ver as posições e os valores.</string>
     <string name="portfolio_locked_title">O portfólio está bloqueado</string>
@@ -123,7 +123,7 @@
     <string name="portfolio_tx_explain_reward">Custo de aquisição = valor de mercado na receção</string>
     <string name="portfolio_tx_explain_swap">Uma moeda por outra: venda da entregue, compra da recebida</string>
     <string name="portfolio_tx_explain_transfer">Sem ganho – o custo de aquisição acompanha as moedas</string>
-    <string name="portfolio_tx_explain_withdrawal">A posição sai do portefólio – sem venda, sem ganho</string>
+    <string name="portfolio_tx_explain_withdrawal">A posição sai do portfólio – sem venda, sem ganho</string>
     <string name="portfolio_tx_fee_consumes_amount">A comissão é tão grande como a quantidade recebida – não sobraria nada.</string>
     <string name="portfolio_tx_fees_toggle">Comissões</string>
     <string name="portfolio_tx_fiat_converted">≈ %1$s ao câmbio de %2$s</string>
@@ -272,10 +272,10 @@
 
     <string name="portfolio_tx_interest">Juros (empréstimo)</string>
     <string name="portfolio_tx_interest_hint">Conta como rendimento ao ser recebido (Áustria). Deixa desligado para recompensas de staking e airdrops.</string>
-    <string name="app_lock_no_screen_lock">Configura um bloqueio de ecrã para abrir a carteira.</string>
-    <string name="app_lock_turn_off_action">Desligar bloqueio da carteira</string>
-    <string name="app_lock_turn_off_confirm_title">Desligar o bloqueio da carteira?</string>
-    <string name="app_lock_turn_off_confirm_message">Sem bloqueio de ecrã não é possível desbloquear a carteira. Desligado, a app volta a mostrar a carteira sem perguntar. Depois de configurares um bloqueio de ecrã, podes voltar a ligar o bloqueio nas Definições.</string>
+    <string name="app_lock_no_screen_lock">Configura um bloqueio de ecrã para abrir o portfólio.</string>
+    <string name="app_lock_turn_off_action">Desligar bloqueio do portfólio</string>
+    <string name="app_lock_turn_off_confirm_title">Desligar o bloqueio do portfólio?</string>
+    <string name="app_lock_turn_off_confirm_message">Sem bloqueio de ecrã não é possível desbloquear o portfólio. Desligado, a app volta a mostrar o portfólio sem perguntar. Depois de configurares um bloqueio de ecrã, podes voltar a ligar o bloqueio nas Definições.</string>
 
     <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
     <string name="ledger_cost_fx_note">«Desde a compra» e custo de aquisição em %1$s: custo à taxa de câmbio do dia da compra, valor à taxa de hoje.</string>

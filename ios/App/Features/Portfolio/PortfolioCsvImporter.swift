@@ -246,7 +246,7 @@ enum PortfolioCsvImporter {
     }
 
     /// Gespeicherte Transaktion als verknüpfte Umbuchung (`CsvStoredTransfer`) im Importlauf `batch` des verknüpfenden
-    /// Imports (ihr Zustand davor samt früherem Lauf steht in `importRestoreState`) — wie Android `linkStored`.
+    /// Imports (ihr Zustand davor samt früherem Lauf steht in `importRestoreState`) — wie Android `linkStoredTransfers`.
     static func linked(_ tx: PortfolioTx, _ u: CsvStoredTransfer, batch: String) -> PortfolioTx {
         var out = tx
         out.type = .TRANSFER

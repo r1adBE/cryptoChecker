@@ -144,4 +144,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Pairs you\'ve set an alert for in the meantime will stay.</string>
     <string name="bulk_undo_expired">Undo is no longer possible – the pairs stay in the watchlist.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Futures</string>
+    <string name="explorer_section_dex">DEX pools</string>
+    <string name="explorer_section_forex">Forex (reference rate)</string>
+    <string name="explorer_forex_hint">Daily rate of the European Central Bank (via Frankfurter), not live – no alerts.</string>
 </resources>

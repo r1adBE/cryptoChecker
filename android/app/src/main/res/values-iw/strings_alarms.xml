@@ -186,4 +186,5 @@
     <string name="alarm_editor_more_summary">התראות מהירות, תנאים נוספים, צליל והקראה</string>
     <string name="alarm_reliability_storage_no_key">ההתראות מושהות ברקע – רשימת המעקב לא נשמרה</string>
     <string name="alarms_limit_reached">לצמד יכולות להיות עד %1$s התראות.</string>
+    <string name="alarms_reference_rate_hint">שערי הייחוס של הבנק המרכזי האירופי נקבעים פעם ביום בלבד – אין עבורם התראות.</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -52,6 +53,7 @@ class HtxFutures : HtxBase(
     singleHighLowRolling = false,
 ) {
     override val key = "HtxFutures"
+    override val category = MarketCategory.FUTURES
 
     // ── Paarliste ──
 

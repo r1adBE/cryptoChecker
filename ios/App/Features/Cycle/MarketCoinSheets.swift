@@ -12,7 +12,7 @@ import SwiftUI
 /// (`WatchlistScreen.withSheets`): «Was bewegt sich mit?» und «Alarme» als eigene Seiten, zurück öffnet das
 /// Blatt wieder; Löschen sofort mit «Rückgängig» im Banner; Portfolio erst nach dem Entsperren.
 /// Vorschau (Coin nicht in der Merkliste): Kurs aus einer Ticker-Abfrage ohne Speichern,
-/// «Zur Merkliste hinzufügen» legt das Paar wie der Hinzufügen-Tab an. Wie Android `MarketCoinSheets`.
+/// «Zur Merkliste hinzufügen» legt das Paar wie die Seite «Paar hinzufügen» an. Wie Android `MarketCoinSheets`.
 @MainActor
 struct CycleCoinSheets: ViewModifier {
     @Binding var target: CycleCoinTarget?

@@ -253,5 +253,5 @@
     <string name="tax_summary_fr_address_no_cost">Os endereços monitorados contam no valor total, mas não têm custo de aquisição – o ganho tende, por isso, a ficar alto demais. Registre o custo como compra.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Valores de mercado sem preço registrado (taxas, doado/pago, troca, recompensas, taxas de rede, valor da carteira) pelo fechamento diário (UTC) do dia da transação</string>
+    <string name="tax_export_day_close_rule">Valores de mercado sem preço registrado (taxas, doado/pago, troca, recompensas, taxas de rede, valor do portfólio) pelo fechamento diário (UTC) do dia da transação</string>
 </resources>

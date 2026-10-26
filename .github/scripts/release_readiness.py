@@ -192,7 +192,7 @@ def expected_tag_problem(ref, name, code):
 
 
 def check_tag(repo):
-    # REL3-R1: Tag-Lauf nur mit passendem Tag
+    # REL3-R1: tag run only with a matching tag
     ref = os.environ.get("GITHUB_REF", "")
     if not ref.startswith("refs/tags/"):
         return
@@ -215,12 +215,12 @@ def self_test():
     assert expected_tag_problem("refs/heads/main", "16.2.2", "105") is None
     assert expected_tag_problem("refs/pull/7/merge", "16.2.2", "105") is None
     assert expected_tag_problem("refs/tags/other", "16.2.2", "105") is None
-    # REL4-02: Build-Nummer im Kopf von ROADMAP/TESTPLAN
+    # REL4-02: build number in the header of ROADMAP/TESTPLAN
     head = "# Liste\n\nStand: 22. Oktober 2026 · Version 16.2.2 (Build {} – steigt)\n"
     assert head_build_problem(head.format(105), "105") is None
     assert "Build 104" in head_build_problem(head.format(104), "105")
     assert head_build_problem("# Liste\n\nohne Nummer\n", "105") is not None
-    # Nur der Kopf zählt: Verlauf weiter unten («Build 91: …») nicht
+    # Only the header counts, not the history further down («Build 91: …»)
     assert head_build_problem(head.format(105) + "\n" * 10 + "Build 91: alt\n", "105") is None
     assert head_build_problem("# Liste\n" + "\n" * 10 + "Build 105\n", "105") is not None
     # Store guides: tag examples and archive name are checked, history lines are not
@@ -317,7 +317,7 @@ def check_store_docs(repo):
     for rel, patterns in DOC_PATTERNS.items():
         path = os.path.join(repo, *rel.split("/"))
         if not os.path.isfile(path):
-            # Sichtbar statt still: im öffentlichen Repository fehlen die privaten Anleitungen
+            # Visible rather than silent: the private guides are missing from the public repository
             add("notice", f"{rel}: not checked (private file, not in this repository)")
             continue
         with open(path, encoding="utf-8") as f:
@@ -347,7 +347,7 @@ def head_build_problem(text, code):
 
 
 def check_head_docs(repo):
-    # REL4-02: «Build-Nummer siehe Kopf» — der Kopf muss zum versionCode passen
+    # REL4-02: «build number: see header» — the header must match versionCode
     code = first(r"^\s*versionCode\s*=\s*(\d+)", os.path.join(repo, "android", "app", "build.gradle.kts"))
     if not code:
         return

@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -138,6 +139,7 @@ class WooFutures : WooBase(
     tickerUrl = "$WOO_API/v3/public/futures?symbol=%1\$s",
 ) {
     override val key = "WooFutures"
+    override val category = MarketCategory.FUTURES
 
     // ── Einzelkurs ──
 

@@ -216,4 +216,6 @@
     <string name="watchlist_sort_by_coin">Rendezés coin szerint</string>
     <string name="watchlist_sort_by_exchange">Rendezés tőzsde szerint</string>
     <string name="watchlist_limit_reached">A figyelőlistád legfeljebb %1$s párt tartalmazhat.</string>
+    <string name="watch_price_reference">referencia-árfolyam, napi</string>
+    <string name="watch_price_daily">napi</string>
 </resources>

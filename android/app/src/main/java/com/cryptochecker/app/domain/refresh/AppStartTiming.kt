@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.refresh
 /**
  * App-Start bis zum ersten Bild der Merkliste (aus dem Zwischenspeicher), nur lokal
  * gemessen und im Bericht «Letzte Aktualisierung» unter «Ablauf» gezeigt — keine Telemetrie.
- * Reines Kotlin — wie `AppStartTiming.swift`.
+ * Reines Kotlin — wie iOS `AppStartTiming` (in `ExchangeBackoff.swift`).
  */
 object AppStartTiming {
 

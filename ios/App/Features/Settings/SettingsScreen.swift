@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 import UserNotifications
 
-/// Tab «Optionen» — wie `SettingsScreen.kt` (Runde 23f): eine kurze, gruppierte Liste.
+/// Tab «Einstellungen» — wie `SettingsScreen.kt` (Runde 23f): eine kurze, gruppierte Liste.
 /// Je Gruppe eine Karte wie im Markt-Tab «Jetzt» (Überschrift mit Strich oben in der Karte),
 /// darin Zeilen mit Titel, aktuellem Wert in Grau und Pfeil;
 /// alles Ausführliche steht auf Unterseiten (`Settings…Pages.swift` je Gruppe, Markt-Meldungen, Sprachausgabe).
@@ -77,7 +77,7 @@ struct SettingsScreen: View {
             .navigationDestination(isPresented: $router.showPortfolioSettings) {
                 PortfolioSettingsPage()
             }
-            // K-10: «Aktualisierung ändern» im Alarm-Hinweis: gleich die Seite «Aktualisierung»
+            // K-10: «Aktualisierung ändern» im Alarm-Hinweis: gleich die Seite «Kurs-Aktualisierung»
             .navigationDestination(isPresented: $router.showUpdateSettings) {
                 UpdatesSettingsPage()
             }

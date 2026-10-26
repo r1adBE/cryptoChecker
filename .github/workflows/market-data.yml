@@ -18,9 +18,9 @@ on:
     - cron: '7 * * * *'    # hourly at :07 UTC
   workflow_dispatch:
 
-# Zwei Jobs: «fetch» fragt die Anbieter ohne Schreibrecht ab und übergibt die Dateien als Artefakt;
-# «publish» (Schreibrecht, keine fremden Netzabfragen) checkt github.sha frisch aus, prüft das Artefakt streng
-# (artifact_check.py) und lädt erst dann die Release-Assets hoch.
+# Two jobs: «fetch» queries the providers without write permission and hands the files over as an artifact;
+# «publish» (write permission, no third-party network requests) freshly checks out github.sha, strictly checks the
+# artifact (artifact_check.py) and only then uploads the release assets.
 permissions: {}
 
 concurrency:
@@ -44,7 +44,7 @@ jobs:
           python3 .github/scripts/mirror_data.py --output "$RUNNER_TEMP/data" --selftest
           python3 -I .github/scripts/artifact_check.py --self-test
 
-      # Anbieter-Abfragen; in diesem Job gibt es kein Schreib-Token
+      # Provider requests; this job has no write token
       - name: Fetch
         env:
           PYTHONDONTWRITEBYTECODE: '1'
@@ -59,41 +59,41 @@ jobs:
 
   publish:
     needs: fetch
-    # Nur auf main (auch workflow_dispatch auf einem anderen Zweig veröffentlicht nichts). Umgebung mirror-signing:
-    # Dort liegt MIRROR_SIGNING_KEY, sobald der Inhaber es verschoben hat (nur Zweig main zugelassen); bis dahin gilt
-    # das gleichnamige Repository-Secret (ein Umgebungs-Secret hat Vorrang).
+    # Only on main (workflow_dispatch on another branch publishes nothing either). Environment mirror-signing:
+    # MIRROR_SIGNING_KEY lives there once the owner has moved it (only branch main allowed); until then the
+    # repository secret of the same name is used (an environment secret takes precedence).
     if: github.ref == 'refs/heads/main'
     environment: mirror-signing
     runs-on: ubuntu-24.04
     permissions:
       contents: write   # gh release create/edit/upload
-      actions: read     # Artefakt dieses Laufs laden (gh run download)
+      actions: read     # download this run's artifact (gh run download)
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.sha }}
-          # docs/macro: Hash des Wirtschaftskalenders fürs Manifest (die Datei selbst liefert GitHub Pages)
+          # docs/macro: hash of the economic calendar for the manifest (GitHub Pages serves the file itself)
           sparse-checkout: |
             .github/scripts
             docs/macro
-          # Hochladen mit GH_TOKEN aus env; kein Token in .git/config liegen lassen
+          # Upload uses GH_TOKEN from env; leave no token in .git/config
           persist-credentials: false
 
-      # gh (vorinstalliert) lädt das Artefakt dieses Laufs
+      # gh (preinstalled) downloads this run's artifact
       - name: Download artifact
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name market-data --dir "$RUNNER_TEMP/data"
 
-      # Nur erwartete Dateinamen, Grösse, Kopfzeile/JSON grob; aus dem Artefakt wird nichts ausgeführt
+      # Only expected file names, size, rough header/JSON check; nothing from the artifact is executed
       - name: Check artifact
         run: python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/data" --profile mirror
 
-      # Manifest (SHA-256 je Datei) in eigenem Ordner, signiert mit MIRROR_SIGNING_KEY (openssl, vorinstalliert; keine
-      # Paket-Installation in diesem Job). Nicht erneuerte Dateien behalten ihren Hash nur aus einem gültig signierten
-      # bisherigen Manifest. Ohne Secret: Manifest ohne Signatur (die Apps fragen dann die Anbieter direkt); die Daten
-      # werden trotzdem hochgeladen, der Lauf endet aber rot (Upload, letzter Schritt).
+      # Manifest (SHA-256 per file) in its own folder, signed with MIRROR_SIGNING_KEY (openssl, preinstalled; no
+      # package installation in this job). Files not refreshed keep their hash only from a validly signed previous
+      # manifest. Without the secret: manifest without signature (the apps then query the providers directly); the data
+      # is uploaded anyway, but the run ends red (Upload, last step).
       - name: Sign manifest
         env:
           GH_TOKEN: ${{ github.token }}
@@ -110,7 +110,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Quellen und Lizenzen in den Release-Notizen (Coin Metrics Community: CC BY-NC 4.0, alternative.me: Quellenangabe)
+          # Sources and licences in the release notes (Coin Metrics Community: CC BY-NC 4.0, alternative.me: attribution)
           NOTES='Hourly mirror of public market data for the Crypto Checker apps, same for every user. Not for other use.
 
           Sources and licences:
@@ -131,7 +131,7 @@ jobs:
             gh release delete-asset data "$old" -y || true
           done
           gh release upload data "$RUNNER_TEMP"/data/* --clobber
-          # Manifest zuletzt (passt dann zu den eben hochgeladenen Dateien); ohne Signatur die alte entfernen
+          # Manifest last (so it matches the files just uploaded); without a signature, remove the old one
           if [ ! -f "$RUNNER_TEMP/manifest/manifest.json.sig" ]; then
             gh release delete-asset data manifest.json.sig -y || true
           fi
@@ -143,7 +143,7 @@ jobs:
             echo '```'
             if [ -f "$RUNNER_TEMP/manifest/manifest.json.sig" ]; then echo 'Manifest signed.'; else echo 'Manifest NOT signed (MIRROR_SIGNING_KEY).'; fi
           } >> "$GITHUB_STEP_SUMMARY"
-          # Unsigniertes Manifest: Daten sind oben hochgeladen, der Lauf wird trotzdem rot (sonst fällt es niemandem auf)
+          # Unsigned manifest: the data was uploaded above, but the run still turns red (otherwise nobody would notice)
           if [ ! -f "$RUNNER_TEMP/manifest/manifest.json.sig" ]; then
             echo '::error title=Mirror signature::manifest.json was published without a valid signature (MIRROR_SIGNING_KEY missing or not usable); the apps ignore the mirror until it is signed again.'
             exit 1

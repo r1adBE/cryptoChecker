@@ -45,7 +45,7 @@ import com.cryptochecker.app.widget.WidgetPinner
 
 /*
  * Runde 13b: Widgets direkt aus der App hinzufügen (requestPinAppWidget). Einstellungen ›
- * Darstellung › «Widgets» öffnet ein Blatt mit allen Widget-Arten samt Vorschaubild; das
+ * Darstellung › «Widgets» öffnet eine Seite mit allen Widget-Arten samt Vorschaubild (`WidgetsPage`); das
  * Aktionen-Blatt der Merkliste legt ein Einzel-Widget für das Paar an. Kann der
  * Startbildschirm das nicht, steht stattdessen eine kurze Anleitung da.
  */
@@ -81,8 +81,8 @@ fun AddWidgetsSheet(portfolioEnabled: Boolean, onDismiss: () -> Unit) {
 
 /**
  * Inhalt «Widgets hinzufügen»: je Widget-Art Vorschau, Name, Satz und «Hinzufügen» (bzw. der
- * Hinweis für Startbildschirme ohne Anheften). Als Blatt ([AddWidgetsSheet]) oder als Seite der
- * Einstellungen.
+ * Hinweis für Startbildschirme ohne Anheften). Als Seite der Einstellungen (`WidgetsPage`); das Blatt
+ * [AddWidgetsSheet] wird derzeit nirgends aufgerufen.
  */
 @Composable
 fun AddWidgetsContent(portfolioEnabled: Boolean) {

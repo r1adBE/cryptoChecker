@@ -160,7 +160,7 @@ internal fun ChangeBasisPage(onBack: () -> Unit, viewModel: SettingsViewModel = 
 
 /**
  * «Coin-Logos»: echte Logos (CoinGecko, alle auf einmal geladen und auf dem Gerät gespeichert)
- * statt Initialen — getrennt für App, Portfolio und Widgets; ab Werk nur im Portfolio an.
+ * statt Initialen — getrennt für App, Portfolio und Widgets; ab Werk in App und Portfolio an, in Widgets aus.
  */
 @Composable
 internal fun CoinLogosPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {

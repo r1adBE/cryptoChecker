@@ -186,4 +186,5 @@
     <string name="alarm_editor_more_summary">Alarmas rápidas, otras condiciones, sonido y voz</string>
     <string name="alarm_reliability_storage_no_key">Alarmas en pausa en segundo plano – la lista no está guardada</string>
     <string name="alarms_limit_reached">Un par puede tener como máximo %1$s alarmas.</string>
+    <string name="alarms_reference_rate_hint">Los tipos de referencia del BCE se fijan solo una vez al día – no hay alarmas para ellos.</string>
 </resources>

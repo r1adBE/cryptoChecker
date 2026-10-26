@@ -16,8 +16,8 @@ import Foundation
 /// Die Paarliste einer Börse liegt in der App (`PairCache`); die App löst die Wege auf (`resolved`) und legt
 /// sie in der App Group ab (`PortfolioExchangeRouteStore`) — so nutzt auch das Widget dieselben Kurse.
 enum PortfolioExchangeRoute {
-    /// Märkte ohne Spot-Kurse für Coins (Futures, Optionen, DEX-Pools).
-    private static let notSpot: Set<String> = ["Hyperliquid", "Deribit", "DexScreener"]
+    /// Märkte ohne Spot-Kurse für Coins (Futures, Optionen, DEX-Pools, EZB-Devisen-Referenzkurse).
+    private static let notSpot: Set<String> = ["Hyperliquid", "Deribit", "DexScreener", "EcbReference"]
 
     /// Standardquelle des Portfolios.
     static let defaultMarket = "Binance"

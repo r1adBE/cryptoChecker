@@ -162,8 +162,8 @@ keys or other secrets never belong in this repository.
   watchlist is stored only on the device, but the requests themselves are not
   anonymous. Futures figures go to the exchange of the watched pair; only reference
   data and the funding history of the «Why?» sheet ask Binance Futures, Bybit or
-  OKX with the coin's contract symbol. Market breadth comes from the same mirror
-  file for everyone. Watched addresses (and, for an xpub, the addresses derived
+  OKX with the coin's contract symbol. Market breadth comes from CoinGecko's list of the 40 largest coins – the same
+  request for everyone. Watched addresses (and, for an xpub, the addresses derived
   from it on the device – the xpub itself never leaves the device) go to the
   public blockchain nodes named in the privacy policy, together with your IP
   address. Optionally, Bitcoin addresses and xpubs can go to your own

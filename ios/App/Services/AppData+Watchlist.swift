@@ -19,7 +19,7 @@ extension AppData {
         if !settings.firstPairAdded { settings.firstPairAdded = true }
     }
 
-    /// Erstes Paar über den Hinzufügen-Tab: Moment für die Merkliste vormerken
+    /// Erstes Paar über die Seite «Paar hinzufügen»: Moment für die Merkliste vormerken
     /// (Banner, Haptik und Ansage macht der Tab). `announceInWatchlist`: Banner und Ansage macht
     /// die Merkliste (Vorschau aus «Heute auffällig» im Markt-Tab, wie Android `afterExplorerAdd`).
     /// - Returns: Text der Rückmeldung, z. B. «BTC/USDT wird jetzt überwacht».
@@ -54,7 +54,7 @@ extension AppData {
         StarterPairs.pair(for: coin, region: StarterPairs.region(locale))
     }
 
-    /// Fügt die Startpaare hinzu wie der Hinzufügen-Tab (vorhandene Paare werden
+    /// Fügt die Startpaare hinzu wie die Seite «Paar hinzufügen» (vorhandene Paare werden
     /// übersprungen), mit Kurs-Mitteilung wie jedes neue Paar (Entscheid 16. Oktober 2026). Nach der Erlaubnis
     /// fragt die Startauswahl (`WatchlistStarter`) gleich danach. Holt gleich die Kurse.
     /// - Returns: Anzahl neu hinzugefügter Paare.

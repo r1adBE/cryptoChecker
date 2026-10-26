@@ -192,4 +192,5 @@
     <string name="alarm_editor_more_summary">Швидкі сигнали, інші умови, звук і озвучування</string>
     <string name="alarm_reliability_storage_no_key">Сигнали у фоні призупинено – список не збережено</string>
     <string name="alarms_limit_reached">Пара може мати не більше %1$s сигналів.</string>
+    <string name="alarms_reference_rate_hint">Референсні курси ЄЦБ встановлюються лише раз на день – сигналів для них немає.</string>
 </resources>

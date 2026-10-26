@@ -11,7 +11,7 @@ import UserNotifications
 extension AppData {
     // MARK: App zurücksetzen
 
-    /// «App zurücksetzen» (Einstellungen › Daten, nach Rückfrage): alles löschen wie nach der
+    /// «App zurücksetzen» (rote Karte unten auf der Hauptseite der Einstellungen, nach Rückfrage): alles löschen wie nach der
     /// Installation — Merkliste, Alarme, Portfolio, Einstellungen, Zwischenspeicher, Logos,
     /// Mitteilungen, Live-Aktivitäten und geplante Hintergrund-Aufgaben. Android löscht mit
     /// `clearApplicationUserData()` und beendet die App; iOS leert die Speicher und setzt den

@@ -1,10 +1,13 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import com.cryptochecker.app.domain.market.ExchangeOrder
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
 import com.cryptochecker.app.domain.model.MarketTickerResult
+import com.cryptochecker.marketdata.config.MarketsConfig
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import com.cryptochecker.marketdata.model.MarketCategory
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +24,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class ExplorerSelection(
     // Börse
     val exchanges: List<MarketInfo>,
+    /** Abschnitt je Eintrag von [exchanges] (gleiche Länge): Spot · Futures · DEX-Pools · Forex (Build 133). */
+    val exchangeCategories: List<MarketCategory>,
     val exchange: StateFlow<MarketInfo?>,
     val canReloadPairs: StateFlow<Boolean>,
 
@@ -101,9 +106,29 @@ sealed interface ExplorerLoad {
     data class Failed(val error: Throwable) : ExplorerLoad
 }
 
+/**
+ * Börsenauswahl in Abschnitten Spot · Futures · DEX-Pools · Forex ([ExchangeOrder]), darin nach dem Volumen am Tag der
+ * Installation; ohne Ranking bleibt die Reihenfolge von [alphabetical] (wie vor Build 133). Liefert die Börsen und je
+ * Eintrag den Abschnitt. Wie iOS `ExplorerViewModel.marketSections` (ExplorerMarketSections.swift).
+ */
+internal fun exchangeSections(
+    alphabetical: List<MarketInfo>,
+    volumes: Map<String, Double>?,
+): Pair<List<MarketInfo>, List<MarketCategory>> {
+    val byKey = alphabetical.associateBy { it.key }
+    val entries = alphabetical.map { ExchangeOrder.Entry(it.key, MarketsConfig.MARKETS[it.key]?.category ?: MarketCategory.SPOT) }
+    val sections = ExchangeOrder.sections(entries, volumes)
+    return sections.flatMap { (_, keys) -> keys.mapNotNull(byKey::get) } to
+        sections.flatMap { (category, keys) -> keys.map { category } }
+}
+
 /** Auswahl «Erweitert / nach Börse» zur geladenen Börsenliste ([ExplorerViewModel.pageState]). */
-internal fun ExplorerViewModel.buildSelection(exchangeList: List<MarketInfo>) = ExplorerSelection(
+internal fun ExplorerViewModel.buildSelection(
+    exchangeList: List<MarketInfo>,
+    categories: List<MarketCategory>,
+) = ExplorerSelection(
     exchanges = exchangeList,
+    exchangeCategories = categories,
     exchange = exchange.asStateFlow(),
     canReloadPairs = canReloadPairs,
     pairList = pairList,

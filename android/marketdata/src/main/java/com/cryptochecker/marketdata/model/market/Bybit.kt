@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -24,6 +25,7 @@ class Bybit : BybitBase("Bybit", "spot", FuturesContractType.NONE) {
 /** Bybit USDT-/USDC-Perpetuals (Kategorie «linear»). */
 class BybitFutures : BybitBase("Bybit Futures", "linear", FuturesContractType.PERPETUAL) {
     override val key = "BybitFutures"
+    override val category = MarketCategory.FUTURES
 }
 
 /**
@@ -33,12 +35,12 @@ class BybitFutures : BybitBase("Bybit Futures", "linear", FuturesContractType.PE
  */
 abstract class BybitBase(
     name: String,
-    private val category: String,
+    private val apiCategory: String,
     private val contractType: FuturesContractType,
 ) : SimpleMarket(
     name = name,
-    pairListUrl = "$BYBIT_API/instruments-info?category=$category&limit=1000",
-    tickerUrl = "$BYBIT_API/tickers?category=$category&symbol=%1\$s",
+    pairListUrl = "$BYBIT_API/instruments-info?category=$apiCategory&limit=1000",
+    tickerUrl = "$BYBIT_API/tickers?category=$apiCategory&symbol=%1\$s",
     errorField = "retMsg",
 ) {
 
@@ -69,7 +71,7 @@ abstract class BybitBase(
     override val bulkTickersComplete: Boolean
         get() = true
 
-    override fun getBulkTickersUrl(call: Int): String = "$BYBIT_API/tickers?category=$category"
+    override fun getBulkTickersUrl(call: Int): String = "$BYBIT_API/tickers?category=$apiCategory"
 
     /** Die Serverzeit `time` wird nicht auf die Paare übertragen (siehe [fillTickerJson]). */
     override fun parseBulkTickers(
@@ -134,7 +136,7 @@ abstract class BybitBase(
 
 /**
  * Bybit liefert `nextPageCursor` teils schon URL-kodiert («first%3DBTCUSDT%26last%3DETHUSDT») — dann so
- * anhängen, sonst kodieren. Wie `BybitBase.cursorParam` (iOS).
+ * anhängen, sonst kodieren. Wie `bybitCursorParam` (iOS).
  */
 internal fun bybitCursorParam(cursor: String): String =
     if ('%' in cursor) cursor else URLEncoder.encode(cursor, "UTF-8")

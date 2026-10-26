@@ -72,6 +72,7 @@ internal fun PreciseSelection(
 
     MarketStepCard(
         exchanges = selection.exchanges,
+        categories = selection.exchangeCategories,
         exchange = market,
         isDex = isDex,
         hasPairs = hasPairs,

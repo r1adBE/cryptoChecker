@@ -174,4 +174,5 @@
     <string name="alarm_editor_more_summary">Alarm cepat, kondisi lainnya, suara dan ucapan</string>
     <string name="alarm_reliability_storage_no_key">Alarm dijeda di latar belakang – daftar pantau tidak disimpan</string>
     <string name="alarms_limit_reached">Satu pasangan dapat memiliki paling banyak %1$s alarm.</string>
+    <string name="alarms_reference_rate_hint">Kurs acuan ECB hanya ditetapkan sekali sehari – tidak ada alarm untuknya.</string>
 </resources>

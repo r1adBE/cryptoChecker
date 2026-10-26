@@ -278,7 +278,6 @@ internal fun RowInfo(
     }
 }
 
-/** Kennungen der ersten Zeile von [RowInfo] (Paar, Häkchen, «Was bewegt sich mit?»). */
 /**
  * Paar in zwei Teilen: Basis gross und halbfett («BTC»), dahinter klein und grau der Rest
  * («/USDT», bei Futures «/USDT PERP»), auf gemeinsamer Grundlinie. Die Basis — das Wichtigste der

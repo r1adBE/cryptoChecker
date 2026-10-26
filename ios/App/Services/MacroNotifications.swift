@@ -57,7 +57,7 @@ actor MacroCalendarSource {
     }
 }
 
-/// Morgen-Mitteilung «Wirtschaftstermine» (Optionen → Alarme & Benachrichtigungen, Standard aus):
+/// Morgen-Mitteilung «Wirtschaftstermine» (Einstellungen › Alarme › Markt-Meldungen, Standard aus):
 /// lokal geplante Mitteilungen um 08:00 an den nächsten Tagen mit Terminen, aus dem gespeicherten
 /// Kalender — wie `MacroNotifyWorker.kt`. Nachtruhe wie bei den übrigen Markt-Mitteilungen (lautlos).
 /// Neu geplant beim Öffnen der App, beim Laden des Markt-Tabs und beim Umschalten.

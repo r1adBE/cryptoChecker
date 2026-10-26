@@ -3,7 +3,7 @@ import SwiftUI
 // Unterseiten «Markt-Meldungen» und «Sprachausgabe» der Einstellungen — wie in `SettingsSubPages.kt`. Kurzwerte und
 // Seitenrahmen in SettingsSubPages.swift.
 
-/// Markt-Meldungen: Phase, Fear & Greed, Gas, ungewöhnliche Aktivität, Wirtschaftstermine.
+/// Markt-Meldungen: Fear & Greed, Gas, Bitcoin-Kennzahlen, ungewöhnliche Aktivität, Wirtschaftstermine.
 @MainActor
 struct MarketAlertsSettingsPage: View {
     @EnvironmentObject private var data: AppData

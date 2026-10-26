@@ -240,4 +240,6 @@
     <string name="watchlist_sort_by_coin">Seřadit podle coinu</string>
     <string name="watchlist_sort_by_exchange">Seřadit podle burzy</string>
     <string name="watchlist_limit_reached">Tvůj seznam sledovaných může obsahovat nejvýše %1$s párů.</string>
+    <string name="watch_price_reference">referenční kurz, denní</string>
+    <string name="watch_price_daily">denní</string>
 </resources>

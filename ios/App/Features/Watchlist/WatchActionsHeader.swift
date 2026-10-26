@@ -229,10 +229,12 @@ private struct SheetChangeLine: View {
         let mid: String
         switch PriceKindLabel.of(priceIsMid: market?.priceIsMid == true,
                                  markFallback: MarkFallbackStore.contains(watch.id),
-                                 hourlyClose: market?.priceIsHourlyClose == true) {
+                                 hourlyClose: market?.priceIsHourlyClose == true,
+                                 dailyReference: market?.priceIsDailyReference == true) {
         case .mark: mid = " · " + L("watch_price_mark_fallback")
         case .mid: mid = " · " + L("watch_price_mid")
         case .hourly: mid = " · " + L("watch_price_hourly")
+        case .dailyReference: mid = " · " + L("watch_price_reference")
         case nil: mid = ""
         }
         let updatedPart: String = showUpdated ? " · " + updated : ""

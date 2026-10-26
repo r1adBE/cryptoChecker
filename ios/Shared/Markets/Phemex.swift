@@ -117,6 +117,9 @@ final class Phemex: PhemexBase, @unchecked Sendable { // @unchecked: wie `Market
 
 /// Phemex USDT-Perpetuals: Dezimaltexte (Rp/Rq/Rv), ohne Geld-/Briefkurs.
 final class PhemexFutures: PhemexBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(key: "PhemexFutures", name: "Phemex Futures", tickerURL: phemexMD + "/v2/ticker/24hr?symbol=%1$s",
                    contractType: .perpetual)

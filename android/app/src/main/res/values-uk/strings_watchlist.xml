@@ -240,4 +240,6 @@
     <string name="watchlist_sort_by_coin">Сортувати за монетою</string>
     <string name="watchlist_sort_by_exchange">Сортувати за біржею</string>
     <string name="watchlist_limit_reached">У списку може бути не більше %1$s пар.</string>
+    <string name="watch_price_reference">референсний курс, щоденно</string>
+    <string name="watch_price_daily">щоденно</string>
 </resources>

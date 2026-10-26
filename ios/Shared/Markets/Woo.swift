@@ -126,6 +126,9 @@ final class Woo: WooBase, @unchecked Sendable { // @unchecked: wie `Market` (kei
 
 /// WOO X USDT-Perpetuals.
 final class WooFutures: WooBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(key: "WooFutures", name: "WOO X Futures", symbolPrefix: "PERP", contractType: .perpetual,
                    tickerURL: wooAPI + "/v3/public/futures?symbol=%1$s")

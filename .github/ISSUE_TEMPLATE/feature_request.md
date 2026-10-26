@@ -11,4 +11,4 @@ labels: enhancement
 
 **Platform / Plattform**
 - [ ] Android
-- [ ] iPhone / iPad
+- [ ] iPhone

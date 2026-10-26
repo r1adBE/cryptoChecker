@@ -282,13 +282,6 @@ class PortfolioViewModel @Inject constructor(
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.portfolioHistoryPnl)
 
-    /**
-     * «Gewinn 7 T» im Gesamtwert-Kopf: Gewinn/Verlust seit dem Tagesschluss vor
-     * [PortfolioPeriodChange.DAYS] Tagen, Käufe/Verkäufe im Zeitraum berücksichtigt (USDT,
-     * [PortfolioPeriodChange.gain]). Aus den ohnehin geladenen Tagesschlusskursen — jede Ladung reicht
-     * mindestens [PortfolioHistory.MAX_DAYS] Tage zurück, egal welcher Zeitraum gewählt ist.
-     * null = unbekannt («—»): Kurse laden noch, decken nicht alle Coins ab oder passen nicht.
-     */
     /** Tageskurse USD → Umrechnungswährung für den Verlauf und «7 T»/«1 J»; null = noch nicht geladen. */
     internal val _fxSeries = MutableStateFlow<FxSeriesLoad?>(null)
 
@@ -311,6 +304,13 @@ class PortfolioViewModel @Inject constructor(
      */
     internal val widgetDisplayFx: StateFlow<PortfolioDisplayFx?> = widgetDisplayFxFlow()
 
+    /**
+     * «Gewinn 7 T» im Gesamtwert-Kopf: Gewinn/Verlust seit dem Tagesschluss vor
+     * [PortfolioPeriodChange.DAYS] Tagen, Käufe/Verkäufe im Zeitraum berücksichtigt (USDT,
+     * [PortfolioPeriodChange.gain]). Aus den ohnehin geladenen Tagesschlusskursen — jede Ladung reicht
+     * mindestens [PortfolioHistory.MAX_DAYS] Tage zurück, egal welcher Zeitraum gewählt ist.
+     * null = unbekannt («—»): Kurse laden noch, decken nicht alle Coins ab oder passen nicht.
+     */
     val weekChange: StateFlow<TodayChange?> = periodChange(PortfolioPeriodChange.DAYS, display = true)
 
     /** «7 T» rein in USDT (ohne Devisenkurs) — eigene Zahl neben der Anzeige in der Währung. */

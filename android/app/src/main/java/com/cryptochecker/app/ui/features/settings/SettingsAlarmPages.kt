@@ -29,9 +29,9 @@ import com.cryptochecker.app.util.PercentText
 // ── Alarme ───────────────────────────────────────────────────────────────────
 
 /**
- * Alarme: «Wie aktuell?» (öffnet «Aktualisierung», [onOpenPage]), Markt-Meldungen ([onOpenMarketAlerts]) und
- * Sprachausgabe ([onOpenSpeech]) — seit Build 132 hier statt unter «Erweitert» —, Kurs-Mitteilungen, Ruhezeit, Ton,
- * Alarm-Signal, Nachtruhe, Probe-Alarm.
+ * Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung», [onOpenPage]), «Damit Alarme ankommen», Markt-Meldungen
+ * ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]) — seit Build 132 hier statt unter «Erweitert» —,
+ * Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Zahl am App-Symbol, USDT-Depeg, Probe-Alarm.
  */
 @Composable
 internal fun AlarmsPage(
@@ -56,7 +56,8 @@ internal fun AlarmsPage(
     }
 
     SettingsSubPage(title = stringResource(R.string.settings_row_alarms), onBack = onBack) {
-        // «Wie aktuell?» zuerst: davon hängt ab, wie zeitnah Alarme melden (dieselbe Seite wie «Aktualisierung» unter «Allgemein»)
+        // «Wie aktuell?» zuerst: davon hängt ab, wie zeitnah Alarme melden (dieselbe Seite wie «Kurs-Aktualisierung»
+        // unter «Allgemein»)
         AppCard(padding = CardPadding.None) {
             Column(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
                 SettingsNavRow(

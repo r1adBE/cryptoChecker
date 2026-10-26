@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.model.MarketCategory
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
@@ -33,6 +34,7 @@ private const val HYPERLIQUID_ERROR_CHARS = 200
  */
 class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
     override val key = "Hyperliquid"
+    override val category = MarketCategory.FUTURES
 
     override val priceIsMid: Boolean
         get() = true

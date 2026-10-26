@@ -16,6 +16,9 @@ private let hyperliquidErrorChars = 200
 /// (`shownChange`), damit Kurs, Änderung und Alarme auf einer Basis stehen. Letzte Handel gäbe es nur je Coin
 /// (`recentTrades`) — für alle Perps zu teuer.
 final class Hyperliquid: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(key: "Hyperliquid", name: "Hyperliquid", ttsName: "Hyperliquid")
     }

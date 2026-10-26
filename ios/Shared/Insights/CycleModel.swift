@@ -89,7 +89,7 @@ struct BitcoinReport: Equatable, Sendable, Codable {
 
 /// Bitcoin-Kennzahlen als reine Messwerte — bewusst ohne Zonen, Scores, Phasen oder
 /// Deutung («überhitzt», «günstig» usw.). Jede Zahl wird mit einem Satz erklärt, was sie
-/// misst; die App zieht daraus keinen Schluss. Wie `BitcoinIndicatorModel.kt`.
+/// misst; die App zieht daraus keinen Schluss. Wie `BitcoinIndicatorModel` in `CycleModel.kt`.
 enum BitcoinIndicatorModel {
 
     static func evaluate(_ input: CycleInputs) -> BitcoinReport {

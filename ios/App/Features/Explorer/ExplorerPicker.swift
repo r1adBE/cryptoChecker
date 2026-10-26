@@ -79,6 +79,9 @@ struct ExplorerPickerSheet: View {
     /// nil: ohne Favoriten (beim Kontrakt).
     let favoriteKind: FavoriteKind?
     var badges: Bool = false
+    /// Abschnitte (Börse: Spot · Futures · DEX-Pools · Forex): Favoriten oben ohne Titel, dann je Abschnitt eine
+    /// Titelzeile und seine Einträge; die Suche läuft über alle. nil = eine flache Liste.
+    var sections: [(title: String, items: [String])]? = nil
     @ObservedObject var data: AppData
     let onSelect: (String) -> Void
 
@@ -90,24 +93,41 @@ struct ExplorerPickerSheet: View {
         favoriteKind.flatMap { data.favorites[$0] } ?? []
     }
 
-    /// Einträge zum Suchtext: zuerst die, die damit beginnen, dann die, die ihn irgendwo enthalten;
-    /// in beiden Teilen gehen Favoriten vor.
-    private var visible: [String] {
+    /// Einträge von `list` zum Suchtext: zuerst die, die damit beginnen, dann die, die ihn irgendwo enthalten.
+    private func matching(_ list: [String]) -> [String] {
         let needle = query.trimmingCharacters(in: .whitespaces)
+        if needle.isEmpty { return list }
         var leading: [String] = []
         var inner: [String] = []
-        if needle.isEmpty {
-            leading = items
-        } else {
-            for item in items {
-                if item.range(of: needle, options: [.caseInsensitive, .anchored]) != nil {
-                    leading.append(item)
-                } else if item.range(of: needle, options: .caseInsensitive) != nil {
-                    inner.append(item)
-                }
+        for item in list {
+            if item.range(of: needle, options: [.caseInsensitive, .anchored]) != nil {
+                leading.append(item)
+            } else if item.range(of: needle, options: .caseInsensitive) != nil {
+                inner.append(item)
             }
         }
-        let ordered = leading + inner
+        return leading + inner
+    }
+
+    /// Mit Abschnitten: Favoriten (Treffer, ohne Titel) und je Abschnitt die übrigen Treffer; leere fallen weg.
+    private var sectioned: (top: [String], sections: [(title: String, items: [String])]) {
+        let favs = favorites
+        let top = matching(items).filter { favs.contains($0) }
+        let rest = (sections ?? []).compactMap { section -> (title: String, items: [String])? in
+            let hits = matching(section.items).filter { !favs.contains($0) }
+            return hits.isEmpty ? nil : (section.title, hits)
+        }
+        return (top, rest)
+    }
+
+    /// Einträge zum Suchtext: zuerst die, die damit beginnen, dann die, die ihn irgendwo enthalten;
+    /// in beiden Teilen gehen Favoriten vor. Mit Abschnitten: Favoriten, dann die Abschnitte der Reihe nach.
+    private var visible: [String] {
+        if sections != nil {
+            let grouped = sectioned
+            return grouped.top + grouped.sections.flatMap(\.items)
+        }
+        let ordered = matching(items)
         let favs = favorites
         var top: [String] = []
         var rest: [String] = []
@@ -152,9 +172,31 @@ struct ExplorerPickerSheet: View {
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .listRowBackground(AppColors.containerLow)
             }
-            ForEach(entries, id: \.self) { entry in
-                row(entry)
-                    .id(entry)
+            if sections != nil {
+                let grouped = sectioned
+                ForEach(grouped.top, id: \.self) { entry in
+                    row(entry)
+                        .id(entry)
+                }
+                ForEach(grouped.sections.indices, id: \.self) { index in
+                    let section = grouped.sections[index]
+                    Section {
+                        ForEach(section.items, id: \.self) { entry in
+                            row(entry)
+                                .id(entry)
+                        }
+                    } header: {
+                        Text(section.title)
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .accessibilityAddTraits(.isHeader)
+                    }
+                }
+            } else {
+                ForEach(entries, id: \.self) { entry in
+                    row(entry)
+                        .id(entry)
+                }
             }
             if favoriteKind != nil {
                 Section {

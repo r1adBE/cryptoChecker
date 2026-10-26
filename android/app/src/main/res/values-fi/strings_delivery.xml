@@ -46,7 +46,7 @@
     <string name="delivery_low_power">Virransäästötila</string>
     <string name="delivery_swipe_away">Pyyhkäisitkö apin pois?</string>
     <string name="delivery_swipe_away_note">Jos pyyhkäiset apin pois apinvaihtajassa, iOS lopettaa taustatarkistukset, kunnes avaat sen uudelleen.</string>
-    <string name="delivery_live_activity">Live Activity</string>
+    <string name="delivery_live_activity">Reaaliaikainen toiminto</string>
     <string name="delivery_live_activity_note">Näyttää kurssin lukitusnäytöllä, mutta päivittyy vain, kun sovellus tarkistaa – hälytyksiä ei tarkisteta sen vuoksi useammin.</string>
 
     <string name="alarm_first_check">Tarkista, että hälytykset tulevat perille</string>

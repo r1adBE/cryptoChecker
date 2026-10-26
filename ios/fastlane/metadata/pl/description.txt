@@ -13,7 +13,7 @@ UCZCIWIE O DANYCH
 • Kwoty opuszczają urządzenie tylko przez Twój eksport (CSV, kopia zapasowa) lub zaszyfrowane w kopii iCloud/urządzenia. Do cen trafiają tylko symbole pary – do giełdy danej pary; do tego kursy walut (Frankfurter), dane rynkowe i logo (CoinGecko, Binance), lustra danych (GitHub). Jeśli obserwujesz adresy lub xpub, publiczne węzły blockchain widzą adresy (przy xpub – pochodne) i Twój adres IP.
 
 LISTA OBSERWOWANYCH
-• 54 rynki na 44 giełdach: spot i futures, tokeny DEX przez DexScreener, opcjonalnie akcje, złoto i waluty (TradFi)
+• 56 rynków na 45 giełdach: spot i futures, tokeny DEX przez DexScreener, opcjonalnie akcje, złoto i waluty (TradFi)
 • Druga linia „≈ wartość” w jednej z 31 walut (EUR, CHF, USD …), przeliczona po kursie walutowym
 • Mini wykres i zmiana % za 24 h lub od 00:00 w Twojej strefie czasowej
 • Grupy, ulubione, sortowanie przeciąganiem i notatka do każdej monety

@@ -6,6 +6,9 @@ private let asterFapi = "https://fapi.asterdex.com/fapi/v1"
 /// `exchangeInfo` und `ticker/24hr` (mit `symbol` ein Objekt, ohne alle als Array). Der Kurs ist der letzte Handel
 /// (`lastPrice`), kein Mark-Preis — darum weder Mittelkurs- noch Mark-Kennzeichnung wie bei Hyperliquid.
 final class Aster: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(
             key: "Aster",

@@ -46,7 +46,7 @@
     <string name="delivery_low_power">Modaliteti i energjisë së ulët</string>
     <string name="delivery_swipe_away">E hoqe aplikacionin me rrëshqitje?</string>
     <string name="delivery_swipe_away_note">Nëse e heq aplikacionin me rrëshqitje te ndërruesi i aplikacioneve, iOS nuk kontrollon më në sfond derisa ta hapësh përsëri.</string>
-    <string name="delivery_live_activity">Aktivitet i drejtpërdrejtë</string>
+    <string name="delivery_live_activity">Aktivitet live</string>
     <string name="delivery_live_activity_note">Shfaq kursin në ekranin e kyçjes, por përditësohet vetëm kur aplikacioni kontrollon – alarmet nuk kontrollohen më shpesh për këtë.</string>
 
     <string name="alarm_first_check">Kontrollo që alarmet të arrijnë</string>

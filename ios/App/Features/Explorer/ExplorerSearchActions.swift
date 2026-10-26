@@ -155,7 +155,8 @@ extension ExplorerViewModel {
         return ExplorerCoinPairPreference(
             defaultExchange: StarterCoins.marketKey(),
             favoriteExchanges: Set(markets.filter { favoriteNames.contains($0.name) }.map(\.key)),
-            displayCurrency: data.settings.portfolioCurrency
+            displayCurrency: data.settings.portfolioCurrency,
+            exchangeRank: ExchangeOrder.ranks(ExchangeRankingStore.volumes())
         )
     }
 

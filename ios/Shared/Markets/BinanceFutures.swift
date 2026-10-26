@@ -13,6 +13,9 @@ private let binanceCoinMMark = "2:"
 /// Binance Futures: USDⓈ-M (fapi, Kennung = Symbol) und COIN-M (dapi, Kennung «2:» + Symbol). Zwei Endpunkte, die
 /// ohne `symbol` je alle Kontrakte liefern — darum kein `SimpleMarket`.
 final class BinanceFutures: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+    /// Abschnitt «Futures» der Börsenauswahl (`MarketCategory`). Android gleich.
+    override var category: MarketCategory { .futures }
+
     init() {
         super.init(key: "BinanceFutures", name: "Binance Futures", ttsName: "Binance Futures")
     }

@@ -304,6 +304,15 @@ enum MarketService {
             // Wie MarketRemoteDataSource.kt.
             guard draft.last.isFinite, draft.last > 0 else { throw NoTickerDataError() }
         } catch let readFailure {
+            // Kennt die Börse das Paar nicht (DexScreener «Pool not found»): Ausweichadresse (GeckoTerminal);
+            // scheitert auch sie, bleibt dieser Lesefehler (`SingleTickerFallback.loadAfterMissing`, wie Android)
+            if market.tickerFallbackOnParseError(call: call, error: readFailure) {
+                ticker = try await SingleTickerFallback.loadAfterMissing(market: market, call: call, info: info,
+                                                                         base: ticker, missing: readFailure) { fallback in
+                    try await MarketHTTP.call(fallback, session: MarketHTTP.tickerBulkSession)
+                }
+                return
+            }
             throw explained(readFailure, market: market, call: call, body: body, info: info)
         }
         ticker = draft

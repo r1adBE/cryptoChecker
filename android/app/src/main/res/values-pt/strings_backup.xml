@@ -35,13 +35,13 @@
     <string name="backup_plain_confirm_title">Guardar sem palavra-passe?</string>
     <string name="backup_plain_contents_addresses">Endereços de carteira e chaves xpub guardados, com histórico de saldo e custo de aquisição</string>
     <string name="backup_plain_contents_base">Lista de observação com notas, grupos e posições, alarmes, favoritos e definições</string>
-    <string name="backup_plain_contents_portfolio">Portefólio: transações com quantidades e preços</string>
+    <string name="backup_plain_contents_portfolio">Portfólio: transações com quantidades e preços</string>
     <string name="backup_restore_app_lock_kept">O bloqueio do portfólio mantém-se – uma cópia não encriptada não o pode desativar.</string>
     <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alarmes, favoritos, portfólio e definições pela cópia.</string>
     <plurals name="backup_restore_invalid">
-        <item quantity="one">%d entrada da cópia (portefólio ou alarme) é inválida e não será importada.</item>
-        <item quantity="many">%d entradas da cópia (portefólio ou alarmes) são inválidas e não serão importadas.</item>
-        <item quantity="other">%d entradas da cópia (portefólio ou alarmes) são inválidas e não serão importadas.</item>
+        <item quantity="one">%d entrada da cópia (portfólio ou alarme) é inválida e não será importada.</item>
+        <item quantity="many">%d entradas da cópia (portfólio ou alarmes) são inválidas e não serão importadas.</item>
+        <item quantity="other">%d entradas da cópia (portfólio ou alarmes) são inválidas e não serão importadas.</item>
     </plurals>
     <string name="backup_restore_newer_version">Esta cópia é de uma versão mais recente da app – atualiza primeiro a app. Nada foi importado.</string>
     <string name="backup_restore_unencrypted_warning">Esta cópia não está encriptada – confirma que é tua. As definições serão aplicadas, exceto alterações que reduzem a proteção (Bloqueio do portfólio, Servidor próprio para endereços, Ocultar montantes, Portfólio na cópia do sistema).</string>
@@ -76,16 +76,16 @@
     <string name="settings_reset_notice">Não foi possível ler as definições, que foram repostas para os valores predefinidos. Verifica o bloqueio do portfólio, o intervalo dos alarmes e a moeda.</string>
     <string name="backup_restore_interrupted_title">O restauro foi interrompido</string>
     <string name="backup_restore_interrupted_rolled_back">A app foi fechada durante o restauro de uma cópia de segurança. Os teus dados anteriores foram repostos; nada da cópia foi mantido.</string>
-    <string name="backup_restore_interrupted_incomplete">A app foi fechada durante o restauro de uma cópia de segurança e os dados anteriores não puderam ser totalmente repostos. Verifica a lista de observação e a carteira, ou restaura novamente a cópia em «%1$s» nas Definições.</string>
+    <string name="backup_restore_interrupted_incomplete">A app foi fechada durante o restauro de uma cópia de segurança e os dados anteriores não puderam ser totalmente repostos. Verifica a lista de observação e o portfólio, ou restaura novamente a cópia em «%1$s» nas Definições.</string>
     <string name="backup_not_verified">Não foi possível verificar o ficheiro da cópia após guardá-lo – ao ser relido é diferente. Guarda a cópia num ficheiro novo.</string>
 
     <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
-    <string name="system_backup_not_imported_title">Portefólio não restaurado da cópia de segurança do sistema</string>
+    <string name="system_backup_not_imported_title">Portfólio não restaurado da cópia de segurança do sistema</string>
     <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
-    <string name="system_backup_not_imported_message">A cópia do portefólio da cópia de segurança do sistema Android não pôde ser lida, nem numa segunda tentativa, e foi eliminada. Se tiveres um ficheiro de cópia, restaura-o nas Definições, em «%1$s».</string>
+    <string name="system_backup_not_imported_message">A cópia do portfólio da cópia de segurança do sistema Android não pôde ser lida, nem numa segunda tentativa, e foi eliminada. Se tiveres um ficheiro de cópia, restaura-o nas Definições, em «%1$s».</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Os dados guardados não podem ser lidos agora, por isso o portefólio não é mostrado nem pode ser alterado. Reinicia a app.</string>
+    <string name="portfolio_storage_kept_in_memory">Os dados guardados não podem ser lidos agora, por isso o portfólio não é mostrado nem pode ser alterado. Reinicia a app.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Os dados guardados não podem ser lidos agora, por isso a lista não é mostrada nem pode ser alterada. Reinicia a app.</string>
     <string name="watchlist_storage_locked">Não é possível alterar a lista: os dados guardados não podem ser lidos agora. Reinicia a app.</string>
@@ -97,7 +97,7 @@
     <string name="backup_restore_journal_unavailable">Não é possível importar agora: não foi possível guardar a cópia de segurança dos teus dados atuais (chave indisponível de momento). Nada foi alterado. Tenta mais tarde ou reinicia a app.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">Encriptação ainda não ativa – a carteira não está a ser guardada e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque.</string>
+    <string name="portfolio_storage_in_memory">Encriptação ainda não ativa – o portfólio não está a ser guardado e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque.</string>
 
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Os dados guardados não podem ser lidos agora, por isso não é possível fazer alterações. Reinicia a app.</string>

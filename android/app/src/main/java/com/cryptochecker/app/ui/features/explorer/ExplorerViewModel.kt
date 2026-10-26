@@ -63,6 +63,8 @@ class ExplorerViewModel @Inject constructor(
     internal val dexTokenAddressStore: com.cryptochecker.app.data.DexTokenAddressStore,
     /** «Mehrere Paare auf einmal» app-weit (läuft nach Verlassen des Bildschirms weiter). */
     internal val bulkAddRunner: com.cryptochecker.app.data.BulkAddRunner,
+    /** Volumen der Börsen am Tag der Installation: Reihenfolge der Börsenauswahl ([ExchangeOrder]). */
+    internal val exchangeRanking: com.cryptochecker.app.data.ExchangeRankingStore,
 ) : ViewModel() {
 
     // =============================================================================================
@@ -289,12 +291,15 @@ class ExplorerViewModel @Inject constructor(
             collectHttpLog()
         }
         viewModelScope.launch { collectBulkRunner() }
+        // Volumen-Ranking einmal nach der Installation (höchstens ein Versuch je Sitzung)
+        viewModelScope.launch { exchangeRanking.ensureLoaded() }
     }
 
     val pageState: StateFlow<ExplorerLoad> = reloadExchanges
         .combine(assetScope) { _, scope -> scope }
-        .map { scope ->
-            val exchangeList = try {
+        .combine(exchangeRanking.volumes) { scope, volumes -> scope to volumes }
+        .map { (scope, volumes) ->
+            val alphabetical = try {
                 // «Nur TradFi»: nur Börsen mit TradFi-Kontrakten
                 marketRepository.getMarketList()
                     .filter { scope.allowsMarket(it.key) }
@@ -302,13 +307,14 @@ class ExplorerViewModel @Inject constructor(
             } catch (e: Exception) {
                 return@map ExplorerLoad.Failed(e)
             }
+            val (exchangeList, categories) = exchangeSections(alphabetical, volumes)
 
             // Keine Börse vorwählen (erst die bewusste Wahl macht «Sync» aktiv); eine
             // verschwundene Börse wird abgewählt
             val selected = exchange.value
             if (selected != null && selected !in exchangeList) exchange.value = null
 
-            ExplorerLoad.Ready(buildSelection(exchangeList))
+            ExplorerLoad.Ready(buildSelection(exchangeList, categories))
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ExplorerLoad.Loading)
 

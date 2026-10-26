@@ -23,6 +23,9 @@ struct ExplorerCoinPairPreference: Sendable {
     var defaultExchange: String?
     var favoriteExchanges: Set<String> = []
     var displayCurrency: String?
+    /// Börsen-Schlüssel → Volumenrang (0 = grösstes Volumen, über alle Abschnitte; `ExchangeOrder.ranks`); ohne
+    /// Rang zählt `Int.max`. Erster Börsen-Vergleich nach Abschnitt, Vertragsart und Gegenwährung, vor dem Namen.
+    var exchangeRank: [String: Int] = [:]
 
     /// Zuerst die eigene Währung (Kurs ohne Umrechnung), dann die gängigen Dollar-Stablecoins bzw. USD,
     /// die an fast jeder Börse die grössten Bücher haben.
@@ -174,7 +177,7 @@ enum ExplorerCoinSearch {
 
     /// Alle Paare von `coin` über die geladenen Listen, der Vorschlag zuerst: Start-Börse der Region, dann
     /// Lieblingsbörsen, dann die übrigen; darin Spot vor Perpetual vor Laufzeit, die Gegenwährungen in der
-    /// Reihenfolge von `preference`, dann die Börse (alphabetisch).
+    /// Reihenfolge von `preference`, dann die Börse nach Volumenrang (`exchangeRank`), dann alphabetisch.
     static func pairs(for coin: ExplorerCoinHit, markets: [Market], cache: [String: MarketPairsInfo],
                       preference: ExplorerCoinPairPreference = ExplorerCoinPairPreference(),
                       scope: AssetScope = .BOTH, hiddenAlpha: Set<String> = [], alphaSymbols: Set<String> = [],
@@ -199,14 +202,20 @@ enum ExplorerCoinSearch {
             return preference.favoriteExchanges.contains(key) ? 1 : 2
         }
         func quoteRank(_ quote: String) -> Int { quotes.firstIndex(of: quote.uppercased()) ?? quotes.count }
-        func sortKey(_ hit: ExplorerSearchHit) -> (Int, Int, Int, String, String, Int) {
+        // Zahlen: Stufe, Vertragsart, Gegenwährung, Volumenrang; dann Börsenname, Gegenwährung, Laufzeit
+        func numbers(_ hit: ExplorerSearchHit) -> (Int, Int, Int, Int) {
             (exchangeTier(hit.market.key), contractGroup(hit.pair.contractType), quoteRank(hit.pair.quote),
-             hit.market.name.lowercased(), hit.pair.quote.uppercased(), ExplorerPairSearch.contractRank(hit.pair.contractType))
+             preference.exchangeRank[hit.market.key] ?? Int.max)
+        }
+        func texts(_ hit: ExplorerSearchHit) -> (String, String, Int) {
+            (hit.market.name.lowercased(), hit.pair.quote.uppercased(), ExplorerPairSearch.contractRank(hit.pair.contractType))
         }
         // Gleiche Schlüssel in der bisherigen Reihenfolge (Swift sortiert nicht garantiert stabil)
         let sorted = found.enumerated().sorted { l, r in
-            let a = sortKey(l.element), b = sortKey(r.element)
+            let a = numbers(l.element), b = numbers(r.element)
             if a != b { return a < b }
+            let c = texts(l.element), d = texts(r.element)
+            if c != d { return c < d }
             return l.offset < r.offset
         }
         // Manche Börsen führen ein Paar doppelt — Listen-Schlüssel müssen eindeutig sein

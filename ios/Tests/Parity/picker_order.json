@@ -1,0 +1,184 @@
+{
+  "_comment": "Börsenauswahl (Build 133): Abschnitte SPOT, FUTURES, DEX, FOREX (leere fallen weg); innerhalb mit Volumen absteigend (gleiches Volumen: Registry-Reihenfolge), dann ohne Volumen in Registry-Reihenfolge; volumes null = Registry-Reihenfolge. parse: Spot-Keys nur aus der Spot-Liste (/exchanges), Futures-Keys nur aus der Derivate-Liste (/derivatives/exchanges), Feld trade_volume_24h_btc, nur endlich und ≥ 0. Android: ExchangeOrderParityTest.kt; iOS: ParityFixtureTests.",
+  "cases": [
+    {
+      "name": "no ranking: registry order per section",
+      "markets": [
+        {
+          "key": "Coinbase",
+          "category": "SPOT"
+        },
+        {
+          "key": "OkexFutures",
+          "category": "FUTURES"
+        },
+        {
+          "key": "Kraken",
+          "category": "SPOT"
+        },
+        {
+          "key": "DexScreener",
+          "category": "DEX"
+        },
+        {
+          "key": "EcbReference",
+          "category": "FOREX"
+        }
+      ],
+      "volumes": null,
+      "expected": [
+        {
+          "category": "SPOT",
+          "keys": [
+            "Coinbase",
+            "Kraken"
+          ]
+        },
+        {
+          "category": "FUTURES",
+          "keys": [
+            "OkexFutures"
+          ]
+        },
+        {
+          "category": "DEX",
+          "keys": [
+            "DexScreener"
+          ]
+        },
+        {
+          "category": "FOREX",
+          "keys": [
+            "EcbReference"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ranking: by volume, ties keep registry order, unranked last",
+      "markets": [
+        {
+          "key": "Coinbase",
+          "category": "SPOT"
+        },
+        {
+          "key": "Kraken",
+          "category": "SPOT"
+        },
+        {
+          "key": "Binance",
+          "category": "SPOT"
+        },
+        {
+          "key": "Latoken",
+          "category": "SPOT"
+        },
+        {
+          "key": "Gemini",
+          "category": "SPOT"
+        },
+        {
+          "key": "OkexFutures",
+          "category": "FUTURES"
+        },
+        {
+          "key": "BinanceFutures",
+          "category": "FUTURES"
+        }
+      ],
+      "volumes": {
+        "Coinbase": 100.0,
+        "Kraken": 100.0,
+        "Binance": 900.0,
+        "Gemini": 0.0,
+        "OkexFutures": 5.0,
+        "BinanceFutures": 50.0
+      },
+      "expected": [
+        {
+          "category": "SPOT",
+          "keys": [
+            "Binance",
+            "Coinbase",
+            "Kraken",
+            "Gemini",
+            "Latoken"
+          ]
+        },
+        {
+          "category": "FUTURES",
+          "keys": [
+            "BinanceFutures",
+            "OkexFutures"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "empty sections are dropped",
+      "markets": [
+        {
+          "key": "DexScreener",
+          "category": "DEX"
+        }
+      ],
+      "volumes": {},
+      "expected": [
+        {
+          "category": "DEX",
+          "keys": [
+            "DexScreener"
+          ]
+        }
+      ]
+    }
+  ],
+  "parse": {
+    "spot": [
+      {
+        "id": "binance",
+        "trade_volume_24h_btc": 85834.1
+      },
+      {
+        "id": "gdax",
+        "trade_volume_24h_btc": 16653
+      },
+      {
+        "id": "bybit",
+        "trade_volume_24h_btc": 1.0
+      },
+      {
+        "id": "kraken",
+        "trade_volume_24h_btc": null
+      },
+      {
+        "id": "unknownx",
+        "trade_volume_24h_btc": 5
+      }
+    ],
+    "derivatives": [
+      {
+        "id": "binance_futures",
+        "trade_volume_24h_btc": 711960.69
+      },
+      {
+        "id": "bybit",
+        "trade_volume_24h_btc": 151851.24
+      },
+      {
+        "id": "binance",
+        "trade_volume_24h_btc": 3.0
+      },
+      {
+        "id": "deribit",
+        "trade_volume_24h_btc": -1
+      }
+    ],
+    "expected": {
+      "Binance": 85834.1,
+      "Coinbase": 16653.0,
+      "BinanceFutures": 711960.69,
+      "BybitFutures": 151851.24
+    }
+  }
+}

@@ -183,4 +183,5 @@
     <!-- Zuverlässigkeitszeile über der Merkliste: Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel bzw. nur Kopie der alten Datei) – Prüfungen im Hintergrund ruhen -->
     <string name="alarm_reliability_storage_no_key">Alerts paused in the background – watchlist not saved</string>
     <string name="alarms_limit_reached">A pair can have at most %1$s alerts.</string>
+    <string name="alarms_reference_rate_hint">ECB reference rates are set only once a day – there are no alerts for them.</string>
 </resources>

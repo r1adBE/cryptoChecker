@@ -5,7 +5,7 @@ import Foundation
 
 // MARK: - Schnellfilter
 
-/// Schnellfilter der Paarliste einer Börse: «Gewinner», «Verlierer», «Volumen» — wie `QuickFilter.kt`.
+/// Schnellfilter der Paarliste einer Börse: «Gewinner», «Verlierer», «Volumen» — wie `QuickFilter` in `ExplorerQuickFilter.kt`.
 enum ExplorerQuickFilter: String, CaseIterable, Sendable {
     case gainers, losers, volume
 

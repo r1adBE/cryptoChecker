@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.marketdata.util.MarketsConfigUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -67,6 +68,8 @@ fun AlarmsScreen(
     // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor)
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true
+    // EZB-Referenzkurs (Forex): gar keine Alarme (Market.allowsAlarms), Hinweis statt Editor
+    val referenceRate = watch?.let { !MarketsConfigUtils.getMarketByKey(it.marketKey).allowsAlarms } == true
     // Höchstzahl Alarme am Paar erreicht (WatchlistLimits): kein «Neuer Alarm», Hinweis über der Liste
     val alarmsFull = !WatchlistLimits.canAddAlarm(alarms.size)
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
@@ -81,8 +84,10 @@ fun AlarmsScreen(
     val noAlarms by viewModel.noAlarms.collectAsStateWithLifecycle()
     val watchMissing by viewModel.watchMissing.collectAsStateWithLifecycle()
     var autoOpenDone by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(noAlarms, lowLiquidityState, watchMissing) {
+    LaunchedEffect(noAlarms, lowLiquidityState, watchMissing, watch?.marketKey) {
         val empty = noAlarms ?: return@LaunchedEffect
+        // Erst mit geladenem Paar: ein Referenzkurs öffnet keinen Editor
+        if (watch == null || referenceRate) return@LaunchedEffect
         // Erst wenn feststeht, ob der DEX-Pool genug Liquidität hat (sonst kein Editor) und ob es das Paar noch gibt
         val low = lowLiquidityState ?: return@LaunchedEffect
         val missing = watchMissing ?: return@LaunchedEffect
@@ -98,7 +103,7 @@ fun AlarmsScreen(
         val low = lowLiquidityState
         if (editOpened || alarm == null || low == null) return@LaunchedEffect
         editOpened = true
-        if (!low) draft = AlarmDraft.from(alarm)
+        if (!low && !referenceRate) draft = AlarmDraft.from(alarm)
     }
     LaunchedEffect(draft?.id) {
         // Schnell-Alarme: prüfen, ob das Paar Kerzen hat (nur beim Anlegen)
@@ -205,14 +210,16 @@ fun AlarmsScreen(
             )
         },
         floatingActionButton = {
-            if (!lowLiquidity && !alarmsFull) {
+            if (!lowLiquidity && !referenceRate && !alarmsFull) {
                 AppFab(onClick = { draft = newDraft() }, contentDescription = stringResource(R.string.alarms_add))
             }
         },
         // «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm (Live-Region über den SnackbarHost)
         snackbarHost = { AppSnackbarHost(snackbar) }
     ) { padding ->
-        if (alarms.isEmpty() && lowLiquidity) {
+        if (alarms.isEmpty() && referenceRate) {
+            Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { ReferenceRateNote() }
+        } else if (alarms.isEmpty() && lowLiquidity) {
             // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung
             Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { DexLowLiquidityNote() }
         } else if (alarms.isEmpty()) {
@@ -239,6 +246,9 @@ fun AlarmsScreen(
                     if (lowLiquidity) {
                         item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
                     }
+                    if (referenceRate) {
+                        item(key = "reference_rate") { ReferenceRateNote() }
+                    }
                     if (alarmsFull) {
                         item(key = "alarm_limit") { AlarmLimitNote() }
                     }
@@ -260,7 +270,7 @@ fun AlarmsScreen(
                                 markFallback = markFallback,
                             ),
                             onToggle = { viewModel.setEnabled(alarm.id, it) },
-                            onEdit = { if (!lowLiquidity) draft = AlarmDraft.from(alarm) },
+                            onEdit = { if (!lowLiquidity && !referenceRate) draft = AlarmDraft.from(alarm) },
                             onDelete = { askDelete = alarm }
                         )
                     }

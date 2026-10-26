@@ -166,11 +166,11 @@ fun AppNavHost(
     // kommt erst nach dem ersten Alarm, zurück auf einem Haupt-Tab (nicht über der Alarm-Bestätigung).
     BatteryOptimizationDialog(calm = currentTab != null)
 
-    // K-10: «Aktualisierung ändern» im Alarm-Hinweis öffnet die Seite «Aktualisierung» direkt
+    // K-10: «Aktualisierung ändern» im Alarm-Hinweis öffnet die Seite «Kurs-Aktualisierung» direkt
     val openUpdateSettings: () -> Unit = remember(navigation) {
         { navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.UPDATES.name)) { launchSingleTop = true } }
     }
-    // Alarm-Protokoll: auch aus den Einstellungen («Aktualisierung», neben «Letzte Prüfungen»)
+    // Alarm-Protokoll: auch aus den Einstellungen («Kurs-Aktualisierung», neben «Letzte Prüfungen»)
     val openAlarmLog: () -> Unit = remember(navigation) {
         { navigation.navigate(ScreenRoute.AlarmLog) { launchSingleTop = true } }
     }

@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">जिन पेयर पर तुमने इस बीच अलार्म सेट किया है, वे बने रहेंगे।</string>
     <string name="bulk_undo_expired">अब पूर्ववत नहीं किया जा सकता – पेयर वॉचलिस्ट में बने रहेंगे।</string>
+    <string name="explorer_section_spot">स्पॉट</string>
+    <string name="explorer_section_futures">फ़्यूचर्स</string>
+    <string name="explorer_section_dex">DEX पूल</string>
+    <string name="explorer_section_forex">फ़ॉरेक्स (संदर्भ दर)</string>
+    <string name="explorer_forex_hint">यूरोपीय सेंट्रल बैंक की दैनिक दर (Frankfurter के ज़रिए), लाइव नहीं – कोई अलार्म नहीं।</string>
 </resources>

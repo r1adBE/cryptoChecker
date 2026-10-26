@@ -225,7 +225,7 @@ enum StarterCoins {
     }
 
     /// Basis-Symbole mit Startpaar an der Startbörse: aus der Paarliste des
-    /// Hinzufügen-Tabs, falls schon geladen, sonst eine öffentliche Kursliste, zuletzt
+    /// der Seite «Paar hinzufügen», falls schon geladen, sonst eine öffentliche Kursliste, zuletzt
     /// die mitgelieferte Paarliste der Börse (wie Android `availableBases`).
     private static func availableBases(marketKey: String) async -> Set<String>? {
         let us = marketKey == StarterPairs.binanceUsKey

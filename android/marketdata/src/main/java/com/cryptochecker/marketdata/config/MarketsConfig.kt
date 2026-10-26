@@ -4,7 +4,9 @@ import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.market.*
 
 /**
- * Registry of all built-in exchanges in display order; the first one is the default for new pairs. A new adapter
+ * Registry of all built-in exchanges in display order; the first one is the default for new pairs. The exchange picker
+ * groups them by [Market.category] and, once the volume ranking of the install date is stored, sorts each section
+ * by volume (`ExchangeOrder`); without it this order applies. A new adapter
  * is added here and in iOS `MarketsConfig.swift`, and its key in `MarketKeyTest` (DEVELOPMENT.md § 8).
  */
 object MarketsConfig {
@@ -43,6 +45,7 @@ object MarketsConfig {
         Deribit(),
         Phemex(),
         PhemexFutures(),
+        BitunixFutures(),
         Poloniex(),
         OneTrading(),
         Upbit(),
@@ -65,5 +68,6 @@ object MarketsConfig {
         Latoken(),
         NonKyc(),
         DexScreener(),
+        EcbReference(),
     ).associateBy(Market::key)
 }

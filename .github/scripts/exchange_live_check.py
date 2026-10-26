@@ -50,8 +50,8 @@ ISSUE_TITLE = "Exchange API check failed"
 TIMEOUT_SECONDS = 20
 USER_AGENT = "CryptoChecker-ExchangeLiveCheck/1.0 (+https://github.com/r1adBE/cryptoChecker)"
 
-# Pfad in die Antwort: Schlüssel (str) oder Index (int)
-# key, Name, URL, Pfade der Pflichtfelder (zahlig), optional POST-Body, geo = 403 gilt als gesperrt
+# Path into the response: key (str) or index (int)
+# key, name, URL, paths of the required fields (numeric), optional POST body, geo = 403 counts as blocked
 EXCHANGES = [
     {"key": "coinbase", "name": "Coinbase",
      "url": "https://api.exchange.coinbase.com/products/BTC-USD/stats",
@@ -66,7 +66,7 @@ EXCHANGES = [
     {"key": "binance", "name": "Binance",
      "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT", "geo": True,
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
-    # Gleiche Antwort wie api.binance.com, aber nicht geosperrt: Schema auch vom US-Runner geprüft
+    # Same response as api.binance.com, but not geo-blocked: schema checked from the US runner too
     {"key": "binancevision", "name": "Binance (data-api)",
      "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
@@ -102,7 +102,7 @@ EXCHANGES = [
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
     {"key": "mexcfutures", "name": "MEXC Futures",
      "url": "https://contract.mexc.com/api/v1/contract/ticker?symbol=BTC_USDT",
-     "fields": [["data", "lastPrice"], ["data", "riseFallRate"]]},  # riseFallRate: nur Feldform prüfen, die App nutzt es nicht (Tageswert UTC+8)
+     "fields": [["data", "lastPrice"], ["data", "riseFallRate"]]},  # riseFallRate: only check the field shape, the app does not use it (daily value UTC+8)
     {"key": "htx", "name": "HTX",
      "url": "https://api.huobi.pro/market/detail/merged?symbol=btcusdt",
      "fields": [["tick", "close"], ["tick", "open"], ["tick", "vol"]]},
@@ -134,8 +134,8 @@ EXCHANGES = [
      "url": "https://fapi.asterdex.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
     {"key": "lighter", "name": "Lighter",
-     # Gesamtliste aller Märkte (wie der Adapter); geprüft wird der BTC-Perp (die erste Zeile kann ein Markt ohne
-     # Handel sein, Kurs 0 – die App zeigt dort «keine Daten»)
+     # Full list of all markets (like the adapter); the BTC perp is checked (the first row can be a market without
+     # trading, price 0 – the app shows «no data» there)
      "url": "https://mainnet.zklighter.elliot.ai/api/v1/exchangeStats",
      "fields": [["order_book_stats", {"symbol": "BTC"}, "last_trade_price"],
                 ["order_book_stats", {"symbol": "BTC"}, "daily_price_change"]]},
@@ -158,11 +158,14 @@ EXCHANGES = [
     {"key": "phemexfutures", "name": "Phemex Futures",
      "url": "https://api.phemex.com/md/v2/ticker/24hr?symbol=BTCUSDT",
      "fields": [["result", "closeRp"], ["result", "openRp"]]},
+    {"key": "bitunixfutures", "name": "Bitunix Futures",
+     "url": "https://fapi.bitunix.com/api/v1/futures/market/tickers?symbols=BTCUSDT",
+     "fields": [["data", 0, "lastPrice"], ["data", 0, "open"]]},
     {"key": "poloniex", "name": "Poloniex",
      "url": "https://api.poloniex.com/markets/BTC_USDT/ticker24h",
      "fields": [["close"], ["dailyChange"], ["amount"]]},
     {"key": "onetrading", "name": "One Trading",
-     # BTC_EUR ist seit Oktober 2026 geschlossen (HTTP 500); aktiv sind nur BTC_USDC, ETH_USDC und USDC_EUR
+     # BTC_EUR has been closed since October 2026 (HTTP 500); only BTC_USDC, ETH_USDC and USDC_EUR are active
      "url": "https://api.onetrading.com/fast/v1/market-ticker/BTC_USDC",
      "fields": [["last_price"], ["quote_volume"]]},
     {"key": "onetradingbulk", "name": "One Trading (all tickers)",
@@ -187,11 +190,11 @@ EXCHANGES = [
      "url": "https://api.btcturk.com/api/v2/ticker?pairSymbol=BTCTRY",
      "fields": [["data", 0, "last"], ["data", 0, "dailyPercent"]]},
     {"key": "paribu", "name": "Paribu",
-     # Eine Gesamtliste aller Paare (wie der Adapter)
+     # One full list of all pairs (like the adapter)
      "url": "https://www.paribu.com/ticker",
      "fields": [["BTC_TL", "last"], ["BTC_TL", "highestBid"], ["BTC_TL", "lowestAsk"]]},
     {"key": "icrypex", "name": "Icrypex",
-     # Eine Gesamtliste aller Paare (wie der Adapter); geprüft wird die erste Zeile
+     # One full list of all pairs (like the adapter); the first row is checked
      "url": "https://api.icrypex.com/v1/tickers",
      "fields": [[0, "last"], [0, "bid"], [0, "ask"]]},
     {"key": "bitso", "name": "Bitso",
@@ -210,7 +213,7 @@ EXCHANGES = [
      "url": "https://sapi.zebpay.com/api/v2/market/ticker?symbol=BTC-INR",
      "fields": [["data", "last"], ["data", "quoteVolume"]]},
     {"key": "coindcx", "name": "CoinDCX",
-     # Nur die Gesamtliste (wie der Adapter); geprüft wird die erste Zeile
+     # Only the full list (like the adapter); the first row is checked
      "url": "https://api.coindcx.com/exchange/ticker",
      "fields": [[0, "last_price"], [0, "change_24_hour"]]},
     {"key": "hashkey", "name": "HashKey Exchange",
@@ -223,7 +226,7 @@ EXCHANGES = [
      "url": "https://api.btcmarkets.net/v3/markets/BTC-AUD/ticker",
      "fields": [["lastPrice"], ["price24h"], ["volume24h"]]},
     {"key": "latoken", "name": "LATOKEN",
-     # BTC/USDT über die Währungs-IDs (wie der Adapter, siehe exchange_latoken.json)
+     # BTC/USDT via the currency IDs (like the adapter, see exchange_latoken.json)
      "url": "https://api.latoken.com/v2/ticker/92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5",
      "fields": [["lastPrice"], ["change24h"], ["volume24h"]]},
     {"key": "nonkyc", "name": "NonKYC",
@@ -232,13 +235,16 @@ EXCHANGES = [
     {"key": "dexscreener", "name": "DexScreener",
      "url": "https://api.dexscreener.com/latest/dex/pairs/ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58",
      "fields": [["pairs", 0, "priceNative"], ["pairs", 0, "priceChange", "h24"]]},
+    {"key": "ecbreference", "name": "ECB reference rates (Frankfurter)",
+     "url": "https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD",
+     "fields": [["rates", "USD"]]},
 ]
 
 OK, FAIL, SKIP = "ok", "fail", "skip"
 
 
 def fetch(entry):
-    """Antwort als (HTTP-Status, Text); Status 0 = keine Verbindung."""
+    """Response as (HTTP status, text); status 0 = no connection."""
     data = None
     headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     if "post" in entry:
@@ -246,16 +252,16 @@ def fetch(entry):
         headers["Content-Type"] = "application/json"
     url = entry["url"]
     if entry.get("stamp"):
-        # BingX verlangt eine Zeitangabe in ms (wie der Adapter)
+        # BingX requires a timestamp in ms (like the adapter)
         url += ("&" if "?" in url else "?") + f"timestamp={int(time.time() * 1000)}"
     req = urllib.request.Request(url, data=data, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT_SECONDS) as resp:
-            # Wie die Apps: höchstens 2 MB lesen
+            # Like the apps: read at most 2 MB
             return resp.status, resp.read(2 * 1024 * 1024 + 1).decode("utf-8", "replace")
     except urllib.error.HTTPError as e:
         return e.code, ""
-    except Exception as e:  # Zeitüberschreitung, DNS, TLS …
+    except Exception as e:  # timeout, DNS, TLS …
         return 0, type(e).__name__
 
 
@@ -298,7 +304,7 @@ def path_text(path):
 
 
 def check(entry):
-    """(Status, Hinweis) für eine Börse; ein zweiter Versuch bei Netz-/Serverfehlern."""
+    """(Status, note) for one exchange; one retry on network/server errors."""
     status, body = fetch(entry)
     if status == 0 or status >= 500 or status == 429:
         time.sleep(3)
@@ -344,7 +350,7 @@ def issue_body(results):
 
 
 def skipped_lines(results):
-    """Übersprungene Börsen (geosperrt vom Runner) als Markdown-Abschnitt; leer = keine."""
+    """Skipped exchanges (geo-blocked from the runner) as a Markdown section; empty = none."""
     skipped = [(e, note) for e, (s, note) in results if s == SKIP]
     if not skipped:
         return []
@@ -354,7 +360,7 @@ def skipped_lines(results):
 
 
 def write_summary(results):
-    """Kurzbericht in die Job-Zusammenfassung (GitHub Actions), auch übersprungene Börsen."""
+    """Short report in the job summary (GitHub Actions), including skipped exchanges."""
     path = os.environ.get("GITHUB_STEP_SUMMARY")
     if not path:
         return
@@ -401,13 +407,13 @@ def manage_issue(failed, body):
 
 
 def save_result(path, failed_count, body):
-    """Ergebnis für den Issue-Schritt: nur Zahl und fertiger Issue-Text."""
+    """Result for the issue step: only the count and the finished issue text."""
     with open(path, "w", encoding="utf-8") as f:
         json.dump({"failed": failed_count, "body": body}, f)
 
 
 def load_result(path):
-    """(Anzahl Fehler, Issue-Text) aus --result; wirft ValueError bei falschem Inhalt."""
+    """(Number of failures, issue text) from --result; raises ValueError on invalid content."""
     with open(path, encoding="utf-8") as f:
         doc = json.load(f)
     if not isinstance(doc, dict):
@@ -419,7 +425,7 @@ def load_result(path):
 
 
 def report_issue(failed_count, body):
-    """Issue öffnen/aktualisieren/schliessen; Exit-Code."""
+    """Open/update/close the issue; returns the exit code."""
     if os.environ.get("GITHUB_ACTIONS") != "true" and not os.environ.get("GH_TOKEN"):
         print("Not in GitHub Actions and no GH_TOKEN: use --dry-run.", file=sys.stderr)
         return 2

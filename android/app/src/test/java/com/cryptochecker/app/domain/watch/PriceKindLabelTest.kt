@@ -13,4 +13,12 @@ class PriceKindLabelTest {
         assertEquals(PriceKindLabel.HOURLY, PriceKindLabel.of(priceIsMid = false, markFallback = false, hourlyClose = true))
         assertNull(PriceKindLabel.of(priceIsMid = false, markFallback = false, hourlyClose = false))
     }
+
+    @Test
+    fun dailyReferenceForEcbRates() {
+        val label = PriceKindLabel.of(priceIsMid = false, markFallback = false, hourlyClose = false, dailyReference = true)
+        assertEquals(PriceKindLabel.DAILY_REFERENCE, label)
+        assertEquals(PriceKindLabel.MARK, PriceKindLabel.of(false, markFallback = true, hourlyClose = false, dailyReference = true))
+        assertEquals(true, com.cryptochecker.marketdata.model.market.EcbReference().priceIsDailyReference)
+    }
 }

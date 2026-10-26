@@ -1,7 +1,7 @@
-# Nach dem Store-Start: keine laufenden Gradle-Versions-Updates mehr (stabiler Unterbau, nur Börsen werden noch angepasst).
-# `open-pull-requests-limit: 0` schaltet dort die Versions-Pull-Requests ab; Sicherheits-Updates kommen weiterhin,
-# solange «Dependabot security updates» unter Settings › Code security eingeschaltet ist.
-# GitHub Actions: monatliche Versions-Pull-Requests, höchstens zwei gleichzeitig offen.
+# After the store launch: no more routine Gradle version updates (stable foundation, only exchanges still get adjusted).
+# `open-pull-requests-limit: 0` turns off the version pull requests there; security updates still arrive
+# as long as «Dependabot security updates» is enabled under Settings › Code security.
+# GitHub Actions: monthly version pull requests, at most two open at a time.
 version: 2
 updates:
   - package-ecosystem: github-actions

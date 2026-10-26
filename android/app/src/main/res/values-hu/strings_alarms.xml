@@ -180,4 +180,5 @@
     <string name="alarm_editor_more_summary">Gyors riasztások, további feltételek, hang és felolvasás</string>
     <string name="alarm_reliability_storage_no_key">Riasztások szüneteltetve a háttérben – a figyelőlista nincs mentve</string>
     <string name="alarms_limit_reached">Egy párhoz legfeljebb %1$s riasztás tartozhat.</string>
+    <string name="alarms_reference_rate_hint">Az EKB referencia-árfolyamait csak naponta egyszer rögzítik – ezekre nincs riasztás.</string>
 </resources>

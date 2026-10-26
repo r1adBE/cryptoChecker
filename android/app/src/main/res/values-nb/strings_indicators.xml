@@ -32,7 +32,7 @@
 
     <!-- Indikator-Namen -->
     <string name="ind_cross">Trend 50/200 dager</string>
-    <string name="ind_drawdown">Fall fra all-time high</string>
+    <string name="ind_drawdown">Fall fra rekorden</string>
     <string name="ind_missing">for lite data</string>
     <string name="ind_rsi_daily">RSI (dag)</string>
     <string name="ind_rsi_weekly">RSI (uke)</string>

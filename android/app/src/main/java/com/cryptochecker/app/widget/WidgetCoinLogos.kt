@@ -24,8 +24,8 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 /**
- * Coin-Logos für die Widgets «Merkliste» und «Einzelner Coin» (Schalter «Coin-Logos in
- * Widgets»). Fertig gerundete, kleine Bilder: echtes Logo auf hellem bzw. dunklem Grund, sonst
+ * Coin-Logos für die Widgets «Merkliste» und «Einzelner Coin» (Schalter «In Widgets»
+ * unter Darstellung › Coin-Logos). Fertig gerundete, kleine Bilder: echtes Logo auf hellem bzw. dunklem Grund, sonst
  * der Kreis mit Initialen in der Akzentfarbe — nie ein kaputtes Bild. Laden mit Zeitlimit, damit
  * das Widget nie hängt. Die Bilder kommen nur vom Gerät (Abgleich aller Logos: CoinLogoSync).
  */

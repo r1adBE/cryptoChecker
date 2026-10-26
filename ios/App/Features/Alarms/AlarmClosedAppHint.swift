@@ -75,7 +75,7 @@ struct ClosedAppHintRow: View {
         }
     }
 
-    /// Blatt schliessen, dann den Tab «Einstellungen» mit «Aktualisierung» zeigen.
+    /// Blatt schliessen, dann den Tab «Einstellungen» mit «Kurs-Aktualisierung» zeigen.
     private func openUpdates() {
         dismiss()
         AppRouter.shared.openUpdateSettings()

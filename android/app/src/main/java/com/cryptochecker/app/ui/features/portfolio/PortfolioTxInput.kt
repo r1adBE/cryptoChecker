@@ -1,6 +1,6 @@
 // Hilfen der Transaktions-Eingabe: Name und Erklärung je Art, Coin-Suche, Datumswahl und Zeitpunkt des
 // gewählten Tags, Umrechnung der Eingabe USDT ↔ Anzeigewährung.
-// Eigene Datei, weil es reine Regeln ohne eigenes Layout sind (Umrechnung wie `PortfolioTxPrefill.swift`).
+// Eigene Datei, weil es reine Regeln ohne eigenes Layout sind (Umrechnung wie `PortfolioTxForm.swift`).
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 
 package com.cryptochecker.app.ui.features.portfolio

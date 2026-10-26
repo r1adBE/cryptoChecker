@@ -43,6 +43,17 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// price; no adapter sets it at the moment (Hyperliquid uses the displayed price). Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). Android: `changeIsMark`.
     var changeIsMark: Bool { false }
 
+    /// Abschnitt der Börsenauswahl (Spot, Futures, DEX-Pools, Forex). Standard: Spot. Android: `category`.
+    var category: MarketCategory { .spot }
+
+    /// false: Kurse dieser Quelle lösen nie Alarme aus (EZB-Referenzkurse, einmal täglich festgelegt) — die
+    /// Alarm-Seite bietet kein «Hinzufügen», die Auswertung überspringt sie. Android: `allowsAlarms`.
+    var allowsAlarms: Bool { true }
+
+    /// true: der Kurs ist ein täglicher Referenzkurs (EZB), nie live. Zeile und Aktionsblatt zeigen «Referenzkurs,
+    /// täglich». Android: `priceIsDailyReference`.
+    var priceIsDailyReference: Bool { false }
+
     // MARK: Einzelkurs
 
     /// Number of requests per price; `call` runs from 0 to count − 1. Default: one request.
@@ -88,6 +99,11 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// (Standard). Die Antwort liest `readTickerFallback`; bringt sie keinen gültigen Kurs, bleibt der Serverfehler
     /// (`SingleTickerFallback`). Android gleich.
     func tickerFallbackAddress(call: Int, info: PairQuery) -> String? { nil }
+
+    /// true: auch dieser Lesefehler des Einzelkurses (`error`, z. B. DexScreener «Pool not found») führt zur
+    /// Ausweichadresse (`SingleTickerFallback.loadAfterMissing`); bringt sie keinen Kurs, bleibt `error`.
+    /// Standard: nein. Android gleich.
+    func tickerFallbackOnParseError(call: Int, error: Error) -> Bool { false }
 
     /// Wie `readTicker`, für die Antwort von `tickerFallbackAddress` (über `fillTickerFallback`).
     final func readTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {

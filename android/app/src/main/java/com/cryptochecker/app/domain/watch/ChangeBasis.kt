@@ -5,7 +5,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 
 /**
- * «Basis der %-Änderung» (Einstellungen › Darstellung, wie bei Binance «Change(%) & Chart
+ * «Basis der %-Änderung» (Einstellungen › Merkliste, wie bei Binance «Change(%) & Chart
  * Timezone»): Worauf sich Prozent-Änderung, Puls-Zeile, Aktionsblatt, Widgets und Live Activity
  * beziehen. Alarme rechnen unabhängig davon.
  *

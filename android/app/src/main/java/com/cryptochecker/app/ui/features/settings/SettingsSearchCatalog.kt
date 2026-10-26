@@ -63,7 +63,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.mode"),
         stringResource(R.string.update_mode_sparsam), stringResource(R.string.update_mode_live),
         stringResource(R.string.settings_background_updates), stringResource(R.string.settings_live_websocket))
-    // Akkunutzung steht ganz unten auf der Seite: eigener Treffer, damit die Suche dorthin springt
+    // Akkunutzung steht weit unten auf der Seite (vor «Letzte Prüfungen»): eigener Treffer, damit die Suche dorthin springt
     add("updates.battery", stringResource(R.string.settings_battery_restricted), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.battery"),
         stringResource(R.string.settings_battery_ok), stringResource(R.string.settings_battery_hint))

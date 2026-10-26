@@ -75,7 +75,7 @@ extension AppData {
         }, reloadWidgets: false)
     }
 
-    /// «Alle an» / «Alle aus» unter Einstellungen › Kursmitteilungen › Paare — je Paar wie `setNotificationEnabled`.
+    /// «Alle an» / «Alle aus» unter Einstellungen › Alarme › Kursmitteilungen › Paare — je Paar wie `setNotificationEnabled`.
     /// Wie Android `SettingsViewModel.setAllPairNotifications`.
     func setAllNotifications(_ enabled: Bool) {
         guard !watchlistWriteRefused() else { return }

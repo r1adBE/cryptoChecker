@@ -127,4 +127,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">在此期间你已设置提醒的交易对会保留。</string>
     <string name="bulk_undo_expired">已无法撤销，交易对会保留在自选中。</string>
+    <string name="explorer_section_spot">现货</string>
+    <string name="explorer_section_futures">期货</string>
+    <string name="explorer_section_dex">DEX 池</string>
+    <string name="explorer_section_forex">外汇（参考汇率）</string>
+    <string name="explorer_forex_hint">欧洲中央银行的每日汇率（通过 Frankfurter），非实时——没有提醒。</string>
 </resources>

@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Azok a párok, amelyekre közben riasztást állítottál be, megmaradnak.</string>
     <string name="bulk_undo_expired">A visszavonás már nem lehetséges – a párok a figyelőlistán maradnak.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Határidős</string>
+    <string name="explorer_section_dex">DEX poolok</string>
+    <string name="explorer_section_forex">Forex (referencia-árfolyam)</string>
+    <string name="explorer_forex_hint">Az Európai Központi Bank napi árfolyama (a Frankfurteren keresztül), nem élő – nincs riasztás.</string>
 </resources>

@@ -34,9 +34,9 @@ import com.cryptochecker.app.ui.theme.Spacing
 /*
  * Runde 23f: Unterseiten hinter den Zeilen der Hauptseite. Inhalt und Schlüssel wie
  * zuvor auf der langen Hauptseite, nur neu verteilt. Markt-Meldungen und Sprachausgabe
- * stehen weiter in SettingsSubPages.kt (eigene Routen, auch aus der Merkliste erreichbar).
- * Die Seiten selbst liegen je Gruppe in Settings…Pages.kt (Allgemein, Darstellung, Alarme,
- * Portfolio, Daten, Über) — gleiche Aufteilung wie in iOS.
+ * stehen weiter in SettingsSubPages.kt (eigene Routen; Markt-Meldungen auch aus der Merkliste).
+ * Die Seiten selbst liegen je Gruppe in Settings…Pages.kt (Allgemein, Merkliste/Token & TradFi,
+ * Darstellung, Alarme, Portfolio, Sicherung, Über) — gleiche Aufteilung wie in iOS.
  */
 
 /** Unterseiten der Einstellungen; der Name steht in der Route `settings/page/{page}`. */

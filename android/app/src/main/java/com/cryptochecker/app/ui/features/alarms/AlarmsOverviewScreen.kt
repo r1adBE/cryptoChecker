@@ -65,13 +65,13 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.theme.SnackbarKind
 
+/** Grösste Systemschrift, bei der Titel und Zahl der aktiven Alarme zweizeilig in die Leiste passen. */
+private const val COUNT_IN_BAR_MAX_SCALE = 1.3f
+
 /**
  * Übersicht aller Alarme: Welche sind scharf, auf welchem Paar? Ein Tipp
  * auf ein Paar öffnet dessen Alarme zum Bearbeiten.
  */
-/** Grösste Systemschrift, bei der Titel und Zahl der aktiven Alarme zweizeilig in die Leiste passen. */
-private const val COUNT_IN_BAR_MAX_SCALE = 1.3f
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmsOverviewScreen(

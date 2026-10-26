@@ -163,4 +163,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Пары, у которых тем временем появилось оповещение, останутся.</string>
     <string name="bulk_undo_expired">Отменить уже нельзя – пары останутся в списке.</string>
+    <string name="explorer_section_spot">Спот</string>
+    <string name="explorer_section_futures">Фьючерсы</string>
+    <string name="explorer_section_dex">DEX-пулы</string>
+    <string name="explorer_section_forex">Forex (референсный курс)</string>
+    <string name="explorer_forex_hint">Дневной курс Европейского центрального банка (через Frankfurter), не в реальном времени – без оповещений.</string>
 </resources>

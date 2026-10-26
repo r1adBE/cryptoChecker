@@ -18,7 +18,7 @@ enum class PortfolioAccess {
  *
  * Gesperrt ist nur das Portfolio (Tab, Detailansicht, Erfassen-Blätter, Stichtag-Export,
  * Sicherung mit Portfolio-Daten, Portfolio-Widget). Merkliste, Hinzufügen, Zyklus,
- * Optionen und die übrigen Widgets sind immer frei. Entsperrt wird einmal je Sitzung;
+ * Einstellungen und die übrigen Widgets sind immer frei. Entsperrt wird einmal je Sitzung;
  * nach mehr als [BACKGROUND_LIMIT_MILLIS] im Hintergrund wird wieder gesperrt.
  */
 object PortfolioLockPolicy {
@@ -69,7 +69,7 @@ object PortfolioLockPolicy {
      */
     fun restoreNeedsUnlock(locked: Boolean): Boolean = locked
 
-    /** Ausschalten der Sperre verlangt Entsperren, solange gesperrt (sonst wäre sie über die Optionen zu umgehen). */
+    /** Ausschalten der Sperre verlangt Entsperren, solange gesperrt (sonst wäre sie über die Einstellungen zu umgehen). */
     fun disableNeedsUnlock(locked: Boolean): Boolean = locked
 
     /**
@@ -94,7 +94,7 @@ object PortfolioLockPolicy {
     fun quickAddNeedsUnlock(locked: Boolean): Boolean = locked
 
     /**
-     * Zeile «Portfolio-Sperre» in den Optionen: nur mit eingeschaltetem Portfolio. Der Wert
+     * Zeile «Portfolio-Sperre» unter Einstellungen › Portfolio: nur mit eingeschaltetem Portfolio. Der Wert
      * bleibt beim Ausblenden erhalten (Portfolio-Widget und Sicherung bleiben geschützt).
      */
     fun showSetting(portfolioEnabled: Boolean): Boolean = portfolioEnabled

@@ -139,4 +139,9 @@
     </plurals>
     <string name="bulk_undo_confirm_text">Bu arada alarm kurduğun çiftler kalır.</string>
     <string name="bulk_undo_expired">Artık geri alınamaz – çiftler izleme listesinde kalır.</string>
+    <string name="explorer_section_spot">Spot</string>
+    <string name="explorer_section_futures">Vadeli</string>
+    <string name="explorer_section_dex">DEX havuzları</string>
+    <string name="explorer_section_forex">Forex (referans kur)</string>
+    <string name="explorer_forex_hint">Avrupa Merkez Bankası’nın günlük kuru (Frankfurter üzerinden), canlı değil – alarm yok.</string>
 </resources>

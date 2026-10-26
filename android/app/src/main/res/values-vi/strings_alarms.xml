@@ -174,4 +174,5 @@
     <string name="alarm_editor_more_summary">Cảnh báo nhanh, điều kiện khác, âm thanh và đọc</string>
     <string name="alarm_reliability_storage_no_key">Cảnh báo nền đang tạm dừng – danh sách chưa được lưu</string>
     <string name="alarms_limit_reached">Mỗi cặp chỉ có thể có tối đa %1$s cảnh báo.</string>
+    <string name="alarms_reference_rate_hint">Tỷ giá tham chiếu của ECB chỉ được ấn định mỗi ngày một lần – không có cảnh báo cho chúng.</string>
 </resources>

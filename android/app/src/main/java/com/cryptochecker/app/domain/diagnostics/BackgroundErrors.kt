@@ -93,8 +93,8 @@ object BackgroundErrors {
     private const val KIND_MAX_LENGTH = 40
 
     /**
-     * Fehlerart aus einem Typnamen (Android: einfacher Klassenname der Ausnahme, iOS: Typ des Fehlers): nur Buchstaben A–Z,
-     * Ziffern und «_», höchstens 40 Zeichen; leer → [UNKNOWN_KIND]. Kein Meldungstext, keine personenbezogenen Daten.
+     * Fehlerart aus einem Typnamen (Android: einfacher Klassenname der Ausnahme, iOS: Typ des Fehlers): nur Buchstaben
+     * A–Z/a–z, Ziffern und «_», höchstens 40 Zeichen; leer → [UNKNOWN_KIND]. Kein Meldungstext, keine personenbezogenen Daten.
      */
     fun kind(typeName: String): String =
         typeName.filter { it in 'A'..'Z' || it in 'a'..'z' || it in '0'..'9' || it == '_' }.take(KIND_MAX_LENGTH)

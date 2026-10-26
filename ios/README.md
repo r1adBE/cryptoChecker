@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 132 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 133 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -13,18 +13,44 @@ Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, 
 Namen, Logos und Marken Dritter (Coins, Token, Aktien, Börsen) und Marktdaten von Drittanbietern (z. B. CoinGecko)
 gehören nicht zum Code und fallen nicht unter die MIT-Lizenz (siehe `LICENSE` im Repository).
 
-## Neu in 16.2.2
+## Stand 16.2.2 (Build 133)
 
 Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 
-Zuletzt dazugekommen:
+- **Börsenauswahl in Abschnitten**: Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über alle
+  Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
+  Börsenlisten von CoinGecko), ohne diese Angabe alphabetisch. 56 Märkte: 54 auf 45 Börsen, dazu DexScreener für
+  DEX-Token (GeckoTerminal als Reserve) und EZB-Referenzkurse für Devisen (täglich, nie live, ohne Alarme).
+- **Einstellungen ohne «Erweitert»** (Build 132): Hauptseite Allgemein (Sprache – öffnet die iOS-App Einstellungen –,
+  Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung) · Darstellung (Hell / Dunkel, Akzentfarbe, Kursfarben,
+  Coin-Logos, Widgets) · Mehr (Sicherung, Über die App) · «App zurücksetzen». «Token & TradFi» auf «Merkliste»,
+  Markt-Meldungen und Sprachausgabe auf «Alarme», Entwickleroptionen (nur Debug-Builds) auf «Über die App»; die Suche
+  findet alles am neuen Ort (`App/Features/Settings/SettingsScreen.swift`).
+- **Steuer-Arbeitsunterlage als eigene Seite** (Build 129): im Portfolio-Menü getrennt vom Stichtag-Export, mit
+  Vorlage, Stand der Regeln, den vier Exporten und der Jahresübersicht; Exporte lassen sich abbrechen.
+- **Leistung** (Builds 122–131): CSV-Import grosser Dateien ohne Blockieren der App, schnellerer Start (Merkliste wird im
+  Hintergrund gelesen und entschlüsselt), FIFO, «7 T»/«1 J» und Steuer-Export auch mit vielen Transaktionen schnell.
+- **Barrierefreiheit** (Builds 129–131): Widgets und Live-Aktivität wachsen mit grösserer Schrift bis 1,3×, Charts mit
+  Audio Graph und Punkt-für-Punkt-Wischen für VoiceOver, Titel im Grosser-Inhalt-Viewer, blockierende
+  Barrierefreiheits-Prüfung in der CI.
+- **CSV-Import** aus Relai, Swissquote, Kraken, Bitpanda, Binance und Coinbase (dazu eine allgemeine Zuordnung;
+  `Shared/Portfolio/CsvImport*.swift`).
+
+Alle Builds: `CHANGELOG.md` im Repository-Hauptordner.
+
+## Verlauf
+
+Frühere Stände zum Nachlesen; einzelne Punkte sind inzwischen überholt (aktuell gilt «Stand 16.2.2» oben und
+`CHANGELOG.md`).
+
+Builds 35–46:
 
 - **Build 46 – Portfolio als echtes Kontobuch** — neue Arten Umbuchung, Belohnung, Einzahlung und
   Auszahlung sowie Gebühr in einem dritten Coin; gemeinsame Regeln in `PortfolioLedger` (Kotlin/Swift, Paritäts-Fixture
   `portfolio.json`), Portfolio-Datenbank 3 (`MIGRATION_2_3`: Umbuchung von/nach, Gebühr-Coin, `importKey`, Tabelle für
   beobachtete Adressen). Beobachtete BTC-/ETH-Adressen nur lesend (`AddressValidation`, `AddressBalance`,
   `WatchedAddressSource`; mempool.space/blockstream.info, publicnode.com/llamarpc.com), zählen ohne Kaufpreis.
-  CSV-Import Relai/Swissquote/Bitpanda/Kraken-Ledger/Binance/Coinbase (`csvimport/`, Kraken: `CsvImportKraken`, Vorschau, Duplikate per `importKey`, Tageskurs-Umrechnung).
+  CSV-Import Relai/Swissquote/Kraken-Ledger (später dazu Bitpanda, Binance, Coinbase; `csvimport/`, Kraken: `CsvImportKraken`, Vorschau, Duplikate per `importKey`, Tageskurs-Umrechnung).
   Stichtag-CSV exakt (BigDecimal/Decimal). Portfolio-Widgets mit Menge vor dem Kürzel (`WidgetQuantityFormat`).
   Store-Texte zugespitzt. Wertverlauf mit Umschalter «Wert | Gewinn/Verlust» (Gewinnkurve = Wert minus netto
   eingesetztes Geld, Kopfzeile «Wert · Gewinn»); Coin-Zeilen in App und Widgets zeigen den eigenen Gewinn/Verlust
@@ -35,7 +61,7 @@ Zuletzt dazugekommen:
   Auszahlung ohne Preis, Binance-Futures-Kontrakt, Frische ohne `closeTime`). Tausch als eigene Art, FIFO je Wallet
   (Option), Importe rückgängig, offene Kauf-Posten, Jahresübersicht DE, Preis in CHF/EUR; beobachtete Adressen mit
   xpub, EVM-Netzen und Tokens, Solana, TRON, XRP, Litecoin, TON, Cardano; eine UTC-Tagesgrenze; Token-Identität;
-  warmer Hellmodus, kurze Tab-Namen, «Erweitert» in den Einstellungen.
+  warmer Hellmodus, kurze Tab-Namen, «Erweitert» in den Einstellungen (seit Build 132 wieder entfernt).
   Namen und Alpha sofort (Listen zuerst, Startliste und CC0-Icons in der App, `coin_meta.json` als Ersatz),
   Arbeitsunterlage mit Länder-Vorlagen (DE, AT, CH, UK, US, CA, AU, FR, JP), ruhigere Portfolio-Karte.
 - **Build 45 – nur geprüfte Kurse zählen, ruhigere Zeilen, strengere Sicherung** — Transaktion erfassen: der Kurs
@@ -87,8 +113,8 @@ Zuletzt dazugekommen:
   Alarme: Vorschlag ±5 % vom Kurs (`AlarmTemplates.suggestedThresholdText`), Rückfrage «Alarm löst sofort aus»
   (`AlarmEdit.firesNow`), Bearbeiten stellt nur bei geänderter Bedingung neu scharf (`AlarmEdit`), «Konnte nicht
   geprüft werden (kein Devisenkurs / keine Kerzendaten)» in der Alarmliste (`AlarmCheckStatus`, nur im Speicher).
-  Neue Installationen: neue Paare ohne Kurs-Mitteilung (`newPairNotificationEnabled`), «Nicht wegwischbar» wie Android
-  aus (ohne Wirkung auf iOS); «+ Paar hinzufügen» mit Text, Glocke immer sichtbar; veraltete Kurse in
+  Neue Installationen: neue Paare ohne Kurs-Mitteilung (`newPairNotificationEnabled`), «Dauerhaft in den Benachrichtigungen»
+  (damals «Nicht wegwischbar») wie Android aus (ohne Wirkung auf iOS); «+ Paar hinzufügen» mit Text, Glocke immer sichtbar; veraltete Kurse in
   `onSurfaceVariant` statt halb durchsichtig.
 - **Build 41 – Alarme, Charts, ruhigere Screens** — einmaliger Portfolio-Alarm bleibt ohne Mitteilungs-Erlaubnis
   scharf (`evaluatePortfolioAlarms` async), wiederholende Alarme ebenso (`QuietHours.mayFire`); Fremd-Kerzen nur bei
@@ -192,7 +218,7 @@ Zuletzt dazugekommen:
   dann direkt die Kacheln Alarm · Warum? · Favorit, dann Chart, Zeitraum, Marktdaten, Mehr; am Zeitraum keine zweite
   24h-Änderung (bei 7T/30T/1J bleibt sie als farbige Schrift)
   (`App/Features/Watchlist/WatchActionsSheet.swift`).
-- **Einstellungen mit «Erweitert»**: Hauptseite Allgemein (Sprache – öffnet die iOS-App Einstellungen –, Währung, Merkliste,
+- **Einstellungen mit «Erweitert»** (bis Build 131; seit Build 132 ohne diese Seite, siehe «Stand 16.2.2»): Hauptseite Allgemein (Sprache – öffnet die iOS-App Einstellungen –, Währung, Merkliste,
   Portfolio), Darstellung (Hell/Dunkel, Akzentfarbe), Alarme (Alarme, Markt-Meldungen), Daten (Sicherung), Zeile
   «Erweitert» (`AdvancedSettingsPage` in `App/Features/Settings/SettingsScreen.swift`: Aktualisierung, Kursfarben,
   %-Änderung, Coin-Logos, Widgets, Sprachausgabe), Über, «App zurücksetzen» als eigene
@@ -370,7 +396,7 @@ Davor:
   `static/stock/…png` für alle TradFi-Kürzel der gespeicherten Paarlisten, Aktiennamen aus der Nasdaq-Symbolliste);
   Bilder nur von den Bildservern von CoinGecko und Binance, auf einmal geladen (nie einzeln) und im App-Group-Ordner
   gespeichert. Schalter «In der App» / «Im Portfolio» (ab Werk an) / «In Widgets» (ab Werk aus) unter
-  Einstellungen › Erweitert › Coin-Logos, dort «Powered by CoinGecko»
+  Einstellungen › Darstellung › Coin-Logos, dort «Powered by CoinGecko»
   (`Shared/Util/CoinLogos.swift`, `Shared/Storage/CoinLogoStore.swift`, `Widgets/WidgetLogos.swift`).
 - **Daten-Spiegel**: Marktdaten, die für alle gleich sind (Fear & Greed, Coin-Metrics-On-Chain, BTC-Kursverlauf,
   fertig berechnete Altcoin-Saison), stündlich von `market-data.yml` als Anhänge der Release «data» (`fng.txt`,
@@ -412,7 +438,7 @@ Frühere Runden:
 
 - **Theme «Marrs Green»** (#4BACA5) als fünfte Akzentfarbe mit alternativem App-Icon
   (`AppIconMarrsGreen`) und Logo; die Einstellung heisst jetzt **Theme** (vorher «Farbe»).
-- **15 neue Börsen** (40 Märkte auf 32 Börsen plus DexScreener), **Notiz pro Coin**, **Alarmton** zur Auswahl,
+- **15 neue Börsen** (damals 40 Märkte auf 32 Börsen plus DexScreener; heute 56 Märkte, siehe «Stand 16.2.2»), **Notiz pro Coin**, **Alarmton** zur Auswahl,
   **Netzwerkgebühren** (Ethereum, L2s, Bitcoin) mit Gas-Alarm im Markt-Tab.
 - **Zyklus-Vergleich** mit Doppel-Top/-Bottom (`Shared/Insights/CycleExtremes.swift`).
 - **«≈ Umrechnung»** in der Merkliste und **Alarme in deiner Währung** (31 Währungen, Standard nach
@@ -459,7 +485,7 @@ Frühere Runden:
   Coins als farbiger Text, BTC bzw. BTC/ETH/SOL; Daten über `CryptoPulseSource` mit gemeinsamem 5-Min.-Stand in der
   App Group; Tippen öffnet den Markt-Tab), **Alarm als
   Satz**, **veralteter Kurs sichtbar**, Erklärungen (i) zu jeder Zeile der Markt-Karten (u. a. Funding, Open Interest, RSI, Pi-Cycle),
-  Einstellungen «Erweitert» (eigene Seite). Hinweis unter dem Intervall: iOS plant den Hintergrund selbst.
+  Einstellungen «Erweitert» (eigene Seite, bis Build 131). Hinweis unter dem Intervall: iOS plant den Hintergrund selbst.
 - **Crypto Pulse «Auffällig»** (bis Build 84 «Was gerade auffällt») (erste Karte im Markt-Tab): Schlagzeile mit Leitsatz und
   einem Satz zu Volumen/Funding, BTC/ETH/SOL, Funding-Chip (nur wenn erhöht/negativ), Marktbreite
   «Top 30 ↗ · ↘» als farbige Schrift und Krypto-Markt gesamt (Satz zur Marktbreite nur in deutlichen Fällen); «Warum? ⌄»
@@ -480,8 +506,8 @@ Frühere Runden:
   aus; lokal geplant) (`Shared/Insights/MacroCalendar.swift`, `App/Services/MacroNotifications.swift`).
 - **«Was bewegt sich mit …?» als Checkliste**: oben «Kurz gesagt» (heute als Karte, siehe oben), die Faktoren
   mit ✓ / ! / – unter «Alle Werte und Quellen» (`App/Features/Watchlist/WatchWhySheet.swift`, `WatchWhyFactors.swift`).
-- **Einstellungen in Gruppen** wie Android: Allgemein · Darstellung · Alarme · Daten · Zeile «Erweitert»
-  (eigene Seite) · Über · «App zurücksetzen».
+- **Einstellungen in Gruppen** wie Android: heute Allgemein · Darstellung · Mehr · «App zurücksetzen» (seit
+  Build 132 ohne Seite «Erweitert»).
 - **Aktionsblatt**: Tippen auf eine Zeile, unter dem Kurs die Zeile «24h · Aktualisiert: …», gleich darunter gleich gross Alarm, Warum?, Favorit
   (`App/Features/Watchlist/WatchActionsSheet.swift`); nach dem Hinzufügen bietet der Hinweis
   «… wird jetzt überwacht» direkt **«Alarm setzen»**, solange die neuen Paare keinen Alarm haben.
@@ -513,7 +539,7 @@ Frühere Runden:
 - **Dynamic Type**: feste Schriftgrössen in `App/` folgen jetzt der Systemschrift
   (`App/Components/ScaledFont.swift`), Änderungsangaben und Symbole mit Obergrenze.
 - **Keine Spenden in der App** (App-Store-Richtlinie 3.1.1); Hinweise nur in
-  `SUPPORT.md` des Repositorys auf GitHub (Ordner `public/`).
+  `SUPPORT.md` im Repository-Hauptordner auf GitHub.
 - Deutsch in Schweizer Schreibweise (ss, «»).
 - Datenschutz/Support: `https://r1adbe.github.io/cryptoChecker/privacy/` bzw.
   `https://r1adbe.github.io/cryptoChecker/` (`Shared/Util/AppLinks.swift`, `fastlane/metadata`).
@@ -525,7 +551,7 @@ Frühere Runden:
 | `Shared/` | Code und Ressourcen für **beide** Targets (App und Widgets), u. a. `Resources/Localizable.xcstrings` |
 | `App/` | nur App: Oberfläche, Hintergrund-Aktualisierung, `Info.plist`, Entitlements, `Resources/Assets.xcassets` (App-Icons, Logos) |
 | `Widgets/` | nur Widget-Erweiterung: Widgets, `Info.plist`, Entitlements, eigener Asset-Katalog |
-| `Tests/` | Unit-Tests (Testziel `CryptoCheckerTests`, ⌘U bzw. `xcodebuild test -scheme CryptoChecker`); `Tests/Parity/` = gemeinsame Testfälle, vom Generator aus `android/testdata/parity` kopiert; `*PerformanceTests` = Zeitmessungen, zusätzlich im Release-Build per Workflow `ios-performance.yml` (public/DEVELOPMENT.md, «iOS performance tests in Release») |
+| `Tests/` | Unit-Tests (Testziel `CryptoCheckerTests`, ⌘U bzw. `xcodebuild test -scheme CryptoChecker`); `Tests/Parity/` = gemeinsame Testfälle, vom Generator aus `android/testdata/parity` kopiert; `*PerformanceTests` = Zeitmessungen, zusätzlich im Release-Build per Workflow `ios-performance.yml` (`DEVELOPMENT.md` im Repository-Hauptordner, «iOS performance tests in Release») |
 | `tools/` | Generatoren (Python 3) für Texte, Grafiken und das Xcode-Projekt |
 | `CryptoChecker.xcodeproj` | generiertes Xcode-Projekt |
 | `project.yml` | gleichwertige XcodeGen-Spezifikation (Fallback) |
@@ -572,7 +598,7 @@ dieselben Werte tragen: `gen_xcodeproj.py` (auch mit `--check`) bricht mit einer
 
 Alle Skripte brauchen nur Python 3 (für die Grafiken zusätzlich Pillow und die Systembibliothek libcairo)
 und können beliebig oft laufen; sie lesen die Android-Ressourcen aus `../android/app/src/main/res`
-oder – im GitHub-Repository und im ZIP – aus `../android/app/src/main/res` (sonst `--android-res PFAD`).
+(sonst `--android-res PFAD`).
 
 ```sh
 python3 tools/convert_strings.py   # strings_*.xml (31 Sprachen, inkl. pt-BR) + tools/ios_extra_strings.json -> Localizable.xcstrings, InfoPlist.xcstrings
@@ -584,7 +610,7 @@ Neue Swift-Dateien einfach in `Shared/`, `App/`, `Widgets/` oder `Tests/` ablege
 `tools/gen_xcodeproj.py` erneut ausführen. iOS-eigene Texte gehören in
 `tools/ios_extra_strings.json` (alle 31 Sprachen, inkl. `pt-BR`), danach `convert_strings.py` laufen lassen.
 
-## Swift 6 Migration
+## Swift 6
 
 Alle Ziele (App, Widgets, Unit- und UI-Tests) bauen im Swift-6-Sprachmodus (`SWIFT_VERSION = 6.0`,
 `SWIFT_STRICT_CONCURRENCY = complete`, in `tools/gen_xcodeproj.py` und `project.yml`). Concurrency-Befunde sind damit
@@ -609,35 +635,11 @@ Regeln für neuen Code:
 - Keine nackten Regex-Literale `/…/` (im Swift-6-Modus möglich): `#/…/#` oder `Regex(…)`, damit die Quelltext-Wächter
   (`ios_release_audit.py`, `WatchlistConfirmCallGuard`) exakt bleiben.
 
-Erledigt (statisch geprüft, ohne Xcode — massgebend ist der erste CI-Lauf mit Swift 6):
-
-1. **Warnungen der strikten Prüfung.** Der Release-Build meldete im Swift-5-Modus mit `complete` 0 Warnungen
-   (Schwelle 0); das Test-Ziel ist nicht an die Schwelle gebunden und wurde nur statisch durchgesehen.
-2. **Portfolio.** Die `nonisolated(unsafe) static var`-Zwischenspeicher in `PortfolioPriceSource` (samt `+Store`),
-   `FxRateSource`, `PortfolioHistorySource` (samt `+Chain`), `HistoricPriceSource` und `PortfolioRouteResolver` sind
-   geprüft und kommentiert: jeder Zugriff nur unter der genannten Sperre (auch in `PortfolioPriceSourceClearTests`).
-4. **Laufzeitprüfungen.** Einstiegspunkte durchgesehen: Mitteilungs-Delegate (`willPresent` und `didReceive`
-   `nonisolated`; `didReceive` liest die Antwort sofort als Sendable-Werte aus und erledigt Pause, Navigation und
-   `AppData` samt `completionHandler` in einem MainActor-Task), `BGTaskScheduler`-Handler und `expirationHandler` (nicht isoliert),
-   `NWPathMonitor` (`NetworkStatus`, `UnmeteredNetwork`: nicht isoliert), UIKit-Farb-Closures (nur in nicht isolierten
-   Typen), `NotificationCenter`-Beobachter, Combine/`onReceive` (Stromsparmodus über den Haupt-Thread),
-   `AVSpeechSynthesizerDelegate` (`nonisolated`), WebSocket-Ping (`@Sendable`), `WidgetCenter.getCurrentConfigurations`.
-5. **Widgets und App Intents.** Timeline-Provider, `EntityQuery` und `perform()` sind `async` in nicht isolierten
-   Typen (kein synchroner Rückruf, der abbrechen könnte); Live-Aktivitäten laufen über `LiveActivityController`.
-6. **Test-Fakes.** `FakeStore` (`AlarmChainIntegrationTests`, `RefreshEffectsWiringTests`, `AlarmLogTests`) und der
-   Zähler `AlarmPairPicker.makeRowsCalls` sind jetzt mit Sperre.
-
-Noch offen:
-
-3. **Nicht prüfbares `@unchecked Sendable`.** Rund 35 Klassen sind mit `NSLock` geschützt und kommentiert, der
-   Compiler kann das aber nicht nachprüfen. Ersatz: `OSAllocatedUnfairLock` mit `Sendable`-Zustand (ab iOS 16, also
-   schon möglich) oder `Mutex` (Synchronization, erst ab iOS 18). Besonders: `Market` (nicht `final`, gilt nur, solange
-   keine Unterklasse veränderlichen Zustand bekommt), `LockedBox<Value>` und `FirstResult<T>` (Typparameter ohne
-   `Sendable`-Einschränkung) und `BackgroundTaskCompletion` (hält ein `BGTask`, das nicht `Sendable` ist).
-7. **Test-Fakes ohne Sperre.** `FakeKeychain` (`Tests/ProtectedFileTests.swift`) und `GenerationBox`
-   (`Tests/StorageKeyRenewTests.swift`) sind nur nacheinander benutzbar (kommentiert).
-8. **Laufzeit im CI bestätigen.** Ein Abbruch wegen falscher Isolation zeigt sich erst beim Ausführen: Unit- und
-   UI-Tests im ersten Swift-6-Lauf auf `EXC_BREAKPOINT`/«Incorrect actor executor assumption» prüfen.
+Die CI (Workflow «iOS», `.github/workflows/ios.yml`) baut die App im Swift-6-Modus und führt Unit- und UI-Tests bei
+jedem Pull Request und jedem Push auf `main`, der die iOS-App betrifft, aus; Isolationsfehler zur Laufzeit fallen dort auf. Die
+`@unchecked Sendable`-Stellen (Obergrenze in `swift_escape_hatches.py`, derzeit 103 – davon die meisten die
+Börsen-Adapter ohne veränderlichen Zustand) sind kommentiert bzw. mit einer Sperre geschützt – das kann der Compiler
+nicht nachprüfen; ein späterer Ersatz ist `OSAllocatedUnfairLock` oder `Mutex` (ab iOS 18).
 
 ## Falls sich das Projekt nicht öffnen lässt
 
@@ -657,7 +659,7 @@ iOS erlaubt einiges nicht, was die Android-App kann:
 - **Keine dauerhafte Kurs-Mitteilung.** Android kann den Kurs fest in der Statusleiste zeigen (bei neuen
   Installationen aus); unter iOS
   erscheint bei jeder Aktualisierung eine normale Mitteilung, die sich wegwischen lässt. Die Option
-  «Nicht wegwischbar» hat keine Entsprechung.
+  «Dauerhaft in den Benachrichtigungen» hat keine Entsprechung.
 - **Hintergrund-Aktualisierung bestimmt iOS.** Das eingestellte Intervall ist nur ein frühester
   Zeitpunkt; iOS entscheidet je nach Nutzung, Akku und Netz, wann tatsächlich aktualisiert wird –
   oft deutlich später, nach einem erzwungenen Beenden der App gar nicht mehr.

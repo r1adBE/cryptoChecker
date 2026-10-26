@@ -15,12 +15,14 @@ enum MarketsConfig {
         Mexc(), MexcFutures(), Htx(), HtxFutures(),
         // Weitere internationale Börsen
         Bitfinex(), Bitstamp(), Bitvavo(), CryptoCom(), Gemini(), Hyperliquid(), Aster(), BingX(), BingXFutures(), Lighter(),
-        Woo(), WooFutures(), Deribit(), Phemex(), PhemexFutures(), Poloniex(), OneTrading(),
+        Woo(), WooFutures(), Deribit(), Phemex(), PhemexFutures(), BitunixFutures(), Poloniex(), OneTrading(),
         // Regionale Börsen
         Upbit(), Bithumb(), BitFlyer(), Bitbank(), Coincheck(), Btcturk(), Paribu(), Icrypex(), Bitso(),
         MercadoBitcoin(), Indodax(), ZebPay(), CoinDcx(), HashKey(), IndependentReserve(), BtcMarkets(), Luno(),
         // Kleinere Börsen und DEX-Daten
         Latoken(), NonKyc(), DexScreener(),
+        // Devisen-Referenzkurse der EZB (Abschnitt «Forex», keine Alarme)
+        EcbReference(),
     ]
 
     /// Suche per Schlüssel; bei doppeltem Schlüssel gewinnt der spätere Eintrag.
