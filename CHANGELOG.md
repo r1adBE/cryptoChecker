@@ -21,6 +21,7 @@ Detailed build history below.
 * iOS: the «Allow notifications» row no longer cuts its button text; with very large text the button moves below the sentence.
 * Macro calendar: US release dates (CPI, PPI, jobs report, PCE) load again – the BLS pages need a contact address in the request, the BEA page splits words with inline markup.
 * iOS accessibility audit blocking again.
+* Android CSV import: progress is set on the main thread (fixes an occasional crash of the import/undo UI test).
 
 ## 16.2.2 (build 131)
 

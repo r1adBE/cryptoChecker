@@ -2479,6 +2479,10 @@ after the encryption step.
   removed without a space (BEA «<span>N</span><span>ews</span>»), `--self-test` with stored markup, run in the
   workflow. `room_schema_drift.py` skips outside a git work tree. iOS audit blocking again (settings section titles
   and the portfolio note excepted as dynamic-type false positives, to be checked on a device).
+  `PortfolioCsvImportViewModel`: progress from the matching (Dispatchers.Default) and the save (database thread) is
+  posted to the main thread with a run counter (`postProgress`/`clearProgress`); setting the StateFlow from the worker
+  let the Compose test clock apply changes on that thread (CalledFromWrongThread, corrupt slot table, crash on
+  activity destroy in UiFlowsTest.importCsvAndUndo).
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on
