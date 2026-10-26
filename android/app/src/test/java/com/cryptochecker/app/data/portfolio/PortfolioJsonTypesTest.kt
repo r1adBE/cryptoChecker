@@ -112,7 +112,7 @@ class PortfolioJsonTypesTest {
         assertEquals("BINANCE|W", linked.importKey)
         assertEquals("COINBASE|D", linked.linkedImportKey)
         assertEquals("BINANCE:1729000000000:0a1b2c3d", linked.importRestoreState!!.importBatch)
-        assertEquals("COINBASE|D", linked.importRestoreState!!.absorbed!!.importKey)
+        assertEquals("COINBASE|D", linked.importRestoreState.absorbed!!.importKey)
         // Neue Form übersteht Sicherung und Systemsicherungs-Kopie unverändert
         assertEquals(linked, PortfolioJson.jsonToTx(JSONObject(PortfolioJson.txToJson(linked).toString())))
         assertEquals(listOf(linked), PortfolioBackupMirror.parse(PortfolioBackupMirror.encode(listOf(linked), emptyList())).txs)

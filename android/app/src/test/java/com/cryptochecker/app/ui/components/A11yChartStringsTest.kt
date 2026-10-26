@@ -27,12 +27,12 @@ class A11yChartStringsTest {
             val text = file.readText(Charsets.UTF_8)
             for (key in keys) {
                 val value = Regex("""<string name="$key"[^>]*>([^<]+)</string>""").find(text)?.groupValues?.get(1)
-                assertNotNull("$key fehlt in ${file.parentFile.name}", value)
+                assertNotNull("$key fehlt in ${file.parentFile?.name}", value)
             }
             val twoSeries = Regex("""<string name="a11y_chart_two_series">([^<]+)</string>""")
                 .find(text)!!.groupValues[1]
             val order = Regex("%(\\d)\\\$s").findAll(twoSeries).map { it.groupValues[1] }.toList()
-            assertEquals("a11y_chart_two_series in ${file.parentFile.name}", listOf("1", "2", "3", "4"), order)
+            assertEquals("a11y_chart_two_series in ${file.parentFile?.name}", listOf("1", "2", "3", "4"), order)
         }
     }
 

@@ -15,6 +15,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 135)
+
+* Tests: all Android instrumented UI tests use the v2 Compose test rule (Compose coroutines on the UI thread); the deprecated v1 rule is gone.
+* Macro calendar: the self-test also parses the real BLS, FOMC and BEA pages as served on 26 October 2026 (stored in `.github/scripts/testdata/macro`), with the known number of dates per page – a layout change shows up in the test, not only in the live run.
+* Build: the Kotlin warnings in the test sources are fixed; a vendor verification file of kotlinx-serialization is no longer packed into the APK/AAB.
+
 ## 16.2.2 (build 134)
 
 * Tests: the Android UI flow tests use the current Compose test rule (v2), which runs Compose coroutines on the UI thread – the old rule let them continue on background threads and caused the rare Compose crashes in the CSV import/undo test.

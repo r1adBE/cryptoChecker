@@ -307,7 +307,9 @@ class CsvImportParityTest {
                 if ("feeCoinAmount" in e) assertEquals("$m feeCoinAmount", e["feeCoinAmount"], text(tx.feeCoinAmount))
             }
             // Bestand nach allen Transaktionen der Vorschau (z. B. Kraken-Saldo)
-            (c["balances"] as Map<String, Any?>?)?.let { balances ->
+            @Suppress("UNCHECKED_CAST")
+            val balancesCase = c["balances"] as Map<String, Any?>?
+            balancesCase?.let { balances ->
                 val trades = preview.transactions.mapIndexed { i, t ->
                     PortfolioTrade(
                         id = i + 1L, coin = t.coin, type = t.type, amount = t.amount, priceUsdt = t.priceUsdt, time = t.time,

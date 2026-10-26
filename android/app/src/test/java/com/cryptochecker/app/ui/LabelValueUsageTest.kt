@@ -58,13 +58,13 @@ class LabelValueUsageTest {
         for (file in files) {
             val value = Regex("""<string name="label_value">([^<]*)</string>""")
                 .find(file.readText(Charsets.UTF_8))?.groupValues?.get(1)
-            assertNotNull("label_value fehlt in ${file.parentFile.name}", value)
-            val expected = when (file.parentFile.name) {
+            assertNotNull("label_value fehlt in ${file.parentFile?.name}", value)
+            val expected = when (file.parentFile?.name) {
                 "values-fr" -> """%1${'$'}s\u00A0: %2${'$'}s"""
                 "values-zh", "values-ja" -> "%1\$s：%2\$s"
                 else -> "%1\$s: %2\$s"
             }
-            assertEquals("label_value in ${file.parentFile.name}", expected, value)
+            assertEquals("label_value in ${file.parentFile?.name}", expected, value)
         }
     }
 

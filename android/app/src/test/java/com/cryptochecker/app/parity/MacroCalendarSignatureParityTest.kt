@@ -80,7 +80,7 @@ class MacroCalendarSignatureParityTest {
         }
         assertNull(events)
         // Rückfall: die mitgelieferte Datei ist ein gültiger Kalender
-        val bundled = File(ParityJson.dir().parentFile.parentFile, "app/src/main/assets/macro_events.json")
+        val bundled = File(ParityJson.dir().parentFile!!.parentFile, "app/src/main/assets/macro_events.json")
         assertNotNull(MacroCalendar.parse(bundled.readText(Charsets.UTF_8), now))
         assertFalse(MirrorTrust(testKey) { now }.verified(MacroCalendar.MANIFEST_FILE, "{}", loader("with")))
     }

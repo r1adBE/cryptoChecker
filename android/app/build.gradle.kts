@@ -67,7 +67,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 134
+        versionCode = 135
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -116,6 +116,14 @@ android {
             // Debug- und Release-App lassen sich so nebeneinander installieren.
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
+        }
+    }
+
+    // Fremd-Datei aus kotlinx-serialization (Prüfwerte des Herstellers, für die App ohne Nutzen): nicht ins APK/AAB —
+    // Geheimnis-Scanner melden sie sonst als Token (Audit F-23, Build 135)
+    packaging {
+        resources {
+            excludes += "META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/verification.properties"
         }
     }
 

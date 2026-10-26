@@ -705,7 +705,7 @@ class DatabaseMigrationTest {
                 assertEquals("BINANCE|W", v2.importKey)
                 assertEquals("BINANCE:1729000000000:0a1b2c3d", v2.importBatch)
                 assertEquals("COINBASE|D", v2.absorbed!!.importKey)
-                assertEquals(0, java.math.BigDecimal("0.0049").compareTo(v2.absorbed!!.amount))
+                assertEquals(0, java.math.BigDecimal("0.0049").compareTo(v2.absorbed.amount))
                 // Fassung 1: nur die gespeicherte Seite
                 val v1 = all.getValue(4).importRestoreState!!
                 assertEquals("BINANCE|W5", v1.importKey)

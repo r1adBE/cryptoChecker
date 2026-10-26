@@ -26,7 +26,7 @@ class ExchangeOrderParityTest {
         for (c in cases) {
             val markets = c["markets"].list().map { it.obj() }
                 .map { ExchangeOrder.Entry(it["key"] as String, MarketCategory.valueOf(it["category"] as String)) }
-            val volumes = (c["volumes"] as Map<*, *>?)?.entries?.associate { (k, v) -> k as String to v.num()!!.toDouble() }
+            val volumes = (c["volumes"] as Map<*, *>?)?.entries?.associate { (k, v) -> k as String to v.num()!! }
             val actual = ExchangeOrder.sections(markets, volumes).map { (category, keys) -> category.name to keys }
             val expected = c["expected"].list().map { it.obj() }
                 .map { it["category"] as String to it["keys"].list().map { k -> k as String } }
@@ -39,7 +39,7 @@ class ExchangeOrderParityTest {
         val parse = order["parse"].obj()
         val spot = JSONArray(parse["spot"].list().map { row -> JSONObject(row.obj()) }).toString()
         val derivatives = JSONArray(parse["derivatives"].list().map { row -> JSONObject(row.obj()) }).toString()
-        val expected = parse["expected"].obj().mapValues { it.value.num()!!.toDouble() }
+        val expected = parse["expected"].obj().mapValues { it.value.num()!! }
         assertEquals(expected, ExchangeOrder.parseVolumes(spot, derivatives))
     }
 

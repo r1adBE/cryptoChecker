@@ -19,6 +19,7 @@ class ColorDifferenceTest {
 
     @Test
     fun `Sharma-Testpaare`() {
+        @Suppress("UNCHECKED_CAST")
         val pairs = data["deltaE2000"] as List<Map<String, Any?>>
         assertEquals(34, pairs.size)
         for ((i, p) in pairs.withIndex()) {
@@ -33,7 +34,9 @@ class ColorDifferenceTest {
 
     @Test
     fun `sRGB-Paare`() {
-        for (p in data["srgb"] as List<Map<String, Any?>>) {
+        @Suppress("UNCHECKED_CAST")
+        val srgb = data["srgb"] as List<Map<String, Any?>>
+        for (p in srgb) {
             val a = (p["a"] as String).toInt(16)
             val b = (p["b"] as String).toInt(16)
             assertEquals("${p["a"]}/${p["b"]}", p["expected"] as Double, ColorDifference.deltaE2000(a, b), 1e-3)
