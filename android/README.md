@@ -18,7 +18,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
-## Stand 16.2.2 (Build 133)
+## Stand 16.2.2
 
 * **Börsenauswahl in Abschnitten** — Spot · Futures · DEX-Pools · Forex (Referenzkurs), Favoriten oben, Suche über
   alle Abschnitte; innerhalb eines Abschnitts nach Handelsvolumen am Installationstag (einmal aus den öffentlichen
