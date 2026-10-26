@@ -2508,6 +2508,11 @@ after the encryption step.
   (`sameHost`), so GeckoTerminal never pauses DexScreener. Fixtures: `exchange_bitunixfutures.json`,
   `exchange_ecbreference.json`, GeckoTerminal `singleFallback` cases in `exchange_dexscreener.json`, parity
   `picker_order.json` and `gecko_terminal_network.json`. Escape-hatch ceiling 103 (two new Swift adapters).
+* Build 134: `UiFlowsTest` uses `androidx.compose.ui.test.junit4.v2.createAndroidComposeRule`. The v1 rule ran
+  Compose-scoped coroutines on an unconfined test dispatcher, so collectors resumed on the thread that woke them
+  (`flowOn(Dispatchers.Default)` flows, DataStore) and wrote snapshot state there – the rare «Reentrant composition» /
+  `SlotTable` crashes of `importCsvAndUndo`. New instrumented UI tests use the v2 rule. iOS `AccessibilityAuditTests`
+  taps the storage notice's close button a second time when the first tap was missed.
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on
@@ -2905,4 +2910,3 @@ after the encryption step.
 * Reference data: `bip32_fuzz.json` (1,000 random xpub/ypub/zpub leaves with all four address types, 74
   point-arithmetic edge cases, 12 invalid keys; generator `android/tools/gen_bip32_vectors.py`, cross-checked with
   OpenSSL via Python `cryptography`) and `argon2_random.json` (20 random cases) on both platforms.
-

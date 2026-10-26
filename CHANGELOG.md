@@ -15,6 +15,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 134)
+
+* Tests: the Android UI flow tests use the current Compose test rule (v2), which runs Compose coroutines on the UI thread – the old rule let them continue on background threads and caused the rare Compose crashes in the CSV import/undo test.
+* Tests: the iOS accessibility audit taps the storage notice's close button once more if a slow simulator missed the first tap.
+
 ## 16.2.2 (build 133)
 
 * Exchange picker in sections: Spot · Futures · DEX pools · Forex (reference rate), favorites on top, search across all sections. Within a section the exchanges are sorted by trading volume on the install date (fetched once from CoinGecko's public exchange lists); without it alphabetically as before.

@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 133 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 134 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -13,7 +13,7 @@ Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, 
 Namen, Logos und Marken Dritter (Coins, Token, Aktien, Börsen) und Marktdaten von Drittanbietern (z. B. CoinGecko)
 gehören nicht zum Code und fallen nicht unter die MIT-Lizenz (siehe `LICENSE` im Repository).
 
-## Stand 16.2.2 (Build 133)
+## Stand 16.2.2
 
 Gleicher Funktionsumfang wie Android 16.2.2, u. a.:
 

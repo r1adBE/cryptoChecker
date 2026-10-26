@@ -75,6 +75,9 @@ final class AccessibilityAuditTests: XCTestCase {
         let noticeClose = app.tagged(UiTestTags.storageNoticeClose)
         if noticeClose.waitForExistence(timeout: 3) {
             noticeClose.tap()
+            // Ein langsamer Simulator verschluckt den ersten Tipp gelegentlich (Hinweis gleitet noch herein): einmal
+            // nachtippen, bevor es als Fehler gilt
+            if !wait(noticeClose, "exists == false"), noticeClose.exists { noticeClose.tap() }
             XCTAssertTrue(wait(noticeClose, "exists == false"), "storage notice not closed")
         }
         try audit(app, "watchlist")
