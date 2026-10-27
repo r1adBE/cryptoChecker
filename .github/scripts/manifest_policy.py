@@ -13,7 +13,7 @@ Errors (each one blocks a store release):
     store text), not a side effect of a library update
   - a service with android:foregroundServiceType
   - application debuggable, testOnly or usesCleartextTraffic="true"
-  - an exported component without a permission, except MainActivity, BootReceiver, the
+  - an exported component without a permission, except MainActivity, BootReceiver, PhoneWatchListener, the
     launcher activity-aliases (MAIN/LAUNCHER) and the widget configure activities (WIDGET_CONFIGURE;
     only with the APPWIDGET_CONFIGURE action — they check the widget id themselves, WidgetConfigureGuard)
   - an exported activity without android:taskAffinity="" (task hijacking).
@@ -54,7 +54,13 @@ EXPECTED = {
 }
 # Exported on purpose: the start activity (target of the launcher aliases, also opened by
 # notifications and widgets) and the boot receiver (protected system broadcasts only).
-ALLOWED_EXPORTED = {"com.cryptochecker.app.ui.MainActivity", "com.cryptochecker.app.work.BootReceiver"}
+ALLOWED_EXPORTED = {
+    "com.cryptochecker.app.ui.MainActivity",
+    "com.cryptochecker.app.work.BootReceiver",
+    # Wear data layer (build 154): Google Play services bind it; WearableListenerService accepts calls from Play
+    # services only and the service reads nothing but the coin list of the own watch app (path /cc/watch)
+    "com.cryptochecker.app.wearable.PhoneWatchListener",
+}
 # Widget configure activities: launchers open them directly (adding a widget, «reconfigure» on Android 12+), so they
 # are exported without a permission. Each one works only with the id of an own widget of its provider
 # (WidgetConfigureGuard) and may have no intent filter other than APPWIDGET_CONFIGURE.

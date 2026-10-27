@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">未选择币种</string>
+    <string name="watch_loading">正在加载…</string>
+    <string name="watch_error">无法连接交易所</string>
+    <string name="watch_updated">截至 %1$s</string>
+    <string name="watch_refresh">刷新</string>
+    <string name="watch_choose">选择币种</string>
+    <string name="watch_choose_hint">最多 %1$d 个币种</string>
+    <string name="watch_complication_label">价格</string>
+    <string name="a11y_watch_row">%1$s %2$s，24 小时 %3$s</string>
+    <string name="watch_mode_phone">列表：与手机相同</string>
+    <string name="watch_mode_own">列表：自定义</string>
+    <string name="watch_phone_empty">手机上没有收藏</string>
+</resources>

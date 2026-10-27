@@ -104,4 +104,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Aggiorna – di nuovo possibile tra %1$d s</string>
+    <string name="settings_watch">Orologio</string>
+    <string name="settings_watch_hint">Coin per l’app orologio su Wear OS (fino a %1$d, prezzo rispetto a USDT). All’orologio va solo questa lista, tramite Google Play Services; i prezzi li scarica l’orologio stesso.</string>
+    <string name="settings_watch_mode_phone">Come il telefono (preferiti ★)</string>
+    <string name="settings_watch_mode_own">Lista personale</string>
+    <string name="settings_watch_own_title">Lista personale: %1$d di %2$d</string>
+    <string name="settings_watch_none">Ancora nessun preferito</string>
 </resources>

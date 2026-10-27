@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">ยังไม่ได้เลือกเหรียญ</string>
+    <string name="watch_loading">กำลังโหลด…</string>
+    <string name="watch_error">เชื่อมต่อกระดานเทรดไม่ได้</string>
+    <string name="watch_updated">ณ %1$s</string>
+    <string name="watch_refresh">รีเฟรช</string>
+    <string name="watch_choose">เลือกเหรียญ</string>
+    <string name="watch_choose_hint">สูงสุด %1$d เหรียญ</string>
+    <string name="watch_complication_label">ราคา</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s ใน 24 ชั่วโมง</string>
+    <string name="watch_mode_phone">รายการ: เหมือนโทรศัพท์</string>
+    <string name="watch_mode_own">รายการ: ของตัวเอง</string>
+    <string name="watch_phone_empty">ไม่มีรายการโปรดในโทรศัพท์</string>
+</resources>

@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 153
+        versionCode = 154
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -279,6 +279,8 @@ dependencies {
 
     // Hintergrund-Aktualisierung (Kurse, Alarme, Widgets)
     implementation(libs.androidx.work.runtime.ktx)
+    // Uhr-App (Build 154): Coin-Liste über die Wear-Daten-Schicht
+    implementation(libs.play.services.wearable)
     implementation(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.compiler)
 

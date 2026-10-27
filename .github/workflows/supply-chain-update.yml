@@ -101,8 +101,8 @@ jobs:
           set -o pipefail
           # shellcheck disable=SC2086
           ./gradlew $GRADLE_WRITE_FLAGS --write-locks \
-            test :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease :data:lintRelease \
-            :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease \
+            test :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease :data:lintRelease :wear:lintRelease \
+            :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease :wear:assembleRelease \
             2>&1 | tee "$RUNNER_TEMP/gradle-write.log" \
             || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-write.log"; exit 1; }
 

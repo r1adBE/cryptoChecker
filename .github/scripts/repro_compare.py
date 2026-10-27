@@ -63,15 +63,20 @@ def archive_diff(a, b):
 
 
 def text_diff(a, b):
-    """First differing line of two text entries and whether only the line order differs (diagnosis only)."""
+    """First differing line of two text entries and whether only the line order differs (diagnosis only).
+    R8 mapping header lines «# pg_map_hash/pg_map_id» (a hash of the rest) are skipped: the first difference after
+    them is the one that explains the change; the number of differing lines is added."""
     la = a.decode("utf-8", "replace").splitlines()
     lb = b.decode("utf-8", "replace").splitlines()
     if sorted(la) == sorted(lb):
         return f"same {len(la)} lines in a different order"
-    for i, (x, y) in enumerate(zip(la, lb)):
-        if x != y:
-            return f"line {i + 1}: A «{x[:EXCERPT]}» B «{y[:EXCERPT]}»"
-    return f"A {len(la)} lines, B {len(lb)} lines"
+    header = ("# pg_map_hash", "# pg_map_id")
+    pairs = [(i, x, y) for i, (x, y) in enumerate(zip(la, lb)) if x != y]
+    count = len(pairs) + abs(len(la) - len(lb))
+    for i, x, y in pairs:
+        if not x.startswith(header):
+            return f"line {i + 1}: A «{x[:EXCERPT]}» B «{y[:EXCERPT]}» ({count} differing lines)"
+    return f"A {len(la)} lines, B {len(lb)} lines ({count} differing lines)"
 
 
 def compare(dir_a, dir_b):
@@ -142,8 +147,9 @@ def self_test():
         apk(os.path.join(b, "app.apk"), [("classes.dex", b"x"), ("res/a.xml", b"1")])
         assert compare(a, b)[0] == [("sbom.json", ["produced by only one build"])]
         assert text_diff(b"x\ny\n", b"y\nx\n") == "same 2 lines in a different order"
-        assert text_diff(b"a\nb\n", b"a\nc\n") == "line 2: A «b» B «c»"
-        assert text_diff(b"a\n", b"a\nb\n") == "A 1 lines, B 2 lines"
+        assert text_diff(b"a\nb\n", b"a\nc\n") == "line 2: A «b» B «c» (1 differing lines)"
+        assert text_diff(b"a\n", b"a\nb\n") == "A 1 lines, B 2 lines (1 differing lines)"
+        assert text_diff(b"# pg_map_hash: 1\nx\ny\n", b"# pg_map_hash: 2\nx\nz\n") == "line 3: A «y» B «z» (2 differing lines)"
         out = os.path.join(d, "findings.tsv")
         assert main([a, b, out]) == 0
         text = open(out, encoding="utf-8").read()

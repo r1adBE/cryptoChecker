@@ -143,6 +143,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         SettingsSearchTarget.Page(SettingsPage.COIN_LOGOS, "logos.widgets"),
         stringResource(R.string.settings_coin_logos_widgets_hint))
     addPage(SettingsPage.WIDGETS, stringResource(R.string.settings_widgets))
+    add("widgets.watch", stringResource(R.string.settings_watch), stringResource(R.string.settings_widgets),
+        SettingsSearchTarget.Page(SettingsPage.WIDGETS, "widgets.watch"),
+        stringResource(R.string.settings_watch_mode_own), "Wear OS")
 
     // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe ebenfalls unter «Alarme»
     val alarms = stringResource(R.string.settings_row_alarms)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">لم يتم اختيار عملات</string>
+    <string name="watch_loading">جارٍ التحميل…</string>
+    <string name="watch_error">تعذّر الوصول إلى المنصات</string>
+    <string name="watch_updated">في %1$s</string>
+    <string name="watch_refresh">تحديث</string>
+    <string name="watch_choose">اختيار العملات</string>
+    <string name="watch_choose_hint">حتى %1$d عملات</string>
+    <string name="watch_complication_label">السعر</string>
+    <string name="a11y_watch_row">%1$s %2$s، %3$s خلال 24 ساعة</string>
+    <string name="watch_mode_phone">القائمة: مثل الهاتف</string>
+    <string name="watch_mode_own">القائمة: خاصة</string>
+    <string name="watch_phone_empty">لا توجد مفضلة على الهاتف</string>
+</resources>

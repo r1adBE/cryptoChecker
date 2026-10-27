@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 154)
+
+* New: Wear OS app. It shows price and 24h change of up to 8 coins (against USDT) and fetches them itself directly from Binance (Bybit and OKX as fallback) – no account, no server. Which coins: «Like phone» (the coins of your watchlist favourites ★) or an own list of the common coins – chosen on the watch or on the phone under Settings › Widgets › «Watch». Only this choice and the coin symbols are synced between phone and watch (Wear data layer of Google Play services; no prices, amounts or portfolio data). A complication shows the first coin on the watch face (short: symbol and change; long: price and change) and opens the app on tap. Alarms keep arriving from the phone as before. 31 languages; privacy page updated. The Apple Watch app follows.
+
 ## 16.2.2 (build 153)
 
 * Android code structure (no change for users): the 20 domain files (exchange and address parsers, alarm log, address and xpub caches, backup entries of watched addresses, coin lists, gas fees …) read and write JSON with the domain's own JSON instead of `org.json`; the storage layer converts at the boundary. `:domain` no longer uses `org.json`.

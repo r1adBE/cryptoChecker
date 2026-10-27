@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Aucun coin choisi</string>
+    <string name="watch_loading">Chargement…</string>
+    <string name="watch_error">Plateformes injoignables</string>
+    <string name="watch_updated">À %1$s</string>
+    <string name="watch_refresh">Actualiser</string>
+    <string name="watch_choose">Choisir les coins</string>
+    <string name="watch_choose_hint">Jusqu’à %1$d coins</string>
+    <string name="watch_complication_label">Cours</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s sur 24 heures</string>
+    <string name="watch_mode_phone">Liste : comme le téléphone</string>
+    <string name="watch_mode_own">Liste : perso</string>
+    <string name="watch_phone_empty">Aucun favori sur le téléphone</string>
+</resources>

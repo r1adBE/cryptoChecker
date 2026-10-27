@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Chưa chọn coin</string>
+    <string name="watch_loading">Đang tải…</string>
+    <string name="watch_error">Không kết nối được sàn</string>
+    <string name="watch_updated">Lúc %1$s</string>
+    <string name="watch_refresh">Làm mới</string>
+    <string name="watch_choose">Chọn coin</string>
+    <string name="watch_choose_hint">Tối đa %1$d coin</string>
+    <string name="watch_complication_label">Giá</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s trong 24 giờ</string>
+    <string name="watch_mode_phone">Danh sách: giống điện thoại</string>
+    <string name="watch_mode_own">Danh sách: riêng</string>
+    <string name="watch_phone_empty">Không có mục yêu thích trên điện thoại</string>
+</resources>

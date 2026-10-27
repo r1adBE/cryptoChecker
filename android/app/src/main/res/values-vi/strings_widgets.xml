@@ -100,4 +100,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Làm mới – có thể lại sau %1$d giây</string>
+    <string name="settings_watch">Đồng hồ</string>
+    <string name="settings_watch_hint">Các coin cho ứng dụng đồng hồ trên Wear OS (tối đa %1$d, giá so với USDT). Chỉ danh sách này được gửi đến đồng hồ qua dịch vụ Google Play; đồng hồ tự lấy giá.</string>
+    <string name="settings_watch_mode_phone">Giống điện thoại (yêu thích ★)</string>
+    <string name="settings_watch_mode_own">Danh sách riêng</string>
+    <string name="settings_watch_own_title">Danh sách riêng: %1$d/%2$d</string>
+    <string name="settings_watch_none">Chưa có mục yêu thích</string>
 </resources>

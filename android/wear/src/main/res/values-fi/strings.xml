@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Kolikoita ei valittu</string>
+    <string name="watch_loading">Ladataan…</string>
+    <string name="watch_error">Pörssejä ei tavoiteta</string>
+    <string name="watch_updated">Klo %1$s</string>
+    <string name="watch_refresh">Päivitä</string>
+    <string name="watch_choose">Valitse kolikot</string>
+    <string name="watch_choose_hint">Enintään %1$d kolikkoa</string>
+    <string name="watch_complication_label">Hinta</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s 24 tunnissa</string>
+    <string name="watch_mode_phone">Luettelo: kuten puhelimessa</string>
+    <string name="watch_mode_own">Luettelo: oma</string>
+    <string name="watch_phone_empty">Puhelimessa ei ole suosikkeja</string>
+</resources>

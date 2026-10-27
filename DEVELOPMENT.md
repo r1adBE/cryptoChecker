@@ -2521,6 +2521,21 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 154: new module `:wear` (Wear OS 3+, `minSdk 30`, same `applicationId`, `versionCode` = 90 000 + phone build
+  read from `app/build.gradle.kts`, standalone). `WatchQuotes` (Binance `ticker/24hr?symbols=…`, Bybit and OKX spot
+  tickers as fallback; `WatchQuotesTest`), `WatchPriceSource` (HttpURLConnection, 10 s, 4 MB cap, own user agent),
+  `WatchStore` (`WatchSettings` + last quotes in SharedPreferences `watch`, no backup),
+  Compose for Wear UI (`WatchApp`), `PriceComplicationService` (SHORT_TEXT/LONG_TEXT, 15 min, reloads quotes older
+  than 10 min). CI: `:wear:lintRelease`, `:wear:assembleRelease`; supply chain writes `wear/gradle.lockfile`.
+  List choice: `WatchSettings` and `WatchCoins` (top 30, max 8, `fromFavorites`) live in `:marketdata/watch` for phone
+  and watch; mode PHONE (base coins of the favourites, in sort order, max 8) or OWN, `time` = last change, `merge`:
+  mode/own list from the newer side, phone list always from the phone (parity fixture `watch_settings.json`,
+  `WatchSettingsParityTest`). Sync over the Wear data layer (`play-services-wearable`): one data item per node at
+  `/cc/watch` with the JSON; watch `WatchDataLayer` + `WatchDataListener` (capability `cryptochecker_watch` in
+  `wear/res/values/wear.xml`), phone `PhoneWatchSync` (prefs `watch_sync`, publishes only when a node has the
+  capability, asks Play services only on a change or while «Widgets» is open) + `PhoneWatchListener` (exported for
+  Play services; allowed in `manifest_policy.py`). UI: `WatchSettingsCard` on the Widgets page (anchor `widgets.watch`).
+  `composeCompiler.includeComposeMappingFile = false` in `:wear` as in `:app`.
 * Build 153 (KMP prep, part 3): all `:domain` files on `util/json` (imports renamed, `JSONObject.NULL` → `JsonNull`);
   `MarketError.toMarketFailure` maps `JsonException` and (by class name) `org.json.JSONException` from `:data` to
   `Parse`. Boundary helpers `asDomainJson()` / `asOrgJson()` in `:data` (`DomainJsonBridge.kt`, via the text) for the

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nenhuma moeda escolhida</string>
+    <string name="watch_loading">A carregar…</string>
+    <string name="watch_error">Exchanges inacessíveis</string>
+    <string name="watch_updated">Às %1$s</string>
+    <string name="watch_refresh">Atualizar</string>
+    <string name="watch_choose">Escolher moedas</string>
+    <string name="watch_choose_hint">Até %1$d moedas</string>
+    <string name="watch_complication_label">Preço</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s em 24 horas</string>
+    <string name="watch_mode_phone">Lista: como o telemóvel</string>
+    <string name="watch_mode_own">Lista: própria</string>
+    <string name="watch_phone_empty">Sem favoritos no telemóvel</string>
+</resources>

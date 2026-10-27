@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Δεν επιλέχθηκαν νομίσματα</string>
+    <string name="watch_loading">Φόρτωση…</string>
+    <string name="watch_error">Τα ανταλλακτήρια δεν είναι διαθέσιμα</string>
+    <string name="watch_updated">Στις %1$s</string>
+    <string name="watch_refresh">Ανανέωση</string>
+    <string name="watch_choose">Επιλογή νομισμάτων</string>
+    <string name="watch_choose_hint">Έως %1$d νομίσματα</string>
+    <string name="watch_complication_label">Τιμή</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s σε 24 ώρες</string>
+    <string name="watch_mode_phone">Λίστα: όπως στο κινητό</string>
+    <string name="watch_mode_own">Λίστα: δική σου</string>
+    <string name="watch_phone_empty">Δεν υπάρχουν αγαπημένα στο κινητό</string>
+</resources>

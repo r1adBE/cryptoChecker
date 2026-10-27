@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nicio monedă aleasă</string>
+    <string name="watch_loading">Se încarcă…</string>
+    <string name="watch_error">Bursele nu răspund</string>
+    <string name="watch_updated">La %1$s</string>
+    <string name="watch_refresh">Actualizează</string>
+    <string name="watch_choose">Alege monede</string>
+    <string name="watch_choose_hint">Până la %1$d monede</string>
+    <string name="watch_complication_label">Preț</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s în 24 de ore</string>
+    <string name="watch_mode_phone">Listă: ca pe telefon</string>
+    <string name="watch_mode_own">Listă: proprie</string>
+    <string name="watch_phone_empty">Nu există favorite pe telefon</string>
+</resources>

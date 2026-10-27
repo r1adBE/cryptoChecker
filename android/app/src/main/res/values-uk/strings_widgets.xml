@@ -106,4 +106,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Оновити – знову можна через %1$d с</string>
+    <string name="settings_watch">Годинник</string>
+    <string name="settings_watch_hint">Монети для застосунку на годиннику з Wear OS (до %1$d, ціна до USDT). На годинник передається лише цей список, через сервіси Google Play; ціни годинник завантажує сам.</string>
+    <string name="settings_watch_mode_phone">Як на телефоні (обране ★)</string>
+    <string name="settings_watch_mode_own">Власний список</string>
+    <string name="settings_watch_own_title">Власний список: %1$d з %2$d</string>
+    <string name="settings_watch_none">Обраного ще немає</string>
 </resources>

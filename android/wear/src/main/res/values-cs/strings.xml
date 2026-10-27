@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Žádné mince nevybrány</string>
+    <string name="watch_loading">Načítání…</string>
+    <string name="watch_error">Burzy nedostupné</string>
+    <string name="watch_updated">Stav %1$s</string>
+    <string name="watch_refresh">Obnovit</string>
+    <string name="watch_choose">Vybrat mince</string>
+    <string name="watch_choose_hint">Až %1$d mincí</string>
+    <string name="watch_complication_label">Kurz</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s za 24 hodin</string>
+    <string name="watch_mode_phone">Seznam: jako v telefonu</string>
+    <string name="watch_mode_own">Seznam: vlastní</string>
+    <string name="watch_phone_empty">V telefonu nejsou žádné oblíbené</string>
+</resources>

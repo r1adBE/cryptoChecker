@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Keine Coins gewählt</string>
+    <string name="watch_loading">Lädt …</string>
+    <string name="watch_error">Börsen nicht erreichbar</string>
+    <string name="watch_updated">Stand %1$s</string>
+    <string name="watch_refresh">Aktualisieren</string>
+    <string name="watch_choose">Coins wählen</string>
+    <string name="watch_choose_hint">Bis zu %1$d Coins</string>
+    <string name="watch_complication_label">Kurs</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 Stunden</string>
+    <string name="watch_mode_phone">Liste: wie Handy</string>
+    <string name="watch_mode_own">Liste: eigene</string>
+    <string name="watch_phone_empty">Keine Favoriten auf dem Handy</string>
+</resources>

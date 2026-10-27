@@ -102,4 +102,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Opdater – muligt igen om %1$d s</string>
+    <string name="settings_watch">Ur</string>
+    <string name="settings_watch_hint">Coins til ur-appen på Wear OS (op til %1$d, kurs mod USDT). Kun denne liste sendes til uret, via Google Play-tjenester; uret henter selv kurserne.</string>
+    <string name="settings_watch_mode_phone">Som telefonen (favoritter ★)</string>
+    <string name="settings_watch_mode_own">Egen liste</string>
+    <string name="settings_watch_own_title">Egen liste: %1$d af %2$d</string>
+    <string name="settings_watch_none">Ingen favoritter endnu</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Inga mynt valda</string>
+    <string name="watch_loading">Laddar…</string>
+    <string name="watch_error">Börser kan inte nås</string>
+    <string name="watch_updated">Kl. %1$s</string>
+    <string name="watch_refresh">Uppdatera</string>
+    <string name="watch_choose">Välj mynt</string>
+    <string name="watch_choose_hint">Upp till %1$d mynt</string>
+    <string name="watch_complication_label">Kurs</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s på 24 timmar</string>
+    <string name="watch_mode_phone">Lista: som telefonen</string>
+    <string name="watch_mode_own">Lista: egen</string>
+    <string name="watch_phone_empty">Inga favoriter på telefonen</string>
+</resources>

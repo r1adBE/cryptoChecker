@@ -100,4 +100,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">รีเฟรช – ทำได้อีกครั้งใน %1$d วิ</string>
+    <string name="settings_watch">นาฬิกา</string>
+    <string name="settings_watch_hint">เหรียญสำหรับแอปนาฬิกาบน Wear OS (สูงสุด %1$d เหรียญ ราคาเทียบ USDT) ส่งไปยังนาฬิกาเฉพาะรายการนี้ผ่านบริการ Google Play ส่วนราคานาฬิกาดึงเอง</string>
+    <string name="settings_watch_mode_phone">เหมือนโทรศัพท์ (รายการโปรด ★)</string>
+    <string name="settings_watch_mode_own">รายการของตัวเอง</string>
+    <string name="settings_watch_own_title">รายการของตัวเอง: %1$d จาก %2$d</string>
+    <string name="settings_watch_none">ยังไม่มีรายการโปรด</string>
 </resources>

@@ -292,6 +292,19 @@
             android:exported="false" />
 
         <!-- Liefert die Zeilen der Widget-Liste -->
+        <!-- Uhr-App (Build 154): Wahl und eigene Liste der Uhr über die Wear-Daten-Schicht (nur Coin-Kürzel) -->
+        <service
+            android:name=".wearable.PhoneWatchListener"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+                <data
+                    android:host="*"
+                    android:pathPrefix="/cc/watch"
+                    android:scheme="wear" />
+            </intent-filter>
+        </service>
+
         <service
             android:name=".widget.PriceWidgetService"
             android:exported="false"

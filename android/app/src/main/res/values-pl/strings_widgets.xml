@@ -106,4 +106,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Odśwież – ponownie możliwe za %1$d s</string>
+    <string name="settings_watch">Zegarek</string>
+    <string name="settings_watch_hint">Monety dla aplikacji na zegarek z Wear OS (do %1$d, kurs względem USDT). Do zegarka trafia tylko ta lista, przez Usługi Google Play; kursy zegarek pobiera sam.</string>
+    <string name="settings_watch_mode_phone">Jak w telefonie (ulubione ★)</string>
+    <string name="settings_watch_mode_own">Własna lista</string>
+    <string name="settings_watch_own_title">Własna lista: %1$d z %2$d</string>
+    <string name="settings_watch_none">Brak ulubionych</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nessuna coin scelta</string>
+    <string name="watch_loading">Caricamento…</string>
+    <string name="watch_error">Exchange non raggiungibili</string>
+    <string name="watch_updated">Alle %1$s</string>
+    <string name="watch_refresh">Aggiorna</string>
+    <string name="watch_choose">Scegli le coin</string>
+    <string name="watch_choose_hint">Fino a %1$d coin</string>
+    <string name="watch_complication_label">Prezzo</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 ore</string>
+    <string name="watch_mode_phone">Lista: come il telefono</string>
+    <string name="watch_mode_own">Lista: personale</string>
+    <string name="watch_phone_empty">Nessun preferito sul telefono</string>
+</resources>

@@ -100,4 +100,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">更新 – %1$d 秒後に再度可能</string>
+    <string name="settings_watch">ウォッチ</string>
+    <string name="settings_watch_hint">Wear OS のウォッチアプリに表示するコイン（最大 %1$d 件、USDT 建て価格）。ウォッチに送られるのはこのリストだけで、Google Play 開発者サービス経由です。価格はウォッチが自分で取得します。</string>
+    <string name="settings_watch_mode_phone">スマホと同じ（お気に入り ★）</string>
+    <string name="settings_watch_mode_own">独自リスト</string>
+    <string name="settings_watch_own_title">独自リスト：%1$d / %2$d</string>
+    <string name="settings_watch_none">お気に入りはまだありません</string>
 </resources>

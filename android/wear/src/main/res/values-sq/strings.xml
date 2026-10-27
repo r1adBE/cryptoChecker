@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Asnjë monedhë e zgjedhur</string>
+    <string name="watch_loading">Po ngarkohet…</string>
+    <string name="watch_error">Bursat nuk arrihen</string>
+    <string name="watch_updated">Në %1$s</string>
+    <string name="watch_refresh">Rifresko</string>
+    <string name="watch_choose">Zgjidh monedhat</string>
+    <string name="watch_choose_hint">Deri në %1$d monedha</string>
+    <string name="watch_complication_label">Çmimi</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s në 24 orë</string>
+    <string name="watch_mode_phone">Lista: si në telefon</string>
+    <string name="watch_mode_own">Lista: imja</string>
+    <string name="watch_phone_empty">Nuk ka të preferuara në telefon</string>
+</resources>

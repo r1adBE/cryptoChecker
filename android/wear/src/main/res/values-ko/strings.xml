@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">선택한 코인이 없습니다</string>
+    <string name="watch_loading">불러오는 중…</string>
+    <string name="watch_error">거래소에 연결할 수 없습니다</string>
+    <string name="watch_updated">%1$s 기준</string>
+    <string name="watch_refresh">새로고침</string>
+    <string name="watch_choose">코인 선택</string>
+    <string name="watch_choose_hint">최대 %1$d개 코인</string>
+    <string name="watch_complication_label">가격</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24시간 동안 %3$s</string>
+    <string name="watch_mode_phone">목록: 휴대전화와 동일</string>
+    <string name="watch_mode_own">목록: 직접 고른 목록</string>
+    <string name="watch_phone_empty">휴대전화에 즐겨찾기가 없습니다</string>
+</resources>

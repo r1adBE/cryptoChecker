@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nincs kiválasztott érme</string>
+    <string name="watch_loading">Betöltés…</string>
+    <string name="watch_error">A tőzsdék nem érhetők el</string>
+    <string name="watch_updated">Állapot: %1$s</string>
+    <string name="watch_refresh">Frissítés</string>
+    <string name="watch_choose">Érmék kiválasztása</string>
+    <string name="watch_choose_hint">Legfeljebb %1$d érme</string>
+    <string name="watch_complication_label">Árfolyam</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s 24 óra alatt</string>
+    <string name="watch_mode_phone">Lista: mint a telefonon</string>
+    <string name="watch_mode_own">Lista: saját</string>
+    <string name="watch_phone_empty">Nincsenek kedvencek a telefonon</string>
+</resources>

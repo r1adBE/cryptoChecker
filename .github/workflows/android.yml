@@ -170,7 +170,7 @@ jobs:
       # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
       # The exchange module (marketdata) on its own as well, with its own lint settings.
       - name: Lint
-        run: ./gradlew :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease :data:lintRelease --stacktrace
+        run: ./gradlew :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease :data:lintRelease :wear:lintRelease --stacktrace
 
       # Lint warnings counted by id as ONE notice (top 20), to reduce them step by step; never fails. XML report if
       # present, else the text report (same paths as «Lint errors»)
@@ -185,6 +185,7 @@ jobs:
             --report marketdata/build/reports/lint-results-release.xml,marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --report domain/build/reports/lint-results-release.xml,domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --report data/build/reports/lint-results-release.xml,data/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
+            --report wear/build/reports/lint-results-release.xml,wear/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --details
 
       # Lint errors as annotations (the log shows only the first one; the run page shows these
@@ -195,6 +196,7 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
+          bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" wear/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" data/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
 
@@ -207,7 +209,7 @@ jobs:
       # -PgitCommit: source commit in BuildConfig.GIT_COMMIT ("Share diagnostics"); without it Gradle
       # falls back to GITHUB_SHA, local builds say "local".
       - name: Build release APK and AAB (unsigned, R8)
-        run: ./gradlew :app:assembleRelease :app:bundleRelease -PgitCommit="$GITHUB_SHA" --stacktrace
+        run: ./gradlew :app:assembleRelease :app:bundleRelease :wear:assembleRelease -PgitCommit="$GITHUB_SHA" --stacktrace
 
       # Software bill of materials (CycloneDX 1.5): every library the release build ships, with version, package URL
       # and the SHA-256 Gradle verifies (lock files + verification-metadata.xml); iOS has no third-party packages.

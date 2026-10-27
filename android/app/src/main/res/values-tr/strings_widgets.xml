@@ -102,4 +102,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Yenile – %1$d sn sonra yeniden mümkün</string>
+    <string name="settings_watch">Saat</string>
+    <string name="settings_watch_hint">Wear OS saat uygulaması için coinler (en fazla %1$d, USDT karşısında fiyat). Saate yalnızca bu liste gider, Google Play Hizmetleri üzerinden; fiyatları saat kendisi alır.</string>
+    <string name="settings_watch_mode_phone">Telefondaki gibi (favoriler ★)</string>
+    <string name="settings_watch_mode_own">Kendi listen</string>
+    <string name="settings_watch_own_title">Kendi listen: %1$d / %2$d</string>
+    <string name="settings_watch_none">Henüz favori yok</string>
 </resources>

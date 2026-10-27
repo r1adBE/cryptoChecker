@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">هیچ کوینی انتخاب نشده</string>
+    <string name="watch_loading">در حال بارگیری…</string>
+    <string name="watch_error">صرافی‌ها در دسترس نیستند</string>
+    <string name="watch_updated">ساعت %1$s</string>
+    <string name="watch_refresh">به‌روزرسانی</string>
+    <string name="watch_choose">انتخاب کوین‌ها</string>
+    <string name="watch_choose_hint">حداکثر %1$d کوین</string>
+    <string name="watch_complication_label">قیمت</string>
+    <string name="a11y_watch_row">%1$s %2$s، %3$s در ۲۴ ساعت</string>
+    <string name="watch_mode_phone">فهرست: مثل تلفن</string>
+    <string name="watch_mode_own">فهرست: خودم</string>
+    <string name="watch_phone_empty">در تلفن علاقه‌مندی‌ای نیست</string>
+</resources>

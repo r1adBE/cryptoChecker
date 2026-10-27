@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">לא נבחרו מטבעות</string>
+    <string name="watch_loading">טוען…</string>
+    <string name="watch_error">הבורסות אינן זמינות</string>
+    <string name="watch_updated">נכון ל-%1$s</string>
+    <string name="watch_refresh">רענון</string>
+    <string name="watch_choose">בחירת מטבעות</string>
+    <string name="watch_choose_hint">עד %1$d מטבעות</string>
+    <string name="watch_complication_label">מחיר</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s ב-24 שעות</string>
+    <string name="watch_mode_phone">רשימה: כמו בטלפון</string>
+    <string name="watch_mode_own">רשימה: אישית</string>
+    <string name="watch_phone_empty">אין מועדפים בטלפון</string>
+</resources>

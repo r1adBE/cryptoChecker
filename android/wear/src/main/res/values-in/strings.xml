@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Belum ada koin dipilih</string>
+    <string name="watch_loading">Memuat…</string>
+    <string name="watch_error">Bursa tidak dapat dijangkau</string>
+    <string name="watch_updated">Per %1$s</string>
+    <string name="watch_refresh">Muat ulang</string>
+    <string name="watch_choose">Pilih koin</string>
+    <string name="watch_choose_hint">Hingga %1$d koin</string>
+    <string name="watch_complication_label">Harga</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s dalam 24 jam</string>
+    <string name="watch_mode_phone">Daftar: seperti ponsel</string>
+    <string name="watch_mode_own">Daftar: sendiri</string>
+    <string name="watch_phone_empty">Tidak ada favorit di ponsel</string>
+</resources>

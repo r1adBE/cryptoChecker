@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Geen coins gekozen</string>
+    <string name="watch_loading">Laden…</string>
+    <string name="watch_error">Beurzen niet bereikbaar</string>
+    <string name="watch_updated">Stand %1$s</string>
+    <string name="watch_refresh">Vernieuwen</string>
+    <string name="watch_choose">Coins kiezen</string>
+    <string name="watch_choose_hint">Tot %1$d coins</string>
+    <string name="watch_complication_label">Koers</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 uur</string>
+    <string name="watch_mode_phone">Lijst: zoals telefoon</string>
+    <string name="watch_mode_own">Lijst: eigen</string>
+    <string name="watch_phone_empty">Geen favorieten op de telefoon</string>
+</resources>

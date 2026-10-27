@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Coin seçilmedi</string>
+    <string name="watch_loading">Yükleniyor…</string>
+    <string name="watch_error">Borsalara ulaşılamıyor</string>
+    <string name="watch_updated">Saat %1$s</string>
+    <string name="watch_refresh">Yenile</string>
+    <string name="watch_choose">Coin seç</string>
+    <string name="watch_choose_hint">En fazla %1$d coin</string>
+    <string name="watch_complication_label">Fiyat</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 saatte %3$s</string>
+    <string name="watch_mode_phone">Liste: telefondaki gibi</string>
+    <string name="watch_mode_own">Liste: kendi</string>
+    <string name="watch_phone_empty">Telefonda favori yok</string>
+</resources>

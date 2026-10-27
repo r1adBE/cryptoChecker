@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Nie wybrano monet</string>
+    <string name="watch_loading">Wczytywanie…</string>
+    <string name="watch_error">Giełdy niedostępne</string>
+    <string name="watch_updated">Stan z %1$s</string>
+    <string name="watch_refresh">Odśwież</string>
+    <string name="watch_choose">Wybierz monety</string>
+    <string name="watch_choose_hint">Do %1$d monet</string>
+    <string name="watch_complication_label">Kurs</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s w 24 godziny</string>
+    <string name="watch_mode_phone">Lista: jak w telefonie</string>
+    <string name="watch_mode_own">Lista: własna</string>
+    <string name="watch_phone_empty">Brak ulubionych w telefonie</string>
+</resources>

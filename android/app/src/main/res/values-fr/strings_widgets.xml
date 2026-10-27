@@ -104,4 +104,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Actualiser – de nouveau possible dans %1$d s</string>
+    <string name="settings_watch">Montre</string>
+    <string name="settings_watch_hint">Cryptos pour l’app montre sur Wear OS (jusqu’à %1$d, cours face à l’USDT). Seule cette liste est envoyée à la montre, via les services Google Play ; la montre récupère les cours elle-même.</string>
+    <string name="settings_watch_mode_phone">Comme le téléphone (favoris ★)</string>
+    <string name="settings_watch_mode_own">Liste perso</string>
+    <string name="settings_watch_own_title">Liste perso : %1$d sur %2$d</string>
+    <string name="settings_watch_none">Pas encore de favoris</string>
 </resources>

@@ -192,6 +192,7 @@ internal fun WidgetsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
         GroupCard {
             com.cryptochecker.app.ui.components.AddWidgetsContent(portfolioEnabled = settings.portfolioEnabled)
         }
+        WatchSettingsCard()
     }
 }
 

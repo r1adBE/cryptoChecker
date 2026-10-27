@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Uhr-App (Build 154); watch_updated: %1$s Uhrzeit; watch_choose_hint: %1$d Höchstzahl; a11y_watch_row: Coin, Kurs, Änderung -->
+    <string name="watch_app_name" translatable="false">Crypto Checker</string>
+    <string name="watch_empty">No coins chosen</string>
+    <string name="watch_loading">Loading…</string>
+    <string name="watch_error">Exchanges not reachable</string>
+    <string name="watch_updated">As of %1$s</string>
+    <string name="watch_refresh">Refresh</string>
+    <string name="watch_choose">Choose coins</string>
+    <string name="watch_choose_hint">Up to %1$d coins</string>
+    <string name="watch_complication_label">Price</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 hours</string>
+    <string name="watch_mode_phone">List: like phone</string>
+    <string name="watch_mode_own">List: own</string>
+    <string name="watch_phone_empty">No favorites on the phone</string>
+</resources>

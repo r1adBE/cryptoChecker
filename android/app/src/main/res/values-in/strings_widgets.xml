@@ -100,4 +100,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Muat ulang – bisa lagi dalam %1$d dtk</string>
+    <string name="settings_watch">Jam tangan</string>
+    <string name="settings_watch_hint">Koin untuk aplikasi jam tangan di Wear OS (maks. %1$d, harga terhadap USDT). Hanya daftar ini yang dikirim ke jam, lewat layanan Google Play; harga diambil oleh jam sendiri.</string>
+    <string name="settings_watch_mode_phone">Seperti ponsel (favorit ★)</string>
+    <string name="settings_watch_mode_own">Daftar sendiri</string>
+    <string name="settings_watch_own_title">Daftar sendiri: %1$d dari %2$d</string>
+    <string name="settings_watch_none">Belum ada favorit</string>
 </resources>

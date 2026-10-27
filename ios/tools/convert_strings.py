@@ -270,18 +270,24 @@ def main():
     args = ap.parse_args()
 
     res = args.android_res
-    base = parse_strings_dir(os.path.join(res, "values"))
+    # Texte der Uhr-App (Build 155): Modul :wear neben :app, gleiche Schlüssel-Regeln (watchOS liest denselben Katalog)
+    wear = os.path.normpath(os.path.join(res, "..", "..", "..", "..", "wear", "src", "main", "res"))
+    dirs = [res] + ([wear] if os.path.isdir(wear) else [])
+    base = {}
+    for r in dirs:
+        base.update(parse_strings_dir(os.path.join(r, "values")))
     langs = {"en": {k: v for k, (v, _) in base.items()}}
     non_translatable = {k for k, (_, t) in base.items() if not t}
 
-    for d in sorted(os.listdir(res)):
-        m = re.fullmatch(r"values-(.+)", d)
-        # Sprachordner = values-xx mit mindestens einer strings*.xml (values-v31 u. ä. haben keine)
-        if not m or not any(re.fullmatch(r"strings(_[a-z0-9_]+)?\.xml", fn) for fn in os.listdir(os.path.join(res, d))):
-            continue
-        code = apple_code(m.group(1))
-        parsed = parse_strings_dir(os.path.join(res, d))
-        langs[code] = {k: v for k, (v, t) in parsed.items() if t and k not in non_translatable}
+    for r in dirs:
+        for d in sorted(os.listdir(r)):
+            m = re.fullmatch(r"values-(.+)", d)
+            # Sprachordner = values-xx mit mindestens einer strings*.xml (values-v31 u. ä. haben keine)
+            if not m or not any(re.fullmatch(r"strings(_[a-z0-9_]+)?\.xml", fn) for fn in os.listdir(os.path.join(r, d))):
+                continue
+            code = apple_code(m.group(1))
+            parsed = parse_strings_dir(os.path.join(r, d))
+            langs.setdefault(code, {}).update({k: v for k, (v, t) in parsed.items() if t and k not in non_translatable})
 
     if args.extra and os.path.isfile(args.extra):
         with open(args.extra, encoding="utf-8") as f:

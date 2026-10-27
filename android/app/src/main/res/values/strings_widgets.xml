@@ -103,4 +103,11 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Refresh – possible again in %1$d s</string>
+    <!-- Uhr (Build 154, Widgets-Seite): settings_watch_hint %1$d = Höchstzahl; settings_watch_own_title %1$d gewählt, %2$d Höchstzahl -->
+    <string name="settings_watch">Watch</string>
+    <string name="settings_watch_hint">Coins for the watch app on Wear OS (up to %1$d, priced against USDT). Only this list goes to the watch, via Google Play services; the watch fetches prices itself.</string>
+    <string name="settings_watch_mode_phone">Like phone (favorites ★)</string>
+    <string name="settings_watch_mode_own">Own list</string>
+    <string name="settings_watch_own_title">Own list: %1$d of %2$d</string>
+    <string name="settings_watch_none">No favorites yet</string>
 </resources>

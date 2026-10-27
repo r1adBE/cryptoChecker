@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">कोई कॉइन नहीं चुना</string>
+    <string name="watch_loading">लोड हो रहा है…</string>
+    <string name="watch_error">एक्सचेंज उपलब्ध नहीं</string>
+    <string name="watch_updated">%1$s तक</string>
+    <string name="watch_refresh">रीफ़्रेश करें</string>
+    <string name="watch_choose">कॉइन चुनें</string>
+    <string name="watch_choose_hint">अधिकतम %1$d कॉइन</string>
+    <string name="watch_complication_label">कीमत</string>
+    <string name="a11y_watch_row">%1$s %2$s, 24 घंटों में %3$s</string>
+    <string name="watch_mode_phone">सूची: फ़ोन जैसी</string>
+    <string name="watch_mode_own">सूची: अपनी</string>
+    <string name="watch_phone_empty">फ़ोन पर कोई पसंदीदा नहीं</string>
+</resources>

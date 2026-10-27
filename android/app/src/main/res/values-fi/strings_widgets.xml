@@ -102,4 +102,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Päivitä – taas mahdollista %1$d s kuluttua</string>
+    <string name="settings_watch">Kello</string>
+    <string name="settings_watch_hint">Kolikot Wear OS -kellosovellukseen (enintään %1$d, hinta USDT:tä vastaan). Kelloon siirtyy vain tämä luettelo Google Play -palveluiden kautta; hinnat kello hakee itse.</string>
+    <string name="settings_watch_mode_phone">Kuten puhelimessa (suosikit ★)</string>
+    <string name="settings_watch_mode_own">Oma luettelo</string>
+    <string name="settings_watch_own_title">Oma luettelo: %1$d/%2$d</string>
+    <string name="settings_watch_none">Ei vielä suosikkeja</string>
 </resources>

@@ -102,4 +102,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Aktualisieren – wieder möglich in %1$d s</string>
+    <string name="settings_watch">Uhr</string>
+    <string name="settings_watch_hint">Coins für die Uhr-App auf Wear OS (bis %1$d, Kurs gegen USDT). Nur diese Liste geht an die Uhr, über die Google Play-Dienste; die Kurse holt die Uhr selbst.</string>
+    <string name="settings_watch_mode_phone">Wie Handy (Favoriten ★)</string>
+    <string name="settings_watch_mode_own">Eigene Liste</string>
+    <string name="settings_watch_own_title">Eigene Liste: %1$d von %2$d</string>
+    <string name="settings_watch_none">Noch keine Favoriten</string>
 </resources>

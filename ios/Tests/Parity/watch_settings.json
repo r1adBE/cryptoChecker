@@ -1,0 +1,241 @@
+{
+ "description": "Uhr-Apps (Build 154/155): WatchCoins.toggle (max 8), cleanOwn (nur Top-30, ohne Doppelte, max 8), fromFavorites (gross, gültige Kürzel [A-Z0-9]{2,12}, ohne Doppelte, max 8); WatchSettings.fromJson (unbekannter Modus → own; Listen bereinigt; kaputt → null), shown, merge (Wahl und eigene Liste von der neueren Seite, Handy-Liste immer vom Handy). Android marketdata/watch, iOS WatchCore.",
+ "top": [
+  "BTC",
+  "ETH",
+  "BNB",
+  "SOL",
+  "XRP",
+  "DOGE",
+  "ADA",
+  "TRX",
+  "TON",
+  "AVAX",
+  "SHIB",
+  "DOT",
+  "LINK",
+  "BCH",
+  "NEAR",
+  "LTC",
+  "UNI",
+  "APT",
+  "ICP",
+  "ETC",
+  "XLM",
+  "FIL",
+  "HBAR",
+  "ATOM",
+  "ARB",
+  "OP",
+  "SUI",
+  "PEPE",
+  "INJ",
+  "RENDER"
+ ],
+ "toggle": [
+  {
+   "list": [
+    "BTC"
+   ],
+   "coin": "ETH",
+   "expected": [
+    "BTC",
+    "ETH"
+   ]
+  },
+  {
+   "list": [
+    "BTC",
+    "ETH"
+   ],
+   "coin": "BTC",
+   "expected": [
+    "ETH"
+   ]
+  },
+  {
+   "list": [
+    "BTC",
+    "ETH",
+    "BNB",
+    "SOL",
+    "XRP",
+    "DOGE",
+    "ADA",
+    "TRX"
+   ],
+   "coin": "PEPE",
+   "expected": [
+    "BTC",
+    "ETH",
+    "BNB",
+    "SOL",
+    "XRP",
+    "DOGE",
+    "ADA",
+    "TRX"
+   ]
+  }
+ ],
+ "cleanOwn": [
+  {
+   "stored": [
+    "BTC",
+    "XYZ",
+    "BTC",
+    "ETH"
+   ],
+   "expected": [
+    "BTC",
+    "ETH"
+   ]
+  },
+  {
+   "stored": [
+    "BTC",
+    "ETH",
+    "BNB",
+    "SOL",
+    "XRP",
+    "DOGE",
+    "ADA",
+    "TRX",
+    "TON",
+    "AVAX"
+   ],
+   "expected": [
+    "BTC",
+    "ETH",
+    "BNB",
+    "SOL",
+    "XRP",
+    "DOGE",
+    "ADA",
+    "TRX"
+   ]
+  }
+ ],
+ "fromFavorites": [
+  {
+   "bases": [
+    "btc",
+    " eth ",
+    "BTC",
+    "bad-symbol",
+    "X",
+    "WIF",
+    "1INCH"
+   ],
+   "expected": [
+    "BTC",
+    "ETH",
+    "WIF",
+    "1INCH"
+   ]
+  }
+ ],
+ "fromJson": [
+  {
+   "text": "{\"v\":1,\"mode\":\"phone\",\"own\":[\"SOL\",\"FOO\"],\"phone\":[\"btc\",\"WIF\"],\"t\":5}",
+   "expected": {
+    "mode": "phone",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "BTC",
+     "WIF"
+    ],
+    "time": 5,
+    "shown": [
+     "BTC",
+     "WIF"
+    ]
+   }
+  },
+  {
+   "text": "{\"mode\":\"weird\"}",
+   "expected": {
+    "mode": "own",
+    "own": [],
+    "phone": [],
+    "time": 0,
+    "shown": []
+   }
+  },
+  {
+   "text": "not json",
+   "expected": null
+  }
+ ],
+ "merge": [
+  {
+   "name": "Uhr neuer: Wahl der Uhr, Liste vom Handy",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "ETH"
+    ],
+    "time": 10
+   },
+   "remote": {
+    "mode": "phone",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "time": 20
+   },
+   "remoteIsPhone": false,
+   "expected": {
+    "mode": "phone",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "ETH"
+    ],
+    "time": 20
+   }
+  },
+  {
+   "name": "Handy älter: Wahl bleibt, Handy-Liste neu",
+   "local": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "ETH"
+    ],
+    "time": 30
+   },
+   "remote": {
+    "mode": "phone",
+    "own": [
+     "SOL"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "time": 20
+   },
+   "remoteIsPhone": true,
+   "expected": {
+    "mode": "own",
+    "own": [
+     "BTC"
+    ],
+    "phone": [
+     "XRP"
+    ],
+    "time": 30
+   }
+  }
+ ]
+}

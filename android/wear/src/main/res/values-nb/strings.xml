@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_empty">Ingen mynter valgt</string>
+    <string name="watch_loading">Laster…</string>
+    <string name="watch_error">Børser kan ikke nås</string>
+    <string name="watch_updated">Kl. %1$s</string>
+    <string name="watch_refresh">Oppdater</string>
+    <string name="watch_choose">Velg mynter</string>
+    <string name="watch_choose_hint">Opptil %1$d mynter</string>
+    <string name="watch_complication_label">Kurs</string>
+    <string name="a11y_watch_row">%1$s %2$s, %3$s på 24 timer</string>
+    <string name="watch_mode_phone">Liste: som telefonen</string>
+    <string name="watch_mode_own">Liste: egen</string>
+    <string name="watch_phone_empty">Ingen favoritter på telefonen</string>
+</resources>

@@ -102,4 +102,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Frissítés – újra lehetséges %1$d mp múlva</string>
+    <string name="settings_watch">Óra</string>
+    <string name="settings_watch_hint">Coinok a Wear OS-es óraalkalmazáshoz (legfeljebb %1$d, USDT-hez mért ár). Csak ez a lista kerül az órára, a Google Play-szolgáltatásokon keresztül; az árakat az óra maga kéri le.</string>
+    <string name="settings_watch_mode_phone">Mint a telefonon (kedvencek ★)</string>
+    <string name="settings_watch_mode_own">Saját lista</string>
+    <string name="settings_watch_own_title">Saját lista: %1$d / %2$d</string>
+    <string name="settings_watch_none">Még nincsenek kedvencek</string>
 </resources>

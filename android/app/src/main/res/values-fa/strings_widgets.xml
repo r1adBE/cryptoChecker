@@ -102,4 +102,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">تازه‌سازی – دوباره ممکن در %1$d ثانیه</string>
+    <string name="settings_watch">ساعت</string>
+    <string name="settings_watch_hint">کوین‌ها برای برنامه ساعت روی Wear OS (حداکثر %1$d، قیمت در برابر USDT). فقط همین فهرست از طریق خدمات Google Play به ساعت می‌رود؛ ساعت قیمت‌ها را خودش می‌گیرد.</string>
+    <string name="settings_watch_mode_phone">مثل تلفن (علاقه‌مندی‌ها ★)</string>
+    <string name="settings_watch_mode_own">فهرست خودم</string>
+    <string name="settings_watch_own_title">فهرست خودم: %1$d از %2$d</string>
+    <string name="settings_watch_none">هنوز علاقه‌مندی‌ای نیست</string>
 </resources>

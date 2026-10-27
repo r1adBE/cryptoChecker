@@ -100,4 +100,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">刷新 – %1$d 秒后可再次刷新</string>
+    <string name="settings_watch">手表</string>
+    <string name="settings_watch_hint">Wear OS 手表应用中显示的币种（最多 %1$d 个，以 USDT 计价）。只有此列表会通过 Google Play 服务发送到手表；价格由手表自行获取。</string>
+    <string name="settings_watch_mode_phone">与手机相同（收藏 ★）</string>
+    <string name="settings_watch_mode_own">自定义列表</string>
+    <string name="settings_watch_own_title">自定义列表：%1$d / %2$d</string>
+    <string name="settings_watch_none">还没有收藏</string>
 </resources>

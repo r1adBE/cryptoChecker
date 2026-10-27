@@ -106,4 +106,10 @@
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Obnovit – znovu možné za %1$d s</string>
+    <string name="settings_watch">Hodinky</string>
+    <string name="settings_watch_hint">Mince pro aplikaci na hodinkách s Wear OS (až %1$d, cena vůči USDT). Do hodinek jde jen tento seznam, přes služby Google Play; ceny si hodinky stahují samy.</string>
+    <string name="settings_watch_mode_phone">Jako v telefonu (oblíbené ★)</string>
+    <string name="settings_watch_mode_own">Vlastní seznam</string>
+    <string name="settings_watch_own_title">Vlastní seznam: %1$d z %2$d</string>
+    <string name="settings_watch_none">Zatím žádné oblíbené</string>
 </resources>
