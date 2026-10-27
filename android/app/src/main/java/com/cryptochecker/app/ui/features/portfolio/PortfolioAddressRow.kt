@@ -93,9 +93,10 @@ internal fun AddressRow(
             )
             // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
             val partlyStale = a.staleTokens.isNotEmpty() && a.tokenHoldings().any { it.key in a.staleTokens }
+            val lastError = a.lastError // lokal: WatchedAddress liegt in :domain (kein Smart Cast über Modulgrenzen)
             val status = when {
                 // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
-                a.lastError != null -> stringResource(addressErrorText(a.lastError)) +
+                lastError != null -> stringResource(addressErrorText(lastError)) +
                     (if (a.lastUpdated > 0) " · " + ago(a.lastUpdated, now) else "")
                 // Zeit am Zeilenanfang: gross beginnend («Vor 2 Std. · Etherscan»)
                 a.lastUpdated > 0 -> ago(a.lastUpdated, now).let { age ->

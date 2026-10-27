@@ -13,7 +13,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app`
-* Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
+* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
@@ -840,8 +840,9 @@ System-Broadcasts.
 ```
 marketdata/   Börsen, Handelspaare, Ticker-Parser
 domain/       Fachlogik ohne Oberfläche und Datenbank-Zugriff (seit Build 136): Regeln und
-              Berechnungen (Alarme, Portfolio, Frische, Fehlerarten, Markt-Kennzahlen) und die
-              Datenbank-Modelle; gleiche Pakete com.cryptochecker.app.* wie in app/
+              Berechnungen (Alarme, Portfolio mit FIFO, Steuer-Engines und CSV-Import, Frische,
+              Fehlerarten, Markt-Kennzahlen) und die Datenbank-Modelle; gleiche Pakete
+              com.cryptochecker.app.* wie in app/
 app/
   data/       Room (watches, alarms, markets), Repositories, OkHttp
   domain/     Abläufe, die noch Speicher oder Netz brauchen: PriceRefresher steuert die Aktualisierung, dazu

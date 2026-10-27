@@ -307,7 +307,7 @@ internal fun PortfolioAddressSheet(
                                 val err = saveError ?: problemText
                                 when {
                                     err != null -> Text(stringResource(err), color = MaterialTheme.colorScheme.error)
-                                    check.chain != null -> Text(check.chain.coin)
+                                    check.chain != null -> Text(check.chain?.coin.orEmpty())
                                     else -> {}
                                 }
                             },
