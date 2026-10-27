@@ -12,7 +12,12 @@ time, object IDs are derived from hashes, so the output is deterministic (same t
   UITests/** -> UI-test bundle "CryptoCheckerUITests" (XCUITest, TEST_TARGET_NAME CryptoChecker), also in the
                 scheme's test action; App/Components/UiTestTags.swift is compiled into it as well (same
                 identifiers in app and tests). Run one bundle with `-only-testing:CryptoCheckerTests` etc.
-  App/PrivacyInfo.xcprivacy -> resource in both targets (privacy manifest per bundle)
+  App/PrivacyInfo.xcprivacy -> resource in the app, the widgets and both watch targets (privacy manifest per bundle)
+  WatchCore/**     -> app, watch app and watch widgets (list choice shared by iPhone and Apple Watch, build 155)
+  Watch/**         -> watchOS app "CryptoCheckerWatch" (embedded in the app under Watch/); Watch/Device/** also in
+                      the watch widgets
+  WatchWidgets/**  -> watchOS widget extension "CryptoCheckerWatchWidgets" (complication, embedded in the watch app)
+  Shared/Resources/Localizable.xcstrings -> also both watch targets (texts of the watch app)
 
 Shared test cases: ../android/testdata/parity/*.json (here also ../cryptoChecker/...) are copied
 to Tests/Parity/ on every run, so Android and iOS test the same inputs and expected results.
@@ -36,7 +41,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "154"
+CURRENT_PROJECT_VERSION = "155"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -46,10 +51,18 @@ TEST_TARGET = "CryptoCheckerTests"
 TEST_ID = "com.cryptochecker.app.tests"
 UITEST_TARGET = "CryptoCheckerUITests"
 UITEST_ID = "com.cryptochecker.app.uitests"
+WATCH_TARGET = "CryptoCheckerWatch"
+WATCH_ID = "com.cryptochecker.app.watchkitapp"
+WATCH_WIDGET_TARGET = "CryptoCheckerWatchWidgets"
+WATCH_WIDGET_ID = "com.cryptochecker.app.watchkitapp.widgets"
+WATCH_DEPLOYMENT_TARGET = "10.0"
+# Texte der Uhr (gleicher Katalog wie die App) und Datenschutz-Manifest je Bundle
+WATCH_SHARED_RESOURCES = {os.path.join("Shared", "Resources", "Localizable.xcstrings"),
+                          os.path.join("App", "PrivacyInfo.xcprivacy")}
 ALTERNATE_ICONS = ["AppIconOrangeLight", "AppIconRed", "AppIconRedLight", "AppIconBlue",
                    "AppIconBlueLight", "AppIconGreen", "AppIconGreenLight",
                    "AppIconMarrsGreen", "AppIconMarrsGreenLight"]
-TOP_FOLDERS = ["Shared", "App", "Widgets", "Tests", "UITests"]
+TOP_FOLDERS = ["Shared", "App", "Widgets", "WatchCore", "Watch", "WatchWidgets", "Tests", "UITests"]
 APP_ONLY_RESOURCES = {"InfoPlist.xcstrings"}
 # Ressourcen aus App/, die auch die Widget-Erweiterung braucht (eigenes Bundle,
 # eigenes Datenschutz-Manifest: beide nutzen UserDefaults).
@@ -424,6 +437,30 @@ def widget_settings():
     return dict(sorted(s.items()))
 
 
+def watch_settings(widget):
+    """watchOS-Ziele (Build 155): eigene Plattform, Gerätefamilie 4 (Uhr), watchOS 10."""
+    s = common_target_settings()
+    s.update({
+        "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
+        "CODE_SIGN_ENTITLEMENTS": ("WatchWidgets/CryptoCheckerWatchWidgets.entitlements" if widget
+                                   else "Watch/CryptoCheckerWatch.entitlements"),
+        "ENABLE_PREVIEWS": "YES",
+        "INFOPLIST_FILE": "WatchWidgets/Info.plist" if widget else "Watch/Info.plist",
+        "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"]
+        + (["@executable_path/../../Frameworks"] if widget else []),
+        "PRODUCT_BUNDLE_IDENTIFIER": WATCH_WIDGET_ID if widget else WATCH_ID,
+        "SDKROOT": "watchos",
+        "SKIP_INSTALL": "YES",
+        "SUPPORTED_PLATFORMS": "watchos watchsimulator",
+        "TARGETED_DEVICE_FAMILY": "4",
+        "WATCHOS_DEPLOYMENT_TARGET": WATCH_DEPLOYMENT_TARGET,
+    })
+    del s["IPHONEOS_DEPLOYMENT_TARGET"]
+    if not widget:
+        s["ASSETCATALOG_COMPILER_APPICON_NAME"] = "AppIcon"
+    return dict(sorted(s.items()))
+
+
 def test_settings():
     """Unit-Test-Bundle, gehostet von der App: `@testable import CryptoChecker` (Debug hat ENABLE_TESTABILITY)."""
     s = {
@@ -498,6 +535,13 @@ def build():
     widget_product = uid("product", WIDGET_TARGET)
     test_product = uid("product", TEST_TARGET)
     uitest_product = uid("product", UITEST_TARGET)
+    watch_product = uid("product", WATCH_TARGET)
+    watch_widget_product = uid("product", WATCH_WIDGET_TARGET)
+    add(Obj(watch_product, f"{WATCH_TARGET}.app", isa="PBXFileReference", explicitFileType="wrapper.application",
+            includeInIndex="0", path=f"{WATCH_TARGET}.app", sourceTree="BUILT_PRODUCTS_DIR"))
+    add(Obj(watch_widget_product, f"{WATCH_WIDGET_TARGET}.appex", isa="PBXFileReference",
+            explicitFileType="wrapper.app-extension", includeInIndex="0", path=f"{WATCH_WIDGET_TARGET}.appex",
+            sourceTree="BUILT_PRODUCTS_DIR"))
     add(Obj(app_product, f"{APP_TARGET}.app", isa="PBXFileReference", explicitFileType="wrapper.application",
             includeInIndex="0", path=f"{APP_TARGET}.app", sourceTree="BUILT_PRODUCTS_DIR"))
     add(Obj(widget_product, f"{WIDGET_TARGET}.appex", isa="PBXFileReference",
@@ -509,22 +553,26 @@ def build():
             includeInIndex="0", path=f"{UITEST_TARGET}.xctest", sourceTree="BUILT_PRODUCTS_DIR"))
     products_group = uid("group", "Products")
     add(Obj(products_group, "Products", isa="PBXGroup",
-            children=[app_product, widget_product, test_product, uitest_product],
+            children=[app_product, widget_product, watch_product, watch_widget_product, test_product, uitest_product],
             name="Products", sourceTree="<group>"))
     main_group = uid("group", "<main>")
     add(Obj(main_group, "", isa="PBXGroup", children=[t.id for t in trees] + [products_group],
             sourceTree="<group>"))
 
     # assign files to targets
-    phases = {APP_TARGET: {"src": [], "res": []}, WIDGET_TARGET: {"src": [], "res": []},
-              TEST_TARGET: {"src": [], "res": []}, UITEST_TARGET: {"src": [], "res": []}}
-    names_per_target = {APP_TARGET: {}, WIDGET_TARGET: {}, TEST_TARGET: {}, UITEST_TARGET: {}}
+    all_targets = [APP_TARGET, WIDGET_TARGET, WATCH_TARGET, WATCH_WIDGET_TARGET, TEST_TARGET, UITEST_TARGET]
+    phases = {t: {"src": [], "res": []} for t in all_targets}
+    names_per_target = {t: {} for t in all_targets}
     for t in trees:
         for f in walk_files(t):
             ext = os.path.splitext(f.name)[1]
             top = f.rel.split(os.sep)[0]
             targets = {"Shared": [APP_TARGET, WIDGET_TARGET], "App": [APP_TARGET],
-                       "Widgets": [WIDGET_TARGET], "Tests": [TEST_TARGET], "UITests": [UITEST_TARGET]}[top]
+                       "Widgets": [WIDGET_TARGET], "Tests": [TEST_TARGET], "UITests": [UITEST_TARGET],
+                       "WatchCore": [APP_TARGET, WATCH_TARGET, WATCH_WIDGET_TARGET], "Watch": [WATCH_TARGET],
+                       "WatchWidgets": [WATCH_WIDGET_TARGET]}[top]
+            if f.rel.startswith(os.path.join("Watch", "Device") + os.sep):
+                targets = [WATCH_TARGET, WATCH_WIDGET_TARGET]
             if f.name in APP_ONLY_RESOURCES:
                 targets = [APP_TARGET]
             if f.rel in BOTH_TARGET_RESOURCES:
@@ -533,6 +581,8 @@ def build():
                 targets = [APP_TARGET, WIDGET_TARGET]
             if f.rel in APP_AND_UITEST_SOURCES:
                 targets = [APP_TARGET, UITEST_TARGET]
+            if f.rel in WATCH_SHARED_RESOURCES:
+                targets = targets + [WATCH_TARGET, WATCH_WIDGET_TARGET]
             if ext == ".swift":
                 kind = "src"
             elif ext in RESOURCE_EXTS:
@@ -555,11 +605,29 @@ def build():
     add(Obj(embed_bf, f"{WIDGET_TARGET}.appex in Embed Foundation Extensions", isa="PBXBuildFile",
             fileRef=widget_product, settings={"ATTRIBUTES": ["RemoveHeadersOnCopy"]}))
 
+    # Uhr: Komplikation in die Uhr-App, Uhr-App in die App (Watch/)
+    watch_widget_embed_bf = uid("buildfile", "embed", WATCH_WIDGET_TARGET)
+    add(Obj(watch_widget_embed_bf, f"{WATCH_WIDGET_TARGET}.appex in Embed Foundation Extensions", isa="PBXBuildFile",
+            fileRef=watch_widget_product, settings={"ATTRIBUTES": ["RemoveHeadersOnCopy"]}))
+    watch_embed_bf = uid("buildfile", "embed", WATCH_TARGET)
+    add(Obj(watch_embed_bf, f"{WATCH_TARGET}.app in Embed Watch Content", isa="PBXBuildFile",
+            fileRef=watch_product, settings={"ATTRIBUTES": ["RemoveHeadersOnCopy"]}))
+
     project_id = uid("project")
     targets = {}
+
+    def depend(tgt, on):
+        proxy = add(Obj(uid("proxy", on, tgt), "PBXContainerItemProxy", isa="PBXContainerItemProxy",
+                        containerPortal=project_id, proxyType="1",
+                        remoteGlobalIDString=uid("target", on), remoteInfo=on))
+        return add(Obj(uid("dep", on, tgt), "PBXTargetDependency", isa="PBXTargetDependency",
+                       target=uid("target", on), targetProxy=proxy))
     for tgt, settings_fn, product, ptype in (
             (APP_TARGET, app_settings, app_product, "com.apple.product-type.application"),
             (WIDGET_TARGET, widget_settings, widget_product, "com.apple.product-type.app-extension"),
+            (WATCH_TARGET, lambda: watch_settings(False), watch_product, "com.apple.product-type.application"),
+            (WATCH_WIDGET_TARGET, lambda: watch_settings(True), watch_widget_product,
+             "com.apple.product-type.app-extension"),
             (TEST_TARGET, test_settings, test_product, "com.apple.product-type.bundle.unit-test"),
             (UITEST_TARGET, uitest_settings, uitest_product, "com.apple.product-type.bundle.ui-testing")):
         src = add(Obj(uid("sources", tgt), "Sources", isa="PBXSourcesBuildPhase", buildActionMask="2147483647",
@@ -596,6 +664,18 @@ def build():
                             remoteGlobalIDString=uid("target", WIDGET_TARGET), remoteInfo=WIDGET_TARGET))
             deps.append(add(Obj(uid("dep", WIDGET_TARGET), "PBXTargetDependency", isa="PBXTargetDependency",
                                 target=uid("target", WIDGET_TARGET), targetProxy=proxy)))
+            build_phases.append(add(Obj(uid("embedphase", tgt, "watch"), "Embed Watch Content",
+                                        isa="PBXCopyFilesBuildPhase", buildActionMask="2147483647",
+                                        dstPath="$(CONTENTS_FOLDER_PATH)/Watch", dstSubfolderSpec="16",
+                                        files=[watch_embed_bf], name="Embed Watch Content",
+                                        runOnlyForDeploymentPostprocessing="0")))
+            deps.append(depend(tgt, WATCH_TARGET))
+        if tgt == WATCH_TARGET:
+            build_phases.append(add(Obj(uid("embedphase", tgt), "Embed Foundation Extensions",
+                                        isa="PBXCopyFilesBuildPhase", buildActionMask="2147483647", dstPath="",
+                                        dstSubfolderSpec="13", files=[watch_widget_embed_bf],
+                                        name="Embed Foundation Extensions", runOnlyForDeploymentPostprocessing="0")))
+            deps.append(depend(tgt, WATCH_WIDGET_TARGET))
         if tgt == TEST_TARGET:
             # Testziel läuft in der App (TEST_HOST): App zuerst bauen
             proxy = add(Obj(uid("proxy", APP_TARGET), "PBXContainerItemProxy", isa="PBXContainerItemProxy",
@@ -624,6 +704,8 @@ def build():
                         "LastUpgradeCheck": "1530",
                         "TargetAttributes": {targets[APP_TARGET]: {"CreatedOnToolsVersion": "15.3"},
                                              targets[WIDGET_TARGET]: {"CreatedOnToolsVersion": "15.3"},
+                                             targets[WATCH_TARGET]: {"CreatedOnToolsVersion": "15.3"},
+                                             targets[WATCH_WIDGET_TARGET]: {"CreatedOnToolsVersion": "15.3"},
                                              targets[TEST_TARGET]: {"CreatedOnToolsVersion": "15.3",
                                                                     "TestTargetID": targets[APP_TARGET]},
                                              targets[UITEST_TARGET]: {"CreatedOnToolsVersion": "15.3",
@@ -631,7 +713,8 @@ def build():
             buildConfigurationList=pcl, compatibilityVersion="Xcode 14.0", developmentRegion="en",
             hasScannedForEncodings="0", knownRegions=known_regions(), mainGroup=main_group,
             productRefGroup=products_group, projectDirPath="", projectRoot="",
-            targets=[targets[APP_TARGET], targets[WIDGET_TARGET], targets[TEST_TARGET], targets[UITEST_TARGET]]))
+            targets=[targets[APP_TARGET], targets[WIDGET_TARGET], targets[WATCH_TARGET], targets[WATCH_WIDGET_TARGET],
+                     targets[TEST_TARGET], targets[UITEST_TARGET]]))
     return objs, project_id, targets, phases
 
 

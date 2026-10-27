@@ -5,7 +5,7 @@ Usage: python3 -I swift_escape_hatches.py [repository root, default: current dir
 
 The app builds in the Swift 6 language mode with strict concurrency «complete»; the compiler does not check
 `@unchecked Sendable`, `nonisolated(unsafe)` and `DispatchSemaphore` (blocking a thread while waiting for
-async work). Each kind is counted in ios/App, ios/Shared and ios/Widgets (tests in ios/Tests are not counted);
+async work). Each kind is counted in ios/App, ios/Shared, ios/Widgets and the watch folders (tests in ios/Tests are not counted);
 only code counts — mentions in comments and string literals do not. A kind above its ceiling in CEILINGS is
 an error annotation and exit 1: a new escape hatch needs a deliberate raise of the ceiling in this file (in the
 same pull request, with the reason). A kind below its ceiling is a notice: lower the ceiling so it cannot grow
@@ -15,11 +15,11 @@ import os
 import re
 import sys
 
-IOS_AREAS = ("App", "Shared", "Widgets")
+IOS_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
 # Allowed number per kind (count in code, without comments). Raise only deliberately; lower when the code shrinks.
 CEILINGS = {
-    "@unchecked Sendable": 103,  # +2 BitunixFutures, EcbReference (adapters like all exchanges, build 133)
+    "@unchecked Sendable": 104,  # +2 BitunixFutures, EcbReference (build 133); +1 WatchLink (WCSessionDelegate, build 155)
     "nonisolated(unsafe)": 13,
     "DispatchSemaphore": 0,
 }

@@ -15,9 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 155)
+
+* New: Apple Watch app (watchOS 10), same as on Wear OS. It shows price and 24h change of up to 8 coins (against USDT), fetched directly from Binance (Bybit and OKX as fallback) – no account, no server. Which coins: «Like phone» (your favourites ★) or an own list of the common coins – chosen on the watch or on the iPhone under Settings › Widgets › «Watch» (also found by the settings search). Only this choice and the coin symbols are synced, directly between iPhone and watch (WatchConnectivity). Complication for the watch face (circular, rectangular, inline, corner) with the first coin. VoiceOver reads every row. 31 languages; privacy page updated.
+* CI: the Swift checks (escape hatches, line limit, privacy manifest scan) and the release app inspection also cover the watch app.
+
 ## 16.2.2 (build 154)
 
-* New: Wear OS app. It shows price and 24h change of up to 8 coins (against USDT) and fetches them itself directly from Binance (Bybit and OKX as fallback) – no account, no server. Which coins: «Like phone» (the coins of your watchlist favourites ★) or an own list of the common coins – chosen on the watch or on the phone under Settings › Widgets › «Watch». Only this choice and the coin symbols are synced between phone and watch (Wear data layer of Google Play services; no prices, amounts or portfolio data). A complication shows the first coin on the watch face (short: symbol and change; long: price and change) and opens the app on tap. Alarms keep arriving from the phone as before. 31 languages; privacy page updated. The Apple Watch app follows.
+* New: Wear OS app. It shows price and 24h change of up to 8 coins (against USDT) and fetches them itself directly from Binance (Bybit and OKX as fallback) – no account, no server. Which coins: «Like phone» (the coins of your watchlist favourites ★) or an own list of the common coins – chosen on the watch or on the phone under Settings › Widgets › «Watch». Only this choice and the coin symbols are synced between phone and watch (Wear data layer of Google Play services; no prices, amounts or portfolio data). A complication shows the first coin on the watch face (short: symbol and change; long: price and change) and opens the app on tap. Alarms keep arriving from the phone as before. 31 languages; privacy page updated. The Apple Watch app follows in build 155.
 
 ## 16.2.2 (build 153)
 

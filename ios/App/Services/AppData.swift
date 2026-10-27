@@ -71,7 +71,11 @@ final class AppData: ObservableObject {
     private var storedSnapshot = SharedStorage.Snapshot() {
         willSet { if !quietPriceSave { objectWillChange.send() } }
         // Jede Übernahme (Ändern, Lesen) zählt: Ein im Hintergrund gelesener Stand gilt nur ohne Übernahme seither
-        didSet { snapshotGeneration &+= 1 }
+        didSet {
+            snapshotGeneration &+= 1
+            // Uhr-App: Liste «Wie iPhone» folgt den Favoriten (sendet nur bei einer Änderung)
+            PhoneWatchLink.shared.favoritesChanged(storedSnapshot.watches)
+        }
     }
     /// Stand beim Start gelesen und übernommen (`setLaunchSnapshot`); vorher zeigt die Merkliste Platzhalter-Zeilen.
     private(set) var snapshotLoaded = false

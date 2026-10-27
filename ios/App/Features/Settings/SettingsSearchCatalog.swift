@@ -98,6 +98,8 @@ enum SettingsSearchCatalog {
         add("logos.widgets", L("settings_coin_logos_widgets"), logos, .page(.coinLogos, anchor: "logos.widgets"),
             [L("settings_coin_logos_widgets_hint")])
         addPage("page.widgets", .widgets, L("settings_widgets"))
+        add("widgets.watch", L("settings_watch"), L("settings_widgets"), .page(.widgets, anchor: "widgets.watch"),
+            [L("settings_watch_mode_own"), "watchOS", "Apple Watch"])
 
         // 3 Alarme (unter «Allgemein»); Markt-Meldungen und Sprachausgabe auf «Alarme»
         let alarms = L("settings_row_alarms")

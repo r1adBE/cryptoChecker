@@ -151336,6 +151336,197 @@
         }
       }
     },
+    "ios_settings_watch_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عملات لتطبيق Apple Watch (حتى %1$ld، السعر مقابل USDT). تُرسَل هذه القائمة فقط إلى الساعة مباشرةً عبر WatchConnectivity، والساعة تجلب الأسعار بنفسها."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mince pro aplikaci na Apple Watch (až %1$ld, cena vůči USDT). Do hodinek jde jen tento seznam, přímo přes WatchConnectivity; ceny si hodinky stahují samy."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coins til Apple Watch-appen (op til %1$ld, kurs mod USDT). Kun denne liste sendes til uret, direkte via WatchConnectivity; uret henter selv kurserne."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coins für die Apple-Watch-App (bis %1$ld, Kurs gegen USDT). Nur diese Liste geht an die Uhr, direkt über WatchConnectivity; die Kurse holt die Uhr selbst."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Νομίσματα για την εφαρμογή Apple Watch (έως %1$ld, τιμή έναντι USDT). Στο ρολόι πηγαίνει μόνο αυτή η λίστα, απευθείας μέσω WatchConnectivity· τις τιμές τις φέρνει το ίδιο το ρολόι."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coins for the Apple Watch app (up to %1$ld, priced against USDT). Only this list goes to the watch, directly via WatchConnectivity; the watch fetches prices itself."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monedas para la app del Apple Watch (hasta %1$ld, precio frente a USDT). Al reloj solo va esta lista, directamente mediante WatchConnectivity; el reloj obtiene los precios por sí mismo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کوین‌ها برای برنامه Apple Watch (حداکثر %1$ld، قیمت در برابر USDT). فقط همین فهرست مستقیم از طریق WatchConnectivity به ساعت می‌رود؛ ساعت قیمت‌ها را خودش می‌گیرد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kolikot Apple Watch -sovellukseen (enintään %1$ld, hinta USDT:tä vastaan). Kelloon siirtyy vain tämä luettelo suoraan WatchConnectivityn kautta; hinnat kello hakee itse."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cryptos pour l’app Apple Watch (jusqu’à %1$ld, cours face à l’USDT). Seule cette liste est envoyée à la montre, directement via WatchConnectivity ; la montre récupère les cours elle-même."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מטבעות לאפליקציית Apple Watch (עד %1$ld, מחיר מול USDT). רק הרשימה הזו עוברת לשעון, ישירות דרך WatchConnectivity; את המחירים השעון מביא בעצמו."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch ऐप के लिए कॉइन (अधिकतम %1$ld, USDT के मुकाबले कीमत)। घड़ी पर सिर्फ़ यही सूची जाती है, सीधे WatchConnectivity के ज़रिए; कीमतें घड़ी ख़ुद लाती है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coinok az Apple Watch-alkalmazáshoz (legfeljebb %1$ld, USDT-hez mért ár). Csak ez a lista kerül az órára, közvetlenül a WatchConnectivityn keresztül; az árakat az óra maga kéri le."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koin untuk aplikasi Apple Watch (maks. %1$ld, harga terhadap USDT). Hanya daftar ini yang dikirim ke jam, langsung lewat WatchConnectivity; harga diambil oleh jam sendiri."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coin per l’app Apple Watch (fino a %1$ld, prezzo rispetto a USDT). All’orologio va solo questa lista, direttamente tramite WatchConnectivity; i prezzi li scarica l’orologio stesso."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch アプリに表示するコイン（最大 %1$ld 件、USDT 建て価格）。ウォッチに送られるのはこのリストだけで、WatchConnectivity で直接送られます。価格はウォッチが自分で取得します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch 앱의 코인(최대 %1$ld개, USDT 기준 가격)입니다. 워치에는 이 목록만 WatchConnectivity로 직접 전송되며, 가격은 워치가 직접 가져옵니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mynter for Apple Watch-appen (opptil %1$ld, kurs mot USDT). Bare denne listen sendes til klokken, direkte via WatchConnectivity; kursene henter klokken selv."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Munten voor de Apple Watch-app (max. %1$ld, koers tegen USDT). Alleen deze lijst gaat naar het horloge, direct via WatchConnectivity; de koersen haalt het horloge zelf op."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monety dla aplikacji na Apple Watch (do %1$ld, kurs względem USDT). Do zegarka trafia tylko ta lista, bezpośrednio przez WatchConnectivity; kursy zegarek pobiera sam."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moedas para a app do Apple Watch (até %1$ld, preço face ao USDT). Só esta lista vai para o relógio, diretamente através do WatchConnectivity; o relógio obtém os preços sozinho."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moedas para o app do Apple Watch (até %1$ld, preço em relação ao USDT). Só esta lista vai para o relógio, diretamente pelo WatchConnectivity; o relógio busca os preços sozinho."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monede pentru aplicația Apple Watch (până la %1$ld, preț față de USDT). Doar această listă ajunge pe ceas, direct prin WatchConnectivity; prețurile le preia ceasul singur."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Монеты для приложения на Apple Watch (до %1$ld, цена к USDT). На часы передаётся только этот список, напрямую через WatchConnectivity; цены часы загружают сами."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monedha për aplikacionin e Apple Watch (deri në %1$ld, çmimi ndaj USDT). Në orë shkon vetëm kjo listë, drejtpërdrejt përmes WatchConnectivity; çmimet i merr vetë ora."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mynt för Apple Watch-appen (upp till %1$ld, kurs mot USDT). Bara den här listan skickas till klockan, direkt via WatchConnectivity; kurserna hämtar klockan själv."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เหรียญสำหรับแอป Apple Watch (สูงสุด %1$ld เหรียญ ราคาเทียบ USDT) ส่งไปยังนาฬิกาเฉพาะรายการนี้โดยตรงผ่าน WatchConnectivity ส่วนราคานาฬิกาดึงเอง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch uygulaması için coinler (en fazla %1$ld, USDT karşısında fiyat). Saate yalnızca bu liste gider, doğrudan WatchConnectivity üzerinden; fiyatları saat kendisi alır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Монети для застосунку на Apple Watch (до %1$ld, ціна до USDT). На годинник передається лише цей список, напряму через WatchConnectivity; ціни годинник завантажує сам."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Các coin cho ứng dụng Apple Watch (tối đa %1$ld, giá so với USDT). Chỉ danh sách này được gửi trực tiếp đến đồng hồ qua WatchConnectivity; đồng hồ tự lấy giá."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Watch 应用中显示的币种（最多 %1$ld 个，以 USDT 计价）。只有此列表会通过 WatchConnectivity 直接发送到手表；价格由手表自行获取。"
+          }
+        }
+      }
+    },
     "ios_storage_app_group_missing" : {
       "extractionState" : "manual",
       "localizations" : {

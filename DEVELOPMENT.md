@@ -2521,6 +2521,19 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 155: Apple Watch app. New folders `ios/WatchCore` (`WatchCoins`, `WatchSettings` – same JSON and rules as
+  `:marketdata/watch`, compiled into the app for `WatchSettingsParityTests` and the settings card), `ios/Watch` (target
+  `CryptoCheckerWatch`, watchOS 10, `com.cryptochecker.app.watchkitapp`, embedded under `Watch/` of the app: SwiftUI
+  list, `WatchModel` (@Observable), `WatchLink` (WCSession, application context `["json": …]`); `Watch/Device` =
+  `WatchQuoteParser`/`WatchPriceSource` (Binance, Bybit, OKX via URLSession), `WatchStore` (App Group defaults),
+  `WatchText`, also compiled into the complication) and `ios/WatchWidgets` (target `CryptoCheckerWatchWidgets`,
+  WidgetKit accessory families, timeline every 15 min, reload if quotes are older than 10 min). iPhone:
+  `PhoneWatchLink` (@MainActor, WCSession; favourites from every `AppData.snapshot` adoption, sends only when paired
+  and the watch app is installed), `WatchSettingsSection` on the Widgets page (anchor `widgets.watch`, scrolls there
+  from the search), iOS-only hint `ios_settings_watch_hint`. Generator and `project.yml` know both watch targets
+  (`Localizable.xcstrings` and `PrivacyInfo.xcprivacy` in each bundle). CI: `swift_escape_hatches.py`,
+  `line_limit.py` and the privacy scan cover the watch folders (+1 `@unchecked Sendable`: `WatchLink`);
+  `ios_release_audit.py` checks the embedded watch app and its extension (privacy manifest, version).
 * Build 154: new module `:wear` (Wear OS 3+, `minSdk 30`, same `applicationId`, `versionCode` = 90 000 + phone build
   read from `app/build.gradle.kts`, standalone). `WatchQuotes` (Binance `ticker/24hr?symbols=…`, Bybit and OKX spot
   tickers as fallback; `WatchQuotesTest`), `WatchPriceSource` (HttpURLConnection, 10 s, 4 MB cap, own user agent),

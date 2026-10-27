@@ -46,7 +46,7 @@ import shutil
 import subprocess
 import sys
 
-TARGETS = ("CryptoChecker", "CryptoCheckerWidgetsExtension")
+TARGETS = ("CryptoChecker", "CryptoCheckerWidgetsExtension", "CryptoCheckerWatch", "CryptoCheckerWatchWidgets")
 SIGNING = re.compile(r"(development team|code ?sign|signing|provisioning profile|certificate|"
                      r"No Accounts|requires a provisioning)", re.IGNORECASE)
 COMPILE_ERROR = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? error: (.*)$")
@@ -70,7 +70,7 @@ REQUIRED_REASON_APIS = {
         r"\bfileModificationDate\b", r"\bf?getattrlist(?:bulk|at)?\s*\(", r"\bf?l?stat\s*\(", r"\bfstatat\s*\("),
     "NSPrivacyAccessedAPICategoryUserDefaults": (r"\bUserDefaults\b", r"\bNSUserDefaults\b"),
 }
-SOURCE_AREAS = ("App", "Shared", "Widgets")
+SOURCE_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
 findings = []
 
@@ -510,6 +510,28 @@ def cmd_app(app, widget, gradle, src, log, out):
                                "warns ITMS-90473)")
         except (OSError, plistlib.InvalidFileException) as e:
             add("error", f"Info.plist of {widget}.appex unreadable: {e}")
+
+    # Apple-Watch-App (build 155): Watch/CryptoCheckerWatch.app with its complication extension, each with a privacy
+    # manifest and the same version/build as the app
+    watch = os.path.join(app, "Watch", "CryptoCheckerWatch.app")
+    if not os.path.isdir(watch):
+        add("error", "Watch app CryptoCheckerWatch.app not embedded in the app (Watch/)")
+    else:
+        for bundle, name in ((watch, "CryptoCheckerWatch"),
+                             (os.path.join(watch, "PlugIns", "CryptoCheckerWatchWidgets.appex"), "CryptoCheckerWatchWidgets")):
+            if not os.path.isdir(bundle):
+                add("error", f"{name} missing in the app bundle")
+                continue
+            if not os.path.isfile(os.path.join(bundle, "PrivacyInfo.xcprivacy")):
+                add("error", f"PrivacyInfo.xcprivacy missing in {name}")
+            try:
+                binfo = read_plist(os.path.join(bundle, "Info.plist"))
+                binaries.append(os.path.join(bundle, str(binfo.get("CFBundleExecutable", name))))
+                bv, bb = str(binfo.get("CFBundleShortVersionString", "")), str(binfo.get("CFBundleVersion", ""))
+                if (bv, bb) != (ver, build):
+                    add("warning", f"{name}: version/build {bv}/{bb} != app {ver}/{build}")
+            except (OSError, plistlib.InvalidFileException) as e:
+                add("error", f"Info.plist of {name} unreadable: {e}")
 
     for b in binaries:
         hits = binary_hits(b)

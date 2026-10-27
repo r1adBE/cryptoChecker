@@ -11,6 +11,7 @@ import SwiftUI
 struct AddWidgetHelpSheet: View {
     let portfolioEnabled: Bool
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.settingsHighlight) private var highlight
 
     /// Name (wie `configurationDisplayName`), Satz (wie `description`), Symbol.
     private struct Kind: Identifiable {
@@ -54,6 +55,15 @@ struct AddWidgetHelpSheet: View {
     }
 
     private var content: some View {
+        ScrollViewReader { proxy in
+            scroll.task { await settingsScrollToHighlight(highlight, proxy: proxy) }
+        }
+        .background(AppColors.background.ignoresSafeArea())
+        .navigationTitle(L("widgets_sheet_title"))
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var scroll: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 Text(L("widgets_ios_intro"))
@@ -77,13 +87,14 @@ struct AddWidgetHelpSheet: View {
                         kindRow(kind)
                     }
                 }
+
+                // Apple-Watch-App: Coin-Liste (Build 155)
+                WatchSettingsSection()
+                    .padding(.top, 8)
             }
             .padding(Spacing.lg)
             .readableContentWidth()
         }
-        .background(AppColors.background.ignoresSafeArea())
-        .navigationTitle(L("widgets_sheet_title"))
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     /// «1» im Kreis, daneben der Schritt; VoiceOver liest «1. Halte …».

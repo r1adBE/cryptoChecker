@@ -15,7 +15,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "154"
+    CURRENT_PROJECT_VERSION: "155"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
@@ -47,6 +47,8 @@ targets:
           - "PrivacyInfo.xcprivacy"
       - path: App/PrivacyInfo.xcprivacy
         buildPhase: resources
+      # Wahl der Uhr-Liste (Einstellungen › Widgets › Uhr, Tests)
+      - path: WatchCore
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app
@@ -82,6 +84,10 @@ targets:
       - target: CryptoCheckerWidgetsExtension
         embed: true
         codeSign: true
+      # Apple-Watch-App (Build 155), eingebettet unter Watch/
+      - target: CryptoCheckerWatch
+        embed: true
+        codeSign: true
 
   CryptoCheckerWidgetsExtension:
     type: app-extension
@@ -107,6 +113,60 @@ targets:
         CODE_SIGN_ENTITLEMENTS: Widgets/CryptoCheckerWidgets.entitlements
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
+        SKIP_INSTALL: YES
+
+  # Apple-Watch-App (Build 155, wie tools/gen_xcodeproj.py): Kurse direkt von den Börsen, Liste per WatchConnectivity
+  CryptoCheckerWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: WatchCore
+      - path: Watch
+        excludes:
+          - "Info.plist"
+          - "*.entitlements"
+      - path: Shared/Resources/Localizable.xcstrings
+        buildPhase: resources
+      - path: App/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app.watchkitapp
+        INFOPLIST_FILE: Watch/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Watch/CryptoCheckerWatch.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "4"
+        SKIP_INSTALL: YES
+    dependencies:
+      - target: CryptoCheckerWatchWidgets
+        embed: true
+        codeSign: true
+
+  # Komplikation der Apple-Watch-App (WidgetKit)
+  CryptoCheckerWatchWidgets:
+    type: app-extension
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: WatchCore
+      - path: Watch/Device
+      - path: WatchWidgets
+        excludes:
+          - "Info.plist"
+          - "*.entitlements"
+      - path: Shared/Resources/Localizable.xcstrings
+        buildPhase: resources
+      - path: App/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app.watchkitapp.widgets
+        INFOPLIST_FILE: WatchWidgets/Info.plist
+        CODE_SIGN_ENTITLEMENTS: WatchWidgets/CryptoCheckerWatchWidgets.entitlements
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "4"
         SKIP_INSTALL: YES
 
   # Unit-Tests, gehostet von der App (`@testable import CryptoChecker`). Tests/Parity/*.json sind

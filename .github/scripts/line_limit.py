@@ -3,7 +3,7 @@
 Usage: python3 -I line_limit.py [repository root, default: current directory]
        python3 -I line_limit.py --self-test   (checks the annotation escaping)
 
-Checks Kotlin under android/<module>/src/main and Swift under ios/App, ios/Shared and ios/Widgets; tests
+Checks Kotlin under android/<module>/src/main and Swift under ios/App, ios/Shared, ios/Widgets and the watch folders; tests
 (src/test, src/androidTest, ios/Tests) are not checked. Same rule as the unit test FileLengthTest, but without
 Gradle: the result is an error annotation per file and exit 1. A missing ios/ directory (Android-only checkout)
 is fine. File names and texts in annotations are escaped like annotate.py (a crafted file name cannot inject
@@ -13,7 +13,7 @@ import os
 import sys
 
 LIMIT = 400
-IOS_AREAS = ("App", "Shared", "Widgets")
+IOS_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
 
 def escape_data(text):

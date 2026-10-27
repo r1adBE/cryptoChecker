@@ -237,7 +237,7 @@ struct SettingsCardsPage<Content: View>: View {
 
 /// Suche in den Einstellungen: nach dem Einschieben der Seite zum gesuchten Punkt scrollen.
 @MainActor
-private func settingsScrollToHighlight(_ anchor: String?, proxy: ScrollViewProxy) async {
+func settingsScrollToHighlight(_ anchor: String?, proxy: ScrollViewProxy) async {
     guard let anchor else { return }
     try? await Task.sleep(nanoseconds: SettingsHighlightTiming.delayNanos)
     withAnimation { proxy.scrollTo(anchor, anchor: .center) }
