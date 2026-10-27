@@ -15,6 +15,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 148)
+
+* Settings search finds «Recent checks» (both platforms) and «Check on time» (Android) as their own results and jumps straight to them.
+* Tests: the iOS accessibility audit only logs contrast findings for text under the translucent navigation bar (after a timed-out audit round the list can be scrolled); main 146 failed on this once.
+
 ## 16.2.2 (build 147)
 
 * Tests only (no change in the apps): 132 small test files merged by topic into 30 files (16 Android, 14 iOS) – each test class unchanged, same names and fixtures.

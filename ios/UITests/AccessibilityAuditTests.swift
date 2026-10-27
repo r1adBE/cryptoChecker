@@ -126,8 +126,11 @@ final class AccessibilityAuditTests: XCTestCase {
             // Kontrast eines Texts, der unter die durchscheinende Tableiste reicht oder aus dem Fenster ragt (grosse
             // Schrift, Arabisch: lange Startseite): gemessen wird dann gegen die Leiste bzw. nichts. Die Farben selbst
             // haben genug Kontrast (Theme.swift, z. B. #474747 auf #FBF9F6 rund 9:1); nur protokolliert
+            // Ebenso unter der durchscheinenden Navigationsleiste: nach einer abgebrochenen Runde (Zeitgrenze, Code -56)
+            // steht die Liste teils verschoben, ein Abschnittstitel («Language») liegt dann unter der Leiste (CI 27.10.)
             let underBar = issue.auditType == .contrast && !frame.isEmpty
-                && ((tabTop > 0 && frame.maxY > tabTop) || (!window.isEmpty && !window.contains(frame)))
+                && ((tabTop > 0 && frame.maxY > tabTop) || (!window.isEmpty && !window.contains(frame))
+                    || (!navBar.isEmpty && frame.intersects(navBar)))
             // Navigationsleiste: UIKit deckelt die Schrift des Titels (wie die Tableiste); langes Drücken zeigt ihn im
             // Large Content Viewer (`TabTitle`). Elementlose «Potentially inaccessible text»-Treffer (Texterkennung im
             // Bild ohne zugehöriges Element, nicht zuzuordnen): nur protokolliert
