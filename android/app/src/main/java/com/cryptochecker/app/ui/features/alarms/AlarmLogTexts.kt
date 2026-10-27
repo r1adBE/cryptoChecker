@@ -69,8 +69,9 @@ internal object AlarmLogTexts {
     /** Börse und gesehener Kurs, z. B. «Kraken 99’800 CHF» (Schwelle in eigener Währung: umgerechnet); ohne Kurs nur die Börse. */
     fun seen(entry: AlarmLogEntry): String {
         val shown = entry.shownPrice
+        val currency = entry.currency // lokal: AlarmLogEntry liegt in :domain (kein Smart Cast über Modulgrenzen)
         val price = when {
-            entry.currency != null && shown != null -> PriceFormat.priceWithCurrency(shown, entry.currency)
+            currency != null && shown != null -> PriceFormat.priceWithCurrency(shown, currency)
             entry.price != null -> PriceFormat.priceWithCurrency(entry.price, entry.quote)
             else -> null
         }

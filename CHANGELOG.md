@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 137)
+
+* Android code structure (no change for users): the portfolio logic (FIFO, average cost, history, tax engines and exports, CSV import, address checks), the remaining alarm rules, currency conversion and coin lists moved to the module `:domain` (116 more files, packages unchanged). App code reads nullable values of these models through local copies, because Kotlin does not smart-cast properties from another module. The CI coverage gate counts the module `:domain` again.
+
 ## 16.2.2 (build 136)
 
 * Add pair (both platforms): if an exchange doesn’t answer while its pair list loads (maintenance, timeout, no network), the card names it – «LATOKEN isn’t responding right now – pair list not loaded. Try again later.» – and the button reads «Try again» instead of showing the same card without a word.

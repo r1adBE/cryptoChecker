@@ -2521,6 +2521,16 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 137 (R, step 2): 116 more files to `:domain` – the rest of `domain/portfolio` (incl. `csvimport/`), the
+  remaining `domain/alarm` rules (`AlarmEdit`, `AlarmLog`, `DepegAlarm`, snooze and depeg stores …), `domain/convert`,
+  `domain/logos` (`CoinLists`, `CoinMeta`), `domain/mirror`, `AlarmLogCollector`, `CheckOrigin`, `PriceWriteOrder`
+  and `util/TextLimit`. Selection by the dependency graph of both modules (a file moves only if everything it uses
+  in `:app` moves too); still in `:app` because of a dependency: `AlarmDelivery` (`NotificationBudget`),
+  `AlarmLogStore` (`PortfolioSnapshotSeal`), `SheetChart` (`WidgetChartGeometry`). `internal` became public in 43
+  files. Kotlin does not smart-cast a public `val` declared in another module: app code takes a local copy
+  (`PortfolioAddressRow`, `AlarmLogTexts`, `SettingsViewModel`, …) or uses `?.`/`orEmpty()`. Coverage gate:
+  `coverage_summary.py` lists `domain=domain` – without it the files of `:domain` in the merged `:app` report had no
+  sources, counted as generated and dropped out of «logic» (with the portfolio logic moved: 43 % instead of ~60 %).
 * Build 136 (R, step 1): Gradle module `android/domain` (Android library, namespace `com.cryptochecker.domain`,
   Hilt/KSP for its `@Inject` classes) with the 139 files of `app` that depend on no screen, storage or network flow:
   most of `domain/` plus `data/local/model/WatchEntity` and `AlarmEntity` (Room annotations only; DAOs and the

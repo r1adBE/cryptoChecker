@@ -97,7 +97,7 @@ class TaxChWealthParityTest {
                 // Summe = Summe der gerundeten Zeilen, wie sie in der Datei stehen (Nachrechnen geht auf)
                 assertEquals("$name $m money", e["moneyTotal"], w.totalTarget?.let { CutoffExport.money(it) })
                 val sumOfRows = w.rows.mapNotNull { it.valueTarget }.fold(BigDecimal.ZERO) { a, v -> a + BigDecimal(CutoffExport.money(v)) }
-                if (w.totalTarget != null) assertEquals("$name $m sum of rows", CutoffExport.money(sumOfRows), CutoffExport.money(w.totalTarget))
+                w.totalTarget?.let { assertEquals("$name $m sum of rows", CutoffExport.money(sumOfRows), CutoffExport.money(it)) }
             }
         }
     }
