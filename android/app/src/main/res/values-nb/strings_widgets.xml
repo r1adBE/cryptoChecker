@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Forløp kommer</string>
     <string name="widget_portfolio_description">Samlet verdi av porteføljen din og dagens endring</string>
+    <string name="widget_portfolio_entries">Posteringer under myntene</string>
+    <string name="widget_portfolio_entries_both">Begge</string>
+    <string name="widget_portfolio_entries_buys">Kjøp</string>
+    <string name="widget_portfolio_entries_hint">Vises bare hvis det er plass under myntene. Kjøp regner med innskudd, salg uttak; med «Begge» gir linjene beholdningen.</string>
+    <string name="widget_portfolio_entries_off">Av</string>
+    <string name="widget_portfolio_entries_sells">Salg</string>
     <string name="widget_portfolio_display">Visning</string>
     <string name="widget_portfolio_display_conversion">Bare omregning</string>
     <string name="widget_portfolio_display_conversion_usdt">Omregning + USDT</string>

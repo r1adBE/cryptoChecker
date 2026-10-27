@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">ประวัติจะแสดงเร็ว ๆ นี้</string>
     <string name="widget_portfolio_description">มูลค่ารวมของพอร์ตโฟลิโอและการเปลี่ยนแปลงวันนี้</string>
+    <string name="widget_portfolio_entries">รายการใต้เหรียญ</string>
+    <string name="widget_portfolio_entries_both">ทั้งสองอย่าง</string>
+    <string name="widget_portfolio_entries_buys">ซื้อ</string>
+    <string name="widget_portfolio_entries_hint">แสดงเฉพาะเมื่อมีที่ว่างใต้เหรียญ การซื้อรวมการฝาก การขายรวมการถอน เมื่อเลือก «ทั้งสองอย่าง» บรรทัดรวมกันเท่ากับยอดถือครอง</string>
+    <string name="widget_portfolio_entries_off">ปิด</string>
+    <string name="widget_portfolio_entries_sells">ขาย</string>
     <string name="widget_portfolio_display">การแสดง</string>
     <string name="widget_portfolio_display_conversion">เฉพาะการแปลง</string>
     <string name="widget_portfolio_display_conversion_usdt">การแปลง + USDT</string>

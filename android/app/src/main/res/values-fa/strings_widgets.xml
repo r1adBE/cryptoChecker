@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">روند به‌زودی</string>
     <string name="widget_portfolio_description">ارزش کل پرتفوی تو و تغییر امروز</string>
+    <string name="widget_portfolio_entries">تراکنش‌ها زیر کوین‌ها</string>
+    <string name="widget_portfolio_entries_both">هر دو</string>
+    <string name="widget_portfolio_entries_buys">خریدها</string>
+    <string name="widget_portfolio_entries_hint">فقط اگر زیر کوین‌ها جا باشد نمایش داده می‌شود. خریدها شامل واریزها و فروش‌ها شامل برداشت‌ها هستند؛ با «هر دو» جمع خطوط برابر موجودی است.</string>
+    <string name="widget_portfolio_entries_off">خاموش</string>
+    <string name="widget_portfolio_entries_sells">فروش‌ها</string>
     <string name="widget_portfolio_display">نمایش</string>
     <string name="widget_portfolio_display_conversion">فقط تبدیل</string>
     <string name="widget_portfolio_display_conversion_usdt">تبدیل + USDT</string>

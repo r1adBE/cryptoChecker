@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Історія незабаром</string>
     <string name="widget_portfolio_description">Загальна вартість портфеля та зміна за сьогодні</string>
+    <string name="widget_portfolio_entries">Операції під монетами</string>
+    <string name="widget_portfolio_entries_both">Обидва</string>
+    <string name="widget_portfolio_entries_buys">Купівлі</string>
+    <string name="widget_portfolio_entries_hint">Показуються, лише якщо під монетами є місце. Купівлі враховують поповнення, продажі — виведення; з «Обидва» рядки дають залишок.</string>
+    <string name="widget_portfolio_entries_off">Вимк.</string>
+    <string name="widget_portfolio_entries_sells">Продажі</string>
     <string name="widget_portfolio_display">Відображення</string>
     <string name="widget_portfolio_display_conversion">Лише перерахунок</string>
     <string name="widget_portfolio_display_conversion_usdt">Перерахунок + USDT</string>

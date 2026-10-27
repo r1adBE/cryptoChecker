@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Értékalakulás hamarosan</string>
     <string name="widget_portfolio_description">A portfóliód teljes értéke és mai változása</string>
+    <string name="widget_portfolio_entries">Tételek az érmék alatt</string>
+    <string name="widget_portfolio_entries_both">Mindkettő</string>
+    <string name="widget_portfolio_entries_buys">Vételek</string>
+    <string name="widget_portfolio_entries_hint">Csak akkor látszik, ha van hely az érmék alatt. A vételekbe a befizetések, az eladásokba a kifizetések is beleszámítanak; «Mindkettő» esetén a sorok kiadják az állományt.</string>
+    <string name="widget_portfolio_entries_off">Ki</string>
+    <string name="widget_portfolio_entries_sells">Eladások</string>
     <string name="widget_portfolio_display">Megjelenítés</string>
     <string name="widget_portfolio_display_conversion">Csak átváltás</string>
     <string name="widget_portfolio_display_conversion_usdt">Átváltás + USDT</string>

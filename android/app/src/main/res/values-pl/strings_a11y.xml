@@ -106,6 +106,11 @@
     <!-- Screenreader: Portfolio und Portfolio-Widget -->
     <string name="a11y_amount_hidden">kwota ukryta</string>
     <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, dziś warte %3$s</string>
+    <string name="a11y_portfolio_entry_in">Wpływ</string>
+    <string name="a11y_portfolio_entry_no_value">wartość niedostępna</string>
+    <string name="a11y_portfolio_entry_note">notatka %1$s</string>
+    <string name="a11y_portfolio_entry_out">Wypływ</string>
     <string name="a11y_portfolio_position">%1$s %2$s, %3$s portfela</string>
     <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
     <string name="a11y_portfolio_position_24h">%1$s, %2$s portfela, %3$s</string>

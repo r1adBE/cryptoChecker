@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Vývoj již brzy</string>
     <string name="widget_portfolio_description">Celková hodnota tvého portfolia a dnešní změna</string>
+    <string name="widget_portfolio_entries">Pohyby pod mincemi</string>
+    <string name="widget_portfolio_entries_both">Obojí</string>
+    <string name="widget_portfolio_entries_buys">Nákupy</string>
+    <string name="widget_portfolio_entries_hint">Zobrazí se jen, když je pod mincemi místo. Nákupy zahrnují vklady, prodeje výběry; u «Obojí» dají řádky dohromady stav.</string>
+    <string name="widget_portfolio_entries_off">Vyp.</string>
+    <string name="widget_portfolio_entries_sells">Prodeje</string>
     <string name="widget_portfolio_display">Zobrazení</string>
     <string name="widget_portfolio_display_conversion">Jen přepočet</string>
     <string name="widget_portfolio_display_conversion_usdt">Přepočet + USDT</string>

@@ -2521,6 +2521,13 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 145: portfolio widget list with bookings per coin – `PortfolioWidgetEntries` (Android `:domain`, iOS
+  `Shared/Portfolio`): one entry per ledger step with a holdings change (`PortfolioLedger.events` +
+  `PortfolioHoldingsBook`, so «both» sums to the holding), note via `shortNote` (6 graphemes + «…»), today's value,
+  at most 40 per coin (more → none); stored in the snapshot (`entries` per position, Android JSON key `"e"`), scaled
+  with the positions in «USDT only»/rebasing. `assign` places them only in the height left below the coins (all or
+  none per coin). Setting: Android `WidgetPrefs.portfolio_entries_<id>` (configure screen, list view only), iOS
+  `PortfolioWidgetIntent.entries`. Parity: `widget_portfolio_entries.json`.
 * Build 144 (R, step 9): `ManualRefresh` and `ChartRefresher` in `:domain` behind `ManualRefreshStats`,
   `ManualRefreshNet` and `ChartWidgets` (adapters in `PriceRefresherAdapters.kt`, providers in `RefreshModule`);
   `domain/watch/SheetChart`, `widget/WidgetChartGeometry`, `util/ChartSummary` and `data/BoundedCache` (from `:data`,

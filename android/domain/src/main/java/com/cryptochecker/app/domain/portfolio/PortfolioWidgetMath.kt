@@ -29,6 +29,11 @@ data class PortfolioPosition(
     val pnlAmount: Double? = null,
     /** [pnlAmount] in Prozent von Wert am Anfang + Zugängen; null = unbekannt. */
     val pnlPercent: Double? = null,
+    /**
+     * Buchungen dieses Coins für die Liste ([PortfolioWidgetEntries]), zeitlich aufsteigend; leer = mehr als
+     * [PortfolioWidgetEntries.MAX_PER_COIN] oder keine; null = ältere Aufnahme.
+     */
+    val entries: List<PortfolioWidgetEntry>? = null,
 )
 
 /** Ein Punkt des Wertverlaufs: Zeit (Epoch-ms) und Gesamtwert in der Anzeigewährung. */

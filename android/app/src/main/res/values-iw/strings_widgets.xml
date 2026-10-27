@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">ההיסטוריה תגיע בקרוב</string>
     <string name="widget_portfolio_description">השווי הכולל של תיק ההשקעות שלך והשינוי היום</string>
+    <string name="widget_portfolio_entries">תנועות מתחת למטבעות</string>
+    <string name="widget_portfolio_entries_both">שניהם</string>
+    <string name="widget_portfolio_entries_buys">קניות</string>
+    <string name="widget_portfolio_entries_hint">מוצג רק אם יש מקום מתחת למטבעות. קניות כוללות הפקדות ומכירות כוללות משיכות; עם «שניהם» השורות מסתכמות ליתרה.</string>
+    <string name="widget_portfolio_entries_off">כבוי</string>
+    <string name="widget_portfolio_entries_sells">מכירות</string>
     <string name="widget_portfolio_display">תצוגה</string>
     <string name="widget_portfolio_display_conversion">המרה בלבד</string>
     <string name="widget_portfolio_display_conversion_usdt">המרה + USDT</string>

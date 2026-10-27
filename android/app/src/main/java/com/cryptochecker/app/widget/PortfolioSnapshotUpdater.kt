@@ -27,6 +27,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioSummary
 import com.cryptochecker.app.domain.portfolio.PortfolioSummaryCache
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntries
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.portfolio.PriceSample
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
@@ -274,6 +275,13 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 // Adress-Anteil im 24-h-Verlauf nur mit dem damals beobachteten Guthaben
                 addressSteps = AddressBalanceHistory.stepsByCoin(addresses),
             ).withDaily(transactions, holdings, current, now, routing, addresses, settings.costMethod, memo, code, rate)
+                // Buchungen je Position für die Liste (Wahl im Widget: Käufe / Verkäufe / beides)
+                .let { s ->
+                    PortfolioWidgetEntries.withEntries(
+                        s, transactions.map { it.toTrade() }, transactions.associate { it.id to it.note }, current, rate,
+                        settings.costMethod,
+                    )
+                }
                 // «Gesamt» der Übersicht: ± seit Kauf in USDT wie in der Gesamtkarte des Portfolio-Tabs; in der
                 // Anzeigewährung: Wert × Faktor jetzt − gemerkter Einstand zum Kurs der Erwerbstage
                 .copy(

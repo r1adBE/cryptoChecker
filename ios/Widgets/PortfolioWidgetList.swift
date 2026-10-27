@@ -34,6 +34,9 @@ extension PortfolioHomeView {
         let fit = listFit(height: height, count: sorted.count, wide: wide, scale: scale)
         let textScale = CGFloat(scale)
         let shown = Array(sorted.prefix(fit.rows))
+        let entries = PortfolioWidgetViews.listEntries(shown, filter: entry.entryFilter, height: height,
+                                                       header: Self.listHeaderHeight, gap: Self.listGap, row: row,
+                                                       footer: Self.listFooterHeight, fontScale: scale, wide: wide)
         let more = sorted.count - shown.count + Swift.max(0, s.otherPositions ?? 0)
         let moreText: String? = more > 0 && !sorted.isEmpty ? L("widget_portfolio_more", count: more) : nil
         let basis = PortfolioWidgetText.basis(s)
@@ -47,7 +50,8 @@ extension PortfolioHomeView {
                     message(L("widget_portfolio_list_hint"))
                         .padding(.top, 8)
                 } else {
-                    listRows(shown, currency: s.currency, basis: basis, wide: wide, scale: textScale, row: row)
+                    listRows(shown, entries: entries, currency: s.currency, basis: basis, wide: wide, scale: textScale,
+                             row: row)
                         .padding(.top, CGFloat(Self.listGap))
                 }
             }
@@ -60,7 +64,7 @@ extension PortfolioHomeView {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(listAccessibility(s, shown: shown, more: moreText, missing: missing, change: change,
+        .accessibilityLabel(listAccessibility(s, shown: shown, entries: entries, more: moreText, missing: missing, change: change,
                                               basis: basis, empty: sorted.isEmpty))
     }
 
@@ -172,16 +176,55 @@ extension PortfolioHomeView {
         }
     }
 
-    private func listRows(_ shown: [PortfolioWidgetPosition], currency: String, basis: ChangeBasis, wide: Bool,
-                          scale: CGFloat,
-                          row: Double) -> some View {
+    private func listRows(_ shown: [PortfolioWidgetPosition], entries: [[PortfolioWidgetEntry]], currency: String,
+                          basis: ChangeBasis, wide: Bool, scale: CGFloat, row: Double) -> some View {
         VStack(spacing: 0) {
             ForEach(Array(shown.enumerated()), id: \.element.symbol) { index, p in
+                let below = index < entries.count ? entries[index] : []
+                let last = index == shown.count - 1
                 listRow(p, currency: currency, basis: basis, wide: wide, scale: scale)
                     .frame(height: CGFloat(row) - 1)
-                // Trennlinie wie in der Merkliste, nicht nach der letzten Zeile
+                // Trennlinie wie in der Merkliste, nicht nach der letzten Zeile; mit Buchungen erst nach diesen
                 Rectangle()
-                    .fill(index == shown.count - 1 ? Color.clear : palette.divider)
+                    .fill(last || !below.isEmpty ? Color.clear : palette.divider)
+                    .frame(height: 1)
+                ForEach(Array(below.enumerated()), id: \.offset) { i, e in
+                    entryRow(e, currency: currency, scale: scale, divider: i == below.count - 1 && !last)
+                }
+            }
+        }
+    }
+
+    /// Buchung unter einem Coin: eingerückt Menge (Abgang mit «−») und gekürzte Notiz (grau), rechts der heutige Wert
+    /// (Währung klein und grau; verborgen «•••», dann auch ohne Menge; ohne Kurs «—») — wie Android `entryRow`.
+    private func entryRow(_ e: PortfolioWidgetEntry, currency: String, scale: CGFloat, divider: Bool) -> some View {
+        let size = CGFloat(PortfolioWidgetViews.entrySize) * scale
+        let label = PortfolioWidgetText.entryLabel(e, hidden: entry.hideAmounts)
+        let value = e.value.map { PortfolioInsights.mask(PriceFormat.valueWithCurrency($0, currency), hidden: entry.hideAmounts) }
+            ?? "—"
+        return VStack(spacing: 0) {
+            HStack(spacing: 4) {
+                Text(label)
+                    .font(.system(size: size, weight: .medium))
+                    .monospacedDigit()
+                    .foregroundStyle(palette.secondary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .privacySensitive()
+                Spacer(minLength: 4)
+                Text.quoted(value, quote: currency, size: size, quoteColor: palette.secondary)
+                    .monospacedDigit()
+                    .foregroundStyle(palette.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .privacySensitive()
+                    .layoutPriority(1)
+            }
+            .padding(.leading, 16)
+            .frame(height: CGFloat(PortfolioWidgetViews.entryHeight(fontScale: Double(scale))) - (divider ? 1 : 0))
+            if divider {
+                Rectangle()
+                    .fill(palette.divider)
                     .frame(height: 1)
             }
         }
@@ -279,15 +322,21 @@ extension PortfolioHomeView {
 
     /// «Portfolio 93’818.79 CHF, gestiegen um 1.61% in 24 Stunden, Stand 01:02, …, Positionen, + 3 weitere» —
     /// Veränderung des Totals wie gezeigt, wie Android `listViews`.
-    private func listAccessibility(_ s: PortfolioWidgetSnapshot, shown: [PortfolioWidgetPosition], more: String?,
+    private func listAccessibility(_ s: PortfolioWidgetSnapshot, shown: [PortfolioWidgetPosition],
+                                   entries: [[PortfolioWidgetEntry]], more: String?,
                                    missing: String?, change: PortfolioListTotalChange?, basis: ChangeBasis,
                                    empty: Bool) -> String {
         let time = entry.outdated ? WidgetOutdated.spoken(s.updatedAt, at: entry.date)
             : L("widget_portfolio_as_of", WidgetOutdated.stamp(s.updatedAt, at: entry.date))
         let total = L("widget_portfolio_name") + " "
             + (spokenHidden ? L("a11y_amount_hidden") : PortfolioWidgetText.total(s))
-        let rows = shown.map { PortfolioWidgetText.listRowAccessibility($0, currency: s.currency, basis: basis,
-                                                                         hidden: spokenHidden) }
+        let rows = shown.enumerated().map { index, p in
+            let row = PortfolioWidgetText.listRowAccessibility(p, currency: s.currency, basis: basis, hidden: spokenHidden)
+            let below = (index < entries.count ? entries[index] : []).map {
+                PortfolioWidgetText.entryAccessibility($0, currency: s.currency, hidden: spokenHidden)
+            }
+            return ([row] + below).joined(separator: ", ")
+        }
         let list = rows.isEmpty ? nil : L("a11y_portfolio_positions", rows.joined(separator: "; "))
         let spokenChange = change.map {
             PortfolioWidgetText.pnlAccessibility($0, currency: s.currency, basis: basis, hidden: spokenHidden)

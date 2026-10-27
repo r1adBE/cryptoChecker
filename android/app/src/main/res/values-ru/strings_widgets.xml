@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">История скоро появится</string>
     <string name="widget_portfolio_description">Общая стоимость портфеля и изменение за сегодня</string>
+    <string name="widget_portfolio_entries">Операции под монетами</string>
+    <string name="widget_portfolio_entries_both">Оба</string>
+    <string name="widget_portfolio_entries_buys">Покупки</string>
+    <string name="widget_portfolio_entries_hint">Показываются, только если под монетами есть место. Покупки включают пополнения, продажи — выводы; при «Оба» строки дают остаток.</string>
+    <string name="widget_portfolio_entries_off">Выкл.</string>
+    <string name="widget_portfolio_entries_sells">Продажи</string>
     <string name="widget_portfolio_display">Отображение</string>
     <string name="widget_portfolio_display_conversion">Только пересчёт</string>
     <string name="widget_portfolio_display_conversion_usdt">Пересчёт + USDT</string>

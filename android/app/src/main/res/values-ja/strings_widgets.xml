@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">推移は準備中</string>
     <string name="widget_portfolio_description">ポートフォリオの合計額と今日の変動</string>
+    <string name="widget_portfolio_entries">コインの下の取引</string>
+    <string name="widget_portfolio_entries_both">両方</string>
+    <string name="widget_portfolio_entries_buys">購入</string>
+    <string name="widget_portfolio_entries_hint">コインの下に余白がある場合のみ表示されます。購入には入金、売却には出金が含まれます。「両方」では各行の合計が保有量になります。</string>
+    <string name="widget_portfolio_entries_off">オフ</string>
+    <string name="widget_portfolio_entries_sells">売却</string>
     <string name="widget_portfolio_display">表示</string>
     <string name="widget_portfolio_display_conversion">換算のみ</string>
     <string name="widget_portfolio_display_conversion_usdt">換算 + USDT</string>

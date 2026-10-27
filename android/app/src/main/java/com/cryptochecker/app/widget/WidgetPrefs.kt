@@ -2,6 +2,7 @@ package com.cryptochecker.app.widget
 
 import androidx.core.content.edit
 import android.content.Context
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -73,6 +74,7 @@ class WidgetPrefs @Inject constructor(
             remove(portfolioRangeKey(appWidgetId))
             remove(portfolioChartTypeKey(appWidgetId))
             remove(portfolioViewKey(appWidgetId))
+            remove(portfolioEntriesKey(appWidgetId))
         }
     }
 
@@ -85,6 +87,16 @@ class WidgetPrefs @Inject constructor(
         PortfolioWidgetView.fromName(prefs.getString(portfolioViewKey(appWidgetId), null))
 
     private fun portfolioViewKey(appWidgetId: Int) = "portfolio_view_$appWidgetId"
+
+    /** Portfolio-Widget, Liste: Buchungen unter den Coins (Aus / Käufe / Verkäufe / beides); ohne Wahl «Aus». */
+    fun setPortfolioEntries(appWidgetId: Int, filter: PortfolioWidgetEntryFilter) {
+        prefs.edit { putString(portfolioEntriesKey(appWidgetId), filter.key) }
+    }
+
+    fun getPortfolioEntries(appWidgetId: Int): PortfolioWidgetEntryFilter =
+        PortfolioWidgetEntryFilter.fromKey(prefs.getString(portfolioEntriesKey(appWidgetId), null))
+
+    private fun portfolioEntriesKey(appWidgetId: Int) = "portfolio_entries_$appWidgetId"
 
     /**
      * Portfolio-Widget: Anzeige («Nur USDT» / «Umrechnung» / «Umrechnung + USDT»). Ohne Wahl:

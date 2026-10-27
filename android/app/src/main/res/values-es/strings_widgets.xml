@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Historial próximamente</string>
     <string name="widget_portfolio_description">Valor total de tu cartera y variación de hoy</string>
+    <string name="widget_portfolio_entries">Movimientos bajo las monedas</string>
+    <string name="widget_portfolio_entries_both">Ambos</string>
+    <string name="widget_portfolio_entries_buys">Compras</string>
+    <string name="widget_portfolio_entries_hint">Solo si hay espacio bajo las monedas. Las compras incluyen depósitos y las ventas retiros; con «Ambos», las líneas suman el saldo.</string>
+    <string name="widget_portfolio_entries_off">Desactivado</string>
+    <string name="widget_portfolio_entries_sells">Ventas</string>
     <string name="widget_portfolio_display">Mostrar</string>
     <string name="widget_portfolio_display_conversion">Solo conversión</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversión + USDT</string>

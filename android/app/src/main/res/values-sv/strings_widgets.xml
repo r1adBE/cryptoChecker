@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Förlopp kommer snart</string>
     <string name="widget_portfolio_description">Det totala värdet av din portfölj och dagens förändring</string>
+    <string name="widget_portfolio_entries">Transaktioner under mynten</string>
+    <string name="widget_portfolio_entries_both">Båda</string>
+    <string name="widget_portfolio_entries_buys">Köp</string>
+    <string name="widget_portfolio_entries_hint">Visas bara om det finns plats under mynten. Köp räknar med insättningar, sälj uttag; med «Båda» ger raderna innehavet.</string>
+    <string name="widget_portfolio_entries_off">Av</string>
+    <string name="widget_portfolio_entries_sells">Sälj</string>
     <string name="widget_portfolio_display">Visning</string>
     <string name="widget_portfolio_display_conversion">Endast omräkning</string>
     <string name="widget_portfolio_display_conversion_usdt">Omräkning + USDT</string>

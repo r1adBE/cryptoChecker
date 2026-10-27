@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Andamento in arrivo</string>
     <string name="widget_portfolio_description">Valore totale del tuo portafoglio e variazione di oggi</string>
+    <string name="widget_portfolio_entries">Movimenti sotto le coin</string>
+    <string name="widget_portfolio_entries_both">Entrambi</string>
+    <string name="widget_portfolio_entries_buys">Acquisti</string>
+    <string name="widget_portfolio_entries_hint">Mostrati solo se c’è spazio sotto le coin. Gli acquisti includono i depositi, le vendite i prelievi; con «Entrambi» le righe danno il saldo.</string>
+    <string name="widget_portfolio_entries_off">Off</string>
+    <string name="widget_portfolio_entries_sells">Vendite</string>
     <string name="widget_portfolio_display">Visualizzazione</string>
     <string name="widget_portfolio_display_conversion">Solo conversione</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversione + USDT</string>

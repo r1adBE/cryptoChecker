@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">इतिहास जल्द आएगा</string>
     <string name="widget_portfolio_description">तुम्हारे पोर्टफ़ोलियो का कुल मूल्य और आज का बदलाव</string>
+    <string name="widget_portfolio_entries">कॉइन के नीचे लेनदेन</string>
+    <string name="widget_portfolio_entries_both">दोनों</string>
+    <string name="widget_portfolio_entries_buys">खरीद</string>
+    <string name="widget_portfolio_entries_hint">सिर्फ़ तभी दिखते हैं जब कॉइन के नीचे जगह हो। खरीद में जमा और बिक्री में निकासी शामिल हैं; «दोनों» के साथ पंक्तियाँ मिलकर होल्डिंग बनती हैं।</string>
+    <string name="widget_portfolio_entries_off">बंद</string>
+    <string name="widget_portfolio_entries_sells">बिक्री</string>
     <string name="widget_portfolio_display">दिखाओ</string>
     <string name="widget_portfolio_display_conversion">केवल रूपांतरण</string>
     <string name="widget_portfolio_display_conversion_usdt">रूपांतरण + USDT</string>

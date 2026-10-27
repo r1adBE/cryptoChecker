@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Η εξέλιξη έρχεται σύντομα</string>
     <string name="widget_portfolio_description">Συνολική αξία του χαρτοφυλακίου σου και σημερινή μεταβολή</string>
+    <string name="widget_portfolio_entries">Κινήσεις κάτω από τα νομίσματα</string>
+    <string name="widget_portfolio_entries_both">Και τα δύο</string>
+    <string name="widget_portfolio_entries_buys">Αγορές</string>
+    <string name="widget_portfolio_entries_hint">Εμφανίζονται μόνο αν υπάρχει χώρος κάτω από τα νομίσματα. Οι αγορές περιλαμβάνουν καταθέσεις, οι πωλήσεις αναλήψεις· με «Και τα δύο» οι γραμμές δίνουν το υπόλοιπο.</string>
+    <string name="widget_portfolio_entries_off">Ανενεργό</string>
+    <string name="widget_portfolio_entries_sells">Πωλήσεις</string>
     <string name="widget_portfolio_display">Εμφάνιση</string>
     <string name="widget_portfolio_display_conversion">Μόνο μετατροπή</string>
     <string name="widget_portfolio_display_conversion_usdt">Μετατροπή + USDT</string>

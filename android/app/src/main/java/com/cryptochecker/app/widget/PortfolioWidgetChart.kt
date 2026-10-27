@@ -91,7 +91,12 @@ object PortfolioWidgetChart {
             total = snapshot.totalUsdt ?: (snapshot.total / f),
             changeAmount = snapshot.changeAmount?.div(f),
             currency = USDT_CODE,
-            positions = snapshot.positions.map { it.copy(value = it.value / f, pnlAmount = it.pnlAmount?.div(f)) },
+            positions = snapshot.positions.map {
+                it.copy(
+                    value = it.value / f, pnlAmount = it.pnlAmount?.div(f),
+                    entries = it.entries?.map { e -> e.copy(value = e.value?.div(f)) },
+                )
+            },
             history = snapshot.history.map { it.copy(value = it.value / f) },
             // In USDT gelten die USDT-Werte ([PortfolioSnapshot.unrealized], [PortfolioSnapshot.periodChanges])
             unrealizedDisplay = null,
@@ -163,7 +168,12 @@ object PortfolioWidgetChart {
             total = snapshot.total * k,
             changeAmount = snapshot.changeAmount?.times(k),
             currency = CurrencyConversion.normalize(currency),
-            positions = snapshot.positions.map { it.copy(value = it.value * k, pnlAmount = it.pnlAmount?.times(k)) },
+            positions = snapshot.positions.map {
+                it.copy(
+                    value = it.value * k, pnlAmount = it.pnlAmount?.times(k),
+                    entries = it.entries?.map { e -> e.copy(value = e.value?.times(k)) },
+                )
+            },
             history = snapshot.history.map { it.copy(value = it.value * k) },
             // «Seit Kauf»/«7 T» der alten Währung gelten nicht (Einstand zum Kurs der Erwerbstage): bis zur nächsten
             // Aufnahme «—» bzw. «7 T» in USDT

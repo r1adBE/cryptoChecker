@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Buchung unter einem Coin in der Liste des Portfolio-Widgets (Wahl «Käufe» / «Verkäufe» / «beides»): eingerückt
+     links Menge und gekürzte Notiz (klein, grau), rechts der heutige Wert (Währung klein und grau). Darunter die
+     Trennlinie nach der letzten Buchung eines Coins (nicht nach dem letzten Coin). Höhe:
+     PortfolioWidgetViews.entryHeightDp. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:baselineAligned="false"
+        android:paddingStart="16dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <TextView
+            android:id="@+id/pe_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:fontFeatureSettings="tnum" />
+
+        <TextView
+            android:id="@+id/pe_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textSize="12sp"
+            android:fontFeatureSettings="tnum" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/pe_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no" />
+</LinearLayout>

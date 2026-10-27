@@ -6,6 +6,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDisplayFx
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryPoint
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioValuePoint
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntries
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntry
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import org.json.JSONArray
 import org.json.JSONObject
@@ -101,6 +103,18 @@ internal object PortfolioSnapshotCodec {
             p.quantity?.takeIf { it.isNotBlank() }?.let { o.put("q", it) }
             p.pnlAmount?.takeIf { it.isFinite() }?.let { o.put("pa", it) }
             p.pnlPercent?.takeIf { it.isFinite() }?.let { o.put("pr", it) }
+            // Buchungen für die Liste: [{"t","q","v"?,"n"?}, …] (fehlen in älteren Aufnahmen)
+            p.entries?.let { entries ->
+                val list = JSONArray()
+                entries.forEach { e ->
+                    if (!e.quantity.isFinite()) return@forEach
+                    val item = JSONObject().put("t", e.time).put("q", e.quantity)
+                    e.value?.takeIf { it.isFinite() }?.let { item.put("v", it) }
+                    e.note?.let { item.put("n", it) }
+                    list.put(item)
+                }
+                o.put("e", list)
+            }
             out.put(o)
         }
         return out
@@ -123,9 +137,22 @@ internal object PortfolioSnapshotCodec {
                 // Gewinn/Verlust 24 h je Position (fehlt in älteren Aufnahmen)
                 pnlAmount = if (o.has("pa")) o.optDouble("pa").takeIf { it.isFinite() } else null,
                 pnlPercent = if (o.has("pr")) o.optDouble("pr").takeIf { it.isFinite() } else null,
+                entries = o.optJSONArray("e")?.let(::readEntries),
             )
         }.take(PortfolioWidgetMath.MAX_POSITIONS)
     }.onFailure { Timber.d(it, "Portfolio-Widget: Positionen nicht lesbar") }.getOrDefault(emptyList())
+
+    /** Buchungen einer Position ([positionsJson] «e»); unlesbare Einträge entfallen. */
+    private fun readEntries(array: JSONArray): List<PortfolioWidgetEntry> = (0 until array.length()).mapNotNull { i ->
+        val e = array.optJSONObject(i) ?: return@mapNotNull null
+        val quantity = e.optDouble("q").takeIf { it.isFinite() } ?: return@mapNotNull null
+        PortfolioWidgetEntry(
+            time = e.optLong("t"),
+            quantity = quantity,
+            note = if (e.has("n")) e.optString("n").takeIf { it.isNotBlank() } else null,
+            value = if (e.has("v")) e.optDouble("v").takeIf { it.isFinite() } else null,
+        )
+    }.take(PortfolioWidgetEntries.MAX_PER_COIN)
 
     /** Gewinn/Verlust je Coin: {"BTC": [Betrag, Prozent?], …} in USDT. */
     fun coinPnlJson(coinPnl: Map<String, PortfolioChange>): String {

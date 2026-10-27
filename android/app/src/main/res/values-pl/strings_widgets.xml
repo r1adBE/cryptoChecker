@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Historia wkrótce</string>
     <string name="widget_portfolio_description">Łączna wartość portfela i dzisiejsza zmiana</string>
+    <string name="widget_portfolio_entries">Operacje pod monetami</string>
+    <string name="widget_portfolio_entries_both">Oba</string>
+    <string name="widget_portfolio_entries_buys">Zakupy</string>
+    <string name="widget_portfolio_entries_hint">Widoczne tylko, gdy pod monetami jest miejsce. Zakupy obejmują wpłaty, sprzedaże wypłaty; przy «Oba» wiersze sumują się do stanu.</string>
+    <string name="widget_portfolio_entries_off">Wył.</string>
+    <string name="widget_portfolio_entries_sells">Sprzedaże</string>
     <string name="widget_portfolio_display">Wyświetlanie</string>
     <string name="widget_portfolio_display_conversion">Tylko przeliczenie</string>
     <string name="widget_portfolio_display_conversion_usdt">Przeliczenie + USDT</string>

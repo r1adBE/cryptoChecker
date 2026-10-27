@@ -91,30 +91,6 @@ enum PortfolioDisplayOption: String, AppEnum {
     }
 }
 
-// MARK: Ansicht (Portfolio-Widget) — wie `PortfolioWidgetView` (Android)
-
-/// Übersicht (wie die Gesamtkarte im Portfolio-Tab), Chart (bisher, Standard) oder Liste der Positionen.
-enum PortfolioViewOption: String, AppEnum {
-    case overview, chart, list
-
-    static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_view"
-
-    static let caseDisplayRepresentations: [PortfolioViewOption: DisplayRepresentation] = [
-        .overview: "widget_portfolio_view_overview",
-        .chart: "widget_portfolio_view_chart",
-        .list: "widget_portfolio_view_list",
-    ]
-
-    /// Gleiche Ansicht in der geteilten Rechnung.
-    var view: PortfolioWidgetMode {
-        switch self {
-        case .overview: .overview
-        case .chart: .chart
-        case .list: .list
-        }
-    }
-}
-
 // MARK: Zeitraum (Portfolio-Widget) — wie `PortfolioChartRange` (Android)
 
 /// Zeitraum für Veränderung und Chart: 24 h (Stundenverlauf) oder 7 T / 30 T / 1 J (Tagesverlauf).
@@ -332,6 +308,10 @@ struct PortfolioWidgetIntent: WidgetConfigurationIntent {
     @Parameter(title: "widget_chart_type", default: .line)
     var chartType: WidgetChartTypeOption
 
+    /// Nur bei «Liste»: Buchungen unter den Coins (falls Platz bleibt).
+    @Parameter(title: "widget_portfolio_entries", description: "widget_portfolio_entries_hint", default: .off)
+    var entries: PortfolioEntriesOption
+
     @Parameter(title: "widget_background", default: .system)
     var theme: WidgetThemeOption
 
@@ -351,6 +331,7 @@ struct PortfolioWidgetIntent: WidgetConfigurationIntent {
             When(\.$view, .equalTo, PortfolioViewOption.list) {
                 Summary("\(\.$view)") {
                     \.$display
+                    \.$entries
                     \.$theme
                 }
             } otherwise: {
