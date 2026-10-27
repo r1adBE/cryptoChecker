@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 143)
+
+* Android code structure (no change for users): the settings storage (`SettingsRepository` with its DataStore, keys and reset of market alerts), the sparkline/day-reference candles, the live price stream, the market repository, adding several pairs at once and the address refresh moved to `:data` (13 files). The stored state of the market and gas alerts has its own small objects (`ZoneCheckPrefs`, `GasAlertPrefs`), so the settings no longer reach into the background workers.
+
 ## 16.2.2 (build 142)
 
 * Android code structure (no change for users): new Gradle module `:data` with the storage and network layer – both Room databases with their DAOs and encryption, the watchlist and portfolio repositories, exchange, candle, futures and address data sources, logo store and parts of the backup (159 files, packages unchanged). Room exports its schemas as before to `app/schemas`; the app's migration tests take them from there. The logo downloads get the app's user agent from the app (`AppUserAgent`) instead of reading the version themselves.

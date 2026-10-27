@@ -26,7 +26,7 @@ import timber.log.Timber
  * der Nutzer sie selbst setzt ([SettingsLockFallback]). DataStore ruft den Handler nur bei unlesbarem Inhalt auf, nie bei
  * fehlender Datei (neue Installation) oder einem Lesefehler (IOException, siehe [SettingsLockFallback]).
  */
-internal val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(
+val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(
     name = "settings",
     corruptionHandler = ReplaceFileCorruptionHandler { e ->
         Timber.w(e, "Einstellungen beschädigt – Standardwerte")

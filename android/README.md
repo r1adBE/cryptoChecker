@@ -846,7 +846,7 @@ domain/       Fachlogik ohne Oberfläche und Datenbank-Zugriff (seit Build 136):
 data/         Speicher und Netz (seit Build 142): Room-Datenbanken mit DAOs und Verschlüsselung,
               Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung; Schemas weiter unter app/schemas
 app/
-  data/       Was noch an Einstellungen, Mitteilungen oder Widgets hängt (Sicherung, Logo-Abgleich, Kerzen)
+  data/       Was noch an Mitteilungen, Widgets oder der App-Sperre hängt (Sicherung, Logo-Abgleich, Charts im Blatt)
   domain/     Abläufe, die noch Speicher oder Netz brauchen: PriceRefresher steuert die Aktualisierung, dazu
               PriceFetcher (Kurse holen), DayReferences (24-h-/Tages-Bezüge),
               RefreshEffects (Alarme, Kurs-Meldungen, Ansagen)

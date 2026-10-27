@@ -23,7 +23,7 @@ import java.io.IOException
  *    unverändert, der nächste lesbare Stand gilt wieder. Hinweis «Einstellungen zurückgesetzt» wie bei beschädigter Datei.
  * Gespiegelt in iOS `SharedStorage.LoadedSettings.appLockAssumed` und `AppData.settingsWereReset`.
  */
-internal object SettingsLockFallback {
+object SettingsLockFallback {
 
     /** Rein (testbar): Sperre unbekannt → an; sonst die gespeicherte Einstellung. */
     fun effective(settings: AppSettings, lockUnknown: Boolean): AppSettings =

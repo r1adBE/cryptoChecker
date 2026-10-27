@@ -17,7 +17,7 @@ import androidx.datastore.preferences.core.Preferences
  * Einstellungen aus der Ablage [prefs]: fehlende Werte als Standard ([AppSettings]), Grenzen wie beim Setzen.
  * Für [SettingsRepository.settings].
  */
-internal fun appSettingsOf(prefs: Preferences): AppSettings {
+fun appSettingsOf(prefs: Preferences): AppSettings {
     val defaults = AppSettings()
     return AppSettings(
         // Die Migration ([UpdateModeMigration]) hat den Wert beim ersten Lesen gesetzt

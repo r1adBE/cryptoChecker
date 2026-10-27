@@ -19,7 +19,7 @@ import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_UPDATE_MO
 import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_WATCHLIST_NAMES
 
 /** Schlüssel der Einstellungen im DataStore ([SettingsRepository], [settingsDataStore]). */
-internal object SettingsKeys {
+object SettingsKeys {
     /** «Wie aktuell?» ([UpdateMode.name]). */
     val updateMode = stringPreferencesKey(KEY_UPDATE_MODE)
     /** Frühere Schalter: nur noch mitgeschrieben (aus [UpdateMode.legacyFlags]) für ältere Versionen. */

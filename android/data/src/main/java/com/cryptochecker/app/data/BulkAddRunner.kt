@@ -22,7 +22,7 @@ import javax.inject.Singleton
  * den internen Konstruktor austauschbar (`BulkAddRunnerTest`).
  */
 @Singleton
-class BulkAddRunner internal constructor(
+class BulkAddRunner constructor(
     private val writes: BulkAddWrites,
     private val scope: CoroutineScope,
     private val now: () -> Long = System::currentTimeMillis,
@@ -125,7 +125,7 @@ class BulkAddRunner internal constructor(
  * ein (`BulkAddRunnerTest`). Jeder Weg läuft in der Coroutine des Aufrufers — die Zustimmung F-08 aus [confirm] gilt
  * dort samt Kindern (`WatchlistNotSavedGate`).
  */
-internal interface BulkAddWrites {
+interface BulkAddWrites {
     /** Rückfrage F-08 ([confirmUserWrite]); false = «Abbrechen». */
     suspend fun confirm(): Boolean
 
