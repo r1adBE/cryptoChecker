@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.DexLiquidityStore
 import com.cryptochecker.app.data.MarkFallbackStore
 import com.cryptochecker.app.data.MoveHistoryStore
 import com.cryptochecker.app.data.RefreshStats
+import com.cryptochecker.app.data.SparklineRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
@@ -11,13 +12,17 @@ import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
+import com.cryptochecker.app.domain.live.LiveCoverage
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.ChartRefresher
 import com.cryptochecker.app.domain.refresh.DayReferences
 import com.cryptochecker.app.domain.refresh.LivePriceApplier
+import com.cryptochecker.app.domain.refresh.PriceFetcher
+import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshEffects
 import com.cryptochecker.app.domain.refresh.RefreshLock
 import com.cryptochecker.app.domain.refresh.RefreshResultProcessor
+import com.cryptochecker.app.domain.refresh.RefreshSideChecks
 import com.cryptochecker.app.domain.refresh.asAlarmDerivativesSource
 import com.cryptochecker.app.domain.refresh.asAlarmMoveHistory
 import com.cryptochecker.app.domain.refresh.asAlarmRangeSource
@@ -35,12 +40,22 @@ import com.cryptochecker.app.domain.refresh.asRefreshSpokenText
 import com.cryptochecker.app.domain.refresh.asRefreshStatsPort
 import com.cryptochecker.app.domain.refresh.asRefreshStore
 import com.cryptochecker.app.domain.refresh.asRefreshWidgets
+import com.cryptochecker.app.domain.refresh.asRefresherCharts
+import com.cryptochecker.app.domain.refresh.asRefresherDayReferences
+import com.cryptochecker.app.domain.refresh.asRefresherOnline
+import com.cryptochecker.app.domain.refresh.asRefresherSideChecks
+import com.cryptochecker.app.domain.refresh.asRefresherSparklines
+import com.cryptochecker.app.domain.refresh.asRefresherStats
+import com.cryptochecker.app.domain.refresh.asRefresherStore
+import com.cryptochecker.app.domain.refresh.asRefresherWatchWidgets
 import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.tts.SpokenText
 import com.cryptochecker.app.tts.TtsSpeaker
+import com.cryptochecker.app.util.ConnectivityMonitor
 import com.cryptochecker.app.widget.LiveWidgetGate
+import com.cryptochecker.app.widget.WidgetUpdater
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,9 +63,10 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
- * Auswertung nach einem neuen Kurs ([RefreshEffects], [RefreshResultProcessor], [LivePriceApplier]) — die Klassen
- * liegen in :domain und kennen nur die schmalen Schnittstellen aus `RefreshPorts.kt`. Hier reicht die App ihre Klassen
- * über die Hüllen aus `RefreshPortAdapters.kt` hinein (vorher je ein zweiter @Inject-Konstruktor in der Klasse).
+ * Aktualisierung ([PriceRefresher]) und Auswertung nach einem neuen Kurs ([RefreshEffects], [RefreshResultProcessor],
+ * [LivePriceApplier]) — die Klassen liegen in :domain und kennen nur die schmalen Schnittstellen aus `RefreshPorts.kt`
+ * und `PriceRefresherPorts.kt`. Hier reicht die App ihre Klassen
+ * über die Hüllen aus `RefreshPortAdapters.kt` bzw. `PriceRefresherAdapters.kt` hinein (vorher je ein zweiter @Inject-Konstruktor in der Klasse).
  */
 @Module
 @InstallIn(SingletonComponent::class)
@@ -124,5 +140,41 @@ object RefreshModule {
         liveWidgetGate.asRefreshWidgets(),
         chartRefresher.asRefreshCharts(),
         resultProcessor,
+    )
+
+    @Provides
+    @Singleton
+    fun priceRefresher(
+        watchRepository: WatchRepository,
+        settingsRepository: SettingsRepository,
+        widgetUpdater: WidgetUpdater,
+        refreshStats: RefreshStats,
+        sparklineRepository: SparklineRepository,
+        connectivity: ConnectivityMonitor,
+        liveCoverage: LiveCoverage,
+        liveWidgetGate: LiveWidgetGate,
+        priceFetcher: PriceFetcher,
+        dayReferences: DayReferences,
+        effects: RefreshEffects,
+        refreshLock: RefreshLock,
+        resultProcessor: RefreshResultProcessor,
+        chartRefresher: ChartRefresher,
+        sideChecks: RefreshSideChecks,
+    ): PriceRefresher = PriceRefresher(
+        watchRepository.asRefresherStore(),
+        settingsRepository.asRefreshSettings(),
+        widgetUpdater.asRefresherWatchWidgets(),
+        refreshStats.asRefresherStats(),
+        sparklineRepository.asRefresherSparklines(),
+        connectivity.asRefresherOnline(),
+        liveCoverage,
+        liveWidgetGate.asRefreshWidgets(),
+        priceFetcher,
+        dayReferences.asRefresherDayReferences(),
+        effects,
+        refreshLock,
+        resultProcessor,
+        chartRefresher.asRefresherCharts(),
+        sideChecks.asRefresherSideChecks(),
     )
 }

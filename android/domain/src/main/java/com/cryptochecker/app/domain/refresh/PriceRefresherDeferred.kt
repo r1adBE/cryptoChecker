@@ -11,14 +11,13 @@ import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import com.cryptochecker.app.domain.refresh.PriceRefresher.Companion.LATE_FILL_MILLIS
-import com.cryptochecker.app.data.fillChange
 
 /**
  * Tages-Basen: Bezüge, die nach dem Warten ([DayReferences.awaitDayReferenceLoads]) noch kommen,
  * im Hintergrund nachtragen — nur die Veränderung, nur solange Kurs und Basis gleich
  * geblieben sind; danach die Widgets neu zeichnen. Bricht nichts ab und meldet nichts.
  */
-internal fun PriceRefresher.fillLateDayChanges(missing: List<WatchEntity>, loads: List<Job>, stamp: ChangeStamp) {
+fun PriceRefresher.fillLateDayChanges(missing: List<WatchEntity>, loads: List<Job>, stamp: ChangeStamp) {
     if (missing.isEmpty() || loads.all { it.isCompleted }) return
     lateFillScope.launch {
         runCatchingCancellable {
@@ -32,7 +31,7 @@ internal fun PriceRefresher.fillLateDayChanges(missing: List<WatchEntity>, loads
 }
 
 /** Späte Tages-Bezüge nachtragen (unter der Sperre, [lock] als Beweis); Anzahl nachgetragener Paare. */
-internal suspend fun PriceRefresher.fillLateDayChangesLocked(
+suspend fun PriceRefresher.fillLateDayChangesLocked(
     @Suppress("UNUSED_PARAMETER") lock: RefreshLockScope,
     missing: List<WatchEntity>,
     stamp: ChangeStamp,

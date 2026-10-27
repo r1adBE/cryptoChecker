@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 141)
+
+* Android code structure (no change for users): the price refresh itself (`PriceRefresher` – fetching, backoff, day references, deferred 24-h values, single refresh, side checks afterwards) moved to `:domain`. It reaches the watchlist, refresh statistics, candles, widgets, network state and the side checks through narrow interfaces (`PriceRefresherPorts`); the app builds it in `RefreshModule`. The shared list of blocked sources (`BlockedSources`) has its own file.
+
 ## 16.2.2 (build 140)
 
 * Android code structure (no change for users): the evaluation after new prices – alarms, price notifications and announcements (`RefreshEffects`), saving and evaluating fetched prices (`RefreshResultProcessor`) and saving live prices (`LivePriceApplier`) – moved to `:domain`; the app hands its storage, notification and speech classes in through a Hilt module (`RefreshModule`) instead of a second constructor in each class. Moved along: alarm delivery with its notification budget, the app-wide background scope with its error counter, and the «database key unavailable» error.

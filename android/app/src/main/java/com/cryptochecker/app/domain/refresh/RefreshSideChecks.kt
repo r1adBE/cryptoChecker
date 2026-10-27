@@ -35,9 +35,6 @@ class RefreshSideChecks @Inject constructor(
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
     private val scope = appScope(Dispatchers.IO, "RefreshSideChecks")
 
-    /** Eine zusätzliche Prüfung für [awaitAll] (z. B. Widget-Charts) mit eigener Zeitgrenze. */
-    class Extra(val name: String, val timeoutMillis: Long, val check: suspend () -> Unit)
-
     // Ungewöhnliche Aktivität: erst nach gespeicherten Kursen und gezeichneten
     // Widgets, ausserhalb der Sperre — bremst den nächsten Durchlauf nicht,
     // Fehler bleiben still. Prüft jedes Paar höchstens alle 10 Minuten.
@@ -75,7 +72,7 @@ class RefreshSideChecks @Inject constructor(
      * verloren. Darum hier abwarten, parallel und je höchstens [timeoutMillis] (auch die Momentaufnahme: sonst
      * hielte eine hängende Abfrage den Job und die Frist des Weckers auf); [extra] mit eigener Zeitgrenze.
      */
-    suspend fun awaitAll(timeoutMillis: Long, extra: Extra? = null) {
+    suspend fun awaitAll(timeoutMillis: Long, extra: SideCheckExtra? = null) {
         coroutineScope {
             for (check in checks()) launch { awaitSideCheck(check.name, check.run, timeoutMillis) }
             if (extra != null) launch { awaitSideCheck(extra.name, extra.check, extra.timeoutMillis) }

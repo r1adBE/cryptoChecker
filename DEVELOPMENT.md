@@ -2521,6 +2521,14 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 141 (R, step 6): `PriceRefresher` (+ `PriceRefresherAfter`, `…Deferred`, `…One`) and `WidgetRefreshState` in
+  `:domain`. New ports in `domain/refresh/PriceRefresherPorts.kt`: `RefresherStore` (watch list, alarms,
+  `clearChanges`, `fillChange`), `RefresherStats`, `RefresherSparklines`, `RefresherOnline`, `RefresherWatchWidgets`,
+  `RefresherDayReferences`, `RefresherCharts`, `RefresherSideChecks` and `SideCheckExtra` (formerly the nested
+  `RefreshSideChecks.Extra`); settings and widget drawing reuse `RefreshSettings`/`RefreshWidgets`. Adapters in
+  `app/…/domain/refresh/PriceRefresherAdapters.kt`, provider in `RefreshModule`. `BlockedSources` split out of
+  `CandleDataSource.kt` (same package) and moved. Still in `:app`: `ManualRefresh`, `ChartRefresher`, `DayReferences`,
+  `RefreshSideChecks` (with `ActivityMonitor`, depeg and gas checkers) – they use Android, DAOs or notifications.
 * Build 140 (R, step 5): `RefreshEffects` (+ `RefreshEffectsAlarmKinds`), `RefreshResultProcessor` and
   `LivePriceApplier` in `:domain`. Their second `@Inject` constructor (app classes → `as…()` adapters) is gone; Hilt
   builds them in `app/…/di/RefreshModule.kt` (`@Provides @Singleton`), tests keep using the primary constructor with

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
  * Nebenprüfungen (melden selbst: Aktivität, Gas, Depeg) beginnen erst nach den Kurs-Meldungen, damit deren Drosselung
  * (höchstens 5 je Sekunde) gilt.
  */
-internal suspend fun PriceRefresher.afterRefresh(prices: Job?, awaitPortfolioSnapshot: Boolean, deadlineAt: Long?) {
+suspend fun PriceRefresher.afterRefresh(prices: Job?, awaitPortfolioSnapshot: Boolean, deadlineAt: Long?) {
     if (awaitPortfolioSnapshot || deadlineAt != null) prices?.join()
     // Widget-Charts: unter der Sperre nur aus dem Zwischenspeicher gezeichnet — jetzt, ohne
     // Sperre, nachladen; mit Frist nur, wenn noch genug Zeit bleibt (sonst bleibt der alte Chart)
@@ -33,7 +33,7 @@ internal suspend fun PriceRefresher.afterRefresh(prices: Job?, awaitPortfolioSna
         )
         sideChecks.awaitAll(
             sideTimeout,
-            chartTimeout?.let { RefreshSideChecks.Extra("Widget-Charts", it) { chartRefresher.refreshUnlocked() } },
+            chartTimeout?.let { SideCheckExtra("Widget-Charts", it) { chartRefresher.refreshUnlocked() } },
         )
     } else {
         if (prices == null || prices.isCompleted) sideChecks.launchDetached()
@@ -46,7 +46,7 @@ internal suspend fun PriceRefresher.afterRefresh(prices: Job?, awaitPortfolioSna
  * Zahl der gezeigten Kurs-Meldungen in den Bericht [report] nachtragen — nur, solange er der zuletzt gespeicherte ist
  * (Nachträge wie die Wartezeit bleiben erhalten). 0 steht schon drin.
  */
-internal fun PriceRefresher.noteShownPrices(report: RefreshReport, shown: Int) {
+fun PriceRefresher.noteShownPrices(report: RefreshReport, shown: Int) {
     if (shown <= 0) return
     val current = refreshStats.lastReport.value ?: return
     if (current.at == report.at) refreshStats.setLastReport(current.copy(notifications = shown))
