@@ -34,6 +34,13 @@ data class AppSettings(
     val ongoingNotifications: Boolean = false,
 
     /**
+     * Preis-Overlay (nur Android, Build 150): die Paare der dauerhaften Kurs-Mitteilung als schwebende Pille über
+     * anderen Apps; wirkt nur mit [ongoingNotifications] und erteilter Berechtigung «Über anderen Apps einblenden».
+     * Gerätebezogen, nicht in der Sicherung.
+     */
+    val priceOverlay: Boolean = false,
+
+    /**
      * Mindestveränderung in Prozent, ab der eine Kurs-Benachrichtigung gezeigt wird. 0 bedeutet: bei jeder Aktualisierung melden.
      */
     val notificationChangePercent: Double = 5.0,

@@ -285,4 +285,9 @@
     <string name="diagnostics_share_hint">File teks untuk dukungan: versi, perangkat, pengaturan alarm, pemeriksaan terakhir, dan log alarm – tanpa portofolio, jumlah, alamat, atau catatan. Kamu melihatnya dulu; tidak ada yang dikirim otomatis.</string>
     <string name="diagnostics_preview_title">Diagnostik – pratinjau</string>
     <string name="diagnostics_action_share">Bagikan</string>
+    <string name="settings_price_overlay">Overlay harga</string>
+    <string name="settings_price_overlay_hint">Menampilkan pasangan dari notifikasi harga permanen sebagai pil kecil mengambang di atas aplikasi lain. Ketuk untuk membuka aplikasi, seret ke × di bawah untuk menutup.</string>
+    <string name="settings_price_overlay_needs">Hanya berfungsi bersama «%1$s».</string>
+    <string name="settings_price_overlay_grant">Izinkan tampil di atas aplikasi lain</string>
+    <string name="price_overlay_close">Tutup overlay</string>
 </resources>

@@ -77,6 +77,10 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("updates.ongoing", stringResource(R.string.settings_ongoing_notifications), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.ongoing"),
         stringResource(R.string.settings_ongoing_notifications_hint))
+    // Preis-Overlay (nur Android, Build 150)
+    add("updates.overlay", stringResource(R.string.settings_price_overlay), updatesPath,
+        SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.overlay"),
+        stringResource(R.string.settings_price_overlay_grant))
     // «Letzte Prüfungen»: Karte ganz unten auf der Seite, eigener Treffer (Build 148)
     add("updates.check_runs", stringResource(R.string.settings_check_runs_title), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs"),

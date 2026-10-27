@@ -291,4 +291,9 @@
     <string name="diagnostics_share_hint">Textový soubor pro podporu: verze, zařízení, nastavení alarmů, poslední kontroly a protokol alarmů – bez portfolia, částek, adres a poznámek. Nejdřív ho uvidíš; nic se neodesílá automaticky.</string>
     <string name="diagnostics_preview_title">Diagnostika – náhled</string>
     <string name="diagnostics_action_share">Sdílet</string>
+    <string name="settings_price_overlay">Cenový překryv</string>
+    <string name="settings_price_overlay_hint">Zobrazí páry ze stálého oznámení s cenami jako malou plovoucí pilulku nad ostatními aplikacemi. Klepnutím otevřeš aplikaci, přetažením na × dole ji zavřeš.</string>
+    <string name="settings_price_overlay_needs">Funguje jen spolu s «%1$s».</string>
+    <string name="settings_price_overlay_grant">Povolit zobrazení přes jiné aplikace</string>
+    <string name="price_overlay_close">Zavřít překryv</string>
 </resources>

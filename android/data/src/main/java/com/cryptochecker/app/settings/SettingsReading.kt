@@ -31,6 +31,7 @@ fun appSettingsOf(prefs: Preferences): AppSettings {
         priceNotifications = prefs[SettingsKeys.priceNotifications] ?: defaults.priceNotifications,
         ongoingNotifications = prefs[SettingsKeys.ongoingNotifications]
             ?: defaults.ongoingNotifications,
+        priceOverlay = prefs[SettingsKeys.priceOverlay] ?: defaults.priceOverlay,
         notificationChangePercent = prefs[SettingsKeys.notificationChange]
             ?: prefs[SettingsKeys.notificationChangeLegacy]?.toDouble()
             ?: defaults.notificationChangePercent,

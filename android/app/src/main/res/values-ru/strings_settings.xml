@@ -291,4 +291,9 @@
     <string name="diagnostics_share_hint">Текстовый файл для поддержки: версия, устройство, настройки оповещений, последние проверки и журнал оповещений – без портфеля, сумм, адресов и заметок. Сначала ты его увидишь; ничего не отправляется автоматически.</string>
     <string name="diagnostics_preview_title">Диагностика – просмотр</string>
     <string name="diagnostics_action_share">Поделиться</string>
+    <string name="settings_price_overlay">Оверлей цен</string>
+    <string name="settings_price_overlay_hint">Показывает пары из постоянного уведомления о цене в маленькой плавающей таблетке поверх других приложений. Нажми, чтобы открыть приложение, перетащи на × внизу, чтобы закрыть.</string>
+    <string name="settings_price_overlay_needs">Работает только вместе с «%1$s».</string>
+    <string name="settings_price_overlay_grant">Разрешить показ поверх других приложений</string>
+    <string name="price_overlay_close">Закрыть оверлей</string>
 </resources>

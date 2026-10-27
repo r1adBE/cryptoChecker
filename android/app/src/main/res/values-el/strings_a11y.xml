@@ -104,4 +104,5 @@
     <string name="a11y_portfolio_show_amounts">Εμφάνιση ποσών</string>
     <string name="a11y_compare_chart">Σύγκριση σε ποσοστό, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s έναντι του υψηλού 30 ημερών</string>
+    <string name="a11y_price_overlay">Επικάλυψη τιμών: %1$s</string>
 </resources>

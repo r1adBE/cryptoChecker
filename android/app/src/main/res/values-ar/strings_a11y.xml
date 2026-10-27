@@ -132,4 +132,5 @@
     <string name="a11y_portfolio_show_amounts">إظهار المبالغ</string>
     <string name="a11y_compare_chart">مقارنة بالنسبة المئوية، %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s عن أعلى سعر خلال 30 يومًا</string>
+    <string name="a11y_price_overlay">تراكب الأسعار: %1$s</string>
 </resources>

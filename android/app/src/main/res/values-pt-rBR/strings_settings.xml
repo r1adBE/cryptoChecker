@@ -289,4 +289,9 @@
     <string name="diagnostics_share_hint">Arquivo de texto para o suporte: versão, aparelho, configurações de alarmes, últimas verificações e registro de alarmes – sem portfólio, valores, endereços nem notas. Você vê primeiro; nada é enviado automaticamente.</string>
     <string name="diagnostics_preview_title">Diagnóstico – prévia</string>
     <string name="diagnostics_action_share">Compartilhar</string>
+    <string name="settings_price_overlay">Sobreposição de preços</string>
+    <string name="settings_price_overlay_hint">Mostra os pares da notificação de preço permanente em uma pequena pílula flutuante sobre outros apps. Toque para abrir o app, arraste até o × embaixo para fechar.</string>
+    <string name="settings_price_overlay_needs">Só funciona junto com «%1$s».</string>
+    <string name="settings_price_overlay_grant">Permitir sobreposição a outros apps</string>
+    <string name="price_overlay_close">Fechar sobreposição</string>
 </resources>

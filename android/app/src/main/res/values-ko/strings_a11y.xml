@@ -97,4 +97,5 @@
     <string name="a11y_portfolio_show_amounts">금액 표시</string>
     <string name="a11y_compare_chart">퍼센트 비교, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">30일 최고가 대비 %1$s</string>
+    <string name="a11y_price_overlay">가격 오버레이: %1$s</string>
 </resources>

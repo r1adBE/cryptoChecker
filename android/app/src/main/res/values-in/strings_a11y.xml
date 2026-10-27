@@ -97,4 +97,5 @@
     <string name="a11y_portfolio_show_amounts">Tampilkan jumlah</string>
     <string name="a11y_compare_chart">Perbandingan dalam persen, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s dari tertinggi 30 hari</string>
+    <string name="a11y_price_overlay">Overlay harga: %1$s</string>
 </resources>

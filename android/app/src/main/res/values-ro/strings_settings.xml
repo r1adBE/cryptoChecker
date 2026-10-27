@@ -289,4 +289,9 @@
     <string name="diagnostics_share_hint">Fișier text pentru suport: versiune, dispozitiv, setări de alarme, ultimele verificări și jurnalul alarmelor – fără portofoliu, sume, adrese sau notițe. Îl vezi mai întâi; nimic nu se trimite automat.</string>
     <string name="diagnostics_preview_title">Diagnostic – previzualizare</string>
     <string name="diagnostics_action_share">Partajează</string>
+    <string name="settings_price_overlay">Suprapunere prețuri</string>
+    <string name="settings_price_overlay_hint">Afișează perechile din notificarea permanentă de preț ca o pastilă plutitoare mică peste alte aplicații. Atinge pentru a deschide aplicația, trage la × jos pentru a închide.</string>
+    <string name="settings_price_overlay_needs">Funcționează doar împreună cu «%1$s».</string>
+    <string name="settings_price_overlay_grant">Permite afișarea peste alte aplicații</string>
+    <string name="price_overlay_close">Închide suprapunerea</string>
 </resources>

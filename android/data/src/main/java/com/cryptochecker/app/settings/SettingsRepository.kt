@@ -95,6 +95,9 @@ class SettingsRepository @Inject constructor(
 
     suspend fun setExactChecks(enabled: Boolean) = edit { it[SettingsKeys.exactChecks] = enabled }
 
+    /** Preis-Overlay ein/aus (gerätebezogen). */
+    suspend fun setPriceOverlay(enabled: Boolean) = edit { it[SettingsKeys.priceOverlay] = enabled }
+
 
     override suspend fun setLiveInterval(seconds: Int) = edit {
         it[SettingsKeys.liveInterval] = AppSettings.clampLiveInterval(seconds)

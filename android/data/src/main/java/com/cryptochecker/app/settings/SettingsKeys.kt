@@ -32,6 +32,8 @@ object SettingsKeys {
     val liveWebSocketLegacy = booleanPreferencesKey(KEY_LIVE_WEBSOCKET)
     val priceNotifications = booleanPreferencesKey("price_notifications")
     val ongoingNotifications = booleanPreferencesKey(KEY_ONGOING_NOTIFICATIONS)
+    /** Preis-Overlay (nur Android, gerätebezogen, nicht in der Sicherung). */
+    val priceOverlay = booleanPreferencesKey("price_overlay")
     /** Früher ganze Prozent; wird nur noch gelesen, falls der neue Wert fehlt. */
     val notificationChangeLegacy = intPreferencesKey("notification_change_percent")
     /** Freie Eingabe mit Nachkommastellen, z. B. 2,5 %. */

@@ -2521,6 +2521,14 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 150 (Android): price overlay – `overlay/PriceOverlay` (singleton started in `CryptoCheckerApp.onCreate`,
+  combines `settings` and `observeWatches()`, one `TYPE_APPLICATION_OVERLAY` window with plain views, no service; the
+  overlay window keeps the process perceptible), `overlay/PriceOverlayRules` (pairs like the permanent price
+  notification via `PriceNotificationRule.showNow`, max 3; snap/clamp/close zone; `PriceOverlayRulesTest`). Setting
+  `priceOverlay` (DataStore key `price_overlay`, device-local, not in backups), row `PriceOverlayRow` under the
+  permanent notification (anchor `updates.overlay`, search entry), position in SharedPreferences `price_overlay`.
+  Permission `SYSTEM_ALERT_WINDOW` moved from FORBIDDEN to EXPECTED in `manifest_policy.py`; privacy page and
+  PLAY_STORE.md list it.
 * Build 149: compare view – `CompareMath` (Android `:domain` `domain/watch`, iOS `Shared/Insights`; parity
   `compare.json`): `normalized` (% from first valid close), `figures` (7/30 days vs. the last daily close starting
   ≤ now − 7/30 d, distance to max(30-day high, price)), `bounds`. UI `CompareScreen` (Android full-screen dialog like

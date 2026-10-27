@@ -104,4 +104,5 @@
     <string name="a11y_portfolio_show_amounts">Bedragen tonen</string>
     <string name="a11y_compare_chart">Vergelijking in procent, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s ten opzichte van de 30-dagentop</string>
+    <string name="a11y_price_overlay">Prijs-overlay: %1$s</string>
 </resources>

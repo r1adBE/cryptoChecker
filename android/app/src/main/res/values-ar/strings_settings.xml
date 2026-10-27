@@ -295,4 +295,9 @@
     <string name="diagnostics_share_hint">ملف نصي للدعم: الإصدار والجهاز وإعدادات التنبيهات وآخر عمليات الفحص وسجل التنبيهات – بدون المحفظة أو المبالغ أو العناوين أو الملاحظات. تراه أولًا؛ لا يُرسل شيء تلقائيًا.</string>
     <string name="diagnostics_preview_title">التشخيص – معاينة</string>
     <string name="diagnostics_action_share">مشاركة</string>
+    <string name="settings_price_overlay">تراكب الأسعار</string>
+    <string name="settings_price_overlay_hint">يعرض أزواج إشعار السعر الدائم في حبّة عائمة صغيرة فوق التطبيقات الأخرى. اضغط لفتح التطبيق، واسحب إلى × في الأسفل للإغلاق.</string>
+    <string name="settings_price_overlay_needs">يعمل فقط مع «%1$s».</string>
+    <string name="settings_price_overlay_grant">السماح بالظهور فوق التطبيقات الأخرى</string>
+    <string name="price_overlay_close">إغلاق التراكب</string>
 </resources>

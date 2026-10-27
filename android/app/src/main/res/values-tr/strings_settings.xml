@@ -287,4 +287,9 @@
     <string name="diagnostics_share_hint">Destek için metin dosyası: sürüm, cihaz, alarm ayarları, son kontroller ve alarm günlüğü – portföy, tutar, adres veya not olmadan. Önce sen görürsün; hiçbir şey otomatik gönderilmez.</string>
     <string name="diagnostics_preview_title">Tanılama – önizleme</string>
     <string name="diagnostics_action_share">Paylaş</string>
+    <string name="settings_price_overlay">Fiyat katmanı</string>
+    <string name="settings_price_overlay_hint">Kalıcı fiyat bildirimindeki pariteleri diğer uygulamaların üzerinde küçük, yüzen bir hap olarak gösterir. Uygulamayı açmak için dokun, kapatmak için alttaki ×’e sürükle.</string>
+    <string name="settings_price_overlay_needs">Yalnızca «%1$s» ile birlikte çalışır.</string>
+    <string name="settings_price_overlay_grant">Diğer uygulamaların üzerinde göstermeye izin ver</string>
+    <string name="price_overlay_close">Katmanı kapat</string>
 </resources>

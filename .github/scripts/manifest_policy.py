@@ -6,9 +6,9 @@ Appends findings for annotate.py (see there) and writes a plain-text summary of 
 
 Errors (each one blocks a store release):
   - forbidden permissions: USE_EXACT_ALARM, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, QUERY_ALL_PACKAGES,
-    AD_ID, MANAGE_EXTERNAL_STORAGE, SYSTEM_ALERT_WINDOW and every typed FOREGROUND_SERVICE_*
+    AD_ID, MANAGE_EXTERNAL_STORAGE and every typed FOREGROUND_SERVICE_*
     (the app declares no foreground service type; Play would demand a declaration per type)
-  - any permission outside the allow-list EXPECTED (the 11 permissions, each justified in
+  - any permission outside the allow-list EXPECTED (the 12 permissions, each justified in
     android/docs/PLAY_STORE.md §6): a new permission must be a conscious decision (Data safety,
     store text), not a side effect of a library update
   - a service with android:foregroundServiceType
@@ -35,7 +35,6 @@ FORBIDDEN = {
     "android.permission.QUERY_ALL_PACKAGES": "Play policy: needs a declaration",
     "com.google.android.gms.permission.AD_ID": "app has no ads; Data safety says no advertising ID",
     "android.permission.MANAGE_EXTERNAL_STORAGE": "Play policy: All files access",
-    "android.permission.SYSTEM_ALERT_WINDOW": "not used by the app",
 }
 # Allow-list: every permission of the release manifest, with the reason (also in PLAY_STORE.md §6).
 # "{package}" is replaced by the package (the AndroidX core library declares that permission itself).
@@ -46,6 +45,7 @@ EXPECTED = {
     "android.permission.POST_NOTIFICATIONS": "price alarms and price notifications (Android 13+)",
     "android.permission.RECEIVE_BOOT_COMPLETED": "re-plan alarms and background updates after a reboot",
     "android.permission.SCHEDULE_EXACT_ALARM": "opt-in «check punctually» exact alarm (user-granted, revocable)",
+    "android.permission.SYSTEM_ALERT_WINDOW": "opt-in price overlay over other apps (build 150, user-granted, revocable)",
     "android.permission.USE_BIOMETRIC": "app lock with biometrics (androidx.biometric)",
     "android.permission.USE_FINGERPRINT": "app lock on Android 8/9 (androidx.biometric)",
     "android.permission.VIBRATE": "vibration of alarm notifications",

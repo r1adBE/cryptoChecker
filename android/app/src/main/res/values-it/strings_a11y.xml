@@ -111,4 +111,5 @@
     <string name="a11y_portfolio_show_amounts">Mostra importi</string>
     <string name="a11y_compare_chart">Confronto in percentuale, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s rispetto al massimo a 30 giorni</string>
+    <string name="a11y_price_overlay">Overlay prezzi: %1$s</string>
 </resources>

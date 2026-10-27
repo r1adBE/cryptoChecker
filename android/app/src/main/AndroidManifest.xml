@@ -21,6 +21,10 @@
          Erklärung gilt nur für USE_EXACT_ALARM; SCHEDULE_EXACT_ALARM ist ab Android 14 standardmässig
          verweigert und wird in der App erfragt. -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <!-- Preis-Overlay (Schalter, Standard aus, Build 150): die Paare der dauerhaften Kurs-Mitteilung als schwebende
+         Pille über anderen Apps (`overlay/PriceOverlay`, TYPE_APPLICATION_OVERLAY, kein Dienst). Vom Nutzer in den
+         Android-Einstellungen erteilt und widerrufbar. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- Ab Android 11 muss die Sprachausgabe ausdrücklich sichtbar gemacht werden. -->
     <queries>

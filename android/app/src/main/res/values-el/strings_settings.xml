@@ -287,4 +287,9 @@
     <string name="diagnostics_share_hint">Αρχείο κειμένου για την υποστήριξη: έκδοση, συσκευή, ρυθμίσεις συναγερμών, τελευταίοι έλεγχοι και αρχείο συναγερμών – χωρίς χαρτοφυλάκιο, ποσά, διευθύνσεις ή σημειώσεις. Το βλέπεις πρώτα εσύ· τίποτα δεν αποστέλλεται αυτόματα.</string>
     <string name="diagnostics_preview_title">Διάγνωση – προεπισκόπηση</string>
     <string name="diagnostics_action_share">Κοινοποίηση</string>
+    <string name="settings_price_overlay">Επικάλυψη τιμών</string>
+    <string name="settings_price_overlay_hint">Δείχνει τα ζεύγη της μόνιμης ειδοποίησης τιμών ως μικρή αιωρούμενη κάψουλα πάνω από άλλες εφαρμογές. Πάτησε για να ανοίξει η εφαρμογή, σύρε στο × κάτω για κλείσιμο.</string>
+    <string name="settings_price_overlay_needs">Λειτουργεί μόνο μαζί με «%1$s».</string>
+    <string name="settings_price_overlay_grant">Να επιτρέπεται η εμφάνιση πάνω από άλλες εφαρμογές</string>
+    <string name="price_overlay_close">Κλείσιμο επικάλυψης</string>
 </resources>

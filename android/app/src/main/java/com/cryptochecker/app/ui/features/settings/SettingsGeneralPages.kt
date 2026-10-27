@@ -143,7 +143,9 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
     // Nach der Rückkehr aus den Android-Einstellungen neu prüfen (Akku, «Wecker und Erinnerungen»).
     var batteryUnrestricted by remember { mutableStateOf(BatteryOptimization.isIgnoring(context)) }
     var exactPermitted by remember { mutableStateOf(com.cryptochecker.app.work.ExactCheckScheduler.canScheduleExact(context)) }
+    var overlayPermitted by remember { mutableStateOf(android.provider.Settings.canDrawOverlays(context)) }
     LifecycleResumeEffect(Unit) {
+        overlayPermitted = android.provider.Settings.canDrawOverlays(context)
         batteryUnrestricted = BatteryOptimization.isIgnoring(context)
         exactPermitted = com.cryptochecker.app.work.ExactCheckScheduler.canScheduleExact(context)
         viewModel.syncExactChecks()
@@ -185,6 +187,18 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                     checked = settings.ongoingNotifications,
                     onCheckedChange = viewModel::setOngoingNotifications
                 )
+            }
+            RowDivider()
+            // Preis-Overlay (Build 150): dieselben Paare als schwebende Pille über anderen Apps
+            SettingsAnchor("updates.overlay") {
+                Column {
+                    PriceOverlayRow(
+                        enabled = settings.priceOverlay,
+                        ongoing = settings.ongoingNotifications,
+                        permitted = overlayPermitted,
+                        onToggle = viewModel::setPriceOverlay,
+                    )
+                }
             }
         }
         // Akkunutzung über «Letzte Prüfungen»: Hinweis und Weg in die Android-Einstellungen

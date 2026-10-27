@@ -118,4 +118,5 @@
     <string name="a11y_portfolio_show_amounts">Zobrazit částky</string>
     <string name="a11y_compare_chart">Porovnání v procentech, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s vůči 30dennímu maximu</string>
+    <string name="a11y_price_overlay">Cenový překryv: %1$s</string>
 </resources>

@@ -285,4 +285,9 @@
     <string name="diagnostics_share_hint">ไฟล์ข้อความสำหรับฝ่ายสนับสนุน: เวอร์ชัน อุปกรณ์ การตั้งค่าสัญญาณเตือน การตรวจสอบล่าสุด และบันทึกสัญญาณเตือน – ไม่มีพอร์ตโฟลิโอ จำนวนเงิน ที่อยู่ หรือโน้ต คุณจะเห็นก่อน ไม่มีการส่งโดยอัตโนมัติ</string>
     <string name="diagnostics_preview_title">ข้อมูลวินิจฉัย – ตัวอย่าง</string>
     <string name="diagnostics_action_share">แชร์</string>
+    <string name="settings_price_overlay">โอเวอร์เลย์ราคา</string>
+    <string name="settings_price_overlay_hint">แสดงคู่เทรดจากการแจ้งเตือนราคาแบบถาวรเป็นแคปซูลลอยขนาดเล็กเหนือแอปอื่น แตะเพื่อเปิดแอป ลากไปที่ × ด้านล่างเพื่อปิด</string>
+    <string name="settings_price_overlay_needs">ใช้ได้เฉพาะร่วมกับ «%1$s»</string>
+    <string name="settings_price_overlay_grant">อนุญาตให้แสดงทับแอปอื่น</string>
+    <string name="price_overlay_close">ปิดโอเวอร์เลย์</string>
 </resources>

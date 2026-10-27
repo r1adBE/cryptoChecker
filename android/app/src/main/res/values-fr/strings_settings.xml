@@ -289,4 +289,9 @@
     <string name="diagnostics_share_hint">Fichier texte pour le support : version, appareil, réglages des alertes, dernières vérifications et journal des alertes – sans portefeuille, montants, adresses ni notes. Tu le vois d\'abord ; rien n\'est envoyé automatiquement.</string>
     <string name="diagnostics_preview_title">Diagnostic – aperçu</string>
     <string name="diagnostics_action_share">Partager</string>
+    <string name="settings_price_overlay">Superposition des prix</string>
+    <string name="settings_price_overlay_hint">Affiche les paires de la notification de prix permanente dans une petite pastille flottante au-dessus des autres apps. Touche pour ouvrir l’app, fais glisser vers × en bas pour fermer.</string>
+    <string name="settings_price_overlay_needs">Fonctionne uniquement avec « %1$s ».</string>
+    <string name="settings_price_overlay_grant">Autoriser l’affichage par-dessus d’autres apps</string>
+    <string name="price_overlay_close">Fermer la superposition</string>
 </resources>

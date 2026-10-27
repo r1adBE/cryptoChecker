@@ -325,6 +325,11 @@ class SettingsViewModel @Inject constructor(
         settingsRepository.setOngoingNotifications(enabled)
     }
 
+    /** Preis-Overlay (nur Android); das Overlay folgt dem Schalter selbst (`PriceOverlay`). */
+    fun setPriceOverlay(enabled: Boolean) = update {
+        settingsRepository.setPriceOverlay(enabled)
+    }
+
     fun setNotificationChangePercent(percent: Double) = update {
         settingsRepository.setNotificationChangePercent(percent)
     }

@@ -104,4 +104,5 @@
     <string name="a11y_portfolio_show_amounts">Vis beløb</string>
     <string name="a11y_compare_chart">Sammenligning i procent, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s i forhold til 30-dages toppen</string>
+    <string name="a11y_price_overlay">Prisoverlay: %1$s</string>
 </resources>

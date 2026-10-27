@@ -287,4 +287,9 @@
     <string name="diagnostics_share_hint">Skedar teksti për mbështetjen: versioni, pajisja, cilësimet e alarmeve, kontrollet e fundit dhe regjistri i alarmeve – pa portofol, shuma, adresa apo shënime. E sheh fillimisht ti; asgjë nuk dërgohet automatikisht.</string>
     <string name="diagnostics_preview_title">Diagnostikimi – pamje paraprake</string>
     <string name="diagnostics_action_share">Ndaj</string>
+    <string name="settings_price_overlay">Mbishtresë çmimesh</string>
+    <string name="settings_price_overlay_hint">Shfaq çiftet e njoftimit të përhershëm të çmimit si një kapsulë e vogël lundruese mbi aplikacionet e tjera. Prek për të hapur aplikacionin, tërhiqe te × poshtë për ta mbyllur.</string>
+    <string name="settings_price_overlay_needs">Funksionon vetëm bashkë me «%1$s».</string>
+    <string name="settings_price_overlay_grant">Lejo shfaqjen mbi aplikacionet e tjera</string>
+    <string name="price_overlay_close">Mbyll mbishtresën</string>
 </resources>

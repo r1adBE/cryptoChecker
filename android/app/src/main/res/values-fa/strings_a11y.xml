@@ -104,4 +104,5 @@
     <string name="a11y_portfolio_show_amounts">نمایش مبالغ</string>
     <string name="a11y_compare_chart">مقایسه به درصد، %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s نسبت به سقف ۳۰ روزه</string>
+    <string name="a11y_price_overlay">لایه قیمت: %1$s</string>
 </resources>

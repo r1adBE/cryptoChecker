@@ -287,4 +287,9 @@
     <string name="diagnostics_share_hint">Tekstfil til support: version, enhed, alarmindstillinger, seneste tjek og alarmlog – uden portefølje, beløb, adresser eller noter. Du ser den først; intet sendes automatisk.</string>
     <string name="diagnostics_preview_title">Diagnose – forhåndsvisning</string>
     <string name="diagnostics_action_share">Del</string>
+    <string name="settings_price_overlay">Prisoverlay</string>
+    <string name="settings_price_overlay_hint">Viser parrene fra den faste kursnotifikation som en lille svævende pille over andre apps. Tryk for at åbne appen, træk til × nederst for at lukke.</string>
+    <string name="settings_price_overlay_needs">Virker kun sammen med «%1$s».</string>
+    <string name="settings_price_overlay_grant">Tillad visning over andre apps</string>
+    <string name="price_overlay_close">Luk overlay</string>
 </resources>

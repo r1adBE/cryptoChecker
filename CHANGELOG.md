@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 150)
+
+* New (Android): price overlay. Settings › Updates › «Price overlay» (off by default) shows the pairs of the permanent price notification – at most 3 – as a small, semi-transparent pill over other apps: symbol, price and change in the price colours. Drag it anywhere, it snaps to the edge; tap opens the app; drag it onto the × at the bottom to turn it off. It updates whenever the app has new prices (live while open, otherwise at the background interval), runs without its own service and needs the Android permission «Display over other apps», which you grant and can revoke yourself. TalkBack reads the prices and offers «Close overlay». Not available on iPhone (iOS does not allow overlays). 31 languages; privacy page updated (permissions table).
+
 ## 16.2.2 (build 149)
 
 * New: compare 2 to 4 pairs. In the watchlist, long-press to select pairs and tap «Compare»: one line per pair in % since the start of the period (24h or «Today», 7 days, 30 days, 1 year), below each pair its price, 24h, 7 days, 30 days and the distance to the 30-day high. Every line has its own colour and dash style. Uses the same candles as the pair's chart – no extra server. TalkBack/VoiceOver read the chart and each row. Android and iPhone, 31 languages.

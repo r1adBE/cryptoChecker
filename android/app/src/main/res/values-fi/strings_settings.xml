@@ -287,4 +287,9 @@
     <string name="diagnostics_share_hint">Tekstitiedosto tukea varten: versio, laite, hälytysasetukset, viimeisimmät tarkistukset ja hälytysloki – ilman salkkua, summia, osoitteita tai muistiinpanoja. Näet sen ensin; mitään ei lähetetä automaattisesti.</string>
     <string name="diagnostics_preview_title">Diagnostiikka – esikatselu</string>
     <string name="diagnostics_action_share">Jaa</string>
+    <string name="settings_price_overlay">Hintapeite</string>
+    <string name="settings_price_overlay_hint">Näyttää pysyvän hintailmoituksen parit pienenä kelluvana pillerinä muiden sovellusten päällä. Avaa sovellus napauttamalla, sulje vetämällä alareunan ×-merkkiin.</string>
+    <string name="settings_price_overlay_needs">Toimii vain yhdessä asetuksen «%1$s» kanssa.</string>
+    <string name="settings_price_overlay_grant">Salli näyttäminen muiden sovellusten päällä</string>
+    <string name="price_overlay_close">Sulje peite</string>
 </resources>

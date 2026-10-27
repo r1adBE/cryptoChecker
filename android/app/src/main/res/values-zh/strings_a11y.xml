@@ -97,4 +97,5 @@
     <string name="a11y_portfolio_show_amounts">显示金额</string>
     <string name="a11y_compare_chart">百分比比较，%1$s：%2$s</string>
     <string name="a11y_compare_from_high">较30日高点 %1$s</string>
+    <string name="a11y_price_overlay">价格悬浮窗：%1$s</string>
 </resources>

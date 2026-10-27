@@ -104,4 +104,5 @@
     <string name="a11y_portfolio_show_amounts">Visa belopp</string>
     <string name="a11y_compare_chart">Jämförelse i procent, %1$s: %2$s</string>
     <string name="a11y_compare_from_high">%1$s mot 30-dagarstoppen</string>
+    <string name="a11y_price_overlay">Prisöverlägg: %1$s</string>
 </resources>

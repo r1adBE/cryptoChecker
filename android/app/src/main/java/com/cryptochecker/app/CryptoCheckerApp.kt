@@ -58,6 +58,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     /** Lazy: Kopf der Listen-Widgets erst im Hintergrund-Job unten ([ListWidgetRetry.clearIfExpired]). */
     @Inject lateinit var widgetRetry: dagger.Lazy<com.cryptochecker.app.widget.ListWidgetRetry>
 
+    /** Preis-Overlay (Build 150): folgt Schalter und Kursen, sobald der Prozess läuft (auch für Hintergrund-Läufe). */
+    @Inject lateinit var priceOverlay: dagger.Lazy<com.cryptochecker.app.overlay.PriceOverlay>
+
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
      * Ohne Handler würde eine Ausnahme in einem dieser Jobs den ganzen Prozess beenden. Läuft über [appScope]
@@ -140,6 +143,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
         // Diagnosebericht vom letzten Teilen (unverschlüsselt im Cache) wegräumen; die Ziel-App hat ihn längst gelesen
         scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.DiagnosticsFiles.clear(cacheDir) }
+
+        // Preis-Overlay (nur mit Schalter, dauerhafter Kurs-Mitteilung und Berechtigung sichtbar)
+        priceOverlay.get().start()
 
         // Widget: eine abgelaufene «Neuer Versuch um …»-Uhrzeit (Prozess endete vor dem Löschen) weg, Kopf neu zeichnen
         scope.launch { widgetRetry.get().clearIfExpired(System.currentTimeMillis()) }

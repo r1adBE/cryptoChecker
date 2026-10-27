@@ -287,4 +287,9 @@
     <string name="diagnostics_share_hint">सपोर्ट के लिए टेक्स्ट फ़ाइल: वर्ज़न, डिवाइस, अलार्म सेटिंग, हाल की जाँचें और अलार्म लॉग – पोर्टफ़ोलियो, राशि, पते या नोट्स के बिना। पहले तुम इसे देखते हो; कुछ भी अपने-आप नहीं भेजा जाता।</string>
     <string name="diagnostics_preview_title">डायग्नोस्टिक – पूर्वावलोकन</string>
     <string name="diagnostics_action_share">शेयर करो</string>
+    <string name="settings_price_overlay">कीमत ओवरले</string>
+    <string name="settings_price_overlay_hint">स्थायी कीमत सूचना के जोड़े दूसरे ऐप्स के ऊपर एक छोटी तैरती गोली में दिखाता है। ऐप खोलने के लिए टैप करें, बंद करने के लिए नीचे × पर खींचें।</string>
+    <string name="settings_price_overlay_needs">सिर्फ़ «%1$s» के साथ काम करता है।</string>
+    <string name="settings_price_overlay_grant">दूसरे ऐप्स के ऊपर दिखाने की अनुमति दें</string>
+    <string name="price_overlay_close">ओवरले बंद करें</string>
 </resources>

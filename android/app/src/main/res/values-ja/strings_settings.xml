@@ -285,4 +285,9 @@
     <string name="diagnostics_share_hint">サポート用のテキストファイル：バージョン、端末、アラーム設定、最近の確認、アラーム履歴 – ポートフォリオ、金額、アドレス、メモは含みません。最初に内容を確認でき、自動では何も送信されません。</string>
     <string name="diagnostics_preview_title">診断情報 – プレビュー</string>
     <string name="diagnostics_action_share">共有</string>
+    <string name="settings_price_overlay">価格オーバーレイ</string>
+    <string name="settings_price_overlay_hint">常時表示の価格通知のペアを、ほかのアプリの上に小さなフローティング表示で示します。タップでアプリを開き、下の × へドラッグすると閉じます。</string>
+    <string name="settings_price_overlay_needs">「%1$s」と一緒の場合のみ動作します。</string>
+    <string name="settings_price_overlay_grant">ほかのアプリの上に重ねて表示を許可</string>
+    <string name="price_overlay_close">オーバーレイを閉じる</string>
 </resources>

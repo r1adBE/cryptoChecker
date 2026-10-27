@@ -291,4 +291,9 @@
     <string name="diagnostics_share_hint">Текстовий файл для підтримки: версія, пристрій, налаштування сигналів, останні перевірки та журнал сигналів – без портфеля, сум, адрес і нотаток. Спершу ти його побачиш; нічого не надсилається автоматично.</string>
     <string name="diagnostics_preview_title">Діагностика – перегляд</string>
     <string name="diagnostics_action_share">Поділитися</string>
+    <string name="settings_price_overlay">Оверлей цін</string>
+    <string name="settings_price_overlay_hint">Показує пари з постійного сповіщення про ціну в маленькій плаваючій пігулці поверх інших застосунків. Торкнись, щоб відкрити застосунок, перетягни на × унизу, щоб закрити.</string>
+    <string name="settings_price_overlay_needs">Працює лише разом із «%1$s».</string>
+    <string name="settings_price_overlay_grant">Дозволити показ поверх інших застосунків</string>
+    <string name="price_overlay_close">Закрити оверлей</string>
 </resources>

@@ -291,4 +291,9 @@
     <string name="diagnostics_share_hint">Plik tekstowy dla wsparcia: wersja, urządzenie, ustawienia alarmów, ostatnie sprawdzenia i dziennik alarmów – bez portfela, kwot, adresów i notatek. Najpierw go zobaczysz; nic nie jest wysyłane automatycznie.</string>
     <string name="diagnostics_preview_title">Diagnostyka – podgląd</string>
     <string name="diagnostics_action_share">Udostępnij</string>
+    <string name="settings_price_overlay">Nakładka z cenami</string>
+    <string name="settings_price_overlay_hint">Pokazuje pary ze stałego powiadomienia o cenach jako małą pływającą pigułkę nad innymi aplikacjami. Dotknij, aby otworzyć aplikację, przeciągnij na × na dole, aby zamknąć.</string>
+    <string name="settings_price_overlay_needs">Działa tylko razem z «%1$s».</string>
+    <string name="settings_price_overlay_grant">Zezwól na wyświetlanie nad innymi aplikacjami</string>
+    <string name="price_overlay_close">Zamknij nakładkę</string>
 </resources>
