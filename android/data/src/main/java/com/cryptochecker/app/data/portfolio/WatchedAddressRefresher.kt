@@ -57,7 +57,7 @@ class WatchedAddressRefresher @Inject constructor(
  * frei; Abbruch wird weitergereicht.
  * @return true, wenn mindestens ein Ergebnis gespeichert wurde; false bei Fehler.
  */
-internal suspend fun <U> singleFlightRefresh(
+suspend fun <U> singleFlightRefresh(
     gate: Mutex,
     background: Boolean,
     read: suspend () -> List<WatchedAddress>,

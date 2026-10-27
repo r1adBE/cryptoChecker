@@ -1,5 +1,6 @@
 package com.cryptochecker.app.work
 
+import com.cryptochecker.app.settings.ZoneCheckPrefs
 import androidx.core.content.edit
 import android.content.Context
 import androidx.hilt.work.HiltWorker
@@ -137,17 +138,17 @@ class ZoneCheckWorker @AssistedInject constructor(
     companion object {
         const val WORK_NAME = "zone-check"
         /** Gemerkter Stand; beim Ausschalten in den Einstellungen zurückgesetzt (MarketAlertReset). */
-        internal const val PREFS = "market_zone"
+        internal const val PREFS = ZoneCheckPrefs.PREFS
         private const val LEGACY_KEY_ZONE = "last_zone"
-        internal const val KEY_FNG = "last_fear_greed"
+        internal const val KEY_FNG = ZoneCheckPrefs.KEY_FNG
         /** Grenzen, zu denen der gemerkte Stand gehört. */
-        internal const val KEY_FNG_BELOW = "last_fear_greed_below"
-        internal const val KEY_FNG_ABOVE = "last_fear_greed_above"
+        internal const val KEY_FNG_BELOW = ZoneCheckPrefs.KEY_FNG_BELOW
+        internal const val KEY_FNG_ABOVE = ZoneCheckPrefs.KEY_FNG_ABOVE
 
-        internal fun crossedKey(kind: IndicatorAlertKind) = "indicator_crossed_" + kind.key.lowercase()
+        internal fun crossedKey(kind: IndicatorAlertKind) = ZoneCheckPrefs.crossedKey(kind)
 
         /** Grenze (gespeicherte Ganzzahl), zu der der gemerkte Zustand «jenseits» gehört. */
-        internal fun thresholdKey(kind: IndicatorAlertKind) = "indicator_threshold_" + kind.key.lowercase()
+        internal fun thresholdKey(kind: IndicatorAlertKind) = ZoneCheckPrefs.thresholdKey(kind)
 
         /** Höchstens so viele erneute Versuche je 12-h-Lauf (30 s, 1 Min., 2 Min. …). */
         private const val MAX_RETRIES = 3

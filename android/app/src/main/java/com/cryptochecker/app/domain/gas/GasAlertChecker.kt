@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.gas
 
+import com.cryptochecker.app.settings.GasAlertPrefs
 import androidx.core.content.edit
 import android.content.Context
 import com.cryptochecker.app.R
@@ -141,7 +142,7 @@ class GasAlertChecker @Inject constructor(
          * Prüfung schreibt am Ende die Grenze, mit der sie begann — ein «Aus» während des Abrufs ginge sonst verloren,
          * und das Wiedereinschalten mit derselben Grenze bliebe stumm. Prozessweit (die Klasse ist ohnehin einmalig).
          */
-        val lock = Mutex()
+        val lock: Mutex get() = GasAlertPrefs.lock
 
         /**
          * Fällig, wenn seit [lastCheck] mindestens [MIN_INTERVAL_MILLIS] vergangen sind. Liegt
@@ -150,13 +151,13 @@ class GasAlertChecker @Inject constructor(
          */
         fun isDue(now: Long, lastCheck: Long): Boolean = now - lastCheck !in 0 until MIN_INTERVAL_MILLIS
 
-        const val PREFS = "gas_alerts"
+        const val PREFS = GasAlertPrefs.PREFS
         const val KEY_LAST_CHECK = "last_check"
         const val KEY_ETH_ARMED = "eth_armed"
         const val KEY_BTC_ARMED = "btc_armed"
         /** Grenze, zu der der gemerkte Zustand gehört (Double als Bits). */
-        const val KEY_ETH_THRESHOLD = "eth_threshold"
-        const val KEY_BTC_THRESHOLD = "btc_threshold"
+        const val KEY_ETH_THRESHOLD = GasAlertPrefs.KEY_ETH_THRESHOLD
+        const val KEY_BTC_THRESHOLD = GasAlertPrefs.KEY_BTC_THRESHOLD
         const val MIN_INTERVAL_MILLIS = 10 * 60_000L
         /** Nach einem fehlgeschlagenen Abruf: so lange bis zum nächsten Versuch (statt der vollen Pause). */
         const val RETRY_AFTER_FAILURE_MILLIS = 2 * 60_000L

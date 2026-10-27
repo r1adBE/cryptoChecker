@@ -2521,6 +2521,13 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 143 (R, step 8): 13 more files to `:data` – `settings/SettingsRepository`, `SettingsDataStore`, `SettingsKeys`,
+  `SettingsReading`, `SettingsLockFallback`, `MarketAlertReset` (new `settings/MarketAlertPrefs.kt`: `ZoneCheckPrefs`
+  and `GasAlertPrefs` with the prefs names, keys and the gas lock; `ZoneCheckWorker` and `GasAlertChecker` keep their
+  constants as aliases, `GasAlertChecker.lock` returns the shared mutex), `data/SparklineRepository`,
+  `data/live/LivePriceStream`, `data/MarketRepositoryImpl`, `data/AddMoments`, `data/BulkAddRunner`,
+  `data/portfolio/WatchedAddressRefresher`. Still in `:app/data`: `BackupManager*`/`RestoreRun` (app lock),
+  `CoinLogoSync` (widgets), `SheetChartRepository` (widget chart geometry), `PortfolioAlarms` (notifications).
 * Build 142 (R, step 7): Gradle module `android/data` (Android library, namespace `com.cryptochecker.data`, KSP for
   Hilt and Room, Room plugin) with 159 files: most of `app/…/data` (both databases, DAOs, entities of markets and
   portfolio, `WatchRepository*`, `PortfolioRepository*`, data sources, `LogoImageStore`, `CoinLogoRepository`, backup
