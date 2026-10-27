@@ -132,7 +132,7 @@ object BitcoinIndicatorModel {
 }
 
 /** Gemeinsame Rechnungen von Bitcoin- und Coin-Kennzahlen. */
-internal object IndicatorMath {
+object IndicatorMath {
     /** [value] / [base]; null ohne gültige Basis. */
     fun ratio(value: Double?, base: Double?): Double? =
         if (value != null && base != null && base > 0 && value.isFinite()) value / base else null

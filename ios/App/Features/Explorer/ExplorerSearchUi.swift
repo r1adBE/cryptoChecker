@@ -226,8 +226,8 @@ extension ExplorerScreen {
             .accessibilityAddTraits(.isHeader)
     }
 
-    /// Hinweis auf fehlende Paarlisten mit «Listen laden» — und, solange sie laden, der Fortschritt. Datenschutz:
-    /// geladen wird nur auf Tippen, je Börse die ganze öffentliche Liste (für alle gleich). Wie `ListsOffer` in Android.
+    /// Fehlende Paarlisten mit «Listen laden» (stumme Börsen mit Namen und «Erneut versuchen»), beim Laden der
+    /// Fortschritt. Geladen wird nur auf Tippen, je Börse die ganze öffentliche Liste. Wie `ListsOffer` in Android.
     @ViewBuilder
     private var listsOffer: some View {
         let lists = vm.searchLists
@@ -251,7 +251,12 @@ extension ExplorerScreen {
             .padding(.vertical, Spacing.sm)
         } else if lists.missing > 0 {
             VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text(L("explorer_lists_missing", count: lists.missing, lists.missing))
+                // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen
+                let others = lists.missing - lists.failed.count
+                Text([lists.failed.isEmpty ? nil : L(lists.failed.count == 1 ? "explorer_lists_failed_one"
+                                                     : "explorer_lists_failed_many", lists.failed.joined(separator: ", ")),
+                      lists.failed.isEmpty || others > 0 ? L("explorer_lists_missing", count: others, others) : nil]
+                    .compactMap { $0 }.joined(separator: "\n"))
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurface)
                 Text(L("explorer_lists_privacy"))
@@ -259,7 +264,7 @@ extension ExplorerScreen {
                     .foregroundStyle(AppColors.onSurfaceVariant)
                 HStack {
                     Spacer()
-                    Button(L("explorer_lists_load")) { vm.loadMissingLists() }
+                    Button(L(lists.failed.isEmpty ? "explorer_lists_load" : "action_retry")) { vm.loadMissingLists() }
                         .accessibilityIdentifier(UiTestTags.explorerListsLoad)
                         .font(.subheadline.weight(.semibold))
                         .tint(accent.primary)

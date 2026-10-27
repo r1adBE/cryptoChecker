@@ -2521,6 +2521,25 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 136 (R, step 1): Gradle module `android/domain` (Android library, namespace `com.cryptochecker.domain`,
+  Hilt/KSP for its `@Inject` classes) with the 139 files of `app` that depend on no screen, storage or network flow:
+  most of `domain/` plus `data/local/model/WatchEntity` and `AlarmEntity` (Room annotations only; DAOs and the
+  database stay in `:app`), `MarketRepository`, `BackupRestoreLimits`, `AssetScope` and four `util` helpers. Packages
+  are unchanged (`com.cryptochecker.app.*`), so no import changed; `internal` in moved files became public (module
+  boundary). `:app` depends on `:domain`, which exposes `:marketdata`, coroutines and Room runtime as `api`.
+  Selection rule for later moves: a file may move only if everything it uses has moved (no `R`, `BuildConfig`, UI,
+  DAO/database or Hilt entry points). Next steps: interfaces for repositories so the refresh/alarm flows can move,
+  then drop the Android dependencies of `:domain` (Kotlin Multiplatform), then `:data`. CI: `:domain:lintRelease`,
+  device-test paths, `domain/gradle.lockfile` in the supply-chain update, mutation targets resolved in either module,
+  `FileLengthTest` covers the module.
+  Add pair: `SearchLists.failed` / `ExplorerSearchLists.failed` hold the names of exchanges whose pair list did not
+  load in the last «Load lists» run (sync error or empty list) and are still missing; the card shows
+  `explorer_lists_failed_one` / `_many` (two strings, not a plural: Xcode requires the count in plural
+  variants; names joined with «, ») before the remaining `explorer_lists_missing` and
+  the button becomes `action_retry`.
+  Supply chain (SEC-2 done): the run of «Supply chain update» on this build wrote `verify-signatures=true` with
+  `android/gradle/verification-keyring.keys`; checksums remain for unsigned artifacts. Lock files gained the
+  release unit-test configurations (no version changed).
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on

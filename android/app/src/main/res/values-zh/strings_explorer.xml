@@ -10,6 +10,8 @@
     <string name="explorer_coin_show_pairs">显示交易对</string>
     <string name="explorer_coin_suggested">推荐</string>
     <string name="explorer_coins_title">币种</string>
+    <string name="explorer_lists_failed_many">%1$s 目前没有响应 – 未能加载交易对列表。请你稍后再试。</string>
+    <string name="explorer_lists_failed_one">%1$s 目前没有响应 – 未能加载交易对列表。请你稍后再试。</string>
     <string name="explorer_lists_load">加载列表</string>
     <string name="explorer_lists_loading">正在加载交易对列表… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

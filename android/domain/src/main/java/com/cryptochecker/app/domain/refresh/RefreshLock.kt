@@ -213,7 +213,7 @@ class RefreshLock @Inject constructor() {
  * gehalten zurückgelassen, und der Aufrufer gibt sie wie sonst frei. Endet das Warten mit einem anderen Fehler oder
  * Abbruch des Aufrufers, wird eine schon erworbene Sperre hier freigegeben, bevor der Fehler weitergeht.
  */
-internal suspend fun Mutex.lockWithin(timeoutMillis: Long): Boolean {
+suspend fun Mutex.lockWithin(timeoutMillis: Long): Boolean {
     var got = false
     try {
         withTimeoutOrNull(timeoutMillis) {

@@ -67,7 +67,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 135
+        versionCode = 136
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -219,6 +219,7 @@ room {
 
 dependencies {
     implementation(project(":marketdata"))
+    implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -337,5 +338,8 @@ tasks.withType<Test>().configureEach {
 // mit: die Börsen-Parser laufen vor allem in den Vertragstests von :app (contract/), nicht in :marketdata selbst.
 if (providers.gradleProperty("coverage").orNull == "true") {
     apply(plugin = libs.plugins.kover.get().pluginId)
-    dependencies { add("kover", project(":marketdata")) }
+    dependencies {
+        add("kover", project(":marketdata"))
+        add("kover", project(":domain"))
+    }
 }

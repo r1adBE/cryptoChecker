@@ -63,11 +63,13 @@ fun ExplorerViewModel.loadMissingLists() {
         lists.value = SearchLists(missing = targets.size, progress = SearchProgress(0, targets.size))
         val permits = Semaphore(LIST_LOAD_PARALLEL)
         var finished = 0
+        val failed = mutableListOf<String>()
         targets.map { m ->
             async {
                 permits.acquire()
                 try {
-                    syncForSearch(m)?.let { pairsByMarket[m.key] = it }
+                    val info = syncForSearch(m)
+                    if (info != null) pairsByMarket[m.key] = info else failed += m.name
                 } finally {
                     permits.release()
                 }
@@ -77,6 +79,10 @@ fun ExplorerViewModel.loadMissingLists() {
             }
         }.awaitAll()
         updateUnloaded()
+        // Börsen ohne Antwort (Wartung, Zeitüberschreitung, kein Netz) mit Namen melden statt wortlos
+        // dieselbe Karte zu zeigen
+        val stillMissing = unloadedMarkets.map { it.name }.toSet()
+        lists.value = lists.value.copy(failed = targets.map { it.name }.filter { it in failed && it in stillMissing })
         runSearch()
     }
 }
@@ -236,6 +242,12 @@ private const val LIST_LOAD_PARALLEL = 4
 
 /**
  * Paarlisten der Suche: [reading] solange die gespeicherten Listen gelesen werden, [missing] Börsen ohne
- * Liste auf dem Gerät, [progress] solange fehlende auf Wunsch laden.
+ * Liste auf dem Gerät, [progress] solange fehlende auf Wunsch laden, [failed] Namen der Börsen, die beim
+ * letzten Laden nicht antworteten.
  */
-data class SearchLists(val reading: Boolean = false, val missing: Int = 0, val progress: SearchProgress? = null)
+data class SearchLists(
+    val reading: Boolean = false,
+    val missing: Int = 0,
+    val progress: SearchProgress? = null,
+    val failed: List<String> = emptyList(),
+)

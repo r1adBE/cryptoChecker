@@ -11,6 +11,8 @@
     <string name="explorer_coin_show_pairs">Çiftleri göster</string>
     <string name="explorer_coin_suggested">Öneri</string>
     <string name="explorer_coins_title">Coinler</string>
+    <string name="explorer_lists_failed_many">%1$s şu anda yanıt vermiyor – parite listeleri yüklenmedi. Daha sonra tekrar dene.</string>
+    <string name="explorer_lists_failed_one">%1$s şu anda yanıt vermiyor – parite listesi yüklenmedi. Daha sonra tekrar dene.</string>
     <string name="explorer_lists_load">Listeleri yükle</string>
     <string name="explorer_lists_loading">Çift listeleri yükleniyor… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

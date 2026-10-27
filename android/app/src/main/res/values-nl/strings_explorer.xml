@@ -11,6 +11,8 @@
     <string name="explorer_coin_show_pairs">Paren tonen</string>
     <string name="explorer_coin_suggested">Voorstel</string>
     <string name="explorer_coins_title">Munten</string>
+    <string name="explorer_lists_failed_many">%1$s reageren op dit moment niet – paarlijsten niet geladen. Probeer het later opnieuw.</string>
+    <string name="explorer_lists_failed_one">%1$s reageert op dit moment niet – paarlijst niet geladen. Probeer het later opnieuw.</string>
     <string name="explorer_lists_load">Lijsten laden</string>
     <string name="explorer_lists_loading">Parenlijsten laden… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

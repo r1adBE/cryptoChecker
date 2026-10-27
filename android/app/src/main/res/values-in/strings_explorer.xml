@@ -10,6 +10,8 @@
     <string name="explorer_coin_show_pairs">Tampilkan pasangan</string>
     <string name="explorer_coin_suggested">Saran</string>
     <string name="explorer_coins_title">Koin</string>
+    <string name="explorer_lists_failed_many">%1$s sedang tidak merespons – daftar pasangan tidak dimuat. Coba lagi nanti.</string>
+    <string name="explorer_lists_failed_one">%1$s sedang tidak merespons – daftar pasangan tidak dimuat. Coba lagi nanti.</string>
     <string name="explorer_lists_load">Muat daftar</string>
     <string name="explorer_lists_loading">Memuat daftar pasangan… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

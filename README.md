@@ -31,7 +31,7 @@ themselves contain no donation feature.
 
 | Folder | Content |
 |---|---|
-| [`android/`](android) | Android app (Kotlin, Jetpack Compose) and the exchange library module [`android/marketdata`](android/marketdata) |
+| [`android/`](android) | Android app (Kotlin, Jetpack Compose) with the modules [`android/app`](android/app) (screens, storage, network flows), [`android/domain`](android/domain) (rules, calculations and models without screens or storage) and the exchange library [`android/marketdata`](android/marketdata) |
 | [`ios/`](ios) | iOS (iPhone) app with widgets (Swift, SwiftUI), Xcode project `CryptoChecker.xcodeproj` |
 | [`docs/`](docs) | Website and privacy policy (GitHub Pages) |
 | [`docs/macro/`](docs/macro) | Calendar of major US economic releases (CPI, PPI, jobs report, Fed decisions, PCE) used by the app's economic-data hint |

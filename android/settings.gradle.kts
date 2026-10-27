@@ -22,6 +22,7 @@ dependencyResolutionManagement {
 rootProject.name = "cryptoChecker"
 
 include(":marketdata")
+include(":domain")
 include(":app")
 // Erzeugt das Baseline Profile der App (nur auf Gerät/Emulator, siehe DEVELOPMENT.md)
 include(":baselineprofile")

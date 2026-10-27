@@ -350,8 +350,10 @@ class SettingsViewModel @Inject constructor(
     fun testSpeech() = update {
         val current = settingsRepository.current()
         val watch = watchRepository.getWatches().firstOrNull { it.lastPrice != null }
-        val text = if (watch?.lastPrice != null) {
-            spokenText.price(watch, watch.lastPrice)
+        // Lokale Kopie: lastPrice liegt seit Build 136 in :domain (kein Smart Cast über Modulgrenzen)
+        val price = watch?.lastPrice
+        val text = if (watch != null && price != null) {
+            spokenText.price(watch, price)
         } else {
             "Crypto Checker"
         }

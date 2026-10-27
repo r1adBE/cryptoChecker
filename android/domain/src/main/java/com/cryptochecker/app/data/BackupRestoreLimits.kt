@@ -23,7 +23,7 @@ import com.cryptochecker.marketdata.model.market.DexScreener
  * - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`, z. B. eine inzwischen entfernte Börse), nur begrenzt.
  * - Höchstens [MAX_PAIRS] Paare (die ersten der Datei) und je Paar [MAX_ALARMS_PER_PAIR] Alarme.
  */
-internal object BackupRestoreLimits {
+object BackupRestoreLimits {
 
     const val MAX_MARKET_KEY = 64
     const val MAX_MARKET_NAME = 60

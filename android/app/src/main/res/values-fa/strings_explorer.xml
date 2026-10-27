@@ -11,6 +11,8 @@
     <string name="explorer_coin_show_pairs">نمایش جفت‌ها</string>
     <string name="explorer_coin_suggested">پیشنهاد</string>
     <string name="explorer_coins_title">کوین‌ها</string>
+    <string name="explorer_lists_failed_many">%1$s در حال حاضر پاسخ نمی‌دهند – فهرست‌های جفت بارگیری نشد. بعداً دوباره امتحان کن.</string>
+    <string name="explorer_lists_failed_one">%1$s در حال حاضر پاسخ نمی‌دهد – فهرست جفت‌ها بارگیری نشد. بعداً دوباره امتحان کن.</string>
     <string name="explorer_lists_load">بارگیری فهرست‌ها</string>
     <string name="explorer_lists_loading">در حال بارگیری فهرست جفت‌ها… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

@@ -12,6 +12,8 @@
     <string name="explorer_coin_show_pairs">Mostra coppie</string>
     <string name="explorer_coin_suggested">Consigliata</string>
     <string name="explorer_coins_title">Monete</string>
+    <string name="explorer_lists_failed_many">%1$s non rispondono al momento – elenchi coppie non caricati. Riprova più tardi.</string>
+    <string name="explorer_lists_failed_one">%1$s non risponde al momento – elenco coppie non caricato. Riprova più tardi.</string>
     <string name="explorer_lists_load">Carica elenchi</string>
     <string name="explorer_lists_loading">Caricamento elenchi coppie… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

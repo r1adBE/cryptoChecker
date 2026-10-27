@@ -50,6 +50,8 @@ extension ExplorerViewModel {
         guard missingListsTask == nil, !unloadedMarkets.isEmpty else { return }
         pendingListMarkets = unloadedMarkets
         listsLoadedCount = 0
+        failedListKeys = []
+        let targets = unloadedMarkets
         let total = pendingListMarkets.count
         searchLists = ExplorerSearchLists(missing: total, progress: ExplorerSearchProgress(done: 0, total: total))
         missingListsTask = Task { @MainActor [weak self] in
@@ -66,6 +68,12 @@ extension ExplorerViewModel {
             guard let self else { return }
             self.missingListsTask = nil
             self.updateUnloaded()
+            // Börsen ohne Antwort (Wartung, Zeitüberschreitung, kein Netz) mit Namen melden statt wortlos
+            // dieselbe Karte zu zeigen
+            let stillMissing = Set(self.unloadedMarkets.map(\.key))
+            self.searchLists.failed = targets
+                .filter { self.failedListKeys.contains($0.key) && stillMissing.contains($0.key) }
+                .map(\.name)
             self.runSearch()
         }
     }
@@ -195,7 +203,7 @@ extension ExplorerViewModel {
     }
 
     private func listLoaded(key: String, info: MarketPairsInfo?, total: Int) {
-        if let info { searchCache[key] = info }
+        if let info { searchCache[key] = info } else { failedListKeys.insert(key) }
         listsLoadedCount += 1
         searchLists.progress = ExplorerSearchProgress(done: listsLoadedCount, total: total)
         runSearch()

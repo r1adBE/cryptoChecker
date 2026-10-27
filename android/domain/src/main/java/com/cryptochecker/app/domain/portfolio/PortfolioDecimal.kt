@@ -50,7 +50,7 @@ object PortfolioDecimal {
     }
 
     /** Grösse im erlaubten Bereich (siehe [parse]); null ist immer erlaubt. */
-    internal fun withinLimits(value: BigDecimal): Boolean {
+    fun withinLimits(value: BigDecimal): Boolean {
         val s = value.stripTrailingZeros()
         if (s.signum() == 0) return true
         return s.precision() - s.scale() <= MAX_INTEGER_DIGITS && s.scale() <= MAX_PARSE_SCALE

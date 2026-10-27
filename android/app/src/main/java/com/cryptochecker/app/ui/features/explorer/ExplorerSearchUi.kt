@@ -193,7 +193,8 @@ internal fun SectionLabel(text: String, modifier: Modifier = Modifier) {
 }
 
 /**
- * Hinweis auf fehlende Paarlisten mit «Listen laden» — und, solange sie laden, der Fortschritt. Datenschutz:
+ * Hinweis auf fehlende Paarlisten mit «Listen laden» — und, solange sie laden, der Fortschritt; antwortete eine
+ * Börse nicht, nennt er sie und bietet «Erneut versuchen». Datenschutz:
  * geladen wird nur auf Tippen, je Börse die ganze öffentliche Liste (für alle gleich).
  */
 @Composable
@@ -229,10 +230,26 @@ internal fun ListsOffer(lists: SearchLists, onLoad: () -> Unit) {
                 .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(start = 16.dp, end = 8.dp, top = Spacing.md, bottom = Spacing.xs)
         ) {
-            Text(
-                text = pluralStringResource(R.plurals.explorer_lists_missing, lists.missing, lists.missing),
-                style = MaterialTheme.typography.bodyMedium
-            )
+            // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen
+            val others = lists.missing - lists.failed.size
+            if (lists.failed.isNotEmpty()) {
+                Text(
+                    // Zwei Texte statt Plural: die Zahl steht nicht im Satz (Xcode verlangt sie in Plural-Varianten)
+                    text = stringResource(
+                        if (lists.failed.size == 1) R.string.explorer_lists_failed_one
+                        else R.string.explorer_lists_failed_many,
+                        lists.failed.joinToString(", ")
+                    ),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+            if (lists.failed.isEmpty() || others > 0) {
+                Text(
+                    text = pluralStringResource(R.plurals.explorer_lists_missing, others, others),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = if (lists.failed.isEmpty()) Modifier else Modifier.padding(top = Spacing.xs)
+                )
+            }
             Text(
                 text = stringResource(R.string.explorer_lists_privacy),
                 style = MaterialTheme.typography.bodySmall,
@@ -240,7 +257,7 @@ internal fun ListsOffer(lists: SearchLists, onLoad: () -> Unit) {
                 modifier = Modifier.padding(top = Spacing.xs, end = 8.dp)
             )
             TextButton(onClick = onLoad, modifier = Modifier.align(Alignment.End).testTag(UiTestTags.EXPLORER_LISTS_LOAD)) {
-                Text(stringResource(R.string.explorer_lists_load))
+                Text(stringResource(if (lists.failed.isEmpty()) R.string.explorer_lists_load else R.string.action_retry))
             }
         }
     }
