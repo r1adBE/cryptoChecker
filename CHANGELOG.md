@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 138)
+
+* Android code structure (no change for users): the «Why is it moving?» analysis (activity, BTC correlation, broad market, funding and open-interest trends, reasons and summary), near-extreme and derivatives alarm rules, alarm sentences and templates, crypto pulse and market summary, and the futures source table and parsers moved to `:domain` (21 files). The futures data model `FuturesInfo` has its own file.
+
 ## 16.2.2 (build 137)
 
 * Android code structure (no change for users): the portfolio logic (FIFO, average cost, history, tax engines and exports, CSV import, address checks), the remaining alarm rules, currency conversion and coin lists moved to the module `:domain` (116 more files, packages unchanged). App code reads nullable values of these models through local copies, because Kotlin does not smart-cast properties from another module. The CI coverage gate counts the module `:domain` again.
