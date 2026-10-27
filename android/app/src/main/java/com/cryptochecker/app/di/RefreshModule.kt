@@ -15,8 +15,10 @@ import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.live.LiveCoverage
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.ChartRefresher
+import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.domain.refresh.DayReferences
 import com.cryptochecker.app.domain.refresh.LivePriceApplier
+import com.cryptochecker.app.domain.refresh.ManualRefresh
 import com.cryptochecker.app.domain.refresh.PriceFetcher
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshEffects
@@ -28,6 +30,9 @@ import com.cryptochecker.app.domain.refresh.asAlarmMoveHistory
 import com.cryptochecker.app.domain.refresh.asAlarmRangeSource
 import com.cryptochecker.app.domain.refresh.asAlarmRateSource
 import com.cryptochecker.app.domain.refresh.asAlarmVolumeSource
+import com.cryptochecker.app.domain.refresh.asChartWidgets
+import com.cryptochecker.app.domain.refresh.asManualRefreshNet
+import com.cryptochecker.app.domain.refresh.asManualRefreshStats
 import com.cryptochecker.app.domain.refresh.asRefreshAlarmLog
 import com.cryptochecker.app.domain.refresh.asRefreshCharts
 import com.cryptochecker.app.domain.refresh.asRefreshDayReferences
@@ -176,5 +181,23 @@ object RefreshModule {
         resultProcessor,
         chartRefresher.asRefresherCharts(),
         sideChecks.asRefresherSideChecks(),
+    )
+
+    @Provides
+    @Singleton
+    fun chartRefresher(widgetUpdater: WidgetUpdater): ChartRefresher = ChartRefresher(widgetUpdater.asChartWidgets())
+
+    @Provides
+    @Singleton
+    fun manualRefresh(
+        priceRefresher: PriceRefresher,
+        refreshStats: RefreshStats,
+        connectivity: ConnectivityMonitor,
+        checkRuns: CheckRunStore,
+    ): ManualRefresh = ManualRefresh(
+        priceRefresher,
+        refreshStats.asManualRefreshStats(),
+        connectivity.asManualRefreshNet(),
+        checkRuns,
     )
 }

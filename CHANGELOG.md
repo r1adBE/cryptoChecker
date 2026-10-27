@@ -15,9 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 144)
+
+* Android code structure (no change for users): manual refresh (button and pull), the widget-chart reloading after a refresh, the chart of the action sheet with the shared chart geometry, the chart summary for TalkBack and the bounded memory cache moved to `:domain`; the app hands its widget updater, refresh statistics and network state in through narrow interfaces (`ChartWidgets`, `ManualRefreshStats`, `ManualRefreshNet`).
+
 ## 16.2.2 (build 143)
 
 * Android code structure (no change for users): the settings storage (`SettingsRepository` with its DataStore, keys and reset of market alerts), the sparkline/day-reference candles, the live price stream, the market repository, adding several pairs at once and the address refresh moved to `:data` (13 files). The stored state of the market and gas alerts has its own small objects (`ZoneCheckPrefs`, `GasAlertPrefs`), so the settings no longer reach into the background workers.
+* Tests: the iOS accessibility audit retries an audit that ran out of time up to twice (slow CI simulators); findings are never retried.
 
 ## 16.2.2 (build 142)
 

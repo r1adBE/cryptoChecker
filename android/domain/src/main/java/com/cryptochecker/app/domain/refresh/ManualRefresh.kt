@@ -1,8 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.util.AppVisibility
-import com.cryptochecker.app.util.ConnectivityMonitor
 import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -11,8 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Aktualisierung per Knopf bzw. nach unten ziehen in der App: direkt in einer
@@ -26,11 +22,21 @@ import javax.inject.Singleton
  * Mit [RefreshDebounce]: kein zweiter Durchlauf, solange einer läuft oder der letzte
  * vollständige keine 15 s her ist.
  */
-@Singleton
-class ManualRefresh @Inject constructor(
+/** Zeit des letzten vollständigen Durchlaufs (`RefreshStats.lastFullRefresh`) — Sperre für «Aktualisieren». */
+fun interface ManualRefreshStats {
+    fun lastFullRefresh(): Long
+}
+
+/** Netzstatus (`ConnectivityMonitor`): Fluss für «wieder online» und die Abfrage jetzt. */
+interface ManualRefreshNet {
+    val online: StateFlow<Boolean>
+    fun isOnline(): Boolean
+}
+
+class ManualRefresh(
     private val priceRefresher: PriceRefresher,
-    private val refreshStats: RefreshStats,
-    private val connectivity: ConnectivityMonitor,
+    private val refreshStats: ManualRefreshStats,
+    private val connectivity: ManualRefreshNet,
     private val checkRuns: CheckRunStore,
 ) {
     private val scope = appScope(Dispatchers.Default, "ManualRefresh")
