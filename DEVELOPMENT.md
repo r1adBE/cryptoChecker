@@ -2529,7 +2529,7 @@ after the encryption step.
   `domain/refresh/AlarmLogStore`, `domain/alarm/DerivativesAlarmData`; `util/AppVisibility` went to `:domain`. Room:
   `room { schemaDirectory("$rootDir/app/schemas") }` in `:data`, `:app` drops the Room plugin and compiler and adds
   `app/schemas` to its androidTest assets itself (what the plugin did). `LogoImageStore` takes the user agent as
-  `@AppUserAgent String` (provided by `RemoteDataModule`) instead of `BuildConfig`. Still in `:app` because of
+  `@AppUserAgent String` (provided by `di/UserAgentModule`, separate so that UI tests replacing `RemoteDataModule` still get it) instead of `BuildConfig`. Still in `:app` because of
   settings, notifications or widgets: `SettingsRepository` (with `MarketAlertReset` → zone/gas workers),
   `BackupManager*`, `SparklineRepository`, `LivePriceStream`, `MarketRepositoryImpl`, `CoinLogoSync`,
   `SheetChartRepository`, `PortfolioAlarms`, `WatchedAddressRefresher`, `DayReferences`, `ActivityMonitor`. Hilt modules
