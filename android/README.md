@@ -840,8 +840,8 @@ System-Broadcasts.
 ```
 marketdata/   Börsen, Handelspaare, Ticker-Parser
 domain/       Fachlogik ohne Oberfläche und Datenbank-Zugriff (seit Build 136): Regeln und
-              Berechnungen (Alarme, Portfolio mit FIFO, Steuer-Engines und CSV-Import, Frische,
-              Fehlerarten, Markt-Kennzahlen) und die Datenbank-Modelle; gleiche Pakete
+              Berechnungen (Alarme, Portfolio mit FIFO, Steuer-Engines und CSV-Import, «Warum bewegt
+              es sich?», Frische, Fehlerarten, Markt-Kennzahlen, Futures-Quellen) und die Datenbank-Modelle; gleiche Pakete
               com.cryptochecker.app.* wie in app/
 app/
   data/       Room (watches, alarms, markets), Repositories, OkHttp

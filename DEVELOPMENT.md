@@ -2521,6 +2521,13 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 138 (R, step 3): 21 more files to `:domain` – `domain/activity` without `ActivityMonitor` (analyzer,
+  models, sensitivity, why/factors/summary, broad market, BTC correlation, candle/OI series, funding trend),
+  `domain/alarm` `NearExtreme`, `DerivativesAlarm`, `AlarmSentence`, `AlarmTemplates`, `domain/market`
+  `CryptoPulse`, `MarketMove`, `MarketPlainSummary`, and `data/remote/FuturesExchanges` (`FuturesSources`,
+  `FuturesParsers`) with `FuturesInfo`, split out of `FuturesDataSource.kt` (same package). The rest of `app/domain`
+  (refresh flow, `ActivityMonitor`, depeg/gas checkers, `DerivativesAlarmData`) uses repositories, DAOs or
+  notifications directly; moving it needs interfaces (ports) in `:domain` implemented in `:app`/`:data`.
 * Build 137 (R, step 2): 116 more files to `:domain` – the rest of `domain/portfolio` (incl. `csvimport/`), the
   remaining `domain/alarm` rules (`AlarmEdit`, `AlarmLog`, `DepegAlarm`, snooze and depeg stores …), `domain/convert`,
   `domain/logos` (`CoinLists`, `CoinMeta`), `domain/mirror`, `AlarmLogCollector`, `CheckOrigin`, `PriceWriteOrder`
