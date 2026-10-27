@@ -1,7 +1,6 @@
-// Datentypen der Merkliste rund um [WatchRepository]: Sammelaufnahme, Sortieren, Paar-Identität, Kurs- und Fehler-Schreibwerte.
+// Datentypen der Merkliste rund um `WatchRepository`: Sammelaufnahme, Sortieren, Paar-Identität, Kurs- und Fehler-Schreibwerte.
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchIdentity
@@ -9,7 +8,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
  * Ergebnis einer Sammelaufnahme in die Watchlist; [refused] = wegen der vollen Merkliste nicht angelegt; [locked] = Merkliste
- * gesperrt ([com.cryptochecker.app.data.local.WatchlistStorageLock]), nichts angelegt (der Hinweis kommt von dort).
+ * gesperrt (`WatchlistStorageLock`), nichts angelegt (der Hinweis kommt von dort).
  */
 data class BulkAddResult(
     val added: Int,
@@ -30,7 +29,7 @@ enum class WatchMove { TOP, UP, DOWN, BOTTOM }
  */
 data class WatchSnapshot(val watch: WatchEntity, val alarms: List<AlarmEntity>)
 
-/** Ergebnis von «Paar bearbeiten» ([WatchRepository.changePair]); LOCKED = Merkliste gesperrt, nichts geändert. */
+/** Ergebnis von «Paar bearbeiten» (`WatchRepository.changePair`); LOCKED = Merkliste gesperrt, nichts geändert. */
 enum class PairEditResult { SAVED, UNCHANGED, DUPLICATE, MISSING, LOCKED }
 
 /**
@@ -59,7 +58,7 @@ val WatchEntity.pairIdentity: PairIdentity get() = PairIdentity.of(this)
  * Neuer Kurs für ein Paar; [change24h] siehe `WatchEntity.change24h` (null = kein 24-h-Bezug),
  * [priceChangedAt] und [exchangeTime] siehe `WatchEntity` bzw. `PriceFreshness`.
  * [pair]: für welches Paar der Kurs geholt wurde — gespeichert wird nur, wenn der Eintrag noch
- * dieses Paar ist ([WatchDao.updatePriceForPair]); null = ohne Prüfung.
+ * dieses Paar ist (`WatchDao.updatePriceForPair`); null = ohne Prüfung.
  */
 data class PriceWrite(
     val id: Long,

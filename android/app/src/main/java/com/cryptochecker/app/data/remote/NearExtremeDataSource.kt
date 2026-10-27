@@ -11,24 +11,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Hoch und Tief der letzten 30 / 90 / 365 Tage je Paar für den Alarm «Nahe am Hoch/Tief».
- *
- * @property currency Währung der Werte: die Quote des Paars, oder «USDT», wenn nur
- *   das USDT-Paar Kerzen hat (der Aufrufer rechnet dann um)
- * @property ranges Zeitraum in Tagen → Hoch/Tief; fehlt, wenn die Reihe zu kurz ist
- * @property lastClose letzter Schluss der Reihe ([currency]) — Kursband-Prüfung beim Aufrufer ([NearExtreme.seriesAllowed])
- * @property provider Anbieter der Reihe («Binance», «Coinbase» …) für die Namensprüfung
- *   ([com.cryptochecker.app.data.TokenIdentityStore.fallbackSeriesAllowed]); null = unbekannt
- */
-data class WindowRanges(
-    val currency: String,
-    val ranges: Map<Int, NearExtreme.Range>,
-    val savedAt: Long,
-    val lastClose: Double,
-    val provider: String?,
-)
-
-/**
  * Tageskerzen über die bestehende Ausweich-Kette [CandleDataSource] (Binance-Spiegel,
  * Binance Spot/Futures, Binance.US, Coinbase): zuerst <BASE><QUOTE>, sonst <BASE>USDT.
  * Eine Anfrage je Paar (bis 370 Tage) liefert alle drei Zeiträume. Zwischenspeicher

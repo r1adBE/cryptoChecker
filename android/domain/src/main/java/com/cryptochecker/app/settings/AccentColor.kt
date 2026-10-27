@@ -1,7 +1,5 @@
 package com.cryptochecker.app.settings
 
-import com.cryptochecker.app.R
-
 /**
  * Akzentfarbe der App. Bestimmt Farbschema, Widget-Akzent, Benachrichtigungs-
  * farbe und das App-Icon auf dem Startbildschirm.
@@ -10,25 +8,21 @@ import com.cryptochecker.app.R
  * Das Logo in der App gibt es je Farbe in zwei Fassungen: schwarzer Grund
  * (Dunkel) und weisser Grund (Hell). Das App-Icon hängt nur an der Farbe: je
  * Farbe ein activity-alias im Manifest (weisse Glocke auf dem Farbverlauf, auf
- * hellem wie dunklem Startbildschirm lesbar); aktiv ist immer genau einer.
+ * hellem wie dunklem Startbildschirm lesbar); aktiv ist immer genau einer. Name und Logo als Ressourcen:
+ * `AccentColorResources.kt` in der App (`labelRes`, `logoRes`) – dieses Modell kennt keine Android-Ressourcen.
  */
 enum class AccentColor(
     val seed: Int,
-    val labelRes: Int,
-    private val logoDark: Int,
-    private val logoLight: Int,
     private val aliasBase: String,
 ) {
     /** Orange #ED835E (wie App-Icon; hell als dunklere Stufe #A64827). Standard bei der ersten Installation. */
-    ORANGE(0xFFED835E.toInt(), R.string.accent_orange, R.drawable.ic_app_logo_orange_dark, R.drawable.ic_app_logo_orange_light, "Orange"),
-    RED(0xFFE8414D.toInt(), R.string.accent_red, R.drawable.ic_app_logo_red_dark, R.drawable.ic_app_logo_red_light, "Red"),
-    BLUE(0xFF3B78F0.toInt(), R.string.accent_blue, R.drawable.ic_app_logo_blue_dark, R.drawable.ic_app_logo_blue_light, "Blue"),
-    GREEN(0xFF22A96C.toInt(), R.string.accent_green, R.drawable.ic_app_logo_green_dark, R.drawable.ic_app_logo_green_light, "Green"),
+    ORANGE(0xFFED835E.toInt(), "Orange"),
+    RED(0xFFE8414D.toInt(), "Red"),
+    BLUE(0xFF3B78F0.toInt(), "Blue"),
+    GREEN(0xFF22A96C.toInt(), "Green"),
     /** Marrs Green (#4BACA5), «Lieblingsfarbe der Welt» der G.F-Smith-Umfrage 2017. Am Ende angehängt: gespeicherte Namen bleiben gültig. */
-    MARRS_GREEN(0xFF4BACA5.toInt(), R.string.accent_marrs_green, R.drawable.ic_app_logo_marrs_green_dark, R.drawable.ic_app_logo_marrs_green_light, "MarrsGreen"),
+    MARRS_GREEN(0xFF4BACA5.toInt(), "MarrsGreen"),
     ;
-
-    fun logoRes(dark: Boolean): Int = if (dark) logoDark else logoLight
 
     /**
      * Akzent als Schrift/Knopf (primary des App-Farbschemas und der Widgets, `WidgetColors`),

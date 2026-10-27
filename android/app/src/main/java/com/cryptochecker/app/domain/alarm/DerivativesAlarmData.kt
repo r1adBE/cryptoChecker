@@ -26,22 +26,10 @@ class DerivativesAlarmData @Inject constructor(
     private val activityRepository: ActivityRepository,
 ) {
     /**
-     * Werte eines Paars; null-Felder = diesmal keine Daten. [fundingPercent] pro 8 Stunden
-     * ([DerivativesAlarm.fundingPer8h]). [referenceSource] = die Werte stammen nicht
-     * von der beobachteten Börse, sondern als Richtwert von dieser Quelle (z. B. «Binance Futures»).
-     */
-    data class Values(
-        val fundingPercent: Double?,
-        val oiUnits: Double?,
-        val fetchedAt: Long,
-        val referenceSource: String? = null,
-    )
-
-    /**
      * Schlüssel mit Börse und Paar: Wird ein Paar bearbeitet (gleiche Id), gilt der alte Wert nicht.
      * Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende).
      */
-    private val cache = BoundedCache<String, Values>(MEMORY_CACHE_ENTRIES)
+    private val cache = BoundedCache<String, DerivativesValues>(MEMORY_CACHE_ENTRIES)
 
     private fun key(watch: WatchEntity) =
         "${watch.id}|${watch.marketKey}|${watch.baseAsset}|${watch.quoteAsset}|${watch.pairId}"
@@ -80,7 +68,7 @@ class DerivativesAlarmData @Inject constructor(
      * Aktuelle Werte (zwischengespeichert). [price] = letzter Kurs des Paars, um den USD-Wert des
      * Open Interest in Coins umzurechnen.
      */
-    suspend fun values(watch: WatchEntity, price: Double, now: Long): Values? {
+    suspend fun values(watch: WatchEntity, price: Double, now: Long): DerivativesValues? {
         if (!supports(watch)) return null
         cache[key(watch)]?.let { cached ->
             if (isFresh(cached.fetchedAt, hasData(cached), now)) return cached
@@ -92,7 +80,7 @@ class DerivativesAlarmData @Inject constructor(
         // nicht — es gilt je Börse und passt nicht zum Verlauf der beobachteten Börse
         val foreign = info?.let { FuturesSources.note(true, watch.marketKey, it.source, watch.pairId) != null } ?: false
         val units = info?.openInterestUsd?.takeIf { !foreign && it.isFinite() && it > 0.0 && price > 0.0 }?.let { it / price }
-        val values = Values(
+        val values = DerivativesValues(
             // Pro 8 Stunden wie die Schwelle, mit dem Intervall des Kontrakts (z. B. 4 Std. bei Binance)
             fundingPercent = DerivativesAlarm.fundingPer8h(info?.fundingRatePercent, info?.source, info?.fundingIntervalHours),
             oiUnits = units,
@@ -105,7 +93,7 @@ class DerivativesAlarmData @Inject constructor(
     }
 
     /** Veränderung des Open Interest in % über [hours] Stunden (null ohne alte genug Messung). */
-    fun oiChange(watch: WatchEntity, values: Values, hours: Int, now: Long): Double? =
+    fun oiChange(watch: WatchEntity, values: DerivativesValues, hours: Int, now: Long): Double? =
         DerivativesAlarm.oiChangePercent(activityRepository.oiHistory(watch.id), values.oiUnits, hours, now)
 
     companion object {
@@ -115,7 +103,7 @@ class DerivativesAlarmData @Inject constructor(
         const val NO_DATA_CACHE_MILLIS = 60_000L
 
         /** Mindestens ein Wert da (Funding oder Open Interest)? Sonst nur kurz zwischenspeichern. */
-        fun hasData(values: Values): Boolean = values.fundingPercent != null || values.oiUnits != null
+        fun hasData(values: DerivativesValues): Boolean = values.fundingPercent != null || values.oiUnits != null
 
         /** Abruf von [fetchedAt] noch gültig? Mit Werten [DerivativesAlarm.FETCH_INTERVAL_MILLIS], ohne [NO_DATA_CACHE_MILLIS]. */
         fun isFresh(fetchedAt: Long, hasData: Boolean, now: Long): Boolean =

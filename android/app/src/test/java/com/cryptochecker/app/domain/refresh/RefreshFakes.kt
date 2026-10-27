@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.domain.alarm.DerivativesValues
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.PriceWrite
 import com.cryptochecker.app.data.pairIdentity
@@ -216,10 +217,10 @@ internal class FakeRangeSource(var ranges: WindowRanges? = null, var allowed: Bo
         allowed
 }
 
-internal class FakeDerivativesSource(var values: DerivativesAlarmData.Values? = null) : AlarmDerivativesSource {
+internal class FakeDerivativesSource(var values: DerivativesValues? = null) : AlarmDerivativesSource {
     override suspend fun prefetch(watch: WatchEntity, now: Long) = Unit
-    override suspend fun values(watch: WatchEntity, price: Double, now: Long): DerivativesAlarmData.Values? = values
-    override fun oiChange(watch: WatchEntity, values: DerivativesAlarmData.Values, hours: Int, now: Long): Double? = null
+    override suspend fun values(watch: WatchEntity, price: Double, now: Long): DerivativesValues? = values
+    override fun oiChange(watch: WatchEntity, values: DerivativesValues, hours: Int, now: Long): Double? = null
 }
 
 internal class FakeMoveHistory : AlarmMoveHistory {

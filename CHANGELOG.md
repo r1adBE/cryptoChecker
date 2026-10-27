@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 139)
+
+* Android code structure (no change for users): the interfaces through which the price evaluation reaches storage, notifications, speech and data sources (`RefreshPorts`) moved to `:domain`, their adapters to the app classes stay in the app. With them moved the settings model (`AppSettings`, accent colour, price colour scheme, update mode), the watchlist write models (`PriceWrite`, `ErrorWrite` …) and the alarm data types (`VolumeSpike`, `WindowRanges`, `DerivativesValues`). The accent colour's name and logo resources are now looked up in the app.
+
 ## 16.2.2 (build 138)
 
 * Android code structure (no change for users): the «Why is it moving?» analysis (activity, BTC correlation, broad market, funding and open-interest trends, reasons and summary), near-extreme and derivatives alarm rules, alarm sentences and templates, crypto pulse and market summary, and the futures source table and parsers moved to `:domain` (21 files). The futures data model `FuturesInfo` has its own file.

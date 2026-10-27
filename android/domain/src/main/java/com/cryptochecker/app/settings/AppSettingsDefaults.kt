@@ -61,7 +61,7 @@ fun defaultPriceColorsInverted(locale: java.util.Locale = deviceRegionLocale()):
     locale.country.uppercase() in INVERTED_PRICE_COLOR_REGIONS
 
 /** Region des Geräts (System-Konfiguration), auch wenn in der App eine Sprache gewählt ist. */
-internal fun deviceRegionLocale(): java.util.Locale =
+fun deviceRegionLocale(): java.util.Locale =
     runCatching { android.content.res.Resources.getSystem().configuration.locales[0] }.getOrNull()
         ?.takeIf { it.country.isNotEmpty() }
         ?: java.util.Locale.getDefault()
@@ -70,7 +70,7 @@ internal fun deviceRegionLocale(): java.util.Locale =
  * Dezimalzeichen für Zahleneingaben (Schwellwerte, Menge/Kurs im Bestand): Sprache der App,
  * Region des Geräts — gleich wie `ThresholdParser.localeDecimalSeparator` (iOS, `Locale.current`).
  */
-internal fun inputDecimalSeparator(): Char =
+fun inputDecimalSeparator(): Char =
     com.cryptochecker.app.util.LocaleNumbers.inputDecimalSeparator(java.util.Locale.getDefault(), deviceRegionLocale().country)
 
 /**
@@ -87,7 +87,7 @@ fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): S
  * Wahlmöglichkeiten und bisherige Standards der Einstellungen — aus `AppSettings.kt` ausgelagert (Datei
  * über 400 Zeilen). `AppSettings.Companion` erbt sie: Aufrufe bleiben `AppSettings.GAS_ETH_CHOICES` usw.
  */
-open class AppSettingsChoices internal constructor() {
+open class AppSettingsChoices constructor() {
     val BACKGROUND_INTERVAL_CHOICES = listOf(15, 30, 60)
     val ALARM_COOLDOWN_CHOICES = listOf(0, 5, 15, 60)
     val FEAR_GREED_BELOW_CHOICES = listOf(0, 10, 20, 25)
