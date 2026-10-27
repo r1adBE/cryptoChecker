@@ -143,7 +143,7 @@ struct CompareScreen: View {
         let bounds = CompareMath.bounds(lines)
         return VStack(alignment: .leading, spacing: 4) {
             Text(bounds.flatMap { PriceFormat.changePercent($0.maxPercent) } ?? " ")
-                .font(.caption2.monospacedDigit())
+                .font(.caption.monospacedDigit())
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .accessibilityHidden(true)
             Canvas { context, size in
@@ -172,7 +172,7 @@ struct CompareScreen: View {
             .accessibilityElement()
             .accessibilityLabel(chartSentence)
             Text(bounds.flatMap { PriceFormat.changePercent($0.minPercent) } ?? " ")
-                .font(.caption2.monospacedDigit())
+                .font(.caption.monospacedDigit())
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .accessibilityHidden(true)
         }

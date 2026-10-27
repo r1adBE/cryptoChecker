@@ -19,6 +19,9 @@ import zipfile
 
 ARCHIVES = (".apk", ".aab")
 MAX_ENTRIES = 20
+# Text entries whose first differing line is named (R8 mapping, ProGuard configuration)
+TEXT_ENTRIES = (".map", ".txt", ".pro")
+EXCERPT = 120
 
 
 def sha256(path):
@@ -48,7 +51,8 @@ def archive_diff(a, b):
         for name in sorted(set(ia) & set(ib)):
             x, y = ia[name], ib[name]
             if (x.CRC, x.file_size) != (y.CRC, y.file_size):
-                diffs.append(f"content differs: {name}")
+                detail = text_diff(za.read(name), zb.read(name)) if name.endswith(TEXT_ENTRIES) else ""
+                diffs.append(f"content differs: {name}" + (f" ({detail})" if detail else ""))
             elif x.date_time != y.date_time:
                 diffs.append(f"timestamp differs: {name}")
         if not diffs and [i.filename for i in za.infolist()] != [i.filename for i in zb.infolist()]:
@@ -56,6 +60,18 @@ def archive_diff(a, b):
         if not diffs:
             diffs.append("entries identical, archive metadata differs (zip comment, alignment or signing block)")
         return diffs
+
+
+def text_diff(a, b):
+    """First differing line of two text entries and whether only the line order differs (diagnosis only)."""
+    la = a.decode("utf-8", "replace").splitlines()
+    lb = b.decode("utf-8", "replace").splitlines()
+    if sorted(la) == sorted(lb):
+        return f"same {len(la)} lines in a different order"
+    for i, (x, y) in enumerate(zip(la, lb)):
+        if x != y:
+            return f"line {i + 1}: A «{x[:EXCERPT]}» B «{y[:EXCERPT]}»"
+    return f"A {len(la)} lines, B {len(lb)} lines"
 
 
 def compare(dir_a, dir_b):
@@ -125,6 +141,9 @@ def self_test():
         os.remove(os.path.join(b, "sbom.json"))
         apk(os.path.join(b, "app.apk"), [("classes.dex", b"x"), ("res/a.xml", b"1")])
         assert compare(a, b)[0] == [("sbom.json", ["produced by only one build"])]
+        assert text_diff(b"x\ny\n", b"y\nx\n") == "same 2 lines in a different order"
+        assert text_diff(b"a\nb\n", b"a\nc\n") == "line 2: A «b» B «c»"
+        assert text_diff(b"a\n", b"a\nb\n") == "A 1 lines, B 2 lines"
         out = os.path.join(d, "findings.tsv")
         assert main([a, b, out]) == 0
         text = open(out, encoding="utf-8").read()

@@ -4,7 +4,10 @@
 # Usage: xcode_errors.sh <log file>
 LOG="$1"
 [ -f "$LOG" ] || exit 0
-ERRORS=$(grep -E '^/.+:[0-9]+:[0-9]+: error: |: error: -\[' "$LOG" | sort -u | head -n 40)
+# Also test cases without an «error:» line of their own: a restarted test run after a crash or timeout, a failed
+# test case (CI 27.10.: build 147 failed on testMainScreensPassAuditRightToLeft without one)
+ERRORS=$(grep -E '^/.+:[0-9]+:[0-9]+: error: |: error: -\[|Restarting after unexpected exit|Test Case .* failed' "$LOG" \
+  | grep -v 'Test Case .* passed' | sort -u | head -n 40)
 [ -n "$ERRORS" ] || exit 0
 echo "=== Errors ==="
 echo "$ERRORS"

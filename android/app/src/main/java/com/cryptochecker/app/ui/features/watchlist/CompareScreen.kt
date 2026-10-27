@@ -227,7 +227,7 @@ private fun CompareChart(series: List<List<ComparePoint>>, colors: List<Color>, 
     Column(modifier) {
         Text(
             bounds?.let { PriceFormat.changePercent(it.maxPercent) } ?: "",
-            style = MaterialTheme.typography.labelSmall.tabularNumbers(),
+            style = MaterialTheme.typography.labelMedium.tabularNumbers(),
             color = label,
             modifier = Modifier.clearAndSetSemantics { },
         )
@@ -249,7 +249,7 @@ private fun CompareChart(series: List<List<ComparePoint>>, colors: List<Color>, 
         }
         Text(
             bounds?.let { PriceFormat.changePercent(it.minPercent) } ?: "",
-            style = MaterialTheme.typography.labelSmall.tabularNumbers(),
+            style = MaterialTheme.typography.labelMedium.tabularNumbers(),
             color = label,
             modifier = Modifier.clearAndSetSemantics { },
         )
