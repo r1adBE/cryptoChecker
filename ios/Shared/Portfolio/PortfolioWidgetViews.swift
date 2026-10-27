@@ -149,14 +149,14 @@ enum PortfolioWidgetViews {
         return (Swift.min(Swift.max(0, count), Int((available / row).rounded(.down))), true)
     }
 
-    /// Buchungszeile unter einem Coin (pt): eine Zeile 11 pt und 2 × 1 pt Innenrand — wie Android `entryHeightDp`.
+    /// Buchungszeile unter einem Coin (pt): eine Zeile 12 pt und 2 × 1 pt Innenrand — wie Android `entryHeightDp`.
     static func entryHeight(fontScale: Double = 1) -> Double {
         let text: Double = entrySize * 1.3 * fontScale
         return text + 2
     }
 
     /// Schriftgrösse der Buchungszeilen (pt), wie Android `ENTRY_SP`.
-    static let entrySize: Double = 11
+    static let entrySize: Double = 12
 
     /// Buchungen unter den gezeigten Coins: nur im Platz, der unter ihnen frei bleibt (`PortfolioWidgetEntries.assign`;
     /// Masse wie `listRowsBelowTotal`) — wie Android `listLayout`.

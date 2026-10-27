@@ -291,11 +291,11 @@ object PortfolioWidgetViews {
         return PortfolioListLayout(shown, sorted.size - shown.size + others.coerceAtLeast(0), footer = true, wide = wide, entries = entries)
     }
 
-    /** Buchungszeile unter einem Coin: eine Zeile 11 sp und 2 × 1 dp Innenrand (widget_portfolio_list_entry.xml). */
+    /** Buchungszeile unter einem Coin: eine Zeile 12 sp und 2 × 1 dp Innenrand (widget_portfolio_list_entry.xml). */
     fun entryHeightDp(fontScale: Float): Float = line(ENTRY_SP, fontScale) + 2f
 
     /** Schriftgrösse der Buchungszeilen (sp). */
-    const val ENTRY_SP = 11f
+    const val ENTRY_SP = 12f
 
     /**
      * Kennzahlen (Text in der Kursfarbe, keine Pille), Abstand darüber: als Spalten Beschriftung 12 sp,
