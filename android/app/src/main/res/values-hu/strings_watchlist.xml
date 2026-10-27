@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">A figyelőlistád legfeljebb %1$s párt tartalmazhat.</string>
     <string name="watch_price_reference">referencia-árfolyam, napi</string>
     <string name="watch_price_daily">napi</string>
+    <string name="watchlist_compare">Összehasonlítás</string>
+    <string name="watchlist_compare_hint">Jelölj ki 2–4 párt az összehasonlításhoz.</string>
+    <string name="compare_title">Összehasonlítás</string>
+    <string name="compare_basis">A vonalak az időszak eleje óta bekövetkezett százalékos változást mutatják.</string>
+    <string name="compare_from_high">vs. 30 napos csúcs</string>
 </resources>

@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 149)
+
+* New: compare 2 to 4 pairs. In the watchlist, long-press to select pairs and tap «Compare»: one line per pair in % since the start of the period (24h or «Today», 7 days, 30 days, 1 year), below each pair its price, 24h, 7 days, 30 days and the distance to the 30-day high. Every line has its own colour and dash style. Uses the same candles as the pair's chart – no extra server. TalkBack/VoiceOver read the chart and each row. Android and iPhone, 31 languages.
+
 ## 16.2.2 (build 148)
 
 * Settings search finds «Recent checks» (both platforms) and «Check on time» (Android) as their own results and jumps straight to them.

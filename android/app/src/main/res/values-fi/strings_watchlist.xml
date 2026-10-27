@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">Seurantalistallasi voi olla enintään %1$s paria.</string>
     <string name="watch_price_reference">viitekurssi, päivittäin</string>
     <string name="watch_price_daily">päivittäin</string>
+    <string name="watchlist_compare">Vertaa</string>
+    <string name="watchlist_compare_hint">Valitse vertailuun 2–4 paria.</string>
+    <string name="compare_title">Vertailu</string>
+    <string name="compare_basis">Viivat näyttävät muutoksen prosentteina jakson alusta.</string>
+    <string name="compare_from_high">vs. 30 pv huippu</string>
 </resources>

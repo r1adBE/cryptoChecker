@@ -32,6 +32,8 @@ struct WatchlistScreen: View {
     @State var actionsFor: WatchlistSheetTarget?
     /// Paar, dessen «Was bewegt sich mit?» offen ist.
     @State var whyFor: WatchlistSheetTarget?
+    /// Vergleichsansicht der markierten Paare (Leiste der Mehrfachauswahl › «Vergleichen»); nil = zu.
+    @State var compareFor: WatchlistCompareTarget?
     @State var pendingWhy: Int64?
     @State var pendingAlarms: Int64?
     @State var pendingDelete: Watch?

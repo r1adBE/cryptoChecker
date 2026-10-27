@@ -95,4 +95,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s dari portofolio, %3$s</string>
     <string name="a11y_portfolio_positions">Posisi terbesar: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Tampilkan jumlah</string>
+    <string name="a11y_compare_chart">Perbandingan dalam persen, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s dari tertinggi 30 hari</string>
 </resources>

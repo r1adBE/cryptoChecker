@@ -206,4 +206,9 @@
     <string name="watchlist_limit_reached">Danh sách theo dõi của bạn chỉ có thể có tối đa %1$s cặp.</string>
     <string name="watch_price_reference">tỷ giá tham chiếu, hằng ngày</string>
     <string name="watch_price_daily">hằng ngày</string>
+    <string name="watchlist_compare">So sánh</string>
+    <string name="watchlist_compare_hint">Chọn 2 đến 4 cặp để so sánh.</string>
+    <string name="compare_title">So sánh</string>
+    <string name="compare_basis">Các đường cho thấy mức thay đổi theo phần trăm từ đầu kỳ.</string>
+    <string name="compare_from_high">so với đỉnh 30N</string>
 </resources>

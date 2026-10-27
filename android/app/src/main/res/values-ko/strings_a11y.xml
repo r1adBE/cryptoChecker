@@ -95,4 +95,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, 포트폴리오의 %2$s, %3$s</string>
     <string name="a11y_portfolio_positions">가장 큰 포지션: %1$s</string>
     <string name="a11y_portfolio_show_amounts">금액 표시</string>
+    <string name="a11y_compare_chart">퍼센트 비교, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30일 최고가 대비 %1$s</string>
 </resources>

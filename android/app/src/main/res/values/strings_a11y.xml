@@ -102,4 +102,7 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s of the portfolio, %3$s</string>
     <string name="a11y_portfolio_positions">Largest positions: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Show amounts</string>
+    <!-- Vergleichsansicht: %1$s Zeitraum, %2$s Paare mit Änderung; %1$s Abstand in Prozent (Build 149) -->
+    <string name="a11y_compare_chart">Comparison in percent, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s from the 30-day high</string>
 </resources>

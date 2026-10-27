@@ -230,4 +230,9 @@
     <string name="watchlist_limit_reached">Ta liste de suivi peut contenir au maximum %1$s paires.</string>
     <string name="watch_price_reference">taux de référence, quotidien</string>
     <string name="watch_price_daily">quotidien</string>
+    <string name="watchlist_compare">Comparer</string>
+    <string name="watchlist_compare_hint">Sélectionne 2 à 4 paires pour comparer.</string>
+    <string name="compare_title">Comparaison</string>
+    <string name="compare_basis">Les courbes montrent la variation en pourcentage depuis le début de la période.</string>
+    <string name="compare_from_high">vs plus haut 30 j</string>
 </resources>

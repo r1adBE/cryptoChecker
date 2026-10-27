@@ -242,4 +242,9 @@
     <string name="watchlist_limit_reached">В списке может быть не больше %1$s пар.</string>
     <string name="watch_price_reference">референсный курс, ежедневно</string>
     <string name="watch_price_daily">ежедневно</string>
+    <string name="watchlist_compare">Сравнить</string>
+    <string name="watchlist_compare_hint">Отметь от 2 до 4 пар для сравнения.</string>
+    <string name="compare_title">Сравнение</string>
+    <string name="compare_basis">Линии показывают изменение в процентах с начала периода.</string>
+    <string name="compare_from_high">от 30-дн. максимума</string>
 </resources>

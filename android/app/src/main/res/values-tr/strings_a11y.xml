@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, portföyün %2$s kadarı, %3$s</string>
     <string name="a11y_portfolio_positions">En büyük pozisyonlar: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Tutarları göster</string>
+    <string name="a11y_compare_chart">Yüzde olarak karşılaştırma, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 günlük zirveye göre %1$s</string>
 </resources>

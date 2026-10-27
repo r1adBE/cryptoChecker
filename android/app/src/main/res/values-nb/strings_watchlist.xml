@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">Overvåkingslisten din kan ha maks %1$s par.</string>
     <string name="watch_price_reference">referansekurs, daglig</string>
     <string name="watch_price_daily">daglig</string>
+    <string name="watchlist_compare">Sammenlign</string>
+    <string name="watchlist_compare_hint">Merk 2 til 4 par for å sammenligne.</string>
+    <string name="compare_title">Sammenligning</string>
+    <string name="compare_basis">Linjene viser endringen i prosent siden starten av perioden.</string>
+    <string name="compare_from_high">mot 30 d topp</string>
 </resources>

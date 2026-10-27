@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Leiste der Mehrfachauswahl unten über der Liste: Favorit · Gruppe · Deaktivieren · Löschen für
+/// Leiste der Mehrfachauswahl unten über der Liste: Favorit · Gruppe · Deaktivieren · Vergleichen · Löschen für
 /// die angehakten Paare. Ohne Auswahl grau. «Favorit» setzt den Stern bei allen — oder nimmt ihn
 /// weg, wenn schon alle Favoriten sind (`allFavorites`); «Deaktivieren» ebenso («Aktivieren», wenn
 /// alle deaktiviert sind). Symbole wie überall: Stern, Gruppe (Ordner, wie «In Gruppe» beim
@@ -14,6 +14,8 @@ struct WatchlistSelectionBar: View {
     /// Alle angehakten Paare sind deaktiviert: «Aktivieren» statt «Deaktivieren».
     var allDisabled = false
     var onToggleDisabled: () -> Void = {}
+    /// «Vergleichen» (2–4 Paare, sonst Hinweis — darum ab einem Paar antippbar).
+    var onCompare: () -> Void = {}
 
     var body: some View {
         let enabled = count > 0
@@ -26,6 +28,8 @@ struct WatchlistSelectionBar: View {
             action(symbol: allDisabled ? "play.circle" : "pause.circle",
                    title: L(allDisabled ? "watch_enable" : "watch_disable"),
                    color: AppColors.onSurface, perform: onToggleDisabled)
+            // Vergleichsansicht (Build 149): Linien in % und Kennzahlen nebeneinander
+            action(symbol: "chart.xyaxis.line", title: L("watchlist_compare"), color: AppColors.onSurface, perform: onCompare)
             action(symbol: "trash", title: L("action_delete"), color: AppColors.error, perform: onDelete)
         }
         .disabled(!enabled)

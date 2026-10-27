@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s a portfólióból, %3$s</string>
     <string name="a11y_portfolio_positions">Legnagyobb pozíciók: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Összegek megjelenítése</string>
+    <string name="a11y_compare_chart">Összehasonlítás százalékban, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s a 30 napos csúcshoz képest</string>
 </resources>

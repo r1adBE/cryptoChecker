@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">Lista jote e ndjekjes mund të ketë më së shumti %1$s çifte.</string>
     <string name="watch_price_reference">kursi i referencës, ditor</string>
     <string name="watch_price_daily">ditor</string>
+    <string name="watchlist_compare">Krahaso</string>
+    <string name="watchlist_compare_hint">Shëno 2 deri në 4 çifte për t’i krahasuar.</string>
+    <string name="compare_title">Krahasim</string>
+    <string name="compare_basis">Vijat tregojnë ndryshimin në përqindje që nga fillimi i periudhës.</string>
+    <string name="compare_from_high">ndaj majës 30 d</string>
 </resources>

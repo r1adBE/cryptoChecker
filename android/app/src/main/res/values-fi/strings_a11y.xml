@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s salkusta, %3$s</string>
     <string name="a11y_portfolio_positions">Suurimmat positiot: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Näytä summat</string>
+    <string name="a11y_compare_chart">Vertailu prosentteina, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s suhteessa 30 päivän huippuun</string>
 </resources>

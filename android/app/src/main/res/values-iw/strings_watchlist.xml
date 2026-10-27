@@ -230,4 +230,9 @@
     <string name="watchlist_limit_reached">רשימת המעקב יכולה להכיל עד %1$s צמדים.</string>
     <string name="watch_price_reference">שער ייחוס, יומי</string>
     <string name="watch_price_daily">יומי</string>
+    <string name="watchlist_compare">השוואה</string>
+    <string name="watchlist_compare_hint">סמנו 2 עד 4 צמדים כדי להשוות.</string>
+    <string name="compare_title">השוואה</string>
+    <string name="compare_basis">הקווים מציגים את השינוי באחוזים מתחילת התקופה.</string>
+    <string name="compare_from_high">מול שיא 30 יום</string>
 </resources>

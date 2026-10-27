@@ -116,4 +116,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s portfela, %3$s</string>
     <string name="a11y_portfolio_positions">Największe pozycje: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Pokaż kwoty</string>
+    <string name="a11y_compare_chart">Porównanie w procentach, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s względem szczytu z 30 dni</string>
 </resources>

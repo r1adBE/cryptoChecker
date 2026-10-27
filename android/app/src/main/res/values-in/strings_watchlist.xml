@@ -206,4 +206,9 @@
     <string name="watchlist_limit_reached">Daftar pantaumu dapat berisi paling banyak %1$s pasangan.</string>
     <string name="watch_price_reference">kurs acuan, harian</string>
     <string name="watch_price_daily">harian</string>
+    <string name="watchlist_compare">Bandingkan</string>
+    <string name="watchlist_compare_hint">Pilih 2 sampai 4 pasangan untuk dibandingkan.</string>
+    <string name="compare_title">Perbandingan</string>
+    <string name="compare_basis">Garis menunjukkan perubahan dalam persen sejak awal periode.</string>
+    <string name="compare_from_high">vs. tertinggi 30H</string>
 </resources>

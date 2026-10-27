@@ -219,4 +219,9 @@
     <string name="watchlist_limit_reached">Deine Merkliste kann höchstens %1$s Paare enthalten.</string>
     <string name="watch_price_reference">Referenzkurs, täglich</string>
     <string name="watch_price_daily">täglich</string>
+    <string name="watchlist_compare">Vergleichen</string>
+    <string name="watchlist_compare_hint">Zum Vergleichen 2 bis 4 Paare markieren.</string>
+    <string name="compare_title">Vergleich</string>
+    <string name="compare_basis">Linien zeigen die Änderung in Prozent seit Beginn des Zeitraums.</string>
+    <string name="compare_from_high">zum 30-T-Hoch</string>
 </resources>

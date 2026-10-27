@@ -205,7 +205,15 @@ extension WatchlistScreen {
                     onGroup: { askGroupForSelection = true },
                     onDelete: deleteSelected,
                     allDisabled: allDisabled,
-                    onToggleDisabled: { disableSelected(!allDisabled) }
+                    onToggleDisabled: { disableSelected(!allDisabled) },
+                    // Auswahl bleibt stehen: zurück aus dem Vergleich lässt sie sich ändern
+                    onCompare: {
+                        if CompareMath.canCompare(chosen.count) {
+                            compareFor = WatchlistCompareTarget(ids: chosen.map(\.id))
+                        } else {
+                            banner = WatchlistBannerMessage(text: L("watchlist_compare_hint"))
+                        }
+                    }
                 )
                 .padding(.horizontal, 16)
                 .padding(.bottom, 12)

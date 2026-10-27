@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">İzleme listende en fazla %1$s çift olabilir.</string>
     <string name="watch_price_reference">referans kur, günlük</string>
     <string name="watch_price_daily">günlük</string>
+    <string name="watchlist_compare">Karşılaştır</string>
+    <string name="watchlist_compare_hint">Karşılaştırmak için 2 ile 4 arası parite seç.</string>
+    <string name="compare_title">Karşılaştırma</string>
+    <string name="compare_basis">Çizgiler dönemin başından bu yana yüzde değişimi gösterir.</string>
+    <string name="compare_from_high">30G zirveye göre</string>
 </resources>

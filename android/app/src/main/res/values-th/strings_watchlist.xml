@@ -206,4 +206,9 @@
     <string name="watchlist_limit_reached">รายการติดตามของคุณมีได้สูงสุด %1$s คู่</string>
     <string name="watch_price_reference">อัตราอ้างอิง รายวัน</string>
     <string name="watch_price_daily">รายวัน</string>
+    <string name="watchlist_compare">เปรียบเทียบ</string>
+    <string name="watchlist_compare_hint">เลือก 2 ถึง 4 คู่เพื่อเปรียบเทียบ</string>
+    <string name="compare_title">การเปรียบเทียบ</string>
+    <string name="compare_basis">เส้นแสดงการเปลี่ยนแปลงเป็นเปอร์เซ็นต์นับจากต้นช่วงเวลา</string>
+    <string name="compare_from_high">เทียบจุดสูงสุด 30 วัน</string>
 </resources>

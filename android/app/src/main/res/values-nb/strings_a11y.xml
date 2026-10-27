@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s av porteføljen, %3$s</string>
     <string name="a11y_portfolio_positions">Største posisjoner: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Vis beløp</string>
+    <string name="a11y_compare_chart">Sammenligning i prosent, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s mot 30-dagerstoppen</string>
 </resources>

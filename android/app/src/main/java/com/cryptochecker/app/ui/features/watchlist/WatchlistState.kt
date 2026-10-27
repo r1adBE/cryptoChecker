@@ -71,6 +71,9 @@ internal class WatchlistScreenState(
     /** Gruppe für die ausgewählten Paare wählen (Leiste der Mehrfachauswahl). */
     var askGroupForSelection by mutableStateOf(false)
 
+    /** Vergleichsansicht für diese Paare offen (Leiste der Mehrfachauswahl › «Vergleichen»); null = zu. */
+    var compareIds by mutableStateOf<List<Long>?>(null)
+
     /** Rückfragen und Blätter aus Kopf und Menü. */
     var askClearAll by mutableStateOf(false)
     var askRemoveNotTraded by mutableStateOf(false)

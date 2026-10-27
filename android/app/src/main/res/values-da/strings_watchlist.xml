@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">Din overvågningsliste kan højst indeholde %1$s par.</string>
     <string name="watch_price_reference">referencekurs, daglig</string>
     <string name="watch_price_daily">daglig</string>
+    <string name="watchlist_compare">Sammenlign</string>
+    <string name="watchlist_compare_hint">Markér 2 til 4 par for at sammenligne.</string>
+    <string name="compare_title">Sammenligning</string>
+    <string name="compare_basis">Linjerne viser ændringen i procent siden periodens start.</string>
+    <string name="compare_from_high">ift. 30 d top</string>
 </resources>

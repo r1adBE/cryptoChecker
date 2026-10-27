@@ -230,4 +230,9 @@
     <string name="watchlist_limit_reached">La tua lista di osservazione può contenere al massimo %1$s coppie.</string>
     <string name="watch_price_reference">tasso di riferimento, giornaliero</string>
     <string name="watch_price_daily">giornaliero</string>
+    <string name="watchlist_compare">Confronta</string>
+    <string name="watchlist_compare_hint">Seleziona da 2 a 4 coppie da confrontare.</string>
+    <string name="compare_title">Confronto</string>
+    <string name="compare_basis">Le linee mostrano la variazione percentuale dall’inizio del periodo.</string>
+    <string name="compare_from_high">vs massimo 30 g</string>
 </resources>

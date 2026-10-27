@@ -2521,6 +2521,14 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 149: compare view – `CompareMath` (Android `:domain` `domain/watch`, iOS `Shared/Insights`; parity
+  `compare.json`): `normalized` (% from first valid close), `figures` (7/30 days vs. the last daily close starting
+  ≤ now − 7/30 d, distance to max(30-day high, price)), `bounds`. UI `CompareScreen` (Android full-screen dialog like
+  «Why?», iOS `navigationDestination`) from the selection bar («Compare», 2–4 pairs, otherwise a hint banner); lines
+  from `loadSheetChart`/`SheetChartStore` per range (day basis: since 00:00 like the sheet), figures from the 1-year
+  daily candles. Line colours from the theme plus dash patterns.
+  CI: `repro_compare.py` names the first differing line of differing text entries in the archives (R8
+  `proguard.map` differed twice on main, APK identical) or «same lines in a different order».
 * Build 148: settings search entries `updates.check_runs` (both, anchor of the check-runs card) and `updates.exact`
   (Android, anchor of the exact-checks row); no new strings.
 * Build 147 (R, test files): small test files (≤ 80 lines, one top-level class) merged per directory and name
