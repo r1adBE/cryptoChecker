@@ -20,6 +20,7 @@ import com.cryptochecker.app.domain.market.MarketPlainSummary
 import com.cryptochecker.app.domain.market.PulseInput
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.LocaleNumbers

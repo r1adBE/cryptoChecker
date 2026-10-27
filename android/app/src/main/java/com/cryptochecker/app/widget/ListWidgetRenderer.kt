@@ -24,6 +24,7 @@ import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
