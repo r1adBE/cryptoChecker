@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 
 /**
  * Aktualisierung per Knopf bzw. nach unten ziehen in der App: direkt in einer
@@ -104,7 +104,7 @@ class ManualRefresh(
                 throw ex
             } catch (ex: Exception) {
                 // Der Bericht hält den Abbruch schon fest (PriceRefresher.refreshAllGuarded)
-                Timber.w(ex, "Aktualisierung per Knopf fehlgeschlagen")
+                DomainLog.w(ex, "Aktualisierung per Knopf fehlgeschlagen")
                 log(CheckResult.FAILED)
             } finally {
                 _running.value = false

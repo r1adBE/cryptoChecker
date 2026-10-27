@@ -15,7 +15,7 @@ import com.cryptochecker.app.domain.alarm.DerivativesAlarm
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.settings.AppSettings
 import kotlinx.coroutines.CancellationException
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 import com.cryptochecker.app.data.local.model.convertCurrency
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ fun RefreshEffects.startAlarmPrefetch(watches: List<WatchEntity>, alarms: List<A
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                Timber.d(e, "Alarm-Zusatzdaten (%s) vorab nicht geholt", key)
+                DomainLog.d(e, "Alarm-Zusatzdaten (%s) vorab nicht geholt", key)
             }
         }
     }
@@ -164,7 +164,7 @@ suspend fun RefreshEffects.checkNearExtremeAlarm(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            Timber.d(e, "Alarm: Hoch/Tief für %s nicht verfügbar", watch.displayName)
+            DomainLog.d(e, "Alarm: Hoch/Tief für %s nicht verfügbar", watch.displayName)
             null
         }
         run.nearLoaded = true

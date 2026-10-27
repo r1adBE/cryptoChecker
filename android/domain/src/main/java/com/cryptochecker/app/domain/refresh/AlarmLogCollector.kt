@@ -8,7 +8,7 @@ import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogEntry
 import com.cryptochecker.app.domain.alarm.AlarmLogTrace
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 
 /** Nimmt beobachtete Alarm-Prüfungen entgegen ([RefreshEffects.checkAlarms]); darf nie werfen. */
 fun interface AlarmTraceSink {
@@ -96,7 +96,7 @@ class AlarmLogCollector(private val now: Long) {
         try {
             block()
         } catch (e: Exception) {
-            Timber.d(e, "Alarm-Protokoll: Eintrag nicht erfasst")
+            DomainLog.d(e, "Alarm-Protokoll: Eintrag nicht erfasst")
         }
     }
 

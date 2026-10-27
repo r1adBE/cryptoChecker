@@ -84,7 +84,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         // Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
-        com.cryptochecker.app.util.BackgroundErrorCounter.install(this)
+        com.cryptochecker.app.util.BackgroundErrorCounter.install(com.cryptochecker.app.data.local.SharedPreferencesStores(this))
         // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
         // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner)
         if (getDatabasePath(com.cryptochecker.app.data.local.SystemBackupAgent.EXPORT_NAME).exists()) {
@@ -103,6 +103,14 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         com.cryptochecker.app.util.ClockText.install(this)
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
+        // Protokoll der Abläufe in :domain (ohne Timber dort) über Timber — wie vorher nur mit Baum sichtbar
+        com.cryptochecker.app.util.DomainLog.sink = com.cryptochecker.app.util.DomainLog.Sink { level, error, message, args ->
+            when (level) {
+                com.cryptochecker.app.util.DomainLog.Level.DEBUG -> Timber.d(error, message, *args)
+                com.cryptochecker.app.util.DomainLog.Level.INFO -> Timber.i(error, message, *args)
+                com.cryptochecker.app.util.DomainLog.Level.WARN -> Timber.w(error, message, *args)
+            }
+        }
 
         // Phemex: Faktoren (Ep/Ev) der Produktliste auf dem Gerät — nach einem Neustart nie ein geratener Faktor
         com.cryptochecker.marketdata.model.market.PhemexScales.store =

@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
-import android.content.Context
-import androidx.core.content.edit
+import com.cryptochecker.app.util.KeyValueStores
 
 /**
  * Laufende «1 h später»-Pausen je Paar-Alarm ([AlarmSnooze]): Alarm-Id → Ende der Pause. Eigene kleine Datei
@@ -10,8 +9,8 @@ import androidx.core.content.edit
  * der Mitteilung ([com.cryptochecker.app.notification.AlarmActionReceiver]). Wie der App-Group-Eintrag
  * «alarm_snooze_until» auf iOS (`AlarmSnooze.swift`). Gelöschte Alarme fallen spätestens nach einer Stunde weg.
  */
-class AlarmSnoozeStore(context: Context) {
-    private val prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+class AlarmSnoozeStore(stores: KeyValueStores) {
+    private val prefs = stores.open(PREFS)
 
     /** Ende der Pause von [alarmId]; null = keine. Abgelaufene Pausen zählt [AlarmSnooze.isSnoozed] nicht. */
     fun snoozeUntil(alarmId: Long): Long? =
@@ -20,7 +19,7 @@ class AlarmSnoozeStore(context: Context) {
     /** «1 h später» für [alarmId] ab [now]; räumt abgelaufene Pausen mit weg. */
     @Synchronized
     fun snooze(alarmId: Long, now: Long) {
-        val expired = prefs.all.keys.filter { name ->
+        val expired = prefs.all().keys.filter { name ->
             name.startsWith(PREFIX) && !AlarmSnooze.isSnoozed(runCatching { prefs.getLong(name, 0L) }.getOrNull(), now)
         }
         prefs.edit {

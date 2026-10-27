@@ -1,5 +1,6 @@
 package com.cryptochecker.app.notification
 
+import com.cryptochecker.app.data.local.SharedPreferencesStores
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -29,7 +30,7 @@ class AlarmActionReceiver : BroadcastReceiver() {
         if (intent.action != ACTION_SNOOZE) return
         val alarmId = intent.getLongExtra(EXTRA_ALARM_ID, 0L).takeIf { it > 0 } ?: return
         // Zuerst die Pause: Stellt das Einschalten den Alarm scharf, hält sie die sofortige Meldung zurück
-        AlarmSnoozeStore(context).snooze(alarmId, System.currentTimeMillis())
+        AlarmSnoozeStore(SharedPreferencesStores(context)).snooze(alarmId, System.currentTimeMillis())
         // Erledigt: Meldung weg (samt leerer Zusammenfassung der Gruppe)
         runCatching { notifier.cancelAlarms(listOf(alarmId)) }
             .onFailure { Timber.w(it, "Alarm-Meldung nach «1 h später» nicht entfernt") }

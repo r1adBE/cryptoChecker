@@ -2,6 +2,7 @@
 // grosses Bild. Eigene Datei, damit `AppNotifierAlarms.kt` beim Aufbau der Meldung bleibt; Erweiterungsfunktionen.
 package com.cryptochecker.app.notification
 
+import com.cryptochecker.app.data.local.SharedPreferencesStores
 import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Bitmap
@@ -57,7 +58,7 @@ private fun AppNotifier.snoozeIntent(alarm: AlarmEntity): PendingIntent {
 }
 
 /** Ende einer laufenden «1 h später»-Pause von [alarmId] (Melde-Schritt, RefreshEffects); null = keine. */
-fun AppNotifier.alarmSnoozeUntil(alarmId: Long): Long? = AlarmSnoozeStore(context).snoozeUntil(alarmId)
+fun AppNotifier.alarmSnoozeUntil(alarmId: Long): Long? = AlarmSnoozeStore(SharedPreferencesStores(context)).snoozeUntil(alarmId)
 
 /**
  * Coin-Logo für die Alarm-Meldung — nur, wenn es schon auf dem Gerät liegt ([com.cryptochecker.app.data.CoinLogoRepository.logo]

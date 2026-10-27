@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import timber.log.Timber
 
 /**
  * Prozessweiter Bereich für App-eigene Hintergrundarbeit (Singletons, Empfänger) — einheitlich mit
@@ -23,8 +22,8 @@ fun appScope(dispatcher: CoroutineDispatcher, label: String): CoroutineScope =
 fun appExceptionHandler(
     label: String,
     log: (Throwable) -> Unit = { e ->
-        if (e.isDatabaseKeyUnavailable()) Timber.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)
-        else Timber.w(e, "%s: Hintergrundarbeit fehlgeschlagen", label)
+        if (e.isDatabaseKeyUnavailable()) DomainLog.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)
+        else DomainLog.w(e, "%s: Hintergrundarbeit fehlgeschlagen", label)
     },
 ): CoroutineExceptionHandler = CoroutineExceptionHandler { _, e ->
     // Im Release sonst unsichtbar — nur zählen je Bereich und Art (BackgroundErrorCounter), keine Texte

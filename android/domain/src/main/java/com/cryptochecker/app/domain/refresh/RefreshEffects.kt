@@ -21,7 +21,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 import kotlin.math.abs
 
 /**
@@ -99,7 +99,7 @@ class RefreshEffects constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                Timber.d(e, "Alarm: Umrechnung %s → %s fehlgeschlagen", watch.quoteAsset, key)
+                DomainLog.d(e, "Alarm: Umrechnung %s → %s fehlgeschlagen", watch.quoteAsset, key)
                 null
             }
             rates[key] = rate
@@ -270,7 +270,7 @@ class RefreshEffects constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                Timber.w(e, "Alarm %d für %s nicht geprüft", alarm.id, watch.displayName)
+                DomainLog.w(e, "Alarm %d für %s nicht geprüft", alarm.id, watch.displayName)
             }
         }
         // Erst nach der Prüfung: der aktuelle Kurs ist ohnehin der Vergleichswert
@@ -283,7 +283,7 @@ class RefreshEffects constructor(
         try {
             block()
         } catch (e: Exception) {
-            Timber.d(e, "Alarm-Protokoll: Prüfung nicht erfasst")
+            DomainLog.d(e, "Alarm-Protokoll: Prüfung nicht erfasst")
         }
     }
 

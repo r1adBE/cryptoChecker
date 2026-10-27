@@ -1,15 +1,12 @@
 package com.cryptochecker.app.util
 
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.core.content.edit
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrorSummary
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 
 /**
  * F-25: zählt Fehler in Hintergrundarbeit dauerhaft je Bereich ([BackgroundErrors.AREAS]) und merkt sich
  * den Zeitpunkt des letzten — nur Zahlen, nie Meldungstexte. Dazu je Bereich die Fehlerart (einfacher Klassenname der
- * Ausnahme, [BackgroundErrors.kindOf], höchstens [BackgroundErrors.MAX_KINDS] je Bereich). Liegt in SharedPreferences [PREFS] (nicht gesichert, nur
+ * Ausnahme, [BackgroundErrors.kindOf], höchstens [BackgroundErrors.MAX_KINDS] je Bereich). Liegt in der Datei [PREFS] ([KeyValueStore], in der App SharedPreferences) (nicht gesichert, nur
  * ausdrücklich Eingeschlossenes geht in die Systemsicherung). Vor [install] (Unit-Tests, sehr früher Fehler) nur im
  * Arbeitsspeicher; [install] übernimmt diese Zahlen.
  */
@@ -19,14 +16,14 @@ object BackgroundErrorCounter {
     private const val COUNT_PREFIX = "n_"
     private const val KIND_PREFIX = "k_"
 
-    @Volatile private var prefs: SharedPreferences? = null
+    @Volatile private var prefs: KeyValueStore? = null
     private val pending = HashMap<String, Int>()
     private val pendingKinds = HashMap<String, HashMap<String, Int>>()
     private var pendingLastAt = 0L
 
-    /** Einmal beim Start (Application.onCreate). */
-    fun install(context: Context) {
-        val p = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+    /** Einmal beim Start (Application.onCreate) mit der Datei [PREFS]. */
+    fun install(stores: KeyValueStores) {
+        val p = stores.open(PREFS)
         synchronized(this) {
             prefs = p
             if (pending.isEmpty()) return
@@ -70,7 +67,7 @@ object BackgroundErrorCounter {
     }
 
     /** Art [kind] im Bereich [area] um [n] erhöhen (Fach nach [BackgroundErrors.kindSlot]). */
-    private fun addKind(p: SharedPreferences, area: String, kind: String, n: Int) {
+    private fun addKind(p: KeyValueStore, area: String, kind: String, n: Int) {
         val slot = BackgroundErrors.kindSlot(kindsOf(p)[area].orEmpty().keys, kind)
         val key = "$KIND_PREFIX$area|$slot"
         val old = p.getInt(key, 0)
@@ -78,9 +75,9 @@ object BackgroundErrorCounter {
     }
 
     /** Gespeicherte Arten: Bereich → (Art → Anzahl); nur bekannte Bereiche. */
-    private fun kindsOf(p: SharedPreferences): Map<String, Map<String, Int>> {
+    private fun kindsOf(p: KeyValueStore): Map<String, Map<String, Int>> {
         val out = HashMap<String, HashMap<String, Int>>()
-        p.all.forEach { (key, value) ->
+        p.all().forEach { (key, value) ->
             if (!key.startsWith(KIND_PREFIX) || value !is Int || value <= 0) return@forEach
             val area = key.removePrefix(KIND_PREFIX).substringBefore('|')
             if (area in BackgroundErrors.AREAS) out.getOrPut(area) { HashMap() }[key.substringAfter('|')] = value

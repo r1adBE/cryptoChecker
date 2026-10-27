@@ -13,7 +13,7 @@ import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 
 /**
  * Geholte Kurse speichern und auswerten — gemeinsamer letzter Schritt von voller und einzelner Aktualisierung
@@ -197,7 +197,7 @@ class RefreshResultProcessor constructor(
                 0
             } else if (AlarmFreshness.blocksAlarms(watch.exchangeTime, watch.id in markFallbackIds, now)) {
                 // Kurs laut Börse zu alt (Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen aber nicht aus
-                Timber.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
+                DomainLog.d("Alarme für %s ausgelassen: kein aktueller handelbarer Kurs", watch.displayName)
                 log.noteBlocked(
                     watch, alarmsByWatch[watch.id].orEmpty(), lowLiquidity = false,
                     markFallback = watch.id in markFallbackIds, cooldownMinutes = settings.alarmCooldownMinutes,
@@ -212,7 +212,7 @@ class RefreshResultProcessor constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                Timber.w(e, "Alarme für %s nicht geprüft", watch.displayName)
+                DomainLog.w(e, "Alarme für %s nicht geprüft", watch.displayName)
                 0
             }
             alarms += triggered
@@ -273,7 +273,7 @@ class RefreshResultProcessor constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            Timber.d(e, "Alarm-Protokoll nicht gespeichert")
+            DomainLog.d(e, "Alarm-Protokoll nicht gespeichert")
         }
     }
 

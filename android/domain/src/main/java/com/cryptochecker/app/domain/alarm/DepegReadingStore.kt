@@ -1,8 +1,6 @@
 package com.cryptochecker.app.domain.alarm
 
-import android.content.Context
-import androidx.core.content.edit
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.cryptochecker.app.util.KeyValueStores
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,9 +14,9 @@ import javax.inject.Singleton
  */
 @Singleton
 class DepegReadingStore @Inject constructor(
-    @param:ApplicationContext private val context: Context,
+    private val stores: KeyValueStores,
 ) {
-    private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
+    private val prefs by lazy { stores.open(PREFS) }
     private val state by lazy { MutableStateFlow(load()) }
 
     val reading: StateFlow<DepegAlarm.Reading?> get() = state.asStateFlow()
