@@ -1,5 +1,8 @@
 package com.cryptochecker.app.domain.logos
 
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.util.json.JsonException
 import com.cryptochecker.app.domain.mirror.DataMirror
 
 /**
@@ -65,8 +68,8 @@ object CoinMeta {
     fun parseMarketsPage(text: String?): List<GeckoRow>? {
         if (text.isNullOrBlank()) return null
         val array = try {
-            org.json.JSONArray(text)
-        } catch (e: org.json.JSONException) {
+            JsonArray(text)
+        } catch (e: JsonException) {
             return null
         }
         val out = ArrayList<GeckoRow>(array.length())
@@ -85,15 +88,15 @@ object CoinMeta {
     fun parseBinanceList(text: String?): List<CoinLogos.BinanceEntry>? {
         if (text.isNullOrBlank()) return null
         val array = try {
-            org.json.JSONObject(text).optJSONArray("data")
-        } catch (e: org.json.JSONException) {
+            JsonObject(text).optJSONArray("data")
+        } catch (e: JsonException) {
             null
         } ?: return null
         return binanceEntries(array)
     }
 
     /** Einträge eines Binance-`data`-Arrays; `name` leer → `baseAsset`. */
-    fun binanceEntries(array: org.json.JSONArray): List<CoinLogos.BinanceEntry> =
+    fun binanceEntries(array: JsonArray): List<CoinLogos.BinanceEntry> =
         (0 until array.length()).mapNotNull { i ->
             val o = array.optJSONObject(i) ?: return@mapNotNull null
             val tags = o.optJSONArray("tags")?.let { t -> (0 until t.length()).map { t.optString(it) } }.orEmpty()
@@ -113,8 +116,8 @@ object CoinMeta {
     fun parse(text: String?): Meta? {
         if (text.isNullOrBlank()) return null
         val root = try {
-            org.json.JSONObject(text)
-        } catch (e: org.json.JSONException) {
+            JsonObject(text)
+        } catch (e: JsonException) {
             return null
         }
         if (root.optInt("v", -1) != VERSION) return null
@@ -185,23 +188,23 @@ object CoinMeta {
      * Binance-Listen). Nur die Felder, die die App liest.
      */
     fun encode(meta: Meta): String {
-        val root = org.json.JSONObject()
+        val root = JsonObject()
         root.put("v", VERSION)
         root.put("generated", meta.generatedAt)
-        val binance = org.json.JSONArray()
+        val binance = JsonArray()
         for (e in meta.binance) {
-            val o = org.json.JSONObject()
+            val o = JsonObject()
             o.put("name", e.name)
             e.fullName?.let { o.put("fullName", it) }
             e.logo?.let { o.put("logo", it) }
-            if (e.tags.isNotEmpty()) o.put("tags", org.json.JSONArray(e.tags))
+            if (e.tags.isNotEmpty()) o.put("tags", JsonArray(e.tags))
             if (e.onlyFutures) o.put("onlyFutures", true)
             binance.put(o)
         }
         root.put("binance", binance)
-        val alpha = org.json.JSONArray()
+        val alpha = JsonArray()
         for (e in meta.alpha) {
-            val o = org.json.JSONObject()
+            val o = JsonObject()
             o.put("symbol", e.symbol)
             e.name?.let { o.put("name", it) }
             e.icon?.let { o.put("iconUrl", it) }

@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressChain
@@ -15,7 +16,6 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
-import org.json.JSONArray
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -302,7 +302,7 @@ class ChainParityTest {
         val noTokens = WatchedAddressRules.withCountTokens(base, false)
         assertEquals(setOf("ARBITRUM:ETH", "BSC:BNB"), noTokens.tokenBalances.keys)
         // Ältere Sicherung ohne neue Felder
-        val legacy = WatchedAddressRules.fromJson(JSONArray("[{\"chain\":\"SOL\",\"address\":\"${data["chainBalance"].obj()["solana"].obj()["address"]}\"}]"))
+        val legacy = WatchedAddressRules.fromJson(JsonArray("[{\"chain\":\"SOL\",\"address\":\"${data["chainBalance"].obj()["solana"].obj()["address"]}\"}]"))
         assertEquals(listOf(WatchedAddressBackupEntry(AddressChain.SOL, legacy[0].address)), legacy)
     }
 

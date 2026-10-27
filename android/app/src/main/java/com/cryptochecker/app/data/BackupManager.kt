@@ -107,7 +107,7 @@ class BackupManager @Inject constructor(
             .put("portfolio", JSONArray().apply { portfolio.first.forEach { put(PortfolioJson.txToJson(it)) } })
             .put("portfolioAlarms", JSONArray().apply { portfolio.second.forEach { put(PortfolioJson.alarmToJson(it)) } })
             // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
-            .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(portfolio.third)))
+            .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(portfolio.third)).asOrgJson())
 
         // Kompakt (ältere Sicherungen eingerückt, das Einlesen nimmt beides) und nie grösser als lesbar
         val plain = BackupFormat.encode(root)
@@ -259,7 +259,7 @@ class BackupManager @Inject constructor(
         // Fehlt der Schlüssel (ältere Sicherung), bleiben die bestehenden Adressen stehen.
         // Sonst ersetzen wie die Transaktionen (ungültige fallen weg, [WatchedAddressRules.merge])
         val watchedAddresses = if (root.has(WatchedAddressRules.BACKUP_KEY)) {
-            WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY))
+            WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)?.asDomainJson())
         } else null
         // Nur Texte übernehmen (wie iOS); fehlt eine Art, bleibt sie stehen
         val favorites = root.optJSONObject("favorites")?.let { fav ->

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
+import com.cryptochecker.app.util.json.JsonObject
 import java.text.Normalizer
 import java.util.Locale
 
@@ -271,12 +272,12 @@ object TokenIdentity {
     }
 
     fun encode(index: NameIndex): String {
-        val markets = org.json.JSONObject()
-        index.markets.forEach { (market, names) -> markets.put(market, org.json.JSONObject(names as Map<*, *>)) }
-        return org.json.JSONObject()
+        val markets = JsonObject()
+        index.markets.forEach { (market, names) -> markets.put(market, JsonObject(names as Map<*, *>)) }
+        return JsonObject()
             .put("v", 1)
             .put("markets", markets)
-            .put("binance", org.json.JSONObject(index.binance as Map<*, *>))
+            .put("binance", JsonObject(index.binance as Map<*, *>))
             .toString()
     }
 
@@ -284,8 +285,8 @@ object TokenIdentity {
     fun decode(text: String?): NameIndex {
         if (text.isNullOrBlank()) return NameIndex()
         return runCatching {
-            val root = org.json.JSONObject(text)
-            fun names(o: org.json.JSONObject?): Map<String, String> {
+            val root = JsonObject(text)
+            fun names(o: JsonObject?): Map<String, String> {
                 if (o == null) return emptyMap()
                 val m = LinkedHashMap<String, String>()
                 o.keys().forEach { k -> o.optString(k).takeIf { it.isNotEmpty() }?.let { m[k] = it } }

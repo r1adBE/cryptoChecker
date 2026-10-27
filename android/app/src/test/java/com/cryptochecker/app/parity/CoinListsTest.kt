@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.util.json.JsonObject
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
@@ -164,7 +165,7 @@ class CoinListsTest {
     /** Regel [CoinMeta.mirrorBinance] (gemeinsame Fälle `mirrorSymbolsOnly.merge`). */
     @Test
     fun mirrorBinance_cases() {
-        val cases = org.json.JSONObject(raw("mirrorSymbolsOnly")).getJSONArray("merge")
+        val cases = JsonObject(raw("mirrorSymbolsOnly")).getJSONArray("merge")
         for (i in 0 until cases.length()) {
             val c = cases.getJSONObject(i)
             val mirror = CoinMeta.binanceEntries(c.getJSONArray("mirror"))

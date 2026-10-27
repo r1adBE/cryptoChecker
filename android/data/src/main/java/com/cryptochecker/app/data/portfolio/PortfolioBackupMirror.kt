@@ -1,5 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.asOrgJson
+import com.cryptochecker.app.data.asDomainJson
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -163,7 +165,7 @@ object PortfolioBackupMirror {
         .put("portfolio", JSONArray().apply { txs.forEach { put(PortfolioJson.txToJson(it)) } })
         .put("portfolioAlarms", JSONArray().apply { alarms.forEach { put(PortfolioJson.alarmToJson(it)) } })
         // Gleiches Format wie die eigene Sicherung; ältere Kopien haben den Schlüssel nicht
-        .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(addresses))
+        .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(addresses).asOrgJson())
         .toString()
 
     /** Sicherungs-Einträge der gespeicherten Adressen (unbekanntes Netz übersprungen). */
@@ -222,7 +224,7 @@ object PortfolioBackupMirror {
             txs = txs?.items.orEmpty(),
             alarms = alarms?.items.orEmpty(),
             invalid = (txs?.invalid ?: 0) + (alarms?.invalid ?: 0),
-            addresses = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY))),
+            addresses = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)?.asDomainJson())),
         )
     }
 

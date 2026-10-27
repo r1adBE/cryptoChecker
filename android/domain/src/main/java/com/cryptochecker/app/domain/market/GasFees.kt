@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.market
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.util.LocaleNumbers
 import java.math.BigInteger
 import java.util.Locale
@@ -60,13 +60,13 @@ object GasFees {
     const val FEE_HISTORY_BLOCKS = 20
     val PERCENTILES = listOf(10, 50, 90)
 
-    fun feeHistoryRequest(): String = JSONObject()
+    fun feeHistoryRequest(): String = JsonObject()
         .put("jsonrpc", "2.0").put("id", 1).put("method", "eth_feeHistory")
-        .put("params", JSONArray().put("0x" + FEE_HISTORY_BLOCKS.toString(16)).put("latest").put(JSONArray(PERCENTILES)))
+        .put("params", JsonArray().put("0x" + FEE_HISTORY_BLOCKS.toString(16)).put("latest").put(JsonArray(PERCENTILES)))
         .toString()
 
-    fun gasPriceRequest(): String = JSONObject()
-        .put("jsonrpc", "2.0").put("id", 1).put("method", "eth_gasPrice").put("params", JSONArray())
+    fun gasPriceRequest(): String = JsonObject()
+        .put("jsonrpc", "2.0").put("id", 1).put("method", "eth_gasPrice").put("params", JsonArray())
         .toString()
 
     /**
@@ -74,7 +74,7 @@ object GasFees {
      * nächsten Blocks plus Median der Trinkgelder je Perzentil.
      */
     fun parseFeeHistory(response: String): Triple<Double, Double, Double> {
-        val json = JSONObject(response)
+        val json = JsonObject(response)
         json.optJSONObject("error")?.let { throw IllegalStateException(it.optString("message")) }
         val result = json.getJSONObject("result")
         val baseFees = result.getJSONArray("baseFeePerGas")
@@ -101,14 +101,14 @@ object GasFees {
 
     /** eth_gasPrice → gwei. */
     fun parseGasPrice(response: String): Double {
-        val json = JSONObject(response)
+        val json = JsonObject(response)
         json.optJSONObject("error")?.let { throw IllegalStateException(it.optString("message")) }
         return hexToGwei(json.getString("result"))
     }
 
     /** mempool.space /api/v1/fees/recommended → (schnell, normal, langsam). */
     fun parseMempool(response: String): Triple<Double, Double, Double> {
-        val json = JSONObject(response)
+        val json = JsonObject(response)
         val fast = json.getDouble("fastestFee")
         val normal = json.optDouble("halfHourFee", fast)
         val slow = json.optDouble("hourFee", normal)
@@ -117,7 +117,7 @@ object GasFees {
 
     /** Binance-Preisliste (ticker/price?symbols=…) → Coin → USD. */
     fun parseBinancePrices(response: String): Map<String, Double> {
-        val array = JSONArray(response)
+        val array = JsonArray(response)
         val prices = HashMap<String, Double>()
         for (i in 0 until array.length()) {
             val item = array.optJSONObject(i) ?: continue
@@ -130,7 +130,7 @@ object GasFees {
 
     /** Coinbase exchange-rates?currency=USD: 1 USD = x Coin → Preis = 1/x. */
     fun parseCoinbaseRates(response: String, coins: Collection<String>): Map<String, Double> {
-        val rates = JSONObject(response).getJSONObject("data").getJSONObject("rates")
+        val rates = JsonObject(response).getJSONObject("data").getJSONObject("rates")
         val prices = HashMap<String, Double>()
         for (coin in coins) {
             val rate = rates.optDouble(coin)

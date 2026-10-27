@@ -2521,6 +2521,11 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 153 (KMP prep, part 3): all `:domain` files on `util/json` (imports renamed, `JSONObject.NULL` → `JsonNull`);
+  `MarketError.toMarketFailure` maps `JsonException` and (by class name) `org.json.JSONException` from `:data` to
+  `Parse`. Boundary helpers `asDomainJson()` / `asOrgJson()` in `:data` (`DomainJsonBridge.kt`, via the text) for the
+  backup codecs (watched addresses, CSV restore state). Remaining Android/JVM bits in `:domain`: Room annotations on
+  `WatchEntity`/`AlarmEntity`, OkHttp's URL parser in `LogoUrlPolicy`, `java.*` (time, math, concurrency).
 * Build 152 (KMP prep, part 2): `util/json` in `:domain` – `JsonObject`, `JsonArray`, `JsonNull`, `JsonException`,
   `JsonTokener` with AOSP `org.json` semantics (lenient reader: comments, `=`/`=>`, `;`, empty array slots, hex/octal,
   unquoted words; `get*` coercions; `optString` of null = "null"; `put(name, null)` removes; whole doubles written

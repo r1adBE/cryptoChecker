@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.TaxLine
@@ -7,7 +8,6 @@ import com.cryptochecker.app.domain.portfolio.TaxSummaryTexts
 import com.cryptochecker.app.domain.portfolio.TaxWealthRow
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.wealthCoinNote
-import org.json.JSONArray
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal
@@ -24,7 +24,7 @@ class ReviewFixesB89ParityTest {
     @Test
     fun backupKeepsOverlapDecision() {
         val c = data["backupOverlap"].obj()
-        val parsed = WatchedAddressRules.fromJson(JSONArray(c["text"] as String))
+        val parsed = WatchedAddressRules.fromJson(JsonArray(c["text"] as String))
         val expected = c["expected"].list().map { it.obj() }
         assertEquals(expected.size, parsed.size)
         expected.zip(parsed).forEach { (x, e) ->

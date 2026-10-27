@@ -1,8 +1,8 @@
 package com.cryptochecker.app.domain.portfolio
 
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import com.cryptochecker.app.data.portfolio.toDomain
-import org.json.JSONArray
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -103,10 +103,10 @@ class AddressCostLotsTest {
         val a = WatchedAddress(chain = AddressChain.BTC, address = btc, label = "Cold", costLots = lots)
         val json = WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(listOf(a)))
         assertTrue(json.getJSONObject(0).has("costLots"))
-        val back = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(JSONArray(json.toString())))
+        val back = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(JsonArray(json.toString())))
         assertEquals(lots, back.single().costLots)
         // Ältere Sicherung ohne das Feld: Adresse ohne Posten
-        val old = JSONArray("""[{"chain":"BTC","address":"$btc","addedAt":5}]""")
+        val old = JsonArray("""[{"chain":"BTC","address":"$btc","addedAt":5}]""")
         val restored = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(old))
         assertTrue(restored.single().costLots.isEmpty())
         // Ohne Posten schreibt die Sicherung das Feld nicht

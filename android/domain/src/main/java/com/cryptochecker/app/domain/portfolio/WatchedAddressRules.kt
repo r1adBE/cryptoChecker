@@ -1,8 +1,8 @@
 // Regeln der beobachteten Adressen (Teil von `WatchedAddress.kt`, gespiegelt in `WatchedAddressRules.swift`).
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import java.math.BigDecimal
 
 /** Regeln der beobachteten Adressen (Anzahl, Bezeichnung, Anzeige, Sicherung). */
@@ -347,10 +347,10 @@ object WatchedAddressRules {
      * dazu «overlapLegacy»:true für einen Entscheid nach der alten Regel; ältere Versionen übergehen die Felder, ältere
      * Sicherungen ohne sie gelten als nicht entschieden).
      */
-    fun toJson(entries: List<WatchedAddressBackupEntry>): JSONArray {
-        val array = JSONArray()
+    fun toJson(entries: List<WatchedAddressBackupEntry>): JsonArray {
+        val array = JsonArray()
         for (e in entries) {
-            val o = JSONObject()
+            val o = JsonObject()
             o.put("chain", e.chain.name)
             o.put("address", e.address)
             e.label?.let { o.put("label", it) }
@@ -358,7 +358,7 @@ object WatchedAddressRules {
             if (e.observations.isNotEmpty()) o.put("observations", AddressBalanceHistory.toJson(e.observations))
             if (!e.countTokens) o.put("countTokens", false)
             if (e.tokenObservations.isNotEmpty()) o.put("tokenObservations", WatchedAddressExtras.tokensToJson(e.tokenObservations))
-            e.networks?.let { o.put("networks", JSONArray(it)) }
+            e.networks?.let { o.put("networks", JsonArray(it)) }
             if (!e.countInPortfolio) o.put("countInPortfolio", false)
             if (e.costLots.isNotEmpty()) o.put("costLots", AddressCostLots.toJson(e.costLots))
             if (e.overlapChecked) o.put("overlapChecked", true)
@@ -369,7 +369,7 @@ object WatchedAddressRules {
     }
 
     /** Lesen; unlesbare Einträge (unbekanntes Netz, keine Adresse) fallen weg — geprüft wird in [merge]. */
-    fun fromJson(array: JSONArray?): List<WatchedAddressBackupEntry> {
+    fun fromJson(array: JsonArray?): List<WatchedAddressBackupEntry> {
         if (array == null) return emptyList()
         val out = ArrayList<WatchedAddressBackupEntry>()
         for (i in 0 until array.length()) {

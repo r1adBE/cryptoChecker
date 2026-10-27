@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import java.math.BigDecimal
 
 /** Eine Beobachtung des Guthabens einer Adresse: Zeitpunkt (ms) und Guthaben (exakt, ≥ 0). */
@@ -137,14 +137,14 @@ data class AddressBalanceHistory(
             observations.filter { it.balance.signum() >= 0 && it.time > 0 }.sortedBy { it.time }
 
         /** Speichern/Sichern: `[{"t":1727136000000,"b":"0.3"}]` (Guthaben exakt als Text). */
-        fun toJson(observations: List<AddressObservation>): JSONArray {
-            val array = JSONArray()
-            for (o in observations) array.put(JSONObject().put("t", o.time).put("b", PortfolioDecimal.text(o.balance)))
+        fun toJson(observations: List<AddressObservation>): JsonArray {
+            val array = JsonArray()
+            for (o in observations) array.put(JsonObject().put("t", o.time).put("b", PortfolioDecimal.text(o.balance)))
             return array
         }
 
         /** Lesen; unlesbare Einträge fallen weg ([clean]). */
-        fun fromJson(array: JSONArray?): List<AddressObservation> {
+        fun fromJson(array: JsonArray?): List<AddressObservation> {
             if (array == null) return emptyList()
             val out = ArrayList<AddressObservation>()
             for (i in 0 until array.length()) {
@@ -165,7 +165,7 @@ data class AddressBalanceHistory(
         /** Spalte der Datenbank lesen; unlesbar = leer. */
         fun decode(text: String?): List<AddressObservation> {
             if (text.isNullOrBlank()) return emptyList()
-            return runCatching { fromJson(JSONArray(text)) }.getOrDefault(emptyList())
+            return runCatching { fromJson(JsonArray(text)) }.getOrDefault(emptyList())
         }
 
         /**

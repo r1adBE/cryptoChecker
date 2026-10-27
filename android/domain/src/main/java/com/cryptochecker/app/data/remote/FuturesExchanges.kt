@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.domain.activity.FuturesSourceNote
-import org.json.JSONArray
-import org.json.JSONObject
 
 /**
  * Welche Börse ihre Perpetuals mit eigenen Funding-/Open-Interest-Daten versorgt und wie die
@@ -98,7 +98,7 @@ object FuturesParsers {
      * nächsten Abrechnung, sonst «lastFundingRate»), «nextFundingTime», «openInterest» in Coins × «markPrice».
      */
     fun woo(body: String): FuturesInfo {
-        val row = JSONObject(body).getJSONObject("data").getJSONArray("rows").getJSONObject(0)
+        val row = JsonObject(body).getJSONObject("data").getJSONArray("rows").getJSONObject(0)
         val funding = num(row, "estFundingRate") ?: num(row, "lastFundingRate")
         val coins = num(row, "openInterest")
         val mark = num(row, "markPrice")
@@ -111,13 +111,13 @@ object FuturesParsers {
      * `GET /api/v2/mix/market/funding-time` («nextFundingTime»).
      */
     fun bitget(ticker: String, fundingTime: String?): FuturesInfo {
-        val t = JSONObject(ticker).getJSONArray("data").getJSONObject(0)
+        val t = JsonObject(ticker).getJSONArray("data").getJSONObject(0)
         val mark = num(t, "markPrice") ?: num(t, "lastPr")
         val next = fundingTime?.let { text ->
-            runCatching { time(JSONObject(text).getJSONArray("data").getJSONObject(0), "nextFundingTime") }.getOrNull()
+            runCatching { time(JsonObject(text).getJSONArray("data").getJSONObject(0), "nextFundingTime") }.getOrNull()
         }
         val period = fundingTime?.let { text ->
-            runCatching { num(JSONObject(text).getJSONArray("data").getJSONObject(0), "ratePeriod") }.getOrNull()
+            runCatching { num(JsonObject(text).getJSONArray("data").getJSONObject(0), "ratePeriod") }.getOrNull()
         }
         return info(num(t, "fundingRate"), next, product(num(t, "holdingAmount"), mark), FuturesSources.BITGET, hours(period))
     }
@@ -129,19 +129,19 @@ object FuturesParsers {
      * («nextSettleTime»).
      */
     fun mexc(ticker: String, detail: String?, fundingRate: String?, symbol: String): FuturesInfo {
-        val t = JSONObject(ticker).getJSONObject("data")
+        val t = JsonObject(ticker).getJSONObject("data")
         val size = detail?.let { text -> runCatching { mexcContractSize(text, symbol) }.getOrNull() }
         val price = num(t, "fairPrice") ?: num(t, "lastPrice")
         val contracts = num(t, "holdVol")
         val oi = if (contracts != null && size != null) product(contracts * size, price) else null
-        val f = fundingRate?.let { text -> runCatching { JSONObject(text).getJSONObject("data") }.getOrNull() }
+        val f = fundingRate?.let { text -> runCatching { JsonObject(text).getJSONObject("data") }.getOrNull() }
         val funding = num(t, "fundingRate") ?: f?.let { num(it, "fundingRate") }
         return info(funding, f?.let { time(it, "nextSettleTime") }, oi, FuturesSources.MEXC, hours(f?.let { num(it, "collectCycle") }))
     }
 
     /** «contractSize» aus der Kontraktbeschreibung (Objekt bei Abfrage mit Symbol, sonst Liste). */
     private fun mexcContractSize(text: String, symbol: String): Double? {
-        val root = JSONObject(text)
+        val root = JsonObject(text)
         val item = root.optJSONObject("data") ?: findBy(root.getJSONArray("data"), "symbol", symbol)
         return item?.let { num(it, "contractSize") }?.takeIf { it > 0.0 }
     }
@@ -152,12 +152,12 @@ object FuturesParsers {
      * Interest in USDT). Zeitpunkt der nächsten Abrechnung bleibt leer.
      */
     fun htx(funding: String, openInterest: String?): FuturesInfo {
-        val root = JSONObject(funding)
+        val root = JsonObject(funding)
         require(root.optString("status") == "ok") { "HTX-Fehler: ${root.optString("err_msg")}" }
         val rate = num(root.getJSONObject("data"), "funding_rate")
         val value = openInterest?.let { text ->
             runCatching {
-                val oiRoot = JSONObject(text)
+                val oiRoot = JsonObject(text)
                 if (oiRoot.optString("status") == "ok") num(oiRoot.getJSONArray("data").getJSONObject(0), "value") else null
             }.getOrNull()
         }
@@ -169,7 +169,7 @@ object FuturesParsers {
      * in der Kontextliste: «funding» (stündliche Rate, wie die Börse sie zeigt), «openInterest» in Coins × «markPx».
      */
     fun hyperliquid(body: String, coin: String): FuturesInfo {
-        val root = JSONArray(body)
+        val root = JsonArray(body)
         val universe = root.getJSONObject(0).getJSONArray("universe")
         val contexts = root.getJSONArray(1)
         for (i in 0 until minOf(universe.length(), contexts.length())) {
@@ -185,7 +185,7 @@ object FuturesParsers {
      * Perpetuals (BTC-PERPETUAL) in USD, bei linearen USDC-Perpetuals (SOL_USDC-PERPETUAL) in Coins × «mark_price».
      */
     fun deribit(body: String): FuturesInfo {
-        val r = JSONObject(body).getJSONObject("result")
+        val r = JsonObject(body).getJSONObject("result")
         val oi = num(r, "open_interest")
         val linear = r.optString("instrument_name").contains('_')
         val usd = if (linear) product(oi, num(r, "mark_price")) else oi
@@ -215,7 +215,7 @@ object FuturesParsers {
      * («symbol», «fundingIntervalHours»). Symbol → Stunden.
      */
     fun binanceFundingInfo(body: String): Map<String, Int> {
-        val array = JSONArray(body)
+        val array = JsonArray(body)
         val map = HashMap<String, Int>()
         for (i in 0 until array.length()) {
             val item = array.optJSONObject(i) ?: continue
@@ -240,10 +240,10 @@ object FuturesParsers {
         symbol: String,
         contractSizes: Map<String, Double>? = null,
     ): FuturesInfo {
-        val array = JSONArray(premium)
+        val array = JsonArray(premium)
         val row = findBy(array, "symbol", symbol) ?: array.optJSONObject(0)?.takeIf { array.length() == 1 }
             ?: throw IllegalArgumentException("COIN-M ohne $symbol")
-        val contracts = openInterest?.let { runCatching { num(JSONObject(it), "openInterest") }.getOrNull() }
+        val contracts = openInterest?.let { runCatching { num(JsonObject(it), "openInterest") }.getOrNull() }
         return info(
             num(row, "lastFundingRate"), time(row, "nextFundingTime"),
             product(contracts, coinMContractUsd(symbol, contractSizes)), FuturesSources.BINANCE_COIN_M,
@@ -255,7 +255,7 @@ object FuturesParsers {
      * (Stand der Doku: BTCUSD 100, alle anderen 10). Einträge ohne gültige Grösse fehlen.
      */
     fun binanceCoinMContractSizes(body: String): Map<String, Double> {
-        val symbols = JSONObject(body).optJSONArray("symbols") ?: return emptyMap()
+        val symbols = JsonObject(body).optJSONArray("symbols") ?: return emptyMap()
         val map = HashMap<String, Double>()
         for (i in 0 until symbols.length()) {
             val item = symbols.optJSONObject(i) ?: continue
@@ -281,7 +281,7 @@ object FuturesParsers {
 
     private fun product(a: Double?, b: Double?): Double? = if (a != null && b != null) a * b else null
 
-    private fun findBy(array: JSONArray, key: String, value: String): JSONObject? {
+    private fun findBy(array: JsonArray, key: String, value: String): JsonObject? {
         for (i in 0 until array.length()) {
             val item = array.optJSONObject(i) ?: continue
             if (item.optString(key) == value) return item
@@ -290,7 +290,7 @@ object FuturesParsers {
     }
 
     /** Zahl als JSON-Zahl oder Text; null, NaN und ±∞ = kein Wert. */
-    private fun num(json: JSONObject, key: String): Double? {
+    private fun num(json: JsonObject, key: String): Double? {
         val value = json.opt(key)
         val d = when (value) {
             null -> null
@@ -302,5 +302,5 @@ object FuturesParsers {
     }
 
     /** Zeitpunkt in Epoch-ms (Zahl oder Text); 0 oder negativ = keiner. */
-    private fun time(json: JSONObject, key: String): Long? = num(json, key)?.toLong()?.takeIf { it > 0 }
+    private fun time(json: JsonObject, key: String): Long? = num(json, key)?.toLong()?.takeIf { it > 0 }
 }

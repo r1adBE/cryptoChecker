@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.activity
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import kotlin.math.roundToInt
 
 /** Eine abgerechnete Funding Rate: Zeitpunkt (Epoch-ms) und Satz in % je Periode. */
@@ -95,7 +95,7 @@ object FundingTrendRules {
 
     /** Binance `/fapi/v1/fundingRate`: `[{"fundingTime":…,"fundingRate":"0.0001"},…]`. */
     fun parseBinance(json: String): List<FundingPoint> {
-        val array = JSONArray(json)
+        val array = JsonArray(json)
         return (0 until array.length()).mapNotNull { i ->
             val o = array.optJSONObject(i) ?: return@mapNotNull null
             point(o.optLong("fundingTime"), o.optString("fundingRate"))
@@ -104,7 +104,7 @@ object FundingTrendRules {
 
     /** Bybit `/v5/market/funding/history`: `{"result":{"list":[{"fundingRate","fundingRateTimestamp"}]}}`, neueste zuerst. */
     fun parseBybit(json: String): List<FundingPoint> {
-        val list = JSONObject(json).getJSONObject("result").getJSONArray("list")
+        val list = JsonObject(json).getJSONObject("result").getJSONArray("list")
         return (0 until list.length()).mapNotNull { i ->
             val o = list.optJSONObject(i) ?: return@mapNotNull null
             point(o.optString("fundingRateTimestamp").toLongOrNull() ?: 0L, o.optString("fundingRate"))
@@ -113,7 +113,7 @@ object FundingTrendRules {
 
     /** OKX `/api/v5/public/funding-rate-history`: `{"code":"0","data":[{"fundingRate","fundingTime"}]}`, neueste zuerst. */
     fun parseOkx(json: String): List<FundingPoint> {
-        val root = JSONObject(json)
+        val root = JsonObject(json)
         require(root.optString("code") == "0") { "OKX-Fehler: ${root.optString("msg")}" }
         val data = root.getJSONArray("data")
         return (0 until data.length()).mapNotNull { i ->

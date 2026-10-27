@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.alarm
 
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.domain.refresh.CheckTrigger
-import org.json.JSONArray
-import org.json.JSONObject
 
 /**
  * Ergebnis einer Alarm-Prüfung im Alarm-Protokoll ([AlarmLog]); [code] steht in der Datei und im gemeinsamen Testfall
@@ -301,17 +301,17 @@ object AlarmLog {
     // ---- Datei (JSON; Schlüssel gleich auf iOS)
 
     fun encode(state: AlarmLogState): String {
-        val root = JSONObject()
+        val root = JsonObject()
         root.put("v", FORMAT_VERSION)
-        root.put("last", JSONArray().apply { state.lastChecks.values.forEach { put(encodeEntry(it)) } })
-        root.put("events", JSONArray().apply { state.events.forEach { put(encodeEntry(it)) } })
+        root.put("last", JsonArray().apply { state.lastChecks.values.forEach { put(encodeEntry(it)) } })
+        root.put("events", JsonArray().apply { state.events.forEach { put(encodeEntry(it)) } })
         return root.toString()
     }
 
     /** Unlesbares fällt weg (leerer Stand bzw. einzelne Einträge); höchstens [MAX_EVENTS] Einträge. */
     fun decode(text: String?): AlarmLogState {
         if (text.isNullOrBlank()) return AlarmLogState.EMPTY
-        val root = runCatching { JSONObject(text) }.getOrNull() ?: return AlarmLogState.EMPTY
+        val root = runCatching { JsonObject(text) }.getOrNull() ?: return AlarmLogState.EMPTY
         if (root.optInt("v", 0) != FORMAT_VERSION) return AlarmLogState.EMPTY
         val last = LinkedHashMap<Long, AlarmLogEntry>()
         root.optJSONArray("last")?.let { array ->
@@ -331,7 +331,7 @@ object AlarmLog {
         return AlarmLogState(last, events)
     }
 
-    private fun encodeEntry(e: AlarmLogEntry): JSONObject = JSONObject().apply {
+    private fun encodeEntry(e: AlarmLogEntry): JsonObject = JsonObject().apply {
         put("id", e.alarmId)
         put("at", e.at)
         put("pair", e.pair)
@@ -350,7 +350,7 @@ object AlarmLog {
         e.source?.let { put("src", it.code) }
     }
 
-    private fun decodeEntry(o: JSONObject?): AlarmLogEntry? {
+    private fun decodeEntry(o: JsonObject?): AlarmLogEntry? {
         if (o == null) return null
         val id = o.optLong("id", Long.MIN_VALUE).takeIf { it != Long.MIN_VALUE } ?: return null
         val at = o.optLong("at", 0L).takeIf { it > 0 } ?: return null

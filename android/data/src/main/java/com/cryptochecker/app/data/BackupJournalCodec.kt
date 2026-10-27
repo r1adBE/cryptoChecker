@@ -32,7 +32,7 @@ object BackupJournalCodec {
         .put("portfolioAlarms", JSONArray().apply { previous.portfolioAlarms.forEach { put(PortfolioJson.alarmToJson(it)) } })
         .put(
             WatchedAddressRules.BACKUP_KEY,
-            WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(previous.watchedAddresses.mapNotNull { it.toDomain() })),
+            WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(previous.watchedAddresses.mapNotNull { it.toDomain() })).asOrgJson(),
         )
         .put("favorites", JSONObject().apply {
             previous.favorites.forEach { (kind, items) -> put(kind.name, JSONArray(items.toList())) }
@@ -48,7 +48,7 @@ object BackupJournalCodec {
             alarms = root.optJSONArray("alarms")?.let(AlarmJson::parse)?.items.orEmpty(),
             portfolio = root.optJSONArray("portfolio")?.let(PortfolioJson::parseTxs)?.items.orEmpty(),
             portfolioAlarms = root.optJSONArray("portfolioAlarms")?.let(PortfolioJson::parseAlarms)?.items.orEmpty(),
-            watchedAddresses = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)))
+            watchedAddresses = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)?.asDomainJson()))
                 .map { WatchedAddressEntity.from(it) },
             favorites = FavoriteKind.entries.associateWith { kind ->
                 favorites?.optJSONArray(kind.name)?.let { arr -> (0 until arr.length()).mapNotNull { arr.opt(it) as? String }.toSet() }.orEmpty()

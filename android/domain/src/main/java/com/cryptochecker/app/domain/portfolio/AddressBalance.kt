@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
 import java.math.BigDecimal
 
 /**
@@ -61,7 +61,7 @@ object AddressBalance {
      * nicht die Summen über alle Zeit (funded_txo_sum einer Börsen-Adresse übersteigt die Geldmenge leicht).
      */
     fun parseBtc(body: String, address: String, chain: AddressChain = AddressChain.BTC): BtcStats {
-        val json = JSONObject(body)
+        val json = JsonObject(body)
         if (json.has("address") && !json.isNull("address") &&
             (json.opt("address") as? String)?.equals(address, ignoreCase = true) != true
         ) {
@@ -86,13 +86,13 @@ object AddressBalance {
     }
 
     /** `tx_count` (fehlt oder ungültig = 0: dann zählt nur das Guthaben). */
-    private fun txCountOf(o: JSONObject): Int {
+    private fun txCountOf(o: JsonObject): Int {
         val v = (o.opt("tx_count") as? Number)?.toDouble() ?: return 0
         return if (v.isFinite() && v >= 0 && v <= Int.MAX_VALUE) v.toInt() else 0
     }
 
     /** Ganze, nicht negative Zahl im Long-Bereich (Summen über alle Zeit); sonst Fehler. */
-    private fun sats(o: JSONObject, key: String): Long {
+    private fun sats(o: JsonObject, key: String): Long {
         val v = o.opt(key) as? Number ?: throw IllegalStateException("$key fehlt")
         val d = v.toDouble()
         if (!d.isFinite() || d < 0 || d != Math.floor(d) || d > MAX_CUMULATIVE_SATS) throw IllegalStateException("$key ungültig")
@@ -104,7 +104,7 @@ object AddressBalance {
 
     /** `eth_getBalance`-Antwort → Wei als Dezimalziffern; wirft bei Fehlerantwort oder unlesbarem Wert. */
     fun parseEthWei(body: String): String {
-        val json = JSONObject(body)
+        val json = JsonObject(body)
         json.optJSONObject("error")?.let { throw IllegalStateException("RPC: " + it.optString("message")) }
         val result = json.opt("result") as? String ?: throw IllegalStateException("result fehlt")
         if (!result.startsWith("0x") || result.length < 3 || result.length > 66) throw IllegalStateException("result ungültig")

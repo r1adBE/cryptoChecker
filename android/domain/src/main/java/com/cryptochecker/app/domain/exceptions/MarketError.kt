@@ -6,7 +6,7 @@ import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.app.domain.watch.NotTraded
 import com.cryptochecker.marketdata.exceptions.MarketParseException
-import org.json.JSONException
+import com.cryptochecker.app.util.json.JsonException
 import java.io.EOFException
 import java.io.IOException
 import java.io.InterruptedIOException
@@ -83,9 +83,12 @@ fun Throwable.toMarketFailure(): MarketFailure = when (this) {
     // «Kein Eintrag für das Paar» in gültiger Antwort: Aussage über das Paar (NotTraded.isMissingEntry)
     is MarketParseException ->
         if (NotTraded.isMissingEntry(message)) MarketFailure.UnknownInstrument else MarketFailure.Parse
-    is JSONException -> MarketFailure.Parse
-    else -> MarketFailure.Other
+    // Eigenes JSON in :domain und org.json der Parser in :data (nach Namen, ohne Android-Typ in :domain)
+    is JsonException -> MarketFailure.Parse
+    else -> if (javaClass.name == ORG_JSON_EXCEPTION) MarketFailure.Parse else MarketFailure.Other
 }
+
+private const val ORG_JSON_EXCEPTION = "org.json.JSONException"
 
 /**
  * Meldung der Börse ([UserFriendlyMarketError]): eigene Kennungen («Response data is empty» …) bleiben

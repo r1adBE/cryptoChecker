@@ -2,6 +2,8 @@
 
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressChain
@@ -17,7 +19,6 @@ import com.cryptochecker.app.domain.portfolio.XpubCache
 import com.cryptochecker.app.domain.portfolio.XpubDeriver
 import com.cryptochecker.app.domain.portfolio.XpubScan
 import com.cryptochecker.app.domain.portfolio.ripemd160
-import org.json.JSONArray
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -299,17 +300,17 @@ class XpubTokenParityTest {
         // Zwischenspeicher hin und zurück; unpassende Indizes fallen weg
         val cache = XpubCache(listOf("a", "b"), listOf("c"), listOf(1), listOf(0), 42)
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
-        assertEquals(listOf(1), XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\",\"b\"],\"ru\":[1,5,-1,1]}"))!!.usedReceive)
+        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"ru\":[1,5,-1,1]}"))!!.usedReceive)
         // Leere benutzte hin und zurück; nur benutzte Indizes bleiben
         val withEmpty = XpubCache(listOf("a", "b"), listOf("c"), listOf(0, 1), listOf(0), 42, emptyReceive = listOf(1), emptyChange = listOf(0))
         assertEquals(withEmpty, XpubCache.fromJson(XpubCache.toJson(withEmpty)))
-        assertEquals(listOf(1), XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\",\"b\"],\"ru\":[1],\"re\":[0,1,7]}"))!!.emptyReceive)
+        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"ru\":[1],\"re\":[0,1,7]}"))!!.emptyReceive)
         // F-16: Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         val limited = cache.copy(limitedFallback = true)
         assertEquals(true, XpubCache.toJson(limited).getBoolean("lf"))
         assertEquals(limited, XpubCache.fromJson(XpubCache.toJson(limited)))
         assertTrue(!XpubCache.toJson(cache).has("lf"))
-        assertEquals(false, XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\"],\"lf\":\"ja\"}"))!!.limitedFallback)
+        assertEquals(false, XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"lf\":\"ja\"}"))!!.limitedFallback)
         assertEquals(true, XpubScan(XpubScan.Mode.QUICK, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
         assertEquals(false, XpubScan(XpubScan.Mode.FULL, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
     }
@@ -358,13 +359,13 @@ class XpubTokenParityTest {
         assertEquals("P2SH_P2WPKH", XpubCache.toJson(cache).getString("s"))
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
         assertTrue(!XpubCache.toJson(cache.copy(script = null)).has("s"))
-        assertNull(XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\"],\"s\":\"P2XX\"}"))!!.script)
+        assertNull(XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"s\":\"P2XX\"}"))!!.script)
     }
 
     @Test
     fun backupWithTokens() {
         val b = data["backupTokens"].obj()
-        val parsed = WatchedAddressRules.fromJson(JSONArray(b["text"] as String))
+        val parsed = WatchedAddressRules.fromJson(JsonArray(b["text"] as String))
         val expected = b["expected"].list().map { it.obj() }
         assertEquals(expected.size, parsed.size)
         expected.zip(parsed).forEach { (e, a) ->

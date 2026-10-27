@@ -1,8 +1,8 @@
 // Eröffnungsposten (Einstand) für Guthaben beobachteter Adressen (gespiegelt in `AddressCostLots.swift`).
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import java.math.BigDecimal
 
 /**
@@ -332,10 +332,10 @@ object AddressCostLots {
 
     // ---- Speicherform (Spalte, Datei, Sicherung) ----
 
-    fun toJson(lots: List<AddressCostLot>): JSONArray {
-        val array = JSONArray()
+    fun toJson(lots: List<AddressCostLot>): JsonArray {
+        val array = JsonArray()
         for (l in lots) {
-            val o = JSONObject()
+            val o = JsonObject()
             o.put("id", l.id)
             o.put("coin", l.coin)
             o.put("t", l.time)
@@ -348,7 +348,7 @@ object AddressCostLots {
     }
 
     /** Lesen; unlesbare Einträge fallen weg ([clean]). */
-    fun fromJson(array: JSONArray?): List<AddressCostLot> {
+    fun fromJson(array: JsonArray?): List<AddressCostLot> {
         if (array == null) return emptyList()
         val out = ArrayList<AddressCostLot>()
         for (i in 0 until array.length()) {
@@ -372,6 +372,6 @@ object AddressCostLots {
     fun decode(text: String?): List<AddressCostLot> {
         val t = text?.trim().orEmpty()
         if (!t.startsWith("[")) return emptyList()
-        return runCatching { fromJson(JSONArray(t)) }.getOrDefault(emptyList())
+        return runCatching { fromJson(JsonArray(t)) }.getOrDefault(emptyList())
     }
 }

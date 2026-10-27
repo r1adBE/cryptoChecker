@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 import java.math.BigInteger
 
 /**
@@ -67,7 +67,7 @@ object ChainBalance {
 
     /** `getaccount` → Sun als Ziffern; `{}` (Konto noch nie benutzt) = «0». */
     fun parseTronAccount(body: String): String {
-        val json = JSONObject(body)
+        val json = JsonObject(body)
         json.optString("Error").takeIf { it.isNotEmpty() }?.let { throw IllegalStateException("TRON: $it") }
         if (!json.has("balance")) return "0"
         val v = json.opt("balance") as? Number ?: throw IllegalStateException("balance ungültig")
@@ -78,7 +78,7 @@ object ChainBalance {
 
     /** `triggerconstantcontract` → Ziffern; Fehler oder leeres Ergebnis wirft. */
     fun parseTronCall(body: String): String {
-        val json = JSONObject(body)
+        val json = JsonObject(body)
         val ok = json.optJSONObject("result")?.optBoolean("result") == true
         val words = json.optJSONArray("constant_result")
         if (!ok || words == null || words.length() == 0) throw IllegalStateException("TRON: kein Ergebnis")
@@ -112,22 +112,22 @@ object ChainBalance {
     /** Lamports, bekannte Token (Symbol → Text) und Anzahl unbekannter Token mit Guthaben > 0. */
     data class Solana(val lamports: String, val tokens: Map<String, String>, val unknown: Int)
 
-    private fun rpcResult(o: JSONObject): Any {
+    private fun rpcResult(o: JsonObject): Any {
         o.optJSONObject("error")?.let { throw IllegalStateException("RPC: " + it.optString("message")) }
         return o.opt("result") ?: throw IllegalStateException("result fehlt")
     }
 
     /** `getBalance` → Lamports als Ziffern. */
-    fun parseSolanaBalance(o: JSONObject): String {
-        val result = rpcResult(o) as? JSONObject ?: throw IllegalStateException("result ungültig")
+    fun parseSolanaBalance(o: JsonObject): String {
+        val result = rpcResult(o) as? JsonObject ?: throw IllegalStateException("result ungültig")
         val v = result.opt("value") as? Number ?: throw IllegalStateException("value fehlt")
         if (v.toDouble() < 0) throw IllegalStateException("value ungültig")
         return v.toLong().toString()
     }
 
     /** `getTokenAccountsByOwner` → je Mint die Summe der Rohbeträge (Ziffern). */
-    fun parseSolanaTokens(o: JSONObject): Map<String, String> {
-        val result = rpcResult(o) as? JSONObject ?: throw IllegalStateException("result ungültig")
+    fun parseSolanaTokens(o: JsonObject): Map<String, String> {
+        val result = rpcResult(o) as? JsonObject ?: throw IllegalStateException("result ungültig")
         val accounts = result.optJSONArray("value") ?: throw IllegalStateException("value fehlt")
         val sums = LinkedHashMap<String, BigInteger>()
         for (i in 0 until accounts.length()) {
@@ -141,10 +141,10 @@ object ChainBalance {
     }
 
     /** Einzelantwort `getBalance` (Rückfall ohne Stapel). */
-    fun parseSolanaBalanceBody(body: String): String = parseSolanaBalance(JSONObject(body))
+    fun parseSolanaBalanceBody(body: String): String = parseSolanaBalance(JsonObject(body))
 
     /** Einzelantwort `getTokenAccountsByOwner` (Rückfall ohne Stapel). */
-    fun parseSolanaTokensBody(body: String): Map<String, String> = parseSolanaTokens(JSONObject(body))
+    fun parseSolanaTokensBody(body: String): Map<String, String> = parseSolanaTokens(JsonObject(body))
 
     /** Ergebnisse zusammenführen: bekannte Mints nach [ChainAssets.SOLANA_TOKENS]; unbekannte > 0 nur gezählt. */
     fun solana(lamports: String, mints: List<Map<String, String>>): Solana {
@@ -167,8 +167,8 @@ object ChainBalance {
     fun parseSolanaBatch(body: String): Solana {
         val trimmed = body.trim()
         if (!trimmed.startsWith("[")) throw Erc20Tokens.BatchUnsupported("kein Stapel")
-        val array = JSONArray(trimmed)
-        val byId = HashMap<Int, JSONObject>()
+        val array = JsonArray(trimmed)
+        val byId = HashMap<Int, JsonObject>()
         for (i in 0 until array.length()) {
             val o = array.optJSONObject(i) ?: continue
             val id = (o.opt("id") as? Number)?.toInt() ?: continue
@@ -191,7 +191,7 @@ object ChainBalance {
 
     /** `account_info` → Drops als Ziffern; Konto nicht aktiviert (`actNotFound`) = «0». */
     fun parseXrp(body: String): String {
-        val result = JSONObject(body).optJSONObject("result") ?: throw IllegalStateException("result fehlt")
+        val result = JsonObject(body).optJSONObject("result") ?: throw IllegalStateException("result fehlt")
         val error = result.optString("error")
         if (error == "actNotFound") return "0"
         if (error.isNotEmpty()) throw IllegalStateException("XRPL: $error")
@@ -216,7 +216,7 @@ object ChainBalance {
 
     /** `{"ok":true,"result":"123"}` → Nanoton als Ziffern. */
     fun parseTon(body: String): String {
-        val json = JSONObject(body)
+        val json = JsonObject(body)
         if (json.opt("ok") != true) throw IllegalStateException("TON: " + json.optString("error"))
         val result = when (val r = json.opt("result")) {
             null -> throw IllegalStateException("result fehlt")
@@ -262,7 +262,7 @@ object ChainBalance {
     data class TonJettonPage(val tokens: Map<String, String>, val kept: List<String>)
 
     fun parseTonJettonPage(body: String): TonJettonPage {
-        val wallets = JSONObject(body).optJSONArray("jetton_wallets") ?: throw IllegalStateException("jetton_wallets fehlt")
+        val wallets = JsonObject(body).optJSONArray("jetton_wallets") ?: throw IllegalStateException("jetton_wallets fehlt")
         val sums = LinkedHashMap<String, BigInteger>()
         for (i in 0 until wallets.length()) {
             val w = wallets.optJSONObject(i) ?: continue
@@ -293,7 +293,7 @@ object ChainBalance {
 
     /** `[{"address":"…","balance":"123",…}]` → Lovelace als Ziffern; leeres Array (nie benutzt) = «0». */
     fun parseAda(body: String, address: String): String {
-        val array = JSONArray(body.trim())
+        val array = JsonArray(body.trim())
         for (i in 0 until array.length()) {
             val o = array.optJSONObject(i) ?: continue
             if (o.optString("address") != address) continue

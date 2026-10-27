@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 
 /**
  * Zwischenspeicher eines beobachteten xpub/ypub/zpub: abgeleitete Adressen je Kette (0 = Empfang, 1 = Wechselgeld,
@@ -37,19 +37,19 @@ data class XpubCache(
          * `{"r":[…],"c":[…],"ru":[…],"cu":[…],"f":…,"s":"P2WPKH","re":[…],"ce":[…],"lf":true}` («s», «re», «ce» nur wenn
          * vorhanden, «lf» nur wenn true).
          */
-        fun toJson(c: XpubCache): JSONObject = JSONObject()
-            .put("r", JSONArray(c.receive))
-            .put("c", JSONArray(c.change))
-            .put("ru", JSONArray(c.usedReceive))
-            .put("cu", JSONArray(c.usedChange))
+        fun toJson(c: XpubCache): JsonObject = JsonObject()
+            .put("r", JsonArray(c.receive))
+            .put("c", JsonArray(c.change))
+            .put("ru", JsonArray(c.usedReceive))
+            .put("cu", JsonArray(c.usedChange))
             .put("f", c.fullScan)
             .apply { c.script?.let { put("s", it.name) } }
-            .apply { if (c.emptyReceive.isNotEmpty()) put("re", JSONArray(c.emptyReceive)) }
-            .apply { if (c.emptyChange.isNotEmpty()) put("ce", JSONArray(c.emptyChange)) }
+            .apply { if (c.emptyReceive.isNotEmpty()) put("re", JsonArray(c.emptyReceive)) }
+            .apply { if (c.emptyChange.isNotEmpty()) put("ce", JsonArray(c.emptyChange)) }
             .apply { if (c.limitedFallback) put("lf", true) }
 
         /** Lesen; unlesbare Teile = leer (dann sucht die nächste Aktualisierung vollständig). */
-        fun fromJson(o: JSONObject?): XpubCache? {
+        fun fromJson(o: JsonObject?): XpubCache? {
             if (o == null) return null
             fun strings(key: String): List<String> {
                 val a = o.optJSONArray(key) ?: return emptyList()

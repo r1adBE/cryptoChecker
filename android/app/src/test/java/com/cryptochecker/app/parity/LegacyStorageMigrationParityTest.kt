@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.util.json.JsonObject
 import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
@@ -19,7 +20,7 @@ class LegacyStorageMigrationParityTest {
         giftToSpouse = o["giftToSpouse"] == true,
         importKey = o["importKey"] as String?,
         linkedImportKey = o["linkedImportKey"] as String?,
-        importRestoreState = o["importRestoreState"]?.let { CsvRestoreState.fromJson(JSONObject(json(it))) },
+        importRestoreState = o["importRestoreState"]?.let { CsvRestoreState.fromJson(JsonObject(json(it))) },
     )
 
     /** Fixture-Wert zurück in JSON-Text (für org.json). */
@@ -58,7 +59,7 @@ class LegacyStorageMigrationParityTest {
     @Test
     fun restoreStateRoundTripsAndRejectsInvalid() {
         data["cases"].list().mapNotNull { it.obj()["after"].obj()["importRestoreState"] }.forEach { e ->
-            val state = CsvRestoreState.fromJson(JSONObject(json(e)))!!
+            val state = CsvRestoreState.fromJson(JsonObject(json(e)))!!
             assertEquals(e, ParityJson.parse(state.encode()))
             assertEquals(state, CsvRestoreState.decode(state.encode()))
         }

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 
 /**
  * ERC-20-Guthaben beobachteter Ethereum-Adressen: feste, kuratierte Liste (nur Ethereum-Mainnet-Verträge), Abfrage
@@ -95,8 +95,8 @@ object Erc20Tokens {
     fun parseBatch(body: String, list: List<Token> = LIST): Batch {
         val trimmed = body.trim()
         if (!trimmed.startsWith("[")) throw BatchUnsupported("kein Stapel")
-        val array = JSONArray(trimmed)
-        val byId = HashMap<Int, JSONObject>()
+        val array = JsonArray(trimmed)
+        val byId = HashMap<Int, JsonObject>()
         for (i in 0 until array.length()) {
             val o = array.optJSONObject(i) ?: continue
             val id = (o.opt("id") as? Number)?.toInt() ?: continue
@@ -118,7 +118,7 @@ object Erc20Tokens {
 
     /** `{"result":"0x…"}` (32 Byte) → Dezimalziffern; Fehler/«0x» (kein Vertrag) → wirft. */
     fun parseUnits(body: String): String {
-        val json = JSONObject(body)
+        val json = JsonObject(body)
         json.optJSONObject("error")?.let { throw IllegalStateException("RPC: " + it.optString("message")) }
         val result = json.opt("result") as? String ?: throw IllegalStateException("result fehlt")
         if (!result.startsWith("0x") || result.length < 3 || result.length > 66) throw IllegalStateException("result ungültig")

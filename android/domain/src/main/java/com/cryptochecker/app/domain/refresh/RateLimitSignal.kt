@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.refresh
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 
 /**
  * «Zu viele Anfragen» auch ohne HTTP 429/418 erkennen — für Kurse und Kerzen gleich: Kraken meldet es mit
@@ -74,13 +74,13 @@ object RateLimitSignal {
         val trimmed = body.trim()
         when {
             trimmed.startsWith("{") -> {
-                val json = runCatching { JSONObject(trimmed) }.getOrNull() ?: return inText(body)
+                val json = runCatching { JsonObject(trimmed) }.getOrNull() ?: return inText(body)
                 if (codeIs(json.opt("retCode"), 10006) || codeIs(json.opt("code"), 50011)) return true
                 if (codeIs(json.opt("code"), 100410) || bitbankTooMany(json)) return true
                 return ERROR_FIELDS.any { key -> fieldTexts(json.opt(key)).any { inText(it) } }
             }
             trimmed.startsWith("[") -> {
-                if (runCatching { JSONArray(trimmed) }.isSuccess) return false
+                if (runCatching { JsonArray(trimmed) }.isSuccess) return false
                 return inText(body)
             }
             else -> return inText(body)
@@ -88,7 +88,7 @@ object RateLimitSignal {
     }
 
     /** bitbank: {"success":0,"data":{"code":10009}} — Fehler ohne Text, nur der Code. */
-    private fun bitbankTooMany(json: JSONObject): Boolean =
+    private fun bitbankTooMany(json: JsonObject): Boolean =
         codeIs(json.opt("success"), 0) && codeIs(json.optJSONObject("data")?.opt("code"), 10009)
 
     /** Code als Zahl oder Text gleich [expected]? */
@@ -101,7 +101,7 @@ object RateLimitSignal {
     /** Texte eines Fehlerfelds: Text oder Liste von Texten. */
     private fun fieldTexts(value: Any?): List<String> = when (value) {
         is String -> listOf(value)
-        is JSONArray -> (0 until value.length()).mapNotNull { value.opt(it) as? String }
+        is JsonArray -> (0 until value.length()).mapNotNull { value.opt(it) as? String }
         else -> emptyList()
     }
 

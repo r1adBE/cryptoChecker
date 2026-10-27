@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.AddressObservation
@@ -14,7 +15,6 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
-import org.json.JSONArray
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -362,7 +362,7 @@ class AddressBalanceParityTest {
     @Test
     fun backupWithObservations() {
         val b = data["backupObservations"].obj()
-        val parsed = WatchedAddressRules.fromJson(JSONArray(b["text"] as String))
+        val parsed = WatchedAddressRules.fromJson(JsonArray(b["text"] as String))
         val expected = b["expected"].list().map { it.obj() }
         assertEquals(expected.size, parsed.size)
         expected.zip(parsed).forEach { (e, a) ->
@@ -394,7 +394,7 @@ class AddressBalanceParityTest {
         assertEquals(expected, WatchedAddressRules.backupEntries(merged))
 
         val b = data["backupJson"].obj()
-        val parsed = WatchedAddressRules.fromJson(JSONArray(b["text"] as String))
+        val parsed = WatchedAddressRules.fromJson(JsonArray(b["text"] as String))
         assertEquals(b["expected"].list().map { entry(it.obj()) }, parsed)
         // Hin und zurück ohne Verlust
         assertEquals(parsed, WatchedAddressRules.fromJson(WatchedAddressRules.toJson(parsed)))

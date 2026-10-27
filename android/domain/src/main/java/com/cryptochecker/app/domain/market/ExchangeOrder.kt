@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.market
 
+import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.marketdata.model.MarketCategory
-import org.json.JSONArray
 
 /**
  * Reihenfolge der Börsenauswahl (Build 133): Abschnitte Spot · Futures · DEX-Pools · Forex, darin nach dem
@@ -50,12 +50,12 @@ object ExchangeOrder {
      */
     fun parseVolumes(spotBody: String, derivativesBody: String): Map<String, Double> {
         val out = LinkedHashMap<String, Double>()
-        collect(JSONArray(spotBody), SPOT_IDS, out)
-        collect(JSONArray(derivativesBody), DERIVATIVES_IDS, out)
+        collect(JsonArray(spotBody), SPOT_IDS, out)
+        collect(JsonArray(derivativesBody), DERIVATIVES_IDS, out)
         return out
     }
 
-    private fun collect(rows: JSONArray, ids: Map<String, String>, out: MutableMap<String, Double>) {
+    private fun collect(rows: JsonArray, ids: Map<String, String>, out: MutableMap<String, Double>) {
         val byId = HashMap<String, Double>()
         for (index in 0 until rows.length()) {
             val row = rows.optJSONObject(index) ?: continue

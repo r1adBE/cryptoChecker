@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 153)
+
+* Android code structure (no change for users): the 20 domain files (exchange and address parsers, alarm log, address and xpub caches, backup entries of watched addresses, coin lists, gas fees …) read and write JSON with the domain's own JSON instead of `org.json`; the storage layer converts at the boundary. `:domain` no longer uses `org.json`.
+
 ## 16.2.2 (build 152)
 
 * Android code structure (no change for users): `:domain` gets its own small JSON reader/writer (`util/json`) that behaves like Android's `org.json` – same conversions, same number and character output – checked against `org.json` in a compatibility test. The domain files switch over in the next builds (step towards Kotlin Multiplatform).

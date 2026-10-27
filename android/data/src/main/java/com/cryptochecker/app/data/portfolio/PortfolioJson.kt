@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.asOrgJson
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -60,7 +61,7 @@ object PortfolioJson {
         // Schlüssel der Auszahlung und ohne «Rückgängig» der Verknüpfung (kein Absturz, nichts ungültig)
         .put("giftToSpouse", t.giftToSpouse && t.type == PortfolioTxType.GIFT)
         .put("linkedImportKey", t.linkedImportKey ?: JSONObject.NULL)
-        .put("importRestoreState", t.importRestoreState?.toJson() ?: JSONObject.NULL)
+        .put("importRestoreState", t.importRestoreState?.toJson()?.asOrgJson() ?: JSONObject.NULL)
         // Portfolio-Datenbank v5: Gebühr-Zeile und Zins als eigene Merker. Ältere Versionen ignorieren sie und
         // schliessen wie bisher aus Preis 0 + Herkunft bzw. aus der Notiz (beides bleibt gespeichert)
         .put("feeRow", t.feeRow && t.type == PortfolioTxType.SELL)

@@ -1,9 +1,9 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
+import com.cryptochecker.app.util.json.JsonObject
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
-import org.json.JSONObject
 import java.math.BigDecimal
 
 /**
@@ -64,8 +64,8 @@ data class CsvRestoreState(
     val absorbed: CsvAbsorbedRow?,
 ) {
     /** JSON-Form (Format oben). */
-    fun toJson(): JSONObject {
-        val stored = JSONObject()
+    fun toJson(): JsonObject {
+        val stored = JsonObject()
             .put("type", type.name)
             .put("amount", PortfolioDecimal.text(amount))
             .putDecimal("priceUsdt", priceUsdt)
@@ -81,11 +81,11 @@ data class CsvRestoreState(
             .putText("exchange", exchange)
             .put("importKey", importKey)
             .putText("importBatch", importBatch)
-        val out = JSONObject().put("v", VERSION).put("stored", stored)
+        val out = JsonObject().put("v", VERSION).put("stored", stored)
         absorbed?.let { a ->
             out.put(
                 "absorbed",
-                JSONObject()
+                JsonObject()
                     .put("type", a.type.name)
                     .put("amount", PortfolioDecimal.text(a.amount))
                     .putDecimal("priceUsdt", a.priceUsdt)
@@ -116,11 +116,11 @@ data class CsvRestoreState(
         /** Aus dem Text der Datenbank-Spalte; null = keiner, zu lang, unbekannte Fassung oder unlesbar. */
         fun decode(text: String?): CsvRestoreState? {
             if (text.isNullOrBlank() || text.length > MAX_TEXT) return null
-            return runCatching { JSONObject(text) }.getOrNull()?.let(::fromJson)
+            return runCatching { JsonObject(text) }.getOrNull()?.let(::fromJson)
         }
 
         /** Aus der JSON-Form ([toJson]); null = unbekannte Fassung oder unlesbar. */
-        fun fromJson(o: JSONObject?): CsvRestoreState? {
+        fun fromJson(o: JsonObject?): CsvRestoreState? {
             if (o == null) return null
             // Fassung nur als Zahl (kein Text, keine Nachkommastellen) — wie iOS
             if ((o.opt("v") as? Number)?.toDouble() != VERSION.toDouble()) return null
@@ -146,7 +146,7 @@ data class CsvRestoreState(
             )
         }
 
-        private fun absorbedRow(a: JSONObject?): CsvAbsorbedRow? {
+        private fun absorbedRow(a: JsonObject?): CsvAbsorbedRow? {
             if (a == null) return null
             return CsvAbsorbedRow(
                 type = PortfolioTxType.fromName(a.text("type")) ?: return null,
@@ -161,19 +161,19 @@ data class CsvRestoreState(
             )
         }
 
-        private fun JSONObject.putText(name: String, value: String?): JSONObject = apply { if (value != null) put(name, value) }
+        private fun JsonObject.putText(name: String, value: String?): JsonObject = apply { if (value != null) put(name, value) }
 
-        private fun JSONObject.putDecimal(name: String, value: BigDecimal?): JSONObject =
+        private fun JsonObject.putDecimal(name: String, value: BigDecimal?): JsonObject =
             apply { if (value != null) put(name, PortfolioDecimal.text(value)) }
 
         /** Text oder null (fehlt, JSON null, kein Text oder leer). */
-        private fun JSONObject.text(name: String): String? =
+        private fun JsonObject.text(name: String): String? =
             if (!has(name) || isNull(name)) null else (opt(name) as? String)?.takeIf { it.isNotEmpty() }
 
-        private fun JSONObject.decimal(name: String): BigDecimal? = text(name)?.let { PortfolioDecimal.parse(it) }
+        private fun JsonObject.decimal(name: String): BigDecimal? = text(name)?.let { PortfolioDecimal.parse(it) }
 
         /** Ganze Zahl (ms) oder null — nur echte Zahlen ohne Nachkommastellen. */
-        private fun JSONObject.long(name: String): Long? {
+        private fun JsonObject.long(name: String): Long? {
             if (!has(name) || isNull(name)) return null
             val n = opt(name) as? Number ?: return null
             val d = n.toDouble()

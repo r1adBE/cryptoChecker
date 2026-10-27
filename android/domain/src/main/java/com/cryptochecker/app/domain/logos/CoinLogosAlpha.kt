@@ -1,5 +1,8 @@
 package com.cryptochecker.app.domain.logos
 
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
+import com.cryptochecker.app.util.json.JsonException
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
 import com.cryptochecker.app.domain.logos.CoinLogos.AlphaEntry
 
@@ -17,15 +20,15 @@ import com.cryptochecker.app.domain.logos.CoinLogos.AlphaEntry
 fun CoinLogos.parseAlpha(text: String?): List<AlphaEntry>? {
     if (text.isNullOrBlank()) return null
     val array = try {
-        org.json.JSONObject(text).optJSONArray("data")
-    } catch (e: org.json.JSONException) {
+        JsonObject(text).optJSONArray("data")
+    } catch (e: JsonException) {
         null
     } ?: return null
     return alphaEntries(array)
 }
 
 /** Einträge eines Alpha-`data`-Arrays (auch aus `coin_meta.json`, [CoinMeta]) wie [parseAlpha]. */
-fun CoinLogos.alphaEntries(array: org.json.JSONArray): List<AlphaEntry> {
+fun CoinLogos.alphaEntries(array: JsonArray): List<AlphaEntry> {
     val out = ArrayList<AlphaEntry>(array.length())
     for (i in 0 until array.length()) {
         val o = array.optJSONObject(i) ?: continue

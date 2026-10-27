@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.util.json.JsonArray
 
 /**
  * Netz einer beobachteten Adresse; [coin] = Coin im Portfolio, [decimals] = kleinste Einheit. ETH steht für die 0x-Adresse
@@ -186,23 +186,23 @@ object WatchedAddressExtras {
             a.networks == null && a.countInPortfolio && a.unknownTokens == 0 && !a.overlapChecked && a.staleTokens.isEmpty() &&
             a.pendingSince <= 0
         if (plain) return AddressBalanceHistory.encode(a.observations)
-        val o = JSONObject()
+        val o = JsonObject()
         o.put("o", AddressBalanceHistory.toJson(a.observations))
         if (a.tokenBalances.isNotEmpty()) {
-            val tb = JSONObject()
+            val tb = JsonObject()
             for ((k, v) in a.tokenBalances) tb.put(k, v)
             o.put("tb", tb)
         }
         if (a.tokenObservations.isNotEmpty()) o.put("to", tokensToJson(a.tokenObservations))
         if (!a.countTokens) o.put("tokens", false)
         a.xpub?.let { o.put("x", XpubCache.toJson(it)) }
-        a.networks?.let { o.put("n", JSONArray(it)) }
+        a.networks?.let { o.put("n", JsonArray(it)) }
         if (!a.countInPortfolio) o.put("show", false)
         if (a.unknownTokens > 0) o.put("uk", a.unknownTokens)
         if (a.overlapChecked) o.put("ovl", true)
         // Entscheid nach der Mengenregel (ohne «ovl2» = alter Entscheid, [WatchedAddress.overlapLegacy])
         if (a.overlapChecked && !a.overlapLegacy) o.put("ovl2", true)
-        if (a.staleTokens.isNotEmpty()) o.put("stk", JSONArray(a.staleTokens))
+        if (a.staleTokens.isNotEmpty()) o.put("stk", JsonArray(a.staleTokens))
         if (a.pendingSince > 0) o.put("ps", a.pendingSince)
         return o.toString()
     }
@@ -211,7 +211,7 @@ object WatchedAddressExtras {
         val t = text?.trim().orEmpty()
         if (t.isEmpty()) return Decoded()
         if (t.startsWith("[")) return Decoded(observations = AddressBalanceHistory.decode(t))
-        val o = runCatching { JSONObject(t) }.getOrNull() ?: return Decoded()
+        val o = runCatching { JsonObject(t) }.getOrNull() ?: return Decoded()
         val balances = LinkedHashMap<String, String>()
         o.optJSONObject("tb")?.let { tb ->
             for (k in tb.keys()) {
@@ -239,14 +239,14 @@ object WatchedAddressExtras {
     }
 
     /** `{"USDT":[{"t":…,"b":"…"}]}`. */
-    fun tokensToJson(map: Map<String, List<AddressObservation>>): JSONObject {
-        val o = JSONObject()
+    fun tokensToJson(map: Map<String, List<AddressObservation>>): JsonObject {
+        val o = JsonObject()
         for ((k, v) in map) if (v.isNotEmpty()) o.put(k, AddressBalanceHistory.toJson(v))
         return o
     }
 
     /** Lesen; nur bekannte Schlüssel mit gültigen Beobachtungen. */
-    fun tokensFromJson(chain: AddressChain, o: JSONObject?): Map<String, List<AddressObservation>> {
+    fun tokensFromJson(chain: AddressChain, o: JsonObject?): Map<String, List<AddressObservation>> {
         if (o == null) return emptyMap()
         val out = LinkedHashMap<String, List<AddressObservation>>()
         for (k in o.keys()) out[k] = AddressBalanceHistory.fromJson(o.optJSONArray(k))
@@ -254,7 +254,7 @@ object WatchedAddressExtras {
     }
 
     /** `["BSC","BASE"]` → bekannte Netze in Listen-Reihenfolge; fehlt = null. */
-    fun networksFromJson(a: JSONArray?): List<String>? {
+    fun networksFromJson(a: JsonArray?): List<String>? {
         if (a == null) return null
         return WatchedAddressRules.cleanNetworks((0 until a.length()).map { a.optString(it) })
     }
