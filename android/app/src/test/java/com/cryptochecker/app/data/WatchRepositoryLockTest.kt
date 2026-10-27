@@ -20,7 +20,7 @@ class WatchRepositoryLockTest {
 
     private fun source(name: String): String {
         val path = "src/main/java/com/cryptochecker/app/data/$name"
-        return listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+        return listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
     }
 
     /**
@@ -129,7 +129,7 @@ class WatchRepositoryLockTest {
         )
         for ((file, guard) in callers) {
             val path = "src/main/java/com/cryptochecker/app/ui/features/$file"
-            val text = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+            val text = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
             assertTrue(file, text.contains(guard))
         }
     }
@@ -198,7 +198,7 @@ class WatchRepositoryLockTest {
 
     private fun ui(file: String): String {
         val path = "src/main/java/com/cryptochecker/app/ui/features/$file"
-        return listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+        return listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
     }
 
     /**

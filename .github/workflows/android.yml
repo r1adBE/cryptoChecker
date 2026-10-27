@@ -168,7 +168,7 @@ jobs:
       # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
       # The exchange module (marketdata) on its own as well, with its own lint settings.
       - name: Lint
-        run: ./gradlew :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease --stacktrace
+        run: ./gradlew :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease :data:lintRelease --stacktrace
 
       # Lint warnings counted by id as ONE notice (top 20), to reduce them step by step; never fails. XML report if
       # present, else the text report (same paths as «Lint errors»)
@@ -182,6 +182,7 @@ jobs:
             --report app/build/reports/lint-results-release.xml,app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --report marketdata/build/reports/lint-results-release.xml,marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --report domain/build/reports/lint-results-release.xml,domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
+            --report data/build/reports/lint-results-release.xml,data/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
             --details
 
       # Lint errors as annotations (the log shows only the first one; the run page shows these
@@ -193,6 +194,7 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" domain/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
+          bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" data/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
 
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --stacktrace
@@ -232,8 +234,8 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/android_release_audit.sh" "$FINDINGS" "$RUNNER_TEMP/release-evidence"
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$FINDINGS" "Android release audit"
 
-      # Unit-test line coverage of :app, :domain and :marketdata as ONE notice: total and «logic» (without Compose/widget
-      # rendering, activities and generated code). The :app report also measures :domain and :marketdata (their tests
+      # Unit-test line coverage of :app, :domain, :data and :marketdata as ONE notice: total and «logic» (without
+      # Compose/widget rendering, activities and generated code). The :app report also measures the other modules (their tests
       # run mostly in :app); every module must be listed, or its files count as generated (no sources found) and drop
       # out of «logic»; :marketdata's own report is listed as «own tests only». The reports come
       # from the debug unit-test run of the step «Unit tests» (Kover via -Pcoverage=true); no tests run again here.
@@ -247,7 +249,7 @@ jobs:
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
-            app=app domain=domain marketdata=marketdata
+            app=app domain=domain data=data marketdata=marketdata
 
       # Evidence of the audited release build: R8 mapping (deobfuscate crashes of exactly this
       # build), AAB, merged manifest with summary and merger report.
@@ -278,6 +280,7 @@ jobs:
             android/app/build/reports/lint-results-*.html
             android/marketdata/build/reports/lint-results-*.html
             android/domain/build/reports/lint-results-*.html
+            android/data/build/reports/lint-results-*.html
             android/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
             android/app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           if-no-files-found: ignore

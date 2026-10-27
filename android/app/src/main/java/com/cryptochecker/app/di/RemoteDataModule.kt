@@ -3,6 +3,7 @@ package com.cryptochecker.app.di
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.data.remote.HttpLoggerImpl
+import com.cryptochecker.app.data.remote.AppUserAgent
 import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.util.CallStartInterceptor
@@ -23,6 +24,14 @@ object RemoteDataModule {
 
     /** Kennung wie auf iOS statt «okhttp/…». */
     private val USER_AGENT = HttpUserAgent.android(BuildConfig.VERSION_NAME)
+
+    /**
+     * Derselbe User-Agent für Abrufe ausserhalb des gemeinsamen Clients (Logo-Bilder: ohne Abfangschicht); ohne Angabe
+     * lehnen manche Bild-Server ab.
+     */
+    @Provides
+    @AppUserAgent
+    fun appUserAgent(): String = USER_AGENT
 
     /** Gleichzeitige Anfragen insgesamt: Standard 64 → 32; mehr bringt auf dem Telefon nichts. */
     const val MAX_REQUESTS = 32

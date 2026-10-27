@@ -71,7 +71,7 @@ class PortfolioStorageLockTest {
 
     private fun source(name: String): String {
         val path = "src/main/java/com/cryptochecker/app/data/portfolio/$name"
-        val file = listOf("", "app/", "android/app/").map { File(it + path) }.firstOrNull { it.isFile }
+        val file = listOf("", "app/", "android/app/", "../data/", "data/", "android/data/").map { File(it + path) }.firstOrNull { it.isFile }
         assertNotNull("$name nicht gefunden (Arbeitsverzeichnis?)", file)
         return file!!.readText()
     }

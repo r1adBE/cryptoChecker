@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 142)
+
+* Android code structure (no change for users): new Gradle module `:data` with the storage and network layer – both Room databases with their DAOs and encryption, the watchlist and portfolio repositories, exchange, candle, futures and address data sources, logo store and parts of the backup (159 files, packages unchanged). Room exports its schemas as before to `app/schemas`; the app's migration tests take them from there. The logo downloads get the app's user agent from the app (`AppUserAgent`) instead of reading the version themselves.
+
 ## 16.2.2 (build 141)
 
 * Android code structure (no change for users): the price refresh itself (`PriceRefresher` – fetching, backoff, day references, deferred 24-h values, single refresh, side checks afterwards) moved to `:domain`. It reaches the watchlist, refresh statistics, candles, widgets, network state and the side checks through narrow interfaces (`PriceRefresherPorts`); the app builds it in `RefreshModule`. The shared list of blocked sources (`BlockedSources`) has its own file.

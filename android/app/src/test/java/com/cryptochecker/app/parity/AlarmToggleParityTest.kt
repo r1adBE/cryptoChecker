@@ -34,7 +34,7 @@ class AlarmToggleParityTest {
     /** Schalter (Karte, Übersicht) und Schreibweg nutzen dieselbe Regel. */
     @Test
     fun switchesAndWritePathUseTheRule() {
-        fun source(path: String) = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+        fun source(path: String) = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
         val base = "src/main/java/com/cryptochecker/app"
         assertTrue(source("$base/ui/features/alarms/AlarmCard.kt").contains("enabled = AlarmJson.toggleAllowed("))
         val overview = source("$base/ui/features/alarms/AlarmsOverviewScreen.kt")

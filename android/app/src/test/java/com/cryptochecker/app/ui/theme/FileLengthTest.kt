@@ -8,7 +8,7 @@ import java.io.File
 
 /**
  * Wache über die Dateilänge: jede Produktionsdatei hat höchstens [LIMIT] Zeilen — Kotlin unter
- * `android/app/src/main`, `android/domain/src/main` und `android/marketdata/src/main`, Swift unter `ios/App`, `ios/Shared` und
+ * `android/app/src/main`, `android/domain/src/main`, `android/data/src/main` und `android/marketdata/src/main`, Swift unter `ios/App`, `ios/Shared` und
  * `ios/Widgets`. Lange Dateien werden beim Lesen und in Reviews unübersichtlich und wachsen sonst
  * unbemerkt weiter; aufteilen geht fast immer (Erweiterungen, Hilfsdateien daneben).
  *
@@ -89,7 +89,7 @@ class FileLengthTest {
     private companion object {
         const val LIMIT = 400
 
-        val ANDROID_MODULES = listOf("app", "domain", "marketdata")
+        val ANDROID_MODULES = listOf("app", "domain", "data", "marketdata")
         val IOS_AREAS = listOf("App", "Shared", "Widgets")
 
         /**

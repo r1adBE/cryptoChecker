@@ -83,8 +83,11 @@ def located(path):
     """Since R step 1 (build 136) part of the domain logic lives in android/domain; same package path there."""
     if os.path.exists(path):
         return path
-    moved = path.replace("android/app/", "android/domain/", 1)
-    return moved if os.path.exists(moved) else path
+    for module in ("domain", "data"):
+        moved = path.replace("android/app/", f"android/{module}/", 1)
+        if os.path.exists(moved):
+            return moved
+    return path
 
 
 TARGETS = [(located(path), tests) for path, tests in TARGETS]

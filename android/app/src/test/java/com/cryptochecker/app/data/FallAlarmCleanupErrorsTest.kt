@@ -17,7 +17,7 @@ class FallAlarmCleanupErrorsTest {
     fun cleanupFailuresAreCounted() {
         for (name in listOf("FallAlarmCleanup.kt", "portfolio/PortfolioFallAlarmCleanup.kt")) {
             val path = "src/main/java/com/cryptochecker/app/data/$name"
-            val text = SourceGuard.android(listOf(File(path), File("app/$path")).firstOrNull { it.isFile }, path).readText()
+            val text = SourceGuard.android(listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).firstOrNull { it.isFile }, path).readText()
             val failure = text.substringAfter("}.onFailure {", "").substringBefore("\n            }")
             assertTrue(name, failure.contains("if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS, error = it)"))
         }
