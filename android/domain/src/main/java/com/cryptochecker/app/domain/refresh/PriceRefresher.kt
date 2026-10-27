@@ -1,8 +1,5 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.SparklineRepository
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.domain.live.LiveCoverage
@@ -11,11 +8,7 @@ import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.util.ConnectivityMonitor
 import com.cryptochecker.app.util.appScope
-import com.cryptochecker.app.widget.LiveWidgetGate
-import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,12 +18,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicReference
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Holt die Kurse aller beobachteten Paare und stösst danach alles an, was daran hängt:
@@ -39,36 +29,36 @@ import javax.inject.Singleton
  * Wird sowohl vom Vordergrunddienst als auch vom WorkManager aufgerufen, deshalb
  * verhindert die Refresh-Sperre ([RefreshLock]), dass zwei Durchläufe gleichzeitig arbeiten. Live-Kurse
  * übernimmt [LivePriceApplier], Kurse speichert [RefreshResultProcessor], Widget-Charts lädt [ChartRefresher],
- * die Nebenprüfungen startet [RefreshSideChecks].
+ * die Nebenprüfungen startet `RefreshSideChecks`. Die App-Klassen kommen über die Schnittstellen aus
+ * `PriceRefresherPorts.kt` herein (Hilt: `RefreshModule`).
  */
-@Singleton
-class PriceRefresher @Inject constructor(
-    internal val watchRepository: WatchRepository,
-    internal val settingsRepository: SettingsRepository,
-    internal val widgetUpdater: WidgetUpdater,
-    internal val refreshStats: RefreshStats,
+class PriceRefresher(
+    val watchRepository: RefresherStore,
+    val settingsRepository: RefreshSettings,
+    val widgetUpdater: RefresherWatchWidgets,
+    val refreshStats: RefresherStats,
     /** 24-h-Bezug aus Kerzen — nur Ausweich-Weg, wenn der Ticker keinen 24-h-Wert liefert. */
-    internal val sparklineRepository: SparklineRepository,
+    val sparklineRepository: RefresherSparklines,
     /** Ohne Netz keine Aktualisierung (keine Fehlerzustände, siehe [OfflineGate]). */
-    internal val connectivity: ConnectivityMonitor,
+    val connectivity: RefresherOnline,
     /** Paare mit frischem Live-Kurs (WebSocket, Merkliste offen) lässt die REST-Abfrage aus. */
     private val liveCoverage: LiveCoverage,
     /** Widgets zeichnen (unter der Sperre ohne Kerzen-Abruf). */
-    internal val liveWidgetGate: LiveWidgetGate,
+    val liveWidgetGate: RefreshWidgets,
     /** Kurse holen (gesammelt oder einzeln, je Börse). */
-    internal val priceFetcher: PriceFetcher,
+    val priceFetcher: PriceFetcher,
     /** 24-h- und Tages-Bezüge aus Kerzen. */
-    internal val dayReferences: DayReferences,
+    val dayReferences: RefresherDayReferences,
     /** Alarm-Zusatzdaten parallel zu den Kursen vorladen. */
     private val effects: RefreshEffects,
     /** Die Sperre aller Kurs-Schreiber (auch [LivePriceApplier]). */
-    internal val refreshLock: RefreshLock,
+    val refreshLock: RefreshLock,
     /** Kurse speichern und auswerten (unter der Sperre). */
-    internal val resultProcessor: RefreshResultProcessor,
+    val resultProcessor: RefreshResultProcessor,
     /** Widget-Charts ausserhalb der Sperre nachladen. */
-    internal val chartRefresher: ChartRefresher,
+    val chartRefresher: RefresherCharts,
     /** Aktivität, Gas, Depeg und Portfolio-Momentaufnahme nach dem Durchlauf. */
-    internal val sideChecks: RefreshSideChecks,
+    val sideChecks: RefresherSideChecks,
 ) {
     /**
      * [block] unter derselben Sperre wie Aktualisierung, Live-Speichern und späte Tages-Bezüge:
@@ -93,7 +83,7 @@ class PriceRefresher @Inject constructor(
         private set
 
     /** Späte Tages-Bezüge: läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    internal val lateFillScope = appScope(Dispatchers.IO, "PriceRefresher")
+    val lateFillScope = appScope(Dispatchers.IO, "PriceRefresher")
 
     /**
      * Läuft komplett auf [Dispatchers.IO]: Aus dem ViewModel aufgerufen lief
@@ -380,7 +370,7 @@ class PriceRefresher @Inject constructor(
         return summary
     }
 
-    internal companion object {
+    companion object {
         /** So lange werden späte Tages-Bezüge im Hintergrund noch nachgetragen. */
         const val LATE_FILL_MILLIS = 90_000L
 
