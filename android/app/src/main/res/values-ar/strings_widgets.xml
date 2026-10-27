@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">السجل قريبًا</string>
     <string name="widget_portfolio_description">القيمة الإجمالية لمحفظتك وتغيّر اليوم</string>
+    <string name="widget_portfolio_entries">العمليات تحت العملات</string>
+    <string name="widget_portfolio_entries_both">كلاهما</string>
+    <string name="widget_portfolio_entries_buys">الشراء</string>
+    <string name="widget_portfolio_entries_hint">تظهر فقط إن بقيت مساحة تحت العملات. يشمل الشراء الإيداعات والبيع السحوبات؛ ومع «كلاهما» تساوي الأسطر الرصيد.</string>
+    <string name="widget_portfolio_entries_off">إيقاف</string>
+    <string name="widget_portfolio_entries_sells">البيع</string>
     <string name="widget_portfolio_display">العرض</string>
     <string name="widget_portfolio_display_conversion">التحويل فقط</string>
     <string name="widget_portfolio_display_conversion_usdt">التحويل + USDT</string>

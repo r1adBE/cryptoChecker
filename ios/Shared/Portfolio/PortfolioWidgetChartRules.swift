@@ -50,6 +50,7 @@ enum PortfolioWidgetChart {
             var p = $0
             p.value /= f
             p.pnlAmount = p.pnlAmount.map { $0 / f }
+            p.entries = PortfolioWidgetEntries.scaled(p.entries) { $0 / f }
             return p
         }
         copy.history = s.history?.map { PortfolioWidgetPoint(at: $0.at, value: $0.value / f) }
@@ -123,6 +124,7 @@ enum PortfolioWidgetChart {
             var p = $0
             p.value *= k
             p.pnlAmount = p.pnlAmount.map { $0 * k }
+            p.entries = PortfolioWidgetEntries.scaled(p.entries) { $0 * k }
             return p
         }
         copy.history = s.history?.map { PortfolioWidgetPoint(at: $0.at, value: $0.value * k) }

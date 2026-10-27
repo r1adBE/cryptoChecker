@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Riwayat segera hadir</string>
     <string name="widget_portfolio_description">Nilai total portofoliomu dan perubahan hari ini</string>
+    <string name="widget_portfolio_entries">Transaksi di bawah koin</string>
+    <string name="widget_portfolio_entries_both">Keduanya</string>
+    <string name="widget_portfolio_entries_buys">Pembelian</string>
+    <string name="widget_portfolio_entries_hint">Hanya tampil jika ada ruang di bawah koin. Pembelian termasuk setoran, penjualan termasuk penarikan; dengan «Keduanya» baris-baris menjadi saldo.</string>
+    <string name="widget_portfolio_entries_off">Mati</string>
+    <string name="widget_portfolio_entries_sells">Penjualan</string>
     <string name="widget_portfolio_display">Tampilan</string>
     <string name="widget_portfolio_display_conversion">Hanya konversi</string>
     <string name="widget_portfolio_display_conversion_usdt">Konversi + USDT</string>

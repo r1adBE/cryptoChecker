@@ -61,6 +61,31 @@ enum PortfolioWidgetText {
             + pnlAccessibility(PortfolioWidgetViews.rowPnl(p), currency: currency, basis: basis, hidden: hidden)
     }
 
+    /// Menge einer Buchung (Abgang mit «−»; verborgen keine) und gekürzte Notiz: «−0.25 Miete…» — wie Android `entryRow`.
+    static func entryLabel(_ e: PortfolioWidgetEntry, hidden: Bool) -> String {
+        [entryAmount(e, hidden: hidden), e.note].compactMap { $0 }.joined(separator: " ")
+    }
+
+    private static func entryAmount(_ e: PortfolioWidgetEntry, hidden: Bool) -> String? {
+        WidgetQuantityFormat.visible(DecimalText.plain(abs(e.quantity)), hidden: hidden)
+            .map { e.quantity < 0 ? "\u{2212}" + $0 : $0 }
+    }
+
+    /// Buchung für VoiceOver: «Zugang 0.5, heute 31’000.00 CHF wert, Notiz Miete…» — wie Android `entryRow`.
+    static func entryAccessibility(_ e: PortfolioWidgetEntry, currency: String, hidden: Bool) -> String {
+        let value: String
+        if e.value == nil {
+            value = L("a11y_portfolio_entry_no_value")
+        } else if hidden {
+            value = L("a11y_amount_hidden")
+        } else {
+            value = PriceFormat.valueWithCurrency(e.value ?? 0, currency)
+        }
+        let kind = L(e.quantity < 0 ? "a11y_portfolio_entry_out" : "a11y_portfolio_entry_in")
+        let spoken = L("a11y_portfolio_entry", kind, entryAmount(e, hidden: hidden) ?? L("a11y_amount_hidden"), value)
+        return spoken + (e.note.map { ", " + L("a11y_portfolio_entry_note", $0) } ?? "")
+    }
+
     /// Gewinn/Verlust für VoiceOver: «gestiegen um 1’250.00 CHF, gestiegen um 1.50% in 24 Stunden» (Betrag
     /// verborgen: «Betrag verborgen»); unbekannt «… nicht verfügbar» — wie Android `spokenPnl`.
     static func pnlAccessibility(_ c: PortfolioListTotalChange?, currency: String, basis: ChangeBasis,

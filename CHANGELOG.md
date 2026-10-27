@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 145)
+
+* Portfolio widget, view «List»: new option «Bookings under the coins» (Off / Purchases / Sales / Both, default Off). If there is room left below the coins, each coin shows its bookings, indented and ordered by date: quantity (outgoing with «−»), the note shortened to 6 characters and today's value. Deposits and incoming transfers count as purchases, withdrawals as sales, fees paid in the coin are part of their booking – with «Both» the lines add up exactly to the coin's holding. Coins always come first; a coin shows all of its bookings or none. TalkBack/VoiceOver read each booking. Android and iPhone, 31 languages.
+
 ## 16.2.2 (build 144)
 
 * Android code structure (no change for users): manual refresh (button and pull), the widget-chart reloading after a refresh, the chart of the action sheet with the shared chart geometry, the chart summary for TalkBack and the bounded memory cache moved to `:domain`; the app hands its widget updater, refresh statistics and network state in through narrow interfaces (`ChartWidgets`, `ManualRefreshStats`, `ManualRefreshNet`).

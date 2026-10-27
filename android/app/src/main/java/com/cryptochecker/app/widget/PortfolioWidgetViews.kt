@@ -3,6 +3,9 @@ package com.cryptochecker.app.widget
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntries
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntry
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
 import com.cryptochecker.app.domain.watch.ChangeBasis
@@ -79,6 +82,8 @@ data class PortfolioListLayout(
     val more: Int,
     val footer: Boolean,
     val wide: Boolean,
+    /** Buchungen unter jedem gezeigten Coin (gleiche Reihenfolge wie [shown]; leer = keine). */
+    val entries: List<List<PortfolioWidgetEntry>> = shown.map { emptyList() },
 )
 
 /**
@@ -256,20 +261,41 @@ object PortfolioWidgetViews {
      * «Stand …» (samt «Heute ohne …»/«ohne 1 Coin») — beide IMMER: sie gehen den Zeilen vor, nie fällt
      * «Stand …» weg, um eine Zeile mehr zu zeigen.
      */
-    fun listLayout(positions: List<PortfolioPosition>, others: Int, widthDp: Int, heightDp: Int, fontScale: Float): PortfolioListLayout {
+    fun listLayout(
+        positions: List<PortfolioPosition>,
+        others: Int,
+        widthDp: Int,
+        heightDp: Int,
+        fontScale: Float,
+        entryFilter: PortfolioWidgetEntryFilter = PortfolioWidgetEntryFilter.OFF,
+    ): PortfolioListLayout {
         val sorted = sortedByValue(positions)
         val wide = widthDp >= PortfolioWidgetMath.WIDE_MIN_WIDTH_DP
         val rowDp = rowHeightDp(wide, fontScale)
+        var available = 0f
         val rows = if (heightDp > 0) {
-            val available = (heightDp - PADDING_DP - PortfolioWidgetMath.headerHeightDp(fontScale) - LIST_GAP_DP -
+            available = (heightDp - PADDING_DP - PortfolioWidgetMath.headerHeightDp(fontScale) - LIST_GAP_DP -
                 listTotalHeightDp(fontScale, wide) - PortfolioWidgetMath.footerHeightDp(fontScale)).coerceAtLeast(0f)
             minOf(sorted.size, floor(available / rowDp).toInt().coerceAtLeast(0))
         } else {
             minOf(sorted.size, PortfolioWidgetMath.LARGE_ROWS)
         }
         val shown = sorted.take(rows)
-        return PortfolioListLayout(shown, sorted.size - shown.size + others.coerceAtLeast(0), footer = true, wide = wide)
+        // Buchungen nur im Platz, der unter den Coins frei bleibt (Grösse unbekannt: keine)
+        val entries = PortfolioWidgetEntries.assign(
+            shown.map { it.entries },
+            entryFilter,
+            available = if (heightDp > 0) (available - rows * rowDp).toDouble() else 0.0,
+            rowHeight = entryHeightDp(fontScale).toDouble(),
+        )
+        return PortfolioListLayout(shown, sorted.size - shown.size + others.coerceAtLeast(0), footer = true, wide = wide, entries = entries)
     }
+
+    /** Buchungszeile unter einem Coin: eine Zeile 11 sp und 2 × 1 dp Innenrand (widget_portfolio_list_entry.xml). */
+    fun entryHeightDp(fontScale: Float): Float = line(ENTRY_SP, fontScale) + 2f
+
+    /** Schriftgrösse der Buchungszeilen (sp). */
+    const val ENTRY_SP = 11f
 
     /**
      * Kennzahlen (Text in der Kursfarbe, keine Pille), Abstand darüber: als Spalten Beschriftung 12 sp,

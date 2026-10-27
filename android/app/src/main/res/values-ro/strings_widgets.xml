@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Evoluția urmează</string>
     <string name="widget_portfolio_description">Valoarea totală a portofoliului și variația de azi</string>
+    <string name="widget_portfolio_entries">Tranzacții sub monede</string>
+    <string name="widget_portfolio_entries_both">Ambele</string>
+    <string name="widget_portfolio_entries_buys">Cumpărări</string>
+    <string name="widget_portfolio_entries_hint">Apar doar dacă există loc sub monede. Cumpărările includ depunerile, vânzările retragerile; cu «Ambele», rândurile dau soldul.</string>
+    <string name="widget_portfolio_entries_off">Dezactivat</string>
+    <string name="widget_portfolio_entries_sells">Vânzări</string>
     <string name="widget_portfolio_display">Afișare</string>
     <string name="widget_portfolio_display_conversion">Doar conversie</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversie + USDT</string>

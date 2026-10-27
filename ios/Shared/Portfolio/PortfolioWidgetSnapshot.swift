@@ -16,6 +16,9 @@ struct PortfolioWidgetPosition: Codable, Equatable, Sendable {
     var pnlAmount: Double? = nil
     /// `pnlAmount` in Prozent von Wert am Anfang + Zugängen; nil = unbekannt.
     var pnlPercent: Double? = nil
+    /// Buchungen dieses Coins für die Liste (`PortfolioWidgetEntries`, heutiger Wert in der Anzeigewährung); nil =
+    /// älterer Stand — wie `PortfolioPosition.entries` (Android).
+    var entries: [PortfolioWidgetEntry]? = nil
 }
 
 /// Ein Punkt des Wertverlaufs: Zeit (ms) und Gesamtwert in der Anzeigewährung.

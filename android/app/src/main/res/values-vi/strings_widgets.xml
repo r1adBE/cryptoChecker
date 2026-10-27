@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Diễn biến sắp có</string>
     <string name="widget_portfolio_description">Tổng giá trị danh mục của bạn và thay đổi hôm nay</string>
+    <string name="widget_portfolio_entries">Giao dịch dưới các coin</string>
+    <string name="widget_portfolio_entries_both">Cả hai</string>
+    <string name="widget_portfolio_entries_buys">Mua</string>
+    <string name="widget_portfolio_entries_hint">Chỉ hiển thị khi còn chỗ dưới các coin. Mua gồm cả nạp, bán gồm cả rút; với «Cả hai», tổng các dòng bằng số dư.</string>
+    <string name="widget_portfolio_entries_off">Tắt</string>
+    <string name="widget_portfolio_entries_sells">Bán</string>
     <string name="widget_portfolio_display">Hiển thị</string>
     <string name="widget_portfolio_display_conversion">Chỉ quy đổi</string>
     <string name="widget_portfolio_display_conversion_usdt">Quy đổi + USDT</string>

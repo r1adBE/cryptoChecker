@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">추이 곧 표시</string>
     <string name="widget_portfolio_description">포트폴리오 총 가치와 오늘의 변동</string>
+    <string name="widget_portfolio_entries">코인 아래 거래</string>
+    <string name="widget_portfolio_entries_both">둘 다</string>
+    <string name="widget_portfolio_entries_buys">매수</string>
+    <string name="widget_portfolio_entries_hint">코인 아래에 공간이 있을 때만 표시됩니다. 매수에는 입금이, 매도에는 출금이 포함됩니다. «둘 다»를 선택하면 줄의 합계가 보유량이 됩니다.</string>
+    <string name="widget_portfolio_entries_off">끄기</string>
+    <string name="widget_portfolio_entries_sells">매도</string>
     <string name="widget_portfolio_display">표시</string>
     <string name="widget_portfolio_display_conversion">환산만</string>
     <string name="widget_portfolio_display_conversion_usdt">환산 + USDT</string>

@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Historique bientôt disponible</string>
     <string name="widget_portfolio_description">Valeur totale de ton portefeuille et variation du jour</string>
+    <string name="widget_portfolio_entries">Opérations sous les coins</string>
+    <string name="widget_portfolio_entries_both">Les deux</string>
+    <string name="widget_portfolio_entries_buys">Achats</string>
+    <string name="widget_portfolio_entries_hint">Affiché seulement s’il reste de la place sous les coins. Les achats incluent les dépôts, les ventes les retraits ; avec « Les deux », les lignes donnent le solde.</string>
+    <string name="widget_portfolio_entries_off">Désactivé</string>
+    <string name="widget_portfolio_entries_sells">Ventes</string>
     <string name="widget_portfolio_display">Affichage</string>
     <string name="widget_portfolio_display_conversion">Conversion seule</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversion + USDT</string>

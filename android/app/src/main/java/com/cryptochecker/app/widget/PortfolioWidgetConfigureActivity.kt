@@ -44,6 +44,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
@@ -106,6 +107,8 @@ data class PortfolioWidgetChoice(
     val chartType: WidgetChartType,
     val theme: WidgetTheme,
     val opacity: Int,
+    /** Liste: Buchungen unter den Coins (gespeichert unabhängig von der Ansicht). */
+    val entries: PortfolioWidgetEntryFilter = PortfolioWidgetEntryFilter.DEFAULT,
 )
 
 @HiltViewModel
@@ -121,6 +124,7 @@ class PortfolioWidgetConfigureViewModel @Inject constructor(
     fun currentChartType(appWidgetId: Int): WidgetChartType = widgetPrefs.getPortfolioChartType(appWidgetId)
     fun currentOpacity(appWidgetId: Int): Int = widgetPrefs.getOpacity(appWidgetId)
     fun currentTheme(appWidgetId: Int): WidgetTheme = widgetPrefs.getTheme(appWidgetId)
+    fun currentEntries(appWidgetId: Int): PortfolioWidgetEntryFilter = widgetPrefs.getPortfolioEntries(appWidgetId)
 
     fun apply(appWidgetId: Int, choice: PortfolioWidgetChoice, onDone: () -> Unit) {
         viewModelScope.launch {
@@ -130,6 +134,7 @@ class PortfolioWidgetConfigureViewModel @Inject constructor(
             widgetPrefs.setPortfolioChartType(appWidgetId, choice.chartType)
             widgetPrefs.setTheme(appWidgetId, choice.theme)
             widgetPrefs.setOpacity(appWidgetId, choice.opacity)
+            widgetPrefs.setPortfolioEntries(appWidgetId, choice.entries)
             widgetUpdater.updatePortfolio(intArrayOf(appWidgetId))
             onDone()
         }
@@ -160,6 +165,7 @@ private fun PortfolioWidgetConfigureContent(
     var chartType by remember { mutableStateOf(viewModel.currentChartType(appWidgetId)) }
     var theme by remember { mutableStateOf(viewModel.currentTheme(appWidgetId)) }
     var opacity by remember { mutableIntStateOf(viewModel.currentOpacity(appWidgetId)) }
+    var entries by remember { mutableStateOf(viewModel.currentEntries(appWidgetId)) }
 
     Scaffold(
         topBar = { TopAppBar(title = { Text(stringResource(R.string.widget_portfolio_name)) }) }
@@ -268,6 +274,35 @@ private fun PortfolioWidgetConfigureContent(
                 }
             }
 
+            // Liste: Buchungen unter den Coins, nur wenn unter ihnen Platz bleibt (Coins haben Vorrang)
+            if (view == PortfolioWidgetView.LIST) {
+                Text(
+                    stringResource(R.string.widget_portfolio_entries),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+                Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp).selectableGroup()) {
+                    ENTRY_CHOICES.forEach { (value, label) ->
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .selectable(selected = entries == value, role = Role.RadioButton) { entries = value }
+                                .padding(vertical = 2.dp)
+                        ) {
+                            RadioButton(selected = entries == value, onClick = null)
+                            Text(stringResource(label), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(start = 12.dp))
+                        }
+                    }
+                }
+                Text(
+                    stringResource(R.string.widget_portfolio_entries_hint),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+
             Text(
                 stringResource(R.string.widget_background),
                 style = MaterialTheme.typography.bodyMedium,
@@ -303,7 +338,7 @@ private fun PortfolioWidgetConfigureContent(
 
             Button(
                 onClick = {
-                    viewModel.apply(appWidgetId, PortfolioWidgetChoice(view, display, range, chartType, theme, opacity), onDone)
+                    viewModel.apply(appWidgetId, PortfolioWidgetChoice(view, display, range, chartType, theme, opacity, entries), onDone)
                 },
                 modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
             ) {
@@ -312,3 +347,11 @@ private fun PortfolioWidgetConfigureContent(
         }
     }
 }
+
+/** Wahl «Buchungen unter den Coins» in dieser Reihenfolge (voreingestellt «Aus»). */
+private val ENTRY_CHOICES = listOf(
+    PortfolioWidgetEntryFilter.OFF to R.string.widget_portfolio_entries_off,
+    PortfolioWidgetEntryFilter.BUYS to R.string.widget_portfolio_entries_buys,
+    PortfolioWidgetEntryFilter.SELLS to R.string.widget_portfolio_entries_sells,
+    PortfolioWidgetEntryFilter.BOTH to R.string.widget_portfolio_entries_both,
+)

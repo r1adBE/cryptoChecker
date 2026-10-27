@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Geçmiş yakında</string>
     <string name="widget_portfolio_description">Portföyünün toplam değeri ve bugünkü değişim</string>
+    <string name="widget_portfolio_entries">Coinlerin altında işlemler</string>
+    <string name="widget_portfolio_entries_both">İkisi de</string>
+    <string name="widget_portfolio_entries_buys">Alımlar</string>
+    <string name="widget_portfolio_entries_hint">Yalnızca coinlerin altında yer varsa gösterilir. Alımlara yatırmalar, satışlara çekimler dahildir; «İkisi de» ile satırlar bakiyeyi verir.</string>
+    <string name="widget_portfolio_entries_off">Kapalı</string>
+    <string name="widget_portfolio_entries_sells">Satışlar</string>
     <string name="widget_portfolio_display">Görünüm</string>
     <string name="widget_portfolio_display_conversion">Yalnızca çevrim</string>
     <string name="widget_portfolio_display_conversion_usdt">Çevrim + USDT</string>

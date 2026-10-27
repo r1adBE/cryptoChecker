@@ -9,10 +9,13 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioInsights
 import com.cryptochecker.app.domain.portfolio.PortfolioPosition
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntry
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetEntryFilter
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
+import com.cryptochecker.app.util.DecimalText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.util.WidgetQuantityFormat
 
@@ -32,9 +35,10 @@ internal fun PortfolioWidgetRenderer.listViews(
     outdated: Boolean,
     fontScale: Float,
     logos: Map<String, android.graphics.Bitmap>?,
+    entryFilter: PortfolioWidgetEntryFilter = PortfolioWidgetEntryFilter.OFF,
 ): RemoteViews {
     val colors = style.colors
-    val layout = PortfolioWidgetViews.listLayout(snapshot.positions, snapshot.otherPositions, widthDp, heightDp, fontScale)
+    val layout = PortfolioWidgetViews.listLayout(snapshot.positions, snapshot.otherPositions, widthDp, heightDp, fontScale, entryFilter)
     val views = RemoteViews(context.packageName, R.layout.widget_portfolio_list)
     portfolioFrame(views, style)
     val title = context.getString(R.string.widget_portfolio_name)
@@ -44,9 +48,17 @@ internal fun PortfolioWidgetRenderer.listViews(
     // Zeitraum der Veränderung je Position, wie sie aufgenommen wurde («24h» bzw. «heute»)
     val rowBasis = PortfolioWidgetViews.rowChangeBasis(snapshot)
     val spokenRows = layout.shown.mapIndexed { index, position ->
-        val (row, spoken) = listRow(position, index == layout.shown.size - 1, layout.wide, snapshot.currency, style, logos, rowBasis, textWidth)
+        val lastCoin = index == layout.shown.size - 1
+        val entries = layout.entries.getOrElse(index) { emptyList() }
+        // Mit Buchungen: Trennlinie erst nach der letzten Buchung des Coins
+        val (row, spoken) = listRow(position, lastCoin || entries.isNotEmpty(), layout.wide, snapshot.currency, style, logos, rowBasis, textWidth)
         views.addView(R.id.portfolio_list_rows, row)
-        spoken
+        val spokenEntries = entries.mapIndexed { i, entry ->
+            val (entryRow, entrySpoken) = entryRow(entry, snapshot.currency, style, divider = i == entries.size - 1 && !lastCoin)
+            views.addView(R.id.portfolio_list_rows, entryRow)
+            entrySpoken
+        }
+        (listOf(spoken) + spokenEntries).joinToString(", ")
     }
     // Rahmen bleibt sichtbar (auch leer): er hält die Fusszeilen unten
     views.setViewVisibility(R.id.portfolio_list_rows, View.VISIBLE)
@@ -226,6 +238,45 @@ internal fun PortfolioWidgetRenderer.listRow(
         ", " + (pnl?.let { spokenPnl(it, currency, style, rowBasis) } ?: ChangeBasisText.spoken(context, rowBasis, null))
     return row to spoken
 }
+
+/**
+ * Buchung unter einem Coin: eingerückt Menge (Abgang mit «−») und gekürzte Notiz (grau), rechts der heutige Wert
+ * (Währung klein und grau; verborgen «•••», dann auch ohne Menge). [divider]: Trennlinie darunter (letzte Buchung eines
+ * Coins, nicht beim letzten Coin).
+ * @return Zeile und Satz für den Screenreader
+ */
+internal fun PortfolioWidgetRenderer.entryRow(
+    entry: PortfolioWidgetEntry,
+    currency: String,
+    style: PortfolioStyle,
+    divider: Boolean,
+): Pair<RemoteViews, String> {
+    val colors = style.colors
+    val row = RemoteViews(context.packageName, R.layout.widget_portfolio_list_entry)
+    val amount = WidgetQuantityFormat.visible(DecimalText.plain(kotlin.math.abs(entry.quantity)), style.hideAmounts)
+        ?.let { if (entry.quantity < 0) MINUS + it else it }
+    val label = listOfNotNull(amount, entry.note).joinToString(" ")
+    row.setTextViewText(R.id.pe_label, label)
+    row.setTextColor(R.id.pe_label, colors.secondaryTextColor)
+    val value = entry.value?.let { PortfolioInsights.mask(PriceFormat.valueWithCurrency(it, currency), style.hideAmounts) } ?: NO_VALUE
+    row.setAmountText(R.id.pe_value, toolkit.quoteText(value, currency, PortfolioWidgetViews.ENTRY_SP, colors.secondaryTextColor))
+    row.setTextColor(R.id.pe_value, colors.textColor)
+    row.setInt(R.id.pe_divider, "setBackgroundColor", colors.dividerColor)
+    row.setViewVisibility(R.id.pe_divider, if (divider) View.VISIBLE else View.GONE)
+    val spokenValue = when {
+        entry.value == null -> context.getString(R.string.a11y_portfolio_entry_no_value)
+        style.hideAmounts -> context.getString(R.string.a11y_amount_hidden)
+        else -> value
+    }
+    val kind = context.getString(if (entry.quantity < 0) R.string.a11y_portfolio_entry_out else R.string.a11y_portfolio_entry_in)
+    val spoken = context.getString(
+        R.string.a11y_portfolio_entry, kind, amount ?: context.getString(R.string.a11y_amount_hidden), spokenValue,
+    ) + (entry.note?.let { ", " + context.getString(R.string.a11y_portfolio_entry_note, it) } ?: "")
+    return row to spoken
+}
+
+/** Minuszeichen vor der Menge eines Abgangs (wie die Beträge). */
+private const val MINUS = "\u2212"
 
 /** Gewinn/Verlust, der in [budget] dp passt (samt Zeitraum [label] davor): Betrag · Prozent, sonst nur der Betrag. */
 internal fun PortfolioWidgetRenderer.fitPnl(change: PortfolioListTotalChange, currency: String, style: PortfolioStyle, label: String, budget: Float?): String {

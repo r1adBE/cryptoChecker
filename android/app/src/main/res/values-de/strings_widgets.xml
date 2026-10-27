@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Verlauf folgt</string>
     <string name="widget_portfolio_description">Gesamtwert deines Portfolios und Veränderung heute</string>
+    <string name="widget_portfolio_entries">Buchungen unter den Coins</string>
+    <string name="widget_portfolio_entries_both">beides</string>
+    <string name="widget_portfolio_entries_buys">Käufe</string>
+    <string name="widget_portfolio_entries_hint">Nur wenn unter den Coins Platz ist. Käufe zählen Einzahlungen mit, Verkäufe Auszahlungen; mit «beides» ergeben die Zeilen den Bestand.</string>
+    <string name="widget_portfolio_entries_off">Aus</string>
+    <string name="widget_portfolio_entries_sells">Verkäufe</string>
     <string name="widget_portfolio_display">Anzeige</string>
     <string name="widget_portfolio_display_conversion">Nur Umrechnung</string>
     <string name="widget_portfolio_display_conversion_usdt">Umrechnung + USDT</string>

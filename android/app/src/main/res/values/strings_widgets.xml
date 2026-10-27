@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">History coming soon</string>
     <string name="widget_portfolio_description">Total value of your portfolio and today\'s change</string>
+    <string name="widget_portfolio_entries">Bookings under the coins</string>
+    <string name="widget_portfolio_entries_both">Both</string>
+    <string name="widget_portfolio_entries_buys">Purchases</string>
+    <string name="widget_portfolio_entries_hint">Only shown if there is room below the coins. Purchases include deposits, sales include withdrawals; with «Both» the lines add up to the holding.</string>
+    <string name="widget_portfolio_entries_off">Off</string>
+    <string name="widget_portfolio_entries_sells">Sales</string>
     <string name="widget_portfolio_display">Display</string>
     <string name="widget_portfolio_display_conversion">Conversion only</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversion + USDT</string>

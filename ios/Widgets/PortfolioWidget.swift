@@ -22,6 +22,8 @@ struct PortfolioEntry: TimelineEntry {
     /// Chart-Art (Standard Linie).
     var chartType: WidgetChartTypeOption = .line
     var theme: WidgetThemeOption = .system
+    /// Ansicht «Liste»: welche Buchungen unter den Coins (falls Platz bleibt).
+    var entryFilter: PortfolioWidgetEntryFilter = .off
     var priceColors: PriceColorScheme = .default
     var highContrast = false
     var priceColorsInverted = false
@@ -125,6 +127,7 @@ struct PortfolioEntry: TimelineEntry {
         display = config.display
         range = config.range
         chartType = config.chartType
+        entryFilter = config.entries.filter
         theme = config.theme
     }
 

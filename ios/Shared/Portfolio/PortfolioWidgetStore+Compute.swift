@@ -356,6 +356,9 @@ extension PortfolioWidgetStore {
             p.pnlPercent = pnl?.percent
             return p
         }
+        // Buchungen je gezeigtem Coin für die Liste (alle Zeilen = Bestand der Kopfzeile) — wie Android `withEntries`
+        snapshot.positions = PortfolioWidgetEntries.withEntries(snapshot.positions, trades: transactions,
+                                                                current: current, factor: factor, method: method)
         // 7 T / 30 T / 1 J: aus den Tageskursen, die der Wertverlauf der App schon geladen hat (ohne Netz)
         let dailyMap = dailyPrices ?? PortfolioWidgetDailyStore.load()
         let cached = PortfolioWidgetDailyStore.prices(dailyMap)

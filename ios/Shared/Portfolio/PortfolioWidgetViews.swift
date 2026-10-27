@@ -149,6 +149,27 @@ enum PortfolioWidgetViews {
         return (Swift.min(Swift.max(0, count), Int((available / row).rounded(.down))), true)
     }
 
+    /// Buchungszeile unter einem Coin (pt): eine Zeile 11 pt und 2 × 1 pt Innenrand — wie Android `entryHeightDp`.
+    static func entryHeight(fontScale: Double = 1) -> Double {
+        let text: Double = entrySize * 1.3 * fontScale
+        return text + 2
+    }
+
+    /// Schriftgrösse der Buchungszeilen (pt), wie Android `ENTRY_SP`.
+    static let entrySize: Double = 11
+
+    /// Buchungen unter den gezeigten Coins: nur im Platz, der unter ihnen frei bleibt (`PortfolioWidgetEntries.assign`;
+    /// Masse wie `listRowsBelowTotal`) — wie Android `listLayout`.
+    static func listEntries(_ shown: [PortfolioWidgetPosition], filter: PortfolioWidgetEntryFilter, height: Double,
+                            header: Double, gap: Double, row: Double, footer: Double, fontScale: Double = 1,
+                            wide: Bool = false) -> [[PortfolioWidgetEntry]] {
+        let total: Double = listTotalHeight(fontScale: fontScale, wide: wide)
+        let available: Double = Swift.max(0, height - header - gap - total - footer)
+        let left: Double = available - Double(shown.count) * row
+        return PortfolioWidgetEntries.assign(shown.map(\.entries), filter: filter, available: left,
+                                             rowHeight: entryHeight(fontScale: fontScale))
+    }
+
     /// Gewinn/Verlust «Heute» bzw. 24 h des Gesamtwerts (`changeAmount`, schon um Käufe/Verkäufe berichtigt
     /// und nach der %-Basis geprüft) — die Summe der Zeilen (`rowPnl`); Richtung nach dem Betrag. nil ohne
     /// Betrag — dann bleibt die zweite Zeile rechts leer. Wie Android `listTotalChange`.

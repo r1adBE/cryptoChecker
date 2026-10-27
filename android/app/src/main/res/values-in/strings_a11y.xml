@@ -85,6 +85,11 @@
     <!-- Screenreader: Portfolio und Portfolio-Widget -->
     <string name="a11y_amount_hidden">jumlah disembunyikan</string>
     <!-- %1$s Kürzel, %2$s Wert mit Währung, %3$s Anteil «62.3%», %4$s Satz aus a11y_change_up/down/flat -->
+    <string name="a11y_portfolio_entry">%1$s %2$s, bernilai %3$s hari ini</string>
+    <string name="a11y_portfolio_entry_in">Masuk</string>
+    <string name="a11y_portfolio_entry_no_value">nilai tidak tersedia</string>
+    <string name="a11y_portfolio_entry_note">catatan %1$s</string>
+    <string name="a11y_portfolio_entry_out">Keluar</string>
     <string name="a11y_portfolio_position">%1$s %2$s, %3$s dari portofolio</string>
     <!-- Position im Portfolio-Widget: %1$s Kürzel, %2$s Anteil «62.3%», %3$s Satz aus a11y_change_24h -->
     <string name="a11y_portfolio_position_24h">%1$s, %2$s dari portofolio, %3$s</string>

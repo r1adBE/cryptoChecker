@@ -180,6 +180,8 @@ class PortfolioWidgetRenderer @Inject constructor(
                     zone = zone,
                     dayAxis = dayAxis(shown),
                 )
+                // Liste: Buchungen unter den Coins (Wahl beim Einrichten, voreingestellt aus)
+                val entryFilter = widgetPrefs.getPortfolioEntries(appWidgetId)
                 // Liste: Coin-Logos (Schalter «Coin-Logos in Widgets»), einmal für alle Grössen
                 val logos = if (view == PortfolioWidgetView.LIST && settings.widgetCoinLogos && shown.positions.isNotEmpty()) {
                     try {
@@ -194,7 +196,7 @@ class PortfolioWidgetRenderer @Inject constructor(
                 val build: suspend (Int, Int, Int) -> RemoteViews = { slot, w, h ->
                     when (view) {
                         PortfolioWidgetView.OVERVIEW -> overviewViews(w, h, shown, plan, style, outdated, fontScale, wantUsdt)
-                        PortfolioWidgetView.LIST -> listViews(w, h, shown, plan, style, outdated, fontScale, logos)
+                        PortfolioWidgetView.LIST -> listViews(w, h, shown, plan, style, outdated, fontScale, logos, entryFilter)
                         PortfolioWidgetView.CHART -> portfolioViews(appWidgetId, slot, w, h, shown, plan, style, outdated, fontScale, wantUsdt)
                     }
                 }

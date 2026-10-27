@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Forløb følger</string>
     <string name="widget_portfolio_description">Samlet værdi af din portefølje og dagens ændring</string>
+    <string name="widget_portfolio_entries">Posteringer under coins</string>
+    <string name="widget_portfolio_entries_both">Begge</string>
+    <string name="widget_portfolio_entries_buys">Køb</string>
+    <string name="widget_portfolio_entries_hint">Vises kun, hvis der er plads under coins. Køb tæller indbetalinger med, salg udbetalinger; med «Begge» giver linjerne beholdningen.</string>
+    <string name="widget_portfolio_entries_off">Fra</string>
+    <string name="widget_portfolio_entries_sells">Salg</string>
     <string name="widget_portfolio_display">Visning</string>
     <string name="widget_portfolio_display_conversion">Kun omregning</string>
     <string name="widget_portfolio_display_conversion_usdt">Omregning + USDT</string>

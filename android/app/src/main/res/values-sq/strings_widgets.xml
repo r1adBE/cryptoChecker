@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Ecuria vjen së shpejti</string>
     <string name="widget_portfolio_description">Vlera totale e portofolit tënd dhe ndryshimi i sotëm</string>
+    <string name="widget_portfolio_entries">Lëvizjet nën monedhat</string>
+    <string name="widget_portfolio_entries_both">Të dyja</string>
+    <string name="widget_portfolio_entries_buys">Blerje</string>
+    <string name="widget_portfolio_entries_hint">Shfaqen vetëm nëse ka vend nën monedhat. Blerjet përfshijnë depozitat, shitjet tërheqjet; me «Të dyja» rreshtat japin gjendjen.</string>
+    <string name="widget_portfolio_entries_off">Joaktiv</string>
+    <string name="widget_portfolio_entries_sells">Shitje</string>
     <string name="widget_portfolio_display">Shfaqja</string>
     <string name="widget_portfolio_display_conversion">Vetëm konvertimi</string>
     <string name="widget_portfolio_display_conversion_usdt">Konvertimi + USDT</string>

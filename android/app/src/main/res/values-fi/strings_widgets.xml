@@ -38,6 +38,12 @@
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Kehitys tulossa</string>
     <string name="widget_portfolio_description">Salkkusi kokonaisarvo ja tämän päivän muutos</string>
+    <string name="widget_portfolio_entries">Kirjaukset kolikoiden alla</string>
+    <string name="widget_portfolio_entries_both">Molemmat</string>
+    <string name="widget_portfolio_entries_buys">Ostot</string>
+    <string name="widget_portfolio_entries_hint">Näytetään vain, jos kolikoiden alla on tilaa. Ostoihin lasketaan talletukset, myynteihin nostot; «Molemmat»-valinnalla rivit muodostavat omistuksen.</string>
+    <string name="widget_portfolio_entries_off">Pois</string>
+    <string name="widget_portfolio_entries_sells">Myynnit</string>
     <string name="widget_portfolio_display">Näkymä</string>
     <string name="widget_portfolio_display_conversion">Vain muunnos</string>
     <string name="widget_portfolio_display_conversion_usdt">Muunnos + USDT</string>
