@@ -2521,6 +2521,9 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 151: `app/build.gradle.kts` forces `androidx.room:room-compiler-processing` to `libs.versions.room` in every
+  configuration (Hilt's compiler pulled 2.8.4); `:domain` drops `timber` and `androidx.core.ktx` (unused since 146);
+  lockfiles/verification metadata from «Supply chain update».
 * Build 150 (Android): price overlay – `overlay/PriceOverlay` (singleton started in `CryptoCheckerApp.onCreate`,
   combines `settings` and `observeWatches()`, one `TYPE_APPLICATION_OVERLAY` window with plain views, no service; the
   overlay window keeps the process perceptible), `overlay/PriceOverlayRules` (pairs like the permanent price

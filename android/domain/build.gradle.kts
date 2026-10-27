@@ -36,14 +36,12 @@ dependencies {
     // Typen von :marketdata, Flows und die Datenbank-Modelle stehen in öffentlichen Signaturen
     api(project(":marketdata"))
     api(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.core.ktx)
     // @Inject/@Singleton der Regeln mit Zustand (Dagger erzeugt die Fabriken hier, Hilt verbindet sie in :app)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     // Annotationen der Datenbank-Modelle (WatchEntity, AlarmEntity); Room selbst (DAOs, Datenbank) läuft in :app
     api(libs.androidx.room.runtime)
     implementation(libs.okhttp)
-    implementation(libs.timber)
     testImplementation(libs.junit)
 }
 

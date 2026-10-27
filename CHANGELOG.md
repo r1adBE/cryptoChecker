@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 151)
+
+* Android build (no change for users): one version of Room's annotation-processing library (2.8.5) in every module, `:domain` no longer declares the unused Timber and AndroidX Core libraries; lockfiles and checksums renewed by the «Supply chain update» workflow.
+
 ## 16.2.2 (build 150)
 
 * New (Android): price overlay. Settings › Updates › «Price overlay» (off by default) shows the pairs of the permanent price notification – at most 3 – as a small, semi-transparent pill over other apps: symbol, price and change in the price colours. Drag it anywhere, it snaps to the edge; tap opens the app; drag it onto the × at the bottom to turn it off. It updates whenever the app has new prices (live while open, otherwise at the background interval), runs without its own service and needs the Android permission «Display over other apps», which you grant and can revoke yourself. TalkBack reads the prices and offers «Close overlay». Not available on iPhone (iOS does not allow overlays). 31 languages; privacy page updated (permissions table).

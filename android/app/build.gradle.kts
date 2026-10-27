@@ -66,7 +66,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 150
+        versionCode = 151
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -339,5 +339,16 @@ if (providers.gradleProperty("coverage").orNull == "true") {
         add("kover", project(":marketdata"))
         add("kover", project(":domain"))
         add("kover", project(":data"))
+    }
+}
+
+// Lieferkette (Build 151): XProcessing des Hilt-Compilers in allen Konfigurationen auf die Room-Version (sonst 2.8.4
+// neben 2.8.5 in :data; Inhaber 27.10.: beim nächsten «Supply chain update» überall 2.8.5)
+configurations.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "androidx.room" && requested.name == "room-compiler-processing") {
+            useVersion(libs.versions.room.get())
+            because("eine Version von room-compiler-processing in allen Modulen")
+        }
     }
 }
