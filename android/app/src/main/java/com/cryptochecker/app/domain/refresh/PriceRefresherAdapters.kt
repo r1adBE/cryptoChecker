@@ -65,3 +65,19 @@ internal fun RefreshSideChecks.asRefresherSideChecks(): RefresherSideChecks = ob
     override suspend fun awaitAll(timeoutMillis: Long, extra: SideCheckExtra?) = checks.awaitAll(timeoutMillis, extra)
     override fun launchDetached() = checks.launchDetached()
 }
+
+internal fun WidgetUpdater.asChartWidgets(): ChartWidgets = object : ChartWidgets {
+    private val updater = this@asChartWidgets
+    override fun takeStaleCharts() = updater.takeStaleCharts()
+    override suspend fun refreshSingleCharts() {
+        updater.refreshSingleCharts()
+    }
+}
+
+internal fun RefreshStats.asManualRefreshStats() = ManualRefreshStats { lastFullRefresh() }
+
+internal fun ConnectivityMonitor.asManualRefreshNet(): ManualRefreshNet = object : ManualRefreshNet {
+    private val monitor = this@asManualRefreshNet
+    override val online get() = monitor.online
+    override fun isOnline() = monitor.isOnline()
+}

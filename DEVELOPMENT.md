@@ -2521,6 +2521,11 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 144 (R, step 9): `ManualRefresh` and `ChartRefresher` in `:domain` behind `ManualRefreshStats`,
+  `ManualRefreshNet` and `ChartWidgets` (adapters in `PriceRefresherAdapters.kt`, providers in `RefreshModule`);
+  `domain/watch/SheetChart`, `widget/WidgetChartGeometry`, `util/ChartSummary` and `data/BoundedCache` (from `:data`,
+  same package) in `:domain`. Left in `app/…/domain`: `ActivityMonitor`, `DepegAlarmChecker`, `GasAlertChecker`,
+  `DayReferences`, `RefreshSideChecks` (data sources, notifications), `DiagnosticReport` (string resources).
 * Build 143 (R, step 8): 13 more files to `:data` – `settings/SettingsRepository`, `SettingsDataStore`, `SettingsKeys`,
   `SettingsReading`, `SettingsLockFallback`, `MarketAlertReset` (new `settings/MarketAlertPrefs.kt`: `ZoneCheckPrefs`
   and `GasAlertPrefs` with the prefs names, keys and the gas lock; `ZoneCheckWorker` and `GasAlertChecker` keep their

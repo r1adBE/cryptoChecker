@@ -1,7 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.util.appScope
-import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -9,8 +8,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Charts der Einzel-Widgets nachladen. Unter der Refresh-Sperre ([RefreshLock]) zeichnen Aktualisierung und
@@ -19,9 +16,14 @@ import javax.inject.Singleton
  * ausserhalb der Sperre. Eigene Sperre ([chartMutex]): höchstens ein Nachladen gleichzeitig — sie wird nie unter
  * der Refresh-Sperre genommen, also keine Reihenfolge zwischen beiden. Teil von [PriceRefresher].
  */
-@Singleton
-class ChartRefresher @Inject constructor(
-    private val widgetUpdater: WidgetUpdater,
+/** Die Widget-Seite von [ChartRefresher] (`WidgetUpdater`): veraltete Charts merken und Einzel-Widget-Charts nachladen. */
+interface ChartWidgets {
+    fun takeStaleCharts(): Boolean
+    suspend fun refreshSingleCharts()
+}
+
+class ChartRefresher(
+    private val widgetUpdater: ChartWidgets,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
     private val scope = appScope(Dispatchers.IO, "ChartRefresher")
