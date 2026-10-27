@@ -120525,643 +120525,384 @@
         }
       }
     },
-    "explorer_lists_failed" : {
+    "explorer_lists_failed_many" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قوائم الأزواج. حاول مرة أخرى لاحقًا."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قوائم الأزواج. حاول مرة أخرى لاحقًا."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قائمة الأزواج. حاول مرة أخرى لاحقًا."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قوائم الأزواج. حاول مرة أخرى لاحقًا."
-                }
-              },
-              "two" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قوائم الأزواج. حاول مرة أخرى لاحقًا."
-                }
-              },
-              "zero" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قوائم الأزواج. حاول مرة أخرى لاحقًا."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قوائم الأزواج. حاول مرة أخرى لاحقًا."
           }
         },
         "cs" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ teď neodpovídají – seznamy párů se nenačetly. Zkus to později."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ teď neodpovídají – seznamy párů se nenačetly. Zkus to později."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ teď neodpovídá – seznam párů se nenačetl. Zkus to později."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ teď neodpovídají – seznamy párů se nenačetly. Zkus to později."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ teď neodpovídají – seznamy párů se nenačetly. Zkus to později."
           }
         },
         "da" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ svarer ikke lige nu – parlisten er ikke hentet. Prøv igen senere."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ svarer ikke lige nu – parlisterne er ikke hentet. Prøv igen senere."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ svarer ikke lige nu – parlisterne er ikke hentet. Prøv igen senere."
           }
         },
         "de" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ antwortet zurzeit nicht – Paarliste nicht geladen. Versuch es später nochmals."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ antworten zurzeit nicht – Paarlisten nicht geladen. Versuch es später nochmals."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ antworten zurzeit nicht – Paarlisten nicht geladen. Versuch es später nochmals."
           }
         },
         "el" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Το %1$@ δεν απαντά αυτή τη στιγμή – η λίστα ζευγών δεν φορτώθηκε. Δοκίμασε ξανά αργότερα."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "Τα %1$@ δεν απαντούν αυτή τη στιγμή – οι λίστες ζευγών δεν φορτώθηκαν. Δοκίμασε ξανά αργότερα."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τα %1$@ δεν απαντούν αυτή τη στιγμή – οι λίστες ζευγών δεν φορτώθηκαν. Δοκίμασε ξανά αργότερα."
           }
         },
         "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ isn’t responding right now – pair list not loaded. Try again later."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ aren’t responding right now – pair lists not loaded. Try again later."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ aren’t responding right now – pair lists not loaded. Try again later."
           }
         },
         "es" : {
-          "variations" : {
-            "plural" : {
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ no responden ahora mismo – listas de pares no cargadas. Inténtalo más tarde."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ no responde ahora mismo – lista de pares no cargada. Inténtalo más tarde."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ no responden ahora mismo – listas de pares no cargadas. Inténtalo más tarde."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no responden ahora mismo – listas de pares no cargadas. Inténtalo más tarde."
           }
         },
         "fa" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ در حال حاضر پاسخ نمی‌دهد – فهرست جفت‌ها بارگیری نشد. بعداً دوباره امتحان کن."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ در حال حاضر پاسخ نمی‌دهند – فهرست‌های جفت بارگیری نشد. بعداً دوباره امتحان کن."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ در حال حاضر پاسخ نمی‌دهند – فهرست‌های جفت بارگیری نشد. بعداً دوباره امتحان کن."
           }
         },
         "fi" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ ei vastaa juuri nyt – parilistaa ei ladattu. Yritä myöhemmin uudelleen."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ eivät vastaa juuri nyt – parilistoja ei ladattu. Yritä myöhemmin uudelleen."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ eivät vastaa juuri nyt – parilistoja ei ladattu. Yritä myöhemmin uudelleen."
           }
         },
         "fr" : {
-          "variations" : {
-            "plural" : {
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ ne répondent pas pour le moment – listes de paires non chargées. Réessaie plus tard."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ ne répond pas pour le moment – liste de paires non chargée. Réessaie plus tard."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ ne répondent pas pour le moment – listes de paires non chargées. Réessaie plus tard."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ne répondent pas pour le moment – listes de paires non chargées. Réessaie plus tard."
           }
         },
         "he" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ לא מגיבה כרגע – רשימת הצמדים לא נטענה. נסו שוב מאוחר יותר."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ לא מגיבות כרגע – רשימות הצמדים לא נטענו. נסו שוב מאוחר יותר."
-                }
-              },
-              "two" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ לא מגיבות כרגע – רשימות הצמדים לא נטענו. נסו שוב מאוחר יותר."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ לא מגיבות כרגע – רשימות הצמדים לא נטענו. נסו שוב מאוחר יותר."
           }
         },
         "hi" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ अभी जवाब नहीं दे रहा – जोड़ी सूची लोड नहीं हुई। बाद में फिर कोशिश करो।"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ अभी जवाब नहीं दे रहे – जोड़ी सूचियाँ लोड नहीं हुईं। बाद में फिर कोशिश करो।"
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ अभी जवाब नहीं दे रहे – जोड़ी सूचियाँ लोड नहीं हुईं। बाद में फिर कोशिश करो।"
           }
         },
         "hu" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ jelenleg nem válaszol – a párlista nem töltődött be. Próbáld újra később."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ jelenleg nem válaszolnak – a párlisták nem töltődtek be. Próbáld újra később."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ jelenleg nem válaszolnak – a párlisták nem töltődtek be. Próbáld újra később."
           }
         },
         "id" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ sedang tidak merespons – daftar pasangan tidak dimuat. Coba lagi nanti."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ sedang tidak merespons – daftar pasangan tidak dimuat. Coba lagi nanti."
           }
         },
         "it" : {
-          "variations" : {
-            "plural" : {
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ non rispondono al momento – elenchi coppie non caricati. Riprova più tardi."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ non risponde al momento – elenco coppie non caricato. Riprova più tardi."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ non rispondono al momento – elenchi coppie non caricati. Riprova più tardi."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non rispondono al momento – elenchi coppie non caricati. Riprova più tardi."
           }
         },
         "ja" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ が現在応答していません – ペアリストを読み込めませんでした。しばらくしてからもう一度お試しください。"
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ が現在応答していません – ペアリストを読み込めませんでした。しばらくしてからもう一度お試しください。"
           }
         },
         "ko" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@이(가) 현재 응답하지 않습니다 – 페어 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@이(가) 현재 응답하지 않습니다 – 페어 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."
           }
         },
         "nb" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ svarer ikke akkurat nå – parlisten er ikke hentet. Prøv igjen senere."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ svarer ikke akkurat nå – parlistene er ikke hentet. Prøv igjen senere."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ svarer ikke akkurat nå – parlistene er ikke hentet. Prøv igjen senere."
           }
         },
         "nl" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ reageert op dit moment niet – paarlijst niet geladen. Probeer het later opnieuw."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ reageren op dit moment niet – paarlijsten niet geladen. Probeer het later opnieuw."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ reageren op dit moment niet – paarlijsten niet geladen. Probeer het later opnieuw."
           }
         },
         "pl" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nie odpowiada w tej chwili – lista par nie została wczytana. Spróbuj później."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nie odpowiadają w tej chwili – listy par nie zostały wczytane. Spróbuj później."
           }
         },
         "pt" : {
-          "variations" : {
-            "plural" : {
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ não estão a responder neste momento – listas de pares não carregadas. Tenta mais tarde."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ não está a responder neste momento – lista de pares não carregada. Tenta mais tarde."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ não estão a responder neste momento – listas de pares não carregadas. Tenta mais tarde."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ não estão a responder neste momento – listas de pares não carregadas. Tenta mais tarde."
           }
         },
         "pt-BR" : {
-          "variations" : {
-            "plural" : {
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ não estão respondendo no momento – listas de pares não carregadas. Tente de novo mais tarde."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ não está respondendo no momento – lista de pares não carregada. Tente de novo mais tarde."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ não estão respondendo no momento – listas de pares não carregadas. Tente de novo mais tarde."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ não estão respondendo no momento – listas de pares não carregadas. Tente de novo mais tarde."
           }
         },
         "ro" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nu răspund momentan – listele de perechi nu s-au încărcat. Încearcă mai târziu."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nu răspunde momentan – lista de perechi nu s-a încărcat. Încearcă mai târziu."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nu răspund momentan – listele de perechi nu s-au încărcat. Încearcă mai târziu."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nu răspund momentan – listele de perechi nu s-au încărcat. Încearcă mai târziu."
           }
         },
         "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ сейчас не отвечают – списки пар не загружены. Попробуй позже."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ сейчас не отвечают – списки пар не загружены. Попробуй позже."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ сейчас не отвечает – список пар не загружен. Попробуй позже."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ сейчас не отвечают – списки пар не загружены. Попробуй позже."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ сейчас не отвечают – списки пар не загружены. Попробуй позже."
           }
         },
         "sq" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nuk po përgjigjet tani – lista e çifteve nuk u ngarkua. Provo sërish më vonë."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ nuk po përgjigjen tani – listat e çifteve nuk u ngarkuan. Provo sërish më vonë."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nuk po përgjigjen tani – listat e çifteve nuk u ngarkuan. Provo sërish më vonë."
           }
         },
         "sv" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ svarar inte just nu – parlistan har inte hämtats. Försök igen senare."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ svarar inte just nu – parlistorna har inte hämtats. Försök igen senare."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ svarar inte just nu – parlistorna har inte hämtats. Försök igen senare."
           }
         },
         "th" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ ไม่ตอบสนองในขณะนี้ – โหลดรายการคู่เทรดไม่สำเร็จ โปรดลองอีกครั้งในภายหลัง"
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ไม่ตอบสนองในขณะนี้ – โหลดรายการคู่เทรดไม่สำเร็จ โปรดลองอีกครั้งในภายหลัง"
           }
         },
         "tr" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ şu anda yanıt vermiyor – parite listesi yüklenmedi. Daha sonra tekrar dene."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ şu anda yanıt vermiyor – parite listeleri yüklenmedi. Daha sonra tekrar dene."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ şu anda yanıt vermiyor – parite listeleri yüklenmedi. Daha sonra tekrar dene."
           }
         },
         "uk" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ зараз не відповідають – списки пар не завантажено. Спробуй пізніше."
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ зараз не відповідають – списки пар не завантажено. Спробуй пізніше."
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ зараз не відповідає – список пар не завантажено. Спробуй пізніше."
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ зараз не відповідають – списки пар не завантажено. Спробуй пізніше."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ зараз не відповідають – списки пар не завантажено. Спробуй пізніше."
           }
         },
         "vi" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ hiện không phản hồi – chưa tải được danh sách cặp. Vui lòng thử lại sau."
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hiện không phản hồi – chưa tải được danh sách cặp. Vui lòng thử lại sau."
           }
         },
         "zh-Hans" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%1$@ 目前没有响应 – 未能加载交易对列表。请你稍后再试。"
-                }
-              }
-            }
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 目前没有响应 – 未能加载交易对列表。请你稍后再试。"
+          }
+        }
+      }
+    },
+    "explorer_lists_failed_one" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ لا تستجيب حاليًا – لم تُحمَّل قائمة الأزواج. حاول مرة أخرى لاحقًا."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ teď neodpovídá – seznam párů se nenačetl. Zkus to později."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ svarer ikke lige nu – parlisten er ikke hentet. Prøv igen senere."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ antwortet zurzeit nicht – Paarliste nicht geladen. Versuch es später nochmals."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το %1$@ δεν απαντά αυτή τη στιγμή – η λίστα ζευγών δεν φορτώθηκε. Δοκίμασε ξανά αργότερα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ isn’t responding right now – pair list not loaded. Try again later."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ no responde ahora mismo – lista de pares no cargada. Inténtalo más tarde."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ در حال حاضر پاسخ نمی‌دهد – فهرست جفت‌ها بارگیری نشد. بعداً دوباره امتحان کن."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ei vastaa juuri nyt – parilistaa ei ladattu. Yritä myöhemmin uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ne répond pas pour le moment – liste de paires non chargée. Réessaie plus tard."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ לא מגיבה כרגע – רשימת הצמדים לא נטענה. נסו שוב מאוחר יותר."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ अभी जवाब नहीं दे रहा – जोड़ी सूची लोड नहीं हुई। बाद में फिर कोशिश करो।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ jelenleg nem válaszol – a párlista nem töltődött be. Próbáld újra később."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ sedang tidak merespons – daftar pasangan tidak dimuat. Coba lagi nanti."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ non risponde al momento – elenco coppie non caricato. Riprova più tardi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ が現在応答していません – ペアリストを読み込めませんでした。しばらくしてからもう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@이(가) 현재 응답하지 않습니다 – 페어 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ svarer ikke akkurat nå – parlisten er ikke hentet. Prøv igjen senere."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ reageert op dit moment niet – paarlijst niet geladen. Probeer het later opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nie odpowiada w tej chwili – lista par nie została wczytana. Spróbuj później."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ não está a responder neste momento – lista de pares não carregada. Tenta mais tarde."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ não está respondendo no momento – lista de pares não carregada. Tente de novo mais tarde."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nu răspunde momentan – lista de perechi nu s-a încărcat. Încearcă mai târziu."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ сейчас не отвечает – список пар не загружен. Попробуй позже."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ nuk po përgjigjet tani – lista e çifteve nuk u ngarkua. Provo sërish më vonë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ svarar inte just nu – parlistan har inte hämtats. Försök igen senare."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ไม่ตอบสนองในขณะนี้ – โหลดรายการคู่เทรดไม่สำเร็จ โปรดลองอีกครั้งในภายหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ şu anda yanıt vermiyor – parite listesi yüklenmedi. Daha sonra tekrar dene."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ зараз не відповідає – список пар не завантажено. Спробуй пізніше."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hiện không phản hồi – chưa tải được danh sách cặp. Vui lòng thử lại sau."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 目前没有响应 – 未能加载交易对列表。请你稍后再试。"
           }
         }
       }

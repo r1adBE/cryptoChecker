@@ -2534,7 +2534,8 @@ after the encryption step.
   `FileLengthTest` covers the module.
   Add pair: `SearchLists.failed` / `ExplorerSearchLists.failed` hold the names of exchanges whose pair list did not
   load in the last «Load lists» run (sync error or empty list) and are still missing; the card shows
-  `explorer_lists_failed` (plural by count, names joined with «, ») before the remaining `explorer_lists_missing` and
+  `explorer_lists_failed_one` / `_many` (two strings, not a plural: Xcode requires the count in plural
+  variants; names joined with «, ») before the remaining `explorer_lists_missing` and
   the button becomes `action_retry`.
   Supply chain (SEC-2 done): the run of «Supply chain update» on this build wrote `verify-signatures=true` with
   `android/gradle/verification-keyring.keys`; checksums remain for unsigned artifacts. Lock files gained the

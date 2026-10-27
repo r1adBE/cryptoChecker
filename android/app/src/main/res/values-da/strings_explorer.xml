@@ -11,10 +11,8 @@
     <string name="explorer_coin_show_pairs">Vis par</string>
     <string name="explorer_coin_suggested">Forslag</string>
     <string name="explorer_coins_title">Mønter</string>
-    <plurals name="explorer_lists_failed">
-        <item quantity="one">%1$s svarer ikke lige nu – parlisten er ikke hentet. Prøv igen senere.</item>
-        <item quantity="other">%1$s svarer ikke lige nu – parlisterne er ikke hentet. Prøv igen senere.</item>
-    </plurals>
+    <string name="explorer_lists_failed_many">%1$s svarer ikke lige nu – parlisterne er ikke hentet. Prøv igen senere.</string>
+    <string name="explorer_lists_failed_one">%1$s svarer ikke lige nu – parlisten er ikke hentet. Prøv igen senere.</string>
     <string name="explorer_lists_load">Hent lister</string>
     <string name="explorer_lists_loading">Henter parlister… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

@@ -10,9 +10,8 @@
     <string name="explorer_coin_show_pairs">แสดงคู่เทรด</string>
     <string name="explorer_coin_suggested">แนะนำ</string>
     <string name="explorer_coins_title">เหรียญ</string>
-    <plurals name="explorer_lists_failed">
-        <item quantity="other">%1$s ไม่ตอบสนองในขณะนี้ – โหลดรายการคู่เทรดไม่สำเร็จ โปรดลองอีกครั้งในภายหลัง</item>
-    </plurals>
+    <string name="explorer_lists_failed_many">%1$s ไม่ตอบสนองในขณะนี้ – โหลดรายการคู่เทรดไม่สำเร็จ โปรดลองอีกครั้งในภายหลัง</string>
+    <string name="explorer_lists_failed_one">%1$s ไม่ตอบสนองในขณะนี้ – โหลดรายการคู่เทรดไม่สำเร็จ โปรดลองอีกครั้งในภายหลัง</string>
     <string name="explorer_lists_load">โหลดรายการ</string>
     <string name="explorer_lists_loading">กำลังโหลดรายการคู่เทรด… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

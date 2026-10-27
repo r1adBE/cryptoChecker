@@ -234,8 +234,11 @@ internal fun ListsOffer(lists: SearchLists, onLoad: () -> Unit) {
             val others = lists.missing - lists.failed.size
             if (lists.failed.isNotEmpty()) {
                 Text(
-                    text = pluralStringResource(
-                        R.plurals.explorer_lists_failed, lists.failed.size, lists.failed.joinToString(", ")
+                    // Zwei Texte statt Plural: die Zahl steht nicht im Satz (Xcode verlangt sie in Plural-Varianten)
+                    text = stringResource(
+                        if (lists.failed.size == 1) R.string.explorer_lists_failed_one
+                        else R.string.explorer_lists_failed_many,
+                        lists.failed.joinToString(", ")
                     ),
                     style = MaterialTheme.typography.bodyMedium
                 )

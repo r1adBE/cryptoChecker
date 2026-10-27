@@ -253,8 +253,8 @@ extension ExplorerScreen {
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 // Nach einem Fehlschlag zuerst die Börsen ohne Antwort, dann die übrigen fehlenden Listen
                 let others = lists.missing - lists.failed.count
-                Text([lists.failed.isEmpty ? nil : L("explorer_lists_failed", count: lists.failed.count,
-                                                     lists.failed.joined(separator: ", ")),
+                Text([lists.failed.isEmpty ? nil : L(lists.failed.count == 1 ? "explorer_lists_failed_one"
+                                                     : "explorer_lists_failed_many", lists.failed.joined(separator: ", ")),
                       lists.failed.isEmpty || others > 0 ? L("explorer_lists_missing", count: others, others) : nil]
                     .compactMap { $0 }.joined(separator: "\n"))
                     .font(.subheadline)

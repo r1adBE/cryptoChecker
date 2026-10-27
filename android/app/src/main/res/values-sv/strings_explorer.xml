@@ -11,10 +11,8 @@
     <string name="explorer_coin_show_pairs">Visa par</string>
     <string name="explorer_coin_suggested">Förslag</string>
     <string name="explorer_coins_title">Mynt</string>
-    <plurals name="explorer_lists_failed">
-        <item quantity="one">%1$s svarar inte just nu – parlistan har inte hämtats. Försök igen senare.</item>
-        <item quantity="other">%1$s svarar inte just nu – parlistorna har inte hämtats. Försök igen senare.</item>
-    </plurals>
+    <string name="explorer_lists_failed_many">%1$s svarar inte just nu – parlistorna har inte hämtats. Försök igen senare.</string>
+    <string name="explorer_lists_failed_one">%1$s svarar inte just nu – parlistan har inte hämtats. Försök igen senare.</string>
     <string name="explorer_lists_load">Hämta listor</string>
     <string name="explorer_lists_loading">Hämtar parlistor… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">

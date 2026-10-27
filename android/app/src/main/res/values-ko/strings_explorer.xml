@@ -10,9 +10,8 @@
     <string name="explorer_coin_show_pairs">거래쌍 보기</string>
     <string name="explorer_coin_suggested">추천</string>
     <string name="explorer_coins_title">코인</string>
-    <plurals name="explorer_lists_failed">
-        <item quantity="other">%1$s이(가) 현재 응답하지 않습니다 – 페어 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</item>
-    </plurals>
+    <string name="explorer_lists_failed_many">%1$s이(가) 현재 응답하지 않습니다 – 페어 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="explorer_lists_failed_one">%1$s이(가) 현재 응답하지 않습니다 – 페어 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="explorer_lists_load">목록 불러오기</string>
     <string name="explorer_lists_loading">거래쌍 목록 불러오는 중… %1$d/%2$d</string>
     <plurals name="explorer_lists_missing">
