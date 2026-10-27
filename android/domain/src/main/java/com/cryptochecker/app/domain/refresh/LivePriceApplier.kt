@@ -1,23 +1,17 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.data.PairIdentity
-import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.pairIdentity
 import com.cryptochecker.app.domain.live.LiveExchange
 import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.live.LiveRules
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.isNotTraded
-import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.widget.LiveWidgetGate
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Live-Kurse aus dem WebSocket-Strom ([com.cryptochecker.app.data.live.LivePriceStream]) speichern und wie eine
@@ -25,8 +19,7 @@ import javax.inject.Singleton
  * ([RefreshResultProcessor]) wie [PriceRefresher]. Charts mit fehlenden Kerzen lädt danach [ChartRefresher]
  * ausserhalb der Sperre.
  */
-@Singleton
-class LivePriceApplier internal constructor(
+class LivePriceApplier constructor(
     private val refreshLock: RefreshLock,
     private val watchRepository: RefreshStore,
     private val settingsRepository: RefreshSettings,
@@ -38,25 +31,6 @@ class LivePriceApplier internal constructor(
     /** Kurs-Meldungen nach dem Speichern: Nacharbeit unter der weitergereichten Sperre ([RefreshLock.withLockThen]). */
     private val tailScope: CoroutineScope = appScope(Dispatchers.IO, "LivePriceApplier"),
 ) {
-    /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
-    @Inject constructor(
-        refreshLock: RefreshLock,
-        watchRepository: WatchRepository,
-        settingsRepository: SettingsRepository,
-        refreshStats: RefreshStats,
-        liveWidgetGate: LiveWidgetGate,
-        chartRefresher: ChartRefresher,
-        resultProcessor: RefreshResultProcessor,
-    ) : this(
-        refreshLock,
-        watchRepository.asRefreshStore(),
-        settingsRepository.asRefreshSettings(),
-        refreshStats.asRefreshStatsPort(),
-        liveWidgetGate.asRefreshWidgets(),
-        chartRefresher.asRefreshCharts(),
-        resultProcessor,
-    )
-
     /**
      * Live-Kurse (gesammelt, höchstens alle 10 s) speichern und wie eine Aktualisierung auswerten: derselbe Weg
      * für Alarme (Kreuzung zum zuletzt gespeicherten Kurs, Abklingzeit, «erst wieder scharf») und Kurs-Meldungen —

@@ -20,7 +20,7 @@ fun appScope(dispatcher: CoroutineDispatcher, label: String): CoroutineScope =
  * Protokolliert statt abzustürzen (wie [ReceiverAsync]): Datenbank-Schlüssel gerade nicht lesbar (Keystore) ist kein
  * Fehler, nur Hinweis — der nächste Lauf versucht es erneut. [log] nur für Tests austauschbar.
  */
-internal fun appExceptionHandler(
+fun appExceptionHandler(
     label: String,
     log: (Throwable) -> Unit = { e ->
         if (e.isDatabaseKeyUnavailable()) Timber.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)

@@ -2521,6 +2521,14 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 140 (R, step 5): `RefreshEffects` (+ `RefreshEffectsAlarmKinds`), `RefreshResultProcessor` and
+  `LivePriceApplier` in `:domain`. Their second `@Inject` constructor (app classes → `as…()` adapters) is gone; Hilt
+  builds them in `app/…/di/RefreshModule.kt` (`@Provides @Singleton`), tests keep using the primary constructor with
+  fakes. Moved along so they compile: `domain/alarm/AlarmDelivery` (`AlarmDeliveryMarkerStore`),
+  `notification/NotificationBudget`, `util/AppScope` (`appScope`, `appExceptionHandler`), `util/BackgroundErrorCounter`
+  and `data/local/DatabaseKeyUnavailable.kt` (`DatabaseKeyUnavailableException`, `isDatabaseKeyUnavailable`, split out
+  of `EncryptingOpenHelperFactory.kt`, same package). For Kotlin Multiplatform later: `appScope` and the error counter
+  still use Timber and SharedPreferences.
 * Build 139 (R, step 4): `RefreshPorts.kt` split – the interfaces (`RefreshStore`, `RefreshNotifier`,
   `RefreshSpeaker`, `RefreshSpokenText`, `Alarm*Source`, `RefreshSettings` …, now public) are in `:domain`, the
   adapters (`asRefreshStore()` …, private wrapper classes) in `app/…/domain/refresh/RefreshPortAdapters.kt`. Types the

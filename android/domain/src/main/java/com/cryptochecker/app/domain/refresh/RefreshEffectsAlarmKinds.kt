@@ -12,7 +12,6 @@ import com.cryptochecker.app.data.remote.VolumeSpike
 import com.cryptochecker.app.data.remote.WindowRanges
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
-import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.settings.AppSettings
 import kotlinx.coroutines.CancellationException
@@ -27,7 +26,7 @@ import kotlinx.coroutines.launch
  * ist das Netz-Fenster nach den Kursen sonst oft vorbei. Füllt nur die Zwischenspeicher der
  * Quellen; [checkAlarms] liest sie danach. Der Aufrufer wartet höchstens bis zu seiner Frist.
  */
-internal fun RefreshEffects.startAlarmPrefetch(watches: List<WatchEntity>, alarms: List<AlarmEntity>, now: Long): List<Job> {
+fun RefreshEffects.startAlarmPrefetch(watches: List<WatchEntity>, alarms: List<AlarmEntity>, now: Long): List<Job> {
     val byWatch = alarms.filter { it.enabled }.groupBy { it.watchId }
     val jobs = ArrayList<Job>()
     // Je Ziel einmal (mehrere Paare teilen Hoch/Tief bzw. Devisenkurs)
@@ -70,7 +69,7 @@ internal fun RefreshEffects.startAlarmPrefetch(watches: List<WatchEntity>, alarm
 }
 
 /** Zustand eines Prüf-Durchlaufs je Paar ([RefreshEffects.checkAlarms]): einmal geladene Zusatzdaten und die Melde-Wege. */
-internal class AlarmCheckRun(
+class AlarmCheckRun(
     private val reportBlock: suspend (AlarmEntity, suspend () -> Boolean, suspend () -> Boolean) -> Unit,
     private val uncheckedBlock: (AlarmEntity, AlarmCheckStatus.Reason) -> Unit,
     private val rateBlock: suspend (String) -> Double?,
@@ -98,7 +97,7 @@ internal class AlarmCheckRun(
 }
 
 /** Funding- bzw. Open-Interest-Alarm (nicht bei Live-Kursen; das prüft der Aufrufer). */
-internal suspend fun RefreshEffects.checkDerivativesAlarm(
+suspend fun RefreshEffects.checkDerivativesAlarm(
     alarm: AlarmEntity,
     watch: WatchEntity,
     price: Double,
@@ -151,7 +150,7 @@ internal suspend fun RefreshEffects.checkDerivativesAlarm(
 }
 
 /** «Nahe am Hoch/Tief»: Hoch/Tief der Zeiträume in der Quote des Paars. */
-internal suspend fun RefreshEffects.checkNearExtremeAlarm(
+suspend fun RefreshEffects.checkNearExtremeAlarm(
     alarm: AlarmEntity,
     watch: WatchEntity,
     price: Double,
@@ -215,7 +214,7 @@ internal suspend fun RefreshEffects.checkNearExtremeAlarm(
 }
 
 /** Volumen-Spike der letzten Stunde (nicht bei Live-Kursen; das prüft der Aufrufer). */
-internal suspend fun RefreshEffects.checkVolumeAlarm(
+suspend fun RefreshEffects.checkVolumeAlarm(
     alarm: AlarmEntity,
     watch: WatchEntity,
     price: Double,

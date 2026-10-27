@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 140)
+
+* Android code structure (no change for users): the evaluation after new prices – alarms, price notifications and announcements (`RefreshEffects`), saving and evaluating fetched prices (`RefreshResultProcessor`) and saving live prices (`LivePriceApplier`) – moved to `:domain`; the app hands its storage, notification and speech classes in through a Hilt module (`RefreshModule`) instead of a second constructor in each class. Moved along: alarm delivery with its notification budget, the app-wide background scope with its error counter, and the «database key unavailable» error.
+
 ## 16.2.2 (build 139)
 
 * Android code structure (no change for users): the interfaces through which the price evaluation reaches storage, notifications, speech and data sources (`RefreshPorts`) moved to `:domain`, their adapters to the app classes stay in the app. With them moved the settings model (`AppSettings`, accent colour, price colour scheme, update mode), the watchlist write models (`PriceWrite`, `ErrorWrite` …) and the alarm data types (`VolumeSpike`, `WindowRanges`, `DerivativesValues`). The accent colour's name and logo resources are now looked up in the app.
