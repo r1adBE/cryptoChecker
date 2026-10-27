@@ -24,6 +24,7 @@ on:
       - '.github/scripts/apk_contents.py'
       - '.github/scripts/annotate.py'
       - '.github/scripts/lint_errors.sh'
+      - '.github/scripts/gradle_errors.sh'
       - '.github/scripts/room_schema_drift.py'
       - '.github/scripts/line_limit.py'
       - '.github/scripts/code_metrics.py'
@@ -106,7 +107,8 @@ jobs:
           chmod +x gradlew
           set -o pipefail
           ./gradlew -Pcoverage=true testDebugUnitTest :app:koverXmlReportDebug :marketdata:koverXmlReportDebug \
-            --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
+            --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log" \
+            || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-test.log"; exit 1; }
 
       # testReleaseUnitTest of all modules (release source sets, e.g. src/withoutHttpLog) only on main and release
       # tags; pull requests and other branches run the debug unit tests only.

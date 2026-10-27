@@ -98,10 +98,13 @@ jobs:
           REQUIRE_IOS_SOURCES: 'true'
         run: |
           chmod +x gradlew
+          set -o pipefail
           # shellcheck disable=SC2086
           ./gradlew $GRADLE_WRITE_FLAGS --write-locks \
             test :app:lintDebug :app:lintRelease :marketdata:lintRelease :domain:lintRelease :data:lintRelease \
-            :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
+            :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease \
+            2>&1 | tee "$RUNNER_TEMP/gradle-write.log" \
+            || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-write.log"; exit 1; }
 
       # Kover (coverage step in android.yml, -Pcoverage=true): agent and reporter; checksums only
       - name: Write checksums (Kover)

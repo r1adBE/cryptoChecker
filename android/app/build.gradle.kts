@@ -57,6 +57,13 @@ if (requireReleaseCommit) {
     }
 }
 
+// Reproduzierbarer Build: der Compose-Compiler legt sonst eine Zuordnung der Gruppen-Schlüssel für R8 an
+// (Abschnitt «ComposeStackTrace» in proguard.map), deren Reihenfolge von Lauf zu Lauf wechselt; die APK bleibt gleich,
+// aber die Mapping-Datei im AAB (BUNDLE-METADATA) nicht. Ohne Absturzberichte wird sie nicht gebraucht.
+composeCompiler {
+    includeComposeMappingFile.set(false)
+}
+
 android {
     namespace = "com.cryptochecker.app"
     compileSdk = libs.versions.compileSdk.get().toInt()
