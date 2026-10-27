@@ -2533,8 +2533,10 @@ after the encryption step.
   settings, notifications or widgets: `SettingsRepository` (with `MarketAlertReset` → zone/gas workers),
   `BackupManager*`, `SparklineRepository`, `LivePriceStream`, `MarketRepositoryImpl`, `CoinLogoSync`,
   `SheetChartRepository`, `PortfolioAlarms`, `WatchedAddressRefresher`, `DayReferences`, `ActivityMonitor`. Hilt modules
-  stay in `:app`. CI: `:data:lintRelease`, coverage `data=data`, device-test paths, `data/gradle.lockfile`; source-guard
-  tests look in `android/data` too.
+  stay in `:app`. `data/src/main/AndroidManifest.xml` declares INTERNET and ACCESS_NETWORK_STATE (lint `MissingPermission`
+  in the library; the merged manifest is unchanged). CI: `:data:lintRelease`, coverage `data=data`, device-test paths,
+  `data/gradle.lockfile`, `user_agent_check.py` reads `android/data/…/HttpUserAgent.kt`; source-guard tests look in
+  `android/data` too.
 * Build 141 (R, step 6): `PriceRefresher` (+ `PriceRefresherAfter`, `…Deferred`, `…One`) and `WidgetRefreshState` in
   `:domain`. New ports in `domain/refresh/PriceRefresherPorts.kt`: `RefresherStore` (watch list, alarms,
   `clearChanges`, `fillChange`), `RefresherStats`, `RefresherSparklines`, `RefresherOnline`, `RefresherWatchWidgets`,
