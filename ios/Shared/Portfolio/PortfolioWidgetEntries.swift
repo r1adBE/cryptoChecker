@@ -62,11 +62,17 @@ enum PortfolioWidgetEntries {
             book.apply(e)
             let delta = book.total - before
             if delta == 0 { continue }
-            out.append(PortfolioWidgetEntry(time: e.trade.time, quantity: PortfolioDecimal.double(delta),
+            out.append(PortfolioWidgetEntry(time: e.trade.time, quantity: nearestDouble(delta),
                                             note: shortNote(e.trade.note), value: nil))
             if out.count > maxPerCoin { return [] }
         }
         return out
+    }
+
+    /// Nächstgelegene Double-Zahl zum Dezimalwert (über den Text, wie Kotlin `BigDecimal.toDouble`): `doubleValue` von
+    /// NSDecimalNumber liegt teils eine Stelle daneben (0.49 → 0.49000000000000005).
+    static func nearestDouble(_ value: Decimal) -> Double {
+        Double(value.description) ?? PortfolioDecimal.double(value)
     }
 
     /// `entries` mit heutigem Wert: Menge × `price` (USDT) × `factor`; ohne Kurs bleibt der Wert leer.
