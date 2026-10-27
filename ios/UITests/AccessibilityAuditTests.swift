@@ -154,12 +154,16 @@ final class AccessibilityAuditTests: XCTestCase {
             }
             return known
         }
-        // Langsamer CI-Mac: «Audit failed to complete in time» (Code -56) einmal wiederholen, dann zählt der Fehler
-        do {
-            try app.performAccessibilityAudit(for: .all, handler)
-        } catch let error as NSError where error.code == -56 {
-            print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits, zweiter Versuch")
-            try app.performAccessibilityAudit(for: .all, handler)
+        // Langsamer CI-Mac: «Audit failed to complete in time» (Code -56) bis zu zweimal wiederholen (nach kurzer Pause,
+        // damit der Simulator aufholt), dann zählt der Fehler. Befunde selbst werden nie wiederholt, nur die Zeitgrenze
+        for attempt in 1...3 {
+            do {
+                try app.performAccessibilityAudit(for: .all, handler)
+                return
+            } catch let error as NSError where error.code == -56 && attempt < 3 {
+                print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits, Versuch \(attempt + 1)")
+                _ = XCTWaiter.wait(for: [XCTestExpectation(description: "audit retry")], timeout: 5)
+            }
         }
     }
 }
