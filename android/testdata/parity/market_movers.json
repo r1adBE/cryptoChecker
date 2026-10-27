@@ -1,5 +1,5 @@
 {
- "_comment": "«Gewinner und Verlierer 24 h» (MarketMovers): gemeinsam für MarketMoversParityTest.kt und MarketMoversTests.swift. Ausschluss von Stablecoins und Doppelgängern: dieselbe Regel auf beiden Plattformen (CoinExclusion, Testfälle in stable_exclusion.json).",
+ "_comment": "«Gewinner und Verlierer 24 h» (MarketMovers): gemeinsam für MarketMoversParityTest.kt und MarketMoversTests. Ausschluss von Stablecoins und Doppelgängern: dieselbe Regel auf beiden Plattformen (CoinExclusion, Testfälle in stable_exclusion.json).",
  "universe": 100,
  "count": 5,
  "minCoins": 10,

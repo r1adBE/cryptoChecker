@@ -13,7 +13,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** «Gewinner und Verlierer 24 h» aus `market_movers.json` (iOS: `MarketMoversTests.swift`). */
+/** «Gewinner und Verlierer 24 h» aus `market_movers.json` (iOS: `MarketMoversTests`). */
 class MarketMoversParityTest {
 
     private val data = ParityJson.load("market_movers.json")

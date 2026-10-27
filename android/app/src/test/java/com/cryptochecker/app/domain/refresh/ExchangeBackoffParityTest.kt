@@ -10,7 +10,7 @@ import org.junit.Test
 /**
  * Pausen nach «zu viele Anfragen» — vor allem: eine unmögliche gespeicherte Pause (weiter als 6 h in der Zukunft)
  * zählt nirgends (`exchange_backoff.json`, geteilt mit iOS). Die Fälle «merge» gibt es nur auf iOS.
- * Wie `ExchangeBackoffParityTests.swift`.
+ * Wie `ExchangeBackoffParityTests`.
  */
 class ExchangeBackoffParityTest {
 

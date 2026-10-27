@@ -13,7 +13,7 @@ import java.io.File
 /**
  * Regeln zum eigenen Bitcoin-Server (`testdata/parity/address_server_ui.json`): Eingabe kürzen, Pausen-Schlüssel,
  * Sperr-Ausnahme, Testergebnis zur Eingabe, Rückfrage vor dem Wechsel auf öffentliche Knoten. Gegenstück:
- * `Tests/AddressServerRulesParityTests.swift`.
+ * `Tests/AddressServerRulesParityTests`.
  */
 class AddressServerRulesParityTest {
 

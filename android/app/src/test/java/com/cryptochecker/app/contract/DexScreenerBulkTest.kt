@@ -8,7 +8,7 @@ import org.junit.Test
 
 /**
  * Sammelabfrage von DexScreener: Pools derselben Chain in einer Anfrage (`/latest/dex/pairs/{chain}/{a,b,…}`),
- * höchstens 30 Adressen je Anfrage. Gleiche Fälle in `DexScreenerBulkTests.swift`.
+ * höchstens 30 Adressen je Anfrage. Gleiche Fälle in `DexScreenerBulkTests`.
  */
 class DexScreenerBulkTest {
 

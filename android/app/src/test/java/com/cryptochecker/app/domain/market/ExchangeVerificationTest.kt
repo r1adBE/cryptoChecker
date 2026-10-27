@@ -10,7 +10,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-/** Datum «zuletzt gegen echte Antworten geprüft» passt zu den Aufnahmen (iOS: `ExchangeVerificationTests.swift`). */
+/** Datum «zuletzt gegen echte Antworten geprüft» passt zu den Aufnahmen (iOS: `ExchangeVerificationTests`). */
 class ExchangeVerificationTest {
 
     /** `testdata/exchanges/recorded` oberhalb des Arbeitsverzeichnisses. */

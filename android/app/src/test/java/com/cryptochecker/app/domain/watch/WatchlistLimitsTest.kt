@@ -6,7 +6,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Obergrenzen der Merkliste — gleiche Fälle wie `WatchlistLimitsTests.swift`. */
+/** Obergrenzen der Merkliste — gleiche Fälle wie `WatchlistLimitsTests`. */
 class WatchlistLimitsTest {
 
     @Test

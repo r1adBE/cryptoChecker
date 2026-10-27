@@ -20,7 +20,7 @@ import java.net.Proxy
 /**
  * Neutraler User-Agent der Adressabfragen (`testdata/parity/address_privacy.json`): gleicher Wert wie
  * iOS, ohne App-Name/Version; Host-Regel (Adress-Hosts immer neutral, auch Gebühren/Halving) und eigener
- * Verbindungs-Pool des Adress-Clients. Gegenstück: `Tests/AddressPrivacyParityTests.swift`.
+ * Verbindungs-Pool des Adress-Clients. Gegenstück: `Tests/AddressPrivacyParityTests`.
  */
 class AddressPrivacyParityTest {
 

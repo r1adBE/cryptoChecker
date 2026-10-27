@@ -257,7 +257,7 @@ final class AlarmLogicTests: XCTestCase {
         XCTAssertFalse(AlarmEvaluator.shouldTrigger(alarm: a, price: 1000, previousPrice: 1, now: now, cooldownMinutes: 0))
     }
 
-    /// Bestätigung nach dem Speichern eines Alarms — gleiche Fälle wie `AlarmSavedTextTest.kt` (Android).
+    /// Bestätigung nach dem Speichern eines Alarms — gleiche Fälle wie `AlarmSavedTextTest` (Android).
     func testSavedText() {
         let de = Locale(identifier: "de")
         let condition = AlarmSavedText.pairCondition(symbol: "BTC", title: "Kurs über 70’000 USDT")
@@ -275,7 +275,7 @@ final class AlarmLogicTests: XCTestCase {
         XCTAssertEqual(AlarmSavedText.detail(condition: "BTC", frequency: "", notificationsOff: nil, locale: de), "BTC")
     }
 
-    /// Hinweis «Wann Alarme geprüft werden» — wie `AlarmTimingHintTest.kt`.
+    /// Hinweis «Wann Alarme geprüft werden» — wie `AlarmTimingHintTest`.
     func testAlarmTimingHint() {
         XCTAssertTrue(AlarmTimingHint.shouldShow(alreadyShown: false, firstAlarmDialog: false))
         // Schon gezeigt
@@ -288,7 +288,7 @@ final class AlarmLogicTests: XCTestCase {
     }
 
     /// Ein Satz, kurz genug für die Bestätigung des ersten Alarms; der Weg nennt die Seite
-    /// «Kurs-Aktualisierung» direkt unter «Einstellungen» — wie `AlarmTimingHintTest.kt`.
+    /// «Kurs-Aktualisierung» direkt unter «Einstellungen» — wie `AlarmTimingHintTest`.
     func testAlarmTimingHintTextIsOneShortSentence() {
         let text = AlarmTimingHint.text
         XCTAssertFalse(text.isEmpty)

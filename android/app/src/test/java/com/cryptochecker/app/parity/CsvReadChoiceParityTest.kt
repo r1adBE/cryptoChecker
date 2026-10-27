@@ -8,7 +8,7 @@ import org.junit.Test
 
 /**
  * Review FUN-01: «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen
- * Lesart (`csv_import.json` › «confirmGate»). Gegenstück: `Tests/CsvReadChoiceTests.swift`.
+ * Lesart (`csv_import.json` › «confirmGate»). Gegenstück: `Tests/CsvReadChoiceTests`.
  */
 class CsvReadChoiceParityTest {
 

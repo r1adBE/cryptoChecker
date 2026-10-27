@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Wie `AlarmSignalTest.kt` (soweit iOS die Werte kennt), `PriceColorSchemeTest.kt` und
+/// Wie `AlarmSignalTest` (soweit iOS die Werte kennt), `PriceColorSchemeTest.kt` und
 /// `ActivitySensitivityTest.kt`.
 final class AlarmSignalTests: XCTestCase {
 

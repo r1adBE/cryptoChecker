@@ -12,7 +12,7 @@ import org.junit.Test
 /**
  * «Testen» des eigenen Servers ([AddressServerTestRun]): Test A abbrechen (Eingabe geändert), erneut A testen — das
  * späte Ergebnis des ersten Abrufs (der den Abbruch nicht bemerkt) überschreibt Running(A) des zweiten nicht.
- * Gegenstück: `AddressServerTestRunTests.swift`.
+ * Gegenstück: `AddressServerTestRunTests`.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class AddressServerTestRunTest {

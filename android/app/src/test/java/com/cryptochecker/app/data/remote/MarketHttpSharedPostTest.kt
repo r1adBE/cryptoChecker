@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Gleiche gleichzeitige POST-Abfragen gehen nur einmal ins Netz (InFlightRequests), etwa Hyperliquid
  * «metaAndAssetCtxs» (~100 KB, für jedes Paar dieselbe Antwort). Andere Körper bleiben getrennt.
- * Wie `MarketHTTPSharedPostTests.swift`.
+ * Wie `MarketHTTPSharedPostTests`.
  */
 class MarketHttpSharedPostTest {
 

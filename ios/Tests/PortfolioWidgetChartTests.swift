@@ -599,7 +599,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         XCTAssertEqual(top.others, 15 - PortfolioWidgetStore.maxPositions)
     }
 
-    // MARK: Währung (wie WidgetQuoteTextTest.kt)
+    // MARK: Währung (wie WidgetQuoteTextTest)
 
     func testQuoteSplitFindsCurrencyAfterNumber() {
         let a = WidgetQuoteText.split("67’000.00 USDT", quote: "USDT")

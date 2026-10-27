@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Wie `PortfolioInsightsTest.kt`: Aufteilung, Grösste Bewegungen, Beträge verbergen.
+/// Wie `PortfolioInsightsTest`: Aufteilung, Grösste Bewegungen, Beträge verbergen.
 final class PortfolioInsightsTests: XCTestCase {
 
     private let d = 1e-9

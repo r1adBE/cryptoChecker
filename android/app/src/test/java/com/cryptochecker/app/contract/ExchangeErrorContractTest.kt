@@ -18,7 +18,7 @@ import java.io.File
  * [ExchangeContractTest] (die Datei ist ein gewöhnliches `exchange_*.json`); hier die Regeln darum herum:
  * jeder Fall ist als synthetisch gekennzeichnet, ergibt keinen Kurs (Einzelkurs = Fehler, Sammelabfrage = Fehler
  * oder leer), `httpStatus` + Antwort ergeben genau dann 429, wenn `rateLimit` gilt, und `messageRateLimit`
- * sagt, ob schon der Fehlertext der Börse als «zu viele Anfragen» zählt. Wie `ExchangeErrorContractTests.swift`.
+ * sagt, ob schon der Fehlertext der Börse als «zu viele Anfragen» zählt. Wie `ExchangeErrorContractTests`.
  */
 class ExchangeErrorContractTest {
 

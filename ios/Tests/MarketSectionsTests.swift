@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Markt-Tab: drei Register, Start mit «Jetzt», Teile je Register, Ladezeile, Wischen,
-/// Register des Wirtschaftsdaten-Hinweises — wie `MarketSectionsTest.kt`.
+/// Register des Wirtschaftsdaten-Hinweises — wie `MarketSectionsTest`.
 final class MarketSectionsTests: XCTestCase {
 
     func testStartsWithNow() {

@@ -11,7 +11,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDate
 
-/** Gemeinsame Testfälle `tax_day_close.json` (iOS: `TaxDayCloseParityTests.swift`). */
+/** Gemeinsame Testfälle `tax_day_close.json` (iOS: `TaxDayCloseParityTests`). */
 class TaxDayCloseParityTest {
 
     private val data = ParityJson.load("tax_day_close.json")

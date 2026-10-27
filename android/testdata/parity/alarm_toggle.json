@@ -1,5 +1,5 @@
 {
-  "_comment": "Review FUN3-02/UX3-06: Paar-Alarm per Schalter (Karte, Übersicht) ein- bzw. ausschalten. Ein fallender Prozent-Alarm (CHANGE_PERCENT_DOWN, OI_DOWN) ab 100 % löst nie aus (Android AlarmJson.exceedsFall, iOS BackupManager.exceedsFall) — Einschalten ist nicht erlaubt (Schalter deaktiviert, Hinweis «Schwelle ungültig – bitte anpassen» bleibt; der Schreibweg lehnt ebenfalls ab), Ausschalten immer. Android: AlarmJson.toggleAllowed (AlarmToggleParityTest.kt), iOS: BackupManager.toggleAllowed (AlarmToggleParityTests.swift).",
+  "_comment": "Review FUN3-02/UX3-06: Paar-Alarm per Schalter (Karte, Übersicht) ein- bzw. ausschalten. Ein fallender Prozent-Alarm (CHANGE_PERCENT_DOWN, OI_DOWN) ab 100 % löst nie aus (Android AlarmJson.exceedsFall, iOS BackupManager.exceedsFall) — Einschalten ist nicht erlaubt (Schalter deaktiviert, Hinweis «Schwelle ungültig – bitte anpassen» bleibt; der Schreibweg lehnt ebenfalls ab), Ausschalten immer. Android: AlarmJson.toggleAllowed (AlarmToggleParityTest), iOS: BackupManager.toggleAllowed (AlarmToggleParityTests).",
   "cases": [
     {"name": "percent down 100, switch on", "condition": "CHANGE_PERCENT_DOWN", "threshold": 100, "enable": true, "allowed": false},
     {"name": "percent down 150, switch on", "condition": "CHANGE_PERCENT_DOWN", "threshold": 150, "enable": true, "allowed": false},

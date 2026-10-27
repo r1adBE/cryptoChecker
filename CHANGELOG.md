@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 147)
+
+* Tests only (no change in the apps): 132 small test files merged by topic into 30 files (16 Android, 14 iOS) – each test class unchanged, same names and fixtures.
+
 ## 16.2.2 (build 146)
 
 * Android code structure (no change for users): `:domain` no longer uses Android or Timber types for its stored state and logging – the alarm snooze, the last USDT/USD reading, the bulk delisted state and the background error counter read and write through a small key-value interface (the app keeps the same SharedPreferences files), and the domain logs through `DomainLog`, which the app forwards to Timber. Step towards Kotlin Multiplatform.

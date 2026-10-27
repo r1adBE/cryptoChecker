@@ -135,7 +135,7 @@ final class MacroRescheduleQueueTests: XCTestCase {
     }
 }
 
-/// Fear & Greed nach geänderter Grenze — wie `MarketNoticeGateTest.kt` (Android).
+/// Fear & Greed nach geänderter Grenze — wie `MarketNoticeGateTest` (Android).
 final class FearGreedBoundChangeTests: XCTestCase {
     func testChangedBoundNotifiesUnchangedDoesNotRepeat() {
         XCTAssertTrue(MarketNoticeGate.boundChanged(stored: 10, current: 20))
