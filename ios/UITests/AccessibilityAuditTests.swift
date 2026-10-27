@@ -157,25 +157,28 @@ final class AccessibilityAuditTests: XCTestCase {
             }
             return known
         }
-        // Je Prüfart ein eigenes Audit statt `.all` in einem Durchgang: jedes ist kürzer, die Zeitgrenze (Code -56) wird
+        // In drei Gruppen von Prüfarten statt `.all` in einem Durchgang: jede ist kürzer, die Zeitgrenze (Code -56) wird
         // seltener erreicht. Ein zweites `.all`-Audit gleich nach einer Zeitgrenze liess den Test-Runner abstürzen
-        // («Restarting after unexpected exit», main Build 147, Rechts-nach-links). Langsamer CI-Mac: je Art bis zu
-        // zweimal wiederholen (nach kurzer Pause), dann zählt der Fehler. Befunde selbst werden nie wiederholt
-        for type in Self.auditTypes {
+        // («Restarting after unexpected exit», main Build 147, Rechts-nach-links); jede Art einzeln war zu langsam (Schritt
+        // über 30 min). Langsamer CI-Mac: je Gruppe bis zu zweimal wiederholen (nach kurzer Pause), dann zählt der Fehler.
+        // Befunde selbst werden nie wiederholt
+        for type in Self.auditGroups {
             for attempt in 1...3 {
                 do {
                     try app.performAccessibilityAudit(for: type, handler)
                     break
                 } catch let error as NSError where error.code == -56 && attempt < 3 {
-                    print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits (\(type.rawValue)), Versuch \(attempt + 1)")
+                    print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits (Gruppe \(type.rawValue)), Versuch \(attempt + 1)")
                     _ = XCTWaiter.wait(for: [XCTestExpectation(description: "audit retry")], timeout: 5)
                 }
             }
         }
     }
 
-    /// Alle Prüfarten von `.all`, einzeln geprüft.
-    static let auditTypes: [XCUIAccessibilityAuditType] = [
-        .contrast, .elementDetection, .hitRegion, .sufficientElementDescription, .dynamicType, .textClipped, .trait,
+    /// Alle Prüfarten von `.all` in drei Gruppen: Kontrast; Schrift (Dynamic Type, abgeschnitten); Elemente.
+    static let auditGroups: [XCUIAccessibilityAuditType] = [
+        .contrast,
+        [.dynamicType, .textClipped],
+        [.elementDetection, .hitRegion, .sufficientElementDescription, .trait],
     ]
 }

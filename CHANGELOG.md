@@ -18,7 +18,7 @@ Detailed build history below.
 ## 16.2.2 (build 149)
 
 * New: compare 2 to 4 pairs. In the watchlist, long-press to select pairs and tap «Compare»: one line per pair in % since the start of the period (24h or «Today», 7 days, 30 days, 1 year), below each pair its price, 24h, 7 days, 30 days and the distance to the 30-day high. Every line has its own colour and dash style. Uses the same candles as the pair's chart – no extra server. TalkBack/VoiceOver read the chart and each row. Android and iPhone, 31 languages.
-* Tests: the iOS accessibility audit checks each audit type on its own (shorter runs, fewer timeouts; a second full audit right after a timeout crashed the test runner on main 147), and the CI now also reports UI test cases that fail without an error line of their own.
+* Tests: the iOS accessibility audit runs in three groups of audit types (shorter runs, fewer timeouts; UI test step limit 45 min; a second full audit right after a timeout crashed the test runner on main 147), and the CI now also reports UI test cases that fail without an error line of their own.
 
 ## 16.2.2 (build 148)
 
