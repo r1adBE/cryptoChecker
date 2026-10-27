@@ -3,6 +3,7 @@
 // denselben Weg wie die Kursalarme ([AlarmCheckRun.report]).
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.domain.alarm.DerivativesValues
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
@@ -83,7 +84,7 @@ internal class AlarmCheckRun(
     var nearLoaded = false
 
     // Funding/Open Interest: nur für Paare mit solchen Alarmen, je Paar höchstens alle 5 Min. abgefragt
-    var derivatives: DerivativesAlarmData.Values? = null
+    var derivatives: DerivativesValues? = null
     var derivativesLoaded = false
 
     /** Ausgelösten Alarm melden (wie die Kursalarme, siehe `report` in [RefreshEffects.checkAlarms]). */

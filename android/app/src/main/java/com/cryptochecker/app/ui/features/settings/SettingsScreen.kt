@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.settings.labelRes
 import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.navigation.ScreenRoute

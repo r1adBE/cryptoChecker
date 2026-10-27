@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.domain.convert.FxCurrencies
 import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import kotlinx.coroutines.CancellationException
@@ -154,11 +155,7 @@ class FxRateSource @Inject constructor(
         private const val STALE_MILLIS = 24 * 60 * 60_000L
         private const val REQUEST_TIMEOUT_MILLIS = 10_000L
 
-        /** Wählbare Zielwährungen (EZB-Referenzkurse), die gebräuchlichsten zuerst. */
-        val CURRENCIES = listOf(
-            "CHF", "EUR", "USD", "GBP", "JPY", "CAD", "AUD", "SEK", "NOK", "DKK", "PLN", "CZK",
-            "HUF", "RON", "BGN", "ISK", "TRY", "CNY", "HKD", "SGD", "KRW", "INR", "IDR", "THB",
-            "MYR", "PHP", "NZD", "ZAR", "BRL", "MXN", "ILS",
-        )
+        /** Wählbare Zielwährungen (EZB-Referenzkurse), die gebräuchlichsten zuerst ([FxCurrencies.ALL]). */
+        val CURRENCIES = FxCurrencies.ALL
     }
 }

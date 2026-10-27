@@ -11,6 +11,7 @@ import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.PriceColorScheme
 import com.cryptochecker.app.settings.SettingsSearchEntry
 import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.settings.labelRes
 import com.cryptochecker.app.util.ChangeBasisText
 
 /** Ein Eintrag der Suche mit seinem Ziel. */

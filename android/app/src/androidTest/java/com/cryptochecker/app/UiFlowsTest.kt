@@ -325,7 +325,9 @@ class UiFlowsTest {
                 compose.waitUntil(DIALOG_TIMEOUT) { compose.onAllNodes(ok).fetchSemanticsNodes().isNotEmpty() }
             }.isSuccess
             if (!shown) return
-            compose.onAllNodes(ok).onFirst().performClick()
+            // Der Dialog kann zwischen Finden und Tippen verschwinden (Ausblende-Animation des vorigen Dialogs
+            // bzw. Neuaufbau): dann ist nichts mehr zu bestätigen, kein Fehler
+            runCatching { compose.onAllNodes(ok).onFirst().performClick() }
             compose.waitForIdle()
         }
     }

@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.layout.Arrangement
+import com.cryptochecker.app.settings.logoRes
 import com.cryptochecker.app.ui.components.ListSegment
 import com.cryptochecker.app.ui.components.segmentLines
 import androidx.compose.foundation.Image

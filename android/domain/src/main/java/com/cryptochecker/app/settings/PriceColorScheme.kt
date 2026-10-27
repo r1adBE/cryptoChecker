@@ -206,7 +206,7 @@ class PriceTone(
  * Geteilte Fassungen. Alle AA (≥ 4.5:1) bzw. AAA (≥ 7:1) auf allen Flächen (PriceColorSchemeTest);
  * ΔE2000 ≥ 24 zu den Akzenten, für die sie einspringen. Wie iOS `PriceTone`.
  */
-internal object PriceTones {
+object PriceTones {
     val CALM_GREEN = PriceTone(0xFF396E54.toInt(), 0xFF61AE87.toInt(), 0xFF294F3C.toInt(), 0xFFA1CFB8.toInt())
 
     /**

@@ -11,9 +11,9 @@ class DerivativesAlarmDataCacheTest {
 
     @Test
     fun valuesCountAsDataWhenOneIsPresent() {
-        assertTrue(DerivativesAlarmData.hasData(DerivativesAlarmData.Values(0.01, null, at)))
-        assertTrue(DerivativesAlarmData.hasData(DerivativesAlarmData.Values(null, 1_000.0, at)))
-        assertFalse(DerivativesAlarmData.hasData(DerivativesAlarmData.Values(null, null, at)))
+        assertTrue(DerivativesAlarmData.hasData(DerivativesValues(0.01, null, at)))
+        assertTrue(DerivativesAlarmData.hasData(DerivativesValues(null, 1_000.0, at)))
+        assertFalse(DerivativesAlarmData.hasData(DerivativesValues(null, null, at)))
     }
 
     @Test
