@@ -3,7 +3,7 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import java.util.concurrent.ConcurrentHashMap
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 
 /**
  * Quellen, die mit 451/403 geantwortet haben (Geo-Sperre, z. B. Binance in den USA).
@@ -44,7 +44,7 @@ object BlockedSources {
         if (error !is HttpMarketError) return false
         if (error.httpCode == 451 || error.httpCode == 403) {
             blockedUntil[key] = System.currentTimeMillis() + BLOCK_MILLIS
-            Timber.i("Quelle gesperrt (HTTP %d), überspringe sie 6 h: %s", error.httpCode, key)
+            DomainLog.i("Quelle gesperrt (HTTP %d), überspringe sie 6 h: %s", error.httpCode, key)
             return true
         }
         if (ExchangeBackoff.isRateLimitCode(error.httpCode)) {
@@ -53,7 +53,7 @@ object BlockedSources {
             val state = groupPauses.compute(group) { _, old ->
                 ExchangeBackoff.groupPause(old, now, error.httpCode, error.retryAfterSeconds)
             }
-            Timber.i(
+            DomainLog.i(
                 "Zu viele Anfragen (HTTP %d) von %s: alle Endpunkte von %s pausiert bis %d",
                 error.httpCode, key, group, state?.pausedUntil ?: now,
             )

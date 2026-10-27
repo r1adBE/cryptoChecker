@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 import java.util.concurrent.atomic.AtomicReference
 
 /**
@@ -109,7 +109,7 @@ class PriceRefresher(
         // zeigt «Offline · Stand …». Kommt das Netz zurück, aktualisiert ManualRefresh einmal.
         // Nur für Vordergrund-/Live-Wege; der Job vertraut seiner Netz-Bedingung.
         if (!networkGuaranteed && !connectivity.isOnline()) {
-            Timber.i("Aktualisierung übersprungen: offline")
+            DomainLog.i("Aktualisierung übersprungen: offline")
             return RefreshSummary()
         }
         val (summary, prices) = refreshAllGuarded(deadlineAt)
@@ -199,7 +199,7 @@ class PriceRefresher(
         val watches = allWatches.filterNot { it.id in liveIds }
         if (watches.isEmpty()) {
             // Alles kommt live: Kurse sind aktuell — Zeit (Widget-Kopfzeile) wie nach einer Aktualisierung
-            Timber.i("Aktualisierung: alle %d Paare live", allWatches.size)
+            DomainLog.i("Aktualisierung: alle %d Paare live", allWatches.size)
             refreshStats.setLastFullRefresh(refreshStats.lastDurationMillis.value)
             return RefreshSummary(durationMillis = System.currentTimeMillis() - startedAt)
         }
@@ -350,7 +350,7 @@ class PriceRefresher(
             notifications = processed.notificationsShown,
             widgetMillis = widgetMillis,
         )
-        Timber.i("Aktualisierung: %s", finished)
+        DomainLog.i("Aktualisierung: %s", finished)
         refreshStats.setLastReport(finished)
         report.set(finished)
 

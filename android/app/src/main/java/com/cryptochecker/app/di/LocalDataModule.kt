@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.MarketDao
+import com.cryptochecker.app.data.local.SharedPreferencesStores
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
 import com.cryptochecker.app.data.portfolio.PortfolioDao
@@ -18,6 +19,7 @@ import com.cryptochecker.app.domain.refresh.CheckRunStore
 import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.notification.PortfolioAlarmDeliveryMarkers
 import com.cryptochecker.app.notification.PrefsAlarmDeliveryMarkers
+import com.cryptochecker.app.util.KeyValueStores
 import com.cryptochecker.app.widget.PortfolioSnapshotKeyStore
 import com.cryptochecker.app.widget.PortfolioSnapshotSeal
 import dagger.Module
@@ -33,6 +35,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalDataModule {
+
+    // ---- Kleine Einstellungsdateien der Regeln in :domain (Pausen, Messungen, Stände)
+
+    @Provides
+    @Singleton
+    fun provideKeyValueStores(@ApplicationContext context: Context): KeyValueStores = SharedPreferencesStores(context)
 
     // ---- Datenbanken
 

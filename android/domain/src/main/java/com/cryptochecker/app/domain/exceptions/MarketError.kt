@@ -1,6 +1,5 @@
 package com.cryptochecker.app.domain.exceptions
 
-import android.os.DeadSystemException
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.MarketFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
@@ -40,15 +39,16 @@ open class MarketError : Exception {
  * den ganzen Durchlauf mit (gleich wie [com.cryptochecker.app.data.remote.util.runCatchingCancellable]).
  */
 suspend fun Exception.rethrowIfCritical() {
-    when (this) {
-        is DeadSystemException -> throw this
-        is CancellationException -> {
-            // Selbst abgebrochen: wirft hier
-            currentCoroutineContext().ensureActive()
-            if (this !is TimeoutCancellationException) throw this
-        }
+    // android.os.DeadSystemException (System-Server tot) nach Namen, ohne Android-Typ in :domain
+    if (javaClass.name == DEAD_SYSTEM) throw this
+    if (this is CancellationException) {
+        // Selbst abgebrochen: wirft hier
+        currentCoroutineContext().ensureActive()
+        if (this !is TimeoutCancellationException) throw this
     }
 }
+
+private const val DEAD_SYSTEM = "android.os.DeadSystemException"
 
 /** Ordnet einen beliebigen Fehler einer [MarketError]-Art zu (Zeitüberschreitung, Netz, unbekannt). */
 fun parseMarketError(ex: Throwable): MarketError = when (ex) {

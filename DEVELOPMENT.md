@@ -2521,6 +2521,12 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 146 (KMP prep, part 1): `util/KeyValueStore` + `KeyValueStores` in `:domain`, SharedPreferences adapter
+  `data/local/SharedPreferencesStores` (same file names), provided in `LocalDataModule`; `AlarmSnoozeStore`,
+  `DepegReadingStore`, `BulkDelistedStore` and `BackgroundErrorCounter.install` use it. `util/DomainLog` replaces
+  Timber in `:domain` (sink set in `CryptoCheckerApp`). `rethrowIfCritical` recognises `DeadSystemException` by class
+  name. Still Android/JVM-bound in `:domain`: Room annotations on `WatchEntity`/`AlarmEntity`, `org.json`, OkHttp's URL
+  parser in `LogoUrlPolicy`; the unused `timber`/`core-ktx` dependencies go at the next lockfile update.
 * Build 145: portfolio widget list with bookings per coin – `PortfolioWidgetEntries` (Android `:domain`, iOS
   `Shared/Portfolio`): one entry per ledger step with a holdings change (`PortfolioLedger.events` +
   `PortfolioHoldingsBook`, so «both» sums to the holding), note via `shortNote` (6 graphemes + «…»), today's value,

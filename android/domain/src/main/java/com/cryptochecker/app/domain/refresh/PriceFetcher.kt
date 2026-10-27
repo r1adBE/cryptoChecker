@@ -19,7 +19,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withTimeoutOrNull
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -179,9 +179,9 @@ class PriceFetcher @Inject constructor(
                 )
             }
         }
-            .onFailure { Timber.w(it, "Massenabfrage fehlgeschlagen: %s", sample.marketName) }
+            .onFailure { DomainLog.w(it, "Massenabfrage fehlgeschlagen: %s", sample.marketName) }
             .onSuccess { r ->
-                if (BulkTickerRows.isFormatError(r.error)) Timber.w("Massenabfrage Formatfehler: %s — %s", sample.marketName, r.error)
+                if (BulkTickerRows.isFormatError(r.error)) DomainLog.w("Massenabfrage Formatfehler: %s — %s", sample.marketName, r.error)
             }
             .getOrDefault(BulkTickers())
         return BulkResult(tickers, cut)
@@ -231,7 +231,7 @@ class PriceFetcher @Inject constructor(
                 // gelten nur als Fehler dieses Paares. Abbrechen nur, wenn der
                 // Durchlauf selbst abgebrochen wurde.
                 currentCoroutineContext().ensureActive()
-                Timber.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
+                DomainLog.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
                 Fetched(null, failure.message, fromSingle = true, failure = failure.toMarketFailure())
             }
         )

@@ -1,8 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
-import android.content.Context
-import androidx.core.content.edit
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.cryptochecker.app.util.KeyValueStores
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,12 +13,12 @@ import javax.inject.Singleton
  */
 @Singleton
 class BulkDelistedStore @Inject constructor(
-    @param:ApplicationContext private val context: Context,
+    private val stores: KeyValueStores,
 ) {
-    private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
+    private val prefs by lazy { stores.open(PREFS) }
 
     /** Beim ersten Zugriff aus der Datei geladen; danach massgebend für diesen Prozess. */
-    private val states by lazy { ConcurrentHashMap(BulkDelisted.decode(prefs.getString(KEY, null))) }
+    private val states by lazy { ConcurrentHashMap(BulkDelisted.decode(prefs.getString(KEY))) }
 
     operator fun get(marketKey: String): BulkDelisted.State? = states[marketKey]
 

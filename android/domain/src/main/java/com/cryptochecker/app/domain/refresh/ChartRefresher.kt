@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeoutOrNull
-import timber.log.Timber
+import com.cryptochecker.app.util.DomainLog
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -67,7 +67,7 @@ class ChartRefresher(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                Timber.d(e, "Widget-Charts nicht nachgeladen")
+                DomainLog.d(e, "Widget-Charts nicht nachgeladen")
             }
         }
     }
