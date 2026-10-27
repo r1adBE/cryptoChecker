@@ -32,8 +32,15 @@ class WatchRepositoryCallGuardTest {
                 .firstOrNull { it.isDirectory },
             "src/main/java/com/cryptochecker/app",
         )
-        val repo = File(root, "data").listFiles { f -> f.name.startsWith("WatchRepository") && f.extension == "kt" }!!
+        // WatchRepository liegt seit Build 142 im Modul :data (gleiches Paket)
+        val dataRoot = SourceGuard.android(
+            listOf("../data/src/main/java/com/cryptochecker/app", "data/src/main/java/com/cryptochecker/app").map(::File)
+                .firstOrNull { it.isDirectory },
+            "data/src/main/java/com/cryptochecker/app",
+        )
+        val repo = File(dataRoot, "data").listFiles { f -> f.name.startsWith("WatchRepository") && f.extension == "kt" }!!
             .map { strip(it.readText()) }
+        assertTrue("WatchRepository*.kt nicht gefunden", repo.isNotEmpty())
         val paths = writePaths(repo)
         // Folge-Schreibwege fragen nie und lehnen nie ab (`userWriteRefused(notify = false)`): laufen nur nach einem
         // bestätigten Schreibweg (Meldekurs nach dem Einschalten, Prozent-Bezug nach dem Paarwechsel)

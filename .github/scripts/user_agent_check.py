@@ -2,7 +2,7 @@
 """Neutral User-Agent of the address queries (release-readiness.yml). Appends findings for annotate.py.
 
 The apps send a common full browser value to every host that sees a wallet address, so the host cannot tie the
-address to the app (HttpUserAgent.NEUTRAL in android/app/src/main/java/com/cryptochecker/app/data/remote/
+address to the app (HttpUserAgent.NEUTRAL in android/data/src/main/java/com/cryptochecker/app/data/remote/
 HttpUserAgent.kt, HttpUserAgent.neutral in ios/Shared/Core/HttpUserAgent.swift, shared test value «userAgent» in
 android/testdata/parity/address_privacy.json). A browser value only blends in while it is current.
 
@@ -29,7 +29,8 @@ import re
 import sys
 import tempfile
 
-ANDROID = "android/app/src/main/java/com/cryptochecker/app/data/remote/HttpUserAgent.kt"
+# Datenschicht seit Build 142 im Modul android/data (gleiches Paket)
+ANDROID = "android/data/src/main/java/com/cryptochecker/app/data/remote/HttpUserAgent.kt"
 IOS = "ios/Shared/Core/HttpUserAgent.swift"
 FIXTURE = "android/testdata/parity/address_privacy.json"
 BUILD_GRADLE = "android/app/build.gradle.kts"

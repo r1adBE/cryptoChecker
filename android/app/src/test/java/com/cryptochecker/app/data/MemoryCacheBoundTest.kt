@@ -53,7 +53,7 @@ class MemoryCacheBoundTest {
         )
         for (name in files) {
             val path = "src/main/java/com/cryptochecker/app/$name"
-            val file = listOf(File(path), File("app/$path")).first { it.exists() }
+            val file = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }
             val text = file.readText()
             assertFalse("$name: ConcurrentHashMap", text.contains("ConcurrentHashMap"))
             assertTrue("$name: BoundedCache", text.contains("BoundedCache"))
@@ -61,12 +61,16 @@ class MemoryCacheBoundTest {
         val historic = listOf(
             File("src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
             File("app/src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
+            File("../data/src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
+            File("data/src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
         ).first { it.exists() }.readText()
         assertTrue(historic.contains("routeMemo = BoundedCache"))
         // Eigene Kerzen (die Pausen je Host bleiben eine kleine Map, begrenzt durch die Zahl der Börsen)
         val ownCandles = listOf(
             File("src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
             File("app/src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
+            File("../data/src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
+            File("data/src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
         ).first { it.exists() }.readText()
         assertTrue(ownCandles.contains("cache = BoundedCache<String, Entry>(MEMORY_CACHE_ENTRIES)"))
         assertFalse(ownCandles.contains("cache = ConcurrentHashMap"))

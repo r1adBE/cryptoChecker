@@ -71,7 +71,7 @@ class AddressServerRulesParityTest {
     @Test
     fun keinStandardwertFuerBitcoinServer() {
         val path = "src/main/java/com/cryptochecker/app/data/portfolio/WatchedAddressSource.kt"
-        val text = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+        val text = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
         assertFalse(text.contains("btcServer: String? = null"))
     }
 

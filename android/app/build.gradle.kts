@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.room)
     // Baseline Profile: generiert von :baselineprofile, sonst gilt src/main/baseline-prof.txt
     alias(libs.plugins.baselineprofile)
 }
@@ -67,7 +66,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 141
+        versionCode = 142
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -137,6 +136,9 @@ android {
     sourceSets {
         getByName("androidTest") {
             assets.directories.add("$rootDir/testdata/uitest")
+            // Room-Schemas für die Migrationstests (RoomSchemaMigrationTest, MigrationTestHelper); exportiert von
+            // :data (Room-Plugin) in diesen Ordner — vorher legte das Room-Plugin in :app sie selbst bei
+            assets.directories.add("$projectDir/schemas")
         }
     }
 
@@ -210,16 +212,12 @@ androidComponents {
     }
 }
 
-// Room schreibt sein Schema hierhin; unter KSP geht das nur über das Room-Plugin.
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
 // Kotlin ist ab AGP 9 eingebaut; jvmTarget folgt compileOptions (Java 17).
 
 dependencies {
     implementation(project(":marketdata"))
     implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -255,7 +253,6 @@ dependencies {
     // Datenbank
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
     // SQLCipher: beide Room-Datenbanken verschlüsselt (EncryptingOpenHelperFactory); bringt libsqlcipher.so je ABI mit.
     // Nur das AAR ohne Abhängigkeiten (wie «…@aar»): androidx.sqlite (SupportSQLiteOpenHelper, sqlite-framework)
     // liefert room-runtime als api
@@ -312,8 +309,8 @@ dependencies {
     // WatchlistViewModelTest: Zustand mit Turbine über runTest beobachten
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.turbine)
-    // Migrationen aus app/schemas prüfen (RoomSchemaMigrationTest); die Schemas legt das Room-Plugin
-    // selbst als Assets des Test-APK bei
+    // Migrationen aus app/schemas prüfen (RoomSchemaMigrationTest); die Schemas liegen als Assets im Test-APK
+    // (sourceSets oben), exportiert von :data
     androidTestImplementation(libs.androidx.room.testing)
 
     // Gleiche Version in App und androidTest (sonst: «conflicting requirements … from lock file»
@@ -341,5 +338,6 @@ if (providers.gradleProperty("coverage").orNull == "true") {
     dependencies {
         add("kover", project(":marketdata"))
         add("kover", project(":domain"))
+        add("kover", project(":data"))
     }
 }

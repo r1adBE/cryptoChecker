@@ -13,7 +13,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 
 * Anzeigename: **Crypto Checker**
 * applicationId: `com.cryptochecker.app`
-* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `app` (die App)
+* Module: `marketdata` (Börsen-Bibliothek), `domain` (Fachlogik ohne Oberfläche und Speicher), `data` (Datenbanken, Repositories, Datenquellen), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
 * Version: **16.2.2** (versionCode siehe `app/build.gradle.kts` – steigt mit jedem Stand um eins)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
@@ -843,8 +843,10 @@ domain/       Fachlogik ohne Oberfläche und Datenbank-Zugriff (seit Build 136):
               Berechnungen (Alarme, Portfolio mit FIFO, Steuer-Engines und CSV-Import, «Warum bewegt
               es sich?», Frische, Fehlerarten, Markt-Kennzahlen, Futures-Quellen) und die Datenbank-Modelle; gleiche Pakete
               com.cryptochecker.app.* wie in app/
+data/         Speicher und Netz (seit Build 142): Room-Datenbanken mit DAOs und Verschlüsselung,
+              Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung; Schemas weiter unter app/schemas
 app/
-  data/       Room (watches, alarms, markets), Repositories, OkHttp
+  data/       Was noch an Einstellungen, Mitteilungen oder Widgets hängt (Sicherung, Logo-Abgleich, Kerzen)
   domain/     Abläufe, die noch Speicher oder Netz brauchen: PriceRefresher steuert die Aktualisierung, dazu
               PriceFetcher (Kurse holen), DayReferences (24-h-/Tages-Bezüge),
               RefreshEffects (Alarme, Kurs-Meldungen, Ansagen)

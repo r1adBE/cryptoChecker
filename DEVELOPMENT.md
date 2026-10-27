@@ -2521,6 +2521,22 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 142 (R, step 7): Gradle module `android/data` (Android library, namespace `com.cryptochecker.data`, KSP for
+  Hilt and Room, Room plugin) with 159 files: most of `app/…/data` (both databases, DAOs, entities of markets and
+  portfolio, `WatchRepository*`, `PortfolioRepository*`, data sources, `LogoImageStore`, `CoinLogoRepository`, backup
+  codecs and crypto), plus `settings/AddressServerStore`, `SettingsBackupTarget`, `SettingsSlices`,
+  `util/ConnectivityMonitor`, `notification/AlarmDeliveryMarkers`, `widget/PortfolioSnapshotSeal`/`KeyStore`,
+  `domain/refresh/AlarmLogStore`, `domain/alarm/DerivativesAlarmData`; `util/AppVisibility` went to `:domain`. Room:
+  `room { schemaDirectory("$rootDir/app/schemas") }` in `:data`, `:app` drops the Room plugin and compiler and adds
+  `app/schemas` to its androidTest assets itself (what the plugin did). `LogoImageStore` takes the user agent as
+  `@AppUserAgent String` (provided by `di/UserAgentModule`, separate so that UI tests replacing `RemoteDataModule` still get it) instead of `BuildConfig`. Still in `:app` because of
+  settings, notifications or widgets: `SettingsRepository` (with `MarketAlertReset` → zone/gas workers),
+  `BackupManager*`, `SparklineRepository`, `LivePriceStream`, `MarketRepositoryImpl`, `CoinLogoSync`,
+  `SheetChartRepository`, `PortfolioAlarms`, `WatchedAddressRefresher`, `DayReferences`, `ActivityMonitor`. Hilt modules
+  stay in `:app`. `data/src/main/AndroidManifest.xml` declares INTERNET and ACCESS_NETWORK_STATE (lint `MissingPermission`
+  in the library; the merged manifest is unchanged). CI: `:data:lintRelease`, coverage `data=data`, device-test paths,
+  `data/gradle.lockfile`, `user_agent_check.py` reads `android/data/…/HttpUserAgent.kt`; source-guard tests look in
+  `android/data` too.
 * Build 141 (R, step 6): `PriceRefresher` (+ `PriceRefresherAfter`, `…Deferred`, `…One`) and `WidgetRefreshState` in
   `:domain`. New ports in `domain/refresh/PriceRefresherPorts.kt`: `RefresherStore` (watch list, alarms,
   `clearChanges`, `fillChange`), `RefresherStats`, `RefresherSparklines`, `RefresherOnline`, `RefresherWatchWidgets`,

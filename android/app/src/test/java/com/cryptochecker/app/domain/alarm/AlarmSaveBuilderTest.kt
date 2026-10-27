@@ -67,7 +67,7 @@ class AlarmSaveBuilderTest {
 
     @Test
     fun speichernLiestUndSchreibtInEinerTransaktion() {
-        fun source(path: String) = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+        fun source(path: String) = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
         val vm = source("src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsViewModel.kt")
         val save = vm.substringAfter("fun save(draft: AlarmDraft").substringBefore("\n    fun delete(")
         assertTrue(save.contains("saveMergedIfWatchExists("))

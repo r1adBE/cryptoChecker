@@ -84,6 +84,9 @@ class PriceWriteOrderTest {
             if (candidate.isFile) return candidate
             val inModule = File(dir, "src/main/java/com/cryptochecker/app/$path")
             if (inModule.isFile) return inModule
+            // Datenschicht seit Build 142 im Modul :data (gleiche Pakete)
+            val inData = File(dir, "data/src/main/java/com/cryptochecker/app/$path")
+            if (inData.isFile) return inData
             dir = dir.parentFile
         }
         throw IllegalStateException("$path not found")

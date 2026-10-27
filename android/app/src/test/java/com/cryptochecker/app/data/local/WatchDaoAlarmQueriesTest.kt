@@ -12,7 +12,7 @@ class WatchDaoAlarmQueriesTest {
 
     private fun source(): String {
         val path = "src/main/java/com/cryptochecker/app/data/local/WatchDao.kt"
-        return listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+        return listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
     }
 
     /** Text der @Query direkt vor `fun name(`. */
@@ -34,7 +34,7 @@ class WatchDaoAlarmQueriesTest {
     @Test
     fun paarLoeschenRaeumtDasAlarmProtokollAuf() {
         val path = "src/main/java/com/cryptochecker/app/data/WatchRepository.kt"
-        val text = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+        val text = listOf(File(path), File("app/$path"), File("../data/$path"), File("data/$path"), File("../domain/$path"), File("domain/$path")).first { it.exists() }.readText()
         for (name in listOf("deleteWatch(id: Long)", "deleteWatches(ids: Collection<Long>)", "deleteAllWatches()")) {
             val body = text.substringAfter("suspend fun $name").substringBefore("\n    }\n")
             assertTrue(name, body.contains("forgetDeletedAlarms()"))
