@@ -23,6 +23,7 @@ import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.shownChange24h
 import com.cryptochecker.app.settings.AppSettings
@@ -242,7 +243,7 @@ class PriceOverlay @Inject constructor(
     /** «×» bzw. TalkBack-Aktion: Schalter aus (das Overlay verschwindet über [render]). */
     private fun turnOff() {
         hide()
-        scope.launch { runCatching { settingsRepository.setPriceOverlay(false) } }
+        scope.launch { runCatchingCancellable { settingsRepository.setPriceOverlay(false) } }
     }
 
     private fun openApp() {

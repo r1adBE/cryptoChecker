@@ -33,9 +33,9 @@ class JsonCompatibilityTest {
         for (json in objects) {
             val ref = JSONObject(json)
             val own = JsonObject(json)
-            assertEquals(json, ref.toString(), own.toString())
+            assertEquals(json, canon(ref), canonOwn(own))
             assertEquals(json, ref.length(), own.length())
-            assertEquals(json, ref.keys().asSequence().toList(), own.keys().asSequence().toList())
+            assertEquals(json, ref.keys().asSequence().sorted().toList(), own.keys().asSequence().sorted().toList())
             for (key in ref.keys().asSequence().toList()) {
                 assertEquals("$json $key optString", ref.optString(key), own.optString(key))
                 assertEquals("$json $key optLong", ref.optLong(key), own.optLong(key))
@@ -72,7 +72,7 @@ class JsonCompatibilityTest {
         for (json in inputs) {
             val ref = JSONArray(json)
             val own = JsonArray(json)
-            assertEquals(json, ref.toString(), own.toString())
+            assertEquals(json, canon(ref), canonOwn(own))
             for (i in 0 until ref.length()) {
                 assertEquals("$json [$i]", ref.optString(i), own.optString(i))
                 assertEquals("$json [$i]", ref.optDouble(i), own.optDouble(i), 0.0)
@@ -91,10 +91,39 @@ class JsonCompatibilityTest {
             .put("nz", -0.0).put("nul", JSONObject.NULL).put("o", JSONObject().put("x", 1)).put("a", JSONArray().put(1).put("y"))
         val own = JsonObject().put("d", 3.0).put("e", 0.1).put("l", 12L).put("i", 7).put("b", false).put("s", "a/b")
             .put("nz", -0.0).put("nul", JsonNull).put("o", JsonObject().put("x", 1)).put("a", JsonArray().put(1).put("y"))
-        assertEquals(ref.toString(), own.toString())
+        assertEquals(canon(ref), canonOwn(own))
         assertEquals(outcome { JSONObject().put("n", Double.NaN) }.first, outcome { JsonObject().put("n", Double.NaN) }.first)
         val removed = JsonObject().put("k", 1).put("k", null)
         assertEquals(0, removed.length())
+        // Wie org.json auf Android (LinkedHashMap): Namen in der Reihenfolge der Einfügung
+        assertEquals("""{"z":1,"a":2,"m":3}""", JsonObject().put("z", 1).put("a", 2).put("m", 3).toString())
+    }
+
+    /**
+     * Text ohne Reihenfolge der Namen: Das org.json der Unit-Tests (android-json) legt Namen in einer HashMap ab,
+     * Android selbst (und [JsonObject]) in der Reihenfolge der Einfügung. Verglichen wird daher je Objekt die nach
+     * Namen sortierte Folge «Name:Text des Werts» (Werte genauso, Arrays in ihrer Reihenfolge).
+     */
+    private fun canon(value: Any?): String = when (value) {
+        is JSONObject -> value.keys().asSequence().sorted()
+            .joinToString(",", "{", "}") { JSONObject.quote(it) + ":" + canon(value.opt(it)) }
+        is JsonObject -> value.keys().asSequence().sorted()
+            .joinToString(",", "{", "}") { JSONObject.quote(it) + ":" + canon(value.opt(it)) }
+        is JSONArray -> (0 until value.length()).joinToString(",", "[", "]") { canon(value.opt(it)) }
+        is JsonArray -> (0 until value.length()).joinToString(",", "[", "]") { canon(value.opt(it)) }
+        // Einzelwerte mit dem Schreiber ihrer eigenen Umsetzung (Zahlen, Text-Escapes, null)
+        JSONObject.NULL -> "null"
+        JsonNull -> JsonArray().put(JsonNull).toString().removeSurrounding("[", "]")
+        else -> if (ownScalar) JsonArray().put(value).toString().removeSurrounding("[", "]")
+        else JSONArray().put(value).toString().removeSurrounding("[", "]")
+    }
+
+    /** true, solange [canon] einen Wert aus [JsonObject]/[JsonArray] schreibt (gesetzt in [canonOwn]). */
+    private var ownScalar = false
+
+    private fun canonOwn(value: Any): String {
+        ownScalar = true
+        return try { canon(value) } finally { ownScalar = false }
     }
 
     /** Ergebnis oder «Fehler» (Meldungen dürfen sich unterscheiden). */
