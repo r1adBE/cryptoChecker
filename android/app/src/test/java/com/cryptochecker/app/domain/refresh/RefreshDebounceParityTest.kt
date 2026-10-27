@@ -49,10 +49,22 @@ class RefreshDebounceParityTest {
         }
         val controller = File(root, "ui/features/watchlist/WatchlistRefreshController.kt").readText()
         assertTrue(controller.contains("fun lastFullRefreshAt(): Long = refreshStats.lastFullRefresh()"))
-        val live = File(root, "domain/refresh/LivePriceApplier.kt").readText()
+        // LivePriceApplier liegt seit Build 140 in :domain (gleiches Paket)
+        val domainRoot = SourceGuard.android(domainSources(), "android/domain/src/main/java")
+        val live = File(domainRoot, "domain/refresh/LivePriceApplier.kt").readText()
         assertFalse("Live-Takt setzt die Sperre", live.contains("setLastFullRefresh"))
         val all = root.walkTopDown().filter { it.isFile && it.extension == "kt" }.map { it.readText() }.joinToString("\n")
         assertFalse(all.contains(Regex("lastFinishedAt = (refreshStats\\.)?lastRefresh(\\(\\))?[,)]")))
+    }
+
+    private fun domainSources(): File? {
+        var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile
+        while (dir != null) {
+            val candidate = File(dir, "domain/src/main/java/com/cryptochecker/app")
+            if (candidate.isDirectory) return candidate
+            dir = dir.parentFile
+        }
+        return null
     }
 
     private fun sources(): File? {

@@ -1,33 +1,26 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.marketdata.util.MarketsConfigUtils
-import com.cryptochecker.app.data.DexLiquidityStore
-import com.cryptochecker.app.data.MarkFallbackStore
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.PriceWrite
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.pairIdentity
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.alarm.AlarmFreshness
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.watch.PriceFreshness
-import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.marketdata.model.Ticker
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Geholte Kurse speichern und auswerten — gemeinsamer letzter Schritt von voller und einzelner Aktualisierung
  * ([PriceRefresher]) und Live-Speichern ([LivePriceApplier]): Kurse und Fehler in einem Datenbank-Vorgang, danach
  * Alarme, Kurs-Meldungen und Ansagen. Läuft nur unter der Refresh-Sperre ([RefreshLockScope] als Beweis).
  */
-@Singleton
-class RefreshResultProcessor internal constructor(
+class RefreshResultProcessor constructor(
     private val watchRepository: RefreshStore,
     private val notifier: RefreshNotifier,
     /** 24-h- und Tages-Bezüge aus Kerzen. */
@@ -41,25 +34,6 @@ class RefreshResultProcessor internal constructor(
     /** Alarm-Protokoll ([com.cryptochecker.app.domain.alarm.AlarmLog]): letzte Prüfung je Alarm und bemerkenswerte Prüfungen. */
     private val alarmLog: RefreshAlarmLog = RefreshAlarmLog.NONE,
 ) {
-    /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
-    @Inject constructor(
-        watchRepository: WatchRepository,
-        notifier: AppNotifier,
-        dayReferences: DayReferences,
-        effects: RefreshEffects,
-        dexLiquidity: DexLiquidityStore,
-        markFallback: MarkFallbackStore,
-        alarmLog: AlarmLogStore,
-    ) : this(
-        watchRepository.asRefreshStore(),
-        notifier.asRefreshNotifier(),
-        dayReferences.asRefreshDayReferences(),
-        effects,
-        dexLiquidity.asRefreshDexLiquidity(),
-        markFallback.asRefreshMarkFallback(),
-        alarmLog.asRefreshAlarmLog(),
-    )
-
     /**
      * Wertet die geholten Kurse aus.
      *
@@ -70,7 +44,7 @@ class RefreshResultProcessor internal constructor(
      * für alle Kurse, eine Abfrage für alle Alarme, ein Schreibvorgang für
      * die Meldekurse.
      */
-    internal suspend fun process(
+    suspend fun process(
         /** Beweis der gehaltenen Refresh-Sperre: Kurse schreiben nur unter ihr. */
         @Suppress("UNUSED_PARAMETER") lock: RefreshLockScope,
         watches: List<WatchEntity>,
@@ -95,14 +69,14 @@ class RefreshResultProcessor internal constructor(
      * den Meldekurs NUR der tatsächlich gezeigten speichern. Unter der Sperre ([lock] als Beweis), damit kein anderer
      * Durchlauf vorher mit dem alten Meldekurs entscheidet. Rückgabe: Zahl der gezeigten.
      */
-    internal suspend fun postPrices(@Suppress("UNUSED_PARAMETER") lock: RefreshLockScope, pending: PendingPrices): Int =
+    suspend fun postPrices(@Suppress("UNUSED_PARAMETER") lock: RefreshLockScope, pending: PendingPrices): Int =
         showAndRecord(pending)
 
     /**
      * Nacharbeit für [RefreshLock.withLockThen]: die zurückgestellten Kurs-Meldungen von [processed] zeigen, danach
      * [after] mit der Zahl der gezeigten; null = keine zurückgestellt.
      */
-    internal fun pricesTail(processed: Processed, after: (Int) -> Unit = {}): LockedTail? {
+    fun pricesTail(processed: Processed, after: (Int) -> Unit = {}): LockedTail? {
         val pending = processed.pendingPrices ?: return null
         return { lock -> after(postPrices(lock, pending)) }
     }
@@ -303,7 +277,7 @@ class RefreshResultProcessor internal constructor(
         }
     }
 
-    internal class Processed(
+    class Processed(
         val checked: Int,
         val failed: Int,
         val alarms: Int,
@@ -319,5 +293,5 @@ class RefreshResultProcessor internal constructor(
     )
 
     /** Kurs-Meldungen eines Durchlaufs (Reihenfolge = Vorrang), gemeldet mit [ongoing], Meldekurs-Zeit [now]. */
-    internal class PendingPrices(val watches: List<WatchEntity>, val ongoing: Boolean, val now: Long)
+    class PendingPrices(val watches: List<WatchEntity>, val ongoing: Boolean, val now: Long)
 }

@@ -1,13 +1,9 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.local.model.convertCurrency
-import com.cryptochecker.app.data.portfolio.CurrencyConverter
-import com.cryptochecker.app.data.remote.NearExtremeDataSource
-import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarkerStore
@@ -17,85 +13,46 @@ import com.cryptochecker.app.domain.alarm.AlarmLogTrace
 import com.cryptochecker.app.domain.alarm.AlarmSnooze
 import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.domain.convert.FiatAlarmGuard
-import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.QuietHours
-import com.cryptochecker.app.notification.AlarmDeliveryMarkers
-import com.cryptochecker.app.notification.AppNotifier
-import com.cryptochecker.app.notification.NotificationBudget
 import com.cryptochecker.app.settings.AppSettings
-import com.cryptochecker.app.tts.SpokenText
-import com.cryptochecker.app.tts.TtsSpeaker
-import com.cryptochecker.app.data.MoveHistoryStore
 import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.math.abs
 
 /**
  * Was nach einem neuen Kurs passiert: Alarme prüfen und melden (mit Ansage), die
  * Kurs-Benachrichtigung und die Kursansage — jeweils mit Nachtruhe. Teil von [PriceRefresher].
  */
-@Singleton
-class RefreshEffects internal constructor(
-    internal val watchRepository: RefreshStore,
-    internal val alarmEvaluator: AlarmEvaluator,
-    internal val notifier: RefreshNotifier,
+class RefreshEffects constructor(
+    val watchRepository: RefreshStore,
+    val alarmEvaluator: AlarmEvaluator,
+    val notifier: RefreshNotifier,
     private val ttsSpeaker: RefreshSpeaker,
     private val spokenText: RefreshSpokenText,
-    internal val volumeDataSource: AlarmVolumeSource,
-    internal val currencyConverter: AlarmRateSource,
-    internal val nearExtremeDataSource: AlarmRangeSource,
+    val volumeDataSource: AlarmVolumeSource,
+    val currencyConverter: AlarmRateSource,
+    val nearExtremeDataSource: AlarmRangeSource,
     /** Funding/Open Interest für die Futures-Alarme (je Paar höchstens alle 5 Min.). */
-    internal val derivativesAlarmData: AlarmDerivativesSource,
+    val derivativesAlarmData: AlarmDerivativesSource,
     /** Kursverlauf je Paar für den Bewegungs-Alarm (gleitendes Fenster, [MoveWindow]). */
     private val moveHistoryStore: AlarmMoveHistory,
     /** «Nicht geprüft seit …» für Alarme ohne Devisenkurs bzw. Kerzen (nur im Speicher). */
-    internal val alarmCheckStatus: AlarmCheckStatus,
+    val alarmCheckStatus: AlarmCheckStatus,
     /** Vermerk «wird gemeldet», in der App dauerhaft ([AlarmDeliveryMarkers]). */
     deliveryMarkers: AlarmDeliveryMarkerStore = AlarmDeliveryMarkerStore.InMemory(),
 ) {
-    /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
-    @Inject constructor(
-        watchRepository: WatchRepository,
-        alarmEvaluator: AlarmEvaluator,
-        notifier: AppNotifier,
-        ttsSpeaker: TtsSpeaker,
-        spokenText: SpokenText,
-        volumeDataSource: VolumeDataSource,
-        currencyConverter: CurrencyConverter,
-        nearExtremeDataSource: NearExtremeDataSource,
-        derivativesAlarmData: DerivativesAlarmData,
-        moveHistoryStore: MoveHistoryStore,
-        alarmCheckStatus: AlarmCheckStatus,
-        deliveryMarkers: AlarmDeliveryMarkers,
-    ) : this(
-        watchRepository.asRefreshStore(),
-        alarmEvaluator,
-        notifier.asRefreshNotifier(),
-        ttsSpeaker.asRefreshSpeaker(),
-        spokenText.asRefreshSpokenText(),
-        volumeDataSource.asAlarmVolumeSource(),
-        currencyConverter.asAlarmRateSource(),
-        nearExtremeDataSource.asAlarmRangeSource(),
-        derivativesAlarmData.asAlarmDerivativesSource(),
-        moveHistoryStore.asAlarmMoveHistory(),
-        alarmCheckStatus,
-        deliveryMarkers,
-    )
-
     /** Melden-dann-Speichern samt unbestätigter Versuche (dauerhaft vermerkt). */
     private val delivery = com.cryptochecker.app.domain.alarm.AlarmDelivery(deliveryMarkers)
 
     /** Vorab-Abrufe der Alarm-Zusatzdaten ([startAlarmPrefetch]); laufen nach dem Warten fertig. */
-    internal val prefetchScope = appScope(Dispatchers.IO, "RefreshEffects")
+    val prefetchScope = appScope(Dispatchers.IO, "RefreshEffects")
 
-    internal suspend fun checkAlarms(
+    suspend fun checkAlarms(
         watch: WatchEntity,
         price: Double,
         previousPrice: Double?,
@@ -331,7 +288,7 @@ class RefreshEffects internal constructor(
     }
 
     /** Was mit der Kurs-Benachrichtigung eines Paars geschieht ([priceUpdate]). */
-    internal enum class PriceUpdate { NONE, SHOW, CANCEL }
+    enum class PriceUpdate { NONE, SHOW, CANCEL }
 
     /**
      * Kurs-Benachrichtigung zeigen — je nach Einstellung nur dann, wenn sich der Kurs seit der
@@ -339,7 +296,7 @@ class RefreshEffects internal constructor(
      * den Alarmen (AppNotifier.showPrices: höchstens 20 einzeln, Alarme haben Vorrang); der
      * Aufrufer setzt danach den neuen Bezugspunkt der gezeigten Paare.
      */
-    internal fun priceUpdate(watch: WatchEntity, settings: AppSettings): PriceUpdate {
+    fun priceUpdate(watch: WatchEntity, settings: AppSettings): PriceUpdate {
         if (!settings.priceNotifications || !watch.notificationEnabled) return PriceUpdate.CANCEL
 
         val price = watch.lastPrice
@@ -356,7 +313,7 @@ class RefreshEffects internal constructor(
     }
 
     /** Kursansage in die Warteschlange der Sprachausgabe — die Aktualisierung wartet nicht darauf. */
-    internal fun speakPriceIfWanted(
+    fun speakPriceIfWanted(
         watch: WatchEntity,
         price: Double,
         settings: AppSettings,
