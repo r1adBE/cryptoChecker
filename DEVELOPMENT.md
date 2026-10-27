@@ -2528,7 +2528,9 @@ after the encryption step.
   in `:app` moves too); still in `:app` because of a dependency: `AlarmDelivery` (`NotificationBudget`),
   `AlarmLogStore` (`PortfolioSnapshotSeal`), `SheetChart` (`WidgetChartGeometry`). `internal` became public in 43
   files. Kotlin does not smart-cast a public `val` declared in another module: app code takes a local copy
-  (`PortfolioAddressRow`, `AlarmLogTexts`, `SettingsViewModel`, …) or uses `?.`/`orEmpty()`.
+  (`PortfolioAddressRow`, `AlarmLogTexts`, `SettingsViewModel`, …) or uses `?.`/`orEmpty()`. Coverage gate:
+  `coverage_summary.py` lists `domain=domain` – without it the files of `:domain` in the merged `:app` report had no
+  sources, counted as generated and dropped out of «logic» (with the portfolio logic moved: 43 % instead of ~60 %).
 * Build 136 (R, step 1): Gradle module `android/domain` (Android library, namespace `com.cryptochecker.domain`,
   Hilt/KSP for its `@Inject` classes) with the 139 files of `app` that depend on no screen, storage or network flow:
   most of `domain/` plus `data/local/model/WatchEntity` and `AlarmEntity` (Room annotations only; DAOs and the

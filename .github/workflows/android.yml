@@ -232,9 +232,10 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/android_release_audit.sh" "$FINDINGS" "$RUNNER_TEMP/release-evidence"
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$FINDINGS" "Android release audit"
 
-      # Unit-test line coverage of :app and :marketdata as ONE notice: total and «logic» (without Compose/widget
-      # rendering, activities and generated code). The :app report also measures :marketdata (its exchange parsers run
-      # mostly in the contract tests of :app); :marketdata's own report is listed as «own tests only». The reports come
+      # Unit-test line coverage of :app, :domain and :marketdata as ONE notice: total and «logic» (without Compose/widget
+      # rendering, activities and generated code). The :app report also measures :domain and :marketdata (their tests
+      # run mostly in :app); every module must be listed, or its files count as generated (no sources found) and drop
+      # out of «logic»; :marketdata's own report is listed as «own tests only». The reports come
       # from the debug unit-test run of the step «Unit tests» (Kover via -Pcoverage=true); no tests run again here.
       # Gate: the merged «logic» coverage must not fall below MIN_LOGIC (set just under the measured value, so
       # it stops regressions without forcing new work; raise it when coverage grows). No report = red.
@@ -246,7 +247,7 @@ jobs:
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
-            app=app marketdata=marketdata
+            app=app domain=domain marketdata=marketdata
 
       # Evidence of the audited release build: R8 mapping (deobfuscate crashes of exactly this
       # build), AAB, merged manifest with summary and merger report.
