@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">Η λίστα παρακολούθησης μπορεί να έχει έως %1$s ζεύγη.</string>
     <string name="watch_price_reference">ισοτιμία αναφοράς, ημερήσια</string>
     <string name="watch_price_daily">ημερήσια</string>
+    <string name="watchlist_compare">Σύγκριση</string>
+    <string name="watchlist_compare_hint">Επίλεξε 2 έως 4 ζεύγη για σύγκριση.</string>
+    <string name="compare_title">Σύγκριση</string>
+    <string name="compare_basis">Οι γραμμές δείχνουν την ποσοστιαία μεταβολή από την αρχή της περιόδου.</string>
+    <string name="compare_from_high">έναντι υψηλού 30 ημ.</string>
 </resources>

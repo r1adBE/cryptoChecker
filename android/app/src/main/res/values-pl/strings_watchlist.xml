@@ -242,4 +242,9 @@
     <string name="watchlist_limit_reached">Twoja lista obserwowanych może zawierać maksymalnie %1$s par.</string>
     <string name="watch_price_reference">kurs referencyjny, dzienny</string>
     <string name="watch_price_daily">dzienny</string>
+    <string name="watchlist_compare">Porównaj</string>
+    <string name="watchlist_compare_hint">Zaznacz od 2 do 4 par, aby porównać.</string>
+    <string name="compare_title">Porównanie</string>
+    <string name="compare_basis">Linie pokazują zmianę procentową od początku okresu.</string>
+    <string name="compare_from_high">vs szczyt 30 d</string>
 </resources>

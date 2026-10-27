@@ -206,4 +206,9 @@
     <string name="watchlist_limit_reached">관심 목록에는 거래쌍을 최대 %1$s개까지 추가할 수 있습니다.</string>
     <string name="watch_price_reference">기준 환율, 일일</string>
     <string name="watch_price_daily">일일</string>
+    <string name="watchlist_compare">비교</string>
+    <string name="watchlist_compare_hint">비교할 페어를 2~4개 선택하세요.</string>
+    <string name="compare_title">비교</string>
+    <string name="compare_basis">선은 기간 시작 이후 변동률을 퍼센트로 나타냅니다.</string>
+    <string name="compare_from_high">30일 최고가 대비</string>
 </resources>

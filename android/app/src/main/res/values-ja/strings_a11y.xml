@@ -95,4 +95,6 @@
     <string name="a11y_portfolio_position_24h">%1$s、ポートフォリオの %2$s、%3$s</string>
     <string name="a11y_portfolio_positions">上位ポジション: %1$s</string>
     <string name="a11y_portfolio_show_amounts">金額を表示</string>
+    <string name="a11y_compare_chart">パーセントでの比較、%1$s：%2$s</string>
+    <string name="a11y_compare_from_high">30日高値から%1$s</string>
 </resources>

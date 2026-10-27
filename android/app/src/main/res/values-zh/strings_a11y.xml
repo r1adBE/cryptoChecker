@@ -95,4 +95,6 @@
     <string name="a11y_portfolio_position_24h">%1$s，占投资组合 %2$s，%3$s</string>
     <string name="a11y_portfolio_positions">最大持仓：%1$s</string>
     <string name="a11y_portfolio_show_amounts">显示金额</string>
+    <string name="a11y_compare_chart">百分比比较，%1$s：%2$s</string>
+    <string name="a11y_compare_from_high">较30日高点 %1$s</string>
 </resources>

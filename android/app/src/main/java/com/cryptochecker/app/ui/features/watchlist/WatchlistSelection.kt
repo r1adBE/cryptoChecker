@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 
 /**
- * Leiste der Mehrfachauswahl unten über der Liste: Favorit · Gruppe · Deaktivieren · Löschen für
+ * Leiste der Mehrfachauswahl unten über der Liste: Favorit · Gruppe · Deaktivieren · Vergleichen · Löschen für
  * die angehakten Paare. Ohne Auswahl grau. «Favorit» setzt den Stern bei allen — oder nimmt ihn
  * weg, wenn schon alle Favoriten sind ([allFavorites]); «Deaktivieren» ebenso («Aktivieren», wenn
  * alle deaktiviert sind). Symbole wie überall: Stern, Gruppe (Liste, wie «In Gruppe» beim
@@ -45,6 +45,8 @@ internal fun SelectionBar(
     allDisabled: Boolean = false,
     /** Deaktivieren bzw. (wenn [allDisabled]) wieder aktivieren. */
     onToggleDisabled: () -> Unit = {},
+    /** «Vergleichen» (2–4 Paare, sonst Hinweis — darum ab einem Paar antippbar). */
+    onCompare: () -> Unit = {},
 ) {
     val enabled = count > 0
     Surface(
@@ -76,6 +78,13 @@ internal fun SelectionBar(
                 label = stringResource(if (allDisabled) R.string.watch_enable else R.string.watch_disable),
                 enabled = enabled,
                 onClick = onToggleDisabled,
+            )
+            // Vergleichsansicht (Build 149): Linien in % und Kennzahlen nebeneinander
+            SelectionAction(
+                icon = R.drawable.ic_chart_line,
+                label = stringResource(R.string.watchlist_compare),
+                enabled = enabled,
+                onClick = onCompare,
             )
             SelectionAction(
                 icon = R.drawable.ic_delete,

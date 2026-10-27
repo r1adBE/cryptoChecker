@@ -230,4 +230,9 @@
     <string name="watchlist_limit_reached">Lista ta de urmărire poate conține cel mult %1$s de perechi.</string>
     <string name="watch_price_reference">curs de referință, zilnic</string>
     <string name="watch_price_daily">zilnic</string>
+    <string name="watchlist_compare">Compară</string>
+    <string name="watchlist_compare_hint">Selectează între 2 și 4 perechi pentru comparare.</string>
+    <string name="compare_title">Comparație</string>
+    <string name="compare_basis">Liniile arată variația procentuală de la începutul perioadei.</string>
+    <string name="compare_from_high">vs. max. 30 z</string>
 </resources>

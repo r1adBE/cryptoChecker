@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s του χαρτοφυλακίου, %3$s</string>
     <string name="a11y_portfolio_positions">Μεγαλύτερες θέσεις: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Εμφάνιση ποσών</string>
+    <string name="a11y_compare_chart">Σύγκριση σε ποσοστό, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s έναντι του υψηλού 30 ημερών</string>
 </resources>

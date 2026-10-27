@@ -266,4 +266,9 @@
     <string name="watchlist_limit_reached">يمكن أن تحتوي قائمة المتابعة على %1$s زوج كحد أقصى.</string>
     <string name="watch_price_reference">سعر مرجعي، يومي</string>
     <string name="watch_price_daily">يومي</string>
+    <string name="watchlist_compare">مقارنة</string>
+    <string name="watchlist_compare_hint">حدّد من 2 إلى 4 أزواج للمقارنة.</string>
+    <string name="compare_title">المقارنة</string>
+    <string name="compare_basis">تُظهر الخطوط نسبة التغيّر منذ بداية الفترة.</string>
+    <string name="compare_from_high">مقابل أعلى 30 يومًا</string>
 </resources>

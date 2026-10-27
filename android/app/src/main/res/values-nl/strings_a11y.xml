@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s van het portfolio, %3$s</string>
     <string name="a11y_portfolio_positions">Grootste posities: %1$s</string>
     <string name="a11y_portfolio_show_amounts">Bedragen tonen</string>
+    <string name="a11y_compare_chart">Vergelijking in procent, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s ten opzichte van de 30-dagentop</string>
 </resources>

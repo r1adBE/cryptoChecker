@@ -242,4 +242,9 @@
     <string name="watchlist_limit_reached">Tvůj seznam sledovaných může obsahovat nejvýše %1$s párů.</string>
     <string name="watch_price_reference">referenční kurz, denní</string>
     <string name="watch_price_daily">denní</string>
+    <string name="watchlist_compare">Porovnat</string>
+    <string name="watchlist_compare_hint">K porovnání označ 2 až 4 páry.</string>
+    <string name="compare_title">Porovnání</string>
+    <string name="compare_basis">Čáry ukazují procentní změnu od začátku období.</string>
+    <string name="compare_from_high">vs. max. 30 d</string>
 </resources>

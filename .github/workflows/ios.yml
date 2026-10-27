@@ -337,7 +337,8 @@ jobs:
       # second attempt is a failure there. The result bundle (screenshots, logs) is uploaded on failure.
       - name: UI tests (iOS Simulator)
         working-directory: ios
-        timeout-minutes: 30
+        # 45 min: the accessibility audit runs in three groups of audit types per screen (build 149)
+        timeout-minutes: 45
         run: |
           LOG="$RUNNER_TEMP/xcode-uitest.log"
           RETRY=(-retry-tests-on-failure -test-iterations 2)

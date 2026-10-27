@@ -40,6 +40,14 @@ extension WatchlistScreen {
             .onChange(of: whyFor) { _, target in
                 if target == nil { reopenActions() }
             }
+            // Vergleichsansicht (Build 149) als eigene Seite mit Zurück
+            .navigationDestination(item: $compareFor) { target in
+                CompareScreen(watches: target.ids.compactMap { id in data.watches.first { $0.id == id } })
+                    .environmentObject(data)
+                    .environment(\.appAccent, accent)
+                    .environment(\.changeView, changeView)
+                    .toolbar(.visible, for: .navigationBar)
+            }
             // Wieder gesperrt (Hintergrund-Limit), während das Erfassen-Blatt offen ist: schliessen
             .onChange(of: lock.locked) { _, locked in
                 if locked { portfolioDraft = nil }

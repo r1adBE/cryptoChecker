@@ -8,6 +8,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.domain.watch.CompareMath
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.background
@@ -301,6 +302,11 @@ internal fun WatchlistBody(
                         onToggleDisabled = {
                             viewModel.setDisabled(selectedIds.toList(), !allDisabled) { if (it) uiEvents.send(*selectionDone) }
                         },
+                        // Auswahl bleibt stehen: zurück aus dem Vergleich lässt sie sich ändern
+                        onCompare = {
+                            if (CompareMath.canCompare(chosen.size)) ui.compareIds = chosen.map { it.id }
+                            else uiEvents.send(WatchUiEvent.Banner(BannerText(R.string.watchlist_compare_hint)))
+                        },
                         onDelete = {
                             viewModel.deleteSelectedWithUndo(selectedIds.toList()) { count ->
                                 if (count > 0) uiEvents.send(
@@ -331,6 +337,9 @@ internal fun WatchlistBody(
                         onDismiss = { ui.askGroupForSelection = false },
                     )
                 }
+                ui.compareIds?.let { ids -> ids.mapNotNull { id -> watches.firstOrNull { it.id == id } } }
+                    ?.takeIf { CompareMath.canCompare(it.size) }
+                    ?.let { chosen -> CompareScreen(chosen, viewModel::loadSheetChart) { ui.compareIds = null } }
             }
         }
     }

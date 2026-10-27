@@ -157,16 +157,28 @@ final class AccessibilityAuditTests: XCTestCase {
             }
             return known
         }
-        // Langsamer CI-Mac: «Audit failed to complete in time» (Code -56) bis zu zweimal wiederholen (nach kurzer Pause,
-        // damit der Simulator aufholt), dann zählt der Fehler. Befunde selbst werden nie wiederholt, nur die Zeitgrenze
-        for attempt in 1...3 {
-            do {
-                try app.performAccessibilityAudit(for: .all, handler)
-                return
-            } catch let error as NSError where error.code == -56 && attempt < 3 {
-                print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits, Versuch \(attempt + 1)")
-                _ = XCTWaiter.wait(for: [XCTestExpectation(description: "audit retry")], timeout: 5)
+        // In drei Gruppen von Prüfarten statt `.all` in einem Durchgang: jede ist kürzer, die Zeitgrenze (Code -56) wird
+        // seltener erreicht. Ein zweites `.all`-Audit gleich nach einer Zeitgrenze liess den Test-Runner abstürzen
+        // («Restarting after unexpected exit», main Build 147, Rechts-nach-links); jede Art einzeln war zu langsam (Schritt
+        // über 30 min). Langsamer CI-Mac: je Gruppe bis zu zweimal wiederholen (nach kurzer Pause), dann zählt der Fehler.
+        // Befunde selbst werden nie wiederholt
+        for type in Self.auditGroups {
+            for attempt in 1...3 {
+                do {
+                    try app.performAccessibilityAudit(for: type, handler)
+                    break
+                } catch let error as NSError where error.code == -56 && attempt < 3 {
+                    print("A11Y-AUDIT [\(screen)] Zeitgrenze des Audits (Gruppe \(type.rawValue)), Versuch \(attempt + 1)")
+                    _ = XCTWaiter.wait(for: [XCTestExpectation(description: "audit retry")], timeout: 5)
+                }
             }
         }
     }
+
+    /// Alle Prüfarten von `.all` in drei Gruppen: Kontrast; Schrift (Dynamic Type, abgeschnitten); Elemente.
+    static let auditGroups: [XCUIAccessibilityAuditType] = [
+        .contrast,
+        [.dynamicType, .textClipped],
+        [.elementDetection, .hitRegion, .sufficientElementDescription, .trait],
+    ]
 }

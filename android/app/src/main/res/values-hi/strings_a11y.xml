@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, पोर्टफ़ोलियो का %2$s, %3$s</string>
     <string name="a11y_portfolio_positions">सबसे बड़ी पोज़िशन: %1$s</string>
     <string name="a11y_portfolio_show_amounts">राशियाँ दिखाओ</string>
+    <string name="a11y_compare_chart">प्रतिशत में तुलना, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">30 दिन के उच्च से %1$s</string>
 </resources>

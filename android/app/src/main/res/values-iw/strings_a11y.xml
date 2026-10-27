@@ -109,4 +109,6 @@
     <string name="a11y_portfolio_position_24h">%1$s, %2$s מהתיק, %3$s</string>
     <string name="a11y_portfolio_positions">הפוזיציות הגדולות ביותר: %1$s</string>
     <string name="a11y_portfolio_show_amounts">הצגת סכומים</string>
+    <string name="a11y_compare_chart">השוואה באחוזים, %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s מול שיא 30 הימים</string>
 </resources>

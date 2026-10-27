@@ -230,4 +230,9 @@
     <string name="watchlist_limit_reached">Tu lista de seguimiento puede tener como máximo %1$s pares.</string>
     <string name="watch_price_reference">tipo de referencia, diario</string>
     <string name="watch_price_daily">diario</string>
+    <string name="watchlist_compare">Comparar</string>
+    <string name="watchlist_compare_hint">Marca de 2 a 4 pares para comparar.</string>
+    <string name="compare_title">Comparación</string>
+    <string name="compare_basis">Las líneas muestran el cambio porcentual desde el inicio del periodo.</string>
+    <string name="compare_from_high">vs. máx. 30 d</string>
 </resources>

@@ -102,4 +102,6 @@
     <string name="a11y_portfolio_position_24h">%1$s، %2$s از پرتفوی، %3$s</string>
     <string name="a11y_portfolio_positions">بزرگ‌ترین موقعیت‌ها: %1$s</string>
     <string name="a11y_portfolio_show_amounts">نمایش مبالغ</string>
+    <string name="a11y_compare_chart">مقایسه به درصد، %1$s: %2$s</string>
+    <string name="a11y_compare_from_high">%1$s نسبت به سقف ۳۰ روزه</string>
 </resources>

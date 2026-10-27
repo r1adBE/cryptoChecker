@@ -218,4 +218,9 @@
     <string name="watchlist_limit_reached">तुम्हारी वॉचलिस्ट में अधिकतम %1$s पेयर हो सकते हैं।</string>
     <string name="watch_price_reference">संदर्भ दर, दैनिक</string>
     <string name="watch_price_daily">दैनिक</string>
+    <string name="watchlist_compare">तुलना करें</string>
+    <string name="watchlist_compare_hint">तुलना के लिए 2 से 4 जोड़े चुनें।</string>
+    <string name="compare_title">तुलना</string>
+    <string name="compare_basis">रेखाएँ अवधि की शुरुआत से प्रतिशत में बदलाव दिखाती हैं।</string>
+    <string name="compare_from_high">30 दिन के उच्च से</string>
 </resources>
