@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// `WatchIdentity` an den gemeinsamen Fällen `Parity/watch_identity.json` (wie `WatchIdentityTest.kt`).
+/// `WatchIdentity` an den gemeinsamen Fällen `Parity/watch_identity.json` (wie `WatchIdentityTest`).
 @MainActor
 final class WatchIdentityTests: XCTestCase {
 

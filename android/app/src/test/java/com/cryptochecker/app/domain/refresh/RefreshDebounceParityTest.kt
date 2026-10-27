@@ -14,7 +14,7 @@ import java.io.File
 /**
  * 15-s-Sperre für «Aktualisieren» liest nur das Ende der letzten VOLLSTÄNDIGEN Aktualisierung
  * (`RefreshStats.lastFullRefresh`), nicht die Uhrzeit der Live-Takte (`lastRefresh`) — `refresh_debounce.json`,
- * geteilt mit iOS (`RefreshDebounceParityTests.swift`). Dazu ein Quelltext-Scan der Aufrufer.
+ * geteilt mit iOS (`RefreshDebounceParityTests`). Dazu ein Quelltext-Scan der Aufrufer.
  */
 class RefreshDebounceParityTest {
 

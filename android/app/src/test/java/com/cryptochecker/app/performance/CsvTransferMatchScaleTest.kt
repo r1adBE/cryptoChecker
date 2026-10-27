@@ -14,7 +14,7 @@ import java.util.Locale
  * Umbuchungs-Abgleich beim CSV-Import ([CsvTransferMatch.candidates]) für eine grosse Datei: 20 000 Ein- und
  * Auszahlungen (12 Coins über ein Jahr, je Auszahlung eine passende Einzahlung eine Stunde später mit Netzwerkgebühr).
  * Einzahlungen je Coin nach Zeit, Zeitfenster per Binärsuche — feste Grenze (die Rechnung «jede mit jeder» bräuchte
- * 10⁸ Vergleiche). iOS: CsvTransferMatchScaleTests.swift.
+ * 10⁸ Vergleiche). iOS: CsvTransferMatchScaleTests.
  */
 class CsvTransferMatchScaleTest {
 

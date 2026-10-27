@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Erstes ungültiges Feld beim Speichern (`PortfolioTxFirstInvalid`) — wie `PortfolioTxFirstInvalidTest.kt` (Android).
+/// Erstes ungültiges Feld beim Speichern (`PortfolioTxFirstInvalid`) — wie `PortfolioTxFirstInvalidTest` (Android).
 final class PortfolioTxFirstInvalidTests: XCTestCase {
 
     private func dec(_ s: String) -> Decimal { Decimal(string: s, locale: Locale(identifier: "en_US_POSIX")) ?? .nan }

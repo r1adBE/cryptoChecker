@@ -6,7 +6,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Token-Adresse der DEX-Pools fürs Paar-Blatt ([DexTokenAddress]). Wie `DexTokenAddressTests.swift`. */
+/** Token-Adresse der DEX-Pools fürs Paar-Blatt ([DexTokenAddress]). Wie `DexTokenAddressTests`. */
 class DexTokenAddressTest {
 
     private val evm = "0x6982508145454Ce325dDbE47a25d4ec3d2311933"

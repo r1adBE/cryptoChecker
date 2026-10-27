@@ -5,7 +5,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Merkliste nach der Start-Auswahl schrittweise — gleiche Fälle wie `WatchlistOnboardingTests.swift`. */
+/** Merkliste nach der Start-Auswahl schrittweise — gleiche Fälle wie `WatchlistOnboardingTests`. */
 class WatchlistOnboardingTest {
 
     @Test

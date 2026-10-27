@@ -12,7 +12,7 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * Gemeinsame Testfälle `cost_fx.json` (iOS: `PortfolioCostFxTests.swift`): «Seit Kauf» und Einstand der Gesamtkarte in
+ * Gemeinsame Testfälle `cost_fx.json` (iOS: `PortfolioCostFxTests`): «Seit Kauf» und Einstand der Gesamtkarte in
  * der Anzeigewährung zum Kurs der Erwerbstage ([PortfolioCostFx]) — FIFO, FIFO je Wallet und Ø, fehlender Devisenkurs,
  * Kurs bis 7 Tage davor, Kauf heute.
  */

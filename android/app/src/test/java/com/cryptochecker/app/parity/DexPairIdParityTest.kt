@@ -15,7 +15,7 @@ import org.junit.Test
 /**
  * DexScreener-Kennung «chain/adresse» (`testdata/parity/dex_pair_id.json`): ungültige Kennungen gehen
  * nie unkodiert in den Pfad — Einzelkurs «nicht gefunden» ohne Anfrage, Suchtreffer fallen weg, Sicherung lehnt ab.
- * Gegenstück: `Tests/DexPairIdParityTests.swift`.
+ * Gegenstück: `Tests/DexPairIdParityTests`.
  */
 class DexPairIdParityTest {
 

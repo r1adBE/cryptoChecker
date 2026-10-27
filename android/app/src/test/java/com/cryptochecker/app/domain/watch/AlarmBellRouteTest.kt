@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.watch
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/** Ziel der Glocke im Merklisten-Kopf — gleiche Fälle wie `AlarmBellRouteTests.swift`. */
+/** Ziel der Glocke im Merklisten-Kopf — gleiche Fälle wie `AlarmBellRouteTests`. */
 class AlarmBellRouteTest {
 
     @Test

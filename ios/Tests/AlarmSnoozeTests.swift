@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// «1 h später» (`Parity/alarm_snooze.json`, gleich in `AlarmSnoozeParityTest.kt`), die Kategorien der
+/// «1 h später» (`Parity/alarm_snooze.json`, gleich in `AlarmSnoozeParityTest`), die Kategorien der
 /// Alarm-Mitteilung und das Ziel «Anpassen» (wie `AlarmEditTargetTest.kt`).
 final class AlarmSnoozeTests: XCTestCase {
     private typealias S = TestSupport

@@ -91,7 +91,7 @@ final class SettingsSearchTests: XCTestCase {
 
     /// Kurs-Aktualisierung unter «Allgemein», Widgets und Coin-Logos unter «Darstellung»; kein «Erweitert» mehr
     /// (Build 132): %-Änderung und Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme»,
-    /// Lizenzen und Entwickler auf «Über die App». Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest.kt`.
+    /// Lizenzen und Entwickler auf «Über die App». Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest`.
     func testPagesSitWhereTheMainPageShowsThem() {
         XCTAssertEqual(SettingsSearchPage.updates.home, .general)
         XCTAssertEqual(SettingsSearchPage.alarms.home, .general)
@@ -133,7 +133,7 @@ final class SettingsSearchTests: XCTestCase {
     }
 
     /// «Damit Alarme ankommen», «Diagnose teilen» und «Alarm-Protokoll» sind auffindbar und führen zu ihrer Zeile —
-    /// wie `SettingsSearchAnchorsTest.kt` (Android).
+    /// wie `SettingsSearchAnchorsTest` (Android).
     @MainActor
     func testDeliveryDiagnosticsAndAlarmLogAreSearchable() {
         let items = SettingsSearchCatalog.items(settings: AppSettings())

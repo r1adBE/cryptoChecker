@@ -9,7 +9,7 @@ import java.time.YearMonth
 
 /**
  * Regelstand der Länder-Vorlagen als gemeinsame Testfälle (`testdata/parity/tax_rules_stale.json`, Kopie in iOS
- * `Tests/Parity/`, gelesen von `TaxRulesStaleParityTests.swift`): Lesen von «JJJJ-MM» und Hinweis «Regeln
+ * `Tests/Parity/`, gelesen von `TaxRulesStaleParityTests`): Lesen von «JJJJ-MM» und Hinweis «Regeln
  * womöglich veraltet» für Steuerjahre nach dem Jahr des Regelstands.
  */
 class TaxRulesStaleParityTest {

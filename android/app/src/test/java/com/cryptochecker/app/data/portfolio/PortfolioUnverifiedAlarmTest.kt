@@ -13,7 +13,7 @@ import org.junit.Test
 /**
  * «Kurs ungeprüft» (Binance-Kurs mit unbestätigtem Token) zählt für die Portfolio-Alarme wie ein alter
  * Kurs: wesentlich → keine Prüfung und Hinweis mit dem Coin, unwesentlich (unter 1 %) → Alarme prüfen. Wie
- * `PortfolioUnverifiedAlarmTests.swift`.
+ * `PortfolioUnverifiedAlarmTests`.
  */
 class PortfolioUnverifiedAlarmTest {
 

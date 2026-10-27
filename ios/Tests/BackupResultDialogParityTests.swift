@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Ergebnis von Sichern/Wiederherstellen als Dialog oder Toast (`Parity/backup_result_dialog.json`) und Anzeigedauer
-/// des Toasts. Gegenstück: `BackupResultDialogParityTest.kt`.
+/// des Toasts. Gegenstück: `BackupResultDialogParityTest`.
 final class BackupResultDialogParityTests: XCTestCase {
     private typealias S = TestSupport
 

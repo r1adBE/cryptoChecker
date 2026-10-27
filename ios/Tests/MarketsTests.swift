@@ -278,7 +278,7 @@ final class AutoGroupTests: XCTestCase {
     }
 }
 
-/// Wie `MarketNoticeGateTest.kt`.
+/// Wie `MarketNoticeGateTest`.
 final class MarketNoticeGateTests: XCTestCase {
 
     func testStoredOnlyAfterSuccessfulPost() {
