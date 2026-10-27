@@ -80,7 +80,7 @@ fun inputDecimalSeparator(): Char =
  */
 fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): String {
     val code = runCatching { java.util.Currency.getInstance(locale)?.currencyCode }.getOrNull()
-    return code?.takeIf { it in com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES } ?: "USD"
+    return code?.takeIf { it in com.cryptochecker.app.domain.convert.FxCurrencies.ALL } ?: "USD"
 }
 
 /**

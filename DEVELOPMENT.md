@@ -2528,7 +2528,8 @@ after the encryption step.
   `AppSettingsDefaults`, `AccentColor`, `PriceColorScheme`, `ColorDifference`, `UpdateMode`, `VolumeSpike` and
   `WindowRanges` (split out of their data sources, same package) and `DerivativesValues` (formerly the nested
   `DerivativesAlarmData.Values`). `AccentColor` has no resource ids any more: `labelRes` and `logoRes(dark)` are
-  extensions in `app/…/settings/AccentColorResources.kt` (callers import them). Next: `RefreshEffects`,
+  extensions in `app/…/settings/AccentColorResources.kt` (callers import them). The fiat list moved to
+  `domain/convert/FxCurrencies.ALL` (`FxRateSource.CURRENCIES` points there; `defaultCurrency` needs it). Next: `RefreshEffects`,
   `RefreshResultProcessor` and `LivePriceApplier` need ports for the remaining app types they touch.
 * Build 138 (R, step 3): 21 more files to `:domain` – `domain/activity` without `ActivityMonitor` (analyzer,
   models, sensitivity, why/factors/summary, broad market, BTC correlation, candle/OI series, funding trend),
