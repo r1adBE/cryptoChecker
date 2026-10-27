@@ -2521,6 +2521,11 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 152 (KMP prep, part 2): `util/json` in `:domain` – `JsonObject`, `JsonArray`, `JsonNull`, `JsonException`,
+  `JsonTokener` with AOSP `org.json` semantics (lenient reader: comments, `=`/`=>`, `;`, empty array slots, hex/octal,
+  unquoted words; `get*` coercions; `optString` of null = "null"; `put(name, null)` removes; whole doubles written
+  without ".0", "-0", `\/` and `\uXXXX` escapes). `JsonCompatibilityTest` compares it with AOSP `org.json` (unit-test
+  dependency `android-json`). Next: switch the 20 domain files over (string boundaries towards `:data`).
 * Build 151: `app/build.gradle.kts` forces `androidx.room:room-compiler-processing` to `libs.versions.room` in every
   configuration (Hilt's compiler pulled 2.8.4); `:domain` drops `timber` and `androidx.core.ktx` (unused since 146);
   lockfiles/verification metadata from «Supply chain update».

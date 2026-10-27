@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 152)
+
+* Android code structure (no change for users): `:domain` gets its own small JSON reader/writer (`util/json`) that behaves like Android's `org.json` – same conversions, same number and character output – checked against `org.json` in a compatibility test. The domain files switch over in the next builds (step towards Kotlin Multiplatform).
+
 ## 16.2.2 (build 151)
 
 * Android build (no change for users): one version of Room's annotation-processing library (2.8.5) in every module, `:domain` no longer declares the unused Timber and AndroidX Core libraries; lockfiles and checksums renewed by the «Supply chain update» workflow.
