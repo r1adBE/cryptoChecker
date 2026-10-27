@@ -2521,6 +2521,8 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 148: settings search entries `updates.check_runs` (both, anchor of the check-runs card) and `updates.exact`
+  (Android, anchor of the exact-checks row); no new strings.
 * Build 147 (R, test files): small test files (≤ 80 lines, one top-level class) merged per directory and name
   prefix into `<Prefix>{ParitySet|UiSet|RuleSet|DataSet|Set}[n]Test.kt` / `<Prefix>Set[n]Tests.swift` (≤ 380 lines,
   classes unchanged, imports merged); references to the old file names now name the class. New small tests go into

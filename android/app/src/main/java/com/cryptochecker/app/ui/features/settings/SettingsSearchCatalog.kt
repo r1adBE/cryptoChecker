@@ -70,9 +70,17 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         stringResource(R.string.settings_battery_ok), stringResource(R.string.settings_battery_hint))
     add("updates.background_interval", stringResource(R.string.settings_background_interval), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.background_interval"))
+    // «Pünktlich prüfen» (exakter Wecker, nur Android): eigener Treffer, Build 148
+    add("updates.exact", stringResource(R.string.settings_exact_checks), updatesPath,
+        SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.exact"),
+        stringResource(R.string.settings_exact_checks_hint), stringResource(R.string.settings_exact_checks_grant))
     add("updates.ongoing", stringResource(R.string.settings_ongoing_notifications), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.ongoing"),
         stringResource(R.string.settings_ongoing_notifications_hint))
+    // «Letzte Prüfungen»: Karte ganz unten auf der Seite, eigener Treffer (Build 148)
+    add("updates.check_runs", stringResource(R.string.settings_check_runs_title), updatesPath,
+        SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs"),
+        stringResource(R.string.settings_check_runs_honest_android))
     // Alarm-Protokoll: Knopf in der Karte «Letzte Prüfungen» (ganz unten auf der Seite) — dorthin springen
     add("updates.alarm_log", stringResource(R.string.alarm_log_title), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs"),

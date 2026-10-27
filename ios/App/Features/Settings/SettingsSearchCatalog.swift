@@ -52,6 +52,10 @@ enum SettingsSearchCatalog {
              L("settings_live_service"), L("settings_live_websocket")])
         add("updates.background_interval", L("settings_background_interval"), updatesPath,
             .page(.updates, anchor: "updates.background_interval"), [L("settings_ios_background_hint")])
+        // «Letzte Prüfungen»: Karte ganz unten auf der Seite, eigener Treffer (wie Android, Build 148; «Pünktlich prüfen»
+        // gibt es nur in Android)
+        add("updates.check_runs", L("settings_check_runs_title"), updatesPath, .page(.updates, anchor: "updates.check_runs"),
+            [L("settings_check_runs_honest_ios")])
         // Alarm-Protokoll: Zeile in der Karte «Letzte Prüfungen» (ganz unten auf der Seite) — dorthin springen, wie Android
         add("updates.alarm_log", L("alarm_log_title"), updatesPath, .page(.updates, anchor: "updates.check_runs"),
             [L("alarm_log_open"), L("alarm_log_intro"), L("settings_check_runs_title")])

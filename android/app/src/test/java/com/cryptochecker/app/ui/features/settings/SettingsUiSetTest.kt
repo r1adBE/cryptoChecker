@@ -87,6 +87,9 @@ class SettingsSearchAnchorsTest {
         assertTrue(search.contains("""add("about.diagnostics", stringResource(R.string.diagnostics_share), about, SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.diagnostics")"""))
         // Der Knopf steht in der Karte «Letzte Prüfungen»: dorthin
         assertTrue(search.contains("""add("updates.alarm_log", stringResource(R.string.alarm_log_title), updatesPath, SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs")"""))
+        // Build 148: «Pünktlich prüfen» und «Letzte Prüfungen» mit eigenem Treffer
+        assertTrue(search.contains("""add("updates.exact", stringResource(R.string.settings_exact_checks), updatesPath, SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.exact")"""))
+        assertTrue(search.contains("""add("updates.check_runs", stringResource(R.string.settings_check_runs_title), updatesPath, SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs")"""))
     }
 
     @Test
@@ -100,6 +103,7 @@ class SettingsSearchAnchorsTest {
             assertTrue("iOS-Suche ohne $it", it in targets)
         }
         assertTrue(search.contains("add(\"updates.alarm_log\""))
+        assertTrue(search.contains("add(\"updates.check_runs\""))
         val anchorLines = app.walkTopDown().filter { it.isFile && it.extension == "swift" }
             .flatMap { it.readLines().asSequence() }
             .filter { ".settingsAnchor(" in it }
