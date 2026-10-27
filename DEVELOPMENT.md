@@ -2536,6 +2536,9 @@ after the encryption step.
   load in the last «Load lists» run (sync error or empty list) and are still missing; the card shows
   `explorer_lists_failed` (plural by count, names joined with «, ») before the remaining `explorer_lists_missing` and
   the button becomes `action_retry`.
+  Supply chain (SEC-2 done): the run of «Supply chain update» on this build wrote `verify-signatures=true` with
+  `android/gradle/verification-keyring.keys`; checksums remain for unsigned artifacts. Lock files gained the
+  release unit-test configurations (no version changed).
 * Build 131: FIFO origin parts read on demand – `PortfolioFifoParts` (Kotlin/Swift): per queue a `FeeStream` (time,
   factor = fee ÷ holdings, prefix sums); a lot carries own entries (points, ranges) plus amount × Σ factors since it
   joined; disposals keep entries and expand them on first read (`PortfolioCostPartList(fifo:)` on iOS, lazy list on
