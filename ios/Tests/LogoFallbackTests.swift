@@ -92,8 +92,18 @@ final class LogoFallbackTests: XCTestCase {
 
     func testImagePauses() throws {
         let f = try S.fixture("logo_fallback")
-        for (code, expected) in pairs(f["pauseCodes"]) {
-            XCTAssertEqual(CoinLogoRetry.pausesImages(httpCode: (code as? NSNumber)?.intValue ?? 0), expected as? Bool, "code: \(code)")
+        for row in (f["pauseResponse"] as? [[Any]]) ?? [] {
+            XCTAssertEqual(CoinLogoRetry.pausesImages(httpCode: (row[0] as? NSNumber)?.intValue ?? 0, retryAfter: row[1] as? Bool ?? false),
+                           row[2] as? Bool, "code: \(row)")
+        }
+        // Folge von 403 je Server: erst das dritte Bild in Folge pausiert
+        for (sequence, expected) in pairs(f["forbiddenStreak"]) {
+            var streak = 0
+            let actual = ((sequence as? [Bool]) ?? []).map { forbidden -> Bool in
+                streak = CoinLogoRetry.nextForbiddenStreak(streak, forbidden: forbidden)
+                return CoinLogoRetry.forbiddenStreakPauses(streak)
+            }
+            XCTAssertEqual(actual, expected as? [Bool], "streak: \(sequence)")
         }
         for (retry, expected) in pairs(f["pauseMillis"]) {
             XCTAssertEqual(CoinLogoRetry.imagePauseMillis(retryAfterSeconds: (retry as? NSNumber)?.int64Value),

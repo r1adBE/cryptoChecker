@@ -25,7 +25,7 @@ extension TaxEngines {
         for s in steps where s.kind == .acquire && !late(s) {
             let d = day(s.acquired, zone)
             var pool = dayPools[d] ?? TaxPool()
-            pool.add(s.qty, cost: s.cost, time: s.acquired)
+            pool.add(s.qty, cost: s.cost, time: s.acquired, est: s.costEstimated)
             dayPools[d] = pool
             dayFirst[d] = min(dayFirst[d] ?? Int64.max, s.acquired)
             dayLeft[d] = (dayLeft[d] ?? 0) + s.qty
@@ -50,7 +50,7 @@ extension TaxEngines {
             for (n, i) in idx.enumerated() {
                 let r = remaining[i] ?? 0
                 guard r > 0 else { continue }
-                let want: Decimal = n == last ? left : PortfolioDecimal.divide(q * r, total)
+                let want: Decimal = n == last ? left : PortfolioDecimal.divide(q, r, by: total)
                 left -= want
                 take(i, want)
             }
@@ -104,6 +104,15 @@ extension TaxEngines {
         // Der Pool-Teil einer Gruppe beim letzten Abgang des Tags (alle Buchungen bis dahin im Pool)
         var groupAt: [Int: [Int]] = [:]
         for g in groups { if let last = g.idx.last { groupAt[last] = g.idx } }
+        // Auszahlung zwischen zwei Abgängen derselben Gruppe: erst nach deren Pool-Teil gebucht (die Abgänge des Tags sind
+        // EINE Veräusserung und werden zuerst zugeordnet) — sonst leerte sie den Pool vor dem früheren Abgang. Wie Android.
+        var deferred: [Int: [Int]] = [:]
+        for (i, s) in steps.enumerated() where s.kind == .remove {
+            guard let k = groupOf[day(s.time, zone)], let first = groups[k].idx.first, let last = groups[k].idx.last,
+                  first < i, i < last else { continue }
+            deferred[last, default: []].append(i)
+        }
+        let deferredSteps = Set(deferred.values.joined())
         // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
         // Buchungstag), Rest der Abgänge aus dem Pool
         var pool = TaxPool(zone: zone)
@@ -119,9 +128,9 @@ extension TaxEngines {
                 dayPools[d] = dp
                 return
             }
-            let taken = dp.take(PortfolioDecimal.divide(dp.held * q, left))
+            let taken = dp.take(PortfolioDecimal.divide(dp.held, q, by: left))
             dayPools[d] = dp
-            pool.addCarried(taken.removedPriced, from: taken.parts)
+            pool.addCarried(taken.removedPriced, from: taken.parts, est: taken.estimated)
             pool.add(taken.removedUnpriced, cost: nil, time: dayFirst[d] ?? 0)
         }
         for (i, s) in steps.enumerated() {
@@ -129,7 +138,7 @@ extension TaxEngines {
             case .acquire:
                 let d = day(s.acquired, zone)
                 if late(s) {
-                    pool.add(s.qty, cost: s.cost, time: s.acquired)
+                    pool.add(s.qty, cost: s.cost, time: s.acquired, est: s.costEstimated)
                 } else if moved(s) {
                     enter(d, s.qty)
                 } else if added.insert(d).inserted {
@@ -142,6 +151,7 @@ extension TaxEngines {
                     remaining[m] = (remaining[m] ?? 0) - taken.removed
                     pieces[m, default: []] += piecesOf(taken, match: .POOL)
                 }
+                for r in deferred[i] ?? [] { _ = pool.take(steps[r].qty) }
                 for m in group {
                     var list = pieces[m] ?? []
                     let rest = remaining[m] ?? 0
@@ -150,11 +160,12 @@ extension TaxEngines {
                     out += emit(coin, steps[m], list, proceeds: steps[m].proceeds, gross: steps[m].gross)
                 }
             case .remove:
-                _ = pool.take(s.qty)
+                if !deferredSteps.contains(i) { _ = pool.take(s.qty) }
             case .networkFee:
                 note(&lost, coin, s, pool.dropQty(s.qty))
             case .addFee:
-                noteUnassigned(&unassigned, coin, s, pool.addFee(s.time, s.cost ?? 0, amount: s.trade.amountExact, coinFee: s.trade.coinFeeExact))
+                noteUnassigned(&unassigned, coin, s, pool.addFee(s.time, s.cost ?? 0, amount: s.trade.amountExact,
+                                                                 coinFee: s.trade.coinFeeExact, est: s.costEstimated))
             }
         }
         return out

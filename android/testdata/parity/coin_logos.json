@@ -56,6 +56,30 @@
     {
       "symbol": "",
       "expected": ""
+    },
+    {
+      "symbol": "1000FLOKI",
+      "expected": "FLOKI"
+    },
+    {
+      "symbol": "1000LUNC",
+      "expected": "LUNC"
+    },
+    {
+      "symbol": "1000CHEEMS",
+      "expected": "CHEEMS"
+    },
+    {
+      "symbol": "1000BONK",
+      "expected": "BONK"
+    },
+    {
+      "symbol": "0G",
+      "expected": "0G"
+    },
+    {
+      "symbol": "Mog",
+      "expected": "MOG"
     }
   ],
   "initials": [
@@ -222,6 +246,22 @@
     {
       "symbol": "TRADFI:",
       "expected": null
+    },
+    {
+      "symbol": "0G",
+      "expected": "0G.png"
+    },
+    {
+      "symbol": "1000000MOG",
+      "expected": "MOG.png"
+    },
+    {
+      "symbol": "1000CHEEMS",
+      "expected": "CHEEMS.png"
+    },
+    {
+      "symbol": "1000LUNC",
+      "expected": "LUNC.png"
     }
   ],
   "pick": {
@@ -733,6 +773,178 @@
     },
     "expected": [
       "BTC"
+    ]
+  },
+  "_logoFilesComment": "urlFor(map, symbol): Bild-Adresse wie beim Zusammenführen (Krypto über normalize, TradFi über tradFiKey) — auch für die Start-Logos («1000CAT» findet CAT). downloadJobs(wanted, skip): je Dateiname höchstens ein Abruf (erster gilt, auch wenn er wegen skip wegfällt), ohne Dateinamen und skip-Namen. futures: Futures-Kürzel der Binance-Merkliste über die echte Zusammenführung (CoinMeta.parseMarketsPage, CoinMeta.parse, CoinMeta.merge): Platzhalter «missing_» und fremde Alpha-Hosts fallen durch, die nächste Quelle füllt. Erwartete Werte mit scratchpad money/fix-logos/gen.py nachgerechnet.",
+  "urlFor": {
+    "map": {
+      "FLOKI": "https://coin-images.coingecko.com/coins/images/16746/large/PNG_image.png",
+      "CHEEMS": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20241115/cheems.png",
+      "CAT": "https://coin-images.coingecko.com/coins/images/37394/large/cat.png",
+      "MOG": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/mog.png",
+      "0G": "https://coin-images.coingecko.com/coins/images/53908/large/0G.png",
+      "TRADFI:NVDA": "https://bin.bnbstatic.com/image/nvdab.png"
+    },
+    "cases": [
+      [
+        "1000FLOKI",
+        "https://coin-images.coingecko.com/coins/images/16746/large/PNG_image.png"
+      ],
+      [
+        "floki",
+        "https://coin-images.coingecko.com/coins/images/16746/large/PNG_image.png"
+      ],
+      [
+        "1000CHEEMS",
+        "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20241115/cheems.png"
+      ],
+      [
+        "1000CAT",
+        "https://coin-images.coingecko.com/coins/images/37394/large/cat.png"
+      ],
+      [
+        "1000000MOG",
+        "https://bin.bnbstatic.com/images/web3-data/public/token/logos/mog.png"
+      ],
+      [
+        "0G",
+        "https://coin-images.coingecko.com/coins/images/53908/large/0G.png"
+      ],
+      [
+        "0g",
+        "https://coin-images.coingecko.com/coins/images/53908/large/0G.png"
+      ],
+      [
+        " 0g ",
+        "https://coin-images.coingecko.com/coins/images/53908/large/0G.png"
+      ],
+      [
+        "TRADFI:nvda",
+        "https://bin.bnbstatic.com/image/nvdab.png"
+      ],
+      [
+        "TRADFI:CAT",
+        null
+      ],
+      [
+        "NVDA",
+        null
+      ],
+      [
+        "1000X",
+        null
+      ],
+      [
+        "",
+        null
+      ]
+    ]
+  },
+  "downloadJobs": {
+    "wanted": [
+      [
+        "FLOKI",
+        "https://a/floki.png"
+      ],
+      [
+        "1000FLOKI",
+        "https://b/floki.png"
+      ],
+      [
+        "TRADFI:CAT",
+        "https://a/t_cat.png"
+      ],
+      [
+        "CAT",
+        "https://a/cat.png"
+      ],
+      [
+        "1000CAT",
+        "https://b/cat.png"
+      ],
+      [
+        "USD₮",
+        "https://a/usdt.png"
+      ],
+      [
+        "0G",
+        "https://a/0g.png"
+      ],
+      [
+        "BTC",
+        "https://a/btc.png"
+      ],
+      [
+        "xbt",
+        "https://b/btc.png"
+      ]
+    ],
+    "skip": [
+      "BTC.png"
+    ],
+    "expected": [
+      [
+        "FLOKI.png",
+        "https://a/floki.png"
+      ],
+      [
+        "T_CAT.png",
+        "https://a/t_cat.png"
+      ],
+      [
+        "CAT.png",
+        "https://a/cat.png"
+      ],
+      [
+        "0G.png",
+        "https://a/0g.png"
+      ]
+    ]
+  },
+  "futures": {
+    "markets": "[{\"symbol\": \"bonk\", \"image\": \"https://coin-images.coingecko.com/coins/images/28600/large/bonk.jpg?1696527587\", \"name\": \"Bonk\"}, {\"symbol\": \"floki\", \"image\": \"https://coin-images.coingecko.com/coins/images/16746/large/PNG_image.png?1696516318\", \"name\": \"FLOKI\"}, {\"symbol\": \"0g\", \"image\": \"https://coin-images.coingecko.com/coins/images/53908/large/0G.png?1739000000\", \"name\": \"0G\"}, {\"symbol\": \"lunc\", \"image\": \"https://static.coingecko.com/s/missing_large-4c0c0cdb.png\", \"name\": \"Terra Luna Classic\"}, {\"symbol\": \"cat\", \"image\": \"https://coin-images.coingecko.com/coins/images/37394/large/cat.png?1714000000\", \"name\": \"Simon's Cat\"}]",
+    "meta": "{\"v\": 1, \"generated\": 1761700000000, \"binance\": [{\"name\": \"LUNC\", \"fullName\": \"Terra Classic\", \"logo\": \"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220527/lunc.png\"}, {\"name\": \"1000CHEEMS\", \"fullName\": \"1000*cheems.pet\", \"logo\": \"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20241115/cheems.png\"}, {\"name\": \"1000CAT\", \"fullName\": \"1000*Simons Cat\", \"logo\": \"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20240901/cat.png\"}, {\"name\": \"1000FLOKI\", \"fullName\": \"FLOKI\", \"onlyFutures\": true, \"logo\": \"https://bin.bnbstatic.com/image/admin_mgs_image_upload/20230601/floki.png\"}], \"alpha\": [{\"symbol\": \"Mog\", \"name\": \"Mog Coin\", \"iconUrl\": \"https://static.example.com/mog.png\", \"marketCap\": \"50000000\"}, {\"symbol\": \"MOG\", \"name\": \"Mog Coin\", \"iconUrl\": \"/images/web3-data/public/token/logos/mog.png\", \"marketCap\": \"40918147.9\"}]}",
+    "cases": [
+      [
+        "1000FLOKI",
+        "https://coin-images.coingecko.com/coins/images/16746/large/PNG_image.png?1696516318",
+        "FLOKI.png"
+      ],
+      [
+        "1000LUNC",
+        "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220527/lunc.png",
+        "LUNC.png"
+      ],
+      [
+        "1000CHEEMS",
+        "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20241115/cheems.png",
+        "CHEEMS.png"
+      ],
+      [
+        "1000000MOG",
+        "https://bin.bnbstatic.com/images/web3-data/public/token/logos/mog.png",
+        "MOG.png"
+      ],
+      [
+        "0G",
+        "https://coin-images.coingecko.com/coins/images/53908/large/0G.png?1739000000",
+        "0G.png"
+      ],
+      [
+        "1000BONK",
+        "https://coin-images.coingecko.com/coins/images/28600/large/bonk.jpg?1696527587",
+        "BONK.png"
+      ],
+      [
+        "1000CAT",
+        "https://coin-images.coingecko.com/coins/images/37394/large/cat.png?1714000000",
+        "CAT.png"
+      ],
+      [
+        "1000PEPE",
+        null,
+        "PEPE.png"
+      ]
     ]
   }
 }

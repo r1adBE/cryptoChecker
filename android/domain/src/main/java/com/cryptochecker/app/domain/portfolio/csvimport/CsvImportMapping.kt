@@ -335,7 +335,7 @@ object CsvImportMapping {
             val amounts = listOf(tx.amount, tx.amount - coinFee).filter { it.signum() > 0 }
             val hit = changes.firstOrNull { c ->
                 c !in used && c.coin == tx.coin && c.time >= tx.time && c.time - tx.time <= MATCH_WINDOW_MILLIS &&
-                    amounts.any { (it - c.delta).abs() <= (c.delta * MATCH_TOLERANCE).max(MATCH_DUST) }
+                    amounts.any { (it - c.delta).abs() <= c.delta.multiply(MATCH_TOLERANCE, PortfolioDecimal.MC).max(MATCH_DUST) }
             }
             hit?.let { used += it }
             CsvWithdrawalProposal(tx.importKey, hit?.let { CsvWithdrawalChoice.TRANSFER }, hit?.name)

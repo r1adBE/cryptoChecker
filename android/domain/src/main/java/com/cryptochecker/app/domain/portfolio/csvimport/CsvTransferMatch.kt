@@ -317,7 +317,7 @@ object CsvTransferMatch {
         if (d.time < w.time - EARLY_MILLIS || d.time > w.time + WINDOW_MILLIS) return false
         if (d.total.signum() <= 0 || d.total > w.total) return false
         val diff = w.total - d.total
-        if (diff > w.total.multiply(MAX_FEE_SHARE)) return false
+        if (diff > w.total.multiply(MAX_FEE_SHARE, com.cryptochecker.app.domain.portfolio.PortfolioDecimal.MC)) return false
         // USDT-Gebühr der Auszahlung und Differenz im Coin: die Umbuchung trägt nur eine Gebühr
         return !(diff.signum() > 0 && w.quoteFee != null)
     }

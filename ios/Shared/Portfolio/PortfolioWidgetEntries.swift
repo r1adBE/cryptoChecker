@@ -34,7 +34,8 @@ enum PortfolioWidgetEntryFilter: String, CaseIterable, Sendable {
 
 /// Buchungen je Coin für das Listen-Widget: dieselben Schritte und dieselbe Bestandsregel wie der Rechner
 /// (`PortfolioLedger.events`, `PortfolioHoldingsBook`) — alle Zeilen zusammen ergeben genau den Bestand der Kopfzeile.
-/// Wie Android `PortfolioWidgetEntries`.
+/// Der Adress-Teil ohne Einstand (`AddressBalance.isAddressPart`) ist keine Buchung und fehlt (sein eigener Topf im Buch
+/// berührt die übrigen Zeilen nicht); Eröffnungsposten stehen wie Käufe in der Liste. Wie Android `PortfolioWidgetEntries`.
 enum PortfolioWidgetEntries {
     /// Sichtbare Zeichen der Notiz; länger → gekürzt und «…» angehängt.
     static let noteChars = 6
@@ -51,13 +52,13 @@ enum PortfolioWidgetEntries {
         return cut.replacingOccurrences(of: "\\s+$", with: "", options: .regularExpression) + "…"
     }
 
-    /// Buchungen von `coin` aus `trades`, zeitlich aufsteigend (Notiz aus `PortfolioTx.note`); leer bei mehr als
+    /// Buchungen von `coin` aus `trades` ohne Adress-Teil, zeitlich aufsteigend (Notiz aus `PortfolioTx.note`); leer bei mehr als
     /// `maxPerCoin`. Ohne Wert (setzt `withValues`).
     static func of(_ coin: String, trades: [PortfolioTx], method: CostMethod = .defaultMethod) -> [PortfolioWidgetEntry] {
         var book = PortfolioHoldingsBook(method: method)
         var out: [PortfolioWidgetEntry] = []
         for e in PortfolioLedger.events(coin, trades: trades) {
-            guard e.trade.amountExact > 0 else { continue }
+            guard e.trade.amountExact > 0, !AddressBalance.isAddressPart(e.trade.id) else { continue }
             let before = book.total
             book.apply(e)
             let delta = book.total - before

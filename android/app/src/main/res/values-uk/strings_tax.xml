@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Не вдалося прочитати відстежувані адреси – їхні баланси відсутні в цьому файлі</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Примітка: відстежувана адреса має позиції з вартістю придбання, датовані після останньої перевірки балансу до цієї дати, — тут їх може не бути.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Партії відстежуваних адрес враховуються з дати купівлі; якщо поточний баланс адреси нижчий, їх буде зменшено.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Відстежувані адреси входять до загальної вартості, але не мають вартості придбання – тому прибуток, ймовірно, завищений. Внеси вартість як купівлю.</string>

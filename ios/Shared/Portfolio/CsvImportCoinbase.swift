@@ -97,7 +97,7 @@ enum CsvImportCoinbase {
                 let externalId: String? = idText.isEmpty ? nil : idText
                 let priced = kind == .BUY || kind == .SELL || kind == .REWARD
                 var price: Decimal?
-                if priced { price = subtotal.map { CsvImport.divide($0, amount) } ?? spot }
+                if priced { price = subtotal.map { PortfolioDecimal.divide($0, amount) } ?? spot }
                 if price != nil && quote == nil { throw Skip(reason: .MISSING_FIELD) }
                 var toCoin: String?
                 var toAmount: Decimal?
@@ -108,7 +108,7 @@ enum CsvImportCoinbase {
                     let to = asset(g[4])
                     guard let received = positive(CsvImportParser.parseNumber(g[3], hint: ".")) else { throw Skip(reason: .BAD_NUMBER) }
                     if to == coin { throw Skip(reason: .MISSING_FIELD) }
-                    if let q = quote, CsvImport.money.contains(q) { swapValue = subtotal ?? spot.map { $0 * amount } }
+                    if let q = quote, CsvImport.money.contains(q) { swapValue = subtotal ?? spot.map { PortfolioDecimal.multiply($0, amount) } }
                     toCoin = to
                     toAmount = received
                     rowQuote = (swapValue != nil || fee != nil) ? quote : nil
@@ -136,10 +136,25 @@ enum CsvImportCoinbase {
         return t == "ETH2" ? "ETH" : t
     }
 
-    /// Betrag ohne Währungszeichen («€40,000.00», «-$12.50», «CHF 3.00»); Punkt = Dezimalzeichen; leer/unlesbar = nil.
+    /// Betrag ohne Währungszeichen («€40,000.00», «-$12.50», «CHF 3.00», «EUR 3.00»); Punkt = Dezimalzeichen; leer/unlesbar
+    /// = nil. Wissenschaftliche Schreibweise bleibt (`exponentAt`), wie Excel grosse und kleine Mengen speichert
+    /// («1.23457E+11», «1.5E-05»): `CsvImportParser.parseNumber` liest sie wie in jedem anderen Format. Wie Android.
     private static func money(_ text: String) -> Decimal? {
-        let t = String(text.filter { $0.isASCII && $0.isNumber || $0 == "." || $0 == "," || $0 == "-" || $0 == "−" })
+        let chars = Array(text)
+        var t = ""
+        for (i, c) in chars.enumerated() {
+            let kept = (c.isASCII && c.isNumber) || ".,-−+".contains(c)
+            if kept || ((c == "e" || c == "E") && exponentAt(chars, i)) { t.append(c) }
+        }
         return t.isEmpty ? nil : CsvImportParser.parseNumber(t, hint: ".")
+    }
+
+    /// «E»/«e» an `i` ist ein Exponent: direkt nach einer Ziffer und vor einer Ziffer (bzw. Vorzeichen und Ziffer) — ein
+    /// Währungskürzel («EUR 3.00», «3.00 EUR») nie. Wie Android `exponentAt`.
+    private static func exponentAt(_ chars: [Character], _ i: Int) -> Bool {
+        func digit(_ j: Int) -> Bool { j >= 0 && j < chars.count && chars[j].isASCII && chars[j].isNumber }
+        let signed = i + 1 < chars.count && "+-−".contains(chars[i + 1])
+        return digit(i - 1) && digit(signed ? i + 2 : i + 1)
     }
 
     /// Gruppen des ersten Treffers ("" für nicht beteiligte); nil = kein Treffer.

@@ -116,14 +116,17 @@ object PortfolioWidgetSeries {
     }
 
     /** Jüngster Kurs, der höchstens [TOLERANCE_MILLIS] vor [time] liegt (nicht danach); sonst null. */
-    fun priceAt(prices: List<TimedPrice>?, time: Long): Double? {
+    fun priceAt(prices: List<TimedPrice>?, time: Long): Double? = timedAt(prices, time)?.let { valid(it.price) }
+
+    /** Der Eintrag, den [priceAt] nimmt (mit seiner Zeit); null = keiner. */
+    private fun timedAt(prices: List<TimedPrice>?, time: Long): TimedPrice? {
         if (prices.isNullOrEmpty()) return null
         var best: TimedPrice? = null
         for (p in prices) {
             if (p.time > time || time - p.time > TOLERANCE_MILLIS) continue
             if (best == null || p.time > best.time) best = p
         }
-        return best?.let { valid(it.price) }
+        return best
     }
 
     /**
@@ -321,6 +324,28 @@ object PortfolioWidgetSeries {
         for ((coin, price) in current) {
             if (valid(price) == null) continue
             val then = dayAgo(prices, coin, now) ?: continue
+            if (valid(then.price) != null) out[coin] = then.time
+        }
+        return out
+    }
+
+    /**
+     * «Heute» seit Tagesbeginn: Zeit des Vergleichskurses je Coin — Stundenkurs von [coinChangesSince] (geht vor; [priceAt]
+     * nimmt bis [TOLERANCE_MILLIS] vor [dayStart]), sonst die Aufnahme zum Tagesbeginn [base]
+     * ([PortfolioSnapshotMath.baselineAt]). Beginn des Zeitraums je Coin wie [changeSince]: ein Kauf zwischen diesem Kurs
+     * und Tagesbeginn ist Zufluss, nie Gewinn zum älteren Kurs.
+     */
+    fun changeSinceDay(
+        current: Map<String, Double>,
+        base: PriceSample?,
+        prices: Map<String, List<TimedPrice>>,
+        dayStart: Long,
+    ): Map<String, Long> {
+        val out = HashMap<String, Long>()
+        if (base != null) PortfolioWidgetMath.coinChanges(current, base.prices).keys.forEach { out[it] = base.time }
+        for ((coin, price) in current) {
+            if (valid(price) == null) continue
+            val then = timedAt(prices[coin.uppercase()], dayStart) ?: continue
             if (valid(then.price) != null) out[coin] = then.time
         }
         return out

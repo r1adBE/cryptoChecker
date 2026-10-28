@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">No se pudieron leer las direcciones vigiladas: sus saldos faltan en este archivo</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Nota: una dirección vigilada tiene lotes con coste fechados después de su última consulta de saldo antes de esta fecha; pueden faltar aquí.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Los lotes de las direcciones vigiladas cuentan desde su fecha de compra; si el saldo actual de la dirección es menor, se reducen.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Las direcciones vigiladas cuentan en el valor total pero no tienen coste de adquisición: la ganancia probablemente resulta demasiado alta. Registra el coste como compra.</string>

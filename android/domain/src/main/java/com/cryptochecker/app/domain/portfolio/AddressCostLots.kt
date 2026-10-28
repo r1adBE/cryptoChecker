@@ -26,7 +26,7 @@ data class AddressCostLot(
 
     /** Einstand gesamt: erfasster Einstand, sonst Menge × Preis; null ohne gültigen Einstand. */
     val cost: BigDecimal?
-        get() = costUsdt?.takeIf { it.signum() >= 0 } ?: priceUsdt?.takeIf { it.signum() >= 0 }?.let { amount * it }
+        get() = costUsdt?.takeIf { it.signum() >= 0 } ?: priceUsdt?.takeIf { it.signum() >= 0 }?.let { amount.multiply(it, PortfolioDecimal.MC) }
 }
 
 /**
@@ -46,7 +46,7 @@ data class AddressCostLot(
  *    Adresse steckt schon im Guthaben und zählt nur einmal (nur die erste zählende Adresse je Wallet, [movesOwners]).
  *  - Heute / 7 T / 1 J und Wertverlauf rechnen wie die Karte: Posten als Käufe ab ihrer Zeit, dazu die beobachtete Reihe
  *    ohne den Teil, den Posten und erfasste Bewegungen schon abbilden ([AddressBooked]). Stichtag und CH-Vermögenswert
- *    ebenso mit dem Guthaben am Stichtag ([AddressCutoff]).
+ *    ebenso, mit der Stufe dieser Reihe am Stichtag ([AddressCutoff]).
  * Gespeichert mit der Adresse (Android Spalte `costLots`, iOS `watched_addresses.json`), in der App-Sicherung unter
  * «costLots» je Adresse: `[{"id":1,"coin":"BTC","t":…,"amount":"0.5","price":"30000"}]` («cost» statt «price», wenn
  * gesamt eingegeben).
@@ -294,42 +294,20 @@ object AddressCostLots {
     }
 
     /**
-     * Steuer-Export: eigene Transaktionen + Eröffnungsposten als Käufe ([trades]); FR dazu die beobachteten Guthaben-Reihen
-     * ([AddressBalanceHistory.trades]) für den Gesamtwert — ohne den belegten Teil ([withoutLotted]), der schon als Posten
-     * zählt ([accounted]). CH-Vermögenswert und Stichtag rechnen mit dem Stand am Stichtag ([AddressCutoff]) und lassen
-     * diese Einträge weg.
+     * Steuer-Export: eigene Transaktionen + Eröffnungsposten als Käufe ([trades]); FR dazu für den Gesamtwert die
+     * beobachteten Guthaben-Reihen in der Sicht der Karte ([AddressBooked.histories]: ohne Posten und erfasste Bewegungen
+     * der Adress-Wallet, die schon als Buchung zählen) — dieselbe Menge wie Karte und Wertverlauf. CH-Vermögenswert und
+     * Stichtag rechnen mit dem Stand am Stichtag ([AddressCutoff]) und lassen diese Einträge weg.
      */
     fun exportTrades(real: List<PortfolioTrade>, addresses: List<WatchedAddress>, frTotalValue: Boolean): List<PortfolioTrade> {
         val lots = trades(addresses, real)
         if (!frTotalValue) return real + lots
-        return real + lots + withoutLotted(AddressBalanceHistory.trades(AddressBalanceHistory.of(addresses)), accounted(addresses, real))
-    }
-
-    /**
-     * Beobachtete Guthaben-Reihen ohne den belegten Teil [lotted] (je Coin, ≤ 0 = nichts): die ältesten Zugänge werden
-     * gekürzt (bzw. fallen weg), Abgänge bleiben. Reihenfolge der Eingabe.
-     */
-    fun withoutLotted(history: List<PortfolioTrade>, lotted: Map<String, BigDecimal>): List<PortfolioTrade> {
-        if (lotted.isEmpty()) return history
-        val left = HashMap(lotted)
-        val cut = HashMap<Int, BigDecimal>()
-        history.withIndex().sortedWith(compareBy({ it.value.time }, { it.index })).forEach { (i, t) ->
-            val coin = PortfolioCalculator.normalizeCoin(t.coin)
-            val open = left[coin] ?: return@forEach
-            if (t.type != PortfolioTxType.DEPOSIT || open.signum() <= 0) return@forEach
-            val take = open.min(t.amount)
-            left[coin] = open - take
-            cut[i] = t.amount - take
-        }
-        return history.withIndex().mapNotNull { (i, t) ->
-            val rest = cut[i] ?: return@mapNotNull t
-            if (rest.signum() > 0) t.copy(amount = rest) else null
-        }
+        return real + lots + AddressBalanceHistory.trades(AddressBooked.histories(addresses, real))
     }
 
     /** Vorschlag Einstand gesamt = Menge × Tagesschluss (> 0); sonst null. */
     fun suggestion(amount: BigDecimal, close: BigDecimal?): BigDecimal? =
-        close?.takeIf { it.signum() > 0 && amount.signum() > 0 }?.let { amount * it }
+        close?.takeIf { it.signum() > 0 && amount.signum() > 0 }?.let { amount.multiply(it, PortfolioDecimal.MC) }
 
     // ---- Speicherform (Spalte, Datei, Sicherung) ----
 

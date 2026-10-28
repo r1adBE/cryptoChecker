@@ -340,8 +340,8 @@ final class PortfolioParityTests: XCTestCase {
         }
     }
 
-    /// «Heute»: Beginn je Coin = Zeit seines Vergleichskurses; ein Kauf nach der Basis ist Zufluss, kein Gewinn — wie
-    /// Android `todayBase`.
+    /// «Heute»: Beginn je Coin = Zeit seines Vergleichskurses (rollend, mit «dayStart» seit Tagesbeginn); ein Kauf nach der
+    /// Basis ist Zufluss, kein Gewinn — wie Android `todayBase`.
     func testTodayBase() throws {
         for c in TestSupport.list(try TestSupport.fixture("portfolio")["todayBase"]) {
             let name = c["name"] as? String ?? ""
@@ -354,8 +354,13 @@ final class PortfolioParityTests: XCTestCase {
                     PortfolioTimedPrice(at: Int64(TestSupport.number($0["time"]) ?? 0), price: TestSupport.number($0["price"]) ?? 0)
                 }
             }
-            let since = PortfolioWidgetSeries.changeSince(current: current, baseTime: Int64(TestSupport.number(base["time"]) ?? 0),
-                                                          basePrices: prices(base["prices"]), prices: hourly, now: now)
+            let baseTime = Int64(TestSupport.number(base["time"]) ?? 0)
+            // «seit 00:00»: Vergleichskurs bis 90 min vor Tagesbeginn
+            let since = TestSupport.number(c["dayStart"]).map {
+                PortfolioWidgetSeries.changeSinceDay(current: current, baseTime: baseTime, basePrices: prices(base["prices"]),
+                                                     prices: hourly, dayStart: Int64($0))
+            } ?? PortfolioWidgetSeries.changeSince(current: current, baseTime: baseTime, basePrices: prices(base["prices"]),
+                                                   prices: hourly, now: now)
             let e = c["expected"] as? [String: Any] ?? [:]
             let expectedSince = (e["since"] as? [String: Any] ?? [:]).compactMapValues { TestSupport.number($0).map { Int64($0) } }
             XCTAssertEqual(expectedSince, since, "\(name) since")

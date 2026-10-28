@@ -188,8 +188,8 @@ object PortfolioLedger {
                 isFeeDisposal(t) -> t.copy(priceUsdt = close(t.coin, t.time), feeRow = false)
                 t.type == PortfolioTxType.PAYMENT -> close(t.coin, t.time)?.let { t.copy(priceUsdt = it, valueEstimated = true) } ?: t
                 else -> {
-                    val value = close(t.coin, t.time)?.let { t.amount * it }
-                        ?: t.swapToCoin?.let { to -> close(to, t.time)?.let { c -> t.toAmount?.multiply(c) } }
+                    val value = close(t.coin, t.time)?.let { t.amount.multiply(it, PortfolioDecimal.MC) }
+                        ?: t.swapToCoin?.let { to -> close(to, t.time)?.let { c -> t.toAmount?.multiply(c, PortfolioDecimal.MC) } }
                     value?.let { t.copy(swapValueUsdt = it, valueEstimated = true) } ?: t
                 }
             }
@@ -308,41 +308,41 @@ object PortfolioLedger {
             // Ohne Gebühr-Preis zum Marktkurs des Gebühr-Coins (neutral wie eine Auszahlung ohne Preis)
             val feePrice = t.thirdFeePrice ?: exactPrice(marketPrice) ?: return null
             val removed = t.thirdFeeAmount.min(h)
-            return if (removed.signum() > 0) (removed * feePrice).negate() else BigDecimal.ZERO
+            return if (removed.signum() > 0) removed.multiply(feePrice, PortfolioDecimal.MC).negate() else BigDecimal.ZERO
         }
         val market = exactPrice(marketPrice)
         if (e.swapIn) {
             // Zugang aus Tausch: zum Wert des Tauschs, sonst erhaltene Menge (vor Gebühr) × Marktkurs; ohne gültigen Zugang unbekannt
             if (t.swapToCoin == null) return null
             t.swapValue?.let { return it }
-            return market?.let { m -> t.toAmount?.multiply(m) }
+            return market?.let { m -> t.toAmount?.multiply(m, PortfolioDecimal.MC) }
         }
         // Umbuchung ohne Bestand (in ihrer Quelle): wie im Rechner ([PortfolioFifo], Ø) ohne Wirkung — auch ihre Gebühren
         if (t.type == PortfolioTxType.TRANSFER && h.signum() <= 0) return BigDecimal.ZERO
         // Gebühr im dritten Coin ohne Preis: zum Marktkurs des Gebühr-Coins
         val feeValue = t.thirdFeeValue
-            ?: exactPrice(feeMarketPrice)?.let { t.thirdFeeAmount * it }
+            ?: exactPrice(feeMarketPrice)?.let { t.thirdFeeAmount.multiply(it, PortfolioDecimal.MC) }
             ?: return null
         // Gebühr-Zeile zum Marktkurs (Abfluss wie ein Verkauf, dessen Erlös das Portfolio verlässt)
         val price = if (isFeeDisposal(t)) market else t.validPrice ?: market?.takeIf { needsMarketPrice(e) }
         return when (t.type) {
             PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> {
                 if (price == null) return null
-                t.amount * price + t.quoteFee + feeValue
+                t.amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + feeValue
             }
             // Damit bezahlt: Wert verlässt das Portfolio wie ein Verkauf (ohne Marktwert zum Marktkurs)
             PortfolioTxType.SELL, PortfolioTxType.PAYMENT -> {
                 if (price == null) return null
                 // Nichts mehr da: der Verkauf zählt nicht, auch nicht seine Gebühr — wie «realisiert»
                 val share = coveredFraction(t, h, method) ?: return BigDecimal.ZERO
-                partOf(t.amount * price - t.quoteFee - feeValue, share).negate()
+                partOf(t.amount.multiply(price, PortfolioDecimal.MC) - t.quoteFee - feeValue, share).negate()
             }
             // Verschenkt: wie eine Auszahlung (Wert verlässt das Portfolio zum Marktwert)
             PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> {
                 val share = withdrawnFraction(t, h) ?: return BigDecimal.ZERO
                 if (price == null) return null
                 // Wert und Gebühren zum gedeckten Anteil wie beim Verkauf (ungedeckter Rest: nichts abgegeben)
-                partOf(t.amount * price - t.quoteFee - feeValue, share).negate()
+                partOf(t.amount.multiply(price, PortfolioDecimal.MC) - t.quoteFee - feeValue, share).negate()
             }
             PortfolioTxType.TRANSFER -> t.quoteFee + feeValue
             PortfolioTxType.SWAP -> {
@@ -350,7 +350,7 @@ object PortfolioLedger {
                 val share = coveredFraction(t, h, method) ?: return BigDecimal.ZERO
                 // Zugang kaputt (kein gültiger erhaltener Coin): unbekannt statt still verloren
                 if (t.swapToCoin == null) return null
-                val gross = t.swapValue ?: market?.let { t.amount * it } ?: return null
+                val gross = t.swapValue ?: market?.let { t.amount.multiply(it, PortfolioDecimal.MC) } ?: return null
                 partOf(gross - t.quoteFee - feeValue, share).negate()
             }
         }

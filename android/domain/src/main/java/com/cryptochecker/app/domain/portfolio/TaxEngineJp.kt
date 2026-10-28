@@ -12,6 +12,8 @@ fun TaxEngines.jpTotal(coin: String, steps: List<TaxStep>, zone: ZoneId, lost: M
     var carryUnpriced = zero
     var carryCost = zero
     var carryParts: List<PortfolioCostPart> = emptyList()
+    // Einstand (Übertrag bzw. Zugang des Jahres) enthält einen geschätzten Wert: jeder Abgang des Jahres zum Stückpreis
+    var carryEstimated = false
     val out = ArrayList<PortfolioDisposal>()
     for ((_, ys) in steps.groupBy { day(it.time, zone).year }.toSortedMap()) {
         // Jahressumme: Anfangsbestand + Zugänge des Jahres (Gebühren von Umbuchungen gehören nicht zum Erwerbspreis)
@@ -19,11 +21,13 @@ fun TaxEngines.jpTotal(coin: String, steps: List<TaxStep>, zone: ZoneId, lost: M
         var totUnpriced = carryUnpriced
         var totCost = carryCost
         val parts = ArrayList(carryParts)
+        var estimated = carryEstimated
         for (s in ys) if (s.kind == TaxStepKind.ACQUIRE) {
             if (s.cost != null) {
                 totPriced += s.qty
                 totCost += s.cost
                 if (s.cost.signum() != 0) parts += PortfolioCostPart(s.acquired, s.cost)
+                if (s.costEstimated && s.cost.signum() != 0) estimated = true
             } else totUnpriced += s.qty
         }
         val totQty = totPriced + totUnpriced
@@ -37,7 +41,7 @@ fun TaxEngines.jpTotal(coin: String, steps: List<TaxStep>, zone: ZoneId, lost: M
             val removedPriced = if (share.compareTo(BigDecimal.ONE) == 0) removed else removed.multiply(share, mc)
             val c = if (totPriced.signum() > 0) removedPriced.multiply(unit, mc) else zero
             costOut += c
-            return TaxTaken(removed, removedPriced, c, scaleParts(parts, totCost, c))
+            return TaxTaken(removed, removedPriced, c, scaleParts(parts, totCost, c), estimated && c.signum() != 0)
         }
         var lastFee: TaxStep? = null
         for (s in ys) {
@@ -70,6 +74,7 @@ fun TaxEngines.jpTotal(coin: String, steps: List<TaxStep>, zone: ZoneId, lost: M
         val restCost = if (carryPriced.signum() > 0) restRaw else zero
         carryParts = scaleParts(parts, totCost, restCost)
         carryCost = restCost
+        carryEstimated = estimated && restCost.signum() != 0
     }
     return out
 }

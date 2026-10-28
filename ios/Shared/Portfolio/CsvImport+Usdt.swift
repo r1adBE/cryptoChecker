@@ -92,6 +92,6 @@ extension CsvImport {
     }
 
     private static func toUsdt(_ value: Decimal, _ rate: Decimal) -> Decimal {
-        rate == 1 ? value : divide(value, rate)
+        rate == 1 ? value : PortfolioDecimal.divide(value, rate)
     }
 }

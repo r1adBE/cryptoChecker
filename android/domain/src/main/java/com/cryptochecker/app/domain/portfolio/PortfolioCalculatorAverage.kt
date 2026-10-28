@@ -25,6 +25,7 @@ fun PortfolioCalculator.average(
     var unpriced = zero     // Menge ohne Kaufpreis
     var cost = zero         // Einstand des Teils mit Kaufpreis (inkl. Gebühren in USDT)
     val parts = PortfolioCostPartPool() // Herkunft von [cost]
+    var poolEstimated = false // [cost] enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]), bis der Topf leer ist
     var realized = zero
     var unknownSold = zero  // verkaufte Menge mit unbekanntem Gewinn/Verlust
     var soldTotal = zero
@@ -45,12 +46,20 @@ fun PortfolioCalculator.average(
         val costRemoved: BigDecimal,
         val removedPriced: BigDecimal,
         val partsRemoved: List<PortfolioCostPart>,
+        /** Abgegebener Einstand enthält einen geschätzten Wert. */
+        val estimated: Boolean,
     )
 
     // Ohne [withParts] bleibt [parts] leer
-    fun addCost(time: Long, usdt: BigDecimal) {
+    fun addCost(time: Long, usdt: BigDecimal, estimated: Boolean = false) {
         cost += usdt
         if (withParts) parts.add(time, usdt)
+        if (estimated && usdt.signum() != 0) poolEstimated = true
+    }
+
+    /** Kein Teil mit Kaufpreis mehr: Einstand, Herkunft und Merker leeren. */
+    fun clearPriced() {
+        priced = zero; cost = zero; parts.clear(); poolEstimated = false
     }
 
     /** Gibt [requested] ab (gekappt auf den Bestand > 0), beide Teile anteilig samt Einstand. */
@@ -67,14 +76,15 @@ fun PortfolioCalculator.average(
         }
         // Anteilig aus allen Herkunftsteilen, Summe exakt [costRemoved]
         val partsRemoved = parts.take(costRemoved, cost)
+        val estimated = poolEstimated && removedPriced.signum() > 0
         // Gesamtbestand bleibt exakt; der Teil ohne Preis ist der Rest
         val rest = holdings - removed
         priced -= removedPriced
         cost -= costRemoved
-        if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) { priced = zero; cost = zero; parts.clear() }
+        if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) clearPriced()
         unpriced = (rest - priced).max(zero)
         if (PortfolioDecimal.isDust(unpriced)) unpriced = zero
-        return Taken(removed, allPriced, share, costRemoved, removedPriced, partsRemoved)
+        return Taken(removed, allPriced, share, costRemoved, removedPriced, partsRemoved, estimated)
     }
 
     /**
@@ -105,13 +115,15 @@ fun PortfolioCalculator.average(
             gain: BigDecimal?,
             costParts: List<PortfolioCostPart> = emptyList(),
             isUncovered: Boolean = false,
+            partEstimated: Boolean = false,
         ) {
             if (amount.signum() <= 0) return
             disposals += PortfolioDisposal(
                 coin = symbol, sellTxId = t.id, sellTime = t.time, lotTxId = null, acquiredTime = null, lotKind = null,
                 amount = amount, costUsdt = costPart, proceedsUsdt = proceedsPart, gainUsdt = gain, holdingDays = null,
                 feeLeg = feeLeg, feeValueMissing = feeMissing, method = CostMethod.AVERAGE,
-                costParts = costParts, uncovered = isUncovered, swap = swap, gift = gift, payment = payment, valueEstimated = estimated,
+                costParts = costParts, uncovered = isUncovered, swap = swap, gift = gift, payment = payment,
+                valueEstimated = estimated || partEstimated,
             )
         }
         if (taken != null) {
@@ -121,7 +133,7 @@ fun PortfolioCalculator.average(
                 val pricedProceeds = coveredProceeds?.let { if (taken.allPriced) it else it.multiply(taken.share, mc) }
                 add(
                     taken.removedPriced, taken.costRemoved, pricedProceeds, pricedProceeds?.let { it - taken.costRemoved },
-                    taken.partsRemoved,
+                    taken.partsRemoved, partEstimated = taken.estimated,
                 )
                 if (!taken.allPriced) add(taken.removed - taken.removedPriced, null, coveredProceeds?.let { c -> pricedProceeds?.let { c - it } }, null)
             }
@@ -161,7 +173,7 @@ fun PortfolioCalculator.average(
             }
             val value = t.swapValue
             if (value != null) {
-                addCost(t.time, value)
+                addCost(t.time, value, t.costEstimated(swapIn = true))
                 priced += received
             } else {
                 unpriced += received
@@ -174,7 +186,7 @@ fun PortfolioCalculator.average(
             val holdings = priced + unpriced
             if (fee > holdings) oversold = true
             val feePrice = t.thirdFeePrice
-            val proceeds = feePrice?.let { fee * it }
+            val proceeds = feePrice?.let { fee.multiply(it, PortfolioDecimal.MC) }
             if (holdings.signum() <= 0) {
                 record(t, null, false, proceeds, null, fee, feeLeg = true, feeMissing = false)
                 continue
@@ -205,7 +217,7 @@ fun PortfolioCalculator.average(
                 }
                 if (price != null) {
                     // Gebühren in USDT und im dritten Coin gehören zum Einstand (Herkunft: Erwerb)
-                    addCost(t.acquisitionTime, amount * price + t.quoteFee + (feeValue ?: zero))
+                    addCost(t.acquisitionTime, amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero), t.costEstimated())
                     priced += received
                     if (feeValue == null) feeValueMissing = true
                 } else {
@@ -223,7 +235,7 @@ fun PortfolioCalculator.average(
                 if (requested > holdings) oversold = true
                 // Erlös des ganzen Abgangs (Tausch: sein Wert); der gedeckte Teil bekommt seinen Anteil nach Menge
                 // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { amount * it }
+                val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { amount.multiply(it, PortfolioDecimal.MC) }
                 val proceeds = gross?.let { it - t.quoteFee - (feeValue ?: zero) }
                 val feeMissing = gross != null && feeValue == null
                 if (feeMissing) feeValueMissing = true
@@ -282,7 +294,7 @@ fun PortfolioCalculator.average(
                     if (feeValue == null) feeValueMissing = true
                     if (allPriced) extra else extra.multiply(priced).divide(holdings, mc)
                 } else zero
-                if (extra.signum() > 0) addCost(t.time, assigned)
+                if (extra.signum() > 0) addCost(t.time, assigned, t.feePriceEstimated)
                 val noted = extra - assigned + lost
                 if (noted.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, noted)
                 // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
@@ -293,7 +305,7 @@ fun PortfolioCalculator.average(
                     if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) {
                         // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken
                         if (cost.signum() != 0) lostFeeCosts += PortfolioLostFeeCost(symbol, t.id, t.time, cost)
-                        priced = zero; cost = zero; parts.clear()
+                        clearPriced()
                     }
                     unpriced = (holdings - removed - priced).max(zero)
                     if (PortfolioDecimal.isDust(unpriced)) unpriced = zero

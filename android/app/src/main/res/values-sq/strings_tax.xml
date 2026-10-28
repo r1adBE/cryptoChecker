@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Adresat e ndjekura nuk mund të lexoheshin – gjendjet e tyre mungojnë në këtë skedar</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Shënim: një adresë e vëzhguar ka pozicione me kosto blerjeje të datuara pas kontrollit të fundit të bilancit para kësaj date – mund të mungojnë këtu.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Pjesët e adresave të vëzhguara llogariten nga data e blerjes; nëse bilanci i sotëm i adresës është më i ulët, ato zvogëlohen.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Adresat e vëzhguara llogariten në vlerën totale, por nuk kanë kosto blerjeje – prandaj fitimi ka gjasë të jetë më i lartë. Regjistroje koston si blerje.</string>

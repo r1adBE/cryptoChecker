@@ -27,13 +27,15 @@ extension TaxEngines {
             guard t.amountExact > 0 else { continue }
             if e.feeLeg {
                 let fee = t.thirdFeeAmount
-                let p: Decimal? = t.thirdFeePrice.map { fee * $0 }
+                let p: Decimal? = t.thirdFeePrice.map { PortfolioDecimal.multiply(fee, $0) }
                 out.append(TaxStep(.dispose, t, qty: fee, proceeds: p, gross: p, feeLeg: true, estimated: t.feePriceEstimated))
                 continue
             }
             if e.swapIn {
                 let r = t.swapReceived
-                if r > 0 { out.append(TaxStep(.acquire, t, qty: r, cost: t.swapValue, swap: true)) }
+                if r > 0 {
+                    out.append(TaxStep(.acquire, t, qty: r, cost: t.swapValue, swap: true, costEstimated: t.costEstimated(swapIn: true)))
+                }
                 continue
             }
             let price = t.validPriceExact
@@ -42,14 +44,14 @@ extension TaxEngines {
             case .BUY, .REWARD, .DEPOSIT:
                 let r = t.receivedExact
                 guard r > 0 else { continue }
-                let cost: Decimal? = price.map { t.amountExact * $0 + t.quoteFeeExact + (feeValue ?? 0) }
-                out.append(TaxStep(.acquire, t, qty: r, cost: cost, acquired: t.acquisitionTime))
+                let cost: Decimal? = price.map { PortfolioDecimal.multiply(t.amountExact, $0) + t.quoteFeeExact + (feeValue ?? 0) }
+                out.append(TaxStep(.acquire, t, qty: r, cost: cost, acquired: t.acquisitionTime, costEstimated: t.costEstimated()))
             case .SELL, .PAYMENT, .SWAP:
                 // Damit bezahlt: Veräusserung zum Marktwert wie ein Verkauf (alle Vorlagen; Verschenkt nur nach
                 // `applyRules` mit `giftIsDisposal`, sonst wie eine Auszahlung)
                 let swap = t.type == .SWAP
                 // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { t.amountExact * $0 }
+                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { PortfolioDecimal.multiply(t.amountExact, $0) }
                 let proceeds: Decimal? = gross.map { $0 - t.quoteFeeExact - (feeValue ?? 0) }
                 out.append(TaxStep(.dispose, t, qty: t.amountExact + t.coinFeeExact, proceeds: proceeds, gross: gross,
                                    swap: swap, feeMissing: gross != nil && feeValue == nil,
@@ -67,7 +69,7 @@ extension TaxEngines {
                 }
             case .TRANSFER:
                 let extra: Decimal = t.quoteFeeExact + (feeValue ?? 0)
-                if extra > 0 { out.append(TaxStep(.addFee, t, qty: 0, cost: extra)) }
+                if extra > 0 { out.append(TaxStep(.addFee, t, qty: 0, cost: extra, costEstimated: t.feePriceEstimated)) }
                 if t.coinFeeExact > 0 { out.append(TaxStep(.networkFee, t, qty: t.coinFeeExact)) }
             }
         }
@@ -86,6 +88,8 @@ extension TaxEngines {
         var matchedTime: Int64? = nil
         var uncovered = false
         var oldHolding: Bool? = nil
+        /// `cost` enthält einen geschätzten Wert (`TaxTaken.estimated`): Vermerk «Wert geschätzt» an der Zeile (`emit`).
+        var estimated = false
     }
 
     /// Teile eines Abgangs aus `taken`: Teil mit Kaufpreis (Einstand, Herkunft) und Teil ohne.
@@ -94,7 +98,7 @@ extension TaxEngines {
         var out: [Piece] = []
         if taken.removedPriced > 0 {
             out.append(Piece(amount: taken.removedPriced, cost: taken.cost, parts: taken.parts, match: match,
-                             matchedTime: matchedTime, oldHolding: oldHolding))
+                             matchedTime: matchedTime, oldHolding: oldHolding, estimated: taken.estimated))
         }
         if taken.removedUnpriced > 0 {
             out.append(Piece(amount: taken.removedUnpriced, cost: nil, match: match, matchedTime: matchedTime,
@@ -105,7 +109,8 @@ extension TaxEngines {
 
     /// Veräusserungen aus `pieces`: Erlös nach Menge verteilt (letzter Teil bekommt den Rest, Summe exakt). Schenkung an
     /// Ehe-/Lebenspartner (`TaxStep.spouseGift`): Erlös je Teil = sein Einstand (ohne Kaufpreis unbekannt). `gross` (UK):
-    /// Erlös vor Gebühren, gleich verteilt (`PortfolioDisposal.proceedsBeforeFeesUsdt`); nil = keiner. Wie Android.
+    /// Erlös vor Gebühren, gleich verteilt (`PortfolioDisposal.proceedsBeforeFeesUsdt`); nil = keiner. «Wert geschätzt»:
+    /// Erlös geschätzt (`TaxStep.estimated`) oder Einstand des Teils mit geschätztem Wert (`Piece.estimated`). Wie Android.
     static func emit(_ coin: String, _ s: TaxStep, _ pieces: [Piece], proceeds: Decimal?,
                      gross: Decimal? = nil) -> [PortfolioDisposal] {
         let total = pieces.reduce(Decimal(0)) { $0 + $1.amount }
@@ -118,12 +123,12 @@ extension TaxEngines {
             if s.spouseGift {
                 share = p.cost
             } else if let proceeds, let l = left {
-                share = i == pieces.count - 1 ? l : PortfolioDecimal.divide(proceeds * p.amount, total)
+                share = i == pieces.count - 1 ? l : PortfolioDecimal.divide(proceeds, p.amount, by: total)
                 left = l - (share ?? 0)
             }
             var grossShare: Decimal? = nil
             if !s.spouseGift, let gross, let g = grossLeft {
-                grossShare = i == pieces.count - 1 ? g : PortfolioDecimal.divide(gross * p.amount, total)
+                grossShare = i == pieces.count - 1 ? g : PortfolioDecimal.divide(gross, p.amount, by: total)
                 grossLeft = g - (grossShare ?? 0)
             }
             var gain: Decimal? = nil
@@ -134,7 +139,8 @@ extension TaxEngines {
                 lotKind: p.lotKind, amount: p.amount, costUsdt: p.cost, proceedsUsdt: share, gainUsdt: gain,
                 holdingDays: holding, feeLeg: s.feeLeg, feeValueMissing: s.feeMissing,
                 method: p.acquiredTime != nil ? .FIFO : .AVERAGE,
-                costParts: p.parts, uncovered: p.uncovered, swap: s.swap, gift: s.gift, payment: s.payment, valueEstimated: s.estimated)
+                costParts: p.parts, uncovered: p.uncovered, swap: s.swap, gift: s.gift, payment: s.payment,
+                valueEstimated: s.estimated || (p.estimated && p.cost != nil))
             d.match = p.match
             d.matchedTime = p.matchedTime
             d.oldHolding = p.oldHolding
@@ -154,7 +160,7 @@ extension TaxEngines {
         var left = target
         var out: [PortfolioCostPart] = []
         for (i, p) in parts.enumerated() {
-            let v: Decimal = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * target, total)
+            let v: Decimal = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt, target, by: total)
             left -= v
             out.append(PortfolioCostPart(time: p.time, usdt: v))
         }

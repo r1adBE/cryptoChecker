@@ -58,8 +58,21 @@ enum CoinLogoRetry {
 
     // MARK: Bild-Server bremst
 
-    /// Antwort eines Bild-Servers, die eine Pause verlangt statt «Bild kaputt»: 429, 403, 503 — wie Android.
-    static func pausesImages(httpCode: Int) -> Bool { httpCode == 429 || httpCode == 403 || httpCode == 503 }
+    /// Antwort eines Bild-Servers, die sofort eine Pause des ganzen Servers verlangt: 429, 503 oder 403 mit
+    /// «Retry-After». Ein 403 ohne Angabe ist zuerst nur ein fehlgeschlagenes Bild (CloudFront/S3 antwortet so auch
+    /// auf eine fehlende Datei); erst `forbiddenPauseStreak` 403 in Folge pausieren den Server — wie Android.
+    static func pausesImages(httpCode: Int, retryAfter: Bool) -> Bool {
+        httpCode == 429 || httpCode == 503 || (httpCode == 403 && retryAfter)
+    }
+
+    /// So viele Bilder eines Servers in Folge mit 403 (ohne «Retry-After») in einem Durchgang: Server pausieren.
+    static let forbiddenPauseStreak = 3
+
+    /// Neue Zahl der 403 in Folge nach einem fertigen Bild: letzte Antwort 403 (ohne Pause) → +1, sonst 0.
+    static func nextForbiddenStreak(_ streak: Int, forbidden: Bool) -> Int { forbidden ? streak + 1 : 0 }
+
+    /// Pausiert diese Folge von 403 den Server (`forbiddenPauseStreak`)? Dann ohne Angabe `defaultImagePauseMillis`.
+    static func forbiddenStreakPauses(_ streak: Int) -> Bool { streak >= forbiddenPauseStreak }
     /// Pause ohne Angabe des Servers.
     static let defaultImagePauseMillis: Int64 = 15 * 60_000
     /// Höchstens so lange (auch bei längerer «Retry-After»-Angabe).
@@ -69,6 +82,16 @@ enum CoinLogoRetry {
     static func imagePauseMillis(retryAfterSeconds: Int64?) -> Int64 {
         let wait = retryAfterSeconds.map { min(max($0, 0), imagePauseMaxMillis / 1000) * 1000 } ?? defaultImagePauseMillis
         return min(max(wait, 60_000), imagePauseMaxMillis)
+    }
+
+    /// Nach dem Ende einer Pause so viel länger warten (Uhren und Zeitgeber gehen nicht genau gleich).
+    static let pauseRetryMarginMillis: Int64 = 1_000
+
+    /// Wartezeit bis zum Nachholen der gebremsten Bilder (`pausedUntil` = frühestes Ende der Pausen, ms): bis zum
+    /// Ende (höchstens `imagePauseMaxMillis`, vorbei → sofort) plus `pauseRetryMarginMillis`; nil = nichts
+    /// gebremst. So läuft der Abgleich nach der Pause von selbst weiter, solange die App lebt — wie Android.
+    static func pauseRetryDelayMillis(pausedUntil: Int64?, now: Int64) -> Int64? {
+        pausedUntil.map { min(max($0 - now, 0), imagePauseMaxMillis) + pauseRetryMarginMillis }
     }
 
     /// Host einer HTTPS-Adresse, klein; nil, wenn keine.

@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
@@ -32,6 +33,8 @@ data class PortfolioTxEntity(
     /** Menge, immer > 0 — exakt (Text in der Datenbank, [PortfolioDecimalConverters]). */
     @ColumnInfo val amount: BigDecimal,
 
+    /** Preis je Coin in USDT — geschrieben mit der Regel der Preise ([PortfolioPriceConverters]). */
+    @field:TypeConverters(PortfolioPriceConverters::class)
     @ColumnInfo val priceUsdt: BigDecimal? = null,
 
     /** Zeitpunkt des Handels (ms). */
@@ -63,7 +66,8 @@ data class PortfolioTxEntity(
     /** Menge der Gebühr in [feeCoin] (> 0) — exakt. */
     @ColumnInfo val feeCoinAmount: BigDecimal? = null,
 
-    /** USDT je [feeCoin] zum Zeitpunkt (≥ 0); null = unbekannt. */
+    /** USDT je [feeCoin] zum Zeitpunkt (≥ 0); null = unbekannt. Regel der Preise ([PortfolioPriceConverters]). */
+    @field:TypeConverters(PortfolioPriceConverters::class)
     @ColumnInfo val feeCoinPriceUsdt: BigDecimal? = null,
 
     /**
@@ -173,11 +177,24 @@ data class PortfolioTxEntity(
 
 /**
  * Room: exakte Dezimalzahl ↔ Text («0.00000001», ohne Exponent). Unlesbar → 0 bzw. null
- * (eine Menge 0 überspringt der Rechner). Geschrieben mit der Regel der Preise ([PortfolioDecimal.priceText]: 34 gültige
- * Stellen, mindestens 18 und höchstens 40 Nachkommastellen): Preise behalten so ihre Stellen, Mengen, Gebühren und Werte
- * kommen schon auf 18 Nachkommastellen gerundet an ([cleanForSave]) und bleiben unverändert.
+ * (eine Menge 0 überspringt der Rechner). Geschrieben mit der Regel der Mengen ([PortfolioDecimal.text]: höchstens 18
+ * Nachkommastellen, halbe auf gerade) — für Menge, Gebühren und Werte; die Preisspalten schreibt
+ * [PortfolioPriceConverters]. So speichert keine Menge mehr als 18 Nachkommastellen, woher sie auch kommt.
  */
 class PortfolioDecimalConverters {
+    @TypeConverter
+    fun fromText(text: String?): BigDecimal? = PortfolioDecimal.parse(text)
+
+    @TypeConverter
+    fun toText(value: BigDecimal?): String? = value?.let { PortfolioDecimal.text(it) }
+}
+
+/**
+ * Room: Preisspalte ([PortfolioTxEntity.priceUsdt], [PortfolioTxEntity.feeCoinPriceUsdt]) ↔ Text mit der Regel der Preise
+ * ([PortfolioDecimal.priceText]: 34 gültige Stellen, mindestens 18 und höchstens 40 Nachkommastellen) — der Preis
+ * winziger Coins behält so seine Stellen. Lesen wie [PortfolioDecimalConverters].
+ */
+class PortfolioPriceConverters {
     @TypeConverter
     fun fromText(text: String?): BigDecimal? = PortfolioDecimal.parse(text)
 

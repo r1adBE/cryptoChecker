@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.portfolio.PortfolioJson
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.ExpandToggleButton
@@ -252,7 +253,7 @@ internal fun TxTotalLine(d: TxFormDerived) {
     val price = d.price
     if (d.fields.price && amount != null && price != null) {
         Text(
-            stringResource(R.string.portfolio_tx_total, PortfolioFormat.usdt((amount * price).toDouble())),
+            stringResource(R.string.portfolio_tx_total, PortfolioFormat.usdt(amount.multiply(price, PortfolioDecimal.MC).toDouble())),
             style = MaterialTheme.typography.bodyMedium.tabularNumbers(),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 12.dp)

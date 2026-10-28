@@ -50,10 +50,10 @@ import java.time.ZoneId
  *    Erwerbspreis-Summe, Preis vor Gebühren und ihre Abtretung; ohne Kurs ist die Summe danach unvollständig. Gebühr im
  *    erhaltenen Coin (Kauf, Tausch) = weniger erhalten.
  *    Jede Art ausdrücklich: Umbuchung (eigene Wallets) und Tausch (aufgeschoben) ändern die PTA sonst nicht; Auszahlung
- *    (Abgang ohne Verkauf: Schenkung, Verlust, unbekannt) kürzt die PTA um PTA × Wert der Menge / Gesamtwert davor
+ *    (Abgang ohne Verkauf: Schenkung, Verlust, unbekannt) kürzt die PTA um PTA × Wert der gedeckten Menge / Gesamtwert davor
  *    (BOFiP BOI-RPPM-PVBMC-30-20 § 100: Kürzung um die «fractions de capital initial» auch bei Abtretungen «à titre
  *    gratuit»; für Verlust/Diebstahl nennt das BOFiP keine Regel) — als [TaxOutflow] vermerkt, die Jahresübersicht
- *    markiert das Jahr «Abgang ohne Verkauf»; ohne Kurs bleibt die PTA danach unvollständig.
+ *    markiert das Jahr «Abgang ohne Verkauf»; ohne Kurs bzw. über den erfassten Bestand hinaus bleibt die PTA danach unvollständig.
  *  - [TaxMethod.JP_TOTAL_AVERAGE]: je Coin und Kalenderjahr (Zeitzone) ein Stückpreis = (Einstand Jahresanfang + Zugänge
  *    des Jahres) / (Menge Jahresanfang + Zugänge des Jahres); jede Veräusserung des Jahres zu diesem Stückpreis.
  *    Netzwerkgebühr in Krypto: eigene Veräusserung zum Marktwert ([applyRules]; 国税庁 FAQ: Bezahlen mit Krypto = 譲渡).
@@ -178,7 +178,7 @@ object TaxEngines {
                 val slot = slots.getOrNull(si)
                 val qty = if (slot == null) left else left.min(slotLeft)
                 val c = costLeft?.let { if (qty.compareTo(left) == 0) it else it.multiply(qty).divide(left, mc) }
-                out += PortfolioLot(coin, lot.txId, lot.acquiredTime, lot.kind, qty, c, slot?.wallet ?: fallback)
+                out += PortfolioLot(coin, lot.txId, lot.acquiredTime, lot.kind, qty, c, slot?.wallet ?: fallback, lot.estimated)
                 left -= qty
                 if (c != null) costLeft = costLeft - c
                 if (slot != null) {

@@ -10,9 +10,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 /**
  * Bereinigte Fassung von [tx] für [PortfolioRepository.save]: Coin vereinheitlicht (Grossbuchstaben), Gebühr, Umbuchung,
  * Tausch und Herkunftsschlüssel geprüft. Mengen, Gebühren und der Wert eines Tauschs schon hier auf die gespeicherten
- * 18 Nachkommastellen gerundet ([PortfolioDecimal.amount], dieselbe Regel wie beim Speichern); Preise rundet erst
- * [PortfolioDecimalConverters] ([PortfolioDecimal.price]), damit [storable] einen Preis > 0 erkennt, der zu 0 würde. Eine
- * Menge unter 10⁻¹⁸ ist danach 0 und wird abgelehnt, statt als 0 gespeichert zu werden. Wirft bei einem ungültigen Tausch.
+ * 18 Nachkommastellen gerundet ([PortfolioDecimal.amount], dieselbe Regel wie beim Speichern, [PortfolioDecimalConverters]);
+ * Preise rundet erst [PortfolioPriceConverters] ([PortfolioDecimal.price]), damit [storable] einen Preis > 0 erkennt, der
+ * zu 0 würde. Eine Menge unter 10⁻¹⁸ ist danach 0 und wird abgelehnt, statt als 0 gespeichert zu werden. Wirft bei
+ * einem ungültigen Tausch.
  */
 fun cleanForSave(tx: PortfolioTxEntity): PortfolioTxEntity {
     // Gebühr nur gültig (> 0) und dann immer mit Einheit; ohne Gebühr keine Einheit

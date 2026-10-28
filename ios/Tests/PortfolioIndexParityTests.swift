@@ -35,7 +35,7 @@ final class PortfolioIndexParityTests: XCTestCase {
                     // Teilmenge oder (jedes vierte Mal) alles herausnehmen
                     let whole = rng.next() % 4 == 0
                     let qty = whole ? amount : amount * Decimal(Int(1 + rng.next() % 9)) / 10
-                    let removed = qty == amount ? cost : PortfolioDecimal.divide(cost * qty, amount)
+                    let removed = qty == amount ? cost : PortfolioDecimal.divide(cost, qty, by: amount)
                     let expectedTaken = PortfolioCostParts.take(&plain, total: cost, target: removed)
                     let taken = lot.take(qty)
                     XCTAssertEqual(taken?.cost, removed, "Runde \(round) Schritt \(step)")

@@ -90,7 +90,7 @@ extension CsvImportParser {
     static func stableSwap(_ format: CsvImportFormat, _ r: CsvImportRow, stableAmount: Decimal?) -> CsvImportRow? {
         guard r.kind == .BUY || r.kind == .SELL, let price = r.price, let stable = r.quote,
               CsvImport.isStable(stable) || CsvImport.isCryptoQuote(stable), stable != r.coin else { return nil }
-        let sAmount = stableAmount ?? price * r.amount
+        let sAmount = stableAmount ?? PortfolioDecimal.multiply(price, r.amount)
         let sell = r.kind == .SELL
         let coin = sell ? r.coin : stable
         let amount = sell ? r.amount : sAmount
@@ -260,7 +260,7 @@ extension CsvImportParser {
             if kind == .REWARD { fiatAmount = try? number(.fiatAmount) } else { fiatAmount = try number(.fiatAmount) }
             if let fiat = fiatAmount {
                 let f = fiat < 0 ? -fiat : fiat
-                if f > 0 { price = CsvImport.divide(f, amount) }
+                if f > 0 { price = PortfolioDecimal.divide(f, amount) }
             }
         }
         // Tausch: kein Preis, sondern Wert (Fiat-Betrag, sonst Preis × Menge) — nur in Geld, sonst unbekannt
@@ -273,7 +273,7 @@ extension CsvImportParser {
                 let f = fiat < 0 ? -fiat : fiat
                 if f > 0 { value = f }
             }
-            if value == nil, let p = price { value = p * amount }
+            if value == nil, let p = price { value = PortfolioDecimal.multiply(p, amount) }
             if let q = quote, CsvImport.money.contains(q) { swapValue = value }
             price = nil
             toCoin = nonEmpty(cell(.toCoin).uppercased())

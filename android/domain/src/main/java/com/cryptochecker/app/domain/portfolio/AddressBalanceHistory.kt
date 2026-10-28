@@ -205,7 +205,7 @@ data class AddressBalanceHistory(
             steps.lastOrNull { it.time <= time }?.balance ?: BigDecimal.ZERO
 
         /**
-         * Guthaben je Coin (Grossschreibung) zum Zeitpunkt [time] für den Stichtag-Export ([CutoffExport.addressRows]):
+         * Guthaben je Coin (Grossschreibung) zum Zeitpunkt [time] (Stichtag: [AddressCutoff] nimmt die nicht beobachteten Coins):
          * je Reihe die letzte Beobachtung ≤ [time] (Summe der Adressen, dieselbe nur einmal, wie [trades]); nur Guthaben
          * > 0. [AddressBalancesAt.unobserved] = Coins mit einer Reihe, die erst NACH [time] beginnt — an dem Tag nicht
          * beobachtet, ihr Guthaben fehlt (nie rückwirkend).

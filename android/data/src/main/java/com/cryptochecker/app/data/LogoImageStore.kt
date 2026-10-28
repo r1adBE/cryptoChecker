@@ -41,7 +41,6 @@ import com.cryptochecker.app.domain.logos.bundledIconName
 import com.cryptochecker.app.domain.logos.parseIconPack
 import com.cryptochecker.app.data.LogoImageCodec.decodeFile
 import com.cryptochecker.app.data.LogoImageCodec.pngBytes
-import com.cryptochecker.app.data.LogoImageCodec.writeBytes
 
 /**
  * Coin-Logos auf dem Gerät: Bilder im Speicher ([memory]) und in Dateien, das mitgelieferte Icon-Paket
@@ -139,12 +138,13 @@ class LogoImageStore @Inject constructor(
     suspend fun ensureStarterLogos(symbols: Collection<String>, current: Map<String, String>): Boolean {
         var added = 0
         val complete = withContext(Dispatchers.IO) {
-            symbols.map { symbol ->
-                val name = CoinLogos.fileName(symbol) ?: return@map true
-                if (File(imageDir, name).isFile) return@map true
-                val url = current[symbol.uppercase()] ?: return@map false
-                downloadTo(name, url).also { if (it) added++ }
-            }.all { it }
+            val missing = symbols.filter { symbol -> CoinLogos.fileName(symbol)?.let { !File(imageDir, it).isFile } == true }
+            // Adresse wie beim Zusammenführen («1000CAT» → «CAT»); je Datei ein Abruf
+            val wanted = missing.mapNotNull { symbol -> CoinLogos.urlFor(current, symbol)?.let { symbol to it } }
+            val streaks = LogoImagePauses.ForbiddenStreaks()
+            val results = CoinLogos.downloadJobs(wanted) { File(imageDir, it).isFile }
+                .map { (name, url) -> downloadTo(name, url, streaks).also { if (it) added++ } }
+            wanted.size == missing.size && results.all { it }
         }
         // Gleich in den Speicher, damit die Zeilen das Bild ohne Dateizugriff zeigen
         symbols.forEach { logo(it) }
@@ -152,9 +152,13 @@ class LogoImageStore @Inject constructor(
         return complete
     }
 
-    /** Ergebnis eines Bild-Durchgangs; [network] = am fehlenden Netz gescheitert. */
-    data class Downloads(val added: Int = 0, val network: Boolean = false) {
-        operator fun plus(o: Downloads) = Downloads(added + o.added, network || o.network)
+    /**
+     * Ergebnis eines Bild-Durchgangs; [network] = am fehlenden Netz gescheitert; [pausedUntil] = frühestes Ende der
+     * Pausen gebremster Server, deren Bilder noch fehlen (null = keine) — danach holt [CoinLogoSync] nach. Beim
+     * Zusammenzählen gilt die Pause des späteren Durchgangs [o]: Er versucht alle noch fehlenden Bilder erneut.
+     */
+    data class Downloads(val added: Int = 0, val network: Boolean = false, val pausedUntil: Long? = null) {
+        operator fun plus(o: Downloads) = Downloads(added + o.added, network || o.network, o.pausedUntil)
     }
 
     /**
@@ -168,23 +172,23 @@ class LogoImageStore @Inject constructor(
         if (wanted.isEmpty()) return Downloads()
         val now = System.currentTimeMillis()
         val failed = pauses.loadFailures(now)
+        // Je Datei höchstens ein Abruf (zwei Kürzel, eine Datei: nie gleichzeitig dieselbe Datei schreiben)
         var pending = withContext(Dispatchers.IO) {
-            wanted.entries.mapNotNull { (symbol, url) ->
-                val name = CoinLogos.fileName(symbol) ?: return@mapNotNull null
-                if (name in failed || File(imageDir, name).isFile) null else name to url
-            }.distinctBy { it.first }
+            CoinLogos.downloadJobs(wanted.toList()) { name -> name in failed || File(imageDir, name).isFile }
         }
         if (pending.isEmpty()) return Downloads()
         val attempted = pending.size
         val added = AtomicInteger()
         val newFailures = ConcurrentHashMap<String, Long>()
+        // 403 in Folge je Server in diesem Durchgang (erst die dritte pausiert den Server)
+        val streaks = LogoImagePauses.ForbiddenStreaks()
         var paused: List<Pair<String, String>> = emptyList()
         for (round in 1..PAUSE_ROUNDS) {
             val pausedNow = ConcurrentLinkedQueue<Pair<String, String>>()
             coroutineScope {
                 pending.map { job ->
                     async(Dispatchers.IO) {
-                        when (fetchLimited(job.first, job.second)) {
+                        when (fetchLimited(job.first, job.second, streaks)) {
                             Fetched.OK -> {
                                 added.incrementAndGet()
                                 bumpRevision()
@@ -199,7 +203,8 @@ class LogoImageStore @Inject constructor(
             }
             paused = pausedNow.toList()
             if (paused.isEmpty() || round == PAUSE_ROUNDS) break
-            val wait = pauses.shortestPauseMillis(paused) ?: break
+            // Pause schon vorbei (null): gleich die nächste Runde
+            val wait = pauses.shortestPauseMillis(paused) ?: 0L
             if (wait > SHORT_PAUSE_MAX_MILLIS) break
             delay(wait)
             pending = paused
@@ -210,14 +215,16 @@ class LogoImageStore @Inject constructor(
         if (newFailures.isNotEmpty() && !network) pauses.saveFailures(pauses.loadFailures(System.currentTimeMillis()) + newFailures)
         if (added.get() > 0) bumpRevision(force = true)
         Timber.i("Coin-Logos: %d neu, %d fehlgeschlagen, %d gebremst", added.get(), newFailures.size, paused.size)
-        return Downloads(added.get(), network)
+        // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
+        val pausedUntil = if (paused.isEmpty()) null else pauses.earliestPauseEnd(paused) ?: System.currentTimeMillis()
+        return Downloads(added.get(), network, pausedUntil)
     }
 
     /** Ein Bild mit den Grenzen je Server und insgesamt (erst Server, dann gesamt — nie gesamt blockieren). */
-    private suspend fun fetchLimited(name: String, url: String): Fetched {
+    private suspend fun fetchLimited(name: String, url: String, streaks: LogoImagePauses.ForbiddenStreaks): Fetched {
         val host = CoinLogoRetry.hostOf(url).orEmpty()
         val perHost = hostPermits.getOrPut(host) { Semaphore(PER_HOST_PARALLEL) }
-        return perHost.withPermit { downloads.withPermit { fetchTo(name, url, imageDir) } }
+        return perHost.withPermit { downloads.withPermit { fetchTo(name, url, imageDir, streaks) } }
     }
 
     private fun loadExtraOnly(): Set<String> =
@@ -262,38 +269,61 @@ class LogoImageStore @Inject constructor(
     }
 
     /** Erst die kleine Fassung, sonst das Bild aus der Rangliste. */
-    private suspend fun downloadTo(name: String, url: String, dir: File = imageDir): Boolean = fetchTo(name, url, dir) == Fetched.OK
+    private suspend fun downloadTo(name: String, url: String, streaks: LogoImagePauses.ForbiddenStreaks): Boolean =
+        fetchTo(name, url, imageDir, streaks) == Fetched.OK
 
     private enum class Fetched { OK, FAILED, PAUSED }
 
     /**
      * Wie [downloadTo], aber mit Pause des Bild-Servers ([CoinLogoRetry.pausesImages]): dann
      * [Fetched.PAUSED] (gespeichert in [LogoImagePauses]), das Bild gilt nicht als fehlgeschlagen.
-     * Abbruch der Coroutine bricht auch die laufende Anfrage ab ([download] wartet ohne zu blockieren).
+     * Ein 403 ohne «Retry-After» ist nur dieses Bild (erst die kleine, dann die grosse Fassung); erst das dritte
+     * Bild des Servers in Folge mit 403 ([streaks]) pausiert den Server. Abbruch der Coroutine bricht auch die
+     * laufende Anfrage ab ([download] wartet ohne zu blockieren).
      */
-    private suspend fun fetchTo(name: String, url: String, dir: File): Fetched {
+    private suspend fun fetchTo(name: String, url: String, dir: File, streaks: LogoImagePauses.ForbiddenStreaks): Fetched {
         val host = CoinLogoRetry.hostOf(url)
         if (host != null && pauses.isPaused(host)) return Fetched.PAUSED
         val file = File(dir, name)
+        // Letzte Antwort war 403 (für die Folge je Server)
+        var forbidden = false
         for (candidate in listOf(CoinLogos.smallUrl(url), url).distinct()) {
             try {
-                val png = download(candidate) ?: continue
-                writeBytes(file, png)
-                return Fetched.OK
+                val png = download(candidate)
+                forbidden = false
+                if (png == null) continue
+                // Nicht gespeichert (Speicher voll, Ordner weg): nächste Fassung, sonst Fehlschlag — dann gilt die
+                // Tagessperre und das Bild wird später erneut versucht, statt als «neu» ohne Datei zu zählen (wie iOS)
+                if (LogoFiles.write(file, png)) {
+                    host?.let { streaks.note(it, forbidden = false) }
+                    return Fetched.OK
+                }
+                Timber.d("Logo %s: nicht gespeichert", name)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: ImagePause) {
                 pauses.pauseHost(e.host, e.retryAfterSeconds)
                 return Fetched.PAUSED
+            } catch (e: ImageHttpError) {
+                forbidden = e.code == HTTP_FORBIDDEN
+                Timber.d("Logo %s: HTTP %d", name, e.code)
             } catch (e: Exception) {
+                forbidden = false
                 Timber.d("Logo %s: %s", name, e.message)
             }
+        }
+        if (host != null && streaks.note(host, forbidden)) {
+            pauses.pauseHost(host, null)
+            return Fetched.PAUSED
         }
         return Fetched.FAILED
     }
 
     /** Bild-Server verlangt eine Pause ([CoinLogoRetry.pausesImages]). */
     private class ImagePause(val host: String, val retryAfterSeconds: Long?) : Exception("pause $host")
+
+    /** Antwort ohne Erfolg und ohne Pause (z. B. 404, 403 ohne «Retry-After»). */
+    private class ImageHttpError(val code: Int) : Exception("HTTP $code")
 
     /**
      * Bild laden → PNG-Bytes zum Speichern; null = kein lesbares Bild. Wartet auf die Antwort ohne einen Thread
@@ -302,13 +332,11 @@ class LogoImageStore @Inject constructor(
     private suspend fun download(url: String): ByteArray? {
         val request = Request.Builder().url(url).header(HttpUserAgent.HEADER, userAgent).build()
         client.newCall(request).await().use { response ->
-            if (CoinLogoRetry.pausesImages(response.code)) {
-                throw ImagePause(
-                    CoinLogoRetry.hostOf(url) ?: "",
-                    ExchangeBackoff.parseRetryAfterSeconds(response.header("Retry-After"), System.currentTimeMillis()),
-                )
+            val retryAfter = ExchangeBackoff.parseRetryAfterSeconds(response.header("Retry-After"), System.currentTimeMillis())
+            if (CoinLogoRetry.pausesImages(response.code, retryAfter != null)) {
+                throw ImagePause(CoinLogoRetry.hostOf(url) ?: "", retryAfter)
             }
-            if (!response.isSuccessful) error("HTTP ${response.code}")
+            if (!response.isSuccessful) throw ImageHttpError(response.code)
             val body = response.body
             // Auch ohne Content-Length nicht mehr als die Höchstgrösse lesen
             val bytes = HttpBodyLimit.read(body.byteStream(), body.contentLength(), MAX_IMAGE_BYTES)
@@ -332,6 +360,7 @@ class LogoImageStore @Inject constructor(
          * ([CoinLogos.STORED_PX]); die Pixel-Grenze [CoinLogos.MAX_SOURCE_PIXELS] bleibt.
          */
         const val MAX_IMAGE_BYTES = 4L * 1024 * 1024
+        const val HTTP_FORBIDDEN = 403
 
         /** Bremst ein Server höchstens so kurz, werden seine Bilder nach der Pause gleich nachgeholt. */
         const val SHORT_PAUSE_MAX_MILLIS = 2 * 60_000L

@@ -231,7 +231,7 @@ data class PortfolioTrade(
         get() {
             if (type != PortfolioTxType.SWAP) return null
             swapValueUsdt?.takeIf { it.signum() >= 0 }?.let { return it }
-            validPrice?.let { return amount * it }
+            validPrice?.let { return amount.multiply(it, PortfolioDecimal.MC) }
             if (PortfolioStables.isValuation(PortfolioCalculator.normalizeCoin(coin))) return amount
             val to = swapToCoin
             if (to != null && PortfolioStables.isValuation(to)) return toAmount
@@ -252,6 +252,6 @@ data class PortfolioTrade(
     val thirdFeeValue: BigDecimal?
         get() {
             if (thirdFeeCoin == null) return BigDecimal.ZERO
-            return thirdFeePrice?.let { thirdFeeAmount * it }
+            return thirdFeePrice?.let { thirdFeeAmount.multiply(it, PortfolioDecimal.MC) }
         }
 }

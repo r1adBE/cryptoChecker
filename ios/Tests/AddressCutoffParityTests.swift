@@ -23,6 +23,9 @@ final class AddressCutoffParityTests: XCTestCase {
         WatchedAddress(id: int64(o["id"]), chain: AddressChain(rawValue: o["chain"] as? String ?? "") ?? .BTC,
                        address: o["address"] as? String ?? "", label: o["label"] as? String,
                        lastBalance: o["lastBalance"] as? String, lastUpdated: int64(o["lastUpdated"]),
+                       observations: S.list(o["observations"]).map {
+                           AddressObservation(time: int64($0["t"]), balance: dec($0["b"]) ?? 0)
+                       },
                        costLots: S.list(o["costLots"]).map {
                            AddressCostLot(id: int64($0["id"]), coin: $0["coin"] as? String ?? "", time: int64($0["t"]),
                                           amount: dec($0["amount"]) ?? 0, priceUsdt: dec($0["price"]))
@@ -45,6 +48,7 @@ final class AddressCutoffParityTests: XCTestCase {
                                noFx: "kein Devisenkurs", unchecked: "ungeprüft", incomplete: "unvollständig",
                                commentFormat: "# %@ %@ %@")
         t.fromAddress = "aus Adresse"
+        t.addressUnobserved = "nicht beobachtet"
         t.addressLots = "Posten nach Beobachtung"
         return t
     }

@@ -122,7 +122,7 @@ extension PortfolioHistory {
                 }
                 // Kerze genau dieses Tags (nicht fortgeschrieben); Hoch/Tief schliessen den Tageswert ein
                 // Menge × Kurs exakt (Kurs über seine kürzeste Darstellung); Double erst in der Summe je Tag (`sumCells`)
-                func times(_ p: Double) -> Decimal { amount * (PortfolioDecimal.of(p) ?? 0) }
+                func times(_ p: Double) -> Decimal { PortfolioDecimal.multiply(amount, PortfolioDecimal.of(p) ?? 0) }
                 if PortfolioStables.needsQuote(coin), !series.isEmpty, let r = ranges[coin]?[day], r.valid {
                     row[index] = DayCell(value: times(price), open: times(r.open),
                                          high: times(Swift.max(r.high, price)), low: times(Swift.min(r.low, price)),

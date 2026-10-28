@@ -45,8 +45,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spreadQueue
  *    zugeschlagene Umbuchungsgebühr zum Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen);
  *    ein Abgang nimmt die Teile anteilig mit ([PortfolioDisposal.costParts]) — der Steuer-Export rechnet so jeden Teil
  *    zum Devisenkurs SEINES Datums um (Posten 2018 + Umbuchungsgebühr 2024: je zum eigenen Kurs; Umbuchungsgebühr einmal
- *    je Umbuchung, gerechnet erst beim Auslesen: [PortfolioFifoParts]). US-Übergang
- *    ([TaxEngines.usTransition]): Anfangsposten tragen nur ihr Erwerbsdatum (Steuerwährung USD, Kurs 1).
+ *    je Umbuchung, gerechnet erst beim Auslesen: [PortfolioFifoParts]). [TaxEngines.usTransition]: Anfangsposten nur mit Erwerbsdatum (USD).
+ *    Geschätzter Wert im Einstand ([PortfolioTrade.costEstimated]) bleibt am Posten (auch übernommen, verschoben) — Vermerk am Abgang.
  *  - Gebühr im dritten Coin: im Gebühr-Coin eine Veräusserung (FIFO) zum Gebühr-Preis ([PortfolioDisposal.feeLeg]);
  *    Gewinn nur mit Gebühr-Preis bekannt. In der Haupttransaktion zählt ihr Wert zum Einstand (Kauf) bzw.
  *    mindert den Erlös (Verkauf).
@@ -202,7 +202,7 @@ object PortfolioFifo {
                     holdingDays = holdingDays(s.lot.acquired, t.time),
                     feeLeg = feeLeg, feeValueMissing = feeMissing, method = method,
                     costParts = if (s.cost != null && s.entries.isNotEmpty()) PortfolioFifoParts(s.entries, s.cost) else emptyList(),
-                    wallet = wallet, swap = swap, gift = gift, payment = payment, valueEstimated = estimated,
+                    wallet = wallet, swap = swap, gift = gift, payment = payment, valueEstimated = estimated || (s.cost != null && s.lot.estimated),
                 )
             }
             if (uncovered.signum() > 0) {
@@ -227,7 +227,7 @@ object PortfolioFifo {
 
         // Anfangsposten (Übergang): mit Erwerb und Rest-Einstand in ihre Wallet
         for (l in seed) {
-            if (l.amount.signum() > 0) insert(queue(l.wallet), Lot(l.txId, l.acquiredTime, l.acquiredTime, l.kind, l.amount, l.costUsdt))
+            if (l.amount.signum() > 0) insert(queue(l.wallet), Lot(l.txId, l.acquiredTime, l.acquiredTime, l.kind, l.amount, l.costUsdt, estimated = l.estimated))
         }
 
         for (e in events) {
@@ -241,7 +241,7 @@ object PortfolioFifo {
                 check(q, fee, t, feeLeg = true)
                 val slices = consume(q, fee)
                 val removed = slices.fold(zero) { acc, s -> acc + s.amount }
-                dispose(t, q, slices, fee - removed, t.thirdFeePrice?.let { fee * it }, removed, feeLeg = true, feeMissing = false)
+                dispose(t, q, slices, fee - removed, t.thirdFeePrice?.let { fee.multiply(it, PortfolioDecimal.MC) }, removed, feeLeg = true, feeMissing = false)
                 soldTotal += removed
                 continue
             }
@@ -254,7 +254,7 @@ object PortfolioFifo {
                     expense(e, queue(t.exchange), PortfolioFeeExpense.CONSUMED, PortfolioFeeExpenses.consumed(e))
                     continue
                 }
-                insert(queue(t.exchange), Lot(t.id, t.time, t.time, PortfolioTxType.SWAP, received, t.swapValue))
+                insert(queue(t.exchange), Lot(t.id, t.time, t.time, PortfolioTxType.SWAP, received, t.swapValue, estimated = t.costEstimated(swapIn = true)))
                 continue
             }
             // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt ([PortfolioLedger.salePrice])
@@ -268,9 +268,9 @@ object PortfolioFifo {
                         expense(e, queue(t.exchange), PortfolioFeeExpense.CONSUMED, PortfolioFeeExpenses.consumed(e))
                         continue
                     }
-                    val cost = price?.let { amount * it + t.quoteFee + (feeValue ?: zero) }
+                    val cost = price?.let { amount.multiply(it, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero) }
                     if (price != null && feeValue == null) feeValueMissing = true
-                    insert(queue(t.exchange), Lot(t.id, t.acquisitionTime, t.time, t.type, received, cost))
+                    insert(queue(t.exchange), Lot(t.id, t.acquisitionTime, t.time, t.type, received, cost, estimated = t.costEstimated()))
                 }
                 PortfolioTxType.SELL, PortfolioTxType.PAYMENT, PortfolioTxType.SWAP -> {
                     // Damit bezahlt: wie ein Verkauf zum Marktwert (Preis = Marktwert je Coin)
@@ -290,7 +290,7 @@ object PortfolioFifo {
                     val sold = soldParts.fold(zero) { acc, p -> acc + p }
                     // Erlös des ganzen Abgangs (Tausch: sein Wert) nur nach verkaufter Menge verteilt (Gebühr-Coins: Erlös 0)
                     // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                    val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { amount * it }
+                    val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { amount.multiply(it, PortfolioDecimal.MC) }
                     val proceeds = gross?.let { it - t.quoteFee - (feeValue ?: zero) }
                     val feeMissing = gross != null && feeValue == null
                     if (feeMissing && removed.signum() > 0) realizedFeeMissing = true
@@ -334,14 +334,14 @@ object PortfolioFifo {
                         // Netzwerkgebühr zuerst (älteste Posten der Quelle); ihr Einstand wandert mit
                         val carried = consume(src, coinFee)
                         val moved = consume(src, amount).map { s ->
-                            Lot(s.lot.txId, s.lot.acquired, s.lot.time, s.lot.kind, s.amount, s.cost, s.entries)
+                            Lot(s.lot.txId, s.lot.acquired, s.lot.time, s.lot.kind, s.amount, s.cost, s.entries, s.lot.estimated)
                         }
                         // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil
                         // ohne Kaufpreis und der Anteil der nicht angekommenen Menge werden vermerkt
                         if (feeValue == null && moved.any { it.priced }) feeValueMissing = true
                         val movedAmount = moved.fold(zero) { acc, l -> acc + l.amount }
                         val lost = PortfolioFeeExpenses.transferUncovered(t, movedAmount)
-                        unassign(t, lost + spread(moved, t.quoteFee + (feeValue ?: zero) - lost, movedAmount, t.time))
+                        unassign(t, lost + spread(moved, t.quoteFee + (feeValue ?: zero) - lost, movedAmount, t.time, t.feePriceEstimated))
                         // Nächster Posten mit Kaufpreis: verschoben, Rest der Quelle, sonst im Ziel; erst ohne jeden
                         // wartet der Einstand (bei den verschobenen Coins im Ziel, sonst in der Quelle)
                         val target = moved.firstOrNull { it.priced } ?: src.lots.firstOrNull { it.priced }
@@ -360,7 +360,7 @@ object PortfolioFifo {
                     // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der
                     // Anteil der Posten ohne Kaufpreis wird vermerkt
                     if (feeValue == null && q.hasPriced) feeValueMissing = true
-                    unassign(t, lost + spreadQueue(q, t.quoteFee + (feeValue ?: zero) - lost, h, t.time))
+                    unassign(t, lost + spreadQueue(q, t.quoteFee + (feeValue ?: zero) - lost, h, t.time, t.feePriceEstimated))
                     // Netzwerkgebühr im Coin: Menge sinkt (älteste zuerst), ihr Einstand geht auf den nächsten
                     // Posten mit Kaufpreis über (Begründung oben: Kosten des Haltens, keine Veräusserung)
                     if (coinFee.signum() > 0) {
@@ -381,7 +381,7 @@ object PortfolioFifo {
             for (l in q.lots) {
                 val lotCost = l.cost
                 if (lotCost != null) { priced += l.amount; cost += lotCost } else unpriced += l.amount
-                outLots += PortfolioLot(symbol, l.txId, l.acquired, l.kind, l.amount, l.cost, walletOf(q))
+                outLots += PortfolioLot(symbol, l.txId, l.acquired, l.kind, l.amount, l.cost, walletOf(q), l.estimated)
             }
         }
         return PortfolioBookResult(

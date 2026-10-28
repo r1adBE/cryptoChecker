@@ -35,8 +35,8 @@ enum class PortfolioFeeExpense {
 object PortfolioFeeExpenses {
 
     /**
-     * Aufwand (USDT), «Wert der Gebühr im dritten Coin fehlt» und «enthält einen geschätzten Gebühr-Preis»
-     * ([PortfolioTrade.feePriceEstimated], Vermerk «Wert geschätzt»).
+     * Aufwand (USDT), «Wert der Gebühr im dritten Coin fehlt» und «enthält einen geschätzten Wert»
+     * ([PortfolioTrade.feePriceEstimated], verbrauchter Zugang: [PortfolioTrade.costEstimated]; Vermerk «Wert geschätzt»).
      */
     class Expense(val usdt: BigDecimal, val feeValueMissing: Boolean, val estimated: Boolean = false)
 
@@ -46,12 +46,12 @@ object PortfolioFeeExpenses {
         if (e.feeLeg || t.amount.signum() <= 0) return null
         if (e.swapIn) {
             if (t.swapToCoin == null || t.swapReceived.signum() > 0) return null
-            return t.swapValue?.let { Expense(it, false) }
+            return t.swapValue?.let { Expense(it, false, t.costEstimated(swapIn = true)) }
         }
         if (!t.type.isInflow || t.received.signum() > 0) return null
         val price = t.validPrice ?: return null
         val feeValue = t.thirdFeeValue
-        return Expense(t.amount * price + t.quoteFee + (feeValue ?: BigDecimal.ZERO), feeValue == null, t.feePriceEstimated)
+        return Expense(t.amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: BigDecimal.ZERO), feeValue == null, t.costEstimated())
     }
 
     /**

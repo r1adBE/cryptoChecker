@@ -37,7 +37,9 @@ enum class PortfolioWidgetEntryFilter(val key: String) {
 /**
  * Buchungen je Coin für das Listen-Widget: dieselben Schritte und dieselbe Bestandsregel wie der Rechner
  * ([PortfolioLedger.events], [PortfolioHoldingsBook]) — so ergeben alle Zeilen zusammen genau den Bestand der Kopfzeile
- * (Abgänge auf den Bestand gekappt, Umbuchung nur mit ihrer Gebühr im Coin). Schritte ohne Änderung entfallen.
+ * (Abgänge auf den Bestand gekappt, Umbuchung nur mit ihrer Gebühr im Coin). Schritte ohne Änderung entfallen. Der
+ * Adress-Teil ohne Einstand ([AddressBalance.isAddressPart]) ist keine Buchung und fehlt (sein eigener Topf im Buch
+ * berührt die übrigen Zeilen nicht); Eröffnungsposten stehen wie Käufe in der Liste.
  */
 object PortfolioWidgetEntries {
 
@@ -57,8 +59,8 @@ object PortfolioWidgetEntries {
     }
 
     /**
-     * Buchungen von [coin] aus [trades], zeitlich aufsteigend; [notes] = Notiz je Transaktions-Id. Leer, wenn es mehr
-     * als [MAX_PER_COIN] sind. Ohne Wert ([PortfolioWidgetEntry.value] setzt [withValues]).
+     * Buchungen von [coin] aus [trades] ohne Adress-Teil, zeitlich aufsteigend; [notes] = Notiz je Transaktions-Id. Leer,
+     * wenn es mehr als [MAX_PER_COIN] sind. Ohne Wert ([PortfolioWidgetEntry.value] setzt [withValues]).
      */
     fun of(
         coin: String,
@@ -69,7 +71,7 @@ object PortfolioWidgetEntries {
         val book = PortfolioHoldingsBook(method)
         val out = ArrayList<PortfolioWidgetEntry>()
         for (e in PortfolioLedger.events(coin, trades)) {
-            if (e.trade.amount.signum() <= 0) continue
+            if (e.trade.amount.signum() <= 0 || AddressBalance.isAddressPart(e.trade.id)) continue
             val before = book.total
             book.apply(e)
             val delta = book.total - before

@@ -56,7 +56,7 @@ enum PortfolioCostGaps {
     /// ergibt; sonst nil.
     static func suggestion(_ t: PortfolioTx, close: Decimal?) -> Decimal? {
         guard let close, close > 0, t.amountExact > 0 else { return nil }
-        return t.amountExact * close
+        return PortfolioDecimal.multiply(t.amountExact, close)
     }
 
     /// Preis je Coin aus einem Einstand gesamt (≥ 0) für die Menge (> 0), 34 Stellen; sonst nil.

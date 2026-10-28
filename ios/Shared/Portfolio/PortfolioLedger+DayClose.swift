@@ -79,9 +79,9 @@ extension PortfolioLedger {
             } else {
                 var value: Decimal?
                 if let p = close(t.coin, t.time) {
-                    value = t.amountExact * p
+                    value = PortfolioDecimal.multiply(t.amountExact, p)
                 } else if let to = t.swapToCoin, let p = close(to, t.time), let amount = t.toAmountExact {
-                    value = amount * p
+                    value = PortfolioDecimal.multiply(amount, p)
                 }
                 guard let value else { return t }
                 v.swapValueExact = value

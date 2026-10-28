@@ -252,7 +252,7 @@ extension TaxExport {
                            usdtUsd: [Int: Decimal]? = nil) -> [TaxIncomeRow] {
         PortfolioLedger.valueRewardsAtDayClose(rewards(in: trades, period: period, timeZone: timeZone), price: priceAt).map { t -> TaxIncomeRow in
             let date = localDay(t.time, timeZone: timeZone)
-            let value = t.validPriceExact.map { t.amountExact * $0 }
+            let value = t.validPriceExact.map { PortfolioDecimal.multiply(t.amountExact, $0) }
             let rate = rateOn(rates, date: date, currency: currency, usdtUsd: usdtUsd)
             let target: Decimal? = {
                 guard let value, let rate else { return nil }

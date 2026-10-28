@@ -290,7 +290,7 @@ enum CsvTransferMatch {
         if d.time < w.time - earlyMillis || d.time > w.time + windowMillis { return false }
         if d.total <= 0 || d.total > w.total { return false }
         let diff = w.total - d.total
-        if diff > w.total * maxFeeShare { return false }
+        if diff > PortfolioDecimal.multiply(w.total, maxFeeShare) { return false }
         // USDT-Gebühr der Auszahlung und Differenz im Coin: die Umbuchung trägt nur eine Gebühr
         return !(diff > 0 && w.quoteFee != nil)
     }

@@ -249,10 +249,10 @@ object PortfolioBackupMirror {
         val txs = content.txs
         val alarms = content.alarms
         // Spalten und Speicherform wie Room: Enums als Name, Boolean als 0/1, Dezimalzahlen als Text (ein BigDecimal
-        // würde sonst als ganze Zahl gebunden) — Mengen, Gebühren und Werte auf 18 Nachkommastellen wie [cleanForSave],
-        // Preise wie [PortfolioDecimalConverters]
+        // würde sonst als ganze Zahl gebunden) — Mengen, Gebühren und Werte wie [PortfolioDecimalConverters] (18
+        // Nachkommastellen), Preise wie [PortfolioPriceConverters]
         val amountText = { v: BigDecimal? -> v?.let { PortfolioDecimal.text(it) } }
-        val prices = PortfolioDecimalConverters()
+        val prices = PortfolioPriceConverters()
         val restoreStates = PortfolioRestoreStateConverters()
         txs.forEach { t ->
             db.execSQL(

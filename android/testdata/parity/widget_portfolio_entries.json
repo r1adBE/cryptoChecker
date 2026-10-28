@@ -1,5 +1,5 @@
 {
- "description": "Portfolio-Widget, Ansicht «Liste»: Buchungen unter den Coins (Wunsch 27.10.2026). shortNote: Notiz auf 6 sichtbare Zeichen gekürzt, länger → «…» (Leerraum am Rand weg, innen zusammengefasst, leer → null). entries: je Coin die Bestandsänderung jeder Buchung nach der Bestandsregel des Rechners (Gebühr im Coin eingerechnet, Umbuchung nur ihre Gebühr, Tausch je Seite), zeitlich aufsteigend, ohne Schritte ohne Änderung; mehr als 40 → keine; value = Menge × price × fx. assign: je Coin die zur Wahl passenden Buchungen, alle oder keine, solange sie in available passen (rowHeight je Zeile). Android PortfolioWidgetEntries.kt, iOS PortfolioWidgetEntries.swift.",
+ "description": "Portfolio-Widget, Ansicht «Liste»: Buchungen unter den Coins (Wunsch 27.10.2026). shortNote: Notiz auf 6 sichtbare Zeichen gekürzt, länger → «…» (Leerraum am Rand weg, innen zusammengefasst, leer → null). entries: je Coin die Bestandsänderung jeder Buchung nach der Bestandsregel des Rechners (Gebühr im Coin eingerechnet, Umbuchung nur ihre Gebühr, Tausch je Seite), zeitlich aufsteigend, ohne Schritte ohne Änderung, ohne den Adress-Teil ohne Einstand (Eröffnungsposten zählen wie Käufe); mehr als 40 → keine; value = Menge × price × fx. assign: je Coin die zur Wahl passenden Buchungen, alle oder keine, solange sie in available passen (rowHeight je Zeile). Android PortfolioWidgetEntries.kt, iOS PortfolioWidgetEntries.swift.",
  "shortNote": [
   {
    "note": "Langfristig",
@@ -550,6 +550,68 @@
    ],
    "notes": {},
    "expected": [],
+   "total": "0"
+  },
+  {
+   "name": "address part without cost is no entry, an opening lot is",
+   "coin": "BTC",
+   "method": "FIFO",
+   "price": 100,
+   "fx": 1,
+   "trades": [
+    {
+     "id": -1,
+     "coin": "BTC",
+     "type": "DEPOSIT",
+     "amount": "0.7",
+     "time": 1699000000000
+    },
+    {
+     "id": -1000002000,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "0.2",
+     "price": "30",
+     "time": 1699500000000,
+     "exchange": "Ledger"
+    },
+    {
+     "id": 1,
+     "coin": "BTC",
+     "type": "BUY",
+     "amount": "0.5",
+     "price": "50",
+     "time": 1700000000000,
+     "exchange": "Binance"
+    },
+    {
+     "id": 2,
+     "coin": "BTC",
+     "type": "SELL",
+     "amount": "1",
+     "price": "80",
+     "time": 1700000100000,
+     "exchange": "Binance"
+    }
+   ],
+   "notes": {},
+   "expected": [
+    {
+     "quantity": "0.2",
+     "note": null,
+     "value": 20.0
+    },
+    {
+     "quantity": "0.5",
+     "note": null,
+     "value": 50.0
+    },
+    {
+     "quantity": "-0.7",
+     "note": null,
+     "value": -70.0
+    }
+   ],
    "total": "0"
   }
  ],

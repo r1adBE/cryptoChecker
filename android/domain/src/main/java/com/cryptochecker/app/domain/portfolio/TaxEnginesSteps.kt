@@ -28,13 +28,13 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
         if (t.amount.signum() <= 0) continue
         if (e.feeLeg) {
             val fee = t.thirdFeeAmount
-            val p = t.thirdFeePrice?.let { fee * it }
+            val p = t.thirdFeePrice?.let { fee.multiply(it, PortfolioDecimal.MC) }
             out += TaxStep(TaxStepKind.DISPOSE, t, fee, proceeds = p, gross = p, feeLeg = true, estimated = t.feePriceEstimated)
             continue
         }
         if (e.swapIn) {
             val r = t.swapReceived
-            if (r.signum() > 0) out += TaxStep(TaxStepKind.ACQUIRE, t, r, cost = t.swapValue, swap = true)
+            if (r.signum() > 0) out += TaxStep(TaxStepKind.ACQUIRE, t, r, cost = t.swapValue, swap = true, costEstimated = t.costEstimated(swapIn = true))
             continue
         }
         val price = t.validPrice
@@ -43,15 +43,15 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
             PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> {
                 val r = t.received
                 if (r.signum() <= 0) continue
-                val cost = price?.let { t.amount * it + t.quoteFee + (feeValue ?: zero) }
-                out += TaxStep(TaxStepKind.ACQUIRE, t, r, cost = cost, acquired = t.acquisitionTime)
+                val cost = price?.let { t.amount.multiply(it, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero) }
+                out += TaxStep(TaxStepKind.ACQUIRE, t, r, cost = cost, acquired = t.acquisitionTime, costEstimated = t.costEstimated())
             }
             // Damit bezahlt: Veräusserung zum Marktwert wie ein Verkauf (alle Vorlagen; Verschenkt nur nach
             // [applyRules] mit [TaxEventRules.giftIsDisposal], sonst wie eine Auszahlung)
             PortfolioTxType.SELL, PortfolioTxType.PAYMENT, PortfolioTxType.SWAP -> {
                 val swap = t.type == PortfolioTxType.SWAP
                 // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { t.amount * it }
+                val gross = if (swap) t.swapValue?.takeIf { t.swapToCoin != null } else price?.let { t.amount.multiply(it, PortfolioDecimal.MC) }
                 out += TaxStep(
                     TaxStepKind.DISPOSE, t, t.amount + t.coinFee,
                     proceeds = gross?.let { it - t.quoteFee - (feeValue ?: zero) }, gross = gross,
@@ -70,7 +70,7 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
             }
             PortfolioTxType.TRANSFER -> {
                 val extra = t.quoteFee + (feeValue ?: zero)
-                if (extra.signum() > 0) out += TaxStep(TaxStepKind.ADD_FEE, t, zero, cost = extra)
+                if (extra.signum() > 0) out += TaxStep(TaxStepKind.ADD_FEE, t, zero, cost = extra, costEstimated = t.feePriceEstimated)
                 if (t.coinFee.signum() > 0) out += TaxStep(TaxStepKind.NETWORK_FEE, t, t.coinFee)
             }
         }
@@ -81,8 +81,10 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
 /** Teile eines Abgangs aus [taken]: Teil mit Kaufpreis (Einstand, Herkunft) und Teil ohne. */
 fun TaxEngines.piecesOf(taken: TaxTaken, match: TaxMatch? = null, matchedTime: Long? = null, oldHolding: Boolean? = null): List<TaxPiece> =
     listOfNotNull(
-        TaxPiece(taken.removedPriced, taken.cost, taken.parts, match = match, matchedTime = matchedTime, oldHolding = oldHolding)
-            .takeIf { taken.removedPriced.signum() > 0 },
+        TaxPiece(
+            taken.removedPriced, taken.cost, taken.parts, match = match, matchedTime = matchedTime, oldHolding = oldHolding,
+            estimated = taken.estimated,
+        ).takeIf { taken.removedPriced.signum() > 0 },
         TaxPiece(taken.removedUnpriced, null, match = match, matchedTime = matchedTime, oldHolding = oldHolding)
             .takeIf { taken.removedUnpriced.signum() > 0 },
     )
@@ -92,6 +94,7 @@ fun TaxEngines.piecesOf(taken: TaxTaken, match: TaxMatch? = null, matchedTime: L
  * [method] wie in [PortfolioDisposal.method] (Pool/Durchschnitt = [CostMethod.AVERAGE], Posten = [CostMethod.FIFO]).
  * Schenkung an Ehe-/Lebenspartner ([TaxStep.spouseGift]): Erlös je Teil = sein Einstand (ohne Kaufpreis unbekannt).
  * [gross] (UK): Erlös vor Gebühren, gleich verteilt ([PortfolioDisposal.proceedsBeforeFeesUsdt]); null = keiner.
+ * «Wert geschätzt»: Erlös geschätzt ([TaxStep.estimated]) oder Einstand des Teils mit geschätztem Wert ([TaxPiece.estimated]).
  */
 fun TaxEngines.emit(
     coin: String,
@@ -124,7 +127,8 @@ fun TaxEngines.emit(
             holdingDays = p.acquiredTime?.let { PortfolioFifo.holdingDays(it, s.time) },
             feeLeg = s.feeLeg, feeValueMissing = s.feeMissing,
             method = if (p.acquiredTime != null) CostMethod.FIFO else CostMethod.AVERAGE,
-            costParts = p.parts, uncovered = p.uncovered, swap = s.swap, gift = s.gift, payment = s.payment, valueEstimated = s.estimated,
+            costParts = p.parts, uncovered = p.uncovered, swap = s.swap, gift = s.gift, payment = s.payment,
+            valueEstimated = s.estimated || (p.estimated && p.cost != null),
             match = p.match, matchedTime = p.matchedTime, oldHolding = p.oldHolding, spouseGift = s.spouseGift,
             proceedsBeforeFeesUsdt = grossShare,
         )

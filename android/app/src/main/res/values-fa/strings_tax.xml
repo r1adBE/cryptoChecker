@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">آدرس‌های زیر نظر خوانده نشدند – موجودی آن‌ها در این فایل نیست</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">توجه: یک آدرس تحت نظر اقلام بهای تمام‌شده‌ای دارد که تاریخشان پس از آخرین بررسی موجودی آن پیش از این تاریخ است – ممکن است اینجا نباشند.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">دسته‌های نشانی‌های تحت نظر از تاریخ خریدشان حساب می‌شوند؛ اگر موجودی امروز نشانی کمتر باشد، کاهش می‌یابند.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">آدرس‌های زیر نظر در ارزش کل حساب می‌شوند اما بهای تمام‌شده ندارند – بنابراین سود احتمالاً بیش از حد است. بهای تمام‌شده را به‌صورت خرید ثبت کن.</string>

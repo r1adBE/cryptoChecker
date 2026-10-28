@@ -102,16 +102,18 @@ extension BackupManager {
 
     /// Wie `jsonToTx` (Android): jedes Feld von `txToJson` muss da sein (`BackupFields.tx`), sonst `Failure.invalid`;
     /// ungültige Werte (ohne Coin, unbekannte Art, keine gültige Menge, Tausch ohne erhaltenen Coin) → nil, gezählt.
+    /// Mengen, Gebühren und Werte gelesen wie gespeichert (`storedAmount`: 18 Nachkommastellen) — eine Menge, die dabei
+    /// 0 wird (unter 10⁻¹⁸), ist ungültig wie eine fehlende.
     static func jsonToTx(_ o: [String: Any]) throws -> PortfolioTx? {
         let coin = PortfolioCalculator.normalizeCoin(try part(o, "coin"))
         guard let type = PortfolioTxType(rawValue: try part(o, "type")) else { return nil }
-        guard let amount = try exact(o, "amountText"), amount > 0 else { return nil }
+        guard let amount = try storedAmount(o, "amountText"), amount > 0 else { return nil }
         guard !coin.isEmpty else { return nil }
         let price: Decimal? = try exact(o, "priceText").flatMap { $0 >= 0 ? $0 : nil }
         // Höchstens 120 Zeichen wie die Notiz in der Merkliste
         let note: String? = try textOrNull(o, "note").flatMap { Watch.validNote($0) }
         // null oder ungültig: keine Gebühr
-        let fee: Decimal? = PortfolioTx.validFee(try exact(o, "feeText"))
+        let fee: Decimal? = PortfolioTx.validFee(try storedAmount(o, "feeText"))
         let feeUnit: PortfolioFeeUnit? = try fee == nil ? nil : PortfolioFeeUnit.from(name: textOrNull(o, "feeUnit"))
         let id: Int64 = try part(o, "id")
         let time: Int64 = try part(o, "time")
@@ -130,7 +132,7 @@ extension BackupManager {
         // Gebühr im dritten Coin nur mit Coin und Menge > 0
         tx.transferFrom = PortfolioTx.cleanExchange(try textOrNull(o, "transferFrom"))
         if let third = PortfolioTx.cleanFeeCoin(try textOrNull(o, "feeCoin"), coin: coin,
-                                                amount: try exact(o, "feeCoinAmountText")) {
+                                                amount: try storedAmount(o, "feeCoinAmountText")) {
             tx.feeCoin = third.coin
             tx.feeCoinAmountExact = third.amount
             tx.feeCoinPriceExact = try exact(o, "feeCoinPriceText").flatMap { $0 >= 0 ? $0 : nil }
@@ -147,10 +149,10 @@ extension BackupManager {
         // Tausch: ohne gültigen erhaltenen Coin und Menge ungültig (gezählt) — wie Android
         if type == .SWAP {
             guard let to = PortfolioTx.cleanToCoin(try textOrNull(o, "toCoin"), coin: coin),
-                  let toAmount = try exact(o, "toAmountText"), toAmount > 0 else { return nil }
+                  let toAmount = try storedAmount(o, "toAmountText"), toAmount > 0 else { return nil }
             tx.toCoin = to
             tx.toAmountExact = toAmount
-            tx.swapValueExact = try exact(o, "swapValueText").flatMap { $0 >= 0 ? $0 : nil }
+            tx.swapValueExact = try storedAmount(o, "swapValueText").flatMap { $0 >= 0 ? $0 : nil }
         }
         tx.importBatch = PortfolioImportBatch.clean(try textOrNull(o, "importBatch"))
         let feeRow: Bool = try part(o, "feeRow")
@@ -166,5 +168,11 @@ extension BackupManager {
     /// ist es kein Text: `Failure.invalid`.
     private static func exact(_ o: [String: Any], _ key: String) throws -> Decimal? {
         try textOrNull(o, key).flatMap { PortfolioDecimal.parse($0) }
+    }
+
+    /// Menge, Gebühr oder Wert aus dem Text `key`, gerundet wie gespeichert (`PortfolioDecimal.amount`) — wie Android
+    /// `PortfolioJson.amountOf`. null/ungültig = nil.
+    private static func storedAmount(_ o: [String: Any], _ key: String) throws -> Decimal? {
+        try exact(o, key).map { PortfolioDecimal.amount($0) }
     }
 }

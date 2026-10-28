@@ -25,6 +25,8 @@ object PortfolioFifoLots {
         cost: BigDecimal?,
         /** Herkunft von [cost]; null = ganzer Einstand zum Erwerb. */
         entries: List<Entry>? = null,
+        /** Einstand enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]); bleibt bis zum Abgang des Postens. */
+        var estimated: Boolean = false,
     ) {
         /** Kaufpreis bekannt (sonst kein Einstand und keine Teile). */
         val priced: Boolean = cost != null
@@ -179,6 +181,9 @@ object PortfolioFifoLots {
         /** Herkunft von [pendingLost] (Summe gleich). */
         val pending = Entries()
 
+        /** [pendingLost] enthält einen geschätzten Wert ([Lot.estimated]). */
+        var pendingEstimated = false
+
         /** Alle Posten mit Kaufpreis. */
         val allPriced: Boolean get() = unpricedCount == 0
 
@@ -235,6 +240,7 @@ object PortfolioFifoLots {
     fun lose(symbol: String, q: Queue, t: PortfolioTrade, carried: List<Slice>) {
         val cost = carried.costSum()
         if (cost.signum() == 0) return
+        if (carried.any { it.cost != null && it.lot.estimated }) q.pendingEstimated = true
         q.pendingLost += PortfolioLostFeeCost(symbol, t.id, t.time, cost)
         carried.forEach { s -> s.entries.forEach { q.pending.add(it) } }
     }
@@ -242,15 +248,19 @@ object PortfolioFifoLots {
     /** Netzwerkgebühr-Einstand [carried] auf [target] (Posten mit Kaufpreis), sonst wartend in [q] ([lose]). */
     fun carry(symbol: String, target: Lot?, q: Queue, t: PortfolioTrade, carried: List<Slice>) {
         if (carried.costSum().signum() == 0) return
-        if (target != null) target.addEntries(carried.flatMap { it.entries }) else lose(symbol, q, t, carried)
+        if (target == null) return lose(symbol, q, t, carried)
+        target.addEntries(carried.flatMap { it.entries })
+        if (carried.any { it.cost != null && it.lot.estimated }) target.estimated = true
     }
 
     /** Neuer Posten an seinem Platz (meist hinten); ein Posten mit Kaufpreis übernimmt wartenden Gebühr-Einstand. */
     fun insert(q: Queue, lot: Lot) {
         if (lot.priced && q.pendingLost.isNotEmpty()) {
             lot.addEntries(q.pending.items.toList())
+            if (q.pendingEstimated) lot.estimated = true
             q.pendingLost.clear()
             q.pending.clear()
+            q.pendingEstimated = false
         }
         q.add(lot)
     }
@@ -279,9 +289,9 @@ object PortfolioFifoLots {
      * Je Wallet: Gebühr USDT + Wert der Gebühr im dritten Coin ([extra]) einer Umbuchung zum Zeitpunkt [at] nach Menge
      * auf die verschobenen Posten [lots] (Summe [h], je Posten ein Teil); der letzte bekommt den Rest, wenn alle einen
      * Kaufpreis haben. Rückgabe = Anteil der Posten OHNE Kaufpreis (gehört zu deren unbekanntem Einstand, `unassign`);
-     * 0 = alles zugeordnet.
+     * 0 = alles zugeordnet. [estimated]: [extra] enthält einen geschätzten Wert — die Posten mit Kaufpreis tragen ihn.
      */
-    fun spread(lots: List<Lot>, extra: BigDecimal, h: BigDecimal, at: Long): BigDecimal {
+    fun spread(lots: List<Lot>, extra: BigDecimal, h: BigDecimal, at: Long, estimated: Boolean): BigDecimal {
         if (extra.signum() <= 0 || h.signum() <= 0) return BigDecimal.ZERO
         val allPriced = lots.all { it.priced }
         var left = extra
@@ -292,6 +302,7 @@ object PortfolioFifoLots {
             if (lot.priced) {
                 lot.addCost(at, part)
                 assigned += part
+                if (estimated) lot.estimated = true
             }
         }
         return extra - assigned
@@ -301,9 +312,11 @@ object PortfolioFifoLots {
      * Gebühr [extra] einer Umbuchung zum Zeitpunkt [at] nach Menge auf alle Posten von [q] (Bestand [h]): ein Eintrag im
      * Gebühren-Strom (Anteil je Coin), kein Teil je Posten. Haben alle Posten einen Kaufpreis, bekommt der letzte den
      * Rundungsrest (Summe exakt [extra]). Rückgabe = Anteil der Posten OHNE Kaufpreis; 0 = alles zugeordnet.
+     * [estimated]: [extra] enthält einen geschätzten Wert — alle Posten mit Kaufpreis tragen ihn ([Lot.estimated]).
      */
-    fun spreadQueue(q: Queue, extra: BigDecimal, h: BigDecimal, at: Long): BigDecimal {
+    fun spreadQueue(q: Queue, extra: BigDecimal, h: BigDecimal, at: Long, estimated: Boolean): BigDecimal {
         if (extra.signum() <= 0 || h.signum() <= 0) return BigDecimal.ZERO
+        if (estimated) q.lots.forEach { if (it.priced) it.estimated = true }
         val factor = extra.divide(h, PortfolioDecimal.MC)
         q.stream.append(at, factor)
         if (!q.allPriced) return extra - q.pricedHeld.multiply(factor, PortfolioDecimal.MC)

@@ -30,7 +30,7 @@ fun TaxEngines.ukPool(
     val dayOwn = HashMap<LocalDate, BigDecimal>()
     for (s in steps) if (s.kind == TaxStepKind.ACQUIRE && !late(s)) {
         val d = day(s.acquired, zone)
-        dayPools.getOrPut(d) { TaxPool() }.add(s.qty, s.cost, s.acquired)
+        dayPools.getOrPut(d) { TaxPool() }.add(s.qty, s.cost, s.acquired, s.costEstimated)
         dayFirst[d] = minOf(dayFirst[d] ?: Long.MAX_VALUE, s.acquired)
         dayLeft[d] = (dayLeft[d] ?: BigDecimal.ZERO) + s.qty
         if (!moved(s)) dayOwn[d] = (dayOwn[d] ?: BigDecimal.ZERO) + s.qty
@@ -82,6 +82,16 @@ fun TaxEngines.ukPool(
     }
     // Der Pool-Teil einer Gruppe beim letzten Abgang des Tags (alle Buchungen bis dahin im Pool)
     val groupAt = groups.values.associateBy { it.last() }
+    // Auszahlung zwischen zwei Abgängen derselben Gruppe: erst nach deren Pool-Teil gebucht (die Abgänge des Tags sind
+    // EINE Veräusserung und werden zuerst zugeordnet) — sonst leerte sie den Pool vor dem früheren Abgang
+    val index = steps.withIndex().associate { (i, s) -> s to i }
+    val deferred = HashMap<TaxStep, ArrayList<TaxStep>>()
+    for (s in steps) if (s.kind == TaxStepKind.REMOVE) {
+        val group = groups[day(s.time, zone)] ?: continue
+        val i = index.getValue(s)
+        if (index.getValue(group.first()) < i && i < index.getValue(group.last())) deferred.getOrPut(group.last()) { ArrayList() } += s
+    }
+    val deferredSteps = deferred.values.flatten().toHashSet()
     // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
     // Buchungstag), Rest der Abgänge aus dem Pool
     val pool = TaxPool(zone)
@@ -97,7 +107,7 @@ fun TaxEngines.ukPool(
             return
         }
         val taken = dp.take(dp.held.multiply(q).divide(left, PortfolioDecimal.MC))
-        pool.addCarried(taken.removedPriced, taken.parts)
+        pool.addCarried(taken.removedPriced, taken.parts, taken.estimated)
         pool.add(taken.removedUnpriced, null, dayFirst.getValue(d))
     }
     for (s in steps) {
@@ -105,7 +115,7 @@ fun TaxEngines.ukPool(
             TaxStepKind.ACQUIRE -> {
                 val d = day(s.acquired, zone)
                 when {
-                    late(s) -> pool.add(s.qty, s.cost, s.acquired)
+                    late(s) -> pool.add(s.qty, s.cost, s.acquired, s.costEstimated)
                     moved(s) -> enter(d, s.qty)
                     added.add(d) -> enter(d, dayOwn.getValue(d))
                 }
@@ -116,6 +126,7 @@ fun TaxEngines.ukPool(
                     remaining[m] = remaining.getValue(m) - taken.removed
                     pieces.getValue(m) += piecesOf(taken, TaxMatch.POOL)
                 }
+                deferred[s]?.forEach { pool.take(it.qty) }
                 for (m in group) {
                     val list = pieces.getValue(m)
                     val rest = remaining.getValue(m)
@@ -124,9 +135,11 @@ fun TaxEngines.ukPool(
                     out += emit(coin, m, list, m.proceeds, gross = m.gross)
                 }
             }
-            TaxStepKind.REMOVE -> pool.take(s.qty)
+            TaxStepKind.REMOVE -> if (s !in deferredSteps) pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))
-            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: BigDecimal.ZERO, s.trade.amount, s.trade.coinFee))
+            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(
+                coin, s, pool.addFee(s.time, s.cost ?: BigDecimal.ZERO, s.trade.amount, s.trade.coinFee, s.costEstimated),
+            )
         }
     }
     return out

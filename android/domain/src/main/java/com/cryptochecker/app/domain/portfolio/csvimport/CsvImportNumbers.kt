@@ -106,13 +106,20 @@ private val SCIENTIFIC = Regex("^(-?[0-9]+(?:[.,][0-9]+)?)[eE](-?[0-9]{1,3})$")
 
 /**
  * «1.234E-05» → 0.00001234 (das «+» eines Exponenten entfernt schon [stripGrouping]). Mantisse wie [parseNumber]
- * höchstens 60 Zeichen; der Wert muss in den Grenzen des Speicherns liegen ([PortfolioDecimal.withinLimits]: unter 10³⁰,
- * höchstens 40 Nachkommastellen), sonst ungültig. Wie iOS.
+ * höchstens 60 Zeichen; der Wert muss unter 10³⁰ liegen ([PortfolioDecimal.MAX_INTEGER_DIGITS]), sonst ungültig. Die
+ * Nachkommastellen prüft wie bei einer gewöhnlichen Zahl erst das Speichern (gerundet,
+ * [CsvImportMapping.unsavableReason]): «1.234E-38» als Preis gilt wie «0.00…01234». Höchstens [MAX_EXPONENT_SCALE]
+ * Nachkommastellen (ohne Nullen am Ende), so weit reicht `Decimal` (iOS). Wie iOS.
  */
 private fun scientific(t: String): BigDecimal? {
     val m = SCIENTIFIC.matchEntire(t) ?: return null
     val mantissa = m.groupValues[1].replace(',', '.')
     if (mantissa.length > 60) return null
     val value = runCatching { BigDecimal(mantissa).scaleByPowerOfTen(m.groupValues[2].toInt()) }.getOrNull() ?: return null
-    return value.stripTrailingZeros().takeIf { PortfolioDecimal.withinLimits(it) }
+    val s = value.stripTrailingZeros()
+    if (s.signum() == 0) return s
+    return s.takeIf { it.precision() - it.scale() <= PortfolioDecimal.MAX_INTEGER_DIGITS && it.scale() <= MAX_EXPONENT_SCALE }
 }
+
+/** Höchstens so viele Nachkommastellen in wissenschaftlicher Schreibweise: kleinster Exponent von `Decimal` (iOS). */
+private const val MAX_EXPONENT_SCALE = 128

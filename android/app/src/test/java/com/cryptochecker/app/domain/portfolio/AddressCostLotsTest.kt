@@ -114,16 +114,23 @@ class AddressCostLotsTest {
     }
 
     @Test
-    fun exportTradesAddLotsAndFrHistoryWithoutLottedPart() {
-        val history = listOf(
-            PortfolioTrade(-1_000_001, "BTC", PortfolioTxType.DEPOSIT, BigDecimal("0.3"), null, 10),
-            PortfolioTrade(-1_000_002, "BTC", PortfolioTxType.DEPOSIT, BigDecimal("0.5"), null, 20),
-            PortfolioTrade(-1_000_003, "BTC", PortfolioTxType.WITHDRAWAL, BigDecimal("0.1"), null, 30),
-        )
-        val cut = AddressCostLots.withoutLotted(history, mapOf("BTC" to BigDecimal("0.4")))
-        assertEquals(listOf(-1_000_002L, -1_000_003L), cut.map { it.id })
-        assertEquals(0, BigDecimal("0.4").compareTo(cut[0].amount))
-        assertEquals(history, AddressCostLots.withoutLotted(history, emptyMap()))
+    fun exportTradesAddLotsAndFrHistoryAsTheCard() {
+        // FR-Gesamtwert wie die Karte ([AddressBooked]): erfasste Umbuchung weg von der Adresse (1 → 0.5) bzw. zu ihr hin
+        // (1 → 1.3) steckt schon im Guthaben — der Adress-Teil bleibt 1, nur die erste Beobachtung ist ein Zugang
+        val obs = listOf(AddressObservation(10, BigDecimal("1")))
+        for ((later, transfer) in listOf(
+            "0.5" to PortfolioTrade(7, "BTC", PortfolioTxType.TRANSFER, BigDecimal("0.5"), null, 20, transferFrom = "Ledger", transferTo = "Binance"),
+            "1.3" to PortfolioTrade(7, "BTC", PortfolioTxType.TRANSFER, BigDecimal("0.3"), null, 20, transferFrom = "Binance", transferTo = "Ledger"),
+        )) {
+            val ledger = WatchedAddress(
+                id = 3, chain = AddressChain.BTC, address = btc, label = "Ledger", lastBalance = later, lastUpdated = 30,
+                observations = obs + AddressObservation(30, BigDecimal(later)),
+            )
+            val fr = AddressCostLots.exportTrades(listOf(transfer), listOf(ledger), frTotalValue = true).drop(1)
+            assertEquals(listOf(PortfolioTxType.DEPOSIT), fr.map { it.type })
+            assertEquals(0, BigDecimal.ONE.compareTo(fr.single().amount))
+            assertEquals(10L, fr.single().time)
+        }
         // Ohne FR: nur eigene Transaktionen + Posten (Käufe mit Preis)
         val a = WatchedAddress(id = 2, chain = AddressChain.BTC, address = btc, lastBalance = "1", costLots = listOf(lot(1, 5, "0.4", price = "100")))
         val real = listOf(PortfolioTrade(1, "BTC", PortfolioTxType.BUY, BigDecimal("1"), BigDecimal("200"), 50))

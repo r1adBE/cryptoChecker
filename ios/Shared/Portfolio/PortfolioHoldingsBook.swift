@@ -2,13 +2,15 @@ import Foundation
 
 /// Laufender Bestand EINES Coins nach der Einstandsmethode `method` — die eine Regel für Karte, «Heute/7 T/1 J»,
 /// Wertverlauf, Widget, Alarm und Stichtag (gleiche Mengen wie `PortfolioFifo` bzw. der Ø im Rechner). Wie
-/// `PortfolioHoldingsBook` (Android): FIFO und Ø ein Topf (`PortfolioLedger.holdingsAfter`); FIFO je Wallet je Wallet ein
-/// Topf, Abgänge auf den Bestand DIESER Wallet gekappt (der Rest ist ungedeckt, nichts aus anderen Wallets), eine
-/// Umbuchung verschiebt (zuerst die Netzwerkgebühr, dann die Menge; was fehlt, kommt nicht an). Adress-Teile ohne
-/// Einstand (`AddressBalance.isAddressPart`) in einem eigenen Topf; Eröffnungsposten (`AddressCostLots.isLotTrade`) wie in
-/// `PortfolioFifo` in ihrer Wallet (der Adresse), sonst bliebe ein Abgang aus dieser Wallet (Verkauf dort, Umbuchung weg)
-/// ungedeckt und der Posten zählte weiter. `cap(for:)` = Bestand, auf den `PortfolioLedger.flow` die Abgänge eines
-/// Schritts kappt.
+/// `PortfolioHoldingsBook` (Android): Bei allen Methoden liegen Adress-Teile ohne Einstand (`AddressBalance.isAddressPart`)
+/// in einem eigenen Topf wie auf der Karte (`AddressBalance.split`) — ein eigener Abgang über den eigenen Bestand hinaus
+/// bleibt ungedeckt und nimmt nichts vom Adress-Teil, ein Adress-Abgang nur aus dem Adress-Teil. FIFO und Ø sonst ein
+/// Topf (`PortfolioLedger.holdingsAfter`); FIFO je Wallet je Wallet ein Topf, Abgänge auf den Bestand DIESER Wallet
+/// gekappt (der Rest ist ungedeckt, nichts aus anderen Wallets), eine Umbuchung verschiebt (zuerst die Netzwerkgebühr,
+/// dann die Menge; was fehlt, kommt nicht an). Eröffnungsposten (`AddressCostLots.isLotTrade`) wie in `PortfolioFifo` in
+/// ihrer Wallet (der Adresse), sonst bliebe ein Abgang aus dieser Wallet (Verkauf dort, Umbuchung weg) ungedeckt und der
+/// Posten zählte weiter. `cap(for:)` = Bestand, auf den `PortfolioLedger.flow` die Abgänge eines Schritts kappt: der Topf
+/// des Schritts.
 struct PortfolioHoldingsBook {
     let method: CostMethod
     /// Bestand gesamt, exakt.
@@ -16,6 +18,8 @@ struct PortfolioHoldingsBook {
     private var wallets: [String: Decimal] = [:]
     /// Eigener Topf der Adress-Teile ohne Einstand (kein gültiger Wallet-Schlüssel).
     private static let addressPot = "\u{0}address"
+    /// FIFO, Ø: Topf der eigenen Transaktionen samt Eröffnungsposten.
+    private static let ownPot = "\u{0}own"
 
     init(method: CostMethod = .defaultMethod) {
         self.method = method
@@ -34,9 +38,14 @@ struct PortfolioHoldingsBook {
         total = max(0, total + amount)
     }
 
-    /// Topf, aus dem `e` abgeht (je Wallet), sonst der ganze Bestand.
+    /// FIFO, Ø: eigener Topf bzw. Adress-Topf.
+    private func pot(of e: PortfolioLedgerEvent) -> String {
+        AddressBalance.isAddressPart(e.trade.id) ? Self.addressPot : Self.ownPot
+    }
+
+    /// Topf, aus dem `e` abgeht: je Wallet die Wallet, sonst eigener Bestand bzw. Adress-Teil.
     func cap(for e: PortfolioLedgerEvent) -> Decimal {
-        guard perWallet else { return total }
+        guard perWallet else { return held(pot(of: e)) }
         let t = e.trade
         let raw = e.feeLeg ? PortfolioWallets.of(e) : (t.type == .TRANSFER ? t.transferFrom : t.exchange)
         return held(walletKey(e, raw))
@@ -45,7 +54,8 @@ struct PortfolioHoldingsBook {
     /// Bestand nach `e`.
     mutating func apply(_ e: PortfolioLedgerEvent) {
         guard perWallet else {
-            total = PortfolioLedger.holdingsAfter(total, e)
+            let key = pot(of: e)
+            add(key, PortfolioLedger.holdingsAfter(held(key), e) - held(key))
             return
         }
         let t = e.trade

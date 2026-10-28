@@ -9,10 +9,11 @@ import java.math.MathContext
  * 0.00000001 BTC), Ethereum-Tokens bis 18 (1 Wei) — mit Gleitkomma (Double) summieren sich
  * Rundungsfehler («0.1 + 0.2 = 0.30000000000000004»), mit [BigDecimal] nicht.
  *
- * Exakt sind Addition, Subtraktion und Multiplikation; Teilungen (Ø-Kaufpreis, anteiliger
- * Verkauf bei Bestand ohne Kaufpreis) rechnen mit 34 gültigen Stellen ([MC]) — iOS rundet seine
- * `Decimal`-Teilungen auf dieselben 34 Stellen (`PortfolioDecimal.divide`). Börsenkurse kommen als
- * Double an; Wert und unrealisierter Gewinn rechnen exakt mit ihrer kürzesten Darstellung ([of]).
+ * Exakt sind Addition und Subtraktion; Teilungen (Ø-Kaufpreis, anteiliger Verkauf bei Bestand ohne Kaufpreis) und
+ * Produkte (Menge × Preis, Wert × Kurs) rechnen mit 34 gültigen Stellen ([MC]), einmal gerundet — nie ein einfaches
+ * `a * b`: iOS `Decimal` hielte nur 38 Stellen. iOS rechnet dafür exakt über die Mantissen
+ * (`PortfolioDecimal+Exact.swift`). Börsenkurse kommen als Double an; Wert und unrealisierter Gewinn rechnen mit ihrer
+ * kürzesten Darstellung ([of]).
  * Reines Kotlin, wie `PortfolioDecimal` (iOS, `Decimal`).
  */
 object PortfolioDecimal {

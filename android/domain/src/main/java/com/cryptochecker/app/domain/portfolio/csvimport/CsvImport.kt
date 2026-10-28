@@ -14,7 +14,7 @@ object CsvImport {
     /**
      * Abgeleiteter Preis bzw. Umrechnung `a / b` mit 34 gültigen Stellen ([PortfolioDecimal.MC], halbe auf gerade),
      * ohne Nullen am Ende — keine feste Zahl Nachkommastellen: 12 rundeten Preise winziger Coins
-     * (z. B. 10¹² BABYDOGE für CHF 1234.56 → 1.23456E-9) auf wenige Stellen. iOS: `CsvImport.divide`.
+     * (z. B. 10¹² BABYDOGE für CHF 1234.56 → 1.23456E-9) auf wenige Stellen. iOS: `PortfolioDecimal.divide`.
      */
     fun derive(a: BigDecimal, b: BigDecimal): BigDecimal = a.divide(b, PortfolioDecimal.MC).stripTrailingZeros()
 

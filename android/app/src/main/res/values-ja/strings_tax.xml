@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">監視中のアドレスを読み込めませんでした – その残高はこのファイルに含まれていません</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">注意：監視中のアドレスに、この日付より前の最後の残高確認より後の日付の取得価額ロットがあります。ここでは含まれていない場合があります。</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">監視中のアドレスのロットは購入日から計上されます。アドレスの現在の残高のほうが少ない場合は、減額されます。</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">監視中のアドレスは総額に含まれますが、取得原価がありません。そのため利益は高めに出ている可能性があります。取得原価を購入として記録してください。</string>

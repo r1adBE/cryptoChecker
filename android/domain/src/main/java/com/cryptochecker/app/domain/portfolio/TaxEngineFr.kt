@@ -29,6 +29,9 @@ fun TaxEngines.frPta(
     }
     var pta = zero
     var ptaParts: List<PortfolioCostPart> = emptyList()
+    // Die Summe enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]) — bis sie ganz abgegangen ist; jede
+    // Kürzung daraus trägt «Wert geschätzt»
+    var ptaEstimated = false
     var incomplete = false
     val out = ArrayList<PortfolioDisposal>()
     val events = mergedEvents(real)
@@ -60,14 +63,20 @@ fun TaxEngines.frPta(
         return value
     }
 
-    /** Kürzt die PTA um den Anteil [part] / [value] (gekappt auf 1); Rückgabe = Kürzung samt Herkunft. */
-    fun reduce(part: BigDecimal, value: BigDecimal): Pair<BigDecimal, List<PortfolioCostPart>> {
+    /**
+     * Kürzt die PTA um den Anteil [part] / [value] (gekappt auf 1); Rückgabe = Kürzung samt Herkunft und «enthält einen
+     * geschätzten Wert».
+     */
+    fun reduce(part: BigDecimal, value: BigDecimal): Triple<BigDecimal, List<PortfolioCostPart>, Boolean> {
         val f = part.divide(value, mc).min(BigDecimal.ONE)
-        val c = if (f.compareTo(BigDecimal.ONE) == 0) pta else pta.multiply(f, mc)
+        val whole = f.compareTo(BigDecimal.ONE) == 0
+        val c = if (whole) pta else pta.multiply(f, mc)
         val parts = scaleParts(ptaParts, pta, c)
+        val estimated = ptaEstimated && c.signum() != 0
         ptaParts = scaleParts(ptaParts, pta, pta - c)
         pta -= c
-        return c to parts
+        if (whole) ptaEstimated = false
+        return Triple(c, parts, estimated)
     }
 
     var i = 0
@@ -82,11 +91,14 @@ fun TaxEngines.frPta(
             // Gebühr im dritten Coin: EIN Kurs für Erwerbspreis-Summe, Preis vor Gebühren und ihre eigene Abtretung —
             // erfasst, sonst priceAt (Tagesschluss); fehlt er, ist die Summe danach unvollständig
             val thirdPrice = t.thirdFeeCoin?.let { tc -> t.thirdFeePrice ?: priceAt?.invoke(tc, t.time)?.takeIf { it.signum() >= 0 } }
-            val feeValue = if (t.thirdFeeCoin == null) zero else thirdPrice?.let { t.thirdFeeAmount * it }
+            val feeValue = if (t.thirdFeeCoin == null) zero else thirdPrice?.let { t.thirdFeeAmount.multiply(it, PortfolioDecimal.MC) }
             // Kurs des Haupt-Coins für Gebühr und Abgang: Preis, Wert des Tauschs je Coin, Stablecoin 1, sonst priceAt
             val unit = price ?: t.swapValue?.divide(t.amount, mc)
                 ?: BigDecimal.ONE.takeIf { !PortfolioStables.needsQuote(coin) }
                 ?: priceAt?.invoke(coin, t.time)?.takeIf { it.signum() >= 0 }
+            // Netzwerkgebühr im Coin zum Tagesschluss (kein Preis und kein erfasster Wert des Tauschs, kein Stablecoin): geschätzt
+            val coinFeeEstimated = unit != null && PortfolioStables.needsQuote(coin) &&
+                (price == null && t.swapValue == null || t.valueEstimated)
             // Wert der Gebühr-Abtretungen dieser Transaktion: der Gesamtwert danach ist um so viel kleiner
             var spent = zero
 
@@ -107,10 +119,12 @@ fun TaxEngines.frPta(
                     val wasIncomplete = incomplete
                     var cost: BigDecimal? = null
                     var parts: List<PortfolioCostPart> = emptyList()
+                    var costEstimated = false
                     if (coveredGross != null && value != null && value.signum() > 0) {
-                        val (c, pp) = reduce(coveredGross, value)
+                        val (c, pp, e) = reduce(coveredGross, value)
                         cost = c
                         parts = pp
+                        costEstimated = e
                     } else {
                         incomplete = true
                     }
@@ -123,7 +137,7 @@ fun TaxEngines.frPta(
                         holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
                         method = CostMethod.AVERAGE, costParts = parts,
                         costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = coveredGross,
-                        addressValueIncluded = withAddresses, valueEstimated = estimated,
+                        addressValueIncluded = withAddresses, valueEstimated = estimated || costEstimated,
                     )
                 }
                 if (covered < qty) {
@@ -151,9 +165,11 @@ fun TaxEngines.frPta(
                     // Gebühr im dritten Coin: Abtretung vor dem Zugang (Gesamtwert ohne den neuen Coin)
                     thirdFeeCession()
                     if (price != null) {
-                        val c = t.amount * price + t.quoteFee + (feeValue ?: zero)
+                        val c = t.amount.multiply(price, PortfolioDecimal.MC) + t.quoteFee + (feeValue ?: zero)
                         pta += c
                         if (c.signum() != 0) ptaParts = ptaParts + PortfolioCostPart(t.acquisitionTime, c)
+                        // Belohnung zum Tagesschluss bzw. Gebühr im dritten Coin mit geschätztem Preis
+                        if (c.signum() != 0 && t.costEstimated()) ptaEstimated = true
                         // Wert der Gebühr im dritten Coin unbekannt: die Summe enthält sie nicht
                         if (feeValue == null) incomplete = true
                     } else {
@@ -166,8 +182,8 @@ fun TaxEngines.frPta(
                     val held = books[coin]?.total ?: zero
                     // Eine Operation (BOFiP § 50): Preis vor Gebühren = (Menge + Gebühr im Coin) × Preis + Wert der Gebühr
                     // im dritten Coin; Gebühren = Gebühr USDT + dieselben Gebühr-Werte → Erlös = Menge × Preis − Gebühr USDT
-                    val gross = price?.let { (t.amount + t.coinFee) * it + (feeValue ?: zero) }
-                    val net = price?.let { t.amount * it - t.quoteFee }
+                    val gross = price?.let { (t.amount + t.coinFee).multiply(it, PortfolioDecimal.MC) + (feeValue ?: zero) }
+                    val net = price?.let { t.amount.multiply(it, PortfolioDecimal.MC) - t.quoteFee }
                     // Über den erfassten Bestand hinaus: nur der gedeckte Anteil ist eine Abtretung mit Einstand
                     val requested = t.amount + t.coinFee
                     val removed = requested.min(held.max(zero))
@@ -190,10 +206,12 @@ fun TaxEngines.frPta(
                         val wasIncomplete = incomplete
                         var cost: BigDecimal? = null
                         var parts: List<PortfolioCostPart> = emptyList()
+                        var costEstimated = false
                         if (grossCovered != null && value != null && value.signum() > 0) {
-                            val (c, p) = reduce(grossCovered, value)
+                            val (c, p, e) = reduce(grossCovered, value)
                             cost = c
                             parts = p
+                            costEstimated = e
                         } else {
                             // Formel nicht anwendbar: die Erwerbspreis-Summe danach ist nicht mehr gesichert
                             incomplete = true
@@ -207,7 +225,7 @@ fun TaxEngines.frPta(
                             method = CostMethod.AVERAGE, costParts = parts,
                             // Ohne Gesamtwert (Kurs fehlt) ist schon diese Abtretung unvollständig
                             costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = grossCovered,
-                            addressValueIncluded = withAddresses, valueEstimated = feeEstimated,
+                            addressValueIncluded = withAddresses, valueEstimated = feeEstimated || costEstimated,
                         )
                     }
                     if (removed < requested) {
@@ -227,11 +245,15 @@ fun TaxEngines.frPta(
                 // Verschenkt = Abtretung «à titre gratuit»: keine Veräusserung, PTA anteilig gekürzt wie die Auszahlung
                 PortfolioTxType.WITHDRAWAL, PortfolioTxType.GIFT -> {
                     // Gebühren in Krypto zuerst als eigene Abtretungen
-                    feeCession(coin, t.coinFee, unit, false)
+                    feeCession(coin, t.coinFee, unit, false, coinFeeEstimated)
                     thirdFeeCession()
                     // Abgang ohne Verkauf (Schenkung, Verlust, unbekannt): PTA anteilig kürzen (BOFiP § 100,
-                    // «à titre gratuit»), Wert = Menge × Kurs (erfasst, Stablecoin oder priceAt)
-                    val qty = t.amount
+                    // «à titre gratuit»), Wert = Menge × Kurs (erfasst, Stablecoin oder priceAt) — nur der gedeckte
+                    // Teil (Bestand nach der Gebühr im Coin) verlässt das Portfolio; der Rest war nie erfasst: die
+                    // PTA danach ist nicht mehr gesichert
+                    val book = (books[coin]?.total ?: zero).max(zero)
+                    val qty = t.amount.min(book - t.coinFee.min(book))
+                    if (qty < t.amount) incomplete = true
                     val v = unit?.let { qty.multiply(it, mc) }
                     val value = portfolioValue(coin, unit, t.time)?.let { it - spent }
                     var reduction: BigDecimal? = null
@@ -251,7 +273,7 @@ fun TaxEngines.frPta(
                 // (abgegebener bzw. dritter Coin) sind eigene Abtretungen
                 // Umbuchung zwischen eigenen Wallets: bleibt im Portfolio — Netzwerkgebühr (Coin, dritter Coin) dito
                 PortfolioTxType.SWAP, PortfolioTxType.TRANSFER -> {
-                    feeCession(coin, t.coinFee, unit, false)
+                    feeCession(coin, t.coinFee, unit, false, coinFeeEstimated)
                     thirdFeeCession()
                 }
             }
@@ -278,7 +300,8 @@ fun TaxEngines.frHeldBefore(own: List<PortfolioTrade>, t: PortfolioTrade): Set<S
 }
 
 /**
- * [TaxMethod.FR_PTA]: Abgang ohne Verkauf (Auszahlung) — abgegebene Menge (ohne Gebühr: die ist eine Abtretung), Wert beim Abgang und
+ * [TaxMethod.FR_PTA]: Abgang ohne Verkauf (Auszahlung) — abgegebene Menge (ohne Gebühr: die ist eine Abtretung; gekappt auf den
+ * erfassten Bestand, der Rest macht die Erwerbspreis-Summe danach unvollständig), Wert beim Abgang und
  * Kürzung der Erwerbspreis-Summe (USDT); null = Kurs fehlt (Kürzung unbekannt). [ptaReductionParts] = Herkunft der Kürzung
  * (Anteil der Erwerbspreis-Summe je Kaufdatum, Summe = [ptaReductionUsdt]) — in der Steuerwährung zum Kurs der Kaufdaten
  * wie der Einstand einer Abtretung, nicht zum Kurs des Abgangs.

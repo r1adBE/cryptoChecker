@@ -1486,6 +1486,117 @@
         }
       ],
       "skipped": []
+    },
+    {
+      "name": "coinbase_scientific",
+      "_comment": "Coinbase in Excel gespeichert: «1.23457E+11» und «1.5E-05» in Menge, Preis, Subtotal und Gebühr wissenschaftlich gelesen (vorher fiel das E weg: 1.2345711 bzw. übersprungen/still weggelassen); Währungskürzel mit E («EUR 450.00») bleiben Kürzel.",
+      "format": "COINBASE",
+      "csv": "ID,Timestamp,Transaction Type,Asset,Quantity Transacted,Price Currency,Price at Transaction,Subtotal,Total (inclusive of fees and/or spread),Fees and/or Spread,Notes\nCB1,2024-03-01 10:00:00 UTC,Buy,SHIB,1.23457E+11,USD,1.5E-05,\"$1,851,855.00\",\"$1,851,855.000015\",1.5E-05,Bought\nCB2,2024-03-02 10:00:00 UTC,Rewards Income,ETH,1.5E-05,EUR,\"€3,000.00\",€0.045,€0.045,€0.00,Earned\nCB3,2024-03-03 10:00:00 UTC,Sell,BTC,-0.01,EUR,EUR 45000.00,EUR 450.00,EUR 449.00,EUR 1.00,Sold\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "SHIB",
+          "amount": "123457000000",
+          "price": "0.000015",
+          "quote": "USD",
+          "fee": "0.000015",
+          "feeUnit": "USD",
+          "time": "2024-03-01T10:00:00Z",
+          "externalId": "CB1",
+          "key": "COINBASE|CB1"
+        },
+        {
+          "line": 3,
+          "kind": "REWARD",
+          "rawKind": "Rewards Income",
+          "coin": "ETH",
+          "amount": "0.000015",
+          "price": "3000",
+          "quote": "EUR",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-02T10:00:00Z",
+          "externalId": "CB2",
+          "key": "COINBASE|CB2"
+        },
+        {
+          "line": 4,
+          "kind": "SELL",
+          "rawKind": "Sell",
+          "coin": "BTC",
+          "amount": "0.01",
+          "price": "45000",
+          "quote": "EUR",
+          "fee": "1",
+          "feeUnit": "EUR",
+          "time": "2024-03-03T10:00:00Z",
+          "externalId": "CB3",
+          "key": "COINBASE|CB3"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "name": "binance_trades_exponent_fee",
+      "_comment": "Binance-Handelsverlauf: «1E-8BNB» = 0.00000001 BNB (vorher 1 in der Einheit «E-8BNB»); Einheiten mit E am Anfang («100ENJ», «1ENJ») bleiben Einheiten.",
+      "format": "BINANCE",
+      "csv": "Date(UTC),Pair,Side,Price,Executed,Amount,Fee\n2024-03-01 10:00:00,ETHEUR,BUY,2255.00,0.02000000ETH,45.10000000EUR,1E-8BNB\n2024-03-01 11:00:00,ENJEUR,BUY,0.25,100ENJ,25.00EUR,1ENJ\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "BUY",
+          "coin": "ETH",
+          "amount": "0.02",
+          "price": "2255",
+          "quote": "EUR",
+          "fee": "0.00000001",
+          "feeUnit": "BNB",
+          "time": "2024-03-01T10:00:00Z",
+          "externalId": null,
+          "key": "BINANCE|BUY|ETH|L1709287200000|0.02|-"
+        },
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "BUY",
+          "coin": "ENJ",
+          "amount": "100",
+          "price": "0.25",
+          "quote": "EUR",
+          "fee": "1",
+          "feeUnit": "ENJ",
+          "time": "2024-03-01T11:00:00Z",
+          "externalId": null,
+          "key": "BINANCE|BUY|ENJ|L1709290800000|100|-"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "name": "generic_divide_once",
+      "_comment": "Preis = Fiat-Betrag / Menge exakt, einmal auf 34 Stellen gerundet: 376761.99 / 41.47463084 endet auf …362303 (38 Stellen und dann 34 ergäben …362302); der Preis steht im Schlüssel gegen doppelten Import.",
+      "format": "GENERIC",
+      "csv": "Timestamp,Type,Asset,Amount,Fiat Amount,Currency\n2025-02-04T10:00:00Z,Buy,BTC,41.47463084,376761.99,CHF\n",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "41.47463084",
+          "price": "9084.155358813556591019919009362303",
+          "quote": "CHF",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2025-02-04T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|BUY|BTC|1738663200000|41.47463084|9084.155358813556591019919009362303"
+        }
+      ],
+      "skipped": []
     }
   ],
   "numbers": [
@@ -1680,11 +1791,6 @@
       "expected": "0.0000000000000000000000000000000000000001"
     },
     {
-      "text": "1E-41",
-      "hint": null,
-      "expected": null
-    },
-    {
       "text": "0E5",
       "hint": null,
       "expected": "0"
@@ -1718,6 +1824,41 @@
       "text": "1'234E2",
       "hint": null,
       "expected": "123400"
+    },
+    {
+      "text": "1E-41",
+      "hint": null,
+      "expected": "0.00000000000000000000000000000000000000001"
+    },
+    {
+      "text": "1.234E-38",
+      "hint": null,
+      "expected": "0.00000000000000000000000000000000000001234"
+    },
+    {
+      "text": "1E-128",
+      "hint": null,
+      "expected": "0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "text": "1E-129",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1.5E-128",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1.23457E+11",
+      "hint": null,
+      "expected": "123457000000"
+    },
+    {
+      "text": "1.5E-05",
+      "hint": null,
+      "expected": "0.000015"
     }
   ],
   "dates": [
@@ -3396,7 +3537,7 @@
       "expected": null
     }
   ],
-  "_scientificComment": "numbers: auch wissenschaftliche Schreibweise (Excel) in allen Formaten (CsvImportParser.parseNumber): Mantisse mit höchstens einem Dezimalzeichen «.» oder «,» (nie Tausender, höchstens 60 Zeichen), E/e, Exponent mit 1–3 Ziffern (ein «+» fällt wie überall weg); Wert unter 10^30 und höchstens 40 Nachkommastellen (PortfolioDecimal.withinLimits), sonst null.",
+  "_scientificComment": "numbers: auch wissenschaftliche Schreibweise (Excel) in allen Formaten (CsvImportParser.parseNumber; Coinbase behält ein E zwischen Ziffern, Binance-Handelsverlauf zählt den Exponenten zur Zahl vor der Einheit): Mantisse mit höchstens einem Dezimalzeichen «.» oder «,» (nie Tausender, höchstens 60 Zeichen), E/e, Exponent mit 1–3 Ziffern (ein «+» fällt wie überall weg); Wert unter 10^30, sonst null. Die Nachkommastellen prüft wie bei einer gewöhnlichen Zahl erst das Speichern (gerundet, unsavable); höchstens 128 (kleinster Exponent von Decimal, iOS). divide: abgeleiteter Preis a / b (Android CsvImport.derive, iOS PortfolioDecimal.divide) exakt, einmal auf 34 gültige Stellen gerundet (halbe auf gerade) — auch dort, wo 38 Stellen und dann 34 abwichen.",
   "_priceTextComment": "Gespeicherter Preis (PortfolioDecimal.priceText; Kaufpreis und Preis der Gebühr im dritten Coin, Datenbank/Datei, Sicherung, Zustand für «Rückgängig»): 34 gültige Stellen, mindestens 18 und höchstens 40 Nachkommastellen (Lesegrenze), halbe auf gerade; ohne Exponent und Nullen am Ende. Mengen bleiben bei 18 Nachkommastellen (PortfolioDecimal.text).",
   "priceText": [
     {
@@ -3700,6 +3841,63 @@
       "loaded": {},
       "needed": {},
       "expected": true
+    }
+  ],
+  "divide": [
+    {
+      "a": "376761.99",
+      "b": "41.47463084",
+      "expected": "9084.155358813556591019919009362303"
+    },
+    {
+      "a": "495724.93",
+      "b": "15.52985605",
+      "expected": "31920.76786828941662984699719737583"
+    },
+    {
+      "a": "41520.09",
+      "b": "4.70113174",
+      "expected": "8831.935009760011532882505436871675"
+    },
+    {
+      "a": "1234.56",
+      "b": "1000000000000",
+      "expected": "0.00000000123456"
+    },
+    {
+      "a": "1",
+      "b": "3",
+      "expected": "0.3333333333333333333333333333333333"
+    },
+    {
+      "a": "2",
+      "b": "3",
+      "expected": "0.6666666666666666666666666666666667"
+    },
+    {
+      "a": "-1",
+      "b": "3",
+      "expected": "-0.3333333333333333333333333333333333"
+    },
+    {
+      "a": "-5",
+      "b": "2",
+      "expected": "-2.5"
+    },
+    {
+      "a": "12345678901234567890123456789012345",
+      "b": "10",
+      "expected": "1234567890123456789012345678901234"
+    },
+    {
+      "a": "12345678901234567890123456789012355",
+      "b": "10",
+      "expected": "1234567890123456789012345678901236"
+    },
+    {
+      "a": "1851855",
+      "b": "123457000000",
+      "expected": "0.000015"
     }
   ]
 }

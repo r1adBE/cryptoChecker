@@ -35,6 +35,8 @@ import javax.inject.Singleton
  * Scheiterte der Abgleich am fehlenden Netz (z. B. kein Internet in den ersten Sekunden nach der
  * Installation), wird er nachgeholt, sobald wieder Netz da ist ([CoinLogoRetry.syncNeeded]) — und
  * ohnehin beim nächsten Öffnen der App — mit wachsendem Abstand ([CoinLogoRetry.retryDelayMillis]).
+ * Bremste ein Bild-Server (Pause), läuft der Abgleich am Ende der Pause von selbst weiter ([schedulePauseRetry]),
+ * solange die App lebt. Auslöser sind auch «Aktualisieren» und Nach-unten-Ziehen in der Merkliste.
  */
 @Singleton
 class CoinLogoSync @Inject constructor(
@@ -50,10 +52,14 @@ class CoinLogoSync @Inject constructor(
     private val lock = Any()
     private var tradFiJob: Job? = null
     private var retryJob: Job? = null
+    /** Nachholen am Ende einer Bild-Server-Pause ([schedulePauseRetry]); null = keines geplant. */
+    private var pauseJob: Job? = null
     /** Börsen, deren Liste in diesem Lauf schon geladen wurde (nicht bei jeder Änderung erneut). */
     private val fetched = HashSet<String>()
 
     suspend fun startIfEnabled() {
+        // Ein Abgleich startet jetzt: ein geplantes Nachholen nach der Pause entfällt (der Abgleich plant neu)
+        cancelPauseRetry()
         // Gespeicherte Alpha-Token (Binance-Alpha-Paare, Namen für «α») gleich beim Start, ohne Netz
         try {
             repository.loadAlphaTokens()
@@ -91,8 +97,47 @@ class CoinLogoSync @Inject constructor(
             }
         }
         // Zuerst Binance- und Alpha-Liste (Namen, «α»), dann Rangliste und Bilder
-        repository.startSync(images = logos) { added ->
-            if (added > 0 && settingsRepository.current().widgetCoinLogos) widgetUpdater.updateAll()
+        repository.startSync(images = logos) { added -> onSyncDone(added) }
+    }
+
+    /** Abgleich fertig: Widgets neu zeichnen (neue Logos) und gebremste Bilder nach der Pause nachholen. */
+    private suspend fun onSyncDone(added: Int) {
+        if (added > 0 && settingsRepository.current().widgetCoinLogos) widgetUpdater.updateAll()
+        schedulePauseRetry()
+    }
+
+    /**
+     * Bremste ein Bild-Server ([CoinLogoRepository.imagesPausedUntil]): am Ende seiner Pause einmal
+     * [startIfEnabled] (Schalter, Fristen und Pausen gelten dort wie sonst) — ein Zeitgeber im App-Prozess, ohne
+     * WorkManager; ein früher startender Abgleich ersetzt ihn. Nichts gebremst: kein Zeitgeber.
+     */
+    private fun schedulePauseRetry() {
+        val wait = CoinLogoRetry.pauseRetryDelayMillis(repository.imagesPausedUntil, System.currentTimeMillis())
+        synchronized(lock) {
+            pauseJob?.cancel()
+            pauseJob = wait?.let { millis ->
+                scope.launch {
+                    delay(millis)
+                    // Vor dem Start austragen: startIfEnabled bricht sonst sich selbst ab
+                    val current = coroutineContext[Job]
+                    synchronized(lock) { if (pauseJob === current) pauseJob = null }
+                    try {
+                        Timber.i("Coin-Logos: Pause des Bild-Servers vorbei, Abgleich läuft weiter")
+                        startIfEnabled()
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        Timber.w(e, "Coin-Logos: Nachholen nach der Pause fehlgeschlagen")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun cancelPauseRetry() {
+        synchronized(lock) {
+            pauseJob?.cancel()
+            pauseJob = null
         }
     }
 
@@ -168,9 +213,7 @@ class CoinLogoSync @Inject constructor(
                             // Aktiennamen nur mit «Namen anzeigen» (Nasdaq-Symbolliste, höchstens wöchentlich)
                             if (settingsRepository.current().watchlistNames) repository.refreshStockNames()
                             if (basesChanged && CoinLogoUse.needed(settingsRepository.current())) {
-                                repository.startSync(images = true) { added ->
-                                    if (added > 0 && settingsRepository.current().widgetCoinLogos) widgetUpdater.updateAll()
-                                }
+                                repository.startSync(images = true) { added -> onSyncDone(added) }
                             }
                         } catch (e: CancellationException) {
                             throw e

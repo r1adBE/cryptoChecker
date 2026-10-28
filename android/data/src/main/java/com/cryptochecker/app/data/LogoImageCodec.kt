@@ -1,4 +1,4 @@
-// Bild-Bytes der Coin-Logos (Teil von `LogoImageStore`): PNG prüfen, verkleinern, dekodieren, sicher schreiben.
+// Bild-Bytes der Coin-Logos (Teil von `LogoImageStore`): PNG prüfen, verkleinern, dekodieren (Schreiben: `LogoFiles`).
 // Ohne Zustand.
 package com.cryptochecker.app.data
 
@@ -55,13 +55,4 @@ object LogoImageCodec {
     }
 
     fun decodeFile(file: File): Bitmap? = runCatching { BitmapFactory.decodeFile(file.path) }.getOrNull()
-
-    /** Erst in eine Hilfsdatei, dann umbenennen (nie ein halbes Bild). */
-    fun writeBytes(file: File, bytes: ByteArray) {
-        val tmp = File(file.parentFile, file.name + ".tmp")
-        runCatching {
-            tmp.writeBytes(bytes)
-            if (!tmp.renameTo(file)) tmp.delete()
-        }.onFailure { tmp.delete() }
-    }
 }

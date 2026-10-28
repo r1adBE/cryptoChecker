@@ -321,7 +321,7 @@ enum CsvImportMapping {
                 guard !used.contains(i), c.coin == tx.coin, c.time >= tx.time, c.time - tx.time <= matchWindowMillis else {
                     return false
                 }
-                let limit: Decimal = max(c.delta * matchTolerance, matchDust)
+                let limit: Decimal = max(PortfolioDecimal.multiply(c.delta, matchTolerance), matchDust)
                 return amounts.contains { x -> Bool in
                     let diff: Decimal = x - c.delta
                     return abs(diff) <= limit

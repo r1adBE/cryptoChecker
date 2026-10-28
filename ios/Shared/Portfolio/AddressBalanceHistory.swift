@@ -225,7 +225,7 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
         steps.last(where: { $0.time <= time })?.balance ?? 0
     }
 
-    /// Guthaben je Coin (Grossschreibung) zum Zeitpunkt `time` für den Stichtag-Export (`CutoffExport.addressRows`):
+    /// Guthaben je Coin (Grossschreibung) zum Zeitpunkt `time` (Stichtag: `AddressCutoff` nimmt die nicht beobachteten Coins):
     /// je Reihe die letzte Beobachtung ≤ `time` (Summe der Adressen, dieselbe nur einmal, wie `trades`); nur Guthaben
     /// > 0. `unobserved` = Coins mit einer Reihe, die erst NACH `time` beginnt — an dem Tag nicht beobachtet, ihr
     /// Guthaben fehlt (nie rückwirkend). Wie Android `balancesAt`.

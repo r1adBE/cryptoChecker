@@ -1018,25 +1018,26 @@ stocks), then the official Binance Alpha token list
 `bapi/defi/v1/public/wallet-direct/buw/wallet/cex/alpha/all/token/list` (`symbol` → `iconUrl`,
 tradable first, largest `marketCap` first; futures tokens without a CoinGecko market cap such as
 AIA, AGT, AIO), then CoinGecko pages 5–10 (ranks 1001–2500) for the remaining gaps (e.g. AIN, LUNA), and is
-kept for **7 days** (weekly refresh). TradFi pairs never take a CoinGecko logo (`pickTradFi`, key
+kept for **24 h** (CoinGecko terms; `MAP_TTL_MILLIS`). TradFi pairs never take a CoinGecko logo (`pickTradFi`, key
 `tradFiKey`). Every CoinGecko page after the first waits 6 s (the keyless limit otherwise
 answers 429); a 429 is retried once after `Retry-After` (1–60 s). If any source fails, the known
-entries are kept (`withKnown`) and the list expires after **6 h** (`savedAtFor`) instead of a week
+entries are kept (`withKnown`) and the list expires after **6 h** (`savedAtFor`) instead of 24 h
 (cache v5). Stock perps without a Binance bStock get
 their logo from `bin.bnbstatic.com/static/stock/TICKER.png` (all TradFi tickers of the stored pair
 lists) and, with «Show names», their name from the official Nasdaq symbol directory
 (`nasdaqlisted.txt` + `otherlisted.txt`, weekly, `cleanStockName` strips «Common Stock» etc.) (retry after 1 h on failure). For privacy the
 logos of **all** coins in that list are downloaded in one background sync (`startSync` /
-`syncAll`, 4 parallel, small variant first) — never one logo on demand, so the image
+`syncAll`, 6 parallel per host, small variant first) — never one logo on demand, so the image
 requests are the same for every install. Images are scaled to 128 px and stored as PNG (Android `cacheDir/coin_logos`, iOS App
 Group `coin_logos/`), a failed image is retried after **1 day**; display reads only from memory/disk, and a
-`revision` counter (every 25 new logos) lets badges retry. Only HTTPS images from
+`revision` counter (at most once per second while loading) lets badges retry. Every lookup in the map uses the
+merge key (`CoinLogos.urlFor`: `normalize`, TradFi via `tradFiKey`), also for the starter logos («1000CAT» → CAT). Only HTTPS images from
 `*.coingecko.com` and `*.bnbstatic.com` (`isAllowedUrl`; URLs of the former GitHub Pages list are
 rejected); DEX pools (`DexScreener`) always show initials. Android:
 `CoinLogoRepository` → `LocalCoinLogoSource` (null when «In the app» is off) →
 `CoinBadge` (`portfolio = true` → `LocalPortfolioCoinLogoSource`), sync started by
 `CoinLogoSync` when `CoinLogoUse.needed` (app, widgets, or portfolio with the tab on; app
-start, switch on, portfolio tab on). Logo switch defaults: «In the app» on, «In the portfolio» on (matters
+start/foreground, switch on, portfolio tab on, pull-to-refresh or «Refresh» in the watchlist). Logo switch defaults: «In the app» on, «In the portfolio» on (matters
 only while the Portfolio tab is on — off by default), «In widgets» off; widgets via
 `WidgetCoinLogos` (24 dp bitmaps). iOS: `CoinLogoStore` (actor, `syncAll` from
 `AppData.startCoinLogoSync`) → `CoinBadge` (`coinLogosEnabled` environment,
@@ -1241,20 +1242,33 @@ the tests named here.
 * **Exact ledger, floating-point valuation.** Transaction amounts, buy prices and fees are exact
   decimals: Android `BigDecimal` (`PortfolioDecimal`, `MathContext.DECIMAL128`, at most 18 decimal
   places, dust below 1E-20 counts as 0), iOS `Decimal` (`PortfolioDecimal.swift`;
-  divisions are rounded to **34 significant digits** like `DECIMAL128`, `significantDigits`, so both
-  platforms give the same average cost). Holdings, cost basis and realized gain are summed exactly
+  divisions and pro-rata products are rounded **once** to **34 significant digits**, half even, like `DECIMAL128`,
+  `significantDigits`, so both platforms give the same average cost). `Decimal` itself computes with 38 digits, and
+  rounding that result again to 34 differs in the last digit now and then (376761.99 / 41.47463084), so iOS
+  `divide`, `multiply` and `divide(a, b, by: c)` (= Android `a.multiply(b).divide(c, MC)`, product exact) compute
+  exactly from the integer mantissas (`PortfolioDecimal+Exact.swift`); never write `divide(a * b, c)` on iOS — `a * b`
+  is rounded to 38 digits once it is longer. Every product in the money paths (amount × price, fee × price, holdings ×
+  price, value × FX rate, tolerances) is rounded once to 34 digits on both platforms: Android `a.multiply(b,
+  PortfolioDecimal.MC)`, iOS `PortfolioDecimal.multiply(a, b)` — never a plain `*` (Kotlin) or `*` on `Decimal` (Swift),
+  since Android would keep all digits and iOS only 38. Plain `+` and `−` on `Decimal` stay exact only within 38 digits
+  (Android: unlimited); a sum with more significant digits can differ from Android in the 36th–38th digit – far below
+  any shown amount (owner decision: documented, not rebuilt). Fixture `portfolio_decimal.json`. Holdings, cost basis and realized gain are summed exactly
   (`holdingsExact`, `costBasisExact`, `realizedExact`), so 1 satoshi (0.00000001 BTC) never drifts;
   the unrealized gain of a position is computed as an exact decimal too. Only the
   valuation with market prices (Double) is floating point. When only part of a holding has a
   purchase price, the average is labelled as the average of that part («Avg. of X with purchase
   price», `portfolio_avg_partial`), never shown as the average of the whole holding. Backup import
   applies the same number limits on both platforms (`PortfolioDecimal.parse`, iOS `PortfolioDecimal.withinLimits`:
-  below 10³⁰, at most 40 decimal places; absurd values count as invalid entries). Saving refuses a transaction whose
+  below 10³⁰, at most 40 decimal places; absurd values count as invalid entries); amounts, fees and values are read
+  rounded to 18 decimals like saving (Android `PortfolioJson.amountOf`, iOS `BackupManager.storedAmount`): an amount or
+  received amount that becomes 0 counts as an invalid entry, a fee that becomes 0 is dropped (fixture
+  `portfolio_stored_fields.json` › `backupAmounts`). Saving refuses a transaction whose
   numbers would not read back (Android `storable` after `cleanForSave`, iOS `AppData.cleanedPortfolioTx`, same rule as
   the CSV preview `unsavableReason` → `BAD_NUMBER`): amounts, fees and values ≥ 10³⁰, or a price > 0 that would store as
   0. Never parse amounts through `Double` (`PriceFormat.parseDecimalAmount`,
   `ThresholdParser.parseDecimal`). Android stores them as TEXT
-  (`PortfolioDecimalConverters`); backup and portfolio files carry only the exact text fields `amountText` /
+  (`PortfolioDecimalConverters` with the amount rule; the price columns `priceUsdt` and `feeCoinPriceUsdt` carry the
+  field converter `PortfolioPriceConverters` with the price rule — never one rule for every column); backup and portfolio files carry only the exact text fields `amountText` /
   `priceText` / `feeText`. Amounts, fees and swap values are stored with 18 decimals (`PortfolioDecimal.text`); prices
   (`priceText`, `feeCoinPriceText`, also in `CsvRestoreState`) keep **34 significant digits, at least 18 and at most 40
   decimals** (`PortfolioDecimal.priceText`), so a BABYDOGE price of 1.3717333…E-9 or 4E-19 survives saving instead of
@@ -1289,7 +1303,8 @@ the tests named here.
   must not adjust again, or the three numbers drift apart. Rolling, each coin's window starts at the time of
   its comparison price (hourly price 20–25 h ago, else the stored sample 20–48 h ago;
   `PortfolioWidgetSeries.changeSince` → `todayAdjusted(coinStart)`), so a buy after that price is a flow, never a
-  gain. The widget's fallback line (`valueHistory`) leaves coins without a valid current price out of every point,
+  gain. «Since 00:00» the same with the day-start price, which may be up to 90 min before 00:00
+  (`changeSinceDay`: hourly price, else the stored day-start sample). The widget's fallback line (`valueHistory`) leaves coins without a valid current price out of every point,
   like the hourly line.
 * **Portfolio alarms in another currency.** A value alarm keeps the currency it was created in.
   When the snapshot is in another currency (conversion currency changed), the value is
@@ -1551,6 +1566,11 @@ the tests named here.
   row keeps «without fee value». In general every value the tax export takes from a day close carries «value
   estimated» (`valueEstimated`), also an FR payment without market value and the network fee sold at the close where
   it is a disposal (UK, US, CA, AU, JP, coin fee and third-coin fee); a recorded price or a stablecoin carries none.
+  An estimated value inside a cost basis is carried through the lots (`costEstimated`, derived during the run, never
+  stored): a reward or swap valued at the close, a third-coin fee at the close in the cost of a buy or transfer, and
+  what they pass on (network-fee cost, moved lots, CA superficial-loss adjustment from such a row). FIFO, FIFO per
+  wallet, Ø, UK pool, CA, JP, AT and the FR total keep the flag until that cost has fully left the lot or pool; every
+  disposal row whose cost contains such a part carries «value estimated».
   The info lines «fee not assigned» and lost fee cost (`TaxExport.feesIn`) are computed without day closes, so an
   estimated fee share on holdings without purchase price is not listed there. Fixtures: `tax_templates.json`,
   `tax_day_close.json`. The
@@ -1654,7 +1674,21 @@ the tests named here.
   the app, so names and major logos show offline on first start; regenerate both with
   `android/tools/gen_coin_assets.py` (`--meta live` needs network – run it before each release so Alpha is in
   the snapshot). Images: all entries are downloaded (never per watchlist coin), 6 parallel per host, a
-  429/403/503 pauses only that host (Retry-After, ≤ 6 h) and is never a per-image failure.
+  429/503, or a 403 with Retry-After, pauses only that host (Retry-After, ≤ 6 h) and is never a per-image failure. A
+  403 without Retry-After (CloudFront/S3 also answers a missing file that way) fails only that image (1-day rule; the
+  small variant still falls through to the large one); only the third image of a host in a row ending in 403 within
+  one run pauses the host (`CoinLogoRetry.pausesImages` / `nextForbiddenStreak` / `forbiddenStreakPauses`, fixture
+  `logo_fallback.json`). An expired pause counts as none (`shortestPauseMillis` → null/nil on both platforms); paused
+  images left over with an expired pause go into the next round at once. When a pause outlasts
+  the short in-run wait (2 min), the sync restarts by itself at the earliest pause end + 1 s
+  (`CoinLogoRetry.pauseRetryDelayMillis`, `imagesPausedUntil`) while the app process lives – a coroutine in
+  `CoinLogoSync` (Android) / a `Task` in `AppData+CoinLogos` (iOS), no WorkManager or background task; any sync that
+  starts earlier cancels it and schedules anew. Pull-to-refresh / «Refresh» in the watchlist also starts the
+  sync (same bulk sync, privacy-neutral; switches, list freshness and host pauses apply). One run fetches each
+  file name once (`CoinLogos.downloadJobs`: «FLOKI» and «1000FLOKI» both write `FLOKI.png`). Files are written to
+  a uniquely named temp file and renamed in one step (Android `LogoFiles.write`, iOS `Data.write(.atomic)`), so a
+  concurrent starter-logo and bulk download never leaves half an image; a write that fails counts as a failed
+  image (1-day rule, retried) and never as «new» without a file.
 * **Gift, fee rows, same-time events, bulk rows, colours.** Gift vs payment: `PAYMENT` is a disposal at market value in every template, `GIFT` only where
   `TaxTemplate.giftIsDisposal` (UK, CA, AU), elsewhere it leaves like a withdrawal. A fee row is SELL + price 0 + an
   import key; a manual sell at 0 is a real sale. Same-time events: inflows before outflows, then id (ledger comparator,
@@ -1669,9 +1703,12 @@ the tests named here.
   treatment and thresholds, sources and «Stand» in code comments. Engines: UK same-day / 30-day / Section 104
   pool, CA superficial loss, FR prix total d'acquisition, JP total average, AT Alt-/Neubestand. UK: all disposals of
   a day are one disposal – same-day, 30-day and pool matches go to the day as a whole and are split pro rata by
-  quantity (pool part at the day's last disposal). FR: a third-coin fee uses one price (recorded, else day close,
+  quantity (pool part at the day's last disposal); a withdrawal between two disposals of the same day is booked after
+  that pool part, so the day's disposals are matched first. FR: a third-coin fee uses one price (recorded, else day close,
   marked «value estimated» like every third-coin fee) for the acquisition total, the price before fees and its own
-  cession – without one the total is incomplete; a
+  cession – without one the total is incomplete; a network fee in the coin valued at the day close is marked «value
+  estimated» too; a withdrawal beyond the recorded holdings reduces the total only for the covered quantity (value =
+  covered quantity × price) and marks the total incomplete from then on; a
   withdrawal fee row is only the USDT fee at the covered share; the FX span includes the purchase dates behind a
   reduction of the total by a withdrawal/gift; with rewards up to the year end the gains line notes that the value
   on receipt assumes income taxation on receipt (otherwise cost 0 would be the cautious reading). Data rows state
@@ -1696,7 +1733,11 @@ the tests named here.
   keep their own symbol; only without an own pair are they priced via the base coin, labelled.
 * **One holdings book.** `PortfolioHoldingsBook` / `PortfolioCalculator.holdingsAt(trades, time, method)`
   decides holdings for every screen and file: card, periods, history, widget, alarms, cut-off and tax export
-  must never compute holdings another way (FIFO_WALLET caps sells/withdrawals per wallet). The realized
+  must never compute holdings another way (FIFO_WALLET caps sells/withdrawals per wallet). For every method the
+  address part without cost basis (`AddressBalance.isAddressPart`) is its own pot, as the card splits it off
+  (`AddressBalance.split`): an own outflow beyond own holdings stays uncovered and never eats the address part, an
+  address outflow comes only from the address part, and `capFor` returns the pot of the step. The list widget
+  (`PortfolioWidgetEntries.of`) shows no row for the address part; opening lots are rows like buys. The realized
   «incomplete» flag comes from the same disposal rows as the tax export. Bulk ticker parsers report
   unreadable rows per pair (error, never «unchanged»); most rows failing = format error.
 * **Swap, wallet FIFO, imports.** SWAP is one transaction (`toCoin`, `toAmount`, `swapValueUsdt`):
@@ -1735,7 +1776,14 @@ the tests named here.
   lots (buys from their date) + address part = observed balance minus what lots and recorded movements of the
   address wallet already book. Periods and history apply it at every observation (max(balance(t) − booked moves up
   to t, 0); moves clamped to the last observation, recorded ones only up to the balance fetch), so the last step is
-  the card's address part and «Today» uses `ledgerHoldingsExact` + that step. Background address
+  the card's address part and «Today» uses `ledgerHoldingsExact` + that step. Cut-off CSV and CH wealth
+  (`AddressCutoff.at`) take the same values on their date: the card's effective lots (coverage against today's
+  balance) from their purchase date, also before the first observation, plus the step at the last observation up to
+  the cut-off (none before the first observation: the coin is «not observed»). A lot dated after that observation
+  (up to the cut-off) adds the note `portfolio_export_address_lots_note` (`AddressCutoff.lateLots`): lots count from
+  their purchase date and are reduced when the address's balance today is lower — only there the observed step does
+  not make up for such a cut. The FR total value adds the same
+  series (`AddressCostLots.exportTrades` → `AddressBooked.histories`). Background address
   refresh is capped (8 s total, 5 s per request) and never delays prices or alarms. Requests at most every 10 min per address, none without
   addresses; hosts are listed in the privacy policy. Addresses (not balances) are part of the app backup
   and follow «Portfolio in system backup».
@@ -1758,7 +1806,14 @@ the tests named here.
   (`CsvImport.stableKey`, applied in `withOccurrence`); saving and backups accept at most 200 UTF-8 bytes on both
   platforms (`cleanImportKey`), so a key is never dropped silently (fixture `importKeys`, `cleanImportKeys`). Numbers in
   scientific notation as Excel writes them («1.234E-05», «1,234E-05») are read by every format
-  (`CsvImportParser.parseNumber`; value below 10³⁰, at most 40 decimals). Rows the save would refuse are skipped in the
+  (`CsvImportParser.parseNumber`; value below 10³⁰; decimals are checked when saving, after rounding, like plain
+  numbers, so «1.234E-38» as a price is kept; at most 128 decimals, the range of iOS `Decimal`). Format helpers that
+  clean a cell first must keep the exponent: Coinbase keeps an E between digits when stripping currency signs
+  («1.23457E+11»; «EUR 3.00» stays a code), the Binance trade history counts an exponent to the number before the unit
+  («1E-8BNB» = 0.00000001 BNB). Derived prices and conversions (fiat amount ÷ amount, ÷ FX rate) are exact and rounded
+  once to 34 significant digits on both platforms (Android `CsvImport.derive`, iOS `PortfolioDecimal.divide` from the
+  integer mantissas — `Decimal` itself divides to 38 digits, and rounding that again would differ in the last digit and
+  change the import key; fixture `divide`). Rows the save would refuse are skipped in the
   preview (`unsavableReason`: `MISSING_FIELD`, `AMOUNT_TOO_SMALL`, `BAD_NUMBER`, `INVALID_SWAP`). Rows without price
   import without price and are named in the preview. Conversion to USDT uses the daily FX rate of the last
   business day ≤ date. Choosing another time zone re-reads the text and reloads the rates when a day now falls outside
@@ -2742,6 +2797,21 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   same-day sales split pro rata for all three rules, DE exemption 600 € from 2008, `tax_note_us_wallet` reworded.
   Rule questions decided: CA superficial loss, FR rewards at value on receipt (with note), DE transfer fee in cost –
   unchanged.
+* Build 167: second money-path review of build 166. Holdings book keeps the address pot apart for every cost method
+  (own outflows capped at own holdings, address outflows at the address part); list widget skips address-part
+  entries; cut-off and CH wealth follow `AddressBooked` (lots from their purchase date); FR total value via
+  `AddressBooked.histories`; «Today» in day mode with `changeSinceDay`. CSV: Coinbase `money()` and Binance `withUnit`
+  keep the exponent, E notation checked only against < 1e30, Room converters per column (amount rule, price rule
+  for `priceUsdt`/`feeCoinPriceUsdt`), `jsonToTx` rounds amounts like stored ones (rounded to 0 = invalid entry).
+  Decimal parity: Android products with `PortfolioDecimal.MC`, iOS `PortfolioDecimal.multiply`/`divide`/`divide(a, b,
+  by:)` exact with one rounding to 34 digits (`PortfolioDecimal+Exact.swift`, fixture `portfolio_decimal.json`); plain
+  sums beyond 38 digits on iOS documented (owner decision). Tax: FR withdrawal uses the covered quantity, FR network fee
+  at day close estimated, `costEstimated` lot flag carries «value estimated» to every disposal whose cost contains an
+  estimated part (all templates), UK same-day withdrawals booked after the day's pool share; TAX_REFERENCE references
+  fixed. Logos: `LogoFiles` writes atomically with unique temp names and reports failures, `downloadJobs` one fetch per
+  file name, starter logos via `CoinLogos.urlFor` (normalised), pull to refresh starts the logo sync, a pause schedules a
+  restart at its end, 403 without Retry-After fails only that image (server pause on 429/503, Retry-After or 3
+  consecutive 403). Hint `portfolio_export_address_lots_note` reworded (31 languages).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

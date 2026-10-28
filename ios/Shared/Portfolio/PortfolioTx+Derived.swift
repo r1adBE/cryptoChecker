@@ -65,7 +65,7 @@ extension PortfolioTx {
     var swapValue: Decimal? {
         guard type == .SWAP else { return nil }
         if let v = swapValueExact, v >= 0 { return v }
-        if let p = validPriceExact { return amountExact * p }
+        if let p = validPriceExact { return PortfolioDecimal.multiply(amountExact, p) }
         if PortfolioStables.isValuation(PortfolioCalculator.normalizeCoin(coin)) { return amountExact }
         if let to = swapToCoin, PortfolioStables.isValuation(to) { return toAmountExact }
         return nil
@@ -111,7 +111,7 @@ extension PortfolioTx {
     /// Wert der Gebühr im dritten Coin in USDT: 0 ohne solche Gebühr, nil = Preis unbekannt.
     var thirdFeeValue: Decimal? {
         guard thirdFeeCoin != nil else { return 0 }
-        return thirdFeePrice.map { thirdFeeAmount * $0 }
+        return thirdFeePrice.map { PortfolioDecimal.multiply(thirdFeeAmount, $0) }
     }
 
     /// Höchstlänge der Börse — wie `PortfolioJson.MAX_EXCHANGE` (Android).

@@ -306,10 +306,14 @@ extension PortfolioWidgetStore {
                                                                        currentRate: factor, memo: memo)
         // «Heute» für Karte, Widget und Portfolio-Alarm aus EINER Rechnung: Kursänderung je Coin mit
         // Vergleichskurs (Coins ohne fehlen statt flach mitzuzählen), um Käufe/Verkäufe seit Beginn der
-        // %-Basis berichtigt, je Coin seit der Zeit seines Vergleichskurses (rollend) — wie Android `withHonestToday`
+        // %-Basis berichtigt, je Coin seit der Zeit seines Vergleichskurses (rollend und seit Tagesbeginn, dort bis 90 min
+        // vor 00:00) — wie Android `withHonestToday`
         let todayStart = ChangeBasisMath.dayStart(basis, now: now) ?? (now - 86_400_000)
-        let since: [String: Int64] = dayStart != nil ? [:] : PortfolioWidgetSeries.changeSince(
-            current: current, baseTime: ref?.at, basePrices: ref?.prices, prices: hourlyPrices, now: stamp)
+        let since: [String: Int64] = dayStart.map {
+            PortfolioWidgetSeries.changeSinceDay(current: current, baseTime: ref?.at, basePrices: ref?.prices,
+                                                 prices: hourlyPrices, dayStart: $0)
+        } ?? PortfolioWidgetSeries.changeSince(current: current, baseTime: ref?.at, basePrices: ref?.prices,
+                                               prices: hourlyPrices, now: stamp)
         // «Heute»: Bestand der Karte (eigener samt Posten + Adress-Teil = letzte Stufe der Reihe ohne Gebuchtes); die
         // Reihe rechnet Änderungen seit Beginn der %-Basis als Zu-/Abfluss heraus (nie rückwirkend) — wie Android
         let observed = AddressBalanceHistory.latestByCoin(addresses)

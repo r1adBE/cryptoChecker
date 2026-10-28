@@ -25,6 +25,7 @@ import Foundation
 ///    (`PortfolioDisposal.costParts`), der Steuer-Export rechnet jeden Teil zum Kurs SEINES Datums um. Die Umbuchungsgebühr
 ///    auf alle Posten steht nur einmal je Umbuchung da (Anteil je Coin, `FeeStream`), gerechnet erst beim Auslesen
 ///    (PortfolioFifoParts.swift). Anfangsposten des US-Übergangs tragen nur ihr Erwerbsdatum (Steuerwährung USD, Kurs 1).
+///    Geschätzter Wert im Einstand (`PortfolioTx.costEstimated`) bleibt am Posten (auch übernommen, verschoben) — Vermerk am Abgang.
 ///  - Gebühr im dritten Coin: Veräusserung des Gebühr-Coins (FIFO) zum Gebühr-Preis (`feeLeg`).
 ///  - Tausch: im abgegebenen Coin wie ein Verkauf (Erlös = Wert − Gebühr USDT − Wert der Gebühr im dritten Coin), im
 ///    erhaltenen Coin ein Posten `.SWAP` (Einstand = Wert, Erwerb = Zeit des Tauschs, Menge − Gebühr im erhaltenen Coin).
@@ -79,8 +80,10 @@ enum PortfolioFifo {
         func insert(_ q: Queue, _ lot: Lot) {
             if lot.priced, !q.pendingLost.isEmpty {
                 lot.addEntries(q.pending.items)
+                if q.pendingEstimated { lot.estimated = true }
                 q.pendingLost.removeAll()
                 q.pending.removeAll()
+                q.pendingEstimated = false
             }
             q.insert(lot)
         }
@@ -98,7 +101,7 @@ enum PortfolioFifo {
                 if lot.amount <= 0 { q.removeFirst() }
                 left -= qty
                 out.append(Slice(txId: lot.txId, acquired: lot.acquired, time: lot.time, kind: lot.kind, amount: qty,
-                                 cost: taken?.cost, entries: taken?.entries ?? []))
+                                 cost: taken?.cost, entries: taken?.entries ?? [], estimated: lot.estimated))
             }
             q.clearHeldIfEmpty()
             return out
@@ -106,19 +109,21 @@ enum PortfolioFifo {
 
         /// Je Wallet: Gebühr USDT + Wert der Gebühr im dritten Coin (`extra`) einer Umbuchung zum Zeitpunkt `at` nach Menge
         /// auf die verschobenen Posten `lots` (Summe `h`, je Posten ein Teil); der letzte bekommt den Rest, wenn alle einen
-        /// Kaufpreis haben. Rückgabe = Anteil der Posten OHNE Kaufpreis (`unassign`); 0 = alles zugeordnet.
-        func spread(_ lots: ArraySlice<Lot>, _ extra: Decimal, _ h: Decimal, at: Int64) -> Decimal {
+        /// Kaufpreis haben. Rückgabe = Anteil der Posten OHNE Kaufpreis (`unassign`); 0 = alles zugeordnet. `estimated`:
+        /// `extra` enthält einen geschätzten Wert — die Posten mit Kaufpreis tragen ihn.
+        func spread(_ lots: ArraySlice<Lot>, _ extra: Decimal, _ h: Decimal, at: Int64, estimated: Bool) -> Decimal {
             guard extra > 0, h > 0 else { return 0 }
             let allPriced = lots.allSatisfy { $0.cost != nil }
             let last = lots.count - 1
             var left = extra
             var assigned: Decimal = 0
             for (i, lot) in lots.enumerated() {
-                let part = allPriced && i == last ? left : PortfolioDecimal.divide(extra * lot.amount, h)
+                let part = allPriced && i == last ? left : PortfolioDecimal.divide(extra, lot.amount, by: h)
                 left -= part
                 if lot.cost != nil {
                     lot.addCost(at, part)
                     assigned += part
+                    if estimated { lot.estimated = true }
                 }
             }
             return extra - assigned
@@ -129,6 +134,7 @@ enum PortfolioFifo {
         func lose(_ q: Queue, _ t: PortfolioTx, _ carried: [Slice]) {
             let cost = costSum(carried)
             if cost == 0 { return }
+            if carried.contains(where: { $0.cost != nil && $0.estimated }) { q.pendingEstimated = true }
             q.pendingLost.append(PortfolioLostFeeCost(coin: symbol, txId: t.id, time: t.time, costUsdt: cost))
             for s in carried { for e in s.entries { q.pending.add(e) } }
         }
@@ -138,6 +144,7 @@ enum PortfolioFifo {
             if costSum(carried) == 0 { return }
             if let target {
                 target.addEntries(carried.flatMap(\.entries))
+                if carried.contains(where: { $0.cost != nil && $0.estimated }) { target.estimated = true }
             } else {
                 lose(q, t, carried)
             }
@@ -182,7 +189,7 @@ enum PortfolioFifo {
                 if let proceeds, let left = proceedsLeft {
                     if w <= 0 { share = 0 }
                     else if i == lastWeighted { share = left }
-                    else { share = PortfolioDecimal.divide(proceeds * w, weightTotal) }
+                    else { share = PortfolioDecimal.divide(proceeds, w, by: weightTotal) }
                     proceedsLeft = left - (share ?? 0)
                 }
                 var gain: Decimal?
@@ -192,7 +199,7 @@ enum PortfolioFifo {
                 } else if soldParts != nil {
                     r.unknownSold += w
                 } else {
-                    r.unknownSold += s.amount == removed ? sold : PortfolioDecimal.divide(sold * s.amount, removed)
+                    r.unknownSold += s.amount == removed ? sold : PortfolioDecimal.divide(sold, s.amount, by: removed)
                 }
                 r.disposals.append(PortfolioDisposal(
                     coin: symbol, sellTxId: t.id, sellTime: t.time,
@@ -201,7 +208,7 @@ enum PortfolioFifo {
                     holdingDays: holdingDays(from: s.acquired, to: t.time),
                     feeLeg: feeLeg, feeValueMissing: feeMissing, method: method,
                     costParts: PortfolioCostPartList(fifo: s.entries, total: s.cost), wallet: wallet, swap: swap,
-                    gift: gift, payment: payment, valueEstimated: estimated))
+                    gift: gift, payment: payment, valueEstimated: estimated || (s.cost != nil && s.estimated)))
             }
             if uncovered > 0 {
                 // Mehr abgegeben als erfasst: Erlös bekannt, Kaufpreis fehlt (nicht im realisierten Gewinn)
@@ -217,7 +224,7 @@ enum PortfolioFifo {
         // Anfangsposten (Übergang): mit Erwerb und Rest-Einstand in ihre Wallet
         for l in seed where l.amount > 0 {
             insert(queue(l.wallet), Lot(txId: l.txId, acquired: l.acquiredTime, time: l.acquiredTime, kind: l.kind,
-                                        amount: l.amount, cost: l.costUsdt))
+                                        amount: l.amount, cost: l.costUsdt, estimated: l.estimated))
         }
 
         for e in events {
@@ -231,7 +238,7 @@ enum PortfolioFifo {
                 check(q, fee, t, feeLeg: true)
                 let slices = consume(q, fee)
                 let removed = slices.reduce(Decimal(0)) { $0 + $1.amount }
-                dispose(t, q, slices, uncovered: fee - removed, proceeds: t.thirdFeePrice.map { fee * $0 }, sold: removed,
+                dispose(t, q, slices, uncovered: fee - removed, proceeds: t.thirdFeePrice.map { PortfolioDecimal.multiply(fee, $0) }, sold: removed,
                         feeLeg: true, feeMissing: false)
                 r.soldTotal += removed
                 continue
@@ -246,7 +253,7 @@ enum PortfolioFifo {
                     continue
                 }
                 insert(queue(t.exchange), Lot(txId: t.id, acquired: t.time, time: t.time, kind: .SWAP, amount: received,
-                                              cost: t.swapValue))
+                                              cost: t.swapValue, estimated: t.costEstimated(swapIn: true)))
                 continue
             }
             // Gebühr-Zeile ohne Tageskurs: Erlös unbekannt (`PortfolioLedger.salePrice`)
@@ -260,10 +267,10 @@ enum PortfolioFifo {
                     expense(e, queue(t.exchange), .CONSUMED, PortfolioFeeExpenses.consumed(e))
                     continue
                 }
-                let cost = price.map { amount * $0 + t.quoteFeeExact + (feeValue ?? 0) }
+                let cost = price.map { PortfolioDecimal.multiply(amount, $0) + t.quoteFeeExact + (feeValue ?? 0) }
                 if price != nil && feeValue == nil { r.feeValueMissing = true }
                 insert(queue(t.exchange), Lot(txId: t.id, acquired: t.acquisitionTime, time: t.time, kind: t.type,
-                                              amount: received, cost: cost))
+                                              amount: received, cost: cost, estimated: t.costEstimated()))
             case .SELL, .PAYMENT, .SWAP:
                 // Damit bezahlt: wie ein Verkauf zum Marktwert (Preis = Marktwert je Coin)
                 let swap = t.type == .SWAP
@@ -282,7 +289,7 @@ enum PortfolioFifo {
                 let sold = soldParts.reduce(Decimal(0), +)
                 // Erlös des ganzen Abgangs (Tausch: sein Wert) nur nach verkaufter Menge verteilt (Gebühr-Coins: Erlös 0)
                 // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { amount * $0 }
+                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { PortfolioDecimal.multiply(amount, $0) }
                 let proceeds = gross.map { $0 - t.quoteFeeExact - (feeValue ?? 0) }
                 let feeMissing = gross != nil && feeValue == nil
                 if feeMissing && removed > 0 { r.realizedFeeMissing = true }
@@ -303,7 +310,7 @@ enum PortfolioFifo {
                 expense(e, q, .WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings: q.held))
                 let slices = consume(q, requested)
                 let removed = slices.reduce(Decimal(0)) { $0 + $1.amount }
-                let sold = removed == requested ? amount : PortfolioDecimal.divide(removed * amount, requested)
+                let sold = removed == requested ? amount : PortfolioDecimal.divide(removed, amount, by: requested)
                 r.withdrawn += sold
                 r.withdrawals.append(PortfolioWithdrawalCost(
                     trade: t, sold: sold, removed: removed,
@@ -325,14 +332,15 @@ enum PortfolioFifo {
                     let carried = consume(src, coinFee)
                     let moved = consume(src, amount).map {
                         Lot(txId: $0.txId, acquired: $0.acquired, time: $0.time, kind: $0.kind, amount: $0.amount, cost: $0.cost,
-                            entries: $0.entries)
+                            entries: $0.entries, estimated: $0.estimated)
                     }
                     // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil ohne
                     // Kaufpreis und der Anteil der nicht angekommenen Menge werden vermerkt
                     if feeValue == nil && moved.contains(where: { $0.cost != nil }) { r.feeValueMissing = true }
                     let movedAmount = moved.reduce(Decimal(0)) { $0 + $1.amount }
                     let lost = PortfolioFeeExpenses.transferUncovered(t, covered: movedAmount)
-                    unassign(t, lost + spread(moved[...], t.quoteFeeExact + (feeValue ?? 0) - lost, movedAmount, at: t.time))
+                    unassign(t, lost + spread(moved[...], t.quoteFeeExact + (feeValue ?? 0) - lost, movedAmount, at: t.time,
+                                                estimated: t.feePriceEstimated))
                     // Nächster Posten mit Kaufpreis: verschoben, Rest der Quelle, sonst im Ziel; erst ohne jeden
                     // wartet der Einstand (bei den verschobenen Coins im Ziel, sonst in der Quelle)
                     let target = moved.first(where: { $0.cost != nil }) ?? src.lots.first(where: { $0.cost != nil })
@@ -354,7 +362,8 @@ enum PortfolioFifo {
                 // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der Anteil
                 // der Posten ohne Kaufpreis wird vermerkt
                 if feeValue == nil && q.hasPriced { r.feeValueMissing = true }
-                unassign(t, lost + spreadQueue(q, t.quoteFeeExact + (feeValue ?? 0) - lost, h, at: t.time))
+                unassign(t, lost + spreadQueue(q, t.quoteFeeExact + (feeValue ?? 0) - lost, h, at: t.time,
+                                                 estimated: t.feePriceEstimated))
                 // Netzwerkgebühr im Coin: Menge sinkt (älteste zuerst), ihr Einstand geht auf den nächsten Posten mit
                 // Kaufpreis über (Kosten des Haltens, keine Veräusserung)
                 if coinFee > 0 {
@@ -381,7 +390,7 @@ enum PortfolioFifo {
                     r.unpriced += l.amount
                 }
                 outLots.append(PortfolioLot(coin: symbol, txId: l.txId, acquiredTime: l.acquired, kind: l.kind,
-                                            amount: l.amount, costUsdt: l.cost, wallet: walletOf(q)))
+                                            amount: l.amount, costUsdt: l.cost, wallet: walletOf(q), estimated: l.estimated))
             }
         }
         r.lots = outLots

@@ -53,6 +53,9 @@ actor CoinLogoStore {
     /// `AppData` holt ihn nach, sobald wieder Netz da ist (`CoinLogoRetry.syncNeeded`). Nur im Speicher —
     /// nach einem Neustart läuft der Abgleich ohnehin beim Öffnen. Wie Android `retryPending`.
     private(set) var retryPending = false
+    /// Frühestes Ende der Pausen gebremster Bild-Server nach dem letzten Abgleich mit Bildern (ms; nil = nichts
+    /// gebremst): `AppData` holt danach von selbst nach. Nur im Speicher — wie Android `imagesPausedUntil`.
+    private(set) var imagesPausedUntil: Int64?
 
     /// Zuletzt bekannte Binance- und Alpha-Listen (direkt, Ersatzdatei oder gespeichert).
     private var lists: CoinMeta.Meta?
@@ -186,6 +189,7 @@ actor CoinLogoStore {
         }
         guard images else {
             retryPending = listsNetworkFailed || mapNetworkFailed
+            imagesPausedUntil = nil
             return 0
         }
         // Aktien-Logos für alle TradFi-Kürzel ohne Eintrag dazu
@@ -196,6 +200,8 @@ actor CoinLogoStore {
         result.added += rest.added
         result.network = result.network || rest.network
         retryPending = listsNetworkFailed || mapNetworkFailed || result.network
+        // Der zweite Durchgang versucht alle noch fehlenden Bilder erneut: seine Pause gilt
+        imagesPausedUntil = rest.pausedUntil
         return result.added
     }
 
@@ -208,21 +214,17 @@ actor CoinLogoStore {
     func ensureStarterLogos(_ symbols: [String]) async -> Bool {
         let current = await symbolMap()
         let fm = FileManager.default
-        var jobs: [(name: String, url: String)] = []
-        var complete = true
-        for symbol in symbols {
-            guard let name = CoinLogos.fileName(symbol) else { continue }
-            if fm.fileExists(atPath: Self.directory.appendingPathComponent(name).path) { continue }
-            guard let url = current[symbol.uppercased()] else {
-                complete = false
-                continue
-            }
-            jobs.append((name, url))
-        }
+        let exists = { (name: String) in fm.fileExists(atPath: Self.directory.appendingPathComponent(name).path) }
+        let missing = symbols.filter { CoinLogos.fileName($0).map { !exists($0) } ?? false }
+        // Adresse wie beim Zusammenführen («1000CAT» → «CAT»); je Datei ein Abruf
+        let wanted = missing.compactMap { s in CoinLogos.urlFor(current, symbol: s).map { (s, $0) } }
+        var complete = wanted.count == missing.count
+        let jobs = CoinLogos.downloadJobs(wanted, skip: exists)
         guard !jobs.isEmpty else { return complete }
         var added = 0
+        let streaks = ForbiddenStreaks()
         await withTaskGroup(of: Bool.self) { group in
-            for job in jobs { group.addTask { await Self.download(name: job.name, url: job.url) == .ok } }
+            for job in jobs { group.addTask { await Self.download(name: job.name, url: job.url, streaks: streaks) == .ok } }
             for await ok in group {
                 if ok { added += 1 } else { complete = false }
             }

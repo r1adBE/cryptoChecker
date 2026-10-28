@@ -42,6 +42,9 @@ extension TaxEngines {
         }
         var pool = TaxPool(zone: zone)
         var pending: [PortfolioCostPart] = []
+        // Nicht abziehbarer Verlust aus einer Zeile mit geschätztem Wert: der ACB enthält dann einen geschätzten Teil
+        var pendingEstimated = false
+        var pendingAtEstimated = Set<Int>()
         // Ersatz-Menge je Zugang: deckt nur einen nicht abziehbaren Verlust (wird verbraucht)
         var replaceLeft: [Decimal] = steps.map { $0.kind == .acquire ? $0.qty : 0 }
         // Nicht abziehbarer Verlust (Herkunft: Verkauf) für einen Ersatz NACH dem Verkauf: kommt bei diesem Zugang zum ACB
@@ -78,27 +81,31 @@ extension TaxEngines {
             return !(a < from) && !(to < a)
         }
 
-        /// Nicht abziehbarer Betrag zum ACB des Bestands (ohne Teil mit Kaufpreis: zum nächsten Zugang mit Kaufpreis).
-        func toAcb(_ time: Int64, _ amount: Decimal) {
+        /// Nicht abziehbarer Betrag zum ACB des Bestands (ohne Teil mit Kaufpreis: zum nächsten Zugang mit Kaufpreis); `est`
+        /// = aus einer Zeile mit geschätztem Wert.
+        func toAcb(_ time: Int64, _ amount: Decimal, _ est: Bool) {
             guard amount > 0 else { return }
             if pool.priced > 0 {
-                pool.addCost(time, amount)
+                pool.addCost(time, amount, est: est)
             } else {
                 pending.append(PortfolioCostPart(time: time, usdt: amount))
+                if est { pendingEstimated = true }
             }
         }
         for (i, s) in steps.enumerated() {
             switch s.kind {
             case .acquire:
-                pool.add(s.qty, cost: s.cost, time: s.acquired)
+                pool.add(s.qty, cost: s.cost, time: s.acquired, est: s.costEstimated)
                 // Ersatz dieses Zugangs für einen früheren Verkauf: dessen nicht abziehbarer Verlust zum ACB
                 if let parts = pendingAt.removeValue(forKey: i) {
-                    for p in parts { toAcb(p.time, p.usdt) }
+                    let est = pendingAtEstimated.remove(i) != nil
+                    for p in parts { toAcb(p.time, p.usdt, est) }
                 }
                 // Nicht abziehbarer Verlust ohne Bestand: zum nächsten Zugang mit Kaufpreis
                 if s.cost != nil && !pending.isEmpty {
-                    for p in pending { pool.addCost(p.time, p.usdt) }
+                    for p in pending { pool.addCost(p.time, p.usdt, est: pendingEstimated) }
                     pending = []
+                    pendingEstimated = false
                 }
             case .dispose:
                 let taken = pool.take(s.qty)
@@ -122,6 +129,7 @@ extension TaxEngines {
                 let heldEnd = heldAfter[endIndex]
                 let n = max(0, min(min(s.qty, bought), heldEnd))
                 var denied: Decimal = 0
+                var deniedEstimated = false
                 var rows = emit(coin, s, list, proceeds: s.proceeds)
                 for k in rows.indices {
                     // Verlust in der Steuerwährung entscheiden (CAD: gemeldet wird in CAD — ein USDT-Verlust kann in CAD
@@ -130,9 +138,10 @@ extension TaxEngines {
                     guard !s.spouseGift, let g = rows[k].gainUsdt else { continue }
                     let loss: Decimal = fxWeight.flatMap { caLossAtSaleRate(rows[k], $0) } ?? max(0, -g)
                     guard loss > 0, rows[k].costUsdt != nil, s.qty > 0 else { continue }
-                    let part: Decimal = n == s.qty ? loss : PortfolioDecimal.divide(loss * n, s.qty)
+                    let part: Decimal = n == s.qty ? loss : PortfolioDecimal.divide(loss, n, by: s.qty)
                     if part > 0 {
                         denied += part
+                        if rows[k].valueEstimated { deniedEstimated = true }
                         rows[k].adjustmentUsdt = part
                     }
                 }
@@ -151,12 +160,13 @@ extension TaxEngines {
                     }
                     var left = denied
                     for (k, m) in matched.enumerated() {
-                        let part: Decimal = k == matched.count - 1 ? left : PortfolioDecimal.divide(denied * m.q, n)
+                        let part: Decimal = k == matched.count - 1 ? left : PortfolioDecimal.divide(denied, m.q, by: n)
                         left -= part
                         if m.j > i {
                             pendingAt[m.j, default: []].append(PortfolioCostPart(time: s.time, usdt: part))
+                            if deniedEstimated { pendingAtEstimated.insert(m.j) }
                         } else {
-                            toAcb(s.time, part)
+                            toAcb(s.time, part, deniedEstimated)
                         }
                     }
                 }
@@ -165,7 +175,8 @@ extension TaxEngines {
             case .networkFee:
                 note(&lost, coin, s, pool.dropQty(s.qty))
             case .addFee:
-                noteUnassigned(&unassigned, coin, s, pool.addFee(s.time, s.cost ?? 0, amount: s.trade.amountExact, coinFee: s.trade.coinFeeExact))
+                noteUnassigned(&unassigned, coin, s, pool.addFee(s.time, s.cost ?? 0, amount: s.trade.amountExact,
+                                                                 coinFee: s.trade.coinFeeExact, est: s.costEstimated))
             }
         }
         return out

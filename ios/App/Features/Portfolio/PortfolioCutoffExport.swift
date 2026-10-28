@@ -243,7 +243,7 @@ enum PortfolioCutoffExporter {
         // Devisenkurs exakt über die kürzeste Darstellung (= Text der Quelle, z. B. «0.79123»); USDT zum Marktkurs:
         // × USDT/USD des Stichtags (heute live, sonst Tagesschluss) — ohne Kurs 1, in der Datei vermerkt
         let usdt = await cutoffUsdtUsd(currency, day: day)
-        let rate = PortfolioDecimal.of(fx?.rate).map { r in usdt.map { r * $0 } ?? r }
+        let rate = PortfolioDecimal.of(fx?.rate).map { r in usdt.map { PortfolioDecimal.multiply(r, $0) } ?? r }
         let rows = CutoffExport.rows(holdings, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
             + CutoffExport.addressRows(addressAt, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
         // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)

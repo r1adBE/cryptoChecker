@@ -5,7 +5,8 @@ import WidgetKit
 import UIKit
 import UserNotifications
 
-// Coin-Logos in AppData: Abgleich beim Start, Wiederholung nach Netzfehlern (`CoinLogoRetryState`), TradFi-Paare.
+// Coin-Logos in AppData: Abgleich beim Start und beim Aktualisieren, Wiederholung nach Netzfehlern und nach Pausen der
+// Bild-Server (`CoinLogoRetryState`), TradFi-Paare.
 // Eigene Datei, weil der Logo-Abgleich mit den übrigen Daten nichts teilt.
 
 // MARK: Coin-Logos
@@ -22,6 +23,9 @@ extension AppData {
     /// währenddessen ein weiterer Auftrag (z. B. Schalter eingeschaltet), läuft er danach noch einmal.
     /// Scheiterte er am Netz, holt `retryCoinLogosIfPending` ihn mit wachsendem Abstand nach.
     func syncCoinLogos() async {
+        // Ein Abgleich startet jetzt: ein geplantes Nachholen nach der Pause entfällt (der Abgleich plant neu)
+        CoinLogoRetryState.pauseTask?.cancel()
+        CoinLogoRetryState.pauseTask = nil
         guard CoinLogoUse.needed(settings) || settings.watchlistNames else {
             // Nur «inkl. Alpha-Tokens»: allein die Alpha-Liste (ohne Rangliste und Bilder), sonst nichts
             if CoinLogos.alphaOnly(logos: false, names: false, includeAlpha: settings.includeAlphaTokens) {
@@ -45,6 +49,25 @@ extension AppData {
         CoinLogoRetryState.syncing = false
         // Bei scheinbar vorhandenem Netz gescheitert (z. B. direkt nach der Installation): nachholen
         if pending { retryCoinLogosIfPending(online: NetworkStatus.shared.isOnline) }
+        await schedulePauseRetry()
+    }
+
+    /// Bremste ein Bild-Server (`CoinLogoStore.imagesPausedUntil`): am Ende seiner Pause einmal `syncCoinLogos`
+    /// (Schalter, Fristen und Pausen gelten dort wie sonst) — ein Task im App-Prozess, ohne Hintergrund-Aufgabe; ein
+    /// früher startender Abgleich ersetzt ihn. Nichts gebremst: kein Task. Wie Android `CoinLogoSync.schedulePauseRetry`.
+    private func schedulePauseRetry() async {
+        let until = await CoinLogoStore.shared.imagesPausedUntil
+        CoinLogoRetryState.pauseTask?.cancel()
+        CoinLogoRetryState.pauseTask = nil
+        guard let wait = CoinLogoRetry.pauseRetryDelayMillis(pausedUntil: until, now: CoinLogoRetryState.nowMillis)
+        else { return }
+        CoinLogoRetryState.pauseTask = Task {
+            try? await Task.sleep(nanoseconds: UInt64(wait) * 1_000_000)
+            if Task.isCancelled { return }
+            // Vor dem Start austragen: `syncCoinLogos` bricht sonst sich selbst ab
+            CoinLogoRetryState.pauseTask = nil
+            await syncCoinLogos()
+        }
     }
 
     private func runCoinLogoSync() async {
@@ -158,6 +181,8 @@ enum CoinLogoRetryState {
     static var syncing = false
     static var rerun = false
     static var task: Task<Void, Never>?
+    /// Nachholen am Ende einer Bild-Server-Pause (`schedulePauseRetry`); nil = keines geplant.
+    static var pauseTask: Task<Void, Never>?
     /// Aufeinanderfolgende, am Netz gescheiterte Abgleiche und Zeitpunkt des letzten (ms).
     static var failures = 0
     static var lastFailureAt: Int64 = 0

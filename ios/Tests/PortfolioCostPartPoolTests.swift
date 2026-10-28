@@ -49,7 +49,7 @@ final class PortfolioCostPartPoolTests: XCTestCase {
             var left = removed
             for i in parts.indices {
                 let p = parts[i]
-                let r = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * removed, total)
+                let r = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt, removed, by: total)
                 left -= r
                 out.append(PortfolioCostPart(time: p.time, usdt: r))
                 parts[i] = PortfolioCostPart(time: p.time, usdt: p.usdt - r)

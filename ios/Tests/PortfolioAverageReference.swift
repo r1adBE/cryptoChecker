@@ -52,7 +52,7 @@ extension PortfolioCalculator {
             var left = removed
             for i in parts.indices {
                 let p = parts[i]
-                let r = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * removed, before)
+                let r = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt, removed, by: before)
                 left -= r
                 out.append(PortfolioCostPart(time: p.time, usdt: r))
                 parts[i] = PortfolioCostPart(time: p.time, usdt: p.usdt - r)
@@ -74,7 +74,7 @@ extension PortfolioCalculator {
             } else if removedPriced >= priced {
                 costRemoved = cost
             } else {
-                costRemoved = PortfolioDecimal.divide(cost * removedPriced, priced)
+                costRemoved = PortfolioDecimal.divide(cost, removedPriced, by: priced)
             }
             let partsRemoved = takeParts(costRemoved, before: cost)
             // Gesamtbestand bleibt exakt; der Teil ohne Preis ist der Rest
@@ -160,7 +160,7 @@ extension PortfolioCalculator {
             guard let proceeds else { return nil }
             if removed == requested { return proceeds }
             if removed <= 0 { return nil }
-            return PortfolioDecimal.divide(proceeds * removed, requested)
+            return PortfolioDecimal.divide(proceeds, removed, by: requested)
         }
 
         for e in events {
@@ -246,7 +246,7 @@ extension PortfolioCalculator {
                 }
                 let hadPriced = book.priced > 0
                 let taken = book.take(requested)
-                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed * amount, requested)
+                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
                 let covered = coveredShare(proceeds, removed: taken.removed, requested: requested)
                 // Verkauf anteilig auf beide Teile; nur der Teil mit Kaufpreis ist bekannt
                 if let covered, hadPriced {
@@ -274,7 +274,7 @@ extension PortfolioCalculator {
                 // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
                 expense(e, .WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings: holdings))
                 let taken = book.take(requested)
-                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed * amount, requested)
+                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
                 withdrawn += sold
                 withdrawals.append(PortfolioWithdrawalCost(trade: t, sold: sold, removed: taken.removed,
                                                            pricedRemoved: taken.removedPriced, cost: taken.costRemoved))
@@ -296,7 +296,7 @@ extension PortfolioCalculator {
                 var assigned: Decimal = 0
                 if book.priced > 0 {
                     if feeValue == nil { feeValueMissing = true }
-                    assigned = allPriced ? extra : PortfolioDecimal.divide(extra * book.priced, holdings)
+                    assigned = allPriced ? extra : PortfolioDecimal.divide(extra, book.priced, by: holdings)
                 }
                 if extra > 0 { book.addCost(t.time, assigned) }
                 let noted = extra - assigned + lost
@@ -305,7 +305,7 @@ extension PortfolioCalculator {
                 if coinFee > 0 {
                     let removed = min(coinFee, holdings)
                     let removedPriced = allPriced ? removed
-                        : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed * book.priced, holdings)), book.priced)
+                        : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed, book.priced, by: holdings)), book.priced)
                     book.priced -= removedPriced
                     if PortfolioDecimal.isDust(book.priced) || book.priced < 0 {
                         // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken

@@ -20,8 +20,8 @@ enum PortfolioFeeExpense: String, Sendable, Equatable {
 /// Je Fall eine Veräusserung: Einstand = Aufwand, Erlös 0, Gewinn = −Aufwand, Haltedauer 0.
 enum PortfolioFeeExpenses {
 
-    /// Aufwand (USDT), «Wert der Gebühr im dritten Coin fehlt» und «enthält einen geschätzten Gebühr-Preis»
-    /// (`PortfolioTx.feePriceEstimated`, Vermerk «Wert geschätzt»).
+    /// Aufwand (USDT), «Wert der Gebühr im dritten Coin fehlt» und «enthält einen geschätzten Wert»
+    /// (`PortfolioTx.feePriceEstimated`, verbrauchter Zugang: `PortfolioTx.costEstimated`; Vermerk «Wert geschätzt»).
     struct Expense {
         let usdt: Decimal
         let feeValueMissing: Bool
@@ -34,13 +34,13 @@ enum PortfolioFeeExpenses {
         if e.feeLeg || t.amountExact <= 0 { return nil }
         if e.swapIn {
             if t.swapToCoin == nil || t.swapReceived > 0 { return nil }
-            return t.swapValue.map { Expense(usdt: $0, feeValueMissing: false) }
+            return t.swapValue.map { Expense(usdt: $0, feeValueMissing: false, estimated: t.costEstimated(swapIn: true)) }
         }
         if !t.type.isInflow || t.receivedExact > 0 { return nil }
         guard let price = t.validPriceExact else { return nil }
         let feeValue = t.thirdFeeValue
-        let usdt: Decimal = t.amountExact * price + t.quoteFeeExact + (feeValue ?? 0)
-        return Expense(usdt: usdt, feeValueMissing: feeValue == nil, estimated: t.feePriceEstimated)
+        let usdt: Decimal = PortfolioDecimal.multiply(t.amountExact, price) + t.quoteFeeExact + (feeValue ?? 0)
+        return Expense(usdt: usdt, feeValueMissing: feeValue == nil, estimated: t.costEstimated())
     }
 
     /// Auszahlung bei Bestand `holdings`: Gebühr USDT + Wert der Gebühr im dritten Coin zum gedeckten Anteil
@@ -85,7 +85,7 @@ enum PortfolioFeeExpenses {
     static func uncoveredShare(_ full: Decimal, amount: Decimal, covered: Decimal) -> Decimal {
         if full <= 0 || amount <= 0 || covered >= amount { return 0 }
         if covered <= 0 { return full }
-        return PortfolioDecimal.divide(full * (amount - covered), amount)
+        return PortfolioDecimal.divide(full, amount - covered, by: amount)
     }
 
     /// Menge der Zeile: verbrauchter Zugang (Tausch: erhaltene Menge), Auszahlung 0 (Gebühr in USDT).

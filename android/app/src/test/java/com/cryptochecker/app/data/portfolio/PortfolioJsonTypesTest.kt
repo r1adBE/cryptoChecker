@@ -152,4 +152,17 @@ class PortfolioJsonTypesTest {
         assertNull(PortfolioJson.jsonToTx(PortfolioJson.txToJson(transfer))!!.importBatch)
         assertNull(PortfolioJson.jsonToTx(PortfolioJson.txToJson(swap).put("importBatch", "x".repeat(65)))!!.importBatch)
     }
+
+    /** Room: Mengen, Gebühren und Werte mit der Regel der Mengen (18 Nachkommastellen), Preisspalten mit der der Preise. */
+    @Test
+    fun roomWritesAmountsAndPricesWithTheirRule() {
+        val amounts = PortfolioDecimalConverters()
+        val prices = PortfolioPriceConverters()
+        assertEquals("1", amounts.toText(BigDecimal("1.0000000000000000004")))
+        assertEquals("0", amounts.toText(BigDecimal("1E-19")))
+        assertEquals("0.000000000000000002", amounts.toText(BigDecimal("0.0000000000000000015")))
+        assertEquals("0.000000000000000000000000000001234", prices.toText(BigDecimal("1.234E-30")))
+        assertNull(amounts.toText(null))
+        assertEquals(0, BigDecimal("1.234E-30").compareTo(prices.fromText("0.000000000000000000000000000001234")))
+    }
 }

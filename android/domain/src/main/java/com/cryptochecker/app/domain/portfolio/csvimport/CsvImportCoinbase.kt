@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import java.math.BigDecimal
 
 /**
@@ -123,7 +124,7 @@ object CsvImportCoinbase {
                     val toAmount = CsvImportParser.parseNumber(m.groupValues[3], '.')?.abs()?.takeIf { it.signum() > 0 }
                         ?: throw Skip(CsvImportSkipReason.BAD_NUMBER)
                     if (toCoin == coin) throw Skip(CsvImportSkipReason.MISSING_FIELD)
-                    val value = (subtotal ?: spot?.multiply(amount))?.takeIf { quote != null && quote in CsvImport.MONEY }
+                    val value = (subtotal ?: spot?.multiply(amount, PortfolioDecimal.MC))?.takeIf { quote != null && quote in CsvImport.MONEY }
                     draft = draft.copy(
                         quote = quote.takeIf { value != null || fee != null },
                         toCoin = toCoin,
@@ -142,9 +143,25 @@ object CsvImportCoinbase {
     /** Coinbase-Kürzel vereinheitlichen: ETH2 (gestaktes ETH bis 2023) zählt als ETH. */
     private fun asset(raw: String): String = raw.trim().uppercase().let { if (it == "ETH2") "ETH" else it }
 
-    /** Betrag ohne Währungszeichen («€40,000.00», «-$12.50», «CHF 3.00»); Punkt = Dezimalzeichen; leer/unlesbar = null. */
+    /**
+     * Betrag ohne Währungszeichen («€40,000.00», «-$12.50», «CHF 3.00», «EUR 3.00»); Punkt = Dezimalzeichen; leer/unlesbar
+     * = null. Wissenschaftliche Schreibweise bleibt ([exponentAt]), wie Excel grosse und kleine Mengen speichert
+     * («1.23457E+11», «1.5E-05»): [CsvImportParser.parseNumber] liest sie wie in jedem anderen Format.
+     */
     private fun money(text: String): BigDecimal? {
-        val t = text.filter { it.isDigit() || it == '.' || it == ',' || it == '-' || it == '−' }
+        val t = text.filterIndexed { i, c ->
+            c.isDigit() || c == '.' || c == ',' || c == '-' || c == '−' || c == '+' || ((c == 'e' || c == 'E') && exponentAt(text, i))
+        }
         return if (t.isEmpty()) null else CsvImportParser.parseNumber(t, '.')
+    }
+
+    /**
+     * «E»/«e» an [i] ist ein Exponent: direkt nach einer Ziffer und vor einer Ziffer (bzw. Vorzeichen und Ziffer) — ein
+     * Währungskürzel («EUR 3.00», «3.00 EUR») nie.
+     */
+    private fun exponentAt(text: String, i: Int): Boolean {
+        fun digit(j: Int) = text.getOrNull(j)?.let { it in '0'..'9' } == true
+        val signed = text.getOrNull(i + 1).let { it == '+' || it == '-' || it == '−' }
+        return digit(i - 1) && digit(if (signed) i + 2 else i + 1)
     }
 }
