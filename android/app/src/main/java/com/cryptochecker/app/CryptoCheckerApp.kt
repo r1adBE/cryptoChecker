@@ -156,9 +156,6 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         // Widget: eine abgelaufene «Neuer Versuch um …»-Uhrzeit (Prozess endete vor dem Löschen) weg, Kopf neu zeichnen
         scope.launch { widgetRetry.get().clearIfExpired(System.currentTimeMillis()) }
 
-        // Überbleibsel des Vorgängerprojekts einmal entfernen (Merker; vorher bei jedem Anlegen der Datenbank)
-        scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.local.LegacyDatabaseCleanup.runOnce(this@CryptoCheckerApp) }
-
         // Einstellungen neu angelegt (z. B. Datei beschädigt), Portfolio-Daten aber da: Portfolio wieder an
         scope.launch {
             // Nur leer im Arbeitsspeicher (Schlüssel nicht lesbar): nicht als «keine Daten» entscheiden

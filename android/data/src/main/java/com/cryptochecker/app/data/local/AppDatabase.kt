@@ -26,8 +26,5 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val VERSION = 1
         const val DB_NAME = "cryptochecker.db"
-
-        /** Datenbank des Vorgängerprojekts; wird beim ersten Start entfernt. */
-        const val LEGACY_DB_NAME = "MarketDatabase.db"
     }
 }

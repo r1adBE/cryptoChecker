@@ -1,8 +1,7 @@
 import SwiftUI
 
 /// Lizenzhinweise unter «Über die App»: die App selbst (MIT, Text unübersetzt in
-/// `App/Resources/Licenses/MIT-cryptochecker.txt`, byte-gleich mit `LICENSE`, samt den ursprünglichen
-/// MIT-Vermerken von BitcoinChecker: mobnetic, Aneonex Software), dazu `NOTICE-origin.txt` (Herkunft, Namen/Logos/Daten
+/// `App/Resources/Licenses/MIT-cryptochecker.txt`, byte-gleich mit `LICENSE`), dazu `NOTICE-thirdparty.txt` (Namen/Logos/Daten
 /// Dritter, Alarmtöne — eigene Datei, damit die Lizenzdatei gleich `LICENSE` bleibt), Schrift und Ersatz-Icons.
 /// Swift-Pakete von Dritten nutzt die App nicht (wie `LicensesSheet.kt`).
 enum LicenseNotices {
@@ -22,7 +21,7 @@ struct LicensesSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
     @State private var appLicense = ""
-    @State private var originNotice = ""
+    @State private var thirdPartyNotice = ""
 
     /// true: als Seite der Einstellungen (im Navigationsstapel, ohne «Schliessen»).
     var asPage = false
@@ -58,8 +57,8 @@ struct LicensesSheet: View {
                         .font(.caption.monospaced())
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
-                if !originNotice.isEmpty {
-                    Text(originNotice)
+                if !thirdPartyNotice.isEmpty {
+                    Text(thirdPartyNotice)
                         .font(.caption.monospaced())
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
@@ -91,7 +90,7 @@ struct LicensesSheet: View {
         .navigationBarTitleDisplayMode(.inline)
         .task {
             appLicense = LicenseNotices.text("MIT-cryptochecker")
-            originNotice = LicenseNotices.text("NOTICE-origin")
+            thirdPartyNotice = LicenseNotices.text("NOTICE-thirdparty")
         }
     }
 }

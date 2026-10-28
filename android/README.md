@@ -967,8 +967,7 @@ Release-Smoke-Tests, wenn Datenbank bzw. Release-Build betroffen sind. Schlüsse
 
 ## Lizenz
 
-MIT, siehe `LICENSE`. Portions derived from BitcoinChecker by mobnetic and Aneonex Software (MIT): deren
-ursprüngliche Copyright-Vermerke stehen in `LICENSE` und auf der Lizenzseite beider Apps. Namen, Logos und Marken von Coins, Token, Aktien, Börsen und anderen Dritten sowie
+MIT, siehe `LICENSE`. Namen, Logos und Marken von Coins, Token, Aktien, Börsen und anderen Dritten sowie
 Marktdaten von Drittanbietern (z. B. CoinGecko, Binance, alternative.me, Coin Metrics) gehören nicht zum Code
 und fallen nicht unter die MIT-Lizenz.
 

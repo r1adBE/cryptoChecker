@@ -9,7 +9,7 @@ import java.io.File
 
 /**
  * Lizenzdatei der App byte-gleich mit `LICENSE` (Android und iOS), der Herkunftshinweis in eigener Datei
- * `NOTICE-origin.txt` (beide Plattformen gleich) — so zeigt «Lizenzen» genau den Text der Projekt-Lizenz.
+ * `NOTICE-thirdparty.txt` (beide Plattformen gleich) — so zeigt «Lizenzen» genau den Text der Projekt-Lizenz.
  */
 class LicenseFilesTest {
 
@@ -33,11 +33,10 @@ class LicenseFilesTest {
     }
 
     @Test
-    fun originNoticeIsItsOwnFile() {
-        val origin = String(bytes("app/src/main/assets/licenses/NOTICE-origin.txt"), Charsets.UTF_8)
-        assertTrue(origin.startsWith("Origin"))
-        assertTrue(origin.contains("BitcoinChecker"))
-        assertFalse(String(bytes("LICENSE"), Charsets.UTF_8).contains("\nOrigin\n"))
-        assertArrayEquals(origin.toByteArray(Charsets.UTF_8), iosBytes("ios/App/Resources/Licenses/NOTICE-origin.txt"))
+    fun thirdPartyNoticeIsItsOwnFile() {
+        val notice = String(bytes("app/src/main/assets/licenses/NOTICE-thirdparty.txt"), Charsets.UTF_8)
+        assertTrue(notice.startsWith("Third-party names, logos and data"))
+        assertFalse(String(bytes("LICENSE"), Charsets.UTF_8).contains("Third-party names"))
+        assertArrayEquals(notice.toByteArray(Charsets.UTF_8), iosBytes("ios/App/Resources/Licenses/NOTICE-thirdparty.txt"))
     }
 }

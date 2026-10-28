@@ -18,6 +18,7 @@ Detailed build history below.
 ## 16.2.2 (build 161)
 
 * The old per-pair holdings field is gone (it was taken over into the portfolio once); backups no longer contain it, and the backup description no longer mentions holdings.
+* The origin notice for BitcoinChecker is removed from LICENSE, NOTICE and the license pages of both apps; the start-up clean-up of the predecessor's database is gone.
 * Tests only: the CI screenshots show real content on the market tab and in the portfolio (canned answers, only in the screenshot tour).
 
 ## 16.2.2 (build 160)

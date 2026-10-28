@@ -213,10 +213,8 @@ public prices). Pull requests are welcome, see
 
 MIT, see [`LICENSE`](LICENSE). Anyone may use, copy, modify and distribute the
 code, provided the copyright notice and the license text are kept.
-Portions derived from BitcoinChecker by mobnetic and Aneonex Software (MIT); their
-original copyright notices are kept in [`LICENSE`](LICENSE).
-The license file shown in the apps is byte-identical with `LICENSE`; the origin and third-party notes follow
-from a separate `NOTICE-origin.txt`.
+The license file shown in the apps is byte-identical with `LICENSE`; the third-party notes follow
+from a separate `NOTICE-thirdparty.txt`.
 Third-party licenses used by the apps (e.g. the Rubik font, SIL Open
 Font License 1.1) are listed in the apps under *About › Licenses*.
 Names, logos and trademarks of coins, tokens, stocks, exchanges and other third

@@ -1678,6 +1678,7 @@
 		F75F9AA50C0578EA4B969F25 /* AlarmTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45CA5F3AC337753B893A728 /* AlarmTexts.swift */; };
 		F77962EE05C1F332C41D5D78 /* exchange_paribu.json in Resources */ = {isa = PBXBuildFile; fileRef = E705EA191C2390D91B86DB51 /* exchange_paribu.json */; };
 		F785BD99E309397093243139 /* BackupManager+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AF9827F308D11A6B3DED45 /* BackupManager+Settings.swift */; };
+		F7A22279AD9EAEDECE587606 /* NOTICE-thirdparty.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3339058E30B56DB7CF1F22D1 /* NOTICE-thirdparty.txt */; };
 		F7F211B76E0C18D7F232F6BF /* ExchangeCandleSourcesMajor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9950456A203D8C74BAAD2666 /* ExchangeCandleSourcesMajor.swift */; };
 		F8037E7FF1C7CFF2A98CA6BD /* PortfolioLockPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B74FE81BEF82048C57E842 /* PortfolioLockPolicy.swift */; };
 		F83D8F503426763A06603DE6 /* CryptoPulseSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7A8B193495967F9E8AF8B /* CryptoPulseSource.swift */; };
@@ -1686,7 +1687,6 @@
 		F8B89A2A6A54F983E6DD4A15 /* SpotMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0D2E5DE3B5C0BCF5A6AEA3 /* SpotMarket.swift */; };
 		F8D1BEDC10186FF87008FF52 /* recorded_mexcfutures.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A703CE7D27977FCAF042176 /* recorded_mexcfutures.json */; };
 		F8EEE456580DB1368809E707 /* Bitstamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC55A0995377AA979771A25 /* Bitstamp.swift */; };
-		F8F2EF1CE9211B96E31E1C35 /* NOTICE-origin.txt in Resources */ = {isa = PBXBuildFile; fileRef = F5DFB6D826B81354EE8891A8 /* NOTICE-origin.txt */; };
 		F92A0381C935185BD84FC40D /* PortfolioSaveRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62413615CA31DDE4D6ADC59 /* PortfolioSaveRetry.swift */; };
 		F9400EEEC3BF6B1707B53AB0 /* ExchangeBuildingBlocksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C7852E74BF736C4A1C6681 /* ExchangeBuildingBlocksTests.swift */; };
 		F949282AD1E31E91FA8C8E43 /* SettingsLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB6CB88640732E4EFEC60E0 /* SettingsLogicTests.swift */; };
@@ -2052,6 +2052,7 @@
 		32AE440B17AB6B263B16B79C /* PulseWidgetPlainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseWidgetPlainTests.swift; sourceTree = "<group>"; };
 		32C5F2897B37B1B6D65383D5 /* PortfolioTotalCard+Hints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PortfolioTotalCard+Hints.swift"; sourceTree = "<group>"; };
 		3328F3197230A96E7394DA58 /* TaxExportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxExportTests.swift; sourceTree = "<group>"; };
+		3339058E30B56DB7CF1F22D1 /* NOTICE-thirdparty.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-thirdparty.txt"; sourceTree = "<group>"; };
 		33A3CEBC2215ADAE67CD9C51 /* EstvKurslisteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstvKurslisteTests.swift; sourceTree = "<group>"; };
 		33D3B36A0243A9A0F932D784 /* RefreshSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshSetTests.swift; sourceTree = "<group>"; };
 		342568F8217DB2F2745C5B4D /* BackgroundTaskGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskGuard.swift; sourceTree = "<group>"; };
@@ -3078,7 +3079,6 @@
 		F55A347D435D8608454A37BB /* TextLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLimit.swift; sourceTree = "<group>"; };
 		F583706A424C3036A6EF35EC /* AlarmReadiness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmReadiness.swift; sourceTree = "<group>"; };
 		F5D4FBC23C8179F1694DBAA8 /* address_balance.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = address_balance.json; sourceTree = "<group>"; };
-		F5DFB6D826B81354EE8891A8 /* NOTICE-origin.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-origin.txt"; sourceTree = "<group>"; };
 		F5F431B7034ED2BF93E51C09 /* CycleRevealTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleRevealTests.swift; sourceTree = "<group>"; };
 		F61B40B917AAC71BFE7537CF /* Bitso.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitso.swift; sourceTree = "<group>"; };
 		F62B7D2328D5F593541DC41A /* AlarmLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmLogic.swift; sourceTree = "<group>"; };
@@ -3356,7 +3356,7 @@
 			isa = PBXGroup;
 			children = (
 				48D46C904CEF61DCC36F952E /* MIT-cryptochecker.txt */,
-				F5DFB6D826B81354EE8891A8 /* NOTICE-origin.txt */,
+				3339058E30B56DB7CF1F22D1 /* NOTICE-thirdparty.txt */,
 			);
 			path = Licenses;
 			sourceTree = "<group>";
@@ -5014,7 +5014,7 @@
 				803F7FD6244E367FA0563698 /* Localizable.xcstrings in Resources */,
 				D5E87DB4F0D9C0476FFB1A97 /* macro_events.json in Resources */,
 				C673235815F397F3448A9C8B /* MIT-cryptochecker.txt in Resources */,
-				F8F2EF1CE9211B96E31E1C35 /* NOTICE-origin.txt in Resources */,
+				F7A22279AD9EAEDECE587606 /* NOTICE-thirdparty.txt in Resources */,
 				C07D17DDBEBBE8B44AA7377C /* cc_chime.wav in Resources */,
 				52951F28A9AB029A92902111 /* cc_crystal.wav in Resources */,
 				654DC53AF13219F858B29EB4 /* cc_dingdong.wav in Resources */,

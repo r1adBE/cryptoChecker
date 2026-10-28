@@ -65,8 +65,6 @@ object LocalDataModule {
         @ApplicationContext context: Context,
         openHelperFactory: EncryptingOpenHelperFactory,
     ): AppDatabase {
-        // Überbleibsel des Vorgängerprojekts: einmal im Hintergrund (LegacyDatabaseCleanup, beim Start
-        // der App) statt hier bei jedem Anlegen im Hauptthread
         return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
             .openHelperFactory(openHelperFactory)
             .addCallback(SecureDeleteCallback)

@@ -1,9 +1,3 @@
-Origin
-
-Parts of the code were originally derived from BitcoinChecker by mobnetic and
-Aneonex Software (MIT). Their copyright notices are kept in the MIT License
-(LICENSE).
-
 Third-party names, logos and data
 
 Names, logos and trademarks of coins, tokens, stocks, exchanges and other third

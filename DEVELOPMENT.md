@@ -2595,6 +2595,10 @@ after the encryption step.
   `FakeExchange.marketData` (`FakeMarketData.kt`, `FakeMarketSeries.kt`), iOS `UITestExchange.marketData` via
   `UITEST_MARKET_DATA=1` (`UITestExchange+Market.swift`, `UITestExchange+Series.swift`, DEBUG only); off for all other
   tests.
+  Origin notice removed (owner decision; origin check: no code taken over): `LICENSE` (and the app copies
+  `MIT-cryptochecker.txt`) only with r1adBE, `NOTICE` without «Origin», `NOTICE-origin.txt` → `NOTICE-thirdparty.txt`
+  (third-party names/logos/data, alarm sounds) on both platforms, `LicenseFilesTest`/`LicenseFilesTests` adapted.
+  `LegacyDatabaseCleanup` (deleted the predecessor's `MarketDatabase.db` once) and `AppDatabase.LEGACY_DB_NAME` removed.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
@@ -3130,7 +3134,7 @@ after the encryption step.
   iOS foreground reload off the main thread (`AppData+DiskReload`); lease in the future = orphaned. Stichtag and
   Swiss wealth count addresses like the card (`AddressCutoff`), including addresses without lots; the card counts a
   transfer to the address once (1.4, not 1.7). DE 256 € line marked estimated. `localeFilters` with
-  `LocaleFiltersTest`; app licence file = LICENSE plus `NOTICE-origin.txt`.
+  `LocaleFiltersTest`; app licence file = LICENSE plus `NOTICE-thirdparty.txt`.
 * Build 90 (third audit of 20 October 2026): `BulkDelisted` state is persisted (`BulkDelistedStore`, SharedPreferences
   `bulk_delisted`; iOS App Group key `bulk_delisted`); the iOS widget never rechecks (`plan(…, lowMemory: true)`).
   `wealthCoinNoteBelowValue` shows the incomplete note under a partial CH value. iOS `PortfolioEdits` only reports
