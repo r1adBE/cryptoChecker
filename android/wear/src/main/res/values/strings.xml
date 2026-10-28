@@ -14,4 +14,18 @@
     <string name="watch_mode_phone">List: like phone</string>
     <string name="watch_mode_own">List: own</string>
     <string name="watch_phone_empty">No favorites on the phone</string>
+    <!-- Veraltet (WatchFreshness): «Kurs veraltet, zuletzt aktualisiert vor 47 Minuten» — wie a11y_price_outdated / a11y_updated_* der Handy-App -->
+    <string name="a11y_watch_outdated">Price outdated</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">last updated %1$d minute ago</item>
+        <item quantity="other">last updated %1$d minutes ago</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">last updated %1$d hour ago</item>
+        <item quantity="other">last updated %1$d hours ago</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">last updated %1$d day ago</item>
+        <item quantity="other">last updated %1$d days ago</item>
+    </plurals>
 </resources>

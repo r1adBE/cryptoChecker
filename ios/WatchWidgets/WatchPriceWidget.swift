@@ -3,12 +3,19 @@ import WidgetKit
 
 /// Komplikation der Apple-Watch-App: der erste Coin der gewählten Liste — rund «BTC / +1.2%», rechteckig
 /// mit Kurs, als Zeile «BTC +1.2%». Sind die gespeicherten Kurse älter als 10 Minuten, lädt sie neu (Zeitleiste alle
-/// 15 Minuten); ohne Netz die letzten. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
+/// 15 Minuten); ohne Netz die letzten. Veraltet (`WatchFreshness`, 45 Min.; eigener Zeitleisten-Eintrag ab dann):
+/// grau, rechteckig mit Alter «+1.2%  ·  vor 47 Min.», als Zeile ohne Platz dafür; VoiceOver nennt das Alter immer.
+/// Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
 struct WatchPriceEntry: TimelineEntry {
     let date: Date
     let coin: String?
     let price: String
     let change: String
+    /// Nur bei veraltetem Kurs: Alter kurz («vor 47 Min.») und für VoiceOver.
+    var age: String?
+    var spokenAge: String?
+
+    var outdated: Bool { age != nil }
 }
 
 struct WatchPriceProvider: TimelineProvider {
@@ -19,7 +26,8 @@ struct WatchPriceProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping @Sendable (WatchPriceEntry) -> Void) {
-        completion(context.isPreview ? placeholder(in: context) : Self.entry(WatchStore.quotes().quotes))
+        let stored = WatchStore.quotes()
+        completion(context.isPreview ? placeholder(in: context) : Self.entry(stored.quotes, time: stored.time, at: Date()))
     }
 
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<WatchPriceEntry>) -> Void) {
@@ -34,18 +42,29 @@ struct WatchPriceProvider: TimelineProvider {
                     quotes = fresh
                 }
             }
-            let next = Date().addingTimeInterval(15 * 60)
-            completion(Timeline(entries: [Self.entry(quotes)], policy: .after(next)))
+            let now = Date()
+            let next = now.addingTimeInterval(TimeInterval(WatchFreshness.updateMinutes * 60))
+            var entries = [Self.entry(quotes, time: time, at: now)]
+            // Zweiter Eintrag, sobald der Kurs veraltet (1 ms nach der Grenze, wie `OutdatedRule.nextChangeAt`)
+            let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis + 1)
+            if time > 0, staleAt > now, staleAt < next {
+                entries.append(Self.entry(quotes, time: time, at: staleAt))
+            }
+            completion(Timeline(entries: entries, policy: .after(next)))
         }
     }
 
-    private static func entry(_ quotes: [String: WatchQuote]) -> WatchPriceEntry {
+    private static func entry(_ quotes: [String: WatchQuote], time: Int64, at date: Date) -> WatchPriceEntry {
         guard let coin = WatchStore.settings.shown.first else {
-            return WatchPriceEntry(date: Date(), coin: nil, price: "—", change: "—")
+            return WatchPriceEntry(date: date, coin: nil, price: "—", change: "—")
         }
         let q = quotes[coin]
-        return WatchPriceEntry(date: Date(), coin: coin, price: q.map { WatchText.price($0.price) } ?? "—",
-                               change: WatchText.change(q?.change24h))
+        let now = Int64(date.timeIntervalSince1970 * 1000)
+        let outdated = q != nil && WatchFreshness.isOutdated(time, now: now)
+        return WatchPriceEntry(date: date, coin: coin, price: q.map { WatchText.price($0.price) } ?? "—",
+                               change: WatchText.change(q?.change24h),
+                               age: outdated ? WatchText.ago(time, now: now) : nil,
+                               spokenAge: outdated ? WatchText.spokenAge(time, now: now) : nil)
     }
 }
 
@@ -56,10 +75,19 @@ struct WatchPriceWidgetView: View {
     var body: some View {
         content
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel(entry.coin.map { WatchText.t("a11y_watch_row", $0, entry.price, entry.change) }
-                                ?? WatchText.t("watch_empty"))
+            .accessibilityLabel(spoken)
             .containerBackground(.clear, for: .widget)
     }
+
+    /// «BTC 67’420.00, +1.20% in 24 Stunden» und bei veraltetem Kurs dessen Alter.
+    private var spoken: String {
+        guard let coin = entry.coin else { return WatchText.t("watch_empty") }
+        let row = WatchText.t("a11y_watch_row", coin, entry.price, entry.change)
+        return entry.spokenAge.map { row + ", " + $0 } ?? row
+    }
+
+    /// Veraltet grau (wie die Merkliste), sonst normal.
+    private var valueStyle: HierarchicalShapeStyle { entry.outdated ? .secondary : .primary }
 
     @ViewBuilder private var content: some View {
         let coin = entry.coin ?? "—"
@@ -67,17 +95,19 @@ struct WatchPriceWidgetView: View {
         case .accessoryRectangular:
             VStack(alignment: .leading) {
                 Text(coin).font(.headline)
-                Text(entry.price).lineLimit(1).minimumScaleFactor(0.6)
-                Text(entry.change).foregroundStyle(.secondary)
+                Text(entry.price).lineLimit(1).minimumScaleFactor(0.6).foregroundStyle(valueStyle)
+                Text(entry.change + (entry.age.map { "  ·  \($0)" } ?? "")).lineLimit(1).minimumScaleFactor(0.6)
+                    .foregroundStyle(.secondary)
             }
         case .accessoryInline:
+            // Eine Zeile ohne Platz für das Alter; das System färbt sie selbst
             Text("\(coin) \(entry.change)")
         case .accessoryCorner:
-            Text(entry.change).widgetLabel(coin)
+            Text(entry.change).foregroundStyle(valueStyle).widgetLabel(coin)
         default:
             VStack(spacing: 0) {
                 Text(coin).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
-                Text(entry.change).font(.caption).lineLimit(1).minimumScaleFactor(0.5)
+                Text(entry.change).font(.caption).lineLimit(1).minimumScaleFactor(0.5).foregroundStyle(valueStyle)
             }
         }
     }

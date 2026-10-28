@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">Lista: si në telefon</string>
     <string name="watch_mode_own">Lista: imja</string>
     <string name="watch_phone_empty">Nuk ka të preferuara në telefon</string>
+    <string name="a11y_watch_outdated">Kursi është i vjetëruar</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">përditësuar së fundi para %1$d minute</item>
+        <item quantity="other">përditësuar së fundi para %1$d minutash</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">përditësuar së fundi para %1$d ore</item>
+        <item quantity="other">përditësuar së fundi para %1$d orësh</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">përditësuar së fundi para %1$d dite</item>
+        <item quantity="other">përditësuar së fundi para %1$d ditësh</item>
+    </plurals>
 </resources>

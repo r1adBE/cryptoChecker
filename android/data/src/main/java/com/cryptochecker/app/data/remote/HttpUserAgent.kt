@@ -19,12 +19,12 @@ object HttpUserAgent {
     fun android(versionName: String): String = "cryptoChecker-Android/${versionName.trim()}"
 
     /**
-     * Neutraler User-Agent für Adress-Hosts (verbreiteter vollständiger Browser-Wert:
-     * Firefox ESR 153). Er nennt weder App noch Version; er tarnt die Anfrage aber nicht als Browser — TLS- und
+     * Neutraler User-Agent für Adress-Hosts (verbreiteter vollständiger Browser-Wert: Firefox 159, Release Oktober
+     * 2026). Er nennt weder App noch Version; er tarnt die Anfrage aber nicht als Browser — TLS- und
      * HTTP-Merkmale, IP und Abfragemuster bleiben die der App. Gleicher Wert wie iOS
      * (`testdata/parity/address_privacy.json`).
      */
-    const val NEUTRAL = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0"
+    const val NEUTRAL = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0"
 
     /** Hosts, die eine Adresse zu sehen bekommen ([AddressBalance.PRIVACY_HOSTS]). */
     private val ADDRESS_HOSTS: Set<String> by lazy { AddressBalance.PRIVACY_HOSTS.map { it.lowercase() }.toSet() }

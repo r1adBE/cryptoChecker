@@ -11,16 +11,19 @@ import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
+import com.cryptochecker.marketdata.watch.WatchFreshness
 
 /**
  * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Sind die gespeicherten
  * Kurse älter als [MAX_AGE_MS], lädt sie neu (Zifferblatt fragt etwa alle 15 min, Manifest); ohne Netz die letzten.
+ * Veraltet ([WatchFreshness], 45 Min.): lang mit Alter «… +1.2%  ·  vor 47 Min.», kurz ohne Platz dafür; die
+ * Beschreibung für den Screenreader nennt es immer. Farben bestimmt das Zifferblatt (kein Abblassen möglich).
  * Tippen öffnet die Uhr-App.
  */
 class PriceComplicationService : SuspendingComplicationDataSourceService() {
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? =
-        data(type, "BTC", WatchFormat.price(67420.0), WatchFormat.change(1.2), null)
+        data(type, "BTC", WatchFormat.price(67420.0), WatchFormat.change(1.2), null, null)
 
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
         val store = WatchStore(this)
@@ -39,17 +42,36 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val tap = PendingIntent.getActivity(
             this, 0, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
-        return data(request.complicationType, coin, WatchFormat.price(q.price), WatchFormat.change(q.change24h), tap)
+        val now = System.currentTimeMillis()
+        val age = if (WatchFreshness.isOutdated(time, now)) {
+            Age(WatchAge.short(time, now), WatchAge.spoken(this, time, now))
+        } else {
+            null
+        }
+        return data(request.complicationType, coin, WatchFormat.price(q.price), WatchFormat.change(q.change24h), age, tap)
     }
 
-    private fun data(type: ComplicationType, coin: String, price: String, change: String, tap: PendingIntent?): ComplicationData? {
-        val description = text(getString(R.string.a11y_watch_row, coin, price, change))
+    /** Alter veralteter Kurse: kurz für die lange Komplikation, ausgeschrieben für den Screenreader. */
+    private class Age(val short: String, val spoken: String)
+
+    private fun data(
+        type: ComplicationType,
+        coin: String,
+        price: String,
+        change: String,
+        age: Age?,
+        tap: PendingIntent?,
+    ): ComplicationData? {
+        val row = getString(R.string.a11y_watch_row, coin, price, change)
+        val description = text(age?.let { "$row, ${it.spoken}" } ?: row)
         return when (type) {
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(text(change), description)
                 .setTitle(text(coin))
                 .apply { tap?.let { setTapAction(it) } }
                 .build()
-            ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(text("$price  $change"), description)
+            ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
+                text("$price  $change" + (age?.let { "  ·  ${it.short}" } ?: "")), description,
+            )
                 .setTitle(text(coin))
                 .apply { tap?.let { setTapAction(it) } }
                 .build()

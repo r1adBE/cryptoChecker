@@ -1,0 +1,434 @@
+{
+ "description": "Watch apps (build 162): quote parsing per exchange (Binance ticker/24hr with symbols=[...], Bybit v5/market/tickers?category=spot&symbol=, OKX v5/market/ticker?instId= - single-symbol answers, only wanted coins, price > 0, Bybit price24hPcnt x 100, OKX change = last vs open24h), fallback (Binance for all coins in one request, then only the missing coins one request each at Bybit, then OKX; null response = HTTP error/blocked; request keys binance / bybit:<SYMBOL> / okx:<INST-ID>, compared as a set because requests per exchange run in parallel; expected in coin order), at most 8 coins (WatchCoins.MAX), freshness (WatchFreshness: outdated when the last successful fetch is older than OutdatedRule.afterMillis(15) = 45 min, strictly more; age unit/count like A11ySpeech.age: under 1 min justNow, then minutes, hours, days; time 0 = never loaded). Android wear WatchQuotes/WatchPriceSource + marketdata WatchFreshness, iOS WatchCore WatchQuoteParser/WatchQuoteFetch/WatchFreshness.",
+ "maxCoins": 8,
+ "urls": {
+  "coins": [
+   "BTC",
+   "ETH"
+  ],
+  "binanceBase": "https://api.binance.com/api/v3/ticker/24hr",
+  "binanceSymbols": "[\"BTCUSDT\",\"ETHUSDT\"]",
+  "bybit": {
+   "BTC": "https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT"
+  },
+  "okx": {
+   "BTC": "https://www.okx.com/api/v5/market/ticker?instId=BTC-USDT"
+  }
+ },
+ "parse": [
+  {
+   "name": "Binance: only wanted coins, price > 0",
+   "source": "binance",
+   "wanted": [
+    "BTC",
+    "ETH",
+    "SOL"
+   ],
+   "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1\",\"priceChangePercent\":\"1.234\",\"lastPrice\":\"67420.10\",\"openPrice\":\"1\",\"closeTime\":1700000000000},{\"symbol\":\"ETHUSDT\",\"priceChange\":\"1\",\"priceChangePercent\":\"2\",\"lastPrice\":\"0\",\"openPrice\":\"1\",\"closeTime\":1700000000000},{\"symbol\":\"XRPUSDT\",\"priceChange\":\"1\",\"priceChangePercent\":\"1\",\"lastPrice\":\"0.5\",\"openPrice\":\"1\",\"closeTime\":1700000000000}]",
+   "expected": [
+    {
+     "symbol": "BTC",
+     "price": 67420.1,
+     "change24h": 1.234,
+     "source": "Binance"
+    }
+   ]
+  },
+  {
+   "name": "Bybit single symbol (category=spot&symbol=)",
+   "source": "bybit",
+   "wanted": [
+    "ETH"
+   ],
+   "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"ETHUSDT\",\"bid1Price\":\"3000\",\"ask1Price\":\"3000\",\"lastPrice\":\"3000\",\"prevPrice24h\":\"1\",\"price24hPcnt\":\"-0.0125\",\"highPrice24h\":\"3000\",\"lowPrice24h\":\"3000\",\"turnover24h\":\"1\",\"volume24h\":\"1\"}]},\"retExtInfo\":{},\"time\":1700000000000}",
+   "expected": [
+    {
+     "symbol": "ETH",
+     "price": 3000.0,
+     "change24h": -1.25,
+     "source": "Bybit"
+    }
+   ]
+  },
+  {
+   "name": "Bybit unknown symbol: retCode 10001, empty result",
+   "source": "bybit",
+   "wanted": [
+    "FOO"
+   ],
+   "body": "{\"retCode\":10001,\"retMsg\":\"Not supported symbols\",\"result\":{},\"retExtInfo\":{},\"time\":1700000000000}",
+   "expected": []
+  },
+  {
+   "name": "Bybit answer for another symbol is ignored",
+   "source": "bybit",
+   "wanted": [
+    "BTC"
+   ],
+   "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"ETHUSDT\",\"bid1Price\":\"3000\",\"ask1Price\":\"3000\",\"lastPrice\":\"3000\",\"prevPrice24h\":\"1\",\"price24hPcnt\":\"0.01\",\"highPrice24h\":\"3000\",\"lowPrice24h\":\"3000\",\"turnover24h\":\"1\",\"volume24h\":\"1\"}]},\"retExtInfo\":{},\"time\":1700000000000}",
+   "expected": []
+  },
+  {
+   "name": "OKX single instrument (market/ticker?instId=)",
+   "source": "okx",
+   "wanted": [
+    "BTC"
+   ],
+   "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"67420.1\",\"lastSz\":\"0.01\",\"askPx\":\"67420.1\",\"bidPx\":\"67420.1\",\"open24h\":\"66000\",\"high24h\":\"67420.1\",\"low24h\":\"67420.1\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"66000\",\"sodUtc8\":\"66000\"}]}",
+   "expected": [
+    {
+     "symbol": "BTC",
+     "price": 67420.1,
+     "change24h": 2.151666666666685,
+     "source": "OKX"
+    }
+   ]
+  },
+  {
+   "name": "OKX USDC pair is not USDT",
+   "source": "okx",
+   "wanted": [
+    "SOL"
+   ],
+   "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"SOL-USDC\",\"last\":\"110\",\"lastSz\":\"0.01\",\"askPx\":\"110\",\"bidPx\":\"110\",\"open24h\":\"100\",\"high24h\":\"110\",\"low24h\":\"110\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"100\",\"sodUtc8\":\"100\"}]}",
+   "expected": []
+  },
+  {
+   "name": "OKX open24h 0: change unknown",
+   "source": "okx",
+   "wanted": [
+    "BTC"
+   ],
+   "body": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"5\",\"lastSz\":\"0.01\",\"askPx\":\"5\",\"bidPx\":\"5\",\"open24h\":\"0\",\"high24h\":\"5\",\"low24h\":\"5\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"0\",\"sodUtc8\":\"0\"}]}",
+   "expected": [
+    {
+     "symbol": "BTC",
+     "price": 5.0,
+     "change24h": null,
+     "source": "OKX"
+    }
+   ]
+  },
+  {
+   "name": "OKX unknown instrument: code 51001, empty data",
+   "source": "okx",
+   "wanted": [
+    "FOO"
+   ],
+   "body": "{\"code\":\"51001\",\"msg\":\"Instrument ID doesn't exist.\",\"data\":[]}",
+   "expected": []
+  },
+  {
+   "name": "broken body",
+   "source": "okx",
+   "wanted": [
+    "BTC"
+   ],
+   "body": "<html>blocked</html>",
+   "expected": []
+  }
+ ],
+ "fallback": [
+  {
+   "name": "Binance delivers everything: one request",
+   "coins": [
+    "BTC",
+    "ETH"
+   ],
+   "responses": {
+    "binance": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1\",\"priceChangePercent\":\"1.2\",\"lastPrice\":\"67420.1\",\"openPrice\":\"1\",\"closeTime\":1700000000000},{\"symbol\":\"ETHUSDT\",\"priceChange\":\"1\",\"priceChangePercent\":\"-0.5\",\"lastPrice\":\"3000\",\"openPrice\":\"1\",\"closeTime\":1700000000000}]"
+   },
+   "requests": [
+    "binance"
+   ],
+   "expected": [
+    [
+     "BTC",
+     "Binance"
+    ],
+    [
+     "ETH",
+     "Binance"
+    ]
+   ]
+  },
+  {
+   "name": "Binance blocked (HTTP 451): Bybit per symbol",
+   "coins": [
+    "BTC",
+    "ETH"
+   ],
+   "responses": {
+    "binance": null,
+    "bybit:BTCUSDT": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"bid1Price\":\"67420.1\",\"ask1Price\":\"67420.1\",\"lastPrice\":\"67420.1\",\"prevPrice24h\":\"1\",\"price24hPcnt\":\"0.01\",\"highPrice24h\":\"67420.1\",\"lowPrice24h\":\"67420.1\",\"turnover24h\":\"1\",\"volume24h\":\"1\"}]},\"retExtInfo\":{},\"time\":1700000000000}",
+    "bybit:ETHUSDT": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"ETHUSDT\",\"bid1Price\":\"3000\",\"ask1Price\":\"3000\",\"lastPrice\":\"3000\",\"prevPrice24h\":\"1\",\"price24hPcnt\":\"0.02\",\"highPrice24h\":\"3000\",\"lowPrice24h\":\"3000\",\"turnover24h\":\"1\",\"volume24h\":\"1\"}]},\"retExtInfo\":{},\"time\":1700000000000}"
+   },
+   "requests": [
+    "binance",
+    "bybit:BTCUSDT",
+    "bybit:ETHUSDT"
+   ],
+   "expected": [
+    [
+     "BTC",
+     "Bybit"
+    ],
+    [
+     "ETH",
+     "Bybit"
+    ]
+   ]
+  },
+  {
+   "name": "Binance and Bybit blocked: OKX per symbol",
+   "coins": [
+    "BTC",
+    "ETH"
+   ],
+   "responses": {
+    "binance": null,
+    "bybit:BTCUSDT": null,
+    "bybit:ETHUSDT": null,
+    "okx:BTC-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"67420.1\",\"lastSz\":\"0.01\",\"askPx\":\"67420.1\",\"bidPx\":\"67420.1\",\"open24h\":\"66000\",\"high24h\":\"67420.1\",\"low24h\":\"67420.1\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"66000\",\"sodUtc8\":\"66000\"}]}",
+    "okx:ETH-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"ETH-USDT\",\"last\":\"3000\",\"lastSz\":\"0.01\",\"askPx\":\"3000\",\"bidPx\":\"3000\",\"open24h\":\"3100\",\"high24h\":\"3000\",\"low24h\":\"3000\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"3100\",\"sodUtc8\":\"3100\"}]}"
+   },
+   "requests": [
+    "binance",
+    "bybit:BTCUSDT",
+    "bybit:ETHUSDT",
+    "okx:BTC-USDT",
+    "okx:ETH-USDT"
+   ],
+   "expected": [
+    [
+     "BTC",
+     "OKX"
+    ],
+    [
+     "ETH",
+     "OKX"
+    ]
+   ]
+  },
+  {
+   "name": "Only the missing coins go on: Binance BTC, Bybit ETH, OKX SOL",
+   "coins": [
+    "BTC",
+    "ETH",
+    "SOL"
+   ],
+   "responses": {
+    "binance": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1\",\"priceChangePercent\":\"1.2\",\"lastPrice\":\"67420.1\",\"openPrice\":\"1\",\"closeTime\":1700000000000}]",
+    "bybit:ETHUSDT": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"ETHUSDT\",\"bid1Price\":\"3000\",\"ask1Price\":\"3000\",\"lastPrice\":\"3000\",\"prevPrice24h\":\"1\",\"price24hPcnt\":\"0.02\",\"highPrice24h\":\"3000\",\"lowPrice24h\":\"3000\",\"turnover24h\":\"1\",\"volume24h\":\"1\"}]},\"retExtInfo\":{},\"time\":1700000000000}",
+    "bybit:SOLUSDT": "{\"retCode\":10001,\"retMsg\":\"Not supported symbols\",\"result\":{},\"retExtInfo\":{},\"time\":1700000000000}",
+    "okx:SOL-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"SOL-USDT\",\"last\":\"110\",\"lastSz\":\"0.01\",\"askPx\":\"110\",\"bidPx\":\"110\",\"open24h\":\"100\",\"high24h\":\"110\",\"low24h\":\"110\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"100\",\"sodUtc8\":\"100\"}]}"
+   },
+   "requests": [
+    "binance",
+    "bybit:ETHUSDT",
+    "bybit:SOLUSDT",
+    "okx:SOL-USDT"
+   ],
+   "expected": [
+    [
+     "BTC",
+     "Binance"
+    ],
+    [
+     "ETH",
+     "Bybit"
+    ],
+    [
+     "SOL",
+     "OKX"
+    ]
+   ]
+  },
+  {
+   "name": "Nobody knows the coin: no price, other coins stay",
+   "coins": [
+    "BTC",
+    "FOO"
+   ],
+   "responses": {
+    "binance": null,
+    "bybit:BTCUSDT": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"bid1Price\":\"67420.1\",\"ask1Price\":\"67420.1\",\"lastPrice\":\"67420.1\",\"prevPrice24h\":\"1\",\"price24hPcnt\":\"0.01\",\"highPrice24h\":\"67420.1\",\"lowPrice24h\":\"67420.1\",\"turnover24h\":\"1\",\"volume24h\":\"1\"}]},\"retExtInfo\":{},\"time\":1700000000000}",
+    "bybit:FOOUSDT": "{\"retCode\":10001,\"retMsg\":\"Not supported symbols\",\"result\":{},\"retExtInfo\":{},\"time\":1700000000000}",
+    "okx:FOO-USDT": "{\"code\":\"51001\",\"msg\":\"Instrument ID doesn't exist.\",\"data\":[]}"
+   },
+   "requests": [
+    "binance",
+    "bybit:BTCUSDT",
+    "bybit:FOOUSDT",
+    "okx:FOO-USDT"
+   ],
+   "expected": [
+    [
+     "BTC",
+     "Bybit"
+    ]
+   ]
+  },
+  {
+   "name": "At most 8 coins: the 9th and 10th are never requested",
+   "coins": [
+    "BTC",
+    "ETH",
+    "BNB",
+    "SOL",
+    "XRP",
+    "DOGE",
+    "ADA",
+    "TRX",
+    "TON",
+    "AVAX"
+   ],
+   "responses": {
+    "binance": null,
+    "bybit:BTCUSDT": null,
+    "bybit:ETHUSDT": null,
+    "bybit:BNBUSDT": null,
+    "bybit:SOLUSDT": null,
+    "bybit:XRPUSDT": null,
+    "bybit:DOGEUSDT": null,
+    "bybit:ADAUSDT": null,
+    "bybit:TRXUSDT": null,
+    "bybit:TONUSDT": null,
+    "bybit:AVAXUSDT": null,
+    "okx:BTC-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:ETH-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"ETH-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:BNB-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BNB-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:SOL-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"SOL-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:XRP-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"XRP-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:DOGE-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"DOGE-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:ADA-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"ADA-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:TRX-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"TRX-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:TON-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"TON-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}",
+    "okx:AVAX-USDT": "{\"code\":\"0\",\"msg\":\"\",\"data\":[{\"instType\":\"SPOT\",\"instId\":\"AVAX-USDT\",\"last\":\"2\",\"lastSz\":\"0.01\",\"askPx\":\"2\",\"bidPx\":\"2\",\"open24h\":\"1\",\"high24h\":\"2\",\"low24h\":\"2\",\"volCcy24h\":\"1\",\"vol24h\":\"1\",\"ts\":\"1700000000000\",\"sodUtc0\":\"1\",\"sodUtc8\":\"1\"}]}"
+   },
+   "requests": [
+    "binance",
+    "bybit:BTCUSDT",
+    "bybit:ETHUSDT",
+    "bybit:BNBUSDT",
+    "bybit:SOLUSDT",
+    "bybit:XRPUSDT",
+    "bybit:DOGEUSDT",
+    "bybit:ADAUSDT",
+    "bybit:TRXUSDT",
+    "okx:BTC-USDT",
+    "okx:ETH-USDT",
+    "okx:BNB-USDT",
+    "okx:SOL-USDT",
+    "okx:XRP-USDT",
+    "okx:DOGE-USDT",
+    "okx:ADA-USDT",
+    "okx:TRX-USDT"
+   ],
+   "expected": [
+    [
+     "BTC",
+     "OKX"
+    ],
+    [
+     "ETH",
+     "OKX"
+    ],
+    [
+     "BNB",
+     "OKX"
+    ],
+    [
+     "SOL",
+     "OKX"
+    ],
+    [
+     "XRP",
+     "OKX"
+    ],
+    [
+     "DOGE",
+     "OKX"
+    ],
+    [
+     "ADA",
+     "OKX"
+    ],
+    [
+     "TRX",
+     "OKX"
+    ]
+   ]
+  },
+  {
+   "name": "No coins: no request",
+   "coins": [],
+   "responses": {},
+   "requests": [],
+   "expected": []
+  }
+ ],
+ "freshness": {
+  "now": 1700000000000,
+  "updateMinutes": 15,
+  "outdatedAfterMillis": 2700000,
+  "cases": [
+   {
+    "name": "never loaded",
+    "time": 0,
+    "outdated": false,
+    "unit": null,
+    "count": null
+   },
+   {
+    "name": "30 s: just now",
+    "time": 1699999970000,
+    "outdated": false,
+    "unit": "justNow",
+    "count": 0
+   },
+   {
+    "name": "clock set back (time in the future): just now",
+    "time": 1700000300000,
+    "outdated": false,
+    "unit": "justNow",
+    "count": 0
+   },
+   {
+    "name": "10 min",
+    "time": 1699999400000,
+    "outdated": false,
+    "unit": "minutes",
+    "count": 10
+   },
+   {
+    "name": "exactly 45 min is not yet outdated",
+    "time": 1699997300000,
+    "outdated": false,
+    "unit": "minutes",
+    "count": 45
+   },
+   {
+    "name": "45 min + 1 ms",
+    "time": 1699997299999,
+    "outdated": true,
+    "unit": "minutes",
+    "count": 45
+   },
+   {
+    "name": "90 min",
+    "time": 1699994600000,
+    "outdated": true,
+    "unit": "hours",
+    "count": 1
+   },
+   {
+    "name": "30 h",
+    "time": 1699892000000,
+    "outdated": true,
+    "unit": "days",
+    "count": 1
+   }
+  ]
+ }
+}

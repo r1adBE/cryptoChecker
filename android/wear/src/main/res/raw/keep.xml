@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Ressourcen-Schrumpfer (isShrinkResources im Release): das Fähigkeiten-Feld der Wear-Daten-Schicht behalten. Die Google
+  Play-Dienste lesen es über seinen Namen (res/values/wear.xml), der Code verweist nie darauf.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@array/android_wear_capabilities" />

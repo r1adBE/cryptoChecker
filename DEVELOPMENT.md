@@ -2599,6 +2599,26 @@ after the encryption step.
   `MIT-cryptochecker.txt`) only with r1adBE, `NOTICE` without «Origin», `NOTICE-origin.txt` → `NOTICE-thirdparty.txt`
   (third-party names/logos/data, alarm sounds) on both platforms, `LicenseFilesTest`/`LicenseFilesTests` adapted.
   `LegacyDatabaseCleanup` (deleted the predecessor's `MarketDatabase.db` once) and `AppDatabase.LEGACY_DB_NAME` removed.
+* Build 162: watch apps and price overlay (review of build 161). Data volume: the Bybit and OKX fallbacks of the watch
+  request each missing coin on its own (`v5/market/tickers?category=spot&symbol=…`, `v5/market/ticker?instId=…`, in
+  parallel) instead of the full spot lists (OKX ~380 KB); Binance keeps one request with `symbols=[…]`; at most 8
+  coins. iOS: parser and flow in WatchCore (`WatchQuoteParser.swift`), `Watch/Device/WatchPriceSource.swift` HTTP only.
+  Freshness: `WatchFreshness` (marketdata/watch, WatchCore) – outdated after 45 min without a successful fetch
+  (`OutdatedRule.afterMillis(15)`); watch list dimmed with relative age, Wear complication with the age in the long
+  text and the content description, watchOS complication dimmed with an extra timeline entry, Android price overlay
+  with the watchlist row's rule (`PriceOverlayRules.stale`), redrawn every minute. New wear strings
+  `a11y_watch_outdated`, `a11y_watch_updated_minutes/hours/days` (31 languages). User agents: wear
+  `CryptoChecker-Wear/<versionName>` from `app/build.gradle.kts`, watchOS `CryptoChecker-Watch/<version>`; neutral
+  Firefox user agent 153 → 159 (also `address_privacy.json` and the privacy page). `:wear` lint: `tools:targetApi`
+  for `dataExtractionRules`, `android_wear_capabilities` kept via `res/raw/keep.xml`. Tests: shared fixture
+  `watch_quotes.json` (`WatchQuotesParityTest`, `WatchFreshnessParityTest`, `PriceOverlayRulesTest`, iOS
+  `WatchQuotesParityTests`). Unit tests for `:data` (in app/src/test, measured through the `:app` Kover report):
+  candle fallback chain of `CandleDataSource`, `InsightsDataSource`, `CycleDataSource`, `SpotDataSource`,
+  `NearExtremeDataSource`, `TokenIdentityStore`, `CycleCacheStore`, `ActivityRepository`, `StarterCoinsRepository`,
+  `PortfolioPriceSource`, `HistoricPriceSource`; helpers `RouteHttp`/`Klines`, `FolderContext` (stub `ContextWrapper`
+  with test folders and in-memory SharedPreferences), proxy fakes for `WatchDao`, `PortfolioDao`,
+  `ExchangeRepository`. Still uncovered: `PulseDataSource`, `ExchangeRepositoryImpl`, `SparklineRepository`,
+  `PortfolioHistorySource` (Android-bound constructor dependencies).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
@@ -3189,10 +3209,6 @@ after the encryption step.
 
 Warnings that are not fixed, each with the reason. Everything else is fixed; CI keeps compiler warnings at 0.
 
-* **Android lint `UnusedResources` – `wear/src/main/res/values/wear.xml`, `android_wear_capabilities`.** The array is
-  never referenced from code: Google Play services read it by its fixed name to announce the capability
-  `cryptochecker_watch`, which the phone (`PhoneWatchSync`) asks for before it sends the coin list. Removing it would
-  stop the phone↔watch sync; lint cannot see that use. Not suppressed – open for the owner's decision.
 * **Swift `@unchecked Sendable` (96, counted against a ceiling, not compiler warnings).** 66 belong to the exchange
   adapters: `Exchange` is a class hierarchy without mutable state, and Swift cannot check a non-final class – removing
   them needs a protocol-based adapter design. About 25 guard state with `NSLock` where the state or a closure run under

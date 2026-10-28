@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">Lijst: zoals telefoon</string>
     <string name="watch_mode_own">Lijst: eigen</string>
     <string name="watch_phone_empty">Geen favorieten op de telefoon</string>
+    <string name="a11y_watch_outdated">Koers verouderd</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">laatst bijgewerkt %1$d minuut geleden</item>
+        <item quantity="other">laatst bijgewerkt %1$d minuten geleden</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">laatst bijgewerkt %1$d uur geleden</item>
+        <item quantity="other">laatst bijgewerkt %1$d uur geleden</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">laatst bijgewerkt %1$d dag geleden</item>
+        <item quantity="other">laatst bijgewerkt %1$d dagen geleden</item>
+    </plurals>
 </resources>

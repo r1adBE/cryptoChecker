@@ -12,4 +12,14 @@
     <string name="watch_mode_phone">リスト：スマホと同じ</string>
     <string name="watch_mode_own">リスト：独自</string>
     <string name="watch_phone_empty">スマホにお気に入りがありません</string>
+    <string name="a11y_watch_outdated">価格が古くなっています</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="other">最終更新：%1$d分前</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="other">最終更新：%1$d時間前</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="other">最終更新：%1$d日前</item>
+    </plurals>
 </resources>

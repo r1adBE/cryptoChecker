@@ -1,13 +1,15 @@
 package com.cryptochecker.app.overlay
 
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.settings.AppSettings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Preis-Overlay: Paare wie die dauerhafte Kurs-Mitteilung, Einrasten am Rand, «×»-Bereich. */
+/** Preis-Overlay: Paare wie die dauerhafte Kurs-Mitteilung, Einrasten am Rand, «×»-Bereich, veraltete Kurse. */
 class PriceOverlayRulesTest {
 
     private val on = AppSettings(priceOverlay = true, ongoingNotifications = true, priceNotifications = true)
@@ -41,5 +43,25 @@ class PriceOverlayRulesTest {
         assertTrue(PriceOverlayRules.inCloseZone(540, 1950, 1080, 2000, 200))
         assertFalse(PriceOverlayRules.inCloseZone(100, 1950, 1080, 2000, 200))
         assertFalse(PriceOverlayRules.inCloseZone(540, 1000, 1080, 2000, 200))
+    }
+
+    @Test
+    fun staleLikeTheWatchlistRow() {
+        val now = 1_700_000_000_000L
+        val minute = 60_000L
+        // Hintergrund-Intervall 15 Min. → Grenze 45 Min. (OutdatedRule), strikt älter
+        assertNull(PriceOverlayRules.stale(watch(1).copy(lastUpdate = now - 45 * minute), now, 15))
+        assertEquals(
+            PriceOverlayRules.Stale(PriceFreshness.StaleReason.FETCH, now - 45 * minute - 1),
+            PriceOverlayRules.stale(watch(1).copy(lastUpdate = now - 45 * minute - 1), now, 15),
+        )
+        // Intervall 60 Min. → Grenze 3 h: 2 h alt ist noch frisch
+        assertNull(PriceOverlayRules.stale(watch(1).copy(lastUpdate = now - 120 * minute), now, 60))
+        // Abruf frisch, letzter Handel laut Börse älter als 2 h: seit dem Handel
+        val trade = watch(1).copy(lastUpdate = now - minute, exchangeTime = now - 180 * minute)
+        assertEquals(PriceOverlayRules.Stale(PriceFreshness.StaleReason.TRADE, now - 180 * minute),
+            PriceOverlayRules.stale(trade, now, 15))
+        // Nie abgefragt: nicht «veraltet»
+        assertNull(PriceOverlayRules.stale(watch(1), now, 15))
     }
 }

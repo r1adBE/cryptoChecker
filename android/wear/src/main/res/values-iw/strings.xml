@@ -12,4 +12,20 @@
     <string name="watch_mode_phone">רשימה: כמו בטלפון</string>
     <string name="watch_mode_own">רשימה: אישית</string>
     <string name="watch_phone_empty">אין מועדפים בטלפון</string>
+    <string name="a11y_watch_outdated">השער לא עדכני</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">עודכן לאחרונה לפני %1$d דקה</item>
+        <item quantity="two">עודכן לאחרונה לפני %1$d דקות</item>
+        <item quantity="other">עודכן לאחרונה לפני %1$d דקות</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">עודכן לאחרונה לפני %1$d שעה</item>
+        <item quantity="two">עודכן לאחרונה לפני %1$d שעות</item>
+        <item quantity="other">עודכן לאחרונה לפני %1$d שעות</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">עודכן לאחרונה לפני %1$d יום</item>
+        <item quantity="two">עודכן לאחרונה לפני %1$d ימים</item>
+        <item quantity="other">עודכן לאחרונה לפני %1$d ימים</item>
+    </plurals>
 </resources>

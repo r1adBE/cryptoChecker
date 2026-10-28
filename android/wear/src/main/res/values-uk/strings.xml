@@ -12,4 +12,23 @@
     <string name="watch_mode_phone">Список: як на телефоні</string>
     <string name="watch_mode_own">Список: власний</string>
     <string name="watch_phone_empty">На телефоні немає обраного</string>
+    <string name="a11y_watch_outdated">Курс застарів</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">востаннє оновлено %1$d хвилину тому</item>
+        <item quantity="few">востаннє оновлено %1$d хвилини тому</item>
+        <item quantity="many">востаннє оновлено %1$d хвилин тому</item>
+        <item quantity="other">востаннє оновлено %1$d хвилини тому</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">востаннє оновлено %1$d годину тому</item>
+        <item quantity="few">востаннє оновлено %1$d години тому</item>
+        <item quantity="many">востаннє оновлено %1$d годин тому</item>
+        <item quantity="other">востаннє оновлено %1$d години тому</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">востаннє оновлено %1$d день тому</item>
+        <item quantity="few">востаннє оновлено %1$d дні тому</item>
+        <item quantity="many">востаннє оновлено %1$d днів тому</item>
+        <item quantity="other">востаннє оновлено %1$d дня тому</item>
+    </plurals>
 </resources>

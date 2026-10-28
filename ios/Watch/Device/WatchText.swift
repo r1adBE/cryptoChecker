@@ -1,7 +1,7 @@
 import Foundation
 
 /// Texte der Uhr aus `Localizable.xcstrings` (Android-Schlüssel, 31 Sprachen) und Zahlen kurz formatiert — wie
-/// Android `WatchFormat`.
+/// Android `WatchFormat`; Alter veralteter Kurse wie Android `WatchAge`.
 enum WatchText {
     static func t(_ key: String, _ args: CVarArg...) -> String {
         let format = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
@@ -31,4 +31,28 @@ enum WatchText {
         f.minimumIntegerDigits = 1
         return sign + (f.string(from: NSNumber(value: abs(value))) ?? "") + "%"
     }
+
+    /// «vor 47 Min.» — kurz und klein, steht hinter «+1.23%  ·» (wie Android `WatchAge.short`).
+    static func ago(_ time: Int64, now: Int64) -> String {
+        let f = RelativeDateTimeFormatter()
+        f.locale = Locale.current
+        f.unitsStyle = .abbreviated
+        f.formattingContext = .middleOfSentence
+        return f.localizedString(for: date(time), relativeTo: date(now))
+    }
+
+    /// «Kurs veraltet, zuletzt aktualisiert vor 47 Minuten» für VoiceOver (wie Android `WatchAge.spoken`).
+    static func spokenAge(_ time: Int64, now: Int64) -> String {
+        let age = WatchFreshness.age(time, now: now)
+        let updated: String? = switch age.unit {
+        case .justNow: nil
+        case .minutes: t("a11y_watch_updated_minutes", age.count)
+        case .hours: t("a11y_watch_updated_hours", age.count)
+        case .days: t("a11y_watch_updated_days", age.count)
+        }
+        return [t("a11y_watch_outdated"), updated].compactMap { $0 }.joined(separator: ", ")
+    }
+
+    /// Epoch-ms → Datum.
+    static func date(_ millis: Int64) -> Date { Date(timeIntervalSince1970: TimeInterval(millis) / 1000) }
 }

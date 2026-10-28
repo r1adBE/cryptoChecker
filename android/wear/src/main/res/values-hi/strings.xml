@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">सूची: फ़ोन जैसी</string>
     <string name="watch_mode_own">सूची: अपनी</string>
     <string name="watch_phone_empty">फ़ोन पर कोई पसंदीदा नहीं</string>
+    <string name="a11y_watch_outdated">भाव पुराना है</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">अंतिम अपडेट %1$d मिनट पहले</item>
+        <item quantity="other">अंतिम अपडेट %1$d मिनट पहले</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">अंतिम अपडेट %1$d घंटा पहले</item>
+        <item quantity="other">अंतिम अपडेट %1$d घंटे पहले</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">अंतिम अपडेट %1$d दिन पहले</item>
+        <item quantity="other">अंतिम अपडेट %1$d दिन पहले</item>
+    </plurals>
 </resources>

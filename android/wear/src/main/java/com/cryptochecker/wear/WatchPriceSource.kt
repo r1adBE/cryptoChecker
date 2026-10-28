@@ -1,42 +1,60 @@
 package com.cryptochecker.wear
 
+import com.cryptochecker.marketdata.watch.WatchCoins
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
-import java.net.URLEncoder
 
 /**
  * Kurse direkt bei den Börsen (kein Server, kein Google-Daten-Layer): zuerst Binance (nur die gewünschten
- * Coins in einer Abfrage), fehlende Coins bzw. bei Fehler/Sperre (z. B. HTTP 451) Bybit, dann OKX. Antworten höchstens
- * [MAX_BYTES] gross, je Abfrage [TIMEOUT_MS].
+ * Coins in einer Abfrage), fehlende Coins bzw. bei Fehler/Sperre (z. B. HTTP 451) Bybit, dann OKX — dort je fehlendem
+ * Coin eine kleine Abfrage (parallel), nie die ganze Spot-Liste. Höchstens [WatchCoins.MAX] Coins, also höchstens so
+ * viele Abfragen je Ausweich-Börse. Antworten höchstens [MAX_BYTES] gross, je Abfrage [TIMEOUT_MS].
  */
 object WatchPriceSource {
     private const val TIMEOUT_MS = 10_000
     private const val MAX_BYTES = 4 * 1024 * 1024
-    private const val USER_AGENT = "CryptoChecker-Wear/16.2.2"
+    private val USER_AGENT = "CryptoChecker-Wear/" + BuildConfig.VERSION_NAME
 
     suspend fun fetch(coins: List<String>): Map<String, WatchQuote> = withContext(Dispatchers.IO) {
-        if (coins.isEmpty()) return@withContext emptyMap()
-        val symbols = coins.joinToString(",", "[", "]") { "\"${it}USDT\"" }
-        val binance = runCatching {
-            WatchQuotes.binance(get("https://api.binance.com/api/v3/ticker/24hr?symbols=" + URLEncoder.encode(symbols, "UTF-8")), coins)
-        }.getOrDefault(emptyList())
+        fetch(coins) { url -> get(url) }
+    }
+
+    /**
+     * Ablauf mit austauschbarer Abfrage [get] (URL → Antwort; wirft bei HTTP-Fehler, Sperre oder ohne Netz) — für die
+     * Tests (`WatchQuotesParityTest`). Ergebnis in der Reihenfolge von [coins].
+     */
+    suspend fun fetch(coins: List<String>, get: suspend (String) -> String): Map<String, WatchQuote> {
+        val wanted = coins.distinct().take(WatchCoins.MAX)
+        if (wanted.isEmpty()) return emptyMap()
+        val binance = runCatching { WatchQuotes.binance(get(WatchQuotes.binanceUrl(wanted)), wanted) }.getOrDefault(emptyList())
         var merged = WatchQuotes.merge(binance)
-        if (merged.size < coins.size) {
-            val missing = coins - merged.keys
-            val bybit = runCatching { WatchQuotes.bybit(get("https://api.bybit.com/v5/market/tickers?category=spot"), missing) }
-                .getOrDefault(emptyList())
-            merged = WatchQuotes.merge(binance, bybit)
+        if (merged.size < wanted.size) {
+            val bybit = perCoin(wanted - merged.keys, get, WatchQuotes::bybitUrl, WatchQuotes::bybit)
+            merged = WatchQuotes.merge(merged.values.toList(), bybit)
         }
-        if (merged.size < coins.size) {
-            val missing = coins - merged.keys
-            val okx = runCatching { WatchQuotes.okx(get("https://www.okx.com/api/v5/market/tickers?instType=SPOT"), missing) }
-                .getOrDefault(emptyList())
+        if (merged.size < wanted.size) {
+            val okx = perCoin(wanted - merged.keys, get, WatchQuotes::okxUrl, WatchQuotes::okx)
             merged = WatchQuotes.merge(merged.values.toList(), okx)
         }
         // Reihenfolge der Favoriten
-        coins.mapNotNull { c -> merged[c]?.let { c to it } }.toMap(LinkedHashMap())
+        return wanted.mapNotNull { c -> merged[c]?.let { c to it } }.toMap(LinkedHashMap())
+    }
+
+    /** Je Coin eine Abfrage (gleichzeitig); ein Fehler betrifft nur diesen Coin. */
+    private suspend fun perCoin(
+        coins: List<String>,
+        get: suspend (String) -> String,
+        url: (String) -> String,
+        parse: (String, Collection<String>) -> List<WatchQuote>,
+    ): List<WatchQuote> = coroutineScope {
+        coins.map { coin ->
+            async { runCatching { parse(get(url(coin)), listOf(coin)) }.getOrDefault(emptyList()) }
+        }.awaitAll().flatten()
     }
 
     private fun get(url: String): String {

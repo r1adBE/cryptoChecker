@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Das Handy gleicht die Coin-Liste nur ab, wenn eine Uhr diese App hat (PhoneWatchSync) -->
-    <string-array name="android_wear_capabilities" translatable="false">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Das Handy gleicht die Coin-Liste nur ab, wenn eine Uhr diese App hat (PhoneWatchSync). Die Google Play-Dienste
+         lesen das Feld über seinen festen Namen, kein Code verweist darauf: Lint (UnusedResources) und der
+         Ressourcen-Schrumpfer des Release-Builds sähen es sonst als unbenutzt (behalten: res/raw/keep.xml) -->
+    <string-array name="android_wear_capabilities" translatable="false" tools:ignore="UnusedResources">
         <item>cryptochecker_watch</item>
     </string-array>
 </resources>

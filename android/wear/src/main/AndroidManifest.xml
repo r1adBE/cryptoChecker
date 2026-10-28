@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Kurse direkt bei den Börsen (Binance, Bybit, OKX); keine weiteren Berechtigungen -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 
+    <!-- tools:targetApi: dataExtractionRules gilt ab Android 12 (API 31, minSdk 30); bis Android 11 genügt
+         allowBackup="false" (Lint UnusedAttribute) -->
     <application
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@mipmap/ic_watch"
         android:label="@string/watch_app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.DeviceDefault">
+        android:theme="@android:style/Theme.DeviceDefault"
+        tools:targetApi="31">
 
         <!-- Eigenständig: läuft ohne die Handy-App -->
         <meta-data

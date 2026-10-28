@@ -12,4 +12,20 @@
     <string name="watch_mode_phone">Lista: como o telemóvel</string>
     <string name="watch_mode_own">Lista: própria</string>
     <string name="watch_phone_empty">Sem favoritos no telemóvel</string>
+    <string name="a11y_watch_outdated">Cotação desatualizada</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">última atualização há %1$d minuto</item>
+        <item quantity="many">última atualização há %1$d minutos</item>
+        <item quantity="other">última atualização há %1$d minutos</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">última atualização há %1$d hora</item>
+        <item quantity="many">última atualização há %1$d horas</item>
+        <item quantity="other">última atualização há %1$d horas</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">última atualização há %1$d dia</item>
+        <item quantity="many">última atualização há %1$d dias</item>
+        <item quantity="other">última atualização há %1$d dias</item>
+    </plurals>
 </resources>

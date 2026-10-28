@@ -12,4 +12,20 @@
     <string name="watch_mode_phone">Listă: ca pe telefon</string>
     <string name="watch_mode_own">Listă: proprie</string>
     <string name="watch_phone_empty">Nu există favorite pe telefon</string>
+    <string name="a11y_watch_outdated">Curs învechit</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">actualizat ultima dată acum %1$d minut</item>
+        <item quantity="few">actualizat ultima dată acum %1$d minute</item>
+        <item quantity="other">actualizat ultima dată acum %1$d de minute</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">actualizat ultima dată acum %1$d oră</item>
+        <item quantity="few">actualizat ultima dată acum %1$d ore</item>
+        <item quantity="other">actualizat ultima dată acum %1$d de ore</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">actualizat ultima dată acum %1$d zi</item>
+        <item quantity="few">actualizat ultima dată acum %1$d zile</item>
+        <item quantity="other">actualizat ultima dată acum %1$d de zile</item>
+    </plurals>
 </resources>

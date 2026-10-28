@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">Lista: mint a telefonon</string>
     <string name="watch_mode_own">Lista: saját</string>
     <string name="watch_phone_empty">Nincsenek kedvencek a telefonon</string>
+    <string name="a11y_watch_outdated">Az árfolyam elavult</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">utoljára frissítve %1$d perce</item>
+        <item quantity="other">utoljára frissítve %1$d perce</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">utoljára frissítve %1$d órája</item>
+        <item quantity="other">utoljára frissítve %1$d órája</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">utoljára frissítve %1$d napja</item>
+        <item quantity="other">utoljára frissítve %1$d napja</item>
+    </plurals>
 </resources>

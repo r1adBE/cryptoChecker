@@ -13,11 +13,11 @@ enum HttpUserAgent {
         return "cryptoChecker-iOS/\(v.isEmpty ? "16" : v)"
     }
 
-    /// Neutraler User-Agent für Adress-Hosts (verbreiteter vollständiger Browser-Wert:
-    /// Firefox ESR 153): ausdrücklich gesetzt, sonst sendet CFNetwork den Bundle-Namen. Nennt weder App noch Version,
+    /// Neutraler User-Agent für Adress-Hosts (verbreiteter vollständiger Browser-Wert: Firefox 159, Release Oktober
+    /// 2026): ausdrücklich gesetzt, sonst sendet CFNetwork den Bundle-Namen. Nennt weder App noch Version,
     /// tarnt die Anfrage aber nicht als Browser (TLS-/HTTP-Merkmale, IP und Abfragemuster bleiben die der App).
     /// Gleicher Wert wie Android (`Parity/address_privacy.json`).
-    static let neutral = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0"
+    static let neutral = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:159.0) Gecko/20100101 Firefox/159.0"
 
     /// Hosts, die eine Adresse zu sehen bekommen (`AddressBalance.privacyHosts`).
     private static let addressHosts: Set<String> = Set(AddressBalance.privacyHosts.map { $0.lowercased() })

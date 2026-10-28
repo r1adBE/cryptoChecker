@@ -15,6 +15,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 162)
+
+* Watch apps load fallback prices coin by coin instead of whole price lists; the watch, its complications and the Android price overlay grey out outdated prices and show how old they are.
+* Tests only: more unit tests for the Android data layer.
+
 ## 16.2.2 (build 161)
 
 * The old per-pair holdings field is gone (it was taken over into the portfolio once); backups no longer contain it, and the backup description no longer mentions holdings.

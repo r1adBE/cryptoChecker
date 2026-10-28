@@ -7,9 +7,12 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-/** Build-Nummer der Handy-App (versionCode in app/build.gradle.kts), damit sie nur an einer Stelle steht. */
-val phoneBuild: Int = Regex("""versionCode = (\d+)""").find(rootProject.file("app/build.gradle.kts").readText())
+/** Build-Nummer und Version der Handy-App (app/build.gradle.kts), damit sie nur an einer Stelle stehen. */
+val phoneGradle: String = rootProject.file("app/build.gradle.kts").readText()
+val phoneBuild: Int = Regex("""versionCode = (\d+)""").find(phoneGradle)
     ?.groupValues?.get(1)?.toInt() ?: error("versionCode der Handy-App nicht gefunden")
+val phoneVersion: String = Regex("""versionName = "([^"]+)"""").find(phoneGradle)
+    ?.groupValues?.get(1) ?: error("versionName der Handy-App nicht gefunden")
 
 // Wie :app – keine Compose-Zuordnung in proguard.map (wechselnde Reihenfolge, reproduzierbarer Build)
 composeCompiler {
@@ -25,7 +28,7 @@ android {
         minSdk = 30
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 90_000 + phoneBuild
-        versionName = "16.2.2"
+        versionName = phoneVersion
     }
 
     buildTypes {
@@ -43,6 +46,8 @@ android {
 
     buildFeatures {
         compose = true
+        // BuildConfig.VERSION_NAME für den User-Agent (WatchPriceSource)
+        buildConfig = true
     }
 
     lint {

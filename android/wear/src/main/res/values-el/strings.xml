@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">Λίστα: όπως στο κινητό</string>
     <string name="watch_mode_own">Λίστα: δική σου</string>
     <string name="watch_phone_empty">Δεν υπάρχουν αγαπημένα στο κινητό</string>
+    <string name="a11y_watch_outdated">Η τιμή δεν είναι επίκαιρη</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">τελευταία ενημέρωση πριν από %1$d λεπτό</item>
+        <item quantity="other">τελευταία ενημέρωση πριν από %1$d λεπτά</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">τελευταία ενημέρωση πριν από %1$d ώρα</item>
+        <item quantity="other">τελευταία ενημέρωση πριν από %1$d ώρες</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">τελευταία ενημέρωση πριν από %1$d ημέρα</item>
+        <item quantity="other">τελευταία ενημέρωση πριν από %1$d ημέρες</item>
+    </plurals>
 </resources>

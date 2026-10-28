@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -26,7 +28,9 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.ToggleChip
 import com.cryptochecker.marketdata.watch.WatchCoins
+import com.cryptochecker.marketdata.watch.WatchFreshness
 import com.cryptochecker.marketdata.watch.WatchSettings
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
@@ -34,7 +38,8 @@ import java.util.Date
 /**
  * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
  * Änderung über 24 h (Börse klein), darunter «Aktualisieren», der Umschalter der Liste und (eigene Liste) «Coins
- * wählen» mit den gängigen Coins zum Antippen (höchstens 8). Lädt beim Öffnen und nach jeder Änderung.
+ * wählen» mit den gängigen Coins zum Antippen (höchstens 8). Lädt beim Öffnen und nach jeder Änderung. Veraltete Kurse
+ * ([WatchFreshness]) grau mit Alter statt Börse («+1.23%  ·  vor 47 Min.»), wie die Merkliste des Handys.
  */
 @Composable
 fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
@@ -45,6 +50,8 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
         var loading by remember { mutableStateOf(false) }
         var failed by remember { mutableStateOf(false) }
         var choosing by remember { mutableStateOf(false) }
+        // Uhrzeit für das Alter der Kurse, jede Minute neu (grau ab 45 Min. auch ohne neue Kurse)
+        var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
         val scope = rememberCoroutineScope()
 
         fun refresh() {
@@ -75,13 +82,19 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
         // Beim Öffnen: Stand des Handys holen (Wahl, Favoriten)
         LaunchedEffect(Unit) { settings = WatchDataLayer.pull(context, store) }
         LaunchedEffect(settings.shown) { refresh() }
+        LaunchedEffect(Unit) {
+            while (true) {
+                now = System.currentTimeMillis()
+                delay(AGE_TICK_MS)
+            }
+        }
         BackHandler(enabled = choosing) { choosing = false }
 
         Scaffold(timeText = { TimeText() }) {
             if (choosing) {
                 ChooseList(settings.own) { coin -> change(settings.copy(own = WatchCoins.toggle(settings.own, coin))) }
             } else {
-                QuoteList(settings, cached.first, cached.second, loading, failed,
+                QuoteList(settings, cached.first, cached.second, now, loading, failed,
                     onRefresh = { refresh() },
                     onToggleMode = {
                         val mode = if (settings.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE
@@ -98,6 +111,7 @@ private fun QuoteList(
     settings: WatchSettings,
     quotes: Map<String, WatchQuote>,
     time: Long,
+    now: Long,
     loading: Boolean,
     failed: Boolean,
     onRefresh: () -> Unit,
@@ -106,6 +120,7 @@ private fun QuoteList(
 ) {
     val coins = settings.shown
     val phone = settings.mode == WatchSettings.Mode.PHONE
+    val context = LocalContext.current
     ScalingLazyColumn(state = rememberScalingLazyListState(), modifier = Modifier.fillMaxWidth()) {
         if (coins.isEmpty()) {
             item {
@@ -117,11 +132,18 @@ private fun QuoteList(
                 val q = quotes[coin]
                 val price = q?.let { WatchFormat.price(it.price) } ?: "—"
                 val change = WatchFormat.change(q?.change24h)
-                val spoken = stringResource(R.string.a11y_watch_row, coin, price, change)
+                val outdated = q != null && WatchFreshness.isOutdated(time, now)
+                val row = stringResource(R.string.a11y_watch_row, coin, price, change)
+                val spoken = if (outdated) "$row, ${WatchAge.spoken(context, time, now)}" else row
+                // Veraltet: Kurs grau, Alter statt Börse
+                val detail = if (outdated) WatchAge.short(time, now) else q?.source
                 Chip(
                     onClick = onRefresh,
-                    label = { Text("$coin  $price", maxLines = 1) },
-                    secondaryLabel = { Text(change + (q?.source?.let { "  ·  $it" } ?: ""), maxLines = 1) },
+                    label = {
+                        Text("$coin  $price", maxLines = 1,
+                            color = if (outdated) MaterialTheme.colors.onSurfaceVariant else Color.Unspecified)
+                    },
+                    secondaryLabel = { Text(change + (detail?.let { "  ·  $it" } ?: ""), maxLines = 1) },
                     colors = ChipDefaults.secondaryChipColors(),
                     modifier = Modifier.fillMaxWidth().semantics { contentDescription = spoken },
                 )
@@ -179,3 +201,6 @@ private fun ChooseList(own: List<String>, onToggle: (String) -> Unit) {
         }
     }
 }
+
+/** Takt, in dem die Uhr-App das Alter der Kurse neu bewertet. */
+private const val AGE_TICK_MS = 60_000L

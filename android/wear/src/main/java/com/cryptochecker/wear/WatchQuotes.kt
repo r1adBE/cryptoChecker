@@ -2,18 +2,33 @@ package com.cryptochecker.wear
 
 import org.json.JSONArray
 import org.json.JSONObject
+import java.net.URLEncoder
 
 /** Kurs eines Coins gegen USDT auf der Uhr: letzter Kurs, Änderung über 24 h in Prozent (null = unbekannt), Börse. */
 data class WatchQuote(val symbol: String, val price: Double, val change24h: Double?, val source: String)
 
 /**
- * Antworten der Börsen für die Uhr lesen: Binance `ticker/24hr`, Bybit `v5/market/tickers` (Spot),
- * OKX `v5/market/tickers` (Spot). Nur gewünschte Coins ([wanted], Kürzel ohne «USDT»), nur Kurse > 0.
+ * Abfragen und Antworten der Börsen für die Uhr: Binance `ticker/24hr?symbols=[…]` (alle Coins in einer Abfrage), Bybit
+ * `v5/market/tickers?category=spot&symbol=` und OKX `v5/market/ticker?instId=` (je Coin eine kleine Abfrage statt der
+ * ganzen Spot-Liste von mehreren 100 KB). Nur gewünschte Coins ([wanted], Kürzel ohne «USDT»), nur Kurse > 0.
+ * Wie iOS `WatchQuoteParser` (Paritäts-Fixture `watch_quotes.json`).
  */
 object WatchQuotes {
     const val BINANCE = "Binance"
     const val BYBIT = "Bybit"
     const val OKX = "OKX"
+
+    /** Binance: nur die gewünschten Coins (`symbols=["BTCUSDT",…]`, kodiert). */
+    fun binanceUrl(coins: List<String>): String {
+        val symbols = coins.joinToString(",", "[", "]") { "\"${it}USDT\"" }
+        return "https://api.binance.com/api/v3/ticker/24hr?symbols=" + URLEncoder.encode(symbols, "UTF-8")
+    }
+
+    /** Bybit: ein Spot-Paar (Kürzel nur `[A-Z0-9]`, siehe `WatchCoins`). */
+    fun bybitUrl(coin: String): String = "https://api.bybit.com/v5/market/tickers?category=spot&symbol=${coin}USDT"
+
+    /** OKX: ein Spot-Paar. */
+    fun okxUrl(coin: String): String = "https://www.okx.com/api/v5/market/ticker?instId=$coin-USDT"
 
     /** Binance: Array von `{symbol:"BTCUSDT", lastPrice, priceChangePercent}`. */
     fun binance(body: String, wanted: Collection<String>): List<WatchQuote> {
@@ -28,7 +43,10 @@ object WatchQuotes {
         return out
     }
 
-    /** Bybit: `result.list` mit `{symbol:"BTCUSDT", lastPrice, price24hPcnt}` (Anteil, 0.0123 = 1.23 %). */
+    /**
+     * Bybit: `result.list` mit `{symbol:"BTCUSDT", lastPrice, price24hPcnt}` (Anteil, 0.0123 = 1.23 %); unbekanntes
+     * Paar: `retCode` ≠ 0 ohne `list` → leer.
+     */
     fun bybit(body: String, wanted: Collection<String>): List<WatchQuote> {
         val list = JSONObject(body).optJSONObject("result")?.optJSONArray("list") ?: return emptyList()
         val out = ArrayList<WatchQuote>()
@@ -42,7 +60,7 @@ object WatchQuotes {
         return out
     }
 
-    /** OKX: `data` mit `{instId:"BTC-USDT", last, open24h}`; Änderung = last gegen open24h. */
+    /** OKX: `data` mit `{instId:"BTC-USDT", last, open24h}`; Änderung = last gegen open24h; unbekannt: `data` leer. */
     fun okx(body: String, wanted: Collection<String>): List<WatchQuote> {
         val data = JSONObject(body).optJSONArray("data") ?: return emptyList()
         val out = ArrayList<WatchQuote>()

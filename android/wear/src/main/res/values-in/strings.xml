@@ -12,4 +12,14 @@
     <string name="watch_mode_phone">Daftar: seperti ponsel</string>
     <string name="watch_mode_own">Daftar: sendiri</string>
     <string name="watch_phone_empty">Tidak ada favorit di ponsel</string>
+    <string name="a11y_watch_outdated">Harga usang</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="other">terakhir diperbarui %1$d menit lalu</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="other">terakhir diperbarui %1$d jam lalu</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="other">terakhir diperbarui %1$d hari lalu</item>
+    </plurals>
 </resources>

@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">Liste: wie Handy</string>
     <string name="watch_mode_own">Liste: eigene</string>
     <string name="watch_phone_empty">Keine Favoriten auf dem Handy</string>
+    <string name="a11y_watch_outdated">Kurs veraltet</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">zuletzt aktualisiert vor %1$d Minute</item>
+        <item quantity="other">zuletzt aktualisiert vor %1$d Minuten</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">zuletzt aktualisiert vor %1$d Stunde</item>
+        <item quantity="other">zuletzt aktualisiert vor %1$d Stunden</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">zuletzt aktualisiert vor %1$d Tag</item>
+        <item quantity="other">zuletzt aktualisiert vor %1$d Tagen</item>
+    </plurals>
 </resources>

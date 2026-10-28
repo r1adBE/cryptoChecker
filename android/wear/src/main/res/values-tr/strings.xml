@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">Liste: telefondaki gibi</string>
     <string name="watch_mode_own">Liste: kendi</string>
     <string name="watch_phone_empty">Telefonda favori yok</string>
+    <string name="a11y_watch_outdated">Fiyat güncel değil</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">son güncelleme %1$d dakika önce</item>
+        <item quantity="other">son güncelleme %1$d dakika önce</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">son güncelleme %1$d saat önce</item>
+        <item quantity="other">son güncelleme %1$d saat önce</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">son güncelleme %1$d gün önce</item>
+        <item quantity="other">son güncelleme %1$d gün önce</item>
+    </plurals>
 </resources>

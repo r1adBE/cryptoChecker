@@ -12,4 +12,23 @@
     <string name="watch_mode_phone">Seznam: jako v telefonu</string>
     <string name="watch_mode_own">Seznam: vlastní</string>
     <string name="watch_phone_empty">V telefonu nejsou žádné oblíbené</string>
+    <string name="a11y_watch_outdated">Kurz zastaralý</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">naposledy aktualizováno před %1$d minutou</item>
+        <item quantity="few">naposledy aktualizováno před %1$d minutami</item>
+        <item quantity="many">naposledy aktualizováno před %1$d minuty</item>
+        <item quantity="other">naposledy aktualizováno před %1$d minutami</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">naposledy aktualizováno před %1$d hodinou</item>
+        <item quantity="few">naposledy aktualizováno před %1$d hodinami</item>
+        <item quantity="many">naposledy aktualizováno před %1$d hodiny</item>
+        <item quantity="other">naposledy aktualizováno před %1$d hodinami</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">naposledy aktualizováno před %1$d dnem</item>
+        <item quantity="few">naposledy aktualizováno před %1$d dny</item>
+        <item quantity="many">naposledy aktualizováno před %1$d dne</item>
+        <item quantity="other">naposledy aktualizováno před %1$d dny</item>
+    </plurals>
 </resources>

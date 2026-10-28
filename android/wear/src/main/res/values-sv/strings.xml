@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">Lista: som telefonen</string>
     <string name="watch_mode_own">Lista: egen</string>
     <string name="watch_phone_empty">Inga favoriter på telefonen</string>
+    <string name="a11y_watch_outdated">Kursen är inaktuell</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">senast uppdaterad för %1$d minut sedan</item>
+        <item quantity="other">senast uppdaterad för %1$d minuter sedan</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">senast uppdaterad för %1$d timme sedan</item>
+        <item quantity="other">senast uppdaterad för %1$d timmar sedan</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">senast uppdaterad för %1$d dag sedan</item>
+        <item quantity="other">senast uppdaterad för %1$d dagar sedan</item>
+    </plurals>
 </resources>

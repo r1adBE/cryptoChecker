@@ -8,6 +8,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.provider.Settings
 import android.text.SpannableStringBuilder
+import android.text.format.DateUtils
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
@@ -25,16 +26,22 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.shownChange24h
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
+import com.cryptochecker.app.ui.features.watchlist.midSentence
+import com.cryptochecker.app.util.A11ySpeech
+import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.PriceFormat
 import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.WidgetColors
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,7 +53,9 @@ import javax.inject.Singleton
  * (`TYPE_APPLICATION_OVERLAY`, Berechtigung «Über anderen Apps einblenden»), kein Dienst: es folgt den gespeicherten
  * Kursen, also so oft wie die Kurs-Mitteilung (live bei offener App, sonst im Hintergrund-Intervall). Verschieben mit dem
  * Finger, rastet am Rand ein (Lage bleibt gespeichert); Tippen öffnet die App; auf das «×» unten ziehen schaltet es aus.
- * TalkBack: liest die Zeilen, Doppeltippen öffnet die App, Aktion «Overlay schliessen».
+ * Veraltete Kurse ([PriceOverlayRules.stale]) grau mit Alter «vor 47 Min.», wie die Merkliste; neu bewertet jede Minute,
+ * solange es steht. TalkBack: liest die Zeilen (mit Alter veralteter Kurse), Doppeltippen öffnet die App, Aktion «Overlay
+ * schliessen».
  */
 @Singleton
 class PriceOverlay @Inject constructor(
@@ -69,17 +78,21 @@ class PriceOverlay @Inject constructor(
         scope.launch {
             combine(settingsRepository.settings, watchRepository.observeWatches()) { s, w -> s to w }
                 .catch { hide() }
-                .collect { (settings, watches) -> render(settings, watches) }
+                .collectLatest { (settings, watches) ->
+                    // Solange es steht, jede Minute neu zeichnen: ein Kurs wird auch ohne neue Daten «veraltet»
+                    while (render(settings, watches, System.currentTimeMillis())) delay(AGE_TICK_MS)
+                }
         }
     }
 
     private fun canDraw(): Boolean = Settings.canDrawOverlays(context)
 
-    private fun render(settings: AppSettings, watches: List<WatchEntity>) {
+    /** Zeichnet das Overlay; false = ausgeblendet. */
+    private fun render(settings: AppSettings, watches: List<WatchEntity>, now: Long): Boolean {
         val pairs = PriceOverlayRules.pairs(watches, settings, canDraw())
         if (pairs.isEmpty()) {
             hide()
-            return
+            return false
         }
         val colors = WidgetColors.of(settings.accentColor, true, settings.priceColorScheme, settings.highContrast,
             settings.priceColorsInverted)
@@ -91,23 +104,56 @@ class PriceOverlay @Inject constructor(
             val changeText = PriceFormat.changePercent(change) ?: "—"
             val line = SpannableStringBuilder()
             val symbol = w.baseAsset.trim().uppercase()
+            val stale = PriceOverlayRules.stale(w, now, settings.backgroundIntervalMinutes)
             line.append(symbol, StyleSpan(Typeface.BOLD), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            line.append("  ").append(PriceFormat.price(w.lastPrice)).append("  ")
+            line.append("  ")
+            // Veraltet: Kurs und Änderung grau, dahinter das Alter
+            if (stale != null) {
+                line.append(PriceFormat.price(w.lastPrice), ForegroundColorSpan(colors.secondaryTextColor),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            } else {
+                line.append(PriceFormat.price(w.lastPrice))
+            }
+            line.append("  ")
             val color = when {
-                change == null || kotlin.math.abs(change) < 0.005 -> colors.secondaryTextColor
+                stale != null || change == null || kotlin.math.abs(change) < 0.005 -> colors.secondaryTextColor
                 change > 0 -> colors.upColor
                 else -> colors.downColor
             }
             line.append(PriceFormat.changeArrow(change) + changeText, ForegroundColorSpan(color), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            stale?.let {
+                line.append("  " + ago(it.since, now, DateUtils.FORMAT_ABBREV_RELATIVE),
+                    ForegroundColorSpan(colors.secondaryTextColor), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
             view.addView(TextView(context).apply {
                 text = line
                 setTextColor(colors.textColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, TEXT_SP)
                 maxLines = 1
             })
-            spoken += context.getString(R.string.label_value, w.displayName, PriceFormat.price(w.lastPrice) + ", " + changeText)
+            val value = listOfNotNull(PriceFormat.price(w.lastPrice), changeText, stale?.let { spokenStale(w, it, now) })
+            spoken += context.getString(R.string.label_value, w.displayName, value.joinToString(", "))
         }
         view.contentDescription = context.getString(R.string.a11y_price_overlay, spoken.joinToString("; "))
+        return true
+    }
+
+    /** Relative Zeit mitten in der Zeile («vor 47 Min.»; ohne [flags] ausgeschrieben «vor 47 Minuten»). */
+    private fun ago(time: Long, now: Long, flags: Int = 0): String = midSentence(
+        DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS, flags).toString(), now - time,
+    )
+
+    /**
+     * Wie der Zeilensatz der Merkliste: «Kurs veraltet, zuletzt aktualisiert vor 47 Minuten» bzw. «letzter Handel vor
+     * 3 Stunden».
+     */
+    private fun spokenStale(w: WatchEntity, stale: PriceOverlayRules.Stale, now: Long): String? = when (stale.reason) {
+        PriceFreshness.StaleReason.FETCH -> A11yText.freshness(
+            context,
+            if (w.lastError != null) A11ySpeech.Freshness.UNREACHABLE_OUTDATED else A11ySpeech.Freshness.OUTDATED,
+            w.lastUpdate, now, w.exchangeName,
+        )
+        PriceFreshness.StaleReason.TRADE -> context.getString(R.string.watchlist_row_last_trade_age, ago(stale.since, now))
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -265,5 +311,6 @@ class PriceOverlay @Inject constructor(
         const val CLOSE_SIZE_DP = 56f
         const val CLOSE_MARGIN_DP = 48f
         const val CLOSE_ZONE_DP = 96f
+        const val AGE_TICK_MS = 60_000L
     }
 }

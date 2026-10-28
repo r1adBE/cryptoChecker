@@ -12,4 +12,29 @@
     <string name="watch_mode_phone">القائمة: مثل الهاتف</string>
     <string name="watch_mode_own">القائمة: خاصة</string>
     <string name="watch_phone_empty">لا توجد مفضلة على الهاتف</string>
+    <string name="a11y_watch_outdated">السعر قديم</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="zero">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="one">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="two">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="few">آخر تحديث قبل %1$d دقائق</item>
+        <item quantity="many">آخر تحديث قبل %1$d دقيقة</item>
+        <item quantity="other">آخر تحديث قبل %1$d دقيقة</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="zero">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="one">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="two">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="few">آخر تحديث قبل %1$d ساعات</item>
+        <item quantity="many">آخر تحديث قبل %1$d ساعة</item>
+        <item quantity="other">آخر تحديث قبل %1$d ساعة</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="zero">آخر تحديث قبل %1$d يوم</item>
+        <item quantity="one">آخر تحديث قبل %1$d يوم</item>
+        <item quantity="two">آخر تحديث قبل %1$d يوم</item>
+        <item quantity="few">آخر تحديث قبل %1$d أيام</item>
+        <item quantity="many">آخر تحديث قبل %1$d يومًا</item>
+        <item quantity="other">آخر تحديث قبل %1$d يوم</item>
+    </plurals>
 </resources>

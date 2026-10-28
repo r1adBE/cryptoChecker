@@ -12,4 +12,23 @@
     <string name="watch_mode_phone">Список: как на телефоне</string>
     <string name="watch_mode_own">Список: свой</string>
     <string name="watch_phone_empty">На телефоне нет избранного</string>
+    <string name="a11y_watch_outdated">Курс устарел</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">последнее обновление %1$d минуту назад</item>
+        <item quantity="few">последнее обновление %1$d минуты назад</item>
+        <item quantity="many">последнее обновление %1$d минут назад</item>
+        <item quantity="other">последнее обновление %1$d минуты назад</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">последнее обновление %1$d час назад</item>
+        <item quantity="few">последнее обновление %1$d часа назад</item>
+        <item quantity="many">последнее обновление %1$d часов назад</item>
+        <item quantity="other">последнее обновление %1$d часа назад</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">последнее обновление %1$d день назад</item>
+        <item quantity="few">последнее обновление %1$d дня назад</item>
+        <item quantity="many">последнее обновление %1$d дней назад</item>
+        <item quantity="other">последнее обновление %1$d дня назад</item>
+    </plurals>
 </resources>

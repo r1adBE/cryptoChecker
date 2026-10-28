@@ -12,4 +12,17 @@
     <string name="watch_mode_phone">فهرست: مثل تلفن</string>
     <string name="watch_mode_own">فهرست: خودم</string>
     <string name="watch_phone_empty">در تلفن علاقه‌مندی‌ای نیست</string>
+    <string name="a11y_watch_outdated">قیمت قدیمی است</string>
+    <plurals name="a11y_watch_updated_minutes">
+        <item quantity="one">آخرین به‌روزرسانی %1$d دقیقه پیش</item>
+        <item quantity="other">آخرین به‌روزرسانی %1$d دقیقه پیش</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_hours">
+        <item quantity="one">آخرین به‌روزرسانی %1$d ساعت پیش</item>
+        <item quantity="other">آخرین به‌روزرسانی %1$d ساعت پیش</item>
+    </plurals>
+    <plurals name="a11y_watch_updated_days">
+        <item quantity="one">آخرین به‌روزرسانی %1$d روز پیش</item>
+        <item quantity="other">آخرین به‌روزرسانی %1$d روز پیش</item>
+    </plurals>
 </resources>
