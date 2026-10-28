@@ -2313,7 +2313,7 @@ next start.
   incl. `sqlite_sequence`, without `android_metadata`) → `ATTACH … KEY` + `sqlcipher_export` + `user_version` into
   `<db>.encrypting` → fingerprint of the copy with the key must be identical → delete `-wal/-shm/-journal` →
   rename the copy over the database. Room migrations (portfolio database) run afterwards on the
-  encrypted file. `MarketDatabase.db` (predecessor project) is still only deleted, never migrated.
+  encrypted file.
 * Plaintext fallback is not silent (build 69): `EncryptingOpenHelperFactory` records every decision in
   `DatabaseEncryptionNotice` (own SharedPreferences, never in a backup; rule `EncryptionPending`, pure Kotlin +
   `EncryptionPendingTest`): `Plaintext` and `Refused` add the database, `Encrypted` removes it, `KeyUnavailable` changes
@@ -3134,7 +3134,7 @@ after the encryption step.
   iOS foreground reload off the main thread (`AppData+DiskReload`); lease in the future = orphaned. Stichtag and
   Swiss wealth count addresses like the card (`AddressCutoff`), including addresses without lots; the card counts a
   transfer to the address once (1.4, not 1.7). DE 256 € line marked estimated. `localeFilters` with
-  `LocaleFiltersTest`; app licence file = LICENSE plus `NOTICE-thirdparty.txt`.
+  `LocaleFiltersTest`; app licence file = LICENSE plus `NOTICE-origin.txt`.
 * Build 90 (third audit of 20 October 2026): `BulkDelisted` state is persisted (`BulkDelistedStore`, SharedPreferences
   `bulk_delisted`; iOS App Group key `bulk_delisted`); the iOS widget never rechecks (`plan(…, lowMemory: true)`).
   `wealthCoinNoteBelowValue` shows the incomplete note under a partial CH value. iOS `PortfolioEdits` only reports

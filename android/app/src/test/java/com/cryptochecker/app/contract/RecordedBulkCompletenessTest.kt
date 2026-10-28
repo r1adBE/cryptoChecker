@@ -45,7 +45,7 @@ class RecordedBulkCompletenessTest {
     fun recordedBulkListsEveryRecordedPair() {
         val failures = ArrayList<String>()
         for ((key, file) in evidence) {
-            val exchange = ExchangesConfig.EXCHANGES[key] ?: throw AssertionError("unknown market $key")
+            val exchange = ExchangesConfig.EXCHANGES[key] ?: throw AssertionError("unknown exchange $key")
             if (!exchange.bulkTickersComplete) failures += "$key: bulkTickersComplete is false"
             val cases = ParityJson.parse(File(recordedDir(), file).readText(Charsets.UTF_8)).obj()["cases"].list()
                 .map { it.obj() }

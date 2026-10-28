@@ -11,7 +11,7 @@
          einer Sicherung gibt (SystemBackupAgent.EXPORT_NAME, eine Datei ohne WAL). Die Datenbank selbst
          (cryptochecker.db, verschlüsselt) steht bewusst NICHT hier: Ihr Schlüssel liegt im
          Keystore dieses Geräts und ginge nicht mit. Ebenso nie: Schlüsseldateien (noBackupFilesDir/db_keys),
-         beiseitegelegte *.unreadable, MarketDatabase.db (Altbestand). -->
+         beiseitegelegte *.unreadable. -->
     <include domain="database" path="cryptochecker_system_backup.db" requireFlags="clientSideEncryption" />
     <include domain="database" path="cryptochecker_system_backup.db" requireFlags="deviceToDeviceTransfer" />
     <!-- Nur für die Wiederherstellung alter Sicherungen (ältere Versionen mit unverschlüsselter Datenbank: cryptochecker.db-wal), die der Agent
@@ -26,8 +26,8 @@
          diese Kopie (PortfolioBackupMirror.FILE_NAME); aus = Datei gelöscht = nicht gesichert. -->
     <include domain="file" path="portfolio_system_backup.json" requireFlags="clientSideEncryption" />
     <include domain="file" path="portfolio_system_backup.json" requireFlags="deviceToDeviceTransfer" />
-    <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio (Übernahme-Marke,
-         damit der alte Bestand nach einer Wiederherstellung nicht doppelt übernommen wird) -->
+    <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio
+         (Zwischenspeicher der Coin-Listen) -->
     <include domain="sharedpref" path="app_language.xml" requireFlags="clientSideEncryption" />
     <include domain="sharedpref" path="app_language.xml" requireFlags="deviceToDeviceTransfer" />
     <include domain="sharedpref" path="favorites.xml" requireFlags="clientSideEncryption" />

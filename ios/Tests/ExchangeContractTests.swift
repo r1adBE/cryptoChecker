@@ -123,7 +123,7 @@ final class ExchangeContractTests: XCTestCase {
     }
 
     private func runSingle(_ c: [String: Any]) -> String? {
-        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown exchange \(c["exchangeKey"] ?? "")" }
         let info = pair(c["pair"] as? [String: Any] ?? [:])
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let body = c["body"] as? String ?? ""
@@ -167,7 +167,7 @@ final class ExchangeContractTests: XCTestCase {
     /// `readTickerFallback`, geprüft wie ein Einzelkurs. Fehler = in der App bleibt der Serverfehler
     /// (`SingleTickerFallback`, dort samt «status» geprüft). Wie Android.
     private func runSingleFallback(_ c: [String: Any]) -> String? {
-        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown exchange \(c["exchangeKey"] ?? "")" }
         let info = pair(c["pair"] as? [String: Any] ?? [:])
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let expect = c["expect"] as? [String: Any] ?? [:]
@@ -196,7 +196,7 @@ final class ExchangeContractTests: XCTestCase {
     }
 
     private func runBulk(_ c: [String: Any]) -> String? {
-        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown exchange \(c["exchangeKey"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let expect = c["expect"] as? [String: Any] ?? [:]
         let wantsError = expect["error"] as? Bool == true
@@ -232,7 +232,7 @@ final class ExchangeContractTests: XCTestCase {
 
     /// Paarliste: Anzahl, fehlende Kennungen und je Paar Basis, Kotierung, Vertragsart, TradFi.
     private func runPairs(_ c: [String: Any]) -> String? {
-        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown exchange \(c["exchangeKey"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let expect = c["expect"] as? [String: Any] ?? [:]
 
@@ -310,7 +310,7 @@ final class ExchangeContractTests: XCTestCase {
     /// das Paar des Einzelkurses (`contains`) — wie Android `runRecorded`. Beim Einzelkurs dazu die Werte selbst
     /// (`checkRecordedValues`), gemessen am Aufnahmezeitpunkt `recordedAt` (ms, nil = unbekannt).
     private func runRecorded(_ c: [String: Any], recordedAt: Int64?) -> String? {
-        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown exchange \(c["exchangeKey"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let body = c["body"] as? String ?? ""
         switch c["kind"] as? String ?? "" {
@@ -478,10 +478,10 @@ final class ExchangeContractTests: XCTestCase {
             }
         }
         let missing = ExchangesConfig.all.map(\.key).filter { !single.contains($0) }.sorted()
-        XCTAssertEqual(missing, [], "markets without a single-ticker contract case")
+        XCTAssertEqual(missing, [], "exchanges without a single-ticker contract case")
         let bulkMissing = ExchangesConfig.all.filter { $0.bulkTickersNumOfRequests > 0 && !bulk.contains($0.key) }
             .map(\.key).sorted()
-        XCTAssertEqual(bulkMissing, [], "markets with a batch endpoint but no bulk contract case")
+        XCTAssertEqual(bulkMissing, [], "exchanges with a batch endpoint but no bulk contract case")
     }
 
     /// Jede Börse mit WebSocket hat mindestens einen Live-Fall.

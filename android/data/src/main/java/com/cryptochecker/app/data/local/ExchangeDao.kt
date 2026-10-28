@@ -10,7 +10,7 @@ import com.cryptochecker.app.data.local.model.ExchangePairEntity
 import com.cryptochecker.app.data.local.model.ExchangeWithPairs
 import com.cryptochecker.app.domain.model.ExchangePairsInfo
 
-/** Zugriff auf die gespeicherten Paarlisten der Börsen (Tabellen «markets» und «market_pairs»). */
+/** Zugriff auf die gespeicherten Paarlisten der Börsen (Tabellen «exchanges» und «exchange_pairs»). */
 @Dao
 abstract class ExchangeDao {
 

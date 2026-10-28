@@ -63,7 +63,7 @@ class ExchangeCandleSourceErrorsTest {
     fun everySourceSupportsItsPairAndIsRegistered() {
         for ((source, pair) in supported) {
             assertTrue("${pair.exchangeKey}: supports", source.supports(pair))
-            assertTrue("${pair.exchangeKey}: marketKeys", pair.exchangeKey in source.exchangeKeys)
+            assertTrue("${pair.exchangeKey}: exchangeKeys", pair.exchangeKey in source.exchangeKeys)
             assertEquals("${pair.exchangeKey}: registry", source, ExchangeCandleRegistry.sourceFor(pair))
             assertFalse("${pair.exchangeKey}: rate limit", source.isRateLimited("""{"ok":true}"""))
         }

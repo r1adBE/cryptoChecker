@@ -127,7 +127,7 @@ private fun exchangeOrNull(exchangeKey: String): Exchange? = ExchangesConfig.EXC
 
 /** Wie [exchangeOrNull], aber eine unbekannte Börse ist ein Fehler. */
 private fun requireExchange(exchangeKey: String): Exchange =
-    exchangeOrNull(exchangeKey) ?: throw Resources.NotFoundException("Market not found (key=$exchangeKey)")
+    exchangeOrNull(exchangeKey) ?: throw Resources.NotFoundException("Exchange not found (key=$exchangeKey)")
 
 private fun Exception.textForUser(): String = message ?: javaClass.simpleName
 

@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
- * Ein Handelspaar einer gespeicherten Paarliste (Tabelle «market_pairs»); fällt mit seiner Börse
+ * Ein Handelspaar einer gespeicherten Paarliste (Tabelle «exchange_pairs»); fällt mit seiner Börse
  * weg. Felder, Reihenfolge und Schlüssel bilden das Schema — nicht verändern (keine Migration).
  */
 @Entity(

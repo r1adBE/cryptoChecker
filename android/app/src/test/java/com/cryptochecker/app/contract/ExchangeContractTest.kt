@@ -71,7 +71,7 @@ class ExchangeContractTest {
             .map { it.name to ParityJson.parse(it.readText(Charsets.UTF_8)).obj() }
 
     private fun exchange(key: String): Exchange =
-        ExchangesConfig.EXCHANGES[key] ?: throw CaseFailure("unknown market key $key")
+        ExchangesConfig.EXCHANGES[key] ?: throw CaseFailure("unknown exchange key $key")
 
     private fun close(expected: Double, actual: Double): Boolean {
         if (expected == actual) return true
@@ -485,12 +485,12 @@ class ExchangeContractTest {
             }
         }
         val missing = ExchangesConfig.EXCHANGES.keys.filter { it !in covered }.sorted()
-        assertTrue("markets without a single-ticker contract case: $missing", missing.isEmpty())
+        assertTrue("exchanges without a single-ticker contract case: $missing", missing.isEmpty())
 
         val bulkMissing = ExchangesConfig.EXCHANGES.values
             .filter { it.bulkTickersNumOfRequests > 0 && it.key !in bulkCovered }
             .map { it.key }.sorted()
-        assertTrue("markets with a batch endpoint but no bulk contract case: $bulkMissing", bulkMissing.isEmpty())
+        assertTrue("exchanges with a batch endpoint but no bulk contract case: $bulkMissing", bulkMissing.isEmpty())
     }
 
     /** Jede Börse mit WebSocket hat mindestens einen Live-Fall. */

@@ -9,7 +9,7 @@
              einer Sicherung gibt (SystemBackupAgent.EXPORT_NAME, eine Datei ohne WAL). Die Datenbank selbst
              (cryptochecker.db, verschlüsselt) steht bewusst NICHT hier: Ihr Schlüssel liegt im
              Keystore dieses Geräts und ginge nicht mit. Ebenso nie: Schlüsseldateien (noBackupFilesDir/db_keys),
-             beiseitegelegte *.unreadable, MarketDatabase.db (Altbestand). -->
+             beiseitegelegte *.unreadable. -->
         <include domain="database" path="cryptochecker_system_backup.db" />
         <!-- Nur für die Wiederherstellung alter Sicherungen (ältere Versionen mit unverschlüsselter Datenbank: cryptochecker.db-wal), die der Agent
              hierhin umleitet (SystemBackupAgent.onRestoreFile); beim Sichern gibt es die Datei nie. -->
@@ -20,8 +20,8 @@
              steht bewusst NICHT hier. Nur mit dem Schalter «Portfolio in Systemsicherung» gibt es
              diese Kopie (PortfolioBackupMirror.FILE_NAME); aus = Datei gelöscht = nicht gesichert. -->
         <include domain="file" path="portfolio_system_backup.json" />
-        <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio (Übernahme-Marke,
-             damit der alte Bestand nach einer Wiederherstellung nicht doppelt übernommen wird) -->
+        <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio
+             (Zwischenspeicher der Coin-Listen) -->
         <include domain="sharedpref" path="app_language.xml" />
         <include domain="sharedpref" path="favorites.xml" />
         <include domain="sharedpref" path="portfolio.xml" />
@@ -37,7 +37,7 @@
              einer Sicherung gibt (SystemBackupAgent.EXPORT_NAME, eine Datei ohne WAL). Die Datenbank selbst
              (cryptochecker.db, verschlüsselt) steht bewusst NICHT hier: Ihr Schlüssel liegt im
              Keystore dieses Geräts und ginge nicht mit. Ebenso nie: Schlüsseldateien (noBackupFilesDir/db_keys),
-             beiseitegelegte *.unreadable, MarketDatabase.db (Altbestand). -->
+             beiseitegelegte *.unreadable. -->
         <include domain="database" path="cryptochecker_system_backup.db" />
         <!-- Nur für die Wiederherstellung alter Sicherungen (ältere Versionen mit unverschlüsselter Datenbank: cryptochecker.db-wal), die der Agent
              hierhin umleitet (SystemBackupAgent.onRestoreFile); beim Sichern gibt es die Datei nie. -->
@@ -48,8 +48,8 @@
              steht bewusst NICHT hier. Nur mit dem Schalter «Portfolio in Systemsicherung» gibt es
              diese Kopie (PortfolioBackupMirror.FILE_NAME); aus = Datei gelöscht = nicht gesichert. -->
         <include domain="file" path="portfolio_system_backup.json" />
-        <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio (Übernahme-Marke,
-             damit der alte Bestand nach einer Wiederherstellung nicht doppelt übernommen wird) -->
+        <!-- SharedPreferences mit Nutzerdaten: App-Sprache, Favoriten, Portfolio
+             (Zwischenspeicher der Coin-Listen) -->
         <include domain="sharedpref" path="app_language.xml" />
         <include domain="sharedpref" path="favorites.xml" />
         <include domain="sharedpref" path="portfolio.xml" />

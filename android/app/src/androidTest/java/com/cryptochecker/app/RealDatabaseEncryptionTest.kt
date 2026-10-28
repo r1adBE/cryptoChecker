@@ -95,7 +95,7 @@ class RealDatabaseEncryptionTest {
         const val MAIN = "realdb-test.db"
         const val PORTFOLIO = "realdb-test-portfolio.db"
         const val TEST_ALIAS = "cryptochecker_db_key_realdb_test"
-        /** Nutzerdaten: exakt gleich viele Zeilen (Zwischenspeicher wie market_pairs dürfen sich ändern). */
+        /** Nutzerdaten: exakt gleich viele Zeilen (Zwischenspeicher wie exchange_pairs dürfen sich ändern). */
         val EXACT_TABLES = setOf("watches", "alarms", "portfolio_tx", "portfolio_alarms", "watched_addresses")
     }
 }

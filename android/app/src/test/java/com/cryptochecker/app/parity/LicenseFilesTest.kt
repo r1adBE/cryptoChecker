@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Lizenzdatei der App byte-gleich mit `LICENSE` (Android und iOS), der Herkunftshinweis in eigener Datei
+ * Lizenzdatei der App byte-gleich mit `LICENSE` (Android und iOS), die Hinweise zu Dritten in eigener Datei
  * `NOTICE-thirdparty.txt` (beide Plattformen gleich) — so zeigt «Lizenzen» genau den Text der Projekt-Lizenz.
  */
 class LicenseFilesTest {
