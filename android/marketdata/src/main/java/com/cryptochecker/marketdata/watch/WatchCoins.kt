@@ -1,7 +1,7 @@
 package com.cryptochecker.marketdata.watch
 
 /**
- * Coins der Uhr-Apps (Build 154): Auswahl der gängigen Coins gegen USDT, höchstens [MAX] je Liste. Gemeinsam für die
+ * Coins der Uhr-Apps: Auswahl der gängigen Coins gegen USDT, höchstens [MAX] je Liste. Gemeinsam für die
  * Handy-App (Einstellungen › Uhr) und die Wear-OS-App. Wie iOS `WatchCoins` (Paritäts-Fixture `watch_settings.json`).
  */
 object WatchCoins {

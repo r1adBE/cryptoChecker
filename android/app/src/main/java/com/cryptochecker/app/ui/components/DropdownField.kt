@@ -80,7 +80,7 @@ private const val MAX_VISIBLE_ROWS = 10
  * @param favorites Einträge mit Stern, stehen vorne.
  * @param onToggleFavorite gesetzt: Stern je Zeile und langes Drücken schalten den Favoriten um.
  * @param emptyText blasser Text im Feld, solange nichts gewählt ist.
- * @param sections Abschnittstitel je Eintrag (gleiche Länge wie [itemList], Build 133: Börsenauswahl Spot · Futures ·
+ * @param sections Abschnittstitel je Eintrag (gleiche Länge wie [itemList]: Börsenauswahl Spot · Futures ·
  *   DEX-Pools · Forex); die Liste zeigt dann Titelzeilen, die Suche geht über alle Abschnitte.
  */
 @OptIn(ExperimentalMaterial3Api::class)

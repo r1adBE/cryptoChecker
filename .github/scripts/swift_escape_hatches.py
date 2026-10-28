@@ -19,7 +19,7 @@ IOS_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
 # Allowed number per kind (count in code, without comments). Raise only deliberately; lower when the code shrinks.
 CEILINGS = {
-    "@unchecked Sendable": 104,  # +2 BitunixFutures, EcbReference (build 133); +1 WatchLink (WCSessionDelegate, build 155)
+    "@unchecked Sendable": 96,  # adapters (Market hierarchy) and NSLock boxes; 8 boxes moved to OSAllocatedUnfairLock
     "nonisolated(unsafe)": 13,
     "DispatchSemaphore": 0,
 }

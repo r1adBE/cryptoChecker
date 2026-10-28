@@ -1,7 +1,7 @@
 // Kurse aktualisieren (Teil von `WatchlistViewModel`): alle bzw. ein Paar, vom Nutzer ausgelöst mit
 // Entprellung oder intern, dazu ob gerade eine Aktualisierung läuft und der Bericht des letzten Durchlaufs.
-// Eigene Klasse, weil das Auslösen der Abfrage eine eigene Aufgabe ist; das ViewModel besitzt sie und gibt
-// [scope] (seinen viewModelScope) mit.
+// Eigene Klasse, weil das Auslösen der Abfrage eine eigene Aufgabe ist; das ViewModel erzeugt sie über [Factory]
+// (Hilt setzt die Abhängigkeiten ein) und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.RefreshStats
@@ -13,6 +13,9 @@ import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.work.PriceUpdateScheduler
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,14 +23,20 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-internal class WatchlistRefreshController(
-    private val scope: CoroutineScope,
+internal class WatchlistRefreshController @AssistedInject constructor(
+    @Assisted private val scope: CoroutineScope,
     private val priceRefresher: PriceRefresher,
     private val manualRefresh: ManualRefresh,
     private val refreshStats: RefreshStats,
     private val sheetChartRepository: SheetChartRepository,
     scheduler: PriceUpdateScheduler,
 ) {
+    /** Erzeugt den Controller mit dem viewModelScope des Besitzers; die übrigen Abhängigkeiten setzt Hilt ein. */
+    @AssistedFactory
+    interface Factory {
+        fun create(scope: CoroutineScope): WatchlistRefreshController
+    }
+
     /**
      * Läuft, solange die per Knopf (App) angestossene Aktualisierung arbeitet oder die
      * aus dem Widget-Knopf bei WorkManager wartet oder arbeitet.

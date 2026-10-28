@@ -83,7 +83,7 @@ struct AboutSettingsPage: View {
             LicensesSheet(asPage: true)
         }
         .settingsAnchor("about.licenses")
-        // «Entwickler» erst nach 7 Tipps auf die Version (oben); nur im Debug-Build (Build 132 von «Erweitert» hierher)
+        // «Entwickler» erst nach 7 Tipps auf die Version (oben); nur im Debug-Build
         if data.settings.developerUnlocked && DeveloperOptions.available {
             RowDivider()
             SettingsNavRow(title: L("settings_section_developer"), icon: .system("hammer"),

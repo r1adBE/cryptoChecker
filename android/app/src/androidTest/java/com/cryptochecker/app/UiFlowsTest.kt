@@ -62,7 +62,7 @@ class UiFlowsTest {
     val picker = DocumentPickerStub()
 
     @get:Rule(order = 3)
-    // v2-Regel (Build 134): Compose-Koroutinen laufen über den Testtakt auf dem UI-Thread. Die alte Regel liess sie auf
+    // v2-Regel: Compose-Koroutinen laufen über den Testtakt auf dem UI-Thread. Die alte Regel liess sie auf
     // dem Thread weiterlaufen, der sie weckte (Flows mit flowOn, DataStore) — daher die seltenen Compose-Abstürze
     // («Reentrant composition», SlotTable) in importCsvAndUndo.
     val compose = createAndroidComposeRule<MainActivity>()

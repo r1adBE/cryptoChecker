@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// 24-h- und Tages-Bezüge aus Kerzen für die %-Veränderung: welche Paare Kerzen brauchen, Laden
 /// anstossen und kurz abwarten, Veränderung gemäss %-Basis. Wie `DayReferences.kt`; Teil von `PriceRefresher`.
@@ -232,98 +233,84 @@ extension PriceRefresher {
 }
 
 /// Paare der Merkliste je `CandlePair.cacheKey` für die Abrufe eigener Kerzen (threadsicher).
-final class OwnPairRegistry: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var pairs: [String: CandlePair] = [:]
+final class OwnPairRegistry: Sendable {
+    private let pairs = OSAllocatedUnfairLock(initialState: [String: CandlePair]())
 
     func set(_ pair: CandlePair) {
-        lock.lock()
-        pairs[pair.cacheKey] = pair
-        lock.unlock()
+        pairs.withLock { $0[pair.cacheKey] = pair }
     }
 
     func get(_ key: String) -> CandlePair? {
-        lock.lock()
-        defer { lock.unlock() }
-        return pairs[key]
+        pairs.withLock { $0[key] }
     }
 }
 
 /// Gemerkte Watch-Ids, deren Ticker beim letzten vollen Durchlauf keinen 24-h-Wert hatte
 /// (threadsicher; App und Hintergrund können gleichzeitig aktualisieren).
-final class CandleNeeds: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var stored = Set<Int64>()
+final class CandleNeeds: Sendable {
+    private let stored = OSAllocatedUnfairLock(initialState: Set<Int64>())
 
     var ids: Set<Int64> {
-        get { lock.lock(); defer { lock.unlock() }; return stored }
-        set { lock.lock(); stored = newValue; lock.unlock() }
+        get { stored.withLock { $0 } }
+        set { stored.withLock { $0 = newValue } }
     }
 }
 
 /// Watch-Ids mit einer Änderung aus Kerzen und der genommenen Reihe (threadsicher).
-final class CandlePills: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var entries: [Int64: DayChange.CandleSeries] = [:]
+final class CandlePills: Sendable {
+    private let entries = OSAllocatedUnfairLock(initialState: [Int64: DayChange.CandleSeries]())
 
     /// Merkt die Reihe (oder vergisst mit nil — Änderung aus dem Ticker bzw. ohne Wert).
     func set(_ id: Int64, series: DayChange.CandleSeries?) {
-        lock.lock()
-        entries[id] = series
-        lock.unlock()
+        entries.withLock { $0[id] = series }
     }
 
     func contains(_ id: Int64) -> Bool { series(id) != nil }
 
     func series(_ id: Int64) -> DayChange.CandleSeries? {
-        lock.lock()
-        defer { lock.unlock() }
-        return entries[id]
+        entries.withLock { $0[id] }
     }
 }
 
 /// Anbieter der gemerkten Ausweich-Bezüge je «BASE|QUOTE» (threadsicher) — wie der Anbieter in `SparklineRepository.kt`.
-final class ReferenceProviders: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var entries: [String: String] = [:]
+final class ReferenceProviders: Sendable {
+    private let entries = OSAllocatedUnfairLock(initialState: [String: String]())
 
     /// Merkt den Anbieter (oder vergisst ihn mit nil — unbekannt).
     func set(_ key: String, provider: String?) {
-        lock.lock()
-        entries[key] = provider
-        lock.unlock()
+        entries.withLock { $0[key] = provider }
     }
 
     func provider(_ key: String) -> String? {
-        lock.lock()
-        defer { lock.unlock() }
-        return entries[key]
+        entries.withLock { $0[key] }
     }
 }
 
 /// Setzt eine Fortsetzung genau einmal fort (wer zuerst kommt: Ende der Aufgabe oder Zeitgrenze).
-final class ResumeOnce: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var continuation: CheckedContinuation<Void, Never>?
-    private var done = false
+final class ResumeOnce: Sendable {
+    private struct State: Sendable {
+        var continuation: CheckedContinuation<Void, Never>?
+        var done = false
+    }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     func set(_ continuation: CheckedContinuation<Void, Never>) {
-        lock.lock()
-        defer { lock.unlock() }
-        if done {
-            continuation.resume()
-        } else {
-            self.continuation = continuation
+        let resumeNow = state.withLock { s -> Bool in
+            if s.done { return true }
+            s.continuation = continuation
+            return false
         }
+        if resumeNow { continuation.resume() }
     }
 
     func resume() {
-        lock.lock()
-        let pending = continuation
-        continuation = nil
-        let first = !done
-        done = true
-        lock.unlock()
-        if first { pending?.resume() }
+        let pending = state.withLock { s -> CheckedContinuation<Void, Never>? in
+            guard !s.done else { return nil }
+            s.done = true
+            defer { s.continuation = nil }
+            return s.continuation
+        }
+        pending?.resume()
     }
 }

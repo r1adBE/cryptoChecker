@@ -159,7 +159,7 @@ final class AccessibilityAuditTests: XCTestCase {
         }
         // In drei Gruppen von Prüfarten statt `.all` in einem Durchgang: jede ist kürzer, die Zeitgrenze (Code -56) wird
         // seltener erreicht. Ein zweites `.all`-Audit gleich nach einer Zeitgrenze liess den Test-Runner abstürzen
-        // («Restarting after unexpected exit», main Build 147, Rechts-nach-links); jede Art einzeln war zu langsam (Schritt
+        // («Restarting after unexpected exit», Rechts-nach-links); jede Art einzeln war zu langsam (Schritt
         // über 30 min). Langsamer CI-Mac: je Gruppe bis zu zweimal wiederholen (nach kurzer Pause), dann zählt der Fehler.
         // Befunde selbst werden nie wiederholt
         for type in Self.auditGroups {

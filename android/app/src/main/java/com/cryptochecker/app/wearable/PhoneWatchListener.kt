@@ -6,7 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-/** Neue Wahl bzw. eigene Liste auf der Uhr: in [PhoneWatchSync] übernehmen (Build 154). */
+/** Neue Wahl bzw. eigene Liste auf der Uhr: in [PhoneWatchSync] übernehmen. */
 @AndroidEntryPoint
 class PhoneWatchListener : WearableListenerService() {
     @Inject lateinit var sync: PhoneWatchSync

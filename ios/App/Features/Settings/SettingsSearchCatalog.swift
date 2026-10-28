@@ -17,7 +17,7 @@ enum SettingsSearchCatalog {
                                             target: target))
         }
 
-        // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr, Build 132). Der Pfad einer Seite kommt
+        // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr). Der Pfad einer Seite kommt
         // aus ihrem Ort (`SettingsSearchPage.home`), damit er nach jeder Umstellung zur Anordnung passt
         let general = L("settings_group_general")
         let appearance = L("settings_section_appearance")
@@ -52,7 +52,7 @@ enum SettingsSearchCatalog {
              L("settings_live_service"), L("settings_live_websocket")])
         add("updates.background_interval", L("settings_background_interval"), updatesPath,
             .page(.updates, anchor: "updates.background_interval"), [L("settings_ios_background_hint")])
-        // «Letzte Prüfungen»: Karte ganz unten auf der Seite, eigener Treffer (wie Android, Build 148; «Pünktlich prüfen»
+        // «Letzte Prüfungen»: Karte ganz unten auf der Seite, eigener Treffer (wie Android; «Pünktlich prüfen»
         // gibt es nur in Android)
         add("updates.check_runs", L("settings_check_runs_title"), updatesPath, .page(.updates, anchor: "updates.check_runs"),
             [L("settings_check_runs_honest_ios")])
@@ -168,7 +168,7 @@ enum SettingsSearchCatalog {
         add("backup.import", L("backup_import"), backup, .page(.backup, anchor: "backup.actions"))
         // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
         add("main.reset", L("settings_reset_app"), "", .main("main.reset"), [L("settings_reset_app_confirm")])
-        // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste» (Build 132);
+        // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»;
         // frühere Namen bleiben Suchwörter
         let futures = L("settings_asset_scope_title")
         add("page.markets", futures, watchlist, .page(.markets, anchor: nil))

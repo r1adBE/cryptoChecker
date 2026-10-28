@@ -30,7 +30,7 @@ import com.cryptochecker.app.util.PercentText
 
 /**
  * Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung», [onOpenPage]), «Damit Alarme ankommen», Markt-Meldungen
- * ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]) — seit Build 132 hier statt unter «Erweitert» —,
+ * ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]) — hier statt unter «Erweitert» —,
  * Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Zahl am App-Symbol, USDT-Depeg, Probe-Alarm.
  */
 @Composable

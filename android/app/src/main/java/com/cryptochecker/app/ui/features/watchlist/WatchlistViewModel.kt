@@ -5,9 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.CoinLogoRepository
-import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.SheetChartRepository
-import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.WatchRepository
@@ -18,8 +15,6 @@ import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.domain.activity.WhyReport
 import com.cryptochecker.app.domain.live.LivePair
 import com.cryptochecker.app.domain.live.LiveQuote
-import com.cryptochecker.app.domain.refresh.ManualRefresh
-import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshDebounce
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.starter.AddMoment
@@ -31,12 +26,8 @@ import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.app.domain.watch.SheetChartRange
 import com.cryptochecker.app.domain.watch.SheetChartResult
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.ConnectivityMonitor
-import com.cryptochecker.app.widget.WidgetPrefs
-import com.cryptochecker.app.widget.WidgetUpdater
-import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -58,22 +49,13 @@ import javax.inject.Inject
  * Ableitungen aus den Einstellungen; der Bildschirm sammelt alles gebündelt als [uiState].
  */
 @HiltViewModel
-class WatchlistViewModel @Inject constructor(
+class WatchlistViewModel @Inject internal constructor(
     watchRepository: WatchRepository,
-    priceRefresher: PriceRefresher,
-    notifier: AppNotifier,
-    widgetUpdater: WidgetUpdater,
-    scheduler: PriceUpdateScheduler,
-    manualRefresh: ManualRefresh,
-    refreshStats: RefreshStats,
     connectivity: ConnectivityMonitor,
     private val settingsRepository: SettingsRepository,
     activityRepository: ActivityRepository,
-    widgetPrefs: WidgetPrefs,
     private val currencyConverter: CurrencyConverter,
-    starterCoinsRepository: StarterCoinsRepository,
     private val addMoments: AddMoments,
-    sheetChartRepository: SheetChartRepository,
     private val livePriceStream: LivePriceStream,
     coinLogoRepository: CoinLogoRepository,
     /** Namen der Coins je Börse: klar anderer Name als in der Alpha-Liste → kein «α» ([AssetKind.of]). */
@@ -82,37 +64,20 @@ class WatchlistViewModel @Inject constructor(
     portfolioAlarmRepository: PortfolioAlarmRepository,
     /** Daten für Aktionsblatt und Zeilen (Mini-Chart, Herkunft, Futures, Spot, Chart). */
     private val sheetData: WatchlistSheetData,
+    /** Aktualisieren ([WatchlistRefreshController]): Abfrage, Entprellung, Bericht. */
+    refreshFactory: WatchlistRefreshController.Factory,
+    /** Start-Auswahl ([WatchlistStarterController]). */
+    starterFactory: WatchlistStarterController.Factory,
+    /** Schreibende Aktionen ([WatchlistEditController]). */
+    editsFactory: WatchlistEditController.Factory,
 ) : ViewModel() {
 
-    private val refresh = WatchlistRefreshController(
-        scope = viewModelScope,
-        priceRefresher = priceRefresher,
-        manualRefresh = manualRefresh,
-        refreshStats = refreshStats,
-        sheetChartRepository = sheetChartRepository,
-        scheduler = scheduler,
-    )
+    private val refresh = refreshFactory.create(viewModelScope)
 
-    private val starter = WatchlistStarterController(
-        scope = viewModelScope,
-        starterCoinsRepository = starterCoinsRepository,
-        settingsRepository = settingsRepository,
-        coinLogoRepository = coinLogoRepository,
-        watchRepository = watchRepository,
-        addMoments = addMoments,
-        widgetUpdater = widgetUpdater,
-        refreshAll = refresh::refreshAll,
-    )
+    private val starter = starterFactory.create(viewModelScope, refresh::refreshAll)
 
-    private val edits: WatchlistEditController = WatchlistEditController(
+    private val edits: WatchlistEditController = editsFactory.create(
         scope = viewModelScope,
-        watchRepository = watchRepository,
-        settingsRepository = settingsRepository,
-        priceRefresher = priceRefresher,
-        notifier = notifier,
-        widgetUpdater = widgetUpdater,
-        widgetPrefs = widgetPrefs,
-        addMoments = addMoments,
         groupFilter = { contentFlows.groupFilter.value },
         refreshAll = refresh::refreshAll,
     )

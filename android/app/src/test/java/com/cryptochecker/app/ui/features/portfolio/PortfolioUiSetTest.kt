@@ -18,7 +18,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-// Kleine Testklassen dieses Themas in einer Datei (R, Build 147); jede Klasse unverändert.
+// Kleine Testklassen dieses Themas in einer Datei; jede Klasse unverändert.
 
 // ---- aus PortfolioAlarmCreateGuardTest
 

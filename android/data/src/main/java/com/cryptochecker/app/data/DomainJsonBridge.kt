@@ -5,7 +5,7 @@ import com.cryptochecker.app.util.json.JsonObject
 import org.json.JSONArray
 import org.json.JSONObject
 
-// Übergang zwischen org.json (Codecs in :data/:app) und dem eigenen JSON von :domain (Build 153, Schritt zu Kotlin
+// Übergang zwischen org.json (Codecs in :data/:app) und dem eigenen JSON von :domain (Schritt zu Kotlin
 // Multiplatform): über den Text, beide lesen und schreiben gleich (`JsonCompatibilityTest`).
 
 /** org.json → JSON von `:domain`. */

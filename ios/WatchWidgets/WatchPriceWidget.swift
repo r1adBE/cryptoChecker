@@ -1,7 +1,7 @@
 import SwiftUI
 import WidgetKit
 
-/// Komplikation der Apple-Watch-App (Build 155): der erste Coin der gewählten Liste — rund «BTC / +1.2%», rechteckig
+/// Komplikation der Apple-Watch-App: der erste Coin der gewählten Liste — rund «BTC / +1.2%», rechteckig
 /// mit Kurs, als Zeile «BTC +1.2%». Sind die gespeicherten Kurse älter als 10 Minuten, lädt sie neu (Zeitleiste alle
 /// 15 Minuten); ohne Netz die letzten. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
 struct WatchPriceEntry: TimelineEntry {

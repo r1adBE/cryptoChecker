@@ -40,7 +40,7 @@ extension WatchlistScreen {
             .onChange(of: whyFor) { _, target in
                 if target == nil { reopenActions() }
             }
-            // Vergleichsansicht (Build 149) als eigene Seite mit Zurück
+            // Vergleichsansicht als eigene Seite mit Zurück
             .navigationDestination(item: $compareFor) { target in
                 CompareScreen(watches: target.ids.compactMap { id in data.watches.first { $0.id == id } })
                     .environmentObject(data)

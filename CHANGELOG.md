@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 157)
+
+* Code cleanup (no change for users): the three largest Android screens get their helpers injected instead of 16–20 single dependencies each (watchlist refresh, start choice and edits through factories; «Test alarm»/«Test voice» and «Check on time» in the settings, USDT valuation and portfolio-alarm saving in their own small classes) – no screen needs more than 14 dependencies any more, and CI now stops at 15. On iPhone, eight thread-safe helpers switch to Apple's checked lock type, so the Swift 6 compiler verifies them instead of trusting a marker. Build numbers removed from code comments (history lives in this changelog); CI caps the few that still name early storage formats.
+
 ## 16.2.2 (build 156)
 
 * Code cleanup (no change for users): names inherited from the original BitcoinChecker that described nothing are replaced by names that say what the code does – `FormatUtilsBase` → `DisplayFormat`, `TimeUtils` → `EpochTime`, `PostRequestInfo` → `PostRequest`, `TickerImpl` → `MutableTicker`, `ComboBox` → `DropdownField`, `LogBox` → `HttpLogPanel`, `ErrorScreen` → `LoadErrorScreen`, `LoadingScreen` → `SkeletonLoadingScreen`, `Scrollbar.kt` → `ListScrollbar.kt`, `JsonUtils.kt` → `JsonExtensions.kt` (Android and iOS alike). The «Add pair» screen keeps its state in three groups (all-pairs list, search hits, DEX search) instead of 17 loose fields. All Android lint warnings from builds 150–155 fixed except one documented false positive (DEVELOPMENT.md, «Known warnings»): KTX helpers instead of `Uri.parse`/`edit().apply()`, symmetric padding in the portfolio widget, watch app backup rules for Android 12+, watch hint «Coins: max. 8» in 31 languages.

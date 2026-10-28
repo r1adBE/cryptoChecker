@@ -189,7 +189,7 @@ internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
                 )
             }
             RowDivider()
-            // Preis-Overlay (Build 150): dieselben Paare als schwebende Pille über anderen Apps
+            // Preis-Overlay: dieselben Paare als schwebende Pille über anderen Apps
             SettingsAnchor("updates.overlay") {
                 Column {
                     PriceOverlayRow(

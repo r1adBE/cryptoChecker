@@ -32,7 +32,7 @@ import com.cryptochecker.app.util.ChangeBasisText
 
 /**
  * Merkliste: Namen, Mini-Chart, «≈ Umrechnung», ⚡ «Ungewöhnliche Aktivität», die Basis der %-Änderung und «Token &
- * TradFi» (was die Paar-Auswahl zeigt; Build 132 von «Erweitert» hierher — alles zur Merkliste an einem Ort).
+ * TradFi» (was die Paar-Auswahl zeigt) – alles zur Merkliste an einem Ort.
  */
 @Composable
 internal fun WatchlistPage(

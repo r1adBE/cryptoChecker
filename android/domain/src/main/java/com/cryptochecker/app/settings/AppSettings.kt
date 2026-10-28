@@ -34,7 +34,7 @@ data class AppSettings(
     val ongoingNotifications: Boolean = false,
 
     /**
-     * Preis-Overlay (nur Android, Build 150): die Paare der dauerhaften Kurs-Mitteilung als schwebende Pille über
+     * Preis-Overlay (nur Android): die Paare der dauerhaften Kurs-Mitteilung als schwebende Pille über
      * anderen Apps; wirkt nur mit [ongoingNotifications] und erteilter Berechtigung «Über anderen Apps einblenden».
      * Gerätebezogen, nicht in der Sicherung.
      */

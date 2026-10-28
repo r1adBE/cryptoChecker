@@ -17,7 +17,7 @@ enum SettingsSearchPage: Hashable {
     /// Wo die Zeile zu dieser Seite steht (Kurs-Aktualisierung und Portfolio unter «Allgemein», Widgets und Coin-Logos
     /// unter «Darstellung»); nil = Unterseite einer Unterseite (%-Änderung und Token & TradFi auf «Merkliste»,
     /// Markt-Meldungen und Sprachausgabe auf «Alarme», Lizenzen und Entwickler auf «Über die App»). Kein «Erweitert»
-    /// mehr (Build 132). Die Suche zeigt daraus den Pfad ihrer Treffer — wie `SettingsPage.home` (Android).
+    /// mehr. Die Suche zeigt daraus den Pfad ihrer Treffer — wie `SettingsPage.home` (Android).
     var home: SettingsHome? {
         switch self {
         case .currency, .watchlist, .portfolio, .alarms, .updates: return .general

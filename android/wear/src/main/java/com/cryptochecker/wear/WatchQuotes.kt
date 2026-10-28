@@ -7,7 +7,7 @@ import org.json.JSONObject
 data class WatchQuote(val symbol: String, val price: Double, val change24h: Double?, val source: String)
 
 /**
- * Antworten der Börsen für die Uhr lesen (Build 154): Binance `ticker/24hr`, Bybit `v5/market/tickers` (Spot),
+ * Antworten der Börsen für die Uhr lesen: Binance `ticker/24hr`, Bybit `v5/market/tickers` (Spot),
  * OKX `v5/market/tickers` (Spot). Nur gewünschte Coins ([wanted], Kürzel ohne «USDT»), nur Kurse > 0.
  */
 object WatchQuotes {

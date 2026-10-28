@@ -25,7 +25,7 @@ import java.io.File
 import java.io.IOException
 
 /**
- * GeckoTerminal als Reserve der DEX-Kurse (Build 133, [SingleTickerFallback.loadAfterMissing]): kennt DexScreener den
+ * GeckoTerminal als Reserve der DEX-Kurse ([SingleTickerFallback.loadAfterMissing]): kennt DexScreener den
  * Pool nicht oder antwortet mit 5xx, kommt der Kurs von GeckoTerminal; eine Bremse von GeckoTerminal pausiert
  * DexScreener nie (anderer Anbieter, [SingleTickerFallback.sameHost]). Wie iOS `ExchangeListParityTests`.
  */

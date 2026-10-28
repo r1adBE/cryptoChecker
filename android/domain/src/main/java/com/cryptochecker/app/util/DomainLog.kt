@@ -1,7 +1,7 @@
 package com.cryptochecker.app.util
 
 /**
- * Protokoll der Abläufe in `:domain` ohne Timber (Schritt zu Kotlin Multiplatform, Build 146): gleiche Form wie
+ * Protokoll der Abläufe in `:domain` ohne Timber (Schritt zu Kotlin Multiplatform): gleiche Form wie
  * Timber (`%s`-Platzhalter, Ausnahme vorn). Die App setzt beim Start [sink] (Timber; nur in Debug-Builds mit Baum
  * sichtbar); ohne [sink] — Unit-Tests, sehr früh — geht nichts verloren, was vorher sichtbar war.
  */

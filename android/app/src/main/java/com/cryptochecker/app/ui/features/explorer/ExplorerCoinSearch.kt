@@ -28,7 +28,7 @@ data class CoinHit(
 /**
  * Was beim Vorschlag des Standard-Paars zählt: die Start-Börse der Region (wie die Start-Merkliste,
  * `StarterPairs.marketKey`), die Lieblingsbörsen, die Umrechnungswährung der Einstellungen und der Volumenrang der
- * Börsen am Tag der Installation ([exchangeRank], Build 133: 0 = grösstes Volumen; fehlt er, alphabetisch).
+ * Börsen am Tag der Installation ([exchangeRank]: 0 = grösstes Volumen; fehlt er, alphabetisch).
  */
 data class CoinPairPreference(
     val defaultExchange: String? = null,

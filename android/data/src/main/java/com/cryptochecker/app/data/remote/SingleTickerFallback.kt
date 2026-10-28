@@ -51,7 +51,7 @@ object SingleTickerFallback {
 
     /**
      * Ausweg nach einem Lesefehler des Einzelkurses, den die Börse dafür freigibt
-     * ([Market.tickerFallbackOnParseError], DexScreener «Pool nicht gefunden» → GeckoTerminal, Build 133). Ohne
+     * ([Market.tickerFallbackOnParseError], DexScreener «Pool nicht gefunden» → GeckoTerminal). Ohne
      * Ausweg oder ohne gültigen Kurs wird [missing]
      * geworfen — auch bei einer Bremse (429/418) der Ausweichadresse: sie gehört einem anderen Anbieter und darf die
      * Börse nicht pausieren (ExchangeBackoff). Ein eigener Abbruch geht durch.

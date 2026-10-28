@@ -3,7 +3,7 @@ package com.cryptochecker.app.util
 /**
  * Kleine dauerhafte Schlüssel-Wert-Datei für Regeln mit Zustand in `:domain` (Pausen, Zähler, letzte Messung), ohne
  * Android-Typen — die App gibt eine Umsetzung mit SharedPreferences hinein (`SharedPreferencesStores` in `:data`).
- * Schritt zu Kotlin Multiplatform (Build 146). Lesen eines Schlüssels mit anderem Typ wirft wie SharedPreferences.
+ * Schritt zu Kotlin Multiplatform. Lesen eines Schlüssels mit anderem Typ wirft wie SharedPreferences.
  */
 interface KeyValueStore {
     fun getInt(key: String, default: Int): Int

@@ -30,7 +30,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Coin-Liste der Wear-OS-App vom Handy aus (Build 154, Einstellungen › Widgets › Uhr): Wahl «Wie Handy» (Basis-Coins
+ * Coin-Liste der Wear-OS-App vom Handy aus (Einstellungen › Widgets › Uhr): Wahl «Wie Handy» (Basis-Coins
  * der Favoriten ★ der Merkliste, höchstens 8) oder «Eigene Liste». Übertragen wird nur [WatchSettings] als JSON über
  * die Wear-Daten-Schicht (Google Play-Dienste) unter [PATH] — keine Kurse, Beträge oder Portfolio-Daten. Veröffentlicht
  * wird nur, wenn eine Uhr die App hat (Fähigkeit [CAPABILITY], auch wenn sie gerade nicht verbunden ist). Ohne Play-Dienste

@@ -264,12 +264,12 @@ fun PortfolioViewModel.addAlarm(
     // Doppeltipp: ein zweites «Speichern», solange das erste Anlegen läuft, bleibt ohne Wirkung
     alarmCreateGuard.launch(viewModelScope, guarded = true) {
         val code = currency.value
-        val id = safe { alarmRepository.add(kind, threshold, code, repeating) }
+        val id = safe { alarmSaving.add(kind, threshold, code, repeating) }
         if (id != null) {
             val saved = PortfolioAlarmEntity(
                 id = id, kind = kind, threshold = threshold, currency = code.takeIf { kind.isValue }, repeating = repeating,
             )
-            onSaved(saved, runCatchingCancellable { appNotifier.alarmsAllowed() }.getOrDefault(true))
+            onSaved(saved, runCatchingCancellable { alarmSaving.alarmsAllowed() }.getOrDefault(true))
         }
         // Neu und scharf: gleich mit den aktuellen Kursen prüfen (und das Widget nachziehen)
         val txs = calcTransactions.value ?: return@launch

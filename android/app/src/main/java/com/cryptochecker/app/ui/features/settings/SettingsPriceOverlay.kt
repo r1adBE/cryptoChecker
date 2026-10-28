@@ -15,7 +15,7 @@ import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.SwitchRow
 
-// «Aktualisierung» › Preis-Overlay (nur Android, Build 150): Schalter unter «dauerhafte Kurs-Mitteilung».
+// «Aktualisierung» › Preis-Overlay (nur Android): Schalter unter «dauerhafte Kurs-Mitteilung».
 
 /**
  * Schalter «Preis-Overlay» (Standard aus): wirkt nur mit der dauerhaften Kurs-Mitteilung ([ongoing]); ohne die

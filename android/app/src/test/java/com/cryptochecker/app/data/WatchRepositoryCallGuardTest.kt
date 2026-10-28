@@ -32,7 +32,7 @@ class WatchRepositoryCallGuardTest {
                 .firstOrNull { it.isDirectory },
             "src/main/java/com/cryptochecker/app",
         )
-        // WatchRepository liegt seit Build 142 im Modul :data (gleiches Paket)
+        // WatchRepository liegt im Modul :data (gleiches Paket)
         val dataRoot = SourceGuard.android(
             listOf("../data/src/main/java/com/cryptochecker/app", "data/src/main/java/com/cryptochecker/app").map(::File)
                 .firstOrNull { it.isDirectory },

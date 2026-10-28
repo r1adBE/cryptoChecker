@@ -1,7 +1,6 @@
 import SwiftUI
 
-/// Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung»), Markt-Meldungen und Sprachausgabe (seit Build 132 hier statt unter
-/// «Erweitert»), Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
+/// Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung»), Markt-Meldungen und Sprachausgabe, Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Probe-Alarm.
 @MainActor
 struct AlarmSettingsPage: View {
     @EnvironmentObject private var data: AppData
@@ -238,7 +237,7 @@ struct NotificationPermissionRow: View {
 
     var body: some View {
         // Grosse Schrift: Knopf unter den Text statt daneben — nebeneinander wurde «Mitteilungen erlauben» abgeschnitten
-        // (Audit «Text clipped», Build 131)
+        // (Audit «Text clipped»)
         let layout = typeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
             : AnyLayout(HStackLayout(spacing: 12))

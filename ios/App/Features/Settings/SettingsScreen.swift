@@ -12,7 +12,7 @@ import UserNotifications
 /// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
 /// genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
 /// und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Kein «Erweitert» mehr
-/// (Build 132): Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter
+///: Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter
 /// «Darstellung»; Datenschutz, Börse wünschen, Quellcode, Lizenzen und (freigeschaltet) Entwickler stehen auf «Über die
 /// App» — wie Android.
 /// Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
@@ -198,7 +198,7 @@ struct SettingsScreen: View {
             RowDivider()
             priceColorsRow
             RowDivider()
-            // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (Build 132: von «Erweitert» hierher)
+            // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (von «Erweitert» hierher)
             SettingsNavRow(title: L("settings_coin_logos"), icon: .system("circle.circle"),
                            value: SettingsSummary.coinLogosText(settings)) {
                 CoinLogosSettingsPage()
@@ -237,7 +237,7 @@ struct SettingsScreen: View {
 
     // MARK: Mehr
 
-    /// Sicherung und Über die App — wie Android (kein «Erweitert» mehr seit Build 132).
+    /// Sicherung und Über die App — wie Android (kein «Erweitert» mehr).
     private var moreSection: some View {
         SettingsCard(title: L("settings_group_more")) {
             SettingsNavRow(title: L("backup_title"), icon: .system("square.and.arrow.up"), value: nil) {

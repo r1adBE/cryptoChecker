@@ -4,7 +4,7 @@ import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.marketdata.model.MarketCategory
 
 /**
- * Reihenfolge der Börsenauswahl (Build 133): Abschnitte Spot · Futures · DEX-Pools · Forex, darin nach dem
+ * Reihenfolge der Börsenauswahl: Abschnitte Spot · Futures · DEX-Pools · Forex, darin nach dem
  * Handelsvolumen am Tag der Installation (einmal von CoinGecko geholt, `ExchangeRankingStore`), ohne Ranking in der
  * Reihenfolge der Registry (`MarketsConfig`). Reine Logik — wie iOS `ExchangeOrder`
  * (`testdata/parity/picker_order.json`).

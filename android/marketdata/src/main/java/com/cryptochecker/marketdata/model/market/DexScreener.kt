@@ -16,7 +16,7 @@ import java.util.SortedSet
 
 private const val DEXSCREENER_API = "https://api.dexscreener.com"
 
-/** Ausweg der Einzelkurse (Build 133): öffentliche Pool-Abfrage von GeckoTerminal, ohne Schlüssel. */
+/** Ausweg der Einzelkurse: öffentliche Pool-Abfrage von GeckoTerminal, ohne Schlüssel. */
 private const val GECKOTERMINAL_API = "https://api.geckoterminal.com/api/v2"
 
 /** Ein DEX-Pool aus der Suche. */
@@ -56,7 +56,7 @@ data class DexPool(
  * (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens [BULK_MAX_POOLS] je Anfrage), einzelne über dieselbe Adresse. Frei
  * und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
  *
- * Ausweg (Build 133): Scheitert ein Einzelkurs mit einem Serverfehler oder kennt DexScreener den Pool nicht
+ * Ausweg: Scheitert ein Einzelkurs mit einem Serverfehler oder kennt DexScreener den Pool nicht
  * ([POOL_NOT_FOUND]), fragt die App denselben Pool bei GeckoTerminal ab ([tickerFallbackAddress],
  * [fillTickerFallback]) — nur einzeln, denn GeckoTerminal erlaubt ohne Schlüssel nur rund 30 Abfragen pro Minute.
  */

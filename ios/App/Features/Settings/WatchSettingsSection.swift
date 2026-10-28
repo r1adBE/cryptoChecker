@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// «Widgets» › Uhr (Build 155): Coin-Liste der Apple-Watch-App vom iPhone aus wählen — «Wie iPhone» (Favoriten ★) oder
+/// «Widgets» › Uhr: Coin-Liste der Apple-Watch-App vom iPhone aus wählen — «Wie iPhone» (Favoriten ★) oder
 /// eine eigene Liste mit bis zu `WatchCoins.max` Coins. Abgleich: `PhoneWatchLink`. Wie Android `WatchSettingsCard`.
 @MainActor
 struct WatchSettingsSection: View {

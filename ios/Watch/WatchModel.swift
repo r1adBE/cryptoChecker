@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 
-/// Zustand der Uhr-App (Build 155): Wahl, letzte Kurse, Laden/Fehler. Lädt beim Öffnen und nach jeder Änderung.
+/// Zustand der Uhr-App: Wahl, letzte Kurse, Laden/Fehler. Lädt beim Öffnen und nach jeder Änderung.
 @MainActor
 @Observable
 final class WatchModel {

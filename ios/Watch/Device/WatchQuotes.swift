@@ -8,7 +8,7 @@ struct WatchQuote: Codable, Equatable, Sendable {
     let source: String
 }
 
-/// Antworten der Börsen für die Uhr lesen (Build 155, wie Android `WatchQuotes`): Binance `ticker/24hr`, Bybit
+/// Antworten der Börsen für die Uhr lesen (wie Android `WatchQuotes`): Binance `ticker/24hr`, Bybit
 /// `v5/market/tickers` (Spot), OKX `v5/market/tickers` (Spot). Nur gewünschte Coins, nur Kurse > 0.
 enum WatchQuoteParser {
     static let binanceName = "Binance"

@@ -41,7 +41,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Preis-Overlay (nur Android, Build 150): die Paare der dauerhaften Kurs-Mitteilung ([PriceOverlayRules.pairs]) als
+ * Preis-Overlay (nur Android): die Paare der dauerhaften Kurs-Mitteilung ([PriceOverlayRules.pairs]) als
  * kleine, halbtransparente Pille über anderen Apps — «BTC 67’420 ↗ +1.2%», bis zu drei Zeilen. Eigenes Fenster der App
  * (`TYPE_APPLICATION_OVERLAY`, Berechtigung «Über anderen Apps einblenden»), kein Dienst: es folgt den gespeicherten
  * Kursen, also so oft wie die Kurs-Mitteilung (live bei offener App, sonst im Hintergrund-Intervall). Verschieben mit dem

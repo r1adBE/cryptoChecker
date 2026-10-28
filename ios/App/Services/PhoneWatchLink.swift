@@ -1,7 +1,7 @@
 import Foundation
 import WatchConnectivity
 
-/// Coin-Liste der Apple-Watch-App vom iPhone aus (Build 155, Einstellungen › Widgets › Uhr): Wahl «Wie iPhone»
+/// Coin-Liste der Apple-Watch-App vom iPhone aus (Einstellungen › Widgets › Uhr): Wahl «Wie iPhone»
 /// (Basis-Coins der Favoriten ★, höchstens 8) oder «Eigene Liste». Übertragen wird nur `WatchSettings` als JSON im
 /// Anwendungskontext von WatchConnectivity (direkt zwischen iPhone und Uhr, kein Server) — keine Kurse, Beträge oder
 /// Portfolio-Daten. Gesendet wird nur, wenn eine gekoppelte Uhr die App hat. Gegenstück: `WatchLink` auf der Uhr;

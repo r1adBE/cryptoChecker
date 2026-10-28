@@ -1,7 +1,7 @@
 package com.cryptochecker.app.util.json
 
 /**
- * JSON in `:domain` ohne `org.json` (Schritt zu Kotlin Multiplatform, Build 152): [JsonObject], [JsonArray], [JsonNull]
+ * JSON in `:domain` ohne `org.json` (Schritt zu Kotlin Multiplatform): [JsonObject], [JsonArray], [JsonNull]
  * und [JsonException] mit derselben Bedeutung wie `org.json` unter Android (AOSP) — gleiche Umwandlungen bei `get*`/`opt*`
  * (Zahl als Text, Text als Zahl, `optString` von `null` = «null»), gleiche Schreibweise der Zahlen (ganze Doubles ohne
  * «.0», «-0») und Zeichen (`\/`, Steuerzeichen als `\uXXXX`). Abgesichert gegen AOSP-`org.json`

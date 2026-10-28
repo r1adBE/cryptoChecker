@@ -1,6 +1,6 @@
 import Foundation
 
-/// Börsenauswahl in Abschnitten (Build 133): Spot · Futures · DEX-Pools · Forex (Referenzkurs), darin nach dem
+/// Börsenauswahl in Abschnitten: Spot · Futures · DEX-Pools · Forex (Referenzkurs), darin nach dem
 /// Volumen am Tag der Installation (`ExchangeOrder`, `ExchangeRankingStore`), sonst alphabetisch (wie bisher).
 /// Gegenstück zu den Abschnitten der Börsen-`DropdownField` (Android `ExplorerSteps.kt`).
 extension ExplorerViewModel {

@@ -182,7 +182,7 @@ fun PortfolioViewModel.refresh(force: Boolean) {
 internal suspend fun PortfolioViewModel.loadPrices(coins: Set<String>, force: Boolean) {
     if (coins.isEmpty()) return
     // USDT/USD messen (höchstens alle 5 Minuten, parallel zu den Kursen): Live-Kurs der Bewertung
-    viewModelScope.launch { safe { depegChecker.checkIfDue() } }
+    viewModelScope.launch { safe { usdtPeg.checkIfDue() } }
     safe { priceSource.prices(coins, force) }
     // Frisch Geholtes, sonst der gemerkte Stand je Coin (ohne Netz bleibt der letzte Wert stehen)
     safe { priceSource.stored(coins) }?.let { _prices.value = it }

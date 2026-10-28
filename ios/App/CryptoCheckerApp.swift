@@ -253,7 +253,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         BackgroundRefresh.register()
         UNUserNotificationCenter.current().delegate = self
-        // Uhr-App (Build 155): Abgleich der Coin-Liste mit der Apple Watch
+        // Uhr-App: Abgleich der Coin-Liste mit der Apple Watch
         PhoneWatchLink.shared.activate()
         // Aktionen der Kursalarme («Was bewegt sich mit?», «1 h später», «Anpassen») und der Depeg-Mitteilung
         Notifier.registerCategories()

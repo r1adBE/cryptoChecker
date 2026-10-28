@@ -32,7 +32,7 @@ import java.text.DateFormat
 import java.util.Date
 
 /**
- * Uhr-App (Build 154): Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
+ * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
  * Änderung über 24 h (Börse klein), darunter «Aktualisieren», der Umschalter der Liste und (eigene Liste) «Coins
  * wählen» mit den gängigen Coins zum Antippen (höchstens 8). Lädt beim Öffnen und nach jeder Änderung.
  */

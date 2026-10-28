@@ -88,7 +88,7 @@ struct AddWidgetHelpSheet: View {
                     }
                 }
 
-                // Apple-Watch-App: Coin-Liste (Build 155)
+                // Apple-Watch-App: Coin-Liste
                 WatchSettingsSection()
                     .padding(.top, 8)
             }

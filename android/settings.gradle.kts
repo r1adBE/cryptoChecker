@@ -25,7 +25,7 @@ include(":marketdata")
 include(":domain")
 include(":data")
 include(":app")
-// Wear-OS-App (Build 154)
+// Wear-OS-App
 include(":wear")
 // Erzeugt das Baseline Profile der App (nur auf Gerät/Emulator, siehe DEVELOPMENT.md)
 include(":baselineprofile")

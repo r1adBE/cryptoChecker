@@ -44,7 +44,7 @@ final class AppStatusTests: XCTestCase {
         watchers.removeAll()
     }
 
-    /// Seit Build 131 auch Börsen-Pausen, %-Stempel, Aktivität und wartendes Portfolio-Speichern.
+    /// Auch Börsen-Pausen, %-Stempel, Aktivität und wartendes Portfolio-Speichern.
     func testMovedValuesDoNotPublishOnAppData() {
         let data = AppData.shared
         let savedPauses = data.exchangePauses

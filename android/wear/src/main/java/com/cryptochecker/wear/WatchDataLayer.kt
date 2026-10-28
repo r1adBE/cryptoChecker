@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Abgleich der Wahl mit dem Handy über die Wear-Daten-Schicht (Build 154): je Gerät ein Eintrag unter [PATH] mit dem
+ * Abgleich der Wahl mit dem Handy über die Wear-Daten-Schicht: je Gerät ein Eintrag unter [PATH] mit dem
  * JSON von [WatchSettings] — nur Coin-Kürzel und Wahl, keine Kurse oder Beträge. Gleich in der Handy-App
  * (`PhoneWatchSync`). Ohne Google Play-Dienste oder ohne Handy: nichts (die Uhr nutzt ihre eigene Liste).
  */

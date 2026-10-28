@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-// Kleine Testklassen dieses Themas in einer Datei (R, Build 147); jede Klasse unverändert.
+// Kleine Testklassen dieses Themas in einer Datei; jede Klasse unverändert.
 
 // ---- aus MarketHTTPLimitTests
 

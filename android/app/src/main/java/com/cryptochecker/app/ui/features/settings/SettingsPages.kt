@@ -47,7 +47,7 @@ enum class SettingsPage {
     PORTFOLIO,
     BACKUP,
     ABOUT, LICENSES, WIDGETS, DEVELOPER,
-    // «Token & TradFi» (Zeile auf «Merkliste»); die frühere Seite «Erweitert» gibt es nicht mehr (Build 132)
+    // «Token & TradFi» (Zeile auf «Merkliste»); die frühere Seite «Erweitert» gibt es nicht mehr
     MARKETS;
 
     companion object {

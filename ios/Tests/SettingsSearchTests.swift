@@ -90,7 +90,7 @@ final class SettingsSearchTests: XCTestCase {
     }
 
     /// Kurs-Aktualisierung unter «Allgemein», Widgets und Coin-Logos unter «Darstellung»; kein «Erweitert» mehr
-    /// (Build 132): %-Änderung und Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme»,
+    ///: %-Änderung und Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme»,
     /// Lizenzen und Entwickler auf «Über die App». Portfolio nur unter «Allgemein» — wie `SettingsPlacementTest`.
     func testPagesSitWhereTheMainPageShowsThem() {
         XCTAssertEqual(SettingsSearchPage.updates.home, .general)
@@ -151,7 +151,7 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(first(L("delivery_title")), "alarms.delivery")
         XCTAssertEqual(first(L("diagnostics_share")), "about.diagnostics")
         XCTAssertEqual(first(L("alarm_log_title")), "updates.alarm_log")
-        // Build 148: «Letzte Prüfungen» mit eigenem Treffer, der zuerst kommt
+        // «Letzte Prüfungen» mit eigenem Treffer, der zuerst kommt
         XCTAssertEqual(item("updates.check_runs")?.target, .page(.updates, anchor: "updates.check_runs"))
         XCTAssertEqual(first(L("settings_check_runs_title")), "updates.check_runs")
     }

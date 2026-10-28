@@ -58,10 +58,10 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     /** Lazy: Kopf der Listen-Widgets erst im Hintergrund-Job unten ([ListWidgetRetry.clearIfExpired]). */
     @Inject lateinit var widgetRetry: dagger.Lazy<com.cryptochecker.app.widget.ListWidgetRetry>
 
-    /** Preis-Overlay (Build 150): folgt Schalter und Kursen, sobald der Prozess läuft (auch für Hintergrund-Läufe). */
+    /** Preis-Overlay: folgt Schalter und Kursen, sobald der Prozess läuft (auch für Hintergrund-Läufe). */
     @Inject lateinit var priceOverlay: dagger.Lazy<com.cryptochecker.app.overlay.PriceOverlay>
 
-    /** Coin-Liste der Wear-OS-App (Build 154): folgt den Favoriten und gleicht mit der Uhr ab, sobald der Prozess läuft. */
+    /** Coin-Liste der Wear-OS-App: folgt den Favoriten und gleicht mit der Uhr ab, sobald der Prozess läuft. */
     @Inject lateinit var phoneWatchSync: dagger.Lazy<com.cryptochecker.app.wearable.PhoneWatchSync>
 
     /**

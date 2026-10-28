@@ -1,4 +1,4 @@
-// Wear-OS-App (Build 154, Entscheide Inhaber 27.10.): fragt die Kurse selbst bei den Börsen ab; Liste «Wie Handy»
+// Wear-OS-App (Entscheide Inhaber 27.10.): fragt die Kurse selbst bei den Börsen ab; Liste «Wie Handy»
 // (Favoriten) oder «Eigene Liste» — nur diese Wahl kommt über die Wear-Daten-Schicht vom/zum Handy. Liste und
 // Komplikation. Gleiches Paket wie die Handy-App (eine Store-Eintragung, Wear-Formfaktor); Versionscode 90 000 +
 // Build-Nummer der Handy-App.

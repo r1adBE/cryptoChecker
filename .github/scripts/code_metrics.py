@@ -18,7 +18,7 @@ import re
 import sys
 
 DEPS_WARN = 15
-DEPS_CEILING = 20
+DEPS_CEILING = 15  # lowered from 20 in build 157 (largest today: 14, BackupManager)
 PROPS_CEILING = 35
 
 TITLE = "Code metrics"

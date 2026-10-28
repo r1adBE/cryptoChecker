@@ -1,4 +1,4 @@
-"""Line limit: every production source file has at most 400 lines.
+"""Line limit: every production source file has at most 400 lines; build numbers in code comments are capped.
 
 Usage: python3 -I line_limit.py [repository root, default: current directory]
        python3 -I line_limit.py --self-test   (checks the annotation escaping)
@@ -8,11 +8,18 @@ Checks Kotlin under android/<module>/src/main and Swift under ios/App, ios/Share
 Gradle: the result is an error annotation per file and exit 1. A missing ios/ directory (Android-only checkout)
 is fine. File names and texts in annotations are escaped like annotate.py (a crafted file name cannot inject
 further workflow commands).
+
+Build numbers («Build 133») in the same files: release history belongs in CHANGELOG/DEVELOPMENT, not in the code.
+The remaining ones name storage formats of early test versions that a migration still reads; BUILD_REFS_CEILING caps
+them so no new ones appear (error above, notice below the ceiling).
 """
 import os
+import re
 import sys
 
 LIMIT = 400
+BUILD_REFS_CEILING = 6
+BUILD_REF = re.compile(r"\b[Bb]uild \d{2,3}\b")
 IOS_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 
 
@@ -75,20 +82,28 @@ def main():
     root = sys.argv[1] if len(sys.argv) > 1 else "."
     checked = 0
     too_long = []
+    build_refs = []
     for path in production_files(root):
         checked += 1
         lines = line_count(path)
         if lines > LIMIT:
             too_long.append((os.path.relpath(path, root), lines))
+        with open(path, encoding="utf-8") as f:
+            build_refs += [os.path.relpath(path, root) for line in f if BUILD_REF.search(line)]
     if checked == 0:
         print(annotation(f"no production sources found under {os.path.abspath(root)}"))
         return 1
     for path, lines in too_long:
         print(annotation(f"{lines} lines, at most {LIMIT} allowed - split the file (extension or helper file next "
                          "to it)", file=path))
+    if len(build_refs) > BUILD_REFS_CEILING:
+        print(annotation(f"{len(build_refs)} build numbers in production code, at most {BUILD_REFS_CEILING} - describe "
+                         "the behaviour instead (history goes to CHANGELOG/DEVELOPMENT): " + ", ".join(sorted(set(build_refs)))))
+        return 1
     if too_long:
         return 1
-    print(f"Line limit: {checked} files, none over {LIMIT} lines")
+    print(f"Line limit: {checked} files, none over {LIMIT} lines; build numbers in code {len(build_refs)} "
+          f"(ceiling {BUILD_REFS_CEILING})")
     return 0
 
 

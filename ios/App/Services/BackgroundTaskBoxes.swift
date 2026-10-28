@@ -1,5 +1,6 @@
 import BackgroundTasks
 import Foundation
+import os
 
 // Thread-sichere Hilfen der Hintergrund-Aufgabe (`BackgroundRefresh`): Ende genau einmal melden, Task abbrechen,
 // Zwischenstand merken.
@@ -18,7 +19,7 @@ extension BGTask: BackgroundRefreshTask {
 
 /// Meldet das Ende einer Hintergrund-Aufgabe genau einmal — vom Ablauf selbst oder aus dem
 /// `expirationHandler` (iOS ruft ihn auf einem beliebigen Thread). Thread-sicher.
-final class BackgroundTaskCompletion: @unchecked Sendable { // @unchecked: BGTask nur einmal über `gate` (OnceGate, NSLock) abgeschlossen
+final class BackgroundTaskCompletion: @unchecked Sendable { // @unchecked: BGTask (nicht Sendable) nur einmal über `gate` (OnceGate) abgeschlossen
     private let gate = OnceGate()
     private let task: any BackgroundRefreshTask
 
@@ -34,59 +35,56 @@ final class BackgroundTaskCompletion: @unchecked Sendable { // @unchecked: BGTas
 /// Hält den Arbeits-Task einer Hintergrund-Aufgabe für den `expirationHandler`, der schon VOR dem Task gesetzt
 /// wird (thread-sicher; iOS ruft den Handler auf einem beliebigen Thread). Kommt der Abbruch, bevor der Task
 /// eingetragen ist, wird er beim Eintragen sofort abgebrochen.
-final class TaskCancelBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var task: Task<Void, Never>?
-    private var cancelled = false
+final class TaskCancelBox: Sendable {
+    private struct State: Sendable {
+        var task: Task<Void, Never>?
+        var cancelled = false
+    }
+
+    private let state = OSAllocatedUnfairLock(initialState: State())
 
     func set(_ newTask: Task<Void, Never>) {
-        lock.lock()
-        let cancelNow = cancelled
-        if !cancelNow { task = newTask }
-        lock.unlock()
+        let cancelNow = state.withLock { s -> Bool in
+            if !s.cancelled { s.task = newTask }
+            return s.cancelled
+        }
         if cancelNow { newTask.cancel() }
     }
 
     func cancel() {
-        lock.lock()
-        cancelled = true
-        let current = task
-        task = nil
-        lock.unlock()
+        let current = state.withLock { s -> Task<Void, Never>? in
+            s.cancelled = true
+            defer { s.task = nil }
+            return s.task
+        }
         current?.cancel()
     }
 }
 
 /// Zwischenstand für «Letzte Prüfungen» (thread-sicher): `.failed`, bis die Kurse gespeichert sind.
-final class CheckResultBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var value: CheckResult = .failed
+final class CheckResultBox: Sendable {
+    private let value = OSAllocatedUnfairLock(initialState: CheckResult.failed)
 
     func set(_ result: CheckResult) {
-        lock.lock()
-        defer { lock.unlock() }
-        value = result
+        value.withLock { $0 = result }
     }
 
     func get() -> CheckResult {
-        lock.lock()
-        defer { lock.unlock() }
-        return value
+        value.withLock { $0 }
     }
 }
 
 /// Lässt genau einen Aufruf durch (thread-sicher).
-final class OnceGate: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    private let lock = NSLock()
-    private var claimed = false
+final class OnceGate: Sendable {
+    private let claimed = OSAllocatedUnfairLock(initialState: false)
 
     /// true nur beim ersten Aufruf.
     func claim() -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        if claimed { return false }
-        claimed = true
-        return true
+        claimed.withLock { taken in
+            if taken { return false }
+            taken = true
+            return true
+        }
     }
 }
 

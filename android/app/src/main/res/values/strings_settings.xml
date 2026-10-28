@@ -291,7 +291,7 @@
     <string name="diagnostics_share_hint">Text file for support: version, device, alert settings, recent checks and alert log – without portfolio, amounts, addresses or notes. You see it first; nothing is sent automatically.</string>
     <string name="diagnostics_preview_title">Diagnostics preview</string>
     <string name="diagnostics_action_share">Share</string>
-    <!-- Preis-Overlay (nur Android, Build 150); settings_price_overlay_needs: %1$s = Titel «dauerhafte Kurs-Mitteilung» -->
+    <!-- Preis-Overlay (nur Android); settings_price_overlay_needs: %1$s = Titel «dauerhafte Kurs-Mitteilung» -->
     <string name="settings_price_overlay">Price overlay</string>
     <string name="settings_price_overlay_hint">Shows the pairs of the permanent price notification as a small floating pill over other apps. Tap to open the app, drag to × at the bottom to close.</string>
     <string name="settings_price_overlay_needs">Only works together with «%1$s».</string>

@@ -23,7 +23,7 @@ import com.cryptochecker.marketdata.watch.WatchSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-// «Widgets» › Uhr (Build 154): Coin-Liste der Wear-OS-App vom Handy aus wählen. Abgleich: PhoneWatchSync.
+// «Widgets» › Uhr: Coin-Liste der Wear-OS-App vom Handy aus wählen. Abgleich: PhoneWatchSync.
 
 @HiltViewModel
 internal class WatchSettingsViewModel @Inject constructor(private val sync: PhoneWatchSync) : ViewModel() {

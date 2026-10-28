@@ -46,8 +46,8 @@ final class PortfolioPerformanceTests: XCTestCase {
 
     func testSummaryFifo() {
         // Karte mit FIFO-Posten über alle Wallets: unter 1 s für 10 000 Transaktionen (Debug, mit Abdeckung). Die Gebühr
-        // USDT einer Umbuchung steht seit Build 131 nur einmal im Gebühren-Strom der Warteschlange (PortfolioFifoParts),
-        // nicht mehr als Teil je offenem Posten (bis Build 130: ×7,8 bei vierfacher Menge). Nur die feste Grenze: der
+        // USDT einer Umbuchung steht nur einmal im Gebühren-Strom der Warteschlange (PortfolioFifoParts),
+        // nicht mehr als Teil je offenem Posten (früher: ×7,8 bei vierfacher Menge). Nur die feste Grenze: der
         // iOS-Lauf (Debug, Abdeckung, geteilter Mac) skaliert unzuverlässig — die Skalierung prüft Android
         T.assertLimitOnly("Portfolio-Übersicht FIFO", limitMillis: 10_000, sizes: T.transactions) { n in
             let trades = D.trades(n)

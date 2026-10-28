@@ -7,7 +7,7 @@ import java.net.URL
 import java.net.URLEncoder
 
 /**
- * Kurse direkt bei den Börsen (Build 154, kein Server, kein Google-Daten-Layer): zuerst Binance (nur die gewünschten
+ * Kurse direkt bei den Börsen (kein Server, kein Google-Daten-Layer): zuerst Binance (nur die gewünschten
  * Coins in einer Abfrage), fehlende Coins bzw. bei Fehler/Sperre (z. B. HTTP 451) Bybit, dann OKX. Antworten höchstens
  * [MAX_BYTES] gross, je Abfrage [TIMEOUT_MS].
  */

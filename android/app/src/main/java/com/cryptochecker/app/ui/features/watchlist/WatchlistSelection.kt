@@ -79,7 +79,7 @@ internal fun SelectionBar(
                 enabled = enabled,
                 onClick = onToggleDisabled,
             )
-            // Vergleichsansicht (Build 149): Linien in % und Kennzahlen nebeneinander
+            // Vergleichsansicht: Linien in % und Kennzahlen nebeneinander
             SelectionAction(
                 icon = R.drawable.ic_chart_line,
                 label = stringResource(R.string.watchlist_compare),

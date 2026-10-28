@@ -105,7 +105,7 @@ class InstallDefaultsTest {
         assertFalse(AppSettings.enablePortfolioForData(pending, portfolioEnabled = true, hasPortfolioData = true))
     }
 
-    /** Update von Build 43 (Migration schon gelaufen, nie umgeschaltet): Portfolio-Tab bleibt sichtbar. */
+    /** Update von einer frühen Testversion mit Portfolio-Tab-Schlüssel (Migration schon gelaufen, nie umgeschaltet): Portfolio-Tab bleibt sichtbar. */
     @Test
     fun build43InstallKeepsPortfolioTab() {
         val r = migrate(mapOf(ongoing to false, names to true, converted to true, alpha to false, updateMode to "DEFAULT"))
@@ -127,7 +127,7 @@ class InstallDefaultsTest {
         assertTrue(portfolio in r.prefs)
     }
 
-    /** Update von Build 42: «ongoing_notifications» und «update_mode» stehen schon da → bestehend. */
+    /** Update von einer frühen Testversion: «ongoing_notifications» und «update_mode» stehen schon da → bestehend. */
     @Test
     fun build42InstallKeepsOldDefaults() {
         val r = migrate(mapOf(ongoing to false, updateMode to "LIVE_OFFEN"))

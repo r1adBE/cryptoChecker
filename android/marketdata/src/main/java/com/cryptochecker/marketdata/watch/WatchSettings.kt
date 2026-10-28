@@ -4,7 +4,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 /**
- * Wahl der Uhr (Build 154): «Wie Handy» ([Mode.PHONE], Liste [phone] = Favoriten des Handys) oder «Eigene Liste»
+ * Wahl der Uhr: «Wie Handy» ([Mode.PHONE], Liste [phone] = Favoriten des Handys) oder «Eigene Liste»
  * ([Mode.OWN], Liste [own]); [time] = letzte Änderung (Epoch-ms), die neuere Seite gewinnt. Übertragen wird nur das
  * (Android: Wear-Daten-Schicht, iPhone: WatchConnectivity), als JSON — gleich auf beiden Plattformen.
  */

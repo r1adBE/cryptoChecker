@@ -24,13 +24,16 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.widget.WidgetPrefs
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.model.MarketPair
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-internal class WatchlistEditController(
-    private val scope: CoroutineScope,
+internal class WatchlistEditController @AssistedInject constructor(
+    @Assisted private val scope: CoroutineScope,
     private val watchRepository: WatchRepository,
     private val settingsRepository: SettingsRepository,
     private val priceRefresher: PriceRefresher,
@@ -39,10 +42,17 @@ internal class WatchlistEditController(
     private val widgetPrefs: WidgetPrefs,
     private val addMoments: AddMoments,
     /** Aktuelle Gruppen-Auswahl ([WatchlistContentFlows.groupFilter]); null bis geladen. */
-    private val groupFilter: () -> GroupFilter?,
+    @Assisted("groupFilter") private val groupFilter: () -> GroupFilter?,
     /** Ganzer Durchlauf ohne 15-s-Sperre ([WatchlistRefreshController.refreshAll]). */
-    private val refreshAll: () -> Unit,
+    @Assisted("refreshAll") private val refreshAll: () -> Unit,
 ) {
+    /** Erzeugt den Controller für ein ViewModel; die übrigen Abhängigkeiten setzt Hilt ein. */
+    @AssistedFactory
+    interface Factory {
+        fun create(scope: CoroutineScope, @Assisted("groupFilter") groupFilter: () -> GroupFilter?,
+                   @Assisted("refreshAll") refreshAll: () -> Unit): WatchlistEditController
+    }
+
     /** Umbenannte Gruppen (alt → neu): Verschwindet die gewählte Gruppe durch Umbenennen, folgt die Auswahl dem neuen Namen. */
     private val renamedGroups = java.util.concurrent.ConcurrentHashMap<String, String>()
 
@@ -387,14 +397,3 @@ internal class WatchlistEditController(
     }
 }
 
-/** «Rückgängig»-Schlüssel für «Merkliste leeren» (wie [NOT_TRADED_UNDO_KEY]; Watch-Ids sind immer positiv). */
-internal const val CLEAR_ALL_UNDO_KEY = -3L
-
-/** Bis zu so vielen wieder aktivierten Paaren einzeln abfragen, darüber ein ganzer Durchlauf. */
-private const val ENABLE_SINGLE_REFRESH_MAX = 3
-
-/** Bis zu so vielen zurückgeholten Paaren zeigt «Rückgängig» die Kurs-Meldung gleich wieder, darüber keine. */
-internal const val UNDO_PRICE_POST_MAX = 3
-
-/** Kurs-Meldungen beim «Rückgängig» von [restored] Paaren gleich wieder zeigen ([UNDO_PRICE_POST_MAX])? */
-internal fun restoresPriceNotifications(restored: Int): Boolean = restored in 1..UNDO_PRICE_POST_MAX

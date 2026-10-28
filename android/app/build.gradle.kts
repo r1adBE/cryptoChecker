@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 156
+        versionCode = 157
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -126,7 +126,7 @@ android {
     }
 
     // Fremd-Datei aus kotlinx-serialization (Prüfwerte des Herstellers, für die App ohne Nutzen): nicht ins APK/AAB —
-    // Geheimnis-Scanner melden sie sonst als Token (Audit F-23, Build 135)
+    // Geheimnis-Scanner melden sie sonst als Token (Audit F-23)
     packaging {
         resources {
             excludes += "META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/verification.properties"
@@ -279,7 +279,7 @@ dependencies {
 
     // Hintergrund-Aktualisierung (Kurse, Alarme, Widgets)
     implementation(libs.androidx.work.runtime.ktx)
-    // Uhr-App (Build 154): Coin-Liste über die Wear-Daten-Schicht
+    // Uhr-App: Coin-Liste über die Wear-Daten-Schicht
     implementation(libs.play.services.wearable)
     implementation(libs.androidx.hilt.work)
     ksp(libs.androidx.hilt.compiler)
@@ -351,7 +351,7 @@ if (providers.gradleProperty("coverage").orNull == "true") {
     }
 }
 
-// Lieferkette (Build 151): XProcessing des Hilt-Compilers in allen Konfigurationen auf die Room-Version (sonst 2.8.4
+// Lieferkette: XProcessing des Hilt-Compilers in allen Konfigurationen auf die Room-Version (sonst 2.8.4
 // neben 2.8.5 in :data; Inhaber 27.10.: beim nächsten «Supply chain update» überall 2.8.5)
 configurations.configureEach {
     resolutionStrategy.eachDependency {

@@ -134,7 +134,7 @@ internal fun AboutPage(
                 )
             }
             // «Entwickler» erst nach 7 Tipps auf die Version (oben); nur im Debug-Build, der Release enthält keinen
-            // HTTP-Mitschnitt (Build 132 von «Erweitert» hierher, gleich neben der Freischaltung)
+            // HTTP-Mitschnitt, gleich neben der Freischaltung
             if (settings.developerUnlocked && BuildConfig.DEBUG) {
                 SettingsNavRow(
                     title = stringResource(R.string.settings_section_developer),

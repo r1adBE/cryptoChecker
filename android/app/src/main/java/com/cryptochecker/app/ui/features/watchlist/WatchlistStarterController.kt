@@ -20,6 +20,9 @@ import com.cryptochecker.app.settings.deviceRegionLocale
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.marketdata.config.MarketsConfig
 import com.cryptochecker.marketdata.model.MarketPair
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -31,8 +34,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-internal class WatchlistStarterController(
-    private val scope: CoroutineScope,
+internal class WatchlistStarterController @AssistedInject constructor(
+    @Assisted private val scope: CoroutineScope,
     private val starterCoinsRepository: StarterCoinsRepository,
     private val settingsRepository: SettingsRepository,
     private val coinLogoRepository: CoinLogoRepository,
@@ -40,8 +43,14 @@ internal class WatchlistStarterController(
     private val addMoments: AddMoments,
     private val widgetUpdater: WidgetUpdater,
     /** Nach dem Anlegen gleich aktualisieren, ohne 15-s-Sperre ([WatchlistRefreshController.refreshAll]). */
-    private val refreshAll: () -> Unit,
+    @Assisted private val refreshAll: () -> Unit,
 ) {
+    /** Erzeugt den Controller für ein ViewModel ([scope], [refreshAll]); die übrigen Abhängigkeiten setzt Hilt ein. */
+    @AssistedFactory
+    interface Factory {
+        fun create(scope: CoroutineScope, refreshAll: () -> Unit): WatchlistStarterController
+    }
+
     /**
      * Coins der Start-Merkliste: sofort aus dem Zwischenspeicher bzw. die
      * Ausweich-Liste, frischere Daten ersetzen sie still ([loadStarterCoins]).

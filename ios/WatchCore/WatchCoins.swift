@@ -1,6 +1,6 @@
 import Foundation
 
-/// Coins der Uhr-Apps (Build 155): Auswahl der gängigen Coins gegen USDT, höchstens `max` je Liste. Gemeinsam für die
+/// Coins der Uhr-Apps: Auswahl der gängigen Coins gegen USDT, höchstens `max` je Liste. Gemeinsam für die
 /// iPhone-App (Einstellungen › Widgets › Uhr) und die Apple-Watch-App. Wie Android `WatchCoins` (`watch_settings.json`).
 enum WatchCoins {
     static let max = 8

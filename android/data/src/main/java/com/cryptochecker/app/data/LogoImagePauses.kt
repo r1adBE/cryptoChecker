@@ -62,7 +62,7 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
     }
 
     companion object {
-        /** «v2» (Build 131): Fehlschläge unter der früheren 512-KB-Grenze nicht 24 h abwarten. */
+        /** «v2»: Fehlschläge unter der früheren 512-KB-Grenze nicht 24 h abwarten. */
         const val KEY_FAILED = "failed_v2"
         /** Pausen je Bild-Server ([CoinLogoRetry.encodePauses]). */
         const val KEY_IMAGE_PAUSES = "image_pauses_v1"

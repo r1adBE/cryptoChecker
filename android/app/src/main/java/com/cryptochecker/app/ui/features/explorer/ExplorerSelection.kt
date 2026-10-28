@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class ExplorerSelection(
     // Börse
     val exchanges: List<MarketInfo>,
-    /** Abschnitt je Eintrag von [exchanges] (gleiche Länge): Spot · Futures · DEX-Pools · Forex (Build 133). */
+    /** Abschnitt je Eintrag von [exchanges] (gleiche Länge): Spot · Futures · DEX-Pools · Forex. */
     val exchangeCategories: List<MarketCategory>,
     val exchange: StateFlow<MarketInfo?>,
     val canReloadPairs: StateFlow<Boolean>,
@@ -108,7 +108,7 @@ sealed interface ExplorerLoad {
 
 /**
  * Börsenauswahl in Abschnitten Spot · Futures · DEX-Pools · Forex ([ExchangeOrder]), darin nach dem Volumen am Tag der
- * Installation; ohne Ranking bleibt die Reihenfolge von [alphabetical] (wie vor Build 133). Liefert die Börsen und je
+ * Installation; ohne Ranking bleibt die alphabetische Reihenfolge von [alphabetical]. Liefert die Börsen und je
  * Eintrag den Abschnitt. Wie iOS `ExplorerViewModel.marketSections` (ExplorerMarketSections.swift).
  */
 internal fun exchangeSections(

@@ -13,8 +13,6 @@ import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.AppearanceApplier
 import com.cryptochecker.app.settings.PriceColorScheme
 import com.cryptochecker.app.settings.SettingsRepository
-import com.cryptochecker.app.tts.SpokenText
-import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.widget.WidgetUpdater
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,8 +32,6 @@ class SettingsViewModel @Inject constructor(
     internal val settingsRepository: SettingsRepository,
     internal val watchRepository: WatchRepository,
     internal val scheduler: PriceUpdateScheduler,
-    private val ttsSpeaker: TtsSpeaker,
-    private val spokenText: SpokenText,
     internal val notifier: AppNotifier,
     internal val appearanceApplier: AppearanceApplier,
     internal val widgetUpdater: WidgetUpdater,
@@ -43,14 +39,15 @@ class SettingsViewModel @Inject constructor(
     internal val backupManager: com.cryptochecker.app.data.BackupManager,
     internal val appLockState: AppLockState,
     private val portfolioSnapshotUpdater: com.cryptochecker.app.widget.PortfolioSnapshotUpdater,
-    private val alarmTester: com.cryptochecker.app.notification.AlarmTester,
     internal val portfolioRepository: com.cryptochecker.app.data.portfolio.PortfolioRepository,
-    private val checkRunStore: com.cryptochecker.app.domain.refresh.CheckRunStore,
-    private val exactScheduler: com.cryptochecker.app.work.ExactCheckScheduler,
+    /** «Alarm testen» und «Stimme testen». */
+    private val testActions: SettingsTestActions,
+    /** «Pünktlich prüfen» und «Letzte Prüfungen». */
+    private val exactChecks: ExactCheckControl,
 ) : ViewModel() {
 
     /** «Alarm testen»: echter Alarm über den Weg der Kursalarme, ohne Nachtruhe. */
-    suspend fun testAlarm(): com.cryptochecker.app.notification.AlarmTestResult = alarmTester.run()
+    suspend fun testAlarm(): com.cryptochecker.app.notification.AlarmTestResult = testActions.testAlarm()
 
     /** Ergebnis von Sichern/Wiederherstellen für eine kurze Meldung. */
     internal val _backupMessage = MutableStateFlow<BackupMessage?>(null)
@@ -280,7 +277,7 @@ class SettingsViewModel @Inject constructor(
     // ── «Aktualisierung»: Pünktlich prüfen, Letzte Prüfungen ──
 
     /** «Letzte Prüfungen», neueste zuerst. */
-    val checkRuns: StateFlow<List<com.cryptochecker.app.domain.refresh.CheckRun>> get() = checkRunStore.runs
+    val checkRuns: StateFlow<List<com.cryptochecker.app.domain.refresh.CheckRun>> get() = exactChecks.runs
 
     /** Gibt es aktive Paare (sonst prüft der Hintergrund nichts: kein Wecker, kein Akku-Hinweis)? */
     val hasActiveWatches: StateFlow<Boolean> = watchRepository.observeWatches()
@@ -289,12 +286,12 @@ class SettingsViewModel @Inject constructor(
 
     fun setExactChecks(enabled: Boolean) = update {
         settingsRepository.setExactChecks(enabled)
-        exactScheduler.sync(enabled, hasWork = watchRepository.getWatches().any { !it.disabled })
+        exactChecks.sync(enabled)
     }
 
     /** Nach der Rückkehr aus den Android-Einstellungen: Wecker stellen, falls jetzt erlaubt (oder absagen). */
     fun syncExactChecks() = update {
-        exactScheduler.sync(settingsRepository.current().exactChecks, hasWork = watchRepository.getWatches().any { !it.disabled })
+        exactChecks.sync(settingsRepository.current().exactChecks)
     }
 
     fun setIncludeRollingFutures(enabled: Boolean) = update {
@@ -336,7 +333,7 @@ class SettingsViewModel @Inject constructor(
 
     fun setTtsEnabled(enabled: Boolean) = update {
         settingsRepository.setTtsEnabled(enabled)
-        if (!enabled) ttsSpeaker.shutdown()
+        if (!enabled) testActions.stopSpeech()
     }
 
     fun setTtsAlarmsOnly(enabled: Boolean) = update {
@@ -352,18 +349,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     /** Liest den zuletzt bekannten Kurs vor, damit die Stimme prüfbar ist. */
-    fun testSpeech() = update {
-        val current = settingsRepository.current()
-        val watch = watchRepository.getWatches().firstOrNull { it.lastPrice != null }
-        // Lokale Kopie: lastPrice liegt seit Build 136 in :domain (kein Smart Cast über Modulgrenzen)
-        val price = watch?.lastPrice
-        val text = if (watch != null && price != null) {
-            spokenText.price(watch, price)
-        } else {
-            "Crypto Checker"
-        }
-        ttsSpeaker.speak(text, speechRate = current.ttsSpeechRate, flush = true)
-    }
+    fun testSpeech() = update { testActions.testSpeech() }
 
     // ---------------- Nachtruhe ----------------
 

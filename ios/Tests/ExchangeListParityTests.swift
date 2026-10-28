@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Börsenliste (Build 133): Abschnitte und Volumen-Reihenfolge (`picker_order.json`), Netzwerke von GeckoTerminal
+/// Börsenliste: Abschnitte und Volumen-Reihenfolge (`picker_order.json`), Netzwerke von GeckoTerminal
 /// (`gecko_terminal_network.json`), EZB-Referenzkurse (Gruppen, Adresse, Lesen) und der Ausweg der DEX-Kurse über
 /// GeckoTerminal. Wie Android `ExchangeOrderParityTest.kt` (auch GeckoTerminal-Netzwerke), `DexGeckoTerminalFallbackTest.kt`, `NewMarketsTest.kt`.
 final class ExchangeListParityTests: XCTestCase {

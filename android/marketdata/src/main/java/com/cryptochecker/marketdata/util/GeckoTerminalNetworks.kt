@@ -1,7 +1,7 @@
 package com.cryptochecker.marketdata.util
 
 /**
- * Netzwerk-Kennung von GeckoTerminal zur Chain-Kennung von DexScreener (Ausweg der DEX-Kurse, Build 133). Die meisten
+ * Netzwerk-Kennung von GeckoTerminal zur Chain-Kennung von DexScreener (Ausweg der DEX-Kurse). Die meisten
  * sind gleich («base», «bsc», «solana»); abweichende stehen in [DIFFERENT]. Wie iOS `GeckoTerminalNetworks`
  * (`testdata/parity/gecko_terminal_network.json`).
  */

@@ -13,7 +13,7 @@ import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
 
 /**
- * Komplikation (Build 154): der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Sind die gespeicherten
+ * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Sind die gespeicherten
  * Kurse älter als [MAX_AGE_MS], lädt sie neu (Zifferblatt fragt etwa alle 15 min, Manifest); ohne Netz die letzten.
  * Tippen öffnet die Uhr-App.
  */

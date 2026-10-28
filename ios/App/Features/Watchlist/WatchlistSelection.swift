@@ -28,7 +28,7 @@ struct WatchlistSelectionBar: View {
             action(symbol: allDisabled ? "play.circle" : "pause.circle",
                    title: L(allDisabled ? "watch_enable" : "watch_disable"),
                    color: AppColors.onSurface, perform: onToggleDisabled)
-            // Vergleichsansicht (Build 149): Linien in % und Kennzahlen nebeneinander
+            // Vergleichsansicht: Linien in % und Kennzahlen nebeneinander
             action(symbol: "chart.xyaxis.line", title: L("watchlist_compare"), color: AppColors.onSurface, perform: onCompare)
             action(symbol: "trash", title: L("action_delete"), color: AppColors.error, perform: onDelete)
         }

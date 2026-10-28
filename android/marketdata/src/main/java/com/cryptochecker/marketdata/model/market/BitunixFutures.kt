@@ -21,7 +21,7 @@ private const val BITUNIX_FAPI = "https://fapi.bitunix.com/api/v1/futures/market
 private const val BITUNIX_OK = 0
 
 /**
- * Bitunix Perpetuals (Build 133), öffentliche Futures-Schnittstelle ohne Schlüssel (10 Abfragen/s je IP).
+ * Bitunix Perpetuals, öffentliche Futures-Schnittstelle ohne Schlüssel (10 Abfragen/s je IP).
  * Antworten {"code", "msg", "data": [...]}; Einzel- und Sammelkurs über `tickers` (mit `symbols` gefiltert).
  * Kurs = letzter Handel (`lastPrice`), 24-h-Veränderung gegen `open` (laut Doku die Eröffnung der letzten 24 h),
  * keine Zeit der Börse. Die Paarliste nennt keine Art: Aktien-Kontrakte (AAPL, TSLA) sind nicht als TradFi markiert.

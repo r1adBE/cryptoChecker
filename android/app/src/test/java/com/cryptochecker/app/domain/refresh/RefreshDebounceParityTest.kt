@@ -44,7 +44,7 @@ class RefreshDebounceParityTest {
             "widget/PriceWidgetProvider.kt",
             "widget/ListWidgetRenderer.kt",
         )
-        // ManualRefresh liegt seit Build 144 in :domain (gleiches Paket)
+        // ManualRefresh liegt in :domain (gleiches Paket)
         val domainRoot = SourceGuard.android(domainSources(), "android/domain/src/main/java")
         callers.forEach { path ->
             val file = File(root, path).takeIf { it.isFile } ?: File(domainRoot, path)
@@ -52,7 +52,7 @@ class RefreshDebounceParityTest {
         }
         val controller = File(root, "ui/features/watchlist/WatchlistRefreshController.kt").readText()
         assertTrue(controller.contains("fun lastFullRefreshAt(): Long = refreshStats.lastFullRefresh()"))
-        // LivePriceApplier liegt seit Build 140 in :domain (gleiches Paket)
+        // LivePriceApplier liegt in :domain (gleiches Paket)
         val live = File(domainRoot, "domain/refresh/LivePriceApplier.kt").readText()
         assertFalse("Live-Takt setzt die Sperre", live.contains("setLastFullRefresh"))
         val all = root.walkTopDown().filter { it.isFile && it.extension == "kt" }.map { it.readText() }.joinToString("\n")

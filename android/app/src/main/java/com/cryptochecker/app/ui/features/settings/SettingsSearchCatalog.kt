@@ -28,7 +28,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         items += SettingsSearchItem(SettingsSearchEntry(id, title, path, synonyms.toList()), target)
     }
 
-    // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr, Build 132). Der Pfad einer Seite kommt
+    // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr). Der Pfad einer Seite kommt
     // aus ihrem Ort (SettingsPage.home), damit er nach jeder Umstellung zur Anordnung passt
     val general = stringResource(R.string.settings_group_general)
     val appearance = stringResource(R.string.settings_section_appearance)
@@ -70,18 +70,18 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         stringResource(R.string.settings_battery_ok), stringResource(R.string.settings_battery_hint))
     add("updates.background_interval", stringResource(R.string.settings_background_interval), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.background_interval"))
-    // «Pünktlich prüfen» (exakter Wecker, nur Android): eigener Treffer, Build 148
+    // «Pünktlich prüfen» (exakter Wecker, nur Android): eigener Treffer
     add("updates.exact", stringResource(R.string.settings_exact_checks), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.exact"),
         stringResource(R.string.settings_exact_checks_hint), stringResource(R.string.settings_exact_checks_grant))
     add("updates.ongoing", stringResource(R.string.settings_ongoing_notifications), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.ongoing"),
         stringResource(R.string.settings_ongoing_notifications_hint))
-    // Preis-Overlay (nur Android, Build 150)
+    // Preis-Overlay (nur Android)
     add("updates.overlay", stringResource(R.string.settings_price_overlay), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.overlay"),
         stringResource(R.string.settings_price_overlay_grant))
-    // «Letzte Prüfungen»: Karte ganz unten auf der Seite, eigener Treffer (Build 148)
+    // «Letzte Prüfungen»: Karte ganz unten auf der Seite, eigener Treffer
     add("updates.check_runs", stringResource(R.string.settings_check_runs_title), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs"),
         stringResource(R.string.settings_check_runs_honest_android))
@@ -240,7 +240,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
     add("main.reset", stringResource(R.string.settings_reset_app), "", SettingsSearchTarget.Main("main.reset"),
         stringResource(R.string.settings_reset_app_confirm))
-    // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste» (Build 132); frühere Namen bleiben
+    // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»; frühere Namen bleiben
     // Suchwörter
     val futures = stringResource(R.string.settings_asset_scope_title)
     add("page.markets", futures, watchlist, SettingsSearchTarget.Page(SettingsPage.MARKETS))

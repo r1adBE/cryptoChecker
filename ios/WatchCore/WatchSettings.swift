@@ -1,6 +1,6 @@
 import Foundation
 
-/// Wahl der Uhr (Build 155): «Wie iPhone» (`.phone`, Liste `phone` = Favoriten des iPhones) oder «Eigene Liste»
+/// Wahl der Uhr: «Wie iPhone» (`.phone`, Liste `phone` = Favoriten des iPhones) oder «Eigene Liste»
 /// (`.own`, Liste `own`); `time` = letzte Änderung (Epoch-ms), die neuere Seite gewinnt. Übertragen wird nur das, als
 /// JSON — auf dem iPhone über WatchConnectivity (direkt zwischen iPhone und Uhr), gleich wie Android (Wear-Daten-Schicht).
 struct WatchSettings: Equatable, Sendable {

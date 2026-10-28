@@ -19,7 +19,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Handelsvolumen der Börsen am Tag der Installation (Build 133) für die Reihenfolge der Börsenauswahl
+ * Handelsvolumen der Börsen am Tag der Installation für die Reihenfolge der Börsenauswahl
  * ([ExchangeOrder]): einmal die beiden öffentlichen Börsenlisten von CoinGecko — für alle Nutzer dieselben Abfragen —,
  * danach nie wieder. Kleine Einstellungsdatei, nicht in der Sicherung (gilt je Gerät). Scheitert der Abruf, gilt die
  * bisherige Reihenfolge; nächster Versuch in der nächsten App-Sitzung. Wie iOS `ExchangeRankingStore`.

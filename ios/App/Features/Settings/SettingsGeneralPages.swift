@@ -184,7 +184,7 @@ struct WatchlistSettingsPage: View {
                 }
                 .settingsAnchor("watchlist.change_basis")
                 RowDivider()
-                // «Token & TradFi»: was die Paar-Auswahl zeigt (Build 132 von «Erweitert» hierher — alles zur Merkliste
+                // «Token & TradFi»: was die Paar-Auswahl zeigt (alles zur Merkliste
                 // an einem Ort). Wie Android
                 SettingsNavRow(title: L("settings_asset_scope_title"), icon: .system("building.columns"),
                                value: L(AssetScopePicker.titleKey(data.settings.assetScope))) {

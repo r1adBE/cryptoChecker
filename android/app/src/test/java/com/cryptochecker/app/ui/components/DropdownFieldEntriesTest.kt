@@ -3,7 +3,7 @@ package com.cryptochecker.app.ui.components
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/** Aufklappliste mit Abschnitten (Build 133, Börsenauswahl): Favoriten oben, Titelzeilen, Suche über alle. */
+/** Aufklappliste mit Abschnitten (Börsenauswahl): Favoriten oben, Titelzeilen, Suche über alle. */
 class DropdownFieldEntriesTest {
 
     private val items = listOf("Binance", "Kraken", "Binance Futures", "DexScreener")

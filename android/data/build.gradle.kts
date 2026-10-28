@@ -1,4 +1,4 @@
-// Speicher und Netz der App (R, Build 142): Room-Datenbanken (Merkliste, Alarme, Portfolio) mit DAOs und
+// Speicher und Netz der App: Room-Datenbanken (Merkliste, Alarme, Portfolio) mit DAOs und
 // Verschlüsselung, Repositories, Börsen-, Kerzen- und Adress-Datenquellen, Sicherung. Die Pakete bleiben
 // com.cryptochecker.app.*; Hilt-Module (Datenbanken, OkHttp) bleiben in :app. Die Room-Schemas bleiben unter
 // app/schemas (Migrationstests und Schema-Drift-Prüfung lesen sie dort).

@@ -69,7 +69,7 @@ import kotlinx.coroutines.withContext
  * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
  * genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
  * und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Kein «Erweitert» mehr
- * (Build 132): was zur Merkliste gehört, steht auf «Merkliste» (auch Token & TradFi), Meldungen auf «Alarme»
+ *: was zur Merkliste gehört, steht auf «Merkliste» (auch Token & TradFi), Meldungen auf «Alarme»
  * (Markt-Meldungen, Sprachausgabe), Aussehen unter «Darstellung» (Coin-Logos); Datenschutz, Börse wünschen,
  * Quellcode, Lizenzen und (freigeschaltet) Entwickler stehen auf «Über die App».
  * Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
@@ -238,7 +238,7 @@ fun SettingsScreen(
                             valueContent = { PriceArrows(settings.priceColorScheme, settings.priceColorsInverted) },
                             onClick = { onOpenPage(SettingsPage.PRICE_COLORS) }
                         )
-                        // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (Build 132: von «Erweitert» hierher)
+                        // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (von «Erweitert» hierher)
                         SettingsAnchor("main.coin_logos") {
                             SettingsNavRow(
                                 title = stringResource(R.string.settings_coin_logos),
@@ -255,7 +255,7 @@ fun SettingsScreen(
                         )
                     }
 
-                    // 3 Mehr: Sicherung, Über die App (seit Build 132 ohne «Erweitert»: Token & TradFi auf «Merkliste»,
+                    // 3 Mehr: Sicherung, Über die App (ohne eigene Seite «Erweitert»: Token & TradFi auf «Merkliste»,
                     // Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter «Darstellung», Entwickler auf
                     // «Über die App»)
                     SettingsSection(stringResource(R.string.settings_group_more)) {

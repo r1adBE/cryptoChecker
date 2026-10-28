@@ -2521,6 +2521,17 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
+  through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
+  callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
+  `SettingsTestActions` (test alarm, test voice) and `ExactCheckControl` (exact alarm, last checks) take five
+  dependencies out of `SettingsViewModel` (17 → 14); `UsdtPeg` (depeg reading store + checker) and
+  `PortfolioAlarmSaving` (alarm repository + notifier) out of `PortfolioViewModel` (16 → 14). `code_metrics.py`
+  `DEPS_CEILING` 20 → 15. Constants of the edit controller in `WatchlistEditLimits.kt` (400-line limit). iOS:
+  `OwnPairRegistry`, `CandleNeeds`, `CandlePills`, `ReferenceProviders`, `ResumeOnce` (DayReferences) and
+  `TaskCancelBox`, `CheckResultBox`, `OnceGate` (BackgroundTaskBoxes) use `OSAllocatedUnfairLock` and are checked
+  `Sendable` (`@unchecked Sendable` 104 → 96, ceiling lowered). Build numbers removed from comments (151 places);
+  `line_limit.py` caps them at 6 (`BUILD_REFS_CEILING`; the rest name storage formats of early test versions).
 * Build 156: cleanup without behaviour change. Renamed (Kotlin and Swift, files and identifiers): `FormatUtilsBase` →
   `DisplayFormat`, `TimeUtils` → `EpochTime` (epoch milliseconds and exchange timestamps), `PostRequestInfo` →
   `PostRequest` (`getBulkTickersPostRequest`, iOS `bulkTickersPostRequest`), `TickerImpl` → `MutableTicker`,
@@ -3104,13 +3115,13 @@ Warnings that are not fixed, each with the reason. Everything else is fixed; CI 
   never referenced from code: Google Play services read it by its fixed name to announce the capability
   `cryptochecker_watch`, which the phone (`PhoneWatchSync`) asks for before it sends the coin list. Removing it would
   stop the phone↔watch sync; lint cannot see that use. Not suppressed – open for the owner's decision.
-* **Code metrics – constructor dependencies ≥ 15** (warning from 15, error from 20): `WatchlistViewModel` 20,
-  `SettingsViewModel` 17, `PortfolioViewModel` 16. Fixing it means moving cohesive groups (e.g. refresh, backup,
-  portfolio history) into injected classes – a design change in three central screens that is planned as its own
-  build with full CI, not as a side effect of a rename.
-* **Swift `@unchecked Sendable` (104, counted against a ceiling, not compiler warnings).** 66 belong to the exchange
+* **Swift `@unchecked Sendable` (96, counted against a ceiling, not compiler warnings).** 66 belong to the exchange
   adapters: `Market` is a class hierarchy without mutable state, and Swift cannot check a non-final class – removing
-  them needs a protocol-based adapter design. 25 guard mutable state with `NSLock`; they can move to
-  `OSAllocatedUnfairLock` (iOS 16+), which makes most of them checkable – planned as its own build. The rest are
-  Apple delegate classes (WatchConnectivity, BGTask) whose callbacks arrive on arbitrary threads.
-
+  them needs a protocol-based adapter design. About 25 guard state with `NSLock` where the state or a closure run under
+  the lock is not `Sendable` (e.g. `NWPathMonitor` observers, generic `write<T>(_ body:)`, user callbacks under the
+  lock); moving them to `OSAllocatedUnfairLock` would need `withLockUnchecked`, the same trust in a different
+  spelling. The rest are Apple delegate classes (WatchConnectivity, BGTask) whose callbacks arrive on arbitrary
+  threads, and two value boxes holding non-`Sendable` system objects.
+* **Build numbers in comments (6).** `SettingsDataStore` (defaults introduced by builds 42–44), `CsvTransferMatch` and
+  `CsvRestoreState` (CSV state of build 56) and two test fixtures name storage formats of early test versions that the
+  migrations still read; the build number is the precise name of that format.

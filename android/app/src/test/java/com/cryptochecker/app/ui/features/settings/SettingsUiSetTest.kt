@@ -15,13 +15,13 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-// Kleine Testklassen dieses Themas in einer Datei (R, Build 147); jede Klasse unverändert.
+// Kleine Testklassen dieses Themas in einer Datei; jede Klasse unverändert.
 
 // ---- aus SettingsPlacementTest
 
 /**
  * Kurs-Aktualisierung unter «Allgemein», Widgets und Coin-Logos unter «Darstellung»; kein «Erweitert» mehr
- * (Build 132): %-Änderung und Token & TradFi stehen auf «Merkliste», Entwickler auf «Über die App» (Markt-Meldungen
+ *: %-Änderung und Token & TradFi stehen auf «Merkliste», Entwickler auf «Über die App» (Markt-Meldungen
  * und Sprachausgabe haben eigene Routen, Zeilen auf «Alarme»). Portfolio hat genau einen Ort, die Zeile unter
  * «Allgemein» (Einstellungen › Portfolio). Die Suche zeigt den Pfad aus diesem Ort — wie
  * `testPagesSitWhereTheMainPageShowsThem` (iOS, SettingsSearchTests).
@@ -87,7 +87,7 @@ class SettingsSearchAnchorsTest {
         assertTrue(search.contains("""add("about.diagnostics", stringResource(R.string.diagnostics_share), about, SettingsSearchTarget.Page(SettingsPage.ABOUT, "about.diagnostics")"""))
         // Der Knopf steht in der Karte «Letzte Prüfungen»: dorthin
         assertTrue(search.contains("""add("updates.alarm_log", stringResource(R.string.alarm_log_title), updatesPath, SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs")"""))
-        // Build 148: «Pünktlich prüfen» und «Letzte Prüfungen» mit eigenem Treffer
+        // «Pünktlich prüfen» und «Letzte Prüfungen» mit eigenem Treffer
         assertTrue(search.contains("""add("updates.exact", stringResource(R.string.settings_exact_checks), updatesPath, SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.exact")"""))
         assertTrue(search.contains("""add("updates.check_runs", stringResource(R.string.settings_check_runs_title), updatesPath, SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.check_runs")"""))
     }

@@ -1,4 +1,4 @@
-// Fachlogik ohne Oberfläche, Datenbank-Zugriff und Netz-Abläufe (R, Schritt 1, Build 136): Regeln, Berechnungen und
+// Fachlogik ohne Oberfläche, Datenbank-Zugriff und Netz-Abläufe (R, Schritt 1): Regeln, Berechnungen und
 // Modelle, die :app nutzt. Die Pakete bleiben com.cryptochecker.app.*, darum ändert der Umzug keine Importe. Nächste
 // Schritte: Abläufe (Aktualisierung, Alarme) über Schnittstellen hierher, Android-Abhängigkeiten ablösen (für Kotlin
 // Multiplatform), dann :data.

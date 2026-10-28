@@ -14,7 +14,7 @@ import java.time.ZoneOffset
 private const val FRANKFURTER_API = "https://api.frankfurter.dev/v1"
 
 /**
- * Devisen als Referenzkurs (Build 133): die täglich festgelegten Kurse der Europäischen Zentralbank über Frankfurter,
+ * Devisen als Referenzkurs: die täglich festgelegten Kurse der Europäischen Zentralbank über Frankfurter,
  * ohne Schlüssel — kein Handel, nicht live. Darum Abschnitt «Forex (Referenzkurs)» ([MarketCategory.FOREX]), Label
  * «Referenzkurs, täglich» ([priceIsDailyReference]) und keine Alarme ([allowsAlarms]).
  *

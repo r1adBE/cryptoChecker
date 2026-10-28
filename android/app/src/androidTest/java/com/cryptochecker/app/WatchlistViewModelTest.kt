@@ -8,9 +8,6 @@ import app.cash.turbine.test
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.CoinLogoRepository
-import com.cryptochecker.app.data.RefreshStats
-import com.cryptochecker.app.data.SheetChartRepository
-import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
@@ -23,20 +20,17 @@ import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.refresh.ManualRefresh
-import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
-import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
+import com.cryptochecker.app.ui.features.watchlist.WatchlistEditController
+import com.cryptochecker.app.ui.features.watchlist.WatchlistRefreshController
 import com.cryptochecker.app.ui.features.watchlist.WatchlistSheetData
+import com.cryptochecker.app.ui.features.watchlist.WatchlistStarterController
 import com.cryptochecker.app.ui.features.watchlist.WatchlistUiState
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.util.ConnectivityMonitor
-import com.cryptochecker.app.widget.WidgetPrefs
-import com.cryptochecker.app.widget.WidgetUpdater
-import com.cryptochecker.app.work.PriceUpdateScheduler
 import com.cryptochecker.marketdata.model.MarketPair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -78,25 +72,19 @@ class WatchlistViewModelTest {
     val environment = AppTestEnvironmentRule()
 
     @Inject lateinit var watchRepository: WatchRepository
-    @Inject lateinit var priceRefresher: PriceRefresher
-    @Inject lateinit var notifier: AppNotifier
-    @Inject lateinit var widgetUpdater: WidgetUpdater
-    @Inject lateinit var scheduler: PriceUpdateScheduler
-    @Inject lateinit var manualRefresh: ManualRefresh
-    @Inject lateinit var refreshStats: RefreshStats
     @Inject lateinit var connectivity: ConnectivityMonitor
     @Inject lateinit var settingsRepository: SettingsRepository
     @Inject lateinit var activityRepository: ActivityRepository
-    @Inject lateinit var widgetPrefs: WidgetPrefs
     @Inject lateinit var currencyConverter: CurrencyConverter
-    @Inject lateinit var starterCoinsRepository: StarterCoinsRepository
     @Inject lateinit var addMoments: AddMoments
-    @Inject lateinit var sheetChartRepository: SheetChartRepository
     @Inject lateinit var livePriceStream: LivePriceStream
     @Inject lateinit var coinLogoRepository: CoinLogoRepository
     @Inject lateinit var tokenIdentityStore: TokenIdentityStore
     @Inject lateinit var portfolioAlarmRepository: PortfolioAlarmRepository
     @Inject lateinit var sheetData: WatchlistSheetData
+    @Inject lateinit var refreshFactory: WatchlistRefreshController.Factory
+    @Inject lateinit var starterFactory: WatchlistStarterController.Factory
+    @Inject lateinit var editsFactory: WatchlistEditController.Factory
 
     /** Eigener Speicher: [ViewModelStore.clear] beendet den viewModelScope nach jedem Test. */
     private val store = ViewModelStore()
@@ -114,10 +102,9 @@ class WatchlistViewModelTest {
         val factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = WatchlistViewModel(
-                watchRepository, priceRefresher, notifier, widgetUpdater, scheduler, manualRefresh, refreshStats,
-                connectivity, settingsRepository, activityRepository, widgetPrefs, currencyConverter,
-                starterCoinsRepository, addMoments, sheetChartRepository, livePriceStream, coinLogoRepository,
-                tokenIdentityStore, portfolioAlarmRepository, sheetData,
+                watchRepository, connectivity, settingsRepository, activityRepository, currencyConverter, addMoments,
+                livePriceStream, coinLogoRepository, tokenIdentityStore, portfolioAlarmRepository, sheetData,
+                refreshFactory, starterFactory, editsFactory,
             ) as T
         }
         vm = ViewModelProvider(store, factory)[WatchlistViewModel::class.java]

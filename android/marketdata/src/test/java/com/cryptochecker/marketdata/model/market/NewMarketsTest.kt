@@ -8,7 +8,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.LocalDate
 
-/** Bitunix Futures und EZB-Referenzkurse (Build 133), Kategorien der Registry. Wie iOS `ExchangeListParityTests`. */
+/** Bitunix Futures und EZB-Referenzkurse, Kategorien der Registry. Wie iOS `ExchangeListParityTests`. */
 class NewMarketsTest {
 
     @Test

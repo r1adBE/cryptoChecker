@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioPrices
@@ -73,10 +72,9 @@ class PortfolioViewModel @Inject constructor(
     internal val settingsRepository: SettingsRepository,
     internal val snapshotUpdater: PortfolioSnapshotUpdater,
     internal val historySource: PortfolioHistorySource,
-    internal val alarmRepository: PortfolioAlarmRepository,
     internal val historicSource: HistoricPriceSource,
-    /** Dürfen Alarme erscheinen? Für « · Mitteilungen aus» in der Bestätigung nach dem Speichern. */
-    internal val appNotifier: com.cryptochecker.app.notification.AppNotifier,
+    /** Portfolio-Alarm anlegen; dürfen Alarme erscheinen («· Mitteilungen aus» in der Bestätigung)? */
+    internal val alarmSaving: PortfolioAlarmSaving,
     /** Netz da? Für die Status-Pille («Offline · Stand 14:05») wie in der Merkliste. */
     connectivity: com.cryptochecker.app.util.ConnectivityMonitor,
     /** Letzte Momentaufnahme (nur lesen): «Heute» zum gemerkten Stand, wenn die Kurse veraltet sind. */
@@ -85,10 +83,8 @@ class PortfolioViewModel @Inject constructor(
     internal val coinLogoSync: com.cryptochecker.app.data.CoinLogoSync,
     /** Guthaben der beobachteten Adressen (10 min Zwischenspeicher, manuell 60 s). */
     internal val addressRefresher: com.cryptochecker.app.data.portfolio.WatchedAddressRefresher,
-    /** Letzte Messung USDT/USD: Live-Kurs der Bewertung (USDT zum Marktkurs) und Zeile zu «USDT = 1» der Gesamtkarte. */
-    depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
-    /** USDT/USD messen, sobald ein Portfolio da ist (höchstens alle 5 Minuten, wie nach einer Kursaktualisierung). */
-    internal val depegChecker: com.cryptochecker.app.domain.alarm.DepegAlarmChecker,
+    /** USDT/USD: letzte Messung (Live-Kurs der Bewertung, «USDT = 1» der Gesamtkarte) und neu messen, wenn fällig. */
+    internal val usdtPeg: UsdtPeg,
     /** «Unbekannt lassen» bei Einträgen ohne Einstand (nur Ids, auf diesem Gerät). */
     internal val costGapStore: com.cryptochecker.app.data.portfolio.PortfolioCostGapStore,
 ) : ViewModel() {
@@ -149,15 +145,15 @@ class PortfolioViewModel @Inject constructor(
         )
 
     /** Letzte Messung USDT/USD ([com.cryptochecker.app.domain.alarm.DepegAlarm.cardNote] mit Uhr). */
-    val depegReading: StateFlow<com.cryptochecker.app.domain.alarm.DepegAlarm.Reading?> = depegReadings.reading
+    val depegReading: StateFlow<com.cryptochecker.app.domain.alarm.DepegAlarm.Reading?> = usdtPeg.reading
 
     /**
      * Live-Kurs USDT/USD der Bewertung ([com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd]): die letzte Messung,
      * höchstens 6 Std. alt ([com.cryptochecker.app.domain.alarm.DepegAlarm.LIVE_MAX_AGE_MILLIS]) — jede Minute neu geprüft; null = keiner (USDT = 1 als Näherung, Karte markiert sie).
      */
-    val liveUsdtUsd: StateFlow<Double?> = combine(depegReadings.reading, minuteTicks()) { reading, now ->
+    val liveUsdtUsd: StateFlow<Double?> = combine(usdtPeg.reading, minuteTicks()) { reading, now ->
         com.cryptochecker.app.domain.alarm.DepegAlarm.liveUsdtUsd(reading, now)
-    }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.Eagerly, depegReadings.liveUsdtUsd())
+    }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.Eagerly, usdtPeg.liveUsdtUsd())
 
     /** Schwelle des Depeg-Alarms in Zehntel-Prozent (gilt auch für die Warnzeile der Karte). */
     val depegThresholdTenths: StateFlow<Int> = settingsRepository.settings

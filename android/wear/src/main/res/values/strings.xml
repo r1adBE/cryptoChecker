@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Uhr-App (Build 154); watch_updated: %1$s Uhrzeit; watch_choose_hint: %1$d Höchstzahl; a11y_watch_row: Coin, Kurs, Änderung -->
+    <!-- Uhr-App; watch_updated: %1$s Uhrzeit; watch_choose_hint: %1$d Höchstzahl; a11y_watch_row: Coin, Kurs, Änderung -->
     <string name="watch_app_name" translatable="false">Crypto Checker</string>
     <string name="watch_empty">No coins chosen</string>
     <string name="watch_loading">Loading…</string>
