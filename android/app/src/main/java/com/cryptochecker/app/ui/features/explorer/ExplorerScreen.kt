@@ -31,14 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.ui.components.HttpLogPanel
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.features.error.LoadErrorScreen
 import com.cryptochecker.app.ui.features.error.LoadErrorScreenViewState
 import com.cryptochecker.app.ui.features.loading.SkeletonLoadingScreen
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -67,7 +67,7 @@ fun ExplorerScreen(
     val watchedKeys by vm.watchedKeys.collectAsStateWithLifecycle()
     val recentSearches by vm.recentSearches.collectAsStateWithLifecycle()
     // Favoriten, Gruppen, DEX, Protokoll
-    val favoriteMarkets by vm.favoriteMarkets.collectAsStateWithLifecycle()
+    val favoriteExchanges by vm.favoriteExchanges.collectAsStateWithLifecycle()
     val favoriteCoins by vm.favoriteCoins.collectAsStateWithLifecycle()
     val favoriteQuotes by vm.favoriteQuotes.collectAsStateWithLifecycle()
     val groups by vm.groups.collectAsStateWithLifecycle()
@@ -132,7 +132,7 @@ fun ExplorerScreen(
                 onClearRecent = vm::clearRecentSearches,
             ),
             favorites = FavoritesUi(
-                markets = favoriteMarkets,
+                exchanges = favoriteExchanges,
                 coins = favoriteCoins,
                 quotes = favoriteQuotes,
                 onToggle = vm::toggleFavorite,
@@ -156,7 +156,7 @@ fun ExplorerScreen(
 
 /** Rückrufe für Börse, Paar und «Zur Merkliste». */
 internal class PairActions(
-    val onExchangeChanged: (MarketInfo?) -> Unit,
+    val onExchangeChanged: (ExchangeInfo?) -> Unit,
     val onCoinChanged: (String?) -> Unit,
     val onQuoteChanged: (String?) -> Unit,
     val onContractChanged: (FuturesContractType?) -> Unit,
@@ -171,7 +171,7 @@ internal class PairActions(
 /** Rückrufe für «Mehrere Paare auf einmal». */
 internal class BulkActions(
     val onApply: () -> Unit,
-    val onSelectPair: (MarketPair) -> Unit,
+    val onSelectPair: (ExchangePair) -> Unit,
     val onAddAll: () -> Unit,
     val onAddAllShown: () -> Unit,
     /** Ergebnis wird gezeigt: im Runner als gemeldet markieren. */
@@ -210,7 +210,7 @@ private fun ExplorerTopBar(onBack: () -> Unit) {
 
 /**
  * Die Seite: oben die Coin-Suche (der Hauptweg: Coin finden, dann sein Paar), darunter eingeklappt
- * «Erweitert / nach Börse» in Schritten — Börse ([MarketStepCard]), Paar ([PairStepCard]) bzw. DEX-Suche,
+ * «Erweitert / nach Börse» in Schritten — Börse ([ExchangeStepCard]), Paar ([PairStepCard]) bzw. DEX-Suche,
  * mehrere Paare auf einmal ([BulkPairsCard]) — und «Börse fehlt?». Rückmeldungen als Snackbar ([ExplorerFeedback]).
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -264,7 +264,7 @@ private fun ExplorerPage(
             count = bulkNew,
             total = bulkPairs.size,
             quote = bulkQuote.orEmpty(),
-            market = exchange?.name.orEmpty(),
+            exchange = exchange?.name.orEmpty(),
             onConfirm = {
                 askBulkConfirm = false
                 bulk.onAddAll()

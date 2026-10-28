@@ -88,7 +88,7 @@ internal fun MarketDataSection(
     loadSpot: suspend (WatchEntity) -> SpotData?,
 ) {
     val futuresPair = watch.contractType != FuturesContractType.NONE
-    val pairKey = listOf(watch.id, watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType)
+    val pairKey = listOf(watch.id, watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType)
     var tab by remember(futuresPair) { mutableStateOf(MarketDataTabMemory.get(futuresPair)) }
     var showExplain by remember { mutableStateOf(false) }
     // Neu laden, wenn das Paar bearbeitet wurde
@@ -278,9 +278,9 @@ private fun FuturesSection(info: FuturesInfo, watch: WatchEntity) {
 private fun futuresSourceText(info: FuturesInfo, watch: WatchEntity): String {
     val perpetual = watch.contractType.isPerpetual
     return when {
-        FuturesSources.note(perpetual, watch.marketKey, info.source, watch.pairId) == null ->
+        FuturesSources.note(perpetual, watch.exchangeKey, info.source, watch.pairId) == null ->
             stringResource(R.string.futures_source, info.source)
-        perpetual -> stringResource(R.string.futures_reference_hint, info.source, watch.marketName)
+        perpetual -> stringResource(R.string.futures_reference_hint, info.source, watch.exchangeName)
         else -> stringResource(R.string.futures_reference_spot, info.source)
     }
 }

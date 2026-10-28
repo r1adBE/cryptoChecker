@@ -13,22 +13,22 @@ enum PortfolioRouteResolver {
     static func resolve(_ transactions: [PortfolioTx]) async {
         // Umbuchungen: der Bestand liegt am Ziel der letzten Umbuchung (`exchangeByLedger`)
         let (single, mixed) = PortfolioExchangeRoute.exchangeByLedger(transactions.flatMap(\.routeEntries))
-        var markets: [String: String] = [:]
-        for m in MarketsConfig.all { markets[m.key] = m.name }
+        var exchanges: [String: String] = [:]
+        for m in ExchangesConfig.all { exchanges[m.key] = m.name }
         var routes: [String: PortfolioRoute] = [:]
         var unresolved: [String: String] = [:]
         for (coin, name) in single {
             // Binance oder freier Text: Binance, ohne Hinweis
-            guard let market = PortfolioExchangeRoute.market(name, markets: markets) else { continue }
-            var pairs = await PairCache.shared.pairs(for: market.key).pairs
-            if PortfolioExchangeRoute.pickPair(coin, pairs: pairs) == nil && mayLoadPairs(market.key) {
-                if let fresh = try? await PairCache.shared.sync(market.key) { pairs = fresh.pairs }
+            guard let exchange = PortfolioExchangeRoute.exchange(name, exchanges: exchanges) else { continue }
+            var pairs = await PairCache.shared.pairs(for: exchange.key).pairs
+            if PortfolioExchangeRoute.pickPair(coin, pairs: pairs) == nil && mayLoadPairs(exchange.key) {
+                if let fresh = try? await PairCache.shared.sync(exchange.key) { pairs = fresh.pairs }
             }
             if let pick = PortfolioExchangeRoute.pickPair(coin, pairs: pairs) {
-                routes[coin] = PortfolioRoute(marketKey: market.key, marketName: market.name,
+                routes[coin] = PortfolioRoute(exchangeKey: exchange.key, exchangeName: exchange.name,
                                               base: pick.base, quote: pick.quote, pairId: pick.pairId)
             } else {
-                unresolved[coin] = market.name
+                unresolved[coin] = exchange.name
             }
         }
         PortfolioExchangeRouteStore.save(routes: routes, unresolved: unresolved, mixed: mixed)
@@ -38,10 +38,10 @@ enum PortfolioRouteResolver {
     /// Für den Verlauf: ohne gespeicherten Weg nie still Binance (`PortfolioHistorySource.dailyPrices`).
     static func enteredCoins(_ transactions: [PortfolioTx]) -> Set<String> {
         let single = PortfolioExchangeRoute.exchangeByLedger(transactions.flatMap(\.routeEntries)).single
-        var markets: [String: String] = [:]
-        for m in MarketsConfig.all { markets[m.key] = m.name }
+        var exchanges: [String: String] = [:]
+        for m in ExchangesConfig.all { exchanges[m.key] = m.name }
         var out = Set<String>()
-        for (coin, name) in single where PortfolioExchangeRoute.market(name, markets: markets) != nil { out.insert(coin) }
+        for (coin, name) in single where PortfolioExchangeRoute.exchange(name, exchanges: exchanges) != nil { out.insert(coin) }
         return out
     }
 
@@ -55,9 +55,9 @@ enum PortfolioRouteResolver {
         }
     }
 
-    /// Namen der Spot-Börsen der App (alphabetisch) für das Feld «Börse» — wie `spotMarketNames` (Android).
-    static var spotMarketNames: [String] {
-        Array(Set(MarketsConfig.all.filter { PortfolioExchangeRoute.isSpot($0.key) }.map(\.name)))
+    /// Namen der Spot-Börsen der App (alphabetisch) für das Feld «Börse» — wie `spotExchangeNames` (Android).
+    static var spotExchangeNames: [String] {
+        Array(Set(ExchangesConfig.all.filter { PortfolioExchangeRoute.isSpot($0.key) }.map(\.name)))
             .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
     }
 }

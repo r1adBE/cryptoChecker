@@ -26,12 +26,12 @@ import kotlinx.coroutines.flow.map
 internal data class AlarmPickerRow(
     val id: Long,
     val displayName: String,
-    val marketName: String,
+    val exchangeName: String,
     val favorite: Boolean,
     /** Suchfelder wie `matchesSearch` (ohne Coin-Namen), schon gefaltet ([NameMatch.fold]). */
     val folded: List<String>,
     /** Für den Coin-Namen der Suche ([searchName]). */
-    val marketKey: String,
+    val exchangeKey: String,
     val baseAsset: String,
     val quoteAsset: String,
     val contractType: String,
@@ -42,7 +42,7 @@ internal fun alarmPickerRows(watches: List<WatchEntity>): List<AlarmPickerRow> =
     AlarmPickerRow(
         id = w.id,
         displayName = w.displayName,
-        marketName = w.marketName,
+        exchangeName = w.exchangeName,
         favorite = w.favorite,
         folded = listOfNotNull(
             w.baseAsset,
@@ -50,10 +50,10 @@ internal fun alarmPickerRows(watches: List<WatchEntity>): List<AlarmPickerRow> =
             w.displayPair,
             w.displayName,
             FuturesContractType.getShortName(w.contractType),
-            w.marketName,
+            w.exchangeName,
             w.note,
         ).map { NameMatch.fold(it) },
-        marketKey = w.marketKey,
+        exchangeKey = w.exchangeKey,
         baseAsset = w.baseAsset,
         quoteAsset = w.quoteAsset,
         contractType = w.contractType.name,
@@ -90,7 +90,7 @@ internal fun rememberFoldedPickerNames(rows: List<AlarmPickerRow>?): Map<Long, S
             emptyMap()
         } else {
             rows.mapNotNull { r ->
-                searchName(r.marketKey, r.baseAsset, r.quoteAsset, r.contractType, names, tradFiPairs)
+                searchName(r.exchangeKey, r.baseAsset, r.quoteAsset, r.contractType, names, tradFiPairs)
                     ?.let { r.id to NameMatch.fold(it) }
             }.toMap()
         }

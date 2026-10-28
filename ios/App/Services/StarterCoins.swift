@@ -28,7 +28,7 @@ struct UniverseCoin: Codable, Equatable, Sendable {
 /// ohne Stablecoins und ohne «verpackte»/gestakte Doppelgänger — wie `StarterPairs.kt`.
 ///
 /// Die reine Logik (Filtern, fünf wählen, Ersatzliste) steht in den statischen
-/// Funktionen ohne Netz; `load(marketKey:)` holt die Daten. Startbörse siehe `StarterPairs`.
+/// Funktionen ohne Netz; `load(exchangeKey:)` holt die Daten. Startbörse siehe `StarterPairs`.
 ///
 /// Datenschutz: Von CoinGecko (bereits aufgeführter Anbieter) wird nur die öffentliche
 /// Coin-Liste geholt — ohne Schlüssel, ohne Bezug zur Merkliste. Für die Börse nur die
@@ -41,8 +41,8 @@ enum StarterCoins {
 
     /// Je Startbörse ein Eintrag (wie Android `coins_<Börse>` / `time_<Börse>`), damit ein
     /// Regionswechsel die Liste der anderen Börse nicht verwirft.
-    private static func cacheKey(_ marketKey: String) -> String { "starter_coins_" + marketKey }
-    private static func cacheAtKey(_ marketKey: String) -> String { "starter_coins_time_" + marketKey }
+    private static func cacheKey(_ exchangeKey: String) -> String { "starter_coins_" + exchangeKey }
+    private static func cacheAtKey(_ exchangeKey: String) -> String { "starter_coins_time_" + exchangeKey }
 
     static let marketsURL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1"
 
@@ -66,13 +66,13 @@ enum StarterCoins {
         StarterCoin(name: "Dogecoin", symbol: "DOGE"),
     ]
 
-    static func fallback(marketKey: String) -> [StarterCoin] {
-        marketKey == StarterPairs.binanceKey ? fallback : fallbackUS
+    static func fallback(exchangeKey: String) -> [StarterCoin] {
+        exchangeKey == StarterPairs.binanceKey ? fallback : fallbackUS
     }
 
-    /// Startbörse der Geräte-Region (siehe `StarterPairs.marketKey`).
-    static func marketKey(_ locale: Locale = .current) -> String {
-        StarterPairs.marketKey(StarterPairs.region(locale))
+    /// Startbörse der Geräte-Region (siehe `StarterPairs.exchangeKey`).
+    static func exchangeKey(_ locale: Locale = .current) -> String {
+        StarterPairs.exchangeKey(StarterPairs.region(locale))
     }
 
     // MARK: Filter (gemeinsam mit «Was gerade auffällt», siehe `CoinExclusion`)
@@ -137,39 +137,39 @@ enum StarterCoins {
     // MARK: Zwischenspeicher
 
     /// Zuletzt geholte Liste derselben Startbörse (auch wenn älter als 24 h); sonst nil.
-    static func cached(marketKey: String, store: UserDefaults = .standard) -> [StarterCoin]? {
-        guard let data = store.data(forKey: cacheKey(marketKey)),
+    static func cached(exchangeKey: String, store: UserDefaults = .standard) -> [StarterCoin]? {
+        guard let data = store.data(forKey: cacheKey(exchangeKey)),
               let coins = try? JSONDecoder().decode([StarterCoin].self, from: data),
               coins.count == count, Set(coins.map(\.symbol)).count == count else { return nil }
         return coins
     }
 
     /// Sofort zeigen: Zwischenspeicher, sonst Ersatzliste.
-    static func initial(marketKey: String, store: UserDefaults = .standard) -> [StarterCoin] {
-        cached(marketKey: marketKey, store: store) ?? fallback(marketKey: marketKey)
+    static func initial(exchangeKey: String, store: UserDefaults = .standard) -> [StarterCoin] {
+        cached(exchangeKey: exchangeKey, store: store) ?? fallback(exchangeKey: exchangeKey)
     }
 
-    static func isFresh(marketKey: String, store: UserDefaults = .standard, now: Date = Date()) -> Bool {
-        guard cached(marketKey: marketKey, store: store) != nil else { return false }
-        let age = now.timeIntervalSince1970 - store.double(forKey: cacheAtKey(marketKey))
+    static func isFresh(exchangeKey: String, store: UserDefaults = .standard, now: Date = Date()) -> Bool {
+        guard cached(exchangeKey: exchangeKey, store: store) != nil else { return false }
+        let age = now.timeIntervalSince1970 - store.double(forKey: cacheAtKey(exchangeKey))
         return age >= 0 && age < maxAge
     }
 
-    private static func save(_ coins: [StarterCoin], marketKey: String, store: UserDefaults = .standard) {
+    private static func save(_ coins: [StarterCoin], exchangeKey: String, store: UserDefaults = .standard) {
         guard let data = try? JSONEncoder().encode(coins) else { return }
-        store.set(data, forKey: cacheKey(marketKey))
-        store.set(Date().timeIntervalSince1970, forKey: cacheAtKey(marketKey))
+        store.set(data, forKey: cacheKey(exchangeKey))
+        store.set(Date().timeIntervalSince1970, forKey: cacheAtKey(exchangeKey))
     }
 
     // MARK: Laden
 
     /// Frische Liste holen und speichern; nil bei jedem Fehler (dann bleibt die bisherige).
-    static func load(marketKey: String) async -> [StarterCoin]? {
-        guard let text = try? await MarketHTTP.call(marketsURL),
+    static func load(exchangeKey: String) async -> [StarterCoin]? {
+        guard let text = try? await ExchangeHTTP.call(marketsURL),
               let coins = try? parseMarkets(text), !coins.isEmpty,
-              let bases = await availableBases(marketKey: marketKey) else { return nil }
+              let bases = await availableBases(exchangeKey: exchangeKey) else { return nil }
         guard let picked = pick(coins, available: { bases.contains($0) }) else { return nil }
-        save(picked, marketKey: marketKey)
+        save(picked, exchangeKey: exchangeKey)
         return picked
     }
 
@@ -213,9 +213,9 @@ enum StarterCoins {
         let cached = store.data(forKey: universeKey).flatMap { try? JSONDecoder().decode([UniverseCoin].self, from: $0) }
         let age = Date().timeIntervalSince1970 - store.double(forKey: universeAtKey)
         if !force, let cached, cached.count >= universeMinCount, age >= 0, age < maxAge { return cached }
-        guard let text = try? await MarketHTTP.call(universeURL),
+        guard let text = try? await ExchangeHTTP.call(universeURL),
               let coins = try? parseMarkets(text), !coins.isEmpty,
-              let bases = await availableBases(marketKey: StarterPairs.binanceKey),
+              let bases = await availableBases(exchangeKey: StarterPairs.binanceKey),
               let picked = pickUniverse(coins, available: { bases.contains($0) }) else { return cached }
         if let data = try? JSONEncoder().encode(picked) {
             store.set(data, forKey: universeKey)
@@ -227,10 +227,10 @@ enum StarterCoins {
     /// Basis-Symbole mit Startpaar an der Startbörse: aus der Paarliste des
     /// der Seite «Paar hinzufügen», falls schon geladen, sonst eine öffentliche Kursliste, zuletzt
     /// die mitgelieferte Paarliste der Börse (wie Android `availableBases`).
-    private static func availableBases(marketKey: String) async -> Set<String>? {
-        let us = marketKey == StarterPairs.binanceUsKey
+    private static func availableBases(exchangeKey: String) async -> Set<String>? {
+        let us = exchangeKey == StarterPairs.binanceUsKey
         let quote = StarterPairs.startQuoteValue
-        let cached = await PairCache.shared.pairs(for: marketKey)
+        let cached = await PairCache.shared.pairs(for: exchangeKey)
         let known = Set(cached.pairs
             .filter { $0.contractType == .none && $0.quote.uppercased() == quote }
             .map { $0.base.uppercased() })
@@ -238,7 +238,7 @@ enum StarterCoins {
         var looked: Set<String>?
         // Öffentlicher Marktdaten-Spiegel von Binance bzw. Binance.US (wie Android), alle Kurse in einem Aufruf
         let url = us ? "https://api.binance.us/api/v3/ticker/price" : "https://data-api.binance.vision/api/v3/ticker/price"
-        if let text = try? await MarketHTTP.call(url, session: MarketHTTP.bulkSession) {
+        if let text = try? await ExchangeHTTP.call(url, session: ExchangeHTTP.bulkSession) {
             looked = try? parseBinanceBases(text)
         }
         if let looked, !looked.isEmpty { return looked }
@@ -271,7 +271,7 @@ actor StarterPriceSource {
     private var cache: (key: String, at: Int64, prices: [String: StarterPrice])?
 
     private static func cacheKey(_ symbols: [String], region: String?) -> String {
-        StarterPairs.marketKey(region) + ":" + symbols.joined(separator: ",")
+        StarterPairs.exchangeKey(region) + ":" + symbols.joined(separator: ",")
     }
 
     /// Noch gültige Kurse aus dem Speicher; sonst nil.
@@ -297,7 +297,7 @@ actor StarterPriceSource {
         let list = "[" + symbols.map { "\"\($0)USDT\"" }.joined(separator: ",") + "]"
         let host = StarterPairs.isUS(region) ? "https://api.binance.us" : "https://data-api.binance.vision"
         let url = host + "/api/v3/ticker/24hr?symbols=" + list.urlQueryEncoded
-        guard let text = try? await MarketHTTP.call(url) else { return [:] }
+        guard let text = try? await ExchangeHTTP.call(url) else { return [:] }
         return (try? Self.parseBinance24h(text)) ?? [:]
     }
 

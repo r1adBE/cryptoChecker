@@ -11,7 +11,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.CancellationException
 import timber.log.Timber
@@ -55,12 +55,12 @@ fun PortfolioHistorySource.mergeOwn(binance: Map<String, CoinCloses>, own: Map<S
  * Binance skaliert oder «ohne passende Tageskurse», [PortfolioExchangeRoute.historyCloses]) — nie still Binance.
  */
 suspend fun PortfolioHistorySource.routes(coins: Collection<String>): HistoryRoutes =
-    resolveHistoryRoutes(portfolioDao, marketRepository, coins)
+    resolveHistoryRoutes(portfolioDao, exchangeRepository, coins)
 
 /** Wege wie [routes], ohne die Klasse — auch für einzelne Tagesschlüsse ([HistoricPriceSource.dailyCloseUsdt]). */
 suspend fun resolveHistoryRoutes(
     portfolioDao: PortfolioDao,
-    marketRepository: com.cryptochecker.app.data.MarketRepository,
+    exchangeRepository: com.cryptochecker.app.data.ExchangeRepository,
     coins: Collection<String>,
 ): HistoryRoutes {
     val wanted = coins.toSet()
@@ -74,8 +74,8 @@ suspend fun resolveHistoryRoutes(
         return HistoryRoutes(emptyMap(), wanted)
     }
     if (byCoin.isEmpty()) return HistoryRoutes(emptyMap(), emptySet())
-    val markets = try {
-        marketRepository.getMarketList().associate { it.key to it.name }
+    val exchanges = try {
+        exchangeRepository.getExchangeList().associate { it.key to it.name }
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -85,15 +85,15 @@ suspend fun resolveHistoryRoutes(
     val out = HashMap<String, CandlePair>()
     val unresolved = HashSet<String>()
     for ((coin, name) in byCoin) {
-        if (markets.isEmpty()) {
+        if (exchanges.isEmpty()) {
             // Börsenliste fehlt: nur Binance ist sicher die Standardquelle
-            if (!name.trim().equals(PortfolioExchangeRoute.DEFAULT_MARKET, ignoreCase = true)) unresolved += coin
+            if (!name.trim().equals(PortfolioExchangeRoute.DEFAULT_EXCHANGE, ignoreCase = true)) unresolved += coin
             continue
         }
         // Binance oder freier Text: Binance (wie die Kurse)
-        val market = PortfolioExchangeRoute.market(name, markets) ?: continue
+        val exchange = PortfolioExchangeRoute.exchange(name, exchanges) ?: continue
         val pick = try {
-            val pairs = marketRepository.getMarketCurrencyPairsInfo(MarketInfo(key = market.first, name = market.second))
+            val pairs = exchangeRepository.getExchangeCurrencyPairsInfo(ExchangeInfo(key = exchange.first, name = exchange.second))
                 .pairs.filter { it.contractType == FuturesContractType.NONE }
             PortfolioExchangeRoute.pickPair(
                 coin, pairs.map { PortfolioExchangeRoute.Pair3(it.base, it.quote, it.pairId) },
@@ -101,14 +101,14 @@ suspend fun resolveHistoryRoutes(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            Timber.d(e, "Portfolio-Verlauf: Paarliste von %s nicht lesbar", market.second)
+            Timber.d(e, "Portfolio-Verlauf: Paarliste von %s nicht lesbar", exchange.second)
             null
         }
         if (pick == null) {
             unresolved += coin
             continue
         }
-        out[coin] = CandlePair(market.first, market.second, pick.base, pick.quote, pick.pairId)
+        out[coin] = CandlePair(exchange.first, exchange.second, pick.base, pick.quote, pick.pairId)
     }
     return HistoryRoutes(out, unresolved)
 }

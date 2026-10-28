@@ -9,13 +9,13 @@ final class MissingEntryNotTradedTests: XCTestCase {
     func testMissingEntryIsAStatementAboutThePair() {
         let noData = JSONError(message: JSONError.noData)
         let unknownCoin = JSONError(message: "Unknown coin: FOO")
-        XCTAssertEqual(MarketFailure.of(noData), .unknownInstrument)
-        XCTAssertEqual(MarketFailure.of(unknownCoin), .unknownInstrument)
+        XCTAssertEqual(ExchangeFailure.of(noData), .unknownInstrument)
+        XCTAssertEqual(ExchangeFailure.of(unknownCoin), .unknownInstrument)
         // Angezeigter Text ist übersetzt: die Art entscheidet
         XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(noData),
-                                                  failure: MarketFailure.of(noData)))
+                                                  failure: ExchangeFailure.of(noData)))
         XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(unknownCoin),
-                                                  failure: MarketFailure.of(unknownCoin)))
+                                                  failure: ExchangeFailure.of(unknownCoin)))
         // Gespeicherter Text ohne Art: gleich
         XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: "No data"))
         XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: "Unknown coin: FOO"))
@@ -23,9 +23,9 @@ final class MissingEntryNotTradedTests: XCTestCase {
 
     func testOtherParseErrorsStayErrors() {
         let other = JSONError(message: "No data for field last")
-        XCTAssertEqual(MarketFailure.of(other), .parse)
+        XCTAssertEqual(ExchangeFailure.of(other), .parse)
         XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(other),
-                                                   failure: MarketFailure.of(other)))
+                                                   failure: ExchangeFailure.of(other)))
         XCTAssertFalse(NotTraded.isMissingEntry("no data available"))
         XCTAssertFalse(NotTraded.isMissingEntry(nil))
         // Kurs da: nie
@@ -64,9 +64,9 @@ final class MissingEntryNotTradedTests: XCTestCase {
         XCTAssertThrowsError(try Lighter().readTicker(call: 0, body: body, ticker: &ticker,
                                                       info: PairQuery("ARM", "USDC", "ARM", .perpetual))) { error in
             XCTAssertEqual((error as? JSONError)?.message, JSONError.noData)
-            XCTAssertEqual(MarketFailure.of(error), .unknownInstrument)
+            XCTAssertEqual(ExchangeFailure.of(error), .unknownInstrument)
             XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(error),
-                                                      failure: MarketFailure.of(error)))
+                                                      failure: ExchangeFailure.of(error)))
         }
     }
 
@@ -79,7 +79,7 @@ final class MissingEntryNotTradedTests: XCTestCase {
                                                       singleReadsFullList: c["singleReadsFullList"] as? Bool ?? false)
             XCTAssertEqual(actual, c["confirm"] as? Bool, c["name"] as? String ?? "")
         }
-        let flagged = MarketsConfig.all.filter(\.singleTickerReadsFullList)
+        let flagged = ExchangesConfig.all.filter(\.singleTickerReadsFullList)
         XCTAssertEqual(Set(flagged.map(\.key)), ["Lighter", "Hyperliquid"])
         // Nur sinnvoll, wo die Liste vollständig ist
         XCTAssertTrue(flagged.allSatisfy(\.bulkTickersComplete))
@@ -89,7 +89,7 @@ final class MissingEntryNotTradedTests: XCTestCase {
         let info = PairQuery("FOO", "USDC", "FOO", .perpetual)
         // Gültige Antwort (Liste): kein Fehlertext, damit «Unknown coin» bleibt
         XCTAssertThrowsError(try Hyperliquid().readError(call: 0, body: " [{\"universe\":[]},[]]", info: info)) { error in
-            XCTAssertEqual((error as? JSONError)?.message, Market.noErrorTextMessage)
+            XCTAssertEqual((error as? JSONError)?.message, Exchange.noErrorTextMessage)
         }
         // Fehler als blosser Text: dessen Anfang
         XCTAssertEqual(try Hyperliquid().readError(call: 0, body: "Failed to deserialize", info: info),

@@ -13,23 +13,23 @@ enum HistoricCloseChain {
     static let okx = "Okex"
     static let bybit = "Bybit"
 
-    /// Kette ohne eigene Börse (Börsen-Schlüssel wie `MarketsConfig`).
+    /// Kette ohne eigene Börse (Börsen-Schlüssel wie `ExchangesConfig`).
     static let chain = [binance, coinbase, kraken, okx, bybit]
 
     /// Ausweich für den Wertverlauf, wenn Binance den Coin nicht führt oder nicht erreichbar ist: dieselbe Kette ohne
     /// Binance (dessen Reihe hat die Quelle schon versucht).
     static let seriesChain = [coinbase, kraken, okx, bybit]
 
-    /// Reihenfolge der Quellen: eigene Börse `ownMarketKey` zuerst (auch eine Börse ausserhalb der Kette, z. B.
+    /// Reihenfolge der Quellen: eigene Börse `ownExchangeKey` zuerst (auch eine Börse ausserhalb der Kette, z. B.
     /// Bitstamp), danach die übrigen Glieder von `chain` ohne Doppel. Gross/Klein egal; leer = nur `chain`.
-    static func order(_ ownMarketKey: String?) -> [String] {
-        guard let own = ownMarketKey?.trimmingCharacters(in: .whitespaces), !own.isEmpty else { return chain }
+    static func order(_ ownExchangeKey: String?) -> [String] {
+        guard let own = ownExchangeKey?.trimmingCharacters(in: .whitespaces), !own.isEmpty else { return chain }
         let canonical = chain.first { $0.caseInsensitiveCompare(own) == .orderedSame } ?? own
         return [canonical] + chain.filter { $0 != canonical }
     }
 
     /// Anzeigename der Quelle («Kurs: Kraken»); OKX heisst in der App «OKX», der Schlüssel «Okex».
-    static func provider(_ marketKey: String) -> String { marketKey == okx ? "OKX" : marketKey }
+    static func provider(_ exchangeKey: String) -> String { exchangeKey == okx ? "OKX" : exchangeKey }
 
     /// Ein abzufragendes Paar einer Kettenquelle: Gegenwährung und Kennung der Börse.
     struct ChainPair: Equatable, Sendable {
@@ -43,10 +43,10 @@ enum HistoricCloseChain {
     /// Paare einer Kettenquelle für `base`, in dieser Reihenfolge versucht; leer = Quelle nicht in der Kette oder
     /// Kürzel unbrauchbar. Gegenwährung USDT bzw. USD/USDC (≈ USDT wie bisher bei Binance.US und Coinbase).
     /// Kraken führt BTC als «XBT» und DOGE als «XDG».
-    static func pairs(_ marketKey: String, base: String) -> [ChainPair] {
+    static func pairs(_ exchangeKey: String, base: String) -> [ChainPair] {
         let b = base.trimmingCharacters(in: .whitespaces).uppercased()
         guard !b.isEmpty, b.count <= 15, b.allSatisfy({ $0.isASCII && ($0.isLetter || $0.isNumber) }) else { return [] }
-        switch marketKey {
+        switch exchangeKey {
         case coinbase: return [ChainPair(quote: "USD", pairId: "\(b)-USD"), ChainPair(quote: "USDC", pairId: "\(b)-USDC")]
         case kraken:
             let k = krakenAssets[b] ?? b
@@ -60,10 +60,10 @@ enum HistoricCloseChain {
     /// Name passt? Eigene Börse (`own`): ihr Name (`providerName`) darf dem eigenen (`ownName`, Merkliste) nicht klar
     /// widersprechen. Kettenquelle: wie die Ausweich-Reihen (`TokenIdentity.fallbackSeriesAllowed`) — widerspricht der
     /// eigene Name dem Binance-Namen, fällt die ganze Kette aus. Unbekannte Namen: ja (Kursband entscheidet).
-    static func nameAllowed(base: String, own: Bool, marketKey: String, ownName: String?, binanceName: String?,
+    static func nameAllowed(base: String, own: Bool, exchangeKey: String, ownName: String?, binanceName: String?,
                             providerName: String?) -> Bool {
         if own { return TokenIdentity.compatible(symbol: base, ownName, providerName) }
-        return TokenIdentity.fallbackSeriesAllowed(symbol: base, ownName: ownName, provider: provider(marketKey),
+        return TokenIdentity.fallbackSeriesAllowed(symbol: base, ownName: ownName, provider: provider(exchangeKey),
                                                    binanceName: binanceName, providerName: providerName)
     }
 

@@ -60,16 +60,16 @@ enum DerivativesAlarm {
     static let oiDenseSpacingMillis: Int64 = 4 * 60_000
     static let oiSparseSpacingMillis: Int64 = 25 * 60_000
 
-    /// Börsen, deren Perpetuals eigene Funding-/Open-Interest-Daten liefern (`FuturesSources.markets`).
-    static var markets: Set<String> { FuturesSources.markets }
+    /// Börsen, deren Perpetuals eigene Funding-/Open-Interest-Daten liefern (`FuturesSources.exchanges`).
+    static var exchanges: Set<String> { FuturesSources.exchanges }
 
     /// Paar kann diese Alarme haben: Perpetual an einer Börse mit eigenen Daten.
-    static func supports(marketKey: String, perpetual: Bool) -> Bool {
-        perpetual && markets.contains(marketKey)
+    static func supports(exchangeKey: String, perpetual: Bool) -> Bool {
+        perpetual && exchanges.contains(exchangeKey)
     }
 
     static func supports(_ watch: Watch) -> Bool {
-        supports(marketKey: watch.marketKey, perpetual: watch.contractType.isPerpetual)
+        supports(exchangeKey: watch.exchangeKey, perpetual: watch.contractType.isPerpetual)
     }
 
     /// Gespeichertes Fenster auf 1, 4 oder 24 Stunden abbilden.
@@ -247,7 +247,7 @@ enum DerivativesAlarmData {
 
     /// Schlüssel mit Börse und Paar: Wird ein Paar bearbeitet (gleiche Id), gilt der alte Wert nicht.
     private static func key(_ watch: Watch) -> String {
-        "\(watch.id)|\(watch.marketKey)|\(watch.baseAsset)|\(watch.quoteAsset)|\(watch.pairId ?? "")"
+        "\(watch.id)|\(watch.exchangeKey)|\(watch.baseAsset)|\(watch.quoteAsset)|\(watch.pairId ?? "")"
     }
 
     private static func cached(_ key: String) -> Values? {
@@ -269,7 +269,7 @@ enum DerivativesAlarmData {
         let info = try? await FuturesDataSource.fetch(watch: watch)
         // Richtwert einer anderen Börse: Funding meldet weiter (Text nennt die Quelle); Open Interest
         // nicht — es gilt je Börse und passt nicht zum Verlauf der beobachteten Börse (wie Android)
-        let foreign = info.map { FuturesSources.note(perpetual: true, marketKey: watch.marketKey, source: $0.source, pairId: watch.pairId) != nil } ?? false
+        let foreign = info.map { FuturesSources.note(perpetual: true, exchangeKey: watch.exchangeKey, source: $0.source, pairId: watch.pairId) != nil } ?? false
         var units: Double? = nil
         if !foreign, let usd = info?.openInterestUsd, usd.isFinite, usd > 0, price > 0 { units = usd / price }
         // Pro 8 Stunden wie die Schwelle (Hyperliquid rechnet stündlich ab)

@@ -27,9 +27,9 @@ struct WatchlistDayChangePill: View {
 
     var body: some View {
         let value = changeView.shown(watch)
-        // Änderung gegen den Mark-Preis (`Market.changeIsMark`): als «Mark» benennen (wie Android `mark`)
+        // Änderung gegen den Mark-Preis (`Exchange.changeIsMark`): als «Mark» benennen (wie Android `mark`)
         let mark: String? = ChangeBasisMath.showsMark(
-            changeIsMark: MarketsConfig.market(watch.marketKey)?.changeIsMark == true, basis: changeView.basis
+            changeIsMark: ExchangesConfig.exchange(watch.exchangeKey)?.changeIsMark == true, basis: changeView.basis
         ) ? L("watch_change_mark") : nil
         HStack(alignment: .firstTextBaseline, spacing: 4) {
             // Zeitraum klein und grau vor der Änderung: «24h ↘ −0.25%» — die Zahlen stehen so bündig rechts

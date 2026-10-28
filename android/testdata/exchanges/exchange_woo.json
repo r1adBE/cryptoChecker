@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "spot: 24 hourly candles (newest first) -> rolling 24 h ticker",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -31,7 +31,7 @@
     {
       "kind": "single",
       "name": "spot: 24 hourly candles but one hour missing (timestamps not contiguous) -> incomplete window, no change",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -49,7 +49,7 @@
     {
       "kind": "single",
       "name": "spot: fewer than 24 candles -> no change",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -67,7 +67,7 @@
     {
       "kind": "single",
       "name": "spot: no candles",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -84,7 +84,7 @@
     {
       "kind": "single",
       "name": "spot, request 1: last trade (live capture 20 Oct 2026) -> real last price and its time",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -102,7 +102,7 @@
     {
       "kind": "single",
       "name": "spot, request 1: no trades -> error, candle price stays",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -119,7 +119,7 @@
     {
       "kind": "single",
       "name": "spot: 25 candles, newest = running hour (response time inside it) -> 24 full hours + the running one",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -141,7 +141,7 @@
     {
       "kind": "single",
       "name": "spot: 25 candles, newest already closed (running hour not delivered yet) -> exactly the 24 full hours, oldest ignored",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -163,7 +163,7 @@
     {
       "kind": "single",
       "name": "spot: newest candle more than an hour old (window does not end now) -> no change",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -181,7 +181,7 @@
     {
       "kind": "single",
       "name": "spot: 25 candles without response time -> newest counts as running hour",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -203,7 +203,7 @@
     {
       "kind": "single",
       "name": "spot: live response recorded 2026-10-16 (running candle) -> exchangeTime = response time of the envelope",
-      "market": "Woo",
+      "exchangeKey": "Woo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -220,7 +220,7 @@
     {
       "kind": "single",
       "name": "futures ticker (24hOpen)",
-      "market": "WooFutures",
+      "exchangeKey": "WooFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -242,7 +242,7 @@
     {
       "kind": "single",
       "name": "futures error payload",
-      "market": "WooFutures",
+      "exchangeKey": "WooFutures",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -259,7 +259,7 @@
     {
       "kind": "bulk",
       "name": "bulk futures",
-      "market": "WooFutures",
+      "exchangeKey": "WooFutures",
       "requestId": 0,
       "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"PERP_BTC_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\", \"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"60500\",\"24hClose\":\"62000.1\",\"24hHigh\":\"62500\", \"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\"}]},\"timestamp\":1728540000999}",
       "expect": {
@@ -275,7 +275,7 @@
     {
       "kind": "bulk",
       "name": "bulk futures: row with renamed 24hClose is reported as unreadable (bulkRow), the rest stays",
-      "market": "WooFutures",
+      "exchangeKey": "WooFutures",
       "requestId": 0,
       "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"PERP_BTC_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"60500\",\"24hClose\":\"62000.1\",\"24hHigh\":\"62500\",\"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\"},{\"symbol\":\"PERP_ETH_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"60500\",\"24hHigh\":\"62500\",\"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\",\"24hClose_renamed\":\"2400.5\"},{\"symbol\":\"PERP_SOL_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"140\",\"24hClose\":\"145.5\",\"24hHigh\":\"62500\",\"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\"}]},\"timestamp\":1728540000999}",
       "expect": {
@@ -296,7 +296,7 @@
     {
       "kind": "bulk",
       "name": "bulk futures: row with null 24hClose (inactive) is skipped, not reported as unreadable",
-      "market": "WooFutures",
+      "exchangeKey": "WooFutures",
       "requestId": 0,
       "body": "{\"success\":true,\"data\":{\"rows\":[{\"symbol\":\"PERP_BTC_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"60500\",\"24hClose\":\"62000.1\",\"24hHigh\":\"62500\",\"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\"},{\"symbol\":\"PERP_OLD_USDT\",\"indexPrice\":\"62010.1\",\"markPrice\":\"62005.5\",\"estFundingRate\":\"0.0001\",\"lastFundingRate\":\"0.0001\",\"nextFundingTime\":1728547200000,\"openInterest\":\"1234.5\",\"24hOpen\":\"60500\",\"24hClose\":null,\"24hHigh\":\"62500\",\"24hLow\":\"60000\",\"24hVolume\":\"12100.5\",\"24hAmount\":\"744460123.45\"}]},\"timestamp\":1728540000999}",
       "expect": {

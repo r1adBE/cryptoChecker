@@ -13,10 +13,11 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * Alarm «Portfolio-Wert» (Runde 28): Gesamtwert über/unter einem Betrag oder Veränderung
- * «heute» ±x %. Eigene Tabelle `portfolio_alarms` (MIGRATION_10_11) statt der Tabelle
+ * «heute» ±x %. Eigene Tabelle `portfolio_alarms` statt der Tabelle
  * `alarms`: Die gehört über einen Fremdschlüssel zu einem Paar der Merkliste — ein
  * Portfolio-Alarm hat keins, ein Schein-Paar wäre in Merkliste, Sicherung und Widgets sichtbar.
- * Spalten, Typen und NOT NULL exakt wie in MIGRATION_10_11 (Room prüft das Schema beim Öffnen).
+ * Spalten, Typen und NOT NULL bilden das Schema der [PortfolioDatabase]; Änderungen nur mit Migration (Room prüft
+ * das Schema beim Öffnen).
  * Regeln: [com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic].
  */
 @Entity(tableName = "portfolio_alarms")

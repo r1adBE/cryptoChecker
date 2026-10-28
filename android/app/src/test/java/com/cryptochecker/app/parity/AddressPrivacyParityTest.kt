@@ -4,7 +4,7 @@ import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.portfolio.WatchedAddressSource
 import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -103,7 +103,7 @@ class AddressPrivacyParityTest {
             server.enqueue(MockResponse.Builder().code(200).body("{}").build())
             val shared = OkHttpClient.Builder().addInterceptor(UserAgentInterceptor("cryptoChecker-Android/1.0")).build()
             val source = WatchedAddressSource(shared)
-            runBlocking { source.client.callMarket(server.url("/api/address/x").toString(), null) }
+            runBlocking { source.client.callExchange(server.url("/api/address/x").toString(), null) }
             assertEquals(HttpUserAgent.NEUTRAL, server.takeRequest().headers[HttpUserAgent.HEADER])
         } finally {
             server.close()

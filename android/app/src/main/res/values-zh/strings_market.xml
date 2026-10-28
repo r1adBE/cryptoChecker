@@ -37,7 +37,7 @@
     <string name="market_section_expand">展开%1$s</string>
     <string name="market_section_now">当前</string>
     <string name="market_source">数据：Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">交易所不可用</string>
+    <string name="exchange_unavailable_error">交易所不可用</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">信息：%1$s</string>

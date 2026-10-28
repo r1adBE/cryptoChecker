@@ -3,14 +3,14 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.convert.CurrencyConversion
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
 import com.cryptochecker.app.domain.portfolio.PricePlausibility
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
@@ -72,7 +72,7 @@ suspend fun PortfolioPriceSource.watchPairPrices(coins: List<String>): Map<Strin
     if (watches.isEmpty()) return emptyMap()
     val candidates = watches.map { w ->
         PortfolioWatchPair.Candidate(
-            marketKey = w.marketKey,
+            exchangeKey = w.exchangeKey,
             base = w.baseAsset,
             quote = w.quoteAsset,
             pairId = w.pairId,
@@ -80,21 +80,21 @@ suspend fun PortfolioPriceSource.watchPairPrices(coins: List<String>): Map<Strin
             disabled = w.disabled,
             lastUpdate = w.lastUpdate,
             // Voller Name aus der Paarliste der Börse (gleicher Token, K-8)
-            name = tokenIdentityStore.pairName(w.marketKey, w.baseAsset),
+            name = tokenIdentityStore.pairName(w.exchangeKey, w.baseAsset),
         )
     }
-    val names = watches.associate { it.marketKey to it.marketName }
+    val names = watches.associate { it.exchangeKey to it.exchangeName }
     val out = ConcurrentHashMap<String, Double>()
     coroutineScope {
         coins.mapNotNull { coin -> PortfolioWatchPair.pick(coin, candidates)?.let { coin to it } }
             .map { (coin, pick) ->
                 async {
                     val price = try {
-                        watchPairPrice(pick, names[pick.marketKey] ?: pick.marketKey)
+                        watchPairPrice(pick, names[pick.exchangeKey] ?: pick.exchangeKey)
                     } catch (e: CancellationException) {
                         throw e
                     } catch (e: Exception) {
-                        Timber.d(e, "Portfolio: Kurs von %s für %s nicht verfügbar", pick.marketKey, coin)
+                        Timber.d(e, "Portfolio: Kurs von %s für %s nicht verfügbar", pick.exchangeKey, coin)
                         null
                     }
                     if (price != null) out[coin] = price
@@ -105,10 +105,10 @@ suspend fun PortfolioPriceSource.watchPairPrices(coins: List<String>): Map<Strin
 }
 
 /** Letzter Kurs des Merklisten-Paars [pick] in USDT; null = keine Antwort oder kein Devisenkurs. */
-suspend fun PortfolioPriceSource.watchPairPrice(pick: PortfolioWatchPair.Candidate, marketName: String): Double? {
-    val market = MarketInfo(key = pick.marketKey, name = marketName)
-    val info = MarketPair(pick.base, pick.quote, pick.pairId)
-    val result = withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { marketRepository.getMarketTicker(market, info) } ?: return null
+suspend fun PortfolioPriceSource.watchPairPrice(pick: PortfolioWatchPair.Candidate, exchangeName: String): Double? {
+    val exchange = ExchangeInfo(key = pick.exchangeKey, name = exchangeName)
+    val info = ExchangePair(pick.base, pick.quote, pick.pairId)
+    val result = withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { exchangeRepository.getExchangeTicker(exchange, info) } ?: return null
     if (result.error != null) return null
     val quote = pick.quote.uppercase()
     val rate = if (quote == "USDT" || quote == "USD") null else fxSource.usdTo(quote)
@@ -128,6 +128,6 @@ suspend fun PortfolioPriceSource.watchNamesFor(coins: List<String>): Map<String,
     }
     return PortfolioPriceIdentity.watchNames(
         coins,
-        watches.map { PortfolioPriceIdentity.WatchName(it.baseAsset, tokenIdentityStore.pairName(it.marketKey, it.baseAsset), it.disabled) },
+        watches.map { PortfolioPriceIdentity.WatchName(it.baseAsset, tokenIdentityStore.pairName(it.exchangeKey, it.baseAsset), it.disabled) },
     )
 }

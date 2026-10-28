@@ -9,7 +9,7 @@ import XCTest
 final class DexFailureTests: XCTestCase {
 
     private func kind(_ error: Error) -> DexFailure {
-        DexFailure.of(RefreshReportLogic.classify(MarketFailure.of(error), ConnectionErrors.describe(error)))
+        DexFailure.of(RefreshReportLogic.classify(ExchangeFailure.of(error), ConnectionErrors.describe(error)))
     }
 
     func testUrsachenWieInDerMerkliste() {
@@ -31,7 +31,7 @@ final class DexFailureTests: XCTestCase {
 
     func testTexteDerMerkliste() {
         XCTAssertEqual(DexFailure.offline.messageKey, "watch_error_offline")
-        XCTAssertEqual(DexFailure.unreachable.messageKey, "error_market_unreachable_short")
+        XCTAssertEqual(DexFailure.unreachable.messageKey, "error_exchange_unreachable_short")
         XCTAssertEqual(DexFailure.other.messageKey, "something_went_wrong")
     }
 }
@@ -53,12 +53,12 @@ final class DexLiquidityTests: XCTestCase {
     }
 
     func testOnlyDexPoolsAreBlocked() {
-        XCTAssertTrue(DexLiquidity.blocksAlarms(marketKey: "DexScreener", liquidityUsd: 5_000))
-        XCTAssertTrue(DexLiquidity.blocksAlarms(marketKey: "DexScreener", liquidityUsd: nil))
-        XCTAssertFalse(DexLiquidity.blocksAlarms(marketKey: "DexScreener", liquidityUsd: 25_000))
+        XCTAssertTrue(DexLiquidity.blocksAlarms(exchangeKey: "DexScreener", liquidityUsd: 5_000))
+        XCTAssertTrue(DexLiquidity.blocksAlarms(exchangeKey: "DexScreener", liquidityUsd: nil))
+        XCTAssertFalse(DexLiquidity.blocksAlarms(exchangeKey: "DexScreener", liquidityUsd: 25_000))
         // Börsen-Paare: nie gesperrt, auch ohne Liquidität
-        XCTAssertFalse(DexLiquidity.blocksAlarms(marketKey: "Binance", liquidityUsd: nil))
-        XCTAssertFalse(DexLiquidity.blocksAlarms(marketKey: "Kraken", liquidityUsd: 1))
+        XCTAssertFalse(DexLiquidity.blocksAlarms(exchangeKey: "Binance", liquidityUsd: nil))
+        XCTAssertFalse(DexLiquidity.blocksAlarms(exchangeKey: "Kraken", liquidityUsd: 1))
     }
 
     func testKeyIgnoresCaseAndSpaces() {
@@ -114,7 +114,7 @@ final class DexLiquidityTests: XCTestCase {
 /// Gegenstück: `DexPairIdParityTest.kt`.
 final class DexPairIdParityTests: XCTestCase {
     private typealias S = TestSupport
-    private let market = DexScreener()
+    private let exchange = DexScreener()
 
     private func cases() throws -> [[String: Any]] {
         S.list(try S.fixture("dex_pair_id")["cases"])
@@ -133,14 +133,14 @@ final class DexPairIdParityTests: XCTestCase {
             let id = try XCTUnwrap(c["pairId"] as? String)
             let info = PairQuery("X", "USD (ethereum)", id, .none)
             if try XCTUnwrap(c["valid"] as? Bool) {
-                XCTAssertNil(market.tickerQueryError(call: 0, info: info), id)
-                XCTAssertEqual(market.tickerAddress(call: 0, info: info), base + id, id)
+                XCTAssertNil(exchange.tickerQueryError(call: 0, info: info), id)
+                XCTAssertEqual(exchange.tickerAddress(call: 0, info: info), base + id, id)
             } else {
-                let error = market.tickerQueryError(call: 0, info: info) as? JSONError
+                let error = exchange.tickerQueryError(call: 0, info: info) as? JSONError
                 XCTAssertEqual(error?.message, DexScreener.poolNotFound, id)
             }
         }
-        let missing = market.tickerQueryError(call: 0, info: PairQuery("X", "USD (ethereum)", nil, .none)) as? JSONError
+        let missing = exchange.tickerQueryError(call: 0, info: PairQuery("X", "USD (ethereum)", nil, .none)) as? JSONError
         XCTAssertEqual(missing?.message, DexScreener.poolNotFound)
     }
 
@@ -164,11 +164,11 @@ final class DexPairIdParityTests: XCTestCase {
     func testSicherungUebernimmtNurGueltigeKennung() throws {
         for c in try cases() {
             let id = try XCTUnwrap(c["pairId"] as? String)
-            let kept = BackupRestoreLimits.acceptsPair(marketKey: DexScreener.key, marketName: "DexScreener",
+            let kept = BackupRestoreLimits.acceptsPair(exchangeKey: DexScreener.key, exchangeName: "DexScreener",
                                                        base: "X", quote: "USD (ethereum)", pairId: id)
             XCTAssertEqual(kept, try XCTUnwrap(c["backupKept"] as? Bool), id)
         }
-        XCTAssertFalse(BackupRestoreLimits.acceptsPair(marketKey: DexScreener.key, marketName: "DexScreener",
+        XCTAssertFalse(BackupRestoreLimits.acceptsPair(exchangeKey: DexScreener.key, exchangeName: "DexScreener",
                                                        base: "X", quote: "USD (ethereum)", pairId: nil))
     }
 }
@@ -178,7 +178,7 @@ final class DexPairIdParityTests: XCTestCase {
 /// Sammelabfrage von DexScreener: Pools derselben Chain in einer Anfrage (`/latest/dex/pairs/{chain}/{a,b,…}`),
 /// höchstens 30 Adressen je Anfrage. Gleiche Fälle in `DexScreenerBulkTest.kt`.
 final class DexScreenerBulkTests: XCTestCase {
-    private let market = DexScreener()
+    private let exchange = DexScreener()
 
     func testGroupsByChainSortedWithoutDuplicates() {
         let groups = DexScreener.bulkGroups([
@@ -203,16 +203,16 @@ final class DexScreenerBulkTests: XCTestCase {
 
     func testRequestAddressesFollowTheGroups() {
         let ids = ["ethereum/0xB", "ethereum/0xA", "bsc/0xC"]
-        XCTAssertEqual(market.bulkTickersNumOfRequests, 1)
-        XCTAssertEqual(market.bulkTickersRequestCount(pairIds: ids), 2)
-        XCTAssertEqual(market.bulkTickersURL(call: 0, pairIds: ids), "https://api.dexscreener.com/latest/dex/pairs/bsc/0xC")
-        XCTAssertEqual(market.bulkTickersURL(call: 1, pairIds: ids),
+        XCTAssertEqual(exchange.bulkTickersNumOfRequests, 1)
+        XCTAssertEqual(exchange.bulkTickersRequestCount(pairIds: ids), 2)
+        XCTAssertEqual(exchange.bulkTickersURL(call: 0, pairIds: ids), "https://api.dexscreener.com/latest/dex/pairs/bsc/0xC")
+        XCTAssertEqual(exchange.bulkTickersURL(call: 1, pairIds: ids),
                        "https://api.dexscreener.com/latest/dex/pairs/ethereum/0xA,0xB")
-        XCTAssertNil(market.bulkTickersURL(call: 2, pairIds: ids))
+        XCTAssertNil(exchange.bulkTickersURL(call: 2, pairIds: ids))
         // Keine ungefilterte Liste; ein fehlender Pool geht in die Einzelabfrage
-        XCTAssertNil(market.bulkTickersURL(call: 0))
-        XCTAssertFalse(market.bulkTickersComplete)
-        XCTAssertEqual(market.bulkTickersRequestCount(pairIds: ["invalid"]), 0)
+        XCTAssertNil(exchange.bulkTickersURL(call: 0))
+        XCTAssertFalse(exchange.bulkTickersComplete)
+        XCTAssertEqual(exchange.bulkTickersRequestCount(pairIds: ["invalid"]), 0)
     }
 }
 

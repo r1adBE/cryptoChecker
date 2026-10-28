@@ -28,7 +28,7 @@ internal fun AppNotifier.priceTitle(watch: WatchEntity, price: Double): String =
         watch.baseAsset,
         PriceFormat.price(price),
         watch.quoteAsset,
-        watch.marketName
+        watch.exchangeName
     )
 
 /**

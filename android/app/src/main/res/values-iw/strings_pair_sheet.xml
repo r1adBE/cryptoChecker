@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">היום %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">לא התקבלו נתונים מהבורסה.</string>
+    <string name="exchange_data_empty_error">לא התקבלו נתונים מהבורסה.</string>
     <string name="market_data_summary">שווי שוק, עמלות גז, נתונים כלכליים, ניתוח מטבעות</string>
     <string name="market_data_tab_futures">חוזים</string>
     <string name="market_data_title">נתוני שוק</string>

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.domain.exceptions.toMarketFailure
+import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import org.junit.Assert.assertEquals
@@ -12,7 +12,7 @@ import java.net.UnknownHostException
 class DexFailureTest {
 
     private fun kindOf(error: Throwable): DexFailure =
-        DexFailure.of(RefreshReportLogic.classify(error.toMarketFailure(), error.toString()))
+        DexFailure.of(RefreshReportLogic.classify(error.toExchangeFailure(), error.toString()))
 
     @Test
     fun ursachenWieInDerMerkliste() {

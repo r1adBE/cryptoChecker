@@ -137,7 +137,7 @@ struct WidgetWatchEntity: AppEntity {
     init(watch: Watch) {
         id = "\(watch.id)"
         title = watch.displayName
-        subtitle = watch.marketName
+        subtitle = watch.exchangeName
     }
 
     var watchId: Int64? { Int64(id) }

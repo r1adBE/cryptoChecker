@@ -15,7 +15,7 @@ object PortfolioWatchPair {
 
     /** Ein Merklisten-Paar (nur die Felder, die die Wahl braucht). */
     data class Candidate(
-        val marketKey: String,
+        val exchangeKey: String,
         val base: String,
         val quote: String,
         val pairId: String?,
@@ -40,8 +40,8 @@ object PortfolioWatchPair {
         val base = PortfolioCalculator.normalizeCoin(coin)
         val usable = watches.filter { w ->
             !w.disabled && w.spot &&
-                PortfolioExchangeRoute.isSpot(w.marketKey) &&
-                w.marketKey != PortfolioExchangeRoute.DEFAULT_MARKET &&
+                PortfolioExchangeRoute.isSpot(w.exchangeKey) &&
+                w.exchangeKey != PortfolioExchangeRoute.DEFAULT_EXCHANGE &&
                 PortfolioCalculator.normalizeCoin(w.base) == base &&
                 w.quote.uppercase() in PortfolioExchangeRoute.QUOTES
         }
@@ -50,7 +50,7 @@ object PortfolioWatchPair {
         return usable.minWithOrNull(
             compareBy<Candidate> { PortfolioExchangeRoute.QUOTES.indexOf(it.quote.uppercase()) }
                 .thenByDescending { it.lastUpdate }
-                .thenBy { it.marketKey }
+                .thenBy { it.exchangeKey }
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.local.MarketLocalDataSource
+import com.cryptochecker.app.data.local.ExchangeLocalDataSource
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.settings.SettingsRepository
@@ -42,8 +42,8 @@ class CoinLogoSync @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val widgetUpdater: WidgetUpdater,
     private val watchRepository: WatchRepository,
-    private val marketRepository: MarketRepository,
-    private val marketLocalDataSource: MarketLocalDataSource,
+    private val exchangeRepository: ExchangeRepository,
+    private val exchangeLocalDataSource: ExchangeLocalDataSource,
     private val connectivity: ConnectivityMonitor,
 ) {
     private val scope = appScope(Dispatchers.IO, "CoinLogoSync")
@@ -150,8 +150,8 @@ class CoinLogoSync @Inject constructor(
             tradFiJob = scope.launch {
                 watchRepository.observeWatches()
                     .map { watches ->
-                        watches.filter { it.marketKey in CoinLogos.TRADFI_MARKETS }
-                            .map { Triple(it.marketKey, it.baseAsset to it.quoteAsset, it.contractType.name) }
+                        watches.filter { it.exchangeKey in CoinLogos.TRADFI_EXCHANGES }
+                            .map { Triple(it.exchangeKey, it.baseAsset to it.quoteAsset, it.contractType.name) }
                             .toSet()
                     }
                     .distinctUntilChanged()
@@ -189,11 +189,11 @@ class CoinLogoSync @Inject constructor(
     private suspend fun tradFiPairs(pairs: Set<Triple<String, Pair<String, String>, String>>): Pair<Set<String>, Set<String>> {
         val out = HashSet<String>()
         val bases = HashSet<String>()
-        for ((marketKey, group) in pairs.groupBy { it.first }) {
-            val tradFi = storedTradFi(marketKey) ?: continue
+        for ((exchangeKey, group) in pairs.groupBy { it.first }) {
+            val tradFi = storedTradFi(exchangeKey) ?: continue
             tradFi.mapTo(bases) { it.split('|')[1] }
             for ((_, bq, contract) in group) {
-                val key = CoinLogos.pairKey(marketKey, bq.first, bq.second, contract)
+                val key = CoinLogos.pairKey(exchangeKey, bq.first, bq.second, contract)
                 if (key in tradFi) out += key
             }
         }
@@ -201,27 +201,27 @@ class CoinLogoSync @Inject constructor(
     }
 
     /** TradFi-Paare der gespeicherten Liste; fehlt sie, einmal laden. null = unbekannt. */
-    private suspend fun storedTradFi(marketKey: String): Set<String>? {
-        var stored = marketLocalDataSource.getMarketData(marketKey)
+    private suspend fun storedTradFi(exchangeKey: String): Set<String>? {
+        var stored = exchangeLocalDataSource.getExchangeData(exchangeKey)
         if (stored == null || stored.lastSyncDate <= 0L) {
-            val first = synchronized(lock) { fetched.add(marketKey) }
-            if (!first) return stored?.let { tradFiOf(marketKey, it) }
-            val market = marketRepository.getMarketList().firstOrNull { it.key == marketKey } ?: return null
+            val first = synchronized(lock) { fetched.add(exchangeKey) }
+            if (!first) return stored?.let { tradFiOf(exchangeKey, it) }
+            val exchange = exchangeRepository.getExchangeList().firstOrNull { it.key == exchangeKey } ?: return null
             try {
-                marketRepository.updateMarketCurrencyPairs(market)
+                exchangeRepository.updateExchangeCurrencyPairs(exchange)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                Timber.w("Paarliste %s nicht geladen: %s", marketKey, e.message)
+                Timber.w("Paarliste %s nicht geladen: %s", exchangeKey, e.message)
             }
-            stored = marketLocalDataSource.getMarketData(marketKey)
+            stored = exchangeLocalDataSource.getExchangeData(exchangeKey)
         }
-        return stored?.let { tradFiOf(marketKey, it) }
+        return stored?.let { tradFiOf(exchangeKey, it) }
     }
 
-    private fun tradFiOf(marketKey: String, info: com.cryptochecker.app.domain.model.MarketPairsInfo): Set<String> =
+    private fun tradFiOf(exchangeKey: String, info: com.cryptochecker.app.domain.model.ExchangePairsInfo): Set<String> =
         info.pairs.filter { it.tradFi }
-            .mapTo(HashSet()) { CoinLogos.pairKey(marketKey, it.base, it.quote, it.contractType.name) }
+            .mapTo(HashSet()) { CoinLogos.pairKey(exchangeKey, it.base, it.quote, it.contractType.name) }
 
     private companion object {
         /** Abfrage, ob ein laufender Abgleich fertig ist. */

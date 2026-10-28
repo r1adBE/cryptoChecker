@@ -261,8 +261,8 @@
   },
   "klines": {
     "pair": {
-      "marketKey": "Binance",
-      "marketName": "Binance",
+      "exchangeKey": "Binance",
+      "exchangeName": "Binance",
       "base": "FROGGIE",
       "quote": "USDT",
       "pairId": "ALPHA_373USDT",
@@ -303,8 +303,8 @@
     ],
     "provider": "Binance Alpha",
     "spotPair": {
-      "marketKey": "Binance",
-      "marketName": "Binance",
+      "exchangeKey": "Binance",
+      "exchangeName": "Binance",
       "base": "BTC",
       "quote": "USDT",
       "pairId": "BTCUSDT",
@@ -314,7 +314,7 @@
   "kinds": [
     {
       "name": "Binance Alpha pair by id",
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "base": "FROGGIE",
       "pairId": "ALPHA_373USDT",
       "tradFi": false,
@@ -323,7 +323,7 @@
     },
     {
       "name": "Binance spot pair of same symbol stays token",
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "base": "FROGGIE",
       "pairId": "FROGGIEUSDT",
       "tradFi": false,
@@ -332,7 +332,7 @@
     },
     {
       "name": "MEXC same symbol",
-      "marketKey": "Mexc",
+      "exchangeKey": "Mexc",
       "base": "FROGGIE",
       "pairId": "FROGGIE_USDT",
       "tradFi": false,
@@ -341,7 +341,7 @@
     },
     {
       "name": "Bybit futures with 1000 prefix",
-      "marketKey": "Bybit",
+      "exchangeKey": "Bybit",
       "base": "1000AIA",
       "pairId": "1000AIAUSDT",
       "tradFi": false,
@@ -350,7 +350,7 @@
     },
     {
       "name": "Binance Futures multiplier",
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "base": "1000AIA",
       "pairId": "1000AIAUSDT",
       "tradFi": false,
@@ -359,7 +359,7 @@
     },
     {
       "name": "TradFi stays TradFi",
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "base": "AIA",
       "pairId": "AIAUSDT",
       "tradFi": true,
@@ -368,7 +368,7 @@
     },
     {
       "name": "DexScreener excluded",
-      "marketKey": "DexScreener",
+      "exchangeKey": "DexScreener",
       "base": "FROGGIE",
       "pairId": "bsc:0xabc",
       "tradFi": false,
@@ -377,7 +377,7 @@
     },
     {
       "name": "Name mismatch: other token",
-      "marketKey": "GateIo",
+      "exchangeKey": "GateIo",
       "base": "NAMEX",
       "pairId": "NAMEX_USDT",
       "tradFi": false,
@@ -386,7 +386,7 @@
     },
     {
       "name": "Names agree",
-      "marketKey": "GateIo",
+      "exchangeKey": "GateIo",
       "base": "NAMEX",
       "pairId": "NAMEX_USDT",
       "tradFi": false,
@@ -395,7 +395,7 @@
     },
     {
       "name": "Exchange without name",
-      "marketKey": "Kucoin",
+      "exchangeKey": "Kucoin",
       "base": "NAMEX",
       "pairId": "NAMEX-USDT",
       "tradFi": false,
@@ -404,7 +404,7 @@
     },
     {
       "name": "listingCex token is regular",
-      "marketKey": "Okex",
+      "exchangeKey": "Okex",
       "base": "ZKJ",
       "pairId": "ZKJ-USDT",
       "tradFi": false,
@@ -413,7 +413,7 @@
     },
     {
       "name": "Not in list",
-      "marketKey": "Kraken",
+      "exchangeKey": "Kraken",
       "base": "BTC",
       "pairId": "XXBTZUSD",
       "tradFi": false,
@@ -424,7 +424,7 @@
   "allows": [
     {
       "name": "Binance Alpha pair, switch on",
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "base": "FROGGIE",
       "pairId": "ALPHA_373USDT",
       "includeAlpha": true,
@@ -434,7 +434,7 @@
     },
     {
       "name": "Binance Alpha pair, switch off",
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "base": "FROGGIE",
       "pairId": "ALPHA_373USDT",
       "includeAlpha": false,
@@ -444,7 +444,7 @@
     },
     {
       "name": "Binance Alpha pair, switch off, list not yet loaded",
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "base": "FROGGIE",
       "pairId": "ALPHA_373USDT",
       "includeAlpha": false,
@@ -454,7 +454,7 @@
     },
     {
       "name": "Binance spot pair, switch off",
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "base": "BTC",
       "pairId": "BTCUSDT",
       "includeAlpha": false,
@@ -464,7 +464,7 @@
     },
     {
       "name": "MEXC alpha symbol, switch off",
-      "marketKey": "Mexc",
+      "exchangeKey": "Mexc",
       "base": "FROGGIE",
       "pairId": "FROGGIE_USDT",
       "includeAlpha": false,
@@ -474,7 +474,7 @@
     },
     {
       "name": "MEXC alpha symbol, switch on",
-      "marketKey": "Mexc",
+      "exchangeKey": "Mexc",
       "base": "FROGGIE",
       "pairId": "FROGGIE_USDT",
       "includeAlpha": true,
@@ -484,7 +484,7 @@
     },
     {
       "name": "Gate name mismatch, switch off: not Alpha, shown",
-      "marketKey": "GateIo",
+      "exchangeKey": "GateIo",
       "base": "NAMEX",
       "pairId": "NAMEX_USDT",
       "includeAlpha": false,
@@ -494,7 +494,7 @@
     },
     {
       "name": "Bybit 1000AIA, switch off",
-      "marketKey": "Bybit",
+      "exchangeKey": "Bybit",
       "base": "1000AIA",
       "pairId": "1000AIAUSDT",
       "includeAlpha": false,

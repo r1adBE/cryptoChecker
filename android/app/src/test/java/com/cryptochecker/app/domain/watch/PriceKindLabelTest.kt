@@ -19,6 +19,6 @@ class PriceKindLabelTest {
         val label = PriceKindLabel.of(priceIsMid = false, markFallback = false, hourlyClose = false, dailyReference = true)
         assertEquals(PriceKindLabel.DAILY_REFERENCE, label)
         assertEquals(PriceKindLabel.MARK, PriceKindLabel.of(false, markFallback = true, hourlyClose = false, dailyReference = true))
-        assertEquals(true, com.cryptochecker.marketdata.model.market.EcbReference().priceIsDailyReference)
+        assertEquals(true, com.cryptochecker.marketdata.model.exchange.EcbReference().priceIsDailyReference)
     }
 }

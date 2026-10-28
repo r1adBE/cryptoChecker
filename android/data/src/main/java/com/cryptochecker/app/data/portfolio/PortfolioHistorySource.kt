@@ -3,15 +3,15 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.data.BoundedCache
 import com.cryptochecker.app.data.CycleCacheStore
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
@@ -125,7 +125,7 @@ class PortfolioHistorySource @Inject constructor(
     private val httpClient: OkHttpClient,
     val cacheStore: CycleCacheStore,
     val portfolioDao: PortfolioDao,
-    val marketRepository: MarketRepository,
+    val exchangeRepository: ExchangeRepository,
     val ownCandles: OwnCandleDataSource,
     val historicSource: HistoricPriceSource,
     val tokenIdentityStore: TokenIdentityStore,
@@ -314,12 +314,12 @@ class PortfolioHistorySource @Inject constructor(
             if (BlockedSources.isBlocked(host)) continue
             val url = "$endpoint?symbol=${coin}USDT&interval=1d&startTime=$startMillis&endTime=$endMillis&limit=$limit"
             val body = try {
-                withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callMarket(url, null) }
+                withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, null) }
             } catch (e: Exception) {
                 // Echten Abbruch des Aufrufers nicht verschlucken (eine Zeitgrenze darunter schon)
                 currentCoroutineContext().ensureActive()
                 // «Invalid symbol»: Paar gibt es nicht — der Spiegel und der Spot führen dieselben Paare
-                if (e is HttpMarketError && e.httpCode == 400) return emptyMap()
+                if (e is HttpExchangeError && e.httpCode == 400) return emptyMap()
                 if (!BlockedSources.noteFailure(host, e)) Timber.d(e, "Portfolio-Verlauf: %s", url)
                 null
             } ?: continue

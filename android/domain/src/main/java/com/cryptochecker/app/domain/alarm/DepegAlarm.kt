@@ -272,8 +272,8 @@ object DepegAlarm {
     const val FALLBACK_EXCHANGE = "Kraken"
 
     /** Hauptbörse: die in der Merkliste am häufigsten genutzte Börse mit Link; Gleichstand → [EXCHANGE_URLS]-Reihenfolge. */
-    fun mainExchange(marketKeys: List<String>): String {
-        val counts = marketKeys.map { ALIASES[it] ?: it }.groupingBy { it }.eachCount()
+    fun mainExchange(exchangeKeys: List<String>): String {
+        val counts = exchangeKeys.map { ALIASES[it] ?: it }.groupingBy { it }.eachCount()
         var best: String? = null
         var bestCount = 0
         for ((key, _) in EXCHANGE_URLS) {
@@ -287,8 +287,8 @@ object DepegAlarm {
     }
 
     /** Link «Börse öffnen» für die Hauptbörse. */
-    fun exchangeUrl(marketKeys: List<String>): String {
-        val key = mainExchange(marketKeys)
+    fun exchangeUrl(exchangeKeys: List<String>): String {
+        val key = mainExchange(exchangeKeys)
         return EXCHANGE_URLS.firstOrNull { it.first == key }?.second
             ?: EXCHANGE_URLS.first { it.first == FALLBACK_EXCHANGE }.second
     }

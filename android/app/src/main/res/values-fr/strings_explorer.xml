@@ -49,7 +49,7 @@
     <string name="explorer_pairs_title">Paires</string>
     <string name="explorer_precise_title">Avancé / par plateforme</string>
     <string name="explorer_price_loading">Chargement du cours…</string>
-    <string name="explorer_select_market_hint">Choisis une plateforme – ses paires se chargent automatiquement.</string>
+    <string name="explorer_select_exchange_hint">Choisis une plateforme – ses paires se chargent automatiquement.</string>
     <string name="explorer_select_placeholder">Choisis</string>
     <string name="explorer_step_pair">Choisir la paire</string>
 

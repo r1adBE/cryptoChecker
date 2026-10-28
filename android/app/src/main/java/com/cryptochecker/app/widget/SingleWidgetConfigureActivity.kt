@@ -185,7 +185,7 @@ private fun SingleWidgetConfigureContent(
                         Column {
                             Text(watch.displayName, style = MaterialTheme.typography.bodyLarge)
                             Text(
-                                watch.marketName,
+                                watch.exchangeName,
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

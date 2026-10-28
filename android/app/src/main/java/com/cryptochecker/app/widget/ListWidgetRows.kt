@@ -111,13 +111,13 @@ class ListWidgetRows @Inject constructor(
      * Börse, damit ein «BTC»-Pool nie das Bitcoin-Logo bekommt).
      */
     private suspend fun widgetLogos(watches: List<WatchEntity>, colors: WidgetColors): Map<String, android.graphics.Bitmap> {
-        val (withLogo, withoutLogo) = watches.partition { CoinLogos.allowedFor(it.marketKey) }
+        val (withLogo, withoutLogo) = watches.partition { CoinLogos.allowedFor(it.exchangeKey) }
         return coinLogos.bitmaps(withLogo.map { coinLogos.logoKey(it) }, colors) +
             withoutLogo.associate { logoKey(it) to coinLogos.initials(it.baseAsset, colors) }
     }
 
     private fun logoKey(watch: WatchEntity): String =
-        if (CoinLogos.allowedFor(watch.marketKey)) coinLogos.logoKey(watch) else "${watch.marketKey}|${watch.baseAsset}"
+        if (CoinLogos.allowedFor(watch.exchangeKey)) coinLogos.logoKey(watch) else "${watch.exchangeKey}|${watch.baseAsset}"
 
     /**
      * Kursgrösse der Zeile: [PRICE_SP]; bei zu wenig Breite kleiner, dann weicht der Name
@@ -164,15 +164,15 @@ class ListWidgetRows @Inject constructor(
         val unchanged = if (off || outdated) null
         else WidgetFreshness.unchangedSince(watch, now, data.outdatedAfter)?.let { WidgetOutdated.unchanged(context, it) }
         views.setTextViewText(
-            R.id.item_market,
+            R.id.item_exchange,
             when {
-                off -> context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.marketName))
-                outdated -> context.getString(R.string.watchlist_row_outdated, BidiText.isolate(watch.marketName))
-                unchanged != null -> "${BidiText.isolate(watch.marketName)} · $unchanged"
-                else -> watch.marketName
+                off -> context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName))
+                outdated -> context.getString(R.string.watchlist_row_outdated, BidiText.isolate(watch.exchangeName))
+                unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · $unchanged"
+                else -> watch.exchangeName
             }
         )
-        views.setTextColor(R.id.item_market, background.secondaryTextColor)
+        views.setTextColor(R.id.item_exchange, background.secondaryTextColor)
 
         // Währung klein und grau wie der Börsenname darunter (14 sp, widget_list_item.xml); passt der Kurs bei sehr
         // grosser Schrift nicht in die Zeile, wird er kleiner, dann weicht der Paarname — der Kurs ist immer
@@ -219,7 +219,7 @@ class ListWidgetRows @Inject constructor(
             A11yText.row(
                 context = context,
                 pair = watch.displayName,
-                market = watch.marketName,
+                exchange = watch.exchangeName,
                 price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
                 quote = watch.quoteAsset,
                 change24h = change,

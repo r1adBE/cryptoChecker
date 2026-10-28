@@ -50,7 +50,7 @@ extension AppData {
 
     /// Startpaar für die leere Merkliste: Binance-Spot `<COIN>/USDT`, in der
     /// Geräte-Region USA Binance.US `<COIN>/USDT` (siehe `StarterPairs.pair`).
-    static func starterPair(_ coin: String, locale: Locale = .current) -> (marketKey: String, pair: MarketPair) {
+    static func starterPair(_ coin: String, locale: Locale = .current) -> (exchangeKey: String, pair: ExchangePair) {
         StarterPairs.pair(for: coin, region: StarterPairs.region(locale))
     }
 
@@ -65,8 +65,8 @@ extension AppData {
         mutate { s in
             for coin in coins {
                 let starter = Self.starterPair(coin)
-                guard let market = MarketsConfig.market(starter.marketKey),
-                      let id = Self.insert(&s, market: market, pair: starter.pair) else { continue }
+                guard let exchange = ExchangesConfig.exchange(starter.exchangeKey),
+                      let id = Self.insert(&s, exchange: exchange, pair: starter.pair) else { continue }
                 ids.append(id)
             }
         }
@@ -87,26 +87,26 @@ extension AppData {
         return ids.count
     }
 
-    func contains(marketKey: String, pair: MarketPair) -> Bool {
-        let type = FuturesContractType.normalized(marketKey: marketKey, pairId: pair.pairId, pair.contractType)
-        let wanted = WatchIdentity.key(marketKey: marketKey, base: pair.base, quote: pair.quote,
+    func contains(exchangeKey: String, pair: ExchangePair) -> Bool {
+        let type = FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: pair.pairId, pair.contractType)
+        let wanted = WatchIdentity.key(exchangeKey: exchangeKey, base: pair.base, quote: pair.quote,
                                        contract: String(type.rawValue), pairId: pair.pairId)
         return snapshot.watches.contains { $0.identity == wanted }
     }
 
     /// Paar einfügen; nil, wenn es schon da ist oder die Merkliste voll ist (`insertOutcome`).
-    static func insert(_ s: inout SharedStorage.Snapshot, market: Market, pair: MarketPair, group: String? = nil) -> Int64? {
-        if case .added(let id) = insertOutcome(&s, market: market, pair: pair, group: group) { return id }
+    static func insert(_ s: inout SharedStorage.Snapshot, exchange: Exchange, pair: ExchangePair, group: String? = nil) -> Int64? {
+        if case .added(let id) = insertOutcome(&s, exchange: exchange, pair: pair, group: group) { return id }
         return nil
     }
 
     /// Paar einfügen: angelegt (mit Id), schon vorhanden oder Merkliste voll (`WatchlistLimits.maxPairs`) — wie
     /// Android `WatchRepository.tryAddWatch`. Schon vorhanden geht vor «voll»: ein bekanntes Paar ist kein Fehler.
     /// Regeln in `WatchInsertion` (gemeinsam mit `addWatches`).
-    static func insertOutcome(_ s: inout SharedStorage.Snapshot, market: Market, pair: MarketPair,
+    static func insertOutcome(_ s: inout SharedStorage.Snapshot, exchange: Exchange, pair: ExchangePair,
                               group: String? = nil) -> AddWatchOutcome {
         var insertion = WatchInsertion(s)
-        return insertion.insert(&s, market: market, pair: pair, group: group)
+        return insertion.insert(&s, exchange: exchange, pair: pair, group: group)
     }
 
     /// «Paar bearbeiten»: Börse, Paar und Kontrakt eines Eintrags ändern — wie
@@ -116,11 +116,11 @@ extension AppData {
     /// ⚡-Signale und Mitteilungen. Danach gleich den neuen Kurs holen.
     /// - Returns: `.duplicate`, wenn das neue Paar schon als anderer Eintrag in der Liste steht.
     @discardableResult
-    func changePair(_ watchId: Int64, market: Market, pair: MarketPair) -> WatchEdit.Outcome? {
+    func changePair(_ watchId: Int64, exchange: Exchange, pair: ExchangePair) -> WatchEdit.Outcome? {
         // Gesperrt: nil wie «Paar fehlt» (das Blatt schliesst, den Hinweis zeigt `.watchlistLockedHint`)
         guard !watchlistWriteRefused() else { return nil }
         guard let watch = self.watch(watchId) else { return nil }
-        let target = WatchEdit.Key(marketKey: market.key, pair: pair)
+        let target = WatchEdit.Key(exchangeKey: exchange.key, pair: pair)
         let existing = snapshot.watches.first { WatchEdit.Key($0) == target }?.id
         let outcome = WatchEdit.decide(selfId: watchId, current: WatchEdit.Key(watch), target: target, existingId: existing)
         guard outcome == .changed else { return outcome }
@@ -133,8 +133,8 @@ extension AppData {
         pairChangedAt[watchId] = EpochTime.nowMillis
         mutate { s in
             guard let i = s.watches.firstIndex(where: { $0.id == watchId }) else { return }
-            s.watches[i].marketKey = market.key
-            s.watches[i].marketName = market.name
+            s.watches[i].exchangeKey = exchange.key
+            s.watches[i].exchangeName = exchange.name
             s.watches[i].baseAsset = pair.base
             s.watches[i].quoteAsset = pair.quote
             s.watches[i].contractType = pair.contractType
@@ -154,7 +154,7 @@ extension AppData {
                 s.alarms[j].referenceAt = 0
             }
         }
-        noteTradFi(market: market, pair: pair)
+        noteTradFi(exchange: exchange, pair: pair)
         Task { [weak self] in
             guard let self else { return }
             // Läuft noch eine Einzelabfrage des alten Paars: abwarten (ihr Ergebnis wird verworfen), höchstens 10 s

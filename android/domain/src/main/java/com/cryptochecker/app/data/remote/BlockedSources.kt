@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import java.util.concurrent.ConcurrentHashMap
 import com.cryptochecker.app.util.DomainLog
@@ -41,7 +41,7 @@ object BlockedSources {
      * 451/403: diese Quelle 6 h. 429/418 eines Hosts mit gemeinsamer Pause: die ganze Gruppe.
      */
     fun noteFailure(key: String, error: Throwable): Boolean {
-        if (error !is HttpMarketError) return false
+        if (error !is HttpExchangeError) return false
         if (error.httpCode == 451 || error.httpCode == 403) {
             blockedUntil[key] = System.currentTimeMillis() + BLOCK_MILLIS
             DomainLog.i("Quelle gesperrt (HTTP %d), überspringe sie 6 h: %s", error.httpCode, key)
@@ -63,18 +63,18 @@ object BlockedSources {
     }
 
     /**
-     * Ende der gemeinsamen Pause, die [hostOrMarketKey] betrifft (Hostname oder Börsen-Schlüssel
+     * Ende der gemeinsamen Pause, die [hostOrExchangeKey] betrifft (Hostname oder Börsen-Schlüssel
      * der Kursabfrage); null = keine Pause.
      */
-    fun groupPausedUntil(hostOrMarketKey: String): Long? {
-        val group = ExchangeBackoff.sharedGroup(hostOrMarketKey) ?: return null
+    fun groupPausedUntil(hostOrExchangeKey: String): Long? {
+        val group = ExchangeBackoff.sharedGroup(hostOrExchangeKey) ?: return null
         val state = groupPauses[group] ?: return null
         return state.pausedUntil.takeIf { ExchangeBackoff.isPaused(state, System.currentTimeMillis()) }
     }
 
     /** Pause aus der Kursabfrage übernehmen (429/418 beim Ticker); verkürzt nie eine laufende. */
-    fun pauseGroup(hostOrMarketKey: String, until: Long) {
-        val group = ExchangeBackoff.sharedGroup(hostOrMarketKey) ?: return
+    fun pauseGroup(hostOrExchangeKey: String, until: Long) {
+        val group = ExchangeBackoff.sharedGroup(hostOrExchangeKey) ?: return
         // Eine unmögliche alte Pause (ExchangeBackoff.isPaused: zu weit in der Zukunft) blockiert die neue nicht
         groupPauses.compute(group) { _, old -> ExchangeBackoff.adoptedPause(old, until, System.currentTimeMillis()) }
     }

@@ -4,7 +4,7 @@ import Foundation
 ///
 /// Binance Spot `<COIN>/USDT` («BTCUSDT») in allen Regionen ausser den USA (auch Schweiz und
 /// Liechtenstein, Entscheid 15. Oktober 2026); in der Geräte-Region USA Binance.US `<COIN>/USDT`
-/// (gleiche Schnittstelle, `api.binance.us`). Schlüssel wie `Market.key` in `MarketsConfig`.
+/// (gleiche Schnittstelle, `api.binance.us`). Schlüssel wie `Exchange.key` in `ExchangesConfig`.
 enum StarterPairs {
     static let binanceKey = "Binance"
     static let binanceUsKey = "BinanceUs"
@@ -51,15 +51,15 @@ enum StarterPairs {
     static func isUS(_ region: String?) -> Bool { normalized(region) == "US" }
 
     /// Startbörse der Region.
-    static func marketKey(_ region: String?) -> String {
+    static func exchangeKey(_ region: String?) -> String {
         isUS(region) ? binanceUsKey : binanceKey
     }
 
     /// Anzeigename der Start-Börse der Region («Binance», bei Standort-Sperre bzw. in den USA «Binance.US»): die
     /// Start-Auswahl sagt laut, woher die Kurse kommen («Kurse von Binance in USDT»). Wie Android.
     /// - Parameter name: Anzeigename aus der Registry; nil = Schlüssel.
-    static func marketName(_ region: String?, name: (String) -> String? = { MarketsConfig.market($0)?.name }) -> String {
-        let key = marketKey(region)
+    static func exchangeName(_ region: String?, name: (String) -> String? = { ExchangesConfig.exchange($0)?.name }) -> String {
+        let key = exchangeKey(region)
         return name(key) ?? key
     }
 
@@ -67,9 +67,9 @@ enum StarterPairs {
     static func startQuote(_ region: String?) -> String { startQuoteValue }
 
     /// Startpaar eines Coins für die Region.
-    static func pair(for coin: String, region: String?) -> (marketKey: String, pair: MarketPair) {
+    static func pair(for coin: String, region: String?) -> (exchangeKey: String, pair: ExchangePair) {
         let symbol = coin.trimmingCharacters(in: .whitespaces).uppercased()
-        return (marketKey(region), MarketPair(symbol, startQuoteValue, symbol + startQuoteValue))
+        return (exchangeKey(region), ExchangePair(symbol, startQuoteValue, symbol + startQuoteValue))
     }
 }
 
@@ -104,9 +104,9 @@ enum StarterGeoBlock {
             do {
                 code = try await AsyncTimeout.run(seconds: probeSeconds) { () -> Int? in
                     do {
-                        _ = try await MarketHTTP.call(StarterPairs.binanceProbeURL)
+                        _ = try await ExchangeHTTP.call(StarterPairs.binanceProbeURL)
                         return 200
-                    } catch let error as HttpMarketError {
+                    } catch let error as HttpExchangeError {
                         return error.httpCode
                     } catch {
                         return nil

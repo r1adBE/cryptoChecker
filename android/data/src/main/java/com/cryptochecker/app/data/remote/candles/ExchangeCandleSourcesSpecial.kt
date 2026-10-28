@@ -10,12 +10,12 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 /**
- * Upbit: `/v1/candles/minutes/{60|240}` bzw. `/v1/candles/days` `?market&count` (höchstens 200, ältere Seite
+ * Upbit: `/v1/candles/minutes/{60|240}` bzw. `/v1/candles/days` `?exchange&count` (höchstens 200, ältere Seite
  * mit `to`), NEUESTE zuerst — {candle_date_time_utc, opening_price, high_price, low_price, trade_price,
  * candle_acc_trade_volume, candle_acc_trade_price}.
  */
 object UpbitCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Upbit")
+    override val exchangeKeys = setOf("Upbit")
     private const val PAGE = 200
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
@@ -58,13 +58,13 @@ object UpbitCandles : ExchangeCandleSource {
  * high, volume (Menge), amount (Umsatz), startTimestamp}]. Spot («SPOT_…») und Perpetuals («PERP_…»).
  */
 object WooCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Woo", "WooFutures")
+    override val exchangeKeys = setOf("Woo", "WooFutures")
 
     private fun id(pair: CandlePair): String? {
         val id = CandleTime.pairId(pair) ?: return null
         return when {
-            pair.marketKey == "WooFutures" && pair.contractType == FuturesContractType.PERPETUAL && id.startsWith("PERP_") -> id
-            pair.marketKey == "Woo" && pair.contractType == FuturesContractType.NONE && id.startsWith("SPOT_") -> id
+            pair.exchangeKey == "WooFutures" && pair.contractType == FuturesContractType.PERPETUAL && id.startsWith("PERP_") -> id
+            pair.exchangeKey == "Woo" && pair.contractType == FuturesContractType.NONE && id.startsWith("SPOT_") -> id
             else -> null
         }
     }
@@ -96,7 +96,7 @@ object WooCandles : ExchangeCandleSource {
  * open, close, amount (Umsatz), quantity (Menge), …, startTime (Index 12), closeTime].
  */
 object PoloniexCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Poloniex")
+    override val exchangeKeys = setOf("Poloniex")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
 
@@ -127,7 +127,7 @@ object PoloniexCandles : ExchangeCandleSource {
  * (ms) — result {ticks, open, high, low, close, volume (Basis), cost (Quote), status}; 4 h aus 60 Minuten.
  */
 object DeribitCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Deribit")
+    override val exchangeKeys = setOf("Deribit")
 
     override fun supports(pair: CandlePair) = pair.contractType.isPerpetual && CandleTime.pairId(pair) != null
 
@@ -166,7 +166,7 @@ object DeribitCandles : ExchangeCandleSource {
  * (ms, höchstens die jüngsten 5000) — [{t, T, s, i, o, c, h, l, v, n}].
  */
 object HyperliquidCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Hyperliquid")
+    override val exchangeKeys = setOf("Hyperliquid")
     private fun coin(pair: CandlePair) = CandleTime.pairId(pair, ":")
 
     override fun supports(pair: CandlePair) = pair.contractType.isPerpetual && coin(pair) != null
@@ -198,7 +198,7 @@ object HyperliquidCandles : ExchangeCandleSource {
  * Quote (Menge daraus genähert).
  */
 object OneTradingCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("OneTrading")
+    override val exchangeKeys = setOf("OneTrading")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
 

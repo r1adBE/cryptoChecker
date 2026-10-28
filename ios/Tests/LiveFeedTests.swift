@@ -9,8 +9,8 @@ final class LiveFeedTests: XCTestCase {
 
     private func pair(_ spec: [String: Any]) -> LivePair {
         LivePair(watchId: Int64(S.number(spec["watchId"]) ?? 0),
-                 marketKey: spec["marketKey"] as? String ?? "",
-                 marketName: spec["marketName"] as? String ?? "",
+                 exchangeKey: spec["exchangeKey"] as? String ?? "",
+                 exchangeName: spec["exchangeName"] as? String ?? "",
                  pairId: spec["pairId"] as? String,
                  base: spec["base"] as? String ?? "",
                  quote: spec["quote"] as? String ?? "",
@@ -48,7 +48,7 @@ final class LiveFeedTests: XCTestCase {
             let ex = try exchange(c["exchange"])
             let spec = c["pair"] as? [String: Any] ?? [:]
             XCTAssertEqual(ex.symbol(for: pair(spec)), c["symbol"] as? String, "symbol for \(spec)")
-            XCTAssertEqual(LiveExchange.from(marketKey: spec["marketKey"] as? String ?? ""), ex)
+            XCTAssertEqual(LiveExchange.from(exchangeKey: spec["exchangeKey"] as? String ?? ""), ex)
         }
     }
 
@@ -71,7 +71,7 @@ final class LiveFeedTests: XCTestCase {
         for c in S.list(data["plan"]) {
             let name = c["name"] as? String ?? ""
             let paused = Set(c["paused"] as? [String] ?? [])
-            let plan = LivePlanner.plan(S.list(c["pairs"]).map(pair), pausedMarketKeys: paused)
+            let plan = LivePlanner.plan(S.list(c["pairs"]).map(pair), pausedExchangeKeys: paused)
             let expected = S.list(c["connections"])
             XCTAssertEqual(plan.connections.count, expected.count, "\(name): connections")
             for (i, e) in expected.enumerated() where i < plan.connections.count {
@@ -160,7 +160,7 @@ final class LiveFeedTests: XCTestCase {
 
     func testManySymbolsAreSplitAcrossConnections() {
         let pairs = (0..<450).map { i in
-            LivePair(watchId: Int64(i), marketKey: "Binance", marketName: "Binance",
+            LivePair(watchId: Int64(i), exchangeKey: "Binance", exchangeName: "Binance",
                      pairId: String(format: "C%03dUSDT", i), base: "C\(i)", quote: "USDT", contract: "NONE")
         }
         let plan = LivePlanner.plan(pairs)
@@ -169,7 +169,7 @@ final class LiveFeedTests: XCTestCase {
         XCTAssertEqual(plan.watchIds[.BINANCE]?.count, 450)
 
         let many = (0..<900).map { i in
-            LivePair(watchId: Int64(i), marketKey: "Bybit", marketName: "Bybit",
+            LivePair(watchId: Int64(i), exchangeKey: "Bybit", exchangeName: "Bybit",
                      pairId: String(format: "S%03d", i), base: "S\(i)", quote: "USDT", contract: "NONE")
         }
         let capped = LivePlanner.plan(many)
@@ -281,7 +281,7 @@ final class LiveFeedTests: XCTestCase {
         XCTAssertEqual(buffer.takeForUi()?[1]?.tradeTime, 11_000)
 
         // Anzeige: ein erster Takt mit gleichem Kurs macht kein stehendes Buch frisch
-        var watch = Watch(id: 7, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        var watch = Watch(id: 7, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
         watch.lastPrice = 100
         watch.lastUpdate = 5_000
         XCTAssertNil(watch.withLive(first, rollingBasis: true).exchangeTime)
@@ -289,7 +289,7 @@ final class LiveFeedTests: XCTestCase {
     }
 
     func testOverlayKeepsChangeOutsideRollingBasis() {
-        var watch = Watch(id: 7, marketKey: "Kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "USD")
+        var watch = Watch(id: 7, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "USD")
         watch.change24h = 2.0
         watch.lastPrice = 50
         let quote = LiveQuote(price: 51, change24h: 9.9, time: 1_000)
@@ -297,7 +297,7 @@ final class LiveFeedTests: XCTestCase {
         let kraken = watch.withLive(quote, rollingBasis: true)
         XCTAssertEqual(kraken.lastPrice, 51)
         XCTAssertEqual(kraken.change24h, 2.0)
-        watch.marketKey = "Binance"
+        watch.exchangeKey = "Binance"
         XCTAssertEqual(watch.withLive(quote, rollingBasis: true).change24h, 9.9)
         XCTAssertEqual(watch.withLive(quote, rollingBasis: false).change24h, 2.0)
         XCTAssertEqual(watch.withLive(nil, rollingBasis: true), watch)

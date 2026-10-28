@@ -143,7 +143,7 @@ Frühere Stände zum Nachlesen; einzelne Punkte sind inzwischen überholt (aktue
   (`RefreshEffects.report`, `PortfolioAlarmChecker`); Portfolio-DB mit `secure_delete` und einmaligem VACUUM;
   Gas-Alarm nach Fehler in 2 Min. erneut.
 * **Build 38 – Alarme und Futures wie im Code** — Binance COIN-M mit eigenen Kennzahlen von `dapi`
-  (`FuturesParsers.binanceCoinM`, `FuturesSources.own(marketKey, pairId)`); unbekanntes Funding-Intervall
+  (`FuturesParsers.binanceCoinM`, `FuturesSources.own(exchangeKey, pairId)`); unbekanntes Funding-Intervall
   nicht mehr als 8 h (`FuturesSources.fundingIntervalHours` → null, kein Funding-Alarm), 8-h-Wert in der
   Futures-Karte; Portfolio-Alarm über Devisenkurs bei anderer Währung (`PortfolioReading.usdTo`), %-Alarm
   erst nach deutlicher Rückkehr scharf (`changeRearmMargin`); Gebühr eines Verkaufs ohne Bestand zählt nicht;
@@ -437,8 +437,8 @@ Frühere Stände zum Nachlesen; einzelne Punkte sind inzwischen überholt (aktue
   (`domain/logos/CoinLogos.kt`, `data/CoinLogoRepository.kt`, `ui/components/CoinBadge.kt`,
   `data/CoinLogoSync.kt`, `widget/WidgetCoinLogos.kt`).
 * **Daten-Spiegel** — Marktdaten, die für alle gleich sind (Fear & Greed, Coin-Metrics-On-Chain,
-  BTC-Kursverlauf, fertig berechnete Altcoin-Saison), stündlich von `market-data.yml` als Anhänge der Release «data»
-  (`fng.txt`, `onchain.txt`, `btcprice.txt`, `altseason.txt`); `callMarket` fragt für genau diese Adressen zuerst den
+  BTC-Kursverlauf, fertig berechnete Altcoin-Saison), stündlich von `exchange-data.yml` als Anhänge der Release «data»
+  (`fng.txt`, `onchain.txt`, `btcprice.txt`, `altseason.txt`); `callExchange` fragt für genau diese Adressen zuerst den
   Spiegel, sonst den Anbieter (`domain/mirror/DataMirror.kt`). CoinGecko-Daten werden nie gespiegelt
   (API-Bedingungen) — die App fragt CoinGecko direkt.
 * **Live-Kurse per WebSocket** — solange die Merkliste offen ist, kommen die Kurse
@@ -796,7 +796,7 @@ Eine einstellbare Ruhezeit verhindert Dauerfeuer. Prozentalarme messen ab dem
 Kurs, der beim Anlegen galt, und setzen den Bezugspunkt beim Auslösen neu.
 
 **Sprachausgabe** — liest Kurse und Alarme vor, mit dem sprechbaren Börsennamen
-aus der Bibliothek (`Market.ttsName`). Sprechtempo einstellbar, wahlweise nur
+aus der Bibliothek (`Exchange.ttsName`). Sprechtempo einstellbar, wahlweise nur
 bei Alarmen.
 
 **Widgets** — Merklisten-Widget für den Startbildschirm: eine scrollbare Liste
@@ -808,14 +808,14 @@ Hintergrund gewählt (transparent mit hellem oder dunklem Text, dunkel, hell,
 marineblau). Ein Tipp auf eine Zeile öffnet die App, der Knopf aktualisiert.
 
 **Massenabfrage** — Wer viele Paare derselben Börse beobachtet, bekommt sie in
-einer einzigen Anfrage statt in Dutzenden. `Market` hat dafür einen optionalen
+einer einzigen Anfrage statt in Dutzenden. `Exchange` hat dafür einen optionalen
 Haken (`bulkTickersNumOfRequests`, `getBulkTickersUrl`, `parseBulkTickers`);
 umgesetzt ist er für alle Märkte ausser Coinbase (DexScreener seit Build 82: Pools derselben Chain gemeinsam über
 `/latest/dex/pairs/{chain}/{a,b,…}`, höchstens 30 je Anfrage, Liquiditätsregel je Pool). Märkte
 ohne diesen Haken werden weiter Paar für Paar abgefragt, und scheitert die
 Massenabfrage, fällt der Refresher automatisch darauf zurück. Ab drei Paaren einer Börse greift der Sammelweg.
 Wo die Börse eine Auswahl dokumentiert, werden nur die beobachteten Paare abgefragt
-(Binance/Binance.US `symbols`, Upbit/Bithumb `markets`, Kraken `pair`, Bitfinex `symbols`;
+(Binance/Binance.US `symbols`, Upbit/Bithumb `exchanges`, Kraken `pair`, Bitfinex `symbols`;
 lange Listen über `BulkPairChunks` auf mehrere URLs unter 2000 Zeichen verteilt);
 scheitert die gefilterte Abfrage, folgt einmal die ungefilterte. Coinbase braucht je Paar
 eine Anfrage (`/stats`: Kurs, Hoch/Tief, Volumen und Kurs vor 24 h).
@@ -867,7 +867,7 @@ app/
 Grosse Bildschirme sind nach Aufgaben aufgeteilt, mit denselben Dateinamen wie in iOS:
 Merkliste (`WatchlistScreen` setzt zusammen; `WatchlistHeader`, `WatchlistStatus`,
 `WatchlistSearch`, `WatchlistList`, `WatchlistRow`, `WatchlistSheets`, `WatchlistJump`,
-`WatchlistBanner` …), Markt-Karten (`Market…Card`, `MarketCycleChart`, `MarketCardParts`),
+`WatchlistBanner` …), Markt-Karten (`Exchange…Card`, `MarketCycleChart`, `MarketCardParts`),
 Einstellungen (`SettingsScreen`, `SettingsComponents`, `SettingsPickers`, je Gruppe
 `Settings…Pages`), Alarme (`AlarmsScreen`, `AlarmEditorSheet`, `AlarmAdvancedOptions`),
 «Paar hinzufügen» (`ExplorerScreen`, `ExplorerSearchUi`, `ExplorerSteps`, `ExplorerBulk`,
@@ -910,21 +910,22 @@ Hinweise zu AGP 9: Kotlin kommt über den Klassenpfad im Wurzel-`build.gradle.kt
 (`kotlin-gradle-plugin`), `jvmTarget` folgt `compileOptions` (Java 17). R8
 packt Klassen ab AGP 9.1 standardmässig in andere Pakete um; die Börsenklassen
 sind über `marketdata/consumer-rules.pro` und `proguard-rules.pro` geschützt. Ihr Schlüssel
-(`Market.key`) ist ein fester Text je Börse (gleich dem früheren Klassennamen).
+(`Exchange.key`) ist ein fester Text je Börse (gleich dem früheren Klassennamen).
 
 **Room-Schemas – nach dem nächsten Build `app/schemas/…` committen:** Im Repository liegen
-die Schemas 1–3 und 13–16 (`app/schemas/com.cryptochecker.app.data.local.AppDatabase/`) sowie 1–6 der
+das Schema 1 der Hauptdatenbank (`app/schemas/com.cryptochecker.app.data.local.AppDatabase/`) sowie 1–6 der
 Portfolio-Datenbank (`app/schemas/com.cryptochecker.app.data.portfolio.PortfolioDatabase/`).
 `exportSchema = true` und `room { schemaDirectory("$projectDir/schemas") }` sind gesetzt;
 der Build (z. B. `./gradlew :app:assembleDebug`) schreibt das Schema der aktuellen
-Datenbank-Version (`AppDatabase.VERSION`); 4–12 lassen sich nicht mehr erzeugen. Diese JSON-Dateien mitcommitten und nie von Hand
-schreiben – sie sind die Grundlage für Migrationstests und für jede weitere Migration.
+Datenbank-Version (`AppDatabase.VERSION`). Diese JSON-Dateien mitcommitten und nie von Hand
+schreiben – sie sind die Grundlage für Migrationstests und für jede weitere Migration. Neue Version der
+Hauptdatenbank: Schema, Migration und Migrationstest mit Daten (`RoomSchemaRulesTest`).
 
 ## Umfang
 
 * 56 Märkte: 54 auf 45 Börsen (teils mit Spot und Futures), dazu DexScreener für DEX-Token (GeckoTerminal als
   Reserve) und EZB-Referenzkurse für Devisen. Die vollständige Liste in Anzeigereihenfolge steht in
-  `marketdata/src/main/java/com/cryptochecker/marketdata/config/MarketsConfig.kt`.
+  `marketdata/src/main/java/com/cryptochecker/marketdata/config/ExchangesConfig.kt`.
   Xcalibra ist seit Januar 2025 geschlossen.
 * Belegt abgeschaltete Dienste entfernt: Poloniex (Legacy-API 28.02.2023),
   Uniswap V2 (The-Graph-Hosted-Service 12.06.2024), Bitpanda Pro
@@ -934,7 +935,7 @@ schreiben – sie sind die Grundlage für Migrationstests und für jede weitere 
   `docs/store/icon_512.png`. Die alten blauen Globus-Grafiken (`docs/branding`)
   sind entfernt.
 * Sammelaktion «Alle …-Paare dieser Börse» mit wählbarer Gegenwährung
-  (früher «Alle USDT-PERPS»; `domain/model/MarketPairsInfo.kt`,
+  (früher «Alle USDT-PERPS»; `domain/model/ExchangePairsInfo.kt`,
   `ui/features/explorer/ExplorerViewModel.kt`), mit Schnellfiltern Gewinner / Verlierer / Volumen
   (eine Sammelabfrage der Börse beim Öffnen, höchstens einmal pro Minute).
 * Künstliche Ladeverzögerung beim Start der Börsenliste entfernt.

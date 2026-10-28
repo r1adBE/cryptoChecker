@@ -1,8 +1,8 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Grössengrenzen von Manifest und Signatur über den echten Ladeweg (`MarketHTTP.loadMirrorMeta` → URLSession mit der
-/// URLProtocol-Attrappe aus `MarketHTTPStubTests`): zu gross (angekündigt oder beim Lesen) zählt wie fehlend, genau an
+/// Grössengrenzen von Manifest und Signatur über den echten Ladeweg (`ExchangeHTTP.loadMirrorMeta` → URLSession mit der
+/// URLProtocol-Attrappe aus `ExchangeHTTPStubTests`): zu gross (angekündigt oder beim Lesen) zählt wie fehlend, genau an
 /// der Grenze wird gelesen. Wie Android `MirrorLoadLimitTest.kt`.
 final class MirrorLoadLimitTests: XCTestCase {
     private typealias S = TestSupport
@@ -11,7 +11,7 @@ final class MirrorLoadLimitTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [MarketHTTPStubProtocol.self]
+        configuration.protocolClasses = [ExchangeHTTPStubProtocol.self]
         configuration.timeoutIntervalForRequest = 5
         configuration.timeoutIntervalForResource = 10
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -49,11 +49,11 @@ final class MirrorLoadLimitTests: XCTestCase {
         let signatureURL = "https://stub.invalid/\(UUID().uuidString)/manifest.json.sig"
 
         func set(manifest: String, signature: String, announced: Bool = false) {
-            MarketHTTPStubReplies.shared.set(manifestURL, Self.reply(manifest, announced: announced))
-            MarketHTTPStubReplies.shared.set(signatureURL, Self.reply(signature, announced: announced))
+            ExchangeHTTPStubReplies.shared.set(manifestURL, Self.reply(manifest, announced: announced))
+            ExchangeHTTPStubReplies.shared.set(signatureURL, Self.reply(signature, announced: announced))
         }
 
-        private static func reply(_ text: String, announced: Bool) -> MarketHTTPStubReplies.Reply {
+        private static func reply(_ text: String, announced: Bool) -> ExchangeHTTPStubReplies.Reply {
             let body = Data(text.utf8)
             return .respond(status: 200, headers: announced ? ["Content-Length": String(body.count)] : [:], body: body)
         }
@@ -69,7 +69,7 @@ final class MirrorLoadLimitTests: XCTestCase {
         let ok = await trust.verified(file: "fng.txt", text: c.okText) { address, limit in
             let target = address == MirrorManifest.url ? manifestURL
                 : (address == MirrorManifest.signatureURL ? signatureURL : address)
-            return await MarketHTTP.loadMirrorMeta(target, limit: limit, session: stubSession)
+            return await ExchangeHTTP.loadMirrorMeta(target, limit: limit, session: stubSession)
         }
         return (ok, await trust.lastStatus)
     }
@@ -92,7 +92,7 @@ final class MirrorLoadLimitTests: XCTestCase {
         XCTAssertFalse(result.ok)
         XCTAssertEqual(result.status, .missing)
         // Ohne Manifest keine Signatur-Anfrage
-        XCTAssertEqual(MarketHTTPStubReplies.shared.hitCount(stubs.signatureURL), 0)
+        XCTAssertEqual(ExchangeHTTPStubReplies.shared.hitCount(stubs.signatureURL), 0)
     }
 
     func testStreamedManifestAboveTheLimitCountsAsMissing() async throws {

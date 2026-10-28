@@ -32,7 +32,7 @@ class LoadErrorScreenViewState(private val throwable: Throwable) {
 
     @StringRes
     fun titleRes(): Int = when {
-        isTimeout -> R.string.error_market_unreachable_short
+        isTimeout -> R.string.error_exchange_unreachable_short
         isNetwork -> R.string.offline_status
         else -> R.string.something_went_wrong
     }

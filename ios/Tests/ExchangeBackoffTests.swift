@@ -108,7 +108,7 @@ final class ExchangeBackoffTests: XCTestCase {
 
     // MARK: - Gemeinsame Binance-Pause
 
-    func testBinanceHostsAndMarketsShareOneGroup() {
+    func testBinanceHostsAndExchangesShareOneGroup() {
         for key in ["api.binance.com", "data-api.binance.vision", "fapi.binance.com", "dapi.binance.com",
                     "www.binance.com", "Binance", "BinanceFutures"] {
             XCTAssertEqual(ExchangeBackoff.sharedGroup(key), ExchangeBackoff.binanceGroup, key)

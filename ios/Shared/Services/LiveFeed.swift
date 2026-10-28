@@ -29,8 +29,8 @@ struct LiveQuote: Equatable, Sendable {
 /// Paar der sichtbaren Merkliste, soweit der Datenstrom es braucht.
 struct LivePair: Equatable, Hashable, Sendable {
     var watchId: Int64
-    var marketKey: String
-    var marketName: String
+    var exchangeKey: String
+    var exchangeName: String
     var pairId: String?
     var base: String
     var quote: String
@@ -64,11 +64,11 @@ enum LivePlanner {
 
     /// Welche Verbindungen für die sichtbaren Paare? Ohne Börsen ohne WebSocket, nicht mehr
     /// gehandelte Paare und pausierte Börsen (`ExchangeBackoff`).
-    static func plan(_ pairs: [LivePair], pausedMarketKeys: Set<String> = []) -> LivePlan {
+    static func plan(_ pairs: [LivePair], pausedExchangeKeys: Set<String> = []) -> LivePlan {
         var ids: [LiveExchange: [String: [Int64]]] = [:]
         for pair in pairs {
-            guard !pair.notTraded, !pausedMarketKeys.contains(pair.marketKey),
-                  let exchange = LiveExchange.from(marketKey: pair.marketKey),
+            guard !pair.notTraded, !pausedExchangeKeys.contains(pair.exchangeKey),
+                  let exchange = LiveExchange.from(exchangeKey: pair.exchangeKey),
                   let symbol = exchange.symbol(for: pair) else { continue }
             ids[exchange, default: [:]][symbol, default: []].append(pair.watchId)
         }
@@ -134,10 +134,10 @@ enum LiveBackoff {
 /// Regeln — wie `LiveRules` (Kotlin).
 enum LiveRules {
     /// Zeit eines neuen Kurses: die der Börse, ausser sie fehlt oder liegt mehr als 5 Minuten in der Zukunft (falsch
-    /// gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Market.markFetched`): eine Zeit aus der Zukunft
+    /// gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Exchange.markFetched`): eine Zeit aus der Zukunft
     /// liesse einen stehenden Kurs lange frisch aussehen. Wie `LiveRules.tickTime` (Android).
     static func tickTime(_ reported: Int64?, now: Int64) -> Int64 {
-        guard let reported, reported > 0, reported <= now + Market.exchangeTimeFutureToleranceMillis else { return now }
+        guard let reported, reported > 0, reported <= now + Exchange.exchangeTimeFutureToleranceMillis else { return now }
         return reported
     }
 
@@ -264,7 +264,7 @@ struct LiveBuffer: Sendable {
 extension Watch {
     /// Was der Live-Strom von einem Paar braucht.
     var livePair: LivePair {
-        LivePair(watchId: id, marketKey: marketKey, marketName: marketName, pairId: pairId,
+        LivePair(watchId: id, exchangeKey: exchangeKey, exchangeName: exchangeName, pairId: pairId,
                  base: baseAsset, quote: quoteAsset,
                  contract: contractType.backupName,
                  // Deaktivierte Paare werden wie nicht gehandelte nie abonniert
@@ -286,7 +286,7 @@ extension Watch {
         copy.exchangeTime = LiveRules.exchangeTime(quote, storedPrice: lastPrice, storedExchangeTime: exchangeTime)
         copy.change24h = LiveRules.chooseChange(
             rollingBasis: rollingBasis, stampCurrent: true,
-            exchangeRolling: LiveExchange.from(marketKey: marketKey)?.rollingChange == true,
+            exchangeRolling: LiveExchange.from(exchangeKey: exchangeKey)?.rollingChange == true,
             live: quote.change24h, existing: change24h)
         return copy
     }

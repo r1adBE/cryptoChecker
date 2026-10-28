@@ -28,8 +28,8 @@ data class LiveQuote(val price: Double, val change24h: Double?, val time: Long, 
 /** Paar der sichtbaren Merkliste, soweit der Datenstrom es braucht. */
 data class LivePair(
     val watchId: Long,
-    val marketKey: String,
-    val marketName: String,
+    val exchangeKey: String,
+    val exchangeName: String,
     val pairId: String?,
     val base: String,
     val quote: String,
@@ -60,13 +60,13 @@ object LivePlanner {
 
     /**
      * Welche Verbindungen für die sichtbaren Paare? Ohne Börsen mit WebSocket, nicht mehr
-     * gehandelte Paare und Börsen in [pausedMarketKeys] (ExchangeBackoff).
+     * gehandelte Paare und Börsen in [pausedExchangeKeys] (ExchangeBackoff).
      */
-    fun plan(pairs: List<LivePair>, pausedMarketKeys: Set<String> = emptySet()): LivePlan {
+    fun plan(pairs: List<LivePair>, pausedExchangeKeys: Set<String> = emptySet()): LivePlan {
         val ids = LinkedHashMap<LiveExchange, MutableMap<String, MutableList<Long>>>()
         for (pair in pairs) {
-            if (pair.notTraded || pair.marketKey in pausedMarketKeys) continue
-            val exchange = LiveExchange.fromMarketKey(pair.marketKey) ?: continue
+            if (pair.notTraded || pair.exchangeKey in pausedExchangeKeys) continue
+            val exchange = LiveExchange.fromExchangeKey(pair.exchangeKey) ?: continue
             val symbol = exchange.symbolFor(pair) ?: continue
             ids.getOrPut(exchange) { LinkedHashMap() }.getOrPut(symbol) { ArrayList() } += pair.watchId
         }
@@ -135,11 +135,11 @@ object LiveRules {
 
     /**
      * Zeit eines neuen Kurses: die der Börse, ausser sie fehlt oder liegt mehr als 5 Minuten in der Zukunft
-     * (falsch gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Market.markFetched`): eine Zeit
+     * (falsch gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Exchange.markFetched`): eine Zeit
      * aus der Zukunft liesse einen stehenden Kurs lange frisch aussehen.
      */
     fun tickTime(reported: Long?, now: Long): Long =
-        reported?.takeIf { it > 0 && it <= now + com.cryptochecker.marketdata.model.Market.EXCHANGE_TIME_FUTURE_TOLERANCE_MS } ?: now
+        reported?.takeIf { it > 0 && it <= now + com.cryptochecker.marketdata.model.Exchange.EXCHANGE_TIME_FUTURE_TOLERANCE_MS } ?: now
     const val UI_INTERVAL_MILLIS = 500L
     const val DB_INTERVAL_MILLIS = 10_000L
     const val WIDGET_INTERVAL_MILLIS = 60_000L

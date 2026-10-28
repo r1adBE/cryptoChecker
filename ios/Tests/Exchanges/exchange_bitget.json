@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "spot ticker: change24h (fraction) used, changeUtc24h ignored",
-      "market": "Bitget",
+      "exchangeKey": "Bitget",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "spot ticker with only changeUtc24h: no rolling change",
-      "market": "Bitget",
+      "exchangeKey": "Bitget",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -50,7 +50,7 @@
     {
       "kind": "single",
       "name": "futures ticker (mix v2)",
-      "market": "BitgetFutures",
+      "exchangeKey": "BitgetFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -74,7 +74,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Bitget",
+      "exchangeKey": "Bitget",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -91,7 +91,7 @@
     {
       "kind": "bulk",
       "name": "bulk spot: entry without lastPr is reported as unreadable",
-      "market": "Bitget",
+      "exchangeKey": "Bitget",
       "requestId": 0,
       "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[{\"symbol\":\"BTCUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":\"62000.1\",\"low24h\":\"60000\", \"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\", \"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\"},{\"symbol\":\"NEWUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"low24h\":\"60000\", \"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\", \"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\"}]}",
       "expect": {
@@ -113,7 +113,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPr» in one row — that pair is reported as unreadable, the rest stays; row with null «lastPr» (inactive) is skipped, not failed",
-      "market": "Bitget",
+      "exchangeKey": "Bitget",
       "requestId": 0,
       "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000200,\"data\":[{\"symbol\":\"BTCUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":\"62000.1\",\"low24h\":\"60000\",\"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\",\"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\"},{\"symbol\":\"ETHUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"low24h\":\"60000\",\"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\",\"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\",\"lastPr_renamed\":\"62000.1\"},{\"symbol\":\"OLDUSDT\",\"high24h\":\"62500\",\"open\":\"60500\",\"lastPr\":null,\"low24h\":\"60000\",\"quoteVolume\":\"744460123.45\",\"baseVolume\":\"12100.52\",\"usdtVolume\":\"744460123.45\",\"bidPr\":\"62000\",\"askPr\":\"62000.2\",\"bidSz\":\"0.5123\",\"askSz\":\"0.8012\",\"openUtc\":\"61000\",\"ts\":\"1728540000123\",\"changeUtc24h\":\"0.01641\",\"change24h\":\"0.02481\"}]}",
       "expect": {
@@ -135,7 +135,7 @@
     {
       "kind": "bulk",
       "name": "bulk futures",
-      "market": "BitgetFutures",
+      "exchangeKey": "BitgetFutures",
       "requestId": 0,
       "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"lastPr\":\"61990.2\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"bidSz\":\"1.2\",\"askSz\":\"2.3\", \"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\", \"quoteVolume\":\"13248901234.56\",\"usdtVolume\":\"13248901234.56\",\"openUtc\":\"61500\",\"changeUtc24h\":\"0.00797\", \"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"deliveryStartTime\":null,\"deliveryTime\":null, \"deliveryStatus\":\"\",\"open24h\":\"62340.1\",\"markPrice\":\"61995\"}]}",
       "expect": {
@@ -152,7 +152,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPr» in one row — that pair is reported as unreadable, the rest stays; row with empty «lastPr» (inactive) is skipped, not failed",
-      "market": "BitgetFutures",
+      "exchangeKey": "BitgetFutures",
       "requestId": 0,
       "body": "{\"code\":\"00000\",\"msg\":\"success\",\"requestTime\":1728540000500,\"data\":[{\"symbol\":\"BTCUSDT\",\"lastPr\":\"61990.2\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"bidSz\":\"1.2\",\"askSz\":\"2.3\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"usdtVolume\":\"13248901234.56\",\"openUtc\":\"61500\",\"changeUtc24h\":\"0.00797\",\"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"deliveryStartTime\":null,\"deliveryTime\":null,\"deliveryStatus\":\"\",\"open24h\":\"62340.1\",\"markPrice\":\"61995\"},{\"symbol\":\"ETHUSDT\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"bidSz\":\"1.2\",\"askSz\":\"2.3\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"usdtVolume\":\"13248901234.56\",\"openUtc\":\"61500\",\"changeUtc24h\":\"0.00797\",\"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"deliveryStartTime\":null,\"deliveryTime\":null,\"deliveryStatus\":\"\",\"open24h\":\"62340.1\",\"markPrice\":\"61995\",\"lastPr_renamed\":\"61990.2\"},{\"symbol\":\"OLDUSDT\",\"lastPr\":\"\",\"askPr\":\"61990.3\",\"bidPr\":\"61990.2\",\"bidSz\":\"1.2\",\"askSz\":\"2.3\",\"high24h\":\"62480\",\"low24h\":\"59980.1\",\"ts\":\"1728540000456\",\"change24h\":\"-0.0056\",\"baseVolume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"usdtVolume\":\"13248901234.56\",\"openUtc\":\"61500\",\"changeUtc24h\":\"0.00797\",\"indexPrice\":\"62010.12\",\"fundingRate\":\"0.0001\",\"holdingAmount\":\"55123.4\",\"deliveryStartTime\":null,\"deliveryTime\":null,\"deliveryStatus\":\"\",\"open24h\":\"62340.1\",\"markPrice\":\"61995\"}]}",
       "expect": {

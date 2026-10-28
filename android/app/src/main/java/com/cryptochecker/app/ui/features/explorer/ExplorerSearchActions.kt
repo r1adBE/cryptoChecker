@@ -7,11 +7,11 @@ package com.cryptochecker.app.ui.features.explorer
 import com.cryptochecker.app.domain.market.ExchangeOrder
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.settings.deviceRegionLocale
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Semaphore
@@ -46,7 +46,7 @@ fun ExplorerViewModel.pickCoin(hit: CoinHit?) {
 /** Treffer direkt in die Merkliste; der Suchbegriff kommt zu «Zuletzt gesucht». */
 fun ExplorerViewModel.addSearchHit(hit: SearchHit) {
     recentSearchStore.add(query.value)
-    launchAdd(hit.market, hit.pair) { added ->
+    launchAdd(hit.exchange, hit.pair) { added ->
         addResult.value = if (added) AddResult.ADDED else AddResult.ALREADY_IN_LIST
     }
 }
@@ -57,7 +57,7 @@ fun ExplorerViewModel.addSearchHit(hit: SearchHit) {
  */
 fun ExplorerViewModel.loadMissingLists() {
     if (missingListsJob?.isActive == true) return
-    val targets = unloadedMarkets
+    val targets = unloadedExchanges
     if (targets.isEmpty()) return
     missingListsJob = viewModelScope.launch {
         lists.value = SearchLists(missing = targets.size, progress = SearchProgress(0, targets.size))
@@ -69,7 +69,7 @@ fun ExplorerViewModel.loadMissingLists() {
                 permits.acquire()
                 try {
                     val info = syncForSearch(m)
-                    if (info != null) pairsByMarket[m.key] = info else failed += m.name
+                    if (info != null) pairsByExchange[m.key] = info else failed += m.name
                 } finally {
                     permits.release()
                 }
@@ -81,7 +81,7 @@ fun ExplorerViewModel.loadMissingLists() {
         updateUnloaded()
         // Börsen ohne Antwort (Wartung, Zeitüberschreitung, kein Netz) mit Namen melden statt wortlos
         // dieselbe Karte zu zeigen
-        val stillMissing = unloadedMarkets.map { it.name }.toSet()
+        val stillMissing = unloadedExchanges.map { it.name }.toSet()
         lists.value = lists.value.copy(failed = targets.map { it.name }.filter { it in failed && it in stillMissing })
         runSearch()
     }
@@ -114,10 +114,10 @@ internal fun ExplorerViewModel.runSearch() {
     // Stand jetzt festhalten (nicht erst im Hintergrund lesen)
     val scope = assetScope.value
     val hidden = hiddenAlpha.value
-    val markets = searchableMarkets.filter { scope.allowsMarket(it.key) }
+    val exchanges = searchableExchanges.filter { scope.allowsExchange(it.key) }
     val picked = hits.chosenCoin.value
-    val includeUnlisted = unloadedMarkets.isNotEmpty()
-    val preference = pairPreference(markets)
+    val includeUnlisted = unloadedExchanges.isNotEmpty()
+    val preference = pairPreference(exchanges)
     // Alpha-Kennzeichen («α») und Namen gegen Fehltreffer
     val alphaSymbols = coinLogoRepository.alphaSymbols.value
     val alphaNames = coinLogoRepository.alphaNames.value
@@ -126,9 +126,9 @@ internal fun ExplorerViewModel.runSearch() {
         // Rechnen im Hintergrund, Ergebnis auf dem Hauptthread setzen: Zustände nur von dort ändern
         // (sonst kann Compose im Test auf einem Hintergrund-Thread neu zusammensetzen – Absturz «multithreaded access»)
         val result = withContext(Dispatchers.Default) {
-            val pairNames = markets.associate { it.key to tokenIdentityStore.marketNames(it.key) }
+            val pairNames = exchanges.associate { it.key to tokenIdentityStore.exchangeNames(it.key) }
             val foundCoins = CoinSearch.coins(
-                text, markets, pairsByMarket,
+                text, exchanges, pairsByExchange,
                 names = names,
                 scope = scope,
                 hiddenAlpha = hidden,
@@ -139,7 +139,7 @@ internal fun ExplorerViewModel.runSearch() {
             )
             val showPairs = CoinSearch.showPairHits(text, foundCoins.isNotEmpty())
             val foundPairs = if (!showPairs) emptyList() else PairSearch.find(
-                text, markets, pairsByMarket,
+                text, exchanges, pairsByExchange,
                 scope = scope,
                 names = names,
                 hiddenAlpha = hidden,
@@ -148,7 +148,7 @@ internal fun ExplorerViewModel.runSearch() {
                 pairNames = pairNames,
             )
             val coinPairs = picked?.let {
-                CoinSearch.pairsFor(it, markets, pairsByMarket, preference, scope, hidden, alphaSymbols, alphaNames, pairNames)
+                CoinSearch.pairsFor(it, exchanges, pairsByExchange, preference, scope, hidden, alphaSymbols, alphaNames, pairNames)
             }.orEmpty()
             SearchResult(foundCoins, showPairs, foundPairs, coinPairs)
         }
@@ -172,11 +172,11 @@ private data class SearchResult(
  * Vorschlag der Coin-Suche: Start-Börse der Region (bei Standort-Sperre Binance.US, wie die Start-Merkliste),
  * Lieblingsbörsen (gemerkt als Anzeigename), die Umrechnungswährung und der Volumenrang der Börsen.
  */
-internal fun ExplorerViewModel.pairPreference(markets: List<MarketInfo>): CoinPairPreference {
-    val favoriteNames = favoriteMarkets.value
+internal fun ExplorerViewModel.pairPreference(exchanges: List<ExchangeInfo>): CoinPairPreference {
+    val favoriteNames = favoriteExchanges.value
     return CoinPairPreference(
-        defaultExchange = StarterPairs.marketKey(starterCoinsRepository.starterRegion(deviceRegionLocale().country)),
-        favoriteExchanges = markets.filter { it.name in favoriteNames }.mapTo(HashSet()) { it.key },
+        defaultExchange = StarterPairs.exchangeKey(starterCoinsRepository.starterRegion(deviceRegionLocale().country)),
+        favoriteExchanges = exchanges.filter { it.name in favoriteNames }.mapTo(HashSet()) { it.key },
         displayCurrency = displayCurrency.value,
         exchangeRank = ExchangeOrder.ranks(exchangeRanking.volumes.value),
     )
@@ -184,10 +184,10 @@ internal fun ExplorerViewModel.pairPreference(markets: List<MarketInfo>): CoinPa
 
 /** Binance-Liste der Suche mit der aktuellen Alpha-Liste neu lesen (Alpha-Paare kommen und gehen). */
 internal suspend fun ExplorerViewModel.refreshBinancePairs() {
-    val binance = searchableMarkets.find { it.key == BinanceAlpha.MARKET_KEY } ?: return
-    if (!pairsByMarket.containsKey(binance.key)) return
-    val fresh = runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(binance, withAlpha = true) }.getOrNull()
-    if (fresh != null) pairsByMarket[binance.key] = fresh
+    val binance = searchableExchanges.find { it.key == BinanceAlpha.EXCHANGE_KEY } ?: return
+    if (!pairsByExchange.containsKey(binance.key)) return
+    val fresh = runCatchingCancellable { exchangeRepository.getExchangeCurrencyPairsInfo(binance, withAlpha = true) }.getOrNull()
+    if (fresh != null) pairsByExchange[binance.key] = fresh
 }
 
 /**
@@ -199,22 +199,22 @@ internal fun ExplorerViewModel.readStoredLists() {
     storedListsJob = viewModelScope.launch {
         // Gleich «suche…» zeigen statt kurz «keine Treffer»
         lists.value = SearchLists(reading = true)
-        val markets = runCatchingCancellable { marketRepository.getMarketList() }.getOrDefault(emptyList())
+        val exchanges = runCatchingCancellable { exchangeRepository.getExchangeList() }.getOrDefault(emptyList())
             .filter { it.key != DEX_KEY }
-        if (markets.isEmpty()) {
+        if (exchanges.isEmpty()) {
             // Gescheitert: bei der nächsten Eingabe nochmals
             lists.value = SearchLists()
             storedListsJob = null
             return@launch
         }
         withContext(Dispatchers.IO) {
-            for (m in markets) {
-                runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(m, withAlpha = true) }.getOrNull()
+            for (m in exchanges) {
+                runCatchingCancellable { exchangeRepository.getExchangeCurrencyPairsInfo(m, withAlpha = true) }.getOrNull()
                     ?.takeIf { it.pairs.isNotEmpty() }
-                    ?.let { pairsByMarket[m.key] = it }
+                    ?.let { pairsByExchange[m.key] = it }
             }
         }
-        searchableMarkets = markets
+        searchableExchanges = exchanges
         updateUnloaded()
         runSearch()
     }
@@ -222,17 +222,17 @@ internal fun ExplorerViewModel.readStoredLists() {
 
 /** Welche Börsen noch keine Liste haben, aber eine laden können. */
 internal fun ExplorerViewModel.updateUnloaded() {
-    unloadedMarkets = searchableMarkets.filter {
-        !pairsByMarket.containsKey(it.key) && marketRepository.isMarketSupportsUpdatePairs(it)
+    unloadedExchanges = searchableExchanges.filter {
+        !pairsByExchange.containsKey(it.key) && exchangeRepository.isExchangeSupportsUpdatePairs(it)
     }
-    lists.value = SearchLists(missing = unloadedMarkets.size)
+    lists.value = SearchLists(missing = unloadedExchanges.size)
 }
 
 /** Vollständige öffentliche Liste der Börse holen und gespeichert zurückgeben; null = Fehler oder leer. */
-internal suspend fun ExplorerViewModel.syncForSearch(m: MarketInfo): MarketPairsInfo? = withContext(Dispatchers.IO) {
+internal suspend fun ExplorerViewModel.syncForSearch(m: ExchangeInfo): ExchangePairsInfo? = withContext(Dispatchers.IO) {
     runCatchingCancellable {
-        marketRepository.updateMarketCurrencyPairs(m)
-        marketRepository.getMarketCurrencyPairsInfo(m, withAlpha = true).takeIf { it.pairs.isNotEmpty() }
+        exchangeRepository.updateExchangeCurrencyPairs(m)
+        exchangeRepository.getExchangeCurrencyPairsInfo(m, withAlpha = true).takeIf { it.pairs.isNotEmpty() }
     }.getOrNull()
 }
 

@@ -60,13 +60,13 @@ class NearExtremeDataSource @Inject constructor(
     }
 
     /**
-     * Gilt die Reihe von [ranges] für das Paar ([marketKey], [baseAsset]) mit Kurs [price]? Ohne Namens-Widerspruch
+     * Gilt die Reihe von [ranges] für das Paar ([exchangeKey], [baseAsset]) mit Kurs [price]? Ohne Namens-Widerspruch
      * ([TokenIdentityStore.fallbackSeriesAllowed]) und im Kursband ([NearExtreme.seriesAllowed]); [quoteToSeries] =
      * Faktor Quote → [WindowRanges.currency] (1 bei gleicher Währung). Sonst kein Hoch/Tief-Alarm.
      */
-    fun seriesAllowed(ranges: WindowRanges, marketKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?): Boolean =
+    fun seriesAllowed(ranges: WindowRanges, exchangeKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?): Boolean =
         NearExtreme.seriesAllowed(
-            nameAllowed = tokenIdentityStore.fallbackSeriesAllowed(marketKey, baseAsset, ranges.provider),
+            nameAllowed = tokenIdentityStore.fallbackSeriesAllowed(exchangeKey, baseAsset, ranges.provider),
             price = price,
             lastClose = ranges.lastClose,
             quoteToSeries = quoteToSeries,

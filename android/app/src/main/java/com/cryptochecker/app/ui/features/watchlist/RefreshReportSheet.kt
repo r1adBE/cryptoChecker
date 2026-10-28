@@ -108,11 +108,11 @@ internal fun RefreshReportSheet(
                     )
                 } else {
                     ReportSummary(report, now, locale)
-                    if (report.markets.isNotEmpty()) {
-                        ReportSection(stringResource(R.string.refresh_sheet_section_markets)) {
-                            RefreshReportLogic.sorted(report.markets).forEachIndexed { i, market ->
+                    if (report.exchanges.isNotEmpty()) {
+                        ReportSection(stringResource(R.string.refresh_sheet_section_exchanges)) {
+                            RefreshReportLogic.sorted(report.exchanges).forEachIndexed { i, exchange ->
                                 if (i > 0) RowDivider()
-                                MarketRow(market, locale)
+                                MarketRow(exchange, locale)
                             }
                         }
                     }
@@ -139,9 +139,9 @@ private fun ReportSummary(report: RefreshReport, now: Long, locale: Locale) {
         RefreshHeadline.AllUpdated -> stringResource(R.string.refresh_sheet_all_updated)
         is RefreshHeadline.PairsNotUpdated ->
             pluralStringResource(R.plurals.refresh_sheet_pairs_not_updated, h.count, h.count)
-        is RefreshHeadline.MarketUnreachable -> stringResource(R.string.refresh_sheet_market_unreachable, h.name)
-        is RefreshHeadline.MarketsUnreachable ->
-            pluralStringResource(R.plurals.refresh_sheet_markets_unreachable, h.count, h.count)
+        is RefreshHeadline.ExchangeUnreachable -> stringResource(R.string.refresh_sheet_exchange_unreachable, h.name)
+        is RefreshHeadline.ExchangesUnreachable ->
+            pluralStringResource(R.plurals.refresh_sheet_exchanges_unreachable, h.count, h.count)
         RefreshHeadline.Aborted -> stringResource(R.string.refresh_sheet_aborted)
     }
     val parts = buildList {

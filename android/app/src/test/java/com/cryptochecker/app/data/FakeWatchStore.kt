@@ -1,9 +1,9 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 
 /**
  * Merkliste im Speicher für Verhaltenstests der Schreibwege (Room läuft nur auf dem Gerät): gleiche Paar-Identität wie
@@ -22,16 +22,16 @@ internal class FakeWatchStore(filler: Int = 0) {
 
     init {
         // Schon belegte Plätze (z. B. fast volle Merkliste), ohne als Schreibvorgang des Tests zu zählen
-        repeat(filler) { entries[nextId++] = key(FILLER, MarketPair("F$it", "USDT", "F${it}USDT")) }
+        repeat(filler) { entries[nextId++] = key(FILLER, ExchangePair("F$it", "USDT", "F${it}USDT")) }
     }
 
     val count: Int get() = entries.size
 
-    fun contains(market: MarketInfo, pair: MarketPair): Boolean = key(market, pair) in entries.values
+    fun contains(exchange: ExchangeInfo, pair: ExchangePair): Boolean = key(exchange, pair) in entries.values
 
     /** Wie [tryAddWatch] nach der Sperre: Dublette vor «voll», sonst neue Id. */
-    fun add(market: MarketInfo, pair: MarketPair): AddWatchOutcome {
-        val key = key(market, pair)
+    fun add(exchange: ExchangeInfo, pair: ExchangePair): AddWatchOutcome {
+        val key = key(exchange, pair)
         addBlocker(key in entries.values) { entries.size }?.let { return it }
         val id = nextId++
         entries[id] = key
@@ -52,14 +52,14 @@ internal class FakeWatchStore(filler: Int = 0) {
     }
 
     companion object {
-        val BINANCE = MarketInfo("Binance", "Binance")
-        private val FILLER = MarketInfo("Filler", "Filler")
+        val BINANCE = ExchangeInfo("Binance", "Binance")
+        private val FILLER = ExchangeInfo("Filler", "Filler")
 
-        fun pair(base: String, quote: String = "USDT") = MarketPair(base, quote, "$base$quote")
+        fun pair(base: String, quote: String = "USDT") = ExchangePair(base, quote, "$base$quote")
 
-        fun key(market: MarketInfo, pair: MarketPair): WatchIdentity.Key = WatchIdentity.key(
-            market.key, pair.base, pair.quote,
-            FuturesContractType.normalized(market.key, pair.pairId, pair.contractType).name, pair.pairId,
+        fun key(exchange: ExchangeInfo, pair: ExchangePair): WatchIdentity.Key = WatchIdentity.key(
+            exchange.key, pair.base, pair.quote,
+            FuturesContractType.normalized(exchange.key, pair.pairId, pair.contractType).name, pair.pairId,
         )
     }
 }

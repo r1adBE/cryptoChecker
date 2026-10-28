@@ -4,12 +4,12 @@ import XCTest
 /// Wie `StarterPairsTest.kt`: Binance überall ausser den USA (auch CH/LI), in den USA Binance.US — beide …/USDT.
 final class StarterPairsTests: XCTestCase {
 
-    func testMarketPerRegion() {
-        XCTAssertEqual(StarterPairs.marketKey("CH"), "Binance")
-        XCTAssertEqual(StarterPairs.marketKey(" li "), "Binance")
-        XCTAssertEqual(StarterPairs.marketKey("us"), "BinanceUs")
-        XCTAssertEqual(StarterPairs.marketKey("DE"), "Binance")
-        XCTAssertEqual(StarterPairs.marketKey(nil), "Binance")
+    func testExchangePerRegion() {
+        XCTAssertEqual(StarterPairs.exchangeKey("CH"), "Binance")
+        XCTAssertEqual(StarterPairs.exchangeKey(" li "), "Binance")
+        XCTAssertEqual(StarterPairs.exchangeKey("us"), "BinanceUs")
+        XCTAssertEqual(StarterPairs.exchangeKey("DE"), "Binance")
+        XCTAssertEqual(StarterPairs.exchangeKey(nil), "Binance")
         XCTAssertEqual(StarterPairs.startQuote("CH"), "USDT")
         XCTAssertEqual(StarterPairs.startQuote("US"), "USDT")
         XCTAssertEqual(StarterPairs.startQuote(nil), "USDT")
@@ -17,11 +17,11 @@ final class StarterPairsTests: XCTestCase {
 
     func testBinanceAndBinanceUs() {
         let binance = StarterPairs.pair(for: "btc", region: "CH")
-        XCTAssertEqual(binance.marketKey, "Binance")
+        XCTAssertEqual(binance.exchangeKey, "Binance")
         XCTAssertEqual(binance.pair.quote, "USDT")
         XCTAssertEqual(binance.pair.pairId, "BTCUSDT")
         let us = StarterPairs.pair(for: "SOL", region: "US")
-        XCTAssertEqual(us.marketKey, "BinanceUs")
+        XCTAssertEqual(us.exchangeKey, "BinanceUs")
         XCTAssertEqual(us.pair.pairId, "SOLUSDT")
     }
 
@@ -36,9 +36,9 @@ final class StarterPairsTests: XCTestCase {
         XCTAssertEqual(StarterPairs.effectiveRegion("CH", binanceBlocked: false), "CH")
         XCTAssertEqual(StarterPairs.effectiveRegion("US", binanceBlocked: true), "US")
         let blocked = StarterPairs.pair(for: "btc", region: StarterPairs.effectiveRegion("DE", binanceBlocked: true))
-        XCTAssertEqual(blocked.marketKey, "BinanceUs")
+        XCTAssertEqual(blocked.exchangeKey, "BinanceUs")
         XCTAssertEqual(blocked.pair.pairId, "BTCUSDT")
-        XCTAssertEqual(StarterCoins.fallback(marketKey: StarterPairs.marketKey(
+        XCTAssertEqual(StarterCoins.fallback(exchangeKey: StarterPairs.exchangeKey(
             StarterPairs.effectiveRegion("CH", binanceBlocked: true))).map(\.symbol), ["BTC", "ETH", "BNB", "SOL", "DOGE"])
         XCTAssertFalse(StarterPairs.shouldProbe(deviceRegion: "us"))
         XCTAssertTrue(StarterPairs.shouldProbe(deviceRegion: "CH"))
@@ -55,20 +55,20 @@ final class StarterPairsTests: XCTestCase {
         XCTAssertFalse(StarterPairs.blockedAfterProbe(previous: false, httpCode: 429))
     }
 
-    func testMarketNameForStarterText() {
-        XCTAssertEqual(StarterPairs.marketName("CH"), "Binance")
-        XCTAssertEqual(StarterPairs.marketName("US"), "Binance.US")
+    func testExchangeNameForStarterText() {
+        XCTAssertEqual(StarterPairs.exchangeName("CH"), "Binance")
+        XCTAssertEqual(StarterPairs.exchangeName("US"), "Binance.US")
         // Standort-Sperre: die Start-Auswahl nennt Binance.US
-        XCTAssertEqual(StarterPairs.marketName(StarterPairs.effectiveRegion("DE", binanceBlocked: true)), "Binance.US")
+        XCTAssertEqual(StarterPairs.exchangeName(StarterPairs.effectiveRegion("DE", binanceBlocked: true)), "Binance.US")
         // Ohne Registry-Namen: Schlüssel (wie Android)
-        XCTAssertEqual(StarterPairs.marketName("US", name: { _ in nil }), "BinanceUs")
+        XCTAssertEqual(StarterPairs.exchangeName("US", name: { _ in nil }), "BinanceUs")
         XCTAssertEqual(StarterPairs.startQuote("US"), "USDT")
     }
 
     func testFallbackCoins() {
-        XCTAssertEqual(StarterCoins.fallback(marketKey: "Binance").map(\.symbol), ["BTC", "ETH", "XRP", "BNB", "SOL"])
+        XCTAssertEqual(StarterCoins.fallback(exchangeKey: "Binance").map(\.symbol), ["BTC", "ETH", "XRP", "BNB", "SOL"])
         // Binance.US: ohne XRP
-        XCTAssertEqual(StarterCoins.fallback(marketKey: "BinanceUs").map(\.symbol), ["BTC", "ETH", "BNB", "SOL", "DOGE"])
+        XCTAssertEqual(StarterCoins.fallback(exchangeKey: "BinanceUs").map(\.symbol), ["BTC", "ETH", "BNB", "SOL", "DOGE"])
     }
 
     func testParseBinance24h() throws {

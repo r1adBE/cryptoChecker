@@ -95,7 +95,7 @@ interface AlarmRateSource {
 /** Hoch/Tief der Zeiträume für «Nahe am Hoch/Tief» ([NearExtremeDataSource]). */
 interface AlarmRangeSource {
     suspend fun ranges(baseAsset: String, quoteAsset: String): WindowRanges?
-    fun seriesAllowed(ranges: WindowRanges, marketKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?): Boolean
+    fun seriesAllowed(ranges: WindowRanges, exchangeKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?): Boolean
 }
 
 /** Funding und Open Interest der Futures-Alarme ([DerivativesAlarmData]). */
@@ -120,7 +120,7 @@ interface RefreshDayReferences {
 /** Liquidität der DEX-Pools ([DexLiquidityStore]). */
 interface RefreshDexLiquidity {
     fun put(pairId: String?, liquidityUsd: Double?)
-    fun blocksAlarms(marketKey: String, pairId: String?): Boolean
+    fun blocksAlarms(exchangeKey: String, pairId: String?): Boolean
 }
 
 /** Paare mit Mark-Preis statt Mittelkurs ([MarkFallbackStore]) — für «Mark» in Zeile und Blatt. */

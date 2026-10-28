@@ -12,29 +12,29 @@ extension WatchlistRow {
     /// `PriceFreshness.staleReason`) «Binance · letzter Handel vor 3 Std.». `warning` = Warnfarbe mit Symbol.
     var timeLine: (text: String, warning: Bool, spoken: String?) {
         // Deaktiviert: «Binance · deaktiviert» statt Zeit bzw. Warnung (VoiceOver: «Deaktiviert»)
-        if off { return (L("watchlist_row_disabled", BidiText.isolate(watch.marketName)), false, L("watch_disabled")) }
+        if off { return (L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)), false, L("watch_disabled")) }
         // Börse pausiert (zu viele Anfragen, Zeitüberschreitungen): sagt mehr als «nicht erreichbar» bzw. «veraltet»
         // und nennt, wann es weitergeht — gleiche Stelle und Farbe wie die übrigen Warnungen (wie Android)
         if let paused = pausedText { return (paused, true, paused) }
-        guard watch.lastUpdate > 0 else { return (watch.marketName, false, nil) }
+        guard watch.lastUpdate > 0 else { return (watch.exchangeName, false, nil) }
         let ago = WatchlistTime.ago(watch.lastUpdate, now: now)
         if let error = watch.lastError, !error.isEmpty, !ConnectionErrors.isNotTraded(error) {
             // Zeit steht hier am Zeilenanfang: gross beginnend
-            let text = WatchlistTime.lineStart(L("watchlist_row_unreachable", ago, watch.marketName), ago: ago)
+            let text = WatchlistTime.lineStart(L("watchlist_row_unreachable", ago, watch.exchangeName), ago: ago)
             return (text, true, text)
         }
         if watch.lastError == nil, outdatedAfter > 0, now - watch.lastUpdate > outdatedAfter {
             let text = L("watchlist_row_outdated_age", ago)
-            return ("\(BidiText.isolate(watch.marketName)) · \(text)", true, text)
+            return ("\(BidiText.isolate(watch.exchangeName)) · \(text)", true, text)
         }
-        if let trade = tradeText { return ("\(BidiText.isolate(watch.marketName)) · \(trade)", true, trade) }
+        if let trade = tradeText { return ("\(BidiText.isolate(watch.exchangeName)) · \(trade)", true, trade) }
         guard stale else {
             // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (`PriceFreshness`)
-            if let unchanged = unchangedText { return ("\(BidiText.isolate(watch.marketName)) · \(unchanged)", false, unchanged) }
+            if let unchanged = unchangedText { return ("\(BidiText.isolate(watch.exchangeName)) · \(unchanged)", false, unchanged) }
             // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht seit L-14 nur im Aktionsblatt
-            return (watch.marketName, false, nil)
+            return (watch.exchangeName, false, nil)
         }
-        return ("\(BidiText.isolate(watch.marketName)) · \(ago)", false, nil)
+        return ("\(BidiText.isolate(watch.exchangeName)) · \(ago)", false, nil)
     }
 
     /// «letzter Handel vor 3 Std.»: Abruf frisch, letzter Handel laut Börse aber älter als die Alarmsperre
@@ -49,7 +49,7 @@ extension WatchlistRow {
     /// «Binance · pausiert bis 19:45» (`RowPause`); nil = Börse nicht pausiert.
     private var pausedText: String? {
         guard let until = RowPause.shownUntil(disabled: off, pausedUntil: exchangePausedUntil, now: now) else { return nil }
-        return L("watchlist_row_exchange_paused", BidiText.isolate(watch.marketName), PriceFormat.shortTime(until))
+        return L("watchlist_row_exchange_paused", BidiText.isolate(watch.exchangeName), PriceFormat.shortTime(until))
     }
 
     /// «Kurs unverändert seit 14:05» (Börse ohne eigene Zeit, `PriceFreshness.unchangedSince`) — nur
@@ -90,7 +90,7 @@ extension WatchlistRow {
             lastUpdate: watch.lastUpdate, now: now,
             outdatedAfter: outdatedAfter > 0 ? min(staleAfter, outdatedAfter) : staleAfter)
         let staleText = A11ySpeech.freshnessText(freshness, lastUpdate: watch.lastUpdate, now: now,
-                                                 market: watch.marketName)
+                                                 exchange: watch.exchangeName)
         return A11y.watchRow(
             watch,
             name: coinName,
@@ -100,10 +100,10 @@ extension WatchlistRow {
                 let markPrice = MarkFallbackStore.contains(watch.id) && watch.lastPrice != nil
                 // Stundenkurs (WOO X Spot) wie die Marke der Zeile — wie Android
                 let hourlyPrice = !markPrice && watch.lastPrice != nil
-                    && MarketsConfig.market(watch.marketKey)?.priceIsHourlyClose == true
+                    && ExchangesConfig.exchange(watch.exchangeKey)?.priceIsHourlyClose == true
                 // EZB-Referenzkurs: «Referenzkurs, täglich» wie die Marke der Zeile
                 let referencePrice = !markPrice && watch.lastPrice != nil
-                    && MarketsConfig.market(watch.marketKey)?.priceIsDailyReference == true
+                    && ExchangesConfig.exchange(watch.exchangeKey)?.priceIsDailyReference == true
                 let parts = [changeMarker.map { L("change_candle_source", $0) },
                              markPrice ? L("watch_price_mark_fallback") : nil,
                              hourlyPrice ? L("watch_price_hourly") : nil,

@@ -14,8 +14,8 @@ suspend fun PriceRefresher.refreshOneLocked(watchId: Long): RefreshSummary = ref
         val watch = watchRepository.getWatch(watchId) ?: return@withContext RefreshSummary()
         // Deaktiviert, kein Netz oder Börse pausiert: nichts anfragen, Kurs und Zustand bleiben
         if (watch.disabled || !connectivity.isOnline() ||
-            ExchangeBackoff.isPaused(refreshStats.backoffStates()[watch.marketKey], startedAt) ||
-            BlockedSources.groupPausedUntil(watch.marketKey) != null
+            ExchangeBackoff.isPaused(refreshStats.backoffStates()[watch.exchangeKey], startedAt) ||
+            BlockedSources.groupPausedUntil(watch.exchangeKey) != null
         ) {
             return@withContext RefreshSummary()
         }

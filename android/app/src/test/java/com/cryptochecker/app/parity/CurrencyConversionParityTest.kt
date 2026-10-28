@@ -97,8 +97,8 @@ class CurrencyConversionParityTest {
     fun conversionQuoteAndSameCurrency() {
         data["conversionQuote"].list().also { assertTrue("conversionQuote: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()
-            val actual = CurrencyConversion.conversionQuote(c["market"] as String?, c["quote"] as String)
-            assertEquals("conversionQuote ${c["market"]} ${c["quote"]}", c["expected"], actual)
+            val actual = CurrencyConversion.conversionQuote(c["exchangeKey"] as String?, c["quote"] as String)
+            assertEquals("conversionQuote ${c["exchangeKey"]} ${c["quote"]}", c["expected"], actual)
         }
         data["sameCurrency"].list().also { assertTrue("sameCurrency: keine Fälle", it.isNotEmpty()) }.forEach { raw ->
             val c = raw.obj()

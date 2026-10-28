@@ -18,7 +18,7 @@ extension ExplorerViewModel {
         dexNoResults = false
         dexTask = Task { [weak self] in
             do {
-                let body = try await MarketHTTP.call(DexScreener.searchURL(term))
+                let body = try await ExchangeHTTP.call(DexScreener.searchURL(term))
                 let pools = try DexScreener.parseSearch(body, query: term)
                 guard let self, !Task.isCancelled else { return }
                 self.dexResults = Self.distinctPools(pools)
@@ -29,7 +29,7 @@ extension ExplorerViewModel {
                 self.dexResults = []
                 self.dexSearching = false
                 // Wie die Merkliste einordnen (kein Netz / Dienst nicht erreichbar), mit «Erneut versuchen»
-                let cause = RefreshReportLogic.classify(MarketFailure.of(error), ConnectionErrors.describe(error))
+                let cause = RefreshReportLogic.classify(ExchangeFailure.of(error), ConnectionErrors.describe(error))
                 self.show(ExplorerMessage(text: L(DexFailure.of(cause).messageKey), showView: false, retryDexQuery: term,
                                           kind: .error))
             }
@@ -48,12 +48,12 @@ extension ExplorerViewModel {
     }
 
     func addDexPool(_ pool: DexPool) {
-        guard let market = exchange else { return }
+        guard let exchange = exchange else { return }
         // Liquidität aus der Suche gleich merken: Alarm-Editor und Alarme richten sich bis zur ersten Abfrage danach
         DexLiquidityStore.put(pool.pairId, pool.liquidityUsd)
         // Token-Adresse fürs Paar-Blatt (gleichnamige Token unterscheiden); nicht Teil der Paar-Identität
         DexTokenAddressStore.put(pool.pairId, pool.baseAddress)
-        insert(market: market, pair: MarketPair(pool.baseSymbol, pool.watchQuote, pool.pairId),
+        insert(exchange: exchange, pair: ExchangePair(pool.baseSymbol, pool.watchQuote, pool.pairId),
                addedText: L("dex_added", pool.baseSymbol),
                duplicateText: L("dex_already", pool.baseSymbol))
     }
@@ -76,7 +76,7 @@ enum DexFailure: Equatable {
     var messageKey: String {
         switch self {
         case .offline: return "watch_error_offline"
-        case .unreachable: return "error_market_unreachable_short"
+        case .unreachable: return "error_exchange_unreachable_short"
         case .other: return "something_went_wrong"
         }
     }

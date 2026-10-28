@@ -149,11 +149,11 @@ enum CoinLogos {
     }
 
     /// Börse, deren Symbole jeder frei wählen kann (DEX-Pools).
-    static let dexMarketKey = "DexScreener"
+    static let dexExchangeKey = "DexScreener"
 
     /// Logo für Paare dieser Börse? Bei DEX-Pools nie: Ein fremder Token darf «BTC» heissen —
     /// dann nie das Bitcoin-Logo daneben, nur Initialen.
-    static func allowed(forMarket marketKey: String?) -> Bool { marketKey != dexMarketKey }
+    static func allowed(forExchange exchangeKey: String?) -> Bool { exchangeKey != dexExchangeKey }
 
     /// Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
     /// Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Mit URL-Parser
@@ -184,7 +184,7 @@ enum CoinLogos {
     /// Börsen, deren Paarliste TradFi kennzeichnet (wie `PairCache` und Android). HTX/Phemex Futures, Aster,
     /// BingX Futures und Lighter kamen später dazu: ihre gespeicherten Listen tragen das Kennzeichen erst nach dem
     /// nächsten Laden der Paarliste. Hyperliquid kennzeichnet TradFi nicht.
-    static let tradFiMarkets: Set<String> = [
+    static let tradFiExchanges: Set<String> = [
         "BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures", "HtxFutures", "PhemexFutures",
         "Aster", "BingXFutures", "Lighter",
     ]
@@ -229,8 +229,8 @@ enum CoinLogos {
     }
 
     /// Kennung eines Paars für die Liste der TradFi-Paare: «BinanceFutures|NVDA|USDT|PERPETUAL».
-    static func pairKey(marketKey: String, base: String, quote: String, contractType: String) -> String {
-        "\(marketKey)|\(base.uppercased())|\(quote.uppercased())|\(contractType)"
+    static func pairKey(exchangeKey: String, base: String, quote: String, contractType: String) -> String {
+        "\(exchangeKey)|\(base.uppercased())|\(quote.uppercased())|\(contractType)"
     }
 
     /// Eintrag der Binance-Symbolliste: Kürzel, Logo, Schlagwörter («bStocks»), nur als Futures, voller Name.

@@ -5,27 +5,27 @@ import SwiftUI
 extension ExplorerScreen {
     // MARK: Schritt 1 – Börse
 
-    var marketStep: some View {
+    var exchangeStep: some View {
         ExplorerStepCard(highlighted: vm.exchange == nil) {
             ExplorerStepHeader(
                 number: 1,
                 title: L("explorer_field_exchange"),
                 active: true,
-                done: marketReady
+                done: exchangeReady
             )
             HStack(spacing: 8) {
                 ExplorerPickerField(
                     label: L("explorer_field_exchange"),
                     value: vm.exchange?.name,
                     placeholder: L("explorer_select_placeholder")
-                ) { picker = .market }
+                ) { picker = .exchange }
 
                 if !vm.isDex {
                     reloadPairsButton
                 }
             }
 
-            marketStatusLine
+            exchangeStatusLine
             // EZB-Referenzkurse: täglich festgelegt, nicht live, keine Alarme
             if vm.isReferenceRate {
                 ExplorerHint(text: L("explorer_forex_hint"))
@@ -34,7 +34,7 @@ extension ExplorerScreen {
     }
 
     /// Schritt 1 erledigt: Börse gewählt und Paare da (bzw. DEX, dort gibt es keine Liste).
-    private var marketReady: Bool {
+    private var exchangeReady: Bool {
         guard vm.exchange != nil else { return false }
         return vm.isDex || vm.hasPairs
     }
@@ -74,9 +74,9 @@ extension ExplorerScreen {
 
     /// Zeile unter der Börse: Hinweis, Ladebalken, Fehler oder Anzahl Paare mit Datum.
     @ViewBuilder
-    private var marketStatusLine: some View {
+    private var exchangeStatusLine: some View {
         if vm.exchange == nil {
-            ExplorerHint(text: L("explorer_select_market_hint"))
+            ExplorerHint(text: L("explorer_select_exchange_hint"))
         } else if vm.isDex {
             EmptyView()
         } else if vm.syncing {
@@ -100,7 +100,7 @@ extension ExplorerScreen {
         .padding(.top, 12)
     }
 
-    private func pairsSummaryButton(_ info: MarketPairsInfo) -> some View {
+    private func pairsSummaryButton(_ info: ExchangePairsInfo) -> some View {
         Button {
             showSyncSheet = true
         } label: {
@@ -120,7 +120,7 @@ extension ExplorerScreen {
     }
 
     /// «Heute 14:05» bzw. Datum; nie geladen → eigener Text.
-    private func syncDateText(_ info: MarketPairsInfo) -> String {
+    private func syncDateText(_ info: ExchangePairsInfo) -> String {
         guard info.lastSyncDate > 0 else { return L("explorer_sync_never") }
         return TickerView.sameDayTimeOrDate(info.lastSyncDate)
     }

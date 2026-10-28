@@ -73,7 +73,7 @@ internal class WatchlistContentFlows(
         val tokens = WatchFilter.showsTokens(groupNames)
         // Art je Paar (Symbol vor der Glocke, «Alpha»-Chip); die Listen liegen gespeichert vor
         val kinds = list.associate {
-            it.id to it.assetKind(tradFiPairs, alphaSymbols, alphaNames, tokenIdentityStore.pairName(it.marketKey, it.baseAsset))
+            it.id to it.assetKind(tradFiPairs, alphaSymbols, alphaNames, tokenIdentityStore.pairName(it.exchangeKey, it.baseAsset))
         }
         val alphaFlags = list.map { kinds[it.id] == AssetKind.ALPHA }
         val alpha = WatchFilter.showsAlpha(alphaFlags)

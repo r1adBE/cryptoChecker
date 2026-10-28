@@ -7,9 +7,9 @@ import Foundation
 /// nie. Reine Logik — wie `DexLiquidity.kt`.
 enum DexLiquidity {
     /// Börsen-Schlüssel der DEX-Pools.
-    static let marketKey = "DexScreener"
+    static let exchangeKey = "DexScreener"
 
-    static func isDex(_ marketKey: String) -> Bool { marketKey == self.marketKey }
+    static func isDex(_ exchangeKey: String) -> Bool { exchangeKey == self.exchangeKey }
 
     /// Schlüssel der gemerkten Liquidität: Pool-Kennung «chain/pairAddress», ohne Gross-/Kleinschreibung.
     static func key(_ pairId: String?) -> String? {
@@ -18,8 +18,8 @@ enum DexLiquidity {
     }
 
     /// Alarme dieses Paars pausieren? Nur DEX-Pools mit zu wenig oder unbekannter Liquidität.
-    static func blocksAlarms(marketKey: String, liquidityUsd: Double?) -> Bool {
-        isDex(marketKey) && !DexScreener.alarmCapable(liquidityUsd)
+    static func blocksAlarms(exchangeKey: String, liquidityUsd: Double?) -> Bool {
+        isDex(exchangeKey) && !DexScreener.alarmCapable(liquidityUsd)
     }
 }
 
@@ -53,7 +53,7 @@ enum DexLiquidityStore {
     }
 
     /// Alarme dieses Paars pausieren (`DexLiquidity.blocksAlarms`)?
-    static func blocksAlarms(marketKey: String, pairId: String?) -> Bool {
-        DexLiquidity.blocksAlarms(marketKey: marketKey, liquidityUsd: get(pairId))
+    static func blocksAlarms(exchangeKey: String, pairId: String?) -> Bool {
+        DexLiquidity.blocksAlarms(exchangeKey: exchangeKey, liquidityUsd: get(pairId))
     }
 }

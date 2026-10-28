@@ -13,11 +13,11 @@ import Foundation
 ///   «&» u. Ä. veränderten sonst Pfad oder Abfrage.
 /// - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» (`DexScreener.isSafePairId`); nur diese kommt in die
 ///   Adresse, Basis und Quote sind dort Anzeigetext der Börse («USD (ethereum)», «$WIF») und nur begrenzt.
-/// - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`), nur begrenzt.
+/// - Unbekannte Börsen bleiben (Platzhalter `UnknownExchange`), nur begrenzt.
 /// - Höchstens `maxPairs` Paare (die ersten der Datei) und je Paar `maxAlarmsPerPair` Alarme.
 enum BackupRestoreLimits {
-    static let maxMarketKey = 64
-    static let maxMarketName = 60
+    static let maxExchangeKey = 64
+    static let maxExchangeName = 60
     static let maxAsset = 30
     static let maxPairId = 128
     /// Gleiche Grenzen wie im Rest der App (`WatchlistLimits`), hier nur weitergereicht.
@@ -26,17 +26,17 @@ enum BackupRestoreLimits {
 
     /// Darf das Paar aus der Sicherung übernommen werden?
     static func acceptsWatch(_ w: Watch) -> Bool {
-        acceptsPair(marketKey: w.marketKey, marketName: w.marketName, base: w.baseAsset, quote: w.quoteAsset, pairId: w.pairId)
+        acceptsPair(exchangeKey: w.exchangeKey, exchangeName: w.exchangeName, base: w.baseAsset, quote: w.quoteAsset, pairId: w.pairId)
     }
 
-    static func acceptsPair(marketKey: String, marketName: String, base: String, quote: String, pairId: String?) -> Bool {
-        marketKey.unicodeScalars.count <= maxMarketKey
-            && marketName.unicodeScalars.count <= maxMarketName
-            && assetAllowed(marketKey: marketKey, base)
-            && assetAllowed(marketKey: marketKey, quote)
+    static func acceptsPair(exchangeKey: String, exchangeName: String, base: String, quote: String, pairId: String?) -> Bool {
+        exchangeKey.unicodeScalars.count <= maxExchangeKey
+            && exchangeName.unicodeScalars.count <= maxExchangeName
+            && assetAllowed(exchangeKey: exchangeKey, base)
+            && assetAllowed(exchangeKey: exchangeKey, quote)
             && (pairId.map(validPairId) ?? true)
             // DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
-            && (marketKey != DexScreener.key || pairId.map(DexScreener.isSafePairId) == true)
+            && (exchangeKey != DexScreener.key || pairId.map(DexScreener.isSafePairId) == true)
     }
 
     /// Kennung höchstens `maxPairId` Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «/ _ : . -».
@@ -52,8 +52,8 @@ enum BackupRestoreLimits {
     }
 
     /// DexScreener: Basis/Quote nur begrenzt (Anzeigetext, nie in der Adresse); sonst wie Symbole (`validAsset`).
-    private static func assetAllowed(marketKey: String, _ asset: String) -> Bool {
-        marketKey == DexScreener.key ? asset.unicodeScalars.count <= maxAsset : validAsset(asset)
+    private static func assetAllowed(exchangeKey: String, _ asset: String) -> Bool {
+        exchangeKey == DexScreener.key ? asset.unicodeScalars.count <= maxAsset : validAsset(asset)
     }
 
     /// Buchstabe (alle L-Kategorien), Dezimalziffer oder eines der ASCII-Zeichen in `punctuation`.

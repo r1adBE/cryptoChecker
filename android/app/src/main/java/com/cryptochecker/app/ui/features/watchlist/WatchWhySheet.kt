@@ -143,7 +143,7 @@ internal fun WhySheet(
                 modifier = Modifier.padding(top = Spacing.xs)
             )
             Text(
-                watch.marketName,
+                watch.exchangeName,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

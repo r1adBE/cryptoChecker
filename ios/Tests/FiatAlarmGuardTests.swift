@@ -98,7 +98,7 @@ final class FiatAlarmGuardTests: XCTestCase {
     /// Vermerk an der ≈ Zeile der Merkliste — wie Android `WatchlistConversionNoteTest`.
     func testWatchlistUsdtNote() {
         func watch(_ quote: String) -> Watch {
-            Watch(id: 1, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: quote, lastPrice: 100)
+            Watch(id: 1, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: quote, lastPrice: 100)
         }
         let notes: [String: FiatAlarmGuard.UsdtState] = ["USDT": .ASSUMED, "BTC": .UNSURE]
         XCTAssertEqual(WatchlistConversion.usdtNote(watch("usdt"), target: "CHF", notes: notes), .ASSUMED)
@@ -125,13 +125,13 @@ final class FiatAlarmGuardTests: XCTestCase {
     /// Aster «U» (United Stables) zählt 1:1 als USD, anderswo bleibt U ein Coin — wie Android
     /// `CurrencyConversionTest.asterUIsUsdStableOnlyAtAster`.
     func testAsterUIsUsdStableOnlyAtAster() {
-        XCTAssertEqual(CurrencyConversion.conversionQuote(marketKey: "Aster", quote: "U"), "USD")
-        XCTAssertEqual(CurrencyConversion.conversionQuote(marketKey: "aster", quote: " u "), "USD")
-        XCTAssertEqual(CurrencyConversion.conversionQuote(marketKey: "CoinDCX", quote: "U"), "U")
-        XCTAssertEqual(CurrencyConversion.conversionQuote(marketKey: "Binance", quote: "U"), "U")
+        XCTAssertEqual(CurrencyConversion.conversionQuote(exchangeKey: "Aster", quote: "U"), "USD")
+        XCTAssertEqual(CurrencyConversion.conversionQuote(exchangeKey: "aster", quote: " u "), "USD")
+        XCTAssertEqual(CurrencyConversion.conversionQuote(exchangeKey: "CoinDCX", quote: "U"), "U")
+        XCTAssertEqual(CurrencyConversion.conversionQuote(exchangeKey: "Binance", quote: "U"), "U")
         XCTAssertEqual(CurrencyConversion.classify("U", fiat: ["CHF"]), .crypto)
-        XCTAssertEqual(CurrencyConversion.conversionQuote(marketKey: "Aster", quote: "usdt"), "USDT")
-        let aster = Watch(id: 3, marketKey: "Aster", marketName: "Aster", baseAsset: "BTC", quoteAsset: "U", lastPrice: 100)
+        XCTAssertEqual(CurrencyConversion.conversionQuote(exchangeKey: "Aster", quote: "usdt"), "USDT")
+        let aster = Watch(id: 3, exchangeKey: "Aster", exchangeName: "Aster", baseAsset: "BTC", quoteAsset: "U", lastPrice: 100)
         XCTAssertEqual(WatchlistConversion.quote(aster), "USD")
         XCTAssertNil(WatchlistConversion.text(aster, target: "USD", rates: [:]), "USD-Ziel: nichts umzurechnen")
     }

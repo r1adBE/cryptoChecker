@@ -115,10 +115,10 @@ private struct SingleSummaryA11y: ViewModifier {
 }
 
 /// Börse, bei deaktivierten Paaren «Binance · deaktiviert»; Chart einer anderen Börse: «Kraken · Chart: Binance».
-private func singleMarketLine(_ watch: Watch, foreignChart: String? = nil) -> String {
-    if watch.disabled { return L("watchlist_row_disabled", BidiText.isolate(watch.marketName)) }
-    guard let foreignChart else { return watch.marketName }
-    return watch.marketName + " · " + L("watch_row_source_chart", BidiText.isolate(foreignChart))
+private func singleExchangeLine(_ watch: Watch, foreignChart: String? = nil) -> String {
+    if watch.disabled { return L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)) }
+    guard let foreignChart else { return watch.exchangeName }
+    return watch.exchangeName + " · " + L("watch_row_source_chart", BidiText.isolate(foreignChart))
 }
 
 /// Klein: Paar, Börse, Kurs gross, Mini-Chart, Uhrzeit.
@@ -141,7 +141,7 @@ private struct SingleSmallView: View {
             WidgetPrimaryFit(in: .vertical) { scale in
                 VStack(alignment: .leading, spacing: 0) {
                     SingleHeader(watch: watch, palette: palette, scale: scale)
-                    Text(singleMarketLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
+                    Text(singleExchangeLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
                         .widgetSecondaryFont()
                         .foregroundStyle(palette.secondary)
                         .lineLimit(1)
@@ -216,7 +216,7 @@ private struct SingleMediumView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 4) {
                 WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 24, dark: palette.dark, accent: palette.accent,
-                                logo: CoinLogos.allowed(forMarket: watch.marketKey))
+                                logo: CoinLogos.allowed(forExchange: watch.exchangeKey))
                     .opacity(watch.disabled ? 0.45 : 1)
                 VStack(alignment: .leading, spacing: 0) {
                     Text(watch.displayName)
@@ -224,7 +224,7 @@ private struct SingleMediumView: View {
                         .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
                         .lineLimit(1)
                         .minimumScaleFactor(WidgetTextSize.minimumFactor(0.7, primaryScale: scale))
-                    Text(singleMarketLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
+                    Text(singleExchangeLine(watch, foreignChart: chartCandles(candles) == nil ? nil : foreignChart))
                         .widgetSecondaryFont()
                         .foregroundStyle(palette.secondary)
                         .lineLimit(1)
@@ -344,8 +344,8 @@ private struct SingleRectangularView: View {
     }
 
     private func rectangularMeta(_ watch: Watch, hint: Bool) -> some View {
-        Text(verbatim: watch.disabled ? singleMarketLine(watch)
-             : "\(BidiText.isolate(watch.marketName)) · "
+        Text(verbatim: watch.disabled ? singleExchangeLine(watch)
+             : "\(BidiText.isolate(watch.exchangeName)) · "
                 + WidgetOutdated.timeText(watch, outdated: outdated, at: date, afterMillis: outdatedAfter, allowsHint: hint))
             .font(.system(size: 12))
             .monospacedDigit()

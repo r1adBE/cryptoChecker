@@ -117,8 +117,8 @@ private class RatePort(private val converter: CurrencyConverter) : AlarmRateSour
 
 private class RangePort(private val source: NearExtremeDataSource) : AlarmRangeSource {
     override suspend fun ranges(baseAsset: String, quoteAsset: String) = source.ranges(baseAsset, quoteAsset)
-    override fun seriesAllowed(ranges: WindowRanges, marketKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?) =
-        source.seriesAllowed(ranges, marketKey, baseAsset, price, quoteToSeries)
+    override fun seriesAllowed(ranges: WindowRanges, exchangeKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?) =
+        source.seriesAllowed(ranges, exchangeKey, baseAsset, price, quoteToSeries)
 }
 
 private class DerivativesPort(private val data: DerivativesAlarmData) : AlarmDerivativesSource {
@@ -143,7 +143,7 @@ private class DayReferencesPort(private val references: DayReferences) : Refresh
 
 private class DexLiquidityPort(private val store: DexLiquidityStore) : RefreshDexLiquidity {
     override fun put(pairId: String?, liquidityUsd: Double?) = store.put(pairId, liquidityUsd)
-    override fun blocksAlarms(marketKey: String, pairId: String?) = store.blocksAlarms(marketKey, pairId)
+    override fun blocksAlarms(exchangeKey: String, pairId: String?) = store.blocksAlarms(exchangeKey, pairId)
 }
 
 private class SettingsPort(private val repository: SettingsRepository) : RefreshSettings {

@@ -7,7 +7,7 @@ import UIKit
 ///
 /// Kein eigener Tab (seit Runde 31): Die Merkliste schiebt die Seite auf ihren `NavigationStack`
 /// (`AppRouter.showExplorer` – «+», Shortcut, Widget, Link "add"), «Heute auffällig» auf den Stapel
-/// des Markt-Tabs (`AppRouter.showMarketExplorer`).
+/// des Markt-Tabs (`AppRouter.showExchangeExplorer`).
 struct ExplorerScreen: View {
     @StateObject var vm = ExplorerViewModel()
     @EnvironmentObject var data: AppData
@@ -166,7 +166,7 @@ struct ExplorerScreen: View {
     /// Schritt 1 und darunter je nach Börse DEX-Suche oder Paar-Auswahl/Sammelaufnahme.
     @ViewBuilder
     private var preciseSteps: some View {
-        marketStep
+        exchangeStep
             .transition(.opacity.combined(with: .move(edge: .top)))
 
         if vm.exchange != nil {
@@ -282,7 +282,7 @@ struct ExplorerScreen: View {
 
     private var syncSheet: some View {
         ExplorerSyncSheet(
-            marketName: vm.exchange?.name ?? "",
+            exchangeName: vm.exchange?.name ?? "",
             info: vm.pairList,
             state: vm.pairListSync,
             onSync: { vm.reloadPairList() }
@@ -297,7 +297,7 @@ struct ExplorerScreen: View {
 
     /// Davon noch nicht in der Merkliste (`ExplorerBulkCount`); 0 = Knopf aus.
     var bulkNewCount: Int {
-        ExplorerBulkCount.newCount(marketKey: vm.exchange?.key, pairs: vm.bulkPairs, watches: data.watches)
+        ExplorerBulkCount.newCount(exchangeKey: vm.exchange?.key, pairs: vm.bulkPairs, watches: data.watches)
     }
 
     private var bulkConfirmText: String {
@@ -310,14 +310,14 @@ struct ExplorerScreen: View {
     @ViewBuilder
     private func pickerSheet(_ kind: ExplorerPickerKind) -> some View {
         switch kind {
-        case .market:
-            let offered = vm.markets
+        case .exchange:
+            let offered = vm.exchanges
             ExplorerPickerSheet(
                 title: L("explorer_field_exchange"),
                 items: offered.map(\.name),
                 selected: vm.exchange?.name,
-                favoriteKind: .MARKET,
-                sections: vm.marketSections.map { (title: $0.title, items: $0.markets.map(\.name)) },
+                favoriteKind: .EXCHANGE,
+                sections: vm.marketSections.map { (title: $0.title, items: $0.exchanges.map(\.name)) },
                 data: data
             ) { name in
                 guard let chosen = offered.first(where: { $0.name == name }) else { return }
@@ -358,7 +358,7 @@ struct ExplorerScreen: View {
 
 /// Die gerade geöffnete Auswahlliste.
 enum ExplorerPickerKind: String, Identifiable {
-    case market, base, quote, contract
+    case exchange, base, quote, contract
     var id: String { rawValue }
 }
 

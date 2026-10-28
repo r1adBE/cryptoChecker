@@ -53,7 +53,7 @@ import com.cryptochecker.app.ui.UiTestTags
  * der Karte «Ungewöhnliche Aktivität» — je Zeile Coin, aktueller Kurs, 24-Stunden-Änderung
  * und Häkchen; anfangs alle gewählt. Ein Knopf legt alle gewählten auf einmal an
  * (gleicher Weg und Erst-Moment wie bisher). Oben steht laut, woher die Kurse kommen
- * («Kurse von Binance in USDT», [marketName] und [quote]). Darunter der bisherige Hinweis und der
+ * («Kurse von Binance in USDT», [exchangeName] und [quote]). Darunter der bisherige Hinweis und der
  * Weg zu jedem anderen Coin (Seite «Paar hinzufügen» mit der Coin-Suche, auch über «+» oben rechts). [coins]
  * sofort aus Zwischenspeicher bzw. Ausweich-Liste; frischere Daten ersetzen sie still.
  */
@@ -65,7 +65,7 @@ internal fun StarterPicker(
     prices: StarterPricesState,
     quote: String,
     /** Anzeigename der Start-Börse («Binance», bei Standort-Sperre «Binance.US»). */
-    marketName: String,
+    exchangeName: String,
     adding: Boolean,
     /** Logos der Start-Coins geladen (bzw. aufgegeben): bis dahin Platzhalter statt Initialen. */
     logosReady: Boolean = true,
@@ -120,8 +120,8 @@ internal fun StarterPicker(
             val emphasis = SpanStyle(fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
             Text(
                 text = emphasized(
-                    stringResource(R.string.starter_source_text, BidiText.isolate(marketName), BidiText.isolate(quote)),
-                    listOf(marketName, quote),
+                    stringResource(R.string.starter_source_text, BidiText.isolate(exchangeName), BidiText.isolate(quote)),
+                    listOf(exchangeName, quote),
                     emphasis,
                 ),
                 style = MaterialTheme.typography.bodyMedium,
@@ -256,7 +256,7 @@ internal fun WatchlistStarterPicker(
         deselected = starter.deselected,
         prices = starter.prices,
         quote = starter.quote,
-        marketName = starter.marketName,
+        exchangeName = starter.exchangeName,
         adding = starter.adding,
         logosReady = starter.logosReady,
         onLoad = viewModel::loadStarterCoins,

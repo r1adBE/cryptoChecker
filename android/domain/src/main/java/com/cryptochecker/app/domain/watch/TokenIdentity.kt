@@ -154,10 +154,10 @@ object TokenIdentity {
     fun compatible(symbol: String, a: String?, b: String?): Boolean = matchNames(symbol, a, b) != Match.MISMATCH
 
     /**
-     * Börsen-Schlüssel ([NameIndex.markets]) der übrigen Anbieter der Ausweich-Kette — deren Namen aus
+     * Börsen-Schlüssel ([NameIndex.exchanges]) der übrigen Anbieter der Ausweich-Kette — deren Namen aus
      * der eigenen Paarliste, sobald die Börse Namen liefert (Binance-Anbieter: [NameIndex.binance]).
      */
-    val PROVIDER_MARKETS = mapOf(
+    val PROVIDER_EXCHANGES = mapOf(
         com.cryptochecker.app.domain.market.DataFreshness.BINANCE_US to "BinanceUs",
         com.cryptochecker.app.domain.market.DataFreshness.COINBASE to "Coinbase",
         com.cryptochecker.app.domain.market.DataFreshness.BYBIT to "Bybit",
@@ -206,7 +206,7 @@ object TokenIdentity {
     /**
      * Darf die Quelle [host] der Kerzen-Kette (Aktionsblatt-Chart, Volumen-Reihe) für [symbol] einspringen?
      * Gleiche Regel wie [fallbackSeriesAllowed] mit dem Anbieter des Hosts
-     * ([com.cryptochecker.app.domain.market.DataFreshness.candleProvider]): Widerspricht der eigene Name
+     * ([com.cryptochecker.app.domain.exchange.DataFreshness.candleProvider]): Widerspricht der eigene Name
      * [ownName] dem Binance-Namen, fällt die ganze Kette aus (auch Binance.US, Coinbase) — Gate «CAT» zeigt
      * nie den Chart eines anderen Tokens. [providerName]: Name beim Anbieter selbst (falls bekannt).
      */
@@ -246,14 +246,14 @@ object TokenIdentity {
     const val NAME_MAX = 80
 
     /**
-     * Namen je Börse ([markets]: Börsen-Schlüssel → Kürzel → Name, aus der Paarliste) und von Binance
+     * Namen je Börse ([exchanges]: Börsen-Schlüssel → Kürzel → Name, aus der Paarliste) und von Binance
      * ([binance]: Kürzel → `fullName` der Symbolliste). Kürzel gross geschrieben.
      */
     data class NameIndex(
-        val markets: Map<String, Map<String, String>> = emptyMap(),
+        val exchanges: Map<String, Map<String, String>> = emptyMap(),
         val binance: Map<String, String> = emptyMap(),
     ) {
-        fun pairName(marketKey: String, base: String): String? = markets[marketKey]?.get(key(base))
+        fun pairName(exchangeKey: String, base: String): String? = exchanges[exchangeKey]?.get(key(base))
         fun binanceName(base: String): String? = binance[key(base)]
     }
 
@@ -272,11 +272,11 @@ object TokenIdentity {
     }
 
     fun encode(index: NameIndex): String {
-        val markets = JsonObject()
-        index.markets.forEach { (market, names) -> markets.put(market, JsonObject(names as Map<*, *>)) }
+        val exchanges = JsonObject()
+        index.exchanges.forEach { (exchange, names) -> exchanges.put(exchange, JsonObject(names as Map<*, *>)) }
         return JsonObject()
             .put("v", 1)
-            .put("markets", markets)
+            .put("exchanges", exchanges)
             .put("binance", JsonObject(index.binance as Map<*, *>))
             .toString()
     }
@@ -292,10 +292,10 @@ object TokenIdentity {
                 o.keys().forEach { k -> o.optString(k).takeIf { it.isNotEmpty() }?.let { m[k] = it } }
                 return cleaned(m)
             }
-            val marketsJson = root.optJSONObject("markets")
-            val markets = LinkedHashMap<String, Map<String, String>>()
-            marketsJson?.keys()?.forEach { k -> names(marketsJson.optJSONObject(k)).takeIf { it.isNotEmpty() }?.let { markets[k] = it } }
-            NameIndex(markets, names(root.optJSONObject("binance")))
+            val exchangesJson = root.optJSONObject("exchanges")
+            val exchanges = LinkedHashMap<String, Map<String, String>>()
+            exchangesJson?.keys()?.forEach { k -> names(exchangesJson.optJSONObject(k)).takeIf { it.isNotEmpty() }?.let { exchanges[k] = it } }
+            NameIndex(exchanges, names(root.optJSONObject("binance")))
         }.getOrDefault(NameIndex())
     }
 }

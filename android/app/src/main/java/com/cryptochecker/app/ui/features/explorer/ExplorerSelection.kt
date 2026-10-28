@@ -1,13 +1,13 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import com.cryptochecker.app.domain.market.ExchangeOrder
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
-import com.cryptochecker.app.domain.model.MarketTickerResult
-import com.cryptochecker.marketdata.config.MarketsConfig
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.model.ExchangeTickerResult
+import com.cryptochecker.marketdata.config.ExchangesConfig
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketCategory
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,14 +23,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
  */
 class ExplorerSelection(
     // Börse
-    val exchanges: List<MarketInfo>,
+    val exchanges: List<ExchangeInfo>,
     /** Abschnitt je Eintrag von [exchanges] (gleiche Länge): Spot · Futures · DEX-Pools · Forex. */
-    val exchangeCategories: List<MarketCategory>,
-    val exchange: StateFlow<MarketInfo?>,
+    val exchangeCategories: List<ExchangeCategory>,
+    val exchange: StateFlow<ExchangeInfo?>,
     val canReloadPairs: StateFlow<Boolean>,
 
     // Paarliste der gewählten Börse und ihr Abgleich
-    val pairList: StateFlow<MarketPairsInfo?>,
+    val pairList: StateFlow<ExchangePairsInfo?>,
     val pairListSync: StateFlow<PairListSync>,
 
     // Gewähltes Paar
@@ -44,8 +44,8 @@ class ExplorerSelection(
     val contracts: StateFlow<List<FuturesContractType>>,
 
     // Kurs und «Alle …-Paare»
-    val price: StateFlow<MarketTickerResult?>,
-    val bulkPairs: StateFlow<List<MarketPair>>,
+    val price: StateFlow<ExchangeTickerResult?>,
+    val bulkPairs: StateFlow<List<ExchangePair>>,
     /** «Alle …-Paare» angewendet, aber zur Gegenwährung gibt es keine. */
     val bulkEmpty: StateFlow<Boolean>,
 
@@ -109,14 +109,14 @@ sealed interface ExplorerLoad {
 /**
  * Börsenauswahl in Abschnitten Spot · Futures · DEX-Pools · Forex ([ExchangeOrder]), darin nach dem Volumen am Tag der
  * Installation; ohne Ranking bleibt die alphabetische Reihenfolge von [alphabetical]. Liefert die Börsen und je
- * Eintrag den Abschnitt. Wie iOS `ExplorerViewModel.marketSections` (ExplorerMarketSections.swift).
+ * Eintrag den Abschnitt. Wie iOS `ExplorerViewModel.marketSections` (ExplorerExchangeSections.swift).
  */
 internal fun exchangeSections(
-    alphabetical: List<MarketInfo>,
+    alphabetical: List<ExchangeInfo>,
     volumes: Map<String, Double>?,
-): Pair<List<MarketInfo>, List<MarketCategory>> {
+): Pair<List<ExchangeInfo>, List<ExchangeCategory>> {
     val byKey = alphabetical.associateBy { it.key }
-    val entries = alphabetical.map { ExchangeOrder.Entry(it.key, MarketsConfig.MARKETS[it.key]?.category ?: MarketCategory.SPOT) }
+    val entries = alphabetical.map { ExchangeOrder.Entry(it.key, ExchangesConfig.EXCHANGES[it.key]?.category ?: ExchangeCategory.SPOT) }
     val sections = ExchangeOrder.sections(entries, volumes)
     return sections.flatMap { (_, keys) -> keys.mapNotNull(byKey::get) } to
         sections.flatMap { (category, keys) -> keys.map { category } }
@@ -124,8 +124,8 @@ internal fun exchangeSections(
 
 /** Auswahl «Erweitert / nach Börse» zur geladenen Börsenliste ([ExplorerViewModel.pageState]). */
 internal fun ExplorerViewModel.buildSelection(
-    exchangeList: List<MarketInfo>,
-    categories: List<MarketCategory>,
+    exchangeList: List<ExchangeInfo>,
+    categories: List<ExchangeCategory>,
 ) = ExplorerSelection(
     exchanges = exchangeList,
     exchangeCategories = categories,
@@ -148,23 +148,23 @@ internal fun ExplorerViewModel.buildSelection(
     bulkQuote = bulk.quote.asStateFlow(),
     bulkStats = bulk.stats.asStateFlow(),
     // Startwert gleich aus den aktuellen Werten: sonst stünde im ersten Bild «Alle schon in der Merkliste»
-    bulkNew = combine(bulk.pairs, watchedKeys, exchange) { pairs, keys, market -> bulkNewOf(pairs, keys, market) }
+    bulkNew = combine(bulk.pairs, watchedKeys, exchange) { pairs, keys, exchange -> bulkNewOf(pairs, keys, exchange) }
         .stateIn(
             viewModelScope, SharingStarted.WhileSubscribed(5_000),
             bulkNewOf(bulk.pairs.value, watchedKeys.value, exchange.value),
         ),
 )
 
-private fun bulkNewOf(pairs: List<MarketPair>, keys: Set<String>, market: MarketInfo?): Int =
-    market?.let { bulkNewCount(it.key, pairs, keys) } ?: 0
+private fun bulkNewOf(pairs: List<ExchangePair>, keys: Set<String>, exchange: ExchangeInfo?): Int =
+    exchange?.let { bulkNewCount(it.key, pairs, keys) } ?: 0
 
 /**
  * Wie viele von [pairs] sind noch nicht in der Merkliste ([watched], Schlüssel [watchKey] mit demselben Kontrakttyp wie
  * die Dublettenprüfung beim Anlegen)? Gleiche Regel wie iOS `ExplorerBulk.newCount`.
  */
-internal fun bulkNewCount(marketKey: String, pairs: List<MarketPair>, watched: Set<String>): Int = pairs.count { pair ->
-    val contract = FuturesContractType.normalized(marketKey, pair.pairId, pair.contractType)
-    watchKey(marketKey, pair.base, pair.quote, contract.name) !in watched
+internal fun bulkNewCount(exchangeKey: String, pairs: List<ExchangePair>, watched: Set<String>): Int = pairs.count { pair ->
+    val contract = FuturesContractType.normalized(exchangeKey, pair.pairId, pair.contractType)
+    watchKey(exchangeKey, pair.base, pair.quote, contract.name) !in watched
 }
 
 /**

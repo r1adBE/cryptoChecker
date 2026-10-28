@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 158 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 159 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit) und eine Apple-Watch-App (watchOS 10, `Watch/`,
 Komplikation in `WatchWidgets/`, gemeinsame Listenwahl in `WatchCore/`).
 
@@ -121,7 +121,7 @@ Builds 35–46:
   scharf (`evaluatePortfolioAlarms` async), wiederholende Alarme ebenso (`QuietHours.mayFire`); Fremd-Kerzen nur bei
   gleichem Token (`WatchSheetChart`, Mini-Chart in `WatchlistRow`); «Kurs vorlesen» schaltet die Sprachausgabe ein;
   «Wie aktuell?» unter Alarme; Markt-Tab mit `MarketSectionPage`; Zurück aus «Paar hinzufügen» in den Markt-Tab
-  (`AppRouter.showMarketExplorer`); Hinweis «Durchschnitt, nicht FIFO».
+  (`AppRouter.showExchangeExplorer`); Hinweis «Durchschnitt, nicht FIFO».
 - **Build 40 – Portfolio-Zahlen, ehrliche Zeilen, Alarme** — `PortfolioExchangeRoute.scale` nur bei gleichem Token,
   `scaleRanges`; kein alter Devisenkurs; Kauf ohne Preis im 7-T-Fenster lässt den Coin aus; Paritätsdatei
   `portfolio.json`; Zeilen-Hinweis «Änderung/Chart: Börse»; Kursfarben, %-Änderung, Logos und Widgets unter
@@ -400,8 +400,8 @@ Davor:
   Einstellungen › Darstellung › Coin-Logos, dort «Powered by CoinGecko»
   (`Shared/Util/CoinLogos.swift`, `Shared/Storage/CoinLogoStore.swift`, `Widgets/WidgetLogos.swift`).
 - **Daten-Spiegel**: Marktdaten, die für alle gleich sind (Fear & Greed, Coin-Metrics-On-Chain, BTC-Kursverlauf,
-  fertig berechnete Altcoin-Saison), stündlich von `market-data.yml` als Anhänge der Release «data» (`fng.txt`,
-  `onchain.txt`, `btcprice.txt`, `altseason.txt`); `MarketHTTP.call` fragt für genau diese Adressen zuerst den Spiegel,
+  fertig berechnete Altcoin-Saison), stündlich von `exchange-data.yml` als Anhänge der Release «data» (`fng.txt`,
+  `onchain.txt`, `btcprice.txt`, `altseason.txt`); `ExchangeHTTP.call` fragt für genau diese Adressen zuerst den Spiegel,
   sonst den Anbieter (`Shared/Core/DataMirror.swift`). CoinGecko-Daten werden nie gespiegelt (API-Bedingungen) — die
   App fragt CoinGecko direkt.
 - **Live-Kurse per WebSocket** in der geöffneten Merkliste (Binance, Bybit, OKX, Coinbase, Kraken;

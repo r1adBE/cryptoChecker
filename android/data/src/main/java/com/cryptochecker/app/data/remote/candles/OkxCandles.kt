@@ -14,11 +14,11 @@ import org.json.JSONObject
  * confirm]. Menge: Spot `vol`, Swap `volCcy` (vol zählt dort Kontrakte); Umsatz `volCcyQuote`.
  */
 object OkxCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Okex", "OkexFutures")
+    override val exchangeKeys = setOf("Okex", "OkexFutures")
     private const val PAGE = 300
 
     private fun instId(pair: CandlePair): String? {
-        val swap = pair.marketKey == "OkexFutures"
+        val swap = pair.exchangeKey == "OkexFutures"
         if (swap && !pair.contractType.isPerpetual) return null
         if (!swap && pair.contractType != FuturesContractType.NONE) return null
         val id = CandleParse.id(pair.pairId) {
@@ -33,7 +33,7 @@ object OkxCandles : ExchangeCandleSource {
 
     override suspend fun fetch(pair: CandlePair, interval: CandleInterval, limit: Int, http: CandleHttp): List<HourCandle>? {
         val id = instId(pair) ?: return null
-        val swap = pair.marketKey == "OkexFutures"
+        val swap = pair.exchangeKey == "OkexFutures"
         val bar = when (interval) {
             CandleInterval.H1 -> "1H"
             CandleInterval.H4 -> "4H"

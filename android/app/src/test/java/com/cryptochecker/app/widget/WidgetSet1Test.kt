@@ -100,7 +100,7 @@ class WidgetFreshnessTest {
         disabled: Boolean = false,
         error: String? = null,
     ) = WatchEntity(
-        marketKey = "kraken", marketName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR",
+        exchangeKey = "kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR",
         lastPrice = 62_000.0, lastUpdate = now - lastUpdateAgo, lastError = error, disabled = disabled,
         priceChangedAt = now - changedAgo, exchangeTime = exchangeTime,
     )

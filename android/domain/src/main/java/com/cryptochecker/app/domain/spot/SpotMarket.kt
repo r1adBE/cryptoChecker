@@ -58,7 +58,7 @@ object SpotMarket {
     private val SYMBOL = Regex("^[A-Z0-9]{1,15}$")
 
     /** Spot-Daten für dieses Paar überhaupt suchen? Nie für TradFi und DEX-Pools. */
-    fun eligible(marketKey: String?, tradFi: Boolean): Boolean = !tradFi && CoinLogos.allowedFor(marketKey)
+    fun eligible(exchangeKey: String?, tradFi: Boolean): Boolean = !tradFi && CoinLogos.allowedFor(exchangeKey)
 
     /** Kürzel für die Suche («1000PEPE» → «PEPE», «XBT» → «BTC»); null, wenn nicht nur A–Z/0–9. */
     fun lookupSymbol(baseAsset: String): String? =

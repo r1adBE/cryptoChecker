@@ -9,7 +9,7 @@ import org.junit.Test
 /** Kurs von der eingetragenen Börse ([PortfolioExchangeRoute]); Swift: `PortfolioExchangeRouteTests`. */
 class PortfolioExchangeRouteTest {
 
-    private val markets = mapOf(
+    private val exchanges = mapOf(
         "Binance" to "Binance", "Kraken" to "Kraken", "BinanceFutures" to "Binance Futures",
         "Bitstamp" to "Bitstamp", "DexScreener" to "DEX",
     )
@@ -24,12 +24,12 @@ class PortfolioExchangeRouteTest {
     }
 
     @Test
-    fun `only spot markets of the app, binance and free text give no route`() {
-        assertEquals("Kraken" to "Kraken", PortfolioExchangeRoute.market("kraken", markets))
-        assertNull(PortfolioExchangeRoute.market("Binance", markets))
-        assertNull(PortfolioExchangeRoute.market("Binance Futures", markets))
-        assertNull(PortfolioExchangeRoute.market("DEX", markets))
-        assertNull(PortfolioExchangeRoute.market("Meine Bank", markets))
+    fun `only spot exchanges of the app, binance and free text give no route`() {
+        assertEquals("Kraken" to "Kraken", PortfolioExchangeRoute.exchange("kraken", exchanges))
+        assertNull(PortfolioExchangeRoute.exchange("Binance", exchanges))
+        assertNull(PortfolioExchangeRoute.exchange("Binance Futures", exchanges))
+        assertNull(PortfolioExchangeRoute.exchange("DEX", exchanges))
+        assertNull(PortfolioExchangeRoute.exchange("Meine Bank", exchanges))
         assertTrue(PortfolioExchangeRoute.isSpot("Kraken"))
         assertFalse(PortfolioExchangeRoute.isSpot("BybitFutures"))
         assertFalse(PortfolioExchangeRoute.isSpot("EcbReference"))

@@ -18,7 +18,7 @@ enum class FuturesSourceNote {
 
 /**
  * Herkunft der Daten im «Warum?»-Blatt — für «Datenstand» unter «Beobachtung» und die Quellenzeile.
- * Reine Daten; Namen wie in [com.cryptochecker.app.domain.market.DataFreshness] («Binance», «Coinbase» …).
+ * Reine Daten; Namen wie in [com.cryptochecker.app.domain.exchange.DataFreshness] («Binance», «Coinbase» …).
  */
 data class WhySources(
     /** Anbieter der Stundenkerzen des Paars. */
@@ -192,11 +192,11 @@ object WhyFreshness {
     fun fearGreedDaysAgo(time: Long, now: Long): Long = Math.floorDiv(now, DAY_MILLIS) - Math.floorDiv(time, DAY_MILLIS)
 
     /**
-     * Kerzen als Ersatzquelle kennzeichnen? Ja, sobald sie nicht von der Börse des Paars ([markets] = Schlüssel
+     * Kerzen als Ersatzquelle kennzeichnen? Ja, sobald sie nicht von der Börse des Paars ([exchanges] = Schlüssel
      * und Name) kommen — auch Binance (z. B. Phemex-, Bithumb- oder HTX-Paar). Wie der Hinweis im Aktionsblatt.
      */
-    fun candlesFallback(markets: List<String>, provider: String?): Boolean =
-        com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(markets, provider) != null
+    fun candlesFallback(exchanges: List<String>, provider: String?): Boolean =
+        com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(exchanges, provider) != null
 
     /** Open-Interest-Vergleich: unter 90 Min. null (dann in Minuten nennen), sonst ganze Stunden (gerundet). */
     fun oiAgeHours(minutes: Int): Int? = if (minutes < 90) null else (minutes + 30) / 60

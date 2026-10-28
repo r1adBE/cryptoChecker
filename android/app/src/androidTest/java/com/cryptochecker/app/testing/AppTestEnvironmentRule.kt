@@ -35,7 +35,7 @@ class AppTestEnvironmentRule : TestRule {
                 Configuration.Builder().setExecutor(SynchronousExecutor()).build()
             )
             NotificationChannels.createAll(context)
-            FakeMarket.reset()
+            FakeExchange.reset()
             base.evaluate()
         }
     }

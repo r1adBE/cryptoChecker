@@ -1,8 +1,8 @@
 package com.cryptochecker.app.contract
 
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.pairListPaging
-import com.cryptochecker.marketdata.model.market.Gemini
+import com.cryptochecker.marketdata.model.exchange.Gemini
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
@@ -15,30 +15,30 @@ import org.junit.Test
  */
 class GeminiDetailsTest {
 
-    private fun parse(market: Gemini, body: String): List<MarketPair> =
-        mutableListOf<MarketPair>().also { market.readPairList(0, body, it) }
+    private fun parse(exchange: Gemini, body: String): List<ExchangePair> =
+        mutableListOf<ExchangePair>().also { exchange.readPairList(0, body, it) }
 
     @Test
     fun ambiguousSymbolsComeFromDetailsPages() {
-        val market = Gemini()
+        val exchange = Gemini()
         val listBody = """["btcusd","btcgusd","mogusd","abcgusd","ethusd"]"""
-        val list = parse(market, listBody)
+        val list = parse(exchange, listBody)
         // Mehrdeutig (gusd/usd) → immer Details, auch btcgusd trotz bekanntem BTC: nichts geraten
         assertEquals(listOf("btcusd", "ethusd"), list.map { it.pairId })
-        val paging = market.pairListPaging()
+        val paging = exchange.pairListPaging()
         assertEquals("https://api.gemini.com/v1/symbols/details/btcgusd", paging.nextPage(0, listBody))
         // Details entscheiden: BTC/GUSD
         val btc = """{"symbol":"BTCGUSD","base_currency":"BTC","quote_currency":"GUSD","status":"open"}"""
-        val btcPair = parse(market, btc).single()
+        val btcPair = parse(exchange, btc).single()
         assertEquals(Triple("btcgusd", "BTC", "GUSD"), Triple(btcPair.pairId, btcPair.base, btcPair.quote))
         assertEquals("https://api.gemini.com/v1/symbols/details/mogusd", paging.nextPage(0, btc))
         // Fehlerantwort: nicht raten — mogusd bleibt ungeklärt (fehlt in der Paarliste)
         val error = """{"result":"error","reason":"InvalidSymbol","message":"x"}"""
-        assertEquals(emptyList<MarketPair>(), parse(market, error))
+        assertEquals(emptyList<ExchangePair>(), parse(exchange, error))
         assertEquals("https://api.gemini.com/v1/symbols/details/abcgusd", paging.nextPage(0, error))
         // Details entscheiden: ABC/GUSD (die Liste hätte ABCG/USD gesagt)
         val detail = """{"symbol":"ABCGUSD","base_currency":"ABC","quote_currency":"GUSD","status":"open"}"""
-        val abc = parse(market, detail).single()
+        val abc = parse(exchange, detail).single()
         assertEquals(Triple("abcgusd", "ABC", "GUSD"), Triple(abc.pairId, abc.base, abc.quote))
         assertNull(paging.nextPage(0, detail))
     }
@@ -46,11 +46,11 @@ class GeminiDetailsTest {
     @Test
     fun concurrentSyncsKeepTheirOwnQueue() {
         // Zwei Synchronisierungen derselben (geteilten) Börse greifen ineinander: jede behält ihre Warteschlange
-        val market = Gemini()
+        val exchange = Gemini()
         val listA = """["btcgusd","mogusd"]"""
         val listB = """["abcgusd"]"""
-        val syncA = market.pairListPaging()
-        val syncB = market.pairListPaging()
+        val syncA = exchange.pairListPaging()
+        val syncB = exchange.pairListPaging()
         assertEquals("https://api.gemini.com/v1/symbols/details/btcgusd", syncA.nextPage(0, listA))
         assertEquals("https://api.gemini.com/v1/symbols/details/abcgusd", syncB.nextPage(0, listB))
         val btc = """{"symbol":"BTCGUSD","base_currency":"BTC","quote_currency":"GUSD"}"""
@@ -62,9 +62,9 @@ class GeminiDetailsTest {
     }
 
     @Test
-    fun marketsWithoutOwnStatePageFromTheResponse() {
+    fun exchangesWithoutOwnStatePageFromTheResponse() {
         // Bybit: Cursor steht in der Antwort — der Blätterzustand leitet nur an pairListNextPage weiter
-        val bybit = com.cryptochecker.marketdata.model.market.Bybit()
+        val bybit = com.cryptochecker.marketdata.model.exchange.Bybit()
         val body = """{"retCode":0,"result":{"category":"spot","list":[],"nextPageCursor":"abc"}}"""
         assertEquals(
             "https://api.bybit.com/v5/market/instruments-info?category=spot&limit=1000&cursor=abc",
@@ -76,7 +76,7 @@ class GeminiDetailsTest {
     fun unreadableCursorPageFailsInsteadOfStopping() {
         // Bybit: Eine unlesbare Seite wirft — still aufhören liesse die Paare der weiteren Seiten unbemerkt weg.
         // Lesbar ohne «result» oder ohne Cursor: letzte Seite. Wie `GeminiDetailsTests.swift`.
-        val paging = com.cryptochecker.marketdata.model.market.Bybit().pairListPaging()
+        val paging = com.cryptochecker.marketdata.model.exchange.Bybit().pairListPaging()
         assertThrows(Exception::class.java) { paging.nextPage(0, "<html>502 Bad Gateway</html>") }
         assertThrows(Exception::class.java) { paging.nextPage(0, "[]") }
         assertNull(paging.nextPage(0, """{"retCode":10001,"retMsg":"x"}"""))
@@ -106,19 +106,19 @@ class GeminiDetailsTest {
 
     @Test
     fun overflowResolvedByLaterSync() {
-        val market = Gemini()
+        val exchange = Gemini()
         val symbols = (1..12).map { "x${'a' + it}gusd" }
         val listBody = symbols.joinToString(",", "[", "]") { "\"$it\"" }
         val detail = { s: String -> """{"symbol":"${s.uppercase()}","base_currency":"${s.dropLast(4).uppercase()}","quote_currency":"GUSD"}""" }
 
         // 1. Synchronisierung: 9 Details, die übrigen 3 fehlen (ungeklärt statt geraten)
-        val first = parse(market, listBody).toMutableList()
-        var paging = market.pairListPaging()
+        val first = parse(exchange, listBody).toMutableList()
+        var paging = exchange.pairListPaging()
         var url = paging.nextPage(0, listBody)
         var asked = 0
         while (url != null) {
             val body = detail(url.substringAfterLast('/'))
-            first += parse(market, body)
+            first += parse(exchange, body)
             url = paging.nextPage(0, body)
             asked++
         }
@@ -127,14 +127,14 @@ class GeminiDetailsTest {
         org.junit.Assert.assertTrue(first.all { it.quote == "GUSD" })
 
         // 2. Synchronisierung: die 9 aus dem Zwischenspeicher, die 3 übrigen über Details — danach vollständig
-        val second = parse(market, listBody).toMutableList()
+        val second = parse(exchange, listBody).toMutableList()
         assertEquals(Gemini.MAX_DETAILS, second.size)
-        paging = market.pairListPaging()
+        paging = exchange.pairListPaging()
         url = paging.nextPage(0, listBody)
         asked = 0
         while (url != null) {
             val body = detail(url.substringAfterLast('/'))
-            second += parse(market, body)
+            second += parse(exchange, body)
             url = paging.nextPage(0, body)
             asked++
         }
@@ -146,25 +146,25 @@ class GeminiDetailsTest {
     @Test
     fun detailsCachedBySymbolNotCursor() {
         // Antworten versetzt (zuerst ABCGUSD, obwohl btcgusd gefragt war): Ablage unter dem Symbol der Antwort
-        val market = Gemini()
+        val exchange = Gemini()
         val listBody = """["btcgusd","abcgusd"]"""
-        parse(market, listBody)
-        val paging = market.pairListPaging()
+        parse(exchange, listBody)
+        val paging = exchange.pairListPaging()
         paging.nextPage(0, listBody)
         val abc = """{"symbol":"ABCGUSD","base_currency":"ABC","quote_currency":"GUSD"}"""
-        parse(market, abc)
+        parse(exchange, abc)
         paging.nextPage(0, abc)
         val btc = """{"symbol":"BTCGUSD","base_currency":"BTC","quote_currency":"GUSD"}"""
-        parse(market, btc)
+        parse(exchange, btc)
         // Nächste Synchronisierung aus dem Zwischenspeicher: jedes Symbol mit seinen eigenen Details
-        val cached = parse(market, listBody).associate { it.pairId to it.base }
+        val cached = parse(exchange, listBody).associate { it.pairId to it.base }
         assertEquals(mapOf("btcgusd" to "BTC", "abcgusd" to "ABC"), cached)
     }
 
     @Test
     fun hyperliquidReportsMidPriceWithoutExchangeTime() {
         // Mittelkurs statt letztem Handel: das Aktionsblatt nennt «Mittelkurs»; Zeit = Abruf (Fixture: exchangeTime null)
-        org.junit.Assert.assertTrue(com.cryptochecker.marketdata.model.market.Hyperliquid().priceIsMid)
+        org.junit.Assert.assertTrue(com.cryptochecker.marketdata.model.exchange.Hyperliquid().priceIsMid)
         org.junit.Assert.assertFalse(Gemini().priceIsMid)
     }
 }

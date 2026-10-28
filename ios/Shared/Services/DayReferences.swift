@@ -157,8 +157,8 @@ extension PriceRefresher {
     static func fallbackReference(_ watch: Watch, key: String, references: [String: DayReference]) -> DayReference? {
         guard let ref = references[key] else { return nil }
         let provider: String? = referenceProviders.provider(key)
-        let allowed: Bool = TokenIdentityStore.shared.fallbackChangeAllowed(marketKey: watch.marketKey,
-                                                                            marketName: watch.marketName,
+        let allowed: Bool = TokenIdentityStore.shared.fallbackChangeAllowed(exchangeKey: watch.exchangeKey,
+                                                                            exchangeName: watch.exchangeName,
                                                                             base: watch.baseAsset, provider: provider)
         return allowed ? ref : nil
     }
@@ -195,7 +195,7 @@ extension PriceRefresher {
         let quote = series == .usdt ? DayChange.usdtQuote : DayChange.candleQuote(watch.quoteAsset)
         let provider = await DayReferenceStore.shared.cachedProvider(base: base, quote: quote)
         let name = DayChange.candleSourceName(provider: provider, series: series)
-        return DayChange.foreignCandleSource(markets: [watch.marketKey, watch.marketName], provider: name)
+        return DayChange.foreignCandleSource(exchanges: [watch.exchangeKey, watch.exchangeName], provider: name)
     }
 
     /// Reihe, die `candleChange` nimmt (eigene, sonst bei Fiat-Quotes die USDT-Reihe).

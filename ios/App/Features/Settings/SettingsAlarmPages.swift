@@ -308,7 +308,7 @@ struct PricePairsPage: View {
                 .padding(.vertical, 8)
                 ForEach(data.watches) { watch in
                     RowDivider()
-                    SwitchRow(title: watch.displayName, subtitle: watch.marketName, isOn: Binding(
+                    SwitchRow(title: watch.displayName, subtitle: watch.exchangeName, isOn: Binding(
                         get: { data.watch(watch.id)?.notificationEnabled ?? false },
                         set: { enabled in
                             data.withWatchlistConfirm {

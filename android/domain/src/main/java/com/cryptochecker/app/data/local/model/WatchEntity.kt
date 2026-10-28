@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /** Höchstlänge einer Notiz je Paar. */
@@ -21,16 +21,16 @@ const val GROUP_NAME_MAX = 24
 @Entity(
     tableName = "watches",
     // Eindeutig je Paar; `pairId` gehört dazu, damit zwei DexScreener-Pools mit gleichem Symbol auf derselben
-    // Chain zwei Einträge sein können (WatchIdentity, seit v16). Bei den Börsen prüft die App vor dem Einfügen
+    // Chain zwei Einträge sein können (WatchIdentity). Bei den Börsen prüft die App vor dem Einfügen
     // ohne Kennung (WatchDao.findWatchId); SQLite zählt NULL-Kennungen ohnehin als verschieden.
-    indices = [Index(value = ["marketKey", "baseAsset", "quoteAsset", "contractType", "pairId"], unique = true)]
+    indices = [Index(value = ["exchangeKey", "baseAsset", "quoteAsset", "contractType", "pairId"], unique = true)]
 )
 data class WatchEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
-    @ColumnInfo val marketKey: String,
-    @ColumnInfo val marketName: String,
+    @ColumnInfo val exchangeKey: String,
+    @ColumnInfo val exchangeName: String,
     @ColumnInfo val baseAsset: String,
     @ColumnInfo val quoteAsset: String,
     @ColumnInfo val contractType: FuturesContractType = FuturesContractType.NONE,
@@ -83,7 +83,7 @@ data class WatchEntity(
 
     /**
      * Zeitpunkt, an dem sich [lastPrice] zuletzt WIRKLICH geändert hat (bleibt bei gleichem Kurs
-     * stehen, anders als [lastUpdate]). 0 = unbekannt (vor DB v15). Grundlage für «Kurs unverändert
+     * stehen, anders als [lastUpdate]). 0 = unbekannt. Grundlage für «Kurs unverändert
      * seit …» bei Börsen ohne eigene Zeit (`PriceFreshness`). Abgeleitet, nicht in der Sicherung.
      */
     @ColumnInfo(defaultValue = "0") val priceChangedAt: Long = 0,
@@ -110,6 +110,6 @@ data class WatchEntity(
             return amount * price
         }
 
-    fun toPairInfo(): MarketPair =
-        MarketPair(baseAsset, quoteAsset, pairId, contractType)
+    fun toPairInfo(): ExchangePair =
+        ExchangePair(baseAsset, quoteAsset, pairId, contractType)
 }

@@ -36,7 +36,7 @@ class AlarmLogCollector(private val now: Long) {
                 alarmId = alarm.id,
                 at = now,
                 pair = watch.displayName,
-                exchange = watch.marketName,
+                exchange = watch.exchangeName,
                 quote = watch.quoteAsset,
                 price = if (trace.noPrice) null else watch.lastPrice,
                 condition = alarm.condition,

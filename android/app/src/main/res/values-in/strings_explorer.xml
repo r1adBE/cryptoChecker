@@ -43,7 +43,7 @@
     <string name="explorer_pairs_title">Pasangan</string>
     <string name="explorer_precise_title">Lanjutan / per bursa</string>
     <string name="explorer_price_loading">Memuat harga…</string>
-    <string name="explorer_select_market_hint">Pilih bursa – pasangannya dimuat otomatis.</string>
+    <string name="explorer_select_exchange_hint">Pilih bursa – pasangannya dimuat otomatis.</string>
     <string name="explorer_select_placeholder">Silakan pilih</string>
     <string name="explorer_step_pair">Pilih pasangan</string>
 

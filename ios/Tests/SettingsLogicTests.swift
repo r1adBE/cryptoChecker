@@ -859,18 +859,18 @@ final class AssetScopeTests: XCTestCase {
         XCTAssertTrue(AssetScope.BOTH.allowsTradFi)
     }
 
-    func testMarketsTradFiOnlyKeepsTradFiExchanges() {
-        XCTAssertTrue(AssetScope.TRADFI.allowsMarket("BinanceFutures"))
-        XCTAssertFalse(AssetScope.TRADFI.allowsMarket("Binance"))
-        XCTAssertFalse(AssetScope.TRADFI.allowsMarket("DexScreener"))
-        XCTAssertTrue(AssetScope.TOKENS.allowsMarket("Binance"))
-        XCTAssertTrue(AssetScope.BOTH.allowsMarket("DexScreener"))
+    func testExchangesTradFiOnlyKeepsTradFiExchanges() {
+        XCTAssertTrue(AssetScope.TRADFI.allowsExchange("BinanceFutures"))
+        XCTAssertFalse(AssetScope.TRADFI.allowsExchange("Binance"))
+        XCTAssertFalse(AssetScope.TRADFI.allowsExchange("DexScreener"))
+        XCTAssertTrue(AssetScope.TOKENS.allowsExchange("Binance"))
+        XCTAssertTrue(AssetScope.BOTH.allowsExchange("DexScreener"))
     }
 
     func testScopedFiltersPairs() {
-        let btc = MarketPair("BTC", "USDT", nil)
-        let nvda = MarketPair("NVDA", "USDT", nil, tradFi: true)
-        let info = MarketPairsInfo(lastSyncDate: 5, pairs: [btc, nvda])
+        let btc = ExchangePair("BTC", "USDT", nil)
+        let nvda = ExchangePair("NVDA", "USDT", nil, tradFi: true)
+        let info = ExchangePairsInfo(lastSyncDate: 5, pairs: [btc, nvda])
         XCTAssertEqual(info.scoped(.TOKENS).pairs, [btc])
         XCTAssertEqual(info.scoped(.TRADFI).pairs, [nvda])
         XCTAssertEqual(info.scoped(.BOTH).pairs, [btc, nvda])
@@ -878,19 +878,19 @@ final class AssetScopeTests: XCTestCase {
     }
 
     func testAlphaHiddenOnlyWhenSwitchedOff() {
-        let aia = MarketPair("AIA", "USDT", nil)
-        let btc = MarketPair("BTC", "USDT", nil)
+        let aia = ExchangePair("AIA", "USDT", nil)
+        let btc = ExchangePair("BTC", "USDT", nil)
         let alpha: Set<String> = ["AIA"]
-        XCTAssertTrue(AssetScope.TOKENS.allows(aia, marketKey: "BinanceFutures"))
+        XCTAssertTrue(AssetScope.TOKENS.allows(aia, exchangeKey: "BinanceFutures"))
         XCTAssertEqual(AssetScope.hiddenAlphaSymbols(includeAlpha: true, alphaSymbols: alpha), [])
         let hidden = AssetScope.hiddenAlphaSymbols(includeAlpha: false, alphaSymbols: alpha)
-        XCTAssertFalse(AssetScope.TOKENS.allows(aia, marketKey: "BinanceFutures", hiddenAlpha: hidden))
-        XCTAssertTrue(AssetScope.BOTH.allows(btc, marketKey: "BinanceFutures", hiddenAlpha: hidden))
+        XCTAssertFalse(AssetScope.TOKENS.allows(aia, exchangeKey: "BinanceFutures", hiddenAlpha: hidden))
+        XCTAssertTrue(AssetScope.BOTH.allows(btc, exchangeKey: "BinanceFutures", hiddenAlpha: hidden))
         // An Binance Spot regulär gelistet: kein Alpha
-        XCTAssertTrue(AssetScope.TOKENS.allows(aia, marketKey: "Binance", hiddenAlpha: hidden))
-        let info = MarketPairsInfo(lastSyncDate: 1, pairs: [btc, aia])
-        XCTAssertEqual(info.scoped(.TOKENS, marketKey: "BinanceFutures", hiddenAlpha: hidden).pairs, [btc])
-        XCTAssertEqual(info.scoped(.TOKENS, marketKey: "BinanceFutures").pairs, [btc, aia])
+        XCTAssertTrue(AssetScope.TOKENS.allows(aia, exchangeKey: "Binance", hiddenAlpha: hidden))
+        let info = ExchangePairsInfo(lastSyncDate: 1, pairs: [btc, aia])
+        XCTAssertEqual(info.scoped(.TOKENS, exchangeKey: "BinanceFutures", hiddenAlpha: hidden).pairs, [btc])
+        XCTAssertEqual(info.scoped(.TOKENS, exchangeKey: "BinanceFutures").pairs, [btc, aia])
     }
 
     /// «inkl. Alpha-Tokens»: für neue Installationen aus; ältere gespeicherte Einstellungen
@@ -1101,8 +1101,8 @@ final class NotificationDefaultsTests: XCTestCase {
     /// behalten ihren Wert.
     func testNewPairsStartWithPriceNotification() throws {
         var s = SharedStorage.Snapshot()
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
-        let id = try XCTUnwrap(AppData.insert(&s, market: market, pair: MarketPair("BTC", "USDT", "BTCUSDT")))
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
+        let id = try XCTUnwrap(AppData.insert(&s, exchange: exchange, pair: ExchangePair("BTC", "USDT", "BTCUSDT")))
         XCTAssertEqual(s.watches.first { $0.id == id }?.notificationEnabled, true)
         XCTAssertTrue(Watch.newPairNotificationEnabled)
         // Sicherung ohne Feld (in älteren Versionen war jedes Paar an): bleibt an — wie Android
@@ -1110,10 +1110,10 @@ final class NotificationDefaultsTests: XCTestCase {
 
         // Bestehende Paare ohne Angabe (ältere Version): bleiben an
         let old = try JSONDecoder().decode(Watch.self, from: Data(
-            #"{"id":1,"marketKey":"Kraken","marketName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR"}"#.utf8))
+            #"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR"}"#.utf8))
         XCTAssertTrue(old.notificationEnabled)
         let off = try JSONDecoder().decode(Watch.self, from: Data(
-            #"{"id":1,"marketKey":"Kraken","marketName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR","notificationEnabled":false}"#.utf8))
+            #"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR","notificationEnabled":false}"#.utf8))
         XCTAssertFalse(off.notificationEnabled)
     }
 

@@ -25,7 +25,7 @@ fun AppNotifier.showActivity(watch: WatchEntity, signal: ActivitySignal): Boolea
     val notification = NotificationCompat.Builder(context, marketOrQuietChannel(quiet))
         .setSmallIcon(R.drawable.ic_stat_activity)
         .setColor(settingsRepository.cached.accentColor.seed)
-        .setContentTitle(context.getString(R.string.notification_activity_title, watch.displayName, watch.marketName))
+        .setContentTitle(context.getString(R.string.notification_activity_title, watch.displayName, watch.exchangeName))
         .setContentText(text)
         .setStyle(NotificationCompat.BigTextStyle().bigText(text))
         .setAutoCancel(true)
@@ -65,7 +65,7 @@ fun AppNotifier.showFearGreed(value: Int, below: Int? = null, above: Int? = null
 }
 
 /**
- * Eigene Grenze einer Bitcoin-Kennzahl erreicht ([com.cryptochecker.app.domain.market.IndicatorAlertKind]): Titel
+ * Eigene Grenze einer Bitcoin-Kennzahl erreicht ([com.cryptochecker.app.domain.exchange.IndicatorAlertKind]): Titel
  * «Mayer Multiple: 2.43×», Text «Über deiner Grenze 2.40× – Messwert, keine Empfehlung.» Eine Meldung je Art.
  */
 fun AppNotifier.showIndicatorAlert(kind: com.cryptochecker.app.domain.market.IndicatorAlertKind, name: String, value: String, threshold: String): Boolean {

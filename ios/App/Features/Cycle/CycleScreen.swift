@@ -100,7 +100,7 @@ struct CycleScreen: View {
             MarketSectionPage(viewModel: viewModel, section: section)
         }
         // «Heute auffällig» → Coin nicht bei Binance: «Paar hinzufügen» über diesem Tab (G-13)
-        .navigationDestination(isPresented: $router.showMarketExplorer) {
+        .navigationDestination(isPresented: $router.showExchangeExplorer) {
             ExplorerScreen()
         }
         .onAppear { viewModel.onAppear() }
@@ -228,7 +228,7 @@ struct CycleScreen: View {
                 } else {
                     // Über dem Markt-Tab, nicht über der Merkliste: zurück führt hierher (G-13)
                     router.explorerSearch = symbol
-                    router.showMarketExplorer = true
+                    router.showExchangeExplorer = true
                 }
             }
         }

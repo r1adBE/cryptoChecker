@@ -19,7 +19,6 @@ import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
-import com.cryptochecker.app.data.portfolio.PortfolioLegacyImport
 import java.io.File
 import java.io.IOException
 import java.security.KeyStore
@@ -32,9 +31,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Verschlüsselung der Datenbanken auf dem Gerät: alte unverschlüsselte Dateien (Portfolio v3, Hauptdatenbank v1 und
- * v12 aus 16.2 samt Portfolio-Altbestand) werden beim ersten Öffnen mit echtem SQLCipher und echtem Keystore überführt, die
- * Room-Migrationen laufen danach auf der verschlüsselten Datei. Geprüft: Daten vollständig, keine unverschlüsselte Datei
+ * Verschlüsselung der Datenbanken auf dem Gerät: unverschlüsselte Dateien (Portfolio v3, Hauptdatenbank im aktuellen
+ * Schema) werden beim ersten Öffnen mit echtem SQLCipher und echtem Keystore überführt, die Room-Migrationen der
+ * Portfolio-Datenbank laufen danach auf der verschlüsselten Datei. Geprüft: Daten vollständig, keine unverschlüsselte Datei
  * oder Kopie mehr, ohne Schlüssel unlesbar; Fehler lassen die alte Datei stehen; verlorener Schlüssel legt beiseite;
  * Kopie für die Systemsicherung hin und zurück. Die Ablauflogik selbst prüft `DatabaseEncryptionMigrationTest` (Unit).
  */
@@ -113,54 +112,10 @@ class DatabaseEncryptionTest {
         withDatabases { _, portfolio -> assertEquals(4, count(portfolio, "portfolio_tx")) }
     }
 
-    /** «Datenbank 12» aus 16.2: Portfolio noch in der Hauptdatenbank — Übernahme läuft zwischen zwei verschlüsselten Dateien. */
-    @Test
-    fun mainDatabaseVersion12From162IsEncryptedAndPortfolioImported() {
-        oldMainDatabase(version = 12) { db ->
-            insertWatchAndAlarm(db)
-            db.execSQL(
-                "INSERT INTO portfolio_tx (id, coin, type, amount, priceUsdt, time, note) VALUES (7, 'BTC', 'BUY', 0.05, 77500.0, 1744070400000, 'DCA')"
-            )
-            db.execSQL(
-                "INSERT INTO portfolio_alarms (id, kind, threshold, currency, enabled, repeating, referenceAt, lastTriggeredAt, " +
-                    "lastTriggeredValue) VALUES (3, 'VALUE_ABOVE', 10000.0, 'CHF', 1, 0, 0, 0, NULL)"
-            )
-        }
-
-        withDatabases { main, portfolio ->
-            assertEquals(AppDatabase.VERSION, main.version)
-            assertEquals(1, count(main, "watches WHERE baseAsset = 'BTC' AND note IS NULL"))
-            assertEquals(1, count(main, "alarms WHERE threshold = 90000.0"))
-            assertEquals(1, count(portfolio, "portfolio_tx WHERE id = 7 AND note = 'DCA'"))
-            assertEquals(1, count(portfolio, "portfolio_alarms WHERE id = 3"))
-            assertEquals(0, count(main, "sqlite_master WHERE name = '${PortfolioLegacyImport.LEGACY_TX}'"))
-        }
-        assertEncryptedAndUnreadableWithoutKey(MAIN)
-        assertEncryptedAndUnreadableWithoutKey(PORTFOLIO)
-    }
-
-    /** Älteste Hauptdatenbank (v1): die ganze Migrationskette 1 → 15 auf der verschlüsselten Datei. */
-    @Test
-    fun mainDatabaseVersion1RunsWholeChainEncrypted() {
-        plainDatabase(MAIN, version = 1, schema = DatabaseMigrationTest.V1_SCHEMA) { db ->
-            db.execSQL("INSERT INTO markets (id, marketKey, updateDate) VALUES (1, 'Binance', 1)")
-            db.execSQL(
-                "INSERT INTO watches (id, marketKey, marketName, baseAsset, quoteAsset, contractType, pairId, sortOrder, " +
-                    "notificationEnabled, ttsEnabled, lastPrice, previousPrice, lastUpdate, lastError) " +
-                    "VALUES (1, 'Binance', 'Binance', 'BTC', 'USDT', 'NONE', 'BTCUSDT', 0, 1, 0, 98000.0, 97000.0, 1700000000000, NULL)"
-            )
-        }
-        withMain { main ->
-            assertEquals(AppDatabase.VERSION, main.version)
-            assertEquals(1, count(main, "watches WHERE disabled = 0 AND priceChangedAt = 0"))
-        }
-        assertEncryptedAndUnreadableWithoutKey(MAIN)
-    }
-
     /** Ein Fehler beim Prüfen der Kopie: alte Datei bleibt, App öffnet sie wie bisher, der nächste Start verschlüsselt. */
     @Test
     fun failedVerificationKeepsPlaintextAndRetriesNextStart() {
-        oldMainDatabase(version = 15) { db -> insertWatchAndAlarm(db) }
+        plainMainDatabase { db -> insertWatchAndAlarm(db) }
         val failing = object : com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Files by SqlCipherDatabaseFiles(context) {
             override fun fingerprintExportCopy(database: String, passphrase: ByteArray) = throw IOException("Test: Prüfung scheitert")
         }
@@ -308,7 +263,6 @@ class DatabaseEncryptionTest {
     private fun withMain(factory: EncryptingOpenHelperFactory = factory(), block: (SupportSQLiteDatabase) -> Unit) {
         val room = Room.databaseBuilder(context, AppDatabase::class.java, MAIN)
             .openHelperFactory(factory)
-            .addMigrations(*AppDatabase.ALL_MIGRATIONS)
             .build()
         try {
             block(room.openHelper.writableDatabase)
@@ -317,20 +271,19 @@ class DatabaseEncryptionTest {
         }
     }
 
-    /** Wie die App (LocalDataModule): beide Datenbanken über dieselbe Fabrik, Portfolio-Callback mit Übernahme. */
+    /** Wie die App (LocalDataModule): beide Datenbanken über dieselbe Fabrik, Portfolio-Callback (Systemsicherungs-Kopie). */
     private fun withDatabases(block: (main: SupportSQLiteDatabase, portfolio: SupportSQLiteDatabase) -> Unit) {
         val factory = factory()
         val main = Room.databaseBuilder(context, AppDatabase::class.java, MAIN)
             .openHelperFactory(factory)
-            .addMigrations(*AppDatabase.ALL_MIGRATIONS)
             .build()
         val portfolio = Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO)
             .openHelperFactory(factory)
             .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
-            .addCallback(PortfolioDatabase.callback(context, main, mirrorFile))
+            .addCallback(PortfolioDatabase.callback(context, mirrorFile))
             .build()
         try {
-            val portfolioDb = portfolio.openHelper.writableDatabase // öffnet auch die Hauptdatenbank (Callback)
+            val portfolioDb = portfolio.openHelper.writableDatabase
             block(main.openHelper.writableDatabase, portfolioDb)
         } finally {
             portfolio.close()
@@ -338,7 +291,7 @@ class DatabaseEncryptionTest {
         }
     }
 
-    /** Unverschlüsselte Datei wie aus einer alten Version (Android-SQLite, ohne Room). */
+    /** Unverschlüsselte Datei (Android-SQLite, ohne Room). */
     private fun plainDatabase(name: String, version: Int, schema: List<String>, fill: (SupportSQLiteDatabase) -> Unit) {
         val config = SupportSQLiteOpenHelper.Configuration.builder(context)
             .name(name)
@@ -352,19 +305,14 @@ class DatabaseEncryptionTest {
         helper.close()
     }
 
-    /** Hauptdatenbank im Schema [version] (aus v3 mit den App-Migrationen, wie `DatabaseMigrationTest`). */
-    private fun oldMainDatabase(version: Int, fill: (SupportSQLiteDatabase) -> Unit) {
-        plainDatabase(MAIN, version = 3, schema = DatabaseMigrationTest.V3_SCHEMA) { db ->
-            AppDatabase.ALL_MIGRATIONS.filter { it.startVersion >= 3 && it.endVersion <= version }.forEach { it.migrate(db) }
-            db.execSQL("PRAGMA user_version = $version")
-            fill(db)
-        }
-    }
+    /** Unverschlüsselte Hauptdatenbank im aktuellen Schema ([MAIN_SCHEMA]). */
+    private fun plainMainDatabase(fill: (SupportSQLiteDatabase) -> Unit) =
+        plainDatabase(MAIN, version = AppDatabase.VERSION, schema = MAIN_SCHEMA, fill = fill)
 
     private fun insertWatchAndAlarm(db: SupportSQLiteDatabase) {
-        db.execSQL("INSERT INTO markets (id, marketKey, updateDate) VALUES (1, 'Binance', 1)")
+        db.execSQL("INSERT INTO exchanges (id, exchangeKey, updateDate) VALUES (1, 'Binance', 1)")
         db.execSQL(
-            "INSERT INTO watches (id, marketKey, marketName, baseAsset, quoteAsset, contractType, pairId, sortOrder, " +
+            "INSERT INTO watches (id, exchangeKey, exchangeName, baseAsset, quoteAsset, contractType, pairId, sortOrder, " +
                 "notificationEnabled, ttsEnabled, lastPrice, previousPrice, lastUpdate, notifiedPrice, notifiedAt, lastError) " +
                 "VALUES (1, 'Binance', 'Binance', 'BTC', 'USDT', 'NONE', 'BTCUSDT', 0, 1, 0, 98000.0, 97000.0, " +
                 "1700000000000, 97500.0, 1700000000000, NULL)"
@@ -404,5 +352,16 @@ class DatabaseEncryptionTest {
         const val PORTFOLIO = "encryption-test-portfolio.db"
         const val EXPORT = "encryption-test-backup.db"
         const val TEST_ALIAS = "cryptochecker_db_key_test"
+
+        /** Hauptdatenbank, wie in `app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json`. */
+        val MAIN_SCHEMA = listOf(
+            "CREATE TABLE IF NOT EXISTS `exchanges` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exchangeKey` TEXT NOT NULL COLLATE NOCASE, `updateDate` INTEGER NOT NULL)",
+            "CREATE INDEX IF NOT EXISTS `index_exchanges_exchangeKey` ON `exchanges` (`exchangeKey`)",
+            "CREATE TABLE IF NOT EXISTS `exchange_pairs` (`exchangeId` INTEGER NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `exchangePairId` TEXT, `tradFi` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`exchangeId`, `baseAsset`, `quoteAsset`, `contractType`), FOREIGN KEY(`exchangeId`) REFERENCES `exchanges`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+            "CREATE TABLE IF NOT EXISTS `watches` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exchangeKey` TEXT NOT NULL, `exchangeName` TEXT NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `pairId` TEXT, `sortOrder` INTEGER NOT NULL, `notificationEnabled` INTEGER NOT NULL, `ttsEnabled` INTEGER NOT NULL, `lastPrice` REAL, `previousPrice` REAL, `lastUpdate` INTEGER NOT NULL, `notifiedPrice` REAL, `notifiedAt` INTEGER NOT NULL, `lastError` TEXT, `favorite` INTEGER NOT NULL DEFAULT 0, `holdings` REAL, `groupName` TEXT, `note` TEXT, `change24h` REAL, `disabled` INTEGER NOT NULL DEFAULT 0, `priceChangedAt` INTEGER NOT NULL DEFAULT 0, `exchangeTime` INTEGER)",
+            "CREATE UNIQUE INDEX IF NOT EXISTS `index_watches_exchangeKey_baseAsset_quoteAsset_contractType_pairId` ON `watches` (`exchangeKey`, `baseAsset`, `quoteAsset`, `contractType`, `pairId`)",
+            "CREATE TABLE IF NOT EXISTS `alarms` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `watchId` INTEGER NOT NULL, `condition` TEXT NOT NULL, `threshold` REAL NOT NULL, `enabled` INTEGER NOT NULL, `repeating` INTEGER NOT NULL, `sound` INTEGER NOT NULL, `vibrate` INTEGER NOT NULL, `speak` INTEGER NOT NULL, `referencePrice` REAL, `lastTriggeredAt` INTEGER NOT NULL, `lastTriggeredPrice` REAL, `windowHours` INTEGER NOT NULL DEFAULT 1, `referenceAt` INTEGER NOT NULL DEFAULT 0, `currency` TEXT, FOREIGN KEY(`watchId`) REFERENCES `watches`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+            "CREATE INDEX IF NOT EXISTS `index_alarms_watchId` ON `alarms` (`watchId`)",
+        )
     }
 }

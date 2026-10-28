@@ -24,7 +24,7 @@ extension PortfolioTxSheet {
     func routeField(_ label: String, text: Binding<String>, focus: PortfolioTxField, hint: String?) -> some View {
         let query: String = text.wrappedValue.trimmingCharacters(in: .whitespaces)
         let used: [String] = usedWallets
-        let catalog: [String] = PortfolioRouteResolver.spotMarketNames
+        let catalog: [String] = PortfolioRouteResolver.spotExchangeNames
         let focusedHere: Bool = focusedField == focus
         let suggested: [String] = PortfolioWalletNames.suggestions(used: used, catalog: catalog, query: query)
         let matches: [String] = query.isEmpty && !focusedHere ? [] : suggested
@@ -329,7 +329,7 @@ extension PortfolioTxSheet {
     /// Börse als Auswahl: «Keine (Binance)», ein früher frei getippter Name (falls keiner der Liste) und die
     /// Spot-Börsen der App; der Coin wird dann mit ihrem Kurs bewertet (sonst Binance) — wie Android.
     private var exchangeField: some View {
-        let names = PortfolioRouteResolver.spotMarketNames
+        let names = PortfolioRouteResolver.spotExchangeNames
         let current = exchange.trimmingCharacters(in: .whitespaces)
         let legacy: String? = current.isEmpty || names.contains(where: { $0.caseInsensitiveCompare(current) == .orderedSame })
             ? nil : current

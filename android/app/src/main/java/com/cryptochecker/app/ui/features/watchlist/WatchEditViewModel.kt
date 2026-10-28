@@ -5,20 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.widget.WidgetUpdater
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -35,9 +35,9 @@ import javax.inject.Inject
 /** Zustand des Formulars «Paar bearbeiten». */
 data class WatchEditState(
     /** Börsen ohne DEX (Pools findet nur die DEX-Suche beim Hinzufügen). null = lädt. */
-    val markets: List<MarketInfo>? = null,
-    val market: MarketInfo? = null,
-    val pairs: MarketPairsInfo? = null,
+    val exchanges: List<ExchangeInfo>? = null,
+    val exchange: ExchangeInfo? = null,
+    val pairs: ExchangePairsInfo? = null,
     val syncing: Boolean = false,
     val syncError: String? = null,
     val base: String? = null,
@@ -56,17 +56,17 @@ data class WatchEditState(
         else pairs?.getAvailableFuturesContractsTypes(base, quote).orEmpty()
 
     /** Gewähltes Paar der Börse; null, solange nichts Vollständiges gewählt ist. */
-    val pair: MarketPair?
+    val pair: ExchangePair?
         get() {
             val b = base ?: return null
             val q = quote ?: return null
-            return pairs?.getMarketPair(b, q, contract ?: FuturesContractType.NONE)
+            return pairs?.getExchangePair(b, q, contract ?: FuturesContractType.NONE)
         }
 
     /** Schlüssel der Auswahl ([WatchEdit.Key]); null ohne vollständige Auswahl. */
     val key: WatchEdit.Key?
         get() {
-            val m = market ?: return null
+            val m = exchange ?: return null
             val p = pair ?: return null
             return WatchEdit.Key.of(m.key, p.base, p.quote, p.contractType.name, p.pairId)
         }
@@ -80,7 +80,7 @@ data class WatchEditState(
  */
 @HiltViewModel
 class WatchEditViewModel @Inject constructor(
-    private val marketRepository: MarketRepository,
+    private val exchangeRepository: ExchangeRepository,
     private val watchRepository: WatchRepository,
     private val favoritesRepository: FavoritesRepository,
     private val priceRefresher: PriceRefresher,
@@ -93,7 +93,7 @@ class WatchEditViewModel @Inject constructor(
     private val _state = MutableStateFlow(WatchEditState())
     val state: StateFlow<WatchEditState> = _state.asStateFlow()
 
-    val favoriteMarkets: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.MARKET)
+    val favoriteExchanges: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.EXCHANGE)
     val favoriteCoins: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.COIN)
     val favoriteQuotes: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.QUOTE)
 
@@ -113,23 +113,23 @@ class WatchEditViewModel @Inject constructor(
             savedCount = _state.value.savedCount,
         )
         startJob = viewModelScope.launch {
-            val markets = try {
-                marketRepository.getMarketList().filter { it.key != DEX_KEY }.sortedBy { it.name.lowercase() }
+            val exchanges = try {
+                exchangeRepository.getExchangeList().filter { it.key != DEX_KEY }.sortedBy { it.name.lowercase() }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 Timber.w(e, "Börsenliste für «Paar bearbeiten» nicht verfügbar")
                 emptyList()
             }
-            _state.value = _state.value.copy(markets = markets)
-            markets.firstOrNull { it.key == watch.marketKey }?.let { loadPairs(it) }
+            _state.value = _state.value.copy(exchanges = exchanges)
+            exchanges.firstOrNull { it.key == watch.exchangeKey }?.let { loadPairs(it) }
         }
     }
 
-    fun setMarket(market: MarketInfo) {
-        if (market == _state.value.market) return
+    fun setExchange(exchange: ExchangeInfo) {
+        if (exchange == _state.value.exchange) return
         _state.value = _state.value.copy(duplicate = false)
-        loadPairs(market)
+        loadPairs(exchange)
     }
 
     fun setBase(base: String) = select { it.copy(base = base) }
@@ -140,8 +140,8 @@ class WatchEditViewModel @Inject constructor(
 
     /** Paare der Börse neu laden («Paare aktualisieren» bzw. «Erneut versuchen»). */
     fun sync() {
-        val market = _state.value.market ?: return
-        loadPairs(market, forceSync = true)
+        val exchange = _state.value.exchange ?: return
+        loadPairs(exchange, forceSync = true)
     }
 
     private fun select(change: (WatchEditState) -> WatchEditState) {
@@ -165,31 +165,31 @@ class WatchEditViewModel @Inject constructor(
         return withQuote.copy(contract = contract)
     }
 
-    private fun loadPairs(market: MarketInfo, forceSync: Boolean = false) {
+    private fun loadPairs(exchange: ExchangeInfo, forceSync: Boolean = false) {
         pairsJob?.cancel()
-        _state.value = _state.value.copy(market = market, pairs = null, syncError = null, syncing = false)
+        _state.value = _state.value.copy(exchange = exchange, pairs = null, syncError = null, syncing = false)
         pairsJob = viewModelScope.launch {
-            var info = runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(market) }.getOrNull()
-            val canSync = marketRepository.isMarketSupportsUpdatePairs(market)
+            var info = runCatchingCancellable { exchangeRepository.getExchangeCurrencyPairsInfo(exchange) }.getOrNull()
+            val canSync = exchangeRepository.isExchangeSupportsUpdatePairs(exchange)
             if ((forceSync || info == null || info.pairs.isEmpty()) && canSync) {
                 _state.value = _state.value.copy(syncing = true)
                 try {
-                    withContext(Dispatchers.IO) { marketRepository.updateMarketCurrencyPairs(market) }
-                    info = marketRepository.getMarketCurrencyPairsInfo(market)
+                    withContext(Dispatchers.IO) { exchangeRepository.updateExchangeCurrencyPairs(exchange) }
+                    info = exchangeRepository.getExchangeCurrencyPairsInfo(exchange)
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
                     _state.value = _state.value.copy(syncError = e.message ?: e.javaClass.simpleName)
                 }
             }
-            _state.value = fitSelection(_state.value.copy(pairs = info ?: MarketPairsInfo(), syncing = false))
+            _state.value = fitSelection(_state.value.copy(pairs = info ?: ExchangePairsInfo(), syncing = false))
         }
     }
 
     /** Auswahl für [watchId] übernehmen; ein Doppel meldet [WatchEditState.duplicate]. */
     fun save(watchId: Long) {
         val s = _state.value
-        val market = s.market ?: return
+        val exchange = s.exchange ?: return
         val pair = s.pair ?: return
         if (s.saving) return
         _state.value = s.copy(saving = true, duplicate = false)
@@ -203,7 +203,7 @@ class WatchEditViewModel @Inject constructor(
             // Kurs des alten Paars, der sonst zum Bezug des neuen würde (riesiger %-Alarm, falsche Kursmarke).
             // Gepufferte Live-Kurse des alten Paars gleich mit vergessen. Nie refreshOne in der Sperre (Verklemmung).
             val result = priceRefresher.withRefreshLock {
-                watchRepository.changePair(watchId, market, pair).also {
+                watchRepository.changePair(watchId, exchange, pair).also {
                     if (it == PairEditResult.SAVED) livePriceStream.forget(listOf(watchId))
                 }
             }

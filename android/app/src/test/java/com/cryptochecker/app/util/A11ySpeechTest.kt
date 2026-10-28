@@ -29,7 +29,7 @@ class A11ySpeechTest {
             is Age.Hours -> "zuletzt aktualisiert vor ${age.count} " + if (age.count == 1) "Stunde" else "Stunden"
             is Age.Days -> "zuletzt aktualisiert vor ${age.count} " + if (age.count == 1) "Tag" else "Tagen"
         }
-        override fun unreachable(market: String) = "$market nicht erreichbar"
+        override fun unreachable(exchange: String) = "$exchange nicht erreichbar"
     }
 
     @Test

@@ -186,7 +186,7 @@ class DayReferences @Inject constructor(
      */
     private fun reference(watch: WatchEntity, q: String, dayStart: Long?): com.cryptochecker.app.domain.watch.DayReference? {
         val provider = sparklineRepository.cachedProvider(watch.baseAsset, q)
-        if (!tokenIdentityStore.fallbackChangeAllowed(watch.marketKey, watch.marketName, watch.baseAsset, provider)) return null
+        if (!tokenIdentityStore.fallbackChangeAllowed(watch.exchangeKey, watch.exchangeName, watch.baseAsset, provider)) return null
         return if (dayStart != null) sparklineRepository.cachedDayStartReference(watch.baseAsset, q, dayStart)
         else sparklineRepository.cachedDayReference(watch.baseAsset, q)
     }

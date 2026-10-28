@@ -78,11 +78,11 @@ val LocalCoinSearchNameSource = staticCompositionLocalOf<CoinLogoSource?> { null
  * Namen eines gleichnamigen Krypto-Tokens.
  */
 @Composable
-fun coinName(marketKey: String, base: String, quote: String, contractType: String): String? {
+fun coinName(exchangeKey: String, base: String, quote: String, contractType: String): String? {
     val source = LocalCoinNameSource.current ?: return null
-    if (!CoinLogos.allowedFor(marketKey)) return null
+    if (!CoinLogos.allowedFor(exchangeKey)) return null
     val names = source.names.collectAsState().value
-    val tradFi = CoinLogos.pairKey(marketKey, base, quote, contractType) in source.tradFiPairs.collectAsState().value
+    val tradFi = CoinLogos.pairKey(exchangeKey, base, quote, contractType) in source.tradFiPairs.collectAsState().value
     return names[CoinLogos.nameKey(base, tradFi)]
 }
 

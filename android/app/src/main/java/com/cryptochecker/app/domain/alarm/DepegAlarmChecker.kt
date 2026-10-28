@@ -3,19 +3,19 @@ package com.cryptochecker.app.domain.alarm
 import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PercentText
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
@@ -42,7 +42,7 @@ import com.cryptochecker.app.notification.showDepeg
 @Singleton
 class DepegAlarmChecker @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    private val marketRepository: MarketRepository,
+    private val exchangeRepository: ExchangeRepository,
     private val watchRepository: WatchRepository,
     private val refreshStats: RefreshStats,
     private val settingsRepository: SettingsRepository,
@@ -98,11 +98,11 @@ class DepegAlarmChecker @Inject constructor(
         val byId = watches.associateBy { it.id }
         val conversions = watchRepository.getAllEnabledAlarms().mapNotNull { alarm ->
             val currency = alarm.convertCurrency ?: return@mapNotNull null
-            byId[alarm.watchId]?.let { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) to currency }
+            byId[alarm.watchId]?.let { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) to currency }
         }
         com.cryptochecker.app.domain.convert.FiatAlarmGuard.needsUsdtMeasurement(
             settings.showConverted, settings.portfolioCurrency,
-            watches.map { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) }, conversions,
+            watches.map { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) }, conversions,
             com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES,
         )
     } catch (e: CancellationException) {
@@ -123,7 +123,7 @@ class DepegAlarmChecker @Inject constructor(
     }
 
     private suspend fun notify(price: Double, deviation: Double): Boolean {
-        val keys = runCatchingCancellable { watchRepository.getWatches().filterNot { it.disabled }.map { it.marketKey } }.getOrDefault(emptyList())
+        val keys = runCatchingCancellable { watchRepository.getWatches().filterNot { it.disabled }.map { it.exchangeKey } }.getOrDefault(emptyList())
         val sign = if (deviation < 0) "−" else "+"
         val title = context.getString(
             R.string.notification_depeg_title,
@@ -153,15 +153,15 @@ class DepegAlarmChecker @Inject constructor(
      * Letzter Kurs eines Paars; Fehler still (null). Laut Börse älter als 2 Std.: ebenfalls null
      * ([DepegAlarm.usablePrice]) — keine Messung, kein Alarm, die Bewertung fällt zurück wie ohne frische Messung.
      */
-    private suspend fun last(marketKey: String, base: String, quote: String, pairId: String, now: Long): Double? =
+    private suspend fun last(exchangeKey: String, base: String, quote: String, pairId: String, now: Long): Double? =
         runCatching {
-            marketRepository.getMarketTicker(MarketInfo(marketKey, marketKey), MarketPair(base, quote, pairId))
+            exchangeRepository.getExchangeTicker(ExchangeInfo(exchangeKey, exchangeKey), ExchangePair(base, quote, pairId))
         }.fold(
             onSuccess = { if (it.error == null) DepegAlarm.usablePrice(it.ticker.last, it.ticker.exchangeTime, now) else null },
             onFailure = {
                 // Zeitüberschreitung kommt als CancellationException: nur abbrechen, wenn der Lauf selbst abbricht
                 currentCoroutineContext().ensureActive()
-                Timber.d(it, "Depeg: %s nicht erreichbar", marketKey)
+                Timber.d(it, "Depeg: %s nicht erreichbar", exchangeKey)
                 null
             }
         )

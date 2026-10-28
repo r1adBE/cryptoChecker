@@ -97,7 +97,7 @@ data class AppSettings(
     val fearGreedAbove: Int = 0,
 
     /**
-     * Eigene Grenzen für Bitcoin-Kennzahlen ([com.cryptochecker.app.domain.market.IndicatorAlertKind]), je Art die
+     * Eigene Grenzen für Bitcoin-Kennzahlen ([com.cryptochecker.app.domain.exchange.IndicatorAlertKind]), je Art die
      * gespeicherte Ganzzahl; fehlt bzw. 0 = aus. Ab Werk alles aus.
      */
     val indicatorAlerts: Map<com.cryptochecker.app.domain.market.IndicatorAlertKind, Int> = emptyMap(),

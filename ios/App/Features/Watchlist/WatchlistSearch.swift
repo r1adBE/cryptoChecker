@@ -99,7 +99,7 @@ enum WatchlistSearch {
             watch.displayPair,
             watch.displayName,
             watch.contractType.shortName ?? "",
-            watch.marketName,
+            watch.exchangeName,
             watch.note ?? "",
             name ?? "",
         ].map(ExplorerNameMatch.fold))
@@ -115,7 +115,7 @@ enum WatchlistSearch {
     /// `searchName` in `WatchlistSearch.kt`.
     static func searchName(_ watch: Watch, names: [String: String], tradFiPairs: Set<String>,
                            stockNames: () -> [String: String] = { [:] }) -> String? {
-        guard CoinLogos.allowed(forMarket: watch.marketKey) else { return nil }
+        guard CoinLogos.allowed(forExchange: watch.exchangeKey) else { return nil }
         let tradFi = tradFiPairs.contains(watch.logoPairKey)
         if let name = names[CoinLogos.nameKey(watch.baseAsset, tradFi: tradFi)] { return name }
         return tradFi ? stockNames()[watch.baseAsset.uppercased()] : nil
@@ -154,7 +154,7 @@ final class WatchlistSearchIndex {
         let base: String
         let quote: String
         let contract: FuturesContractType
-        let market: String
+        let exchange: String
         let note: String?
         let name: String?
     }
@@ -212,7 +212,7 @@ final class WatchlistSearchIndex {
     /// und andere Felder zählen nicht.
     private static func sameNameSources(_ a: [Watch], _ b: [Watch]) -> Bool {
         a.count == b.count && zip(a, b).allSatisfy { x, y in
-            x.id == y.id && x.marketKey == y.marketKey && x.baseAsset == y.baseAsset && x.quoteAsset == y.quoteAsset
+            x.id == y.id && x.exchangeKey == y.exchangeKey && x.baseAsset == y.baseAsset && x.quoteAsset == y.quoteAsset
                 && x.contractType == y.contractType
         }
     }
@@ -238,7 +238,7 @@ final class WatchlistSearchIndex {
         for watch in watches {
             let name = names[watch.id]
             let source = Source(base: watch.baseAsset, quote: watch.quoteAsset, contract: watch.contractType,
-                                market: watch.marketName, note: watch.note, name: name)
+                                exchange: watch.exchangeName, note: watch.note, name: name)
             if let seen = next[watch.id] {
                 if seen.source != source { clash = true }
                 continue

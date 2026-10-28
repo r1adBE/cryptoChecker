@@ -32,7 +32,7 @@ final class PortfolioSaveRetryTests: XCTestCase {
 
     private func snapshot(triggeredAt: Int64, portfolioThreshold: Double) -> SharedStorage.Snapshot {
         var s = SharedStorage.Snapshot()
-        s.watches = [Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")]
+        s.watches = [Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")]
         s.alarms = [Alarm(id: 5, watchId: 1, condition: .PRICE_ABOVE, threshold: 70_000, lastTriggeredAt: triggeredAt)]
         s.nextWatchId = 2
         s.nextAlarmId = 6

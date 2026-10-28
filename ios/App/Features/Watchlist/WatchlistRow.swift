@@ -146,7 +146,7 @@ struct WatchlistRow: View {
                     .foregroundStyle(highlight.favorites ? accent.primary : AppColors.onSurface)  // wie der Stern am Logo
                     .accessibilityHidden(true)
             }
-            CoinBadge(symbol: watch.baseAsset, size: ListSegment.logo, logo: CoinLogos.allowed(forMarket: watch.marketKey),
+            CoinBadge(symbol: watch.baseAsset, size: ListSegment.logo, logo: CoinLogos.allowed(forExchange: watch.exchangeKey),
                       pair: watch.logoPairKey,
                       favorite: watch.favorite && !sorting)
                 .opacity(iconOpacity)

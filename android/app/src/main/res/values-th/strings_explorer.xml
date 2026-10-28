@@ -43,7 +43,7 @@
     <string name="explorer_pairs_title">คู่เทรด</string>
     <string name="explorer_precise_title">ขั้นสูง / ตามกระดานเทรด</string>
     <string name="explorer_price_loading">กำลังโหลดราคา…</string>
-    <string name="explorer_select_market_hint">เลือกกระดานเทรด – คู่เทรดจะโหลดอัตโนมัติ</string>
+    <string name="explorer_select_exchange_hint">เลือกกระดานเทรด – คู่เทรดจะโหลดอัตโนมัติ</string>
     <string name="explorer_select_placeholder">โปรดเลือก</string>
     <string name="explorer_step_pair">เลือกคู่เทรด</string>
 

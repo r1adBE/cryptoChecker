@@ -275,7 +275,7 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
                 if (index > 0) RowDivider()
                 SwitchRow(
                     title = watch.displayName,
-                    subtitle = watch.marketName,
+                    subtitle = watch.exchangeName,
                     checked = watch.notificationEnabled,
                     onCheckedChange = { on ->
                         viewModel.setPairNotification(watch.id, on, askPermissionAfterWrite(uiEvents.requestNotifications, on))

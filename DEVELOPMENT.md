@@ -13,8 +13,8 @@ This guide explains how an exchange adapter of the market-data library works
 and how to add a new one. The example throughout is **Bitstamp**, one of the
 exchanges the app uses today:
 
-* Kotlin: [`android/marketdata/…/model/market/Bitstamp.kt`](android/marketdata/src/main/java/com/cryptochecker/marketdata/model/market/Bitstamp.kt)
-* Swift: [`ios/Shared/Markets/Bitstamp.swift`](ios/Shared/Markets/Bitstamp.swift)
+* Kotlin: [`android/marketdata/…/model/exchange/Bitstamp.kt`](android/marketdata/src/main/java/com/cryptochecker/marketdata/model/exchange/Bitstamp.kt)
+* Swift: [`ios/Shared/Exchanges/Bitstamp.swift`](ios/Shared/Exchanges/Bitstamp.swift)
 
 Only **public** endpoints can be used – no API keys, no accounts, no login.
 
@@ -44,14 +44,14 @@ Only **public** endpoints can be used – no API keys, no accounts, no login.
 
 | Path | Content |
 |---|---|
-| `android/marketdata/src/main/java/com/cryptochecker/marketdata/model/Market.kt` | Base class: request URLs and parsing hooks |
-| `android/marketdata/…/model/market/generic/SimpleMarket.kt` | Base class for the usual case «pair list URL + ticker URL» |
-| `android/marketdata/…/model/market/*.kt` | One file per exchange (or per market, e.g. spot and futures) |
+| `android/marketdata/src/main/java/com/cryptochecker/marketdata/model/Exchange.kt` | Base class: request URLs and parsing hooks |
+| `android/marketdata/…/model/exchange/generic/SimpleExchange.kt` | Base class for the usual case «pair list URL + ticker URL» |
+| `android/marketdata/…/model/exchange/*.kt` | One file per exchange (or per market, e.g. spot and futures) |
 | `android/marketdata/…/model/Ticker.kt`, `SimpleTicker.kt` | Price data of one pair |
-| `android/marketdata/…/model/MarketPair.kt` | One tradable pair: base, quote, exchange-specific pair id |
-| `android/marketdata/…/config/MarketsConfig.kt` | List of registered exchanges |
+| `android/marketdata/…/model/ExchangePair.kt` | One tradable pair: base, quote, exchange-specific pair id |
+| `android/marketdata/…/config/ExchangesConfig.kt` | List of registered exchanges |
 | `android/marketdata/…/util/JsonUtils.kt` | JSON helpers (`forEachJSONObject`, `optDoubleOrMissing`, …) |
-| `ios/Shared/Markets/Market.swift`, `ios/Shared/Markets/MarketsConfig.swift`, `ios/Shared/Markets/JsonUtils.swift` | The same on iOS |
+| `ios/Shared/Exchanges/Exchange.swift`, `ios/Shared/Exchanges/ExchangesConfig.swift`, `ios/Shared/Exchanges/JsonUtils.swift` | The same on iOS |
 
 The app asks an adapter for two things:
 
@@ -67,10 +67,10 @@ For a new exchange «Example»:
 
 | Platform | File | What |
 |---|---|---|
-| Android | `android/marketdata/…/model/market/Example.kt` | new adapter |
-| Android | `android/marketdata/…/config/MarketsConfig.kt` | `Example()` added |
-| iOS | `ios/Shared/Markets/Example.swift` | the same adapter in Swift |
-| iOS | `ios/Shared/Markets/MarketsConfig.swift` | `Example()` added |
+| Android | `android/marketdata/…/model/exchange/Example.kt` | new adapter |
+| Android | `android/marketdata/…/config/ExchangesConfig.kt` | `Example()` added |
+| iOS | `ios/Shared/Exchanges/Example.swift` | the same adapter in Swift |
+| iOS | `ios/Shared/Exchanges/ExchangesConfig.swift` | `Example()` added |
 | Android | `android/app/…/data/remote/candles/ExchangeCandleSources*.kt` | optional: own candles (`ExchangeCandleSource` + `ExchangeCandleRegistry`) |
 | iOS | `ios/Shared/Services/Candles/ExchangeCandleSources*.swift` | the same candle source in Swift, case in `testdata/parity/own_candles.json` |
 | Both | ticker parsing | set `exchangeTime` when the API sends the time of the price (see [section 15](#15-ui-rules-for-numbers), «Exchange time vs fetch time») |
@@ -86,20 +86,20 @@ exchange must be identical on both sides (see [section 8](#8-registering-the-exc
 
 ## 3. The adapter
 
-Every adapter extends `Market` and answers three questions: *which address*
+Every adapter extends `Exchange` and answers three questions: *which address*
 (`tickerAddress`, `pairListAddress`, bulk URLs), *how to read the answer*
 (`fillTicker…`, `fillPairList…`, `parseBulkTickers`) and *how to read an error*
 (`errorMessage…`). Networking, retries, size limits and storage live outside the
-adapter (`MarketRemoteDataSource` on Android, `MarketService` on iOS).
+adapter (`ExchangeRemoteDataSource` on Android, `ExchangeService` on iOS).
 
-Most exchanges fit `SimpleMarket`: exactly one fixed pair-list address and one
+Most exchanges fit `SimpleExchange`: exactly one fixed pair-list address and one
 ticker address with the pair id as `%1$s`. Pass its arguments by name.
 
 ```kotlin
 private const val BITSTAMP_API = "https://www.bitstamp.net/api/v2"
 
 /** Bitstamp (EU regulated, also EUR/GBP pairs), API v2. Pair id = `url_symbol` («btcusd»). */
-class Bitstamp : SimpleMarket(
+class Bitstamp : SimpleExchange(
     name = "Bitstamp",                                   // name shown in the app
     pairListUrl = "$BITSTAMP_API/trading-pairs-info/",   // pair list
     tickerUrl = "$BITSTAMP_API/ticker/%1\$s/",           // ticker, %1$s = pair id
@@ -110,7 +110,7 @@ class Bitstamp : SimpleMarket(
 ```swift
 private let bitstampAPI = "https://www.bitstamp.net/api/v2"
 
-final class Bitstamp: SimpleMarket {
+final class Bitstamp: SimpleExchange {
     init() {
         super.init(
             key: "Bitstamp",
@@ -123,21 +123,21 @@ final class Bitstamp: SimpleMarket {
 }
 ```
 
-`SimpleMarket` also takes an optional `ttsName` – the name used for spoken
+`SimpleExchange` also takes an optional `ttsName` – the name used for spoken
 announcements when the written name reads badly (e.g. «Gate I O» for «Gate.io») –
 and `currencyPairs`, a built-in pair table for exchanges without a pair endpoint.
 Override `pairId(info)` (Swift: `pairId(_:)`) if the id in the URL differs from the
 stored one.
 
-If the exchange needs something `SimpleMarket` does not cover (POST requests,
+If the exchange needs something `SimpleExchange` does not cover (POST requests,
 several requests per price, a ticker address built from base and quote, several
-pair-list addresses), extend `Market` directly, override `tickerAddress(call, info)`
+pair-list addresses), extend `Exchange` directly, override `tickerAddress(call, info)`
 (Swift: `tickerAddress(call:info:)`) and say why in the class comment; see
 [section 10](#10-advanced-cases). Exchanges with several products share a base
 named `<Exchange>Base` (e.g. `BybitBase` for spot and futures).
 
 **File layout (both platforms, same order).** File-private constants
-`<EXCHANGE>_<WHAT>` (Swift: `let`), the concrete classes in `MarketsConfig` order,
+`<EXCHANGE>_<WHAT>` (Swift: `let`), the concrete classes in `ExchangesConfig` order,
 then a shared base. Inside a class: hooks and state, traits, then the sections
 `// ── Einzelkurs ──`, `// ── Sammelabfrage ──`, `// ── Paarliste ──`,
 `// ── Namen ──`, `// ── Lesen ──` (Swift: `// MARK:` with the same titles). The
@@ -148,7 +148,7 @@ and its Swift twin should read side by side.
 
 Override `fillPairList(call, body, out)` (whole response as text) or
 `fillPairListJson(call, json, out)` (response is a JSON object) and add one
-`MarketPair(base, quote, pairId)` per tradable pair. Swift returns the list:
+`ExchangePair(base, quote, pairId)` per tradable pair. Swift returns the list:
 `fillPairList(call:body:)` / `fillPairList(call:json:)`.
 
 Offer only pairs that can be traded normally: Binance `status == "TRADING"`, Kraken AssetPairs
@@ -159,13 +159,13 @@ single ticker treats that as «no price» (not 0), so `NotTraded.confirmedBySing
 old price staying silently (`KrakenTradableTest` / `KrakenTradableTests` on `recorded/recorded_kraken.json`).
 
 ```kotlin
-override fun fillPairList(call: Int, body: String, out: MutableList<MarketPair>) {
+override fun fillPairList(call: Int, body: String, out: MutableList<ExchangePair>) {
     JSONArray(body).forEachJSONObject { entry ->
         if (entry.optString("trading") != "Enabled") return@forEachJSONObject   // skip disabled pairs
         val label = entry.getString("name")                                      // e.g. BTC/USD
         val slash = label.indexOf('/')
         if (slash < 0) return@forEachJSONObject
-        out += MarketPair(label.substring(0, slash), label.substring(slash + 1), entry.getString("url_symbol"))
+        out += ExchangePair(label.substring(0, slash), label.substring(slash + 1), entry.getString("url_symbol"))
     }
 }
 ```
@@ -274,7 +274,7 @@ override fun parseBulkTickers(call: Int, body: String, tickers: MutableMap<Strin
   again on every run; it recovers as soon as the bulk list contains it again.
   Cases live in `testdata/parity/not_traded.json`. A single-ticker parser must
   therefore throw (or return the exchange's error) for an unknown pair, never
-  return a price of 0. The own reader text `MarketParseException.NO_DATA` / `JSONError.noData` («No data») and
+  return a price of 0. The own reader text `ExchangeParseException.NO_DATA` / `JSONError.noData` («No data») and
   Hyperliquid «Unknown coin: …» count as «unknown pair» (`NotTraded.isMissingEntry`, failure `UnknownInstrument`);
   `errorMessage` must call `noErrorText()` for a valid answer so the reader error is kept.
 * If the exchange can filter the bulk request by pair ids, override
@@ -291,7 +291,7 @@ override fun parseBulkTickers(call: Int, body: String, tickers: MutableMap<Strin
 ## 7. Errors
 
 Many exchanges answer with an error object (HTTP 200 or 4xx). Bitstamp sends
-`{"reason": "…"}` – `errorField = "reason"` is enough for `SimpleMarket`.
+`{"reason": "…"}` – `errorField = "reason"` is enough for `SimpleExchange`.
 For other formats override `errorMessageJson(call, json, info)` or
 `errorMessage(call, body, info)` (Swift: `errorMessage(call:json:info:)` /
 `errorMessage(call:body:info:)`) and return the exchange's message; call
@@ -300,12 +300,12 @@ For other formats override `errorMessageJson(call, json, info)` or
 ## 8. Registering the exchange
 
 Every Android adapter declares its storage key explicitly – `override val key = "Example"` (the class name; it is
-the database key of every saved pair, so it must never change). `MarketKeyTest` lists all keys and fails for a
+the database key of every saved pair, so it must never change). `ExchangeKeyTest` lists all keys and fails for a
 missing or changed one. Then add the adapter to both lists:
 
 ```kotlin
-// android/marketdata/…/config/MarketsConfig.kt
-val MARKETS: Map<String, Market> = listOf(
+// android/marketdata/…/config/ExchangesConfig.kt
+val EXCHANGES: Map<String, Market> = listOf(
     …
     Bitstamp(),
     …
@@ -313,8 +313,8 @@ val MARKETS: Map<String, Market> = listOf(
 ```
 
 ```swift
-// ios/Shared/Markets/MarketsConfig.swift
-static let all: [Market] = [
+// ios/Shared/Exchanges/ExchangesConfig.swift
+static let all: [Exchange] = [
     …
     Bitstamp(),
     …
@@ -358,7 +358,7 @@ built from all responses together (e.g. instruments plus symbol details), set
 `pairListPostBody` or `getBulkTickersPostRequest`.
 
 **Futures.** Use a separate adapter (e.g. `BinanceFutures` next to `Binance`)
-and set the `contractType` of `MarketPair`.
+and set the `contractType` of `ExchangePair`.
 
 ## 11. 24 h change
 
@@ -376,7 +376,7 @@ Rules:
   time …) is a different number and must stay `null` – the candle fallback is
   better than a wrong value.
 * Convert with the helpers in `android/marketdata/…/util/Change24h.kt`
-  (Swift: `enum Change24h` in `ios/Shared/Markets/MarketModels.swift`); they
+  (Swift: `enum Change24h` in `ios/Shared/Exchanges/ExchangeModels.swift`); they
   return `null`/`nil` for missing, non-finite or non-positive input:
   * `Change24h.percent(x)` – value already in percent;
   * `Change24h.fraction(x)` – value is a fraction (`0.015` = +1.5 %), multiplied by 100;
@@ -549,24 +549,23 @@ app and runs the unit tests and then the UI tests in the Simulator (two steps).
 **Android instrumented test** (`app/src/androidTest`, `CoreFlowTest`): starter selection →
 add BTC → price alarm → new price → alarm and notification → swipe to delete → Undo →
 portfolio lock shows the locked state. Hilt replaces the network client with fixed prices
-(`FakeRemoteDataModule`), so no exchange is called. `DatabaseMigrationTest` checks the
-update path of the database: it creates old databases (schemas v1 and v3 from `app/schemas/…`; v10, v12 – the
-published 16.2 – and the test builds' v13–v15 built from them with the app's own migrations or by hand), fills
-them, and lets Room open them – Room runs the migrations (the whole chain up to the current version, plus the
-one-time move of the portfolio into its own database and portfolio database v1 → current) and validates the
-result against the entities. `RoomSchemaMigrationTest` (since build 103) checks the same paths against the
-exported schemas with `MigrationTestHelper` (AppDatabase v1–v3 and v13–v16, PortfolioDatabase all versions; the
-AppDatabase schemas 4–12 were never exported). Needs an emulator or a device.
+(`FakeRemoteDataModule`), so no exchange is called. `DatabaseMigrationTest` opens a fresh main database with
+Room (schema validated against the entities) and checks the update path of the portfolio database: it creates old
+portfolio databases by hand, fills them and lets Room open them – Room runs the migrations (v1 → current) and
+validates the result against the entities; it also covers taking over the system-backup copy. `RoomSchemaMigrationTest`
+(since build 103) checks the portfolio paths against the exported schemas with `MigrationTestHelper` (all
+PortfolioDatabase versions). Needs an emulator or a device.
 
-*Golden schemas*: `app/schemas/com.cryptochecker.app.data.local.AppDatabase/16.json` is the golden schema of the
-current AppDatabase version 16 (`…PortfolioDatabase/6.json` for the portfolio database). Room writes them while
-building; they are committed and never edited by hand – `room_schema_drift.py` (CI) fails when an entity changes
-without a new version. The unit test `RoomSchemaRulesTest` (no device needed) requires for the current version N
-of each database: `N.json` and `N-1.json` exist and name their version, `ALL_MIGRATIONS` has N-1 → N, and a
-migration test **with data** for N-1 → N is listed in the test (`MAIN_DATA_TESTS` / `PORTFOLIO_DATA_TESTS`) and
-declared in `RoomSchemaMigrationTest` (currently `mainVersion15To16KeepsWatchlistAndAlarms` and
-`portfolioVersion5To6`). A new version therefore means: bump `VERSION`, add the migration, commit the exported
-schema, write the data test and add it to the list.
+*Golden schemas*: `app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json` is the golden schema of the
+current AppDatabase version 1 (`…PortfolioDatabase/6.json` for the portfolio database, version 6). Room writes them
+while building; they are committed and never edited by hand – `room_schema_drift.py` (CI) fails when an entity
+changes without a new version. The unit test `RoomSchemaRulesTest` (no device needed) requires for the current
+version N of each database: `N.json` exists and names its version; if N > 1 also `N-1.json`, N-1 → N in
+`ALL_MIGRATIONS` and a migration test **with data** for N-1 → N that is listed in the test (`MAIN_DATA_TESTS` /
+`PORTFOLIO_DATA_TESTS`) and declared in `RoomSchemaMigrationTest` (currently only `portfolioVersion5To6`; AppDatabase
+has no migration yet). A new version therefore means: bump `VERSION`, add the migration (AppDatabase: create
+`ALL_MIGRATIONS` and pass it to the builder in `LocalDataModule`), commit the exported schema, write the data test
+and add it to the list.
 
 Running the instrumented tests:
 
@@ -616,8 +615,8 @@ identifiers and the same test file on Android and iOS:
   CSV format). Android packs the folder as assets of the test APK only (`sourceSets.androidTest.assets`
   in `app/build.gradle.kts`); `ios/tools/gen_xcodeproj.py` copies it to `ios/UITests/Fixtures/` (`--check`
   fails when the copy differs); the iOS test reads it next to its source (`#filePath`).
-* **No network.** Android: `FakeRemoteDataModule` (Binance and Coinbase from `FakeMarket`, everything
-  else 404). iOS: `UITestMarket` answers every request of every `URLSession` the same way (the protocol is
+* **No network.** Android: `FakeRemoteDataModule` (Binance and Coinbase from `FakeExchange`, everything
+  else 404). iOS: `UITestExchange` answers every request of every `URLSession` the same way (the protocol is
   added to the `default`/`ephemeral` configurations and registered for `URLSession.shared`).
 * **File pickers.** Android: `DocumentPickerStub` (androidTest) – a blocking `Instrumentation.ActivityMonitor`
   answers «open document»/«create document» with a `file://` URI in the app cache; the app receives it
@@ -628,7 +627,7 @@ identifiers and the same test file on Android and iOS:
   The export branch reads the file back like the real path (`UITesting.writeExport` →
   `BackupManager.verifyWritten`); `UITEST_FAIL_VERIFY=1` truncates it after writing, so the check fails and
   «backup not verified» comes as a result dialog (`testExportResultDialogAfterSheet`).
-* **iOS seams are inert in production.** All of `UITesting` and `UITestMarket` is inside `#if DEBUG` (a
+* **iOS seams are inert in production.** All of `UITesting` and `UITestExchange` is inside `#if DEBUG` (a
   Release/App Store build does not contain it; `testableFileImporter` compiles to a plain `.fileImporter`
   there). In a Debug build they act only when the app is launched with `-uiTesting`: then every launch
   starts from empty storage (`AppData.clearStoredFiles`, the same code as «Reset app» – do not run the UI
@@ -681,7 +680,7 @@ as in `android/testdata/exchanges/exchange_*.json`). On a failure the job opens 
 «Exchange API check failed» (or updates the open one) and the run stays green (the issue is the signal); when all pass again it
 closes the issue. HTTP 451 (and 403 for exchanges that block US cloud IPs) counts as skipped,
 since GitHub's runners are in the US. Since build 104 the scheduled data workflows (`exchange-live-check.yml`,
-`macro-calendar.yml`, `market-data.yml`) run in two jobs: the fetch job (`contents: read` only) talks to third-party
+`macro-calendar.yml`, `exchange-data.yml`) run in two jobs: the fetch job (`contents: read` only) talks to third-party
 servers and uploads its result as an artifact; the publish job (write/issue permissions, no third-party requests)
 checks out `github.sha` afresh, downloads the artifact with `gh run download` (`actions: read`; `macro-calendar.yml`
 has `actions: write` to start «Market data» after a commit) and checks it with
@@ -865,8 +864,8 @@ background only when it is older than its TTL. The TTLs live in one place per pl
 is the same for every user is fetched once an hour by `.github/workflows/market-data.yml`
 (`.github/scripts/mirror_data.py`) and uploaded as assets of the release «data»
 (`https://github.com/r1adBE/cryptoChecker/releases/download/data/<file>`, first line
-`CCDM1 <fetched ms>`, then the provider's body unchanged; nothing is committed). `callMarket`
-(Android) and `MarketHTTP.call` (iOS) ask the mirror first for exactly these GET URLs and the
+`CCDM1 <fetched ms>`, then the provider's body unchanged; nothing is committed). `callExchange`
+(Android) and `ExchangeHTTP.call` (iOS) ask the mirror first for exactly these GET URLs and the
 provider otherwise: Fear & Greed (`fng.txt`, max age 4 h), Coin Metrics
 on-chain values (`onchain.txt`, any `start_time`, 36 h) and BTC price since 2016 (`btcprice.txt`,
 36 h). `altseason.txt` (6 h) is not a copy but the altcoin season already computed by the script
@@ -875,7 +874,7 @@ on-chain values (`onchain.txt`, any `start_time`, 36 h) and BTC price since 2016
 needs the same entry in `mirror_data.py`, both `DataMirror` files and `data_mirror.json`.
 
 **Signed mirror** (`MirrorManifest.kt` / `MirrorManifest.swift`, cache `MirrorTrust.kt` / `MirrorTrust.swift`,
-parity cases `mirror_signature.json`): the publish job of `market-data.yml` writes, after `artifact_check.py`,
+parity cases `mirror_signature.json`): the publish job of `exchange-data.yml` writes, after `artifact_check.py`,
 `manifest.json` (`{"created":<ms>,"files":{"<file>":"<SHA-256 hex>"…},"revoked":[…],"v":1}`, compact, sorted keys) and
 `manifest.json.sig` (Base64 of the DER ECDSA P-256 / SHA-256 signature over the exact manifest bytes) with
 `mirror_data.py --manifest`, signed with the secret `MIRROR_SIGNING_KEY` (PEM, PKCS#8) through the
@@ -900,7 +899,7 @@ repository.
 
 *Macro calendar* (`MacroCalendar.kt` / `MacroCalendar.swift`, parity cases `macro_calendar_signature.json`): the
 economic calendar is not a release asset but `docs/macro/events.json` on GitHub Pages (written weekly by
-`macro-calendar.yml`). The publish job of `market-data.yml` checks out `docs/macro` and signs its hash as the entry
+`macro-calendar.yml`). The publish job of `exchange-data.yml` checks out `docs/macro` and signs its hash as the entry
 `macro_events.json` (`mirror_data.py --signed-extra macro_events.json=docs/macro/events.json`; the same manifest
 and keys, no second secret). The apps accept a downloaded calendar only if that hash is in a valid manifest
 (`MacroCalendar.parseVerified` with `MirrorTrust`); a changed, unlisted or unverifiable file counts as a download
@@ -1212,7 +1211,7 @@ shared building blocks instead of styling numbers by hand:
   that has not moved for hours would look fresh. Therefore every pair stores three times:
   `lastUpdate` = last successful fetch (unchanged meaning), `exchangeTime` = the exchange's own time
   of the price (`Ticker.exchangeTime`, null when the exchange sends none) and `priceChangedAt` = when
-  the price last changed (Android Room 14 → 15, `MIGRATION_14_15`; iOS optional fields in
+  the price last changed (Android columns of `WatchEntity`; iOS optional fields in
   `watchlist.json`). Age and «outdated» use `freshnessTime` = exchange time, else the fetch time.
   Without exchange time, a price that has not changed for longer than max(1 h, the outdated
   threshold) shows «Price unchanged since HH:MM» instead of a fresh time — in the row and in the
@@ -1337,7 +1336,7 @@ the tests named here.
   keep the previous value (`?: _fxRate.value`); `FxRateSource.cached()` returns nothing older than 24 h.
   A coin with a trade without price inside the 7 d window is skipped and named
   (`parts(…, skipUnpricedTrades = true)` in `gain()`), never counted with its fee only. Android resolves routes in `PortfolioPriceSource`
-  (pair lists from `MarketRepository`, FX from `FxRateSource`); iOS resolves them in the app
+  (pair lists from `ExchangeRepository`, FX from `FxRateSource`); iOS resolves them in the app
   (`PortfolioRouteResolver`, `PairCache`) into `PortfolioExchangeRouteStore` (App Group), so the
   widget and background use the same prices. The card shows the sources in one line
   («Prices: Binance · USDT at market price» / `portfolio_price_source_routes`). Only the trading pair is sent
@@ -1461,11 +1460,7 @@ the tests named here.
 * **Android main database is in the system backup.** `AppDatabase` runs
   `PRAGMA secure_delete = ON` on every open (`SecureDeleteCallback` in `di/LocalDataModule.kt`,
   as a query, failure only logged) so deleted or overwritten rows are zeroed instead of staying
-  in free pages. After the legacy portfolio tables are dropped (update from DB 12), the main
-  file is compacted: WAL checkpoint → `VACUUM` → checkpoint, outside any transaction; only on
-  success is `legacy_vacuum_done` written to `portfolio_meta`, so a failed attempt is retried
-  on every start (`PortfolioLegacyPlan.vacuumPending`, `PortfolioLegacyPlanTest`;
-  `DatabaseMigrationTest` checks the marker). Never set the marker before the VACUUM succeeded.
+  in free pages.
 * **iOS portfolio alarms and the backup switch.** Portfolio alarm thresholds belong in
   `portfolio_alarms.json`. They are removed from `watchlist.json` only after that file was
   written; until then (old install or write error) `watchlist.json` keeps them and is excluded
@@ -1767,7 +1762,7 @@ the tests named here.
   `timestamp`, Phemex ns `timestamp`, Gemini `volume.timestamp`, like Binance `closeTime`, Bybit/OKX/HTX `ts`) stay
   out, otherwise «Unchanged since» never shows.
 * **TradFi flag.** Every futures parser whose API marks stocks/indices/metals sets `tradFi` (HTX `tradfi_labels`,
-  Phemex `perpProductSubType = TradFi`), and the market is listed in `CoinLogos.TRADFI_MARKETS`.
+  Phemex `perpProductSubType = TradFi`), and the market is listed in `CoinLogos.TRADFI_EXCHANGES`.
 * **Name lock for all sources.** After a name contradiction no source may supply a fallback series.
 * **CSV fee rows** are disposals at the daily close (card, curve, coin detail, tax export use the same price);
   no close → unknown, never 0. **Withdrawal fees** count only for the covered share. **Tax engines:** CA one
@@ -1807,7 +1802,7 @@ the tests named here.
   `PortfolioAlarmLogic.totalIn` (alarm in a currency other than the snapshot's) and the fiat-entry/CSV-import
   conversions still treat USDT as 1 USD.
 * **Change basis must be visible.** A % from a UTC day open (`StarterPrice.sinceUtcDay`, currently unused since starters are Binance) is labelled «since
-  00:00 UTC»; Hyperliquid's % (mark vs prevDayPx) is labelled «Mark» (`Market.changeIsMark`). WOO spot needs 24
+  00:00 UTC»; Hyperliquid's % (mark vs prevDayPx) is labelled «Mark» (`Exchange.changeIsMark`). WOO spot needs 24
   contiguous hourly candles.
 * **Near high/low alarm** uses fallback series only with the mini-chart identity rule (name + ±25 %,
   `NearExtreme.seriesAllowed`, parity `near_extreme.json`).
@@ -1817,7 +1812,7 @@ the tests named here.
 * **User-Agent** carries the real app version on both platforms (`HttpUserAgent`). Exception (build 104): every
   host that sees watched addresses (`AddressBalance.PRIVACY_HOSTS`/`privacyHosts`) gets `HttpUserAgent.NEUTRAL`
   (Firefox ESR 153 string, one value for both platforms, `address_privacy.json`) on *every* request, gas fees and
-  halving included (Android: `UserAgentInterceptor` host rule; iOS: `MarketHTTP.sessionFor(host:requested:)`). The
+  halving included (Android: `UserAgentInterceptor` host rule; iOS: `ExchangeHTTP.sessionFor(host:requested:)`). The
   address client has its own connection pool/dispatcher (iOS: own sessions). It hides the app name, not the fact
   that it is an app (TLS/HTTP fingerprint). A browser value only blends in while it is current: *Release
   readiness* runs `.github/scripts/user_agent_check.py` (`--self-test`): error if Android, iOS and the fixture differ
@@ -1844,8 +1839,8 @@ the tests named here.
   additionally the pool (`pairId` = `chainId/pairAddress`): two pools with the same symbol on the same chain are two
   rows. Exchanges keep the key without the id (ids are spelled differently in old entries). Used for adding
   (`WatchDao.findWatchId(…, pool)` / `AppData.insert`), editing (`WatchEdit.Key.pool`), undo (`restore`) and backup
-  restore (`WatchlistRestoreCleanup`). Android's unique index includes `pairId` since app DB v16
-  (`MIGRATION_15_16`); NULL ids never collide in SQLite, so the app-side check stays the rule for exchanges.
+  restore (`WatchlistRestoreCleanup`). Android's unique index includes `pairId`; NULL ids never collide in SQLite,
+  so the app-side check stays the rule for exchanges.
   Cases in `testdata/parity/watch_identity.json`.
 
 ## 17. «Why?», futures data, chart and asset kinds
@@ -1913,7 +1908,7 @@ Change a rule → change the JSON first, then both implementations.
 * **Binance COIN-M.** Pairs «2:BTCUSD_PERP» use `dapi.binance.com` (`premiumIndex` list,
   `openInterest` in contracts × contract value from `GET /dapi/v1/exchangeInfo` («contractSize» per
   symbol, `coinMContractUsd`, build 45; only without it BTC 100 USD, others 10 USD), `fundingRate` history;
-  `FuturesParsers.binanceCoinM`, source «Binance COIN-M»). `FuturesSources.own(marketKey, pairId)` /
+  `FuturesParsers.binanceCoinM`, source «Binance COIN-M»). `FuturesSources.own(exchangeKey, pairId)` /
   `note(…, pairId)` make USDⓈ-M data on a COIN-M pair a reference. Always pass the pair id.
   Fixtures: `futures_derivatives.json` («intervals»), `alarms_derivatives.json`. A new futures source
   needs a parser test (`FuturesParsersTest` / `FuturesParsersTests`) and an entry in the privacy
@@ -1931,7 +1926,7 @@ Change a rule → change the JSON first, then both implementations.
   factors in hundredths, 0 = off) are checked twice a day (`ZoneCheckWorker` / `ZoneCheck`):
   notify once on crossing, re-arm when the value is back (`indicator_crossed_<kind>`).
   Tests: `BitcoinIndicatorModelTest`, `IndicatorAlertRulesTest`, `HalvingMathTest` (Swift in
-  `MarketsTests.swift`).
+  `ExchangesTests.swift`).
 * **Candles come from the pair's own exchange first; fallback only labelled and same-token
   checked** (build 44). Sheet chart, mini chart, single-coin widget, the 24 h fallback reference and
   «Why?» ask the pair's own exchange first: `ExchangeCandleRegistry` with one `ExchangeCandleSource`
@@ -1965,7 +1960,7 @@ Change a rule → change the JSON first, then both implementations.
   the middle for stablecoins (`STABLE_MIN_SPAN`), 0.2 % (±0.1 %) for other flat series (`MIN_SPAN`); since
   build 44 the widget charts use the same minimum spans (`WidgetChartGeometry`). Approximated volume bars (no quote volume from the source, e.g. Coinbase: amount × close) are
   drawn at half strength and marked «≈». Geometry is computed off the main thread.
-* **AssetKind and Alpha.** `AssetKind.of(marketKey, base, tradFi, alphaSymbols)` (Android
+* **AssetKind and Alpha.** `AssetKind.of(exchangeKey, base, tradFi, alphaSymbols)` (Android
   `domain/watch/AssetKind.kt`, iOS in `WatchFilter.swift`): TradFi from the pair-list flag first;
   Alpha only for symbols of the Binance Alpha list that Binance spot does not list regularly (from
   the logo index); never for Binance spot pairs or DEX pools (a foreign token may share the ticker);
@@ -2208,7 +2203,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `ExplorerRecentSearches`/`ExplorerQuickFilter` (as Android), `ExplorerPicker`, `ExplorerFeedback`; Android
   `ExplorerPreciseSelection`; market VM (`InfoViewModel` / `CycleViewModel`) → `MarketDataLoaders`,
   `MarketDataSync`, Android `MarketPreviewActions`; `CryptoPulseCard` → `CryptoPulseParts`; `MarketRow` →
-  `MarketSectionHeader`, iOS `MarketInfo` and `MarketCoinSheets` (as Android); `WatchWhyFactors` →
+  `MarketSectionHeader`, iOS `ExchangeInfo` and `MarketCoinSheets` (as Android); `WatchWhyFactors` →
   `WatchWhyTexts`, Android `WatchWhyAllValues`, `WatchWhyReasons`; `WatchlistRow` → `WatchlistRowParts`,
   Android `WatchlistConversion` (as iOS), iOS `WatchlistTime` in `WatchlistStatus` (as Android `ago`);
   Android `WatchlistStatusPill`; `WatchActionsSheet` → `WatchActionsHeader`; iOS asset-kind icons →
@@ -2293,7 +2288,7 @@ next start.
   fallback) → fingerprint (user_version, per table row count + order-independent row checksum over all columns,
   incl. `sqlite_sequence`, without `android_metadata`) → `ATTACH … KEY` + `sqlcipher_export` + `user_version` into
   `<db>.encrypting` → fingerprint of the copy with the key must be identical → delete `-wal/-shm/-journal` →
-  rename the copy over the database. Room migrations (app DB 1 → 16, portfolio 1 → 4) run afterwards on the
+  rename the copy over the database. Room migrations (portfolio database) run afterwards on the
   encrypted file. `MarketDatabase.db` (predecessor project) is still only deleted, never migrated.
 * Plaintext fallback is not silent (build 69): `EncryptingOpenHelperFactory` records every decision in
   `DatabaseEncryptionNotice` (own SharedPreferences, never in a backup; rule `EncryptionPending`, pure Kotlin +
@@ -2341,7 +2336,7 @@ next start.
   `check_runs.txt`, `token_names.json`, coin lists/logos and `portfolio_last_prices.txt` (USDT prices of the held
   coins – reveals which coins, not how many; same as iOS). `portfolio_system_backup.json` is the documented
   opt-in plaintext mirror.
-* Tests: `DatabaseEncryptionTest` (androidTest: portfolio v3, app DB v1 and v12 «16.2», failed verification, lost
+* Tests: `DatabaseEncryptionTest` (androidTest: portfolio v3, plaintext main database, failed verification, lost
   key, backup copy round trip, plain SQLite cannot read the result) and `RealDatabaseEncryptionTest` (runs only when
   `app/src/androidTest/assets/realdb/` holds `cryptochecker.db` / `cryptochecker_portfolio.db` with `-wal/-shm`
   from a test device – never commit real holdings).
@@ -2530,6 +2525,27 @@ after the encryption step.
   wanted) they stay covered by the device tests only.
   `code_metrics.py`: `DEPS_CEILING` 15 → 14 (today's maximum), no warning tier by default (it sat above the
   ceiling).
+* Build 159: the word for a trading venue is «exchange» in the whole code base (Android and iOS, same names on both
+  platforms): `Market` → `Exchange`, `MarketsConfig` → `ExchangesConfig`, `MarketPair` → `ExchangePair`,
+  `MarketInfo` (domain) → `ExchangeInfo`, `MarketRepository` → `ExchangeRepository`, `MarketHttp`/`MarketHTTP` →
+  `ExchangeHttp`/`ExchangeHTTP`, `MarketService` → `ExchangeService`, `MarketFailure` → `ExchangeFailure` (case
+  «message of the exchange» is now `Message` / `.message`), `marketKey`/`marketName` → `exchangeKey`/`exchangeName`
+  (also in backups, widget and watch data, parity fixtures), `FavoriteKind.MARKET` → `EXCHANGE`, package
+  `marketdata.model.market` → `marketdata.model.exchange`, `ios/Shared/Markets` → `ios/Shared/Exchanges`; string
+  resources of the exchange sense (`exchange_unavailable_error`, `error_exchange_unreachable`, …). «Market» stays
+  where it means the whole market (market tab, `MarketMove`, `MarketMovers`, market cap, `domain.market`, iOS
+  `MarketCandle`) and in API field names of the exchanges (Upbit/Luno «market», BTC Markets «marketId»). The module
+  `:marketdata` keeps its name (market data).
+  Android `AppDatabase` starts over at version 1 (tables `exchanges`, `exchange_pairs`, column `exchangeKey`; only
+  test installs existed; they are reinstalled): no migrations, no destructive fallback, golden schema
+  `AppDatabase/1.json` only. `PortfolioLegacyImport` / `PortfolioLegacyPlan` removed,
+  `PortfolioDatabase.callback(context, mirrorFile)` keeps the system-backup takeover; `portfolio_meta` is created
+  by `markOnce`. `RoomSchemaRulesTest`: `N.json` with its version; for N > 1 also `N-1.json`, migration N-1 → N and
+  a data test (`MAIN_DATA_TESTS` empty). Device tests for old AppDatabase versions and the legacy import removed;
+  PortfolioDatabase migration tests (1 → 6) unchanged. The old German error text «Börse nicht verfügbar» is no
+  longer recognised (stored errors start fresh with the new database).
+  CI: «Compile instrumented tests» (android.yml) and «Build debug and test APKs» (android-device-tests.yml) turn
+  Kotlin errors into annotations via `gradle_errors.sh`, like the unit-test step.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
@@ -3125,7 +3141,7 @@ Warnings that are not fixed, each with the reason. Everything else is fixed; CI 
   `cryptochecker_watch`, which the phone (`PhoneWatchSync`) asks for before it sends the coin list. Removing it would
   stop the phone↔watch sync; lint cannot see that use. Not suppressed – open for the owner's decision.
 * **Swift `@unchecked Sendable` (96, counted against a ceiling, not compiler warnings).** 66 belong to the exchange
-  adapters: `Market` is a class hierarchy without mutable state, and Swift cannot check a non-final class – removing
+  adapters: `Exchange` is a class hierarchy without mutable state, and Swift cannot check a non-final class – removing
   them needs a protocol-based adapter design. About 25 guard state with `NSLock` where the state or a closure run under
   the lock is not `Sendable` (e.g. `NWPathMonitor` observers, generic `write<T>(_ body:)`, user callbacks under the
   lock); moving them to `OSAllocatedUnfairLock` would need `withLockUnchecked`, the same trust in a different

@@ -103,7 +103,7 @@ class PulseDataSource @Inject constructor(
      * Gewinner und Verlierer ([MarketMovers.select]).
      */
     private suspend fun topCoins(): TopCoins {
-        val array = JSONArray(httpClient.callMarket(COINGECKO_TOP_URL, null))
+        val array = JSONArray(httpClient.callExchange(COINGECKO_TOP_URL, null))
         val coins = ArrayList<MoverCoin>()
         val changes = ArrayList<Double>()
         for (i in 0 until array.length()) {
@@ -135,7 +135,7 @@ class PulseDataSource @Inject constructor(
     private suspend fun tickers24h(): Map<String, Double> {
         val symbols = COINS.joinToString(",", "[", "]") { "\"${it}USDT\"" }
         val url = "https://data-api.binance.vision/api/v3/ticker/24hr?symbols=" + URLEncoder.encode(symbols, "UTF-8")
-        val array = JSONArray(httpClient.callMarket(url, null))
+        val array = JSONArray(httpClient.callExchange(url, null))
         val out = HashMap<String, Double>()
         for (i in 0 until array.length()) {
             val o = array.getJSONObject(i)
@@ -150,7 +150,7 @@ class PulseDataSource @Inject constructor(
         val result = try {
             withTimeoutOrNull(SOURCE_TIMEOUT_MILLIS) { block() }
         } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
-            // Innere Zeitgrenze (z. B. callMarket-Wächter): wie ein Fehler der Quelle behandeln
+            // Innere Zeitgrenze (z. B. callExchange-Wächter): wie ein Fehler der Quelle behandeln
             Timber.d(e, "Pulse-Quelle: Zeitüberschreitung")
             null
         } catch (e: kotlinx.coroutines.CancellationException) {

@@ -211,7 +211,7 @@ enum Notifier {
     static func showPrice(_ watch: Watch) {
         guard let price = watch.lastPrice else { return }
         let content = UNMutableNotificationContent()
-        content.title = L("notification_price_title", watch.baseAsset, PriceFormat.price(price), watch.quoteAsset, watch.marketName)
+        content.title = L("notification_price_title", watch.baseAsset, PriceFormat.price(price), watch.quoteAsset, watch.exchangeName)
         content.body = comparisonText(watch, price)
         content.subtitle = PriceFormat.time(watch.lastUpdate)
         content.sound = nil
@@ -261,7 +261,7 @@ enum Notifier {
     static func showAlarm(_ watch: Watch, _ alarm: Alarm, price: Double, volumeRatio: Double? = nil,
                           text: String? = nil, currency: String? = nil) async -> Bool {
         let content = UNMutableNotificationContent()
-        content.title = L("notification_alarm_title", watch.displayName, watch.marketName)
+        content.title = L("notification_alarm_title", watch.displayName, watch.exchangeName)
         if let text {
             content.body = text
         } else if let volumeRatio {

@@ -27,11 +27,11 @@ enum MarkFallbackStore {
 }
 
 /// Wie das Aktionsblatt den Kurs benennt, wenn er kein letzter Handel ist (reine Logik, wie `PriceKindLabel.kt`):
-/// `mark` (Mark-Preis mangels Mittelkurs — geht vor, darauf lösen auch keine Alarme aus), `mid` (`Market.priceIsMid`),
-/// `hourly` (Schluss der jüngsten Stundenkerze, `Market.priceIsHourlyClose`, WOO X Spot). nil = kein Zusatz.
+/// `mark` (Mark-Preis mangels Mittelkurs — geht vor, darauf lösen auch keine Alarme aus), `mid` (`Exchange.priceIsMid`),
+/// `hourly` (Schluss der jüngsten Stundenkerze, `Exchange.priceIsHourlyClose`, WOO X Spot). nil = kein Zusatz.
 enum PriceKindLabel: Equatable {
     case mark, mid, hourly
-    /// Täglicher Referenzkurs (EZB, `Market.priceIsDailyReference`): «Referenzkurs, täglich».
+    /// Täglicher Referenzkurs (EZB, `Exchange.priceIsDailyReference`): «Referenzkurs, täglich».
     case dailyReference
 
     static func of(priceIsMid: Bool, markFallback: Bool, hourlyClose: Bool,

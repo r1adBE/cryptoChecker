@@ -11,7 +11,7 @@ extension HistoricPriceSource {
     /// Paar einer Kettenquelle (`HistoricCloseChain.pairs`) für die eigenen Kerzen. USDC gilt wie USDT (≈ 1 USD, wie
     /// bisher Coinbase USDC); die Kennung bestimmt das Paar, die Gegenwährung nur die Umrechnung im Verlauf.
     static func chainCandlePair(_ source: String, base: String, _ p: HistoricCloseChain.ChainPair) -> CandlePair {
-        CandlePair(marketKey: source, marketName: HistoricCloseChain.provider(source), base: base,
+        CandlePair(exchangeKey: source, exchangeName: HistoricCloseChain.provider(source), base: base,
                    quote: p.quote == "USDC" ? "USDT" : p.quote, pairId: p.pairId)
     }
 
@@ -21,7 +21,7 @@ extension HistoricPriceSource {
         let wanted = Set(coins)
         var out: [String: CandlePair] = [:]
         for (coin, route) in PortfolioExchangeRouteStore.load().routes where wanted.contains(coin) {
-            out[coin] = CandlePair(marketKey: route.marketKey, marketName: route.marketName, base: route.base,
+            out[coin] = CandlePair(exchangeKey: route.exchangeKey, exchangeName: route.exchangeName, base: route.base,
                                    quote: route.quote, pairId: route.pairId)
         }
         return out
@@ -42,17 +42,17 @@ extension HistoricPriceSource {
     static func ownOutcome(_ own: CandlePair, base b: String, day: CutoffDay, start: Int64, reference: Double,
                            ownName: String?) async -> HistoricCloseChain.Outcome {
         let names = TokenIdentityStore.shared
-        let nameOk = HistoricCloseChain.nameAllowed(base: b, own: true, marketKey: own.marketKey, ownName: ownName,
+        let nameOk = HistoricCloseChain.nameAllowed(base: b, own: true, exchangeKey: own.exchangeKey, ownName: ownName,
                                                     binanceName: names.binanceName(b),
-                                                    providerName: names.pairName(marketKey: own.marketKey, base: b))
+                                                    providerName: names.pairName(exchangeKey: own.exchangeKey, base: b))
         var outcome = HistoricCloseChain.Outcome(price: nil, rejected: true)
         if nameOk { outcome = await ownDayClose(own, day: day, start: start, reference: reference) }
-        if outcome.price == nil, HistoricCloseChain.chain.contains(own.marketKey), own.marketKey != HistoricCloseChain.binance {
+        if outcome.price == nil, HistoricCloseChain.chain.contains(own.exchangeKey), own.exchangeKey != HistoricCloseChain.binance {
             var chained: HistoricCloseChain.Outcome
-            if own.marketKey == HistoricCloseChain.coinbase {
+            if own.exchangeKey == HistoricCloseChain.coinbase {
                 chained = await coinbaseOutcome(b, day: day, start: start, reference: reference)
             } else {
-                chained = await chainOutcome(own.marketKey, base: b, start: start, reference: reference, ownName: ownName)
+                chained = await chainOutcome(own.exchangeKey, base: b, start: start, reference: reference, ownName: ownName)
             }
             chained.rejected = chained.rejected || outcome.rejected
             outcome = chained
@@ -78,7 +78,7 @@ extension HistoricPriceSource {
             if let l = raw.latest, let nowFx, nowFx > 0, nowFx.isFinite { latest = l / nowFx } else { latest = nil }
         }
         switch HistoricCloseChain.decide(close: close, latest: latest, current: reference, primary: true, nameOk: true) {
-        case .accept: return HistoricCloseChain.Outcome(price: close, provider: own.marketName)
+        case .accept: return HistoricCloseChain.Outcome(price: close, provider: own.exchangeName)
         case .reject: return HistoricCloseChain.Outcome(price: nil, rejected: true)
         case .missing: return HistoricCloseChain.Outcome(price: nil)
         }
@@ -91,9 +91,9 @@ extension HistoricPriceSource {
         let pairs = HistoricCloseChain.pairs(source, base: b)
         guard !pairs.isEmpty else { return HistoricCloseChain.Outcome(price: nil) }
         let names = TokenIdentityStore.shared
-        let nameOk = HistoricCloseChain.nameAllowed(base: b, own: false, marketKey: source, ownName: ownName,
+        let nameOk = HistoricCloseChain.nameAllowed(base: b, own: false, exchangeKey: source, ownName: ownName,
                                                     binanceName: names.binanceName(b),
-                                                    providerName: names.pairName(marketKey: source, base: b))
+                                                    providerName: names.pairName(exchangeKey: source, base: b))
         // Klar anderer Name: diese Quelle führt unter dem Kürzel einen anderen Token — keine Abfrage
         guard nameOk else { return HistoricCloseChain.Outcome(price: nil, rejected: true) }
         var rejected = false

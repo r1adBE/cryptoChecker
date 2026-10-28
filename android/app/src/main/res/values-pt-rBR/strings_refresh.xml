@@ -28,8 +28,8 @@
         <item quantity="other">requisição agrupada %1$s · %2$d preços</item>
     </plurals>
     <string name="refresh_sheet_database">Banco de dados</string>
-    <string name="refresh_sheet_market_unreachable">%1$s inacessível</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s inacessível</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d exchange inacessível</item>
         <item quantity="many">%1$d exchanges inacessíveis</item>
         <item quantity="other">%1$d exchanges inacessíveis</item>
@@ -68,7 +68,7 @@
     <string name="refresh_sheet_reason_unavailable">exchange indisponível</string>
     <string name="refresh_sheet_seconds_a11y">%1$s segundos</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Exchanges</string>
+    <string name="refresh_sheet_section_exchanges">Exchanges</string>
     <string name="refresh_sheet_section_steps">Detalhamento</string>
     <string name="refresh_sheet_status_failed">não atualizado</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

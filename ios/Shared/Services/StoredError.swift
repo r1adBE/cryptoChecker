@@ -10,7 +10,7 @@ enum StoredError {
     private static let keep: Set<String> = [
         NotTraded.marker,
         "Response data is empty", "Parsed ticker has no data", "Unknown error (empty)",
-        "Market unavailable", "Börse nicht verfügbar", "Response too large",
+        "Exchange unavailable", "Response too large",
         ConnectionErrors.offlineMarker, "timeout",
     ]
 
@@ -100,7 +100,7 @@ enum StoredError {
     }
 
     private static var localizedKeep: Set<String> {
-        [L("something_went_wrong"), L("market_data_empty_error"), L("market_unavailable_error")]
+        [L("something_went_wrong"), L("exchange_data_empty_error"), L("exchange_unavailable_error")]
     }
 
     private static func firstGroup(_ pattern: String, in text: String) -> String? {

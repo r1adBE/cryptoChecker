@@ -187,7 +187,7 @@ internal fun DexLowLiquidityNote() {
     }
 }
 
-/** EZB-Referenzkurs (Forex, [com.cryptochecker.marketdata.model.Market.allowsAlarms] false): keine Alarme. */
+/** EZB-Referenzkurs (Forex, [com.cryptochecker.marketdata.model.Exchange.allowsAlarms] false): keine Alarme. */
 @Composable
 internal fun ReferenceRateNote() {
     Text(

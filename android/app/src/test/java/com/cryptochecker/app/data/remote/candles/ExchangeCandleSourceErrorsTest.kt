@@ -17,8 +17,8 @@ import org.junit.Test
  */
 class ExchangeCandleSourceErrorsTest {
 
-    private fun pair(marketKey: String, pairId: String?, contract: FuturesContractType = FuturesContractType.NONE) =
-        CandlePair(marketKey, marketKey, "BTC", "USDT", pairId, contract)
+    private fun pair(exchangeKey: String, pairId: String?, contract: FuturesContractType = FuturesContractType.NONE) =
+        CandlePair(exchangeKey, exchangeKey, "BTC", "USDT", pairId, contract)
 
     /** Antwortet auf jede Anfrage (GET und POST) mit [body]; merkt sich die Anfragen. */
     private class Http(private val body: String?) : CandleHttp {
@@ -62,10 +62,10 @@ class ExchangeCandleSourceErrorsTest {
     @Test
     fun everySourceSupportsItsPairAndIsRegistered() {
         for ((source, pair) in supported) {
-            assertTrue("${pair.marketKey}: supports", source.supports(pair))
-            assertTrue("${pair.marketKey}: marketKeys", pair.marketKey in source.marketKeys)
-            assertEquals("${pair.marketKey}: registry", source, ExchangeCandleRegistry.sourceFor(pair))
-            assertFalse("${pair.marketKey}: rate limit", source.isRateLimited("""{"ok":true}"""))
+            assertTrue("${pair.exchangeKey}: supports", source.supports(pair))
+            assertTrue("${pair.exchangeKey}: marketKeys", pair.exchangeKey in source.exchangeKeys)
+            assertEquals("${pair.exchangeKey}: registry", source, ExchangeCandleRegistry.sourceFor(pair))
+            assertFalse("${pair.exchangeKey}: rate limit", source.isRateLimited("""{"ok":true}"""))
         }
     }
 
@@ -73,8 +73,8 @@ class ExchangeCandleSourceErrorsTest {
     fun weeklyCandlesNeedNoRequest() = runBlocking {
         for ((source, pair) in supported) {
             val http = Http("[]")
-            assertNull("${pair.marketKey}: W1", source.fetch(pair, CandleInterval.W1, 10, http))
-            assertTrue("${pair.marketKey}: no request ${http.requested}", http.requested.isEmpty())
+            assertNull("${pair.exchangeKey}: W1", source.fetch(pair, CandleInterval.W1, 10, http))
+            assertTrue("${pair.exchangeKey}: no request ${http.requested}", http.requested.isEmpty())
         }
     }
 
@@ -83,8 +83,8 @@ class ExchangeCandleSourceErrorsTest {
         for ((source, pair) in supported) {
             for (interval in listOf(CandleInterval.H1, CandleInterval.H4, CandleInterval.D1)) {
                 val http = Http(null)
-                assertNull("${pair.marketKey} $interval", source.fetch(pair, interval, 5, http))
-                assertTrue("${pair.marketKey} $interval: asked", http.requested.isNotEmpty())
+                assertNull("${pair.exchangeKey} $interval", source.fetch(pair, interval, 5, http))
+                assertTrue("${pair.exchangeKey} $interval: asked", http.requested.isNotEmpty())
             }
         }
     }
@@ -93,7 +93,7 @@ class ExchangeCandleSourceErrorsTest {
     fun unreadableAnswerMeansNoCandles() = runBlocking {
         for ((source, pair) in supported) {
             val http = Http("<html>502 Bad Gateway</html>")
-            assertNull("${pair.marketKey}", source.fetch(pair, CandleInterval.H1, 5, http))
+            assertNull("${pair.exchangeKey}", source.fetch(pair, CandleInterval.H1, 5, http))
         }
     }
 
@@ -132,10 +132,10 @@ class ExchangeCandleSourceErrorsTest {
             PoloniexCandles to pair("Poloniex", null),
         )
         for ((source, pair) in withoutRequest) {
-            assertFalse("${pair.marketKey} ${pair.pairId} ${pair.contractType}", source.supports(pair))
+            assertFalse("${pair.exchangeKey} ${pair.pairId} ${pair.contractType}", source.supports(pair))
             val http = Http("[]")
             assertNull(source.fetch(pair, CandleInterval.H1, 5, http))
-            assertTrue("${pair.marketKey}: no request", http.requested.isEmpty())
+            assertTrue("${pair.exchangeKey}: no request", http.requested.isEmpty())
         }
         // Falsche Vertragsart bei gültiger Kennung: die Auswahl (supports) schliesst sie aus
         val wrongContract = listOf(
@@ -147,8 +147,8 @@ class ExchangeCandleSourceErrorsTest {
             UpbitCandles to pair("Upbit", "KRW-BTC", perpetual),
         )
         for ((source, pair) in wrongContract) {
-            assertFalse("${pair.marketKey} ${pair.contractType}", source.supports(pair))
-            assertNull("${pair.marketKey}: registry", ExchangeCandleRegistry.sourceFor(pair))
+            assertFalse("${pair.exchangeKey} ${pair.contractType}", source.supports(pair))
+            assertNull("${pair.exchangeKey}: registry", ExchangeCandleRegistry.sourceFor(pair))
         }
     }
 

@@ -24,8 +24,8 @@
         <item quantity="other">คำขอแบบรวม %1$s · %2$d ราคา</item>
     </plurals>
     <string name="refresh_sheet_database">ฐานข้อมูล</string>
-    <string name="refresh_sheet_market_unreachable">เชื่อมต่อ %1$s ไม่ได้</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">เชื่อมต่อ %1$s ไม่ได้</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="other">เชื่อมต่อกระดานเทรดไม่ได้ %1$d แห่ง</item>
     </plurals>
     <string name="refresh_sheet_network">เครือข่าย</string>
@@ -54,7 +54,7 @@
     <string name="refresh_sheet_reason_unavailable">กระดานเทรดไม่พร้อมใช้งาน</string>
     <string name="refresh_sheet_seconds_a11y">%1$s วินาที</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">กระดานเทรด</string>
+    <string name="refresh_sheet_section_exchanges">กระดานเทรด</string>
     <string name="refresh_sheet_section_steps">รายละเอียด</string>
     <string name="refresh_sheet_status_failed">ไม่ได้อัปเดต</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

@@ -179,7 +179,7 @@ data class StarterUiState(
     /** Quote der Start-Paare (USDT). */
     val quote: String,
     /** Anzeigename der Start-Börse («Binance», bei Standort-Sperre «Binance.US»). */
-    val marketName: String,
+    val exchangeName: String,
 )
 
 /**

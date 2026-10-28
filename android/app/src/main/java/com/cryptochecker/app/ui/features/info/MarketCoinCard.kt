@@ -136,5 +136,5 @@ private fun CoinReportSkeleton() {
     )
 }
 
-/** So viele Kennzahlen liefert [com.cryptochecker.app.domain.market.CoinIndicatorModel]. */
+/** So viele Kennzahlen liefert [com.cryptochecker.app.domain.exchange.CoinIndicatorModel]. */
 private const val COIN_INDICATOR_COUNT = 8

@@ -2,11 +2,11 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.data.BoundedCache
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -72,7 +72,7 @@ class HistoricPriceSource @Inject constructor(
     val tokenIdentityStore: TokenIdentityStore,
     val ownCandles: OwnCandleDataSource,
     val portfolioDao: PortfolioDao,
-    val marketRepository: MarketRepository,
+    val exchangeRepository: ExchangeRepository,
 ) {
     /**
      * Coin → (eigene Börse oder null, Lesezeit): die Steuer-Vorlage fragt je (Coin, Tag) einzeln ([ownRoutes]).
@@ -132,9 +132,9 @@ class HistoricPriceSource @Inject constructor(
         val reference = current?.takeIf { it > 0.0 && it.isFinite() } ?: return CloseResult(null, unchecked = true)
         val start = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
         val ownName = tokenIdentityStore.watchName(b)
-        val resolved = HistoricCloseChain.resolve(HistoricCloseChain.order(own?.marketKey)) { source ->
+        val resolved = HistoricCloseChain.resolve(HistoricCloseChain.order(own?.exchangeKey)) { source ->
             when {
-                own != null && source == own.marketKey -> ownOutcome(own, b, date, start, reference, ownName)
+                own != null && source == own.exchangeKey -> ownOutcome(own, b, date, start, reference, ownName)
                 source == HistoricCloseChain.BINANCE -> binanceOutcome(b, start, reference, ownName)
                 source == HistoricCloseChain.COINBASE -> coinbaseOutcome(b, date, start, reference)
                 else -> chainOutcome(source, b, start, reference, ownName)
@@ -324,7 +324,7 @@ class HistoricPriceSource @Inject constructor(
     /** GET mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle vorübergehend. */
     private suspend fun get(host: String, url: String): String? {
         val body = try {
-            withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callMarket(url, null) }
+            withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, null) }
         } catch (e: Exception) {
             // Echten Abbruch des Aufrufers nicht verschlucken
             currentCoroutineContext().ensureActive()

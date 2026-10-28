@@ -11,7 +11,7 @@ extension WatchActionsSheet {
 
     func header(_ watch: Watch, isPreview: Bool) -> some View {
         HStack(spacing: Spacing.md) {
-            CoinBadge(symbol: watch.baseAsset, size: 48, logo: CoinLogos.allowed(forMarket: watch.marketKey),
+            CoinBadge(symbol: watch.baseAsset, size: 48, logo: CoinLogos.allowed(forExchange: watch.exchangeKey),
                       pair: watch.logoPairKey)
             VStack(alignment: .leading, spacing: 2) {
                 Text(watch.displayName)
@@ -19,7 +19,7 @@ extension WatchActionsSheet {
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
                 // Vorschau: «Binance · Nicht in der Merkliste»
-                Text(isPreview ? "\(watch.marketName) · \(L("watch_preview_not_watched"))" : watch.marketName)
+                Text(isPreview ? "\(watch.exchangeName) · \(L("watch_preview_not_watched"))" : watch.exchangeName)
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurfaceVariant)
                 // DEX-Pool: Token-Adresse gekürzt, Tippen kopiert (wie Android)
@@ -69,7 +69,7 @@ extension WatchActionsSheet {
         let outdated = freshness == .outdated || freshness == .unreachableOutdated
         var stale: String?
         if outdated {
-            stale = A11ySpeech.freshnessText(.outdated, lastUpdate: watch.lastUpdate, now: now, market: watch.marketName)
+            stale = A11ySpeech.freshnessText(.outdated, lastUpdate: watch.lastUpdate, now: now, exchange: watch.exchangeName)
         } else if !notTraded, (watch.lastError ?? "").isEmpty, !(watch.disabled && !isPreview), outdatedAfter > 0,
                   PriceFreshness.staleReason(watch, now: now, staleAfter: outdatedAfter) == .trade {
             // Abruf frisch, letzter Handel laut Börse > 2 h (Regel der Alarmsperre): wie die Zeile — wie Android
@@ -123,7 +123,7 @@ extension WatchActionsSheet {
             } else if let error = watch.lastError, !error.isEmpty, watch.lastPrice != nil, ConnectionErrors.isRetryable(error) {
                 // Börse nicht erreichbar, älterer Kurs steht: ruhiger Satz plus «Erneut versuchen»
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Text(L("error_market_unreachable"))
+                    Text(L("error_exchange_unreachable"))
                         .font(.footnote)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -225,12 +225,12 @@ private struct SheetChangeLine: View {
         let updated = L("watchlist_updated", PriceFormat.time(watch.lastUpdate))
         // Börse meldet den Mittelkurs (z. B. Hyperliquid), keinen letzten Handel: so benennen; fehlte der Mittelkurs
         // (dünnes Orderbuch), steht der Mark-Preis da — dann so. WOO X Spot: Schluss der jüngsten Stundenkerze. Wie Android
-        let market = MarketsConfig.market(watch.marketKey)
+        let exchange = ExchangesConfig.exchange(watch.exchangeKey)
         let mid: String
-        switch PriceKindLabel.of(priceIsMid: market?.priceIsMid == true,
+        switch PriceKindLabel.of(priceIsMid: exchange?.priceIsMid == true,
                                  markFallback: MarkFallbackStore.contains(watch.id),
-                                 hourlyClose: market?.priceIsHourlyClose == true,
-                                 dailyReference: market?.priceIsDailyReference == true) {
+                                 hourlyClose: exchange?.priceIsHourlyClose == true,
+                                 dailyReference: exchange?.priceIsDailyReference == true) {
         case .mark: mid = " · " + L("watch_price_mark_fallback")
         case .mid: mid = " · " + L("watch_price_mid")
         case .hourly: mid = " · " + L("watch_price_hourly")

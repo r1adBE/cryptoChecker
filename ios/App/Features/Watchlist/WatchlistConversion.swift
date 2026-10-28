@@ -26,7 +26,7 @@ enum WatchlistConversion {
 
     /// Quote für Faktor und Schlüssel der Umrechnung (`CurrencyConversion.conversionQuote`: Aster «U» = USD).
     static func quote(_ watch: Watch) -> String {
-        CurrencyConversion.conversionQuote(marketKey: watch.marketKey, quote: watch.quoteAsset)
+        CurrencyConversion.conversionQuote(exchangeKey: watch.exchangeKey, quote: watch.quoteAsset)
     }
 
     /// Quote-Währungen der Merkliste, die nicht schon die Zielwährung sind (vereinheitlicht, sortiert).

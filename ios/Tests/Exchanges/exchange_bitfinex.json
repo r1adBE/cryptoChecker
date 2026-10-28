@@ -9,7 +9,7 @@
     {
       "kind": "pairs",
       "name": "pair list: internal UST -> USDT and UDC -> USDC (stablecoins, ≈ value); TEST pairs skipped",
-      "market": "Bitfinex",
+      "exchangeKey": "Bitfinex",
       "requestId": 0,
       "body": "[[\"BTCUSD\",\"BTCUST\",\"ETHUDC\",\"SHIB:UST\",\"UDCUSD\",\"TESTBTC:TESTUSD\"]]",
       "expect": {
@@ -44,7 +44,7 @@
     {
       "kind": "single",
       "name": "ticker tBTCUSD (array; DAILY_CHANGE_RELATIVE fraction)",
-      "market": "Bitfinex",
+      "exchangeKey": "Bitfinex",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -68,7 +68,7 @@
     {
       "kind": "single",
       "name": "tiny price in scientific notation (tSHIB:USD)",
-      "market": "Bitfinex",
+      "exchangeKey": "Bitfinex",
       "pair": {
         "base": "SHIB",
         "quote": "USD",
@@ -90,7 +90,7 @@
     {
       "kind": "single",
       "name": "error array",
-      "market": "Bitfinex",
+      "exchangeKey": "Bitfinex",
       "pair": {
         "base": "FOO",
         "quote": "USD",
@@ -108,7 +108,7 @@
     {
       "kind": "single",
       "name": "empty array",
-      "market": "Bitfinex",
+      "exchangeKey": "Bitfinex",
       "pair": {
         "base": "FOO",
         "quote": "USD",
@@ -125,7 +125,7 @@
     {
       "kind": "bulk",
       "name": "bulk tickers: funding entries (f...) skipped, row without last price reported as unreadable",
-      "market": "Bitfinex",
+      "exchangeKey": "Bitfinex",
       "requestId": 0,
       "body": "[[\"tBTCUSD\",62000,10.51,62000.1,8.23,1500.1,0.0248,62000.1,1234.567,62500,60000], [\"fUSD\",0.0001,0.00009,2,1234.5,0.0001,2,345.6,0.00001,0.05,0.0001,1234567,0.0002,0.00005,null,null,1234.5], [\"tETHUSD\",2450,50.1,2450.1,40.2,-12.3,-0.005,2450.12,34567.8,2490,2430], [\"tTESTBTC:TESTUSD\",null]]",
       "expect": {
@@ -157,7 +157,7 @@
     {
       "kind": "bulk",
       "name": "bulk: truncated row (no last price at index 7) — that pair is reported as unreadable, the rest stays; full row with null last price is skipped, not failed",
-      "market": "Bitfinex",
+      "exchangeKey": "Bitfinex",
       "requestId": 0,
       "body": "[[\"tBTCUSD\",62000,10.51,62000.1,8.23,1500.1,0.0248,62000.1,1234.567,62500,60000],[\"tLTCUSD\",62000,10.51,62000.1,8.23],[\"tOLDUSD\",62000,10.51,62000.1,8.23,1500.1,0.0248,null,1234.567,62500,60000]]",
       "expect": {

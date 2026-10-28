@@ -29,6 +29,6 @@ class NotificationDefaultsTest {
         // Sicherung ohne Feld (in älteren Versionen war jedes Paar an): bleibt an — wie iOS
         assertTrue(WatchRepository.LEGACY_NOTIFICATION_ENABLED)
         // Gespeicherte/gesicherte Paare: Entity-Standard unverändert (kein Schemawechsel)
-        assertTrue(WatchEntity(marketKey = "Kraken", marketName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR").notificationEnabled)
+        assertTrue(WatchEntity(exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR").notificationEnabled)
     }
 }

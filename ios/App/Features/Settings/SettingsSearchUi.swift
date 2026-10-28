@@ -12,7 +12,7 @@ enum SettingsSearchPage: Hashable {
     /// Widget-Seite (Zeile «Widgets» unter «Darstellung»).
     case widgets
     /// «Token & TradFi» (auf «Merkliste») und die Lizenzhinweise (auf «Über die App»).
-    case markets, licenses
+    case exchanges, licenses
 
     /// Wo die Zeile zu dieser Seite steht (Kurs-Aktualisierung und Portfolio unter «Allgemein», Widgets und Coin-Logos
     /// unter «Darstellung»); nil = Unterseite einer Unterseite (%-Änderung und Token & TradFi auf «Merkliste»,
@@ -23,7 +23,7 @@ enum SettingsSearchPage: Hashable {
         case .currency, .watchlist, .portfolio, .alarms, .updates: return .general
         case .displayMode, .theme, .priceColors, .coinLogos, .widgets: return .appearance
         case .backup, .about: return .more
-        case .licenses, .changeBasis, .markets, .marketAlerts, .speech, .developer: return nil
+        case .licenses, .changeBasis, .exchanges, .marketAlerts, .speech, .developer: return nil
         }
     }
 }

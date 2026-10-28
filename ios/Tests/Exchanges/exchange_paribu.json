@@ -10,7 +10,7 @@
     {
       "kind": "pairs",
       "name": "ticker keys as pair list: TL shown as TRY, odd keys and non-objects dropped",
-      "market": "Paribu",
+      "exchangeKey": "Paribu",
       "requestId": 0,
       "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9},\"ETH_TL\":{\"lowestAsk\":85100,\"highestBid\":84900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":85000,\"change\":40000,\"percentChange\":1.9},\"BTC_USDT\":{\"lowestAsk\":62901,\"highestBid\":62900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":62900.5,\"change\":40000,\"percentChange\":1.9},\"weird\":{\"last\":1},\"timestamp\":1728540000}",
       "expect": {
@@ -37,7 +37,7 @@
     {
       "kind": "single",
       "name": "ticker BTC_TL from the whole list (volume/percentChange not used, no trade time)",
-      "market": "Paribu",
+      "exchangeKey": "Paribu",
       "pair": {
         "base": "BTC",
         "quote": "TRY",
@@ -61,7 +61,7 @@
     {
       "kind": "single",
       "name": "pair missing from the list -> no data",
-      "market": "Paribu",
+      "exchangeKey": "Paribu",
       "pair": {
         "base": "FOO",
         "quote": "TRY",
@@ -78,7 +78,7 @@
     {
       "kind": "single",
       "name": "zero last -> no price",
-      "market": "Paribu",
+      "exchangeKey": "Paribu",
       "pair": {
         "base": "BTC",
         "quote": "TRY",
@@ -94,7 +94,7 @@
     {
       "kind": "single",
       "name": "rate limit page (HTML, HTTP 429) -> no exchange text",
-      "market": "Paribu",
+      "exchangeKey": "Paribu",
       "pair": {
         "base": "BTC",
         "quote": "TRY",
@@ -110,7 +110,7 @@
     {
       "kind": "bulk",
       "name": "ticker: all markets",
-      "market": "Paribu",
+      "exchangeKey": "Paribu",
       "requestId": 0,
       "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9},\"BTC_USDT\":{\"lowestAsk\":62901,\"highestBid\":62900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":62900.5,\"change\":40000,\"percentChange\":1.9}}",
       "expect": {
@@ -129,7 +129,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with zero «last» (inactive) is skipped, not failed",
-      "market": "Paribu",
+      "exchangeKey": "Paribu",
       "requestId": 0,
       "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9},\"ETH_TL\":{\"lowestAsk\":85100,\"highestBid\":84900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"change\":40000,\"percentChange\":1.9,\"last_renamed\":85000},\"OLD_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":0,\"change\":40000,\"percentChange\":1.9}}",
       "expect": {

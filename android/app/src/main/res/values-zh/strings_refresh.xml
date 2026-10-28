@@ -24,8 +24,8 @@
         <item quantity="other">批量请求 %1$s · %2$d 个价格</item>
     </plurals>
     <string name="refresh_sheet_database">数据库</string>
-    <string name="refresh_sheet_market_unreachable">无法连接 %1$s</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">无法连接 %1$s</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="other">%1$d 个交易所无法连接</item>
     </plurals>
     <string name="refresh_sheet_network">网络</string>
@@ -54,7 +54,7 @@
     <string name="refresh_sheet_reason_unavailable">交易所不可用</string>
     <string name="refresh_sheet_seconds_a11y">%1$s 秒</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">交易所</string>
+    <string name="refresh_sheet_section_exchanges">交易所</string>
     <string name="refresh_sheet_section_steps">明细</string>
     <string name="refresh_sheet_status_failed">未更新</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

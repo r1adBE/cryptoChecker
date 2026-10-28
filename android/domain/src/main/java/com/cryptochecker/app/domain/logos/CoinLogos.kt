@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.logos
 
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 
 /**
  * Regeln für die Coin-Logos (gleich in iOS `CoinLogos.swift`, gemeinsame Testfälle
@@ -204,13 +204,13 @@ object CoinLogos {
     }
 
     /** Börse, deren Symbole jeder frei wählen kann (DEX-Pools). */
-    const val DEX_MARKET_KEY = "DexScreener"
+    const val DEX_EXCHANGE_KEY = "DexScreener"
 
     /**
      * Logo für Paare dieser Börse? Bei DEX-Pools nie: Ein fremder Token darf «BTC» heissen —
      * dann nie das Bitcoin-Logo daneben, nur Initialen.
      */
-    fun allowedFor(marketKey: String?): Boolean = marketKey != DEX_MARKET_KEY
+    fun allowedFor(exchangeKey: String?): Boolean = exchangeKey != DEX_EXCHANGE_KEY
 
     /**
      * Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
@@ -248,7 +248,7 @@ object CoinLogos {
      * HTX/Phemex Futures, Aster, BingX Futures und Lighter kamen später dazu: ihre gespeicherten Listen tragen
      * das Kennzeichen erst nach dem nächsten Laden der Paarliste. Hyperliquid kennzeichnet TradFi nicht.
      */
-    val TRADFI_MARKETS = setOf(
+    val TRADFI_EXCHANGES = setOf(
         "BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures", "HtxFutures", "PhemexFutures",
         "Aster", "BingXFutures", "Lighter",
     )
@@ -266,8 +266,8 @@ object CoinLogos {
     fun displaySymbol(key: String): String = key.removePrefix(TRADFI_PREFIX)
 
     /** Kennung eines Paars für die Liste der TradFi-Paare: «BinanceFutures|NVDA|USDT|PERPETUAL». */
-    fun pairKey(marketKey: String, base: String, quote: String, contractType: String): String =
-        "$marketKey|${base.uppercase()}|${quote.uppercase()}|$contractType"
+    fun pairKey(exchangeKey: String, base: String, quote: String, contractType: String): String =
+        "$exchangeKey|${base.uppercase()}|${quote.uppercase()}|$contractType"
 
     /** Eintrag der Binance-Symbolliste: Kürzel, Logo, Schlagwörter («bStocks»), nur als Futures, voller Name. */
     data class BinanceEntry(

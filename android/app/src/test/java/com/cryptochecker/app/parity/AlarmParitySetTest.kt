@@ -36,8 +36,8 @@ class AlarmPairPickerParityTest {
             val w = raw.obj()
             WatchEntity(
                 id = w["id"].num()!!.toLong(),
-                marketKey = (w["marketName"] as String).lowercase(),
-                marketName = w["marketName"] as String,
+                exchangeKey = (w["exchangeName"] as String).lowercase(),
+                exchangeName = w["exchangeName"] as String,
                 baseAsset = w["base"] as String,
                 quoteAsset = w["quote"] as String,
                 favorite = w["favorite"] as Boolean,

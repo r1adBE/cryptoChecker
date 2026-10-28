@@ -9,7 +9,7 @@ final class OwnServerBlockTests: XCTestCase {
     private func failWith(_ code: Int, entry: String, own: Bool) async {
         do {
             _ = try await source.firstWorking([entry], deadline: nil, own: own) { (_: String) -> Int in
-                throw HttpMarketError(httpCode: code, body: "", retryAfterSeconds: nil)
+                throw HttpExchangeError(httpCode: code, body: "", retryAfterSeconds: nil)
             }
             XCTFail("erwartet: Fehler")
         } catch {}

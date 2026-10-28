@@ -9,9 +9,9 @@ class StarterPairsTest {
     fun binanceUsdtOutsideUs() {
         val p = StarterPairs.pairFor("btc", "DE")
         assertEquals(StarterPairs.Pair("Binance", "Binance", "BTC", "USDT", "BTCUSDT"), p)
-        assertEquals("Binance", StarterPairs.pairFor("ETH", "AT").marketKey)
-        assertEquals("Binance", StarterPairs.pairFor("ETH", null).marketKey)
-        assertEquals("Binance", StarterPairs.pairFor("ETH", "").marketKey)
+        assertEquals("Binance", StarterPairs.pairFor("ETH", "AT").exchangeKey)
+        assertEquals("Binance", StarterPairs.pairFor("ETH", null).exchangeKey)
+        assertEquals("Binance", StarterPairs.pairFor("ETH", "").exchangeKey)
     }
 
     @Test
@@ -23,8 +23,8 @@ class StarterPairsTest {
     }
 
     @Test
-    fun marketNameFromRegistry() {
-        assertEquals("Binance Spot", StarterPairs.pairFor("BTC", "DE") { "Binance Spot" }.marketName)
+    fun exchangeNameFromRegistry() {
+        assertEquals("Binance Spot", StarterPairs.pairFor("BTC", "DE") { "Binance Spot" }.exchangeName)
     }
 
     @Test
@@ -49,10 +49,10 @@ class StarterPairsTest {
 
     @Test
     fun binanceEverywhereExceptUs() {
-        assertEquals("Binance", StarterPairs.marketKey("CH"))
-        assertEquals("Binance", StarterPairs.marketKey(" li "))
-        assertEquals("BinanceUs", StarterPairs.marketKey("US"))
-        assertEquals("Binance", StarterPairs.marketKey("DE"))
+        assertEquals("Binance", StarterPairs.exchangeKey("CH"))
+        assertEquals("Binance", StarterPairs.exchangeKey(" li "))
+        assertEquals("BinanceUs", StarterPairs.exchangeKey("US"))
+        assertEquals("Binance", StarterPairs.exchangeKey("DE"))
         assertEquals("USDT", StarterPairs.startQuote("CH"))
         assertEquals("USDT", StarterPairs.startQuote(null))
         assertEquals(StarterPairs.Pair("Binance", "Binance", "BTC", "USDT", "BTCUSDT"), StarterPairs.pairFor("btc", "CH"))
@@ -70,7 +70,7 @@ class StarterPairsTest {
         assertEquals("CH", StarterPairs.effectiveRegion("CH", binanceBlocked = false))
         assertEquals("US", StarterPairs.effectiveRegion("US", binanceBlocked = true))
         val blocked = StarterPairs.pairFor("btc", StarterPairs.effectiveRegion("DE", binanceBlocked = true))
-        assertEquals("BinanceUs", blocked.marketKey)
+        assertEquals("BinanceUs", blocked.exchangeKey)
         assertEquals("BTCUSDT", blocked.pairId)
         assertEquals(
             listOf("BTC", "ETH", "BNB", "SOL", "DOGE"),
@@ -93,14 +93,14 @@ class StarterPairsTest {
     }
 
     @Test
-    fun marketNameForStarterText() {
+    fun exchangeNameForStarterText() {
         val names = mapOf("Binance" to "Binance", "BinanceUs" to "Binance.US")
-        assertEquals("Binance", StarterPairs.marketName("CH") { names[it] })
-        assertEquals("Binance.US", StarterPairs.marketName("US") { names[it] })
+        assertEquals("Binance", StarterPairs.exchangeName("CH") { names[it] })
+        assertEquals("Binance.US", StarterPairs.exchangeName("US") { names[it] })
         // Standort-Sperre: die Start-Auswahl nennt Binance.US
-        assertEquals("Binance.US", StarterPairs.marketName(StarterPairs.effectiveRegion("DE", binanceBlocked = true)) { names[it] })
+        assertEquals("Binance.US", StarterPairs.exchangeName(StarterPairs.effectiveRegion("DE", binanceBlocked = true)) { names[it] })
         // Ohne Registry-Namen: Schlüssel
-        assertEquals("BinanceUs", StarterPairs.marketName("US"))
+        assertEquals("BinanceUs", StarterPairs.exchangeName("US"))
         assertEquals("USDT", StarterPairs.startQuote("US"))
     }
 }

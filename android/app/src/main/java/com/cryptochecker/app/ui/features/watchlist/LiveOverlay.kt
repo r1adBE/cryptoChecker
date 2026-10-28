@@ -36,7 +36,7 @@ internal object LiveOverlay {
             change24h = LiveRules.chooseChange(
                 rollingBasis = rollingBasis,
                 stampCurrent = true,
-                exchangeRolling = LiveExchange.fromMarketKey(watch.marketKey)?.rollingChange == true,
+                exchangeRolling = LiveExchange.fromExchangeKey(watch.exchangeKey)?.rollingChange == true,
                 live = quote.change24h,
                 existing = watch.change24h,
             ),
@@ -64,8 +64,8 @@ internal fun WithLiveQuote(
 /** Was der Live-Strom von einem Paar braucht. */
 internal fun WatchEntity.toLivePair(): LivePair = LivePair(
     watchId = id,
-    marketKey = marketKey,
-    marketName = marketName,
+    exchangeKey = exchangeKey,
+    exchangeName = exchangeName,
     pairId = pairId,
     base = baseAsset,
     quote = quoteAsset,

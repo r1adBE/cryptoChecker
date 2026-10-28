@@ -11,8 +11,8 @@ extension BackupManager {
     static func watchToJson(_ w: Watch) -> [String: Any] {
         [
             "id": NSNumber(value: w.id),
-            "marketKey": w.marketKey,
-            "marketName": w.marketName,
+            "exchangeKey": w.exchangeKey,
+            "exchangeName": w.exchangeName,
             "baseAsset": w.baseAsset,
             "quoteAsset": w.quoteAsset,
             "contractType": w.contractType.backupName,
@@ -30,15 +30,15 @@ extension BackupManager {
 
     static func jsonToWatch(_ o: [String: Any]) throws -> Watch {
         guard let id = int64(o, "id") else { throw Failure.invalid("watch.id") }
-        guard let marketKey = string(o, "marketKey"),
-              let marketName = string(o, "marketName"),
+        guard let exchangeKey = string(o, "exchangeKey"),
+              let exchangeName = string(o, "exchangeName"),
               let baseAsset = string(o, "baseAsset"),
               let quoteAsset = string(o, "quoteAsset")
         else { throw Failure.invalid("watch") }
         return Watch(
             id: id,
-            marketKey: marketKey,
-            marketName: marketName,
+            exchangeKey: exchangeKey,
+            exchangeName: exchangeName,
             baseAsset: baseAsset,
             quoteAsset: quoteAsset,
             contractType: FuturesContractType(backupName: string(o, "contractType") ?? ""),

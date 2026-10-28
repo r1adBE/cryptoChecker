@@ -150,7 +150,7 @@ class PriceRefresher(
                         totalMillis = 0,
                         pairs = 0,
                         networkMillis = 0,
-                        markets = emptyList(),
+                        exchanges = emptyList(),
                         // Ohne rohen Ausnahmetext (Hosts, URLs): Klassenname + kurzer Code (StoredError)
                         aborted = listOfNotNull(ex.javaClass.simpleName, StoredError.sanitize(ex.message)).joinToString(": "),
                     )
@@ -186,7 +186,7 @@ class PriceRefresher(
         val liveIds = allWatches.filter { watch ->
             LiveRules.skipRest(
                 liveCoverage.lastTickAt(watch.id), startedAt, rollingBasis, stampUnchanged,
-                LiveExchange.fromMarketKey(watch.marketKey)?.rollingChange == true,
+                LiveExchange.fromExchangeKey(watch.exchangeKey)?.rollingChange == true,
             )
         }.mapTo(HashSet()) { it.id }
         // Volumen-, Funding- und Open-Interest-Alarme hängen nicht am Live-Kurs (applyLive prüft sie
@@ -215,7 +215,7 @@ class PriceRefresher(
         val prefetchBackoff = refreshStats.backoffStates()
         val enabledAlarms = watchRepository.getAllEnabledAlarms()
         val alarmLoads = effects.startAlarmPrefetch(
-            watches.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.marketKey], startedAt) },
+            watches.filterNot { ExchangeBackoff.isPaused(prefetchBackoff[it.exchangeKey], startedAt) },
             enabledAlarms,
             startedAt,
         )
@@ -231,7 +231,7 @@ class PriceRefresher(
         val backoff = refreshStats.backoffStates().toMutableMap()
         // Gemeinsame Binance-Pause (429/418 bei Kerzen, Futures …): auch die Kurse pausieren,
         // sonst verlängerte die Kursabfrage die IP-Sperre (siehe BlockedSources)
-        for (key in watches.mapTo(HashSet()) { it.marketKey }) {
+        for (key in watches.mapTo(HashSet()) { it.exchangeKey }) {
             val until = BlockedSources.groupPausedUntil(key) ?: continue
             val state = backoff[key]
             if (state == null || state.pausedUntil < until || !ExchangeBackoff.isPaused(state, startedAt)) {
@@ -239,7 +239,7 @@ class PriceRefresher(
                     .copy(pausedUntil = until, reason = RefreshFailure.RATE_LIMIT, timeoutRuns = 0)
             }
         }
-        val (pausedGroups, activeGroups) = watches.groupBy { it.marketKey }.entries
+        val (pausedGroups, activeGroups) = watches.groupBy { it.exchangeKey }.entries
             .partition { ExchangeBackoff.isPaused(backoff[it.key], startedAt) }
         val pausedIds = pausedGroups.flatMap { group -> group.value.map { it.id } }.toSet()
         val fetched = HashMap<Long, Fetched>()
@@ -253,7 +253,7 @@ class PriceRefresher(
         }.map { (results, fetchedGroup) ->
             fetched.putAll(results)
             // Ergebnis je Börse → Pause beginnen, verlängern oder (nach Erfolg) aufheben
-            val key = fetchedGroup.marketKey
+            val key = fetchedGroup.exchangeKey
             // Nur am eigenen Budget gescheitert: Pause unverändert lassen (CheckBudget.backoffOutcome)
             val outcome = CheckBudget.backoffOutcome(fetchedGroup.failures, fetchedGroup.report.updated, fetchedGroup.cutByBudget)
             val state = if (outcome == null) backoff[key] else ExchangeBackoff.next(
@@ -276,8 +276,8 @@ class PriceRefresher(
             }
         }
         val pausedReports = pausedGroups.map { (key, group) ->
-            MarketRefresh(
-                name = group.first().marketName,
+            ExchangeRefresh(
+                name = group.first().exchangeName,
                 millis = 0,
                 pairs = group.size,
                 updated = 0,
@@ -343,7 +343,7 @@ class PriceRefresher(
             totalMillis = duration,
             pairs = watches.size,
             networkMillis = networkMillis,
-            markets = groupReports,
+            exchanges = groupReports,
             dbMillis = processed.dbMillis,
             effectsMillis = processed.effectsMillis,
             alarms = processed.alarms,

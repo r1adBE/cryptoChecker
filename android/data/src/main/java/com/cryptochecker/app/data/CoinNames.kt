@@ -2,7 +2,7 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.logos.CoinLists
@@ -63,8 +63,8 @@ class CoinNames @Inject constructor(
     val names: StateFlow<Map<String, String>> = _names.asStateFlow()
 
     /** Name für ein Paar der Merkliste (TradFi beachtet); null = keiner bekannt. */
-    fun name(marketKey: String, base: String, quote: String, contractType: String): String? =
-        _names.value[CoinLogos.nameKey(base, isTradFi(marketKey, base, quote, contractType))]
+    fun name(exchangeKey: String, base: String, quote: String, contractType: String): String? =
+        _names.value[CoinLogos.nameKey(base, isTradFi(exchangeKey, base, quote, contractType))]
 
     private val _tradFiPairs = MutableStateFlow(loadTradFiPairs())
 
@@ -74,8 +74,8 @@ class CoinNames @Inject constructor(
      */
     val tradFiPairs: StateFlow<Set<String>> = _tradFiPairs.asStateFlow()
 
-    fun isTradFi(marketKey: String, base: String, quote: String, contractType: String): Boolean =
-        CoinLogos.pairKey(marketKey, base, quote, contractType) in _tradFiPairs.value
+    fun isTradFi(exchangeKey: String, base: String, quote: String, contractType: String): Boolean =
+        CoinLogos.pairKey(exchangeKey, base, quote, contractType) in _tradFiPairs.value
 
     /** Neue Liste der TradFi-Paare; true, wenn sie sich geändert hat. */
     fun setTradFiPairs(pairs: Set<String>): Boolean {
@@ -204,7 +204,7 @@ class CoinNames @Inject constructor(
             val out = LinkedHashMap<String, String>()
             for (url in listOf(CoinLogos.NASDAQ_LISTED_URL, CoinLogos.OTHER_LISTED_URL)) {
                 try {
-                    CoinLogos.parseSymbolDirectory(apiClient.callMarket(url, null, HttpBodyLimit.BULK_MAX_BYTES), out)
+                    CoinLogos.parseSymbolDirectory(apiClient.callExchange(url, null, HttpBodyLimit.BULK_MAX_BYTES), out)
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {

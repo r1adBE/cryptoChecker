@@ -2,7 +2,7 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import com.cryptochecker.app.data.remote.MirrorTrust
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.mirrorLoader
 import com.cryptochecker.app.domain.macro.MacroCalendar
 import com.cryptochecker.app.domain.macro.MacroEvent
@@ -67,7 +67,7 @@ class MacroCalendarRepository @Inject constructor(
 
     private suspend fun download(now: Long): List<MacroEvent>? = try {
         withTimeoutOrNull(TIMEOUT_MILLIS) {
-            val text = httpClient.callMarket(MacroCalendar.URL, null)
+            val text = httpClient.callExchange(MacroCalendar.URL, null)
             MacroCalendar.parseVerified(text, now) { file, body ->
                 MirrorTrust.shared.verified(file, body, httpClient.mirrorLoader(TIMEOUT_MILLIS))
                     .also { ok -> if (!ok) Timber.d("Wirtschaftsdaten: SHA-256 nicht im gültigen Manifest") }

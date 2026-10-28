@@ -1,12 +1,12 @@
 import Foundation
 
 /// Gespeicherte Paarliste einer Börse samt Zeitpunkt des letzten Abgleichs (Gegenstück zu
-/// `MarketPairsInfo.kt`). Für die Auswahl im Explorer braucht es Coins, Gegenwährungen, Kontrakte
+/// `ExchangePairsInfo.kt`). Für die Auswahl im Explorer braucht es Coins, Gegenwährungen, Kontrakte
 /// und das passende Paar: Diese Nachschlagetabellen entstehen erst beim ersten Zugriff und dann nur
 /// einmal je Liste. Alle Listen folgen der Reihenfolge, in der etwas in `pairs` zuerst auftaucht.
-struct MarketPairsInfo: Codable, Sendable {
+struct ExchangePairsInfo: Codable, Sendable {
     var lastSyncDate: Int64
-    var pairs: [MarketPair] {
+    var pairs: [ExchangePair] {
         didSet { lookup = PairLookupHolder(pairs) }
     }
 
@@ -17,7 +17,7 @@ struct MarketPairsInfo: Codable, Sendable {
         case lastSyncDate, pairs
     }
 
-    init(lastSyncDate: Int64 = 0, pairs: [MarketPair] = []) {
+    init(lastSyncDate: Int64 = 0, pairs: [ExchangePair] = []) {
         self.lastSyncDate = lastSyncDate
         self.pairs = pairs
         self.lookup = PairLookupHolder(pairs)
@@ -26,7 +26,7 @@ struct MarketPairsInfo: Codable, Sendable {
     init(from decoder: Decoder) throws {
         let box = try decoder.container(keyedBy: CodingKeys.self)
         self.init(lastSyncDate: try box.decode(Int64.self, forKey: .lastSyncDate),
-                  pairs: try box.decode([MarketPair].self, forKey: .pairs))
+                  pairs: try box.decode([ExchangePair].self, forKey: .pairs))
     }
 
     func encode(to encoder: Encoder) throws {
@@ -60,9 +60,9 @@ struct MarketPairsInfo: Codable, Sendable {
     }
 
     /// Paare mit dieser Gegenwährung (optional nur ein Kontrakttyp), doppelte weg, nach Coin sortiert.
-    func pairs(withQuote quote: String, contractType: FuturesContractType? = nil) -> [MarketPair] {
+    func pairs(withQuote quote: String, contractType: FuturesContractType? = nil) -> [ExchangePair] {
         var taken = Set<String>()
-        var picked: [MarketPair] = []
+        var picked: [ExchangePair] = []
         for item in pairs where item.quote == quote {
             if let contractType, item.contractType != contractType { continue }
             guard taken.insert("\(item.base)|\(item.quote)|\(item.contractType.rawValue)").inserted else { continue }
@@ -72,7 +72,7 @@ struct MarketPairsInfo: Codable, Sendable {
     }
 
     /// Das zuerst gelistete Paar mit genau dieser Basis, Gegenwährung und Kontraktart.
-    func pair(base: String, quote: String, contractType: FuturesContractType) -> MarketPair? {
+    func pair(base: String, quote: String, contractType: FuturesContractType) -> ExchangePair? {
         lookup.tables.firstPair[PairLookup.Trio(duo: PairLookup.Duo(base: base, quote: quote), contract: contractType)]
     }
 }
@@ -92,10 +92,10 @@ private struct PairLookup: Sendable {
     private(set) var coins: [String] = []
     private(set) var quotesOf: [String: [String]] = [:]
     private(set) var contractsOf: [Duo: [FuturesContractType]] = [:]
-    private(set) var firstPair: [Trio: MarketPair] = [:]
+    private(set) var firstPair: [Trio: ExchangePair] = [:]
     private(set) var quotesByUse: [String] = []
 
-    init(_ list: [MarketPair]) {
+    init(_ list: [ExchangePair]) {
         var knownCoins = Set<String>()
         var knownDuos = Set<Duo>()
         var tally: [String: Int] = [:]
@@ -129,11 +129,11 @@ private struct PairLookup: Sendable {
 
 /// Baut die Tabellen einer Liste beim ersten Lesen und hält sie fest; gesperrt für parallele Zugriffe.
 private final class PairLookupHolder: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `guardLock` (NSLock)
-    private let source: [MarketPair]
+    private let source: [ExchangePair]
     private let guardLock = NSLock()
     private var ready: PairLookup?
 
-    init(_ source: [MarketPair]) {
+    init(_ source: [ExchangePair]) {
         self.source = source
     }
 
@@ -150,7 +150,7 @@ actor PairCache {
     static let shared = PairCache()
 
     /// Schon gelesene bzw. frisch geladene Listen.
-    private var memory: [String: MarketPairsInfo] = [:]
+    private var memory: [String: ExchangePairsInfo] = [:]
 
     /// Börsen, deren Paarliste Kontrakte mit TradFi-Kennzeichen enthält.
     private static let marksTradFi: Set<String> = ["BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures"]
@@ -166,12 +166,12 @@ actor PairCache {
 
     private func fileURL(_ key: String) -> URL { folder.appendingPathComponent("\(key).json") }
 
-    private func readFile(_ key: String) -> MarketPairsInfo? {
+    private func readFile(_ key: String) -> ExchangePairsInfo? {
         guard let raw = try? Data(contentsOf: fileURL(key)) else { return nil }
-        return try? JSONDecoder().decode(MarketPairsInfo.self, from: raw)
+        return try? JSONDecoder().decode(ExchangePairsInfo.self, from: raw)
     }
 
-    private func writeFile(_ info: MarketPairsInfo, key: String) {
+    private func writeFile(_ info: ExchangePairsInfo, key: String) {
         guard let raw = try? JSONEncoder().encode(info) else { return }
         try? raw.write(to: fileURL(key), options: .atomic)
     }
@@ -179,10 +179,10 @@ actor PairCache {
     // MARK: Lesen
 
     /// Liste der Börse (gespeichert, sonst die fest eingebauten Paare mit Datum 0). TradFi-Futures
-    /// (Aktien, Rohstoffe, Devisen, Pre-IPO – `MarketPair.tradFi`) erscheinen nur, wenn
+    /// (Aktien, Rohstoffe, Devisen, Pre-IPO – `ExchangePair.tradFi`) erscheinen nur, wenn
     /// Einstellungen › Merkliste › Token & TradFi sie erlaubt; die Datei behält immer alles, ein
     /// Umschalten greift also ohne neues Laden.
-    func pairs(for key: String) -> MarketPairsInfo {
+    func pairs(for key: String) -> ExchangePairsInfo {
         visible(storedPairs(for: key))
     }
 
@@ -190,13 +190,13 @@ actor PairCache {
     /// Alpha-Token aus der schon gespeicherten Alpha-Liste dazu (kein Abruf), je als «SYMBOL/USDT»
     /// mit Kennung «ALPHA_<id>USDT». Ist das Kürzel schon als Spot-Paar vergeben, heisst das Token
     /// «SYMBOL_<Nummer>» (`BinanceAlpha.pairs`). Sichtbar werden sie erst über «inkl. Alpha-Tokens»
-    /// (`scoped`). Gegenstück zu Android `getMarketCurrencyPairsInfo(withAlpha = true)`.
-    func selectionPairs(for key: String) -> MarketPairsInfo {
+    /// (`scoped`). Gegenstück zu Android `getExchangeCurrencyPairsInfo(withAlpha = true)`.
+    func selectionPairs(for key: String) -> ExchangePairsInfo {
         let base = pairs(for: key)
-        guard key == BinanceAlpha.marketKey, base.lastSyncDate > 0 else { return base }
+        guard key == BinanceAlpha.exchangeKey, base.lastSyncDate > 0 else { return base }
         let extra = BinanceAlpha.pairs(tokens: CoinLogoStore.alphaTokens, spotPairs: base.pairs)
         guard !extra.isEmpty else { return base }
-        return MarketPairsInfo(lastSyncDate: base.lastSyncDate, pairs: (base.pairs + extra).sorted())
+        return ExchangePairsInfo(lastSyncDate: base.lastSyncDate, pairs: (base.pairs + extra).sorted())
     }
 
     func hasSynced(_ key: String) -> Bool { storedPairs(for: key).lastSyncDate > 0 }
@@ -208,7 +208,7 @@ actor PairCache {
         guard stored.lastSyncDate > 0 else { return nil }
         var keys = Set<String>()
         for item in stored.pairs where item.isTradFi {
-            keys.insert(CoinLogos.pairKey(marketKey: key, base: item.base, quote: item.quote,
+            keys.insert(CoinLogos.pairKey(exchangeKey: key, base: item.base, quote: item.quote,
                                           contractType: String(item.contractType.rawValue)))
         }
         return keys
@@ -218,12 +218,12 @@ actor PairCache {
 
     /// Holt die Liste frisch von der Börse; eine nicht leere Liste wird gemerkt und gespeichert.
     @discardableResult
-    func sync(_ key: String) async throws -> MarketPairsInfo {
-        guard let market = MarketsConfig.market(key) else {
-            throw UserFriendlyMarketError(message: L("market_unavailable_error"))
+    func sync(_ key: String) async throws -> ExchangePairsInfo {
+        guard let exchange = ExchangesConfig.exchange(key) else {
+            throw UserFriendlyExchangeError(message: L("exchange_unavailable_error"))
         }
-        let fetched = try await MarketService.fetchCurrencyPairs(market: market)
-        let fresh = MarketPairsInfo(lastSyncDate: EpochTime.nowMillis, pairs: fetched)
+        let fetched = try await ExchangeService.fetchCurrencyPairs(exchange: exchange)
+        let fresh = ExchangePairsInfo(lastSyncDate: EpochTime.nowMillis, pairs: fetched)
         if !fetched.isEmpty {
             memory[key] = fresh
             writeFile(fresh, key: key)
@@ -233,35 +233,35 @@ actor PairCache {
 
     // MARK: Intern
 
-    private func storedPairs(for key: String) -> MarketPairsInfo {
+    private func storedPairs(for key: String) -> ExchangePairsInfo {
         if let known = memory[key] { return known }
         guard let fromDisk = readFile(key) else { return builtIn(key) }
         // Datei einer älteren Version ohne TradFi-Kontrakte: löschen; die leere Liste sorgt beim
         // nächsten Wählen der Börse für ein vollständiges neues Laden
         if Self.marksTradFi.contains(key), !fromDisk.pairs.isEmpty, !fromDisk.pairs.contains(where: { $0.tradFi != nil }) {
             try? FileManager.default.removeItem(at: fileURL(key))
-            return MarketPairsInfo()
+            return ExchangePairsInfo()
         }
         // Ältere Dateien kennen inverse Perpetuals noch nicht (`FuturesContractType.normalized`)
-        let upgraded = Self.withInversePerpetuals(fromDisk, marketKey: key)
+        let upgraded = Self.withInversePerpetuals(fromDisk, exchangeKey: key)
         memory[key] = upgraded
         return upgraded
     }
 
     /// Ohne Datei: die fest hinterlegten Paare der Börse (sortiert, Datum 0, nicht gemerkt).
-    private func builtIn(_ key: String) -> MarketPairsInfo {
-        guard let market = MarketsConfig.market(key), let table = market.currencyPairs else { return MarketPairsInfo() }
-        var list: [MarketPair] = []
+    private func builtIn(_ key: String) -> ExchangePairsInfo {
+        guard let exchange = ExchangesConfig.exchange(key), let table = exchange.currencyPairs else { return ExchangePairsInfo() }
+        var list: [ExchangePair] = []
         for (base, quotes) in table {
-            for quote in quotes { list.append(MarketPair(base, quote, nil)) }
+            for quote in quotes { list.append(ExchangePair(base, quote, nil)) }
         }
-        return MarketPairsInfo(lastSyncDate: 0, pairs: list.sorted())
+        return ExchangePairsInfo(lastSyncDate: 0, pairs: list.sorted())
     }
 
     /// Kontrakttypen der gespeicherten Liste so, wie die heutige Paarliste sie liefert (inverse
     /// Perpetuals als `.inversePerpetual`); unverändert, wenn nichts anders wird. Wie Android.
-    private static func withInversePerpetuals(_ info: MarketPairsInfo, marketKey: String) -> MarketPairsInfo {
-        let target = info.pairs.map { FuturesContractType.normalized(marketKey: marketKey, pairId: $0.pairId, $0.contractType) }
+    private static func withInversePerpetuals(_ info: ExchangePairsInfo, exchangeKey: String) -> ExchangePairsInfo {
+        let target = info.pairs.map { FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: $0.pairId, $0.contractType) }
         guard zip(info.pairs, target).contains(where: { $0.0.contractType != $0.1 }) else { return info }
         var result = info
         result.pairs = zip(info.pairs, target).map { item, type in
@@ -274,22 +274,22 @@ actor PairCache {
 
     /// TradFi-Paare fallen weg, solange «Token & TradFi» sie nicht zulässt. Krypto bleibt hier immer
     /// (Portfolio und Start-Auswahl brauchen es); «Nur TradFi» filtert erst die Auswahl (`scoped`).
-    private func visible(_ info: MarketPairsInfo) -> MarketPairsInfo {
+    private func visible(_ info: ExchangePairsInfo) -> ExchangePairsInfo {
         guard info.pairs.contains(where: \.isTradFi) else { return info }
         if SharedStorage.loadSettings().assetScope.allowsTradFi { return info }
-        return MarketPairsInfo(lastSyncDate: info.lastSyncDate, pairs: info.pairs.filter { !$0.isTradFi })
+        return ExchangePairsInfo(lastSyncDate: info.lastSyncDate, pairs: info.pairs.filter { !$0.isTradFi })
     }
 }
 
-extension MarketPairsInfo {
-    /// Teilmenge der Paare von `marketKey`, die `scope` in der Auswahl zeigt; fällt nichts weg,
+extension ExchangePairsInfo {
+    /// Teilmenge der Paare von `exchangeKey`, die `scope` in der Auswahl zeigt; fällt nichts weg,
     /// kommt dieselbe Liste zurück. `hiddenAlpha` wie bei `AssetScope.allows`.
-    func scoped(_ scope: AssetScope, marketKey: String = "", hiddenAlpha: Set<String> = [],
-                pairNames: [String: String] = [:], alphaNames: [String: String] = [:]) -> MarketPairsInfo {
-        func shows(_ item: MarketPair) -> Bool {
-            scope.allows(item, marketKey: marketKey, hiddenAlpha: hiddenAlpha, pairNames: pairNames, alphaNames: alphaNames)
+    func scoped(_ scope: AssetScope, exchangeKey: String = "", hiddenAlpha: Set<String> = [],
+                pairNames: [String: String] = [:], alphaNames: [String: String] = [:]) -> ExchangePairsInfo {
+        func shows(_ item: ExchangePair) -> Bool {
+            scope.allows(item, exchangeKey: exchangeKey, hiddenAlpha: hiddenAlpha, pairNames: pairNames, alphaNames: alphaNames)
         }
         let kept = pairs.filter(shows)
-        return kept.count == pairs.count ? self : MarketPairsInfo(lastSyncDate: lastSyncDate, pairs: kept)
+        return kept.count == pairs.count ? self : ExchangePairsInfo(lastSyncDate: lastSyncDate, pairs: kept)
     }
 }

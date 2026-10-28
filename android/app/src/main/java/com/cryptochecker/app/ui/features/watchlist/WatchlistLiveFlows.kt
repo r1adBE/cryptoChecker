@@ -40,7 +40,7 @@ internal class WatchlistLiveFlows(
 ) {
     /** Quote-Währungen der Merkliste (Grossbuchstaben), für die Umrechnungsfaktoren unten. */
     private val quoteCurrencies = watchList
-        .map { list -> list.map { CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
+        .map { list -> list.map { CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
         .distinctUntilChanged()
 
     /**

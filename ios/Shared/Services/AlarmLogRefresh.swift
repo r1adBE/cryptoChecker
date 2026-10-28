@@ -25,7 +25,7 @@ extension PriceRefresher {
         let outcome = AlarmLog.outcome(trace)
         let currency = alarm.convertCurrency
         return AlarmLogEntry(
-            alarmId: alarm.id, at: now, pair: watch.displayName, exchange: watch.marketName, quote: watch.quoteAsset,
+            alarmId: alarm.id, at: now, pair: watch.displayName, exchange: watch.exchangeName, quote: watch.quoteAsset,
             price: trace.noPrice ? nil : watch.lastPrice, condition: alarm.condition, threshold: alarm.threshold,
             windowHours: alarm.windowHours, currency: currency, shownPrice: currency != nil ? comparePrice : nil,
             outcome: outcome, exchangeTime: watch.exchangeTime, notable: AlarmLog.notable(outcome, trace))

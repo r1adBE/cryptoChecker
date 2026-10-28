@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Feil: %1$s</string>
-    <string name="error_market_unreachable">Børsen kan ikke nås akkurat nå – de siste kursene blir stående.</string>
-    <string name="error_market_unreachable_short">Børsen kan ikke nås akkurat nå</string>
+    <string name="error_exchange_unreachable">Børsen kan ikke nås akkurat nå – de siste kursene blir stående.</string>
+    <string name="error_exchange_unreachable_short">Børsen kan ikke nås akkurat nå</string>
     <string name="loading_hint">Laster inn…</string>
     <string name="no_internet_connection">Ingen internettforbindelse. Sjekk Wi-Fi eller mobildata, og prøv igjen.</string>
     <string name="option_off">Av</string>

@@ -38,7 +38,7 @@
     <string name="market_section_expand">Shfaq %1$s</string>
     <string name="market_section_now">Tani</string>
     <string name="market_source">Të dhëna: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">Bursa nuk është e disponueshme</string>
+    <string name="exchange_unavailable_error">Bursa nuk është e disponueshme</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">Info: %1$s</string>

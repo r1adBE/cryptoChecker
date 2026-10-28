@@ -19,7 +19,7 @@ Subcommands:
         error   Info.plist version/build != Android or unresolved $(...), BGTaskScheduler identifiers
                 without UIBackgroundModes fetch/processing, ITSAppUsesNonExemptEncryption missing,
                 PrivacyInfo.xcprivacy missing in app or widget extension, widget extension missing,
-                UI test hooks (UITesting / UITestMarket, Debug only) or XCTest linked into the binary
+                UI test hooks (UITesting / UITestExchange, Debug only) or XCTest linked into the binary
         warning BGTaskScheduler identifier not found in the Swift sources,
                 ITSAppUsesNonExemptEncryption = true, compiler warnings (first 8)
         notice  compiler warning count (error above MAX_COMPILER_WARNINGS)
@@ -194,7 +194,7 @@ def binary_hits(binary):
             data = f.read()
     except OSError as e:
         return [f"binary unreadable: {e}"]
-    for needle, label in ((b"UITestMarket", "UITestMarket (UI test exchange stub)"),
+    for needle, label in ((b"UITestExchange", "UITestExchange (UI test exchange stub)"),
                           (b"\x00UITesting\x00", "UITesting (UI test hooks)"),
                           (b"/XCTest.framework/", "XCTest.framework"),
                           (b"libXCTestSwiftSupport", "libXCTestSwiftSupport"),
@@ -205,7 +205,7 @@ def binary_hits(binary):
     if nm:
         try:
             res = subprocess.run([nm, "-a", binary], capture_output=True, text=True, timeout=120)
-            syms = [s for s in res.stdout.splitlines() if "UITestMarket" in s or "9UITesting" in s]
+            syms = [s for s in res.stdout.splitlines() if "UITestExchange" in s or "9UITesting" in s]
             if syms:
                 hits.append("symbols: " + "; ".join(s.split()[-1] for s in syms[:3]))
         except (OSError, subprocess.SubprocessError):

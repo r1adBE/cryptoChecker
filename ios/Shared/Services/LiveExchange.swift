@@ -3,12 +3,12 @@ import Foundation
 // Live-Kurse per WebSocket (Teil von `LiveFeed.swift`): Börsen mit Adressen, Symbolen und Abo-Nachrichten sowie die
 // Parser der Kurs-Nachrichten — wie `LiveExchange`/`LiveParser` in `LiveFeed.kt` (Android).
 
-/// Börsen mit öffentlichem WebSocket-Ticker. `marketKey` = Schlüssel des REST-Adapters,
+/// Börsen mit öffentlichem WebSocket-Ticker. `exchangeKey` = Schlüssel des REST-Adapters,
 /// `rollingChange` = der Strom liefert dieselbe gleitende 24-h-Veränderung wie REST (Kraken nicht).
 enum LiveExchange: String, CaseIterable, Sendable {
     case BINANCE, BINANCE_FUTURES, BYBIT, BYBIT_FUTURES, OKX, OKX_SWAP, COINBASE, KRAKEN
 
-    var marketKey: String {
+    var exchangeKey: String {
         switch self {
         case .BINANCE: return "Binance"
         case .BINANCE_FUTURES: return "BinanceFutures"
@@ -66,8 +66,8 @@ enum LiveExchange: String, CaseIterable, Sendable {
 
     var rollingChange: Bool { self != .KRAKEN }
 
-    static func from(marketKey: String) -> LiveExchange? {
-        allCases.first { $0.marketKey == marketKey }
+    static func from(exchangeKey: String) -> LiveExchange? {
+        allCases.first { $0.exchangeKey == exchangeKey }
     }
 
     /// Symbol im Datenstrom für ein Paar; nil = dieses Paar nicht live (z. B. Laufzeit-Futures).

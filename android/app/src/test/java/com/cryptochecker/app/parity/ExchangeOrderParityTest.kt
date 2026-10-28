@@ -1,8 +1,8 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.market.ExchangeOrder
-import com.cryptochecker.marketdata.model.MarketCategory
-import com.cryptochecker.marketdata.model.market.DexScreener
+import com.cryptochecker.marketdata.model.ExchangeCategory
+import com.cryptochecker.marketdata.model.exchange.DexScreener
 import com.cryptochecker.marketdata.util.GeckoTerminalNetworks
 import org.json.JSONArray
 import org.json.JSONObject
@@ -24,10 +24,10 @@ class ExchangeOrderParityTest {
         val cases = order["cases"].list().map { it.obj() }
         assertTrue(cases.size >= 3)
         for (c in cases) {
-            val markets = c["markets"].list().map { it.obj() }
-                .map { ExchangeOrder.Entry(it["key"] as String, MarketCategory.valueOf(it["category"] as String)) }
+            val exchanges = c["exchanges"].list().map { it.obj() }
+                .map { ExchangeOrder.Entry(it["key"] as String, ExchangeCategory.valueOf(it["category"] as String)) }
             val volumes = (c["volumes"] as Map<*, *>?)?.entries?.associate { (k, v) -> k as String to v.num()!! }
-            val actual = ExchangeOrder.sections(markets, volumes).map { (category, keys) -> category.name to keys }
+            val actual = ExchangeOrder.sections(exchanges, volumes).map { (category, keys) -> category.name to keys }
             val expected = c["expected"].list().map { it.obj() }
                 .map { it["category"] as String to it["keys"].list().map { k -> k as String } }
             assertEquals(c["name"] as String, expected, actual)

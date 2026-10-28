@@ -45,8 +45,8 @@ enum SpotMarket {
     static let cacheTTLMillis: Int64 = 10 * 60 * 1000
 
     /// Spot-Daten für dieses Paar überhaupt suchen? Nie für TradFi und DEX-Pools.
-    static func eligible(marketKey: String?, tradFi: Bool) -> Bool {
-        !tradFi && CoinLogos.allowed(forMarket: marketKey)
+    static func eligible(exchangeKey: String?, tradFi: Bool) -> Bool {
+        !tradFi && CoinLogos.allowed(forExchange: exchangeKey)
     }
 
     /// Kürzel für die Suche («1000PEPE» → «PEPE», «XBT» → «BTC»); nil, wenn nicht nur A–Z/0–9.

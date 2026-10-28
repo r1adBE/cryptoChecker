@@ -104,8 +104,8 @@ class FuturesParsersTest {
     @Test
     fun notesMatchFixtures() {
         for (c in fixture()["notes"].list().map { it.obj() }) {
-            val note = FuturesSources.note(c["perpetual"] as Boolean, c["marketKey"] as String, c["source"] as String, c["pairId"] as String?)
-            assertEquals("note ${c["marketKey"]} ${c["pairId"]} / ${c["source"]}", c["expected"], note?.name)
+            val note = FuturesSources.note(c["perpetual"] as Boolean, c["exchangeKey"] as String, c["source"] as String, c["pairId"] as String?)
+            assertEquals("note ${c["exchangeKey"]} ${c["pairId"]} / ${c["source"]}", c["expected"], note?.name)
         }
     }
 

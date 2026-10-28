@@ -69,7 +69,7 @@ class VolumeSpikeTest {
     @Test
     fun foreignCandlesNameTheirExchange() {
         val kraken = com.cryptochecker.app.data.local.model.WatchEntity(
-            marketKey = "Kraken", marketName = "Kraken", baseAsset = "BTC", quoteAsset = "USD",
+            exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "USD",
         )
         val spike = VolumeSpike(ratio = 3.0, candleOpenTime = 0L)
         with(VolumeDataSource) {

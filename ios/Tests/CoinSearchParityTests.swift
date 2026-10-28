@@ -8,33 +8,33 @@ final class CoinSearchParityTests: XCTestCase {
     private typealias S = TestSupport
 
     private struct Setup {
-        let markets: [Market]
-        let cache: [String: MarketPairsInfo]
+        let exchanges: [Exchange]
+        let cache: [String: ExchangePairsInfo]
         let names: ExplorerNameIndex
     }
 
     private func setup(_ data: [String: Any]) throws -> Setup {
-        var markets: [Market] = []
-        for m in S.list(data["markets"]) {
+        var exchanges: [Exchange] = []
+        for m in S.list(data["exchanges"]) {
             let key = try XCTUnwrap(m["key"] as? String)
-            let market = try XCTUnwrap(MarketsConfig.market(key), key)
+            let exchange = try XCTUnwrap(ExchangesConfig.exchange(key), key)
             // Gleicher Anzeigename wie in Android (Sortierung nach Börse)
-            XCTAssertEqual(market.name, m["name"] as? String, key)
-            markets.append(market)
+            XCTAssertEqual(exchange.name, m["name"] as? String, key)
+            exchanges.append(exchange)
         }
-        var cache: [String: MarketPairsInfo] = [:]
+        var cache: [String: ExchangePairsInfo] = [:]
         for (key, rows) in try XCTUnwrap(data["cache"] as? [String: Any]) {
-            var pairs: [MarketPair] = []
+            var pairs: [ExchangePair] = []
             for p in S.list(rows) {
                 let contractName = p["contract"] as? String ?? "NONE"
                 let contract = try XCTUnwrap(FuturesContractType.allCases.first { $0.backupName == contractName })
-                pairs.append(MarketPair(p["base"] as? String ?? "", p["quote"] as? String ?? "", p["pairId"] as? String,
+                pairs.append(ExchangePair(p["base"] as? String ?? "", p["quote"] as? String ?? "", p["pairId"] as? String,
                                         contract, tradFi: p["tradFi"] as? Bool ?? false))
             }
-            cache[key] = MarketPairsInfo(lastSyncDate: 1, pairs: pairs)
+            cache[key] = ExchangePairsInfo(lastSyncDate: 1, pairs: pairs)
         }
         let names = ExplorerNameIndex(names: data["names"] as? [String: String] ?? [:])
-        return Setup(markets: markets, cache: cache, names: names)
+        return Setup(exchanges: exchanges, cache: cache, names: names)
     }
 
     private func scope(_ c: [String: Any]) -> AssetScope {
@@ -42,7 +42,7 @@ final class CoinSearchParityTests: XCTestCase {
     }
 
     private func coins(_ c: [String: Any], _ s: Setup) -> [ExplorerCoinHit] {
-        ExplorerCoinSearch.coins(c["query"] as? String ?? "", markets: s.markets, cache: s.cache, names: s.names,
+        ExplorerCoinSearch.coins(c["query"] as? String ?? "", exchanges: s.exchanges, cache: s.cache, names: s.names,
                                  scope: scope(c), includeUnlisted: c["includeUnlisted"] as? Bool ?? false)
     }
 
@@ -84,9 +84,9 @@ final class CoinSearchParityTests: XCTestCase {
                                                         displayCurrency: c["displayCurrency"] as? String,
                                                         exchangeRank: (c["exchangeRank"] as? [String: Any] ?? [:])
                                                             .compactMapValues { ($0 as? NSNumber)?.intValue })
-            let actual = ExplorerCoinSearch.pairs(for: coin, markets: s.markets, cache: s.cache, preference: preference,
+            let actual = ExplorerCoinSearch.pairs(for: coin, exchanges: s.exchanges, cache: s.cache, preference: preference,
                                                   scope: scope(c)).map {
-                "\($0.market.key) \($0.pair.base)/\($0.pair.quote) \($0.pair.contractType.backupName)"
+                "\($0.exchange.key) \($0.pair.base)/\($0.pair.quote) \($0.pair.contractType.backupName)"
             }
             XCTAssertEqual(actual, c["expected"] as? [String] ?? [],
                            "pairsFor: \(c["coin"] ?? "") \(c["defaultExchange"] ?? "")")

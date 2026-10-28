@@ -48,16 +48,16 @@ final class AddressPrivacyParityTests: XCTestCase {
 
     /// Adress-Hosts laufen nie über die Sessions mit App-User-Agent und teilen keine Verbindungen.
     func testAdressHostsBekommenEigeneSession() {
-        let single = MarketHTTP.sessionFor(host: "mempool.space", requested: MarketHTTP.session)
-        XCTAssertTrue(single === MarketHTTP.addressHostSession)
-        XCTAssertTrue(MarketHTTP.sessionFor(host: "ethereum-rpc.publicnode.com", requested: MarketHTTP.bulkSession)
-                      === MarketHTTP.addressHostBulkSession)
-        XCTAssertTrue(MarketHTTP.sessionFor(host: "api.binance.com", requested: MarketHTTP.session) === MarketHTTP.session)
-        XCTAssertTrue(MarketHTTP.sessionFor(host: nil, requested: MarketHTTP.session) === MarketHTTP.session)
-        for s in [MarketHTTP.addressHostSession, MarketHTTP.addressHostBulkSession] {
+        let single = ExchangeHTTP.sessionFor(host: "mempool.space", requested: ExchangeHTTP.session)
+        XCTAssertTrue(single === ExchangeHTTP.addressHostSession)
+        XCTAssertTrue(ExchangeHTTP.sessionFor(host: "ethereum-rpc.publicnode.com", requested: ExchangeHTTP.bulkSession)
+                      === ExchangeHTTP.addressHostBulkSession)
+        XCTAssertTrue(ExchangeHTTP.sessionFor(host: "api.binance.com", requested: ExchangeHTTP.session) === ExchangeHTTP.session)
+        XCTAssertTrue(ExchangeHTTP.sessionFor(host: nil, requested: ExchangeHTTP.session) === ExchangeHTTP.session)
+        for s in [ExchangeHTTP.addressHostSession, ExchangeHTTP.addressHostBulkSession] {
             XCTAssertEqual(s.configuration.httpAdditionalHeaders?[HttpUserAgent.header] as? String, HttpUserAgent.neutral)
         }
-        XCTAssertEqual(MarketHTTP.bodyLimit(session: MarketHTTP.addressHostSession, inExtension: false), MarketHTTP.maxBodyBytes)
+        XCTAssertEqual(ExchangeHTTP.bodyLimit(session: ExchangeHTTP.addressHostSession, inExtension: false), ExchangeHTTP.maxBodyBytes)
     }
 
     /// Die Sitzung der Adressabfragen setzt den neutralen User-Agent ausdrücklich.

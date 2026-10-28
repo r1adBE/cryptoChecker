@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Ζεύγη</string>
     <string name="explorer_precise_title">Για προχωρημένους / ανά ανταλλακτήριο</string>
     <string name="explorer_price_loading">Φόρτωση τιμής…</string>
-    <string name="explorer_select_market_hint">Επίλεξε ανταλλακτήριο – τα ζεύγη φορτώνονται αυτόματα.</string>
+    <string name="explorer_select_exchange_hint">Επίλεξε ανταλλακτήριο – τα ζεύγη φορτώνονται αυτόματα.</string>
     <string name="explorer_select_placeholder">Επίλεξε</string>
     <string name="explorer_step_pair">Επιλογή ζεύγους</string>
 

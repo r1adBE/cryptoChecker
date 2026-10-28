@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.marketdata.model.market.DexScreener
+import com.cryptochecker.marketdata.model.exchange.DexScreener
 
 /**
  * Alarme auf DEX-Pools nur mit genug Liquidität ([DexScreener.DEX_MIN_ALARM_LIQUIDITY_USD]): Ein dünner Pool lässt
@@ -12,14 +12,14 @@ import com.cryptochecker.marketdata.model.market.DexScreener
 object DexLiquidity {
 
     /** Börsen-Schlüssel der DEX-Pools. */
-    const val MARKET_KEY = "DexScreener"
+    const val EXCHANGE_KEY = "DexScreener"
 
-    fun isDex(marketKey: String): Boolean = marketKey == MARKET_KEY
+    fun isDex(exchangeKey: String): Boolean = exchangeKey == EXCHANGE_KEY
 
     /** Schlüssel der gemerkten Liquidität: Pool-Kennung «chain/pairAddress», ohne Gross-/Kleinschreibung. */
     fun key(pairId: String?): String? = pairId?.trim()?.lowercase()?.takeIf { it.isNotEmpty() }
 
     /** Alarme dieses Paars pausieren? Nur DEX-Pools mit zu wenig oder unbekannter Liquidität. */
-    fun blocksAlarms(marketKey: String, liquidityUsd: Double?): Boolean =
-        isDex(marketKey) && !DexScreener.alarmCapable(liquidityUsd)
+    fun blocksAlarms(exchangeKey: String, liquidityUsd: Double?): Boolean =
+        isDex(exchangeKey) && !DexScreener.alarmCapable(liquidityUsd)
 }

@@ -231,13 +231,13 @@ enum NearExtremeDataSource {
         return loaded
     }
 
-    /// Gilt die Reihe von `ranges` für das Paar (`marketKey`, `base`) mit Kurs `price`? Ohne Namens-Widerspruch
+    /// Gilt die Reihe von `ranges` für das Paar (`exchangeKey`, `base`) mit Kurs `price`? Ohne Namens-Widerspruch
     /// (`TokenIdentityStore.fallbackSeriesAllowed`) und im Kursband (`NearExtreme.seriesAllowed`); `quoteToSeries` =
     /// Faktor Quote → `ranges.currency` (1 bei gleicher Währung). Sonst kein Hoch/Tief-Alarm. Wie Android.
-    static func seriesAllowed(_ ranges: NearExtremeRanges, marketKey: String, base: String, price: Double?,
+    static func seriesAllowed(_ ranges: NearExtremeRanges, exchangeKey: String, base: String, price: Double?,
                               quoteToSeries: Double?) -> Bool {
         NearExtreme.seriesAllowed(
-            nameAllowed: TokenIdentityStore.shared.fallbackSeriesAllowed(marketKey: marketKey, base: base, provider: ranges.provider),
+            nameAllowed: TokenIdentityStore.shared.fallbackSeriesAllowed(exchangeKey: exchangeKey, base: base, provider: ranges.provider),
             price: price, lastClose: ranges.lastClose, quoteToSeries: quoteToSeries
         )
     }

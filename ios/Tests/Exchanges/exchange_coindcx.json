@@ -10,7 +10,7 @@
     {
       "kind": "pairs",
       "name": "markets_details: target = coin, base = quote currency; inactive dropped; duplicate id once",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "requestId": 0,
       "body": "[{\"coindcx_name\":\"BTCINR\",\"base_currency_short_name\":\"INR\",\"target_currency_short_name\":\"BTC\",\"target_currency_name\":\"Bitcoin\",\"base_currency_name\":\"Indian Rupee\",\"min_quantity\":1e-05,\"symbol\":\"BTCINR\",\"ecode\":\"I\",\"pair\":\"I-BTC_INR\",\"status\":\"active\"},{\"coindcx_name\":\"BTCUSDT\",\"base_currency_short_name\":\"USDT\",\"target_currency_short_name\":\"BTC\",\"symbol\":\"BTCUSDT\",\"ecode\":\"B\",\"pair\":\"B-BTC_USDT\",\"status\":\"active\"},{\"coindcx_name\":\"BTCUSDT\",\"base_currency_short_name\":\"USDT\",\"target_currency_short_name\":\"BTC\",\"symbol\":\"BTCUSDT\",\"ecode\":\"HB\",\"pair\":\"HB-BTC_USDT\",\"status\":\"active\"},{\"coindcx_name\":\"OLDINR\",\"base_currency_short_name\":\"INR\",\"target_currency_short_name\":\"OLD\",\"symbol\":\"OLDINR\",\"ecode\":\"I\",\"pair\":\"I-OLD_INR\",\"status\":\"inactive\"}]",
       "expect": {
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "ticker BTCINR from the whole list (volume in quote currency, change_24_hour in percent, timestamp = snapshot)",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "pair": {
         "base": "BTC",
         "quote": "INR",
@@ -57,7 +57,7 @@
     {
       "kind": "single",
       "name": "pair missing from the list -> no data",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "pair": {
         "base": "FOO",
         "quote": "INR",
@@ -74,7 +74,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "pair": {
         "base": "BTC",
         "quote": "INR",
@@ -91,7 +91,7 @@
     {
       "kind": "single",
       "name": "zero last_price -> no price",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "pair": {
         "base": "BTC",
         "quote": "INR",
@@ -107,7 +107,7 @@
     {
       "kind": "single",
       "name": "rate limit payload (HTTP 429) -> exchange text",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "pair": {
         "base": "BTC",
         "quote": "INR",
@@ -124,7 +124,7 @@
     {
       "kind": "bulk",
       "name": "ticker: all markets",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "requestId": 0,
       "body": "[{\"market\":\"BTCINR\",\"change_24_hour\":\"-1.621\",\"high\":\"5650000\",\"low\":\"5480000\",\"volume\":\"182345678.5\",\"last_price\":\"5560000.0\",\"bid\":\"5559000.0\",\"ask\":\"5561000.0\",\"timestamp\":1728540000},{\"market\":\"BTCUSDT\",\"change_24_hour\":\"2.5\",\"high\":\"63500\",\"low\":\"61000\",\"volume\":\"1234567.89\",\"last_price\":\"62900.5\",\"bid\":\"62900\",\"ask\":\"62901\",\"timestamp\":1728540000}]",
       "expect": {
@@ -144,7 +144,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last_price» in one row — that pair is reported as unreadable, the rest stays; row with empty «last_price» (inactive) is skipped, not failed",
-      "market": "CoinDcx",
+      "exchangeKey": "CoinDcx",
       "requestId": 0,
       "body": "[{\"market\":\"BTCINR\",\"change_24_hour\":\"-1.621\",\"high\":\"5650000\",\"low\":\"5480000\",\"volume\":\"182345678.5\",\"last_price\":\"5560000.0\",\"bid\":\"5559000.0\",\"ask\":\"5561000.0\",\"timestamp\":1728540000},{\"market\":\"BTCUSDT\",\"change_24_hour\":\"2.5\",\"high\":\"63500\",\"low\":\"61000\",\"volume\":\"1234567.89\",\"bid\":\"62900\",\"ask\":\"62901\",\"timestamp\":1728540000,\"last_price_renamed\":\"62900.5\"},{\"market\":\"OLDINR\",\"change_24_hour\":\"-1.621\",\"high\":\"5650000\",\"low\":\"5480000\",\"volume\":\"182345678.5\",\"last_price\":\"\",\"bid\":\"5559000.0\",\"ask\":\"5561000.0\",\"timestamp\":1728540000}]",
       "expect": {

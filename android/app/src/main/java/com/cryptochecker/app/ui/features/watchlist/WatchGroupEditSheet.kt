@@ -219,7 +219,7 @@ internal fun GroupEditSheet(
                             )
                         }
                         Text(
-                            text = watch.marketName,
+                            text = watch.exchangeName,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,

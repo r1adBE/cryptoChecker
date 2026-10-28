@@ -99,13 +99,13 @@ class PortfolioHistoryCodecsTest {
     @Test
     fun chainCandlePairTreatsUsdcAsUsdt() {
         val pair = chainCandlePair(HistoricCloseChain.COINBASE, "BTC", HistoricCloseChain.ChainPair("USDC", "BTC-USDC"))
-        assertEquals(HistoricCloseChain.COINBASE, pair.marketKey)
-        assertEquals("Coinbase", pair.marketName)
+        assertEquals(HistoricCloseChain.COINBASE, pair.exchangeKey)
+        assertEquals("Coinbase", pair.exchangeName)
         assertEquals("BTC", pair.base)
         assertEquals("USDT", pair.quote)
         assertEquals("BTC-USDC", pair.pairId)
         val okx = chainCandlePair(HistoricCloseChain.OKX, "ETH", HistoricCloseChain.ChainPair("USDT", "ETH-USDT"))
-        assertEquals("OKX", okx.marketName)
+        assertEquals("OKX", okx.exchangeName)
         assertEquals("USDT", okx.quote)
         val kraken = chainCandlePair(HistoricCloseChain.KRAKEN, "BTC", HistoricCloseChain.ChainPair("USD", "XBTUSD"))
         assertEquals("USD", kraken.quote)

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.compose.runtime.remember
-import com.cryptochecker.marketdata.model.MarketCategory
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,9 +28,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.FavoriteKind
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
-import com.cryptochecker.app.domain.model.MarketTickerResult
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.components.Ticker
 import com.cryptochecker.app.ui.features.watchlist.friendlyError
@@ -47,23 +47,23 @@ private val FieldGap = 12.dp
 
 /** Schritt 1: Börse wählen und Paare neu laden; darunter Ladeanzeige, Fehler oder Zahl der Paare. */
 @Composable
-internal fun MarketStepCard(
-    exchanges: List<MarketInfo>,
+internal fun ExchangeStepCard(
+    exchanges: List<ExchangeInfo>,
     /** Abschnitt je Börse (gleiche Länge wie [exchanges]): Titelzeilen der Auswahl. */
-    categories: List<MarketCategory>,
-    exchange: MarketInfo?,
+    categories: List<ExchangeCategory>,
+    exchange: ExchangeInfo?,
     isDex: Boolean,
     hasPairs: Boolean,
     syncing: Boolean,
     canReloadPairs: Boolean,
     syncError: String?,
-    pairList: MarketPairsInfo?,
+    pairList: ExchangePairsInfo?,
     favorites: FavoritesUi,
-    onExchangeChanged: (MarketInfo?) -> Unit,
+    onExchangeChanged: (ExchangeInfo?) -> Unit,
     onReload: () -> Unit,
 ) {
     val exchangeLabel = stringResource(R.string.explorer_field_exchange)
-    val titles = MarketCategory.entries.associateWith { stringResource(sectionTitle(it)) }
+    val titles = ExchangeCategory.entries.associateWith { stringResource(sectionTitle(it)) }
     val sections = remember(categories, titles) { categories.map { titles.getValue(it) } }
     StepCard {
         StepHeader(
@@ -76,13 +76,13 @@ internal fun MarketStepCard(
             DropdownField(
                 modifier = Modifier.weight(1f),
                 // Angezeigt wird der Name («Crypto.com», «Bybit Futures»), nicht die Kennung
-                itemList = exchanges.map(MarketInfo::name),
+                itemList = exchanges.map(ExchangeInfo::name),
                 selectedIndex = exchanges.indexOf(exchange),
                 label = exchangeLabel,
                 searchable = true,
                 emptyText = stringResource(R.string.explorer_select_placeholder),
-                favorites = favorites.markets,
-                onToggleFavorite = { favorites.onToggle(FavoriteKind.MARKET, it) },
+                favorites = favorites.exchanges,
+                onToggleFavorite = { favorites.onToggle(FavoriteKind.EXCHANGE, it) },
                 onValueChange = { picked -> onExchangeChanged(exchanges[picked]) },
                 sections = sections.takeIf { it.size == exchanges.size },
             )
@@ -102,7 +102,7 @@ internal fun MarketStepCard(
             onReload = onReload,
         )
         // EZB-Referenzkurse: täglich, nicht live, keine Alarme — gleich bei der Wahl sagen
-        if (exchange != null && categories.getOrNull(exchanges.indexOf(exchange)) == MarketCategory.FOREX) {
+        if (exchange != null && categories.getOrNull(exchanges.indexOf(exchange)) == ExchangeCategory.FOREX) {
             StepHint(stringResource(R.string.explorer_forex_hint))
         }
     }
@@ -110,11 +110,11 @@ internal fun MarketStepCard(
 
 /** Titel eines Abschnitts der Börsenauswahl. */
 @androidx.annotation.StringRes
-private fun sectionTitle(category: MarketCategory): Int = when (category) {
-    MarketCategory.SPOT -> R.string.explorer_section_spot
-    MarketCategory.FUTURES -> R.string.explorer_section_futures
-    MarketCategory.DEX -> R.string.explorer_section_dex
-    MarketCategory.FOREX -> R.string.explorer_section_forex
+private fun sectionTitle(category: ExchangeCategory): Int = when (category) {
+    ExchangeCategory.SPOT -> R.string.explorer_section_spot
+    ExchangeCategory.FUTURES -> R.string.explorer_section_futures
+    ExchangeCategory.DEX -> R.string.explorer_section_dex
+    ExchangeCategory.FOREX -> R.string.explorer_section_forex
 }
 
 /** Runder Knopf «Paare neu laden» neben der Börse; aktiv erst mit gewählter Börse. */
@@ -135,17 +135,17 @@ private fun ReloadPairsButton(enabled: Boolean, onClick: () -> Unit) {
 /** Zeile unter der Börse: Hinweis, Ladebalken, Fehler mit «Erneut» oder Stand der Paarliste. */
 @Composable
 private fun ExchangeStatus(
-    exchange: MarketInfo?,
+    exchange: ExchangeInfo?,
     isDex: Boolean,
     hasPairs: Boolean,
     syncing: Boolean,
     canReloadPairs: Boolean,
     syncError: String?,
-    pairList: MarketPairsInfo?,
+    pairList: ExchangePairsInfo?,
     onReload: () -> Unit,
 ) {
     when {
-        exchange == null -> StepHint(stringResource(R.string.explorer_select_market_hint))
+        exchange == null -> StepHint(stringResource(R.string.explorer_select_exchange_hint))
         isDex -> Unit
         syncing -> Column(modifier = Modifier.padding(top = FieldGap)) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
@@ -164,7 +164,7 @@ private fun ExchangeStatus(
 
 /** «n Paare · Stand …» bzw. «nie abgeglichen». */
 @Composable
-private fun PairCountHint(info: MarketPairsInfo) {
+private fun PairCountHint(info: ExchangePairsInfo) {
     val syncedAt = if (info.lastSyncDate > 0) {
         DisplayFormat.formatSameDayTimeOrDate(LocalContext.current, info.lastSyncDate)
     } else {
@@ -207,7 +207,7 @@ internal fun PairStepCard(
     coin: String?,
     quote: String?,
     contract: FuturesContractType?,
-    price: MarketTickerResult?,
+    price: ExchangeTickerResult?,
     favorites: FavoritesUi,
     groupTarget: GroupTargetUi,
     onCoinChanged: (String?) -> Unit,
@@ -347,7 +347,7 @@ private fun AddToWatchlistButton(enabled: Boolean, onClick: () -> Unit) {
 
 /** Kurs des gewählten Paars: lädt noch, Fehler mit «Erneut» oder die Kennzahlen. */
 @Composable
-private fun PairPrice(result: MarketTickerResult?, onRetry: () -> Unit) {
+private fun PairPrice(result: ExchangeTickerResult?, onRetry: () -> Unit) {
     if (result == null) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)

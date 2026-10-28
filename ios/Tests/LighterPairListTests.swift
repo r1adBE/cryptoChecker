@@ -29,8 +29,8 @@ final class LighterPairListTests: XCTestCase {
     ]}
     """
 
-    private func pairs(_ bodies: [String]) throws -> [String: MarketPair] {
-        var byId: [String: MarketPair] = [:]
+    private func pairs(_ bodies: [String]) throws -> [String: ExchangePair] {
+        var byId: [String: ExchangePair] = [:]
         for pair in try Lighter().readPairListCombined(bodies: bodies) { byId[pair.pairId ?? ""] = pair }
         return byId
     }

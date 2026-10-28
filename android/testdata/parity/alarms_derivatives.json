@@ -845,67 +845,67 @@
   ],
   "supports": [
     {
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "perpetual": false,
       "expected": false
     },
     {
-      "marketKey": "BybitFutures",
+      "exchangeKey": "BybitFutures",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "OkexFutures",
+      "exchangeKey": "OkexFutures",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "WooFutures",
+      "exchangeKey": "WooFutures",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "BitgetFutures",
+      "exchangeKey": "BitgetFutures",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "MexcFutures",
+      "exchangeKey": "MexcFutures",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "Deribit",
+      "exchangeKey": "Deribit",
       "perpetual": true,
       "expected": true
     },
     {
-      "marketKey": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "perpetual": true,
       "expected": false
     },
     {
-      "marketKey": "KrakenFutures",
+      "exchangeKey": "KrakenFutures",
       "perpetual": true,
       "expected": false
     },
     {
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "perpetual": true,
       "expected": false
     }

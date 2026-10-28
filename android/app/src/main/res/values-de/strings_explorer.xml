@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Paare</string>
     <string name="explorer_precise_title">Erweitert / nach Börse</string>
     <string name="explorer_price_loading">Kurs wird geladen…</string>
-    <string name="explorer_select_market_hint">Wähle eine Börse – ihre Handelspaare laden automatisch.</string>
+    <string name="explorer_select_exchange_hint">Wähle eine Börse – ihre Handelspaare laden automatisch.</string>
     <string name="explorer_select_placeholder">Bitte auswählen</string>
     <string name="explorer_step_pair">Paar wählen</string>
 

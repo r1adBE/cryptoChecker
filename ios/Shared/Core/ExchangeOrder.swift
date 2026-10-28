@@ -38,7 +38,7 @@ enum ExchangeOrder {
     /// Eine Börse der Auswahl: Schlüssel und Abschnitt.
     struct Entry: Equatable, Sendable {
         let key: String
-        let category: MarketCategory
+        let category: ExchangeCategory
     }
 
     /// Volumen je Börsen-Schlüssel aus beiden Listen ([{id, trade_volume_24h_btc}, …]); nur endliche Werte ≥ 0.
@@ -62,11 +62,11 @@ enum ExchangeOrder {
         }
     }
 
-    /// Abschnitte in der Reihenfolge von `MarketCategory` (leere fallen weg). Mit `volumes` darin absteigend nach
+    /// Abschnitte in der Reihenfolge von `ExchangeCategory` (leere fallen weg). Mit `volumes` darin absteigend nach
     /// Volumen (gleiches Volumen: Eingabe-Reihenfolge), Börsen ohne Wert danach in Eingabe-Reihenfolge.
-    static func sections(_ markets: [Entry], volumes: [String: Double]?) -> [(category: MarketCategory, keys: [String])] {
-        MarketCategory.allCases.compactMap { category -> (category: MarketCategory, keys: [String])? in
-            let inSection = markets.filter { $0.category == category }.map(\.key)
+    static func sections(_ exchanges: [Entry], volumes: [String: Double]?) -> [(category: ExchangeCategory, keys: [String])] {
+        ExchangeCategory.allCases.compactMap { category -> (category: ExchangeCategory, keys: [String])? in
+            let inSection = exchanges.filter { $0.category == category }.map(\.key)
             if inSection.isEmpty { return nil }
             guard let volumes else { return (category, inSection) }
             let ranked = inSection.enumerated().filter { volumes[$0.element] != nil }
@@ -91,10 +91,10 @@ enum ExchangeOrder {
     }
 
     /// Die Börsen in Abschnitten (für die Auswahl), mit gespeichertem Ranking falls vorhanden; ohne Ranking bzw. ohne
-    /// Volumen gilt die Reihenfolge von `markets` (Explorer: alphabetisch nach Name, wie Android).
-    static func sections(of markets: [Market], volumes: [String: Double]?) -> [(category: MarketCategory, markets: [Market])] {
-        let byKey = Dictionary(markets.map { ($0.key, $0) }, uniquingKeysWith: { first, _ in first })
-        return sections(markets.map { Entry(key: $0.key, category: $0.category) }, volumes: volumes).map { section in
+    /// Volumen gilt die Reihenfolge von `exchanges` (Explorer: alphabetisch nach Name, wie Android).
+    static func sections(of exchanges: [Exchange], volumes: [String: Double]?) -> [(category: ExchangeCategory, exchanges: [Exchange])] {
+        let byKey = Dictionary(exchanges.map { ($0.key, $0) }, uniquingKeysWith: { first, _ in first })
+        return sections(exchanges.map { Entry(key: $0.key, category: $0.category) }, volumes: volumes).map { section in
             (section.category, section.keys.compactMap { byKey[$0] })
         }
     }
@@ -134,8 +134,8 @@ enum ExchangeRankingStore {
         if triedThisSession || volumes(defaults: defaults) != nil { return false }
         triedThisSession = true
         do {
-            async let spot = MarketHTTP.call(ExchangeOrder.spotURL, session: MarketHTTP.bulkSession)
-            async let derivatives = MarketHTTP.call(ExchangeOrder.derivativesURL, session: MarketHTTP.bulkSession)
+            async let spot = ExchangeHTTP.call(ExchangeOrder.spotURL, session: ExchangeHTTP.bulkSession)
+            async let derivatives = ExchangeHTTP.call(ExchangeOrder.derivativesURL, session: ExchangeHTTP.bulkSession)
             let parsed = try ExchangeOrder.parseVolumes(spotBody: try await spot, derivativesBody: try await derivatives)
             if parsed.isEmpty { return false }
             save(parsed, defaults: defaults)

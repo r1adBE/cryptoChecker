@@ -106,16 +106,16 @@ extension AppData {
     /// Paar. true, wenn sich etwas geändert hat.
     @discardableResult
     func refreshTradFiPairs() async -> Bool {
-        let watches = snapshot.watches.filter { CoinLogos.tradFiMarkets.contains($0.marketKey) }
+        let watches = snapshot.watches.filter { CoinLogos.tradFiExchanges.contains($0.exchangeKey) }
         var found = Set<String>()
         // Alle TradFi-Kürzel dieser Listen (für die Aktien-Logos, nicht nur die beobachteten)
         var bases = Set<String>()
-        for (marketKey, group) in Dictionary(grouping: watches, by: \.marketKey) {
-            var known = await PairCache.shared.tradFiPairKeys(for: marketKey)
-            if known == nil, !Self.tradFiListsTried.contains(marketKey) {
-                Self.tradFiListsTried.insert(marketKey)
-                _ = try? await PairCache.shared.sync(marketKey)
-                known = await PairCache.shared.tradFiPairKeys(for: marketKey)
+        for (exchangeKey, group) in Dictionary(grouping: watches, by: \.exchangeKey) {
+            var known = await PairCache.shared.tradFiPairKeys(for: exchangeKey)
+            if known == nil, !Self.tradFiListsTried.contains(exchangeKey) {
+                Self.tradFiListsTried.insert(exchangeKey)
+                _ = try? await PairCache.shared.sync(exchangeKey)
+                known = await PairCache.shared.tradFiPairKeys(for: exchangeKey)
             }
             guard let known else { continue }
             for key in known {
@@ -134,17 +134,17 @@ extension AppData {
     private static var tradFiListsTried = Set<String>()
 
     /// Neu hinzugefügtes TradFi-Paar gleich vormerken (Logo aus dem TradFi-Namensraum).
-    func noteTradFi(market: Market, pair: MarketPair) {
+    func noteTradFi(exchange: Exchange, pair: ExchangePair) {
         guard pair.isTradFi else { return }
-        let key = CoinLogos.pairKey(marketKey: market.key, base: pair.base, quote: pair.quote,
+        let key = CoinLogos.pairKey(exchangeKey: exchange.key, base: pair.base, quote: pair.quote,
                                     contractType: String(pair.contractType.rawValue))
         if CoinLogoStore.addTradFiPair(key) { CoinLogoRevision.bump() }
     }
 
     /// Wie `noteTradFi` für viele Paare (Sammelaufnahme): ein Schreibvorgang, höchstens ein `CoinLogoRevision.bump()`.
-    func noteTradFi(market: Market, pairs: [MarketPair]) {
+    func noteTradFi(exchange: Exchange, pairs: [ExchangePair]) {
         let keys = pairs.filter(\.isTradFi).map {
-            CoinLogos.pairKey(marketKey: market.key, base: $0.base, quote: $0.quote,
+            CoinLogos.pairKey(exchangeKey: exchange.key, base: $0.base, quote: $0.quote,
                               contractType: String($0.contractType.rawValue))
         }
         if CoinLogoStore.addTradFiPairs(keys) { CoinLogoRevision.bump() }

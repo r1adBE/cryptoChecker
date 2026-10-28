@@ -9,7 +9,7 @@ import com.cryptochecker.app.domain.refresh.RefreshResultProcessor
 import com.cryptochecker.app.performance.PerformanceTiming.assertLimitOnly
 import com.cryptochecker.app.performance.PerformanceTiming.assertScales
 import com.cryptochecker.app.performance.PerformanceTiming.medianMillis
-import com.cryptochecker.marketdata.config.MarketsConfig
+import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.BulkTickerRows
 import kotlinx.coroutines.runBlocking
@@ -25,7 +25,7 @@ import org.junit.Test
  */
 class RefreshPerformanceTest {
 
-    private val binance = MarketsConfig.MARKETS.getValue(PerformanceData.BINANCE.first)
+    private val binance = ExchangesConfig.EXCHANGES.getValue(PerformanceData.BINANCE.first)
 
     private fun binanceWatches(n: Int): List<WatchEntity> = PerformanceData.watches(n, PerformanceData.BINANCE)
 

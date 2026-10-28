@@ -49,7 +49,7 @@
     <string name="explorer_pairs_title">Perechi</string>
     <string name="explorer_precise_title">Avansat / după bursă</string>
     <string name="explorer_price_loading">Se încarcă prețul…</string>
-    <string name="explorer_select_market_hint">Alege o bursă – perechile se încarcă automat.</string>
+    <string name="explorer_select_exchange_hint">Alege o bursă – perechile se încarcă automat.</string>
     <string name="explorer_select_placeholder">Selectează</string>
     <string name="explorer_step_pair">Alege perechea</string>
 

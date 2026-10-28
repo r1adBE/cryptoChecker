@@ -2,7 +2,7 @@ package com.cryptochecker.app.domain.model
 
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.market.BinanceFutures
+import com.cryptochecker.marketdata.model.exchange.BinanceFutures
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -40,7 +40,7 @@ class BinanceFuturesUrlTest {
           {"symbol": "XYZUSDT", "baseAsset": "XYZ", "quoteAsset": "USDT", "contractType": "PERPETUAL", "status": "CLOSE"},
           {"symbol": "OLDUSDT", "baseAsset": "OLD", "quoteAsset": "USDT", "contractType": "PERPETUAL"}
         ]}"""
-        val pairs = ArrayList<com.cryptochecker.marketdata.model.MarketPair>()
+        val pairs = ArrayList<com.cryptochecker.marketdata.model.ExchangePair>()
         BinanceFutures().readPairList(0, usdM, pairs)
         assertEquals(listOf("BTCUSDT", "OLDUSDT"), pairs.map { it.pairId })
 
@@ -48,7 +48,7 @@ class BinanceFuturesUrlTest {
           {"symbol": "BTCUSD_PERP", "baseAsset": "BTC", "quoteAsset": "USD", "contractType": "PERPETUAL", "contractStatus": "TRADING"},
           {"symbol": "BTCUSD_250926", "baseAsset": "BTC", "quoteAsset": "USD", "contractType": "CURRENT_QUARTER", "contractStatus": "DELIVERED"}
         ]}"""
-        val coinPairs = ArrayList<com.cryptochecker.marketdata.model.MarketPair>()
+        val coinPairs = ArrayList<com.cryptochecker.marketdata.model.ExchangePair>()
         BinanceFutures().readPairList(1, coinM, coinPairs)
         assertEquals(listOf("2:BTCUSD_PERP"), coinPairs.map { it.pairId })
     }

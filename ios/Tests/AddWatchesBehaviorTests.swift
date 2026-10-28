@@ -9,9 +9,9 @@ import XCTest
 /// Rückfrage F-08 hier aus (eigenes Tor, «gespeichert»), sie prüft `WatchlistConsentBehaviorTests`.
 @MainActor
 final class AddWatchesBehaviorTests: XCTestCase {
-    static let btc = Watch(id: 990_201, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC",
+    static let btc = Watch(id: 990_201, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC",
                            quoteAsset: "USDT", pairId: "BTCUSDT", sortOrder: 0)
-    static let eth = Watch(id: 990_202, marketKey: "Binance", marketName: "Binance", baseAsset: "ETH",
+    static let eth = Watch(id: 990_202, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "ETH",
                            quoteAsset: "USDT", pairId: "ETHUSDT", sortOrder: 1)
 
     private var watchlist: AppDataTestWatchlist?
@@ -27,16 +27,16 @@ final class AddWatchesBehaviorTests: XCTestCase {
         watchlist = nil
     }
 
-    private func pair(_ base: String) -> MarketPair { MarketPair(base, "USDT", "\(base)USDT") }
+    private func pair(_ base: String) -> ExchangePair { ExchangePair(base, "USDT", "\(base)USDT") }
 
     private var ids: Set<Int64> { Set(AppData.shared.snapshot.watches.map(\.id)) }
 
     func testBulkAddSkipsDuplicatesAndUndoRemovesOnlyTheNewPairs() async throws {
         try await XCTUnwrap(watchlist).load([Self.btc, Self.eth])
         let data = AppData.shared
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
 
-        let result = data.addWatches(market: market, pairs: [pair("ETH"), pair("SOL"), pair("BTC"), pair("XRP")])
+        let result = data.addWatches(exchange: exchange, pairs: [pair("ETH"), pair("SOL"), pair("BTC"), pair("XRP")])
 
         XCTAssertFalse(result.locked)
         XCTAssertEqual(result.added, 2)
@@ -53,14 +53,14 @@ final class AddWatchesBehaviorTests: XCTestCase {
 
     func testFullWatchlistRefusesTheRest() async throws {
         let filler = (0..<(WatchlistLimits.maxPairs - 1)).map { i in
-            Watch(id: 970_000 + Int64(i), marketKey: "Binance", marketName: "Binance", baseAsset: "F\(i)",
+            Watch(id: 970_000 + Int64(i), exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "F\(i)",
                   quoteAsset: "USDT", pairId: "F\(i)USDT", sortOrder: i)
         }
         try await XCTUnwrap(watchlist).load(filler)
         let data = AppData.shared
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
 
-        let result = data.addWatches(market: market, pairs: [pair("TSTA"), pair("TSTB"), pair("TSTC")])
+        let result = data.addWatches(exchange: exchange, pairs: [pair("TSTA"), pair("TSTB"), pair("TSTC")])
 
         XCTAssertFalse(result.locked)
         XCTAssertEqual(result.added, 1)
@@ -76,9 +76,9 @@ final class AddWatchesBehaviorTests: XCTestCase {
     func testLockedWatchlistAddsNothing() async throws {
         try await XCTUnwrap(watchlist).load([Self.btc])
         let data = AppData.shared
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
         data.watchlistLocked = true
-        let result = data.addWatches(market: market, pairs: [pair("SOL")])
+        let result = data.addWatches(exchange: exchange, pairs: [pair("SOL")])
         XCTAssertTrue(result.locked)
         XCTAssertEqual(result.addedIds, [])
         XCTAssertEqual(ids, [Self.btc.id])
@@ -89,8 +89,8 @@ final class AddWatchesBehaviorTests: XCTestCase {
     func testUndoKeepsNewPairsThatGotAnAlarm() async throws {
         try await XCTUnwrap(watchlist).load([Self.btc])
         let data = AppData.shared
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
-        let result = data.addWatches(market: market, pairs: [pair("SOL"), pair("XRP")])
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
+        let result = data.addWatches(exchange: exchange, pairs: [pair("SOL"), pair("XRP")])
         XCTAssertEqual(result.addedIds.count, 2)
         let withAlarm = result.addedIds[0]
         data.mutate { s in
@@ -108,16 +108,16 @@ final class AddWatchesBehaviorTests: XCTestCase {
     /// Ein Durchlauf (`WatchInsertion.insertAll`) mit denselben Regeln wie einzeln (`AppData.insertOutcome`): Dubletten
     /// auch innerhalb der Auswahl, Id hinter der höchsten (auch wenn `nextWatchId` kleiner ist), Plätze fortlaufend.
     func testInsertAllMatchesSingleInserts() throws {
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
         var start = SharedStorage.Snapshot()
         start.watches = [Self.btc, Self.eth]
         start.nextWatchId = 5
         let pairs = [pair("SOL"), pair("BTC"), pair("SOL"), pair("XRP")]
 
         var bulk = start
-        let result = WatchInsertion.insertAll(&bulk, market: market, pairs: pairs)
+        let result = WatchInsertion.insertAll(&bulk, exchange: exchange, pairs: pairs)
         var single = start
-        let outcomes = pairs.map { AppData.insertOutcome(&single, market: market, pair: $0) }
+        let outcomes = pairs.map { AppData.insertOutcome(&single, exchange: exchange, pair: $0) }
 
         XCTAssertEqual(result.added, 2)
         XCTAssertEqual(result.skipped, 2)

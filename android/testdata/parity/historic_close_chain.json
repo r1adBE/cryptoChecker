@@ -13,34 +13,34 @@
   ],
   "seriesChain": ["Coinbase", "Kraken", "Okex", "Bybit"],
   "provider": [
-    {"market": "Okex", "expected": "OKX"},
-    {"market": "Kraken", "expected": "Kraken"},
-    {"market": "Bybit", "expected": "Bybit"},
-    {"market": "Coinbase", "expected": "Coinbase"},
-    {"market": "Bitstamp", "expected": "Bitstamp"}
+    {"exchangeKey": "Okex", "expected": "OKX"},
+    {"exchangeKey": "Kraken", "expected": "Kraken"},
+    {"exchangeKey": "Bybit", "expected": "Bybit"},
+    {"exchangeKey": "Coinbase", "expected": "Coinbase"},
+    {"exchangeKey": "Bitstamp", "expected": "Bitstamp"}
   ],
   "pairs": [
-    {"market": "Kraken", "base": "BTC", "expected": [["USD", "XBTUSD"], ["USDT", "XBTUSDT"]]},
-    {"market": "Kraken", "base": "doge", "expected": [["USD", "XDGUSD"], ["USDT", "XDGUSDT"]]},
-    {"market": "Kraken", "base": "PEPE", "expected": [["USD", "PEPEUSD"], ["USDT", "PEPEUSDT"]]},
-    {"market": "Okex", "base": "SOL", "expected": [["USDT", "SOL-USDT"], ["USDC", "SOL-USDC"]]},
-    {"market": "Bybit", "base": " wif ", "expected": [["USDT", "WIFUSDT"], ["USDC", "WIFUSDC"]]},
-    {"market": "Coinbase", "base": "ETH", "expected": [["USD", "ETH-USD"], ["USDC", "ETH-USDC"]]},
-    {"market": "Binance", "base": "BTC", "expected": []},
-    {"market": "Bitstamp", "base": "BTC", "expected": []},
-    {"market": "Kraken", "base": "BT-C", "expected": []},
-    {"market": "Bybit", "base": "", "expected": []},
-    {"market": "Okex", "base": "ABCDEFGHIJKLMNOP", "expected": []}
+    {"exchangeKey": "Kraken", "base": "BTC", "expected": [["USD", "XBTUSD"], ["USDT", "XBTUSDT"]]},
+    {"exchangeKey": "Kraken", "base": "doge", "expected": [["USD", "XDGUSD"], ["USDT", "XDGUSDT"]]},
+    {"exchangeKey": "Kraken", "base": "PEPE", "expected": [["USD", "PEPEUSD"], ["USDT", "PEPEUSDT"]]},
+    {"exchangeKey": "Okex", "base": "SOL", "expected": [["USDT", "SOL-USDT"], ["USDC", "SOL-USDC"]]},
+    {"exchangeKey": "Bybit", "base": " wif ", "expected": [["USDT", "WIFUSDT"], ["USDC", "WIFUSDC"]]},
+    {"exchangeKey": "Coinbase", "base": "ETH", "expected": [["USD", "ETH-USD"], ["USDC", "ETH-USDC"]]},
+    {"exchangeKey": "Binance", "base": "BTC", "expected": []},
+    {"exchangeKey": "Bitstamp", "base": "BTC", "expected": []},
+    {"exchangeKey": "Kraken", "base": "BT-C", "expected": []},
+    {"exchangeKey": "Bybit", "base": "", "expected": []},
+    {"exchangeKey": "Okex", "base": "ABCDEFGHIJKLMNOP", "expected": []}
   ],
   "names": [
-    {"base": "PEPE", "own": false, "market": "Kraken", "ownName": null, "binanceName": null, "providerName": null, "expected": true},
-    {"base": "CAT", "own": false, "market": "Kraken", "ownName": "Simon's Cat", "binanceName": "Catcoin", "providerName": null, "expected": false},
-    {"base": "CAT", "own": false, "market": "Bybit", "ownName": "Simon's Cat", "binanceName": "Simons Cat", "providerName": "Catcoin", "expected": false},
-    {"base": "CAT", "own": false, "market": "Okex", "ownName": "Simon's Cat", "binanceName": null, "providerName": "Simons Cat", "expected": true},
-    {"base": "ZZZ", "own": false, "market": "Kraken", "ownName": "Alpha Beta", "binanceName": "Gamma Delta", "providerName": null, "expected": false},
-    {"base": "CAT", "own": true, "market": "Kraken", "ownName": "Simon's Cat", "binanceName": "Catcoin", "providerName": "Simons Cat", "expected": true},
-    {"base": "CAT", "own": true, "market": "Kraken", "ownName": "Simon's Cat", "binanceName": "Simons Cat", "providerName": "Catcoin", "expected": false},
-    {"base": "CAT", "own": true, "market": "Bitstamp", "ownName": null, "binanceName": "Catcoin", "providerName": "Simons Cat", "expected": true}
+    {"base": "PEPE", "own": false, "exchangeKey": "Kraken", "ownName": null, "binanceName": null, "providerName": null, "expected": true},
+    {"base": "CAT", "own": false, "exchangeKey": "Kraken", "ownName": "Simon's Cat", "binanceName": "Catcoin", "providerName": null, "expected": false},
+    {"base": "CAT", "own": false, "exchangeKey": "Bybit", "ownName": "Simon's Cat", "binanceName": "Simons Cat", "providerName": "Catcoin", "expected": false},
+    {"base": "CAT", "own": false, "exchangeKey": "Okex", "ownName": "Simon's Cat", "binanceName": null, "providerName": "Simons Cat", "expected": true},
+    {"base": "ZZZ", "own": false, "exchangeKey": "Kraken", "ownName": "Alpha Beta", "binanceName": "Gamma Delta", "providerName": null, "expected": false},
+    {"base": "CAT", "own": true, "exchangeKey": "Kraken", "ownName": "Simon's Cat", "binanceName": "Catcoin", "providerName": "Simons Cat", "expected": true},
+    {"base": "CAT", "own": true, "exchangeKey": "Kraken", "ownName": "Simon's Cat", "binanceName": "Simons Cat", "providerName": "Catcoin", "expected": false},
+    {"base": "CAT", "own": true, "exchangeKey": "Bitstamp", "ownName": null, "binanceName": "Catcoin", "providerName": "Simons Cat", "expected": true}
   ],
   "decide": [
     {"close": 100, "latest": 105, "current": 100, "primary": false, "nameOk": true, "expected": "ACCEPT"},

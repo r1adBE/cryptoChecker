@@ -42,7 +42,7 @@ import javax.inject.Inject
  *     Merkliste und Portfolio wieder her.
  *  5. Steuer-Arbeitsunterlage: eigene Seite → Vorlage wählen → Export → Dateiauswahl erscheint.
  *
- * Kein Netz: Börsen-Antworten aus [com.cryptochecker.app.testing.FakeMarket] (Binance, Coinbase), alles
+ * Kein Netz: Börsen-Antworten aus [com.cryptochecker.app.testing.FakeExchange] (Binance, Coinbase), alles
  * andere 404. Die Dateiauswahl des Systems ersetzt [DocumentPickerStub]. Texte kommen aus den Ressourcen,
  * die Tests laufen darum in jeder Sprache; Zahlen werden ohne Trenner eingegeben.
  *

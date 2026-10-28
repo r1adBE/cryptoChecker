@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "market stats BTC-USDT",
-      "market": "Kucoin",
+      "exchangeKey": "Kucoin",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "unknown symbol: data with null values -> no price",
-      "market": "Kucoin",
+      "exchangeKey": "Kucoin",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -50,7 +50,7 @@
     {
       "kind": "single",
       "name": "error payload without data",
-      "market": "Kucoin",
+      "exchangeKey": "Kucoin",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -67,7 +67,7 @@
     {
       "kind": "bulk",
       "name": "bulk allTickers: entry with null last (inactive) is skipped, not reported as unreadable",
-      "market": "Kucoin",
+      "exchangeKey": "Kucoin",
       "requestId": 0,
       "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000999,\"ticker\":[ {\"symbol\":\"BTC-USDT\",\"symbolName\":\"BTC-USDT\",\"buy\":\"62000\",\"bestBidSize\":\"0.5\",\"sell\":\"62000.1\",\"bestAskSize\":\"0.8\",\"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\",\"last\":\"62000.1\",\"averagePrice\":\"61200.12\",\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\"}, {\"symbol\":\"NEW-USDT\",\"symbolName\":\"NEW-USDT\",\"buy\":null,\"bestBidSize\":null,\"sell\":null,\"bestAskSize\":null,\"changeRate\":null,\"changePrice\":null,\"high\":null,\"low\":null,\"vol\":\"0\",\"volValue\":\"0\",\"last\":null,\"averagePrice\":null,\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\"} ]}}",
       "expect": {
@@ -88,7 +88,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays",
-      "market": "Kucoin",
+      "exchangeKey": "Kucoin",
       "requestId": 0,
       "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000999,\"ticker\":[{\"symbol\":\"BTC-USDT\",\"symbolName\":\"BTC-USDT\",\"buy\":\"62000\",\"bestBidSize\":\"0.5\",\"sell\":\"62000.1\",\"bestAskSize\":\"0.8\",\"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\",\"last\":\"62000.1\",\"averagePrice\":\"61200.12\",\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\"},{\"symbol\":\"ETH-USDT\",\"symbolName\":\"ETH-USDT\",\"buy\":\"62000\",\"bestBidSize\":\"0.5\",\"sell\":\"62000.1\",\"bestAskSize\":\"0.8\",\"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\",\"averagePrice\":\"61200.12\",\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\",\"last_renamed\":\"62000.1\"}]}}",
       "expect": {
@@ -104,7 +104,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in every row — format error of the whole response",
-      "market": "Kucoin",
+      "exchangeKey": "Kucoin",
       "requestId": 0,
       "body": "{\"code\":\"200000\",\"data\":{\"time\":1728540000999,\"ticker\":[{\"symbol\":\"BTC-USDT\",\"symbolName\":\"BTC-USDT\",\"buy\":\"62000\",\"bestBidSize\":\"0.5\",\"sell\":\"62000.1\",\"bestAskSize\":\"0.8\",\"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\",\"averagePrice\":\"61200.12\",\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\",\"last_renamed\":\"62000.1\"},{\"symbol\":\"ETH-USDT\",\"symbolName\":\"ETH-USDT\",\"buy\":\"62000\",\"bestBidSize\":\"0.5\",\"sell\":\"62000.1\",\"bestAskSize\":\"0.8\",\"changeRate\":\"0.0248\",\"changePrice\":\"1500.1\",\"high\":\"62500\",\"low\":\"60000\",\"vol\":\"12100.52\",\"volValue\":\"744460123.45\",\"averagePrice\":\"61200.12\",\"takerFeeRate\":\"0.001\",\"makerFeeRate\":\"0.001\",\"takerCoefficient\":\"1\",\"makerCoefficient\":\"1\",\"last_renamed\":\"62000.1\"}]}}",
       "expect": {

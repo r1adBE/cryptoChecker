@@ -13,7 +13,7 @@ struct DexTokenAddressLine: View {
     @State private var copied = false
 
     var body: some View {
-        if DexLiquidity.isDex(watch.marketKey), let address = DexTokenAddressStore.get(watch.pairId) {
+        if DexLiquidity.isDex(watch.exchangeKey), let address = DexTokenAddressStore.get(watch.pairId) {
             Button {
                 // Nur auf diesem Gerät (keine universelle Zwischenablage) und nach 60 s wieder weg (wie
                 // Android markiert die Adresse als vertraulich)

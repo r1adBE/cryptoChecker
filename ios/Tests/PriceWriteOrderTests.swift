@@ -11,7 +11,7 @@ final class PriceWriteOrderTests: XCTestCase {
     private static let start: Int64 = 1_792_000_000_000
 
     private static func btc(price: Double = 100, at time: Int64 = start) -> Watch {
-        var w = Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        var w = Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
         w.lastPrice = price
         w.lastUpdate = time
         return w

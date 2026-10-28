@@ -57,19 +57,19 @@ final class A11ySpeechTests: XCTestCase {
 
     func testFreshnessText() {
         XCTAssertEqual(A11ySpeech.freshnessText(.outdated, lastUpdate: now - 45 * minute, now: now,
-                                                market: "Binance", texts: german),
+                                                exchange: "Binance", texts: german),
                        "Kurs veraltet, zuletzt aktualisiert vor 45 Minuten")
         XCTAssertEqual(A11ySpeech.freshnessText(.unreachable, lastUpdate: now - minute, now: now,
-                                                market: "Binance", texts: german),
+                                                exchange: "Binance", texts: german),
                        "zuletzt aktualisiert vor 1 Minute, Binance nicht erreichbar")
         XCTAssertEqual(A11ySpeech.freshnessText(.unreachableOutdated, lastUpdate: now - 3 * hour, now: now,
-                                                market: "Kraken", texts: german),
+                                                exchange: "Kraken", texts: german),
                        "Kurs veraltet, zuletzt aktualisiert vor 3 Stunden, Kraken nicht erreichbar")
-        XCTAssertEqual(A11ySpeech.freshnessText(.disabled, lastUpdate: now, now: now, market: "Binance", texts: german),
+        XCTAssertEqual(A11ySpeech.freshnessText(.disabled, lastUpdate: now, now: now, exchange: "Binance", texts: german),
                        "Deaktiviert")
-        XCTAssertEqual(A11ySpeech.freshnessText(.notTraded, lastUpdate: now, now: now, market: "Binance", texts: german),
+        XCTAssertEqual(A11ySpeech.freshnessText(.notTraded, lastUpdate: now, now: now, exchange: "Binance", texts: german),
                        german.notTraded)
-        XCTAssertNil(A11ySpeech.freshnessText(.fresh, lastUpdate: now, now: now, market: "Binance", texts: german))
+        XCTAssertNil(A11ySpeech.freshnessText(.fresh, lastUpdate: now, now: now, exchange: "Binance", texts: german))
     }
 
     func testAlarmFiredRecently() {
@@ -145,7 +145,7 @@ final class A11ySpeechTests: XCTestCase {
     }
 
     func testWatchRowSaysPriceNotificationOnlyWhenOff() {
-        let watch = Watch(id: 1, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        let watch = Watch(id: 1, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
         let on = A11y.watchRow(watch, priceNotificationOn: true)
         let off = A11y.watchRow(watch, priceNotificationOn: false)
         // «An» ist der Normalfall: nicht in jeder Zeile vorlesen

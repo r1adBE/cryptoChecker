@@ -27,7 +27,7 @@ suspend fun WatchRepository.writePrice(
     }
     return watchDao.updatePriceForPair(
         write.id, write.price, write.time, write.change24h, write.priceChangedAt, write.exchangeTime, plausibleUntil,
-        pair.marketKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
+        pair.exchangeKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
     ) > 0
 }
 
@@ -39,7 +39,7 @@ suspend fun WatchRepository.writeError(write: ErrorWrite) {
         watchDao.updateError(write.id, error)
     } else {
         watchDao.updateErrorForPair(
-            write.id, error, pair.marketKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
+            write.id, error, pair.exchangeKey, pair.baseAsset, pair.quoteAsset, pair.contractType, pair.pairId,
         )
     }
 }

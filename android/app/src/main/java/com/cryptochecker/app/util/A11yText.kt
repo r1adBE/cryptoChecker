@@ -69,7 +69,7 @@ object A11yText {
     fun row(
         context: Context,
         pair: String,
-        market: String,
+        exchange: String,
         price: String,
         change24h: Double?,
         extras: List<String?> = emptyList(),
@@ -88,7 +88,7 @@ object A11yText {
     ): String {
         val spokenPrice = if (quote == null) price else A11ySpeech.spokenPrice(price, quote, locale(context))
         return A11ySpeech.row(
-            pair = context.getString(R.string.a11y_row_pair, pair, market),
+            pair = context.getString(R.string.a11y_row_pair, pair, exchange),
             price = context.getString(R.string.a11y_price, spokenPrice),
             // Ohne Bezug ein kurzer Hinweis statt einer Zahl (Anzeige «—»)
             change = ChangeBasisText.spoken(context, basis, change24h),
@@ -116,7 +116,7 @@ object A11yText {
             is A11ySpeech.Age.Days ->
                 context.resources.getQuantityString(R.plurals.a11y_updated_days, age.count, age.count)
         }
-        override fun unreachable(market: String): String = context.getString(R.string.a11y_market_unreachable, market)
+        override fun unreachable(exchange: String): String = context.getString(R.string.a11y_exchange_unreachable, exchange)
     }
 
     /**
@@ -129,6 +129,6 @@ object A11yText {
         freshness: A11ySpeech.Freshness,
         lastUpdate: Long,
         now: Long,
-        market: String,
-    ): String? = A11ySpeech.freshnessText(freshness, lastUpdate, now, market, texts(context))
+        exchange: String,
+    ): String? = A11ySpeech.freshnessText(freshness, lastUpdate, now, exchange, texts(context))
 }

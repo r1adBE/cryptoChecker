@@ -39,14 +39,14 @@ object FuturesSources {
     private val CHAIN = setOf(BINANCE, BYBIT, OKX)
 
     /** Eigene Quelle der Börse oder null, wenn sie keine eigenen Kennzahlen liefert (dann nur Richtwert). */
-    fun own(marketKey: String): String? = OWN[marketKey]
+    fun own(exchangeKey: String): String? = OWN[exchangeKey]
 
     /**
      * Eigene Quelle für dieses Paar: bei Binance COIN-M ([isCoinM]) der COIN-M-Kontrakt, sonst [own]. So gelten
      * USDⓈ-M-Daten (BTCUSDT) an einem COIN-M-Paar als Richtwert, nicht als eigene Daten.
      */
-    fun own(marketKey: String, pairId: String?): String? =
-        if (marketKey == "BinanceFutures" && isCoinM(pairId)) BINANCE_COIN_M else own(marketKey)
+    fun own(exchangeKey: String, pairId: String?): String? =
+        if (exchangeKey == "BinanceFutures" && isCoinM(pairId)) BINANCE_COIN_M else own(exchangeKey)
 
     /** Binance-COIN-M-Paar (Präfix «2:» wie im Adapter `BinanceFutures`). */
     fun isCoinM(pairId: String?): Boolean = pairId?.startsWith(COIN_M_PREFIX) == true
@@ -54,7 +54,7 @@ object FuturesSources {
     const val COIN_M_PREFIX = "2:"
 
     /** Börsen mit eigenen Funding-/Open-Interest-Daten (für die Alarme FUNDING_* / OI_*). */
-    val MARKETS: Set<String> get() = OWN.keys
+    val EXCHANGES: Set<String> get() = OWN.keys
 
     /** Quellen, deren Intervall je Kontrakt verschieden ist (1, 2, 4 oder 8 Std.) und in der Antwort steht. */
     private val PER_CONTRACT = setOf(BINANCE, BYBIT, OKX, BITGET, MEXC)
@@ -77,9 +77,9 @@ object FuturesSources {
      * [FuturesSourceNote.REFERENCE] = Spot-Paar, Börse ohne eigene Daten oder eigene Quelle ausgefallen —
      * Kennzahlen einer anderen Börse als Richtwert.
      */
-    fun note(perpetual: Boolean, marketKey: String, source: String, pairId: String? = null): FuturesSourceNote? {
+    fun note(perpetual: Boolean, exchangeKey: String, source: String, pairId: String? = null): FuturesSourceNote? {
         if (!perpetual) return FuturesSourceNote.REFERENCE
-        val own = own(marketKey, pairId) ?: return FuturesSourceNote.REFERENCE
+        val own = own(exchangeKey, pairId) ?: return FuturesSourceNote.REFERENCE
         if (source == own) return null
         return if (own in CHAIN) FuturesSourceNote.FALLBACK else FuturesSourceNote.REFERENCE
     }

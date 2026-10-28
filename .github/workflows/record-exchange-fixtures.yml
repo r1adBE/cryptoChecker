@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       only:
-        description: 'Market keys, comma-separated (empty = all), e.g. Kraken,Okex'
+        description: 'Exchange keys, comma-separated (empty = all), e.g. Kraken,Okex'
         required: false
         default: ''
       run_contract_test:
@@ -49,7 +49,7 @@ jobs:
             python3 android/tools/record_exchange_fixtures.py
           fi
 
-      # Short excerpt of the markets just recorded as annotations (artifacts are not accessible everywhere):
+      # Short excerpt of the exchanges just recorded as annotations (artifacts are not accessible everywhere):
       # the first 900 characters per case. At most 10 notices per step, hence two steps.
       - name: Summaries (1)
         if: always()

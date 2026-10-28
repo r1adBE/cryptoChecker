@@ -2,13 +2,13 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import android.content.Context
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
@@ -69,7 +69,7 @@ class PortfolioPriceSource @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val httpClient: OkHttpClient,
     private val candleDataSource: CandleDataSource,
-    val marketRepository: MarketRepository,
+    val exchangeRepository: ExchangeRepository,
     val watchDao: WatchDao,
     val portfolioDao: PortfolioDao,
     val fxSource: FxRateSource,
@@ -319,7 +319,7 @@ class PortfolioPriceSource @Inject constructor(
 
     /** GET mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle vorübergehend. */
     suspend fun get(url: String, host: String, client: OkHttpClient = httpClient): String? = try {
-        withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { client.callMarket(url, null) }
+        withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { client.callExchange(url, null) }
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {

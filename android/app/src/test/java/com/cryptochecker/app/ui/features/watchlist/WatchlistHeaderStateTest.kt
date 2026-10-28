@@ -13,7 +13,7 @@ import org.junit.Test
 class WatchlistHeaderStateTest {
 
     private fun watch(id: Long, favorite: Boolean = false) = WatchEntity(
-        id = id, marketKey = "Binance", marketName = "Binance", baseAsset = "C$id", quoteAsset = "USDT", favorite = favorite,
+        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "C$id", quoteAsset = "USDT", favorite = favorite,
     )
 
     private fun uiState(
@@ -35,7 +35,7 @@ class WatchlistHeaderStateTest {
         starter = StarterUiState(
             coins = emptyList(), deselected = emptySet(),
             prices = StarterPricesState(loading = false, prices = emptyMap()),
-            adding = false, logosReady = true, quote = "USDT", marketName = "Binance",
+            adding = false, logosReady = true, quote = "USDT", exchangeName = "Binance",
         ),
     )
 

@@ -34,8 +34,8 @@ final class WatchlistConsentBehaviorTests: XCTestCase {
     private var start: Set<Int64> { [AddWatchesBehaviorTests.btc.id, AddWatchesBehaviorTests.eth.id] }
 
     private func add(_ base: String) throws -> BulkAddResult {
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
-        return AppData.shared.addWatches(market: market, pairs: [MarketPair(base, "USDT", "\(base)USDT")])
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
+        return AppData.shared.addWatches(exchange: exchange, pairs: [ExchangePair(base, "USDT", "\(base)USDT")])
     }
 
     private func contains(_ base: String) -> Bool { AppData.shared.snapshot.watches.contains { $0.baseAsset == base } }
@@ -103,10 +103,10 @@ final class WatchlistConsentBehaviorTests: XCTestCase {
     /// die Aktion: Sie selbst und ein erbender `Task` schreiben, ein `Task.detached` aus ihr wird abgelehnt; nach der
     /// Aktion gilt die Sicherung wieder.
     func testUnaskedPassCoversOnlyTheActionTask() async throws {
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
         let finished = expectation(description: "Aufgaben der Aktion")
         finished.expectedFulfillmentCount = 2
-        let probe = ConsentWriteProbe(market: market, finished: finished)
+        let probe = ConsentWriteProbe(exchange: exchange, finished: finished)
         let gate: WatchlistNotSavedGate = gate
         gate.run(blocked: false, notSaved: true,
                  confirm: { await gate.confirm(notSaved: true, canAsk: false, awaitAsker: { false }) },
@@ -129,17 +129,17 @@ private final class ConsentWriteProbe {
     var child: BulkAddResult?
     var detached: BulkAddResult?
     var cancelled = false
-    private let market: Market?
+    private let exchange: Exchange?
     private let finished: XCTestExpectation?
 
-    init(market: Market? = nil, finished: XCTestExpectation? = nil) {
-        self.market = market
+    init(exchange: Exchange? = nil, finished: XCTestExpectation? = nil) {
+        self.exchange = exchange
         self.finished = finished
     }
 
     private func add(_ base: String) -> BulkAddResult? {
-        guard let market else { return nil }
-        return AppData.shared.addWatches(market: market, pairs: [MarketPair(base, "USDT", "\(base)USDT")])
+        guard let exchange else { return nil }
+        return AppData.shared.addWatches(exchange: exchange, pairs: [ExchangePair(base, "USDT", "\(base)USDT")])
     }
 
     /// Aktion (synchron unter `runConsented`): selbst schreiben, dann eine erbende und eine losgelöste Aufgabe.

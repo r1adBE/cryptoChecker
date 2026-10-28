@@ -61,9 +61,9 @@ enum HalvingMath {
     /// Blockhöhe und mittlere Blockzeit der laufenden Schwierigkeitsperiode von mempool.space:
     /// `GET /api/blocks/tip/height` und `GET /api/v1/difficulty-adjustment` («timeAvg» in ms). nil bei Fehler.
     static func fetchBlocks() async -> (height: Int, avgBlockSeconds: Double)? {
-        guard let heightText = try? await MarketHTTP.call("https://mempool.space/api/blocks/tip/height"),
+        guard let heightText = try? await ExchangeHTTP.call("https://mempool.space/api/blocks/tip/height"),
               let height = Int(heightText.trimmingCharacters(in: .whitespacesAndNewlines)),
-              let adjText = try? await MarketHTTP.call("https://mempool.space/api/v1/difficulty-adjustment"),
+              let adjText = try? await ExchangeHTTP.call("https://mempool.space/api/v1/difficulty-adjustment"),
               let json = try? JObject(string: adjText) else { return nil }
         let avg = json.optDouble("timeAvg")
         guard avg.isFinite, avg > 0 else { return nil }

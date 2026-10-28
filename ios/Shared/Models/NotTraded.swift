@@ -38,13 +38,13 @@ enum NotTraded {
     /// Kursliste ohne das Paar läuft (`PriceFetcher.fetchSingle(_:confirmMissing:)`): Zwei unabhängige Aussagen statt
     /// einer kurz leeren Antwort — oder ohne Sammelabfrage, wenn die Einzelabfrage selbst diese Liste liest
     /// (`confirmWithoutBulk`).
-    static func confirmedBySingle(gotPrice: Bool, error: String?, failure: MarketFailure? = nil) -> Bool {
+    static func confirmedBySingle(gotPrice: Bool, error: String?, failure: ExchangeFailure? = nil) -> Bool {
         if gotPrice { return false }
         switch failure {
         case .unknownInstrument?: return true
         case .httpStatus(let code)?: return confirmingHTTP.contains(code)
         case .timeout?, .offline?, .ssl?, .rateLimited?, .other?: return false
-        case .parse?, .exchange?, nil: break
+        case .parse?, .message?, nil: break
         }
         guard let error, !error.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return failure == nil }
         switch RefreshReportLogic.classify(error) {
@@ -62,7 +62,7 @@ enum NotTraded {
 
     /// Einzelabfrage ohne Sammelabfrage (zu wenige Paare der Börse): wie nach dem Fehlen in der vollständigen Liste mit
     /// `confirmedBySingle` werten? Nur, wenn die Einzelabfrage selbst die vollständige Liste liest
-    /// (`Market.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
+    /// (`Exchange.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
     /// Fehlen in der Liste. Sonst fehlte die zweite, unabhängige Aussage: gewöhnlicher Fehler wie bisher. Wie Android.
     static func confirmWithoutBulk(bulkTried: Bool, singleReadsFullList: Bool) -> Bool { !bulkTried && singleReadsFullList }
 
@@ -80,7 +80,7 @@ enum NotTraded {
         return text == noEntry || text.lowercased().hasPrefix(unknownCoin)
     }
 
-    /// = `JSONError.noData` (hier nur Foundation, auch im Widget); Android `MarketParseException.NO_DATA`.
+    /// = `JSONError.noData` (hier nur Foundation, auch im Widget); Android `ExchangeParseException.NO_DATA`.
     private static let noEntry = "No data"
 
     /// Anfang der Hyperliquid-Meldung für einen Coin, den die Antwort nicht führt (klein geschrieben).

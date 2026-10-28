@@ -3,7 +3,7 @@ import XCTest
 
 /// TradFi-Kennzeichen von Aster, BingX Futures und Lighter (Robinhood-Spot) sowie die Börsen für «Nur TradFi» —
 /// Werte aus den öffentlichen Paarlisten vom 19.10.2026. Wie `TradFiTest.kt`; die Kennzeichen der übrigen Börsen
-/// prüft `MarketsTests.swift`.
+/// prüft `ExchangesTests.swift`.
 final class TradFiTests: XCTestCase {
 
     func testAster() {
@@ -48,9 +48,9 @@ final class TradFiTests: XCTestCase {
     /// «Nur TradFi» zeigt die Börsen, deren Paarliste TradFi kennzeichnet — Hyperliquid tut das nicht.
     func testTradFiMarkets() {
         for key in ["Aster", "BingXFutures", "Lighter", "PhemexFutures"] {
-            XCTAssertTrue(CoinLogos.tradFiMarkets.contains(key), key)
-            XCTAssertTrue(AssetScope.TRADFI.allowsMarket(key), key)
+            XCTAssertTrue(CoinLogos.tradFiExchanges.contains(key), key)
+            XCTAssertTrue(AssetScope.TRADFI.allowsExchange(key), key)
         }
-        for key in ["Hyperliquid", "BingX"] { XCTAssertFalse(AssetScope.TRADFI.allowsMarket(key), key) }
+        for key in ["Hyperliquid", "BingX"] { XCTAssertFalse(AssetScope.TRADFI.allowsExchange(key), key) }
     }
 }

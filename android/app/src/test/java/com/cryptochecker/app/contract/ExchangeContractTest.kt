@@ -7,10 +7,10 @@ import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.app.util.SourceGuard
-import com.cryptochecker.marketdata.config.MarketsConfig
+import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.Market
+import com.cryptochecker.marketdata.model.Exchange
 import com.cryptochecker.marketdata.model.pairListPaging
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
@@ -29,7 +29,7 @@ import kotlin.math.max
  * dieselben Dateien (vom Projekt-Generator nach `Tests/Exchanges` kopiert) — benennt eine Börse
  * ein Feld um, schlagen beide Plattformen gleich an.
  *
- * Ablauf wie in der App (`MarketRemoteDataSource.fetchMarketTicker`): `readTicker`; wirft
+ * Ablauf wie in der App (`ExchangeRemoteDataSource.fetchExchangeTicker`): `readTicker`; wirft
  * das oder ergibt es keinen gültigen `last` (fehlt, 0, NaN/∞), gilt die Antwort als Fehler und `readError` liefert
  * den Fehlertext der Börse (oder wirft: dann gibt es keinen).
  *
@@ -70,8 +70,8 @@ class ExchangeContractTest {
             .sortedBy { it.name }
             .map { it.name to ParityJson.parse(it.readText(Charsets.UTF_8)).obj() }
 
-    private fun market(key: String): Market =
-        MarketsConfig.MARKETS[key] ?: throw CaseFailure("unknown market key $key")
+    private fun exchange(key: String): Exchange =
+        ExchangesConfig.EXCHANGES[key] ?: throw CaseFailure("unknown market key $key")
 
     private fun close(expected: Double, actual: Double): Boolean {
         if (expected == actual) return true
@@ -132,7 +132,7 @@ class ExchangeContractTest {
     )
 
     private fun runSingle(c: Map<String, Any?>) {
-        val market = market(c["market"] as String)
+        val exchange = exchange(c["exchangeKey"] as String)
         val info = checkerInfo(c["pair"].obj())
         val requestId = c["requestId"].num()?.toInt() ?: 0
         val body = c["body"] as String
@@ -141,7 +141,7 @@ class ExchangeContractTest {
         val ticker = SimpleTicker()
         var failure: Exception? = null
         try {
-            market.readTicker(requestId, body, ticker, info)
+            exchange.readTicker(requestId, body, ticker, info)
             if (!ticker.last.isFinite() || ticker.last <= 0.0) failure = IllegalStateException("no ticker data")
         } catch (e: Exception) {
             failure = e
@@ -158,7 +158,7 @@ class ExchangeContractTest {
             if (failure.message != it) throw CaseFailure("thrown: expected '$it', got '${failure.message}'")
         }
         val message = try {
-            market.readError(requestId, body, info)
+            exchange.readError(requestId, body, info)
         } catch (e: Exception) {
             null
         }
@@ -172,15 +172,15 @@ class ExchangeContractTest {
      * (SingleTickerFallback, dort samt «status» geprüft).
      */
     private fun runSingleFallback(c: Map<String, Any?>) {
-        val market = market(c["market"] as String)
+        val exchange = exchange(c["exchangeKey"] as String)
         val info = checkerInfo(c["pair"].obj())
         val requestId = c["requestId"].num()?.toInt() ?: 0
         val expect = c["expect"].obj()
-        if (market.tickerFallbackAddress(requestId, info).isNullOrEmpty()) throw CaseFailure("no fallback address")
+        if (exchange.tickerFallbackAddress(requestId, info).isNullOrEmpty()) throw CaseFailure("no fallback address")
 
         val ticker = SimpleTicker()
         val failure = try {
-            market.readTickerFallback(requestId, c["body"] as String, ticker, info)
+            exchange.readTickerFallback(requestId, c["body"] as String, ticker, info)
             if (!ticker.last.isFinite() || ticker.last <= 0.0) IllegalStateException("no ticker data") else null
         } catch (e: Exception) {
             e
@@ -197,11 +197,11 @@ class ExchangeContractTest {
     }
 
     private fun runBulk(c: Map<String, Any?>) {
-        val market = market(c["market"] as String)
+        val exchange = exchange(c["exchangeKey"] as String)
         val requestId = c["requestId"].num()?.toInt() ?: 0
         val expect = c["expect"].obj()
         val parsed = try {
-            market.parseBulkTickersDetailed(requestId, c["body"] as String)
+            exchange.parseBulkTickersDetailed(requestId, c["body"] as String)
         } catch (e: Exception) {
             if (expect["error"] == true) return
             throw CaseFailure("bulk parser failed: $e")
@@ -230,24 +230,24 @@ class ExchangeContractTest {
 
     /** Paarliste: Anzahl, fehlende Kennungen und je Paar Basis, Kotierung, Vertragsart, TradFi. */
     private fun runPairs(c: Map<String, Any?>) {
-        val market = market(c["market"] as String)
+        val exchange = exchange(c["exchangeKey"] as String)
         val requestId = c["requestId"].num()?.toInt() ?: 0
         val expect = c["expect"].obj()
-        val pairs = ArrayList<com.cryptochecker.marketdata.model.MarketPair>()
+        val pairs = ArrayList<com.cryptochecker.marketdata.model.ExchangePair>()
         try {
-            market.readPairList(requestId, c["body"] as String, pairs)
+            exchange.readPairList(requestId, c["body"] as String, pairs)
         } catch (e: Exception) {
             throw CaseFailure("pair parser failed: $e")
         }
         val byId = pairs.associateBy { it.pairId }
         // Adresse der Anfrage (Abfrage-Parameter wie Binance `symbolStatus`)
         if (expect.containsKey("address")) {
-            val address = market.pairListAddress(requestId)
+            val address = exchange.pairListAddress(requestId)
             if (address != expect["address"]) throw CaseFailure("address: expected ${expect["address"]}, got $address")
         }
         // Folgeseite nach dieser Antwort, mit frischem Blätterzustand wie zu Beginn einer Synchronisierung
         if (expect.containsKey("nextPage")) {
-            val next = market.pairListPaging().nextPage(requestId, c["body"] as String)
+            val next = exchange.pairListPaging().nextPage(requestId, c["body"] as String)
             if (next != expect["nextPage"]) throw CaseFailure("nextPage: expected ${expect["nextPage"]}, got $next")
         }
 
@@ -290,14 +290,14 @@ class ExchangeContractTest {
      * Werte selbst ([checkRecordedValues]), gemessen am Aufnahmezeitpunkt [recordedAt] (ms, null = unbekannt).
      */
     private fun runRecorded(c: Map<String, Any?>, recordedAt: Long?) {
-        val market = market(c["market"] as String)
+        val exchange = exchange(c["exchangeKey"] as String)
         val requestId = c["requestId"].num()?.toInt() ?: 0
         val body = c["body"] as String
         when (val kind = c["kind"] as String) {
             "single" -> {
                 val ticker = SimpleTicker()
                 try {
-                    market.readTicker(requestId, body, ticker, checkerInfo(c["pair"].obj()))
+                    exchange.readTicker(requestId, body, ticker, checkerInfo(c["pair"].obj()))
                 } catch (e: Exception) {
                     throw CaseFailure("parser failed: $e")
                 }
@@ -306,16 +306,16 @@ class ExchangeContractTest {
             }
             "bulk" -> {
                 val parsed = try {
-                    market.parseBulkTickersDetailed(requestId, body)
+                    exchange.parseBulkTickersDetailed(requestId, body)
                 } catch (e: Exception) {
                     throw CaseFailure("bulk parser failed: $e")
                 }
                 if (parsed.tickers.isEmpty()) throw CaseFailure("batch without tickers (failed rows: ${parsed.failed.size})")
             }
             "pairs" -> {
-                val pairs = ArrayList<com.cryptochecker.marketdata.model.MarketPair>()
+                val pairs = ArrayList<com.cryptochecker.marketdata.model.ExchangePair>()
                 try {
-                    market.readPairList(requestId, body, pairs)
+                    exchange.readPairList(requestId, body, pairs)
                 } catch (e: Exception) {
                     throw CaseFailure("pair parser failed: $e")
                 }
@@ -453,7 +453,7 @@ class ExchangeContractTest {
         val recordedAt = Instant.parse(data["recordedAt"] as String).toEpochMilli()
         val single = data["cases"].list().map { it.obj() }.first { it["kind"] == "single" }
         val ticker = SimpleTicker()
-        market("Bithumb").readTicker(0, single["body"] as String, ticker, checkerInfo(single["pair"].obj()))
+        exchange("Bithumb").readTicker(0, single["body"] as String, ticker, checkerInfo(single["pair"].obj()))
         val time = ticker.exchangeTime
         assertNotNull("Bithumb: keine Börsenzeit gelesen", time)
         assertTrue("Bithumb: Börsenzeit $time nach Aufnahme $recordedAt + 60 s", time!! <= recordedAt + 60_000)
@@ -473,21 +473,21 @@ class ExchangeContractTest {
 
     /** Jede registrierte Börse braucht mindestens einen Einzelabruf-Fall — neue Adapter fallen sonst auf. */
     @Test
-    fun everyRegisteredMarketHasAContractFixture() {
+    fun everyRegisteredExchangeHasAContractFixture() {
         val covered = HashSet<String>()
         val bulkCovered = HashSet<String>()
         for ((_, data) in fixtures()) {
             for (raw in data["cases"].list()) {
                 val c = raw.obj()
-                val key = c["market"] as? String ?: continue
+                val key = c["exchangeKey"] as? String ?: continue
                 if (c["kind"] == "single") covered += key
                 if (c["kind"] == "bulk") bulkCovered += key
             }
         }
-        val missing = MarketsConfig.MARKETS.keys.filter { it !in covered }.sorted()
+        val missing = ExchangesConfig.EXCHANGES.keys.filter { it !in covered }.sorted()
         assertTrue("markets without a single-ticker contract case: $missing", missing.isEmpty())
 
-        val bulkMissing = MarketsConfig.MARKETS.values
+        val bulkMissing = ExchangesConfig.EXCHANGES.values
             .filter { it.bulkTickersNumOfRequests > 0 && it.key !in bulkCovered }
             .map { it.key }.sorted()
         assertTrue("markets with a batch endpoint but no bulk contract case: $bulkMissing", bulkMissing.isEmpty())

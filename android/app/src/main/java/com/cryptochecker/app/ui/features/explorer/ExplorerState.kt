@@ -1,7 +1,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.marketdata.model.MarketPair
-import com.cryptochecker.marketdata.model.market.DexPool
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.exchange.DexPool
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 /** «Alle …-Paare» der gewählten Börse. */
 internal class ExplorerBulkState {
     /** Paare zur gewählten Gegenwährung [quote]. */
-    val pairs = MutableStateFlow<List<MarketPair>>(emptyList())
+    val pairs = MutableStateFlow<List<ExchangePair>>(emptyList())
 
     /** true: «Alle …-Paare» angewendet, aber zur Gegenwährung gibt es keine. */
     val empty = MutableStateFlow(false)

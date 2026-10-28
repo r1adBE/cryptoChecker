@@ -36,15 +36,15 @@ Open an issue with the template **«Exchange request»** first, or send a pull
 request directly. Only public endpoints without API keys can be used. The
 guide [`DEVELOPMENT.md`](DEVELOPMENT.md) explains the adapters step by step.
 
-* Keep Android (`android/marketdata`) and iOS (`ios/Shared/Markets`) in sync:
+* Keep Android (`android/marketdata`) and iOS (`ios/Shared/Exchanges`) in sync:
   an adapter added in Kotlin should get its Swift counterpart (or say so in
   the PR so it can be ported).
 * One exchange per pull request, with a short note on the API endpoints used.
 * Register the adapter on both platforms as described in
   [`DEVELOPMENT.md` § 8](DEVELOPMENT.md#8-registering-the-exchange): give it a
   fixed `key` (stored in every saved pair, alarm and backup – never change it
-  later) and add the key to `MarketKeyTest`
-  (`android/app/src/test/java/com/cryptochecker/app/contract/MarketKeyTest.kt`),
+  later) and add the key to `ExchangeKeyTest`
+  (`android/app/src/test/java/com/cryptochecker/app/contract/ExchangeKeyTest.kt`),
   which fails for a missing or changed key.
 * Add the adapter's ticker endpoint and parsed fields to the table in
   `.github/scripts/exchange_live_check.py`. The weekly **Exchange API check**

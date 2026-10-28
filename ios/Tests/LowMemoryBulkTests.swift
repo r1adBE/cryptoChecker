@@ -6,20 +6,20 @@ final class LowMemoryBulkTests: XCTestCase {
 
     func testPlan() {
         // Gefiltert möglich: Sammelabfrage bleibt
-        XCTAssertEqual(LowMemoryBulk.plan(marketKey: "Binance", pairs: 30, unfilteredOnly: false), .bulk)
+        XCTAssertEqual(LowMemoryBulk.plan(exchangeKey: "Binance", pairs: 30, unfilteredOnly: false), .bulk)
         // Ungefiltert, wenige Paare: einzeln
-        XCTAssertEqual(LowMemoryBulk.plan(marketKey: "GateIo", pairs: LowMemoryBulk.maxSingles, unfilteredOnly: true), .singles)
-        XCTAssertEqual(LowMemoryBulk.plan(marketKey: "Bitstamp", pairs: 3, unfilteredOnly: true), .singles)
+        XCTAssertEqual(LowMemoryBulk.plan(exchangeKey: "GateIo", pairs: LowMemoryBulk.maxSingles, unfilteredOnly: true), .singles)
+        XCTAssertEqual(LowMemoryBulk.plan(exchangeKey: "Bitstamp", pairs: 3, unfilteredOnly: true), .singles)
         // Ungefiltert, viele Paare: grosse Liste → auslassen (gespeicherter Kurs), kleine Liste → Sammelabfrage
-        XCTAssertEqual(LowMemoryBulk.plan(marketKey: "GateIo", pairs: LowMemoryBulk.maxSingles + 1, unfilteredOnly: true), .skip)
-        XCTAssertEqual(LowMemoryBulk.plan(marketKey: "Kucoin", pairs: 40, unfilteredOnly: true), .skip)
-        XCTAssertEqual(LowMemoryBulk.plan(marketKey: "Bitstamp", pairs: 40, unfilteredOnly: true), .bulk)
+        XCTAssertEqual(LowMemoryBulk.plan(exchangeKey: "GateIo", pairs: LowMemoryBulk.maxSingles + 1, unfilteredOnly: true), .skip)
+        XCTAssertEqual(LowMemoryBulk.plan(exchangeKey: "Kucoin", pairs: 40, unfilteredOnly: true), .skip)
+        XCTAssertEqual(LowMemoryBulk.plan(exchangeKey: "Bitstamp", pairs: 40, unfilteredOnly: true), .bulk)
     }
 
     func testUnfilteredDetection() throws {
-        let gate = try XCTUnwrap(MarketsConfig.market("GateIo"))
-        let kucoin = try XCTUnwrap(MarketsConfig.market("Kucoin"))
-        let binance = try XCTUnwrap(MarketsConfig.market("Binance"))
+        let gate = try XCTUnwrap(ExchangesConfig.exchange("GateIo"))
+        let kucoin = try XCTUnwrap(ExchangesConfig.exchange("Kucoin"))
+        let binance = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
         XCTAssertTrue(LowMemoryBulk.isUnfiltered(gate, pairIds: ["BTC_USDT", "ETH_USDT", "SOL_USDT"]))
         XCTAssertTrue(LowMemoryBulk.isUnfiltered(kucoin, pairIds: ["BTC-USDT", "ETH-USDT", "SOL-USDT"]))
         // Binance filtert bis 100 Symbole, darüber gilt die ungefilterte Liste

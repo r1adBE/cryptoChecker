@@ -64,9 +64,9 @@ object CurrencyConversion {
      * an anderen Börsen (CoinDCX, BingX, Binance) ist U ein Coin und bleibt Krypto — darum nicht global in
      * [USD_STABLES]. Sonst [normalize]. Wie iOS `CurrencyConversion.conversionQuote`.
      */
-    fun conversionQuote(marketKey: String?, quote: String?): String {
+    fun conversionQuote(exchangeKey: String?, quote: String?): String {
         val code = normalize(quote)
-        return if (code == "U" && marketKey?.trim().equals(ASTER_KEY, ignoreCase = true)) "USD" else code
+        return if (code == "U" && exchangeKey?.trim().equals(ASTER_KEY, ignoreCase = true)) "USD" else code
     }
 
     /** Gleiche Währung (Gross-/Kleinschreibung egal) — dann gibt es nichts umzurechnen. */

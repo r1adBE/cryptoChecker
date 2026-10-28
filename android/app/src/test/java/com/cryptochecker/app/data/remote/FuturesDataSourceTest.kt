@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -52,8 +52,8 @@ class FuturesDataSourceTest {
 
     private fun ok(body: String) = 200 to body
 
-    private fun watch(marketKey: String, base: String, pairId: String?, contract: FuturesContractType = FuturesContractType.PERPETUAL) =
-        WatchEntity(marketKey = marketKey, marketName = marketKey, baseAsset = base, quoteAsset = "USDT", contractType = contract, pairId = pairId)
+    private fun watch(exchangeKey: String, base: String, pairId: String?, contract: FuturesContractType = FuturesContractType.PERPETUAL) =
+        WatchEntity(exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = base, quoteAsset = "USDT", contractType = contract, pairId = pairId)
 
     /** Ein Test, der eine Quelle braucht, läuft nur, wenn kein anderer Test im selben Prozess sie gesperrt hat. */
     private fun assumeOpen(vararg hosts: String) {
@@ -247,7 +247,7 @@ class FuturesDataSourceTest {
     fun firstOfSkipsBlockedHosts() = runBlocking {
         val futures = source(emptyMap())
         val blocked = "futures-test-blocked.example"
-        assertTrue(BlockedSources.noteFailure(blocked, HttpMarketError(451, "unavailable")))
+        assertTrue(BlockedSources.noteFailure(blocked, HttpExchangeError(451, "unavailable")))
         var askedBlocked = false
         val result = futures.firstOf(
             futures.source<String>(blocked) { askedBlocked = true; "gesperrt" },

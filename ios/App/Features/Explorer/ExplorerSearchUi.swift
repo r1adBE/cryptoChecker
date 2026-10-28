@@ -323,7 +323,7 @@ extension ExplorerScreen {
 
     /// Vorschlag zum Coin: Paar, Börse und ein grosser Knopf «Zur Merkliste» (bzw. Häkchen, wenn schon da).
     private func suggestedPairCard(_ hit: ExplorerSearchHit) -> some View {
-        let inList = vm.isInWatchlist(hit.market, hit.pair)
+        let inList = vm.isInWatchlist(hit.exchange, hit.pair)
         return VStack(alignment: .leading, spacing: Spacing.xs) {
             Text("\(hit.pair.base)/\(hit.pair.quote)" + (hit.alpha ? " " + AssetKindIconView.alphaGlyph : ""))
                 .font(.headline)
@@ -350,7 +350,7 @@ extension ExplorerScreen {
     }
 
     private func searchHitRow(_ hit: ExplorerSearchHit) -> some View {
-        let inList = vm.isInWatchlist(hit.market, hit.pair)
+        let inList = vm.isInWatchlist(hit.exchange, hit.pair)
         return Button {
             vm.addSearchHit(hit)
         } label: {
@@ -393,7 +393,7 @@ extension ExplorerScreen {
 
     /// Börse und — bei Futures — die Laufzeit.
     private func searchSubtitle(_ hit: ExplorerSearchHit) -> String {
-        var parts = [hit.market.name]
+        var parts = [hit.exchange.name]
         if hit.pair.contractType != .none { parts.append(ExplorerViewModel.contractName(hit.pair.contractType)) }
         return parts.joined(separator: " · ")
     }

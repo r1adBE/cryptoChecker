@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.refresh
 
 import com.cryptochecker.app.domain.watch.PriceFreshness
-import com.cryptochecker.marketdata.config.MarketsConfig
+import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.SimpleTicker
-import com.cryptochecker.marketdata.model.market.Binance
-import com.cryptochecker.marketdata.model.market.BinanceFutures
+import com.cryptochecker.marketdata.model.exchange.Binance
+import com.cryptochecker.marketdata.model.exchange.BinanceFutures
 import com.cryptochecker.marketdata.util.BulkCompleteness
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -86,7 +86,7 @@ class PriceFetchRulesTest {
     }
 
     @Test
-    fun singleGroupMarketsStayAllOrNothing() {
+    fun singleGroupExchangesStayAllOrNothing() {
         val ids = listOf("A", "B")
         val incomplete = BulkCompleteness.incomplete(ids, setOf(0)) { 0 }
         assertEquals(setOf("A", "B"), incomplete)
@@ -113,8 +113,8 @@ class PriceFetchRulesTest {
 
     @Test
     fun bithumbFindsUnknownPairsViaPairList() {
-        val bithumb = MarketsConfig.MARKETS["Bithumb"]!!
-        val upbit = MarketsConfig.MARKETS["Upbit"]!!
+        val bithumb = ExchangesConfig.EXCHANGES["Bithumb"]!!
+        val upbit = ExchangesConfig.EXCHANGES["Upbit"]!!
         assertEquals("https://api.bithumb.com/v1/market/all?isDetails=false", bithumb.getBulkKnownPairsUrl(0))
         // Upbit hat die ungefilterte Liste
         assertNull(upbit.getBulkKnownPairsUrl(0))
@@ -124,7 +124,7 @@ class PriceFetchRulesTest {
     @Test
     fun krakenBulkIsComplete() {
         // Fehlendes Paar: einzeln nachfragen, «EQuery:Unknown asset pair» → nicht mehr gehandelt (BulkDelisted lernt es)
-        assertTrue(MarketsConfig.MARKETS["Kraken"]!!.bulkTickersComplete)
+        assertTrue(ExchangesConfig.EXCHANGES["Kraken"]!!.bulkTickersComplete)
         assertTrue(com.cryptochecker.app.domain.watch.NotTraded.confirmedBySingle(false, "EQuery:Unknown asset pair"))
         assertFalse(com.cryptochecker.app.domain.watch.NotTraded.confirmedBySingle(false, "EGeneral:Too many requests"))
     }
@@ -133,7 +133,7 @@ class PriceFetchRulesTest {
 
     @Test
     fun inversePerpetualIds() {
-        val n = { market: String, id: String?, type: FuturesContractType -> FuturesContractType.normalized(market, id, type) }
+        val n = { exchange: String, id: String?, type: FuturesContractType -> FuturesContractType.normalized(exchange, id, type) }
         assertEquals(FuturesContractType.INVERSE_PERPETUAL, n("BinanceFutures", "2:BTCUSD_PERP", FuturesContractType.PERPETUAL))
         assertEquals(FuturesContractType.PERPETUAL, n("BinanceFutures", "BTCUSDT", FuturesContractType.PERPETUAL))
         // COIN-M-Laufzeit bleibt
@@ -162,7 +162,7 @@ class PriceFetchRulesTest {
 
     @Test
     fun fetchTimeDrivesStalenessExchangeTimeOnlyPastAlarmLimit() {
-        val upbit = MarketsConfig.MARKETS["Upbit"]!!
+        val upbit = ExchangesConfig.EXCHANGES["Upbit"]!!
         val body = """[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,""" +
             """"acc_trade_price_24h":1.0,"acc_trade_volume_24h":2.0}]"""
         val before = System.currentTimeMillis()

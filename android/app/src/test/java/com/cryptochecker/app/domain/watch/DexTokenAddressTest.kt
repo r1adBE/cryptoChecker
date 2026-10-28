@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.ui.features.watchlist.dexSpokenTail
-import com.cryptochecker.marketdata.model.market.DexScreener
+import com.cryptochecker.marketdata.model.exchange.DexScreener
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

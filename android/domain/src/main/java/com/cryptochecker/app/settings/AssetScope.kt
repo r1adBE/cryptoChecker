@@ -1,18 +1,18 @@
 package com.cryptochecker.app.settings
 
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.TokenIdentity
-import com.cryptochecker.marketdata.model.MarketPair
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 
 /**
  * «Token & TradFi» (Einstellungen › Merkliste): Was die Paar-Auswahl (Paar hinzufügen, Suche über
  * alle Börsen, «Alle …-Paare») zeigt.
  *
  *  - [TOKENS] (Standard): nur Krypto — Spot, Perpetuals und (mit QTLY) Laufzeit-Futures.
- *  - [TRADFI]: nur Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO ([MarketPair.tradFi]).
+ *  - [TRADFI]: nur Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO ([ExchangePair.tradFi]).
  *  - [BOTH]: alles.
  *
  * Alpha-Tokens ([AssetKind.ALPHA]) gehören zu Token; der Schalter «inkl. Alpha-Tokens»
@@ -36,33 +36,33 @@ enum class AssetScope {
     val allowsTokens: Boolean get() = this != TRADFI
 
     /**
-     * Paar der Börse [marketKey] in der Auswahl zeigen? [hiddenAlpha]: Kürzel der Alpha-Tokens, die
+     * Paar der Börse [exchangeKey] in der Auswahl zeigen? [hiddenAlpha]: Kürzel der Alpha-Tokens, die
      * ausgeblendet sind («inkl. Alpha-Tokens» aus; [hiddenAlphaSymbols]), sonst leer. Alpha-Paare von
      * Binance selbst ([BinanceAlpha]) nur mit «inkl. Alpha-Tokens». [pairNames] (Kürzel gross → Name aus
      * der Paarliste der Börse) und [alphaNames] wie bei [AssetKind.of]: klar anderer Name → kein Alpha.
      */
     fun allows(
-        pair: MarketPair,
-        marketKey: String = "",
+        pair: ExchangePair,
+        exchangeKey: String = "",
         hiddenAlpha: Set<String> = emptySet(),
         pairNames: Map<String, String> = emptyMap(),
         alphaNames: Map<String, String> = emptyMap(),
     ): Boolean = when {
         pair.tradFi -> allowsTradFi
         !allowsTokens -> false
-        BinanceAlpha.isAlphaPair(marketKey, pair.pairId) -> hiddenAlpha.isEmpty()
+        BinanceAlpha.isAlphaPair(exchangeKey, pair.pairId) -> hiddenAlpha.isEmpty()
         hiddenAlpha.isEmpty() -> true
         else -> AssetKind.of(
-            marketKey, pair.base, tradFi = false, alphaSymbols = hiddenAlpha,
+            exchangeKey, pair.base, tradFi = false, alphaSymbols = hiddenAlpha,
             pairName = pairNames[TokenIdentity.key(pair.base)], alphaNames = alphaNames,
         ) != AssetKind.ALPHA
     }
 
     /**
      * Börse in der Auswahl zeigen? Bei «Nur TradFi» nur Börsen, deren Paarliste TradFi kennt
-     * ([CoinLogos.TRADFI_MARKETS]) — die übrigen (auch DEX) hätten dort keine Paare.
+     * ([CoinLogos.TRADFI_EXCHANGES]) — die übrigen (auch DEX) hätten dort keine Paare.
      */
-    fun allowsMarket(marketKey: String): Boolean = allowsTokens || marketKey in CoinLogos.TRADFI_MARKETS
+    fun allowsExchange(exchangeKey: String): Boolean = allowsTokens || exchangeKey in CoinLogos.TRADFI_EXCHANGES
 
     companion object {
         val DEFAULT = TOKENS
@@ -108,16 +108,16 @@ enum class AssetScope {
 }
 
 /**
- * Nur die Paare der Börse [marketKey], die [scope] in der Auswahl zeigt (dieselbe Liste, wenn
+ * Nur die Paare der Börse [exchangeKey], die [scope] in der Auswahl zeigt (dieselbe Liste, wenn
  * nichts wegfällt); [hiddenAlpha] wie bei [AssetScope.allows].
  */
-fun MarketPairsInfo.scoped(
+fun ExchangePairsInfo.scoped(
     scope: AssetScope,
-    marketKey: String = "",
+    exchangeKey: String = "",
     hiddenAlpha: Set<String> = emptySet(),
     pairNames: Map<String, String> = emptyMap(),
     alphaNames: Map<String, String> = emptyMap(),
-): MarketPairsInfo {
-    val keep: (MarketPair) -> Boolean = { scope.allows(it, marketKey, hiddenAlpha, pairNames, alphaNames) }
+): ExchangePairsInfo {
+    val keep: (ExchangePair) -> Boolean = { scope.allows(it, exchangeKey, hiddenAlpha, pairNames, alphaNames) }
     return if (pairs.all(keep)) this else copy(pairs = pairs.filter(keep))
 }

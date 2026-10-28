@@ -26,7 +26,7 @@ class WatchEditTest {
 
     @Test
     fun `other exchange, pair or contract is a change`() {
-        assertEquals(WatchEdit.Outcome.CHANGED, WatchEdit.decide(7, btc, btc.copy(marketKey = "Kraken"), null))
+        assertEquals(WatchEdit.Outcome.CHANGED, WatchEdit.decide(7, btc, btc.copy(exchangeKey = "Kraken"), null))
         assertEquals(WatchEdit.Outcome.CHANGED, WatchEdit.decide(7, btc, btc.copy(quote = "USDC"), null))
         assertEquals(WatchEdit.Outcome.CHANGED, WatchEdit.decide(7, btc, btc.copy(contract = "PERPETUAL"), null))
         // Treffer ist der Eintrag selbst (kann bei einem Wettlauf vorkommen): kein Doppel
@@ -54,7 +54,7 @@ class WatchEditTest {
 class WatchIdentityTest {
 
     private fun key(spec: Map<String, Any?>) = WatchIdentity.key(
-        spec["marketKey"] as String,
+        spec["exchangeKey"] as String,
         spec["base"] as String,
         spec["quote"] as String,
         spec["contract"] as String,

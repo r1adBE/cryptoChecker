@@ -15,12 +15,12 @@ import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
@@ -68,7 +68,7 @@ class AlarmEditorRecreateTest {
             settingsRepository.setAppLock(false)
             watchRepository.deleteAllWatches()
             watchId = checkNotNull(
-                watchRepository.addWatch(MarketInfo("Binance", "Binance"), MarketPair("BTC", "USDT", "BTCUSDT"))
+                watchRepository.addWatch(ExchangeInfo("Binance", "Binance"), ExchangePair("BTC", "USDT", "BTCUSDT"))
             )
         }
     }

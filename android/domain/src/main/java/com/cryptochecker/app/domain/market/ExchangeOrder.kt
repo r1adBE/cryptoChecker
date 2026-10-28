@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.market
 
 import com.cryptochecker.app.util.json.JsonArray
-import com.cryptochecker.marketdata.model.MarketCategory
+import com.cryptochecker.marketdata.model.ExchangeCategory
 
 /**
  * Reihenfolge der Börsenauswahl: Abschnitte Spot · Futures · DEX-Pools · Forex, darin nach dem
  * Handelsvolumen am Tag der Installation (einmal von CoinGecko geholt, `ExchangeRankingStore`), ohne Ranking in der
- * Reihenfolge der Registry (`MarketsConfig`). Reine Logik — wie iOS `ExchangeOrder`
+ * Reihenfolge der Registry (`ExchangesConfig`). Reine Logik — wie iOS `ExchangeOrder`
  * (`testdata/parity/picker_order.json`).
  */
 object ExchangeOrder {
@@ -42,7 +42,7 @@ object ExchangeOrder {
     )
 
     /** Eine Börse der Auswahl: Schlüssel und Abschnitt. */
-    data class Entry(val key: String, val category: MarketCategory)
+    data class Entry(val key: String, val category: ExchangeCategory)
 
     /**
      * Volumen je Börsen-Schlüssel aus beiden Listen ([{id, trade_volume_24h_btc}, …]); nur endliche Werte ≥ 0.
@@ -66,12 +66,12 @@ object ExchangeOrder {
     }
 
     /**
-     * Abschnitte in der Reihenfolge von [MarketCategory] (leere fallen weg). Mit [volumes] darin absteigend nach
+     * Abschnitte in der Reihenfolge von [ExchangeCategory] (leere fallen weg). Mit [volumes] darin absteigend nach
      * Volumen (gleiches Volumen: Registry-Reihenfolge), Börsen ohne Wert danach in Registry-Reihenfolge.
      */
-    fun sections(markets: List<Entry>, volumes: Map<String, Double>?): List<Pair<MarketCategory, List<String>>> =
-        MarketCategory.entries.mapNotNull { category ->
-            val inSection = markets.filter { it.category == category }.map { it.key }
+    fun sections(exchanges: List<Entry>, volumes: Map<String, Double>?): List<Pair<ExchangeCategory, List<String>>> =
+        ExchangeCategory.entries.mapNotNull { category ->
+            val inSection = exchanges.filter { it.category == category }.map { it.key }
             if (inSection.isEmpty()) return@mapNotNull null
             if (volumes == null) return@mapNotNull category to inSection
             val (ranked, rest) = inSection.partition { volumes[it] != null }

@@ -191,7 +191,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         ])
         XCTAssertEqual(r.single, ["BTC": "Kraken", "ETH": "Ledger Nano"])
         XCTAssertTrue(r.mixed.isEmpty)
-        XCTAssertNil(PortfolioExchangeRoute.market("Ledger Nano", markets: ["Kraken": "Kraken", "Binance": "Binance"]))
+        XCTAssertNil(PortfolioExchangeRoute.exchange("Ledger Nano", exchanges: ["Kraken": "Kraken", "Binance": "Binance"]))
     }
 
     func testCodableKeepsNewFieldsAndDropsInvalidFee() throws {

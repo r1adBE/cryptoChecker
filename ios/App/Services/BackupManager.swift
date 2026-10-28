@@ -9,7 +9,7 @@ import CryptoKit
 /// Das Format ist genau das der Android-Fassung, damit Sicherungen zwischen
 /// Android und iOS austauschbar bleiben (mit Passwort zusätzlich verschlüsselt, `BackupCrypto`):
 /// `{"format":"cryptochecker-backup","version":1,"createdAt":…,"watches":[…],
-///   "alarms":[…],"favorites":{"MARKET":[…],"COIN":[…],"QUOTE":[…]},"settings":{…},
+///   "alarms":[…],"favorites":{"EXCHANGE":[…],"COIN":[…],"QUOTE":[…]},"settings":{…},
 ///   "portfolio":[{"id","coin","type","amount","amountText","priceUsdt","priceText","time","note","fee","feeText",
 ///                 "feeUnit","exchange","transferFrom","transferTo","feeCoin","feeCoinAmountText","feeCoinPriceText",
 ///                 "importKey","acquiredTime"?}…],

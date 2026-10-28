@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker btc_jpy: no 24 h change in the ticker; timestamp is the response time (exchange time unknown)",
-      "market": "Coincheck",
+      "exchangeKey": "Coincheck",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Coincheck",
+      "exchangeKey": "Coincheck",
       "pair": {
         "base": "FOO",
         "quote": "JPY",
@@ -50,7 +50,7 @@
     {
       "kind": "single",
       "name": "rate limit: error text «Too many requests»",
-      "market": "Coincheck",
+      "exchangeKey": "Coincheck",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -67,7 +67,7 @@
     {
       "kind": "single",
       "name": "last 0 is no price, not a valid ticker (no error text)",
-      "market": "Coincheck",
+      "exchangeKey": "Coincheck",
       "pair": {
         "base": "OLD",
         "quote": "JPY",
@@ -84,7 +84,7 @@
     {
       "kind": "pairs",
       "name": "pair list from exchange_status: «stop» dropped, «available» and «itayose» kept",
-      "market": "Coincheck",
+      "exchangeKey": "Coincheck",
       "requestId": 0,
       "body": "{\"exchange_status\":[{\"pair\":\"btc_jpy\",\"status\":\"available\",\"timestamp\":1728540000,\"availability\":{\"order\":true,\"market_order\":true,\"cancel\":true}},{\"pair\":\"eth_jpy\",\"status\":\"itayose\",\"timestamp\":1728540000,\"availability\":{\"order\":true,\"market_order\":false,\"cancel\":true}},{\"pair\":\"xyz_jpy\",\"status\":\"stop\",\"timestamp\":1728540000,\"availability\":{\"order\":false,\"market_order\":false,\"cancel\":false}}]}",
       "expect": {

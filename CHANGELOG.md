@@ -15,6 +15,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 159)
+
+* No visible change. In the code, the word for a trading venue is now «exchange» everywhere (Android and iOS: classes, files, keys, database tables `exchanges` / `exchange_pairs`, backup and widget keys); «market» stays only where it means the whole market (market tab, market cap, movers).
+* Android: the watchlist database starts over at version 1 – test installs must be reinstalled; older backups and watchlists from earlier test builds are not read.
+* Text that a backup or a pair stored as the old German error «Börse nicht verfügbar» is no longer recognised.
+
 ## 16.2.2 (build 158)
 
 * Tests only (no change for users): 19 new Android unit-test files – network fees, futures funding and open interest with their fallbacks between exchanges, candle sources (error branches), cache codecs (cycle, market extras, portfolio history), backup journal, logo pauses, alarm drafts, portfolio form prefill and mappings, price formatting, widget snapshot codec, explorer state.

@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Hata: %1$s</string>
-    <string name="error_market_unreachable">Borsaya şu anda ulaşılamıyor – son fiyatlar görünür kalır.</string>
-    <string name="error_market_unreachable_short">Borsaya şu anda ulaşılamıyor</string>
+    <string name="error_exchange_unreachable">Borsaya şu anda ulaşılamıyor – son fiyatlar görünür kalır.</string>
+    <string name="error_exchange_unreachable_short">Borsaya şu anda ulaşılamıyor</string>
     <string name="loading_hint">Yükleniyor…</string>
     <string name="no_internet_connection">İnternet bağlantısı yok. Wi-Fi\'yi veya mobil veriyi kontrol edip tekrar dene.</string>
     <string name="option_off">Kapalı</string>

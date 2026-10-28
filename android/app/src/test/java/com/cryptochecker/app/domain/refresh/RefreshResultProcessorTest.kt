@@ -49,7 +49,7 @@ class RefreshResultProcessorTest {
     fun dexPoolWithLowLiquidityWritesPriceButHoldsAlarms() {
         val pool = "solana/pool1"
         val f = RefreshFixture(
-            listOf(watch(price = 99.0, marketKey = DexLiquidity.MARKET_KEY, pairId = pool)),
+            listOf(watch(price = 99.0, exchangeKey = DexLiquidity.EXCHANGE_KEY, pairId = pool)),
             listOf(above(100.0)),
         )
         f.dex.blocked = setOf(pool)
@@ -90,7 +90,7 @@ class RefreshResultProcessorTest {
 
     @Test
     fun markPriceFallbackWritesPriceButHoldsAlarms() {
-        val f = RefreshFixture(listOf(watch(price = 99.0, marketKey = "Hyperliquid")), listOf(above(100.0)))
+        val f = RefreshFixture(listOf(watch(price = 99.0, exchangeKey = "Hyperliquid")), listOf(above(100.0)))
 
         // Kein Mittelkurs (dünnes Orderbuch): Kurs = Mark-Preis, gespeichert und gemerkt, aber kein Alarm
         val mark = f.process(mapOf(1L to Fetched(ticker(101.0).apply { markFallback = true }, null)))
@@ -134,7 +134,7 @@ class RefreshResultProcessorTest {
     @Test
     fun liveQuotesDoNotMeasureDexLiquidity() {
         val pool = "solana/pool1"
-        val f = RefreshFixture(listOf(watch(price = 99.0, marketKey = DexLiquidity.MARKET_KEY, pairId = pool)))
+        val f = RefreshFixture(listOf(watch(price = 99.0, exchangeKey = DexLiquidity.EXCHANGE_KEY, pairId = pool)))
 
         f.process(mapOf(1L to Fetched(ticker(101.0, liquidityUsd = 500.0), null)), live = true)
 

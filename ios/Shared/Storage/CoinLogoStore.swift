@@ -134,7 +134,7 @@ actor CoinLogoStore {
                                         lastBinanceAt: binanceAt, lastAlphaAt: alphaAt, now: now,
                                         mirrorAllowed: !CoinLogos.isFresh(savedAt: metaAttempt, now: now, ttl: Self.mapRetryMillis),
                                         savedBinance: saved?.binance ?? [])
-        let result = await CoinLists.fetch({ url in try await MarketHTTP.call(url, session: MarketHTTP.bulkSession) },
+        let result = await CoinLists.fetch({ url in try await ExchangeHTTP.call(url, session: ExchangeHTTP.bulkSession) },
                                            request: request,
                                            isNetworkError: { $0 is URLError })
         let network = result.networkError || !NetworkStatus.shared.isOnline
@@ -382,11 +382,11 @@ actor CoinLogoStore {
             let url = CoinLogos.marketsURL(page: page)
             var text: String?
             do {
-                text = try await MarketHTTP.call(url)
-            } catch let error as HttpMarketError where error.httpCode == 429 {
+                text = try await ExchangeHTTP.call(url)
+            } catch let error as HttpExchangeError where error.httpCode == 429 {
                 let wait = CoinLogos.rateLimitWaitMillis(retryAfterSeconds: error.retryAfterSeconds)
                 try? await Task.sleep(nanoseconds: UInt64(wait) * 1_000_000)
-                text = try? await MarketHTTP.call(url)
+                text = try? await ExchangeHTTP.call(url)
             } catch {
                 if isNetworkError(error) { networkError = true }
                 text = nil

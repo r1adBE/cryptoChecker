@@ -99,7 +99,7 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(SettingsSearchPage.priceColors.home, .appearance)
         XCTAssertEqual(SettingsSearchPage.coinLogos.home, .appearance)
         XCTAssertEqual(SettingsSearchPage.portfolio.home, .general)
-        let nested: [SettingsSearchPage] = [.markets, .marketAlerts, .speech, .developer, .licenses, .changeBasis]
+        let nested: [SettingsSearchPage] = [.exchanges, .marketAlerts, .speech, .developer, .licenses, .changeBasis]
         for page in nested {
             XCTAssertNil(page.home, "\(page)")
         }
@@ -113,7 +113,7 @@ final class SettingsSearchTests: XCTestCase {
         XCTAssertEqual(path("page.updates"), L("settings_group_general"))
         XCTAssertEqual(path("page.widgets"), L("settings_section_appearance"))
         XCTAssertEqual(path("page.coin_logos"), L("settings_section_appearance"))
-        XCTAssertEqual(path("page.markets"), L("settings_row_watchlist"))
+        XCTAssertEqual(path("page.exchanges"), L("settings_row_watchlist"))
         XCTAssertEqual(path("page.market_alerts"), L("settings_row_alarms"))
         XCTAssertEqual(path("page.speech"), L("settings_row_alarms"))
         XCTAssertNil(path("page.advanced"))

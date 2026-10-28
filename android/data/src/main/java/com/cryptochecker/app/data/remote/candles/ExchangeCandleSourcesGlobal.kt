@@ -13,7 +13,7 @@ import org.json.JSONObject
 
 /** Bitfinex: `/v2/candles/trade:{1h|1D}:{tSYMBOL}/hist?limit&sort=-1` — [MTS, OPEN, CLOSE, HIGH, LOW, VOLUME]; 4 h aus 1 h. */
 object BitfinexCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Bitfinex")
+    override val exchangeKeys = setOf("Bitfinex")
     private fun id(pair: CandlePair) = CandleTime.pairId(pair, ":")?.takeIf { it.startsWith("t") }
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && id(pair) != null
@@ -48,13 +48,13 @@ object BitfinexCandles : ExchangeCandleSource {
  * Spot für «Bitget», USDT-Perpetuals (auch TradFi/RWA) für «BitgetFutures».
  */
 object BitgetCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Bitget", "BitgetFutures")
+    override val exchangeKeys = setOf("Bitget", "BitgetFutures")
     private const val PAGE = 100
     private const val MAX_PAGES = 4
 
     private fun category(pair: CandlePair): String? = when {
-        pair.marketKey == "BitgetFutures" && pair.contractType == FuturesContractType.PERPETUAL -> "USDT-FUTURES"
-        pair.marketKey == "Bitget" && pair.contractType == FuturesContractType.NONE -> "SPOT"
+        pair.exchangeKey == "BitgetFutures" && pair.contractType == FuturesContractType.PERPETUAL -> "USDT-FUTURES"
+        pair.exchangeKey == "Bitget" && pair.contractType == FuturesContractType.NONE -> "SPOT"
         else -> null
     }
 
@@ -99,7 +99,7 @@ object BitgetCandles : ExchangeCandleSource {
 
 /** Gate.io Spot: `/api/v4/spot/candlesticks?currency_pair&interval={1h|4h|1d}&limit` — [t (s), Umsatz, close, high, low, open, Menge]. */
 object GateIoCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("GateIo")
+    override val exchangeKeys = setOf("GateIo")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
 
@@ -126,7 +126,7 @@ object GateIoCandles : ExchangeCandleSource {
  * 1500), NEUESTE zuerst — [time (s), open, close, high, low, Menge, Umsatz].
  */
 object KucoinCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Kucoin")
+    override val exchangeKeys = setOf("Kucoin")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
 
@@ -161,7 +161,7 @@ object KucoinCandles : ExchangeCandleSource {
 
 /** MEXC Spot: `/api/v3/klines?symbol&interval={60m|4h|1d}&limit` (höchstens 500) — Binance-Aufbau. */
 object MexcCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Mexc")
+    override val exchangeKeys = setOf("Mexc")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
 
@@ -184,7 +184,7 @@ object MexcCandles : ExchangeCandleSource {
  * `amount` ist der Umsatz (Menge daraus genähert). Auch TradFi-Kontrakte.
  */
 object MexcFuturesCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("MexcFutures")
+    override val exchangeKeys = setOf("MexcFutures")
 
     override fun supports(pair: CandlePair) = pair.contractType.isPerpetual && CandleTime.pairId(pair) != null
 
@@ -224,7 +224,7 @@ object MexcFuturesCandles : ExchangeCandleSource {
  * {id (s), open, close, low, high, amount (Menge), vol (Umsatz)}; 4 h aus Stundenkerzen.
  */
 object HtxCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Htx")
+    override val exchangeKeys = setOf("Htx")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
 
@@ -260,7 +260,7 @@ object HtxCandles : ExchangeCandleSource {
  * nennt auch «1h»/«1d»; antwortet die erste Schreibweise nicht, die zweite. 4 h aus Stundenkerzen.
  */
 object GeminiCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Gemini")
+    override val exchangeKeys = setOf("Gemini")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && CandleTime.pairId(pair) != null
 
@@ -294,7 +294,7 @@ object GeminiCandles : ExchangeCandleSource {
  * (ms) — result.data [{o, h, l, c, v, t}].
  */
 object CryptoComCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("CryptoCom")
+    override val exchangeKeys = setOf("CryptoCom")
 
     override fun supports(pair: CandlePair) = CandleTime.pairId(pair) != null
 

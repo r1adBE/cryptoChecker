@@ -2,7 +2,7 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.marketdata.model.market.DexScreener
+import com.cryptochecker.marketdata.model.exchange.DexScreener
 
 /**
  * Obergrenzen für Merkliste und Paar-Alarme aus einer Sicherung ([BackupManager.restore]) — gleich wie iOS
@@ -20,13 +20,13 @@ import com.cryptochecker.marketdata.model.market.DexScreener
  *   «&» u. Ä. veränderten sonst Pfad oder Abfrage.
  * - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» ([DexScreener.isSafePairId]); nur diese kommt in die
  *   Adresse, Basis und Quote sind dort Anzeigetext der Börse («USD (ethereum)», «$WIF») und nur begrenzt.
- * - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`, z. B. eine inzwischen entfernte Börse), nur begrenzt.
+ * - Unbekannte Börsen bleiben (Platzhalter `UnknownExchange`, z. B. eine inzwischen entfernte Börse), nur begrenzt.
  * - Höchstens [MAX_PAIRS] Paare (die ersten der Datei) und je Paar [MAX_ALARMS_PER_PAIR] Alarme.
  */
 object BackupRestoreLimits {
 
-    const val MAX_MARKET_KEY = 64
-    const val MAX_MARKET_NAME = 60
+    const val MAX_EXCHANGE_KEY = 64
+    const val MAX_EXCHANGE_NAME = 60
     const val MAX_ASSET = 30
     const val MAX_PAIR_ID = 128
     /** Gleiche Grenzen wie im Rest der App ([WatchlistLimits]), hier nur weitergereicht. */
@@ -34,16 +34,16 @@ object BackupRestoreLimits {
     const val MAX_ALARMS_PER_PAIR = WatchlistLimits.MAX_ALARMS_PER_PAIR
 
     /** Darf das Paar aus der Sicherung übernommen werden? */
-    fun acceptsWatch(w: WatchEntity): Boolean = acceptsPair(w.marketKey, w.marketName, w.baseAsset, w.quoteAsset, w.pairId)
+    fun acceptsWatch(w: WatchEntity): Boolean = acceptsPair(w.exchangeKey, w.exchangeName, w.baseAsset, w.quoteAsset, w.pairId)
 
-    fun acceptsPair(marketKey: String, marketName: String, base: String, quote: String, pairId: String?): Boolean =
-        codePoints(marketKey) <= MAX_MARKET_KEY &&
-            codePoints(marketName) <= MAX_MARKET_NAME &&
-            assetAllowed(marketKey, base) &&
-            assetAllowed(marketKey, quote) &&
+    fun acceptsPair(exchangeKey: String, exchangeName: String, base: String, quote: String, pairId: String?): Boolean =
+        codePoints(exchangeKey) <= MAX_EXCHANGE_KEY &&
+            codePoints(exchangeName) <= MAX_EXCHANGE_NAME &&
+            assetAllowed(exchangeKey, base) &&
+            assetAllowed(exchangeKey, quote) &&
             (pairId == null || validPairId(pairId)) &&
             // DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
-            (marketKey != DexScreener.KEY || (pairId != null && DexScreener.isSafePairId(pairId)))
+            (exchangeKey != DexScreener.KEY || (pairId != null && DexScreener.isSafePairId(pairId)))
 
     /** Kennung höchstens [MAX_PAIR_ID] Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «/ _ : . -». */
     fun validPairId(pairId: String): Boolean {
@@ -60,8 +60,8 @@ object BackupRestoreLimits {
     }
 
     /** DexScreener: Basis/Quote nur begrenzt (Anzeigetext, nie in der Adresse); sonst wie Symbole ([validAsset]). */
-    private fun assetAllowed(marketKey: String, asset: String): Boolean =
-        if (marketKey == DexScreener.KEY) codePoints(asset) <= MAX_ASSET else validAsset(asset)
+    private fun assetAllowed(exchangeKey: String, asset: String): Boolean =
+        if (exchangeKey == DexScreener.KEY) codePoints(asset) <= MAX_ASSET else validAsset(asset)
 
     /**
      * Was nach [accept] bzw. [limit] übernommen wird; [droppedPairs]/[droppedAlarms] = wie viele wegen der Grenzen

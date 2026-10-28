@@ -108,7 +108,7 @@ final class PriceSaveThrottleTests: XCTestCase {
     func testAppDataCoalescesOnlyPricesAndFlushesInBackground() async throws {
         // Merkliste der Test-App mit eigenem Testpaar, danach wiederhergestellt (wie AddWatchesBehaviorTests)
         let watchlist = try await AppDataTestWatchlist()
-        try await watchlist.load([Watch(id: 990_401, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC",
+        try await watchlist.load([Watch(id: 990_401, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC",
                                         quoteAsset: "USDT", pairId: "BTCUSDT", sortOrder: 0)])
         let data = AppData.shared
         data.discardPendingPriceSave()

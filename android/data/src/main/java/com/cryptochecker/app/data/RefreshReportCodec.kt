@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.domain.refresh.MarketRefresh
+import com.cryptochecker.app.domain.refresh.ExchangeRefresh
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import org.json.JSONArray
@@ -18,7 +18,7 @@ object RefreshReportCodec {
         .put("total", r.totalMillis)
         .put("pairs", r.pairs)
         .put("network", r.networkMillis)
-        .put("markets", JSONArray().apply { r.markets.forEach { put(encodeMarket(it)) } })
+        .put("exchanges", JSONArray().apply { r.exchanges.forEach { put(encodeExchange(it)) } })
         .apply {
             r.dbMillis?.let { put("db", it) }
             r.effectsMillis?.let { put("effects", it) }
@@ -31,7 +31,7 @@ object RefreshReportCodec {
         }
         .toString()
 
-    private fun encodeMarket(m: MarketRefresh): JSONObject = JSONObject()
+    private fun encodeExchange(m: ExchangeRefresh): JSONObject = JSONObject()
         .put("name", m.name)
         .put("millis", m.millis)
         .put("pairs", m.pairs)
@@ -52,13 +52,13 @@ object RefreshReportCodec {
         if (json.isNullOrEmpty()) return null
         return runCatching {
             val o = JSONObject(json)
-            val list = o.optJSONArray("markets") ?: JSONArray()
+            val list = o.optJSONArray("exchanges") ?: JSONArray()
             RefreshReport(
                 at = o.optLong("at"),
                 totalMillis = o.optLong("total"),
                 pairs = o.optInt("pairs"),
                 networkMillis = o.optLong("network"),
-                markets = (0 until list.length()).map { decodeMarket(list.getJSONObject(it)) },
+                exchanges = (0 until list.length()).map { decodeExchange(list.getJSONObject(it)) },
                 dbMillis = o.optLongOrNull("db"),
                 effectsMillis = o.optLongOrNull("effects"),
                 alarms = o.optInt("alarms"),
@@ -71,7 +71,7 @@ object RefreshReportCodec {
         }.getOrNull()
     }
 
-    private fun decodeMarket(m: JSONObject) = MarketRefresh(
+    private fun decodeExchange(m: JSONObject) = ExchangeRefresh(
         name = m.optString("name"),
         millis = m.optLong("millis"),
         pairs = m.optInt("pairs"),

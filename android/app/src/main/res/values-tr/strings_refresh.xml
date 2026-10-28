@@ -26,8 +26,8 @@
         <item quantity="other">toplu istek %1$s · %2$d fiyat</item>
     </plurals>
     <string name="refresh_sheet_database">Veritabanı</string>
-    <string name="refresh_sheet_market_unreachable">%1$s erişilemiyor</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s erişilemiyor</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d borsaya erişilemiyor</item>
         <item quantity="other">%1$d borsaya erişilemiyor</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">borsa kullanılamıyor</string>
     <string name="refresh_sheet_seconds_a11y">%1$s saniye</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Borsalar</string>
+    <string name="refresh_sheet_section_exchanges">Borsalar</string>
     <string name="refresh_sheet_section_steps">Ayrıntı</string>
     <string name="refresh_sheet_status_failed">güncellenmedi</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

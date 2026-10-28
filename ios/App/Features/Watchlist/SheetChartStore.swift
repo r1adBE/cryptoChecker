@@ -44,7 +44,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
 
     /// Ohne Netz: ausgeblendet (DEX), gültiger Zwischenspeicher oder nil (laden).
     func cached(_ watch: Watch, range: PriceChartRange, now: Int64 = EpochTime.nowMillis) -> SheetChartResult? {
-        guard SheetChart.isSupported(marketKey: watch.marketKey, base: watch.baseAsset, quote: watch.quoteAsset) else {
+        guard SheetChart.isSupported(exchangeKey: watch.exchangeKey, base: watch.baseAsset, quote: watch.quoteAsset) else {
             return .unsupported
         }
         let k = Self.key(watch, range)
@@ -116,7 +116,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
         let price = watch.lastPrice
         let pair = CandlePair.of(watch)
         // Name des Coins an der Börse des Paars (K-8); gelesen erst in der Aufgabe (Datei, nicht auf dem Main-Thread)
-        let marketKey = watch.marketKey
+        let exchangeKey = watch.exchangeKey
         let rawBase = watch.baseAsset
         // Eigene Aufgabe abseits des Main-Threads (eigene Börse, Ausweich-Kette, Tageskurse, Umrechnung)
         let found = await Task.detached(priority: .userInitiated) { () -> (candles: [MarketCandle], converted: Bool, info: SheetChartInfo)? in
@@ -134,7 +134,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
             guard OwnCandlePolicy.allowsFallback(pair) else { return nil }
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der Name
             // des Coins an der Börse des Paars dort nicht klar anders lautet (gleicher Token, K-8)
-            let identityName = TokenIdentityStore.shared.pairName(marketKey: marketKey, base: rawBase)
+            let identityName = TokenIdentityStore.shared.pairName(exchangeKey: exchangeKey, base: rawBase)
             for request in requests {
                 if Task.isCancelled { return nil }
                 let attempt = Attempt()

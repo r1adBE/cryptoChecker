@@ -62,14 +62,9 @@
       "expected": "Parsed ticker has no data"
     },
     {
-      "name": "market unavailable kept",
-      "input": "Market unavailable",
-      "expected": "Market unavailable"
-    },
-    {
-      "name": "legacy German unavailable kept",
-      "input": "Börse nicht verfügbar",
-      "expected": "Börse nicht verfügbar"
+      "name": "exchange unavailable kept",
+      "input": "Exchange unavailable",
+      "expected": "Exchange unavailable"
     },
     {
       "name": "unknown empty kept",

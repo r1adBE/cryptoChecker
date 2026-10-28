@@ -37,10 +37,10 @@ internal fun WatchEntity.assetKind(
     pairName: String? = null,
 ): AssetKind =
     AssetKind.of(
-        marketKey = marketKey,
+        exchangeKey = exchangeKey,
         base = baseAsset,
         tradFi = groupName == AutoGroup.TRADFI ||
-            CoinLogos.pairKey(marketKey, baseAsset, quoteAsset, contractType.name) in tradFiPairs,
+            CoinLogos.pairKey(exchangeKey, baseAsset, quoteAsset, contractType.name) in tradFiPairs,
         alphaSymbols = alphaSymbols,
         pairId = pairId,
         pairName = pairName,

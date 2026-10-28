@@ -18,20 +18,20 @@ struct WatchInsertion {
     }
 
     /// Ein Paar einfügen: angelegt (mit Id), schon vorhanden oder Merkliste voll (`WatchlistLimits.maxPairs`).
-    mutating func insert(_ s: inout SharedStorage.Snapshot, market: Market, pair rawPair: MarketPair,
+    mutating func insert(_ s: inout SharedStorage.Snapshot, exchange: Exchange, pair rawPair: ExchangePair,
                          group: String? = nil) -> AddWatchOutcome {
         // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
         var pair = rawPair
-        pair.contractType = FuturesContractType.normalized(marketKey: market.key, pairId: pair.pairId,
+        pair.contractType = FuturesContractType.normalized(exchangeKey: exchange.key, pairId: pair.pairId,
                                                            pair.contractType)
-        let wanted = WatchIdentity.key(marketKey: market.key, base: pair.base, quote: pair.quote,
+        let wanted = WatchIdentity.key(exchangeKey: exchange.key, base: pair.base, quote: pair.quote,
                                        contract: String(pair.contractType.rawValue), pairId: pair.pairId)
         if present.contains(wanted) { return .duplicate }
         guard WatchlistLimits.canAddPair(s.watches.count) else { return .full }
         let id = max(s.nextWatchId, maxId + 1)
         s.nextWatchId = id + 1
         maxId = id
-        var watch = Watch(id: id, marketKey: market.key, marketName: market.name,
+        var watch = Watch(id: id, exchangeKey: exchange.key, exchangeName: exchange.name,
                           baseAsset: pair.base, quoteAsset: pair.quote,
                           contractType: pair.contractType, pairId: pair.pairId, sortOrder: nextOrder)
         nextOrder += 1
@@ -45,12 +45,12 @@ struct WatchInsertion {
     }
 
     /// Mehrere Paare: vorhandene übersprungen; ist die Merkliste voll, kommen die übrigen nicht mehr dazu (`refused`).
-    static func insertAll(_ s: inout SharedStorage.Snapshot, market: Market, pairs: [MarketPair],
+    static func insertAll(_ s: inout SharedStorage.Snapshot, exchange: Exchange, pairs: [ExchangePair],
                           group: String? = nil) -> BulkAddResult {
         var insertion = WatchInsertion(s)
         var result = BulkAddResult(added: 0, skipped: 0)
         for p in pairs {
-            switch insertion.insert(&s, market: market, pair: p, group: group) {
+            switch insertion.insert(&s, exchange: exchange, pair: p, group: group) {
             case .added(let id):
                 result.added += 1
                 result.addedIds.append(id)

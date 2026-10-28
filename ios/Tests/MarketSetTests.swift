@@ -3,39 +3,39 @@ import XCTest
 
 // Kleine Testklassen dieses Themas in einer Datei; jede Klasse unverändert.
 
-// ---- aus MarketHTTPLimitTests
+// ---- aus ExchangeHTTPLimitTests
 
 /// Höchstgrösse von Antworten (wie Android `HttpBodyLimitTest.kt`).
-final class MarketHTTPLimitTests: XCTestCase {
+final class ExchangeHTTPLimitTests: XCTestCase {
 
     func testSingleSessionUsesSmallLimit() {
-        XCTAssertNoThrow(try MarketHTTP.checkBodySize(MarketHTTP.maxBodyBytes, session: MarketHTTP.session))
-        XCTAssertThrowsError(try MarketHTTP.checkBodySize(MarketHTTP.maxBodyBytes + 1, session: MarketHTTP.session)) {
+        XCTAssertNoThrow(try ExchangeHTTP.checkBodySize(ExchangeHTTP.maxBodyBytes, session: ExchangeHTTP.session))
+        XCTAssertThrowsError(try ExchangeHTTP.checkBodySize(ExchangeHTTP.maxBodyBytes + 1, session: ExchangeHTTP.session)) {
             XCTAssertEqual($0.localizedDescription, ResponseTooLargeError.message)
         }
     }
 
     func testListSessionsUseLargeLimit() {
-        for session in [MarketHTTP.bulkSession, MarketHTTP.tickerBulkSession] {
-            XCTAssertNoThrow(try MarketHTTP.checkBodySize(MarketHTTP.maxBodyBytes + 1, session: session))
-            XCTAssertThrowsError(try MarketHTTP.checkBodySize(MarketHTTP.maxBulkBodyBytes + 1, session: session))
+        for session in [ExchangeHTTP.bulkSession, ExchangeHTTP.tickerBulkSession] {
+            XCTAssertNoThrow(try ExchangeHTTP.checkBodySize(ExchangeHTTP.maxBodyBytes + 1, session: session))
+            XCTAssertThrowsError(try ExchangeHTTP.checkBodySize(ExchangeHTTP.maxBulkBodyBytes + 1, session: session))
         }
-        XCTAssertEqual(MarketHTTP.maxBodyBytes, 2 * 1024 * 1024)
-        XCTAssertEqual(MarketHTTP.maxBulkBodyBytes, 16 * 1024 * 1024)
+        XCTAssertEqual(ExchangeHTTP.maxBodyBytes, 2 * 1024 * 1024)
+        XCTAssertEqual(ExchangeHTTP.maxBulkBodyBytes, 16 * 1024 * 1024)
     }
 
     /// Widget-Erweiterung: Listen höchstens 3 MB (vorher 8 MB), Einzelabfragen weiter 2 MB. Jede
     /// aufgenommene Sammelabfrage ist höchstens 2 MB (die Aufnahme verwirft Grösseres) — passt also weiter.
     func testExtensionUsesLowerListLimit() {
-        XCTAssertEqual(MarketHTTP.maxExtensionBodyBytes, 3 * 1024 * 1024)
-        XCTAssertNoThrow(try MarketHTTP.checkBodySize(2 * 1024 * 1024, session: MarketHTTP.tickerBulkSession, inExtension: true))
-        XCTAssertEqual(MarketHTTP.bodyLimit(session: MarketHTTP.bulkSession, inExtension: true), MarketHTTP.maxExtensionBodyBytes)
-        XCTAssertEqual(MarketHTTP.bodyLimit(session: MarketHTTP.session, inExtension: true), MarketHTTP.maxBodyBytes)
-        XCTAssertEqual(MarketHTTP.bodyLimit(session: MarketHTTP.bulkSession, inExtension: false), MarketHTTP.maxBulkBodyBytes)
-        XCTAssertThrowsError(try MarketHTTP.checkBodySize(MarketHTTP.maxExtensionBodyBytes + 1,
-                                                          session: MarketHTTP.tickerBulkSession, inExtension: true))
+        XCTAssertEqual(ExchangeHTTP.maxExtensionBodyBytes, 3 * 1024 * 1024)
+        XCTAssertNoThrow(try ExchangeHTTP.checkBodySize(2 * 1024 * 1024, session: ExchangeHTTP.tickerBulkSession, inExtension: true))
+        XCTAssertEqual(ExchangeHTTP.bodyLimit(session: ExchangeHTTP.bulkSession, inExtension: true), ExchangeHTTP.maxExtensionBodyBytes)
+        XCTAssertEqual(ExchangeHTTP.bodyLimit(session: ExchangeHTTP.session, inExtension: true), ExchangeHTTP.maxBodyBytes)
+        XCTAssertEqual(ExchangeHTTP.bodyLimit(session: ExchangeHTTP.bulkSession, inExtension: false), ExchangeHTTP.maxBulkBodyBytes)
+        XCTAssertThrowsError(try ExchangeHTTP.checkBodySize(ExchangeHTTP.maxExtensionBodyBytes + 1,
+                                                          session: ExchangeHTTP.tickerBulkSession, inExtension: true))
         // Tests laufen in der App, nicht in der Erweiterung
-        XCTAssertFalse(MarketHTTP.isAppExtension)
+        XCTAssertFalse(ExchangeHTTP.isAppExtension)
     }
 
     /// Der feste Text bleibt beim Speichern erhalten (`StoredError`).
@@ -54,9 +54,9 @@ final class MarketHTTPLimitTests: XCTestCase {
 
     /// Genau an der Grenze geht es noch, auch über mehrere Blöcke und mit Rest; Inhalt bleibt in Reihenfolge.
     func testChunkedReadKeepsBytesUpToLimit() async throws {
-        let data = try await MarketHTTP.collectLimited(stream(10), limit: 10, expected: -1, chunkSize: 4)
+        let data = try await ExchangeHTTP.collectLimited(stream(10), limit: 10, expected: -1, chunkSize: 4)
         XCTAssertEqual([UInt8](data), (0..<10).map { UInt8($0) })
-        let empty = try await MarketHTTP.collectLimited(stream(0), limit: 10, expected: 0, chunkSize: 4)
+        let empty = try await ExchangeHTTP.collectLimited(stream(0), limit: 10, expected: 0, chunkSize: 4)
         XCTAssertTrue(empty.isEmpty)
     }
 
@@ -64,7 +64,7 @@ final class MarketHTTPLimitTests: XCTestCase {
     func testChunkedReadRejectsOneByteOverLimit() async {
         for (count, chunk) in [(11, 4), (11, 64), (9, 8)] {
             do {
-                _ = try await MarketHTTP.collectLimited(stream(count), limit: count - 1, expected: -1, chunkSize: chunk)
+                _ = try await ExchangeHTTP.collectLimited(stream(count), limit: count - 1, expected: -1, chunkSize: chunk)
                 XCTFail("\(count) Bytes bei Grenze \(count - 1) müssen scheitern")
             } catch {
                 XCTAssertTrue(error is ResponseTooLargeError)
@@ -75,7 +75,7 @@ final class MarketHTTPLimitTests: XCTestCase {
     /// Angekündigt zu gross: gar nicht erst lesen.
     func testChunkedReadRejectsAnnouncedLength() async {
         do {
-            _ = try await MarketHTTP.collectLimited(stream(1), limit: 10, expected: 11)
+            _ = try await ExchangeHTTP.collectLimited(stream(1), limit: 10, expected: 11)
             XCTFail("angekündigte Länge über der Grenze muss scheitern")
         } catch {
             XCTAssertTrue(error is ResponseTooLargeError)
@@ -83,18 +83,18 @@ final class MarketHTTPLimitTests: XCTestCase {
     }
 }
 
-// ---- aus MarketHTTPSharedPostTests
+// ---- aus ExchangeHTTPSharedPostTests
 
 /// Gleiche gleichzeitige POST-Abfragen gehen nur einmal ins Netz (`InFlightRequests`), etwa Hyperliquid
 /// «metaAndAssetCtxs» (~100 KB, für jedes Paar dieselbe Antwort). Andere Körper bleiben getrennt. Wie
-/// MarketHttpSharedPostTest.kt.
-final class MarketHTTPSharedPostTests: XCTestCase {
+/// ExchangeHttpSharedPostTest.kt.
+final class ExchangeHTTPSharedPostTests: XCTestCase {
     private var session: URLSession!
 
     override func setUp() {
         super.setUp()
         let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [MarketHTTPStubProtocol.self]
+        configuration.protocolClasses = [ExchangeHTTPStubProtocol.self]
         configuration.timeoutIntervalForRequest = 5
         configuration.timeoutIntervalForResource = 5
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -109,7 +109,7 @@ final class MarketHTTPSharedPostTests: XCTestCase {
 
     private func delayedURL(_ body: String) -> String {
         let url = "https://stub.invalid/\(UUID().uuidString)"
-        MarketHTTPStubReplies.shared.set(url, .delayed(seconds: 0.3, body: Data(body.utf8)))
+        ExchangeHTTPStubReplies.shared.set(url, .delayed(seconds: 0.3, body: Data(body.utf8)))
         return url
     }
 
@@ -117,20 +117,20 @@ final class MarketHTTPSharedPostTests: XCTestCase {
         let url = delayedURL("[1]")
         let post = PostRequest(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
         let session = self.session!
-        async let first = MarketHTTP.call(url, post: post, session: session)
-        async let second = MarketHTTP.call(url, post: post, session: session)
+        async let first = ExchangeHTTP.call(url, post: post, session: session)
+        async let second = ExchangeHTTP.call(url, post: post, session: session)
         let bodies = try await [first, second]
         XCTAssertEqual(bodies, ["[1]", "[1]"])
-        XCTAssertEqual(MarketHTTPStubReplies.shared.hitCount(url), 1)
+        XCTAssertEqual(ExchangeHTTPStubReplies.shared.hitCount(url), 1)
     }
 
     func testDifferentBodiesStaySeparate() async throws {
         let url = delayedURL("[2]")
         let session = self.session!
-        async let first = MarketHTTP.call(url, post: PostRequest(body: #"{"type":"meta"}"#), session: session)
-        async let second = MarketHTTP.call(url, post: PostRequest(body: #"{"type":"allMids"}"#), session: session)
+        async let first = ExchangeHTTP.call(url, post: PostRequest(body: #"{"type":"meta"}"#), session: session)
+        async let second = ExchangeHTTP.call(url, post: PostRequest(body: #"{"type":"allMids"}"#), session: session)
         _ = try await [first, second]
-        XCTAssertEqual(MarketHTTPStubReplies.shared.hitCount(url), 2)
+        XCTAssertEqual(ExchangeHTTPStubReplies.shared.hitCount(url), 2)
     }
 }
 

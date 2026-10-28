@@ -4,25 +4,25 @@ import XCTest
 /// Suche wie an der Börse — wie `PairSearchTest.kt`: «BTCUSDT», «BTCUSDT Qtly 1225», «BTCUSD_PERP».
 final class ExplorerPairSearchTests: XCTestCase {
 
-    private var markets: [Market] { [MarketsConfig.market("Binance")!, MarketsConfig.market("BinanceFutures")!] }
+    private var exchanges: [Exchange] { [ExchangesConfig.exchange("Binance")!, ExchangesConfig.exchange("BinanceFutures")!] }
 
-    private let cache: [String: MarketPairsInfo] = [
-        "Binance": MarketPairsInfo(lastSyncDate: 1, pairs: [
-            MarketPair("BTC", "USDT", "BTCUSDT"),
-            MarketPair("BTC", "EUR", "BTCEUR"),
-            MarketPair("ETH", "USDT", "ETHUSDT"),
+    private let cache: [String: ExchangePairsInfo] = [
+        "Binance": ExchangePairsInfo(lastSyncDate: 1, pairs: [
+            ExchangePair("BTC", "USDT", "BTCUSDT"),
+            ExchangePair("BTC", "EUR", "BTCEUR"),
+            ExchangePair("ETH", "USDT", "ETHUSDT"),
         ]),
-        "BinanceFutures": MarketPairsInfo(lastSyncDate: 1, pairs: [
-            MarketPair("BTC", "USDT", "BTCUSDT_261225", .quarterly),
-            MarketPair("BTC", "USDT", "BTCUSDT_270326", .biquarterly),
-            MarketPair("BTC", "USDT", "BTCUSDT", .perpetual),
-            MarketPair("BTC", "USD", "2:BTCUSD_PERP", .inversePerpetual),
+        "BinanceFutures": ExchangePairsInfo(lastSyncDate: 1, pairs: [
+            ExchangePair("BTC", "USDT", "BTCUSDT_261225", .quarterly),
+            ExchangePair("BTC", "USDT", "BTCUSDT_270326", .biquarterly),
+            ExchangePair("BTC", "USDT", "BTCUSDT", .perpetual),
+            ExchangePair("BTC", "USD", "2:BTCUSD_PERP", .inversePerpetual),
         ]),
     ]
 
     private func find(_ q: String) -> [String] {
-        ExplorerPairSearch.find(q, markets: markets, cache: cache).map {
-            "\($0.market.key) \($0.pair.base)/\($0.pair.quote) \($0.pair.contractType)"
+        ExplorerPairSearch.find(q, exchanges: exchanges, cache: cache).map {
+            "\($0.exchange.key) \($0.pair.base)/\($0.pair.quote) \($0.pair.contractType)"
         }
     }
 
@@ -59,15 +59,15 @@ final class ExplorerPairSearchTests: XCTestCase {
         XCTAssertNil(q.quote)
         XCTAssertEqual(q.date, "1225")
         XCTAssertEqual(ExplorerPairSearch.parse("1000")?.base, "1000")
-        XCTAssertEqual(ExplorerPairSearch.deliveryCode(MarketPair("BTC", "USDT", "BTCUSDT_261225", .quarterly)), "261225")
-        XCTAssertNil(ExplorerPairSearch.deliveryCode(MarketPair("BTC", "USDT", "BTCUSDT", .perpetual)))
+        XCTAssertEqual(ExplorerPairSearch.deliveryCode(ExchangePair("BTC", "USDT", "BTCUSDT_261225", .quarterly)), "261225")
+        XCTAssertNil(ExplorerPairSearch.deliveryCode(ExchangePair("BTC", "USDT", "BTCUSDT", .perpetual)))
     }
 
     /// Wie `arabicDigitsCountAsDate` (PairSearchTest.kt).
     func testArabicDigitsCountAsDate() {
         XCTAssertEqual(ExplorerPairSearch.parse("BTCUSDT \u{0661}\u{0662}\u{0662}\u{0665}")?.date, "1225")
         XCTAssertEqual(ExplorerPairSearch.parse("BTCUSDT \u{06F2}\u{06F6}\u{06F1}\u{06F2}\u{06F2}\u{06F5}")?.date, "261225")
-        let code = ExplorerPairSearch.deliveryCode(MarketPair("BTC", "USDT", "BTCUSDT", .quarterly))
+        let code = ExplorerPairSearch.deliveryCode(ExchangePair("BTC", "USDT", "BTCUSDT", .quarterly))
         XCTAssertTrue(code.map { $0.allSatisfy { $0.isASCII && $0.isNumber } } ?? true)
     }
 
@@ -174,27 +174,27 @@ final class ExplorerPairSearchTests: XCTestCase {
 
     // MARK: Suche über Namen und Börsen — wie `PairSearchTest.kt`
 
-    private var nameMarkets: [Market] {
-        [MarketsConfig.market("Binance")!, MarketsConfig.market("Kraken")!, MarketsConfig.market("BinanceFutures")!]
+    private var nameExchanges: [Exchange] {
+        [ExchangesConfig.exchange("Binance")!, ExchangesConfig.exchange("Kraken")!, ExchangesConfig.exchange("BinanceFutures")!]
     }
 
-    private let nameCache: [String: MarketPairsInfo] = [
-        "Binance": MarketPairsInfo(lastSyncDate: 1, pairs: [
-            MarketPair("BTC", "USDT", "BTCUSDT"),
-            MarketPair("ETH", "USDT", "ETHUSDT"),
-            MarketPair("ETC", "USDT", "ETCUSDT"),
-            MarketPair("SOL", "USDT", "SOLUSDT"),
-            MarketPair("USDT", "EUR", "USDTEUR"),
-            MarketPair("SHIB", "USDT", "SHIBUSDT"),
-            MarketPair("BITCOIN", "USDT", "BITCOINUSDT"),
+    private let nameCache: [String: ExchangePairsInfo] = [
+        "Binance": ExchangePairsInfo(lastSyncDate: 1, pairs: [
+            ExchangePair("BTC", "USDT", "BTCUSDT"),
+            ExchangePair("ETH", "USDT", "ETHUSDT"),
+            ExchangePair("ETC", "USDT", "ETCUSDT"),
+            ExchangePair("SOL", "USDT", "SOLUSDT"),
+            ExchangePair("USDT", "EUR", "USDTEUR"),
+            ExchangePair("SHIB", "USDT", "SHIBUSDT"),
+            ExchangePair("BITCOIN", "USDT", "BITCOINUSDT"),
         ]),
-        "Kraken": MarketPairsInfo(lastSyncDate: 1, pairs: [
-            MarketPair("BTC", "EUR", "XBTEUR"),
-            MarketPair("ETH", "EUR", "ETHEUR"),
+        "Kraken": ExchangePairsInfo(lastSyncDate: 1, pairs: [
+            ExchangePair("BTC", "EUR", "XBTEUR"),
+            ExchangePair("ETH", "EUR", "ETHEUR"),
         ]),
-        "BinanceFutures": MarketPairsInfo(lastSyncDate: 1, pairs: [
-            MarketPair("NVDA", "USDT", "NVDAUSDT", .perpetual, tradFi: true),
-            MarketPair("PEPE", "USDT", "1000PEPEUSDT", .perpetual),
+        "BinanceFutures": ExchangePairsInfo(lastSyncDate: 1, pairs: [
+            ExchangePair("NVDA", "USDT", "NVDAUSDT", .perpetual, tradFi: true),
+            ExchangePair("PEPE", "USDT", "1000PEPEUSDT", .perpetual),
         ]),
     ]
 
@@ -212,8 +212,8 @@ final class ExplorerPairSearchTests: XCTestCase {
     ])
 
     private func findNamed(_ q: String, _ n: ExplorerNameIndex? = nil) -> [String] {
-        ExplorerPairSearch.find(q, markets: nameMarkets, cache: nameCache, names: n ?? names).map {
-            "\($0.market.key) \($0.pair.base)/\($0.pair.quote)"
+        ExplorerPairSearch.find(q, exchanges: nameExchanges, cache: nameCache, names: n ?? names).map {
+            "\($0.exchange.key) \($0.pair.base)/\($0.pair.quote)"
         }
     }
 
@@ -269,9 +269,9 @@ final class ExplorerPairSearchTests: XCTestCase {
         XCTAssertNil(ExplorerNameMatch.score("tether", "et"))
         XCTAssertNil(ExplorerNameMatch.score("bitcoin", "b"))
         XCTAssertEqual(ExplorerNameMatch.fold(" Pépé "), "pepe")
-        XCTAssertTrue(ExplorerNameMatch.matchesMarket(ExplorerNameMatch.fold("Crypto.com"), "cryptocom"))
-        XCTAssertTrue(ExplorerNameMatch.matchesMarket(ExplorerNameMatch.fold("Binance Futures"), "fut"))
-        XCTAssertFalse(ExplorerNameMatch.matchesMarket(ExplorerNameMatch.fold("Kraken"), "kr"))
+        XCTAssertTrue(ExplorerNameMatch.matchesExchange(ExplorerNameMatch.fold("Crypto.com"), "cryptocom"))
+        XCTAssertTrue(ExplorerNameMatch.matchesExchange(ExplorerNameMatch.fold("Binance Futures"), "fut"))
+        XCTAssertFalse(ExplorerNameMatch.matchesExchange(ExplorerNameMatch.fold("Kraken"), "kr"))
     }
 
     func testStockNamesOnlyForTradFiBasesWithoutName() {
@@ -289,7 +289,7 @@ final class ExplorerPairSearchTests: XCTestCase {
     // MARK: Suche in der Merkliste — wie `WatchSearchTest.kt`
 
     func testWatchlistSearchMatchesName() {
-        let btc = Watch(id: 1, marketKey: "Kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
+        let btc = Watch(id: 1, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
         XCTAssertTrue(WatchlistSearch.matches(btc, query: "btc"))
         XCTAssertTrue(WatchlistSearch.matches(btc, query: "btc kraken"))
         XCTAssertFalse(WatchlistSearch.matches(btc, query: "bitcoin"))
@@ -297,15 +297,15 @@ final class ExplorerPairSearchTests: XCTestCase {
         XCTAssertTrue(WatchlistSearch.matches(btc, query: "BITCOIN eur", name: "Bitcoin"))
         XCTAssertTrue(WatchlistSearch.matches(btc, query: "coin", name: "Bitcoin"))
         XCTAssertFalse(WatchlistSearch.matches(btc, query: "bitcoin usdt", name: "Bitcoin"))
-        let pepe = Watch(id: 2, marketKey: "Binance", marketName: "Binance", baseAsset: "PEPE", quoteAsset: "USDT")
+        let pepe = Watch(id: 2, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "PEPE", quoteAsset: "USDT")
         XCTAssertTrue(WatchlistSearch.matches(pepe, query: "pépé", name: "Pepe"))
         XCTAssertTrue(WatchlistSearch.matches(pepe, query: "PEPE", name: "Pépé"))
     }
 
     func testWatchlistSearchNameUsesTradFiAndSkipsDex() {
-        let btc = Watch(id: 1, marketKey: "Kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
-        let nvda = Watch(id: 2, marketKey: "BinanceFutures", marketName: "Binance Futures", baseAsset: "NVDA", quoteAsset: "USDT")
-        let dex = Watch(id: 3, marketKey: "DexScreener", marketName: "DEX", baseAsset: "BTC", quoteAsset: "SOL")
+        let btc = Watch(id: 1, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
+        let nvda = Watch(id: 2, exchangeKey: "BinanceFutures", exchangeName: "Binance Futures", baseAsset: "NVDA", quoteAsset: "USDT")
+        let dex = Watch(id: 3, exchangeKey: "DexScreener", exchangeName: "DEX", baseAsset: "BTC", quoteAsset: "SOL")
         let names = ["BTC": "Bitcoin", "NVDA": "Nvidia Token", "TRADFI:NVDA": "NVIDIA"]
         let tradFi: Set<String> = [nvda.logoPairKey]
         XCTAssertEqual(WatchlistSearch.searchName(btc, names: names, tradFiPairs: tradFi), "Bitcoin")

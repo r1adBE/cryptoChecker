@@ -28,7 +28,7 @@ struct RootView: View {
                 .tag(AppTab.watchlist)
 
             withTabBar(NavigationStack { rootMarked(CycleScreen(viewModel: cycleViewModel), .cycle) }.id(stackId(.cycle)),
-                       hidden: router.showMarketExplorer)
+                       hidden: router.showExchangeExplorer)
                 .tag(AppTab.cycle)
 
             if data.settings.portfolioEnabled {

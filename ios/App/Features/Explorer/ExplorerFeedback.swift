@@ -10,8 +10,8 @@ import UIKit
 /// Blatt zur Paarliste der Börse: Zeitpunkt des letzten Abgleichs, Anzahl, allfälliger Fehler und
 /// der Knopf zum Neuladen (Android zeigt das nur als Statuszeile in `ExplorerSteps.kt`).
 struct ExplorerSyncSheet: View {
-    let marketName: String
-    let info: MarketPairsInfo?
+    let exchangeName: String
+    let info: ExchangePairsInfo?
     let state: ExplorerPairListSync
     let onSync: () -> Void
     @Environment(\.dismiss) var dismiss
@@ -61,7 +61,7 @@ struct ExplorerSyncSheet: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(L("explorer_sync_sheet_title"))
                     .font(.title3.weight(.semibold))
-                Text(marketName)
+                Text(exchangeName)
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurfaceVariant)
             }

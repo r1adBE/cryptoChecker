@@ -38,7 +38,7 @@ enum class PairEditResult { SAVED, UNCHANGED, DUPLICATE, MISSING, LOCKED }
  * («Paar bearbeiten» und Sicherungen behalten bzw. vergeben Ids neu).
  */
 data class PairIdentity(
-    val marketKey: String,
+    val exchangeKey: String,
     val baseAsset: String,
     val quoteAsset: String,
     /** Name von `FuturesContractType`, wie in der Datenbank gespeichert. */
@@ -47,7 +47,7 @@ data class PairIdentity(
 ) {
     companion object {
         fun of(watch: WatchEntity): PairIdentity =
-            PairIdentity(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId)
+            PairIdentity(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId)
     }
 }
 

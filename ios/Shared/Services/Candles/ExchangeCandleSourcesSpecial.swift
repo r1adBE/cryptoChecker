@@ -4,11 +4,11 @@ import Foundation
 // Hyperliquid und One Trading — öffentliche Endpunkte ohne Schlüssel (Stand Oktober 2026). Wie
 // ExchangeCandleSourcesGlobal.kt.
 
-/// Upbit: `/v1/candles/minutes/{60|240}` bzw. `/v1/candles/days` `?market&count` (höchstens 200, ältere Seite
+/// Upbit: `/v1/candles/minutes/{60|240}` bzw. `/v1/candles/days` `?exchange&count` (höchstens 200, ältere Seite
 /// mit `to`), NEUESTE zuerst — {candle_date_time_utc, opening_price, high_price, low_price, trade_price,
 /// candle_acc_trade_volume, candle_acc_trade_price}.
 struct UpbitCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Upbit"]
+    let exchangeKeys: Set<String> = ["Upbit"]
     private static let page = 200
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
@@ -49,12 +49,12 @@ struct UpbitCandles: ExchangeCandleSource {
 /// WOO X: `/v3/public/kline?symbol&type={1h|4h|1d}&limit` (höchstens 1000) — data.rows [{open, close, low,
 /// high, volume (Menge), amount (Umsatz), startTimestamp}]. Spot («SPOT_…») und Perpetuals («PERP_…»).
 struct WooCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Woo", "WooFutures"]
+    let exchangeKeys: Set<String> = ["Woo", "WooFutures"]
 
     private static func id(_ pair: CandlePair) -> String? {
         guard let id = CandleTime.pairId(pair) else { return nil }
-        if pair.marketKey == "WooFutures" && pair.contractType == .perpetual && id.hasPrefix("PERP_") { return id }
-        if pair.marketKey == "Woo" && pair.contractType == .none && id.hasPrefix("SPOT_") { return id }
+        if pair.exchangeKey == "WooFutures" && pair.contractType == .perpetual && id.hasPrefix("PERP_") { return id }
+        if pair.exchangeKey == "Woo" && pair.contractType == .none && id.hasPrefix("SPOT_") { return id }
         return nil
     }
 
@@ -81,7 +81,7 @@ struct WooCandles: ExchangeCandleSource {
 /// Poloniex: `/markets/{symbol}/candles?interval={HOUR_1|HOUR_4|DAY_1}&limit` (höchstens 500) — [low, high,
 /// open, close, amount (Umsatz), quantity (Menge), …, startTime (Index 12), closeTime].
 struct PoloniexCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Poloniex"]
+    let exchangeKeys: Set<String> = ["Poloniex"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
 
@@ -111,7 +111,7 @@ struct PoloniexCandles: ExchangeCandleSource {
 /// Deribit: `/api/v2/public/get_tradingview_chart_data?instrument_name&start_timestamp&end_timestamp&resolution={60|1D}`
 /// (ms) — result {ticks, open, high, low, close, volume (Basis), cost (Quote), status}; 4 h aus 60 Minuten.
 struct DeribitCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Deribit"]
+    let exchangeKeys: Set<String> = ["Deribit"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType.isPerpetual && CandleTime.pairId(pair) != nil }
 
@@ -145,7 +145,7 @@ struct DeribitCandles: ExchangeCandleSource {
 /// Hyperliquid: POST `/info` {"type":"candleSnapshot","req":{"coin","interval":"1h|4h|1d","startTime","endTime"}}
 /// (ms, höchstens die jüngsten 5000) — [{t, T, s, i, o, c, h, l, v, n}].
 struct HyperliquidCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Hyperliquid"]
+    let exchangeKeys: Set<String> = ["Hyperliquid"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType.isPerpetual && CandleTime.pairId(pair, extra: ":") != nil }
 
@@ -170,7 +170,7 @@ struct HyperliquidCandles: ExchangeCandleSource {
 /// NEUESTE zuerst) — {open, high, low, close, volume, start_time}. `volume` ist laut Beispiel der Umsatz in der
 /// Quote (Menge daraus genähert).
 struct OneTradingCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["OneTrading"]
+    let exchangeKeys: Set<String> = ["OneTrading"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
 

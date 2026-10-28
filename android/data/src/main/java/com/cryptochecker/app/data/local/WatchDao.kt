@@ -56,14 +56,14 @@ interface WatchDao {
     @Query(
         """
         SELECT id FROM watches
-        WHERE marketKey = :marketKey AND baseAsset = :base
+        WHERE exchangeKey = :exchangeKey AND baseAsset = :base
           AND quoteAsset = :quote AND contractType = :contractType
           AND (:pool IS NULL OR pairId = :pool)
         LIMIT 1
         """
     )
     suspend fun findWatchId(
-        marketKey: String,
+        exchangeKey: String,
         base: String,
         quote: String,
         contractType: String,
@@ -118,7 +118,7 @@ interface WatchDao {
         SET previousPrice = lastPrice, lastPrice = :price,
             lastUpdate = :time, lastError = NULL, change24h = :change24h,
             priceChangedAt = :priceChangedAt, exchangeTime = :exchangeTime
-        WHERE id = :id AND marketKey = :marketKey AND baseAsset = :base AND quoteAsset = :quote
+        WHERE id = :id AND exchangeKey = :exchangeKey AND baseAsset = :base AND quoteAsset = :quote
             AND contractType = :contractType AND pairId IS :pairId
             AND (lastUpdate <= :time OR lastUpdate > :plausibleUntil)
         """
@@ -131,7 +131,7 @@ interface WatchDao {
         priceChangedAt: Long,
         exchangeTime: Long?,
         plausibleUntil: Long,
-        marketKey: String,
+        exchangeKey: String,
         base: String,
         quote: String,
         contractType: String,
@@ -142,14 +142,14 @@ interface WatchDao {
     @Query(
         """
         UPDATE watches SET lastError = :error
-        WHERE id = :id AND marketKey = :marketKey AND baseAsset = :base AND quoteAsset = :quote
+        WHERE id = :id AND exchangeKey = :exchangeKey AND baseAsset = :base AND quoteAsset = :quote
             AND contractType = :contractType AND pairId IS :pairId
         """
     )
     suspend fun updateErrorForPair(
         id: Long,
         error: String?,
-        marketKey: String,
+        exchangeKey: String,
         base: String,
         quote: String,
         contractType: String,

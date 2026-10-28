@@ -271,9 +271,9 @@ enum DepegAlarm {
     static let fallbackExchange = "Kraken"
 
     /// Hauptbörse: die in der Merkliste am häufigsten genutzte Börse mit Link; Gleichstand → Reihenfolge von `exchangeUrls`.
-    static func mainExchange(_ marketKeys: [String]) -> String {
+    static func mainExchange(_ exchangeKeys: [String]) -> String {
         var counts: [String: Int] = [:]
-        for key in marketKeys { counts[aliases[key] ?? key, default: 0] += 1 }
+        for key in exchangeKeys { counts[aliases[key] ?? key, default: 0] += 1 }
         var best: String?
         var bestCount = 0
         for entry in exchangeUrls {
@@ -287,8 +287,8 @@ enum DepegAlarm {
     }
 
     /// Link «Börse öffnen» für die Hauptbörse.
-    static func exchangeUrl(_ marketKeys: [String]) -> String {
-        let key = mainExchange(marketKeys)
+    static func exchangeUrl(_ exchangeKeys: [String]) -> String {
+        let key = mainExchange(exchangeKeys)
         return exchangeUrls.first { $0.key == key }?.url
             ?? exchangeUrls.first { $0.key == fallbackExchange }?.url ?? ""
     }

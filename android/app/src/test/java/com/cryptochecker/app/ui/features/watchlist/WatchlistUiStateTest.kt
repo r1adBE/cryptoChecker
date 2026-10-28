@@ -20,7 +20,7 @@ import org.junit.Test
 class WatchlistUiStateTest {
 
     private fun watch(id: Long, group: String? = null, favorite: Boolean = false) = WatchEntity(
-        id = id, marketKey = "Binance", marketName = "Binance", baseAsset = "C$id", quoteAsset = "USDT",
+        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "C$id", quoteAsset = "USDT",
         groupName = group, favorite = favorite,
     )
 
@@ -80,7 +80,7 @@ class WatchlistUiStateTest {
         val starter = StarterUiState(
             coins = emptyList(), deselected = emptySet(),
             prices = StarterPricesState(loading = true, prices = emptyMap()),
-            adding = false, logosReady = false, quote = "USDT", marketName = "Binance",
+            adding = false, logosReady = false, quote = "USDT", exchangeName = "Binance",
         )
         val display = WatchlistDisplay.initial(AppSettings())
         val live = WatchlistLive(

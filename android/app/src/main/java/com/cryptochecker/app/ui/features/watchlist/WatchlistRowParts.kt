@@ -260,7 +260,7 @@ internal fun RowPrice(
                     neutral = watch.disabled,
                     // Änderung gegen den Mark-Preis (Market.changeIsMark): als «Mark» benennen
                     mark = com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark(
-                        com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey).changeIsMark,
+                        com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).changeIsMark,
                         view.basis,
                     ),
                     marker = changeMarker,

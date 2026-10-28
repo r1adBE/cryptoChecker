@@ -11,7 +11,7 @@ enum PortfolioWatchPair {
 
     /// Ein Merklisten-Paar (nur die Felder, die die Wahl braucht).
     struct Candidate: Equatable, Sendable {
-        let marketKey: String
+        let exchangeKey: String
         let base: String
         let quote: String
         let pairId: String?
@@ -35,8 +35,8 @@ enum PortfolioWatchPair {
         let quotes = PortfolioExchangeRoute.quotes
         let usable = watches.filter { w in
             !w.disabled && w.spot
-                && PortfolioExchangeRoute.isSpot(w.marketKey)
-                && w.marketKey != PortfolioExchangeRoute.defaultMarket
+                && PortfolioExchangeRoute.isSpot(w.exchangeKey)
+                && w.exchangeKey != PortfolioExchangeRoute.defaultExchange
                 && PortfolioCalculator.normalizeCoin(w.base) == base
                 && quotes.contains(w.quote.uppercased())
         }
@@ -46,7 +46,7 @@ enum PortfolioWatchPair {
             let qb = quotes.firstIndex(of: b.quote.uppercased()) ?? Int.max
             if qa != qb { return qa < qb }
             if a.lastUpdate != b.lastUpdate { return a.lastUpdate > b.lastUpdate }
-            return a.marketKey < b.marketKey
+            return a.exchangeKey < b.exchangeKey
         }
     }
 }

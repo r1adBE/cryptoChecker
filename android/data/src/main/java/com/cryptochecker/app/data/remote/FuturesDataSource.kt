@@ -30,7 +30,7 @@ class FuturesDataSource @Inject constructor(
     suspend fun fetch(watch: WatchEntity): FuturesInfo? {
         if (!watch.contractType.isPerpetual) return null
         val base = watch.baseAsset.trim().uppercase()
-        return when (watch.marketKey) {
+        return when (watch.exchangeKey) {
             "BybitFutures" -> firstOf(
                 source(BYBIT) { bybit(watch.pairId ?: "${base}USDT") },
                 source(BINANCE) { binance("${base}USDT") },
@@ -85,7 +85,7 @@ class FuturesDataSource @Inject constructor(
     private fun ownSource(watch: WatchEntity, base: String): Pair<String, suspend () -> FuturesInfo>? {
         val quote = watch.quoteAsset.trim().uppercase()
         val id = watch.pairId
-        return when (watch.marketKey) {
+        return when (watch.exchangeKey) {
             "WooFutures" -> source(WOO) { woo(id ?: "PERP_${base}_$quote") }
             "BitgetFutures" -> source(BITGET) { bitget(id ?: "$base$quote") }
             "MexcFutures" -> source(MEXC) { mexc(id ?: "${base}_$quote") }
@@ -97,11 +97,11 @@ class FuturesDataSource @Inject constructor(
     }
 
     private suspend fun woo(symbol: String): FuturesInfo =
-        FuturesParsers.woo(httpClient.callMarket("https://api.woox.io/v3/public/futures?symbol=$symbol", null))
+        FuturesParsers.woo(httpClient.callExchange("https://api.woox.io/v3/public/futures?symbol=$symbol", null))
 
     private suspend fun bitget(symbol: String): FuturesInfo = coroutineScope {
         val ticker = async {
-            httpClient.callMarket("https://api.bitget.com/api/v2/mix/market/ticker?symbol=$symbol&productType=USDT-FUTURES", null)
+            httpClient.callExchange("https://api.bitget.com/api/v2/mix/market/ticker?symbol=$symbol&productType=USDT-FUTURES", null)
         }
         val time = async {
             optionalCall("https://api.bitget.com/api/v2/mix/market/funding-time?symbol=$symbol&productType=USDT-FUTURES")
@@ -110,14 +110,14 @@ class FuturesDataSource @Inject constructor(
     }
 
     private suspend fun mexc(symbol: String): FuturesInfo = coroutineScope {
-        val ticker = async { httpClient.callMarket("https://contract.mexc.com/api/v1/contract/ticker?symbol=$symbol", null) }
+        val ticker = async { httpClient.callExchange("https://contract.mexc.com/api/v1/contract/ticker?symbol=$symbol", null) }
         val detail = async { optionalCall("https://contract.mexc.com/api/v1/contract/detail?symbol=$symbol") }
         val funding = async { optionalCall("https://contract.mexc.com/api/v1/contract/funding_rate/$symbol") }
         FuturesParsers.mexc(ticker.await(), detail.await(), funding.await(), symbol)
     }
 
     private suspend fun htx(code: String): FuturesInfo = coroutineScope {
-        val funding = async { httpClient.callMarket("https://api.hbdm.com/linear-swap-api/v1/swap_funding_rate?contract_code=$code", null) }
+        val funding = async { httpClient.callExchange("https://api.hbdm.com/linear-swap-api/v1/swap_funding_rate?contract_code=$code", null) }
         val oi = async {
             optionalCall("https://api.hbdm.com/linear-swap-api/v1/swap_open_interest?contract_code=$code&business_type=swap")
         }
@@ -125,7 +125,7 @@ class FuturesDataSource @Inject constructor(
     }
 
     private suspend fun hyperliquid(coin: String): FuturesInfo = FuturesParsers.hyperliquid(
-        httpClient.callMarket(
+        httpClient.callExchange(
             "https://api.hyperliquid.xyz/info",
             PostRequest(body = """{"type":"metaAndAssetCtxs"}""", headers = mapOf("Content-Type" to "application/json")),
         ),
@@ -133,11 +133,11 @@ class FuturesDataSource @Inject constructor(
     )
 
     private suspend fun deribit(instrument: String): FuturesInfo =
-        FuturesParsers.deribit(httpClient.callMarket("https://www.deribit.com/api/v2/public/ticker?instrument_name=$instrument", null))
+        FuturesParsers.deribit(httpClient.callExchange("https://www.deribit.com/api/v2/public/ticker?instrument_name=$instrument", null))
 
     /** Zusatzabfrage, deren Ausfall nur ein Feld kostet; echter Abbruch wird weitergereicht. */
     private suspend fun optionalCall(url: String): String? = try {
-        httpClient.callMarket(url, null)
+        httpClient.callExchange(url, null)
     } catch (e: Exception) {
         currentCoroutineContext().ensureActive()
         null
@@ -190,7 +190,7 @@ class FuturesDataSource @Inject constructor(
      * `…/dapi/v1/openInterest?symbol=…` — der Kontrakt, den der Nutzer beobachtet ([FuturesParsers.binanceCoinM]).
      */
     private suspend fun binanceCoinM(symbol: String): FuturesInfo = coroutineScope {
-        val premium = async { httpClient.callMarket("https://dapi.binance.com/dapi/v1/premiumIndex?symbol=$symbol", null) }
+        val premium = async { httpClient.callExchange("https://dapi.binance.com/dapi/v1/premiumIndex?symbol=$symbol", null) }
         val oi = async { optionalCall("https://dapi.binance.com/dapi/v1/openInterest?symbol=$symbol") }
         val sizes = async { binanceCoinMSizes() }
         FuturesParsers.binanceCoinM(premium.await(), oi.await(), symbol, sizes.await())
@@ -215,11 +215,11 @@ class FuturesDataSource @Inject constructor(
 
     private suspend fun binance(symbol: String): FuturesInfo = coroutineScope {
         val premium = async {
-            JSONObject(httpClient.callMarket("https://fapi.binance.com/fapi/v1/premiumIndex?symbol=$symbol", null))
+            JSONObject(httpClient.callExchange("https://fapi.binance.com/fapi/v1/premiumIndex?symbol=$symbol", null))
         }
         val oi = async {
             runCatchingCancellable {
-                JSONObject(httpClient.callMarket("https://fapi.binance.com/fapi/v1/openInterest?symbol=$symbol", null))
+                JSONObject(httpClient.callExchange("https://fapi.binance.com/fapi/v1/openInterest?symbol=$symbol", null))
             }.getOrNull()
         }
         val intervals = async { binanceIntervals() }
@@ -254,7 +254,7 @@ class FuturesDataSource @Inject constructor(
 
     private suspend fun bybit(symbol: String): FuturesInfo {
         val url = "https://api.bybit.com/v5/market/tickers?category=linear&symbol=$symbol"
-        val t = JSONObject(httpClient.callMarket(url, null))
+        val t = JSONObject(httpClient.callExchange(url, null))
             .getJSONObject("result").getJSONArray("list").getJSONObject(0)
         val funding = t.optString("fundingRate").toDoubleOrNull()?.times(100.0)
         val oiUsd = t.optString("openInterestValue").toDoubleOrNull()
@@ -275,12 +275,12 @@ class FuturesDataSource @Inject constructor(
     private suspend fun okx(base: String, instIdOrNull: String? = null): FuturesInfo = coroutineScope {
         val instId = instIdOrNull ?: "$base-USDT-SWAP"
         val fundingJob = async {
-            okxFirst(httpClient.callMarket("https://www.okx.com/api/v5/public/funding-rate?instId=$instId", null))
+            okxFirst(httpClient.callExchange("https://www.okx.com/api/v5/public/funding-rate?instId=$instId", null))
         }
         val oiJob = async {
             runCatchingCancellable {
                 okxFirst(
-                    httpClient.callMarket(
+                    httpClient.callExchange(
                         "https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=$instId", null
                     )
                 )
@@ -292,7 +292,7 @@ class FuturesDataSource @Inject constructor(
             ?: oi?.optString("oiCcy")?.toDoubleOrNull()?.let { coins ->
                 runCatchingCancellable {
                     okxFirst(
-                        httpClient.callMarket(
+                        httpClient.callExchange(
                             "https://www.okx.com/api/v5/public/mark-price?instType=SWAP&instId=$instId", null
                         )
                     ).optString("markPx").toDoubleOrNull()

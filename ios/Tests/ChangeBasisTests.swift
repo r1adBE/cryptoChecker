@@ -26,7 +26,7 @@ final class ChangeBasisTests: XCTestCase {
         let now = t("2026-10-07T12:00:00Z")
         XCTAssertEqual(ChangeBasisMath.stamp(.SINCE_LAST, now: now, timeZone: utc), ChangeStamp(basis: .ROLLING_24H, dayStart: 0))
         func watch(previous: Double?, error: String? = nil) -> Watch {
-            Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
+            Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
                   lastPrice: 102, previousPrice: previous, lastError: error, change24h: 5)
         }
         let view = ChangeView(basis: .SINCE_LAST)

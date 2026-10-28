@@ -24,7 +24,7 @@ struct CandlesIcon: View {
 }
 
 /// Kleine graue Zeile unter dem Chart (wie Android `SheetChartCaption`): Börse der Kerzen (fremde Börse als
-/// «Chart: Binance», `markets` = Schlüssel und Name der Börse des Paars), bei der
+/// «Chart: Binance», `exchanges` = Schlüssel und Name der Börse des Paars), bei der
 /// Ausweich-Reihe die Umrechnung («BTC/USDT, umgerechnet mit Tageskursen» bzw. «… (aktueller Kurs)»)
 /// und der Stand der letzten Kerze («Stand 14:00»), getrennt mit « · ».
 struct SheetChartCaption: View {
@@ -32,7 +32,7 @@ struct SheetChartCaption: View {
     let candles: [MarketCandle]
     let range: PriceChartRange
     let timeZone: TimeZone
-    let markets: [String]
+    let exchanges: [String]
     let quote: String
 
     /// Eine Reihe mit heutigem Kurs umgerechnet: eigene, deutliche Zeile darunter statt «(aktueller Kurs)» oben.
@@ -56,7 +56,7 @@ struct SheetChartCaption: View {
     private var text: String {
         var parts: [String] = []
         // Kerzen einer anderen Börse (Ausweich-Kette): als fremd kennzeichnen, «Chart: Binance» statt nur «Binance»
-        if let foreign = DayChange.foreignCandleSource(markets: markets, provider: info.provider) {
+        if let foreign = DayChange.foreignCandleSource(exchanges: exchanges, provider: info.provider) {
             parts.append(L("watch_row_source_chart", BidiText.isolate(foreign)))
         } else if let provider = info.provider {
             parts.append(provider)

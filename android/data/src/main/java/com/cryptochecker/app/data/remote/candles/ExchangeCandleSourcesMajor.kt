@@ -7,7 +7,7 @@ import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -17,7 +17,7 @@ import org.json.JSONObject
 
 /** Binance Spot: `/api/v3/klines` — zuerst der öffentliche Spiegel, dann api.binance.com. */
 object BinanceCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Binance")
+    override val exchangeKeys = setOf("Binance")
     private val endpoints = listOf("https://data-api.binance.vision/api/v3/klines", "https://api.binance.com/api/v3/klines")
 
     fun symbol(pair: CandlePair): String? = CandleParse.id(pair.pairId) {
@@ -47,7 +47,7 @@ object BinanceCandles : ExchangeCandleSource {
  * Kennung «ALPHA_<id>USDT» (unter der Börse Binance). Antwort `{"code":"000000","data":[[…Binance-Kline…]]}`.
  */
 object BinanceAlphaCandles : ExchangeCandleSource {
-    override val marketKeys = setOf(BinanceAlpha.MARKET_KEY)
+    override val exchangeKeys = setOf(BinanceAlpha.EXCHANGE_KEY)
 
     override fun supports(pair: CandlePair) =
         pair.contractType == FuturesContractType.NONE && BinanceAlpha.isPairId(pair.pairId)
@@ -63,7 +63,7 @@ object BinanceAlphaCandles : ExchangeCandleSource {
 
 /** Binance.US: `api.binance.us/api/v3/klines`. */
 object BinanceUsCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("BinanceUs")
+    override val exchangeKeys = setOf("BinanceUs")
 
     override fun supports(pair: CandlePair) = pair.contractType == FuturesContractType.NONE && BinanceCandles.symbol(pair) != null
 
@@ -82,7 +82,7 @@ object BinanceUsCandles : ExchangeCandleSource {
  * — nie die Kerzen des Perpetuals.
  */
 object BinanceFuturesCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("BinanceFutures")
+    override val exchangeKeys = setOf("BinanceFutures")
     private const val COIN_M_PREFIX = "2:"
     private val DELIVERY_FORMAT = java.time.format.DateTimeFormatter.ofPattern("yyMMdd", java.util.Locale.ROOT)
 
@@ -129,7 +129,7 @@ object BinanceFuturesCandles : ExchangeCandleSource {
  * 1 Tag — 4 h aus Stundenkerzen zusammengesetzt; für 1 Jahr eine ältere Seite dazu).
  */
 object CoinbaseCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Coinbase")
+    override val exchangeKeys = setOf("Coinbase")
     private const val HOUR_MILLIS = 60 * 60_000L
 
     fun product(pair: CandlePair): String? = CandleParse.id(pair.pairId) {
@@ -170,7 +170,7 @@ object CoinbaseCandles : ExchangeCandleSource {
  * Kennung = Schlüssel der Paarliste (z. B. «XXBTZUSD»); ohne Kennung keine eigenen Kerzen.
  */
 object KrakenCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Kraken")
+    override val exchangeKeys = setOf("Kraken")
 
     override fun supports(pair: CandlePair) =
         pair.contractType == FuturesContractType.NONE && CandleParse.safeId(pair.pairId) != null
@@ -217,7 +217,7 @@ object KrakenCandles : ExchangeCandleSource {
  * je Kerze ein Objekt mit Texten (Zeit in Sekunden).
  */
 object BitstampCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Bitstamp")
+    override val exchangeKeys = setOf("Bitstamp")
 
     private fun symbol(pair: CandlePair): String? = CandleParse.id(pair.pairId) {
         val b = CandleParse.asset(pair.base)
@@ -258,7 +258,7 @@ object BitstampCandles : ExchangeCandleSource {
  * je Kerze [Zeit (ms), open, high, low, close, Menge] (Texte).
  */
 object BitvavoCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Bitvavo")
+    override val exchangeKeys = setOf("Bitvavo")
 
     private fun market(pair: CandlePair): String? = CoinbaseCandles.product(pair)
 
@@ -300,11 +300,11 @@ object BitvavoCandles : ExchangeCandleSource {
  * Spot für «Bybit», USDT/USDC-Perpetuals (linear, auch TradFi) für «BybitFutures».
  */
 object BybitCandles : ExchangeCandleSource {
-    override val marketKeys = setOf("Bybit", "BybitFutures")
+    override val exchangeKeys = setOf("Bybit", "BybitFutures")
 
     private fun category(pair: CandlePair): String? = when {
-        pair.marketKey == "BybitFutures" && pair.contractType == FuturesContractType.PERPETUAL -> "linear"
-        pair.marketKey == "Bybit" && pair.contractType == FuturesContractType.NONE -> "spot"
+        pair.exchangeKey == "BybitFutures" && pair.contractType == FuturesContractType.PERPETUAL -> "linear"
+        pair.exchangeKey == "Bybit" && pair.contractType == FuturesContractType.NONE -> "spot"
         else -> null
     }
 

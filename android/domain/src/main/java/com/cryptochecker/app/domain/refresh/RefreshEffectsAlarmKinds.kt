@@ -57,7 +57,7 @@ fun RefreshEffects.startAlarmPrefetch(watches: List<WatchEntity>, alarms: List<A
                     launch("V|${watch.id}") { volumeDataSource.hourlySpike(watch) }
                 else -> alarm.convertCurrency?.let { target ->
                     // Aster «U» zählt als USD (CurrencyConversion.conversionQuote)
-                    val quote = com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(watch.marketKey, watch.quoteAsset)
+                    val quote = com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(watch.exchangeKey, watch.quoteAsset)
                     launch("F|$quote|${target.uppercase()}") {
                         currencyConverter.rate(quote, target)
                     }
@@ -185,7 +185,7 @@ suspend fun RefreshEffects.checkNearExtremeAlarm(
     }
     // Reihe der Ausweich-Kette nur bei gleichem Namen und Kurs ±25 % (wie der Mini-Chart) — sonst
     // kein Hoch/Tief-Alarm statt der Werte eines anderen Tokens
-    if (!nearExtremeDataSource.seriesAllowed(ranges, watch.marketKey, watch.baseAsset, price, rate)) {
+    if (!nearExtremeDataSource.seriesAllowed(ranges, watch.exchangeKey, watch.baseAsset, price, rate)) {
         run.unchecked(alarm, AlarmCheckStatus.Reason.NO_CANDLES)
         return
     }

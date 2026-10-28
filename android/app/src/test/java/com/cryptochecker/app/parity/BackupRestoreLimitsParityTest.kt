@@ -22,8 +22,8 @@ class BackupRestoreLimitsParityTest {
     @Test
     fun grenzenWieGemeinsameTestfaelle() {
         val limits = fixture["limits"].obj()
-        assertEquals(limits["maxMarketKey"].num()!!.toInt(), BackupRestoreLimits.MAX_MARKET_KEY)
-        assertEquals(limits["maxMarketName"].num()!!.toInt(), BackupRestoreLimits.MAX_MARKET_NAME)
+        assertEquals(limits["maxExchangeKey"].num()!!.toInt(), BackupRestoreLimits.MAX_EXCHANGE_KEY)
+        assertEquals(limits["maxExchangeName"].num()!!.toInt(), BackupRestoreLimits.MAX_EXCHANGE_NAME)
         assertEquals(limits["maxAsset"].num()!!.toInt(), BackupRestoreLimits.MAX_ASSET)
         assertEquals(limits["maxPairId"].num()!!.toInt(), BackupRestoreLimits.MAX_PAIR_ID)
         assertEquals(limits["maxPairs"].num()!!.toInt(), BackupRestoreLimits.MAX_PAIRS)
@@ -118,8 +118,8 @@ class BackupRestoreLimitsParityTest {
             watches.put(
                 JSONObject()
                     .put("id", id)
-                    .put("marketKey", "Binance")
-                    .put("marketName", "Binance")
+                    .put("exchangeKey", "Binance")
+                    .put("exchangeName", "Binance")
                     .put("baseAsset", base)
                     .put("quoteAsset", "USDT")
                     .put("contractType", "NONE")

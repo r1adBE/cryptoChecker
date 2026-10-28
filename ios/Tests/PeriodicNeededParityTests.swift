@@ -46,8 +46,8 @@ final class PeriodicNeededParityTests: XCTestCase {
         settings.ttsEnabled = true
         settings.ttsAlarmsOnly = true
         var snap = SharedStorage.Snapshot()
-        snap.watches = [Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT"),
-                        Watch(id: 2, marketKey: "binance", marketName: "Binance", baseAsset: "ETH", quoteAsset: "USDT")]
+        snap.watches = [Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT"),
+                        Watch(id: 2, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "ETH", quoteAsset: "USDT")]
         snap.watches[1].disabled = true
         snap.alarms = [Alarm(id: 1, watchId: 2, condition: .PRICE_ABOVE, threshold: 1, enabled: true),
                        Alarm(id: 2, watchId: 1, condition: .PRICE_BELOW, threshold: 1, enabled: false)]

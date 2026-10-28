@@ -99,11 +99,11 @@ class TradFiTest {
 
     /** «Nur TradFi» zeigt die Börsen, deren Paarliste TradFi kennzeichnet — Hyperliquid tut das nicht. */
     @Test
-    fun tradFiMarkets() {
+    fun tradFiExchanges() {
         listOf("Aster", "BingXFutures", "Lighter", "PhemexFutures").forEach {
-            assertTrue(it, it in CoinLogos.TRADFI_MARKETS)
-            assertTrue(it, AssetScope.TRADFI.allowsMarket(it))
+            assertTrue(it, it in CoinLogos.TRADFI_EXCHANGES)
+            assertTrue(it, AssetScope.TRADFI.allowsExchange(it))
         }
-        listOf("Hyperliquid", "BingX").forEach { assertFalse(it, AssetScope.TRADFI.allowsMarket(it)) }
+        listOf("Hyperliquid", "BingX").forEach { assertFalse(it, AssetScope.TRADFI.allowsExchange(it)) }
     }
 }

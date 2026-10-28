@@ -49,7 +49,7 @@
     <string name="explorer_pairs_title">Coppie</string>
     <string name="explorer_precise_title">Avanzate / per exchange</string>
     <string name="explorer_price_loading">Caricamento prezzo…</string>
-    <string name="explorer_select_market_hint">Scegli un exchange – le sue coppie si caricano automaticamente.</string>
+    <string name="explorer_select_exchange_hint">Scegli un exchange – le sue coppie si caricano automaticamente.</string>
     <string name="explorer_select_placeholder">Seleziona</string>
     <string name="explorer_step_pair">Scegli coppia</string>
 

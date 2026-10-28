@@ -69,7 +69,7 @@ extension AppData {
             if let changedAt = pairChangedAt[id], quote.time < changedAt { continue }
             let change = LiveRules.chooseChange(
                 rollingBasis: rolling, stampCurrent: stampCurrent,
-                exchangeRolling: LiveExchange.from(marketKey: watch.marketKey)?.rollingChange == true,
+                exchangeRolling: LiveExchange.from(exchangeKey: watch.exchangeKey)?.rollingChange == true,
                 live: quote.change24h, existing: watch.change24h)
             chosen[id] = LiveQuote(price: quote.price, change24h: change, time: quote.time, tradeTime: quote.tradeTime)
         }
@@ -111,7 +111,7 @@ extension AppData {
         var ids = Set<Int64>()
         for w in snapshot.watches where !w.disabled && !volumeIds.contains(w.id) && LiveRules.skipRest(
             lastTickAt: liveTickAt[w.id], now: now, rollingBasis: rolling, stampUnchanged: stampUnchanged,
-            exchangeRolling: LiveExchange.from(marketKey: w.marketKey)?.rollingChange == true) {
+            exchangeRolling: LiveExchange.from(exchangeKey: w.exchangeKey)?.rollingChange == true) {
             ids.insert(w.id)
         }
         return ids

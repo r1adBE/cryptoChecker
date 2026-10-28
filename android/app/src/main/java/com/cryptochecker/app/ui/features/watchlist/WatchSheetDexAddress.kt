@@ -37,7 +37,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
  */
 @Composable
 internal fun DexTokenAddressLine(watch: WatchEntity) {
-    if (!DexLiquidity.isDex(watch.marketKey)) return
+    if (!DexLiquidity.isDex(watch.exchangeKey)) return
     val context = LocalContext.current
     val address = remember(watch.pairId) { DexTokenAddressStore.get(context, watch.pairId) } ?: return
     val copyLabel = stringResource(R.string.dex_token_address_copy)

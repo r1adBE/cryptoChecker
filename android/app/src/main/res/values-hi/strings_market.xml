@@ -38,7 +38,7 @@
     <string name="market_section_expand">%1$s दिखाओ</string>
     <string name="market_section_now">अभी</string>
     <string name="market_source">डेटा: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">एक्सचेंज उपलब्ध नहीं</string>
+    <string name="exchange_unavailable_error">एक्सचेंज उपलब्ध नहीं</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">जानकारी: %1$s</string>

@@ -4,8 +4,8 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
-import com.cryptochecker.marketdata.config.MarketsConfig
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.config.ExchangesConfig
+import com.cryptochecker.marketdata.model.ExchangePair
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
@@ -45,18 +45,18 @@ class RecordedBulkCompletenessTest {
     fun recordedBulkListsEveryRecordedPair() {
         val failures = ArrayList<String>()
         for ((key, file) in evidence) {
-            val market = MarketsConfig.MARKETS[key] ?: throw AssertionError("unknown market $key")
-            if (!market.bulkTickersComplete) failures += "$key: bulkTickersComplete is false"
+            val exchange = ExchangesConfig.EXCHANGES[key] ?: throw AssertionError("unknown market $key")
+            if (!exchange.bulkTickersComplete) failures += "$key: bulkTickersComplete is false"
             val cases = ParityJson.parse(File(recordedDir(), file).readText(Charsets.UTF_8)).obj()["cases"].list()
                 .map { it.obj() }
-            val pairs = ArrayList<MarketPair>()
+            val pairs = ArrayList<ExchangePair>()
             val listed = HashSet<String>()
             for (c in cases) {
                 val call = c["requestId"].num()?.toInt() ?: 0
                 val body = c["body"] as String
                 when (c["kind"]) {
-                    "pairs" -> market.readPairList(call, body, pairs)
-                    "bulk" -> market.parseBulkTickersDetailed(call, body).let { listed += it.tickers.keys; listed += it.failed }
+                    "pairs" -> exchange.readPairList(call, body, pairs)
+                    "bulk" -> exchange.parseBulkTickersDetailed(call, body).let { listed += it.tickers.keys; listed += it.failed }
                 }
             }
             if (pairs.isEmpty() || listed.isEmpty()) failures += "$key: recording lacks pair list or bulk response"

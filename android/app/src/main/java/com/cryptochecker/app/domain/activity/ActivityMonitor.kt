@@ -307,7 +307,7 @@ class ActivityMonitor @Inject constructor(
                     sources = WhySources(
                         candles = candles?.provider,
                         // Eigene Börse ist nie Ersatzquelle; Binance-Kerzen eines Phemex-Paars schon
-                        candlesFallback = WhyFreshness.candlesFallback(listOf(watch.marketKey, watch.marketName), candles?.provider),
+                        candlesFallback = WhyFreshness.candlesFallback(listOf(watch.exchangeKey, watch.exchangeName), candles?.provider),
                         reference = reference?.provider?.takeIf { it != candles?.provider },
                         futures = futures?.source,
                         futuresNote = futures?.let { futuresNote(watch, it.source) },
@@ -324,7 +324,7 @@ class ActivityMonitor @Inject constructor(
      * Ausweichquelle oder Richtwert einer anderen Börse (Spot-Paare, Börsen ohne eigene Daten).
      */
     private fun futuresNote(watch: WatchEntity, source: String): FuturesSourceNote? =
-        FuturesSources.note(watch.contractType.isPerpetual, watch.marketKey, source, watch.pairId)
+        FuturesSources.note(watch.contractType.isPerpetual, watch.exchangeKey, source, watch.pairId)
 
     /**
      * Gespeicherte Veränderung des Paars, wenn sie rollend über 24 Stunden gilt; bei einer

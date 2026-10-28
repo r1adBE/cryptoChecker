@@ -36,15 +36,15 @@ enum WidgetSparkline {
             let now = EpochTime.nowMillis
             let cached = load(key)
             if now - cached.at < cacheMillis, let hit = WidgetChartGeometry.pairCandles(cached.candles, price: price) {
-                return Sourced(value: hit, provider: watch.marketName)
+                return Sourced(value: hit, provider: watch.exchangeName)
             }
             let own = await OwnCandleDataSource.shared.candles(pair, interval: range.candleInterval, limit: range.limit)
             if let accepted = WidgetChartGeometry.pairCandles(own?.value, price: price) {
                 save(key, accepted)
-                return Sourced(value: accepted, provider: watch.marketName)
+                return Sourced(value: accepted, provider: watch.exchangeName)
             }
             if now - cached.at < staleFallbackMillis, let old = WidgetChartGeometry.pairCandles(cached.candles, price: price) {
-                return Sourced(value: old, provider: watch.marketName)
+                return Sourced(value: old, provider: watch.exchangeName)
             }
         }
         guard OwnCandlePolicy.allowsFallback(pair) else { return nil }
@@ -53,7 +53,7 @@ enum WidgetSparkline {
         guard let accepted = WidgetChartGeometry.pairCandles(fallback?.value, price: price) else { return nil }
         // Börse der Ausweich-Reihe (für «Chart: Binance»); klar anders benannter Token (K-8): kein Chart
         let provider: String? = fallback?.provider
-        guard TokenIdentityStore.shared.fallbackSeriesAllowed(marketKey: watch.marketKey, base: watch.baseAsset,
+        guard TokenIdentityStore.shared.fallbackSeriesAllowed(exchangeKey: watch.exchangeKey, base: watch.baseAsset,
                                                               provider: provider) else { return nil }
         return Sourced(value: accepted, provider: provider)
     }

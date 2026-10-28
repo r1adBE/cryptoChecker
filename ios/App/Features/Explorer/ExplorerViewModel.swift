@@ -23,7 +23,7 @@ struct ExplorerSearchLists: Equatable {
 /// Was die Kursvorschau des gewählten Paars gerade zeigt.
 enum ExplorerPriceState {
     case loading
-    case loaded(Ticker, MarketPair)
+    case loaded(Ticker, ExchangePair)
     case failed(String)
 }
 
@@ -67,14 +67,14 @@ final class ExplorerViewModel: ObservableObject {
     let appliesAssetScope: Bool
 
     /// Jede bekannte Börse ausser der Platzhalter-Börse, alphabetisch (ohne Gross/klein).
-    let allMarkets: [Market] = MarketsConfig.all
-        .filter { !($0 is UnknownMarket) }
+    let allExchanges: [Exchange] = ExchangesConfig.all
+        .filter { !($0 is UnknownExchange) }
         .sorted { $0.name.lowercased() < $1.name.lowercased() }
 
     // MARK: Veröffentlichter Zustand – Börse
 
-    @Published var exchange: Market?
-    @Published var pairList: MarketPairsInfo?
+    @Published var exchange: Exchange?
+    @Published var pairList: ExchangePairsInfo?
     @Published var canReloadPairs = false
     @Published var pairListSync = ExplorerPairListSync()
 
@@ -86,14 +86,14 @@ final class ExplorerViewModel: ObservableObject {
     @Published var coin: String?
     @Published var quote: String?
     @Published var contract: FuturesContractType?
-    @Published var selectedPair: MarketPair?
+    @Published var selectedPair: ExchangePair?
     @Published var price: ExplorerPriceState?
 
     // MARK: Veröffentlichter Zustand – Sammelaufnahme
 
     @Published var bulkQuotes: [String] = []
     @Published var bulkQuote: String?
-    @Published var bulkPairs: [MarketPair] = []
+    @Published var bulkPairs: [ExchangePair] = []
     @Published var bulkEmpty = false
     /// Werte für die Schnellfilter von «Alle …-Paare», je Paar-Kennung. Stammen aus genau einer
     /// Sammelabfrage der Börse (nie einzeln je Paar); ohne Sammelabfrage bleibt es leer, Filter fehlen.
@@ -139,11 +139,11 @@ final class ExplorerViewModel: ObservableObject {
     var bulkStatsAt = Date.distantPast
 
     // Suche: gespeicherte Listen aller Börsen (vollständig; gefiltert wird erst bei der Anzeige)
-    var searchCache: [String: MarketPairsInfo] = [:]
-    var searchMarkets: [Market] = []
+    var searchCache: [String: ExchangePairsInfo] = [:]
+    var searchExchanges: [Exchange] = []
     /// Börsen, deren Liste noch nicht auf dem Gerät liegt, die sie aber laden können.
-    var unloadedMarkets: [Market] = []
-    var pendingListMarkets: [Market] = []
+    var unloadedExchanges: [Exchange] = []
+    var pendingListExchanges: [Exchange] = []
     var listsLoadedCount = 0
     var failedListKeys: Set<String> = []
     var storedListsTask: Task<Void, Never>?
@@ -177,9 +177,9 @@ final class ExplorerViewModel: ObservableObject {
     }
 
     /// Börsen für die Auswahl (bei «Nur TradFi» nur solche mit TradFi-Kontrakten).
-    var markets: [Market] {
+    var exchanges: [Exchange] {
         let scope = assetScope
-        return allMarkets.filter { scope.allowsMarket($0.key) }
+        return allExchanges.filter { scope.allowsExchange($0.key) }
     }
 
     // MARK: Abgeleitete Werte

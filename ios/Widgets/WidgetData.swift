@@ -119,21 +119,21 @@ enum WidgetData {
     static let sampleWatches: [Watch] = {
         let now = EpochTime.nowMillis
         return [
-            Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
+            Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
                   lastPrice: 83_142, previousPrice: 82_865, lastUpdate: now, favorite: true, change24h: 2.31),
-            Watch(id: 2, marketKey: "binance", marketName: "Binance", baseAsset: "ETH", quoteAsset: "USDT",
+            Watch(id: 2, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "ETH", quoteAsset: "USDT",
                   lastPrice: 2_505.49, previousPrice: 2_495.5, lastUpdate: now, change24h: 1.84),
-            Watch(id: 3, marketKey: "kraken", marketName: "Kraken", baseAsset: "SOL", quoteAsset: "EUR",
+            Watch(id: 3, exchangeKey: "kraken", exchangeName: "Kraken", baseAsset: "SOL", quoteAsset: "EUR",
                   lastPrice: 94.18, previousPrice: 94.6, lastUpdate: now, change24h: -0.92),
-            Watch(id: 4, marketKey: "coinbase", marketName: "Coinbase", baseAsset: "XRP", quoteAsset: "USD",
+            Watch(id: 4, exchangeKey: "coinbase", exchangeName: "Coinbase", baseAsset: "XRP", quoteAsset: "USD",
                   lastPrice: 1.394, previousPrice: 1.389, lastUpdate: now, change24h: 0.47),
-            Watch(id: 5, marketKey: "bitvavo", marketName: "Bitvavo", baseAsset: "ADA", quoteAsset: "EUR",
+            Watch(id: 5, exchangeKey: "bitvavo", exchangeName: "Bitvavo", baseAsset: "ADA", quoteAsset: "EUR",
                   lastPrice: 0.6812, previousPrice: 0.6794, lastUpdate: now, change24h: 0.41),
-            Watch(id: 6, marketKey: "kucoin", marketName: "KuCoin", baseAsset: "DOGE", quoteAsset: "USDT",
+            Watch(id: 6, exchangeKey: "kucoin", exchangeName: "KuCoin", baseAsset: "DOGE", quoteAsset: "USDT",
                   lastPrice: 0.2134, previousPrice: 0.2109, lastUpdate: now, change24h: 2.05),
-            Watch(id: 7, marketKey: "bybit", marketName: "Bybit", baseAsset: "AVAX", quoteAsset: "USDT",
+            Watch(id: 7, exchangeKey: "bybit", exchangeName: "Bybit", baseAsset: "AVAX", quoteAsset: "USDT",
                   lastPrice: 34.82, previousPrice: 35.3, lastUpdate: now, change24h: -1.73),
-            Watch(id: 8, marketKey: "okex", marketName: "OKX", baseAsset: "LINK", quoteAsset: "USDT",
+            Watch(id: 8, exchangeKey: "okex", exchangeName: "OKX", baseAsset: "LINK", quoteAsset: "USDT",
                   lastPrice: 22.15, previousPrice: 21.98, lastUpdate: now, change24h: 0.89),
         ]
     }()

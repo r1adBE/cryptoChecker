@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">今日 %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">取引所からデータを受信できませんでした。</string>
+    <string name="exchange_data_empty_error">取引所からデータを受信できませんでした。</string>
     <string name="market_data_summary">時価総額、ガス代、経済指標、コイン分析</string>
     <string name="market_data_tab_futures">先物</string>
     <string name="market_data_title">マーケットデータ</string>

@@ -21,7 +21,7 @@ final class WatchlistReadCacheTests: XCTestCase {
     }
 
     private func pair(_ id: Int64, _ base: String, order: Int, group: String? = nil) -> Watch {
-        var w = Watch(id: id, marketKey: "Binance", marketName: "Binance", baseAsset: base, quoteAsset: "USDT",
+        var w = Watch(id: id, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: base, quoteAsset: "USDT",
                       pairId: "\(base)USDT", sortOrder: order)
         w.groupName = group
         return w
@@ -70,7 +70,7 @@ final class WatchlistReadCacheTests: XCTestCase {
             for w in s.watches {
                 kinds[w.id] = w.assetKind(tradFiPairs: CoinLogoStore.tradFiPairs, alphaSymbols: CoinLogoStore.alphaSymbols,
                                           alphaNames: CoinLogoStore.alphaNames,
-                                          pairName: TokenIdentityStore.shared.pairName(marketKey: w.marketKey,
+                                          pairName: TokenIdentityStore.shared.pairName(exchangeKey: w.exchangeKey,
                                                                                         base: w.baseAsset))
             }
             XCTAssertEqual(data.watchKinds, kinds, "\(step) kinds", file: file, line: line)

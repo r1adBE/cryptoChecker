@@ -7,8 +7,8 @@ import org.junit.Test
 
 class AddMomentTest {
 
-    private fun added(base: String, quote: String = "USDT", market: String = "Binance") =
-        AddMoment.Added(market, base, quote, "$base/$quote")
+    private fun added(base: String, quote: String = "USDT", exchange: String = "Binance") =
+        AddMoment.Added(exchange, base, quote, "$base/$quote")
 
     @Test
     fun bannerSubject() {
@@ -21,7 +21,7 @@ class AddMomentTest {
     }
 
     @Test
-    fun matchesRowsByMarketBaseAndQuote() {
+    fun matchesRowsByExchangeBaseAndQuote() {
         val m = AddMoment(1L, listOf(added("BTC"), added("ETH")))
         assertEquals(0, m.indexOf("Binance", "btc", "usdt"))
         assertEquals(1, m.indexOf("Binance", "ETH", "USDT"))

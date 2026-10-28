@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">आज %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">एक्सचेंज से कोई डेटा नहीं मिला।</string>
+    <string name="exchange_data_empty_error">एक्सचेंज से कोई डेटा नहीं मिला।</string>
     <string name="market_data_summary">मार्केट कैप, गैस फ़ीस, आर्थिक डेटा, कॉइन विश्लेषण</string>
     <string name="market_data_tab_futures">फ़्यूचर्स</string>
     <string name="market_data_title">मार्केट डेटा</string>

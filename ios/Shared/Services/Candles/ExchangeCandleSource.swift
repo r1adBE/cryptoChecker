@@ -5,10 +5,10 @@ import Foundation
 /// Vertragsart. `tradFi` = Aktie, Rohstoff, Devise: nie Kerzen eines gleichnamigen Krypto-Tokens.
 /// Wie `CandlePair` in `ExchangeCandleSource.kt`.
 struct CandlePair: Equatable, Sendable {
-    static let dexMarketKey = "DexScreener"
+    static let dexExchangeKey = "DexScreener"
 
-    let marketKey: String
-    let marketName: String
+    let exchangeKey: String
+    let exchangeName: String
     let base: String
     let quote: String
     var pairId: String? = nil
@@ -21,22 +21,22 @@ struct CandlePair: Equatable, Sendable {
     var isDated: Bool { contractType.deliveryDate != nil }
 
     /// Alpha-Paar von Binance (Kennung «ALPHA_<id>USDT», `BinanceAlpha`).
-    var isBinanceAlpha: Bool { BinanceAlpha.isAlphaPair(marketKey: marketKey, pairId: pairId) }
+    var isBinanceAlpha: Bool { BinanceAlpha.isAlphaPair(exchangeKey: exchangeKey, pairId: pairId) }
 
     /// DexScreener-Pool: keine Börsen-Kerzen (fremde Kerzen gehörten nicht zum gemerkten Pool).
-    var isDex: Bool { marketKey.caseInsensitiveCompare(Self.dexMarketKey) == .orderedSame }
+    var isDex: Bool { exchangeKey.caseInsensitiveCompare(Self.dexExchangeKey) == .orderedSame }
 
     /// Schlüssel für Zwischenspeicher: Börse, Kennung bzw. Kürzel, Vertragsart (wie Android).
     var cacheKey: String {
         let b = base.trimmingCharacters(in: .whitespaces).uppercased()
         let q = quote.trimmingCharacters(in: .whitespaces).uppercased()
-        return "\(marketKey)|\(pairId ?? "\(b)/\(q)")|\(contractType.backupName)"
+        return "\(exchangeKey)|\(pairId ?? "\(b)/\(q)")|\(contractType.backupName)"
     }
 
-    init(marketKey: String, marketName: String, base: String, quote: String, pairId: String? = nil,
+    init(exchangeKey: String, exchangeName: String, base: String, quote: String, pairId: String? = nil,
          contractType: FuturesContractType = .none, tradFi: Bool = false) {
-        self.marketKey = marketKey
-        self.marketName = marketName
+        self.exchangeKey = exchangeKey
+        self.exchangeName = exchangeName
         self.base = base
         self.quote = quote
         self.pairId = pairId
@@ -45,7 +45,7 @@ struct CandlePair: Equatable, Sendable {
     }
 
     init(watch: Watch, tradFi: Bool) {
-        self.init(marketKey: watch.marketKey, marketName: watch.marketName, base: watch.baseAsset,
+        self.init(exchangeKey: watch.exchangeKey, exchangeName: watch.exchangeName, base: watch.baseAsset,
                   quote: watch.quoteAsset, pairId: watch.pairId, contractType: watch.contractType, tradFi: tradFi)
     }
 
@@ -72,8 +72,8 @@ struct CandleHTTP: Sendable {
 /// `struct` in ExchangeCandleSourcesMajor.swift schreiben und in `ExchangeCandleRegistry.sources` eintragen
 /// (Gegenstück in ExchangeCandleSourcesMajor.kt), dazu ein Fall in testdata/parity/own_candles.json.
 protocol ExchangeCandleSource: Sendable {
-    /// Börsen-Schlüssel (`Market.key`), für die die Quelle gilt.
-    var marketKeys: Set<String> { get }
+    /// Börsen-Schlüssel (`Exchange.key`), für die die Quelle gilt.
+    var exchangeKeys: Set<String> { get }
 
     /// Kann die Quelle dieses Paar liefern (Vertragsart, Kennung)?
     func supports(_ pair: CandlePair) -> Bool
@@ -125,7 +125,7 @@ enum ExchangeCandleRegistry {
     static let intervals: Set<CandleInterval> = [.h1, .h4, .d1]
 
     static func source(for pair: CandlePair) -> (any ExchangeCandleSource)? {
-        sources.first { $0.marketKeys.contains(pair.marketKey) && $0.supports(pair) }
+        sources.first { $0.exchangeKeys.contains(pair.exchangeKey) && $0.supports(pair) }
     }
 
     static func supports(_ pair: CandlePair, interval: CandleInterval) -> Bool {
@@ -155,5 +155,5 @@ enum OwnCandlePolicy {
 
     /// Anbieter eigener Kerzen = Name der Börse des Paars — der Hinweis in der Zeile entfällt damit; bei
     /// Alpha-Paaren von Binance «Binance Alpha» (`BinanceAlpha.provider`).
-    static func provider(_ pair: CandlePair) -> String { pair.isBinanceAlpha ? BinanceAlpha.provider : pair.marketName }
+    static func provider(_ pair: CandlePair) -> String { pair.isBinanceAlpha ? BinanceAlpha.provider : pair.exchangeName }
 }

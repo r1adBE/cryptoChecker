@@ -1,17 +1,17 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.app.domain.exceptions.toMarketFailure
-import com.cryptochecker.app.domain.refresh.MarketFailure
+import com.cryptochecker.app.domain.exceptions.toExchangeFailure
+import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
-import com.cryptochecker.marketdata.config.MarketsConfig
-import com.cryptochecker.marketdata.exceptions.MarketParseException
+import com.cryptochecker.marketdata.config.ExchangesConfig
+import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
-import com.cryptochecker.marketdata.model.market.Hyperliquid
-import com.cryptochecker.marketdata.model.market.Lighter
+import com.cryptochecker.marketdata.model.exchange.Hyperliquid
+import com.cryptochecker.marketdata.model.exchange.Lighter
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThrows
@@ -27,12 +27,12 @@ class MissingEntryNotTradedTest {
 
     @Test
     fun missingEntryIsAStatementAboutThePair() {
-        val noData = MarketParseException(MarketParseException.NO_DATA)
-        val unknownCoin = MarketParseException("Unknown coin: FOO")
-        assertEquals(MarketFailure.UnknownInstrument, noData.toMarketFailure())
-        assertEquals(MarketFailure.UnknownInstrument, unknownCoin.toMarketFailure())
-        assertTrue(NotTraded.confirmedBySingle(false, noData.message, noData.toMarketFailure()))
-        assertTrue(NotTraded.confirmedBySingle(false, unknownCoin.message, unknownCoin.toMarketFailure()))
+        val noData = ExchangeParseException(ExchangeParseException.NO_DATA)
+        val unknownCoin = ExchangeParseException("Unknown coin: FOO")
+        assertEquals(ExchangeFailure.UnknownInstrument, noData.toExchangeFailure())
+        assertEquals(ExchangeFailure.UnknownInstrument, unknownCoin.toExchangeFailure())
+        assertTrue(NotTraded.confirmedBySingle(false, noData.message, noData.toExchangeFailure()))
+        assertTrue(NotTraded.confirmedBySingle(false, unknownCoin.message, unknownCoin.toExchangeFailure()))
         // Gespeicherter Text ohne Art: gleich
         assertTrue(NotTraded.confirmedBySingle(false, "No data"))
         assertTrue(NotTraded.confirmedBySingle(false, "Unknown coin: FOO"))
@@ -40,13 +40,13 @@ class MissingEntryNotTradedTest {
 
     @Test
     fun otherParseErrorsStayErrors() {
-        val other = MarketParseException("No data for field last")
-        assertEquals(MarketFailure.Parse, other.toMarketFailure())
-        assertFalse(NotTraded.confirmedBySingle(false, other.message, other.toMarketFailure()))
+        val other = ExchangeParseException("No data for field last")
+        assertEquals(ExchangeFailure.Parse, other.toExchangeFailure())
+        assertFalse(NotTraded.confirmedBySingle(false, other.message, other.toExchangeFailure()))
         assertFalse(NotTraded.isMissingEntry("no data available"))
         assertFalse(NotTraded.isMissingEntry(null))
         // Kurs da: nie
-        assertFalse(NotTraded.confirmedBySingle(true, "No data", MarketFailure.UnknownInstrument))
+        assertFalse(NotTraded.confirmedBySingle(true, "No data", ExchangeFailure.UnknownInstrument))
     }
 
     @Test
@@ -64,7 +64,7 @@ class MissingEntryNotTradedTest {
         assertEquals(67000.5, Lighter().readTicker(0, body, SimpleTicker(), stored).last, 0.0)
         // Wirklich fehlendes Symbol bleibt «unbekannt» (bestätigt nach dem Fehlen in der Liste)
         val gone = PairQuery("GONE", "USDC", null, FuturesContractType.PERPETUAL)
-        val err = assertThrows(MarketParseException::class.java) { Lighter().readTicker(0, body, SimpleTicker(), gone) }
+        val err = assertThrows(ExchangeParseException::class.java) { Lighter().readTicker(0, body, SimpleTicker(), gone) }
         assertEquals("Unknown symbol: GONE", err.message)
     }
 
@@ -73,10 +73,10 @@ class MissingEntryNotTradedTest {
     fun lighterPriceZeroIsNoData() {
         val body = """{"code":200,"order_book_stats":[{"symbol":"ARM","last_trade_price":0,"daily_price_change":0}]}"""
         val info = PairQuery("ARM", "USDC", "ARM", FuturesContractType.PERPETUAL)
-        val err = assertThrows(MarketParseException::class.java) { Lighter().readTicker(0, body, SimpleTicker(), info) }
-        assertEquals(MarketParseException.NO_DATA, err.message)
-        assertEquals(MarketFailure.UnknownInstrument, err.toMarketFailure())
-        assertTrue(NotTraded.confirmedBySingle(false, err.message, err.toMarketFailure()))
+        val err = assertThrows(ExchangeParseException::class.java) { Lighter().readTicker(0, body, SimpleTicker(), info) }
+        assertEquals(ExchangeParseException.NO_DATA, err.message)
+        assertEquals(ExchangeFailure.UnknownInstrument, err.toExchangeFailure())
+        assertTrue(NotTraded.confirmedBySingle(false, err.message, err.toExchangeFailure()))
     }
 
     /** Ohne Sammelabfrage (1–2 Paare): nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid). */
@@ -86,7 +86,7 @@ class MissingEntryNotTradedTest {
             val actual = NotTraded.confirmWithoutBulk(c["bulkTried"] as Boolean, c["singleReadsFullList"] as Boolean)
             assertEquals(c["name"] as String, c["confirm"], actual)
         }
-        val flagged = MarketsConfig.MARKETS.values.filter { it.singleTickerReadsFullList }
+        val flagged = ExchangesConfig.EXCHANGES.values.filter { it.singleTickerReadsFullList }
         assertEquals(setOf("Lighter", "Hyperliquid"), flagged.map { it.key }.toSet())
         // Nur sinnvoll, wo die Liste vollständig ist
         assertTrue(flagged.all { it.bulkTickersComplete })
@@ -96,7 +96,7 @@ class MissingEntryNotTradedTest {
     fun hyperliquidValidAnswerHasNoErrorText() {
         val info = PairQuery("FOO", "USDC", "FOO", FuturesContractType.PERPETUAL)
         // Gültige Antwort (Liste): kein Fehlertext, damit «Unknown coin» bleibt
-        val err = assertThrows(MarketParseException::class.java) {
+        val err = assertThrows(ExchangeParseException::class.java) {
             Hyperliquid().readError(0, """ [{"universe":[]},[]]""", info)
         }
         assertEquals("No error text", err.message)

@@ -52,10 +52,10 @@ enum class FuturesContractType(val value: Int) {
          * OKX «BTC-USD-SWAP», Deribit «BTC-PERPETUAL» (ohne «_»; linear wäre «SOL_USDC-PERPETUAL»). Nötig für Paare,
          * die alte Versionen als PERPETUAL gespeichert haben ([normalized]); neue Paarlisten setzen die Art selbst.
          */
-        fun isInversePerpetualId(marketKey: String, pairId: String?): Boolean {
+        fun isInversePerpetualId(exchangeKey: String, pairId: String?): Boolean {
             val id = pairId?.trim()
             if (id.isNullOrEmpty()) return false
-            return when (marketKey) {
+            return when (exchangeKey) {
                 "BinanceFutures" -> id.startsWith("2:") && deliveryCodeOf(id) == null
                 "OkexFutures" -> id.endsWith("-USD-SWAP")
                 "Deribit" -> id.endsWith("-PERPETUAL") && !id.contains('_')
@@ -67,10 +67,10 @@ enum class FuturesContractType(val value: Int) {
          * Gespeicherte Art an die heutige Paarliste angleichen: ein altes PERPETUAL mit inverser Kennung wird
          * INVERSE_PERPETUAL, alles andere bleibt. iOS: `FuturesContractType.normalized`.
          */
-        fun normalized(marketKey: String, pairId: String?, type: FuturesContractType): FuturesContractType =
+        fun normalized(exchangeKey: String, pairId: String?, type: FuturesContractType): FuturesContractType =
             when {
                 type != PERPETUAL -> type
-                isInversePerpetualId(marketKey, pairId) -> INVERSE_PERPETUAL
+                isInversePerpetualId(exchangeKey, pairId) -> INVERSE_PERPETUAL
                 else -> type
             }
 

@@ -158,7 +158,10 @@ jobs:
       # in CI: workflow «Android device tests» on every push to main and by hand; on pull requests that touch the
       # databases only the migration and encryption tests).
       - name: Compile instrumented tests
-        run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleDebugAndroidTest --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-android-test.log" \
+            || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-android-test.log"; exit 1; }
 
       # Room exports its schemas while compiling (app/schemas). A changed entity without a new database
       # version shows up as a different identity hash or a new, uncommitted schema file: fail before it

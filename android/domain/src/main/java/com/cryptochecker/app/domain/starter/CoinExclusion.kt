@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.starter
 /**
  * Stablecoins, Doppelgänger (verpackt, gestakt, gebrückt) und Börsen-Belege — die eine Regel für die
  * Start-Coins ([StarterCoins]), «Heute auffällig» ([MarketUniverse]), die Marktbreite («Top 30») im Pulse
- * und «Gewinner und Verlierer 24 h» ([com.cryptochecker.app.domain.market.MarketMovers]).
+ * und «Gewinner und Verlierer 24 h» ([com.cryptochecker.app.domain.exchange.MarketMovers]).
  * Gleich wie `CoinExclusion.swift`; gemeinsame Testfälle in `testdata/parity/stable_exclusion.json`.
  *
  * Listen und Namensregeln sind die Vereinigung beider Plattformen (lieber einmal zu viel ausschliessen als

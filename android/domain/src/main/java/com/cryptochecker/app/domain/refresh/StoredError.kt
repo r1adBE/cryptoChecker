@@ -12,7 +12,7 @@ object StoredError {
     private val KEEP = setOf(
         com.cryptochecker.app.domain.watch.NotTraded.MARKER,
         "Response data is empty", "Parsed ticker has no data", "Unknown error (empty)",
-        "Market unavailable", "Börse nicht verfügbar", "Response too large",
+        "Exchange unavailable", "Response too large",
         RefreshReportLogic.OFFLINE_MARKER, CheckBudget.TIMEOUT_ERROR,
     )
 
@@ -98,7 +98,7 @@ object StoredError {
     /**
      * Börsentext für den Bericht einer Börse: der häufigste [exchangeDetail] unter den Fehlern der
      * Ursache [reason] (bei Gleichstand der alphabetisch erste); null ohne verwertbaren Text.
-     * [failures]: Ursache je Fehler (gleiche Reihenfolge, z. B. aus [MarketFailure]); ohne Angabe aus dem Text.
+     * [failures]: Ursache je Fehler (gleiche Reihenfolge, z. B. aus [ExchangeFailure]); ohne Angabe aus dem Text.
      */
     fun reportDetail(
         errors: List<String?>,

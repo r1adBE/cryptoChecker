@@ -88,7 +88,7 @@ final class ExchangeErrorContractTests: XCTestCase {
     }
 
     private func pair(_ spec: [String: Any]) -> PairQuery {
-        MarketPair(spec["base"] as? String ?? "", spec["quote"] as? String ?? "", spec["id"] as? String,
+        ExchangePair(spec["base"] as? String ?? "", spec["quote"] as? String ?? "", spec["id"] as? String,
                    FuturesContractType(backupName: spec["contract"] as? String ?? "NONE"))
     }
 
@@ -119,8 +119,8 @@ final class ExchangeErrorContractTests: XCTestCase {
             XCTAssertEqual(limited, c["rateLimit"] as? Bool, "\(name): rate limit")
 
             guard let wantText = c["messageRateLimit"] as? Bool else { continue }
-            let market = try XCTUnwrap(MarketsConfig.market(c["market"] as? String ?? ""), name)
-            let message = try? market.readError(call: Int(S.number(c["requestId"]) ?? 0), body: body,
+            let exchange = try XCTUnwrap(ExchangesConfig.exchange(c["exchangeKey"] as? String ?? ""), name)
+            let message = try? exchange.readError(call: Int(S.number(c["requestId"]) ?? 0), body: body,
                                                 info: pair(c["pair"] as? [String: Any] ?? [:]))
             XCTAssertEqual(RateLimitSignal.inText(message), wantText,
                            "\(name): error text '\(String(describing: message))' as rate limit")

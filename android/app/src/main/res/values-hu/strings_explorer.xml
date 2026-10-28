@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Párok</string>
     <string name="explorer_precise_title">Haladó / tőzsde szerint</string>
     <string name="explorer_price_loading">Árfolyam betöltése…</string>
-    <string name="explorer_select_market_hint">Válassz tőzsdét – a párjai automatikusan betöltődnek.</string>
+    <string name="explorer_select_exchange_hint">Válassz tőzsdét – a párjai automatikusan betöltődnek.</string>
     <string name="explorer_select_placeholder">Válassz</string>
     <string name="explorer_step_pair">Pár kiválasztása</string>
 

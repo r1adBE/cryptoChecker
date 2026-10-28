@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 158
+        versionCode = 159
         versionName = "16.2.2"
 
         // Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -303,7 +303,7 @@ dependencies {
     // gegen die Android-Stubs («Method … not mocked»). Muss vor android.jar im Test-Classpath liegen.
     testImplementation(libs.android.json)
     // Virtuelle Zeit (runTest, StandardTestDispatcher), Flows prüfen (Turbine) und ein echter lokaler HTTP-Server
-    // für die Netzschicht (MarketHttpTest: 429/Retry-After, Grössengrenze, callTimeout) — ohne Robolectric
+    // für die Netzschicht (ExchangeHttpTest: 429/Retry-After, Grössengrenze, callTimeout) — ohne Robolectric
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
     testImplementation(libs.okhttp.mockwebserver3)

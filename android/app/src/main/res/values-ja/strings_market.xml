@@ -37,7 +37,7 @@
     <string name="market_section_expand">%1$sを表示</string>
     <string name="market_section_now">現在</string>
     <string name="market_source">データ: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">取引所を利用できません</string>
+    <string name="exchange_unavailable_error">取引所を利用できません</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">情報: %1$s</string>

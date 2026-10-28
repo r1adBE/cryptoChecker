@@ -10,12 +10,12 @@ import org.junit.Test
 
 /** Suche in der Merkliste (iOS: gleiche Regeln in `WatchlistSearch.matches`). */
 class WatchSearchTest {
-    private val btc = WatchEntity(marketKey = "Kraken", marketName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR")
+    private val btc = WatchEntity(exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR")
     private val nvda = WatchEntity(
-        marketKey = "BinanceFutures", marketName = "Binance Futures", baseAsset = "NVDA", quoteAsset = "USDT",
+        exchangeKey = "BinanceFutures", exchangeName = "Binance Futures", baseAsset = "NVDA", quoteAsset = "USDT",
         contractType = FuturesContractType.PERPETUAL,
     )
-    private val dex = WatchEntity(marketKey = "DexScreener", marketName = "DEX", baseAsset = "BTC", quoteAsset = "SOL")
+    private val dex = WatchEntity(exchangeKey = "DexScreener", exchangeName = "DEX", baseAsset = "BTC", quoteAsset = "SOL")
 
     @Test
     fun matchesPairExchangeAndName() {
@@ -30,7 +30,7 @@ class WatchSearchTest {
 
     @Test
     fun ignoresCaseAndAccents() {
-        val pepe = WatchEntity(marketKey = "Binance", marketName = "Binance", baseAsset = "PEPE", quoteAsset = "USDT")
+        val pepe = WatchEntity(exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "PEPE", quoteAsset = "USDT")
         assertTrue(pepe.matchesSearch("pépé", "Pepe"))
         assertTrue(pepe.matchesSearch("PEPE", "Pépé"))
     }

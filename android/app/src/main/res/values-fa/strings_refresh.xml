@@ -26,8 +26,8 @@
         <item quantity="other">درخواست گروهی %1$s · قیمت‌ها: %2$d</item>
     </plurals>
     <string name="refresh_sheet_database">پایگاه داده</string>
-    <string name="refresh_sheet_market_unreachable">%1$s در دسترس نیست</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s در دسترس نیست</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">صرافی‌های غیرقابل دسترس: %1$d</item>
         <item quantity="other">صرافی‌های غیرقابل دسترس: %1$d</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">صرافی در دسترس نیست</string>
     <string name="refresh_sheet_seconds_a11y">%1$s ثانیه</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">صرافی‌ها</string>
+    <string name="refresh_sheet_section_exchanges">صرافی‌ها</string>
     <string name="refresh_sheet_section_steps">جزئیات</string>
     <string name="refresh_sheet_status_failed">به‌روز نشد</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

@@ -5,7 +5,7 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
-import com.cryptochecker.marketdata.config.MarketsConfig
+import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import org.junit.Assert.assertTrue
@@ -73,9 +73,9 @@ class ExchangeErrorContractTest {
             }
 
             val wantText = c["messageRateLimit"] as? Boolean ?: continue
-            val market = MarketsConfig.MARKETS[c["market"] as String]!!
+            val exchange = ExchangesConfig.EXCHANGES[c["exchangeKey"] as String]!!
             val message = try {
-                market.readError(c["requestId"].num()?.toInt() ?: 0, body, pair(c["pair"].obj()))
+                exchange.readError(c["requestId"].num()?.toInt() ?: 0, body, pair(c["pair"].obj()))
             } catch (_: Exception) {
                 null
             }

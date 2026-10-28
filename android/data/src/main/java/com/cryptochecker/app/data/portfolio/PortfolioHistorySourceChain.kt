@@ -74,7 +74,7 @@ private suspend fun PortfolioHistorySource.fetchChain(coin: String, span: Int, n
     for (source in HistoricCloseChain.SERIES_CHAIN) {
         val pairs = HistoricCloseChain.pairs(source, coin)
         val nameOk = HistoricCloseChain.nameAllowed(
-            coin, own = false, marketKey = source, ownName = ownName,
+            coin, own = false, exchangeKey = source, ownName = ownName,
             binanceName = binanceName, providerName = tokenIdentityStore.pairName(source, coin),
         )
         if (!nameOk) continue

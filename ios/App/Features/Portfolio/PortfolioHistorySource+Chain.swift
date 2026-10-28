@@ -8,12 +8,12 @@ import os
 extension PortfolioHistorySource {
     /// USDT/USD-Tagesschlüsse: Kraken USDTZUSD (dasselbe Paar wie die Messung des Depeg-Alarms).
     static let usdtUsdKey = "USDTZUSD"
-    static let usdtUsdPair = CandlePair(marketKey: DepegAlarm.krakenKey, marketName: DepegAlarm.krakenKey,
+    static let usdtUsdPair = CandlePair(exchangeKey: DepegAlarm.krakenKey, exchangeName: DepegAlarm.krakenKey,
                                         base: "USDT", quote: "USD", pairId: DepegAlarm.krakenPairId)
     /// Lückenfüller USDT/USD: Coinbase USDT-USD (eigene Tageskerzen, etwa 600 Tage).
     static let usdtUsdFillKey = "USDTUSDCB"
     static let usdtUsdFillDays = 600
-    static let usdtUsdFillPair = CandlePair(marketKey: HistoricCloseChain.coinbase, marketName: HistoricCloseChain.coinbase,
+    static let usdtUsdFillPair = CandlePair(exchangeKey: HistoricCloseChain.coinbase, exchangeName: HistoricCloseChain.coinbase,
                                             base: "USDT", quote: "USD", pairId: "USDT-USD")
 
     /// Tagesschlüsse USDT/USD (UTC-Tag → Schluss) für mindestens die letzten `days` Tage: Kraken-Tageskerzen USDTZUSD
@@ -127,9 +127,9 @@ extension PortfolioHistorySource {
         let ownName = names.watchName(coin, watches: SharedStorage.loadSnapshot().watches)
         let binanceName = names.binanceName(coin)
         for source in HistoricCloseChain.seriesChain {
-            let nameOk = HistoricCloseChain.nameAllowed(base: coin, own: false, marketKey: source, ownName: ownName,
+            let nameOk = HistoricCloseChain.nameAllowed(base: coin, own: false, exchangeKey: source, ownName: ownName,
                                                         binanceName: binanceName,
-                                                        providerName: names.pairName(marketKey: source, base: coin))
+                                                        providerName: names.pairName(exchangeKey: source, base: coin))
             guard nameOk else { continue }
             for p in HistoricCloseChain.pairs(source, base: coin) {
                 let pair = HistoricPriceSource.chainCandlePair(source, base: coin, p)

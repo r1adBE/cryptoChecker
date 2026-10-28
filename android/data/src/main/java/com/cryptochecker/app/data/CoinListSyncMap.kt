@@ -3,9 +3,9 @@
 package com.cryptochecker.app.data
 
 import androidx.core.content.edit
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
@@ -130,11 +130,11 @@ suspend fun CoinListSync.withListsMerged(known: Map<String, String>): Map<String
 
 /** Eine Seite der Rangliste; bei «429» einmal nach der verlangten Pause wiederholen. */
 suspend fun CoinListSync.marketsPage(page: Int): String = try {
-    apiClient.callMarket(CoinLogos.marketsUrl(page), null)
-} catch (e: HttpMarketError) {
+    apiClient.callExchange(CoinLogos.marketsUrl(page), null)
+} catch (e: HttpExchangeError) {
     if (e.httpCode != 429) throw e
     delay(CoinLogos.rateLimitWaitMillis(e.retryAfterSeconds))
-    apiClient.callMarket(CoinLogos.marketsUrl(page), null)
+    apiClient.callExchange(CoinLogos.marketsUrl(page), null)
 }
 
 /** Seiten der Rangliste mit Pause dazwischen nach [out]; false = eine Seite fehlte (Abbruch). */

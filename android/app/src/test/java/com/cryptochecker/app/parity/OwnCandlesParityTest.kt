@@ -26,8 +26,8 @@ class OwnCandlesParityTest {
     private fun pair(raw: Any?): CandlePair {
         val p = raw.obj()
         return CandlePair(
-            marketKey = p["marketKey"] as String,
-            marketName = p["marketName"] as String,
+            exchangeKey = p["exchangeKey"] as String,
+            exchangeName = p["exchangeName"] as String,
             base = p["base"] as String,
             quote = p["quote"] as String,
             pairId = p["pairId"] as String?,
@@ -101,7 +101,7 @@ class OwnCandlesParityTest {
             val source = ExchangeCandleRegistry.sourceFor(pair)
             val expected = c["source"] as String?
             if (expected == null) assertNull("$name: no own source", source)
-            else assertTrue("$name: source for $expected", source != null && expected in source.marketKeys)
+            else assertTrue("$name: source for $expected", source != null && expected in source.exchangeKeys)
             assertEquals("$name: fallback", c["fallback"] as Boolean, OwnCandlePolicy.allowsFallback(pair))
             // Eigene Kerzen nur in 1 h, 4 h und 1 Tag
             if (source != null) {

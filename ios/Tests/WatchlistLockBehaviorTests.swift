@@ -12,9 +12,9 @@ import XCTest
 /// Ohne Schlüsselbund (unsignierter CI-Simulator) mit Test-Schlüssel (`HostStorageKey`): läuft überall, nie übersprungen.
 @MainActor
 final class WatchlistLockBehaviorTests: XCTestCase {
-    private static let btc = Watch(id: 990_101, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC",
+    private static let btc = Watch(id: 990_101, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC",
                                    quoteAsset: "USDT", pairId: "BTCUSDT", sortOrder: 0)
-    private static let eth = Watch(id: 990_102, marketKey: "Binance", marketName: "Binance", baseAsset: "ETH",
+    private static let eth = Watch(id: 990_102, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "ETH",
                                    quoteAsset: "USDT", pairId: "ETHUSDT", sortOrder: 1)
     private static let solId: Int64 = 990_103
     /// Löst nie aus (Schwelle weit über jedem Kurs): Eine Aktualisierung zwischendurch ändert ihn nicht.
@@ -40,7 +40,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     /// Vergleichbare Gestalt des Stands ohne Kurse (eine Aktualisierung zwischendurch zählt nicht als Änderung).
     private struct Shape: Equatable {
         struct Pair: Equatable {
-            var id: Int64, market: String, base: String, quote: String, pairId: String?, sortOrder: Int
+            var id: Int64, exchange: String, base: String, quote: String, pairId: String?, sortOrder: Int
             var notification: Bool, tts: Bool, favorite: Bool, group: String?, note: String?, disabled: Bool
         }
         struct Rule: Equatable {
@@ -52,7 +52,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
 
         init(_ s: SharedStorage.Snapshot) {
             pairs = s.watches.map {
-                Pair(id: $0.id, market: $0.marketKey, base: $0.baseAsset, quote: $0.quoteAsset, pairId: $0.pairId,
+                Pair(id: $0.id, exchange: $0.exchangeKey, base: $0.baseAsset, quote: $0.quoteAsset, pairId: $0.pairId,
                      sortOrder: $0.sortOrder, notification: $0.notificationEnabled, tts: $0.ttsEnabled,
                      favorite: $0.favorite, group: $0.groupName, note: $0.note, disabled: $0.disabled)
             }.sorted { $0.id < $1.id }
@@ -142,10 +142,10 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     }
 
     /// Jeder Schreibweg des Nutzers mit Argumenten, die ungesperrt etwas ändern.
-    private func userWrites(_ market: Market) -> [Write] {
-        let sol = MarketPair("SOL", "USDT", "SOLUSDT")
+    private func userWrites(_ exchange: Exchange) -> [Write] {
+        let sol = ExchangePair("SOL", "USDT", "SOLUSDT")
         let btc = Self.btc, alarmId = Self.alarm.id
-        let deleted = DeletedWatch(watch: Watch(id: Self.solId, marketKey: "Binance", marketName: "Binance",
+        let deleted = DeletedWatch(watch: Watch(id: Self.solId, exchangeKey: "Binance", exchangeName: "Binance",
                                                 baseAsset: "SOL", quoteAsset: "USDT", pairId: "SOLUSDT"),
                                    alarms: [], activity: nil, selectedGroup: nil)
         let template = AlarmTemplates.Definition(condition: .PRICE_ABOVE, threshold: 1e15, windowHours: 1,
@@ -158,7 +158,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
                 let n = d.addStarterCoins(["SOL"]); whenLocked(l, n == 0, "addStarterCoins")
             },
             Write(key: "changePair(_ watchId") { d, l in
-                let r = d.changePair(btc.id, market: market, pair: sol); whenLocked(l, r == nil, "changePair")
+                let r = d.changePair(btc.id, exchange: exchange, pair: sol); whenLocked(l, r == nil, "changePair")
             },
             Write(key: "delete(_ watch") { d, _ in d.delete(btc) },
             Write(key: "deleteForUndo(_ watch") { d, l in
@@ -184,13 +184,13 @@ final class WatchlistLockBehaviorTests: XCTestCase {
                 let r = d.deleteAllForUndo(); whenLocked(l, r.isEmpty, "deleteAllForUndo")
             },
             Write(key: "addWatch(market") { d, l in
-                let r = d.addWatch(market: market, pair: sol); whenLocked(l, r == nil, "addWatch")
+                let r = d.addWatch(exchange: exchange, pair: sol); whenLocked(l, r == nil, "addWatch")
             },
             Write(key: "tryAddWatch(market") { d, l in
-                let r = d.tryAddWatch(market: market, pair: sol); whenLocked(l, r == .locked, "tryAddWatch")
+                let r = d.tryAddWatch(exchange: exchange, pair: sol); whenLocked(l, r == .locked, "tryAddWatch")
             },
             Write(key: "addWatches(market") { d, l in
-                let r = d.addWatches(market: market, pairs: [sol]); whenLocked(l, r.locked, "addWatches")
+                let r = d.addWatches(exchange: exchange, pairs: [sol]); whenLocked(l, r.locked, "addWatches")
             },
             Write(key: "setNotificationEnabled(_ watch") { d, _ in d.setNotificationEnabled(btc, false) },
             Write(key: "setAllNotifications(_ enabled") { d, _ in d.setAllNotifications(false) },
@@ -229,8 +229,8 @@ final class WatchlistLockBehaviorTests: XCTestCase {
 
     func testLockedWatchlistIgnoresEveryUserWrite() async throws {
         let data = AppData.shared
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
-        for write in userWrites(market) {
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
+        for write in userWrites(exchange) {
             try await loadTestData(write.prepare)
             data.watchlistLocked = true
             // Synchron bis zum Vergleich: kein Lesen der Datei kann die Sperre zwischendurch ändern
@@ -250,8 +250,8 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     /// oben nichts.
     func testSameWritesChangeTheWatchlistWhenUnlocked() async throws {
         let data = AppData.shared
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
-        for write in userWrites(market) {
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
+        for write in userWrites(exchange) {
             // Portfolio-Alarme der Test-App unbekannt: das Anlegen bliebe danach stehen
             if write.key == "addPortfolioAlarm(kind" && original?.portfolioAlarms == nil { continue }
             try await loadTestData(write.prepare)
@@ -279,7 +279,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     /// Lesen bzw. reine Hilfen: schreiben selbst nichts.
     private static let readKeys: Set<String> = [
         "celebrateFirstAdd(_ watchId", "takeAddCelebration()", "watchingMessage(ids", "starterPair(_ coin",
-        "contains(marketKey", "insert(_ s", "insertOutcome(_ s", "restoreInto(_ s", "placeInSlots(_ all",
+        "contains(exchangeKey", "insert(_ s", "insertOutcome(_ s", "restoreInto(_ s", "placeInSlots(_ all",
         "isFavorite(_ kind", "groups(of watches", "watch(_ id", "alarms(for watchId", "staleAfterMillis(for watchId",
         // Zwischenspeicher der abgeleiteten Listen (Sortierung, Abgleich mit dem Stand)
         "displayOrder(_ watches", "align(_ generation",
@@ -330,7 +330,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         }
         // Keine veralteten Einträge, und jeder Schreibweg steht im Verhaltenstest
         XCTAssertEqual(found, Self.writeKeys.union(Self.readKeys).union(Self.backgroundKeys))
-        let market = try XCTUnwrap(MarketsConfig.market("Binance"))
-        XCTAssertEqual(Set(userWrites(market).map(\.key)), Self.writeKeys)
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Binance"))
+        XCTAssertEqual(Set(userWrites(exchange).map(\.key)), Self.writeKeys)
     }
 }

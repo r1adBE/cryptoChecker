@@ -27,11 +27,11 @@ import com.cryptochecker.app.data.remote.FuturesDataSource.Companion.historyCach
 suspend fun FuturesDataSource.fundingHistory(watch: WatchEntity): FundingHistory? {
     val base = watch.baseAsset.trim().uppercase()
     val perpetual = watch.contractType.isPerpetual
-    val key = if (perpetual) "${watch.marketKey}|${watch.pairId}|$base" else "SPOT|$base"
+    val key = if (perpetual) "${watch.exchangeKey}|${watch.pairId}|$base" else "SPOT|$base"
     val now = System.currentTimeMillis()
     historyCache[key]?.let { (time, value) -> if (now - time in 0 until HISTORY_CACHE_MILLIS) return value }
     val usdt = "${base}USDT"
-    val chain: Array<Pair<String, suspend () -> FundingHistory>> = when (if (perpetual) watch.marketKey else null) {
+    val chain: Array<Pair<String, suspend () -> FundingHistory>> = when (if (perpetual) watch.exchangeKey else null) {
         "BybitFutures" -> arrayOf(
             source(BYBIT) { bybitHistory(watch.pairId ?: usdt) },
             source(BINANCE) { binanceHistory(usdt) },
@@ -74,21 +74,21 @@ suspend fun FuturesDataSource.fundingHistory(watch: WatchEntity): FundingHistory
 
 suspend fun FuturesDataSource.binanceHistory(symbol: String): FundingHistory = history(
     FundingTrendRules.parseBinance(
-        httpClient.callMarket("https://fapi.binance.com/fapi/v1/fundingRate?symbol=$symbol&limit=${FundingTrendRules.LIMIT}", null)
+        httpClient.callExchange("https://fapi.binance.com/fapi/v1/fundingRate?symbol=$symbol&limit=${FundingTrendRules.LIMIT}", null)
     ),
     "Binance Futures",
 )
 
 suspend fun FuturesDataSource.binanceCoinMHistory(symbol: String): FundingHistory = history(
     FundingTrendRules.parseBinance(
-        httpClient.callMarket("https://dapi.binance.com/dapi/v1/fundingRate?symbol=$symbol&limit=${FundingTrendRules.LIMIT}", null)
+        httpClient.callExchange("https://dapi.binance.com/dapi/v1/fundingRate?symbol=$symbol&limit=${FundingTrendRules.LIMIT}", null)
     ),
     FuturesSources.BINANCE_COIN_M,
 )
 
 suspend fun FuturesDataSource.bybitHistory(symbol: String): FundingHistory = history(
     FundingTrendRules.parseBybit(
-        httpClient.callMarket(
+        httpClient.callExchange(
             "https://api.bybit.com/v5/market/funding/history?category=linear&symbol=$symbol&limit=${FundingTrendRules.LIMIT}",
             null,
         )
@@ -98,7 +98,7 @@ suspend fun FuturesDataSource.bybitHistory(symbol: String): FundingHistory = his
 
 suspend fun FuturesDataSource.okxHistory(instId: String): FundingHistory = history(
     FundingTrendRules.parseOkx(
-        httpClient.callMarket(
+        httpClient.callExchange(
             "https://www.okx.com/api/v5/public/funding-rate-history?instId=$instId&limit=${FundingTrendRules.LIMIT}",
             null,
         )

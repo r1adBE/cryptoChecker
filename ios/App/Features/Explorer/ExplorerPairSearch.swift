@@ -2,12 +2,12 @@ import Foundation
 
 /// Ein Treffer der Suche über alle Börsen — wie `SearchHit` in `ExplorerPairSearch.kt`.
 struct ExplorerSearchHit: Identifiable, Sendable {
-    let market: Market
-    let pair: MarketPair
+    let exchange: Exchange
+    let pair: ExchangePair
     /// Alpha-Token («α», `AssetKind.ALPHA`).
     var alpha: Bool = false
 
-    var id: String { "\(market.key)|\(pair.base)|\(pair.quote)|\(pair.contractType.rawValue)" }
+    var id: String { "\(exchange.key)|\(pair.base)|\(pair.quote)|\(pair.contractType.rawValue)" }
 }
 
 /// Fortschritt beim Nachladen der Paarlisten für die Suche.
@@ -45,12 +45,12 @@ enum ExplorerNameMatch {
         return nil
     }
 
-    /// Nennt das Wort `word` (gefaltet) die Börse `foldedMarketName`? Ab 3 Zeichen, Anfang eines
+    /// Nennt das Wort `word` (gefaltet) die Börse `foldedExchangeName`? Ab 3 Zeichen, Anfang eines
     /// Worts des Namens oder des Namens ohne Trennzeichen («cryptocom» → «Crypto.com»).
-    static func matchesMarket(_ foldedMarketName: String, _ word: String) -> Bool {
+    static func matchesExchange(_ foldedExchangeName: String, _ word: String) -> Bool {
         guard word.count >= 3 else { return false }
-        if words(foldedMarketName).contains(where: { $0.hasPrefix(word) }) { return true }
-        return String(foldedMarketName.filter { $0.isLetter || $0.isNumber }).hasPrefix(word)
+        if words(foldedExchangeName).contains(where: { $0.hasPrefix(word) }) { return true }
+        return String(foldedExchangeName.filter { $0.isLetter || $0.isNumber }).hasPrefix(word)
     }
 }
 
@@ -172,7 +172,7 @@ enum ExplorerPairSearch {
     }
 
     /// Verfallsdatum als «yyMMdd»: aus der Kennung («BTCUSDT_261225»), sonst nach der Laufzeit berechnet.
-    static func deliveryCode(_ pair: MarketPair) -> String? {
+    static func deliveryCode(_ pair: ExchangePair) -> String? {
         if let id = pair.pairId, let range = id.range(of: "_", options: .backwards) {
             let suffix = id[range.upperBound...]
             if suffix.count == 6, suffix.allSatisfy({ $0.isASCII && $0.isNumber }) { return String(suffix) }
@@ -257,7 +257,7 @@ enum ExplorerPairSearch {
     /// - Parameter alphaSymbols: alle Alpha-Kürzel: Treffer mit «α» kennzeichnen (`AssetKind.of`).
     /// - Parameter alphaNames: Namen der Alpha-Token je Kürzel (`AssetKind.of`).
     /// - Parameter pairNames: Namen der Coins je Börse (Börsen-Schlüssel → Kürzel gross → Name; `AssetKind.of`).
-    static func find(_ query: String, markets: [Market], cache: [String: MarketPairsInfo], limit: Int = 50,
+    static func find(_ query: String, exchanges: [Exchange], cache: [String: ExchangePairsInfo], limit: Int = 50,
                      scope: AssetScope = .BOTH, names: ExplorerNameIndex = .empty,
                      hiddenAlpha: Set<String> = [], alphaSymbols: Set<String> = [],
                      alphaNames: [String: String] = [:],
@@ -267,21 +267,21 @@ enum ExplorerPairSearch {
         let foldedWords = q.words.map(ExplorerNameMatch.fold)
 
         var hits: [(score: Int, hit: ExplorerSearchHit)] = []
-        for market in markets {
-            guard let info = cache[market.key] else { continue }
+        for exchange in exchanges {
+            guard let info = cache[exchange.key] else { continue }
             // Keine Namen für DEX-Pools: dort darf ein fremder Token «BTC» heissen
-            let withNames = CoinLogos.allowed(forMarket: market.key)
+            let withNames = CoinLogos.allowed(forExchange: exchange.key)
             // Wörter, die diese Börse nennen («btc kraken»): ohne sie wird der Rest gesucht
-            let marketName = ExplorerNameMatch.fold(market.name)
-            let exchangeWords = Set(foldedWords.indices.filter { ExplorerNameMatch.matchesMarket(marketName, foldedWords[$0]) })
+            let exchangeName = ExplorerNameMatch.fold(exchange.name)
+            let exchangeWords = Set(foldedWords.indices.filter { ExplorerNameMatch.matchesExchange(exchangeName, foldedWords[$0]) })
             var rest: Terms?
             if !exchangeWords.isEmpty {
                 let restWords = q.words.enumerated().filter { !exchangeWords.contains($0.offset) }.map(\.element)
                 rest = Terms(restWords, names: names)
             }
-            let marketNames = pairNames[market.key] ?? [:]
-            for pair in info.pairs where scope.allows(pair, marketKey: market.key, hiddenAlpha: hiddenAlpha,
-                                                      pairNames: marketNames, alphaNames: alphaNames) {
+            let exchangeNames = pairNames[exchange.key] ?? [:]
+            for pair in info.pairs where scope.allows(pair, exchangeKey: exchange.key, hiddenAlpha: hiddenAlpha,
+                                                      pairNames: exchangeNames, alphaNames: alphaNames) {
                 let b = pair.base.uppercased()
                 let c = pair.quote.uppercased()
                 let tradFi = pair.tradFi == true
@@ -295,10 +295,10 @@ enum ExplorerPairSearch {
                     guard let code = deliveryCode(pair), code.hasSuffix(date) else { continue }
                 }
                 let qr = quoteRank.firstIndex(of: c) ?? quoteRank.count
-                let kind = AssetKind.of(marketKey: market.key, base: pair.base, tradFi: tradFi, alphaSymbols: alphaSymbols,
-                                        pairId: pair.pairId, pairName: marketNames[TokenIdentity.key(pair.base)],
+                let kind = AssetKind.of(exchangeKey: exchange.key, base: pair.base, tradFi: tradFi, alphaSymbols: alphaSymbols,
+                                        pairId: pair.pairId, pairName: exchangeNames[TokenIdentity.key(pair.base)],
                                         alphaNames: alphaNames)
-                let hit = ExplorerSearchHit(market: market, pair: pair, alpha: kind == .ALPHA)
+                let hit = ExplorerSearchHit(exchange: exchange, pair: pair, alpha: kind == .ALPHA)
                 hits.append((tier * 1000 + qr * 10 + contractRank(pair.contractType), hit))
             }
         }
@@ -307,7 +307,7 @@ enum ExplorerPairSearch {
             let a = l.element, b = r.element
             if a.score != b.score { return a.score < b.score }
             if a.hit.pair.base != b.hit.pair.base { return a.hit.pair.base < b.hit.pair.base }
-            let ma = a.hit.market.name.lowercased(), mb = b.hit.market.name.lowercased()
+            let ma = a.hit.exchange.name.lowercased(), mb = b.hit.exchange.name.lowercased()
             if ma != mb { return ma < mb }
             return l.offset < r.offset
         }

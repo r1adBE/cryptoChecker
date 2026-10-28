@@ -28,8 +28,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Error: %1$s</string>
-    <string name="error_market_unreachable">Exchange not reachable right now – the last prices stay visible.</string>
-    <string name="error_market_unreachable_short">Exchange not reachable right now</string>
+    <string name="error_exchange_unreachable">Exchange not reachable right now – the last prices stay visible.</string>
+    <string name="error_exchange_unreachable_short">Exchange not reachable right now</string>
     <string name="loading_hint">Loading…</string>
     <string name="no_internet_connection">No internet connection. Check Wi-Fi or mobile data, then try again.</string>
     <string name="option_off">Off</string>

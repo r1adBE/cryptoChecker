@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.util.appScope
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,7 +53,7 @@ class BulkAddRunner constructor(
     val progress: StateFlow<Progress?> = state.asStateFlow()
 
     /** Startet die Aufnahme; false, wenn schon eine läuft. Die Rückfrage (Sperre) stellt der Aufrufer vorher. */
-    fun start(market: MarketInfo, pairs: List<MarketPair>, group: String?): Boolean {
+    fun start(exchange: ExchangeInfo, pairs: List<ExchangePair>, group: String?): Boolean {
         val total = pairs.size
         var started = false
         state.update { current ->
@@ -70,7 +70,7 @@ class BulkAddRunner constructor(
                     state.value = Progress(0, total, cancelled = true)
                     return@launch
                 }
-                val outcome = writes.add(market, pairs, group) { done ->
+                val outcome = writes.add(exchange, pairs, group) { done ->
                     state.value = Progress(done, total)
                 }
                 state.value = if (outcome.locked) Progress(total, total, locked = true)
@@ -131,8 +131,8 @@ interface BulkAddWrites {
 
     /** Paare anlegen ([addWatches]). */
     suspend fun add(
-        market: MarketInfo,
-        pairs: List<MarketPair>,
+        exchange: ExchangeInfo,
+        pairs: List<ExchangePair>,
         group: String?,
         onProgress: (Int) -> Unit,
     ): BulkAddResult
@@ -150,8 +150,8 @@ private class RepositoryBulkAddWrites(
 ) : BulkAddWrites {
     override suspend fun confirm(): Boolean = watchRepository.confirmUserWrite()
 
-    override suspend fun add(market: MarketInfo, pairs: List<MarketPair>, group: String?, onProgress: (Int) -> Unit) =
-        watchRepository.addWatches(market, pairs, group, onProgress)
+    override suspend fun add(exchange: ExchangeInfo, pairs: List<ExchangePair>, group: String?, onProgress: (Int) -> Unit) =
+        watchRepository.addWatches(exchange, pairs, group, onProgress)
 
     override suspend fun deleteWithoutAlarms(ids: List<Long>) {
         watchRepository.deleteWatchesWithoutAlarms(ids)

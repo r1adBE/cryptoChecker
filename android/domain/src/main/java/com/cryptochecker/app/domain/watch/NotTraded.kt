@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.app.domain.refresh.MarketFailure
+import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 
@@ -37,7 +37,7 @@ object NotTraded {
      * «nicht gehandelt» zu verstummen.
      *
      * [failure]: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; bei Lesefehler und Meldung der
-     * Börse der Text wie bisher. [MarketFailure.Other] (interner Fehler ohne klaren Typ, z. B. eine Ausnahme ohne
+     * Börse der Text wie bisher. [ExchangeFailure.Other] (interner Fehler ohne klaren Typ, z. B. eine Ausnahme ohne
      * Text) bestätigt nie — sonst verstummte ein Paar wegen eines eigenen Fehlers für Stunden (BulkDelisted). Ein
      * leerer Text bestätigt nur ohne Art (gespeicherte ältere Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet
      * «ohne Kurs» als Lesefehler («Parsed ticker has no data»).
@@ -47,14 +47,14 @@ object NotTraded {
      * Kursliste ohne das Paar läuft (PriceFetcher.confirmMissing): Zwei unabhängige Aussagen statt einer kurz
      * leeren Antwort — oder ohne Sammelabfrage, wenn die Einzelabfrage selbst diese Liste liest ([confirmWithoutBulk]).
      */
-    fun confirmedBySingle(gotPrice: Boolean, error: String?, failure: MarketFailure? = null): Boolean {
+    fun confirmedBySingle(gotPrice: Boolean, error: String?, failure: ExchangeFailure? = null): Boolean {
         if (gotPrice) return false
         when (failure) {
-            MarketFailure.UnknownInstrument -> return true
-            is MarketFailure.HttpStatus -> return failure.code in CONFIRMING_HTTP
-            MarketFailure.Timeout, MarketFailure.Offline, MarketFailure.Ssl, is MarketFailure.RateLimited,
-            MarketFailure.Other -> return false
-            MarketFailure.Parse, is MarketFailure.Exchange, null -> Unit
+            ExchangeFailure.UnknownInstrument -> return true
+            is ExchangeFailure.HttpStatus -> return failure.code in CONFIRMING_HTTP
+            ExchangeFailure.Timeout, ExchangeFailure.Offline, ExchangeFailure.Ssl, is ExchangeFailure.RateLimited,
+            ExchangeFailure.Other -> return false
+            ExchangeFailure.Parse, is ExchangeFailure.Message, null -> Unit
         }
         if (error.isNullOrBlank()) return failure == null
         return when (RefreshReportLogic.classify(error)) {
@@ -68,7 +68,7 @@ object NotTraded {
     /**
      * Einzelabfrage ohne Sammelabfrage (zu wenige Paare der Börse): wie nach dem Fehlen in der vollständigen Liste mit
      * [confirmedBySingle] werten? Nur, wenn die Einzelabfrage selbst die vollständige Liste liest
-     * (`Market.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
+     * (`Exchange.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
      * Fehlen in der Liste. Sonst fehlte die zweite, unabhängige Aussage: gewöhnlicher Fehler wie bisher.
      */
     fun confirmWithoutBulk(bulkTried: Boolean, singleReadsFullList: Boolean): Boolean = !bulkTried && singleReadsFullList
@@ -80,7 +80,7 @@ object NotTraded {
     }
 
     /**
-     * Meldung des eigenen Lesers: Antwort gültig, aber ohne Eintrag für das Paar — `MarketParseException.NO_DATA`
+     * Meldung des eigenen Lesers: Antwort gültig, aber ohne Eintrag für das Paar — `ExchangeParseException.NO_DATA`
      * («No data», leere Liste bzw. Paar fehlt im Objekt) oder Hyperliquid «Unknown coin: …». Genau dieser Text, nicht
      * jedes «no data» irgendwo in einer Meldung.
      */
@@ -89,7 +89,7 @@ object NotTraded {
         return text == NO_ENTRY || text.lowercase().startsWith(UNKNOWN_COIN)
     }
 
-    /** = MarketParseException.NO_DATA (hier ohne Abhängigkeit vom Marktdaten-Modul); iOS `JSONError.noData`. */
+    /** = ExchangeParseException.NO_DATA (hier ohne Abhängigkeit vom Marktdaten-Modul); iOS `JSONError.noData`. */
     private const val NO_ENTRY = "No data"
 
     /** Anfang der Hyperliquid-Meldung für einen Coin, den die Antwort nicht führt (klein geschrieben). */

@@ -3,7 +3,7 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import androidx.core.content.edit
 import android.content.Context
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.starter.MarketUniverse
 import com.cryptochecker.app.domain.starter.StarterCoins
 import com.cryptochecker.app.domain.starter.StarterPairs
@@ -39,7 +39,7 @@ import javax.inject.Singleton
 class StarterCoinsRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val httpClient: OkHttpClient,
-    private val marketRepository: MarketRepository,
+    private val exchangeRepository: ExchangeRepository,
 ) {
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val mutex = Mutex()
@@ -61,14 +61,14 @@ class StarterCoinsRepository @Inject constructor(
         val code: Int? = withContext(Dispatchers.IO) {
             try {
                 kotlinx.coroutines.withTimeout(PROBE_TIMEOUT_MILLIS) {
-                    httpClient.callMarket(StarterPairs.BINANCE_PROBE_URL, null)
+                    httpClient.callExchange(StarterPairs.BINANCE_PROBE_URL, null)
                     200
                 }
             } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
                 null
             } catch (e: CancellationException) {
                 throw e
-            } catch (e: com.cryptochecker.app.domain.exceptions.HttpMarketError) {
+            } catch (e: com.cryptochecker.app.domain.exceptions.HttpExchangeError) {
                 e.httpCode
             } catch (e: Exception) {
                 null
@@ -96,8 +96,8 @@ class StarterCoinsRepository @Inject constructor(
             }
             try {
                 val ranked = topByMarketCap()
-                val marketKey = StarterPairs.marketKey(regionCountry)
-                val available = availableBases(marketKey, StarterPairs.START_QUOTE)
+                val exchangeKey = StarterPairs.exchangeKey(regionCountry)
+                val available = availableBases(exchangeKey, StarterPairs.START_QUOTE)
                 StarterCoins.pick(ranked, available)?.also { coins ->
                     prefs.edit {
                         putString(coinsKey(regionCountry), StarterCoins.encode(coins))
@@ -159,15 +159,15 @@ class StarterCoinsRepository @Inject constructor(
     suspend fun prices(symbols: List<String>, regionCountry: String?): Map<String, StarterPrice> = priceMutex.withLock {
         val bases = symbols.map { it.trim().uppercase() }.filter { it.isNotEmpty() }.distinct()
         if (bases.isEmpty()) return@withLock emptyMap()
-        val marketKey = StarterPairs.marketKey(regionCountry)
-        val key = StarterPrices.cacheKey(marketKey, bases)
+        val exchangeKey = StarterPairs.exchangeKey(regionCountry)
+        val key = StarterPrices.cacheKey(exchangeKey, bases)
         val now = System.currentTimeMillis()
         priceCache?.let { (cachedKey, time, prices) ->
             if (cachedKey == key && StarterPrices.isFresh(time, now)) return@withLock prices
         }
         val prices = withContext(Dispatchers.IO) {
             try {
-                binancePrices(bases, StarterPairs.START_QUOTE, us = marketKey == StarterPairs.BINANCE_US_KEY)
+                binancePrices(bases, StarterPairs.START_QUOTE, us = exchangeKey == StarterPairs.BINANCE_US_KEY)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -183,7 +183,7 @@ class StarterCoinsRepository @Inject constructor(
     private suspend fun binancePrices(bases: List<String>, quote: String, us: Boolean): Map<String, StarterPrice> {
         val prefix = if (us) BINANCE_US_TICKER_24H_URL else BINANCE_TICKER_24H_URL
         val url = prefix + URLEncoder.encode(StarterPrices.binanceSymbols(bases, quote), "UTF-8")
-        val array = JSONArray(httpClient.callMarket(url, null))
+        val array = JSONArray(httpClient.callExchange(url, null))
         val suffix = quote.uppercase()
         val out = HashMap<String, StarterPrice>()
         for (i in 0 until array.length()) {
@@ -198,7 +198,7 @@ class StarterCoinsRepository @Inject constructor(
 
     /** Öffentliche Rangliste (Symbol, Name, Rang, Marktkapitalisierung). */
     private suspend fun topByMarketCap(url: String = COINGECKO_MARKETS_URL): List<StarterCoins.MarketCoin> {
-        val array = JSONArray(httpClient.callMarket(url, null))
+        val array = JSONArray(httpClient.callExchange(url, null))
         return (0 until array.length()).mapNotNull { i ->
             val o = array.optJSONObject(i) ?: return@mapNotNull null
             val symbol = o.optString("symbol").trim()
@@ -213,13 +213,13 @@ class StarterCoinsRepository @Inject constructor(
     }
 
     /**
-     * Basis-Symbole mit Spot-Paar gegen [quote] an der Börse [marketKey]: zuerst
+     * Basis-Symbole mit Spot-Paar gegen [quote] an der Börse [exchangeKey]: zuerst
      * die für den Hinzufügen-Tab gespeicherte Paarliste, sonst eine öffentliche
      * Abfrage, zuletzt die mitgelieferte Liste der Börse.
      */
-    private suspend fun availableBases(marketKey: String, quote: String): Set<String> {
-        val market = marketRepository.getMarketList().firstOrNull { it.key == marketKey }
-        val info = market?.let { runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(it) }.getOrNull() }
+    private suspend fun availableBases(exchangeKey: String, quote: String): Set<String> {
+        val exchange = exchangeRepository.getExchangeList().firstOrNull { it.key == exchangeKey }
+        val info = exchange?.let { runCatchingCancellable { exchangeRepository.getExchangeCurrencyPairsInfo(it) }.getOrNull() }
         fun bases() = info?.pairs.orEmpty()
             .filter { it.contractType == FuturesContractType.NONE && it.quote.equals(quote, ignoreCase = true) }
             .map { it.base.uppercase() }
@@ -227,19 +227,19 @@ class StarterCoinsRepository @Inject constructor(
         if (info != null && info.lastSyncDate > 0) bases().takeIf { it.isNotEmpty() }?.let { return it }
 
         val looked = try {
-            binanceBases(quote, us = marketKey == StarterPairs.BINANCE_US_KEY)
+            binanceBases(quote, us = exchangeKey == StarterPairs.BINANCE_US_KEY)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             Timber.w(e, "Paarliste für Start-Coins nicht verfügbar")
             emptySet()
         }
-        return looked.ifEmpty { bases() }.ifEmpty { error("Keine Paarliste für $marketKey") }
+        return looked.ifEmpty { bases() }.ifEmpty { error("Keine Paarliste für $exchangeKey") }
     }
 
     /** Binance Spot bzw. Binance.US ([us]): alle Kurse in einem Aufruf, daraus die Basen mit …/[quote]. */
     private suspend fun binanceBases(quote: String, us: Boolean = false): Set<String> {
-        val array = JSONArray(httpClient.callMarket(if (us) BINANCE_US_PRICES_URL else BINANCE_PRICES_URL, null))
+        val array = JSONArray(httpClient.callExchange(if (us) BINANCE_US_PRICES_URL else BINANCE_PRICES_URL, null))
         val suffix = quote.uppercase()
         return (0 until array.length()).mapNotNull { i ->
             array.optJSONObject(i)?.optString("symbol")?.uppercase()
@@ -248,7 +248,7 @@ class StarterCoinsRepository @Inject constructor(
         }.toSet()
     }
 
-    private fun suffix(regionCountry: String?) = StarterPairs.marketKey(regionCountry)
+    private fun suffix(regionCountry: String?) = StarterPairs.exchangeKey(regionCountry)
 
     private fun coinsKey(regionCountry: String?) = "coins_" + suffix(regionCountry)
     private fun timeKey(regionCountry: String?) = "time_" + suffix(regionCountry)

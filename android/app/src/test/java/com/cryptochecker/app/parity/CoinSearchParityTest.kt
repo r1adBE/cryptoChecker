@@ -1,14 +1,14 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.settings.AssetScope
 import com.cryptochecker.app.ui.features.explorer.CoinHit
 import com.cryptochecker.app.ui.features.explorer.CoinPairPreference
 import com.cryptochecker.app.ui.features.explorer.CoinSearch
 import com.cryptochecker.app.ui.features.explorer.NameIndex
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -20,15 +20,15 @@ class CoinSearchParityTest {
 
     private val data = ParityJson.load("coin_search.json")
 
-    private val markets: List<MarketInfo> = data["markets"].list().map { raw ->
+    private val exchanges: List<ExchangeInfo> = data["exchanges"].list().map { raw ->
         val m = raw.obj()
-        MarketInfo(m["key"] as String, m["name"] as String)
+        ExchangeInfo(m["key"] as String, m["name"] as String)
     }
 
-    private val cache: Map<String, MarketPairsInfo> = data["cache"].obj().mapValues { (_, rows) ->
-        MarketPairsInfo(1, rows.list().map { raw ->
+    private val cache: Map<String, ExchangePairsInfo> = data["cache"].obj().mapValues { (_, rows) ->
+        ExchangePairsInfo(1, rows.list().map { raw ->
             val p = raw.obj()
-            MarketPair(
+            ExchangePair(
                 p["base"] as String,
                 p["quote"] as String,
                 p["pairId"] as String?,
@@ -44,7 +44,7 @@ class CoinSearchParityTest {
     private fun scope(c: Map<String, Any?>) = (c["scope"] as String?)?.let(AssetScope::valueOf) ?: AssetScope.BOTH
 
     private fun coins(c: Map<String, Any?>): List<CoinHit> = CoinSearch.coins(
-        c["query"] as String, markets, cache,
+        c["query"] as String, exchanges, cache,
         names = names,
         scope = scope(c),
         includeUnlisted = c["includeUnlisted"] as Boolean? ?: false,
@@ -87,8 +87,8 @@ class CoinSearchParityTest {
                 favoriteExchanges = (c["favorites"] as List<String>).toSet(),
                 displayCurrency = c["displayCurrency"] as String?,
             )
-            val actual = CoinSearch.pairsFor(coin, markets, cache, preference, scope = scope(c)).map {
-                "${it.market.key} ${it.pair.base}/${it.pair.quote} ${it.pair.contractType.name}"
+            val actual = CoinSearch.pairsFor(coin, exchanges, cache, preference, scope = scope(c)).map {
+                "${it.exchange.key} ${it.pair.base}/${it.pair.quote} ${it.pair.contractType.name}"
             }
             assertEquals("pairsFor: ${c["coin"]} ${c["defaultExchange"]}", c["expected"], actual)
         }

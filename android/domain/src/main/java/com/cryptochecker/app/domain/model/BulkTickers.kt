@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.model
 
-import com.cryptochecker.app.domain.refresh.MarketFailure
+import com.cryptochecker.app.domain.refresh.ExchangeFailure
 import com.cryptochecker.marketdata.model.Ticker
 
 /**
@@ -24,6 +24,6 @@ data class BulkTickers(
      * die Liste nichts — kein «nicht mehr gehandelt», auch wenn [complete] gilt.
      */
     val incomplete: Set<String> = emptySet(),
-    /** Art des Fehlers zu [error], beim Abruf bestimmt ([MarketFailure]); null = nur der Text ist bekannt. */
-    val failure: MarketFailure? = null,
+    /** Art des Fehlers zu [error], beim Abruf bestimmt ([ExchangeFailure]); null = nur der Text ist bekannt. */
+    val failure: ExchangeFailure? = null,
 )

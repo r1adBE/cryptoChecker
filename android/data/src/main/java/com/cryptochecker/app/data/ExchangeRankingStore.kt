@@ -2,7 +2,7 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
 import com.cryptochecker.app.domain.market.ExchangeOrder
@@ -46,8 +46,8 @@ class ExchangeRankingStore @Inject constructor(
             if (state.value != null || tried) return
             tried = true
             try {
-                val spot = httpClient.callMarket(ExchangeOrder.SPOT_URL, null, HttpBodyLimit.BULK_MAX_BYTES)
-                val derivatives = httpClient.callMarket(ExchangeOrder.DERIVATIVES_URL, null, HttpBodyLimit.BULK_MAX_BYTES)
+                val spot = httpClient.callExchange(ExchangeOrder.SPOT_URL, null, HttpBodyLimit.BULK_MAX_BYTES)
+                val derivatives = httpClient.callExchange(ExchangeOrder.DERIVATIVES_URL, null, HttpBodyLimit.BULK_MAX_BYTES)
                 val parsed = ExchangeOrder.parseVolumes(spot, derivatives)
                 if (parsed.isEmpty()) return
                 prefs.edit {

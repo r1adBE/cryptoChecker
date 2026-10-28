@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -9,7 +9,7 @@ import org.junit.Test
 class AutoGroupTest {
 
     private fun pair(contract: FuturesContractType = FuturesContractType.NONE, tradFi: Boolean = false) =
-        MarketPair("X", "USDT", "XUSDT", contract, tradFi)
+        ExchangePair("X", "USDT", "XUSDT", contract, tradFi)
 
     @Test
     fun `tradfi and dated futures get their own group`() {

@@ -41,7 +41,7 @@ final class CoinMetaTests: XCTestCase {
         try assertUiReads(lists, expected)
         let alphaSymbols = lists.alpha ?? []
         for c in S.list(expected["kinds"]) {
-            let kind = AssetKind.of(marketKey: c["marketKey"] as? String ?? "", base: c["base"] as? String ?? "",
+            let kind = AssetKind.of(exchangeKey: c["exchangeKey"] as? String ?? "", base: c["base"] as? String ?? "",
                                     tradFi: c["tradFi"] as? Bool ?? false, alphaSymbols: alphaSymbols)
             XCTAssertEqual(kind.rawValue, c["expected"] as? String, "kind \(c)")
         }

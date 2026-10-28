@@ -30,7 +30,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
 import com.cryptochecker.app.data.portfolio.coins
-import com.cryptochecker.app.data.portfolio.spotMarketNames
+import com.cryptochecker.app.data.portfolio.spotExchangeNames
 import com.cryptochecker.app.data.portfolio.stored
 
 /**
@@ -203,7 +203,7 @@ fun PortfolioViewModel.loadCoins() {
 
 fun PortfolioViewModel.loadExchanges() {
     if (_exchanges.value.isNotEmpty()) return
-    viewModelScope.launch { _exchanges.value = safe { priceSource.spotMarketNames() }.orEmpty() }
+    viewModelScope.launch { _exchanges.value = safe { priceSource.spotExchangeNames() }.orEmpty() }
 }
 
 /** Abruf ohne Absturz: Fehler → null; protokolliert (Datenbank-Schlüssel nicht lesbar nur als Hinweis). */

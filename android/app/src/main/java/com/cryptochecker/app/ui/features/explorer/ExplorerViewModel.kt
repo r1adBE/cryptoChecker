@@ -8,20 +8,20 @@ import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.HttpLogger
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
-import com.cryptochecker.app.domain.model.MarketTickerResult
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.app.settings.AssetScope
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.settings.scoped
 import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
-import com.cryptochecker.marketdata.model.market.DexPool
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.exchange.DexPool
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -42,7 +42,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ExplorerViewModel @Inject constructor(
-    internal val marketRepository: MarketRepository,
+    internal val exchangeRepository: ExchangeRepository,
     internal val watchRepository: WatchRepository,
     private val favoritesRepository: FavoritesRepository,
     private val httpLogger: HttpLogger,
@@ -71,11 +71,11 @@ class ExplorerViewModel @Inject constructor(
     // Grundzustand (einfache Felder, vor allem Abgeleiteten)
     // =============================================================================================
 
-    internal val exchange = MutableStateFlow<MarketInfo?>(null)
+    internal val exchange = MutableStateFlow<ExchangeInfo?>(null)
     internal val coin = MutableStateFlow<String?>(null)
     internal val quote = MutableStateFlow<String?>(null)
     internal val contract = MutableStateFlow<FuturesContractType?>(null)
-    internal val price = MutableStateFlow<MarketTickerResult?>(null)
+    internal val price = MutableStateFlow<ExchangeTickerResult?>(null)
 
     /** Neu auslösen = Paarliste der Börse neu lesen (nach einem Abgleich). */
     internal val pairListChanged = MutableSharedFlow<Unit>(replay = 1)
@@ -91,10 +91,10 @@ class ExplorerViewModel @Inject constructor(
     internal val addResult = MutableStateFlow<AddResult?>(null)
 
     // Suche über alle Börsen (nur gespeicherte Listen)
-    internal val pairsByMarket = ConcurrentHashMap<String, MarketPairsInfo>()
-    internal var searchableMarkets: List<MarketInfo> = emptyList()
+    internal val pairsByExchange = ConcurrentHashMap<String, ExchangePairsInfo>()
+    internal var searchableExchanges: List<ExchangeInfo> = emptyList()
     /** Börsen, deren Liste noch nicht auf dem Gerät liegt, die sie aber laden können. */
-    internal var unloadedMarkets: List<MarketInfo> = emptyList()
+    internal var unloadedExchanges: List<ExchangeInfo> = emptyList()
     internal var storedListsJob: Job? = null
     internal var missingListsJob: Job? = null
     internal var searchJob: Job? = null
@@ -175,7 +175,7 @@ class ExplorerViewModel @Inject constructor(
 
     /** Schon beobachtete Paare (Schlüssel: [watchKey]) für das Häkchen bei den Treffern. */
     val watchedKeys: StateFlow<Set<String>> = watchRepository.observeWatches()
-        .map { watches -> watches.mapTo(LinkedHashSet<String>()) { watchKey(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name) } }
+        .map { watches -> watches.mapTo(LinkedHashSet<String>()) { watchKey(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name) } }
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptySet())
 
@@ -188,7 +188,7 @@ class ExplorerViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     // Favoriten der Auswahllisten (langes Drücken)
-    val favoriteMarkets: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.MARKET)
+    val favoriteExchanges: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.EXCHANGE)
     val favoriteCoins: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.COIN)
     val favoriteQuotes: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.QUOTE)
 
@@ -204,7 +204,7 @@ class ExplorerViewModel @Inject constructor(
      * Paarliste der gewählten Börse, nur mit dem, was «Token & TradFi» zeigt; bei Binance samt
      * Alpha-Paaren. Neue Alpha-Liste oder Schalter «inkl. Alpha-Tokens» wirken sofort.
      */
-    internal val pairList: StateFlow<MarketPairsInfo?> = exchange
+    internal val pairList: StateFlow<ExchangePairsInfo?> = exchange
         .combine(pairListChanged) { selected, _ -> selected }
         .combine(assetScope) { selected, scope -> selected to scope }
         .combine(hiddenAlpha) { (selected, scope), hidden -> Triple(selected, scope, hidden) }
@@ -213,8 +213,8 @@ class ExplorerViewModel @Inject constructor(
         .map { (choice, alphaNames) ->
             val (selected, scope, hidden) = choice
             selected?.let {
-                marketRepository.getMarketCurrencyPairsInfo(it, withAlpha = true)
-                    .scoped(scope, it.key, hidden, tokenIdentityStore.marketNames(it.key), alphaNames)
+                exchangeRepository.getExchangeCurrencyPairsInfo(it, withAlpha = true)
+                    .scoped(scope, it.key, hidden, tokenIdentityStore.exchangeNames(it.key), alphaNames)
             }
         }
         .flowOn(Dispatchers.Default)
@@ -226,7 +226,7 @@ class ExplorerViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     internal val canReloadPairs: StateFlow<Boolean> = exchange
-        .map { selected -> selected != null && marketRepository.isMarketSupportsUpdatePairs(selected) }
+        .map { selected -> selected != null && exchangeRepository.isExchangeSupportsUpdatePairs(selected) }
         .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     internal val coins: StateFlow<List<String>> = pairList
@@ -247,10 +247,10 @@ class ExplorerViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     /** Das vollständig gewählte Paar (ohne Kontrakt = Spot), sonst null. */
-    internal val selectedPair: StateFlow<MarketPair?> =
+    internal val selectedPair: StateFlow<ExchangePair?> =
         combine(pairList, coin, quote, contract) { info, base, counter, type ->
             if (info == null || base == null || counter == null) null
-            else info.getMarketPair(base, counter, type ?: FuturesContractType.NONE)
+            else info.getExchangePair(base, counter, type ?: FuturesContractType.NONE)
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
@@ -282,8 +282,8 @@ class ExplorerViewModel @Inject constructor(
         .map { (scope, volumes) ->
             val alphabetical = try {
                 // «Nur TradFi»: nur Börsen mit TradFi-Kontrakten
-                marketRepository.getMarketList()
-                    .filter { scope.allowsMarket(it.key) }
+                exchangeRepository.getExchangeList()
+                    .filter { scope.allowsExchange(it.key) }
                     .sortedBy { it.name.lowercase() }
             } catch (e: Exception) {
                 return@map ExplorerLoad.Failed(e)

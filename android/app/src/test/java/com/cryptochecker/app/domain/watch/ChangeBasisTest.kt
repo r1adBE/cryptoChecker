@@ -270,8 +270,8 @@ class ChangeBasisTest {
         assertFalse(ChangeBasisMath.showsMark(true, ChangeBasis.LOCAL_DAY))
         assertFalse(ChangeBasisMath.showsMark(false, ChangeBasis.ROLLING_24H))
         // Hyperliquid rechnet die Änderung mit dem gezeigten Kurs (Mittelkurs): kein «Mark» an der Änderung
-        assertFalse(com.cryptochecker.marketdata.model.market.Hyperliquid().changeIsMark)
-        assertFalse(com.cryptochecker.marketdata.model.market.Kraken().changeIsMark)
+        assertFalse(com.cryptochecker.marketdata.model.exchange.Hyperliquid().changeIsMark)
+        assertFalse(com.cryptochecker.marketdata.model.exchange.Kraken().changeIsMark)
     }
 
     @Test

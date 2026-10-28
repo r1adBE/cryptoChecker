@@ -5,11 +5,11 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
-import com.cryptochecker.marketdata.model.market.Kraken
+import com.cryptochecker.marketdata.model.exchange.Kraken
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -52,7 +52,7 @@ class KrakenTradableTest {
 
     @Test
     fun pairListOffersOnlyOnlinePairs() {
-        val pairs = ArrayList<MarketPair>()
+        val pairs = ArrayList<ExchangePair>()
         kraken.readPairList(0, recordedBody("pairs"), pairs)
         val ids = pairs.map { it.pairId }.toSet()
         assertTrue("XXBTZUSD" in ids)

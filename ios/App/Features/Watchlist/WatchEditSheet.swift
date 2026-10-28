@@ -21,13 +21,13 @@ struct WatchEditSheet: View {
     @State private var prefilled = false
 
     /// Börsen ohne DEX (Pools findet nur die DEX-Suche beim Hinzufügen).
-    private var markets: [Market] { vm.markets.filter { $0.key != ExplorerViewModel.dexKey } }
+    private var exchanges: [Exchange] { vm.exchanges.filter { $0.key != ExplorerViewModel.dexKey } }
 
     private var current: WatchEdit.Key { WatchEdit.Key(watch) }
 
     private var target: WatchEdit.Key? {
-        guard let market = vm.exchange, let pair = vm.selectedPair else { return nil }
-        return WatchEdit.Key(marketKey: market.key, pair: pair)
+        guard let exchange = vm.exchange, let pair = vm.selectedPair else { return nil }
+        return WatchEdit.Key(exchangeKey: exchange.key, pair: pair)
     }
 
     private var canSave: Bool {
@@ -39,7 +39,7 @@ struct WatchEditSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(verbatim: "\(BidiText.isolate(watch.displayName)) · \(BidiText.isolate(watch.marketName))")
+                    Text(verbatim: "\(BidiText.isolate(watch.displayName)) · \(BidiText.isolate(watch.exchangeName))")
                         .font(.title3.weight(.semibold))
                         .padding(.bottom, 4)
                     form
@@ -98,10 +98,10 @@ struct WatchEditSheet: View {
     }
 
     private func save() {
-        guard let market = vm.exchange, let pair = vm.selectedPair else { return }
+        guard let exchange = vm.exchange, let pair = vm.selectedPair else { return }
         // Rückfrage F-08 vorher; «Abbrechen» = nichts geändert, das Blatt bleibt
         data.withWatchlistConfirm {
-            switch data.changePair(watch.id, market: market, pair: pair) {
+            switch data.changePair(watch.id, exchange: exchange, pair: pair) {
             case .duplicate:
                 Haptics.play(.warning)
                 duplicate = true
@@ -123,10 +123,10 @@ struct WatchEditSheet: View {
                 label: L("explorer_field_exchange"),
                 value: vm.exchange?.name,
                 placeholder: L("explorer_select_placeholder")
-            ) { picker = .market }
+            ) { picker = .exchange }
 
             if vm.exchange == nil {
-                ExplorerHint(text: L("explorer_select_market_hint"))
+                ExplorerHint(text: L("explorer_select_exchange_hint"))
             } else if vm.syncing || (vm.pairList == nil && vm.pairListSync.error == nil) {
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     ProgressView().progressViewStyle(.linear).tint(accent.primary)
@@ -177,17 +177,17 @@ struct WatchEditSheet: View {
     @ViewBuilder
     private func pickerSheet(_ kind: ExplorerPickerKind) -> some View {
         switch kind {
-        case .market:
-            let list = markets
+        case .exchange:
+            let list = exchanges
             ExplorerPickerSheet(
                 title: L("explorer_field_exchange"),
                 items: list.map(\.name),
                 selected: vm.exchange?.name,
-                favoriteKind: .MARKET,
+                favoriteKind: .EXCHANGE,
                 data: data
             ) { name in
-                if let market = list.first(where: { $0.name == name }) {
-                    withAnimation(.snappy(duration: 0.3)) { vm.selectExchange(market) }
+                if let exchange = list.first(where: { $0.name == name }) {
+                    withAnimation(.snappy(duration: 0.3)) { vm.selectExchange(exchange) }
                 }
             }
         case .base:

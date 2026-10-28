@@ -7,17 +7,17 @@ import com.cryptochecker.app.data.remote.candles.CandlePair
 import com.cryptochecker.app.data.remote.candles.ExchangeCandleRegistry
 import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.TokenIdentity
 import com.cryptochecker.app.settings.AssetScope
 import com.cryptochecker.app.settings.scoped
 import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Ticker
-import com.cryptochecker.marketdata.model.market.Binance
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.Binance
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -50,9 +50,9 @@ class BinanceAlphaParityTest {
         assertTrue("$label: expected $expected, got $actual", abs(expected - actual) <= max(abs(expected) * 1e-9, 1e-12))
     }
 
-    private fun triple(raw: Any?): MarketPair {
+    private fun triple(raw: Any?): ExchangePair {
         val l = raw.list()
-        return MarketPair(l[0] as String, l[1] as String, l[2] as String?)
+        return ExchangePair(l[0] as String, l[1] as String, l[2] as String?)
     }
 
     @Test
@@ -86,19 +86,19 @@ class BinanceAlphaParityTest {
 
     @Test
     fun bulkTickersFromTokenList() {
-        val market = Binance()
+        val exchange = Binance()
         val bulk = data["bulk"].obj()
         for (raw in bulk["cases"].list()) {
             val c = raw.obj()
             val ids = c["ids"].list().map { it as String }
-            val count = market.bulkTickersRequestCount(ids)
+            val count = exchange.bulkTickersRequestCount(ids)
             assertEquals("count $ids", c["count"].num()!!.toInt(), count)
-            assertEquals("urls $ids", c["urls"].list(), (0 until count).map { market.getBulkTickersUrl(it, ids) })
+            assertEquals("urls $ids", c["urls"].list(), (0 until count).map { exchange.getBulkTickersUrl(it, ids) })
         }
         // Ab Anfrage 1 keine ungefilterte Ersatz-Anfrage (ein gescheiterter Ticker holt nicht die ganze Liste)
-        assertNull(market.getBulkTickersUrl(1))
-        assertNull(market.getBulkTickersUrl(2))
-        val parsed = market.parseBulkTickersDetailed(1, data["tokenList"] as String)
+        assertNull(exchange.getBulkTickersUrl(1))
+        assertNull(exchange.getBulkTickersUrl(2))
+        val parsed = exchange.parseBulkTickersDetailed(1, data["tokenList"] as String)
         val expected = bulk["tickers"].obj()
         assertEquals(expected.keys, parsed.tickers.keys)
         for ((id, rawExpected) in expected) {
@@ -129,13 +129,13 @@ class BinanceAlphaParityTest {
         assertEquals(3, BinanceAlpha.bulkRequestUrls(listOf("ALPHA_1USDT", "ALPHA_1USDT", "ALPHA_2USDT")).size)
 
         // Einzel-Ticker als Folgeanfrage: Kennung aus `data.symbol`; Fehler-Code → keine Zeile
-        val market = Binance()
+        val exchange = Binance()
         val b = data["bulkTicker"].obj()
         val requestId = b["requestId"].num()!!.toInt()
-        val parsed = market.parseBulkTickersDetailed(requestId, data["ticker"].obj()["body"] as String)
+        val parsed = exchange.parseBulkTickersDetailed(requestId, data["ticker"].obj()["body"] as String)
         assertEquals(setOf(b["id"]), parsed.tickers.keys)
         near("bulk ticker last", b["last"].num()!!, parsed.tickers.getValue(b["id"] as String).last)
-        val none = market.parseBulkTickersDetailed(requestId, data["tickerError"].obj()["body"] as String)
+        val none = exchange.parseBulkTickersDetailed(requestId, data["tickerError"].obj()["body"] as String)
         assertTrue(none.tickers.isEmpty() && none.failed.isEmpty())
     }
 
@@ -153,12 +153,12 @@ class BinanceAlphaParityTest {
 
     @Test
     fun singleTicker() {
-        val market = Binance()
+        val exchange = Binance()
         val t = data["ticker"].obj()
         val id = t["id"] as String
         val info = PairQuery("FROGGIE", "USDT", id, FuturesContractType.NONE)
-        assertEquals(t["url"], market.tickerAddress(0, info))
-        val ticker = market.readTicker(0, t["body"] as String, MutableTicker(), info)
+        assertEquals(t["url"], exchange.tickerAddress(0, info))
+        val ticker = exchange.readTicker(0, t["body"] as String, MutableTicker(), info)
         val e = t["expected"].obj()
         near("last", e["last"].num()!!, ticker.last)
         near("high", e["high"].num()!!, ticker.high)
@@ -169,24 +169,24 @@ class BinanceAlphaParityTest {
         assertNull(ticker.exchangeTime)
         val err = data["tickerError"].obj()
         try {
-            market.readTicker(0, err["body"] as String, MutableTicker(), info)
+            exchange.readTicker(0, err["body"] as String, MutableTicker(), info)
             fail("error body must not parse")
         } catch (expected: Exception) {
             // erwartet
         }
-        assertEquals(err["message"], market.readError(0, err["body"] as String, info))
+        assertEquals(err["message"], exchange.readError(0, err["body"] as String, info))
         // Spot-Paare unverändert
         assertEquals(
             "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT",
-            market.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT", FuturesContractType.NONE)),
+            exchange.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT", FuturesContractType.NONE)),
         )
     }
 
     private fun candlePair(raw: Any?): CandlePair {
         val p = raw.obj()
         return CandlePair(
-            marketKey = p["marketKey"] as String,
-            marketName = p["marketName"] as String,
+            exchangeKey = p["exchangeKey"] as String,
+            exchangeName = p["exchangeName"] as String,
             base = p["base"] as String,
             quote = p["quote"] as String,
             pairId = p["pairId"] as String?,
@@ -241,7 +241,7 @@ class BinanceAlphaParityTest {
         for (raw in data["kinds"].list()) {
             val c = raw.obj()
             val kind = AssetKind.of(
-                marketKey = c["marketKey"] as String,
+                exchangeKey = c["exchangeKey"] as String,
                 base = c["base"] as String,
                 tradFi = c["tradFi"] as Boolean,
                 alphaSymbols = alphaSymbols,
@@ -258,16 +258,16 @@ class BinanceAlphaParityTest {
         for (raw in data["allows"].list()) {
             val c = raw.obj()
             val name = c["name"] as String
-            val marketKey = c["marketKey"] as String
+            val exchangeKey = c["exchangeKey"] as String
             val base = c["base"] as String
-            val pair = MarketPair(base, "USDT", c["pairId"] as String?)
+            val pair = ExchangePair(base, "USDT", c["pairId"] as String?)
             val symbols = if (c["emptyList"] as Boolean) emptySet() else alphaSymbols
             val hidden = AssetScope.hiddenAlphaSymbols(c["includeAlpha"] as Boolean, symbols)
             val pairNames = (c["pairName"] as String?)?.let { mapOf(TokenIdentity.key(base) to it) }.orEmpty()
-            assertEquals(name, c["expected"], AssetScope.TOKENS.allows(pair, marketKey, hidden, pairNames, alphaNames))
+            assertEquals(name, c["expected"], AssetScope.TOKENS.allows(pair, exchangeKey, hidden, pairNames, alphaNames))
             // Gleiches Ergebnis über die ganze Liste
-            val info = MarketPairsInfo(1L, listOf(pair))
-            assertEquals(name, c["expected"], info.scoped(AssetScope.TOKENS, marketKey, hidden, pairNames, alphaNames).pairs.isNotEmpty())
+            val info = ExchangePairsInfo(1L, listOf(pair))
+            assertEquals(name, c["expected"], info.scoped(AssetScope.TOKENS, exchangeKey, hidden, pairNames, alphaNames).pairs.isNotEmpty())
         }
     }
 }

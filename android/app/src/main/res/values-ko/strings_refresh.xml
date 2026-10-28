@@ -24,8 +24,8 @@
         <item quantity="other">일괄 요청 %1$s · 시세 %2$d개</item>
     </plurals>
     <string name="refresh_sheet_database">데이터베이스</string>
-    <string name="refresh_sheet_market_unreachable">%1$s에 연결할 수 없음</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s에 연결할 수 없음</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="other">거래소 %1$d곳에 연결할 수 없음</item>
     </plurals>
     <string name="refresh_sheet_network">네트워크</string>
@@ -54,7 +54,7 @@
     <string name="refresh_sheet_reason_unavailable">거래소를 사용할 수 없음</string>
     <string name="refresh_sheet_seconds_a11y">%1$s초</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">거래소</string>
+    <string name="refresh_sheet_section_exchanges">거래소</string>
     <string name="refresh_sheet_section_steps">세부 내역</string>
     <string name="refresh_sheet_status_failed">업데이트 안 됨</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

@@ -7,7 +7,7 @@ package com.cryptochecker.app.ui.features.explorer
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.BulkAddRunner
 import com.cryptochecker.app.data.confirmUserWrite
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
@@ -32,7 +32,7 @@ internal fun ExplorerViewModel.clearBulkList() {
  */
 fun ExplorerViewModel.loadBulkStats() {
     val selected = exchange.value ?: return
-    if (selected.key == DEX_KEY || !marketRepository.isMarketSupportsBulkTickers(selected)) return
+    if (selected.key == DEX_KEY || !exchangeRepository.isExchangeSupportsBulkTickers(selected)) return
     val ids = bulk.pairs.value.mapNotNull { it.pairId }.distinct()
     if (ids.isEmpty()) return
 
@@ -45,7 +45,7 @@ fun ExplorerViewModel.loadBulkStats() {
     bulk.statsLoadedAt = now
     bulk.statsJob?.cancel()
     bulk.statsJob = viewModelScope.launch {
-        val result = withContext(Dispatchers.IO) { marketRepository.getBulkTickers(selected, ids) }
+        val result = withContext(Dispatchers.IO) { exchangeRepository.getBulkTickers(selected, ids) }
         if (exchange.value != selected) return@launch
         bulk.stats.value = result.tickers.mapValues { (_, t) -> QuickFilters.statsOf(t) }
     }
@@ -64,7 +64,7 @@ fun ExplorerViewModel.collectBulkPairs() {
     coin.value = first.base
 }
 
-fun ExplorerViewModel.selectBulkPair(pair: MarketPair) {
+fun ExplorerViewModel.selectBulkPair(pair: ExchangePair) {
     coin.value = pair.base
     quote.value = pair.quote
     contract.value = pair.contractType

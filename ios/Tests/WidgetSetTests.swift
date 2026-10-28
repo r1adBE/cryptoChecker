@@ -38,7 +38,7 @@ final class WidgetFreshnessTests: XCTestCase {
 
     private func watch(lastUpdateAgo: Int64 = 60_000, changedAgo: Int64 = 2 * 3_600_000, exchangeTime: Int64? = nil,
                        disabled: Bool = false, error: String? = nil) -> Watch {
-        var w = Watch(id: 1, marketKey: "kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
+        var w = Watch(id: 1, exchangeKey: "kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
         w.lastPrice = 62_000
         w.lastUpdate = now - lastUpdateAgo
         w.lastError = error
@@ -196,9 +196,9 @@ final class WidgetQuantityFormatTests: XCTestCase {
 /// Merkliste-Widget: Logos und Zeitpunkte nur für die Zeilen, die es zeigen kann (`WidgetRows`).
 final class WidgetRowsTests: XCTestCase {
 
-    private func watches(_ count: Int, marketKey: String = "kraken") -> [Watch] {
+    private func watches(_ count: Int, exchangeKey: String = "kraken") -> [Watch] {
         (0..<count).map { index in
-            Watch(id: Int64(index + 1), marketKey: marketKey, marketName: "Kraken", baseAsset: "C\(index)", quoteAsset: "EUR")
+            Watch(id: Int64(index + 1), exchangeKey: exchangeKey, exchangeName: "Kraken", baseAsset: "C\(index)", quoteAsset: "EUR")
         }
     }
 
@@ -216,6 +216,6 @@ final class WidgetRowsTests: XCTestCase {
     }
 
     func testDexPoolsOhneLogo() {
-        XCTAssertTrue(WidgetRows.logoKeys(for: watches(5, marketKey: CoinLogos.dexMarketKey)).isEmpty)
+        XCTAssertTrue(WidgetRows.logoKeys(for: watches(5, exchangeKey: CoinLogos.dexExchangeKey)).isEmpty)
     }
 }

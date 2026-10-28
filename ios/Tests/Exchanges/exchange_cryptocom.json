@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "get-tickers BTC_USDT (single letters; c = fraction)",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "no trades: c = null -> no change",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "pair": {
         "base": "NEW",
         "quote": "USDT",
@@ -53,7 +53,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -70,7 +70,7 @@
     {
       "kind": "single",
       "name": "empty data list",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -87,7 +87,7 @@
     {
       "kind": "bulk",
       "name": "bulk get-tickers (row without «a» is reported as unreadable, bulkRow)",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "requestId": 0,
       "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"BTC_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"62000.10\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"ETH_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"2450.12\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"BAD_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\", \"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123}]}}",
       "expect": {
@@ -111,7 +111,7 @@
     {
       "kind": "single",
       "name": "get-tickers BTC_EUR: vv is USD, not EUR -> no quote volume",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "pair": {
         "base": "BTC",
         "quote": "EUR",
@@ -129,7 +129,7 @@
     {
       "kind": "bulk",
       "name": "bulk get-tickers: quote volume only for USD quotes; row without «a» is reported as unreadable",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "requestId": 0,
       "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"BTC_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"62000.10\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\",\"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"ETH_USDC\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"2400.5\",\"v\":\"12100.5234\",\"vv\":\"1234567.5\",\"c\":\"0.0248\",\"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"ETH_BTC\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"0.0387\",\"v\":\"12100.5234\",\"vv\":\"5555555.5\",\"c\":\"0.0248\",\"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"BTC_EUR\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"57000.5\",\"v\":\"12100.5234\",\"vv\":\"690000000.0\",\"c\":\"0.0248\",\"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"XRP_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\",\"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123,\"last_renamed\":\"0.5\"}]}}",
       "expect": {
@@ -160,7 +160,7 @@
     {
       "kind": "bulk",
       "name": "bulk get-tickers: inactive instrument with a = \"0\" is skipped, not reported as unreadable",
-      "market": "CryptoCom",
+      "exchangeKey": "CryptoCom",
       "requestId": 0,
       "body": "{\"id\":-1,\"method\":\"public/get-tickers\",\"code\":0,\"result\":{\"data\":[{\"i\":\"BTC_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"62000.10\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\",\"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123},{\"i\":\"OLD_USDT\",\"h\":\"62500.00\",\"l\":\"60000.00\",\"a\":\"0\",\"v\":\"12100.5234\",\"vv\":\"744460123.45\",\"c\":\"0.0248\",\"b\":\"62000.00\",\"k\":\"62000.20\",\"oi\":\"0\",\"t\":1728540000123}]}}",
       "expect": {

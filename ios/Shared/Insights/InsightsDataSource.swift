@@ -118,7 +118,7 @@ enum InsightsDataSource {
     static func binanceKlines(symbol: String, interval: String, limit: Int, startTime: Int64? = nil) async throws -> [InsightsCandle] {
         var url = "https://data-api.binance.vision/api/v3/klines?symbol=\(symbol)&interval=\(interval)&limit=\(limit)"
         if let startTime { url += "&startTime=\(startTime)" }
-        let text = try await MarketHTTP.call(url, session: MarketHTTP.bulkSession)
+        let text = try await ExchangeHTTP.call(url, session: ExchangeHTTP.bulkSession)
         return try parseBinanceKlines(text)
     }
 
@@ -142,7 +142,7 @@ enum InsightsDataSource {
     /// Bybit liefert die neueste Kerze zuerst — umdrehen.
     private static func bybitKlines(symbol: String, interval: String, limit: Int) async throws -> [InsightsCandle] {
         let url = "https://api.bybit.com/v5/market/kline?category=spot&symbol=\(symbol)&interval=\(interval)&limit=\(limit)"
-        let list = try JObject(string: try await MarketHTTP.call(url, session: MarketHTTP.bulkSession))
+        let list = try JObject(string: try await ExchangeHTTP.call(url, session: ExchangeHTTP.bulkSession))
             .object("result").array("list")
         var out: [InsightsCandle] = []
         for i in 0..<list.count {
@@ -163,7 +163,7 @@ enum InsightsDataSource {
     // MARK: Fear & Greed
 
     static func fearGreed() async throws -> FearGreed {
-        let data = try JObject(string: try await MarketHTTP.call("https://api.alternative.me/fng/?limit=31")).array("data")
+        let data = try JObject(string: try await ExchangeHTTP.call("https://api.alternative.me/fng/?limit=31")).array("data")
         func valueAt(_ i: Int) -> Int? {
             guard i < data.count, let o = try? data.object(i) else { return nil }
             return Int(o.optString("value").trimmingCharacters(in: .whitespaces))
@@ -184,7 +184,7 @@ enum InsightsDataSource {
 
     /// Eine Abfrage für Dominanz und Gesamtmarkt (Marktkapitalisierung, Volumen, 24-h-Veränderung).
     static func global() async throws -> CoinGeckoGlobal {
-        try parseGlobal(try await MarketHTTP.call("https://api.coingecko.com/api/v3/global"))
+        try parseGlobal(try await ExchangeHTTP.call("https://api.coingecko.com/api/v3/global"))
     }
 
     /// Fehlt ein Teil, ist nur er nil; wirft nur ohne `data`.
@@ -216,7 +216,7 @@ enum InsightsDataSource {
     /// Altcoin-Saison; `provider` = Anbieter des BTC-Verlaufs (Ausweich-Kette).
     static func altSeason() async throws -> Sourced<AltSeason> {
         // Fertig berechnet aus dem Daten-Spiegel (`DataMirror.altSeason`), sonst selbst
-        if let text = try? await MarketHTTP.call(DataMirror.altSeason.url),
+        if let text = try? await ExchangeHTTP.call(DataMirror.altSeason.url),
            let v = DataMirror.parseAltSeason(DataMirror.unwrap(text, now: EpochTime.nowMillis,
                                                                maxAgeMillis: DataMirror.altSeason.maxAgeMillis)) {
             return Sourced(value: AltSeason(outperformers: v.outperformers, total: v.total), provider: v.provider)
@@ -315,7 +315,7 @@ enum InsightsDataSource {
     private static func coinMetricsPrices() async throws -> [LocalDay: Double] {
         let url = "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics" +
             "?assets=btc&metrics=PriceUSD&frequency=1d&start_time=2016-06-01&page_size=10000"
-        let rows = try JObject(string: try await MarketHTTP.call(url, session: MarketHTTP.bulkSession)).array("data")
+        let rows = try JObject(string: try await ExchangeHTTP.call(url, session: ExchangeHTTP.bulkSession)).array("data")
         var map: [LocalDay: Double] = [:]
         for r in rows.objects {
             guard let date = LocalDay(iso: r.optString("time")),

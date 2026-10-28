@@ -5,8 +5,8 @@
   "watches": [
     {
       "id": 1,
-      "marketKey": "Binance",
-      "marketName": "Binance",
+      "exchangeKey": "Binance",
+      "exchangeName": "Binance",
       "baseAsset": "BTC",
       "quoteAsset": "USDT",
       "contractType": "NONE",
@@ -21,8 +21,8 @@
     },
     {
       "id": 2,
-      "marketKey": "Binance",
-      "marketName": "Binance",
+      "exchangeKey": "Binance",
+      "exchangeName": "Binance",
       "baseAsset": "ETH",
       "quoteAsset": "USDT",
       "contractType": "NONE",
@@ -37,8 +37,8 @@
     },
     {
       "id": 3,
-      "marketKey": "Binance",
-      "marketName": "Binance",
+      "exchangeKey": "Binance",
+      "exchangeName": "Binance",
       "baseAsset": "SOL",
       "quoteAsset": "USDT",
       "contractType": "NONE",
@@ -69,7 +69,7 @@
     }
   ],
   "favorites": {
-    "MARKET": [],
+    "EXCHANGE": [],
     "COIN": [],
     "QUOTE": []
   },

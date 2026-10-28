@@ -7,7 +7,7 @@ import com.cryptochecker.app.util.StringResources
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
-import com.cryptochecker.marketdata.model.market.Lighter
+import com.cryptochecker.marketdata.model.exchange.Lighter
 import java.util.Locale
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

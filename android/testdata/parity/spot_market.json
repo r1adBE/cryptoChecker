@@ -285,22 +285,22 @@
  ],
  "eligible": [
   {
-   "marketKey": "Binance",
+   "exchangeKey": "Binance",
    "tradFi": false,
    "expected": true
   },
   {
-   "marketKey": "BinanceFutures",
+   "exchangeKey": "BinanceFutures",
    "tradFi": true,
    "expected": false
   },
   {
-   "marketKey": "DexScreener",
+   "exchangeKey": "DexScreener",
    "tradFi": false,
    "expected": false
   },
   {
-   "marketKey": null,
+   "exchangeKey": null,
    "tradFi": false,
    "expected": true
   }

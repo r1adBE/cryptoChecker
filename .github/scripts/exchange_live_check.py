@@ -5,7 +5,7 @@ Queries the public single-ticker endpoint of every exchange adapter for one
 major pair and checks that the fields the adapters parse are still there and
 numeric (last price, plus bid/ask/volume/change where the adapter reads them).
 The table below mirrors the adapters in
-android/marketdata/.../model/market/*.kt and ios/Shared/Markets/*.swift and the
+android/marketdata/.../model/exchange/*.kt and ios/Shared/Exchanges/*.swift and the
 endpoints listed in android/testdata/exchanges/exchange_*.json - keep it in sync
 when an adapter changes its URL or fields.
 

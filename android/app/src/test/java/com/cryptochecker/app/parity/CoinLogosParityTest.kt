@@ -51,9 +51,9 @@ class CoinLogosParityTest {
     }
 
     @Test
-    fun market() {
-        data["market"].list().map { it.obj() }.forEach { c ->
-            assertEquals("market: $c", c["expected"], CoinLogos.allowedFor(c["marketKey"] as String?))
+    fun exchange() {
+        data["exchange"].list().map { it.obj() }.forEach { c ->
+            assertEquals("market: $c", c["expected"], CoinLogos.allowedFor(c["exchangeKey"] as String?))
         }
     }
 

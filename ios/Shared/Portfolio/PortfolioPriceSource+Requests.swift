@@ -13,10 +13,10 @@ extension PortfolioPriceSource {
         guard !watches.isEmpty else { return [:] }
         let names = TokenIdentityStore.shared
         let candidates = watches.map { w in
-            PortfolioWatchPair.Candidate(marketKey: w.marketKey, base: w.baseAsset, quote: w.quoteAsset, pairId: w.pairId,
+            PortfolioWatchPair.Candidate(exchangeKey: w.exchangeKey, base: w.baseAsset, quote: w.quoteAsset, pairId: w.pairId,
                                          spot: w.contractType == .none, disabled: w.disabled, lastUpdate: w.lastUpdate,
                                          // Voller Name aus der Paarliste der Börse (gleicher Token, K-8)
-                                         name: names.pairName(marketKey: w.marketKey, base: w.baseAsset))
+                                         name: names.pairName(exchangeKey: w.exchangeKey, base: w.baseAsset))
         }
         var picks: [(String, PortfolioWatchPair.Candidate)] = []
         for coin in coins {
@@ -35,9 +35,9 @@ extension PortfolioPriceSource {
 
     /// Letzter Kurs des Merklisten-Paars `pick` in USDT; nil = Börse unbekannt, keine Antwort oder kein Devisenkurs.
     private static func watchPairPrice(_ pick: PortfolioWatchPair.Candidate) async -> Double? {
-        guard let market = MarketsConfig.market(pick.marketKey) else { return nil }
-        let info = MarketPair(pick.base, pick.quote, pick.pairId)
-        guard let ticker = try? await MarketService.fetchTicker(market: market, info: info) else { return nil }
+        guard let exchange = ExchangesConfig.exchange(pick.exchangeKey) else { return nil }
+        let info = ExchangePair(pick.base, pick.quote, pick.pairId)
+        guard let ticker = try? await ExchangeService.fetchTicker(exchange: exchange, info: info) else { return nil }
         let quote = pick.quote.uppercased()
         let rate: Double? = (quote == "USDT" || quote == "USD") ? nil : await FxRateSource.usdTo(quote)
         return PortfolioExchangeRoute.toUsdt(ticker.last, quote: quote,
@@ -67,7 +67,7 @@ extension PortfolioPriceSource {
             let symbols = "[" + chunk.map { "\"\($0)\(stable)\"" }.joined(separator: ",") + "]"
             guard let encoded = symbols.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else { continue }
             let url = "https://\(binanceHost)/api/v3/ticker/price?symbols=\(encoded)"
-            guard let body = await get(url, host: binanceHost, session: MarketHTTP.session) else {
+            guard let body = await get(url, host: binanceHost, session: ExchangeHTTP.session) else {
                 failed = true
                 continue
             }
@@ -101,7 +101,7 @@ extension PortfolioPriceSource {
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).
     static func get(_ url: String, host: String, session: URLSession) async -> String? {
         do {
-            return try await MarketHTTP.call(url, session: session)
+            return try await ExchangeHTTP.call(url, session: session)
         } catch {
             BlockedSources.noteFailure(host, error)
             return nil

@@ -17,7 +17,7 @@ object HistoricCloseChain {
     const val OKX = "Okex"
     const val BYBIT = "Bybit"
 
-    /** Kette ohne eigene Börse (Börsen-Schlüssel wie [com.cryptochecker.marketdata.model.Market.key]). */
+    /** Kette ohne eigene Börse (Börsen-Schlüssel wie [com.cryptochecker.marketdata.model.Exchange.key]). */
     val CHAIN = listOf(BINANCE, COINBASE, KRAKEN, OKX, BYBIT)
 
     /**
@@ -27,17 +27,17 @@ object HistoricCloseChain {
     val SERIES_CHAIN = listOf(COINBASE, KRAKEN, OKX, BYBIT)
 
     /**
-     * Reihenfolge der Quellen: eigene Börse [ownMarketKey] zuerst (auch eine Börse ausserhalb der Kette, z. B.
+     * Reihenfolge der Quellen: eigene Börse [ownExchangeKey] zuerst (auch eine Börse ausserhalb der Kette, z. B.
      * Bitstamp), danach die übrigen Glieder von [CHAIN] ohne Doppel. Gross/Klein egal; leer = nur [CHAIN].
      */
-    fun order(ownMarketKey: String?): List<String> {
-        val own = ownMarketKey?.trim()?.takeIf { it.isNotEmpty() } ?: return CHAIN
+    fun order(ownExchangeKey: String?): List<String> {
+        val own = ownExchangeKey?.trim()?.takeIf { it.isNotEmpty() } ?: return CHAIN
         val canonical = CHAIN.firstOrNull { it.equals(own, ignoreCase = true) } ?: own
         return listOf(canonical) + CHAIN.filter { it != canonical }
     }
 
     /** Anzeigename der Quelle («Kurs: Kraken»); OKX heisst in der App «OKX», der Schlüssel «Okex». */
-    fun provider(marketKey: String): String = if (marketKey == OKX) "OKX" else marketKey
+    fun provider(exchangeKey: String): String = if (exchangeKey == OKX) "OKX" else exchangeKey
 
     /** Ein abzufragendes Paar einer Kettenquelle: Gegenwährung und Kennung der Börse. */
     data class ChainPair(val quote: String, val pairId: String)
@@ -47,10 +47,10 @@ object HistoricCloseChain {
      * Kürzel unbrauchbar. Gegenwährung USDT bzw. USD/USDC (≈ USDT wie bisher bei Binance.US und Coinbase).
      * Kraken führt BTC als «XBT» und DOGE als «XDG».
      */
-    fun pairs(marketKey: String, base: String): List<ChainPair> {
+    fun pairs(exchangeKey: String, base: String): List<ChainPair> {
         val b = base.trim().uppercase().takeIf { s -> s.isNotEmpty() && s.length <= 15 && s.all { it.isLetterOrDigit() && it.code < 128 } }
             ?: return emptyList()
-        return when (marketKey) {
+        return when (exchangeKey) {
             COINBASE -> listOf(ChainPair("USD", "$b-USD"), ChainPair("USDC", "$b-USDC"))
             KRAKEN -> {
                 val k = KRAKEN_ASSETS[b] ?: b
@@ -70,11 +70,11 @@ object HistoricCloseChain {
      * widersprechen. Kettenquelle: wie die Ausweich-Reihen ([TokenIdentity.fallbackSeriesAllowed]) — widerspricht der
      * eigene Name dem Binance-Namen, fällt die ganze Kette aus. Unbekannte Namen: ja (Kursband entscheidet).
      */
-    fun nameAllowed(base: String, own: Boolean, marketKey: String, ownName: String?, binanceName: String?, providerName: String?): Boolean =
+    fun nameAllowed(base: String, own: Boolean, exchangeKey: String, ownName: String?, binanceName: String?, providerName: String?): Boolean =
         if (own) {
             TokenIdentity.compatible(base, ownName, providerName)
         } else {
-            TokenIdentity.fallbackSeriesAllowed(base, ownName, provider(marketKey), binanceName, providerName)
+            TokenIdentity.fallbackSeriesAllowed(base, ownName, provider(exchangeKey), binanceName, providerName)
         }
 
     /** Urteil über den Schluss einer Quelle: übernommen, verworfen (anderer Token/ungeprüft) oder keiner da. */

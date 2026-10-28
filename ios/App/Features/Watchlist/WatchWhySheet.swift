@@ -82,14 +82,14 @@ struct WatchlistWhySheet: View {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
                 HStack(spacing: 12) {
-                    CoinBadge(symbol: watch.baseAsset, size: 40, logo: CoinLogos.allowed(forMarket: watch.marketKey),
+                    CoinBadge(symbol: watch.baseAsset, size: 40, logo: CoinLogos.allowed(forExchange: watch.exchangeKey),
                               pair: watch.logoPairKey)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(watch.displayName)
                             .font(AppFont.headline)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
-                        Text(watch.marketName)
+                        Text(watch.exchangeName)
                             .font(.subheadline)
                             .foregroundStyle(AppColors.onSurfaceVariant)
                     }

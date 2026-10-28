@@ -57,7 +57,7 @@ final class ProtectedFileDurableWriteTests: XCTestCase {
         let watchlist = dir.appendingPathComponent("watchlist.json")
         let alarms = dir.appendingPathComponent("portfolio_alarms.json")
         var snap = SharedStorage.Snapshot()
-        snap.watches = [Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")]
+        snap.watches = [Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")]
         snap.watches[0].lastPrice = 70_000
         XCTAssertTrue(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: alarms,
                                                includePortfolioInBackup: true, keys: keychain(key), durability: .barrier))

@@ -55,7 +55,7 @@ extension Notifier {
     /// Zeile der Sammelmeldung = Titel der Kurs-Mitteilung: «BTC: 98’450 USDT • Binance».
     static func priceLine(_ watch: Watch) -> String? {
         guard let price = watch.lastPrice else { return nil }
-        return L("notification_price_title", watch.baseAsset, PriceFormat.price(price), watch.quoteAsset, watch.marketName)
+        return L("notification_price_title", watch.baseAsset, PriceFormat.price(price), watch.quoteAsset, watch.exchangeName)
     }
 
     /// Sammelmeldung «+N weitere Kurse»; Paare und Zeilen stehen in `userInfo` (der nächste Durchlauf liest sie dort).

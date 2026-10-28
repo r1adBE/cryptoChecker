@@ -32,7 +32,7 @@ class DerivativesAlarmData @Inject constructor(
     private val cache = BoundedCache<String, DerivativesValues>(MEMORY_CACHE_ENTRIES)
 
     private fun key(watch: WatchEntity) =
-        "${watch.id}|${watch.marketKey}|${watch.baseAsset}|${watch.quoteAsset}|${watch.pairId}"
+        "${watch.id}|${watch.exchangeKey}|${watch.baseAsset}|${watch.quoteAsset}|${watch.pairId}"
 
     /**
      * Vorab geholte Rohdaten ([prefetch], parallel zur Kursabfrage): Abrufzeit und Antwort (null = keine).
@@ -62,7 +62,7 @@ class DerivativesAlarmData @Inject constructor(
 
     /** Paar kann diese Alarme haben (Perpetual an einer Börse mit eigenen Daten, [FuturesSources]). */
     fun supports(watch: WatchEntity): Boolean =
-        DerivativesAlarm.supports(watch.marketKey, watch.contractType.isPerpetual)
+        DerivativesAlarm.supports(watch.exchangeKey, watch.contractType.isPerpetual)
 
     /**
      * Aktuelle Werte (zwischengespeichert). [price] = letzter Kurs des Paars, um den USD-Wert des
@@ -78,7 +78,7 @@ class DerivativesAlarmData @Inject constructor(
         val info = if (early != null) early.second else fetchInfo(watch)
         // Richtwert einer anderen Börse: Funding meldet weiter (Text nennt die Quelle); Open Interest
         // nicht — es gilt je Börse und passt nicht zum Verlauf der beobachteten Börse
-        val foreign = info?.let { FuturesSources.note(true, watch.marketKey, it.source, watch.pairId) != null } ?: false
+        val foreign = info?.let { FuturesSources.note(true, watch.exchangeKey, it.source, watch.pairId) != null } ?: false
         val units = info?.openInterestUsd?.takeIf { !foreign && it.isFinite() && it > 0.0 && price > 0.0 }?.let { it / price }
         val values = DerivativesValues(
             // Pro 8 Stunden wie die Schwelle, mit dem Intervall des Kontrakts (z. B. 4 Std. bei Binance)

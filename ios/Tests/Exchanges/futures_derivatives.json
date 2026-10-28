@@ -371,82 +371,82 @@
   "notes": [
     {
       "perpetual": true,
-      "marketKey": "WooFutures",
+      "exchangeKey": "WooFutures",
       "source": "WOO X Futures",
       "expected": null
     },
     {
       "perpetual": true,
-      "marketKey": "WooFutures",
+      "exchangeKey": "WooFutures",
       "source": "Binance Futures",
       "expected": "REFERENCE"
     },
     {
       "perpetual": true,
-      "marketKey": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "source": "Bybit",
       "expected": "REFERENCE"
     },
     {
       "perpetual": true,
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "source": "Binance Futures",
       "expected": null
     },
     {
       "perpetual": true,
-      "marketKey": "BybitFutures",
+      "exchangeKey": "BybitFutures",
       "source": "Binance Futures",
       "expected": "FALLBACK"
     },
     {
       "perpetual": true,
-      "marketKey": "OkexFutures",
+      "exchangeKey": "OkexFutures",
       "source": "Bybit",
       "expected": "FALLBACK"
     },
     {
       "perpetual": true,
-      "marketKey": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "source": "Binance Futures",
       "expected": "REFERENCE"
     },
     {
       "perpetual": false,
-      "marketKey": "Kraken",
+      "exchangeKey": "Kraken",
       "source": "Binance Futures",
       "expected": "REFERENCE"
     },
     {
       "perpetual": false,
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "source": "Binance Futures",
       "expected": "REFERENCE"
     },
     {
       "perpetual": true,
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pairId": "2:BTCUSD_PERP",
       "source": "Binance COIN-M",
       "expected": null
     },
     {
       "perpetual": true,
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pairId": "2:BTCUSD_PERP",
       "source": "Binance Futures",
       "expected": "REFERENCE"
     },
     {
       "perpetual": true,
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pairId": "2:BTCUSD_PERP",
       "source": "Bybit",
       "expected": "REFERENCE"
     },
     {
       "perpetual": true,
-      "marketKey": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pairId": "BTCUSDT",
       "source": "Binance Futures",
       "expected": null

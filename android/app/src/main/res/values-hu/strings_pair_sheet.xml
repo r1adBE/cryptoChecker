@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">ma %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">Nem érkezett adat a tőzsdéről.</string>
+    <string name="exchange_data_empty_error">Nem érkezett adat a tőzsdéről.</string>
     <string name="market_data_summary">Piaci kapitalizáció, gas-díjak, gazdasági adatok, coin-elemzés</string>
     <string name="market_data_tab_futures">Határidős</string>
     <string name="market_data_title">Piaci adatok</string>

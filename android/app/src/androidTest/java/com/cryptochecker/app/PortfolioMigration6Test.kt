@@ -8,7 +8,6 @@ import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.DatabaseMigrationTest.Companion.PORTFOLIO_V3_SCHEMA
-import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.toDomain
 import com.cryptochecker.app.domain.portfolio.AddressCostLot
@@ -34,7 +33,6 @@ class PortfolioMigration6Test {
     @Before
     @After
     fun clean() {
-        context.deleteDatabase(MAIN_DB)
         context.deleteDatabase(PORTFOLIO_DB)
         mirrorFile.delete()
     }
@@ -62,10 +60,9 @@ class PortfolioMigration6Test {
         )
         helper.close()
 
-        val main = Room.databaseBuilder(context, AppDatabase::class.java, MAIN_DB).addMigrations(*AppDatabase.ALL_MIGRATIONS).build()
         val room = Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO_DB)
             .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
-            .addCallback(PortfolioDatabase.callback(context, main, mirrorFile))
+            .addCallback(PortfolioDatabase.callback(context, mirrorFile))
             .build()
         try {
             room.openHelper.writableDatabase
@@ -82,12 +79,10 @@ class PortfolioMigration6Test {
             }
         } finally {
             room.close()
-            main.close()
         }
     }
 
     private companion object {
-        const val MAIN_DB = "migration-test6.db"
         const val PORTFOLIO_DB = "migration-test6-portfolio.db"
     }
 }

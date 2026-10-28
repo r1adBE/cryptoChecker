@@ -10,7 +10,7 @@
     {
       "kind": "single",
       "name": "stats BTC-USD (open = price 24 h ago)",
-      "market": "Coinbase",
+      "exchangeKey": "Coinbase",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "very small price (SHIB-USD)",
-      "market": "Coinbase",
+      "exchangeKey": "Coinbase",
       "pair": {
         "base": "SHIB",
         "quote": "USD",
@@ -53,7 +53,7 @@
     {
       "kind": "single",
       "name": "unknown product: {message}",
-      "market": "Coinbase",
+      "exchangeKey": "Coinbase",
       "pair": {
         "base": "FOO",
         "quote": "USD",
@@ -71,7 +71,7 @@
     {
       "kind": "single",
       "name": "volume 0 is valid: last price is kept",
-      "market": "Coinbase",
+      "exchangeKey": "Coinbase",
       "pair": {
         "base": "OLD",
         "quote": "USD",
@@ -91,7 +91,7 @@
     {
       "kind": "single",
       "name": "open missing -> no change",
-      "market": "Coinbase",
+      "exchangeKey": "Coinbase",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -108,7 +108,7 @@
     {
       "kind": "pairs",
       "name": "products: only status online without trading_disabled (delisted, offline, internal and trading_disabled are dropped)",
-      "market": "Coinbase",
+      "exchangeKey": "Coinbase",
       "requestId": 0,
       "body": "[{\"id\":\"BTC-USD\",\"base_currency\":\"BTC\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.01\",\"base_increment\":\"0.00000001\",\"display_name\":\"BTC/USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.02000000\",\"auction_mode\":false},{\"id\":\"ETH-EUR\",\"base_currency\":\"ETH\",\"quote_currency\":\"EUR\",\"quote_increment\":\"0.01\",\"base_increment\":\"0.00000001\",\"display_name\":\"ETH/EUR\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.02000000\",\"auction_mode\":false},{\"id\":\"OLD-USD\",\"base_currency\":\"OLD\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.01\",\"base_increment\":\"0.00000001\",\"display_name\":\"OLD/USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"delisted\",\"status_message\":\"\",\"trading_disabled\":true,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.02000000\",\"auction_mode\":false},{\"id\":\"MNT-USD\",\"base_currency\":\"MNT\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.01\",\"base_increment\":\"0.00000001\",\"display_name\":\"MNT/USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"offline\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.02000000\",\"auction_mode\":false},{\"id\":\"HALT-USD\",\"base_currency\":\"HALT\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.01\",\"base_increment\":\"0.00000001\",\"display_name\":\"HALT/USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"trading_disabled\":true,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.02000000\",\"auction_mode\":false},{\"id\":\"INT-USD\",\"base_currency\":\"INT\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.01\",\"base_increment\":\"0.00000001\",\"display_name\":\"INT/USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"internal\",\"status_message\":\"\",\"trading_disabled\":false,\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.02000000\",\"auction_mode\":false},{\"id\":\"NEW-USD\",\"base_currency\":\"NEW\",\"quote_currency\":\"USD\",\"quote_increment\":\"0.01\",\"base_increment\":\"0.00000001\",\"display_name\":\"NEW/USD\",\"min_market_funds\":\"1\",\"margin_enabled\":false,\"post_only\":false,\"limit_only\":false,\"cancel_only\":false,\"status\":\"online\",\"status_message\":\"\",\"fx_stablecoin\":false,\"max_slippage_percentage\":\"0.02000000\",\"auction_mode\":false},{\"id\":\"RAW-USD\",\"base_currency\":\"RAW\",\"quote_currency\":\"USD\"}]",
       "expect": {

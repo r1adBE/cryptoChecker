@@ -179,7 +179,7 @@ struct WatchGroupEditSheet: View {
                             .foregroundStyle(AppColors.onSurface)
                             .lineLimit(1)
                     }
-                    Text(watch.marketName)
+                    Text(watch.exchangeName)
                         .font(.caption)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .lineLimit(1)

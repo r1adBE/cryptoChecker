@@ -6,7 +6,7 @@ import Foundation
 
 /// Binance Spot: `/api/v3/klines` — zuerst der öffentliche Spiegel, dann api.binance.com.
 struct BinanceCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Binance"]
+    let exchangeKeys: Set<String> = ["Binance"]
     private static let endpoints = ["https://data-api.binance.vision/api/v3/klines", "https://api.binance.com/api/v3/klines"]
 
     static func symbol(_ pair: CandlePair) -> String? {
@@ -33,7 +33,7 @@ struct BinanceCandles: ExchangeCandleSource {
 /// Binance Alpha (`BinanceAlpha`): `www.binance.com/bapi/defi/v1/public/alpha-trade/klines` für Paare mit
 /// Kennung «ALPHA_<id>USDT» (unter der Börse Binance). Antwort `{"code":"000000","data":[[…Binance-Kline…]]}`.
 struct BinanceAlphaCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = [BinanceAlpha.marketKey]
+    let exchangeKeys: Set<String> = [BinanceAlpha.exchangeKey]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && BinanceAlpha.isPairId(pair.pairId) }
 
@@ -47,7 +47,7 @@ struct BinanceAlphaCandles: ExchangeCandleSource {
 
 /// Binance.US: `api.binance.us/api/v3/klines`.
 struct BinanceUsCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["BinanceUs"]
+    let exchangeKeys: Set<String> = ["BinanceUs"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && BinanceCandles.symbol(pair) != nil }
 
@@ -64,7 +64,7 @@ struct BinanceUsCandles: ExchangeCandleSource {
 /// (Quartal): deren Symbol aus der Paarliste wie die Kursabfrage (`BTCUSDT_251226`, COIN-M `BTCUSD_251226`)
 /// — nie die Kerzen des Perpetuals.
 struct BinanceFuturesCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["BinanceFutures"]
+    let exchangeKeys: Set<String> = ["BinanceFutures"]
     private static let coinMPrefix = "2:"
 
     /// Verfallstag (UTC, «yyMMdd») des Laufzeit-Kontrakts wie die Kursabfrage; nil = Perpetual/Spot.
@@ -116,7 +116,7 @@ struct BinanceFuturesCandles: ExchangeCandleSource {
 /// Coinbase Exchange: `/products/{id}/candles` (höchstens 300 je Anfrage, NEUESTE zuerst; nur 1 h und
 /// 1 Tag — 4 h aus Stundenkerzen zusammengesetzt; für 1 Jahr eine ältere Seite dazu).
 struct CoinbaseCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Coinbase"]
+    let exchangeKeys: Set<String> = ["Coinbase"]
     private static let hourMillis: Int64 = 60 * 60_000
 
     static func product(_ pair: CandlePair) -> String? {
@@ -155,7 +155,7 @@ struct CoinbaseCandles: ExchangeCandleSource {
 /// Je Kerze [Zeit (s), open, high, low, close, vwap, Menge, Anzahl]; Quote-Umsatz = vwap × Menge.
 /// Kennung = Schlüssel der Paarliste (z. B. «XXBTZUSD»); ohne Kennung keine eigenen Kerzen.
 struct KrakenCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Kraken"]
+    let exchangeKeys: Set<String> = ["Kraken"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleParse.safeId(pair.pairId) != nil }
 
@@ -196,7 +196,7 @@ struct KrakenCandles: ExchangeCandleSource {
 /// Bitstamp: `/api/v2/ohlc/{url_symbol}/?step={s}&limit={n}` (höchstens 1000), älteste zuerst;
 /// je Kerze ein Objekt mit Texten (Zeit in Sekunden).
 struct BitstampCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Bitstamp"]
+    let exchangeKeys: Set<String> = ["Bitstamp"]
 
     private static func symbol(_ pair: CandlePair) -> String? {
         CandleParse.id(pair.pairId) { CandleParse.assets(pair).map { $0.base + $0.quote } }?.lowercased()
@@ -232,7 +232,7 @@ struct BitstampCandles: ExchangeCandleSource {
 /// Bitvavo: `/v2/{market}/candles?interval={1h|4h|1d}&limit={n}` (höchstens 1440), NEUESTE zuerst;
 /// je Kerze [Zeit (ms), open, high, low, close, Menge] (Texte).
 struct BitvavoCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Bitvavo"]
+    let exchangeKeys: Set<String> = ["Bitvavo"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CoinbaseCandles.product(pair) != nil }
 
@@ -266,11 +266,11 @@ struct BitvavoCandles: ExchangeCandleSource {
 /// (höchstens 1000), NEUESTE zuerst; je Kerze [Start (ms), open, high, low, close, Menge, Umsatz].
 /// Spot für «Bybit», USDT/USDC-Perpetuals (linear, auch TradFi) für «BybitFutures».
 struct BybitCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Bybit", "BybitFutures"]
+    let exchangeKeys: Set<String> = ["Bybit", "BybitFutures"]
 
     private static func category(_ pair: CandlePair) -> String? {
-        if pair.marketKey == "BybitFutures" && pair.contractType == .perpetual { return "linear" }
-        if pair.marketKey == "Bybit" && pair.contractType == .none { return "spot" }
+        if pair.exchangeKey == "BybitFutures" && pair.contractType == .perpetual { return "linear" }
+        if pair.exchangeKey == "Bybit" && pair.contractType == .none { return "spot" }
         return nil
     }
 
@@ -309,11 +309,11 @@ struct BybitCandles: ExchangeCandleSource {
 /// ältere Seite mit `after`), NEUESTE zuerst; je Kerze [ts, o, h, l, c, vol, volCcy, volCcyQuote,
 /// confirm]. Menge: Spot `vol`, Swap `volCcy` (vol zählt dort Kontrakte); Umsatz `volCcyQuote`.
 struct OkxCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Okex", "OkexFutures"]
+    let exchangeKeys: Set<String> = ["Okex", "OkexFutures"]
     private static let page = 300
 
     private static func instId(_ pair: CandlePair) -> String? {
-        let swap = pair.marketKey == "OkexFutures"
+        let swap = pair.exchangeKey == "OkexFutures"
         if swap && !pair.contractType.isPerpetual { return nil }
         if !swap && pair.contractType != .none { return nil }
         let derived = CandleParse.id(pair.pairId) {
@@ -327,7 +327,7 @@ struct OkxCandles: ExchangeCandleSource {
 
     func fetch(_ pair: CandlePair, interval: CandleInterval, limit: Int, http: CandleHTTP) async -> [MarketCandle]? {
         guard let id = Self.instId(pair) else { return nil }
-        let swap = pair.marketKey == "OkexFutures"
+        let swap = pair.exchangeKey == "OkexFutures"
         let bar: String
         switch interval {
         case .h1: bar = "1H"

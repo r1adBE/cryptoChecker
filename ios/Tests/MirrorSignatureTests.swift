@@ -178,7 +178,7 @@ final class MirrorSignatureTests: XCTestCase {
     func testTrustTreatsOversizedManifestOrSignatureAsMissing() async throws {
         let c = try signedCase()
         let now = c.now
-        // Lader hält die Grenze ein wie `MarketHTTP.readLimited` (zu gross → nil)
+        // Lader hält die Grenze ein wie `ExchangeHTTP.readLimited` (zu gross → nil)
         func loader(manifest: String, signature: String) -> MirrorTrust.Loader {
             { url, limit in
                 let text = url == MirrorManifest.url ? manifest : (url == MirrorManifest.signatureURL ? signature : "")

@@ -154,13 +154,13 @@ struct WatchlistMarketDataSection: View {
         if watch.contractType.isPerpetual {
             return try? await FuturesDataSource.fetch(watch: watch)
         }
-        guard SpotMarket.eligible(marketKey: watch.marketKey, tradFi: isTradFi(watch)) else { return nil }
+        guard SpotMarket.eligible(exchangeKey: watch.exchangeKey, tradFi: isTradFi(watch)) else { return nil }
         return try? await FuturesDataSource.fetchForBase(baseAsset: watch.baseAsset)
     }
 
     /// Spot-Kennzahlen (CoinGecko); nil bei TradFi, DEX-Pools und unbekannten Coins. Wie `fetchSpot` (Android).
     private static func loadSpot(_ watch: Watch) async -> SpotData? {
-        guard SpotMarket.eligible(marketKey: watch.marketKey, tradFi: isTradFi(watch)),
+        guard SpotMarket.eligible(exchangeKey: watch.exchangeKey, tradFi: isTradFi(watch)),
               let symbol = SpotMarket.lookupSymbol(watch.baseAsset) else { return nil }
         return await SpotDataSource.shared.fetch(symbol: symbol)
     }
@@ -227,11 +227,11 @@ struct WatchlistFuturesSection: View {
     /// (`FuturesSources.note`). Wie `futuresSourceText` (Android).
     private var sourceText: String {
         let perpetual = watch.contractType.isPerpetual
-        if FuturesSources.note(perpetual: perpetual, marketKey: watch.marketKey, source: info.source, pairId: watch.pairId) == nil {
+        if FuturesSources.note(perpetual: perpetual, exchangeKey: watch.exchangeKey, source: info.source, pairId: watch.pairId) == nil {
             return L("futures_source", info.source)
         }
         if perpetual {
-            return L("futures_reference_hint", info.source, watch.marketName)
+            return L("futures_reference_hint", info.source, watch.exchangeName)
         }
         return L("futures_reference_spot", info.source)
     }

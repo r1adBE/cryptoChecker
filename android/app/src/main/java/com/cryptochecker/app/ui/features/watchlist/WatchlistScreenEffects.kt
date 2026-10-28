@@ -64,7 +64,7 @@ internal fun rememberAddMoment(
     val resources = LocalResources.current
     var shownMoment by remember { mutableStateOf<AddMoment?>(null) }
     val readyMoment = pendingMoment?.takeIf { m ->
-        loaded && watches.any { w -> m.indexOf(w.marketKey, w.baseAsset, w.quoteAsset) != null }
+        loaded && watches.any { w -> m.indexOf(w.exchangeKey, w.baseAsset, w.quoteAsset) != null }
     }
     LaunchedEffect(shownMoment) {
         val m = shownMoment ?: return@LaunchedEffect
@@ -82,9 +82,9 @@ internal fun rememberAddMoment(
             if (m.pairs.size > 1) R.string.pairs_added_watching else R.string.pair_added_watching,
             AddMoment.subject(m.pairs)
         )
-        val added = watches.filter { w -> m.indexOf(w.marketKey, w.baseAsset, w.quoteAsset) != null }
+        val added = watches.filter { w -> m.indexOf(w.exchangeKey, w.baseAsset, w.quoteAsset) != null }
         val first = m.pairs.firstOrNull()?.let { p ->
-            added.firstOrNull { p.matches(it.marketKey, it.baseAsset, it.quoteAsset) }
+            added.firstOrNull { p.matches(it.exchangeKey, it.baseAsset, it.quoteAsset) }
         }
         // Der SnackbarHost meldet Text und Aktion dem Screenreader (Live-Region)
         if (first != null && added.none { (alarmCounts[it.id] ?: 0) > 0 }) {

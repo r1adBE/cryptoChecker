@@ -58,7 +58,7 @@
     <string name="explorer_pairs_title">الأزواج</string>
     <string name="explorer_precise_title">متقدم / حسب المنصة</string>
     <string name="explorer_price_loading">جارٍ تحميل السعر…</string>
-    <string name="explorer_select_market_hint">اختر منصة – تُحمَّل أزواجها تلقائيًا.</string>
+    <string name="explorer_select_exchange_hint">اختر منصة – تُحمَّل أزواجها تلقائيًا.</string>
     <string name="explorer_select_placeholder">يرجى الاختيار</string>
     <string name="explorer_step_pair">اختر الزوج</string>
 

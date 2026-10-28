@@ -52,7 +52,7 @@
     <string name="explorer_pairs_title">Пары</string>
     <string name="explorer_precise_title">Расширенно / по бирже</string>
     <string name="explorer_price_loading">Загрузка курса…</string>
-    <string name="explorer_select_market_hint">Выбери биржу – её пары загрузятся автоматически.</string>
+    <string name="explorer_select_exchange_hint">Выбери биржу – её пары загрузятся автоматически.</string>
     <string name="explorer_select_placeholder">Выбери</string>
     <string name="explorer_step_pair">Выбор пары</string>
 

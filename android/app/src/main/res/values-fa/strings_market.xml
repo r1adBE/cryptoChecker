@@ -38,7 +38,7 @@
     <string name="market_section_expand">نمایش %1$s</string>
     <string name="market_section_now">هم‌اکنون</string>
     <string name="market_source">داده‌ها: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">صرافی در دسترس نیست</string>
+    <string name="exchange_unavailable_error">صرافی در دسترس نیست</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">اطلاعات: %1$s</string>

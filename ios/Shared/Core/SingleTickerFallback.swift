@@ -1,7 +1,7 @@
 import Foundation
 
 /// Ausweg eines Einzelkurses, dessen Anfrage mit einem Serverfehler (HTTP 5xx) scheitert: Nennt die Börse eine
-/// Ausweichadresse (`Market.tickerFallbackAddress`, One Trading: die Sammelliste), kommt der Kurs von dort. Bringt
+/// Ausweichadresse (`Exchange.tickerFallbackAddress`, One Trading: die Sammelliste), kommt der Kurs von dort. Bringt
 /// auch das keinen gültigen Kurs (Paar fehlt, Netz, unlesbar), bleibt der ursprüngliche Serverfehler — er bestätigt
 /// wie bisher nie «nicht mehr gehandelt» (NotTraded). 4xx (sagt etwas über das Paar) und Bremsen (429/418) nie.
 /// Zweiter Weg: `loadAfterMissing` für «Paar unbekannt» (DexScreener → GeckoTerminal). Android: `SingleTickerFallback.kt`.
@@ -11,23 +11,23 @@ enum SingleTickerFallback {
 
     /// Kurs über die Ausweichadresse, aufbauend auf `base`; `load` holt die Adresse (GET). Ohne Ausweg oder ohne
     /// gültigen Kurs wird `serverError` geworfen; ein Abbruch geht durch.
-    static func load(market: Market, call: Int, info: PairQuery, base: Ticker, serverError: HttpMarketError,
+    static func load(exchange: Exchange, call: Int, info: PairQuery, base: Ticker, serverError: HttpExchangeError,
                      load: (String) async throws -> String) async throws -> Ticker {
         guard applies(httpCode: serverError.httpCode),
-              let address = market.tickerFallbackAddress(call: call, info: info), !address.isEmpty else {
+              let address = exchange.tickerFallbackAddress(call: call, info: info), !address.isEmpty else {
             throw serverError
         }
         var draft = base
         do {
             let body = try await load(address)
-            try market.readTickerFallback(call: call, body: body, ticker: &draft, info: info)
+            try exchange.readTickerFallback(call: call, body: body, ticker: &draft, info: info)
         } catch {
             if error is CancellationError || Task.isCancelled { throw error }
             // Bremst die Börse den Ausweg (429/418), gilt die Bremse: sonst fragt die App ohne Pause weiter an — nur
             // beim selben Host wie die Kursadresse; ein fremder Anbieter (GeckoTerminal) pausiert die Börse nicht
-            if let http = error as? HttpMarketError, ExchangeBackoff.isRateLimitCode(http.httpCode),
-               sameHost(address, market.tickerAddress(call: call, info: info)) { throw error }
-            HttpLog.add("Ausweg des Einzelkurses ohne Kurs (\(market.key)): \(error.localizedDescription)")
+            if let http = error as? HttpExchangeError, ExchangeBackoff.isRateLimitCode(http.httpCode),
+               sameHost(address, exchange.tickerAddress(call: call, info: info)) { throw error }
+            HttpLog.add("Ausweg des Einzelkurses ohne Kurs (\(exchange.key)): \(error.localizedDescription)")
             throw serverError
         }
         // Wie der gewöhnliche Einzelkurs: ohne gültigen Kurs kein Erfolg
@@ -36,23 +36,23 @@ enum SingleTickerFallback {
     }
 
     /// Wie `load`, aber für einen Lesefehler des Einzelkurses, den die Börse als «Pool unbekannt» kennzeichnet
-    /// (`Market.tickerFallbackOnParseError`, DexScreener → GeckoTerminal). Ohne Ausweg oder ohne gültigen Kurs
+    /// (`Exchange.tickerFallbackOnParseError`, DexScreener → GeckoTerminal). Ohne Ausweg oder ohne gültigen Kurs
     /// bleibt `missing` — auch bei einer Bremse (429/418) der Ausweichadresse; nur ein Abbruch geht durch.
     /// Android: `loadAfterMissing`.
-    static func loadAfterMissing(market: Market, call: Int, info: PairQuery, base: Ticker, missing: Error,
+    static func loadAfterMissing(exchange: Exchange, call: Int, info: PairQuery, base: Ticker, missing: Error,
                                  load: (String) async throws -> String) async throws -> Ticker {
-        guard market.tickerFallbackOnParseError(call: call, error: missing),
-              let address = market.tickerFallbackAddress(call: call, info: info), !address.isEmpty else {
+        guard exchange.tickerFallbackOnParseError(call: call, error: missing),
+              let address = exchange.tickerFallbackAddress(call: call, info: info), !address.isEmpty else {
             throw missing
         }
         var draft = base
         do {
             let body = try await load(address)
-            try market.readTickerFallback(call: call, body: body, ticker: &draft, info: info)
+            try exchange.readTickerFallback(call: call, body: body, ticker: &draft, info: info)
         } catch {
             if error is CancellationError || Task.isCancelled { throw error }
             // Auch eine Bremse (429/418) des fremden Anbieters bleibt dort: sie darf die Börse nicht pausieren
-            HttpLog.add("Ausweg nach «nicht gefunden» ohne Kurs (\(market.key)): \(error.localizedDescription)")
+            HttpLog.add("Ausweg nach «nicht gefunden» ohne Kurs (\(exchange.key)): \(error.localizedDescription)")
             throw missing
         }
         guard draft.last.isFinite, draft.last > 0 else { throw missing }

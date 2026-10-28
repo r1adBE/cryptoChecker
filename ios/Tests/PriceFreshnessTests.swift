@@ -61,7 +61,7 @@ final class PriceFreshnessTests: XCTestCase {
 
     private func watch(exchangeTime: Int64? = nil, changedAgo: Int64 = 2 * 3_600_000, disabled: Bool = false,
                        error: String? = nil, price: Double? = 62_000) -> Watch {
-        var w = Watch(id: 1, marketKey: "Kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "USD")
+        var w = Watch(id: 1, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "USD")
         w.lastPrice = price
         w.lastUpdate = now - 10_000
         w.lastError = error
@@ -109,7 +109,7 @@ final class PriceFreshnessTests: XCTestCase {
 
     /// Ältere gespeicherte Paare (ohne die neuen Felder): unbekannt bzw. keine Börsenzeit; neue Felder bleiben erhalten.
     func testWatchDecodingDefaultsAndRoundTrip() throws {
-        let old = #"{"id":1,"marketKey":"Kraken","baseAsset":"BTC","quoteAsset":"USD","lastPrice":1.5,"lastUpdate":5}"#
+        let old = #"{"id":1,"exchangeKey":"Kraken","baseAsset":"BTC","quoteAsset":"USD","lastPrice":1.5,"lastUpdate":5}"#
         let decoded = try JSONDecoder().decode(Watch.self, from: Data(old.utf8))
         XCTAssertEqual(decoded.priceChangedAt, 0)
         XCTAssertNil(decoded.exchangeTime)

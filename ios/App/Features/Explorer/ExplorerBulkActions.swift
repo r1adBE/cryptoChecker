@@ -8,7 +8,7 @@ import UIKit
 // Eigene Datei, weil die Sammelaufnahme ein eigener Modus ist (wie `ExplorerBulkActions.kt`).
 
 extension ExplorerViewModel {
-    func selectBulkPair(_ pair: MarketPair) {
+    func selectBulkPair(_ pair: ExchangePair) {
         coin = pair.base
         quote = pair.quote
         contract = pair.contractType
@@ -48,37 +48,37 @@ extension ExplorerViewModel {
     /// (dieselbe wie beim Aktualisieren der Merkliste), nie Paar für Paar. Für dieselbe Liste
     /// höchstens einmal je Minute. Gegenstück zu `loadBulkStats` (Android).
     func loadBulkStats() {
-        guard let market = exchange, market.key != Self.dexKey, market.bulkTickersNumOfRequests > 0 else { return }
+        guard let exchange = exchange, exchange.key != Self.dexKey, exchange.bulkTickersNumOfRequests > 0 else { return }
         var unique = Set<String>()
         var ids: [String] = []
         for case let id? in bulkPairs.map(\.pairId) where unique.insert(id).inserted { ids.append(id) }
         if ids.isEmpty { return }
-        let key = "\(market.key)|\(ids.sorted().joined(separator: ","))"
+        let key = "\(exchange.key)|\(ids.sorted().joined(separator: ","))"
         let now = Date()
         if key == bulkStatsKey, now.timeIntervalSince(bulkStatsAt) < 60 { return }
         bulkStatsKey = key
         bulkStatsAt = now
         bulkStatsTask?.cancel()
-        let marketKey = market.key
+        let exchangeKey = exchange.key
         bulkStatsTask = Task { [weak self] in
-            let answer = await MarketService.fetchBulkTickers(market: market, pairIds: ids)
-            guard let self, !Task.isCancelled, self.isStill(marketKey) else { return }
+            let answer = await ExchangeService.fetchBulkTickers(exchange: exchange, pairIds: ids)
+            guard let self, !Task.isCancelled, self.isStill(exchangeKey) else { return }
             self.bulkStats = answer.tickers.mapValues { ExplorerQuickFilters.stats(of: $0) }
         }
     }
 
     func addBulkPairs() {
-        guard let market = exchange, !bulkPairs.isEmpty else {
+        guard let exchange = exchange, !bulkPairs.isEmpty else {
             show(ExplorerMessage(text: L("explorer_no_pair_selected"), showView: false))
             return
         }
         let pairs = bulkPairs
         // EINE Rückfrage F-08 für alle Paare, vorher; «Abbrechen» = nichts angelegt, keine Meldung
-        data.withWatchlistConfirm { [weak self] in self?.addBulkPairsNow(market, pairs) }
+        data.withWatchlistConfirm { [weak self] in self?.addBulkPairsNow(exchange, pairs) }
     }
 
-    private func addBulkPairsNow(_ market: Market, _ bulkPairs: [MarketPair]) {
-        let outcome = data.addWatches(market: market, pairs: bulkPairs, group: data.addTargetGroup)
+    private func addBulkPairsNow(_ exchange: Exchange, _ bulkPairs: [ExchangePair]) {
+        let outcome = data.addWatches(exchange: exchange, pairs: bulkPairs, group: data.addTargetGroup)
         // Merkliste gesperrt: keine Zählung «0 hinzugefügt», Hinweis und Haptik kommen von `.watchlistLockedHint`
         if outcome.locked { return }
         let anyAdded = outcome.added > 0
@@ -107,12 +107,12 @@ extension ExplorerViewModel {
 /// Wie viele Paare von «Alle …-Paare» sind noch nicht in der Merkliste? Gleiche Identität wie beim Anlegen
 /// (`AppData.insertOutcome`, Kontrakttyp angeglichen) — wie Android `bulkNewCount`.
 enum ExplorerBulkCount {
-    static func newCount(marketKey: String?, pairs: [MarketPair], watches: [Watch]) -> Int {
-        guard let marketKey else { return 0 }
+    static func newCount(exchangeKey: String?, pairs: [ExchangePair], watches: [Watch]) -> Int {
+        guard let exchangeKey else { return 0 }
         let present = Set(watches.map(\.identity))
         return pairs.filter { p in
-            let contract = FuturesContractType.normalized(marketKey: marketKey, pairId: p.pairId, p.contractType)
-            let key = WatchIdentity.key(marketKey: marketKey, base: p.base, quote: p.quote,
+            let contract = FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: p.pairId, p.contractType)
+            let key = WatchIdentity.key(exchangeKey: exchangeKey, base: p.base, quote: p.quote,
                                         contract: String(contract.rawValue), pairId: p.pairId)
             return !present.contains(key)
         }.count

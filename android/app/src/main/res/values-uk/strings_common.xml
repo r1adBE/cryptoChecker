@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Помилка: %1$s</string>
-    <string name="error_market_unreachable">Біржа зараз недоступна – останні курси залишаються видимими.</string>
-    <string name="error_market_unreachable_short">Біржа зараз недоступна</string>
+    <string name="error_exchange_unreachable">Біржа зараз недоступна – останні курси залишаються видимими.</string>
+    <string name="error_exchange_unreachable_short">Біржа зараз недоступна</string>
     <string name="loading_hint">Завантаження…</string>
     <string name="no_internet_connection">Немає з\'єднання з інтернетом. Перевір Wi-Fi або мобільні дані й спробуй ще раз.</string>
     <string name="option_off">Вимк.</string>

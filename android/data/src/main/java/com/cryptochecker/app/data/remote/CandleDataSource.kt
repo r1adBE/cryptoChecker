@@ -4,7 +4,7 @@ import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
@@ -204,7 +204,7 @@ class CandleDataSource @Inject constructor(
     /** Eine Anfrage mit eigener Zeitgrenze; null bei Fehler. 451/403 sperrt die Quelle, 429/418 pausiert Binance. */
     private suspend fun get(source: Source, url: String): String? {
         val body = try {
-            withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callMarket(url, null) }
+            withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, null) }
         } catch (e: Exception) {
             // Echten Abbruch des Aufrufers nicht verschlucken
             currentCoroutineContext().ensureActive()

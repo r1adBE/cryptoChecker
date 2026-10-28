@@ -1,9 +1,9 @@
 package com.cryptochecker.app.contract
 
-import com.cryptochecker.marketdata.model.market.Bithumb
-import com.cryptochecker.marketdata.model.market.GateIo
-import com.cryptochecker.marketdata.model.market.Latoken
-import com.cryptochecker.marketdata.model.market.Upbit
+import com.cryptochecker.marketdata.model.exchange.Bithumb
+import com.cryptochecker.marketdata.model.exchange.GateIo
+import com.cryptochecker.marketdata.model.exchange.Latoken
+import com.cryptochecker.marketdata.model.exchange.Upbit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

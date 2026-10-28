@@ -59,7 +59,7 @@ extension PriceRefresher {
                 if let currency = a.convertCurrency, seen.insert(currency).inserted {
                     // Aster «U» zählt als USD (`CurrencyConversion.conversionQuote`)
                     convertNeeds.append((watchId: w.id,
-                                         quote: CurrencyConversion.conversionQuote(marketKey: w.marketKey, quote: w.quoteAsset),
+                                         quote: CurrencyConversion.conversionQuote(exchangeKey: w.exchangeKey, quote: w.quoteAsset),
                                          currency: currency))
                 }
             }
@@ -171,7 +171,7 @@ extension PriceRefresher {
                               r > 0 else { return (w.id, nil, .noRate) }
                         rate = r
                     }
-                    guard NearExtremeDataSource.seriesAllowed(loaded, marketKey: w.marketKey, base: w.baseAsset,
+                    guard NearExtremeDataSource.seriesAllowed(loaded, exchangeKey: w.exchangeKey, base: w.baseAsset,
                                                               price: price, quoteToSeries: rate)
                     else { return (w.id, nil, .noCandles) }
                     if sameCurrency { return (w.id, loaded.ranges, nil) }

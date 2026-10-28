@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.BlockedSources
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import org.junit.Assert.assertEquals
@@ -19,9 +19,9 @@ class OwnServerBlockTest {
 
     private fun failWith(code: Int, entry: String, own: Boolean) {
         val failed = try {
-            runBlocking { source.firstWorking(listOf(entry), null, own) { throw HttpMarketError(code, null) } }
+            runBlocking { source.firstWorking(listOf(entry), null, own) { throw HttpExchangeError(code, null) } }
             false
-        } catch (e: HttpMarketError) {
+        } catch (e: HttpExchangeError) {
             true
         }
         assertTrue(failed)

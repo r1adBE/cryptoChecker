@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker BTCTRY",
-      "market": "Btcturk",
+      "exchangeKey": "Btcturk",
       "pair": {
         "base": "BTC",
         "quote": "TRY",
@@ -32,7 +32,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Btcturk",
+      "exchangeKey": "Btcturk",
       "pair": {
         "base": "FOO",
         "quote": "TRY",
@@ -49,7 +49,7 @@
     {
       "kind": "bulk",
       "name": "bulk ticker",
-      "market": "Btcturk",
+      "exchangeKey": "Btcturk",
       "requestId": 0,
       "body": "{\"data\":[{\"pair\":\"BTCTRY\",\"pairNormalized\":\"BTC_TRY\",\"timestamp\":1728540000123,\"last\":2150000,\"high\":2180000,\"low\":2100000, \"bid\":2149000,\"ask\":2151000,\"open\":2110000,\"volume\":123.45,\"average\":2140000,\"daily\":40000,\"dailyPercent\":1.9, \"denominatorSymbol\":\"TRY\",\"numeratorSymbol\":\"BTC\",\"order\":1000}],\"success\":true,\"message\":null,\"code\":0}",
       "expect": {
@@ -64,7 +64,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with zero «last» (inactive) is skipped, not failed",
-      "market": "Btcturk",
+      "exchangeKey": "Btcturk",
       "requestId": 0,
       "body": "{\"data\":[{\"pair\":\"BTCTRY\",\"pairNormalized\":\"BTC_TRY\",\"timestamp\":1728540000123,\"last\":2150000,\"high\":2180000,\"low\":2100000,\"bid\":2149000,\"ask\":2151000,\"open\":2110000,\"volume\":123.45,\"average\":2140000,\"daily\":40000,\"dailyPercent\":1.9,\"denominatorSymbol\":\"TRY\",\"numeratorSymbol\":\"BTC\",\"order\":1000},{\"pair\":\"ETHTRY\",\"pairNormalized\":\"BTC_TRY\",\"timestamp\":1728540000123,\"high\":2180000,\"low\":2100000,\"bid\":2149000,\"ask\":2151000,\"open\":2110000,\"volume\":123.45,\"average\":2140000,\"daily\":40000,\"dailyPercent\":1.9,\"denominatorSymbol\":\"TRY\",\"numeratorSymbol\":\"BTC\",\"order\":1000,\"last_renamed\":2150000},{\"pair\":\"OLDTRY\",\"pairNormalized\":\"BTC_TRY\",\"timestamp\":1728540000123,\"last\":0,\"high\":2180000,\"low\":2100000,\"bid\":2149000,\"ask\":2151000,\"open\":2110000,\"volume\":123.45,\"average\":2140000,\"daily\":40000,\"dailyPercent\":1.9,\"denominatorSymbol\":\"TRY\",\"numeratorSymbol\":\"BTC\",\"order\":1000}],\"success\":true,\"message\":null,\"code\":0}",
       "expect": {

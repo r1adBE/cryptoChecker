@@ -29,7 +29,7 @@ object PortfolioExchangeRoute {
     private val NOT_SPOT = setOf("Hyperliquid", "Deribit", "DexScreener", "EcbReference")
 
     /** Standardquelle des Portfolios; dafür braucht es keinen eigenen Weg. */
-    const val DEFAULT_MARKET = "Binance"
+    const val DEFAULT_EXCHANGE = "Binance"
 
     /** Gegenwährungen in dieser Reihenfolge; USD über USDT/USD, Fiat über den Devisenkurs ([toUsdt]). */
     val QUOTES = listOf(
@@ -38,7 +38,7 @@ object PortfolioExchangeRoute {
     )
 
     /** Spot-Börse der App (keine Futures, keine Optionen, kein DEX)? */
-    fun isSpot(marketKey: String): Boolean = !marketKey.endsWith("Futures") && marketKey !in NOT_SPOT
+    fun isSpot(exchangeKey: String): Boolean = !exchangeKey.endsWith("Futures") && exchangeKey !in NOT_SPOT
 
     /**
      * Börse je Coin aus den Transaktionen ([coinAndExchange]: Coin, eingetragene Börse): nur, wenn alle
@@ -95,16 +95,16 @@ object PortfolioExchangeRoute {
     }
 
     /**
-     * Spot-Markt zu einem eingetragenen Namen ([markets]: Schlüssel → Anzeigename); Name oder Schlüssel,
+     * Spot-Markt zu einem eingetragenen Namen ([exchanges]: Schlüssel → Anzeigename); Name oder Schlüssel,
      * Gross/Klein egal. Binance und unbekannte Namen (freier Text) → null.
      */
-    fun market(name: String, markets: Map<String, String>): Pair<String, String>? {
+    fun exchange(name: String, exchanges: Map<String, String>): Pair<String, String>? {
         val wanted = name.trim().lowercase()
         if (wanted.isEmpty()) return null
-        val hit = markets.entries.firstOrNull { (key, label) ->
+        val hit = exchanges.entries.firstOrNull { (key, label) ->
             isSpot(key) && (label.lowercase() == wanted || key.lowercase() == wanted)
         } ?: return null
-        if (hit.key == DEFAULT_MARKET) return null
+        if (hit.key == DEFAULT_EXCHANGE) return null
         return hit.key to hit.value
     }
 

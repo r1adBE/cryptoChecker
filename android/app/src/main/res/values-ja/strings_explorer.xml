@@ -43,7 +43,7 @@
     <string name="explorer_pairs_title">ペア</string>
     <string name="explorer_precise_title">詳細 / 取引所から</string>
     <string name="explorer_price_loading">価格を読み込み中…</string>
-    <string name="explorer_select_market_hint">取引所を選ぶと、取引ペアが自動で読み込まれます。</string>
+    <string name="explorer_select_exchange_hint">取引所を選ぶと、取引ペアが自動で読み込まれます。</string>
     <string name="explorer_select_placeholder">選択してください</string>
     <string name="explorer_step_pair">ペアを選択</string>
 

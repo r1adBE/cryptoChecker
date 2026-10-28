@@ -3,8 +3,8 @@ package com.cryptochecker.app.data.remote.util
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.market.BingX
-import com.cryptochecker.marketdata.model.market.BingXFutures
+import com.cryptochecker.marketdata.model.exchange.BingX
+import com.cryptochecker.marketdata.model.exchange.BingXFutures
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
@@ -21,14 +21,14 @@ class RequestKeyTest {
 
     @Test
     fun bingxStampedAddressesCompareEqual() {
-        for (market in listOf(BingX(), BingXFutures())) {
-            val first = market.getBulkTickersUrl(0)
+        for (exchange in listOf(BingX(), BingXFutures())) {
+            val first = exchange.getBulkTickersUrl(0)
             Thread.sleep(2)
-            val second = market.getBulkTickersUrl(0)
+            val second = exchange.getBulkTickersUrl(0)
             // Echte Adressen verschieden (Stempel), Schlüssel gleich: kein zweiter identischer Abruf
             assertNotEquals(first, second)
             assertEquals(RequestKey.of(first), RequestKey.of(second))
-            assertEquals(RequestKey.of(first), RequestKey.of(market.getBulkTickersUrl(0, listOf("BTC-USDT"))!!))
+            assertEquals(RequestKey.of(first), RequestKey.of(exchange.getBulkTickersUrl(0, listOf("BTC-USDT"))!!))
         }
         val info = PairQuery("BTC", "USDT", "BTC-USDT", FuturesContractType.NONE)
         val single = BingX().tickerAddress(0, info)

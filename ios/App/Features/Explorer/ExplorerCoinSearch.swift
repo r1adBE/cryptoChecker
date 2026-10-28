@@ -17,7 +17,7 @@ struct ExplorerCoinHit: Identifiable, Equatable, Sendable {
 }
 
 /// Was beim Vorschlag des Standard-Paars zählt: die Start-Börse der Region (wie die Start-Merkliste,
-/// `StarterPairs.marketKey`), die Lieblingsbörsen und die Umrechnungswährung der Einstellungen.
+/// `StarterPairs.exchangeKey`), die Lieblingsbörsen und die Umrechnungswährung der Einstellungen.
 /// Wie `CoinPairPreference` in Android.
 struct ExplorerCoinPairPreference: Sendable {
     var defaultExchange: String?
@@ -106,7 +106,7 @@ enum ExplorerCoinSearch {
     /// Name genau, Kürzel-Anfang, Name-Anfang, Name enthält; darin mehr Börsen zuerst, dann der kürzere Name
     /// bzw. das kürzere Kürzel. `includeUnlisted`: auch Coins ohne geladenes Paar (solange noch Listen fehlen –
     /// sonst gibt es für sie nichts hinzuzufügen).
-    static func coins(_ query: String, markets: [Market], cache: [String: MarketPairsInfo],
+    static func coins(_ query: String, exchanges: [Exchange], cache: [String: ExchangePairsInfo],
                       names: ExplorerNameIndex = .empty, scope: AssetScope = .BOTH,
                       hiddenAlpha: Set<String> = [], alphaSymbols: Set<String> = [],
                       alphaNames: [String: String] = [:], pairNames: [String: [String: String]] = [:],
@@ -123,18 +123,18 @@ enum ExplorerCoinSearch {
             return tier == nil ? nil : key
         }
 
-        for market in markets {
+        for exchange in exchanges {
             // Keine Namen für DEX-Pools: dort darf ein fremder Token «BTC» heissen
-            guard let info = cache[market.key], CoinLogos.allowed(forMarket: market.key) else { continue }
-            let marketNames = pairNames[market.key] ?? [:]
-            for pair in info.pairs where scope.allows(pair, marketKey: market.key, hiddenAlpha: hiddenAlpha,
-                                                      pairNames: marketNames, alphaNames: alphaNames) {
+            guard let info = cache[exchange.key], CoinLogos.allowed(forExchange: exchange.key) else { continue }
+            let exchangeNames = pairNames[exchange.key] ?? [:]
+            for pair in info.pairs where scope.allows(pair, exchangeKey: exchange.key, hiddenAlpha: hiddenAlpha,
+                                                      pairNames: exchangeNames, alphaNames: alphaNames) {
                 guard let key = tallyKey(pair.base.uppercased(), pair.isTradFi), var t = tallies[key] ?? nil else { continue }
-                t.exchanges.insert(market.key)
+                t.exchanges.insert(exchange.key)
                 t.pairs += 1
-                let kind = AssetKind.of(marketKey: market.key, base: pair.base, tradFi: pair.isTradFi,
+                let kind = AssetKind.of(exchangeKey: exchange.key, base: pair.base, tradFi: pair.isTradFi,
                                         alphaSymbols: alphaSymbols, pairId: pair.pairId,
-                                        pairName: marketNames[TokenIdentity.key(pair.base)], alphaNames: alphaNames)
+                                        pairName: exchangeNames[TokenIdentity.key(pair.base)], alphaNames: alphaNames)
                 if kind == .ALPHA { t.alphaPairs += 1 }
                 tallies[key] = .some(t)
             }
@@ -178,22 +178,22 @@ enum ExplorerCoinSearch {
     /// Alle Paare von `coin` über die geladenen Listen, der Vorschlag zuerst: Start-Börse der Region, dann
     /// Lieblingsbörsen, dann die übrigen; darin Spot vor Perpetual vor Laufzeit, die Gegenwährungen in der
     /// Reihenfolge von `preference`, dann die Börse nach Volumenrang (`exchangeRank`), dann alphabetisch.
-    static func pairs(for coin: ExplorerCoinHit, markets: [Market], cache: [String: MarketPairsInfo],
+    static func pairs(for coin: ExplorerCoinHit, exchanges: [Exchange], cache: [String: ExchangePairsInfo],
                       preference: ExplorerCoinPairPreference = ExplorerCoinPairPreference(),
                       scope: AssetScope = .BOTH, hiddenAlpha: Set<String> = [], alphaSymbols: Set<String> = [],
                       alphaNames: [String: String] = [:],
                       pairNames: [String: [String: String]] = [:]) -> [ExplorerSearchHit] {
         var found: [ExplorerSearchHit] = []
-        for market in markets {
-            guard let info = cache[market.key], CoinLogos.allowed(forMarket: market.key) else { continue }
-            let marketNames = pairNames[market.key] ?? [:]
+        for exchange in exchanges {
+            guard let info = cache[exchange.key], CoinLogos.allowed(forExchange: exchange.key) else { continue }
+            let exchangeNames = pairNames[exchange.key] ?? [:]
             for pair in info.pairs where pair.isTradFi == coin.tradFi && pair.base.uppercased() == coin.symbol {
-                guard scope.allows(pair, marketKey: market.key, hiddenAlpha: hiddenAlpha, pairNames: marketNames,
+                guard scope.allows(pair, exchangeKey: exchange.key, hiddenAlpha: hiddenAlpha, pairNames: exchangeNames,
                                    alphaNames: alphaNames) else { continue }
-                let kind = AssetKind.of(marketKey: market.key, base: pair.base, tradFi: pair.isTradFi,
+                let kind = AssetKind.of(exchangeKey: exchange.key, base: pair.base, tradFi: pair.isTradFi,
                                         alphaSymbols: alphaSymbols, pairId: pair.pairId,
-                                        pairName: marketNames[TokenIdentity.key(pair.base)], alphaNames: alphaNames)
-                found.append(ExplorerSearchHit(market: market, pair: pair, alpha: kind == .ALPHA))
+                                        pairName: exchangeNames[TokenIdentity.key(pair.base)], alphaNames: alphaNames)
+                found.append(ExplorerSearchHit(exchange: exchange, pair: pair, alpha: kind == .ALPHA))
             }
         }
         let quotes = preference.quotes
@@ -204,11 +204,11 @@ enum ExplorerCoinSearch {
         func quoteRank(_ quote: String) -> Int { quotes.firstIndex(of: quote.uppercased()) ?? quotes.count }
         // Zahlen: Stufe, Vertragsart, Gegenwährung, Volumenrang; dann Börsenname, Gegenwährung, Laufzeit
         func numbers(_ hit: ExplorerSearchHit) -> (Int, Int, Int, Int) {
-            (exchangeTier(hit.market.key), contractGroup(hit.pair.contractType), quoteRank(hit.pair.quote),
-             preference.exchangeRank[hit.market.key] ?? Int.max)
+            (exchangeTier(hit.exchange.key), contractGroup(hit.pair.contractType), quoteRank(hit.pair.quote),
+             preference.exchangeRank[hit.exchange.key] ?? Int.max)
         }
         func texts(_ hit: ExplorerSearchHit) -> (String, String, Int) {
-            (hit.market.name.lowercased(), hit.pair.quote.uppercased(), ExplorerPairSearch.contractRank(hit.pair.contractType))
+            (hit.exchange.name.lowercased(), hit.pair.quote.uppercased(), ExplorerPairSearch.contractRank(hit.pair.contractType))
         }
         // Gleiche Schlüssel in der bisherigen Reihenfolge (Swift sortiert nicht garantiert stabil)
         let sorted = found.enumerated().sorted { l, r in

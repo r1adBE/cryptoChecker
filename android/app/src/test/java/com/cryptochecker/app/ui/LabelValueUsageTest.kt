@@ -127,8 +127,8 @@ class LabelValueUsageTest {
             "domain/portfolio/TaxSummaryTexts.kt" to listOf("\$fallback: \$label"),
             "Portfolio/Tax/TaxSummaryTexts.swift" to listOf("\\(fallback): \\(label)"),
             // Technischer Fehlertext: HTTP-Status und Auszug der Antwort
-            "Core/MarketHTTP.swift" to listOf("status + \": \" + excerpt"),
-            "Markets/BulkTickerRows.swift" to listOf("\\(formatError): "),
+            "Core/ExchangeHTTP.swift" to listOf("status + \": \" + excerpt"),
+            "Exchanges/BulkTickerRows.swift" to listOf("\\(formatError): "),
         )
     }
 }

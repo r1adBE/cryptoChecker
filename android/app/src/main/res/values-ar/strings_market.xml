@@ -42,7 +42,7 @@
     <string name="market_section_expand">إظهار %1$s</string>
     <string name="market_section_now">الآن</string>
     <string name="market_source">البيانات: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">المنصة غير متاحة</string>
+    <string name="exchange_unavailable_error">المنصة غير متاحة</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">معلومات: %1$s</string>

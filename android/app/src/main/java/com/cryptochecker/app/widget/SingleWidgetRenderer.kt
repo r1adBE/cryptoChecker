@@ -105,7 +105,7 @@ class SingleWidgetRenderer @Inject constructor(
             if (settings.widgetCoinLogos && watch != null) {
                 views.setImageViewBitmap(
                     R.id.single_coin_logo,
-                    coinLogos.bitmap(coinLogos.logoKey(watch), colors, logo = CoinLogos.allowedFor(watch.marketKey))
+                    coinLogos.bitmap(coinLogos.logoKey(watch), colors, logo = CoinLogos.allowedFor(watch.exchangeKey))
                 )
                 views.setViewVisibility(R.id.single_coin_logo, View.VISIBLE)
                 views.setViewVisibility(R.id.single_logo, View.GONE)
@@ -128,10 +128,10 @@ class SingleWidgetRenderer @Inject constructor(
                 val mainText = if (off) colors.secondaryTextColor else colors.textColor
                 views.setTextColor(R.id.single_pair, mainText)
                 views.setTextViewText(
-                    R.id.single_market,
-                    if (off) context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.marketName)) else watch.marketName
+                    R.id.single_exchange,
+                    if (off) context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName)) else watch.exchangeName
                 )
-                views.setTextColor(R.id.single_market, colors.secondaryTextColor)
+                views.setTextColor(R.id.single_exchange, colors.secondaryTextColor)
                 // Währung klein und grau (Verhältnis zur grössten Kursgrösse 28 sp = [WidgetType.DISPLAY_COMPACT], widget_single.xml; autoSize skaliert mit)
                 views.setAmountText(
                     R.id.single_price,
@@ -222,11 +222,11 @@ class SingleWidgetRenderer @Inject constructor(
                 // Kerzen einer anderen Börse (Ausweich-Kette): in der Börsen-Zeile nennen, «Kraken · Chart: Binance»
                 val foreignChart = if (chartBitmap == null) null
                 else com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(
-                    listOf(watch.marketKey, watch.marketName), chartProvider,
+                    listOf(watch.exchangeKey, watch.exchangeName), chartProvider,
                 )
                     ?.let { context.getString(R.string.watch_row_source_chart, BidiText.isolate(it)) }
                 if (foreignChart != null) {
-                    views.setTextViewText(R.id.single_market, watch.marketName + " · " + foreignChart)
+                    views.setTextViewText(R.id.single_exchange, watch.exchangeName + " · " + foreignChart)
                 }
                 if (chartBitmap != null) {
                     views.setImageViewBitmap(R.id.single_chart, chartBitmap)
@@ -241,7 +241,7 @@ class SingleWidgetRenderer @Inject constructor(
                     A11yText.row(
                         context = context,
                         pair = watch.displayName,
-                        market = watch.marketName,
+                        exchange = watch.exchangeName,
                         price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
                         quote = watch.quoteAsset,
                         change24h = change,

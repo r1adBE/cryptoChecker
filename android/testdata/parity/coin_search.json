@@ -1,6 +1,6 @@
 {
  "description": "Coin-first search in «Add pair» (Android ExplorerCoinSearch.kt CoinSearch / iOS ExplorerCoinSearch.swift). Runs only on local data: loaded pair lists (cache; Bitstamp = not loaded) and the names index. coins: query -> coins as SYMBOL|tradFi|exchanges|pairs (rank: symbol exact or alias, name exact, symbol prefix, name prefix, name contains; then more exchanges, shorter name/symbol, symbol). includeUnlisted: also coins only known from the names index (while lists are missing). showPairHits: also show single-pair hits (several words, contract word, date, or no coin). pairsFor: the coin's pairs, suggestion first (region default exchange, favourites, others; spot, perpetual, dated; quotes display currency, USDT, USD, USDC, EUR, BTC; exchange name). quotes: preference quote order.",
- "markets": [
+ "exchanges": [
   {
    "key": "Binance",
    "name": "Binance"

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.convert.FxCurrencies
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -141,7 +141,7 @@ class FxRateSource @Inject constructor(
         }?.takeIf { it.first > 0.0 }
 
     private suspend fun get(url: String): String? = try {
-        withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callMarket(url, null) }
+        withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, null) }
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {

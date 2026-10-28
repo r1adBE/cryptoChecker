@@ -26,7 +26,7 @@ actor SpotDataSource {
             result = fromTop
         } else {
             do {
-                let text = try await MarketHTTP.call(SpotMarket.url(symbol))
+                let text = try await ExchangeHTTP.call(SpotMarket.url(symbol))
                 result = SpotMarket.pick(SpotMarket.parse(text), symbol: symbol)
             } catch {
                 // Blatt geschlossen oder nicht erreichbar: nichts merken (nächstes Öffnen versucht es neu)
@@ -62,7 +62,7 @@ actor SpotDataSource {
     /// (so auch Pause nach Fehler/429). nil = keine.
     private func topBody(_ now: Int64) async -> String? {
         if let topText, fresh(topText.at, now) { return topText.body }
-        let text = try? await MarketHTTP.call(SpotMarket.topURL)
+        let text = try? await ExchangeHTTP.call(SpotMarket.topURL)
         let body = text.flatMap { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : $0 }
         // Abgebrochen (Blatt zu): nicht als «Liste leer» merken
         if !Task.isCancelled { topText = (now, body) }

@@ -11,7 +11,7 @@
     <string name="a11y_favorite">Favorite</string>
     <string name="a11y_in_watchlist">Already in watchlist</string>
     <!-- %1$s Börse, letzte Abfrage gescheitert -->
-    <string name="a11y_market_unreachable">%1$s not reachable</string>
+    <string name="a11y_exchange_unreachable">%1$s not reachable</string>
     <string name="a11y_move_down">Move down</string>
     <string name="a11y_move_up">Move up</string>
     <string name="a11y_note">note: %1$s</string>

@@ -3,7 +3,7 @@ import Foundation
 /// Sätze für die Sprachausgabe — wie `SpokenText.kt`.
 enum SpokenText {
     static func price(_ watch: Watch, _ price: Double) -> String {
-        L("tts_price", marketName(watch), watch.baseAsset, watch.quoteAsset, PriceFormat.spokenPrice(price, locale: ttsLocale))
+        L("tts_price", exchangeName(watch), watch.baseAsset, watch.quoteAsset, PriceFormat.spokenPrice(price, locale: ttsLocale))
     }
 
     /// Sprache der Ansagen: die der App (Sätze aus dem Katalog); `Speaker` wählt dieselbe Stimme. Wie Android
@@ -29,7 +29,7 @@ enum SpokenText {
         case .OI_UP: direction = L("tts_direction_oi_up")
         case .OI_DOWN: direction = L("tts_direction_oi_down")
         }
-        return L("tts_alarm", marketName(watch), watch.baseAsset, watch.quoteAsset, direction,
+        return L("tts_alarm", exchangeName(watch), watch.baseAsset, watch.quoteAsset, direction,
                  spokenAlarmPrice(PriceFormat.spokenPrice(price, locale: ttsLocale), quote: watch.quoteAsset,
                                   currency: currency))
     }
@@ -42,7 +42,7 @@ enum SpokenText {
         return "\(spoken) \(currency.uppercased())"
     }
 
-    private static func marketName(_ watch: Watch) -> String {
-        MarketsConfig.market(watch.marketKey)?.ttsName ?? watch.marketName
+    private static func exchangeName(_ watch: Watch) -> String {
+        ExchangesConfig.exchange(watch.exchangeKey)?.ttsName ?? watch.exchangeName
     }
 }

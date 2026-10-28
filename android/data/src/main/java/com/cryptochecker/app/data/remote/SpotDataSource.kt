@@ -33,7 +33,7 @@ class SpotDataSource @Inject constructor(
         synchronized(cache) { cache[symbol] }?.takeIf { now - it.at in 0 until SpotMarket.CACHE_TTL_MILLIS }?.let { return it.data }
         val fromTop = SpotMarket.pick(topEntries(now), symbol)
         val result = fromTop ?: try {
-            SpotMarket.pick(SpotMarket.parse(httpClient.callMarket(SpotMarket.url(symbol), null)), symbol)
+            SpotMarket.pick(SpotMarket.parse(httpClient.callExchange(SpotMarket.url(symbol), null)), symbol)
         } catch (e: Exception) {
             // Blatt geschlossen: Abbruch weiterreichen; sonst nichts merken (nächstes Öffnen versucht es neu)
             currentCoroutineContext().ensureActive()
@@ -69,7 +69,7 @@ class SpotDataSource @Inject constructor(
     private suspend fun topBody(now: Long): String? {
         synchronized(cache) { topText }?.takeIf { now - it.first in 0 until SpotMarket.CACHE_TTL_MILLIS }?.let { return it.second }
         val body = try {
-            httpClient.callMarket(SpotMarket.TOP_URL, null).takeIf { it.isNotBlank() }
+            httpClient.callExchange(SpotMarket.TOP_URL, null).takeIf { it.isNotBlank() }
         } catch (e: Exception) {
             currentCoroutineContext().ensureActive()
             Timber.d(e, "Rangliste von CoinGecko nicht verfügbar")

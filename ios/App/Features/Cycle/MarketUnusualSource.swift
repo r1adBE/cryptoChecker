@@ -25,7 +25,7 @@ actor MarketUnusualSource {
         let tickers: [String: (change: Double, volume: Double?)]
         do {
             tickers = try await Self.tickers(universe)
-        } catch let error as HttpMarketError where error.httpCode == 400 {
+        } catch let error as HttpExchangeError where error.httpCode == 400 {
             // Binance kennt ein Symbol nicht mehr: Liste neu ermitteln, einmal wiederholen
             guard let fresh = await StarterCoins.universe(force: true) else { throw error }
             universe = fresh
@@ -65,7 +65,7 @@ actor MarketUnusualSource {
     /// Coin → (24-h-Veränderung in %, 24-h-Umsatz in USDT).
     private static func tickers(_ universe: [UniverseCoin]) async throws -> [String: (change: Double, volume: Double?)] {
         let list = "[" + universe.map { "\"\($0.symbol)USDT\"" }.joined(separator: ",") + "]"
-        let text = try await MarketHTTP.call(tickerURL + list.urlQueryEncoded)
+        let text = try await ExchangeHTTP.call(tickerURL + list.urlQueryEncoded)
         var out: [String: (change: Double, volume: Double?)] = [:]
         let now = EpochTime.nowMillis
         for item in try JArray(string: text).objects {
@@ -86,7 +86,7 @@ actor MarketUnusualSource {
     private static func funding() async -> [String: Double] {
         guard !BlockedSources.isBlocked(fapiHost) else { return [:] }
         do {
-            let text = try await MarketHTTP.call(premiumIndexURL)
+            let text = try await ExchangeHTTP.call(premiumIndexURL)
             var out: [String: Double] = [:]
             for item in try JArray(string: text).objects {
                 let symbol = item.optString("symbol").uppercased()

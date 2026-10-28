@@ -13,7 +13,7 @@ import com.cryptochecker.app.data.WatchSnapshot
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.UndoSlot
@@ -23,7 +23,7 @@ import com.cryptochecker.app.notification.PriceNotificationRule
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.widget.WidgetPrefs
 import com.cryptochecker.app.widget.WidgetUpdater
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -133,8 +133,8 @@ internal class WatchlistEditController @AssistedInject constructor(
     fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (id: Long?, added: Boolean) -> Unit) {
         launchWrite(cancelled = { onDone(null, false) }) {
             val outcome = watchRepository.tryAddWatch(
-                MarketInfo(key = watch.marketKey, name = watch.marketName),
-                MarketPair(watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType),
+                ExchangeInfo(key = watch.exchangeKey, name = watch.exchangeName),
+                ExchangePair(watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType),
             )
             if (outcome == AddWatchOutcome.Full) {
                 onFull()
@@ -149,7 +149,7 @@ internal class WatchlistEditController @AssistedInject constructor(
                 priceRefresher.refreshOne(id)
             } else {
                 val existing = watchRepository.getWatches().firstOrNull {
-                    it.marketKey == watch.marketKey && it.contractType == watch.contractType &&
+                    it.exchangeKey == watch.exchangeKey && it.contractType == watch.contractType &&
                         it.baseAsset.equals(watch.baseAsset, ignoreCase = true) &&
                         it.quoteAsset.equals(watch.quoteAsset, ignoreCase = true)
                 }

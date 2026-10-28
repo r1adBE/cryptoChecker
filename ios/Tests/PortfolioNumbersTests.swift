@@ -178,7 +178,7 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertEqual(CurrencyConversion.staleFxTime(quoteFxAt: now - 5 * h, targetFxAt: now - h, now: now), now - 5 * h)
         XCTAssertEqual(CurrencyConversion.fxStaleMillis, 3 * h)
         // Zeile: Hinweis nur für die Quote mit altem Kurs
-        var watch = Watch(id: 1, marketKey: "Kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
+        var watch = Watch(id: 1, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR")
         watch.lastPrice = 60_000
         XCTAssertEqual(WatchlistConversion.fxTime(watch, fxTimes: ["EUR": now - 4 * h], now: now), now - 4 * h)
         XCTAssertNil(WatchlistConversion.fxTime(watch, fxTimes: ["EUR": now - h], now: now))

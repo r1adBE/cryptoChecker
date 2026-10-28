@@ -166,7 +166,7 @@ object ExchangeBackoff {
     )
 
     /** Börsen-Schlüssel der Kursabfrage, die dieselben Hosts nutzen. */
-    val BINANCE_MARKET_KEYS: Set<String> = setOf("Binance", "BinanceFutures")
+    val BINANCE_EXCHANGE_KEYS: Set<String> = setOf("Binance", "BinanceFutures")
 
     const val BINANCE_GROUP = "binance"
 
@@ -183,8 +183,8 @@ object ExchangeBackoff {
     const val BAN_DEFAULT_MILLIS = 2 * 60_000L
 
     /** Gruppe, deren Endpunkte sich eine Pause teilen (Hostname oder Börsen-Schlüssel); null = keine. */
-    fun sharedGroup(hostOrMarketKey: String): String? =
-        if (hostOrMarketKey in BINANCE_HOSTS || hostOrMarketKey in BINANCE_MARKET_KEYS) BINANCE_GROUP else null
+    fun sharedGroup(hostOrExchangeKey: String): String? =
+        if (hostOrExchangeKey in BINANCE_HOSTS || hostOrExchangeKey in BINANCE_EXCHANGE_KEYS) BINANCE_GROUP else null
 
     /** «Zu viele Anfragen» (429) oder «IP gesperrt» (418). */
     fun isRateLimitCode(httpCode: Int): Boolean = httpCode == 429 || httpCode == 418

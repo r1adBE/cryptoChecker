@@ -179,10 +179,10 @@ enum WhyFreshness {
         floorDiv(now, ActivityAnalyzer.dayMillis) - floorDiv(time, ActivityAnalyzer.dayMillis)
     }
 
-    /// Kerzen als Ersatzquelle kennzeichnen? Ja, sobald sie nicht von der Börse des Paars (`markets` = Schlüssel
+    /// Kerzen als Ersatzquelle kennzeichnen? Ja, sobald sie nicht von der Börse des Paars (`exchanges` = Schlüssel
     /// und Name) kommen — auch Binance (z. B. Phemex-, Bithumb- oder HTX-Paar). Wie Android.
-    static func candlesFallback(markets: [String], provider: String?) -> Bool {
-        DayChange.foreignCandleSource(markets: markets, provider: provider) != nil
+    static func candlesFallback(exchanges: [String], provider: String?) -> Bool {
+        DayChange.foreignCandleSource(exchanges: exchanges, provider: provider) != nil
     }
 
     /// Open-Interest-Vergleich: unter 90 Min. nil (dann in Minuten nennen), sonst ganze Stunden (gerundet).

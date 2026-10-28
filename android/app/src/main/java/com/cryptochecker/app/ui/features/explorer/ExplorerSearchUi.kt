@@ -60,13 +60,13 @@ class SearchUi(
     val onClearRecent: () -> Unit = {},
 ) {
     fun isWatched(hit: SearchHit): Boolean = watchKey(
-        hit.market.key, hit.pair.base, hit.pair.quote, hit.pair.contractType.name
+        hit.exchange.key, hit.pair.base, hit.pair.quote, hit.pair.contractType.name
     ) in watched
 }
 
 /** Gleiche Felder wie die Dublettenprüfung beim Hinzufügen (WatchRepository.addWatch). */
-fun watchKey(marketKey: String, base: String, quote: String, contractType: String): String =
-    "$marketKey|$base|$quote|$contractType"
+fun watchKey(exchangeKey: String, base: String, quote: String, contractType: String): String =
+    "$exchangeKey|$base|$quote|$contractType"
 
 /**
  * Suchfeld oben: «Bitcoin», «btc», «ETH USDT». Findet zuerst Coins, auf Wunsch einzelne Paare;

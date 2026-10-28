@@ -171,18 +171,18 @@ enum SettingsSearchCatalog {
         // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»;
         // frühere Namen bleiben Suchwörter
         let futures = L("settings_asset_scope_title")
-        add("page.markets", futures, watchlist, .page(.markets, anchor: nil))
+        add("page.exchanges", futures, watchlist, .page(.exchanges, anchor: nil))
         let scopeWords: [String] = [
             L("settings_asset_scope_tokens"), L("settings_asset_scope_tokens_hint"),
             L("settings_asset_scope_tradfi"), L("settings_asset_scope_tradfi_hint"),
             L("settings_asset_scope_both"), "TradFi", "Token",
             L("settings_tradfi_futures"), L("settings_tradfi_futures_hint"),
         ]
-        add("futures.scope", L("settings_asset_scope_title"), futures, .page(.markets, anchor: "futures.scope"),
+        add("futures.scope", L("settings_asset_scope_title"), futures, .page(.exchanges, anchor: "futures.scope"),
             scopeWords)
-        add("futures.alpha", L("settings_asset_scope_alpha"), futures, .page(.markets, anchor: "futures.alpha"),
+        add("futures.alpha", L("settings_asset_scope_alpha"), futures, .page(.exchanges, anchor: "futures.alpha"),
             [L("settings_asset_scope_alpha_hint"), L("group_alpha"), "Alpha", "α"])
-        add("futures.rolling", L("settings_rolling_futures_qtly"), futures, .page(.markets, anchor: "futures.rolling"),
+        add("futures.rolling", L("settings_rolling_futures_qtly"), futures, .page(.exchanges, anchor: "futures.rolling"),
             [L("settings_rolling_futures_hint"), "QTLY", L("settings_rolling_futures"), L("settings_row_dated_futures")])
 
         // 6 Über die App (unter «Mehr»): Links und Lizenzen auf der Seite selbst
@@ -224,7 +224,7 @@ enum SettingsSearchCatalog {
         case .about: AboutSettingsPage()
         case .developer: DeveloperSettingsPage()
         case .widgets: WidgetsSearchDestination()
-        case .markets: MarketsSettingsPage()
+        case .exchanges: ExchangesSettingsPage()
         case .licenses: LicensesSheet(asPage: true)
         }
     }

@@ -56,6 +56,6 @@ object StarterPrices {
         bases.joinToString(",", "[", "]") { "\"${it.uppercase()}${quote.uppercase()}\"" }
 
     /** Schlüssel des Speichers: Börse und Coins (Reihenfolge egal). */
-    fun cacheKey(marketKey: String, bases: List<String>): String =
-        marketKey + ":" + bases.map { it.uppercase() }.sorted().joinToString(",")
+    fun cacheKey(exchangeKey: String, bases: List<String>): String =
+        exchangeKey + ":" + bases.map { it.uppercase() }.sorted().joinToString(",")
 }

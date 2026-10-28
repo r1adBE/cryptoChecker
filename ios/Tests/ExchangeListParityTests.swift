@@ -3,7 +3,7 @@ import XCTest
 
 /// Börsenliste: Abschnitte und Volumen-Reihenfolge (`picker_order.json`), Netzwerke von GeckoTerminal
 /// (`gecko_terminal_network.json`), EZB-Referenzkurse (Gruppen, Adresse, Lesen) und der Ausweg der DEX-Kurse über
-/// GeckoTerminal. Wie Android `ExchangeOrderParityTest.kt` (auch GeckoTerminal-Netzwerke), `DexGeckoTerminalFallbackTest.kt`, `NewMarketsTest.kt`.
+/// GeckoTerminal. Wie Android `ExchangeOrderParityTest.kt` (auch GeckoTerminal-Netzwerke), `DexGeckoTerminalFallbackTest.kt`, `NewExchangesTest.kt`.
 final class ExchangeListParityTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -16,14 +16,14 @@ final class ExchangeListParityTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(cases.count, 3, "cases")
         for c in cases {
             let name = c["name"] as? String ?? ""
-            let markets = S.list(c["markets"]).map { spec -> ExchangeOrder.Entry in
+            let exchanges = S.list(c["exchanges"]).map { spec -> ExchangeOrder.Entry in
                 ExchangeOrder.Entry(key: spec["key"] as? String ?? "",
-                                    category: MarketCategory(rawValue: spec["category"] as? String ?? "") ?? .spot)
+                                    category: ExchangeCategory(rawValue: spec["category"] as? String ?? "") ?? .spot)
             }
             let volumes = (c["volumes"] as? [String: Any]).map { raw in
                 raw.compactMapValues { S.number($0) }
             }
-            let actual = ExchangeOrder.sections(markets, volumes: volumes).map { "\($0.category.rawValue): \($0.keys)" }
+            let actual = ExchangeOrder.sections(exchanges, volumes: volumes).map { "\($0.category.rawValue): \($0.keys)" }
             let expected = S.list(c["expected"]).map { "\($0["category"] as? String ?? ""): \($0["keys"] as? [String] ?? [])" }
             XCTAssertEqual(actual, expected, name)
         }
@@ -49,19 +49,19 @@ final class ExchangeListParityTests: XCTestCase {
 
     /// Jede registrierte Börse hat einen Abschnitt; Futures-Schlüssel stehen nur in der Derivate-Tabelle.
     func testCategoriesOfTheRegistry() {
-        XCTAssertEqual(MarketsConfig.market("BitunixFutures")?.category, .futures)
-        XCTAssertEqual(MarketsConfig.market("Hyperliquid")?.category, .futures)
-        XCTAssertEqual(MarketsConfig.market("Bybit")?.category, .spot)
-        XCTAssertEqual(MarketsConfig.market("BybitFutures")?.category, .futures)
-        XCTAssertEqual(MarketsConfig.market("DexScreener")?.category, .dex)
-        XCTAssertEqual(MarketsConfig.market("EcbReference")?.category, .forex)
-        XCTAssertEqual(MarketsConfig.market("EcbReference")?.allowsAlarms, false)
-        XCTAssertEqual(MarketsConfig.market("Binance")?.allowsAlarms, true)
+        XCTAssertEqual(ExchangesConfig.exchange("BitunixFutures")?.category, .futures)
+        XCTAssertEqual(ExchangesConfig.exchange("Hyperliquid")?.category, .futures)
+        XCTAssertEqual(ExchangesConfig.exchange("Bybit")?.category, .spot)
+        XCTAssertEqual(ExchangesConfig.exchange("BybitFutures")?.category, .futures)
+        XCTAssertEqual(ExchangesConfig.exchange("DexScreener")?.category, .dex)
+        XCTAssertEqual(ExchangesConfig.exchange("EcbReference")?.category, .forex)
+        XCTAssertEqual(ExchangesConfig.exchange("EcbReference")?.allowsAlarms, false)
+        XCTAssertEqual(ExchangesConfig.exchange("Binance")?.allowsAlarms, true)
         for key in ExchangeOrder.derivativesIds.keys {
-            XCTAssertEqual(MarketsConfig.market(key)?.category, .futures, key)
+            XCTAssertEqual(ExchangesConfig.exchange(key)?.category, .futures, key)
         }
         for key in ExchangeOrder.spotIds.keys {
-            XCTAssertEqual(MarketsConfig.market(key)?.category, .spot, key)
+            XCTAssertEqual(ExchangesConfig.exchange(key)?.category, .spot, key)
         }
     }
 
@@ -89,12 +89,12 @@ final class ExchangeListParityTests: XCTestCase {
     """
 
     func testGeckoTerminalFallbackReadsThePool() throws {
-        let market = DexScreener()
-        let info = MarketPair("WETH", "USDC", "ethereum/0x88E6A0c2dDD26FEEb64F039a2c41296fCb3f5640")
-        XCTAssertEqual(market.tickerFallbackAddress(call: 0, info: info),
+        let exchange = DexScreener()
+        let info = ExchangePair("WETH", "USDC", "ethereum/0x88E6A0c2dDD26FEEb64F039a2c41296fCb3f5640")
+        XCTAssertEqual(exchange.tickerFallbackAddress(call: 0, info: info),
                        "https://api.geckoterminal.com/api/v2/networks/eth/pools/0x88E6A0c2dDD26FEEb64F039a2c41296fCb3f5640")
         var ticker = Ticker()
-        try market.readTickerFallback(call: 0, body: geckoPool, ticker: &ticker, info: info)
+        try exchange.readTickerFallback(call: 0, body: geckoPool, ticker: &ticker, info: info)
         XCTAssertEqual(ticker.last, 2323.61, accuracy: 1e-9)
         XCTAssertEqual(ticker.change24hPercent ?? .nan, -1.41, accuracy: 1e-9)
         XCTAssertEqual(ticker.volQuote, 43684163.3595396, accuracy: 1e-6)
@@ -103,46 +103,46 @@ final class ExchangeListParityTests: XCTestCase {
     }
 
     func testGeckoTerminalFallbackRefusesOtherPoolsAndEmptyAnswers() {
-        let market = DexScreener()
-        let other = MarketPair("WETH", "USDT", "ethereum/0x11b815efb8f581194ae79006d24e0d814b7697f6")
+        let exchange = DexScreener()
+        let other = ExchangePair("WETH", "USDT", "ethereum/0x11b815efb8f581194ae79006d24e0d814b7697f6")
         var ticker = Ticker()
-        XCTAssertThrowsError(try market.readTickerFallback(call: 0, body: geckoPool, ticker: &ticker, info: other)) {
+        XCTAssertThrowsError(try exchange.readTickerFallback(call: 0, body: geckoPool, ticker: &ticker, info: other)) {
             XCTAssertEqual(($0 as? JSONError)?.message, DexScreener.poolNotFound)
         }
         let rateLimited = #"{"status":{"error_code":429,"error_message":"Rate Limit"}}"#
-        let pool = MarketPair("WETH", "USDC", "ethereum/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640")
-        XCTAssertThrowsError(try market.readTickerFallback(call: 0, body: rateLimited, ticker: &ticker, info: pool)) {
+        let pool = ExchangePair("WETH", "USDC", "ethereum/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640")
+        XCTAssertThrowsError(try exchange.readTickerFallback(call: 0, body: rateLimited, ticker: &ticker, info: pool)) {
             XCTAssertEqual(($0 as? JSONError)?.message, DexScreener.poolNotFound)
         }
         // Unzulässige Kennung: kein Ausweg
-        XCTAssertNil(market.tickerFallbackAddress(call: 0, info: MarketPair("A", "B", "eth/..")))
+        XCTAssertNil(exchange.tickerFallbackAddress(call: 0, info: ExchangePair("A", "B", "eth/..")))
     }
 
     func testOnlyPoolNotFoundOpensTheFallback() {
-        let market = DexScreener()
-        XCTAssertTrue(market.tickerFallbackOnParseError(call: 0, error: JSONError(message: DexScreener.poolNotFound)))
-        XCTAssertFalse(market.tickerFallbackOnParseError(call: 0, error: JSONError(message: "Kein JSON-Objekt")))
+        let exchange = DexScreener()
+        XCTAssertTrue(exchange.tickerFallbackOnParseError(call: 0, error: JSONError(message: DexScreener.poolNotFound)))
+        XCTAssertFalse(exchange.tickerFallbackOnParseError(call: 0, error: JSONError(message: "Kein JSON-Objekt")))
         XCTAssertFalse(Kraken().tickerFallbackOnParseError(call: 0, error: JSONError(message: DexScreener.poolNotFound)))
     }
 
     func testRateLimitOfTheGeckoTerminalFallbackKeepsTheOriginalError() async {
-        let info = MarketPair("WETH", "USDC", "ethereum/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640")
+        let info = ExchangePair("WETH", "USDC", "ethereum/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640")
         // 5xx bei DexScreener, Bremse bei GeckoTerminal (anderer Host): der Serverfehler bleibt
         do {
-            _ = try await SingleTickerFallback.load(market: DexScreener(), call: 0, info: info, base: Ticker(),
-                                                    serverError: HttpMarketError(httpCode: 503, body: "")) { _ in
-                throw HttpMarketError(httpCode: 429, body: "")
+            _ = try await SingleTickerFallback.load(exchange: DexScreener(), call: 0, info: info, base: Ticker(),
+                                                    serverError: HttpExchangeError(httpCode: 503, body: "")) { _ in
+                throw HttpExchangeError(httpCode: 429, body: "")
             }
             XCTFail("Fehler erwartet")
         } catch {
-            XCTAssertEqual((error as? HttpMarketError)?.httpCode, 503)
+            XCTAssertEqual((error as? HttpExchangeError)?.httpCode, 503)
         }
         // «Pool not found», Bremse bei GeckoTerminal: der Lesefehler bleibt
         do {
-            _ = try await SingleTickerFallback.loadAfterMissing(market: DexScreener(), call: 0, info: info,
+            _ = try await SingleTickerFallback.loadAfterMissing(exchange: DexScreener(), call: 0, info: info,
                                                                 base: Ticker(),
                                                                 missing: JSONError(message: DexScreener.poolNotFound)) { _ in
-                throw HttpMarketError(httpCode: 429, body: "")
+                throw HttpExchangeError(httpCode: 429, body: "")
             }
             XCTFail("Fehler erwartet")
         } catch {
@@ -151,10 +151,10 @@ final class ExchangeListParityTests: XCTestCase {
     }
 
     func testLoadAfterMissingDeliversThePoolPrice() async throws {
-        let info = MarketPair("WETH", "USDC", "ethereum/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640")
+        let info = ExchangePair("WETH", "USDC", "ethereum/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640")
         let body = geckoPool
         let ticker = try await SingleTickerFallback.loadAfterMissing(
-            market: DexScreener(), call: 0, info: info, base: Ticker(),
+            exchange: DexScreener(), call: 0, info: info, base: Ticker(),
             missing: JSONError(message: DexScreener.poolNotFound)) { address in
             XCTAssertTrue(address.hasPrefix("https://api.geckoterminal.com/api/v2/networks/eth/pools/"))
             return body
@@ -179,10 +179,10 @@ final class ExchangeListParityTests: XCTestCase {
         XCTAssertEqual(EcbReference.startDate(nowMillis: now), "2026-10-16")
         XCTAssertEqual(EcbReference.seriesURL(base: "EUR", symbols: ["CHF", "USD"], nowMillis: now),
                        "https://api.frankfurter.dev/v1/2026-10-16..?base=EUR&symbols=CHF,USD")
-        let market = EcbReference()
-        XCTAssertNotNil(market.tickerQueryError(call: 0, info: MarketPair("EUR", "US", "EURUS")))
-        XCTAssertNil(market.tickerQueryError(call: 0, info: MarketPair("EUR", "USD", "EURUSD")))
-        XCTAssertEqual(market.bulkTickersRequestCount(pairIds: ["EURUSD", "USDJPY"]), 2)
+        let exchange = EcbReference()
+        XCTAssertNotNil(exchange.tickerQueryError(call: 0, info: ExchangePair("EUR", "US", "EURUS")))
+        XCTAssertNil(exchange.tickerQueryError(call: 0, info: ExchangePair("EUR", "USD", "EURUSD")))
+        XCTAssertEqual(exchange.bulkTickersRequestCount(pairIds: ["EURUSD", "USDJPY"]), 2)
     }
 
     func testEcbReferenceReadsLatestAndPreviousDay() throws {
@@ -192,7 +192,7 @@ final class ExchangeListParityTests: XCTestCase {
         "2026-10-22":{"CHF":0.9211,"USD":1.1205}}}
         """
         var ticker = Ticker()
-        try EcbReference().readTicker(call: 0, body: body, ticker: &ticker, info: MarketPair("EUR", "USD", "EURUSD"))
+        try EcbReference().readTicker(call: 0, body: body, ticker: &ticker, info: ExchangePair("EUR", "USD", "EURUSD"))
         XCTAssertEqual(ticker.last, 1.1188, accuracy: 1e-12)
         XCTAssertEqual(ticker.change24hPercent ?? .nan, (1.1188 / 1.1193 - 1) * 100, accuracy: 1e-9)
         XCTAssertNil(ticker.exchangeTime)
@@ -202,7 +202,7 @@ final class ExchangeListParityTests: XCTestCase {
         XCTAssertTrue(failed.isEmpty)
         var empty = Ticker()
         XCTAssertThrowsError(try EcbReference().readTicker(call: 0, body: body, ticker: &empty,
-                                                           info: MarketPair("EUR", "JPY", "EURJPY")))
+                                                           info: ExchangePair("EUR", "JPY", "EURJPY")))
     }
 
     func testEcbReferencePairList() throws {

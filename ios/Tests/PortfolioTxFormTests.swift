@@ -79,9 +79,9 @@ final class PortfolioTxFormTests: XCTestCase {
 
     // MARK: Merklisten-Paar statt ungeprüfter Kerze
 
-    private func w(_ market: String, _ base: String, _ quote: String, spot: Bool = true, disabled: Bool = false,
+    private func w(_ exchange: String, _ base: String, _ quote: String, spot: Bool = true, disabled: Bool = false,
                    at: Int64 = 0) -> PortfolioWatchPair.Candidate {
-        PortfolioWatchPair.Candidate(marketKey: market, base: base, quote: quote, pairId: nil, spot: spot,
+        PortfolioWatchPair.Candidate(exchangeKey: exchange, base: base, quote: quote, pairId: nil, spot: spot,
                                      disabled: disabled, lastUpdate: at)
     }
 
@@ -113,10 +113,10 @@ final class PortfolioTxFormTests: XCTestCase {
 
     func testWatchPairConflictingNamesGiveNoPick() {
         // K-8: zwei verschiedene Token unter «CAT» in der Merkliste → unklar, welcher im Portfolio steht
-        let gate = PortfolioWatchPair.Candidate(marketKey: "GateIo", base: "CAT", quote: "USDT", pairId: nil, spot: true,
+        let gate = PortfolioWatchPair.Candidate(exchangeKey: "GateIo", base: "CAT", quote: "USDT", pairId: nil, spot: true,
                                                 disabled: false, lastUpdate: 5, name: "Simon's Cat")
         func upbit(_ name: String?, disabled: Bool = false) -> PortfolioWatchPair.Candidate {
-            PortfolioWatchPair.Candidate(marketKey: "Upbit", base: "CAT", quote: "KRW", pairId: nil, spot: true,
+            PortfolioWatchPair.Candidate(exchangeKey: "Upbit", base: "CAT", quote: "KRW", pairId: nil, spot: true,
                                          disabled: disabled, lastUpdate: 9, name: name)
         }
         XCTAssertNil(PortfolioWatchPair.pick("CAT", watches: [gate, upbit("Catcoin")]))

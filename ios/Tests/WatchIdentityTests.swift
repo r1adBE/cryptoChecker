@@ -6,7 +6,7 @@ import XCTest
 final class WatchIdentityTests: XCTestCase {
 
     private func key(_ spec: [String: Any]) -> WatchIdentity.Key {
-        WatchIdentity.key(marketKey: spec["marketKey"] as? String ?? "",
+        WatchIdentity.key(exchangeKey: spec["exchangeKey"] as? String ?? "",
                           base: spec["base"] as? String ?? "",
                           quote: spec["quote"] as? String ?? "",
                           contract: spec["contract"] as? String ?? "",
@@ -25,7 +25,7 @@ final class WatchIdentityTests: XCTestCase {
     }
 
     private func pool(_ id: Int64, _ pairId: String) -> Watch {
-        var watch = Watch(id: id, marketKey: "DexScreener", marketName: "DexScreener",
+        var watch = Watch(id: id, exchangeKey: "DexScreener", exchangeName: "DexScreener",
                           baseAsset: "PEPE", quoteAsset: "USD (ethereum)")
         watch.pairId = pairId
         return watch
@@ -35,17 +35,17 @@ final class WatchIdentityTests: XCTestCase {
         XCTAssertFalse(pool(1, "ethereum/0xaaa").samePair(as: pool(2, "ethereum/0xbbb")))
         XCTAssertTrue(pool(1, "ethereum/0xaaa").samePair(as: pool(3, "ethereum/0xaaa")))
         XCTAssertNotEqual(WatchEdit.Key(pool(1, "ethereum/0xaaa")), WatchEdit.Key(pool(2, "ethereum/0xbbb")))
-        XCTAssertNil(WatchIdentity.pool(marketKey: "Binance", pairId: "BTCUSDT"))
+        XCTAssertNil(WatchIdentity.pool(exchangeKey: "Binance", pairId: "BTCUSDT"))
     }
 
     func testInsertAddsSecondPoolButNotTheSamePoolTwice() {
         var snapshot = SharedStorage.Snapshot()
-        let market = DexScreener()
-        let first = MarketPair("PEPE", "USD (ethereum)", "ethereum/0xaaa")
-        let second = MarketPair("PEPE", "USD (ethereum)", "ethereum/0xbbb")
-        XCTAssertNotNil(AppData.insert(&snapshot, market: market, pair: first))
-        XCTAssertNotNil(AppData.insert(&snapshot, market: market, pair: second))
-        XCTAssertNil(AppData.insert(&snapshot, market: market, pair: first))
+        let exchange = DexScreener()
+        let first = ExchangePair("PEPE", "USD (ethereum)", "ethereum/0xaaa")
+        let second = ExchangePair("PEPE", "USD (ethereum)", "ethereum/0xbbb")
+        XCTAssertNotNil(AppData.insert(&snapshot, exchange: exchange, pair: first))
+        XCTAssertNotNil(AppData.insert(&snapshot, exchange: exchange, pair: second))
+        XCTAssertNil(AppData.insert(&snapshot, exchange: exchange, pair: first))
         XCTAssertEqual(snapshot.watches.count, 2)
     }
 

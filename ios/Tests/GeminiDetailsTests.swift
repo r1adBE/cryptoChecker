@@ -7,17 +7,17 @@ import XCTest
 final class GeminiDetailsTests: XCTestCase {
 
     func testAmbiguousSymbolsComeFromDetailsPages() throws {
-        let market = Gemini()
+        let exchange = Gemini()
         let listBody = #"["btcusd","btcgusd","mogusd","abcgusd","ethusd"]"#
-        let list = try market.readPairList(call: 0, body: listBody)
+        let list = try exchange.readPairList(call: 0, body: listBody)
         // Mehrdeutig (gusd/usd) → immer Details, auch btcgusd trotz bekanntem BTC: nichts geraten
         XCTAssertEqual(list.map { $0.pairId ?? "" }, ["btcusd", "ethusd"])
-        let paging = market.pairListPaging()
+        let paging = exchange.pairListPaging()
         XCTAssertEqual(try paging.nextPage(call: 0, body: listBody),
                        "https://api.gemini.com/v1/symbols/details/btcgusd")
         // Details entscheiden: BTC/GUSD
         let btc = #"{"symbol":"BTCGUSD","base_currency":"BTC","quote_currency":"GUSD","status":"open"}"#
-        let btcPair = try market.readPairList(call: 0, body: btc)
+        let btcPair = try exchange.readPairList(call: 0, body: btc)
         XCTAssertEqual(btcPair.count, 1)
         XCTAssertEqual(btcPair.first?.pairId, "btcgusd")
         XCTAssertEqual(btcPair.first?.base, "BTC")
@@ -26,13 +26,13 @@ final class GeminiDetailsTests: XCTestCase {
                        "https://api.gemini.com/v1/symbols/details/mogusd")
         // Fehlerantwort: nicht raten — mogusd bleibt ungeklärt (fehlt in der Paarliste)
         let error = #"{"result":"error","reason":"InvalidSymbol","message":"x"}"#
-        let mog = try market.readPairList(call: 0, body: error)
+        let mog = try exchange.readPairList(call: 0, body: error)
         XCTAssertTrue(mog.isEmpty)
         XCTAssertEqual(try paging.nextPage(call: 0, body: error),
                        "https://api.gemini.com/v1/symbols/details/abcgusd")
         // Details entscheiden: ABC/GUSD (die Liste hätte ABCG/USD gesagt)
         let detail = #"{"symbol":"ABCGUSD","base_currency":"ABC","quote_currency":"GUSD","status":"open"}"#
-        let abc = try market.readPairList(call: 0, body: detail)
+        let abc = try exchange.readPairList(call: 0, body: detail)
         XCTAssertEqual(abc.count, 1)
         XCTAssertEqual(abc.first?.base, "ABC")
         XCTAssertEqual(abc.first?.quote, "GUSD")
@@ -41,11 +41,11 @@ final class GeminiDetailsTests: XCTestCase {
 
     func testConcurrentSyncsKeepTheirOwnQueue() throws {
         // Zwei Synchronisierungen derselben (geteilten) Börse greifen ineinander: jede behält ihre Warteschlange
-        let market = Gemini()
+        let exchange = Gemini()
         let listA = #"["btcgusd","mogusd"]"#
         let listB = #"["abcgusd"]"#
-        let syncA = market.pairListPaging()
-        let syncB = market.pairListPaging()
+        let syncA = exchange.pairListPaging()
+        let syncB = exchange.pairListPaging()
         XCTAssertEqual(try syncA.nextPage(call: 0, body: listA), "https://api.gemini.com/v1/symbols/details/btcgusd")
         XCTAssertEqual(try syncB.nextPage(call: 0, body: listB), "https://api.gemini.com/v1/symbols/details/abcgusd")
         let btc = #"{"symbol":"BTCGUSD","base_currency":"BTC","quote_currency":"GUSD"}"#
@@ -56,7 +56,7 @@ final class GeminiDetailsTests: XCTestCase {
         XCTAssertNil(try syncA.nextPage(call: 0, body: mog))
     }
 
-    func testMarketsWithoutOwnStatePageFromTheResponse() throws {
+    func testExchangesWithoutOwnStatePageFromTheResponse() throws {
         // Bybit: Cursor steht in der Antwort — der Blätterzustand leitet nur an pairListNextPage weiter
         let body = #"{"retCode":0,"result":{"category":"spot","list":[],"nextPageCursor":"abc"}}"#
         XCTAssertEqual(try Bybit().pairListPaging().nextPage(call: 0, body: body),
@@ -96,16 +96,16 @@ final class GeminiDetailsTests: XCTestCase {
     }
 
     /// Eine Synchronisierung: Liste, dann alle Detail-Folgeseiten. Ergebnis: Paare und Zahl der Detail-Abfragen.
-    private func sync(_ market: Gemini, _ listBody: String) throws -> (pairs: [MarketPair], asked: Int) {
-        var pairs: [MarketPair] = try market.readPairList(call: 0, body: listBody)
-        let paging = market.pairListPaging()
+    private func sync(_ exchange: Gemini, _ listBody: String) throws -> (pairs: [ExchangePair], asked: Int) {
+        var pairs: [ExchangePair] = try exchange.readPairList(call: 0, body: listBody)
+        let paging = exchange.pairListPaging()
         var url: String? = try paging.nextPage(call: 0, body: listBody)
         var asked = 0
         while let current = url {
             let symbol: String = String(current.split(separator: "/").last ?? "")
             let base: String = String(symbol.dropLast(4)).uppercased()
             let body = "{\"symbol\":\"\(symbol.uppercased())\",\"base_currency\":\"\(base)\",\"quote_currency\":\"GUSD\"}"
-            pairs += try market.readPairList(call: 0, body: body)
+            pairs += try exchange.readPairList(call: 0, body: body)
             url = try paging.nextPage(call: 0, body: body)
             asked += 1
         }
@@ -113,15 +113,15 @@ final class GeminiDetailsTests: XCTestCase {
     }
 
     func testOverflowResolvedByLaterSync() throws {
-        let market = Gemini()
+        let exchange = Gemini()
         let listBody = "[" + Self.overflowSymbols.map { "\"\($0)\"" }.joined(separator: ",") + "]"
         // 1. Synchronisierung: 9 Details, die übrigen 3 fehlen (ungeklärt statt geraten)
-        let first = try sync(market, listBody)
+        let first = try sync(exchange, listBody)
         XCTAssertEqual(first.asked, Gemini.maxDetails)
         XCTAssertEqual(first.pairs.count, Gemini.maxDetails)
         XCTAssertTrue(first.pairs.allSatisfy { $0.quote == "GUSD" })
         // 2. Synchronisierung: die 9 aus dem Zwischenspeicher, die 3 übrigen über Details — danach vollständig
-        let second = try sync(market, listBody)
+        let second = try sync(exchange, listBody)
         XCTAssertEqual(second.asked, 12 - Gemini.maxDetails)
         XCTAssertEqual(Set(second.pairs.compactMap { $0.pairId }), Set(Self.overflowSymbols))
         XCTAssertTrue(second.pairs.allSatisfy { $0.quote == "GUSD" && $0.base.count == 2 })
@@ -129,18 +129,18 @@ final class GeminiDetailsTests: XCTestCase {
 
     func testDetailsCachedBySymbolNotCursor() throws {
         // Antworten versetzt (zuerst ABCGUSD, obwohl btcgusd gefragt war): Ablage unter dem Symbol der Antwort
-        let market = Gemini()
+        let exchange = Gemini()
         let listBody = #"["btcgusd","abcgusd"]"#
-        _ = try market.readPairList(call: 0, body: listBody)
-        let paging = market.pairListPaging()
+        _ = try exchange.readPairList(call: 0, body: listBody)
+        let paging = exchange.pairListPaging()
         _ = try paging.nextPage(call: 0, body: listBody)
         let abc = #"{"symbol":"ABCGUSD","base_currency":"ABC","quote_currency":"GUSD"}"#
-        _ = try market.readPairList(call: 0, body: abc)
+        _ = try exchange.readPairList(call: 0, body: abc)
         _ = try paging.nextPage(call: 0, body: abc)
         let btc = #"{"symbol":"BTCGUSD","base_currency":"BTC","quote_currency":"GUSD"}"#
-        _ = try market.readPairList(call: 0, body: btc)
+        _ = try exchange.readPairList(call: 0, body: btc)
         // Nächste Synchronisierung aus dem Zwischenspeicher: jedes Symbol mit seinen eigenen Details
-        let cached = try market.readPairList(call: 0, body: listBody)
+        let cached = try exchange.readPairList(call: 0, body: listBody)
         var bases: [String: String] = [:]
         for pair in cached { bases[pair.pairId ?? ""] = pair.base }
         XCTAssertEqual(bases, ["btcgusd": "BTC", "abcgusd": "ABC"])

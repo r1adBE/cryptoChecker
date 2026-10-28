@@ -82,7 +82,7 @@ struct SheetCandleRequest: Equatable, Sendable {
 /// Reine Regeln des Charts im Aktionsblatt — gleiche Regeln wie Android (`SheetChart`).
 enum SheetChart {
     /// Markt-Schlüssel von DexScreener (wie auf der Seite «Paar hinzufügen»): keine Börsen-Kerzen.
-    static let dexMarketKey = "DexScreener"
+    static let dexExchangeKey = "DexScreener"
 
     /// Kurzes Ticken nur beim Wechsel auf eine andere Kerze.
     static func isNewCandle(previous: Int?, current: Int?) -> Bool {
@@ -97,8 +97,8 @@ enum SheetChart {
     }
 
     /// Kann die Kerzenquelle das Paar überhaupt liefern? Sonst Block ganz ausblenden.
-    static func isSupported(marketKey: String, base: String, quote: String) -> Bool {
-        marketKey.caseInsensitiveCompare(dexMarketKey) != .orderedSame && isAsset(base) && isAsset(quote)
+    static func isSupported(exchangeKey: String, base: String, quote: String) -> Bool {
+        exchangeKey.caseInsensitiveCompare(dexExchangeKey) != .orderedSame && isAsset(base) && isAsset(quote)
     }
 
     /// Abfragen in fester Reihenfolge — wie der 24-h-Bezug (`DayChange.select`):

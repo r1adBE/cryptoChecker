@@ -75,7 +75,7 @@ data class SheetCandleRequest(val base: String, val quote: String, val convert: 
 object SheetChart {
 
     /** Markt-Schlüssel von DexScreener (wie im Hinzufügen-Tab): keine Börsen-Kerzen. */
-    const val DEX_MARKET_KEY = "DexScreener"
+    const val DEX_EXCHANGE_KEY = "DexScreener"
 
     /** Kurzes Ticken nur beim Wechsel auf eine andere Kerze. */
     fun isNewCandle(previous: Int?, current: Int?): Boolean = current != null && previous != current
@@ -87,8 +87,8 @@ object SheetChart {
     }
 
     /** Kann die Kerzenquelle das Paar überhaupt liefern? Sonst Block ganz ausblenden. */
-    fun isSupported(marketKey: String, base: String, quote: String): Boolean =
-        !marketKey.equals(DEX_MARKET_KEY, ignoreCase = true) && isAsset(base) && isAsset(quote)
+    fun isSupported(exchangeKey: String, base: String, quote: String): Boolean =
+        !exchangeKey.equals(DEX_EXCHANGE_KEY, ignoreCase = true) && isAsset(base) && isAsset(quote)
 
     /**
      * Abfragen in fester Reihenfolge — wie der 24-h-Bezug ([DayChange.select]):
@@ -359,11 +359,11 @@ class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
     private val entries = com.cryptochecker.app.data.BoundedCache<String, Entry>(com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES)
 
     /**
-     * [price] = aktueller Kurs des Paars; null = Sprung nicht prüfen. [market] = Börse des Paars
+     * [price] = aktueller Kurs des Paars; null = Sprung nicht prüfen. [exchange] = Börse des Paars
      * (eigene Kerzen je Börse, z. B. `CandlePair.cacheKey`); leer = nur Kürzel.
      */
-    fun get(base: String, quote: String, range: SheetChartRange, price: Double? = null, market: String = ""): SheetChartResult.Ready? {
-        val k = key(base, quote, range, market)
+    fun get(base: String, quote: String, range: SheetChartRange, price: Double? = null, exchange: String = ""): SheetChartResult.Ready? {
+        val k = key(base, quote, range, exchange)
         val entry = entries[k] ?: return null
         val age = now() - entry.time
         // Bezug: Kurs beim Speichern (Kerzen und Kurs dürfen je nach Börse leicht auseinanderliegen)
@@ -376,14 +376,14 @@ class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
     /** [price] = Kurs des Paars beim Laden (Bezug für den Sprung). */
     fun put(
         base: String, quote: String, range: SheetChartRange, value: SheetChartResult.Ready, price: Double? = null,
-        market: String = "",
+        exchange: String = "",
     ) {
-        entries[key(base, quote, range, market)] = Entry(now(), value, price?.takeIf { it.isFinite() && it > 0.0 })
+        entries[key(base, quote, range, exchange)] = Entry(now(), value, price?.takeIf { it.isFinite() && it > 0.0 })
     }
 
     /** Alle Zeiträume eines Paars verwerfen (Aktualisieren im Blatt). */
-    fun invalidate(base: String, quote: String, market: String = "") {
-        val prefix = prefix(base, quote, market)
+    fun invalidate(base: String, quote: String, exchange: String = "") {
+        val prefix = prefix(base, quote, exchange)
         entries.removeKeysIf { it.startsWith(prefix) }
     }
 
@@ -392,9 +392,9 @@ class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
         entries.clear()
     }
 
-    private fun prefix(base: String, quote: String, market: String): String =
-        (if (market.isEmpty()) "" else "$market#") + "${base.trim().uppercase()}|${quote.trim().uppercase()}|"
+    private fun prefix(base: String, quote: String, exchange: String): String =
+        (if (exchange.isEmpty()) "" else "$exchange#") + "${base.trim().uppercase()}|${quote.trim().uppercase()}|"
 
-    private fun key(base: String, quote: String, range: SheetChartRange, market: String): String =
-        prefix(base, quote, market) + range.name
+    private fun key(base: String, quote: String, range: SheetChartRange, exchange: String): String =
+        prefix(base, quote, exchange) + range.name
 }

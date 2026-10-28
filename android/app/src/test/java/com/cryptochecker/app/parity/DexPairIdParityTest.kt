@@ -1,10 +1,10 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.BackupRestoreLimits
-import com.cryptochecker.marketdata.exceptions.MarketParseException
+import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.market.DexScreener
+import com.cryptochecker.marketdata.model.exchange.DexScreener
 import org.junit.Assert.assertEquals
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.junit.Assert.assertFalse
@@ -20,7 +20,7 @@ import org.junit.Test
 class DexPairIdParityTest {
 
     private val fixture = ParityJson.load("dex_pair_id.json")
-    private val market = DexScreener()
+    private val exchange = DexScreener()
 
     private fun cases() = fixture["cases"].list().map { it as Map<*, *> }
 
@@ -39,20 +39,20 @@ class DexPairIdParityTest {
             val id = c["pairId"] as String
             val info = PairQuery("X", "USD (ethereum)", id, FuturesContractType.NONE)
             if (c["valid"] as Boolean) {
-                assertEquals(id, base + id, market.tickerAddress(0, info))
+                assertEquals(id, base + id, exchange.tickerAddress(0, info))
             } else {
                 try {
-                    market.tickerAddress(0, info)
+                    exchange.tickerAddress(0, info)
                     fail("$id: Adresse statt «nicht gefunden»")
-                } catch (e: MarketParseException) {
+                } catch (e: ExchangeParseException) {
                     assertEquals(id, DexScreener.POOL_NOT_FOUND, e.message)
                 }
             }
         }
         try {
-            market.tickerAddress(0, PairQuery("X", "USD (ethereum)", null, FuturesContractType.NONE))
+            exchange.tickerAddress(0, PairQuery("X", "USD (ethereum)", null, FuturesContractType.NONE))
             fail("ohne Kennung: Adresse statt «nicht gefunden»")
-        } catch (e: MarketParseException) {
+        } catch (e: ExchangeParseException) {
             assertEquals(DexScreener.POOL_NOT_FOUND, e.message)
         }
     }
@@ -62,7 +62,7 @@ class DexPairIdParityTest {
     fun pfadBleibtNachUrlParser() {
         for (c in cases().filter { it["valid"] as Boolean }) {
             val id = c["pairId"] as String
-            val url = market.tickerAddress(0, PairQuery("X", "USD (ethereum)", id, FuturesContractType.NONE)).toHttpUrl()
+            val url = exchange.tickerAddress(0, PairQuery("X", "USD (ethereum)", id, FuturesContractType.NONE)).toHttpUrl()
             assertTrue(id, url.encodedPath.endsWith("/latest/dex/pairs/$id"))
         }
     }

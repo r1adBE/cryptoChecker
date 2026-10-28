@@ -8,9 +8,9 @@ import UIKit
 extension WatchlistRow {
     /// Kleine Marke hinter dem Kurs: «Stundenkurs» (WOO X Spot) bzw. «täglich» (EZB-Referenzkurs, vorgelesen
     /// «Referenzkurs, täglich»); sonst nil.
-    static func priceMarker(_ market: Market?) -> String? {
-        if market?.priceIsHourlyClose == true { return L("watch_price_hourly") }
-        if market?.priceIsDailyReference == true { return L("watch_price_daily") }
+    static func priceMarker(_ exchange: Exchange?) -> String? {
+        if exchange?.priceIsHourlyClose == true { return L("watch_price_hourly") }
+        if exchange?.priceIsDailyReference == true { return L("watch_price_daily") }
         return nil
     }
 
@@ -243,7 +243,7 @@ extension WatchlistRow {
                 // laufenden Stundenkerze (WOO X Spot): «Stundenkurs» wie im Aktionsblatt; EZB: «täglich»
                 // — alles wie Android
                 if let marker = MarkFallbackStore.contains(watch.id) ? L("watch_change_mark")
-                    : WatchlistRow.priceMarker(MarketsConfig.market(watch.marketKey)) {
+                    : WatchlistRow.priceMarker(ExchangesConfig.exchange(watch.exchangeKey)) {
                     Text(marker)
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)

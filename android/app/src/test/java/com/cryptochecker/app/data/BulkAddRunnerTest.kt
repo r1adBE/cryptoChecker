@@ -5,11 +5,11 @@ import com.cryptochecker.app.data.FakeWatchStore.Companion.pair
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistNotSavedGate
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.features.explorer.BulkAddResult as ShownResult
 import com.cryptochecker.app.ui.features.explorer.BulkAddDisplay
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -60,8 +60,8 @@ class BulkAddRunnerTest {
         override suspend fun confirm(): Boolean = confirmStep()
 
         override suspend fun add(
-            market: MarketInfo,
-            pairs: List<MarketPair>,
+            exchange: ExchangeInfo,
+            pairs: List<ExchangePair>,
             group: String?,
             onProgress: (Int) -> Unit,
         ) = collectBulkAdd(
@@ -69,7 +69,7 @@ class BulkAddRunnerTest {
             refused = { writeRefused(blocked = false, notify = true) },
             add = {
                 check(it.base != failOn) { "Datenbank-Schlüssel nicht lesbar" }
-                store.add(market, it)
+                store.add(exchange, it)
             },
             onProgress = {
                 onProgress(it)

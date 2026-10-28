@@ -65,7 +65,7 @@ class WatchlistSheetData @Inject constructor(
         } else {
             null
         }
-        return com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(listOf(watch.marketKey, watch.marketName), chartProvider)
+        return com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(listOf(watch.exchangeKey, watch.exchangeName), chartProvider)
     }
 
     /**
@@ -74,7 +74,7 @@ class WatchlistSheetData @Inject constructor(
      */
     fun foreignCandleSource(watch: WatchEntity): String? =
         com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(
-            listOf(watch.marketKey, watch.marketName),
+            listOf(watch.exchangeKey, watch.exchangeName),
             dayReferences.pillCandleSource(watch.id),
         )
 
@@ -94,7 +94,7 @@ class WatchlistSheetData @Inject constructor(
 
     /** Ausweich-Reihe von [provider] beim Paar [watch] erlaubt (kein klarer Namens-Widerspruch, K-8)? */
     private fun fallbackSeriesAllowed(watch: WatchEntity, provider: String?): Boolean =
-        tokenIdentityStore.fallbackSeriesAllowed(watch.marketKey, watch.baseAsset, provider)
+        tokenIdentityStore.fallbackSeriesAllowed(watch.exchangeKey, watch.baseAsset, provider)
 
     /**
      * Gemerkte Stundenkurse der EIGENEN Börse des Paars (in seiner Quote, Umrechnungsfaktor 1) — nur
@@ -148,7 +148,7 @@ class WatchlistSheetData @Inject constructor(
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
                 if (watch.contractType.isPerpetual) {
                     futuresDataSource.fetch(watch)
-                } else if (com.cryptochecker.app.domain.spot.SpotMarket.eligible(watch.marketKey, isTradFi(watch))) {
+                } else if (com.cryptochecker.app.domain.spot.SpotMarket.eligible(watch.exchangeKey, isTradFi(watch))) {
                     futuresDataSource.fetchForBase(watch.baseAsset)
                 } else {
                     null
@@ -164,13 +164,13 @@ class WatchlistSheetData @Inject constructor(
      * (TradFi, DEX-Pool, unbekannter Coin oder nicht erreichbar). Erst beim Öffnen des Tabs.
      */
     suspend fun fetchSpot(watch: WatchEntity): com.cryptochecker.app.domain.spot.SpotData? {
-        if (!com.cryptochecker.app.domain.spot.SpotMarket.eligible(watch.marketKey, isTradFi(watch))) return null
+        if (!com.cryptochecker.app.domain.spot.SpotMarket.eligible(watch.exchangeKey, isTradFi(watch))) return null
         val symbol = com.cryptochecker.app.domain.spot.SpotMarket.lookupSymbol(watch.baseAsset) ?: return null
         return kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { spotDataSource.fetch(symbol) }
     }
 
     private fun isTradFi(watch: WatchEntity): Boolean =
-        coinLogoRepository.isTradFi(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
+        coinLogoRepository.isTradFi(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
 
     /** Chart im Aktionsblatt aus dem Zwischenspeicher (ohne Netz); null = laden. */
     fun cachedSheetChart(watch: WatchEntity, range: SheetChartRange): SheetChartResult? =

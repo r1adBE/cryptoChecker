@@ -1,7 +1,7 @@
 import Foundation
 
 /// Volle Namen der Coins für die Prüfung «gleicher Token» (`TokenIdentity`, K-8): je Börse aus ihrer
-/// Paarliste (beim Abgleich der Paare, `saveMarket`) und von Binance aus der Symbolliste der Logos
+/// Paarliste (beim Abgleich der Paare, `saveExchange`) und von Binance aus der Symbolliste der Logos
 /// (`saveBinance`). Keine eigene Anfrage — nur, was ohnehin geladen wird. Eine Datei im App-Group-Ordner,
 /// aus Geräte-Backups ausgenommen (neu ladbar). Wie `TokenIdentityStore.kt`.
 final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
@@ -57,16 +57,16 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
         _ = currentLocked()
     }
 
-    /// Name des Coins `base` in der Paarliste der Börse `marketKey`; nil = unbekannt.
-    func pairName(marketKey: String, base: String) -> String? {
+    /// Name des Coins `base` in der Paarliste der Börse `exchangeKey`; nil = unbekannt.
+    func pairName(exchangeKey: String, base: String) -> String? {
         lock.lock(); defer { lock.unlock() }
-        return currentLocked().pairName(marketKey: marketKey, base: base)
+        return currentLocked().pairName(exchangeKey: exchangeKey, base: base)
     }
 
-    /// Namen der Coins der Börse `marketKey` (Kürzel gross, `TokenIdentity.key` → Name); leer = unbekannt.
-    func marketNames(_ marketKey: String) -> [String: String] {
+    /// Namen der Coins der Börse `exchangeKey` (Kürzel gross, `TokenIdentity.key` → Name); leer = unbekannt.
+    func exchangeNames(_ exchangeKey: String) -> [String: String] {
         lock.lock(); defer { lock.unlock() }
-        return currentLocked().markets[marketKey] ?? [:]
+        return currentLocked().exchanges[exchangeKey] ?? [:]
     }
 
     /// `fullName` von Binance für `base`; nil = unbekannt.
@@ -80,17 +80,17 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
     func otherNames(_ base: String) -> [String?] {
         lock.lock(); defer { lock.unlock() }
         let key = TokenIdentity.key(base)
-        let names: [String] = currentLocked().markets.values.compactMap { $0[key] }
+        let names: [String] = currentLocked().exchanges.values.compactMap { $0[key] }
         return names
     }
 
     /// Namen aus einer frisch geladenen Paarliste; ohne Namen bleibt der bisherige Stand.
-    func saveMarket(_ marketKey: String, names: [String: String]) {
+    func saveExchange(_ exchangeKey: String, names: [String: String]) {
         let cleaned = TokenIdentity.cleaned(names)
         if cleaned.isEmpty { return }
         update { index in
             var next = index
-            next.markets[marketKey] = cleaned
+            next.exchanges[exchangeKey] = cleaned
             return next
         }
     }
@@ -111,7 +111,7 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
     func watchName(_ coin: String, watches: [Watch]) -> String? {
         let key = TokenIdentity.key(coin)
         let names = watches.filter { !$0.disabled && TokenIdentity.key($0.baseAsset) == key }
-            .map { pairName(marketKey: $0.marketKey, base: $0.baseAsset) }
+            .map { pairName(exchangeKey: $0.exchangeKey, base: $0.baseAsset) }
         return TokenIdentity.consensus(symbol: key, names)
     }
 
@@ -123,28 +123,28 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
     }
 
     /// Darf die Ausweich-Reihe von `provider` (gemeinsamer Zwischenspeicher je Kürzel) beim Paar `base` an
-    /// `marketKey` erscheinen? Nein bei klar anderem Namen — dann lieber nichts als die Reihe eines anderen
+    /// `exchangeKey` erscheinen? Nein bei klar anderem Namen — dann lieber nichts als die Reihe eines anderen
     /// Tokens. Wie `TokenIdentityStore.fallbackSeriesAllowed` (Android).
-    func fallbackSeriesAllowed(marketKey: String, base: String, provider: String?) -> Bool {
-        let providerKey: String? = provider.flatMap { TokenIdentity.providerMarkets[$0.trimmingCharacters(in: .whitespaces)] }
-        let providerName: String? = providerKey.flatMap { pairName(marketKey: $0, base: base) }
-        return TokenIdentity.fallbackSeriesAllowed(symbol: base, ownName: pairName(marketKey: marketKey, base: base),
+    func fallbackSeriesAllowed(exchangeKey: String, base: String, provider: String?) -> Bool {
+        let providerKey: String? = provider.flatMap { TokenIdentity.providerExchanges[$0.trimmingCharacters(in: .whitespaces)] }
+        let providerName: String? = providerKey.flatMap { pairName(exchangeKey: $0, base: base) }
+        return TokenIdentity.fallbackSeriesAllowed(symbol: base, ownName: pairName(exchangeKey: exchangeKey, base: base),
                                                    provider: provider, binanceName: binanceName(base),
                                                    providerName: providerName)
     }
 
-    /// Darf die Ausweich-Reihe von `provider` die %-Veränderung des Paars `base` an `marketKey` (`marketName`)
+    /// Darf die Ausweich-Reihe von `provider` die %-Veränderung des Paars `base` an `exchangeKey` (`exchangeName`)
     /// liefern? Kerzen derselben Börse (`DayChange.foreignCandleSource` nil): wie `fallbackSeriesAllowed`. Kerzen
     /// einer anderen Börse oder unbekannter Anbieter: nur mit belegt gleichem Namen (`TokenIdentity.fallbackChangeAllowed`)
     /// — sonst keine Veränderung statt eines fremden Werts. Wie `TokenIdentityStore.fallbackChangeAllowed` (Android).
-    func fallbackChangeAllowed(marketKey: String, marketName: String, base: String, provider: String?) -> Bool {
+    func fallbackChangeAllowed(exchangeKey: String, exchangeName: String, base: String, provider: String?) -> Bool {
         guard let p = provider?.trimmingCharacters(in: .whitespaces), !p.isEmpty else { return false }
-        if DayChange.foreignCandleSource(markets: [marketKey, marketName], provider: p) == nil {
-            return fallbackSeriesAllowed(marketKey: marketKey, base: base, provider: p)
+        if DayChange.foreignCandleSource(exchanges: [exchangeKey, exchangeName], provider: p) == nil {
+            return fallbackSeriesAllowed(exchangeKey: exchangeKey, base: base, provider: p)
         }
-        let providerKey: String? = TokenIdentity.providerMarkets[p]
-        let providerName: String? = providerKey.flatMap { pairName(marketKey: $0, base: base) }
-        return TokenIdentity.fallbackChangeAllowed(symbol: base, ownName: pairName(marketKey: marketKey, base: base),
+        let providerKey: String? = TokenIdentity.providerExchanges[p]
+        let providerName: String? = providerKey.flatMap { pairName(exchangeKey: $0, base: base) }
+        return TokenIdentity.fallbackChangeAllowed(symbol: base, ownName: pairName(exchangeKey: exchangeKey, base: base),
                                                    provider: p, binanceName: binanceName(base),
                                                    providerName: providerName)
     }
@@ -153,7 +153,7 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
     /// Gleiche Namenssperre wie Mini-Chart und Widget. Wie `TokenIdentityStore.chainSourceAllowed` (Android).
     func chainSourceAllowed(base: String, ownName: String?, host: String) -> Bool {
         let provider: String = DataFreshness.candleProvider(host: host)
-        let providerName: String? = TokenIdentity.providerMarkets[provider].flatMap { pairName(marketKey: $0, base: base) }
+        let providerName: String? = TokenIdentity.providerExchanges[provider].flatMap { pairName(exchangeKey: $0, base: base) }
         return TokenIdentity.chainSourceAllowed(symbol: base, ownName: ownName, host: host, binanceName: binanceName(base),
                                                 providerName: providerName)
     }

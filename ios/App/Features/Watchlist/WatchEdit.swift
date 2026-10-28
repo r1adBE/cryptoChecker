@@ -7,14 +7,14 @@ enum WatchEdit {
     /// Wie der eindeutige Schlüssel der Merkliste (`WatchIdentity`): Börse, Basis, Quote, Kontrakt, bei
     /// DexScreener der Pool (`WatchIdentity.pool`, sonst nil).
     struct Key: Hashable, Sendable {
-        let marketKey: String
+        let exchangeKey: String
         let base: String
         let quote: String
         let contract: String
         let pool: String?
 
-        init(marketKey: String, base: String, quote: String, contract: String, pool: String? = nil) {
-            self.marketKey = marketKey
+        init(exchangeKey: String, base: String, quote: String, contract: String, pool: String? = nil) {
+            self.exchangeKey = exchangeKey
             self.base = base
             self.quote = quote
             self.contract = contract
@@ -22,15 +22,15 @@ enum WatchEdit {
         }
 
         init(_ watch: Watch) {
-            self.init(marketKey: watch.marketKey, base: watch.baseAsset, quote: watch.quoteAsset,
+            self.init(exchangeKey: watch.exchangeKey, base: watch.baseAsset, quote: watch.quoteAsset,
                       contract: String(watch.contractType.rawValue),
-                      pool: WatchIdentity.pool(marketKey: watch.marketKey, pairId: watch.pairId))
+                      pool: WatchIdentity.pool(exchangeKey: watch.exchangeKey, pairId: watch.pairId))
         }
 
-        init(marketKey: String, pair: MarketPair) {
-            self.init(marketKey: marketKey, base: pair.base, quote: pair.quote,
+        init(exchangeKey: String, pair: ExchangePair) {
+            self.init(exchangeKey: exchangeKey, base: pair.base, quote: pair.quote,
                       contract: String(pair.contractType.rawValue),
-                      pool: WatchIdentity.pool(marketKey: marketKey, pairId: pair.pairId))
+                      pool: WatchIdentity.pool(exchangeKey: exchangeKey, pairId: pair.pairId))
         }
     }
 

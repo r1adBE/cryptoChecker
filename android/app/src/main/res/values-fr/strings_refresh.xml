@@ -28,8 +28,8 @@
         <item quantity="other">requête groupée %1$s · %2$d cours</item>
     </plurals>
     <string name="refresh_sheet_database">Base de données</string>
-    <string name="refresh_sheet_market_unreachable">%1$s injoignable</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s injoignable</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d plateforme injoignable</item>
         <item quantity="many">%1$d plateformes injoignables</item>
         <item quantity="other">%1$d plateformes injoignables</item>
@@ -68,7 +68,7 @@
     <string name="refresh_sheet_reason_unavailable">plateforme indisponible</string>
     <string name="refresh_sheet_seconds_a11y">%1$s secondes</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Plateformes</string>
+    <string name="refresh_sheet_section_exchanges">Plateformes</string>
     <string name="refresh_sheet_section_steps">Déroulement</string>
     <string name="refresh_sheet_status_failed">non actualisé</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

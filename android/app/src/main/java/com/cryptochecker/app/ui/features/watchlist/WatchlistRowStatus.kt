@@ -56,7 +56,7 @@ internal fun watchRowStatus(
     val unreachableText = if (failed && watch.lastUpdate > 0) {
         // Zeit steht hier am Zeilenanfang: gross beginnend
         val age = ago(watch.lastUpdate, now)
-        lineStart(stringResource(R.string.watchlist_row_unreachable, age, watch.marketName), age)
+        lineStart(stringResource(R.string.watchlist_row_unreachable, age, watch.exchangeName), age)
     } else {
         null
     }
@@ -64,7 +64,7 @@ internal fun watchRowStatus(
     val outdatedText = if (!failed && !isNotTraded(watch.lastError) && watch.lastUpdate > 0 &&
         now - watch.lastUpdate > outdatedAfter
     ) {
-        "${BidiText.isolate(watch.marketName)} · " +
+        "${BidiText.isolate(watch.exchangeName)} · " +
             stringResource(R.string.watchlist_row_outdated_age, ago(watch.lastUpdate, now))
     } else {
         null
@@ -77,15 +77,15 @@ internal fun watchRowStatus(
     } else {
         null
     }
-    val tradeText = tradeAge?.let { "${BidiText.isolate(watch.marketName)} · $it" }
+    val tradeText = tradeAge?.let { "${BidiText.isolate(watch.exchangeName)} · $it" }
     // Börse pausiert (zu viele Anfragen, Zeitüberschreitungen): das sagt mehr als «nicht erreichbar» bzw. «veraltet»
     // und nennt, wann es weitergeht — gleiche Stelle und Farbe wie die übrigen Warnungen
     val pausedText = pausedUntil?.let {
-        stringResource(R.string.watchlist_row_exchange_paused, BidiText.isolate(watch.marketName), PriceFormat.shortTime(it))
+        stringResource(R.string.watchlist_row_exchange_paused, BidiText.isolate(watch.exchangeName), PriceFormat.shortTime(it))
     }
     val warningText = pausedText ?: unreachableText ?: outdatedText ?: tradeText
     val showErrorLine = watch.lastError != null &&
-        (unreachableText == null || !isRetryableMarketError(watch.lastError))
+        (unreachableText == null || !isRetryableExchangeError(watch.lastError))
     val errorText = watch.lastError?.takeIf { showErrorLine }?.let { friendlyError(it) }
     val staleText = if (warningText == null && stale && watch.lastUpdate > 0) {
         stringResource(R.string.a11y_stale, ago(watch.lastUpdate, now))

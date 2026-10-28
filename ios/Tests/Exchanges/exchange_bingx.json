@@ -11,7 +11,7 @@
     {
       "kind": "single",
       "name": "spot 24hr BTC-USDT: data is an array with one entry, change from openPrice (priceChangePercent carries a '%')",
-      "market": "BingX",
+      "exchangeKey": "BingX",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -35,7 +35,7 @@
     {
       "kind": "single",
       "name": "swap ticker BTC-USDT: data is an object, change from openPrice",
-      "market": "BingXFutures",
+      "exchangeKey": "BingXFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -59,7 +59,7 @@
     {
       "kind": "single",
       "name": "swap ticker without bid/ask/openPrice: missing fields, no 24 h change",
-      "market": "BingXFutures",
+      "exchangeKey": "BingXFutures",
       "pair": {
         "base": "ETH",
         "quote": "USDT",
@@ -82,7 +82,7 @@
     {
       "kind": "single",
       "name": "error payload: unknown symbol, msg is the error text",
-      "market": "BingXFutures",
+      "exchangeKey": "BingXFutures",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -99,7 +99,7 @@
     {
       "kind": "single",
       "name": "spot: empty data with code 0: 'No data', not the (empty) msg",
-      "market": "BingX",
+      "exchangeKey": "BingX",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -118,7 +118,7 @@
     {
       "kind": "bulk",
       "name": "bulk spot: entry with empty lastPrice (inactive) is skipped, not reported as unreadable",
-      "market": "BingX",
+      "exchangeKey": "BingX",
       "requestId": 0,
       "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"openPrice\":\"60500.50\",\"highPrice\":\"62500.00\",\"lowPrice\":\"60000.00\",\"lastPrice\":\"62000.10\",\"priceChange\":\"1499.60\",\"priceChangePercent\":\"2.48%\",\"volume\":\"1210.523\",\"quoteVolume\":\"74446012.34\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"62000.20\",\"askQty\":\"0.512\",\"bidPrice\":\"62000.00\",\"bidQty\":\"0.204\"},{\"symbol\":\"NEW-USDT\",\"openPrice\":\"\",\"highPrice\":\"\",\"lowPrice\":\"\",\"lastPrice\":\"\",\"priceChange\":\"\",\"priceChangePercent\":\"\",\"volume\":\"0\",\"quoteVolume\":\"0\",\"openTime\":1728453600000,\"closeTime\":1728540000000},{\"symbol\":\"PEPE-USDT\",\"openPrice\":\"0.00000943\",\"highPrice\":\"0.00000951\",\"lowPrice\":\"0.00000899\",\"lastPrice\":\"0.00000912\",\"priceChange\":\"-0.00000031\",\"priceChangePercent\":\"-3.29%\",\"volume\":\"4567890123456\",\"quoteVolume\":\"41656000.12\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"0.00000913\",\"askQty\":\"1000000\",\"bidPrice\":\"0.00000911\",\"bidQty\":\"2000000\"}]}",
       "expect": {
@@ -142,7 +142,7 @@
     {
       "kind": "bulk",
       "name": "bulk swap: renamed lastPrice in one row - that pair is reported as unreadable, the rest stays",
-      "market": "BingXFutures",
+      "exchangeKey": "BingXFutures",
       "requestId": 0,
       "body": "{\"code\":0,\"msg\":\"\",\"data\":[{\"symbol\":\"BTC-USDT\",\"priceChange\":\"-348.70\",\"priceChangePercent\":\"-0.56\",\"lastPrice\":\"61990.2\",\"lastQty\":\"0.0123\",\"highPrice\":\"62480.0\",\"lowPrice\":\"59980.1\",\"volume\":\"215432.12\",\"quoteVolume\":\"13248901234.56\",\"openPrice\":\"62338.9\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"askPrice\":\"61990.3\",\"askQty\":\"1.2\",\"bidPrice\":\"61990.1\",\"bidQty\":\"2.3\"},{\"symbol\":\"ETH-USDT\",\"priceChange\":\"-12.2\",\"priceChangePercent\":\"-0.49\",\"lastPrice\":\"2450.2\",\"lastQty\":\"0.5\",\"highPrice\":\"2480.0\",\"lowPrice\":\"2430.1\",\"volume\":\"403000.5\",\"quoteVolume\":\"987654321.0\",\"openPrice\":\"2462.4\",\"openTime\":1728453600000,\"closeTime\":1728540000000},{\"symbol\":\"SOL-USDT\",\"lastPrice_renamed\":\"150.5\",\"openPrice\":\"148.0\",\"volume\":\"1\"}]}",
       "expect": {
@@ -168,7 +168,7 @@
     {
       "kind": "pairs",
       "name": "spot symbols: only status 1 (online); base/quote split at the last '-'",
-      "market": "BingX",
+      "exchangeKey": "BingX",
       "requestId": 0,
       "note": "status 0 = offline, 5 = pre-open, 25 = suspended. The list has no baseAsset/quoteAsset fields.",
       "body": "{\"code\":0,\"msg\":\"\",\"debugMsg\":\"\",\"data\":{\"symbols\":[{\"symbol\":\"BTC-USDT\",\"minQty\":0.0001,\"maxQty\":100,\"minNotional\":5,\"maxNotional\":2000000,\"status\":1,\"tickSize\":0.01,\"stepSize\":1e-06,\"apiStateSell\":true,\"apiStateBuy\":true,\"timeOnline\":1650000000000,\"offTime\":0,\"maintainTime\":0},{\"symbol\":\"1000PEPE-USDC\",\"status\":1,\"tickSize\":1e-07,\"stepSize\":1},{\"symbol\":\"OLD-USDT\",\"status\":0},{\"symbol\":\"SOON-USDT\",\"status\":5},{\"symbol\":\"HALT-USDT\",\"status\":25},{\"symbol\":\"NODASH\",\"status\":1}]}}",
@@ -197,7 +197,7 @@
     {
       "kind": "pairs",
       "name": "swap contracts: asset/currency, only status 1",
-      "market": "BingXFutures",
+      "exchangeKey": "BingXFutures",
       "requestId": 0,
       "body": "{\"code\":0,\"msg\":\"\",\"data\":[{\"contractId\":\"100\",\"symbol\":\"BTC-USDT\",\"size\":\"0.0001\",\"quantityPrecision\":4,\"pricePrecision\":1,\"feeRate\":0.0005,\"tradeMinLimit\":1,\"maxLongLeverage\":150,\"maxShortLeverage\":150,\"currency\":\"USDT\",\"asset\":\"BTC\",\"status\":1,\"apiStateOpen\":\"true\",\"apiStateClose\":\"true\"},{\"contractId\":\"101\",\"symbol\":\"ETH-USDT\",\"currency\":\"USDT\",\"asset\":\"ETH\",\"status\":1},{\"contractId\":\"102\",\"symbol\":\"OLD-USDT\",\"currency\":\"USDT\",\"asset\":\"OLD\",\"status\":0}]}",
       "expect": {
@@ -223,7 +223,7 @@
     {
       "kind": "pairs",
       "name": "swap contracts: asset prefix NCSK/NCSI/NCCO/NCFX = TradFi, base from displayName (ticker in brackets, else name without spaces); crypto keeps asset",
-      "market": "BingXFutures",
+      "exchangeKey": "BingXFutures",
       "requestId": 0,
       "note": "Rows shortened from the live /openApi/swap/v2/quote/contracts of 19.10.2026. Pair id stays symbol; displayName of crypto differs (NEIROCTO vs NEIRO) and is not used.",
       "body": "{\"code\":0,\"msg\":\"\",\"data\":[{\"contractId\":\"100\",\"symbol\":\"BTC-USDT\",\"currency\":\"USDT\",\"asset\":\"BTC\",\"displayName\":\"BTC-USDT\",\"status\":1},{\"contractId\":\"200\",\"symbol\":\"NEIROCTO-USDT\",\"currency\":\"USDT\",\"asset\":\"NEIROCTO\",\"displayName\":\"NEIRO-USDT\",\"status\":1},{\"contractId\":\"201\",\"symbol\":\"PAXG-USDT\",\"currency\":\"USDT\",\"asset\":\"PAXG\",\"displayName\":\"PAXG(GOLD)-USDT\",\"status\":1},{\"contractId\":\"300\",\"symbol\":\"NCSKAAPL2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCSKAAPL2USD\",\"displayName\":\"AAPL-USDT\",\"status\":1},{\"contractId\":\"301\",\"symbol\":\"NCCOGOLD2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCOGOLD2USD\",\"displayName\":\"GOLD(XAU)-USDT\",\"status\":1},{\"contractId\":\"302\",\"symbol\":\"NCCOXAG2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCOXAG2USD\",\"displayName\":\"SILVER(XAG)-USDT\",\"status\":1},{\"contractId\":\"303\",\"symbol\":\"NCCOPALLADIUM2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCOPALLADIUM2USD\",\"displayName\":\"Palladium(XPD)-USDT\",\"status\":1},{\"contractId\":\"304\",\"symbol\":\"NCCO1OILBRENT2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCCO1OILBRENT2USD\",\"displayName\":\"Oil Brent-USDT\",\"status\":1},{\"contractId\":\"305\",\"symbol\":\"NCSINIKKEI2252USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCSINIKKEI2252USD\",\"displayName\":\"Nikkei 225-USDT\",\"status\":1},{\"contractId\":\"306\",\"symbol\":\"NCFXEUR2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCFXEUR2USD\",\"displayName\":\"EURUSD-USDT\",\"status\":1},{\"contractId\":\"307\",\"symbol\":\"NCSKTSLA2USD-USDT\",\"currency\":\"USDT\",\"asset\":\"NCSKTSLA2USD\",\"displayName\":\"TSLA-USDT\",\"status\":25}]}",

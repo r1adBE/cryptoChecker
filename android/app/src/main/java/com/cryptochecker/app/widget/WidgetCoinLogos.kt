@@ -65,7 +65,7 @@ class WidgetCoinLogos @Inject constructor(
      * gleichnamigen Krypto-Tokens), sonst das Basis-Symbol.
      */
     fun logoKey(watch: com.cryptochecker.app.data.local.model.WatchEntity): String =
-        repository.logoKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
+        repository.logoKey(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
 
     /** Ein Bild für das Einzel-Widget; [logo] = false → Initialen (DEX-Pools). */
     suspend fun bitmap(symbol: String, colors: WidgetColors, logo: Boolean = true): Bitmap =

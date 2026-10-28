@@ -5,7 +5,7 @@ import XCTest
 final class NotTradedTests: XCTestCase {
 
     private func watch(_ id: Int64, _ error: String?) -> Watch {
-        Watch(id: id, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT", lastError: error)
+        Watch(id: id, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT", lastError: error)
     }
 
     func testMarkerOnlyExactText() {

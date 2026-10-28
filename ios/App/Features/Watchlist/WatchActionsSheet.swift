@@ -120,11 +120,11 @@ struct WatchActionsSheet: View {
     /// Mitteilungen jetzt fragen; danach gleich den Kurs holen. Stand das Paar schon in der
     /// Merkliste, zeigt das Blatt einfach jenes.
     func addPreview() {
-        guard let preview, !adding, let market = MarketsConfig.market(preview.marketKey) else { return }
+        guard let preview, !adding, let exchange = ExchangesConfig.exchange(preview.exchangeKey) else { return }
         // Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Haptik
         data.withWatchlistConfirm {
             let firstEver = data.isFirstPairAdd
-            let outcome = data.tryAddWatch(market: market, pair: preview.pairInfo)
+            let outcome = data.tryAddWatch(exchange: exchange, pair: preview.pairInfo)
             // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
             if outcome == .locked { return }
             if outcome == .full {
@@ -170,7 +170,7 @@ struct WatchActionsSheet: View {
 
                 // Karte «Marktdaten» (Spot | Futures) für Krypto-Paare; nicht bei deaktivierten Paaren
                 // (keine Abfrage) und DEX-Pools (fremde Token dürfen gleich heissen)
-                if !(watch.disabled && !isPreview), CoinLogos.allowed(forMarket: watch.marketKey) {
+                if !(watch.disabled && !isPreview), CoinLogos.allowed(forExchange: watch.exchangeKey) {
                     WatchlistMarketDataSection(watch: watch)
                 }
 

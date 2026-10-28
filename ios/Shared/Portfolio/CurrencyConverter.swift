@@ -49,10 +49,10 @@ enum CurrencyConversion {
     /// Quote eines Paars für die Umrechnung: «U» an Aster ist United Stables (USD-Stablecoin) und zählt 1:1 als USD;
     /// an anderen Börsen (CoinDCX, BingX, Binance) ist U ein Coin und bleibt Krypto — darum nicht global in
     /// `usdStables`. Sonst `normalize`. Wie Android.
-    static func conversionQuote(marketKey: String?, quote: String?) -> String {
+    static func conversionQuote(exchangeKey: String?, quote: String?) -> String {
         let code = normalize(quote)
-        let market = (marketKey ?? "").trimmingCharacters(in: .whitespaces).lowercased()
-        return code == "U" && market == asterKey.lowercased() ? "USD" : code
+        let exchange = (exchangeKey ?? "").trimmingCharacters(in: .whitespaces).lowercased()
+        return code == "U" && exchange == asterKey.lowercased() ? "USD" : code
     }
 
     /// Gleiche Währung (Gross-/Kleinschreibung egal) — dann gibt es nichts umzurechnen.

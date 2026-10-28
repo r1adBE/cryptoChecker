@@ -7,7 +7,7 @@ import android.net.ConnectivityManager
 import com.cryptochecker.app.domain.logos.CoinLists
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import kotlinx.coroutines.flow.StateFlow
 import java.io.File
 import javax.inject.Inject
@@ -52,8 +52,8 @@ class CoinLogoRepository @Inject constructor(
     val names: StateFlow<Map<String, String>> get() = coinNames.names
 
     /** Name für ein Paar der Merkliste (TradFi beachtet); null = keiner bekannt. */
-    fun name(marketKey: String, base: String, quote: String, contractType: String): String? =
-        coinNames.name(marketKey, base, quote, contractType)
+    fun name(exchangeKey: String, base: String, quote: String, contractType: String): String? =
+        coinNames.name(exchangeKey, base, quote, contractType)
 
     /** Steigt, sobald neue Logos auf dem Gerät liegen (Anzeigen laden dann neu). */
     val revision: StateFlow<Int> get() = images.revision
@@ -61,12 +61,12 @@ class CoinLogoRepository @Inject constructor(
     /** Paare der Merkliste, die TradFi sind ([CoinNames.tradFiPairs]). */
     val tradFiPairs: StateFlow<Set<String>> get() = coinNames.tradFiPairs
 
-    fun isTradFi(marketKey: String, base: String, quote: String, contractType: String): Boolean =
-        coinNames.isTradFi(marketKey, base, quote, contractType)
+    fun isTradFi(exchangeKey: String, base: String, quote: String, contractType: String): Boolean =
+        coinNames.isTradFi(exchangeKey, base, quote, contractType)
 
     /** Schlüssel für die Plakette eines Paars (TradFi oder Krypto). */
-    fun logoKey(marketKey: String, base: String, quote: String, contractType: String): String =
-        CoinLogos.logoKey(base, isTradFi(marketKey, base, quote, contractType))
+    fun logoKey(exchangeKey: String, base: String, quote: String, contractType: String): String =
+        CoinLogos.logoKey(base, isTradFi(exchangeKey, base, quote, contractType))
 
     /** Neue Liste der TradFi-Paare; true, wenn sie sich geändert hat. */
     fun setTradFiPairs(pairs: Set<String>): Boolean = coinNames.setTradFiPairs(pairs)

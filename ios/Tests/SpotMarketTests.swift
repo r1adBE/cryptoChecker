@@ -92,7 +92,7 @@ final class SpotMarketTests: XCTestCase {
             XCTAssertEqual(SpotMarket.url(c["symbol"] as? String ?? ""), c["expected"] as? String)
         }
         for c in S.list(data["eligible"]) {
-            XCTAssertEqual(SpotMarket.eligible(marketKey: c["marketKey"] as? String, tradFi: c["tradFi"] as? Bool ?? false),
+            XCTAssertEqual(SpotMarket.eligible(exchangeKey: c["exchangeKey"] as? String, tradFi: c["tradFi"] as? Bool ?? false),
                            c["expected"] as? Bool, "eligible: \(c)")
         }
     }

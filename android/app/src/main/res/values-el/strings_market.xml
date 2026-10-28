@@ -38,7 +38,7 @@
     <string name="market_section_expand">Εμφάνιση: %1$s</string>
     <string name="market_section_now">Τώρα</string>
     <string name="market_source">Δεδομένα: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+    <string name="exchange_unavailable_error">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">Πληροφορίες: %1$s</string>

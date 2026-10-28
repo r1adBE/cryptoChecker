@@ -159,9 +159,9 @@ enum TokenIdentity {
         matchNames(symbol: symbol, a, b) != .mismatch
     }
 
-    /// Börsen-Schlüssel (`NameIndex.markets`) der übrigen Anbieter der Ausweich-Kette — deren Namen aus
+    /// Börsen-Schlüssel (`NameIndex.exchanges`) der übrigen Anbieter der Ausweich-Kette — deren Namen aus
     /// der eigenen Paarliste, sobald die Börse Namen liefert (Binance-Anbieter: `NameIndex.binance`).
-    static let providerMarkets: [String: String] = [
+    static let providerExchanges: [String: String] = [
         DataFreshness.binanceUS: "BinanceUs",
         DataFreshness.coinbase: "Coinbase",
         DataFreshness.bybit: "Bybit",
@@ -233,13 +233,13 @@ enum TokenIdentity {
     /// Längster gespeicherter Name (Schutz vor unbrauchbaren Einträgen).
     static let nameMax = 80
 
-    /// Namen je Börse (`markets`: Börsen-Schlüssel → Kürzel → Name, aus der Paarliste) und von Binance
+    /// Namen je Börse (`exchanges`: Börsen-Schlüssel → Kürzel → Name, aus der Paarliste) und von Binance
     /// (`binance`: Kürzel → `fullName` der Symbolliste). Kürzel gross geschrieben.
     struct NameIndex: Equatable, Sendable {
-        var markets: [String: [String: String]] = [:]
+        var exchanges: [String: [String: String]] = [:]
         var binance: [String: String] = [:]
 
-        func pairName(marketKey: String, base: String) -> String? { markets[marketKey]?[TokenIdentity.key(base)] }
+        func pairName(exchangeKey: String, base: String) -> String? { exchanges[exchangeKey]?[TokenIdentity.key(base)] }
         func binanceName(_ base: String) -> String? { binance[TokenIdentity.key(base)] }
     }
 
@@ -260,7 +260,7 @@ enum TokenIdentity {
     }
 
     static func encode(_ index: NameIndex) -> Data? {
-        let root: [String: Any] = ["v": 1, "markets": index.markets, "binance": index.binance]
+        let root: [String: Any] = ["v": 1, "exchanges": index.exchanges, "binance": index.binance]
         return try? JSONSerialization.data(withJSONObject: root, options: [.sortedKeys])
     }
 
@@ -274,11 +274,11 @@ enum TokenIdentity {
             for (k, v) in o { if let s = v as? String, !s.isEmpty { m[k] = s } }
             return cleaned(m)
         }
-        var markets: [String: [String: String]] = [:]
-        for (k, v) in (root["markets"] as? [String: Any]) ?? [:] {
+        var exchanges: [String: [String: String]] = [:]
+        for (k, v) in (root["exchanges"] as? [String: Any]) ?? [:] {
             let n = names(v)
-            if !n.isEmpty { markets[k] = n }
+            if !n.isEmpty { exchanges[k] = n }
         }
-        return NameIndex(markets: markets, binance: names(root["binance"]))
+        return NameIndex(exchanges: exchanges, binance: names(root["binance"]))
     }
 }

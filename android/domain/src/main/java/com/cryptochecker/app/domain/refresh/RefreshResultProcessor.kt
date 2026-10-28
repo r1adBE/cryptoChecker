@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.marketdata.util.MarketsConfigUtils
+import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.PriceWrite
 import com.cryptochecker.app.data.pairIdentity
@@ -126,7 +126,7 @@ class RefreshResultProcessor constructor(
 
             val time = ticker.timestamp.takeIf { it > 0 } ?: now
             // DEX-Pool: Liquidität jeder Abfrage merken (Alarm-Sperre unten, Hinweis in Suche und Alarm-Liste)
-            if (!live && com.cryptochecker.app.domain.watch.DexLiquidity.isDex(watch.marketKey)) {
+            if (!live && com.cryptochecker.app.domain.watch.DexLiquidity.isDex(watch.exchangeKey)) {
                 dexLiquidity.put(watch.pairId, ticker.liquidityUsd)
             }
             if (ticker.markFallback) markFallbackIds += watch.id
@@ -185,10 +185,10 @@ class RefreshResultProcessor constructor(
         for (watch in updatedWatches) {
             val price = watch.lastPrice ?: continue
             // Ein Paar, dessen Alarme scheitern (Datenbank, Daten einer Quelle), hält die übrigen nicht auf
-            val triggered = if (!MarketsConfigUtils.getMarketByKey(watch.marketKey).allowsAlarms) {
+            val triggered = if (!ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).allowsAlarms) {
                 // Referenzkurs (EZB, Forex): nie Alarme — auch aus einer Sicherung übernommene lösen nicht aus
                 0
-            } else if (dexLiquidity.blocksAlarms(watch.marketKey, watch.pairId)) {
+            } else if (dexLiquidity.blocksAlarms(watch.exchangeKey, watch.pairId)) {
                 // DEX-Pool mit zu wenig oder unbekannter Liquidität: Alarme bleiben, lösen aber nicht aus
                 log.noteBlocked(
                     watch, alarmsByWatch[watch.id].orEmpty(), lowLiquidity = true,

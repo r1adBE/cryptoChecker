@@ -4,7 +4,7 @@ import Foundation
 /// `WatchedAddressSource.kt`. Aufruf aus `PortfolioModel.refreshWatchedAddresses` (Portfolio-Tab, Hintergrund).
 ///
 /// Datenschutz: eigene flüchtige Sitzung (keine Cookies, kein Zwischenspeicher) und nicht über
-/// `MarketHTTP.call`, damit die Adresse nicht im HTTP-Protokoll der App landet; Protokolle nennen nur
+/// `ExchangeHTTP.call`, damit die Adresse nicht im HTTP-Protokoll der App landet; Protokolle nennen nur
 /// die gekürzte Adresse. Neutraler User-Agent (`HttpUserAgent.neutral`). Eigener Bitcoin-Server
 /// (`AddressServer`): nur dorthin.
 /// Pausen: 451/403 → Host 6 h übersprungen (`BlockedSources`, nicht der eigene Server); 429/418 und wiederholte
@@ -225,7 +225,7 @@ actor WatchedAddressSource {
                 if !own { BlockedSources.noteFailure(host, error) }
                 let outcome: ExchangeBackoff.Outcome
                 var retryAfterMillis: Int64?
-                if let http = error as? HttpMarketError, ExchangeBackoff.isRateLimitCode(http.httpCode) {
+                if let http = error as? HttpExchangeError, ExchangeBackoff.isRateLimitCode(http.httpCode) {
                     outcome = .rateLimited
                     retryAfterMillis = http.retryAfterSeconds.map { $0 * 1000 }
                 } else if (error as? URLError)?.code == .timedOut {
@@ -237,7 +237,7 @@ actor WatchedAddressSource {
                 }
                 backoff[host] = ExchangeBackoff.next(backoff[host], outcome: outcome, now: EpochTime.nowMillis,
                                                      retryAfterMillis: retryAfterMillis,
-                                                     banned: (error as? HttpMarketError)?.httpCode == 418)
+                                                     banned: (error as? HttpExchangeError)?.httpCode == 418)
                 lastError = error
             }
         }
@@ -260,13 +260,13 @@ actor WatchedAddressSource {
         }
     }
 
-    /// GET oder POST (JSON) über die eigene Sitzung; HTTP ≠ 2xx → `HttpMarketError` (mit «Retry-After»).
+    /// GET oder POST (JSON) über die eigene Sitzung; HTTP ≠ 2xx → `HttpExchangeError` (mit «Retry-After»).
     static func load(_ url: String, post: String?) async throws -> String {
         try await load(url, post: post, session: session)
     }
 
-    /// Wie oben mit wählbarer Sitzung (Tests: URLProtocol-Attrappe). Antwort höchstens `MarketHTTP.maxBodyBytes`
-    /// (2 MB wie Android `callMarket` ohne Angabe), sonst `ResponseTooLargeError` — nie ungebremst in den Speicher.
+    /// Wie oben mit wählbarer Sitzung (Tests: URLProtocol-Attrappe). Antwort höchstens `ExchangeHTTP.maxBodyBytes`
+    /// (2 MB wie Android `callExchange` ohne Angabe), sonst `ResponseTooLargeError` — nie ungebremst in den Speicher.
     static func load(_ url: String, post: String?, session: URLSession) async throws -> String {
         guard let u = URL(string: url) else { throw AddressBalance.ParseError(message: "URL ungültig") }
         var request = URLRequest(url: u)
@@ -275,13 +275,13 @@ actor WatchedAddressSource {
             request.httpBody = Data(post.utf8)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
-        let (data, response) = try await MarketHTTP.readLimited(request, session: session, limit: MarketHTTP.maxBodyBytes)
+        let (data, response) = try await ExchangeHTTP.readLimited(request, session: session, limit: ExchangeHTTP.maxBodyBytes)
         let text = String(decoding: data, as: UTF8.self)
         if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
             let retryAfter = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
                                                                     now: EpochTime.nowMillis)
             // Ohne Antworttext: er könnte die Adresse enthalten
-            throw HttpMarketError(httpCode: http.statusCode, body: "", retryAfterSeconds: retryAfter)
+            throw HttpExchangeError(httpCode: http.statusCode, body: "", retryAfterSeconds: retryAfter)
         }
         return text
     }

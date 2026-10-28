@@ -1,16 +1,16 @@
 // Börsen mit Live-Strom und Parser ihrer Nachrichten (Teil von `LiveFeed.kt`, gespiegelt in iOS `LiveExchange.swift`).
 package com.cryptochecker.app.domain.live
 
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import com.cryptochecker.marketdata.util.EpochTime
 
 /**
- * Börsen mit öffentlichem WebSocket-Ticker. [marketKey] = Schlüssel des REST-Adapters
- * (`MarketsConfig`), [rollingChange] = der Strom liefert dieselbe gleitende 24-h-Veränderung
+ * Börsen mit öffentlichem WebSocket-Ticker. [exchangeKey] = Schlüssel des REST-Adapters
+ * (`ExchangesConfig`), [rollingChange] = der Strom liefert dieselbe gleitende 24-h-Veränderung
  * wie die REST-Abfrage (Kraken nicht: auch REST rechnet dort mit Kerzen).
  */
 enum class LiveExchange(
-    val marketKey: String,
+    val exchangeKey: String,
     val url: String,
     /** Höchstens so viele Symbole je Verbindung; weitere bekommen eine eigene. */
     val maxSymbolsPerConnection: Int,
@@ -69,7 +69,7 @@ enum class LiveExchange(
     companion object {
         private const val PERPETUAL = "PERPETUAL"
 
-        fun fromMarketKey(key: String): LiveExchange? = entries.firstOrNull { it.marketKey == key }
+        fun fromExchangeKey(key: String): LiveExchange? = entries.firstOrNull { it.exchangeKey == key }
 
         private fun quoted(text: String): String = buildString {
             append('"')

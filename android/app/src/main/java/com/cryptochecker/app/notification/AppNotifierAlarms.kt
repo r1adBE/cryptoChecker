@@ -54,7 +54,7 @@ suspend fun AppNotifier.showAlarm(
     val title = context.getString(
         R.string.notification_alarm_title,
         watch.displayName,
-        watch.marketName
+        watch.exchangeName
     )
     val baseBody = if (derivativesValue != null) {
         // «Funding über 0,05 % — jetzt 0,061 %», «Open Interest steigt 10 % in 4 Std. — jetzt +12,3 %»

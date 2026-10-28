@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
@@ -8,8 +8,8 @@ import com.cryptochecker.app.parity.obj
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.SimpleTicker
-import com.cryptochecker.marketdata.model.market.Kraken
-import com.cryptochecker.marketdata.model.market.OneTrading
+import com.cryptochecker.marketdata.model.exchange.Kraken
+import com.cryptochecker.marketdata.model.exchange.OneTrading
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -29,7 +29,7 @@ import java.io.IOException
 /**
  * Ausweg des Einzelkurses nach einem Serverfehler ([SingleTickerFallback]): die Fälle `singleFallback` aus
  * `testdata/exchanges/exchange_onetrading.json` (wie iOS `SingleTickerFallbackTests.swift`), dazu der ganze Weg
- * über [MarketRemoteDataSource] mit einem Interceptor als Börse — 200 unverändert, 500 → Sammelliste, Paar fehlt →
+ * über [ExchangeRemoteDataSource] mit einem Interceptor als Börse — 200 unverändert, 500 → Sammelliste, Paar fehlt →
  * der Serverfehler, 404 ohne Ausweg.
  */
 class SingleTickerFallbackTest {
@@ -57,7 +57,7 @@ class SingleTickerFallbackTest {
             val info = PairQuery(spec["base"] as String, spec["quote"] as String, spec["id"] as String, FuturesContractType.NONE)
             val status = c["status"].num()!!.toInt()
             assertTrue("$name: status $status ist ein Serverfehler", SingleTickerFallback.applies(status))
-            val server = HttpMarketError(status, "")
+            val server = HttpExchangeError(status, "")
             val expect = c["expect"].obj()
             val ticker = SimpleTicker()
             var requested: String? = null
@@ -69,7 +69,7 @@ class SingleTickerFallbackTest {
                 assertFalse("$name: Fehler erwartet, Kurs ${ticker.last}", expect["error"] == true)
                 assertEquals(name, expect["last"].num()!!, ticker.last, 1e-9)
                 expect["change24hPercent"].num()?.let { assertEquals(name, it, ticker.change24hPercent!!, 1e-9) }
-            } catch (e: HttpMarketError) {
+            } catch (e: HttpExchangeError) {
                 assertTrue("$name: unerwarteter Fehler $e", expect["error"] == true)
                 // Der ursprüngliche Serverfehler, kein eigener Text
                 assertSame(name, server, e)
@@ -82,12 +82,12 @@ class SingleTickerFallbackTest {
     fun clientErrorsAndRateLimitsHaveNoFallback() = runBlocking {
         for (code in listOf(400, 404, 418, 429, 499, 600)) {
             assertFalse("$code", SingleTickerFallback.applies(code))
-            val server = HttpMarketError(code, "")
+            val server = HttpExchangeError(code, "")
             var loaded = false
             try {
                 SingleTickerFallback.load(OneTrading(), 0, btcEur, SimpleTicker(), server) { loaded = true; "[]" }
                 fail("$code: Fehler erwartet")
-            } catch (e: HttpMarketError) {
+            } catch (e: HttpExchangeError) {
                 assertSame(server, e)
             }
             assertFalse("$code: keine Ausweichanfrage", loaded)
@@ -96,12 +96,12 @@ class SingleTickerFallbackTest {
 
     @Test
     fun exchangeWithoutFallbackAddressKeepsTheServerError() = runBlocking {
-        val server = HttpMarketError(500, "")
+        val server = HttpExchangeError(500, "")
         var loaded = false
         try {
             SingleTickerFallback.load(Kraken(), 0, btcEur, SimpleTicker(), server) { loaded = true; "{}" }
             fail("Fehler erwartet")
-        } catch (e: HttpMarketError) {
+        } catch (e: HttpExchangeError) {
             assertSame(server, e)
         }
         assertFalse(loaded)
@@ -109,11 +109,11 @@ class SingleTickerFallbackTest {
 
     @Test
     fun failingFallbackRequestKeepsTheServerError() = runBlocking {
-        val server = HttpMarketError(502, "")
+        val server = HttpExchangeError(502, "")
         try {
             SingleTickerFallback.load(OneTrading(), 0, btcEur, SimpleTicker(), server) { throw IOException("offline") }
             fail("Fehler erwartet")
-        } catch (e: HttpMarketError) {
+        } catch (e: HttpExchangeError) {
             assertSame(server, e)
         }
     }
@@ -121,23 +121,23 @@ class SingleTickerFallbackTest {
     @Test
     fun rateLimitOfTheFallbackPassesThrough() = runBlocking {
         for (code in listOf(429, 418)) {
-            val limited = HttpMarketError(code, "")
+            val limited = HttpExchangeError(code, "")
             try {
-                SingleTickerFallback.load(OneTrading(), 0, btcEur, SimpleTicker(), HttpMarketError(500, "")) {
+                SingleTickerFallback.load(OneTrading(), 0, btcEur, SimpleTicker(), HttpExchangeError(500, "")) {
                     throw limited
                 }
                 fail("Fehler erwartet")
-            } catch (e: HttpMarketError) {
+            } catch (e: HttpExchangeError) {
                 assertSame("$code: Bremse des Auswegs geht durch", limited, e)
             }
         }
     }
 
-    // ── Ganzer Weg über MarketRemoteDataSource ──
+    // ── Ganzer Weg über ExchangeRemoteDataSource ──
 
     private val hits = HashMap<String, Int>()
 
-    private fun source(replies: Map<String, Pair<Int, String>>) = MarketRemoteDataSource(
+    private fun source(replies: Map<String, Pair<Int, String>>) = ExchangeRemoteDataSource(
         OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
             val request = chain.request()
             val url = request.url.toString()
@@ -153,7 +153,7 @@ class SingleTickerFallbackTest {
     @Test
     fun singleTickerOkIsUnchanged() = runBlocking {
         val body = """{"instrument_code":"BTC_EUR","last_price":"61000.5","price_change_percentage":"1.5"}"""
-        val ticker = source(mapOf(single to (200 to body), bulk to (200 to bulkBody()))).fetchMarketTicker(OneTrading(), btcEur)
+        val ticker = source(mapOf(single to (200 to body), bulk to (200 to bulkBody()))).fetchExchangeTicker(OneTrading(), btcEur)
         assertEquals(61000.5, ticker.last, 1e-9)
         assertEquals(null, hits[bulk])
     }
@@ -161,7 +161,7 @@ class SingleTickerFallbackTest {
     @Test
     fun serverErrorTakesThePriceFromTheBulkList() = runBlocking {
         val ticker = source(mapOf(single to (500 to "Internal Server Error"), bulk to (200 to bulkBody())))
-            .fetchMarketTicker(OneTrading(), btcEur)
+            .fetchExchangeTicker(OneTrading(), btcEur)
         assertEquals(58000.1, ticker.last, 1e-9)
         assertEquals(1, hits[bulk])
     }
@@ -171,9 +171,9 @@ class SingleTickerFallbackTest {
         val foo = PairQuery("FOO", "EUR", "FOO_EUR", FuturesContractType.NONE)
         val fooUrl = "https://api.onetrading.com/fast/v1/market-ticker/FOO_EUR"
         try {
-            source(mapOf(fooUrl to (500 to "Internal Server Error"), bulk to (200 to bulkBody()))).fetchMarketTicker(OneTrading(), foo)
+            source(mapOf(fooUrl to (500 to "Internal Server Error"), bulk to (200 to bulkBody()))).fetchExchangeTicker(OneTrading(), foo)
             fail("Fehler erwartet")
-        } catch (e: HttpMarketError) {
+        } catch (e: HttpExchangeError) {
             assertEquals(500, e.httpCode)
         }
         assertEquals(1, hits[bulk])
@@ -183,9 +183,9 @@ class SingleTickerFallbackTest {
     fun notFoundHasNoFallback() = runBlocking {
         try {
             source(mapOf(single to (404 to """{"error":"INSTRUMENT_NOT_FOUND"}"""), bulk to (200 to bulkBody())))
-                .fetchMarketTicker(OneTrading(), btcEur)
+                .fetchExchangeTicker(OneTrading(), btcEur)
             fail("Fehler erwartet")
-        } catch (e: HttpMarketError) {
+        } catch (e: HttpExchangeError) {
             assertEquals(404, e.httpCode)
         }
         assertEquals(null, hits[bulk])

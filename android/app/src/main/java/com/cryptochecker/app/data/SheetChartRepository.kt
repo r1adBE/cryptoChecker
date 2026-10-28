@@ -52,17 +52,17 @@ class SheetChartRepository @Inject constructor(
     private val cache = SheetChartCache()
 
     /** Börse des Paars für den Zwischenspeicher (eigene Kerzen je Börse). */
-    private fun market(watch: WatchEntity): String = CandlePair.of(watch, tradFi = false).cacheKey
+    private fun exchange(watch: WatchEntity): String = CandlePair.of(watch, tradFi = false).cacheKey
 
     /** Ohne Netz: ausgeblendet (DEX), gültiger Zwischenspeicher oder null (laden). */
     fun cached(watch: WatchEntity, range: SheetChartRange): SheetChartResult? {
-        if (!SheetChart.isSupported(watch.marketKey, watch.baseAsset, watch.quoteAsset)) return SheetChartResult.Unsupported
-        return cache.get(watch.baseAsset, watch.quoteAsset, range, watch.lastPrice, market(watch))
+        if (!SheetChart.isSupported(watch.exchangeKey, watch.baseAsset, watch.quoteAsset)) return SheetChartResult.Unsupported
+        return cache.get(watch.baseAsset, watch.quoteAsset, range, watch.lastPrice, exchange(watch))
     }
 
     /** Aktualisieren im Blatt: Kerzen dieses Paars (alle Zeiträume) neu laden. */
     fun invalidate(watch: WatchEntity) {
-        cache.invalidate(watch.baseAsset, watch.quoteAsset, market(watch))
+        cache.invalidate(watch.baseAsset, watch.quoteAsset, exchange(watch))
         ownCandles.invalidate(CandlePair.of(watch, tradFi = false))
     }
 
@@ -77,7 +77,7 @@ class SheetChartRepository @Inject constructor(
         val widgetRange = WidgetChartRange.valueOf(range.name)
         val interval = widgetRange.candleInterval
         val pair = candlePairs.of(watch)
-        val market = pair.cacheKey
+        val exchange = pair.cacheKey
         val quote = watch.quoteAsset.trim().uppercase()
         val quoteIsFiat = quote in FxRateSource.CURRENCIES
         return withContext(Dispatchers.Default) {
@@ -88,7 +88,7 @@ class SheetChartRepository @Inject constructor(
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
-                    Timber.w(e, "Eigene Kerzen für das Aktionsblatt nicht verfügbar: %s", market)
+                    Timber.w(e, "Eigene Kerzen für das Aktionsblatt nicht verfügbar: %s", exchange)
                     null
                 }
                 val request = SheetCandleRequest(watch.baseAsset.trim().uppercase(), quote, convert = false)
@@ -102,7 +102,7 @@ class SheetChartRepository @Inject constructor(
                         fx = SheetChartFx.NONE,
                         fetchedAt = System.currentTimeMillis(),
                     )
-                    cache.put(watch.baseAsset, watch.quoteAsset, range, result, watch.lastPrice, market)
+                    cache.put(watch.baseAsset, watch.quoteAsset, range, result, watch.lastPrice, exchange)
                     return@withContext result
                 }
             }
@@ -111,7 +111,7 @@ class SheetChartRepository @Inject constructor(
 
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der
             // Name des Coins an der Börse des Paars nicht klar anders lautet (gleicher Token, K-8)
-            val identityName = tokenIdentityStore.pairName(watch.marketKey, watch.baseAsset)
+            val identityName = tokenIdentityStore.pairName(watch.exchangeKey, watch.baseAsset)
             for (request in SheetChart.requests(watch.baseAsset, watch.quoteAsset, quoteIsFiat)) {
                 var accepted: List<WidgetCandle>? = null
                 var rates: Map<Long, Double>? = null
@@ -154,7 +154,7 @@ class SheetChartRepository @Inject constructor(
                     fx = SheetChart.fxMode(request, rates),
                     fetchedAt = System.currentTimeMillis(),
                 )
-                cache.put(watch.baseAsset, watch.quoteAsset, range, result, watch.lastPrice, market)
+                cache.put(watch.baseAsset, watch.quoteAsset, range, result, watch.lastPrice, exchange)
                 return@withContext result
             }
             SheetChartResult.NoData

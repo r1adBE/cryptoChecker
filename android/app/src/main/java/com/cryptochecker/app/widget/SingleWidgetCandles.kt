@@ -44,7 +44,7 @@ internal suspend fun SingleWidgetRenderer.chartCandles(
         val accepted = WidgetChartGeometry.pairCandles(own, watch.lastPrice)
         if (accepted != null) {
             if (cached == null) sparkCache[cacheKey] = System.currentTimeMillis() to accepted
-            return com.cryptochecker.app.domain.market.Sourced(accepted, watch.marketName)
+            return com.cryptochecker.app.domain.market.Sourced(accepted, watch.exchangeName)
         }
     }
     if (!com.cryptochecker.app.data.remote.candles.OwnCandlePolicy.allowsFallback(pair)) return null
@@ -55,7 +55,7 @@ internal suspend fun SingleWidgetRenderer.chartCandles(
     ) ?: return null
     // Börse der Ausweich-Reihe (für «Chart: Binance»); klar anders benannter Token (K-8): kein Chart
     val provider = sparkProvider[fallbackKey]
-    if (!tokenIdentityStore.fallbackSeriesAllowed(watch.marketKey, watch.baseAsset, provider)) return null
+    if (!tokenIdentityStore.fallbackSeriesAllowed(watch.exchangeKey, watch.baseAsset, provider)) return null
     return com.cryptochecker.app.domain.market.Sourced(accepted, provider)
 }
 

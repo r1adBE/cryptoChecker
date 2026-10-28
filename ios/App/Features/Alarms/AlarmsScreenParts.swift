@@ -41,7 +41,7 @@ struct DexLowLiquidityNote: View {
     }
 }
 
-/// Quelle ohne Alarme (EZB-Referenzkurse, `Market.allowsAlarms`): statt «Neuer Alarm» dieser Hinweis. Wie Android.
+/// Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`): statt «Neuer Alarm» dieser Hinweis. Wie Android.
 struct ReferenceRateAlarmNote: View {
     var body: some View {
         Text(L("alarms_reference_rate_hint"))

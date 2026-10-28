@@ -56,7 +56,7 @@ class VolumeDataSource @Inject constructor(
         val result = pairCandlesOf(
             pair, price,
             // Name des Coins an der Börse des Paars (gleicher Token, K-8) — wie der Chart
-            identityName = tokenIdentityStore.pairName(pair.marketKey, pair.base),
+            identityName = tokenIdentityStore.pairName(pair.exchangeKey, pair.base),
             ownSupported = ownCandles.supports(pair, interval),
             own = { ownCandles.candles(pair, interval, limit) },
             chain = { name, accept ->
@@ -190,7 +190,7 @@ class VolumeDataSource @Inject constructor(
 
         /** Börse der Kerzen [provider] am Spike, wenn sie nicht die des Paars ist ([DayChange.foreignCandleSource]). */
         fun VolumeSpike.withSource(watch: WatchEntity, provider: String?): VolumeSpike =
-            copy(source = DayChange.foreignCandleSource(listOf(watch.marketKey, watch.marketName), provider))
+            copy(source = DayChange.foreignCandleSource(listOf(watch.exchangeKey, watch.exchangeName), provider))
 
         /** Vergleichsstunden vor der bewerteten. */
         private const val COMPARE_HOURS = 24

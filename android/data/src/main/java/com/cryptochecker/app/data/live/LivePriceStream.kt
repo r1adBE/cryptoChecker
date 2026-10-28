@@ -104,7 +104,7 @@ class LivePriceStream @Inject constructor(
      */
     private var pairKeys: Map<Long, PairIdentity> = emptyMap()
     private val lastDataAt = HashMap<LiveExchange, Long>()
-    private var marketNames: Map<String, String> = emptyMap()
+    private var exchangeNames: Map<String, String> = emptyMap()
 
     /** Laufende Verbindungen (nur aus der Steuer-Coroutine verändert). */
     private val connections = HashMap<String, LiveConnection>()
@@ -164,7 +164,7 @@ class LivePriceStream @Inject constructor(
             buffer.forget(keys.filter { (id, key) -> pairKeys[id].let { it != null && it != key } }.keys)
             watchIds = plan.watchIds
             pairKeys = keys
-            marketNames = pairs.associate { it.marketKey to it.marketName }
+            exchangeNames = pairs.associate { it.exchangeKey to it.exchangeName }
             buffer.retain(ids)
             lastDataAt.keys.retainAll(plan.watchIds.keys)
         }
@@ -248,7 +248,7 @@ class LivePriceStream @Inject constructor(
         val (snapshot, live) = synchronized(lock) {
             val fresh = lastDataAt.filterValues { now - it <= LiveRules.FRESH_MILLIS }.keys
             val names = fresh
-                .mapNotNull { marketNames[it.marketKey] }
+                .mapNotNull { exchangeNames[it.exchangeKey] }
                 .distinct()
                 .sorted()
             liveIds = fresh.flatMapTo(HashSet()) { ex -> watchIds[ex]?.values?.flatten().orEmpty() }
@@ -312,7 +312,7 @@ class LivePriceStream @Inject constructor(
     }
 
     /** Paar der Merkliste in der Form der Datenbank-Spalten ([PairIdentity]). */
-    private fun LivePair.identity(): PairIdentity = PairIdentity(marketKey, base, quote, contract, pairId)
+    private fun LivePair.identity(): PairIdentity = PairIdentity(exchangeKey, base, quote, contract, pairId)
 
     private companion object {
         /** WebSocket-Ping-Frames (OkHttp); bleibt die Antwort aus, gilt die Verbindung als getrennt. */

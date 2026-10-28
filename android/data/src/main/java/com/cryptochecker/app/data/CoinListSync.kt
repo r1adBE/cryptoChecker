@@ -2,7 +2,7 @@ package com.cryptochecker.app.data
 
 import android.content.Context
 import androidx.core.content.edit
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.NetworkError
@@ -13,7 +13,7 @@ import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
 import com.cryptochecker.app.util.ConnectivityMonitor
 import com.cryptochecker.app.util.appScope
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
@@ -172,7 +172,7 @@ class CoinListSync @Inject constructor(
             savedBinance = saved?.binance.orEmpty(),
         )
         val result = withContext(Dispatchers.IO) {
-            CoinLists.fetch({ url -> listClient.callMarket(url, null, HttpBodyLimit.BULK_MAX_BYTES) }, request) { isNetworkError(it) }
+            CoinLists.fetch({ url -> listClient.callExchange(url, null, HttpBodyLimit.BULK_MAX_BYTES) }, request) { isNetworkError(it) }
         }
         val network = result.networkError || !connectivity.isOnline()
         // Versuche merken (kein Netz zählt nicht), Erfolg direkt mit Zeitpunkt

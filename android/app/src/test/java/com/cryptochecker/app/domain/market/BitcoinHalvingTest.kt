@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 
-/** Wie `BitcoinHalvingTests` (iOS, MarketsTests.swift). */
+/** Wie `BitcoinHalvingTests` (iOS, ExchangesTests.swift). */
 class BitcoinHalvingTest {
 
     @Test

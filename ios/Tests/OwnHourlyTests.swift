@@ -83,10 +83,10 @@ final class OwnHourlyTests: XCTestCase {
     }
 
     func testCacheKeySeparatesExchangesAndContracts() {
-        let spot = CandlePair(marketKey: "Kraken", marketName: "Kraken", base: "BTC", quote: "USD", pairId: "XXBTZUSD")
-        let other = CandlePair(marketKey: "Bitstamp", marketName: "Bitstamp", base: "BTC", quote: "USD", pairId: "btcusd")
+        let spot = CandlePair(exchangeKey: "Kraken", exchangeName: "Kraken", base: "BTC", quote: "USD", pairId: "XXBTZUSD")
+        let other = CandlePair(exchangeKey: "Bitstamp", exchangeName: "Bitstamp", base: "BTC", quote: "USD", pairId: "btcusd")
         XCTAssertNotEqual(spot.cacheKey, other.cacheKey)
-        XCTAssertEqual(CandlePair(marketKey: "Coinbase", marketName: "Coinbase", base: "btc", quote: "usd").cacheKey,
+        XCTAssertEqual(CandlePair(exchangeKey: "Coinbase", exchangeName: "Coinbase", base: "btc", quote: "usd").cacheKey,
                        "Coinbase|BTC/USD|NONE")
     }
 

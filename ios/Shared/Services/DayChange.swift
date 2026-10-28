@@ -192,11 +192,11 @@ enum DayChange {
     /// - Parameters:
     ///   - markets: Schlüssel und Name der Börse des Paars
     ///   - provider: Anbieter der Kerzen («Binance», «Binance.US», «Coinbase»); nil = keine Kerzen
-    static func foreignCandleSource(markets: [String], provider: String?) -> String? {
+    static func foreignCandleSource(exchanges: [String], provider: String?) -> String? {
         guard let p = provider?.trimmingCharacters(in: .whitespaces), !p.isEmpty else { return nil }
         func norm(_ s: String) -> String { String(s.lowercased().filter { $0.isLetter || $0.isNumber }) }
         let n = norm(p)
-        let names = markets.map(norm)
+        let names = exchanges.map(norm)
         if names.contains(n) { return nil }
         // Spot-Kerzen («Binance») an einem Futures-Markt derselben Börse: als Spot kennzeichnen — wie Android
         return names.contains(n + "futures") ? "\(p) Spot" : p

@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import com.cryptochecker.app.domain.logos.alphaSymbols
 
 /**
@@ -20,7 +20,7 @@ enum class AssetKind {
 
     companion object {
         /** Spot-Börse von Binance: was dort gehandelt wird, ist regulär gelistet — nie Alpha. */
-        const val BINANCE_SPOT_MARKET = "Binance"
+        const val BINANCE_SPOT_EXCHANGE = "Binance"
 
         /**
          * Art eines Paars. [alphaSymbols]: Kürzel der Alpha-Liste ohne die regulär an Binance Spot
@@ -35,7 +35,7 @@ enum class AssetKind {
          * ([TokenIdentity.compatible]), ist es ein anderer Token gleichen Kürzels — kein Alpha.
          */
         fun of(
-            marketKey: String,
+            exchangeKey: String,
             base: String,
             tradFi: Boolean,
             alphaSymbols: Set<String>,
@@ -44,9 +44,9 @@ enum class AssetKind {
             alphaNames: Map<String, String> = emptyMap(),
         ): AssetKind {
             if (tradFi) return TRADFI
-            if (BinanceAlpha.isAlphaPair(marketKey, pairId)) return ALPHA
+            if (BinanceAlpha.isAlphaPair(exchangeKey, pairId)) return ALPHA
             if (alphaSymbols.isEmpty()) return TOKEN
-            if (marketKey == CoinLogos.DEX_MARKET_KEY || marketKey == BINANCE_SPOT_MARKET) return TOKEN
+            if (exchangeKey == CoinLogos.DEX_EXCHANGE_KEY || exchangeKey == BINANCE_SPOT_EXCHANGE) return TOKEN
             val symbol = CoinLogos.normalize(base)
             if (symbol !in alphaSymbols) return TOKEN
             return if (TokenIdentity.compatible(symbol, pairName, alphaNames[symbol])) ALPHA else TOKEN

@@ -1,13 +1,13 @@
 package com.cryptochecker.app.domain.refresh
 
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.exceptions.toMarketFailure
+import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.model.BulkTickers
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.NotTraded
-import com.cryptochecker.marketdata.config.MarketsConfig
+import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.BulkTickerRows
@@ -29,7 +29,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class PriceFetcher @Inject constructor(
-    private val marketRepository: MarketRepository,
+    private val exchangeRepository: ExchangeRepository,
     /** Je Börse: nicht mehr gehandelte Paare der Sammelabfrage ([BulkDelisted]), dauerhaft gespeichert. */
     private val delisted: BulkDelistedStore,
 ) {
@@ -63,11 +63,11 @@ class PriceFetcher @Inject constructor(
         // Ohne Sammelabfrage: liest die Einzelabfrage selbst die vollständige Liste (Lighter), bestätigt ihr «kein
         // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad (NotTraded.confirmWithoutBulk)
         val singleConfirms = NotTraded.confirmWithoutBulk(
-            bulkTried, MarketsConfig.MARKETS[group.first().marketKey]?.singleTickerReadsFullList == true,
+            bulkTried, ExchangesConfig.EXCHANGES[group.first().exchangeKey]?.singleTickerReadsFullList == true,
         )
 
         // Eigene Grenze je Börse, damit niemand ins Rate-Limit läuft.
-        val limit = Semaphore(MAX_PARALLEL_REQUESTS_PER_MARKET)
+        val limit = Semaphore(MAX_PARALLEL_REQUESTS_PER_EXCHANGE)
         // Erste Einzelabfrage mit 429/418: die übrigen dieser Börse nicht mehr senden (SingleRateGate)
         val gate = SingleRateGate()
 
@@ -114,8 +114,8 @@ class PriceFetcher @Inject constructor(
         // Ursache je Fehler: die beim Abruf bestimmte Art, sonst aus dem Text (wie iOS)
         val failures = errors.map { RefreshReportLogic.classify(it.failure, it.error) }
         val reason = RefreshReportLogic.mostFrequent(failures)
-        val entry = MarketRefresh(
-            name = group.first().marketName,
+        val entry = ExchangeRefresh(
+            name = group.first().exchangeName,
             millis = System.currentTimeMillis() - groupStartedAt,
             pairs = group.size,
             updated = group.size - notTraded - errors.size,
@@ -132,7 +132,7 @@ class PriceFetcher @Inject constructor(
         val bulkCounted = bulk.error != null && !bulk.budgetCut
         val errorTexts = counted.map { it.error } + listOfNotNull(bulk.error.takeIf { bulkCounted })
         val signals = FetchedGroup(
-            marketKey = group.first().marketKey,
+            exchangeKey = group.first().exchangeKey,
             report = entry,
             failures = counted.map { RefreshReportLogic.classify(it.failure, it.error) } +
                 listOfNotNull(RefreshReportLogic.classify(bulk.failure, bulk.error).takeIf { bulkCounted }),
@@ -153,35 +153,35 @@ class PriceFetcher @Inject constructor(
         if (group.size < MIN_WATCHES_FOR_BULK) return BulkResult(BulkTickers())
 
         val sample = group.first()
-        val market = MarketInfo(sample.marketKey, sample.marketName)
+        val exchange = ExchangeInfo(sample.exchangeKey, sample.exchangeName)
         val pairIds = group.mapNotNull { it.pairId }.distinct()
         // Nicht mehr gehandelte Paare nicht mitschicken: ein delistetes Symbol verwirft bei Binance die ganze
         // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste (NotTraded).
         val notTradedIds = group.filter { NotTraded.isMarker(it.lastError) }.mapNotNullTo(HashSet()) { it.pairId }
-        val plan = BulkDelisted.plan(delisted[sample.marketKey], pairIds, notTradedIds, System.currentTimeMillis())
+        val plan = BulkDelisted.plan(delisted[sample.exchangeKey], pairIds, notTradedIds, System.currentTimeMillis())
 
         var cut = false
         // Abbruch des Durchlaufs weiterreichen (nicht als gescheiterte Massenabfrage werten)
         val tickers = runCatchingCancellable {
-            if (!marketRepository.isMarketSupportsBulkTickers(market)) return BulkResult(BulkTickers())
+            if (!exchangeRepository.isExchangeSupportsBulkTickers(exchange)) return BulkResult(BulkTickers())
             // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
             // die Liste gilt als vollständig ohne sie
             if (plan.request.isEmpty()) return BulkResult(BulkTickers(complete = true))
             withinBudget(deadline, onTimeout = { cut = true; BulkTickers(error = CheckBudget.TIMEOUT_ERROR) }) {
-                marketRepository.getBulkTickers(market, plan.request)
+                exchangeRepository.getBulkTickers(exchange, plan.request)
             }.also { r ->
                 delisted.put(
-                    sample.marketKey,
+                    sample.exchangeKey,
                     BulkDelisted.learn(
-                        delisted[sample.marketKey], plan, r.tickers.keys, r.failed, r.complete, System.currentTimeMillis(),
+                        delisted[sample.exchangeKey], plan, r.tickers.keys, r.failed, r.complete, System.currentTimeMillis(),
                         r.incomplete,
                     ),
                 )
             }
         }
-            .onFailure { DomainLog.w(it, "Massenabfrage fehlgeschlagen: %s", sample.marketName) }
+            .onFailure { DomainLog.w(it, "Massenabfrage fehlgeschlagen: %s", sample.exchangeName) }
             .onSuccess { r ->
-                if (BulkTickerRows.isFormatError(r.error)) DomainLog.w("Massenabfrage Formatfehler: %s — %s", sample.marketName, r.error)
+                if (BulkTickerRows.isFormatError(r.error)) DomainLog.w("Massenabfrage Formatfehler: %s — %s", sample.exchangeName, r.error)
             }
             .getOrDefault(BulkTickers())
         return BulkResult(tickers, cut)
@@ -220,8 +220,8 @@ class PriceFetcher @Inject constructor(
 
     suspend fun fetchSingle(watch: WatchEntity): Fetched {
         return runCatchingCancellable {
-            marketRepository.getMarketTicker(
-                MarketInfo(watch.marketKey, watch.marketName),
+            exchangeRepository.getExchangeTicker(
+                ExchangeInfo(watch.exchangeKey, watch.exchangeName),
                 watch.toPairInfo()
             )
         }.fold(
@@ -232,7 +232,7 @@ class PriceFetcher @Inject constructor(
                 // Durchlauf selbst abgebrochen wurde.
                 currentCoroutineContext().ensureActive()
                 DomainLog.w(failure, "Kursabfrage fehlgeschlagen: %s", watch.displayName)
-                Fetched(null, failure.message, fromSingle = true, failure = failure.toMarketFailure())
+                Fetched(null, failure.message, fromSingle = true, failure = failure.toExchangeFailure())
             }
         )
     }
@@ -242,7 +242,7 @@ class PriceFetcher @Inject constructor(
         const val MIN_WATCHES_FOR_BULK = 3
 
         /** Gleichzeitige Einzelabfragen je Börse. */
-        const val MAX_PARALLEL_REQUESTS_PER_MARKET = 4
+        const val MAX_PARALLEL_REQUESTS_PER_EXCHANGE = 4
 
         const val NOT_TRADED_ERROR = NOT_TRADED_MARKER
 
@@ -271,7 +271,7 @@ class PriceFetcher @Inject constructor(
  */
 class SingleRateGate {
     /** Text und Art zusammen, damit beide immer vom selben Fehler stammen. */
-    private class Block(val error: String, val failure: MarketFailure?)
+    private class Block(val error: String, val failure: ExchangeFailure?)
 
     @Volatile
     private var block: Block? = null
@@ -280,7 +280,7 @@ class SingleRateGate {
     val blocked: String? get() = block?.error
 
     /** Ergebnis einer gesendeten Abfrage melden: das erste 429/418 sperrt den Rest. */
-    fun note(error: String?, failure: MarketFailure? = null) {
+    fun note(error: String?, failure: ExchangeFailure? = null) {
         if (block == null && error != null && isRateLimit(error, failure)) block = Block(error, failure)
     }
 
@@ -291,7 +291,7 @@ class SingleRateGate {
     }
 
     companion object {
-        fun isRateLimit(error: String?, failure: MarketFailure? = null): Boolean =
+        fun isRateLimit(error: String?, failure: ExchangeFailure? = null): Boolean =
             error != null && RefreshReportLogic.classify(failure, error) == RefreshFailure.RATE_LIMIT
     }
 }
@@ -305,7 +305,7 @@ class Fetched(
     /** Am Zeitbudget der Prüfung gescheitert ([CheckBudget]), nicht an der Börse. */
     val budgetCut: Boolean = false,
     /** Art des Fehlers zu [error], beim Abruf bestimmt; null = nur der Text ist bekannt. */
-    val failure: MarketFailure? = null,
+    val failure: ExchangeFailure? = null,
 )
 
 /** Sammelabfrage einer Börse; [budgetCut] = am Budget gescheitert ([CheckBudget]). */
@@ -320,8 +320,8 @@ private class BulkResult(val data: BulkTickers, val budgetCut: Boolean = false) 
 
 /** Bericht einer Börse plus was die Pause je Börse ([ExchangeBackoff]) braucht. */
 class FetchedGroup(
-    val marketKey: String,
-    val report: MarketRefresh,
+    val exchangeKey: String,
+    val report: ExchangeRefresh,
     /** Ursachen aller Fehler (auch einer gescheiterten Sammelabfrage). */
     val failures: List<RefreshFailure>,
     val retryAfterMillis: Long?,

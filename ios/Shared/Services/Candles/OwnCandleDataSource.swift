@@ -100,9 +100,9 @@ actor OwnCandleDataSource {
         let post = json.map { PostRequest(body: $0, headers: ["Content-Type": "application/json"]) }
         let body: String
         do {
-            body = try await MarketHTTP.call(url, post: post, session: session)
+            body = try await ExchangeHTTP.call(url, post: post, session: session)
         } catch {
-            if !BlockedSources.noteFailure(host, error), let http = error as? HttpMarketError,
+            if !BlockedSources.noteFailure(host, error), let http = error as? HttpExchangeError,
                ExchangeBackoff.isRateLimitCode(http.httpCode) {
                 CandleHostPauses.pause(host, httpCode: http.httpCode, retryAfterSeconds: http.retryAfterSeconds)
             }

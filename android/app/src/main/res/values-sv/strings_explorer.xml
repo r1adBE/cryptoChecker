@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Par</string>
     <string name="explorer_precise_title">Avancerat / per börs</string>
     <string name="explorer_price_loading">Hämtar kurs…</string>
-    <string name="explorer_select_market_hint">Välj en börs – dess handelspar hämtas automatiskt.</string>
+    <string name="explorer_select_exchange_hint">Välj en börs – dess handelspar hämtas automatiskt.</string>
     <string name="explorer_select_placeholder">Välj</string>
     <string name="explorer_step_pair">Välj par</string>
 

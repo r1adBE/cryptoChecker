@@ -89,7 +89,7 @@ struct WatchSheetChartView: View {
                     preparedChart(candles)
                     SheetChartCaption(info: info, candles: loaded, range: range,
                                       timeZone: ChangeBasisMath.chartTimeZone(changeView.basis),
-                                      markets: [watch.marketKey, watch.marketName], quote: watch.quoteAsset)
+                                      exchanges: [watch.exchangeKey, watch.exchangeName], quote: watch.quoteAsset)
                 case .some(.noData):
                     Text(L("sheet_chart_no_data"))
                         .font(.footnote)

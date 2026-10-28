@@ -12,7 +12,7 @@ extension ExplorerViewModel {
     func addSearchHit(_ hit: ExplorerSearchHit) {
         // Begriff, mit dem ein Paar aufgenommen wurde, landet unter «Zuletzt gesucht»
         rememberSearch(searchQuery)
-        add(market: hit.market, pair: hit.pair)
+        add(exchange: hit.exchange, pair: hit.pair)
     }
 
     // MARK: Coin-Suche
@@ -47,18 +47,18 @@ extension ExplorerViewModel {
     /// Fehlende Paarlisten laden — nur auf ausdrücklichen Wunsch: je Börse die vollständige öffentliche
     /// Liste (für alle gleich), vier Börsen zugleich. Treffer erscheinen nach und nach.
     func loadMissingLists() {
-        guard missingListsTask == nil, !unloadedMarkets.isEmpty else { return }
-        pendingListMarkets = unloadedMarkets
+        guard missingListsTask == nil, !unloadedExchanges.isEmpty else { return }
+        pendingListExchanges = unloadedExchanges
         listsLoadedCount = 0
         failedListKeys = []
-        let targets = unloadedMarkets
-        let total = pendingListMarkets.count
+        let targets = unloadedExchanges
+        let total = pendingListExchanges.count
         searchLists = ExplorerSearchLists(missing: total, progress: ExplorerSearchProgress(done: 0, total: total))
         missingListsTask = Task { @MainActor [weak self] in
             var workers: [Task<Void, Never>] = []
             for _ in 0..<4 {
                 workers.append(Task { @MainActor [weak self] in
-                    while let next = self?.nextPendingListMarket() {
+                    while let next = self?.nextPendingListExchange() {
                         let (key, info) = await ExplorerViewModel.syncForSearch(next)
                         self?.listLoaded(key: key, info: info, total: total)
                     }
@@ -70,7 +70,7 @@ extension ExplorerViewModel {
             self.updateUnloaded()
             // Börsen ohne Antwort (Wartung, Zeitüberschreitung, kein Netz) mit Namen melden statt wortlos
             // dieselbe Karte zu zeigen
-            let stillMissing = Set(self.unloadedMarkets.map(\.key))
+            let stillMissing = Set(self.unloadedExchanges.map(\.key))
             self.searchLists.failed = targets
                 .filter { self.failedListKeys.contains($0.key) && stillMissing.contains($0.key) }
                 .map(\.name)
@@ -116,11 +116,11 @@ extension ExplorerViewModel {
         // Alles, was die Suche braucht, jetzt festhalten (läuft danach abseits des Hauptthreads)
         let scope = assetScope
         let hidden = hiddenAlpha
-        let candidates = searchMarkets.filter { scope.allowsMarket($0.key) }
+        let candidates = searchExchanges.filter { scope.allowsExchange($0.key) }
         let lists = searchCache
         let names = nameIndex
         let picked = pickedCoin
-        let includeUnlisted = !unloadedMarkets.isEmpty
+        let includeUnlisted = !unloadedExchanges.isEmpty
         let preference = pairPreference(candidates)
         // «α»-Kennzeichen je Treffer und Namen gegen falsche Alpha-Zuordnung
         let alphaSymbols = CoinLogoStore.alphaSymbols
@@ -129,22 +129,22 @@ extension ExplorerViewModel {
             try? await Task.sleep(nanoseconds: 150_000_000)
             guard !Task.isCancelled else { return }
             let found = await Task.detached(priority: .userInitiated) {
-                var namesByMarket: [String: [String: String]] = [:]
-                for m in candidates { namesByMarket[m.key] = TokenIdentityStore.shared.marketNames(m.key) }
-                let coins = ExplorerCoinSearch.coins(query, markets: candidates, cache: lists, names: names, scope: scope,
+                var namesByExchange: [String: [String: String]] = [:]
+                for m in candidates { namesByExchange[m.key] = TokenIdentityStore.shared.exchangeNames(m.key) }
+                let coins = ExplorerCoinSearch.coins(query, exchanges: candidates, cache: lists, names: names, scope: scope,
                                                      hiddenAlpha: hidden, alphaSymbols: alphaSymbols,
-                                                     alphaNames: alphaNames, pairNames: namesByMarket,
+                                                     alphaNames: alphaNames, pairNames: namesByExchange,
                                                      includeUnlisted: includeUnlisted)
                 let showPairs = ExplorerCoinSearch.showPairHits(query, coinsFound: !coins.isEmpty)
                 let pairs = showPairs
-                    ? ExplorerPairSearch.find(query, markets: candidates, cache: lists, scope: scope, names: names,
+                    ? ExplorerPairSearch.find(query, exchanges: candidates, cache: lists, scope: scope, names: names,
                                               hiddenAlpha: hidden, alphaSymbols: alphaSymbols,
-                                              alphaNames: alphaNames, pairNames: namesByMarket)
+                                              alphaNames: alphaNames, pairNames: namesByExchange)
                     : []
                 let coinPairs = picked.map {
-                    ExplorerCoinSearch.pairs(for: $0, markets: candidates, cache: lists, preference: preference,
+                    ExplorerCoinSearch.pairs(for: $0, exchanges: candidates, cache: lists, preference: preference,
                                              scope: scope, hiddenAlpha: hidden, alphaSymbols: alphaSymbols,
-                                             alphaNames: alphaNames, pairNames: namesByMarket)
+                                             alphaNames: alphaNames, pairNames: namesByExchange)
                 } ?? []
                 return (coins, showPairs, pairs, coinPairs)
             }.value
@@ -158,11 +158,11 @@ extension ExplorerViewModel {
 
     /// Vorschlag der Coin-Suche: Start-Börse der Region (bei Standort-Sperre Binance.US, wie die
     /// Start-Merkliste), Lieblingsbörsen (gemerkt als Anzeigename) und die Umrechnungswährung.
-    private func pairPreference(_ markets: [Market]) -> ExplorerCoinPairPreference {
-        let favoriteNames = data.favorites[.MARKET] ?? []
+    private func pairPreference(_ exchanges: [Exchange]) -> ExplorerCoinPairPreference {
+        let favoriteNames = data.favorites[.EXCHANGE] ?? []
         return ExplorerCoinPairPreference(
-            defaultExchange: StarterCoins.marketKey(),
-            favoriteExchanges: Set(markets.filter { favoriteNames.contains($0.name) }.map(\.key)),
+            defaultExchange: StarterCoins.exchangeKey(),
+            favoriteExchanges: Set(exchanges.filter { favoriteNames.contains($0.name) }.map(\.key)),
             displayCurrency: data.settings.portfolioCurrency,
             exchangeRank: ExchangeOrder.ranks(ExchangeRankingStore.volumes())
         )
@@ -172,20 +172,20 @@ extension ExplorerViewModel {
     /// Sitzung (später geladene Listen kommen über `loadMissingLists` bzw. den Abgleich der gewählten Börse).
     private func readStoredLists() {
         if storedListsTask != nil { return }
-        let markets = allMarkets.filter { $0.key != Self.dexKey }
+        let exchanges = allExchanges.filter { $0.key != Self.dexKey }
         // Gleich «suche…» zeigen statt kurz «keine Treffer»
         searchLists = ExplorerSearchLists(reading: true)
         storedListsTask = Task { @MainActor [weak self] in
-            var stored: [String: MarketPairsInfo] = [:]
-            for market in markets {
+            var stored: [String: ExchangePairsInfo] = [:]
+            for exchange in exchanges {
                 // Binance inkl. Alpha – «inkl. Alpha-Tokens» filtert erst beim Suchen (`AssetScope.allows`)
-                let info = await PairCache.shared.selectionPairs(for: market.key)
-                if !info.pairs.isEmpty { stored[market.key] = info }
+                let info = await PairCache.shared.selectionPairs(for: exchange.key)
+                if !info.pairs.isEmpty { stored[exchange.key] = info }
             }
             guard let self else { return }
             // Inzwischen frisch abgeglichene Listen nicht mit der gespeicherten Fassung überschreiben
             self.searchCache.merge(stored) { current, _ in current }
-            self.searchMarkets = markets
+            self.searchExchanges = exchanges
             self.updateUnloaded()
             self.runSearch()
         }
@@ -193,16 +193,16 @@ extension ExplorerViewModel {
 
     /// Welche Börsen noch keine Liste haben, aber eine laden können.
     func updateUnloaded() {
-        unloadedMarkets = searchMarkets.filter { searchCache[$0.key] == nil && MarketService.supportsPairSync($0) }
-        searchLists = ExplorerSearchLists(missing: unloadedMarkets.count)
+        unloadedExchanges = searchExchanges.filter { searchCache[$0.key] == nil && ExchangeService.supportsPairSync($0) }
+        searchLists = ExplorerSearchLists(missing: unloadedExchanges.count)
     }
 
-    private func nextPendingListMarket() -> Market? {
-        guard !pendingListMarkets.isEmpty else { return nil }
-        return pendingListMarkets.removeFirst()
+    private func nextPendingListExchange() -> Exchange? {
+        guard !pendingListExchanges.isEmpty else { return nil }
+        return pendingListExchanges.removeFirst()
     }
 
-    private func listLoaded(key: String, info: MarketPairsInfo?, total: Int) {
+    private func listLoaded(key: String, info: ExchangePairsInfo?, total: Int) {
         if let info { searchCache[key] = info } else { failedListKeys.insert(key) }
         listsLoadedCount += 1
         searchLists.progress = ExplorerSearchProgress(done: listsLoadedCount, total: total)
@@ -211,8 +211,8 @@ extension ExplorerViewModel {
 
     /// Vollständige öffentliche Liste der Börse holen (Binance inkl. gespeicherter Alpha-Liste);
     /// nil = Fehler oder leer.
-    nonisolated private static func syncForSearch(_ market: Market) async -> (String, MarketPairsInfo?) {
-        let key = market.key
+    nonisolated private static func syncForSearch(_ exchange: Exchange) async -> (String, ExchangePairsInfo?) {
+        let key = exchange.key
         guard (try? await PairCache.shared.sync(key)) != nil else { return (key, nil) }
         let fresh = await PairCache.shared.selectionPairs(for: key)
         return (key, fresh.pairs.isEmpty ? nil : fresh)

@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.logos
 import com.cryptochecker.app.util.json.JsonObject
 import com.cryptochecker.app.util.json.JsonArray
 import com.cryptochecker.app.util.json.JsonException
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import com.cryptochecker.app.domain.logos.CoinLogos.AlphaEntry
 
 // Binance-Alpha-Liste (Teil von [CoinLogos]): Antwort lesen, Kürzel bereinigen, Alpha-Kürzel und -Token, Kennungen

@@ -26,8 +26,8 @@
         <item quantity="other">kërkesë e grupuar %1$s · %2$d çmime</item>
     </plurals>
     <string name="refresh_sheet_database">Baza e të dhënave</string>
-    <string name="refresh_sheet_market_unreachable">%1$s nuk arrihet</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s nuk arrihet</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d bursë nuk arrihet</item>
         <item quantity="other">%1$d bursa nuk arrihen</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">bursa nuk është e disponueshme</string>
     <string name="refresh_sheet_seconds_a11y">%1$s sekonda</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Bursat</string>
+    <string name="refresh_sheet_section_exchanges">Bursat</string>
     <string name="refresh_sheet_section_steps">Detajet</string>
     <string name="refresh_sheet_status_failed">nuk u përditësua</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

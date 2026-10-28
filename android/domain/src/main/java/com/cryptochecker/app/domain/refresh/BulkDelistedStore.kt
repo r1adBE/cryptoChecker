@@ -20,12 +20,12 @@ class BulkDelistedStore @Inject constructor(
     /** Beim ersten Zugriff aus der Datei geladen; danach massgebend für diesen Prozess. */
     private val states by lazy { ConcurrentHashMap(BulkDelisted.decode(prefs.getString(KEY))) }
 
-    operator fun get(marketKey: String): BulkDelisted.State? = states[marketKey]
+    operator fun get(exchangeKey: String): BulkDelisted.State? = states[exchangeKey]
 
     /** Schreibt nur bei einer Änderung; synchronisiert, damit eine ältere Fassung keine neuere überschreibt. */
     @Synchronized
-    fun put(marketKey: String, state: BulkDelisted.State) {
-        if (states.put(marketKey, state) == state) return
+    fun put(exchangeKey: String, state: BulkDelisted.State) {
+        if (states.put(exchangeKey, state) == state) return
         prefs.edit { putString(KEY, BulkDelisted.encode(states)) }
     }
 

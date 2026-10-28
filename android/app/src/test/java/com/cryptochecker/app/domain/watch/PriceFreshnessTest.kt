@@ -84,7 +84,7 @@ class PriceFreshnessTest {
         error: String? = null,
         price: Double? = 62_000.0,
     ) = WatchEntity(
-        marketKey = "Kraken", marketName = "Kraken", baseAsset = "BTC", quoteAsset = "USD",
+        exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "USD",
         lastPrice = price, lastUpdate = now - 10_000, lastError = error, disabled = disabled,
         priceChangedAt = now - changedAgo, exchangeTime = exchangeTime,
     )

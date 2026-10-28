@@ -201,7 +201,7 @@ extension ExplorerScreen {
 
     // MARK: Schnellfilter
 
-    private func bulkStats(_ pair: MarketPair) -> ExplorerPairStats? {
+    private func bulkStats(_ pair: ExchangePair) -> ExplorerPairStats? {
         pair.pairId.flatMap { vm.bulkStats[$0] }
     }
 
@@ -216,7 +216,7 @@ extension ExplorerScreen {
         return f
     }
 
-    private var sortedBulkPairs: [MarketPair] {
+    private var sortedBulkPairs: [ExchangePair] {
         ExplorerQuickFilters.sort(vm.bulkPairs, activeQuickFilter) { bulkStats($0) }
     }
 
@@ -256,19 +256,19 @@ extension ExplorerScreen {
     }
 
     /// Volumen des Filters «Volumen» in der Zeile: «12.3M USDT»; sonst nil.
-    private func quickFilterText(_ pair: MarketPair) -> String? {
+    private func quickFilterText(_ pair: ExchangePair) -> String? {
         guard let filter = activeQuickFilter, filter == .volume,
               let value = ExplorerQuickFilters.value(bulkStats(pair), filter) else { return nil }
         return PriceFormat.compact(value) + " " + pair.quote
     }
 
     /// Veränderung zu «Gewinner»/«Verlierer» (als Anzeige «+3.21%»); beim Volumen nil.
-    private func quickFilterChange(_ pair: MarketPair) -> Double? {
+    private func quickFilterChange(_ pair: ExchangePair) -> Double? {
         guard let filter = activeQuickFilter, filter != .volume else { return nil }
         return ExplorerQuickFilters.value(bulkStats(pair), filter)
     }
 
-    private func bulkPairRow(_ pair: MarketPair) -> some View {
+    private func bulkPairRow(_ pair: ExchangePair) -> some View {
         let selected = pair.base == vm.coin && pair.quote == vm.quote && pair.contractType == vm.contract
         return Button {
             Haptics.play(.selection)
@@ -293,7 +293,7 @@ extension ExplorerScreen {
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .monospacedDigit()
                 }
-                if vm.isInWatchlist(vm.exchange ?? MarketsConfig.unknownMarket, pair) {
+                if vm.isInWatchlist(vm.exchange ?? ExchangesConfig.unknownExchange, pair) {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.footnote)
                         .foregroundStyle(PriceColors.ok)

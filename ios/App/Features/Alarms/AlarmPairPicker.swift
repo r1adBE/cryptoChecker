@@ -18,7 +18,7 @@ struct AlarmPairPicker: View {
     struct Row: Identifiable, Equatable {
         let id: Int64
         let displayName: String
-        let marketName: String
+        let exchangeName: String
         let favorite: Bool
         /// Suchfelder wie `WatchlistSearch.matches` ohne Coin-Namen, gefaltet (`ExplorerNameMatch.fold`).
         let folded: [String]
@@ -28,7 +28,7 @@ struct AlarmPairPicker: View {
     struct Source: Hashable {
         let id: Int64
         let displayName: String
-        let marketName: String
+        let exchangeName: String
         let favorite: Bool
         let note: String?
         let logoPairKey: String
@@ -36,7 +36,7 @@ struct AlarmPairPicker: View {
         init(_ watch: Watch) {
             id = watch.id
             displayName = watch.displayName
-            marketName = watch.marketName
+            exchangeName = watch.exchangeName
             favorite = watch.favorite
             note = watch.note
             logoPairKey = watch.logoPairKey
@@ -74,14 +74,14 @@ struct AlarmPairPicker: View {
         makeRowsCounter.write { $0 += 1 }
         #endif
         return watches.map { watch in
-            Row(id: watch.id, displayName: watch.displayName, marketName: watch.marketName, favorite: watch.favorite,
+            Row(id: watch.id, displayName: watch.displayName, exchangeName: watch.exchangeName, favorite: watch.favorite,
                 folded: [
                     watch.baseAsset,
                     watch.quoteAsset,
                     watch.displayPair,
                     watch.displayName,
                     watch.contractType.shortName ?? "",
-                    watch.marketName,
+                    watch.exchangeName,
                     watch.note ?? "",
                 ].map(ExplorerNameMatch.fold))
         }
@@ -122,7 +122,7 @@ struct AlarmPairPicker: View {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(row.displayName)
                                     .foregroundStyle(AppColors.onSurface)
-                                Text(row.marketName)
+                                Text(row.exchangeName)
                                     .font(.footnote)
                                     .foregroundStyle(AppColors.onSurfaceVariant)
                             }

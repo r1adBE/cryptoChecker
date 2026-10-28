@@ -24,11 +24,11 @@ import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.trySaveAlarm
 import com.cryptochecker.app.data.trySaveAlarmMerged
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.widget.PortfolioSnapshotSeal
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import java.io.File
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
@@ -87,9 +87,9 @@ class WatchlistLockDeviceTest {
             AlarmDeliveryMarkers(context), FallAlarmCleanup(context, db.getWatchDao()),
         )
         runBlocking {
-            watchId = checkNotNull(repo.addWatch(BINANCE, MarketPair("BTC", "USDT", "BTCUSDT"), group = "Layer 1"))
+            watchId = checkNotNull(repo.addWatch(BINANCE, ExchangePair("BTC", "USDT", "BTCUSDT"), group = "Layer 1"))
             // Ohne Alarm: deleteWatchesWithoutAlarms hat ungesperrt etwas zu löschen
-            plainWatchId = checkNotNull(repo.addWatch(BINANCE, MarketPair("ETH", "USDT", "ETHUSDT")))
+            plainWatchId = checkNotNull(repo.addWatch(BINANCE, ExchangePair("ETH", "USDT", "ETHUSDT")))
             repo.setNote(watchId, "Ø 77 500")
             alarmId = checkNotNull(
                 repo.saveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_ABOVE, threshold = 100_000.0)),
@@ -124,8 +124,8 @@ class WatchlistLockDeviceTest {
     private fun userWrites(): Map<String, suspend (Boolean) -> Unit> {
         // Ausdrücklich als suspend-Lambda (mit «to» allein wäre es ein gewöhnliches Lambda)
         fun write(block: suspend (locked: Boolean) -> Unit): suspend (Boolean) -> Unit = block
-        val btc = MarketPair("BTC", "USDT", "BTCUSDT")
-        val sol = MarketPair("SOL", "USDT", "SOLUSDT")
+        val btc = ExchangePair("BTC", "USDT", "BTCUSDT")
+        val sol = ExchangePair("SOL", "USDT", "SOLUSDT")
         return mapOf(
             "changePair" to write { locked ->
                 val expected = if (locked) PairEditResult.LOCKED else PairEditResult.SAVED
@@ -265,7 +265,7 @@ class WatchlistLockDeviceTest {
         .toSet()
 
     private companion object {
-        val BINANCE = MarketInfo("Binance", "Binance")
+        val BINANCE = ExchangeInfo("Binance", "Binance")
 
         /** Dateien mit Erweiterungen von [WatchRepository] (Klassen der Kotlin-Dateien). */
         val EXTENSION_FILES = listOf("WatchRepositoryAddKt", "WatchRepositoryRefreshKt", "WatchRepositoryAlarmSaveKt")

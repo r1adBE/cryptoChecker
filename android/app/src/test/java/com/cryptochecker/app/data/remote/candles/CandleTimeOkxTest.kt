@@ -22,12 +22,12 @@ class CandleTimeOkxTest {
     private val hour = CandleTime.HOUR
 
     private fun pair(
-        marketKey: String,
+        exchangeKey: String,
         pairId: String?,
         contract: FuturesContractType = FuturesContractType.NONE,
         base: String = "BTC",
         quote: String = "USDT",
-    ) = CandlePair(marketKey, marketKey, base, quote, pairId, contract)
+    ) = CandlePair(exchangeKey, exchangeKey, base, quote, pairId, contract)
 
     /** Kerzenquelle mit festen Antworten je Adresse; merkt sich die Anfragen. */
     private class Http(private val replies: Map<String, String>) : CandleHttp {

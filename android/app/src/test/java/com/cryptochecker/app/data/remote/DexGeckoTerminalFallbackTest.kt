@@ -1,14 +1,14 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.obj
-import com.cryptochecker.marketdata.exceptions.MarketParseException
+import com.cryptochecker.marketdata.exceptions.ExchangeParseException
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.market.DexScreener
-import com.cryptochecker.marketdata.model.market.OneTrading
+import com.cryptochecker.marketdata.model.exchange.DexScreener
+import com.cryptochecker.marketdata.model.exchange.OneTrading
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -46,7 +46,7 @@ class DexGeckoTerminalFallbackTest {
             .first { it["kind"] == "singleFallback" && it["expect"].obj()["error"] != true }["body"] as String
     }
 
-    private fun source(replies: Map<String, Pair<Int, String>>) = MarketRemoteDataSource(
+    private fun source(replies: Map<String, Pair<Int, String>>) = ExchangeRemoteDataSource(
         OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
             val request = chain.request()
             val url = request.url.toString()
@@ -60,7 +60,7 @@ class DexGeckoTerminalFallbackTest {
     @Test
     fun unknownPoolTakesThePriceFromGeckoTerminal() = runBlocking {
         val ticker = source(mapOf(dexUrl to (200 to """{"schemaVersion":"1.0.0","pairs":null}"""), geckoUrl to (200 to geckoBody())))
-            .fetchMarketTicker(DexScreener(), pool)
+            .fetchExchangeTicker(DexScreener(), pool)
         assertEquals(2323.61, ticker.last, 1e-9)
         assertEquals(-1.41, ticker.change24hPercent!!, 1e-9)
         assertTrue("Liquidität aus reserve_in_usd", (ticker.liquidityUsd ?: 0.0) > 1_000_000.0)
@@ -70,7 +70,7 @@ class DexGeckoTerminalFallbackTest {
     @Test
     fun serverErrorTakesThePriceFromGeckoTerminal() = runBlocking {
         val ticker = source(mapOf(dexUrl to (502 to "Bad Gateway"), geckoUrl to (200 to geckoBody())))
-            .fetchMarketTicker(DexScreener(), pool)
+            .fetchExchangeTicker(DexScreener(), pool)
         assertEquals(2323.61, ticker.last, 1e-9)
     }
 
@@ -78,15 +78,15 @@ class DexGeckoTerminalFallbackTest {
     fun geckoTerminalRateLimitKeepsTheOriginalError() = runBlocking {
         val limited = """{"status":{"error_code":429,"error_message":"rate limit"}}"""
         try {
-            source(mapOf(dexUrl to (200 to """{"pairs":null}"""), geckoUrl to (429 to limited))).fetchMarketTicker(DexScreener(), pool)
+            source(mapOf(dexUrl to (200 to """{"pairs":null}"""), geckoUrl to (429 to limited))).fetchExchangeTicker(DexScreener(), pool)
             fail("Fehler erwartet")
-        } catch (e: MarketParseException) {
+        } catch (e: ExchangeParseException) {
             assertEquals(DexScreener.POOL_NOT_FOUND, e.message)
         }
         try {
-            source(mapOf(dexUrl to (500 to "x"), geckoUrl to (429 to limited))).fetchMarketTicker(DexScreener(), pool)
+            source(mapOf(dexUrl to (500 to "x"), geckoUrl to (429 to limited))).fetchExchangeTicker(DexScreener(), pool)
             fail("Fehler erwartet")
-        } catch (e: HttpMarketError) {
+        } catch (e: HttpExchangeError) {
             // Der Serverfehler von DexScreener, nicht die Bremse von GeckoTerminal (sie würde DexScreener pausieren)
             assertEquals(500, e.httpCode)
         }
@@ -102,8 +102,8 @@ class DexGeckoTerminalFallbackTest {
     @Test
     fun onlyPoolNotFoundOpensTheFallback() {
         val dex = DexScreener()
-        assertTrue(dex.tickerFallbackOnParseError(0, MarketParseException(DexScreener.POOL_NOT_FOUND)))
-        assertFalse(dex.tickerFallbackOnParseError(0, MarketParseException(MarketParseException.NO_DATA)))
-        assertFalse(OneTrading().tickerFallbackOnParseError(0, MarketParseException(DexScreener.POOL_NOT_FOUND)))
+        assertTrue(dex.tickerFallbackOnParseError(0, ExchangeParseException(DexScreener.POOL_NOT_FOUND)))
+        assertFalse(dex.tickerFallbackOnParseError(0, ExchangeParseException(ExchangeParseException.NO_DATA)))
+        assertFalse(OneTrading().tickerFallbackOnParseError(0, ExchangeParseException(DexScreener.POOL_NOT_FOUND)))
     }
 }

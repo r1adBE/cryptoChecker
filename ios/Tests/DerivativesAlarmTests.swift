@@ -141,9 +141,9 @@ final class DerivativesAlarmTests: XCTestCase {
             }
         }
         for c in S.list(data["supports"]) {
-            XCTAssertEqual(DerivativesAlarm.supports(marketKey: c["marketKey"] as? String ?? "",
+            XCTAssertEqual(DerivativesAlarm.supports(exchangeKey: c["exchangeKey"] as? String ?? "",
                                                      perpetual: c["perpetual"] as? Bool ?? false),
-                           c["expected"] as? Bool, "supports: \(c["marketKey"] ?? "")")
+                           c["expected"] as? Bool, "supports: \(c["exchangeKey"] ?? "")")
         }
         for c in S.list(data["oiWindow"]) {
             XCTAssertEqual(DerivativesAlarm.oiWindowHours(Int(S.number(c["hours"]) ?? 0)), Int(S.number(c["expected"]) ?? -1))

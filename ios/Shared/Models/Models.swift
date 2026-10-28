@@ -5,8 +5,8 @@ import Foundation
 /// Sprachansagen und Alarme.
 struct Watch: Codable, Identifiable, Hashable, Sendable {
     var id: Int64
-    var marketKey: String
-    var marketName: String
+    var exchangeKey: String
+    var exchangeName: String
     var baseAsset: String
     var quoteAsset: String
     var contractType: FuturesContractType = .none
@@ -84,11 +84,11 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
         return amount * price
     }
 
-    var pairInfo: MarketPair { MarketPair(baseAsset, quoteAsset, pairId, contractType) }
+    var pairInfo: ExchangePair { ExchangePair(baseAsset, quoteAsset, pairId, contractType) }
 
     /// Eindeutiger Schlüssel des Eintrags (`WatchIdentity`): bei DexScreener mit Pool.
     var identity: WatchIdentity.Key {
-        WatchIdentity.key(marketKey: marketKey, base: baseAsset, quote: quoteAsset,
+        WatchIdentity.key(exchangeKey: exchangeKey, base: baseAsset, quote: quoteAsset,
                           contract: String(contractType.rawValue), pairId: pairId)
     }
 
@@ -223,7 +223,7 @@ struct AlarmWithWatch: Identifiable, Hashable {
 
 /// Welche Auswahlliste auf der Seite «Paar hinzufügen»: Börsen, Coins oder Gegenwerte.
 enum FavoriteKind: String, CaseIterable, Codable, Sendable {
-    case MARKET, COIN, QUOTE
+    case EXCHANGE, COIN, QUOTE
 }
 
 // MARK: Tolerantes Lesen
@@ -234,15 +234,15 @@ extension Watch {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         id = try c.decode(Int64.self, forKey: .id)
-        marketKey = try c.decode(String.self, forKey: .marketKey)
-        marketName = try c.decodeIfPresent(String.self, forKey: .marketName) ?? marketKey
+        exchangeKey = try c.decode(String.self, forKey: .exchangeKey)
+        exchangeName = try c.decodeIfPresent(String.self, forKey: .exchangeName) ?? exchangeKey
         baseAsset = try c.decode(String.self, forKey: .baseAsset)
         quoteAsset = try c.decode(String.self, forKey: .quoteAsset)
         pairId = try c.decodeIfPresent(String.self, forKey: .pairId)
         // Früher als `.perpetual` gespeicherte inverse Perpetuals (COIN-M, OKX «-USD-SWAP», Deribit BTC/ETH)
         // wie die heutige Paarliste — sonst passte die Dublettenprüfung nicht. Wie Android `normalizeContractTypes`.
         let storedType = try c.decodeIfPresent(FuturesContractType.self, forKey: .contractType) ?? .none
-        contractType = FuturesContractType.normalized(marketKey: marketKey, pairId: pairId, storedType)
+        contractType = FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: pairId, storedType)
         sortOrder = try c.decodeIfPresent(Int.self, forKey: .sortOrder) ?? 0
         notificationEnabled = try c.decodeIfPresent(Bool.self, forKey: .notificationEnabled) ?? Watch.legacyNotificationEnabled
         ttsEnabled = try c.decodeIfPresent(Bool.self, forKey: .ttsEnabled) ?? false
@@ -299,14 +299,14 @@ enum AutoGroup {
     static let dated = "QTLY"
 
     /// nil: keine eigene Gruppe (Krypto-Spot und -Perpetuals).
-    static func forPair(_ pair: MarketPair) -> String? {
+    static func forPair(_ pair: ExchangePair) -> String? {
         if pair.isTradFi { return tradFi }
         if pair.contractType.isRolling { return dated }
         return nil
     }
 
     /// Gewählte Gruppe, sonst die passende von `forPair`.
-    static func resolve(_ chosen: String?, pair: MarketPair) -> String? {
+    static func resolve(_ chosen: String?, pair: ExchangePair) -> String? {
         Watch.validGroupName(chosen) ?? forPair(pair)
     }
 }

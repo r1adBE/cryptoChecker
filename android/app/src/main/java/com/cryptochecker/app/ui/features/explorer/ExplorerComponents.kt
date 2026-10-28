@@ -160,7 +160,7 @@ internal fun StepHeader(number: Int, title: String, active: Boolean, done: Boole
 
 /** Favoriten der drei Auswahllisten. */
 class FavoritesUi(
-    val markets: Set<String> = emptySet(),
+    val exchanges: Set<String> = emptySet(),
     val coins: Set<String> = emptySet(),
     val quotes: Set<String> = emptySet(),
     val onToggle: (FavoriteKind, String) -> Unit = { _, _ -> },

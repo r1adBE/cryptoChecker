@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

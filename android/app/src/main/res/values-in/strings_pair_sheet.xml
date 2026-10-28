@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">hari ini %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">Tidak ada data yang diterima dari bursa.</string>
+    <string name="exchange_data_empty_error">Tidak ada data yang diterima dari bursa.</string>
     <string name="market_data_summary">Kapitalisasi pasar, biaya gas, data ekonomi, analisis koin</string>
     <string name="market_data_tab_futures">Futures</string>
     <string name="market_data_title">Data pasar</string>

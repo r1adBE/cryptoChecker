@@ -374,7 +374,7 @@ class PortfolioViewModel @Inject constructor(
 
     internal val _exchanges = MutableStateFlow<List<String>>(emptyList())
 
-    /** Spot-Börsen der App für das Feld «Börse» ([PortfolioPriceSource.spotMarketNames]). */
+    /** Spot-Börsen der App für das Feld «Börse» ([PortfolioPriceSource.spotExchangeNames]). */
     val exchanges: StateFlow<List<String>> = _exchanges.asStateFlow()
 
     /** «Beträge verbergen» umschalten; das Portfolio-Widget zeichnet gleich neu. */

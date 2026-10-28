@@ -72,7 +72,7 @@ internal fun WatchEditSheet(
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val favMarkets by viewModel.favoriteMarkets.collectAsStateWithLifecycle()
+    val favExchanges by viewModel.favoriteExchanges.collectAsStateWithLifecycle()
     val favCoins by viewModel.favoriteCoins.collectAsStateWithLifecycle()
     val favQuotes by viewModel.favoriteQuotes.collectAsStateWithLifecycle()
 
@@ -100,7 +100,7 @@ internal fun WatchEditSheet(
         if (duplicateGate.claim(state.duplicate.takeIf { it })) haptics.play(HapticEvent.WARNING)
     }
 
-    val current = WatchEdit.Key.of(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId)
+    val current = WatchEdit.Key.of(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId)
     val target = state.key
     val changed = target != null && target != current
     val gap = 12.dp
@@ -121,34 +121,34 @@ internal fun WatchEditSheet(
                 modifier = Modifier.semantics { heading() }
             )
             Text(
-                text = "${BidiText.isolate(watch.displayName)} · ${BidiText.isolate(watch.marketName)}",
+                text = "${BidiText.isolate(watch.displayName)} · ${BidiText.isolate(watch.exchangeName)}",
                 style = MaterialTheme.typography.headline,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
             AppCard {
-                val markets = state.markets
-                if (markets == null) {
+                val exchanges = state.exchanges
+                if (exchanges == null) {
                     LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
                 } else {
                     DropdownField(
                         modifier = Modifier.fillMaxWidth(),
-                        itemList = markets.map { it.name },
-                        selectedIndex = markets.indexOf(state.market),
+                        itemList = exchanges.map { it.name },
+                        selectedIndex = exchanges.indexOf(state.exchange),
                         label = stringResource(R.string.explorer_field_exchange),
                         searchable = true,
                         emptyText = stringResource(R.string.explorer_select_placeholder),
-                        favorites = favMarkets,
-                        onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.MARKET, it) },
-                        onValueChange = { viewModel.setMarket(markets[it]) }
+                        favorites = favExchanges,
+                        onToggleFavorite = { viewModel.toggleFavorite(FavoriteKind.EXCHANGE, it) },
+                        onValueChange = { viewModel.setExchange(exchanges[it]) }
                     )
                 }
 
                 val bases = state.bases
                 when {
-                    state.market == null && markets != null -> Hint(stringResource(R.string.explorer_select_market_hint))
-                    state.market == null -> Unit
+                    state.exchange == null && exchanges != null -> Hint(stringResource(R.string.explorer_select_exchange_hint))
+                    state.exchange == null -> Unit
                     state.syncing || state.pairs == null -> Column(modifier = Modifier.padding(top = gap)) {
                         LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
                         Hint(stringResource(R.string.explorer_loading_pairs))

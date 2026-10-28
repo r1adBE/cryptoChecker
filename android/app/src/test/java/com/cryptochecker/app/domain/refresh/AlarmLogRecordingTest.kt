@@ -109,7 +109,7 @@ class AlarmLogRecordingTest {
         assertEquals(old, f.last(7).exchangeTime)
         assertEquals(0L, f.store.alarm(7).referenceAt)
 
-        val g = RefreshFixture(listOf(watch(price = 99.0, marketKey = "Hyperliquid")), listOf(above(100.0)))
+        val g = RefreshFixture(listOf(watch(price = 99.0, exchangeKey = "Hyperliquid")), listOf(above(100.0)))
         assertEquals(0, g.process(mapOf(1L to Fetched(ticker(101.0, markFallback = true), null))).alarms)
         assertEquals(AlarmLogOutcome.MARK_PRICE, g.last(7).outcome)
         assertTrue(g.last(7).notable)
@@ -124,7 +124,7 @@ class AlarmLogRecordingTest {
     @Test
     fun lowLiquidityIsRecorded() {
         val pool = "solana/pool1"
-        val f = RefreshFixture(listOf(watch(price = 99.0, marketKey = DexLiquidity.MARKET_KEY, pairId = pool)), listOf(above(100.0)))
+        val f = RefreshFixture(listOf(watch(price = 99.0, exchangeKey = DexLiquidity.EXCHANGE_KEY, pairId = pool)), listOf(above(100.0)))
         f.dex.blocked = setOf(pool)
         assertEquals(0, f.process(mapOf(1L to Fetched(ticker(101.0), null))).alarms)
         assertEquals(AlarmLogOutcome.LOW_LIQUIDITY, f.last(7).outcome)

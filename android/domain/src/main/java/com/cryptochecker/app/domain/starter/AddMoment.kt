@@ -16,15 +16,15 @@ data class AddMoment(
      * schon vor dem Speichern bereitstehen und die Zeile gleich beim ersten Zeichnen
      * einblenden). [display] z. B. «BTC/USDT».
      */
-    data class Added(val marketKey: String, val base: String, val quote: String, val display: String) {
-        fun matches(marketKey: String, base: String, quote: String): Boolean =
-            this.marketKey == marketKey && this.base.equals(base, ignoreCase = true) &&
+    data class Added(val exchangeKey: String, val base: String, val quote: String, val display: String) {
+        fun matches(exchangeKey: String, base: String, quote: String): Boolean =
+            this.exchangeKey == exchangeKey && this.base.equals(base, ignoreCase = true) &&
                 this.quote.equals(quote, ignoreCase = true)
     }
 
     /** Platz in der Staffelung; null = Zeile gehört nicht zu diesem Moment. */
-    fun indexOf(marketKey: String, base: String, quote: String): Int? =
-        pairs.indexOfFirst { it.matches(marketKey, base, quote) }.takeIf { it >= 0 }
+    fun indexOf(exchangeKey: String, base: String, quote: String): Int? =
+        pairs.indexOfFirst { it.matches(exchangeKey, base, quote) }.takeIf { it >= 0 }
 
     companion object {
         /** Versatz zwischen zwei Zeilen. */

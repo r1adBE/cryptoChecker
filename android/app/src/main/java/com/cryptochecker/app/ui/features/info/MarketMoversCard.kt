@@ -51,7 +51,7 @@ import com.cryptochecker.app.util.A11yText
 
 /**
  * «Gewinner und Verlierer 24 h» unter dem Pulse: je bis zu fünf Coins mit dem grössten Plus bzw. Minus unter den
- * Top 100 ohne Stablecoins ([com.cryptochecker.app.domain.market.MarketMovers], dieselbe CoinGecko-Antwort wie die
+ * Top 100 ohne Stablecoins ([com.cryptochecker.app.domain.exchange.MarketMovers], dieselbe CoinGecko-Antwort wie die
  * Marktbreite). Solange der Pulse lädt, ein form-gleicher Platzhalter ([MoversSkeleton]) — darunter springt nichts,
  * wenn die Zeilen kommen; bei Fehler nichts (den zeigt schon die Pulse-Karte darüber). Je Zeile Logo, Kürzel und Name, «24h» und die Änderung mit Pfeil und Vorzeichen in der Kursfarbe (nie Farbe
  * allein). Tippen ([onOpen]): dasselbe wie in «Heute auffällig» (Aktionsblatt des Paars, sonst seine Vorschau mit

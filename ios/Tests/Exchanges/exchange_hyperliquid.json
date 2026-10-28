@@ -8,7 +8,7 @@
     {
       "kind": "single",
       "name": "markPx null: price = midPx, 24 h change from the shown price (midPx vs prevDayPx)",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "pair": {
         "base": "BTC",
         "quote": "USDC",
@@ -25,7 +25,7 @@
     {
       "kind": "single",
       "name": "metaAndAssetCtxs: BTC price = midPx, 24 h change from the shown price (midPx vs prevDayPx, not markPx) so price, change and alarms share one basis",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "pair": {
         "base": "BTC",
         "quote": "USDC",
@@ -48,7 +48,7 @@
     {
       "kind": "single",
       "name": "midPx null -> markPx, 24 h change from that shown markPx",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "pair": {
         "base": "ETH",
         "quote": "USDC",
@@ -67,7 +67,7 @@
     {
       "kind": "single",
       "name": "unknown coin: a valid answer has no error text (reader error stays)",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "pair": {
         "base": "FOO",
         "quote": "USDC",
@@ -85,7 +85,7 @@
     {
       "kind": "single",
       "name": "delisted coin is not offered",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "pair": {
         "base": "OLD",
         "quote": "USDC",
@@ -103,7 +103,7 @@
     {
       "kind": "single",
       "name": "midPx \"0\" (empty book side) -> markPx, flagged as mark fallback (0 is no mid price)",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "pair": {
         "base": "BTC",
         "quote": "USDC",
@@ -121,7 +121,7 @@
     {
       "kind": "bulk",
       "name": "bulk: same request, delisted skipped",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "requestId": 0,
       "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56}, {\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55}, {\"szDecimals\":0,\"name\":\"OLD\",\"maxLeverage\":3,\"marginTableId\":3,\"isDelisted\":true}, {\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10,\"marginTableId\":10}],\"marginTables\":[[3,{\"description\":\"\",\"marginTiers\":[{\"lowerBound\":\"0.0\",\"maxLeverage\":3}]}]]}, [{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\", \"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"}, {\"funding\":\"0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\", \"markPx\":\"2450.2\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"403000.5\"}, {\"funding\":\"0.0\",\"openInterest\":\"0.0\",\"prevDayPx\":\"0.1\",\"dayNtlVlm\":\"0.0\",\"premium\":null,\"oraclePx\":\"0.1\",\"markPx\":\"0.1\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"0.0\"}, {\"funding\":\"0.0000125\",\"openInterest\":\"123456789.0\",\"prevDayPx\":\"0.009431\",\"dayNtlVlm\":\"45678901.2\",\"premium\":\"0.0\",\"oraclePx\":\"0.009121\", \"markPx\":\"0.009120\",\"midPx\":\"0.0091205\",\"impactPxs\":[\"0.00912\",\"0.009121\"],\"dayBaseVlm\":\"5008000000.0\"}]]",
       "expect": {
@@ -151,7 +151,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed fields «midPx»/«markPx» in one context — that coin is reported as unreadable, the rest stays; null midPx/markPx (inactive) and a nameless coin without price are skipped, not failed",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "requestId": 0,
       "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40,\"marginTableId\":56},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25,\"marginTableId\":55},{\"szDecimals\":0,\"name\":\"OLD\",\"maxLeverage\":3,\"marginTableId\":3,\"isDelisted\":true},{\"szDecimals\":0,\"name\":\"kPEPE\",\"maxLeverage\":10,\"marginTableId\":10},{\"szDecimals\":2,\"name\":\"SOL\",\"maxLeverage\":20,\"marginTableId\":20},{\"szDecimals\":0,\"name\":\"NEW\",\"maxLeverage\":3,\"marginTableId\":3},{\"szDecimals\":0,\"maxLeverage\":3,\"marginTableId\":3}],\"marginTables\":[[3,{\"description\":\"\",\"marginTiers\":[{\"lowerBound\":\"0.0\",\"maxLeverage\":3}]}]]},[{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"62000.5\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"0.00001\",\"openInterest\":\"234567.8\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"premium\":\"0.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"403000.5\"},{\"funding\":\"0.0\",\"openInterest\":\"0.0\",\"prevDayPx\":\"0.1\",\"dayNtlVlm\":\"0.0\",\"premium\":null,\"oraclePx\":\"0.1\",\"markPx\":\"0.1\",\"midPx\":null,\"impactPxs\":null,\"dayBaseVlm\":\"0.0\"},{\"funding\":\"0.0000125\",\"openInterest\":\"123456789.0\",\"prevDayPx\":\"0.009431\",\"dayNtlVlm\":\"45678901.2\",\"premium\":\"0.0\",\"oraclePx\":\"0.009121\",\"markPx\":\"0.009120\",\"midPx\":\"0.0091205\",\"impactPxs\":[\"0.00912\",\"0.009121\"],\"dayBaseVlm\":\"5008000000.0\"},{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\",\"midPx_renamed\":\"62000.5\",\"markPx_renamed\":\"62005.0\"},{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"markPx\":null,\"midPx\":null,\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"premium\":\"0.0001\",\"oraclePx\":\"62010.0\",\"impactPxs\":[\"62000.0\",\"62001.0\"],\"dayBaseVlm\":\"20000.1\"}]]",
       "expect": {
@@ -174,7 +174,7 @@
     {
       "kind": "bulk",
       "name": "bulk: midPx \"0\" -> markPx with mark fallback, not skipped and not failed",
-      "market": "Hyperliquid",
+      "exchangeKey": "Hyperliquid",
       "requestId": 0,
       "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25}]},[{\"funding\":\"0.0000125\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"0\",\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"0.00001\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":\"2450.25\",\"dayBaseVlm\":\"403000.5\"}]]",
       "expect": {

@@ -186,7 +186,7 @@ enum ExchangeBackoff {
     ]
 
     /// Börsen-Schlüssel der Kursabfrage, die dieselben Hosts nutzen.
-    static let binanceMarketKeys: Set<String> = ["Binance", "BinanceFutures"]
+    static let binanceExchangeKeys: Set<String> = ["Binance", "BinanceFutures"]
 
     static let binanceGroup = "binance"
 
@@ -197,8 +197,8 @@ enum ExchangeBackoff {
     static let banDefaultMillis: Int64 = 2 * 60_000
 
     /// Gruppe, deren Endpunkte sich eine Pause teilen (Hostname oder Börsen-Schlüssel); nil = keine.
-    static func sharedGroup(_ hostOrMarketKey: String) -> String? {
-        binanceHosts.contains(hostOrMarketKey) || binanceMarketKeys.contains(hostOrMarketKey) ? binanceGroup : nil
+    static func sharedGroup(_ hostOrExchangeKey: String) -> String? {
+        binanceHosts.contains(hostOrExchangeKey) || binanceExchangeKeys.contains(hostOrExchangeKey) ? binanceGroup : nil
     }
 
     /// «Zu viele Anfragen» (429) oder «IP gesperrt» (418).

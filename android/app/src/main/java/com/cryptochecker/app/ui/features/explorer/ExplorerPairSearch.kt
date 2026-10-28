@@ -2,18 +2,18 @@ package com.cryptochecker.app.ui.features.explorer
 
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.TokenIdentity
 import com.cryptochecker.app.settings.AssetScope
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import java.text.Normalizer
 import java.util.Locale
 
 /** Ein Treffer der Suche über alle Börsen; [alpha] = Alpha-Token («α», [AssetKind.ALPHA]). */
-data class SearchHit(val market: MarketInfo, val pair: MarketPair, val alpha: Boolean = false)
+data class SearchHit(val exchange: ExchangeInfo, val pair: ExchangePair, val alpha: Boolean = false)
 
 /** Fortschritt beim Nachladen der Paarlisten für die Suche. */
 data class SearchProgress(val done: Int, val total: Int)
@@ -51,13 +51,13 @@ object NameMatch {
     }
 
     /**
-     * Nennt das Wort [word] (gefaltet) die Börse [foldedMarketName]? Ab 3 Zeichen, Anfang eines
+     * Nennt das Wort [word] (gefaltet) die Börse [foldedExchangeName]? Ab 3 Zeichen, Anfang eines
      * Worts des Namens oder des Namens ohne Trennzeichen («cryptocom» → «Crypto.com»).
      */
-    fun matchesMarket(foldedMarketName: String, word: String): Boolean {
+    fun matchesExchange(foldedExchangeName: String, word: String): Boolean {
         if (word.length < 3) return false
-        if (words(foldedMarketName).any { it.startsWith(word) }) return true
-        return foldedMarketName.filter { it.isLetterOrDigit() }.startsWith(word)
+        if (words(foldedExchangeName).any { it.startsWith(word) }) return true
+        return foldedExchangeName.filter { it.isLetterOrDigit() }.startsWith(word)
     }
 }
 
@@ -160,7 +160,7 @@ object PairSearch {
     }
 
     /** Verfallsdatum als «yyMMdd»: aus der Kennung («BTCUSDT_261225»), sonst nach der Laufzeit berechnet. */
-    internal fun deliveryCode(pair: MarketPair): String? {
+    internal fun deliveryCode(pair: ExchangePair): String? {
         pair.pairId?.substringAfterLast('_', "")?.takeIf { it.length == 6 && it.all { c -> c in '0'..'9' } }
             ?.let { return it }
         val date = FuturesContractType.getDeliveryDate(pair.contractType) ?: return null
@@ -226,8 +226,8 @@ object PairSearch {
 
     fun find(
         query: String,
-        markets: List<MarketInfo>,
-        cache: Map<String, MarketPairsInfo>,
+        exchanges: List<ExchangeInfo>,
+        cache: Map<String, ExchangePairsInfo>,
         limit: Int = 50,
         /** «Token & TradFi»: nur Paare, die die Auswahl zeigt. */
         scope: AssetScope = AssetScope.BOTH,
@@ -247,21 +247,21 @@ object PairSearch {
         val foldedWords = q.words.map { NameMatch.fold(it) }
 
         val hits = ArrayList<Pair<Int, SearchHit>>()
-        for (market in markets) {
-            val info = cache[market.key] ?: continue
+        for (exchange in exchanges) {
+            val info = cache[exchange.key] ?: continue
             // Keine Namen für DEX-Pools: dort darf ein fremder Token «BTC» heissen
-            val withNames = CoinLogos.allowedFor(market.key)
+            val withNames = CoinLogos.allowedFor(exchange.key)
             // Wörter, die diese Börse nennen («btc kraken»): ohne sie wird der Rest gesucht
-            val marketName = NameMatch.fold(market.name)
-            val exchangeWords = foldedWords.indices.filter { NameMatch.matchesMarket(marketName, foldedWords[it]) }
+            val exchangeName = NameMatch.fold(exchange.name)
+            val exchangeWords = foldedWords.indices.filter { NameMatch.matchesExchange(exchangeName, foldedWords[it]) }
             val rest = if (exchangeWords.isEmpty()) {
                 null
             } else {
                 Terms(q.words.filterIndexed { i, _ -> i !in exchangeWords }, names)
             }
-            val names = pairNames[market.key].orEmpty()
+            val names = pairNames[exchange.key].orEmpty()
             for (pair in info.pairs) {
-                if (!scope.allows(pair, market.key, hiddenAlpha, names, alphaNames)) continue
+                if (!scope.allows(pair, exchange.key, hiddenAlpha, names, alphaNames)) continue
                 val b = pair.base.uppercase()
                 val c = pair.quote.uppercase()
                 val tier = primary.tier(b, c, pair.tradFi, withNames)
@@ -274,19 +274,19 @@ object PairSearch {
                 }
                 val quoteRank = QUOTE_RANK.indexOf(c).let { if (it < 0) QUOTE_RANK.size else it }
                 val alpha = AssetKind.of(
-                    market.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
+                    exchange.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
                     names[TokenIdentity.key(pair.base)], alphaNames,
                 ) == AssetKind.ALPHA
-                hits += (tier * 1000 + quoteRank * 10 + contractRank(pair.contractType)) to SearchHit(market, pair, alpha)
+                hits += (tier * 1000 + quoteRank * 10 + contractRank(pair.contractType)) to SearchHit(exchange, pair, alpha)
             }
         }
         return hits
             .sortedWith(compareBy<Pair<Int, SearchHit>> { it.first }
                 .thenBy { it.second.pair.base }
-                .thenBy { it.second.market.name.lowercase() })
+                .thenBy { it.second.exchange.name.lowercase() })
             // Manche Börsen führen ein Paar doppelt — Listen-Schlüssel müssen eindeutig sein.
             .distinctBy { (_, hit) ->
-                listOf(hit.market.key, hit.pair.base, hit.pair.quote, hit.pair.contractType.name)
+                listOf(hit.exchange.key, hit.pair.base, hit.pair.quote, hit.pair.contractType.name)
             }
             .take(limit)
             .map { it.second }

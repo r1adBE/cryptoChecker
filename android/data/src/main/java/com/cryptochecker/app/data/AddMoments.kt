@@ -45,7 +45,7 @@ class AddMoments @Inject constructor(
         val watch = watchRepository.getWatch(watchId) ?: return
         _pending.value = AddMoment(
             System.nanoTime(),
-            listOf(AddMoment.Added(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.displayName)),
+            listOf(AddMoment.Added(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.displayName)),
         )
     }
 

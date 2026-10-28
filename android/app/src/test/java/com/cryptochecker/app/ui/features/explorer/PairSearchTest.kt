@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -12,25 +12,25 @@ import org.junit.Test
 /** Suche wie an der Börse: «BTCUSDT», «BTCUSDT Qtly 1225», «BTCUSD_PERP». */
 class PairSearchTest {
 
-    private val spot = MarketInfo("Binance", "Binance")
-    private val futures = MarketInfo("BinanceFutures", "Binance Futures")
+    private val spot = ExchangeInfo("Binance", "Binance")
+    private val futures = ExchangeInfo("BinanceFutures", "Binance Futures")
     private val cache = mapOf(
-        "Binance" to MarketPairsInfo(1, listOf(
-            MarketPair("BTC", "USDT", "BTCUSDT"),
-            MarketPair("BTC", "EUR", "BTCEUR"),
-            MarketPair("ETH", "USDT", "ETHUSDT"),
+        "Binance" to ExchangePairsInfo(1, listOf(
+            ExchangePair("BTC", "USDT", "BTCUSDT"),
+            ExchangePair("BTC", "EUR", "BTCEUR"),
+            ExchangePair("ETH", "USDT", "ETHUSDT"),
         )),
-        "BinanceFutures" to MarketPairsInfo(1, listOf(
-            MarketPair("BTC", "USDT", "BTCUSDT_261225", FuturesContractType.QUARTERLY),
-            MarketPair("BTC", "USDT", "BTCUSDT_270326", FuturesContractType.BIQUARTERLY),
-            MarketPair("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL),
-            MarketPair("BTC", "USD", "2:BTCUSD_PERP", FuturesContractType.INVERSE_PERPETUAL),
+        "BinanceFutures" to ExchangePairsInfo(1, listOf(
+            ExchangePair("BTC", "USDT", "BTCUSDT_261225", FuturesContractType.QUARTERLY),
+            ExchangePair("BTC", "USDT", "BTCUSDT_270326", FuturesContractType.BIQUARTERLY),
+            ExchangePair("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL),
+            ExchangePair("BTC", "USD", "2:BTCUSD_PERP", FuturesContractType.INVERSE_PERPETUAL),
         )),
     )
-    private val markets = listOf(spot, futures)
+    private val exchanges = listOf(spot, futures)
 
-    private fun find(q: String) = PairSearch.find(q, markets, cache).map {
-        "${it.market.key} ${it.pair.base}/${it.pair.quote} ${it.pair.contractType.name}"
+    private fun find(q: String) = PairSearch.find(q, exchanges, cache).map {
+        "${it.exchange.key} ${it.pair.base}/${it.pair.quote} ${it.pair.contractType.name}"
     }
 
     @Test
@@ -81,8 +81,8 @@ class PairSearchTest {
         assertEquals("1225", q.date)
         // Zahl als erstes Wort bleibt ein Coin
         assertEquals("1000", PairSearch.parse("1000")!!.base)
-        assertEquals("261225", PairSearch.deliveryCode(MarketPair("BTC", "USDT", "BTCUSDT_261225", FuturesContractType.QUARTERLY)))
-        assertNull(PairSearch.deliveryCode(MarketPair("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL)))
+        assertEquals("261225", PairSearch.deliveryCode(ExchangePair("BTC", "USDT", "BTCUSDT_261225", FuturesContractType.QUARTERLY)))
+        assertNull(PairSearch.deliveryCode(ExchangePair("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL)))
     }
 
     @Test
@@ -94,7 +94,7 @@ class PairSearchTest {
         val saved = java.util.Locale.getDefault()
         try {
             java.util.Locale.setDefault(java.util.Locale.forLanguageTag("ar-EG-u-nu-arab"))
-            val code = PairSearch.deliveryCode(MarketPair("BTC", "USDT", "BTCUSDT", FuturesContractType.QUARTERLY))
+            val code = PairSearch.deliveryCode(ExchangePair("BTC", "USDT", "BTCUSDT", FuturesContractType.QUARTERLY))
             assertTrue(code == null || code.all { it in '0'..'9' })
         } finally {
             java.util.Locale.setDefault(saved)
@@ -103,24 +103,24 @@ class PairSearchTest {
 
     // ---- Suche über Namen und Börsen (wie `ExplorerPairSearchTests.swift`)
 
-    private val kraken = MarketInfo("Kraken", "Kraken")
+    private val kraken = ExchangeInfo("Kraken", "Kraken")
     private val nameCache = mapOf(
-        "Binance" to MarketPairsInfo(1, listOf(
-            MarketPair("BTC", "USDT", "BTCUSDT"),
-            MarketPair("ETH", "USDT", "ETHUSDT"),
-            MarketPair("ETC", "USDT", "ETCUSDT"),
-            MarketPair("SOL", "USDT", "SOLUSDT"),
-            MarketPair("USDT", "EUR", "USDTEUR"),
-            MarketPair("SHIB", "USDT", "SHIBUSDT"),
-            MarketPair("BITCOIN", "USDT", "BITCOINUSDT"),
+        "Binance" to ExchangePairsInfo(1, listOf(
+            ExchangePair("BTC", "USDT", "BTCUSDT"),
+            ExchangePair("ETH", "USDT", "ETHUSDT"),
+            ExchangePair("ETC", "USDT", "ETCUSDT"),
+            ExchangePair("SOL", "USDT", "SOLUSDT"),
+            ExchangePair("USDT", "EUR", "USDTEUR"),
+            ExchangePair("SHIB", "USDT", "SHIBUSDT"),
+            ExchangePair("BITCOIN", "USDT", "BITCOINUSDT"),
         )),
-        "Kraken" to MarketPairsInfo(1, listOf(
-            MarketPair("BTC", "EUR", "XBTEUR"),
-            MarketPair("ETH", "EUR", "ETHEUR"),
+        "Kraken" to ExchangePairsInfo(1, listOf(
+            ExchangePair("BTC", "EUR", "XBTEUR"),
+            ExchangePair("ETH", "EUR", "ETHEUR"),
         )),
-        "BinanceFutures" to MarketPairsInfo(1, listOf(
-            MarketPair("NVDA", "USDT", "NVDAUSDT", FuturesContractType.PERPETUAL, tradFi = true),
-            MarketPair("PEPE", "USDT", "1000PEPEUSDT", FuturesContractType.PERPETUAL),
+        "BinanceFutures" to ExchangePairsInfo(1, listOf(
+            ExchangePair("NVDA", "USDT", "NVDAUSDT", FuturesContractType.PERPETUAL, tradFi = true),
+            ExchangePair("PEPE", "USDT", "1000PEPEUSDT", FuturesContractType.PERPETUAL),
         )),
     )
     private val names = NameIndex(mapOf(
@@ -138,7 +138,7 @@ class PairSearchTest {
 
     private fun findNamed(q: String, n: NameIndex = names) =
         PairSearch.find(q, listOf(spot, kraken, futures), nameCache, names = n).map {
-            "${it.market.key} ${it.pair.base}/${it.pair.quote}"
+            "${it.exchange.key} ${it.pair.base}/${it.pair.quote}"
         }
 
     @Test
@@ -205,9 +205,9 @@ class PairSearchTest {
         assertNull(NameMatch.score("tether", "et"))
         assertNull(NameMatch.score("bitcoin", "b"))
         assertEquals("pepe", NameMatch.fold(" Pépé "))
-        assertTrue(NameMatch.matchesMarket(NameMatch.fold("Crypto.com"), "cryptocom"))
-        assertTrue(NameMatch.matchesMarket(NameMatch.fold("Binance Futures"), "fut"))
-        assertTrue(!NameMatch.matchesMarket(NameMatch.fold("Kraken"), "kr"))
+        assertTrue(NameMatch.matchesExchange(NameMatch.fold("Crypto.com"), "cryptocom"))
+        assertTrue(NameMatch.matchesExchange(NameMatch.fold("Binance Futures"), "fut"))
+        assertTrue(!NameMatch.matchesExchange(NameMatch.fold("Kraken"), "kr"))
     }
 
     @Test

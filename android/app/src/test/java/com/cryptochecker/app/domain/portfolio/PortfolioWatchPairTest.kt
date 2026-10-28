@@ -9,8 +9,8 @@ import org.junit.Test
 class PortfolioWatchPairTest {
 
     private fun w(
-        market: String, base: String, quote: String, spot: Boolean = true, disabled: Boolean = false, at: Long = 0,
-    ) = Candidate(market, base, quote, null, spot, disabled, at)
+        exchange: String, base: String, quote: String, spot: Boolean = true, disabled: Boolean = false, at: Long = 0,
+    ) = Candidate(exchange, base, quote, null, spot, disabled, at)
 
     @Test
     fun picksActiveSpotPairOnAnotherExchange() {

@@ -278,7 +278,7 @@ enum ActivityMonitor {
         let sources = WhySources(
             candles: candles?.provider,
             // Eigene Börse ist nie Ersatzquelle; Binance-Kerzen eines Phemex-Paars schon
-            candlesFallback: WhyFreshness.candlesFallback(markets: [watch.marketKey, watch.marketName],
+            candlesFallback: WhyFreshness.candlesFallback(exchanges: [watch.exchangeKey, watch.exchangeName],
                                                           provider: candles?.provider),
             reference: reference?.provider.flatMap { $0 != candles?.provider ? $0 : nil },
             futures: futures?.source,

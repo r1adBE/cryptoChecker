@@ -160,13 +160,13 @@ final class WatchlistPerformanceTests: XCTestCase {
             let watches = PerformanceData.watches(n)
             let pairs = PerformanceData.binancePairs(n)
             return T.medianMillis {
-                ExplorerBulkCount.newCount(marketKey: PerformanceData.binance.key, pairs: pairs, watches: watches)
+                ExplorerBulkCount.newCount(exchangeKey: PerformanceData.binance.key, pairs: pairs, watches: watches)
             }
         }
         let n = T.large
-        let count = ExplorerBulkCount.newCount(marketKey: PerformanceData.binance.key,
+        let count = ExplorerBulkCount.newCount(exchangeKey: PerformanceData.binance.key,
                                                pairs: PerformanceData.binancePairs(n),
                                                watches: PerformanceData.watches(n))
-        XCTAssertEqual(count, n - n / PerformanceData.markets.count)
+        XCTAssertEqual(count, n - n / PerformanceData.exchanges.count)
     }
 }

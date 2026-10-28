@@ -11,7 +11,7 @@ data class RefreshReport(
     val totalMillis: Long,
     val pairs: Int,
     val networkMillis: Long,
-    val markets: List<MarketRefresh>,
+    val exchanges: List<ExchangeRefresh>,
     /** null: auf dieser Plattform nicht gemessen (Zeile entfällt). */
     val dbMillis: Long? = null,
     val effectsMillis: Long? = null,
@@ -30,7 +30,7 @@ data class RefreshReport(
 )
 
 /** Ergebnis einer Börse; [updated] + [notTraded] + [failed] = [pairs]. */
-data class MarketRefresh(
+data class ExchangeRefresh(
     val name: String,
     val millis: Long,
     val pairs: Int,
@@ -68,8 +68,8 @@ enum class RefreshFailure { TIMEOUT, OFFLINE, RATE_LIMIT, SERVER, NO_DATA, UNAVA
 sealed interface RefreshHeadline {
     data object AllUpdated : RefreshHeadline
     data class PairsNotUpdated(val count: Int) : RefreshHeadline
-    data class MarketUnreachable(val name: String) : RefreshHeadline
-    data class MarketsUnreachable(val count: Int) : RefreshHeadline
+    data class ExchangeUnreachable(val name: String) : RefreshHeadline
+    data class ExchangesUnreachable(val count: Int) : RefreshHeadline
     data object Aborted : RefreshHeadline
 }
 
@@ -80,32 +80,32 @@ object RefreshReportLogic {
      * sonst orange. Nicht mehr gehandelte Paare sind ein Zustand, kein Fehler:
      * höchstens orange, auch wenn die Börse nur solche hat.
      */
-    fun status(market: MarketRefresh): RefreshStatus = when {
-        market.updated >= market.pairs -> RefreshStatus.OK
-        market.updated == 0 && market.failed > 0 -> RefreshStatus.FAILED
+    fun status(exchange: ExchangeRefresh): RefreshStatus = when {
+        exchange.updated >= exchange.pairs -> RefreshStatus.OK
+        exchange.updated == 0 && exchange.failed > 0 -> RefreshStatus.FAILED
         else -> RefreshStatus.PARTIAL
     }
 
     /** Schlechtester Zustand aller Börsen; abgebrochen = rot. */
     fun overall(report: RefreshReport): RefreshStatus = when {
         report.aborted != null -> RefreshStatus.FAILED
-        else -> report.markets.map(::status).maxByOrNull { it.ordinal } ?: RefreshStatus.OK
+        else -> report.exchanges.map(::status).maxByOrNull { it.ordinal } ?: RefreshStatus.OK
     }
 
     /** Rot zuerst, dann orange, dann grün; innerhalb davon die langsamsten zuerst. */
-    fun sorted(markets: List<MarketRefresh>): List<MarketRefresh> =
-        markets.sortedWith(
-            compareByDescending<MarketRefresh> { status(it).ordinal }
+    fun sorted(exchanges: List<ExchangeRefresh>): List<ExchangeRefresh> =
+        exchanges.sortedWith(
+            compareByDescending<ExchangeRefresh> { status(it).ordinal }
                 .thenByDescending { it.millis }
                 .thenBy { it.name }
         )
 
     fun headline(report: RefreshReport): RefreshHeadline {
         if (report.aborted != null) return RefreshHeadline.Aborted
-        val failed = report.markets.filter { status(it) == RefreshStatus.FAILED }
-        if (failed.size == 1) return RefreshHeadline.MarketUnreachable(failed.first().name)
-        if (failed.size > 1) return RefreshHeadline.MarketsUnreachable(failed.size)
-        val missing = report.markets.sumOf { (it.pairs - it.updated).coerceAtLeast(0) }
+        val failed = report.exchanges.filter { status(it) == RefreshStatus.FAILED }
+        if (failed.size == 1) return RefreshHeadline.ExchangeUnreachable(failed.first().name)
+        if (failed.size > 1) return RefreshHeadline.ExchangesUnreachable(failed.size)
+        val missing = report.exchanges.sumOf { (it.pairs - it.updated).coerceAtLeast(0) }
         return if (missing > 0) RefreshHeadline.PairsNotUpdated(missing) else RefreshHeadline.AllUpdated
     }
 
@@ -121,19 +121,19 @@ object RefreshReportLogic {
             .firstOrNull()?.key
 
     /**
-     * Ursache eines frischen Fehlers: zuerst die beim Abruf festgestellte Art ([MarketFailure.refreshFailure]),
+     * Ursache eines frischen Fehlers: zuerst die beim Abruf festgestellte Art ([ExchangeFailure.refreshFailure]),
      * nur ohne Aussage der Art der Text ([classify]). Gespeicherte Fehler haben keine Art und gehen direkt über
      * den Text.
      */
-    fun classify(failure: MarketFailure?, error: String?): RefreshFailure =
+    fun classify(failure: ExchangeFailure?, error: String?): RefreshFailure =
         failure?.refreshFailure() ?: classify(error)
 
     /** HTTP-Status: aus der Art, sonst aus dem Text ([httpStatus]). */
-    fun httpStatus(failure: MarketFailure?, error: String?): Int? = failure?.httpStatus ?: httpStatus(error)
+    fun httpStatus(failure: ExchangeFailure?, error: String?): Int? = failure?.httpStatus ?: httpStatus(error)
 
     /**
      * Fehlertext (Android: Ausnahme bzw. Kennung; iOS: `ConnectionErrors`) → Ursache, über Stichwörter. Für
-     * gespeicherte Texte ohne [MarketFailure] (ältere Fassungen, Datenbank, Einstellungen) und als Rückfall.
+     * gespeicherte Texte ohne [ExchangeFailure] (ältere Fassungen, Datenbank, Einstellungen) und als Rückfall.
      */
     fun classify(error: String?): RefreshFailure {
         val e = error?.trim().orEmpty()
@@ -156,7 +156,7 @@ object RefreshReportLogic {
     fun httpStatus(error: String?): Int? =
         HTTP_CODE.find(error?.trim().orEmpty().lowercase())?.groupValues?.get(1)?.toIntOrNull()
 
-    /** Android `HttpMarketError` («HttpCode: 429»), iOS `MarketHTTP` («HTTP 429»). */
+    /** Android `HttpExchangeError` («HttpCode: 429»), iOS `ExchangeHTTP` («HTTP 429»). */
     private val HTTP_CODE = Regex("""\bhttp(?:code:)?\s*(\d{3})\b""")
 
     private val TIMEOUT_HINTS = listOf("timeout", "timed out")
@@ -169,9 +169,9 @@ object RefreshReportLogic {
     /** iOS `ConnectionErrors.offlineMarker` (kein Netz, auch Zeitüberschreitung). */
     const val OFFLINE_MARKER = "NETWORK_OFFLINE"
 
-    /** = UserFriendlyMarketError.EMPTY_RESPONSE / NO_TICKER_DATA (hier ohne Android-Abhängigkeit). */
+    /** = UserFriendlyExchangeError.EMPTY_RESPONSE / NO_TICKER_DATA (hier ohne Android-Abhängigkeit). */
     private val NO_DATA_ERRORS = setOf("Response data is empty", "Parsed ticker has no data")
 
-    /** = UserFriendlyMarketError.MARKET_UNAVAILABLE und der früher deutsch gespeicherte Text. */
-    private val UNAVAILABLE_ERRORS = setOf("Market unavailable", "Börse nicht verfügbar")
+    /** = UserFriendlyExchangeError.EXCHANGE_UNAVAILABLE. */
+    private val UNAVAILABLE_ERRORS = setOf("Exchange unavailable")
 }

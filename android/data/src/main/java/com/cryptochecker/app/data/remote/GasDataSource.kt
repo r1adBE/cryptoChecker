@@ -78,12 +78,12 @@ class GasDataSource @Inject constructor(
         for (rpc in network.rpcs) {
             try {
                 return try {
-                    GasFees.parseFeeHistory(httpClient.callMarket(rpc, jsonPost(GasFees.feeHistoryRequest()))) to rpc
+                    GasFees.parseFeeHistory(httpClient.callExchange(rpc, jsonPost(GasFees.feeHistoryRequest()))) to rpc
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
                     // Ohne eth_feeHistory: einfacher Gaspreis für alle drei Stufen
-                    val price = GasFees.parseGasPrice(httpClient.callMarket(rpc, jsonPost(GasFees.gasPriceRequest())))
+                    val price = GasFees.parseGasPrice(httpClient.callExchange(rpc, jsonPost(GasFees.gasPriceRequest())))
                     Triple(price, price, price) to rpc
                 }
             } catch (e: CancellationException) {
@@ -97,19 +97,19 @@ class GasDataSource @Inject constructor(
     }
 
     private suspend fun mempool(): Triple<Double, Double, Double> =
-        GasFees.parseMempool(httpClient.callMarket("https://mempool.space/api/v1/fees/recommended", null))
+        GasFees.parseMempool(httpClient.callExchange("https://mempool.space/api/v1/fees/recommended", null))
 
     private suspend fun prices(): Map<String, Double> {
         val coins = (GasNetwork.entries.map { it.coin } + "BTC").distinct()
         return try {
             val symbols = coins.joinToString(",", "[", "]") { "\"${it}USDT\"" }
             val url = "https://data-api.binance.vision/api/v3/ticker/price?symbols=" + URLEncoder.encode(symbols, "UTF-8")
-            GasFees.parseBinancePrices(httpClient.callMarket(url, null)).takeIf { it.isNotEmpty() }
+            GasFees.parseBinancePrices(httpClient.callExchange(url, null)).takeIf { it.isNotEmpty() }
                 ?: throw IllegalStateException("Keine Preise")
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            GasFees.parseCoinbaseRates(httpClient.callMarket("https://api.coinbase.com/v2/exchange-rates?currency=USD", null), coins)
+            GasFees.parseCoinbaseRates(httpClient.callExchange("https://api.coinbase.com/v2/exchange-rates?currency=USD", null), coins)
         }
     }
 
@@ -121,13 +121,13 @@ class GasDataSource @Inject constructor(
 
     /**
      * Blockhöhe und mittlere Blockzeit der laufenden Schwierigkeitsperiode von mempool.space — für die
-     * rechnerische Schätzung des nächsten Halvings ([com.cryptochecker.app.domain.market.HalvingMath]):
+     * rechnerische Schätzung des nächsten Halvings ([com.cryptochecker.app.domain.exchange.HalvingMath]):
      * `GET https://mempool.space/api/blocks/tip/height` und `GET …/api/v1/difficulty-adjustment` («timeAvg» in ms).
      * null, wenn eine Abfrage scheitert.
      */
     suspend fun bitcoinBlocks(): Pair<Int, Double>? = try {
-        val height = httpClient.callMarket("https://mempool.space/api/blocks/tip/height", null).trim().toIntOrNull()
-        val avgMillis = org.json.JSONObject(httpClient.callMarket("https://mempool.space/api/v1/difficulty-adjustment", null))
+        val height = httpClient.callExchange("https://mempool.space/api/blocks/tip/height", null).trim().toIntOrNull()
+        val avgMillis = org.json.JSONObject(httpClient.callExchange("https://mempool.space/api/v1/difficulty-adjustment", null))
             .optDouble("timeAvg").takeIf { it.isFinite() && it > 0.0 }
         if (height != null && avgMillis != null) height to avgMillis / 1000.0 else null
     } catch (e: kotlinx.coroutines.CancellationException) {

@@ -26,8 +26,8 @@
         <item quantity="other">बल्क अनुरोध %1$s · %2$d भाव</item>
     </plurals>
     <string name="refresh_sheet_database">डेटाबेस</string>
-    <string name="refresh_sheet_market_unreachable">%1$s उपलब्ध नहीं</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s उपलब्ध नहीं</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d एक्सचेंज उपलब्ध नहीं</item>
         <item quantity="other">%1$d एक्सचेंज उपलब्ध नहीं</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">एक्सचेंज उपलब्ध नहीं</string>
     <string name="refresh_sheet_seconds_a11y">%1$s सेकंड</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">एक्सचेंज</string>
+    <string name="refresh_sheet_section_exchanges">एक्सचेंज</string>
     <string name="refresh_sheet_section_steps">विवरण</string>
     <string name="refresh_sheet_status_failed">अपडेट नहीं हुआ</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

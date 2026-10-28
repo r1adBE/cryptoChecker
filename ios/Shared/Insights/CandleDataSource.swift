@@ -238,7 +238,7 @@ enum CandleDataSource {
     /// Eine Anfrage; nil bei Fehler. 451/403 sperrt die Quelle (siehe `BlockedSources`).
     private static func get(_ source: Source, _ url: String) async -> String? {
         do {
-            return try await MarketHTTP.call(url, session: session)
+            return try await ExchangeHTTP.call(url, session: session)
         } catch {
             BlockedSources.noteFailure(source.rawValue, error)
             return nil

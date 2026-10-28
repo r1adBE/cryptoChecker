@@ -43,7 +43,7 @@ suspend fun HistoricPriceSource.ownRoutes(coins: Collection<String>): Map<String
     }
     if (open.isEmpty()) return out
     val routes = try {
-        resolveHistoryRoutes(portfolioDao, marketRepository, open)
+        resolveHistoryRoutes(portfolioDao, exchangeRepository, open)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -88,15 +88,15 @@ suspend fun HistoricPriceSource.ownOutcome(
     ownName: String?,
 ): Outcome {
     val nameOk = HistoricCloseChain.nameAllowed(
-        b, own = true, marketKey = own.marketKey, ownName = ownName,
-        binanceName = tokenIdentityStore.binanceName(b), providerName = tokenIdentityStore.pairName(own.marketKey, b),
+        b, own = true, exchangeKey = own.exchangeKey, ownName = ownName,
+        binanceName = tokenIdentityStore.binanceName(b), providerName = tokenIdentityStore.pairName(own.exchangeKey, b),
     )
     var outcome = if (!nameOk) Outcome(null, rejected = true) else ownDayClose(own, date, start, reference)
-    if (outcome.price == null && own.marketKey in HistoricCloseChain.CHAIN && own.marketKey != HistoricCloseChain.BINANCE) {
-        val chain = if (own.marketKey == HistoricCloseChain.COINBASE) {
+    if (outcome.price == null && own.exchangeKey in HistoricCloseChain.CHAIN && own.exchangeKey != HistoricCloseChain.BINANCE) {
+        val chain = if (own.exchangeKey == HistoricCloseChain.COINBASE) {
             coinbaseOutcome(b, date, start, reference)
         } else {
-            chainOutcome(own.marketKey, b, start, reference, ownName)
+            chainOutcome(own.exchangeKey, b, start, reference, ownName)
         }
         outcome = chain.copy(rejected = chain.rejected || outcome.rejected)
     }
@@ -116,7 +116,7 @@ private suspend fun HistoricPriceSource.ownDayClose(own: CandlePair, date: Local
         latest = if (rawLatest != null && nowFx != null) rawLatest / nowFx else null
     }
     return when (HistoricCloseChain.decide(close, latest, reference, primary = true, nameOk = true)) {
-        Verdict.ACCEPT -> Outcome(close, provider = own.marketName)
+        Verdict.ACCEPT -> Outcome(close, provider = own.exchangeName)
         Verdict.REJECT -> Outcome(null, rejected = true)
         Verdict.MISSING -> Outcome(null)
     }
@@ -130,7 +130,7 @@ suspend fun HistoricPriceSource.chainOutcome(source: String, b: String, start: L
     val pairs = HistoricCloseChain.pairs(source, b)
     if (pairs.isEmpty()) return Outcome(null)
     val nameOk = HistoricCloseChain.nameAllowed(
-        b, own = false, marketKey = source, ownName = ownName,
+        b, own = false, exchangeKey = source, ownName = ownName,
         binanceName = tokenIdentityStore.binanceName(b), providerName = tokenIdentityStore.pairName(source, b),
     )
     // Klar anderer Name: diese Quelle führt unter dem Kürzel einen anderen Token — keine Abfrage

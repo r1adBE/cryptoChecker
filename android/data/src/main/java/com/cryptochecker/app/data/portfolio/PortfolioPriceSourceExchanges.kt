@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.CancellationException
@@ -36,34 +36,34 @@ suspend fun PortfolioPriceSource.applyExchangeRoutes(coins: List<String>, fetche
     }
     val routed = wanted.mapNotNull { coin -> byCoin[coin]?.let { coin to it } }
     if (routed.isEmpty()) return
-    val markets = runCatchingCancellable { marketRepository.getMarketList() }.getOrNull()
+    val exchanges = runCatchingCancellable { exchangeRepository.getExchangeList() }.getOrNull()
         ?.associate { it.key to it.name }.orEmpty()
     coroutineScope {
         routed.map { (coin, name) ->
             async {
-                val market = PortfolioExchangeRoute.market(name, markets)
-                if (market == null) {
+                val exchange = PortfolioExchangeRoute.exchange(name, exchanges)
+                if (exchange == null) {
                     // Binance oder freier Text: Binance, ohne Hinweis
                     sourceOf.remove(coin); failedOf.remove(coin); binanceOf.remove(coin)
                     return@async
                 }
                 val price = try {
-                    exchangePrice(coin, MarketInfo(key = market.first, name = market.second))
+                    exchangePrice(coin, ExchangeInfo(key = exchange.first, name = exchange.second))
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
-                    Timber.d(e, "Portfolio: Kurs von %s für %s nicht verfügbar", market.second, coin)
+                    Timber.d(e, "Portfolio: Kurs von %s für %s nicht verfügbar", exchange.second, coin)
                     null
                 }
                 if (price != null) {
                     fetched[coin]?.let { binanceOf[coin] = it } ?: binanceOf.remove(coin)
                     fetched[coin] = price
-                    sourceOf[coin] = market.second
+                    sourceOf[coin] = exchange.second
                     failedOf.remove(coin)
                 } else {
                     sourceOf.remove(coin)
                     binanceOf.remove(coin)
-                    failedOf[coin] = market.second
+                    failedOf[coin] = exchange.second
                 }
             }
         }.awaitAll()
@@ -71,29 +71,29 @@ suspend fun PortfolioPriceSource.applyExchangeRoutes(coins: List<String>, fetche
 }
 
 /** Namen der Spot-Börsen der App (alphabetisch) für das Feld «Börse» einer Transaktion. */
-suspend fun PortfolioPriceSource.spotMarketNames(): List<String> =
-    marketRepository.getMarketList()
+suspend fun PortfolioPriceSource.spotExchangeNames(): List<String> =
+    exchangeRepository.getExchangeList()
         .filter { PortfolioExchangeRoute.isSpot(it.key) }
         .map { it.name }
         .distinct()
         .sortedWith(String.CASE_INSENSITIVE_ORDER)
 
-/** Letzter Kurs von [coin] an [market] in USDT; null = kein Paar, keine Antwort oder kein Devisenkurs. */
-private suspend fun PortfolioPriceSource.exchangePrice(coin: String, market: MarketInfo): Double? {
-    var pairs = spotPairs(market)
-    if (pairs.isEmpty() && marketRepository.isMarketSupportsUpdatePairs(market)) {
+/** Letzter Kurs von [coin] an [exchange] in USDT; null = kein Paar, keine Antwort oder kein Devisenkurs. */
+private suspend fun PortfolioPriceSource.exchangePrice(coin: String, exchange: ExchangeInfo): Double? {
+    var pairs = spotPairs(exchange)
+    if (pairs.isEmpty() && exchangeRepository.isExchangeSupportsUpdatePairs(exchange)) {
         val now = System.currentTimeMillis()
-        val last = pairListAttempts[market.key] ?: 0L
+        val last = pairListAttempts[exchange.key] ?: 0L
         if (now - last !in 0 until PAIR_LIST_RETRY_MILLIS) {
-            pairListAttempts[market.key] = now
-            runCatchingCancellable { marketRepository.updateMarketCurrencyPairs(market) }
-            pairs = spotPairs(market)
+            pairListAttempts[exchange.key] = now
+            runCatchingCancellable { exchangeRepository.updateExchangeCurrencyPairs(exchange) }
+            pairs = spotPairs(exchange)
         }
     }
     val pick = PortfolioExchangeRoute.pickPair(coin, pairs.map { PortfolioExchangeRoute.Pair3(it.base, it.quote, it.pairId) })
         ?: return null
     val info = pairs.first { it.base == pick.base && it.quote == pick.quote && it.pairId == pick.pairId }
-    val result = withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { marketRepository.getMarketTicker(market, info) } ?: return null
+    val result = withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { exchangeRepository.getExchangeTicker(exchange, info) } ?: return null
     if (result.error != null) return null
     val last = result.ticker.last
     val quote = pick.quote.uppercase()
@@ -101,5 +101,5 @@ private suspend fun PortfolioPriceSource.exchangePrice(coin: String, market: Mar
     return PortfolioExchangeRoute.toUsdt(last, quote, depegReadings.liveUsdtUsd() ?: 1.0) { rate }
 }
 
-private suspend fun PortfolioPriceSource.spotPairs(market: MarketInfo) =
-    marketRepository.getMarketCurrencyPairsInfo(market).pairs.filter { it.contractType == FuturesContractType.NONE }
+private suspend fun PortfolioPriceSource.spotPairs(exchange: ExchangeInfo) =
+    exchangeRepository.getExchangeCurrencyPairsInfo(exchange).pairs.filter { it.contractType == FuturesContractType.NONE }

@@ -12,7 +12,7 @@ object WatchEdit {
      * DexScreener der Pool ([WatchIdentity.pool], sonst null).
      */
     data class Key(
-        val marketKey: String,
+        val exchangeKey: String,
         val base: String,
         val quote: String,
         val contract: String,
@@ -20,8 +20,8 @@ object WatchEdit {
     ) {
         companion object {
             /** Schlüssel mit der Paar-Kennung; zum Schlüssel gehört sie nur bei DexScreener. */
-            fun of(marketKey: String, base: String, quote: String, contract: String, pairId: String?): Key =
-                Key(marketKey, base, quote, contract, WatchIdentity.pool(marketKey, pairId))
+            fun of(exchangeKey: String, base: String, quote: String, contract: String, pairId: String?): Key =
+                Key(exchangeKey, base, quote, contract, WatchIdentity.pool(exchangeKey, pairId))
         }
     }
 

@@ -188,18 +188,18 @@ struct WatchlistSettingsPage: View {
                 // an einem Ort). Wie Android
                 SettingsNavRow(title: L("settings_asset_scope_title"), icon: .system("building.columns"),
                                value: L(AssetScopePicker.titleKey(data.settings.assetScope))) {
-                    MarketsSettingsPage()
+                    ExchangesSettingsPage()
                 }
-                .settingsAnchor("watchlist.markets")
+                .settingsAnchor("watchlist.exchanges")
             }
         }
     }
 }
 
 /// «Token & TradFi» (Zeile auf «Merkliste»): was die Paar-Auswahl zeigt,
-/// dazu Alpha-Tokens und QTLY (gehören zu Token). Gleiche Anker wie zuvor — wie `MarketsPage` (Android).
+/// dazu Alpha-Tokens und QTLY (gehören zu Token). Gleiche Anker wie zuvor — wie `ExchangesPage` (Android).
 @MainActor
-struct MarketsSettingsPage: View {
+struct ExchangesSettingsPage: View {
     @EnvironmentObject private var data: AppData
 
     init() {}

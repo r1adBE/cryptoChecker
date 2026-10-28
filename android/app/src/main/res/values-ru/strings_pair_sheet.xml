@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">сегодня %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">Биржа не вернула данных.</string>
+    <string name="exchange_data_empty_error">Биржа не вернула данных.</string>
     <string name="market_data_summary">Капитализация, комиссии за газ, экономические данные, анализ монет</string>
     <string name="market_data_tab_futures">Фьючерсы</string>
     <string name="market_data_title">Рыночные данные</string>

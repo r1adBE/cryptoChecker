@@ -11,7 +11,7 @@ import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.testing.ComposeA11yAudit
@@ -19,7 +19,7 @@ import com.cryptochecker.app.testing.DeviceOverride
 import com.cryptochecker.app.testing.DeviceOverridesRule
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.ui.UiTestTags
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
@@ -72,7 +72,7 @@ class AccessibilityAuditTest {
             portfolioRepository.clearAll()
             // Ein Paar mit Alarm: Merkliste mit Zeile
             val watchId = checkNotNull(
-                watchRepository.addWatch(MarketInfo("Binance", "Binance"), MarketPair("BTC", "USDT", "BTCUSDT"))
+                watchRepository.addWatch(ExchangeInfo("Binance", "Binance"), ExchangePair("BTC", "USDT", "BTCUSDT"))
             )
             watchRepository.saveAlarm(
                 AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_ABOVE, threshold = 1_000_000.0)

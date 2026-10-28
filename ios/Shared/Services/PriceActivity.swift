@@ -34,7 +34,7 @@ extension PriceActivityAttributes {
 
     init(watch: Watch) {
         self.init(watchId: watch.id, pairLabel: watch.displayName,
-                  exchangeName: watch.marketName, symbol: watch.baseAsset)
+                  exchangeName: watch.exchangeName, symbol: watch.baseAsset)
     }
 
     static func state(_ watch: Watch) -> ContentState {

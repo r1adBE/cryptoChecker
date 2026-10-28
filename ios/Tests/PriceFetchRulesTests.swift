@@ -3,7 +3,7 @@ import XCTest
 
 /// Regeln der Kursabfrage: Einzelabfragen nach 429/418 stoppen (`SingleRateGate`), «vollständig» je
 /// Teilabfrage (`BulkCompleteness`), inverse Perpetuals (`FuturesContractType.normalized`) und «veraltet» am Abruf,
-/// am letzten Handel erst ab der Grenze der Alarmsperre (`Market.readTicker`, `PriceFreshness.staleReason`).
+/// am letzten Handel erst ab der Grenze der Alarmsperre (`Exchange.readTicker`, `PriceFreshness.staleReason`).
 /// Wie `PriceFetchRulesTest.kt`.
 final class PriceFetchRulesTests: XCTestCase {
     private typealias Fetched = PriceRefresher.Fetched
@@ -59,7 +59,7 @@ final class PriceFetchRulesTests: XCTestCase {
         XCTAssertEqual(binance.bulkTickersRequestGroup(call: 0), 0)
     }
 
-    func testSingleGroupMarketsStayAllOrNothing() {
+    func testSingleGroupExchangesStayAllOrNothing() {
         let ids = ["A", "B"]
         let incomplete = BulkCompleteness.incomplete(ids, failedGroups: [0]) { _ in 0 }
         XCTAssertEqual(incomplete, ["A", "B"])
@@ -85,8 +85,8 @@ final class PriceFetchRulesTests: XCTestCase {
     }
 
     func testBithumbFindsUnknownPairsViaPairList() throws {
-        let bithumb = try XCTUnwrap(MarketsConfig.market("Bithumb"))
-        let upbit = try XCTUnwrap(MarketsConfig.market("Upbit"))
+        let bithumb = try XCTUnwrap(ExchangesConfig.exchange("Bithumb"))
+        let upbit = try XCTUnwrap(ExchangesConfig.exchange("Upbit"))
         XCTAssertEqual(bithumb.bulkKnownPairsURL(call: 0), "https://api.bithumb.com/v1/market/all?isDetails=false")
         // Upbit hat die ungefilterte Liste
         XCTAssertNil(upbit.bulkKnownPairsURL(call: 0))
@@ -95,7 +95,7 @@ final class PriceFetchRulesTests: XCTestCase {
 
     func testKrakenBulkIsComplete() throws {
         // Fehlendes Paar: einzeln nachfragen, «EQuery:Unknown asset pair» → nicht mehr gehandelt (BulkDelisted lernt es)
-        XCTAssertTrue(try XCTUnwrap(MarketsConfig.market("Kraken")).bulkTickersComplete)
+        XCTAssertTrue(try XCTUnwrap(ExchangesConfig.exchange("Kraken")).bulkTickersComplete)
         XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: "EQuery:Unknown asset pair"))
         XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: "EGeneral:Too many requests"))
     }
@@ -103,8 +103,8 @@ final class PriceFetchRulesTests: XCTestCase {
     // MARK: inverse Perpetuals
 
     func testInversePerpetualIds() {
-        func n(_ market: String, _ id: String?, _ type: FuturesContractType) -> FuturesContractType {
-            FuturesContractType.normalized(marketKey: market, pairId: id, type)
+        func n(_ exchange: String, _ id: String?, _ type: FuturesContractType) -> FuturesContractType {
+            FuturesContractType.normalized(exchangeKey: exchange, pairId: id, type)
         }
         XCTAssertEqual(n("BinanceFutures", "2:BTCUSD_PERP", .perpetual), .inversePerpetual)
         XCTAssertEqual(n("BinanceFutures", "BTCUSDT", .perpetual), .perpetual)
@@ -123,7 +123,7 @@ final class PriceFetchRulesTests: XCTestCase {
     }
 
     func testSavedInversePerpetualIsNormalizedOnLoad() throws {
-        let json = #"{"id":7,"marketKey":"BinanceFutures","marketName":"Binance Futures","baseAsset":"BTC","quoteAsset":"USD","contractType":1,"pairId":"2:BTCUSD_PERP"}"#
+        let json = #"{"id":7,"exchangeKey":"BinanceFutures","exchangeName":"Binance Futures","baseAsset":"BTC","quoteAsset":"USD","contractType":1,"pairId":"2:BTCUSD_PERP"}"#
         let watch = try JSONDecoder().decode(Watch.self, from: Data(json.utf8))
         XCTAssertEqual(watch.contractType, .inversePerpetual)
         XCTAssertTrue(watch.contractType.isPerpetual)
@@ -133,7 +133,7 @@ final class PriceFetchRulesTests: XCTestCase {
 
     /// «veraltet»: Abruf wie bisher, Zeit der Börse erst ab der Grenze der Alarmsperre — wie Android.
     func testFetchTimeDrivesStalenessExchangeTimeOnlyPastAlarmLimit() throws {
-        let upbit = try XCTUnwrap(MarketsConfig.market("Upbit"))
+        let upbit = try XCTUnwrap(ExchangesConfig.exchange("Upbit"))
         let body = #"[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,"acc_trade_price_24h":1.0,"acc_trade_volume_24h":2.0}]"#
         let before = EpochTime.nowMillis
         var ticker = Ticker()

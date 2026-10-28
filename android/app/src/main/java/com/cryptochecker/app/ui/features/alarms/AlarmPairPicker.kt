@@ -96,7 +96,7 @@ internal fun AlarmPairPicker(
                         Column(modifier = Modifier.weight(1f)) {
                             Text(row.displayName, style = MaterialTheme.typography.bodyLarge)
                             Text(
-                                row.marketName,
+                                row.exchangeName,
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

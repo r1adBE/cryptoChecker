@@ -15,7 +15,7 @@ struct SingleHeader: View {
     var body: some View {
         HStack(spacing: 4) {
             WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: badge, dark: palette.dark, accent: palette.accent,
-                            logo: CoinLogos.allowed(forMarket: watch.marketKey))
+                            logo: CoinLogos.allowed(forExchange: watch.exchangeKey))
                 // Deaktiviert: grau (wie die Zeile in der App)
                 .opacity(watch.disabled ? 0.45 : 1)
             ViewThatFits(in: .horizontal) {

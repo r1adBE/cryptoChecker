@@ -11,7 +11,7 @@
     <string name="a11y_favorite">מועדף</string>
     <string name="a11y_in_watchlist">כבר ברשימת המעקב</string>
     <!-- %1$s Börse, letzte Abfrage gescheitert -->
-    <string name="a11y_market_unreachable">%1$s לא זמינה</string>
+    <string name="a11y_exchange_unreachable">%1$s לא זמינה</string>
     <string name="a11y_move_down">הזזה למטה</string>
     <string name="a11y_move_up">הזזה למעלה</string>
     <string name="a11y_note">הערה: %1$s</string>

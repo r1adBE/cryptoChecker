@@ -139,9 +139,9 @@ class DerivativesParityTest {
         data["supports"].list().forEach { raw ->
             val c = raw.obj()
             assertEquals(
-                "supports: ${c["marketKey"]}",
+                "supports: ${c["exchangeKey"]}",
                 c["expected"],
-                DerivativesAlarm.supports(c["marketKey"] as String, c["perpetual"] as Boolean),
+                DerivativesAlarm.supports(c["exchangeKey"] as String, c["perpetual"] as Boolean),
             )
         }
         data["oiWindow"].list().forEach { raw ->

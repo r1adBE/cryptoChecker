@@ -16,9 +16,9 @@ final class RefreshPerformanceTests: XCTestCase {
     private typealias Outcome = PriceRefresher.Outcome
     private let now: Int64 = PerformanceData.updatedAt + 60_000
 
-    private func binance() throws -> Market { try XCTUnwrap(MarketsConfig.market(PerformanceData.binance.key)) }
+    private func binance() throws -> Exchange { try XCTUnwrap(ExchangesConfig.exchange(PerformanceData.binance.key)) }
 
-    private func binanceWatches(_ n: Int) -> [Watch] { PerformanceData.watches(n, market: PerformanceData.binance) }
+    private func binanceWatches(_ n: Int) -> [Watch] { PerformanceData.watches(n, exchange: PerformanceData.binance) }
 
     private func parsedTickers(_ watches: [Watch]) throws -> [String: Ticker] {
         let body = PerformanceData.binanceBulkBody(PerformanceData.newPrices(watches))
@@ -75,14 +75,14 @@ final class RefreshPerformanceTests: XCTestCase {
     }
 
     func testBinanceBulkResponseParses() throws {
-        let market = try binance()
+        let exchange = try binance()
         // Rund 1,3 MB JSON mit 2000 Zeilen: erwartet um 100–200 ms (Debug)
         try T.assertScales("Sammelantwort Binance lesen", limitMillis: 3_000) { n in
             let body = PerformanceData.binanceBulkBody(PerformanceData.newPrices(binanceWatches(n)))
-            return try T.medianMillis { try market.parseBulkTickersDetailed(call: 0, body: body) }
+            return try T.medianMillis { try exchange.parseBulkTickersDetailed(call: 0, body: body) }
         }
         let prices = PerformanceData.newPrices(binanceWatches(T.large))
-        let parsed = try market.parseBulkTickersDetailed(call: 0, body: PerformanceData.binanceBulkBody(prices))
+        let parsed = try exchange.parseBulkTickersDetailed(call: 0, body: PerformanceData.binanceBulkBody(prices))
         XCTAssertEqual(parsed.tickers.count, T.large)
         XCTAssertTrue(parsed.failed.isEmpty)
         let btc = try XCTUnwrap(prices.first { $0.pairId == "BTCUSDT" }).price

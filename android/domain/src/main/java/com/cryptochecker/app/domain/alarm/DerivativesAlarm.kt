@@ -73,11 +73,11 @@ object DerivativesAlarm {
         return value * FUNDING_BASIS_HOURS / hours
     }
 
-    /** Börsen, deren Perpetuals eigene Funding-/Open-Interest-Daten liefern ([FuturesSources.MARKETS]). */
-    val MARKETS: Set<String> get() = FuturesSources.MARKETS
+    /** Börsen, deren Perpetuals eigene Funding-/Open-Interest-Daten liefern ([FuturesSources.EXCHANGES]). */
+    val EXCHANGES: Set<String> get() = FuturesSources.EXCHANGES
 
     /** Paar kann diese Alarme haben: Perpetual an einer Börse mit eigenen Daten. */
-    fun supports(marketKey: String, perpetual: Boolean): Boolean = perpetual && marketKey in MARKETS
+    fun supports(exchangeKey: String, perpetual: Boolean): Boolean = perpetual && exchangeKey in EXCHANGES
 
     /** Gespeichertes Fenster auf 1, 4 oder 24 Stunden abbilden. */
     fun oiWindowHours(hours: Int): Int = when {

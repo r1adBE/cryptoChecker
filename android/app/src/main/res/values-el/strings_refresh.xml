@@ -26,8 +26,8 @@
         <item quantity="other">μαζικό αίτημα %1$s · %2$d τιμές</item>
     </plurals>
     <string name="refresh_sheet_database">Βάση δεδομένων</string>
-    <string name="refresh_sheet_market_unreachable">Το %1$s δεν είναι προσβάσιμο</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">Το %1$s δεν είναι προσβάσιμο</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d ανταλλακτήριο μη προσβάσιμο</item>
         <item quantity="other">%1$d ανταλλακτήρια μη προσβάσιμα</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">το ανταλλακτήριο δεν είναι διαθέσιμο</string>
     <string name="refresh_sheet_seconds_a11y">%1$s δευτερόλεπτα</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Ανταλλακτήρια</string>
+    <string name="refresh_sheet_section_exchanges">Ανταλλακτήρια</string>
     <string name="refresh_sheet_section_steps">Ανάλυση</string>
     <string name="refresh_sheet_status_failed">δεν ενημερώθηκε</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

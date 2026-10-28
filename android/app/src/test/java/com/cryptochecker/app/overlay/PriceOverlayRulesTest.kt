@@ -13,7 +13,7 @@ class PriceOverlayRulesTest {
     private val on = AppSettings(priceOverlay = true, ongoingNotifications = true, priceNotifications = true)
 
     private fun watch(id: Long, notify: Boolean = true, disabled: Boolean = false, price: Double? = 1.0) =
-        WatchEntity(id = id, marketKey = "binance", marketName = "Binance", baseAsset = "C$id", quoteAsset = "USDT",
+        WatchEntity(id = id, exchangeKey = "binance", exchangeName = "Binance", baseAsset = "C$id", quoteAsset = "USDT",
             notificationEnabled = notify, disabled = disabled, lastPrice = price)
 
     @Test

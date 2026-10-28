@@ -8,7 +8,7 @@
     {
       "kind": "single",
       "name": "ticker BTC_JPY",
-      "market": "BitFlyer",
+      "exchangeKey": "BitFlyer",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -32,7 +32,7 @@
     {
       "kind": "single",
       "name": "ticker while trading is halted (state CIRCUIT BREAK): no price, not the last trade before the halt",
-      "market": "BitFlyer",
+      "exchangeKey": "BitFlyer",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -51,7 +51,7 @@
     {
       "kind": "single",
       "name": "ticker without state field: read as before",
-      "market": "BitFlyer",
+      "exchangeKey": "BitFlyer",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -67,7 +67,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "BitFlyer",
+      "exchangeKey": "BitFlyer",
       "pair": {
         "base": "FOO",
         "quote": "JPY",

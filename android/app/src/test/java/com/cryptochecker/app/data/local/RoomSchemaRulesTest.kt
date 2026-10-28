@@ -9,13 +9,14 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Regel für jede Datenbank-Version: Zur aktuellen Version N gehören das Golden-Schema
- * `app/schemas/<Datenbank>/N.json` (von Room exportiert, nie von Hand geändert), das Schema N-1, die Migration
- * N-1 → N in `ALL_MIGRATIONS` und ein Migrationstest MIT DATEN in `androidTest/…/RoomSchemaMigrationTest.kt`
+ * Regel für jede Datenbank-Version: Zur aktuellen Version N gehört das Golden-Schema `app/schemas/<Datenbank>/N.json`
+ * (von Room exportiert, nie von Hand geändert) mit dieser Version. Ist N > 1, gehören dazu auch das Schema N-1, die
+ * Migration N-1 → N in `ALL_MIGRATIONS` und ein Migrationstest MIT DATEN in `androidTest/…/RoomSchemaMigrationTest.kt`
  * (MigrationTestHelper: alte Datenbank genau nach `N-1.json` anlegen, füllen, migrieren, Werte prüfen).
  *
- * Neue Version: Schema committen, Datentest schreiben und hier in [MAIN_DATA_TESTS] bzw. [PORTFOLIO_DATA_TESTS]
- * eintragen — sonst schlägt dieser Test fehl. Gilt für AppDatabase und PortfolioDatabase (getrennte Dateien).
+ * Neue Version: Schema committen, Migration und Datentest schreiben und hier in [MAIN_DATA_TESTS] bzw.
+ * [PORTFOLIO_DATA_TESTS] eintragen — sonst schlägt dieser Test fehl. Gilt für AppDatabase (Version 1, noch ohne
+ * Migration) und PortfolioDatabase (getrennte Dateien).
  */
 class RoomSchemaRulesTest {
 
@@ -26,7 +27,7 @@ class RoomSchemaRulesTest {
 
     @Test
     fun mainDatabaseHasSchemaAndDataMigrationTest() =
-        check(AppDatabase::class.java.name, AppDatabase.VERSION, AppDatabase.ALL_MIGRATIONS, MAIN_DATA_TESTS)
+        check(AppDatabase::class.java.name, AppDatabase.VERSION, emptyArray(), MAIN_DATA_TESTS)
 
     @Test
     fun portfolioDatabaseHasSchemaAndDataMigrationTest() = check(
@@ -35,8 +36,13 @@ class RoomSchemaRulesTest {
     )
 
     private fun check(database: String, current: Int, migrations: Array<Migration>, dataTests: Map<Int, String>) {
-        assertTrue("$database: Version $current fehlt in der Liste der Datentests", current in dataTests)
-        assertTrue("$database: Einträge über der aktuellen Version $current", dataTests.keys.all { it <= current })
+        val currentFile = File(schemas, "$database/$current.json")
+        assertTrue("$database: Schema $currentFile fehlt (Room exportiert es beim Bauen)", currentFile.isFile)
+        assertEquals("$database: Version in $currentFile", current, schemaVersionOf(currentFile.readText()))
+        if (current > 1) {
+            assertTrue("$database: Version $current fehlt in der Liste der Datentests", current in dataTests)
+        }
+        assertTrue("$database: Einträge ausserhalb 2..$current", dataTests.keys.all { it in 2..current })
         for ((version, testName) in dataTests) {
             for (schemaVersion in listOf(version - 1, version)) {
                 val file = File(schemas, "$database/$schemaVersion.json")
@@ -60,9 +66,7 @@ class RoomSchemaRulesTest {
 
     private companion object {
         /** Version → Datentest (MigrationTestHelper) des Wegs Version-1 → Version. */
-        val MAIN_DATA_TESTS = mapOf(
-            16 to "mainVersion15To16KeepsWatchlistAndAlarms",
-        )
+        val MAIN_DATA_TESTS = emptyMap<Int, String>()
         val PORTFOLIO_DATA_TESTS = mapOf(
             6 to "portfolioVersion5To6",
         )

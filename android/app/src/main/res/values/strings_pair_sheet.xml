@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">today %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">No data received from the exchange.</string>
+    <string name="exchange_data_empty_error">No data received from the exchange.</string>
     <string name="market_data_summary">Market cap, gas fees, economic data, coin analysis</string>
     <string name="market_data_tab_futures">Futures</string>
     <string name="market_data_title">Market data</string>

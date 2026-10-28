@@ -106,22 +106,22 @@ final class BulkDelistedMemory: @unchecked Sendable { // @unchecked: veränderli
         return decoded
     }
 
-    func plan(_ marketKey: String, pairIds: [String], notTraded: Set<String>, now: Int64,
+    func plan(_ exchangeKey: String, pairIds: [String], notTraded: Set<String>, now: Int64,
               lowMemory: Bool = false) -> BulkDelisted.Plan {
         lock.lock(); defer { lock.unlock() }
-        return BulkDelisted.plan(state: loaded()[marketKey], pairIds: pairIds, notTraded: notTraded, now: now,
+        return BulkDelisted.plan(state: loaded()[exchangeKey], pairIds: pairIds, notTraded: notTraded, now: now,
                                  lowMemory: lowMemory)
     }
 
-    func learn(_ marketKey: String, plan: BulkDelisted.Plan, result: BulkTickers, now: Int64) {
+    func learn(_ exchangeKey: String, plan: BulkDelisted.Plan, result: BulkTickers, now: Int64) {
         lock.lock(); defer { lock.unlock() }
         var all = loaded()
-        let next = BulkDelisted.learn(state: all[marketKey], plan: plan, tickers: Set(result.tickers.keys),
+        let next = BulkDelisted.learn(state: all[exchangeKey], plan: plan, tickers: Set(result.tickers.keys),
                                       failed: result.failed, complete: result.complete, now: now,
                                       incomplete: result.incomplete)
         // Nur bei einer Änderung schreiben
-        guard all[marketKey] != next else { return }
-        all[marketKey] = next
+        guard all[exchangeKey] != next else { return }
+        all[exchangeKey] = next
         states = all
         defaults().set(BulkDelisted.encode(all), forKey: Self.defaultsKey)
     }

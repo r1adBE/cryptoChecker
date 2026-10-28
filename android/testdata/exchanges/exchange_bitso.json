@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker btc_mxn (change_24 absolute)",
-      "market": "Bitso",
+      "exchangeKey": "Bitso",
       "pair": {
         "base": "BTC",
         "quote": "MXN",
@@ -32,7 +32,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Bitso",
+      "exchangeKey": "Bitso",
       "pair": {
         "base": "FOO",
         "quote": "MXN",
@@ -49,7 +49,7 @@
     {
       "kind": "bulk",
       "name": "bulk ticker",
-      "market": "Bitso",
+      "exchangeKey": "Bitso",
       "requestId": 0,
       "body": "{\"success\":true,\"payload\":[{\"high\":\"1250000.00\",\"last\":\"1230000.00\",\"created_at\":\"2024-10-10T06:00:00+00:00\",\"book\":\"btc_mxn\", \"volume\":\"123.45678901\",\"vwap\":\"1225000.12\",\"low\":\"1200000.00\",\"ask\":\"1230500.00\",\"bid\":\"1229500.00\",\"change_24\":\"15000.00\", \"rolling_average_change\":{\"6\":\"0.1234\"}}]}",
       "expect": {
@@ -64,7 +64,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with \"0\" «last» (inactive) is skipped, not failed",
-      "market": "Bitso",
+      "exchangeKey": "Bitso",
       "requestId": 0,
       "body": "{\"success\":true,\"payload\":[{\"high\":\"1250000.00\",\"last\":\"1230000.00\",\"created_at\":\"2024-10-10T06:00:00+00:00\",\"book\":\"btc_mxn\",\"volume\":\"123.45678901\",\"vwap\":\"1225000.12\",\"low\":\"1200000.00\",\"ask\":\"1230500.00\",\"bid\":\"1229500.00\",\"change_24\":\"15000.00\",\"rolling_average_change\":{\"6\":\"0.1234\"}},{\"high\":\"1250000.00\",\"created_at\":\"2024-10-10T06:00:00+00:00\",\"book\":\"eth_mxn\",\"volume\":\"123.45678901\",\"vwap\":\"1225000.12\",\"low\":\"1200000.00\",\"ask\":\"1230500.00\",\"bid\":\"1229500.00\",\"change_24\":\"15000.00\",\"rolling_average_change\":{\"6\":\"0.1234\"},\"last_renamed\":\"1230000.00\"},{\"high\":\"1250000.00\",\"last\":\"0\",\"created_at\":\"2024-10-10T06:00:00+00:00\",\"book\":\"old_mxn\",\"volume\":\"123.45678901\",\"vwap\":\"1225000.12\",\"low\":\"1200000.00\",\"ask\":\"1230500.00\",\"bid\":\"1229500.00\",\"change_24\":\"15000.00\",\"rolling_average_change\":{\"6\":\"0.1234\"}}]}",
       "expect": {

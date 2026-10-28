@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Çiftler</string>
     <string name="explorer_precise_title">Gelişmiş / borsaya göre</string>
     <string name="explorer_price_loading">Fiyat yükleniyor…</string>
-    <string name="explorer_select_market_hint">Bir borsa seç – işlem çiftleri otomatik yüklenir.</string>
+    <string name="explorer_select_exchange_hint">Bir borsa seç – işlem çiftleri otomatik yüklenir.</string>
     <string name="explorer_select_placeholder">Lütfen seç</string>
     <string name="explorer_step_pair">Çift seç</string>
 

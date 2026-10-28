@@ -37,7 +37,7 @@ final class AppRouter: ObservableObject {
     @Published var marketMacroOnData = false
     /// Seite «Paar hinzufügen» über dem Markt-Tab («Heute auffällig»): zurück führt wieder
     /// in den Markt-Tab, nicht in die Merkliste (G-13).
-    @Published var showMarketExplorer = false
+    @Published var showExchangeExplorer = false
     /// Einstellungen › Portfolio öffnen (Portfolio-Widget, während das Portfolio aus ist).
     @Published var showPortfolioSettings = false
     /// K-10: Einstellungen › Aktualisierung («Wie aktuell?») direkt öffnen (Hinweis im Alarm).
@@ -88,15 +88,15 @@ final class AppRouter: ObservableObject {
 
     /// Seite «Paar hinzufügen» über der Merkliste öffnen; zurück führt zur Merkliste.
     func openExplorer() {
-        showMarketExplorer = false
+        showExchangeExplorer = false
         tab = .watchlist
         showExplorer = true
     }
 
     /// Seite «Paar hinzufügen» schliessen (über der Merkliste bzw. dem Markt-Tab) und zur Merkliste.
     func closeExplorerToWatchlist() {
-        if showMarketExplorer {
-            showMarketExplorer = false
+        if showExchangeExplorer {
+            showExchangeExplorer = false
             tab = .watchlist
         }
         showExplorer = false

@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "spot ticker: change_percentage used, change_utc0/utc8 ignored",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "error payload: invalid currency pair",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -50,7 +50,7 @@
     {
       "kind": "single",
       "name": "empty array",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -68,7 +68,7 @@
     {
       "kind": "bulk",
       "name": "bulk tickers",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "requestId": 0,
       "body": "[{\"currency_pair\":\"BTC_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"},{\"currency_pair\":\"ETH_BTC\",\"last\":\"0.0396\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"}]",
       "expect": {
@@ -89,7 +89,7 @@
     {
       "kind": "bulk",
       "name": "bulk: one pair without order book (empty highest_bid) should not drop the rest",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "requestId": 0,
       "body": "[{\"currency_pair\":\"BTC_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"},{\"currency_pair\":\"NEW_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"}]",
       "expect": {
@@ -112,7 +112,7 @@
     {
       "kind": "single",
       "name": "single ticker with empty highest_bid/lowest_ask",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "pair": {
         "base": "NEW",
         "quote": "USDT",
@@ -131,7 +131,7 @@
     {
       "kind": "bulk",
       "name": "bulk: one unreadable entry (last not a number) is reported, the rest stays",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "requestId": 0,
       "body": "[{\"currency_pair\":\"BTC_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"},{\"currency_pair\":\"OLD_USDT\",\"last\":\"n/a\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"}]",
       "expect": {
@@ -153,7 +153,7 @@
     {
       "kind": "single",
       "name": "error payload with message null: no error text (not \"null\")",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -170,7 +170,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "requestId": 0,
       "body": "[{\"currency_pair\":\"BTC_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\",\"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\",\"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\",\"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"},{\"currency_pair\":\"ETH_BTC\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\",\"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\",\"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\",\"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\",\"last_renamed\":\"0.0396\"}]",
       "expect": {
@@ -186,7 +186,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in every row — format error of the whole response",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "requestId": 0,
       "body": "[{\"currency_pair\":\"BTC_USDT\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\",\"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\",\"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\",\"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\",\"last_renamed\":\"62000.1\"},{\"currency_pair\":\"ETH_BTC\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\",\"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\",\"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\",\"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\",\"last_renamed\":\"0.0396\"}]",
       "expect": {
@@ -196,7 +196,7 @@
     {
       "kind": "bulk",
       "name": "bulk: entries with empty or zero last (inactive) are skipped, not reported as unreadable",
-      "market": "GateIo",
+      "exchangeKey": "GateIo",
       "requestId": 0,
       "body": "[{\"currency_pair\":\"BTC_USDT\",\"last\":\"62000.1\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"},{\"currency_pair\":\"ETH_BTC\",\"last\":\"0.0396\",\"lowest_ask\":\"62000.2\",\"lowest_size\":\"0.5123\", \"highest_bid\":\"62000.1\",\"highest_size\":\"1.2\",\"change_percentage\":\"2.48\",\"change_utc0\":\"1.64\",\"change_utc8\":\"1.97\", \"base_volume\":\"12100.52\",\"quote_volume\":\"744460123.45\",\"high_24h\":\"62500\",\"low_24h\":\"60000\",\"etf_net_value\":\"\", \"etf_pre_net_value\":\"\",\"etf_pre_timestamp\":0,\"etf_leverage\":\"\"},{\"currency_pair\":\"OLD_USDT\",\"last\":\"\",\"lowest_ask\":\"\",\"lowest_size\":\"\",\"highest_bid\":\"\",\"highest_size\":\"\",\"change_percentage\":\"\",\"base_volume\":\"0\",\"quote_volume\":\"0\",\"high_24h\":\"0\",\"low_24h\":\"0\"},{\"currency_pair\":\"ZERO_USDT\",\"last\":\"0\",\"lowest_ask\":\"\",\"highest_bid\":\"\",\"change_percentage\":\"0\",\"base_volume\":\"0\",\"quote_volume\":\"0\",\"high_24h\":\"0\",\"low_24h\":\"0\"}]",
       "expect": {

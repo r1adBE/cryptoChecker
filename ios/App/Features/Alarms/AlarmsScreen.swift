@@ -47,13 +47,13 @@ struct AlarmsScreen: View {
     /// DEX-Pool mit zu wenig oder unbekannter Liquidität (`DexLiquidity`)?
     private static func lowLiquidity(_ watch: Watch?) -> Bool {
         guard let watch else { return false }
-        return DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId)
+        return DexLiquidityStore.blocksAlarms(exchangeKey: watch.exchangeKey, pairId: watch.pairId)
     }
 
-    /// Quelle ohne Alarme (EZB-Referenzkurse, `Market.allowsAlarms`)?
+    /// Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`)?
     private static func referenceRate(_ watch: Watch?) -> Bool {
         guard let watch else { return false }
-        return MarketsConfig.market(watch.marketKey)?.allowsAlarms == false
+        return ExchangesConfig.exchange(watch.exchangeKey)?.allowsAlarms == false
     }
 
     var body: some View {
@@ -196,7 +196,7 @@ struct AlarmsScreen: View {
                 VStack(spacing: 0) {
                     Text(L("alarms_title")).font(.headline)
                     if let watch {
-                        Text(verbatim: "\(BidiText.isolate(watch.displayName)) · \(BidiText.isolate(watch.marketName))")
+                        Text(verbatim: "\(BidiText.isolate(watch.displayName)) · \(BidiText.isolate(watch.exchangeName))")
                             .font(.caption)
                             .foregroundStyle(AppColors.onSurfaceVariant)
                             .lineLimit(1)

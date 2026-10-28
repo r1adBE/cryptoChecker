@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker btcidr (vol_<base>/vol_<quote>, server_time in s)",
-      "market": "Indodax",
+      "exchangeKey": "Indodax",
       "pair": {
         "base": "BTC",
         "quote": "IDR",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Indodax",
+      "exchangeKey": "Indodax",
       "pair": {
         "base": "FOO",
         "quote": "IDR",
@@ -50,7 +50,7 @@
     {
       "kind": "bulk",
       "name": "ticker_all: btc_idr -> btcidr",
-      "market": "Indodax",
+      "exchangeKey": "Indodax",
       "requestId": 0,
       "body": "{\"tickers\":{\"btc_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_btc\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":\"1040000000\", \"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"},\"eth_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_eth\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":\"38000000\", \"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"},\"weird\":{\"last\":\"1\"}}}",
       "expect": {
@@ -70,7 +70,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with null «last» (inactive) is skipped, not failed",
-      "market": "Indodax",
+      "exchangeKey": "Indodax",
       "requestId": 0,
       "body": "{\"tickers\":{\"btc_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_btc\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":\"1040000000\",\"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"},\"eth_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_eth\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":\"38000000\",\"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"},\"weird\":{\"last\":\"1\"},\"sol_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_btc\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\",\"last_renamed\":\"1040000000\"},\"old_idr\":{\"high\":\"1050000000\",\"low\":\"1000000000\",\"vol_btc\":\"123.45678901\",\"vol_idr\":\"128000000000\",\"last\":null,\"buy\":\"1039000000\",\"sell\":\"1040500000\",\"server_time\":1728540000,\"name\":\"Bitcoin\"}}}",
       "expect": {

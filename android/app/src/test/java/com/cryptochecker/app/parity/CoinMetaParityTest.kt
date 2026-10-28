@@ -53,7 +53,7 @@ class CoinMetaParityTest {
         assertUiReads(lists, expected)
         val alphaSymbols = lists.alpha.orEmpty()
         expected["kinds"].list().map { it.obj() }.forEach { c ->
-            val kind = AssetKind.of(c["marketKey"] as String, c["base"] as String, c["tradFi"] as Boolean, alphaSymbols)
+            val kind = AssetKind.of(c["exchangeKey"] as String, c["base"] as String, c["tradFi"] as Boolean, alphaSymbols)
             assertEquals("kind $c", c["expected"], kind.name)
         }
         // Binance-Namen für «gleicher Token»: Spot vor Futures, Kürzel gross

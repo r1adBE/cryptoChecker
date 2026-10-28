@@ -9,7 +9,7 @@
     {
       "kind": "pairs",
       "name": "swap_contract_info: non-empty tradfi_labels (text or list) = TradFi; empty, [] or null = crypto",
-      "market": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "requestId": 0,
       "note": "tradfi_labels format not confirmed by a live capture: text and list are both accepted; any non-blank label marks the contract as TradFi (stock, commodity ...).",
       "body": "{\"status\":\"ok\",\"data\":[{\"symbol\":\"BTC\",\"contract_code\":\"BTC-USDT\",\"contract_size\":0.001,\"price_tick\":0.1,\"contract_status\":1,\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"tradfi_labels\":\"\"},{\"symbol\":\"NVDA\",\"contract_code\":\"NVDA-USDT\",\"contract_size\":0.01,\"price_tick\":0.01,\"contract_status\":1,\"business_type\":\"swap\",\"pair\":\"NVDA-USDT\",\"tradfi_labels\":\"stock\"},{\"symbol\":\"XAU\",\"contract_code\":\"XAU-USDT\",\"contract_size\":0.001,\"price_tick\":0.01,\"contract_status\":1,\"business_type\":\"swap\",\"pair\":\"XAU-USDT\",\"tradfi_labels\":[\"commodity\"]},{\"symbol\":\"ETH\",\"contract_code\":\"ETH-USDT\",\"contract_size\":0.01,\"price_tick\":0.01,\"contract_status\":1,\"business_type\":\"swap\",\"pair\":\"ETH-USDT\",\"tradfi_labels\":[]},{\"symbol\":\"SOL\",\"contract_code\":\"SOL-USDT\",\"contract_size\":1,\"price_tick\":0.001,\"contract_status\":1,\"business_type\":\"swap\",\"pair\":\"SOL-USDT\",\"tradfi_labels\":null},{\"symbol\":\"OLD\",\"contract_code\":\"OLD-USDT\",\"contract_size\":1,\"price_tick\":0.001,\"contract_status\":5,\"business_type\":\"swap\",\"pair\":\"OLD-USDT\",\"tradfi_labels\":\"stock\"}],\"ts\":1728540000123}",
@@ -55,7 +55,7 @@
     {
       "kind": "single",
       "name": "spot detail/merged: 'open' (calendar day) not used",
-      "market": "Htx",
+      "exchangeKey": "Htx",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -79,7 +79,7 @@
     {
       "kind": "single",
       "name": "spot error payload",
-      "market": "Htx",
+      "exchangeKey": "Htx",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -96,7 +96,7 @@
     {
       "kind": "single",
       "name": "swap detail/merged (string numbers, trade_turnover); high/low count since the UTC+8 day start: not used",
-      "market": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -120,7 +120,7 @@
     {
       "kind": "single",
       "name": "swap detail/merged without trade_turnover: volQuote stays missing (vol counts contracts, not quote turnover)",
-      "market": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -138,7 +138,7 @@
     {
       "kind": "single",
       "name": "swap error payload",
-      "market": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -155,7 +155,7 @@
     {
       "kind": "bulk",
       "name": "bulk spot market/tickers (bid/ask as numbers); null close skipped, not reported as unreadable; high/low since the UTC+8 day start not used",
-      "market": "Htx",
+      "exchangeKey": "Htx",
       "requestId": 0,
       "body": "{\"status\":\"ok\",\"ts\":1728540000999,\"data\":[ {\"symbol\":\"btcusdt\",\"open\":60500.0,\"high\":62500.0,\"low\":60000.0,\"close\":62000.1,\"amount\":12100.523456,\"vol\":744460123.4567,\"count\":1234567,\"bid\":62000.0,\"bidSize\":0.5123,\"ask\":62000.2,\"askSize\":0.8012}, {\"symbol\":\"shibusdt\",\"open\":1.79E-5,\"high\":1.812E-5,\"low\":1.755E-5,\"close\":1.768E-5,\"amount\":98765432101.2,\"vol\":1746172.5,\"count\":4567,\"bid\":1.767E-5,\"bidSize\":1000000,\"ask\":1.769E-5,\"askSize\":2000000}, {\"symbol\":\"newusdt\",\"open\":null,\"high\":null,\"low\":null,\"close\":null,\"amount\":0,\"vol\":0,\"count\":0,\"bid\":null,\"bidSize\":null,\"ask\":null,\"askSize\":null} ]}",
       "expect": {
@@ -189,7 +189,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «close» in one row — that pair is reported as unreadable, the rest stays; row with null «close» (inactive) is skipped, not failed",
-      "market": "Htx",
+      "exchangeKey": "Htx",
       "requestId": 0,
       "body": "{\"status\":\"ok\",\"ts\":1728540000999,\"data\":[{\"symbol\":\"btcusdt\",\"open\":60500.0,\"high\":62500.0,\"low\":60000.0,\"close\":62000.1,\"amount\":12100.523456,\"vol\":744460123.4567,\"count\":1234567,\"bid\":62000.0,\"bidSize\":0.5123,\"ask\":62000.2,\"askSize\":0.8012},{\"symbol\":\"shibusdt\",\"open\":1.79e-05,\"high\":1.812e-05,\"low\":1.755e-05,\"close\":1.768e-05,\"amount\":98765432101.2,\"vol\":1746172.5,\"count\":4567,\"bid\":1.767e-05,\"bidSize\":1000000,\"ask\":1.769e-05,\"askSize\":2000000},{\"symbol\":\"ethusdt\",\"open\":60500.0,\"high\":62500.0,\"low\":60000.0,\"amount\":12100.523456,\"vol\":744460123.4567,\"count\":1234567,\"bid\":62000.0,\"bidSize\":0.5123,\"ask\":62000.2,\"askSize\":0.8012,\"close_renamed\":62000.1},{\"symbol\":\"oldusdt\",\"open\":60500.0,\"high\":62500.0,\"low\":60000.0,\"close\":null,\"amount\":12100.523456,\"vol\":744460123.4567,\"count\":1234567,\"bid\":62000.0,\"bidSize\":0.5123,\"ask\":62000.2,\"askSize\":0.8012}]}",
       "expect": {
@@ -211,7 +211,7 @@
     {
       "kind": "bulk",
       "name": "bulk swap batch_merged; high/low since the UTC+8 day start not used",
-      "market": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "requestId": 0,
       "body": "{\"status\":\"ok\",\"ticks\":[{\"contract_code\":\"BTC-USDT\",\"amount\":\"215432.123\",\"ask\":[61990.3,120],\"bid\":[61990.2,80], \"close\":\"61990.2\",\"count\":123456,\"high\":\"62480\",\"id\":1728540000,\"low\":\"59980.1\",\"open\":\"60510\",\"ts\":1728540000400, \"vol\":\"215432123\",\"trade_turnover\":\"13248901234.56\",\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contract_type\":\"swap\", \"trade_partition\":\"USDT\",\"number_of\":\"123456\"}],\"ts\":1728540000456}",
       "expect": {
@@ -230,7 +230,7 @@
     {
       "kind": "bulk",
       "name": "bulk swap batch_merged without trade_turnover: volQuote stays missing, never the contract count «vol»",
-      "market": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "requestId": 0,
       "body": "{\"status\":\"ok\",\"ticks\":[{\"contract_code\":\"BTC-USDT\",\"amount\":\"215432.123\",\"ask\":[61990.3,120],\"bid\":[61990.2,80],\"close\":\"61990.2\",\"count\":123456,\"high\":\"62480\",\"id\":1728540000,\"low\":\"59980.1\",\"open\":\"60510\",\"ts\":1728540000400,\"vol\":\"215432123\",\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contract_type\":\"swap\",\"trade_partition\":\"USDT\"}],\"ts\":1728540000456}",
       "expect": {
@@ -247,7 +247,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «close» in one row — that pair is reported as unreadable, the rest stays; row with null «close» (inactive) is skipped, not failed",
-      "market": "HtxFutures",
+      "exchangeKey": "HtxFutures",
       "requestId": 0,
       "body": "{\"status\":\"ok\",\"ticks\":[{\"contract_code\":\"BTC-USDT\",\"amount\":\"215432.123\",\"ask\":[61990.3,120],\"bid\":[61990.2,80],\"close\":\"61990.2\",\"count\":123456,\"high\":\"62480\",\"id\":1728540000,\"low\":\"59980.1\",\"open\":\"60510\",\"ts\":1728540000400,\"vol\":\"215432123\",\"trade_turnover\":\"13248901234.56\",\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contract_type\":\"swap\",\"trade_partition\":\"USDT\",\"number_of\":\"123456\"},{\"contract_code\":\"ETH-USDT\",\"amount\":\"215432.123\",\"ask\":[61990.3,120],\"bid\":[61990.2,80],\"count\":123456,\"high\":\"62480\",\"id\":1728540000,\"low\":\"59980.1\",\"open\":\"60510\",\"ts\":1728540000400,\"vol\":\"215432123\",\"trade_turnover\":\"13248901234.56\",\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contract_type\":\"swap\",\"trade_partition\":\"USDT\",\"number_of\":\"123456\",\"close_renamed\":\"61990.2\"},{\"contract_code\":\"OLD-USDT\",\"amount\":\"215432.123\",\"ask\":[61990.3,120],\"bid\":[61990.2,80],\"close\":null,\"count\":123456,\"high\":\"62480\",\"id\":1728540000,\"low\":\"59980.1\",\"open\":\"60510\",\"ts\":1728540000400,\"vol\":\"215432123\",\"trade_turnover\":\"13248901234.56\",\"business_type\":\"swap\",\"pair\":\"BTC-USDT\",\"contract_type\":\"swap\",\"trade_partition\":\"USDT\",\"number_of\":\"123456\"}],\"ts\":1728540000456}",
       "expect": {

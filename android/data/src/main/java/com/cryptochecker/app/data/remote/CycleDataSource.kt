@@ -48,13 +48,13 @@ class CycleDataSource @Inject constructor(
         // BTC-Tagesschluss seit Juni 2016 (Coin Metrics über den Daten-Spiegel, wie der Zyklus-Vergleich) —
         // nur für die Einordnung der Kennzahlen in ihren Verlauf; fehlt er, entfällt nur sie
         val historyJob = async {
-            runCatchingCancellable { parseHistory(httpClient.callMarket(HISTORY_URL, null)) }
+            runCatchingCancellable { parseHistory(httpClient.callExchange(HISTORY_URL, null)) }
                 .onFailure { Timber.d(it, "BTC-Verlauf für die Einordnung nicht verfügbar") }
                 .getOrNull()
         }
         val onChainJob = async {
             if (knownOnChain != null) return@async null
-            runCatchingCancellable { httpClient.callMarket(coinMetricsUrl(), null) }
+            runCatchingCancellable { httpClient.callExchange(coinMetricsUrl(), null) }
                 .onFailure { Timber.w(it, "Coin-Metrics-Daten nicht verfügbar") }
                 .getOrNull()
         }

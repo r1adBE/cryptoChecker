@@ -6,7 +6,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Eigene Grenzen der Bitcoin-Kennzahlen; Swift: `IndicatorAlertRulesTests` (MarketsTests.swift). */
+/** Eigene Grenzen der Bitcoin-Kennzahlen; Swift: `IndicatorAlertRulesTests` (ExchangesTests.swift). */
 class IndicatorAlertRulesTest {
 
     @Test

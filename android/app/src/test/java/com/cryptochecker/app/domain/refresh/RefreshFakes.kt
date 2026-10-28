@@ -213,7 +213,7 @@ internal class FakeRateSource(val rates: Map<String, Double> = emptyMap()) : Ala
 
 internal class FakeRangeSource(var ranges: WindowRanges? = null, var allowed: Boolean = true) : AlarmRangeSource {
     override suspend fun ranges(baseAsset: String, quoteAsset: String): WindowRanges? = ranges
-    override fun seriesAllowed(ranges: WindowRanges, marketKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?) =
+    override fun seriesAllowed(ranges: WindowRanges, exchangeKey: String, baseAsset: String, price: Double?, quoteToSeries: Double?) =
         allowed
 }
 
@@ -244,7 +244,7 @@ internal class FakeDexLiquidity(var blocked: Set<String?> = emptySet()) : Refres
     override fun put(pairId: String?, liquidityUsd: Double?) {
         measured[pairId] = liquidityUsd
     }
-    override fun blocksAlarms(marketKey: String, pairId: String?): Boolean = pairId in blocked
+    override fun blocksAlarms(exchangeKey: String, pairId: String?): Boolean = pairId in blocked
 }
 
 internal class FakeRefreshSettings(var settings: AppSettings = AppSettings()) : RefreshSettings {
@@ -344,8 +344,8 @@ internal class RefreshFixture(
     companion object {
         const val NOW = 1_700_000_000_000L
 
-        fun watch(id: Long = 1, price: Double? = 99.0, marketKey: String = "Binance", pairId: String? = null) = WatchEntity(
-            id = id, marketKey = marketKey, marketName = marketKey, baseAsset = "BTC", quoteAsset = "USDT",
+        fun watch(id: Long = 1, price: Double? = 99.0, exchangeKey: String = "Binance", pairId: String? = null) = WatchEntity(
+            id = id, exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = "BTC", quoteAsset = "USDT",
             pairId = pairId, lastPrice = price, notificationEnabled = false,
         )
 

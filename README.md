@@ -91,9 +91,9 @@ daily ECB reference rates (via Frankfurter, labelled, no alerts). The exchange p
 Futures · DEX pools · Forex, each sorted by trading volume on the install date:
 
 * Android: [`android/marketdata`](android/marketdata) (Gradle library module,
-  registered in `config/MarketsConfig.kt`)
-* iOS: [`ios/Shared/Markets`](ios/Shared/Markets) (same adapters in Swift,
-  registered in `MarketsConfig.swift`)
+  registered in `config/ExchangesConfig.kt`)
+* iOS: [`ios/Shared/Exchanges`](ios/Shared/Exchanges) (same adapters in Swift,
+  registered in `ExchangesConfig.swift`)
 * Charts and candles come from the pair's own exchange first (Android
   `android/app/…/data/remote/candles`, iOS `ios/Shared/Services/Candles`); a fallback source
   (Binance and others) is used only after a same-token check and is always labelled

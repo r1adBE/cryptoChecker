@@ -19,7 +19,7 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.addWatch
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.domain.watch.SortKey
 import com.cryptochecker.app.settings.SettingsRepository
@@ -31,7 +31,7 @@ import com.cryptochecker.app.ui.features.watchlist.WatchlistStarterController
 import com.cryptochecker.app.ui.features.watchlist.WatchlistUiState
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.util.ConnectivityMonitor
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.CompletableDeferred
@@ -57,7 +57,7 @@ import kotlin.time.Duration.Companion.seconds
 
 /**
  * [WatchlistViewModel] mit allen echten Teilen (Hilt, Datenbank, Einstellungen; Börsen-Antworten aus
- * [com.cryptochecker.app.testing.FakeMarket]) über seinen gebündelten Zustand [WatchlistViewModel.uiState], mit Turbine
+ * [com.cryptochecker.app.testing.FakeExchange]) über seinen gebündelten Zustand [WatchlistViewModel.uiState], mit Turbine
  * beobachtet: Gruppen-Auswahl samt Rückfall auf «Alle», Spalten-Sortierung, Löschen mit «Rückgängig» und die
  * Start-Auswahl der leeren Merkliste. Unit-Tests auf der JVM gehen nicht: Die Teile des ViewModels brauchen
  * Android-Kontext, Room und DataStore.
@@ -121,7 +121,7 @@ class WatchlistViewModelTest {
     }
 
     private suspend fun add(base: String, group: String? = null): Long {
-        val id = checkNotNull(watchRepository.addWatch(MarketInfo("Binance", "Binance"), MarketPair(base, "USDT", "${base}USDT")))
+        val id = checkNotNull(watchRepository.addWatch(ExchangeInfo("Binance", "Binance"), ExchangePair(base, "USDT", "${base}USDT")))
         if (group != null) watchRepository.setGroup(id, group)
         return id
     }

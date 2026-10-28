@@ -66,10 +66,10 @@ fun AppNotifier.alarmSnoozeUntil(alarmId: Long): Long? = AlarmSnoozeStore(Shared
  * [LOGO_WAIT_MILLIS]: null (Meldung ohne Bild).
  */
 internal suspend fun AppNotifier.alarmLargeIcon(watch: WatchEntity): Bitmap? {
-    if (!settingsRepository.cached.coinLogos || !CoinLogos.allowedFor(watch.marketKey)) return null
+    if (!settingsRepository.cached.coinLogos || !CoinLogos.allowedFor(watch.exchangeKey)) return null
     return runCatchingCancellable {
         val repository = coinLogos.get()
-        val key = repository.logoKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
+        val key = repository.logoKey(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
         withTimeoutOrNull(LOGO_WAIT_MILLIS) { repository.logo(key) }
     }.getOrNull()
 }

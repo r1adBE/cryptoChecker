@@ -10,11 +10,11 @@ import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.exceptions.MarketError
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketTickerResult
+import com.cryptochecker.app.domain.exceptions.ExchangeError
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangeTickerResult
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.PairQuery
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -31,22 +31,22 @@ fun ExplorerViewModel.retryPrice() {
     }
 }
 
-fun ExplorerViewModel.selectExchange(market: MarketInfo?) {
-    if (exchange.value != market) resetForNewExchange()
-    exchange.value = market
-    if (market != null) reloadIfNoPairs(market)
+fun ExplorerViewModel.selectExchange(picked: ExchangeInfo?) {
+    if (exchange.value != picked) resetForNewExchange()
+    exchange.value = picked
+    if (picked != null) reloadIfNoPairs(picked)
 }
 
 /**
  * Noch keine Paare gespeichert? Dann gleich abgleichen — für den Nutzer kein eigener Schritt,
  * sondern einfach «Paare werden geladen…».
  */
-internal fun ExplorerViewModel.reloadIfNoPairs(target: MarketInfo) {
+internal fun ExplorerViewModel.reloadIfNoPairs(target: ExchangeInfo) {
     viewModelScope.launch {
-        val noPairs = runCatchingCancellable { marketRepository.getMarketCurrencyPairsInfo(target).pairs.isEmpty() }
+        val noPairs = runCatchingCancellable { exchangeRepository.getExchangeCurrencyPairsInfo(target).pairs.isEmpty() }
             .getOrDefault(false)
         val stillWanted = exchange.value == target && !pairListSync.value.inProgress
-        if (noPairs && marketRepository.isMarketSupportsUpdatePairs(target) && stillWanted) {
+        if (noPairs && exchangeRepository.isExchangeSupportsUpdatePairs(target) && stillWanted) {
             reloadPairList()
         }
     }
@@ -93,13 +93,13 @@ fun ExplorerViewModel.reloadPairList() {
     pairListSyncJob = viewModelScope.launch {
         Timber.d("Paarliste abgleichen: ${target.key}")
         try {
-            marketRepository.updateMarketCurrencyPairs(target)
-            runCatchingCancellable { pairsByMarket[target.key] = marketRepository.getMarketCurrencyPairsInfo(target, withAlpha = true) }
+            exchangeRepository.updateExchangeCurrencyPairs(target)
+            runCatchingCancellable { pairsByExchange[target.key] = exchangeRepository.getExchangeCurrencyPairsInfo(target, withAlpha = true) }
             pairListChanged.emit(Unit)
             pairListSync.value = PairListSync()
             // Die Suche kennt die Liste jetzt auch
-            if (searchableMarkets.isNotEmpty()) updateUnloaded()
-        } catch (ex: MarketError) {
+            if (searchableExchanges.isNotEmpty()) updateUnloaded()
+        } catch (ex: ExchangeError) {
             pairListSync.value = PairListSync(error = ex.message)
         }
     }.apply {
@@ -129,7 +129,7 @@ fun ExplorerViewModel.addSelectedPair() {
  * ([com.cryptochecker.app.domain.watch.WatchlistLimits]): nichts angelegt, Hinweis statt [report] — für Suche, Auswahl
  * und DEX gleich.
  */
-internal fun ExplorerViewModel.launchAdd(target: MarketInfo, pair: MarketPair, report: (added: Boolean) -> Unit) {
+internal fun ExplorerViewModel.launchAdd(target: ExchangeInfo, pair: ExchangePair, report: (added: Boolean) -> Unit) {
     viewModelScope.launch {
         // Rückfrage F-08 vor dem Anlegen; «Abbrechen» = nichts, keine Meldung
         if (!watchRepository.confirmUserWrite()) return@launch
@@ -147,13 +147,13 @@ internal fun ExplorerViewModel.launchAdd(target: MarketInfo, pair: MarketPair, r
 }
 
 /** Kurs holen; ein Fehler wird zum Ergebnis mit Fehlertext (Abbruch bleibt Abbruch). */
-internal suspend fun ExplorerViewModel.priceOrError(target: MarketInfo, pair: MarketPair): MarketTickerResult =
+internal suspend fun ExplorerViewModel.priceOrError(target: ExchangeInfo, pair: ExchangePair): ExchangeTickerResult =
     try {
-        marketRepository.getMarketTicker(target, pair)
+        exchangeRepository.getExchangeTicker(target, pair)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
-        MarketTickerResult(
+        ExchangeTickerResult(
             MutableTicker(),
             PairQuery(pair.base, pair.quote, pair.pairId, pair.contractType),
             e.message ?: e.javaClass.simpleName,

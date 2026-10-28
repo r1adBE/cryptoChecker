@@ -116,7 +116,7 @@ private fun SuggestedPairCard(hit: SearchHit, watched: Boolean, onAdd: () -> Uni
 /** Börse und — bei Futures — die Laufzeit. */
 @Composable
 private fun pairSubtitle(hit: SearchHit): String = listOfNotNull(
-    hit.market.name,
+    hit.exchange.name,
     hit.pair.contractType.takeIf { it != FuturesContractType.NONE }?.let { contractName(it) },
 ).joinToString(" · ")
 

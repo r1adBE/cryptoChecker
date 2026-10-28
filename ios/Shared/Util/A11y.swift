@@ -160,7 +160,7 @@ enum A11y {
             return ConnectionErrors.display(e)
         }
         let changeText = Self.change(changeView.shown(watch), basis: changeView.basis)
-        return A11ySpeech.row(pair: L("a11y_row_pair", pair, watch.marketName),
+        return A11ySpeech.row(pair: L("a11y_row_pair", pair, watch.exchangeName),
                               price: L("a11y_price", priceText),
                               change: changeText,
                               state: [stale],
@@ -239,13 +239,13 @@ enum A11ySpeech {
                       case .days(let n): return L("a11y_updated_days", count: n)
                       }
                   },
-                  unreachable: { L("a11y_market_unreachable", $0) })
+                  unreachable: { L("a11y_exchange_unreachable", $0) })
         }
     }
 
     /// «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten», «zuletzt aktualisiert vor 3 Minuten,
     /// Binance nicht erreichbar», «Deaktiviert» …; aktuell nil.
-    static func freshnessText(_ freshness: Freshness, lastUpdate: Int64, now: Int64, market: String,
+    static func freshnessText(_ freshness: Freshness, lastUpdate: Int64, now: Int64, exchange: String,
                               texts: Texts = .localized) -> String? {
         let updated = texts.updated(age(lastUpdate, now: now))
         switch freshness {
@@ -253,8 +253,8 @@ enum A11ySpeech {
         case .disabled: return texts.disabled
         case .notTraded: return texts.notTraded
         case .outdated: return join([texts.outdated, updated])
-        case .unreachable: return join([updated, texts.unreachable(market)])
-        case .unreachableOutdated: return join([texts.outdated, updated, texts.unreachable(market)])
+        case .unreachable: return join([updated, texts.unreachable(exchange)])
+        case .unreachableOutdated: return join([texts.outdated, updated, texts.unreachable(exchange)])
         }
     }
 

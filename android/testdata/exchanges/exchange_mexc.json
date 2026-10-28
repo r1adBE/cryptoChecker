@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "spot 24hr: openPrice used (priceChangePercent is a fraction)",
-      "market": "Mexc",
+      "exchangeKey": "Mexc",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "spot 24hr without openPrice: fraction fallback",
-      "market": "Mexc",
+      "exchangeKey": "Mexc",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -50,7 +50,7 @@
     {
       "kind": "single",
       "name": "spot error payload",
-      "market": "Mexc",
+      "exchangeKey": "Mexc",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -67,7 +67,7 @@
     {
       "kind": "single",
       "name": "futures ticker (numbers unquoted): riseFallRate (since 00:00 UTC+8) and riseFallRates (day values) must not become a 24 h change",
-      "market": "MexcFutures",
+      "exchangeKey": "MexcFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -91,7 +91,7 @@
     {
       "kind": "single",
       "name": "futures error payload",
-      "market": "MexcFutures",
+      "exchangeKey": "MexcFutures",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -108,7 +108,7 @@
     {
       "kind": "bulk",
       "name": "bulk spot: entry with null lastPrice is skipped, not reported as unreadable",
-      "market": "Mexc",
+      "exchangeKey": "Mexc",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.1\",\"priceChangePercent\":\"0.0248\",\"prevClosePrice\":\"60500\", \"lastPrice\":\"62000.1\",\"bidPrice\":\"62000\",\"bidQty\":\"0.5\",\"askPrice\":\"62000.2\",\"askQty\":\"0.8\",\"openPrice\":\"60500\", \"highPrice\":\"62500\",\"lowPrice\":\"60000\",\"volume\":\"12100.52\",\"quoteVolume\":\"744460123.45\",\"openTime\":1728453600000, \"closeTime\":1728540000123,\"count\":null},{\"symbol\":\"NEWUSDT\",\"priceChange\":\"1500.1\",\"priceChangePercent\":\"0.0248\",\"prevClosePrice\":\"60500\", \"lastPrice\":null,\"bidPrice\":\"62000\",\"bidQty\":\"0.5\",\"askPrice\":\"62000.2\",\"askQty\":\"0.8\",\"openPrice\":\"60500\", \"highPrice\":\"62500\",\"lowPrice\":\"60000\",\"volume\":\"12100.52\",\"quoteVolume\":\"744460123.45\",\"openTime\":1728453600000, \"closeTime\":1728540000123,\"count\":null}]",
       "expect": {
@@ -126,7 +126,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays; row with null «lastPrice» (inactive) is skipped, not failed",
-      "market": "Mexc",
+      "exchangeKey": "Mexc",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.1\",\"priceChangePercent\":\"0.0248\",\"prevClosePrice\":\"60500\",\"lastPrice\":\"62000.1\",\"bidPrice\":\"62000\",\"bidQty\":\"0.5\",\"askPrice\":\"62000.2\",\"askQty\":\"0.8\",\"openPrice\":\"60500\",\"highPrice\":\"62500\",\"lowPrice\":\"60000\",\"volume\":\"12100.52\",\"quoteVolume\":\"744460123.45\",\"openTime\":1728453600000,\"closeTime\":1728540000123,\"count\":null},{\"symbol\":\"ETHUSDT\",\"priceChange\":\"1500.1\",\"priceChangePercent\":\"0.0248\",\"prevClosePrice\":\"60500\",\"bidPrice\":\"62000\",\"bidQty\":\"0.5\",\"askPrice\":\"62000.2\",\"askQty\":\"0.8\",\"openPrice\":\"60500\",\"highPrice\":\"62500\",\"lowPrice\":\"60000\",\"volume\":\"12100.52\",\"quoteVolume\":\"744460123.45\",\"openTime\":1728453600000,\"closeTime\":1728540000123,\"count\":null,\"lastPrice_renamed\":\"62000.1\"},{\"symbol\":\"OLDUSDT\",\"priceChange\":\"1500.1\",\"priceChangePercent\":\"0.0248\",\"prevClosePrice\":\"60500\",\"lastPrice\":null,\"bidPrice\":\"62000\",\"bidQty\":\"0.5\",\"askPrice\":\"62000.2\",\"askQty\":\"0.8\",\"openPrice\":\"60500\",\"highPrice\":\"62500\",\"lowPrice\":\"60000\",\"volume\":\"12100.52\",\"quoteVolume\":\"744460123.45\",\"openTime\":1728453600000,\"closeTime\":1728540000123,\"count\":null}]",
       "expect": {
@@ -148,7 +148,7 @@
     {
       "kind": "bulk",
       "name": "bulk futures",
-      "market": "MexcFutures",
+      "exchangeKey": "MexcFutures",
       "requestId": 0,
       "body": "{\"success\":true,\"code\":0,\"data\":[{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":61990.2,\"bid1\":61990.1,\"ask1\":61990.3,\"volume24\":215432123, \"amount24\":13248901234.56,\"holdVol\":55123456,\"lower24Price\":59980.1,\"high24Price\":62480,\"riseFallRate\":-0.0056, \"riseFallValue\":-349.8,\"indexPrice\":62010.12,\"fairPrice\":61995,\"fundingRate\":0.0001,\"maxBidPrice\":68189.1, \"minAskPrice\":55791.1,\"timestamp\":1728540000456,\"riseFallRates\":{\"zone\":\"UTC+8\",\"r\":0.0021,\"v\":130.1,\"r7\":0.05,\"r30\":0.1}, \"riseFallRatesOfTimezone\":[0.0021,0.0015,0.0011]}]}",
       "expect": {
@@ -164,7 +164,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays; row with null «lastPrice» (inactive) is skipped, not failed",
-      "market": "MexcFutures",
+      "exchangeKey": "MexcFutures",
       "requestId": 0,
       "body": "{\"success\":true,\"code\":0,\"data\":[{\"contractId\":10,\"symbol\":\"BTC_USDT\",\"lastPrice\":61990.2,\"bid1\":61990.1,\"ask1\":61990.3,\"volume24\":215432123,\"amount24\":13248901234.56,\"holdVol\":55123456,\"lower24Price\":59980.1,\"high24Price\":62480,\"riseFallRate\":-0.0056,\"riseFallValue\":-349.8,\"indexPrice\":62010.12,\"fairPrice\":61995,\"fundingRate\":0.0001,\"maxBidPrice\":68189.1,\"minAskPrice\":55791.1,\"timestamp\":1728540000456,\"riseFallRates\":{\"zone\":\"UTC+8\",\"r\":0.0021,\"v\":130.1,\"r7\":0.05,\"r30\":0.1},\"riseFallRatesOfTimezone\":[0.0021,0.0015,0.0011]},{\"contractId\":10,\"symbol\":\"ETH_USDT\",\"bid1\":61990.1,\"ask1\":61990.3,\"volume24\":215432123,\"amount24\":13248901234.56,\"holdVol\":55123456,\"lower24Price\":59980.1,\"high24Price\":62480,\"riseFallRate\":-0.0056,\"riseFallValue\":-349.8,\"indexPrice\":62010.12,\"fairPrice\":61995,\"fundingRate\":0.0001,\"maxBidPrice\":68189.1,\"minAskPrice\":55791.1,\"timestamp\":1728540000456,\"riseFallRates\":{\"zone\":\"UTC+8\",\"r\":0.0021,\"v\":130.1,\"r7\":0.05,\"r30\":0.1},\"riseFallRatesOfTimezone\":[0.0021,0.0015,0.0011],\"lastPrice_renamed\":61990.2},{\"contractId\":10,\"symbol\":\"OLD_USDT\",\"lastPrice\":null,\"bid1\":61990.1,\"ask1\":61990.3,\"volume24\":215432123,\"amount24\":13248901234.56,\"holdVol\":55123456,\"lower24Price\":59980.1,\"high24Price\":62480,\"riseFallRate\":-0.0056,\"riseFallValue\":-349.8,\"indexPrice\":62010.12,\"fairPrice\":61995,\"fundingRate\":0.0001,\"maxBidPrice\":68189.1,\"minAskPrice\":55791.1,\"timestamp\":1728540000456,\"riseFallRates\":{\"zone\":\"UTC+8\",\"r\":0.0021,\"v\":130.1,\"r7\":0.05,\"r30\":0.1},\"riseFallRatesOfTimezone\":[0.0021,0.0015,0.0011]}]}",
       "expect": {

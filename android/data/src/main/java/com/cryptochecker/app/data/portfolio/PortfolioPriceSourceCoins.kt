@@ -2,7 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import androidx.core.content.edit
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.withLock
@@ -67,7 +67,7 @@ private suspend fun PortfolioPriceSource.binanceCoins(): List<String>? {
 
 /** Paarliste der Börse «Binance» aus der App (lokal gespeichert oder mitgeliefert). */
 private suspend fun PortfolioPriceSource.pairCacheCoins(): List<String>? = runCatchingCancellable {
-    marketRepository.getMarketCurrencyPairsInfo(MarketInfo(key = "Binance", name = "Binance"))
+    exchangeRepository.getExchangeCurrencyPairsInfo(ExchangeInfo(key = "Binance", name = "Binance"))
         .pairs
         .filter { it.quote == STABLE && it.contractType == FuturesContractType.NONE }
         .map { it.base.uppercase() }

@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Wie `CoinIndicatorModelTests` (iOS, MarketsTests.swift). */
+/** Wie `CoinIndicatorModelTests` (iOS, ExchangesTests.swift). */
 class CoinIndicatorModelTest {
 
     private fun inputs(

@@ -136,7 +136,7 @@ class ExchangeBackoffTest {
     // ---------------- Gemeinsame Binance-Pause ----------------
 
     @Test
-    fun binanceHostsAndMarketsShareOneGroup() {
+    fun binanceHostsAndExchangesShareOneGroup() {
         for (key in listOf("api.binance.com", "data-api.binance.vision", "fapi.binance.com", "dapi.binance.com", "www.binance.com", "Binance", "BinanceFutures")) {
             assertEquals(key, ExchangeBackoff.BINANCE_GROUP, ExchangeBackoff.sharedGroup(key))
         }

@@ -62,8 +62,8 @@ final class RefreshEffectsWiringTests: XCTestCase {
         return store
     }
 
-    private func watch(lastPrice: Double, marketKey: String = "binance", pairId: String? = nil) -> Watch {
-        Watch(id: 1, marketKey: marketKey, marketName: "Test", baseAsset: "BTC", quoteAsset: "USDT", pairId: pairId,
+    private func watch(lastPrice: Double, exchangeKey: String = "binance", pairId: String? = nil) -> Watch {
+        Watch(id: 1, exchangeKey: exchangeKey, exchangeName: "Test", baseAsset: "BTC", quoteAsset: "USDT", pairId: pairId,
               lastPrice: lastPrice)
     }
 
@@ -161,7 +161,7 @@ final class RefreshEffectsWiringTests: XCTestCase {
         let pool = "solana/wiring-\(UUID().uuidString)"
         defer { DexLiquidityStore.put(pool, nil) }
         let original = Alarm(id: 7, watchId: 1, condition: .PRICE_ABOVE, threshold: 100)
-        let store = makeStore(watch(lastPrice: 99, marketKey: DexLiquidity.marketKey, pairId: pool), original)
+        let store = makeStore(watch(lastPrice: 99, exchangeKey: DexLiquidity.exchangeKey, pairId: pool), original)
         let notifier = FakeNotifier()
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
 

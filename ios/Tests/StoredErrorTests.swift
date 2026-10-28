@@ -55,6 +55,6 @@ final class StoredErrorTests: XCTestCase {
     /// Eigene, übersetzte Texte (nur iOS gespeichert) bleiben.
     func testLocalizedTextsKept() {
         XCTAssertEqual(StoredError.sanitize(L("something_went_wrong")), L("something_went_wrong"))
-        XCTAssertEqual(StoredError.sanitize(L("market_data_empty_error")), L("market_data_empty_error"))
+        XCTAssertEqual(StoredError.sanitize(L("exchange_data_empty_error")), L("exchange_data_empty_error"))
     }
 }

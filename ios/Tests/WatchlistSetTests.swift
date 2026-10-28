@@ -95,25 +95,25 @@ final class WatchlistLimitsTests: XCTestCase {
         XCTAssertEqual(WatchlistLimits.freePairSlots(2_100), 0)
     }
 
-    private func pool(_ i: Int) -> MarketPair {
-        MarketPair("T\(i)", "USD (ethereum)", "ethereum/0x\(i)")
+    private func pool(_ i: Int) -> ExchangePair {
+        ExchangePair("T\(i)", "USD (ethereum)", "ethereum/0x\(i)")
     }
 
     func testVolleMerklisteNimmtKeinNeuesPaarAberMeldetVorhandeneAlsDoppel() {
         var snapshot = SharedStorage.Snapshot()
-        let market = DexScreener()
+        let exchange = DexScreener()
         for i in 0..<(WatchlistLimits.maxPairs - 1) {
-            XCTAssertNotNil(AppData.insert(&snapshot, market: market, pair: pool(i)))
+            XCTAssertNotNil(AppData.insert(&snapshot, exchange: exchange, pair: pool(i)))
         }
         // Das 2000. Paar passt noch
-        guard case .added = AppData.insertOutcome(&snapshot, market: market, pair: pool(1_999)) else {
+        guard case .added = AppData.insertOutcome(&snapshot, exchange: exchange, pair: pool(1_999)) else {
             return XCTFail("2000. Paar nicht angelegt")
         }
         XCTAssertEqual(snapshot.watches.count, WatchlistLimits.maxPairs)
         // Das 2001. nicht; ein schon vorhandenes bleibt «schon da» (kein Fehler)
-        XCTAssertEqual(AppData.insertOutcome(&snapshot, market: market, pair: pool(5_000)), .full)
-        XCTAssertNil(AppData.insert(&snapshot, market: market, pair: pool(5_001)))
-        XCTAssertEqual(AppData.insertOutcome(&snapshot, market: market, pair: pool(3)), .duplicate)
+        XCTAssertEqual(AppData.insertOutcome(&snapshot, exchange: exchange, pair: pool(5_000)), .full)
+        XCTAssertNil(AppData.insert(&snapshot, exchange: exchange, pair: pool(5_001)))
+        XCTAssertEqual(AppData.insertOutcome(&snapshot, exchange: exchange, pair: pool(3)), .duplicate)
         XCTAssertEqual(snapshot.watches.count, WatchlistLimits.maxPairs)
     }
 
@@ -121,12 +121,12 @@ final class WatchlistLimitsTests: XCTestCase {
     /// gezählt; vorhandene Paare zählen nicht als «voll». Wie Android `WatchRepository.restore`.
     func testRueckgaengigNurBisZurGrenze() {
         var snapshot = SharedStorage.Snapshot()
-        let market = DexScreener()
+        let exchange = DexScreener()
         for i in 0..<(WatchlistLimits.maxPairs - 1) {
-            XCTAssertNotNil(AppData.insert(&snapshot, market: market, pair: pool(i)))
+            XCTAssertNotNil(AppData.insert(&snapshot, exchange: exchange, pair: pool(i)))
         }
         func deleted(_ id: Int64) -> DeletedWatch {
-            DeletedWatch(watch: Watch(id: id, marketKey: "Binance", marketName: "Binance", baseAsset: "B\(id)", quoteAsset: "USDT"),
+            DeletedWatch(watch: Watch(id: id, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "B\(id)", quoteAsset: "USDT"),
                          alarms: [], activity: nil, selectedGroup: nil)
         }
         let existing = DeletedWatch(watch: snapshot.watches[0], alarms: [], activity: nil, selectedGroup: nil)
@@ -205,7 +205,7 @@ final class WatchlistRemovedBannerTests: XCTestCase {
 
     private func deleted(_ id: Int64, _ base: String) -> DeletedWatch {
         DeletedWatch(
-            watch: Watch(id: id, marketKey: "binance", marketName: "Binance", baseAsset: base, quoteAsset: "USDT"),
+            watch: Watch(id: id, exchangeKey: "binance", exchangeName: "Binance", baseAsset: base, quoteAsset: "USDT"),
             alarms: [], activity: nil, selectedGroup: nil
         )
     }

@@ -105,7 +105,7 @@ internal fun ExplorerFeedback(
         stringResource(
             when (it.kind) {
                 DexFailure.OFFLINE -> R.string.watch_error_offline
-                DexFailure.UNREACHABLE -> R.string.error_market_unreachable_short
+                DexFailure.UNREACHABLE -> R.string.error_exchange_unreachable_short
                 DexFailure.OTHER -> R.string.something_went_wrong
             }
         )

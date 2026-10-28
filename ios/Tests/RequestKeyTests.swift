@@ -14,14 +14,14 @@ final class RequestKeyTests: XCTestCase {
     }
 
     func testBingXStampedAddressesCompareEqual() throws {
-        for market in [BingX(), BingXFutures()] as [Market] {
-            let first = try XCTUnwrap(market.bulkTickersURL(call: 0))
+        for exchange in [BingX(), BingXFutures()] as [Exchange] {
+            let first = try XCTUnwrap(exchange.bulkTickersURL(call: 0))
             Thread.sleep(forTimeInterval: 0.002)
-            let second = try XCTUnwrap(market.bulkTickersURL(call: 0))
+            let second = try XCTUnwrap(exchange.bulkTickersURL(call: 0))
             // Echte Adressen verschieden (Stempel), Schlüssel gleich: kein zweiter identischer Abruf
             XCTAssertNotEqual(first, second)
             XCTAssertEqual(RequestKey.of(first), RequestKey.of(second))
-            XCTAssertTrue(LowMemoryBulk.isUnfiltered(market, pairIds: ["BTC-USDT"]))
+            XCTAssertTrue(LowMemoryBulk.isUnfiltered(exchange, pairIds: ["BTC-USDT"]))
         }
         let info = PairQuery("BTC", "USDT", "BTC-USDT", .none)
         let single = BingX().tickerAddress(call: 0, info: info)

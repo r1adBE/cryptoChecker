@@ -171,12 +171,12 @@ internal fun InfoViewModel.loadCoinList() {
     viewModelScope.launch {
         runCatchingCancellable {
             withContext(Dispatchers.IO) {
-                val binance = marketRepository.getMarketList().firstOrNull { it.key == "Binance" }
+                val binance = exchangeRepository.getExchangeList().firstOrNull { it.key == "Binance" }
                     ?: return@withContext null
-                var info = marketRepository.getMarketCurrencyPairsInfo(binance)
-                if (info.pairs.isEmpty() && marketRepository.isMarketSupportsUpdatePairs(binance)) {
-                    marketRepository.updateMarketCurrencyPairs(binance)
-                    info = marketRepository.getMarketCurrencyPairsInfo(binance)
+                var info = exchangeRepository.getExchangeCurrencyPairsInfo(binance)
+                if (info.pairs.isEmpty() && exchangeRepository.isExchangeSupportsUpdatePairs(binance)) {
+                    exchangeRepository.updateExchangeCurrencyPairs(binance)
+                    info = exchangeRepository.getExchangeCurrencyPairsInfo(binance)
                 }
                 info.pairs
                     .filter { it.quote == "USDT" && it.contractType == FuturesContractType.NONE }

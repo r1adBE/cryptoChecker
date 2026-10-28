@@ -54,7 +54,7 @@ extension PortfolioPriceSource {
 
     private static func binanceCoins() async -> [String]? {
         let url = "https://\(binanceHost)/api/v3/exchangeInfo?permissions=SPOT&showPermissionSets=false"
-        guard let body = await get(url, host: binanceHost, session: MarketHTTP.bulkSession),
+        guard let body = await get(url, host: binanceHost, session: ExchangeHTTP.bulkSession),
               let data = body.data(using: .utf8),
               let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
               let symbols = root["symbols"] as? [Any]
@@ -72,7 +72,7 @@ extension PortfolioPriceSource {
     }
 
     private static func coinbaseCoins() async -> [String]? {
-        guard let body = await get("https://\(coinbaseHost)/products", host: coinbaseHost, session: MarketHTTP.bulkSession),
+        guard let body = await get("https://\(coinbaseHost)/products", host: coinbaseHost, session: ExchangeHTTP.bulkSession),
               let data = body.data(using: .utf8),
               let array = (try? JSONSerialization.jsonObject(with: data)) as? [Any]
         else { return nil }

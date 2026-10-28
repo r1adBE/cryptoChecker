@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Σφάλμα: %1$s</string>
-    <string name="error_market_unreachable">Το ανταλλακτήριο δεν είναι διαθέσιμο αυτή τη στιγμή – οι τελευταίες τιμές παραμένουν ορατές.</string>
-    <string name="error_market_unreachable_short">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+    <string name="error_exchange_unreachable">Το ανταλλακτήριο δεν είναι διαθέσιμο αυτή τη στιγμή – οι τελευταίες τιμές παραμένουν ορατές.</string>
+    <string name="error_exchange_unreachable_short">Το ανταλλακτήριο δεν είναι διαθέσιμο</string>
     <string name="loading_hint">Φόρτωση…</string>
     <string name="no_internet_connection">Δεν υπάρχει σύνδεση στο διαδίκτυο. Έλεγξε το Wi-Fi ή τα δεδομένα κινητής και δοκίμασε ξανά.</string>
     <string name="option_off">Ανενεργό</string>

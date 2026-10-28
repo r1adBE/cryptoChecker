@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Das hat nicht geklappt: %1$s</string>
-    <string name="error_market_unreachable">Börse gerade nicht erreichbar – letzte Kurse bleiben sichtbar.</string>
-    <string name="error_market_unreachable_short">Börse gerade nicht erreichbar</string>
+    <string name="error_exchange_unreachable">Börse gerade nicht erreichbar – letzte Kurse bleiben sichtbar.</string>
+    <string name="error_exchange_unreachable_short">Börse gerade nicht erreichbar</string>
     <string name="loading_hint">Wird geladen…</string>
     <string name="no_internet_connection">Keine Internetverbindung. Prüfe WLAN oder mobile Daten und versuche es dann erneut.</string>
     <string name="option_off">Aus</string>

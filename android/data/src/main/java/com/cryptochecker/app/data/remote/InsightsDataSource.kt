@@ -130,7 +130,7 @@ class InsightsDataSource @Inject constructor(
     private suspend fun binanceKlines(symbol: String, interval: String, limit: Int, startTime: Long? = null): List<Candle> {
         val url = "https://data-api.binance.vision/api/v3/klines?symbol=$symbol&interval=$interval&limit=$limit" +
             (startTime?.let { "&startTime=$it" } ?: "")
-        val array = JSONArray(httpClient.callMarket(url, null))
+        val array = JSONArray(httpClient.callExchange(url, null))
         return (0 until array.length()).map { i ->
             val k = array.getJSONArray(i)
             Candle(
@@ -144,7 +144,7 @@ class InsightsDataSource @Inject constructor(
     /** Bybit liefert die neueste Kerze zuerst — umdrehen. */
     private suspend fun bybitKlines(symbol: String, interval: String, limit: Int): List<Candle> {
         val url = "https://api.bybit.com/v5/market/kline?category=spot&symbol=$symbol&interval=$interval&limit=$limit"
-        val list = JSONObject(httpClient.callMarket(url, null)).getJSONObject("result").getJSONArray("list")
+        val list = JSONObject(httpClient.callExchange(url, null)).getJSONObject("result").getJSONArray("list")
         return (0 until list.length()).map { i ->
             val k = list.getJSONArray(i)
             Candle(
@@ -158,7 +158,7 @@ class InsightsDataSource @Inject constructor(
     // ---------------- Fear & Greed ----------------
 
     suspend fun fearGreed(): FearGreed {
-        val data = JSONObject(httpClient.callMarket("https://api.alternative.me/fng/?limit=31", null))
+        val data = JSONObject(httpClient.callExchange("https://api.alternative.me/fng/?limit=31", null))
             .getJSONArray("data")
         fun valueAt(i: Int): Int? =
             if (i < data.length()) data.getJSONObject(i).optString("value").toIntOrNull() else null
@@ -184,7 +184,7 @@ class InsightsDataSource @Inject constructor(
      * bleibt die Dominanz erhalten.
      */
     suspend fun global(): GlobalMarket {
-        val data = JSONObject(httpClient.callMarket("https://api.coingecko.com/api/v3/global", null))
+        val data = JSONObject(httpClient.callExchange("https://api.coingecko.com/api/v3/global", null))
             .getJSONObject("data")
         val pct = data.getJSONObject("market_cap_percentage")
         val dominance = Dominance(btc = pct.getDouble("btc"), eth = pct.optDouble("eth").takeUnless { it.isNaN() })
@@ -210,7 +210,7 @@ class InsightsDataSource @Inject constructor(
     /** Fertig berechnete Altcoin-Saison aus dem Daten-Spiegel ([DataMirror.ALT_SEASON]); null = selbst rechnen. */
     private suspend fun mirroredAltSeason(): Sourced<AltSeason>? {
         val text = try {
-            httpClient.callMarket(DataMirror.ALT_SEASON.url, null)
+            httpClient.callExchange(DataMirror.ALT_SEASON.url, null)
         } catch (e: kotlinx.coroutines.CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -291,7 +291,7 @@ class InsightsDataSource @Inject constructor(
     private suspend fun coinMetricsPrices(): Map<LocalDate, Double> {
         val url = "https://community-api.coinmetrics.io/v4/timeseries/asset-metrics" +
             "?assets=btc&metrics=PriceUSD&frequency=1d&start_time=2016-06-01&page_size=10000"
-        val rows = JSONObject(httpClient.callMarket(url, null)).getJSONArray("data")
+        val rows = JSONObject(httpClient.callExchange(url, null)).getJSONArray("data")
         val map = java.util.TreeMap<LocalDate, Double>()
         for (i in 0 until rows.length()) {
             val r = rows.getJSONObject(i)

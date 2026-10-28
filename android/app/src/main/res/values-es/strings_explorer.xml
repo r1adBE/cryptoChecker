@@ -49,7 +49,7 @@
     <string name="explorer_pairs_title">Pares</string>
     <string name="explorer_precise_title">Avanzado / por exchange</string>
     <string name="explorer_price_loading">Cargando precio…</string>
-    <string name="explorer_select_market_hint">Elige un exchange – sus pares se cargan automáticamente.</string>
+    <string name="explorer_select_exchange_hint">Elige un exchange – sus pares se cargan automáticamente.</string>
     <string name="explorer_select_placeholder">Selecciona</string>
     <string name="explorer_step_pair">Elegir par</string>
 

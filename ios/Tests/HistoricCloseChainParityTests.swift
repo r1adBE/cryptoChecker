@@ -19,14 +19,14 @@ final class HistoricCloseChainParityTests: XCTestCase {
 
     func testProvider() throws {
         for c in TestSupport.list(try data()["provider"]) {
-            XCTAssertEqual(HistoricCloseChain.provider(c["market"] as? String ?? ""), c["expected"] as? String, "\(c)")
+            XCTAssertEqual(HistoricCloseChain.provider(c["exchangeKey"] as? String ?? ""), c["expected"] as? String, "\(c)")
         }
     }
 
     func testPairs() throws {
         for c in TestSupport.list(try data()["pairs"]) {
             let expected = (c["expected"] as? [[String]] ?? []).map { HistoricCloseChain.ChainPair(quote: $0[0], pairId: $0[1]) }
-            XCTAssertEqual(HistoricCloseChain.pairs(c["market"] as? String ?? "", base: c["base"] as? String ?? ""), expected, "\(c)")
+            XCTAssertEqual(HistoricCloseChain.pairs(c["exchangeKey"] as? String ?? "", base: c["base"] as? String ?? ""), expected, "\(c)")
         }
     }
 
@@ -34,7 +34,7 @@ final class HistoricCloseChainParityTests: XCTestCase {
     func testNames() throws {
         for c in TestSupport.list(try data()["names"]) {
             let allowed = HistoricCloseChain.nameAllowed(base: c["base"] as? String ?? "", own: c["own"] as? Bool ?? false,
-                                                         marketKey: c["market"] as? String ?? "",
+                                                         exchangeKey: c["exchangeKey"] as? String ?? "",
                                                          ownName: optionalString(c["ownName"]),
                                                          binanceName: optionalString(c["binanceName"]),
                                                          providerName: optionalString(c["providerName"]))

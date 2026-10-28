@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 /// Mit dem Argument, beim Start vor allem anderen (`CryptoCheckerApp.init`):
 /// - Speicher leeren wie «App zurücksetzen» (`AppData.clearStoredFiles`) — jeder Start beginnt wie eine
 ///   frische Installation; Einstellungen: Begrüssung und Gesten-Hinweis gesehen, Portfolio an.
-/// - Börsen-Antworten fest (`UITestMarket`), kein Abruf verlässt das Gerät.
+/// - Börsen-Antworten fest (`UITestExchange`), kein Abruf verlässt das Gerät.
 /// - Dateiauswahl und Dateiablage ersetzt: «CSV importieren» liest den Text aus der Umgebung `UITEST_CSV`,
 ///   «Sichern» schreibt nach `tmp/uitest_backup.json`, «Wiederherstellen» liest von dort
 ///   (`testableFileImporter`, `exportURL`). Die Sicherung bleibt über einen Neustart, wenn
@@ -52,7 +52,7 @@ enum UITesting {
         settings.firstAlarmCardDismissed = true
         settings.portfolioEnabled = true
         SharedStorage.saveSettings(settings)
-        UITestMarket.install()
+        UITestExchange.install()
     }
 
     /// Datei statt der Dateiauswahl; nil = echte Auswahl (kein UI-Test).

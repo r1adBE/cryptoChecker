@@ -39,7 +39,7 @@ class StarterCoinsTest {
     }
 
     @Test
-    fun onlyCoinsListedAtStarterMarket() {
+    fun onlyCoinsListedAtStarterExchange() {
         // Börse ohne BNB: DOGE rückt nach
         assertEquals(
             listOf("BTC", "ETH", "XRP", "SOL", "DOGE"),

@@ -26,8 +26,8 @@
         <item quantity="other">Sammelabfrage %1$s · %2$d Kurse</item>
     </plurals>
     <string name="refresh_sheet_database">Datenbank</string>
-    <string name="refresh_sheet_market_unreachable">%1$s nicht erreichbar</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s nicht erreichbar</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d Börse nicht erreichbar</item>
         <item quantity="other">%1$d Börsen nicht erreichbar</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">Börse nicht verfügbar</string>
     <string name="refresh_sheet_seconds_a11y">%1$s Sekunden</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Börsen</string>
+    <string name="refresh_sheet_section_exchanges">Börsen</string>
     <string name="refresh_sheet_section_steps">Ablauf</string>
     <string name="refresh_sheet_status_failed">nicht aktualisiert</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

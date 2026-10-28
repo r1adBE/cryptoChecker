@@ -40,7 +40,7 @@ enum BlockedSources {
     /// 451/403: diese Quelle 6 h. 429/418 eines Hosts mit gemeinsamer Pause: die ganze Gruppe.
     @discardableResult
     static func noteFailure(_ key: String, _ error: Error) -> Bool {
-        guard let http = error as? HttpMarketError else { return false }
+        guard let http = error as? HttpExchangeError else { return false }
         if http.httpCode == 451 || http.httpCode == 403 {
             let until = EpochTime.nowMillis + blockMillis
             entries.withLock { $0.blockedUntil[key] = until }
@@ -60,10 +60,10 @@ enum BlockedSources {
         return false
     }
 
-    /// Ende der gemeinsamen Pause, die `hostOrMarketKey` betrifft (Hostname oder Börsen-Schlüssel
+    /// Ende der gemeinsamen Pause, die `hostOrExchangeKey` betrifft (Hostname oder Börsen-Schlüssel
     /// der Kursabfrage); nil = keine Pause.
-    static func groupPausedUntil(_ hostOrMarketKey: String) -> Int64? {
-        guard let group = ExchangeBackoff.sharedGroup(hostOrMarketKey) else { return nil }
+    static func groupPausedUntil(_ hostOrExchangeKey: String) -> Int64? {
+        guard let group = ExchangeBackoff.sharedGroup(hostOrExchangeKey) else { return nil }
         let now = EpochTime.nowMillis
         guard let state = entries.withLock({ $0.groupPauses[group] }), ExchangeBackoff.isPaused(state, now: now) else {
             return nil
@@ -72,8 +72,8 @@ enum BlockedSources {
     }
 
     /// Pause aus der Kursabfrage übernehmen (429/418 beim Ticker); verkürzt nie eine laufende.
-    static func pauseGroup(_ hostOrMarketKey: String, until: Int64) {
-        guard let group = ExchangeBackoff.sharedGroup(hostOrMarketKey) else { return }
+    static func pauseGroup(_ hostOrExchangeKey: String, until: Int64) {
+        guard let group = ExchangeBackoff.sharedGroup(hostOrExchangeKey) else { return }
         let now = EpochTime.nowMillis
         // Eine unmögliche alte Pause (`ExchangeBackoff.isPaused`: zu weit in der Zukunft) blockiert die neue nicht
         entries.withLock {

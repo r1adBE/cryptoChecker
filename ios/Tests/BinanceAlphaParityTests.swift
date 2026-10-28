@@ -26,9 +26,9 @@ final class BinanceAlphaParityTests: XCTestCase {
         XCTAssertLessThanOrEqual(abs(expected - actual), max(abs(expected) * 1e-9, 1e-12), label)
     }
 
-    private func triple(_ raw: Any) -> MarketPair {
+    private func triple(_ raw: Any) -> ExchangePair {
         let l = raw as? [Any] ?? []
-        return MarketPair(l[0] as? String ?? "", l[1] as? String ?? "", l[2] as? String)
+        return ExchangePair(l[0] as? String ?? "", l[1] as? String ?? "", l[2] as? String)
     }
 
     func testPairListMergesSpotAndAlpha() {
@@ -53,27 +53,27 @@ final class BinanceAlphaParityTests: XCTestCase {
         XCTAssertFalse(BinanceAlpha.isPairId("ALPHA_1234567890USDT"))
         XCTAssertEqual(BinanceAlpha.pairId(alphaId: " alpha_175 "), "ALPHA_175USDT")
         XCTAssertNil(BinanceAlpha.pairId(alphaId: ""))
-        XCTAssertTrue(BinanceAlpha.isAlphaPair(marketKey: "Binance", pairId: "ALPHA_1USDT"))
-        XCTAssertFalse(BinanceAlpha.isAlphaPair(marketKey: "BinanceUs", pairId: "ALPHA_1USDT"))
+        XCTAssertTrue(BinanceAlpha.isAlphaPair(exchangeKey: "Binance", pairId: "ALPHA_1USDT"))
+        XCTAssertFalse(BinanceAlpha.isAlphaPair(exchangeKey: "BinanceUs", pairId: "ALPHA_1USDT"))
         // Kennung bleibt beim Speichern der Listen erhalten
         XCTAssertEqual(entries.first { $0.symbol == "FROGGIE" }?.alphaId, "ALPHA_373")
     }
 
     func testBulkTickersFromTokenList() throws {
-        let market = Binance()
+        let exchange = Binance()
         let bulk = data["bulk"] as? [String: Any] ?? [:]
         for c in TestSupport.list(bulk["cases"]) {
             let ids = c["ids"] as? [String] ?? []
-            let count = market.bulkTickersRequestCount(pairIds: ids)
+            let count = exchange.bulkTickersRequestCount(pairIds: ids)
             XCTAssertEqual(count, Int(TestSupport.number(c["count"]) ?? -1), "count \(ids)")
             let expectedUrls: [String?] = (c["urls"] as? [Any] ?? []).map { $0 as? String }
-            let urls: [String?] = (0..<count).map { market.bulkTickersURL(call: $0, pairIds: ids) }
+            let urls: [String?] = (0..<count).map { exchange.bulkTickersURL(call: $0, pairIds: ids) }
             XCTAssertEqual(urls, expectedUrls, "urls \(ids)")
         }
         // Ab Anfrage 1 keine ungefilterte Ersatz-Anfrage (ein gescheiterter Ticker holt nicht die ganze Liste)
-        XCTAssertNil(market.bulkTickersURL(call: 1))
-        XCTAssertNil(market.bulkTickersURL(call: 2))
-        let parsed = try market.parseBulkTickersDetailed(call: 1, body: data["tokenList"] as? String ?? "")
+        XCTAssertNil(exchange.bulkTickersURL(call: 1))
+        XCTAssertNil(exchange.bulkTickersURL(call: 2))
+        let parsed = try exchange.parseBulkTickersDetailed(call: 1, body: data["tokenList"] as? String ?? "")
         let expected = bulk["tickers"] as? [String: Any] ?? [:]
         XCTAssertEqual(Set(parsed.tickers.keys), Set(expected.keys))
         for (id, raw) in expected {
@@ -103,16 +103,16 @@ final class BinanceAlphaParityTests: XCTestCase {
         XCTAssertEqual(BinanceAlpha.bulkRequestURLs(pairIds: ["ALPHA_1USDT", "ALPHA_1USDT", "ALPHA_2USDT"]).count, 3)
 
         // Einzel-Ticker als Folgeanfrage: Kennung aus `data.symbol`; Fehler-Code → keine Zeile
-        let market = Binance()
+        let exchange = Binance()
         let b = data["bulkTicker"] as? [String: Any] ?? [:]
         let requestId = Int(TestSupport.number(b["requestId"]) ?? -1)
         let id = b["id"] as? String ?? ""
         let tickerBody = (data["ticker"] as? [String: Any])?["body"] as? String ?? ""
-        let parsed = try market.parseBulkTickersDetailed(call: requestId, body: tickerBody)
+        let parsed = try exchange.parseBulkTickersDetailed(call: requestId, body: tickerBody)
         XCTAssertEqual(Set(parsed.tickers.keys), [id])
         near("bulk ticker last", TestSupport.number(b["last"]), parsed.tickers[id]?.last)
         let errorBody = (data["tickerError"] as? [String: Any])?["body"] as? String ?? ""
-        let none = try market.parseBulkTickersDetailed(call: requestId, body: errorBody)
+        let none = try exchange.parseBulkTickersDetailed(call: requestId, body: errorBody)
         XCTAssertTrue(none.tickers.isEmpty && none.failed.isEmpty)
     }
 
@@ -128,13 +128,13 @@ final class BinanceAlphaParityTests: XCTestCase {
     }
 
     func testSingleTicker() throws {
-        let market = Binance()
+        let exchange = Binance()
         let t = data["ticker"] as? [String: Any] ?? [:]
         let id = t["id"] as? String ?? ""
         let info = PairQuery("FROGGIE", "USDT", id)
-        XCTAssertEqual(market.tickerAddress(call: 0, info: info), t["url"] as? String)
+        XCTAssertEqual(exchange.tickerAddress(call: 0, info: info), t["url"] as? String)
         var ticker = Ticker()
-        try market.readTicker(call: 0, body: t["body"] as? String ?? "", ticker: &ticker, info: info)
+        try exchange.readTicker(call: 0, body: t["body"] as? String ?? "", ticker: &ticker, info: info)
         let e = t["expected"] as? [String: Any] ?? [:]
         near("last", TestSupport.number(e["last"]), ticker.last)
         near("high", TestSupport.number(e["high"]), ticker.high)
@@ -146,17 +146,17 @@ final class BinanceAlphaParityTests: XCTestCase {
         let err = data["tickerError"] as? [String: Any] ?? [:]
         let errBody = err["body"] as? String ?? ""
         var broken = Ticker()
-        XCTAssertThrowsError(try market.readTicker(call: 0, body: errBody, ticker: &broken, info: info))
-        XCTAssertEqual(try market.readError(call: 0, body: errBody, info: info), err["message"] as? String)
+        XCTAssertThrowsError(try exchange.readTicker(call: 0, body: errBody, ticker: &broken, info: info))
+        XCTAssertEqual(try exchange.readError(call: 0, body: errBody, info: info), err["message"] as? String)
         // Spot-Paare unverändert
-        XCTAssertEqual(market.tickerAddress(call: 0, info: PairQuery("BTC", "USDT", "BTCUSDT")),
+        XCTAssertEqual(exchange.tickerAddress(call: 0, info: PairQuery("BTC", "USDT", "BTCUSDT")),
                        "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT")
     }
 
     private func candlePair(_ raw: Any?) -> CandlePair {
         let p = raw as? [String: Any] ?? [:]
-        return CandlePair(marketKey: p["marketKey"] as? String ?? "",
-                          marketName: p["marketName"] as? String ?? "",
+        return CandlePair(exchangeKey: p["exchangeKey"] as? String ?? "",
+                          exchangeName: p["exchangeName"] as? String ?? "",
                           base: p["base"] as? String ?? "",
                           quote: p["quote"] as? String ?? "",
                           pairId: p["pairId"] as? String,
@@ -213,7 +213,7 @@ final class BinanceAlphaParityTests: XCTestCase {
 
     func testKinds() {
         for c in TestSupport.list(data["kinds"]) {
-            let kind = AssetKind.of(marketKey: c["marketKey"] as? String ?? "",
+            let kind = AssetKind.of(exchangeKey: c["exchangeKey"] as? String ?? "",
                                     base: c["base"] as? String ?? "",
                                     tradFi: c["tradFi"] as? Bool ?? false,
                                     alphaSymbols: alphaSymbols,
@@ -227,19 +227,19 @@ final class BinanceAlphaParityTests: XCTestCase {
     func testAllowsOnOff() {
         for c in TestSupport.list(data["allows"]) {
             let name = c["name"] as? String ?? ""
-            let marketKey = c["marketKey"] as? String ?? ""
+            let exchangeKey = c["exchangeKey"] as? String ?? ""
             let base = c["base"] as? String ?? ""
-            let pair = MarketPair(base, "USDT", c["pairId"] as? String)
+            let pair = ExchangePair(base, "USDT", c["pairId"] as? String)
             let symbols: Set<String> = (c["emptyList"] as? Bool ?? false) ? [] : alphaSymbols
             let hidden = AssetScope.hiddenAlphaSymbols(includeAlpha: c["includeAlpha"] as? Bool ?? false, alphaSymbols: symbols)
             var pairNames: [String: String] = [:]
             if let n = c["pairName"] as? String { pairNames[TokenIdentity.key(base)] = n }
             let expected = c["expected"] as? Bool ?? false
-            XCTAssertEqual(AssetScope.TOKENS.allows(pair, marketKey: marketKey, hiddenAlpha: hidden,
+            XCTAssertEqual(AssetScope.TOKENS.allows(pair, exchangeKey: exchangeKey, hiddenAlpha: hidden,
                                                     pairNames: pairNames, alphaNames: alphaNames), expected, name)
             // Gleiches Ergebnis über die ganze Liste
-            let info = MarketPairsInfo(lastSyncDate: 1, pairs: [pair])
-            let scoped = info.scoped(.TOKENS, marketKey: marketKey, hiddenAlpha: hidden,
+            let info = ExchangePairsInfo(lastSyncDate: 1, pairs: [pair])
+            let scoped = info.scoped(.TOKENS, exchangeKey: exchangeKey, hiddenAlpha: hidden,
                                      pairNames: pairNames, alphaNames: alphaNames)
             XCTAssertEqual(!scoped.pairs.isEmpty, expected, name)
         }

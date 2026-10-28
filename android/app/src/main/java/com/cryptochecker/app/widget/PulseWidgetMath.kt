@@ -24,7 +24,7 @@ enum class PulseSideLayout(val showsFearGreed: Boolean, val showsBreadth: Boolea
 /**
  * Reine Regeln des Widgets «Was gerade auffällt» (ohne Android, getestet in
  * PulseWidgetMathTest). Auswertung und Leitsatz kommen unverändert aus
- * [com.cryptochecker.app.domain.market.CryptoPulse] — wie die Karte im Markt-Tab.
+ * [com.cryptochecker.app.domain.exchange.CryptoPulse] — wie die Karte im Markt-Tab.
  */
 object PulseWidgetMath {
 

@@ -10,7 +10,7 @@ import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.confirmUserWrite
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.starter.StarterPairs
 import com.cryptochecker.app.domain.starter.StarterPrice
@@ -18,8 +18,8 @@ import com.cryptochecker.app.domain.starter.StarterSelection
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.settings.deviceRegionLocale
 import com.cryptochecker.app.widget.WidgetUpdater
-import com.cryptochecker.marketdata.config.MarketsConfig
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.config.ExchangesConfig
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -86,7 +86,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
      * Anzeigename der Start-Börse («Binance», bei Standort-Sperre «Binance.US»); wechselt nach der Prüfung der
      * Sperre ([loadStarterCoins]). Die Start-Auswahl nennt ihn samt [quote].
      */
-    private val _marketName = MutableStateFlow(starterMarketName())
+    private val _exchangeName = MutableStateFlow(starterExchangeName())
 
     /** Kurse der Start-Coins; [StarterPricesState.loading] solange der Abruf läuft. */
     private val _prices = MutableStateFlow(StarterPricesState(loading = true, prices = emptyMap()))
@@ -99,10 +99,10 @@ internal class WatchlistStarterController @AssistedInject constructor(
     /** Alles für die Start-Auswahl in einem Stand ([StarterUiState]). */
     val state: StateFlow<StarterUiState> = combine(
         combine(coins, deselected, prices, adding, logosReady) { c, d, p, a, l ->
-            StarterUiState(coins = c, deselected = d, prices = p, adding = a, logosReady = l, quote = quote, marketName = "")
+            StarterUiState(coins = c, deselected = d, prices = p, adding = a, logosReady = l, quote = quote, exchangeName = "")
         },
-        _marketName,
-    ) { s, m -> s.copy(marketName = m) }
+        _exchangeName,
+    ) { s, m -> s.copy(exchangeName = m) }
         .stateIn(scope, SharingStarted.WhileSubscribed(5_000), currentState())
 
     private fun currentState() = StarterUiState(
@@ -112,14 +112,14 @@ internal class WatchlistStarterController @AssistedInject constructor(
         adding = _adding.value,
         logosReady = _logosReady.value,
         quote = quote,
-        marketName = _marketName.value,
+        exchangeName = _exchangeName.value,
     )
 
     /** Region der Startpaare: Geräte-Region, bei Binance-Standort-Sperre «US» (Binance.US). */
     private fun starterRegion(): String? = starterCoinsRepository.starterRegion(deviceRegionLocale().country)
 
-    private fun starterMarketName(): String =
-        StarterPairs.marketName(starterRegion()) { key -> MarketsConfig.MARKETS[key]?.name }
+    private fun starterExchangeName(): String =
+        StarterPairs.exchangeName(starterRegion()) { key -> ExchangesConfig.EXCHANGES[key]?.name }
 
     private suspend fun ensureStarterLogos(coins: List<StarterPairs.Coin>) {
         if (!settingsRepository.cached.coinLogos) {
@@ -142,7 +142,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
             loadStarterList()
             val changed = probe.await()
             // Börse für den Satz «Kurse von … in USDT» nach der Prüfung (gesperrt → Binance.US)
-            _marketName.value = starterMarketName()
+            _exchangeName.value = starterExchangeName()
             if (changed) {
                 // Andere Startbörse: deren Liste, Kurse und Logos
                 _coins.value = starterCoinsRepository.cached(starterRegion())
@@ -190,7 +190,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
     }
 
     /**
-     * Start-Merkliste: Paare der gewählten Coins anlegen — Börse nach [StarterPairs.marketKey]: Binance …/USDT in allen
+     * Start-Merkliste: Paare der gewählten Coins anlegen — Börse nach [StarterPairs.exchangeKey]: Binance …/USDT in allen
      * Regionen (auch CH/LI), in den USA und bei Standort-Sperre von Binance (451/403) Binance.US …/USDT. Genau wie
      * «Hinzufügen» (WatchRepository.addWatch, gleiche Standardwerte samt Kurs-Benachrichtigung). Vorhandene Paare werden
      * nicht doppelt angelegt. Danach gleich aktualisieren. Einstellungen (z. B. Umrechnung) bleiben unverändert.
@@ -218,20 +218,20 @@ internal class WatchlistStarterController @AssistedInject constructor(
         starterProbeJob?.join()
         val region = starterRegion()
         val wanted = symbols.map { symbol ->
-            StarterPairs.pairFor(symbol, region) { key -> MarketsConfig.MARKETS[key]?.name }
+            StarterPairs.pairFor(symbol, region) { key -> ExchangesConfig.EXCHANGES[key]?.name }
         }
-        val existing = watchRepository.getWatches().map { Triple(it.marketKey, it.baseAsset, it.quoteAsset) }
+        val existing = watchRepository.getWatches().map { Triple(it.exchangeKey, it.baseAsset, it.quoteAsset) }
         val toAdd = StarterPairs.missing(wanted, existing)
         if (toAdd.isEmpty()) return
         // UX3-04: Rückfrage F-08 EINMAL für alle Startpaare, vor dem Erst-Moment; «Abbrechen» = nichts
         if (!watchRepository.confirmUserWrite()) return
         // Erst-Moment vor dem Speichern bereitstellen: Zeilen, Häkchen, Haptik und Banner
-        addMoments.postStarter(toAdd.map { AddMoment.Added(it.marketKey, it.base, it.quote, "${it.base}/${it.quote}") })
+        addMoments.postStarter(toAdd.map { AddMoment.Added(it.exchangeKey, it.base, it.quote, "${it.base}/${it.quote}") })
         var added = 0
         for (pair in toAdd) {
             val id = watchRepository.addWatch(
-                MarketInfo(key = pair.marketKey, name = pair.marketName),
-                MarketPair(pair.base, pair.quote, pair.pairId),
+                ExchangeInfo(key = pair.exchangeKey, name = pair.exchangeName),
+                ExchangePair(pair.base, pair.quote, pair.pairId),
                 // Kurs-Benachrichtigung an wie jedes neue Paar; die Erlaubnis fragt die Start-Auswahl (WatchlistScreen)
             )
             if (id != null) added++

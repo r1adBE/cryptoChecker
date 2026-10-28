@@ -164,8 +164,8 @@ final class AlarmPairPickerTests: XCTestCase {
     func testAuswahlWieGemeinsameTestfaelle() throws {
         let fixture = try S.fixture("alarm_pair_picker")
         let watches: [Watch] = S.list(fixture["watches"]).map { w in
-            let market = w["marketName"] as? String ?? ""
-            var watch = Watch(id: Int64(S.number(w["id"]) ?? 0), marketKey: market.lowercased(), marketName: market,
+            let exchange = w["exchangeName"] as? String ?? ""
+            var watch = Watch(id: Int64(S.number(w["id"]) ?? 0), exchangeKey: exchange.lowercased(), exchangeName: exchange,
                               baseAsset: w["base"] as? String ?? "", quoteAsset: w["quote"] as? String ?? "")
             watch.favorite = w["favorite"] as? Bool ?? false
             watch.note = w["note"] as? String
@@ -198,7 +198,7 @@ final class AlarmPairPickerTests: XCTestCase {
 
     /// PERF3-R2: das Struct neu zu erzeugen (Elternbildschirm zeichnet neu) faltet keine Zeilen.
     func testErzeugenRechnetKeineZeilen() {
-        let watches = (1...50).map { Watch(id: Int64($0), marketKey: "binance", marketName: "Binance", baseAsset: "C\($0)",
+        let watches = (1...50).map { Watch(id: Int64($0), exchangeKey: "binance", exchangeName: "Binance", baseAsset: "C\($0)",
                                            quoteAsset: "USDT") }
         let before = AlarmPairPicker.makeRowsCalls
         for _ in 0..<5 { _ = AlarmPairPicker(watches: watches) { _ in } }

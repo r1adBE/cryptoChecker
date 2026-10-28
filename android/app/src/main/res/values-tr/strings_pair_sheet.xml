@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">bugün %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">Borsadan veri alınamadı.</string>
+    <string name="exchange_data_empty_error">Borsadan veri alınamadı.</string>
     <string name="market_data_summary">Piyasa değeri, gas ücretleri, ekonomik veriler, coin analizi</string>
     <string name="market_data_tab_futures">Vadeli</string>
     <string name="market_data_title">Piyasa verileri</string>

@@ -49,7 +49,7 @@
     <string name="explorer_pairs_title">צמדים</string>
     <string name="explorer_precise_title">מתקדם / לפי בורסה</string>
     <string name="explorer_price_loading">טוען מחיר…</string>
-    <string name="explorer_select_market_hint">בחרו בורסה – הצמדים שלה ייטענו אוטומטית.</string>
+    <string name="explorer_select_exchange_hint">בחרו בורסה – הצמדים שלה ייטענו אוטומטית.</string>
     <string name="explorer_select_placeholder">נא לבחור</string>
     <string name="explorer_step_pair">בחירת צמד</string>
 

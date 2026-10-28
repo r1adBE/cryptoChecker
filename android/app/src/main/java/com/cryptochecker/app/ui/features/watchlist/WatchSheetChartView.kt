@@ -98,12 +98,12 @@ internal fun SheetPriceChart(
     var range by rememberSaveable(watch.id) { mutableStateOf(SheetChartRange.DAY) }
     // Paar bearbeitet (gleiche Id, anderes Paar/Börse) oder Zeitraum gewechselt: Zwischenspeicher
     // sofort, sonst Platzhalter bis geladen
-    var result by remember(watch.id, watch.marketKey, watch.baseAsset, watch.quoteAsset, range) {
+    var result by remember(watch.id, watch.exchangeKey, watch.baseAsset, watch.quoteAsset, range) {
         mutableStateOf(cached(watch, range))
     }
     // Neuer Kurs (auch nach «Aktualisieren»): verworfener Zwischenspeicher (von Hand, Kurssprung,
     // abgelaufen) lädt still neu — der alte Verlauf bleibt bis dahin stehen
-    LaunchedEffect(watch.id, watch.marketKey, watch.baseAsset, watch.quoteAsset, range, watch.lastUpdate) {
+    LaunchedEffect(watch.id, watch.exchangeKey, watch.baseAsset, watch.quoteAsset, range, watch.lastUpdate) {
         val hit = cached(watch, range)
         if (hit != null) {
             result = hit
@@ -164,7 +164,7 @@ internal fun SheetPriceChart(
                     )
                 }
                 SheetChartCaption(
-                    r, widgetRange.intervalMillis, ChangeBasisMath.chartZone(basis), listOf(watch.marketKey, watch.marketName),
+                    r, widgetRange.intervalMillis, ChangeBasisMath.chartZone(basis), listOf(watch.exchangeKey, watch.exchangeName),
                     quote = watch.quoteAsset,
                 )
             }
@@ -260,7 +260,7 @@ private fun RangeChangeHeader(change: Double?, periodShort: String, periodLong: 
 }
 
 /**
- * Kleine graue Zeile unter dem Chart: Börse der Kerzen (fremde Börse als «Chart: Binance», [markets] = Schlüssel und
+ * Kleine graue Zeile unter dem Chart: Börse der Kerzen (fremde Börse als «Chart: Binance», [exchanges] = Schlüssel und
  * Name der Börse des Paars), bei der Ausweich-Reihe die Umrechnung
  * («BTC/USDT, umgerechnet mit Tageskursen» bzw. «… (aktueller Kurs)») und der Stand der letzten
  * Kerze («Stand 14:00»), getrennt mit « · ».
@@ -270,7 +270,7 @@ private fun SheetChartCaption(
     result: SheetChartResult.Ready,
     intervalMillis: Long,
     zone: ZoneId,
-    markets: List<String>,
+    exchanges: List<String>,
     quote: String,
 ) {
     val context = LocalContext.current
@@ -295,7 +295,7 @@ private fun SheetChartCaption(
         SheetChartFx.NONE -> null
     }
     // Kerzen einer anderen Börse (Ausweich-Kette): als fremd kennzeichnen, «Chart: Binance» statt nur «Binance»
-    val provider = com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(markets, result.provider)
+    val provider = com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(exchanges, result.provider)
         ?.let { stringResource(R.string.watch_row_source_chart, BidiText.isolate(it)) }
         ?: result.provider
     // Aus der USDT-Reihe umgerechnet: USDT = 1 USD angenommen (Vermerk wie im Portfolio)

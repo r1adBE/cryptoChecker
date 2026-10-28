@@ -103,7 +103,7 @@ class SpotMarketParityTest {
         }
         list("url").forEach { c -> assertEquals(c["expected"], SpotMarket.url(c["symbol"] as String)) }
         list("eligible").forEach { c ->
-            assertEquals("eligible: $c", c["expected"], SpotMarket.eligible(c["marketKey"] as String?, c["tradFi"] as Boolean))
+            assertEquals("eligible: $c", c["expected"], SpotMarket.eligible(c["exchangeKey"] as String?, c["tradFi"] as Boolean))
         }
     }
 

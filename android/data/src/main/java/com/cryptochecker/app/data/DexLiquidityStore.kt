@@ -40,8 +40,8 @@ class DexLiquidityStore @Inject constructor(
     }
 
     /** Alarme dieses Paars pausieren ([DexLiquidity.blocksAlarms])? */
-    fun blocksAlarms(marketKey: String, pairId: String?): Boolean =
-        DexLiquidity.blocksAlarms(marketKey, get(pairId))
+    fun blocksAlarms(exchangeKey: String, pairId: String?): Boolean =
+        DexLiquidity.blocksAlarms(exchangeKey, get(pairId))
 
     private fun load(): Map<String, Double> =
         prefs.all.mapNotNull { (key, raw) -> (raw as? Long)?.let { key to Double.fromBits(it) } }.toMap()

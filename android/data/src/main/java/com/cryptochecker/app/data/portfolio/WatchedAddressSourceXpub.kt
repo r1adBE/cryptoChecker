@@ -2,7 +2,7 @@
 // Erweiterungsfunktionen; Client, Pausen und Hosts bleiben in der Klasse.
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
@@ -108,7 +108,7 @@ suspend fun WatchedAddressSource.scanXpub(deriver: XpubDeriver, cache: XpubCache
         val address = list[target.index]
         if (scan.requests > 1) delay(if (deadline == null) XPUB_PAUSE_MILLIS else XPUB_PAUSE_BACKGROUND_MILLIS)
         val (stats, host) = firstWorking(entries, deadline, AddressServerRules.isOwnServer(entries)) { h ->
-            AddressBalance.parseBtc(client.callMarket(AddressServer.btcUrl(h, address), null), address)
+            AddressBalance.parseBtc(client.callExchange(AddressServer.btcUrl(h, address), null), address)
         }
         provider = host
         scan.report(target, stats.txCount, stats.totalSats)

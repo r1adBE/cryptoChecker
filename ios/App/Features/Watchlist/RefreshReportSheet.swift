@@ -28,10 +28,10 @@ struct RefreshReportSheet: View {
                         if let report {
                             RefreshReportSummary(report: report, now: Int64(context.date.timeIntervalSince1970 * 1000))
                                 .padding(.bottom, Spacing.lg)
-                            if !report.markets.isEmpty {
-                                RefreshReportSectionTitle(L("refresh_sheet_section_markets"))
+                            if !report.exchanges.isEmpty {
+                                RefreshReportSectionTitle(L("refresh_sheet_section_exchanges"))
                                 SectionCard(nil) {
-                                    RefreshReportMarketList(markets: report.markets)
+                                    RefreshReportExchangeList(exchanges: report.exchanges)
                                 }
                             }
                             if report.aborted == nil || appStartMillis != nil {
@@ -91,8 +91,8 @@ struct RefreshReportSummary: View {
         switch RefreshReportLogic.headline(report) {
         case .allUpdated: return L("refresh_sheet_all_updated")
         case .pairsNotUpdated(let n): return L("refresh_sheet_pairs_not_updated", count: n)
-        case .marketUnreachable(let name): return L("refresh_sheet_market_unreachable", name)
-        case .marketsUnreachable(let n): return L("refresh_sheet_markets_unreachable", count: n)
+        case .exchangeUnreachable(let name): return L("refresh_sheet_exchange_unreachable", name)
+        case .exchangesUnreachable(let n): return L("refresh_sheet_exchanges_unreachable", count: n)
         case .aborted: return L("refresh_sheet_aborted")
         }
     }
@@ -111,35 +111,35 @@ struct RefreshReportSummary: View {
 }
 
 /// Börsen: rot zuerst, dann orange, dann grün; je Gruppe die langsamsten zuerst.
-struct RefreshReportMarketList: View {
-    let markets: [MarketRefresh]
+struct RefreshReportExchangeList: View {
+    let exchanges: [ExchangeRefresh]
 
     var body: some View {
-        let sorted = RefreshReportLogic.sorted(markets)
+        let sorted = RefreshReportLogic.sorted(exchanges)
         ForEach(sorted.indices, id: \.self) { index in
             if index > 0 { RowDivider().padding(.leading, 32) }
-            RefreshReportMarketRow(market: sorted[index])
+            RefreshReportExchangeRow(exchange: sorted[index])
         }
     }
 }
 
 /// Eine Börse: Status, Name, Dauer; darunter Paare und Sammelabfrage, ggf. die Ursachen.
-struct RefreshReportMarketRow: View {
-    let market: MarketRefresh
+struct RefreshReportExchangeRow: View {
+    let exchange: ExchangeRefresh
 
     var body: some View {
-        let status = RefreshReportLogic.status(market)
+        let status = RefreshReportLogic.status(exchange)
         let issues = issuesText
         HStack(alignment: .firstTextBaseline, spacing: 12) {
             RefreshStatusIcon(status: status, size: 20)
                 .alignmentGuide(.firstTextBaseline) { d in d[VerticalAlignment.center] + 5 }
             VStack(alignment: .leading, spacing: 3) {
                 HStack(alignment: .firstTextBaseline, spacing: 12) {
-                    Text(market.name)
+                    Text(exchange.name)
                         .font(.body.weight(.semibold))
                         .foregroundStyle(AppColors.onSurface)
                     Spacer(minLength: 0)
-                    Text(RefreshReportFormat.seconds(market.millis))
+                    Text(RefreshReportFormat.seconds(exchange.millis))
                         .font(.subheadline.monospacedDigit())
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
@@ -170,41 +170,41 @@ struct RefreshReportMarketRow: View {
     /// Meldung der Börse zur häufigsten Ursache (gekürzt, ohne Adressen) — nur hier; die Zeile der Merkliste zeigt
     /// weiterhin den allgemeinen Text. Wie Android.
     private var exchangeDetail: String? {
-        guard market.failed > 0, let detail = market.detail else { return nil }
+        guard exchange.failed > 0, let detail = exchange.detail else { return nil }
         return L("refresh_sheet_exchange_detail", detail)
     }
 
     private var pairsText: String {
-        L("refresh_sheet_pairs_of", count: market.pairs, market.pairs, market.updated)
+        L("refresh_sheet_pairs_of", count: exchange.pairs, exchange.pairs, exchange.updated)
     }
 
     private var detailText: String {
         var parts = [pairsText]
-        if market.bulkTried {
-            let secs = RefreshReportFormat.seconds(market.bulkMillis)
-            parts.append(market.bulkPrices > 0
-                ? L("refresh_sheet_bulk", count: market.bulkPrices, secs, market.bulkPrices)
+        if exchange.bulkTried {
+            let secs = RefreshReportFormat.seconds(exchange.bulkMillis)
+            parts.append(exchange.bulkPrices > 0
+                ? L("refresh_sheet_bulk", count: exchange.bulkPrices, secs, exchange.bulkPrices)
                 : L("refresh_report_bulk_failed", secs))
         }
-        if market.singles > 0 { parts.append(L("refresh_report_singles", market.singles)) }
+        if exchange.singles > 0 { parts.append(L("refresh_report_singles", exchange.singles)) }
         return parts.joined(separator: " · ")
     }
 
     private var issuesText: String {
         var parts: [String] = []
-        if market.notTraded > 0 { parts.append(L("refresh_report_not_traded", count: market.notTraded)) }
-        if market.failed > 0 {
-            let errors = L("refresh_report_errors", count: market.failed)
-            if let reason = market.reason.flatMap(RefreshReportFormat.reason) {
+        if exchange.notTraded > 0 { parts.append(L("refresh_report_not_traded", count: exchange.notTraded)) }
+        if exchange.failed > 0 {
+            let errors = L("refresh_report_errors", count: exchange.failed)
+            if let reason = exchange.reason.flatMap(RefreshReportFormat.reason) {
                 parts.append(L("refresh_sheet_with_reason", errors, reason))
             } else {
                 parts.append(errors)
             }
         }
         // Pause je Börse: «pausiert bis 19:45 (zu viele Anfragen)»
-        if let until = market.pausedUntil {
+        if let until = exchange.pausedUntil {
             let time = PriceFormat.shortTime(until)
-            if let reason = market.pauseReason.flatMap(RefreshReportFormat.reason) {
+            if let reason = exchange.pauseReason.flatMap(RefreshReportFormat.reason) {
                 parts.append(L("refresh_sheet_paused_until_reason", time, reason))
             } else {
                 parts.append(L("refresh_sheet_paused_until", time))
@@ -220,8 +220,8 @@ struct RefreshReportMarketRow: View {
         case .partial: statusText = L("refresh_sheet_status_partial")
         case .failed: statusText = L("refresh_sheet_status_failed")
         }
-        let secs = String(format: "%.1f", locale: Locale.current, Double(market.millis) / 1000)
-        return [market.name, statusText, pairsText, L("refresh_sheet_seconds_a11y", secs), issues, exchangeDetail ?? ""]
+        let secs = String(format: "%.1f", locale: Locale.current, Double(exchange.millis) / 1000)
+        return [exchange.name, statusText, pairsText, L("refresh_sheet_seconds_a11y", secs), issues, exchangeDetail ?? ""]
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
     }

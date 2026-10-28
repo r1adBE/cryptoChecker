@@ -10,12 +10,12 @@ import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.util.TextLimit
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -71,7 +71,7 @@ class WatchRepository @Inject constructor(
      */
     suspend fun normalizeContractTypes() {
         val ids = watchDao.getWatches()
-            .filter { FuturesContractType.normalized(it.marketKey, it.pairId, it.contractType) != it.contractType }
+            .filter { FuturesContractType.normalized(it.exchangeKey, it.pairId, it.contractType) != it.contractType }
             .map { it.id }
         if (ids.isNotEmpty()) watchDao.updateContractType(ids, FuturesContractType.INVERSE_PERPETUAL.name)
     }
@@ -86,26 +86,26 @@ class WatchRepository @Inject constructor(
      * Paar schon als anderer Eintrag in der Liste: [PairEditResult.DUPLICATE], nichts geändert. Gesperrt
      * ([userWriteRefused]): [PairEditResult.LOCKED].
      */
-    suspend fun changePair(id: Long, market: MarketInfo, pair: MarketPair): PairEditResult =
+    suspend fun changePair(id: Long, exchange: ExchangeInfo, pair: ExchangePair): PairEditResult =
         if (userWriteRefused()) PairEditResult.LOCKED else database.withTransaction {
             val watch = watchDao.getWatch(id)
             if (watch == null) {
                 PairEditResult.MISSING
             } else {
                 val current = WatchEdit.Key.of(
-                    watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId,
+                    watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId,
                 )
-                val target = WatchEdit.Key.of(market.key, pair.base, pair.quote, pair.contractType.name, pair.pairId)
+                val target = WatchEdit.Key.of(exchange.key, pair.base, pair.quote, pair.contractType.name, pair.pairId)
                 val existing =
-                    watchDao.findWatchId(target.marketKey, target.base, target.quote, target.contract, target.pool)
+                    watchDao.findWatchId(target.exchangeKey, target.base, target.quote, target.contract, target.pool)
                 when (WatchEdit.decide(id, current, target, existing)) {
                     WatchEdit.Outcome.UNCHANGED -> PairEditResult.UNCHANGED
                     WatchEdit.Outcome.DUPLICATE -> PairEditResult.DUPLICATE
                     WatchEdit.Outcome.CHANGED -> {
                         watchDao.updateWatch(
                             watch.copy(
-                                marketKey = market.key,
-                                marketName = market.name,
+                                exchangeKey = exchange.key,
+                                exchangeName = exchange.name,
                                 baseAsset = pair.base,
                                 quoteAsset = pair.quote,
                                 contractType = pair.contractType,

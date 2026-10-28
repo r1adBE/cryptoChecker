@@ -376,7 +376,7 @@ final class BackupLimitsTests: XCTestCase {
             {
               "baseAsset" : "BTC",
               "id" : 3,
-              "marketKey" : "binance",
+              "exchangeKey" : "binance",
               "quoteAsset" : "USDT"
             }
           ]

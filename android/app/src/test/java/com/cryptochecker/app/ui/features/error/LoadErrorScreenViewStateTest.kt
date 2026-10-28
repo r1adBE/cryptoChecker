@@ -23,7 +23,7 @@ class LoadErrorScreenViewStateTest {
         // Zeitüberschreitung ist auch eine IOException: eigener Titel und Satz
         val state = LoadErrorScreenViewState(SocketTimeoutException())
         assertEquals(R.drawable.ic_cloud_off, state.iconRes())
-        assertEquals(R.string.error_market_unreachable_short, state.titleRes())
+        assertEquals(R.string.error_exchange_unreachable_short, state.titleRes())
         assertEquals(R.string.timeout_error_message, state.messageRes())
     }
 

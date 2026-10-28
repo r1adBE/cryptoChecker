@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
-import com.cryptochecker.marketdata.util.MarketsConfigUtils
+import com.cryptochecker.marketdata.util.ExchangesConfigUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -69,7 +69,7 @@ fun AlarmsScreen(
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true
     // EZB-Referenzkurs (Forex): gar keine Alarme (Market.allowsAlarms), Hinweis statt Editor
-    val referenceRate = watch?.let { !MarketsConfigUtils.getMarketByKey(it.marketKey).allowsAlarms } == true
+    val referenceRate = watch?.let { !ExchangesConfigUtils.getExchangeByKey(it.exchangeKey).allowsAlarms } == true
     // Höchstzahl Alarme am Paar erreicht (WatchlistLimits): kein «Neuer Alarm», Hinweis über der Liste
     val alarmsFull = !WatchlistLimits.canAddAlarm(alarms.size)
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
@@ -84,7 +84,7 @@ fun AlarmsScreen(
     val noAlarms by viewModel.noAlarms.collectAsStateWithLifecycle()
     val watchMissing by viewModel.watchMissing.collectAsStateWithLifecycle()
     var autoOpenDone by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(noAlarms, lowLiquidityState, watchMissing, watch?.marketKey) {
+    LaunchedEffect(noAlarms, lowLiquidityState, watchMissing, watch?.exchangeKey) {
         val empty = noAlarms ?: return@LaunchedEffect
         // Erst mit geladenem Paar: ein Referenzkurs öffnet keinen Editor
         if (watch == null || referenceRate) return@LaunchedEffect
@@ -193,7 +193,7 @@ fun AlarmsScreen(
                         Text(stringResource(R.string.alarms_title))
                         watch?.let {
                             Text(
-                                "${BidiText.isolate(it.displayName)} · ${BidiText.isolate(it.marketName)}",
+                                "${BidiText.isolate(it.displayName)} · ${BidiText.isolate(it.exchangeName)}",
                                 style = MaterialTheme.typography.bodySmall
                             )
                         }
@@ -311,7 +311,7 @@ fun AlarmsScreen(
             templates = templates,
             // Funding/Open Interest nur für Perpetuals an Börsen mit eigenen Daten
             derivatives = watch?.let {
-                DerivativesAlarm.supports(it.marketKey, it.contractType.isPerpetual)
+                DerivativesAlarm.supports(it.exchangeKey, it.contractType.isPerpetual)
             } == true,
             onLoadRate = viewModel::loadRate,
             onDraftChange = { draft = it },

@@ -243,13 +243,13 @@ actor GasDataSource {
         for rpc in network.rpcs {
             do {
                 do {
-                    let fees = try GasFees.parseFeeHistory(try await MarketHTTP.call(rpc, post: jsonPost(GasFees.feeHistoryRequest)))
+                    let fees = try GasFees.parseFeeHistory(try await ExchangeHTTP.call(rpc, post: jsonPost(GasFees.feeHistoryRequest)))
                     return (fees, rpc)
                 } catch is CancellationError {
                     throw CancellationError()
                 } catch {
                     // Ohne eth_feeHistory: einfacher Gaspreis für alle drei Stufen
-                    let price = try GasFees.parseGasPrice(try await MarketHTTP.call(rpc, post: jsonPost(GasFees.gasPriceRequest)))
+                    let price = try GasFees.parseGasPrice(try await ExchangeHTTP.call(rpc, post: jsonPost(GasFees.gasPriceRequest)))
                     return ((price, price, price), rpc)
                 }
             } catch is CancellationError {
@@ -262,7 +262,7 @@ actor GasDataSource {
     }
 
     private static func mempoolOrNil() async -> (Double, Double, Double)? {
-        guard let text = try? await MarketHTTP.call("https://mempool.space/api/v1/fees/recommended") else { return nil }
+        guard let text = try? await ExchangeHTTP.call("https://mempool.space/api/v1/fees/recommended") else { return nil }
         return try? GasFees.parseMempool(text)
     }
 
@@ -270,11 +270,11 @@ actor GasDataSource {
         let coins = Array(Set(GasNetwork.allCases.map(\.coin) + ["BTC"])).sorted()
         let symbols = "[" + coins.map { "\"\($0)USDT\"" }.joined(separator: ",") + "]"
         let url = "https://data-api.binance.vision/api/v3/ticker/price?symbols=" + symbols.urlQueryEncoded
-        if let text = try? await MarketHTTP.call(url),
+        if let text = try? await ExchangeHTTP.call(url),
            let prices = try? GasFees.parseBinancePrices(text), !prices.isEmpty {
             return prices
         }
-        if let text = try? await MarketHTTP.call("https://api.coinbase.com/v2/exchange-rates?currency=USD"),
+        if let text = try? await ExchangeHTTP.call("https://api.coinbase.com/v2/exchange-rates?currency=USD"),
            let prices = try? GasFees.parseCoinbaseRates(text, coins: coins) {
             return prices
         }

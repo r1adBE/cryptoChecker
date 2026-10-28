@@ -5,7 +5,7 @@ package com.cryptochecker.app.domain.mirror
  * Altcoin-Saison aus Binance-Kerzen). CoinGecko-Daten werden NICHT gespiegelt (API-Bedingungen
  * verbieten Weitergabe und Speicherung) — die App fragt CoinGecko direkt. Eine GitHub Action
  * (`.github/workflows/market-data.yml`, `.github/scripts/mirror_data.py`) holt sie stündlich und legt sie als Anhänge der Release «data»
- * ab. [com.cryptochecker.app.data.remote.callMarket] fragt für diese Adressen zuerst den Spiegel
+ * ab. [com.cryptochecker.app.data.remote.callExchange] fragt für diese Adressen zuerst den Spiegel
  * und nur, wenn er fehlt oder zu alt ist, den Anbieter selbst — so fragen nicht alle Handys
  * einzeln. Jede Spiegel-Datei gilt nur mit gültig signiertem Manifest ([MirrorManifest]). Gleich in iOS
  * `DataMirror.swift`, gemeinsame Testfälle `data_mirror.json`.

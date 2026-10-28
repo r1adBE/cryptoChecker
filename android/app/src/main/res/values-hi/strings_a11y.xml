@@ -11,7 +11,7 @@
     <string name="a11y_favorite">पसंदीदा</string>
     <string name="a11y_in_watchlist">पहले से वॉचलिस्ट में</string>
     <!-- %1$s Börse, letzte Abfrage gescheitert -->
-    <string name="a11y_market_unreachable">%1$s उपलब्ध नहीं</string>
+    <string name="a11y_exchange_unreachable">%1$s उपलब्ध नहीं</string>
     <string name="a11y_move_down">नीचे ले जाओ</string>
     <string name="a11y_move_up">ऊपर ले जाओ</string>
     <string name="a11y_note">नोट: %1$s</string>

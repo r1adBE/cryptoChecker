@@ -1,6 +1,6 @@
 import Foundation
 
-/// Höchstens `MarketHTTP.maxRequests` Anfragen gleichzeitig, davon höchstens `MarketHTTP.maxRequestsPerHost` je Host
+/// Höchstens `ExchangeHTTP.maxRequests` Anfragen gleichzeitig, davon höchstens `ExchangeHTTP.maxRequestsPerHost` je Host
 /// (wie der OkHttp-Dispatcher auf Android). Weitere warten hier, bevor ihre URLSession-Aufgabe entsteht — so laufen
 /// `timeoutIntervalForRequest`/`ForResource` erst ab der Ausführung, und eine wartende Anfrage endet nie als
 /// Schein-Zeitüberschreitung, die die Börse pausierte (`ExchangeBackoff`). Wer beim Warten abbricht, verlässt die
@@ -20,7 +20,7 @@ actor RequestGate {
     private var runningByHost: [String: Int] = [:]
     private var waiting: [Waiter] = []
 
-    init(maxTotal: Int = MarketHTTP.maxRequests, maxPerHost: Int = MarketHTTP.maxRequestsPerHost) {
+    init(maxTotal: Int = ExchangeHTTP.maxRequests, maxPerHost: Int = ExchangeHTTP.maxRequestsPerHost) {
         self.maxTotal = max(1, maxTotal)
         self.maxPerHost = max(1, maxPerHost)
     }

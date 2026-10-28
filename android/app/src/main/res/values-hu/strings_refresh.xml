@@ -26,8 +26,8 @@
         <item quantity="other">csoportos lekérés %1$s · %2$d árfolyam</item>
     </plurals>
     <string name="refresh_sheet_database">Adatbázis</string>
-    <string name="refresh_sheet_market_unreachable">%1$s nem érhető el</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s nem érhető el</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d tőzsde nem érhető el</item>
         <item quantity="other">%1$d tőzsde nem érhető el</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">a tőzsde nem érhető el</string>
     <string name="refresh_sheet_seconds_a11y">%1$s másodperc</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Tőzsdék</string>
+    <string name="refresh_sheet_section_exchanges">Tőzsdék</string>
     <string name="refresh_sheet_section_steps">Részletezés</string>
     <string name="refresh_sheet_status_failed">nem frissült</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

@@ -30,8 +30,8 @@
         <item quantity="other">пакетний запит %1$s · %2$d курси</item>
     </plurals>
     <string name="refresh_sheet_database">База даних</string>
-    <string name="refresh_sheet_market_unreachable">Біржа %1$s недоступна</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">Біржа %1$s недоступна</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d біржа недоступна</item>
         <item quantity="few">%1$d біржі недоступні</item>
         <item quantity="many">%1$d бірж недоступно</item>
@@ -75,7 +75,7 @@
     <string name="refresh_sheet_reason_unavailable">біржа недоступна</string>
     <string name="refresh_sheet_seconds_a11y">%1$s секунди</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Біржі</string>
+    <string name="refresh_sheet_section_exchanges">Біржі</string>
     <string name="refresh_sheet_section_steps">Етапи</string>
     <string name="refresh_sheet_status_failed">не оновлено</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

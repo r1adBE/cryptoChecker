@@ -168,16 +168,16 @@ class WatchlistPerformanceTest {
             medianMillis {
                 // Wie `ExplorerViewModel.watchedKeys` und `bulkNew`
                 val keys = watches.mapTo(LinkedHashSet()) {
-                    watchKey(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name)
+                    watchKey(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name)
                 }
                 bulkNewCount(PerformanceData.BINANCE.first, pairs, keys)
             }
         }
         val n = PerformanceTiming.LARGE
         val keys = PerformanceData.watches(n).mapTo(HashSet()) {
-            watchKey(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name)
+            watchKey(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name)
         }
         val pairs = PerformanceData.binancePairs(n)
-        assertEquals(n - n / PerformanceData.MARKETS.size, bulkNewCount(PerformanceData.BINANCE.first, pairs, keys))
+        assertEquals(n - n / PerformanceData.EXCHANGES.size, bulkNewCount(PerformanceData.BINANCE.first, pairs, keys))
     }
 }

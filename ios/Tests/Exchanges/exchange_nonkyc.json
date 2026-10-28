@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker BTC_USDT (no rolling change read)",
-      "market": "NonKyc",
+      "exchangeKey": "NonKyc",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "error object",
-      "market": "NonKyc",
+      "exchangeKey": "NonKyc",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -50,7 +50,7 @@
     {
       "kind": "bulk",
       "name": "bulk tickers: id from ticker_id or base/target",
-      "market": "NonKyc",
+      "exchangeKey": "NonKyc",
       "requestId": 0,
       "body": "[{\"ticker_id\":\"BTC_USDT\",\"type\":\"spot\",\"base_currency\":\"BTC\",\"target_currency\":\"USDT\",\"last_price\":\"62000.1\", \"base_volume\":\"1.2345\",\"target_volume\":\"76543.21\",\"bid\":\"61990\",\"ask\":\"62010\",\"high\":\"62500\",\"low\":\"60000\",\"change_percent\":\"2.48\", \"usd_volume_est\":\"76543.21\"},{\"type\":\"spot\",\"base_currency\":\"ETH\",\"target_currency\":\"USDT\",\"last_price\":\"2450.12\", \"base_volume\":\"1.2345\",\"target_volume\":\"76543.21\",\"bid\":\"61990\",\"ask\":\"62010\",\"high\":\"62500\",\"low\":\"60000\",\"change_percent\":\"2.48\", \"usd_volume_est\":\"76543.21\"}]",
       "expect": {
@@ -70,7 +70,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last_price» in one row — that pair is reported as unreadable, the rest stays; row with null «last_price» (inactive) is skipped, not failed",
-      "market": "NonKyc",
+      "exchangeKey": "NonKyc",
       "requestId": 0,
       "body": "[{\"ticker_id\":\"BTC_USDT\",\"type\":\"spot\",\"base_currency\":\"BTC\",\"target_currency\":\"USDT\",\"last_price\":\"62000.1\",\"base_volume\":\"1.2345\",\"target_volume\":\"76543.21\",\"bid\":\"61990\",\"ask\":\"62010\",\"high\":\"62500\",\"low\":\"60000\",\"change_percent\":\"2.48\",\"usd_volume_est\":\"76543.21\"},{\"type\":\"spot\",\"base_currency\":\"ETH\",\"target_currency\":\"USDT\",\"last_price\":\"2450.12\",\"base_volume\":\"1.2345\",\"target_volume\":\"76543.21\",\"bid\":\"61990\",\"ask\":\"62010\",\"high\":\"62500\",\"low\":\"60000\",\"change_percent\":\"2.48\",\"usd_volume_est\":\"76543.21\"},{\"ticker_id\":\"SOL_USDT\",\"type\":\"spot\",\"base_currency\":\"BTC\",\"target_currency\":\"USDT\",\"base_volume\":\"1.2345\",\"target_volume\":\"76543.21\",\"bid\":\"61990\",\"ask\":\"62010\",\"high\":\"62500\",\"low\":\"60000\",\"change_percent\":\"2.48\",\"usd_volume_est\":\"76543.21\",\"last_price_renamed\":\"62000.1\"},{\"ticker_id\":\"OLD_USDT\",\"type\":\"spot\",\"base_currency\":\"BTC\",\"target_currency\":\"USDT\",\"last_price\":null,\"base_volume\":\"1.2345\",\"target_volume\":\"76543.21\",\"bid\":\"61990\",\"ask\":\"62010\",\"high\":\"62500\",\"low\":\"60000\",\"change_percent\":\"2.48\",\"usd_volume_est\":\"76543.21\"}]",
       "expect": {

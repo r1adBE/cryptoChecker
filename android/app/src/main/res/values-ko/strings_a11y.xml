@@ -11,7 +11,7 @@
     <string name="a11y_favorite">즐겨찾기</string>
     <string name="a11y_in_watchlist">이미 관심 목록에 있음</string>
     <!-- %1$s Börse, letzte Abfrage gescheitert -->
-    <string name="a11y_market_unreachable">%1$s에 연결할 수 없음</string>
+    <string name="a11y_exchange_unreachable">%1$s에 연결할 수 없음</string>
     <string name="a11y_move_down">아래로 이동</string>
     <string name="a11y_move_up">위로 이동</string>
     <string name="a11y_note">메모: %1$s</string>

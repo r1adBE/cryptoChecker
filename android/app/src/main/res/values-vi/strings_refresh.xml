@@ -24,8 +24,8 @@
         <item quantity="other">yêu cầu gộp %1$s · %2$d giá</item>
     </plurals>
     <string name="refresh_sheet_database">Cơ sở dữ liệu</string>
-    <string name="refresh_sheet_market_unreachable">Không kết nối được %1$s</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">Không kết nối được %1$s</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="other">Không kết nối được %1$d sàn</item>
     </plurals>
     <string name="refresh_sheet_network">Mạng</string>
@@ -54,7 +54,7 @@
     <string name="refresh_sheet_reason_unavailable">sàn không khả dụng</string>
     <string name="refresh_sheet_seconds_a11y">%1$s giây</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Sàn</string>
+    <string name="refresh_sheet_section_exchanges">Sàn</string>
     <string name="refresh_sheet_section_steps">Chi tiết</string>
     <string name="refresh_sheet_status_failed">chưa cập nhật</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

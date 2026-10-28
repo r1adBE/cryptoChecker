@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">पेयर</string>
     <string name="explorer_precise_title">उन्नत / एक्सचेंज के अनुसार</string>
     <string name="explorer_price_loading">भाव लोड हो रहा है…</string>
-    <string name="explorer_select_market_hint">एक्सचेंज चुनो – उसके पेयर अपने आप लोड होंगे।</string>
+    <string name="explorer_select_exchange_hint">एक्सचेंज चुनो – उसके पेयर अपने आप लोड होंगे।</string>
     <string name="explorer_select_placeholder">कृपया चुनो</string>
     <string name="explorer_step_pair">पेयर चुनो</string>
 

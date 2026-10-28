@@ -4,12 +4,12 @@ package com.cryptochecker.app.data
 
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.model.WatchEntity
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 
 /** Ausgang von [tryAddWatch]. */
 sealed interface AddWatchOutcome {
@@ -27,11 +27,11 @@ sealed interface AddWatchOutcome {
  * @return die Id des Eintrags, oder null, wenn er bereits vorhanden war bzw. die Merkliste voll oder gesperrt ist.
  */
 suspend fun WatchRepository.addWatch(
-    market: MarketInfo,
-    pair: MarketPair,
+    exchange: ExchangeInfo,
+    pair: ExchangePair,
     group: String? = null,
     notificationEnabled: Boolean = WatchRepository.DEFAULT_NOTIFICATION_ENABLED,
-): Long? = (tryAddWatch(market, pair, group, notificationEnabled) as? AddWatchOutcome.Added)?.id
+): Long? = (tryAddWatch(exchange, pair, group, notificationEnabled) as? AddWatchOutcome.Added)?.id
 
 /**
  * Legt ein Paar in der Watchlist an.
@@ -40,28 +40,28 @@ suspend fun WatchRepository.addWatch(
  * @return angelegt (mit Id), schon vorhanden, Merkliste voll ([WatchlistLimits.MAX_PAIRS]) oder gesperrt.
  */
 suspend fun WatchRepository.tryAddWatch(
-    market: MarketInfo,
-    pair: MarketPair,
+    exchange: ExchangeInfo,
+    pair: ExchangePair,
     group: String? = null,
     notificationEnabled: Boolean = WatchRepository.DEFAULT_NOTIFICATION_ENABLED,
 ): AddWatchOutcome = if (userWriteRefused()) AddWatchOutcome.Locked else database.withTransaction {
     // Suchen, Zählen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
     // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
     // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
-    val contractType = FuturesContractType.normalized(market.key, pair.pairId, pair.contractType)
+    val contractType = FuturesContractType.normalized(exchange.key, pair.pairId, pair.contractType)
     val existing = watchDao.findWatchId(
-        market.key,
+        exchange.key,
         pair.base,
         pair.quote,
         contractType.name,
-        WatchIdentity.pool(market.key, pair.pairId),
+        WatchIdentity.pool(exchange.key, pair.pairId),
     )
     addBlocker(existing != null) { watchDao.countWatches() }?.let { return@withTransaction it }
 
     val id = watchDao.insertWatch(
         WatchEntity(
-            marketKey = market.key,
-            marketName = market.name,
+            exchangeKey = exchange.key,
+            exchangeName = exchange.name,
             baseAsset = pair.base,
             quoteAsset = pair.quote,
             contractType = contractType,
@@ -83,21 +83,21 @@ suspend fun WatchRepository.tryAddWatch(
  * jedem Paar die Zahl der verarbeiteten ([BulkAddRunner]: Fortschrittsbalken).
  */
 suspend fun WatchRepository.addWatches(
-    market: MarketInfo,
-    pairs: List<MarketPair>,
+    exchange: ExchangeInfo,
+    pairs: List<ExchangePair>,
     group: String? = null,
     onProgress: (Int) -> Unit = {},
 ): BulkAddResult =
-    collectBulkAdd(pairs, refused = { userWriteRefused() }, add = { tryAddWatch(market, it, group) }, onProgress)
+    collectBulkAdd(pairs, refused = { userWriteRefused() }, add = { tryAddWatch(exchange, it, group) }, onProgress)
 
 /**
  * Ablauf von [addWatches] ohne Room ([refused] = Sperre und Sicherung F-08, [add] = ein Paar anlegen): testbar mit
  * Fälschungen (`BulkAddRunnerTest`, `WatchlistWriteConsentTest`).
  */
 suspend fun collectBulkAdd(
-    pairs: List<MarketPair>,
+    pairs: List<ExchangePair>,
     refused: suspend () -> Boolean,
-    add: suspend (MarketPair) -> AddWatchOutcome,
+    add: suspend (ExchangePair) -> AddWatchOutcome,
     onProgress: (Int) -> Unit,
 ): BulkAddResult {
     if (refused()) return BulkAddResult(added = 0, skipped = 0, locked = true)
@@ -175,8 +175,8 @@ suspend fun WatchRepository.restore(snapshot: WatchSnapshot): RestoreOutcome =
         val watch = snapshot.watch
         val blocked = watchDao.getWatch(watch.id) != null ||
             watchDao.findWatchId(
-                watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name,
-                WatchIdentity.pool(watch.marketKey, watch.pairId),
+                watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name,
+                WatchIdentity.pool(watch.exchangeKey, watch.pairId),
             ) != null
         restoreBlocker(blocked) { watchDao.countWatches() } ?: if (watchDao.insertWatch(watch) == watch.id) {
             snapshot.alarms.forEach { watchDao.insertAlarm(it.copy(watchId = watch.id)) }

@@ -97,7 +97,7 @@ enum CycleDataSource {
     }
 
     private static func optionalCall(_ url: String) async -> String? {
-        try? await MarketHTTP.call(url, session: MarketHTTP.bulkSession)
+        try? await ExchangeHTTP.call(url, session: ExchangeHTTP.bulkSession)
     }
 
     private struct OnChain: Codable {

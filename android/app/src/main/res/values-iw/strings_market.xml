@@ -39,7 +39,7 @@
     <string name="market_section_expand">הצגת %1$s</string>
     <string name="market_section_now">עכשיו</string>
     <string name="market_source">נתונים: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">הבורסה אינה זמינה</string>
+    <string name="exchange_unavailable_error">הבורסה אינה זמינה</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">מידע: %1$s</string>

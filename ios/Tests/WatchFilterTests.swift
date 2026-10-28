@@ -117,7 +117,7 @@ final class WatchFilterTests: XCTestCase {
     }
 
     private func watch(_ id: Int64, _ group: String?) -> Watch {
-        var w = Watch(id: id, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        var w = Watch(id: id, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
         w.groupName = group
         return w
     }
@@ -128,28 +128,28 @@ final class AssetKindTests: XCTestCase {
     private let alpha: Set<String> = ["AIA", "AGT"]
 
     func testTradFiWinsOverEverything() {
-        XCTAssertEqual(AssetKind.of(marketKey: "BinanceFutures", base: "NVDA", tradFi: true, alphaSymbols: alpha), .TRADFI)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "BinanceFutures", base: "NVDA", tradFi: true, alphaSymbols: alpha), .TRADFI)
         // Auch ein Kürzel der Alpha-Liste ist als TradFi-Kontrakt TradFi
-        XCTAssertEqual(AssetKind.of(marketKey: "BinanceFutures", base: "AIA", tradFi: true, alphaSymbols: alpha), .TRADFI)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "BinanceFutures", base: "AIA", tradFi: true, alphaSymbols: alpha), .TRADFI)
     }
 
     func testAlphaOnlyForListedSymbols() {
-        XCTAssertEqual(AssetKind.of(marketKey: "BinanceFutures", base: "AIA", tradFi: false, alphaSymbols: alpha), .ALPHA)
-        XCTAssertEqual(AssetKind.of(marketKey: "Bybit", base: "agt", tradFi: false, alphaSymbols: alpha), .ALPHA)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "BinanceFutures", base: "AIA", tradFi: false, alphaSymbols: alpha), .ALPHA)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "Bybit", base: "agt", tradFi: false, alphaSymbols: alpha), .ALPHA)
         // Hebel-Kürzel wie das Kürzel
-        XCTAssertEqual(AssetKind.of(marketKey: "BinanceFutures", base: "1000AIA", tradFi: false, alphaSymbols: alpha), .ALPHA)
-        XCTAssertEqual(AssetKind.of(marketKey: "BinanceFutures", base: "BTC", tradFi: false, alphaSymbols: alpha), .TOKEN)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "BinanceFutures", base: "1000AIA", tradFi: false, alphaSymbols: alpha), .ALPHA)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "BinanceFutures", base: "BTC", tradFi: false, alphaSymbols: alpha), .TOKEN)
     }
 
     func testBinanceSpotAndDexNeverAlpha() {
         // An Binance Spot gehandelt = regulär gelistet
-        XCTAssertEqual(AssetKind.of(marketKey: "Binance", base: "AIA", tradFi: false, alphaSymbols: alpha), .TOKEN)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "Binance", base: "AIA", tradFi: false, alphaSymbols: alpha), .TOKEN)
         // DEX: fremder Token darf gleich heissen
-        XCTAssertEqual(AssetKind.of(marketKey: "DexScreener", base: "AIA", tradFi: false, alphaSymbols: alpha), .TOKEN)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "DexScreener", base: "AIA", tradFi: false, alphaSymbols: alpha), .TOKEN)
     }
 
     func testNoAlphaListMeansToken() {
-        XCTAssertEqual(AssetKind.of(marketKey: "BinanceFutures", base: "AIA", tradFi: false, alphaSymbols: []), .TOKEN)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "BinanceFutures", base: "AIA", tradFi: false, alphaSymbols: []), .TOKEN)
     }
 
     func testAlphaIsBuiltInFilterOnAlphaPairs() {

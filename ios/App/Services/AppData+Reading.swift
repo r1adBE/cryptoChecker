@@ -85,7 +85,7 @@ extension AppData {
         for w in snapshot.watches {
             out[w.id] = w.assetKind(tradFiPairs: key.tradFiPairs, alphaSymbols: key.alphaSymbols,
                                     alphaNames: key.alphaNames,
-                                    pairName: TokenIdentityStore.shared.pairName(marketKey: w.marketKey, base: w.baseAsset))
+                                    pairName: TokenIdentityStore.shared.pairName(exchangeKey: w.exchangeKey, base: w.baseAsset))
         }
         readCache.kinds = (key, out)
         return out

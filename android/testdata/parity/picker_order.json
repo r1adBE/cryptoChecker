@@ -3,7 +3,7 @@
   "cases": [
     {
       "name": "no ranking: registry order per section",
-      "markets": [
+      "exchanges": [
         {
           "key": "Coinbase",
           "category": "SPOT"
@@ -56,7 +56,7 @@
     },
     {
       "name": "ranking: by volume, ties keep registry order, unranked last",
-      "markets": [
+      "exchanges": [
         {
           "key": "Coinbase",
           "category": "SPOT"
@@ -116,7 +116,7 @@
     },
     {
       "name": "empty sections are dropped",
-      "markets": [
+      "exchanges": [
         {
           "key": "DexScreener",
           "category": "DEX"

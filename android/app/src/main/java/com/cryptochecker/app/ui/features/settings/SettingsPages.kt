@@ -48,7 +48,7 @@ enum class SettingsPage {
     BACKUP,
     ABOUT, LICENSES, WIDGETS, DEVELOPER,
     // «Token & TradFi» (Zeile auf «Merkliste»); die frühere Seite «Erweitert» gibt es nicht mehr
-    MARKETS;
+    EXCHANGES;
 
     companion object {
         fun fromName(name: String?): SettingsPage? = entries.firstOrNull { it.name == name }
@@ -73,7 +73,7 @@ val SettingsPage.home: SettingsHome?
         SettingsPage.BACKUP, SettingsPage.ABOUT -> SettingsHome.MORE
         // %-Änderung und Token & TradFi stehen auf «Merkliste», Preis-Paare auf «Alarme», Lizenzen und Entwickler auf
         // «Über die App»
-        SettingsPage.CHANGE_BASIS, SettingsPage.MARKETS, SettingsPage.PRICE_PAIRS, SettingsPage.LICENSES,
+        SettingsPage.CHANGE_BASIS, SettingsPage.EXCHANGES, SettingsPage.PRICE_PAIRS, SettingsPage.LICENSES,
         SettingsPage.DEVELOPER -> null
     }
 
@@ -108,7 +108,7 @@ fun SettingsPageScreen(
         SettingsPage.LICENSES -> LicensesPage(onBack)
         SettingsPage.WIDGETS -> WidgetsPage(onBack)
         SettingsPage.DEVELOPER -> DeveloperPage(onBack)
-        SettingsPage.MARKETS -> MarketsPage(onBack)
+        SettingsPage.EXCHANGES -> ExchangesPage(onBack)
         null -> LaunchedEffect(Unit) { onBack() }
     }
 }

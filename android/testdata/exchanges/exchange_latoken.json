@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker (amount24h = coin volume, volume24h = quote volume); updateTimestamp is the summary refresh, not a trade time (exchange time unknown)",
-      "market": "Latoken",
+      "exchangeKey": "Latoken",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Latoken",
+      "exchangeKey": "Latoken",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -50,7 +50,7 @@
     {
       "kind": "bulk",
       "name": "bulk ticker keyed <baseId>/<quoteId>",
-      "market": "Latoken",
+      "exchangeKey": "Latoken",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTC/USDT\",\"baseCurrency\":\"92151d82-df98-4d88-9a4d-284fa9eca49f\",\"quoteCurrency\":\"0c3a106d-bde3-4c13-a26e-3fd2394529e5\", \"volume24h\":\"744460123.45\",\"volume7d\":\"5123456789.1\",\"change24h\":\"2.48\",\"change7d\":\"5.1\",\"amount24h\":\"12100.5\",\"amount7d\":\"83000.2\", \"lastPrice\":\"62000.1\",\"lastQuantity\":\"0.01\",\"bestBid\":\"62000\",\"bestBidQuantity\":\"0.5\",\"bestAsk\":\"62000.2\",\"bestAskQuantity\":\"0.8\", \"updateTimestamp\":1728540000123}]",
       "expect": {
@@ -65,7 +65,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays; row with null «lastPrice» (inactive) is skipped, not failed",
-      "market": "Latoken",
+      "exchangeKey": "Latoken",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTC/USDT\",\"baseCurrency\":\"92151d82-df98-4d88-9a4d-284fa9eca49f\",\"quoteCurrency\":\"0c3a106d-bde3-4c13-a26e-3fd2394529e5\",\"volume24h\":\"744460123.45\",\"volume7d\":\"5123456789.1\",\"change24h\":\"2.48\",\"change7d\":\"5.1\",\"amount24h\":\"12100.5\",\"amount7d\":\"83000.2\",\"lastPrice\":\"62000.1\",\"lastQuantity\":\"0.01\",\"bestBid\":\"62000\",\"bestBidQuantity\":\"0.5\",\"bestAsk\":\"62000.2\",\"bestAskQuantity\":\"0.8\",\"updateTimestamp\":1728540000123},{\"symbol\":\"BTC/USDT\",\"baseCurrency\":\"620ccc4d-0000-4000-8000-000000000eth\",\"quoteCurrency\":\"0c3a106d-bde3-4c13-a26e-3fd2394529e5\",\"volume24h\":\"744460123.45\",\"volume7d\":\"5123456789.1\",\"change24h\":\"2.48\",\"change7d\":\"5.1\",\"amount24h\":\"12100.5\",\"amount7d\":\"83000.2\",\"lastQuantity\":\"0.01\",\"bestBid\":\"62000\",\"bestBidQuantity\":\"0.5\",\"bestAsk\":\"62000.2\",\"bestAskQuantity\":\"0.8\",\"updateTimestamp\":1728540000123,\"lastPrice_renamed\":\"62000.1\"},{\"symbol\":\"BTC/USDT\",\"baseCurrency\":\"0ld00000-0000-4000-8000-000000000old\",\"quoteCurrency\":\"0c3a106d-bde3-4c13-a26e-3fd2394529e5\",\"volume24h\":\"744460123.45\",\"volume7d\":\"5123456789.1\",\"change24h\":\"2.48\",\"change7d\":\"5.1\",\"amount24h\":\"12100.5\",\"amount7d\":\"83000.2\",\"lastPrice\":null,\"lastQuantity\":\"0.01\",\"bestBid\":\"62000\",\"bestBidQuantity\":\"0.5\",\"bestAsk\":\"62000.2\",\"bestAskQuantity\":\"0.8\",\"updateTimestamp\":1728540000123}]",
       "expect": {

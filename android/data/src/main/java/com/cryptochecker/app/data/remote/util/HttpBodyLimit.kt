@@ -7,7 +7,7 @@ import java.io.InputStream
 /**
  * Höchstgrösse einer HTTP-Antwort: Ein fehlerhafter oder bösartiger Server könnte sonst beliebig
  * viel in den Speicher schieben (Absturz mit OutOfMemory). Einzelabfragen [DEFAULT_MAX_BYTES],
- * Paar- und Sammellisten [BULK_MAX_BYTES]. Wie iOS `MarketHTTP.checkBodySize`.
+ * Paar- und Sammellisten [BULK_MAX_BYTES]. Wie iOS `ExchangeHTTP.checkBodySize`.
  */
 object HttpBodyLimit {
     const val DEFAULT_MAX_BYTES = 2L * 1024 * 1024

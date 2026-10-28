@@ -133,10 +133,10 @@ class TokenIdentityTest {
     @Test
     fun nameIndexRoundTripAndCleaning() {
         val index = TokenIdentity.NameIndex(
-            markets = mapOf("GateIo" to TokenIdentity.cleaned(mapOf("cat" to " Simon's Cat ", "X" to "", "Y" to "y".repeat(81)))),
+            exchanges = mapOf("GateIo" to TokenIdentity.cleaned(mapOf("cat" to " Simon's Cat ", "X" to "", "Y" to "y".repeat(81)))),
             binance = mapOf("CAT" to "Simon's Cat"),
         )
-        assertEquals(mapOf("CAT" to "Simon's Cat"), index.markets["GateIo"])
+        assertEquals(mapOf("CAT" to "Simon's Cat"), index.exchanges["GateIo"])
         val back = TokenIdentity.decode(TokenIdentity.encode(index))
         assertEquals(index, back)
         assertEquals("Simon's Cat", back.pairName("GateIo", " cat"))

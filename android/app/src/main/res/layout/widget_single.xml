@@ -74,7 +74,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/single_market"
+            android:id="@+id/single_exchange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"

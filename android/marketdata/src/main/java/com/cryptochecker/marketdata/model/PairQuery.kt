@@ -6,7 +6,7 @@ class PairQuery(
     quote: String,
     pairId: String?,
     contractType: FuturesContractType,
-) : MarketPair(base, quote, pairId, contractType) {
+) : ExchangePair(base, quote, pairId, contractType) {
 
     val baseLower: String get() = base.lowercase()
 

@@ -5,17 +5,17 @@ import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.watch.DayChange
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 
 /**
- * Paar für Kerzen von der EIGENEN Börse: Schlüssel und Name der Börse ([WatchEntity.marketKey],
- * [WatchEntity.marketName]), Kürzel, Kennung der Börse ([WatchEntity.pairId], z. B. Kraken «XXBTZUSD»,
+ * Paar für Kerzen von der EIGENEN Börse: Schlüssel und Name der Börse ([WatchEntity.exchangeKey],
+ * [WatchEntity.exchangeName]), Kürzel, Kennung der Börse ([WatchEntity.pairId], z. B. Kraken «XXBTZUSD»,
  * OKX «BTC-USDT-SWAP», Binance COIN-M «2:BTCUSD_PERP») und Vertragsart.
  * [tradFi] = Aktie, Rohstoff, Devise: nie Kerzen eines gleichnamigen Krypto-Tokens. Wie `CandlePair` (iOS).
  */
 data class CandlePair(
-    val marketKey: String,
-    val marketName: String,
+    val exchangeKey: String,
+    val exchangeName: String,
     val base: String,
     val quote: String,
     val pairId: String? = null,
@@ -28,21 +28,21 @@ data class CandlePair(
     val isDated: Boolean get() = FuturesContractType.getDeliveryDate(contractType) != null
 
     /** Alpha-Paar von Binance (Kennung «ALPHA_<id>USDT», [BinanceAlpha]). */
-    val isBinanceAlpha: Boolean get() = BinanceAlpha.isAlphaPair(marketKey, pairId)
+    val isBinanceAlpha: Boolean get() = BinanceAlpha.isAlphaPair(exchangeKey, pairId)
 
     /** DexScreener-Pool: keine Börsen-Kerzen (fremde Kerzen gehörten nicht zum gemerkten Pool). */
-    val isDex: Boolean get() = marketKey.equals(DEX_MARKET_KEY, ignoreCase = true)
+    val isDex: Boolean get() = exchangeKey.equals(DEX_EXCHANGE_KEY, ignoreCase = true)
 
     /** Schlüssel für Zwischenspeicher: Börse, Kennung bzw. Kürzel, Vertragsart. */
     val cacheKey: String
-        get() = "$marketKey|${pairId ?: (base.trim().uppercase() + "/" + quote.trim().uppercase())}|${contractType.name}"
+        get() = "$exchangeKey|${pairId ?: (base.trim().uppercase() + "/" + quote.trim().uppercase())}|${contractType.name}"
 
     companion object {
-        const val DEX_MARKET_KEY = "DexScreener"
+        const val DEX_EXCHANGE_KEY = "DexScreener"
 
         fun of(watch: WatchEntity, tradFi: Boolean): CandlePair = CandlePair(
-            marketKey = watch.marketKey,
-            marketName = watch.marketName,
+            exchangeKey = watch.exchangeKey,
+            exchangeName = watch.exchangeName,
             base = watch.baseAsset,
             quote = watch.quoteAsset,
             pairId = watch.pairId,
@@ -70,8 +70,8 @@ fun interface CandleHttp {
  * (Gegenstück in ExchangeCandleSourcesMajor.swift), dazu ein Fall in testdata/parity/own_candles.json.
  */
 interface ExchangeCandleSource {
-    /** Börsen-Schlüssel ([com.cryptochecker.marketdata.model.Market.key]), für die die Quelle gilt. */
-    val marketKeys: Set<String>
+    /** Börsen-Schlüssel ([com.cryptochecker.marketdata.model.Exchange.key]), für die die Quelle gilt. */
+    val exchangeKeys: Set<String>
 
     /** Kann die Quelle dieses Paar liefern (Vertragsart, Kennung)? */
     fun supports(pair: CandlePair): Boolean
@@ -122,7 +122,7 @@ object ExchangeCandleRegistry {
     val INTERVALS: Set<CandleInterval> = setOf(CandleInterval.H1, CandleInterval.H4, CandleInterval.D1)
 
     fun sourceFor(pair: CandlePair): ExchangeCandleSource? =
-        sources.firstOrNull { pair.marketKey in it.marketKeys && it.supports(pair) }
+        sources.firstOrNull { pair.exchangeKey in it.exchangeKeys && it.supports(pair) }
 
     fun supports(pair: CandlePair, interval: CandleInterval): Boolean =
         interval in INTERVALS && sourceFor(pair) != null
@@ -157,5 +157,5 @@ object OwnCandlePolicy {
      * Anbieter eigener Kerzen = Name der Börse des Paars — der Hinweis in der Zeile entfällt damit; bei
      * Alpha-Paaren von Binance «Binance Alpha» ([BinanceAlpha.PROVIDER]).
      */
-    fun provider(pair: CandlePair): String = if (pair.isBinanceAlpha) BinanceAlpha.PROVIDER else pair.marketName
+    fun provider(pair: CandlePair): String = if (pair.isBinanceAlpha) BinanceAlpha.PROVIDER else pair.exchangeName
 }

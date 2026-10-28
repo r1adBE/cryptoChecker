@@ -34,9 +34,9 @@ final class CoinLogosTests: XCTestCase {
         }
     }
 
-    func testMarket() throws {
-        for c in S.list(try S.fixture("coin_logos")["market"]) {
-            XCTAssertEqual(CoinLogos.allowed(forMarket: string(c["marketKey"])), c["expected"] as? Bool, "market: \(c)")
+    func testExchange() throws {
+        for c in S.list(try S.fixture("coin_logos")["exchange"]) {
+            XCTAssertEqual(CoinLogos.allowed(forExchange: string(c["exchangeKey"])), c["expected"] as? Bool, "market: \(c)")
         }
     }
 
@@ -91,7 +91,7 @@ final class CoinLogosTests: XCTestCase {
         XCTAssertEqual(order, try XCTUnwrap(t["order"] as? [String]))
         XCTAssertEqual(CoinLogos.logoKey("nvda", tradFi: true), "TRADFI:NVDA")
         XCTAssertEqual(CoinLogos.logoKey("nvda", tradFi: false), "nvda")
-        XCTAssertEqual(CoinLogos.pairKey(marketKey: "BinanceFutures", base: "nvda", quote: "usdt", contractType: "PERPETUAL"),
+        XCTAssertEqual(CoinLogos.pairKey(exchangeKey: "BinanceFutures", base: "nvda", quote: "usdt", contractType: "PERPETUAL"),
                        "BinanceFutures|NVDA|USDT|PERPETUAL")
     }
 

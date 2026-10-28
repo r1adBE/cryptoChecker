@@ -10,11 +10,11 @@ package com.cryptochecker.app.domain.watch
  */
 object WatchIdentity {
     /** Börse, deren Paar-Kennung zum Schlüssel gehört (`DexScreener.key`). */
-    const val POOL_MARKET = "DexScreener"
+    const val POOL_EXCHANGE = "DexScreener"
 
-    /** Eindeutiger Schlüssel eines Eintrags; [pool] nur bei [POOL_MARKET], sonst null. */
+    /** Eindeutiger Schlüssel eines Eintrags; [pool] nur bei [POOL_EXCHANGE], sonst null. */
     data class Key(
-        val marketKey: String,
+        val exchangeKey: String,
         val base: String,
         val quote: String,
         val contract: String,
@@ -22,9 +22,9 @@ object WatchIdentity {
     )
 
     /** Pool-Kennung, die zum Schlüssel gehört: die Paar-Kennung bei DexScreener, sonst null. */
-    fun pool(marketKey: String, pairId: String?): String? =
-        if (marketKey == POOL_MARKET) pairId?.takeIf { it.isNotEmpty() } else null
+    fun pool(exchangeKey: String, pairId: String?): String? =
+        if (exchangeKey == POOL_EXCHANGE) pairId?.takeIf { it.isNotEmpty() } else null
 
-    fun key(marketKey: String, base: String, quote: String, contract: String, pairId: String?): Key =
-        Key(marketKey, base, quote, contract, pool(marketKey, pairId))
+    fun key(exchangeKey: String, base: String, quote: String, contract: String, pairId: String?): Key =
+        Key(exchangeKey, base, quote, contract, pool(exchangeKey, pairId))
 }

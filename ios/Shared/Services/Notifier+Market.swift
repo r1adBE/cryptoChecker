@@ -15,7 +15,7 @@ extension Notifier {
     @discardableResult
     static func showActivity(_ watch: Watch, _ signal: ActivitySignal) async -> Bool {
         let content = UNMutableNotificationContent()
-        content.title = L("notification_activity_title", watch.displayName, watch.marketName)
+        content.title = L("notification_activity_title", watch.displayName, watch.exchangeName)
         content.body = ActivityTexts.signal(signal)
         content.sound = .default
         content.threadIdentifier = "activity"

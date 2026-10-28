@@ -82,7 +82,7 @@ internal fun WatchEntity.searchKey(name: String?): WatchSearchKey = WatchSearchK
         displayPair,
         displayName,
         FuturesContractType.getShortName(contractType),
-        marketName,
+        exchangeName,
         note,
         name,
     ).map { NameMatch.fold(it) },
@@ -104,7 +104,7 @@ internal class WatchSearchIndex {
         val base: String,
         val quote: String,
         val contract: FuturesContractType,
-        val market: String,
+        val exchange: String,
         val note: String?,
         val name: String?,
     )
@@ -140,7 +140,7 @@ internal class WatchSearchIndex {
         var clash = false
         for (w in watches) {
             val name = names[w.id]
-            val source = Source(w.baseAsset, w.quoteAsset, w.contractType, w.marketName, w.note, name)
+            val source = Source(w.baseAsset, w.quoteAsset, w.contractType, w.exchangeName, w.note, name)
             val seen = next[w.id]
             if (seen != null) {
                 if (seen.source != source) clash = true
@@ -196,19 +196,19 @@ internal fun rememberWatchSearchResult(
  * null bei DEX-Pools ([CoinLogos.allowedFor]) und unbekannten Coins — wie `CoinLogoStore.name(for:)` in iOS.
  */
 internal fun searchName(watch: WatchEntity, names: Map<String, String>, tradFiPairs: Set<String>): String? =
-    searchName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, names, tradFiPairs)
+    searchName(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, names, tradFiPairs)
 
 /** Wie oben, aus den einzelnen Feldern (auch für die Zeilen der Paarwahl ohne [WatchEntity]). */
 internal fun searchName(
-    marketKey: String,
+    exchangeKey: String,
     baseAsset: String,
     quoteAsset: String,
     contractType: String,
     names: Map<String, String>,
     tradFiPairs: Set<String>,
 ): String? {
-    if (!CoinLogos.allowedFor(marketKey)) return null
-    val tradFi = CoinLogos.pairKey(marketKey, baseAsset, quoteAsset, contractType) in tradFiPairs
+    if (!CoinLogos.allowedFor(exchangeKey)) return null
+    val tradFi = CoinLogos.pairKey(exchangeKey, baseAsset, quoteAsset, contractType) in tradFiPairs
     return names[CoinLogos.nameKey(baseAsset, tradFi)]
 }
 

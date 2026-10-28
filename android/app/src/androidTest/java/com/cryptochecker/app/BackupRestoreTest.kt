@@ -9,11 +9,11 @@ import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.addWatch
-import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.CancellationException
@@ -98,7 +98,7 @@ class BackupRestoreTest {
     private val uri: Uri get() = Uri.fromFile(backupFile)
 
     private suspend fun add(base: String): Long =
-        checkNotNull(watchRepository.addWatch(MarketInfo("Binance", "Binance"), MarketPair(base, "USDT", "${base}USDT")))
+        checkNotNull(watchRepository.addWatch(ExchangeInfo("Binance", "Binance"), ExchangePair(base, "USDT", "${base}USDT")))
 
     private suspend fun bases(): List<String> = watchRepository.getWatches().map { it.baseAsset }.sorted()
 

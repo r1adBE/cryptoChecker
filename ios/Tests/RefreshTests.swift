@@ -97,55 +97,55 @@ final class RefreshDebounceTests: XCTestCase {
 
 final class RefreshReportLogicTests: XCTestCase {
 
-    private func market(_ name: String, _ pairs: Int, _ updated: Int, notTraded: Int = 0, failed: Int? = nil,
-                        millis: Int64 = 500) -> MarketRefresh {
-        MarketRefresh(name: name, millis: millis, pairs: pairs, updated: updated, notTraded: notTraded,
+    private func exchange(_ name: String, _ pairs: Int, _ updated: Int, notTraded: Int = 0, failed: Int? = nil,
+                        millis: Int64 = 500) -> ExchangeRefresh {
+        ExchangeRefresh(name: name, millis: millis, pairs: pairs, updated: updated, notTraded: notTraded,
                       failed: failed ?? (pairs - updated - notTraded))
     }
 
-    private func report(_ markets: [MarketRefresh], aborted: String? = nil) -> RefreshReport {
-        RefreshReport(at: 0, totalMillis: 1_800, pairs: markets.reduce(0) { $0 + $1.pairs }, networkMillis: 1_700,
-                      markets: markets, aborted: aborted)
+    private func report(_ exchanges: [ExchangeRefresh], aborted: String? = nil) -> RefreshReport {
+        RefreshReport(at: 0, totalMillis: 1_800, pairs: exchanges.reduce(0) { $0 + $1.pairs }, networkMillis: 1_700,
+                      exchanges: exchanges, aborted: aborted)
     }
 
     func testStatusGreenOrangeRed() {
-        XCTAssertEqual(RefreshReportLogic.status(market("A", 5, 5)), .ok)
-        XCTAssertEqual(RefreshReportLogic.status(market("A", 525, 522)), .partial)
-        XCTAssertEqual(RefreshReportLogic.status(market("A", 5, 0)), .failed)
+        XCTAssertEqual(RefreshReportLogic.status(exchange("A", 5, 5)), .ok)
+        XCTAssertEqual(RefreshReportLogic.status(exchange("A", 525, 522)), .partial)
+        XCTAssertEqual(RefreshReportLogic.status(exchange("A", 5, 0)), .failed)
         // Nur nicht gehandelte Paare: orange, nicht rot
-        XCTAssertEqual(RefreshReportLogic.status(market("A", 3, 0, notTraded: 3)), .partial)
-        XCTAssertEqual(RefreshReportLogic.status(market("A", 4, 0, notTraded: 1)), .failed)
-        XCTAssertEqual(RefreshReportLogic.status(market("A", 0, 0)), .ok)
+        XCTAssertEqual(RefreshReportLogic.status(exchange("A", 3, 0, notTraded: 3)), .partial)
+        XCTAssertEqual(RefreshReportLogic.status(exchange("A", 4, 0, notTraded: 1)), .failed)
+        XCTAssertEqual(RefreshReportLogic.status(exchange("A", 0, 0)), .ok)
     }
 
     func testSortedRedOrangeGreenThenSlowestFirst() {
         let sorted = RefreshReportLogic.sorted([
-            market("Green fast", 5, 5, millis: 100),
-            market("Orange", 10, 9, millis: 50),
-            market("Green slow", 5, 5, millis: 900),
-            market("Red", 2, 0, millis: 10),
-            market("Orange slow", 10, 8, millis: 700),
+            exchange("Green fast", 5, 5, millis: 100),
+            exchange("Orange", 10, 9, millis: 50),
+            exchange("Green slow", 5, 5, millis: 900),
+            exchange("Red", 2, 0, millis: 10),
+            exchange("Orange slow", 10, 8, millis: 700),
         ])
         XCTAssertEqual(sorted.map(\.name), ["Red", "Orange slow", "Orange", "Green slow", "Green fast"])
     }
 
     func testOverallIsWorst() {
         XCTAssertEqual(RefreshReportLogic.overall(report([])), .ok)
-        XCTAssertEqual(RefreshReportLogic.overall(report([market("A", 5, 5)])), .ok)
-        XCTAssertEqual(RefreshReportLogic.overall(report([market("A", 5, 5), market("B", 5, 4)])), .partial)
-        XCTAssertEqual(RefreshReportLogic.overall(report([market("A", 5, 4), market("B", 5, 0)])), .failed)
-        XCTAssertEqual(RefreshReportLogic.overall(report([market("A", 5, 5)], aborted: "IOException")), .failed)
+        XCTAssertEqual(RefreshReportLogic.overall(report([exchange("A", 5, 5)])), .ok)
+        XCTAssertEqual(RefreshReportLogic.overall(report([exchange("A", 5, 5), exchange("B", 5, 4)])), .partial)
+        XCTAssertEqual(RefreshReportLogic.overall(report([exchange("A", 5, 4), exchange("B", 5, 0)])), .failed)
+        XCTAssertEqual(RefreshReportLogic.overall(report([exchange("A", 5, 5)], aborted: "IOException")), .failed)
     }
 
     func testHeadlineChoice() {
-        XCTAssertEqual(RefreshReportLogic.headline(report([market("A", 5, 5)])), .allUpdated)
-        XCTAssertEqual(RefreshReportLogic.headline(report([market("A", 5, 5), market("B", 525, 522)])), .pairsNotUpdated(3))
-        XCTAssertEqual(RefreshReportLogic.headline(report([market("A", 5, 4), market("B", 3, 0, notTraded: 3)])),
+        XCTAssertEqual(RefreshReportLogic.headline(report([exchange("A", 5, 5)])), .allUpdated)
+        XCTAssertEqual(RefreshReportLogic.headline(report([exchange("A", 5, 5), exchange("B", 525, 522)])), .pairsNotUpdated(3))
+        XCTAssertEqual(RefreshReportLogic.headline(report([exchange("A", 5, 4), exchange("B", 3, 0, notTraded: 3)])),
                        .pairsNotUpdated(4))
-        XCTAssertEqual(RefreshReportLogic.headline(report([market("Binance", 5, 0), market("B", 525, 522)])),
-                       .marketUnreachable("Binance"))
-        XCTAssertEqual(RefreshReportLogic.headline(report([market("A", 5, 0), market("B", 2, 0)])), .marketsUnreachable(2))
-        XCTAssertEqual(RefreshReportLogic.headline(report([market("A", 5, 5)], aborted: "x")), .aborted)
+        XCTAssertEqual(RefreshReportLogic.headline(report([exchange("Binance", 5, 0), exchange("B", 525, 522)])),
+                       .exchangeUnreachable("Binance"))
+        XCTAssertEqual(RefreshReportLogic.headline(report([exchange("A", 5, 0), exchange("B", 2, 0)])), .exchangesUnreachable(2))
+        XCTAssertEqual(RefreshReportLogic.headline(report([exchange("A", 5, 5)], aborted: "x")), .aborted)
     }
 
     func testClassifyErrors() {
@@ -157,7 +157,7 @@ final class RefreshReportLogicTests: XCTestCase {
         XCTAssertEqual(RefreshReportLogic.classify("HTTP 418: banned"), .RATE_LIMIT)
         XCTAssertEqual(RefreshReportLogic.classify("HTTP 503"), .SERVER)
         XCTAssertEqual(RefreshReportLogic.classify("Parsed ticker has no data"), .NO_DATA)
-        XCTAssertEqual(RefreshReportLogic.classify("Market unavailable"), .UNAVAILABLE)
+        XCTAssertEqual(RefreshReportLogic.classify("Exchange unavailable"), .UNAVAILABLE)
         XCTAssertEqual(RefreshReportLogic.classify("Something odd"), .OTHER)
         XCTAssertEqual(RefreshReportLogic.classify(nil), .OTHER)
     }
@@ -327,7 +327,7 @@ final class RefreshDeadlineTests: XCTestCase {
 /// gleicher Id während der Abfrage → weder Kurs noch Alarm-Bezug des alten Paars in die Zeile.
 final class OutcomePairIdentityTests: XCTestCase {
     private func watch(base: String) -> Watch {
-        Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: base, quoteAsset: "USDT")
+        Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: base, quoteAsset: "USDT")
     }
 
     func testPriceOfOldPairIsDropped() {

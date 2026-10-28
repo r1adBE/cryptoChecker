@@ -7,7 +7,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.LocalDate
 
-/** Wie `BitcoinIndicatorModelTests` (iOS, MarketsTests.swift). */
+/** Wie `BitcoinIndicatorModelTests` (iOS, ExchangesTests.swift). */
 class BitcoinIndicatorModelTest {
 
     private fun inputs(

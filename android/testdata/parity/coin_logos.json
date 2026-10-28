@@ -1,5 +1,5 @@
 {
-  "description": "Coin logos (CoinGecko, gaps filled from the Binance symbol list) (Android CoinLogos.kt / iOS CoinLogos.swift): symbol normalisation, initials for the fallback circle, allowed image hosts (no «missing_» placeholders), the small image variant, markets with logos (never for DEX pools), file names and the CoinGecko ranking -> symbol map (first occurrence wins). TradFi pairs (stocks, commodities) never use CoinGecko: tradFi builds their logos from the Binance list (tokenised stock «NVDAB» with tag bStocks first, then futures-only entries, then names CoinGecko does not know, never via multiplier prefixes), keys «TRADFI:NVDA», files «T_NVDA.png». Names (cleanName, pickNames, tradFi.expectedNames): «NVIDIA bStocks» → «NVIDIA», a name equal to the ticker stays («BNB», «Bonk» for 1000BONK), at most 40 characters (39 + «…»). Stock logos (stockLogo, withStockLogos): «https://bin.bnbstatic.com/static/stock/BYD.png» for every TradFi ticker of the stored pair lists without an own entry (A–Z, 0–9, dot, max. 12; file name rule still applies, so «BRK.B» gets none). Stock names (cleanStockName, symbolDirectory, withStockNames): official Nasdaq symbol directory (nasdaqlisted.txt / otherlisted.txt), security suffixes removed, test issues skipped, first occurrence wins; only for TradFi tickers without a name from the Binance list.",
+  "description": "Coin logos (CoinGecko, gaps filled from the Binance symbol list) (Android CoinLogos.kt / iOS CoinLogos.swift): symbol normalisation, initials for the fallback circle, allowed image hosts (no «missing_» placeholders), the small image variant, exchanges with logos (never for DEX pools), file names and the CoinGecko ranking -> symbol map (first occurrence wins). TradFi pairs (stocks, commodities) never use CoinGecko: tradFi builds their logos from the Binance list (tokenised stock «NVDAB» with tag bStocks first, then futures-only entries, then names CoinGecko does not know, never via multiplier prefixes), keys «TRADFI:NVDA», files «T_NVDA.png». Names (cleanName, pickNames, tradFi.expectedNames): «NVIDIA bStocks» → «NVIDIA», a name equal to the ticker stays («BNB», «Bonk» for 1000BONK), at most 40 characters (39 + «…»). Stock logos (stockLogo, withStockLogos): «https://bin.bnbstatic.com/static/stock/BYD.png» for every TradFi ticker of the stored pair lists without an own entry (A–Z, 0–9, dot, max. 12; file name rule still applies, so «BRK.B» gets none). Stock names (cleanStockName, symbolDirectory, withStockNames): official Nasdaq symbol directory (nasdaqlisted.txt / otherlisted.txt), security suffixes removed, test issues skipped, first occurrence wins; only for TradFi tickers without a name from the Binance list.",
   "normalize": [
     {
       "symbol": "btc",
@@ -164,21 +164,21 @@
       "expected": "https://coin-images.coingecko.com/coins/images/7/small/large.png"
     }
   ],
-  "market": [
+  "exchange": [
     {
-      "marketKey": "DexScreener",
+      "exchangeKey": "DexScreener",
       "expected": false
     },
     {
-      "marketKey": "Binance",
+      "exchangeKey": "Binance",
       "expected": true
     },
     {
-      "marketKey": "dexscreener",
+      "exchangeKey": "dexscreener",
       "expected": true
     },
     {
-      "marketKey": null,
+      "exchangeKey": null,
       "expected": true
     }
   ],

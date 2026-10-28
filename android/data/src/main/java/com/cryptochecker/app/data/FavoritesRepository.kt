@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /** Welche Auswahlliste: Börsen, Coins oder Gegenwerte. */
-enum class FavoriteKind { MARKET, COIN, QUOTE }
+enum class FavoriteKind { EXCHANGE, COIN, QUOTE }
 
 /**
  * Favoriten in den Auswahllisten des Börsen-Tabs (langes Drücken auf einen

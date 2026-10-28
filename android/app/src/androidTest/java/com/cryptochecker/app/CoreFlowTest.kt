@@ -23,7 +23,7 @@ import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
-import com.cryptochecker.app.testing.FakeMarket
+import com.cryptochecker.app.testing.FakeExchange
 import com.cryptochecker.app.ui.MainActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -127,7 +127,7 @@ class CoreFlowTest {
                 )
             )
         }
-        FakeMarket.btcPrice = 105_000.0
+        FakeExchange.btcPrice = 105_000.0
         // Ein gleichzeitiger voller Durchlauf (Live-Aktualisierung) kann den Alarm ebenso auslösen;
         // geprüft wird deshalb der gespeicherte Zustand, nicht die Zählung dieses Aufrufs.
         runBlocking { priceRefresher.refreshOne(watch.id) }
@@ -151,7 +151,7 @@ class CoreFlowTest {
         waitForNode(undo)
         compose.onNode(undo).performClick()
         val restored = waitForWatch("BTC")
-        assertEquals(watch.marketKey, restored.marketKey)
+        assertEquals(watch.exchangeKey, restored.exchangeKey)
         waitForNode(row(restored.displayName))
     }
 

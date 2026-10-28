@@ -142,7 +142,7 @@ internal fun RowInfo(
         val namesOn = LocalCoinNameSource.current != null
         if (namesOn) {
             Text(
-                text = coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name) ?: "–",
+                text = coinName(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name) ?: "–",
                 style = MaterialTheme.typography.bodySmall,
                 color = disabledTextColor(off, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)),
                 maxLines = 1,
@@ -172,15 +172,15 @@ internal fun RowInfo(
             Text(
                 text = when {
                     // Deaktiviert: «Binance · deaktiviert» statt Zeit bzw. Warnung
-                    watch.disabled -> stringResource(R.string.watchlist_row_disabled, BidiText.isolate(watch.marketName))
+                    watch.disabled -> stringResource(R.string.watchlist_row_disabled, BidiText.isolate(watch.exchangeName))
                     warning != null -> warning
                     // Zeit nur, wenn das Paar nicht aktuell ist — sonst steht sie oben im Status
                     // («Kurse der gewählten Börsen · vor 2 Min.») und wäre in jeder Zeile doppelt
-                    staleTime -> "${BidiText.isolate(watch.marketName)} · ${ago(watch.lastUpdate, now)}"
+                    staleTime -> "${BidiText.isolate(watch.exchangeName)} · ${ago(watch.lastUpdate, now)}"
                     // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (PriceFreshness)
-                    status.unchanged != null -> "${BidiText.isolate(watch.marketName)} · ${status.unchanged}"
+                    status.unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · ${status.unchanged}"
                     // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht seit L-14 nur im Aktionsblatt
-                    else -> watch.marketName
+                    else -> watch.exchangeName
                 },
                 // Lesegrösse (14 sp) statt 12 — bricht bei grosser Schrift um ([DenseRowText]),
                 // rechts steht dieselbe Stufe (≈ Umrechnung), die Linien bleiben gleich hoch

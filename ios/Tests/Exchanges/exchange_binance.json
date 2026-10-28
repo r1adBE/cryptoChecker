@@ -11,7 +11,7 @@
     {
       "kind": "single",
       "name": "spot 24hr BTCUSDT",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -35,7 +35,7 @@
     {
       "kind": "single",
       "name": "very small price (PEPEUSDT, 8 decimals)",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "pair": {
         "base": "PEPE",
         "quote": "USDT",
@@ -59,7 +59,7 @@
     {
       "kind": "single",
       "name": "scientific notation in strings",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "pair": {
         "base": "XYZ",
         "quote": "USDT",
@@ -83,7 +83,7 @@
     {
       "kind": "single",
       "name": "error payload: invalid symbol",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "pair": {
         "base": "FOO",
         "quote": "BAR",
@@ -100,7 +100,7 @@
     {
       "kind": "single",
       "name": "renamed field (bidPrice -> bestBid) fails instead of showing a wrong price",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -117,7 +117,7 @@
     {
       "kind": "single",
       "name": "priceChangePercent missing -> no rolling change, price still valid",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -134,7 +134,7 @@
     {
       "kind": "single",
       "name": "Binance.US 24hr (same format)",
-      "market": "BinanceUs",
+      "exchangeKey": "BinanceUs",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -155,7 +155,7 @@
     {
       "kind": "single",
       "name": "Binance.US error: illegal characters",
-      "market": "BinanceUs",
+      "exchangeKey": "BinanceUs",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -172,7 +172,7 @@
     {
       "kind": "single",
       "name": "halted symbol (status BREAK): lastPrice 0 is no price, not a valid ticker",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "pair": {
         "base": "LUNA",
         "quote": "USDT",
@@ -190,7 +190,7 @@
     {
       "kind": "bulk",
       "name": "bulk 24hr (symbols=[...]) incl. entry without symbol",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112},{\"symbol\":\"ETHBTC\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\", \"prevClosePrice\":\"0.03972000\",\"lastPrice\":\"0.03960000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\", \"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\", \"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200, \"firstId\":512345678,\"lastId\":512399999,\"count\":54322},{\"symbol\":\"\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\", \"prevClosePrice\":\"0.03972000\",\"lastPrice\":\"0.03960000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\", \"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\", \"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200, \"firstId\":512345678,\"lastId\":512399999,\"count\":54322}]",
       "expect": {
@@ -220,7 +220,7 @@
     {
       "kind": "bulk",
       "name": "bulk: error object instead of array",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "requestId": 0,
       "body": "{\"code\":-1121,\"msg\":\"Invalid symbol.\"}",
       "expect": {
@@ -230,7 +230,7 @@
     {
       "kind": "bulk",
       "name": "Binance.US bulk 24hr",
-      "market": "BinanceUs",
+      "exchangeKey": "BinanceUs",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSD\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112}]",
       "expect": {
@@ -246,7 +246,7 @@
     {
       "kind": "bulk",
       "name": "bulk: one malformed entry (no lastPrice) is reported as unreadable, the rest stays",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\", \"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\", \"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\", \"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\", \"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112},{\"symbol\":\"ETHBTC\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\", \"prevClosePrice\":\"0.03972000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\", \"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\", \"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200, \"firstId\":512345678,\"lastId\":512399999,\"count\":54322}]",
       "expect": {
@@ -267,7 +267,7 @@
     {
       "kind": "pairs",
       "name": "exchangeInfo on binance.com: only trading symbols requested (symbolStatus=TRADING), permission sets left out (showPermissionSets=false)",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "requestId": 0,
       "body": "{\"timezone\":\"UTC\",\"serverTime\":1728540000000,\"symbols\":[{\"symbol\":\"BTCUSDT\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USDT\",\"permissionSets\":[]},{\"symbol\":\"ETHBTC\",\"status\":\"TRADING\",\"baseAsset\":\"ETH\",\"quoteAsset\":\"BTC\",\"permissionSets\":[]}]}",
       "expect": {
@@ -288,7 +288,7 @@
     {
       "kind": "pairs",
       "name": "Binance.US exchangeInfo: full list without filter parameters; symbols not in TRADING (BREAK) are dropped while reading",
-      "market": "BinanceUs",
+      "exchangeKey": "BinanceUs",
       "requestId": 0,
       "body": "{\"timezone\":\"UTC\",\"serverTime\":1728540000000,\"symbols\":[{\"symbol\":\"BTCUSD\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USD\",\"permissions\":[\"SPOT\"]},{\"symbol\":\"OLDUSD\",\"status\":\"BREAK\",\"baseAsset\":\"OLD\",\"quoteAsset\":\"USD\",\"permissions\":[\"SPOT\"]}]}",
       "expect": {
@@ -350,7 +350,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\",\"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\",\"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\",\"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\",\"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112},{\"symbol\":\"ETHBTC\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\",\"prevClosePrice\":\"0.03972000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\",\"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\",\"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200,\"firstId\":512345678,\"lastId\":512399999,\"count\":54322,\"lastPrice_renamed\":\"0.03960000\"}]",
       "expect": {
@@ -366,7 +366,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPrice» in every row — format error of the whole response",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\",\"prevClosePrice\":\"60500.00000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\",\"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\",\"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\",\"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112,\"lastPrice_renamed\":\"62000.10000000\"},{\"symbol\":\"ETHBTC\",\"priceChange\":\"-0.00012000\",\"priceChangePercent\":\"-0.302\",\"weightedAvgPrice\":\"0.03961234\",\"prevClosePrice\":\"0.03972000\",\"lastQty\":\"0.10000000\",\"bidPrice\":\"0.03959000\",\"bidQty\":\"10.00000000\",\"askPrice\":\"0.03960000\",\"askQty\":\"3.20000000\",\"openPrice\":\"0.03972000\",\"highPrice\":\"0.04010000\",\"lowPrice\":\"0.03930000\",\"volume\":\"23456.78900000\",\"quoteVolume\":\"929.12345678\",\"openTime\":1728453600200,\"closeTime\":1728540000200,\"firstId\":512345678,\"lastId\":512399999,\"count\":54322,\"lastPrice_renamed\":\"0.03960000\"}]",
       "expect": {
@@ -376,7 +376,7 @@
     {
       "kind": "bulk",
       "name": "bulk 24hr: halted symbol with lastPrice 0 is skipped, not reported as unreadable",
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\",\"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"62000.10000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\",\"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\",\"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\",\"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112},{\"symbol\":\"OLDUSDT\",\"priceChange\":\"1500.10000000\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61523.45678901\",\"prevClosePrice\":\"60500.00000000\",\"lastPrice\":\"0.00000000\",\"lastQty\":\"0.00100000\",\"bidPrice\":\"62000.00000000\",\"bidQty\":\"1.23400000\",\"askPrice\":\"62000.10000000\",\"askQty\":\"0.56700000\",\"openPrice\":\"60500.00000000\",\"highPrice\":\"62500.00000000\",\"lowPrice\":\"60000.00000000\",\"volume\":\"12100.50000000\",\"quoteVolume\":\"744460123.45678900\",\"openTime\":1728453600123,\"closeTime\":1728540000123,\"firstId\":3801234567,\"lastId\":3802345678,\"count\":1111112}]",
       "expect": {

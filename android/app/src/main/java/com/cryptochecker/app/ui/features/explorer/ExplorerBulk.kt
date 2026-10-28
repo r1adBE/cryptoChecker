@@ -38,7 +38,7 @@ import com.cryptochecker.app.ui.components.ChangePill
 import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.Spacing
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /** So viele Paare zeigt die Vorschau, bevor «Alle anzeigen» den Rest aufklappt. */
@@ -53,7 +53,7 @@ private const val BULK_PREVIEW_ROWS = 25
 internal fun BulkPairsCard(
     quotes: List<String>,
     quote: String?,
-    pairs: List<MarketPair>,
+    pairs: List<ExchangePair>,
     /** Zur gewählten Gegenwährung gibt es keine Paare. */
     emptyMessage: Boolean,
     syncing: Boolean,
@@ -72,7 +72,7 @@ internal fun BulkPairsCard(
     groupTarget: GroupTargetUi,
     onQuoteChanged: (String) -> Unit,
     onApply: () -> Unit,
-    onSelectPair: (MarketPair) -> Unit,
+    onSelectPair: (ExchangePair) -> Unit,
     /** Rückfrage «Alle hinzufügen?» öffnen. */
     onAddAll: () -> Unit,
     /** Liste der Paare zeigen (bleibt, auch wenn die Karte kurz verschwindet). */
@@ -239,7 +239,7 @@ internal fun BulkPairsCard(
 /** Ein Paar der Vorschau: «BTC/USDT», bei Futures die Laufzeit rechts; gewählt hinterlegt. */
 @Composable
 private fun BulkPairRow(
-    pair: MarketPair,
+    pair: ExchangePair,
     selected: Boolean,
     onClick: () -> Unit,
     metric: String? = null,
@@ -341,7 +341,7 @@ internal fun BulkConfirmDialog(
     count: Int,
     total: Int,
     quote: String,
-    market: String,
+    exchange: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -349,7 +349,7 @@ internal fun BulkConfirmDialog(
         onDismissRequest = onDismiss,
         title = { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_title, count, count)) },
         text = {
-            DialogText { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_text, total, total, quote, market)) }
+            DialogText { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_text, total, total, quote, exchange)) }
         },
         confirmButton = {
             TextButton(onClick = onConfirm) { Text(stringResource(R.string.explorer_add_to_watchlist)) }

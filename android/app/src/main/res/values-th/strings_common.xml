@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">ข้อผิดพลาด: %1$s</string>
-    <string name="error_market_unreachable">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้ – ราคาล่าสุดยังแสดงอยู่</string>
-    <string name="error_market_unreachable_short">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้</string>
+    <string name="error_exchange_unreachable">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้ – ราคาล่าสุดยังแสดงอยู่</string>
+    <string name="error_exchange_unreachable_short">ตอนนี้เชื่อมต่อกระดานเทรดไม่ได้</string>
     <string name="loading_hint">กำลังโหลด…</string>
     <string name="no_internet_connection">ไม่มีการเชื่อมต่ออินเทอร์เน็ต ตรวจสอบ Wi-Fi หรืออินเทอร์เน็ตมือถือ แล้วลองอีกครั้ง</string>
     <string name="option_off">ปิด</string>

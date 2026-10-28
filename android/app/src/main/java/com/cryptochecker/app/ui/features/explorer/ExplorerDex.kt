@@ -23,10 +23,10 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.CompactAmount
-import com.cryptochecker.marketdata.model.market.DexPool
+import com.cryptochecker.marketdata.model.exchange.DexPool
 import com.cryptochecker.marketdata.util.DisplayFormat
 
-internal const val DEX_MARKET_KEY = "DexScreener"
+internal const val DEX_EXCHANGE_KEY = "DexScreener"
 
 /** Zustand und Aktionen der DEX-Suche. */
 class DexUi(

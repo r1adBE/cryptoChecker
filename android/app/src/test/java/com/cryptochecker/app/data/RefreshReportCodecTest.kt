@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.domain.refresh.MarketRefresh
+import com.cryptochecker.app.domain.refresh.ExchangeRefresh
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import org.json.JSONObject
@@ -16,8 +16,8 @@ class RefreshReportCodecTest {
         totalMillis = 1_200,
         pairs = 3,
         networkMillis = 900,
-        markets = listOf(
-            MarketRefresh(
+        exchanges = listOf(
+            ExchangeRefresh(
                 name = "Binance", millis = 800, pairs = 3, updated = 2, failed = 1,
                 bulkTried = true, bulkMillis = 500, bulkPrices = 2, singles = 1,
                 reason = RefreshFailure.TIMEOUT, pausedUntil = 1_700_000_060_000L,
@@ -50,7 +50,7 @@ class RefreshReportCodecTest {
     @Test
     fun olderReportWithoutAttemptStillReadable() {
         // Gespeichert von einer Fassung ohne Versuchszahl: Wartezeit bleibt, Versuch unbekannt (kein Zusatz)
-        val old = """{"at":5,"total":100,"pairs":1,"network":80,"markets":[],""" +
+        val old = """{"at":5,"total":100,"pairs":1,"network":80,"exchanges":[],""" +
             """"alarms":0,"notifications":0,"wait":30000}"""
         val decoded = RefreshReportCodec.decode(old)
         assertEquals(30_000L, decoded?.waitMillis)

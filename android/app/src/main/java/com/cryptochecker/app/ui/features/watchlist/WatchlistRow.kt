@@ -156,7 +156,7 @@ internal fun WatchRow(
     // kleine Symbole behalten die reduzierte Deckkraft ([DISABLED_ICON_ALPHA])
     val flash = rememberPriceFlash(watch.id, watch.lastPrice)
     // Börse pausiert: «Binance · pausiert bis 19:45» statt der Zeitzeile ([RowPause])
-    val pausedUntil = RowPause.shownUntil(off, LocalExchangePauses.current[watch.marketKey], now)
+    val pausedUntil = RowPause.shownUntil(off, LocalExchangePauses.current[watch.exchangeKey], now)
     val status = watchRowStatus(watch, now, stale, outdatedAfter, pausedUntil)
 
     // Screenreader: die ganze Zeile als ein Satz (Paar, Kurs, Änderung, ≈, Verlauf, Notiz,
@@ -171,7 +171,7 @@ internal fun WatchRow(
     // Tipp öffnet das Aktionsblatt: TalkBack sagt «zum Kurs und Aktionen zeigen doppeltippen» statt «zum Aktivieren»
     val openLabel = stringResource(R.string.unusual_action_open)
     val changeView = LocalChangeView.current
-    val name = coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
+    val name = coinName(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
     // Gezeigte Änderung aus fremden Kerzen: Anbieter für Marker und Zeilensatz (gleiche Regel wie iOS)
     val changeMarker = DayChange.rowChangeMarker(changeSource, watch.shownChange(changeView), changeView.basis.isSinceLast)
     // Tippen auf das «*» (bzw. Screenreader-Aktion der Zeile): kurz erklären, woher die Änderung kommt — ohne das
@@ -183,9 +183,9 @@ internal fun WatchRow(
     // Kurs ist der Mark-Preis (dünnes Orderbuch ohne Mittelkurs): so benennen, auch im Zeilensatz
     val markPrice = watch.id in LocalMarkFallback.current && watch.lastPrice != null
     // Schluss der laufenden Stundenkerze (WOO X Spot) bzw. EZB-Referenzkurs (Forex): wie im Aktionsblatt benannt
-    val rowMarket = com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey)
-    val hourlyPrice = !markPrice && watch.lastPrice != null && rowMarket.priceIsHourlyClose
-    val dailyReference = !markPrice && watch.lastPrice != null && rowMarket.priceIsDailyReference
+    val rowExchange = com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey)
+    val hourlyPrice = !markPrice && watch.lastPrice != null && rowExchange.priceIsHourlyClose
+    val dailyReference = !markPrice && watch.lastPrice != null && rowExchange.priceIsDailyReference
     // Frische ausgeschrieben statt der Zeitzeile mit «·» und «Min.»: «Kurs veraltet, zuletzt
     // aktualisiert vor 45 Minuten» bzw. «Deaktiviert» / «Wird … nicht mehr gehandelt»
     val notTraded = isNotTraded(watch.lastError)
@@ -204,12 +204,12 @@ internal fun WatchRow(
     val rowDescription = A11yText.row(
         context = context,
         pair = if (name == null) watch.displayName else "${watch.displayName}, $name",
-        market = watch.marketName,
+        exchange = watch.exchangeName,
         price = PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset),
         quote = watch.quoteAsset,
         change24h = watch.shownChange(changeView),
         basis = changeView.basis,
-        state = listOf(status.paused, A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.marketName), status.trade, status.unchanged),
+        state = listOf(status.paused, A11yText.freshness(context, freshness, watch.lastUpdate, now, watch.exchangeName), status.trade, status.unchanged),
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
@@ -349,8 +349,8 @@ internal fun WatchRow(
                     CoinBadge(
                         watch.baseAsset,
                         size = ROW_BADGE_SIZE,
-                        logo = CoinLogos.allowedFor(watch.marketKey),
-                        pair = CoinLogos.pairKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
+                        logo = CoinLogos.allowedFor(watch.exchangeKey),
+                        pair = CoinLogos.pairKey(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
                         favorite = watch.favorite && !sortMode,
                         modifier = Modifier
                             .align(Alignment.CenterVertically)

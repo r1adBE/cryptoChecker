@@ -45,8 +45,8 @@ class FuturesFundingHistoryTest {
         }).build(),
     )
 
-    private fun watch(marketKey: String, pairId: String?, contract: FuturesContractType = FuturesContractType.PERPETUAL) =
-        WatchEntity(marketKey = marketKey, marketName = marketKey, baseAsset = "btc", quoteAsset = "USDT", contractType = contract, pairId = pairId)
+    private fun watch(exchangeKey: String, pairId: String?, contract: FuturesContractType = FuturesContractType.PERPETUAL) =
+        WatchEntity(exchangeKey = exchangeKey, exchangeName = exchangeKey, baseAsset = "btc", quoteAsset = "USDT", contractType = contract, pairId = pairId)
 
     private val spot = watch("Kraken", null, FuturesContractType.NONE)
 

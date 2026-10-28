@@ -6,7 +6,7 @@ import XCTest
 /// kopiert) mit Antworten im Format der Börsen (Einzel- und Sammelabfrage, WebSocket) und den
 /// erwarteten Werten. Benennt eine Börse ein Feld um, schlagen Android und iOS gleich an.
 ///
-/// Ablauf wie in der App (`MarketService.fetchTicker`): `readTicker`; wirft das oder ergibt es
+/// Ablauf wie in der App (`ExchangeService.fetchTicker`): `readTicker`; wirft das oder ergibt es
 /// keinen gültigen `last` (fehlt, 0, NaN/∞), gilt die Antwort als Fehler und `readError` liefert den Fehlertext
 /// der Börse (oder wirft: dann gibt es keinen).
 ///
@@ -114,16 +114,16 @@ final class ExchangeContractTests: XCTestCase {
     }
 
     private func pair(_ spec: [String: Any]) -> PairQuery {
-        MarketPair(spec["base"] as? String ?? "", spec["quote"] as? String ?? "", spec["id"] as? String,
+        ExchangePair(spec["base"] as? String ?? "", spec["quote"] as? String ?? "", spec["id"] as? String,
                          FuturesContractType(backupName: spec["contract"] as? String ?? "NONE"))
     }
 
-    private func market(_ c: [String: Any]) -> Market? {
-        MarketsConfig.market(c["market"] as? String ?? "")
+    private func exchange(_ c: [String: Any]) -> Exchange? {
+        ExchangesConfig.exchange(c["exchangeKey"] as? String ?? "")
     }
 
     private func runSingle(_ c: [String: Any]) -> String? {
-        guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
         let info = pair(c["pair"] as? [String: Any] ?? [:])
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let body = c["body"] as? String ?? ""
@@ -132,7 +132,7 @@ final class ExchangeContractTests: XCTestCase {
         var ticker = Ticker()
         var failure: Error?
         do {
-            try market.readTicker(call: requestId, body: body, ticker: &ticker, info: info)
+            try exchange.readTicker(call: requestId, body: body, ticker: &ticker, info: info)
             if !(ticker.last.isFinite && ticker.last > 0) { failure = JSONError(message: "no ticker data") }
         } catch {
             failure = error
@@ -150,7 +150,7 @@ final class ExchangeContractTests: XCTestCase {
         }
         let message: String?
         do {
-            message = try market.readError(call: requestId, body: body, info: info)
+            message = try exchange.readError(call: requestId, body: body, info: info)
         } catch {
             message = nil
         }
@@ -167,18 +167,18 @@ final class ExchangeContractTests: XCTestCase {
     /// `readTickerFallback`, geprüft wie ein Einzelkurs. Fehler = in der App bleibt der Serverfehler
     /// (`SingleTickerFallback`, dort samt «status» geprüft). Wie Android.
     private func runSingleFallback(_ c: [String: Any]) -> String? {
-        guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
         let info = pair(c["pair"] as? [String: Any] ?? [:])
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let expect = c["expect"] as? [String: Any] ?? [:]
-        guard let address = market.tickerFallbackAddress(call: requestId, info: info), !address.isEmpty else {
+        guard let address = exchange.tickerFallbackAddress(call: requestId, info: info), !address.isEmpty else {
             return "no fallback address"
         }
 
         var ticker = Ticker()
         var failure: Error?
         do {
-            try market.readTickerFallback(call: requestId, body: c["body"] as? String ?? "", ticker: &ticker, info: info)
+            try exchange.readTickerFallback(call: requestId, body: c["body"] as? String ?? "", ticker: &ticker, info: info)
             if !(ticker.last.isFinite && ticker.last > 0) { failure = JSONError(message: "no ticker data") }
         } catch {
             failure = error
@@ -196,14 +196,14 @@ final class ExchangeContractTests: XCTestCase {
     }
 
     private func runBulk(_ c: [String: Any]) -> String? {
-        guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let expect = c["expect"] as? [String: Any] ?? [:]
         let wantsError = expect["error"] as? Bool == true
 
         let parsed: BulkTickerParse
         do {
-            parsed = try market.parseBulkTickersDetailed(call: requestId, body: c["body"] as? String ?? "")
+            parsed = try exchange.parseBulkTickersDetailed(call: requestId, body: c["body"] as? String ?? "")
         } catch {
             return wantsError ? nil : "bulk parser failed: \(error)"
         }
@@ -212,7 +212,7 @@ final class ExchangeContractTests: XCTestCase {
         // Unlesbare Zeilen werden je Paar gemeldet (`BulkTickerRows`), nicht still ausgelassen — wie Android
         let failed = Set(expect["failed"] as? [String] ?? [])
         if parsed.failed != failed { return "failed rows: expected \(failed.sorted()), got \(parsed.failed.sorted())" }
-        // Antwort meldet sich selbst als lückenhaft (`Market.bulkResponseComplete`) — wie Android
+        // Antwort meldet sich selbst als lückenhaft (`Exchange.bulkResponseComplete`) — wie Android
         if let complete = expect["complete"] as? Bool, parsed.complete != complete {
             return "complete: expected \(complete), got \(parsed.complete)"
         }
@@ -232,21 +232,21 @@ final class ExchangeContractTests: XCTestCase {
 
     /// Paarliste: Anzahl, fehlende Kennungen und je Paar Basis, Kotierung, Vertragsart, TradFi.
     private func runPairs(_ c: [String: Any]) -> String? {
-        guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let expect = c["expect"] as? [String: Any] ?? [:]
 
-        let pairs: [MarketPair]
+        let pairs: [ExchangePair]
         do {
-            pairs = try market.readPairList(call: requestId, body: c["body"] as? String ?? "")
+            pairs = try exchange.readPairList(call: requestId, body: c["body"] as? String ?? "")
         } catch {
             return "pair parser failed: \(error)"
         }
-        var byId: [String: MarketPair] = [:]
+        var byId: [String: ExchangePair] = [:]
         for p in pairs { byId[p.pairId ?? ""] = p }
         // Adresse der Anfrage (Abfrage-Parameter wie Binance `symbolStatus`)
         if expect.keys.contains("address") {
-            let address = market.pairListAddress(call: requestId)
+            let address = exchange.pairListAddress(call: requestId)
             let want = expect["address"] as? String
             if address != want { return "address: expected \(want ?? "nil"), got \(address ?? "nil")" }
         }
@@ -254,7 +254,7 @@ final class ExchangeContractTests: XCTestCase {
         if expect.keys.contains("nextPage") {
             let next: String?
             do {
-                next = try market.pairListPaging().nextPage(call: requestId, body: c["body"] as? String ?? "")
+                next = try exchange.pairListPaging().nextPage(call: requestId, body: c["body"] as? String ?? "")
             } catch {
                 return "nextPage failed: \(error)"
             }
@@ -275,7 +275,7 @@ final class ExchangeContractTests: XCTestCase {
         return nil
     }
 
-    private func checkPair(_ id: String, _ want: [String: Any], _ p: MarketPair) -> String? {
+    private func checkPair(_ id: String, _ want: [String: Any], _ p: ExchangePair) -> String? {
         if let base = want["base"] as? String, p.base != base { return "[\(id)] base: expected \(base), got \(p.base)" }
         if let quote = want["quote"] as? String, p.quote != quote { return "[\(id)] quote: expected \(quote), got \(p.quote)" }
         if let contract = want["contract"] as? String, p.contractType != FuturesContractType(backupName: contract) {
@@ -310,14 +310,14 @@ final class ExchangeContractTests: XCTestCase {
     /// das Paar des Einzelkurses (`contains`) — wie Android `runRecorded`. Beim Einzelkurs dazu die Werte selbst
     /// (`checkRecordedValues`), gemessen am Aufnahmezeitpunkt `recordedAt` (ms, nil = unbekannt).
     private func runRecorded(_ c: [String: Any], recordedAt: Int64?) -> String? {
-        guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
+        guard let exchange = exchange(c) else { return "unknown market \(c["exchangeKey"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let body = c["body"] as? String ?? ""
         switch c["kind"] as? String ?? "" {
         case "single":
             var ticker = Ticker()
             do {
-                try market.readTicker(call: requestId, body: body, ticker: &ticker, info: pair(c["pair"] as? [String: Any] ?? [:]))
+                try exchange.readTicker(call: requestId, body: body, ticker: &ticker, info: pair(c["pair"] as? [String: Any] ?? [:]))
             } catch {
                 return "parser failed: \(error)"
             }
@@ -325,15 +325,15 @@ final class ExchangeContractTests: XCTestCase {
             return checkRecordedValues(ticker, recordedAt: recordedAt)
         case "bulk":
             do {
-                let parsed = try market.parseBulkTickersDetailed(call: requestId, body: body)
+                let parsed = try exchange.parseBulkTickersDetailed(call: requestId, body: body)
                 return parsed.tickers.isEmpty ? "batch without tickers (failed rows: \(parsed.failed.count))" : nil
             } catch {
                 return "bulk parser failed: \(error)"
             }
         case "pairs":
-            let pairs: [MarketPair]
+            let pairs: [ExchangePair]
             do {
-                pairs = try market.readPairList(call: requestId, body: body)
+                pairs = try exchange.readPairList(call: requestId, body: body)
             } catch {
                 return "pair parser failed: \(error)"
             }
@@ -456,9 +456,9 @@ final class ExchangeContractTests: XCTestCase {
                                  "recorded_bithumb.json fehlt im Test-Bundle")
         let recordedAt = try XCTUnwrap(recordedMillis(file.recordedAt))
         let single = try XCTUnwrap(file.cases.first { $0["kind"] as? String == "single" })
-        let market = try XCTUnwrap(MarketsConfig.market("Bithumb"))
+        let exchange = try XCTUnwrap(ExchangesConfig.exchange("Bithumb"))
         var ticker = Ticker()
-        try market.readTicker(call: 0, body: single["body"] as? String ?? "", ticker: &ticker,
+        try exchange.readTicker(call: 0, body: single["body"] as? String ?? "", ticker: &ticker,
                               info: pair(single["pair"] as? [String: Any] ?? [:]))
         let time = try XCTUnwrap(ticker.exchangeTime, "Bithumb: keine Börsenzeit gelesen")
         XCTAssertLessThanOrEqual(time, recordedAt + 60_000, "Bithumb: Börsenzeit nach Aufnahme + 60 s")
@@ -467,19 +467,19 @@ final class ExchangeContractTests: XCTestCase {
 
     /// Jede registrierte Börse braucht mindestens einen Einzelabruf-Fall (und einen Sammelabruf-Fall,
     /// wenn sie eine Sammelabfrage hat) — neue Adapter fallen sonst auf.
-    func testEveryRegisteredMarketHasAContractFixture() throws {
+    func testEveryRegisteredExchangeHasAContractFixture() throws {
         var single = Set<String>()
         var bulk = Set<String>()
         for file in try fixtures() {
             for c in file.cases {
-                guard let key = c["market"] as? String else { continue }
+                guard let key = c["exchangeKey"] as? String else { continue }
                 if c["kind"] as? String == "single" { single.insert(key) }
                 if c["kind"] as? String == "bulk" { bulk.insert(key) }
             }
         }
-        let missing = MarketsConfig.all.map(\.key).filter { !single.contains($0) }.sorted()
+        let missing = ExchangesConfig.all.map(\.key).filter { !single.contains($0) }.sorted()
         XCTAssertEqual(missing, [], "markets without a single-ticker contract case")
-        let bulkMissing = MarketsConfig.all.filter { $0.bulkTickersNumOfRequests > 0 && !bulk.contains($0.key) }
+        let bulkMissing = ExchangesConfig.all.filter { $0.bulkTickersNumOfRequests > 0 && !bulk.contains($0.key) }
             .map(\.key).sorted()
         XCTAssertEqual(bulkMissing, [], "markets with a batch endpoint but no bulk contract case")
     }

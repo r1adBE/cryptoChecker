@@ -13,7 +13,7 @@ struct VolumeSpike: Equatable, Sendable {
     /// Mit der Börse der Kerzen `provider`, wenn sie nicht die des Paars ist (`DayChange.foreignCandleSource`) — wie Android.
     func withSource(_ watch: Watch, provider: String?) -> VolumeSpike {
         var copy = self
-        copy.source = DayChange.foreignCandleSource(markets: [watch.marketKey, watch.marketName], provider: provider)
+        copy.source = DayChange.foreignCandleSource(exchanges: [watch.exchangeKey, watch.exchangeName], provider: provider)
         return copy
     }
 }
@@ -58,7 +58,7 @@ enum VolumeDataSource {
         let key = "P|\(pair.cacheKey)|\(interval.rawValue)|\(count)"
         if let hit = cached(key, now: EpochTime.nowMillis) { return hit.candles }
         // Name des Coins an der Börse des Paars (gleicher Token, K-8) — wie der Chart
-        let identityName = TokenIdentityStore.shared.pairName(marketKey: pair.marketKey, base: pair.base)
+        let identityName = TokenIdentityStore.shared.pairName(exchangeKey: pair.exchangeKey, base: pair.base)
         let result = await pairCandlesOf(
             pair, price: price, identityName: identityName,
             ownSupported: OwnCandleDataSource.supports(pair, interval: interval),

@@ -21,13 +21,13 @@ class AlarmChainIntegrationTest {
     private val now = 1_700_000_000_000L
 
     /** Kursquelle (statt Börse). */
-    private class FakeMarket(var price: Double) {
+    private class FakeExchange(var price: Double) {
         suspend fun last(): Double = price
     }
 
     /** Ein Durchlauf für eine Kursmarke mit Abklingzeit 15 Min. @return ausgelöste Alarme */
-    private fun RefreshFixture.refresh(market: FakeMarket, previous: Double, at: Long): Int = runBlocking {
-        val price = market.last()
+    private fun RefreshFixture.refresh(exchange: FakeExchange, previous: Double, at: Long): Int = runBlocking {
+        val price = exchange.last()
         effects.checkAlarms(store.watches.getValue(1), price, previous, store.getAllEnabledAlarms(), settings.settings, at)
     }
 
@@ -39,9 +39,9 @@ class AlarmChainIntegrationTest {
     @Test
     fun crossingPostsOnceAndMarksAlarm() {
         val f = fixture(alarmAbove(100.0))
-        val market = FakeMarket(101.0)
+        val exchange = FakeExchange(101.0)
 
-        assertEquals(1, f.refresh(market, 99.0, now))
+        assertEquals(1, f.refresh(exchange, 99.0, now))
         assertEquals(listOf(7L to 101.0), f.notifier.alarmPosts.map { it.first to it.second })
         assertEquals(now, f.store.alarm(7).lastTriggeredAt)
         assertTrue(f.store.alarm(7).referenceAt > 0)
@@ -49,7 +49,7 @@ class AlarmChainIntegrationTest {
         assertFalse(f.store.alarm(7).enabled)
 
         // Nächster Durchlauf, Kurs bleibt über der Marke: keine zweite Meldung
-        assertEquals(0, f.refresh(market, 101.0, now + 60_000))
+        assertEquals(0, f.refresh(exchange, 101.0, now + 60_000))
         assertEquals(1, f.notifier.alarmPosts.size)
     }
 
@@ -58,19 +58,19 @@ class AlarmChainIntegrationTest {
         val original = alarmAbove(100.0)
         val f = fixture(original)
         f.notifier.shows = false
-        val market = FakeMarket(101.0)
+        val exchange = FakeExchange(101.0)
 
-        assertEquals(0, f.refresh(market, 99.0, now))
+        assertEquals(0, f.refresh(exchange, 99.0, now))
         assertEquals(1, f.notifier.alarmPosts.size)
         // Nicht gespeichert: bleibt scharf und eingeschaltet
         assertEquals(original, f.store.alarm(7))
 
         // Gleich danach: kein erneuter Versuch (Abklingzeit), später schon — dann gespeichert
         f.notifier.shows = true
-        assertEquals(0, f.refresh(market, 99.0, now + 60_000))
+        assertEquals(0, f.refresh(exchange, 99.0, now + 60_000))
         assertEquals(1, f.notifier.alarmPosts.size)
         val later = now + 60 * 60_000L
-        assertEquals(1, f.refresh(market, 99.0, later))
+        assertEquals(1, f.refresh(exchange, 99.0, later))
         assertEquals(2, f.notifier.alarmPosts.size)
         assertEquals(later, f.store.alarm(7).lastTriggeredAt)
     }
@@ -81,7 +81,7 @@ class AlarmChainIntegrationTest {
         val f = fixture(original)
         f.notifier.deliverable = false
 
-        assertEquals(0, f.refresh(FakeMarket(101.0), 99.0, now))
+        assertEquals(0, f.refresh(FakeExchange(101.0), 99.0, now))
         assertTrue(f.notifier.alarmPosts.isEmpty())
         assertEquals(original, f.store.alarm(7))
     }
@@ -89,7 +89,7 @@ class AlarmChainIntegrationTest {
     @Test
     fun priceBelowLevelDoesNothing() {
         val f = fixture(alarmAbove(100.0))
-        assertEquals(0, f.refresh(FakeMarket(99.5), 99.0, now))
+        assertEquals(0, f.refresh(FakeExchange(99.5), 99.0, now))
         assertTrue(f.notifier.alarmPosts.isEmpty())
     }
 }

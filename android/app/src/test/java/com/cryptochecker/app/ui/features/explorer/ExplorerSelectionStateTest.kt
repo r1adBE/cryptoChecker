@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.marketdata.config.MarketsConfig
-import com.cryptochecker.marketdata.model.MarketCategory
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.marketdata.config.ExchangesConfig
+import com.cryptochecker.marketdata.model.ExchangeCategory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -17,29 +17,29 @@ import org.junit.Test
 class ExplorerSelectionStateTest {
 
     /** Eine Börse der Registry mit Abschnitt [category]. */
-    private fun keyOf(category: MarketCategory): String =
-        MarketsConfig.MARKETS.entries.first { it.value.category == category }.key
+    private fun keyOf(category: ExchangeCategory): String =
+        ExchangesConfig.EXCHANGES.entries.first { it.value.category == category }.key
 
     // ---- Abschnitte ----
 
     @Test
     fun exchangeSectionsGroupSpotBeforeFutures() {
-        val futures = keyOf(MarketCategory.FUTURES)
+        val futures = keyOf(ExchangeCategory.FUTURES)
         // Unbekannte Schlüssel gelten als Spot
-        val alphabetical = listOf(MarketInfo("zzSpotA", "A"), MarketInfo(futures, "F"), MarketInfo("zzSpotB", "B"))
+        val alphabetical = listOf(ExchangeInfo("zzSpotA", "A"), ExchangeInfo(futures, "F"), ExchangeInfo("zzSpotB", "B"))
         val (exchanges, categories) = exchangeSections(alphabetical, null)
         assertEquals(listOf("zzSpotA", "zzSpotB", futures), exchanges.map { it.key })
-        assertEquals(listOf(MarketCategory.SPOT, MarketCategory.SPOT, MarketCategory.FUTURES), categories)
+        assertEquals(listOf(ExchangeCategory.SPOT, ExchangeCategory.SPOT, ExchangeCategory.FUTURES), categories)
     }
 
     @Test
     fun exchangeSectionsSortByVolumeWithinSection() {
-        val alphabetical = listOf(MarketInfo("zzSpotA", "A"), MarketInfo("zzSpotB", "B"), MarketInfo("zzSpotC", "C"))
+        val alphabetical = listOf(ExchangeInfo("zzSpotA", "A"), ExchangeInfo("zzSpotB", "B"), ExchangeInfo("zzSpotC", "C"))
         // Ohne Volumen hinten in alphabetischer Reihenfolge
         val (exchanges, categories) = exchangeSections(alphabetical, mapOf("zzSpotB" to 10.0, "zzSpotC" to 50.0))
         assertEquals(listOf("zzSpotC", "zzSpotB", "zzSpotA"), exchanges.map { it.key })
         assertEquals(3, categories.size)
-        assertTrue(categories.all { it == MarketCategory.SPOT })
+        assertTrue(categories.all { it == ExchangeCategory.SPOT })
     }
 
     @Test
@@ -50,12 +50,12 @@ class ExplorerSelectionStateTest {
     }
 
     @Test
-    fun exchangeSectionsKeepMarketInfoObjects() {
-        val dex = keyOf(MarketCategory.DEX)
-        val info = MarketInfo(dex, "Pools")
+    fun exchangeSectionsKeepExchangeInfoObjects() {
+        val dex = keyOf(ExchangeCategory.DEX)
+        val info = ExchangeInfo(dex, "Pools")
         val (exchanges, categories) = exchangeSections(listOf(info), null)
         assertEquals(listOf(info), exchanges)
-        assertEquals(listOf(MarketCategory.DEX), categories)
+        assertEquals(listOf(ExchangeCategory.DEX), categories)
     }
 
     // ---- Zustandsgruppen ----

@@ -4,7 +4,7 @@ import Foundation
 /// (Paar hinzufügen, Suche über alle Börsen, «Alle …-Paare») zeigt.
 ///
 ///  - `TOKENS` (Standard): nur Krypto — Spot, Perpetuals und (mit QTLY) Laufzeit-Futures.
-///  - `TRADFI`: nur Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO (`MarketPair.isTradFi`).
+///  - `TRADFI`: nur Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO (`ExchangePair.isTradFi`).
 ///  - `BOTH`: alles.
 ///
 /// Alpha-Tokens (`AssetKind.ALPHA`) gehören zu Token; der Schalter «inkl. Alpha-Tokens»
@@ -27,17 +27,17 @@ enum AssetScope: String, Codable, CaseIterable, Sendable {
     /// Krypto-Paare (Token) erscheinen in der Auswahl.
     var allowsTokens: Bool { self != .TRADFI }
 
-    /// Paar der Börse `marketKey` in der Auswahl zeigen? `hiddenAlpha`: Kürzel der Alpha-Tokens, die
+    /// Paar der Börse `exchangeKey` in der Auswahl zeigen? `hiddenAlpha`: Kürzel der Alpha-Tokens, die
     /// ausgeblendet sind («inkl. Alpha-Tokens» aus; `hiddenAlphaSymbols`), sonst leer. Alpha-Paare von
     /// Binance selbst (`BinanceAlpha`) nur mit «inkl. Alpha-Tokens». `pairNames` (Kürzel gross → Name aus
     /// der Paarliste der Börse) und `alphaNames` wie bei `AssetKind.of`: klar anderer Name → kein Alpha.
-    func allows(_ pair: MarketPair, marketKey: String = "", hiddenAlpha: Set<String> = [],
+    func allows(_ pair: ExchangePair, exchangeKey: String = "", hiddenAlpha: Set<String> = [],
                 pairNames: [String: String] = [:], alphaNames: [String: String] = [:]) -> Bool {
         if pair.isTradFi { return allowsTradFi }
         guard allowsTokens else { return false }
-        if BinanceAlpha.isAlphaPair(marketKey: marketKey, pairId: pair.pairId) { return hiddenAlpha.isEmpty }
+        if BinanceAlpha.isAlphaPair(exchangeKey: exchangeKey, pairId: pair.pairId) { return hiddenAlpha.isEmpty }
         if hiddenAlpha.isEmpty { return true }
-        let kind = AssetKind.of(marketKey: marketKey, base: pair.base, tradFi: false, alphaSymbols: hiddenAlpha,
+        let kind = AssetKind.of(exchangeKey: exchangeKey, base: pair.base, tradFi: false, alphaSymbols: hiddenAlpha,
                                 pairName: pairNames[TokenIdentity.key(pair.base)], alphaNames: alphaNames)
         return kind != .ALPHA
     }
@@ -55,9 +55,9 @@ enum AssetScope: String, Codable, CaseIterable, Sendable {
     }
 
     /// Börse in der Auswahl zeigen? Bei «Nur TradFi» nur Börsen, deren Paarliste TradFi kennt
-    /// (`CoinLogos.tradFiMarkets`) — die übrigen (auch DEX) hätten dort keine Paare.
-    func allowsMarket(_ marketKey: String) -> Bool {
-        allowsTokens || CoinLogos.tradFiMarkets.contains(marketKey)
+    /// (`CoinLogos.tradFiExchanges`) — die übrigen (auch DEX) hätten dort keine Paare.
+    func allowsExchange(_ exchangeKey: String) -> Bool {
+        allowsTokens || CoinLogos.tradFiExchanges.contains(exchangeKey)
     }
 
     /// Gespeicherter Name; unbekannt (neuere Version) oder leer → nil.

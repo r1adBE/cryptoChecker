@@ -43,7 +43,7 @@
     <string name="explorer_pairs_title">Cặp</string>
     <string name="explorer_precise_title">Nâng cao / theo sàn</string>
     <string name="explorer_price_loading">Đang tải giá…</string>
-    <string name="explorer_select_market_hint">Chọn một sàn – các cặp sẽ tự động tải.</string>
+    <string name="explorer_select_exchange_hint">Chọn một sàn – các cặp sẽ tự động tải.</string>
     <string name="explorer_select_placeholder">Vui lòng chọn</string>
     <string name="explorer_step_pair">Chọn cặp</string>
 

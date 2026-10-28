@@ -4,7 +4,7 @@ package com.cryptochecker.app.data.remote.util
  * Vergleichsschlüssel einer Adresse: dieselbe Adresse ohne den Abfrageparameter `timestamp=<Ziffern>`. BingX stempelt
  * jede Adresse schon beim Bilden mit der aktuellen Zeit (ms) — ohne diesen Schlüssel wären zwei sonst gleiche
  * Anfragen nie gleich: gleichzeitige gleiche Abrufe liefen doppelt ([InFlightRequests]), und nach einer gescheiterten
- * Sammelabfrage folgte dieselbe Anfrage noch einmal als «ungefiltert» (MarketRemoteDataSource.loadBulkCall).
+ * Sammelabfrage folgte dieselbe Anfrage noch einmal als «ungefiltert» (ExchangeRemoteDataSource.loadBulkCall).
  * Gesendet wird immer die echte Adresse mit Stempel. Gespiegelt in `RequestKey.swift`, Fälle in `request_key.json`.
  */
 object RequestKey {

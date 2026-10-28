@@ -4,7 +4,7 @@ package com.cryptochecker.marketdata.model
  * Price data of one pair, filled by the adapter's ticker parsers. Numbers not delivered stay at [MISSING].
  */
 interface Ticker {
-    /** Last price (the mid price for [Market.priceIsMid]); required for a usable ticker. */
+    /** Last price (the mid price for [Exchange.priceIsMid]); required for a usable ticker. */
     var last: Double
 
     /** Best bid. */
@@ -26,7 +26,7 @@ interface Ticker {
     var volQuote: Double
 
     /**
-     * Parsers may write the exchange time here (s, ms, µs or ns); after [Market.readTicker] it holds the fetch
+     * Parsers may write the exchange time here (s, ms, µs or ns); after [Exchange.readTicker] it holds the fetch
      * time in ms and the exchange time is in [exchangeTime].
      */
     var timestamp: Long
@@ -45,7 +45,7 @@ interface Ticker {
     var change24hPercent: Double?
 
     /**
-     * Pool liquidity in USD — DEX pools only ([com.cryptochecker.marketdata.model.market.DexScreener]); null =
+     * Pool liquidity in USD — DEX pools only ([com.cryptochecker.marketdata.model.exchange.DexScreener]); null =
      * unknown or not a DEX source. A thin pool can be moved with small amounts, so no alarm fires then.
      */
     var liquidityUsd: Double?

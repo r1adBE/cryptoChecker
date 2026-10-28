@@ -59,7 +59,7 @@ enum PriceRefresher {
         // Gemeinsame Binance-Pause (429/418 bei Kerzen, Futures …): auch die Kurse pausieren,
         // sonst verlängerte die Kursabfrage die IP-Sperre (siehe `BlockedSources`) — wie Android
         if liveQuotes == nil {
-            for key in Set(all.map(\.marketKey)) {
+            for key in Set(all.map(\.exchangeKey)) {
                 guard let until = BlockedSources.groupPausedUntil(key) else { continue }
                 let state = backoff[key]
                 // Eine unmögliche eigene Pause (`ExchangeBackoff.isPaused`) wird ersetzt — wie Android
@@ -72,7 +72,7 @@ enum PriceRefresher {
                 }
             }
         }
-        let paused = liveQuotes != nil ? [] : all.filter { ExchangeBackoff.isPaused(backoff[$0.marketKey], now: started) }
+        let paused = liveQuotes != nil ? [] : all.filter { ExchangeBackoff.isPaused(backoff[$0.exchangeKey], now: started) }
         outcome.pausedIds = Set(paused.map(\.id))
         // Paare mit frischem Live-Kurs (WebSocket): diesmal ohne REST-Abfrage
         let watches = all.filter { !outcome.pausedIds.contains($0.id) && !liveIds.contains($0.id) }
@@ -86,7 +86,7 @@ enum PriceRefresher {
                                                                       now: EpochTime.nowMillis)
                 outcome.report = RefreshReport(at: EpochTime.nowMillis, totalMillis: outcome.durationMillis,
                                                pairs: all.count, networkMillis: 0,
-                                               markets: pausedMarkets(paused, backoff: backoff))
+                                               exchanges: pausedExchanges(paused, backoff: backoff))
             }
             return outcome
         }
@@ -97,7 +97,7 @@ enum PriceRefresher {
         let dayStart: Int64? = basis.isDay ? changeStamp.dayStart : nil
 
         var fetched: [Int64: Fetched] = [:]
-        var markets: [MarketRefresh] = []
+        var exchanges: [ExchangeRefresh] = []
         let dayLoads: Task<Void, Never>
         let dayReferences: [String: DayReference]
         // Mit Endzeit (Hintergrund, Widget): Kerzen-Nachlader am Ende abbrechen — sie liefen sonst über die Endzeit
@@ -125,7 +125,7 @@ enum PriceRefresher {
             candleLoads.append(earlyLoads)
 
             // 1) Netz: alle Börsen gleichzeitig, je Börse erst die Sammelabfrage.
-            let groups = Dictionary(grouping: watches, by: \.marketKey)
+            let groups = Dictionary(grouping: watches, by: \.exchangeKey)
             // Je Börse Paare mit aktivem Alarm zuerst abfragen (`FetchOrder`)
             let alarmedIds = Set(snapshot.alarms.filter(\.enabled).map(\.watchId))
             var signals: [GroupSignals] = []
@@ -171,25 +171,25 @@ enum PriceRefresher {
             if onlyWatchId == nil {
                 let finished = EpochTime.nowMillis
                 for signal in signals {
-                    var market = signal.report
+                    var exchange = signal.report
                     let state = ExchangeBackoff.next(
-                        backoff[signal.marketKey],
-                        outcome: ExchangeBackoff.outcome(failures: signal.failures, updated: market.updated),
+                        backoff[signal.exchangeKey],
+                        outcome: ExchangeBackoff.outcome(failures: signal.failures, updated: exchange.updated),
                         now: finished, retryAfterMillis: signal.retryAfterMillis,
                         // 418 und «Retry-After» wie bei Kerzen (gemeinsame Binance-Pause)
-                        banned: signal.banned, shared: ExchangeBackoff.sharedGroup(signal.marketKey) != nil)
-                    backoff[signal.marketKey] = state
+                        banned: signal.banned, shared: ExchangeBackoff.sharedGroup(signal.exchangeKey) != nil)
+                    backoff[signal.exchangeKey] = state
                     // 429/418 beim Ticker: Kerzen, Futures und Aktivität an dieselben Hosts pausieren mit
                     if let state, state.reason == .RATE_LIMIT, ExchangeBackoff.isPaused(state, now: finished) {
-                        BlockedSources.pauseGroup(signal.marketKey, until: state.pausedUntil)
+                        BlockedSources.pauseGroup(signal.exchangeKey, until: state.pausedUntil)
                     }
                     if let state, ExchangeBackoff.isPaused(state, now: finished) {
-                        market.pausedUntil = state.pausedUntil
-                        market.pauseReason = state.reason
+                        exchange.pausedUntil = state.pausedUntil
+                        exchange.pauseReason = state.reason
                     }
-                    markets.append(market)
+                    exchanges.append(exchange)
                 }
-                markets.append(contentsOf: pausedMarkets(paused, backoff: backoff))
+                exchanges.append(contentsOf: pausedExchanges(paused, backoff: backoff))
                 // 429 bei Spot pausiert auch Futures auf demselben Host (und umgekehrt) — wie Android
                 SharedStorage.exchangeBackoff = ExchangeBackoff.merge(
                     ours: ExchangeBackoff.withHostGroupPauses(backoff, now: finished), initial: initialBackoff,
@@ -276,7 +276,7 @@ enum PriceRefresher {
             let price = ticker.last
             let time = ticker.timestamp > 0 ? ticker.timestamp : now
             // DEX-Pool: Liquidität jeder Abfrage merken (Alarm-Sperre in `checkAlarms`, Hinweis in Suche und Alarmen)
-            if liveQuotes == nil && DexLiquidity.isDex(watch.marketKey) {
+            if liveQuotes == nil && DexLiquidity.isDex(watch.exchangeKey) {
                 DexLiquidityStore.put(watch.pairId, ticker.liquidityUsd)
             }
             // Kurs = Mark-Preis mangels Mittelkurs (Hyperliquid): «Mark» in Zeile und Blatt; Live-Kurse kommen nie als
@@ -312,15 +312,15 @@ enum PriceRefresher {
 
             // Kurs laut Börse zu alt (`AlarmFreshness`, Handel ruht) bzw. nur Mark-Preis: Alarme bleiben scharf, lösen
             // aber nicht aus
-            // Quelle ohne Alarme (EZB-Referenzkurse, `Market.allowsAlarms`): nie auswerten, nichts protokollieren
-            let sourceAllowsAlarms = MarketsConfig.market(watch.marketKey)?.allowsAlarms ?? true
+            // Quelle ohne Alarme (EZB-Referenzkurse, `Exchange.allowsAlarms`): nie auswerten, nichts protokollieren
+            let sourceAllowsAlarms = ExchangesConfig.exchange(watch.exchangeKey)?.allowsAlarms ?? true
             let alarmsAllowed = sourceAllowsAlarms
                 && !AlarmFreshness.blocksAlarms(updated.exchangeTime, markFallback: ticker.markFallback, now: now)
             if sourceAllowsAlarms, !alarmsAllowed, let blocked = logAlarmsByWatch[watch.id] {
                 // Alarm-Protokoll: nur festhalten, warum nicht (dieselbe Reihenfolge der Gründe wie Android)
                 outcome.alarmLog += blockedAlarmLog(
                     blocked, watch: watch, updated: updated,
-                    lowLiquidity: DexLiquidityStore.blocksAlarms(marketKey: watch.marketKey, pairId: watch.pairId),
+                    lowLiquidity: DexLiquidityStore.blocksAlarms(exchangeKey: watch.exchangeKey, pairId: watch.pairId),
                     markFallback: ticker.markFallback, now: now, cooldownMinutes: settings.alarmCooldownMinutes)
             }
 
@@ -375,7 +375,7 @@ enum PriceRefresher {
                 totalMillis: outcome.durationMillis,
                 pairs: all.count,
                 networkMillis: networkMillis,
-                markets: markets,
+                exchanges: exchanges,
                 effectsMillis: max(0, outcome.durationMillis - networkMillis),
                 // Fällige Alarme; gemeldet und gespeichert werden sie erst danach (`deliverAlarms`)
                 alarms: outcome.pendingAlarms.count,

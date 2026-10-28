@@ -11,7 +11,7 @@
     {
       "kind": "single",
       "name": "exchangeStats BTC perp: last trade price, daily_price_change already percent (rolling 24 h), no exchange time",
-      "market": "Lighter",
+      "exchangeKey": "Lighter",
       "pair": {
         "base": "BTC",
         "quote": "USDC",
@@ -36,7 +36,7 @@
     {
       "kind": "single",
       "name": "exchangeStats spot rhQQQ/USDC: pair id is the full symbol",
-      "market": "Lighter",
+      "exchangeKey": "Lighter",
       "pair": {
         "base": "rhQQQ",
         "quote": "USDC",
@@ -56,7 +56,7 @@
     {
       "kind": "single",
       "name": "symbol not in exchangeStats: error (no exchange text), never a price of 0",
-      "market": "Lighter",
+      "exchangeKey": "Lighter",
       "pair": {
         "base": "FOO",
         "quote": "USDC",
@@ -73,7 +73,7 @@
     {
       "kind": "single",
       "name": "error payload (HTTP 400, seen live 19.10.2026): message is the error text",
-      "market": "Lighter",
+      "exchangeKey": "Lighter",
       "pair": {
         "base": "BTC",
         "quote": "USDC",
@@ -90,7 +90,7 @@
     {
       "kind": "single",
       "name": "last_trade_price 0 (never traded): 'No data' (confirms not traded), never a price of 0",
-      "market": "Lighter",
+      "exchangeKey": "Lighter",
       "pair": {
         "base": "ARM",
         "quote": "USDC",
@@ -108,7 +108,7 @@
     {
       "kind": "single",
       "name": "daily_trades_count 0 (no trade in 24 h, row from recorded 19.10.2026): last trade price kept, change24hPercent stays empty instead of 0.00 %; exchange time = 24 h before the fetch (last trade at the latest then), so price alarms wait",
-      "market": "Lighter",
+      "exchangeKey": "Lighter",
       "pair": {
         "base": "ADI",
         "quote": "USDC",
@@ -126,7 +126,7 @@
     {
       "kind": "bulk",
       "name": "bulk: UPDOWN binary and never-traded perp with price 0 skipped, renamed price field fails only its pair; DIA without trades in 24 h keeps its price but no change; its exchange time is 24 h before the fetch (alarms wait)",
-      "market": "Lighter",
+      "exchangeKey": "Lighter",
       "requestId": 0,
       "body": "{\"code\":200,\"total\":426,\"order_book_stats\":[{\"symbol\":\"BTC-UPDOWN-15M-1792458900\",\"last_trade_price\":0,\"daily_trades_count\":0,\"daily_base_token_volume\":0,\"daily_quote_token_volume\":0,\"daily_price_change\":0},{\"symbol\":\"BTC\",\"last_trade_price\":82575.5,\"daily_trades_count\":919761,\"daily_base_token_volume\":11215.26978,\"daily_quote_token_volume\":919241899.744675,\"daily_price_change\":1.3313981520900326},{\"symbol\":\"rhQQQ/USDC\",\"last_trade_price\":719.22,\"daily_trades_count\":3,\"daily_base_token_volume\":0.1113,\"daily_quote_token_volume\":80.015328,\"daily_price_change\":0.3166190110886394},{\"symbol\":\"ARM\",\"last_trade_price\":0,\"daily_trades_count\":0,\"daily_base_token_volume\":0,\"daily_quote_token_volume\":0,\"daily_price_change\":0},{\"symbol\":\"SPY\",\"last_trade_price\":767.68,\"daily_trades_count\":39653,\"daily_base_token_volume\":18609.8716,\"daily_quote_token_volume\":14275126.083052,\"daily_price_change\":0.869839434472972},{\"symbol\":\"NEAR\",\"last_price\":5.00104,\"daily_trades_count\":31961,\"daily_base_token_volume\":2078613.3,\"daily_quote_token_volume\":10180952.502009999,\"daily_price_change\":4.041381549373158},{\"symbol\":\"DIA\",\"last_trade_price\":505.77,\"daily_trades_count\":0,\"daily_base_token_volume\":0,\"daily_quote_token_volume\":0,\"daily_price_change\":0}]}",
       "expect": {

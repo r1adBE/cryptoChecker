@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
-import com.cryptochecker.app.data.local.MarketDao
+import com.cryptochecker.app.data.local.ExchangeDao
 import com.cryptochecker.app.data.local.SharedPreferencesStores
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
@@ -69,7 +69,6 @@ object LocalDataModule {
         // der App) statt hier bei jedem Anlegen im Hauptthread
         return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
             .openHelperFactory(openHelperFactory)
-            .addMigrations(*AppDatabase.ALL_MIGRATIONS)
             .addCallback(SecureDeleteCallback)
             .addCallback(DeliveryMarkerResetCallback(context, AlarmDeliveryMarkers.PREFS, AppDatabase.DB_NAME))
             .build()
@@ -77,19 +76,18 @@ object LocalDataModule {
 
     /**
      * Portfolio in eigener Datei (Systemsicherung nur mit Erlaubnis, siehe PortfolioBackupMirror).
-     * Der erste Callback übernimmt beim Öffnen einmalig den Altbestand aus [AppDatabase].
+     * Der erste Callback übernimmt beim Anlegen eine vorhandene Kopie aus der Systemsicherung.
      */
     @Provides
     @Singleton
     fun providePortfolioDatabase(
         @ApplicationContext context: Context,
-        appDatabase: AppDatabase,
         openHelperFactory: EncryptingOpenHelperFactory,
     ): PortfolioDatabase {
         val builder = Room.databaseBuilder(context, PortfolioDatabase::class.java, PortfolioDatabase.DB_NAME)
             .openHelperFactory(openHelperFactory)
             .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
-        builder.addCallback(PortfolioDatabase.callback(context, appDatabase))
+        builder.addCallback(PortfolioDatabase.callback(context))
         // Gelöschte Transaktionen (Menge, Preis, Notiz) und Alarm-Schwellen mit Nullen überschreiben
         builder.addCallback(SecureDeleteCallback)
         builder.addCallback(PortfolioScrubCallback(context))
@@ -125,7 +123,7 @@ object LocalDataModule {
     // ---- DAOs
 
     @Provides
-    fun provideMarketDao(database: AppDatabase): MarketDao = database.getMarketDao()
+    fun provideExchangeDao(database: AppDatabase): ExchangeDao = database.getExchangeDao()
 
     @Provides
     fun provideWatchDao(database: AppDatabase): WatchDao = database.getWatchDao()

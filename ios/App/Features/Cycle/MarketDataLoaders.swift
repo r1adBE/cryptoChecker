@@ -165,8 +165,8 @@ extension CycleViewModel {
             if age < Self.coinListMaxAge { return }
         }
         Task { [weak self] in
-            guard let binance = MarketsConfig.market("Binance"),
-                  let pairs = try? await MarketService.fetchCurrencyPairs(market: binance) else { return }
+            guard let binance = ExchangesConfig.exchange("Binance"),
+                  let pairs = try? await ExchangeService.fetchCurrencyPairs(exchange: binance) else { return }
             let list = Array(Set(
                 pairs.filter { $0.quote == "USDT" && $0.contractType == .none }.map(\.base)
             )).sorted()

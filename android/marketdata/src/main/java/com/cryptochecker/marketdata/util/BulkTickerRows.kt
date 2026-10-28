@@ -7,13 +7,13 @@ import org.json.JSONObject
 /**
  * Ausbeute einer Sammelabfrage: [tickers] je Paar-Kennung, dazu [failed] — Paare, deren Zeile zwar in der Antwort
  * stand, sich aber nicht lesen liess (Feld fehlt oder heisst anders, kein letzter Kurs). [complete] = false: die Börse
- * hat diese Antwort selbst als lückenhaft erkannt ([com.cryptochecker.marketdata.model.Market.bulkResponseComplete]),
+ * hat diese Antwort selbst als lückenhaft erkannt ([com.cryptochecker.marketdata.model.Exchange.bulkResponseComplete]),
  * ein fehlendes Paar heisst dann nicht «nicht mehr gehandelt». iOS: `BulkTickerParse`.
  */
 class BulkTickerParse(val tickers: Map<String, Ticker>, val failed: Set<String>, val complete: Boolean = true)
 
 /**
- * Regeln für einzelne Zeilen einer Sammelabfrage (reines Kotlin, iOS in `Market.swift`). Eine unlesbare Zeile
+ * Regeln für einzelne Zeilen einer Sammelabfrage (reines Kotlin, iOS in `Exchange.swift`). Eine unlesbare Zeile
  * meldet ihr Paar als Fehler ([ROW_ERROR]), statt den alten Kurs als «unverändert» stehen zu lassen. Ist die
  * Mehrheit unlesbar, hat die Börse wohl ihr Format geändert: Die ganze Antwort gilt als Formatfehler
  * ([FORMAT_ERROR]), und Einzelabfragen mit demselben Leser sind zwecklos.
@@ -27,7 +27,7 @@ object BulkTickerRows {
 
     /**
      * Der letzte Kurs ist brauchbar: endlich und grösser als 0 — dieselbe Hürde wie bei Einzelabfragen
-     * (MarketRemoteDataSource.loadTickerCall). Ein Kurs 0 hielte sonst ein ruhendes Paar für gehandelt.
+     * (ExchangeRemoteDataSource.loadTickerCall). Ein Kurs 0 hielte sonst ein ruhendes Paar für gehandelt.
      */
     fun usable(ticker: Ticker): Boolean {
         val price = ticker.last

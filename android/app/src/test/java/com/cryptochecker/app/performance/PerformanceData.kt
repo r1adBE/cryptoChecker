@@ -4,7 +4,7 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.AutoGroup
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import java.util.Locale
 import kotlin.math.pow
 
@@ -37,7 +37,7 @@ internal class SplitMix64(private var state: Long) {
 /**
  * Testdaten der Leistungstests: bis zu 2000 Paare (Obergrenze der Merkliste) aus 100 echten Coins × 20 Quote-Währungen,
  * je Börse eindeutig, mit festem Seed. Paar `i` hat immer dieselbe Basis/Quote ([base], [quote]); in der gemischten
- * Merkliste steht es an der Börse `i % 5` ([MARKETS]). Gleich aufgebaut wie `PerformanceData` (iOS).
+ * Merkliste steht es an der Börse `i % 5` ([EXCHANGES]). Gleich aufgebaut wie `PerformanceData` (iOS).
  */
 internal object PerformanceData {
 
@@ -73,11 +73,11 @@ internal object PerformanceData {
     )
 
     /** Börsen der gemischten Merkliste: Schlüssel und Anzeigename. */
-    val MARKETS = listOf(
+    val EXCHANGES = listOf(
         "Binance" to "Binance", "Kraken" to "Kraken", "Bybit" to "Bybit", "Okex" to "OKX", "Coinbase" to "Coinbase",
     )
 
-    val BINANCE = MARKETS[0]
+    val BINANCE = EXCHANGES[0]
 
     /** Gruppen (null = keine; doppelt, damit etwa ein Viertel ohne Gruppe bleibt). */
     val GROUPS = listOf(null, null, "Layer 1", "DeFi", "Memes", "Gaming", AutoGroup.TRADFI, AutoGroup.DATED)
@@ -98,17 +98,17 @@ internal object PerformanceData {
     fun chfPerQuote(quote: String): Double = CHF_PER_QUOTE[quote] ?: 1.0
 
     /** Die ersten [count] Paare als Binance-Paarliste (Auswahl der Sammelaufnahme). */
-    fun binancePairs(count: Int): List<MarketPair> = List(count) { MarketPair(base(it), quote(it), symbol(it)) }
+    fun binancePairs(count: Int): List<ExchangePair> = List(count) { ExchangePair(base(it), quote(it), symbol(it)) }
 
     /**
-     * Merkliste mit [count] Paaren (höchstens 2000). [market] null = gemischt über [MARKETS]; sonst alle an dieser
+     * Merkliste mit [count] Paaren (höchstens 2000). [exchange] null = gemischt über [EXCHANGES]; sonst alle an dieser
      * Börse. Etwa 5 % Favoriten, 5 % ohne 24-h-Wert, 2 % deaktiviert, 10 % mit Notiz.
      */
-    fun watches(count: Int, market: Pair<String, String>? = null): List<WatchEntity> {
+    fun watches(count: Int, exchange: Pair<String, String>? = null): List<WatchEntity> {
         require(count <= BASES.size * QUOTES.size) { "höchstens ${BASES.size * QUOTES.size} Paare" }
         val rng = SplitMix64(SEED)
         return List(count) { i ->
-            val (key, name) = market ?: MARKETS[i % MARKETS.size]
+            val (key, name) = exchange ?: EXCHANGES[i % EXCHANGES.size]
             val price = 10.0.pow(rng.nextDouble() * 8.0 - 4.0)
             val previous = price * (0.99 + rng.nextDouble() * 0.02)
             val change = (rng.nextDouble() - 0.5) * 16.0
@@ -118,7 +118,7 @@ internal object PerformanceData {
             val note = if (rng.nextInt(10) == 0) String.format(Locale.ROOT, "Einstieg bei %.4f", previous) else null
             val disabled = rng.nextInt(50) == 0
             WatchEntity(
-                id = i + 1L, marketKey = key, marketName = name, baseAsset = base(i), quoteAsset = quote(i),
+                id = i + 1L, exchangeKey = key, exchangeName = name, baseAsset = base(i), quoteAsset = quote(i),
                 pairId = symbol(i), sortOrder = i, notificationEnabled = false,
                 lastPrice = price, previousPrice = previous, lastUpdate = UPDATED_AT,
                 favorite = favorite, groupName = group, note = note,

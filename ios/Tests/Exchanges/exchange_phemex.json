@@ -10,7 +10,7 @@
     {
       "kind": "pairs",
       "name": "products perpProductsV2: perpProductSubType «TradFi» = TradFi, other or missing = crypto",
-      "market": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "requestId": 0,
       "body": "{\"code\":0,\"msg\":\"\",\"data\":{\"currencies\":[],\"products\":[],\"perpProductsV2\":[{\"symbol\":\"BTCUSDT\",\"type\":\"PerpetualV2\",\"status\":\"Listed\",\"baseCurrency\":\"BTC\",\"quoteCurrency\":\"USDT\",\"perpProductSubType\":\"Crypto\"},{\"symbol\":\"NVDAUSDT\",\"type\":\"PerpetualV2\",\"status\":\"Listed\",\"baseCurrency\":\"NVDA\",\"quoteCurrency\":\"USDT\",\"perpProductSubType\":\"TradFi\"},{\"symbol\":\"ETHUSDT\",\"type\":\"PerpetualV2\",\"status\":\"Listed\",\"baseCurrency\":\"ETH\",\"quoteCurrency\":\"USDT\"},{\"symbol\":\"OLDUSDT\",\"type\":\"PerpetualV2\",\"status\":\"Delisted\",\"baseCurrency\":\"OLD\",\"quoteCurrency\":\"USDT\",\"perpProductSubType\":\"TradFi\"}]}}",
       "expect": {
@@ -43,7 +43,7 @@
     {
       "kind": "pairs",
       "name": "products: spot pairs and scales (Ep/Ev) — loaded before any spot price is parsed (no guessed factor)",
-      "market": "Phemex",
+      "exchangeKey": "Phemex",
       "requestId": 0,
       "note": "Runs first: without a loaded product list (memory or stored copy) Phemex spot prices are not parsed at all.",
       "body": "{\"code\":0,\"msg\":\"\",\"data\":{\"currencies\":[{\"currency\":\"BTC\",\"valueScale\":8},{\"currency\":\"ETH\",\"valueScale\":8},{\"currency\":\"USDT\",\"valueScale\":8},{\"currency\":\"SHIB\",\"valueScale\":2}],\"products\":[{\"symbol\":\"sBTCUSDT\",\"type\":\"Spot\",\"status\":\"Listed\",\"baseCurrency\":\"BTC\",\"quoteCurrency\":\"USDT\",\"priceScale\":8},{\"symbol\":\"sETHUSDT\",\"type\":\"Spot\",\"status\":\"Listed\",\"baseCurrency\":\"ETH\",\"quoteCurrency\":\"USDT\",\"priceScale\":8},{\"symbol\":\"sSHIBUSDT\",\"type\":\"Spot\",\"status\":\"Listed\",\"baseCurrency\":\"SHIB\",\"quoteCurrency\":\"USDT\",\"priceScale\":8},{\"symbol\":\"BTCUSD\",\"type\":\"Perpetual\",\"status\":\"Listed\",\"baseCurrency\":\"BTC\",\"quoteCurrency\":\"USD\",\"priceScale\":4}],\"perpProductsV2\":[]}}",
@@ -67,7 +67,7 @@
     {
       "kind": "single",
       "name": "spot 24hr: scaled integers (Ep/Ev = 1e8), timestamp in ns",
-      "market": "Phemex",
+      "exchangeKey": "Phemex",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -91,7 +91,7 @@
     {
       "kind": "single",
       "name": "futures v2 24hr: decimal strings (Rp/Rq/Rv), no bid/ask",
-      "market": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -115,7 +115,7 @@
     {
       "kind": "single",
       "name": "error object",
-      "market": "Phemex",
+      "exchangeKey": "Phemex",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -132,7 +132,7 @@
     {
       "kind": "single",
       "name": "code/msg error",
-      "market": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -149,7 +149,7 @@
     {
       "kind": "bulk",
       "name": "bulk spot /all",
-      "market": "Phemex",
+      "exchangeKey": "Phemex",
       "requestId": 0,
       "body": "{\"error\":null,\"id\":0,\"result\":[{\"askEp\":6200020000000,\"bidEp\":6200010000000,\"highEp\":6250000000000,\"indexEp\":6201010000000,\"lastEp\":6200010000000, \"lowEp\":6000000000000,\"openEp\":6050000000000,\"symbol\":\"sBTCUSDT\",\"timestamp\":1728540000123456789, \"turnoverEv\":74446012345678900,\"volumeEv\":1210050000000},{\"askEp\":6200020000000,\"bidEp\":6200010000000,\"highEp\":6250000000000,\"indexEp\":6201010000000,\"lastEp\":245012000000, \"lowEp\":6000000000000,\"openEp\":246246000000,\"symbol\":\"sETHUSDT\",\"timestamp\":1728540000123456789, \"turnoverEv\":74446012345678900,\"volumeEv\":1210050000000}]}",
       "expect": {
@@ -169,7 +169,7 @@
     {
       "kind": "bulk",
       "name": "bulk futures v2 /all",
-      "market": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "requestId": 0,
       "body": "{\"error\":null,\"id\":0,\"result\":[{\"closeRp\":\"62000.1\",\"fundingRateRr\":\"0.0001\",\"highRp\":\"62500\",\"indexPriceRp\":\"62010.1\",\"lowRp\":\"60000\", \"markPriceRp\":\"62005.5\",\"openInterestRv\":\"1234.5\",\"openRp\":\"60500\",\"predFundingRateRr\":\"0.0001\",\"symbol\":\"BTCUSDT\", \"timestamp\":1728540000123456789,\"turnoverRv\":\"744460123.45\",\"volumeRq\":\"12100.5\"}]}",
       "expect": {
@@ -186,7 +186,7 @@
     {
       "kind": "bulk",
       "name": "bulk with code/msg error instead of result: request fails",
-      "market": "Phemex",
+      "exchangeKey": "Phemex",
       "requestId": 0,
       "body": "{\"code\":6001,\"msg\":\"invalid argument\",\"data\":null}",
       "expect": {
@@ -197,7 +197,7 @@
     {
       "kind": "bulk",
       "name": "bulk with error object and result null: request fails",
-      "market": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "requestId": 0,
       "body": "{\"error\":{\"code\":6001,\"message\":\"invalid argument\"},\"id\":0,\"result\":null}",
       "expect": {
@@ -207,7 +207,7 @@
     {
       "kind": "single",
       "name": "code/msg error with msg null: no error text (not \"null\")",
-      "market": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -224,7 +224,7 @@
     {
       "kind": "single",
       "name": "timestamp \"NaN\" / huge: no crash",
-      "market": "PhemexFutures",
+      "exchangeKey": "PhemexFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -242,7 +242,7 @@
     {
       "kind": "bulk",
       "name": "bulk spot /all: SHIB volume with its value scale 2 (Public-Spot-API currencies table), price Ep 1e8",
-      "market": "Phemex",
+      "exchangeKey": "Phemex",
       "requestId": 0,
       "body": "{\"error\":null,\"id\":0,\"result\":[{\"askEp\":1235,\"bidEp\":1234,\"highEp\":1300,\"lastEp\":1234,\"lowEp\":1200,\"openEp\":1250,\"symbol\":\"sSHIBUSDT\",\"timestamp\":1728540000123456789,\"turnoverEv\":1523456789000,\"volumeEv\":123456789012},{\"askEp\":6200020000000,\"bidEp\":6200010000000,\"highEp\":6250000000000,\"lastEp\":6200010000000,\"lowEp\":6000000000000,\"openEp\":6050000000000,\"symbol\":\"sBTCUSDT\",\"timestamp\":1728540000123456789,\"turnoverEv\":74446012345678900,\"volumeEv\":1210050000000}]}",
       "expect": {

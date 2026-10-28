@@ -26,8 +26,8 @@
         <item quantity="other">bulk request %1$s · %2$d prices</item>
     </plurals>
     <string name="refresh_sheet_database">Database</string>
-    <string name="refresh_sheet_market_unreachable">%1$s unreachable</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s unreachable</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d exchange unreachable</item>
         <item quantity="other">%1$d exchanges unreachable</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">exchange unavailable</string>
     <string name="refresh_sheet_seconds_a11y">%1$s seconds</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Exchanges</string>
+    <string name="refresh_sheet_section_exchanges">Exchanges</string>
     <string name="refresh_sheet_section_steps">Breakdown</string>
     <string name="refresh_sheet_status_failed">not updated</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

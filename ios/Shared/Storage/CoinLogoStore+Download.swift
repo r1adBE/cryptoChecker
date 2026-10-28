@@ -181,7 +181,7 @@ extension CoinLogoStore {
             return (http, nil)
         }
         do {
-            let data = try await MarketHTTP.collectLimited(bytes, limit: maxImageBytes, expected: http.expectedContentLength)
+            let data = try await ExchangeHTTP.collectLimited(bytes, limit: maxImageBytes, expected: http.expectedContentLength)
             return (http, data)
         } catch {
             bytes.task.cancel()

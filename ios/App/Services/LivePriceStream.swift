@@ -37,7 +37,7 @@ actor LivePriceStream {
     private var buffer = LiveBuffer()
     private var watchIds: [LiveExchange: [String: [Int64]]] = [:]
     private var lastDataAt: [LiveExchange: Int64] = [:]
-    private var marketNames: [String: String] = [:]
+    private var exchangeNames: [String: String] = [:]
     private var tickAt: [Int64: Int64] = [:]
     private var connections: [String: Running] = [:]
     private var loops: Task<Void, Never>?
@@ -105,14 +105,14 @@ actor LivePriceStream {
         generation += 1
         let now = EpochTime.nowMillis
         let paused = Set(SharedStorage.exchangeBackoff.filter { ExchangeBackoff.isPaused($0.value, now: now) }.keys)
-        let plan = LivePlanner.plan(pairs, pausedMarketKeys: paused)
+        let plan = LivePlanner.plan(pairs, pausedExchangeKeys: paused)
         guard !plan.isEmpty else {
             await stopAll()
             return
         }
         running = true
         watchIds = plan.watchIds
-        marketNames = Dictionary(pairs.map { ($0.marketKey, $0.marketName) }, uniquingKeysWith: { first, _ in first })
+        exchangeNames = Dictionary(pairs.map { ($0.exchangeKey, $0.exchangeName) }, uniquingKeysWith: { first, _ in first })
         var ids = Set<Int64>()
         for bySymbol in plan.watchIds.values {
             for list in bySymbol.values { ids.formUnion(list) }
@@ -186,7 +186,7 @@ actor LivePriceStream {
         let now = EpochTime.nowMillis
         var names = Set<String>()
         for (exchange, at) in lastDataAt where now - at <= LiveRules.freshMillis {
-            if let name = marketNames[exchange.marketKey] { names.insert(name) }
+            if let name = exchangeNames[exchange.exchangeKey] { names.insert(name) }
         }
         let exchanges = names.sorted()
         // Paare am Live-Strom: abonniert bei einer Börse mit frischen Daten (eigene Frische-Schwelle, K-1)
@@ -244,7 +244,7 @@ actor LivePriceStream {
         var attempt = 0
         while !Task.isCancelled {
             let now = EpochTime.nowMillis
-            if let state = SharedStorage.exchangeBackoff[spec.exchange.marketKey],
+            if let state = SharedStorage.exchangeBackoff[spec.exchange.exchangeKey],
                ExchangeBackoff.isPaused(state, now: now) {
                 // Börse pausiert (zu viele Anfragen): bis dahin kein Verbindungsversuch
                 await Self.sleep(millis: min(max(state.pausedUntil - now, 1_000), LiveBackoff.rateLimitedMillis))
@@ -263,7 +263,7 @@ actor LivePriceStream {
 
     private func connectOnce(_ spec: LiveConnectionSpec) async -> Ended {
         guard let url = URL(string: spec.exchange.url) else { return Ended(receivedData: false, rateLimited: false) }
-        // User-Agent auch im Handshake, wie bei REST (`MarketHTTP`) und Android
+        // User-Agent auch im Handshake, wie bei REST (`ExchangeHTTP`) und Android
         var request = URLRequest(url: url)
         request.setValue(HttpUserAgent.value, forHTTPHeaderField: HttpUserAgent.header)
         let socket = session.webSocketTask(with: request)
@@ -282,7 +282,7 @@ actor LivePriceStream {
                 let now = EpochTime.nowMillis
                 // Börse inzwischen pausiert (`ExchangeBackoff`): Verbindung schliessen, die
                 // Schleife verbindet erst nach der Pause wieder
-                if let state = SharedStorage.exchangeBackoff[spec.exchange.marketKey],
+                if let state = SharedStorage.exchangeBackoff[spec.exchange.exchangeKey],
                    ExchangeBackoff.isPaused(state, now: now) {
                     socket.cancel(with: .goingAway, reason: nil)
                     return

@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.marketdata.model.market.DexScreener
+import com.cryptochecker.marketdata.model.exchange.DexScreener
 
 /**
  * Vertragsadresse des Basis-Tokens eines DEX-Pools («baseToken.address» aus der DexScreener-Suche) fürs Paar-Blatt:

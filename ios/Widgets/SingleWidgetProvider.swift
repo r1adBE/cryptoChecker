@@ -174,7 +174,7 @@ struct SingleProvider: AppIntentTimelineProvider {
     /// Börse der Kerzen, falls nicht die des Paars (wie Android `SingleWidgetRenderer`, `DayChange.foreignCandleSource`).
     private static func foreignChart(_ watch: Watch?, _ sourced: Sourced<[MarketCandle]>?) -> String? {
         guard let watch, let sourced else { return nil }
-        return DayChange.foreignCandleSource(markets: [watch.marketKey, watch.marketName], provider: sourced.provider)
+        return DayChange.foreignCandleSource(exchanges: [watch.exchangeKey, watch.exchangeName], provider: sourced.provider)
     }
 
     private static func candles(for watch: Watch?, range: WidgetChartRangeOption) async -> Sourced<[MarketCandle]>? {

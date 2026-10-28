@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Błąd: %1$s</string>
-    <string name="error_market_unreachable">Giełda jest teraz niedostępna – ostatnie kursy pozostają widoczne.</string>
-    <string name="error_market_unreachable_short">Giełda jest teraz niedostępna</string>
+    <string name="error_exchange_unreachable">Giełda jest teraz niedostępna – ostatnie kursy pozostają widoczne.</string>
+    <string name="error_exchange_unreachable_short">Giełda jest teraz niedostępna</string>
     <string name="loading_hint">Wczytywanie…</string>
     <string name="no_internet_connection">Brak połączenia z internetem. Sprawdź Wi-Fi lub dane komórkowe i spróbuj ponownie.</string>
     <string name="option_off">Wył.</string>

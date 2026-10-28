@@ -108,7 +108,7 @@ internal fun sheetPriceSpoken(watch: WatchEntity, priceText: String, off: Boolea
     )
     val outdated = freshness == A11ySpeech.Freshness.OUTDATED || freshness == A11ySpeech.Freshness.UNREACHABLE_OUTDATED
     val stale = if (outdated) {
-        A11yText.freshness(context, A11ySpeech.Freshness.OUTDATED, watch.lastUpdate, now, watch.marketName)
+        A11yText.freshness(context, A11ySpeech.Freshness.OUTDATED, watch.lastUpdate, now, watch.exchangeName)
     } else if (!notTraded && watch.lastError == null && !off && outdatedAfter > 0 &&
         PriceFreshness.staleReason(watch, now, outdatedAfter) == PriceFreshness.StaleReason.TRADE
     ) {
@@ -144,8 +144,8 @@ internal fun WatchActionsHeader(
         CoinBadge(
             watch.baseAsset,
             size = 32.dp,
-            logo = CoinLogos.allowedFor(watch.marketKey),
-        pair = CoinLogos.pairKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
+            logo = CoinLogos.allowedFor(watch.exchangeKey),
+        pair = CoinLogos.pairKey(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
             modifier = Modifier.padding(end = 12.dp)
         )
         Column(modifier = Modifier.weight(1f)) {
@@ -156,8 +156,8 @@ internal fun WatchActionsHeader(
             )
             Text(
                 // Vorschau: «Binance · Nicht in der Merkliste»
-                if (preview) "${watch.marketName} · ${stringResource(R.string.watch_preview_not_watched)}"
-                else watch.marketName,
+                if (preview) "${watch.exchangeName} · ${stringResource(R.string.watch_preview_not_watched)}"
+                else watch.exchangeName,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -209,12 +209,12 @@ internal fun WatchActionsHeader(
         // Börse meldet den Mittelkurs (z. B. Hyperliquid), keinen letzten Handel: so benennen; fehlte der
         // Mittelkurs (dünnes Orderbuch), steht der Mark-Preis da — dann so. WOO X Spot: Schluss der
         // jüngsten Stundenkerze
-        val market = com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey)
+        val exchange = com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey)
         val midText = when (com.cryptochecker.app.domain.watch.PriceKindLabel.of(
-            priceIsMid = market.priceIsMid,
+            priceIsMid = exchange.priceIsMid,
             markFallback = watch.id in LocalMarkFallback.current,
-            hourlyClose = market.priceIsHourlyClose,
-            dailyReference = market.priceIsDailyReference,
+            hourlyClose = exchange.priceIsHourlyClose,
+            dailyReference = exchange.priceIsDailyReference,
         )) {
             com.cryptochecker.app.domain.watch.PriceKindLabel.MARK -> " · " + stringResource(R.string.watch_price_mark_fallback)
             com.cryptochecker.app.domain.watch.PriceKindLabel.MID -> " · " + stringResource(R.string.watch_price_mid)
@@ -232,7 +232,7 @@ internal fun WatchActionsHeader(
                     size = ChangePillSize.MEDIUM,
                     // Änderung gegen den Mark-Preis (Market.changeIsMark): als «Mark» benennen
                     mark = com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark(
-                        com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey).changeIsMark,
+                        com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).changeIsMark,
                         headerChangeView.basis,
                     ),
                 )

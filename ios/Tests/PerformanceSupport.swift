@@ -25,7 +25,7 @@ struct PerformanceRandom {
 
 /// Testdaten der Leistungstests: bis zu 2000 Paare (Obergrenze der Merkliste) aus 100 echten Coins × 20
 /// Quote-Währungen, je Börse eindeutig, mit festem Seed. Paar `i` hat immer dieselbe Basis/Quote; in der gemischten
-/// Merkliste steht es an der Börse `i % 5` (`markets`). Gleich aufgebaut wie `PerformanceData.kt` (Android).
+/// Merkliste steht es an der Börse `i % 5` (`exchanges`). Gleich aufgebaut wie `PerformanceData.kt` (Android).
 enum PerformanceData {
     static let seed: UInt64 = 20_261_024
 
@@ -59,11 +59,11 @@ enum PerformanceData {
     ]
 
     /// Börsen der gemischten Merkliste: Schlüssel und Anzeigename.
-    static let markets: [(key: String, name: String)] = [
+    static let exchanges: [(key: String, name: String)] = [
         ("Binance", "Binance"), ("Kraken", "Kraken"), ("Bybit", "Bybit"), ("Okex", "OKX"), ("Coinbase", "Coinbase"),
     ]
 
-    static let binance = markets[0]
+    static let binance = exchanges[0]
 
     /// Gruppen (nil = keine; doppelt, damit etwa ein Viertel ohne Gruppe bleibt).
     static let groups: [String?] = [nil, nil, "Layer 1", "DeFi", "Memes", "Gaming", AutoGroup.tradFi, AutoGroup.dated]
@@ -84,17 +84,17 @@ enum PerformanceData {
     static func chf(perQuote quote: String) -> Double { chfPerQuote[quote] ?? 1 }
 
     /// Die ersten `count` Paare als Binance-Paarliste (Auswahl der Sammelaufnahme).
-    static func binancePairs(_ count: Int) -> [MarketPair] {
-        (0..<count).map { MarketPair(base($0), quote($0), symbol($0)) }
+    static func binancePairs(_ count: Int) -> [ExchangePair] {
+        (0..<count).map { ExchangePair(base($0), quote($0), symbol($0)) }
     }
 
-    /// Merkliste mit `count` Paaren (höchstens 2000). `market` nil = gemischt über `markets`; sonst alle an dieser
+    /// Merkliste mit `count` Paaren (höchstens 2000). `exchange` nil = gemischt über `exchanges`; sonst alle an dieser
     /// Börse. Etwa 5 % Favoriten, 5 % ohne 24-h-Wert, 2 % deaktiviert, 10 % mit Notiz.
-    static func watches(_ count: Int, market: (key: String, name: String)? = nil) -> [Watch] {
+    static func watches(_ count: Int, exchange: (key: String, name: String)? = nil) -> [Watch] {
         precondition(count <= bases.count * quotes.count, "höchstens \(bases.count * quotes.count) Paare")
         var rng = PerformanceRandom(seed: seed)
         return (0..<count).map { i -> Watch in
-            let place = market ?? markets[i % markets.count]
+            let place = exchange ?? exchanges[i % exchanges.count]
             let price = pow(10.0, rng.nextDouble() * 8.0 - 4.0)
             let previous = price * (0.99 + rng.nextDouble() * 0.02)
             let change = (rng.nextDouble() - 0.5) * 16.0
@@ -103,7 +103,7 @@ enum PerformanceData {
             let group = groups[rng.nextInt(groups.count)]
             let note = rng.nextInt(10) == 0 ? String(format: "Einstieg bei %.4f", previous) : nil
             let disabled = rng.nextInt(50) == 0
-            return Watch(id: Int64(i + 1), marketKey: place.key, marketName: place.name, baseAsset: base(i),
+            return Watch(id: Int64(i + 1), exchangeKey: place.key, exchangeName: place.name, baseAsset: base(i),
                          quoteAsset: quote(i), pairId: symbol(i), sortOrder: i, notificationEnabled: false,
                          lastPrice: price, previousPrice: previous, lastUpdate: updatedAt, favorite: favorite,
                          groupName: group, note: note, change24h: noChange ? nil : change, disabled: disabled)

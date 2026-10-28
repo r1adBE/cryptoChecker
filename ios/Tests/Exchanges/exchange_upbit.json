@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker KRW-BTC: signed_change_rate (vs. KST previous close) not used; trade_timestamp only as exchangeTime (timestamp = fetch time)",
-      "market": "Upbit",
+      "exchangeKey": "Upbit",
       "pair": {
         "base": "BTC",
         "quote": "KRW",
@@ -34,7 +34,7 @@
     {
       "kind": "single",
       "name": "error object",
-      "market": "Upbit",
+      "exchangeKey": "Upbit",
       "pair": {
         "base": "FOO",
         "quote": "KRW",
@@ -51,7 +51,7 @@
     {
       "kind": "single",
       "name": "Bithumb ticker: trade_timestamp is the KST wall clock written as epoch (+9 h), so the time comes from trade_date + trade_time (UTC)",
-      "market": "Bithumb",
+      "exchangeKey": "Bithumb",
       "pair": {
         "base": "BTC",
         "quote": "KRW",
@@ -74,7 +74,7 @@
     {
       "kind": "single",
       "name": "Bithumb ticker without trade_date/trade_time: no exchange time (trade_timestamp is not trusted)",
-      "market": "Bithumb",
+      "exchangeKey": "Bithumb",
       "pair": {
         "base": "BTC",
         "quote": "KRW",
@@ -91,7 +91,7 @@
     {
       "kind": "bulk",
       "name": "bulk ticker?markets=...",
-      "market": "Upbit",
+      "exchangeKey": "Upbit",
       "requestId": 0,
       "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728540000123},{\"market\":\"BTC-ETH\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728540000000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":0.0396, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728540000123}]",
       "expect": {
@@ -109,7 +109,7 @@
     {
       "kind": "bulk",
       "name": "Bithumb bulk ticker?markets=...",
-      "market": "Bithumb",
+      "exchangeKey": "Bithumb",
       "requestId": 0,
       "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_date_kst\":\"20241010\",\"trade_time_kst\":\"150000\", \"trade_timestamp\":1728572400000,\"opening_price\":85000000,\"high_price\":86500000,\"low_price\":84000000,\"trade_price\":86000000, \"prev_closing_price\":84500000,\"change\":\"RISE\",\"change_price\":1500000,\"change_rate\":0.0177514793,\"signed_change_price\":1500000, \"signed_change_rate\":0.0177514793,\"trade_volume\":0.001,\"acc_trade_price\":123456789012.5,\"acc_trade_price_24h\":234567890123.4, \"acc_trade_volume\":1450.12,\"acc_trade_volume_24h\":2750.34,\"highest_52_week_price\":105000000,\"highest_52_week_date\":\"2024-03-14\", \"lowest_52_week_price\":40000000,\"lowest_52_week_date\":\"2023-10-12\",\"timestamp\":1728572400123}]",
       "expect": {
@@ -126,7 +126,7 @@
     {
       "kind": "bulk",
       "name": "Bithumb bulk: row without trade_price is reported as unreadable, not dropped",
-      "market": "Bithumb",
+      "exchangeKey": "Bithumb",
       "requestId": 0,
       "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_timestamp\":1728572400000,\"trade_price\":86000000,\"acc_trade_price_24h\":234567890123.4,\"acc_trade_volume_24h\":2750.34},{\"market\":\"KRW-XRP\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_timestamp\":1728572400000,\"price\":800,\"acc_trade_price_24h\":1000.0,\"acc_trade_volume_24h\":1.25}]",
       "expect": {
@@ -145,7 +145,7 @@
     {
       "kind": "bulk",
       "name": "Bithumb bulk: trade_price 0 (inactive) is skipped, not reported as unreadable",
-      "market": "Bithumb",
+      "exchangeKey": "Bithumb",
       "requestId": 0,
       "body": "[{\"market\":\"KRW-BTC\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_timestamp\":1728572400000,\"trade_price\":86000000,\"acc_trade_price_24h\":1.0,\"acc_trade_volume_24h\":2.0},{\"market\":\"KRW-OLD\",\"trade_date\":\"20241010\",\"trade_time\":\"060000\",\"trade_timestamp\":1728572400000,\"trade_price\":0,\"acc_trade_price_24h\":0.0,\"acc_trade_volume_24h\":0.0}]",
       "expect": {

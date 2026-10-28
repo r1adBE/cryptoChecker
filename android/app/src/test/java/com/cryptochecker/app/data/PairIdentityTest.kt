@@ -13,7 +13,7 @@ import org.junit.Test
 class PairIdentityTest {
 
     private val btc = WatchEntity(
-        id = 7, marketKey = "Binance", marketName = "Binance", baseAsset = "BTC", quoteAsset = "USDT",
+        id = 7, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "BTC", quoteAsset = "USDT",
         contractType = FuturesContractType.NONE, pairId = "BTCUSDT",
     )
 
@@ -28,7 +28,7 @@ class PairIdentityTest {
     fun editedPairIsADifferentIdentity() {
         val edited = btc.copy(baseAsset = "ETH", pairId = "ETHUSDT")
         assertNotEquals(btc.pairIdentity, edited.pairIdentity)
-        assertNotEquals(btc.pairIdentity, btc.copy(marketKey = "Bybit").pairIdentity)
+        assertNotEquals(btc.pairIdentity, btc.copy(exchangeKey = "Bybit").pairIdentity)
         assertNotEquals(btc.pairIdentity, btc.copy(contractType = FuturesContractType.PERPETUAL).pairIdentity)
         // Kennung null ist ein eigener Wert (SQL vergleicht mit IS)
         assertNotEquals(btc.pairIdentity, btc.copy(pairId = null).pairIdentity)

@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Çifte</string>
     <string name="explorer_precise_title">E avancuar / sipas bursës</string>
     <string name="explorer_price_loading">Po ngarkohet çmimi…</string>
-    <string name="explorer_select_market_hint">Zgjidh një bursë – çiftet ngarkohen automatikisht.</string>
+    <string name="explorer_select_exchange_hint">Zgjidh një bursë – çiftet ngarkohen automatikisht.</string>
     <string name="explorer_select_placeholder">Zgjidh</string>
     <string name="explorer_step_pair">Zgjidh çiftin</string>
 

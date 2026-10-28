@@ -3,9 +3,9 @@ package com.cryptochecker.marketdata.model
 /**
  * Blätterzustand der Paarliste für genau eine Anfrage einer Synchronisierung (erste Seite samt Folgeseiten).
  *
- * [Market]-Instanzen gibt es je Börse nur einmal, gleichzeitige Abfragen teilen sie. Ein Cursor in der Börse selbst
+ * [Exchange]-Instanzen gibt es je Börse nur einmal, gleichzeitige Abfragen teilen sie. Ein Cursor in der Börse selbst
  * würde zwei gleichzeitige Synchronisierungen derselben Börse vermischen — darum holt der Abgleich für jede Anfrage
- * einen frischen Zustand ([Market.pairListPaging]) und fragt nur ihn nach der nächsten Seite.
+ * einen frischen Zustand ([Exchange.pairListPaging]) und fragt nur ihn nach der nächsten Seite.
  * iOS: `PairListPaging.swift`.
  */
 fun interface PairListPaging {
@@ -26,7 +26,7 @@ interface PagedPairList {
 
 /**
  * Frischer Blätterzustand für eine Anfrage der Paarliste: der eigene der Börse ([PagedPairList]), sonst zustandslos
- * über [Market.pairListNextPage] (der Cursor steht in der Antwort, etwa Bybit `nextPageCursor`).
+ * über [Exchange.pairListNextPage] (der Cursor steht in der Antwort, etwa Bybit `nextPageCursor`).
  */
-fun Market.pairListPaging(): PairListPaging =
+fun Exchange.pairListPaging(): PairListPaging =
     (this as? PagedPairList)?.newPairListPaging() ?: PairListPaging { call, body -> pairListNextPage(call, body) }

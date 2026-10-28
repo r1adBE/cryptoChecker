@@ -37,7 +37,7 @@ object StarterCoins {
     )
 
     fun fallback(regionCountry: String?): List<StarterPairs.Coin> =
-        if (StarterPairs.marketKey(regionCountry) == StarterPairs.BINANCE_KEY) FALLBACK else FALLBACK_US
+        if (StarterPairs.exchangeKey(regionCountry) == StarterPairs.BINANCE_KEY) FALLBACK else FALLBACK_US
 
     /** Stablecoins — die Liste steht in [CoinExclusion]. */
     val STABLECOINS: Set<String> get() = CoinExclusion.STABLECOINS

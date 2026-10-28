@@ -10,7 +10,7 @@ extension AlarmEditorSheet {
     /// DEX-Paare ohne Kerzenquelle fragen gar nicht.
     func loadTemplateData() async {
         guard initial.id == 0, let watch,
-              SheetChart.isSupported(marketKey: watch.marketKey, base: watch.baseAsset, quote: watch.quoteAsset) else { return }
+              SheetChart.isSupported(exchangeKey: watch.exchangeKey, base: watch.baseAsset, quote: watch.quoteAsset) else { return }
         let ranges = await NearExtremeDataSource.ranges(base: watch.baseAsset, quote: watch.quoteAsset)
         hasDailyRange = ranges?.ranges[AlarmTemplates.newExtremeWindowDays] != nil
         let spike = await VolumeDataSource.hourlySpike(watch: watch, price: watch.lastPrice)

@@ -37,7 +37,7 @@
     <string name="market_section_expand">%1$s 펼치기</string>
     <string name="market_section_now">지금</string>
     <string name="market_source">데이터: Binance · Coin Metrics (CC BY-NC 4.0)</string>
-    <string name="market_unavailable_error">거래소를 사용할 수 없음</string>
+    <string name="exchange_unavailable_error">거래소를 사용할 수 없음</string>
 
     <!-- Markt-Tab: Info-Zeichen und Info-Blatt je Karte (was, wie, Quelle) -->
     <string name="market_info_a11y">정보: %1$s</string>

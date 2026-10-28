@@ -10,7 +10,7 @@
     {
       "kind": "single",
       "name": "time series: newest day is the price, change against the previous ECB day (weekend skipped)",
-      "market": "EcbReference",
+      "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
         "quote": "USD",
@@ -35,7 +35,7 @@
     {
       "kind": "single",
       "name": "only one day in the window: price without change",
-      "market": "EcbReference",
+      "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
         "quote": "CHF",
@@ -60,7 +60,7 @@
     {
       "kind": "single",
       "name": "quote missing in the series: no data, no error text",
-      "market": "EcbReference",
+      "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
         "quote": "JPY",
@@ -77,7 +77,7 @@
     {
       "kind": "single",
       "name": "unknown currency: Frankfurter answers {message}",
-      "market": "EcbReference",
+      "exchangeKey": "EcbReference",
       "pair": {
         "base": "EUR",
         "quote": "XYZ",
@@ -94,7 +94,7 @@
     {
       "kind": "bulk",
       "name": "one series per base currency: every quote becomes base+quote",
-      "market": "EcbReference",
+      "exchangeKey": "EcbReference",
       "requestId": 0,
       "body": "{\"amount\":1.0,\"base\":\"EUR\",\"start_date\":\"2026-10-16\",\"end_date\":\"2026-10-26\",\"rates\":{\"2026-10-21\":{\"CHF\":0.9256,\"USD\":1.1234},\"2026-10-22\":{\"CHF\":0.9211,\"USD\":1.1205},\"2026-10-23\":{\"CHF\":0.9227,\"USD\":1.1193},\"2026-10-26\":{\"CHF\":0.9243,\"USD\":1.1188}}}",
       "expect": {
@@ -130,7 +130,7 @@
     {
       "kind": "pairs",
       "name": "currencies: all ordered pairs of valid three-letter codes",
-      "market": "EcbReference",
+      "exchangeKey": "EcbReference",
       "requestId": 0,
       "body": "{\"AUD\":\"Australian Dollar\",\"CHF\":\"Swiss Franc\",\"EUR\":\"Euro\",\"USD\":\"United States Dollar\",\"xx1\":\"broken\"}",
       "expect": {

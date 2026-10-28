@@ -1,6 +1,6 @@
 package com.cryptochecker.app.contract
 
-import com.cryptochecker.marketdata.model.market.DexScreener
+import com.cryptochecker.marketdata.model.exchange.DexScreener
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -12,7 +12,7 @@ import org.junit.Test
  */
 class DexScreenerBulkTest {
 
-    private val market = DexScreener()
+    private val exchange = DexScreener()
 
     @Test
     fun groupsByChainSortedWithoutDuplicates() {
@@ -47,14 +47,14 @@ class DexScreenerBulkTest {
     @Test
     fun requestAddressesFollowTheGroups() {
         val ids = listOf("ethereum/0xB", "ethereum/0xA", "bsc/0xC")
-        assertEquals(1, market.bulkTickersNumOfRequests)
-        assertEquals(2, market.bulkTickersRequestCount(ids))
-        assertEquals("https://api.dexscreener.com/latest/dex/pairs/bsc/0xC", market.getBulkTickersUrl(0, ids))
-        assertEquals("https://api.dexscreener.com/latest/dex/pairs/ethereum/0xA,0xB", market.getBulkTickersUrl(1, ids))
-        assertNull(market.getBulkTickersUrl(2, ids))
+        assertEquals(1, exchange.bulkTickersNumOfRequests)
+        assertEquals(2, exchange.bulkTickersRequestCount(ids))
+        assertEquals("https://api.dexscreener.com/latest/dex/pairs/bsc/0xC", exchange.getBulkTickersUrl(0, ids))
+        assertEquals("https://api.dexscreener.com/latest/dex/pairs/ethereum/0xA,0xB", exchange.getBulkTickersUrl(1, ids))
+        assertNull(exchange.getBulkTickersUrl(2, ids))
         // Keine ungefilterte Liste; ein fehlender Pool geht in die Einzelabfrage
-        assertNull(market.getBulkTickersUrl(0))
-        assertFalse(market.bulkTickersComplete)
-        assertEquals(0, market.bulkTickersRequestCount(listOf("invalid")))
+        assertNull(exchange.getBulkTickersUrl(0))
+        assertFalse(exchange.bulkTickersComplete)
+        assertEquals(0, exchange.bulkTickersRequestCount(listOf("invalid")))
     }
 }

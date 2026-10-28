@@ -3,7 +3,7 @@ import Foundation
 /// Vergleichsschlüssel einer Adresse: dieselbe Adresse ohne den Abfrageparameter `timestamp=<Ziffern>`. BingX stempelt
 /// jede Adresse schon beim Bilden mit der aktuellen Zeit (ms) — ohne diesen Schlüssel wären zwei sonst gleiche Anfragen
 /// nie gleich: gleichzeitige gleiche Abrufe liefen doppelt (`InFlightRequests`), nach einer gescheiterten
-/// Sammelabfrage folgte dieselbe Anfrage noch einmal als «ungefiltert» (`MarketService.loadBulkCall`), und das Widget
+/// Sammelabfrage folgte dieselbe Anfrage noch einmal als «ungefiltert» (`ExchangeService.loadBulkCall`), und das Widget
 /// hielte die Sammelabfrage für gefiltert (`LowMemoryBulk.isUnfiltered`). Gesendet wird immer die echte Adresse mit
 /// Stempel. Wie `RequestKey.kt`, Fälle in `request_key.json`.
 enum RequestKey {

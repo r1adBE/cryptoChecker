@@ -27,7 +27,7 @@
     {"gotPrice": false, "error": "HttpCode: 502", "confirmed": false},
     {"gotPrice": false, "error": "NETWORK_OFFLINE", "confirmed": false},
     {"gotPrice": false, "error": "Timed out waiting for 20000 ms", "confirmed": false},
-    {"gotPrice": false, "error": "Market unavailable", "confirmed": false},
+    {"gotPrice": false, "error": "Exchange unavailable", "confirmed": false},
     {"gotPrice": false, "error": "EQuery:Unknown asset pair", "confirmed": true},
     {"gotPrice": false, "error": "EGeneral:Too many requests", "confirmed": false},
     {"gotPrice": false, "error": "EAPI:Rate limit exceeded", "confirmed": false},

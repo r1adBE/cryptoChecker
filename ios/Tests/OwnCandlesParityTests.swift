@@ -15,8 +15,8 @@ final class OwnCandlesParityTests: XCTestCase {
 
     private func pair(_ raw: Any?) -> CandlePair {
         let p = raw as? [String: Any] ?? [:]
-        return CandlePair(marketKey: p["marketKey"] as? String ?? "",
-                          marketName: p["marketName"] as? String ?? "",
+        return CandlePair(exchangeKey: p["exchangeKey"] as? String ?? "",
+                          exchangeName: p["exchangeName"] as? String ?? "",
                           base: p["base"] as? String ?? "",
                           quote: p["quote"] as? String ?? "",
                           pairId: p["pairId"] as? String,
@@ -98,7 +98,7 @@ final class OwnCandlesParityTests: XCTestCase {
             let pair = self.pair(c["pair"])
             let source = ExchangeCandleRegistry.source(for: pair)
             if let expected = c["source"] as? String {
-                XCTAssertTrue(source?.marketKeys.contains(expected) ?? false, "\(name): source for \(expected)")
+                XCTAssertTrue(source?.exchangeKeys.contains(expected) ?? false, "\(name): source for \(expected)")
             } else {
                 XCTAssertNil(source, "\(name): no own source")
             }

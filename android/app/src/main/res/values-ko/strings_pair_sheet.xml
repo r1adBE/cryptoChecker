@@ -45,7 +45,7 @@
     <string name="change_short_today_zone">오늘 %1$s</string>
 
     <!-- Karte «Marktdaten» im Aktionsblatt (Spot | Futures) -->
-    <string name="market_data_empty_error">거래소에서 데이터를 받지 못했습니다.</string>
+    <string name="exchange_data_empty_error">거래소에서 데이터를 받지 못했습니다.</string>
     <string name="market_data_summary">시가총액, 가스비, 경제 지표, 코인 분석</string>
     <string name="market_data_tab_futures">선물</string>
     <string name="market_data_title">시장 데이터</string>

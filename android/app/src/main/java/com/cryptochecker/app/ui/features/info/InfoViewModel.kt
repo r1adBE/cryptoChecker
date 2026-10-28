@@ -7,7 +7,7 @@ import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MacroCalendarRepository
-import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.ExchangeRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.CycleDataSource
@@ -75,7 +75,7 @@ sealed interface LoadState<out T> {
 class InfoViewModel @Inject constructor(
     internal val cycleDataSource: CycleDataSource,
     internal val insights: InsightsDataSource,
-    internal val marketRepository: MarketRepository,
+    internal val exchangeRepository: ExchangeRepository,
     private val favoritesRepository: FavoritesRepository,
     internal val gasDataSource: GasDataSource,
     internal val pulseDataSource: PulseDataSource,

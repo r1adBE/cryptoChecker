@@ -200,6 +200,6 @@ enum FxRateSource {
     }
 
     private static func get(_ url: String) async -> String? {
-        try? await MarketHTTP.call(url)
+        try? await ExchangeHTTP.call(url)
     }
 }

@@ -5,7 +5,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.util.PriceFormat
-import com.cryptochecker.marketdata.config.MarketsConfig
+import com.cryptochecker.marketdata.config.ExchangesConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Locale
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class SpokenText @Inject constructor(
     fun price(watch: WatchEntity, price: Double): String =
         context.getString(
             R.string.tts_price,
-            marketName(watch),
+            exchangeName(watch),
             watch.baseAsset,
             watch.quoteAsset,
             PriceFormat.spokenPrice(price, ttsLocale(context))
@@ -47,7 +47,7 @@ class SpokenText @Inject constructor(
         )
         return context.getString(
             R.string.tts_alarm,
-            marketName(watch),
+            exchangeName(watch),
             watch.baseAsset,
             watch.quoteAsset,
             direction,
@@ -69,6 +69,6 @@ class SpokenText @Inject constructor(
     }
 
     /** Börsen liefern einen aussprechbaren Namen mit (z. B. "MCX now"). */
-    private fun marketName(watch: WatchEntity): String =
-        MarketsConfig.MARKETS[watch.marketKey]?.ttsName ?: watch.marketName
+    private fun exchangeName(watch: WatchEntity): String =
+        ExchangesConfig.EXCHANGES[watch.exchangeKey]?.ttsName ?: watch.exchangeName
 }

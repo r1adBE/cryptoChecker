@@ -64,16 +64,16 @@ internal fun PreciseSelection(
     val bulkStats by selection.bulkStats.collectAsStateWithLifecycle()
     val bulkNew by selection.bulkNew.collectAsStateWithLifecycle()
 
-    val market = exchange
-    val isDex = market?.key == DEX_MARKET_KEY
+    val chosen = exchange
+    val isDex = chosen?.key == DEX_EXCHANGE_KEY
     val hasPairs = coins.isNotEmpty()
     val syncing = pairListSync.inProgress
     val pairSelected = hasPairs && coin != null && quote != null
 
-    MarketStepCard(
+    ExchangeStepCard(
         exchanges = selection.exchanges,
         categories = selection.exchangeCategories,
-        exchange = market,
+        exchange = chosen,
         isDex = isDex,
         hasPairs = hasPairs,
         syncing = syncing,
@@ -85,7 +85,7 @@ internal fun PreciseSelection(
         onReload = actions.onReloadPairs,
     )
 
-    if (market == null) return
+    if (chosen == null) return
     if (isDex) {
         StepCard { DexSearchSection(dex, groupTarget) }
         return

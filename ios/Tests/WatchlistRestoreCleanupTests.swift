@@ -66,14 +66,14 @@ final class WatchlistRestoreCleanupTests: XCTestCase {
 
     /// Echte Paare: Börse, Basis, Quote und Kontrakt bilden den Schlüssel (wie `Watch.samePair`).
     func testWatchPairKeyIncludesContractType() {
-        let spot = Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
-        let spotAgain = Watch(id: 2, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
-        let perp = Watch(id: 3, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
+        let spot = Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        let spotAgain = Watch(id: 2, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        let perp = Watch(id: 3, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
                          contractType: .perpetual)
-        let otherMarket = Watch(id: 4, marketKey: "kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "USDT")
+        let otherExchange = Watch(id: 4, exchangeKey: "kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "USDT")
         let alarm = Alarm(id: 20, watchId: 2, condition: .PRICE_ABOVE, threshold: 100_000)
 
-        let result = WatchlistRestoreCleanup.clean(watches: [spot, spotAgain, perp, otherMarket], alarms: [alarm])
+        let result = WatchlistRestoreCleanup.clean(watches: [spot, spotAgain, perp, otherExchange], alarms: [alarm])
         XCTAssertEqual(result.watches.map(\.id), [1, 3, 4])
         XCTAssertEqual(result.alarms.map(\.id), [20])
         XCTAssertEqual(result.alarms.first?.watchId, 1)

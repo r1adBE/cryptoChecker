@@ -3,7 +3,7 @@ package com.cryptochecker.app.contract
 import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
-import com.cryptochecker.marketdata.model.market.Woo
+import com.cryptochecker.marketdata.model.exchange.Woo
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThrows
@@ -15,21 +15,21 @@ import org.junit.Test
  */
 class WooLastTradeTest {
 
-    private val market = Woo()
+    private val exchange = Woo()
     private val info = PairQuery("BTC", "USDT", "SPOT_BTC_USDT", FuturesContractType.NONE)
 
     @Test
     fun secondRequestAsksForTheLastTrade() {
-        assertEquals(2, market.tickerCallCount(info))
-        assertEquals("https://api.woox.io/v1/public/market_trades?symbol=SPOT_BTC_USDT&limit=1", market.tickerAddress(1, info))
-        assertFalse(market.priceIsHourlyClose)
+        assertEquals(2, exchange.tickerCallCount(info))
+        assertEquals("https://api.woox.io/v1/public/market_trades?symbol=SPOT_BTC_USDT&limit=1", exchange.tickerAddress(1, info))
+        assertFalse(exchange.priceIsHourlyClose)
     }
 
     @Test
     fun lastTradeReplacesTheCandleCloseAndKeepsTheOpening() {
         // Nach den Kerzen: Kurs 80 000, +10 % → Eröffnung 72 727,27
         val ticker = MutableTicker().apply { last = 80_000.0; change24hPercent = 10.0; exchangeTime = 1_792_533_600_000 }
-        market.readTicker(1, REAL_TRADES, ticker, info)
+        exchange.readTicker(1, REAL_TRADES, ticker, info)
         assertEquals(83_081.96, ticker.last, 0.0)
         assertEquals(1_792_534_030_272L, ticker.exchangeTime)
         val opening = 80_000.0 / 1.1
@@ -41,7 +41,7 @@ class WooLastTradeTest {
     fun unreadableTradeTimeKeepsTheCandleTime() {
         for (raw in listOf("inf", "1e300")) {
             val ticker = MutableTicker().apply { last = 80_000.0; exchangeTime = 1_792_533_600_000 }
-            market.readTicker(1, """{"success":true,"rows":[{"executed_price":83081.96,"executed_timestamp":"$raw"}]}""", ticker, info)
+            exchange.readTicker(1, """{"success":true,"rows":[{"executed_price":83081.96,"executed_timestamp":"$raw"}]}""", ticker, info)
             assertEquals(raw, 83_081.96, ticker.last, 0.0)
             assertEquals(raw, 1_792_533_600_000L, ticker.exchangeTime)
         }
@@ -50,7 +50,7 @@ class WooLastTradeTest {
     @Test
     fun emptyTradesLeaveTheCandlePrice() {
         val ticker = MutableTicker().apply { last = 80_000.0; change24hPercent = 10.0 }
-        assertThrows(Exception::class.java) { market.readTicker(1, """{"success":true,"rows":[]}""", ticker, info) }
+        assertThrows(Exception::class.java) { exchange.readTicker(1, """{"success":true,"rows":[]}""", ticker, info) }
         assertEquals(80_000.0, ticker.last, 0.0)
         assertEquals(10.0, ticker.change24hPercent!!, 0.0)
     }

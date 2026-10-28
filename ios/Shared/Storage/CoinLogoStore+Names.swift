@@ -29,7 +29,7 @@ extension CoinLogoStore {
         defaults.set(Double(now), forKey: Self.stockNamesAttemptKey)
         var fresh: [String: String] = [:]
         for url in [CoinLogos.nasdaqListedURL, CoinLogos.otherListedURL] {
-            guard let text = try? await MarketHTTP.call(url) else { continue }
+            guard let text = try? await ExchangeHTTP.call(url) else { continue }
             CoinLogos.parseSymbolDirectory(text, into: &fresh)
         }
         guard !fresh.isEmpty else { return false }
@@ -80,7 +80,7 @@ extension CoinLogoStore {
 
     /// Name für ein Paar der Merkliste (TradFi beachtet); nil bei DEX-Pools und unbekannten Coins.
     static func name(for watch: Watch) -> String? {
-        guard CoinLogos.allowed(forMarket: watch.marketKey) else { return nil }
+        guard CoinLogos.allowed(forExchange: watch.exchangeKey) else { return nil }
         let tradFi = tradFiPairs.contains(watch.logoPairKey)
         if let name = names[CoinLogos.nameKey(watch.baseAsset, tradFi: tradFi)] { return name }
         // Aktie ohne Namen in der Binance-Liste: aus der Nasdaq-Symbolliste
@@ -265,7 +265,7 @@ final class AlphaTokensBox: @unchecked Sendable { // @unchecked: veränderlicher
 extension Watch {
     /// Kennung für die Liste der TradFi-Paare (`CoinLogos.pairKey`).
     var logoPairKey: String {
-        CoinLogos.pairKey(marketKey: marketKey, base: baseAsset, quote: quoteAsset, contractType: String(contractType.rawValue))
+        CoinLogos.pairKey(exchangeKey: exchangeKey, base: baseAsset, quote: quoteAsset, contractType: String(contractType.rawValue))
     }
 
     /// Art des Paars (`AssetKind.of`) aus den gespeicherten Listen; für viele Paare lieber
@@ -273,7 +273,7 @@ extension Watch {
     var assetKind: AssetKind {
         assetKind(tradFiPairs: CoinLogoStore.tradFiPairs, alphaSymbols: CoinLogoStore.alphaSymbols,
                   alphaNames: CoinLogoStore.alphaNames,
-                  pairName: TokenIdentityStore.shared.pairName(marketKey: marketKey, base: baseAsset))
+                  pairName: TokenIdentityStore.shared.pairName(exchangeKey: exchangeKey, base: baseAsset))
     }
 
     /// Art des Paars: TradFi aus der Liste der TradFi-Paare oder der Gruppe «TradFi» (die Liste pflegt
@@ -282,7 +282,7 @@ extension Watch {
     /// `WatchEntity.assetKind`.
     func assetKind(tradFiPairs: Set<String>, alphaSymbols: Set<String>,
                    alphaNames: [String: String] = [:], pairName: String? = nil) -> AssetKind {
-        AssetKind.of(marketKey: marketKey, base: baseAsset,
+        AssetKind.of(exchangeKey: exchangeKey, base: baseAsset,
                      tradFi: groupName == AutoGroup.tradFi || tradFiPairs.contains(logoPairKey),
                      alphaSymbols: alphaSymbols, pairId: pairId, pairName: pairName, alphaNames: alphaNames)
     }

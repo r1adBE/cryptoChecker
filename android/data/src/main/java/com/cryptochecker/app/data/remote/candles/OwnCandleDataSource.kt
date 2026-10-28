@@ -4,10 +4,10 @@ import com.cryptochecker.app.data.BoundedCache
 import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleInterval
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.marketdata.model.PostRequest
@@ -116,12 +116,12 @@ class OwnCandleDataSource @Inject constructor(
         if (BlockedSources.isBlocked(host) || CandleHostPauses.isPaused(host)) return null
         val post = json?.let { PostRequest(it, mapOf("Content-Type" to "application/json")) }
         val body = try {
-            withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callMarket(url, post) }
+            withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callExchange(url, post) }
         } catch (e: Exception) {
             // Echten Abbruch des Aufrufers nicht verschlucken
             currentCoroutineContext().ensureActive()
             if (!BlockedSources.noteFailure(host, e)) {
-                if (e is HttpMarketError && ExchangeBackoff.isRateLimitCode(e.httpCode)) {
+                if (e is HttpExchangeError && ExchangeBackoff.isRateLimitCode(e.httpCode)) {
                     CandleHostPauses.pause(host, e.httpCode, e.retryAfterSeconds)
                 } else {
                     Timber.d(e, "Eigene Kerzen nicht verfügbar: %s", url)

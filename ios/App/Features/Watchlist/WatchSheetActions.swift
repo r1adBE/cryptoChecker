@@ -262,7 +262,7 @@ enum WatchPreview {
     /// Id des Vorschau-Paars (nie gespeichert): negativ, fällt mit keinem Eintrag, Alarm oder Signal zusammen.
     static let watchId: Int64 = -1
     /// Börse und Quote wie die Start-Merkliste.
-    static let marketKey = "Binance"
+    static let exchangeKey = "Binance"
     static let quoteAsset = "USDT"
 
     /// Vorschau-Paar zu `symbol`; nil, wenn es Binance nicht gibt oder die gespeicherte Paarliste das
@@ -270,8 +270,8 @@ enum WatchPreview {
     /// aus den Binance-Tickern «…USDT», die Prüfung ist nur die Absicherung.
     static func watch(symbol: String) async -> Watch? {
         let base = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        guard !base.isEmpty, let market = MarketsConfig.market(marketKey) else { return nil }
-        let pairs = await PairCache.shared.pairs(for: market.key).pairs
+        guard !base.isEmpty, let exchange = ExchangesConfig.exchange(exchangeKey) else { return nil }
+        let pairs = await PairCache.shared.pairs(for: exchange.key).pairs
         var pairId = base + quoteAsset
         // Leere Liste (noch nie geladen): den Ticker selbst entscheiden lassen
         if !pairs.isEmpty {
@@ -282,7 +282,7 @@ enum WatchPreview {
             }) else { return nil }
             if let id = listed.pairId { pairId = id }
         }
-        return Watch(id: watchId, marketKey: market.key, marketName: market.name,
+        return Watch(id: watchId, exchangeKey: exchange.key, exchangeName: exchange.name,
                      baseAsset: base, quoteAsset: quoteAsset, pairId: pairId)
     }
 
@@ -298,7 +298,7 @@ enum WatchPreview {
             shown.lastError = nil
         } else {
             // Älterer Kurs bleibt stehen (das Blatt bietet dann «Erneut versuchen» an)
-            shown.lastError = fetched.error ?? L("market_unavailable_error")
+            shown.lastError = fetched.error ?? L("exchange_unavailable_error")
         }
         return shown
     }

@@ -32,9 +32,9 @@ actor MacroCalendarSource {
             return cached
         }
         let downloaded: [MacroEvent]?? = try? await AsyncTimeout.run(seconds: Self.timeoutSeconds) {
-            let text = try await MarketHTTP.call(MacroCalendar.url)
+            let text = try await ExchangeHTTP.call(MacroCalendar.url)
             return await MacroCalendar.parseVerified(text, now: now) { file, body in
-                await MarketHTTP.verifiedMirror(file: file, text: body)
+                await ExchangeHTTP.verifiedMirror(file: file, text: body)
             }
         }
         if let fresh = downloaded ?? nil {

@@ -17,6 +17,6 @@ class CandlePairs @Inject constructor(
     fun of(watch: WatchEntity): CandlePair = CandlePair.of(
         watch,
         tradFi = watch.groupName == AutoGroup.TRADFI ||
-            coinLogoRepository.isTradFi(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
+            coinLogoRepository.isTradFi(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
     )
 }

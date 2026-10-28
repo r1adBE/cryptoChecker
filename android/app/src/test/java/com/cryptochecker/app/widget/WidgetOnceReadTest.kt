@@ -53,7 +53,7 @@ class WidgetOnceReadTest {
     }
 
     private fun watch(id: Long, group: String?) = WatchEntity(
-        id = id, marketKey = "Binance", marketName = "Binance", baseAsset = "B$id", quoteAsset = "USDT", groupName = group,
+        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "B$id", quoteAsset = "USDT", groupName = group,
     )
 
     /** Auswahl wie bisher in `WidgetUpdater.updateForWatch` (Referenz). */

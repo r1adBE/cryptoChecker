@@ -69,7 +69,7 @@ final class CoinListsTests: XCTestCase {
         }
         let alphaSymbols = CoinLogos.alphaSymbols(alpha)
         XCTAssertEqual(alphaSymbols, Set(try XCTUnwrap(expected["alpha"] as? [String])))
-        XCTAssertEqual(AssetKind.of(marketKey: "BinanceFutures", base: "FROGGIE", tradFi: false, alphaSymbols: alphaSymbols), .ALPHA)
+        XCTAssertEqual(AssetKind.of(exchangeKey: "BinanceFutures", base: "FROGGIE", tradFi: false, alphaSymbols: alphaSymbols), .ALPHA)
         XCTAssertEqual(CoinMeta.binanceFullNames(binance)["WLD"], "Worldcoin")
     }
 

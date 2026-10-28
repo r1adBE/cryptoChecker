@@ -12,7 +12,7 @@ struct TickerView: View {
         VStack(alignment: .leading, spacing: 0) {
             // Gegenwährung klein und grau wie der Börsenname der Merkliste
             PriceWithQuote(price: PriceFormat.formatDouble(ticker.last), quote: quote, display: .compact)
-            // Zeit laut Börse (z. B. letzter Handel), sonst Abruf — `timestamp` ist immer der Abruf (`Market.readTicker`)
+            // Zeit laut Börse (z. B. letzter Handel), sonst Abruf — `timestamp` ist immer der Abruf (`Exchange.readTicker`)
             Text(L("ticker_timestamp") + " " + Self.sameDayTimeOrDate(ticker.exchangeTime ?? ticker.timestamp))
                 .font(.footnote)
                 .foregroundStyle(AppColors.onSurfaceVariant)

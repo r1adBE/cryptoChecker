@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Paren</string>
     <string name="explorer_precise_title">Geavanceerd / per beurs</string>
     <string name="explorer_price_loading">Koers laden…</string>
-    <string name="explorer_select_market_hint">Kies een beurs – de handelsparen laden automatisch.</string>
+    <string name="explorer_select_exchange_hint">Kies een beurs – de handelsparen laden automatisch.</string>
     <string name="explorer_select_placeholder">Kies een optie</string>
     <string name="explorer_step_pair">Paar kiezen</string>
 

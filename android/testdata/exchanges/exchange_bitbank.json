@@ -10,7 +10,7 @@
     {
       "kind": "single",
       "name": "ticker btc_jpy: open = price 24 h ago (rolling); timestamp is the snapshot time, not a trade (exchange time unknown)",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -34,7 +34,7 @@
     {
       "kind": "single",
       "name": "ticker without open: no 24 h change (fallback candles)",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -52,7 +52,7 @@
     {
       "kind": "single",
       "name": "error payload: only a code, no text",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "pair": {
         "base": "FOO",
         "quote": "JPY",
@@ -69,7 +69,7 @@
     {
       "kind": "single",
       "name": "rate limit (code 10009): text contains «Too many requests» so the refresh report counts it as throttling",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "pair": {
         "base": "BTC",
         "quote": "JPY",
@@ -86,7 +86,7 @@
     {
       "kind": "single",
       "name": "last 0 is no price, not a valid ticker (no error text)",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "pair": {
         "base": "OLD",
         "quote": "JPY",
@@ -103,7 +103,7 @@
     {
       "kind": "bulk",
       "name": "bulk tickers: inactive pair with null last is skipped, not reported as unreadable",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "requestId": 0,
       "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"15000100\",\"buy\":\"15000000\",\"high\":\"15200000\",\"low\":\"14800000\",\"open\":\"14900000\",\"last\":\"15000050\",\"vol\":\"123.4567\",\"timestamp\":1728540000123},{\"pair\":\"eth_jpy\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123},{\"pair\":\"old_jpy\",\"sell\":null,\"buy\":null,\"high\":null,\"low\":null,\"open\":null,\"last\":null,\"vol\":\"0\",\"timestamp\":1728540000123}]}",
       "expect": {
@@ -131,7 +131,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "requestId": 0,
       "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"15000100\",\"buy\":\"15000000\",\"high\":\"15200000\",\"low\":\"14800000\",\"open\":\"14900000\",\"last\":\"15000050\",\"vol\":\"123.4567\",\"timestamp\":1728540000123},{\"pair\":\"eth_jpy\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last_renamed\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123}]}",
       "expect": {
@@ -152,7 +152,7 @@
     {
       "kind": "pairs",
       "name": "pair list from /tickers: «base_quote» upper-cased; id without underscore dropped",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "requestId": 0,
       "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"15000100\",\"buy\":\"15000000\",\"high\":\"15200000\",\"low\":\"14800000\",\"open\":\"14900000\",\"last\":\"15000050\",\"vol\":\"123.4567\",\"timestamp\":1728540000123},{\"pair\":\"eth_jpy\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123},{\"pair\":\"weird\",\"sell\":\"380010\",\"buy\":\"379990\",\"high\":\"385000\",\"low\":\"370000\",\"open\":\"375000\",\"last\":\"380000\",\"vol\":\"2345.6789\",\"timestamp\":1728540000123}]}",
       "expect": {
@@ -177,7 +177,7 @@
     {
       "kind": "pairs",
       "name": "pair list from /tickers: bitbank lists Bitcoin Cash as «bcc» -> base BCH, pair id stays bcc_jpy",
-      "market": "Bitbank",
+      "exchangeKey": "Bitbank",
       "requestId": 0,
       "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"1\",\"buy\":\"1\",\"high\":\"1\",\"low\":\"1\",\"open\":\"1\",\"last\":\"1\",\"vol\":\"1\",\"timestamp\":1792423148000},{\"pair\":\"bcc_jpy\",\"sell\":\"1\",\"buy\":\"1\",\"high\":\"1\",\"low\":\"1\",\"open\":\"1\",\"last\":\"1\",\"vol\":\"1\",\"timestamp\":1792423148000},{\"pair\":\"bcc_btc\",\"sell\":\"1\",\"buy\":\"1\",\"high\":\"1\",\"low\":\"1\",\"open\":\"1\",\"last\":\"1\",\"vol\":\"1\",\"timestamp\":1792423148000}]}",
       "expect": {

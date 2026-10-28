@@ -5,31 +5,31 @@ import XCTest
 final class DayChangeSourceTests: XCTestCase {
 
     func testForeignOnlyForOtherExchange() {
-        XCTAssertEqual(DayChange.foreignCandleSource(markets: ["Kraken", "Kraken"], provider: "Binance"), "Binance")
-        XCTAssertEqual(DayChange.foreignCandleSource(markets: ["Bitstamp"], provider: "Coinbase"), "Coinbase")
-        XCTAssertEqual(DayChange.foreignCandleSource(markets: ["Binance"], provider: "Binance.US"), "Binance.US")
+        XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["Kraken", "Kraken"], provider: "Binance"), "Binance")
+        XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["Bitstamp"], provider: "Coinbase"), "Coinbase")
+        XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["Binance"], provider: "Binance.US"), "Binance.US")
         // eigener Markt: kein Hinweis; Spot und Futures derselben Börse sind verschiedene Märkte
-        XCTAssertNil(DayChange.foreignCandleSource(markets: ["Binance"], provider: "Binance"))
-        XCTAssertNil(DayChange.foreignCandleSource(markets: ["BinanceFutures", "Binance Futures"], provider: "Binance Futures"))
-        XCTAssertEqual(DayChange.foreignCandleSource(markets: ["BinanceFutures", "Binance Futures"], provider: "Binance"), "Binance Spot")
-        XCTAssertEqual(DayChange.foreignCandleSource(markets: ["Binance"], provider: "Binance Futures"), "Binance Futures")
-        XCTAssertNil(DayChange.foreignCandleSource(markets: ["BinanceUS", "Binance.US"], provider: "Binance.US"))
-        XCTAssertNil(DayChange.foreignCandleSource(markets: ["coinbase"], provider: "Coinbase"))
+        XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["Binance"], provider: "Binance"))
+        XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["BinanceFutures", "Binance Futures"], provider: "Binance Futures"))
+        XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["BinanceFutures", "Binance Futures"], provider: "Binance"), "Binance Spot")
+        XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["Binance"], provider: "Binance Futures"), "Binance Futures")
+        XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["BinanceUS", "Binance.US"], provider: "Binance.US"))
+        XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["coinbase"], provider: "Coinbase"))
         // keine Kerzen (Ticker) oder unbekannter Anbieter
-        XCTAssertNil(DayChange.foreignCandleSource(markets: ["Kraken"], provider: nil))
-        XCTAssertNil(DayChange.foreignCandleSource(markets: ["Kraken"], provider: " "))
+        XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["Kraken"], provider: nil))
+        XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["Kraken"], provider: " "))
     }
 
     func testUsdtSeriesOfFiatPairIsAlwaysMarked() {
         // Binance BTC/EUR ohne 24-h-Wert, Pille aus Binance-USDT-Kerzen: andere Quote → Hinweis
         let name = DayChange.candleSourceName(provider: "Binance", series: .usdt)
         XCTAssertEqual(name, "Binance USDT")
-        XCTAssertEqual(DayChange.foreignCandleSource(markets: ["binance", "Binance"], provider: name), "Binance USDT")
-        XCTAssertEqual(DayChange.foreignCandleSource(markets: ["Binance"],
+        XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["binance", "Binance"], provider: name), "Binance USDT")
+        XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["Binance"],
                                                      provider: DayChange.candleSourceName(provider: " Kraken ", series: .usdt)),
                        "Kraken USDT")
         // eigene Reihe: wie bisher nur bei fremder Börse
-        XCTAssertNil(DayChange.foreignCandleSource(markets: ["Binance"],
+        XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["Binance"],
                                                    provider: DayChange.candleSourceName(provider: "Binance", series: .pair)))
         XCTAssertNil(DayChange.candleSourceName(provider: "Binance", series: DayChange.CandleSeries.none))
         XCTAssertNil(DayChange.candleSourceName(provider: nil, series: .usdt))

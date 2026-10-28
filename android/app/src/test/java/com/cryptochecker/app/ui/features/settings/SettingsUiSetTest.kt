@@ -46,7 +46,7 @@ class SettingsPlacementTest {
         // auf «Merkliste»
         assertNull(SettingsPage.PRICE_PAIRS.home)
         assertNull(SettingsPage.CHANGE_BASIS.home)
-        assertNull(SettingsPage.MARKETS.home)
+        assertNull(SettingsPage.EXCHANGES.home)
         assertNull(SettingsPage.LICENSES.home)
         assertNull(SettingsPage.DEVELOPER.home)
     }

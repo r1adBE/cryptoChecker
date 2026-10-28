@@ -6,7 +6,7 @@ import Foundation
 
 /// Bitfinex: `/v2/candles/trade:{1h|1D}:{tSYMBOL}/hist?limit&sort=-1` — [MTS, OPEN, CLOSE, HIGH, LOW, VOLUME]; 4 h aus 1 h.
 struct BitfinexCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Bitfinex"]
+    let exchangeKeys: Set<String> = ["Bitfinex"]
     private static func id(_ pair: CandlePair) -> String? {
         guard let id = CandleTime.pairId(pair, extra: ":"), id.hasPrefix("t") else { return nil }
         return id
@@ -40,13 +40,13 @@ struct BitfinexCandles: ExchangeCandleSource {
 /// höchstens 100 je Seite, ältere Seiten mit `endTime`) — [ts, open, high, low, close, Menge, Umsatz].
 /// Spot für «Bitget», USDT-Perpetuals (auch TradFi/RWA) für «BitgetFutures».
 struct BitgetCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Bitget", "BitgetFutures"]
+    let exchangeKeys: Set<String> = ["Bitget", "BitgetFutures"]
     private static let page = 100
     private static let maxPages = 4
 
     private static func category(_ pair: CandlePair) -> String? {
-        if pair.marketKey == "BitgetFutures" && pair.contractType == .perpetual { return "USDT-FUTURES" }
-        if pair.marketKey == "Bitget" && pair.contractType == .none { return "SPOT" }
+        if pair.exchangeKey == "BitgetFutures" && pair.contractType == .perpetual { return "USDT-FUTURES" }
+        if pair.exchangeKey == "Bitget" && pair.contractType == .none { return "SPOT" }
         return nil
     }
 
@@ -90,7 +90,7 @@ struct BitgetCandles: ExchangeCandleSource {
 
 /// Gate.io Spot: `/api/v4/spot/candlesticks?currency_pair&interval={1h|4h|1d}&limit` — [t (s), Umsatz, close, high, low, open, Menge].
 struct GateIoCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["GateIo"]
+    let exchangeKeys: Set<String> = ["GateIo"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
 
@@ -113,7 +113,7 @@ struct GateIoCandles: ExchangeCandleSource {
 /// KuCoin Spot: `/api/v1/market/candles?type={1hour|4hour|1day}&symbol&startAt&endAt` (Sekunden, höchstens
 /// 1500), NEUESTE zuerst — [time (s), open, close, high, low, Menge, Umsatz].
 struct KucoinCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Kucoin"]
+    let exchangeKeys: Set<String> = ["Kucoin"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
 
@@ -145,7 +145,7 @@ struct KucoinCandles: ExchangeCandleSource {
 
 /// MEXC Spot: `/api/v3/klines?symbol&interval={60m|4h|1d}&limit` (höchstens 500) — Binance-Aufbau.
 struct MexcCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Mexc"]
+    let exchangeKeys: Set<String> = ["Mexc"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
 
@@ -168,7 +168,7 @@ struct MexcCandles: ExchangeCandleSource {
 /// (Sekunden) — parallele Listen time/open/close/high/low/vol/amount; `vol` zählt Kontrakte, `amount` ist
 /// der Umsatz (Menge daraus genähert). Auch TradFi-Kontrakte.
 struct MexcFuturesCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["MexcFutures"]
+    let exchangeKeys: Set<String> = ["MexcFutures"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType.isPerpetual && CandleTime.pairId(pair) != nil }
 
@@ -203,7 +203,7 @@ struct MexcFuturesCandles: ExchangeCandleSource {
 /// HTX Spot: `api.huobi.pro/market/history/kline?symbol&period={60min|1day}&size` (höchstens 2000), je Kerze
 /// {id (s), open, close, low, high, amount (Menge), vol (Umsatz)}; 4 h aus Stundenkerzen.
 struct HtxCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Htx"]
+    let exchangeKeys: Set<String> = ["Htx"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
 
@@ -235,7 +235,7 @@ struct HtxCandles: ExchangeCandleSource {
 /// Gemini: `/v2/candles/{symbol}/{1hr|1day}` — [ts (ms), open, high, low, close, Menge]. Die Dokumentation
 /// nennt auch «1h»/«1d»; antwortet die erste Schreibweise nicht, die zweite. 4 h aus Stundenkerzen.
 struct GeminiCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["Gemini"]
+    let exchangeKeys: Set<String> = ["Gemini"]
 
     func supports(_ pair: CandlePair) -> Bool { pair.contractType == .none && CandleTime.pairId(pair) != nil }
 
@@ -266,7 +266,7 @@ struct GeminiCandles: ExchangeCandleSource {
 /// Crypto.com Exchange: `/exchange/v1/public/get-candlestick?instrument_name&timeframe={1h|4h|1D}&count&start_ts&end_ts`
 /// (ms) — result.data [{o, h, l, c, v, t}].
 struct CryptoComCandles: ExchangeCandleSource {
-    let marketKeys: Set<String> = ["CryptoCom"]
+    let exchangeKeys: Set<String> = ["CryptoCom"]
 
     func supports(_ pair: CandlePair) -> Bool { CandleTime.pairId(pair) != nil }
 

@@ -15,7 +15,7 @@ extension WatchlistScreen {
         // eine Zeile neu
         let pollingStaleAfter = data.staleAfterMillis
         let firedAt = data.alarmFiredAt[watch.id] ?? 0
-        let pausedUntil = data.exchangePauses[watch.marketKey]
+        let pausedUntil = data.exchangePauses[watch.exchangeKey]
         let sparklines = data.settings.watchlistSparkline && !watch.isNotTraded
         let target = convertTarget
         let rates = convertRates

@@ -116,7 +116,7 @@ class LivePriceApplier constructor(
                     exchangeTime = LiveRules.exchangeTime(quote, watch.lastPrice, watch.exchangeTime)
                     change24hPercent = LiveRules.chooseChange(
                         rollingBasis, stampCurrent,
-                        LiveExchange.fromMarketKey(watch.marketKey)?.rollingChange == true,
+                        LiveExchange.fromExchangeKey(watch.exchangeKey)?.rollingChange == true,
                         quote.change24h, watch.change24h,
                     )
                 }

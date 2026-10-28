@@ -8,11 +8,11 @@ import Foundation
 /// Wie `WatchIdentity.kt` (testdata/parity/watch_identity.json).
 enum WatchIdentity {
     /// Börse, deren Paar-Kennung zum Schlüssel gehört (`DexScreener.key`).
-    static let poolMarket = "DexScreener"
+    static let poolExchange = "DexScreener"
 
-    /// Eindeutiger Schlüssel eines Eintrags; `pool` nur bei `poolMarket`, sonst nil.
+    /// Eindeutiger Schlüssel eines Eintrags; `pool` nur bei `poolExchange`, sonst nil.
     struct Key: Hashable, Sendable {
-        let marketKey: String
+        let exchangeKey: String
         let base: String
         let quote: String
         let contract: String
@@ -20,13 +20,13 @@ enum WatchIdentity {
     }
 
     /// Pool-Kennung, die zum Schlüssel gehört: die Paar-Kennung bei DexScreener, sonst nil.
-    static func pool(marketKey: String, pairId: String?) -> String? {
-        guard marketKey == poolMarket, let pairId, !pairId.isEmpty else { return nil }
+    static func pool(exchangeKey: String, pairId: String?) -> String? {
+        guard exchangeKey == poolExchange, let pairId, !pairId.isEmpty else { return nil }
         return pairId
     }
 
-    static func key(marketKey: String, base: String, quote: String, contract: String, pairId: String?) -> Key {
-        Key(marketKey: marketKey, base: base, quote: quote, contract: contract,
-            pool: pool(marketKey: marketKey, pairId: pairId))
+    static func key(exchangeKey: String, base: String, quote: String, contract: String, pairId: String?) -> Key {
+        Key(exchangeKey: exchangeKey, base: base, quote: quote, contract: contract,
+            pool: pool(exchangeKey: exchangeKey, pairId: pairId))
     }
 }

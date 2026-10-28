@@ -45,16 +45,16 @@ extension WatchlistScreen {
     /// Start-Tipp: frische Liste, sonst Zwischenspeicher (auch älter), sonst Ersatzliste —
     /// so steht sofort etwas da.
     private var shownStarterCoins: [StarterCoin] {
-        starterCoins ?? StarterCoins.initial(marketKey: StarterCoins.marketKey())
+        starterCoins ?? StarterCoins.initial(exchangeKey: StarterCoins.exchangeKey())
     }
 
     /// «Kurse von Binance in USDT. Abwählen, …»: Börse (bei Standort-Sperre Binance.US) und Quote halbfett in
     /// der Textfarbe, der Rest wie bisher.
     private func starterSourceText(region: String?) -> AttributedString {
-        let market = StarterPairs.marketName(region)
+        let exchange = StarterPairs.exchangeName(region)
         let quote = StarterPairs.startQuote(region)
-        var text = AttributedString(L("starter_source_text", BidiText.isolate(market), BidiText.isolate(quote)))
-        for part in [market, quote] where !part.isEmpty {
+        var text = AttributedString(L("starter_source_text", BidiText.isolate(exchange), BidiText.isolate(quote)))
+        for part in [exchange, quote] where !part.isEmpty {
             if let range = text.range(of: part) {
                 text[range].font = Font.subheadline.weight(.semibold)
                 text[range].foregroundColor = AppColors.onSurface
@@ -69,11 +69,11 @@ extension WatchlistScreen {
         // Binance am Standort gesperrt (451/403)? Dann Startpaare auf Binance.US (`StarterGeoBlock`) — zuerst prüfen,
         // damit Liste, Kurse und Hinzufügen dieselbe Börse nutzen
         if await StarterGeoBlock.probe(), !Task.isCancelled, data.watches.isEmpty {
-            starterCoins = StarterCoins.initial(marketKey: StarterCoins.marketKey())
+            starterCoins = StarterCoins.initial(exchangeKey: StarterCoins.exchangeKey())
         }
-        let marketKey = StarterCoins.marketKey()
-        guard !StarterCoins.isFresh(marketKey: marketKey) else { return }
-        guard let fresh = await StarterCoins.load(marketKey: marketKey), !Task.isCancelled else { return }
+        let exchangeKey = StarterCoins.exchangeKey()
+        guard !StarterCoins.isFresh(exchangeKey: exchangeKey) else { return }
+        guard let fresh = await StarterCoins.load(exchangeKey: exchangeKey), !Task.isCancelled else { return }
         if data.watches.isEmpty { starterCoins = fresh }
     }
 

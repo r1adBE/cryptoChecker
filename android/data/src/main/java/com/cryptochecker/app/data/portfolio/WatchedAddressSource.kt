@@ -3,8 +3,8 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.UserAgentInterceptor
-import com.cryptochecker.app.data.remote.callMarket
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.data.remote.callExchange
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
@@ -159,36 +159,36 @@ class WatchedAddressSource @Inject constructor(
      */
     suspend fun fetch(chain: AddressChain, address: String, deadline: Long? = null): Fetched = when (chain) {
         AddressChain.BTC -> firstWorking(btcEntries, deadline, AddressServerRules.isOwnServer(btcEntries)) { host ->
-            AddressBalance.btcText(AddressBalance.parseBtc(client.callMarket(AddressServer.btcUrl(host, address), null), address))
+            AddressBalance.btcText(AddressBalance.parseBtc(client.callExchange(AddressServer.btcUrl(host, address), null), address))
         }
         AddressChain.ETH -> firstWorking(AddressBalance.ETH_RPCS, deadline) { rpc ->
-            AddressBalance.ethText(AddressBalance.parseEthWei(client.callMarket(rpc, json(AddressBalance.ethRequest(address)))))
+            AddressBalance.ethText(AddressBalance.parseEthWei(client.callExchange(rpc, json(AddressBalance.ethRequest(address)))))
         }
         AddressChain.LTC -> firstWorking(ChainBalance.LTC_HOSTS, deadline) { host ->
-            val stats = AddressBalance.parseBtc(client.callMarket(ChainBalance.ltcUrl(host, address), null), address, AddressChain.LTC)
+            val stats = AddressBalance.parseBtc(client.callExchange(ChainBalance.ltcUrl(host, address), null), address, AddressChain.LTC)
             AddressBalance.unitsText(stats.totalSats.toString(), AddressChain.LTC.decimals)
         }
         AddressChain.XRP -> firstWorking(ChainBalance.XRP_RPCS, deadline) { rpc ->
-            AddressBalance.unitsText(ChainBalance.parseXrp(client.callMarket(rpc, json(ChainBalance.xrpRequest(address)))), AddressChain.XRP.decimals)
+            AddressBalance.unitsText(ChainBalance.parseXrp(client.callExchange(rpc, json(ChainBalance.xrpRequest(address)))), AddressChain.XRP.decimals)
         }
         AddressChain.TON -> firstWorking(ChainBalance.TON_HOSTS, deadline) { host ->
-            AddressBalance.unitsText(ChainBalance.parseTon(client.callMarket(ChainBalance.tonUrl(host, address), null)), AddressChain.TON.decimals)
+            AddressBalance.unitsText(ChainBalance.parseTon(client.callExchange(ChainBalance.tonUrl(host, address), null)), AddressChain.TON.decimals)
         }
         AddressChain.TRX -> firstWorking(ChainBalance.TRON_HOSTS, deadline) { host ->
             AddressBalance.unitsText(
-                ChainBalance.parseTronAccount(client.callMarket(ChainBalance.tronAccountUrl(host), json(ChainBalance.tronAccountRequest(address)))),
+                ChainBalance.parseTronAccount(client.callExchange(ChainBalance.tronAccountUrl(host), json(ChainBalance.tronAccountRequest(address)))),
                 AddressChain.TRX.decimals,
             )
         }
         AddressChain.ADA -> firstWorking(ChainBalance.ADA_HOSTS, deadline) { host ->
             AddressBalance.unitsText(
-                ChainBalance.parseAda(client.callMarket(ChainBalance.adaUrl(host), json(ChainBalance.adaRequest(address))), address),
+                ChainBalance.parseAda(client.callExchange(ChainBalance.adaUrl(host), json(ChainBalance.adaRequest(address))), address),
                 AddressChain.ADA.decimals,
             )
         }
         AddressChain.SOL -> firstWorking(ChainBalance.SOLANA_RPCS, deadline) { rpc ->
             AddressBalance.unitsText(
-                ChainBalance.parseSolanaBalanceBody(client.callMarket(rpc, json(ChainBalance.solanaBalanceRequest(1, address)))),
+                ChainBalance.parseSolanaBalanceBody(client.callExchange(rpc, json(ChainBalance.solanaBalanceRequest(1, address)))),
                 AddressChain.SOL.decimals,
             )
         }
@@ -210,7 +210,7 @@ class WatchedAddressSource @Inject constructor(
             val list = if (a.countTokens) net.tokens else emptyList()
             try {
                 val (batch, _) = firstWorking(net.rpcs, deadline) { rpc ->
-                    Erc20Tokens.parseBatch(client.callMarket(rpc, json(Erc20Tokens.batchRequest(a.address, list))), list)
+                    Erc20Tokens.parseBatch(client.callExchange(rpc, json(Erc20Tokens.batchRequest(a.address, list))), list)
                 }
                 val native = AddressBalance.unitsText(batch.weiDigits, 18)
                 tokens[ChainAssets.key(net.id, net.native)] = native
@@ -243,7 +243,7 @@ class WatchedAddressSource @Inject constructor(
         return try {
             delay(ChainBalance.TON_PAUSE_MILLIS)
             val (page, _) = firstWorking(ChainBalance.TON_HOSTS, deadline) { host ->
-                ChainBalance.parseTonJettonPage(client.callMarket(ChainBalance.tonJettonsUrl(host, a.address), null))
+                ChainBalance.parseTonJettonPage(client.callExchange(ChainBalance.tonJettonsUrl(host, a.address), null))
             }
             // Auf voller Seite fehlende bekannte Jettons: alter Wert bleibt, gilt aber als nicht bestätigt
             ton.copy(tokens = page.tokens, keptTokens = page.kept)
@@ -265,7 +265,7 @@ class WatchedAddressSource @Inject constructor(
         for (token in ChainAssets.TRON_TOKENS) {
             try {
                 val (digits, _) = firstWorking(ChainBalance.TRON_HOSTS, deadline) { host ->
-                    ChainBalance.parseTronCall(client.callMarket(ChainBalance.tronCallUrl(host), json(ChainBalance.tronTokenRequest(a.address, token))))
+                    ChainBalance.parseTronCall(client.callExchange(ChainBalance.tronCallUrl(host), json(ChainBalance.tronTokenRequest(a.address, token))))
                 }
                 tokens[token.symbol] = AddressBalance.unitsText(digits, token.decimals)
             } catch (e: CancellationException) {
@@ -287,14 +287,14 @@ class WatchedAddressSource @Inject constructor(
         if (!a.countTokens) return fetch(AddressChain.SOL, a.address, deadline)
         val (result, provider) = try {
             firstWorking(ChainBalance.SOLANA_RPCS, deadline) { rpc ->
-                ChainBalance.parseSolanaBatch(client.callMarket(rpc, json(ChainBalance.solanaBatch(a.address))))
+                ChainBalance.parseSolanaBatch(client.callExchange(rpc, json(ChainBalance.solanaBatch(a.address))))
             }
         } catch (e: Erc20Tokens.BatchUnsupported) {
             firstWorking(ChainBalance.SOLANA_RPCS, deadline) { rpc ->
                 val singles = ChainBalance.solanaSingles(a.address)
-                val lamports = ChainBalance.parseSolanaBalanceBody(client.callMarket(rpc, json(singles[0])))
-                val legacy = ChainBalance.parseSolanaTokensBody(client.callMarket(rpc, json(singles[1])))
-                val t2022 = ChainBalance.parseSolanaTokensBody(client.callMarket(rpc, json(singles[2])))
+                val lamports = ChainBalance.parseSolanaBalanceBody(client.callExchange(rpc, json(singles[0])))
+                val legacy = ChainBalance.parseSolanaTokensBody(client.callExchange(rpc, json(singles[1])))
+                val t2022 = ChainBalance.parseSolanaTokensBody(client.callExchange(rpc, json(singles[2])))
                 ChainBalance.solana(lamports, listOf(legacy, t2022))
             }
         }
@@ -313,7 +313,7 @@ class WatchedAddressSource @Inject constructor(
     private suspend fun fetchEthWithTokens(address: String, deadline: Long?): Fetched {
         try {
             val (batch, provider) = firstWorking(AddressBalance.ETH_RPCS, deadline) { rpc ->
-                Erc20Tokens.parseBatch(client.callMarket(rpc, json(Erc20Tokens.batchRequest(address))))
+                Erc20Tokens.parseBatch(client.callExchange(rpc, json(Erc20Tokens.batchRequest(address))))
             }
             return Fetched(AddressBalance.ethText(batch.weiDigits), provider, batch.tokens)
         } catch (e: CancellationException) {
@@ -327,7 +327,7 @@ class WatchedAddressSource @Inject constructor(
             for (token in Erc20Tokens.LIST) {
                 try {
                     tokens[token.symbol] = firstWorking(AddressBalance.ETH_RPCS, null) { rpc ->
-                        Erc20Tokens.parseSingle(client.callMarket(rpc, json(Erc20Tokens.singleRequest(address, token))), token)
+                        Erc20Tokens.parseSingle(client.callExchange(rpc, json(Erc20Tokens.singleRequest(address, token))), token)
                     }.first
                 } catch (c: CancellationException) {
                     throw c
@@ -365,12 +365,12 @@ class WatchedAddressSource @Inject constructor(
             } catch (e: Exception) {
                 if (!own) BlockedSources.noteFailure(host, e)
                 val outcome = when {
-                    e is HttpMarketError && ExchangeBackoff.isRateLimitCode(e.httpCode) -> ExchangeBackoff.Outcome.RATE_LIMITED
+                    e is HttpExchangeError && ExchangeBackoff.isRateLimitCode(e.httpCode) -> ExchangeBackoff.Outcome.RATE_LIMITED
                     e is InterruptedIOException -> ExchangeBackoff.Outcome.TIMEOUT
                     else -> ExchangeBackoff.Outcome.OTHER
                 }
-                note(host, outcome, (e as? HttpMarketError)?.retryAfterSeconds?.let { it * 1000L },
-                    banned = (e as? HttpMarketError)?.httpCode == 418)
+                note(host, outcome, (e as? HttpExchangeError)?.retryAfterSeconds?.let { it * 1000L },
+                    banned = (e as? HttpExchangeError)?.httpCode == 418)
                 lastError = e
             }
         }

@@ -66,7 +66,7 @@ import java.time.ZoneId
 /**
  * «Heute auffällig»: bis zu fünf Coins (aus den rund 30 grössten), die sich heute
  * ungewöhnlich verhalten — je Zeile Plakette, Symbol, 24-h-Änderung und die auffälligste
- * Tatsache in einem kurzen Satz ([com.cryptochecker.app.domain.market.MarketUnusual]).
+ * Tatsache in einem kurzen Satz ([com.cryptochecker.app.domain.exchange.MarketUnusual]).
  * Nichts auffällig: eine ruhige Zeile. Tippen auf eine Zeile ([onOpen]): dasselbe wie in der
  * Merkliste — das Aktionsblatt des Paars, sonst seine Vorschau (siehe MarketPhaseScreen).
  * Screenreader: je Zeile ein Element mit Aktion. Keine Prognose, keine Empfehlung.

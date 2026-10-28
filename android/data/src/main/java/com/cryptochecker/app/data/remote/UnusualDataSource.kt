@@ -3,7 +3,7 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.MarketExtraCodecs
 import com.cryptochecker.app.data.StarterCoinsRepository
-import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.HttpExchangeError
 import com.cryptochecker.app.domain.market.MarketUnusual
 import com.cryptochecker.app.domain.market.UnusualCoin
 import com.cryptochecker.app.domain.market.UnusualInput
@@ -54,7 +54,7 @@ class UnusualDataSource @Inject constructor(
         var universe = starterCoins.universe() ?: error("Keine Coins für «Heute auffällig»")
         val tickers = try {
             tickers(universe)
-        } catch (e: HttpMarketError) {
+        } catch (e: HttpExchangeError) {
             // Binance kennt ein Symbol nicht mehr (400): Liste neu ermitteln, einmal wiederholen
             if (e.httpCode != 400) throw e
             universe = starterCoins.universe(force = true) ?: throw e
@@ -91,7 +91,7 @@ class UnusualDataSource @Inject constructor(
     /** Coin → (24-h-Veränderung in %, 24-h-Umsatz in USDT). */
     private suspend fun tickers(universe: List<MarketUniverse.Coin>): Map<String, Pair<Double, Double?>> {
         val url = BINANCE_TICKER_URL + URLEncoder.encode(MarketUniverse.binanceSymbols(universe), "UTF-8")
-        val array = JSONArray(httpClient.callMarket(url, null))
+        val array = JSONArray(httpClient.callExchange(url, null))
         val out = HashMap<String, Pair<Double, Double?>>()
         val now = System.currentTimeMillis()
         for (i in 0 until array.length()) {
@@ -114,7 +114,7 @@ class UnusualDataSource @Inject constructor(
         if (BlockedSources.isBlocked(FAPI_HOST)) return emptyMap()
         return try {
             withTimeoutOrNull(FUNDING_TIMEOUT_MILLIS) {
-                val array = JSONArray(httpClient.callMarket(PREMIUM_INDEX_URL, null))
+                val array = JSONArray(httpClient.callExchange(PREMIUM_INDEX_URL, null))
                 val out = HashMap<String, Double>()
                 for (i in 0 until array.length()) {
                     val o = array.optJSONObject(i) ?: continue
@@ -126,7 +126,7 @@ class UnusualDataSource @Inject constructor(
                 out
             }.orEmpty()
         } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
-            // Innere Zeitgrenze (callMarket-Wächter): wie ein Fehler der Quelle
+            // Innere Zeitgrenze (callExchange-Wächter): wie ein Fehler der Quelle
             Timber.d(e, "Funding für «Heute auffällig»: Zeitüberschreitung")
             emptyMap()
         } catch (e: CancellationException) {

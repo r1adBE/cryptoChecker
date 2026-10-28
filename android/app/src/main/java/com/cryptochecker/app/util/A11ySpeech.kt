@@ -97,22 +97,22 @@ object A11ySpeech {
         fun updated(age: Age): String
 
         /** «Binance nicht erreichbar» */
-        fun unreachable(market: String): String
+        fun unreachable(exchange: String): String
     }
 
     /**
      * Satzteil zur Frische, z. B. «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» oder
      * «zuletzt aktualisiert vor 3 Minuten, Binance nicht erreichbar»; aktuell null.
      */
-    fun freshnessText(freshness: Freshness, lastUpdate: Long, now: Long, market: String, texts: Texts): String? =
+    fun freshnessText(freshness: Freshness, lastUpdate: Long, now: Long, exchange: String, texts: Texts): String? =
         when (freshness) {
             Freshness.FRESH -> null
             Freshness.DISABLED -> texts.disabled
             Freshness.NOT_TRADED -> texts.notTraded
             Freshness.OUTDATED -> join(listOf(texts.outdated, texts.updated(age(lastUpdate, now))))
-            Freshness.UNREACHABLE -> join(listOf(texts.updated(age(lastUpdate, now)), texts.unreachable(market)))
+            Freshness.UNREACHABLE -> join(listOf(texts.updated(age(lastUpdate, now)), texts.unreachable(exchange)))
             Freshness.UNREACHABLE_OUTDATED -> join(
-                listOf(texts.outdated, texts.updated(age(lastUpdate, now)), texts.unreachable(market))
+                listOf(texts.outdated, texts.updated(age(lastUpdate, now)), texts.unreachable(exchange))
             )
         }
 

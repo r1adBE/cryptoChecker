@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker btcusd: open_24 (rolling) used, open (day) ignored",
-      "market": "Bitstamp",
+      "exchangeKey": "Bitstamp",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "ticker without open_24: percent_change_24 fallback",
-      "market": "Bitstamp",
+      "exchangeKey": "Bitstamp",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -50,7 +50,7 @@
     {
       "kind": "single",
       "name": "missing last -> no price, no error text",
-      "market": "Bitstamp",
+      "exchangeKey": "Bitstamp",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -67,7 +67,7 @@
     {
       "kind": "bulk",
       "name": "bulk ticker/: pair BTC/USD -> key btcusd",
-      "market": "Bitstamp",
+      "exchangeKey": "Bitstamp",
       "requestId": 0,
       "body": "[{\"pair\":\"BTC/USD\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"62000\",\"volume\":\"1234.56789012\", \"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"60500\",\"percent_change_24\":\"2.48\"},{\"pair\":\"ETH/EUR\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"2250.5\",\"volume\":\"1234.56789012\", \"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"2260\",\"percent_change_24\":\"2.48\"}]",
       "expect": {
@@ -87,7 +87,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with null «last» (inactive) is skipped, not failed",
-      "market": "Bitstamp",
+      "exchangeKey": "Bitstamp",
       "requestId": 0,
       "body": "[{\"pair\":\"BTC/USD\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"62000\",\"volume\":\"1234.56789012\",\"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"60500\",\"percent_change_24\":\"2.48\"},{\"pair\":\"ETH/EUR\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":\"2250.5\",\"volume\":\"1234.56789012\",\"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"2260\",\"percent_change_24\":\"2.48\"},{\"pair\":\"LTC/USD\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"volume\":\"1234.56789012\",\"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"60500\",\"percent_change_24\":\"2.48\",\"last_renamed\":\"62000\"},{\"pair\":\"OLD/USD\",\"timestamp\":\"1728540000\",\"open\":\"61000\",\"high\":\"62500\",\"low\":\"60000\",\"last\":null,\"volume\":\"1234.56789012\",\"vwap\":\"61450\",\"bid\":\"61999\",\"ask\":\"62001\",\"side\":\"0\",\"open_24\":\"60500\",\"percent_change_24\":\"2.48\"}]",
       "expect": {

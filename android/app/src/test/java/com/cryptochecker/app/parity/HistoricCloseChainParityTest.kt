@@ -24,7 +24,7 @@ class HistoricCloseChainParityTest {
     @Test
     fun provider() {
         data["provider"].list().map { it.obj() }.forEach { c ->
-            assertEquals("provider: $c", c["expected"], HistoricCloseChain.provider(c["market"] as String))
+            assertEquals("provider: $c", c["expected"], HistoricCloseChain.provider(c["exchangeKey"] as String))
         }
     }
 
@@ -32,7 +32,7 @@ class HistoricCloseChainParityTest {
     fun pairs() {
         data["pairs"].list().map { it.obj() }.forEach { c ->
             val expected = c["expected"].list().map { it.list() }.map { HistoricCloseChain.ChainPair(it[0] as String, it[1] as String) }
-            assertEquals("pairs: $c", expected, HistoricCloseChain.pairs(c["market"] as String, c["base"] as String))
+            assertEquals("pairs: $c", expected, HistoricCloseChain.pairs(c["exchangeKey"] as String, c["base"] as String))
         }
     }
 
@@ -41,7 +41,7 @@ class HistoricCloseChainParityTest {
     fun names() {
         data["names"].list().map { it.obj() }.forEach { c ->
             val allowed = HistoricCloseChain.nameAllowed(
-                c["base"] as String, c["own"] as Boolean, c["market"] as String,
+                c["base"] as String, c["own"] as Boolean, c["exchangeKey"] as String,
                 c["ownName"] as String?, c["binanceName"] as String?, c["providerName"] as String?,
             )
             assertEquals("names: $c", c["expected"], allowed)

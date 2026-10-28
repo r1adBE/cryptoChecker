@@ -23,7 +23,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
     }
 
     /// Kursquelle (statt Börse).
-    private struct FakeMarket {
+    private struct FakeExchange {
         var price: Double
         func last() -> Double { price }
     }
@@ -64,7 +64,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
     }
 
     private func watch(lastPrice: Double) -> Watch {
-        Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
+        Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
               lastPrice: lastPrice)
     }
 
@@ -81,11 +81,11 @@ final class AlarmChainIntegrationTests: XCTestCase {
 
     /// Ein Durchlauf wie App, Hintergrund und Widget: Kurs holen, Alarme prüfen, Kurse speichern, melden.
     /// - Returns: gemeldete und gespeicherte Alarme.
-    private func refresh(_ market: FakeMarket, store: FakeStore, notifier: FakeNotifier, delivery: AlarmDelivery,
+    private func refresh(_ exchange: FakeExchange, store: FakeStore, notifier: FakeNotifier, delivery: AlarmDelivery,
                          deliverableAtCheck: Bool = true, at: Int64,
                          editBeforeSave: ((inout SharedStorage.Snapshot) -> Void)? = nil,
                          diskAlarms: (@Sendable () -> [Alarm]?)? = nil) async -> Int {
-        let price = market.last()
+        let price = exchange.last()
         let before = store.snapshot.watches[0]
         var updated = before
         updated.previousPrice = before.lastPrice
@@ -111,9 +111,9 @@ final class AlarmChainIntegrationTests: XCTestCase {
         let store = makeStore(previous: 99, alarm: alarmAbove(100))
         let notifier = FakeNotifier()
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
-        let market = FakeMarket(price: 101)
+        let exchange = FakeExchange(price: 101)
 
-        let first = await refresh(market, store: store, notifier: notifier, delivery: delivery, at: now)
+        let first = await refresh(exchange, store: store, notifier: notifier, delivery: delivery, at: now)
         XCTAssertEqual(first, 1)
         XCTAssertEqual(notifier.posts.map { $0.alarmId }, [7])
         XCTAssertEqual(notifier.posts.first?.price, 101)
@@ -123,7 +123,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
         XCTAssertFalse(store.snapshot.alarms[0].enabled)
 
         // Nächster Durchlauf, Kurs bleibt über der Marke: keine zweite Meldung
-        let second = await refresh(market, store: store, notifier: notifier, delivery: delivery, at: now + 60_000)
+        let second = await refresh(exchange, store: store, notifier: notifier, delivery: delivery, at: now + 60_000)
         XCTAssertEqual(second, 0)
         XCTAssertEqual(notifier.posts.count, 1)
     }
@@ -134,9 +134,9 @@ final class AlarmChainIntegrationTests: XCTestCase {
         let notifier = FakeNotifier()
         notifier.shown = false
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
-        let market = FakeMarket(price: 101)
+        let exchange = FakeExchange(price: 101)
 
-        let first = await refresh(market, store: store, notifier: notifier, delivery: delivery, at: now)
+        let first = await refresh(exchange, store: store, notifier: notifier, delivery: delivery, at: now)
         XCTAssertEqual(first, 0)
         XCTAssertEqual(notifier.posts.count, 1)
         // Nicht gespeichert: bleibt scharf und eingeschaltet
@@ -144,11 +144,11 @@ final class AlarmChainIntegrationTests: XCTestCase {
 
         // Gleich danach: kein erneuter Versuch (Abklingzeit), später schon — dann gespeichert
         notifier.shown = true
-        let soon = await refresh(market, store: store, notifier: notifier, delivery: delivery, at: now + 60_000)
+        let soon = await refresh(exchange, store: store, notifier: notifier, delivery: delivery, at: now + 60_000)
         XCTAssertEqual(soon, 0)
         XCTAssertEqual(notifier.posts.count, 1)
         let later = now + 60 * 60_000
-        let retried = await refresh(market, store: store, notifier: notifier, delivery: delivery, at: later)
+        let retried = await refresh(exchange, store: store, notifier: notifier, delivery: delivery, at: later)
         XCTAssertEqual(retried, 1)
         XCTAssertEqual(notifier.posts.count, 2)
         XCTAssertEqual(store.snapshot.alarms[0].lastTriggeredAt, later)
@@ -160,13 +160,13 @@ final class AlarmChainIntegrationTests: XCTestCase {
         let store = makeStore(previous: 99, alarm: alarmAbove(100))
         let notifier = FakeNotifier()
         notifier.shown = false
-        let market = FakeMarket(price: 101)
+        let exchange = FakeExchange(price: 101)
 
-        let widget = await refresh(market, store: store, notifier: notifier,
+        let widget = await refresh(exchange, store: store, notifier: notifier,
                                    delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now)
         XCTAssertEqual(widget, 0)
         notifier.shown = true
-        let app = await refresh(market, store: store, notifier: notifier,
+        let app = await refresh(exchange, store: store, notifier: notifier,
                                 delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now + 60_000)
         XCTAssertEqual(app, 0)
         XCTAssertEqual(notifier.posts.count, 1)
@@ -180,7 +180,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
         // Schon bei der Prüfung keine Erlaubnis
         let atCheck = makeStore(previous: 99, alarm: original)
         let notifier = FakeNotifier()
-        let none = await refresh(FakeMarket(price: 101), store: atCheck, notifier: notifier, delivery: delivery,
+        let none = await refresh(FakeExchange(price: 101), store: atCheck, notifier: notifier, delivery: delivery,
                                  deliverableAtCheck: false, at: now)
         XCTAssertEqual(none, 0)
         XCTAssertTrue(notifier.posts.isEmpty)
@@ -189,7 +189,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
         // Erlaubnis zwischen Prüfung und Melden entzogen
         let atDelivery = makeStore(previous: 99, alarm: original)
         notifier.deliverable = false
-        let stillNone = await refresh(FakeMarket(price: 101), store: atDelivery, notifier: notifier,
+        let stillNone = await refresh(FakeExchange(price: 101), store: atDelivery, notifier: notifier,
                                       delivery: delivery, at: now)
         XCTAssertEqual(stillNone, 0)
         XCTAssertTrue(notifier.posts.isEmpty)
@@ -201,7 +201,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
         let notifier = FakeNotifier()
 
         // Nutzer ändert die Marke, während der Durchlauf läuft: Änderung bleibt, keine Meldung
-        let count = await refresh(FakeMarket(price: 101), store: store, notifier: notifier,
+        let count = await refresh(FakeExchange(price: 101), store: store, notifier: notifier,
                                   delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now) { s in
             s.alarms[0].threshold = 150
         }
@@ -220,7 +220,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
         var fired = store.snapshot.alarms
         fired[0].lastTriggeredAt = now - 1_000
         let onDisk = fired
-        let count = await refresh(FakeMarket(price: 101), store: store, notifier: notifier,
+        let count = await refresh(FakeExchange(price: 101), store: store, notifier: notifier,
                                   delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now,
                                   diskAlarms: { onDisk })
         XCTAssertEqual(count, 0)
@@ -231,7 +231,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
         let store = makeStore(previous: 99, alarm: alarmAbove(100))
         let notifier = FakeNotifier()
         // Platte nicht lesbar (nil): Fail-open, gemeldet wird nach dem übergebenen Stand
-        let count = await refresh(FakeMarket(price: 101), store: store, notifier: notifier,
+        let count = await refresh(FakeExchange(price: 101), store: store, notifier: notifier,
                                   delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now,
                                   diskAlarms: { nil })
         XCTAssertEqual(count, 1)
@@ -241,7 +241,7 @@ final class AlarmChainIntegrationTests: XCTestCase {
     func testPriceBelowLevelDoesNothing() async {
         let store = makeStore(previous: 99, alarm: alarmAbove(100))
         let notifier = FakeNotifier()
-        let count = await refresh(FakeMarket(price: 99.5), store: store, notifier: notifier,
+        let count = await refresh(FakeExchange(price: 99.5), store: store, notifier: notifier,
                                   delivery: AlarmDelivery(storeKey: "pairs", store: defaults), at: now)
         XCTAssertEqual(count, 0)
         XCTAssertTrue(notifier.posts.isEmpty)

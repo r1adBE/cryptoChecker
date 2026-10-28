@@ -26,9 +26,9 @@ suspend fun InfoViewModel.explain(watch: WatchEntity): WhyReport? =
 suspend fun InfoViewModel.previewWatch(symbol: String): WatchEntity? {
     val base = symbol.trim().uppercase().takeIf { it.isNotEmpty() } ?: return null
     val key = com.cryptochecker.app.domain.starter.StarterPairs.BINANCE_KEY
-    val name = com.cryptochecker.marketdata.config.MarketsConfig.MARKETS[key]?.name ?: return null
-    val market = com.cryptochecker.app.domain.model.MarketInfo(key, name)
-    val pairs = runCatching { marketRepository.getMarketCurrencyPairsInfo(market).pairs }
+    val name = com.cryptochecker.marketdata.config.ExchangesConfig.EXCHANGES[key]?.name ?: return null
+    val exchange = com.cryptochecker.app.domain.model.ExchangeInfo(key, name)
+    val pairs = runCatching { exchangeRepository.getExchangeCurrencyPairsInfo(exchange).pairs }
         .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
         .getOrDefault(emptyList())
     var pairId = base + PREVIEW_QUOTE
@@ -43,8 +43,8 @@ suspend fun InfoViewModel.previewWatch(symbol: String): WatchEntity? {
     }
     return WatchEntity(
         id = PREVIEW_WATCH_ID,
-        marketKey = key,
-        marketName = name,
+        exchangeKey = key,
+        exchangeName = name,
         baseAsset = base,
         quoteAsset = PREVIEW_QUOTE,
         pairId = pairId,
@@ -59,9 +59,9 @@ suspend fun InfoViewModel.previewWatch(symbol: String): WatchEntity? {
 suspend fun InfoViewModel.previewQuote(watch: WatchEntity): WatchEntity {
     val result = runCatchingCancellable {
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-            marketRepository.getMarketTicker(
-                com.cryptochecker.app.domain.model.MarketInfo(watch.marketKey, watch.marketName),
-                com.cryptochecker.marketdata.model.MarketPair(
+            exchangeRepository.getExchangeTicker(
+                com.cryptochecker.app.domain.model.ExchangeInfo(watch.exchangeKey, watch.exchangeName),
+                com.cryptochecker.marketdata.model.ExchangePair(
                     watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType
                 ),
             )
@@ -78,7 +78,7 @@ suspend fun InfoViewModel.previewQuote(watch: WatchEntity): WatchEntity {
     } else {
         watch.copy(
             lastError = result?.error
-                ?: com.cryptochecker.app.domain.exceptions.UserFriendlyMarketError.NO_TICKER_DATA,
+                ?: com.cryptochecker.app.domain.exceptions.UserFriendlyExchangeError.NO_TICKER_DATA,
         )
     }
 }

@@ -21,10 +21,6 @@ import java.io.File
  * data_extraction_rules.xml) die Merkliste sichert, das Portfolio aber nur, wenn der Nutzer es
  * erlaubt (Einstellung «Portfolio in Systemsicherung», [PortfolioBackupMirror]). Die Datei selbst
  * steht nie in den Sicherungsregeln.
- *
- * Bis Datenbank-Version 12 lagen die Tabellen in [AppDatabase]; [AppDatabase.MIGRATION_12_13]
- * benennt sie dort in `legacy_*` um, [PortfolioLegacyImport] übernimmt sie beim ersten Öffnen
- * hierher und entfernt sie danach aus der Hauptdatenbank.
  */
 @Database(
     entities = [
@@ -200,14 +196,12 @@ abstract class PortfolioDatabase : RoomDatabase() {
 
         /**
          * Beim Anlegen der Datei: Portfolio aus der Systemsicherung übernehmen (nur wenn eine da ist —
-         * also nach einer Wiederherstellung mit eingeschaltetem Schalter). Bei jedem Öffnen: Altbestand
-         * aus der Hauptdatenbank übernehmen (einmalig, siehe [PortfolioLegacyImport]).
-         * Fehler werden nur protokolliert: Die Datenbank öffnet trotzdem, der Altbestand bleibt in der
-         * Hauptdatenbank und der nächste Start versucht es erneut.
+         * also nach einer Wiederherstellung mit eingeschaltetem Schalter). Bei jedem Öffnen: übernommene Kopie
+         * löschen bzw. eine beim letzten Start beiseitegelegte Kopie ein zweites Mal versuchen.
+         * Fehler werden nur protokolliert: Die Datenbank öffnet trotzdem.
          */
         fun callback(
             context: Context,
-            appDatabase: AppDatabase,
             mirrorFile: File = PortfolioBackupMirror.file(context),
         ): RoomDatabase.Callback = object : RoomDatabase.Callback() {
             /** In [onCreate] übernommen: die Klartext-Kopie wird nach dem Anlegen (Transaktion abgeschlossen) gelöscht. */
@@ -240,8 +234,8 @@ abstract class PortfolioDatabase : RoomDatabase() {
             }
 
             override fun onOpen(db: SupportSQLiteDatabase) {
-                // Nur im Arbeitsspeicher: weder Kopien noch den Altbestand der Hauptdatenbank übernehmen (beide würden danach
-                // gelöscht); der nächste Start mit Schlüssel holt das nach
+                // Nur im Arbeitsspeicher: keine Kopie übernehmen (sie würde danach gelöscht); der nächste Start mit
+                // Schlüssel holt das nach
                 if (inMemory()) return
                 // Übernommene Kopie der Systemsicherung: Klartext, wird nicht mehr gebraucht (erst jetzt — beim Anlegen
                 // hätte ein Abbruch der Transaktion sonst die einzige Kopie gekostet)
@@ -267,8 +261,6 @@ abstract class PortfolioDatabase : RoomDatabase() {
                         if (lost > 0) StorageRecoveryNotice.recordSystemBackupNotImported(context)
                     }.onFailure { Timber.w(it, "Portfolio: beiseitegelegte Kopie nicht verarbeitet") }
                 }
-                runCatching { PortfolioLegacyImport.run(portfolioDb = db, mainDb = { appDatabase.openHelper.writableDatabase }) }
-                    .onFailure { Timber.w(it, "Portfolio: Übernahme aus der Hauptdatenbank fehlgeschlagen (nächster Start)") }
             }
         }
     }

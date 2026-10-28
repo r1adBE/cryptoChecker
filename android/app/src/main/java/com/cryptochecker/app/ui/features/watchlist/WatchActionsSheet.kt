@@ -196,7 +196,7 @@ internal fun WatchActionsSheet(
                 onEditPair = { editPair = true },
             )
             // Börse nicht erreichbar, aber ein älterer Kurs steht: ruhiger Satz plus «Erneut versuchen»
-            val retryable = watch.lastPrice != null && isRetryableMarketError(watch.lastError)
+            val retryable = watch.lastPrice != null && isRetryableExchangeError(watch.lastError)
             if (off) {
                 // Deaktiviert: ruhiger Hinweis mit Stand des letzten Kurses und gleich «Aktivieren»
                 DisabledNotice(updatedAt = watch.lastUpdate, onEnable = onToggleDisabled)
@@ -206,7 +206,7 @@ internal fun WatchActionsSheet(
                     modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.error_market_unreachable),
+                        text = stringResource(R.string.error_exchange_unreachable),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.weight(1f)
@@ -319,7 +319,7 @@ internal fun WatchActionsSheet(
             // Karte «Marktdaten» (Spot | Futures) für Krypto-Paare; nicht bei deaktivierten Paaren
             // (keine Abfrage) und DEX-Pools (fremde Token dürfen gleich heissen). Kennzahlen kommen
             // später: weich aufziehen statt springen (nicht bei reduzierter Bewegung)
-            if (!off && CoinLogos.allowedFor(watch.marketKey)) {
+            if (!off && CoinLogos.allowedFor(watch.exchangeKey)) {
                 Box(modifier = if (sheetMotion) Modifier.animateContentSize() else Modifier) {
                     MarketDataSection(watch = watch, loadFutures = loadFutures, loadSpot = loadSpot)
                 }

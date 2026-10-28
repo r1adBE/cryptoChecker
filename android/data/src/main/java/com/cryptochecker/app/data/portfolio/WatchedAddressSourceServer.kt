@@ -3,7 +3,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.BlockedSources
-import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.callExchange
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressServerRules
 import kotlinx.coroutines.CancellationException
@@ -11,7 +11,7 @@ import timber.log.Timber
 
 /** Blockhöhe vom eigenen Server ([AddressServer.testUrl], nennt keine Adresse) oder null, wenn er nicht passend antwortet. */
 suspend fun WatchedAddressSource.testBtcServer(server: String): Long? = try {
-    AddressServer.parseTipHeight(client.callMarket(AddressServer.testUrl(server), null, maxBytes = TEST_MAX_BYTES))
+    AddressServer.parseTipHeight(client.callExchange(AddressServer.testUrl(server), null, maxBytes = TEST_MAX_BYTES))
 } catch (e: CancellationException) {
     throw e
 } catch (e: Exception) {

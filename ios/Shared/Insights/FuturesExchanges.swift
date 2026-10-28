@@ -35,11 +35,11 @@ enum FuturesSources {
     private static let chain: Set<String> = [binance, bybit, okx]
 
     /// Eigene Quelle der Börse oder nil, wenn sie keine eigenen Kennzahlen liefert (dann nur Richtwert).
-    static func own(_ marketKey: String) -> String? { ownSources[marketKey] }
+    static func own(_ exchangeKey: String) -> String? { ownSources[exchangeKey] }
 
     /// Eigene Quelle für dieses Paar: bei Binance COIN-M der COIN-M-Kontrakt, sonst `own(_:)`.
-    static func own(_ marketKey: String, pairId: String?) -> String? {
-        marketKey == "BinanceFutures" && isCoinM(pairId) ? binanceCoinM : own(marketKey)
+    static func own(_ exchangeKey: String, pairId: String?) -> String? {
+        exchangeKey == "BinanceFutures" && isCoinM(pairId) ? binanceCoinM : own(exchangeKey)
     }
 
     /// Binance-COIN-M-Paar (Präfix «2:» wie im Adapter).
@@ -49,7 +49,7 @@ enum FuturesSources {
     private static let perContract: Set<String> = [binance, bybit, okx, bitget, mexc]
 
     /// Börsen mit eigenen Funding-/Open-Interest-Daten (für die Alarme FUNDING_* / OI_*).
-    static var markets: Set<String> { Set(ownSources.keys) }
+    static var exchanges: Set<String> { Set(ownSources.keys) }
 
     /// Abrechnungsintervall der Quelle in Stunden, wenn die Antwort keines nennt: Hyperliquid stündlich,
     /// Deribit, WOO X, HTX und Binance COIN-M 8. Binance, Bybit, OKX, Bitget und MEXC haben keinen Standard
@@ -63,14 +63,14 @@ enum FuturesSources {
     /// Wie `source` zum Paar steht: nil = Daten der beobachteten Börse; `.FALLBACK` = eigene Börse
     /// (Binance/Bybit/OKX) nicht erreichbar, eine andere sprang ein; `.REFERENCE` = Spot-Paar, Börse
     /// ohne eigene Daten oder eigene Quelle ausgefallen — Kennzahlen einer anderen Börse als Richtwert.
-    static func note(perpetual: Bool, marketKey: String, source: String, pairId: String? = nil) -> FuturesSourceNote? {
-        guard perpetual, let own = own(marketKey, pairId: pairId) else { return .REFERENCE }
+    static func note(perpetual: Bool, exchangeKey: String, source: String, pairId: String? = nil) -> FuturesSourceNote? {
+        guard perpetual, let own = own(exchangeKey, pairId: pairId) else { return .REFERENCE }
         if source == own { return nil }
         return chain.contains(own) ? .FALLBACK : .REFERENCE
     }
 
     static func note(_ watch: Watch, source: String) -> FuturesSourceNote? {
-        note(perpetual: watch.contractType.isPerpetual, marketKey: watch.marketKey, source: source, pairId: watch.pairId)
+        note(perpetual: watch.contractType.isPerpetual, exchangeKey: watch.exchangeKey, source: source, pairId: watch.pairId)
     }
 }
 

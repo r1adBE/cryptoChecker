@@ -10,7 +10,7 @@ struct RefreshReport: Codable, Sendable, Equatable {
     var totalMillis: Int64
     var pairs: Int
     var networkMillis: Int64
-    var markets: [MarketRefresh]
+    var exchanges: [ExchangeRefresh]
     /// nil: auf dieser Plattform nicht gemessen (Zeile entfällt).
     var dbMillis: Int64? = nil
     var effectsMillis: Int64? = nil
@@ -24,7 +24,7 @@ struct RefreshReport: Codable, Sendable, Equatable {
 }
 
 /// Ergebnis einer Börse; `updated` + `notTraded` + `failed` = `pairs`.
-struct MarketRefresh: Codable, Sendable, Equatable {
+struct ExchangeRefresh: Codable, Sendable, Equatable {
     var name: String
     var millis: Int64
     var pairs: Int
@@ -66,8 +66,8 @@ enum RefreshFailure: String, Codable, Sendable, CaseIterable {
 enum RefreshHeadline: Equatable, Sendable {
     case allUpdated
     case pairsNotUpdated(Int)
-    case marketUnreachable(String)
-    case marketsUnreachable(Int)
+    case exchangeUnreachable(String)
+    case exchangesUnreachable(Int)
     case aborted
 }
 
@@ -75,21 +75,21 @@ enum RefreshReportLogic {
 
     /// Alle Paare aktualisiert → grün; kein einziges und mindestens ein Fehler → rot;
     /// sonst orange. Nicht mehr gehandelte Paare: höchstens orange.
-    static func status(_ market: MarketRefresh) -> RefreshStatus {
-        if market.updated >= market.pairs { return .ok }
-        if market.updated == 0 && market.failed > 0 { return .failed }
+    static func status(_ exchange: ExchangeRefresh) -> RefreshStatus {
+        if exchange.updated >= exchange.pairs { return .ok }
+        if exchange.updated == 0 && exchange.failed > 0 { return .failed }
         return .partial
     }
 
     /// Schlechtester Zustand aller Börsen; abgebrochen = rot.
     static func overall(_ report: RefreshReport) -> RefreshStatus {
         if report.aborted != nil { return .failed }
-        return report.markets.map { status($0) }.max() ?? .ok
+        return report.exchanges.map { status($0) }.max() ?? .ok
     }
 
     /// Rot zuerst, dann orange, dann grün; innerhalb davon die langsamsten zuerst.
-    static func sorted(_ markets: [MarketRefresh]) -> [MarketRefresh] {
-        markets.sorted { a, b in
+    static func sorted(_ exchanges: [ExchangeRefresh]) -> [ExchangeRefresh] {
+        exchanges.sorted { a, b in
             let sa = status(a), sb = status(b)
             if sa != sb { return sa > sb }
             if a.millis != b.millis { return a.millis > b.millis }
@@ -99,10 +99,10 @@ enum RefreshReportLogic {
 
     static func headline(_ report: RefreshReport) -> RefreshHeadline {
         if report.aborted != nil { return .aborted }
-        let failed = report.markets.filter { status($0) == .failed }
-        if failed.count == 1, let only = failed.first { return .marketUnreachable(only.name) }
-        if failed.count > 1 { return .marketsUnreachable(failed.count) }
-        let missing = report.markets.reduce(0) { $0 + max(0, $1.pairs - $1.updated) }
+        let failed = report.exchanges.filter { status($0) == .failed }
+        if failed.count == 1, let only = failed.first { return .exchangeUnreachable(only.name) }
+        if failed.count > 1 { return .exchangesUnreachable(failed.count) }
+        let missing = report.exchanges.reduce(0) { $0 + max(0, $1.pairs - $1.updated) }
         return missing > 0 ? .pairsNotUpdated(missing) : .allUpdated
     }
 
@@ -120,19 +120,19 @@ enum RefreshReportLogic {
         }.first?.key
     }
 
-    /// Ursache eines frischen Fehlers: zuerst die beim Abruf festgestellte Art (`MarketFailure.refreshFailure`), nur
+    /// Ursache eines frischen Fehlers: zuerst die beim Abruf festgestellte Art (`ExchangeFailure.refreshFailure`), nur
     /// ohne Aussage der Art der Text. Gespeicherte Fehler haben keine Art und gehen direkt über den Text. Wie Android.
-    static func classify(_ failure: MarketFailure?, _ error: String?) -> RefreshFailure {
+    static func classify(_ failure: ExchangeFailure?, _ error: String?) -> RefreshFailure {
         failure?.refreshFailure ?? classify(error)
     }
 
     /// HTTP-Status: aus der Art, sonst aus dem Text.
-    static func httpStatus(_ failure: MarketFailure?, _ error: String?) -> Int? {
+    static func httpStatus(_ failure: ExchangeFailure?, _ error: String?) -> Int? {
         failure?.httpStatus ?? httpStatus(error)
     }
 
-    /// Fehlertext (iOS: `ConnectionErrors`/`MarketHTTP`; Android: Ausnahme bzw. Kennung) → Ursache, über
-    /// Stichwörter. Für gespeicherte Texte ohne `MarketFailure` (ältere Fassungen) und als Rückfall.
+    /// Fehlertext (iOS: `ConnectionErrors`/`ExchangeHTTP`; Android: Ausnahme bzw. Kennung) → Ursache, über
+    /// Stichwörter. Für gespeicherte Texte ohne `ExchangeFailure` (ältere Fassungen) und als Rückfall.
     static func classify(_ error: String?) -> RefreshFailure {
         let e = (error ?? "").trimmingCharacters(in: .whitespaces)
         let lower = e.lowercased()
@@ -153,7 +153,7 @@ enum RefreshReportLogic {
         httpCode((error ?? "").trimmingCharacters(in: .whitespaces).lowercased())
     }
 
-    /// iOS `MarketHTTP` («HTTP 429»), Android `HttpMarketError` («HttpCode: 429»).
+    /// iOS `ExchangeHTTP` («HTTP 429»), Android `HttpExchangeError` («HttpCode: 429»).
     private static func httpCode(_ lower: String) -> Int? {
         guard let regex = try? NSRegularExpression(pattern: #"\bhttp(?:code:)?\s*(\d{3})\b"#),
               let match = regex.firstMatch(in: lower, range: NSRange(lower.startIndex..., in: lower)),
@@ -169,10 +169,10 @@ enum RefreshReportLogic {
         "noroutetohost", "network is unreachable", "connection reset", "connection refused", "ssl", "eof",
     ]
 
-    /// = Android UserFriendlyMarketError.EMPTY_RESPONSE / NO_TICKER_DATA.
+    /// = Android UserFriendlyExchangeError.EMPTY_RESPONSE / NO_TICKER_DATA.
     private static let noDataErrors: Set<String> = ["Response data is empty", "Parsed ticker has no data"]
 
-    /// = Android UserFriendlyMarketError.MARKET_UNAVAILABLE und der früher deutsch gespeicherte Text
+    /// = Android UserFriendlyExchangeError.EXCHANGE_UNAVAILABLE
     /// (iOS erkennt «Börse fehlt» schon beim Abfragen, siehe `PriceRefresher.fetchSingle`).
-    private static let unavailableErrors: Set<String> = ["Market unavailable", "Börse nicht verfügbar"]
+    private static let unavailableErrors: Set<String> = ["Exchange unavailable"]
 }

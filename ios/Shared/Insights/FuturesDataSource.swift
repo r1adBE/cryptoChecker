@@ -40,7 +40,7 @@ enum FuturesDataSource {
         // Wie Android: nur Perpetuals (linear und invers, z. B. COIN-M), keine Laufzeit-Kontrakte.
         guard watch.contractType.isPerpetual else { return nil }
         let base = watch.baseAsset.trimmingCharacters(in: .whitespaces).uppercased()
-        switch watch.marketKey {
+        switch watch.exchangeKey {
         case "BybitFutures":
             let symbol = watch.pairId ?? "\(base)USDT"
             return try await firstOf([
@@ -104,7 +104,7 @@ enum FuturesDataSource {
     private static func ownAttempt(_ watch: Watch, base: String) -> Attempt? {
         let quote = watch.quoteAsset.trimmingCharacters(in: .whitespaces).uppercased()
         let id = watch.pairId
-        switch watch.marketKey {
+        switch watch.exchangeKey {
         case "WooFutures":
             let symbol = id ?? "PERP_\(base)_\(quote)"
             return (host: "api.woox.io", run: { try await woo(symbol: symbol) })
@@ -129,12 +129,12 @@ enum FuturesDataSource {
     }
 
     private static func woo(symbol: String) async throws -> FuturesInfo {
-        let text = try await MarketHTTP.call("https://api.woox.io/v3/public/futures?symbol=\(symbol)")
+        let text = try await ExchangeHTTP.call("https://api.woox.io/v3/public/futures?symbol=\(symbol)")
         return try FuturesParsers.woo(text)
     }
 
     private static func bitget(symbol: String) async throws -> FuturesInfo {
-        async let ticker = MarketHTTP.call(
+        async let ticker = ExchangeHTTP.call(
             "https://api.bitget.com/api/v2/mix/market/ticker?symbol=\(symbol)&productType=USDT-FUTURES")
         async let time = optionalCall(
             "https://api.bitget.com/api/v2/mix/market/funding-time?symbol=\(symbol)&productType=USDT-FUTURES")
@@ -144,7 +144,7 @@ enum FuturesDataSource {
     }
 
     private static func mexc(symbol: String) async throws -> FuturesInfo {
-        async let ticker = MarketHTTP.call("https://contract.mexc.com/api/v1/contract/ticker?symbol=\(symbol)")
+        async let ticker = ExchangeHTTP.call("https://contract.mexc.com/api/v1/contract/ticker?symbol=\(symbol)")
         async let detail = optionalCall("https://contract.mexc.com/api/v1/contract/detail?symbol=\(symbol)")
         async let funding = optionalCall("https://contract.mexc.com/api/v1/contract/funding_rate/\(symbol)")
         let tickerText = try await ticker
@@ -154,7 +154,7 @@ enum FuturesDataSource {
     }
 
     private static func htx(code: String) async throws -> FuturesInfo {
-        async let funding = MarketHTTP.call(
+        async let funding = ExchangeHTTP.call(
             "https://api.hbdm.com/linear-swap-api/v1/swap_funding_rate?contract_code=\(code)")
         async let oi = optionalCall(
             "https://api.hbdm.com/linear-swap-api/v1/swap_open_interest?contract_code=\(code)&business_type=swap")
@@ -165,12 +165,12 @@ enum FuturesDataSource {
 
     private static func hyperliquid(coin: String) async throws -> FuturesInfo {
         let post = PostRequest(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
-        let text = try await MarketHTTP.call("https://api.hyperliquid.xyz/info", post: post)
+        let text = try await ExchangeHTTP.call("https://api.hyperliquid.xyz/info", post: post)
         return try FuturesParsers.hyperliquid(text, coin: coin)
     }
 
     private static func deribit(instrument: String) async throws -> FuturesInfo {
-        let text = try await MarketHTTP.call("https://www.deribit.com/api/v2/public/ticker?instrument_name=\(instrument)")
+        let text = try await ExchangeHTTP.call("https://www.deribit.com/api/v2/public/ticker?instrument_name=\(instrument)")
         return try FuturesParsers.deribit(text)
     }
 
@@ -203,7 +203,7 @@ enum FuturesDataSource {
     }
 
     private static func binance(symbol: String, source: String) async throws -> FuturesInfo {
-        async let premiumJob = MarketHTTP.call("https://fapi.binance.com/fapi/v1/premiumIndex?symbol=\(symbol)")
+        async let premiumJob = ExchangeHTTP.call("https://fapi.binance.com/fapi/v1/premiumIndex?symbol=\(symbol)")
         async let oiJob = optionalCall("https://fapi.binance.com/fapi/v1/openInterest?symbol=\(symbol)")
 
         let p = try JObject(string: try await premiumJob)
@@ -246,7 +246,7 @@ enum FuturesDataSource {
     /// Binance COIN-M: `GET https://dapi.binance.com/dapi/v1/premiumIndex?symbol=BTCUSD_PERP` und
     /// `…/dapi/v1/openInterest?symbol=…`.
     private static func binanceCoinM(symbol: String) async throws -> FuturesInfo {
-        async let premiumJob = MarketHTTP.call("https://dapi.binance.com/dapi/v1/premiumIndex?symbol=\(symbol)")
+        async let premiumJob = ExchangeHTTP.call("https://dapi.binance.com/dapi/v1/premiumIndex?symbol=\(symbol)")
         async let oiJob = optionalCall("https://dapi.binance.com/dapi/v1/openInterest?symbol=\(symbol)")
         async let sizesJob = binanceCoinMSizes()
         let premium = try await premiumJob
@@ -274,7 +274,7 @@ enum FuturesDataSource {
 
     private static func bybit(symbol: String) async throws -> FuturesInfo {
         let url = "https://api.bybit.com/v5/market/tickers?category=linear&symbol=\(symbol)"
-        let t = try JObject(string: try await MarketHTTP.call(url))
+        let t = try JObject(string: try await ExchangeHTTP.call(url))
             .object("result").array("list").object(0)
         let next = Int64(t.optString("nextFundingTime"))
         let funding = Double(t.optString("fundingRate")).map { $0 * 100.0 }
@@ -297,7 +297,7 @@ enum FuturesDataSource {
     /// Abrechnung. Open Interest in USD aus «oiUsd», sonst Coins × Mark-Preis.
     private static func okx(base: String, instId explicitId: String? = nil) async throws -> FuturesInfo {
         let instId = explicitId ?? "\(base)-USDT-SWAP"
-        async let fundingJob = MarketHTTP.call("https://www.okx.com/api/v5/public/funding-rate?instId=\(instId)")
+        async let fundingJob = ExchangeHTTP.call("https://www.okx.com/api/v5/public/funding-rate?instId=\(instId)")
         async let oiJob = optionalCall("https://www.okx.com/api/v5/public/open-interest?instType=SWAP&instId=\(instId)")
 
         let f = try okxFirst(try await fundingJob)
@@ -333,7 +333,7 @@ enum FuturesDataSource {
     }
 
     private static func optionalCall(_ url: String) async -> String? {
-        try? await MarketHTTP.call(url)
+        try? await ExchangeHTTP.call(url)
     }
 }
 

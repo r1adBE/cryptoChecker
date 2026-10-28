@@ -28,8 +28,8 @@
         <item quantity="other">cerere grupată %1$s · %2$d de prețuri</item>
     </plurals>
     <string name="refresh_sheet_database">Bază de date</string>
-    <string name="refresh_sheet_market_unreachable">%1$s inaccesibil</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s inaccesibil</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d bursă inaccesibilă</item>
         <item quantity="few">%1$d burse inaccesibile</item>
         <item quantity="other">%1$d de burse inaccesibile</item>
@@ -68,7 +68,7 @@
     <string name="refresh_sheet_reason_unavailable">bursă indisponibilă</string>
     <string name="refresh_sheet_seconds_a11y">%1$s secunde</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Burse</string>
+    <string name="refresh_sheet_section_exchanges">Burse</string>
     <string name="refresh_sheet_section_steps">Detalii</string>
     <string name="refresh_sheet_status_failed">neactualizat</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

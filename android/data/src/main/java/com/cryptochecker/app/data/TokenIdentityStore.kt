@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 /**
  * Volle Namen der Coins für die Prüfung «gleicher Token» ([TokenIdentity], K-8): je Börse aus ihrer
- * Paarliste (beim Abgleich der Paare, [saveMarket]) und von Binance aus der Symbolliste der Logos
+ * Paarliste (beim Abgleich der Paare, [saveExchange]) und von Binance aus der Symbolliste der Logos
  * ([saveBinance]). Keine eigene Anfrage — nur, was ohnehin geladen wird. Eine Datei im Ordner ohne
  * Sicherung (wie der Paar-Zwischenspeicher neu ladbar). Wie `TokenIdentityStore.swift`.
  */
@@ -54,11 +54,11 @@ class TokenIdentityStore @Inject constructor(
         }
     }
 
-    /** Name des Coins [base] in der Paarliste der Börse [marketKey]; null = unbekannt. */
-    fun pairName(marketKey: String, base: String): String? = current().pairName(marketKey, base)
+    /** Name des Coins [base] in der Paarliste der Börse [exchangeKey]; null = unbekannt. */
+    fun pairName(exchangeKey: String, base: String): String? = current().pairName(exchangeKey, base)
 
-    /** Namen der Coins der Börse [marketKey] (Kürzel gross, [TokenIdentity.key] → Name); leer = unbekannt. */
-    fun marketNames(marketKey: String): Map<String, String> = current().markets[marketKey].orEmpty()
+    /** Namen der Coins der Börse [exchangeKey] (Kürzel gross, [TokenIdentity.key] → Name); leer = unbekannt. */
+    fun exchangeNames(exchangeKey: String): Map<String, String> = current().exchanges[exchangeKey].orEmpty()
 
     /** `fullName` von Binance für [base]; null = unbekannt. */
     fun binanceName(base: String): String? = current().binanceName(base)
@@ -67,13 +67,13 @@ class TokenIdentityStore @Inject constructor(
      * Namen des Kürzels [base] in allen gespeicherten Paarlisten (je Börse einer) — für «mehrere Token unter dem
      * Kürzel?» ([com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity.ambiguous]). Leer = unbekannt.
      */
-    fun otherNames(base: String): List<String?> = current().markets.values.mapNotNull { it[TokenIdentity.key(base)] }
+    fun otherNames(base: String): List<String?> = current().exchanges.values.mapNotNull { it[TokenIdentity.key(base)] }
 
     /** Namen aus einer frisch geladenen Paarliste; ohne Namen bleibt der bisherige Stand. */
-    fun saveMarket(marketKey: String, names: Map<String, String>) {
+    fun saveExchange(exchangeKey: String, names: Map<String, String>) {
         val cleaned = TokenIdentity.cleaned(names)
         if (cleaned.isEmpty()) return
-        update { it.copy(markets = it.markets + (marketKey to cleaned)) }
+        update { it.copy(exchanges = it.exchanges + (exchangeKey to cleaned)) }
     }
 
     /** Namen aus der Binance-Symbolliste; leer = bisheriger Stand. */
@@ -98,7 +98,7 @@ class TokenIdentityStore @Inject constructor(
             return null
         }
         val names = watches.filter { !it.disabled && TokenIdentity.key(it.baseAsset) == key }
-            .map { pairName(it.marketKey, it.baseAsset) }
+            .map { pairName(it.exchangeKey, it.baseAsset) }
         return TokenIdentity.consensus(key, names)
     }
 
@@ -111,27 +111,27 @@ class TokenIdentityStore @Inject constructor(
 
     /**
      * Darf die Ausweich-Reihe von [provider] (gemeinsamer Zwischenspeicher je Kürzel) beim Paar [base] an
-     * [marketKey] erscheinen? Nein bei klar anderem Namen ([TokenIdentity.fallbackSeriesAllowed]) — dann
+     * [exchangeKey] erscheinen? Nein bei klar anderem Namen ([TokenIdentity.fallbackSeriesAllowed]) — dann
      * lieber nichts als die Reihe eines anderen Tokens.
      */
-    fun fallbackSeriesAllowed(marketKey: String, base: String, provider: String?): Boolean {
-        val providerName = TokenIdentity.PROVIDER_MARKETS[provider?.trim()]?.let { pairName(it, base) }
-        return TokenIdentity.fallbackSeriesAllowed(base, pairName(marketKey, base), provider, binanceName(base), providerName)
+    fun fallbackSeriesAllowed(exchangeKey: String, base: String, provider: String?): Boolean {
+        val providerName = TokenIdentity.PROVIDER_EXCHANGES[provider?.trim()]?.let { pairName(it, base) }
+        return TokenIdentity.fallbackSeriesAllowed(base, pairName(exchangeKey, base), provider, binanceName(base), providerName)
     }
 
     /**
-     * Darf die Ausweich-Reihe von [provider] die %-Veränderung des Paars [base] an [marketKey] ([marketName])
+     * Darf die Ausweich-Reihe von [provider] die %-Veränderung des Paars [base] an [exchangeKey] ([exchangeName])
      * liefern? Kerzen derselben Börse ([com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource] null):
      * wie [fallbackSeriesAllowed]. Kerzen einer anderen Börse oder unbekannter Anbieter: nur mit belegt gleichem
      * Namen ([TokenIdentity.fallbackChangeAllowed]) — sonst keine Veränderung statt eines fremden Werts.
      */
-    fun fallbackChangeAllowed(marketKey: String, marketName: String, base: String, provider: String?): Boolean {
+    fun fallbackChangeAllowed(exchangeKey: String, exchangeName: String, base: String, provider: String?): Boolean {
         val p = provider?.trim()?.takeIf { it.isNotEmpty() } ?: return false
-        if (com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(listOf(marketKey, marketName), p) == null) {
-            return fallbackSeriesAllowed(marketKey, base, p)
+        if (com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(listOf(exchangeKey, exchangeName), p) == null) {
+            return fallbackSeriesAllowed(exchangeKey, base, p)
         }
-        val providerName = TokenIdentity.PROVIDER_MARKETS[p]?.let { pairName(it, base) }
-        return TokenIdentity.fallbackChangeAllowed(base, pairName(marketKey, base), p, binanceName(base), providerName)
+        val providerName = TokenIdentity.PROVIDER_EXCHANGES[p]?.let { pairName(it, base) }
+        return TokenIdentity.fallbackChangeAllowed(base, pairName(exchangeKey, base), p, binanceName(base), providerName)
     }
 
     /**
@@ -140,7 +140,7 @@ class TokenIdentityStore @Inject constructor(
      */
     fun chainSourceAllowed(base: String, ownName: String?, host: String): Boolean {
         val provider = com.cryptochecker.app.domain.market.DataFreshness.candleProvider(host)
-        val providerName = TokenIdentity.PROVIDER_MARKETS[provider]?.let { pairName(it, base) }
+        val providerName = TokenIdentity.PROVIDER_EXCHANGES[provider]?.let { pairName(it, base) }
         return TokenIdentity.chainSourceAllowed(base, ownName, host, binanceName(base), providerName)
     }
 

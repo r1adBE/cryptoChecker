@@ -62,22 +62,22 @@ final class PhemexScalesTests: XCTestCase {
             PhemexScales.storeURL = previousURL
             try? FileManager.default.removeItem(at: file)
         }
-        let market = Phemex()
+        let exchange = Phemex()
         PhemexScales.storeURL = nil
         PhemexScales.current = PhemexScales()
         // Ohne Produktliste: kein Kurs (statt eines um Zehnerpotenzen falschen), Sammelabfrage holt zuerst die Liste
-        XCTAssertEqual(market.bulkTickersNumOfRequests, 2)
-        XCTAssertEqual(market.bulkTickersURL(call: 0), "https://api.phemex.com/public/products")
-        XCTAssertEqual(market.bulkTickersURL(call: 1), "https://api.phemex.com/md/spot/ticker/24hr/all")
-        XCTAssertThrowsError(try market.parseBulkTickersDetailed(call: 1, body: ticker))
+        XCTAssertEqual(exchange.bulkTickersNumOfRequests, 2)
+        XCTAssertEqual(exchange.bulkTickersURL(call: 0), "https://api.phemex.com/public/products")
+        XCTAssertEqual(exchange.bulkTickersURL(call: 1), "https://api.phemex.com/md/spot/ticker/24hr/all")
+        XCTAssertThrowsError(try exchange.parseBulkTickersDetailed(call: 1, body: ticker))
         // Erste Anfrage = Produktliste: Faktoren merken und in der Datei ablegen
         PhemexScales.storeURL = file
         let products = #"{"code":0,"data":"# + json + "}"
-        XCTAssertTrue(try market.parseBulkTickersDetailed(call: 0, body: products).tickers.isEmpty)
+        XCTAssertTrue(try exchange.parseBulkTickersDetailed(call: 0, body: products).tickers.isEmpty)
         XCTAssertTrue(PhemexScales.current.loaded)
         XCTAssertTrue(FileManager.default.fileExists(atPath: file.path))
-        XCTAssertEqual(market.bulkTickersNumOfRequests, 1)
-        let last = try market.parseBulkTickersDetailed(call: 1, body: ticker).tickers["sBTCUSDT"]?.last ?? 0
+        XCTAssertEqual(exchange.bulkTickersNumOfRequests, 1)
+        let last = try exchange.parseBulkTickersDetailed(call: 1, body: ticker).tickers["sBTCUSDT"]?.last ?? 0
         XCTAssertEqual(last, 62000.1, accuracy: 1e-9)
         // «Neustart»: Speicher leer, die Datei liefert dieselben Faktoren
         PhemexScales.current = PhemexScales()
@@ -93,7 +93,7 @@ final class PhemexScalesTests: XCTestCase {
     }
 
     func testLoadsMissingScalesForSingleTickersAndRefreshesDaily() throws {
-        let market = Phemex()
+        let exchange = Phemex()
         let info = PairQuery("BTC", "USDT", "sBTCUSDT")
         let products = #"{"code":0,"data":"# + json + "}"
         let single = #"{"error":null,"id":0,"result":{"lastEp":6200010000000,"symbol":"sBTCUSDT"}}"#
@@ -106,42 +106,42 @@ final class PhemexScalesTests: XCTestCase {
         PhemexScales.storeURL = nil
         PhemexScales.current = PhemexScales()
         // Einzelabfrage ohne Faktoren (weniger Paare als für die Sammelabfrage): erste Anfrage = Produktliste
-        XCTAssertEqual(market.tickerCallCount(info), 2)
-        XCTAssertEqual(market.tickerAddress(call: 0, info: info), "https://api.phemex.com/public/products")
+        XCTAssertEqual(exchange.tickerCallCount(info), 2)
+        XCTAssertEqual(exchange.tickerAddress(call: 0, info: info), "https://api.phemex.com/public/products")
         var first = Ticker()
-        XCTAssertThrowsError(try market.readTicker(call: 0, body: products, ticker: &first, info: info)) {
+        XCTAssertThrowsError(try exchange.readTicker(call: 0, body: products, ticker: &first, info: info)) {
             XCTAssertEqual(($0 as? JSONError)?.message, PhemexScales.justLoaded)
         }
         // Danach geladen: nächste Abfrage liefert den Kurs (kein Dauerfehler)
         XCTAssertTrue(PhemexScales.current.loaded)
-        XCTAssertEqual(market.tickerCallCount(info), 1)
-        XCTAssertEqual(market.tickerAddress(call: 0, info: info), "https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT")
+        XCTAssertEqual(exchange.tickerCallCount(info), 1)
+        XCTAssertEqual(exchange.tickerAddress(call: 0, info: info), "https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT")
         var ticker = Ticker()
-        try market.readTicker(call: 0, body: single, ticker: &ticker, info: info)
+        try exchange.readTicker(call: 0, body: single, ticker: &ticker, info: info)
         XCTAssertEqual(ticker.last, 62000.1, accuracy: 1e-9)
 
         // Älter als einen Tag: Kurs zuerst, Produktliste als Zusatzanfrage (Einzel- und Sammelabfrage)
         let old = Int64(Date().timeIntervalSince1970 * 1000) - PhemexScales.refreshMillis - 1000
         PhemexScales.current = PhemexScales.parse(try JObject(string: json), now: old)
         XCTAssertTrue(PhemexScales.current.isStale())
-        XCTAssertEqual(market.tickerCallCount(info), 2)
-        XCTAssertEqual(market.tickerAddress(call: 0, info: info), "https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT")
-        XCTAssertEqual(market.tickerAddress(call: 1, info: info), "https://api.phemex.com/public/products")
+        XCTAssertEqual(exchange.tickerCallCount(info), 2)
+        XCTAssertEqual(exchange.tickerAddress(call: 0, info: info), "https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT")
+        XCTAssertEqual(exchange.tickerAddress(call: 1, info: info), "https://api.phemex.com/public/products")
         var refreshed = Ticker()
-        try market.readTicker(call: 0, body: single, ticker: &refreshed, info: info)
-        try market.readTicker(call: 1, body: products, ticker: &refreshed, info: info)
+        try exchange.readTicker(call: 0, body: single, ticker: &refreshed, info: info)
+        try exchange.readTicker(call: 1, body: products, ticker: &refreshed, info: info)
         XCTAssertEqual(refreshed.last, 62000.1, accuracy: 1e-9)
         XCTAssertFalse(PhemexScales.current.isStale())
 
         PhemexScales.current = PhemexScales.parse(try JObject(string: json), now: old)
-        XCTAssertEqual(market.bulkTickersNumOfRequests, 2)
-        XCTAssertEqual(market.bulkTickersURL(call: 0), "https://api.phemex.com/md/spot/ticker/24hr/all")
-        XCTAssertEqual(market.bulkTickersURL(call: 1), "https://api.phemex.com/public/products")
+        XCTAssertEqual(exchange.bulkTickersNumOfRequests, 2)
+        XCTAssertEqual(exchange.bulkTickersURL(call: 0), "https://api.phemex.com/md/spot/ticker/24hr/all")
+        XCTAssertEqual(exchange.bulkTickersURL(call: 1), "https://api.phemex.com/public/products")
         // Scheitert die Auffrischung, bleiben die Kurse vollständig (eigene Gruppe)
-        XCTAssertEqual(market.bulkTickersRequestGroup(call: 0), 0)
-        XCTAssertEqual(market.bulkTickersRequestGroup(call: 1), 1)
-        XCTAssertTrue(try market.parseBulkTickersDetailed(call: 1, body: products).tickers.isEmpty)
-        XCTAssertEqual(market.bulkTickersNumOfRequests, 1)
+        XCTAssertEqual(exchange.bulkTickersRequestGroup(call: 0), 0)
+        XCTAssertEqual(exchange.bulkTickersRequestGroup(call: 1), 1)
+        XCTAssertTrue(try exchange.parseBulkTickersDetailed(call: 1, body: products).tickers.isEmpty)
+        XCTAssertEqual(exchange.bulkTickersNumOfRequests, 1)
         // Ältere Datei ohne Zeitpunkt: gilt als veraltet, Faktoren bleiben nutzbar
         let legacy = try XCTUnwrap(PhemexScales.decode(#"{"v":1,"price":{"sBTCUSDT":8}}"#))
         XCTAssertTrue(legacy.loaded && legacy.isStale())
@@ -162,7 +162,7 @@ final class PhemexScalesTests: XCTestCase {
     }
 
     func testSymbolWithoutPriceScaleIsAnErrorNotAGuess() throws {
-        let market = Phemex()
+        let exchange = Phemex()
         let previousURL = PhemexScales.storeURL
         defer {
             PhemexScales.storeURL = nil
@@ -175,14 +175,14 @@ final class PhemexScalesTests: XCTestCase {
         // (zwei lesbare Zeilen, sonst gälte die Antwort als Formatfehler: mehr unlesbare als lesbare)
         let body = #"{"result":[{"symbol":"sBTCUSDT","lastEp":6200010000000},{"symbol":"sNEWUSDT","lastEp":1500000},"# +
             #"{"symbol":"sMISSINGUSDT","lastEp":123456},{"symbol":"sNOSCALEUSDT","lastEp":123456}]}"#
-        let parsed = try market.parseBulkTickersDetailed(call: 0, body: body)
+        let parsed = try exchange.parseBulkTickersDetailed(call: 0, body: body)
         XCTAssertEqual(Set(parsed.tickers.keys), ["sBTCUSDT", "sNEWUSDT"])
         XCTAssertEqual(parsed.failed, ["sMISSINGUSDT", "sNOSCALEUSDT"])
         // Einzelabfrage: Fehler mit Symbol
         let info = PairQuery("MISSING", "USDT", "sMISSINGUSDT")
         let single = #"{"error":null,"id":0,"result":{"lastEp":123456,"symbol":"sMISSINGUSDT"}}"#
         var ticker = Ticker()
-        XCTAssertThrowsError(try market.readTicker(call: 0, body: single, ticker: &ticker, info: info)) {
+        XCTAssertThrowsError(try exchange.readTicker(call: 0, body: single, ticker: &ticker, info: info)) {
             XCTAssertEqual(($0 as? JSONError)?.message, PhemexScales.unknownScale("sMISSINGUSDT"))
         }
     }

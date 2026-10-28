@@ -243,18 +243,18 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»; frühere Namen bleiben
     // Suchwörter
     val futures = stringResource(R.string.settings_asset_scope_title)
-    add("page.markets", futures, watchlist, SettingsSearchTarget.Page(SettingsPage.MARKETS))
+    add("page.exchanges", futures, watchlist, SettingsSearchTarget.Page(SettingsPage.EXCHANGES))
     add("futures.scope", stringResource(R.string.settings_asset_scope_title), futures,
-        SettingsSearchTarget.Page(SettingsPage.MARKETS, "futures.scope"),
+        SettingsSearchTarget.Page(SettingsPage.EXCHANGES, "futures.scope"),
         stringResource(R.string.settings_asset_scope_tokens), stringResource(R.string.settings_asset_scope_tokens_hint),
         stringResource(R.string.settings_asset_scope_tradfi), stringResource(R.string.settings_asset_scope_tradfi_hint),
         stringResource(R.string.settings_asset_scope_both), "TradFi", "Token",
         stringResource(R.string.settings_tradfi_futures), stringResource(R.string.settings_tradfi_futures_hint))
     add("futures.alpha", stringResource(R.string.settings_asset_scope_alpha), futures,
-        SettingsSearchTarget.Page(SettingsPage.MARKETS, "futures.alpha"),
+        SettingsSearchTarget.Page(SettingsPage.EXCHANGES, "futures.alpha"),
         stringResource(R.string.settings_asset_scope_alpha_hint), stringResource(R.string.group_alpha), "Alpha", "α")
     add("futures.rolling", stringResource(R.string.settings_rolling_futures_qtly), futures,
-        SettingsSearchTarget.Page(SettingsPage.MARKETS, "futures.rolling"),
+        SettingsSearchTarget.Page(SettingsPage.EXCHANGES, "futures.rolling"),
         stringResource(R.string.settings_rolling_futures_hint), "QTLY",
         stringResource(R.string.settings_rolling_futures), stringResource(R.string.settings_row_dated_futures))
 

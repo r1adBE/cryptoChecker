@@ -91,10 +91,10 @@ final class CurrencyConversionParityTests: XCTestCase {
     func testConversionQuoteAndSameCurrency() throws {
         let data = try S.fixture("currency_conversion")
         for c in S.list(data["conversionQuote"]) {
-            let market = c["market"] as? String
+            let exchange = c["exchangeKey"] as? String
             let quote = c["quote"] as? String
-            let actual = CurrencyConversion.conversionQuote(marketKey: market, quote: quote)
-            XCTAssertEqual(actual, c["expected"] as? String, "conversionQuote \(market ?? "nil") \(quote ?? "nil")")
+            let actual = CurrencyConversion.conversionQuote(exchangeKey: exchange, quote: quote)
+            XCTAssertEqual(actual, c["expected"] as? String, "conversionQuote \(exchange ?? "nil") \(quote ?? "nil")")
         }
         for c in S.list(data["sameCurrency"]) {
             let a = c["a"] as? String

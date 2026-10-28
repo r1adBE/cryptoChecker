@@ -217,14 +217,14 @@ struct AlarmsOverviewScreen: View {
                 AlarmsScreen(watchId: watch.id)
             } label: {
                 HStack(spacing: 12) {
-                    CoinBadge(symbol: watch.baseAsset, size: 38, logo: CoinLogos.allowed(forMarket: watch.marketKey),
+                    CoinBadge(symbol: watch.baseAsset, size: 38, logo: CoinLogos.allowed(forExchange: watch.exchangeKey),
                               pair: watch.logoPairKey)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(watch.displayName)
                             .font(.headline)
                             .foregroundStyle(AppColors.onSurface)
                             .lineLimit(1)
-                        Text(watch.marketName)
+                        Text(watch.exchangeName)
                             .font(.footnote)
                             .foregroundStyle(AppColors.onSurfaceVariant)
                     }

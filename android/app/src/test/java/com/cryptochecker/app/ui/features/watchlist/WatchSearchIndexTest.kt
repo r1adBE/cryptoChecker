@@ -9,13 +9,13 @@ import org.junit.Test
 /** Zwischengespeicherte Suchschlüssel der Merkliste (iOS: `WatchlistSearchIndexTests`). */
 class WatchSearchIndexTest {
     private val watches = listOf(
-        WatchEntity(id = 1, marketKey = "Kraken", marketName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR"),
-        WatchEntity(id = 2, marketKey = "Binance", marketName = "Binance", baseAsset = "PEPE", quoteAsset = "USDT",
+        WatchEntity(id = 1, exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR"),
+        WatchEntity(id = 2, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "PEPE", quoteAsset = "USDT",
             note = "Pépé Einstieg"),
-        WatchEntity(id = 3, marketKey = "BinanceFutures", marketName = "Binance Futures", baseAsset = "ETH",
+        WatchEntity(id = 3, exchangeKey = "BinanceFutures", exchangeName = "Binance Futures", baseAsset = "ETH",
             quoteAsset = "USDT", contractType = FuturesContractType.PERPETUAL, note = "Hedge ÉTÉ"),
-        WatchEntity(id = 4, marketKey = "Bitstamp", marketName = "Bitstamp", baseAsset = "XRP", quoteAsset = "CHF"),
-        WatchEntity(id = 5, marketKey = "Coinbase", marketName = "Coinbase", baseAsset = "SOL", quoteAsset = "USDC",
+        WatchEntity(id = 4, exchangeKey = "Bitstamp", exchangeName = "Bitstamp", baseAsset = "XRP", quoteAsset = "CHF"),
+        WatchEntity(id = 5, exchangeKey = "Coinbase", exchangeName = "Coinbase", baseAsset = "SOL", quoteAsset = "USDC",
             note = "langfristig"),
     )
     private val names = mapOf(1L to "Bitcoin", 2L to "Pépé", 3L to "Ethereum", 5L to "Solana")
@@ -62,7 +62,7 @@ class WatchSearchIndexTest {
         assertEquals(listOf(4L), index.filter(noted, "cafe", renamed).map { it.id })
         assertEquals(watches.size + 2, index.keysBuilt)
         // Börsenname geändert
-        val moved = noted.map { if (it.id == 5L) it.copy(marketName = "Coinbase Advanced") else it }
+        val moved = noted.map { if (it.id == 5L) it.copy(exchangeName = "Coinbase Advanced") else it }
         assertEquals(listOf(5L), index.filter(moved, "advanced", renamed).map { it.id })
         assertEquals(watches.size + 3, index.keysBuilt)
     }

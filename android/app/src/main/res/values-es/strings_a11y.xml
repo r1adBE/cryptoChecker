@@ -11,7 +11,7 @@
     <string name="a11y_favorite">Favorito</string>
     <string name="a11y_in_watchlist">Ya está en la lista de seguimiento</string>
     <!-- %1$s Börse, letzte Abfrage gescheitert -->
-    <string name="a11y_market_unreachable">%1$s no disponible</string>
+    <string name="a11y_exchange_unreachable">%1$s no disponible</string>
     <string name="a11y_move_down">Mover abajo</string>
     <string name="a11y_move_up">Mover arriba</string>
     <string name="a11y_note">nota: %1$s</string>

@@ -30,13 +30,13 @@ enum ConnectionErrors {
     static func display(_ stored: String) -> String {
         if isNotTraded(stored) { return L("watch_not_traded") }
         if isOffline(stored) { return L("watch_error_offline") }
-        if isRetryable(stored) { return L("error_market_unreachable_short") }
+        if isRetryable(stored) { return L("error_exchange_unreachable_short") }
         // Schon übersetzte, eigene Texte (z. B. «Keine Kursdaten») so lassen
-        let known = [L("market_data_empty_error"), L("market_unavailable_error"), L("something_went_wrong")]
+        let known = [L("exchange_data_empty_error"), L("exchange_unavailable_error"), L("something_went_wrong")]
         if known.contains(stored) { return stored }
         switch RefreshReportLogic.classify(stored) {
-        case .NO_DATA: return L("market_data_empty_error")
-        case .UNAVAILABLE: return L("market_unavailable_error")
+        case .NO_DATA: return L("exchange_data_empty_error")
+        case .UNAVAILABLE: return L("exchange_unavailable_error")
         default: return L("something_went_wrong")
         }
     }

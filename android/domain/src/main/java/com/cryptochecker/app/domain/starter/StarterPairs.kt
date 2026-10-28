@@ -7,7 +7,7 @@ package com.cryptochecker.app.domain.starter
  * Paar: Binance Spot «<COIN>/USDT» (Paar-Id wie in der Binance-Paarliste: «BTCUSDT»), in allen Regionen
  * ausser den USA (auch Schweiz/Liechtenstein, Entscheid 15. Oktober 2026); in den USA Binance.US
  * «<COIN>/USDT» (gleiche Schnittstelle, `api.binance.us`). Die Börsen-Schlüssel entsprechen Market.key in
- * MarketsConfig («Binance», «BinanceUs»). Binance liefert eine gleitende 24-h-Änderung.
+ * ExchangesConfig («Binance», «BinanceUs»). Binance liefert eine gleitende 24-h-Änderung.
  */
 object StarterPairs {
 
@@ -16,8 +16,8 @@ object StarterPairs {
 
     /** Ein anzulegendes Paar. */
     data class Pair(
-        val marketKey: String,
-        val marketName: String,
+        val exchangeKey: String,
+        val exchangeName: String,
         val base: String,
         val quote: String,
         val pairId: String,
@@ -60,16 +60,16 @@ object StarterPairs {
     }
 
     /** Start-Börse der Region (Schlüssel wie Market.key). */
-    fun marketKey(regionCountry: String?): String = if (isUs(regionCountry)) BINANCE_US_KEY else BINANCE_KEY
+    fun exchangeKey(regionCountry: String?): String = if (isUs(regionCountry)) BINANCE_US_KEY else BINANCE_KEY
 
     /**
      * Anzeigename der Start-Börse der Region («Binance», bei Standort-Sperre bzw. in den USA «Binance.US»): die
      * Start-Auswahl sagt laut, woher die Kurse kommen («Kurse von Binance in USDT»).
-     * @param marketName Anzeigename aus der Registry; null = Schlüssel
+     * @param exchangeName Anzeigename aus der Registry; null = Schlüssel
      */
-    fun marketName(regionCountry: String?, marketName: (String) -> String? = { null }): String {
-        val key = marketKey(regionCountry)
-        return marketName(key) ?: key
+    fun exchangeName(regionCountry: String?, exchangeName: (String) -> String? = { null }): String {
+        val key = exchangeKey(regionCountry)
+        return exchangeName(key) ?: key
     }
 
     /** Anzeige-Quote für Kurse ohne eigene Quote. */
@@ -78,16 +78,16 @@ object StarterPairs {
 
     /**
      * @param regionCountry Ländercode der Geräte-Region (z. B. «US», «CH»)
-     * @param marketName Anzeigename der Börse aus der Registry; null = Schlüssel
+     * @param exchangeName Anzeigename der Börse aus der Registry; null = Schlüssel
      */
     fun pairFor(
         symbol: String,
         regionCountry: String?,
-        marketName: (String) -> String? = { null },
+        exchangeName: (String) -> String? = { null },
     ): Pair {
         val base = symbol.trim().uppercase()
-        val key = marketKey(regionCountry)
-        return Pair(key, marketName(key) ?: key, base, START_QUOTE, base + START_QUOTE)
+        val key = exchangeKey(regionCountry)
+        return Pair(key, exchangeName(key) ?: key, base, START_QUOTE, base + START_QUOTE)
     }
 
     /**
@@ -98,7 +98,7 @@ object StarterPairs {
     fun missing(wanted: List<Pair>, existing: Collection<Triple<String, String, String>>): List<Pair> {
         val have = existing.map { (m, b, q) -> Triple(m, b.uppercase(), q.uppercase()) }.toSet()
         return wanted
-            .distinctBy { Triple(it.marketKey, it.base, it.quote) }
-            .filter { Triple(it.marketKey, it.base.uppercase(), it.quote.uppercase()) !in have }
+            .distinctBy { Triple(it.exchangeKey, it.base, it.quote) }
+            .filter { Triple(it.exchangeKey, it.base.uppercase(), it.quote.uppercase()) !in have }
     }
 }

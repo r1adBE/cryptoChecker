@@ -119,8 +119,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         }
 
         // Phemex: Faktoren (Ep/Ev) der Produktliste auf dem Gerät — nach einem Neustart nie ein geratener Faktor
-        com.cryptochecker.marketdata.model.market.PhemexScales.store =
-            com.cryptochecker.marketdata.model.market.PhemexScales.FileStore(java.io.File(noBackupFilesDir, "phemex_scales.json"))
+        com.cryptochecker.marketdata.model.exchange.PhemexScales.store =
+            com.cryptochecker.marketdata.model.exchange.PhemexScales.FileStore(java.io.File(noBackupFilesDir, "phemex_scales.json"))
         // Daten-Spiegel: gesperrte Signatur-Schlüssel bleiben über Neustarts gesperrt
         MirrorRevocations.shared = MirrorRevocations(
             MirrorRevocations.FileStore(java.io.File(noBackupFilesDir, MirrorRevocations.FILE_NAME))

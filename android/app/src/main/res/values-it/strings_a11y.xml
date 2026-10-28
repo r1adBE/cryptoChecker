@@ -11,7 +11,7 @@
     <string name="a11y_favorite">Preferito</string>
     <string name="a11y_in_watchlist">Già nella lista di osservazione</string>
     <!-- %1$s Börse, letzte Abfrage gescheitert -->
-    <string name="a11y_market_unreachable">%1$s non raggiungibile</string>
+    <string name="a11y_exchange_unreachable">%1$s non raggiungibile</string>
     <string name="a11y_move_down">Sposta giù</string>
     <string name="a11y_move_up">Sposta su</string>
     <string name="a11y_note">nota: %1$s</string>

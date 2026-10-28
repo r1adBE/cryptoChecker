@@ -57,7 +57,7 @@ class BackupLimitsTest {
               "watches": [
                 {
                   "id": 3,
-                  "marketKey": "binance",
+                  "exchangeKey": "binance",
                   "baseAsset": "BTC",
                   "quoteAsset": "USDT"
                 }

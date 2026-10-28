@@ -52,7 +52,7 @@ extension Notifier {
     /// nie aus dem Netz; DEX-Pools nie (fremde Tokens dürfen «BTC» heissen). iOS verschiebt die Datei eines Anhangs in
     /// seinen eigenen Speicher, darum eine eigene Kopie im temporären Ordner. nil = ohne Bild.
     static func coinLogoAttachment(_ watch: Watch) -> UNNotificationAttachment? {
-        guard CoinLogos.allowed(forMarket: watch.marketKey),
+        guard CoinLogos.allowed(forExchange: watch.exchangeKey),
               let image = CoinLogoStore.stored(CoinLogoStore.logoKey(for: watch)),
               let data = image.pngData() else { return nil }
         let url = FileManager.default.temporaryDirectory

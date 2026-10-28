@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.model
 
-import com.cryptochecker.marketdata.model.MarketPair
-import com.cryptochecker.marketdata.model.market.Bitfinex
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.exchange.Bitfinex
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -12,7 +12,7 @@ class BitfinexPairsTest {
     fun legacyCodesAreTranslated() {
         val body = """[["BTCUST","ATOUSD","DSHBTC","IOTUSD","WBTUSD","ALGUSD","QTMUSD","YYWUSD","DATUSD","MNAUSD","AMPUSD",
             "TSDUSD","BTCUDC","XCHUSD","MATIC:USD","TESTBTC:TESTUSD","BTCUSD"]]"""
-        val pairs = ArrayList<MarketPair>()
+        val pairs = ArrayList<ExchangePair>()
         Bitfinex().readPairList(0, body, pairs)
         assertEquals(
             listOf(

@@ -9,8 +9,8 @@ final class BackupRestoreLimitsTests: XCTestCase {
 
     func testGrenzenWieGemeinsameTestfaelle() throws {
         let limits = try XCTUnwrap(try S.fixture("backup_limits")["limits"] as? [String: Any])
-        XCTAssertEqual(S.number(limits["maxMarketKey"]).map { Int($0) }, BackupRestoreLimits.maxMarketKey)
-        XCTAssertEqual(S.number(limits["maxMarketName"]).map { Int($0) }, BackupRestoreLimits.maxMarketName)
+        XCTAssertEqual(S.number(limits["maxExchangeKey"]).map { Int($0) }, BackupRestoreLimits.maxExchangeKey)
+        XCTAssertEqual(S.number(limits["maxExchangeName"]).map { Int($0) }, BackupRestoreLimits.maxExchangeName)
         XCTAssertEqual(S.number(limits["maxAsset"]).map { Int($0) }, BackupRestoreLimits.maxAsset)
         XCTAssertEqual(S.number(limits["maxPairId"]).map { Int($0) }, BackupRestoreLimits.maxPairId)
         XCTAssertEqual(S.number(limits["maxPairs"]).map { Int($0) }, BackupRestoreLimits.maxPairs)
@@ -40,7 +40,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
     func testHoechstensSovielePaareUndAlarmeJePaar() {
         let max = BackupRestoreLimits.maxPairs
         let watches = (1...(max + 5)).map {
-            Watch(id: Int64($0), marketKey: "Binance", marketName: "Binance", baseAsset: "B\($0)", quoteAsset: "USDT")
+            Watch(id: Int64($0), exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "B\($0)", quoteAsset: "USDT")
         }
         var alarms = (1...(BackupRestoreLimits.maxAlarmsPerPair + 3)).map {
             Alarm(id: Int64($0), watchId: 1, condition: .PRICE_ABOVE, threshold: 1)
@@ -62,9 +62,9 @@ final class BackupRestoreLimitsTests: XCTestCase {
     /// Paare mit unzulässiger Kennung fallen samt ihren Alarmen weg und werden gezählt; Alarme ohne Paar nicht.
     func testUnzulaessigePaareSamtAlarmenGezaehlt() {
         let watches = [
-            Watch(id: 1, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT", pairId: "BTCUSDT"),
-            Watch(id: 2, marketKey: "Binance", marketName: "Binance", baseAsset: "ETH", quoteAsset: "USDT", pairId: "ETH USDT"),
-            Watch(id: 3, marketKey: "Binance", marketName: "Binance", baseAsset: "SOL", quoteAsset: "USDT", pairId: "SOLUSDT"),
+            Watch(id: 1, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT", pairId: "BTCUSDT"),
+            Watch(id: 2, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "ETH", quoteAsset: "USDT", pairId: "ETH USDT"),
+            Watch(id: 3, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "SOL", quoteAsset: "USDT", pairId: "SOLUSDT"),
         ]
         let alarms = [(1, 1), (2, 2), (3, 2), (4, 9)].map {
             Alarm(id: Int64($0.0), watchId: Int64($0.1), condition: .PRICE_ABOVE, threshold: 1)
@@ -104,7 +104,7 @@ final class BackupRestoreLimitsTests: XCTestCase {
         let pairs = Int64(S.number(c["pairs"]) ?? 0)
         let watches: [[String: Any]] = (1...pairs).map { id in
             let base = "B\(sameAs[id] ?? id)"
-            return ["id": NSNumber(value: id), "marketKey": "Binance", "marketName": "Binance", "baseAsset": base,
+            return ["id": NSNumber(value: id), "exchangeKey": "Binance", "exchangeName": "Binance", "baseAsset": base,
                     "quoteAsset": "USDT", "contractType": "NONE",
                     "pairId": invalid.contains(id) ? "\(base) USDT" : "\(base)USDT"]
         }

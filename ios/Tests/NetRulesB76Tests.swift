@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Netz, Aktualisierung und Alarme — gleiche Fälle wie Android (`NotTradedConfirmTest`, `SpokenPriceLocaleTest`,
-/// `FetchOrderTest`, `AlarmFreshnessTest`, `BidAskSpreadTest`, `AlarmDeliveryRetractTest`, `MarketCallTimeoutTest`).
+/// `FetchOrderTest`, `AlarmFreshnessTest`, `BidAskSpreadTest`, `AlarmDeliveryRetractTest`, `ExchangeCallTimeoutTest`).
 final class NetRulesB76Tests: XCTestCase {
 
     // MARK: «Nicht mehr gehandelt» nur bei klarer Aussage der Börse

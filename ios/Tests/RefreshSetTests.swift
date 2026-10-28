@@ -79,7 +79,7 @@ final class RefreshEffectsDerivativesTests: XCTestCase {
     private let now: Int64 = 1_700_000_000_000
 
     private func check(_ alarms: [Alarm], values: DerivativesAlarmData.Values?) -> PriceRefresher.Outcome {
-        let before = Watch(id: 1, marketKey: "BinanceFutures", marketName: "Test", baseAsset: "BTC", quoteAsset: "USDT",
+        let before = Watch(id: 1, exchangeKey: "BinanceFutures", exchangeName: "Test", baseAsset: "BTC", quoteAsset: "USDT",
                            lastPrice: 99)
         var updated = before
         updated.lastPrice = 101

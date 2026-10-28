@@ -20,7 +20,7 @@ enum PortfolioExchangeRoute {
     private static let notSpot: Set<String> = ["Hyperliquid", "Deribit", "DexScreener", "EcbReference"]
 
     /// Standardquelle des Portfolios.
-    static let defaultMarket = "Binance"
+    static let defaultExchange = "Binance"
 
     /// Gegenwährungen in dieser Reihenfolge; USD über USDT/USD, Fiat über den Devisenkurs (`toUsdt`).
     static let quotes = [
@@ -29,7 +29,7 @@ enum PortfolioExchangeRoute {
     ]
 
     /// Spot-Börse der App?
-    static func isSpot(_ marketKey: String) -> Bool { !marketKey.hasSuffix("Futures") && !notSpot.contains(marketKey) }
+    static func isSpot(_ exchangeKey: String) -> Bool { !exchangeKey.hasSuffix("Futures") && !notSpot.contains(exchangeKey) }
 
     /// Börse je Coin (nur wenn alle Einträge mit Börse dieselbe nennen) und die Coins mit mehreren Börsen.
     static func exchangeByCoin(_ entries: [(coin: String, exchange: String?)]) -> (single: [String: String], mixed: Set<String>) {
@@ -91,18 +91,18 @@ enum PortfolioExchangeRoute {
         return exchangeByCoin(pairs)
     }
 
-    /// Spot-Markt zu einem eingetragenen Namen (`markets`: Schlüssel → Anzeigename); Binance und freier Text → nil.
-    static func market(_ name: String, markets: [String: String]) -> (key: String, name: String)? {
+    /// Spot-Markt zu einem eingetragenen Namen (`exchanges`: Schlüssel → Anzeigename); Binance und freier Text → nil.
+    static func exchange(_ name: String, exchanges: [String: String]) -> (key: String, name: String)? {
         let wanted = name.trimmingCharacters(in: .whitespaces).lowercased()
         guard !wanted.isEmpty else { return nil }
-        guard let hit = markets.sorted(by: { $0.key < $1.key }).first(where: { key, label in
+        guard let hit = exchanges.sorted(by: { $0.key < $1.key }).first(where: { key, label in
             isSpot(key) && (label.lowercased() == wanted || key.lowercased() == wanted)
-        }), hit.key != defaultMarket else { return nil }
+        }), hit.key != defaultExchange else { return nil }
         return (hit.key, hit.value)
     }
 
     /// Bestes Paar für `coin` nach `quotes`; nil = keines.
-    static func pickPair(_ coin: String, pairs: [MarketPair]) -> MarketPair? {
+    static func pickPair(_ coin: String, pairs: [ExchangePair]) -> ExchangePair? {
         let base = PortfolioCalculator.normalizeCoin(coin)
         let own = pairs.filter { PortfolioCalculator.normalizeCoin($0.base) == base && $0.contractType == .none }
         for quote in quotes {
@@ -283,8 +283,8 @@ struct RoutedHistory: Sendable {
 
 /// Ein aufgelöster Weg: Coin → Paar an einer Spot-Börse.
 struct PortfolioRoute: Codable, Equatable, Sendable {
-    var marketKey: String
-    var marketName: String
+    var exchangeKey: String
+    var exchangeName: String
     var base: String
     var quote: String
     var pairId: String?

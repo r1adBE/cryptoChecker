@@ -221,7 +221,7 @@ enum PortfolioHistorySource {
     /// Eigene Tageskerzen (USDT) des Wegs `route`: Speicher, Gerät, sonst Abfrage; nil = keine.
     private static func ownCloses(of coin: String, route: PortfolioRoute, span: Int,
                                   usdtUsd: [Int: Double]) async -> PortfolioCoinCloses? {
-        let pair = CandlePair(marketKey: route.marketKey, marketName: route.marketName, base: route.base,
+        let pair = CandlePair(exchangeKey: route.exchangeKey, exchangeName: route.exchangeName, base: route.base,
                               quote: route.quote, pairId: route.pairId)
         return await ownCloses(of: coin, pair: pair, span: span, usdtUsd: usdtUsd)
     }
@@ -351,10 +351,10 @@ enum PortfolioHistorySource {
             let url = "\(source.endpoint)?symbol=\(coin)USDT&interval=1d&startTime=\(startMillis)&endTime=\(endMillis)&limit=\(limit)"
             let body: String
             do {
-                body = try await MarketHTTP.call(url, session: session)
+                body = try await ExchangeHTTP.call(url, session: session)
             } catch {
                 // «Invalid symbol»: Paar gibt es nicht — Spiegel und Spot führen dieselben Paare
-                if let http = error as? HttpMarketError, http.httpCode == 400 { return [:] }
+                if let http = error as? HttpExchangeError, http.httpCode == 400 { return [:] }
                 BlockedSources.noteFailure(source.host, error)
                 continue
             }

@@ -1,15 +1,15 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Höchstgrösse der Antworten ausserhalb von `MarketHTTP.call`: beobachtete Adressen (2 MB wie Android `callMarket`)
-/// und Logos (`CoinLogoStore.maxImageBytes`) — gegen die URLProtocol-Attrappe aus `MarketHTTPStubTests`.
+/// Höchstgrösse der Antworten ausserhalb von `ExchangeHTTP.call`: beobachtete Adressen (2 MB wie Android `callExchange`)
+/// und Logos (`CoinLogoStore.maxImageBytes`) — gegen die URLProtocol-Attrappe aus `ExchangeHTTPStubTests`.
 final class ResponseLimitStubTests: XCTestCase {
     private var session: URLSession!
 
     override func setUp() {
         super.setUp()
         let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [MarketHTTPStubProtocol.self]
+        configuration.protocolClasses = [ExchangeHTTPStubProtocol.self]
         configuration.timeoutIntervalForRequest = 5
         configuration.timeoutIntervalForResource = 10
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -25,7 +25,7 @@ final class ResponseLimitStubTests: XCTestCase {
     /// Eigene Adresse je Test; ohne Content-Length (die Grenze greift beim Lesen).
     private func respond(_ status: Int = 200, body: Data) -> String {
         let url = "https://stub.invalid/\(UUID().uuidString)"
-        MarketHTTPStubReplies.shared.set(url, .respond(status: status, headers: [:], body: body))
+        ExchangeHTTPStubReplies.shared.set(url, .respond(status: status, headers: [:], body: body))
         return url
     }
 

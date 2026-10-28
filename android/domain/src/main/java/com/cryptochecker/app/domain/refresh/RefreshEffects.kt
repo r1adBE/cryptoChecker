@@ -90,7 +90,7 @@ class RefreshEffects constructor(
         // Umrechnungsfaktoren für Kursalarme in einer anderen Währung: je Währung einmal pro Durchlauf.
         val rates = HashMap<String, Double?>()
         // Aster «U» zählt als USD ([CurrencyConversion.conversionQuote])
-        val conversionQuote = com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(watch.marketKey, watch.quoteAsset)
+        val conversionQuote = com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(watch.exchangeKey, watch.quoteAsset)
         suspend fun rateFor(currency: String): Double? {
             val key = currency.uppercase()
             if (rates.containsKey(key)) return rates[key]

@@ -43,7 +43,7 @@
     <string name="explorer_pairs_title">交易对</string>
     <string name="explorer_precise_title">高级 / 按交易所</string>
     <string name="explorer_price_loading">正在加载价格…</string>
-    <string name="explorer_select_market_hint">选择交易所后，交易对会自动加载。</string>
+    <string name="explorer_select_exchange_hint">选择交易所后，交易对会自动加载。</string>
     <string name="explorer_select_placeholder">请选择</string>
     <string name="explorer_step_pair">选择交易对</string>
 

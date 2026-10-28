@@ -86,7 +86,7 @@ enum PortfolioPriceSource {
                 toFetch,
                 watches: SharedStorage.loadSnapshot().watches.map {
                     PortfolioPriceIdentity.WatchName(base: $0.baseAsset,
-                                                     name: identity.pairName(marketKey: $0.marketKey, base: $0.baseAsset),
+                                                     name: identity.pairName(exchangeKey: $0.exchangeKey, base: $0.baseAsset),
                                                      disabled: $0.disabled)
                 })
             let split = PortfolioPriceIdentity.binanceSplit(toFetch, knownNames: watchNames,
@@ -169,10 +169,10 @@ enum PortfolioPriceSource {
         var refs: [String: Double] = [:]
         for coin in coins where coin != stable {
             if let name = stored.unresolved[coin] { failed[coin] = name; continue }
-            guard let route = stored.routes[coin], let market = MarketsConfig.market(route.marketKey) else { continue }
-            let info = MarketPair(route.base, route.quote, route.pairId)
+            guard let route = stored.routes[coin], let exchange = ExchangesConfig.exchange(route.exchangeKey) else { continue }
+            let info = ExchangePair(route.base, route.quote, route.pairId)
             var price: Double? = nil
-            if let ticker = try? await MarketService.fetchTicker(market: market, info: info) {
+            if let ticker = try? await ExchangeService.fetchTicker(exchange: exchange, info: info) {
                 let quote = route.quote.uppercased()
                 let rate: Double? = (quote == "USDT" || quote == "USD") ? nil : await FxRateSource.usdTo(quote)
                 // USDT zum Marktkurs: USD-/Fiat-Kurs durch USDT/USD (ohne frische Messung 1, Karte markiert die Näherung)
@@ -182,9 +182,9 @@ enum PortfolioPriceSource {
             if let price {
                 if let ref = fetched[coin] { refs[coin] = ref }
                 fetched[coin] = price
-                sources[coin] = route.marketName
+                sources[coin] = route.exchangeName
             } else {
-                failed[coin] = route.marketName
+                failed[coin] = route.exchangeName
             }
         }
         lock.withLock {
@@ -215,8 +215,8 @@ enum PortfolioPriceSource {
         let symbol = PortfolioCalculator.normalizeCoin(coin)
         if !PortfolioStables.needsQuote(symbol) { return 1 }
         // Stablecoin ohne Marktkurs: kein Wert (gleiche Regel wie Kopf, Verlauf und Widget)
-        let market = await prices([symbol]).prices[symbol]
-        return PortfolioStables.price(symbol, market: market)
+        let exchange = await prices([symbol]).prices[symbol]
+        return PortfolioStables.price(symbol, exchange: exchange)
     }
 
     /// Abfragbare Kürzel; gekapselte Coins (`ChainAssets.wrapped`, z. B. «BTC.B») auch ohne — Kurs dann über die Basis.

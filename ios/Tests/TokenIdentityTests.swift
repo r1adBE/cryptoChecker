@@ -127,12 +127,12 @@ final class TokenIdentityTests: XCTestCase {
     func testNameIndexRoundTripAndCleaning() {
         let cleaned = TokenIdentity.cleaned(["cat": " Simon's Cat ", "X": "", "Y": String(repeating: "y", count: 81)])
         XCTAssertEqual(cleaned, ["CAT": "Simon's Cat"])
-        let index = TokenIdentity.NameIndex(markets: ["GateIo": cleaned], binance: ["CAT": "Simon's Cat"])
+        let index = TokenIdentity.NameIndex(exchanges: ["GateIo": cleaned], binance: ["CAT": "Simon's Cat"])
         let back = TokenIdentity.decode(TokenIdentity.encode(index))
         XCTAssertEqual(back, index)
-        XCTAssertEqual(back.pairName(marketKey: "GateIo", base: " cat"), "Simon's Cat")
+        XCTAssertEqual(back.pairName(exchangeKey: "GateIo", base: " cat"), "Simon's Cat")
         XCTAssertEqual(back.binanceName("Cat"), "Simon's Cat")
-        XCTAssertNil(back.pairName(marketKey: "Kraken", base: "CAT"))
+        XCTAssertNil(back.pairName(exchangeKey: "Kraken", base: "CAT"))
         XCTAssertEqual(TokenIdentity.decode(Data("{not json".utf8)), TokenIdentity.NameIndex())
         XCTAssertEqual(TokenIdentity.decode(nil), TokenIdentity.NameIndex())
     }

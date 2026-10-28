@@ -1,8 +1,8 @@
 package com.cryptochecker.app.contract
 
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.model.MarketPair
-import com.cryptochecker.marketdata.model.market.Lighter
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.exchange.Lighter
 import com.cryptochecker.marketdata.util.TradFi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -35,8 +35,8 @@ class LighterPairListTest {
         {"symbol":"EMPTY","name":" ","market":"PERPS","asset_type":"CRYPTO"}
     ]}"""
 
-    private fun pairs(vararg bodies: String): Map<String?, MarketPair> {
-        val out = ArrayList<MarketPair>()
+    private fun pairs(vararg bodies: String): Map<String?, ExchangePair> {
+        val out = ArrayList<ExchangePair>()
         Lighter().readPairListCombined(bodies.toList(), out)
         return out.associateBy { it.pairId }
     }

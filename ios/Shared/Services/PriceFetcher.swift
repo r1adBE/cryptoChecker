@@ -6,7 +6,7 @@ extension PriceRefresher {
     /// Unter so wenigen Paaren spart die Sammelabfrage nichts.
     static let minWatchesForBulk = 3
     /// Gleichzeitige Einzelabfragen je Börse.
-    static let maxParallelPerMarket = 4
+    static let maxParallelPerExchange = 4
 
     struct Fetched: Sendable {
         var ticker: Ticker?
@@ -16,8 +16,8 @@ extension PriceRefresher {
         var notTraded = false
         /// Ursache für den Bericht (nur bei Fehlern).
         var failure: RefreshFailure? = nil
-        /// Art des Fehlers zu `error`, beim Abruf bestimmt (`MarketFailure`); nil = nur der Text ist bekannt.
-        var marketFailure: MarketFailure? = nil
+        /// Art des Fehlers zu `error`, beim Abruf bestimmt (`ExchangeFailure`); nil = nur der Text ist bekannt.
+        var exchangeFailure: ExchangeFailure? = nil
         /// Widget (`lowMemory`): bewusst nicht abgefragt — gespeicherter Kurs bleibt, kein Fehler.
         var skipped = false
     }
@@ -27,18 +27,18 @@ extension PriceRefresher {
     // MARK: Netz
 
     /// Bericht-Einträge der übersprungenen (pausierten) Börsen.
-    static func pausedMarkets(_ paused: [Watch], backoff: [String: ExchangeBackoff.State]) -> [MarketRefresh] {
-        Dictionary(grouping: paused, by: \.marketKey).compactMap { key, list in
+    static func pausedExchanges(_ paused: [Watch], backoff: [String: ExchangeBackoff.State]) -> [ExchangeRefresh] {
+        Dictionary(grouping: paused, by: \.exchangeKey).compactMap { key, list in
             guard let first = list.first else { return nil }
-            return MarketRefresh(name: first.marketName, millis: 0, pairs: list.count, updated: 0,
+            return ExchangeRefresh(name: first.exchangeName, millis: 0, pairs: list.count, updated: 0,
                                  pausedUntil: backoff[key]?.pausedUntil, pauseReason: backoff[key]?.reason)
         }
     }
 
     /// Bericht einer Börse plus was die Pause je Börse (`ExchangeBackoff`) braucht.
     struct GroupSignals: Sendable {
-        var marketKey: String
-        var report: MarketRefresh
+        var exchangeKey: String
+        var report: ExchangeRefresh
         /// Ursachen aller Fehler (auch einer gescheiterten Sammelabfrage).
         var failures: [RefreshFailure]
         var retryAfterMillis: Int64?
@@ -56,11 +56,11 @@ extension PriceRefresher {
 
         var bulk = BulkTickers()
         var bulkTried = group.count >= minWatchesForBulk
-        if lowMemory, bulkTried, let market = MarketsConfig.market(sample.marketKey), market.bulkTickersNumOfRequests > 0 {
+        if lowMemory, bulkTried, let exchange = ExchangesConfig.exchange(sample.exchangeKey), exchange.bulkTickersNumOfRequests > 0 {
             var seen: Set<String> = []
             let ids = group.compactMap(\.pairId).filter { seen.insert($0).inserted }
-            switch LowMemoryBulk.plan(marketKey: market.key, pairs: group.count,
-                                      unfilteredOnly: LowMemoryBulk.isUnfiltered(market, pairIds: ids)) {
+            switch LowMemoryBulk.plan(exchangeKey: exchange.key, pairs: group.count,
+                                      unfilteredOnly: LowMemoryBulk.isUnfiltered(exchange, pairIds: ids)) {
             case .bulk:
                 break
             case .singles:
@@ -70,35 +70,35 @@ extension PriceRefresher {
                 return (Dictionary(uniqueKeysWithValues: group.map { ($0.id, Fetched(skipped: true)) }), nil)
             }
         }
-        if bulkTried, let market = MarketsConfig.market(sample.marketKey), market.bulkTickersNumOfRequests > 0 {
+        if bulkTried, let exchange = ExchangesConfig.exchange(sample.exchangeKey), exchange.bulkTickersNumOfRequests > 0 {
             var seen: Set<String> = []
             let ids = group.compactMap(\.pairId).filter { seen.insert($0).inserted }
             // Nicht mehr gehandelte Paare nicht mitschicken: ein delistetes Symbol verwirft bei Binance die ganze
             // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste.
             let notTradedIds = Set(group.filter { NotTraded.isMarker($0.lastError) }.compactMap(\.pairId))
-            let plan = BulkDelistedMemory.shared.plan(sample.marketKey, pairIds: ids, notTraded: notTradedIds,
+            let plan = BulkDelistedMemory.shared.plan(sample.exchangeKey, pairIds: ids, notTraded: notTradedIds,
                                                       now: EpochTime.nowMillis, lowMemory: lowMemory)
             if plan.request.isEmpty {
                 // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
                 // die Liste gilt als vollständig ohne sie
                 bulk = BulkTickers(complete: true)
             } else {
-                bulk = await MarketService.fetchBulkTickers(market: market, pairIds: plan.request, lowMemory: lowMemory)
-                BulkDelistedMemory.shared.learn(sample.marketKey, plan: plan, result: bulk, now: EpochTime.nowMillis)
+                bulk = await ExchangeService.fetchBulkTickers(exchange: exchange, pairIds: plan.request, lowMemory: lowMemory)
+                BulkDelistedMemory.shared.learn(sample.exchangeKey, plan: plan, result: bulk, now: EpochTime.nowMillis)
             }
         }
         let bulkMillis = EpochTime.nowMillis - started
 
         // Sammelabfrage mit «zu vielen Anfragen» abgelehnt: keine Einzelabfragen hinterher —
         // das verschlimmerte es nur; die Börse wird pausiert (`ExchangeBackoff`).
-        let bulkRateLimited = bulk.error.map { RefreshReportLogic.classify(bulk.marketFailure, $0) == .RATE_LIMIT } ?? false
+        let bulkRateLimited = bulk.error.map { RefreshReportLogic.classify(bulk.exchangeFailure, $0) == .RATE_LIMIT } ?? false
         // Antwort mehrheitlich unlesbar (Format der Börse geändert): Einzelabfragen mit demselben Leser brächten
         // nichts — alle Paare dieses Durchlaufs als Fehler, kein Nachhaken (`BulkTickerRows`) — wie Android
         let bulkFormatError = BulkTickerRows.isFormatError(bulk.error)
         // Ohne Sammelabfrage: liest die Einzelabfrage selbst die vollständige Liste (Lighter), bestätigt ihr «kein
         // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad (`NotTraded.confirmWithoutBulk`) — wie Android
         let singleConfirms = NotTraded.confirmWithoutBulk(
-            bulkTried: bulkTried, singleReadsFullList: MarketsConfig.market(sample.marketKey)?.singleTickerReadsFullList == true)
+            bulkTried: bulkTried, singleReadsFullList: ExchangesConfig.exchange(sample.exchangeKey)?.singleTickerReadsFullList == true)
 
         var results: [Int64: Fetched] = [:]
         var singles: [Watch] = []
@@ -124,9 +124,9 @@ extension PriceRefresher {
                 }
             } else if bulkRateLimited {
                 results[watch.id] = Fetched(ticker: nil, error: bulk.error, failure: .RATE_LIMIT,
-                                            marketFailure: bulk.marketFailure)
+                                            exchangeFailure: bulk.exchangeFailure)
             } else if bulkFormatError {
-                results[watch.id] = Fetched(ticker: nil, error: bulk.error, marketFailure: bulk.marketFailure)
+                results[watch.id] = Fetched(ticker: nil, error: bulk.error, exchangeFailure: bulk.exchangeFailure)
             } else {
                 if singleConfirms { missing.insert(watch.id) }
                 singles.append(watch)
@@ -147,12 +147,12 @@ extension PriceRefresher {
                 var running = 0
                 while true {
                     // Bis zur Grenze nachfüllen; bei gesperrter Börse die übrigen ohne Anfrage beenden
-                    while running < maxParallelPerMarket && next < singles.count {
+                    while running < maxParallelPerExchange && next < singles.count {
                         let w = singles[next]
                         next += 1
                         if let blocked = gate.blocked {
                             results[w.id] = Fetched(ticker: nil, error: blocked, failure: .RATE_LIMIT,
-                                                    marketFailure: gate.blockedFailure)
+                                                    exchangeFailure: gate.blockedFailure)
                             continue
                         }
                         let confirm = confirmIds.contains(w.id)
@@ -173,8 +173,8 @@ extension PriceRefresher {
         // Ursache: die beim Abfragen erkannte (z. B. Zeitüberschreitung), sonst aus dem Fehlertext
         let failures = errors.map { $0.failure ?? RefreshReportLogic.classify($0.error) }
         let reason = RefreshReportLogic.mostFrequent(failures)
-        let entry = MarketRefresh(
-            name: sample.marketName,
+        let entry = ExchangeRefresh(
+            name: sample.exchangeName,
             millis: EpochTime.nowMillis - started,
             pairs: group.count,
             updated: group.count - notTraded - errors.count,
@@ -189,9 +189,9 @@ extension PriceRefresher {
         )
         let errorTexts = errors.map(\.error) + [bulk.error]
         let signals = GroupSignals(
-            marketKey: sample.marketKey,
+            exchangeKey: sample.exchangeKey,
             report: entry,
-            failures: failures + (bulk.error.map { [RefreshReportLogic.classify(bulk.marketFailure, $0)] } ?? []),
+            failures: failures + (bulk.error.map { [RefreshReportLogic.classify(bulk.exchangeFailure, $0)] } ?? []),
             retryAfterMillis: ExchangeBackoff.retryAfterMillis(errorTexts),
             banned: ExchangeBackoff.banned(errorTexts)
         )
@@ -206,32 +206,32 @@ extension PriceRefresher {
         // Börse fehlt in dieser Version: Text ist übersetzt, also an der Ursache erkennen
         guard confirmMissing, single.failure != .UNAVAILABLE else { return single }
         let gotPrice = single.ticker != nil && single.error == nil
-        guard NotTraded.confirmedBySingle(gotPrice: gotPrice, error: single.error, failure: single.marketFailure)
+        guard NotTraded.confirmedBySingle(gotPrice: gotPrice, error: single.error, failure: single.exchangeFailure)
         else { return single }
         return Fetched(ticker: nil, error: notTradedError, fromSingle: true, millis: single.millis, notTraded: true)
     }
 
     static func fetchSingle(_ watch: Watch) async -> Fetched {
         let started = EpochTime.nowMillis
-        guard let market = MarketsConfig.market(watch.marketKey) else {
-            return Fetched(ticker: nil, error: L("market_unavailable_error"), fromSingle: true, failure: .UNAVAILABLE)
+        guard let exchange = ExchangesConfig.exchange(watch.exchangeKey) else {
+            return Fetched(ticker: nil, error: L("exchange_unavailable_error"), fromSingle: true, failure: .UNAVAILABLE)
         }
         do {
-            let t = try await MarketService.fetchTicker(market: market, info: watch.pairInfo)
+            let t = try await ExchangeService.fetchTicker(exchange: exchange, info: watch.pairInfo)
             return Fetched(ticker: t, error: nil, fromSingle: true, millis: EpochTime.nowMillis - started)
         } catch {
             // Art am Ort des Fehlers: Zeitüberschreitung bleibt TIMEOUT, obwohl `describe` daraus «kein Netz» macht
-            let kind = MarketFailure.of(error)
+            let kind = ExchangeFailure.of(error)
             let described = ConnectionErrors.describe(error)
             return Fetched(ticker: nil, error: described, fromSingle: true, millis: EpochTime.nowMillis - started,
-                           failure: RefreshReportLogic.classify(kind, described), marketFailure: kind)
+                           failure: RefreshReportLogic.classify(kind, described), exchangeFailure: kind)
         }
     }
 }
 
 /// Kurse in der Widget-Erweiterung (Speichergrenze ~30 MB): Ungefilterte Sammellisten mancher Börsen sind mehrere MB
 /// JSON und sprengen das gelesen die Grenze. Darum dort: gefilterte Sammelabfrage ja (ohne ungefilterten Ersatz,
-/// `MarketService.fetchBulkTickers`), sonst bis `maxSingles` Paare einzeln; mehr Paare einer Börse mit grosser
+/// `ExchangeService.fetchBulkTickers`), sonst bis `maxSingles` Paare einzeln; mehr Paare einer Börse mit grosser
 /// ungefilterter Liste (`largeUnfilteredKeys`) diesmal gar nicht — das Widget zeigt den gespeicherten Kurs.
 /// Kleine ungefilterte Listen bleiben (sonst stünde z. B. Bitstamp mit vielen Paaren still). Die App ist unverändert.
 enum LowMemoryBulk {
@@ -248,9 +248,9 @@ enum LowMemoryBulk {
     ]
 
     /// Ist die Sammelabfrage dieser Paare ungefiltert (gleiche URL wie ohne Auswahl, ohne Zeitstempel: `RequestKey`)?
-    static func isUnfiltered(_ market: Market, pairIds: [String]) -> Bool {
-        market.bulkTickersURL(call: 0, pairIds: pairIds).map(RequestKey.of)
-            == market.bulkTickersURL(call: 0).map(RequestKey.of)
+    static func isUnfiltered(_ exchange: Exchange, pairIds: [String]) -> Bool {
+        exchange.bulkTickersURL(call: 0, pairIds: pairIds).map(RequestKey.of)
+            == exchange.bulkTickersURL(call: 0).map(RequestKey.of)
     }
 
     /// Teilanfrage, die das Widget auslässt: die grosse Alpha-Token-Liste von Binance (ihre Paare dann einzeln).
@@ -258,10 +258,10 @@ enum LowMemoryBulk {
         url == BinanceAlpha.tokenListURL
     }
 
-    static func plan(marketKey: String, pairs: Int, unfilteredOnly: Bool) -> Plan {
+    static func plan(exchangeKey: String, pairs: Int, unfilteredOnly: Bool) -> Plan {
         guard unfilteredOnly else { return .bulk }
         if pairs <= maxSingles { return .singles }
-        return largeUnfilteredKeys.contains(marketKey) ? .skip : .bulk
+        return largeUnfilteredKeys.contains(exchangeKey) ? .skip : .bulk
     }
 }
 
@@ -273,17 +273,17 @@ struct SingleRateGate: Sendable {
     /// Fehlertext, mit dem noch nicht gesendete Einzelabfragen enden; nil = senden.
     private(set) var blocked: String? = nil
     /// Art des sperrenden Fehlers (gehört zu `blocked`).
-    private(set) var blockedFailure: MarketFailure? = nil
+    private(set) var blockedFailure: ExchangeFailure? = nil
 
     /// Ergebnis einer gesendeten Abfrage melden: das erste 429/418 sperrt den Rest.
     mutating func note(_ fetched: PriceRefresher.Fetched) {
         guard blocked == nil, fetched.ticker == nil || fetched.error != nil,
-              let error = fetched.error, Self.isRateLimit(error, failure: fetched.marketFailure) else { return }
+              let error = fetched.error, Self.isRateLimit(error, failure: fetched.exchangeFailure) else { return }
         blocked = error
-        blockedFailure = fetched.marketFailure
+        blockedFailure = fetched.exchangeFailure
     }
 
-    static func isRateLimit(_ error: String?, failure: MarketFailure? = nil) -> Bool {
+    static func isRateLimit(_ error: String?, failure: ExchangeFailure? = nil) -> Bool {
         guard let error else { return false }
         return RefreshReportLogic.classify(failure, error) == .RATE_LIMIT
     }

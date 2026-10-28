@@ -29,12 +29,12 @@ class PairCandlesTest {
 
     private fun pair(
         contract: FuturesContractType = FuturesContractType.NONE,
-        marketKey: String = "Kraken",
+        exchangeKey: String = "Kraken",
         pairId: String? = null,
         tradFi: Boolean = false,
         base: String = "BTC",
         quote: String = "USDT",
-    ) = CandlePair(marketKey, marketKey, base, quote, pairId, contract, tradFi)
+    ) = CandlePair(exchangeKey, exchangeKey, base, quote, pairId, contract, tradFi)
 
     /**
      * Ausweich-Kette mit Reihen [rows] nacheinander (Name der Quelle je Reihe: [names]); gibt die erste akzeptierte
@@ -103,7 +103,7 @@ class PairCandlesTest {
             pair(FuturesContractType.QUARTERLY, "BinanceFutures"),
             pair(FuturesContractType.BIQUARTERLY, "BinanceFutures", "2:BTCUSD_251226", quote = "USD"),
             pair(FuturesContractType.PERPETUAL, "BinanceFutures", tradFi = true),
-            pair(marketKey = "DexScreener"),
+            pair(exchangeKey = "DexScreener"),
         )) {
             val fake = FakeChain(listOf(series))
             assertNull(p.toString(), VolumeDataSource.pairCandlesOf(p, 101.0, identityName = null, ownSupported = false, own = { null }, chain = fake.chain))

@@ -245,7 +245,7 @@ final class AlarmLogTests: XCTestCase {
                      inputs: PriceRefresher.AlarmInputs = PriceRefresher.AlarmInputs(), shows: Bool = true,
                      snoozedUntil: Int64? = nil, delivery: AlarmDelivery, log: AlarmLogRecorder) async {
         if store.snapshot.watches.isEmpty {
-            store.snapshot.watches = [Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC",
+            store.snapshot.watches = [Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC",
                                             quoteAsset: "USDT", lastPrice: 99)]
             store.snapshot.alarms = [alarm]
         }
@@ -349,7 +349,7 @@ final class AlarmLogTests: XCTestCase {
     }
 
     func testBlockedPreviewSaysWhetherItWasDue() {
-        let before = Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
+        let before = Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
                            lastPrice: 99)
         var updated = before
         updated.lastPrice = 101

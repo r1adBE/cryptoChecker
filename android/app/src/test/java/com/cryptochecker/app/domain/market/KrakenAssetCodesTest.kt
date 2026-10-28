@@ -1,11 +1,11 @@
 package com.cryptochecker.app.domain.market
 
-import com.cryptochecker.marketdata.model.market.KrakenAssetCodes
+import com.cryptochecker.marketdata.model.exchange.KrakenAssetCodes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Kraken-Kürzel aus `wsname` und zurück; wie `KrakenAssetCodesTests` (MarketsTests.swift). */
+/** Kraken-Kürzel aus `wsname` und zurück; wie `KrakenAssetCodesTests` (ExchangesTests.swift). */
 class KrakenAssetCodesTest {
 
     @Test

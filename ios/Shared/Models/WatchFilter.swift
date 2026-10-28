@@ -77,7 +77,7 @@ enum WatchFilter {
         let alphaNames = CoinLogoStore.alphaNames
         let flags: [Bool] = watches.map { w in
             w.assetKind(tradFiPairs: tradFiPairs, alphaSymbols: alphaSymbols, alphaNames: alphaNames,
-                        pairName: TokenIdentityStore.shared.pairName(marketKey: w.marketKey, base: w.baseAsset)) == .ALPHA
+                        pairName: TokenIdentityStore.shared.pairName(exchangeKey: w.exchangeKey, base: w.baseAsset)) == .ALPHA
         }
         return showsAlpha(flags)
     }
@@ -105,7 +105,7 @@ enum AssetKind: String, CaseIterable, Sendable {
     case TOKEN, TRADFI, ALPHA
 
     /// Spot-Börse von Binance: was dort gehandelt wird, ist regulär gelistet — nie Alpha.
-    static let binanceSpotMarket = "Binance"
+    static let binanceSpotExchange = "Binance"
 
     /// Art eines Paars. `alphaSymbols`: Kürzel der Alpha-Liste ohne die regulär an Binance Spot
     /// gelisteten (wie `CoinLogos.normalize`; aus der Alpha-Liste, `CoinLogos.alphaSymbols`). Leer
@@ -117,13 +117,13 @@ enum AssetKind: String, CaseIterable, Sendable {
     /// Alpha. Weniger Fehltreffer: Kennen beide Seiten einen Namen (`pairName` aus der Paarliste der
     /// Börse, `alphaNames` je Kürzel aus der Alpha-Liste) und widersprechen sie sich klar
     /// (`TokenIdentity.compatible`), ist es ein anderer Token gleichen Kürzels — kein Alpha. Wie Android.
-    static func of(marketKey: String, base: String, tradFi: Bool, alphaSymbols: Set<String>,
+    static func of(exchangeKey: String, base: String, tradFi: Bool, alphaSymbols: Set<String>,
                    pairId: String? = nil, pairName: String? = nil,
                    alphaNames: [String: String] = [:]) -> AssetKind {
         if tradFi { return .TRADFI }
-        if BinanceAlpha.isAlphaPair(marketKey: marketKey, pairId: pairId) { return .ALPHA }
+        if BinanceAlpha.isAlphaPair(exchangeKey: exchangeKey, pairId: pairId) { return .ALPHA }
         if alphaSymbols.isEmpty { return .TOKEN }
-        if marketKey == CoinLogos.dexMarketKey || marketKey == binanceSpotMarket { return .TOKEN }
+        if exchangeKey == CoinLogos.dexExchangeKey || exchangeKey == binanceSpotExchange { return .TOKEN }
         let symbol = CoinLogos.normalize(base)
         guard alphaSymbols.contains(symbol) else { return .TOKEN }
         return TokenIdentity.compatible(symbol: symbol, pairName, alphaNames[symbol]) ? .ALPHA : .TOKEN

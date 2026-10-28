@@ -1,8 +1,8 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import com.cryptochecker.app.domain.logos.CoinLogos
-import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.model.MarketPairsInfo
+import com.cryptochecker.app.domain.model.ExchangeInfo
+import com.cryptochecker.app.domain.model.ExchangePairsInfo
 import com.cryptochecker.app.domain.watch.AssetKind
 import com.cryptochecker.app.domain.watch.TokenIdentity
 import com.cryptochecker.app.settings.AssetScope
@@ -27,7 +27,7 @@ data class CoinHit(
 
 /**
  * Was beim Vorschlag des Standard-Paars zählt: die Start-Börse der Region (wie die Start-Merkliste,
- * `StarterPairs.marketKey`), die Lieblingsbörsen, die Umrechnungswährung der Einstellungen und der Volumenrang der
+ * `StarterPairs.exchangeKey`), die Lieblingsbörsen, die Umrechnungswährung der Einstellungen und der Volumenrang der
  * Börsen am Tag der Installation ([exchangeRank]: 0 = grösstes Volumen; fehlt er, alphabetisch).
  */
 data class CoinPairPreference(
@@ -122,8 +122,8 @@ object CoinSearch {
      */
     fun coins(
         query: String,
-        markets: List<MarketInfo>,
-        cache: Map<String, MarketPairsInfo>,
+        exchanges: List<ExchangeInfo>,
+        cache: Map<String, ExchangePairsInfo>,
         names: NameIndex = NameIndex.EMPTY,
         scope: AssetScope = AssetScope.BOTH,
         hiddenAlpha: Set<String> = emptySet(),
@@ -144,19 +144,19 @@ object CoinSearch {
             return tier?.let { Tally(symbol, tradFi, it) }.also { tallies[key] = it }
         }
 
-        for (market in markets) {
-            val info = cache[market.key] ?: continue
+        for (exchange in exchanges) {
+            val info = cache[exchange.key] ?: continue
             // Keine Namen für DEX-Pools: dort darf ein fremder Token «BTC» heissen
-            if (!CoinLogos.allowedFor(market.key)) continue
-            val marketNames = pairNames[market.key].orEmpty()
+            if (!CoinLogos.allowedFor(exchange.key)) continue
+            val exchangeNames = pairNames[exchange.key].orEmpty()
             for (pair in info.pairs) {
-                if (!scope.allows(pair, market.key, hiddenAlpha, marketNames, alphaNames)) continue
+                if (!scope.allows(pair, exchange.key, hiddenAlpha, exchangeNames, alphaNames)) continue
                 val t = tally(pair.base.uppercase(), pair.tradFi) ?: continue
-                t.exchanges += market.key
+                t.exchanges += exchange.key
                 t.pairs++
                 val kind = AssetKind.of(
-                    market.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
-                    marketNames[TokenIdentity.key(pair.base)], alphaNames,
+                    exchange.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
+                    exchangeNames[TokenIdentity.key(pair.base)], alphaNames,
                 )
                 if (kind == AssetKind.ALPHA) t.alphaPairs++
             }
@@ -204,8 +204,8 @@ object CoinSearch {
      */
     fun pairsFor(
         coin: CoinHit,
-        markets: List<MarketInfo>,
-        cache: Map<String, MarketPairsInfo>,
+        exchanges: List<ExchangeInfo>,
+        cache: Map<String, ExchangePairsInfo>,
         preference: CoinPairPreference = CoinPairPreference(),
         scope: AssetScope = AssetScope.BOTH,
         hiddenAlpha: Set<String> = emptySet(),
@@ -214,18 +214,18 @@ object CoinSearch {
         pairNames: Map<String, Map<String, String>> = emptyMap(),
     ): List<SearchHit> {
         val found = ArrayList<SearchHit>()
-        for (market in markets) {
-            val info = cache[market.key] ?: continue
-            if (!CoinLogos.allowedFor(market.key)) continue
-            val marketNames = pairNames[market.key].orEmpty()
+        for (exchange in exchanges) {
+            val info = cache[exchange.key] ?: continue
+            if (!CoinLogos.allowedFor(exchange.key)) continue
+            val exchangeNames = pairNames[exchange.key].orEmpty()
             for (pair in info.pairs) {
                 if (pair.tradFi != coin.tradFi || pair.base.uppercase() != coin.symbol) continue
-                if (!scope.allows(pair, market.key, hiddenAlpha, marketNames, alphaNames)) continue
+                if (!scope.allows(pair, exchange.key, hiddenAlpha, exchangeNames, alphaNames)) continue
                 val kind = AssetKind.of(
-                    market.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
-                    marketNames[TokenIdentity.key(pair.base)], alphaNames,
+                    exchange.key, pair.base, pair.tradFi, alphaSymbols, pair.pairId,
+                    exchangeNames[TokenIdentity.key(pair.base)], alphaNames,
                 )
-                found += SearchHit(market, pair, kind == AssetKind.ALPHA)
+                found += SearchHit(exchange, pair, kind == AssetKind.ALPHA)
             }
         }
         fun exchangeTier(key: String) = when (key) {
@@ -236,16 +236,16 @@ object CoinSearch {
         fun quoteRank(quote: String) = preference.quotes.indexOf(quote.uppercase()).let { if (it < 0) preference.quotes.size else it }
         return found
             .sortedWith(
-                compareBy<SearchHit> { exchangeTier(it.market.key) }
+                compareBy<SearchHit> { exchangeTier(it.exchange.key) }
                     .thenBy { contractGroup(it.pair.contractType) }
                     .thenBy { quoteRank(it.pair.quote) }
-                    .thenBy { preference.exchangeRank[it.market.key] ?: Int.MAX_VALUE }
-                    .thenBy { it.market.name.lowercase() }
+                    .thenBy { preference.exchangeRank[it.exchange.key] ?: Int.MAX_VALUE }
+                    .thenBy { it.exchange.name.lowercase() }
                     .thenBy { it.pair.quote.uppercase() }
                     .thenBy { PairSearch.contractRank(it.pair.contractType) }
             )
             // Manche Börsen führen ein Paar doppelt — Listen-Schlüssel müssen eindeutig sein
-            .distinctBy { listOf(it.market.key, it.pair.base, it.pair.quote, it.pair.contractType.name) }
+            .distinctBy { listOf(it.exchange.key, it.pair.base, it.pair.quote, it.pair.contractType.name) }
     }
 
     /** Spot, Perpetual (auch invers), Laufzeit-Futures. */

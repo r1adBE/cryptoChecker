@@ -11,19 +11,19 @@ import UIKit
 extension ExplorerViewModel {
     // MARK: Börse
 
-    func selectExchange(_ market: Market) {
+    func selectExchange(_ picked: Exchange) {
         // Gewähltes Paar merken: gibt es Coin/Gegenwährung/Kontrakt auch an der neuen Börse, bleiben sie
         let remembered = (coin: coin, quote: quote, contract: contract)
-        if exchange?.key != market.key { clearSelectionResults() }
-        exchange = market
-        canReloadPairs = MarketService.supportsPairSync(market)
+        if exchange?.key != picked.key { clearSelectionResults() }
+        exchange = picked
+        canReloadPairs = ExchangeService.supportsPairSync(picked)
         exchangeLoadTask?.cancel()
-        let key = market.key
+        let key = picked.key
         let withAlpha = appliesAssetScope
         exchangeLoadTask = Task { [weak self] in
             let loaded = await Self.loadPairs(key, alpha: withAlpha)
             guard let self, !Task.isCancelled, self.isStill(key) else { return }
-            self.pairList = self.scopedPairs(loaded, marketKey: key)
+            self.pairList = self.scopedPairs(loaded, exchangeKey: key)
             if self.coin == nil { self.coin = remembered.coin }
             if self.quote == nil { self.quote = remembered.quote }
             if self.contract == nil { self.contract = remembered.contract }
@@ -40,8 +40,8 @@ extension ExplorerViewModel {
         coin = watch.baseAsset
         quote = watch.quoteAsset
         contract = watch.contractType
-        guard watch.marketKey != Self.dexKey else { return }
-        if let match = markets.first(where: { $0.key == watch.marketKey }) {
+        guard watch.exchangeKey != Self.dexKey else { return }
+        if let match = exchanges.first(where: { $0.key == watch.exchangeKey }) {
             selectExchange(match)
         }
     }
@@ -49,8 +49,8 @@ extension ExplorerViewModel {
     /// Paarliste der gewählten Börse neu holen (vollständige öffentliche Liste).
     func reloadPairList() {
         syncTask?.cancel()
-        guard let market = exchange else { return }
-        let key = market.key
+        guard let exchange = exchange else { return }
+        let key = exchange.key
         let withAlpha = appliesAssetScope
         pairListSync = ExplorerPairListSync(inProgress: true)
         syncTask = Task { [weak self] in
@@ -59,10 +59,10 @@ extension ExplorerViewModel {
                 let fresh = await Self.loadPairs(key, alpha: withAlpha)
                 guard let self, !Task.isCancelled, self.isStill(key) else { return }
                 self.searchCache[key] = fresh
-                self.pairList = self.scopedPairs(fresh, marketKey: key)
+                self.pairList = self.scopedPairs(fresh, exchangeKey: key)
                 self.pairListSync = ExplorerPairListSync()
                 // Die Suche kennt die Liste jetzt auch
-                if !self.searchMarkets.isEmpty { self.updateUnloaded() }
+                if !self.searchExchanges.isEmpty { self.updateUnloaded() }
                 self.reconcile()
             } catch {
                 if error is CancellationError { return }
@@ -97,16 +97,16 @@ extension ExplorerViewModel {
 
     /// Liste der Börse laden: für «Paar hinzufügen» mit Binance-Alpha (`PairCache.selectionPairs`),
     /// beim Bearbeiten nur die gespeicherte.
-    nonisolated private static func loadPairs(_ key: String, alpha: Bool) async -> MarketPairsInfo {
+    nonisolated private static func loadPairs(_ key: String, alpha: Bool) async -> ExchangePairsInfo {
         if alpha { return await PairCache.shared.selectionPairs(for: key) }
         return await PairCache.shared.pairs(for: key)
     }
 
     /// Auf das reduzieren, was «Token & TradFi» und «inkl. Alpha-Tokens» zeigen; trägt ein Paar
     /// deutlich einen anderen Namen als das Alpha-Token, gilt es nicht als Alpha (`AssetKind.of`).
-    private func scopedPairs(_ info: MarketPairsInfo, marketKey: String) -> MarketPairsInfo {
-        info.scoped(assetScope, marketKey: marketKey, hiddenAlpha: hiddenAlpha,
-                    pairNames: TokenIdentityStore.shared.marketNames(marketKey),
+    private func scopedPairs(_ info: ExchangePairsInfo, exchangeKey: String) -> ExchangePairsInfo {
+        info.scoped(assetScope, exchangeKey: exchangeKey, hiddenAlpha: hiddenAlpha,
+                    pairNames: TokenIdentityStore.shared.exchangeNames(exchangeKey),
                     alphaNames: CoinLogoStore.alphaNames)
     }
 
@@ -162,15 +162,15 @@ extension ExplorerViewModel {
     }
 
     /// Das vollständig gewählte Paar (ohne Kontrakt = Spot) in `info`, sonst nil.
-    func pair(in info: MarketPairsInfo?) -> MarketPair? {
+    func pair(in info: ExchangePairsInfo?) -> ExchangePair? {
         guard let info, let base = coin, let counter = quote else { return nil }
         return info.pair(base: base, quote: counter, contractType: contract ?? .none)
     }
 
     /// Kennung aus Börse und Paar; nil ohne beides.
     private func priceIdentity() -> String? {
-        guard let market = exchange, let p = selectedPair else { return nil }
-        return [market.key, p.base, p.quote, "\(p.contractType.rawValue)", p.pairId ?? ""].joined(separator: "|")
+        guard let exchange = exchange, let p = selectedPair else { return nil }
+        return [exchange.key, p.base, p.quote, "\(p.contractType.rawValue)", p.pairId ?? ""].joined(separator: "|")
     }
 
     /// Gesetzt und in `options` enthalten?
@@ -185,7 +185,7 @@ extension ExplorerViewModel {
 
     private func loadPrice(debounce: Bool) {
         priceTask?.cancel()
-        guard let market = exchange, market.key != Self.dexKey, let pair = selectedPair else {
+        guard let exchange = exchange, exchange.key != Self.dexKey, let pair = selectedPair else {
             price = nil
             return
         }
@@ -196,7 +196,7 @@ extension ExplorerViewModel {
             guard !Task.isCancelled else { return }
             let outcome: ExplorerPriceState
             do {
-                let fresh = try await MarketService.fetchTicker(market: market, info: pair)
+                let fresh = try await ExchangeService.fetchTicker(exchange: exchange, info: pair)
                 outcome = .loaded(fresh, pair)
             } catch {
                 outcome = .failed(ConnectionErrors.friendly(error))
@@ -210,36 +210,36 @@ extension ExplorerViewModel {
 
     /// Das aktuell gewählte Paar aufnehmen.
     func addSelectedPair() {
-        guard let market = exchange, let pair = selectedPair else {
+        guard let exchange = exchange, let pair = selectedPair else {
             show(ExplorerMessage(text: L("explorer_no_pair_selected"), showView: false))
             haptic(.warning)
             return
         }
-        add(market: market, pair: pair)
+        add(exchange: exchange, pair: pair)
     }
 
-    func isInWatchlist(_ market: Market, _ pair: MarketPair) -> Bool {
-        data.contains(marketKey: market.key, pair: pair)
+    func isInWatchlist(_ exchange: Exchange, _ pair: ExchangePair) -> Bool {
+        data.contains(exchangeKey: exchange.key, pair: pair)
     }
 
-    func add(market: Market, pair: MarketPair) {
-        insert(market: market, pair: pair,
+    func add(exchange: Exchange, pair: ExchangePair) {
+        insert(exchange: exchange, pair: pair,
                addedText: L("explorer_added_to_watchlist"),
                duplicateText: L("explorer_already_in_watchlist"))
     }
 
     /// Gemeinsamer Weg für Börsen-Paare und DEX-Pools: aufnehmen, melden, Haptik, Mitteilungen. Merkliste voll
     /// (`WatchlistLimits`): nichts angelegt, Hinweis — wie Android `launchAdd`.
-    func insert(market: Market, pair: MarketPair, addedText: String, duplicateText: String) {
+    func insert(exchange: Exchange, pair: ExchangePair, addedText: String, duplicateText: String) {
         // Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Meldung
         data.withWatchlistConfirm { [weak self] in
-            self?.insertNow(market: market, pair: pair, addedText: addedText, duplicateText: duplicateText)
+            self?.insertNow(exchange: exchange, pair: pair, addedText: addedText, duplicateText: duplicateText)
         }
     }
 
-    private func insertNow(market: Market, pair: MarketPair, addedText: String, duplicateText: String) {
+    private func insertNow(exchange: Exchange, pair: ExchangePair, addedText: String, duplicateText: String) {
         let firstEver = data.isFirstPairAdd
-        let outcome = data.tryAddWatch(market: market, pair: pair, group: data.addTargetGroup)
+        let outcome = data.tryAddWatch(exchange: exchange, pair: pair, group: data.addTargetGroup)
         // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
         if outcome == .locked { return }
         guard case .added(let id) = outcome else {

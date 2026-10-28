@@ -57,7 +57,7 @@
                 android:fontFeatureSettings="tnum" />
 
             <TextView
-                android:id="@+id/item_market"
+                android:id="@+id/item_exchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"

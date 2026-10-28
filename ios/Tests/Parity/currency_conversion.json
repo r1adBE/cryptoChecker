@@ -623,27 +623,27 @@
   ],
   "conversionQuote": [
     {
-      "market": "Aster",
+      "exchangeKey": "Aster",
       "quote": "U",
       "expected": "USD"
     },
     {
-      "market": " aster ",
+      "exchangeKey": " aster ",
       "quote": "u",
       "expected": "USD"
     },
     {
-      "market": "Binance",
+      "exchangeKey": "Binance",
       "quote": "U",
       "expected": "U"
     },
     {
-      "market": null,
+      "exchangeKey": null,
       "quote": " usdt ",
       "expected": "USDT"
     },
     {
-      "market": "Aster",
+      "exchangeKey": "Aster",
       "quote": "USDT",
       "expected": "USDT"
     }

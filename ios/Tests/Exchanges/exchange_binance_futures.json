@@ -10,7 +10,7 @@
     {
       "kind": "single",
       "name": "USD-M 24hr BTCUSDT (no bid/ask in futures 24hr ticker)",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -34,7 +34,7 @@
     {
       "kind": "single",
       "name": "COIN-M 24hr (array with one entry, pair id prefixed 2:)",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -57,7 +57,7 @@
     {
       "kind": "single",
       "name": "error payload: invalid symbol (message comes from the thrown exception)",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -75,7 +75,7 @@
     {
       "kind": "single",
       "name": "quoteVolume missing is optional",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -93,7 +93,7 @@
     {
       "kind": "bulk",
       "name": "bulk USD-M (requestId 0)",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1480.20\",\"priceChangePercent\":\"2.446\",\"weightedAvgPrice\":\"61498.12\", \"lastPrice\":\"61990.20\",\"lastQty\":\"0.005\",\"openPrice\":\"60510.00\",\"highPrice\":\"62480.00\",\"lowPrice\":\"59980.10\", \"volume\":\"215432.123\",\"quoteVolume\":\"13248901234.56\",\"openTime\":1728453600000,\"closeTime\":1728540000456, \"firstId\":5012345678,\"lastId\":5013456789,\"count\":1111112},{\"symbol\":\"ETHUSDT\",\"priceChange\":\"-12.34\",\"priceChangePercent\":\"-0.501\",\"weightedAvgPrice\":\"2455.10\", \"lastPrice\":\"2450.12\",\"lastQty\":\"0.100\",\"openPrice\":\"2462.46\",\"highPrice\":\"2490.00\",\"lowPrice\":\"2430.00\", \"volume\":\"3456789.012\",\"quoteVolume\":\"8487654321.09\",\"openTime\":1728453600000,\"closeTime\":1728540000789, \"firstId\":1,\"lastId\":2,\"count\":2}]",
       "expect": {
@@ -119,7 +119,7 @@
     {
       "kind": "bulk",
       "name": "bulk COIN-M (requestId 1): keys get the 2: prefix",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "requestId": 1,
       "body": "[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"priceChange\":\"1490.1\",\"priceChangePercent\":\"2.462\", \"weightedAvgPrice\":\"61502.3\",\"lastPrice\":\"62000.1\",\"lastQty\":\"3\",\"openPrice\":\"60510.0\",\"highPrice\":\"62490.0\", \"lowPrice\":\"59990.0\",\"volume\":\"6236012\",\"baseVolume\":\"10139.12345678\",\"openTime\":1728453600000, \"closeTime\":1728540000321,\"firstId\":901,\"lastId\":902,\"count\":2}]",
       "expect": {
@@ -151,7 +151,7 @@
     {
       "kind": "pairs",
       "name": "COIN-M exchangeInfo (requestId 1): perpetuals are inverse (INVERSE_PERPETUAL), quarterly stays QUARTERLY, ids get the 2: prefix",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "requestId": 1,
       "body": "{\"timezone\":\"UTC\",\"symbols\":[{\"symbol\":\"BTCUSD_PERP\",\"pair\":\"BTCUSD\",\"contractType\":\"PERPETUAL\",\"contractStatus\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USD\",\"marginAsset\":\"BTC\"},{\"symbol\":\"BTCUSD_251226\",\"pair\":\"BTCUSD\",\"contractType\":\"CURRENT_QUARTER\",\"contractStatus\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USD\",\"marginAsset\":\"BTC\"},{\"symbol\":\"ETHUSD_PERP\",\"pair\":\"ETHUSD\",\"contractType\":\"PERPETUAL\",\"contractStatus\":\"TRADING\",\"baseAsset\":\"ETH\",\"quoteAsset\":\"USD\",\"marginAsset\":\"ETH\"}]}",
       "expect": {
@@ -178,7 +178,7 @@
     {
       "kind": "pairs",
       "name": "USD-M exchangeInfo (requestId 0): perpetuals stay PERPETUAL",
-      "market": "BinanceFutures",
+      "exchangeKey": "BinanceFutures",
       "requestId": 0,
       "body": "{\"timezone\":\"UTC\",\"symbols\":[{\"symbol\":\"BTCUSDT\",\"pair\":\"BTCUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\"}]}",
       "expect": {

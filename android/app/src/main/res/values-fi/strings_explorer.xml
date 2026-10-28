@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Parit</string>
     <string name="explorer_precise_title">Lisäasetukset / pörssin mukaan</string>
     <string name="explorer_price_loading">Ladataan hintaa…</string>
-    <string name="explorer_select_market_hint">Valitse pörssi – sen parit ladataan automaattisesti.</string>
+    <string name="explorer_select_exchange_hint">Valitse pörssi – sen parit ladataan automaattisesti.</string>
     <string name="explorer_select_placeholder">Valitse</string>
     <string name="explorer_step_pair">Valitse pari</string>
 

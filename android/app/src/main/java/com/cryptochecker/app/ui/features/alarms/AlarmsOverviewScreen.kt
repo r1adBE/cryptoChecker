@@ -236,7 +236,7 @@ fun AlarmsOverviewScreen(
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(watch.displayName, style = MaterialTheme.typography.titleMedium)
                                 Text(
-                                    watch.marketName,
+                                    watch.exchangeName,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )

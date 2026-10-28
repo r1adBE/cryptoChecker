@@ -151,7 +151,7 @@ internal fun LazyItemScope.WatchlistItem(
     }
 
     // Mini-Chart einer anderen Börse: im Zeilensatz nennen (sichtbar steht es seit L-14 im Aktionsblatt)
-    val chartSource = remember(sparkline, watch.marketKey, watch.lastPrice != null) {
+    val chartSource = remember(sparkline, watch.exchangeKey, watch.lastPrice != null) {
         if (sparkline != null) sparklineSource(watch) else null
     }
 
@@ -160,7 +160,7 @@ internal fun LazyItemScope.WatchlistItem(
     val changeProvider = remember(watch) { changeSource(watch) }
 
     // Teil des Erst-Moments? Dann Platz in der Staffelung, sonst null
-    val celebrateIndex = moment?.indexOf(watch.marketKey, watch.baseAsset, watch.quoteAsset)
+    val celebrateIndex = moment?.indexOf(watch.exchangeKey, watch.baseAsset, watch.quoteAsset)
 
     SwipeActionsRow(
         enabled = !sortMode && !selecting,

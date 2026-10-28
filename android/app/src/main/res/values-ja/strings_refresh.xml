@@ -24,8 +24,8 @@
         <item quantity="other">一括リクエスト %1$s · 価格 %2$d 件</item>
     </plurals>
     <string name="refresh_sheet_database">データベース</string>
-    <string name="refresh_sheet_market_unreachable">%1$s に接続できません</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s に接続できません</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="other">%1$d 件の取引所に接続できません</item>
     </plurals>
     <string name="refresh_sheet_network">ネットワーク</string>
@@ -54,7 +54,7 @@
     <string name="refresh_sheet_reason_unavailable">取引所を利用できません</string>
     <string name="refresh_sheet_seconds_a11y">%1$s 秒</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">取引所</string>
+    <string name="refresh_sheet_section_exchanges">取引所</string>
     <string name="refresh_sheet_section_steps">内訳</string>
     <string name="refresh_sheet_status_failed">未更新</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

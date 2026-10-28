@@ -105,7 +105,7 @@ internal class ReorderState(
     fun autoOrder(order: AutoOrder) {
         if (draggingId != null) return
         val current = items ?: source
-        val sorted = order.apply(current, { it.favorite }, { it.displayName }, { it.marketName })
+        val sorted = order.apply(current, { it.favorite }, { it.displayName }, { it.exchangeName })
         if (sorted.map { it.id } == current.map { it.id }) return
         items = sorted
         onDrop(sorted.map { it.id })

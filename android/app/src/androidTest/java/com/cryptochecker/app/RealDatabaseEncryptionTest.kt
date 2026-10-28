@@ -21,12 +21,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Überführung echter Datenbankdateien eines Testgeräts (älterer Stand, vom Inhaber geliefert): `cryptochecker.db` und
+ * Überführung echter Datenbankdateien eines Testgeräts (unverschlüsselt, vom Inhaber geliefert; Hauptdatenbank im aktuellen
+ * Schema): `cryptochecker.db` und
  * `cryptochecker_portfolio.db` samt `-wal`/`-shm` unter `app/src/androidTest/assets/realdb/` ablegen (nur Testgerät,
  * keine echten Bestände ins Repository). Fehlen sie, wird der Test übersprungen.
  *
- * Geprüft: Jede Tabelle hat nach Verschlüsselung und Room-Migrationen mindestens so viele Zeilen wie vorher (Room-Migrationen
- * fügen höchstens hinzu; die Merkliste-/Portfolio-Tabellen exakt gleich viele), beide Dateien sind verschlüsselt.
+ * Geprüft: Jede Tabelle hat nach Verschlüsselung und Room-Migrationen (Portfolio-Datenbank) mindestens so viele Zeilen wie
+ * vorher (Room-Migrationen fügen höchstens hinzu; die Merkliste-/Portfolio-Tabellen exakt gleich viele), beide Dateien sind
+ * verschlüsselt.
  */
 @RunWith(AndroidJUnit4::class)
 class RealDatabaseEncryptionTest {
@@ -65,19 +67,17 @@ class RealDatabaseEncryptionTest {
         val factory = EncryptingOpenHelperFactory(context, DatabaseKeyStore(context, alias = TEST_ALIAS, directory = keyDirectory))
         val main = Room.databaseBuilder(context, AppDatabase::class.java, MAIN)
             .openHelperFactory(factory)
-            .addMigrations(*AppDatabase.ALL_MIGRATIONS)
             .build()
         val portfolio = Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO)
             .openHelperFactory(factory)
             .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
-            .addCallback(PortfolioDatabase.callback(context, main, File(context.cacheDir, "realdb-mirror.json")))
+            .addCallback(PortfolioDatabase.callback(context, File(context.cacheDir, "realdb-mirror.json")))
             .build()
         try {
             val portfolioDb = portfolio.openHelper.writableDatabase
             val mainDb = main.openHelper.writableDatabase
             for ((before, db) in listOf(mainBefore to mainDb, portfolioBefore to portfolioDb)) {
                 for ((table, fp) in before.tables) {
-                    if (table.startsWith("legacy_")) continue // übernimmt PortfolioLegacyImport in die Portfolio-Datenbank
                     val rows = db.query("SELECT COUNT(*) FROM `$table`").use { c -> c.moveToFirst(); c.getLong(0) }
                     if (table in EXACT_TABLES) assertEquals(table, fp.rows, rows) else assertTrue(table, rows >= fp.rows)
                 }

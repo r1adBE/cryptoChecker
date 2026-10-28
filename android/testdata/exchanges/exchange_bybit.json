@@ -11,7 +11,7 @@
     {
       "kind": "single",
       "name": "spot ticker BTCUSDT",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -35,7 +35,7 @@
     {
       "kind": "single",
       "name": "linear ticker BTCUSDT (negative fraction)",
-      "market": "BybitFutures",
+      "exchangeKey": "BybitFutures",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -59,7 +59,7 @@
     {
       "kind": "single",
       "name": "error payload: not supported symbols",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -76,7 +76,7 @@
     {
       "kind": "single",
       "name": "empty list with retCode 0: 'No data', not the retMsg 'OK'",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -95,7 +95,7 @@
     {
       "kind": "single",
       "name": "time as huge JSON number: clamped, no crash",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -112,7 +112,7 @@
     {
       "kind": "single",
       "name": "optional fields missing (only lastPrice)",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -135,7 +135,7 @@
     {
       "kind": "bulk",
       "name": "bulk spot: entry with empty lastPrice (inactive) is skipped, not reported as unreadable",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "requestId": 0,
       "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[ {\"symbol\":\"BTCUSDT\",\"bid1Price\":\"62000\",\"ask1Price\":\"62000.1\",\"lastPrice\":\"62000.1\",\"price24hPcnt\":\"0.0248\",\"highPrice24h\":\"62500\",\"lowPrice24h\":\"60000\",\"turnover24h\":\"744460123.4567\",\"volume24h\":\"12100.523\"}, {\"symbol\":\"NEWUSDT\",\"bid1Price\":\"\",\"ask1Price\":\"\",\"lastPrice\":\"\",\"price24hPcnt\":\"\",\"highPrice24h\":\"\",\"lowPrice24h\":\"\",\"turnover24h\":\"0\",\"volume24h\":\"0\"}, {\"symbol\":\"PEPEUSDT\",\"bid1Price\":\"0.00000911\",\"ask1Price\":\"0.00000912\",\"lastPrice\":\"0.00000912\",\"price24hPcnt\":\"-0.0329\",\"highPrice24h\":\"0.00000951\",\"lowPrice24h\":\"0.00000899\",\"turnover24h\":\"41656000.12\",\"volume24h\":\"4567890123456\"} ]},\"retExtInfo\":{},\"time\":1728540000123}",
       "expect": {
@@ -162,7 +162,7 @@
     {
       "kind": "bulk",
       "name": "bulk linear",
-      "market": "BybitFutures",
+      "exchangeKey": "BybitFutures",
       "requestId": 0,
       "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"linear\",\"list\":[{\"symbol\":\"BTCUSDT\",\"lastPrice\":\"61990.20\", \"indexPrice\":\"62010.12\",\"markPrice\":\"61995.00\",\"prevPrice24h\":\"60510.00\",\"price24hPcnt\":\"-0.0056\", \"highPrice24h\":\"62480.00\",\"lowPrice24h\":\"59980.10\",\"prevPrice1h\":\"61900.00\",\"openInterest\":\"55123.456\", \"openInterestValue\":\"3417000000.12\",\"turnover24h\":\"13248901234.5612\",\"volume24h\":\"215432.123\", \"fundingRate\":\"0.0001\",\"nextFundingTime\":\"1728547200000\",\"predictedDeliveryPrice\":\"\",\"basisRate\":\"\", \"deliveryFeeRate\":\"\",\"deliveryTime\":\"0\",\"ask1Size\":\"1.234\",\"bid1Price\":\"61990.10\",\"ask1Price\":\"61990.20\", \"bid1Size\":\"2.345\",\"basis\":\"\"}]},\"retExtInfo\":{},\"time\":1728540000456}",
       "expect": {
@@ -214,7 +214,7 @@
     {
       "kind": "pairs",
       "name": "linear instruments-info page 1: nextPageCursor is followed (already URL-encoded, appended as is)",
-      "market": "BybitFutures",
+      "exchangeKey": "BybitFutures",
       "requestId": 0,
       "note": "instruments-info pages with limit (max 1000) and nextPageCursor; tickers (bulk) does not page. Only Trading LinearPerpetual; symbolType stock/commodity = TradFi.",
       "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"linear\",\"list\":[{\"symbol\":\"BTCUSDT\",\"contractType\":\"LinearPerpetual\",\"status\":\"Trading\",\"baseCoin\":\"BTC\",\"quoteCoin\":\"USDT\",\"launchTime\":\"1585526400000\",\"deliveryTime\":\"0\",\"priceScale\":\"2\",\"symbolType\":\"crypto\",\"settleCoin\":\"USDT\"},{\"symbol\":\"NVDAUSDT\",\"contractType\":\"LinearPerpetual\",\"status\":\"Trading\",\"baseCoin\":\"NVDA\",\"quoteCoin\":\"USDT\",\"launchTime\":\"1585526400000\",\"deliveryTime\":\"0\",\"priceScale\":\"2\",\"symbolType\":\"stock\",\"settleCoin\":\"USDT\"},{\"symbol\":\"BTCUSDT-26DEC25\",\"contractType\":\"LinearFutures\",\"status\":\"Trading\",\"baseCoin\":\"BTC\",\"quoteCoin\":\"USDT\",\"launchTime\":\"1585526400000\",\"deliveryTime\":\"0\",\"priceScale\":\"2\",\"symbolType\":\"\",\"settleCoin\":\"USDT\"},{\"symbol\":\"OLDUSDT\",\"contractType\":\"LinearPerpetual\",\"status\":\"Closed\",\"baseCoin\":\"OLD\",\"quoteCoin\":\"USDT\",\"launchTime\":\"1585526400000\",\"deliveryTime\":\"0\",\"priceScale\":\"2\",\"symbolType\":\"\",\"settleCoin\":\"USDT\"}],\"nextPageCursor\":\"first%3DBTCUSDT%26last%3DOLDUSDT\"},\"retExtInfo\":{},\"time\":1728540000000}",
@@ -244,7 +244,7 @@
     {
       "kind": "pairs",
       "name": "linear instruments-info last page: empty nextPageCursor ends paging",
-      "market": "BybitFutures",
+      "exchangeKey": "BybitFutures",
       "requestId": 0,
       "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"linear\",\"list\":[{\"symbol\":\"XAUTUSDT\",\"contractType\":\"LinearPerpetual\",\"status\":\"Trading\",\"baseCoin\":\"XAUT\",\"quoteCoin\":\"USDT\",\"launchTime\":\"1585526400000\",\"deliveryTime\":\"0\",\"priceScale\":\"2\",\"symbolType\":\"commodity\",\"settleCoin\":\"USDT\"}],\"nextPageCursor\":\"\"},\"retExtInfo\":{},\"time\":1728540000000}",
       "expect": {
@@ -263,7 +263,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "requestId": 0,
       "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"bid1Price\":\"62000\",\"ask1Price\":\"62000.1\",\"lastPrice\":\"62000.1\",\"price24hPcnt\":\"0.0248\",\"highPrice24h\":\"62500\",\"lowPrice24h\":\"60000\",\"turnover24h\":\"744460123.4567\",\"volume24h\":\"12100.523\"},{\"symbol\":\"PEPEUSDT\",\"bid1Price\":\"0.00000911\",\"ask1Price\":\"0.00000912\",\"price24hPcnt\":\"-0.0329\",\"highPrice24h\":\"0.00000951\",\"lowPrice24h\":\"0.00000899\",\"turnover24h\":\"41656000.12\",\"volume24h\":\"4567890123456\",\"lastPrice_renamed\":\"0.00000912\"}]},\"retExtInfo\":{},\"time\":1728540000123}",
       "expect": {
@@ -279,7 +279,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «lastPrice» in every row — format error of the whole response",
-      "market": "Bybit",
+      "exchangeKey": "Bybit",
       "requestId": 0,
       "body": "{\"retCode\":0,\"retMsg\":\"OK\",\"result\":{\"category\":\"spot\",\"list\":[{\"symbol\":\"BTCUSDT\",\"bid1Price\":\"62000\",\"ask1Price\":\"62000.1\",\"price24hPcnt\":\"0.0248\",\"highPrice24h\":\"62500\",\"lowPrice24h\":\"60000\",\"turnover24h\":\"744460123.4567\",\"volume24h\":\"12100.523\",\"lastPrice_renamed\":\"62000.1\"},{\"symbol\":\"PEPEUSDT\",\"bid1Price\":\"0.00000911\",\"ask1Price\":\"0.00000912\",\"price24hPcnt\":\"-0.0329\",\"highPrice24h\":\"0.00000951\",\"lowPrice24h\":\"0.00000899\",\"turnover24h\":\"41656000.12\",\"volume24h\":\"4567890123456\",\"lastPrice_renamed\":\"0.00000912\"}]},\"retExtInfo\":{},\"time\":1728540000123}",
       "expect": {

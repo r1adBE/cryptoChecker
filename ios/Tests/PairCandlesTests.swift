@@ -21,9 +21,9 @@ final class PairCandlesTests: XCTestCase {
 
     private var series: [MarketCandle] { [candle(100, 0), candle(101, 3_600_000)] }
 
-    private func pair(_ contract: FuturesContractType = .none, _ marketKey: String = "Kraken", pairId: String? = nil,
+    private func pair(_ contract: FuturesContractType = .none, _ exchangeKey: String = "Kraken", pairId: String? = nil,
                       tradFi: Bool = false, quote: String = "USDT", base: String = "BTC") -> CandlePair {
-        CandlePair(marketKey: marketKey, marketName: marketKey, base: base, quote: quote, pairId: pairId,
+        CandlePair(exchangeKey: exchangeKey, exchangeName: exchangeKey, base: base, quote: quote, pairId: pairId,
                    contractType: contract, tradFi: tradFi)
     }
 

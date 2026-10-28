@@ -224,7 +224,7 @@ class PortfolioTxTypesTest {
         assertEquals(mapOf("BTC" to "Kraken", "ETH" to "Ledger Nano"), r.first)
         assertTrue(r.second.isEmpty())
         // Wallet ist keine Spot-Börse der App → kein eigener Weg (Binance)
-        assertNull(PortfolioExchangeRoute.market("Ledger Nano", mapOf("Kraken" to "Kraken", "Binance" to "Binance")))
+        assertNull(PortfolioExchangeRoute.exchange("Ledger Nano", mapOf("Kraken" to "Kraken", "Binance" to "Binance")))
     }
 
     /** Damit bezahlt = Veräusserung zum Marktwert in allen Methoden; Abfluss wie ein Verkauf. Wie iOS. */

@@ -21,8 +21,8 @@ class LiveFeedTest {
 
     private fun pair(spec: Map<String, Any?>) = LivePair(
         watchId = spec["watchId"].num()!!.toLong(),
-        marketKey = spec["marketKey"] as String,
-        marketName = spec["marketName"] as String,
+        exchangeKey = spec["exchangeKey"] as String,
+        exchangeName = spec["exchangeName"] as String,
         pairId = spec["pairId"] as String?,
         base = spec["base"] as String,
         quote = spec["quote"] as String,
@@ -68,7 +68,7 @@ class LiveFeedTest {
             val exchange = LiveExchange.valueOf(c["exchange"] as String)
             assertEquals("symbol for ${c["pair"]}", c["symbol"], exchange.symbolFor(pair(c["pair"].obj())))
             // Börse und Adapter-Schlüssel gehören zusammen
-            assertEquals(exchange, LiveExchange.fromMarketKey(c["pair"].obj()["marketKey"] as String))
+            assertEquals(exchange, LiveExchange.fromExchangeKey(c["pair"].obj()["exchangeKey"] as String))
         }
     }
 

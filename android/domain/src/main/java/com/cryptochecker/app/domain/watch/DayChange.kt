@@ -91,11 +91,11 @@ object DayChange {
      * @param provider Anbieter der Kerzen («Binance», «Binance.US», «Coinbase»); null = keine Kerzen
      * @return [provider], wenn fremd; sonst null
      */
-    fun foreignCandleSource(markets: Collection<String>, provider: String?): String? {
+    fun foreignCandleSource(exchanges: Collection<String>, provider: String?): String? {
         val p = provider?.trim()?.takeIf { it.isNotEmpty() } ?: return null
         fun norm(s: String) = s.lowercase().filter { it.isLetterOrDigit() }
         val n = norm(p)
-        val names = markets.map { norm(it) }
+        val names = exchanges.map { norm(it) }
         if (names.any { it == n }) return null
         // Spot-Kerzen («Binance») an einem Futures-Markt derselben Börse: als Spot kennzeichnen
         return if (names.any { it == n + "futures" }) "$p Spot" else p

@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.domain.refresh.MarketRefresh
+import com.cryptochecker.app.domain.refresh.ExchangeRefresh
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReport
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
@@ -45,37 +45,37 @@ import java.util.Locale
 
 /** Eine Börse: Status, Name, Dauer; darunter Paare und Sammelabfrage, ggf. die Ursachen. */
 @Composable
-internal fun MarketRow(market: MarketRefresh, locale: Locale) {
-    val status = RefreshReportLogic.status(market)
-    val duration = seconds(market.millis, locale)
-    val pairsText = pluralStringResource(R.plurals.refresh_sheet_pairs_of, market.pairs, market.pairs, market.updated)
+internal fun MarketRow(exchange: ExchangeRefresh, locale: Locale) {
+    val status = RefreshReportLogic.status(exchange)
+    val duration = seconds(exchange.millis, locale)
+    val pairsText = pluralStringResource(R.plurals.refresh_sheet_pairs_of, exchange.pairs, exchange.pairs, exchange.updated)
     val detail = buildList {
         add(pairsText)
-        if (market.bulkTried) {
-            val bulkSecs = seconds(market.bulkMillis, locale)
+        if (exchange.bulkTried) {
+            val bulkSecs = seconds(exchange.bulkMillis, locale)
             add(
-                if (market.bulkPrices > 0) {
-                    pluralStringResource(R.plurals.refresh_sheet_bulk, market.bulkPrices, bulkSecs, market.bulkPrices)
+                if (exchange.bulkPrices > 0) {
+                    pluralStringResource(R.plurals.refresh_sheet_bulk, exchange.bulkPrices, bulkSecs, exchange.bulkPrices)
                 } else {
                     stringResource(R.string.refresh_report_bulk_failed, bulkSecs)
                 }
             )
         }
-        if (market.singles > 0) add(stringResource(R.string.refresh_report_singles, market.singles))
+        if (exchange.singles > 0) add(stringResource(R.string.refresh_report_singles, exchange.singles))
     }.joinToString(" · ")
     val issues = buildList {
-        if (market.notTraded > 0) {
-            add(pluralStringResource(R.plurals.refresh_report_not_traded, market.notTraded, market.notTraded))
+        if (exchange.notTraded > 0) {
+            add(pluralStringResource(R.plurals.refresh_report_not_traded, exchange.notTraded, exchange.notTraded))
         }
-        if (market.failed > 0) {
-            val errors = pluralStringResource(R.plurals.refresh_report_errors, market.failed, market.failed)
-            val reason = market.reason?.let { reasonText(it) }
+        if (exchange.failed > 0) {
+            val errors = pluralStringResource(R.plurals.refresh_report_errors, exchange.failed, exchange.failed)
+            val reason = exchange.reason?.let { reasonText(it) }
             add(if (reason == null) errors else stringResource(R.string.refresh_sheet_with_reason, errors, reason))
         }
         // Pause je Börse: «pausiert bis 19:45 (zu viele Anfragen)»
-        market.pausedUntil?.let { until ->
+        exchange.pausedUntil?.let { until ->
             val time = PriceFormat.shortTime(until)
-            val reason = market.pauseReason?.let { reasonText(it) }
+            val reason = exchange.pauseReason?.let { reasonText(it) }
             add(
                 if (reason == null) stringResource(R.string.refresh_sheet_paused_until, time)
                 else stringResource(R.string.refresh_sheet_paused_until_reason, time, reason)
@@ -84,7 +84,7 @@ internal fun MarketRow(market: MarketRefresh, locale: Locale) {
     }.joinToString(" · ")
     // Meldung der Börse zur häufigsten Ursache (gekürzt, ohne Adressen) — nur hier; die Zeile der Merkliste
     // zeigt weiterhin den allgemeinen Text
-    val exchangeDetail = market.detail?.takeIf { market.failed > 0 }
+    val exchangeDetail = exchange.detail?.takeIf { exchange.failed > 0 }
         ?.let { stringResource(R.string.refresh_sheet_exchange_detail, it) }
     val statusText = stringResource(
         when (status) {
@@ -95,8 +95,8 @@ internal fun MarketRow(market: MarketRefresh, locale: Locale) {
     )
     // Screenreader: ein Satz je Börse («Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden»)
     val spoken = listOf(
-        market.name, statusText, pairsText,
-        stringResource(R.string.refresh_sheet_seconds_a11y, "%.1f".format(locale, market.millis / 1000.0)),
+        exchange.name, statusText, pairsText,
+        stringResource(R.string.refresh_sheet_seconds_a11y, "%.1f".format(locale, exchange.millis / 1000.0)),
         issues,
         exchangeDetail.orEmpty(),
     ).filter { it.isNotEmpty() }.joinToString(", ")
@@ -113,7 +113,7 @@ internal fun MarketRow(market: MarketRefresh, locale: Locale) {
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
-                    market.name,
+                    exchange.name,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f)

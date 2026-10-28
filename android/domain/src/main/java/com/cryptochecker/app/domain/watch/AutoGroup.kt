@@ -1,6 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
-import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.ExchangePair
 import com.cryptochecker.marketdata.model.FuturesContractType
 
 /**
@@ -25,13 +25,13 @@ object AutoGroup {
     )
 
     /** null: keine eigene Gruppe (Krypto-Spot und -Perpetuals). */
-    fun forPair(pair: MarketPair): String? = when {
+    fun forPair(pair: ExchangePair): String? = when {
         pair.tradFi -> TRADFI
         pair.contractType in DATED_CONTRACTS -> DATED
         else -> null
     }
 
     /** Gewählte Gruppe, sonst die passende von [forPair]. */
-    fun resolve(chosen: String?, pair: MarketPair): String? =
+    fun resolve(chosen: String?, pair: ExchangePair): String? =
         chosen?.trim()?.takeIf { it.isNotEmpty() } ?: forPair(pair)
 }

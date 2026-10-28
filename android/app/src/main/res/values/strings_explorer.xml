@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Pairs</string>
     <string name="explorer_precise_title">Advanced / by exchange</string>
     <string name="explorer_price_loading">Loading price…</string>
-    <string name="explorer_select_market_hint">Choose an exchange – its trading pairs load automatically.</string>
+    <string name="explorer_select_exchange_hint">Choose an exchange – its trading pairs load automatically.</string>
     <string name="explorer_select_placeholder">Please select</string>
     <string name="explorer_step_pair">Choose pair</string>
 

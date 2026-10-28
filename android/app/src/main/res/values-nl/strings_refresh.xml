@@ -26,8 +26,8 @@
         <item quantity="other">bulkverzoek %1$s · %2$d koersen</item>
     </plurals>
     <string name="refresh_sheet_database">Database</string>
-    <string name="refresh_sheet_market_unreachable">%1$s niet bereikbaar</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s niet bereikbaar</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d beurs niet bereikbaar</item>
         <item quantity="other">%1$d beurzen niet bereikbaar</item>
     </plurals>
@@ -61,7 +61,7 @@
     <string name="refresh_sheet_reason_unavailable">beurs niet beschikbaar</string>
     <string name="refresh_sheet_seconds_a11y">%1$s seconden</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Beurzen</string>
+    <string name="refresh_sheet_section_exchanges">Beurzen</string>
     <string name="refresh_sheet_section_steps">Verloop</string>
     <string name="refresh_sheet_status_failed">niet bijgewerkt</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker/24h BTC-EUR (open = start of rolling window)",
-      "market": "Bitvavo",
+      "exchangeKey": "Bitvavo",
       "pair": {
         "base": "BTC",
         "quote": "EUR",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Bitvavo",
+      "exchangeKey": "Bitvavo",
       "pair": {
         "base": "FOO",
         "quote": "EUR",
@@ -50,7 +50,7 @@
     {
       "kind": "bulk",
       "name": "bulk: inactive market with null last is skipped, not reported as unreadable",
-      "market": "Bitvavo",
+      "exchangeKey": "Bitvavo",
       "requestId": 0,
       "body": "[{\"market\":\"BTC-EUR\",\"startTimestamp\":1728453600123,\"timestamp\":1728540000123,\"open\":\"56500\",\"openTimestamp\":1728453600500, \"high\":\"58500\",\"low\":\"56000\",\"last\":\"58000.1\",\"closeTimestamp\":1728539999000,\"bid\":\"58000\",\"bidSize\":\"0.5\", \"ask\":\"58000.2\",\"askSize\":\"0.8\",\"volume\":\"1234.5\",\"volumeQuote\":\"71234567.8\"},{\"market\":\"OLD-EUR\",\"startTimestamp\":null,\"timestamp\":1728540000123,\"open\":null,\"high\":null,\"low\":null,\"last\":null,\"bid\":null,\"ask\":null,\"volume\":\"0\",\"volumeQuote\":\"0\"}]",
       "expect": {
@@ -68,7 +68,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with null «last» (inactive) is skipped, not failed",
-      "market": "Bitvavo",
+      "exchangeKey": "Bitvavo",
       "requestId": 0,
       "body": "[{\"market\":\"BTC-EUR\",\"startTimestamp\":1728453600123,\"timestamp\":1728540000123,\"open\":\"56500\",\"openTimestamp\":1728453600500,\"high\":\"58500\",\"low\":\"56000\",\"last\":\"58000.1\",\"closeTimestamp\":1728539999000,\"bid\":\"58000\",\"bidSize\":\"0.5\",\"ask\":\"58000.2\",\"askSize\":\"0.8\",\"volume\":\"1234.5\",\"volumeQuote\":\"71234567.8\"},{\"market\":\"ETH-EUR\",\"startTimestamp\":1728453600123,\"timestamp\":1728540000123,\"open\":\"56500\",\"openTimestamp\":1728453600500,\"high\":\"58500\",\"low\":\"56000\",\"closeTimestamp\":1728539999000,\"bid\":\"58000\",\"bidSize\":\"0.5\",\"ask\":\"58000.2\",\"askSize\":\"0.8\",\"volume\":\"1234.5\",\"volumeQuote\":\"71234567.8\",\"last_renamed\":\"58000.1\"},{\"market\":\"OLD-EUR\",\"startTimestamp\":1728453600123,\"timestamp\":1728540000123,\"open\":\"56500\",\"openTimestamp\":1728453600500,\"high\":\"58500\",\"low\":\"56000\",\"last\":null,\"closeTimestamp\":1728539999000,\"bid\":\"58000\",\"bidSize\":\"0.5\",\"ask\":\"58000.2\",\"askSize\":\"0.8\",\"volume\":\"1234.5\",\"volumeQuote\":\"71234567.8\"}]",
       "expect": {

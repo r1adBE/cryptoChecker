@@ -159,31 +159,31 @@
   ],
   "kinds": [
    {
-    "marketKey": "BinanceFutures",
+    "exchangeKey": "BinanceFutures",
     "base": "FROGGIE",
     "tradFi": false,
     "expected": "ALPHA"
    },
    {
-    "marketKey": "BinanceFutures",
+    "exchangeKey": "BinanceFutures",
     "base": "1000AIA",
     "tradFi": false,
     "expected": "ALPHA"
    },
    {
-    "marketKey": "Binance",
+    "exchangeKey": "Binance",
     "base": "AIA",
     "tradFi": false,
     "expected": "TOKEN"
    },
    {
-    "marketKey": "BinanceFutures",
+    "exchangeKey": "BinanceFutures",
     "base": "WLD",
     "tradFi": false,
     "expected": "TOKEN"
    },
    {
-    "marketKey": "BinanceFutures",
+    "exchangeKey": "BinanceFutures",
     "base": "NVDA",
     "tradFi": true,
     "expected": "TRADFI"

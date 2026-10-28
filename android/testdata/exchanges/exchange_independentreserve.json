@@ -8,7 +8,7 @@
     {
       "kind": "single",
       "name": "market summary Xbt/Aud: CreatedTimestampUtc is the summary time, not a trade time (exchange time unknown); vol = DayVolumeXbtInSecondaryCurrrency (coins traded on this pair; DayVolumeXbt sums all counter currencies)",
-      "market": "IndependentReserve",
+      "exchangeKey": "IndependentReserve",
       "pair": {
         "base": "BTC",
         "quote": "AUD",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "CreatedTimestampUtc without 'Z': still no exchange time, no crash",
-      "market": "IndependentReserve",
+      "exchangeKey": "IndependentReserve",
       "pair": {
         "base": "BTC",
         "quote": "AUD",
@@ -50,7 +50,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "IndependentReserve",
+      "exchangeKey": "IndependentReserve",
       "pair": {
         "base": "FOO",
         "quote": "AUD",

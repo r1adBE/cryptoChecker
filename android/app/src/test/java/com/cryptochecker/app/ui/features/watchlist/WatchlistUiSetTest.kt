@@ -21,7 +21,7 @@ import org.junit.Test
 class WatchlistConversionNoteTest {
 
     private fun watch(quote: String) =
-        WatchEntity(marketKey = "Binance", marketName = "Binance", baseAsset = "BTC", quoteAsset = quote, lastPrice = 100.0)
+        WatchEntity(exchangeKey = "Binance", exchangeName = "Binance", baseAsset = "BTC", quoteAsset = quote, lastPrice = 100.0)
 
     @Test
     fun noteFollowsQuoteCurrency() {
@@ -35,7 +35,7 @@ class WatchlistConversionNoteTest {
 
     @Test
     fun asterUIsConvertedAsUsd() {
-        val aster = WatchEntity(marketKey = "Aster", marketName = "Aster", baseAsset = "BTC", quoteAsset = "U", lastPrice = 100.0)
+        val aster = WatchEntity(exchangeKey = "Aster", exchangeName = "Aster", baseAsset = "BTC", quoteAsset = "U", lastPrice = 100.0)
         assertEquals("USD", aster.conversionQuote)
         assertNull("USD-Ziel: nichts umzurechnen", convertedPrice(aster, "USD", emptyMap()))
         assertEquals("U", watch("U").conversionQuote)

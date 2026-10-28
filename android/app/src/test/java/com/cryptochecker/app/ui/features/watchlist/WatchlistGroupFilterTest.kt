@@ -19,12 +19,12 @@ class WatchlistGroupFilterTest {
 
     private fun watch(
         base: String = "BTC",
-        market: String = "Bybit",
+        exchange: String = "Bybit",
         group: String? = null,
         pairId: String? = null,
     ) = WatchEntity(
-        marketKey = market,
-        marketName = market,
+        exchangeKey = exchange,
+        exchangeName = exchange,
         baseAsset = base,
         quoteAsset = "USDT",
         groupName = group,
@@ -72,10 +72,10 @@ class WatchlistGroupFilterTest {
     @Test
     fun tradFiListMakesTradFi() {
         val aapl = watch(base = "aapl")
-        val key = CoinLogos.pairKey(aapl.marketKey, aapl.baseAsset, aapl.quoteAsset, FuturesContractType.NONE.name)
+        val key = CoinLogos.pairKey(aapl.exchangeKey, aapl.baseAsset, aapl.quoteAsset, FuturesContractType.NONE.name)
         assertEquals(AssetKind.TRADFI, aapl.assetKind(setOf(key), emptySet()))
         // Anderer Kontrakttyp im Schlüssel: kein Treffer
-        val other = CoinLogos.pairKey(aapl.marketKey, aapl.baseAsset, aapl.quoteAsset, "PERPETUAL_X")
+        val other = CoinLogos.pairKey(aapl.exchangeKey, aapl.baseAsset, aapl.quoteAsset, "PERPETUAL_X")
         assertEquals(AssetKind.TOKEN, aapl.assetKind(setOf(other), emptySet()))
     }
 
@@ -85,10 +85,10 @@ class WatchlistGroupFilterTest {
         // Binance Spot führt den Coin regulär: nie Alpha
         assertEquals(
             AssetKind.TOKEN,
-            watch(base = "AIA", market = AssetKind.BINANCE_SPOT_MARKET).assetKind(emptySet(), setOf("AIA")),
+            watch(base = "AIA", exchange = AssetKind.BINANCE_SPOT_EXCHANGE).assetKind(emptySet(), setOf("AIA")),
         )
         // DEX-Pools nie
-        assertEquals(AssetKind.TOKEN, watch(base = "AIA", market = CoinLogos.DEX_MARKET_KEY).assetKind(emptySet(), setOf("AIA")))
+        assertEquals(AssetKind.TOKEN, watch(base = "AIA", exchange = CoinLogos.DEX_EXCHANGE_KEY).assetKind(emptySet(), setOf("AIA")))
     }
 
     @Test

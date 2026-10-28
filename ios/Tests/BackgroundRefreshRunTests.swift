@@ -117,7 +117,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         _ = try XCTUnwrap(stored, "Merkliste der Test-App nicht beschreibbar")
     }
 
-    nonisolated private static let watch = Watch(id: watchId, marketKey: "Binance", marketName: "Binance",
+    nonisolated private static let watch = Watch(id: watchId, exchangeKey: "Binance", exchangeName: "Binance",
                                                  baseAsset: "BTC", quoteAsset: "USDT", pairId: "BTCUSDT")
     nonisolated private static let alarm = Alarm(id: alarmId, watchId: watchId, condition: .PRICE_ABOVE,
                                                  threshold: 1)

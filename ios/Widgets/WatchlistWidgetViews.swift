@@ -187,11 +187,11 @@ private struct WatchlistWidgetRow: View {
 
     /// «Binance · deaktiviert» bzw. «Binance · veraltet» bzw. «Kraken · Kurs unverändert seit 14:05»
     /// bzw. nur die Börse.
-    private var marketLine: String {
-        if watch.disabled { return L("watchlist_row_disabled", BidiText.isolate(watch.marketName)) }
-        if outdated { return L("watchlist_row_outdated", BidiText.isolate(watch.marketName)) }
-        if let unchanged { return BidiText.isolate(watch.marketName) + " · " + unchanged }
-        return watch.marketName
+    private var exchangeLine: String {
+        if watch.disabled { return L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)) }
+        if outdated { return L("watchlist_row_outdated", BidiText.isolate(watch.exchangeName)) }
+        if let unchanged { return BidiText.isolate(watch.exchangeName) + " · " + unchanged }
+        return watch.exchangeName
     }
 
     /// VoiceOver-Zusatz: «Deaktiviert» bzw. «veraltet, letzte Aktualisierung …» bzw. «Kurs unverändert seit …».
@@ -214,7 +214,7 @@ private struct WatchlistWidgetRow: View {
     private func content(scale: CGFloat) -> some View {
         HStack(spacing: 8) {
             WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 24, dark: palette.dark, accent: palette.accent,
-                            logo: CoinLogos.allowed(forMarket: watch.marketKey))
+                            logo: CoinLogos.allowed(forExchange: watch.exchangeKey))
                 // Deaktiviert: Logo gedämpft (wie Android `DISABLED_LOGO_ALPHA`), Texte grau statt blass
                 .opacity(watch.disabled ? 0.45 : 1)
             VStack(alignment: .leading, spacing: 1) {
@@ -223,7 +223,7 @@ private struct WatchlistWidgetRow: View {
                     .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
                     .lineLimit(1)
                     .minimumScaleFactor(WidgetTextSize.minimumFactor(1, primaryScale: scale))
-                Text(marketLine)
+                Text(exchangeLine)
                     .font(.system(size: 12))
                     .foregroundStyle(palette.secondary)
                     .lineLimit(1)
@@ -299,7 +299,7 @@ struct WatchlistSmallView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 4) {
                 WidgetCoinBadge(symbol: CoinLogoStore.logoKey(for: watch), size: 20, dark: palette.dark, accent: palette.accent,
-                                logo: CoinLogos.allowed(forMarket: watch.marketKey))
+                                logo: CoinLogos.allowed(forExchange: watch.exchangeKey))
                 Text(watch.displayName)
                     .font(.system(size: 13 * scale, weight: .semibold))
                     .foregroundStyle(palette.text)
@@ -307,7 +307,7 @@ struct WatchlistSmallView: View {
                     .minimumScaleFactor(WidgetTextSize.minimumFactor(0.75, primaryScale: scale))
             }
             // Deaktiviert: «Binance · deaktiviert», Kurs und Veränderung grau
-            Text(watch.disabled ? L("watchlist_row_disabled", BidiText.isolate(watch.marketName)) : watch.marketName)
+            Text(watch.disabled ? L("watchlist_row_disabled", BidiText.isolate(watch.exchangeName)) : watch.exchangeName)
                 .widgetSecondaryFont()
                 .foregroundStyle(palette.secondary)
                 .lineLimit(1)

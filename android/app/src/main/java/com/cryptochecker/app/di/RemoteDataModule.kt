@@ -26,7 +26,7 @@ object RemoteDataModule {
     const val MAX_REQUESTS = 32
 
     /**
-     * Gleichzeitige Anfragen je Host: OkHttp-Standard 5, wie iOS (`MarketHTTP.maxRequestsPerHost`). Höher hiesse mehr
+     * Gleichzeitige Anfragen je Host: OkHttp-Standard 5, wie iOS (`ExchangeHTTP.maxRequestsPerHost`). Höher hiesse mehr
      * parallele Abfragen bei derselben Börse — eher ins Rate-Limit. Wer wartet, wartet in der Warteschlange, ohne
      * dass seine Fristen laufen (callTimeout und Wache ab der Ausführung, CallStartInterceptor).
      */
@@ -40,7 +40,7 @@ object RemoteDataModule {
     const val IDLE_KEEP_ALIVE_MINUTES = 2L
 
     /**
-     * Kurse kommen zügig oder scheitern rasch. Ohne callTimeout griff nur die Wache in callMarket
+     * Kurse kommen zügig oder scheitern rasch. Ohne callTimeout griff nur die Wache in callExchange
      * (35 s je Anfrage). Der User-Agent wird vor dem Mitschnitt gesetzt, damit er dort erscheint.
      */
     @Singleton

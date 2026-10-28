@@ -136,7 +136,7 @@ class AlarmsViewModel @Inject constructor(
      */
     val lowLiquidity: StateFlow<Boolean?> = combine(watchRepository.observeWatch(watchId), dexLiquidityStore.liquidity) { w, levels ->
         w != null && com.cryptochecker.app.domain.watch.DexLiquidity.blocksAlarms(
-            w.marketKey, com.cryptochecker.app.domain.watch.DexLiquidity.key(w.pairId)?.let { levels[it] },
+            w.exchangeKey, com.cryptochecker.app.domain.watch.DexLiquidity.key(w.pairId)?.let { levels[it] },
         )
     }.distinctUntilChanged().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
@@ -180,7 +180,7 @@ class AlarmsViewModel @Inject constructor(
         val code = CurrencyConversion.normalize(currency)
         if (code.isEmpty() || code in _rates.value) return
         viewModelScope.launch {
-            val quote = (watch.value ?: watchRepository.getWatch(watchId))?.let { CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) } ?: return@launch
+            val quote = (watch.value ?: watchRepository.getWatch(watchId))?.let { CurrencyConversion.conversionQuote(it.exchangeKey, it.quoteAsset) } ?: return@launch
             val rate = currencyConverter.cachedRate(quote, code) ?: currencyConverter.rate(quote, code)
             if (rate != null) _rates.update { it + (code to rate) }
         }
@@ -211,7 +211,7 @@ class AlarmsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
-                if (!SheetChart.isSupported(w.marketKey, w.baseAsset, w.quoteAsset)) return@launch
+                if (!SheetChart.isSupported(w.exchangeKey, w.baseAsset, w.quoteAsset)) return@launch
                 val daily = orFalse {
                     nearExtremeDataSource.ranges(w.baseAsset, w.quoteAsset)
                         ?.ranges?.containsKey(AlarmTemplates.NEW_EXTREME_WINDOW_DAYS) == true

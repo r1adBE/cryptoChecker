@@ -1,6 +1,6 @@
 package com.cryptochecker.app.contract
 
-import com.cryptochecker.marketdata.model.market.PhemexScales
+import com.cryptochecker.marketdata.model.exchange.PhemexScales
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -61,22 +61,22 @@ class PhemexScalesTest {
     fun neverGuessesScalesAndPersistsThemWithThePairList() {
         val file = java.io.File.createTempFile("phemex_scales", ".json").apply { delete() }
         try {
-            val market = com.cryptochecker.marketdata.model.market.Phemex()
+            val exchange = com.cryptochecker.marketdata.model.exchange.Phemex()
             PhemexScales.store = null
             PhemexScales.current = PhemexScales()
             // Ohne Produktliste: kein Kurs (statt eines um Zehnerpotenzen falschen), Sammelabfrage holt zuerst die Liste
-            assertEquals(2, market.bulkTickersNumOfRequests)
-            assertEquals("https://api.phemex.com/public/products", market.getBulkTickersUrl(0))
-            assertEquals("https://api.phemex.com/md/spot/ticker/24hr/all", market.getBulkTickersUrl(1))
-            assertThrows(Exception::class.java) { market.parseBulkTickersDetailed(1, ticker) }
+            assertEquals(2, exchange.bulkTickersNumOfRequests)
+            assertEquals("https://api.phemex.com/public/products", exchange.getBulkTickersUrl(0))
+            assertEquals("https://api.phemex.com/md/spot/ticker/24hr/all", exchange.getBulkTickersUrl(1))
+            assertThrows(Exception::class.java) { exchange.parseBulkTickersDetailed(1, ticker) }
             // Erste Anfrage = Produktliste: Faktoren merken und in der Datei ablegen
             PhemexScales.store = PhemexScales.FileStore(file)
             val products = """{"code":0,"data":$data}"""
-            assertTrue(market.parseBulkTickersDetailed(0, products).tickers.isEmpty())
+            assertTrue(exchange.parseBulkTickersDetailed(0, products).tickers.isEmpty())
             assertTrue(PhemexScales.current.loaded)
             assertTrue(file.isFile)
-            assertEquals(1, market.bulkTickersNumOfRequests)
-            assertEquals(62000.1, market.parseBulkTickersDetailed(1, ticker).tickers.getValue("sBTCUSDT").last, 1e-9)
+            assertEquals(1, exchange.bulkTickersNumOfRequests)
+            assertEquals(62000.1, exchange.parseBulkTickersDetailed(1, ticker).tickers.getValue("sBTCUSDT").last, 1e-9)
             // «Neustart»: Speicher leer, die Datei liefert dieselben Faktoren
             PhemexScales.current = PhemexScales()
             PhemexScales.store = PhemexScales.FileStore(file)
@@ -97,7 +97,7 @@ class PhemexScalesTest {
 
     @Test
     fun loadsMissingScalesForSingleTickersAndRefreshesDaily() {
-        val market = com.cryptochecker.marketdata.model.market.Phemex()
+        val exchange = com.cryptochecker.marketdata.model.exchange.Phemex()
         val info = com.cryptochecker.marketdata.model.PairQuery(
             "BTC", "USDT", "sBTCUSDT", com.cryptochecker.marketdata.model.FuturesContractType.NONE,
         )
@@ -107,39 +107,39 @@ class PhemexScalesTest {
             PhemexScales.store = null
             PhemexScales.current = PhemexScales()
             // Einzelabfrage ohne Faktoren (weniger Paare als für die Sammelabfrage): erste Anfrage = Produktliste
-            assertEquals(2, market.tickerCallCount(info))
-            assertEquals("https://api.phemex.com/public/products", market.tickerAddress(0, info))
+            assertEquals(2, exchange.tickerCallCount(info))
+            assertEquals("https://api.phemex.com/public/products", exchange.tickerAddress(0, info))
             val err = assertThrows(Exception::class.java) {
-                market.readTicker(0, products, com.cryptochecker.marketdata.model.SimpleTicker(), info)
+                exchange.readTicker(0, products, com.cryptochecker.marketdata.model.SimpleTicker(), info)
             }
             assertEquals(PhemexScales.JUST_LOADED, err.message)
             // Danach geladen: nächste Abfrage liefert den Kurs (kein Dauerfehler)
             assertTrue(PhemexScales.current.loaded)
-            assertEquals(1, market.tickerCallCount(info))
-            assertEquals("https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT", market.tickerAddress(0, info))
-            assertEquals(62000.1, market.readTicker(0, single, com.cryptochecker.marketdata.model.SimpleTicker(), info).last, 1e-9)
+            assertEquals(1, exchange.tickerCallCount(info))
+            assertEquals("https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT", exchange.tickerAddress(0, info))
+            assertEquals(62000.1, exchange.readTicker(0, single, com.cryptochecker.marketdata.model.SimpleTicker(), info).last, 1e-9)
 
             // Älter als einen Tag: Kurs zuerst, Produktliste als Zusatzanfrage (Einzel- und Sammelabfrage)
             val day = PhemexScales.REFRESH_MILLIS
             PhemexScales.current = PhemexScales.parse(JSONObject(data.toString()), System.currentTimeMillis() - day - 1000)
             assertTrue(PhemexScales.current.isStale())
-            assertEquals(2, market.tickerCallCount(info))
-            assertEquals("https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT", market.tickerAddress(0, info))
-            assertEquals("https://api.phemex.com/public/products", market.tickerAddress(1, info))
-            val ticker = market.readTicker(0, single, com.cryptochecker.marketdata.model.SimpleTicker(), info)
-            market.readTicker(1, products, ticker, info)
+            assertEquals(2, exchange.tickerCallCount(info))
+            assertEquals("https://api.phemex.com/md/spot/ticker/24hr?symbol=sBTCUSDT", exchange.tickerAddress(0, info))
+            assertEquals("https://api.phemex.com/public/products", exchange.tickerAddress(1, info))
+            val ticker = exchange.readTicker(0, single, com.cryptochecker.marketdata.model.SimpleTicker(), info)
+            exchange.readTicker(1, products, ticker, info)
             assertEquals(62000.1, ticker.last, 1e-9)
             assertTrue(!PhemexScales.current.isStale())
 
             PhemexScales.current = PhemexScales.parse(JSONObject(data.toString()), System.currentTimeMillis() - day - 1000)
-            assertEquals(2, market.bulkTickersNumOfRequests)
-            assertEquals("https://api.phemex.com/md/spot/ticker/24hr/all", market.getBulkTickersUrl(0))
-            assertEquals("https://api.phemex.com/public/products", market.getBulkTickersUrl(1))
+            assertEquals(2, exchange.bulkTickersNumOfRequests)
+            assertEquals("https://api.phemex.com/md/spot/ticker/24hr/all", exchange.getBulkTickersUrl(0))
+            assertEquals("https://api.phemex.com/public/products", exchange.getBulkTickersUrl(1))
             // Scheitert die Auffrischung, bleiben die Kurse vollständig (eigene Gruppe)
-            assertEquals(0, market.bulkTickersRequestGroup(0))
-            assertEquals(1, market.bulkTickersRequestGroup(1))
-            assertTrue(market.parseBulkTickersDetailed(1, products).tickers.isEmpty())
-            assertEquals(1, market.bulkTickersNumOfRequests)
+            assertEquals(0, exchange.bulkTickersRequestGroup(0))
+            assertEquals(1, exchange.bulkTickersRequestGroup(1))
+            assertTrue(exchange.parseBulkTickersDetailed(1, products).tickers.isEmpty())
+            assertEquals(1, exchange.bulkTickersNumOfRequests)
             // Ältere Datei ohne Zeitpunkt: gilt als veraltet, Faktoren bleiben nutzbar
             val old = PhemexScales.decode("""{"v":1,"price":{"sBTCUSDT":8}}""")!!
             assertTrue(old.loaded && old.isStale())
@@ -155,7 +155,7 @@ class PhemexScalesTest {
         PhemexScales.current = PhemexScales.parse(data)
         val body = """{"result":[{"symbol":"sBTCUSDT","lastEp":6200010000000},{"symbol":"sOLDUSDT","lastEp":0},
             {"symbol":"sNONEUSDT","lastEp":null},{"symbol":"sBADUSDT"}]}"""
-        val parsed = com.cryptochecker.marketdata.model.market.Phemex().parseBulkTickersDetailed(0, body)
+        val parsed = com.cryptochecker.marketdata.model.exchange.Phemex().parseBulkTickersDetailed(0, body)
         // Inaktiv (0/null) still weg; fehlendes Feld bleibt ein Fehler
         assertEquals(setOf("sBTCUSDT"), parsed.tickers.keys)
         assertEquals(setOf("sBADUSDT"), parsed.failed)
@@ -163,7 +163,7 @@ class PhemexScalesTest {
 
     @Test
     fun symbolWithoutPriceScaleIsAnErrorNotAGuess() {
-        val market = com.cryptochecker.marketdata.model.market.Phemex()
+        val exchange = com.cryptochecker.marketdata.model.exchange.Phemex()
         try {
             PhemexScales.store = null
             PhemexScales.current = PhemexScales.parse(data)
@@ -171,7 +171,7 @@ class PhemexScalesTest {
             // (zwei lesbare Zeilen, sonst gälte die Antwort als Formatfehler: mehr unlesbare als lesbare)
             val body = """{"result":[{"symbol":"sBTCUSDT","lastEp":6200010000000},{"symbol":"sNEWUSDT","lastEp":1500000},
                 {"symbol":"sMISSINGUSDT","lastEp":123456},{"symbol":"sNOSCALEUSDT","lastEp":123456}]}"""
-            val parsed = market.parseBulkTickersDetailed(0, body)
+            val parsed = exchange.parseBulkTickersDetailed(0, body)
             assertEquals(setOf("sBTCUSDT", "sNEWUSDT"), parsed.tickers.keys)
             assertEquals(setOf("sMISSINGUSDT", "sNOSCALEUSDT"), parsed.failed)
             // Einzelabfrage: Fehler mit Symbol
@@ -180,7 +180,7 @@ class PhemexScalesTest {
             )
             val single = """{"error":null,"id":0,"result":{"lastEp":123456,"symbol":"sMISSINGUSDT"}}"""
             val err = assertThrows(Exception::class.java) {
-                market.readTicker(0, single, com.cryptochecker.marketdata.model.SimpleTicker(), info)
+                exchange.readTicker(0, single, com.cryptochecker.marketdata.model.SimpleTicker(), info)
             }
             assertEquals(PhemexScales.UNKNOWN_SCALE.format("sMISSINGUSDT"), err.message)
         } finally {

@@ -258,8 +258,8 @@ internal fun AlarmEditorPairHeader(watch: WatchEntity) {
         CoinBadge(
             watch.baseAsset,
             size = 36.dp,
-            logo = CoinLogos.allowedFor(watch.marketKey),
-            pair = CoinLogos.pairKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
+            logo = CoinLogos.allowedFor(watch.exchangeKey),
+            pair = CoinLogos.pairKey(watch.exchangeKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name),
             modifier = Modifier.padding(end = 12.dp)
         )
         Column(modifier = Modifier.weight(1f)) {
@@ -270,7 +270,7 @@ internal fun AlarmEditorPairHeader(watch: WatchEntity) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                BidiText.isolate(watch.marketName),
+                BidiText.isolate(watch.exchangeName),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,

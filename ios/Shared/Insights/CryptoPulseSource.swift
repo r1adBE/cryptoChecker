@@ -107,7 +107,7 @@ actor CryptoPulseSource {
     static func topCoins() async -> (changes: [Double], movers: MarketMoversResult?) {
         let url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc"
             + "&per_page=\(MarketMovers.universe)&page=1&sparkline=false"
-        guard let text = try? await MarketHTTP.call(url),
+        guard let text = try? await ExchangeHTTP.call(url),
               let array = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [[String: Any]]
         else { return ([], nil) }
         var changes: [Double] = []
@@ -138,13 +138,13 @@ actor CryptoPulseSource {
         let url = "https://data-api.binance.vision/api/v3/ticker/24hr?symbols=" + symbols.urlQueryEncoded
         if !BlockedSources.isBlocked("data-api.binance.vision") {
             do {
-                out = try parseBinance24h(try await MarketHTTP.call(url))
+                out = try parseBinance24h(try await ExchangeHTTP.call(url))
             } catch {
                 BlockedSources.noteFailure("data-api.binance.vision", error)
             }
         }
         for coin in coins where out[coin] == nil {
-            if let text = try? await MarketHTTP.call("https://api.exchange.coinbase.com/products/\(coin)-USD/stats"),
+            if let text = try? await ExchangeHTTP.call("https://api.exchange.coinbase.com/products/\(coin)-USD/stats"),
                let change = try? parseCoinbaseStats(text) {
                 out[coin] = change
             }

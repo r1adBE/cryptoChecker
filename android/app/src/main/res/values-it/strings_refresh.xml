@@ -28,8 +28,8 @@
         <item quantity="other">richiesta cumulativa %1$s · %2$d prezzi</item>
     </plurals>
     <string name="refresh_sheet_database">Database</string>
-    <string name="refresh_sheet_market_unreachable">%1$s non raggiungibile</string>
-    <plurals name="refresh_sheet_markets_unreachable">
+    <string name="refresh_sheet_exchange_unreachable">%1$s non raggiungibile</string>
+    <plurals name="refresh_sheet_exchanges_unreachable">
         <item quantity="one">%1$d exchange non raggiungibile</item>
         <item quantity="many">%1$d exchange non raggiungibili</item>
         <item quantity="other">%1$d exchange non raggiungibili</item>
@@ -68,7 +68,7 @@
     <string name="refresh_sheet_reason_unavailable">exchange non disponibile</string>
     <string name="refresh_sheet_seconds_a11y">%1$s secondi</string>
     <!-- Abschnittstitel -->
-    <string name="refresh_sheet_section_markets">Exchange</string>
+    <string name="refresh_sheet_section_exchanges">Exchange</string>
     <string name="refresh_sheet_section_steps">Dettaglio</string>
     <string name="refresh_sheet_status_failed">non aggiornato</string>
     <!-- Screenreader je Börse: «Binance, alles aktualisiert, 5 von 5 Paaren, 0,5 Sekunden» -->

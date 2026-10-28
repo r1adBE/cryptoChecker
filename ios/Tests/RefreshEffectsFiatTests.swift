@@ -8,7 +8,7 @@ final class RefreshEffectsFiatTests: XCTestCase {
     private let now: Int64 = 1_700_000_000_000
 
     private func watch(lastPrice: Double) -> Watch {
-        Watch(id: 1, marketKey: "binance", marketName: "Test", baseAsset: "BTC", quoteAsset: "USDT", lastPrice: lastPrice)
+        Watch(id: 1, exchangeKey: "binance", exchangeName: "Test", baseAsset: "BTC", quoteAsset: "USDT", lastPrice: lastPrice)
     }
 
     private func check(_ alarms: [Alarm], inputs: PriceRefresher.AlarmInputs) -> PriceRefresher.Outcome {
@@ -74,7 +74,7 @@ final class RefreshEffectsFiatTests: XCTestCase {
     }
 
     func testVolumeSpikeWithSourceOnlyForForeignExchange() {
-        let kraken = Watch(id: 2, marketKey: "Kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "USD")
+        let kraken = Watch(id: 2, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "USD")
         let spike = VolumeSpike(ratio: 3, candleOpenTime: 0)
         XCTAssertEqual(spike.withSource(kraken, provider: "Binance").source, "Binance")
         XCTAssertNil(spike.withSource(kraken, provider: "Kraken").source)

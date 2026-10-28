@@ -11,7 +11,7 @@
     {
       "kind": "single",
       "name": "ticker XXBTZUSD: 'o' (UTC day open) must not become a 24 h change",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -32,7 +32,7 @@
     {
       "kind": "single",
       "name": "today vs. last 24 h: h/l/v index 1 is the rolling window",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -51,7 +51,7 @@
     {
       "kind": "single",
       "name": "very small price (SHIBUSD)",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "SHIB",
         "quote": "USD",
@@ -70,7 +70,7 @@
     {
       "kind": "single",
       "name": "unknown pair: error array",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "FOO",
         "quote": "USD",
@@ -87,7 +87,7 @@
     {
       "kind": "single",
       "name": "empty result without error text",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "FOO",
         "quote": "USD",
@@ -104,7 +104,7 @@
     {
       "kind": "single",
       "name": "empty arrays are missing values, not 0: no last -> error",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -121,7 +121,7 @@
     {
       "kind": "single",
       "name": "empty b/a arrays: no bid/ask, last still valid",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -142,7 +142,7 @@
     {
       "kind": "single",
       "name": "cancel_only pair (ACAUSD): close price 0 is no price, not 0",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "pair": {
         "base": "ACA",
         "quote": "USD",
@@ -160,7 +160,7 @@
     {
       "kind": "bulk",
       "name": "bulk filtered ?pair=XXBTZUSD,XETHZEUR",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"},\"XETHZEUR\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"2250.55000\",\"0.10000000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"}}}",
       "expect": {
@@ -181,7 +181,7 @@
     {
       "kind": "bulk",
       "name": "bulk: entry with empty c (no last, row too short) is reported as unreadable",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"},\"XNEWZUSD\":{\"a\":[],\"b\":[],\"c\":[],\"v\":[],\"l\":[],\"h\":[],\"o\":\"0\"}}}",
       "expect": {
@@ -204,7 +204,7 @@
     {
       "kind": "bulk",
       "name": "bulk: entry with last price 0 in c (inactive) is skipped, not reported as unreadable",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"], \"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567], \"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"},\"XNEWZUSD\":{\"a\":[\"0.00000\",\"0\",\"0.000\"],\"b\":[\"0.00000\",\"0\",\"0.000\"],\"c\":[\"0.00000\",\"0.00000000\"],\"v\":[\"0\",\"0\"],\"l\":[\"0\",\"0\"],\"h\":[\"0\",\"0\"],\"o\":\"0\"},\"XOLDZUSD\":{\"a\":[],\"b\":[],\"c\":null,\"v\":[],\"l\":[],\"h\":[],\"o\":\"0\"}}}",
       "expect": {
@@ -224,7 +224,7 @@
     {
       "kind": "bulk",
       "name": "bulk with unknown pair in the list: whole request fails",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[\"EQuery:Unknown asset pair\"]}",
       "expect": {
@@ -311,7 +311,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «c» in one row — that pair is reported as unreadable, the rest stays",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"c\":[\"62000.10000\",\"0.00100000\"],\"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567],\"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\"},\"XETHZEUR\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567],\"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\",\"lastTrade\":[\"2250.55000\",\"0.10000000\"]}}}",
       "expect": {
@@ -327,7 +327,7 @@
     {
       "kind": "bulk",
       "name": "bulk: renamed field «c» in every row — format error of the whole response",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567],\"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\",\"lastTrade\":[\"62000.10000\",\"0.00100000\"]},\"XETHZEUR\":{\"a\":[\"62000.20000\",\"1\",\"1.000\"],\"b\":[\"62000.10000\",\"2\",\"2.000\"],\"v\":[\"1234.56789012\",\"3456.78901234\"],\"p\":[\"61500.12345\",\"61400.54321\"],\"t\":[12345,34567],\"l\":[\"60100.00000\",\"59800.00000\"],\"h\":[\"62500.00000\",\"62600.00000\"],\"o\":\"61000.00000\",\"lastTrade\":[\"2250.55000\",\"0.10000000\"]}}}",
       "expect": {
@@ -337,7 +337,7 @@
     {
       "kind": "pairs",
       "name": "pair list: base/quote from wsname (no legacy X/Z prefixes), XBT -> BTC, XDG -> DOGE; '.d' variants and rows without wsname skipped",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"altname\":\"XBTUSD\",\"wsname\":\"XBT/USD\",\"aclass_base\":\"currency\",\"base\":\"XXBT\",\"aclass_quote\":\"currency\",\"quote\":\"ZUSD\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"XXBTZUSD.d\":{\"altname\":\"XBTUSD.d\",\"aclass_base\":\"currency\",\"base\":\"XXBT\",\"aclass_quote\":\"currency\",\"quote\":\"ZUSD\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"XETHZEUR\":{\"altname\":\"ETHEUR\",\"wsname\":\"ETH/EUR\",\"aclass_base\":\"currency\",\"base\":\"XETH\",\"aclass_quote\":\"currency\",\"quote\":\"ZEUR\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"XDGUSD\":{\"altname\":\"XDGUSD\",\"wsname\":\"XDG/USD\",\"aclass_base\":\"currency\",\"base\":\"XXDG\",\"aclass_quote\":\"currency\",\"quote\":\"ZUSD\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"XETHXXBT\":{\"altname\":\"ETHXBT\",\"wsname\":\"ETH/XBT\",\"aclass_base\":\"currency\",\"base\":\"XETH\",\"aclass_quote\":\"currency\",\"quote\":\"XXBT\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"XTZUSD\":{\"altname\":\"XTZUSD\",\"wsname\":\"XTZ/USD\",\"aclass_base\":\"currency\",\"base\":\"XTZ\",\"aclass_quote\":\"currency\",\"quote\":\"ZUSD\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"ZECUSD\":{\"altname\":\"ZECUSD\",\"wsname\":\"ZEC/USD\",\"aclass_base\":\"currency\",\"base\":\"XZEC\",\"aclass_quote\":\"currency\",\"quote\":\"ZUSD\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"USDTZUSD\":{\"altname\":\"USDTUSD\",\"wsname\":\"USDT/USD\",\"aclass_base\":\"currency\",\"base\":\"USDT\",\"aclass_quote\":\"currency\",\"quote\":\"ZUSD\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"},\"NOWSNAMEUSD\":{\"altname\":\"NOWSNAMEUSD\",\"aclass_base\":\"currency\",\"base\":\"NOWSNAME\",\"aclass_quote\":\"currency\",\"quote\":\"ZUSD\",\"pair_decimals\":1,\"lot_decimals\":8,\"status\":\"online\"}}}",
       "expect": {
@@ -382,7 +382,7 @@
     {
       "kind": "pairs",
       "name": "pair list: only status 'online' is offered; cancel_only/post_only/limit_only/reduce_only dropped, missing status kept (older responses)",
-      "market": "Kraken",
+      "exchangeKey": "Kraken",
       "requestId": 0,
       "body": "{\"error\":[],\"result\":{\"XXBTZUSD\":{\"altname\":\"XBTUSD\",\"wsname\":\"XBT/USD\",\"base\":\"XXBT\",\"quote\":\"ZUSD\",\"status\":\"online\"},\"ACAUSD\":{\"altname\":\"ACAUSD\",\"wsname\":\"ACA/USD\",\"base\":\"ACA\",\"quote\":\"ZUSD\",\"status\":\"cancel_only\"},\"ACXEUR\":{\"altname\":\"ACXEUR\",\"wsname\":\"ACX/EUR\",\"base\":\"ACX\",\"quote\":\"ZEUR\",\"status\":\"post_only\"},\"FOOUSD\":{\"altname\":\"FOOUSD\",\"wsname\":\"FOO/USD\",\"base\":\"FOO\",\"quote\":\"ZUSD\",\"status\":\"limit_only\"},\"BARUSD\":{\"altname\":\"BARUSD\",\"wsname\":\"BAR/USD\",\"base\":\"BAR\",\"quote\":\"ZUSD\",\"status\":\"reduce_only\"},\"XETHZEUR\":{\"altname\":\"ETHEUR\",\"wsname\":\"ETH/EUR\",\"base\":\"XETH\",\"quote\":\"ZEUR\"}}}",
       "expect": {

@@ -9,36 +9,36 @@ extension AppData {
     /// nil, wenn das Paar schon beobachtet wird oder die Merkliste voll ist (Grund: `tryAddWatch`).
     /// `group`: Gruppe für das NEUE Paar; ein bereits vorhandenes behält seine.
     @discardableResult
-    func addWatch(market: Market, pair: MarketPair, group: String? = nil) -> Int64? {
-        if case .added(let id) = tryAddWatch(market: market, pair: pair, group: group) { return id }
+    func addWatch(exchange: Exchange, pair: ExchangePair, group: String? = nil) -> Int64? {
+        if case .added(let id) = tryAddWatch(exchange: exchange, pair: pair, group: group) { return id }
         return nil
     }
 
     /// Paar anlegen: angelegt (mit Id), schon vorhanden oder Merkliste voll (`WatchlistLimits.maxPairs`).
-    func tryAddWatch(market: Market, pair: MarketPair, group: String? = nil) -> AddWatchOutcome {
+    func tryAddWatch(exchange: Exchange, pair: ExchangePair, group: String? = nil) -> AddWatchOutcome {
         guard !watchlistWriteRefused() else { return .locked }
         var outcome = AddWatchOutcome.duplicate
         mutate { s in
-            outcome = Self.insertOutcome(&s, market: market, pair: pair, group: group)
+            outcome = Self.insertOutcome(&s, exchange: exchange, pair: pair, group: group)
         }
         if case .added = outcome {
             markFirstPairAdded()
-            noteTradFi(market: market, pair: pair)
+            noteTradFi(exchange: exchange, pair: pair)
         }
         return outcome
     }
 
     /// Mehrere Paare: vorhandene übersprungen; ist die Merkliste voll, kommen die übrigen nicht mehr dazu (`refused`).
     /// Ein Durchlauf in linearer Zeit (`WatchInsertion.insertAll`, gleiche Regeln wie `insertOutcome`).
-    func addWatches(market: Market, pairs: [MarketPair], group: String? = nil) -> BulkAddResult {
+    func addWatches(exchange: Exchange, pairs: [ExchangePair], group: String? = nil) -> BulkAddResult {
         guard !watchlistWriteRefused() else { return BulkAddResult(added: 0, skipped: 0, locked: true) }
         var result = BulkAddResult(added: 0, skipped: 0)
         mutate { s in
-            result = WatchInsertion.insertAll(&s, market: market, pairs: pairs, group: group)
+            result = WatchInsertion.insertAll(&s, exchange: exchange, pairs: pairs, group: group)
         }
         if result.added > 0 { markFirstPairAdded() }
         // TradFi-Paare gesammelt vormerken (ein Schreibvorgang statt je Paar)
-        noteTradFi(market: market, pairs: pairs)
+        noteTradFi(exchange: exchange, pairs: pairs)
         return result
     }
 

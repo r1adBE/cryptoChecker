@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6c2d3bc3d8a7e66a9f81d7562e81ed07",
+    "identityHash": "e1ae22a784c9eb058d2951022997e226",
     "entities": [
       {
         "tableName": "markets",
@@ -47,7 +47,7 @@
       },
       {
         "tableName": "market_pairs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`marketId` INTEGER NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `marketPairId` TEXT, PRIMARY KEY(`marketId`, `baseAsset`, `quoteAsset`, `contractType`), FOREIGN KEY(`marketId`) REFERENCES `markets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`marketId` INTEGER NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `marketPairId` TEXT, `tradFi` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`marketId`, `baseAsset`, `quoteAsset`, `contractType`), FOREIGN KEY(`marketId`) REFERENCES `markets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "marketId",
@@ -77,6 +77,13 @@
             "fieldPath": "marketPairId",
             "columnName": "marketPairId",
             "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "tradFi",
+            "columnName": "tradFi",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -104,7 +111,7 @@
       },
       {
         "tableName": "watches",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `marketKey` TEXT NOT NULL, `marketName` TEXT NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `pairId` TEXT, `sortOrder` INTEGER NOT NULL, `notificationEnabled` INTEGER NOT NULL, `ttsEnabled` INTEGER NOT NULL, `lastPrice` REAL, `previousPrice` REAL, `lastUpdate` INTEGER NOT NULL, `lastError` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `marketKey` TEXT NOT NULL, `marketName` TEXT NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `pairId` TEXT, `sortOrder` INTEGER NOT NULL, `notificationEnabled` INTEGER NOT NULL, `ttsEnabled` INTEGER NOT NULL, `lastPrice` REAL, `previousPrice` REAL, `lastUpdate` INTEGER NOT NULL, `notifiedPrice` REAL, `notifiedAt` INTEGER NOT NULL, `lastError` TEXT, `favorite` INTEGER NOT NULL DEFAULT 0, `holdings` REAL, `groupName` TEXT, `note` TEXT, `change24h` REAL, `disabled` INTEGER NOT NULL DEFAULT 0, `priceChangedAt` INTEGER NOT NULL DEFAULT 0, `exchangeTime` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -182,9 +189,66 @@
             "notNull": true
           },
           {
+            "fieldPath": "notifiedPrice",
+            "columnName": "notifiedPrice",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "notifiedAt",
+            "columnName": "notifiedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "lastError",
             "columnName": "lastError",
             "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "holdings",
+            "columnName": "holdings",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "groupName",
+            "columnName": "groupName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "change24h",
+            "columnName": "change24h",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "disabled",
+            "columnName": "disabled",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "priceChangedAt",
+            "columnName": "priceChangedAt",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "exchangeTime",
+            "columnName": "exchangeTime",
+            "affinity": "INTEGER"
           }
         ],
         "primaryKey": {
@@ -195,22 +259,23 @@
         },
         "indices": [
           {
-            "name": "index_watches_marketKey_baseAsset_quoteAsset_contractType",
+            "name": "index_watches_marketKey_baseAsset_quoteAsset_contractType_pairId",
             "unique": true,
             "columnNames": [
               "marketKey",
               "baseAsset",
               "quoteAsset",
-              "contractType"
+              "contractType",
+              "pairId"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_watches_marketKey_baseAsset_quoteAsset_contractType` ON `${TABLE_NAME}` (`marketKey`, `baseAsset`, `quoteAsset`, `contractType`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_watches_marketKey_baseAsset_quoteAsset_contractType_pairId` ON `${TABLE_NAME}` (`marketKey`, `baseAsset`, `quoteAsset`, `contractType`, `pairId`)"
           }
         ]
       },
       {
         "tableName": "alarms",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `watchId` INTEGER NOT NULL, `condition` TEXT NOT NULL, `threshold` REAL NOT NULL, `enabled` INTEGER NOT NULL, `repeating` INTEGER NOT NULL, `sound` INTEGER NOT NULL, `vibrate` INTEGER NOT NULL, `speak` INTEGER NOT NULL, `referencePrice` REAL, `lastTriggeredAt` INTEGER NOT NULL, `lastTriggeredPrice` REAL, FOREIGN KEY(`watchId`) REFERENCES `watches`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `watchId` INTEGER NOT NULL, `condition` TEXT NOT NULL, `threshold` REAL NOT NULL, `enabled` INTEGER NOT NULL, `repeating` INTEGER NOT NULL, `sound` INTEGER NOT NULL, `vibrate` INTEGER NOT NULL, `speak` INTEGER NOT NULL, `referencePrice` REAL, `lastTriggeredAt` INTEGER NOT NULL, `lastTriggeredPrice` REAL, `windowHours` INTEGER NOT NULL DEFAULT 1, `referenceAt` INTEGER NOT NULL DEFAULT 0, `currency` TEXT, FOREIGN KEY(`watchId`) REFERENCES `watches`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -281,6 +346,25 @@
             "fieldPath": "lastTriggeredPrice",
             "columnName": "lastTriggeredPrice",
             "affinity": "REAL"
+          },
+          {
+            "fieldPath": "windowHours",
+            "columnName": "windowHours",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "referenceAt",
+            "columnName": "referenceAt",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "currency",
+            "columnName": "currency",
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -317,7 +401,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6c2d3bc3d8a7e66a9f81d7562e81ed07')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e1ae22a784c9eb058d2951022997e226')"
     ]
   }
 }

@@ -24,7 +24,7 @@ final class CryptoCheckerUITests: XCTestCase {
     /// übernommen» → Ergebnis als Dialog, `BackupResultPresentation`).
     private static let serverNoteBackup = """
         {"format":"cryptochecker-backup","version":1,"createdAt":0,\
-        "watches":[{"id":1,"marketKey":"Binance","marketName":"Binance","baseAsset":"BTC","quoteAsset":"USDT",\
+        "watches":[{"id":1,"exchangeKey":"Binance","exchangeName":"Binance","baseAsset":"BTC","quoteAsset":"USDT",\
         "pairId":"BTCUSDT","sortOrder":0}],"alarms":[],"settings":{"addressServerBtc":"https://node.example.org"}}
         """
 

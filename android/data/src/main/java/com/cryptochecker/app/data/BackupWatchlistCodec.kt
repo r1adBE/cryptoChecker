@@ -17,8 +17,8 @@ object BackupWatchlistCodec {
 
     fun watchToJson(w: WatchEntity) = JSONObject()
         .put("id", w.id)
-        .put("marketKey", w.marketKey)
-        .put("marketName", w.marketName)
+        .put("exchangeKey", w.exchangeKey)
+        .put("exchangeName", w.exchangeName)
         .put("baseAsset", w.baseAsset)
         .put("quoteAsset", w.quoteAsset)
         .put("contractType", w.contractType.name)
@@ -34,8 +34,8 @@ object BackupWatchlistCodec {
 
     fun jsonToWatch(o: JSONObject) = WatchEntity(
         id = o.getLong("id"),
-        marketKey = o.getString("marketKey"),
-        marketName = o.getString("marketName"),
+        exchangeKey = o.getString("exchangeKey"),
+        exchangeName = o.getString("exchangeName"),
         baseAsset = o.getString("baseAsset"),
         quoteAsset = o.getString("quoteAsset"),
         contractType = FuturesContractType.entries.firstOrNull { it.name == o.optString("contractType") }
@@ -86,7 +86,7 @@ object BackupWatchlistCodec {
             watches = accepted.watches,
             alarms = accepted.alarms,
             watchId = { it.id },
-            pairKey = { WatchIdentity.key(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name, it.pairId) },
+            pairKey = { WatchIdentity.key(it.exchangeKey, it.baseAsset, it.quoteAsset, it.contractType.name, it.pairId) },
             alarmId = { it.id },
             alarmWatchId = { it.watchId },
             withWatchId = { a, id -> a.copy(watchId = id) },

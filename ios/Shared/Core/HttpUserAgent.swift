@@ -1,7 +1,7 @@
 import Foundation
 
 /// User-Agent aller Netzabfragen (Börsen, Kerzen, Logos; Adress-Hosts: `neutral` bei jeder Anfrage
-/// über `MarketHTTP.sessionFor(host:requested:)`), wie Android
+/// über `ExchangeHTTP.sessionFor(host:requested:)`), wie Android
 /// (`HttpUserAgent.kt`, «cryptoChecker-Android/…»). Version aus dem Bundle
 /// (CFBundleShortVersionString) — in der Widget-Erweiterung deren eigenes Bundle (gleiche Version).
 enum HttpUserAgent {

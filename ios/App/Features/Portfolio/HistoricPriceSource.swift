@@ -101,8 +101,8 @@ enum HistoricPriceSource {
         let start = day.utcStartMillis
         let names = TokenIdentityStore.shared
         let ownName = names.watchName(b, watches: SharedStorage.loadSnapshot().watches)
-        let resolved = await HistoricCloseChain.resolve(HistoricCloseChain.order(own?.marketKey)) { source in
-            if let own, source == own.marketKey {
+        let resolved = await HistoricCloseChain.resolve(HistoricCloseChain.order(own?.exchangeKey)) { source in
+            if let own, source == own.exchangeKey {
                 return await ownOutcome(own, base: b, day: day, start: start, reference: reference, ownName: ownName)
             }
             switch source {
@@ -221,7 +221,7 @@ enum HistoricPriceSource {
             "https://api.frankfurter.dev/v1/\(day.iso)?from=USD&to=\(target)",
         ]
         for url in urls {
-            guard let body = try? await MarketHTTP.call(url, session: session),
+            guard let body = try? await ExchangeHTTP.call(url, session: session),
                   let data = body.data(using: .utf8),
                   let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
                   let rates = root["rates"] as? [String: Any],
@@ -285,7 +285,7 @@ enum HistoricPriceSource {
         ]
         var answered = false
         for url in urls {
-            guard let body = try? await MarketHTTP.call(url, session: session),
+            guard let body = try? await ExchangeHTTP.call(url, session: session),
                   let data = body.data(using: .utf8),
                   let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
                   let rates = root["rates"] as? [String: Any]
@@ -309,7 +309,7 @@ enum HistoricPriceSource {
     /// GET; nil bei Fehler. 451/403 sperrt die Quelle vorübergehend (`BlockedSources`).
     private static func get(_ host: String, _ url: String) async -> String? {
         do {
-            return try await MarketHTTP.call(url, session: session)
+            return try await ExchangeHTTP.call(url, session: session)
         } catch {
             BlockedSources.noteFailure(host, error)
             return nil

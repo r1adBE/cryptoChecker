@@ -5,11 +5,11 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.exceptions.toMarketFailure
+import com.cryptochecker.app.domain.exceptions.toExchangeFailure
 import com.cryptochecker.app.domain.refresh.RefreshFailure
 import com.cryptochecker.app.domain.refresh.RefreshReportLogic
-import com.cryptochecker.marketdata.model.MarketPair
-import com.cryptochecker.marketdata.model.market.DexPool
+import com.cryptochecker.marketdata.model.ExchangePair
+import com.cryptochecker.marketdata.model.exchange.DexPool
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
@@ -25,13 +25,13 @@ fun ExplorerViewModel.searchDex(query: String) {
     dex.job = viewModelScope.launch {
         dex.busy.value = true
         dex.notice.value = null
-        val outcome = runCatchingCancellable { marketRepository.searchDexPools(query) }
+        val outcome = runCatchingCancellable { exchangeRepository.searchDexPools(query) }
         dex.busy.value = false
         val pools = outcome.getOrElse { error ->
             Timber.w(error, "DEX-Suche gescheitert")
             dex.pools.value = emptyList()
             // Wie die Merkliste einordnen (kein Netz / Dienst nicht erreichbar), mit «Erneut versuchen»
-            val cause = RefreshReportLogic.classify(error.toMarketFailure(), error.toString())
+            val cause = RefreshReportLogic.classify(error.toExchangeFailure(), error.toString())
             dex.notice.value = DexMessage.Failed(DexFailure.of(cause), query)
             return@launch
         }
@@ -47,7 +47,7 @@ fun ExplorerViewModel.addDexPool(pool: DexPool) {
     dexLiquidityStore.put(pool.pairId, pool.liquidityUsd)
     // Token-Adresse fürs Paar-Blatt (gleichnamige Token unterscheiden); nicht Teil der Paar-Identität
     dexTokenAddressStore.put(pool.pairId, pool.baseAddress)
-    launchAdd(selected, MarketPair(pool.baseSymbol, pool.watchQuote, pool.pairId)) { added ->
+    launchAdd(selected, ExchangePair(pool.baseSymbol, pool.watchQuote, pool.pairId)) { added ->
         dex.notice.value = if (added) DexMessage.Added(pool.baseSymbol) else DexMessage.AlreadyInList(pool.baseSymbol)
     }
 }

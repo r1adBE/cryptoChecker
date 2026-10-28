@@ -22,8 +22,8 @@ class BackupJournalCodecTest {
 
     private val watch = WatchEntity(
         id = 7,
-        marketKey = "Kraken",
-        marketName = "Kraken",
+        exchangeKey = "Kraken",
+        exchangeName = "Kraken",
         baseAsset = "BTC",
         quoteAsset = "EUR",
         sortOrder = 2,
@@ -93,7 +93,7 @@ class BackupJournalCodecTest {
         assertTrue(back.watchedAddresses.isEmpty())
         // Alle Arten von Favoriten, fehlende leer
         assertEquals(
-            mapOf(FavoriteKind.MARKET to emptySet<String>(), FavoriteKind.COIN to setOf("BTC", "ETH"), FavoriteKind.QUOTE to emptySet<String>()),
+            mapOf(FavoriteKind.EXCHANGE to emptySet<String>(), FavoriteKind.COIN to setOf("BTC", "ETH"), FavoriteKind.QUOTE to emptySet<String>()),
             back.favorites,
         )
         assertEquals("CHF", back.settings.getString("portfolio_currency"))
@@ -132,9 +132,9 @@ class BackupJournalCodecTest {
     fun nonTextFavoritesAreSkipped() {
         val root = JSONObject()
             .put("format", RestoreJournal.FORMAT)
-            .put("favorites", JSONObject().put("MARKET", org.json.JSONArray().put("Binance").put(5).put(JSONObject.NULL)))
+            .put("favorites", JSONObject().put("EXCHANGE", org.json.JSONArray().put("Binance").put(5).put(JSONObject.NULL)))
         val back = BackupJournalCodec.previousFromJournal(root)
-        assertEquals(setOf("Binance"), back.favorites[FavoriteKind.MARKET])
+        assertEquals(setOf("Binance"), back.favorites[FavoriteKind.EXCHANGE])
         assertFalse(back.favorites.getValue(FavoriteKind.COIN).contains("Binance"))
     }
 }

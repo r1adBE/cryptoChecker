@@ -11,7 +11,7 @@
     {
       "kind": "single",
       "name": "24hr BTCUSDT (Binance-compatible): last trade price, priceChangePercent already percent",
-      "market": "Aster",
+      "exchangeKey": "Aster",
       "pair": {
         "base": "BTC",
         "quote": "USDT",
@@ -36,7 +36,7 @@
     {
       "kind": "single",
       "name": "error payload: invalid symbol, msg is the error text",
-      "market": "Aster",
+      "exchangeKey": "Aster",
       "pair": {
         "base": "FOO",
         "quote": "USDT",
@@ -53,7 +53,7 @@
     {
       "kind": "bulk",
       "name": "bulk: all contracts; lastPrice 0 (inactive) skipped, non-object entry ignored",
-      "market": "Aster",
+      "exchangeKey": "Aster",
       "requestId": 0,
       "body": "[{\"symbol\":\"BTCUSDT\",\"priceChange\":\"1499.60\",\"priceChangePercent\":\"2.479\",\"weightedAvgPrice\":\"61250.3\",\"lastPrice\":\"62000.10\",\"lastQty\":\"0.010\",\"openPrice\":\"60500.50\",\"highPrice\":\"62500.00\",\"lowPrice\":\"60000.00\",\"volume\":\"12100.523\",\"quoteVolume\":\"741160123.45\",\"openTime\":1728453600000,\"closeTime\":1728540000000,\"firstId\":1,\"lastId\":2,\"count\":2},{\"symbol\":\"NEWUSDT\",\"priceChange\":\"0\",\"priceChangePercent\":\"0\",\"lastPrice\":\"0\",\"openPrice\":\"0\",\"highPrice\":\"0\",\"lowPrice\":\"0\",\"volume\":\"0\",\"quoteVolume\":\"0\"},null,{\"symbol\":\"ASTERUSDT\",\"priceChange\":\"-0.0412\",\"priceChangePercent\":\"-2.150\",\"lastPrice\":\"1.8750\",\"openPrice\":\"1.9162\",\"highPrice\":\"1.9500\",\"lowPrice\":\"1.8500\",\"volume\":\"98765432.0\",\"quoteVolume\":\"185000000.5\",\"openTime\":1728453600000,\"closeTime\":1728540000000}]",
       "expect": {
@@ -78,7 +78,7 @@
     {
       "kind": "pairs",
       "name": "exchangeInfo: only TRADING PERPETUAL contracts",
-      "market": "Aster",
+      "exchangeKey": "Aster",
       "requestId": 0,
       "body": "{\"timezone\":\"UTC\",\"serverTime\":1728540000000,\"rateLimits\":[],\"assets\":[],\"symbols\":[{\"symbol\":\"BTCUSDT\",\"pair\":\"BTCUSDT\",\"contractType\":\"PERPETUAL\",\"deliveryDate\":4133404800000,\"onboardDate\":1569398400000,\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"pricePrecision\":1,\"quantityPrecision\":3,\"underlyingType\":\"COIN\"},{\"symbol\":\"ASTERUSDT\",\"pair\":\"ASTERUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"ASTER\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\"},{\"symbol\":\"OLDUSDT\",\"pair\":\"OLDUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"SETTLING\",\"baseAsset\":\"OLD\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\"},{\"symbol\":\"BTCUSDT_251226\",\"pair\":\"BTCUSDT\",\"contractType\":\"CURRENT_QUARTER\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\"}]}",
       "expect": {
@@ -105,7 +105,7 @@
     {
       "kind": "pairs",
       "name": "exchangeInfo: underlyingType is always COIN; underlyingSubType STOCK/ETF/Commodities/USD1-RWA = TradFi (case-insensitive), Top/Meme/AI/AOS2/pre-launch/[] = crypto",
-      "market": "Aster",
+      "exchangeKey": "Aster",
       "requestId": 0,
       "note": "Rows shortened from the live /fapi/v1/exchangeInfo of 19.10.2026 (subtype combinations as listed there).",
       "body": "{\"timezone\":\"UTC\",\"serverTime\":1792423148000,\"rateLimits\":[],\"assets\":[],\"symbols\":[{\"symbol\":\"BTCUSDT\",\"pair\":\"BTCUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Top\"]},{\"symbol\":\"DOGEUSDT\",\"pair\":\"DOGEUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"DOGE\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Meme\"]},{\"symbol\":\"WLDUSDT\",\"pair\":\"WLDUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"WLD\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"AI\"]},{\"symbol\":\"HYPEUSDT\",\"pair\":\"HYPEUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"HYPE\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[]},{\"symbol\":\"BTCU\",\"pair\":\"BTCU\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"U\",\"marginAsset\":\"U\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"AOS2\"]},{\"symbol\":\"NEWUSDT\",\"pair\":\"NEWUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"NEW\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"pre-launch\"]},{\"symbol\":\"AAPLUSDT\",\"pair\":\"AAPLUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"AAPL\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\"]},{\"symbol\":\"NVDAUSDT\",\"pair\":\"NVDAUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"NVDA\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\",\"Semiconductor\"]},{\"symbol\":\"QQQUSDT\",\"pair\":\"QQQUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"QQQ\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\",\"ETF\"]},{\"symbol\":\"SPYUSDT\",\"pair\":\"SPYUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"SPY\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"ETF\"]},{\"symbol\":\"XAUUSDT\",\"pair\":\"XAUUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"XAU\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Commodities\"]},{\"symbol\":\"PAXGUSDT\",\"pair\":\"PAXGUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"PAXG\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Commodities\"]},{\"symbol\":\"NATGASUSDT\",\"pair\":\"NATGASUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"NATGAS\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Commodities\"]},{\"symbol\":\"METAUSD1\",\"pair\":\"METAUSD1\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"META\",\"quoteAsset\":\"USD1\",\"marginAsset\":\"USD1\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\",\"AOS2\",\"USD1-RWA\"]},{\"symbol\":\"OPENAIUSDT\",\"pair\":\"OPENAIUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"OPENAI\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"pre-launch\",\"STOCK\"]},{\"symbol\":\"TSLAUSDT\",\"pair\":\"TSLAUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"SETTLING\",\"baseAsset\":\"TSLA\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\"]}]}",

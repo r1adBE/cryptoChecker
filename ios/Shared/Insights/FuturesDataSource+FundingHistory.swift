@@ -19,13 +19,13 @@ extension FuturesDataSource {
     static func fundingHistory(watch: Watch) async -> FundingHistory? {
         let base = watch.baseAsset.trimmingCharacters(in: .whitespaces).uppercased()
         let perpetual = watch.contractType.isPerpetual
-        let key = perpetual ? "\(watch.marketKey)|\(watch.pairId ?? "")|\(base)" : "SPOT|\(base)"
+        let key = perpetual ? "\(watch.exchangeKey)|\(watch.pairId ?? "")|\(base)" : "SPOT|\(base)"
         let now = EpochTime.nowMillis
         if let hit = cachedHistory(key, now: now) { return hit }
         let usdt = "\(base)USDT"
         let swap = "\(base)-USDT-SWAP"
         let attempts: [HistoryAttempt]
-        switch perpetual ? watch.marketKey : "" {
+        switch perpetual ? watch.exchangeKey : "" {
         case "BybitFutures":
             let symbol = watch.pairId ?? usdt
             attempts = [
@@ -84,25 +84,25 @@ extension FuturesDataSource {
     }
 
     private static func binanceHistory(symbol: String) async throws -> FundingHistory {
-        let text = try await MarketHTTP.call(
+        let text = try await ExchangeHTTP.call(
             "https://fapi.binance.com/fapi/v1/fundingRate?symbol=\(symbol)&limit=\(FundingTrendRules.limit)")
         return try history(FundingTrendRules.parseBinance(text), source: "Binance Futures")
     }
 
     private static func binanceCoinMHistory(symbol: String) async throws -> FundingHistory {
-        let text = try await MarketHTTP.call(
+        let text = try await ExchangeHTTP.call(
             "https://dapi.binance.com/dapi/v1/fundingRate?symbol=\(symbol)&limit=\(FundingTrendRules.limit)")
         return try history(FundingTrendRules.parseBinance(text), source: FuturesSources.binanceCoinM)
     }
 
     private static func bybitHistory(symbol: String) async throws -> FundingHistory {
-        let text = try await MarketHTTP.call(
+        let text = try await ExchangeHTTP.call(
             "https://api.bybit.com/v5/market/funding/history?category=linear&symbol=\(symbol)&limit=\(FundingTrendRules.limit)")
         return try history(FundingTrendRules.parseBybit(text), source: "Bybit")
     }
 
     private static func okxHistory(instId: String) async throws -> FundingHistory {
-        let text = try await MarketHTTP.call(
+        let text = try await ExchangeHTTP.call(
             "https://www.okx.com/api/v5/public/funding-rate-history?instId=\(instId)&limit=\(FundingTrendRules.limit)")
         return try history(FundingTrendRules.parseOkx(text), source: "OKX")
     }

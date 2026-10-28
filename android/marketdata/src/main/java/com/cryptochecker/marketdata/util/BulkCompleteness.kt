@@ -2,10 +2,10 @@ package com.cryptochecker.marketdata.util
 
 /**
  * Wie weit eine Sammelabfrage aus mehreren Teilen als «vollständig» gilt. Teilanfragen und Paare gehören je zu
- * einer Gruppe (`Market.bulkTickersRequestGroup` / `bulkTickersPairGroup`; Binance: Spot 0, Alpha 1). Scheitert
+ * einer Gruppe (`Exchange.bulkTickersRequestGroup` / `bulkTickersPairGroup`; Binance: Spot 0, Alpha 1). Scheitert
  * ein Teil, verliert nur seine Gruppe die Aussage «nicht mehr gehandelt» — scheitert Alpha, werden gestrichene
  * Spot-Paare trotzdem erkannt (BulkDelisted). Dazu die unbekannten Paare einer abgelehnten gefilterten Anfrage
- * (Bithumb). Reines Kotlin; iOS: `BulkCompleteness` in `Market.swift`.
+ * (Bithumb). Reines Kotlin; iOS: `BulkCompleteness` in `Exchange.swift`.
  */
 object BulkCompleteness {
 

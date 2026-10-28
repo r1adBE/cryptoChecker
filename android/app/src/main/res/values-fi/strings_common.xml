@@ -25,8 +25,8 @@
 
     <!-- Allgemeine Zustände und Fehler -->
     <string name="check_error_generic_prefix">Virhe: %1$s</string>
-    <string name="error_market_unreachable">Pörssiin ei saada yhteyttä juuri nyt – viimeisimmät hinnat pysyvät näkyvissä.</string>
-    <string name="error_market_unreachable_short">Pörssiin ei saada yhteyttä</string>
+    <string name="error_exchange_unreachable">Pörssiin ei saada yhteyttä juuri nyt – viimeisimmät hinnat pysyvät näkyvissä.</string>
+    <string name="error_exchange_unreachable_short">Pörssiin ei saada yhteyttä</string>
     <string name="loading_hint">Ladataan…</string>
     <string name="no_internet_connection">Ei internetyhteyttä. Tarkista Wi-Fi tai mobiilidata ja yritä uudelleen.</string>
     <string name="option_off">Pois</string>

@@ -3,7 +3,7 @@ import XCTest
 
 /// Kurs von der eingetragenen Börse — wie `PortfolioExchangeRouteTest.kt`.
 final class PortfolioExchangeRouteTests: XCTestCase {
-    private let markets = ["Binance": "Binance", "Kraken": "Kraken", "BinanceFutures": "Binance Futures",
+    private let exchanges = ["Binance": "Binance", "Kraken": "Kraken", "BinanceFutures": "Binance Futures",
                            "Bitstamp": "Bitstamp", "DexScreener": "DEX"]
 
     func testOneExchangePerCoinMixedFallsBack() {
@@ -17,20 +17,20 @@ final class PortfolioExchangeRouteTests: XCTestCase {
     }
 
     func testOnlySpotMarkets() {
-        XCTAssertEqual(PortfolioExchangeRoute.market("kraken", markets: markets)?.key, "Kraken")
-        XCTAssertNil(PortfolioExchangeRoute.market("Binance", markets: markets))
-        XCTAssertNil(PortfolioExchangeRoute.market("Binance Futures", markets: markets))
-        XCTAssertNil(PortfolioExchangeRoute.market("DEX", markets: markets))
-        XCTAssertNil(PortfolioExchangeRoute.market("Meine Bank", markets: markets))
+        XCTAssertEqual(PortfolioExchangeRoute.exchange("kraken", exchanges: exchanges)?.key, "Kraken")
+        XCTAssertNil(PortfolioExchangeRoute.exchange("Binance", exchanges: exchanges))
+        XCTAssertNil(PortfolioExchangeRoute.exchange("Binance Futures", exchanges: exchanges))
+        XCTAssertNil(PortfolioExchangeRoute.exchange("DEX", exchanges: exchanges))
+        XCTAssertNil(PortfolioExchangeRoute.exchange("Meine Bank", exchanges: exchanges))
     }
 
     func testPairPreference() {
-        let pairs = [MarketPair("BTC", "EUR", "XXBTZEUR"), MarketPair("BTC", "USD", "XXBTZUSD"),
-                     MarketPair("ETH", "USDT", "ETHUSDT"), MarketPair("BTC", "USDC", "XBTUSDC")]
+        let pairs = [ExchangePair("BTC", "EUR", "XXBTZEUR"), ExchangePair("BTC", "USD", "XXBTZUSD"),
+                     ExchangePair("ETH", "USDT", "ETHUSDT"), ExchangePair("BTC", "USDC", "XBTUSDC")]
         XCTAssertEqual(PortfolioExchangeRoute.pickPair("btc", pairs: pairs)?.quote, "USD")
         XCTAssertEqual(PortfolioExchangeRoute.pickPair("ETH", pairs: pairs)?.quote, "USDT")
         XCTAssertNil(PortfolioExchangeRoute.pickPair("SOL", pairs: pairs))
-        XCTAssertNil(PortfolioExchangeRoute.pickPair("BTC", pairs: [MarketPair("BTC", "USDC", nil)]))
+        XCTAssertNil(PortfolioExchangeRoute.pickPair("BTC", pairs: [ExchangePair("BTC", "USDC", nil)]))
     }
 
     func testConversion() {

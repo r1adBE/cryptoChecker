@@ -25,20 +25,20 @@ final class RecordedBulkCompletenessTests: XCTestCase {
         let bundle = Bundle(for: RecordedBulkCompletenessTests.self)
         var failures: [String] = []
         for (key, file) in evidence {
-            let market = try XCTUnwrap(MarketsConfig.market(key), key)
-            if !market.bulkTickersComplete { failures.append("\(key): bulkTickersComplete is false") }
+            let exchange = try XCTUnwrap(ExchangesConfig.exchange(key), key)
+            if !exchange.bulkTickersComplete { failures.append("\(key): bulkTickersComplete is false") }
             let url = try XCTUnwrap(bundle.url(forResource: file, withExtension: "json"), file)
             let object = try JSONSerialization.jsonObject(with: Data(contentsOf: url))
             let data = try XCTUnwrap(object as? [String: Any], file)
-            var pairs: [MarketPair] = []
+            var pairs: [ExchangePair] = []
             var listed = Set<String>()
             for c in S.list(data["cases"]) {
                 let call = Int(S.number(c["requestId"]) ?? 0)
                 let body = c["body"] as? String ?? ""
                 switch c["kind"] as? String {
-                case "pairs": pairs += try market.readPairList(call: call, body: body)
+                case "pairs": pairs += try exchange.readPairList(call: call, body: body)
                 case "bulk":
-                    let parsed = try market.parseBulkTickersDetailed(call: call, body: body)
+                    let parsed = try exchange.parseBulkTickersDetailed(call: call, body: body)
                     listed.formUnion(parsed.tickers.keys)
                     listed.formUnion(parsed.failed)
                 default: break

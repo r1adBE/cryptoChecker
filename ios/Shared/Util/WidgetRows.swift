@@ -31,9 +31,9 @@ enum WidgetRows {
         Array(watches.prefix(max(0, rows)))
     }
 
-    /// Logo-Schlüssel der gezeigten Paare; DEX-Pools nie (`CoinLogos.allowed(forMarket:)`), TradFi-Paare unter
+    /// Logo-Schlüssel der gezeigten Paare; DEX-Pools nie (`CoinLogos.allowed(forExchange:)`), TradFi-Paare unter
     /// eigenem Schlüssel (nie das Logo eines gleichnamigen Krypto-Tokens, `CoinLogoStore.logoKey`).
     static func logoKeys(for watches: [Watch]) -> [String] {
-        shown(watches).filter { CoinLogos.allowed(forMarket: $0.marketKey) }.map { CoinLogoStore.logoKey(for: $0) }
+        shown(watches).filter { CoinLogos.allowed(forExchange: $0.exchangeKey) }.map { CoinLogoStore.logoKey(for: $0) }
     }
 }

@@ -15,7 +15,7 @@ final class WatchlistSealedTests: XCTestCase {
     private var portfolioAlarms: URL { dir.appendingPathComponent("portfolio_alarms.json") }
     private let fixedKey = SymmetricKey(data: Data(repeating: 9, count: 32))
     private let legacyJson = Data("""
-    {"watches":[{"id":1,"marketKey":"binance","baseAsset":"BTC","quoteAsset":"USDT","note":"Ø 77 500","holdings":0.5}],
+    {"watches":[{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT","note":"Ø 77 500","holdings":0.5}],
      "alarms":[],"nextWatchId":2,"nextAlarmId":1}
     """.utf8)
 
@@ -77,7 +77,7 @@ final class WatchlistSealedTests: XCTestCase {
     /// Noch keine Datei und kein Schlüssel: keine Klartext-Datei anlegen.
     func testNoKeyCreatesNoPlainFile() {
         var snap = SharedStorage.Snapshot()
-        snap.watches = [Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "ETH", quoteAsset: "USDT")]
+        snap.watches = [Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "ETH", quoteAsset: "USDT")]
         XCTAssertFalse(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
                                                 includePortfolioInBackup: true, keys: keys(nil)))
         XCTAssertTrue(SharedStorage.watchlistPending)

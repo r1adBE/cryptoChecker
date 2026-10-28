@@ -89,11 +89,11 @@ final class FuturesParsersTests: XCTestCase {
     func testNotesMatchFixtures() throws {
         for c in TestSupport.list(try TestSupport.fixture("futures_derivatives")["notes"]) {
             let note = FuturesSources.note(perpetual: c["perpetual"] as? Bool ?? false,
-                                           marketKey: c["marketKey"] as? String ?? "",
+                                           exchangeKey: c["exchangeKey"] as? String ?? "",
                                            source: c["source"] as? String ?? "",
                                            pairId: c["pairId"] as? String)
             XCTAssertEqual(note?.rawValue, c["expected"] as? String,
-                           "note \(c["marketKey"] as? String ?? "") \(c["pairId"] as? String ?? "") / \(c["source"] as? String ?? "")")
+                           "note \(c["exchangeKey"] as? String ?? "") \(c["pairId"] as? String ?? "") / \(c["source"] as? String ?? "")")
         }
     }
 

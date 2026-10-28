@@ -46,7 +46,7 @@
     <string name="explorer_pairs_title">Par</string>
     <string name="explorer_precise_title">Avansert / etter børs</string>
     <string name="explorer_price_loading">Henter kurs…</string>
-    <string name="explorer_select_market_hint">Velg en børs – handelsparene hentes automatisk.</string>
+    <string name="explorer_select_exchange_hint">Velg en børs – handelsparene hentes automatisk.</string>
     <string name="explorer_select_placeholder">Velg</string>
     <string name="explorer_step_pair">Velg par</string>
 

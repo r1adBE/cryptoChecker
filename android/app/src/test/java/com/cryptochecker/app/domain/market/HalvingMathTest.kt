@@ -6,7 +6,7 @@ import org.junit.Test
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-/** Nächstes Halving aus Blockhöhe und mittlerer Blockzeit (Tag in UTC); Swift: `HalvingMathTests` (MarketsTests.swift). */
+/** Nächstes Halving aus Blockhöhe und mittlerer Blockzeit (Tag in UTC); Swift: `HalvingMathTests` (ExchangesTests.swift). */
 class HalvingMathTest {
 
     @Test

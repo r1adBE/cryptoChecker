@@ -155,7 +155,7 @@ struct DeveloperSettingsPage: View {
                 if let report = refreshState.lastRefreshReport {
                     RefreshReportSummary(report: report, now: EpochTime.nowMillis)
                         .padding(.top, 4)
-                    RefreshReportMarketList(markets: report.markets)
+                    RefreshReportExchangeList(exchanges: report.exchanges)
                 } else {
                     Text(L("watchlist_refresh_report_empty"))
                         .font(.footnote)

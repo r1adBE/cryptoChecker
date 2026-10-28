@@ -77,7 +77,7 @@ enum DepegAlarmCheck {
     }
 
     private static func notify(price: Double, deviation: Double, settings: AppSettings) async -> Bool {
-        let keys = SharedStorage.loadSnapshot().watches.filter { !$0.disabled }.map(\.marketKey)
+        let keys = SharedStorage.loadSnapshot().watches.filter { !$0.disabled }.map(\.exchangeKey)
         let sign = deviation < 0 ? "\u{2212}" : "+"
         let percent = sign + PercentText.unsigned(deviation, decimals: 2)
         return await Notifier.showDepeg(
@@ -98,11 +98,11 @@ enum DepegAlarmCheck {
         let useCoinbase = available(DepegAlarm.coinbaseKey)
         let useBinance = available(DepegAlarm.binanceKey)
         async let kraken = lastPrice(useKraken, now: now, DepegAlarm.krakenKey,
-                                     MarketPair("USDT", "USD", DepegAlarm.krakenPairId))
+                                     ExchangePair("USDT", "USD", DepegAlarm.krakenPairId))
         async let coinbase = lastPrice(useCoinbase, now: now, DepegAlarm.coinbaseKey,
-                                       MarketPair("USDT", "USD", DepegAlarm.coinbasePairId))
+                                       ExchangePair("USDT", "USD", DepegAlarm.coinbasePairId))
         async let binance = lastPrice(useBinance, now: now, DepegAlarm.binanceKey,
-                                      MarketPair("USDC", "USDT", DepegAlarm.binancePairId))
+                                      ExchangePair("USDC", "USDT", DepegAlarm.binancePairId))
         let k = await kraken
         let c = await coinbase
         let b = await binance
@@ -112,9 +112,9 @@ enum DepegAlarmCheck {
     /// Letzter Kurs eines Paars; nicht abgefragt (`enabled` false) oder Fehler: nil (still). Laut Börse älter als
     /// 2 Std.: ebenfalls nil (`DepegAlarm.usablePrice`) — keine Messung, kein Alarm, die Bewertung fällt zurück wie
     /// ohne frische Messung. Wie Android.
-    private static func lastPrice(_ enabled: Bool, now: Int64, _ marketKey: String, _ info: MarketPair) async -> Double? {
-        guard enabled, let market = MarketsConfig.market(marketKey),
-              let ticker = try? await MarketService.fetchTicker(market: market, info: info) else { return nil }
+    private static func lastPrice(_ enabled: Bool, now: Int64, _ exchangeKey: String, _ info: ExchangePair) async -> Double? {
+        guard enabled, let exchange = ExchangesConfig.exchange(exchangeKey),
+              let ticker = try? await ExchangeService.fetchTicker(exchange: exchange, info: info) else { return nil }
         return DepegAlarm.usablePrice(last: ticker.last, exchangeTime: ticker.exchangeTime, now: now)
     }
 }

@@ -4,13 +4,13 @@ import XCTest
 /// Zwischengespeicherte Suchschlüssel der Merkliste — wie `WatchSearchIndexTest.kt`.
 final class WatchlistSearchIndexTests: XCTestCase {
     private let watches = [
-        Watch(id: 1, marketKey: "Kraken", marketName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR"),
-        Watch(id: 2, marketKey: "Binance", marketName: "Binance", baseAsset: "PEPE", quoteAsset: "USDT",
+        Watch(id: 1, exchangeKey: "Kraken", exchangeName: "Kraken", baseAsset: "BTC", quoteAsset: "EUR"),
+        Watch(id: 2, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "PEPE", quoteAsset: "USDT",
               note: "Pépé Einstieg"),
-        Watch(id: 3, marketKey: "BinanceFutures", marketName: "Binance Futures", baseAsset: "ETH",
+        Watch(id: 3, exchangeKey: "BinanceFutures", exchangeName: "Binance Futures", baseAsset: "ETH",
               quoteAsset: "USDT", contractType: .perpetual, note: "Hedge ÉTÉ"),
-        Watch(id: 4, marketKey: "Bitstamp", marketName: "Bitstamp", baseAsset: "XRP", quoteAsset: "CHF"),
-        Watch(id: 5, marketKey: "Coinbase", marketName: "Coinbase", baseAsset: "SOL", quoteAsset: "USDC",
+        Watch(id: 4, exchangeKey: "Bitstamp", exchangeName: "Bitstamp", baseAsset: "XRP", quoteAsset: "CHF"),
+        Watch(id: 5, exchangeKey: "Coinbase", exchangeName: "Coinbase", baseAsset: "SOL", quoteAsset: "USDC",
               note: "langfristig"),
     ]
     private let names: [Int64: String] = [1: "Bitcoin", 2: "Pépé", 3: "Ethereum", 5: "Solana"]
@@ -66,7 +66,7 @@ final class WatchlistSearchIndexTests: XCTestCase {
         XCTAssertEqual(index.keysBuilt, watches.count + 2)
         // Börsenname geändert
         var moved = noted
-        moved[4].marketName = "Coinbase Advanced"
+        moved[4].exchangeName = "Coinbase Advanced"
         XCTAssertEqual(index.filter(moved, query: "advanced", names: renamed).map(\.id), [5])
         XCTAssertEqual(index.keysBuilt, watches.count + 3)
     }

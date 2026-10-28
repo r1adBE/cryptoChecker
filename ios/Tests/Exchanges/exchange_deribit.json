@@ -9,7 +9,7 @@
     {
       "kind": "single",
       "name": "ticker BTC-PERPETUAL (stats.price_change in %; timestamp is the snapshot time, exchange time unknown)",
-      "market": "Deribit",
+      "exchangeKey": "Deribit",
       "pair": {
         "base": "BTC",
         "quote": "USD",
@@ -33,7 +33,7 @@
     {
       "kind": "single",
       "name": "error payload",
-      "market": "Deribit",
+      "exchangeKey": "Deribit",
       "pair": {
         "base": "FOO",
         "quote": "USD",
@@ -50,7 +50,7 @@
     {
       "kind": "bulk",
       "name": "book summary: only perpetuals with a last price; USDC uses volume_notional",
-      "market": "Deribit",
+      "exchangeKey": "Deribit",
       "requestId": 0,
       "body": "{\"jsonrpc\":\"2.0\",\"result\":[ {\"volume_usd\":1234567890.0,\"volume\":20000.5,\"quote_currency\":\"USD\",\"price_change\":2.4794,\"open_interest\":1234567890,\"mid_price\":62000.0,\"mark_price\":62005.5,\"low\":60000.0,\"last\":62000.0,\"instrument_name\":\"BTC-PERPETUAL\",\"high\":62500.0,\"funding_8h\":0.0001,\"estimated_delivery_price\":62010.1,\"current_funding\":0.0,\"creation_timestamp\":1728540000123,\"bid_price\":61999.5,\"base_currency\":\"BTC\",\"ask_price\":62000.5}, {\"volume_usd\":12345.0,\"volume\":0.2,\"quote_currency\":\"USD\",\"price_change\":1.0,\"low\":61000.0,\"last\":62500.0,\"instrument_name\":\"BTC-27DEC24\",\"high\":63000.0,\"creation_timestamp\":1728540000123,\"bid_price\":62400.0,\"base_currency\":\"BTC\",\"ask_price\":62600.0}, {\"volume_usd\":0.0,\"volume\":0.0,\"quote_currency\":\"USD\",\"price_change\":null,\"low\":null,\"last\":null,\"instrument_name\":\"ETH-PERPETUAL\",\"high\":null,\"creation_timestamp\":1728540000123,\"bid_price\":null,\"base_currency\":\"ETH\",\"ask_price\":null}, {\"volume_notional\":4567890.12,\"volume\":30000.0,\"quote_currency\":\"USDC\",\"price_change\":-1.5,\"low\":140.0,\"last\":145.5,\"instrument_name\":\"SOL_USDC-PERPETUAL\",\"high\":150.0,\"creation_timestamp\":1728540000456,\"bid_price\":145.4,\"base_currency\":\"SOL\",\"ask_price\":145.6} ],\"usIn\":1,\"usOut\":2,\"usDiff\":1,\"testnet\":false}",
       "expect": {
@@ -80,7 +80,7 @@
     {
       "kind": "pairs",
       "name": "get_instruments: perpetuals only; instrument_type reversed -> INVERSE_PERPETUAL (without it: from the id), linear -> PERPETUAL",
-      "market": "Deribit",
+      "exchangeKey": "Deribit",
       "requestId": 0,
       "body": "{\"jsonrpc\":\"2.0\",\"result\":[{\"tick_size\":0.5,\"taker_commission\":0.0005,\"settlement_period\":\"perpetual\",\"settlement_currency\":\"BTC\",\"quote_currency\":\"USD\",\"base_currency\":\"BTC\",\"state\":\"open\",\"kind\":\"future\",\"is_active\":true,\"instrument_type\":\"reversed\",\"instrument_name\":\"BTC-PERPETUAL\",\"expiration_timestamp\":32503708800000},{\"tick_size\":0.5,\"taker_commission\":0.0005,\"settlement_period\":\"perpetual\",\"settlement_currency\":\"USDC\",\"quote_currency\":\"USDC\",\"base_currency\":\"SOL\",\"state\":\"open\",\"kind\":\"future\",\"is_active\":true,\"instrument_type\":\"linear\",\"instrument_name\":\"SOL_USDC-PERPETUAL\",\"expiration_timestamp\":32503708800000},{\"tick_size\":0.5,\"taker_commission\":0.0005,\"settlement_period\":\"month\",\"settlement_currency\":\"BTC\",\"quote_currency\":\"USD\",\"base_currency\":\"BTC\",\"state\":\"open\",\"kind\":\"future\",\"is_active\":true,\"instrument_type\":\"reversed\",\"instrument_name\":\"BTC-27DEC24\",\"expiration_timestamp\":32503708800000},{\"tick_size\":0.5,\"taker_commission\":0.0005,\"settlement_period\":\"perpetual\",\"settlement_currency\":\"ETH\",\"quote_currency\":\"USD\",\"base_currency\":\"ETH\",\"state\":\"open\",\"kind\":\"future\",\"is_active\":true,\"instrument_name\":\"ETH-PERPETUAL\",\"expiration_timestamp\":32503708800000}]}",
       "expect": {
@@ -110,7 +110,7 @@
     {
       "kind": "bulk",
       "name": "book summary: unreadable last (text) is reported as unreadable (bulkRow), null last stays absent",
-      "market": "Deribit",
+      "exchangeKey": "Deribit",
       "requestId": 0,
       "body": "{\"jsonrpc\":\"2.0\",\"result\":[{\"volume_usd\":1234567890.0,\"volume\":20000.5,\"quote_currency\":\"USD\",\"price_change\":2.4794,\"open_interest\":1234567890,\"mid_price\":62000.0,\"mark_price\":62005.5,\"low\":60000.0,\"last\":62000.0,\"instrument_name\":\"BTC-PERPETUAL\",\"high\":62500.0,\"funding_8h\":0.0001,\"estimated_delivery_price\":62010.1,\"current_funding\":0.0,\"creation_timestamp\":1728540000123,\"bid_price\":61999.5,\"base_currency\":\"BTC\",\"ask_price\":62000.5},{\"volume_usd\":0.0,\"volume\":0.0,\"quote_currency\":\"USD\",\"price_change\":null,\"low\":null,\"last\":null,\"instrument_name\":\"ETH-PERPETUAL\",\"high\":null,\"creation_timestamp\":1728540000123,\"bid_price\":null,\"base_currency\":\"ETH\",\"ask_price\":null},{\"volume_usd\":1234567890.0,\"volume\":20000.5,\"quote_currency\":\"USD\",\"price_change\":2.4794,\"open_interest\":1234567890,\"mid_price\":62000.0,\"mark_price\":62005.5,\"low\":60000.0,\"last\":\"n/a\",\"instrument_name\":\"XRP_USDC-PERPETUAL\",\"high\":62500.0,\"funding_8h\":0.0001,\"estimated_delivery_price\":62010.1,\"current_funding\":0.0,\"creation_timestamp\":1728540000123,\"bid_price\":61999.5,\"base_currency\":\"BTC\",\"ask_price\":62000.5}]}",
       "expect": {

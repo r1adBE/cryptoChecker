@@ -30,13 +30,13 @@ extension WatchlistRow {
         } else {
             chartProvider = nil
         }
-        return DayChange.foreignCandleSource(markets: [watch.marketKey, watch.marketName], provider: chartProvider)
+        return DayChange.foreignCandleSource(exchanges: [watch.exchangeKey, watch.exchangeName], provider: chartProvider)
     }
 
     /// Ausweich-Reihe von `provider` beim Paar `watch` erlaubt (kein klarer Namens-Widerspruch, K-8)?
     /// Wie Android `WatchlistViewModel.fallbackSeriesAllowed`.
     static func fallbackSeriesAllowed(_ watch: Watch, provider: String?) -> Bool {
-        TokenIdentityStore.shared.fallbackSeriesAllowed(marketKey: watch.marketKey, base: watch.baseAsset, provider: provider)
+        TokenIdentityStore.shared.fallbackSeriesAllowed(exchangeKey: watch.exchangeKey, base: watch.baseAsset, provider: provider)
     }
 
     /// Mini-Chart-Reihe (USDT, gemeinsam je Kürzel) beim Paar `watch` erlaubt? Nur aus dem Speicher.

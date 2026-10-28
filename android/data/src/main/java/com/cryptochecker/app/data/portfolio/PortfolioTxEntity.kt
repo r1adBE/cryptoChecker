@@ -20,8 +20,7 @@ import java.math.BigDecimal
  * sind exakt ([BigDecimal], seit Portfolio-Datenbank v2 als Text gespeichert): 1 Satoshi =
  * 0.00000001 BTC bleibt genau 1 Satoshi.
  *
- * Spalten bis `note` müssen exakt zu [com.cryptochecker.app.data.local.AppDatabase.MIGRATION_6_7] passen
- * (Altbestand der Hauptdatenbank); `fee`, `feeUnit`, `exchange` kamen mit
+ * Spalten bis `note` bilden die Tabelle der Portfolio-Datenbank v1; `fee`, `feeUnit`, `exchange` kamen mit
  * [PortfolioDatabase.MIGRATION_1_2] dazu (alle optional); `transferFrom`, `transferTo`, `feeCoin`,
  * `feeCoinAmount`, `feeCoinPriceUsdt`, `importKey` (mit Index), `acquiredTime`, `toCoin`, `toAmount`,
  * `swapValueUsdt` (Tausch) und `importBatch` (CSV-Importlauf) mit [PortfolioDatabase.MIGRATION_2_3] (alle optional);

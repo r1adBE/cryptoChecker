@@ -49,7 +49,7 @@ class LiveConnection(
     private suspend fun run() {
         var attempt = 0
         while (currentCoroutineContext().isActive) {
-            val state = refreshStats.backoffStates()[spec.exchange.marketKey]
+            val state = refreshStats.backoffStates()[spec.exchange.exchangeKey]
             val now = System.currentTimeMillis()
             if (ExchangeBackoff.isPaused(state, now)) {
                 // Börse pausiert (zu viele Anfragen): bis dahin kein Verbindungsversuch
@@ -122,7 +122,7 @@ class LiveConnection(
                 val now = System.currentTimeMillis()
                 // Börse inzwischen pausiert (ExchangeBackoff): Verbindung schliessen, die Schleife
                 // verbindet erst nach der Pause wieder (wie iOS)
-                if (ExchangeBackoff.isPaused(refreshStats.backoffStates()[spec.exchange.marketKey], now)) {
+                if (ExchangeBackoff.isPaused(refreshStats.backoffStates()[spec.exchange.exchangeKey], now)) {
                     socket.cancel()
                     break
                 }
