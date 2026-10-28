@@ -11,11 +11,14 @@ extension SharedStorage {
         var alarms: [Alarm] = []
         var nextWatchId: Int64 = 1
         var nextAlarmId: Int64 = 1
-        /// Alarme «Portfolio-Wert» (Runde 28). Optional: ältere Dateien haben sie nicht, und
-        /// ältere Versionen ignorieren das Feld beim Lesen. Gespeichert in `portfolio_alarms.json`;
+        /// Alarme «Portfolio-Wert»: nur im Speicher mitgeführt (nicht in `watchlist.json`, siehe `CodingKeys`),
+        /// gelesen aus und geschrieben in `portfolio_alarms.json` (`readFiles`/`writeFiles`);
         /// nil = unbekannt/nicht geladen → die Datei der Portfolio-Alarme bleibt beim Schreiben unberührt.
         var portfolioAlarms: [PortfolioAlarm]?
         var nextPortfolioAlarmId: Int64?
+
+        /// Inhalt von `watchlist.json`: ohne die Portfolio-Alarme (eigene Datei).
+        private enum CodingKeys: String, CodingKey { case watches, alarms, nextWatchId, nextAlarmId }
     }
 
     /// Inhalt von `portfolio_alarms.json`.
@@ -264,10 +267,10 @@ extension SharedStorage {
 // MARK: Tolerantes Lesen der Merkliste
 
 extension SharedStorage.Snapshot {
-    /// Ein unbekannter Wert in einem Eintrag (z. B. eine neuere `AlarmCondition`, ein neuer
-    /// `FuturesContractType` oder eine neue `PortfolioAlarmKind` nach einem Downgrade) überspringt nur
-    /// diesen Eintrag — vorher war die ganze Datei unlesbar, und das Zurückschreiben einer leeren
-    /// Merkliste löschte alle Paare und Alarme. Die nächsten Ids laufen nie hinter vergebene zurück.
+    /// Ein unbekannter Wert in einem Eintrag (z. B. eine unbekannte `AlarmCondition` oder ein unbekannter
+    /// `FuturesContractType`) überspringt nur diesen Eintrag — sonst wäre die ganze Datei unlesbar, und das
+    /// Zurückschreiben einer leeren Merkliste löschte alle Paare und Alarme. Die nächsten Ids laufen nie hinter
+    /// vergebene zurück. Die Portfolio-Alarme stehen nicht in `watchlist.json` (bleiben nil, `readFiles` liest sie).
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         // Doppelte Paar-Ids (z. B. von Hand bearbeitete Datei, alter Fehler) behalten nur den ersten Eintrag —
@@ -286,12 +289,5 @@ extension SharedStorage.Snapshot {
                                            used: watches.map(\.id) + alarms.map(\.watchId))
         nextAlarmId = SharedStorage.nextId(stored: (try? c.decodeIfPresent(Int64.self, forKey: .nextAlarmId)) ?? 1,
                                            used: alarms.map(\.id))
-        portfolioAlarms = try SharedStorage.lenientArray(c, .portfolioAlarms, decoder: decoder)
-        let storedPortfolioId: Int64? = (try? c.decodeIfPresent(Int64.self, forKey: .nextPortfolioAlarmId)) ?? nil
-        if let portfolioAlarms {
-            nextPortfolioAlarmId = SharedStorage.nextId(stored: storedPortfolioId ?? 1, used: portfolioAlarms.map(\.id))
-        } else {
-            nextPortfolioAlarmId = storedPortfolioId
-        }
     }
 }

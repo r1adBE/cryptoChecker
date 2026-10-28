@@ -23,7 +23,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -105,9 +104,8 @@ private const val ALARM_HINT_MILLIS = 6_000L
 /**
  * Merkliste in diesem Lauf nur im Arbeitsspeicher ([WatchlistStorageLock.notice]): Der Keystore gab den Schlüssel der
  * verschlüsselten Datei gerade nicht heraus ([DatabaseEncryptionNotice.storedKept] — der gespeicherte Stand kommt nach
- * einem Neustart zurück, Änderungen dieses Laufs nicht), oder es gibt gar keinen Schlüssel (keine Datei: nie
- * unverschlüsselt angelegt; alte unverschlüsselte Datei: nur gelesen — nichts wird gespeichert, gleicher
- * Text wie iOS). Sagen statt still. Als Dauerhinweis
+ * einem Neustart zurück, Änderungen dieses Laufs nicht), oder es gibt gar keinen Schlüssel (keine Datei, nie
+ * unverschlüsselt angelegt — nichts wird gespeichert, gleicher Text wie iOS). Sagen statt still. Als Dauerhinweis
  * ([WatchlistBanner.showResting]): Er steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
  */
 @Composable
@@ -121,14 +119,8 @@ private fun WatchlistStorageNotice(banner: WatchlistBanner) {
         when (notice) {
             WatchlistStorageLock.Notice.KEPT ->
                 banner.showResting(resources.getString(R.string.watchlist_storage_kept_in_memory), closeLabel)
-            WatchlistStorageLock.Notice.NOT_SAVED -> {
-                // Alte unverschlüsselte Datei nur gelesen (auch nach gescheiterter Überführung MIT Schlüssel):
-                // neutral «noch nicht verschlüsselt» statt «kein Schlüssel»
-                val text = if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) {
-                    R.string.watchlist_storage_copy_in_memory
-                } else R.string.watchlist_storage_in_memory
-                banner.showResting(resources.getString(text), closeLabel)
-            }
+            WatchlistStorageLock.Notice.NOT_SAVED ->
+                banner.showResting(resources.getString(R.string.watchlist_storage_in_memory), closeLabel)
             null -> banner.clearResting()
         }
     }

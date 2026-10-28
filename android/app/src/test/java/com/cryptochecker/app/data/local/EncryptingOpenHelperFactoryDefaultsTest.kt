@@ -1,67 +1,40 @@
 package com.cryptochecker.app.data.local
 
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Fingerprint
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Merkliste ohne Schlüssel: Mit dem Standard von [EncryptingOpenHelperFactory] entsteht `cryptochecker.db` nie
- * unverschlüsselt — ohne Schlüssel und ohne Datei nur im Arbeitsspeicher ([Decision.Refused]); eine schon unverschlüsselt
- * vorhandene Datei öffnet weiter wie bisher (nie Daten verlieren) und wird mit Schlüssel beim nächsten Start überführt.
+ * Merkliste und Portfolio ohne Schlüssel: `cryptochecker.db` und das Portfolio entstehen nie unverschlüsselt — ohne
+ * Schlüssel und ohne Datei nur im Arbeitsspeicher ([Decision.Refused]).
  */
 class EncryptingOpenHelperFactoryDefaultsTest {
 
     /** Nur `kind`; jeder andere Schritt wäre eine Änderung an der Datei und schlägt den Test fehl. */
-    private class UntouchedFiles(private val kind: FileKind) : DatabaseEncryptionMigration.Files {
+    private class UntouchedFiles(private val kind: FileKind) : DatabaseOpenPlanner.Files {
         override fun kind(database: String) = kind
-        override fun hasExportCopy(database: String) = false
-        override fun deleteExportCopy(database: String) = fail()
-        override fun checkpoint(database: String) = fail()
-        override fun walBytes(database: String): Long = fail()
-        override fun exportEncrypted(database: String, passphrase: ByteArray) = fail()
-        override fun fingerprintOriginal(database: String): Fingerprint = fail()
-        override fun fingerprintExportCopy(database: String, passphrase: ByteArray): Fingerprint = fail()
-        override fun deleteSidecars(database: String) = fail()
-        override fun replaceWithExportCopy(database: String) = fail()
         override fun setAside(database: String) = fail()
         override fun opens(database: String, passphrase: ByteArray): Boolean = fail()
+        override fun encryptRestoredCopy(database: String, passphrase: ByteArray) = fail()
         private fun fail(): Nothing = throw AssertionError("Datei darf nicht angefasst werden")
     }
 
     /** Keystore ohne Schlüssel, Anlegen scheitert (dauerhaft kaputt oder gerade nicht verfügbar). */
-    private object NoKeys : DatabaseEncryptionMigration.Keys {
+    private object NoKeys : DatabaseOpenPlanner.Keys {
         override fun load(database: String): KeyLookup = KeyLookup.Absent
         override fun create(database: String): ByteArray = throw IllegalStateException("Keystore")
     }
 
-    private fun prepare(kind: FileKind, database: String) = DatabaseEncryptionMigration(
-        UntouchedFiles(kind),
-        NoKeys,
-        encryptionRequired = { it in EncryptingOpenHelperFactory.ENCRYPTION_REQUIRED },
-    ).prepare(database)
+    private fun prepare(database: String) = DatabaseOpenPlanner(UntouchedFiles(FileKind.ABSENT), NoKeys).prepare(database)
 
     @Test
-    fun defaultRequiresEncryptionForWatchlistAndPortfolio() {
-        assertTrue(AppDatabase.DB_NAME in EncryptingOpenHelperFactory.ENCRYPTION_REQUIRED)
-        assertTrue(PortfolioDatabase.DB_NAME in EncryptingOpenHelperFactory.ENCRYPTION_REQUIRED)
-    }
-
-    @Test
-    fun newWatchlistWithoutKeyIsNeverCreatedInPlaintext() {
-        // Früher: Decision.Plaintext (neue unverschlüsselte Datei)
-        assertEquals(Decision.Refused, prepare(FileKind.ABSENT, AppDatabase.DB_NAME))
-    }
-
-    @Test
-    fun existingPlaintextWatchlistWithoutKeyKeepsWorking() {
-        // Alte unverschlüsselte Datei: nur gelesen (Inhalt im Arbeitsspeicher, keine leere Liste), nie
-        // weitergeschrieben — wie iOS (Entscheid 21.10.)
-        assertEquals(Decision.PlaintextKept, prepare(FileKind.PLAINTEXT, AppDatabase.DB_NAME))
+    fun newDatabaseWithoutKeyIsNeverCreated() {
+        assertEquals(Decision.Refused, prepare(AppDatabase.DB_NAME))
+        assertEquals(Decision.Refused, prepare(PortfolioDatabase.DB_NAME))
     }
 
     @Test
@@ -75,7 +48,7 @@ class EncryptingOpenHelperFactoryDefaultsTest {
 
     @Test
     fun prepareLockIsSharedPerDatabaseAcrossFactories() {
-        // App und Systemsicherung (eigene Fabrik) überführen dieselbe Datei nie gleichzeitig
+        // App und Systemsicherung (eigene Fabrik) bereiten dieselbe Datei nie gleichzeitig vor
         assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) === EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME))
         assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) !== EncryptingOpenHelperFactory.prepareLock(PortfolioDatabase.DB_NAME))
     }

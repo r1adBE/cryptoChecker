@@ -4,13 +4,11 @@ import android.content.Context
 import android.database.DatabaseErrorHandler
 import androidx.room.Room
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
-import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.local.AppDatabase
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.DatabaseKeyStore
 import com.cryptochecker.app.data.local.DatabaseSystemBackup
@@ -18,10 +16,7 @@ import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
-import com.cryptochecker.app.data.portfolio.PortfolioDatabase
-import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import java.io.File
-import java.io.IOException
 import java.security.KeyStore
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -32,10 +27,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Verschlüsselung der Datenbanken auf dem Gerät: unverschlüsselte Dateien (Portfolio- und Hauptdatenbank im aktuellen
- * Schema) werden beim ersten Öffnen mit echtem SQLCipher und echtem Keystore überführt. Geprüft: Daten vollständig, keine unverschlüsselte Datei
- * oder Kopie mehr, ohne Schlüssel unlesbar; Fehler lassen die alte Datei stehen; verlorener Schlüssel legt beiseite;
- * Kopie für die Systemsicherung hin und zurück. Die Ablauflogik selbst prüft `DatabaseEncryptionMigrationTest` (Unit).
+ * Verschlüsselung der Datenbanken auf dem Gerät mit echtem SQLCipher und echtem Keystore: ohne Schlüssel unlesbar;
+ * verlorener Schlüssel legt beiseite, ein früherer holt zurück; Schlüssel gerade nicht lesbar lässt die Datei unberührt;
+ * Kopie für die Systemsicherung hin und zurück — gleich bei der Wiederherstellung verschlüsselt oder, ohne Schlüssel, beim
+ * nächsten Start. Die Ablauflogik selbst prüft `DatabaseOpenPlannerTest` (Unit).
  */
 @RunWith(AndroidJUnit4::class)
 class DatabaseEncryptionTest {
@@ -43,12 +38,20 @@ class DatabaseEncryptionTest {
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
     private val keyDirectory: File get() = File(context.noBackupFilesDir, "db_keys_test")
     private val keys get() = DatabaseKeyStore(context, alias = TEST_ALIAS, directory = keyDirectory)
-    private val mirrorFile: File get() = File(context.cacheDir, "portfolio-mirror-encryption-test.json")
+
+    /** Keystore, in dem kein Schlüssel entstehen kann (z. B. im eingeschränkten Prozess der Systemsicherung). */
+    private val noKeys = object : DatabaseOpenPlanner.Keys {
+        override fun load(database: String) = DatabaseOpenPlanner.KeyLookup.Absent
+        override fun create(database: String): ByteArray = throw IllegalStateException("Test: kein Schlüssel möglich")
+    }
+
+    /** Dateischicht wie die App, mit der Testkopie als wiederhergestellter Kopie der Testdatenbank. */
+    private val testFiles get() = SqlCipherDatabaseFiles(context, restoredCopies = mapOf(MAIN to EXPORT))
 
     @Before
     @After
     fun clean() {
-        for (name in listOf(MAIN, PORTFOLIO, EXPORT)) {
+        for (name in listOf(MAIN, EXPORT)) {
             context.deleteDatabase(name)
             val path = context.getDatabasePath(name).path
             context.getDatabasePath(name).parentFile?.listFiles()
@@ -60,70 +63,10 @@ class DatabaseEncryptionTest {
         }
         keyDirectory.deleteRecursively()
         val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
-        // Je Datenbank ein eigener Keystore-Schlüssel
-        for (name in listOf(MAIN, PORTFOLIO)) keyStore.deleteEntry(DatabaseKeyStore.aliasFor(TEST_ALIAS, name))
+        // Keystore-Schlüssel der Testdatenbank (je Datenbank ein eigener)
+        keyStore.deleteEntry(DatabaseKeyStore.aliasFor(TEST_ALIAS, MAIN))
         context.getSharedPreferences(StorageRecoveryNotice.PREFS, Context.MODE_PRIVATE).edit().clear().commit()
-        mirrorFile.delete()
-    }
-
-    @Test
-    fun plainPortfolioIsEncryptedOnFirstOpen() {
-        plainDatabase(PORTFOLIO, version = PortfolioDatabase.VERSION, schema = PORTFOLIO_SCHEMA) { db ->
-            val insert = "INSERT INTO portfolio_tx (id, coin, type, amount, priceUsdt, time, giftToSpouse, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-            db.execSQL(insert, arrayOf<Any?>(1, "BTC", "BUY", "0.00000001", "65000.5", 10, 0, "Satoshi"))
-            db.execSQL(insert, arrayOf<Any?>(2, "BTC", "GIFT", "0.5", null, 20, 1, null))
-            db.execSQL(insert, arrayOf<Any?>(5, "ETH", "BUY", "2", "3000", 30, 0, "Ø 3 000 · ✓"))
-            db.execSQL(
-                "INSERT INTO portfolio_alarms (id, kind, threshold, currency, enabled, repeating, referenceAt, lastTriggeredAt) " +
-                    "VALUES (3, 'VALUE_ABOVE', 10000.0, 'CHF', 1, 0, 0, 0)"
-            )
-            db.execSQL(
-                "INSERT INTO watched_addresses (chain, address, label, lastUpdated, lastAttempt, addedAt) " +
-                    "VALUES ('BTC', 'bc1qtestaddress', 'Cold', 0, 0, 1)"
-            )
-        }
-        val before = SqlCipherDatabaseFiles(context).fingerprint(context.getDatabasePath(PORTFOLIO), passphrase = null)
-
-        withDatabases { _, portfolio ->
-            assertEquals(PortfolioDatabase.VERSION, portfolio.version)
-            portfolio.query("SELECT id, amount, giftToSpouse, transferTo, note FROM portfolio_tx ORDER BY id").use { c ->
-                assertTrue(c.moveToFirst())
-                assertEquals(listOf("1", "0.00000001", "0", null, "Satoshi"), row(c, 5))
-                assertTrue(c.moveToNext())
-                assertEquals(listOf("2", "0.5", "1", null, null), row(c, 5))
-                assertTrue(c.moveToNext())
-                assertEquals(listOf("5", "2", "0", null, "Ø 3 000 · ✓"), row(c, 5))
-                assertFalse(c.moveToNext())
-            }
-            assertEquals(1, count(portfolio, "portfolio_alarms"))
-            assertEquals(1, count(portfolio, "watched_addresses WHERE label = 'Cold'"))
-            // AUTOINCREMENT-Zähler übernommen: neue Id nach der höchsten alten
-            portfolio.execSQL("INSERT INTO portfolio_tx (coin, type, amount, time) VALUES ('SOL', 'BUY', '1', 40)")
-            portfolio.query("SELECT MAX(id) FROM portfolio_tx").use { c -> c.moveToFirst(); assertEquals(6L, c.getLong(0)) }
-        }
-        // Ausgangslage (Android-SQLite, vor dem ersten Öffnen): 3 Transaktionen, 1 Alarm, 1 Adresse
-        assertEquals(5L, before.tables.getValue("portfolio_tx").rows + before.tables.getValue("portfolio_alarms").rows +
-            before.tables.getValue("watched_addresses").rows)
-        assertEncryptedAndUnreadableWithoutKey(PORTFOLIO)
-        assertEncryptedAndUnreadableWithoutKey(MAIN)
-
-        // Zweiter Start: gleicher Schlüssel aus dem Keystore, nichts überführt, alles da
-        withDatabases { _, portfolio -> assertEquals(4, count(portfolio, "portfolio_tx")) }
-    }
-
-    /** Ein Fehler beim Prüfen der Kopie: alte Datei bleibt, App öffnet sie wie bisher, der nächste Start verschlüsselt. */
-    @Test
-    fun failedVerificationKeepsPlaintextAndRetriesNextStart() {
-        plainMainDatabase { db -> insertWatchAndAlarm(db) }
-        val failing = object : com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Files by SqlCipherDatabaseFiles(context) {
-            override fun fingerprintExportCopy(database: String, passphrase: ByteArray) = throw IOException("Test: Prüfung scheitert")
-        }
-        withMain(EncryptingOpenHelperFactory(context, keys, failing)) { main -> assertEquals(1, count(main, "watches")) }
-        assertEquals(FileKind.PLAINTEXT, SqlCipherDatabaseFiles.kindOf(context.getDatabasePath(MAIN)))
-        assertFalse(File(context.getDatabasePath(MAIN).path + SqlCipherDatabaseFiles.COPY_SUFFIX).exists())
-
-        withMain { main -> assertEquals(1, count(main, "alarms")) }
-        assertEncryptedAndUnreadableWithoutKey(MAIN)
+        DatabaseEncryptionNotice.clearInMemoryForTest(MAIN)
     }
 
     /**
@@ -169,9 +112,9 @@ class DatabaseEncryptionTest {
         withMain { main -> insertWatchAndAlarm(main) }
         val file = context.getDatabasePath(MAIN)
         val before = file.readBytes()
-        val locked = object : DatabaseEncryptionMigration.Keys by keys {
+        val locked = object : DatabaseOpenPlanner.Keys by keys {
             override fun load(database: String) =
-                DatabaseEncryptionMigration.KeyLookup.Unavailable(IllegalStateException("Test: Keystore beschäftigt"))
+                DatabaseOpenPlanner.KeyLookup.Unavailable(IllegalStateException("Test: Keystore beschäftigt"))
         }
         val background = EncryptingOpenHelperFactory(context, locked, inMemoryWhenKeyUnavailable = { true }, foreground = { false })
         val failure = runCatching { withMain(background) { } }.exceptionOrNull()
@@ -216,7 +159,7 @@ class DatabaseEncryptionTest {
     @Test
     fun setAsideDatabaseComesBackWithKeptPreviousKey() {
         withMain { main -> insertWatchAndAlarm(main) }
-        // Wie die Migration bei einem fälschlich «endgültigen» Fehler: Datei beiseite, neuer Schlüssel, Hinweis vorgemerkt
+        // Wie die Entscheidung bei einem fälschlich «endgültigen» Fehler: Datei beiseite, neuer Schlüssel, Hinweis vorgemerkt
         SqlCipherDatabaseFiles(context).setAside(MAIN)
         keys.create(MAIN)
         StorageRecoveryNotice.record(context, MAIN)
@@ -230,29 +173,63 @@ class DatabaseEncryptionTest {
         assertEquals(null, StorageRecoveryNotice.pending(context))
     }
 
-    /** Kopie für die Systemsicherung: unverschlüsselt und vollständig; nach der Wiederherstellung wieder verschlüsselt. */
+    /**
+     * Kopie für die Systemsicherung: unverschlüsselt und vollständig. Die Wiederherstellung macht sie gleich zur
+     * verschlüsselten Hauptdatenbank (neuer Schlüssel) und löscht sie; nie liegt eine unverschlüsselte Hauptdatenbank da.
+     */
     @Test
     fun systemBackupCopyRoundTrip() {
-        withMain { main -> insertWatchAndAlarm(main) }
+        val export = writeBackupCopyIntoFreshInstall()
         val backup = DatabaseSystemBackup(context, keys, MAIN, EXPORT)
-        backup.write()
-        val export = context.getDatabasePath(EXPORT)
-        assertEquals(FileKind.PLAINTEXT, SqlCipherDatabaseFiles.kindOf(export))
-        assertEquals(1L, SqlCipherDatabaseFiles(context).fingerprint(export, passphrase = null).tables.getValue("watches").rows)
-
-        // Wiederherstellung in eine frische Installation: keine Datenbank, kein Schlüssel
-        context.deleteDatabase(MAIN)
-        keyDirectory.deleteRecursively()
         backup.adoptRestored()
         assertFalse(export.exists())
-        assertEquals(FileKind.PLAINTEXT, SqlCipherDatabaseFiles.kindOf(context.getDatabasePath(MAIN)))
+        assertEncryptedAndUnreadableWithoutKey(MAIN)
 
         withMain { main ->
             assertEquals(1, count(main, "watches"))
             assertEquals(1, count(main, "alarms"))
         }
         assertEncryptedAndUnreadableWithoutKey(MAIN)
-        backup.delete()
+    }
+
+    /**
+     * Kein Schlüssel bei der Wiederherstellung: Die Kopie bleibt unter ihrem Namen, es entsteht keine Hauptdatenbank. Ohne
+     * Schlüssel auch beim Start nur im Arbeitsspeicher (Kopie bleibt); der nächste Start mit Schlüssel verschlüsselt sie,
+     * bevor Room die Datenbank öffnet, und löscht sie danach.
+     */
+    @Test
+    fun restoredCopyWithoutKeyIsEncryptedAtNextStart() {
+        val export = writeBackupCopyIntoFreshInstall()
+        val main = context.getDatabasePath(MAIN)
+        DatabaseSystemBackup(context, noKeys, MAIN, EXPORT).adoptRestored()
+        assertTrue(export.exists())
+        assertFalse(main.exists())
+
+        withMain(EncryptingOpenHelperFactory(context, noKeys, testFiles)) { db -> assertEquals(0, count(db, "watches")) }
+        assertTrue(DatabaseEncryptionNotice.isInMemory(MAIN))
+        assertTrue(export.exists())
+        assertFalse(main.exists())
+        DatabaseEncryptionNotice.clearInMemoryForTest(MAIN)
+
+        withMain(EncryptingOpenHelperFactory(context, keys, testFiles)) { db ->
+            assertEquals(1, count(db, "watches"))
+            assertEquals(1, count(db, "alarms"))
+        }
+        assertFalse(export.exists())
+        assertEncryptedAndUnreadableWithoutKey(MAIN)
+    }
+
+    /** Hauptdatenbank mit einem Paar und einem Alarm sichern, dann wie eine frische Installation: nur die Kopie bleibt. */
+    private fun writeBackupCopyIntoFreshInstall(): File {
+        withMain { main -> insertWatchAndAlarm(main) }
+        DatabaseSystemBackup(context, keys, MAIN, EXPORT).write()
+        val export = context.getDatabasePath(EXPORT)
+        assertTrue(isPlainSqlite(export))
+        assertEquals(1L, SqlCipherDatabaseFiles(context).fingerprint(export, passphrase = null).tables.getValue("watches").rows)
+        context.deleteDatabase(MAIN)
+        keyDirectory.deleteRecursively()
+        KeyStore.getInstance("AndroidKeyStore").apply { load(null) }.deleteEntry(DatabaseKeyStore.aliasFor(TEST_ALIAS, MAIN))
+        return export
     }
 
     // ── Helfer ──
@@ -270,43 +247,6 @@ class DatabaseEncryptionTest {
         }
     }
 
-    /** Wie die App (LocalDataModule): beide Datenbanken über dieselbe Fabrik, Portfolio-Callback (Systemsicherungs-Kopie). */
-    private fun withDatabases(block: (main: SupportSQLiteDatabase, portfolio: SupportSQLiteDatabase) -> Unit) {
-        val factory = factory()
-        val main = Room.databaseBuilder(context, AppDatabase::class.java, MAIN)
-            .openHelperFactory(factory)
-            .build()
-        val portfolio = Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO)
-            .openHelperFactory(factory)
-            .addCallback(PortfolioDatabase.callback(context, mirrorFile))
-            .build()
-        try {
-            val portfolioDb = portfolio.openHelper.writableDatabase
-            block(main.openHelper.writableDatabase, portfolioDb)
-        } finally {
-            portfolio.close()
-            main.close()
-        }
-    }
-
-    /** Unverschlüsselte Datei (Android-SQLite, ohne Room). */
-    private fun plainDatabase(name: String, version: Int, schema: List<String>, fill: (SupportSQLiteDatabase) -> Unit) {
-        val config = SupportSQLiteOpenHelper.Configuration.builder(context)
-            .name(name)
-            .callback(object : SupportSQLiteOpenHelper.Callback(version) {
-                override fun onCreate(db: SupportSQLiteDatabase) = schema.forEach(db::execSQL)
-                override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = Unit
-            })
-            .build()
-        val helper = FrameworkSQLiteOpenHelperFactory().create(config)
-        fill(helper.writableDatabase)
-        helper.close()
-    }
-
-    /** Unverschlüsselte Hauptdatenbank im aktuellen Schema ([MAIN_SCHEMA]). */
-    private fun plainMainDatabase(fill: (SupportSQLiteDatabase) -> Unit) =
-        plainDatabase(MAIN, version = AppDatabase.VERSION, schema = MAIN_SCHEMA, fill = fill)
-
     private fun insertWatchAndAlarm(db: SupportSQLiteDatabase) {
         db.execSQL("INSERT INTO exchanges (id, exchangeKey, updateDate) VALUES (1, 'Binance', 1)")
         db.execSQL(
@@ -321,13 +261,18 @@ class DatabaseEncryptionTest {
         )
     }
 
+    /** Beginnt [file] mit dem Kopf einer unverschlüsselten SQLite-Datei? */
+    private fun isPlainSqlite(file: File): Boolean =
+        file.length() >= 16 && String(file.readBytes().copyOf(16), Charsets.US_ASCII) == "SQLite format 3\u0000"
+
     /**
-     * Verschlüsselt (Kopf), keine Kopie und kein unverschlüsseltes WAL daneben, und das Android-SQLite liest die Datei
-     * ohne Schlüssel nicht. Eigener Fehlerbehandler: Der Standard löschte die «beschädigte» Datei.
+     * Verschlüsselt (kein SQLite-Kopf), keine Kopie und kein unverschlüsseltes WAL daneben, und das Android-SQLite liest
+     * die Datei ohne Schlüssel nicht. Eigener Fehlerbehandler: Der Standard löschte die «beschädigte» Datei.
      */
     private fun assertEncryptedAndUnreadableWithoutKey(name: String) {
         val file = context.getDatabasePath(name)
         assertEquals(name, FileKind.ENCRYPTED, SqlCipherDatabaseFiles.kindOf(file))
+        assertFalse(name, isPlainSqlite(file))
         assertFalse(name, File(file.path + SqlCipherDatabaseFiles.COPY_SUFFIX).exists())
         val walHead = File(file.path + "-wal").takeIf { it.length() > 0 }?.readBytes()?.take(16)
         assertFalse(name, walHead != null && String(walHead.toByteArray(), Charsets.US_ASCII).contains("SQLite format 3"))
@@ -340,42 +285,12 @@ class DatabaseEncryptionTest {
         assertTrue(name, file.exists())
     }
 
-    private fun row(c: android.database.Cursor, columns: Int) = List(columns) { if (c.isNull(it)) null else c.getString(it) }
-
     private fun count(db: SupportSQLiteDatabase, from: String): Int =
         db.query("SELECT COUNT(*) FROM $from").use { c -> c.moveToFirst(); c.getInt(0) }
 
     private companion object {
         const val MAIN = "encryption-test.db"
-        const val PORTFOLIO = "encryption-test-portfolio.db"
         const val EXPORT = "encryption-test-backup.db"
         const val TEST_ALIAS = "cryptochecker_db_key_test"
-
-        /** Portfolio-Datenbank, wie in `app/schemas/com.cryptochecker.app.data.portfolio.PortfolioDatabase/1.json`. */
-        val PORTFOLIO_SCHEMA = listOf(
-            "CREATE TABLE IF NOT EXISTS `portfolio_tx` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `coin` TEXT NOT NULL, " +
-                "`type` TEXT NOT NULL, `amount` TEXT NOT NULL, `priceUsdt` TEXT, `time` INTEGER NOT NULL, `note` TEXT, `fee` TEXT, " +
-                "`feeUnit` TEXT, `exchange` TEXT, `transferFrom` TEXT, `transferTo` TEXT, `feeCoin` TEXT, `feeCoinAmount` TEXT, " +
-                "`feeCoinPriceUsdt` TEXT, `importKey` TEXT, `acquiredTime` INTEGER, `toCoin` TEXT, `toAmount` TEXT, " +
-                "`swapValueUsdt` TEXT, `importBatch` TEXT, `giftToSpouse` INTEGER NOT NULL DEFAULT 0, `linkedImportKey` TEXT, " +
-                "`importRestoreState` TEXT, `feeRow` INTEGER NOT NULL DEFAULT 0, `interest` INTEGER NOT NULL DEFAULT 0)",
-            "CREATE INDEX IF NOT EXISTS `index_portfolio_tx_importKey` ON `portfolio_tx` (`importKey`)",
-            "CREATE TABLE IF NOT EXISTS `portfolio_alarms` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `kind` TEXT NOT NULL, " +
-                "`threshold` REAL NOT NULL, `currency` TEXT, `enabled` INTEGER NOT NULL, `repeating` INTEGER NOT NULL, " +
-                "`referenceAt` INTEGER NOT NULL, `lastTriggeredAt` INTEGER NOT NULL, `lastTriggeredValue` REAL)",
-            WatchedAddressEntity.CREATE_SQL,
-            WatchedAddressEntity.INDEX_SQL,
-        )
-
-        /** Hauptdatenbank, wie in `app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json`. */
-        val MAIN_SCHEMA = listOf(
-            "CREATE TABLE IF NOT EXISTS `exchanges` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exchangeKey` TEXT NOT NULL COLLATE NOCASE, `updateDate` INTEGER NOT NULL)",
-            "CREATE INDEX IF NOT EXISTS `index_exchanges_exchangeKey` ON `exchanges` (`exchangeKey`)",
-            "CREATE TABLE IF NOT EXISTS `exchange_pairs` (`exchangeId` INTEGER NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `exchangePairId` TEXT, `tradFi` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`exchangeId`, `baseAsset`, `quoteAsset`, `contractType`), FOREIGN KEY(`exchangeId`) REFERENCES `exchanges`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
-            "CREATE TABLE IF NOT EXISTS `watches` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exchangeKey` TEXT NOT NULL, `exchangeName` TEXT NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `pairId` TEXT, `sortOrder` INTEGER NOT NULL, `notificationEnabled` INTEGER NOT NULL, `ttsEnabled` INTEGER NOT NULL, `lastPrice` REAL, `previousPrice` REAL, `lastUpdate` INTEGER NOT NULL, `notifiedPrice` REAL, `notifiedAt` INTEGER NOT NULL, `lastError` TEXT, `favorite` INTEGER NOT NULL DEFAULT 0, `groupName` TEXT, `note` TEXT, `change24h` REAL, `disabled` INTEGER NOT NULL DEFAULT 0, `priceChangedAt` INTEGER NOT NULL DEFAULT 0, `exchangeTime` INTEGER)",
-            "CREATE UNIQUE INDEX IF NOT EXISTS `index_watches_exchangeKey_baseAsset_quoteAsset_contractType_pairId` ON `watches` (`exchangeKey`, `baseAsset`, `quoteAsset`, `contractType`, `pairId`)",
-            "CREATE TABLE IF NOT EXISTS `alarms` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `watchId` INTEGER NOT NULL, `condition` TEXT NOT NULL, `threshold` REAL NOT NULL, `enabled` INTEGER NOT NULL, `repeating` INTEGER NOT NULL, `sound` INTEGER NOT NULL, `vibrate` INTEGER NOT NULL, `speak` INTEGER NOT NULL, `referencePrice` REAL, `lastTriggeredAt` INTEGER NOT NULL, `lastTriggeredPrice` REAL, `windowHours` INTEGER NOT NULL DEFAULT 1, `referenceAt` INTEGER NOT NULL DEFAULT 0, `currency` TEXT, FOREIGN KEY(`watchId`) REFERENCES `watches`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
-            "CREATE INDEX IF NOT EXISTS `index_alarms_watchId` ON `alarms` (`watchId`)",
-        )
     }
 }

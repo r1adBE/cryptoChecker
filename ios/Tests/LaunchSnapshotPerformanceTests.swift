@@ -76,7 +76,8 @@ final class LaunchSnapshotPerformanceTests: XCTestCase {
 
         /// Wie `LaunchRead.read` auf den eigenen Dateien: verschlüsseln (schon versiegelt: nur prüfen), dann lesen.
         func launchRead() -> SharedStorage.SnapshotRead {
-            _ = ProtectedStorage.prepareAtLaunch(files: [(watchlist, watchlist), (portfolioAlarms, watchlist)],
+            _ = ProtectedStorage.prepareAtLaunch(files: [(watchlist, watchlist, true),
+                                                         (portfolioAlarms, watchlist, true)],
                                                  keys: keys, defaults: defaults)
             return SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys)
         }

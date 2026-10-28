@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
-    <string name="watchlist_storage_copy_in_memory">Salaus ei ole vielä käytössä – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Hälytykset taustalla on keskeytetty. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla.</string>
-</resources>

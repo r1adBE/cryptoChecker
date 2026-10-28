@@ -5,7 +5,7 @@ import XCTest
 
 /// Verschlüsselte Dateien: Format (`ProtectedContainer`), Lesen und Schreiben (`ProtectedFile`) und die
 /// Überführung beim Start (`ProtectedStorage.prepareAtLaunch`) mit gefälschtem Schlüsselbund — jeder Fehler lässt die
-/// Klartext-Datei stehen. Gegenstück zu `DatabaseEncryptionMigrationTest.kt` (Android, Datenbanken). Läuft in einem
+/// Klartext-Datei stehen. Gegenstück zu `DatabaseOpenPlannerTest.kt` (Android, Datenbanken). Läuft in einem
 /// temporären Ordner, nie auf der App Group oder dem echten Schlüsselbund.
 final class ProtectedFileTests: XCTestCase {
 
@@ -46,6 +46,9 @@ final class ProtectedFileTests: XCTestCase {
     private var dir: URL!
     private var watchlist: URL { dir.appendingPathComponent("watchlist.json") }
     private var portfolio: URL { dir.appendingPathComponent("portfolio.json") }
+    /// Kopien unlesbarer Dateien: die einzigen, die ohne Schlüssel unverschlüsselt entstehen (`ProtectedFile.writeCopy`).
+    private var watchlistCopy: URL { dir.appendingPathComponent("watchlist.unreadable.json") }
+    private var portfolioCopy: URL { dir.appendingPathComponent("portfolio.unreadable.json") }
     private let fixedKey = SymmetricKey(data: Data(repeating: 7, count: 32))
     private let json = Data(#"{"watches":[{"id":1,"baseAsset":"BTC","note":"Ø 77 500 ✓"}]}"#.utf8)
 
@@ -66,7 +69,9 @@ final class ProtectedFileTests: XCTestCase {
         return fake
     }
 
-    private func files(_ urls: URL...) -> [(url: URL, coordination: URL)] { urls.map { ($0, $0) } }
+    private func files(_ urls: URL..., sealedOnly: Bool = false) -> [ProtectedStorage.Entry] {
+        urls.map { ($0, $0, sealedOnly) }
+    }
 
     private func leftovers() throws -> [String] {
         try FileManager.default.contentsOfDirectory(atPath: dir.path).filter { $0.hasSuffix(".tmp") }
@@ -128,11 +133,17 @@ final class ProtectedFileTests: XCTestCase {
         XCTAssertEqual(try leftovers(), [])
     }
 
-    func testWithoutKeyWritesAndReadsPlainAsBefore() throws {
+    /// Ohne `requireSealed` und ohne Schlüssel (nur Kopien, `writeCopy`) unverschlüsselt; Lesen nimmt Klartext nie an.
+    func testWithoutKeyWritesPlainButReadTreatsPlainAsDamaged() throws {
         let k = keys(keychain(with: nil))
-        try ProtectedFile.write(json, to: watchlist, keys: k)
-        XCTAssertEqual(try Data(contentsOf: watchlist), json)
-        XCTAssertEqual(try ProtectedFile.read(watchlist, keys: k), json)
+        try ProtectedFile.write(json, to: watchlistCopy, keys: k)
+        XCTAssertEqual(try Data(contentsOf: watchlistCopy), json)
+        for reader in [k, keys(keychain(with: fixedKey))] {
+            XCTAssertThrowsError(try ProtectedFile.read(watchlistCopy, keys: reader)) { error in
+                guard case ProtectedFile.ReadError.damaged(let raw) = error else { return XCTFail("erwartet .damaged") }
+                XCTAssertEqual(raw, json)
+            }
+        }
     }
 
     func testSealedFileWithoutKeyIsLockedNotDamaged() throws {
@@ -180,11 +191,12 @@ final class ProtectedFileTests: XCTestCase {
         let withKey = keys(keychain(with: fixedKey))
         let noKey = keys(keychain(with: nil))
         try json.write(to: watchlist)
-        XCTAssertTrue(ProtectedFile.holds(json, at: watchlist, keys: noKey))
-        // Klartext mit vorhandenem Schlüssel: neu schreiben (verschlüsselt)
+        // Klartext: nie «schon da» (neu schreiben, versiegelt bzw. ohne Schlüssel gar nicht)
+        XCTAssertFalse(ProtectedFile.holds(json, at: watchlist, keys: noKey))
         XCTAssertFalse(ProtectedFile.holds(json, at: watchlist, keys: withKey))
         try ProtectedFile.write(json, to: watchlist, keys: withKey)
         XCTAssertTrue(ProtectedFile.holds(json, at: watchlist, keys: withKey))
+        XCTAssertFalse(ProtectedFile.holds(json, at: watchlist, keys: noKey))
         XCTAssertFalse(ProtectedFile.holds(Data("{}".utf8), at: watchlist, keys: withKey))
     }
 
@@ -211,88 +223,105 @@ final class ProtectedFileTests: XCTestCase {
     // MARK: Überführung beim Start
 
     func testFirstLaunchCreatesKeyAndEncryptsKeepingBackupFlag() throws {
-        try json.write(to: watchlist)
-        try Data(#"{"transactions":[]}"#.utf8).write(to: portfolio)
-        BackupExclusion.set(excluded: true, for: portfolio)
+        try json.write(to: watchlistCopy)
+        try Data(#"{"transactions":[]}"#.utf8).write(to: portfolioCopy)
+        BackupExclusion.set(excluded: true, for: portfolioCopy)
         let fake = keychain(with: nil)
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist, portfolio), keys: keys(fake), defaults: isolatedDefaults())
-        XCTAssertEqual(outcome.encrypted, ["watchlist.json", "portfolio.json"])
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy, portfolioCopy), keys: keys(fake), defaults: isolatedDefaults())
+        XCTAssertEqual(outcome.encrypted, ["watchlist.unreadable.json", "portfolio.unreadable.json"])
         XCTAssertEqual(outcome.setAside, [])
         XCTAssertEqual(fake.adds, 1)
         let k = keys(fake) // frischer Prozess: liest den gespeicherten Schlüssel
-        XCTAssertTrue(ProtectedContainer.isSealed(try Data(contentsOf: watchlist)))
-        XCTAssertEqual(try ProtectedFile.read(watchlist, keys: k), json)
-        XCTAssertEqual(try ProtectedFile.read(portfolio, keys: k), Data(#"{"transactions":[]}"#.utf8))
-        XCTAssertEqual(BackupExclusion.isExcluded(portfolio), true)
-        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
+        XCTAssertTrue(ProtectedContainer.isSealed(try Data(contentsOf: watchlistCopy)))
+        XCTAssertEqual(try ProtectedFile.read(watchlistCopy, keys: k), json)
+        XCTAssertEqual(try ProtectedFile.read(portfolioCopy, keys: k), Data(#"{"transactions":[]}"#.utf8))
+        XCTAssertEqual(BackupExclusion.isExcluded(portfolioCopy), true)
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlistCopy), false)
         XCTAssertEqual(try leftovers(), [])
 
         // Zweiter Start: nichts mehr zu tun
-        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: files(watchlist, portfolio), keys: k, defaults: isolatedDefaults()), .init())
+        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy, portfolioCopy), keys: k, defaults: isolatedDefaults()), .init())
     }
 
     func testEncryptionPendingOnlyWhileSomethingStaysPlain() throws {
-        try json.write(to: watchlist)
+        try json.write(to: watchlistCopy)
         let fake = keychain(with: nil)
-        let first = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake), defaults: isolatedDefaults())
-        XCTAssertEqual(first.encrypted, ["watchlist.json"])
+        let first = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(fake), defaults: isolatedDefaults())
+        XCTAssertEqual(first.encrypted, ["watchlist.unreadable.json"])
         XCTAssertFalse(first.encryptionPending)
         // Alles verschlüsselt, Schlüsselbund später gesperrt: verschlüsselte Dateien sind kein «noch nicht aktiv»
         fake.readStatus = errSecInteractionNotAllowed
-        XCTAssertFalse(ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake), defaults: isolatedDefaults()).encryptionPending)
+        XCTAssertFalse(ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(fake), defaults: isolatedDefaults()).encryptionPending)
     }
 
     func testMissingFilesAreSkipped() {
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: nil)), defaults: isolatedDefaults())
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(keychain(with: nil)), defaults: isolatedDefaults())
         XCTAssertEqual(outcome, .init())
-        XCTAssertFalse(FileManager.default.fileExists(atPath: watchlist.path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: watchlistCopy.path))
     }
 
     func testUnreadableKeychainTouchesNothing() throws {
-        try json.write(to: watchlist)
+        try json.write(to: watchlistCopy)
         let fake = FakeKeychain()
         fake.readStatus = errSecInteractionNotAllowed
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake), defaults: isolatedDefaults())
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(fake), defaults: isolatedDefaults())
         // Unverändert, aber vermerkt: Einstellungen › Sicherung nennt «Verschlüsselung noch nicht aktiv»
-        XCTAssertEqual(outcome, ProtectedStorage.LaunchOutcome(keptPlain: ["watchlist.json"]))
+        XCTAssertEqual(outcome, ProtectedStorage.LaunchOutcome(keptPlain: ["watchlist.unreadable.json"]))
         XCTAssertTrue(outcome.encryptionPending)
-        XCTAssertEqual(try Data(contentsOf: watchlist), json)
+        XCTAssertEqual(try Data(contentsOf: watchlistCopy), json)
         XCTAssertEqual(fake.adds, 0)
     }
 
     func testNoKeyPossibleKeepsPlain() throws {
-        try json.write(to: watchlist)
+        try json.write(to: watchlistCopy)
         let fake = keychain(with: nil)
         fake.addStatus = errSecMissingEntitlement
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake), defaults: isolatedDefaults())
-        XCTAssertEqual(outcome, ProtectedStorage.LaunchOutcome(keptPlain: ["watchlist.json"]))
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(fake), defaults: isolatedDefaults())
+        XCTAssertEqual(outcome, ProtectedStorage.LaunchOutcome(keptPlain: ["watchlist.unreadable.json"]))
         XCTAssertTrue(outcome.encryptionPending)
-        XCTAssertEqual(try Data(contentsOf: watchlist), json)
+        XCTAssertEqual(try Data(contentsOf: watchlistCopy), json)
     }
 
     func testLostKeySetsSealedFilesAsideThenStartsWithNewKey() throws {
-        // Verschlüsselt mit einem Schlüssel, den es nicht mehr gibt; daneben eine noch unverschlüsselte Datei
+        // Verschlüsselt mit einem Schlüssel, den es nicht mehr gibt; daneben eine noch unverschlüsselte Kopie
         let sealed = try ProtectedContainer.seal(json, key: fixedKey)
         try sealed.write(to: watchlist)
-        try Data(#"{"transactions":[]}"#.utf8).write(to: portfolio)
+        try Data(#"{"transactions":[]}"#.utf8).write(to: portfolioCopy)
         let fake = keychain(with: nil)
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist, portfolio), keys: keys(fake), defaults: isolatedDefaults())
+        let entries = files(watchlist, sealedOnly: true) + files(portfolioCopy)
+        let outcome = ProtectedStorage.prepareAtLaunch(files: entries, keys: keys(fake), defaults: isolatedDefaults())
         XCTAssertEqual(outcome.setAside, ["watchlist.json.locked"])
-        XCTAssertEqual(outcome.encrypted, ["portfolio.json"])
+        XCTAssertEqual(outcome.encrypted, ["portfolio.unreadable.json"])
         XCTAssertEqual(try Data(contentsOf: dir.appendingPathComponent("watchlist.json.locked")), sealed)
         XCTAssertFalse(FileManager.default.fileExists(atPath: watchlist.path))
         XCTAssertEqual(fake.adds, 1)
-        XCTAssertEqual(try ProtectedFile.read(portfolio, keys: keys(fake)), Data(#"{"transactions":[]}"#.utf8))
+        XCTAssertEqual(try ProtectedFile.read(portfolioCopy, keys: keys(fake)), Data(#"{"transactions":[]}"#.utf8))
+    }
+
+    /// Unverschlüsselte Datei, die die App nur versiegelt schreibt (`sealedOnly`): nicht überführt, nicht als «noch nicht
+    /// aktiv» vermerkt, unverändert liegen gelassen (Lesen behandelt sie wie eine kaputte, `ProtectedFile.read`).
+    func testPlainSealedOnlyFileIsNotEncrypted() throws {
+        try json.write(to: watchlist)
+        let fake = keychain(with: nil)
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist, sealedOnly: true), keys: keys(fake),
+                                                       defaults: isolatedDefaults())
+        XCTAssertEqual(outcome, .init())
+        XCTAssertEqual(fake.adds, 1)
+        XCTAssertEqual(try Data(contentsOf: watchlist), json)
+        fake.readStatus = errSecInteractionNotAllowed
+        XCTAssertFalse(ProtectedStorage.prepareAtLaunch(files: files(watchlist, sealedOnly: true), keys: keys(fake),
+                                                        defaults: isolatedDefaults()).encryptionPending)
+        XCTAssertEqual(try Data(contentsOf: watchlist), json)
     }
 
     func testKeyAddedConcurrentlyByOtherProcessWins() throws {
-        try json.write(to: watchlist)
+        try json.write(to: watchlistCopy)
         let fake = keychain(with: nil)
         fake.racingKey = fixedKey.withUnsafeBytes { Data($0) }
-        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(fake), defaults: isolatedDefaults())
-        XCTAssertEqual(outcome.encrypted, ["watchlist.json"])
+        let outcome = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(fake), defaults: isolatedDefaults())
+        XCTAssertEqual(outcome.encrypted, ["watchlist.unreadable.json"])
         // Mit dem Schlüssel des anderen Prozesses verschlüsselt
-        XCTAssertEqual(try ProtectedContainer.open(Data(contentsOf: watchlist), key: fixedKey), json)
+        XCTAssertEqual(try ProtectedContainer.open(Data(contentsOf: watchlistCopy), key: fixedKey), json)
     }
 
     func testUnexpectedKeychainContentIsUnavailableNotReplaced() throws {
@@ -313,6 +342,10 @@ final class ProtectedFileTests: XCTestCase {
         // Merkliste und Portfolio-Alarme stimmen sich wie `SharedStorage` über watchlist.json ab
         let alarms = ProtectedStorage.files.first { $0.url.lastPathComponent == "portfolio_alarms.json" }
         XCTAssertEqual(alarms?.coordination.lastPathComponent, "watchlist.json")
+        // Unverschlüsselt entstehen nur die Kopien unlesbarer Dateien; alles andere schreibt die App nur versiegelt
+        let plainCapable = Set(ProtectedStorage.files.filter { !$0.sealedOnly }.map(\.url.lastPathComponent))
+        XCTAssertEqual(plainCapable, ["watchlist.unreadable.json", "portfolio_alarms.unreadable.json",
+                                      "portfolio.unreadable.json"])
     }
 }
 
@@ -328,49 +361,49 @@ extension ProtectedFileTests {
     }
 
     func testKeptPlainIsExcludedAndGetsItsFlagBackWhenSealedLater() throws {
-        try json.write(to: watchlist)
-        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
+        try json.write(to: watchlistCopy)
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlistCopy), false)
         let defaults = isolatedDefaults()
         let locked = FakeKeychain()
         locked.readStatus = errSecInteractionNotAllowed
         // Erster Start: Schlüsselbund gesperrt → Klartext bleibt, aber nicht im Backup
-        let first = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(locked), defaults: defaults)
-        XCTAssertEqual(first.keptPlain, ["watchlist.json"])
-        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), true)
+        let first = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(locked), defaults: defaults)
+        XCTAssertEqual(first.keptPlain, ["watchlist.unreadable.json"])
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlistCopy), true)
         // Zweiter Start, noch gesperrt: das gemerkte Merkmal von vorher bleibt «nicht ausgenommen»
-        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(locked), defaults: defaults)
-        XCTAssertEqual(PlainBackupExclusion.remembered(watchlist, defaults: defaults), false)
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(locked), defaults: defaults)
+        XCTAssertEqual(PlainBackupExclusion.remembered(watchlistCopy, defaults: defaults), false)
         // Dritter Start mit Schlüssel: versiegelt, wieder im Backup wie vorher, nichts mehr gemerkt
-        let third = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: fixedKey)), defaults: defaults)
-        XCTAssertEqual(third.encrypted, ["watchlist.json"])
-        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
-        XCTAssertNil(PlainBackupExclusion.remembered(watchlist, defaults: defaults))
+        let third = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(keychain(with: fixedKey)), defaults: defaults)
+        XCTAssertEqual(third.encrypted, ["watchlist.unreadable.json"])
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlistCopy), false)
+        XCTAssertNil(PlainBackupExclusion.remembered(watchlistCopy, defaults: defaults))
     }
 
     func testExcludedBeforeStaysExcludedAfterSealing() throws {
-        // `watchlist.json` mit Portfolio-Alarmen bei ausgeschalteter Systemsicherung: war schon ausgenommen
-        try json.write(to: watchlist)
-        BackupExclusion.set(excluded: true, for: watchlist)
+        // Kopie, die schon ausgenommen war (wie die der Portfolio-Alarme bei ausgeschalteter Systemsicherung)
+        try json.write(to: watchlistCopy)
+        BackupExclusion.set(excluded: true, for: watchlistCopy)
         let defaults = isolatedDefaults()
         let noKey = keychain(with: nil)
         noKey.addStatus = errSecMissingEntitlement
-        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(noKey), defaults: defaults)
-        XCTAssertEqual(PlainBackupExclusion.remembered(watchlist, defaults: defaults), true)
-        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: fixedKey)), defaults: defaults)
-        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), true)
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(noKey), defaults: defaults)
+        XCTAssertEqual(PlainBackupExclusion.remembered(watchlistCopy, defaults: defaults), true)
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(keychain(with: fixedKey)), defaults: defaults)
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlistCopy), true)
     }
 
     func testSealedByNormalWriteForgetsTheRememberedFlag() throws {
-        try json.write(to: watchlist)
+        try json.write(to: watchlistCopy)
         let defaults = isolatedDefaults()
         let noKey = keychain(with: nil)
         noKey.addStatus = errSecMissingEntitlement
-        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(noKey), defaults: defaults)
-        XCTAssertNotNil(PlainBackupExclusion.remembered(watchlist, defaults: defaults))
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(noKey), defaults: defaults)
+        XCTAssertNotNil(PlainBackupExclusion.remembered(watchlistCopy, defaults: defaults))
         // Während des Laufs kommt der Schlüssel: normales Schreiben legt eine neue (versiegelte) Datei ohne Merkmal an
-        try ProtectedFile.write(json, to: watchlist, keys: keys(keychain(with: fixedKey)), requireSealed: true)
-        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
-        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: fixedKey)), defaults: defaults)
-        XCTAssertNil(PlainBackupExclusion.remembered(watchlist, defaults: defaults))
+        try ProtectedFile.write(json, to: watchlistCopy, keys: keys(keychain(with: fixedKey)), requireSealed: true)
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlistCopy), false)
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlistCopy), keys: keys(keychain(with: fixedKey)), defaults: defaults)
+        XCTAssertNil(PlainBackupExclusion.remembered(watchlistCopy, defaults: defaults))
     }
 }

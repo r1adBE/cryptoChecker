@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
-    <string name="watchlist_storage_copy_in_memory">التشفير غير مفعّل بعد – لا يتم حفظ قائمة المتابعة، وتضيع التغييرات عند إغلاق التطبيق. التنبيهات متوقفة مؤقتًا في الخلفية. سيحاول التطبيق مجددًا عند التشغيل التالي.</string>
-</resources>

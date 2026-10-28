@@ -227,7 +227,7 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
             guard case ProtectedFile.ReadError.locked = error else { return XCTFail("erwartet .locked, nicht \(error)") }
         }
         XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
-        // Ohne die Vorgabe wie bisher (Merkliste): Klartext
+        // Ohne die Vorgabe (nur Kopien unlesbarer Dateien, `writeCopy`): Klartext
         try ProtectedFile.write(data, to: url, keys: keychain(nil))
         XCTAssertEqual(try Data(contentsOf: url), data)
         // Mit Schlüssel versiegelt
@@ -268,7 +268,7 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
         try ProtectedContainer.seal(old, key: key).write(to: url.appendingPathExtension("locked"))
         let fresh = Data(#"{"transactions":[]}"#.utf8)
         try ProtectedContainer.seal(fresh, key: key).write(to: url)
-        let outcome = ProtectedStorage.prepareAtLaunch(files: [(url, url)], keys: keychain(key))
+        let outcome = ProtectedStorage.prepareAtLaunch(files: [(url, url, true)], keys: keychain(key))
         XCTAssertEqual(outcome.restored, ["portfolio.json"])
         XCTAssertEqual(try ProtectedFile.read(url, keys: keychain(key)), old)
         // Die inzwischen neu begonnene Datei bleibt daneben
@@ -276,7 +276,7 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: url.appendingPathExtension("locked").path))
         // Mit fremdem Schlüssel bleibt eine beiseitegelegte Datei liegen
         try ProtectedContainer.seal(old, key: SymmetricKey(size: .bits256)).write(to: url.appendingPathExtension("locked"))
-        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: [(url, url)], keys: keychain(key)).restored, [])
+        XCTAssertEqual(ProtectedStorage.prepareAtLaunch(files: [(url, url, true)], keys: keychain(key)).restored, [])
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.appendingPathExtension("locked").path))
     }
 }

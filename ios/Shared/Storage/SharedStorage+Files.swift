@@ -35,7 +35,7 @@ extension SharedStorage {
         } else {
             return .missing
         }
-        // Portfolio-Alarme: die eigene Datei geht vor (das Feld in `watchlist.json` stammt von vor der Umstellung)
+        // Portfolio-Alarme aus ihrer eigenen Datei
         if fm.fileExists(atPath: portfolioAlarms.path) {
             let alarmsData: Data?
             do {
@@ -52,9 +52,9 @@ extension SharedStorage {
                 if let file = try? decoder.decode(PortfolioAlarmsFile.self, from: data) {
                     if counter.count > 0 { preserveUnreadable(data, of: portfolioAlarms) }
                     snap.portfolioAlarms = file.alarms
-                    snap.nextPortfolioAlarmId = max(file.nextId, snap.nextPortfolioAlarmId ?? 1)
+                    snap.nextPortfolioAlarmId = file.nextId
                 } else {
-                    // Kaputt: gesichert; ohne Feld in `watchlist.json` bleibt nil → Datei wird nicht überschrieben
+                    // Kaputt: gesichert; bleibt nil → Datei wird nicht überschrieben
                     preserveUnreadable(data, of: portfolioAlarms)
                 }
             } else {
@@ -66,15 +66,10 @@ extension SharedStorage {
         return .ok(snap)
     }
 
-    /// Schreibt zuerst die Portfolio-Alarme (falls bekannt), dann `watchlist.json` ohne sie. Erst wenn die
-    /// eigene Datei sicher geschrieben ist, fällt das Feld aus `watchlist.json` (Umstellung ohne Verlust,
-    /// beliebig oft wiederholbar); bis dahin ist `watchlist.json` ohne «Portfolio in Systemsicherung»
-    /// vom Geräte-Backup ausgenommen.
-    /// `watchlist.json` (Paare mit Notizen und Mengen, Alarme) wie die Portfolio-Alarme nur versiegelt (`requireSealed`):
-    /// ohne Schlüssel kein Klartext, auch nicht für eine neue oder noch unverschlüsselte Datei — die Datei behält ihren
-    /// letzten Stand, die Änderung bleibt im Speicher (`AppData`) und geht mit dem nächsten Speichern hinaus
-    /// (`watchlistPending`). Eine unverschlüsselte Datei bleibt lesbar und wird beim nächsten Schreiben mit Schlüssel
-    /// versiegelt.
+    /// Schreibt zuerst die Portfolio-Alarme (falls bekannt) in ihre eigene Datei, dann `watchlist.json` (ohne sie,
+    /// siehe `Snapshot.CodingKeys`). Beide nur versiegelt (`requireSealed`): ohne Schlüssel kein Klartext, auch nicht
+    /// für eine neue Datei — die Datei behält ihren letzten Stand, die Änderung bleibt im Speicher (`AppData`) und geht
+    /// mit dem nächsten Speichern hinaus (`watchlistPending`, `portfolioAlarmsPending`).
     /// - Parameter durability: nur für `watchlist.json`: `.barrier` bei reinen Kurs-Speicherungen
     ///   (Live-Takt); die Portfolio-Alarme immer voll (`ProtectedFile.Durability`).
     /// - Returns: true, wenn `watchlist.json` geschrieben wurde.
@@ -82,32 +77,14 @@ extension SharedStorage {
     static func writeFiles(_ snapshot: Snapshot, watchlist: URL, portfolioAlarms: URL,
                            includePortfolioInBackup: Bool, keys: StorageKey = .shared,
                            durability: ProtectedFile.Durability = .full) -> Bool {
-        var main = snapshot
         if let alarms = snapshot.portfolioAlarms {
             let next = nextId(stored: snapshot.nextPortfolioAlarmId ?? 1, used: alarms.map(\.id))
             let file = PortfolioAlarmsFile(alarms: alarms, nextId: next)
-            switch writePortfolioAlarms(file, to: portfolioAlarms, includeInBackup: includePortfolioInBackup, keys: keys) {
-            case .written:
-                main.portfolioAlarms = nil
-                main.nextPortfolioAlarmId = nil
-            case .needsKey:
-                // Ohne Schlüssel nie im Klartext — auch nicht in `watchlist.json`: Die eigene Datei behält ihren letzten
-                // versiegelten Stand, die Änderung bleibt im Speicher (`AppData`) und geht mit dem nächsten Speichern
-                // hinaus (`portfolioAlarmsPending`). Ausnahme: `watchlist.json` liegt noch im alten Format unverschlüsselt
-                // da und trägt die Portfolio-Alarme schon selbst — dann bleiben sie dort (nichts Neues im Klartext,
-                // aber nichts verloren, falls die App vor dem nächsten Speichern endet; ohne Schlüssel wird ohnehin auch
-                // `watchlist.json` nicht geschrieben)
-                if FileManager.default.fileExists(atPath: portfolioAlarms.path)
-                    || !plainWatchlistHoldsPortfolioAlarms(watchlist) {
-                    main.portfolioAlarms = nil
-                    main.nextPortfolioAlarmId = nil
-                }
-                portfolioAlarmsPending = true
-            case .failed:
-                break
-            }
+            let written = writePortfolioAlarms(file, to: portfolioAlarms, includeInBackup: includePortfolioInBackup,
+                                               keys: keys)
+            if written == .needsKey { portfolioAlarmsPending = true }
         }
-        guard let data = try? JSONEncoder().encode(main) else { return false }
+        guard let data = try? JSONEncoder().encode(snapshot) else { return false }
         do {
             try ProtectedFile.write(data, to: watchlist, keys: keys, requireSealed: true, durability: durability)
         } catch ProtectedFile.ReadError.locked {
@@ -119,24 +96,7 @@ extension SharedStorage {
             return false
         }
         watchlistPending = false
-        // Schlug das Schreiben von `portfolio_alarms.json` fehl, bleiben die Portfolio-Schwellen in
-        // `watchlist.json` (Entfernen könnte sie verlieren, falls die App vor dem nächsten Speichern
-        // endet; das nächste Speichern versucht die eigene Datei erneut). Solange sie dort stehen und
-        // «Portfolio in Systemsicherung» aus ist, kommt `watchlist.json` nicht ins Geräte-Backup.
-        // Sonst nichts zu tun: das atomare Schreiben hat eine neue Datei ohne Merkmal angelegt
-        // (= wieder im Backup), sobald die Schwellen draussen sind.
-        if main.portfolioAlarms != nil && !includePortfolioInBackup {
-            BackupExclusion.set(excluded: true, for: watchlist)
-        }
         return true
-    }
-
-    /// `watchlist.json` ist unverschlüsselt und enthält bereits Portfolio-Alarme (Format vor `portfolio_alarms.json`)?
-    static func plainWatchlistHoldsPortfolioAlarms(_ url: URL) -> Bool {
-        guard let raw = try? Data(contentsOf: url), !ProtectedContainer.isSealed(raw),
-              let object = try? JSONSerialization.jsonObject(with: raw) as? [String: Any],
-              let list = object["portfolioAlarms"] as? [Any] else { return false }
-        return !list.isEmpty
     }
 
     /// Ergebnis von `writePortfolioAlarms`.

@@ -6,8 +6,8 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import com.cryptochecker.app.data.local.DatabaseKeyStore
 import com.cryptochecker.app.data.local.EncryptingOpenHelperFactory
 import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
@@ -27,10 +27,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Review F-07: echter Paralleltest für [EncryptingOpenHelperFactory.prepareLock] — zwei Fabriken (wie
- * App und Systemsicherung) öffnen dieselbe unverschlüsselte Datei gleichzeitig aus zwei Threads. Erwartet: genau eine
- * Überführung und ein Schlüssel, Daten vollständig, keine Ausnahme, nichts beiseitegelegt, keine Kopie übrig. Hilfen und
- * Aufräumen wie `DatabaseEncryptionTest` (eigener Schlüsselname und Ordner, damit sich die Tests nicht stören).
+ * Echter Paralleltest für [EncryptingOpenHelperFactory.prepareLock] — zwei Fabriken (wie App und Systemsicherung)
+ * öffnen dieselbe Datenbank gleichzeitig aus zwei Threads, während eine wiederhergestellte, unverschlüsselte Kopie der
+ * Systemsicherung bereitliegt. Erwartet: genau ein Verschlüsseln der Kopie und ein Schlüssel, Daten vollständig, keine
+ * Ausnahme, nichts beiseitegelegt, keine Kopie übrig. Hilfen und Aufräumen wie `DatabaseEncryptionTest` (eigener
+ * Schlüsselname und Ordner, damit sich die Tests nicht stören).
  */
 @RunWith(AndroidJUnit4::class)
 class DatabaseEncryptionParallelTest {
@@ -38,17 +39,17 @@ class DatabaseEncryptionParallelTest {
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
     private val keyDirectory: File get() = File(context.noBackupFilesDir, "db_keys_parallel_test")
 
-    /** Zählt Überführungen (Export), Beiseitelegen und neue Schlüssel über beide Fabriken. */
+    /** Zählt das Verschlüsseln der Kopie, Beiseitelegen und neue Schlüssel über beide Fabriken. */
     private val exports = AtomicInteger()
     private val asides = AtomicInteger()
     private val createdKeys = AtomicInteger()
 
-    private val plainFiles = SqlCipherDatabaseFiles(context)
+    private val plainFiles = SqlCipherDatabaseFiles(context, restoredCopies = mapOf(DB to COPY))
 
-    private val files = object : DatabaseEncryptionMigration.Files by plainFiles {
-        override fun exportEncrypted(database: String, passphrase: ByteArray) {
+    private val files = object : DatabaseOpenPlanner.Files by plainFiles {
+        override fun encryptRestoredCopy(database: String, passphrase: ByteArray) {
             exports.incrementAndGet()
-            plainFiles.exportEncrypted(database, passphrase)
+            plainFiles.encryptRestoredCopy(database, passphrase)
         }
 
         override fun setAside(database: String) {
@@ -58,9 +59,9 @@ class DatabaseEncryptionParallelTest {
     }
 
     /** Je Runde ein frischer Schlüsselspeicher (eigene Menge «in diesem Lauf vermerkt» = neuer Prozess), von beiden Fabriken geteilt. */
-    private fun keys(): DatabaseEncryptionMigration.Keys {
+    private fun keys(): DatabaseOpenPlanner.Keys {
         val keyStore = DatabaseKeyStore(context, alias = TEST_ALIAS, directory = keyDirectory, runSeen = mutableSetOf())
-        return object : DatabaseEncryptionMigration.Keys by keyStore {
+        return object : DatabaseOpenPlanner.Keys by keyStore {
             override fun create(database: String): ByteArray {
                 createdKeys.incrementAndGet()
                 return keyStore.create(database)
@@ -72,6 +73,7 @@ class DatabaseEncryptionParallelTest {
     @After
     fun clean() {
         context.deleteDatabase(DB)
+        context.deleteDatabase(COPY)
         val path = context.getDatabasePath(DB).path
         context.getDatabasePath(DB).parentFile?.listFiles()?.filter { leftover(it, path) }?.forEach { it.delete() }
         keyDirectory.deleteRecursively()
@@ -80,13 +82,13 @@ class DatabaseEncryptionParallelTest {
     }
 
     @Test
-    fun twoFactoriesOpenSamePlainFileAtOnce() {
-        plainDatabase()
+    fun twoFactoriesOpenWithRestoredCopyAtOnce() {
+        restoredCopy()
         repeat(ROUNDS) { round ->
             if (round > 0) {
-                // Jede Runde wieder mit unverschlüsselter Datei und ohne Schlüssel
+                // Jede Runde wieder nur mit der Kopie und ohne Schlüssel
                 clean()
-                plainDatabase()
+                restoredCopy()
             }
             exports.set(0)
             asides.set(0)
@@ -116,7 +118,7 @@ class DatabaseEncryptionParallelTest {
 
             assertTrue("Runde $round: ${errors.firstOrNull()}", errors.isEmpty())
             assertEquals("Runde $round", listOf(ROWS, ROWS), counts.toList())
-            assertEquals("Runde $round: genau eine Überführung", 1, exports.get())
+            assertEquals("Runde $round: genau einmal verschlüsselt", 1, exports.get())
             assertEquals("Runde $round: genau ein Schlüssel", 1, createdKeys.get())
             assertEquals("Runde $round: nichts beiseitegelegt", 0, asides.get())
             assertFalse("Runde $round", StorageRecoveryNotice.isSetAsidePending(context, DB))
@@ -124,8 +126,9 @@ class DatabaseEncryptionParallelTest {
             assertEquals("Runde $round", FileKind.ENCRYPTED, SqlCipherDatabaseFiles.kindOf(file))
             val rest = file.parentFile?.listFiles()?.filter { leftover(it, file.path) }.orEmpty()
             assertTrue("Runde $round: übrig $rest", rest.isEmpty())
+            assertFalse("Runde $round: Kopie übrig", context.getDatabasePath(COPY).exists())
         }
-        // Danach: eine dritte Fabrik liest alles, ohne erneut zu überführen
+        // Danach: eine dritte Fabrik liest alles, ohne erneut zu verschlüsseln
         exports.set(0)
         val helper = EncryptingOpenHelperFactory(context, keys(), files).create(config())
         try {
@@ -138,17 +141,20 @@ class DatabaseEncryptionParallelTest {
 
     // ── Helfer ──
 
-    private fun config() = SupportSQLiteOpenHelper.Configuration.builder(context)
-        .name(DB)
+    private fun config(name: String = DB) = SupportSQLiteOpenHelper.Configuration.builder(context)
+        .name(name)
         .callback(object : SupportSQLiteOpenHelper.Callback(VERSION) {
             override fun onCreate(db: SupportSQLiteDatabase) = db.execSQL(SCHEMA)
             override fun onUpgrade(db: SupportSQLiteDatabase, oldVersion: Int, newVersion: Int) = Unit
         })
         .build()
 
-    /** Unverschlüsselte Datei wie aus einer alten Version (Android-SQLite) mit [ROWS] Zeilen — gross genug für Überlappung. */
-    private fun plainDatabase() {
-        val helper = FrameworkSQLiteOpenHelperFactory().create(config())
+    /**
+     * Wiederhergestellte Kopie der Systemsicherung (unverschlüsselt, Android-SQLite) mit [ROWS] Zeilen — gross genug für
+     * Überlappung; die Datenbank selbst fehlt wie nach einer Wiederherstellung ohne Schlüssel.
+     */
+    private fun restoredCopy() {
+        val helper = FrameworkSQLiteOpenHelperFactory().create(config(COPY))
         val db = helper.writableDatabase
         db.beginTransaction()
         try {
@@ -158,7 +164,7 @@ class DatabaseEncryptionParallelTest {
             db.endTransaction()
         }
         helper.close()
-        assertEquals(FileKind.PLAINTEXT, SqlCipherDatabaseFiles.kindOf(context.getDatabasePath(DB)))
+        assertEquals(FileKind.ABSENT, SqlCipherDatabaseFiles.kindOf(context.getDatabasePath(DB)))
     }
 
     private fun leftover(file: File, path: String) =
@@ -169,6 +175,7 @@ class DatabaseEncryptionParallelTest {
 
     private companion object {
         const val DB = "encryption-parallel-test.db"
+        const val COPY = "encryption-parallel-test-restored.db"
         const val TEST_ALIAS = "cryptochecker_db_key_parallel_test"
         const val VERSION = 1
         const val SCHEMA = "CREATE TABLE items (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)"

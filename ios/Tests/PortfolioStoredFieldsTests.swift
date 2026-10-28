@@ -23,7 +23,7 @@ final class PortfolioStoredFieldsTests: XCTestCase {
             let name = string(c["name"]) ?? "?"
             let e = try XCTUnwrap(c["json"] as? [String: Any], name)
             let state = try XCTUnwrap(CsvRestoreState.from(json: e), name)
-            XCTAssertTrue(sameJSON(state.json(), e), name)
+            XCTAssertTrue(sameJSON(try XCTUnwrap(state.json(), name), e), name)
             XCTAssertEqual(CsvRestoreState.from(json: state.json()), state)
         }
         for c in S.list(d["restoreStateInvalid"]) {

@@ -243,9 +243,7 @@ class AlarmUserChangeTest {
 
     @Test
     fun deletingRemovesNotificationAndLogUnlessOnlyInMemory() {
-        assertEquals(AlarmUserChange.Cleanup(cancelNotification = true, removeLog = true), AlarmUserChange.afterDelete(false, false))
-        assertEquals(AlarmUserChange.Cleanup(cancelNotification = false, removeLog = false), AlarmUserChange.afterDelete(true, false))
-        // Kopie einer alten unverschlüsselten Datei: Alarm kommt nach dem Neustart zurück, sein Protokoll bleibt
-        assertEquals(AlarmUserChange.Cleanup(cancelNotification = true, removeLog = false), AlarmUserChange.afterDelete(false, true))
+        assertEquals(AlarmUserChange.Cleanup(cancelNotification = true, removeLog = true), AlarmUserChange.afterDelete(false))
+        assertEquals(AlarmUserChange.Cleanup(cancelNotification = false, removeLog = false), AlarmUserChange.afterDelete(true))
     }
 }

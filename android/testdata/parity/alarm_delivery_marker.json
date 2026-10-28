@@ -37,7 +37,7 @@
     { "name": "left-behind mark during quiet hours: dropped, nothing shown", "markerAt": 1700000000000, "lastTriggeredAt": 1700000000000, "now": 1700000060000, "shown": true, "holdAlarms": true, "expectShow": false, "expectMark": false, "expectMarkerAfter": null, "expectResult": false },
     { "name": "no mark: reported normally", "markerAt": null, "lastTriggeredAt": 0, "now": 1700000060000, "shown": false, "expectShow": true, "expectMark": true, "expectMarkerAfter": null, "expectResult": true }
   ],
-  "resetDescription": "May marks be cleared (database created anew) or pruned to the alarms of this run (pair/alarm deleted)? Not while the next process brings back the stored state: storedKept = stored file kept but unreadable (Android isStoredKept, iOS watchlist locked), volatileCopy = the stored alarms are only a copy in memory (Android PlaintextKept isVolatileCopy, iOS save pending while the old file is still there). Android AlarmDeliveryMarker.shouldClear / iOS AlarmDelivery.shouldClear.",
+  "resetDescription": "May marks be cleared (database created anew) or pruned to the alarms of this run (pair/alarm deleted)? Not while the next process brings back the stored state: storedKept = stored file kept but unreadable (Android isStoredKept, iOS watchlist locked), volatileCopy = the stored alarms are only a copy in memory (iOS save pending while the old file is still there; never on Android, which passes false). Android AlarmDeliveryMarker.shouldClear / iOS AlarmDelivery.shouldClear.",
   "resetCases": [
     { "name": "new or set-aside database", "storedKept": false, "volatileCopy": false, "expected": true },
     { "name": "stored file kept, key unavailable", "storedKept": true, "volatileCopy": false, "expected": false },

@@ -143,7 +143,8 @@ object AlarmDeliveryMarker {
     /**
      * Vermerke löschen bzw. gegen die Alarme dieses Laufs kürzen? Nicht, solange die Datenbank nur im
      * Speicher liegt und der nächste Prozess den Stand der Datei zurückbringt — gesperrt behaltene Datei ([storedKept])
-     * oder Kopie einer alten Datei ([volatileCopy], PlaintextKept): Die Vermerke gehören dann zu den echten Alarmen.
+     * oder Kopie einer alten Datei ([volatileCopy], nur iOS; Android übergibt false): Die Vermerke gehören dann zu den
+     * echten Alarmen.
      * Gemeinsame Fälle in `alarm_delivery_marker.json` («resetCases»).
      */
     fun shouldClear(storedKept: Boolean, volatileCopy: Boolean): Boolean = !storedKept && !volatileCopy

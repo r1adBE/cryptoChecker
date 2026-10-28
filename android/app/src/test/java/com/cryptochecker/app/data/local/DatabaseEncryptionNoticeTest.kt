@@ -5,39 +5,27 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * [DatabaseEncryptionNotice.revertsOnRestart]: Kopie einer alten unverschlüsselten Datei
- * ([DatabaseEncryptionMigration.Decision.PlaintextKept]) wie «gespeicherter Stand gerade nicht lesbar» behandeln — «ausgelöst» eines Alarms ginge mit dem Prozess verloren, und
- * jede Prüfung im Hintergrund meldete dieselben Alarme erneut. Eigene Namen je Fall: Der Zustand gilt für den ganzen Prozess.
+ * [DatabaseEncryptionNotice.isStoredKept]: Nur eine gesperrt behaltene Datei bringt mit dem nächsten Prozess den
+ * gespeicherten Stand zurück — ohne Datei ([DatabaseOpenPlanner.Decision.Refused]) ist mit dem Lauf auch der Alarm weg.
+ * Eigene Namen je Fall: Der Zustand gilt für den ganzen Prozess.
  */
 class DatabaseEncryptionNoticeTest {
 
     @Test
-    fun plaintextCopyRevertsOnRestartButIsNotLocked() {
-        val name = "test_plaintext_copy.db"
-        DatabaseEncryptionNotice.markInMemory(name, copied = true)
-        assertTrue(DatabaseEncryptionNotice.isInMemory(name))
-        assertTrue(DatabaseEncryptionNotice.isVolatileCopy(name))
-        assertTrue(DatabaseEncryptionNotice.revertsOnRestart(name))
-        // Nicht gesperrt: Paare und Alarme sind die gespeicherten (Hinweis bleibt «wird nicht gespeichert»)
-        assertFalse(DatabaseEncryptionNotice.isStoredKept(name))
-    }
-
-    @Test
-    fun keptFileRevertsOnRestart() {
+    fun keptFileIsStoredKept() {
         val name = "test_stored_kept.db"
         DatabaseEncryptionNotice.markInMemory(name, storedKept = true)
-        assertTrue(DatabaseEncryptionNotice.revertsOnRestart(name))
-        assertFalse(DatabaseEncryptionNotice.isVolatileCopy(name))
+        assertTrue(DatabaseEncryptionNotice.isInMemory(name))
+        assertTrue(DatabaseEncryptionNotice.isStoredKept(name))
     }
 
     @Test
-    fun refusedWithoutFileDoesNotRevert() {
-        // Ohne Datei ist mit dem Lauf auch der Alarm weg: nichts meldet nach dem Neustart erneut
+    fun refusedWithoutFileIsNotStoredKept() {
         val name = "test_refused.db"
         DatabaseEncryptionNotice.markInMemory(name)
         assertTrue(DatabaseEncryptionNotice.isInMemory(name))
-        assertFalse(DatabaseEncryptionNotice.revertsOnRestart(name))
+        assertFalse(DatabaseEncryptionNotice.isStoredKept(name))
         // Nie geöffnet: normal
-        assertFalse(DatabaseEncryptionNotice.revertsOnRestart("test_never_opened.db"))
+        assertFalse(DatabaseEncryptionNotice.isStoredKept("test_never_opened.db"))
     }
 }

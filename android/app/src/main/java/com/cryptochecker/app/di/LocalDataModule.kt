@@ -44,11 +44,11 @@ object LocalDataModule {
     // ---- Datenbanken
 
     /**
-     * Beide Datenbanken verschlüsselt (SQLCipher): Schlüssel im Android Keystore, einmalige Überführung
-     * alter unverschlüsselter Dateien beim ersten Öffnen ([EncryptingOpenHelperFactory]). Gibt der Keystore den
+     * Beide Datenbanken verschlüsselt (SQLCipher): Schlüssel im Android Keystore, entschieden beim ersten Öffnen
+     * ([EncryptingOpenHelperFactory]). Gibt der Keystore den
      * Schlüssel einer vorhandenen Datei gerade nicht heraus, öffnen Portfolio und Merkliste im Vordergrund für diesen
      * Lauf leer im Arbeitsspeicher, statt die Oberfläche abstürzen zu lassen; die Dateien bleiben unberührt. Ohne
-     * Schlüssel und ohne Datei legt keine der beiden eine unverschlüsselte Datei an (Standard von `encryptionRequired`).
+     * Schlüssel und ohne Datei legt keine der beiden eine Datei an (nur im Arbeitsspeicher).
      */
     @Provides
     @Singleton
@@ -144,9 +144,9 @@ object LocalDataModule {
         private val databaseName: String,
     ) : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
-            // Nur vorübergehend leer im Arbeitsspeicher (gespeicherte Datei bleibt, Schlüssel gerade nicht lesbar) bzw.
-            // auch Kopie einer alten Datei im Speicher (PlaintextKept, `markInMemory` vor dem Öffnen): die
-            // Vermerke gehören zu den echten Alarmen und bleiben — wie iOS (nur bei endgültig beiseitegelegten Daten)
+            // Nur vorübergehend leer im Arbeitsspeicher (gespeicherte Datei bleibt, Schlüssel gerade nicht lesbar,
+            // `markInMemory` vor dem Öffnen): die Vermerke gehören zu den echten Alarmen und bleiben — wie iOS (nur bei
+            // endgültig beiseitegelegten Daten)
             if (!PrefsAlarmDeliveryMarkers.prunable(databaseName)) return
             PrefsAlarmDeliveryMarkers.clearAll(context, prefsName)
         }

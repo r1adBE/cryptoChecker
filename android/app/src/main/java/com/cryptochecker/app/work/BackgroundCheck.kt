@@ -53,13 +53,7 @@ class BackgroundCheck @Inject constructor(
         // Merkliste nur leer im Arbeitsspeicher (Schlüssel gerade nicht lesbar): unbekannt, also lieber ja — sonst
         // nähme der Abgleich den Wecker «Pünktlich prüfen» weg, obwohl die Datei Paare hat
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return true
-        val active = runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
-        // Merkliste nur als Kopie im Arbeitsspeicher (erst nach dem Öffnen oben verlässlich): [run] prüft dann nicht
-        // (vermerkt «gescheitert»), also soll der Wecker «Pünktlich prüfen» das Gerät dafür nicht weiter wecken.
-        // Jeder Start stellt ihn wieder (PriceUpdateScheduler.apply: Paare unbekannt = stellen) — ist die Datei
-        // dann überführt, läuft die Kette wie zuvor
-        if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) return false
-        return active
+        return runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
     }
 
     /** Lauf vermerken (Ergebnis, übersprungen oder gescheitert). */
@@ -93,16 +87,6 @@ class BackgroundCheck @Inject constructor(
         // keine Paare und keine Alarme — wie «Schlüssel nicht verfügbar» behandeln, die Einstiege versuchen es später
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
-        }
-        // Kopie einer alten unverschlüsselten Datei (kein Schlüssel): «ausgelöst» ginge mit dem Prozess
-        // verloren, jeder neue Hintergrund-Prozess meldete dieselben Alarme erneut. Überspringen statt erneut versuchen —
-        // das bleibt so, bis ein Start mit Schlüssel die Datei überführt; im Vordergrund prüft die App weiter
-        if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) {
-            Timber.d("Prüfung (%s) übersprungen: Merkliste nur als Kopie im Arbeitsspeicher", trigger.code)
-            // Als gescheitert vermerken, nicht als übersprungen: Die Alarme sind tatsächlich ungeprüft, und
-            // «Letzte Prüfung» bzw. die Zuverlässigkeitszeile sollen das zeigen statt einer frischen Prüfung
-            log(trigger, CheckResult.FAILED, startedAt)
-            return null
         }
         val summary = running.withLock { runLocked(trigger, networkGuaranteed, startedAt, deadlineAt) } ?: return null
         // Warten auf Pulse-Widget und Ansagen erst nach Freigabe der Prüf-Sperre: sonst hielte es die Sperre bis zu

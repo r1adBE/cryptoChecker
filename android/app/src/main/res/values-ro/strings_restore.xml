@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
-    <string name="watchlist_storage_copy_in_memory">Criptarea nu este încă activă – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Alarmele din fundal sunt întrerupte. Aplicația va încerca din nou la următoarea pornire.</string>
-</resources>

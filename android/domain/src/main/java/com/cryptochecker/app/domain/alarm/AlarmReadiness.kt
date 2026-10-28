@@ -128,7 +128,7 @@ object AlarmReadiness {
          * ([com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck]).
          */
         val lastFailedBackgroundCheck: Long? = null,
-        /** Android: Merkliste nur als Kopie im Arbeitsspeicher (kein Schlüssel) — Prüfungen im Hintergrund ruhen. */
+        /** Android: Merkliste ohne Schlüssel nur im Arbeitsspeicher — Prüfungen im Hintergrund sehen ihre Paare nicht. */
         val storageNoKey: Boolean = false,
     )
 

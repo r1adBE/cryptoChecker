@@ -20,15 +20,11 @@ internal object AlarmUserChange {
 
     /**
      * Nach dem Löschen: [storedKept] = Merkliste nur leer im Arbeitsspeicher, die Id gilt nur für diesen Lauf und kann die
-     * eines gespeicherten Alarms sein — Mitteilung und Protokoll bleiben. [volatileCopy] = Kopie einer alten
-     * unverschlüsselten Datei: derselbe Alarm wie in der Datei, er kommt nach dem Neustart zurück — Mitteilung weg, sein
-     * Protokoll bleibt.
+     * eines gespeicherten Alarms sein — Mitteilung und Protokoll bleiben.
      */
-    fun afterDelete(storedKept: Boolean, volatileCopy: Boolean): Cleanup = when {
-        storedKept -> Cleanup(cancelNotification = false, removeLog = false)
-        volatileCopy -> Cleanup(cancelNotification = true, removeLog = false)
-        else -> Cleanup(cancelNotification = true, removeLog = true)
-    }
+    fun afterDelete(storedKept: Boolean): Cleanup =
+        if (storedKept) Cleanup(cancelNotification = false, removeLog = false)
+        else Cleanup(cancelNotification = true, removeLog = true)
 
     /** Ein- oder ausgeschaltet bzw. bearbeitet ([enabled] null): Mitteilung weg, ausser beim Einschalten. */
     fun cancelsNotification(enabled: Boolean?, storedKept: Boolean): Boolean = !storedKept && enabled != true
@@ -38,10 +34,7 @@ internal object AlarmUserChange {
         cancelsNotification(enabled, DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME))
 
     /** Für die ViewModels: [afterDelete] mit dem Zustand der Merkliste. */
-    fun afterDelete(): Cleanup = afterDelete(
-        storedKept = DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME),
-        volatileCopy = DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME),
-    )
+    fun afterDelete(): Cleanup = afterDelete(storedKept = DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME))
 }
 
 /** Mitteilung des Alarms [alarmId] entfernen; scheitert das, bleibt die Änderung am Alarm trotzdem gespeichert. */

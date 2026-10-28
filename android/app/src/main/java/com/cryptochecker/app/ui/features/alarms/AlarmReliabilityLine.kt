@@ -81,8 +81,8 @@ private fun AlarmReliabilityContent(
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val lastCheck by viewModel.lastBackgroundCheck.collectAsStateWithLifecycle()
     val lastFailedCheck by viewModel.lastFailedBackgroundCheck.collectAsStateWithLifecycle()
-    // Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel bzw. nur Kopie der alten Datei): Ein
-    // Hintergrund-Prozess sieht diese Paare nicht bzw. prüft nicht — nicht bei «gespeicherter Stand kommt zurück»
+    // Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel): Ein Hintergrund-Prozess sieht diese
+    // Paare nicht — nicht bei «gespeicherter Stand kommt zurück»
     val inMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
     val storedKept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
     val storageNoKey = AppDatabase.DB_NAME in inMemory && AppDatabase.DB_NAME !in storedKept

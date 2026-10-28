@@ -79,9 +79,8 @@ class AlarmLogViewModel @Inject constructor(
             store.load()
             // Letzte Prüfungen von Alarmen, die mit ihrem Paar gelöscht wurden, aufräumen — nicht gegen eine Merkliste, die
             // nur leer im Arbeitsspeicher liegt (nach dem Lesen oben verlässlich): Das leerte das gespeicherte Protokoll.
-            // Ebenso nicht gegen die Kopie einer alten unverschlüsselten Datei: Was dort gelöscht wird, kommt wieder
             runCatchingCancellable { watchRepository.observeAllAlarms().first().map { it.alarm.id }.toSet() }
-                .onSuccess { if (!DatabaseEncryptionNotice.revertsOnRestart(AppDatabase.DB_NAME)) store.retainAlarms(it) }
+                .onSuccess { if (!DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) store.retainAlarms(it) }
         }
     }
 

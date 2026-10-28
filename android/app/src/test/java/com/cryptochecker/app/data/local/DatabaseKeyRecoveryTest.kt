@@ -1,11 +1,10 @@
 package com.cryptochecker.app.data.local
 
 import com.cryptochecker.app.data.BackupVerification
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Fingerprint
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.PreviousKey
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.PreviousKey
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -16,7 +15,7 @@ import org.junit.Test
 
 /**
  * Frühere Datenbank-Schlüssel nummeriert behalten und beim nächsten Start gegen beiseitegelegte Dateien
- * probieren ([DatabaseEncryptionMigration]); Prüfung einer geschriebenen Sicherung ([BackupVerification]); Sperre nach
+ * probieren ([DatabaseOpenPlanner]); Prüfung einer geschriebenen Sicherung ([BackupVerification]); Sperre nach
  * dem Hintergrund mit monotoner Uhr ([PortfolioLockPolicy.relockAfterBackground]).
  */
 class DatabaseKeyRecoveryTest {
@@ -24,20 +23,11 @@ class DatabaseKeyRecoveryTest {
     private val db = "cryptochecker.db"
 
     /** Aktuelle Datei und beiseitegelegte Dateien, je mit dem Schlüssel, der sie öffnet. */
-    private class Files(var currentKey: String?, val aside: MutableMap<String, String> = linkedMapOf()) : DatabaseEncryptionMigration.Files {
+    private class Files(var currentKey: String?, val aside: MutableMap<String, String> = linkedMapOf()) : DatabaseOpenPlanner.Files {
         val calls = mutableListOf<String>()
         var replaced = mutableListOf<String?>()
         var failRestore = false
         override fun kind(database: String) = if (currentKey == null) FileKind.ABSENT else FileKind.ENCRYPTED
-        override fun hasExportCopy(database: String) = false
-        override fun deleteExportCopy(database: String) = Unit
-        override fun checkpoint(database: String) = Unit
-        override fun walBytes(database: String) = 0L
-        override fun exportEncrypted(database: String, passphrase: ByteArray) = Unit
-        override fun fingerprintOriginal(database: String) = Fingerprint(1, emptyMap())
-        override fun fingerprintExportCopy(database: String, passphrase: ByteArray) = Fingerprint(1, emptyMap())
-        override fun deleteSidecars(database: String) = Unit
-        override fun replaceWithExportCopy(database: String) = Unit
         override fun setAside(database: String) {
             calls += "setAside"
             aside["$database.unreadable-${aside.size}"] = currentKey!!
@@ -54,7 +44,7 @@ class DatabaseKeyRecoveryTest {
         }
     }
 
-    private class Keys(var stored: String?, val previous: MutableList<String> = mutableListOf()) : DatabaseEncryptionMigration.Keys {
+    private class Keys(var stored: String?, val previous: MutableList<String> = mutableListOf()) : DatabaseOpenPlanner.Keys {
         var discarded = 0
         val replacedKeys = mutableListOf<String>()
         override fun load(database: String): KeyLookup = stored?.let { KeyLookup.Found(it.toByteArray()) } ?: KeyLookup.Absent
@@ -76,7 +66,7 @@ class DatabaseKeyRecoveryTest {
         }
     }
 
-    private fun prepare(files: Files, keys: Keys) = DatabaseEncryptionMigration(files, keys).prepare(db)
+    private fun prepare(files: Files, keys: Keys) = DatabaseOpenPlanner(files, keys).prepare(db)
 
     @Test
     fun setAsideFileComesBackWhenAKeptPreviousKeyOpensIt() {

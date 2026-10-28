@@ -3,21 +3,21 @@ package com.cryptochecker.app.data.local
 import android.content.Context
 import android.database.Cursor
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Fingerprint
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.TableFingerprint
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
 import net.zetetic.database.DatabaseErrorHandler
 import net.zetetic.database.sqlcipher.SQLiteDatabase
 import java.io.File
 import java.io.IOException
 
 /**
- * Datei- und SQL-Schicht der Datenbank-Verschlüsselung ([DatabaseEncryptionMigration.Files]) mit SQLCipher.
- * Alle Schritte laufen über SQLCipher, auch auf der unverschlüsselten Datei (leere Passphrase = unverschlüsselt):
- * Zwei verschiedene SQLite-Bibliotheken gleichzeitig auf derselben Datei im selben Prozess vertragen sich nicht
- * (POSIX-Sperren). Jede Verbindung ist geschlossen, bevor Room die Datei öffnet.
+ * Datei- und SQL-Schicht der Datenbank-Verschlüsselung ([DatabaseOpenPlanner.Files]) mit SQLCipher. Jede Verbindung ist
+ * geschlossen, bevor Room die Datei öffnet. [restoredCopies]: je Datenbank der Name der unverschlüsselten Kopie, die eine
+ * Systemsicherung wiederherstellt ([SystemBackupAgent]).
  */
-class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionMigration.Files {
+class SqlCipherDatabaseFiles(
+    private val context: Context,
+    private val restoredCopies: Map<String, String> = mapOf(AppDatabase.DB_NAME to SystemBackupAgent.EXPORT_NAME),
+) : DatabaseOpenPlanner.Files {
 
     init {
         SqlCipherLibrary.load()
@@ -25,60 +25,75 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
 
     private fun file(database: String): File = context.getDatabasePath(database)
 
-    /** Exportkopie neben der Datei; erst nach der Prüfung wird sie auf den Dateinamen umbenannt. */
-    private fun copy(database: String): File = File(file(database).path + COPY_SUFFIX)
+    private fun restoredCopy(database: String): File? = restoredCopies[database]?.let(context::getDatabasePath)
 
     override fun kind(database: String): FileKind = kindOf(file(database))
 
-    override fun hasExportCopy(database: String): Boolean = copy(database).exists()
+    override fun hasRestoredCopy(database: String): Boolean = restoredCopy(database)?.exists() == true
 
-    override fun deleteExportCopy(database: String) {
-        val copy = copy(database)
-        for (f in listOf(copy, File(copy.path + "-journal"), File(copy.path + "-wal"), File(copy.path + "-shm"))) {
-            if (f.exists() && !f.delete()) throw IOException("${f.name} nicht gelöscht")
-        }
+    override fun encryptRestoredCopy(database: String, passphrase: ByteArray) {
+        val copy = restoredCopy(database) ?: throw IOException("$database: keine wiederhergestellte Kopie vorgesehen")
+        encryptCopy(copy, file(database), passphrase)
     }
 
-    override fun checkpoint(database: String) {
-        // Schliessen der letzten Verbindung entfernt das (dann leere) WAL
-        open(file(database), passphrase = null).use { db ->
-            db.query("PRAGMA wal_checkpoint(TRUNCATE)").use { it.moveToFirst() }
-        }
-    }
-
-    override fun walBytes(database: String): Long = File(file(database).path + "-wal").length()
-
-    override fun exportEncrypted(database: String, passphrase: ByteArray) {
-        // CREATE_IF_NECESSARY: ATTACH übernimmt die Öffnungs-Flags der Hauptverbindung; ohne Erlaubnis zum Anlegen
-        // scheitert die neue Exportkopie mit SQLITE_CANTOPEN (code 14) – gesehen auf dem Gerät
-        open(file(database), passphrase = null, create = true).use { db ->
-            db.execSQL("ATTACH DATABASE ? AS encrypted KEY ?", arrayOf<Any?>(copy(database).path, String(passphrase, Charsets.US_ASCII)))
-            try {
-                db.query("SELECT sqlcipher_export('encrypted')").use { it.moveToFirst() }
-                // sqlcipher_export übernimmt user_version bereits; ausdrücklich gesetzt, weil Room daran die Migrationen misst
-                db.execSQL("PRAGMA encrypted.user_version = ${db.version}")
-            } finally {
-                db.execSQL("DETACH DATABASE encrypted")
+    /**
+     * Unverschlüsselte Datei [source] verschlüsselt mit [passphrase] zu [target] machen: erst in eine Kopie neben [target]
+     * ([COPY_SUFFIX]), geprüft ([exportVerified]), dann atomar auf den Dateinamen umbenannt; erst danach wird [source]
+     * gelöscht. Scheitert etwas, ist die Kopie weg und [source] unverändert.
+     */
+    fun encryptCopy(source: File, target: File, passphrase: ByteArray) {
+        val pending = File(target.path + COPY_SUFFIX)
+        exportVerified(source, null, pending, passphrase)
+        try {
+            for (suffix in SIDECARS) {
+                val side = File(target.path + suffix)
+                if (side.exists() && !side.delete()) throw IOException("${side.name} nicht gelöscht")
             }
+            // rename(2): ersetzt die Zieldatei atomar
+            if (!pending.renameTo(target)) throw IOException("${target.name}: Kopie nicht umbenannt")
+        } catch (e: Exception) {
+            deleteWithSidecars(pending)
+            throw e
         }
+        // Bleibt die Quelle liegen, räumt sie der nächste Start weg (DatabaseSystemBackup.cleanUpLeftover)
+        deleteWithSidecars(source)
     }
 
-    override fun fingerprintOriginal(database: String): Fingerprint = fingerprint(file(database), passphrase = null)
-
-    override fun fingerprintExportCopy(database: String, passphrase: ByteArray): Fingerprint =
-        fingerprint(copy(database), passphrase)
-
-    override fun deleteSidecars(database: String) {
-        val path = file(database).path
-        for (suffix in listOf("-wal", "-shm", "-journal")) {
-            val f = File(path + suffix)
+    /**
+     * [source] mit `sqlcipher_export` in die neue Datei [target] kopieren (Passphrase null = unverschlüsselt) und prüfen:
+     * `user_version`, Zeilen und Prüfsumme je Tabelle müssen gleich sein ([DatabaseFingerprint]). Scheitert etwas, ist
+     * [target] gelöscht und der Fehler geht an den Aufrufer; [source] bleibt unverändert.
+     */
+    fun exportVerified(source: File, sourcePassphrase: ByteArray?, target: File, targetPassphrase: ByteArray?) {
+        for (f in listOf(target) + SIDECARS.map { File(target.path + it) }) {
             if (f.exists() && !f.delete()) throw IOException("${f.name} nicht gelöscht")
         }
+        try {
+            // CREATE_IF_NECESSARY: ATTACH übernimmt die Öffnungs-Flags der Hauptverbindung; ohne Erlaubnis zum Anlegen
+            // scheitert die neue Datei mit SQLITE_CANTOPEN (code 14) – gesehen auf dem Gerät
+            open(source, sourcePassphrase, create = true).use { db ->
+                val key = targetPassphrase?.let { String(it, Charsets.US_ASCII) } ?: ""
+                db.execSQL("ATTACH DATABASE ? AS export_target KEY ?", arrayOf<Any?>(target.path, key))
+                try {
+                    db.query("SELECT sqlcipher_export('export_target')").use { it.moveToFirst() }
+                    // sqlcipher_export übernimmt user_version bereits; ausdrücklich gesetzt, weil Room daran das Schema misst
+                    db.execSQL("PRAGMA export_target.user_version = ${db.version}")
+                } finally {
+                    db.execSQL("DETACH DATABASE export_target")
+                }
+            }
+            val before = fingerprint(source, sourcePassphrase)
+            val after = fingerprint(target, targetPassphrase)
+            check(before == after) { "Kopie weicht ab: ${before.difference(after)}" }
+        } catch (e: Exception) {
+            deleteWithSidecars(target)
+            throw e
+        }
     }
 
-    override fun replaceWithExportCopy(database: String) {
-        // rename(2): ersetzt die Zieldatei atomar
-        if (!copy(database).renameTo(file(database))) throw IOException("$database: Kopie nicht umbenannt")
+    private fun deleteWithSidecars(file: File) {
+        file.delete()
+        for (suffix in SIDECARS) File(file.path + suffix).delete()
     }
 
     override fun setAside(database: String) {
@@ -166,15 +181,15 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
         message.orEmpty().let { "SQLITE_NOTADB" in it || "file is not a database" in it } || cause?.isNotADatabase() == true
 
     /** Zustand einer Datei: `user_version` und je Tabelle Zeilen und Prüfsumme über alle Spalten. */
-    fun fingerprint(file: File, passphrase: ByteArray?): Fingerprint =
+    fun fingerprint(file: File, passphrase: ByteArray?): DatabaseFingerprint =
         open(file, passphrase).use { db ->
             val tables = db.query(TABLES_SQL).use { c -> buildList { while (c.moveToNext()) add(c.getString(0)) } }
-            Fingerprint(
+            DatabaseFingerprint(
                 userVersion = db.version,
                 tables = tables.associateWith { table ->
                     db.query("SELECT * FROM `${table.replace("`", "``")}`").use { c ->
-                        var fp = TableFingerprint(0, 0)
-                        while (c.moveToNext()) fp = DatabaseEncryptionMigration.addRow(fp, List(c.columnCount) { c.value(it) })
+                        var fp = DatabaseFingerprint.Table(0, 0)
+                        while (c.moveToNext()) fp = DatabaseFingerprint.addRow(fp, List(c.columnCount) { c.value(it) })
                         fp
                     }
                 },
@@ -190,11 +205,11 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
     }
 
     companion object {
-        /** Kopf einer unverschlüsselten SQLite-Datei; eine SQLCipher-Datei beginnt mit 16 zufälligen Bytes (Salz). */
-        private val SQLITE_HEADER = "SQLite format 3\u0000".toByteArray(Charsets.US_ASCII)
-
+        /** Verschlüsselte Kopie während [encryptCopy]; erst nach der Prüfung wird sie auf den Dateinamen umbenannt. */
         const val COPY_SUFFIX = ".encrypting"
         const val ASIDE_SUFFIX = ".unreadable"
+
+        private val SIDECARS = listOf("-wal", "-shm", "-journal")
 
         /** Durch eine zurückgeholte Datei ersetzte (inzwischen neu begonnene) Datenbank — bleibt, wird nie gelöscht. */
         const val REPLACED_SUFFIX = ".replaced"
@@ -204,14 +219,8 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
             "SELECT name FROM sqlite_master WHERE type = 'table' AND name != 'android_metadata' " +
                 "AND (name NOT LIKE 'sqlite\\_%' ESCAPE '\\' OR name = 'sqlite_sequence') ORDER BY name"
 
-        fun kindOf(file: File): FileKind {
-            if (!file.exists() || file.length() == 0L) return FileKind.ABSENT
-            val head = ByteArray(SQLITE_HEADER.size)
-            val read = file.inputStream().use { it.read(head) }
-            // Zu kurz für einen Kopf: als unverschlüsselt behandeln — dann öffnet Room sie wie vor der Verschlüsselung
-            if (read < head.size) return FileKind.PLAINTEXT
-            return if (head.contentEquals(SQLITE_HEADER)) FileKind.PLAINTEXT else FileKind.ENCRYPTED
-        }
+        fun kindOf(file: File): FileKind =
+            if (!file.exists() || file.length() == 0L) FileKind.ABSENT else FileKind.ENCRYPTED
 
         /**
          * Nie löschen: Der Standard-Fehlerbehandler (wie bei Android) löscht eine Datei, die SQLite für beschädigt hält —
@@ -220,8 +229,9 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
         private val keepOnCorruption = DatabaseErrorHandler { _, _ -> }
 
         /**
-         * Verbindung über SQLCipher zu einer bestehenden Datei; `passphrase` null = unverschlüsselte Datei.
-         * [create]: angehängte Datenbanken (ATTACH) dürfen neu angelegt werden – die Hauptdatei besteht ohnehin.
+         * Verbindung über SQLCipher zu einer bestehenden Datei; `passphrase` null = unverschlüsselte Datei (wiederhergestellte
+         * oder zu sichernde Kopie der Systemsicherung). [create]: angehängte Datenbanken (ATTACH) dürfen neu angelegt werden –
+         * die Hauptdatei besteht ohnehin.
          */
         fun open(file: File, passphrase: ByteArray?, create: Boolean = false): SupportSQLiteDatabase =
             SQLiteDatabase.openDatabase(

@@ -3,12 +3,12 @@ import Foundation
 import Security
 
 // Verschlüsselte Dateien mit Nutzerdaten in der App Group — Gegenstück zu den verschlüsselten Datenbanken
-// auf Android (SQLCipher, `DatabaseEncryptionMigration.kt`). Gleiche Regeln: nie Daten verlieren, Klartext erst
+// auf Android (SQLCipher, `DatabaseOpenPlanner.kt`). Gleiche Regeln: nie Daten verlieren, Klartext erst
 // ersetzen, wenn die verschlüsselte Fassung geprüft ist, bei jedem Fehler unverschlüsselt weiter und später erneut.
 
 /// Format einer verschlüsselten Datei: 4 Bytes Kennung «CCSE», 1 Byte Version (1), 12 Bytes Nonce, Chiffrat (AES-256-GCM),
 /// 16 Bytes Tag. Kennung und Version sind als Zusatzdaten mitgeprüft. JSON und Text beginnen nie mit der Kennung —
-/// so liest jede Stelle unverschlüsselte Dateien (ohne Schlüssel geschrieben) weiter, bis sie verschlüsselt sind.
+/// so erkennt jede Stelle eine unverschlüsselte Datei (ohne Schlüssel geschriebene Kopie, `ProtectedFile.writeCopy`).
 enum ProtectedContainer {
     static let magic = Data("CCSE".utf8)
     static let version: UInt8 = 1
@@ -252,7 +252,7 @@ enum ProtectedFile {
     enum ReadError: Error {
         /// Verschlüsselt, Schlüssel gerade nicht verfügbar (oder neueres Format): wie «nicht zugreifbar» — nicht überschreiben.
         case locked
-        /// Verschlüsselt, aber beschädigt: wie eine kaputte Datei behandeln; `raw` = die Bytes zum Sichern.
+        /// Beschädigt oder unverschlüsselt: wie eine kaputte Datei behandeln; `raw` = die Bytes zum Sichern.
         case damaged(raw: Data)
     }
 
@@ -262,10 +262,11 @@ enum ProtectedFile {
         case renameFailed(Int32)
     }
 
-    /// Klartext der Datei; eine unverschlüsselte Datei kommt unverändert zurück.
+    /// Klartext der Datei. Gelesen werden nur Dateien, die die App ausschliesslich versiegelt schreibt (`requireSealed`):
+    /// Eine unverschlüsselte Datei gilt darum wie eine beschädigte (`damaged`).
     static func read(_ url: URL, keys: StorageKey = .shared) throws -> Data {
         let raw = try Data(contentsOf: url)
-        guard ProtectedContainer.isSealed(raw) else { return raw }
+        guard ProtectedContainer.isSealed(raw) else { throw ReadError.damaged(raw: raw) }
         guard case .key(let key) = keys.lookup() else { throw ReadError.locked }
         do {
             return try ProtectedContainer.open(raw, key: key)
@@ -276,14 +277,13 @@ enum ProtectedFile {
         }
     }
 
-    /// Schreibt verschlüsselt (geprüft, atomar ersetzt); ohne Schlüssel unverschlüsselt — der nächste Start der App
-    /// überführt die Datei. Liegt dort aber schon eine verschlüsselte Datei, wird sie ohne Schlüssel nie
-    /// durch Klartext ersetzt (`locked`): sonst stünden z. B. Widget-Daten nach einem kurz gesperrten Schlüsselbund
-    /// wieder unverschlüsselt da. Das Backup-Merkmal setzen die Aufrufer danach neu (neue Datei).
-    /// `requireSealed` (Merkliste, Portfolio, Portfolio-Alarme, Adressen, Alarm-Protokoll): ohne Schlüssel nie Klartext,
-    /// auch nicht für eine neue oder noch unverschlüsselte Datei — `locked`; der Aufrufer behält den Stand im Speicher
-    /// und schreibt beim nächsten Mal
-    /// (wie die Widget-Aufnahme, `PortfolioWidgetStore.writeSnapshotFile`).
+    /// Schreibt verschlüsselt (geprüft, atomar ersetzt); ohne Schlüssel unverschlüsselt (nur die Kopien unlesbarer
+    /// Dateien, `writeCopy`) — der nächste Start der App überführt die Datei. Liegt dort aber schon eine verschlüsselte
+    /// Datei, wird sie ohne Schlüssel nie durch Klartext ersetzt (`locked`). Das Backup-Merkmal setzen die Aufrufer
+    /// danach neu (neue Datei).
+    /// `requireSealed` (Merkliste, Portfolio, Portfolio-Alarme, Adressen, Widget-Aufnahme, Alarm-Protokoll): ohne
+    /// Schlüssel nie Klartext, auch nicht für eine neue Datei — `locked`; der Aufrufer behält den Stand im Speicher und
+    /// schreibt beim nächsten Mal.
     /// `durability`: `.barrier` für reine Kurs-Speicherungen (`Durability`), sonst `.full`.
     static func write(_ data: Data, to url: URL, keys: StorageKey = .shared, requireSealed: Bool = false,
                       durability: Durability = .full) throws {
@@ -295,20 +295,16 @@ enum ProtectedFile {
         try writeSealed(data, to: url, key: key, durability: durability)
     }
 
-    /// Steht genau `data` schon in der gewünschten Form in der Datei (verschlüsselt, sobald es einen Schlüssel gibt)?
-    /// Dann muss nicht geschrieben werden.
+    /// Steht genau `data` schon versiegelt in der Datei? Dann muss nicht geschrieben werden. Ohne Schlüssel nie.
     static func holds(_ data: Data, at url: URL, keys: StorageKey = .shared) -> Bool {
-        guard let raw = try? Data(contentsOf: url) else { return false }
-        switch keys.lookup() {
-        case .key(let key):
-            return ProtectedContainer.isSealed(raw) && (try? ProtectedContainer.open(raw, key: key)) == data
-        case .absent, .unavailable:
-            return raw == data
-        }
+        guard let raw = try? Data(contentsOf: url), ProtectedContainer.isSealed(raw),
+              case .key(let key) = keys.lookup() else { return false }
+        return (try? ProtectedContainer.open(raw, key: key)) == data
     }
 
-    /// Kopie einer (ganz oder teilweise) unlesbaren Datei: Klartext wird verschlüsselt, beschädigt Verschlüsseltes
-    /// bleibt Byte für Byte, wie es ist. Eine schon vorhandene gleiche Kopie bleibt.
+    /// Kopie einer (ganz oder teilweise) unlesbaren Datei: Klartext wird verschlüsselt (ohne Schlüssel unverschlüsselt,
+    /// der nächste Start versiegelt sie — `ProtectedStorage.prepareAtLaunch`), beschädigt Verschlüsseltes bleibt Byte
+    /// für Byte, wie es ist. Eine schon vorhandene gleiche Kopie bleibt.
     static func writeCopy(_ data: Data, to copy: URL, keys: StorageKey = .shared) throws {
         if let existing = try? Data(contentsOf: copy), existing == data { return }
         if ProtectedContainer.isSealed(data) {

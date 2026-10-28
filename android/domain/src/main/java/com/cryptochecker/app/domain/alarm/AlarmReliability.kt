@@ -34,8 +34,8 @@ object AlarmReliability {
         /** Mitteilungen nicht erlaubt bzw. Alarm-Kanal aus (Android). */
         NOTIFICATIONS_OFF("notifications_off"),
         /**
-         * Android: Merkliste nur als Kopie im Arbeitsspeicher (kein Schlüssel) — Prüfungen im Hintergrund ruhen, bis ein
-         * Start mit Schlüssel die Datei überführt. Geht dem Akku vor: Der wäre hier nicht der Grund.
+         * Android: Merkliste ohne Schlüssel nur im Arbeitsspeicher — Prüfungen im Hintergrund sehen ihre Paare nicht, bis
+         * ein Start mit Schlüssel die Datei anlegt. Geht dem Akku vor: Der wäre hier nicht der Grund.
          */
         STORAGE_NO_KEY("storage_no_key"),
         /** Android: Hintergrundnutzung eingeschränkt, oder Prüfung zu alt bei Akku-Optimierung/Akkusparen des Herstellers. */

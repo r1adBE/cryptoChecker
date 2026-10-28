@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
-    <string name="watchlist_storage_copy_in_memory">加密尚未启用——自选列表不会被保存，关闭应用后更改将丢失。后台提醒已暂停。应用会在下次启动时重试。</string>
-</resources>

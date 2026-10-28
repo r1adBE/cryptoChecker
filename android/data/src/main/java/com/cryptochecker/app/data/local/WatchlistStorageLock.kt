@@ -36,8 +36,7 @@ object WatchlistStorageLock {
 
         /**
          * Kein Schlüssel: nur im Arbeitsspeicher, nie unverschlüsselt geschrieben — nichts wird gespeichert (nicht gesperrt:
-         * ohne Datei gibt es keinen gespeicherten Stand zu verlieren, eine alte unverschlüsselte Datei wird in
-         * den Speicher kopiert und bleibt unberührt). Der nächste Start versucht es erneut.
+         * ohne Datei gibt es keinen gespeicherten Stand zu verlieren). Der nächste Start versucht es erneut.
          */
         NOT_SAVED,
     }

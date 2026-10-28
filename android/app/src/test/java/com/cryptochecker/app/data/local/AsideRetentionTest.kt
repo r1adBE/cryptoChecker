@@ -1,10 +1,9 @@
 package com.cryptochecker.app.data.local
 
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Fingerprint
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.PreviousKey
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.PreviousKey
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -13,7 +12,7 @@ import org.junit.rules.TemporaryFolder
 
 /**
  * Beiseitegelegte Kopien nach Frist und bestätigtem Hinweis löschen ([AsideRetention],
- * [DatabaseEncryptionMigration.pruneAside]) — nie die aktuelle Datei, frühere Schlüssel danach im selben Lauf.
+ * [DatabaseOpenPlanner.pruneAside]) — nie die aktuelle Datei, frühere Schlüssel danach im selben Lauf.
  */
 class AsideRetentionTest {
 
@@ -60,18 +59,9 @@ class AsideRetentionTest {
     }
 
     /** Aktuelle Datei (öffnet mit [currentKey]) und beiseitegelegte Kopien je mit ihrem Schlüssel. */
-    private class Files(val currentKey: String, val aside: MutableMap<String, String>) : DatabaseEncryptionMigration.Files {
+    private class Files(val currentKey: String, val aside: MutableMap<String, String>) : DatabaseOpenPlanner.Files {
         val deleted = mutableListOf<String>()
         override fun kind(database: String) = FileKind.ENCRYPTED
-        override fun hasExportCopy(database: String) = false
-        override fun deleteExportCopy(database: String) = Unit
-        override fun checkpoint(database: String) = Unit
-        override fun walBytes(database: String) = 0L
-        override fun exportEncrypted(database: String, passphrase: ByteArray) = Unit
-        override fun fingerprintOriginal(database: String) = Fingerprint(1, emptyMap())
-        override fun fingerprintExportCopy(database: String, passphrase: ByteArray) = Fingerprint(1, emptyMap())
-        override fun deleteSidecars(database: String) = Unit
-        override fun replaceWithExportCopy(database: String) = Unit
         override fun setAside(database: String) = error("nicht erwartet")
         override fun opens(database: String, passphrase: ByteArray) = String(passphrase) == currentKey
         override fun asideCopies(database: String) = aside.keys.toList()
@@ -82,7 +72,7 @@ class AsideRetentionTest {
         }
     }
 
-    private class Keys(val stored: String, val previous: MutableList<String>) : DatabaseEncryptionMigration.Keys {
+    private class Keys(val stored: String, val previous: MutableList<String>) : DatabaseOpenPlanner.Keys {
         var discarded = 0
         override fun load(database: String): KeyLookup = KeyLookup.Found(stored.toByteArray())
         override fun create(database: String): ByteArray = error("nicht erwartet")
@@ -97,7 +87,7 @@ class AsideRetentionTest {
     fun freigegebeneKopienWegUndFruehereSchluesselImSelbenLauf() {
         val files = Files("K2", linkedMapOf("$db.unreadable" to "verloren", "$db.unreadable-9" to "auch"))
         val keys = Keys("K2", mutableListOf("K0"))
-        val d = DatabaseEncryptionMigration(files, keys, asideExpired = { _, copies -> copies }).prepare(db) as Decision.Encrypted
+        val d = DatabaseOpenPlanner(files, keys, asideExpired = { _, copies -> copies }).prepare(db) as Decision.Encrypted
         assertEquals("K2", String(d.passphrase))
         assertEquals(listOf("$db.unreadable", "$db.unreadable-9"), files.deleted)
         assertEquals(1, keys.discarded)
@@ -107,7 +97,7 @@ class AsideRetentionTest {
     fun ohneFreigabeBleibtAllesUndFruehereSchluesselAuch() {
         val files = Files("K2", linkedMapOf("$db.unreadable" to "verloren"))
         val keys = Keys("K2", mutableListOf("K0"))
-        DatabaseEncryptionMigration(files, keys).prepare(db)
+        DatabaseOpenPlanner(files, keys).prepare(db)
         assertTrue(files.deleted.isEmpty())
         assertEquals(0, keys.discarded)
     }
@@ -115,17 +105,17 @@ class AsideRetentionTest {
     @Test
     fun kopieDieEinFruehererSchluesselOeffnetKommtZurueckStattGeloescht() {
         // Erst zurückholen, dann aufräumen: eine wieder lesbare Kopie wird nie gelöscht
-        val files = object : DatabaseEncryptionMigration.Files by Files("K2", linkedMapOf("$db.unreadable" to "K1")) {
+        val files = object : DatabaseOpenPlanner.Files by Files("K2", linkedMapOf("$db.unreadable" to "K1")) {
             var restored = false
             override fun restoreAside(database: String, copy: String) {
                 restored = true
             }
             override fun deleteAside(database: String, copy: String) = error("nicht löschen")
         }
-        val keys = object : DatabaseEncryptionMigration.Keys by Keys("K2", mutableListOf("K1")) {
+        val keys = object : DatabaseOpenPlanner.Keys by Keys("K2", mutableListOf("K1")) {
             override fun promote(database: String, id: String) = Unit
         }
-        val d = DatabaseEncryptionMigration(files, keys, asideExpired = { _, copies -> copies }).prepare(db) as Decision.Encrypted
+        val d = DatabaseOpenPlanner(files, keys, asideExpired = { _, copies -> copies }).prepare(db) as Decision.Encrypted
         assertTrue(d.restored)
         assertTrue(files.restored)
     }
@@ -134,7 +124,7 @@ class AsideRetentionTest {
     fun nurGemeldeteKopienWerdenGeloescht() {
         // Eine Freigabe für einen fremden Namen (z. B. die aktuelle Datei) wird übergangen
         val files = Files("K2", linkedMapOf("$db.unreadable" to "verloren"))
-        DatabaseEncryptionMigration(files, Keys("K2", mutableListOf()), asideExpired = { _, _ -> listOf(db) }).prepare(db)
+        DatabaseOpenPlanner(files, Keys("K2", mutableListOf()), asideExpired = { _, _ -> listOf(db) }).prepare(db)
         assertTrue(files.deleted.isEmpty())
     }
 }

@@ -7,8 +7,8 @@ import android.app.backup.FullBackupDataOutput
 import android.content.Context
 import android.os.Build
 import android.os.ParcelFileDescriptor
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.FileKind
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import timber.log.Timber
 import java.io.File
@@ -20,10 +20,11 @@ import java.io.IOException
  * Die verschlüsselte `cryptochecker.db` taugt nicht für Auto Backup oder die Übertragung auf ein neues Gerät: Ihr
  * Schlüssel liegt im Keystore dieses Geräts und geht nie mit. Darum steht in den Sicherungsregeln statt der Datei
  * die Kopie [EXPORT_NAME] — und die gibt es nur während einer Sicherung: [onFullBackup] schreibt sie unverschlüsselt
- * (geprüft wie die Überführung), lässt die normale Sicherung nach den XML-Regeln laufen (`super`, gleiche Regeln und
+ * (geprüft, [SqlCipherDatabaseFiles.exportVerified]), lässt die normale Sicherung nach den XML-Regeln laufen (`super`, gleiche Regeln und
  * Bedingungen wie bisher: nur Ende-zu-Ende-verschlüsselte Cloud-Sicherung oder Gerät zu Gerät) und löscht sie danach.
- * Nach einer Wiederherstellung wird die Kopie zur (unverschlüsselten) Hauptdatenbank ([onRestoreFinished]); der erste
- * Start verschlüsselt sie ([DatabaseEncryptionMigration]).
+ * Nach einer Wiederherstellung wird die Kopie gleich verschlüsselt zur Hauptdatenbank ([onRestoreFinished],
+ * [DatabaseSystemBackup.adoptRestored]). Ohne Schlüssel bleibt sie liegen, und der nächste Start verschlüsselt sie,
+ * bevor Room die Datenbank öffnet ([DatabaseOpenPlanner]).
  *
  * Android 8/8.1 (API 26/27) ohne Kopie ([SystemBackupScope]): Dort wirkt `requireFlags` nicht, die Merkliste ginge
  * unverschlüsselt in die Cloud; sie wird dort weder gesichert noch wiederhergestellt.
@@ -92,7 +93,7 @@ class SystemBackupAgent : BackupAgent() {
 /** Unverschlüsselte Kopie der Hauptdatenbank für die Dauer einer Systemsicherung ([SystemBackupAgent]). */
 class DatabaseSystemBackup(
     private val context: Context,
-    private val keys: DatabaseEncryptionMigration.Keys = DatabaseKeyStore(context),
+    private val keys: DatabaseOpenPlanner.Keys = DatabaseKeyStore(context),
     private val database: String = AppDatabase.DB_NAME,
     private val exportName: String = SystemBackupAgent.EXPORT_NAME,
 ) {
@@ -105,45 +106,23 @@ class DatabaseSystemBackup(
         delete()
         val passphrase = when (SqlCipherDatabaseFiles.kindOf(main)) {
             FileKind.ABSENT -> return
-            FileKind.PLAINTEXT -> null
             FileKind.ENCRYPTED -> (keys.load(database) as? KeyLookup.Found)?.passphrase
                 ?: throw IOException("Schlüssel der Hauptdatenbank nicht verfügbar")
         }
-        try {
-            // create: ATTACH legt die Kopie neu an (siehe SqlCipherDatabaseFiles.exportEncrypted)
-            SqlCipherDatabaseFiles.open(main, passphrase, create = true).use { db ->
-                db.execSQL("ATTACH DATABASE ? AS plaintext KEY ''", arrayOf<Any?>(export.path))
-                try {
-                    db.query("SELECT sqlcipher_export('plaintext')").use { it.moveToFirst() }
-                    db.execSQL("PRAGMA plaintext.user_version = ${db.version}")
-                } finally {
-                    db.execSQL("DETACH DATABASE plaintext")
-                }
-            }
-            val before = files.fingerprint(main, passphrase)
-            val after = files.fingerprint(export, passphrase = null)
-            check(before == after) { "Kopie weicht ab: ${DatabaseEncryptionMigration.difference(before, after)}" }
-        } catch (e: Exception) {
-            delete()
-            throw e
-        }
+        files.exportVerified(main, passphrase, export, targetPassphrase = null)
     }
 
     /**
      * Beim App-Start: Liegt noch eine Kopie herum, ist eine Sicherung abgebrochen (Prozess beendet, `finally` lief nicht)
-     * — die unverschlüsselte Datei weg. Nur ohne Hauptdatenbank ist sie eine noch nicht übernommene Wiederherstellung,
-     * dann wird sie übernommen statt gelöscht. Muss vor dem ersten Öffnen der Datenbank laufen.
+     * — die unverschlüsselte Datei weg. Nur ohne Hauptdatenbank ist sie eine noch nicht übernommene Wiederherstellung:
+     * Sie bleibt, beim ersten Öffnen verschlüsselt sie [DatabaseOpenPlanner] zur Hauptdatenbank.
      */
     fun cleanUpLeftover() {
         if (!export.exists()) {
             delete() // verwaiste Nebendateien
             return
         }
-        if (main.exists()) {
-            delete()
-        } else {
-            runCatching { adoptRestored() }.onFailure { Timber.w(it, "Systemsicherung: liegengebliebene Kopie nicht übernommen") }
-        }
+        if (main.exists()) delete()
     }
 
     /** Kopie samt Nebendateien entfernen (unverschlüsselt — nie länger als die Sicherung liegen lassen). */
@@ -154,12 +133,19 @@ class DatabaseSystemBackup(
     }
 
     /**
-     * Nach einer Wiederherstellung: Die Kopie ersetzt die Hauptdatenbank (Android stellt nur in eine frische Installation
-     * wieder her). Beim nächsten Öffnen wird sie verschlüsselt.
+     * Nach einer Wiederherstellung (Android stellt nur in eine frische Installation wieder her): Die Kopie wird mit dem
+     * gespeicherten oder einem neuen Schlüssel verschlüsselt und geprüft zur Hauptdatenbank, danach gelöscht
+     * ([SqlCipherDatabaseFiles.encryptCopy]). Nie unverschlüsselt als Hauptdatenbank: Ist kein Schlüssel möglich (Keystore im
+     * Sicherungsprozess nicht verfügbar), bleibt die Kopie, und der nächste Start verschlüsselt sie ([DatabaseOpenPlanner]).
      */
     fun adoptRestored() {
         if (!export.exists()) return
-        for (suffix in listOf("-wal", "-shm", "-journal")) File(main.path + suffix).delete()
-        if (!export.renameTo(main)) throw IOException("Kopie nicht übernommen")
+        val passphrase = try {
+            keys.loadOrCreate(database)
+        } catch (e: Exception) {
+            Timber.w(e, "Systemsicherung: kein Schlüssel, wiederhergestellte Kopie bleibt für den nächsten Start")
+            return
+        }
+        files.encryptCopy(export, main, passphrase)
     }
 }

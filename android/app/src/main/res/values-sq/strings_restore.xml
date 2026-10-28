@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
-    <string name="watchlist_storage_copy_in_memory">Enkriptimi ende nuk është aktiv – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Alarmet në sfond janë pezulluar. Aplikacioni do të provojë sërish në nisjen e ardhshme.</string>
-</resources>

@@ -3,7 +3,7 @@ package com.cryptochecker.app.data.local
 import java.io.File
 
 /**
- * Beiseitegelegte, unlesbare Datenbankdateien (`<db>.unreadable…`, [DatabaseEncryptionMigration]) nicht
+ * Beiseitegelegte, unlesbare Datenbankdateien (`<db>.unreadable…`, [DatabaseOpenPlanner]) nicht
  * mehr für immer behalten. Früher blieben sie samt den früheren Schlüsseln liegen (Speicher, und eine Kopie der
  * Nutzerdaten mehr auf dem Gerät).
  *

@@ -73,16 +73,17 @@ final class WatchlistStorageLockTests: XCTestCase {
         XCTAssertFalse(readLocked(keys(fixedKey)))
     }
 
-    /// Noch keine Datei bzw. alte Klartext-Datei ohne Schlüssel (Speichern wartet, `watchlistPending`): nicht gesperrt —
-    /// der Stand im Speicher ist vollständig und geht mit dem nächsten Speichern hinaus.
+    /// Noch keine Datei und kein Schlüssel (Speichern wartet, `watchlistPending`) bzw. unverschlüsselte Datei (wie eine
+    /// kaputte): nicht gesperrt — der Stand im Speicher ist vollständig und geht mit dem nächsten Speichern hinaus.
     func testMissingOrPendingIsNotLocked() throws {
         XCTAssertFalse(readLocked(keys(nil, locked: true)))
-        try json.write(to: watchlist, options: [.atomic])
-        let snap = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms,
-                                                         keys: keys(nil, locked: true)).snapshot)
+        let snap = try JSONDecoder().decode(SharedStorage.Snapshot.self, from: json)
         XCTAssertFalse(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
                                                 includePortfolioInBackup: true, keys: keys(nil, locked: true)))
         XCTAssertTrue(SharedStorage.watchlistPending)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: watchlist.path))
+        XCTAssertFalse(readLocked(keys(nil, locked: true)))
+        try json.write(to: watchlist, options: [.atomic])
         XCTAssertFalse(readLocked(keys(nil, locked: true)))
         // Dauerhinweis «wird nicht gespeichert» (wie Android Notice.NOT_SAVED), Alarme bleiben erlaubt
         XCTAssertEqual(WatchlistStorageLock.notice(locked: false, savePending: SharedStorage.watchlistPending), .notSaved)

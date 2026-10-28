@@ -1,12 +1,13 @@
 import Foundation
 
-/// Eine Datei mit Nutzerdaten, die beim Start unverschlüsselt bleibt (`ProtectedStorage.LaunchOutcome
-/// .keptPlain`: Versiegeln gescheitert, Schlüsselbund nicht lesbar oder kein Schlüssel möglich), kommt so lange nicht ins
-/// Geräte-Backup (iCloud, Finder, Übertragung) — wie die Momentaufnahme des Widgets. Der versiegelte Stand ist ohnehin nur
-/// auf diesem Gerät lesbar (Schlüssel «nur dieses Gerät»), der Klartext wäre es überall.
+/// Eine Datei mit Nutzerdaten (Kopie einer unlesbaren Datei), die beim Start unverschlüsselt bleibt
+/// (`ProtectedStorage.LaunchOutcome.keptPlain`: Versiegeln gescheitert, Schlüsselbund nicht lesbar oder kein Schlüssel
+/// möglich), kommt so lange nicht ins Geräte-Backup (iCloud, Finder, Übertragung) — wie die Momentaufnahme des Widgets.
+/// Der versiegelte Stand ist ohnehin nur auf diesem Gerät lesbar (Schlüssel «nur dieses Gerät»), der Klartext wäre es
+/// überall.
 ///
-/// Sobald die Datei versiegelt ist, gilt wieder ihre eigene Regel (z. B. `watchlist.json` nur ausgenommen, solange sie
-/// Portfolio-Alarme trägt und «Portfolio in Systemsicherung» aus ist): Ein normales Schreiben legt ohnehin eine neue Datei
+/// Sobald die Datei versiegelt ist, gilt wieder ihre eigene Regel (z. B. die Kopie der Portfolio-Alarme ausgenommen,
+/// solange «Portfolio in Systemsicherung» aus ist): Ein normales Schreiben legt ohnehin eine neue Datei
 /// an, deren Merkmal der Schreiber setzt; versiegelt erst ein späterer Start (`ProtectedStorage.encrypt`), bekommt sie das
 /// Merkmal von vor dem Ausnehmen zurück (hier gemerkt, je Pfad in den Einstellungen der App).
 enum PlainBackupExclusion {

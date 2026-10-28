@@ -4,7 +4,7 @@ import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import java.io.File
 import java.io.IOException
@@ -18,7 +18,7 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
 /**
- * Schlüssel der verschlüsselten Datenbanken ([DatabaseEncryptionMigration.Keys]): je Datenbank 32 zufällige Bytes,
+ * Schlüssel der verschlüsselten Datenbanken ([DatabaseOpenPlanner.Keys]): je Datenbank 32 zufällige Bytes,
  * mit einem AES-256-GCM-Schlüssel im Android Keystore verschlüsselt (je Datenbank ein eigener, [aliasFor]; verlässt
  * den Keystore nie) und als
  * kleine Datei in `noBackupFilesDir/[DIRECTORY]` gespeichert — nie in einer Sicherung (Auto Backup und Übertragung
@@ -37,7 +37,7 @@ class DatabaseKeyStore(
     private val directory: File = File(context.noBackupFilesDir, DIRECTORY),
     /** Nur Tests: eigene Menge «in diesem Lauf vermerkt» = neuer Prozess ([DatabaseKeyRetry.SuspectMarker]). */
     runSeen: MutableSet<String>? = null,
-) : DatabaseEncryptionMigration.Keys {
+) : DatabaseOpenPlanner.Keys {
 
     private fun keyFile(database: String) = File(directory, "$database.key")
 
@@ -75,8 +75,8 @@ class DatabaseKeyStore(
         return when (outcome) {
             is DatabaseKeyRetry.Outcome.Value -> {
                 suspects.clear(database)
-                if (outcome.value.size != DatabaseEncryptionMigration.KEY_BYTES) KeyLookup.Absent
-                else KeyLookup.Found(DatabaseEncryptionMigration.rawKeyLiteral(outcome.value))
+                if (outcome.value.size != DatabaseOpenPlanner.KEY_BYTES) KeyLookup.Absent
+                else KeyLookup.Found(DatabaseOpenPlanner.rawKeyLiteral(outcome.value))
             }
             // Endgültig: Keystore-Schlüssel ungültig gemacht oder ein anderer als beim Verschlüsseln
             is DatabaseKeyRetry.Outcome.Permanent -> KeyLookup.Absent
@@ -110,13 +110,13 @@ class DatabaseKeyStore(
             }
             usable ?: generateMasterKey(database)
         }
-        val raw = ByteArray(DatabaseEncryptionMigration.KEY_BYTES).also(SecureRandom()::nextBytes)
+        val raw = ByteArray(DatabaseOpenPlanner.KEY_BYTES).also(SecureRandom()::nextBytes)
         val sealed = encrypt(master, raw)
         directory.mkdirs()
         val file = keyFile(database)
         // Den bisherigen Schlüssel (endgültig unbrauchbar oder nie genutzt) nicht überschreiben, sondern nummeriert daneben
         // behalten — falls «endgültig» doch falsch war, holt der nächste Start die beiseitegelegte Datenbank damit zurück
-        // (DatabaseEncryptionMigration); gelöscht erst, wenn keine beiseitegelegte Datei mehr wartet ([discardPrevious])
+        // (DatabaseOpenPlanner); gelöscht erst, wenn keine beiseitegelegte Datei mehr wartet ([discardPrevious])
         if (file.exists() && !file.renameTo(nextSlot(database, PREVIOUS_SUFFIX))) {
             throw IOException("$database: bisheriger Schlüssel nicht beiseitegelegt")
         }
@@ -127,12 +127,12 @@ class DatabaseKeyStore(
         }
         if (!temp.renameTo(file)) throw IOException("$database: Schlüsseldatei nicht gespeichert")
         suspects.clear(database)
-        return DatabaseEncryptionMigration.rawKeyLiteral(raw)
+        return DatabaseOpenPlanner.rawKeyLiteral(raw)
     }
 
     /**
      * Früheren Schlüssel löschen: Die verschlüsselte Datenbank liess sich eben mit dem gespeicherten Schlüssel öffnen
-     * ([DatabaseEncryptionMigration]) — der beiseitegelegte bliebe sonst für immer liegen.
+     * ([DatabaseOpenPlanner]) — der beiseitegelegte bliebe sonst für immer liegen.
      */
     override fun discardPrevious(database: String) {
         for (previous in previousKeyFiles(database)) {
@@ -140,15 +140,15 @@ class DatabaseKeyStore(
         }
     }
 
-    override fun previous(database: String): List<DatabaseEncryptionMigration.PreviousKey> {
+    override fun previous(database: String): List<DatabaseOpenPlanner.PreviousKey> {
         val files = previousKeyFiles(database)
         if (files.isEmpty()) return emptyList()
         // Mit einem neu erzeugten Keystore-Schlüssel sind die früheren Dateien nicht mehr zu öffnen: dann keiner
         val master = runCatching { masterKey(database) }.getOrNull() ?: return emptyList()
         return files.mapNotNull { f ->
             val raw = runCatching { decrypt(master, f.readBytes()) }.getOrNull() ?: return@mapNotNull null
-            if (raw.size != DatabaseEncryptionMigration.KEY_BYTES) return@mapNotNull null
-            DatabaseEncryptionMigration.PreviousKey(f.name, DatabaseEncryptionMigration.rawKeyLiteral(raw))
+            if (raw.size != DatabaseOpenPlanner.KEY_BYTES) return@mapNotNull null
+            DatabaseOpenPlanner.PreviousKey(f.name, DatabaseOpenPlanner.rawKeyLiteral(raw))
         }
     }
 

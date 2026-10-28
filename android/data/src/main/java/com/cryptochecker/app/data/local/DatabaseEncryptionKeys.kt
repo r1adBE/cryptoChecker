@@ -1,16 +1,13 @@
-// Schlüssel-Fälle der Verschlüsselung (Teil von `DatabaseEncryptionMigration`): frühere Schlüssel, beiseitegelegte
-// Dateien zurückholen, Entscheidung ohne Schlüssel, Schlüssel für noch unverschlüsselte Dateien.
+// Schlüssel-Fälle der Verschlüsselung (Teil von `DatabaseOpenPlanner`): frühere Schlüssel, beiseitegelegte
+// Dateien zurückholen, Schlüssel für eine neue Datei, Frist für beiseitegelegte Kopien.
 // Erweiterungsfunktionen; Ablauf und Regeln bleiben in der Klasse.
 package com.cryptochecker.app.data.local
 
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.FileKind
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.KeyLookup
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.OpenPlan
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Companion.planOpen
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.KeyLookup
 
 /** Früherer Schlüssel, der die (aktuelle) Datei öffnet → wieder der gespeicherte; null = keiner. */
-fun DatabaseEncryptionMigration.previousOpening(database: String): Decision? {
+fun DatabaseOpenPlanner.previousOpening(database: String): Decision? {
     val previous = runCatching { keys.previous(database) }.getOrDefault(emptyList())
     for (key in previous) {
         val opens = runCatching { files.opens(database, key.passphrase) }.getOrDefault(false)
@@ -29,7 +26,7 @@ fun DatabaseEncryptionMigration.previousOpening(database: String): Decision? {
  * Datei bleibt unter neuem Namen, ihr Schlüssel als «ersetzt»). Erst die Dateien, dann der Schlüssel: bricht es
  * dazwischen ab, findet der nächste Start den früheren Schlüssel über [previousOpening]. null = nichts zurückgeholt.
  */
-fun DatabaseEncryptionMigration.restoreFromAside(database: String): Decision? {
+fun DatabaseOpenPlanner.restoreFromAside(database: String): Decision? {
     val copies = runCatching { files.asideCopies(database) }.getOrDefault(emptyList())
     if (copies.isEmpty()) return null
     val previous = runCatching { keys.previous(database) }.getOrDefault(emptyList())
@@ -55,41 +52,28 @@ fun DatabaseEncryptionMigration.restoreFromAside(database: String): Decision? {
     return null
 }
 
-/** Entscheidung ohne brauchbaren Schlüssel nach [planOpen]. */
-fun DatabaseEncryptionMigration.withoutKey(kind: FileKind, database: String): Decision =
-    when (planOpen(kind, keyUsable = false, encryptionRequired = encryptionRequired(database))) {
-        OpenPlan.REFUSE -> {
-            log("$database: kein Schlüssel, nicht unverschlüsselt angelegt (nur im Arbeitsspeicher)", null)
-            Decision.Refused
-        }
-        OpenPlan.COPY_TO_MEMORY -> {
-            log("$database: kein Schlüssel, unverschlüsselte Datei bleibt unberührt (Inhalt im Arbeitsspeicher)", null)
-            Decision.PlaintextKept
-        }
-        OpenPlan.ENCRYPTED, OpenPlan.PLAINTEXT, OpenPlan.KEEP_FILE_IN_MEMORY, OpenPlan.WAIT -> Decision.Plaintext
-    }
-
 /**
- * Gespeicherter Schlüssel, sonst ein neuer. Nur für Dateien, die (noch) nicht verschlüsselt sind: Kein
- * verschlüsselter Inhalt hängt am alten Schlüssel, ersetzen ist darum gefahrlos. null = kein Schlüssel möglich.
+ * Gespeicherter Schlüssel, sonst ein neuer; wirft, wenn keiner entstehen kann. Nur solange keine verschlüsselte Datei an
+ * einem Schlüssel hängt (neue Datei, wiederhergestellte Kopie): ersetzen ist dann gefahrlos.
  */
-fun DatabaseEncryptionMigration.usableOrNewKey(database: String): ByteArray? {
-    val lookup = keys.load(database)
-    if (lookup is KeyLookup.Found) return lookup.passphrase
-    return try {
-        keys.create(database)
+fun DatabaseOpenPlanner.Keys.loadOrCreate(database: String): ByteArray =
+    (load(database) as? KeyLookup.Found)?.passphrase ?: create(database)
+
+/** [loadOrCreate] für eine neue Datei; null = kein Schlüssel möglich. */
+fun DatabaseOpenPlanner.usableOrNewKey(database: String): ByteArray? =
+    try {
+        keys.loadOrCreate(database)
     } catch (e: Exception) {
-        log("$database: kein Schlüssel, unverschlüsselt weiter", e)
+        log("$database: kein Schlüssel", e)
         null
     }
-}
 
 /**
- * Beiseitegelegte Kopien löschen, die [DatabaseEncryptionMigration.asideExpired] freigibt ([AsideRetention]).
+ * Beiseitegelegte Kopien löschen, die [DatabaseOpenPlanner.asideExpired] freigibt ([AsideRetention]).
  * Nur aus dem Weg «gespeicherter Schlüssel öffnet die aktuelle Datei» und nach [restoreFromAside] — die aktuelle Datei
  * ist nie darunter. Fehler bleiben still (die Kopie bleibt, der nächste Start versucht es erneut).
  */
-fun DatabaseEncryptionMigration.pruneAside(database: String) {
+fun DatabaseOpenPlanner.pruneAside(database: String) {
     val copies = runCatching { files.asideCopies(database) }.getOrDefault(emptyList())
     if (copies.isEmpty()) return
     val expired = runCatching { asideExpired(database, copies) }.getOrDefault(emptyList())

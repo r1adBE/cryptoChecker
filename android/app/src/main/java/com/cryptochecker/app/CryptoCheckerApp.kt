@@ -92,7 +92,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         // Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
         com.cryptochecker.app.util.BackgroundErrorCounter.install(com.cryptochecker.app.data.local.SharedPreferencesStores(this))
         // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
-        // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner)
+        // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner); eine noch nicht
+        // verschlüsselte Wiederherstellung (keine Hauptdatenbank) bleibt fürs erste Öffnen
         if (getDatabasePath(com.cryptochecker.app.data.local.SystemBackupAgent.EXPORT_NAME).exists()) {
             runCatching { com.cryptochecker.app.data.local.DatabaseSystemBackup(this).cleanUpLeftover() }
                 .onFailure { Timber.w(it, "Systemsicherung: Aufräumen fehlgeschlagen") }

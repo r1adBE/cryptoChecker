@@ -91,9 +91,9 @@ object BackupRestorePolicy {
 
     /**
      * Nur Android: Darf mit diesem Zustand einer Datenbank gesichert ([restoring] false) bzw. eingespielt werden? null = ja.
-     * Sichern bleibt im Arbeitsspeicher erlaubt (es nimmt, was gerade zu sehen ist, auch die Kopie einer alten
-     * unverschlüsselten Datei). Einspielen nicht: Die Einstellungen wären schon ersetzt, Merkliste bzw. Portfolio nach dem
-     * Neustart aber wieder die alten oder leer — gleiche Regel wie fürs Zurückrollen ([mayRollBackInto]).
+     * Sichern bleibt im Arbeitsspeicher erlaubt (es nimmt, was gerade zu sehen ist). Einspielen nicht: Die Einstellungen
+     * wären schon ersetzt, Merkliste bzw. Portfolio nach dem Neustart aber wieder die alten oder leer — gleiche Regel wie
+     * fürs Zurückrollen ([mayRollBackInto]).
      */
     fun storageRefusal(storedKept: Boolean, inMemory: Boolean, restoring: Boolean): StorageRefusal? = when {
         storedKept -> StorageRefusal.KEPT

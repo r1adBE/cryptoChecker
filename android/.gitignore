@@ -30,7 +30,6 @@ keystore.properties
 *.jks
 *.keystore
 
-# Echte Datenbanken eines Testgeräts (RealDatabaseEncryptionTest) – nie einchecken
-app/src/androidTest/assets/realdb/
+# SQLite-Nebendateien – nie einchecken
 *.db-wal
 *.db-shm

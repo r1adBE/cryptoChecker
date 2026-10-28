@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
-    <string name="watchlist_storage_copy_in_memory">Criptografia ainda não ativa – a lista não está sendo salva e as alterações se perdem ao fechar o app. Os alarmes em segundo plano estão pausados. O app tentará de novo na próxima abertura.</string>
-</resources>

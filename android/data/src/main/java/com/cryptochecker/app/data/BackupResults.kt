@@ -53,8 +53,8 @@ class BackupStorageKeptException : IllegalStateException("Gespeicherter Stand ge
 
 /**
  * Einspielen abgelehnt: Merkliste oder Portfolio liegen in diesem Lauf nur im Arbeitsspeicher, weil kein Schlüssel da ist
- * ([com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isInMemory]: neu ohne Datei oder Kopie einer alten
- * unverschlüsselten Datei). Das Eingespielte wäre nach dem Neustart weg, die Einstellungen aber schon ersetzt.
+ * ([com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isInMemory]: neu ohne Datei). Das
+ * Eingespielte wäre nach dem Neustart weg, die Einstellungen aber schon ersetzt.
  */
 class BackupStorageInMemoryException : IllegalStateException("Datenbank nur im Arbeitsspeicher")
 

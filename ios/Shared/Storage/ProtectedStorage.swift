@@ -5,28 +5,34 @@ import Security
 // Verschlüsselte Dateien mit Nutzerdaten, Teil 2: welche Dateien und die Überführung beim Start (Format, Schlüssel und
 // Lesen/Schreiben in `ProtectedFile.swift`).
 
-/// Welche Dateien verschlüsselt werden und die einmalige Überführung beim Start der App.
+/// Welche Dateien verschlüsselt werden und die Überführung beim Start der App.
 enum ProtectedStorage {
+    /// Eintrag in `files`.
+    typealias Entry = (url: URL, coordination: URL, sealedOnly: Bool)
+
     /// Dateien mit Nutzerdaten, je mit der URL, auf die sich andere Prozesse beim Schreiben abstimmen
-    /// (`watchlist.json` und `portfolio_alarms.json` gemeinsam über `watchlist.json`, siehe `SharedStorage.coordinated`).
+    /// (`watchlist.json` und `portfolio_alarms.json` gemeinsam über `watchlist.json`, siehe `SharedStorage.coordinated`),
+    /// und ob die App sie nur versiegelt schreibt (`sealedOnly`, `ProtectedFile.write(requireSealed:)`). Unverschlüsselt
+    /// entstehen nur die Kopien unlesbarer Dateien (`ProtectedFile.writeCopy` ohne Schlüssel); nur sie versiegelt der
+    /// Start. Eine unverschlüsselte `sealedOnly`-Datei bleibt liegen und gilt beim Lesen als beschädigt.
     /// Bewusst unverschlüsselt (keine Beträge, Adressen oder Notizen; gleich wie Android, wo sie ausserhalb der
     /// Datenbank liegen): Kurs-Zwischenspeicher des Portfolio-Widgets (`portfolio_widget_history/hourly/daily/
     /// candle_attempts.json`, gemerkte Kurse `portfolio_last_prices.txt`), «Letzte Prüfungen» (`check_runs.txt`),
     /// Coin-Namen und -Logos, `phemex_scales.json`, `alarm.lease` und die Einstellungen (App-Group-Defaults).
-    static var files: [(url: URL, coordination: URL)] {
+    static var files: [Entry] {
         let watchlist = SharedStorage.watchlistURL
         let alarms = SharedStorage.portfolioAlarmsURL
         return [
-            (watchlist, watchlist),
-            (SharedStorage.unreadableCopyURL(of: watchlist), watchlist),
-            (alarms, watchlist),
-            (SharedStorage.unreadableCopyURL(of: alarms), watchlist),
-            (PortfolioStore.url, PortfolioStore.url),
-            (SharedStorage.unreadableCopyURL(of: PortfolioStore.url), PortfolioStore.url),
-            (WatchedAddressStore.url, WatchedAddressStore.url),
-            (PortfolioWidgetStore.snapshotURL, PortfolioWidgetStore.snapshotURL),
+            (watchlist, watchlist, true),
+            (SharedStorage.unreadableCopyURL(of: watchlist), watchlist, false),
+            (alarms, watchlist, true),
+            (SharedStorage.unreadableCopyURL(of: alarms), watchlist, false),
+            (PortfolioStore.url, PortfolioStore.url, true),
+            (SharedStorage.unreadableCopyURL(of: PortfolioStore.url), PortfolioStore.url, false),
+            (WatchedAddressStore.url, WatchedAddressStore.url, true),
+            (PortfolioWidgetStore.snapshotURL, PortfolioWidgetStore.snapshotURL, true),
             // Alarm-Protokoll: Paare und Schwellen wie die Merkliste
-            (AlarmLogStore.url, AlarmLogStore.url),
+            (AlarmLogStore.url, AlarmLogStore.url, true),
         ]
     }
 
@@ -46,23 +52,25 @@ enum ProtectedStorage {
         var encryptionPending: Bool { !keptPlain.isEmpty }
     }
 
-    /// Beim Start der App, vor dem ersten Lesen: Schlüssel sicherstellen und Klartext-Dateien verschlüsseln.
+    /// Beim Start der App, vor dem ersten Lesen: Schlüssel sicherstellen und Klartext-Kopien (nicht `sealedOnly`)
+    /// verschlüsseln.
     /// - Ohne lesbaren Schlüsselbund: nichts anfassen (nächster Start).
     /// - Kein Schlüssel, aber verschlüsselte Dateien (Schlüssel verloren, z. B. Backup ohne Schlüsselbund eingespielt):
     ///   diese beiseitelegen statt löschen, erst dann einen neuen Schlüssel anlegen.
     /// - Unverschlüsselt bleibende Dateien kommen so lange nicht ins Geräte-Backup (`PlainBackupExclusion`).
     @discardableResult
-    static func prepareAtLaunch(files: [(url: URL, coordination: URL)] = ProtectedStorage.files,
+    static func prepareAtLaunch(files: [Entry] = ProtectedStorage.files,
                                 keys: StorageKey = .shared, defaults: UserDefaults = .standard) -> LaunchOutcome {
         var outcome = LaunchOutcome()
         let fm = FileManager.default
         let present = files.filter { fm.fileExists(atPath: $0.url.path) }
+        let plainCapable = present.filter { !$0.sealedOnly }
         // Schon versiegelt (normal geschrieben, das Merkmal setzte der Schreiber): kein Merkmal von früher mehr nötig
         for file in present where isSealedFile(file.url) { PlainBackupExclusion.forget(file.url, defaults: defaults) }
         /// Ohne Schlüssel bleibt jede Klartext-Datei, wie sie ist — vermerkt für den Hinweis (`encryptionPending`).
         func keepingPlain() -> LaunchOutcome {
             var kept = outcome
-            for file in present where fm.fileExists(atPath: file.url.path) && !ProtectedStorage.isSealedFile(file.url) {
+            for file in plainCapable where fm.fileExists(atPath: file.url.path) && !ProtectedStorage.isSealedFile(file.url) {
                 kept.keptPlain.append(file.url.lastPathComponent)
                 PlainBackupExclusion.excludeWhilePlain(file.url, defaults: defaults)
             }
@@ -82,7 +90,7 @@ enum ProtectedStorage {
             guard let created = keys.createIfAbsent() else { return keepingPlain() }
             key = created
         }
-        for file in present where fm.fileExists(atPath: file.url.path) && !isSealedFile(file.url) {
+        for file in plainCapable where fm.fileExists(atPath: file.url.path) && !isSealedFile(file.url) {
             if encrypt(file.url, key: key, coordination: file.coordination, defaults: defaults) {
                 outcome.encrypted.append(file.url.lastPathComponent)
             } else {

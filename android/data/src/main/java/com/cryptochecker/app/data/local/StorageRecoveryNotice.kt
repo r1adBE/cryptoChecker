@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.update
  *    hat leer begonnen. Bleibt, bis der Nutzer ihn bestätigt oder eine Sicherung einspielt ([acknowledgeSetAside]) —
  *    ein einmaliger Hinweis ging zu leicht unter. Weg zurück: Sicherungsdatei einspielen (direkte Aktion im Hinweis).
  *  - [Kind.KEY_RESTORED]: Ein früherer, nummeriert behaltener Schlüssel öffnete die beiseitegelegte Datei beim nächsten
- *    Start doch — sie ist zurück ([DatabaseEncryptionMigration]). Einmal.
+ *    Start doch — sie ist zurück ([DatabaseOpenPlanner]). Einmal.
  *  - [Kind.RESTORE_ROLLED_BACK] / [Kind.RESTORE_INCOMPLETE]: Ein Wiederherstellen brach ab (Prozess beendet); der Stand
  *    davor wurde aus dem Journal zurückgeschrieben bzw. liess sich nicht zurückschreiben
  *    ([com.cryptochecker.app.data.RestoreJournal]). Einmal.

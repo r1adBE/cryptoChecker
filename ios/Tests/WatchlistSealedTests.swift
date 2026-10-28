@@ -3,8 +3,8 @@ import Security
 import XCTest
 @testable import CryptoChecker
 
-/// Merkliste nur versiegelt (`SharedStorage.writeFiles`, `requireSealed`): ohne Schlüssel nie Klartext, eine alte
-/// unverschlüsselte Datei bleibt lesbar und unverändert, bis mit Schlüssel versiegelt geschrieben werden kann.
+/// Merkliste nur versiegelt (`SharedStorage.writeFiles`, `requireSealed`): ohne Schlüssel nie Klartext, eine
+/// unverschlüsselte Datei gilt wie eine kaputte.
 /// Dazu die Ablage der Alarmtöne in `Library/Sounds` der App Group (`AlarmSounds.installSounds`) und das Abwarten der
 /// Schreib-Warteschlange ohne Blockieren (`SharedStorage.snapshotWritesSettled`).
 /// Läuft in einem temporären Ordner mit gefälschtem Schlüsselbund, nie auf der App Group.
@@ -14,7 +14,7 @@ final class WatchlistSealedTests: XCTestCase {
     private var watchlist: URL { dir.appendingPathComponent("watchlist.json") }
     private var portfolioAlarms: URL { dir.appendingPathComponent("portfolio_alarms.json") }
     private let fixedKey = SymmetricKey(data: Data(repeating: 9, count: 32))
-    private let legacyJson = Data("""
+    private let json = Data("""
     {"watches":[{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT","note":"Ø 77 500"}],
      "alarms":[],"nextWatchId":2,"nextAlarmId":1}
     """.utf8)
@@ -50,27 +50,28 @@ final class WatchlistSealedTests: XCTestCase {
 
     // MARK: Merkliste ohne Schlüssel
 
-    /// Alte Klartext-Datei, kein Schlüssel: lesbar; Schreiben unterbleibt (kein neuer Klartext), die Datei bleibt Byte
-    /// für Byte, der Stand wartet. Mit Schlüssel: versiegelt geschrieben, mit allen Änderungen.
-    func testLegacyPlainFileStaysReadableAndIsSealedOnNextWrite() throws {
-        try legacyJson.write(to: watchlist, options: [.atomic])
-        var snap = try read(keys(nil))
-        XCTAssertEqual(snap.watches.first?.note, "Ø 77 500")
-        snap.watches[0].note = "geändert"
-
+    /// Unverschlüsselte Datei (schreibt die App nie): mit und ohne Schlüssel «unlesbar» wie eine kaputte; ohne Schlüssel
+    /// bleibt sie Byte für Byte (kein Klartext), mit Schlüssel ersetzt sie das nächste Schreiben versiegelt.
+    func testPlainFileIsUnreadableAndReplacedSealed() throws {
+        try json.write(to: watchlist, options: [.atomic])
+        for k in [keys(nil), keys(fixedKey)] {
+            guard case .unreadable = SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms,
+                                                             keys: k) else {
+                return XCTFail("erwartet .unreadable")
+            }
+        }
+        var snap = SharedStorage.Snapshot()
+        snap.watches = [Watch(id: 1, exchangeKey: "binance", exchangeName: "Binance", baseAsset: "ETH", quoteAsset: "USDT")]
         XCTAssertFalse(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
                                                 includePortfolioInBackup: true, keys: keys(nil)))
         XCTAssertTrue(SharedStorage.watchlistPending)
-        XCTAssertEqual(try Data(contentsOf: watchlist), legacyJson)
-        XCTAssertEqual(try read(keys(nil)).watches.first?.note, "Ø 77 500")
+        XCTAssertEqual(try Data(contentsOf: watchlist), json)
 
         XCTAssertTrue(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
                                                includePortfolioInBackup: true, keys: keys(fixedKey)))
         XCTAssertFalse(SharedStorage.watchlistPending)
         XCTAssertTrue(ProtectedStorage.isSealedFile(watchlist))
-        let raw = try Data(contentsOf: watchlist)
-        XCTAssertNil(raw.range(of: Data("geändert".utf8)))
-        XCTAssertEqual(try read(keys(fixedKey)).watches.first?.note, "geändert")
+        XCTAssertEqual(try read(keys(fixedKey)).watches.map(\.baseAsset), ["ETH"])
     }
 
     /// Noch keine Datei und kein Schlüssel: keine Klartext-Datei anlegen.
@@ -86,7 +87,7 @@ final class WatchlistSealedTests: XCTestCase {
     /// Versiegelte Datei, Schlüsselbund gerade nicht lesbar: «nicht zugreifbar» beim Lesen, Schreiben lässt sie
     /// unverändert; danach mit Schlüssel geschrieben.
     func testLockedKeychainLeavesSealedFileUntouched() throws {
-        let snap = try JSONDecoder().decode(SharedStorage.Snapshot.self, from: legacyJson)
+        let snap = try JSONDecoder().decode(SharedStorage.Snapshot.self, from: json)
         XCTAssertTrue(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
                                                includePortfolioInBackup: true, keys: keys(fixedKey)))
         let before = try Data(contentsOf: watchlist)
@@ -101,22 +102,6 @@ final class WatchlistSealedTests: XCTestCase {
         XCTAssertTrue(SharedStorage.watchlistPending)
         XCTAssertEqual(try Data(contentsOf: watchlist), before)
         XCTAssertEqual(try read(keys(fixedKey)).watches.map(\.id), [1])
-    }
-
-    /// Portfolio-Alarme in einer alten Klartext-Merkliste, kein Schlüssel: nichts geht verloren, nichts Neues im Klartext.
-    func testPlainPortfolioAlarmsSurviveWithoutKey() throws {
-        let json = Data("""
-        {"watches":[],"alarms":[],"nextWatchId":1,"nextAlarmId":1,
-         "portfolioAlarms":[{"id":3,"kind":"VALUE_BELOW","threshold":500,"currency":"CHF","enabled":true}],
-         "nextPortfolioAlarmId":4}
-        """.utf8)
-        try json.write(to: watchlist, options: [.atomic])
-        let snap = try read(keys(nil))
-        XCTAssertFalse(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
-                                                includePortfolioInBackup: false, keys: keys(nil)))
-        XCTAssertEqual(try Data(contentsOf: watchlist), json)
-        XCTAssertFalse(FileManager.default.fileExists(atPath: portfolioAlarms.path))
-        XCTAssertEqual(try read(keys(nil)).portfolioAlarms?.map(\.id), [3])
     }
 
     // MARK: Schreib-Warteschlange

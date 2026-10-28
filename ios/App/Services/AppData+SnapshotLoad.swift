@@ -190,12 +190,6 @@ extension AppData {
         // Portfolio im Hintergrund lesen (nach dem Verschlüsseln); wer es vorher braucht, liest es beim ersten Zugriff
         // sofort (`ensurePortfolioLoaded`) — nie ein leerer «noch nicht gelesener» Stand
         startPortfolioPrefetch()
-        // Einmalig: Portfolio-Alarme aus `watchlist.json` in die eigene Datei (Backup-Merkmal wie
-        // `portfolio.json`); wiederholbar, ohne Verlust (siehe `SharedStorage.writeFiles`)
-        if snapshot.portfolioAlarms != nil
-            && !FileManager.default.fileExists(atPath: SharedStorage.portfolioAlarmsURL.path) {
-            SharedStorage.updateSnapshot { _ in }
-        }
         // «Portfolio in Systemsicherung»: auch für eine schon vorhandene Datei (Update, Wiederherstellung) —
         // nicht mit Standardwerten, solange die Einstellungen nicht zugänglich sind
         if settingsAccessible { PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup) }

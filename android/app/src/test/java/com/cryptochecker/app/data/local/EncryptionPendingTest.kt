@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.local
 
-import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
+import com.cryptochecker.app.data.local.DatabaseOpenPlanner.Decision
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -12,19 +12,19 @@ class EncryptionPendingTest {
     private val encrypted = Decision.Encrypted(ByteArray(32))
 
     @Test
-    fun plaintextFallbackIsNotedEncryptionClearsIt() {
-        val afterFallback = EncryptionPending.updated(emptySet(), "cryptochecker.db", Decision.Plaintext)
-        assertEquals(setOf("cryptochecker.db"), afterFallback)
-        assertTrue(EncryptionPending.showNotice(afterFallback))
-        // Nächster Start verschlüsselt: Hinweis weg
-        val afterRetry = EncryptionPending.updated(afterFallback, "cryptochecker.db", encrypted)
-        assertFalse(EncryptionPending.showNotice(afterRetry))
+    fun refusedIsNotedEncryptionClearsIt() {
+        // Kein Schlüssel, Datenbank nur im Arbeitsspeicher: Verschlüsselung noch nicht aktiv
+        val refused = EncryptionPending.updated(emptySet(), "portfolio.db", Decision.Refused)
+        assertEquals(setOf("portfolio.db"), refused)
+        assertTrue(EncryptionPending.showNotice(refused))
+        // Nächster Start mit Schlüssel: Hinweis weg
+        assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(refused, "portfolio.db", encrypted)))
     }
 
     @Test
     fun eachDatabaseCountsOnItsOwn() {
-        var pending = EncryptionPending.updated(emptySet(), "cryptochecker.db", Decision.Plaintext)
-        pending = EncryptionPending.updated(pending, "portfolio.db", Decision.Plaintext)
+        var pending = EncryptionPending.updated(emptySet(), "cryptochecker.db", Decision.Refused)
+        pending = EncryptionPending.updated(pending, "portfolio.db", Decision.Refused)
         pending = EncryptionPending.updated(pending, "cryptochecker.db", encrypted)
         assertEquals(setOf("portfolio.db"), pending)
         assertTrue(EncryptionPending.showNotice(pending))
@@ -38,29 +38,11 @@ class EncryptionPendingTest {
     }
 
     @Test
-    fun refusedPortfolioCountsAsNotEncryptedUntilAStartSucceeds() {
-        // Kein Schlüssel, Portfolio nur im Arbeitsspeicher: Verschlüsselung noch nicht aktiv
-        val refused = EncryptionPending.updated(emptySet(), "portfolio.db", Decision.Refused)
-        assertEquals(setOf("portfolio.db"), refused)
-        assertTrue(EncryptionPending.showNotice(refused))
-        assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(refused, "portfolio.db", encrypted)))
-    }
-
-    @Test
-    fun plaintextKeptCountsAsNotEncrypted() {
-        // Alte unverschlüsselte Merkliste ohne Schlüssel, nur gelesen: Verschlüsselung noch nicht aktiv
-        val kept = EncryptionPending.updated(emptySet(), "app.db", Decision.PlaintextKept)
-        assertEquals(setOf("app.db"), kept)
-        assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(kept, "app.db", encrypted)))
-    }
-
-    @Test
     fun noticeHiddenWhenEverythingIsEncrypted() {
         assertFalse(EncryptionPending.showNotice(emptySet()))
-        // Neu angelegt und gleich verschlüsselt (Migration «migrated», beiseitegelegt «setAside»): kein Hinweis
-        val migrated = Decision.Encrypted(ByteArray(32), migrated = true)
+        // Neu angelegt bzw. beiseitegelegt und neu begonnen: kein Hinweis
         val setAside = Decision.Encrypted(ByteArray(32), setAside = true)
-        assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(emptySet(), "a.db", migrated)))
+        assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(emptySet(), "a.db", encrypted)))
         assertFalse(EncryptionPending.showNotice(EncryptionPending.updated(emptySet(), "b.db", setAside)))
     }
 }

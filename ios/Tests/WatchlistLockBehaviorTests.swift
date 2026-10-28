@@ -135,10 +135,18 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         return false
     }
 
+    /// Ganzer Stand im Speicher: die Portfolio-Alarme eigens, sie stehen nicht in `watchlist.json` (`Snapshot.CodingKeys`).
+    private struct WholeState: Encodable {
+        let snapshot: SharedStorage.Snapshot
+        let portfolioAlarms: [PortfolioAlarm]?
+        let nextPortfolioAlarmId: Int64?
+    }
+
     private func encoded(_ snapshot: SharedStorage.Snapshot) throws -> Data {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.sortedKeys]
-        return try encoder.encode(snapshot)
+        return try encoder.encode(WholeState(snapshot: snapshot, portfolioAlarms: snapshot.portfolioAlarms,
+                                             nextPortfolioAlarmId: snapshot.nextPortfolioAlarmId))
     }
 
     /// Jeder Schreibweg des Nutzers mit Argumenten, die ungesperrt etwas ändern.

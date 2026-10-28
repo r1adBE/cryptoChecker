@@ -67,12 +67,11 @@ abstract class PrefsAlarmDeliveryMarkers(
 
         /**
          * Vermerke der Alarme in [databaseName] löschen bzw. kürzen? Nicht, solange der nächste Prozess den
-         * Stand der Datei zurückbringt (gesperrt behalten oder Kopie im Speicher, [AlarmDeliveryMarker.shouldClear]).
+         * Stand der Datei zurückbringt (gesperrt behalten, [AlarmDeliveryMarker.shouldClear]; eine Kopie im Speicher
+         * gibt es auf Android nicht).
          */
-        fun prunable(databaseName: String): Boolean = AlarmDeliveryMarker.shouldClear(
-            DatabaseEncryptionNotice.isStoredKept(databaseName),
-            DatabaseEncryptionNotice.isVolatileCopy(databaseName),
-        )
+        fun prunable(databaseName: String): Boolean =
+            AlarmDeliveryMarker.shouldClear(DatabaseEncryptionNotice.isStoredKept(databaseName), volatileCopy = false)
     }
 }
 
