@@ -196,7 +196,9 @@ class ScreenshotTourTest {
         } catch (e: Throwable) {
             Log.w(TAG, "Bild $name fehlt", e)
             val reason = e.message?.lineSequence()?.firstOrNull()?.take(REASON_LENGTH).orEmpty()
-            missing += "$name (${e.javaClass.simpleName}: $reason)"
+            // Zur Fehlersuche: Bild des Zustands und die sichtbaren Kennungen
+            runCatching { shot("${name}_failed") }
+            missing += "$name (${e.javaClass.simpleName}: $reason; sichtbar: ${nav.shownTags()})"
         }
     }
 

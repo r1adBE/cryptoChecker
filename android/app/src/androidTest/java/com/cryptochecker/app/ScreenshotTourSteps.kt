@@ -104,6 +104,13 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
             node.layoutInfo.isPlaced && bounds.width > 0f && bounds.height > 0f
         }
 
+    /** Alle Kennungen aus [UiTestTags], die gerade sichtbar sind (Fehlerbericht der Tour). */
+    fun shownTags(): String = UiTestTags::class.java.declaredFields
+        .filter { it.type == String::class.java && java.lang.reflect.Modifier.isStatic(it.modifiers) }
+        .mapNotNull { runCatching { it.get(null) as String }.getOrNull() }
+        .filter { runCatching { shown(it) }.getOrDefault(false) }
+        .joinToString(",").ifEmpty { "keine" }
+
     /** App neu in den Vordergrund holen (gleicher Prozess, Daten bleiben). */
     private fun relaunch() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
