@@ -410,7 +410,7 @@ final class BackupLimitsTests: XCTestCase {
         let text = String(decoding: data, as: UTF8.self)
         XCTAssertFalse(text.contains("\n"))
         XCTAssertFalse(text.contains("  "))
-        XCTAssertTrue(text.hasPrefix(#"{"alarms":[],"favorites":{"COIN":[],"EXCHANGE":[],"QUOTE":[]},"format":"cryptochecker-backup""#))
+        XCTAssertTrue(text.hasPrefix(#"{"alarms":[],"createdAt":1,"favorites":{"COIN":[],"EXCHANGE":[],"QUOTE":[]},"format":"cryptochecker-backup""#))
         XCTAssertFalse(try BackupManager.needsPassword(data))
         XCTAssertEqual(try BackupManager.plainJSON(data, password: nil), data)
         XCTAssertEqual(try BackupManager.invalidEntries(data), 0)

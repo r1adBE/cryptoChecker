@@ -18,7 +18,7 @@ final class PortfolioAlarmParityTests: XCTestCase {
             let threshold = TestSupport.number(c["threshold"]) ?? .nan
             XCTAssertEqual(PortfolioAlarmLogic.isValidThreshold(kind, threshold), c["valid"] as? Bool, "\(name): gültig")
             XCTAssertEqual(PortfolioAlarmLogic.exceedsFall(kind, threshold), c["exceedsFall"] as? Bool, "\(name): fällt ≥ 100")
-            let json: [String: Any] = ["id": 1, "kind": kind.rawValue, "threshold": threshold,
+            let json: [String: Any] = ["id": Int64(1), "kind": kind.rawValue, "threshold": threshold,
                                        "currency": kind.isValue ? "CHF" : NSNull(), "enabled": true, "repeating": false]
             let restored = try BackupManager.jsonToPortfolioAlarm(json)
             XCTAssertEqual(restored != nil, c["restored"] as? Bool, "\(name): übernommen")

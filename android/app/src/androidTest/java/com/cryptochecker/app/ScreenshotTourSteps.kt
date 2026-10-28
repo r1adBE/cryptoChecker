@@ -111,12 +111,18 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
     /** Blatt, Unterseite oder Bericht über der Merkliste offen (sichtbar, nicht nur noch im Baum). */
     private fun overlayOpen(): Boolean = OVERLAY_TAGS.any(::shown) || count(reportTitle()) > 0
 
-    /** Knoten mit [tag] auf dem Bildschirm: platziert und mit Fläche im Fenster. */
-    fun shown(tag: String): Boolean =
-        compose.onAllNodes(hasTestTag(tag), useUnmergedTree = true).fetchSemanticsNodes().any { node ->
+    /**
+     * Knoten mit [tag] auf dem Bildschirm: platziert, mit Fläche und innerhalb der Bildschirmhöhe (ein weggeschobenes
+     * Blatt bleibt platziert, liegt aber unterhalb des Bildschirms).
+     */
+    fun shown(tag: String): Boolean {
+        val screenHeight = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.heightPixels
+        return compose.onAllNodes(hasTestTag(tag), useUnmergedTree = true).fetchSemanticsNodes().any { node ->
             val bounds = node.boundsInWindow
-            node.layoutInfo.isPlaced && bounds.width > 0f && bounds.height > 0f
+            node.layoutInfo.isPlaced && bounds.width > 0f && bounds.height > 0f &&
+                bounds.top < screenHeight && bounds.bottom > 0f
         }
+    }
 
     /** Alle Kennungen aus [UiTestTags], die gerade sichtbar sind (Fehlerbericht der Tour). */
     fun shownTags(): String = UiTestTags::class.java.declaredFields
