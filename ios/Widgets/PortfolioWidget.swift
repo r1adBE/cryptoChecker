@@ -98,7 +98,7 @@ struct PortfolioEntry: TimelineEntry {
         // %-Basis: Stand mit anderer Basis oder von einem früheren Tag → Veränderung «—»
         // In der eingestellten Umrechnungswährung (ohne Kurs in USD aufgenommen oder Währung inzwischen gewechselt):
         // mit dem gemerkten Kurs umrechnen, damit «Umrechnung» sofort greift (wie Android)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let rate = PortfolioWidgetChart.fxRate(for: settings.portfolioCurrency, fresh: nil,
                                                memo: PortfolioWidgetStore.loadFxMemo(), now: now)
             // USDT zum Marktkurs: × USDT/USD (wie Android `PortfolioWidgetChart.usdtFactor`)
@@ -141,7 +141,7 @@ struct PortfolioEntry: TimelineEntry {
 
     static func sample(_ config: PortfolioWidgetIntent? = nil) -> PortfolioEntry {
         let settings = SharedStorage.loadSettings()
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let hour: Int64 = 3_600_000
         // 24 Stundenwerte und der aktuelle (wie der Stundenverlauf)
         let values: [Double] = [12_163, 12_180, 12_150, 12_120, 12_135, 12_170, 12_166, 12_205, 12_230, 12_211,
@@ -208,7 +208,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
         let loaded = SharedStorage.loadSettingsChecked()
         let settings = loaded.settings
         let snapshot = PortfolioWidgetStore.load()
-        let age = TimeUtils.nowMillis - (snapshot?.updatedAt ?? 0)
+        let age = EpochTime.nowMillis - (snapshot?.updatedAt ?? 0)
         var timedOut = false
         if settings.portfolioEnabled && !PortfolioLockPolicy.widgetLocked(lockSetting: loaded.appLockAssumed)
             && age >= WidgetRefresh.staleAfterMillis {

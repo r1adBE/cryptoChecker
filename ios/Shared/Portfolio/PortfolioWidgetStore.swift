@@ -78,7 +78,7 @@ enum PortfolioWidgetStore {
         guard let memo = PortfolioWidgetChart.fxMemoToSave(currency: currency, fresh: rate,
                                                            cachedForCurrency: FxRateSource.cached(currency),
                                                            fetchedAt: FxRateSource.fetchedAt(currency),
-                                                           now: TimeUtils.nowMillis) else { return false }
+                                                           now: EpochTime.nowMillis) else { return false }
         saveFxMemo(memo)
         if let stored = load(), CurrencyConversion.normalize(stored.currency) != CurrencyConversion.normalize(currency) {
             WidgetCenter.shared.reloadTimelines(ofKind: kind)
@@ -243,7 +243,7 @@ enum PortfolioWidgetStore {
         let settings = SharedStorage.loadSettings()
         // Frischen Kurs merken; ohne (kein Netz, frischer Prozess) der gemerkte — sonst fiele der Stand auf USD
         // zurück und das Widget zeigte trotz «Umrechnung» USDT (wie Android `record`)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let memo = PortfolioWidgetChart.fxMemoToSave(currency: currency, fresh: rate,
                                                         cachedForCurrency: FxRateSource.cached(currency),
                                                         fetchedAt: FxRateSource.fetchedAt(currency), now: now) {
@@ -297,7 +297,7 @@ enum PortfolioWidgetStore {
         let staleAfter = PortfolioPriceFallback.staleAfterMillis(
             backgroundIntervalMinutes: SharedStorage.loadSettings().backgroundIntervalMinutes)
         guard PortfolioPriceFallback.mayRecord(transactions: transactions, prices: prices,
-                                               now: TimeUtils.nowMillis, staleAfterMillis: staleAfter) else { return nil }
+                                               now: EpochTime.nowMillis, staleAfterMillis: staleAfter) else { return nil }
         let rate = await FxRateSource.usdTo(currency)
         var extra = await cachedHourly(Set(transactions.map { $0.coin.uppercased() }))
         for (coin, list) in await loadMissingCandles(transactions: transactions, prices: prices, known: extra) {
@@ -316,7 +316,7 @@ enum PortfolioWidgetStore {
         guard prices.updatedAt > 0 else { return [:] }
         let open = PortfolioCalculator.summarize(transactions, prices: prices.prices, withParts: false).open.map(\.coin)
         guard !open.isEmpty else { return [:] }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let merged = PortfolioWidgetSeries.merge(stored: loadHourly(), fresh: known, now: now)
         var attempts = loadCandleAttempts()
         let due = PortfolioWidgetSeries.candleCoins(open, prices: merged,
@@ -334,7 +334,7 @@ enum PortfolioWidgetStore {
                     guard let candles = await CandleDataSource.candles(base: coin, quote: "USDT", interval: .h1, limit: 24),
                           candles.count >= 2 else { return .empty }
                     let list = PortfolioWidgetSeries.fromCandles(candles.map { (open: $0.openTime, close: $0.close) },
-                                                                 fetchedAt: TimeUtils.nowMillis)
+                                                                 fetchedAt: EpochTime.nowMillis)
                     return list.isEmpty ? .empty : .candles(coin, list)
                 }
             }

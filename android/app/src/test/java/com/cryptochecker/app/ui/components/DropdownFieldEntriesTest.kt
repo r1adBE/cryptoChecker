@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /** Aufklappliste mit Abschnitten (Build 133, Börsenauswahl): Favoriten oben, Titelzeilen, Suche über alle. */
-class ComboBoxEntriesTest {
+class DropdownFieldEntriesTest {
 
     private val items = listOf("Binance", "Kraken", "Binance Futures", "DexScreener")
     private val sections = listOf("Spot", "Spot", "Futures", "DEX-Pools")

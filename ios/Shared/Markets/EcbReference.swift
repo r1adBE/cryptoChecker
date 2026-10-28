@@ -30,7 +30,7 @@ final class EcbReference: Market, @unchecked Sendable { // @unchecked: wie `Mark
 
     override func tickerAddress(call: Int, info: PairQuery) -> String {
         guard let pair = EcbReference.split(info.pairId) else { return "" }
-        return EcbReference.seriesURL(base: pair.base, symbols: [pair.quote], nowMillis: TimeUtils.nowMillis)
+        return EcbReference.seriesURL(base: pair.base, symbols: [pair.quote], nowMillis: EpochTime.nowMillis)
     }
 
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
@@ -53,7 +53,7 @@ final class EcbReference: Market, @unchecked Sendable { // @unchecked: wie `Mark
         let groups = EcbReference.bulkGroups(pairIds)
         guard groups.indices.contains(call) else { return nil }
         return EcbReference.seriesURL(base: groups[call].base, symbols: groups[call].symbols,
-                                      nowMillis: TimeUtils.nowMillis)
+                                      nowMillis: EpochTime.nowMillis)
     }
 
     override func bulkTickersRequestCount(pairIds: [String]) -> Int { EcbReference.bulkGroups(pairIds).count }

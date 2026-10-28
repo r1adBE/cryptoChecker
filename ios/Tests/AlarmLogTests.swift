@@ -206,7 +206,7 @@ final class AlarmLogTests: XCTestCase {
 
     // MARK: An den Entscheidungsstellen
 
-    private final class LogBox: @unchecked Sendable { // @unchecked: `_entries` unter `lock` (NSLock)
+    private final class AlarmLogRecorder: @unchecked Sendable { // @unchecked: `_entries` unter `lock` (NSLock)
         private let lock = NSLock()
         private var _entries: [AlarmLogEntry] = []
         func add(_ e: [AlarmLogEntry]) { lock.lock(); _entries += e; lock.unlock() }
@@ -243,7 +243,7 @@ final class AlarmLogTests: XCTestCase {
     /// Ein Durchlauf wie App, Hintergrund und Widget; liefert die protokollierten Einträge.
     private func run(_ alarm: Alarm, store: FakeStore, price: Double, at: Int64, settings: AppSettings = AppSettings(),
                      inputs: PriceRefresher.AlarmInputs = PriceRefresher.AlarmInputs(), shows: Bool = true,
-                     snoozedUntil: Int64? = nil, delivery: AlarmDelivery, log: LogBox) async {
+                     snoozedUntil: Int64? = nil, delivery: AlarmDelivery, log: AlarmLogRecorder) async {
         if store.snapshot.watches.isEmpty {
             store.snapshot.watches = [Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC",
                                             quoteAsset: "USDT", lastPrice: 99)]
@@ -270,7 +270,7 @@ final class AlarmLogTests: XCTestCase {
     func testFiredNotReachedAndAlreadyTriggered() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         let store = FakeStore()
-        let log = LogBox()
+        let log = AlarmLogRecorder()
         let alarm = Alarm(id: 7, watchId: 1, condition: .PRICE_ABOVE, threshold: 100, repeating: true)
         await run(alarm, store: store, price: 95, at: now, delivery: delivery, log: log)
         XCTAssertEqual(log.last(7)?.outcome, .NOT_REACHED)
@@ -289,7 +289,7 @@ final class AlarmLogTests: XCTestCase {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         var settings = AppSettings()
         settings.alarmCooldownMinutes = 15
-        let log = LogBox()
+        let log = AlarmLogRecorder()
         let alarm = Alarm(id: 5, watchId: 1, condition: .CHANGE_PERCENT_UP, threshold: 5, repeating: true,
                           referencePrice: 100, lastTriggeredAt: now - 60_000)
         await run(alarm, store: FakeStore(), price: 110, at: now, settings: settings, delivery: delivery, log: log)
@@ -304,7 +304,7 @@ final class AlarmLogTests: XCTestCase {
         quiet.quietHoursEnabled = true
         quiet.quietHoursStart = (minute + 24 * 60 - 60) % (24 * 60)
         quiet.quietHoursEnd = (minute + 60) % (24 * 60)
-        let log = LogBox()
+        let log = AlarmLogRecorder()
         await run(alarm, store: FakeStore(), price: 101, at: now, settings: quiet,
                   delivery: AlarmDelivery(storeKey: "a", store: defaults), log: log)
         XCTAssertEqual(log.last(7)?.outcome, .QUIET_HOURS)
@@ -328,7 +328,7 @@ final class AlarmLogTests: XCTestCase {
     func testSnoozeHoldsAlarmArmedAndIsLogged() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         let store = FakeStore()
-        let log = LogBox()
+        let log = AlarmLogRecorder()
         let alarm = Alarm(id: 7, watchId: 1, condition: .PRICE_ABOVE, threshold: 100, repeating: true)
         let until = AlarmSnooze.snoozeUntil(now: now)
         await run(alarm, store: store, price: 101, at: now + 60_000, snoozedUntil: until, delivery: delivery, log: log)
@@ -342,7 +342,7 @@ final class AlarmLogTests: XCTestCase {
 
     func testConversionWithoutRateIsNoRate() async {
         let alarm = Alarm(id: 9, watchId: 1, condition: .PRICE_ABOVE, threshold: 50, currency: "JPY")
-        let log = LogBox()
+        let log = AlarmLogRecorder()
         await run(alarm, store: FakeStore(), price: 101, at: now,
                   delivery: AlarmDelivery(storeKey: "d", store: defaults), log: log)
         XCTAssertEqual(log.last(9)?.outcome, .NO_RATE)

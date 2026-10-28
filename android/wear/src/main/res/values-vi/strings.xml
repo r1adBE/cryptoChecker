@@ -6,7 +6,7 @@
     <string name="watch_updated">Lúc %1$s</string>
     <string name="watch_refresh">Làm mới</string>
     <string name="watch_choose">Chọn coin</string>
-    <string name="watch_choose_hint">Tối đa %1$d coin</string>
+    <string name="watch_choose_hint">Coin: tối đa %1$d</string>
     <string name="watch_complication_label">Giá</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s trong 24 giờ</string>
     <string name="watch_mode_phone">Danh sách: giống điện thoại</string>

@@ -61,7 +61,7 @@ enum FxRateSource {
         if target == "USD" { return 1 }
         guard isCurrencyCode(target) else { return nil }
         // Ohne eigenen BGN-Kurs nicht bei jedem Aufruf erneut abfragen (3 h, wie Android)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let missed = target == "BGN" ? bgnMissed() : nil
         if let missed, now - missed >= 0, now - missed < ttlMillis {
             if let own = entry(target), now - own.at >= 0, now - own.at < staleMillis { return own.rate }
@@ -86,7 +86,7 @@ enum FxRateSource {
 
     private static func loadUsdTo(_ target: String) async -> Double? {
         await gate.run { () async -> Double? in
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             if let known = Self.entry(target) {
                 let age = now - known.at
                 if age >= 0 && age < Self.ttlMillis { return known.rate }
@@ -130,7 +130,7 @@ enum FxRateSource {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if target == "USD" { return nil }
         guard let fetched = fetchedAt(target) else { return nil }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let ownFresh = entry(target).map { now - $0.at >= 0 && now - $0.at < staleMillis } ?? false
         let code = !ownFresh && target == "BGN" ? "EUR" : target
         return memory.withLock { $0.rateTimes[code] } ?? fetched
@@ -138,7 +138,7 @@ enum FxRateSource {
 
     /// Kurs und Abrufzeit aus dem Zwischenspeicher (höchstens 24 h alt); BGN ohne eigenen aus EUR (`fxWithTime`).
     private static func cachedWithTime(_ target: String) -> (rate: Double, at: Int64)? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         func fresh(_ code: String) -> (rate: Double, at: Int64)? {
             guard let known = entry(code) else { return nil }
             let age = now - known.at

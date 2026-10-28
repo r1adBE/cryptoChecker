@@ -57,7 +57,7 @@ extension AppData {
             return false
         }
         defer { priceWriteGate.release() }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let rolling = !settings.changeBasis.isDay
         let stampCurrent = changeStamp == ChangeBasisMath.stamp(settings.changeBasis, now: now)
         var byId: [Int64: Watch] = [:]
@@ -82,7 +82,7 @@ extension AppData {
         // Live-Takte setzen nur die Uhrzeit der Anzeige — weder `lastAlarmCheckAt` (keine volle Prüfung aller Alarme)
         // noch `lastFullRefreshAt` (sonst sperrte jeder Takt «Aktualisieren» von Hand, `RefreshDebounce`)
         if reloadWidgets && outcome.checked > outcome.failed {
-            SharedStorage.lastRefreshAt = TimeUtils.nowMillis
+            SharedStorage.lastRefreshAt = EpochTime.nowMillis
         }
         apply(outcome, full: false, reloadWidgets: reloadWidgets, live: true)
         return true
@@ -100,7 +100,7 @@ extension AppData {
     /// Paare mit frischem Live-Kurs, die die REST-Abfrage diesmal auslässt (`LiveRules.skipRest`).
     func liveCoveredIds() -> Set<Int64> {
         guard !liveTickAt.isEmpty else { return [] }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let rolling = !settings.changeBasis.isDay
         let stampUnchanged = changeStamp == ChangeBasisMath.stamp(settings.changeBasis, now: now)
         // Volumen-, Funding- und Open-Interest-Alarme hängen nicht am Live-Kurs (`applyLive` prüft sie

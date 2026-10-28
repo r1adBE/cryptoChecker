@@ -22,7 +22,7 @@ import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.CurrencyText
-import com.cryptochecker.marketdata.util.FormatUtilsBase
+import com.cryptochecker.marketdata.util.DisplayFormat
 
 /**
  * Letzter Kurs gross, darunter Hoch/Tief, Bid/Ask (mit einem erklärenden Satz) und Volumen kleiner in
@@ -49,13 +49,13 @@ fun Ticker(
     Column(modifier = Modifier.fillMaxWidth()) {
         // Gegenwährung klein und grau wie der Börsenname der Merkliste
         PriceWithQuote(
-            price = FormatUtilsBase.formatDouble(last),
+            price = DisplayFormat.formatDouble(last),
             quote = CurrencyText.symbol(currencyQuote),
             priceStyle = MaterialTheme.typography.displayCompact.tabularNumbers()
         )
         Text(
             text = stringResource(R.string.ticker_timestamp) + " " +
-                FormatUtilsBase.formatSameDayTimeOrDate(context, timestamp),
+                DisplayFormat.formatSameDayTimeOrDate(context, timestamp),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 12.dp)
@@ -65,14 +65,14 @@ fun Ticker(
         val baseSymbol = CurrencyText.symbol(base)
         if (high > Ticker.MISSING) {
             StatRow(
-                R.string.ticker_high, StatValue(FormatUtilsBase.formatDouble(high), quoteSymbol),
-                R.string.ticker_low, StatValue(FormatUtilsBase.formatDouble(low), quoteSymbol)
+                R.string.ticker_high, StatValue(DisplayFormat.formatDouble(high), quoteSymbol),
+                R.string.ticker_low, StatValue(DisplayFormat.formatDouble(low), quoteSymbol)
             )
         }
         if (ask > Ticker.MISSING) {
             StatRow(
-                R.string.ticker_bid, StatValue(FormatUtilsBase.formatDouble(bid), quoteSymbol),
-                R.string.ticker_ask, StatValue(FormatUtilsBase.formatDouble(ask), quoteSymbol)
+                R.string.ticker_bid, StatValue(DisplayFormat.formatDouble(bid), quoteSymbol),
+                R.string.ticker_ask, StatValue(DisplayFormat.formatDouble(ask), quoteSymbol)
             )
             // Ein Satz, was Geld und Brief heissen (wie iOS)
             Text(
@@ -94,9 +94,9 @@ fun Ticker(
         if (volBase > Ticker.MISSING || volQuote > Ticker.MISSING) {
             StatRow(
                 R.string.ticker_vol_base,
-                if (volBase > Ticker.MISSING) StatValue(FormatUtilsBase.formatDouble(volBase), baseSymbol) else StatValue.NONE,
+                if (volBase > Ticker.MISSING) StatValue(DisplayFormat.formatDouble(volBase), baseSymbol) else StatValue.NONE,
                 R.string.ticker_vol_quote,
-                if (volQuote > Ticker.MISSING) StatValue(FormatUtilsBase.formatDouble(volQuote), quoteSymbol) else StatValue.NONE
+                if (volQuote > Ticker.MISSING) StatValue(DisplayFormat.formatDouble(volQuote), quoteSymbol) else StatValue.NONE
             )
         }
     }

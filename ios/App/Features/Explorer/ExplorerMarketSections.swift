@@ -2,7 +2,7 @@ import Foundation
 
 /// Börsenauswahl in Abschnitten (Build 133): Spot · Futures · DEX-Pools · Forex (Referenzkurs), darin nach dem
 /// Volumen am Tag der Installation (`ExchangeOrder`, `ExchangeRankingStore`), sonst alphabetisch (wie bisher).
-/// Gegenstück zu den Abschnitten der Börsen-`ComboBox` (Android `ExplorerSteps.kt`).
+/// Gegenstück zu den Abschnitten der Börsen-`DropdownField` (Android `ExplorerSteps.kt`).
 extension ExplorerViewModel {
     /// Abschnitte der angebotenen Börsen (`markets`, «Token & TradFi» beachtet) mit übersetztem Titel.
     var marketSections: [(title: String, markets: [Market])] {

@@ -21,7 +21,7 @@ actor MacroCalendarSource {
 
     /// Termine; wirft nie.
     func events() async -> [MacroEvent] {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let memory, MacroCalendar.isFresh(savedAt: memory.at, now: now) { return memory.events }
         let store = UserDefaults.standard
         let cached = store.data(forKey: Self.cacheKey)

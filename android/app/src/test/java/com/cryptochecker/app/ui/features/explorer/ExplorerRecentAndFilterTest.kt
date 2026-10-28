@@ -1,6 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
-import com.cryptochecker.app.data.TickerImpl
+import com.cryptochecker.app.data.MutableTicker
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -110,12 +110,12 @@ class ExplorerRecentAndFilterTest {
 
     @Test
     fun statsFromTicker() {
-        val t = TickerImpl().apply { last = 2.0; vol = 10.0; change24hPercent = 1.5 }
+        val t = MutableTicker().apply { last = 2.0; vol = 10.0; change24hPercent = 1.5 }
         // Kein Volumen in der Gegenwährung: Menge × Kurs
         assertEquals(PairStats(1.5, 20.0), QuickFilters.statsOf(t))
         t.volQuote = 33.0
         assertEquals(33.0, QuickFilters.statsOf(t).quoteVolume!!, 0.0)
-        val empty = QuickFilters.statsOf(TickerImpl())
+        val empty = QuickFilters.statsOf(MutableTicker())
         assertNull(empty.change24h)
         assertNull(empty.quoteVolume)
         t.change24hPercent = Double.NaN

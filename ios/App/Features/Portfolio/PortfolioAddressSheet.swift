@@ -21,7 +21,7 @@ struct PortfolioAddressSheet: View {
     @State private var askPrivacy = false
     @State private var askRemove: WatchedAddress?
     @State private var askDiscard = false
-    @State private var now = TimeUtils.nowMillis
+    @State private var now = EpochTime.nowMillis
     /// Beim Hinzufügen: Coin schon mit eigenen Transaktionen erfasst → fragen «Zählen» / «Nur anzeigen».
     @State private var askOverlap: AddressChain?
     /// «Zählen» nach der Warnung zu einer gleich grossen Einzahlung: für dieses Blatt bestätigt (nur im Speicher,
@@ -97,7 +97,7 @@ struct PortfolioAddressSheet: View {
             .task {
                 while !Task.isCancelled {
                     try? await Task.sleep(nanoseconds: 30_000_000_000)
-                    now = TimeUtils.nowMillis
+                    now = EpochTime.nowMillis
                 }
             }
             .alert(L("portfolio_address_overlap_title"), isPresented: Binding(

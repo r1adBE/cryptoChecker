@@ -374,7 +374,7 @@ enum AddressBalance {
     static func withAddresses(_ realTrades: [PortfolioTx], addresses: [WatchedAddress]) -> [PortfolioTx] {
         guard !addresses.isEmpty else { return realTrades }
         return withAddresses(realTrades, addresses: addresses,
-                             todayUtcDay: Int64(PortfolioHistory.epochDay(utcMillis: TimeUtils.nowMillis)))
+                             todayUtcDay: Int64(PortfolioHistory.epochDay(utcMillis: EpochTime.nowMillis)))
     }
 
     /// Guthaben aller Adressen für `coin` OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»), mit den

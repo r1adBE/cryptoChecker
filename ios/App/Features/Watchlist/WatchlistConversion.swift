@@ -42,7 +42,7 @@ enum WatchlistConversion {
     /// «· Umrechnung unsicher» dahinter (passt neben das Paar; der ganze Satz in `accessibilityText`), wie Android.
     static func text(_ watch: Watch, target: String?, rates: [String: Double],
                      fxTimes: [String: Int64] = [:], usdtNotes: [String: FiatAlarmGuard.UsdtState] = [:],
-                     now: Int64 = TimeUtils.nowMillis) -> String? {
+                     now: Int64 = EpochTime.nowMillis) -> String? {
         guard let dated = dated(watch, target: target, rates: rates, fxTimes: fxTimes, now: now) else { return nil }
         return usdtNote(watch, target: target, notes: usdtNotes) == nil ? dated : dated + " · " + L("converted_unsure")
     }
@@ -51,7 +51,7 @@ enum WatchlistConversion {
     /// (dann gilt `text`). Wie Android `convertedA11y`.
     static func accessibilityText(_ watch: Watch, target: String?, rates: [String: Double],
                                   fxTimes: [String: Int64] = [:], usdtNotes: [String: FiatAlarmGuard.UsdtState] = [:],
-                                  now: Int64 = TimeUtils.nowMillis) -> String? {
+                                  now: Int64 = EpochTime.nowMillis) -> String? {
         guard usdtNote(watch, target: target, notes: usdtNotes) == .ASSUMED,
               let dated = dated(watch, target: target, rates: rates, fxTimes: fxTimes, now: now) else { return nil }
         return dated + " · " + L("portfolio_usdt_assumed")

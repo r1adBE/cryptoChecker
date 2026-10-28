@@ -79,7 +79,7 @@ extension PortfolioModel {
         let summary = await currentSummary()
         let recordable = calcPortfolio.isEmpty
             || PortfolioPriceFallback.mayRecord(transactions: calcPortfolio, prices: prices,
-                                                now: TimeUtils.nowMillis, staleAfterMillis: staleAfterMillis)
+                                                now: EpochTime.nowMillis, staleAfterMillis: staleAfterMillis)
         if data.settings.portfolioCurrency == currency && !recordable {
             if today == nil { today = storedToday(rate: self.rate(for: currency)) }
         } else if data.settings.portfolioCurrency == currency {

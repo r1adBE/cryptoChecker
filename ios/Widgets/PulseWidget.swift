@@ -35,7 +35,7 @@ struct PulseEntry: TimelineEntry {
     var highContrast: Bool
     var priceColorsInverted: Bool
     /// Fear & Greed aus dem App-Group-Speicher (≤ 24 h, kein eigener Abruf); nil = Zeile weg.
-    var fearGreed: Int? = FearGreedShared.showable(FearGreedShared.stored(), now: TimeUtils.nowMillis)
+    var fearGreed: Int? = FearGreedShared.showable(FearGreedShared.stored(), now: EpochTime.nowMillis)
     /// Fear & Greed samt Speicherzeit für «Kurz gesagt» (Frische-Regel wie in der App, nicht die 24 h der Zeile).
     var plainFearGreed: FearGreedShared.Stored? = FearGreedShared.stored()
     /// Breite des Widgets (pt, `context.displaySize`) zum Messen des ersten Satzes; 0 = unbekannt.
@@ -97,7 +97,7 @@ struct PulseEntry: TimelineEntry {
 
     /// Beispiel für Galerie und Platzhalter: «Breite Stärke».
     static func sample(theme: WidgetThemeOption = .system, width: CGFloat = 0) -> PulseEntry {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let data = PulseMarketData(btc: 2.8, eth: 2.1, sol: 1.9, volumeRatio: 1.34, fundingPercent: 0.012,
                                    time: now,
                                    topChanges: Array(repeating: 1.2, count: 22) + Array(repeating: -0.8, count: 8),
@@ -114,7 +114,7 @@ struct PulseEntry: TimelineEntry {
         return PulseEntry(date: Date(), data: data, theme: theme, accent: settings.accentColor,
                           priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
                           priceColorsInverted: settings.priceColorsInverted,
-                          fearGreed: fearGreed ?? FearGreedShared.showable(stored, now: TimeUtils.nowMillis),
+                          fearGreed: fearGreed ?? FearGreedShared.showable(stored, now: EpochTime.nowMillis),
                           plainFearGreed: stored, displayWidth: width)
     }
 }
@@ -138,7 +138,7 @@ enum PulseWidgetData {
         showable(CryptoPulseSource.stored())
     }
 
-    static func showable(_ data: PulseMarketData?, now: Int64 = TimeUtils.nowMillis) -> PulseMarketData? {
+    static func showable(_ data: PulseMarketData?, now: Int64 = EpochTime.nowMillis) -> PulseMarketData? {
         guard let data, data.hasMarket else { return nil }
         let age = now - data.time
         return age >= 0 && age <= maxAgeMillis ? data : nil

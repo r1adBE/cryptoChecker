@@ -6,7 +6,7 @@
     <string name="watch_updated">À %1$s</string>
     <string name="watch_refresh">Actualiser</string>
     <string name="watch_choose">Choisir les coins</string>
-    <string name="watch_choose_hint">Jusqu’à %1$d coins</string>
+    <string name="watch_choose_hint">Coins : %1$d au maximum</string>
     <string name="watch_complication_label">Cours</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s sur 24 heures</string>
     <string name="watch_mode_phone">Liste : comme le téléphone</string>

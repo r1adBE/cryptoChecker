@@ -58,7 +58,7 @@ actor DayReferenceStore {
     func cachedReference(base: String, quote: String) -> DayReference? {
         restoreIfNeeded()
         guard let entry = days[Self.key(base, quote)],
-              DayReferenceCache.usable(time: entry.time, now: TimeUtils.nowMillis) else { return nil }
+              DayReferenceCache.usable(time: entry.time, now: EpochTime.nowMillis) else { return nil }
         return entry.reference
     }
 
@@ -67,7 +67,7 @@ actor DayReferenceStore {
     func cachedProvider(base: String, quote: String) -> String? {
         restoreIfNeeded()
         guard let entry = days[Self.key(base, quote)],
-              DayReferenceCache.usable(time: entry.time, now: TimeUtils.nowMillis) else { return nil }
+              DayReferenceCache.usable(time: entry.time, now: EpochTime.nowMillis) else { return nil }
         return entry.provider
     }
 
@@ -77,7 +77,7 @@ actor DayReferenceStore {
         restoreIfNeeded()
         let key = Self.key(base, quote)
         guard !key.isEmpty else { return nil }
-        if let entry = days[key], DayReferenceCache.fresh(time: entry.time, now: TimeUtils.nowMillis) {
+        if let entry = days[key], DayReferenceCache.fresh(time: entry.time, now: EpochTime.nowMillis) {
             return entry.reference
         }
         return await series(base: base, quote: quote, maxAgeMillis: DayReferenceCache.freshMillis)?.reference
@@ -91,7 +91,7 @@ actor DayReferenceStore {
         let key = Self.key(base, quote)
         guard !key.isEmpty else { return nil }
         let hour = ChangeBasisMath.hourOf(dayStart)
-        if let entry = days[key], DayReferenceCache.fresh(time: entry.time, now: TimeUtils.nowMillis), entry.opens[hour] != nil {
+        if let entry = days[key], DayReferenceCache.fresh(time: entry.time, now: EpochTime.nowMillis), entry.opens[hour] != nil {
             return ChangeBasisMath.reference(entry.opens, lastClose: entry.reference.lastClose, dayStart: dayStart)
         }
         guard let loaded = await series(base: base, quote: quote, maxAgeMillis: DayReferenceCache.freshMillis, needsHour: hour)
@@ -104,7 +104,7 @@ actor DayReferenceStore {
     func cachedDayStartReference(base: String, quote: String, dayStart: Int64) -> DayReference? {
         restoreIfNeeded()
         guard let entry = days[Self.key(base, quote)],
-              DayReferenceCache.usable(time: entry.time, now: TimeUtils.nowMillis) else { return nil }
+              DayReferenceCache.usable(time: entry.time, now: EpochTime.nowMillis) else { return nil }
         return ChangeBasisMath.reference(entry.opens, lastClose: entry.reference.lastClose, dayStart: dayStart)
     }
 
@@ -118,7 +118,7 @@ actor DayReferenceStore {
         let key = Self.key(base, quote)
         guard !key.isEmpty else { return nil }
         if let entry = cache[key] {
-            let age = TimeUtils.nowMillis - entry.time
+            let age = EpochTime.nowMillis - entry.time
             let ttl = entry.series == nil ? Self.failureTtlMillis : maxAgeMillis
             // Abruf von vor (oder kurz nach) Beginn dieser Stunde ohne ihre Kerze: neu laden; später
             // abgerufen und trotzdem ohne sie, liefert die Quelle sie nicht — bis zum Ablauf nicht erneut
@@ -137,7 +137,7 @@ actor DayReferenceStore {
 
     private func loadAndStore(_ key: String, base: String, quote: String) async -> Series? {
         let result = await load(base: base, quote: quote)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         cache[key] = (now, result)
         inFlight[key] = nil
         // Fehlschlag: der zuletzt erfolgreiche Bezug bleibt (begrenzt durch maxAgeMillis)
@@ -214,7 +214,7 @@ actor DayReferenceStore {
             try? FileManager.default.removeItem(at: url)
             return
         }
-        for (key, stored) in DayReferenceCache.restore(version: content.v, entries: content.e, now: TimeUtils.nowMillis) {
+        for (key, stored) in DayReferenceCache.restore(version: content.v, entries: content.e, now: EpochTime.nowMillis) {
             guard let reference = DayReference.of(open: stored.open, lastClose: stored.lastClose) else { continue }
             // Nie einen frischeren Wert aus dem Netz überschreiben
             if let current = days[key], current.time >= stored.time { continue }
@@ -235,7 +235,7 @@ actor DayReferenceStore {
     private func save() {
         savePending = false
         guard let url = Self.fileURL else { return }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         // Nur die Kerzen der heutigen Tagesbeginne (UTC, Ortszeit, gewählte Zone) mitschreiben
         let dayStarts = ChangeBasisMath.keptDayStarts(SharedStorage.loadSettings().changeBasis, now: now)
         let stored = days.map { entry in

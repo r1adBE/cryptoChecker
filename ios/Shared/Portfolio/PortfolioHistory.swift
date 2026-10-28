@@ -82,7 +82,7 @@ enum PortfolioHistory {
 
     /// Heutiger UTC-Tag — EINE Tagesgrenze für «7 T/1 J», Wertverlauf und die Erwerbstage der Karte; das lokale Datum
     /// lag zwischen Mitternacht lokal und UTC einen Tag daneben. Wie Android `utcToday`.
-    static func utcToday(now: Int64 = TimeUtils.nowMillis) -> Int { epochDay(utcMillis: now) }
+    static func utcToday(now: Int64 = EpochTime.nowMillis) -> Int { epochDay(utcMillis: now) }
 
     /// Letzte Millisekunde des UTC-Tags `day` — die EINE Tagesgrenze von Verlauf und «7 T/1 J» (wie die Tageskerzen).
     /// Das Steuerjahr (`TaxExport.localDay`) und der Stichtag (`CutoffDay.endOfDayMillis`) nehmen dagegen das rechtliche

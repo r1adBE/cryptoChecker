@@ -103,7 +103,7 @@ actor LivePriceStream {
 
     private func reconcile() async {
         generation += 1
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let paused = Set(SharedStorage.exchangeBackoff.filter { ExchangeBackoff.isPaused($0.value, now: now) }.keys)
         let plan = LivePlanner.plan(pairs, pausedMarketKeys: paused)
         guard !plan.isEmpty else {
@@ -183,7 +183,7 @@ actor LivePriceStream {
     }
 
     private func publish() async {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         var names = Set<String>()
         for (exchange, at) in lastDataAt where now - at <= LiveRules.freshMillis {
             if let name = marketNames[exchange.marketKey] { names.insert(name) }
@@ -209,7 +209,7 @@ actor LivePriceStream {
     private func flush(force: Bool) async {
         let batch = buffer.takeForDb()
         guard !batch.isEmpty else { return }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let redraw = force || now - lastWidgetAt >= LiveRules.widgetIntervalMillis
         let saved = await AppData.shared.applyLive(batch, reloadWidgets: redraw)
         if saved {
@@ -223,7 +223,7 @@ actor LivePriceStream {
     private func onText(_ exchange: LiveExchange, _ text: String) -> Bool {
         let ticks = LiveParser.parse(exchange, text)
         guard !ticks.isEmpty, let bySymbol = watchIds[exchange] else { return false }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         var any = false
         for tick in ticks {
             guard let ids = bySymbol[tick.symbol] else { continue }
@@ -243,19 +243,19 @@ actor LivePriceStream {
     private func runConnection(_ spec: LiveConnectionSpec) async {
         var attempt = 0
         while !Task.isCancelled {
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             if let state = SharedStorage.exchangeBackoff[spec.exchange.marketKey],
                ExchangeBackoff.isPaused(state, now: now) {
                 // Börse pausiert (zu viele Anfragen): bis dahin kein Verbindungsversuch
                 await Self.sleep(millis: min(max(state.pausedUntil - now, 1_000), LiveBackoff.rateLimitedMillis))
                 continue
             }
-            let startedAt = TimeUtils.nowMillis
+            let startedAt = EpochTime.nowMillis
             let ended = await connectOnce(spec)
             if Task.isCancelled { return }
             // Zurück auf 1 s erst nach stabiler Verbindung; Pause gestreut (wie Android)
             attempt = LiveBackoff.nextAttempt(attempt, receivedData: ended.receivedData,
-                                              connectedMillis: TimeUtils.nowMillis - startedAt)
+                                              connectedMillis: EpochTime.nowMillis - startedAt)
             await Self.sleep(millis: LiveBackoff.reconnectDelayMillis(attempt: attempt, rateLimited: ended.rateLimited,
                                                                        random: Double.random(in: 0..<1)))
         }
@@ -275,11 +275,11 @@ actor LivePriceStream {
 
         // Ping der Börse (Text) bzw. WebSocket-Ping; ohne Lebenszeichen neu verbinden
         let heartbeat = Task {
-            var lastPing = TimeUtils.nowMillis
+            var lastPing = EpochTime.nowMillis
             while !Task.isCancelled {
                 try? await Task.sleep(nanoseconds: Self.heartbeatCheckNanos)
                 if Task.isCancelled { return }
-                let now = TimeUtils.nowMillis
+                let now = EpochTime.nowMillis
                 // Börse inzwischen pausiert (`ExchangeBackoff`): Verbindung schliessen, die
                 // Schleife verbindet erst nach der Pause wieder
                 if let state = SharedStorage.exchangeBackoff[spec.exchange.marketKey],
@@ -342,7 +342,7 @@ actor LivePriceStream {
 /// Zeitpunkt der letzten Nachricht einer Verbindung (threadsicher; Empfang und Wächter).
 private final class LiveClock: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
-    private var value = TimeUtils.nowMillis
+    private var value = EpochTime.nowMillis
 
     var last: Int64 {
         lock.lock()
@@ -352,7 +352,7 @@ private final class LiveClock: @unchecked Sendable { // @unchecked: veränderlic
 
     func touch() {
         lock.lock()
-        value = TimeUtils.nowMillis
+        value = EpochTime.nowMillis
         lock.unlock()
     }
 }

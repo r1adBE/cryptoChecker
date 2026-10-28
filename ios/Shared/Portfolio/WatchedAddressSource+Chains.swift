@@ -183,7 +183,7 @@ extension WatchedAddressSource {
         var keeps: [Bool] = []
         for script in scripts {
             let cache: XpubCache? = storedScript == script ? stored : nil
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             let mode: XpubScan.Mode
             if scripts.count > 1 {
                 if deadline != nil { return nil }
@@ -259,7 +259,7 @@ extension WatchedAddressSource {
         let balance = AddressBalance.unitsText(String(scan.totalSats), decimals: AddressChain.BTC.decimals)
         return (used: scan.usedCount,
                 fetched: Fetched(balance: balance, provider: provider,
-                                 xpub: scan.cache(receive: lists[0], change: lists[1], now: TimeUtils.nowMillis)),
+                                 xpub: scan.cache(receive: lists[0], change: lists[1], now: EpochTime.nowMillis)),
                 complete: scan.complete, sats: scan.totalSats)
     }
 }

@@ -20,7 +20,7 @@ extension FuturesDataSource {
         let base = watch.baseAsset.trimmingCharacters(in: .whitespaces).uppercased()
         let perpetual = watch.contractType.isPerpetual
         let key = perpetual ? "\(watch.marketKey)|\(watch.pairId ?? "")|\(base)" : "SPOT|\(base)"
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let hit = cachedHistory(key, now: now) { return hit }
         let usdt = "\(base)USDT"
         let swap = "\(base)-USDT-SWAP"
@@ -120,7 +120,7 @@ extension FuturesDataSource {
     }
 
     private static func storeHistory(_ key: String, _ value: FundingHistory) {
-        let entry = (time: TimeUtils.nowMillis, value: value)
+        let entry = (time: EpochTime.nowMillis, value: value)
         historyCache.withLock { $0[key] = entry }
     }
 }

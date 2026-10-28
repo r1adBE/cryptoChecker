@@ -31,12 +31,12 @@ import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.model.MarketPairsInfo
 import com.cryptochecker.app.domain.model.MarketTickerResult
-import com.cryptochecker.app.ui.components.ComboBox
+import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.components.Ticker
 import com.cryptochecker.app.ui.features.watchlist.friendlyError
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.FuturesContractType
-import com.cryptochecker.marketdata.util.FormatUtilsBase
+import com.cryptochecker.marketdata.util.DisplayFormat
 
 /** Abstand zwischen den Feldern innerhalb eines Schritts. */
 private val FieldGap = 12.dp
@@ -73,7 +73,7 @@ internal fun MarketStepCard(
             done = exchange != null && (hasPairs || isDex),
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
-            ComboBox(
+            DropdownField(
                 modifier = Modifier.weight(1f),
                 // Angezeigt wird der Name («Crypto.com», «Bybit Futures»), nicht die Kennung
                 itemList = exchanges.map(MarketInfo::name),
@@ -166,7 +166,7 @@ private fun ExchangeStatus(
 @Composable
 private fun PairCountHint(info: MarketPairsInfo) {
     val syncedAt = if (info.lastSyncDate > 0) {
-        FormatUtilsBase.formatSameDayTimeOrDate(LocalContext.current, info.lastSyncDate)
+        DisplayFormat.formatSameDayTimeOrDate(LocalContext.current, info.lastSyncDate)
     } else {
         stringResource(R.string.explorer_sync_never)
     }
@@ -275,7 +275,7 @@ private fun PairPickers(
     onQuoteChanged: (String?) -> Unit,
     onContractChanged: (FuturesContractType?) -> Unit,
 ) {
-    ComboBox(
+    DropdownField(
         modifier = Modifier.fillMaxWidth(),
         itemList = coins,
         selectedIndex = coins.indexOf(coin),
@@ -285,7 +285,7 @@ private fun PairPickers(
         onToggleFavorite = { favorites.onToggle(FavoriteKind.COIN, it) },
         onValueChange = { picked -> onCoinChanged(coins[picked]) },
     )
-    ComboBox(
+    DropdownField(
         modifier = Modifier.fillMaxWidth().padding(top = FieldGap),
         itemList = quotes,
         selectedIndex = quotes.indexOf(quote),
@@ -299,7 +299,7 @@ private fun PairPickers(
     // Nur Spot (einzig NONE) oder gar nichts: kein Kontraktfeld; wählbar erst ab zwei Laufzeiten
     val spotOnly = contracts.singleOrNull() == FuturesContractType.NONE
     if (contracts.isNotEmpty() && !spotOnly) {
-        ComboBox(
+        DropdownField(
             modifier = Modifier.fillMaxWidth().padding(top = FieldGap),
             itemList = contracts.map { contractName(it) },
             selectedIndex = contracts.indexOf(contract),

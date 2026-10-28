@@ -170,7 +170,7 @@ struct WatchSheetChartView: View {
 
     /// «Heute»: Kerzen erst ab Tagesbeginn (mindestens zwei); sonst alle geladenen.
     private func shownCandles(_ candles: [MarketCandle]) -> [MarketCandle] {
-        guard today, let start = ChangeBasisMath.dayStart(changeView.basis, now: TimeUtils.nowMillis) else { return candles }
+        guard today, let start = ChangeBasisMath.dayStart(changeView.basis, now: EpochTime.nowMillis) else { return candles }
         return ChangeBasisMath.sinceDayStart(candles, dayStart: start) { $0.openTime }
     }
 

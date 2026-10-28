@@ -234,7 +234,7 @@ extension PriceRefresher {
                            save: @escaping @Sendable (Int64, AlarmUpdate) async -> Bool,
                            reloadStored: @Sendable () async -> [Alarm]? = { SharedStorage.readSnapshot().snapshot?.alarms },
                            notifier: AlarmNotifier = .system, delivery: AlarmDelivery = .pairs,
-                           now: @Sendable () -> Int64 = { TimeUtils.nowMillis },
+                           now: @Sendable () -> Int64 = { EpochTime.nowMillis },
                            snoozedUntil: @Sendable (Int64) -> Int64? = { AlarmSnooze.until($0) },
                            isCancelled: @Sendable () -> Bool = { Task.isCancelled },
                            persisted: @escaping @Sendable () async -> Bool = { true },
@@ -322,7 +322,7 @@ extension PriceRefresher {
         /// Überträgt die Ergebnisse auf den aktuellen Stand. Ein Kurs, der älter ist als der gespeicherte
         /// (`PriceWriteOrder`, z. B. eine langsame Einzelabfrage nach einer schnelleren vollständigen), bleibt weg —
         /// samt den Alarm-Änderungen dieses Paars (wie Android: Alarme nur für tatsächlich geschriebene Kurse).
-        func apply(to snapshot: inout SharedStorage.Snapshot, now: Int64 = TimeUtils.nowMillis) {
+        func apply(to snapshot: inout SharedStorage.Snapshot, now: Int64 = EpochTime.nowMillis) {
             // Einträge, deren Paar sich seit der Abfrage geändert hat oder deren Kurs älter ist als der gespeicherte:
             // weder Kurs noch Alarm-Bezug übernehmen
             var skipped = Set<Int64>()

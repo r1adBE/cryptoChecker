@@ -20,7 +20,7 @@ extension CoinLogoStore {
     func refreshStockNames() async -> Bool {
         guard !Self.tradFiBases.isEmpty else { return false }
         let defaults = SharedStorage.defaults
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let known = Self.stockNames
         if CoinLogos.isFresh(savedAt: Int64(defaults.double(forKey: Self.stockNamesTimeKey)), now: now,
                              ttl: CoinLogos.stockNamesTTLMillis), !known.isEmpty { return false }

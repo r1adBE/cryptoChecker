@@ -57,6 +57,7 @@ dependencies {
     // Coin-Liste und Wahl der Uhr (gemeinsam mit der Handy-App)
     implementation(project(":marketdata"))
     implementation(libs.play.services.wearable)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.wear.compose.material)
     implementation(libs.androidx.wear.compose.foundation)

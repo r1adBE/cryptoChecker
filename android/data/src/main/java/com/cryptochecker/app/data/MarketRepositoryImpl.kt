@@ -81,13 +81,13 @@ class MarketRepositoryImpl @Inject constructor(
         val info = pairInfo.asPairQuery()
         // Eine entfernte Börse betrifft nur diesen Eintrag, nicht den ganzen Durchlauf
         val source = marketOrNull(market.key)
-            ?: return MarketTickerResult(TickerImpl(), info, UserFriendlyMarketError.MARKET_UNAVAILABLE)
+            ?: return MarketTickerResult(MutableTicker(), info, UserFriendlyMarketError.MARKET_UNAVAILABLE)
 
         return try {
             MarketTickerResult(remote.fetchMarketTicker(source, info), info)
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
-            MarketTickerResult(TickerImpl(), info, ex.textForUser(), ex.toMarketFailure())
+            MarketTickerResult(MutableTicker(), info, ex.textForUser(), ex.toMarketFailure())
         }
     }
 

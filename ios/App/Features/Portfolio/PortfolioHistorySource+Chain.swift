@@ -23,7 +23,7 @@ extension PortfolioHistorySource {
     static func usdtUsdDaily(days: Int = PortfolioHistory.maxDays) async -> [Int: Double] {
         let span = max(days, PortfolioHistory.maxDays)
         let kraken = await ownCloses(of: usdtUsdKey, pair: usdtUsdPair, span: span, usdtUsd: nil)?.closes ?? [:]
-        let today = PortfolioHistory.epochDay(utcMillis: TimeUtils.nowMillis)
+        let today = PortfolioHistory.epochDay(utcMillis: EpochTime.nowMillis)
         let window = min(span, usdtUsdFillDays)
         // Heute darf fehlen (Kerze läuft noch)
         guard (today - window + 1 ..< today).contains(where: { kraken[$0] == nil }) else { return kraken }
@@ -80,7 +80,7 @@ extension PortfolioHistorySource {
     /// Reihe der Kette für `coin`: Speicher, Gerät (12 h), sonst Abfrage. Neu geholt wird nur mit aktuellem Kurs als
     /// Bezug (`chainReference`) — sonst höchstens ein älterer Stand (den der Verlauf noch gegen den Kurs prüft).
     private static func chainCloses(of coin: String, span: Int, usdtUsd: [Int: Double]) async -> PortfolioOwnCloses? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let hit: (entry: PortfolioOwnCloses, at: Int64)? = chainMemory.withLock { $0.series.get(coin) }
         if let hit, hit.entry.entry.span >= span, CycleCachePolicy.isFresh(savedAt: hit.at, now: now, ttl: ttl) {
             return hit.entry

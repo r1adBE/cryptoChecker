@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Uhr-App: nichts sichern und nichts auf eine neue Uhr übertragen (ab Android 12; bis Android 11 gilt
+  android:allowBackup="false"). Gespeichert sind nur die Wahl der Coin-Liste und die letzten Kurse – beides holt
+  die Uhr nach einer Neuinstallation selbst wieder (Handy bzw. Börsen).
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" />
+        <exclude domain="file" />
+        <exclude domain="database" />
+        <exclude domain="sharedpref" />
+        <exclude domain="external" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="root" />
+        <exclude domain="file" />
+        <exclude domain="database" />
+        <exclude domain="sharedpref" />
+        <exclude domain="external" />
+    </device-transfer>
+</data-extraction-rules>

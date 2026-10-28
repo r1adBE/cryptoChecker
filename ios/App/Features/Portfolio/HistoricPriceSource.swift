@@ -249,7 +249,7 @@ enum HistoricPriceSource {
         if target == "USD" { return [:] }
         guard FxRateSource.isCurrencyCode(target), from <= to else { return nil }
         let key = "\(target)|\(from)|\(to)"
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let ttl = fxSeriesTtlMillis
         let cached: [Int: Double]? = fxSeriesCache.withLock {
             guard let entry = $0[key], now - entry.at >= 0, now - entry.at < ttl else { return nil }
@@ -271,7 +271,7 @@ enum HistoricPriceSource {
             merged.merge(part) { _, new in new }
         }
         guard !merged.isEmpty else { return nil }
-        let entry = (rates: merged, at: TimeUtils.nowMillis)
+        let entry = (rates: merged, at: EpochTime.nowMillis)
         fxSeriesCache.withLock { $0[key] = entry }
         return merged
     }

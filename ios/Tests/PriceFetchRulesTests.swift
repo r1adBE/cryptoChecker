@@ -135,10 +135,10 @@ final class PriceFetchRulesTests: XCTestCase {
     func testFetchTimeDrivesStalenessExchangeTimeOnlyPastAlarmLimit() throws {
         let upbit = try XCTUnwrap(MarketsConfig.market("Upbit"))
         let body = #"[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,"acc_trade_price_24h":1.0,"acc_trade_volume_24h":2.0}]"#
-        let before = TimeUtils.nowMillis
+        let before = EpochTime.nowMillis
         var ticker = Ticker()
         try upbit.readTicker(call: 0, body: body, ticker: &ticker, info: PairQuery("BTC", "KRW", "KRW-BTC"))
-        let after = TimeUtils.nowMillis
+        let after = EpochTime.nowMillis
         // Letzter Handel nur als exchangeTime; timestamp = Abruf → lastUpdate frisch, am Abruf nicht veraltet
         XCTAssertEqual(ticker.exchangeTime, 1_728_540_000_000)
         XCTAssertTrue((before...after).contains(ticker.timestamp))

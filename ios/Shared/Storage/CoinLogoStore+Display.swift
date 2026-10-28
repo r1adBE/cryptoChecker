@@ -86,12 +86,12 @@ final class CoinLogoRevision: ObservableObject {
     private static var lastBumpAt: Int64 = 0
 
     static func bump() {
-        lastBumpAt = TimeUtils.nowMillis
+        lastBumpAt = EpochTime.nowMillis
         shared.value += 1
     }
 
     /// Während des Ladens vieler Logos: höchstens einmal pro Sekunde auffrischen.
     static func bumpIfDue() {
-        if TimeUtils.nowMillis - lastBumpAt >= 1_000 { bump() }
+        if EpochTime.nowMillis - lastBumpAt >= 1_000 { bump() }
     }
 }

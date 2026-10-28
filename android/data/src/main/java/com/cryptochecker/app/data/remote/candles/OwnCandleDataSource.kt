@@ -10,7 +10,7 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
@@ -114,7 +114,7 @@ class OwnCandleDataSource @Inject constructor(
     private suspend fun get(source: ExchangeCandleSource, url: String, json: String?): String? {
         val host = hostOf(url)
         if (BlockedSources.isBlocked(host) || CandleHostPauses.isPaused(host)) return null
-        val post = json?.let { PostRequestInfo(it, mapOf("Content-Type" to "application/json")) }
+        val post = json?.let { PostRequest(it, mapOf("Content-Type" to "application/json")) }
         val body = try {
             withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callMarket(url, post) }
         } catch (e: Exception) {

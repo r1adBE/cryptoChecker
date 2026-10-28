@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.app.data.TickerImpl
+import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.RequestKey
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -21,7 +21,7 @@ import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.PairListPaging
 import com.cryptochecker.marketdata.model.pairListPaging
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
 import com.cryptochecker.marketdata.model.market.DexPool
@@ -238,7 +238,7 @@ class MarketRemoteDataSource @Inject constructor(
         full: String?,
         fullDone: MutableSet<String>,
     ): BulkTickerParse? {
-        val postBody = market.getBulkTickersPostRequestInfo(call)
+        val postBody = market.getBulkTickersPostRequest(call)
         return try {
             loadBulk(client, market, call, filtered, postBody)
         } catch (ex: Exception) {
@@ -259,7 +259,7 @@ class MarketRemoteDataSource @Inject constructor(
     /** [withoutUnknownPairs], ein Fehler darin ergibt null (dann zählt der ursprüngliche). */
     private suspend fun retryWithoutUnknown(
         client: OkHttpClient, market: Market, call: Int, pairIds: Collection<String>,
-        postBody: PostRequestInfo?, original: Exception,
+        postBody: PostRequest?, original: Exception,
     ): BulkTickerParse? = try {
         withoutUnknownPairs(client, market, call, pairIds, postBody, original)
     } catch (retryEx: Exception) {
@@ -275,7 +275,7 @@ class MarketRemoteDataSource @Inject constructor(
      */
     private suspend fun withoutUnknownPairs(
         client: OkHttpClient, market: Market, call: Int, pairIds: Collection<String>,
-        postBody: PostRequestInfo?, original: Exception,
+        postBody: PostRequest?, original: Exception,
     ): BulkTickerParse? {
         val listAddress = market.getBulkKnownPairsUrl(call)
         if (listAddress.isNullOrEmpty()) return null
@@ -298,7 +298,7 @@ class MarketRemoteDataSource @Inject constructor(
      * [BinanceAlpha.LIST_CACHE_MILLIS] lang für alle Aufrufer — eine Aktualisierung lädt sie nie zweimal.
      */
     private suspend fun loadBulk(
-        client: OkHttpClient, market: Market, call: Int, address: String, postBody: PostRequestInfo?,
+        client: OkHttpClient, market: Market, call: Int, address: String, postBody: PostRequest?,
     ): BulkTickerParse {
         val isAlphaList = postBody == null && address == BinanceAlpha.TOKEN_LIST_URL
         val fromCache = if (isAlphaList) BinanceAlpha.listCache.get(System.currentTimeMillis()) else null
@@ -326,7 +326,7 @@ class MarketRemoteDataSource @Inject constructor(
      * Quelle) ergänzen nur und dürfen scheitern.
      */
     suspend fun fetchMarketTicker(market: Market, checkerInfo: PairQuery): Ticker {
-        val ticker = TickerImpl()
+        val ticker = MutableTicker()
         loadTickerCall(ticker, market, 0, checkerInfo)
 
         for (call in 1 until market.tickerCallCount(checkerInfo)) {

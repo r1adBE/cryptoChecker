@@ -221,8 +221,8 @@ struct ExplorerSnackbar: View {
 
 // MARK: HTTP-Protokoll
 
-/// Entwickleroption: die jüngsten Börsenanfragen, jede Sekunde neu gelesen (Rolle wie `LogBox.kt`).
-struct ExplorerLogBox: View {
+/// Entwickleroption: die jüngsten Börsenanfragen, jede Sekunde neu gelesen (Rolle wie `HttpLogPanel.kt`).
+struct ExplorerHttpLogPanel: View {
     @Environment(\.appAccent) var accent
     @Environment(\.onAccent) var onAccent
 

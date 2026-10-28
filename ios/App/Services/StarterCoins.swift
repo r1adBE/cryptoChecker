@@ -275,7 +275,7 @@ actor StarterPriceSource {
     }
 
     /// Noch gültige Kurse aus dem Speicher; sonst nil.
-    func cached(symbols: [String], region: String?, now: Int64 = TimeUtils.nowMillis) -> [String: StarterPrice]? {
+    func cached(symbols: [String], region: String?, now: Int64 = EpochTime.nowMillis) -> [String: StarterPrice]? {
         guard let cache, cache.key == Self.cacheKey(symbols, region: region),
               now - cache.at >= 0, now - cache.at < Self.maxAgeMillis else { return nil }
         return cache.prices
@@ -288,7 +288,7 @@ actor StarterPriceSource {
             await Self.load(symbols: symbols, region: region)
         }) ?? [:]
         if !loaded.isEmpty {
-            cache = (Self.cacheKey(symbols, region: region), TimeUtils.nowMillis, loaded)
+            cache = (Self.cacheKey(symbols, region: region), EpochTime.nowMillis, loaded)
         }
         return loaded
     }

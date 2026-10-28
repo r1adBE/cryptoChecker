@@ -129,7 +129,7 @@ enum ProtectedStorage {
             let fm = FileManager.default
             var replaced = url.appendingPathExtension("replaced")
             if fm.fileExists(atPath: replaced.path) {
-                replaced = url.appendingPathExtension("\(TimeUtils.nowMillis).replaced")
+                replaced = url.appendingPathExtension("\(EpochTime.nowMillis).replaced")
             }
             let hadFile = fm.fileExists(atPath: url.path)
             do {
@@ -197,7 +197,7 @@ enum ProtectedStorage {
     private static func setAside(_ url: URL) -> URL? {
         var target = url.appendingPathExtension("locked")
         if FileManager.default.fileExists(atPath: target.path) {
-            target = url.appendingPathExtension("\(TimeUtils.nowMillis).locked")
+            target = url.appendingPathExtension("\(EpochTime.nowMillis).locked")
         }
         do {
             try FileManager.default.moveItem(at: url, to: target)

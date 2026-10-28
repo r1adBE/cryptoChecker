@@ -8,7 +8,7 @@ import java.text.DecimalFormatSymbols
 import java.util.Date
 import java.util.Locale
 
-object FormatUtilsBase {
+object DisplayFormat {
 
     // ── Zahlen ───────────────────────────────────────────────────────────────────
 

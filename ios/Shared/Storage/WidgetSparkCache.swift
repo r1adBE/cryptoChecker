@@ -28,7 +28,7 @@ enum WidgetSparkCache {
     /// Einmal am Tag aufräumen (sonst sofort zurück).
     /// - Returns: Anzahl entfernter Einträge (0 = nicht fällig oder nichts zu tun).
     @discardableResult
-    static func pruneIfDue(defaults: UserDefaults = SharedStorage.defaults, now: Int64 = TimeUtils.nowMillis) -> Int {
+    static func pruneIfDue(defaults: UserDefaults = SharedStorage.defaults, now: Int64 = EpochTime.nowMillis) -> Int {
         let last = Int64(defaults.double(forKey: lastPruneKey))
         if last > 0, now - last >= 0, now - last < pruneIntervalMillis { return 0 }
         defaults.set(Double(now), forKey: lastPruneKey)

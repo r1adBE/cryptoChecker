@@ -33,7 +33,7 @@ enum WidgetSparkline {
         let price = watch.lastPrice
         if OwnCandleDataSource.supports(pair, interval: range.candleInterval) {
             let key = "widget_spark_own_" + pair.cacheKey + "|" + range.rawValue
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             let cached = load(key)
             if now - cached.at < cacheMillis, let hit = WidgetChartGeometry.pairCandles(cached.candles, price: price) {
                 return Sourced(value: hit, provider: watch.marketName)
@@ -72,7 +72,7 @@ enum WidgetSparkline {
                                preferFutures: Bool = false, price: Double? = nil) async -> Sourced<[MarketCandle]>? {
         guard let symbol = symbol(base: base, quote: quote) else { return nil }
         let key = "widget_spark_" + symbol + "|" + range.rawValue + (preferFutures ? "|F" : "")
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let cached = load(key)
         if cached.candles.count >= 2, now - cached.at < cacheMillis {
             return Sourced(value: cached.candles, provider: cached.provider)
@@ -106,7 +106,7 @@ enum WidgetSparkline {
     private static func save(_ key: String, _ candles: [MarketCandle], provider: String? = nil) {
         // Einmal am Tag alte Einträge (entfernte Paare, andere Zeiträume) wegräumen
         WidgetSparkCache.pruneIfDue()
-        var entry: [String: Any] = ["t": Double(TimeUtils.nowMillis), "c": encode(candles)]
+        var entry: [String: Any] = ["t": Double(EpochTime.nowMillis), "c": encode(candles)]
         if let provider { entry["p"] = provider }
         SharedStorage.defaults.set(entry, forKey: key)
     }

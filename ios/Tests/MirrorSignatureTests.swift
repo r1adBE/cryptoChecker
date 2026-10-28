@@ -72,7 +72,7 @@ final class MirrorSignatureTests: XCTestCase {
     }
 
     func testTrustRejectsMissingManifestAndRemembers() async {
-        let trust = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { TimeUtils.nowMillis })
+        let trust = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { EpochTime.nowMillis })
         let asked = AskedURLs()
         let load: MirrorTrust.Loader = { url, _ in
             await asked.add(url)
@@ -90,8 +90,8 @@ final class MirrorSignatureTests: XCTestCase {
     }
 
     func testTrustRejectsInvalidSignature() async {
-        let trust = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { TimeUtils.nowMillis })
-        let manifest = "{\"created\":\(TimeUtils.nowMillis),\"files\":{\"fng.txt\":\"\(MirrorManifest.sha256Hex("x"))\"},\"v\":1}"
+        let trust = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { EpochTime.nowMillis })
+        let manifest = "{\"created\":\(EpochTime.nowMillis),\"files\":{\"fng.txt\":\"\(MirrorManifest.sha256Hex("x"))\"},\"v\":1}"
         let load: MirrorTrust.Loader = { url, _ in
             switch url {
             case MirrorManifest.url: return manifest

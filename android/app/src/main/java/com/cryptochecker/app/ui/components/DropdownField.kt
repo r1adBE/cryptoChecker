@@ -85,7 +85,7 @@ private const val MAX_VISIBLE_ROWS = 10
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ComboBox(
+fun DropdownField(
     modifier: Modifier = Modifier,
     selectedIndex: Int = -1,
     itemList: List<String>,
@@ -230,7 +230,7 @@ private fun ComboList(
     LazyColumn(
         state = state,
         modifier = Modifier
-            .simpleVerticalScrollbar(state = state)
+            .verticalScrollbar(state = state)
             .width(listWidth)
             .height(rowHeight * rows),
     ) {
@@ -359,10 +359,10 @@ private fun ComboRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun ComboBoxPreview() {
+private fun DropdownFieldPreview() {
     Column(Modifier.padding(8.dp)) {
-        ComboBox(itemList = listOf("BTC", "ETH", "SOL"), selectedIndex = 1, label = "Coin", onValueChange = {})
-        ComboBox(
+        DropdownField(itemList = listOf("BTC", "ETH", "SOL"), selectedIndex = 1, label = "Coin", onValueChange = {})
+        DropdownField(
             modifier = Modifier.padding(top = 8.dp),
             itemList = listOf("USDT", "USDC"),
             label = "Quote",

@@ -245,7 +245,7 @@ enum AlarmReadinessProbe {
         let center = await UNUserNotificationCenter.current().notificationSettings()
         let runs = await Task.detached(priority: .utility) { CheckRunStore.load() }.value
         var input = AlarmReadiness.Input(platform: .ios, notifications: access(center.authorizationStatus),
-                                         now: TimeUtils.nowMillis, minuteOfDay: QuietHours.minuteOfDay())
+                                         now: EpochTime.nowMillis, minuteOfDay: QuietHours.minuteOfDay())
         input.quietEnabled = settings.quietHoursEnabled
         input.quietStart = settings.quietHoursStart
         input.quietEnd = settings.quietHoursEnd

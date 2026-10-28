@@ -57,7 +57,7 @@ import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.AppLanguages
 import com.cryptochecker.app.settings.PriceColorScheme
-import com.cryptochecker.app.ui.components.ComboBox
+import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.theme.LocalAccentColor
 import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.theme.LocalHighContrast

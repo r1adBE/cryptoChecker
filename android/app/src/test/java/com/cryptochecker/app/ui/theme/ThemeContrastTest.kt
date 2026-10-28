@@ -62,7 +62,7 @@ class ThemeContrastTest {
     }
 
     /**
-     * Gewählte Zeile mit Tönung 0.3 (ComboBox): Schrift onSurface ≥ 4.5:1, Stern voll (primary) bzw. leer
+     * Gewählte Zeile mit Tönung 0.3 (DropdownField): Schrift onSurface ≥ 4.5:1, Stern voll (primary) bzw. leer
      * (onSurfaceVariant) ≥ 3:1 — outline hielt dort unter 3:1.
      */
     @Test
@@ -82,7 +82,7 @@ class ThemeContrastTest {
     }
 
     private companion object {
-        /** Tönung der gewählten Zeile (ComboBox, iOS Coin-Liste). */
+        /** Tönung der gewählten Zeile (DropdownField, iOS Coin-Liste). */
         const val ROW_TINT = 0.3f
         /** Höchste Deckkraft einer Tönung, auf der Schrift steht (Auswahl-Listen, Hinweiskarten, Merkliste-Zeile). */
         const val TEXT_TINT_MAX = 0.16f

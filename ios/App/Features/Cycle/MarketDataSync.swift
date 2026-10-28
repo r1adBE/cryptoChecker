@@ -33,7 +33,7 @@ extension CycleViewModel {
         let savedAt = hasValue ? stamps[key] : nil
         // Ohne Netz: Gezeigtes stehen lassen (Pille «Offline · Stand …»), kein vergeblicher Abruf — wie Android
         if savedAt != nil && !NetworkStatus.shared.isOnline { return }
-        guard CycleCachePolicy.needsRefresh(savedAt: savedAt, now: TimeUtils.nowMillis, ttl: ttl, force: force,
+        guard CycleCachePolicy.needsRefresh(savedAt: savedAt, now: EpochTime.nowMillis, ttl: ttl, force: force,
                                             minForce: minForce)
         else { return }
         if tasks[key] != nil && !force {
@@ -54,7 +54,7 @@ extension CycleViewModel {
             self.tasks[key] = nil
             self.refreshingKeys.remove(key)
             if let value {
-                let now = TimeUtils.nowMillis
+                let now = EpochTime.nowMillis
                 apply(.loaded(value.value))
                 self.stamps[key] = now
                 self.providers[key] = value.provider

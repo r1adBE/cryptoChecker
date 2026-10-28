@@ -130,7 +130,7 @@ enum CheckRunStore {
 
     /// Lauf vermerken, der bei `startedAt` begann und jetzt endet.
     static func log(_ trigger: CheckTrigger, _ result: CheckResult, startedAt: Int64) {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         add(CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0)))
     }
 
@@ -139,7 +139,7 @@ enum CheckRunStore {
     /// dem Ende der Aufgabe stehen muss.
     @discardableResult
     static func logDetached(_ trigger: CheckTrigger, _ result: CheckResult, startedAt: Int64) -> Task<Void, Never> {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let run = CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0))
         return Task.detached(priority: .utility) { add(run) }
     }

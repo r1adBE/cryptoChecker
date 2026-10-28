@@ -139,7 +139,7 @@ struct CycleCoinReportContent: View {
     }
 }
 
-/// Auswahl des Coins mit Suche und Favoriten (Android: durchsuchbare `ComboBox`).
+/// Auswahl des Coins mit Suche und Favoriten (Android: durchsuchbare `DropdownField`).
 /// Favoriten stehen jeweils zuerst — ohne Suche und innerhalb der Treffer.
 @MainActor
 struct CycleCoinPickerSheet: View {

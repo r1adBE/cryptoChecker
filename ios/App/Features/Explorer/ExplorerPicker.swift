@@ -7,7 +7,7 @@ import UIKit
 
 // MARK: Auswahlfeld
 
-/// Feld, das eine Auswahlliste öffnet (Rolle wie `ComboBox`): oben die Beschriftung, darunter der
+/// Feld, das eine Auswahlliste öffnet (Rolle wie `DropdownField`): oben die Beschriftung, darunter der
 /// gewählte Wert oder ein Platzhalter, optional mit Coin-Logo davor.
 struct ExplorerPickerField: View {
     let label: String
@@ -69,7 +69,7 @@ struct ExplorerPickerField: View {
 
 // MARK: Auswahlliste
 
-/// Blatt mit Suchfeld für Börse, Coin, Gegenwährung oder Kontrakt (Rolle wie `ComboBox.kt`).
+/// Blatt mit Suchfeld für Börse, Coin, Gegenwährung oder Kontrakt (Rolle wie `DropdownField.kt`).
 /// Favoriten – per Stern oder langem Drücken – stehen oben.
 @MainActor
 struct ExplorerPickerSheet: View {

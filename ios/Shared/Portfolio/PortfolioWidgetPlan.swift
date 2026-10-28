@@ -189,7 +189,7 @@ enum PortfolioWidgetDailyStore {
     /// Vom Wertverlauf der App nach jedem Laden aufgerufen; Fehler bleiben still.
     static func save(closes: [String: [Int: Double]], ranges: [String: [Int: PortfolioDayRange]],
                      own: Set<String> = [], binanceBefore: [String: Int] = [:],
-                     now: Int64 = TimeUtils.nowMillis) {
+                     now: Int64 = EpochTime.nowMillis) {
         guard !closes.isEmpty else { return }
         let merged = merge(load(), closes: closes, ranges: ranges,
                            todayUtcDay: PortfolioHistory.epochDay(utcMillis: now),

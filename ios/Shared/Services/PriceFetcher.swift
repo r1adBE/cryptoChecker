@@ -51,7 +51,7 @@ extension PriceRefresher {
     /// - Parameter alarmed: Paare mit aktivem Alarm — werden einzeln zuerst abgefragt (`FetchOrder`).
     static func fetchGroup(_ group: [Watch], includeRollingFutures: Bool,
                            lowMemory: Bool = false, alarmed: Set<Int64> = []) async -> ([Int64: Fetched], GroupSignals?) {
-        let started = TimeUtils.nowMillis
+        let started = EpochTime.nowMillis
         guard let sample = group.first else { return ([:], nil) }
 
         var bulk = BulkTickers()
@@ -77,17 +77,17 @@ extension PriceRefresher {
             // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste.
             let notTradedIds = Set(group.filter { NotTraded.isMarker($0.lastError) }.compactMap(\.pairId))
             let plan = BulkDelistedMemory.shared.plan(sample.marketKey, pairIds: ids, notTraded: notTradedIds,
-                                                      now: TimeUtils.nowMillis, lowMemory: lowMemory)
+                                                      now: EpochTime.nowMillis, lowMemory: lowMemory)
             if plan.request.isEmpty {
                 // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
                 // die Liste gilt als vollständig ohne sie
                 bulk = BulkTickers(complete: true)
             } else {
                 bulk = await MarketService.fetchBulkTickers(market: market, pairIds: plan.request, lowMemory: lowMemory)
-                BulkDelistedMemory.shared.learn(sample.marketKey, plan: plan, result: bulk, now: TimeUtils.nowMillis)
+                BulkDelistedMemory.shared.learn(sample.marketKey, plan: plan, result: bulk, now: EpochTime.nowMillis)
             }
         }
-        let bulkMillis = TimeUtils.nowMillis - started
+        let bulkMillis = EpochTime.nowMillis - started
 
         // Sammelabfrage mit «zu vielen Anfragen» abgelehnt: keine Einzelabfragen hinterher —
         // das verschlimmerte es nur; die Börse wird pausiert (`ExchangeBackoff`).
@@ -175,7 +175,7 @@ extension PriceRefresher {
         let reason = RefreshReportLogic.mostFrequent(failures)
         let entry = MarketRefresh(
             name: sample.marketName,
-            millis: TimeUtils.nowMillis - started,
+            millis: EpochTime.nowMillis - started,
             pairs: group.count,
             updated: group.count - notTraded - errors.count,
             notTraded: notTraded,
@@ -212,18 +212,18 @@ extension PriceRefresher {
     }
 
     static func fetchSingle(_ watch: Watch) async -> Fetched {
-        let started = TimeUtils.nowMillis
+        let started = EpochTime.nowMillis
         guard let market = MarketsConfig.market(watch.marketKey) else {
             return Fetched(ticker: nil, error: L("market_unavailable_error"), fromSingle: true, failure: .UNAVAILABLE)
         }
         do {
             let t = try await MarketService.fetchTicker(market: market, info: watch.pairInfo)
-            return Fetched(ticker: t, error: nil, fromSingle: true, millis: TimeUtils.nowMillis - started)
+            return Fetched(ticker: t, error: nil, fromSingle: true, millis: EpochTime.nowMillis - started)
         } catch {
             // Art am Ort des Fehlers: Zeitüberschreitung bleibt TIMEOUT, obwohl `describe` daraus «kein Netz» macht
             let kind = MarketFailure.of(error)
             let described = ConnectionErrors.describe(error)
-            return Fetched(ticker: nil, error: described, fromSingle: true, millis: TimeUtils.nowMillis - started,
+            return Fetched(ticker: nil, error: described, fromSingle: true, millis: EpochTime.nowMillis - started,
                            failure: RefreshReportLogic.classify(kind, described), marketFailure: kind)
         }
     }

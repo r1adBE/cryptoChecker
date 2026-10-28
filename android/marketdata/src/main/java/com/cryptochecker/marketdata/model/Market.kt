@@ -3,7 +3,7 @@ package com.cryptochecker.marketdata.model
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.util.BulkTickerParse
 import com.cryptochecker.marketdata.util.BulkTickerRows
-import com.cryptochecker.marketdata.util.TimeUtils
+import com.cryptochecker.marketdata.util.EpochTime
 import org.json.JSONObject
 
 /** Built-in pairs of an exchange without a fetchable pair list: base → possible quote currencies. */
@@ -78,7 +78,7 @@ abstract class Market(
     abstract fun tickerAddress(call: Int, info: PairQuery): String
 
     /** POST body for request [call]; null means a plain GET request. */
-    open fun tickerPostBody(call: Int, info: PairQuery): PostRequestInfo? = null
+    open fun tickerPostBody(call: Int, info: PairQuery): PostRequest? = null
 
     /**
      * Parses a single-ticker response into [ticker] (via [fillTicker]) and returns it. Afterwards
@@ -157,7 +157,7 @@ abstract class Market(
      */
     private fun markFetched(ticker: Ticker) {
         val now = System.currentTimeMillis()
-        val reported = ticker.timestamp.takeIf { it > 0 }?.let(TimeUtils::parseTimeToMillis)
+        val reported = ticker.timestamp.takeIf { it > 0 }?.let(EpochTime::parseTimeToMillis)
         ticker.exchangeTime = reported?.takeIf { it <= now + EXCHANGE_TIME_FUTURE_TOLERANCE_MS }
         ticker.timestamp = now
     }
@@ -197,7 +197,7 @@ abstract class Market(
     open fun bulkTickersRequestCount(pairIds: Collection<String>): Int = bulkTickersNumOfRequests
 
     /** POST body for bulk request [call]; null means GET. */
-    open fun getBulkTickersPostRequestInfo(call: Int): PostRequestInfo? = null
+    open fun getBulkTickersPostRequest(call: Int): PostRequest? = null
 
     /**
      * Group of bulk request [call] (Binance: spot 0, Alpha 1). If one fails, only its group
@@ -328,7 +328,7 @@ abstract class Market(
     open fun pairListAddress(call: Int): String? = null
 
     /** POST body for pair-list request [call]; null means GET. */
-    open fun pairListPostBody(call: Int): PostRequestInfo? = null
+    open fun pairListPostBody(call: Int): PostRequest? = null
 
     /**
      * For exchanges that page their pair list with a cursor (Bybit `nextPageCursor`): URL of the next page after

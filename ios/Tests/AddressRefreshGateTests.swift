@@ -29,7 +29,7 @@ final class AddressRefreshGateTests: XCTestCase {
         var stored: [WatchedAddress] { file.addresses }
 
         init() {
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             self.now = now
             file = WatchedAddressFile(addresses: [
                 WatchedAddress(id: 1, chain: .BTC, address: "bc1qdjgwenuvhz447xe3udlc0yh6ng8lnxd9v666m8"),

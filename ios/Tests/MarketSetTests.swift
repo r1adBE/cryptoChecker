@@ -115,7 +115,7 @@ final class MarketHTTPSharedPostTests: XCTestCase {
 
     func testIdenticalConcurrentPostsShareOneRequest() async throws {
         let url = delayedURL("[1]")
-        let post = PostRequestInfo(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
+        let post = PostRequest(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
         let session = self.session!
         async let first = MarketHTTP.call(url, post: post, session: session)
         async let second = MarketHTTP.call(url, post: post, session: session)
@@ -127,8 +127,8 @@ final class MarketHTTPSharedPostTests: XCTestCase {
     func testDifferentBodiesStaySeparate() async throws {
         let url = delayedURL("[2]")
         let session = self.session!
-        async let first = MarketHTTP.call(url, post: PostRequestInfo(body: #"{"type":"meta"}"#), session: session)
-        async let second = MarketHTTP.call(url, post: PostRequestInfo(body: #"{"type":"allMids"}"#), session: session)
+        async let first = MarketHTTP.call(url, post: PostRequest(body: #"{"type":"meta"}"#), session: session)
+        async let second = MarketHTTP.call(url, post: PostRequest(body: #"{"type":"allMids"}"#), session: session)
         _ = try await [first, second]
         XCTAssertEqual(MarketHTTPStubReplies.shared.hitCount(url), 2)
     }

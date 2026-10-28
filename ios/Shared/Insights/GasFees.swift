@@ -192,7 +192,7 @@ actor GasDataSource {
     /// Wie `fetch`; `provider` = Knoten, der Ethereum geliefert hat (z. B. «publicnode.com»),
     /// und «mempool.space» für Bitcoin — je nachdem, was im Bericht steht.
     func fetchSourced(maxAge: Int64 = 60_000) async throws -> Sourced<GasReport> {
-        if let cached, TimeUtils.nowMillis - cached.value.time < maxAge { return cached }
+        if let cached, EpochTime.nowMillis - cached.value.time < maxAge { return cached }
         let sourced = await load()
         let report = sourced.value
         if report.evm.isEmpty && report.btc == nil { throw JSONError(message: "Keine Gebührendaten") }
@@ -230,11 +230,11 @@ actor GasDataSource {
         // Herkunft wie in der Zeile gezeigt: der Ethereum-Knoten, dazu mempool.space für Bitcoin
         let provider = DataFreshness.providers(ethNode.map { DataFreshness.siteName($0) },
                                                btcFees == nil ? nil : DataFreshness.mempool)
-        return Sourced(value: GasReport(evm: list, btc: btcFees, time: TimeUtils.nowMillis), provider: provider)
+        return Sourced(value: GasReport(evm: list, btc: btcFees, time: EpochTime.nowMillis), provider: provider)
     }
 
-    private static func jsonPost(_ body: String) -> PostRequestInfo {
-        PostRequestInfo(body: body, headers: ["Content-Type": "application/json"])
+    private static func jsonPost(_ body: String) -> PostRequest {
+        PostRequest(body: body, headers: ["Content-Type": "application/json"])
     }
 
     /// (langsam, normal, schnell) in gwei und der Knoten, der geantwortet hat; versucht die Knoten der Reihe nach.
@@ -333,7 +333,7 @@ enum GasAlertCheck {
 
     /// Wie `GasAlertChecker.isDue` (Android): auch fällig, wenn die letzte Prüfung in der Zukunft liegt.
     static func isDue(now: Int64, lastCheck: Int64) -> Bool {
-        TimeUtils.isIntervalDue(now: now, last: lastCheck, minInterval: minInterval)
+        EpochTime.isIntervalDue(now: now, last: lastCheck, minInterval: minInterval)
     }
 
     /// Nach einer Kursaktualisierung aufrufen; tut nichts ohne eingestellte Grenze.
@@ -349,7 +349,7 @@ enum GasAlertCheck {
             }
             return
         }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let last = Int64(defaults.double(forKey: keyLastCheck))
         guard isDue(now: now, lastCheck: last) else { return }
         defaults.set(Double(now), forKey: keyLastCheck)

@@ -11,7 +11,7 @@ import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 
 /** Ladeanzeige über die ganze Fläche: Platzhalter-Zeilen statt eines einzelnen Kreisels. */
 @Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
+fun SkeletonLoadingScreen(modifier: Modifier = Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
         SkeletonList()
     }
@@ -20,6 +20,6 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun LoadingScreenPreview() {
-    CryptoCheckerTheme { LoadingScreen() }
+fun SkeletonLoadingScreenPreview() {
+    CryptoCheckerTheme { SkeletonLoadingScreen() }
 }

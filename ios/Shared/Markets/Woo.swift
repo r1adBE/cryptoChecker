@@ -71,7 +71,7 @@ final class Woo: WooBase, @unchecked Sendable { // @unchecked: wie `Market` (kei
         } else if answeredAt > 0 {
             ticker.timestamp = answeredAt
         } else {
-            ticker.timestamp = min(candleEnd, TimeUtils.nowMillis)
+            ticker.timestamp = min(candleEnd, EpochTime.nowMillis)
         }
         let span = newestIsRunning ? wooHours : wooHours - 1
         let window = Array(hourly.prefix(span))

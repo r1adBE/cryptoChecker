@@ -63,7 +63,7 @@ struct CandlePair: Equatable, Sendable {
 struct CandleHTTP: Sendable {
     let get: @Sendable (String) async -> String?
     var post: @Sendable (String, String) async -> String? = { _, _ in nil }
-    var now: Int64 = TimeUtils.nowMillis
+    var now: Int64 = EpochTime.nowMillis
 
     func callAsFunction(_ url: String) async -> String? { await get(url) }
 }

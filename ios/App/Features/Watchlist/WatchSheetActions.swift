@@ -294,7 +294,7 @@ enum WatchPreview {
         if let ticker = fetched.ticker, ticker.last.isFinite, ticker.last > 0 {
             shown.lastPrice = ticker.last
             shown.change24h = ticker.change24hPercent.flatMap { $0.isFinite ? $0 : nil }
-            shown.lastUpdate = TimeUtils.nowMillis
+            shown.lastUpdate = EpochTime.nowMillis
             shown.lastError = nil
         } else {
             // Älterer Kurs bleibt stehen (das Blatt bietet dann «Erneut versuchen» an)

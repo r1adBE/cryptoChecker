@@ -63,7 +63,7 @@ struct WatchlistWhySheet: View {
             if case .loaded(let r) = state { return r }
             return nil
         }()
-        let signals = WatchlistActivity.active(data.activityReports[watch.id], now: TimeUtils.nowMillis,
+        let signals = WatchlistActivity.active(data.activityReports[watch.id], now: EpochTime.nowMillis,
                                                sensitivity: data.settings.activitySensitivity)
         // «Was bewegt sich mit?» zeigt bei rollender Basis die Änderung selbst; bei «seit 00:00» rechnet es eigene Kerzen
         let candleNote: String? = candleSource.flatMap { source in

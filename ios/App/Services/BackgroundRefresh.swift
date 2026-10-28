@@ -63,7 +63,7 @@ enum BackgroundRefresh {
     @MainActor
     static func runZoneCheckIfDue(settings: AppSettings) {
         guard zoneWanted(settings),
-              ZoneSchedule.isDue(lastRunMillis: lastZoneCheckAt, now: TimeUtils.nowMillis),
+              ZoneSchedule.isDue(lastRunMillis: lastZoneCheckAt, now: EpochTime.nowMillis),
               !zoneRunning else { return }
         Task { @MainActor in _ = await runZoneCheck(settings: settings) }
     }
@@ -80,7 +80,7 @@ enum BackgroundRefresh {
         defer { zoneRunning = false }
         let ok = await ZoneCheck.run(settings: settings)
         // Nur ein gelungener Lauf zählt (wie `Result.retry()`): sonst holt das nächste Öffnen ihn nach
-        if ok { lastZoneCheckAt = TimeUtils.nowMillis }
+        if ok { lastZoneCheckAt = EpochTime.nowMillis }
         return ok
     }
 
@@ -107,7 +107,7 @@ enum BackgroundRefresh {
     static func handleRefresh(_ task: any BackgroundRefreshTask,
                               seams: BackgroundRunSeams = .live) -> Task<Void, Never>? {
         let completion = BackgroundTaskCompletion(task)
-        let startedAt = TimeUtils.nowMillis
+        let startedAt = EpochTime.nowMillis
         // Fear & Greed / Kennzahlen fällig? Läuft als Schritt in diesem Lauf (keine eigene Aufgabe mehr)
         let zoneDue = ZoneSchedule.shouldRunInRefresh(wanted: zoneWanted(SharedStorage.loadSettings()),
                                                       lastRunMillis: lastZoneCheckAt, now: startedAt)
@@ -154,7 +154,7 @@ enum BackgroundRefresh {
         // gleich beim Anlegen ab (`TaskCancelBox.set`).
         let workBox = TaskCancelBox()
         task.onExpiration {
-            let endedAt = TimeUtils.nowMillis
+            let endedAt = EpochTime.nowMillis
             let result = priceBox.get()
             let logs = logGate.claim()
             BackgroundExpiry(cancel: { workBox.cancel() }, complete: { completion.complete(success: false) },
@@ -178,7 +178,7 @@ enum BackgroundRefresh {
             // (`RefreshBudget.Step`): Kurse und Kursalarme speichern und melden, dann Portfolio (braucht nur
             // Kurse und Devisen), dann Alarme mit Zusatzdaten, Fear & Greed (wenn fällig), Aktivität, Gas — jeweils nur, solange Zeit
             // bleibt. Sonst endet alles im Ablauf, nichts ist gespeichert, und iOS gibt künftig weniger Hintergrundzeit.
-            let budget = RefreshBudget(start: TimeUtils.nowMillis)
+            let budget = RefreshBudget(start: EpochTime.nowMillis)
             let deadline = budget.deadline
             let outcome = await seams.refresh(snapshot, settings, deadline)
             // Speichern der Reihe nach mit den Schreibern der App (`PriceWriteGate`: Aktualisierung, Live-Kurse).
@@ -222,7 +222,7 @@ enum BackgroundRefresh {
                 // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
                 // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht
                 if !expired && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
-                    SharedStorage.lastAlarmCheckAt = TimeUtils.nowMillis
+                    SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
                 }
             }
             if let report = outcome.report { SharedStorage.lastRefreshReport = report }
@@ -267,7 +267,7 @@ enum BackgroundRefresh {
                 // Fällige Adress-Guthaben zuerst (10 min Zwischenspeicher; ohne Adressen keine Anfrage) — mit eigener
                 // Grenze (höchstens 8 s, je Anfrage 5 s), die dem Portfolio-Stand seine Mindestzeit lässt; reicht
                 // die Zeit nicht, bleiben die Adressen bis zum nächsten Lauf fällig (Kurse und Alarme gehen vor)
-                let portfolioEnd = TimeUtils.nowMillis + allowance
+                let portfolioEnd = EpochTime.nowMillis + allowance
                 let addressMillis = min(WatchedAddressSource.backgroundTotalMillis,
                                         allowance - RefreshBudget.portfolioMinMillis)
                 if addressMillis >= 1_000 {
@@ -275,7 +275,7 @@ enum BackgroundRefresh {
                         await PortfolioModel.shared.refreshWatchedAddresses(force: false, budgetMillis: addressMillis - 500)
                     }
                 }
-                let widget = await RefreshDeadline.run(within: max(0, portfolioEnd - TimeUtils.nowMillis)) { @MainActor in
+                let widget = await RefreshDeadline.run(within: max(0, portfolioEnd - EpochTime.nowMillis)) { @MainActor in
                     await PortfolioWidgetStore.refresh()
                 }
                 if let widget, !Task.isCancelled {
@@ -363,7 +363,7 @@ enum BackgroundRefresh {
             // blockieren
             await SharedStorage.snapshotWritesSettled()
             if logGate.claim() { await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt).value }
-            AppLog.background.info("BG-Aufgabe beendet nach \(TimeUtils.nowMillis - startedAt, privacy: .public) ms, geprüft \(outcome.checked, privacy: .public), fehlgeschlagen \(outcome.failed, privacy: .public)")
+            AppLog.background.info("BG-Aufgabe beendet nach \(EpochTime.nowMillis - startedAt, privacy: .public) ms, geprüft \(outcome.checked, privacy: .public), fehlgeschlagen \(outcome.failed, privacy: .public)")
             completion.complete(success: !Task.isCancelled)
         }
         workBox.set(work)

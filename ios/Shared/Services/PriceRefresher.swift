@@ -36,7 +36,7 @@ enum PriceRefresher {
                         liveIds: Set<Int64> = [],
                         liveQuotes: [Int64: LiveQuote]? = nil, networkBudgetMillis: Int64? = nil,
                         deadline: RefreshDeadline? = nil, lowMemory: Bool = false) async -> Outcome {
-        let started = TimeUtils.nowMillis
+        let started = EpochTime.nowMillis
         var outcome = Outcome()
         outcome.alarmLogLive = liveQuotes != nil
         // Kein Netz: gar nicht erst versuchen — Kurse und Zustände bleiben, die Merkliste zeigt
@@ -77,14 +77,14 @@ enum PriceRefresher {
         // Paare mit frischem Live-Kurs (WebSocket): diesmal ohne REST-Abfrage
         let watches = all.filter { !outcome.pausedIds.contains($0.id) && !liveIds.contains($0.id) }
         guard !watches.isEmpty else {
-            outcome.durationMillis = TimeUtils.nowMillis - started
+            outcome.durationMillis = EpochTime.nowMillis - started
             // Alle Börsen pausiert: der Bericht sagt bis wann
             if onlyWatchId == nil && !paused.isEmpty {
                 // Übernommene gemeinsame Binance-Pause mit speichern (wie Android)
                 SharedStorage.exchangeBackoff = ExchangeBackoff.merge(ours: backoff, initial: initialBackoff,
                                                                       stored: SharedStorage.exchangeBackoff,
-                                                                      now: TimeUtils.nowMillis)
-                outcome.report = RefreshReport(at: TimeUtils.nowMillis, totalMillis: outcome.durationMillis,
+                                                                      now: EpochTime.nowMillis)
+                outcome.report = RefreshReport(at: EpochTime.nowMillis, totalMillis: outcome.durationMillis,
                                                pairs: all.count, networkMillis: 0,
                                                markets: pausedMarkets(paused, backoff: backoff))
             }
@@ -169,7 +169,7 @@ enum PriceRefresher {
             }
             // Ergebnis je Börse → Pause beginnen, verlängern oder (nach Erfolg) aufheben
             if onlyWatchId == nil {
-                let finished = TimeUtils.nowMillis
+                let finished = EpochTime.nowMillis
                 for signal in signals {
                     var market = signal.report
                     let state = ExchangeBackoff.next(
@@ -208,10 +208,10 @@ enum PriceRefresher {
                              for: dayLoads)
             dayReferences = await cachedDayReferences(needingCandles, dayStart: dayStart)
         }
-        let networkMillis = TimeUtils.nowMillis - started
+        let networkMillis = EpochTime.nowMillis - started
 
         // 2) Auswerten
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         // Nachtruhe: Alarme warten bis zum Ende (`QuietHours.holdsAlarms`, in checkAlarms),
         // und nichts vorlesen — weder Alarme noch Kurse.
         let speechAllowed = settings.ttsEnabled && !QuietHours.isQuietNow(settings)
@@ -346,7 +346,7 @@ enum PriceRefresher {
         Notifier.cancelPrices(cancelIds)
         await Notifier.showPrices(pricePosts, cancelled: cancelIds)
 
-        outcome.durationMillis = TimeUtils.nowMillis - started
+        outcome.durationMillis = EpochTime.nowMillis - started
         if onlyWatchId == nil && liveQuotes == nil {
             outcome.changeStamp = changeStamp
             // Ohne Stempel: Werte von vorher, also rollend
@@ -371,7 +371,7 @@ enum PriceRefresher {
             // Wie Android; Datenbank und Widgets misst hier niemand (speichert der Aufrufer),
             // «Alarme» = alles nach dem Netz (Auswerten, Mitteilungen, Ansagen).
             outcome.report = RefreshReport(
-                at: TimeUtils.nowMillis,
+                at: EpochTime.nowMillis,
                 totalMillis: outcome.durationMillis,
                 pairs: all.count,
                 networkMillis: networkMillis,

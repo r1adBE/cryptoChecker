@@ -57,7 +57,7 @@ struct PortfolioScreen: View {
     @Environment(\.accessibilityReduceMotion) var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOver
     /// Uhr für «vor 2 Min.» und den Wechsel nach «veraltet» (alle 30 s, wie der Markt-Tab).
-    @State var now = TimeUtils.nowMillis
+    @State var now = EpochTime.nowMillis
     /// FIFO je Wallet: Abgänge über den Bestand ihrer Wallet — im Hintergrund (`PortfolioWalletShortfallKey`).
     @State var walletShortfalls: [PortfolioWalletShortfall] = []
 
@@ -108,7 +108,7 @@ struct PortfolioScreen: View {
             .task {
                 while !Task.isCancelled {
                     try? await Task.sleep(nanoseconds: 30_000_000_000)
-                    now = TimeUtils.nowMillis
+                    now = EpochTime.nowMillis
                 }
             }
             // Netz wieder da: Kurse auffrischen (60 s Zwischenspeicher), wie die Merkliste

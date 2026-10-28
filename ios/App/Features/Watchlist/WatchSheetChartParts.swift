@@ -73,7 +73,7 @@ struct SheetChartCaption: View {
         if let last = candles.last {
             let stamp = SheetChart.stampMillis(lastOpenTime: last.openTime, intervalMillis: range.candleMillis,
                                                fetchedAt: info.fetchedAt)
-            let template = SheetChart.stampTemplate(stamp: stamp, now: TimeUtils.nowMillis, timeZone: timeZone)
+            let template = SheetChart.stampTemplate(stamp: stamp, now: EpochTime.nowMillis, timeZone: timeZone)
             let f = DateFormatter()
             f.locale = Locale.current
             f.timeZone = timeZone

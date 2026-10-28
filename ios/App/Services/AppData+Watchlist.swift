@@ -130,7 +130,7 @@ extension AppData {
         ActivityRepository.forget(watchId)
         // Live-Kurse und laufende Abfragen des alten Paars nicht mehr in die Zeile schreiben (`applyLive`,
         // `Outcome.apply` prüft das abgefragte Paar)
-        pairChangedAt[watchId] = TimeUtils.nowMillis
+        pairChangedAt[watchId] = EpochTime.nowMillis
         mutate { s in
             guard let i = s.watches.firstIndex(where: { $0.id == watchId }) else { return }
             s.watches[i].marketKey = market.key

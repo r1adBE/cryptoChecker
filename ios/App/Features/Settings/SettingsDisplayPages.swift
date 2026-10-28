@@ -277,7 +277,7 @@ struct ChangeBasisSettingsPage: View {
     @EnvironmentObject private var data: AppData
     @Environment(\.appAccent) private var accent
     /// Zone des Geräts einmal beim Öffnen (Sommerzeit wechselt nicht, während die Seite offen ist).
-    @State private var now = TimeUtils.nowMillis
+    @State private var now = EpochTime.nowMillis
 
     init() {}
 

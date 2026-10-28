@@ -35,7 +35,7 @@ import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.ui.components.ChangePill
-import com.cryptochecker.app.ui.components.ComboBox
+import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.theme.amountNumbers
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.marketdata.model.MarketPair
@@ -110,7 +110,7 @@ internal fun BulkPairsCard(
         if (showBulk) {
             if (!asTab) Spacer(modifier = Modifier.size(gap))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                ComboBox(
+                DropdownField(
                     modifier = Modifier.weight(1f),
                     itemList = quotes,
                     selectedIndex = quotes.indexOf(quote),

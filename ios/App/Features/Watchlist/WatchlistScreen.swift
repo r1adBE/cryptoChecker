@@ -27,7 +27,7 @@ struct WatchlistScreen: View {
     @Environment(\.scenePhase) var scenePhase
 
     // Uhr für «vor 2 Min.» — alle 30 Sekunden neu
-    @State var now: Int64 = TimeUtils.nowMillis
+    @State var now: Int64 = EpochTime.nowMillis
 
     @State var actionsFor: WatchlistSheetTarget?
     /// Paar, dessen «Was bewegt sich mit?» offen ist.
@@ -167,9 +167,9 @@ struct WatchlistScreen: View {
         let wholeGroup = quickView == .stale || quickView == .disabled
         let refreshEvents = WatchlistRefreshEvents(
             state: data.refreshState, countdown: refreshCountdown,
-            onRunChange: { now = TimeUtils.nowMillis },
+            onRunChange: { now = EpochTime.nowMillis },
             // «Nur veraltete»: die Frische-Schwelle hängt am Live-Strom — Liste neu filtern
-            onLiveChange: { if quickView == .stale { now = TimeUtils.nowMillis } }
+            onLiveChange: { if quickView == .stale { now = EpochTime.nowMillis } }
         )
         let content = ScrollViewReader { proxy in
             Group {
@@ -230,7 +230,7 @@ struct WatchlistScreen: View {
         .task {
             while !Task.isCancelled {
                 try? await Task.sleep(nanoseconds: 30_000_000_000)
-                now = TimeUtils.nowMillis
+                now = EpochTime.nowMillis
             }
         }
         // Status der Aktualisierung (eigenes Objekt, `RefreshState`): Countdown der 15-s-Sperre und Uhr; der

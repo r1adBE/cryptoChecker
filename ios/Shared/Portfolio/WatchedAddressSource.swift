@@ -80,9 +80,9 @@ actor WatchedAddressSource {
     ///   (`AddressBalance.dueOrder`).
     /// - Parameter btcServer: eigener Bitcoin-Server (`AddressServer`): Bitcoin nur dort, ohne Rückfall; nil = öffentlich
     ///   (immer ausdrücklich).
-    func refresh(_ addresses: [WatchedAddress], force: Bool, now: Int64 = TimeUtils.nowMillis,
+    func refresh(_ addresses: [WatchedAddress], force: Bool, now: Int64 = EpochTime.nowMillis,
                  budgetMillis: Int64? = nil, btcServer: String?) async throws -> [Update] {
-        let deadline = budgetMillis.map { TimeUtils.nowMillis + $0 }
+        let deadline = budgetMillis.map { EpochTime.nowMillis + $0 }
         if deadline != nil && running > 0 { return [] }
         running += 1
         defer { running -= 1 }
@@ -91,7 +91,7 @@ actor WatchedAddressSource {
         var updates: [Update] = []
         for a in AddressBalance.dueOrder(addresses, now: now, force: force, background: deadline != nil) {
             try Task.checkCancellation()
-            let time = TimeUtils.nowMillis
+            let time = EpochTime.nowMillis
             do {
                 let fetched: Fetched
                 if a.isXpub {
@@ -206,7 +206,7 @@ actor WatchedAddressSource {
         var tried = false
         for entry in entries {
             let host = AddressServerRules.hostKey(entry)
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             if (!own && BlockedSources.isBlocked(host)) || ExchangeBackoff.isPaused(backoff[host], now: now) { continue }
             // Hintergrund: je Anfrage höchstens backgroundRequestMillis, nie über die Endzeit
             let limit = deadline.map { min(Self.backgroundRequestMillis, $0 - now) }
@@ -235,7 +235,7 @@ actor WatchedAddressSource {
                 } else {
                     outcome = .other
                 }
-                backoff[host] = ExchangeBackoff.next(backoff[host], outcome: outcome, now: TimeUtils.nowMillis,
+                backoff[host] = ExchangeBackoff.next(backoff[host], outcome: outcome, now: EpochTime.nowMillis,
                                                      retryAfterMillis: retryAfterMillis,
                                                      banned: (error as? HttpMarketError)?.httpCode == 418)
                 lastError = error
@@ -279,7 +279,7 @@ actor WatchedAddressSource {
         let text = String(decoding: data, as: UTF8.self)
         if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
             let retryAfter = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
-                                                                    now: TimeUtils.nowMillis)
+                                                                    now: EpochTime.nowMillis)
             // Ohne Antworttext: er könnte die Adresse enthalten
             throw HttpMarketError(httpCode: http.statusCode, body: "", retryAfterSeconds: retryAfter)
         }

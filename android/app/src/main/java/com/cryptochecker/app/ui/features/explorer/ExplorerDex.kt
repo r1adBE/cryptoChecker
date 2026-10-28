@@ -24,7 +24,7 @@ import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.CompactAmount
 import com.cryptochecker.marketdata.model.market.DexPool
-import com.cryptochecker.marketdata.util.FormatUtilsBase
+import com.cryptochecker.marketdata.util.DisplayFormat
 
 internal const val DEX_MARKET_KEY = "DexScreener"
 
@@ -137,7 +137,7 @@ private fun formatDexPrice(value: Double): String = when {
     value >= 1 -> "%,.2f".format(value)
     value >= 0.0001 -> "%.6f".format(value)
     // Ganz kleine Preise mit höchstens vier gültigen Stellen wie die Kursanzeige («@###»,
-    // FormatUtilsBase) — eine feste Stellenzahl ergäbe für 3e-11 «0»; wie iOS (PriceFormat.formatDouble)
-    else -> FormatUtilsBase.formatDoubleWithFourMax(value)
+    // DisplayFormat) — eine feste Stellenzahl ergäbe für 3e-11 «0»; wie iOS (PriceFormat.formatDouble)
+    else -> DisplayFormat.formatDoubleWithFourMax(value)
 }
 

@@ -18,7 +18,7 @@ actor SpotDataSource {
 
     /// Daten zum Kürzel aus `SpotMarket.lookupSymbol`; nil = keine (oder nicht erreichbar).
     func fetch(symbol: String) async -> SpotData? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let hit = cache[symbol], fresh(hit.at, now) { return hit.data }
         let result: SpotData?
         let top = await topEntries(now)
@@ -54,7 +54,7 @@ actor SpotDataSource {
     /// derselben Top-40 (ohne `excludeBase`); nil, wenn sie fehlt, zu alt ist oder zu wenige
     /// Coins hat. Nichts Coin-Bezogenes wird gesendet (wie Android).
     func broadMarket(excludeBase: String) async -> BroadMarketSnapshot? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         return BroadMarket.snapshot(BroadMarket.parse(await topBody(now)), excludeBase: excludeBase, now: now)
     }
 

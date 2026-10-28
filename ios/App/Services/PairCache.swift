@@ -223,7 +223,7 @@ actor PairCache {
             throw UserFriendlyMarketError(message: L("market_unavailable_error"))
         }
         let fetched = try await MarketService.fetchCurrencyPairs(market: market)
-        let fresh = MarketPairsInfo(lastSyncDate: TimeUtils.nowMillis, pairs: fetched)
+        let fresh = MarketPairsInfo(lastSyncDate: EpochTime.nowMillis, pairs: fetched)
         if !fetched.isEmpty {
             memory[key] = fresh
             writeFile(fresh, key: key)

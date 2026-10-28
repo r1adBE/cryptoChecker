@@ -69,7 +69,7 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     func tickerQueryError(call: Int, info: PairQuery) -> Error? { nil }
 
     /// POST body for request `call`; nil means a plain GET request.
-    func tickerPostBody(call: Int, info: PairQuery) -> PostRequestInfo? { nil }
+    func tickerPostBody(call: Int, info: PairQuery) -> PostRequest? { nil }
 
     /// Parses a single-ticker response into `ticker` (via `fillTicker`). Afterwards `timestamp` is the fetch time
     /// and `exchangeTime` the time reported by the exchange (or nil).
@@ -142,8 +142,8 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// `exchangeTimeFutureToleranceMillis` in der Zukunft ist falsch gelesen (Ortszeit als Epoche wie Bithumbs KST,
     /// falsche Einheit) und fällt weg: Sie liesse einen stehenden Kurs stundenlang frisch aussehen. Wie Android.
     private static func markFetched(_ ticker: inout Ticker) {
-        let now = TimeUtils.nowMillis
-        let reported = ticker.timestamp > 0 ? TimeUtils.parseTimeToMillis(ticker.timestamp) : nil
+        let now = EpochTime.nowMillis
+        let reported = ticker.timestamp > 0 ? EpochTime.parseTimeToMillis(ticker.timestamp) : nil
         if let reported, reported <= now + exchangeTimeFutureToleranceMillis {
             ticker.exchangeTime = reported
         } else {
@@ -178,7 +178,7 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     func bulkTickersRequestCount(pairIds: [String]) -> Int { bulkTickersNumOfRequests }
 
     /// POST body for bulk request `call`; nil means GET.
-    func bulkTickersPostRequestInfo(call: Int) -> PostRequestInfo? { nil }
+    func bulkTickersPostRequest(call: Int) -> PostRequest? { nil }
 
     /// Group of bulk request `call` (Binance: spot 0, Alpha 1). If one fails, only its group
     /// (`bulkTickersPairGroup`) loses the «no longer traded» verdict; the other pairs stay complete.
@@ -277,7 +277,7 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     func pairListAddress(call: Int) -> String? { nil }
 
     /// POST body for pair-list request `call`; nil means GET.
-    func pairListPostBody(call: Int) -> PostRequestInfo? { nil }
+    func pairListPostBody(call: Int) -> PostRequest? { nil }
 
     /// For exchanges that page their pair list with a cursor (Bybit `nextPageCursor`): URL of the next page after
     /// `body`, nil on the last page. It is fetched with GET and parsed with the same `call`, at most

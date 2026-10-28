@@ -109,7 +109,7 @@ enum BackgroundErrorCounter {
     /// Einen Fehler im Bereich `area` zählen (unbekannt → «other»); mit `error` auch seine Art (Typname, ohne Text), ohne
     /// Fehlerobjekt eine feste Art `kind` (z. B. `BackgroundErrors.allFailedKind`). Nicht bei gesperrter Ablage (Neustart
     /// vor dem ersten Entsperren): Schreiben in die noch unlesbaren Einstellungen könnte sie sonst überschreiben.
-    static func record(_ area: String, now: Int64 = TimeUtils.nowMillis, defaults: UserDefaults? = nil,
+    static func record(_ area: String, now: Int64 = EpochTime.nowMillis, defaults: UserDefaults? = nil,
                        error: (any Error)? = nil, kind: String? = nil) {
         let store: UserDefaults
         if let defaults {

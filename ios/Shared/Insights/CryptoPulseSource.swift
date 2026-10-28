@@ -57,7 +57,7 @@ actor CryptoPulseSource {
         let global = await globalJob
         let data = PulseMarketData(btc: changes["BTC"], eth: changes["ETH"], sol: changes["SOL"],
                                    volumeRatio: spike?.ratio, fundingPercent: funding,
-                                   time: TimeUtils.nowMillis,
+                                   time: EpochTime.nowMillis,
                                    topChanges: top.changes.isEmpty ? nil : top.changes,
                                    marketCapUsd: global?.totalMarketCap["usd"],
                                    marketCap24h: global?.change24hPercent,
@@ -74,7 +74,7 @@ actor CryptoPulseSource {
     static let storeKey = "pulse_market_data_v1"
 
     /// Jünger als die Gültigkeit (5 Min.)? Ein Zeitpunkt in der Zukunft gilt als alt.
-    static func isFresh(_ data: PulseMarketData, now: Int64 = TimeUtils.nowMillis) -> Bool {
+    static func isFresh(_ data: PulseMarketData, now: Int64 = EpochTime.nowMillis) -> Bool {
         let age = now - data.time
         return age >= 0 && age < cacheMillis
     }
@@ -91,7 +91,7 @@ actor CryptoPulseSource {
     }
 
     private func globalMarket() async -> GlobalMarket? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let globalCache, now - globalCache.at >= 0, now - globalCache.at < Self.globalCacheMillis {
             return globalCache.market
         }

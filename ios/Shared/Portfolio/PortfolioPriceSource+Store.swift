@@ -80,7 +80,7 @@ extension PortfolioPriceSource {
         lock.unlock()
         if let known { return known }
         let text = try? String(contentsOf: storeURL, encoding: .utf8)
-        let usable = PortfolioPriceFallback.prune(PortfolioPriceFallback.decode(text), now: TimeUtils.nowMillis)
+        let usable = PortfolioPriceFallback.prune(PortfolioPriceFallback.decode(text), now: EpochTime.nowMillis)
         lock.lock(); defer { lock.unlock() }
         if let raced = storedEntries { return raced }
         storedEntries = usable
@@ -95,7 +95,7 @@ extension PortfolioPriceSource {
         lock.lock()
         let entries = PortfolioPriceFallback.prune(
             PortfolioPriceFallback.merge(current: currentEntriesLocked(), stored: storedEntries ?? stored),
-            now: TimeUtils.nowMillis
+            now: EpochTime.nowMillis
         )
         storedEntries = entries
         lock.unlock()

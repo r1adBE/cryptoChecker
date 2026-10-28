@@ -1,7 +1,7 @@
 package com.cryptochecker.app.util
 
 import com.cryptochecker.app.domain.alarm.ThresholdParser
-import com.cryptochecker.marketdata.util.FormatUtilsBase
+import com.cryptochecker.marketdata.util.DisplayFormat
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -14,7 +14,7 @@ import kotlin.math.abs
 object PriceFormat {
 
     fun price(value: Double?): String =
-        if (value == null || value <= 0.0) "—" else FormatUtilsBase.formatDouble(value)
+        if (value == null || value <= 0.0) "—" else DisplayFormat.formatDouble(value)
 
     fun priceWithCurrency(value: Double?, quoteAsset: String): String =
         if (value == null || value <= 0.0) "—" else "${price(value)} $quoteAsset"

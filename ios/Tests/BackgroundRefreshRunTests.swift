@@ -132,7 +132,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
     /// Gefälschter Durchlauf: Kurs 100 für das eigene Paar, sein Alarm ausgelöst und zum Melden bereit
     /// (ohne Netz und ohne Lease).
     nonisolated private static func firedOutcome(_ alarms: [Alarm] = [alarm]) -> PriceRefresher.Outcome {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         var outcome = PriceRefresher.Outcome()
         outcome.prices[watchId] = PriceRefresher.PriceUpdate(price: 100, time: now)
         outcome.pendingAlarms = alarms.map { pending($0, now: now) }
@@ -164,7 +164,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         }
         seams.checkDeferred = { _, _, _ in
             var extra = PriceRefresher.Outcome()
-            extra.pendingAlarms = [pending(alarm, now: TimeUtils.nowMillis)]
+            extra.pendingAlarms = [pending(alarm, now: EpochTime.nowMillis)]
             return extra
         }
         seams.afterExtraSave = afterExtraSave

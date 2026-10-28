@@ -153,7 +153,7 @@ struct DeveloperSettingsPage: View {
                 }
                 // Gleiche Darstellung wie das Blatt in der Merkliste (Status, Börsen)
                 if let report = refreshState.lastRefreshReport {
-                    RefreshReportSummary(report: report, now: TimeUtils.nowMillis)
+                    RefreshReportSummary(report: report, now: EpochTime.nowMillis)
                         .padding(.top, 4)
                     RefreshReportMarketList(markets: report.markets)
                 } else {

@@ -37,7 +37,7 @@ actor WatchlistSparklineStore {
         let key = Self.key(base)
         guard !key.isEmpty else { return nil }
         if let entry = cache[key] {
-            let age = TimeUtils.nowMillis - entry.time
+            let age = EpochTime.nowMillis - entry.time
             let ttl = entry.closes == nil ? Self.failureTtlMillis : Self.ttlMillis
             if age >= 0 && age < ttl { return entry.closes }
         }
@@ -48,7 +48,7 @@ actor WatchlistSparklineStore {
         inFlight[key] = task
         let result = await task.value
         inFlight[key] = nil
-        cache[key] = (TimeUtils.nowMillis, result)
+        cache[key] = (EpochTime.nowMillis, result)
         return result
     }
 

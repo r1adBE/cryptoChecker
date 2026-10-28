@@ -20,7 +20,7 @@ import com.cryptochecker.app.domain.mirror.DataMirror
 import com.cryptochecker.app.domain.mirror.MirrorManifest
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.CancellationException
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -46,7 +46,7 @@ fun OkHttpClient.withTimeouts(seconds: Long): OkHttpClient =
  */
 suspend fun OkHttpClient.callMarket(
     url: String,
-    postRequestInfo: PostRequestInfo?,
+    postRequestInfo: PostRequest?,
     maxBytes: Long = HttpBodyLimit.DEFAULT_MAX_BYTES,
 ): String {
     // Wache gegen eine hängende OkHttp-Anfrage, knapp über dem callTimeout (gezählt ab der Ausführung, CallGuard)
@@ -111,7 +111,7 @@ fun OkHttpClient.mirrorLoader(guardMillis: Long): MirrorLoader = { url, limit ->
  */
 private suspend fun OkHttpClient.request(
     url: String,
-    postRequestInfo: PostRequestInfo?,
+    postRequestInfo: PostRequest?,
     maxBytes: Long,
     guardMillis: Long,
 ): String =

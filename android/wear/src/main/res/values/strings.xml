@@ -8,7 +8,7 @@
     <string name="watch_updated">As of %1$s</string>
     <string name="watch_refresh">Refresh</string>
     <string name="watch_choose">Choose coins</string>
-    <string name="watch_choose_hint">Up to %1$d coins</string>
+    <string name="watch_choose_hint">Coins: max. %1$d</string>
     <string name="watch_complication_label">Price</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 hours</string>
     <string name="watch_mode_phone">List: like phone</string>

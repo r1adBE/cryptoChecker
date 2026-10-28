@@ -1,6 +1,7 @@
 package com.cryptochecker.wear
 
 import android.content.Context
+import androidx.core.content.edit
 import com.cryptochecker.marketdata.watch.WatchSettings
 import org.json.JSONArray
 import org.json.JSONObject
@@ -16,7 +17,7 @@ class WatchStore(context: Context) {
     var settings: WatchSettings
         get() = WatchSettings.fromJson(prefs.getString(KEY_SETTINGS, null)) ?: WatchSettings()
         set(value) {
-            prefs.edit().putString(KEY_SETTINGS, value.toJson()).apply()
+            prefs.edit { putString(KEY_SETTINGS, value.toJson()) }
         }
 
     /** Coins, die die Uhr gerade zeigt. */
@@ -44,7 +45,7 @@ class WatchStore(context: Context) {
             q.change24h?.let { o.put("c", it) }
             list.put(o)
         }
-        prefs.edit().putString(KEY_QUOTES, JSONObject().put("t", time).put("q", list).toString()).apply()
+        prefs.edit { putString(KEY_QUOTES, JSONObject().put("t", time).put("q", list).toString()) }
     }
 
     private companion object {

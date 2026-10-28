@@ -81,7 +81,7 @@ struct RefreshBudget {
     /// Zeit für die Devisenkurse der Portfolio-Alarme: höchstens `portfolioFxMaxMillis`, nur bis zum Ende des
     /// Portfolio-Schritts (`portfolioEndMillis`) und mit Reserve; 0 = nicht abfragen.
     static func portfolioFxAllowance(portfolioEndMillis: Int64, deadline: RefreshDeadline,
-                                     now: Int64 = TimeUtils.nowMillis) -> Int64 {
+                                     now: Int64 = EpochTime.nowMillis) -> Int64 {
         let wanted = min(portfolioFxMaxMillis, max(0, portfolioEndMillis - now))
         let millis = deadline.allowance(wanted: wanted, now: now)
         return millis >= portfolioFxMinMillis ? millis : 0
@@ -92,7 +92,7 @@ struct RefreshBudget {
     /// Endzeit für alle Schritte (an `PriceRefresher` und die Nebenprüfungen weitergereicht).
     var deadline: RefreshDeadline { RefreshDeadline(endMillis: start + Self.totalMillis) }
 
-    func remaining(now: Int64 = TimeUtils.nowMillis) -> Int64 { deadline.remaining(now: now) }
+    func remaining(now: Int64 = EpochTime.nowMillis) -> Int64 { deadline.remaining(now: now) }
 }
 
 /// Wann die Kurs-Aktualisierung im Hintergrund frühestens beginnen soll.

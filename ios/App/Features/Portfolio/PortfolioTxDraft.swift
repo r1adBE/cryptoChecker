@@ -12,7 +12,7 @@ struct PortfolioTxDraft: Identifiable {
     /// Exakt (`Decimal`): 0.00000001 BTC = 1 Satoshi.
     var amount: Decimal?
     var priceUsdt: Decimal?
-    var time: Int64 = TimeUtils.nowMillis
+    var time: Int64 = EpochTime.nowMillis
     var note: String?
     /// Gebühr (> 0) in `feeUnit`; nil = keine.
     var fee: Decimal?

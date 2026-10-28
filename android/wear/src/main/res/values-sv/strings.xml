@@ -6,7 +6,7 @@
     <string name="watch_updated">Kl. %1$s</string>
     <string name="watch_refresh">Uppdatera</string>
     <string name="watch_choose">Välj mynt</string>
-    <string name="watch_choose_hint">Upp till %1$d mynt</string>
+    <string name="watch_choose_hint">Mynt: högst %1$d</string>
     <string name="watch_complication_label">Kurs</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s på 24 timmar</string>
     <string name="watch_mode_phone">Lista: som telefonen</string>

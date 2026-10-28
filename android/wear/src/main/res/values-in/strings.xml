@@ -6,7 +6,7 @@
     <string name="watch_updated">Per %1$s</string>
     <string name="watch_refresh">Muat ulang</string>
     <string name="watch_choose">Pilih koin</string>
-    <string name="watch_choose_hint">Hingga %1$d koin</string>
+    <string name="watch_choose_hint">Koin: maks. %1$d</string>
     <string name="watch_complication_label">Harga</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s dalam 24 jam</string>
     <string name="watch_mode_phone">Daftar: seperti ponsel</string>

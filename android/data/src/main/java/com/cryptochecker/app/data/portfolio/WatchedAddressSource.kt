@@ -19,7 +19,7 @@ import com.cryptochecker.app.domain.portfolio.XpubCache
 import com.cryptochecker.app.domain.portfolio.XpubScan
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.StoredError
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
@@ -304,7 +304,7 @@ class WatchedAddressSource @Inject constructor(
         )
     }
 
-    private fun json(body: String) = PostRequestInfo(body, mapOf("Content-Type" to "application/json"))
+    private fun json(body: String) = PostRequest(body, mapOf("Content-Type" to "application/json"))
 
     /**
      * ETH + ERC-20 in einer Stapel-Anfrage ([Erc20Tokens.batchRequest]). Kann kein Knoten Stapel: ETH allein und

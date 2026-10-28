@@ -23,7 +23,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
-import com.cryptochecker.app.ui.components.ComboBox
+import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
 /**
@@ -110,7 +110,7 @@ internal fun LedgerFields(
                 legacy != null -> 1
                 else -> options.indexOfFirst { it.equals(current, ignoreCase = true) }.coerceAtLeast(0)
             }
-            ComboBox(
+            DropdownField(
                 selectedIndex = selected,
                 itemList = options,
                 onValueChange = { index -> onExchange(if (index <= 0) "" else options[index]) },

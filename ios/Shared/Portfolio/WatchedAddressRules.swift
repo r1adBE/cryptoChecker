@@ -45,7 +45,7 @@ enum WatchedAddressRules {
     /// Wiederherstellen: neue Adressen aus der Sicherung (geprüft und normalisiert), ohne Doppelte,
     /// höchstens bis `maxAddresses`. Vorhandene bleiben unverändert. Ungültige Einträge fallen weg. `now` = `pendingSince`.
     static func merge(_ existing: [WatchedAddress], _ incoming: [WatchedAddressBackupEntry],
-                      now: Int64 = TimeUtils.nowMillis) -> [WatchedAddress] {
+                      now: Int64 = EpochTime.nowMillis) -> [WatchedAddress] {
         var result: [WatchedAddress] = []
         for entry in incoming {
             if existing.count + result.count >= maxAddresses { break }

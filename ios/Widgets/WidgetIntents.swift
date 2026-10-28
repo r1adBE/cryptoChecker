@@ -362,7 +362,7 @@ struct RefreshPricesIntent: AppIntent {
     func perform() async throws -> some IntentResult {
         let tap = WidgetRefreshState.onTap(running: WidgetRefresh.isRunning,
                                            lastFinishedAt: SharedStorage.lastFullRefreshAt,
-                                           now: TimeUtils.nowMillis)
+                                           now: EpochTime.nowMillis)
         switch tap {
         case .start:
             await WidgetRefresh.run()

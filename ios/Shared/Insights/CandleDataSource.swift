@@ -86,12 +86,12 @@ enum CandleDataSource {
 
     private static func preferredSource(_ key: String) -> Source? {
         guard let entry = working.withLock({ $0[key] }) else { return nil }
-        let age = TimeUtils.nowMillis - entry.time
+        let age = EpochTime.nowMillis - entry.time
         return age >= 0 && age < workingMillis ? entry.source : nil
     }
 
     private static func remember(_ key: String, _ source: Source?) {
-        let entry = source.map { (source: $0, time: TimeUtils.nowMillis) }
+        let entry = source.map { (source: $0, time: EpochTime.nowMillis) }
         working.withLock { $0[key] = entry }
     }
 
@@ -139,7 +139,7 @@ enum CandleDataSource {
             guard let result = await fetch(from: source, base: b, quote: q, interval: interval, limit: n),
                   result.count >= 2 else { continue }
             // Reihe, die vor langem endet (Paar dort nicht mehr gehandelt): nächste Quelle
-            let live = CandleSeries.isLive(result, intervalMillis: interval.millis, now: TimeUtils.nowMillis)
+            let live = CandleSeries.isLive(result, intervalMillis: interval.millis, now: EpochTime.nowMillis)
             var accepted = true
             // Fremde Reihe gleichen Kürzels: nächste Quelle
             if live, let accept { accepted = await accept(result) }

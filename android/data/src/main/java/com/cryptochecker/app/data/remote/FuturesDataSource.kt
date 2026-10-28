@@ -3,7 +3,7 @@ package com.cryptochecker.app.data.remote
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.activity.FundingHistory
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
@@ -127,7 +127,7 @@ class FuturesDataSource @Inject constructor(
     private suspend fun hyperliquid(coin: String): FuturesInfo = FuturesParsers.hyperliquid(
         httpClient.callMarket(
             "https://api.hyperliquid.xyz/info",
-            PostRequestInfo(body = """{"type":"metaAndAssetCtxs"}""", headers = mapOf("Content-Type" to "application/json")),
+            PostRequest(body = """{"type":"metaAndAssetCtxs"}""", headers = mapOf("Content-Type" to "application/json")),
         ),
         coin,
     )

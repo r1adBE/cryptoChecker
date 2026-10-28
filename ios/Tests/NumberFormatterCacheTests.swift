@@ -108,6 +108,6 @@ final class NumberFormatterCacheTests: XCTestCase {
                        accuracy: 0.0005)
         XCTAssertEqual(IsoDates.date("2026-10-11T12:30:00Z")?.timeIntervalSince1970 ?? 0, 1_791_721_800, accuracy: 0.0005)
         XCTAssertNil(IsoDates.date("garbage"))
-        XCTAssertEqual(TimeUtils.isoToMillis("2026-10-11T12:30:00Z"), 1_791_721_800_000)
+        XCTAssertEqual(EpochTime.isoToMillis("2026-10-11T12:30:00Z"), 1_791_721_800_000)
     }
 }

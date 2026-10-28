@@ -22,7 +22,7 @@ extension PortfolioPriceSource {
     private static func loadCoins(fallback: (@Sendable () async -> [String]?)?) async -> [String] {
         let defaults = SharedStorage.defaults
         let storedAt = Int64(defaults.double(forKey: keyCoinsAt))
-        let age = TimeUtils.nowMillis - storedAt
+        let age = EpochTime.nowMillis - storedAt
         let fresh = age >= 0 && age < coinsTtlMillis
         if let list = knownCoins(), fresh { return list }
 
@@ -43,7 +43,7 @@ extension PortfolioPriceSource {
         if let loaded, !loaded.isEmpty {
             let list = Array(Set(loaded + [stable])).sorted()
             defaults.set(list.joined(separator: ","), forKey: keyCoins)
-            defaults.set(Double(TimeUtils.nowMillis), forKey: keyCoinsAt)
+            defaults.set(Double(EpochTime.nowMillis), forKey: keyCoinsAt)
             setKnownCoins(list)
             return list
         }

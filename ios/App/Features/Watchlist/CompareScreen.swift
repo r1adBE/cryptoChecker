@@ -53,7 +53,7 @@ struct CompareScreen: View {
     private func loadSeries() async {
         series = nil
         let shownRange = range
-        let start = today ? ChangeBasisMath.dayStart(changeView.basis, now: TimeUtils.nowMillis) : nil
+        let start = today ? ChangeBasisMath.dayStart(changeView.basis, now: EpochTime.nowMillis) : nil
         var out = [[ComparePoint]](repeating: [], count: watches.count)
         await withTaskGroup(of: (Int, [ComparePoint]).self) { group in
             for (i, w) in watches.enumerated() {
@@ -71,7 +71,7 @@ struct CompareScreen: View {
 
     /// Kennzahlen aus den Tageskerzen des Jahres (30 T braucht eine Kerze von vor 30 Tagen), unabhängig vom Zeitraum.
     private func loadFigures() async {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         var out = [CompareFigures](repeating: CompareFigures(change7d: nil, change30d: nil, fromHigh30d: nil), count: watches.count)
         await withTaskGroup(of: (Int, CompareFigures).self) { group in
             for (i, w) in watches.enumerated() {

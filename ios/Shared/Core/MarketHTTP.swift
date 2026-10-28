@@ -86,11 +86,11 @@ enum MarketHTTP {
     }
 
     /// GET (oder POST, wenn `post` gesetzt) — liefert den Text der Antwort.
-    static func call(_ url: String, post: PostRequestInfo? = nil, session: URLSession = MarketHTTP.session) async throws -> String {
+    static func call(_ url: String, post: PostRequest? = nil, session: URLSession = MarketHTTP.session) async throws -> String {
         // Für alle gleiche Marktdaten zuerst vom Spiegel auf GitHub (`DataMirror`), sonst beim Anbieter
         if post == nil, let entry = DataMirror.entry(for: url),
            let text = try? await call(entry.url, session: session),
-           let body = DataMirror.unwrap(text, now: TimeUtils.nowMillis, maxAgeMillis: entry.maxAgeMillis) {
+           let body = DataMirror.unwrap(text, now: EpochTime.nowMillis, maxAgeMillis: entry.maxAgeMillis) {
             return body
         }
         guard let u = URL(string: url) else { throw UserFriendlyMarketError(message: L("something_went_wrong")) }
@@ -242,7 +242,7 @@ enum MarketHTTP {
             if !(200..<300).contains(http.statusCode) || rateLimitCode != nil {
                 HttpLog.add("\(http.statusCode) \(HttpLog.redacted(url))")
                 let retryAfter = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
-                                                                        now: TimeUtils.nowMillis)
+                                                                        now: EpochTime.nowMillis)
                 throw HttpMarketError(httpCode: rateLimitCode ?? http.statusCode, body: text, retryAfterSeconds: retryAfter)
             }
         }

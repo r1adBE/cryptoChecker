@@ -157,7 +157,7 @@ extension PortfolioWidgetStore {
     /// `basis`: %-Basis — bei «seit 00:00» Verlauf und Veränderung ab Tagesbeginn (wie Android).
     /// `displayFx`: Merkzettel der App für «Seit Kauf»/«7 T» in der Anzeigewährung; nil = der zuletzt gespeicherte.
     static func compute(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
-                        rate: Double?, now: Int64 = TimeUtils.nowMillis,
+                        rate: Double?, now: Int64 = EpochTime.nowMillis,
                         extraHourly: [String: [PortfolioTimedPrice]] = [:],
                         basis: ChangeBasis = .ROLLING_24H,
                         dailyPrices: [String: PortfolioWidgetDailyCoin]? = nil,

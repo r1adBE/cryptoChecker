@@ -114,7 +114,7 @@ object AppLanguages {
     fun applyNumberLocale() {
         com.cryptochecker.app.util.LocaleNumbers.applyFormatLocale(Locale.getDefault(), deviceRegionLocale().country)
         // Kursformate (zwischengespeicherte Trennzeichen) neu aufbauen
-        com.cryptochecker.marketdata.util.FormatUtilsBase.updateLocale()
+        com.cryptochecker.marketdata.util.DisplayFormat.updateLocale()
     }
 
     /**

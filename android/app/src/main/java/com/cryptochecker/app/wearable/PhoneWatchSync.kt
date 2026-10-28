@@ -1,8 +1,8 @@
 package com.cryptochecker.app.wearable
 
 import android.content.Context
-import android.net.Uri
 import androidx.core.content.edit
+import androidx.core.net.toUri
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.appScope
@@ -115,7 +115,7 @@ class PhoneWatchSync @Inject constructor(
     private suspend fun watchSettings(): WatchSettings? = withContext(Dispatchers.IO) {
         runCatchingCancellable {
             val local = Tasks.await(Wearable.getNodeClient(context).localNode, TIMEOUT_S, TimeUnit.SECONDS).id
-            val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems(Uri.parse("wear://*$PATH")),
+            val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
                 TIMEOUT_S, TimeUnit.SECONDS)
             try {
                 buffer.filter { it.uri.host != local }

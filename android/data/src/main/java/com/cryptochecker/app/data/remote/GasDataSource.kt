@@ -8,7 +8,7 @@ import com.cryptochecker.app.domain.market.GasFees
 import com.cryptochecker.app.domain.market.GasNetwork
 import com.cryptochecker.app.domain.market.GasReport
 import com.cryptochecker.app.domain.market.Sourced
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -113,7 +113,7 @@ class GasDataSource @Inject constructor(
         }
     }
 
-    private fun jsonPost(body: String) = PostRequestInfo(body, mapOf("Content-Type" to "application/json"))
+    private fun jsonPost(body: String) = PostRequest(body, mapOf("Content-Type" to "application/json"))
 
     private companion object {
         const val CACHE_MILLIS = 60_000L

@@ -90,7 +90,7 @@ extension ExplorerViewModel {
         }
         // Neue Paare angelegt: «Rückgängig» entfernt genau diese wieder — wie Android
         show(ExplorerMessage(text: text, long: true, undoIds: anyAdded ? outcome.addedIds : nil,
-                             undoFinishedAt: TimeUtils.nowMillis,
+                             undoFinishedAt: EpochTime.nowMillis,
                              kind: SnackbarKind.bulkAdded(added: outcome.added, refused: outcome.refused)))
         haptic(anyAdded ? .success : .warning)
         if anyAdded { requestNotifications() }

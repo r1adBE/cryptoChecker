@@ -217,7 +217,7 @@ enum InsightsDataSource {
     static func altSeason() async throws -> Sourced<AltSeason> {
         // Fertig berechnet aus dem Daten-Spiegel (`DataMirror.altSeason`), sonst selbst
         if let text = try? await MarketHTTP.call(DataMirror.altSeason.url),
-           let v = DataMirror.parseAltSeason(DataMirror.unwrap(text, now: TimeUtils.nowMillis,
+           let v = DataMirror.parseAltSeason(DataMirror.unwrap(text, now: EpochTime.nowMillis,
                                                                maxAgeMillis: DataMirror.altSeason.maxAgeMillis)) {
             return Sourced(value: AltSeason(outperformers: v.outperformers, total: v.total), provider: v.provider)
         }

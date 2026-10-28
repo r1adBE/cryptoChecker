@@ -1,6 +1,6 @@
 package com.cryptochecker.app.data.remote
 
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -44,7 +44,7 @@ class MarketHttpSharedPostTest {
     fun identicalConcurrentPostsShareOneRequest() = runBlocking {
         delayed("[1]")
         val url = server.url("/info").toString()
-        val post = PostRequestInfo("""{"type":"metaAndAssetCtxs"}""", mapOf("Content-Type" to "application/json"))
+        val post = PostRequest("""{"type":"metaAndAssetCtxs"}""", mapOf("Content-Type" to "application/json"))
         val bodies = (1..3).map { async(Dispatchers.IO) { client.callMarket(url, post) } }.awaitAll()
         assertEquals(listOf("[1]", "[1]", "[1]"), bodies)
         assertEquals(1, server.requestCount)
@@ -56,7 +56,7 @@ class MarketHttpSharedPostTest {
         delayed("[3]")
         val url = server.url("/info").toString()
         val bodies = listOf("""{"type":"meta"}""", """{"type":"allMids"}""")
-            .map { body -> async(Dispatchers.IO) { client.callMarket(url, PostRequestInfo(body)) } }
+            .map { body -> async(Dispatchers.IO) { client.callMarket(url, PostRequest(body)) } }
             .awaitAll()
         assertEquals(setOf("[2]", "[3]"), bodies.toSet())
         assertEquals(2, server.requestCount)

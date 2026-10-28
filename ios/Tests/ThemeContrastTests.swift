@@ -10,7 +10,7 @@ final class ThemeContrastTests: XCTestCase {
 
     /// Höchste Deckkraft einer Tönung, auf der Schrift steht (Auswahl-Listen, Hinweiskarten, Merkliste-Zeile).
     private static let textTintMax = 0.16
-    /// Tönung der gewählten Zeile (Coin-Liste, Android ComboBox).
+    /// Tönung der gewählten Zeile (Coin-Liste, Android DropdownField).
     private static let rowTint = 0.3
     private static let warningText = ColorTokens.Pair(light: 0x8A5300, dark: 0xFFC94D)
 

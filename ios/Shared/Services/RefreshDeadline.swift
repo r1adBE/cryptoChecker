@@ -11,20 +11,20 @@ struct RefreshDeadline: Sendable, Equatable {
     /// Endzeit (ms seit 1970).
     let endMillis: Int64
 
-    func remaining(now: Int64 = TimeUtils.nowMillis) -> Int64 { endMillis - now }
+    func remaining(now: Int64 = EpochTime.nowMillis) -> Int64 { endMillis - now }
 
     /// Zeit für einen Schritt: höchstens `wanted`, und `reserve` bleibt übrig; 0 = keine Zeit mehr.
-    func allowance(wanted: Int64, reserve: Int64 = saveReserveMillis, now: Int64 = TimeUtils.nowMillis) -> Int64 {
+    func allowance(wanted: Int64, reserve: Int64 = saveReserveMillis, now: Int64 = EpochTime.nowMillis) -> Int64 {
         max(0, min(wanted, remaining(now: now) - reserve))
     }
 
     /// Reicht die Restzeit (nach `reserve`) für mindestens `minimum`?
-    func allows(_ minimum: Int64, reserve: Int64 = saveReserveMillis, now: Int64 = TimeUtils.nowMillis) -> Bool {
+    func allows(_ minimum: Int64, reserve: Int64 = saveReserveMillis, now: Int64 = EpochTime.nowMillis) -> Bool {
         remaining(now: now) - reserve >= minimum
     }
 
     /// Wartezeit in Nanosekunden: `wanted` ohne Endzeit, sonst begrenzt (`allowance`).
-    static func nanos(wanted: Int64, deadline: RefreshDeadline?, now: Int64 = TimeUtils.nowMillis) -> UInt64 {
+    static func nanos(wanted: Int64, deadline: RefreshDeadline?, now: Int64 = EpochTime.nowMillis) -> UInt64 {
         let millis = deadline?.allowance(wanted: wanted, now: now) ?? wanted
         return UInt64(max(0, millis)) * 1_000_000
     }

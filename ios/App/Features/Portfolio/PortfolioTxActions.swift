@@ -293,7 +293,7 @@ extension PortfolioTxSheet {
     private func timeForSelectedDate() -> Int64 {
         let calendar = Self.gregorian
         if calendar.isDate(date, inSameDayAs: Date(millis: initial.time)) { return initial.time }
-        if calendar.isDateInToday(date) { return TimeUtils.nowMillis }
+        if calendar.isDateInToday(date) { return EpochTime.nowMillis }
         let noon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date) ?? date
         return noon.millis
     }

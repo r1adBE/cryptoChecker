@@ -239,12 +239,12 @@ enum LiveParser {
         return d
     }
 
-    /// Zeit der Börse in ms, egal ob sie in s, ms, µs oder ns kommt (`TimeUtils.parseTimeToMillis`, wie REST). Was
+    /// Zeit der Börse in ms, egal ob sie in s, ms, µs oder ns kommt (`EpochTime.parseTimeToMillis`, wie REST). Was
     /// nicht in einen Int64 passt (z. B. «1e30»), ist keine Zeit – wie Android.
     private static func millis(_ value: Any?) -> Int64? {
         guard let d = finite(value), d >= 1, d < Double(Int64.max) else { return nil }
         // JSONValue.int64 begrenzt statt abzustürzen (Double(Int64.max) ist 2^63, knapp darunter rundet es)
-        return TimeUtils.parseTimeToMillis(JSONValue.int64(d))
+        return EpochTime.parseTimeToMillis(JSONValue.int64(d))
     }
 
     /// Wie `Change24h.fromOpen`: (letzter − Eröffnung) / Eröffnung in %.

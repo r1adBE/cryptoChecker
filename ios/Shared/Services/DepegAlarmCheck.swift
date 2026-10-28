@@ -20,7 +20,7 @@ enum DepegAlarmCheck {
 
     /// Wie `DepegAlarmChecker.isDue` (Android): auch fällig, wenn die letzte Prüfung in der Zukunft liegt.
     static func isDue(now: Int64, lastCheck: Int64) -> Bool {
-        TimeUtils.isIntervalDue(now: now, last: lastCheck, minInterval: minInterval)
+        EpochTime.isIntervalDue(now: now, last: lastCheck, minInterval: minInterval)
     }
 
     /// Nach einer Kursaktualisierung aufrufen; tut nichts ohne Alarm und ohne Portfolio.
@@ -30,7 +30,7 @@ enum DepegAlarmCheck {
         guard DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
                                        hasPortfolioData: hasPortfolioData, fiatConversion: fiatConversion) else { return }
         let defaults = SharedStorage.defaults
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let last = Int64(defaults.double(forKey: keyLastCheck))
         guard isDue(now: now, lastCheck: last) else { return }
         defaults.set(Double(now), forKey: keyLastCheck)
@@ -72,7 +72,7 @@ enum DepegAlarmCheck {
 
     /// Live-Kurs USDT/USD der Bewertung (`DepegAlarm.liveUsdtUsd`: höchstens 6 Std. alt, plausibel); nil = keiner
     /// (Ersatz 1, Näherung) — wie `DepegReadingStore.liveUsdtUsd` (Android).
-    static func liveUsdtUsd(now: Int64 = TimeUtils.nowMillis) -> Double? {
+    static func liveUsdtUsd(now: Int64 = EpochTime.nowMillis) -> Double? {
         DepegAlarm.liveUsdtUsd(lastReading, now: now)
     }
 

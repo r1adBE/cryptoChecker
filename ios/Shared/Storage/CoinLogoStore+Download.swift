@@ -55,7 +55,7 @@ extension CoinLogoStore {
         let unmetered = await UnmeteredNetwork.shared.isUnmetered()
         let wanted = CoinLogos.downloadable(all, extraOnly: extraOnly, unmetered: unmetered)
         guard !wanted.isEmpty else { return DownloadResult() }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let failedBefore = loadFailures(now: now)
         let fm = FileManager.default
         var seen = Set<String>()
@@ -96,7 +96,7 @@ extension CoinLogoStore {
         let network = CoinLogoRetry.downloadsFailedForNetwork(online: NetworkStatus.shared.isOnline,
                                                               failed: newFailures.count, attempted: attempted - paused.count)
         if !newFailures.isEmpty, !network {
-            var failed = loadFailures(now: TimeUtils.nowMillis)
+            var failed = loadFailures(now: EpochTime.nowMillis)
             for name in newFailures { failed[name] = now }
             saveFailures(failed)
         }
@@ -155,7 +155,7 @@ extension CoinLogoStore {
             let http = loaded.response
             if CoinLogoRetry.pausesImages(httpCode: http.statusCode) {
                 let retry = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
-                                                                   now: TimeUtils.nowMillis)
+                                                                   now: EpochTime.nowMillis)
                 pauses.pause(CoinLogoRetry.hostOf(candidate) ?? "", retryAfterSeconds: retry)
                 return .paused
             }
@@ -225,7 +225,7 @@ final class ImagePauseBox: @unchecked Sendable { // @unchecked: veränderlicher 
     /// Verbleibende Pause von `host` in ms; nil = nicht pausiert.
     func remainingMillis(_ host: String) -> Int64? {
         lock.lock(); defer { lock.unlock() }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let map = currentLocked(now: now)
         pauses = map
         guard let until = map[host], until > now else { return nil }
@@ -234,7 +234,7 @@ final class ImagePauseBox: @unchecked Sendable { // @unchecked: veränderlicher 
 
     func isPaused(_ host: String) -> Bool {
         lock.lock(); defer { lock.unlock() }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         var map = currentLocked(now: now)
         let paused = (map[host] ?? 0) > now
         if !paused { map[host] = nil }
@@ -245,7 +245,7 @@ final class ImagePauseBox: @unchecked Sendable { // @unchecked: veränderlicher 
     func pause(_ host: String, retryAfterSeconds: Int64?) {
         guard !host.isEmpty else { return }
         lock.lock(); defer { lock.unlock() }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         var map = currentLocked(now: now).filter { $0.value > now }
         // Schon pausiert (parallele Abrufe): Pause nicht verlängern
         if (map[host] ?? 0) > now {

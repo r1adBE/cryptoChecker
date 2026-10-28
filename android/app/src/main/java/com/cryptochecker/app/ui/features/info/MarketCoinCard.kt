@@ -24,7 +24,7 @@ import com.cryptochecker.app.ui.components.PriceWithQuote
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.market.CoinReport
 import com.cryptochecker.app.domain.market.DataStamp
-import com.cryptochecker.app.ui.components.ComboBox
+import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.components.SkeletonPulse
 import com.cryptochecker.app.ui.theme.tabularNumbers
@@ -65,7 +65,7 @@ internal fun CoinRow(
         onToggle = { expanded = !expanded },
         info = MarketInfoTopic.COIN,
     ) {
-        ComboBox(
+        DropdownField(
             modifier = Modifier.fillMaxWidth(),
             itemList = coins,
             selectedIndex = coins.indexOf(selected),

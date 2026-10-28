@@ -266,7 +266,7 @@ enum CurrencyConverter {
     /// Devisenkurs im Faktor `quote` → `target`, wenn älter als 3 h: seine Abrufzeit
     /// (`CurrencyConversion.staleFxTime`); nil = frisch oder kein Devisenkurs beteiligt (USD,
     /// Stablecoins, Krypto in USD). Wie Android.
-    static func staleFxTime(quote: String, target: String, now: Int64 = TimeUtils.nowMillis) -> Int64? {
+    static func staleFxTime(quote: String, target: String, now: Int64 = EpochTime.nowMillis) -> Int64? {
         if CurrencyConversion.sameCurrency(quote, target) { return nil }
         let from = CurrencyConversion.normalize(quote)
         let to = CurrencyConversion.normalize(target)
@@ -276,7 +276,7 @@ enum CurrencyConverter {
     }
 
     /// Wie `staleFxTime` für mehrere Quote-Währungen; nur alte Kurse. Schlüssel in Grossbuchstaben.
-    static func staleFxTimes(quotes: [String], target: String, now: Int64 = TimeUtils.nowMillis) -> [String: Int64] {
+    static func staleFxTimes(quotes: [String], target: String, now: Int64 = EpochTime.nowMillis) -> [String: Int64] {
         var result: [String: Int64] = [:]
         for quote in quotes {
             let code = CurrencyConversion.normalize(quote)
@@ -299,14 +299,14 @@ enum CurrencyConverter {
 
     /// Stand von USDT/USD im Faktor `quote` → `target` (`FiatAlarmGuard.usdtState`): nicht beteiligt, gemessen,
     /// angenommen (USDT = 1) oder unsicher (nur über USDC, USDC/USDT mehr als 1 % neben 1). Wie Android.
-    static func usdtState(quote: String, target: String, now: Int64 = TimeUtils.nowMillis) -> FiatAlarmGuard.UsdtState {
+    static func usdtState(quote: String, target: String, now: Int64 = EpochTime.nowMillis) -> FiatAlarmGuard.UsdtState {
         FiatAlarmGuard.usdtState(involved: FiatAlarmGuard.involvesUsdt(from: quote, to: target),
                                  reading: DepegAlarmCheck.lastReading, now: now)
     }
 
     /// Wie `usdtState` für mehrere Quote-Währungen; nur angenommene bzw. unsichere. Schlüssel in Grossbuchstaben.
     static func usdtNotes(quotes: [String], target: String,
-                          now: Int64 = TimeUtils.nowMillis) -> [String: FiatAlarmGuard.UsdtState] {
+                          now: Int64 = EpochTime.nowMillis) -> [String: FiatAlarmGuard.UsdtState] {
         var result: [String: FiatAlarmGuard.UsdtState] = [:]
         for quote in quotes {
             let code = CurrencyConversion.normalize(quote)
@@ -327,7 +327,7 @@ enum CurrencyConverter {
     /// Kurs von `code` aus `prices`, nur wenn höchstens `CurrencyConversion.quoteMaxAgeMillis` alt: Die Kursquelle behält
     /// bei einem Fehler den letzten bekannten Kurs (für das Portfolio richtig) — für die Umrechnung von Alarmen und «≈»
     /// wäre ein Kurs von gestern still falsch. Wie Android.
-    private static func freshMarket(_ prices: PortfolioPrices, _ code: String, now: Int64 = TimeUtils.nowMillis) -> Double? {
+    private static func freshMarket(_ prices: PortfolioPrices, _ code: String, now: Int64 = EpochTime.nowMillis) -> Double? {
         CurrencyConversion.freshQuotePrice(prices.prices[code], time: prices.times[code], now: now)
     }
 

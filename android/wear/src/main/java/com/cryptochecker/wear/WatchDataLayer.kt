@@ -1,7 +1,7 @@
 package com.cryptochecker.wear
 
 import android.content.Context
-import android.net.Uri
+import androidx.core.net.toUri
 import com.cryptochecker.marketdata.watch.WatchSettings
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.DataMapItem
@@ -33,7 +33,7 @@ object WatchDataLayer {
     suspend fun phoneSettings(context: Context): WatchSettings? = withContext(Dispatchers.IO) {
         runCatching {
             val local = Tasks.await(Wearable.getNodeClient(context).localNode, TIMEOUT_S, java.util.concurrent.TimeUnit.SECONDS).id
-            val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems(Uri.parse("wear://*$PATH")),
+            val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
                 TIMEOUT_S, java.util.concurrent.TimeUnit.SECONDS)
             try {
                 buffer.filter { it.uri.host != local }

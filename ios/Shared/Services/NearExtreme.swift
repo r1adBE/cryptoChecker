@@ -212,7 +212,7 @@ enum NearExtremeDataSource {
         let q = quote.trimmingCharacters(in: .whitespaces).uppercased()
         guard !b.isEmpty, !q.isEmpty else { return nil }
         let key = cacheKey(b, q)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
 
         if let hit = fromMemory(key, now: now) { return hit }
         if let disk = readDisk(key), fresh(disk.savedAt, now: now) {

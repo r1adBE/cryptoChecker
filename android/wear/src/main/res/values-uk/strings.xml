@@ -6,7 +6,7 @@
     <string name="watch_updated">Станом на %1$s</string>
     <string name="watch_refresh">Оновити</string>
     <string name="watch_choose">Вибрати монети</string>
-    <string name="watch_choose_hint">До %1$d монет</string>
+    <string name="watch_choose_hint">Монети: не більше %1$d</string>
     <string name="watch_complication_label">Курс</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s за 24 години</string>
     <string name="watch_mode_phone">Список: як на телефоні</string>

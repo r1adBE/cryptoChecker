@@ -6,7 +6,7 @@ import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Market
-import com.cryptochecker.marketdata.model.PostRequestInfo
+import com.cryptochecker.marketdata.model.PostRequest
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.BulkTickerRows
 import com.cryptochecker.marketdata.util.Change24h
@@ -44,7 +44,7 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
     override fun tickerAddress(call: Int, info: PairQuery): String = HYPERLIQUID_INFO
 
     // Für jedes Paar dieselbe Abfrage (~100 KB): gleichzeitige Einzelkurse teilen sich eine Antwort (InFlightRequests)
-    override fun tickerPostBody(call: Int, info: PairQuery): PostRequestInfo = metaRequest()
+    override fun tickerPostBody(call: Int, info: PairQuery): PostRequest = metaRequest()
 
     override fun fillTicker(call: Int, body: String, ticker: Ticker, info: PairQuery) {
         val coin = info.pairId
@@ -79,7 +79,7 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
 
     override fun getBulkTickersUrl(call: Int): String = HYPERLIQUID_INFO
 
-    override fun getBulkTickersPostRequestInfo(call: Int): PostRequestInfo = metaRequest()
+    override fun getBulkTickersPostRequest(call: Int): PostRequest = metaRequest()
 
     override fun parseBulkTickers(
         call: Int,
@@ -94,7 +94,7 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
 
     override fun pairListAddress(call: Int): String = HYPERLIQUID_INFO
 
-    override fun pairListPostBody(call: Int): PostRequestInfo = metaRequest()
+    override fun pairListPostBody(call: Int): PostRequest = metaRequest()
 
     override fun fillPairList(call: Int, body: String, out: MutableList<MarketPair>) {
         JSONArray(body).getJSONObject(0).getJSONArray("universe").forEachJSONObject { coin ->
@@ -120,8 +120,8 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
     }
 
     /** Die eine Abfrage für Paare, Einzel- und Sammelkurse. */
-    private fun metaRequest(): PostRequestInfo =
-        PostRequestInfo(body = """{"type":"metaAndAssetCtxs"}""", headers = mapOf("Content-Type" to "application/json"))
+    private fun metaRequest(): PostRequest =
+        PostRequest(body = """{"type":"metaAndAssetCtxs"}""", headers = mapOf("Content-Type" to "application/json"))
 
     /**
      * Alle gelisteten Coins mit Kurs; [failed] sammelt Coins, deren Kontext keinen lesbaren Preis hat. Universum

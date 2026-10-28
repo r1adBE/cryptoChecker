@@ -26,7 +26,7 @@ private const val BAR_ALPHA = 0.7f
  * Schmaler Rollbalken rechts an einer Liste mit [LazyListState]: sichtbar beim Rollen, danach langsam
  * ausgeblendet. Lage und Länge rechnet [ScrollThumb.span] (jede Zeile gleich viel Anteil).
  */
-fun Modifier.simpleVerticalScrollbar(
+fun Modifier.verticalScrollbar(
     state: LazyListState,
     width: Dp = 8.dp,
 ): Modifier = composed {

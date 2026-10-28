@@ -10,7 +10,7 @@ import Foundation
 /// Gleich wie Android `MirrorTrust.kt`.
 actor MirrorTrust {
     /// Einzige Instanz der App: eingebaute Schlüssel (`MirrorManifest.publicKeys`), Systemuhr, gemeinsame Sperrliste.
-    static let shared = MirrorTrust(publicKeys: MirrorManifest.publicKeys, now: { TimeUtils.nowMillis })
+    static let shared = MirrorTrust(publicKeys: MirrorManifest.publicKeys, now: { EpochTime.nowMillis })
 
     /// Lädt eine Adresse mit Höchstgrösse (Bytes); nil bei jedem Fehler (auch zu gross).
     typealias Loader = @Sendable (String, Int) async -> String?

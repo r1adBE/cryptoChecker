@@ -21,7 +21,7 @@ import kotlinx.coroutines.sync.Semaphore
 // =============================================================================================
 
 fun ExplorerViewModel.setSearchQuery(query: String) {
-    if (query != this.query.value) chosenCoin.value = null
+    if (query != this.query.value) hits.chosenCoin.value = null
     this.query.value = query
     if (query.isNotBlank()) {
         readStoredLists()
@@ -39,7 +39,7 @@ fun ExplorerViewModel.clearRecentSearches() = recentSearchStore.clear()
 
 /** Coin antippen: seine Paare über alle geladenen Listen zeigen (Vorschlag zuerst). */
 fun ExplorerViewModel.pickCoin(hit: CoinHit?) {
-    chosenCoin.value = hit
+    hits.chosenCoin.value = hit
     runSearch()
 }
 
@@ -106,16 +106,16 @@ internal fun ExplorerViewModel.runSearch() {
     searchJob?.cancel()
     val text = query.value.trim()
     if (text.isEmpty()) {
-        pairHitList.value = emptyList()
-        coinHitList.value = emptyList()
-        chosenCoinPairList.value = emptyList()
+        hits.pairs.value = emptyList()
+        hits.coins.value = emptyList()
+        hits.chosenCoinPairs.value = emptyList()
         return
     }
     // Stand jetzt festhalten (nicht erst im Hintergrund lesen)
     val scope = assetScope.value
     val hidden = hiddenAlpha.value
     val markets = searchableMarkets.filter { scope.allowsMarket(it.key) }
-    val picked = chosenCoin.value
+    val picked = hits.chosenCoin.value
     val includeUnlisted = unloadedMarkets.isNotEmpty()
     val preference = pairPreference(markets)
     // Alpha-Kennzeichen («α») und Namen gegen Fehltreffer
@@ -153,10 +153,10 @@ internal fun ExplorerViewModel.runSearch() {
             SearchResult(foundCoins, showPairs, foundPairs, coinPairs)
         }
         ensureActive()
-        coinHitList.value = result.coins
-        pairHitsShown.value = result.showPairs
-        pairHitList.value = result.pairs
-        chosenCoinPairList.value = result.coinPairs
+        hits.coins.value = result.coins
+        hits.pairsShown.value = result.showPairs
+        hits.pairs.value = result.pairs
+        hits.chosenCoinPairs.value = result.coinPairs
     }
 }
 

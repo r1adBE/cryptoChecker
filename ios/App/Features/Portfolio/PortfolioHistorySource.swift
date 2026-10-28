@@ -232,7 +232,7 @@ enum PortfolioHistorySource {
     static func ownCloses(of coin: String, pair: CandlePair, span: Int,
                           usdtUsd: [Int: Double]?) async -> PortfolioCoinCloses? {
         let key = pair.cacheKey
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let hit = cachedOwn(coin), hit.entry.route == key, hit.entry.entry.span >= span,
            CycleCachePolicy.isFresh(savedAt: hit.at, now: now, ttl: ttl) {
             return hit.entry.entry
@@ -301,7 +301,7 @@ enum PortfolioHistorySource {
     }
 
     private static func closes(of coin: String, span: Int) async -> PortfolioCoinCloses? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let hit = cached(coin), hit.entry.span >= span,
            CycleCachePolicy.isFresh(savedAt: hit.at, now: now, ttl: ttl) {
             return hit.entry

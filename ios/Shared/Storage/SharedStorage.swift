@@ -245,7 +245,7 @@ enum SharedStorage {
 
     /// Ende einer vollständigen Aktualisierung: Uhrzeit der Anzeige (`lastRefreshAt`) und der Sperre
     /// (`lastFullRefreshAt`) zugleich.
-    static func markFullRefresh(at now: Int64 = TimeUtils.nowMillis) {
+    static func markFullRefresh(at now: Int64 = EpochTime.nowMillis) {
         lastRefreshAt = now
         lastFullRefreshAt = now
     }

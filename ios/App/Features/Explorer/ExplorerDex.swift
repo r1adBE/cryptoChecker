@@ -138,7 +138,7 @@ extension ExplorerScreen {
         // In den Ziffern der App-Sprache (wie Android); ganz kleine Preise ohne Nullen am Ende
         if value >= 0.0001 { return LocaleNumbers.decimal(value, maxDecimals: 6) }
         // Ganz kleine Preise mit höchstens vier gültigen Stellen wie die Kursanzeige («@###») —
-        // eine feste Stellenzahl ergäbe für 3e-11 «0»; wie Android (FormatUtilsBase)
+        // eine feste Stellenzahl ergäbe für 3e-11 «0»; wie Android (DisplayFormat)
         return PriceFormat.formatDouble(value)
     }
 }

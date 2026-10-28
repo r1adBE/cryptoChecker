@@ -5,7 +5,7 @@ import Foundation
 
 extension PriceRefresher {
     /// Wartezeit auf die Lease: höchstens `alarmLeaseWaitSeconds`, mit Endzeit nicht darüber hinaus.
-    static func leaseWaitSeconds(_ deadline: RefreshDeadline?, now: Int64 = TimeUtils.nowMillis) -> Double {
+    static func leaseWaitSeconds(_ deadline: RefreshDeadline?, now: Int64 = EpochTime.nowMillis) -> Double {
         let wanted = Int64(alarmLeaseWaitSeconds * 1000)
         return Double(deadline?.allowance(wanted: wanted, now: now) ?? wanted) / 1000
     }
@@ -29,7 +29,7 @@ extension PriceRefresher {
         outcome.alarmLease = lease
         let fresh = SharedStorage.loadSnapshot().alarms.filter { $0.enabled && AlarmDataStage.needsExtraData($0) }
         let alarmsByWatch = Dictionary(grouping: fresh, by: \.watchId)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let speechAllowed = settings.ttsEnabled && !QuietHours.isQuietNow(settings)
         for item in deferred.items {
             _ = checkAlarms(alarmsByWatch[item.watch.id] ?? [], watch: item.watch, updated: item.updated,

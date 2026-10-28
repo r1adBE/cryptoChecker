@@ -67,7 +67,7 @@ extension AppData {
                 // Bezug auf den aktuellen Kurs setzen; nicht gezeigt → Bezug leer, die nächste Aktualisierung meldet
                 let shown = Notifier.showPriceNow(s.watches[i], settings: current)
                 s.watches[i].notifiedPrice = PriceNotificationRule.referenceAfterEnable(shown: shown, price: s.watches[i].lastPrice)
-                s.watches[i].notifiedAt = shown ? TimeUtils.nowMillis : s.watches[i].notifiedAt
+                s.watches[i].notifiedAt = shown ? EpochTime.nowMillis : s.watches[i].notifiedAt
             } else {
                 Notifier.cancelPrice(watch.id)
                 s.watches[i].notifiedPrice = nil
@@ -89,7 +89,7 @@ extension AppData {
                     // Nur nach den Einstellungen (`PriceNotificationRule`), wie `setNotificationEnabled`
                     let shown = Notifier.showPriceNow(s.watches[i], settings: current)
                     s.watches[i].notifiedPrice = PriceNotificationRule.referenceAfterEnable(shown: shown, price: s.watches[i].lastPrice)
-                    s.watches[i].notifiedAt = shown ? TimeUtils.nowMillis : s.watches[i].notifiedAt
+                    s.watches[i].notifiedAt = shown ? EpochTime.nowMillis : s.watches[i].notifiedAt
                 } else {
                     Notifier.cancelPrice(s.watches[i].id)
                     s.watches[i].notifiedPrice = nil

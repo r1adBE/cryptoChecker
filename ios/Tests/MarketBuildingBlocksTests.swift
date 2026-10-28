@@ -85,7 +85,7 @@ final class MarketBuildingBlocksTests: XCTestCase {
     }
 
     func testExchangeTimeFarInTheFutureIsDiscarded() throws {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         // Eine Minute voraus: Uhren gehen nie ganz gleich, die Zeit bleibt
         var soon = Ticker()
         try Probe().readTicker(call: 0, body: #"{"price":1,"time":\#(now + 60_000)}"#, ticker: &soon, info: info("X"))

@@ -85,23 +85,10 @@ class ExplorerViewModel @Inject constructor(
     /** Neu auslösen = Börsenliste neu laden («Erneut» nach einem Fehler). */
     private val reloadExchanges = MutableSharedFlow<Unit>(replay = 1)
 
-    // «Alle …-Paare»
-    internal val bulkPairs = MutableStateFlow<List<MarketPair>>(emptyList())
-    internal val bulkEmpty = MutableStateFlow(false)
-    internal val bulkQuote = MutableStateFlow<String?>(null)
-    internal val bulkAdd = MutableStateFlow<BulkAddResult?>(null)
-    internal val bulkAddDisplay = BulkAddDisplay(bulkAddRunner, bulkAdd)
+    /** «Alle …-Paare»: Liste, Gegenwährung, Kennzahlen und Stand der Aufnahme ([ExplorerBulkState]). */
+    internal val bulk = ExplorerBulkState()
+    internal val bulkAddDisplay = BulkAddDisplay(bulkAddRunner, bulk.add)
     internal val addResult = MutableStateFlow<AddResult?>(null)
-
-    /**
-     * Kennzahlen der Liste «Alle …-Paare» (Schlüssel = Paar-Kennung) für die Schnellfilter — aus
-     * einer einzigen Sammelabfrage der Börse, nie je Paar. Ohne Sammelabfrage bleibt sie leer und
-     * die Filter fehlen.
-     */
-    internal val bulkStats = MutableStateFlow<Map<String, PairStats>>(emptyMap())
-    internal var bulkStatsJob: Job? = null
-    internal var bulkStatsFor: String? = null
-    internal var bulkStatsLoadedAt = 0L
 
     // Suche über alle Börsen (nur gespeicherte Listen)
     internal val pairsByMarket = ConcurrentHashMap<String, MarketPairsInfo>()
@@ -112,22 +99,16 @@ class ExplorerViewModel @Inject constructor(
     internal var missingListsJob: Job? = null
     internal var searchJob: Job? = null
     internal val query = MutableStateFlow("")
-    internal val pairHitList = MutableStateFlow<List<SearchHit>>(emptyList())
-    internal val coinHitList = MutableStateFlow<List<CoinHit>>(emptyList())
-    internal val pairHitsShown = MutableStateFlow(false)
-    internal val chosenCoin = MutableStateFlow<CoinHit?>(null)
-    internal val chosenCoinPairList = MutableStateFlow<List<SearchHit>>(emptyList())
+    /** Treffer der Suche und der gewählte Coin ([ExplorerSearchHits]). */
+    internal val hits = ExplorerSearchHits()
     internal val lists = MutableStateFlow(SearchLists())
 
     /** Gefaltete Coin-Namen («bitcoin» → BTC), einmal je Namensliste gebaut. */
     @Volatile internal var names: NameIndex = NameIndex.EMPTY
     internal var namesJob: Job? = null
 
-    // DEX-Suche (nur DexScreener)
-    internal val dexPools = MutableStateFlow<List<DexPool>>(emptyList())
-    internal val dexBusy = MutableStateFlow(false)
-    internal val dexNotice = MutableStateFlow<DexMessage?>(null)
-    internal var dexJob: Job? = null
+    /** DEX-Suche (nur DexScreener, [ExplorerDexState]). */
+    internal val dex = ExplorerDexState()
 
     // =============================================================================================
     // Einstellungen
@@ -170,15 +151,15 @@ class ExplorerViewModel @Inject constructor(
     val searchQuery: StateFlow<String> = query.asStateFlow()
 
     /** Coins zum Suchbegriff (Coin zuerst). */
-    val coinHits: StateFlow<List<CoinHit>> = coinHitList.asStateFlow()
+    val coinHits: StateFlow<List<CoinHit>> = hits.coins.asStateFlow()
 
     /** Einzelne Paare zum Suchbegriff — gezeigt, wenn [showPairHits] (z. B. «eth usdt», «BTCUSDT»). */
-    val pairHits: StateFlow<List<SearchHit>> = pairHitList.asStateFlow()
-    val showPairHits: StateFlow<Boolean> = pairHitsShown.asStateFlow()
+    val pairHits: StateFlow<List<SearchHit>> = hits.pairs.asStateFlow()
+    val showPairHits: StateFlow<Boolean> = hits.pairsShown.asStateFlow()
 
     /** Angetippter Coin und seine Paare über alle geladenen Listen, der Vorschlag zuerst. */
-    val pickedCoin: StateFlow<CoinHit?> = chosenCoin.asStateFlow()
-    val pickedCoinPairs: StateFlow<List<SearchHit>> = chosenCoinPairList.asStateFlow()
+    val pickedCoin: StateFlow<CoinHit?> = hits.chosenCoin.asStateFlow()
+    val pickedCoinPairs: StateFlow<List<SearchHit>> = hits.chosenCoinPairs.asStateFlow()
 
     /** Stand der Paarlisten für die Suche (fehlende, Laden). */
     val searchLists: StateFlow<SearchLists> = lists.asStateFlow()
@@ -211,9 +192,9 @@ class ExplorerViewModel @Inject constructor(
     val favoriteCoins: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.COIN)
     val favoriteQuotes: StateFlow<Set<String>> = favoritesRepository.favorites(FavoriteKind.QUOTE)
 
-    val dexResults: StateFlow<List<DexPool>> = dexPools.asStateFlow()
-    val dexSearching: StateFlow<Boolean> = dexBusy.asStateFlow()
-    val dexMessage: StateFlow<DexMessage?> = dexNotice.asStateFlow()
+    val dexResults: StateFlow<List<DexPool>> = dex.pools.asStateFlow()
+    val dexSearching: StateFlow<Boolean> = dex.busy.asStateFlow()
+    val dexMessage: StateFlow<DexMessage?> = dex.notice.asStateFlow()
 
     // =============================================================================================
     // Abgeleitete Auswahl (Reihenfolge = Abhängigkeiten)
@@ -343,9 +324,9 @@ class ExplorerViewModel @Inject constructor(
     /** Neue Börse oder neu abgeglichen: USDT vorwählen, sonst die häufigste Gegenwährung. */
     private fun CoroutineScope.keepBulkQuoteValid() = launch {
         pairList.collectLatest { info ->
-            val current = bulkQuote.value
+            val current = bulk.quote.value
             if (current == null || current !in info?.bulkQuoteCurrencies.orEmpty()) {
-                bulkQuote.value = info?.defaultBulkQuote
+                bulk.quote.value = info?.defaultBulkQuote
             }
         }
     }

@@ -122,7 +122,7 @@ enum ExchangeRankingStore {
     }
 
     /// Speichert ein Ranking samt Datum (ms).
-    nonisolated static func save(_ volumes: [String: Double], nowMillis: Int64 = TimeUtils.nowMillis,
+    nonisolated static func save(_ volumes: [String: Double], nowMillis: Int64 = EpochTime.nowMillis,
                                  defaults: UserDefaults = .standard) {
         defaults.set(volumes, forKey: volumesKey)
         defaults.set(NSNumber(value: nowMillis), forKey: dateKey)

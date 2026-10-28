@@ -98,7 +98,7 @@ final class PortfolioModel: ObservableObject {
     var calcPortfolio: [PortfolioTx] {
         let portfolio = data.portfolio
         let addresses = data.watchedAddresses
-        let day = Int64(PortfolioHistory.epochDay(utcMillis: TimeUtils.nowMillis))
+        let day = Int64(PortfolioHistory.epochDay(utcMillis: EpochTime.nowMillis))
         if let c = calcCache, c.day == day, c.addresses == addresses, c.portfolio == portfolio { return c.result }
         let result = AddressBalance.withAddresses(portfolio, addresses: addresses, todayUtcDay: day)
         calcCache = (portfolio, addresses, day, result, Set(result.flatMap(\.coins)))
@@ -164,13 +164,13 @@ final class PortfolioModel: ObservableObject {
     /// Veränderungen je Coin aus dem gespeicherten Stand (nur, wenn er zur %-Basis und zum Tag passt).
     nonisolated private static func storedCoinChanges() -> [String: Double] {
         let basis = SharedStorage.loadSettings().changeBasis.storage
-        return PortfolioWidgetStore.load()?.shown(basis: basis, now: TimeUtils.nowMillis).coinChanges ?? [:]
+        return PortfolioWidgetStore.load()?.shown(basis: basis, now: EpochTime.nowMillis).coinChanges ?? [:]
     }
 
     /// Gewinn/Verlust je Coin aus dem gespeicherten Stand (nur, wenn er zur %-Basis und zum Tag passt).
     nonisolated private static func storedCoinPnl() -> [String: PortfolioWidgetChange] {
         let basis = SharedStorage.loadSettings().changeBasis.storage
-        return PortfolioWidgetStore.load()?.shown(basis: basis, now: TimeUtils.nowMillis).coinPnl ?? [:]
+        return PortfolioWidgetStore.load()?.shown(basis: basis, now: EpochTime.nowMillis).coinPnl ?? [:]
     }
 
     /// Ab diesem Alter gelten die Portfolio-Kurse als veraltet (`PortfolioPriceFallback.staleAfterMillis`).

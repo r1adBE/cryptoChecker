@@ -9,15 +9,15 @@ import SwiftUI
 extension CycleViewModel {
     /// Blockhöhe höchstens einmal je Stunde abfragen — wie Android.
     func loadHalvingEstimate(force: Bool) {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if !force, halvingEstimate != nil, now - halvingEstimateAt >= 0, now - halvingEstimateAt < 3_600_000 { return }
         Task { [weak self] in
             guard let blocks = await HalvingMath.fetchBlocks(),
                   let estimate = HalvingMath.estimate(tipHeight: blocks.height, avgBlockSeconds: blocks.avgBlockSeconds,
-                                                      nowMillis: TimeUtils.nowMillis) else { return }
+                                                      nowMillis: EpochTime.nowMillis) else { return }
             await MainActor.run {
                 self?.halvingEstimate = estimate
-                self?.halvingEstimateAt = TimeUtils.nowMillis
+                self?.halvingEstimateAt = EpochTime.nowMillis
             }
         }
     }

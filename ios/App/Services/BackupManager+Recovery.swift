@@ -20,7 +20,7 @@ extension BackupManager {
                                                             fileModified: RestoreJournal.modifiedAt())
             let attemptedFor = StorageRecoveryNotice.rollBackAttemptedFor()
             let markAttempt = { StorageRecoveryNotice.recordRollBackAttempt(createdAt) }
-            if RestoreRecoveryPolicy.decide(createdAt: createdAt, attemptedFor: attemptedFor, now: TimeUtils.nowMillis) == .giveUp {
+            if RestoreRecoveryPolicy.decide(createdAt: createdAt, attemptedFor: attemptedFor, now: EpochTime.nowMillis) == .giveUp {
                 giveUpRecovery(showNotice: RestoreRecoveryPolicy.noticeOnGiveUp(createdAt: createdAt, attemptedFor: attemptedFor),
                                markAttempt: markAttempt)
                 return

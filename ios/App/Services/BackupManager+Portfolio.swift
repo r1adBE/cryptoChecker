@@ -121,7 +121,7 @@ extension BackupManager {
             type: type,
             amountExact: amount,
             priceExact: price,
-            time: int64(o, "time") ?? TimeUtils.nowMillis,
+            time: int64(o, "time") ?? EpochTime.nowMillis,
             note: note,
             feeExact: fee,
             feeUnit: feeUnit,

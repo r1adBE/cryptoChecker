@@ -1,7 +1,7 @@
 package com.cryptochecker.marketdata.util
 
-/** Zeitangaben der Börsen in einer Einheit (ms). iOS: `TimeUtils`. */
-object TimeUtils {
+/** Zeitangaben der Börsen in einer Einheit (ms). iOS: `EpochTime`. */
+object EpochTime {
 
     private const val SECOND_MS = 1_000L
     private const val YEAR_MS = 365L * 24 * 60 * 60 * SECOND_MS

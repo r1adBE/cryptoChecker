@@ -21,22 +21,22 @@ import timber.log.Timber
 /** Pools zu Token-Name, Symbol oder Adresse suchen. */
 fun ExplorerViewModel.searchDex(query: String) {
     if (query.isBlank()) return
-    dexJob?.cancel()
-    dexJob = viewModelScope.launch {
-        dexBusy.value = true
-        dexNotice.value = null
+    dex.job?.cancel()
+    dex.job = viewModelScope.launch {
+        dex.busy.value = true
+        dex.notice.value = null
         val outcome = runCatchingCancellable { marketRepository.searchDexPools(query) }
-        dexBusy.value = false
+        dex.busy.value = false
         val pools = outcome.getOrElse { error ->
             Timber.w(error, "DEX-Suche gescheitert")
-            dexPools.value = emptyList()
+            dex.pools.value = emptyList()
             // Wie die Merkliste einordnen (kein Netz / Dienst nicht erreichbar), mit «Erneut versuchen»
             val cause = RefreshReportLogic.classify(error.toMarketFailure(), error.toString())
-            dexNotice.value = DexMessage.Failed(DexFailure.of(cause), query)
+            dex.notice.value = DexMessage.Failed(DexFailure.of(cause), query)
             return@launch
         }
-        dexPools.value = pools.distinctBy { it.pairId }.take(MAX_DEX_RESULTS)
-        if (pools.isEmpty()) dexNotice.value = DexMessage.NoResults
+        dex.pools.value = pools.distinctBy { it.pairId }.take(MAX_DEX_RESULTS)
+        if (pools.isEmpty()) dex.notice.value = DexMessage.NoResults
     }
 }
 
@@ -48,12 +48,12 @@ fun ExplorerViewModel.addDexPool(pool: DexPool) {
     // Token-Adresse fürs Paar-Blatt (gleichnamige Token unterscheiden); nicht Teil der Paar-Identität
     dexTokenAddressStore.put(pool.pairId, pool.baseAddress)
     launchAdd(selected, MarketPair(pool.baseSymbol, pool.watchQuote, pool.pairId)) { added ->
-        dexNotice.value = if (added) DexMessage.Added(pool.baseSymbol) else DexMessage.AlreadyInList(pool.baseSymbol)
+        dex.notice.value = if (added) DexMessage.Added(pool.baseSymbol) else DexMessage.AlreadyInList(pool.baseSymbol)
     }
 }
 
 fun ExplorerViewModel.clearDexMessage() {
-    dexNotice.value = null
+    dex.notice.value = null
 }
 
 private const val MAX_DEX_RESULTS = 25

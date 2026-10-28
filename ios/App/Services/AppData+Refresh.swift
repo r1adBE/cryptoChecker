@@ -48,11 +48,11 @@ extension AppData {
     @discardableResult
     func refreshAllByUser() async -> RefreshDebounce.Decision {
         let decision = RefreshDebounce.decide(running: refreshState.refreshing,
-                                              lastFinishedAt: SharedStorage.lastFullRefreshAt, now: TimeUtils.nowMillis)
+                                              lastFinishedAt: SharedStorage.lastFullRefreshAt, now: EpochTime.nowMillis)
         if decision == .start {
             // Von Hand aktualisiert: Charts im Aktionsblatt nicht mehr aus dem Zwischenspeicher
             SheetChartStore.shared.invalidateAll()
-            let startedAt = TimeUtils.nowMillis
+            let startedAt = EpochTime.nowMillis
             let outcome: PriceRefresher.Outcome? = await refreshAll()
             // «Letzte Prüfungen»: auch der Knopf in der App zählt (Auslöser «App») — abseits des
             // Hauptfadens (die Datei-Abstimmung kann auf Widget oder Hintergrund-Aufgabe warten)
@@ -154,7 +154,7 @@ extension AppData {
             SharedStorage.markFullRefresh()
             // Sperre der Hintergrund-Aufgabe: nur nach einer vollen Prüfung (die meisten Paare mit Kurs)
             if BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
-                SharedStorage.lastAlarmCheckAt = TimeUtils.nowMillis
+                SharedStorage.lastAlarmCheckAt = EpochTime.nowMillis
             }
             SharedStorage.lastRefreshDuration = outcome.durationMillis
             refreshState.lastRefreshMillis = outcome.durationMillis
@@ -267,7 +267,7 @@ extension AppData {
     /// denselben Kurs ohne Veränderung hat; danach Widgets und Live-Aktivität neu.
     private func fillLateDayChanges(_ changes: [Int64: Double], times: [Int64: Int64], stamp: ChangeStamp) {
         // Basis und Tag unverändert, und kein neuerer Durchlauf hat inzwischen einen anderen Stempel gesetzt
-        guard ChangeBasisMath.stamp(settings.changeBasis, now: TimeUtils.nowMillis) == stamp,
+        guard ChangeBasisMath.stamp(settings.changeBasis, now: EpochTime.nowMillis) == stamp,
               changeStamp == stamp else { return }
         let fillable = snapshot.watches.contains { w in
             changes[w.id] != nil && w.change24h == nil && w.lastError == nil && times[w.id] == w.lastUpdate

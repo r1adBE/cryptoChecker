@@ -48,7 +48,7 @@ enum AlarmLogStore {
     }
 
     /// Für die Anzeige: Datei samt der noch nicht geschriebenen Live-Einträge dieses Prozesses.
-    static func load(from url: URL = AlarmLogStore.url, now: Int64 = TimeUtils.nowMillis,
+    static func load(from url: URL = AlarmLogStore.url, now: Int64 = EpochTime.nowMillis,
                      keys: StorageKey = .shared) -> AlarmLogState {
         var base = AlarmLogState.empty
         if case .ok(let state) = read(from: url, keys: keys) { base = state }
@@ -58,7 +58,7 @@ enum AlarmLogStore {
 
     /// Einträge eines Durchlaufs übernehmen und (ausser bei gedrosselten Live-Kursen) schreiben. Wirft nie.
     static func record(_ entries: [AlarmLogEntry], live: Bool, to url: URL = AlarmLogStore.url,
-                       now: Int64 = TimeUtils.nowMillis, keys: StorageKey = .shared) {
+                       now: Int64 = EpochTime.nowMillis, keys: StorageKey = .shared) {
         guard !entries.isEmpty else { return }
         var toWrite: [AlarmLogEntry] = []
         pending.write { p in

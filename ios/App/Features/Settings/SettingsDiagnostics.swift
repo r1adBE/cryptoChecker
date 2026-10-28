@@ -74,7 +74,7 @@ struct DiagnosticsPreviewPage: View {
         let readiness = AlarmReadiness.rows(await AlarmReadinessProbe.read(settings: settings, hasAlarms: hasAlarms))
         let info = Bundle.main.infoDictionary
         let input = DiagnosticInput(
-            createdAt: TimeUtils.nowMillis,
+            createdAt: EpochTime.nowMillis,
             zone: TimeZone.current.identifier,
             appVersion: info?["CFBundleShortVersionString"] as? String ?? "-",
             appBuild: info?["CFBundleVersion"] as? String ?? "-",

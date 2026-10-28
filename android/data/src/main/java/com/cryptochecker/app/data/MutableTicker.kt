@@ -3,7 +3,7 @@ package com.cryptochecker.app.data
 import com.cryptochecker.marketdata.model.Ticker
 
 /** Veränderbarer Kurs, den die Börsen beim Lesen füllen; alle Zahlen anfangs «keine Angabe». */
-class TickerImpl : Ticker {
+class MutableTicker : Ticker {
     override var last: Double = EMPTY
     override var bid: Double = EMPTY
     override var ask: Double = EMPTY

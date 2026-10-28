@@ -273,7 +273,7 @@ struct MarketRow: View {
         case .shown:
             if let spoken {
                 // Gesprochener Satz samt Herkunft und Alter («…, CoinGecko, vor 3 Min., veraltet»)
-                let full = stamp.map { "\(spoken), \(MarketStampText.spoken($0, now: TimeUtils.nowMillis))" } ?? spoken
+                let full = stamp.map { "\(spoken), \(MarketStampText.spoken($0, now: EpochTime.nowMillis))" } ?? spoken
                 row
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text(verbatim: full))

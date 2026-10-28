@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.*
 
 fun ExplorerViewModel.setBulkQuote(quote: String) {
     // Die Sammelliste gehört zur Gegenwährung, für die sie erstellt wurde
-    if (bulkQuote.value != quote) {
+    if (bulk.quote.value != quote) {
         clearBulkList()
-        bulkAdd.value = null
+        bulk.add.value = null
     }
-    bulkQuote.value = quote
+    bulk.quote.value = quote
 }
 
 internal fun ExplorerViewModel.clearBulkList() {
-    bulkPairs.value = emptyList()
-    bulkEmpty.value = false
+    bulk.pairs.value = emptyList()
+    bulk.empty.value = false
 }
 
 /**
@@ -33,31 +33,31 @@ internal fun ExplorerViewModel.clearBulkList() {
 fun ExplorerViewModel.loadBulkStats() {
     val selected = exchange.value ?: return
     if (selected.key == DEX_KEY || !marketRepository.isMarketSupportsBulkTickers(selected)) return
-    val ids = bulkPairs.value.mapNotNull { it.pairId }.distinct()
+    val ids = bulk.pairs.value.mapNotNull { it.pairId }.distinct()
     if (ids.isEmpty()) return
 
     val key = selected.key + "|" + ids.sorted().joinToString(",")
     val now = System.currentTimeMillis()
-    val fresh = bulkStatsJob?.isActive == true || now - bulkStatsLoadedAt < BULK_STATS_MAX_AGE_MS
-    if (key == bulkStatsFor && fresh) return
+    val fresh = bulk.statsJob?.isActive == true || now - bulk.statsLoadedAt < BULK_STATS_MAX_AGE_MS
+    if (key == bulk.statsFor && fresh) return
 
-    bulkStatsFor = key
-    bulkStatsLoadedAt = now
-    bulkStatsJob?.cancel()
-    bulkStatsJob = viewModelScope.launch {
-        val bulk = withContext(Dispatchers.IO) { marketRepository.getBulkTickers(selected, ids) }
+    bulk.statsFor = key
+    bulk.statsLoadedAt = now
+    bulk.statsJob?.cancel()
+    bulk.statsJob = viewModelScope.launch {
+        val result = withContext(Dispatchers.IO) { marketRepository.getBulkTickers(selected, ids) }
         if (exchange.value != selected) return@launch
-        bulkStats.value = bulk.tickers.mapValues { (_, t) -> QuickFilters.statsOf(t) }
+        bulk.stats.value = result.tickers.mapValues { (_, t) -> QuickFilters.statsOf(t) }
     }
 }
 
 /** Alle Paare der gewählten Gegenwährung (Standard USDT) zum aktuellen Kontrakttyp, Spot wie Futures. */
 fun ExplorerViewModel.collectBulkPairs() {
     val info = pairList.value
-    val counter = bulkQuote.value
+    val counter = bulk.quote.value
     val found = if (info != null && counter != null) info.pairsWithQuote(counter, contract.value) else emptyList()
-    bulkPairs.value = found
-    bulkEmpty.value = found.isEmpty()
+    bulk.pairs.value = found
+    bulk.empty.value = found.isEmpty()
 
     val first = found.firstOrNull() ?: return
     quote.value = first.quote
@@ -77,24 +77,24 @@ fun ExplorerViewModel.selectBulkPair(pair: MarketPair) {
  */
 fun ExplorerViewModel.addBulkPairs() {
     val selected = exchange.value
-    val pairs = bulkPairs.value
+    val pairs = bulk.pairs.value
     if (selected == null || pairs.isEmpty()) {
         addResult.value = AddResult.NO_PAIR_SELECTED
         return
     }
-    if (bulkAdd.value?.running == true || bulkAddRunner.progress.value?.running == true) return
+    if (bulk.add.value?.running == true || bulkAddRunner.progress.value?.running == true) return
 
     viewModelScope.launch {
-        bulkAdd.value = BulkAddResult(added = 0, skipped = 0, running = true)
+        bulk.add.value = BulkAddResult(added = 0, skipped = 0, running = true)
         // Rückfrage F-08 einmal für alle Paare; «Abbrechen» = nichts angelegt, keine Zählung
         if (!watchRepository.confirmUserWrite()) {
-            bulkAdd.value = null
+            bulk.add.value = null
             return@launch
         }
         // Läuft app-weit weiter (Verlassen des Bildschirms bricht nicht ab); Stand und Ergebnis über
         // [bulkAddFromRunner]. Gesperrt: keine Zählung, den kurzen Hinweis zeigt WatchlistLockedHint; voll: die
         // Rückmeldung nennt die übrigen
-        if (!bulkAddRunner.start(selected, pairs, sessionTargetGroup.value)) bulkAdd.value = null
+        if (!bulkAddRunner.start(selected, pairs, sessionTargetGroup.value)) bulk.add.value = null
     }
 }
 

@@ -32,11 +32,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.ui.components.LogBox
+import com.cryptochecker.app.ui.components.HttpLogPanel
 import com.cryptochecker.app.ui.components.readableWidth
-import com.cryptochecker.app.ui.features.error.ErrorScreen
-import com.cryptochecker.app.ui.features.error.ErrorScreenViewState
-import com.cryptochecker.app.ui.features.loading.LoadingScreen
+import com.cryptochecker.app.ui.features.error.LoadErrorScreen
+import com.cryptochecker.app.ui.features.error.LoadErrorScreenViewState
+import com.cryptochecker.app.ui.features.loading.SkeletonLoadingScreen
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.MarketPair
 import kotlinx.coroutines.flow.StateFlow
@@ -78,11 +78,11 @@ fun ExplorerScreen(
     val showHttpLog by vm.showHttpLog.collectAsStateWithLifecycle()
 
     when (val state = pageState) {
-        is ExplorerLoad.Loading -> PlainExplorerPage(onBack) { LoadingScreen() }
+        is ExplorerLoad.Loading -> PlainExplorerPage(onBack) { SkeletonLoadingScreen() }
 
         // Auch Laden und Fehler mit Titel und Zurück (eigene Seite ohne Tableiste)
         is ExplorerLoad.Failed -> PlainExplorerPage(onBack) {
-            ErrorScreen(errorScreenViewState = ErrorScreenViewState(state.error)) {
+            LoadErrorScreen(errorScreenViewState = LoadErrorScreenViewState(state.error)) {
                 vm.retryExchangeList()
             }
         }
@@ -371,7 +371,7 @@ private fun BrowseContent(
     // Entwickleroption: HTTP-Protokoll (Einstellungen › Über die App › Entwickler, nur Debug)
     if (showHttpLog) {
         Spacer(modifier = Modifier.size(12.dp))
-        LogBox(logText)
+        HttpLogPanel(logText)
     }
     Spacer(modifier = Modifier.size(24.dp))
 }

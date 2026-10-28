@@ -43,7 +43,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
     }
 
     /// Ohne Netz: ausgeblendet (DEX), gültiger Zwischenspeicher oder nil (laden).
-    func cached(_ watch: Watch, range: PriceChartRange, now: Int64 = TimeUtils.nowMillis) -> SheetChartResult? {
+    func cached(_ watch: Watch, range: PriceChartRange, now: Int64 = EpochTime.nowMillis) -> SheetChartResult? {
         guard SheetChart.isSupported(marketKey: watch.marketKey, base: watch.baseAsset, quote: watch.quoteAsset) else {
             return .unsupported
         }
@@ -81,7 +81,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
         let k = Self.key(watch, range)
         let price = watch.lastPrice.flatMap { $0.isFinite && $0 > 0 ? $0 : nil }
         lock.withLock {
-            entries[k] = Entry(time: TimeUtils.nowMillis, candles: candles, converted: converted, info: info, price: price)
+            entries[k] = Entry(time: EpochTime.nowMillis, candles: candles, converted: converted, info: info, price: price)
         }
     }
 
@@ -94,7 +94,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
         func check(_ raw: [MarketCandle], request: SheetCandleRequest, quote: String, price: Double?) async -> Bool {
             // Tageskurse nur für die Ausweich-Reihe
             if request.convert && !ratesLoaded {
-                let today = LocalDay(epochMillisUTC: TimeUtils.nowMillis)
+                let today = LocalDay(epochMillisUTC: EpochTime.nowMillis)
                 let span = PortfolioHistoryFx.requestRange(days: SheetChartStore.fxDays, today: today)
                 rates = await HistoricPriceSource.usdToSeries(quote, from: span.from, to: span.to)
                 ratesLoaded = true
@@ -126,7 +126,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
                 let request = SheetCandleRequest(base: base, quote: quote, convert: false)
                 if let own, let candles = SheetChart.accept(own.value, request: request, price: price) {
                     let info = SheetChartInfo(provider: own.provider, sourcePair: "\(base)/\(quote)", fx: .none,
-                                              fetchedAt: TimeUtils.nowMillis)
+                                              fetchedAt: EpochTime.nowMillis)
                     return (candles: candles, converted: false, info: info)
                 }
             }
@@ -150,7 +150,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
                 if let sourced, let candles = accepted {
                     let info = SheetChartInfo(provider: sourced.provider, sourcePair: "\(request.base)/\(request.quote)",
                                               fx: SheetChart.fxMode(request, dailyRates: rates),
-                                              fetchedAt: TimeUtils.nowMillis)
+                                              fetchedAt: EpochTime.nowMillis)
                     return (candles: candles, converted: request.convert, info: info)
                 }
             }

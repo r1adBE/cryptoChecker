@@ -27,7 +27,7 @@ enum CycleDataSource {
     /// «Coin Metrics» (z. B. «Binance, Coin Metrics»).
     static func fetchSourced(forceOnChain: Bool = false) async throws -> Sourced<CycleInputs> {
         // On-Chain-Werte ändern sich höchstens täglich: 12 h aus dem Speicher
-        let cachedOnChain: OnChain? = forceOnChain ? nil : storedOnChain(now: TimeUtils.nowMillis)
+        let cachedOnChain: OnChain? = forceOnChain ? nil : storedOnChain(now: EpochTime.nowMillis)
         let skipOnChain = cachedOnChain != nil
         async let dailyJob = CandleDataSource.candlesSourced(base: "BTC", quote: "USDT", interval: .d1, limit: 1000)
         async let weeklyJob = CandleDataSource.candles(base: "BTC", quote: "USDT", interval: .w1, limit: 1000)
@@ -134,7 +134,7 @@ enum CycleDataSource {
         if skip { return nil }
         guard let text = await optionalCall(coinMetricsURL()),
               let onChain = try? parseCoinMetrics(text), !onChain.isEmpty else { return nil }
-        if let data = try? JSONEncoder().encode(StoredOnChain(savedAt: TimeUtils.nowMillis, value: onChain)) {
+        if let data = try? JSONEncoder().encode(StoredOnChain(savedAt: EpochTime.nowMillis, value: onChain)) {
             UserDefaults.standard.set(data, forKey: onChainKey)
         }
         return onChain

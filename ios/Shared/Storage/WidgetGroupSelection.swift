@@ -76,7 +76,7 @@ enum WidgetGroupSelection {
     static func configKey(theme: String, group: String?) -> String { theme + "|" + (group ?? "") }
 
     /// Merkt sich, dass die Einrichtung `key` gezeichnet wird; true = neu (siehe `seen`).
-    static func markSeen(_ key: String, now: Int64 = TimeUtils.nowMillis) -> Bool {
+    static func markSeen(_ key: String, now: Int64 = EpochTime.nowMillis) -> Bool {
         let stored = SharedStorage.defaults.dictionary(forKey: seenKey) as? [String: Double] ?? [:]
         let (isNew, updated) = seen(stored.mapValues { Int64($0) }, key: key, now: now)
         SharedStorage.defaults.set(updated.mapValues { Double($0) }, forKey: seenKey)

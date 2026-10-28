@@ -39,7 +39,7 @@ extension AppData {
             // Nur ein frischer Kurs taugt als Bezug; sonst setzt ihn die nächste Abfrage
             let w = watch(watchId)
             referencePrice = AlarmEdit.freshReference(
-                lastPrice: w?.lastPrice, lastUpdate: w?.lastUpdate ?? 0, now: TimeUtils.nowMillis,
+                lastPrice: w?.lastPrice, lastUpdate: w?.lastUpdate ?? 0, now: EpochTime.nowMillis,
                 staleAfterMillis: LiveStatus.pollingStaleAfterMillis(backgroundIntervalMinutes: settings.backgroundIntervalMinutes))
         }
 
@@ -50,7 +50,7 @@ extension AppData {
             referenceAt = existing?.condition == .VOLUME_SPIKE ? (existing?.referenceAt ?? 0) : 0
         } else if condition != .MOVE_PERCENT_WINDOW { referenceAt = 0 }
         else if keep { referenceAt = existing?.referenceAt ?? 0 }
-        else if referencePrice != nil { referenceAt = TimeUtils.nowMillis }
+        else if referencePrice != nil { referenceAt = EpochTime.nowMillis }
         else { referenceAt = 0 }
 
         mutate({ s in
@@ -189,8 +189,8 @@ extension AppData {
             if let rate = FxRateSource.cached(code) { usdTo[code] = rate }
         }
         // Teilweise alter Kurs (wesentlich), fehlende Kurse und nie geladene Adressen: diesmal nicht prüfen
-        let reading = widget.alarmReading(usdTo: usdTo, usdtUsdLive: DepegAlarmCheck.liveUsdtUsd(now: TimeUtils.nowMillis))
-        let now = TimeUtils.nowMillis
+        let reading = widget.alarmReading(usdTo: usdTo, usdtUsdLive: DepegAlarmCheck.liveUsdtUsd(now: EpochTime.nowMillis))
+        let now = EpochTime.nowMillis
         var list = snapshot.portfolioAlarms ?? []
         var fired: [(alarm: PortfolioAlarm, value: Double)] = []
         var rearmed = false

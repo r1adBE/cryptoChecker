@@ -79,7 +79,7 @@ extension PortfolioModel {
         let currency = data.settings.portfolioCurrency
         guard let memo = widgetDisplayFx(for: currency, summary: summary), PortfolioWidgetStore.load()?.displayFx != memo,
               !calcPortfolio.isEmpty, prices.updatedAt > 0,
-              PortfolioPriceFallback.mayRecord(transactions: calcPortfolio, prices: prices, now: TimeUtils.nowMillis,
+              PortfolioPriceFallback.mayRecord(transactions: calcPortfolio, prices: prices, now: EpochTime.nowMillis,
                                                staleAfterMillis: staleAfterMillis)
         else { return }
         await PortfolioWidgetStore.updateInBackground(transactions: calcPortfolio, prices: prices, currency: currency,

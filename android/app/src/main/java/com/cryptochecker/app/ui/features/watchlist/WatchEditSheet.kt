@@ -46,7 +46,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.FavoriteKind
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchEdit
-import com.cryptochecker.app.ui.components.ComboBox
+import com.cryptochecker.app.ui.components.DropdownField
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.headline
@@ -132,7 +132,7 @@ internal fun WatchEditSheet(
                 if (markets == null) {
                     LinearProgressIndicator(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(50)))
                 } else {
-                    ComboBox(
+                    DropdownField(
                         modifier = Modifier.fillMaxWidth(),
                         itemList = markets.map { it.name },
                         selectedIndex = markets.indexOf(state.market),
@@ -168,7 +168,7 @@ internal fun WatchEditSheet(
                         TextButton(onClick = viewModel::sync) { Text(stringResource(R.string.action_retry)) }
                     }
                     else -> {
-                        ComboBox(
+                        DropdownField(
                             modifier = Modifier.fillMaxWidth().padding(top = gap),
                             itemList = bases,
                             selectedIndex = bases.indexOf(state.base),
@@ -179,7 +179,7 @@ internal fun WatchEditSheet(
                             onValueChange = { viewModel.setBase(bases[it]) }
                         )
                         val quotes = state.quotes
-                        ComboBox(
+                        DropdownField(
                             modifier = Modifier.fillMaxWidth().padding(top = gap),
                             itemList = quotes,
                             selectedIndex = quotes.indexOf(state.quote),
@@ -192,7 +192,7 @@ internal fun WatchEditSheet(
                         // Kontrakt nur bei Futures; auswählbar nur bei mehreren Laufzeiten
                         val contracts = state.contracts
                         if (contracts.isNotEmpty() && !(contracts.size == 1 && contracts[0] == FuturesContractType.NONE)) {
-                            ComboBox(
+                            DropdownField(
                                 modifier = Modifier.fillMaxWidth().padding(top = gap),
                                 itemList = contracts.map { contractName(it) },
                                 selectedIndex = contracts.indexOf(state.contract),

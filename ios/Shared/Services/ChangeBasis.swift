@@ -145,13 +145,13 @@ struct ChangeView: Equatable, Sendable {
         return shown(watch.change24h)
     }
 
-    static func of(stamp: ChangeStamp?, basis: ChangeBasis, now: Int64 = TimeUtils.nowMillis,
+    static func of(stamp: ChangeStamp?, basis: ChangeBasis, now: Int64 = EpochTime.nowMillis,
                    timeZone: TimeZone = .current) -> ChangeView {
         ChangeView(basis: basis, current: ChangeBasisMath.isCurrent(stamp: stamp, basis: basis, now: now, timeZone: timeZone))
     }
 
     /// Aus den gespeicherten Einstellungen und dem Stempel des letzten Durchlaufs (App und Widgets).
-    static func stored(now: Int64 = TimeUtils.nowMillis) -> ChangeView {
+    static func stored(now: Int64 = EpochTime.nowMillis) -> ChangeView {
         let settings = SharedStorage.loadSettings()
         return of(stamp: SharedStorage.changeStamp, basis: settings.changeBasis, now: now)
     }

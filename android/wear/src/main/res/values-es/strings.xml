@@ -6,7 +6,7 @@
     <string name="watch_updated">A las %1$s</string>
     <string name="watch_refresh">Actualizar</string>
     <string name="watch_choose">Elegir monedas</string>
-    <string name="watch_choose_hint">Hasta %1$d monedas</string>
+    <string name="watch_choose_hint">Monedas: máximo %1$d</string>
     <string name="watch_complication_label">Precio</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s en 24 horas</string>
     <string name="watch_mode_phone">Lista: como el teléfono</string>

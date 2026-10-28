@@ -42,7 +42,7 @@ enum WidgetRefresh {
     }
 
     static var isStale: Bool {
-        TimeUtils.nowMillis - SharedStorage.lastRefreshAt >= staleAfterMillis
+        EpochTime.nowMillis - SharedStorage.lastRefreshAt >= staleAfterMillis
     }
 
     /// Knopf gesperrt bis (Wanduhr, ms; 0 = nie) — nach einem Tipp in der 15-s-Sperre (`WidgetRefreshState`).
@@ -64,7 +64,7 @@ enum WidgetRefresh {
     static var runningSince: Int64 {
         runningInProcess.withLock { _ in
             let running = Int64(SharedStorage.defaults.double(forKey: runningKey))
-            let age = TimeUtils.nowMillis - running
+            let age = EpochTime.nowMillis - running
             return running > 0 && age >= 0 && age < runningTimeoutMillis ? running : 0
         }
     }
@@ -100,7 +100,7 @@ enum WidgetRefresh {
     /// Ist der letzte misslungene Versuch jünger als `retryAfterMillis`? (Uhr zurückgestellt: nein.)
     static var recentlyFailed: Bool {
         let failedAt = Int64(SharedStorage.defaults.double(forKey: failedAtKey))
-        let age = TimeUtils.nowMillis - failedAt
+        let age = EpochTime.nowMillis - failedAt
         return failedAt > 0 && age >= 0 && age < retryAfterMillis
     }
 
@@ -111,7 +111,7 @@ enum WidgetRefresh {
     @discardableResult
     static func run(budgetMillis: Int64 = runBudgetMillis, snapshot read: SharedStorage.Snapshot? = nil) async -> RunResult {
         let defaults = SharedStorage.defaults
-        let started = TimeUtils.nowMillis
+        let started = EpochTime.nowMillis
         guard claimRun(started: started) else { return .busy }
         defer { releaseRun(started: started) }
 
@@ -130,7 +130,7 @@ enum WidgetRefresh {
             outcome.releaseAlarmLease()
             // Speichern gescheitert (mit Paaren) — nur gezählt (Diagnosebericht)
             if outcome.checked > 0 { BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind) }
-            defaults.set(Double(TimeUtils.nowMillis), forKey: failedAtKey)
+            defaults.set(Double(EpochTime.nowMillis), forKey: failedAtKey)
             CheckRunStore.log(.widget, .failed, startedAt: started)
             return .failed
         }
@@ -158,7 +158,7 @@ enum WidgetRefresh {
             defaults.removeObject(forKey: failedAtKey)
             return .saved
         }
-        defaults.set(Double(TimeUtils.nowMillis), forKey: failedAtKey)
+        defaults.set(Double(EpochTime.nowMillis), forKey: failedAtKey)
         return .failed
     }
 

@@ -117,7 +117,7 @@ enum WidgetData {
     // MARK: Beispieldaten (Platzhalter / Galerie)
 
     static let sampleWatches: [Watch] = {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         return [
             Watch(id: 1, marketKey: "binance", marketName: "Binance", baseAsset: "BTC", quoteAsset: "USDT",
                   lastPrice: 83_142, previousPrice: 82_865, lastUpdate: now, favorite: true, change24h: 2.31),
@@ -147,7 +147,7 @@ enum WidgetData {
     /// ersten Beispielpaars (83 142), damit Etikett und Schlagzeile übereinstimmen. Open = voriger Schluss, Dochte etwas darüber/darunter.
     static func sampleCandles(range: WidgetChartRangeOption = .day) -> [MarketCandle] {
         let step = range.candleMillis
-        let end = (TimeUtils.nowMillis / step) * step
+        let end = (EpochTime.nowMillis / step) * step
         let count = Int64(sampleCloses.count)
         // In Schritten mit festen Typen (lange Ausdrücke in einer Closure sind für den Type-Checker teuer)
         var out: [MarketCandle] = []

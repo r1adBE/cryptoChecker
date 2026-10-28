@@ -48,7 +48,7 @@ struct PortfolioTotalCard: View {
     var depegReading: DepegAlarm.Reading? = nil
     var depegThresholdTenths: Int = DepegAlarm.defaultThresholdTenths
     /// Uhr für die Frische der Messung (Ansicht tickt mit ihrer Uhr).
-    var now: Int64 = TimeUtils.nowMillis
+    var now: Int64 = EpochTime.nowMillis
     @Environment(\.appAccent) var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.hidePortfolioAmounts) var hideAmounts

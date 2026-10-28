@@ -276,12 +276,12 @@ enum Change24h {
 }
 
 /// Inhalt (und zusätzliche Kopfzeilen) einer POST-Anfrage.
-struct PostRequestInfo: Sendable {
+struct PostRequest: Sendable {
     var body: String
     var headers: [String: String]? = nil
 }
 
-enum TimeUtils {
+enum EpochTime {
     static let millisInSecond: Int64 = 1000
     static let millisInMinute: Int64 = millisInSecond * 60
     static let millisInHour: Int64 = millisInMinute * 60

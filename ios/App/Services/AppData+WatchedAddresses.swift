@@ -68,7 +68,7 @@ extension AppData {
         guard WatchedAddressRules.canAdd(file.addresses) else { return .limitReached }
         // «Nur anzeigen» bei Überschneidung mit eigenen Transaktionen (Frage beim Hinzufügen)
         let item = WatchedAddress(chain: chain, address: normalized,
-                                  label: WatchedAddressRules.cleanLabel(label), addedAt: TimeUtils.nowMillis,
+                                  label: WatchedAddressRules.cleanLabel(label), addedAt: EpochTime.nowMillis,
                                   countInPortfolio: countInPortfolio, overlapChecked: overlapChecked)
         guard let id = WatchedAddressStore.insert(item, into: &file) else { return .duplicate }
         guard setWatchedAddressFile(file) else { return .limitReached }
@@ -94,7 +94,7 @@ extension AppData {
         guard !portfolioStorageLocked else { return .locked }
         var file = currentWatchedAddressFile()
         var again = removed
-        again.pendingSince = TimeUtils.nowMillis
+        again.pendingSince = EpochTime.nowMillis
         guard WatchedAddressUndo.restore(again, into: &file), setWatchedAddressFile(file) else { return .failed }
         return .removed(removed)
     }

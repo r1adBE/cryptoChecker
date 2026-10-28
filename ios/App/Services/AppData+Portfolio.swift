@@ -246,7 +246,7 @@ extension AppData {
     private func importHoldings(onlyNewCoins: Bool, markDone: Bool = false) -> Bool {
         var watches = snapshot.watches
         var file = currentPortfolioFile()
-        PortfolioStore.importHoldings(watches: &watches, into: &file, onlyNewCoins: onlyNewCoins, now: TimeUtils.nowMillis)
+        PortfolioStore.importHoldings(watches: &watches, into: &file, onlyNewCoins: onlyNewCoins, now: EpochTime.nowMillis)
         guard watches != snapshot.watches else { return true }
         if markDone { file.holdingsImportDone = true }
         // Erst nach gespeichertem Portfolio den Bestand der Merkliste leeren

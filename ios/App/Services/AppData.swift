@@ -373,7 +373,7 @@ final class AppData: ObservableObject {
 
     /// «Basis der %-Änderung» zum Zeitpunkt `now`: passt der Stempel der gespeicherten Werte nicht
     /// (Basis gewechselt, neuer Tag), zeigen Änderungen und Puls «—», bis neu gerechnet ist.
-    func changeView(now: Int64 = TimeUtils.nowMillis) -> ChangeView {
+    func changeView(now: Int64 = EpochTime.nowMillis) -> ChangeView {
         ChangeView.of(stamp: changeStamp, basis: settings.changeBasis, now: now)
     }
 }

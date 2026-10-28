@@ -32,7 +32,7 @@ actor MarketUnusualSource {
             tickers = try await Self.tickers(universe)
         }
         let funding = await fundingJob
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
 
         let coins: [UnusualCoin] = universe.compactMap { coin in
             guard let ticker = tickers[coin.symbol] else { return nil }
@@ -67,7 +67,7 @@ actor MarketUnusualSource {
         let list = "[" + universe.map { "\"\($0.symbol)USDT\"" }.joined(separator: ",") + "]"
         let text = try await MarketHTTP.call(tickerURL + list.urlQueryEncoded)
         var out: [String: (change: Double, volume: Double?)] = [:]
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         for item in try JArray(string: text).objects {
             let symbol = item.optString("symbol").uppercased()
             let change = item.optDouble("priceChangePercent")

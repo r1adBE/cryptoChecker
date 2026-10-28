@@ -135,6 +135,6 @@ class BingXBase: Market, @unchecked Sendable { // @unchecked: wie `Market` (kein
 
     /// Hängt `timestamp` (jetzt, ms) an; die Börse prüft ihn gegen ihre Uhr.
     private static func stamped(_ url: String) -> String {
-        url + (url.contains("?") ? "&" : "?") + "timestamp=\(TimeUtils.nowMillis)"
+        url + (url.contains("?") ? "&" : "?") + "timestamp=\(EpochTime.nowMillis)"
     }
 }

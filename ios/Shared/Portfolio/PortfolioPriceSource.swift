@@ -72,7 +72,7 @@ enum PortfolioPriceSource {
     static func prices(_ coins: [String], force: Bool = false) async -> PortfolioPrices {
         let wanted = normalized(coins)
         await priceGate.run { () async -> Void in
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             // Dazu die Basis gekapselter Coins (Ersatzkurs, `ChainAssets.priceViaBase`); nur abfragbare Kürzel
             let toFetch = ChainAssets.withBases(wanted).filter { coin in
                 Self.isSymbol(coin) && coin != Self.stable && (force || !Self.isFresh(coin, now: now))
@@ -148,7 +148,7 @@ enum PortfolioPriceSource {
             unchecked.formUnion(split.unchecked.subtracting(rejected))
             // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (PortfolioExchangeRoute)
             fetched = await Self.applyRoutes(toFetch, fetched)
-            Self.store(fetched, at: TimeUtils.nowMillis, unchecked: unchecked, rejected: rejected,
+            Self.store(fetched, at: EpochTime.nowMillis, unchecked: unchecked, rejected: rejected,
                        requested: toFetch, unavailable: unavailable, unverified: binanceUnverified)
             // Letzten guten Stand merken (für ohne Netz und nach einem Neustart)
             if !fetched.isEmpty { Self.persist() }
@@ -281,7 +281,7 @@ enum PortfolioPriceSource {
         // Ein gemerkter Kurs mit «Kurs ungeprüft» ist ebenso kein Bezug (`PortfolioPriceFallback.confirmed`)
         let merged = PortfolioPriceFallback.confirmed(PortfolioPriceFallback.merge(current: checked, stored: stored))
         let watches = SharedStorage.loadSnapshot().watches
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         var out: [String: Double] = [:]
         for coin in coins {
             let watchPrices = watches.compactMap { referencePrice($0, coin: coin, now: now) }

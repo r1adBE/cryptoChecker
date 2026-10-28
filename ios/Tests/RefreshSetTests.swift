@@ -38,7 +38,7 @@ final class RefreshDebounceParityTests: XCTestCase {
             SharedStorage.lastRefreshAt = savedDisplay
             SharedStorage.lastFullRefreshAt = savedFull
         }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         SharedStorage.markFullRefresh(at: now - 600_000)
         XCTAssertEqual(SharedStorage.lastRefreshAt, now - 600_000)
         // Live-Takt (`AppData.applyLive`): nur die Uhrzeit der Anzeige

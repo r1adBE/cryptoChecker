@@ -19,7 +19,7 @@ import java.net.SocketTimeoutException
  * Symbol, Titel und Satz zu einem Ladefehler: kein Netz, Zeitüberschreitung (Börse antwortet nicht) oder sonst
  * etwas. Einfarbige Symbole wie jeder leere Zustand ([EmptyState]) statt farbiger Illustrationen.
  */
-class ErrorScreenViewState(private val throwable: Throwable) {
+class LoadErrorScreenViewState(private val throwable: Throwable) {
 
     private val isNetwork: Boolean get() = throwable is IOException
 
@@ -48,9 +48,9 @@ class ErrorScreenViewState(private val throwable: Throwable) {
 
 /** Ganze Fläche im Aufbau aller leeren Zustände ([EmptyState]): Symbol, Titel, Satz und «Erneut versuchen». */
 @Composable
-fun ErrorScreen(
+fun LoadErrorScreen(
     modifier: Modifier = Modifier,
-    errorScreenViewState: ErrorScreenViewState,
+    errorScreenViewState: LoadErrorScreenViewState,
     onTryAgainButtonClick: () -> Unit,
 ) {
     val state = errorScreenViewState
@@ -69,8 +69,8 @@ fun ErrorScreen(
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun ErrorScreenPreview() {
+fun LoadErrorScreenPreview() {
     CryptoCheckerTheme {
-        ErrorScreen(errorScreenViewState = ErrorScreenViewState(IOException()), onTryAgainButtonClick = {})
+        LoadErrorScreen(errorScreenViewState = LoadErrorScreenViewState(IOException()), onTryAgainButtonClick = {})
     }
 }

@@ -6,7 +6,7 @@
     <string name="watch_updated">Stand %1$s</string>
     <string name="watch_refresh">Aktualisieren</string>
     <string name="watch_choose">Coins wählen</string>
-    <string name="watch_choose_hint">Bis zu %1$d Coins</string>
+    <string name="watch_choose_hint">Coins: höchstens %1$d</string>
     <string name="watch_complication_label">Kurs</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s in 24 Stunden</string>
     <string name="watch_mode_phone">Liste: wie Handy</string>

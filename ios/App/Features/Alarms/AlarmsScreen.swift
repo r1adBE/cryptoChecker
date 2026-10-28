@@ -31,7 +31,7 @@ struct AlarmsScreen: View {
     /// im Zweifel ja, damit kein falscher Hinweis erscheint. Bei jeder Rückkehr in die App neu geprüft.
     @State private var notificationsAllowed = true
     /// Uhr der Statuszeilen, jede Minute nachgeführt — ein Kurs wird auch ohne neue Daten veraltet.
-    @State private var now: Int64 = TimeUtils.nowMillis
+    @State private var now: Int64 = EpochTime.nowMillis
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
     /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
     /// Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
@@ -162,12 +162,12 @@ struct AlarmsScreen: View {
         .task {
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(60))
-                now = TimeUtils.nowMillis
+                now = EpochTime.nowMillis
             }
         }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
-            now = TimeUtils.nowMillis
+            now = EpochTime.nowMillis
             Task { notificationsAllowed = await Notifier.isAuthorized() }
         }
         .onAppear {

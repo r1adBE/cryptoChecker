@@ -74,7 +74,7 @@ struct PriceSaveThrottle: Equatable {
 extension AppData {
     /// Reine Kurse aus `mutate(…, quiet: true)` speichern — sofort oder zusammengefasst (`PriceSaveThrottle`).
     func requestPriceSave(reloadWidgets: Bool, widgetKinds: [String]?) {
-        switch priceSaves.request(now: TimeUtils.nowMillis, reloadWidgets: reloadWidgets, widgetKinds: widgetKinds) {
+        switch priceSaves.request(now: EpochTime.nowMillis, reloadWidgets: reloadWidgets, widgetKinds: widgetKinds) {
         case .saveNow:
             writePendingPrices()
         case .schedule(let afterMillis, let token):
@@ -98,7 +98,7 @@ extension AppData {
     /// erledigt (die vorgemerkte Speicherung schreibt nicht noch einmal), Abstand ab jetzt; Rückgabe: die Widget-Wünsche
     /// dieses Schreibens vereinigt mit den wartenden.
     func foldPendingPriceSave(reloadWidgets: Bool, widgetKinds: [String]?) -> (reload: Bool, kinds: [String]?) {
-        priceSaves.take(now: TimeUtils.nowMillis).merged(reloadWidgets: reloadWidgets, widgetKinds: widgetKinds)
+        priceSaves.take(now: EpochTime.nowMillis).merged(reloadWidgets: reloadWidgets, widgetKinds: widgetKinds)
     }
 
     /// Wartende Kurse verwerfen («App zurücksetzen»: der Stand wird ohnehin neu geschrieben).
@@ -109,7 +109,7 @@ extension AppData {
     /// Den aktuellen Stand als reine Kurs-Speicherung schreiben (Barriere wie bisher) und die gewünschten Widgets danach
     /// neu laden.
     private func writePendingPrices() {
-        let widgets = priceSaves.take(now: TimeUtils.nowMillis)
+        let widgets = priceSaves.take(now: EpochTime.nowMillis)
         writeSnapshot(snapshot, durability: .barrier, reloadWidgets: !widgets.isEmpty,
                       widgetKinds: widgets.all ? nil : widgets.kinds.sorted())
     }

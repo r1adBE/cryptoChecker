@@ -30,7 +30,7 @@ final class Hyperliquid: Market, @unchecked Sendable { // @unchecked: wie `Marke
     override func tickerAddress(call: Int, info: PairQuery) -> String { hyperliquidInfo }
 
     // Für jedes Paar dieselbe Abfrage (~100 KB): gleichzeitige Einzelkurse teilen sich eine Antwort (`InFlightRequests`)
-    override func tickerPostBody(call: Int, info: PairQuery) -> PostRequestInfo? { Hyperliquid.metaRequest }
+    override func tickerPostBody(call: Int, info: PairQuery) -> PostRequest? { Hyperliquid.metaRequest }
 
     override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         var ignored = Set<String>()
@@ -63,7 +63,7 @@ final class Hyperliquid: Market, @unchecked Sendable { // @unchecked: wie `Marke
 
     override func bulkTickersURL(call: Int) -> String? { hyperliquidInfo }
 
-    override func bulkTickersPostRequestInfo(call: Int) -> PostRequestInfo? { Hyperliquid.metaRequest }
+    override func bulkTickersPostRequest(call: Int) -> PostRequest? { Hyperliquid.metaRequest }
 
     override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         try readUniverse(body, failed: &failed)
@@ -73,7 +73,7 @@ final class Hyperliquid: Market, @unchecked Sendable { // @unchecked: wie `Marke
 
     override func pairListAddress(call: Int) -> String? { hyperliquidInfo }
 
-    override func pairListPostBody(call: Int) -> PostRequestInfo? { Hyperliquid.metaRequest }
+    override func pairListPostBody(call: Int) -> PostRequest? { Hyperliquid.metaRequest }
 
     override func fillPairList(call: Int, body: String) throws -> [MarketPair] {
         var out: [MarketPair] = []
@@ -99,8 +99,8 @@ final class Hyperliquid: Market, @unchecked Sendable { // @unchecked: wie `Marke
     }
 
     /// Die eine Abfrage für Paare, Einzel- und Sammelkurse.
-    private static var metaRequest: PostRequestInfo {
-        PostRequestInfo(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
+    private static var metaRequest: PostRequest {
+        PostRequest(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
     }
 
     /// Alle gelisteten Coins mit Kurs; `failed` sammelt Coins, deren Kontext keinen lesbaren Preis hat. Universum und

@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 156)
+
+* Code cleanup (no change for users): names inherited from the original BitcoinChecker that described nothing are replaced by names that say what the code does – `FormatUtilsBase` → `DisplayFormat`, `TimeUtils` → `EpochTime`, `PostRequestInfo` → `PostRequest`, `TickerImpl` → `MutableTicker`, `ComboBox` → `DropdownField`, `LogBox` → `HttpLogPanel`, `ErrorScreen` → `LoadErrorScreen`, `LoadingScreen` → `SkeletonLoadingScreen`, `Scrollbar.kt` → `ListScrollbar.kt`, `JsonUtils.kt` → `JsonExtensions.kt` (Android and iOS alike). The «Add pair» screen keeps its state in three groups (all-pairs list, search hits, DEX search) instead of 17 loose fields. All Android lint warnings from builds 150–155 fixed except one documented false positive (DEVELOPMENT.md, «Known warnings»): KTX helpers instead of `Uri.parse`/`edit().apply()`, symmetric padding in the portfolio widget, watch app backup rules for Android 12+, watch hint «Coins: max. 8» in 31 languages.
+
 ## 16.2.2 (build 155)
 
 * New: Apple Watch app (watchOS 10), same as on Wear OS. It shows price and 24h change of up to 8 coins (against USDT), fetched directly from Binance (Bybit and OKX as fallback) – no account, no server. Which coins: «Like phone» (your favourites ★) or an own list of the common coins – chosen on the watch or on the iPhone under Settings › Widgets › «Watch» (also found by the settings search). Only this choice and the coin symbols are synced, directly between iPhone and watch (WatchConnectivity). Complication for the watch face (circular, rectangular, inline, corner) with the first coin. VoiceOver reads every row. 31 languages; privacy page updated.

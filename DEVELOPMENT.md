@@ -354,8 +354,8 @@ built from all responses together (e.g. instruments plus symbol details), set
 `pairListCombined = true` and implement `fillPairListCombined(bodies, out)`
 (Swift: `fillPairListCombined(bodies:)`).
 
-**POST requests.** Return a `PostRequestInfo` from `tickerPostBody`,
-`pairListPostBody` or `getBulkTickersPostRequestInfo`.
+**POST requests.** Return a `PostRequest` from `tickerPostBody`,
+`pairListPostBody` or `getBulkTickersPostRequest`.
 
 **Futures.** Use a separate adapter (e.g. `BinanceFutures` next to `Binance`)
 and set the `contractType` of `MarketPair`.
@@ -2521,6 +2521,17 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 156: cleanup without behaviour change. Renamed (Kotlin and Swift, files and identifiers): `FormatUtilsBase` →
+  `DisplayFormat`, `TimeUtils` → `EpochTime` (epoch milliseconds and exchange timestamps), `PostRequestInfo` →
+  `PostRequest` (`getBulkTickersPostRequest`, iOS `bulkTickersPostRequest`), `TickerImpl` → `MutableTicker`,
+  `ComboBox` → `DropdownField`, `LogBox`/`ExplorerLogBox` → `HttpLogPanel`/`ExplorerHttpLogPanel`, `ErrorScreen` →
+  `LoadErrorScreen`, `LoadingScreen` → `SkeletonLoadingScreen`, `simpleVerticalScrollbar` → `verticalScrollbar`
+  (`ListScrollbar.kt`), `JsonUtils.kt` → `JsonExtensions.kt`; iOS test helper `AlarmLogRecorder`. The vocabulary
+  «Market» for an exchange (≈ 12 000 places, also the backup key `marketKey`) stays on purpose. `ExplorerViewModel`
+  groups its state in `ExplorerBulkState`, `ExplorerSearchHits` and `ExplorerDexState` (`ExplorerState.kt`); 35
+  instead of 49 private/internal properties, `PROPS_CEILING` lowered to 35. Lint: `toUri()`/`edit { }` (core-ktx
+  now declared in `:wear`), `paddingEnd` in `widget_portfolio_list_entry.xml`, `wear/res/xml/data_extraction_rules.xml`
+  (nothing backed up or transferred), `watch_choose_hint` without a plural noun.
 * Build 155: Apple Watch app. New folders `ios/WatchCore` (`WatchCoins`, `WatchSettings` – same JSON and rules as
   `:marketdata/watch`, compiled into the app for `WatchSettingsParityTests` and the settings card), `ios/Watch` (target
   `CryptoCheckerWatch`, watchOS 10, `com.cryptochecker.app.watchkitapp`, embedded under `Watch/` of the app: SwiftUI
@@ -3056,7 +3067,7 @@ after the encryption step.
   await the pulse fetch (≤ 20 s, within deadlines). xpub gap stays 20 (`portfolio_address_xpub_gap`).
 * Build 88 (audit of 20 October 2026): gas alerts store the threshold with the armed state and re-arm on change;
   Fear & Greed stores its thresholds with the last value and re-evaluates only the changed bound. iOS
-  `TimeUtils.isIntervalDue` treats a last check in the future as due (gas, depeg). Android re-syncs the exact
+  `EpochTime.isIntervalDue` treats a last check in the future as due (gas, depeg). Android re-syncs the exact
   alarm on TIME_SET / TIMEZONE_CHANGED (`resyncsExactOn`) and counts the pulse widget in the background demand.
   `AlarmsViewModel.watchMissing` returns from the alerts screen when the pair is gone, saving skips a missing pair,
   and deleting pairs cancels their alert notifications (both platforms). Quick-alert chips show «· from now»
@@ -3084,3 +3095,22 @@ after the encryption step.
 * Reference data: `bip32_fuzz.json` (1,000 random xpub/ypub/zpub leaves with all four address types, 74
   point-arithmetic edge cases, 12 invalid keys; generator `android/tools/gen_bip32_vectors.py`, cross-checked with
   OpenSSL via Python `cryptography`) and `argon2_random.json` (20 random cases) on both platforms.
+
+## Known warnings
+
+Warnings that are not fixed, each with the reason. Everything else is fixed; CI keeps compiler warnings at 0.
+
+* **Android lint `UnusedResources` – `wear/src/main/res/values/wear.xml`, `android_wear_capabilities`.** The array is
+  never referenced from code: Google Play services read it by its fixed name to announce the capability
+  `cryptochecker_watch`, which the phone (`PhoneWatchSync`) asks for before it sends the coin list. Removing it would
+  stop the phone↔watch sync; lint cannot see that use. Not suppressed – open for the owner's decision.
+* **Code metrics – constructor dependencies ≥ 15** (warning from 15, error from 20): `WatchlistViewModel` 20,
+  `SettingsViewModel` 17, `PortfolioViewModel` 16. Fixing it means moving cohesive groups (e.g. refresh, backup,
+  portfolio history) into injected classes – a design change in three central screens that is planned as its own
+  build with full CI, not as a side effect of a rename.
+* **Swift `@unchecked Sendable` (104, counted against a ceiling, not compiler warnings).** 66 belong to the exchange
+  adapters: `Market` is a class hierarchy without mutable state, and Swift cannot check a non-final class – removing
+  them needs a protocol-based adapter design. 25 guard mutable state with `NSLock`; they can move to
+  `OSAllocatedUnfairLock` (iOS 16+), which makes most of them checkable – planned as its own build. The rest are
+  Apple delegate classes (WatchConnectivity, BGTask) whose callbacks arrive on arbitrary threads.
+

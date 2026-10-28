@@ -24,7 +24,7 @@ enum FearGreedShared {
         let time: Int64
     }
 
-    static func store(_ value: Int, time: Int64 = TimeUtils.nowMillis) {
+    static func store(_ value: Int, time: Int64 = EpochTime.nowMillis) {
         guard let raw = try? JSONEncoder().encode(Stored(value: value, time: time)) else { return }
         SharedStorage.defaults.set(raw, forKey: storeKey)
     }

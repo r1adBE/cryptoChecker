@@ -39,7 +39,7 @@ enum VolumeDataSource {
     static func hourlySpike(base: String, quote: String) async -> VolumeSpike? {
         guard let candles = await hourlyCandles(base: base, quote: quote) else { return nil }
         // Uhrzeit NACH dem Laden: die Reihe wird gegen die aktuelle Stunde geprüft
-        return spikeOf(candles, now: TimeUtils.nowMillis)
+        return spikeOf(candles, now: EpochTime.nowMillis)
     }
 
     /// Volumen-Spike eines Paars der Merkliste (Volumen-Alarm, Schnell-Alarme); `price` für die
@@ -48,7 +48,7 @@ enum VolumeDataSource {
         guard let sourced = await pairCandles(CandlePair.of(watch), price: price, interval: .h1, limit: limit)
         else { return nil }
         // Kerzen einer anderen Börse: im Alarmtext genannt; Uhrzeit nach dem Laden (laufende Stunde)
-        return spikeOf(sourced.value, now: TimeUtils.nowMillis)?.withSource(watch, provider: sourced.provider)
+        return spikeOf(sourced.value, now: EpochTime.nowMillis)?.withSource(watch, provider: sourced.provider)
     }
 
     /// Kerzen eines Paars der Merkliste (`pair`, Kurs `price`) wie der Chart, siehe `pairCandlesOf`;
@@ -56,7 +56,7 @@ enum VolumeDataSource {
     static func pairCandles(_ pair: CandlePair, price: Double?, interval: CandleInterval,
                             limit count: Int) async -> Sourced<[MarketCandle]>? {
         let key = "P|\(pair.cacheKey)|\(interval.rawValue)|\(count)"
-        if let hit = cached(key, now: TimeUtils.nowMillis) { return hit.candles }
+        if let hit = cached(key, now: EpochTime.nowMillis) { return hit.candles }
         // Name des Coins an der Börse des Paars (gleicher Token, K-8) — wie der Chart
         let identityName = TokenIdentityStore.shared.pairName(marketKey: pair.marketKey, base: pair.base)
         let result = await pairCandlesOf(
@@ -104,7 +104,7 @@ enum VolumeDataSource {
                                      count: Int = limit) async -> Sourced<[MarketCandle]>? {
         guard let symbol = symbol(base: base, quote: quote) else { return nil }
         let key = (futures ? symbol + "|F" : symbol) + "|\(count)"
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let hit = cached(key, now: now) { return hit.candles }
 
         let result = await CandleDataSource.candlesSourced(base: base, quote: quote, interval: .h1, limit: count,
@@ -122,7 +122,7 @@ enum VolumeDataSource {
     }
 
     private static func store(_ key: String, _ candles: Sourced<[MarketCandle]>?) {
-        let entry = (time: TimeUtils.nowMillis, candles: candles)
+        let entry = (time: EpochTime.nowMillis, candles: candles)
         cache.withLock { $0.set(key, entry) }
     }
 

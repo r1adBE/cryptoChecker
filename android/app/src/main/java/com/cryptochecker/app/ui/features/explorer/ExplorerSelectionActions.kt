@@ -6,7 +6,7 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.AddWatchOutcome
-import com.cryptochecker.app.data.TickerImpl
+import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -72,14 +72,14 @@ fun ExplorerViewModel.selectContract(type: FuturesContractType?) {
  */
 internal fun ExplorerViewModel.resetForNewExchange() {
     clearBulkList()
-    bulkAdd.value = null
+    bulk.add.value = null
     addResult.value = null
     price.value = null
-    dexPools.value = emptyList()
-    dexNotice.value = null
-    bulkStatsJob?.cancel()
-    bulkStatsFor = null
-    bulkStats.value = emptyMap()
+    dex.pools.value = emptyList()
+    dex.notice.value = null
+    bulk.statsJob?.cancel()
+    bulk.statsFor = null
+    bulk.stats.value = emptyMap()
 }
 
 /** Paarliste der gewählten Börse neu holen (vollständige öffentliche Liste). */
@@ -154,7 +154,7 @@ internal suspend fun ExplorerViewModel.priceOrError(target: MarketInfo, pair: Ma
         throw e
     } catch (e: Exception) {
         MarketTickerResult(
-            TickerImpl(),
+            MutableTicker(),
             PairQuery(pair.base, pair.quote, pair.pairId, pair.contractType),
             e.message ?: e.javaClass.simpleName,
         )

@@ -45,7 +45,7 @@ struct MarketSectionRow: View {
     }
 
     /// Wertzeile «Daten»: nächster Wirtschaftstermin (heute/morgen), sonst eine kurze Beschreibung.
-    static func macroSummary(_ events: [MacroEvent], now: Int64 = TimeUtils.nowMillis) -> String {
+    static func macroSummary(_ events: [MacroEvent], now: Int64 = EpochTime.nowMillis) -> String {
         guard let hint = MacroCalendar.hint(events, now: now) else { return L("market_data_summary") }
         return MacroCalendar.hintText(hint)
     }

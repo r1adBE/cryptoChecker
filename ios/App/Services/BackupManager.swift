@@ -97,7 +97,7 @@ enum BackupManager {
         let root: [String: Any] = [
             "format": format,
             "version": version,
-            "createdAt": NSNumber(value: TimeUtils.nowMillis),
+            "createdAt": NSNumber(value: EpochTime.nowMillis),
             "watches": watches.map(watchToJson),
             "alarms": alarms.map(alarmToJson),
             "favorites": favorites,

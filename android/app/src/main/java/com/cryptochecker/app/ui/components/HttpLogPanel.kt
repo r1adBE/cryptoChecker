@@ -16,7 +16,7 @@ import com.cryptochecker.app.R
 
 /** Entwickleroption: HTTP-Protokoll als nur lesbares Feld mit Kopfzeile «Protokoll». */
 @Composable
-fun LogBox(logText: String) {
+fun HttpLogPanel(logText: String) {
     val colors = MaterialTheme.colorScheme
     val boxModifier = Modifier.fillMaxWidth()
     Column {
@@ -40,6 +40,6 @@ fun LogBox(logText: String) {
 
 @Preview
 @Composable
-private fun LogBoxPreview() {
-    LogBox(logText = "GET https://example.org\n200 OK")
+private fun HttpLogPanelPreview() {
+    HttpLogPanel(logText = "GET https://example.org\n200 OK")
 }

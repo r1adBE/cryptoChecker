@@ -140,18 +140,18 @@ internal fun ExplorerViewModel.buildSelection(
     quotes = quotes,
     contracts = contracts,
     price = price.asStateFlow(),
-    bulkPairs = bulkPairs.asStateFlow(),
-    bulkEmpty = bulkEmpty.asStateFlow(),
+    bulkPairs = bulk.pairs.asStateFlow(),
+    bulkEmpty = bulk.empty.asStateFlow(),
     addResult = addResult.asStateFlow(),
-    bulkAddResult = bulkAdd.asStateFlow(),
+    bulkAddResult = bulk.add.asStateFlow(),
     bulkQuotes = bulkQuotes,
-    bulkQuote = bulkQuote.asStateFlow(),
-    bulkStats = bulkStats.asStateFlow(),
+    bulkQuote = bulk.quote.asStateFlow(),
+    bulkStats = bulk.stats.asStateFlow(),
     // Startwert gleich aus den aktuellen Werten: sonst stünde im ersten Bild «Alle schon in der Merkliste»
-    bulkNew = combine(bulkPairs, watchedKeys, exchange) { pairs, keys, market -> bulkNewOf(pairs, keys, market) }
+    bulkNew = combine(bulk.pairs, watchedKeys, exchange) { pairs, keys, market -> bulkNewOf(pairs, keys, market) }
         .stateIn(
             viewModelScope, SharingStarted.WhileSubscribed(5_000),
-            bulkNewOf(bulkPairs.value, watchedKeys.value, exchange.value),
+            bulkNewOf(bulk.pairs.value, watchedKeys.value, exchange.value),
         ),
 )
 

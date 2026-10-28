@@ -2,7 +2,6 @@ package com.cryptochecker.app.ui.features.settings
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.provider.Settings
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledTonalButton
@@ -12,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.SwitchRow
 
@@ -48,7 +48,7 @@ internal fun PriceOverlayRow(enabled: Boolean, ongoing: Boolean, permitted: Bool
 internal fun openOverlayPermission(context: Context) {
     runCatching {
         context.startActivity(
-            Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.packageName))
+            Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, ("package:" + context.packageName).toUri())
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
     }

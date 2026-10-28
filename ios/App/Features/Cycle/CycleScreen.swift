@@ -299,7 +299,7 @@ struct CycleScreen: View {
     private func handleJump() {
         guard router.marketJump == .macro, viewModel.revealed.contains(.coin) else { return }
         router.marketJump = nil
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let imminent = MacroCalendar.hint(viewModel.macroEvents, now: now)
             .map { MacroCalendar.isImminent($0, now: now) } ?? false
         if MarketSections.macroSection(imminent: imminent) == .now {

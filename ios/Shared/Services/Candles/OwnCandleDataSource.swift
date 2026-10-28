@@ -7,12 +7,12 @@ import os
 enum CandleHostPauses {
     private static let pauses = OSAllocatedUnfairLock(initialState: [String: ExchangeBackoff.State]())
 
-    static func isPaused(_ host: String, now: Int64 = TimeUtils.nowMillis) -> Bool {
+    static func isPaused(_ host: String, now: Int64 = EpochTime.nowMillis) -> Bool {
         let state = pauses.withLock { $0[host] }
         return ExchangeBackoff.isPaused(state, now: now)
     }
 
-    static func pause(_ host: String, httpCode: Int, retryAfterSeconds: Int64?, now: Int64 = TimeUtils.nowMillis) {
+    static func pause(_ host: String, httpCode: Int, retryAfterSeconds: Int64?, now: Int64 = EpochTime.nowMillis) {
         pauses.withLock {
             $0[host] = ExchangeBackoff.groupPause($0[host], now: now, httpCode: httpCode,
                                                   retryAfterSeconds: retryAfterSeconds)
@@ -60,7 +60,7 @@ actor OwnCandleDataSource {
         let n = min(max(limit, 2), Self.maxLimit)
         let key = "\(pair.cacheKey)|\(interval.rawValue)|\(n)"
         if let entry = cache.get(key) {
-            let age = TimeUtils.nowMillis - entry.time
+            let age = EpochTime.nowMillis - entry.time
             let ttl = entry.value == nil ? Self.failureMillis : Self.cacheMillis
             if age >= 0 && age < ttl { return entry.value }
         }
@@ -69,7 +69,7 @@ actor OwnCandleDataSource {
         release()
         // Abgebrochen (Blatt geschlossen): nichts merken, sonst gälte es 2 Min. als Fehlschlag
         if Task.isCancelled { return result }
-        cache.set(key, (TimeUtils.nowMillis, result))
+        cache.set(key, (EpochTime.nowMillis, result))
         return result
     }
 
@@ -86,10 +86,10 @@ actor OwnCandleDataSource {
                               limit: Int) async -> Sourced<[MarketCandle]>? {
         let http = CandleHTTP(get: { url in await get(source, url, json: nil) },
                               post: { url, json in await get(source, url, json: json) },
-                              now: TimeUtils.nowMillis)
+                              now: EpochTime.nowMillis)
         guard let candles = await source.fetch(pair, interval: interval, limit: limit, http: http),
               candles.count >= 2,
-              CandleSeries.isLive(candles, intervalMillis: interval.millis, now: TimeUtils.nowMillis) else { return nil }
+              CandleSeries.isLive(candles, intervalMillis: interval.millis, now: EpochTime.nowMillis) else { return nil }
         return Sourced(value: candles, provider: OwnCandlePolicy.provider(pair))
     }
 
@@ -97,7 +97,7 @@ actor OwnCandleDataSource {
     private static func get(_ source: any ExchangeCandleSource, _ url: String, json: String?) async -> String? {
         let host = hostOf(url)
         if Task.isCancelled || BlockedSources.isBlocked(host) || CandleHostPauses.isPaused(host) { return nil }
-        let post = json.map { PostRequestInfo(body: $0, headers: ["Content-Type": "application/json"]) }
+        let post = json.map { PostRequest(body: $0, headers: ["Content-Type": "application/json"]) }
         let body: String
         do {
             body = try await MarketHTTP.call(url, post: post, session: session)

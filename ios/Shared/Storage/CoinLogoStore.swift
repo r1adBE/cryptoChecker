@@ -114,7 +114,7 @@ actor CoinLogoStore {
         listsRunning = true
         defer { listsRunning = false }
         let defaults = SharedStorage.defaults
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let saved = savedLists()
         let binanceAt = Int64(defaults.double(forKey: Self.binanceTimeKey))
         let alphaAt = Int64(defaults.double(forKey: Self.alphaTimeKey))
@@ -258,7 +258,7 @@ actor CoinLogoStore {
     /// `onTop`: Zuordnung nach den grössten 1000 (früher Start der Bilder), nur bei neuem Abruf.
     private func symbolMap(onTop: ([String: String]) -> Void = { _ in }) async -> [String: String] {
         let defaults = SharedStorage.defaults
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         // Nach dem Update: bis zum ersten Abruf die Liste der Vorgängerfassung
         let known = map ?? CoinLogos.decode(Self.readFirst([Self.mapURL, Self.directory.appendingPathComponent(Self.oldFiles[0])]))
         map = known

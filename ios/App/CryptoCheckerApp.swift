@@ -320,7 +320,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
             // «1 h später»: Pause vermerken (der Alarm bleibt scharf), Mitteilung weg — App bleibt im Hintergrund.
             // Zuerst die Pause: Kursmarken stellt das Einschalten danach wieder scharf (`rearmsOnSnooze`), die Pause
             // hält die sofortige Meldung zurück — wie AlarmActionReceiver auf Android
-            AlarmSnooze.snooze(alarmId, now: TimeUtils.nowMillis)
+            AlarmSnooze.snooze(alarmId, now: EpochTime.nowMillis)
             Notifier.cancelAlarm(alarmId)
             await rearmAfterSnooze(alarmId)
         } else if tap.action == Notifier.actionEdit, let alarmId = tap.alarmId, let id = tap.watchId {

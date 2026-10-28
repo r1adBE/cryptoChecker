@@ -1,6 +1,6 @@
 package com.cryptochecker.app.parity
 
-import com.cryptochecker.app.data.TickerImpl
+import com.cryptochecker.app.data.MutableTicker
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.candles.CandleHttp
 import com.cryptochecker.app.data.remote.candles.CandlePair
@@ -158,7 +158,7 @@ class BinanceAlphaParityTest {
         val id = t["id"] as String
         val info = PairQuery("FROGGIE", "USDT", id, FuturesContractType.NONE)
         assertEquals(t["url"], market.tickerAddress(0, info))
-        val ticker = market.readTicker(0, t["body"] as String, TickerImpl(), info)
+        val ticker = market.readTicker(0, t["body"] as String, MutableTicker(), info)
         val e = t["expected"].obj()
         near("last", e["last"].num()!!, ticker.last)
         near("high", e["high"].num()!!, ticker.high)
@@ -169,7 +169,7 @@ class BinanceAlphaParityTest {
         assertNull(ticker.exchangeTime)
         val err = data["tickerError"].obj()
         try {
-            market.readTicker(0, err["body"] as String, TickerImpl(), info)
+            market.readTicker(0, err["body"] as String, MutableTicker(), info)
             fail("error body must not parse")
         } catch (expected: Exception) {
             // erwartet

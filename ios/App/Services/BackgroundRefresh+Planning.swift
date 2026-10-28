@@ -57,7 +57,7 @@ extension BackgroundRefresh {
                 // Uhr verstellt: iOS hält den alten absoluten Beginn fest (Stunden weg) → ersetzen; sonst bleibt sie
                 let begin = pending.earliestBeginDate.map { Int64(($0.timeIntervalSince1970 * 1000).rounded()) }
                 guard RefreshSchedule.isImplausiblyFar(earliestBeginMillis: begin, intervalMinutes: minutes,
-                                                       now: TimeUtils.nowMillis) else { return cancelIfUnneeded() }
+                                                       now: EpochTime.nowMillis) else { return cancelIfUnneeded() }
                 AppLog.background.notice("BG-Anfrage unplausibel fern (Uhr verstellt?) – neu vorgemerkt")
                 implausible = true
             }
@@ -81,7 +81,7 @@ extension BackgroundRefresh {
     /// - Returns: Fehler; nil = vorgemerkt.
     private static func trySubmit(minutes: Int, fromNow: Bool, zoneOn: Bool, zoneRunsNow: Bool) -> Error? {
         let request = BGAppRefreshTaskRequest(identifier: refreshId)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         // Basis ist die letzte Prüfung MIT allen Alarmen: das Widget prüft nur Kursalarme (keine mit
         // Zusatzdaten, setzt nur `lastRefreshAt`) und darf die volle Alarmprüfung nicht hinausschieben
         request.earliestBeginDate = RefreshSchedule.nextBegin(
@@ -99,7 +99,7 @@ extension BackgroundRefresh {
     /// der neueste Eintrag schon so ein Fehler ist (sonst füllte jeder Wechsel in den Hintergrund die Liste).
     static func logSubmitError(_ error: Error) {
         guard BackgroundSchedule.shouldLogSubmitError(newest: CheckRunStore.load().first) else { return }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         CheckRunStore.log(.bgTask, .failed, startedAt: now)
     }
 

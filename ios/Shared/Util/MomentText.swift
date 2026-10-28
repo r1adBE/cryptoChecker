@@ -13,7 +13,7 @@ enum MomentText {
     }
 
     /// Heute: Uhrzeit mit Sekunden; sonst Datum und Uhrzeit kurz; nicht gesetzt (≤ 0): «—».
-    static func moment(_ millis: Int64, now: Int64 = TimeUtils.nowMillis, timeZone: TimeZone = .current,
+    static func moment(_ millis: Int64, now: Int64 = EpochTime.nowMillis, timeZone: TimeZone = .current,
                        locale: Locale = LocaleNumbers.appLocale) -> String {
         guard millis > 0 else { return "—" }
         let date = Date(millis: millis)

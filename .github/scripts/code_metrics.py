@@ -19,7 +19,7 @@ import sys
 
 DEPS_WARN = 15
 DEPS_CEILING = 20
-PROPS_CEILING = 49
+PROPS_CEILING = 35
 
 TITLE = "Code metrics"
 VISIBILITY_COUNTED = ("private", "internal")

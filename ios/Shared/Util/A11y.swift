@@ -63,7 +63,7 @@ enum A11y {
         case .localDay:
             // Tagesbeginn nicht auf voller Stunde (UTC+5:30 …): Stundenkerzen nähern nur → «≈» (wie Android)
             let label = L("change_short_today")
-            return ChangeBasisMath.isApproximate(basis, now: TimeUtils.nowMillis) ? "≈ \(label)" : label
+            return ChangeBasisMath.isApproximate(basis, now: EpochTime.nowMillis) ? "≈ \(label)" : label
         }
     }
 
@@ -84,7 +84,7 @@ enum A11y {
 
     /// Eintrag der Auswahl (wie Binance): «Letzte 24 Std.», «UTC+2, 00:00 (Zeitzone des Geräts)»,
     /// «UTC+8, 00:00» — wie `ChangeBasisText.choiceLabel`.
-    static func changeChoiceLabel(_ basis: ChangeBasis, now: Int64 = TimeUtils.nowMillis) -> String {
+    static func changeChoiceLabel(_ basis: ChangeBasis, now: Int64 = EpochTime.nowMillis) -> String {
         switch basis.kind {
         case .rolling24h: return L("change_basis_rolling")
         case .sinceLast: return L("change_basis_since_last")

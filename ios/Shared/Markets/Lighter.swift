@@ -157,7 +157,7 @@ final class Lighter: Market, @unchecked Sendable { // @unchecked: wie `Market` (
         ticker.volQuote = row.optDoubleOrMissing("daily_quote_token_volume")
         let noTrades = row.optLong("daily_trades_count", -1) == 0
         ticker.change24hPercent = noTrades ? nil : Change24h.percent(row.optDouble("daily_price_change"))
-        if noTrades { ticker.timestamp = TimeUtils.nowMillis - lighterNoTradesWindowMillis }
+        if noTrades { ticker.timestamp = EpochTime.nowMillis - lighterNoTradesWindowMillis }
     }
 
     /// `asset_type` je Symbol aus `tokenlist`; leer, wenn die Antwort fehlt oder unlesbar ist.

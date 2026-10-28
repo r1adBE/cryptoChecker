@@ -102,7 +102,7 @@ struct CycleCoinSheets: ViewModifier {
             watchId: id,
             // Wie in der Merkliste: ⚡ an «Was bewegt sich mit?», wenn das Paar gerade Signale hat
             hasActivity: data.watch(id)?.isNotTraded == false &&
-                !WatchlistActivity.active(data.activityReports[id], now: TimeUtils.nowMillis,
+                !WatchlistActivity.active(data.activityReports[id], now: EpochTime.nowMillis,
                                           sensitivity: data.settings.activitySensitivity).isEmpty,
             onOpenAlarms: { pendingAlarms = $0 },
             onDelete: { pendingDelete = $0 },

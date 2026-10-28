@@ -104,7 +104,7 @@ actor OwnHourlyStore {
 
     private func usable(_ pair: CandlePair) -> OwnHourly.Series? {
         guard let entry = cache[pair.cacheKey], let series = entry.series,
-              DayReferenceCache.usable(time: entry.time, now: TimeUtils.nowMillis) else { return nil }
+              DayReferenceCache.usable(time: entry.time, now: EpochTime.nowMillis) else { return nil }
         return series
     }
 
@@ -112,7 +112,7 @@ actor OwnHourlyStore {
         guard Self.supports(pair) else { return nil }
         let key = pair.cacheKey
         if let entry = cache[key],
-           OwnHourly.isFresh(time: entry.time, series: entry.series, ttl: ttl, now: TimeUtils.nowMillis, needsHour: needsHour) {
+           OwnHourly.isFresh(time: entry.time, series: entry.series, ttl: ttl, now: EpochTime.nowMillis, needsHour: needsHour) {
             return entry.series
         }
         if let pending = inFlight[key] { return await pending.value }
@@ -124,7 +124,7 @@ actor OwnHourlyStore {
 
     private func loadAndStore(_ key: String, pair: CandlePair) async -> OwnHourly.Series? {
         let sourced = await OwnCandleDataSource.shared.candles(pair, interval: .h1, limit: ChangeBasisMath.candles)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let series = OwnHourly.series(sourced?.value, provider: sourced?.provider, now: now)
         inFlight[key] = nil
         // Fehlschlag: ein noch benutzbarer Erfolg bleibt stehen (Bezug bis maxAgeMillis)

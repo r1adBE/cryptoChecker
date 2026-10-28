@@ -22,7 +22,7 @@ enum BlockedSources {
 
     static func isBlocked(_ key: String) -> Bool {
         if groupPausedUntil(key) != nil { return true }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         return entries.withLock { e in
             guard let until = e.blockedUntil[key] else { return false }
             if now < until { return true }
@@ -42,13 +42,13 @@ enum BlockedSources {
     static func noteFailure(_ key: String, _ error: Error) -> Bool {
         guard let http = error as? HttpMarketError else { return false }
         if http.httpCode == 451 || http.httpCode == 403 {
-            let until = TimeUtils.nowMillis + blockMillis
+            let until = EpochTime.nowMillis + blockMillis
             entries.withLock { $0.blockedUntil[key] = until }
             return true
         }
         if ExchangeBackoff.isRateLimitCode(http.httpCode) {
             guard let group = ExchangeBackoff.sharedGroup(key) else { return false }
-            let now = TimeUtils.nowMillis
+            let now = EpochTime.nowMillis
             let code = http.httpCode
             let retryAfter = http.retryAfterSeconds
             entries.withLock {
@@ -64,7 +64,7 @@ enum BlockedSources {
     /// der Kursabfrage); nil = keine Pause.
     static func groupPausedUntil(_ hostOrMarketKey: String) -> Int64? {
         guard let group = ExchangeBackoff.sharedGroup(hostOrMarketKey) else { return nil }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         guard let state = entries.withLock({ $0.groupPauses[group] }), ExchangeBackoff.isPaused(state, now: now) else {
             return nil
         }
@@ -74,7 +74,7 @@ enum BlockedSources {
     /// Pause aus der Kursabfrage übernehmen (429/418 beim Ticker); verkürzt nie eine laufende.
     static func pauseGroup(_ hostOrMarketKey: String, until: Int64) {
         guard let group = ExchangeBackoff.sharedGroup(hostOrMarketKey) else { return }
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         // Eine unmögliche alte Pause (`ExchangeBackoff.isPaused`: zu weit in der Zukunft) blockiert die neue nicht
         entries.withLock {
             $0.groupPauses[group] = ExchangeBackoff.adoptedPause($0.groupPauses[group], until: until, now: now)

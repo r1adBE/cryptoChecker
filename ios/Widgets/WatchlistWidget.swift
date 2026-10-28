@@ -58,7 +58,7 @@ struct WatchlistEntry: TimelineEntry {
     /// Galerie und Platzhalter: Kopfzeile «Merkliste · Uhrzeit · 840 ms» wie die Android-Vorschau.
     static func sample(theme: WidgetThemeOption = .system) -> WatchlistEntry {
         // Galerie: immer mit Knopf (`refreshBlockedUntil` 0)
-        WatchlistEntry(date: Date(), watches: WidgetData.sampleWatches, lastRefreshAt: TimeUtils.nowMillis,
+        WatchlistEntry(date: Date(), watches: WidgetData.sampleWatches, lastRefreshAt: EpochTime.nowMillis,
                        lastDuration: 840, theme: theme, accent: SharedStorage.loadSettings().accentColor)
     }
 }

@@ -61,7 +61,7 @@ WARNING_ICON = (0xB26B00, 0xFFC94D)
 
 # Auswahl-Tönungen (Android `AppColors.accentTint`, iOS `accent.tint`): hell primary · a, dunkel onSurface · a · 0.8.
 # Je Verwendung die höchste Deckkraft und was darauf steht: bis 0.16 Schrift (Hinweiskarten, hervorgehobene
-# Merkliste-Zeile, Auswahl-Listen), 0.3 gewählte Zeile mit Schrift onSurface und Stern (ComboBox, Coin-Liste:
+# Merkliste-Zeile, Auswahl-Listen), 0.3 gewählte Zeile mit Schrift onSurface und Stern (DropdownField, Coin-Liste:
 # voll primary, leer onSurfaceVariant — outline hielt dort < 3:1).
 TINT_USES = (
     (0.16, ("onSurface", "onSurfaceVariant"), ("primary", "outline")),

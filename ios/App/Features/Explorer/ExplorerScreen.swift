@@ -80,7 +80,7 @@ struct ExplorerScreen: View {
                     .accessibilityIdentifier(UiTestTags.bulkUndoKeep)
                 Button(L("watchlist_remove_not_traded_action"), role: .destructive) {
                     // Zeitfenster abgelaufen: nichts löschen, nur sagen, dass die Paare bleiben — wie Android
-                    bulkUndo.remove(ids, now: TimeUtils.nowMillis, expired: {
+                    bulkUndo.remove(ids, now: EpochTime.nowMillis, expired: {
                         vm.show(ExplorerMessage(text: L("bulk_undo_expired"), showView: false))
                     }) {
                         // Erfolgs-Haptik erst beim Entfernen, nicht beim Öffnen des Dialogs — wie Android
@@ -117,7 +117,7 @@ struct ExplorerScreen: View {
 
                 // Entwickleroption (Einstellungen › Über die App › Entwickler): HTTP-Protokoll, nur im Debug-Build
                 if DeveloperOptions.available && data.settings.showHttpLog && data.settings.developerUnlocked {
-                    ExplorerLogBox()
+                    ExplorerHttpLogPanel()
                         .padding(.top, 8)
                 }
             }

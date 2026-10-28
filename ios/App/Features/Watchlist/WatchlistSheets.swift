@@ -12,7 +12,7 @@ extension WatchlistScreen {
                     watchId: target.id,
                     // Nicht mehr gehandelt: kein ⚡ (das Blatt zeigt dann auch kein «Was bewegt sich mit?»)
                     hasActivity: data.watch(target.id)?.isNotTraded != true &&
-                        !WatchlistActivity.active(data.activityReports[target.id], now: TimeUtils.nowMillis,
+                        !WatchlistActivity.active(data.activityReports[target.id], now: EpochTime.nowMillis,
                                                            sensitivity: data.settings.activitySensitivity).isEmpty,
                     onOpenAlarms: { pendingAlarms = $0 },
                     onDelete: { pendingDelete = $0 },

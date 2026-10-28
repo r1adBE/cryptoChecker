@@ -131,7 +131,7 @@ extension PriceRefresher {
     /// Funding/Open Interest je Perpetual, alle gleichzeitig.
     private static func loadDerivatives(_ list: [(watch: Watch, price: Double)]) async -> [Int64: DerivativesAlarmData.Values] {
         var derivatives: [Int64: DerivativesAlarmData.Values] = [:]
-        let fetchedAt = TimeUtils.nowMillis
+        let fetchedAt = EpochTime.nowMillis
         await withTaskGroup(of: (Int64, DerivativesAlarmData.Values?).self) { group in
             for item in list {
                 group.addTask { (item.watch.id, await DerivativesAlarmData.values(item.watch, price: item.price, now: fetchedAt)) }
@@ -199,7 +199,7 @@ extension PriceRefresher {
     private static func loadConvertRates(_ needs: [(watchId: Int64, quote: String, currency: String)]) async -> ConvertLoad {
         let rates = await loadRates(needs)
         var load = ConvertLoad(rates: rates)
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         for need in needs {
             let key = "\(need.watchId)|\(need.currency)"
             let usdt = CurrencyConverter.usdtState(quote: need.quote, target: need.currency, now: now)

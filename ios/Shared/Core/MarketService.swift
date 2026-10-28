@@ -191,7 +191,7 @@ enum MarketService {
     private static func loadBulkCall(_ market: Market, call: Int, pairIds: [String], filtered: String,
                                      lowMemory: Bool, fullDone: inout Set<String>) async throws -> BulkTickerParse? {
         let fullURL = market.bulkTickersURL(call: call)
-        let post = market.bulkTickersPostRequestInfo(call: call)
+        let post = market.bulkTickersPostRequest(call: call)
         do {
             return try await loadBulk(market, call: call, url: filtered, post: post)
         } catch {
@@ -218,7 +218,7 @@ enum MarketService {
     /// (vollständigen) Antwort → die Einzelabfrage bestätigt «nicht mehr gehandelt», `BulkDelisted` lässt sie künftig
     /// weg. nil = geht nicht oder kein Paar unbekannt.
     private static func withoutUnknownPairs(_ market: Market, call: Int, pairIds: [String],
-                                            post: PostRequestInfo?) async throws -> BulkTickerParse? {
+                                            post: PostRequest?) async throws -> BulkTickerParse? {
         guard let listAddress = market.bulkKnownPairsURL(call: call), !listAddress.isEmpty else { return nil }
         let listBody = try await MarketHTTP.call(listAddress, post: nil, session: MarketHTTP.bulkSession)
         let listed = try market.readPairList(call: 0, body: listBody)
@@ -236,9 +236,9 @@ enum MarketService {
     /// Binance gilt `BinanceAlpha.listCacheMillis` lang für alle Aufrufer — eine Aktualisierung lädt sie nie zweimal;
     /// gemerkt wird sie erst nach erfolgreichem Lesen.
     private static func loadBulk(_ market: Market, call: Int, url: String,
-                                 post: PostRequestInfo?) async throws -> BulkTickerParse {
+                                 post: PostRequest?) async throws -> BulkTickerParse {
         let isAlphaList = post == nil && url == BinanceAlpha.tokenListURL
-        let fromCache = isAlphaList ? BinanceAlpha.listCache.get(now: TimeUtils.nowMillis) : nil
+        let fromCache = isAlphaList ? BinanceAlpha.listCache.get(now: EpochTime.nowMillis) : nil
         let body: String
         if let fromCache {
             body = fromCache
@@ -248,7 +248,7 @@ enum MarketService {
         let parsed = try await Task.detached(priority: .utility) {
             try market.parseBulkTickersDetailed(call: call, body: body)
         }.value
-        if isAlphaList && fromCache == nil { BinanceAlpha.listCache.put(body, now: TimeUtils.nowMillis) }
+        if isAlphaList && fromCache == nil { BinanceAlpha.listCache.put(body, now: EpochTime.nowMillis) }
         return parsed
     }
 

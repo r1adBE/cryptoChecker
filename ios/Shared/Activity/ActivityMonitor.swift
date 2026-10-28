@@ -87,7 +87,7 @@ enum ActivityMonitor {
         ActivityRepository.retain(Set(watches.map(\.id)))
         guard !watches.isEmpty else { return }
 
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let previous = ActivityRepository.reports()
         // Am längsten nicht geprüfte zuerst: sonst schnitte das Zeitbudget bei grossen Listen immer dieselben ab
         let due = ActivityDueOrder.order(watches.filter { ActivityAnalyzer.isDue(previous[$0.id], now: now) },
@@ -223,7 +223,7 @@ enum ActivityMonitor {
     /// Fear & Greed und Tageskerzen (30-Tage-Hoch/-Tief). nil nur, wenn der Aufrufer abgebrochen hat.
     static func explain(_ watch: Watch) async -> WhyReport? {
         // Nicht mehr gehandelt bzw. deaktiviert: nichts laden, nichts einordnen (die Merkliste bietet «Warum?» dann nicht an)
-        if watch.isNotTraded || watch.disabled { return ActivityAnalyzer.notLive(now: TimeUtils.nowMillis) }
+        if watch.isNotTraded || watch.disabled { return ActivityAnalyzer.notLive(now: EpochTime.nowMillis) }
         let base = watch.baseAsset.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         let isBtc = base == "BTC"
         let isEth = base == "ETH"
@@ -265,7 +265,7 @@ enum ActivityMonitor {
 
         let futures = await futuresJob
         let oi = watch.contractType.isPerpetual
-            ? openInterest(watch, futures, now: TimeUtils.nowMillis, store: true) : nil
+            ? openInterest(watch, futures, now: EpochTime.nowMillis, store: true) : nil
         let fng = await fearGreedJob
         let candles = await candlesJob
         let reference = await referenceJob
@@ -294,7 +294,7 @@ enum ActivityMonitor {
             openInterestChangePercent: oi?.changePercent,
             fearGreed: fng?.value,
             fearGreedYesterday: fng?.yesterday,
-            now: TimeUtils.nowMillis,
+            now: EpochTime.nowMillis,
             // Dieselbe 24-h-Veränderung wie Änderung und Merkliste (bei «seit 00:00» aus den Kerzen)
             tickerChange24h: rolling24h(watch),
             marketLive: !watch.isNotTraded,
@@ -333,7 +333,7 @@ enum ActivityMonitor {
     }
 
     private static func fearGreed() async -> FearGreed? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         if let cached = cachedFearGreed(now: now) { return cached }
         guard let value = try? await InsightsDataSource.fearGreed() else { return nil }
         storeFearGreed(value)
@@ -341,7 +341,7 @@ enum ActivityMonitor {
     }
 
     private static func storeFearGreed(_ value: FearGreed) {
-        let entry = (time: TimeUtils.nowMillis, value: value)
+        let entry = (time: EpochTime.nowMillis, value: value)
         state.withLock { $0.fearGreedCache = entry }
     }
 

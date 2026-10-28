@@ -6,7 +6,7 @@
     <string name="watch_updated">Stav %1$s</string>
     <string name="watch_refresh">Obnovit</string>
     <string name="watch_choose">Vybrat mince</string>
-    <string name="watch_choose_hint">Až %1$d mincí</string>
+    <string name="watch_choose_hint">Mince: nejvýše %1$d</string>
     <string name="watch_complication_label">Kurz</string>
     <string name="a11y_watch_row">%1$s %2$s, %3$s za 24 hodin</string>
     <string name="watch_mode_phone">Seznam: jako v telefonu</string>

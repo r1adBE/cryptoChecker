@@ -164,7 +164,7 @@ enum FuturesDataSource {
     }
 
     private static func hyperliquid(coin: String) async throws -> FuturesInfo {
-        let post = PostRequestInfo(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
+        let post = PostRequest(body: #"{"type":"metaAndAssetCtxs"}"#, headers: ["Content-Type": "application/json"])
         let text = try await MarketHTTP.call("https://api.hyperliquid.xyz/info", post: post)
         return try FuturesParsers.hyperliquid(text, coin: coin)
     }
@@ -229,7 +229,7 @@ enum FuturesDataSource {
     /// Binance `GET /fapi/v1/fundingInfo` (alle Kontrakte mit abweichendem Intervall), 6 Std. im Speicher;
     /// scheitert das Neuladen, gilt die letzte Liste bis 7 Tage weiter, sonst nil = unbekannt (wie Android).
     private static func binanceIntervals() async -> [String: Int]? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let cached = BinanceIntervalCache.value
         if let cached, now - cached.time >= 0, now - cached.time < 6 * 3_600_000 {
             return cached.map
@@ -258,7 +258,7 @@ enum FuturesDataSource {
     /// Binance COIN-M `GET /dapi/v1/exchangeInfo`: Kontraktwert je Symbol, wie die Intervall-Liste 6 Std.
     /// im Speicher und bei Fehlschlag bis 7 Tage weiter; sonst nil (dann BTC 100 / sonst 10 USD). Wie Android.
     private static func binanceCoinMSizes() async -> [String: Double]? {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let cached = BinanceCoinMSizeCache.value
         if let cached, now - cached.time >= 0, now - cached.time < 6 * 3_600_000 {
             return cached.map

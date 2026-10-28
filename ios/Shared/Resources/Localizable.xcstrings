@@ -388935,187 +388935,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حتى %1$ld عملات"
+            "value" : "العملات: %1$ld كحد أقصى"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Až %1$ld mincí"
+            "value" : "Mince: nejvýše %1$ld"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Op til %1$ld coins"
+            "value" : "Coins: højst %1$ld"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bis zu %1$ld Coins"
+            "value" : "Coins: höchstens %1$ld"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Έως %1$ld νομίσματα"
+            "value" : "Νομίσματα: έως %1$ld"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to %1$ld coins"
+            "value" : "Coins: max. %1$ld"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hasta %1$ld monedas"
+            "value" : "Monedas: máximo %1$ld"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حداکثر %1$ld کوین"
+            "value" : "کوین‌ها: حداکثر %1$ld"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enintään %1$ld kolikkoa"
+            "value" : "Kolikot: enintään %1$ld"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jusqu’à %1$ld coins"
+            "value" : "Coins : %1$ld au maximum"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "עד %1$ld מטבעות"
+            "value" : "מטבעות: עד %1$ld"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अधिकतम %1$ld कॉइन"
+            "value" : "कॉइन: अधिकतम %1$ld"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Legfeljebb %1$ld érme"
+            "value" : "Coinok: legfeljebb %1$ld"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hingga %1$ld koin"
+            "value" : "Koin: maks. %1$ld"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fino a %1$ld coin"
+            "value" : "Coin: massimo %1$ld"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "最大 %1$ld コイン"
+            "value" : "コイン：最大 %1$ld"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "최대 %1$ld개 코인"
+            "value" : "코인: 최대 %1$ld개"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opptil %1$ld mynter"
+            "value" : "Mynter: maks. %1$ld"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tot %1$ld coins"
+            "value" : "Munten: maximaal %1$ld"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do %1$ld monet"
+            "value" : "Monety: maksymalnie %1$ld"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Até %1$ld moedas"
+            "value" : "Moedas: máximo %1$ld"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Até %1$ld moedas"
+            "value" : "Moedas: máximo %1$ld"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Până la %1$ld monede"
+            "value" : "Monede: maximum %1$ld"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "До %1$ld монет"
+            "value" : "Монеты: не более %1$ld"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deri në %1$ld monedha"
+            "value" : "Monedha: deri në %1$ld"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upp till %1$ld mynt"
+            "value" : "Mynt: högst %1$ld"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สูงสุด %1$ld เหรียญ"
+            "value" : "เหรียญ: สูงสุด %1$ld"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "En fazla %1$ld coin"
+            "value" : "Coinler: en fazla %1$ld"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "До %1$ld монет"
+            "value" : "Монети: не більше %1$ld"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tối đa %1$ld coin"
+            "value" : "Coin: tối đa %1$ld"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "最多 %1$ld 个币种"
+            "value" : "币种：最多 %1$ld"
           }
         }
       }

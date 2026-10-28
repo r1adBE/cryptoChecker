@@ -59,7 +59,7 @@ extension WatchActionsSheet {
     /// Kurs im Kopf für VoiceOver; deaktiviert, nicht erreichbar und nicht mehr gehandelt stehen schon
     /// als Text darunter — wie `sheetPriceSpoken` (Android).
     private func priceSpoken(_ watch: Watch, isPreview: Bool) -> String {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let notTraded = ConnectionErrors.isNotTraded(watch.lastError)
         let outdatedAfter = isPreview ? 0 : data.staleAfterMillis(for: watch.id)
         let freshness = A11ySpeech.freshness(

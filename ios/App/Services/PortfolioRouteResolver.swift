@@ -46,7 +46,7 @@ enum PortfolioRouteResolver {
     }
 
     private static func mayLoadPairs(_ key: String) -> Bool {
-        let now = TimeUtils.nowMillis
+        let now = EpochTime.nowMillis
         let retry = retryMillis
         return pairListAttempts.withLock { attempts in
             if let last = attempts[key], now - last >= 0, now - last < retry { return false }
