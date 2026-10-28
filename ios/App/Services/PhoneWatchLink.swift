@@ -39,15 +39,13 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
     func setMode(_ mode: WatchSettings.Mode) {
         var next = settings
         next.mode = mode
-        next.time = Self.now()
-        update(next, publish: true)
+        update(next.nextRevision(), publish: true)
     }
 
     func toggleOwn(_ coin: String) {
         var next = settings
         next.own = WatchCoins.toggle(settings.own, coin)
-        next.time = Self.now()
-        update(next, publish: true)
+        update(next.nextRevision(), publish: true)
     }
 
     private func update(_ next: WatchSettings, publish: Bool) {
@@ -64,13 +62,12 @@ final class PhoneWatchLink: NSObject, ObservableObject, WCSessionDelegate {
         try? session.updateApplicationContext([Self.contextKey: settings.toJson()])
     }
 
-    /// Stand der Uhr: Wahl und eigene Liste, wenn neuer; die iPhone-Liste bleibt die eigene.
+    /// Stand der Uhr: Wahl und eigene Liste nur bei höherer Änderungsnummer (Gleichstand: eigene); die iPhone-Liste
+    /// bleibt die eigene.
     private func take(_ json: String?) {
         guard let remote = WatchSettings.fromJson(json) else { return }
         update(WatchSettings.merge(settings, remote, remoteIsPhone: false), publish: false)
     }
-
-    private static func now() -> Int64 { Int64(Date().timeIntervalSince1970 * 1000) }
 
     // MARK: WCSessionDelegate (Aufrufe auf einem Hintergrund-Thread: Werte auslesen, dann auf den MainActor)
 

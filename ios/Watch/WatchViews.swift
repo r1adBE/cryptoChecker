@@ -1,7 +1,8 @@
 import SwiftUI
 
 /// Liste der Coins mit Kurs und 24 h (Börse klein), darunter «Aktualisieren», Umschalter der Liste und (eigene Liste)
-/// «Coins wählen». Veraltete Kurse (`WatchFreshness`) grau mit Alter statt Börse, jede Minute neu bewertet — wie Android.
+/// «Coins wählen». Veraltete Kurse (`WatchFreshness`, je Coin ab dem Stand seines Abrufs) grau mit Alter statt Börse,
+/// jede Minute neu bewertet — wie Android.
 struct WatchQuoteList: View {
     let model: WatchModel
 
@@ -10,7 +11,7 @@ struct WatchQuoteList: View {
             list(now: Int64(context.date.timeIntervalSince1970 * 1000))
         }
         .navigationTitle("Crypto Checker")
-        .task { await model.refresh() }
+        .task { model.refresh() }
     }
 
     private func list(now: Int64) -> some View {
@@ -24,8 +25,8 @@ struct WatchQuoteList: View {
             ForEach(coins, id: \.self) { coin in
                 row(coin, now: now)
             }
-            Text(status).font(.footnote).foregroundStyle(.secondary)
-            Button(WatchText.t("watch_refresh")) { Task { await model.refresh() } }
+            Text(status(coins)).font(.footnote).foregroundStyle(.secondary)
+            Button(WatchText.t("watch_refresh")) { model.refresh() }
             Button(WatchText.t(phone ? "watch_mode_phone" : "watch_mode_own")) { model.toggleMode() }
             if !phone {
                 NavigationLink(WatchText.t("watch_choose")) { WatchChooseList(model: model) }
@@ -33,29 +34,32 @@ struct WatchQuoteList: View {
         }
     }
 
-    private var status: String {
+    /// «Stand …» = ältester gezeigter Kurs (je Coin eigene Zeit).
+    private func status(_ coins: [String]) -> String {
         if model.loading { return WatchText.t("watch_loading") }
         if model.failed { return WatchText.t("watch_error") }
-        guard model.time > 0 else { return "" }
-        let date = Date(timeIntervalSince1970: TimeInterval(model.time) / 1000)
-        return WatchText.t("watch_updated", date.formatted(date: .omitted, time: .shortened))
+        let time = WatchCache.listTime(model.quotes, coins: coins)
+        guard time > 0 else { return "" }
+        return WatchText.t("watch_updated", WatchText.date(time).formatted(date: .omitted, time: .shortened))
     }
 
     private func row(_ coin: String, now: Int64) -> some View {
-        let q = model.quotes[coin]
+        let cached = model.quotes[coin]
+        let q = cached?.quote
+        let time = cached?.time ?? 0
         let price = q.map { WatchText.price($0.price) } ?? "—"
         let change = WatchText.change(q?.change24h)
-        let outdated = q != nil && WatchFreshness.isOutdated(model.time, now: now)
+        let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
         let spoken = WatchText.t("a11y_watch_row", coin, price, change)
         // Veraltet: Kurs grau, Alter statt Börse
-        let detail = outdated ? WatchText.ago(model.time, now: now) : q?.source
+        let detail = outdated ? WatchText.ago(time, now: now) : q?.source
         return VStack(alignment: .leading, spacing: 2) {
             Text("\(coin)  \(price)").font(.headline).lineLimit(1).minimumScaleFactor(0.7)
                 .foregroundStyle(outdated ? HierarchicalShapeStyle.secondary : HierarchicalShapeStyle.primary)
             Text(change + (detail.map { "  ·  \($0)" } ?? "")).font(.footnote).foregroundStyle(.secondary)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(outdated ? spoken + ", " + WatchText.spokenAge(model.time, now: now) : spoken)
+        .accessibilityLabel(outdated ? spoken + ", " + WatchText.spokenAge(time, now: now) : spoken)
     }
 }
 

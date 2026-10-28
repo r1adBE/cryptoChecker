@@ -15,7 +15,7 @@ final class WatchLink: NSObject, WCSessionDelegate, @unchecked Sendable {
         WCSession.default.activate()
     }
 
-    /// Eigene Änderung ans iPhone geben (der neuere Stand gewinnt dort).
+    /// Eigene Änderung ans iPhone geben (dort gewinnt die höhere Änderungsnummer).
     func publish(_ settings: WatchSettings) {
         guard WCSession.isSupported(), WCSession.default.activationState == .activated else { return }
         try? WCSession.default.updateApplicationContext([Self.key: settings.toJson()])

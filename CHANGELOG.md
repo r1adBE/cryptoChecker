@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 164)
+
+* Watch apps (Wear OS and Apple Watch): a slower earlier fetch can no longer overwrite a newer one; if only some coins arrive, the others keep their last price with their own age; the open Wear app follows changes made on the phone; tapping a coin row no longer reloads (only «Refresh» does); phone and watch settings are reconciled by a change number (on a tie the phone wins).
+
 ## 16.2.2 (build 163)
 
 * No visible change. Internal clean-up on both platforms: no migration or compatibility code any more; Android databases are only ever opened encrypted (the copy from the Android system backup is encrypted right on restore).

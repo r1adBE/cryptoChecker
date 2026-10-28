@@ -2,10 +2,10 @@ import SwiftUI
 import WidgetKit
 
 /// Komplikation der Apple-Watch-App: der erste Coin der gewählten Liste — rund «BTC / +1.2%», rechteckig
-/// mit Kurs, als Zeile «BTC +1.2%». Sind die gespeicherten Kurse älter als 10 Minuten, lädt sie neu (Zeitleiste alle
-/// 15 Minuten); ohne Netz die letzten. Veraltet (`WatchFreshness`, 45 Min.; eigener Zeitleisten-Eintrag ab dann):
-/// grau, rechteckig mit Alter «+1.2%  ·  vor 47 Min.», als Zeile ohne Platz dafür; VoiceOver nennt das Alter immer.
-/// Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
+/// mit Kurs, als Zeile «BTC +1.2%». Ist sein gespeicherter Kurs älter als 10 Minuten, lädt sie neu (Zeitleiste alle
+/// 15 Minuten); ohne Netz oder ohne neuen Kurs für diesen Coin der letzte. Veraltet (`WatchFreshness`, 45 Min. ab dem
+/// Stand seines Abrufs; eigener Zeitleisten-Eintrag ab dann): grau, rechteckig mit Alter «+1.2%  ·  vor 47 Min.», als
+/// Zeile ohne Platz dafür; VoiceOver nennt das Alter immer. Tippen öffnet die Uhr-App. Wie Android `PriceComplicationService`.
 struct WatchPriceEntry: TimelineEntry {
     let date: Date
     let coin: String?
@@ -26,41 +26,45 @@ struct WatchPriceProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping @Sendable (WatchPriceEntry) -> Void) {
-        let stored = WatchStore.quotes()
-        completion(context.isPreview ? placeholder(in: context) : Self.entry(stored.quotes, time: stored.time, at: Date()))
+        let coin = WatchStore.settings.shown.first
+        completion(context.isPreview ? placeholder(in: context)
+                   : Self.entry(coin, coin.flatMap { WatchStore.quotes()[$0] }, at: Date()))
     }
 
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<WatchPriceEntry>) -> Void) {
         Task {
             let coins = WatchStore.settings.shown
-            var (quotes, time) = WatchStore.quotes()
-            if let first = coins.first, WatchStore.now() - time > Self.maxAgeMs || quotes[first] == nil {
+            let first = coins.first
+            var cached = first.flatMap { WatchStore.quotes()[$0] }
+            if let first, cached.map({ WatchStore.now() - $0.time > Self.maxAgeMs }) ?? true {
                 let fresh = await WatchPriceSource.fetch(coins)
+                // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis, bleibt sein letzter Kurs samt Zeit
                 if !fresh.isEmpty {
-                    time = WatchStore.now()
-                    WatchStore.saveQuotes(fresh, time: time)
-                    quotes = fresh
+                    cached = WatchStore.mergeQuotes(fresh, time: WatchStore.now())[first] ?? cached
                 }
             }
             let now = Date()
             let next = now.addingTimeInterval(TimeInterval(WatchFreshness.updateMinutes * 60))
-            var entries = [Self.entry(quotes, time: time, at: now)]
+            var entries = [Self.entry(first, cached, at: now)]
             // Zweiter Eintrag, sobald der Kurs veraltet (1 ms nach der Grenze, wie `OutdatedRule.nextChangeAt`)
-            let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis + 1)
-            if time > 0, staleAt > now, staleAt < next {
-                entries.append(Self.entry(quotes, time: time, at: staleAt))
+            if let time = cached?.time {
+                let staleAt = WatchText.date(time + WatchFreshness.outdatedAfterMillis + 1)
+                if staleAt > now, staleAt < next {
+                    entries.append(Self.entry(first, cached, at: staleAt))
+                }
             }
             completion(Timeline(entries: entries, policy: .after(next)))
         }
     }
 
-    private static func entry(_ quotes: [String: WatchQuote], time: Int64, at date: Date) -> WatchPriceEntry {
-        guard let coin = WatchStore.settings.shown.first else {
+    private static func entry(_ coin: String?, _ cached: WatchCached?, at date: Date) -> WatchPriceEntry {
+        guard let coin else {
             return WatchPriceEntry(date: date, coin: nil, price: "—", change: "—")
         }
-        let q = quotes[coin]
+        let q = cached?.quote
+        let time = cached?.time ?? 0
         let now = Int64(date.timeIntervalSince1970 * 1000)
-        let outdated = q != nil && WatchFreshness.isOutdated(time, now: now)
+        let outdated = cached != nil && WatchFreshness.isOutdated(time, now: now)
         return WatchPriceEntry(date: date, coin: coin, price: q.map { WatchText.price($0.price) } ?? "—",
                                change: WatchText.change(q?.change24h),
                                age: outdated ? WatchText.ago(time, now: now) : nil,

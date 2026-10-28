@@ -3,7 +3,8 @@ import XCTest
 
 /// Uhr-Apps (`Parity/watch_quotes.json`) — wie Android `WatchQuotesParityTest.kt` (:wear) und
 /// `WatchFreshnessParityTest.kt`: Antworten je Börse (Abfrage je Coin), Ausweich-Reihenfolge Binance → Bybit → OKX mit
-/// nur den fehlenden Coins, höchstens 8 Coins, Abfrage-Adressen, Alter und «veraltet».
+/// nur den fehlenden Coins, höchstens 8 Coins, Abfrage-Adressen, Alter und «veraltet», Kurse je Coin zusammenführen
+/// samt Alter je Coin (`WatchCache`) und Laufnummer der Abrufe (`WatchFetchGate`).
 final class WatchQuotesParityTests: XCTestCase {
 
     /// Gestellte Abfragen (Abfragen je Börse laufen gleichzeitig).
@@ -101,6 +102,62 @@ final class WatchQuotesParityTests: XCTestCase {
             let unit = try XCTUnwrap(WatchFreshness.AgeUnit(rawValue: raw), name)
             let expected = WatchFreshness.Age(unit: unit, count: Int(TestSupport.number(c["count"]) ?? -1))
             XCTAssertEqual(WatchFreshness.age(time, now: now), expected, name)
+        }
+    }
+
+    private func quote(_ o: [String: Any]) -> WatchQuote {
+        WatchQuote(symbol: o["symbol"] as? String ?? "", price: TestSupport.number(o["price"]) ?? .nan,
+                   change24h: TestSupport.number(o["change24h"]), source: o["source"] as? String ?? "")
+    }
+
+    func testCache() throws {
+        let cache = try XCTUnwrap(TestSupport.fixture("watch_quotes")["cache"] as? [String: Any])
+        let now = Int64(TestSupport.number(cache["now"]) ?? 0)
+        for c in TestSupport.list(cache["cases"]) {
+            let name = c["name"] as? String ?? ""
+            let old = Dictionary(TestSupport.list(c["old"]).map {
+                ($0["symbol"] as? String ?? "", WatchCached(quote: quote($0), time: Int64(TestSupport.number($0["time"]) ?? 0)))
+            }, uniquingKeysWith: { a, _ in a })
+            let fresh = Dictionary(TestSupport.list(c["fresh"]).map { ($0["symbol"] as? String ?? "", quote($0)) },
+                                   uniquingKeysWith: { a, _ in a })
+            let merged = WatchCache.merge(old, fresh: fresh, time: Int64(TestSupport.number(c["time"]) ?? 0),
+                                          keep: strings(c["keep"]))
+            let expected = TestSupport.list(c["expected"])
+            XCTAssertEqual(Set(merged.keys), Set(expected.compactMap { $0["symbol"] as? String }), name)
+            for e in expected {
+                let got = try XCTUnwrap(merged[e["symbol"] as? String ?? ""], name)
+                XCTAssertEqual(got.quote, quote(e), name)
+                XCTAssertEqual(got.time, Int64(TestSupport.number(e["time"]) ?? -1), name)
+                XCTAssertEqual(WatchFreshness.isOutdated(got.time, now: now), e["outdated"] as? Bool, name)
+                let age = WatchFreshness.age(got.time, now: now)
+                XCTAssertEqual(age.unit.rawValue, e["unit"] as? String, name)
+                XCTAssertEqual(age.count, Int(TestSupport.number(e["count"]) ?? -1), name)
+            }
+            XCTAssertEqual(WatchCache.listTime(merged, coins: strings(c["coins"])),
+                           Int64(TestSupport.number(c["listTime"]) ?? -1), name)
+        }
+    }
+
+    func testGate() throws {
+        let data = try TestSupport.fixture("watch_quotes")
+        for c in TestSupport.list(data["gate"]) {
+            let name = c["name"] as? String ?? ""
+            var gate = WatchFetchGate()
+            var shown = strings(c["shown"])
+            var runs: [String: (run: Int, asked: [String])] = [:]
+            var finished = 0
+            for step in TestSupport.list(c["steps"]) {
+                if let next = step["shown"] {
+                    shown = strings(next)
+                } else if let id = step["start"] as? String {
+                    runs[id] = (gate.start(), shown)
+                } else {
+                    let started = try XCTUnwrap(runs[step["finish"] as? String ?? ""], name)
+                    XCTAssertEqual(gate.accepts(started.run, asked: started.asked, shown: shown), step["accepted"] as? Bool, name)
+                    finished += 1
+                }
+            }
+            XCTAssertGreaterThan(finished, 0, name)
         }
     }
 }

@@ -1,9 +1,15 @@
 package com.cryptochecker.wear
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -11,11 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
@@ -38,50 +44,44 @@ import java.util.Date
 /**
  * Uhr-App: Coins der gewählten Liste («Wie Handy» = Favoriten des Handys, oder «Eigene Liste») mit Kurs und
  * Änderung über 24 h (Börse klein), darunter «Aktualisieren», der Umschalter der Liste und (eigene Liste) «Coins
- * wählen» mit den gängigen Coins zum Antippen (höchstens 8). Lädt beim Öffnen und nach jeder Änderung. Veraltete Kurse
- * ([WatchFreshness]) grau mit Alter statt Börse («+1.23%  ·  vor 47 Min.»), wie die Merkliste des Handys.
+ * wählen» mit den gängigen Coins zum Antippen (höchstens 8). Wahl und Kurse kommen aus dem gemeinsamen [WatchStore]
+ * (auch Änderungen vom Handy, solange die App offen ist). Lädt beim Öffnen und bei jeder anderen Liste ([WatchFetcher]:
+ * ein neuer Abruf bricht den alten ab), sonst nur über «Aktualisieren». Veraltete Kurse ([WatchFreshness], je Coin ab
+ * dem Stand seines Abrufs) grau mit Alter statt Börse («+1.23%  ·  vor 47 Min.»), wie die Merkliste des Handys.
  */
 @Composable
 fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
     MaterialTheme {
         val context = LocalContext.current
-        var settings by remember { mutableStateOf(store.settings) }
-        var cached by remember { mutableStateOf(store.quotes()) }
-        var loading by remember { mutableStateOf(false) }
-        var failed by remember { mutableStateOf(false) }
+        val settings by store.settingsFlow.collectAsState()
+        val cache by store.quotesFlow.collectAsState()
         var choosing by remember { mutableStateOf(false) }
         // Uhrzeit für das Alter der Kurse, jede Minute neu (grau ab 45 Min. auch ohne neue Kurse)
         var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
         val scope = rememberCoroutineScope()
-
-        fun refresh() {
-            scope.launch {
-                loading = true
-                val quotes = runCatching { WatchPriceSource.fetch(settings.shown) }.getOrNull().orEmpty()
-                if (quotes.isNotEmpty()) {
-                    val now = System.currentTimeMillis()
-                    store.saveQuotes(quotes, now)
-                    cached = quotes to now
-                    failed = false
+        val fetcher = remember(store) {
+            WatchFetcher(
+                scope,
+                shown = { store.shown },
+                fetch = { coins -> WatchPriceSource.fetch(coins) },
+                save = { quotes ->
+                    store.mergeQuotes(quotes, System.currentTimeMillis())
                     onQuotesChanged()
-                } else {
-                    failed = settings.shown.isNotEmpty()
-                }
-                loading = false
-            }
+                },
+            )
         }
+        val loading by fetcher.loading.collectAsState()
+        val failed by fetcher.failed.collectAsState()
 
-        /** Änderung auf der Uhr: speichern und ans Handy geben (neuere Seite gewinnt). */
-        fun change(next: WatchSettings) {
-            val stamped = next.copy(time = System.currentTimeMillis())
-            settings = stamped
-            store.settings = stamped
-            scope.launch { WatchDataLayer.publish(context, stamped) }
+        /** Änderung auf der Uhr: mit nächster Änderungsnummer speichern und ans Handy geben. */
+        fun change(edit: (WatchSettings) -> WatchSettings) {
+            val next = store.updateSettings { edit(it).nextRevision() }
+            scope.launch { WatchDataLayer.publish(context, next) }
         }
 
         // Beim Öffnen: Stand des Handys holen (Wahl, Favoriten)
-        LaunchedEffect(Unit) { settings = WatchDataLayer.pull(context, store) }
-        LaunchedEffect(settings.shown) { refresh() }
+        LaunchedEffect(Unit) { WatchDataLayer.pull(context, store) }
+        LaunchedEffect(settings.shown) { fetcher.refresh() }
         LaunchedEffect(Unit) {
             while (true) {
                 now = System.currentTimeMillis()
@@ -92,13 +92,14 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
 
         Scaffold(timeText = { TimeText() }) {
             if (choosing) {
-                ChooseList(settings.own) { coin -> change(settings.copy(own = WatchCoins.toggle(settings.own, coin))) }
+                ChooseList(settings.own) { coin -> change { it.copy(own = WatchCoins.toggle(it.own, coin)) } }
             } else {
-                QuoteList(settings, cached.first, cached.second, now, loading, failed,
-                    onRefresh = { refresh() },
+                QuoteList(settings, cache, now, loading, failed,
+                    onRefresh = { fetcher.refresh() },
                     onToggleMode = {
-                        val mode = if (settings.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE
-                        change(settings.copy(mode = mode))
+                        change {
+                            it.copy(mode = if (it.mode == WatchSettings.Mode.PHONE) WatchSettings.Mode.OWN else WatchSettings.Mode.PHONE)
+                        }
                     },
                     onChoose = { choosing = true })
             }
@@ -109,8 +110,7 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
 @Composable
 private fun QuoteList(
     settings: WatchSettings,
-    quotes: Map<String, WatchQuote>,
-    time: Long,
+    cache: Map<String, WatchCached>,
     now: Long,
     loading: Boolean,
     failed: Boolean,
@@ -120,7 +120,6 @@ private fun QuoteList(
 ) {
     val coins = settings.shown
     val phone = settings.mode == WatchSettings.Mode.PHONE
-    val context = LocalContext.current
     ScalingLazyColumn(state = rememberScalingLazyListState(), modifier = Modifier.fillMaxWidth()) {
         if (coins.isEmpty()) {
             item {
@@ -128,28 +127,11 @@ private fun QuoteList(
             }
         }
         coins.forEach { coin ->
-            item {
-                val q = quotes[coin]
-                val price = q?.let { WatchFormat.price(it.price) } ?: "—"
-                val change = WatchFormat.change(q?.change24h)
-                val outdated = q != null && WatchFreshness.isOutdated(time, now)
-                val row = stringResource(R.string.a11y_watch_row, coin, price, change)
-                val spoken = if (outdated) "$row, ${WatchAge.spoken(context, time, now)}" else row
-                // Veraltet: Kurs grau, Alter statt Börse
-                val detail = if (outdated) WatchAge.short(time, now) else q?.source
-                Chip(
-                    onClick = onRefresh,
-                    label = {
-                        Text("$coin  $price", maxLines = 1,
-                            color = if (outdated) MaterialTheme.colors.onSurfaceVariant else Color.Unspecified)
-                    },
-                    secondaryLabel = { Text(change + (detail?.let { "  ·  $it" } ?: ""), maxLines = 1) },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth().semantics { contentDescription = spoken },
-                )
-            }
+            item { QuoteRow(coin, cache[coin], now) }
         }
         item {
+            // Stand der Liste = ältester gezeigter Kurs (je Coin eigene Zeit)
+            val time = WatchCache.listTime(cache, coins)
             val status = when {
                 loading -> stringResource(R.string.watch_loading)
                 failed -> stringResource(R.string.watch_error)
@@ -176,6 +158,37 @@ private fun QuoteList(
                     colors = ChipDefaults.secondaryChipColors(), modifier = Modifier.fillMaxWidth())
             }
         }
+    }
+}
+
+/**
+ * Zeile eines Coins: sieht aus wie ein Chip, hat aber keine Aktion (neu laden nur über «Aktualisieren», wie iOS) — für
+ * den Screenreader ein Text ohne Rolle «Schaltfläche». Veraltet: Kurs grau, Alter statt Börse.
+ */
+@Composable
+private fun QuoteRow(coin: String, cached: WatchCached?, now: Long) {
+    val context = LocalContext.current
+    val q = cached?.quote
+    val price = q?.let { WatchFormat.price(it.price) } ?: "—"
+    val change = WatchFormat.change(q?.change24h)
+    val outdated = cached != null && WatchFreshness.isOutdated(cached.time, now)
+    val row = stringResource(R.string.a11y_watch_row, coin, price, change)
+    val spoken = if (cached != null && outdated) "$row, ${WatchAge.spoken(context, cached.time, now)}" else row
+    val detail = if (cached != null && outdated) WatchAge.short(cached.time, now) else q?.source
+    Column(
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = ChipDefaults.Height)
+            .clip(MaterialTheme.shapes.large)
+            .background(MaterialTheme.colors.surface)
+            .padding(ChipDefaults.ContentPadding)
+            .clearAndSetSemantics { contentDescription = spoken },
+    ) {
+        Text("$coin  $price", maxLines = 1, style = MaterialTheme.typography.button,
+            color = if (outdated) MaterialTheme.colors.onSurfaceVariant else MaterialTheme.colors.onSurface)
+        Text(change + (detail?.let { "  ·  $it" } ?: ""), maxLines = 1, style = MaterialTheme.typography.caption2,
+            color = MaterialTheme.colors.onSurface)
     }
 }
 

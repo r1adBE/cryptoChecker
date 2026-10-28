@@ -2646,6 +2646,18 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   always writes – a missing field takes the existing damaged-file path; Binance quarterly ids without expiry get no
   calendar fallback (prices and candles); a watched address without `addedAt` is dropped; xpub cache without a stored
   address type is not guessed as P2PKH.
+* Build 164: watch apps (external review of build 162). Fetch gate: `WatchFetchGate` (Wear `WatchCache.kt`, iOS
+  `WatchCore/WatchCache.swift`) – a new fetch cancels the running one (Wear `WatchFetcher`, iOS `Task`), a result is
+  taken only for the newest run while the shown list is still the one it asked for. Per-coin cache: `WatchCached`
+  (price + own fetch time), `WatchCache.merge` replaces only delivered coins, others keep their last price and time;
+  outdated per coin «as of the fetch» (not the last trade), status line shows the oldest shown coin
+  (`WatchCache.listTime`); complications keep the last price of the first coin. Wear: one in-process state
+  (`WatchStore` StateFlow) for activity, `WatchDataListener` and complication; listeners read the data events at
+  once and work in a process scope (no `runBlocking`); coin rows have no tap action. iOS: one ephemeral `URLSession`
+  per fetch run, quotes and times stored as one JSON value (`watch_quotes`). `WatchSettings`: `revision` (JSON `r`)
+  instead of wall-clock time, own changes `nextRevision()`, higher revision wins, on a tie the phone's settings.
+  Fixtures `watch_quotes.json` (`cache`, `gate`), `watch_settings.json` (`nextRevision`, tie cases); tests
+  `WatchFetcherTest`, iOS `WatchCacheTests`.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

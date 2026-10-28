@@ -1,12 +1,14 @@
 package com.cryptochecker.wear
 
 import com.cryptochecker.marketdata.watch.WatchCoins
+import com.cryptochecker.marketdata.watch.WatchFreshness
 import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
 import java.net.URI
@@ -15,7 +17,8 @@ import java.util.Collections
 
 /**
  * Uhr-App (`testdata/parity/watch_quotes.json`) — wie iOS `WatchQuotesParityTests.swift`: Antworten je Börse (Abfrage
- * je Coin), Ausweich-Reihenfolge Binance → Bybit → OKX mit nur den fehlenden Coins, höchstens 8 Coins, Abfrage-Adressen.
+ * je Coin), Ausweich-Reihenfolge Binance → Bybit → OKX mit nur den fehlenden Coins, höchstens 8 Coins, Abfrage-Adressen,
+ * Kurse je Coin zusammenführen samt Alter je Coin ([WatchCache]) und Laufnummer der Abrufe ([WatchFetchGate]).
  */
 class WatchQuotesParityTest {
 
@@ -113,6 +116,65 @@ class WatchQuotesParityTest {
                 c.getJSONArray("expected").getJSONArray(i).let { it.getString(0) to it.getString(1) }
             }
             assertEquals(name, expected, result.map { (coin, q) -> coin to q.source })
+        }
+    }
+
+    private fun quote(o: JSONObject) = WatchQuote(
+        o.getString("symbol"), o.getDouble("price"), if (o.isNull("change24h")) null else o.getDouble("change24h"),
+        o.getString("source"),
+    )
+
+    @Test
+    fun cache() {
+        val cache = data.getJSONObject("cache")
+        val now = cache.getLong("now")
+        for (c in objects(cache.getJSONArray("cases"))) {
+            val name = c.getString("name")
+            val old = objects(c.getJSONArray("old")).associate { it.getString("symbol") to WatchCached(quote(it), it.getLong("time")) }
+            val fresh = objects(c.getJSONArray("fresh")).associate { it.getString("symbol") to quote(it) }
+            val merged = WatchCache.merge(old, fresh, c.getLong("time"), strings(c.getJSONArray("keep")))
+            val expected = objects(c.getJSONArray("expected"))
+            assertEquals(name, expected.map { it.getString("symbol") }.toSet(), merged.keys)
+            for (e in expected) {
+                val got = merged.getValue(e.getString("symbol"))
+                assertEquals(name, quote(e), got.quote)
+                assertEquals(name, e.getLong("time"), got.time)
+                assertEquals(name, e.getBoolean("outdated"), WatchFreshness.isOutdated(got.time, now))
+                val age = WatchFreshness.age(got.time, now)
+                assertEquals(name, e.getString("unit"), unitKey(age.unit))
+                assertEquals(name, e.getInt("count"), age.count)
+            }
+            assertEquals(name, c.getLong("listTime"), WatchCache.listTime(merged, strings(c.getJSONArray("coins"))))
+        }
+    }
+
+    private fun unitKey(unit: WatchFreshness.AgeUnit): String = when (unit) {
+        WatchFreshness.AgeUnit.JUST_NOW -> "justNow"
+        WatchFreshness.AgeUnit.MINUTES -> "minutes"
+        WatchFreshness.AgeUnit.HOURS -> "hours"
+        WatchFreshness.AgeUnit.DAYS -> "days"
+    }
+
+    @Test
+    fun gate() {
+        for (c in objects(data.getJSONArray("gate"))) {
+            val name = c.getString("name")
+            val gate = WatchFetchGate()
+            var shown = strings(c.getJSONArray("shown"))
+            val runs = HashMap<String, Pair<Long, List<String>>>()
+            var finished = 0
+            for (step in objects(c.getJSONArray("steps"))) {
+                when {
+                    step.has("shown") -> shown = strings(step.getJSONArray("shown"))
+                    step.has("start") -> runs[step.getString("start")] = gate.start() to shown
+                    else -> {
+                        val (run, asked) = runs.getValue(step.getString("finish"))
+                        assertEquals(name, step.getBoolean("accepted"), gate.accepts(run, asked, shown))
+                        finished++
+                    }
+                }
+            }
+            assertTrue(name, finished > 0)
         }
     }
 }

@@ -6,7 +6,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Uhr-Apps (`watch_settings.json`) — wie `WatchSettingsParityTests.swift`: Listen, JSON und Zusammenführen. */
+/**
+ * Uhr-Apps (`watch_settings.json`) — wie `WatchSettingsParityTests.swift`: Listen, JSON und Zusammenführen nach
+ * Änderungsnummer (Gleichstand: Handy).
+ */
 class WatchSettingsParityTest {
 
     private val data = ParityJson.load("watch_settings.json")
@@ -20,7 +23,7 @@ class WatchSettingsParityTest {
             mode = WatchSettings.Mode.entries.first { it.key == o["mode"] },
             own = strings(o["own"]),
             phone = strings(o["phone"]),
-            time = o["time"].num()!!.toLong(),
+            revision = o["revision"].num()!!.toLong(),
         )
     }
 
@@ -59,6 +62,15 @@ class WatchSettingsParityTest {
         for (c in data.getValue("merge").list().map { it.obj() }) {
             val merged = WatchSettings.merge(settings(c["local"]), settings(c["remote"]), c["remoteIsPhone"] as Boolean)
             assertEquals(c["name"] as String, settings(c["expected"]), merged)
+        }
+    }
+
+    @Test
+    fun nextRevision() {
+        for (c in data.getValue("nextRevision").list().map { it.obj() }) {
+            val before = WatchSettings(revision = c["revision"].num()!!.toLong())
+            assertEquals(c["expected"].num()!!.toLong(), before.nextRevision().revision)
+            assertEquals(before.copy(revision = 0), before.nextRevision().copy(revision = 0))
         }
     }
 }

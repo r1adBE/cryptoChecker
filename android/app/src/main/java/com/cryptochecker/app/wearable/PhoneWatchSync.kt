@@ -10,6 +10,8 @@ import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchSettings
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.CapabilityClient
+import com.google.android.gms.wearable.DataEvent
+import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
@@ -69,20 +71,32 @@ class PhoneWatchSync @Inject constructor(
 
     /** Wahl «Wie Handy» / «Eigene Liste» ändern. */
     fun setMode(mode: WatchSettings.Mode) = scope.launch {
-        update(publish = true) { it.copy(mode = mode, time = System.currentTimeMillis()) }
+        update(publish = true) { it.copy(mode = mode).nextRevision() }
     }
 
     /** Coin der eigenen Liste an- oder abwählen (höchstens [WatchCoins.MAX]). */
     fun toggleOwn(coin: String) = scope.launch {
-        update(publish = true) { it.copy(own = WatchCoins.toggle(it.own, coin), time = System.currentTimeMillis()) }
+        update(publish = true) { it.copy(own = WatchCoins.toggle(it.own, coin)).nextRevision() }
     }
 
     /** Stand der Uhr im Hintergrund übernehmen (Seite «Widgets» geöffnet). */
     fun refreshFromWatch() = scope.launch { pullFromWatch() }
 
-    /** Stand der Uhr übernehmen (Wahl und eigene Liste, wenn neuer; die Handy-Liste bleibt die eigene). */
+    /** Stand der Uhr holen und übernehmen ([take]). */
     suspend fun pullFromWatch() {
-        val remote = watchSettings() ?: return
+        take(watchSettings() ?: return)
+    }
+
+    /**
+     * Geänderte Einträge ([changed]) aus der Daten-Schicht im Prozess-Scope übernehmen (läuft weiter, auch wenn der
+     * Listener-Dienst schon beendet ist); der eigene Eintrag des Handys zählt nicht.
+     */
+    fun takeFromWatch(items: List<Item>) = scope.launch {
+        take(runCatchingCancellable { newestRemote(items) }.getOrNull() ?: return@launch)
+    }
+
+    /** Wahl und eigene Liste der Uhr nur bei höherer Änderungsnummer (Gleichstand: eigene); Handy-Liste bleibt. */
+    private suspend fun take(remote: WatchSettings) {
         update(publish = false) { WatchSettings.merge(it, remote, remoteIsPhone = false) }
     }
 
@@ -114,18 +128,26 @@ class PhoneWatchSync @Inject constructor(
     /** Stand der Uhr (Einträge anderer Geräte unter [PATH]); null = keiner oder keine Play-Dienste. */
     private suspend fun watchSettings(): WatchSettings? = withContext(Dispatchers.IO) {
         runCatchingCancellable {
-            val local = Tasks.await(Wearable.getNodeClient(context).localNode, TIMEOUT_S, TimeUnit.SECONDS).id
             val buffer = Tasks.await(Wearable.getDataClient(context).getDataItems("wear://*$PATH".toUri()),
                 TIMEOUT_S, TimeUnit.SECONDS)
-            try {
-                buffer.filter { it.uri.host != local }
-                    .mapNotNull { WatchSettings.fromJson(DataMapItem.fromDataItem(it).dataMap.getString(DATA_KEY)) }
-                    .maxByOrNull { it.time }
+            val items = try {
+                buffer.map { Item(it.uri.host, DataMapItem.fromDataItem(it).dataMap.getString(DATA_KEY)) }
             } finally {
                 buffer.release()
             }
+            newestRemote(items)
         }.getOrNull()
     }
+
+    /** Neuester Stand (höchste Änderungsnummer) unter [items], ohne den eigenen Eintrag des Handys. Blockiert (IO). */
+    private fun newestRemote(items: List<Item>): WatchSettings? {
+        if (items.isEmpty()) return null
+        val local = Tasks.await(Wearable.getNodeClient(context).localNode, TIMEOUT_S, TimeUnit.SECONDS).id
+        return items.filter { it.node != local }.mapNotNull { WatchSettings.fromJson(it.json) }.maxByOrNull { it.revision }
+    }
+
+    /** Eintrag der Daten-Schicht: Gerät (Host der Adresse) und JSON. */
+    class Item(val node: String?, val json: String?)
 
     companion object {
         const val PATH = "/cc/watch"
@@ -134,5 +156,10 @@ class PhoneWatchSync @Inject constructor(
         private const val PREFS = "watch_sync"
         private const val KEY = "settings"
         private const val TIMEOUT_S = 10L
+
+        /** Geänderte Einträge unter [PATH] aus [events] — sofort gelesen, solange der Puffer gültig ist. */
+        fun changed(events: DataEventBuffer): List<Item> = events
+            .filter { it.type == DataEvent.TYPE_CHANGED && it.dataItem.uri.path == PATH }
+            .map { Item(it.dataItem.uri.host, DataMapItem.fromDataItem(it.dataItem).dataMap.getString(DATA_KEY)) }
     }
 }
