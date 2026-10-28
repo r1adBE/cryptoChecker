@@ -183,13 +183,13 @@ final class WatchlistLockBehaviorTests: XCTestCase {
             Write(key: "deleteAllForUndo()") { d, l in
                 let r = d.deleteAllForUndo(); whenLocked(l, r.isEmpty, "deleteAllForUndo")
             },
-            Write(key: "addWatch(market") { d, l in
+            Write(key: "addWatch(exchange") { d, l in
                 let r = d.addWatch(exchange: exchange, pair: sol); whenLocked(l, r == nil, "addWatch")
             },
-            Write(key: "tryAddWatch(market") { d, l in
+            Write(key: "tryAddWatch(exchange") { d, l in
                 let r = d.tryAddWatch(exchange: exchange, pair: sol); whenLocked(l, r == .locked, "tryAddWatch")
             },
-            Write(key: "addWatches(market") { d, l in
+            Write(key: "addWatches(exchange") { d, l in
                 let r = d.addWatches(exchange: exchange, pairs: [sol]); whenLocked(l, r.locked, "addWatches")
             },
             Write(key: "setNotificationEnabled(_ watch") { d, _ in d.setNotificationEnabled(btc, false) },
@@ -268,8 +268,8 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     /// Schreibwege des Nutzers: oben je mit Sperre und Gegenprobe geprüft.
     private static let writeKeys: Set<String> = [
         "addStarterCoins(_ coins", "changePair(_ watchId", "delete(_ watch", "deleteForUndo(_ watch", "restore(_ deleted",
-        "deleteForUndo(ids wanted", "deleteNewWatchesForUndo(ids", "deleteNotTradedForUndo()", "deleteAllForUndo()", "addWatch(market",
-        "tryAddWatch(market", "addWatches(market", "setNotificationEnabled(_ watch", "setAllNotifications(_ enabled",
+        "deleteForUndo(ids wanted", "deleteNewWatchesForUndo(ids", "deleteNotTradedForUndo()", "deleteAllForUndo()", "addWatch(exchange",
+        "tryAddWatch(exchange", "addWatches(exchange", "setNotificationEnabled(_ watch", "setAllNotifications(_ enabled",
         "setTtsEnabled(_ watch", "setNote(_ watch", "setGroup(_ watch", "setGroup(ids", "setFavorite(ids",
         "setDisabled(ids", "toggleFavorite(_ watch", "move(_ watch", "reorder(_ orderedIds", "applyGroupEdit(oldName",
         "deleteGroup(_ name", "deleteAlarm(_ id", "setAlarmEnabled(_ id", "saveAlarm(watchId", "createAlarm(watchId",
