@@ -111,7 +111,10 @@ extension TaxExport {
             // CH: die App ordnet Kapitalgewinne nicht ein — die FIFO-Summen sind nur Information, keine Tatsache der
             // Veranlagung (Vermerk wie «nicht gerechnet – siehe ESTV»)
             let info: TaxSummaryNote? = template == .CH ? .CH_FIFO_INFO : nil
-            lines.append(Acc(rows, pos, fx: fx).line(.GAINS, fx: fx, countUnknown: false, note: info))
+            // FR: Belohnungen zum Wert beim Erhalt in der Erwerbspreis-Summe — nur vermerkt
+            let frRewardsNote: TaxSummaryNote? =
+                template == .FR && frRewards(trades, timeZone: timeZone, period: period) ? .FR_REWARDS_INCOME : nil
+            lines.append(Acc(rows, pos, fx: fx).line(.GAINS, fx: fx, countUnknown: false, note: info ?? frRewardsNote))
             lines.append(Acc(rows, neg, fx: fx).line(.LOSSES, fx: fx, countUnknown: false, note: info))
             // FR: beobachtete Adressen im Gesamtwert ohne Einstand — nicht ausgeschlossen (gehören zum Gesamtwert), nur vermerkt
             let frAddress: TaxSummaryNote? =

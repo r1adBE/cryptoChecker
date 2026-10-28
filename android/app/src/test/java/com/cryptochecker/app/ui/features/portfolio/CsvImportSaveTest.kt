@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.data.portfolio.CsvImportWritten
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
@@ -25,13 +26,16 @@ import java.util.concurrent.atomic.AtomicBoolean
 @OptIn(ExperimentalCoroutinesApi::class)
 class CsvImportSaveTest {
 
-    /** Portfolio mit Transaktions-Verhalten: angelegte Zeilen zählen erst, wenn [insert] ohne Ausnahme endet. */
+    /**
+     * Portfolio mit Transaktions-Verhalten wie `insertImportedLinked`: angelegte Zeilen und Verknüpfungen zählen erst,
+     * wenn [write] ohne Ausnahme endet.
+     */
     private class FakePortfolio(existing: List<String> = emptyList()) {
         val rows = ArrayList(existing)
-        var linkCalls = 0
+        var linked = 0
 
-        /** Wie `PortfolioRepository.insertImported`: 1 ms je Zeile, vor jeder Zeile [cancelled] geprüft. */
-        suspend fun insert(keys: List<String>, onRow: (Int) -> Unit, cancelled: () -> Boolean): Int {
+        /** 1 ms je Zeile, vor jeder Zeile [cancelled] geprüft; danach [links] gespeicherte Seiten verknüpft. */
+        suspend fun write(keys: List<String>, links: Int, onRow: (Int) -> Unit, cancelled: () -> Boolean): CsvImportWritten {
             val staged = ArrayList<String>()
             val count = CsvImportInsert.run(keys, rows.toHashSet(), { listOf(it) }, cancelled, onRow) {
                 delay(1)
@@ -39,7 +43,8 @@ class CsvImportSaveTest {
                 true
             }
             rows += staged
-            return count
+            linked += links
+            return CsvImportWritten(count, links)
         }
     }
 
@@ -56,10 +61,7 @@ class CsvImportSaveTest {
             val throttle = CsvProgressThrottle(CsvImportStep.SAVE, keys.size, clock = { testScheduler.currentTime }) {
                 progress += it
             }
-            outcome = saveCsvImport(
-                insert = { portfolio.insert(keys, throttle::row, cancel::get) },
-                link = { portfolio.linkCalls++; 0 },
-            )
+            outcome = saveCsvImport { portfolio.write(keys, links = 1, throttle::row, cancel::get) }
         }
         advanceTimeBy(2_500)
         assertTrue("Fortschritt läuft: $progress", progress.isNotEmpty() && progress.last().done in 1 until keys.size)
@@ -67,7 +69,7 @@ class CsvImportSaveTest {
         advanceUntilIdle()
         assertEquals(CsvImportSaveOutcome.Cancelled, outcome)
         assertEquals("Daten unverändert", listOf("manual"), portfolio.rows)
-        assertEquals("nach dem Abbruch nicht mehr verknüpft", 0, portfolio.linkCalls)
+        assertEquals("nach dem Abbruch nichts verknüpft", 0, portfolio.linked)
         assertFalse(job.isActive)
         job.cancel()
     }
@@ -82,10 +84,7 @@ class CsvImportSaveTest {
                 progress += it
             }
             throttle.start()
-            outcome = saveCsvImport(
-                insert = { portfolio.insert(keys, throttle::row) { false } },
-                link = { portfolio.linkCalls++; 2 },
-            )
+            outcome = saveCsvImport { portfolio.write(keys, links = 2, throttle::row) { false } }
         }
         advanceUntilIdle()
         // Eine Zeile war schon da (übersprungen), zwei gespeicherte Seiten verknüpft
@@ -99,15 +98,15 @@ class CsvImportSaveTest {
     }
 
     @Test
-    fun failedInsertIsReportedAndNotLinked() = runTest {
-        var linkCalls = 0
-        val locked = saveCsvImport(insert = { throw PortfolioStorageLockedException() }, link = { linkCalls++; 1 })
+    fun failedWriteIsReported() = runTest {
+        val locked = saveCsvImport { throw PortfolioStorageLockedException() }
         assertEquals(CsvImportSaveOutcome.Failed(locked = true), locked)
-        val failed = saveCsvImport(insert = { error("Platte voll") }, link = { linkCalls++; 1 })
+        val failed = saveCsvImport { error("Platte voll") }
         assertEquals(CsvImportSaveOutcome.Failed(locked = false), failed)
-        assertEquals(0, linkCalls)
-        // Verknüpfen gescheitert, aber Zeilen angelegt: zählt
-        val partly = saveCsvImport(insert = { 3 }, link = { error("Verknüpfen gescheitert") })
-        assertEquals(CsvImportSaveOutcome.Saved(inserted = 3, count = 3), partly)
+        // Anlegen und Verknüpfen sind EIN Schreibvorgang: scheitert das Verknüpfen, ist nichts gespeichert (kein «Gespeichert»)
+        val linkFailed = saveCsvImport { error("Verknüpfen gescheitert") }
+        assertEquals(CsvImportSaveOutcome.Failed(locked = false), linkFailed)
+        // Nur Verknüpfungen: zählen als gespeichert, aber nicht als neu angelegt
+        assertEquals(CsvImportSaveOutcome.Saved(inserted = 0, count = 2), saveCsvImport { CsvImportWritten(0, 2) })
     }
 }

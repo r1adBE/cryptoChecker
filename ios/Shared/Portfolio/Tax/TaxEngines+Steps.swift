@@ -28,7 +28,7 @@ extension TaxEngines {
             if e.feeLeg {
                 let fee = t.thirdFeeAmount
                 let p: Decimal? = t.thirdFeePrice.map { fee * $0 }
-                out.append(TaxStep(.dispose, t, qty: fee, proceeds: p, gross: p, feeLeg: true))
+                out.append(TaxStep(.dispose, t, qty: fee, proceeds: p, gross: p, feeLeg: true, estimated: t.feePriceEstimated))
                 continue
             }
             if e.swapIn {
@@ -54,7 +54,9 @@ extension TaxEngines {
                 out.append(TaxStep(.dispose, t, qty: t.amountExact + t.coinFeeExact, proceeds: proceeds, gross: gross,
                                    swap: swap, feeMissing: gross != nil && feeValue == nil,
                                    gift: t.fromGift, payment: t.type == .PAYMENT && !t.fromGift,
-                                   estimated: t.valueEstimated))
+                                   // Geschätzter Gebühr-Preis im dritten Coin: der Erlös enthält ihn
+                                   // (`PortfolioLedger.valueThirdFeesAtDayClose`)
+                                   estimated: t.valueEstimated || (t.feePriceEstimated && gross != nil)))
             case .WITHDRAWAL, .GIFT:
                 // Verschenkt (beim Schenkenden keine Veräusserung): wie eine Auszahlung; an Ehe-/Lebenspartner (Merker nur
                 // nach `applyRules` mit UK/CA-Regeln): Veräusserung ohne Gewinn/Verlust zum zugeordneten Einstand

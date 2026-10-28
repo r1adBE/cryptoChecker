@@ -39,11 +39,13 @@ import com.cryptochecker.app.domain.portfolio.PortfolioPeriodParts.parts
  * null nur, wenn kein Coin zählt. Bestände werden exakt summiert (wie die Position); nur die Bewertung
  * mit Börsenkursen ist Gleitkomma.
  *
- * Adress-Guthaben: Adress-Einträge in [trades] ([AddressBalance.withAddresses]) zählen NICHT (nie
- * rückwirkend). Nur die beobachtete Reihe [AddressBalanceHistory] (Parameter `addresses`) zählt — ab ihrer
- * ersten Beobachtung, Änderungen als Zu-/Abfluss zum Marktkurs (wie oben). Für «Heute» muss der Bestand
- * des Aufrufers ([todayFromCoinChanges]) dazu passen: eigener Bestand ([CoinPosition.ledgerHoldingsExact])
- * plus zuletzt beobachtetes Guthaben ([AddressBalanceHistory.latestByCoin]) — ohne Reihe nur der eigene.
+ * Adress-Guthaben (EINE Bestandsregel wie die Karte, [AddressBooked]): der Adress-Teil in [trades]
+ * ([AddressBalance.withAddresses]) zählt NICHT (nie rückwirkend), Eröffnungsposten zählen wie Käufe. Dazu die
+ * beobachtete Reihe [AddressBalanceHistory] (Parameter `addresses`, von [AddressBooked.histories] ohne das schon
+ * Gebuchte) — ab ihrer ersten Beobachtung, Änderungen als Zu-/Abfluss zum Marktkurs (wie oben). Für «Heute» muss
+ * der Bestand des Aufrufers ([todayFromCoinChanges]) dazu passen: eigener Bestand samt Posten
+ * ([CoinPosition.ledgerHoldingsExact]) plus letzte Stufe dieser Reihe ([AddressBalanceHistory.latestByCoin]) = Bestand
+ * der Karte — ohne Reihe nur der eigene.
  */
 object PortfolioPeriodChange {
 
@@ -146,6 +148,7 @@ object PortfolioPeriodChange {
         windowStart: Long,
         addresses: List<AddressBalanceHistory> = emptyList(),
         method: CostMethod = CostMethod.DEFAULT,
+        coinStart: Map<String, Long> = emptyMap(),
     ): Map<String, TodayChange> {
         val out = HashMap<String, TodayChange>()
         for ((rawCoin, amount) in holdings) {
@@ -154,17 +157,21 @@ object PortfolioPeriodChange {
             // Ohne Veränderung: 0 mit «fehlt» — zählt nur, wenn der Coin ganz im Zeitraum dazukam
             val raw = todayFromCoinChanges(mapOf(coin to amount), current, coinChanges)
                 ?: TodayChange(0.0, null, listOf(coin))
-            val adjusted = todayAdjusted(raw, trades, current, coinChanges, windowStart, only = coin, addresses = addresses, method = method) ?: continue
+            val adjusted = todayAdjusted(
+                raw, trades, current, coinChanges, windowStart, only = coin, addresses = addresses, method = method, coinStart = coinStart,
+            ) ?: continue
             if (coin in adjusted.skipped || !adjusted.amountUsd.isFinite()) continue
             out[coin] = adjusted
         }
         return out
     }
 
-    private const val DAY_MILLIS = 86_400_000L
-
-    /** Beginn des Zeitraums für [baseDay]: Ende des UTC-Tags (Schluss der Tageskerze). */
-    fun windowStart(baseDay: Long): Long = (baseDay + 1) * DAY_MILLIS
+    /**
+     * Beginn des Zeitraums für [baseDay]: letzte Millisekunde des UTC-Tags ([PortfolioHistory.utcDayEnd], Schluss der
+     * Tageskerze) — Transaktionen danach liegen im Zeitraum. Eine um genau 00:00:00.000 UTC gehört wie im Verlauf zum
+     * neuen Tag.
+     */
+    fun windowStart(baseDay: Long): Long = PortfolioHistory.utcDayEnd(baseDay)
 
     /**
      * Gewinn/Verlust seit dem Stichtag [baseDay], der Käufe und Verkäufe kennt (siehe oben).
@@ -209,7 +216,9 @@ object PortfolioPeriodChange {
      * Coins ohne diesen Kurs fehlen wie in der Kursänderung (ausser ein ganz im Zeitraum gekaufter
      * Coin: Wert jetzt − Einstand). Ein Kauf/Verkauf ohne Preis im Zeitraum lässt den Coin ganz fehlen
      * (wie «7 T»: Zufluss unbekannt) — er kommt in [TodayChange.skipped], seine Kursänderung fällt aus
-     * dem Betrag. Ohne Transaktionen im Zeitraum unverändert. [only]: nur dieser Coin ([todayByCoin]).
+     * dem Betrag. Ohne Transaktionen im Zeitraum unverändert. [only]: nur dieser Coin ([todayByCoin]). [coinStart]:
+     * Beginn je Coin = Zeit seines Vergleichskurses ([PortfolioWidgetSeries.changeSince]; fehlt = [windowStart]) — ein
+     * Kauf nach dem Vergleichskurs zählt so als Zufluss, nie als Gewinn.
      */
     fun todayAdjusted(
         change: TodayChange?,
@@ -220,13 +229,14 @@ object PortfolioPeriodChange {
         only: String? = null,
         addresses: List<AddressBalanceHistory> = emptyList(),
         method: CostMethod = CostMethod.DEFAULT,
+        coinStart: Map<String, Long> = emptyMap(),
     ): TodayChange? {
         if (change == null) return null
         // Marktkurs einer Auszahlung ohne Preis / Adress-Änderung heute: der aktuelle Kurs
         val market: (String, Double?, Long) -> Double? = { coin, live, _ ->
             if (!PortfolioStables.needsQuote(coin)) 1.0 else live
         }
-        val parts = parts(trades, current, windowStart, only, addresses, method, market) { coin, live ->
+        val parts = parts(trades, current, windowStart, only, addresses, method, market, coinStart = coinStart) { coin, live ->
             when {
                 !PortfolioStables.needsQuote(coin) -> 1.0
                 live == null -> null

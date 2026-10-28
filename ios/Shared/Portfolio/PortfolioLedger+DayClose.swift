@@ -38,15 +38,18 @@ extension PortfolioLedger {
 
     /// (Coin, Zeit), für die `valueAtDayClose` einen Tagesschluss braucht (Coins normalisiert): Gebühr-Zeile und
     /// Damit bezahlt und Verschenkt (Schenkung als Veräusserung, `TaxEngines.applyRules`) ohne Marktwert der Coin selbst,
-    /// Tausch beide Coins.
-    /// Wie Android `dayCloseNeeds`.
+    /// Tausch beide Coins; dazu Belohnungen ohne Wert und der Gebühr-Coin jeder Transaktion mit Gebühr im dritten Coin ohne
+    /// Preis für den Steuer-Export. Wie Android `dayCloseNeeds`.
     static func dayCloseNeeds(_ trades: [PortfolioTx]) -> [(coin: String, time: Int64)] {
         var seen = Set<String>()
         var out: [(coin: String, time: Int64)] = []
         func add(_ coin: String, _ time: Int64) {
             if seen.insert("\(coin)|\(time)").inserted { out.append((coin: coin, time: time)) }
         }
-        for t in trades where t.amountExact > 0 && (needsDayClose(t) || (t.type == .GIFT && t.validPriceExact == nil) || rewardNeedsDayClose(t)) {
+        for t in trades {
+            if thirdFeeNeedsDayClose(t), let fee = t.thirdFeeCoin { add(fee, t.time) }
+            guard t.amountExact > 0,
+                  needsDayClose(t) || (t.type == .GIFT && t.validPriceExact == nil) || rewardNeedsDayClose(t) else { continue }
             add(PortfolioCalculator.normalizeCoin(t.coin), t.time)
             if t.type == .SWAP, let to = t.swapToCoin { add(to, t.time) }
         }
@@ -104,6 +107,28 @@ extension PortfolioLedger {
             var v = t
             v.priceExact = p
             v.valueEstimated = true
+            return v
+        }
+    }
+
+    /// Transaktion jeder Art (gültige Menge) mit Gebühr im dritten Coin ohne Preis — wie Android.
+    static func thirdFeeNeedsDayClose(_ t: PortfolioTx) -> Bool {
+        t.amountExact > 0 && t.thirdFeeCoin != nil && t.thirdFeePrice == nil
+    }
+
+    /// Nur Steuer-Export (`TaxEngines.disposals`, `TaxEngines.outflows`), eine Regel für alle Arten: Gebühr im dritten Coin
+    /// ohne Preis zum Tagesschluss des Gebühr-Coins am UTC-Tag der Transaktion `price` (≥ 0) — Gebühr-Preis = Kurs,
+    /// `feePriceEstimated`: Vermerk «Wert geschätzt» an der Zeile der Gebühr-Coins und an jeder Zeile, deren Wert die Gebühr
+    /// enthält (Erlös eines Verkaufs/Tauschs, Aufwand einer Auszahlung). Die Gebühr steckt so im Einstand eines Zugangs bzw.
+    /// einer Umbuchung und mindert den Erlös eines Verkaufs/Tauschs. Ohne Kurs unverändert («ohne Wert der Gebühr»). Die
+    /// Karte rechnet ohne geschätzte Preise («ohne Wert der Gebühr»). Wie Android `valueThirdFeesAtDayClose`.
+    static func valueThirdFeesAtDayClose(_ trades: [PortfolioTx], price: ((String, Int64) -> Decimal?)?) -> [PortfolioTx] {
+        guard let price, trades.contains(where: { thirdFeeNeedsDayClose($0) }) else { return trades }
+        return trades.map { t in
+            guard thirdFeeNeedsDayClose(t), let coin = t.thirdFeeCoin, let p = price(coin, t.time), p >= 0 else { return t }
+            var v = t
+            v.feeCoinPriceExact = p
+            v.feePriceEstimated = true
             return v
         }
     }

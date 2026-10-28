@@ -4,24 +4,41 @@ import androidx.room.withTransaction
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
 
-// CSV-Import: gespeicherte Seiten verknüpfter Umbuchungen in EINER Datenbank-Transaktion ändern — alle oder keine.
-// Eigene Datei, weil `PortfolioRepository.kt` an der Längengrenze ist.
+// CSV-Import: neue Zeilen anlegen und gespeicherte Seiten verknüpfter Umbuchungen ändern in EINER Datenbank-Transaktion —
+// alles oder nichts. Eigene Datei, weil `PortfolioRepository.kt` an der Längengrenze ist.
+
+/** Ergebnis von [insertImportedLinked]: neu angelegte Transaktionen und verknüpfte gespeicherte Seiten. */
+data class CsvImportWritten(val inserted: Int, val linked: Int)
 
 /**
- * Gespeicherte Seiten verknüpfter Umbuchungen ändern ([CsvStoredTransfer]) — in einer Datenbank-Transaktion: scheitert
- * eine (gesperrt, Fehler), bleibt keine halb verknüpft (sonst stünde die erste geändert da, gemeldet würde «nichts
- * gespeichert»). Innerhalb der Transaktion neu gelesen, damit nichts Veraltetes überschrieben wird ([linkedStoredEntities]).
- * @return Anzahl geänderter Transaktionen
+ * Importierte Zeilen anlegen ([PortfolioRepository.insertImported]) und gespeicherte Seiten verknüpfter Umbuchungen ändern
+ * ([CsvStoredTransfer]) — in EINER Datenbank-Transaktion: scheitert etwas (gesperrt, Fehler, «Abbrechen» vor einer Zeile),
+ * bleibt nichts geschrieben, nie eine halbe Verknüpfung. Die gespeicherten Seiten werden darin neu gelesen
+ * ([linkedStoredEntities]); inzwischen gelöschte oder schon verknüpfte fallen weg, und ihre aufgehende neue Zeile
+ * ([fallbacks]: Herkunftsschlüssel → Id der gespeicherten Seite, `CsvTransferMatch.fallbacks`) wird dann als eigene Zeile
+ * angelegt statt verloren zu gehen. Ohne fallende Seite bleibt sie weg ([transactions] enthält sie,
+ * `CsvTransferMatch.withFallbacks`). [onRow] zählt weggelassene Ersatzzeilen mit, damit der Fortschritt das Ende erreicht.
  * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar ([PortfolioStorageLock])
+ * @throws com.cryptochecker.app.domain.portfolio.csvimport.CsvImportCancelledException abgebrochen ([cancelled])
  */
-suspend fun PortfolioRepository.linkStoredTransfers(updates: List<CsvStoredTransfer>, batch: String): Int {
-    if (updates.isEmpty()) return 0
-    return database.withTransaction {
-        val changed = linkedStoredEntities(getTransactions(), updates, batch)
-        // `save` tritt dieser Transaktion bei (Room verschachtelt): eine Ausnahme rollt alle zurück
-        changed.forEach { save(it) }
-        changed.size
-    }
+suspend fun PortfolioRepository.insertImportedLinked(
+    transactions: List<PortfolioTxEntity>,
+    batch: String,
+    updates: List<CsvStoredTransfer>,
+    fallbacks: Map<String, Long>,
+    onRow: (Int) -> Unit = {},
+    cancelled: () -> Boolean = { false },
+): CsvImportWritten = database.withTransaction {
+    // Nur Seiten, die sich auch speichern lassen (sonst gälte die Zeile als verknüpft und fehlte)
+    val changed = linkedStoredEntities(getTransactions(), updates, batch)
+        .filter { runCatching { cleanForSave(it).storable() }.getOrDefault(false) }
+    val linked = changed.mapTo(HashSet()) { it.id }
+    val rows = transactions.filter { tx -> fallbacks[tx.importKey]?.let { it !in linked } ?: true }
+    val left = transactions.size - rows.size
+    val inserted = insertImported(rows, batch, { onRow(it + left) }, cancelled)
+    // `save` tritt dieser Transaktion bei (Room verschachtelt): eine Ausnahme rollt alles zurück
+    changed.forEach { save(it) }
+    CsvImportWritten(inserted, changed.size)
 }
 
 /**

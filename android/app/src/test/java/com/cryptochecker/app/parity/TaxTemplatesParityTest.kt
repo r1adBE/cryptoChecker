@@ -188,6 +188,8 @@ class TaxTemplatesParityTest {
                 (e["gift"] as Boolean?)?.let { assertEquals("$label gift", it, d.gift) }
                 (e["payment"] as Boolean?)?.let { assertEquals("$label payment", it, d.payment) }
                 (e["valueEstimated"] as Boolean?)?.let { assertEquals("$label valueEstimated", it, d.valueEstimated) }
+                // Gebühr im dritten Coin ohne Wert (auch ohne Tagesschluss)
+                (e["feeValueMissing"] as Boolean?)?.let { assertEquals("$label feeValueMissing", it, d.feeValueMissing) }
                 // Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
                 (e["spouseGift"] as Boolean?)?.let { assertEquals("$label spouseGift", it, d.spouseGift) }
                 // FR-Gesamtwert samt beobachteter Adressen (ohne Einstand)
@@ -321,7 +323,7 @@ class TaxTemplatesParityTest {
                     TaxSummaryNote.AT_TRANSITION_2021 to "attransition", TaxSummaryNote.AT_WITHOUT_OPTION to "atnooption",
                     TaxSummaryNote.AT_STAKING_ZERO_COST to "atstaking", TaxSummaryNote.WINDOW_OPEN to "window $TAX_NOTE_DATE",
                     TaxSummaryNote.UK_HMRC_REPORT to "ukreport", TaxSummaryNote.AT_INTEREST_OLD_LAW to "atinterestold",
-                    TaxSummaryNote.FR_ADDRESS_NO_COST to "fraddress",
+                    TaxSummaryNote.FR_ADDRESS_NO_COST to "fraddress", TaxSummaryNote.FR_REWARDS_INCOME to "frrewards",
                 ),
             )
             val lines = TaxExport.summaryCsv(s, texts, listOf("H")).removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }

@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Hetzelfde geldt voor kosten in USDT of contant bij een overboeking tussen je eigen wallets: ze tellen niet mee in de kostprijs en staan er alleen ter informatie.</string>
     <string name="tax_note_uk">Toewijzing volgens HMRC: zelfde dag → dan de 30 dagen erna → dan de gezamenlijke positie volgens Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">Overgang 1-1-2025 (Rev. Proc. 2024-28, safe harbor): gebruikten eerdere jaren FIFO over alle wallets, dan gaan de resterende posten per 31-12-2024 naar de wallets waarin de coins staan – de wallet met de oudste coins krijgt de oudste kostprijs. Deze toewijzing is een regel van de app – vergelijk met je eigen administratie.</string>
-    <string name="tax_note_us_wallet">Vanaf belastingjaar 2025 eist de IRS de kostprijs per wallet/beurs (Rev. Proc. 2024-28) – de export rekent vanaf 2025 FIFO per wallet – daarvoor geldt je kostprijsmethode.</string>
+    <string name="tax_note_us_wallet">Vanaf belastingjaar 2025 eist de IRS de kostprijs per wallet/beurs (Rev. Proc. 2024-28) – de export rekent vanaf 2025 FIFO per wallet – daarvoor FIFO over alle wallets, of FIFO per wallet als dat je kostprijsmethode is.</string>
     <string name="tax_note_withdrawal_fee">Opnamekosten in USDT of contant zijn geen verlies: contante kosten zijn niet aftrekbaar, kosten in USDT zijn een vervreemding tegen pari zonder winst – ze staan er alleen ter informatie (%1$s).</string>
     <string name="tax_summary_at_interest_income">telt mee: inkomen bij ontvangst tegen het bijzondere tarief van 27,5 procent (§ 27b lid 2 nr. 1 EStG / BMF) – de munten houden deze waarde als aanschaffingskosten</string>
     <string name="tax_summary_at_reward_info">alleen ter informatie – in geen enkel totaal: beloningen komen met aanschaffingskosten 0 in het nieuwe bezit en worden pas bij verkoop belast (al in de winsten) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Gevolgde adressen tellen mee in de totale waarde, maar hebben geen aanschafwaarde – de winst is daardoor eerder te hoog. Leg de aanschafwaarde vast als aankoop.</string>
+    <string name="tax_summary_fr_rewards_income">Het bedrag gaat ervan uit dat beloningen bij ontvangst als inkomen zijn belast (waarde bij ontvangst in de aanschafprijs) – anders zou aanschafprijs 0 de voorzichtige lezing zijn.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Marktwaarden zonder ingevoerde prijs (kosten, weggegeven/betaald, ruil, beloningen, netwerkkosten, portfoliowaarde) tegen de dagslotkoers (UTC) van de transactiedag</string>

@@ -292,11 +292,36 @@ object PortfolioWidgetSeries {
         val out = HashMap<String, Double>()
         for ((coin, price) in current) {
             val nowPrice = valid(price) ?: continue
-            val then = prices[coin.uppercase()].orEmpty()
-                .filter { now - it.time in DAY_MIN_SPAN_MILLIS..(WINDOW_MILLIS + HOUR_MILLIS) }
-                .minByOrNull { it.time }
-                ?.let { valid(it.price) } ?: continue
+            val then = dayAgo(prices, coin, now)?.let { valid(it.price) } ?: continue
             out[coin] = (nowPrice / then - 1.0) * 100.0
+        }
+        return out
+    }
+
+    /** Vergleichskurs von [coinChanges]: ältester gemerkter Kurs zwischen [now] − 25 h und [now] − 20 h. */
+    private fun dayAgo(prices: Map<String, List<TimedPrice>>, coin: String, now: Long): TimedPrice? =
+        prices[coin.uppercase()].orEmpty()
+            .filter { now - it.time in DAY_MIN_SPAN_MILLIS..(WINDOW_MILLIS + HOUR_MILLIS) }
+            .minByOrNull { it.time }
+
+    /**
+     * «Heute» rollend: Zeit des Vergleichskurses je Coin — Stundenkurs von [coinChanges] (geht vor), sonst die Aufnahme
+     * [base] ([PortfolioWidgetMath.coinChanges]). Sie ist der Beginn des Zeitraums je Coin
+     * ([PortfolioPeriodChange.todayAdjusted] `coinStart`): eine Basis von vor 40 h mit Zeitraum 24 h zählte einen Kauf vor
+     * 30 h zum alten Kurs als Gewinn.
+     */
+    fun changeSince(
+        current: Map<String, Double>,
+        base: PriceSample?,
+        prices: Map<String, List<TimedPrice>>,
+        now: Long,
+    ): Map<String, Long> {
+        val out = HashMap<String, Long>()
+        if (base != null) PortfolioWidgetMath.coinChanges(current, base.prices).keys.forEach { out[it] = base.time }
+        for ((coin, price) in current) {
+            if (valid(price) == null) continue
+            val then = dayAgo(prices, coin, now) ?: continue
+            if (valid(then.price) != null) out[coin] = then.time
         }
         return out
     }

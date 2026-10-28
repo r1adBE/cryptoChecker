@@ -39,7 +39,8 @@ struct AddressBalancesAt: Equatable, Sendable {
 /// Beobachtete Guthaben einer Adresse (zeitlich aufsteigend) — Grundlage für Heute / 7 T / 1 J und den Wertverlauf.
 /// Regeln exakt wie `AddressBalanceHistory.kt` (dort beschrieben): vor der ersten Beobachtung zählt die Adresse
 /// nicht; erste Beobachtung und jede Änderung sind Zu-/Abflüsse zum Marktkurs ihres Zeitpunkts (nie Gewinn, nie
-/// rückwirkend); `append` behält die erste Beobachtung überhaupt und je UTC-Tag die letzte.
+/// rückwirkend); was die App schon bucht (Eröffnungsposten, erfasste Bewegungen der Adress-Wallet), zählt nicht noch
+/// einmal (`moves`, `AddressBooked`); `append` behält die erste Beobachtung überhaupt und je UTC-Tag die letzte.
 struct AddressBalanceHistory: Codable, Equatable, Sendable {
     let chain: AddressChain
     let address: String
@@ -48,6 +49,11 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
     var token: String? = nil
     /// Schlüssel des weiteren Guthabens (`WatchedAddress.tokenBalances`); unterscheidet z. B. USDC und USDC.e.
     var key: String? = nil
+    /// Gebuchte Bewegungen, die diese Reihe enthält (Eröffnungsposten, erfasste Bewegungen der Adress-Wallet) — nur an der
+    /// ersten Reihe je Adresse und Coin, gesetzt von `AddressBooked.histories`; `trades` rechnet sie heraus.
+    var moves: [AddressMove] = []
+
+    private enum CodingKeys: String, CodingKey { case chain, address, observations, token, key }
 
     var coin: String { token ?? chain.coin }
 
@@ -78,23 +84,32 @@ struct AddressBalanceHistory: Codable, Equatable, Sendable {
     /// Guthaben-Änderungen als Einträge für Zeiträume und Verlauf: je Beobachtung mit geänderter Summe eine Einzahlung
     /// (+) bzw. Auszahlung (−) der Differenz OHNE Preis mit negativer Id (`AddressBalance.isAddressTrade`) —
     /// `PortfolioPeriodChange` und `PortfolioHistory` bewerten sie zum Marktkurs ihres Zeitpunkts. Dieselbe Adresse
-    /// (gleiches Netz, gleicher Coin) zählt nur einmal (die erste Reihe). Wie Android.
+    /// (gleiches Netz, gleicher Coin) zählt nur einmal (die erste Reihe). Reihen mit gebuchten Bewegungen (`moves`) zählen
+    /// ohne sie (`AddressBooked.held`). Wie Android.
     static func trades(_ histories: [AddressBalanceHistory]) -> [PortfolioTx] {
         var out: [PortfolioTx] = []
-        var seen: [AddressBalanceHistory] = []
+        var kept: [AddressBalanceHistory] = []
+        for h in histories where !kept.contains(where: {
+            $0.chain == h.chain && $0.series == h.series && WatchedAddressRules.sameAddress(h.chain, $0.address, h.address)
+        }) {
+            kept.append(h)
+        }
         var nextId: Int64 = -1_000_001
-        for h in histories {
-            if seen.contains(where: {
-                $0.chain == h.chain && $0.series == h.series && WatchedAddressRules.sameAddress(h.chain, $0.address, h.address)
-            }) {
+        for (index, h) in kept.enumerated() {
+            // Mit gebuchten Bewegungen: alle Reihen dieser Adresse und dieses Coins zusammen ohne sie (`AddressBooked.held`)
+            let group = kept.indices.filter { AddressBooked.sameGroup(kept[$0], h) }
+            let steps: [AddressObservation]
+            if group.allSatisfy({ kept[$0].moves.isEmpty }) {
+                steps = h.observations.enumerated()
+                    .sorted { $0.element.time != $1.element.time ? $0.element.time < $1.element.time : $0.offset < $1.offset }
+                    .map(\.element)
+            } else if group.first == index {
+                steps = AddressBooked.held(group.map { kept[$0] })
+            } else {
                 continue
             }
-            seen.append(h)
             var previous: Decimal = 0
-            let ordered = h.observations.enumerated()
-                .sorted { $0.element.time != $1.element.time ? $0.element.time < $1.element.time : $0.offset < $1.offset }
-                .map(\.element)
-            for o in ordered where o.balance >= 0 {
+            for o in steps where o.balance >= 0 {
                 let delta = o.balance - previous
                 previous = o.balance
                 if delta == 0 { continue }

@@ -146,6 +146,16 @@ class PortfolioStorageTaxTest {
         val buy = PortfolioJson.jsonToTx(JSONObject(json.toString()).put("type", "BUY"))!!
         assertFalse(buy.feeRow)
         assertFalse(buy.toTrade().feeRow)
+        // Staking-Umbuchung: Pflichtfeld, nur bei einer Umbuchung
+        val staking = PortfolioTxEntity(
+            id = 5, coin = "ETH", type = PortfolioTxType.TRANSFER, amount = BigDecimal("2"), time = 6,
+            importKey = "BINANCE|U1", stakingMove = true,
+        )
+        val stakingJson = PortfolioJson.txToJson(staking)
+        assertTrue(stakingJson.getBoolean("stakingMove"))
+        assertEquals(staking, PortfolioJson.jsonToTx(JSONObject(stakingJson.toString())))
+        assertFalse(json.getBoolean("stakingMove"))
+        assertFalse(PortfolioJson.jsonToTx(JSONObject(stakingJson.toString()).put("type", "WITHDRAWAL"))!!.stakingMove)
     }
 
     @Test

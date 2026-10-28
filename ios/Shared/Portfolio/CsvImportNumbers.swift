@@ -72,6 +72,29 @@ extension CsvImportParser {
         return parts.allSatisfy { part in !part.isEmpty && part.allSatisfy { $0.isASCII && $0.isNumber } }
     }
 
+    /// «1.234E-05» → 0.00001234 (das «+» eines Exponenten entfernt schon `stripGrouping`): Mantisse mit höchstens einem
+    /// Dezimalzeichen («.» oder «,», nie Tausender, höchstens 60 Zeichen), «E»/«e», Exponent mit 1–3 Ziffern. Der Wert
+    /// muss in den Grenzen des Speicherns liegen (`PortfolioDecimal.withinLimits`: unter 10³⁰, höchstens 40
+    /// Nachkommastellen), sonst ungültig. Wie Android `scientific`.
+    private static func scientific(_ t: String) -> Decimal? {
+        let parts = t.split(omittingEmptySubsequences: false, whereSeparator: { $0 == "e" || $0 == "E" }).map(String.init)
+        guard parts.count == 2 else { return nil }
+        let mantissa = parts[0].replacingOccurrences(of: ",", with: ".")
+        var digits = Substring(parts[1])
+        let negative = digits.hasPrefix("-")
+        if negative { digits = digits.dropFirst() }
+        guard isPlain(mantissa), mantissa.count <= 60, (1...3).contains(digits.count),
+              digits.allSatisfy({ $0.isASCII && $0.isNumber }), let e = Int(digits),
+              var m = Decimal(string: mantissa, locale: posix) else { return nil }
+        if m == 0 { return 0 }
+        NSDecimalCompact(&m)
+        let shift = negative ? -e : e
+        // Ausserhalb des Bereichs von `Decimal` (Exponent −128…127) liegt jeder Wert weit ausserhalb der Grenzen
+        guard (-128...127).contains(Int(m.exponent) + shift) else { return nil }
+        let value = Decimal(sign: m < 0 ? .minus : .plus, exponent: shift, significand: abs(m))
+        return PortfolioDecimal.withinLimits(value) ? value : nil
+    }
+
     /// `sep` als Tausender gültig: erste Gruppe 1–3 Ziffern ohne führende 0 (eine einzelne «0» nie), alle weiteren genau
     /// 3 Ziffern, mindestens eine Trennung — «0.001» bleibt 0.001 auch mit Dezimalkomma. Wie Android `grouped`.
     private static func grouped(_ text: String, _ sep: Character) -> Bool {
@@ -82,10 +105,12 @@ extension CsvImportParser {
         return groups.dropFirst().allSatisfy { g in g.count == 3 && g.allSatisfy { $0.isASCII && $0.isNumber } }
     }
 
-    /// Zahl aus der Datei → exakte Dezimalzahl; ungültig = nil (Regeln wie Android `parseNumber`).
+    /// Zahl aus der Datei → exakte Dezimalzahl; ungültig = nil (Regeln wie Android `parseNumber`), auch in
+    /// wissenschaftlicher Schreibweise, wie Excel kleine Beträge speichert (`scientific`): «1.234E-05», «1,234E-05».
     static func parseNumber(_ text: String, hint: Character? = nil) -> Decimal? {
         let t = stripGrouping(text)
         if t.isEmpty { return nil }
+        if t.contains(where: { $0 == "e" || $0 == "E" }) { return scientific(t) }
         let chars = Array(t)
         let dots = chars.filter { $0 == "." }.count
         let commas = chars.filter { $0 == "," }.count

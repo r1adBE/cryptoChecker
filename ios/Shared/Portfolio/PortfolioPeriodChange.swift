@@ -30,10 +30,12 @@ import Foundation
 /// 1, solange ihr aktueller Kurs höchstens 0.1 % von 1 abweicht. Coins ohne aktuellen Kurs fehlen wie im
 /// Gesamtwert. nil nur, wenn kein Coin zählt. Bestände exakt summiert (wie die Position).
 ///
-/// Adress-Guthaben: Adress-Einträge in `trades` zählen NICHT (nie rückwirkend); nur die beobachtete Reihe
-/// `AddressBalanceHistory` (`addresses`) ab ihrer ersten Beobachtung, Änderungen zum Marktkurs. Für «Heute» muss der
-/// Bestand des Aufrufers dazu passen: eigener Bestand (`CoinPosition.ledgerHoldingsExact`) plus zuletzt beobachtetes
-/// Guthaben (`AddressBalanceHistory.latestByCoin`) — ohne Reihe nur der eigene. Wie Android.
+/// Adress-Guthaben (EINE Bestandsregel wie die Karte, `AddressBooked`): der Adress-Teil in `trades` zählt NICHT (nie
+/// rückwirkend), Eröffnungsposten wie Käufe; dazu die beobachtete Reihe `AddressBalanceHistory` (`addresses`, von
+/// `AddressBooked.histories` ohne das schon Gebuchte) ab ihrer ersten Beobachtung, Änderungen zum Marktkurs. Für «Heute»
+/// muss der Bestand des Aufrufers dazu passen: eigener Bestand samt Posten (`CoinPosition.ledgerHoldingsExact`) plus
+/// letzte Stufe dieser Reihe (`AddressBalanceHistory.latestByCoin`) = Bestand der Karte — ohne Reihe nur der eigene.
+/// Wie Android.
 enum PortfolioPeriodChange {
     /// «7 T»: so viele Tage vor heute liegt der Stichtag.
     static let days = 7
@@ -73,10 +75,10 @@ enum PortfolioPeriodChange {
                                skipped: skipped.sorted())
     }
 
-    private static let dayMillis: Int64 = 86_400_000
-
-    /// Beginn des Zeitraums für `baseDay`: Ende des UTC-Tags (Schluss der Tageskerze).
-    static func windowStart(baseDay: Int) -> Int64 { Int64(baseDay + 1) * dayMillis }
+    /// Beginn des Zeitraums für `baseDay`: letzte Millisekunde des UTC-Tags (`PortfolioHistory.utcDayEnd`, Schluss der
+    /// Tageskerze) — Transaktionen danach liegen im Zeitraum; eine um genau 00:00:00.000 UTC gehört wie im Verlauf zum
+    /// neuen Tag. Wie Android.
+    static func windowStart(baseDay: Int) -> Int64 { PortfolioHistory.utcDayEnd(baseDay) }
 
     /// Gewinn/Verlust seit dem Stichtag `baseDay`, der Käufe und Verkäufe kennt (siehe oben).
     /// `fx`: Umrechnung in die Anzeigewährung je Tag (`PortfolioHistoryFx.rateFunction`); nil = USDT. Dann wie der
@@ -110,15 +112,18 @@ enum PortfolioPeriodChange {
     /// diesen Kurs fehlen wie in der Kursänderung (ausser ein ganz im Zeitraum gekaufter Coin: Wert
     /// jetzt − Einstand). Ein Kauf/Verkauf ohne Preis im Zeitraum lässt den Coin ganz fehlen (wie «7 T»:
     /// Zufluss unbekannt) — er kommt in `skipped`, seine Kursänderung fällt aus dem Betrag. Ohne
-    /// Transaktionen im Zeitraum unverändert. `only`: nur dieser Coin (`todayByCoin`).
+    /// Transaktionen im Zeitraum unverändert. `only`: nur dieser Coin (`todayByCoin`). `coinStart`: Beginn je Coin = Zeit
+    /// seines Vergleichskurses (`PortfolioWidgetSeries.changeSince`; fehlt = `windowStart`) — ein Kauf nach dem
+    /// Vergleichskurs zählt so als Zufluss, nie als Gewinn.
     static func todayAdjusted(_ change: PortfolioChange?, trades: [PortfolioTx], current: [String: Double],
                               coinChanges: [String: Double], windowStart: Int64,
                               only: String? = nil, addresses: [AddressBalanceHistory] = [],
-                              method: CostMethod = .defaultMethod) -> PortfolioChange? {
+                              method: CostMethod = .defaultMethod,
+                              coinStart: [String: Int64] = [:]) -> PortfolioChange? {
         guard let change else { return nil }
         // Marktkurs einer Auszahlung ohne Preis / Adress-Änderung heute: der aktuelle Kurs
         let parts = parts(trades: trades, current: current, windowStart: windowStart, only: only, addresses: addresses,
-                          method: method,
+                          method: method, coinStart: coinStart,
                           marketPrice: { coin, live, _ in PortfolioStables.needsQuote(coin) ? live : 1 }) { coin, live in
             guard PortfolioStables.needsQuote(coin) else { return 1 }
             guard let live, let pct = coinChanges[coin], pct.isFinite, pct > -100 else { return nil }
@@ -152,7 +157,8 @@ enum PortfolioPeriodChange {
     static func todayByCoin(holdings: [String: Double], trades: [PortfolioTx], current: [String: Double],
                             coinChanges: [String: Double], windowStart: Int64,
                             addresses: [AddressBalanceHistory] = [],
-                            method: CostMethod = .defaultMethod) -> [String: PortfolioChange] {
+                            method: CostMethod = .defaultMethod,
+                            coinStart: [String: Int64] = [:]) -> [String: PortfolioChange] {
         var out: [String: PortfolioChange] = [:]
         for (rawCoin, amount) in holdings {
             guard amount > PortfolioCalculator.eps, !amount.isInfinite else { continue }
@@ -162,7 +168,7 @@ enum PortfolioPeriodChange {
                 ?? PortfolioChange(amount: 0, percent: nil, skipped: [coin])
             guard let adjusted = todayAdjusted(raw, trades: trades, current: current, coinChanges: coinChanges,
                                                windowStart: windowStart, only: coin, addresses: addresses,
-                                               method: method),
+                                               method: method, coinStart: coinStart),
                   !adjusted.skipped.contains(coin), adjusted.amount.isFinite else { continue }
             out[coin] = adjusted
         }
@@ -211,17 +217,20 @@ enum PortfolioPeriodChange {
     ///   unbekannt — dann fehlt nur dieser Coin (`Parts.skipped`)
     /// - Parameter marketPrice: Marktkurs zum Zeitpunkt (ms) für Auszahlungen ohne Preis und Adress-Änderungen
     ///   (`PortfolioLedger.needsMarketPrice`); nil = unbekannt (Coin fehlt)
+    /// - Parameter coinStart: Beginn des Zeitraums je Coin, wenn er von `windowStart` abweicht («Heute»: Zeit seines
+    ///   Vergleichskurses) — ein Kauf nach dem Vergleichskurs ist so nie Gewinn
     private static func parts(trades: [PortfolioTx], current: [String: Double], windowStart: Int64,
                               only: String? = nil, addresses: [AddressBalanceHistory] = [],
-                              method: CostMethod = .defaultMethod,
+                              method: CostMethod = .defaultMethod, coinStart: [String: Int64] = [:],
                               marketPrice: (String, Double?, Int64) -> Double?,
                               rates: Rates = .none,
                               startPrice: (String, Double?) -> Double?) -> Parts {
         var out = Parts()
-        // Adress-Einträge der Eingabe nie rückwirkend; nur die beobachtete Reihe (`AddressBalanceHistory`). Tausch ohne
-        // Wert (und die übrigen Fälle von `PortfolioLedger.valueAtDayClose`) zum Marktkurs `marketPrice` wie die Karte:
-        // EIN Wert für abgegebenen und erhaltenen Coin statt jede Seite zu ihrem eigenen Kurs
-        let raw = trades.filter { $0.amountExact > 0 && !AddressBalance.isAddressTrade($0.id) }
+        // Adress-Teil der Eingabe nie rückwirkend; dafür die beobachtete Reihe ohne Gebuchtes (`AddressBooked`),
+        // Eröffnungsposten wie Käufe (wie die Karte). Tausch ohne Wert (und die übrigen Fälle von
+        // `PortfolioLedger.valueAtDayClose`) zum Marktkurs `marketPrice` wie die Karte: EIN Wert für abgegebenen und
+        // erhaltenen Coin statt jede Seite zu ihrem eigenen Kurs
+        let raw = trades.filter { $0.amountExact > 0 && !AddressBalance.isAddressPart($0.id) }
             + AddressBalanceHistory.trades(addresses)
         let valid = withoutActuallyEscaping(marketPrice) { market in
             PortfolioLedger.valueAtDayClose(raw, price: { coin, time in
@@ -243,9 +252,10 @@ enum PortfolioPeriodChange {
         for (coin, events) in byCoin {
             // Bestände exakt wie die Position nach der Methode (`PortfolioHoldingsBook`); erst zum Bewerten als Double
             var book = PortfolioHoldingsBook(method: method)
-            for e in events where e.trade.time <= windowStart { book.apply(e) }
+            let start = coinStart[coin] ?? windowStart
+            for e in events where e.trade.time <= start { book.apply(e) }
             let startExact = book.total
-            let inWindow = events.filter { $0.trade.time > windowStart }
+            let inWindow = events.filter { $0.trade.time > start }
             let live = current[coin].flatMap { $0 > 0 && $0.isFinite ? $0 : nil }
             // Zuflüsse im Zeitraum; nil = einer davon unbekannt (z. B. Kauf ohne Preis)
             var flows: [(event: PortfolioLedgerEvent, amount: Double)]? = []

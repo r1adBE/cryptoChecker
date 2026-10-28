@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">E njëjta vlen për një tarifë në USDT ose para në dorë gjatë një transferimi mes portofoleve të tua: nuk i shtohet kostos dhe shfaqet vetëm si informacion.</string>
     <string name="tax_note_uk">Përputhja sipas HMRC: e njëjta ditë → pastaj 30 ditët pasuese → pastaj grup i përbashkët sipas Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">Kalimi më 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nëse vitet e mëparshme përdornin FIFO për të gjitha portofolet, njësitë e mbetura më 31.12.2024 shkojnë te portofolet që mbajnë monedhat – portofoli me monedhat më të vjetra merr koston më të vjetër. Ky caktim është rregull i aplikacionit – krahasoje me të dhënat e tua.</string>
-    <string name="tax_note_us_wallet">Nga viti tatimor 2025 IRS kërkon koston e blerjes për çdo wallet/bursë (Rev. Proc. 2024-28) – eksporti përdor FIFO për wallet nga 2025 – para 2025 vlen metoda jote e kostos së blerjes.</string>
+    <string name="tax_note_us_wallet">Nga viti tatimor 2025 IRS kërkon koston e blerjes për çdo wallet/bursë (Rev. Proc. 2024-28) – eksporti përdor FIFO për wallet nga 2025 – para 2025 FIFO për të gjitha wallet-et bashkë, ose FIFO për wallet nëse kjo është metoda jote e kostos së blerjes.</string>
     <string name="tax_note_withdrawal_fee">Një tarifë tërheqjeje në USDT ose para në dorë nuk është humbje: në para në dorë nuk zbritet, në USDT është tjetërsim me vlerën nominale pa fitim – shfaqet vetëm si informacion (%1$s).</string>
     <string name="tax_summary_at_interest_income">llogaritet: e ardhur në marrje me normën e veçantë 27,5 përqind (§ 27b par. 2 nr. 1 EStG / BMF) – monedhat e ruajnë këtë vlerë si kosto blerjeje</string>
     <string name="tax_summary_at_reward_info">vetëm për informacion – në asnjë total: shpërblimet hyjnë në zotërimet e reja me kosto blerjeje 0 dhe tatohen vetëm në shitje (tashmë te fitimet) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Adresat e vëzhguara llogariten në vlerën totale, por nuk kanë kosto blerjeje – prandaj fitimi ka gjasë të jetë më i lartë. Regjistroje koston si blerje.</string>
+    <string name="tax_summary_fr_rewards_income">Shuma supozon se shpërblimet janë tatuar si të ardhura kur u morën (vlera në marrje në koston e blerjes) – përndryshe, leximi i kujdesshëm do të ishte kosto blerjeje 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Vlerat e tregut pa çmim të regjistruar (tarifat, dhuruar/paguar, shkëmbim, shpërblime, tarifat e rrjetit, vlera e portofolit) me mbylljen ditore (UTC) të ditës së transaksionit</string>

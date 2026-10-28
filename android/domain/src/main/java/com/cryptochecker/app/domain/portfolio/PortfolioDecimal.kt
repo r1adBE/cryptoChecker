@@ -73,6 +73,40 @@ object PortfolioDecimal {
         return if (v.signum() == 0) "0" else v.stripTrailingZeros().toPlainString()
     }
 
+    /**
+     * Preis zum Speichern (Kaufpreis, Preis einer Gebühr im dritten Coin): 34 gültige Stellen ([MC]), mindestens aber
+     * [MAX_SCALE] Nachkommastellen (wie eine Menge) und höchstens [MAX_PARSE_SCALE] (Lesegrenze von [parse]), halbe auf
+     * gerade. So bleibt der Preis winziger Coins (1.3717333…E-9 BABYDOGE) erhalten, statt auf 18 Nachkommastellen zu
+     * schrumpfen oder unter 5E-19 zu 0 (= gratis) zu werden. Werte mit höchstens 18 Nachkommastellen bleiben unverändert.
+     * Wie iOS.
+     */
+    fun price(value: BigDecimal): BigDecimal {
+        val s = value.stripTrailingZeros()
+        if (s.signum() == 0) return BigDecimal.ZERO
+        // Nachkommastellen für 34 gültige Stellen: 34 − Stellen vor dem Komma (bei 0.00… negativ gezählt)
+        val significant = MC.precision - (s.precision() - s.scale())
+        val scale = minOf(MAX_PARSE_SCALE, maxOf(MAX_SCALE, significant))
+        return if (s.scale() > scale) s.setScale(scale, java.math.RoundingMode.HALF_EVEN) else s
+    }
+
+    /** Preis als gespeicherter Text ([price]): ohne Exponent und Nullen am Ende. Wie iOS. */
+    fun priceText(value: BigDecimal): String {
+        val v = price(value)
+        return if (v.signum() == 0) "0" else v.stripTrailingZeros().toPlainString()
+    }
+
+    /** Menge, Gebühr oder Wert bleibt nach dem Runden auf [MAX_SCALE] Nachkommastellen lesbar ([withinLimits]). */
+    fun storableAmount(value: BigDecimal): Boolean = withinLimits(amount(value))
+
+    /**
+     * Preis bleibt nach [price] lesbar ([withinLimits]) und ein Preis > 0 wird nicht zu 0 (unter 5E-41: das wäre ein
+     * Kauf zum Preis 0 statt eines unbekannten Preises).
+     */
+    fun storablePrice(value: BigDecimal): Boolean {
+        val p = price(value)
+        return withinLimits(p) && (value.signum() <= 0 || p.signum() > 0)
+    }
+
     /** Betrag so klein, dass er nur Rest aus einer Teilung sein kann. */
     fun isDust(value: BigDecimal): Boolean = value.abs() <= DUST
 }

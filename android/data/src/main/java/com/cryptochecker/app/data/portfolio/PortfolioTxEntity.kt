@@ -122,6 +122,13 @@ data class PortfolioTxEntity(
      * Börse Zinsen ausweist; im Erfassen-Blatt umschaltbar. Nur bei [PortfolioTxType.REWARD].
      */
     @ColumnInfo(defaultValue = "0") val interest: Boolean = false,
+
+    /**
+     * Staking-Umbuchung (CSV «Unstaking», «Redeem»): eigene Mittel zwischen Staking und Guthaben derselben Börse, nie eine
+     * Auszahlung ([com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch.storedWithdrawal]). CSV-Import setzt
+     * es; bleibt beim Bearbeiten erhalten, solange die Art «Umbuchung» bleibt. Nur bei [PortfolioTxType.TRANSFER].
+     */
+    @ColumnInfo(defaultValue = "0") val stakingMove: Boolean = false,
 ) {
     fun toTrade(): PortfolioTrade = PortfolioTrade(
         id = id,
@@ -166,14 +173,16 @@ data class PortfolioTxEntity(
 
 /**
  * Room: exakte Dezimalzahl ↔ Text («0.00000001», ohne Exponent). Unlesbar → 0 bzw. null
- * (eine Menge 0 überspringt der Rechner).
+ * (eine Menge 0 überspringt der Rechner). Geschrieben mit der Regel der Preise ([PortfolioDecimal.priceText]: 34 gültige
+ * Stellen, mindestens 18 und höchstens 40 Nachkommastellen): Preise behalten so ihre Stellen, Mengen, Gebühren und Werte
+ * kommen schon auf 18 Nachkommastellen gerundet an ([cleanForSave]) und bleiben unverändert.
  */
 class PortfolioDecimalConverters {
     @TypeConverter
     fun fromText(text: String?): BigDecimal? = PortfolioDecimal.parse(text)
 
     @TypeConverter
-    fun toText(value: BigDecimal?): String? = value?.let { PortfolioDecimal.text(it) }
+    fun toText(value: BigDecimal?): String? = value?.let { PortfolioDecimal.priceText(it) }
 }
 
 /**

@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Dasselbe gilt für eine Gebühr in USDT oder Fiat bei einer Umbuchung zwischen eigenen Wallets: Sie erhöht den Einstand nicht und steht nur als Information da.</string>
     <string name="tax_note_uk">Zuordnung nach HMRC: gleicher Tag → 30 Tage danach → Sammelbestand nach Section 104 (Section 104 Pool).</string>
     <string name="tax_note_us_transition">Übergang 1.1.2025 (Rev. Proc. 2024-28, Safe Harbor): Rechneten die Jahre davor FIFO über alle Wallets, gehen die Restposten per 31.12.2024 an die Wallets, in denen die Coins liegen – die Wallet mit den ältesten Coins erhält den ältesten Einstand. Diese Zuordnung ist eine Regel der App – mit eigenen Unterlagen abgleichen.</string>
-    <string name="tax_note_us_wallet">Ab Steuerjahr 2025 verlangt die IRS den Einstand je Wallet/Börse (Rev. Proc. 2024-28) – der Export rechnet ab 2025 FIFO je Wallet – davor gilt deine Einstandsmethode.</string>
+    <string name="tax_note_us_wallet">Ab Steuerjahr 2025 verlangt die IRS den Einstand je Wallet/Börse (Rev. Proc. 2024-28) – der Export rechnet ab 2025 FIFO je Wallet – davor FIFO über alle Wallets, oder FIFO je Wallet, wenn das deine Einstandsmethode ist.</string>
     <string name="tax_note_withdrawal_fee">Eine Auszahlungsgebühr in USDT oder Fiat ist kein Verlust: eine Fiat-Gebühr ist nicht abziehbar, eine USDT-Gebühr eine Veräusserung zum Nennwert ohne Gewinn – sie steht nur als Information da (%1$s).</string>
     <string name="tax_summary_at_interest_income">zählt: Einkünfte beim Zufluss zum Sondersteuersatz 27,5 Prozent (§ 27b Abs. 2 Z 1 EStG / BMF) – die Coins behalten diesen Wert als Anschaffungskosten</string>
     <string name="tax_summary_at_reward_info">nur zur Information – in keiner Summe: Belohnungen kommen mit Anschaffungskosten 0 in den Neubestand und werden erst beim Verkauf besteuert (dort in den Gewinnen) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Beobachtete Adressen zählen zum Gesamtwert, haben aber keinen Einstand – der Gewinn ist dadurch eher zu hoch. Einstand als Kauf erfassen.</string>
+    <string name="tax_summary_fr_rewards_income">Der Betrag nimmt an, dass Belohnungen beim Erhalt als Einkommen versteuert wurden (Wert beim Erhalt im Erwerbspreis) – sonst wäre Erwerbspreis 0 die vorsichtige Lesart.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Marktwerte ohne erfassten Preis (Gebühren, Verschenkt/bezahlt, Tausch, Belohnungen, Netzwerkgebühren, Gesamtwert) zum Tagesschluss (UTC) des Transaktionstags</string>

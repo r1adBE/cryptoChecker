@@ -75,6 +75,7 @@ final class PortfolioStorageTaxTests: XCTestCase {
         var missing = object
         missing.removeValue(forKey: "feeRow")
         missing.removeValue(forKey: "interest")
+        missing.removeValue(forKey: "stakingMove")
         let missingData = try JSONSerialization.data(withJSONObject: missing)
         // Immer geschrieben: ohne die Felder ist der Eintrag unbrauchbar
         XCTAssertThrowsError(try JSONDecoder().decode(PortfolioTx.self, from: missingData))
@@ -93,6 +94,21 @@ final class PortfolioStorageTaxTests: XCTestCase {
         var buy = json
         buy["type"] = "BUY"
         XCTAssertEqual(try BackupManager.jsonToTx(buy)?.feeRow, false)
+        // Staking-Umbuchung: Pflichtfeld in Datei und Sicherung, nur bei einer Umbuchung
+        var staking = PortfolioTx(id: 5, coin: "ETH", type: .TRANSFER, amountExact: 2, priceExact: nil, time: 6)
+        staking.importKey = "BINANCE|U1"
+        staking.stakingMove = true
+        let stakingData = try JSONEncoder().encode(staking)
+        XCTAssertTrue(try JSONDecoder().decode(PortfolioTx.self, from: stakingData).stakingMove)
+        var noStaking = try XCTUnwrap(JSONSerialization.jsonObject(with: stakingData) as? [String: Any])
+        noStaking.removeValue(forKey: "stakingMove")
+        XCTAssertThrowsError(try JSONDecoder().decode(PortfolioTx.self, from: JSONSerialization.data(withJSONObject: noStaking)))
+        var stakingJson = BackupManager.txToJson(staking)
+        XCTAssertEqual(stakingJson["stakingMove"] as? Bool, true)
+        XCTAssertEqual(try BackupManager.jsonToTx(stakingJson)?.stakingMove, true)
+        XCTAssertEqual(json["stakingMove"] as? Bool, false)
+        stakingJson["type"] = "WITHDRAWAL"
+        XCTAssertEqual(try BackupManager.jsonToTx(stakingJson)?.stakingMove, false)
     }
 
     func testFeeRowOnlyByFlagAndInterestOnlyByFlag() {
@@ -119,6 +135,16 @@ final class PortfolioStorageTaxTests: XCTestCase {
         XCTAssertTrue(CsvImportMapping.toTx(priced(.REWARD, "Lending interest")).interest)
         XCTAssertFalse(CsvImportMapping.toTx(priced(.REWARD, "Staking")).interest)
         XCTAssertTrue(PortfolioCsvImporter.tx(fee).feeRow)
+        // Staking-Umbuchung: Merker mit oder ohne Notiz; Auszahlung als Umbuchung nie
+        let unstaking = CsvImportMapping.toTx(priced(.TRANSFER, "Unstaking"))
+        XCTAssertEqual(unstaking.type, .TRANSFER)
+        XCTAssertTrue(unstaking.stakingMove)
+        XCTAssertEqual(unstaking.note, "Unstaking")
+        let blank = CsvImportMapping.toTx(priced(.TRANSFER, " "))
+        XCTAssertTrue(blank.stakingMove)
+        XCTAssertNil(blank.note)
+        XCTAssertFalse(CsvImportMapping.toTx(priced(.WITHDRAWAL, "Withdrawal"), withdrawalsAsTransfer: true).stakingMove)
+        XCTAssertTrue(PortfolioCsvImporter.tx(unstaking).stakingMove)
     }
 
     // MARK: Exakter Zufluss

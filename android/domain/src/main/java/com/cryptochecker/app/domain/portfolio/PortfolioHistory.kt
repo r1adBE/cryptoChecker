@@ -38,10 +38,11 @@ import kotlin.math.min
  *    zum Marktkurs ihres Tags (Schluss, heute der aktuelle Kurs; [PortfolioLedger.flow]): kein Gewinn/Verlust aus
  *    dem Abgang bzw. Zugang; ohne Marktkurs fehlt der Coin. Die Kurve enthält damit die
  *    Wertänderung ausgebuchter Coins bis zur Auszahlung ([PortfolioHistorySeries.withdrawalsInRange]).
- *  - Adress-Guthaben: Adress-Einträge in den Transaktionen ([AddressBalance.withAddresses]) zählen NICHT
- *    (nie rückwirkend). Nur die beobachtete Reihe ([AddressBalanceHistory], Parameter `addresses`): vor der
- *    ersten Beobachtung nichts, danach Bestand wie beobachtet; Änderungen sind Zu-/Abflüsse zum Marktkurs
- *    ihres Tags — ein neu eingegangener Betrag ist nie Gewinn.
+ *  - Adress-Guthaben: der Adress-Teil in den Transaktionen ([AddressBalance.withAddresses]) zählt NICHT
+ *    (nie rückwirkend); Eröffnungsposten zählen wie Käufe. Dazu die beobachtete Reihe ([AddressBalanceHistory],
+ *    Parameter `addresses`, von [AddressBooked.histories] ohne das schon Gebuchte): vor der ersten Beobachtung
+ *    nichts, danach Bestand wie beobachtet; Änderungen sind Zu-/Abflüsse zum Marktkurs ihres Tags — ein neu
+ *    eingegangener Betrag ist nie Gewinn. Heute endet die Kurve so beim Bestand der Karte.
  */
 object PortfolioHistory {
 
@@ -143,7 +144,7 @@ object PortfolioHistory {
      *   fallen kaum je auf denselben Zeitpunkt — die Summe ist eine obere bzw. untere SCHRANKE des
      *   tatsächlichen Tageshochs/-tiefs des Portfolios, kein gemessener Wert. Coins ohne Kerze an dem
      *   Tag (oder USDT) zählen mit ihrem Tageswert in allen dreien.
-     * @param addresses beobachtete Adress-Guthaben (siehe oben); Adress-Einträge in [trades] zählen nicht.
+     * @param addresses beobachtete Adress-Guthaben (siehe oben); der Adress-Teil in [trades] zählt nicht.
      */
     fun build(
         trades: List<PortfolioTrade>,
@@ -159,11 +160,12 @@ object PortfolioHistory {
     ): PortfolioHistorySeries {
         // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone
         val dayEndMillis: (Long) -> Long = { utcDayEnd(it) }
-        // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe. Tausch ohne Wert (und die übrigen Fälle von
-        // [PortfolioLedger.valueAtDayClose]) zum selben Tageskurs wie die Karte ([PortfolioPeriodChange.marketPriceAt]):
-        // EIN Wert für beide Seiten, sonst bewerteten Kurve und Karte denselben Tausch verschieden
+        // Adress-Teil nie rückwirkend; dafür die beobachtete Reihe ohne Gebuchtes ([AddressBooked]), Posten wie Käufe.
+        // Tausch ohne Wert (und die übrigen Fälle von [PortfolioLedger.valueAtDayClose]) zum selben Tageskurs wie die
+        // Karte ([PortfolioPeriodChange.marketPriceAt]): EIN Wert für beide Seiten, sonst bewerteten Kurve und Karte
+        // denselben Tausch verschieden
         val valid = PortfolioLedger.valueAtDayClose(
-            trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressTrade(it.id) } +
+            trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressPart(it.id) } +
                 AddressBalanceHistory.trades(addresses),
         ) { coin, time ->
             PortfolioPeriodChange.marketPriceAt(coin, livePrices[coin], closes, time)

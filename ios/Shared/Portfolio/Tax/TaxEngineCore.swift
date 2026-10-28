@@ -38,7 +38,7 @@ struct TaxStep: Sendable {
     var spouseGift = false
     /// Zahlung mit Krypto (`.PAYMENT`).
     var payment = false
-    /// Erlös aus geschätztem Wert (`PortfolioTx.valueEstimated`).
+    /// Erlös aus geschätztem Wert (`PortfolioTx.valueEstimated`) bzw. mit geschätztem Gebühr-Preis (`PortfolioTx.feePriceEstimated`).
     var estimated = false
 
     init(_ kind: TaxStepKind, _ trade: PortfolioTx, qty: Decimal, cost: Decimal? = nil, acquired: Int64? = nil,

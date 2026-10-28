@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Lo mismo vale para una comisión en USDT o efectivo en una transferencia entre tus propios wallets: no se suma al coste y figura solo como información.</string>
     <string name="tax_note_uk">Asignación según HMRC: mismo día → luego los 30 días siguientes y luego el fondo común según la Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">Transición al 1.1.2025 (Rev. Proc. 2024-28, safe harbor): si los años anteriores usaban FIFO en todas las carteras, los lotes restantes al 31.12.2024 pasan a las carteras que tienen las monedas; la cartera con las monedas más antiguas recibe el coste más antiguo. Este reparto es una regla de la app: contrástalo con tus propios registros.</string>
-    <string name="tax_note_us_wallet">Desde el ejercicio fiscal 2025 el IRS exige el coste de adquisición por wallet/exchange (Rev. Proc. 2024-28) – la exportación usa FIFO por wallet desde 2025 – antes de 2025 se aplica tu método del coste de adquisición.</string>
+    <string name="tax_note_us_wallet">Desde el ejercicio fiscal 2025 el IRS exige el coste de adquisición por wallet/exchange (Rev. Proc. 2024-28) – la exportación usa FIFO por wallet desde 2025 – antes de 2025 FIFO sobre todos los wallets, o FIFO por wallet si ese es tu método del coste de adquisición.</string>
     <string name="tax_note_withdrawal_fee">Una comisión de retirada en USDT o efectivo no es pérdida: en efectivo no es deducible, en USDT es una enajenación a la par sin ganancia – figura solo como información (%1$s).</string>
     <string name="tax_summary_at_interest_income">cuenta: ingreso al recibirlo al tipo especial del 27,5 por ciento (§ 27b apdo. 2 n.º 1 EStG / BMF) – las monedas conservan este valor como coste de adquisición</string>
     <string name="tax_summary_at_reward_info">solo informativo – en ningún total: las recompensas entran en las nuevas tenencias con coste de adquisición 0 y solo tributan al venderlas (ya en las ganancias) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Las direcciones vigiladas cuentan en el valor total pero no tienen coste de adquisición: la ganancia probablemente resulta demasiado alta. Registra el coste como compra.</string>
+    <string name="tax_summary_fr_rewards_income">El importe supone que las recompensas tributaron como ingreso al recibirlas (valor al recibirlas en el coste de adquisición) – si no, la lectura prudente sería coste de adquisición 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Valores de mercado sin precio registrado (comisiones, regalado/pagado, intercambio, recompensas, comisiones de red, valor de la cartera) al cierre diario (UTC) del día de la transacción</string>

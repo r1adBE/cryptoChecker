@@ -1,6 +1,8 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.portfolio.AddressBalance
+import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
+import com.cryptochecker.app.domain.portfolio.AddressBooked
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressCostLot
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
@@ -10,6 +12,9 @@ import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioCostGaps
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
+import com.cryptochecker.app.domain.portfolio.PortfolioHistory
+import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
+import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
@@ -113,11 +118,18 @@ class AddressCostLotsParityTest {
             val expectedHeld = c["holdingsAt"].obj()
             assertEquals("$name holdingsAt coins", expectedHeld.keys, held.keys)
             expectedHeld.forEach { (coin, v) -> near("$name holdingsAt $coin", v, held[coin]) }
+            // Reihe ohne das schon Gebuchte ([AddressBooked]): letzte Stufe = Adress-Teil der Karte; «Heute» rechnet mit
+            // eigenem Bestand samt Posten + dieser Stufe = Bestand der Karte
+            val booked = AddressBalanceHistory.latestByCoin(AddressBooked.histories(addresses, real))
+            val expectedBooked = c["booked"].obj()
+            assertEquals("$name booked coins", expectedBooked.keys, booked.keys)
+            expectedBooked.forEach { (coin, v) -> near("$name booked $coin", v, booked[coin]) }
             c["methods"].obj().forEach { (m, coins) ->
                 val method = CostMethod.valueOf(m)
                 coins.obj().forEach { (coin, spec) ->
                     val x = spec.obj()
                     val p = PortfolioCalculator.position(coin, all, null, method)
+                    near("$name/$m today = card", p.holdingsExact.toPlainString(), p.ledgerHoldingsExact + (booked[coin] ?: BigDecimal.ZERO))
                     near("$name/$m holdings", x["holdings"], p.holdingsExact)
                     near("$name/$m address", x["address"], p.addressHoldingsExact)
                     if ("cost" in x) near("$name/$m cost", x["cost"], p.costBasisExact)
@@ -175,6 +187,49 @@ class AddressCostLotsParityTest {
                 near("$name/$m cutoff = card $coin", card.toPlainString(), file)
             }
         }
+    }
+
+    /**
+     * 7 T und Wertverlauf mit derselben Bestandsregel wie die Karte ([AddressBooked]): Posten ab ihrer Zeit, Reihe ohne das
+     * schon Gebuchte — eine erfasste Umbuchung zur Adresse zählt einmal, ein Verkauf von der Adress-Wallet verbraucht den
+     * Posten; der letzte Punkt ist der Wert der Karte.
+     */
+    @Test
+    fun periodsUseTheCardHoldings() {
+        val p = data["periods"].obj()
+        val today = p["today"].num()!!.toLong()
+        val current = p["current"].obj().mapValues { it.value.num()!! }
+        val closes = p["closes"].obj().mapValues { (_, days) -> days.obj().entries.associate { it.key.toLong() to it.value.num()!! } }
+        for (raw in p["cases"].list()) {
+            val c = raw.obj()
+            val name = c["name"] as String
+            val method = CostMethod.valueOf(c["method"] as String)
+            val addresses = c["addresses"].list().map(::address)
+            val real = c["trades"].list().map(::trade)
+            val all = AddressBalance.withAddresses(real, addresses, today)
+            val histories = AddressBooked.histories(addresses, real)
+            val e = c["expected"].obj()
+            val entries = AddressBalanceHistory.trades(histories)
+            val expectedEntries = e["addressTrades"].list().map { it.obj() }
+            assertEquals("$name entries", expectedEntries.size, entries.size)
+            expectedEntries.zip(entries).forEach { (x, t) ->
+                assertEquals("$name entry time", x["time"].num()!!.toLong(), t.time)
+                assertEquals("$name entry type", x["type"], t.type.name)
+                near("$name entry amount", x["amount"], t.amount)
+            }
+            near("$name card", e["holdings"], PortfolioCalculator.position("BTC", all, null, method).holdingsExact)
+            val gain = PortfolioPeriodChange.gain(all, current, closes, today - PortfolioPeriodChange.DAYS, histories, method)
+            nearDouble("$name gain", e["gain"].num(), gain?.amountUsd)
+            nearDouble("$name percent", e["percent"].num(), gain?.percent)
+            val history = PortfolioHistory.build(all, closes, current, PortfolioHistoryRange.WEEK, today, addresses = histories, method = method)
+            nearDouble("$name first point", e["firstPoint"].num(), history.points.firstOrNull()?.value)
+            nearDouble("$name last point", e["lastPoint"].num(), history.points.lastOrNull()?.value)
+            nearDouble("$name history pnl", e["gain"].num(), history.pnlChange)
+        }
+    }
+
+    private fun nearDouble(label: String, expected: Double?, actual: Double?) {
+        assertTrue("$label: $actual ≠ $expected", expected != null && actual != null && kotlin.math.abs(expected - actual) < 1e-6)
     }
 
     /** Steuer-Export rechnet mit den Posten wie die Veräusserungen: keine Gebühr «ohne Kaufpreis», Jahr nur mit Posten. */

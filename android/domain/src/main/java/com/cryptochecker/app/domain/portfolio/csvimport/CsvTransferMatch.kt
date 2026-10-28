@@ -9,7 +9,7 @@ import java.math.BigDecimal
  * Zeile ([CsvTransferMatch.candidates]). Nur importierte Transaktionen ([importKey]): von Hand erfasste Einzahlungen
  * tragen oft bewusst einen Kaufpreis oder ein Kaufdatum, das eine Umbuchung verwerfen würde. Die Felder ab [priceUsdt]
  * braucht nur der Zustand für «Import rückgängig» ([CsvTransferMatch.restoreState]). [linkedImportKey] gesetzt = schon
- * eine verknüpfte Umbuchung (kein Kandidat mehr).
+ * eine verknüpfte Umbuchung (kein Kandidat mehr). [stakingMove]: Staking-Umbuchung der Datei ([CsvTransferMatch.storedWithdrawal]).
  */
 data class CsvStoredMove(
     val id: Long,
@@ -30,6 +30,7 @@ data class CsvStoredMove(
     val exchange: String? = null,
     val importBatch: String? = null,
     val linkedImportKey: String? = null,
+    val stakingMove: Boolean = false,
 )
 
 /** Importierte Transaktion für «Import rückgängig» ([CsvTransferMatch.undoPlan]): Id, Importlauf, Zustand vor einer Verknüpfung. */
@@ -77,6 +78,7 @@ data class CsvTransferLink(
  * Gespeicherte Transaktion [id] wird die verknüpfte Umbuchung (Felder wie die neue Umbuchung in [CsvTransferMatch.apply]):
  * Herkunft der Auszahlung in [importKey], der Einzahlung in [linkedImportKey], Zustand davor in [restoreState]; die App
  * setzt dazu den Importlauf des verknüpfenden Imports, damit «Import rückgängig» dieses Laufs die Verknüpfung löst.
+ * [absorbed] = die darin aufgehende neue Zeile; ohne Verknüpfung beim Speichern eigene Zeile ([CsvTransferMatch.withFallbacks]).
  */
 data class CsvStoredTransfer(
     val id: Long,
@@ -91,6 +93,7 @@ data class CsvStoredTransfer(
     val importKey: String,
     val linkedImportKey: String,
     val restoreState: CsvRestoreState,
+    val absorbed: CsvImportTx? = null,
 )
 
 /** Ergebnis der gewählten Umbuchungen: neue Transaktionen und Änderungen gespeicherter. */
@@ -200,6 +203,14 @@ object CsvTransferMatch {
         return CsvImportFormat.entries.firstOrNull { it.name == format }?.exchangeName
     }
 
+    /**
+     * Gespeicherte Seite als Auszahlung: Auszahlung oder Umbuchung ohne Ziel (Wahl «Auf eigene Wallet»), aber keine
+     * Staking-Umbuchung der Datei ([CsvStoredMove.stakingMove], unabhängig von der Notiz) — die verlässt nie eine Börse;
+     * verknüpft, ginge eine echte Einzahlung darin auf und die echte Auszahlung fände kein Gegenstück mehr.
+     */
+    fun storedWithdrawal(s: CsvStoredMove): Boolean =
+        s.type == PortfolioTxType.WITHDRAWAL || (s.type == PortfolioTxType.TRANSFER && s.transferTo == null && !s.stakingMove)
+
     /** Eine Seite einer möglichen Umbuchung. */
     private class End(
         val key: String,
@@ -255,7 +266,7 @@ object CsvTransferMatch {
             // Schon verknüpft (zweiter Herkunftsschlüssel): kein Kandidat mehr
             if (s.linkedImportKey != null) continue
             when {
-                s.type == PortfolioTxType.WITHDRAWAL || (s.type == PortfolioTxType.TRANSFER && s.transferTo == null) ->
+                storedWithdrawal(s) ->
                     outs += withdrawal(s.importKey, s.coin, s.amount, s.fee, s.feeUnit, s.feeCoin, s.feeCoinAmount, s.time,
                         s.transferFrom ?: placeOf(s.importKey), s)
                 s.type == PortfolioTxType.DEPOSIT ->
@@ -381,6 +392,7 @@ object CsvTransferMatch {
                 importKey = link.withdrawalKey,
                 linkedImportKey = link.depositKey,
                 restoreState = state,
+                absorbed = link.absorbed,
             )
         }
         return CsvTransferPlan(out, updates)

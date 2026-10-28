@@ -165,10 +165,10 @@ object PortfolioFifo {
             val total = removed + uncovered
             if (total.signum() <= 0) return
             val wallet = walletOf(q)
-            // Schenkung (als Veräusserung), Zahlung mit Krypto und geschätzter Wert: Vermerke im Steuer-Export
+            // Schenkung, Zahlung mit Krypto, geschätzter Wert bzw. Gebühr-Preis (auch am Erlös, den sie mindert): Vermerke
             val gift = !feeLeg && t.fromGift
             val payment = !feeLeg && t.type == PortfolioTxType.PAYMENT && !t.fromGift
-            val estimated = !feeLeg && t.valueEstimated
+            val estimated = if (feeLeg) t.feePriceEstimated else t.valueEstimated || (t.feePriceEstimated && proceeds != null)
             val weights = soldParts ?: slices.map { it.amount }
             val weightTotal = weights.fold(zero) { acc, w -> acc + w } + (if (soldParts != null) uncoveredSold else uncovered)
             var proceedsLeft = proceeds

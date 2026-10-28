@@ -93,7 +93,8 @@
    "linkedImportKey": "STRING_OR_NULL",
    "importRestoreState": "OBJECT_OR_NULL",
    "feeRow": "BOOL",
-   "interest": "BOOL"
+   "interest": "BOOL",
+   "stakingMove": "BOOL"
   },
   "optional": {},
   "sample": {
@@ -122,7 +123,8 @@
    "linkedImportKey": null,
    "importRestoreState": null,
    "feeRow": false,
-   "interest": false
+   "interest": false,
+   "stakingMove": false
   }
  },
  "portfolioAlarms": {

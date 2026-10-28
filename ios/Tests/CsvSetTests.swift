@@ -23,10 +23,14 @@ final class CsvImportRereadTests: XCTestCase {
     func testRereadKeepsUsdtUsdCloses() async {
         let zone = "Europe/Zurich"
         let choice = CsvReadChoice(zone: zone)
+        // Geladen für beide Tage (sonst lädt das Neu-Lesen neu, `CsvImportRateDays.cover`)
+        let days: [String: ClosedRange<Int64>] = [CsvImportRateDays.usdtUsd: 20_150...20_241]
         let kept = await PortfolioCsvImporter.reread(coinbaseUsd, choice: choice, deviceZone: zone, existingKeys: [],
-                                                     known: CsvImportRates(fx: [:], usdtUsd: closes), refetch: false)
+                                                     known: CsvImportRates(fx: [:], usdtUsd: closes, days: days),
+                                                     refetch: false)
         let bare = await PortfolioCsvImporter.reread(coinbaseUsd, choice: choice, deviceZone: zone, existingKeys: [],
-                                                     known: CsvImportRates(fx: [:], usdtUsd: [:]), refetch: false)
+                                                     known: CsvImportRates(fx: [:], usdtUsd: [:], days: days),
+                                                     refetch: false)
         XCTAssertEqual(kept.rates.usdtUsd, closes, "Schlüsse bleiben für das nächste Neu-Lesen")
         XCTAssertEqual(kept.preview.transactions.count, 2)
         XCTAssertTrue(kept.preview.usdtApproximate.isEmpty, "mit Schlüsseln keine Näherung")

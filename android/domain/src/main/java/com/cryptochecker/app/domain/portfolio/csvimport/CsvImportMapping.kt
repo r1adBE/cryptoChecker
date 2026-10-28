@@ -45,6 +45,8 @@ data class CsvImportTx(
     val feeRow: Boolean = false,
     /** Belohnung, die die Börse als Zins (Lending) ausweist ([TaxEngines.interestReward] auf der Art der Datei). */
     val interest: Boolean = false,
+    /** Staking-Umbuchung ([CsvImportKind.TRANSFER]: «Unstaking», «Redeem»): nie eine Auszahlung ([CsvTransferMatch.storedWithdrawal]). */
+    val stakingMove: Boolean = false,
 )
 
 /**
@@ -102,7 +104,8 @@ data class CsvWithdrawalProposal(val importKey: String, val choice: CsvWithdrawa
  *    im Portfolio führen will, ändert sie in eine Umbuchung), Gebühr-Zeile → Veräusserung zum Tageskurs (gespeichert als
  *    Verkauf zum Preis 0 = Kennzeichen, [com.cryptochecker.app.domain.portfolio.PortfolioLedger.isFeeDisposal]: Erlös =
  *    Menge × Tagesschluss ihres Tags, ohne Kurs unbekannt — nie 0; im Steuer-Export «Gebühr») mit der Art als Notiz,
- *    Unstaking/Redeem ([CsvImportKind.TRANSFER]) → Umbuchung ohne Preis mit der Art als Notiz.
+ *    Unstaking/Redeem ([CsvImportKind.TRANSFER]) → Umbuchung ohne Preis mit der Art als Notiz und Merker
+ *    [CsvImportTx.stakingMove].
  *    Option `withdrawalsAsTransfer` (Schalter im Import): Auszahlungen werden Umbuchungen (die Coins bleiben im
  *    Portfolio, z. B. an die eigene Wallet); wohin = Ziel aus der Datei, die Formate liefern keins → null.
  *    Gebühr-Zeilen bleiben Veräusserungen zum Tageskurs.
@@ -181,9 +184,10 @@ object CsvImportMapping {
             toCoin = row.toCoin?.let { PortfolioCalculator.normalizeCoin(it) }.takeIf { row.kind == CsvImportKind.SWAP },
             toAmount = row.toAmount.takeIf { row.kind == CsvImportKind.SWAP },
             swapValueUsdt = p.swapValueUsdt?.takeIf { row.kind == CsvImportKind.SWAP && it.signum() >= 0 },
-            // Eigene Merker: Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
+            // Eigene Merker: Gebühr-Zeile, Zins und Staking-Umbuchung — die Notiz bleibt nur zur Anzeige
             feeRow = row.kind == CsvImportKind.FEE,
             interest = row.kind == CsvImportKind.REWARD && TaxEngines.interestReward(row.rawKind),
+            stakingMove = row.kind == CsvImportKind.TRANSFER,
         )
     }
 
@@ -253,6 +257,9 @@ object CsvImportMapping {
      *  - Coin nach trim/Grossschreibung leer → [CsvImportSkipReason.MISSING_FIELD]
      *  - Menge auf 18 Nachkommastellen gerundet ([PortfolioDecimal.amount], halbe auf gerade) ≤ 0 →
      *    [CsvImportSkipReason.AMOUNT_TOO_SMALL]
+     *  - eine Zahl wäre gespeichert nicht mehr lesbar (Menge, Gebühren, erhaltene Menge, Wert ab 10³⁰,
+     *    [PortfolioDecimal.storableAmount]) oder ein Preis > 0 würde zu 0 ([PortfolioDecimal.storablePrice]) →
+     *    [CsvImportSkipReason.BAD_NUMBER]
      *  - nur Tausch: erhaltener Coin (trim/gross) fehlt, leer, länger als [MAX_TO_COIN] oder gleich dem Coin, oder
      *    erhaltene Menge fehlt bzw. gerundet ≤ 0 → [CsvImportSkipReason.INVALID_SWAP]
      */
@@ -260,7 +267,15 @@ object CsvImportMapping {
         val coin = PortfolioCalculator.normalizeCoin(tx.coin)
         if (coin.isEmpty()) return CsvImportSkipReason.MISSING_FIELD
         if (PortfolioDecimal.amount(tx.amount).signum() <= 0) return CsvImportSkipReason.AMOUNT_TOO_SMALL
-        if (tx.type != PortfolioTxType.SWAP) return null
+        val swap = tx.type == PortfolioTxType.SWAP
+        // Was das Speichern behält: erhaltene Menge und Wert nur beim Tausch, Gebühr im dritten Coin nur mit Coin
+        val amounts = listOfNotNull(
+            tx.amount, tx.fee, tx.feeCoinAmount?.takeIf { tx.feeCoin != null },
+            tx.toAmount?.takeIf { swap }, tx.swapValueUsdt?.takeIf { swap },
+        )
+        val priceOk = tx.priceUsdt?.let { PortfolioDecimal.storablePrice(it) } != false
+        if (!priceOk || !amounts.all { PortfolioDecimal.storableAmount(it) }) return CsvImportSkipReason.BAD_NUMBER
+        if (!swap) return null
         val toCoin = tx.toCoin?.let { PortfolioCalculator.normalizeCoin(it) }.orEmpty()
         val toCoinOk = toCoin.isNotEmpty() && toCoin.length <= MAX_TO_COIN && toCoin != coin
         val toAmountOk = tx.toAmount?.let { PortfolioDecimal.amount(it).signum() > 0 } == true

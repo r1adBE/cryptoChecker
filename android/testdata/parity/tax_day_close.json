@@ -12,5 +12,132 @@
   "expectedDay": 20544,
   "expectedClose": "63000",
   "expectedFeeValue": "630.00",
-  "lateLocal": { "time": 1774996200000, "expectedDay": 20543, "expectedClose": "60000" }
+  "lateLocal": { "time": 1774996200000, "expectedDay": 20543, "expectedClose": "60000" },
+  "thirdFee": {
+    "_comment": "Gebühr im dritten Coin ohne Preis, jede Art (Kauf, Verkauf, Tausch, Umbuchung): der Gebühr-Coin braucht den Schluss SEINES UTC-Tags (PortfolioLedger.dayCloseNeeds); der Steuer-Export setzt ihn als Gebühr-Preis (valueThirdFeesAtDayClose, Vermerk «Wert geschätzt»). Kauf 0.1 BTC zu 40000 am 1.4. mit 0.01 BNB: Schluss 600, Wert 6, Einstand 4006. Verkauf am 2.4. mit 0.01 BNB: Schluss 610, Wert 6.1. Tausch am 3.4. mit 0.005 BNB: Schluss 620, Wert 3.1. Umbuchung am 4.4. mit 0.001 BNB: Bedarf, aber kein Schluss — bleibt ohne Gebühr-Preis («ohne Wert der Gebühr»). Verkauf mit erfasstem Gebühr-Preis 500: kein Bedarf, unverändert.",
+    "closes": [
+      {
+        "coin": "BNB",
+        "day": 20544,
+        "close": "600"
+      },
+      {
+        "coin": "BNB",
+        "day": 20545,
+        "close": "610"
+      },
+      {
+        "coin": "BNB",
+        "day": 20546,
+        "close": "620"
+      }
+    ],
+    "trades": [
+      {
+        "id": 11,
+        "coin": "BTC",
+        "type": "BUY",
+        "amount": "0.1",
+        "price": "40000",
+        "time": 1775034000000,
+        "feeCoin": "BNB",
+        "feeCoinAmount": "0.01"
+      },
+      {
+        "id": 12,
+        "coin": "BTC",
+        "type": "SELL",
+        "amount": "0.05",
+        "price": "50000",
+        "time": 1775120400000,
+        "feeCoin": "BNB",
+        "feeCoinAmount": "0.01"
+      },
+      {
+        "id": 13,
+        "coin": "BTC",
+        "type": "SWAP",
+        "amount": "0.01",
+        "time": 1775206800000,
+        "toCoin": "ETH",
+        "toAmount": "0.3",
+        "swapValue": "600",
+        "feeCoin": "BNB",
+        "feeCoinAmount": "0.005"
+      },
+      {
+        "id": 14,
+        "coin": "BTC",
+        "type": "TRANSFER",
+        "amount": "0.02",
+        "time": 1775293200000,
+        "transferFrom": "X",
+        "transferTo": "Y",
+        "feeCoin": "BNB",
+        "feeCoinAmount": "0.001"
+      },
+      {
+        "id": 15,
+        "coin": "BTC",
+        "type": "SELL",
+        "amount": "0.01",
+        "price": "50000",
+        "time": 1775293200000,
+        "feeCoin": "BNB",
+        "feeCoinAmount": "0.01",
+        "feeCoinPrice": "500"
+      }
+    ],
+    "needs": [
+      [
+        "BNB",
+        20544
+      ],
+      [
+        "BNB",
+        20545
+      ],
+      [
+        "BNB",
+        20546
+      ],
+      [
+        "BNB",
+        20547
+      ]
+    ],
+    "valued": [
+      {
+        "id": 11,
+        "feeCoinPrice": "600",
+        "estimated": true,
+        "feeValue": "6"
+      },
+      {
+        "id": 12,
+        "feeCoinPrice": "610",
+        "estimated": true,
+        "feeValue": "6.1"
+      },
+      {
+        "id": 13,
+        "feeCoinPrice": "620",
+        "estimated": true,
+        "feeValue": "3.1"
+      },
+      {
+        "id": 14,
+        "feeCoinPrice": null,
+        "estimated": false,
+        "feeValue": null
+      },
+      {
+        "id": 15,
+        "feeCoinPrice": "500",
+        "estimated": false,
+        "feeValue": "5"
+      }
+    ],
+    "cost": "4006"
+  }
 }

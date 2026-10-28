@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
+import com.cryptochecker.app.domain.portfolio.AddressBooked
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
@@ -112,11 +113,12 @@ class PortfolioViewModel @Inject constructor(
     }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     /**
-     * Beobachtete Adress-Guthaben ([AddressBalanceHistory.of]) für Heute / 7 T / 1 J und den Wertverlauf: zählen
-     * ab ihrer ersten Beobachtung, nie rückwirkend.
+     * Beobachtete Adress-Guthaben für 7 T / 1 J und den Wertverlauf ([AddressBooked.histories]): zählen ab ihrer ersten
+     * Beobachtung, nie rückwirkend, und ohne den Teil, den Posten und erfasste Bewegungen schon abbilden (wie die Karte).
      */
-    val addressHistories: StateFlow<List<AddressBalanceHistory>> = watchedAddresses
-        .map { AddressBalanceHistory.of(it) }
+    val addressHistories: StateFlow<List<AddressBalanceHistory>> = combine(transactions, watchedAddresses) { txs, addresses ->
+        AddressBooked.histories(addresses, txs.orEmpty().map { it.toTrade() })
+    }.flowOn(Dispatchers.Default)
         .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 

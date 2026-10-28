@@ -16,7 +16,9 @@ import com.cryptochecker.app.domain.watch.ChangeBasisMath
 /**
  * «Heute» für Karte, Widget und Portfolio-Alarm aus EINER Rechnung: Kursänderung je Coin mit
  * Vergleichskurs ([PortfolioPeriodChange.todayFromCoinChanges]; Coins ohne fehlen statt flach
- * mitzuzählen), um Käufe/Verkäufe seit Beginn der %-Basis berichtigt ([PortfolioPeriodChange.todayAdjusted]).
+ * mitzuzählen), um Käufe/Verkäufe seit Beginn der %-Basis berichtigt ([PortfolioPeriodChange.todayAdjusted]) — je
+ * Coin seit der Zeit seines Vergleichskurses ([PortfolioSnapshot.coinChangeSince]), sonst kann ein Kauf vor dem Beginn
+ * der %-Basis, aber nach einer älteren Basis als Gewinn zählen.
  * Betrag in der Anzeigewährung ([rate]); unbekannt = null. Dazu dieselbe Rechnung je Coin
  * ([PortfolioPeriodChange.todayByCoin]) für die Zeilen: [PortfolioSnapshot.coinPnl] (USDT) und
  * [PortfolioPosition.pnlAmount]/[PortfolioPosition.pnlPercent] (Anzeigewährung).
@@ -36,9 +38,11 @@ internal fun PortfolioSnapshot.withHonestToday(
     val raw = PortfolioPeriodChange.todayFromCoinChanges(holdings, current, coinChanges)
     val trades = transactions.map { t -> t.toTrade() }
     val adjusted = raw?.let {
-        PortfolioPeriodChange.todayAdjusted(it, trades, current, coinChanges, start, addresses = addresses, method = method)
+        PortfolioPeriodChange.todayAdjusted(
+            it, trades, current, coinChanges, start, addresses = addresses, method = method, coinStart = coinChangeSince,
+        )
     }
-    val byCoin = PortfolioPeriodChange.todayByCoin(holdings, trades, current, coinChanges, start, addresses, method)
+    val byCoin = PortfolioPeriodChange.todayByCoin(holdings, trades, current, coinChanges, start, addresses, method, coinChangeSince)
         .mapValues { (_, c) -> PortfolioChange(c.amountUsd, c.percent?.takeIf { it.isFinite() }) }
     return copy(
         changeAmount = adjusted?.amountUsd?.takeIf { it.isFinite() }?.times(rate),
@@ -53,8 +57,9 @@ internal fun PortfolioSnapshot.withHonestToday(
 }
 
 /**
- * Bestand für «Heute» ([PortfolioPeriodChange]): eigener Bestand ([CoinPosition.ledgerHoldingsExact]) plus zuletzt
- * beobachtetes Adress-Guthaben ([AddressBalanceHistory.latestByCoin]) — passend zur Reihe [addresses].
+ * Bestand für «Heute» ([PortfolioPeriodChange]): eigener Bestand samt Eröffnungsposten ([CoinPosition.ledgerHoldingsExact])
+ * plus letzte Stufe der Reihe [addresses] ohne das schon Gebuchte ([AddressBalanceHistory.latestByCoin] von
+ * [com.cryptochecker.app.domain.portfolio.AddressBooked.histories]) — der Bestand der Karte.
  */
 internal fun todayHoldings(open: List<CoinPosition>, addresses: List<AddressBalanceHistory>): Map<String, Double> {
     val observed = AddressBalanceHistory.latestByCoin(addresses)

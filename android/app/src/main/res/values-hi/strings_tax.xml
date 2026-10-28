@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">अपने वॉलेट के बीच ट्रांसफ़र पर USDT या नकद शुल्क पर भी यही लागू है: यह लागत में नहीं जुड़ता और केवल जानकारी के लिए दिखाया जाता है।</string>
     <string name="tax_note_uk">HMRC के अनुसार मिलान: उसी दिन → फिर अगले 30 दिन → फिर Section 104 के अनुसार साझा पूल (Section 104 pool)।</string>
     <string name="tax_note_us_transition">1.1.2025 का बदलाव (Rev. Proc. 2024-28, safe harbor): अगर पिछले वर्षों में सभी वॉलेट पर FIFO लगा था, तो 31.12.2024 के बचे लॉट उन वॉलेट में जाते हैं जिनमें कॉइन हैं – सबसे पुराने कॉइन वाले वॉलेट को सबसे पुरानी लागत मिलती है। यह आवंटन ऐप का नियम है – इसे अपने रिकॉर्ड से मिलाएँ।</string>
-    <string name="tax_note_us_wallet">कर वर्ष 2025 से IRS हर वॉलेट/एक्सचेंज के लिए लागत माँगता है (Rev. Proc. 2024-28) – एक्सपोर्ट 2025 से हर वॉलेट के लिए FIFO लगाता है – 2025 से पहले तुम्हारी लागत पद्धति लागू होती है।</string>
+    <string name="tax_note_us_wallet">कर वर्ष 2025 से IRS हर वॉलेट/एक्सचेंज के लिए लागत माँगता है (Rev. Proc. 2024-28) – एक्सपोर्ट 2025 से हर वॉलेट के लिए FIFO लगाता है – 2025 से पहले सभी वॉलेट पर एक साथ FIFO, या हर वॉलेट के लिए FIFO अगर वही तुम्हारी लागत पद्धति है।</string>
     <string name="tax_note_withdrawal_fee">USDT या नकद में निकासी शुल्क हानि नहीं है: नकद शुल्क घटाया नहीं जा सकता, USDT शुल्क बिना लाभ के अंकित मूल्य पर निपटान है – यह केवल जानकारी के लिए दिखाया जाता है (%1$s)।</string>
     <string name="tax_summary_at_interest_income">गिना जाता है: मिलने पर 27.5 प्रतिशत की विशेष दर से आय (§ 27b(2) सं. 1 EStG / BMF) – कॉइन यही मूल्य अधिग्रहण लागत के रूप में रखते हैं</string>
     <string name="tax_summary_at_reward_info">केवल जानकारी के लिए – किसी योग में नहीं: रिवॉर्ड 0 अधिग्रहण लागत पर नई होल्डिंग में जाते हैं और केवल बिक्री पर कर लगता है (पहले से लाभ में) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">निगरानी वाले पते कुल मूल्य में गिने जाते हैं, लेकिन उनकी कोई अधिग्रहण लागत नहीं है – इसलिए लाभ संभवतः अधिक दिखता है। लागत को खरीद के रूप में दर्ज करो।</string>
+    <string name="tax_summary_fr_rewards_income">यह राशि मानती है कि रिवॉर्ड मिलने पर आय के रूप में कर लगा था (मिलने के समय का मूल्य अधिग्रहण लागत में) – वरना सावधान व्याख्या अधिग्रहण लागत 0 होती।</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">दर्ज कीमत के बिना बाज़ार मूल्य (शुल्क, उपहार/भुगतान, स्वैप, रिवॉर्ड, नेटवर्क शुल्क, पोर्टफ़ोलियो मूल्य) लेन-देन के दिन के दैनिक क्लोज़ (UTC) पर</string>

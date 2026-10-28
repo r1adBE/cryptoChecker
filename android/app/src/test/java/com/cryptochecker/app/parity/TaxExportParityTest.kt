@@ -107,6 +107,19 @@ class TaxExportParityTest {
         }
     }
 
+    /** FR: die Devisenspanne reicht bis zur Herkunft einer Kürzung durch einen Abgang ohne Verkauf (Jahr ohne Abtretung). */
+    @Test
+    fun frOutflowSpanReachesTheOrigin() {
+        val c = data["frOutflowSpan"].obj()
+        val prices = c["prices"].obj().mapValues { BigDecimal(it.value as String) }
+        val (from, until) = TaxExport.fxSpan(
+            parseTrades(c["trades"]), TaxMethod.FR_PTA, TaxTemplate.FR.period(c["year"].num()!!.toInt()), zone,
+            priceAt = { coin, _ -> prices[coin] }, today = LocalDate.parse(c["today"] as String),
+        )
+        assertEquals(LocalDate.parse(c["from"] as String), from)
+        assertEquals(LocalDate.parse(c["until"] as String), until)
+    }
+
     /**
      * USDT zum Marktkurs: Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
      * Näherung, je Zeile vermerkt. Wie iOS.

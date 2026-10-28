@@ -104,11 +104,11 @@ object TaxExport {
     /**
      * Freigrenze für private Veräusserungsgeschäfte (§ 23 Abs. 3 Satz 5 EStG) in EUR: steuerfrei, wenn der Gesamtgewinn
      * des Jahres WENIGER als die Grenze beträgt (Freigrenze, kein Freibetrag): 1000 € ab 2024 (Wachstumschancengesetz),
-     * 600 € 2009–2023, 512 € bis 2008.
+     * 600 € 2008–2023 (Jahressteuergesetz 2008, ab Veranlagungszeitraum 2008), 512 € bis 2007.
      */
     fun privateSalesLimitEur(year: Int): BigDecimal = when {
         year >= 2024 -> BigDecimal(1000)
-        year >= 2009 -> BigDecimal(600)
+        year >= 2008 -> BigDecimal(600)
         else -> BigDecimal(512)
     }
 
@@ -339,6 +339,7 @@ object TaxExport {
      * [fxFrom]. Letzter: [until] ([priceUntil]) oder das späteste Datum eines Zugangs, den eine Veräusserung des Jahres
      * nutzt (Kaufdatum, Zuordnung, Herkunftsteil), höchstens heute ([today], nie vor dem Ende des Steuerjahrs) — UK: ein
      * Kauf am 20. April deckt einen Verkauf vom 2. April und braucht den Kurs SEINES Datums, nicht den des 5. April.
+     * FR: dazu die Herkunft der Kürzungen durch Abgänge ohne Verkauf des Jahres ([frOutflowTimes]).
      */
     fun fxSpan(
         trades: List<PortfolioTrade>,
@@ -358,7 +359,8 @@ object TaxExport {
         val inSpan = disposals?.filter { localDate(it.sellTime, zone) in upTo }
             ?: disposalsIn(trades, method, upTo, zone, priceAt, rules = rules, walletFrom = walletFrom)
         val times = inSpan
-            .flatMap { d -> listOfNotNull(d.acquiredTime, d.matchedTime) + d.costParts.timeBounds() }
+            .flatMap { d -> listOfNotNull(d.acquiredTime, d.matchedTime) + d.costParts.timeBounds() } +
+            frOutflowTimes(trades, method, period, zone, priceAt)
         val first = times.minOrNull()?.let { localDate(it, zone) }
         val from = if (first != null && first.isBefore(period.start)) first else period.start
         val last = times.maxOrNull()?.let { localDate(it, zone) }

@@ -2,6 +2,8 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.data.portfolio.cleanForSave
+import com.cryptochecker.app.data.portfolio.storable
+import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportSkipReason
@@ -15,7 +17,7 @@ import java.math.BigDecimal
 /**
  * Zeilen, die das Speichern ablehnen würde, stehen schon in der Vorschau unter «übersprungen»
  * (`csv_import.json` › «unsavable», [CsvImportMapping.unsavableReason]). Dazu: die Regel deckt sich mit der
- * Bereinigung und Prüfung beim Speichern ([cleanForSave] samt `require` in `PortfolioRepository.insertImported`).
+ * Bereinigung und Prüfung beim Speichern ([cleanForSave] samt [storable] in `PortfolioRepository.insertImported`).
  * Gegenstück: `Tests/CsvImportUnsavableTests.swift`.
  */
 class CsvUnsavableParityTest {
@@ -25,10 +27,10 @@ class CsvUnsavableParityTest {
         coin = c["coin"] as String,
         type = PortfolioTxType.valueOf(c["type"] as String),
         amount = BigDecimal(c["amount"] as String),
-        priceUsdt = null,
+        priceUsdt = (c["priceUsdt"] as String?)?.let { BigDecimal(it) },
         time = 1_700_000_000_000L,
-        fee = null,
-        feeUnit = null,
+        fee = (c["fee"] as String?)?.let { BigDecimal(it) },
+        feeUnit = (c["fee"] as String?)?.let { PortfolioFeeUnit.COIN },
         feeCoin = null,
         feeCoinAmount = null,
         note = null,
@@ -37,9 +39,9 @@ class CsvUnsavableParityTest {
         toAmount = (c["toAmount"] as String?)?.let { BigDecimal(it) },
     )
 
-    /** Wie `insertImported`: bereinigen, dann Coin nicht leer und Menge > 0; true = würde gespeichert. */
+    /** Wie `insertImported`: bereinigen, dann speicherbar ([storable]); true = würde gespeichert. */
     private fun saves(tx: CsvImportTx): Boolean = runCatching {
-        cleanForSave(tx.toEntity()).also { require(it.coin.isNotEmpty() && it.amount.signum() > 0) }
+        cleanForSave(tx.toEntity()).also { require(it.storable()) }
     }.isSuccess
 
     private val cases = ParityJson.load("csv_import.json")["unsavable"].list().map { it.obj() }

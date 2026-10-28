@@ -1,8 +1,8 @@
 import Foundation
 
 /// Welcher Tagesschluss gilt, wenn der Steuer-Export einen Marktkurs schätzen muss: IMMER der Schluss des UTC-Tags der
-/// Transaktion — für Gebühr-Zeilen, Verschenkt/bezahlt und Tausch ohne Wert, Belohnungen ohne Wert, Netzwerkgebühren als
-/// Veräusserung und den FR-Gesamtwert. Wie `TaxDayClose.kt` (Android, dort die Begründung): Karte, Wertverlauf, Einkünfte
+/// Transaktion — für Gebühr-Zeilen, Verschenkt/bezahlt und Tausch ohne Wert, Belohnungen ohne Wert, jede Gebühr im dritten
+/// Coin ohne Preis (`PortfolioLedger.dayCloseNeeds`), Netzwerkgebühren als Veräusserung und den FR-Gesamtwert. Wie `TaxDayClose.kt` (Android, dort die Begründung): Karte, Wertverlauf, Einkünfte
 /// und Gebühr-Zeilen rechneten schon so, die Tageskerzen der Quellen schliessen um 24:00 UTC; Netzwerkgebühren
 /// und der FR-Gesamtwert nehmen darum nicht den Vortag.
 enum TaxDayClose {

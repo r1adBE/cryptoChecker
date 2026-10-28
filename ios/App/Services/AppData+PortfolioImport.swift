@@ -1,13 +1,15 @@
 import Foundation
 
-// CSV-Import in AppData: importierte Transaktionen abseits des Haupt-Threads zusammenstellen (mit Fortschritt und
-// abbrechbar) und dann in EINEM Schreibvorgang speichern, ebenfalls abseits des Haupt-Threads. Eigene Datei, weil
+// CSV-Import in AppData: importierte Transaktionen und Verknüpfungen gespeicherter Seiten abseits des Haupt-Threads
+// zusammenstellen (mit Fortschritt und abbrechbar) und dann in EINEM Schreibvorgang speichern, ebenfalls abseits des
+// Haupt-Threads. Eigene Datei, weil
 // `AppData+Portfolio.swift` an der Längengrenze ist (wie `PortfolioRepository.insertImported` auf Android).
 
-/// Ergebnis von `AppData.insertImportedPortfolioTxs(_:batch:progress:)`.
+/// Ergebnis von `AppData.insertImportedPortfolioTxs(_:batch:links:fallbacks:progress:)`.
 enum PortfolioImportWrite: Equatable {
-    /// Geschrieben: Anzahl angelegter Transaktionen (0 = alle schon da, nichts zu schreiben).
-    case written(Int)
+    /// Geschrieben: Anzahl angelegter Transaktionen (0 = alle schon da) und verknüpfter gespeicherter Seiten
+    /// (`linked`, wie Android `CsvImportWritten`).
+    case written(Int, linked: Int = 0)
     /// Nicht geschrieben (gesperrte bzw. nicht lesbare Datei): der Import meldet den Fehler statt «0 importiert».
     case failed
     /// «Abbrechen» vor dem Schreiben: nichts gespeichert.
@@ -35,15 +37,17 @@ extension AppData {
     /// Schreib-Reihenfolge von `portfolio.json` (synchrone Schreibwege und Import im Hintergrund).
     nonisolated static let portfolioWrites = PortfolioWriteOrder()
 
-    /// Importierte Transaktionen anlegen (gleiche Bereinigung wie von Hand); Zeilen, deren Herkunftsschlüssel
-    /// (`importKey` oder `linkedImportKey`) schon da ist, werden übersprungen — wie
-    /// `PortfolioRepository.insertImported`. `batch` = Kennung des Importlaufs (`PortfolioImportBatch.newId`) für alle
-    /// angelegten Transaktionen (nil = keine). Zusammengestellt (Fortschritt gedrosselt an `progress`) und geschrieben
-    /// wird losgelöst abseits des Haupt-Threads (`PortfolioImportSave`, `setPortfolioFileInBackground`), in einem
-    /// Schreibvorgang. Abgebrochen (Aufgabe abgebrochen) vor dem Schreiben: `.cancelled`, nichts geschrieben — es gibt
-    /// keinen Teil-Import.
+    /// Importierte Transaktionen anlegen (gleiche Bereinigung wie von Hand) und gespeicherte Seiten verknüpfter
+    /// Umbuchungen ändern (`links`, `withImported`) — wie `PortfolioRepository.insertImportedLinked`. Zeilen, deren
+    /// Herkunftsschlüssel (`importKey` oder `linkedImportKey`) schon da ist, werden übersprungen. `batch` = Kennung des
+    /// Importlaufs (`PortfolioImportBatch.newId`) für alle angelegten und verknüpften Transaktionen (nil = keine).
+    /// Zusammengestellt (Fortschritt gedrosselt an `progress`) und geschrieben wird losgelöst abseits des Haupt-Threads
+    /// (`PortfolioImportSave`, `setPortfolioFileInBackground`), in EINEM Schreibvorgang. Abgebrochen (Aufgabe
+    /// abgebrochen) vor dem Schreiben: `.cancelled`, nichts geschrieben — es gibt keinen Teil-Import und keine halbe
+    /// Verknüpfung.
     func insertImportedPortfolioTxs(
-        _ list: [PortfolioTx], batch: String?, progress: @escaping @Sendable (CsvImportProgress) -> Void
+        _ list: [PortfolioTx], batch: String?, links: [CsvStoredTransfer] = [], fallbacks: [String: Int64] = [:],
+        progress: @escaping @Sendable (CsvImportProgress) -> Void
     ) async -> PortfolioImportWrite {
         let current: @MainActor () -> (file: PortfolioFile, generation: Int) = { [unowned self] in
             (self.currentPortfolioFile(), AppData.portfolioWrites.current)
@@ -51,7 +55,8 @@ extension AppData {
         let write: @MainActor (PortfolioFile, Int) async -> PortfolioBackgroundWrite = { [unowned self] file, gen in
             await self.setPortfolioFileInBackground(file, generation: gen)
         }
-        return await PortfolioImportSave(current: current, write: write).run(list, batch: batch, progress: progress)
+        return await PortfolioImportSave(current: current, write: write)
+            .run(list, batch: batch, links: links, fallbacks: fallbacks, progress: progress)
     }
 
     /// Wie `setPortfolioFile`, aber Kodieren, Verschlüsseln, Schreiben und Sortieren losgelöst abseits des
@@ -107,15 +112,33 @@ extension AppData {
 
     /// `base` samt den bereinigten importierten Zeilen aus `list` (neue Ids wie `PortfolioStore.insert` mit Id 0, ohne
     /// für jede Zeile die ganze Liste zu durchsuchen); Zeilen mit schon vorhandenem Herkunftsschlüssel übersprungen.
-    /// Rein, für den Hintergrund. Wirft `CsvImportCancelled`, wenn `cancelled` vor einer Zeile wahr ist (`base` bleibt).
+    /// Dazu die gespeicherten Seiten verknüpfter Umbuchungen (`links`, im Lauf `batch`): inzwischen gelöschte, schon
+    /// verknüpfte oder nicht speicherbare fallen weg, und ihre aufgehende neue Zeile (`fallbacks`: Herkunftsschlüssel →
+    /// Id der gespeicherten Seite, `CsvTransferMatch.fallbacks`) wird dann als eigene Zeile angelegt statt verloren zu
+    /// gehen; sonst bleibt sie weg (`list` enthält sie, `CsvTransferMatch.withFallbacks`). Wie Android
+    /// `insertImportedLinked`. `onRow` zählt weggelassene Ersatzzeilen mit. Rein, für den Hintergrund. Wirft
+    /// `CsvImportCancelled`, wenn `cancelled` vor einer Zeile wahr ist (`base` bleibt).
     nonisolated static func withImported(_ list: [PortfolioTx], batch: String?, in base: PortfolioFile,
+                                         links: [CsvStoredTransfer] = [], fallbacks: [String: Int64] = [:],
                                          cancelled: () -> Bool,
-                                         onRow: (Int) -> Void) throws -> (file: PortfolioFile, count: Int) {
+                                         onRow: (Int) -> Void) throws -> (file: PortfolioFile, count: Int, linked: Int) {
         var file = base
+        // Verknüpfungen zuerst auf dem Stand vor dem Anlegen (wie Android innerhalb derselben Datenbank-Transaktion)
+        var linkedIds = Set<Int64>()
+        for u in links {
+            guard let i = file.transactions.firstIndex(where: { $0.id == u.id }),
+                  file.transactions[i].linkedImportKey == nil,
+                  let clean = cleanedPortfolioTx(PortfolioCsvImporter.linked(file.transactions[i], u, batch: batch ?? ""))
+            else { continue }
+            file.transactions[i] = clean
+            linkedIds.insert(u.id)
+        }
+        let rows = list.filter { tx in tx.importKey.flatMap { fallbacks[$0] }.map { !linkedIds.contains($0) } ?? true }
+        let left = list.count - rows.count
         var known = importKeys(file.transactions)
         var maxId = file.transactions.map(\.id).max() ?? 0
-        let count = try CsvImportInsert.run(list, known: &known, keys: { [$0.importKey, $0.linkedImportKey].compactMap { $0 } },
-                                            cancelled: cancelled, onRow: onRow) { tx in
+        let count = try CsvImportInsert.run(rows, known: &known, keys: { [$0.importKey, $0.linkedImportKey].compactMap { $0 } },
+                                            cancelled: cancelled, onRow: { onRow($0 + left) }) { tx in
             var item = tx
             item.id = 0
             if let batch { item.importBatch = batch }
@@ -127,6 +150,6 @@ extension AppData {
             maxId = clean.id
             return true
         }
-        return (file: file, count: count)
+        return (file: file, count: count, linked: linkedIds.count)
     }
 }

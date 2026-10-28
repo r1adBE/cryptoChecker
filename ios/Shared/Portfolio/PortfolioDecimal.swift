@@ -142,6 +142,43 @@ enum PortfolioDecimal {
         return rounded
     }
 
+    /// Preis zum Speichern (Kaufpreis, Preis einer Gebühr im dritten Coin): `significantDigits` gültige Stellen, mindestens
+    /// aber `maxScale` Nachkommastellen (wie eine Menge) und höchstens `maxParseScale` (Lesegrenze von `parse`), halbe auf
+    /// gerade. So bleibt der Preis winziger Coins (1.3717333…E-9 BABYDOGE) erhalten, statt auf 18 Nachkommastellen zu
+    /// schrumpfen oder unter 5E-19 zu 0 (= gratis) zu werden. Werte mit höchstens 18 Nachkommastellen bleiben unverändert.
+    /// Wie Android (`PortfolioDecimal.price`).
+    static func price(_ value: Decimal) -> Decimal {
+        guard value != 0, !value.isNaN, value.isFinite else { return value }
+        var compact = value
+        NSDecimalCompact(&compact)
+        let scale = -Int(compact.exponent)
+        // Nachkommastellen für 34 gültige Stellen: 34 − Stellen vor dem Komma (bei 0.00… negativ gezählt)
+        let significant = significantDigits - (mantissaDigits(compact) - scale)
+        let target = min(maxParseScale, max(maxScale, significant))
+        guard scale > target else { return compact }
+        var rounded = Decimal()
+        NSDecimalRound(&rounded, &compact, target, .bankers)
+        return rounded
+    }
+
+    /// Preis als gespeicherter Text (`price`): ohne Exponent und Nullen am Ende. Wie Android.
+    static func priceText(_ value: Decimal) -> String {
+        var p = price(value)
+        if p == 0 { return "0" }
+        NSDecimalCompact(&p)
+        return NSDecimalString(&p, posix)
+    }
+
+    /// Menge, Gebühr oder Wert bleibt nach dem Runden auf `maxScale` Nachkommastellen lesbar (`withinLimits`).
+    static func storableAmount(_ value: Decimal) -> Bool { withinLimits(amount(value)) }
+
+    /// Preis bleibt nach `price` lesbar (`withinLimits`) und ein Preis > 0 wird nicht zu 0 (unter 5E-41: das wäre ein
+    /// Kauf zum Preis 0 statt eines unbekannten Preises). Wie Android.
+    static func storablePrice(_ value: Decimal) -> Bool {
+        let p = price(value)
+        return withinLimits(p) && (value <= 0 || p > 0)
+    }
+
     /// Betrag so klein, dass er nur Rest aus einer Teilung sein kann.
     static func isDust(_ value: Decimal) -> Bool { abs(value) <= dust }
 }

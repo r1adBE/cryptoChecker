@@ -323,6 +323,57 @@ final class PortfolioParityTests: XCTestCase {
         }
     }
 
+    /// Widget ohne Stundenkurse: ein Coin ohne gültigen aktuellen Kurs fehlt in allen Punkten — wie Android `widgetFallback`.
+    func testWidgetFallback() throws {
+        for c in TestSupport.list(try TestSupport.fixture("portfolio")["widgetFallback"]) {
+            let name = c["name"] as? String ?? ""
+            let history = TestSupport.list(c["history"]).map {
+                PortfolioWidgetStore.PricePoint(at: Int64(TestSupport.number($0["time"]) ?? 0), prices: prices($0["prices"]))
+            }
+            let points = PortfolioWidgetStore.valueHistory(holdings: prices(c["holdings"]), history: history,
+                                                           current: prices(c["current"]),
+                                                           stamp: Int64(TestSupport.number(c["now"]) ?? 0),
+                                                           factor: TestSupport.number(c["fxRate"]) ?? 0)
+            let expected = TestSupport.list(c["expected"])
+            XCTAssertEqual(expected.map { Int64(TestSupport.number($0["time"]) ?? 0) }, points.map(\.at), "\(name) times")
+            for (e, p) in zip(expected, points) { near("\(name) value", TestSupport.number(e["value"]), p.value) }
+        }
+    }
+
+    /// «Heute»: Beginn je Coin = Zeit seines Vergleichskurses; ein Kauf nach der Basis ist Zufluss, kein Gewinn — wie
+    /// Android `todayBase`.
+    func testTodayBase() throws {
+        for c in TestSupport.list(try TestSupport.fixture("portfolio")["todayBase"]) {
+            let name = c["name"] as? String ?? ""
+            let now = Int64(TestSupport.number(c["now"]) ?? 0)
+            let current = prices(c["current"])
+            let base = c["base"] as? [String: Any] ?? [:]
+            var hourly: [String: [PortfolioTimedPrice]] = [:]
+            for (coin, list) in c["hourly"] as? [String: Any] ?? [:] {
+                hourly[coin] = TestSupport.list(list).map {
+                    PortfolioTimedPrice(at: Int64(TestSupport.number($0["time"]) ?? 0), price: TestSupport.number($0["price"]) ?? 0)
+                }
+            }
+            let since = PortfolioWidgetSeries.changeSince(current: current, baseTime: Int64(TestSupport.number(base["time"]) ?? 0),
+                                                          basePrices: prices(base["prices"]), prices: hourly, now: now)
+            let e = c["expected"] as? [String: Any] ?? [:]
+            let expectedSince = (e["since"] as? [String: Any] ?? [:]).compactMapValues { TestSupport.number($0).map { Int64($0) } }
+            XCTAssertEqual(expectedSince, since, "\(name) since")
+            let coinChanges = prices(c["coinChanges"])
+            let holdings = prices(c["holdings"])
+            let trades = (c["trades"] as? [Any] ?? []).map(trade)
+            let start = Int64(TestSupport.number(c["windowStart"]) ?? 0)
+            let change = PortfolioPeriodChange.todayFromCoinChanges(holdings: holdings, current: current, coinChanges: coinChanges)
+            let today = PortfolioPeriodChange.todayAdjusted(change, trades: trades, current: current, coinChanges: coinChanges,
+                                                            windowStart: start, coinStart: since)
+            near("\(name) amount", TestSupport.number(e["amount"]), today?.amount)
+            near("\(name) percent", TestSupport.number(e["percent"]), today?.percent)
+            let rows = PortfolioPeriodChange.todayByCoin(holdings: holdings, trades: trades, current: current,
+                                                         coinChanges: coinChanges, windowStart: start, coinStart: since)
+            near("\(name) rows sum", TestSupport.number(e["amount"]), rows.values.reduce(0) { $0 + $1.amount })
+        }
+    }
+
     func testTodayAdjusted() throws {
         let cases = TestSupport.list(try TestSupport.fixture("portfolio")["todayAdjusted"])
         XCTAssertGreaterThanOrEqual(cases.count, 3)

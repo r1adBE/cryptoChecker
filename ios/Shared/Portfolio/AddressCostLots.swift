@@ -73,8 +73,8 @@ struct AddressCostLot: Codable, Equatable, Hashable, Sendable {
 /// zuerst, Preis je Coin der übrigen bleibt; nur der nicht belegte Rest dieses Bestands bleibt Adress-Teil «ohne Einstand»;
 /// «Nur anzeigen» und Adressen in einem xpub zählen nicht. Auch eine Adresse OHNE Posten verrechnet die erfassten
 /// Bewegungen ihrer Wallet (eine Umbuchung zur Adresse steckt schon im Guthaben, zählt nur einmal). Zeiträume und Verlauf
-/// lassen die Posten weg (Adress-Einträge, `AddressBalance.isAddressTrade`); Stichtag und CH-Vermögenswert rechnen wie die
-/// Karte mit dem Guthaben am Stichtag (`AddressCutoff`).
+/// rechnen wie die Karte: Posten als Käufe ab ihrer Zeit, dazu die Reihe ohne das schon Gebuchte (`AddressBooked`);
+/// Stichtag und CH-Vermögenswert ebenso mit dem Guthaben am Stichtag (`AddressCutoff`).
 enum AddressCostLots {
 
     /// Höchstens so viele Posten je Adresse.
@@ -200,22 +200,25 @@ enum AddressCostLots {
     /// bis zu seinem Abruf (`fetched` wählt sie aus). Adress-Einträge zählen nicht; Wallet ohne Namen = keine Bewegungen.
     /// Wie Android.
     static func recorded(_ coin: String, wallet: String?, trades: [PortfolioTx]) -> Decimal {
+        trades.reduce(Decimal(0)) { $0 + recordedMove(coin, wallet: wallet, trade: $1) }
+    }
+
+    /// Beitrag EINER Transaktion zu `recorded` (Zugang +, Abgang −, sonst 0) — auch für die Reihen (`AddressBooked`).
+    static func recordedMove(_ coin: String, wallet: String?, trade t: PortfolioTx) -> Decimal {
         let key = PortfolioWallets.key(wallet)
         var net: Decimal = 0
-        guard key != PortfolioWallets.unspecified else { return net }
+        guard key != PortfolioWallets.unspecified, !AddressBalance.isAddressTrade(t.id), t.amountExact > 0 else { return net }
         func at(_ name: String?) -> Bool { PortfolioWallets.key(name) == key }
-        for t in trades where !AddressBalance.isAddressTrade(t.id) && t.amountExact > 0 {
-            if PortfolioCalculator.normalizeCoin(t.coin) == coin {
-                if t.type == .TRANSFER {
-                    if at(t.transferTo) { net += t.amountExact }
-                    if at(t.transferFrom) { net -= t.amountExact + t.coinFeeExact }
-                } else if at(t.exchange) {
-                    if t.type.isInflow { net += t.receivedExact } else { net -= t.amountExact + t.coinFeeExact }
-                }
+        if PortfolioCalculator.normalizeCoin(t.coin) == coin {
+            if t.type == .TRANSFER {
+                if at(t.transferTo) { net += t.amountExact }
+                if at(t.transferFrom) { net -= t.amountExact + t.coinFeeExact }
+            } else if at(t.exchange) {
+                if t.type.isInflow { net += t.receivedExact } else { net -= t.amountExact + t.coinFeeExact }
             }
-            if t.swapToCoin == coin && at(t.exchange) { net += t.swapReceived }
-            if t.thirdFeeCoin == coin && at(t.type == .TRANSFER ? t.transferFrom : t.exchange) { net -= t.thirdFeeAmount }
         }
+        if t.swapToCoin == coin && at(t.exchange) { net += t.swapReceived }
+        if t.thirdFeeCoin == coin && at(t.type == .TRANSFER ? t.transferFrom : t.exchange) { net -= t.thirdFeeAmount }
         return net
     }
 

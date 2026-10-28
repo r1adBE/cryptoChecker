@@ -62,7 +62,7 @@ extension BackupManager {
         o["type"] = t.type.rawValue
         // Zahlen exakt als Text («amountText»: «0.00000001»)
         o["amountText"] = PortfolioDecimal.text(t.amountExact)
-        o["priceText"] = t.priceExact.map { PortfolioDecimal.text($0) as Any } ?? NSNull()
+        o["priceText"] = t.priceExact.map { PortfolioDecimal.priceText($0) as Any } ?? NSNull()
         o["time"] = NSNumber(value: t.time)
         o["note"] = t.note.map { $0 as Any } ?? NSNull()
         // Gebühr und Börse; fehlen = keine Angabe
@@ -74,7 +74,7 @@ extension BackupManager {
         o["transferTo"] = t.transferTo.map { $0 as Any } ?? NSNull()
         o["feeCoin"] = t.feeCoin.map { $0 as Any } ?? NSNull()
         o["feeCoinAmountText"] = t.feeCoinAmountExact.map { PortfolioDecimal.text($0) as Any } ?? NSNull()
-        o["feeCoinPriceText"] = t.feeCoinPriceExact.map { PortfolioDecimal.text($0) as Any } ?? NSNull()
+        o["feeCoinPriceText"] = t.feeCoinPriceExact.map { PortfolioDecimal.priceText($0) as Any } ?? NSNull()
         // CSV-Import: Herkunft der Zeile — nach dem Wiederherstellen weiterhin als doppelt erkannt
         o["importKey"] = t.importKey.map { $0 as Any } ?? NSNull()
         // Einzahlung: ursprüngliches Kaufdatum; fehlt = Datum der Einzahlung
@@ -93,9 +93,10 @@ extension BackupManager {
         o["giftToSpouse"] = t.isGiftToSpouse
         o["linkedImportKey"] = t.linkedImportKey.map { $0 as Any } ?? NSNull()
         o["importRestoreState"] = t.importRestoreState?.json().map { $0 as Any } ?? NSNull()
-        // Gebühr-Zeile und Zins als eigene Merker (wie Android)
+        // Gebühr-Zeile, Zins und Staking-Umbuchung als eigene Merker (wie Android)
         o["feeRow"] = t.feeRow && t.type == .SELL
         o["interest"] = t.interest && t.type == .REWARD
+        o["stakingMove"] = t.stakingMove && t.type == .TRANSFER
         return o
     }
 
@@ -154,8 +155,10 @@ extension BackupManager {
         tx.importBatch = PortfolioImportBatch.clean(try textOrNull(o, "importBatch"))
         let feeRow: Bool = try part(o, "feeRow")
         let interest: Bool = try part(o, "interest")
+        let stakingMove: Bool = try part(o, "stakingMove")
         tx.feeRow = feeRow && type == .SELL
         tx.interest = interest && type == .REWARD
+        tx.stakingMove = stakingMove && type == .TRANSFER
         return tx
     }
 

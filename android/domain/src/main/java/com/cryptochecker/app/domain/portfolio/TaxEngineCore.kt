@@ -44,7 +44,7 @@ class TaxStep(
     val spouseGift: Boolean = false,
     /** Zahlung mit Krypto ([PortfolioTxType.PAYMENT]). */
     val payment: Boolean = false,
-    /** Erlös aus geschätztem Wert ([PortfolioTrade.valueEstimated]). */
+    /** Erlös aus geschätztem Wert ([PortfolioTrade.valueEstimated]) bzw. mit geschätztem Gebühr-Preis ([PortfolioTrade.feePriceEstimated]). */
     val estimated: Boolean = false,
 ) {
     val time: Long get() = trade.time

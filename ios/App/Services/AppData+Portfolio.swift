@@ -122,6 +122,8 @@ extension AppData {
         clean.transferTo = transfer ? PortfolioTx.cleanExchange(tx.transferTo) : nil
         // An Ehe-/Lebenspartner gibt es nur bei einer Schenkung (wie Android)
         clean.giftToSpouse = tx.isGiftToSpouse
+        // Staking-Umbuchung gibt es nur bei einer Umbuchung (wie Android)
+        clean.stakingMove = tx.stakingMove && transfer
         // Gebühr im dritten Coin nur vollständig (Coin ≠ Coin der Transaktion, Menge > 0); Preis ≥ 0 oder keiner
         let third = PortfolioTx.cleanFeeCoin(tx.feeCoin, coin: clean.coin, amount: tx.feeCoinAmountExact)
         clean.feeCoin = third?.coin
@@ -139,9 +141,13 @@ extension AppData {
         clean.swapValueExact = swap ? tx.swapValueExact.flatMap { $0 >= 0 ? $0 : nil } : nil
         clean.importBatch = PortfolioImportBatch.clean(tx.importBatch)
         // Ungültig (dieselbe Regel stuft die Zeile in der CSV-Vorschau als übersprungen ein): Coin leer, Menge gerundet
-        // ≤ 0, Tausch ohne gültigen erhaltenen Coin bzw. ohne erhaltene Menge
-        let invalid = CsvImportMapping.unsavableReason(coin: clean.coin, type: clean.type, amount: clean.amountExact,
-                                                       toCoin: clean.toCoin, toAmount: clean.toAmountExact)
+        // ≤ 0, eine Zahl gespeichert nicht mehr lesbar (ab 10³⁰, Preis > 0 würde 0), Tausch ohne gültigen erhaltenen Coin
+        // bzw. ohne erhaltene Menge — wie Android `storable`
+        let invalid = CsvImportMapping.unsavableReason(
+            coin: clean.coin, type: clean.type, amount: clean.amountExact, toCoin: clean.toCoin,
+            toAmount: clean.toAmountExact,
+            amounts: [clean.feeExact, clean.feeCoinAmountExact, clean.swapValueExact].compactMap { $0 },
+            prices: [clean.priceExact, clean.feeCoinPriceExact].compactMap { $0 })
         guard invalid == nil else { return nil }
         return clean
     }

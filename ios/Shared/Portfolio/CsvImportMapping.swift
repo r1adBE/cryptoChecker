@@ -29,6 +29,9 @@ struct CsvImportTx: Equatable {
     var feeRow = false
     /// Belohnung, die die Börse als Zins (Lending) ausweist (`TaxEngines.interestReward` auf der Art der Datei).
     var interest = false
+    /// Staking-Umbuchung (`CsvImportKind.TRANSFER`: «Unstaking», «Redeem»): nie eine Auszahlung
+    /// (`CsvTransferMatch.storedWithdrawal`) — wie Kotlin.
+    var stakingMove = false
 }
 
 /// Vorschau eines Imports — wie `CsvImportPreview` (Kotlin).
@@ -157,9 +160,10 @@ enum CsvImportMapping {
                            toCoin: row.kind == .SWAP ? row.toCoin.map { PortfolioCalculator.normalizeCoin($0) } : nil,
                            toAmount: row.kind == .SWAP ? row.toAmount : nil,
                            swapValueUsdt: row.kind == .SWAP ? p.swapValueUsdt.flatMap { $0 >= 0 ? $0 : nil } : nil,
-                           // Eigene Merker: Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
+                           // Eigene Merker: Gebühr-Zeile, Zins und Staking-Umbuchung — die Notiz bleibt nur zur Anzeige
                            feeRow: row.kind == .FEE,
-                           interest: row.kind == .REWARD && TaxEngines.interestReward(row.rawKind))
+                           interest: row.kind == .REWARD && TaxEngines.interestReward(row.rawKind),
+                           stakingMove: row.kind == .TRANSFER)
     }
 
     static func preview(_ result: CsvImportResult, existingKeys: Set<String>,
@@ -231,20 +235,33 @@ enum CsvImportMapping {
 
     /// Grund, warum das Speichern `tx` ablehnen würde (`AppData.cleanedPortfolioTx`), sonst nil — wie Android.
     static func unsavableReason(_ tx: CsvImportTx) -> CsvImportSkipReason? {
-        unsavableReason(coin: tx.coin, type: tx.type, amount: tx.amount, toCoin: tx.toCoin, toAmount: tx.toAmount)
+        // Was das Speichern behält: Wert nur beim Tausch, Gebühr im dritten Coin nur mit Coin
+        let amounts: [Decimal] = [tx.fee, tx.feeCoin == nil ? nil : tx.feeCoinAmount,
+                                  tx.type == .SWAP ? tx.swapValueUsdt : nil].compactMap { $0 }
+        return unsavableReason(coin: tx.coin, type: tx.type, amount: tx.amount, toCoin: tx.toCoin, toAmount: tx.toAmount,
+                               amounts: amounts, prices: [tx.priceUsdt].compactMap { $0 })
     }
 
     /// Dieselbe Regel für Speichern (`AppData.cleanedPortfolioTx`) und Vorschau, geprüft in dieser Reihenfolge — wie
     /// Android `unsavableReason`:
     /// - Coin nach trim/Grossschreibung leer → `.MISSING_FIELD`
     /// - Menge auf 18 Nachkommastellen gerundet (`PortfolioDecimal.amount`, halbe auf gerade) ≤ 0 → `.AMOUNT_TOO_SMALL`
+    /// - eine Zahl wäre gespeichert nicht mehr lesbar (Menge, beim Tausch die erhaltene Menge, weitere `amounts` ab
+    ///   10³⁰, `PortfolioDecimal.storableAmount`) oder ein Preis aus `prices` > 0 würde zu 0
+    ///   (`PortfolioDecimal.storablePrice`) → `.BAD_NUMBER`
     /// - nur Tausch: erhaltener Coin (trim/gross) fehlt, leer, länger als `maxToCoin` UTF-16-Einheiten oder gleich dem
     ///   Coin, oder erhaltene Menge fehlt bzw. gerundet ≤ 0 → `.INVALID_SWAP`
     static func unsavableReason(coin: String, type: PortfolioTxType, amount: Decimal, toCoin: String?,
-                                toAmount: Decimal?) -> CsvImportSkipReason? {
+                                toAmount: Decimal?, amounts: [Decimal] = [],
+                                prices: [Decimal] = []) -> CsvImportSkipReason? {
         let c = PortfolioCalculator.normalizeCoin(coin)
         if c.isEmpty { return .MISSING_FIELD }
         if !(PortfolioDecimal.amount(amount) > 0) { return .AMOUNT_TOO_SMALL }
+        var all: [Decimal] = [amount] + amounts
+        if type == .SWAP, let toAmount { all.append(toAmount) }
+        guard all.allSatisfy(PortfolioDecimal.storableAmount), prices.allSatisfy(PortfolioDecimal.storablePrice) else {
+            return .BAD_NUMBER
+        }
         guard type == .SWAP else { return nil }
         let to = toCoin.map(PortfolioCalculator.normalizeCoin) ?? ""
         // Länge in UTF-16-Einheiten wie Kotlin `length`

@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Sama koskee USDT:nä tai käteisenä maksettua kulua siirrossa omien lompakoidesi välillä: sitä ei lisätä hankintahintaan, vaan se näytetään vain tiedoksi.</string>
     <string name="tax_note_uk">Kohdistus HMRC:n mukaan: sama päivä → sitten seuraavat 30 päivää → sitten yhteispooli Section 104:n mukaan (Section 104 pool).</string>
     <string name="tax_note_us_transition">Siirtymä 1.1.2025 (Rev. Proc. 2024-28, safe harbor): jos aiempina vuosina käytettiin FIFOa kaikkien lompakoiden yli, jäljellä olevat erät 31.12.2024 siirtyvät lompakoihin, joissa coinit ovat – vanhimmat coinit sisältävä lompakko saa vanhimman hankintamenon. Tämä kohdistus on sovelluksen sääntö – vertaa sitä omiin tietoihisi.</string>
-    <string name="tax_note_us_wallet">Verovuodesta 2025 IRS vaatii hankintahinnan lompakoittain/pörsseittäin (Rev. Proc. 2024-28) – vienti laskee FIFO:n lompakoittain vuodesta 2025 – sitä ennen pätee oma hankintahinnan laskentatapasi.</string>
+    <string name="tax_note_us_wallet">Verovuodesta 2025 IRS vaatii hankintahinnan lompakoittain/pörsseittäin (Rev. Proc. 2024-28) – vienti laskee FIFO:n lompakoittain vuodesta 2025 – sitä ennen FIFO kaikkien lompakoiden yli, tai FIFO lompakoittain, jos se on hankintahinnan laskentatapasi.</string>
     <string name="tax_note_withdrawal_fee">Nostokulu USDT:nä tai käteisenä ei ole tappio: käteiskulu ei ole vähennyskelpoinen, USDT-kulu on luovutus nimellisarvoon ilman voittoa – se näytetään vain tiedoksi (%1$s).</string>
     <string name="tax_summary_at_interest_income">lasketaan: tuloa vastaanotettaessa 27,5 prosentin erityisverokannalla (§ 27b mom. 2 kohta 1 EStG / BMF) – kolikot säilyttävät tämän arvon hankintamenona</string>
     <string name="tax_summary_at_reward_info">vain tiedoksi – ei mukana missään summassa: palkkiot tulevat uuteen omistukseen hankintamenolla 0 ja verotetaan vasta myynnissä (jo voitoissa) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Seuratut osoitteet lasketaan kokonaisarvoon, mutta niillä ei ole hankintahintaa – voitto on siksi todennäköisesti liian suuri. Kirjaa hankintahinta ostona.</string>
+    <string name="tax_summary_fr_rewards_income">Summa olettaa, että palkkiot verotettiin tulona vastaanotettaessa (arvo vastaanotettaessa hankintamenossa) – muuten varovainen tulkinta olisi hankintameno 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Markkina-arvot ilman kirjattua hintaa (kulut, lahjoitettu/maksettu, vaihto, palkkiot, verkkomaksut, salkun arvo) tapahtumapäivän päätöskurssiin (UTC)</string>

@@ -107,6 +107,12 @@ enum class TaxSummaryNote {
      * aber keinen Einstand in der Erwerbspreis-Summe — der Gewinn ist dadurch eher zu hoch; Einstand als Kauf erfassen.
      */
     FR_ADDRESS_NO_COST,
+    /**
+     * FR Gewinne ([TaxLine.GAINS]), wenn bis zum Ende des Jahres Belohnungen erfasst sind ([TaxExport.frRewards]): die
+     * Erwerbspreis-Summe enthält sie zum Wert beim Erhalt — das setzt voraus, dass sie beim Erhalt als Einkommen versteuert
+     * wurden; sonst wäre Erwerbspreis 0 die vorsichtige Lesart (Entscheid des Eigentümers: Regel bleibt, nur vermerkt).
+     */
+    FR_REWARDS_INCOME,
 }
 
 /**

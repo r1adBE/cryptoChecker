@@ -4,6 +4,7 @@ package com.cryptochecker.app.domain.portfolio.csvimport
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import java.math.BigDecimal
+import java.security.MessageDigest
 import java.time.Instant
 import java.time.ZoneId
 
@@ -82,7 +83,8 @@ object CsvImport {
      *  - ohne Kennung: «<Format>|<Art>|<Coin>|<Zeit>|<Menge>|<Preis oder ->»
      * <Zeit>: UTC-ms; steht die Zeit ohne Versatz in der Datei ([localTime]), «L» + Kalenderzeit — so ändert eine
      * andere Zeitzone beim zweiten Import den Schlüssel nicht.
-     * Gleiche Schlüssel innerhalb einer Datei bekommen «#2», «#3» … ([withOccurrence]).
+     * Gleiche Schlüssel innerhalb einer Datei bekommen «#2», «#3» … ([withOccurrence]); ein Schlüssel über
+     * [MAX_KEY_BYTES] wird dort durch seinen Hash ersetzt ([stableKey]).
      */
     fun key(
         format: CsvImportFormat,
@@ -102,14 +104,42 @@ object CsvImport {
         return "${format.name}|${kind.name}|$coin|$time|${text(amount)}|${price?.let { text(it) } ?: "-"}"
     }
 
-    /** Wiederholte Schlüssel eindeutig machen (zweites Vorkommen «#2» usw.), Reihenfolge bleibt. */
+    /**
+     * Wiederholte Schlüssel eindeutig machen (zweites Vorkommen «#2» usw.), Reihenfolge bleibt; danach jeder Schlüssel
+     * in seiner gespeicherten Form ([stableKey]).
+     */
     fun withOccurrence(keys: List<String>): List<String> {
         val seen = HashMap<String, Int>()
         return keys.map { k ->
             val n = (seen[k] ?: 0) + 1
             seen[k] = n
-            if (n == 1) k else "$k#$n"
+            stableKey(if (n == 1) k else "$k#$n")
         }
+    }
+
+    /**
+     * Höchstlänge eines Herkunftsschlüssels in UTF-8-Bytes — dieselbe Grenze wie beim Speichern
+     * (`PortfolioJson.MAX_IMPORT_KEY`, auf beiden Plattformen in UTF-8-Bytes gezählt).
+     */
+    const val MAX_KEY_BYTES = 200
+
+    private const val HEX = "0123456789abcdef"
+
+    /**
+     * Gespeicherte Form eines Schlüssels: bis [MAX_KEY_BYTES] UTF-8-Bytes unverändert; länger (z. B. eine Kennung mit
+     * über 190 Zeichen) «<Format>|h:<SHA-256 des ganzen Schlüssels, hex>» — gleich lang, stabil über Importe und
+     * Plattformen, statt beim Speichern still zu entfallen (dann käme die Zeile beim nächsten Import doppelt). Wie iOS.
+     */
+    fun stableKey(key: String): String {
+        val bytes = key.toByteArray(Charsets.UTF_8)
+        if (bytes.size <= MAX_KEY_BYTES) return key
+        val hash = buildString {
+            for (b in MessageDigest.getInstance("SHA-256").digest(bytes)) {
+                val v = b.toInt() and 0xff
+                append(HEX[v shr 4]).append(HEX[v and 0x0f])
+            }
+        }
+        return "${key.substringBefore('|')}|h:$hash"
     }
 
     /**

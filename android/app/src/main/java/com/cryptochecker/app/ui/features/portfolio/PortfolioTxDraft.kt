@@ -49,6 +49,8 @@ data class TxDraft(
     val feeRow: Boolean = false,
     /** Belohnung ist ein Zins (Lending; nur bei [PortfolioTxType.REWARD], im Blatt umschaltbar). */
     val interest: Boolean = false,
+    /** Staking-Umbuchung (CSV) — bleibt beim Bearbeiten erhalten, solange die Art «Umbuchung» bleibt; von Hand nie gesetzt. */
+    val stakingMove: Boolean = false,
 )
 
 fun PortfolioTxEntity.toDraft() = TxDraft(
@@ -78,4 +80,5 @@ fun PortfolioTxEntity.toDraft() = TxDraft(
     importRestoreState = importRestoreState,
     feeRow = feeRow,
     interest = interest,
+    stakingMove = stakingMove,
 )

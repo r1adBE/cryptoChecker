@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Điều tương tự áp dụng cho phí bằng USDT hoặc tiền mặt khi chuyển giữa các ví của bạn: phí không cộng vào giá vốn và chỉ hiển thị để tham khảo.</string>
     <string name="tax_note_uk">Đối chiếu theo HMRC: cùng ngày → rồi 30 ngày tiếp theo → rồi nhóm chung theo Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">Chuyển tiếp 1.1.2025 (Rev. Proc. 2024-28, safe harbor): nếu các năm trước dùng FIFO trên mọi ví, các lô còn lại tại 31.12.2024 chuyển sang các ví đang giữ coin – ví có coin cũ nhất nhận giá vốn cũ nhất. Cách phân bổ này là quy tắc của ứng dụng – hãy đối chiếu với hồ sơ của bạn.</string>
-    <string name="tax_note_us_wallet">Từ năm thuế 2025 IRS yêu cầu giá vốn theo từng ví/sàn (Rev. Proc. 2024-28) – bản xuất dùng FIFO theo từng ví từ 2025 – trước 2025 áp dụng phương pháp tính giá vốn của bạn.</string>
+    <string name="tax_note_us_wallet">Từ năm thuế 2025 IRS yêu cầu giá vốn theo từng ví/sàn (Rev. Proc. 2024-28) – bản xuất dùng FIFO theo từng ví từ 2025 – trước 2025 dùng FIFO chung cho mọi ví, hoặc FIFO theo từng ví nếu đó là phương pháp tính giá vốn của bạn.</string>
     <string name="tax_note_withdrawal_fee">Phí rút bằng USDT hoặc tiền mặt không phải là lỗ: phí tiền mặt không được khấu trừ, phí USDT là chuyển nhượng theo mệnh giá không có lãi – chỉ hiển thị để tham khảo (%1$s).</string>
     <string name="tax_summary_at_interest_income">được tính: thu nhập lúc nhận với thuế suất đặc biệt 27,5 phần trăm (§ 27b khoản 2 số 1 EStG / BMF) – coin giữ giá trị này làm giá mua</string>
     <string name="tax_summary_at_reward_info">chỉ để tham khảo – không nằm trong tổng nào: phần thưởng vào số nắm giữ mới với giá mua 0 và chỉ bị đánh thuế khi bán (đã nằm trong lãi) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Các địa chỉ theo dõi được tính vào tổng giá trị nhưng không có giá vốn – vì vậy lãi có thể bị cao hơn thực tế. Hãy ghi giá vốn dưới dạng giao dịch mua.</string>
+    <string name="tax_summary_fr_rewards_income">Số tiền này giả định phần thưởng đã bị đánh thuế như thu nhập khi nhận (giá trị lúc nhận nằm trong giá vốn) – nếu không, cách hiểu thận trọng là giá vốn bằng 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Giá trị thị trường không có giá đã ghi (phí, tặng/thanh toán, hoán đổi, phần thưởng, phí mạng, giá trị danh mục) theo giá đóng cửa ngày (UTC) của ngày giao dịch</string>

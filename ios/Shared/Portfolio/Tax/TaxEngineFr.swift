@@ -77,7 +77,12 @@ extension TaxEngines {
             advanceAddresses(t.time)
             if t.amountExact > 0 {
                 let price = t.validPriceExact
-                let feeValue = t.thirdFeeValue
+                // Gebühr im dritten Coin: EIN Kurs für Erwerbspreis-Summe, Preis vor Gebühren und ihre eigene Abtretung —
+                // erfasst, sonst priceAt (Tagesschluss); fehlt er, ist die Summe danach unvollständig
+                let thirdPrice: Decimal? = t.thirdFeeCoin.flatMap { tc in
+                    t.thirdFeePrice ?? priceAt?(tc, t.time).flatMap { $0 >= 0 ? $0 : nil }
+                }
+                let feeValue: Decimal? = t.thirdFeeCoin == nil ? 0 : thirdPrice.map { t.thirdFeeAmount * $0 }
                 // Kurs des Haupt-Coins für Gebühr und Abgang: Preis, Wert des Tauschs je Coin, Stablecoin 1, sonst priceAt
                 var unit: Decimal? = price
                 if unit == nil, let sv = t.swapValue { unit = PortfolioDecimal.divide(sv, t.amountExact) }
@@ -88,7 +93,7 @@ extension TaxEngines {
 
                 /// Gebühr in Krypto ausserhalb eines Verkaufs: eigene Abtretung gegen eine Dienstleistung
                 /// (BOI-RPPM-PVBMC-30-10 § 70 Remarque 1) — Abtretungspreis = Wert der Gebühr, keine weiteren Gebühren.
-                func feeCession(_ feeCoin: String, _ qty: Decimal, _ p: Decimal?, feeLeg: Bool) {
+                func feeCession(_ feeCoin: String, _ qty: Decimal, _ p: Decimal?, feeLeg: Bool, estimated: Bool = false) {
                     guard qty > 0 else { return }
                     let held: Decimal = books[feeCoin]?.total ?? 0
                     // Nur der gedeckte Anteil ist eine Abtretung mit Einstand (wie im Verkaufspfad): eine Gebühr in einem nie
@@ -120,6 +125,7 @@ extension TaxEngines {
                         d.portfolioValueUsdt = value
                         d.grossProceedsUsdt = coveredGross
                         d.addressValueIncluded = withAddresses
+                        d.valueEstimated = estimated
                         out.append(d)
                     }
                     if covered < qty {
@@ -132,6 +138,7 @@ extension TaxEngines {
                             feeLeg: feeLeg, feeValueMissing: false, method: .AVERAGE, costParts: [], uncovered: true)
                         d.costIncomplete = true
                         d.grossProceedsUsdt = restGross
+                        d.valueEstimated = estimated
                         out.append(d)
                     }
                 }
@@ -139,8 +146,7 @@ extension TaxEngines {
                 /// Gebühr im dritten Coin (ausser beim Verkauf): eigene Abtretung zum erfassten Preis bzw. priceAt.
                 func thirdFeeCession() {
                     guard let tc = t.thirdFeeCoin else { return }
-                    let p: Decimal? = t.thirdFeePrice ?? priceAt?(tc, t.time).flatMap { $0 >= 0 ? $0 : nil }
-                    feeCession(tc, t.thirdFeeAmount, p, feeLeg: true)
+                    feeCession(tc, t.thirdFeeAmount, thirdPrice, feeLeg: true, estimated: t.feePriceEstimated)
                 }
 
                 switch t.type {
@@ -151,6 +157,8 @@ extension TaxEngines {
                         let c: Decimal = t.amountExact * price + t.quoteFeeExact + (feeValue ?? 0)
                         pta += c
                         if c != 0 { ptaParts.append(PortfolioCostPart(time: t.acquisitionTime, usdt: c)) }
+                        // Wert der Gebühr im dritten Coin unbekannt: die Summe enthält sie nicht
+                        if feeValue == nil { incomplete = true }
                     } else {
                         // Ohne Preis (z. B. Einzahlung ohne Kaufpreis): zum Wert 0 (BOFiP § 90), aber unvollständig
                         incomplete = true
@@ -170,6 +178,9 @@ extension TaxEngines {
                     let grossCovered = part(gross)
                     let netCovered = part(net)
                     let feeMissing = gross != nil && feeValue == nil
+                    // Wert zum Tagesschluss: Zahlung ohne Marktwert (`PortfolioLedger.valueAtDayClose`) bzw. Gebühr im dritten
+                    // Coin (`PortfolioLedger.valueThirdFeesAtDayClose`) im Preis vor Gebühren
+                    let feeEstimated = gross != nil && (t.valueEstimated || t.feePriceEstimated)
                     if removed > 0 {
                         // Gesamtwert unmittelbar vor der Abtretung (verkaufter Coin zum Verkaufspreis)
                         let value = portfolioValue(coin, price, t.time)
@@ -197,6 +208,7 @@ extension TaxEngines {
                         d.portfolioValueUsdt = value
                         d.grossProceedsUsdt = grossCovered
                         d.addressValueIncluded = withAddresses
+                        d.valueEstimated = feeEstimated
                         out.append(d)
                     }
                     if removed < qty {
@@ -208,6 +220,7 @@ extension TaxEngines {
                             costParts: [], uncovered: true)
                         d.costIncomplete = true
                         d.grossProceedsUsdt = gross.map { $0 - (grossCovered ?? 0) }
+                        d.valueEstimated = feeEstimated
                         out.append(d)
                     }
                 case .WITHDRAWAL, .GIFT:

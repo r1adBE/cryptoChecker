@@ -59,7 +59,8 @@ extension TaxExport {
         /// Gleich wie `TaxExport.fxSpan` mit denselben Eingaben.
         func span(until: LocalDay? = nil, today: LocalDay? = nil) -> (from: LocalDay, until: LocalDay) {
             let used = sold(in: TaxExport.spanPeriod(method, period: period), from: all)
-            return TaxExport.span(of: used, period: period, timeZone: timeZone, until: until, today: today)
+            let extra = TaxExport.frOutflowTimes(trades, method: method, period: period, timeZone: timeZone, priceAt: priceAt)
+            return TaxExport.span(of: used, period: period, timeZone: timeZone, until: until, today: today, extra: extra)
         }
 
         /// Gleich wie `TaxExport.gainRows` mit denselben Eingaben.

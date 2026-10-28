@@ -150,7 +150,9 @@ fun TaxExport.yearSummary(
         // CH: die App ordnet Kapitalgewinne nicht ein — die FIFO-Summen sind nur Information, keine Tatsache der
         // Veranlagung (Vermerk wie «nicht gerechnet – siehe ESTV»)
         val info = TaxSummaryNote.CH_FIFO_INFO.takeIf { template == TaxTemplate.CH }
-        lines += Acc(rows, pos, fx).line(TaxLine.GAINS, fx, false, info)
+        // FR: Belohnungen zum Wert beim Erhalt in der Erwerbspreis-Summe — nur vermerkt
+        val frRewards = TaxSummaryNote.FR_REWARDS_INCOME.takeIf { template == TaxTemplate.FR && frRewards(trades, zone, period) }
+        lines += Acc(rows, pos, fx).line(TaxLine.GAINS, fx, false, info ?: frRewards)
         lines += Acc(rows, neg, fx).line(TaxLine.LOSSES, fx, false, info)
         // FR: beobachtete Adressen im Gesamtwert ohne Einstand — nicht ausgeschlossen (gehören zum Gesamtwert), nur vermerkt
         val frAddress = TaxSummaryNote.FR_ADDRESS_NO_COST.takeIf {

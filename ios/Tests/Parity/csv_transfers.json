@@ -1391,6 +1391,151 @@
      "Kraken": "0.9995"
     }
    }
+  },
+  {
+   "name": "stored staking transfer (Unstaking) with note is no withdrawal",
+   "place": "Coinbase",
+   "txs": [
+    {
+     "key": "COINBASE|X10",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "1.995",
+     "time": "2024-05-02T08:00:00Z",
+     "line": 9,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 12,
+     "importKey": "GENERIC|TRANSFER|ETH|L1714633200000|2|-",
+     "type": "TRANSFER",
+     "coin": "ETH",
+     "amount": "2",
+     "time": "2024-05-02T07:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null,
+     "note": "Unstaking",
+     "stakingMove": true
+    }
+   ],
+   "links": [],
+   "default": []
+  },
+  {
+   "name": "stored staking transfer (Redeem) without note is no withdrawal",
+   "place": "Coinbase",
+   "txs": [
+    {
+     "key": "COINBASE|X11",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "1.995",
+     "time": "2024-05-02T08:00:00Z",
+     "line": 9,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 13,
+     "importKey": "BINANCE|REDEEM|ETH|1714633200000",
+     "type": "TRANSFER",
+     "coin": "ETH",
+     "amount": "2",
+     "time": "2024-05-02T07:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null,
+     "note": null,
+     "stakingMove": true
+    }
+   ],
+   "links": [],
+   "default": []
+  },
+  {
+   "name": "stored transfer without destination with a note (own wallet) stays a withdrawal",
+   "place": "Coinbase",
+   "txs": [
+    {
+     "key": "COINBASE|X12",
+     "type": "DEPOSIT",
+     "coin": "ETH",
+     "amount": "1.995",
+     "time": "2024-05-02T08:00:00Z",
+     "line": 9,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 14,
+     "importKey": "KRAKEN|R2",
+     "type": "TRANSFER",
+     "coin": "ETH",
+     "amount": "2",
+     "time": "2024-05-02T07:00:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": "Kraken Pro",
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": null,
+     "acquiredTime": null,
+     "note": "Ledger",
+     "stakingMove": false
+    }
+   ],
+   "links": [
+    {
+     "key": "KRAKEN|R2 → COINBASE|X12",
+     "withdrawalKey": "KRAKEN|R2",
+     "depositKey": "COINBASE|X12",
+     "withdrawalId": 14,
+     "depositId": null,
+     "sent": "2",
+     "received": "1.995",
+     "fee": "0.005",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Kraken Pro",
+     "to": "Coinbase",
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "KRAKEN|R2 → COINBASE|X12"
+   ]
   }
  ],
  "_undoComment": "«Import rückgängig» (CsvTransferMatch.undoPlan): Zeilen mit id, Importlauf, Schlüsseln und Zustand vor der Verknüpfung (restoreState); erwartet gelöscht, zurückgesetzt (mit Zustand davor) bzw. in die aufgegangene Zeile zurückverwandelt.",
@@ -1743,5 +1888,26 @@
     "unambiguous": true
    }
   ]
- }
+ },
+ "_noteComment": "Gespeicherte Seite als Auszahlung (CsvTransferMatch.storedWithdrawal): Auszahlung oder Umbuchung ohne Ziel (Wahl «Auf eigene Wallet»), die keine Staking-Umbuchung ist. Eine Staking-Umbuchung der Datei («Unstaking», «Redeem») trägt den Merker stakingMove und ist nie Kandidat — mit oder ohne Notiz; die Notiz (note) zählt nicht. Fehlt stakingMove, gilt false.",
+ "_fallbacksComment": "Ersatzzeilen (CsvTransferMatch.withFallbacks/fallbacks): mit der Vorauswahl (default) des Falls «case» angewandt; rows = Herkunftsschlüssel der Zeilen zum Speichern in der Reihenfolge der Vorschau samt den neuen Zeilen, die gegen eine gespeicherte Seite aufgehen; fallbacks = deren Schlüssel → Id der gespeicherten Seite. Beim Speichern wird eine Ersatzzeile nur angelegt, wenn die Verknüpfung nicht mehr geht (Seite gelöscht oder schon verknüpft), alles in einem Schreibvorgang.",
+ "fallbacks": [
+  {
+   "case": "new deposit against a stored withdrawal of an earlier import",
+   "rows": [
+    "COINBASE|65a1b2c3d4e5f60718293a01"
+   ],
+   "fallbacks": {
+    "COINBASE|65a1b2c3d4e5f60718293a01": 7
+   }
+  },
+  {
+   "case": "new withdrawal and deposit in one generic file become one transfer",
+   "rows": [
+    "GENERIC|W1",
+    "GENERIC|B1"
+   ],
+   "fallbacks": {}
+  }
+ ]
 }

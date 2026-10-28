@@ -118,11 +118,18 @@ final class AddressCostLotsParityTests: XCTestCase {
             let expectedHeld = c["holdingsAt"] as? [String: Any] ?? [:]
             XCTAssertEqual(Set(expectedHeld.keys), Set(held.keys), "\(name) holdingsAt coins")
             for (coin, v) in expectedHeld { near("\(name) holdingsAt \(coin)", v, held[coin]) }
+            // Reihe ohne das schon Gebuchte (`AddressBooked`): letzte Stufe = Adress-Teil der Karte; «Heute» rechnet mit
+            // eigenem Bestand samt Posten + dieser Stufe = Bestand der Karte
+            let booked = AddressBalanceHistory.latestByCoin(AddressBooked.histories(addresses, real: real))
+            let expectedBooked = c["booked"] as? [String: Any] ?? [:]
+            XCTAssertEqual(Set(expectedBooked.keys), Set(booked.keys), "\(name) booked coins")
+            for (coin, v) in expectedBooked { near("\(name) booked \(coin)", v, booked[coin]) }
             for (m, coins) in c["methods"] as? [String: Any] ?? [:] {
                 let method = try XCTUnwrap(CostMethod(rawValue: m))
                 for (coin, spec) in coins as? [String: Any] ?? [:] {
                     let x = spec as? [String: Any] ?? [:]
                     let p = PortfolioCalculator.position(coin, trades: all, currentPrice: nil, method: method)
+                    near("\(name)/\(m) today = card", "\(p.holdingsExact)", p.ledgerHoldingsExact + (booked[coin] ?? 0))
                     near("\(name)/\(m) holdings", x["holdings"], p.holdingsExact)
                     near("\(name)/\(m) address", x["address"], p.addressHoldingsExact)
                     if x["cost"] != nil { near("\(name)/\(m) cost", x["cost"], p.costBasisExact) }
@@ -154,6 +161,52 @@ final class AddressCostLotsParityTests: XCTestCase {
                 near("\(name) fr cost", fr["cost"], d.costUsdt)
                 XCTAssertEqual(d.addressValueIncluded, fr["addressValueIncluded"] as? Bool, "\(name) fr address note")
             }
+        }
+    }
+
+    /// 7 T und Wertverlauf mit derselben Bestandsregel wie die Karte (`AddressBooked`): Posten ab ihrer Zeit, Reihe ohne das
+    /// schon Gebuchte; der letzte Punkt ist der Wert der Karte — wie Android `periodsUseTheCardHoldings`.
+    func testPeriodsUseTheCardHoldings() throws {
+        let p = try XCTUnwrap(try S.fixture("address_cost_lots")["periods"] as? [String: Any])
+        let today = Int(S.number(p["today"]) ?? 0)
+        let current = (p["current"] as? [String: Any] ?? [:]).compactMapValues { S.number($0) }
+        var closes: [String: [Int: Double]] = [:]
+        for (coin, days) in p["closes"] as? [String: Any] ?? [:] {
+            var out: [Int: Double] = [:]
+            for (k, v) in days as? [String: Any] ?? [:] { if let d = Int(k), let n = S.number(v) { out[d] = n } }
+            closes[coin] = out
+        }
+        func close(_ label: String, _ expected: Double?, _ actual: Double?) {
+            guard let expected, let actual else { return XCTFail("\(label): \(String(describing: actual)) ≠ \(String(describing: expected))") }
+            XCTAssertLessThan(abs(expected - actual), 1e-6, label)
+        }
+        for c in S.list(p["cases"]) {
+            let name = c["name"] as? String ?? ""
+            let method = try XCTUnwrap(CostMethod(rawValue: c["method"] as? String ?? ""))
+            let addresses = S.list(c["addresses"]).map(address)
+            let real = S.list(c["trades"]).map(trade)
+            let all = AddressBalance.withAddresses(real, addresses: addresses, todayUtcDay: Int64(today))
+            let histories = AddressBooked.histories(addresses, real: real)
+            let e = c["expected"] as? [String: Any] ?? [:]
+            let entries = AddressBalanceHistory.trades(histories)
+            let expectedEntries = S.list(e["addressTrades"])
+            XCTAssertEqual(expectedEntries.count, entries.count, "\(name) entries")
+            for (x, t) in zip(expectedEntries, entries) {
+                XCTAssertEqual(Int64(S.number(x["time"]) ?? 0), t.time, "\(name) entry time")
+                XCTAssertEqual(x["type"] as? String, t.type.rawValue, "\(name) entry type")
+                near("\(name) entry amount", x["amount"], t.amountExact)
+            }
+            near("\(name) card", e["holdings"],
+                 PortfolioCalculator.position("BTC", trades: all, currentPrice: nil, method: method).holdingsExact)
+            let gain = PortfolioPeriodChange.gain(trades: all, current: current, closes: closes,
+                                                  baseDay: today - PortfolioPeriodChange.days, addresses: histories, method: method)
+            close("\(name) gain", S.number(e["gain"]), gain?.amount)
+            close("\(name) percent", S.number(e["percent"]), gain?.percent)
+            let history = PortfolioHistory.build(trades: all, closes: closes, livePrices: current, range: .week,
+                                                 todayEpochDay: today, addresses: histories, method: method)
+            close("\(name) first point", S.number(e["firstPoint"]), history.points.first?.value)
+            close("\(name) last point", S.number(e["lastPoint"]), history.points.last?.value)
+            close("\(name) history pnl", S.number(e["gain"]), history.pnlChange)
         }
     }
 

@@ -4,12 +4,15 @@ import Foundation
 // Gebühr in einem dritten Coin, Tausch, Börsen-Route, Gebühren und erhaltene Menge.
 
 extension PortfolioTx {
-    /// Höchstlänge des Herkunftsschlüssels — wie `PortfolioJson.MAX_IMPORT_KEY` (Android).
-    static let maxImportKey = 200
+    /// Höchstlänge des Herkunftsschlüssels in UTF-8-Bytes — wie `PortfolioJson.MAX_IMPORT_KEY` (Android).
+    static let maxImportKey = CsvImport.maxKeyBytes
 
-    /// Herkunftsschlüssel: getrimmt, höchstens `maxImportKey` Zeichen (länger = ungültig); leer = nil.
+    /// Herkunftsschlüssel: getrimmt, höchstens `maxImportKey` UTF-8-Bytes (länger = ungültig; der CSV-Import ersetzt
+    /// längere durch ihren Hash, `CsvImport.stableKey`); leer = nil. In Bytes gezählt, damit beide Plattformen dieselben
+    /// Schlüssel annehmen. Wie Android.
     static func cleanImportKey(_ raw: String?) -> String? {
-        guard let t = raw?.trimmingCharacters(in: .whitespacesAndNewlines), !t.isEmpty, t.count <= maxImportKey else { return nil }
+        guard let t = raw?.trimmingCharacters(in: .whitespacesAndNewlines), !t.isEmpty,
+              t.utf8.count <= maxImportKey else { return nil }
         return t
     }
 

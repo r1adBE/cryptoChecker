@@ -52,6 +52,7 @@ object BackupFields {
             "toAmountText" to Type.STRING_OR_NULL, "swapValueText" to Type.STRING_OR_NULL,
             "importBatch" to Type.STRING_OR_NULL, "giftToSpouse" to Type.BOOL, "linkedImportKey" to Type.STRING_OR_NULL,
             "importRestoreState" to Type.OBJECT_OR_NULL, "feeRow" to Type.BOOL, "interest" to Type.BOOL,
+            "stakingMove" to Type.BOOL,
         ),
     )
 

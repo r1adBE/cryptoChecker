@@ -15,6 +15,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 166)
+
+* Portfolio with watched addresses: «Today», 7 d / 1 y and the value history no longer count opening lots or recorded transfers to the address twice; opening lots count everywhere like buys from their date. A trade exactly at midnight UTC counts on the same day in the header and in the history; «Today» no longer counts a recent purchase as gain when the reference price is older than 24 h; the widget history no longer drops when a coin has no current price.
+* CSV import: very long import keys are kept (as a checksum), a transfer link that fails no longer loses the deposit, the exchange rate is reloaded after changing the time zone in the preview, staking rows are no longer offered as withdrawals, prices keep their full precision, amounts of 10^30 or more cannot be saved, and numbers like «1.234E-05» are read for every exchange.
+* Tax export: a fee paid in a third coin without a recorded price is valued at that day's close and marked «estimated» (all transaction types and templates); France counts it in the acquisition cost and shows a note on rewards; UK splits two sales on the same day evenly; Germany uses the 600 € exemption limit from 2008; the US wallet note describes what the export computes.
+
 ## 16.2.2 (build 165)
 
 * Watch apps: a fetch started earlier (app, complication or widget) never overwrites a newer price; on the Apple Watch app and complication share one file for prices. Phone and watch settings are sent in order and with the current state, also right after the watch connects. The Apple Watch complication is described as «Price». The Apple Watch stops reading a price answer after 4 MB, like Wear OS.

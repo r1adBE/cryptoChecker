@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Kendi cüzdanların arasındaki bir transferde USDT veya nakit ücret için de aynısı geçerlidir: maliyete eklenmez, yalnızca bilgi olarak gösterilir.</string>
     <string name="tax_note_uk">HMRC’ye göre eşleştirme: aynı gün → sonra sonraki 30 gün → sonra Section 104 uyarınca ortak havuz (Section 104 pool).</string>
     <string name="tax_note_us_transition">1.1.2025 geçişi (Rev. Proc. 2024-28, safe harbor): önceki yıllarda tüm cüzdanlarda FIFO kullanıldıysa, 31.12.2024 itibarıyla kalan partiler coin’leri tutan cüzdanlara gider – en eski coin’leri tutan cüzdan en eski maliyeti alır. Bu dağıtım uygulamanın kuralıdır – kendi kayıtlarınla karşılaştır.</string>
-    <string name="tax_note_us_wallet">2025 vergi yılından itibaren IRS cüzdan/borsa bazında maliyet istiyor (Rev. Proc. 2024-28) – dışa aktarma 2025’ten itibaren cüzdan bazında FIFO kullanır – 2025 öncesinde senin maliyet yöntemin geçerlidir.</string>
+    <string name="tax_note_us_wallet">2025 vergi yılından itibaren IRS cüzdan/borsa bazında maliyet istiyor (Rev. Proc. 2024-28) – dışa aktarma 2025’ten itibaren cüzdan bazında FIFO kullanır – 2025 öncesinde tüm cüzdanlar genelinde FIFO, maliyet yöntemin cüzdan bazında FIFO ise cüzdan bazında FIFO kullanılır.</string>
     <string name="tax_note_withdrawal_fee">USDT veya nakit çekim ücreti zarar değildir: nakit ücret indirilemez, USDT ücreti kârsız bir nominal değerden elden çıkarmadır – yalnızca bilgi olarak gösterilir (%1$s).</string>
     <string name="tax_summary_at_interest_income">sayılır: alındığı anda yüzde 27,5 özel oranla gelir (§ 27b f. 2 no. 1 EStG / BMF) – coinler bu değeri edinim maliyeti olarak korur</string>
     <string name="tax_summary_at_reward_info">yalnızca bilgi için – hiçbir toplamda yok: ödüller yeni varlığa 0 edinim maliyetiyle girer ve yalnızca satışta vergilendirilir (zaten kazançlarda) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">İzlenen adresler toplam değere dahildir ancak edinme maliyetleri yoktur – bu nedenle kazanç büyük olasılıkla fazla yüksektir. Maliyeti alım olarak kaydet.</string>
+    <string name="tax_summary_fr_rewards_income">Tutar, ödüllerin alındığında gelir olarak vergilendirildiğini varsayar (alındığı andaki değer edinim maliyetinde) – aksi halde ihtiyatlı yorum edinim maliyetinin 0 olmasıdır.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Fiyatı girilmemiş piyasa değerleri (ücretler, hediye/ödeme, takas, ödüller, ağ ücretleri, portföy değeri) işlem gününün günlük kapanışından (UTC)</string>

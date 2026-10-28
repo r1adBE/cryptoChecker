@@ -46,4 +46,23 @@ extension TaxExport {
             return !(d < TaxTemplate.atNewFrom) && d < TaxTemplate.atSwapNeutralFrom && !(period.end < d)
         }
     }
+
+    /// FR: Belohnungen mit Erwerb bis zum Ende von `period` — sie stecken zum Wert beim Erhalt in der Erwerbspreis-Summe
+    /// (`.FR_REWARDS_INCOME`). Wie Android `frRewards`.
+    static func frRewards(_ trades: [PortfolioTx], timeZone: TimeZone, period: TaxPeriod) -> Bool {
+        trades.contains { t in
+            t.type == .REWARD && t.amountExact > 0 && !(period.end < localDay(t.acquisitionTime, timeZone: timeZone))
+        }
+    }
+
+    /// FR: Kaufdaten der Herkunft (`TaxOutflow.ptaReductionParts`) der Abgänge ohne Verkauf im Jahr `period` — die Kürzung
+    /// wird zu ihren Kursen umgerechnet, also braucht die Devisenspanne (`fxSpan`) sie auch in einem Jahr ohne Abtretung.
+    /// Andere Methoden: leer. Wie Android.
+    static func frOutflowTimes(_ trades: [PortfolioTx], method: TaxMethod, period: TaxPeriod, timeZone: TimeZone,
+                               priceAt: ((String, Int64) -> Decimal?)?) -> [Int64] {
+        guard method == .FR_PTA else { return [] }
+        return TaxEngines.outflows(trades.filter { $0.amountExact > 0 }, method: method, priceAt: priceAt)
+            .filter { period.contains(localDay($0.time, timeZone: timeZone)) }
+            .flatMap { $0.ptaReductionParts.map(\.time) }
+    }
 }

@@ -143,6 +143,7 @@ class PortfolioTxDraftSaverTest {
             feeCoinPriceUsdt = BigDecimal("600"), importKey = "k", acquiredTime = 1_600_000_000_000L,
             toCoin = "ETH", toAmount = BigDecimal("2.000"), swapValueUsdt = BigDecimal("1E+3"),
             importBatch = "b", giftToSpouse = true, linkedImportKey = "l", feeRow = true, interest = true,
+            stakingMove = true,
         )
         assertEquals(draft, txDraftFromSaved(draft.toSaved()))
     }

@@ -48,6 +48,8 @@ object PortfolioPeriodParts {
      *   dann fehlt nur dieser Coin ([Parts.skipped])
      * @param marketPrice Marktkurs zum Zeitpunkt (ms) für Auszahlungen ohne Preis und Adress-Änderungen
      *   ([PortfolioLedger.needsMarketPrice]); null = unbekannt (Coin fehlt)
+     * @param coinStart Beginn des Zeitraums je Coin, wenn er von [windowStart] abweicht («Heute»: Zeit seines
+     *   Vergleichskurses, [PortfolioWidgetSeries.changeSince]) — ein Kauf nach dem Vergleichskurs ist so nie Gewinn
      */
     fun parts(
         trades: List<PortfolioTrade>,
@@ -58,14 +60,16 @@ object PortfolioPeriodParts {
         method: CostMethod = CostMethod.DEFAULT,
         marketPrice: (coin: String, live: Double?, time: Long) -> Double?,
         rates: Rates = Rates.NONE,
+        coinStart: Map<String, Long> = emptyMap(),
         startPrice: (coin: String, live: Double?) -> Double?,
     ): Parts {
         val out = Parts()
-        // Adress-Einträge der Eingabe nie rückwirkend; nur die beobachtete Reihe ([AddressBalanceHistory]). Tausch ohne
-        // Wert (und die übrigen Fälle von [PortfolioLedger.valueAtDayClose]) zum Marktkurs [marketPrice] wie die Karte:
-        // EIN Wert für abgegebenen und erhaltenen Coin statt jede Seite zu ihrem eigenen Kurs
+        // Adress-Teil der Eingabe nie rückwirkend; dafür die beobachtete Reihe ohne Gebuchtes ([AddressBooked]),
+        // Eröffnungsposten zählen wie Käufe (wie die Karte). Tausch ohne Wert (und die übrigen Fälle von
+        // [PortfolioLedger.valueAtDayClose]) zum Marktkurs [marketPrice] wie die Karte: EIN Wert für abgegebenen und
+        // erhaltenen Coin statt jede Seite zu ihrem eigenen Kurs
         val valid = PortfolioLedger.valueAtDayClose(
-            trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressTrade(it.id) } +
+            trades.filter { it.amount.signum() > 0 && !AddressBalance.isAddressPart(it.id) } +
                 AddressBalanceHistory.trades(addresses),
         ) { coin, time ->
             marketPrice(coin, current[coin]?.takeIf { it > 0.0 && it.isFinite() }, time)
@@ -79,12 +83,13 @@ object PortfolioPeriodParts {
             val events = byCoin?.get(coin) ?: PortfolioLedger.events(coin, valid)
             // Bestände exakt wie die Position nach der Methode ([PortfolioHoldingsBook]); erst zum Bewerten als Double
             val book = PortfolioHoldingsBook(method)
+            val start = coinStart[coin] ?: windowStart
             for (e in events) {
-                if (e.trade.time > windowStart) break
+                if (e.trade.time > start) break
                 book.apply(e)
             }
             val startExact = book.total
-            val inWindow = events.filter { it.trade.time > windowStart }
+            val inWindow = events.filter { it.trade.time > start }
             val live = current[coin]?.takeIf { it > 0.0 && it.isFinite() }
             // Zuflüsse im Zeitraum; null = einer davon unbekannt (z. B. Kauf ohne Preis)
             var flows: MutableList<Pair<PortfolioLedgerEvent, Double>>? = ArrayList()

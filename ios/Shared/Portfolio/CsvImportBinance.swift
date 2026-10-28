@@ -278,27 +278,9 @@ enum CsvImportBinance {
 
     // MARK: - Zahlen
 
-    private static let posix = Locale(identifier: "en_US_POSIX")
-
-    /// «1E-8», «-2.5e3»: Ziffern, höchstens ein Punkt, dann e/E, Vorzeichen, 1–3 Ziffern (wie Android `EXPONENT`).
-    private static func isExponent(_ t: String) -> Bool {
-        let parts = t.lowercased().split(separator: "e", omittingEmptySubsequences: false)
-        guard parts.count == 2 else { return false }
-        var mantissa = Substring(parts[0])
-        if mantissa.hasPrefix("-") { mantissa = mantissa.dropFirst() }
-        let pieces = mantissa.split(separator: ".", omittingEmptySubsequences: false)
-        guard (1...2).contains(pieces.count), pieces.allSatisfy({ !$0.isEmpty && $0.allSatisfy { $0.isASCII && $0.isNumber } }) else {
-            return false
-        }
-        var exponent = Substring(parts[1])
-        if exponent.hasPrefix("-") || exponent.hasPrefix("+") { exponent = exponent.dropFirst() }
-        return (1...3).contains(exponent.count) && exponent.allSatisfy { $0.isASCII && $0.isNumber }
-    }
-
-    /// Zahl mit Punkt als Dezimalzeichen; auch «1E-8» (Binance schreibt sehr kleine Beträge so).
+    /// Zahl mit Punkt als Dezimalzeichen; auch «1E-8» (Binance schreibt sehr kleine Beträge so; die Regel für die
+    /// wissenschaftliche Schreibweise gilt für alle Formate, `CsvImportParser.parseNumber`).
     static func decimal(_ text: String) -> Decimal? {
-        let t = text.trimmingCharacters(in: .whitespaces)
-        if isExponent(t) { return Decimal(string: t, locale: posix) }
-        return CsvImportParser.parseNumber(t, hint: ".")
+        CsvImportParser.parseNumber(text.trimmingCharacters(in: .whitespaces), hint: ".")
     }
 }

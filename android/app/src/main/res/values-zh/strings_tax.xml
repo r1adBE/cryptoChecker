@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">在你自己的钱包之间转移时以 USDT 或法币支付的手续费同样如此：不计入成本，仅作参考列出。</string>
     <string name="tax_note_uk">按 HMRC 匹配：同一天，然后之后 30 天，然后 依 Section 104 的合并持仓（Section 104 pool）。</string>
     <string name="tax_note_us_transition">2025年1月1日过渡（Rev. Proc. 2024-28，安全港）：若以前年度对所有钱包统一使用 FIFO，截至 2024年12月31日的剩余批次分配给持有这些币的钱包——持有最早币的钱包获得最早的成本。此分配为应用自身的规则——请与你自己的记录核对。</string>
-    <string name="tax_note_us_wallet">自 2025 纳税年度起 IRS 要求按钱包/交易所计算成本（Rev. Proc. 2024-28）——导出自 2025 年起按钱包使用 FIFO——2025 年之前适用你设置的成本计算方法。</string>
+    <string name="tax_note_us_wallet">自 2025 纳税年度起 IRS 要求按钱包/交易所计算成本（Rev. Proc. 2024-28）——导出自 2025 年起按钱包使用 FIFO——2025 年之前对所有钱包合并使用 FIFO；若设置的成本计算方法为按钱包 FIFO，则按钱包使用 FIFO。</string>
     <string name="tax_note_withdrawal_fee">USDT 或法币支付的提取手续费不算亏损：法币手续费不可扣除，USDT 手续费是按面值处置、没有收益——仅作参考列出（%1$s）。</string>
     <string name="tax_summary_at_interest_income">计入：收到时按百分之 27.5 特别税率计为收入（§ 27b 第2款第1项 EStG / BMF）——币以该价值作为取得成本</string>
     <string name="tax_summary_at_reward_info">仅供参考——不计入任何合计：奖励以取得成本 0 计入新持仓，仅在出售时征税（已含在收益中）——§ 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">观察地址计入总价值，但没有购入成本——因此收益可能偏高。请将成本记录为买入。</string>
+    <string name="tax_summary_fr_rewards_income">该金额假定奖励在收到时已作为收入纳税（收到时的价值计入取得成本）– 否则，较审慎的理解是取得成本为 0。</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">没有记录价格的市值（手续费、赠送/支付、兑换、奖励、网络手续费、组合总值）按交易当日（UTC）收盘价计</string>

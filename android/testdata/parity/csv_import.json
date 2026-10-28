@@ -1570,11 +1570,6 @@
       "expected": null
     },
     {
-      "text": "1e5",
-      "hint": null,
-      "expected": null
-    },
-    {
       "text": "1.",
       "hint": null,
       "expected": null
@@ -1638,6 +1633,91 @@
       "text": "0.001,5",
       "hint": null,
       "expected": null
+    },
+    {
+      "text": "1e5",
+      "hint": null,
+      "expected": "100000"
+    },
+    {
+      "text": "1.234E-05",
+      "hint": null,
+      "expected": "0.00001234"
+    },
+    {
+      "text": "1,234E-05",
+      "hint": ".",
+      "expected": "0.00001234"
+    },
+    {
+      "text": "-2.5e+3",
+      "hint": null,
+      "expected": "-2500"
+    },
+    {
+      "text": "1.5E-8",
+      "hint": ".",
+      "expected": "0.000000015"
+    },
+    {
+      "text": "2.50E2",
+      "hint": ",",
+      "expected": "250"
+    },
+    {
+      "text": "9.99E29",
+      "hint": null,
+      "expected": "999000000000000000000000000000"
+    },
+    {
+      "text": "1E30",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1E-40",
+      "hint": null,
+      "expected": "0.0000000000000000000000000000000000000001"
+    },
+    {
+      "text": "1E-41",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "0E5",
+      "hint": null,
+      "expected": "0"
+    },
+    {
+      "text": "1.2.3E4",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1ee5",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "E5",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1E",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1E1234",
+      "hint": null,
+      "expected": null
+    },
+    {
+      "text": "1'234E2",
+      "hint": null,
+      "expected": "123400"
     }
   ],
   "dates": [
@@ -3037,7 +3117,7 @@
       "expected": false
     }
   ],
-  "_unsavableComment": "Zeilen, die das Speichern ablehnen würde, zeigt die Vorschau als übersprungen (Android CsvImportMapping.unsavableReason / iOS gleichnamig). Reihenfolge: coin nach trim/gross leer → MISSING_FIELD; amount auf 18 Nachkommastellen gerundet (halbe auf gerade) ≤ 0 → AMOUNT_TOO_SMALL; nur type SWAP: toCoin (trim/gross) fehlt, leer, länger als 15 Zeichen oder gleich coin, oder toAmount fehlt bzw. gerundet ≤ 0 → INVALID_SWAP; sonst null. toCoin/toAmount bei anderen Arten ohne Bedeutung. Die Vorschau hängt diese Gründe an die übersprungenen Zeilen (stabil nach Zeile sortiert, Datei-Gründe zuerst) und lässt die Zeilen auch aus missingFx, missingPrice, usdtApproximate und stableSwaps weg.",
+  "_unsavableComment": "Zeilen, die das Speichern ablehnen würde, zeigt die Vorschau als übersprungen (Android CsvImportMapping.unsavableReason / iOS gleichnamig; gleiche Regel beim Speichern: Android storable nach cleanForSave, iOS AppData.cleanedPortfolioTx). Reihenfolge: coin nach trim/gross leer → MISSING_FIELD; amount auf 18 Nachkommastellen gerundet (halbe auf gerade) ≤ 0 → AMOUNT_TOO_SMALL; eine Zahl gespeichert nicht mehr lesbar (amount, fee in Coin-Einheiten, beim Tausch toAmount: auf 18 Nachkommastellen gerundet ab 10^30) oder priceUsdt nach PortfolioDecimal.price ab 10^30 bzw. > 0, aber gerundet 0 → BAD_NUMBER; nur type SWAP: toCoin (trim/gross) fehlt, leer, länger als 15 Zeichen oder gleich coin, oder toAmount fehlt bzw. gerundet ≤ 0 → INVALID_SWAP; sonst null. toCoin/toAmount bei anderen Arten ohne Bedeutung. Fehlende Felder fee/priceUsdt = keine. Die Vorschau hängt diese Gründe an die übersprungenen Zeilen (stabil nach Zeile sortiert, Datei-Gründe zuerst) und lässt die Zeilen auch aus missingFx, missingPrice, usdtApproximate und stableSwaps weg.",
   "unsavable": [
     {
       "name": "plain buy",
@@ -3218,6 +3298,408 @@
       "toCoin": "ETH",
       "toAmount": null,
       "expected": null
+    },
+    {
+      "name": "amount 1e30 would be unreadable after saving",
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": "1000000000000000000000000000000",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "BAD_NUMBER"
+    },
+    {
+      "name": "amount just below 1e30",
+      "coin": "SHIB",
+      "type": "BUY",
+      "amount": "999999999999999999999999999999",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "coin fee 1e30",
+      "coin": "BTC",
+      "type": "SELL",
+      "amount": "1",
+      "fee": "1000000000000000000000000000000",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "BAD_NUMBER"
+    },
+    {
+      "name": "price 4e-41 would become 0 (free buy)",
+      "coin": "BABYDOGE",
+      "type": "BUY",
+      "amount": "1000",
+      "priceUsdt": "0.00000000000000000000000000000000000000004",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "BAD_NUMBER"
+    },
+    {
+      "name": "price 4e-19 is kept",
+      "coin": "BABYDOGE",
+      "type": "BUY",
+      "amount": "1000",
+      "priceUsdt": "0.0000000000000000004",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "price 0 stays allowed",
+      "coin": "BTC",
+      "type": "SELL",
+      "amount": "1",
+      "priceUsdt": "0",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": null
+    },
+    {
+      "name": "price 1e30",
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": "1",
+      "priceUsdt": "1000000000000000000000000000000",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "BAD_NUMBER"
+    },
+    {
+      "name": "tiny amount wins over a huge fee",
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": "0.0000000000000000001",
+      "fee": "1000000000000000000000000000000",
+      "toCoin": null,
+      "toAmount": null,
+      "expected": "AMOUNT_TOO_SMALL"
+    },
+    {
+      "name": "swap receiving 1e30",
+      "coin": "ETH",
+      "type": "SWAP",
+      "amount": "1",
+      "toCoin": "PEPE",
+      "toAmount": "1000000000000000000000000000000",
+      "expected": "BAD_NUMBER"
+    },
+    {
+      "name": "toAmount 1e30 on a buy is ignored (not saved)",
+      "coin": "BTC",
+      "type": "BUY",
+      "amount": "1",
+      "toCoin": null,
+      "toAmount": "1000000000000000000000000000000",
+      "expected": null
+    }
+  ],
+  "_scientificComment": "numbers: auch wissenschaftliche Schreibweise (Excel) in allen Formaten (CsvImportParser.parseNumber): Mantisse mit höchstens einem Dezimalzeichen «.» oder «,» (nie Tausender, höchstens 60 Zeichen), E/e, Exponent mit 1–3 Ziffern (ein «+» fällt wie überall weg); Wert unter 10^30 und höchstens 40 Nachkommastellen (PortfolioDecimal.withinLimits), sonst null.",
+  "_priceTextComment": "Gespeicherter Preis (PortfolioDecimal.priceText; Kaufpreis und Preis der Gebühr im dritten Coin, Datenbank/Datei, Sicherung, Zustand für «Rückgängig»): 34 gültige Stellen, mindestens 18 und höchstens 40 Nachkommastellen (Lesegrenze), halbe auf gerade; ohne Exponent und Nullen am Ende. Mengen bleiben bei 18 Nachkommastellen (PortfolioDecimal.text).",
+  "priceText": [
+    {
+      "value": "2.5",
+      "expected": "2.5"
+    },
+    {
+      "value": "65000.12",
+      "expected": "65000.12"
+    },
+    {
+      "value": "0.000000001371733333333333333333333333",
+      "expected": "0.000000001371733333333333333333333333"
+    },
+    {
+      "value": "0.000000000000001234567",
+      "expected": "0.000000000000001234567"
+    },
+    {
+      "value": "0.0000000000000000004",
+      "expected": "0.0000000000000000004"
+    },
+    {
+      "value": "0.00000000000000000000000000000000000000004",
+      "expected": "0"
+    },
+    {
+      "value": "0.00000000000000000000000000000000000000006",
+      "expected": "0.0000000000000000000000000000000000000001"
+    },
+    {
+      "value": "0.3333333333333333333333333333333333333333",
+      "expected": "0.3333333333333333333333333333333333"
+    },
+    {
+      "value": "0.12345678901234567890123456789012345",
+      "expected": "0.1234567890123456789012345678901234"
+    },
+    {
+      "value": "0.12345678901234567890123456789012335",
+      "expected": "0.1234567890123456789012345678901234"
+    },
+    {
+      "value": "123456789012345678.1234567890123456789",
+      "expected": "123456789012345678.123456789012345679"
+    },
+    {
+      "value": "1.000000000000000000000000000000000049",
+      "expected": "1"
+    }
+  ],
+  "_importKeysComment": "Herkunftsschlüssel (CsvImport.withOccurrence): erst «#n» für wiederholte Schlüssel, dann jeder über 200 UTF-8-Bytes ersetzt durch «<Format>|h:<SHA-256 hex des ganzen Schlüssels samt #n>» (CsvImport.stableKey). cleanImportKeys: Speichern/Sicherung (PortfolioJson.cleanImportKey / PortfolioTx.cleanImportKey) trimmt und nimmt höchstens 200 UTF-8-Bytes an (auf beiden Plattformen in Bytes gezählt), sonst null.",
+  "importKeys": [
+    {
+      "name": "short keys stay",
+      "keys": [
+        "GENERIC|tx-1",
+        "RELAI|op-7"
+      ],
+      "expected": [
+        "GENERIC|tx-1",
+        "RELAI|op-7"
+      ]
+    },
+    {
+      "name": "exactly 200 UTF-8 bytes stays",
+      "keys": [
+        "GENERIC|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "expected": [
+        "GENERIC|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ]
+    },
+    {
+      "name": "201 bytes become a hash",
+      "keys": [
+        "GENERIC|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "expected": [
+        "GENERIC|h:6607ab019372c9ca72b2c54ff9ac61531b0962f51a46ef3ec58c9931b4b50aaa"
+      ]
+    },
+    {
+      "name": "ID cell over 190 characters (own CSV)",
+      "keys": [
+        "GENERIC|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "expected": [
+        "GENERIC|h:c5d687fd2d96fe865effc69c41c974d5153b24a65beda5324c2a3bce56f2bd5d"
+      ]
+    },
+    {
+      "name": "108 characters but 208 UTF-8 bytes",
+      "keys": [
+        "GENERIC|ääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääää"
+      ],
+      "expected": [
+        "GENERIC|h:8ac5710f188848153357709cfd589371fb3b243ea822b4822132105242e781da"
+      ]
+    },
+    {
+      "name": "emoji: 56 characters, 203 UTF-8 bytes",
+      "keys": [
+        "KRAKEN|😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+      ],
+      "expected": [
+        "KRAKEN|h:018308ddc382ce8343c1bc77e0de8f6375b1da704e679ff085c6472d83f46779"
+      ]
+    },
+    {
+      "name": "same long key twice: occurrence before the hash",
+      "keys": [
+        "GENERIC|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "GENERIC|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "expected": [
+        "GENERIC|h:c5d687fd2d96fe865effc69c41c974d5153b24a65beda5324c2a3bce56f2bd5d",
+        "GENERIC|h:90a38d6f08f74f67614a80ffef1b96fffebe977c7b410583ed207f53c718c36e"
+      ]
+    },
+    {
+      "name": "199 bytes stays, its «#2» is hashed",
+      "keys": [
+        "GENERIC|bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "GENERIC|bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "expected": [
+        "GENERIC|bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "GENERIC|h:fc411136dd7fa8dab9cf63ff314e5b448c388fa3c68c50b13efc588ef34c080a"
+      ]
+    }
+  ],
+  "cleanImportKeys": [
+    {
+      "key": "GENERIC|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expected": "GENERIC|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "key": "GENERIC|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expected": null
+    },
+    {
+      "key": "GENERIC|ääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääää",
+      "expected": "GENERIC|ääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääää"
+    },
+    {
+      "key": "GENERIC|äääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääääää",
+      "expected": null
+    },
+    {
+      "key": " a ",
+      "expected": "a"
+    },
+    {
+      "key": "  ",
+      "expected": null
+    }
+  ],
+  "_rateDaysComment": "Tage der geladenen Kurse (CsvImportRateDays.of: Tageskurse je Währung wie fxNeeds, unter «USDT» die USDT/USD-Schlüsse vom frühesten bis spätesten Tag, alles in fxZone = Gerätezone). rateDays: Datei mit Zeitzone «loaded» gelesen (Kurse geladen), dann mit «reread» neu gelesen; cover = CsvImportRateDays.cover(loadedDays, rereadDays) — false heisst neu laden (sonst gälte still der Kurs des Vortags). Tage als ISO-Datum [erster, letzter]. rateCover: reine Fälle von cover.",
+  "rateDays": [
+    {
+      "name": "Zurich device: 23:30 read in device zone, then as UTC moves the row to the next day → reload",
+      "file": "generic_utc_fiat",
+      "deviceZone": "Europe/Zurich",
+      "loaded": "Europe/Zurich",
+      "reread": "UTC",
+      "loadedDays": {
+        "EUR": [
+          "2024-05-01",
+          "2024-05-01"
+        ],
+        "USDT": [
+          "2024-05-01",
+          "2024-05-01"
+        ]
+      },
+      "rereadDays": {
+        "EUR": [
+          "2024-05-02",
+          "2024-05-02"
+        ],
+        "USDT": [
+          "2024-05-02",
+          "2024-05-02"
+        ]
+      },
+      "cover": false
+    },
+    {
+      "name": "UTC first, then Zurich: earlier day also reloads",
+      "file": "generic_utc_fiat",
+      "deviceZone": "Europe/Zurich",
+      "loaded": "UTC",
+      "reread": "Europe/Zurich",
+      "loadedDays": {
+        "EUR": [
+          "2024-05-02",
+          "2024-05-02"
+        ],
+        "USDT": [
+          "2024-05-02",
+          "2024-05-02"
+        ]
+      },
+      "rereadDays": {
+        "EUR": [
+          "2024-05-01",
+          "2024-05-01"
+        ],
+        "USDT": [
+          "2024-05-01",
+          "2024-05-01"
+        ]
+      },
+      "cover": false
+    },
+    {
+      "name": "another zone with the same day keeps the loaded rates",
+      "file": "generic_utc_fiat",
+      "deviceZone": "Europe/Zurich",
+      "loaded": "Europe/Zurich",
+      "reread": "Europe/Berlin",
+      "loadedDays": {
+        "EUR": [
+          "2024-05-01",
+          "2024-05-01"
+        ],
+        "USDT": [
+          "2024-05-01",
+          "2024-05-01"
+        ]
+      },
+      "rereadDays": {
+        "EUR": [
+          "2024-05-01",
+          "2024-05-01"
+        ],
+        "USDT": [
+          "2024-05-01",
+          "2024-05-01"
+        ]
+      },
+      "cover": true
+    }
+  ],
+  "rateCover": [
+    {
+      "name": "inside",
+      "loaded": {
+        "EUR": [
+          "2024-05-01",
+          "2024-05-09"
+        ]
+      },
+      "needed": {
+        "EUR": [
+          "2024-05-02",
+          "2024-05-09"
+        ]
+      },
+      "expected": true
+    },
+    {
+      "name": "one day later",
+      "loaded": {
+        "EUR": [
+          "2024-05-01",
+          "2024-05-09"
+        ]
+      },
+      "needed": {
+        "EUR": [
+          "2024-05-02",
+          "2024-05-10"
+        ]
+      },
+      "expected": false
+    },
+    {
+      "name": "new currency",
+      "loaded": {
+        "EUR": [
+          "2024-05-01",
+          "2024-05-09"
+        ]
+      },
+      "needed": {
+        "EUR": [
+          "2024-05-02",
+          "2024-05-03"
+        ],
+        "CHF": [
+          "2024-05-02",
+          "2024-05-02"
+        ]
+      },
+      "expected": false
+    },
+    {
+      "name": "nothing needed",
+      "loaded": {},
+      "needed": {},
+      "expected": true
     }
   ]
 }

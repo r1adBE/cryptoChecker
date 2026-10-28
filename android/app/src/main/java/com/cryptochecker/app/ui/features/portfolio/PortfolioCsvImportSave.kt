@@ -1,8 +1,9 @@
-// Speichern des CSV-Imports: Zeilen vorbereiten (im Hintergrund), neue Transaktionen anlegen (abbrechbar, in einer Datenbank-Transaktion), danach gewählte
-// Umbuchungen mit gespeicherten Seiten verknüpfen. Eigene Datei, weil `PortfolioCsvImportViewModel.kt` an der
-// Längengrenze ist; gespiegelt im Speichern von `PortfolioCsvImport.swift`.
+// Speichern des CSV-Imports: Zeilen vorbereiten (im Hintergrund), neue Transaktionen anlegen und gewählte Umbuchungen mit
+// gespeicherten Seiten verknüpfen (abbrechbar, alles in einer Datenbank-Transaktion). Eigene Datei, weil
+// `PortfolioCsvImportViewModel.kt` an der Längengrenze ist; gespiegelt im Speichern von `PortfolioCsvImport.swift`.
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.data.portfolio.CsvImportWritten
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -16,6 +17,8 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
+import com.cryptochecker.app.domain.portfolio.csvimport.fallbacks
+import com.cryptochecker.app.domain.portfolio.csvimport.withFallbacks
 import timber.log.Timber
 
 /** Ergebnis von [saveCsvImport]. */
@@ -31,35 +34,39 @@ internal sealed interface CsvImportSaveOutcome {
 }
 
 /**
- * Erst [insert] (neue Transaktionen in EINER Transaktion; wirft bei «Abbrechen» [CsvImportCancelledException], dann ist
- * nichts angelegt), danach [link] (gespeicherte Seiten verknüpfter Umbuchungen, eigene Transaktion, nicht mehr
- * abbrechbar). Scheitert das Verknüpfen, zählen die angelegten Zeilen trotzdem; nur ohne jede geschriebene Zeile ist es
- * ein Fehler (Grund statt «0 importiert»).
+ * [write] legt die neuen Transaktionen an und verknüpft die gespeicherten Seiten in EINER Transaktion
+ * ([com.cryptochecker.app.data.portfolio.insertImportedLinked]); wirft bei «Abbrechen» [CsvImportCancelledException],
+ * dann ist nichts geschrieben. Scheitert es, ist ebenfalls nichts geschrieben: Fehler mit Grund statt «0 importiert».
  */
-internal suspend fun saveCsvImport(insert: suspend () -> Int, link: suspend () -> Int): CsvImportSaveOutcome {
-    val inserted = runCatchingCancellable { insert() }
-    if (inserted.exceptionOrNull() is CsvImportCancelledException) return CsvImportSaveOutcome.Cancelled
-    inserted.onFailure { Timber.w(it, "CSV-Import: Speichern fehlgeschlagen") }
-    val linked = if (inserted.isFailure) null else runCatchingCancellable { link() }
-        .onFailure { Timber.w(it, "CSV-Import: Umbuchung nicht verknüpft") }
-    val created = inserted.getOrDefault(0)
-    val count = created + (linked?.getOrNull() ?: 0)
-    val failure = inserted.exceptionOrNull() ?: linked?.exceptionOrNull()?.takeIf { count == 0 }
-    if (failure != null) return CsvImportSaveOutcome.Failed(locked = failure is PortfolioStorageLockedException)
-    return CsvImportSaveOutcome.Saved(created, count)
+internal suspend fun saveCsvImport(write: suspend () -> CsvImportWritten): CsvImportSaveOutcome {
+    val written = runCatchingCancellable { write() }
+    val failure = written.exceptionOrNull()
+    if (failure is CsvImportCancelledException) return CsvImportSaveOutcome.Cancelled
+    if (failure != null) {
+        Timber.w(failure, "CSV-Import: Speichern fehlgeschlagen")
+        return CsvImportSaveOutcome.Failed(locked = failure is PortfolioStorageLockedException)
+    }
+    val done = written.getOrThrow()
+    return CsvImportSaveOutcome.Saved(done.inserted, done.inserted + done.linked)
 }
 
-/** Zum Speichern vorbereitet ([prepareCsvImport]): Zeilen, Kennung des Laufs, gespeicherte Seiten zum Verknüpfen. */
+/**
+ * Zum Speichern vorbereitet ([prepareCsvImport]): Zeilen samt Ersatzzeilen, Kennung des Laufs, gespeicherte Seiten zum
+ * Verknüpfen und welche Zeile Ersatz für welche Seite ist ([fallbacks], `CsvTransferMatch.fallbacks`).
+ */
 internal class CsvImportSavePlan(
     val entities: List<PortfolioTxEntity>,
     val batch: String,
     val storedUpdates: List<CsvStoredTransfer>,
+    val fallbacks: Map<String, Long> = emptyMap(),
 )
 
 /**
  * Gewählte Umbuchungen anwenden, die Wahl je Auszahlung übernehmen (Ziel aus [destinations]), älteste zuerst ordnen
  * (Id folgt der Zeit), in Zeilen umwandeln und den Lauf kennzeichnen («Import rückgängig»: Format, [now], Hash der
- * Zeilenschlüssel). Bei grossen Dateien rechenintensiv, darum im Hintergrund aufgerufen.
+ * Zeilenschlüssel). Neue Zeilen, die gegen eine gespeicherte Seite aufgehen, kommen als Ersatz mit
+ * ([CsvTransferMatch.withFallbacks]): gespeichert nur, wenn die Verknüpfung beim Speichern nicht mehr geht. Bei grossen
+ * Dateien rechenintensiv, darum im Hintergrund aufgerufen.
  * @return null, wenn nicht jede Auszahlung (ohne verknüpfte Umbuchung) eine Wahl hat
  */
 internal fun prepareCsvImport(
@@ -72,15 +79,16 @@ internal fun prepareCsvImport(
 ): CsvImportSavePlan? {
     val plan = CsvTransferMatch.apply(preview.transactions, links, linked)
     if (!CsvImportMapping.allWithdrawalsDecided(plan.transactions, choices)) return null
-    val txs = CsvImportMapping.insertOrder(CsvImportMapping.applyWithdrawalChoices(plan.transactions, choices, destinations))
+    val rows = CsvTransferMatch.withFallbacks(preview.transactions, plan)
+    val txs = CsvImportMapping.insertOrder(CsvImportMapping.applyWithdrawalChoices(rows, choices, destinations))
     val batch = PortfolioImportBatch.newId(preview.format.name, now, txs.map { it.importKey })
-    return CsvImportSavePlan(txs.map { it.toEntity() }, batch, plan.storedUpdates)
+    return CsvImportSavePlan(txs.map { it.toEntity() }, batch, plan.storedUpdates, CsvTransferMatch.fallbacks(plan))
 }
 
 /**
  * «Abbrechen» im Lade- bzw. Speicherdialog möglich: beim Laden immer; beim Speichern, bis alle Zeilen angelegt sind
- * ([progress] im Schritt [CsvImportStep.SAVE] mit done ≥ total) — danach läuft das Verknüpfen der Umbuchungen, das
- * nicht mehr abbrechbar ist.
+ * ([progress] im Schritt [CsvImportStep.SAVE] mit done ≥ total) — danach folgen nur noch die Verknüpfungen, die nicht mehr
+ * abbrechbar sind.
  */
 internal fun canCancelSave(saving: Boolean, progress: CsvImportProgress?): Boolean =
     !saving || progress?.let { it.step == CsvImportStep.SAVE && it.done >= it.total } != true

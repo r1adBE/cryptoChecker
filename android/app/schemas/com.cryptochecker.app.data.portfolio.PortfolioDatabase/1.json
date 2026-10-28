@@ -6,7 +6,7 @@
     "entities": [
       {
         "tableName": "portfolio_tx",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `coin` TEXT NOT NULL, `type` TEXT NOT NULL, `amount` TEXT NOT NULL, `priceUsdt` TEXT, `time` INTEGER NOT NULL, `note` TEXT, `fee` TEXT, `feeUnit` TEXT, `exchange` TEXT, `transferFrom` TEXT, `transferTo` TEXT, `feeCoin` TEXT, `feeCoinAmount` TEXT, `feeCoinPriceUsdt` TEXT, `importKey` TEXT, `acquiredTime` INTEGER, `toCoin` TEXT, `toAmount` TEXT, `swapValueUsdt` TEXT, `importBatch` TEXT, `giftToSpouse` INTEGER NOT NULL DEFAULT 0, `linkedImportKey` TEXT, `importRestoreState` TEXT, `feeRow` INTEGER NOT NULL DEFAULT 0, `interest` INTEGER NOT NULL DEFAULT 0)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `coin` TEXT NOT NULL, `type` TEXT NOT NULL, `amount` TEXT NOT NULL, `priceUsdt` TEXT, `time` INTEGER NOT NULL, `note` TEXT, `fee` TEXT, `feeUnit` TEXT, `exchange` TEXT, `transferFrom` TEXT, `transferTo` TEXT, `feeCoin` TEXT, `feeCoinAmount` TEXT, `feeCoinPriceUsdt` TEXT, `importKey` TEXT, `acquiredTime` INTEGER, `toCoin` TEXT, `toAmount` TEXT, `swapValueUsdt` TEXT, `importBatch` TEXT, `giftToSpouse` INTEGER NOT NULL DEFAULT 0, `linkedImportKey` TEXT, `importRestoreState` TEXT, `feeRow` INTEGER NOT NULL DEFAULT 0, `interest` INTEGER NOT NULL DEFAULT 0, `stakingMove` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "id",
@@ -145,6 +145,13 @@
           {
             "fieldPath": "interest",
             "columnName": "interest",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "stakingMove",
+            "columnName": "stakingMove",
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "0"

@@ -119,6 +119,11 @@ data class PortfolioSnapshot(
     val unverifiedCoins: List<String> = emptyList(),
     /** Wert dieser Coins in USDT; 0 = keine bzw. nicht gespeichert. */
     val unverifiedValueUsdt: Double = 0.0,
+    /**
+     * Zeit des Vergleichskurses je Coin von [coinChanges] (rollend, [PortfolioWidgetSeries.changeSince]) — Beginn des
+     * Zeitraums von «Heute» je Coin. Nur im Speicher; leer = Beginn der %-Basis.
+     */
+    val coinChangeSince: Map<String, Long> = emptyMap(),
 )
 
 /** USDT-Kurse aller Coins zu einem Zeitpunkt. */
@@ -182,7 +187,10 @@ object PortfolioSnapshotMath {
         history.filter { it.time <= dayStart && dayStart - it.time <= PortfolioWidgetSeries.TOLERANCE_MILLIS }
             .maxByOrNull { it.time }
 
-    /** Jüngste Aufnahme, die mindestens 20 h (und höchstens 48 h) alt ist. */
+    /**
+     * Jüngste Aufnahme, die mindestens 20 h (und höchstens 48 h) alt ist. «Heute» rechnet Käufe ab ihrer Zeit heraus
+     * ([PortfolioSnapshot.coinChangeSince]).
+     */
     fun baseline(history: List<PriceSample>, now: Long): PriceSample? =
         history.filter { now - it.time in MIN_BASELINE_AGE_MILLIS..HISTORY_MILLIS }.maxByOrNull { it.time }
 
@@ -280,6 +288,7 @@ object PortfolioSnapshotMath {
             coinChanges = coinChanges,
             missingPrices = missingPrices(values),
             missingCoins = missingCoins(values),
+            coinChangeSince = PortfolioWidgetSeries.changeSince(current, base, hourlyPrices, now),
         )
     }
 
