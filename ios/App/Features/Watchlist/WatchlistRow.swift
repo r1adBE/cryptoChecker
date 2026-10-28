@@ -4,7 +4,6 @@ import UIKit
 // MARK: Zeile
 
 /// Kompakte Zeile: Coin-Logo (Stern bei Favoriten, nur mit Coin-Logos), Paar, Börse, Kurs und Prozent-Änderung.
-/// Bestände zeigt die Merkliste nicht mehr — dafür gibt es den Portfolio-Tab.
 /// Tippen öffnet die Aktionen sofort (kein Doppeltippen),
 /// lange drücken und ziehen sortiert (macht die Liste).
 struct WatchlistRow: View {

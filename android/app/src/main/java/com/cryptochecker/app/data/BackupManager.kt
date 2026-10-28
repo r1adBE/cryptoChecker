@@ -298,8 +298,6 @@ class BackupManager @Inject constructor(
                         if (watchedAddresses != null) portfolioRepository.replaceWatchedAddresses(watchedAddresses)
                     }
                 },
-                // Bestand aus alten Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion)
-                RestoreRun.Write(Step.PORTFOLIO, touchedBefore = true) { portfolioRepository.importHoldings(onlyNewCoins = true) },
                 RestoreRun.Write(Step.FAVORITES, touchedBefore = true) {
                     favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
                 },

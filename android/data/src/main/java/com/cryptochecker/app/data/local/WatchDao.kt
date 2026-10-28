@@ -193,10 +193,6 @@ interface WatchDao {
     @Query("UPDATE watches SET disabled = :disabled WHERE id IN (:ids)")
     suspend fun setDisabled(ids: List<Long>, disabled: Boolean)
 
-    /** Alter Bestand je Paar: nach der Übernahme ins Portfolio leeren (Spalte bleibt). */
-    @Query("UPDATE watches SET holdings = NULL WHERE holdings IS NOT NULL")
-    suspend fun clearAllHoldings()
-
     @Query("UPDATE watches SET groupName = :groupName WHERE id = :id")
     suspend fun setGroup(id: Long, groupName: String?)
 

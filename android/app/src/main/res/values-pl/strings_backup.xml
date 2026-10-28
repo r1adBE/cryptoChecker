@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Plik nie jest zaszyfrowany. Każdy, kto go dostanie, może przeczytać:</string>
     <string name="backup_plain_confirm_title">Zapisać bez hasła?</string>
     <string name="backup_plain_contents_addresses">Zapisane adresy walletów i klucze xpub z historią sald i kosztem nabycia</string>
-    <string name="backup_plain_contents_base">Lista obserwowanych z notatkami, grupami i posiadanymi ilościami, alarmy, ulubione i ustawienia</string>
+    <string name="backup_plain_contents_base">Lista obserwowanych z notatkami i grupami, alarmy, ulubione i ustawienia</string>
     <string name="backup_plain_contents_portfolio">Portfel: transakcje z ilościami i cenami</string>
     <string name="backup_restore_app_lock_kept">Blokada portfela pozostaje włączona – niezaszyfrowana kopia nie może jej wyłączyć.</string>
     <string name="backup_restore_confirm">Import zastąpi Twoją listę (z notatkami i grupami), alarmy, ulubione, portfel i ustawienia kopią.</string>

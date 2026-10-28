@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Il file non è cifrato. Chiunque lo ottenga può leggere:</string>
     <string name="backup_plain_confirm_title">Salvare senza password?</string>
     <string name="backup_plain_contents_addresses">Indirizzi wallet e chiavi xpub salvati, con cronologia dei saldi e costo di carico</string>
-    <string name="backup_plain_contents_base">Lista con note, gruppi e saldi, allarmi, preferiti e impostazioni</string>
+    <string name="backup_plain_contents_base">Lista con note e gruppi, allarmi, preferiti e impostazioni</string>
     <string name="backup_plain_contents_portfolio">Portafoglio: transazioni con quantità e prezzi</string>
     <string name="backup_restore_app_lock_kept">Il «Blocco portafoglio» resta attivo – un backup non cifrato non può disattivarlo.</string>
     <string name="backup_restore_confirm">L\'importazione sostituisce lista (con note e gruppi), allarmi, preferiti, portafoglio e impostazioni con il backup.</string>

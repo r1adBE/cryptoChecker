@@ -21,7 +21,6 @@ extension BackupManager {
             "notificationEnabled": w.notificationEnabled,
             "ttsEnabled": w.ttsEnabled,
             "favorite": w.favorite,
-            "holdings": w.holdings.map { $0 as Any } ?? NSNull(),
             "group": w.groupName.map { $0 as Any } ?? NSNull(),
             "note": w.note.map { $0 as Any } ?? NSNull(),
             "disabled": w.disabled,
@@ -48,8 +47,6 @@ extension BackupManager {
             notificationEnabled: bool(o, "notificationEnabled") ?? Watch.legacyNotificationEnabled,
             ttsEnabled: bool(o, "ttsEnabled") ?? false,
             favorite: bool(o, "favorite") ?? false,
-            // Ältere Sicherungen kennen Bestand und Gruppe noch nicht.
-            holdings: isNull(o, "holdings") ? nil : Watch.validHoldings(double(o, "holdings")),
             groupName: isNull(o, "group") ? nil : Watch.validGroupName(string(o, "group")),
             // Ältere Sicherungen haben keine Notiz
             note: isNull(o, "note") ? nil : Watch.validNote(string(o, "note")),

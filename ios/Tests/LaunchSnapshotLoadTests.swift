@@ -138,7 +138,7 @@ final class LaunchSnapshotLoadTests: XCTestCase {
         let end = try XCTUnwrap(appData.range(of: "\n    }\n", range: start.upperBound..<appData.endIndex))
         let initBody = appData[start.upperBound..<end.lowerBound]
         for call in ["prepareAtLaunch", "readSnapshot", "loadChecked", "snapshot.", "startPortfolioPrefetch",
-                     "watchedAddress", "migrateHoldingsOnce"] {
+                     "watchedAddress"] {
             XCTAssertFalse(initBody.contains(call), "init: \(call) erst nach dem Lesen beim Start")
         }
         XCTAssertTrue(initBody.contains("startSnapshotLoad()"))

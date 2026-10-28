@@ -15,7 +15,7 @@ final class WatchlistSealedTests: XCTestCase {
     private var portfolioAlarms: URL { dir.appendingPathComponent("portfolio_alarms.json") }
     private let fixedKey = SymmetricKey(data: Data(repeating: 9, count: 32))
     private let legacyJson = Data("""
-    {"watches":[{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT","note":"Ø 77 500","holdings":0.5}],
+    {"watches":[{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT","note":"Ø 77 500"}],
      "alarms":[],"nextWatchId":2,"nextAlarmId":1}
     """.utf8)
 
@@ -71,7 +71,6 @@ final class WatchlistSealedTests: XCTestCase {
         let raw = try Data(contentsOf: watchlist)
         XCTAssertNil(raw.range(of: Data("geändert".utf8)))
         XCTAssertEqual(try read(keys(fixedKey)).watches.first?.note, "geändert")
-        XCTAssertEqual(try read(keys(fixedKey)).watches.first?.holdings, 0.5)
     }
 
     /// Noch keine Datei und kein Schlüssel: keine Klartext-Datei anlegen.

@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">该文件未加密。获得它的任何人都能读取：</string>
     <string name="backup_plain_confirm_title">不设密码保存？</string>
     <string name="backup_plain_contents_addresses">已保存的钱包地址和 xpub 密钥，含余额历史和成本</string>
-    <string name="backup_plain_contents_base">带备注、分组和持仓的自选列表、提醒、收藏和设置</string>
+    <string name="backup_plain_contents_base">带备注和分组的自选列表、提醒、收藏和设置</string>
     <string name="backup_plain_contents_portfolio">投资组合：含数量和价格的交易</string>
     <string name="backup_restore_app_lock_kept">投资组合锁保持开启——未加密的备份无法关闭它。</string>
     <string name="backup_restore_confirm">导入会用备份替换当前的列表（含备注和分组）、提醒、收藏、投资组合和设置。</string>

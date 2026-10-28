@@ -329,21 +329,16 @@ struct PortfolioFile: Codable, Sendable {
     var transactions: [PortfolioTx] = []
     /// Nächste freie Id (Ids werden nie wiederverwendet).
     var nextId: Int64 = 1
-    /// Alter Bestand der Merkliste ist als Käufe übernommen — steht in derselben Datei wie die Käufe
-    /// und wird mit ihnen in einem Schreibvorgang gespeichert. So legt ein Abbruch vor dem Leeren der
-    /// Merkliste die Käufe beim nächsten Start nicht doppelt an (wie Android `holdings_import_done`).
-    var holdingsImportDone = false
     /// Beim Lesen verworfene (unlesbare) Einträge — nicht gespeichert. > 0 = die Datei ist nicht ganz lesbar,
     /// vor dem nächsten Schreiben wird sie daneben gesichert (`PortfolioStore.preserveUnreadable`).
     var dropped = 0
 
-    init(transactions: [PortfolioTx] = [], nextId: Int64 = 1, holdingsImportDone: Bool = false) {
+    init(transactions: [PortfolioTx] = [], nextId: Int64 = 1) {
         self.transactions = transactions
         self.nextId = nextId
-        self.holdingsImportDone = holdingsImportDone
     }
 
-    private enum CodingKeys: String, CodingKey { case transactions, nextId, holdingsImportDone }
+    private enum CodingKeys: String, CodingKey { case transactions, nextId }
 
     /// Ein einzelner kaputter Eintrag macht nicht die ganze Datei unlesbar.
     private struct Lossy: Decodable {
@@ -360,13 +355,11 @@ struct PortfolioFile: Codable, Sendable {
         // «transactions» da, aber keine Liste: ganze Datei beschädigt — nicht als leeres Portfolio überschreiben
         if decoded == nil && c.contains(.transactions) { dropped = max(dropped, 1) }
         nextId = (try? c.decodeIfPresent(Int64.self, forKey: .nextId)) ?? 1
-        holdingsImportDone = (try? c.decodeIfPresent(Bool.self, forKey: .holdingsImportDone)) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(transactions, forKey: .transactions)
         try c.encode(nextId, forKey: .nextId)
-        if holdingsImportDone { try c.encode(true, forKey: .holdingsImportDone) }
     }
 }

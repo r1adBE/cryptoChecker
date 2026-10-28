@@ -317,7 +317,7 @@ enum BackupManager {
                     UserDefaults.standard.removeObject(forKey: ColumnSort.storageKey)
                 }
             })
-            // Portfolio ersetzen und Bestand alter Sicherungen übernehmen (nur Coins ohne Transaktion)
+            // Portfolio ersetzen
             // Nicht still: konnte das Portfolio nicht geschrieben werden, meldet das Wiederherstellen einen Fehler
             try steps.run({
                 guard data.restorePortfolio(portfolio) else { throw Failure.invalid("portfolio") }

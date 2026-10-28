@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Filen er ikke krypteret. Alle, der får den, kan læse:</string>
     <string name="backup_plain_confirm_title">Gem uden adgangskode?</string>
     <string name="backup_plain_contents_addresses">Gemte wallet-adresser og xpub-nøgler med saldohistorik og anskaffelsesværdi</string>
-    <string name="backup_plain_contents_base">Overvågningsliste med noter, grupper og beholdninger, alarmer, favoritter og indstillinger</string>
+    <string name="backup_plain_contents_base">Overvågningsliste med noter og grupper, alarmer, favoritter og indstillinger</string>
     <string name="backup_plain_contents_portfolio">Portefølje: transaktioner med mængder og priser</string>
     <string name="backup_restore_app_lock_kept">Porteføljelåsen forbliver slået til – en ukrypteret sikkerhedskopi kan ikke slå den fra.</string>
     <string name="backup_restore_confirm">Import erstatter din liste (med noter og grupper), alarmer, favoritter, portefølje og indstillinger med backuppen.</string>

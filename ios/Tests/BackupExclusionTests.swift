@@ -56,17 +56,6 @@ final class BackupExclusionTests: XCTestCase {
         let roundTrip = try JSONDecoder().decode(AppSettings.self, from: JSONEncoder().encode(on))
         XCTAssertTrue(roundTrip.portfolioSystemBackup)
     }
-
-    /// Merker der Bestandsübernahme reist mit der Portfolio-Datei; alte Dateien ohne Feld = false.
-    func testHoldingsImportDoneRoundTrip() throws {
-        let old = try JSONDecoder().decode(PortfolioFile.self, from: Data(#"{"transactions":[],"nextId":3}"#.utf8))
-        XCTAssertFalse(old.holdingsImportDone)
-        var file = PortfolioFile(transactions: [], nextId: 3)
-        file.holdingsImportDone = true
-        let back = try JSONDecoder().decode(PortfolioFile.self, from: JSONEncoder().encode(file))
-        XCTAssertTrue(back.holdingsImportDone)
-        XCTAssertEqual(back.nextId, 3)
-    }
 }
 
 /// Merkmal unverschlüsselt gebliebener Dateien (`PlainBackupExclusion`), reine Regeln.

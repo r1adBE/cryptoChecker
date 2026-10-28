@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Fișierul nu este criptat. Oricine îl obține poate citi:</string>
     <string name="backup_plain_confirm_title">Salvezi fără parolă?</string>
     <string name="backup_plain_contents_addresses">Adrese de wallet și chei xpub salvate, cu istoricul soldului și costul de achiziție</string>
-    <string name="backup_plain_contents_base">Listă de urmărire cu note, grupuri și dețineri, alarme, favorite și setări</string>
+    <string name="backup_plain_contents_base">Listă de urmărire cu note și grupuri, alarme, favorite și setări</string>
     <string name="backup_plain_contents_portfolio">Portofoliu: tranzacții cu cantități și prețuri</string>
     <string name="backup_restore_app_lock_kept">Blocarea portofoliului rămâne activă – o copie necriptată nu o poate dezactiva.</string>
     <string name="backup_restore_confirm">Importul înlocuiește lista (cu note și grupuri), alarmele, favoritele, portofoliul și setările cu backup-ul.</string>

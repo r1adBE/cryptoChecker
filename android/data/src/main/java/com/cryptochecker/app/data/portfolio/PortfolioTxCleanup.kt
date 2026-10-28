@@ -1,4 +1,4 @@
-// Bereinigung einer Transaktion vor dem Speichern und Einmal-Merker in `portfolio_meta` (Teil von `PortfolioRepository`).
+// Bereinigung einer Transaktion vor dem Speichern (Teil von `PortfolioRepository`).
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -53,28 +53,4 @@ fun cleanForSave(tx: PortfolioTxEntity): PortfolioTxEntity {
         importBatch = PortfolioImportBatch.clean(tx.importBatch),
     )
     return clean
-}
-
-/** Kleine Merker-Tabelle der Portfolio-Datenbank (keine Room-Entity; Room prüft nur seine Tabellen). */
-private const val PORTFOLIO_META_TABLE = "portfolio_meta"
-
-/**
- * Setzt [key] in `portfolio_meta` (nur innerhalb einer Portfolio-Transaktion aufrufen).
- * @return false, wenn der Merker schon gesetzt war.
- */
-fun markOnce(database: PortfolioDatabase, key: String): Boolean {
-    val db = database.openHelper.writableDatabase
-    // Tabelle bei Bedarf anlegen
-    db.execSQL(
-        "CREATE TABLE IF NOT EXISTS `$PORTFOLIO_META_TABLE` " +
-            "(`key` TEXT NOT NULL PRIMARY KEY, `value` TEXT NOT NULL)"
-    )
-    val done = db.query("SELECT 1 FROM `$PORTFOLIO_META_TABLE` WHERE `key` = ?", arrayOf<Any?>(key))
-        .use { it.moveToFirst() }
-    if (done) return false
-    db.execSQL(
-        "INSERT INTO `$PORTFOLIO_META_TABLE` (`key`, `value`) VALUES (?, ?)",
-        arrayOf<Any?>(key, System.currentTimeMillis().toString()),
-    )
-    return true
 }

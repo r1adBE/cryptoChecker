@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">파일이 암호화되지 않았습니다. 파일을 얻은 누구나 다음을 읽을 수 있습니다:</string>
     <string name="backup_plain_confirm_title">암호 없이 저장할까요?</string>
     <string name="backup_plain_contents_addresses">저장된 지갑 주소와 xpub 키(잔액 기록 및 취득 원가 포함)</string>
-    <string name="backup_plain_contents_base">메모, 그룹, 보유량이 포함된 관심 목록, 경보, 즐겨찾기, 설정</string>
+    <string name="backup_plain_contents_base">메모와 그룹이 포함된 관심 목록, 경보, 즐겨찾기, 설정</string>
     <string name="backup_plain_contents_portfolio">포트폴리오: 수량과 가격이 포함된 거래</string>
     <string name="backup_restore_app_lock_kept">포트폴리오 잠금은 켜진 채로 유지됩니다. 암호화되지 않은 백업으로는 끌 수 없습니다.</string>
     <string name="backup_restore_confirm">가져오면 목록(메모와 그룹 포함), 경보, 즐겨찾기, 포트폴리오, 설정이 백업 내용으로 바뀝니다.</string>

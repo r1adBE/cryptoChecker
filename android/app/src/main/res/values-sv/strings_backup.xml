@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Filen är inte krypterad. Den som får den kan läsa:</string>
     <string name="backup_plain_confirm_title">Spara utan lösenord?</string>
     <string name="backup_plain_contents_addresses">Sparade wallet-adresser och xpub-nycklar med saldohistorik och anskaffningsvärde</string>
-    <string name="backup_plain_contents_base">Bevakningslista med anteckningar, grupper och innehav, larm, favoriter och inställningar</string>
+    <string name="backup_plain_contents_base">Bevakningslista med anteckningar och grupper, larm, favoriter och inställningar</string>
     <string name="backup_plain_contents_portfolio">Portfölj: transaktioner med mängder och priser</string>
     <string name="backup_restore_app_lock_kept">Portföljlåset förblir på – en okrypterad säkerhetskopia kan inte stänga av det.</string>
     <string name="backup_restore_confirm">Import ersätter din lista (med anteckningar och grupper), larm, favoriter, portfölj och inställningar med säkerhetskopian.</string>

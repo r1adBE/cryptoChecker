@@ -29,10 +29,6 @@ final class BackupRestoreLimitsTests: XCTestCase {
             XCTAssertEqual(BackupRestoreLimits.acceptsWatch(watch), c["kept"] as? Bool, name)
             XCTAssertEqual(watch.groupName, c["group"] as? String, name)
             XCTAssertEqual(watch.note, c["note"] as? String, name)
-            // Bestand nur endlich und > 0 (wie Android)
-            if c.keys.contains("expectedHoldings") {
-                XCTAssertEqual(watch.holdings, c["expectedHoldings"] as? Double, name)
-            }
         }
     }
 

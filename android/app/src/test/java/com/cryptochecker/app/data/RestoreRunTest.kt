@@ -54,7 +54,6 @@ class RestoreRunTest {
     private fun writesOf(w: World) = listOf(
         RestoreRun.Write(Step.WATCHLIST, touchedBefore = false) { w.write("Merkliste", "neue Merkliste") { w.watchlist = it } },
         RestoreRun.Write(Step.PORTFOLIO, touchedBefore = false) { w.write("Portfolio", "neues Portfolio") { w.portfolio = it } },
-        RestoreRun.Write(Step.PORTFOLIO, touchedBefore = true) { w.write("Bestand", "neues Portfolio+Bestand") { w.portfolio = it } },
         RestoreRun.Write(Step.FAVORITES, touchedBefore = true) { w.write("Favoriten", "neue Favoriten") { w.favorites = it } },
         RestoreRun.Write(Step.SETTINGS, touchedBefore = true) { w.write("Einstellungen", "neue Einstellungen") { w.settings = it } },
     )
@@ -107,7 +106,7 @@ class RestoreRunTest {
         val w = World()
         val journal = FakeJournal()
         run(w, journal)
-        assertEquals(listOf("neue Merkliste", "neues Portfolio+Bestand", "neue Favoriten", "neue Einstellungen"), w.snapshot())
+        assertEquals(listOf("neue Merkliste", "neues Portfolio", "neue Favoriten", "neue Einstellungen"), w.snapshot())
         assertTrue(journal.written)
         assertTrue(journal.deleted)
     }

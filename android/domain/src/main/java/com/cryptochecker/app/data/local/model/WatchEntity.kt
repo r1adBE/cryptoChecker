@@ -58,9 +58,6 @@ data class WatchEntity(
     /** Favorit: steht in der Watchlist ganz oben (langes Drücken auf die Karte). */
     @ColumnInfo(defaultValue = "0") val favorite: Boolean = false,
 
-    /** Bestand: gehaltene Menge der Basiswährung (z. B. 0.25 BTC). null = kein Bestand. */
-    @ColumnInfo val holdings: Double? = null,
-
     /** Gruppe (Merkliste) des Paars. null = keine Gruppe. */
     @ColumnInfo val groupName: String? = null,
 
@@ -100,14 +97,6 @@ data class WatchEntity(
         get() {
             val contract = FuturesContractType.getShortName(contractType)
             return if (contract == null) displayPair else "$displayPair $contract"
-        }
-
-    /** Wert des Bestands in der Quote-Währung; null ohne Bestand oder Kurs. */
-    val holdingsValue: Double?
-        get() {
-            val amount = holdings?.takeIf { it > 0.0 } ?: return null
-            val price = lastPrice?.takeIf { it > 0.0 } ?: return null
-            return amount * price
         }
 
     fun toPairInfo(): ExchangePair =

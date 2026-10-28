@@ -15,7 +15,6 @@
       "notificationEnabled": false,
       "ttsEnabled": false,
       "favorite": false,
-      "holdings": null,
       "group": "Layer 1",
       "note": "Ø 77 500 USDT"
     },
@@ -31,7 +30,6 @@
       "notificationEnabled": false,
       "ttsEnabled": false,
       "favorite": false,
-      "holdings": null,
       "group": "Layer 1",
       "note": null
     },
@@ -47,7 +45,6 @@
       "notificationEnabled": false,
       "ttsEnabled": false,
       "favorite": false,
-      "holdings": null,
       "group": "Layer 1",
       "note": null
     }

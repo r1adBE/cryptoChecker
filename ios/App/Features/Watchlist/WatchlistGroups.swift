@@ -1,7 +1,6 @@
 import SwiftUI
 
-// Gruppen der Merkliste — wie `WatchlistGroups.kt` (GroupChips, GroupDialog). Bestände zeigt die Merkliste
-// seit 16.2.2 nicht mehr; sie gehören in den Portfolio-Tab.
+// Gruppen der Merkliste — wie `WatchlistGroups.kt` (GroupChips, GroupDialog).
 
 // MARK: Gruppen-Chips
 

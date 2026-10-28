@@ -1,12 +1,15 @@
 # Screenshots of every main screen of both apps, light and dark, published to the orphan branch «screenshots»
 # (one commit, replaced on every run), so they can be fetched with plain git: git fetch origin screenshots.
 # Layout there: android/<light|dark>/NN_name.png, ios/<light|dark>/NN_name.png and README.md with the source commit.
+# Both tours answer every request offline: fake exchanges plus canned market data (CoinGecko, Fear & Greed, Coin Metrics,
+# funding, fees, candles, USDT/USD), generated at the current time and switched on only for the tour
+# (Android FakeExchange.marketData, iOS UITestExchange.marketData), so the market tab and portfolio values show content.
 # android: ScreenshotTourTest (androidTest, Hilt, fake exchange answers) on an API 34 emulator; it only runs with the
 # runner argument screenshotTour=true, so the regular device tests skip it. The images are written by screencap to
 # /data/local/tmp/cc-screenshots and pulled with adb.
-# ios: ScreenshotTourTests (XCUITest, app started with -uiTesting, demo backup restored); it only runs with
-# TEST_RUNNER_SCREENSHOT_TOUR=1, so the regular UI test job skips it. The screenshots are XCTest attachments,
-# exported from the result bundle with xcresulttool.
+# ios: ScreenshotTourTests (XCUITest, app started with -uiTesting and UITEST_MARKET_DATA=1, demo backup restored); it
+# only runs with TEST_RUNNER_SCREENSHOT_TOUR=1, so the regular UI test job skips it. The screenshots are XCTest
+# attachments, exported from the result bundle with xcresulttool.
 # publish: the only job with contents: write; checks the images (names, PNG header, size) and force-pushes the
 # branch «screenshots» – never main. A platform whose job failed keeps its images from the previous set.
 name: Screenshots

@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">File tidak dienkripsi. Siapa pun yang mendapatkannya dapat membaca:</string>
     <string name="backup_plain_confirm_title">Simpan tanpa kata sandi?</string>
     <string name="backup_plain_contents_addresses">Alamat dompet dan kunci xpub tersimpan beserta riwayat saldo dan biaya perolehan</string>
-    <string name="backup_plain_contents_base">Daftar pantau dengan catatan, grup, dan kepemilikan, alarm, favorit, dan pengaturan</string>
+    <string name="backup_plain_contents_base">Daftar pantau dengan catatan dan grup, alarm, favorit, dan pengaturan</string>
     <string name="backup_plain_contents_portfolio">Portofolio: transaksi dengan jumlah dan harga</string>
     <string name="backup_restore_app_lock_kept">Kunci portofolio tetap aktif – cadangan tanpa enkripsi tidak dapat mematikannya.</string>
     <string name="backup_restore_confirm">Impor mengganti daftar (beserta catatan dan grup), alarm, favorit, portofolio, dan pengaturanmu dengan cadangan.</string>

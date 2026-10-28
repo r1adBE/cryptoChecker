@@ -3,7 +3,6 @@ package com.cryptochecker.app
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
@@ -26,23 +25,18 @@ import java.math.BigDecimal
 class PortfolioImportInsertTest {
 
     private lateinit var db: PortfolioDatabase
-    private lateinit var main: AppDatabase
     private lateinit var repository: PortfolioRepository
 
     @Before
     fun open() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, PortfolioDatabase::class.java).build()
-        main = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        repository = PortfolioRepository(
-            context, db, db.getPortfolioDao(), main.getWatchDao(), db.getWatchedAddressDao(),
-        )
+        repository = PortfolioRepository(db, db.getPortfolioDao(), db.getWatchedAddressDao())
     }
 
     @After
     fun close() {
         db.close()
-        main.close()
     }
 
     private fun row(i: Int, amount: String = "0.5") = PortfolioTxEntity(

@@ -7,6 +7,7 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
+import com.cryptochecker.app.data.CoinListSync
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.local.model.AlarmCondition
@@ -31,6 +32,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
+import org.junit.runners.model.Statement
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -42,9 +45,10 @@ import javax.inject.Inject
  * «Sichern» und «Über die App».
  *
  * Daten wie die Demo-Sicherung der Store-Bilder (`docs/store/screenshots/demo-backup.json`): BTC, ETH und SOL auf
- * Binance in der Gruppe «Layer 1», Alarme, drei Käufe im Portfolio. Kurse aus [FakeExchange] (kein Netz; Markt-Daten
- * anderer Quellen fehlen darum), vor dem ersten Bild einmal geholt ([loadPrices]). Hell/Dunkel über die Einstellung
- * der App ([SettingsRepository.setDarkMode]), nicht über das System.
+ * Binance in der Gruppe «Layer 1», Alarme, drei Käufe im Portfolio. Kurse aus [FakeExchange] (kein Netz), vor dem
+ * ersten Bild einmal geholt ([loadPrices]); Markt-Tab, Portfolio-Kurse und USDT/USD aus den festen Antworten der
+ * Tour ([FakeExchange.marketData], [tourSources]). Hell/Dunkel über die Einstellung der App
+ * ([SettingsRepository.setDarkMode]), nicht über das System.
  *
  * Jedes Bild ist ein eigener Schritt: Scheitert einer, laufen die übrigen weiter, am Ende schlägt der Test fehl und
  * nennt die fehlenden Bilder. Bedienung und Wege zurück in [TourNavigator] (`ScreenshotTourSteps.kt`).
@@ -64,7 +68,25 @@ class ScreenshotTourTest {
     @get:Rule(order = 1)
     val environment = AppTestEnvironmentRule()
 
+    /**
+     * Feste Antworten der Tour (Binance-Spiegel und Markt-Quellen) vor dem Start der Activity einschalten: Die App holt
+     * z. B. die Binance-Symbolliste (volle Namen für den Portfolio-Kurs) gleich beim Start und danach erst wieder in
+     * einer Stunde. Nach [AppTestEnvironmentRule] (setzt [FakeExchange] zurück), nur mit [ARGUMENT].
+     */
     @get:Rule(order = 2)
+    val tourSources = TestRule { base, _ ->
+        object : Statement() {
+            override fun evaluate() {
+                if (tourRequested()) {
+                    FakeExchange.binanceMirror = true
+                    FakeExchange.marketData = true
+                }
+                base.evaluate()
+            }
+        }
+    }
+
+    @get:Rule(order = 3)
     val compose = createAndroidComposeRule<MainActivity>()
 
     @Inject lateinit var watchRepository: WatchRepository
@@ -76,6 +98,8 @@ class ScreenshotTourTest {
     @Inject lateinit var priceRefresher: PriceRefresher
 
     @Inject lateinit var portfolioPriceSource: PortfolioPriceSource
+
+    @Inject lateinit var coinListSync: CoinListSync
 
     private lateinit var nav: TourNavigator
 
@@ -96,6 +120,7 @@ class ScreenshotTourTest {
     @After
     fun tearDown() {
         FakeExchange.binanceMirror = false
+        FakeExchange.marketData = false
         if (!seeded) return
         runBlocking {
             watchRepository.deleteAllWatches()
@@ -110,7 +135,7 @@ class ScreenshotTourTest {
     private fun tour(dark: Boolean) {
         assumeTrue(
             "Nur mit -Pandroid.testInstrumentationRunnerArguments.$ARGUMENT=true (Workflow «Screenshots»)",
-            InstrumentationRegistry.getArguments().getString(ARGUMENT) == "true"
+            tourRequested()
         )
         hiltRule.inject()
         nav = TourNavigator(compose) { compose.activity.getString(it) }
@@ -162,7 +187,7 @@ class ScreenshotTourTest {
         step("09_market") {
             nav.toWatchlist()
             nav.clickTag(UiTestTags.TAB_CYCLE)
-            // Quellen ausser den Fake-Börsen antworten 404: Fehlerzustände abwarten
+            // Karten laden ihre Daten (feste Antworten der Tour) und blenden sich ein
             Thread.sleep(MARKET_SETTLE_MILLIS)
         }
         step("10_portfolio") {
@@ -227,7 +252,9 @@ class ScreenshotTourTest {
      * Kurse der Fake-Börse holen wie ein Durchlauf der App ([PriceRefresher.refreshAll], wie `CoreFlowTest` mit
      * `refreshOne`): Die Paare entstehen direkt in der Datenbank, ohne dass die App sie selbst aktualisiert —
      * sonst zeigt die Merkliste «—» und «3 von 3 veraltet», das Portfolio 0.00. Dazu die Portfolio-Kurse vom
-     * Binance-Spiegel ([FakeExchange.binanceMirror]). Scheitert das, fotografiert die Tour trotzdem.
+     * Binance-Spiegel ([FakeExchange.binanceMirror]) — erst nach der Binance-Symbolliste ([CoinListSync.refreshLists],
+     * wartet auf einen schon laufenden Abgleich): Ohne die vollen Namen gilt ein Binance-Kurs nicht als derselbe Token
+     * und der Coin heisst «Kurs ungeprüft» (kein Wert). Scheitert das, fotografiert die Tour trotzdem.
      */
     private fun loadPrices() {
         runCatching {
@@ -236,6 +263,7 @@ class ScreenshotTourTest {
             compose.waitUntil(LIST_TIMEOUT) {
                 runBlocking { watchRepository.getWatches() }.all { it.lastPrice != null }
             }
+            runBlocking { coinListSync.refreshLists() }
             runBlocking { portfolioPriceSource.prices(DEMO_BUYS.map { it.coin }, force = true) }
         }.onFailure { Log.w(TAG, "Kurse nicht geladen", it) }
     }
@@ -256,7 +284,6 @@ class ScreenshotTourTest {
         settingsRepository.setFirstPairAdded(true)
         settingsRepository.setBatteryPromptSeen(true)
         settingsRepository.setDarkMode(dark)
-        FakeExchange.binanceMirror = true
         watchRepository.deleteAllWatches()
         portfolioRepository.clearAll()
         seeded = true
@@ -301,6 +328,9 @@ class ScreenshotTourTest {
 
     private fun string(id: Int): String = compose.activity.getString(id)
 
+    /** Tour verlangt (Argument des Test-Runners [ARGUMENT] = `true`)? */
+    private fun tourRequested(): Boolean = InstrumentationRegistry.getArguments().getString(ARGUMENT) == "true"
+
     private data class Buy(val coin: String, val amount: String, val price: String, val time: Long)
 
     private companion object {
@@ -316,7 +346,8 @@ class ScreenshotTourTest {
         const val REASON_LENGTH = 160
         /** Ausblenden von Blättern, Nachladen von Kursen und Logos vor dem Foto. */
         const val SETTLE_MILLIS = 1_200L
-        const val MARKET_SETTLE_MILLIS = 4_000L
+        /** Markt-Tab: alle Karten laden und einblenden (Kerzen, Verlauf seit 2016, Altcoin-Saison mit 21 Coins). */
+        const val MARKET_SETTLE_MILLIS = 6_000L
         const val DEMO_GROUP = "Layer 1"
 
         /** Paare der Demo-Sicherung mit je einem Alarm (BTC wie dort: unter 90’000). */

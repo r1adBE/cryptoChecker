@@ -29,7 +29,6 @@ class BackupJournalCodecTest {
         sortOrder = 2,
         notificationEnabled = false,
         favorite = true,
-        holdings = 0.5,
         groupName = "Langfristig",
         note = "Notiz",
         disabled = true,

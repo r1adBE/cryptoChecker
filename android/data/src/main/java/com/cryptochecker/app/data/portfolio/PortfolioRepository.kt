@@ -1,50 +1,33 @@
 package com.cryptochecker.app.data.portfolio
 
-import androidx.core.content.edit
-import android.content.Context
 import androidx.room.withTransaction
-import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
-import com.cryptochecker.app.data.local.WatchDao
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
-import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatchInfo
-import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportInsert
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportedRef
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import timber.log.Timber
-import java.math.BigDecimal
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /** Zugriff auf die Portfolio-Transaktionen. */
 @Singleton
 class PortfolioRepository @Inject constructor(
-    @param:ApplicationContext private val context: Context,
-    /** Eigene Portfolio-Datenbank (auch für [linkStoredTransfers]); die Merkliste ([watchDao]) in der Hauptdatenbank. */
+    /** Eigene Portfolio-Datenbank (auch für [linkStoredTransfers]). */
     val database: PortfolioDatabase,
     private val portfolioDao: PortfolioDao,
-    private val watchDao: WatchDao,
     private val watchedAddressDao: WatchedAddressDao,
 ) {
-    private val migrationMutex = Mutex()
-    private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
-
     fun observeTransactions(): Flow<List<PortfolioTxEntity>> = portfolioDao.observeAll()
 
     suspend fun getTransactions(): List<PortfolioTxEntity> = portfolioDao.getAll()
@@ -104,77 +87,6 @@ class PortfolioRepository @Inject constructor(
             portfolioDao.deleteAll()
             transactions.forEach { portfolioDao.insert(it.copy(coin = PortfolioCalculator.normalizeCoin(it.coin))) }
         }
-    }
-
-    /**
-     * Einmalige Übernahme des alten Bestands je Paar (watches.holdings) ins Portfolio: je Coin ein Kauf ohne Preis (Mengen
-     * gleicher Coins addiert), danach wird der Bestand in der Merkliste geleert (Merker in den SharedPreferences).
-     * Wiederholbar ohne Doppel: Käufe und Merker [HOLDINGS_MARKER] in `portfolio_meta` entstehen in derselben
-     * Portfolio-Transaktion; nach einem Abbruch davor leert der nächste Start nur noch den Bestand.
-     */
-    suspend fun migrateHoldingsOnce() {
-        if (prefs.getBoolean(KEY_MIGRATED, false)) return
-        migrationMutex.withLock {
-            if (prefs.getBoolean(KEY_MIGRATED, false)) return
-            runCatchingCancellable {
-                val count = importHoldings(onlyNewCoins = false, onceMarker = HOLDINGS_MARKER)
-                if (count > 0) Timber.i("Portfolio: %d Bestände aus der Merkliste übernommen", count)
-                // Portfolio nur im Arbeitsspeicher (kein Schlüssel): nichts übernommen, der nächste Start versucht es erneut
-                if (PortfolioDatabase.inMemory()) return@runCatchingCancellable
-                // Merkliste nur leer im Arbeitsspeicher (Schlüssel gerade nicht lesbar): ihre Bestände waren nicht zu sehen
-                if (DatabaseEncryptionNotice.isInMemory(AppDatabase.DB_NAME)) return@runCatchingCancellable
-                prefs.edit { putBoolean(KEY_MIGRATED, true) }
-            }.onFailure { Timber.w(it, "Portfolio: Übernahme des Bestands fehlgeschlagen") }
-        }
-    }
-
-    /**
-     * Wandelt Bestände der Merkliste in Käufe ohne Preis um und leert sie. Mit [onlyNewCoins] nur für Coins, die noch keine
-     * Transaktion haben (Wiederherstellen einer alten Sicherung — sonst doppelt). Merkliste (Hauptdatenbank) und Portfolio
-     * sind getrennte Dateien: erst die Käufe in einer Portfolio-Transaktion anlegen, dann den Bestand leeren (bricht die App
-     * dazwischen ab, bleibt der Bestand stehen). Nicht innerhalb einer Transaktion der Hauptdatenbank aufrufen.
-     * @param onceMarker Merker in `portfolio_meta`: ist er schon gesetzt, werden keine Käufe mehr
-     *   angelegt (nur der Bestand geleert); sonst wird er mit den Käufen in derselben Transaktion gesetzt.
-     * @return Anzahl angelegter Käufe.
-     */
-    suspend fun importHoldings(onlyNewCoins: Boolean, onceMarker: String? = null): Int {
-        val amounts = watchDao.getWatches()
-            .mapNotNull { w ->
-                val amount = w.holdings?.takeIf { it > 0.0 && !it.isInfinite() } ?: return@mapNotNull null
-                PortfolioCalculator.normalizeCoin(w.baseAsset).takeIf { it.isNotEmpty() }?.let { it to amount }
-            }
-            .groupBy({ it.first }, { it.second })
-            // Exakt summiert ([PortfolioDecimal]); der alte Merklisten-Bestand war ein Double
-            .mapValues { (_, list) -> list.fold(BigDecimal.ZERO) { acc, v -> acc + (PortfolioDecimal.of(v) ?: BigDecimal.ZERO) } }
-        if (amounts.isEmpty()) return 0
-
-        val created = database.withTransaction {
-            // Portfolio nur im Arbeitsspeicher (kein Schlüssel, nie unverschlüsselt angelegt): nicht übernehmen — der Bestand
-            // bleibt in der Merkliste, statt mit dem Ende des Prozesses verloren zu gehen
-            if (PortfolioDatabase.inMemory()) return@withTransaction null
-            if (onceMarker != null && !markOnce(database, onceMarker)) return@withTransaction 0
-            val existing = if (onlyNewCoins) {
-                portfolioDao.getCoins().map { PortfolioCalculator.normalizeCoin(it) }.toSet()
-            } else emptySet()
-            val now = System.currentTimeMillis()
-            var count = 0
-            amounts.forEach { (coin, amount) ->
-                if (coin in existing) return@forEach
-                portfolioDao.insert(
-                    PortfolioTxEntity(
-                        coin = coin,
-                        type = PortfolioTxType.BUY,
-                        amount = amount,
-                        priceUsdt = null,
-                        time = now,
-                    )
-                )
-                count++
-            }
-            count
-        } ?: return 0
-        watchDao.clearAllHoldings()
-        return created
     }
 
     // ---- Beobachtete Adressen (nur lesen; Guthaben = Bestand) ----
@@ -383,12 +295,5 @@ class PortfolioRepository @Inject constructor(
             }
         }
         touched
-    }
-
-    private companion object {
-        const val PREFS = "portfolio"
-        const val KEY_MIGRATED = "holdings_migrated"
-        /** Merker in `portfolio_meta`: Käufe aus dem alten Bestand sind angelegt. */
-        const val HOLDINGS_MARKER = "holdings_import_done"
     }
 }

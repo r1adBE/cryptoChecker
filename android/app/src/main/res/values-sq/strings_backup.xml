@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Skedari nuk është i enkriptuar. Kushdo që e merr mund të lexojë:</string>
     <string name="backup_plain_confirm_title">Të ruhet pa fjalëkalim?</string>
     <string name="backup_plain_contents_addresses">Adresat e ruajtura të wallet-it dhe çelësat xpub, me historikun e balancës dhe koston e blerjes</string>
-    <string name="backup_plain_contents_base">Lista e ndjekjes me shënime, grupe dhe zotërime, alarmet, të preferuarat dhe cilësimet</string>
+    <string name="backup_plain_contents_base">Lista e ndjekjes me shënime dhe grupe, alarmet, të preferuarat dhe cilësimet</string>
     <string name="backup_plain_contents_portfolio">Portofoli: transaksione me sasi dhe çmime</string>
     <string name="backup_restore_app_lock_kept">Kyçja e portofolit mbetet aktive – një kopje e paenkriptuar nuk mund ta çaktivizojë.</string>
     <string name="backup_restore_confirm">Importimi zëvendëson listën (me shënime dhe grupe), alarmet, të preferuarat, portofolin dhe cilësimet me kopjen.</string>

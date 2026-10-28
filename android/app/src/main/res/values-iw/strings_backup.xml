@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">הקובץ לא מוצפן. כל מי שמקבל אותו יכול לקרוא:</string>
     <string name="backup_plain_confirm_title">לשמור בלי סיסמה?</string>
     <string name="backup_plain_contents_addresses">כתובות ארנק ומפתחות xpub שמורים, כולל היסטוריית יתרות ועלות רכישה</string>
-    <string name="backup_plain_contents_base">רשימת מעקב עם הערות, קבוצות ואחזקות, התראות, מועדפים והגדרות</string>
+    <string name="backup_plain_contents_base">רשימת מעקב עם הערות וקבוצות, התראות, מועדפים והגדרות</string>
     <string name="backup_plain_contents_portfolio">תיק: עסקאות עם כמויות ומחירים</string>
     <string name="backup_restore_app_lock_kept">נעילת תיק השקעות נשארת פעילה – גיבוי לא מוצפן לא יכול לכבות אותה.</string>
     <string name="backup_restore_confirm">הייבוא מחליף את הרשימה (עם ההערות והקבוצות), ההתראות, המועדפים, תיק ההשקעות וההגדרות בגיבוי.</string>

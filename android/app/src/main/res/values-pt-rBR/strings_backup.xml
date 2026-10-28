@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">O arquivo não está criptografado. Quem o obtiver pode ler:</string>
     <string name="backup_plain_confirm_title">Salvar sem senha?</string>
     <string name="backup_plain_contents_addresses">Endereços de carteira e chaves xpub salvos, com histórico de saldo e custo de aquisição</string>
-    <string name="backup_plain_contents_base">Lista de observação com notas, grupos e quantidades em posse, alarmes, favoritos e configurações</string>
+    <string name="backup_plain_contents_base">Lista de observação com notas e grupos, alarmes, favoritos e configurações</string>
     <string name="backup_plain_contents_portfolio">Portfólio: transações com quantidades e preços</string>
     <string name="backup_restore_app_lock_kept">O bloqueio do portfólio continua ativo – um backup sem criptografia não pode desativá-lo.</string>
     <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alarmes, favoritos, portfólio e configurações pelo backup.</string>

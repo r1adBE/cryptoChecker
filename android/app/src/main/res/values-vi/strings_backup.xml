@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Tệp không được mã hóa. Bất kỳ ai có tệp đều đọc được:</string>
     <string name="backup_plain_confirm_title">Lưu không mật khẩu?</string>
     <string name="backup_plain_contents_addresses">Địa chỉ ví và khóa xpub đã lưu, kèm lịch sử số dư và giá vốn</string>
-    <string name="backup_plain_contents_base">Danh sách theo dõi kèm ghi chú, nhóm và số lượng nắm giữ, cảnh báo, mục yêu thích và cài đặt</string>
+    <string name="backup_plain_contents_base">Danh sách theo dõi kèm ghi chú và nhóm, cảnh báo, mục yêu thích và cài đặt</string>
     <string name="backup_plain_contents_portfolio">Danh mục: giao dịch kèm số lượng và giá</string>
     <string name="backup_restore_app_lock_kept">Khóa danh mục vẫn bật – bản sao lưu không mã hóa không thể tắt nó.</string>
     <string name="backup_restore_confirm">Nhập sẽ thay danh sách (kèm ghi chú và nhóm), cảnh báo, yêu thích, danh mục và cài đặt bằng bản sao lưu.</string>

@@ -74604,187 +74604,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قائمة المتابعة مع الملاحظات والمجموعات والأرصدة، التنبيهات، المفضلة والإعدادات"
+            "value" : "قائمة المتابعة مع الملاحظات والمجموعات، التنبيهات، المفضلة والإعدادات"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sledovaný seznam s poznámkami, skupinami a držbou, alarmy, oblíbené a nastavení"
+            "value" : "Sledovaný seznam s poznámkami a skupinami, alarmy, oblíbené a nastavení"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overvågningsliste med noter, grupper og beholdninger, alarmer, favoritter og indstillinger"
+            "value" : "Overvågningsliste med noter og grupper, alarmer, favoritter og indstillinger"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merkliste mit Notizen, Gruppen und Beständen, Alarme, Favoriten und Einstellungen"
+            "value" : "Merkliste mit Notizen und Gruppen, Alarme, Favoriten und Einstellungen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Λίστα παρακολούθησης με σημειώσεις, ομάδες και κατοχές, συναγερμοί, αγαπημένα και ρυθμίσεις"
+            "value" : "Λίστα παρακολούθησης με σημειώσεις και ομάδες, συναγερμοί, αγαπημένα και ρυθμίσεις"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Watchlist with notes, groups and holdings, alerts, favorites and settings"
+            "value" : "Watchlist with notes and groups, alerts, favorites and settings"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista de seguimiento con notas, grupos y tenencias, alarmas, favoritos y ajustes"
+            "value" : "Lista de seguimiento con notas y grupos, alarmas, favoritos y ajustes"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فهرست پیگیری با یادداشت‌ها، گروه‌ها و دارایی‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات"
+            "value" : "فهرست پیگیری با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Seurantalista muistiinpanoineen, ryhmineen ja omistuksineen, hälytykset, suosikit ja asetukset"
+            "value" : "Seurantalista muistiinpanoineen ja ryhmineen, hälytykset, suosikit ja asetukset"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liste de suivi avec notes, groupes et avoirs, alertes, favoris et réglages"
+            "value" : "Liste de suivi avec notes et groupes, alertes, favoris et réglages"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "רשימת מעקב עם הערות, קבוצות ואחזקות, התראות, מועדפים והגדרות"
+            "value" : "רשימת מעקב עם הערות וקבוצות, התראות, מועדפים והגדרות"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "नोट्स, समूहों और होल्डिंग के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स"
+            "value" : "नोट्स और समूहों के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Figyelőlista jegyzetekkel, csoportokkal és állományokkal, riasztások, kedvencek és beállítások"
+            "value" : "Figyelőlista jegyzetekkel és csoportokkal, riasztások, kedvencek és beállítások"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daftar pantau dengan catatan, grup, dan kepemilikan, alarm, favorit, dan pengaturan"
+            "value" : "Daftar pantau dengan catatan dan grup, alarm, favorit, dan pengaturan"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista con note, gruppi e saldi, allarmi, preferiti e impostazioni"
+            "value" : "Lista con note e gruppi, allarmi, preferiti e impostazioni"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "メモ・グループ・保有量付きのウォッチリスト、アラーム、お気に入り、設定"
+            "value" : "メモ・グループ付きのウォッチリスト、アラーム、お気に入り、設定"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "메모, 그룹, 보유량이 포함된 관심 목록, 경보, 즐겨찾기, 설정"
+            "value" : "메모와 그룹이 포함된 관심 목록, 경보, 즐겨찾기, 설정"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overvåkningsliste med notater, grupper og beholdninger, alarmer, favoritter og innstillinger"
+            "value" : "Overvåkningsliste med notater og grupper, alarmer, favoritter og innstillinger"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volglijst met notities, groepen en bezit, alarmen, favorieten en instellingen"
+            "value" : "Volglijst met notities en groepen, alarmen, favorieten en instellingen"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista obserwowanych z notatkami, grupami i posiadanymi ilościami, alarmy, ulubione i ustawienia"
+            "value" : "Lista obserwowanych z notatkami i grupami, alarmy, ulubione i ustawienia"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista de observação com notas, grupos e posições, alarmes, favoritos e definições"
+            "value" : "Lista de observação com notas e grupos, alarmes, favoritos e definições"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista de observação com notas, grupos e quantidades em posse, alarmes, favoritos e configurações"
+            "value" : "Lista de observação com notas e grupos, alarmes, favoritos e configurações"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Listă de urmărire cu note, grupuri și dețineri, alarme, favorite și setări"
+            "value" : "Listă de urmărire cu note și grupuri, alarme, favorite și setări"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Список наблюдения с заметками, группами и активами, оповещения, избранное и настройки"
+            "value" : "Список наблюдения с заметками и группами, оповещения, избранное и настройки"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista e ndjekjes me shënime, grupe dhe zotërime, alarmet, të preferuarat dhe cilësimet"
+            "value" : "Lista e ndjekjes me shënime dhe grupe, alarmet, të preferuarat dhe cilësimet"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bevakningslista med anteckningar, grupper och innehav, larm, favoriter och inställningar"
+            "value" : "Bevakningslista med anteckningar och grupper, larm, favoriter och inställningar"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "รายการเฝ้าดูพร้อมโน้ต กลุ่ม และยอดถือครอง สัญญาณเตือน รายการโปรด และการตั้งค่า"
+            "value" : "รายการเฝ้าดูพร้อมโน้ตและกลุ่ม สัญญาณเตือน รายการโปรด และการตั้งค่า"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notlar, gruplar ve varlıklarla izleme listesi, alarmlar, favoriler ve ayarlar"
+            "value" : "Notlar ve gruplarla izleme listesi, alarmlar, favoriler ve ayarlar"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Список спостереження з нотатками, групами й активами, сигнали, обране та налаштування"
+            "value" : "Список спостереження з нотатками й групами, сигнали, обране та налаштування"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danh sách theo dõi kèm ghi chú, nhóm và số lượng nắm giữ, cảnh báo, mục yêu thích và cài đặt"
+            "value" : "Danh sách theo dõi kèm ghi chú và nhóm, cảnh báo, mục yêu thích và cài đặt"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "带备注、分组和持仓的自选列表、提醒、收藏和设置"
+            "value" : "带备注和分组的自选列表、提醒、收藏和设置"
           }
         }
       }

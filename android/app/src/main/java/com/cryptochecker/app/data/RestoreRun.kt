@@ -66,9 +66,8 @@ internal object RestoreRun {
 }
 
 /**
- * Ablauf des Zurückrollens ([rollBack]): Einstellungen, Favoriten, Portfolio, zuletzt die Merkliste (auch nach dem
- * Portfolio-Schritt: `importHoldings` leert den Bestand der Merkliste). Ein gescheiterter Teil hält die übrigen nicht auf;
- * sein Fehler hängt an der Ursache. Reines Kotlin, mit Fälschungen testbar.
+ * Ablauf des Zurückrollens ([rollBack]): Einstellungen, Favoriten, Portfolio, zuletzt die Merkliste. Ein gescheiterter
+ * Teil hält die übrigen nicht auf; sein Fehler hängt an der Ursache. Reines Kotlin, mit Fälschungen testbar.
  */
 internal object RestoreRollback {
 

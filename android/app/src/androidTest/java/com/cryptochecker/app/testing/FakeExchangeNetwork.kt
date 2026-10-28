@@ -33,9 +33,25 @@ object FakeExchange {
     /** Die übrigen Start-Coins mit festen Kursen. */
     private val fixed = mapOf("ETH" to 3_500.0, "XRP" to 2.5, "BNB" to 900.0, "SOL" to 200.0)
 
-    val coins: List<String> get() = listOf("BTC") + fixed.keys
+    /** Coins der Börsen; mit [marketData] dazu die Coins der Markt-Tour ([FakeMarketSeries.tradable]). */
+    val coins: List<String>
+        get() {
+            val start = listOf("BTC") + fixed.keys
+            return if (marketData) (start + FakeMarketSeries.tradable).distinct() else start
+        }
 
-    fun price(base: String): Double? = if (base == "BTC") btcPrice else fixed[base]
+    /** Kurs; mit [marketData] auch für die übrigen Coins der Markt-Tour (und USDT/USD für Coinbase). */
+    fun price(base: String): Double? = when {
+        base == "BTC" -> btcPrice
+        base in fixed -> fixed[base]
+        marketData -> FakeMarketSeries.coin(base)?.price
+        else -> null
+    }
+
+    /** 24-h-Veränderung in %: sonst überall 1.25, mit [marketData] die Werte der Markt-Tour (Merkliste = Markt-Tab). */
+    fun change(base: String): Double = (if (marketData) FakeMarketSeries.coin(base)?.change24h else null) ?: DEFAULT_CHANGE
+
+    private const val DEFAULT_CHANGE = 1.25
 
     /**
      * Auch den Binance-Spiegel `data-api.binance.vision` beantworten (Coin-Liste und Sammelkurse des Portfolios,
@@ -45,17 +61,28 @@ object FakeExchange {
     @Volatile
     var binanceMirror: Boolean = false
 
+    /**
+     * Auch die Quellen des Markt-Tabs und des USDT/USD-Kurses beantworten ([FakeMarketData], [FakeMarketSeries]):
+     * CoinGecko, Fear & Greed, Coin Metrics, Funding, Gebühren, Kerzen und 24-h-Ticker des Binance-Spiegels, die
+     * Binance-Symbolliste (Namen), USDT-USD bei Coinbase und dessen Tageskerzen bei Kraken. Aus, damit die übrigen
+     * Tests unverändert laufen; nur die Bildschirmfoto-Tour schaltet es ein — vor dem Start der Activity, weil die App
+     * einige dieser Abrufe gleich beim Start macht (z. B. die Symbolliste, danach erst wieder in einer Stunde).
+     */
+    @Volatile
+    var marketData: Boolean = false
+
     fun reset() {
         btcPrice = START_PRICE
         binanceMirror = false
+        marketData = false
     }
 }
 
 /**
  * Beantwortet Binance-, Binance.US- und Coinbase-Abfragen (mit [FakeExchange.binanceMirror] auch den
- * Binance-Spiegel) aus [FakeExchange]; alles andere: 404 (die App zeigt dann «—»). Start-Paare: Binance, in
- * der Geräte-Region USA Binance.US (StarterPairs) – der Emulator auf GitHub läuft in en-US, die App hält ihn
- * darum für ein US-Gerät.
+ * Binance-Spiegel, mit [FakeExchange.marketData] dazu die Markt-Quellen aus [FakeMarketData]) aus [FakeExchange];
+ * alles andere: 404 (die App zeigt dann «—»). Start-Paare: Binance, in der Geräte-Region USA Binance.US
+ * (StarterPairs) – der Emulator auf GitHub läuft in en-US, die App hält ihn darum für ein US-Gerät.
  */
 class FakeExchangeInterceptor : Interceptor {
 
@@ -81,10 +108,13 @@ class FakeExchangeInterceptor : Interceptor {
                 "/api/v3/ticker/24hr" -> binanceTickers(url)
                 else -> null
             }
-            // Spiegel nur mit [FakeExchange.binanceMirror]: Paarliste wie oben, Kurse als `ticker/price`
-            "data-api.binance.vision" -> if (!FakeExchange.binanceMirror) null else when (path) {
-                "/api/v3/exchangeInfo" -> binanceExchangeInfo()
-                "/api/v3/ticker/price" -> binancePrices(url)
+            // Spiegel nur mit [FakeExchange.binanceMirror]: Paarliste wie oben, Kurse als `ticker/price`; mit
+            // [FakeExchange.marketData] dazu 24-h-Ticker (Pulse, «Heute auffällig») und Kerzen (Markt-Tab)
+            "data-api.binance.vision" -> when {
+                FakeExchange.binanceMirror && path == "/api/v3/exchangeInfo" -> binanceExchangeInfo()
+                FakeExchange.binanceMirror && path == "/api/v3/ticker/price" -> binancePrices(url)
+                FakeExchange.marketData && path == "/api/v3/ticker/24hr" -> binanceTickers(url)
+                FakeExchange.marketData && path == "/api/v3/klines" -> FakeMarketSeries.klines(url)
                 else -> null
             }
             "api.exchange.coinbase.com" -> when {
@@ -92,7 +122,7 @@ class FakeExchangeInterceptor : Interceptor {
                 path.startsWith("/products/") && path.endsWith("/stats") -> coinbaseStats(url.pathSegments[1])
                 else -> null
             }
-            else -> null
+            else -> if (FakeExchange.marketData) FakeMarketData.answer(url) else null
         }
     }
 
@@ -103,9 +133,14 @@ class FakeExchangeInterceptor : Interceptor {
     private fun binanceTicker(base: String): String? {
         val price = FakeExchange.price(base) ?: return null
         val now = System.currentTimeMillis()
-        return """{"symbol":"${base}USDT","bidPrice":"$price","askPrice":"$price","volume":"1000.0",""" +
-            """"quoteVolume":"${price * 1000}","highPrice":"${price * 1.02}","lowPrice":"${price * 0.98}",""" +
-            """"lastPrice":"$price","closeTime":$now,"priceChangePercent":"1.25"}"""
+        // Markt-Tour: Umsatz nach Marktkapitalisierung (für «Heute auffällig») und Zahl der Abschlüsse (lebendes Paar)
+        val tour = if (FakeExchange.marketData) FakeMarketSeries.coin(base) else null
+        val quoteVolume = tour?.let { it.marketCap * FakeMarketSeries.turnover(it) } ?: (price * 1000)
+        val volume = if (tour != null) quoteVolume / price else 1000.0
+        val extra = if (tour != null) ""","openTime":${now - FakeMarketSeries.DAY},"count":250000""" else ""
+        return """{"symbol":"${base}USDT","bidPrice":"$price","askPrice":"$price","volume":"$volume",""" +
+            """"quoteVolume":"$quoteVolume","highPrice":"${price * 1.02}","lowPrice":"${price * 0.98}",""" +
+            """"lastPrice":"$price","closeTime":$now,"priceChangePercent":"${FakeExchange.change(base)}"$extra}"""
     }
 
     private fun binanceTickers(url: HttpUrl): String? {
@@ -127,9 +162,15 @@ class FakeExchangeInterceptor : Interceptor {
         """{"id":"$it-USD","base_currency":"$it","quote_currency":"USD","status":"online"}"""
     }
 
+    /**
+     * `open` = Kurs vor 24 h (+1.25 %); mit [FakeExchange.marketData] passend zu [FakeExchange.change], dazu USDT-USD
+     * (Messung USDT/USD für das Portfolio, `DepegAlarmChecker`).
+     */
     private fun coinbaseStats(productId: String): String? {
-        val price = FakeExchange.price(productId.substringBefore('-')) ?: return null
-        return """{"open":"${price / 1.0125}","high":"${price * 1.02}","low":"${price * 0.98}",""" +
+        val base = productId.substringBefore('-')
+        val price = FakeExchange.price(base) ?: return null
+        val open = if (FakeExchange.marketData) price / (1.0 + FakeExchange.change(base) / 100.0) else price / 1.0125
+        return """{"open":"$open","high":"${price * 1.02}","low":"${price * 0.98}",""" +
             """"last":"$price","volume":"1000.0"}"""
     }
 

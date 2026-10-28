@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Το αρχείο δεν είναι κρυπτογραφημένο. Όποιος το αποκτήσει μπορεί να διαβάσει:</string>
     <string name="backup_plain_confirm_title">Αποθήκευση χωρίς κωδικό;</string>
     <string name="backup_plain_contents_addresses">Αποθηκευμένες διευθύνσεις πορτοφολιών και κλειδιά xpub με ιστορικό υπολοίπου και κόστος κτήσης</string>
-    <string name="backup_plain_contents_base">Λίστα παρακολούθησης με σημειώσεις, ομάδες και κατοχές, συναγερμοί, αγαπημένα και ρυθμίσεις</string>
+    <string name="backup_plain_contents_base">Λίστα παρακολούθησης με σημειώσεις και ομάδες, συναγερμοί, αγαπημένα και ρυθμίσεις</string>
     <string name="backup_plain_contents_portfolio">Χαρτοφυλάκιο: συναλλαγές με ποσότητες και τιμές</string>
     <string name="backup_restore_app_lock_kept">Το κλείδωμα χαρτοφυλακίου παραμένει ενεργό – ένα μη κρυπτογραφημένο αντίγραφο δεν μπορεί να το απενεργοποιήσει.</string>
     <string name="backup_restore_confirm">Η εισαγωγή αντικαθιστά την τρέχουσα λίστα σου (με σημειώσεις και ομάδες), τους συναγερμούς, τα αγαπημένα, το χαρτοφυλάκιο και τις ρυθμίσεις με εκείνα του αντιγράφου.</string>

@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">الملف غير مشفر. يمكن لأي شخص يحصل عليه قراءة:</string>
     <string name="backup_plain_confirm_title">الحفظ بدون كلمة مرور؟</string>
     <string name="backup_plain_contents_addresses">عناوين wallet ومفاتيح xpub المحفوظة مع سجل الرصيد وتكلفة الشراء</string>
-    <string name="backup_plain_contents_base">قائمة المتابعة مع الملاحظات والمجموعات والأرصدة، التنبيهات، المفضلة والإعدادات</string>
+    <string name="backup_plain_contents_base">قائمة المتابعة مع الملاحظات والمجموعات، التنبيهات، المفضلة والإعدادات</string>
     <string name="backup_plain_contents_portfolio">المحفظة: المعاملات بالكميات والأسعار</string>
     <string name="backup_restore_app_lock_kept">يبقى قفل المحفظة مفعّلًا – لا يمكن لنسخة غير مشفرة إيقافه.</string>
     <string name="backup_restore_confirm">الاستيراد يستبدل قائمتك (مع الملاحظات والمجموعات) وتنبيهاتك ومفضلتك ومحفظتك وإعداداتك بالنسخة الاحتياطية.</string>

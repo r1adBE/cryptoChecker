@@ -199,8 +199,6 @@ extension AppData {
         // «Portfolio in Systemsicherung»: auch für eine schon vorhandene Datei (Update, Wiederherstellung) —
         // nicht mit Standardwerten, solange die Einstellungen nicht zugänglich sind
         if settingsAccessible { PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup) }
-        // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
-        migrateHoldingsOnce()
         // Einstellungen fehlten oder waren unlesbar (Standardwerte), Portfolio-Daten sind aber da: Portfolio an — auch
         // mit offenem Merker aus einem früheren Start (`portfolioRecoveryDeferred`, gespeichert). didSet speichert.
         if settingsAccessible && (launchSettingsState == .missing || portfolioRecoveryDeferred) {

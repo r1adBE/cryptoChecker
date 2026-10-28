@@ -15,6 +15,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 161)
+
+* The old per-pair holdings field is gone (it was taken over into the portfolio once); backups no longer contain it, and the backup description no longer mentions holdings.
+* Tests only: the CI screenshots show real content on the market tab and in the portfolio (canned answers, only in the screenshot tour).
+
 ## 16.2.2 (build 160)
 
 * Tests only (no change for users): the screenshot tour visits every screen step by step and reports missing screens at the end; Android test prices come from the fake exchange answers.

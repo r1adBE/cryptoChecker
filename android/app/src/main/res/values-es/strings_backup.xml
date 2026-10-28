@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">El archivo no está cifrado. Cualquiera que lo obtenga puede leer:</string>
     <string name="backup_plain_confirm_title">¿Guardar sin contraseña?</string>
     <string name="backup_plain_contents_addresses">Direcciones de wallet y claves xpub guardadas, con historial de saldo y coste de adquisición</string>
-    <string name="backup_plain_contents_base">Lista de seguimiento con notas, grupos y tenencias, alarmas, favoritos y ajustes</string>
+    <string name="backup_plain_contents_base">Lista de seguimiento con notas y grupos, alarmas, favoritos y ajustes</string>
     <string name="backup_plain_contents_portfolio">Cartera: transacciones con cantidades y precios</string>
     <string name="backup_restore_app_lock_kept">El bloqueo de la cartera sigue activo: una copia sin cifrar no puede desactivarlo.</string>
     <string name="backup_restore_confirm">Importar sustituye tu lista (con notas y grupos), alarmas, favoritos, cartera y ajustes por la copia.</string>

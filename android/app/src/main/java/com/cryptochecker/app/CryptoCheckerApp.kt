@@ -156,9 +156,6 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         // Widget: eine abgelaufene «Neuer Versuch um …»-Uhrzeit (Prozess endete vor dem Löschen) weg, Kopf neu zeichnen
         scope.launch { widgetRetry.get().clearIfExpired(System.currentTimeMillis()) }
 
-        // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
-        scope.launch { portfolioRepository.get().migrateHoldingsOnce() }
-
         // Überbleibsel des Vorgängerprojekts einmal entfernen (Merker; vorher bei jedem Anlegen der Datenbank)
         scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.local.LegacyDatabaseCleanup.runOnce(this@CryptoCheckerApp) }
 

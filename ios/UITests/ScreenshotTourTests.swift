@@ -9,7 +9,8 @@ import XCTest
 /// Daten: die Demo-Sicherung der Store-Bilder (`android/docs/store/screenshots/demo-backup.json`, gelesen neben dieser
 /// Quelle wie `fixture`), über «Wiederherstellen» eingespielt (`UITEST_BACKUP`). Darin gesetzt: Hell/Dunkel als
 /// Einstellung der App (`darkMode`), Währung USD ohne Umrechnung (keine Wechselkurse ohne Netz) und je ein Alarm für
-/// ETH und SOL, damit «Alarm» im Aktionsblatt die Alarm-Liste öffnet. Kurse aus `UITestExchange` (kein Netz).
+/// ETH und SOL, damit «Alarm» im Aktionsblatt die Alarm-Liste öffnet. Kurse aus `UITestExchange` (kein Netz); dazu
+/// Markt-Tab, Portfolio-Kurse und USDT/USD aus dessen festen Antworten der Tour (`marketDataEnvironment`).
 ///
 /// Jedes Bild ist ein eigener Schritt (`step`) mit eigenem Weg über die Tab-Leiste: Scheitert einer, laufen die
 /// übrigen weiter, am Ende schlägt der Test fehl und nennt die fehlenden Bilder. Bedienung und Wege zurück in
@@ -21,6 +22,10 @@ import XCTest
 /// (xcodebuild gibt es als `SCREENSHOT_TOUR` an den Test weiter), sonst übersprungen — der normale UI-Testlauf
 /// nimmt alle Klassen des Ziels.
 final class ScreenshotTourTests: XCTestCase {
+
+    /// Schaltet in der App die festen Antworten der Tour ein (Binance-Spiegel, Markt-Quellen): gleicher Text wie
+    /// `UITestExchange.marketDataEnvironment` (App-Code, hier nicht sichtbar).
+    static let marketDataEnvironment = "UITEST_MARKET_DATA"
 
     /// «light» bzw. «dark»: Endung der Anhänge.
     var mode = "light"
@@ -55,6 +60,7 @@ final class ScreenshotTourTests: XCTestCase {
         // Startargument zuletzt: ohne Wert, damit es kein «-AppleLocale»-Wert verschluckt
         app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", UiTestTags.launchArgument]
         app.launchEnvironment[UiTestTags.backupEnvironment] = try demoBackup(dark: dark)
+        app.launchEnvironment[Self.marketDataEnvironment] = "1"
         app.launch()
         closeStorageNotice(app)
         do {
@@ -79,8 +85,8 @@ final class ScreenshotTourTests: XCTestCase {
         // Tabs Markt und Portfolio
         step("09_market") {
             try self.openTab(app, UiTestTags.tabCycle)
-            // Quellen ausser den Fake-Börsen antworten 404: Fehlerzustände abwarten
-            self.settle(4)
+            // Karten laden ihre Daten (feste Antworten der Tour) und blenden sich ein
+            self.settle(6)
         }
         step("10_portfolio") {
             try self.openTab(app, UiTestTags.tabPortfolio)

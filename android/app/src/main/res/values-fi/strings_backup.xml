@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Tiedostoa ei ole salattu. Kuka tahansa sen saava voi lukea:</string>
     <string name="backup_plain_confirm_title">Tallennetaanko ilman salasanaa?</string>
     <string name="backup_plain_contents_addresses">Tallennetut lompakko-osoitteet ja xpub-avaimet saldohistorioineen ja hankintamenoineen</string>
-    <string name="backup_plain_contents_base">Seurantalista muistiinpanoineen, ryhmineen ja omistuksineen, hälytykset, suosikit ja asetukset</string>
+    <string name="backup_plain_contents_base">Seurantalista muistiinpanoineen ja ryhmineen, hälytykset, suosikit ja asetukset</string>
     <string name="backup_plain_contents_portfolio">Salkku: tapahtumat määrineen ja hintoineen</string>
     <string name="backup_restore_app_lock_kept">Salkun lukitus pysyy päällä – salaamaton varmuuskopio ei voi poistaa sitä.</string>
     <string name="backup_restore_confirm">Tuonti korvaa listan (muistiinpanoineen ja ryhmineen), hälytykset, suosikit, salkun ja asetukset varmuuskopiolla.</string>

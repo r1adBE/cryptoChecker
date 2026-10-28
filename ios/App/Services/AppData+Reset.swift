@@ -46,7 +46,6 @@ extension AppData {
         setPortfolioFile(PortfolioFile())
         watchedAddressIntact = true
         setWatchedAddressFile(WatchedAddressFile())
-        PortfolioStore.holdingsMigrated = true
         addTargetGroup = nil
         settings = AppSettings()
         // Ablage geleert, aber zugänglich: Widgets sollen das nicht für eine gesperrte Ablage halten

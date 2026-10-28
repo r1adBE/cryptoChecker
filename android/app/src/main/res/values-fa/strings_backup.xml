@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">فایل رمزگذاری نشده است. هر کس آن را داشته باشد می‌تواند بخواند:</string>
     <string name="backup_plain_confirm_title">بدون رمز ذخیره شود؟</string>
     <string name="backup_plain_contents_addresses">آدرس‌ها و کلیدهای xpub ذخیره‌شدهٔ کیف پول با تاریخچهٔ موجودی و بهای تمام‌شده</string>
-    <string name="backup_plain_contents_base">فهرست پیگیری با یادداشت‌ها، گروه‌ها و دارایی‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات</string>
+    <string name="backup_plain_contents_base">فهرست پیگیری با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات</string>
     <string name="backup_plain_contents_portfolio">سبد: تراکنش‌ها با مقدار و قیمت</string>
     <string name="backup_restore_app_lock_kept">قفل پرتفوی روشن می‌ماند – پشتیبان رمزنشده نمی‌تواند آن را خاموش کند.</string>
     <string name="backup_restore_confirm">وارد کردن پشتیبان، فهرست (همراه با یادداشت‌ها و گروه‌ها)، هشدارها، علاقه‌مندی‌ها، پرتفوی و تنظیماتت را با پشتیبان جایگزین می‌کند.</string>

@@ -313,10 +313,7 @@ Frühere Stände zum Nachlesen; einzelne Punkte sind inzwischen überholt (aktue
   Erfassen-Blätter; ein schon bestätigter Export bzw. ein schon schreibendes Wiederherstellen läuft fertig,
   eine erst nach dem Sperren gewählte Datei wird verworfen (erneut tippen und entsperren). Die
   Hauptdatenbank setzt bei jedem Öffnen `PRAGMA secure_delete = ON` (gelöschte bzw. überschriebene Inhalte
-  werden mit Nullen überschrieben, `di/LocalDataModule.kt`); nach einem Update von DB v12 wird das VACUUM der
-  entfernten alten Portfolio-Tabellen bei jedem Start wiederholt, bis es gelingt (Merker `legacy_vacuum_done`
-  in `portfolio_meta`; WAL-Checkpoint → VACUUM → Checkpoint; `PortfolioLegacyPlan.vacuumPending` mit Test,
-  `DatabaseMigrationTest` prüft den Merker). `work/BootReceiver` hört nur noch auf die geschützten
+  werden mit Nullen überschrieben, `di/LocalDataModule.kt`). `work/BootReceiver` hört nur noch auf die geschützten
   System-Broadcasts `BOOT_COMPLETED` und `MY_PACKAGE_REPLACED` (kein `QUICKBOOT_POWERON` mehr, eine
   ungeschützte Hersteller-Aktion) und plant nur neu ein. «7 T» im Portfolio: ein Stablecoin ohne
   Tagesschluss zählt nur als 1, wenn sein aktueller Kurs höchstens 0,1 % von 1 abweicht, sonst «—» (USDT
@@ -400,8 +397,7 @@ Frühere Stände zum Nachlesen; einzelne Punkte sind inzwischen überholt (aktue
 * **Portfolio-Zahlen und Sicherung** — eine Stablecoin-Regel (`domain/portfolio/PortfolioStables.kt`),
   Wertverlauf mit EZB-Tageskursen (`PortfolioHistoryFx.kt`), 25-%-Sperre für den Stichtag, im Verlauf
   nur noch die Identitätsprüfung 1/3…3 (`PricePlausibility.kt`), Hinweis «Veränderung aus …-Kerzen» bei fremden Kerzen; Portfolio in eigener
-  Datenbank `cryptochecker_portfolio.db` (`data/portfolio/PortfolioDatabase.kt`, Übernahme aus
-  AppDatabase v13 durch `PortfolioLegacyImport`), standardmässig nicht in der Systemsicherung (Schalter
+  Datenbank `cryptochecker_portfolio.db` (`data/portfolio/PortfolioDatabase.kt`), standardmässig nicht in der Systemsicherung (Schalter
   «Portfolio in Systemsicherung», `PortfolioBackupMirror`); Börsen-Vertragstests mit
   `android/testdata/exchanges` (`ExchangeContractTest`); ehrlicher Text beim ersten Alarm.
 * **Listen einheitlich** — Merkliste, Start-Auswahl, «Auffällig» und Portfolio mit gleichem

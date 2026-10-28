@@ -6,9 +6,6 @@ import Foundation
 enum PortfolioStore {
     static var url: URL { SharedStorage.directory.appendingPathComponent("portfolio.json") }
 
-    /// Merker: alter Bestand der Merkliste wurde übernommen (wie Android «holdings_migrated»).
-    private static let migratedKey = "holdings_migrated"
-
     static func load() -> PortfolioFile { loadChecked().file }
 
     /// Wie `load`, dazu ob die Datei ganz gelesen wurde: fehlt sie, ist das ein leeres Portfolio (`intact`);
@@ -110,11 +107,6 @@ enum PortfolioStore {
         }
     }
 
-    static var holdingsMigrated: Bool {
-        get { SharedStorage.defaults.bool(forKey: migratedKey) }
-        set { SharedStorage.defaults.set(newValue, forKey: migratedKey) }
-    }
-
     /// Neueste zuerst (Zeit, dann Id absteigend) — wie `ORDER BY time DESC, id DESC`.
     static func newestFirst(_ list: [PortfolioTx]) -> [PortfolioTx] {
         list.sorted { $0.time != $1.time ? $0.time > $1.time : $0.id > $1.id }
@@ -144,40 +136,5 @@ enum PortfolioStore {
         guard let i = file.transactions.firstIndex(where: { $0.id == tx.id }) else { return false }
         file.transactions[i] = tx
         return true
-    }
-
-    /// Wandelt Bestände der Merkliste in Käufe ohne Preis um (Mengen gleicher
-    /// Coins addiert) und leert sie — wie `PortfolioRepository.importHoldings`.
-    /// Mit `onlyNewCoins` nur für Coins, die noch keine Transaktion haben
-    /// (Wiederherstellen einer alten Sicherung — sonst doppelt).
-    /// Ohne gültigen Bestand bleibt alles unverändert.
-    /// - Returns: Anzahl angelegter Käufe.
-    @discardableResult
-    static func importHoldings(watches: inout [Watch], into file: inout PortfolioFile,
-                               onlyNewCoins: Bool, now: Int64) -> Int {
-        var order: [String] = []
-        // Exakt summiert (`PortfolioDecimal`); der alte Merklisten-Bestand war ein Double
-        var amounts: [String: Decimal] = [:]
-        for w in watches {
-            guard let amount = w.holdings, amount > 0, !amount.isInfinite,
-                  let exact = PortfolioDecimal.of(amount) else { continue }
-            let coin = PortfolioCalculator.normalizeCoin(w.baseAsset)
-            guard !coin.isEmpty else { continue }
-            if amounts[coin] == nil { order.append(coin) }
-            amounts[coin, default: 0] += exact
-        }
-        guard !order.isEmpty else { return 0 }
-
-        let existing: Set<String> = onlyNewCoins
-            ? Set(file.transactions.map { PortfolioCalculator.normalizeCoin($0.coin) })
-            : []
-        var created = 0
-        for coin in order where !existing.contains(coin) {
-            guard let amount = amounts[coin] else { continue }
-            insert(PortfolioTx(coin: coin, type: .BUY, amountExact: amount, priceExact: nil, time: now), into: &file)
-            created += 1
-        }
-        for i in watches.indices { watches[i].holdings = nil }
-        return created
     }
 }

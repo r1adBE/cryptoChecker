@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Dosya şifreli değil. Eline geçen herkes şunları okuyabilir:</string>
     <string name="backup_plain_confirm_title">Parola olmadan kaydedilsin mi?</string>
     <string name="backup_plain_contents_addresses">Kayıtlı cüzdan adresleri ve xpub anahtarları, bakiye geçmişi ve maliyet esasıyla</string>
-    <string name="backup_plain_contents_base">Notlar, gruplar ve varlıklarla izleme listesi, alarmlar, favoriler ve ayarlar</string>
+    <string name="backup_plain_contents_base">Notlar ve gruplarla izleme listesi, alarmlar, favoriler ve ayarlar</string>
     <string name="backup_plain_contents_portfolio">Portföy: miktar ve fiyatlarıyla işlemler</string>
     <string name="backup_restore_app_lock_kept">Portföy kilidi açık kalır – şifresiz bir yedek onu kapatamaz.</string>
     <string name="backup_restore_confirm">İçe aktarma; listeni (notlar ve gruplarla birlikte), alarmlarını, favorilerini, portföyünü ve ayarlarını yedekle değiştirir.</string>

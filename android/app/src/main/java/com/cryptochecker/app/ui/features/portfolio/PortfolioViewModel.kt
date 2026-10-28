@@ -345,7 +345,6 @@ class PortfolioViewModel @Inject constructor(
     internal var started = false
 
     init {
-        viewModelScope.launch { repository.migrateHoldingsOnce() }
         // Hintergrund-Aufgaben in PortfolioBackgroundJobs.kt
         restoreLegacyAddressOverlap()
         switchOverlappingAddresses()

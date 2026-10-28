@@ -43,9 +43,6 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
     /// Favorit: steht in der Merkliste ganz oben.
     var favorite: Bool = false
 
-    /// Bestand: gehaltene Menge der Basiswährung (z. B. 0.25 BTC). nil = kein Bestand.
-    var holdings: Double? = nil
-
     /// Gruppe (Merkliste) des Paars. nil = keine Gruppe.
     var groupName: String? = nil
 
@@ -76,12 +73,6 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
     var displayName: String {
         if let c = contractType.shortName { return "\(displayPair) \(c)" }
         return displayPair
-    }
-
-    /// Wert des Bestands in der Quote-Währung; nil ohne Bestand oder Kurs.
-    var holdingsValue: Double? {
-        guard let amount = holdings, amount > 0, let price = lastPrice, price > 0 else { return nil }
-        return amount * price
     }
 
     var pairInfo: ExchangePair { ExchangePair(baseAsset, quoteAsset, pairId, contractType) }
@@ -253,9 +244,7 @@ extension Watch {
         notifiedAt = try c.decodeIfPresent(Int64.self, forKey: .notifiedAt) ?? 0
         lastError = try c.decodeIfPresent(String.self, forKey: .lastError)
         favorite = try c.decodeIfPresent(Bool.self, forKey: .favorite) ?? false
-        // Seit 16.2.2; ungültige Werte gelten als «kein Bestand» bzw. «keine Gruppe».
-        let amount = try? c.decodeIfPresent(Double.self, forKey: .holdings)
-        holdings = Watch.validHoldings(amount)
+        // Ungültige Werte gelten als «keine Gruppe» bzw. «keine Notiz».
         let group = try? c.decodeIfPresent(String.self, forKey: .groupName)
         groupName = Watch.validGroupName(group)
         let note = try? c.decodeIfPresent(String.self, forKey: .note)
@@ -275,12 +264,6 @@ extension Watch {
 
     /// Notiz getrimmt, gekürzt und nochmals getrimmt; leer = keine Notiz (wie Android `TextLimit.clean`).
     static func validNote(_ text: String?) -> String? { TextLimit.clean(text, max: noteMax) }
-
-    /// Bestand nur, wenn endlich und grösser als 0 — sonst nil (wie das Lesen von «holdings» in `BackupWatchlistCodec.kt`, Android).
-    static func validHoldings(_ value: Double?) -> Double? {
-        guard let value, value.isFinite, value > 0 else { return nil }
-        return value
-    }
 
     /// Höchstlänge eines Gruppennamens in sichtbaren Zeichen (wie `GROUP_NAME_MAX` in Android).
     static let groupNameMax = 24

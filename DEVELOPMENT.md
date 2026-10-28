@@ -1331,7 +1331,7 @@ the tests named here.
   file (empty portfolio) from an unreadable or partly unreadable one (`PortfolioFile.dropped`).
   `AppData` re-reads before every change (`currentPortfolioFile`) and, if still unreadable, keeps a
   copy (`preserveUnreadable` → `portfolio.unreadable.json`) before writing; if not even the bytes are
-  readable (data protection), nothing is written and the holdings import waits. Saves report failure.
+  readable (data protection), nothing is written. Saves report failure.
 * **Alarm save and notify are one step.** Android marks an alarm as triggered and shows the
   notification inside one `withContext(NonCancellable)` (`RefreshEffects.report`, portfolio alarms);
   one-time alarms without a deliverable notification stay armed (`canShowAlarm`,
@@ -2285,7 +2285,7 @@ next start.
   encrypted (`SupportOpenHelperFactory` with the raw key), plaintext fallback (framework SQLite as up to build 58) – never for a new portfolio database (build 81): without a key
   `cryptochecker_portfolio.db` is not created; `Decision.Refused` opens an in-memory SQLite instead
   (`DatabaseEncryptionNotice.inMemory`, banner `portfolio_storage_in_memory`; the portfolio callbacks skip the mirror
-  takeover and the legacy import, `importHoldings` waits) and the next start tries again; an existing plaintext
+  takeover) and the next start tries again; an existing plaintext
   portfolio or watchlist file without a key is only read since build 91 (`OpenPlan.COPY_TO_MEMORY`,
   `Decision.PlaintextKept`: `PlaintextMemoryCopy` attaches the file and copies every table into the in-memory database
   when the Room `identity_hash` matches; the file stays byte-identical, changes are not saved – like iOS
@@ -2582,6 +2582,19 @@ after the encryption step.
   `FakeExchange.binanceMirror` (only in the tour) answers `data-api.binance.vision` for the portfolio prices. iOS: no
   deep link any more (it restarted the app with `-uiTesting`, which clears the storage); «All alerts» via the bell,
   «Last refresh» via the watchlist menu.
+* Build 161: the legacy per-pair holdings are gone on both platforms. Android: column `watches.holdings`,
+  `WatchEntity.holdingsValue`, `WatchDao.clearAllHoldings`, `PortfolioRepository.migrateHoldingsOnce` /
+  `importHoldings` (prefs `holdings_migrated`, marker `holdings_import_done`) and `markOnce` / `portfolio_meta`
+  removed; `PortfolioRepository` no longer takes `Context` or `WatchDao`; the restore has no holdings step any more.
+  `AppDatabase` stays at version 1 (golden schema `AppDatabase/1.json` and `DatabaseEncryptionTest.MAIN_SCHEMA`
+  without `holdings`). iOS: `Watch.holdings` / `holdingsValue` / `validHoldings`, `PortfolioFile.holdingsImportDone`,
+  `PortfolioStore.holdingsMigrated` / `importHoldings` and `AppData.migrateHoldingsOnce` removed. Backups neither
+  write nor read «holdings» for pairs; `backup_plain_contents_base` without «holdings» (31 languages).
+  Screenshot tour: market tab and portfolio answered offline with canned data generated at the current time
+  (CoinGecko, Fear & Greed, Coin Metrics, funding, fees, candles, Binance name list, USDT/USD) – Android
+  `FakeExchange.marketData` (`FakeMarketData.kt`, `FakeMarketSeries.kt`), iOS `UITestExchange.marketData` via
+  `UITEST_MARKET_DATA=1` (`UITestExchange+Market.swift`, `UITestExchange+Series.swift`, DEBUG only); off for all other
+  tests.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

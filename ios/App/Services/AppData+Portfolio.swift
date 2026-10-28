@@ -5,8 +5,8 @@ import WidgetKit
 import UIKit
 import UserNotifications
 
-// Portfolio in AppData: Transaktion speichern, CSV-Import und Rücknahme, löschen, wiederherstellen, Bestände,
-// Übernahme alter Merklisten-Bestände und die Portfolio-Datei.
+// Portfolio in AppData: Transaktion speichern, CSV-Import und Rücknahme, löschen, wiederherstellen, Bestände
+// und die Portfolio-Datei.
 // Eigene Datei, weil das Portfolio ein eigener Bereich ist (wie `PortfolioEditActions.kt` auf Android).
 
 extension AppData {
@@ -192,32 +192,14 @@ extension AppData {
         return PortfolioTxForm.walletHoldings(PortfolioCalculator.openLots(coin, trades: trades, method: .FIFO_WALLET), wallet: wallet)
     }
 
-    /// Einmalige Übernahme des alten Bestands je Paar (`Watch.holdings`) ins
-    /// Portfolio: je Coin ein Kauf ohne Preis (Mengen gleicher Coins addiert),
-    /// danach wird der Bestand in der Merkliste geleert — wie
-    /// `PortfolioRepository.migrateHoldingsOnce`. Merker «holdings_migrated».
-    func migrateHoldingsOnce() {
-        guard !PortfolioStore.holdingsMigrated else { return }
-        if currentPortfolioFile().holdingsImportDone {
-            // Käufe stehen schon im Portfolio (Abbruch nach dem Speichern): nur noch leeren
-            clearWatchHoldings()
-        } else {
-            // Portfolio-Datei gerade nicht schreibbar: beim nächsten Start nochmals versuchen
-            guard importHoldings(onlyNewCoins: false, markDone: true) else { return }
-        }
-        PortfolioStore.holdingsMigrated = true
-    }
-
     /// Nach einer Wiederherstellung — wie Android: Transaktionen der Sicherung
-    /// übernehmen (fehlt «portfolio», bleibt das bestehende stehen), dann den
-    /// Bestand alter Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion).
+    /// übernehmen (fehlt «portfolio», bleibt das bestehende stehen).
     /// - Returns: false, wenn das Portfolio nicht geschrieben werden konnte.
     @discardableResult
     func restorePortfolio(_ transactions: [PortfolioTx]?) -> Bool {
         if let transactions {
             let current = currentPortfolioFile()
-            var file = PortfolioFile(transactions: [], nextId: current.nextId,
-                                     holdingsImportDone: current.holdingsImportDone)
+            var file = PortfolioFile(transactions: [], nextId: current.nextId)
             for tx in transactions {
                 var item = tx
                 item.coin = PortfolioCalculator.normalizeCoin(tx.coin)
@@ -225,7 +207,6 @@ extension AppData {
             }
             guard setPortfolioFile(file) else { return false }
         }
-        importHoldings(onlyNewCoins: true)
         return true
     }
 
@@ -235,32 +216,6 @@ extension AppData {
     /// Wiederherstellen gescheitert: vorherige Portfolio-Datei unverändert zurückschreiben.
     @discardableResult
     func rollBackPortfolioFile(_ file: PortfolioFile) -> Bool { setPortfolioFile(file) }
-
-    /// Bestände der Merkliste in Käufe umwandeln und leeren. Erst das Portfolio
-    /// speichern, dann die Merkliste — so geht bei einem Abbruch nichts verloren.
-    /// `markDone`: Merker «übernommen» in derselben Portfolio-Datei setzen (einmalige Übernahme),
-    /// damit ein Abbruch vor dem Leeren der Merkliste keine doppelten Käufe ergibt.
-    /// - Returns: false, wenn die Portfolio-Datei nicht geschrieben werden konnte (dann bleibt der Bestand
-    ///   in der Merkliste stehen).
-    @discardableResult
-    private func importHoldings(onlyNewCoins: Bool, markDone: Bool = false) -> Bool {
-        var watches = snapshot.watches
-        var file = currentPortfolioFile()
-        PortfolioStore.importHoldings(watches: &watches, into: &file, onlyNewCoins: onlyNewCoins, now: EpochTime.nowMillis)
-        guard watches != snapshot.watches else { return true }
-        if markDone { file.holdingsImportDone = true }
-        // Erst nach gespeichertem Portfolio den Bestand der Merkliste leeren
-        guard setPortfolioFile(file) else { return false }
-        clearWatchHoldings()
-        return true
-    }
-
-    private func clearWatchHoldings() {
-        guard snapshot.watches.contains(where: { $0.holdings != nil }) else { return }
-        mutate({ s in
-            for i in s.watches.indices { s.watches[i].holdings = nil }
-        }, reloadWidgets: false)
-    }
 
     /// Wartende, nicht versiegelt gespeicherte Stände (Portfolio, Portfolio-Alarme, beobachtete Adressen) jetzt schreiben.
     /// - Returns: true = die Merkliste darf gelesen werden (`PortfolioSaveRetry.allowsDiskRead`).

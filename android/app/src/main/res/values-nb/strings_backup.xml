@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Filen er ikke kryptert. Den som får den, kan lese:</string>
     <string name="backup_plain_confirm_title">Lagre uten passord?</string>
     <string name="backup_plain_contents_addresses">Lagrede wallet-adresser og xpub-nøkler med saldohistorikk og inngangsverdi</string>
-    <string name="backup_plain_contents_base">Overvåkningsliste med notater, grupper og beholdninger, alarmer, favoritter og innstillinger</string>
+    <string name="backup_plain_contents_base">Overvåkningsliste med notater og grupper, alarmer, favoritter og innstillinger</string>
     <string name="backup_plain_contents_portfolio">Portefølje: transaksjoner med mengder og priser</string>
     <string name="backup_restore_app_lock_kept">Porteføljelåsen forblir på – en ukryptert sikkerhetskopi kan ikke slå den av.</string>
     <string name="backup_restore_confirm">Import erstatter listen (med notater og grupper), alarmene, favorittene, porteføljen og innstillingene med kopien.</string>

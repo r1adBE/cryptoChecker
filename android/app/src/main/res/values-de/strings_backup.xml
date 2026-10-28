@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">Die Datei ist nicht verschlüsselt. Wer sie bekommt, kann lesen:</string>
     <string name="backup_plain_confirm_title">Ohne Passwort sichern?</string>
     <string name="backup_plain_contents_addresses">Gespeicherte Wallet-Adressen und xpub-Schlüssel mit Guthaben-Verlauf und Einstandswerten</string>
-    <string name="backup_plain_contents_base">Merkliste mit Notizen, Gruppen und Beständen, Alarme, Favoriten und Einstellungen</string>
+    <string name="backup_plain_contents_base">Merkliste mit Notizen und Gruppen, Alarme, Favoriten und Einstellungen</string>
     <string name="backup_plain_contents_portfolio">Portfolio: Transaktionen mit Mengen und Preisen</string>
     <string name="backup_restore_app_lock_kept">Die Portfolio-Sperre bleibt an – eine unverschlüsselte Sicherung kann sie nicht ausschalten.</string>
     <string name="backup_restore_confirm">Beim Importieren werden Merkliste (mit Notizen und Gruppen), Alarme, Favoriten, Portfolio und Einstellungen durch die Sicherung ersetzt.</string>

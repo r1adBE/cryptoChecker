@@ -34,7 +34,7 @@
     <string name="backup_plain_confirm_text">A fájl nincs titkosítva. Aki megkapja, olvashatja:</string>
     <string name="backup_plain_confirm_title">Mentés jelszó nélkül?</string>
     <string name="backup_plain_contents_addresses">Mentett tárcacímek és xpub-kulcsok egyenlegelőzménnyel és bekerülési értékkel</string>
-    <string name="backup_plain_contents_base">Figyelőlista jegyzetekkel, csoportokkal és állományokkal, riasztások, kedvencek és beállítások</string>
+    <string name="backup_plain_contents_base">Figyelőlista jegyzetekkel és csoportokkal, riasztások, kedvencek és beállítások</string>
     <string name="backup_plain_contents_portfolio">Portfólió: tranzakciók mennyiségekkel és árakkal</string>
     <string name="backup_restore_app_lock_kept">A Portfóliózár bekapcsolva marad – titkosítatlan mentés nem kapcsolhatja ki.</string>
     <string name="backup_restore_confirm">Az importálás a mentésre cseréli a listát (jegyzetekkel és csoportokkal), a riasztásokat, kedvenceket, a portfóliót és a beállításokat.</string>
