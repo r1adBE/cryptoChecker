@@ -13,7 +13,7 @@ final class WatchlistStorageLockTests: XCTestCase {
     private var portfolioAlarms: URL { dir.appendingPathComponent("portfolio_alarms.json") }
     private let fixedKey = SymmetricKey(data: Data(repeating: 7, count: 32))
     private let json = Data("""
-    {"watches":[{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT"}],
+    {"watches":[{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT","exchangeName":"binance","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}],
      "alarms":[],"nextWatchId":2,"nextAlarmId":1}
     """.utf8)
 

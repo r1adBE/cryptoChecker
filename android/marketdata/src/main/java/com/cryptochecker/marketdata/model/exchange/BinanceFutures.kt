@@ -16,8 +16,6 @@ import com.cryptochecker.marketdata.util.optStrings
 import com.cryptochecker.marketdata.util.optText
 import org.json.JSONArray
 import org.json.JSONObject
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 private const val BINANCE_FAPI = "https://fapi.binance.com/fapi/v1"
 private const val BINANCE_DAPI = "https://dapi.binance.com/dapi/v1"
@@ -28,9 +26,6 @@ private const val BINANCE_DAPI_DAY_TICKER = "$BINANCE_DAPI/ticker/24hr"
 
 /** Vorsatz der COIN-M-Kennungen. */
 private const val BINANCE_COIN_M_MARK = "2:"
-
-/** Verfallstag im Symbol der Laufzeit-Kontrakte («251226»). */
-private val BINANCE_EXPIRY_CODE: DateTimeFormatter = DateTimeFormatter.ofPattern("yyMMdd", Locale.ROOT)
 
 /**
  * Binance Futures: USDⓈ-M (fapi, Kennung = Symbol) und COIN-M (dapi, Kennung «2:» + Symbol). Zwei Endpunkte,
@@ -54,15 +49,9 @@ class BinanceFutures : Exchange("Binance Futures", "Binance Futures") {
 
     override fun tickerAddress(call: Int, info: PairQuery): String {
         val pairId = pairIdOf(info)
-        val endpoint = dayTickerOf(pairId)
-        val symbol = pairId.removePrefix(BINANCE_COIN_M_MARK)
-        // Laufzeit-Kontrakt: immer das Symbol der Paarliste («BTCUSDT_251226»). Der Kalender träfe nach der
-        // Abrechnung (Freitag 08:00 UTC) den abgelaufenen Kontrakt — er dient nur alten Kennungen ohne Datum.
-        if (FuturesContractType.deliveryCodeOf(symbol) != null) return "$endpoint?symbol=$symbol"
-        val delivery = FuturesContractType.getDeliveryDate(info.contractType)
-            ?: return "$endpoint?symbol=$symbol"
-        val dated = info.base + info.quote + "_" + BINANCE_EXPIRY_CODE.format(delivery)
-        return "$endpoint?symbol=$dated"
+        // Immer das Symbol der Paarliste, bei Laufzeit-Kontrakten samt Verfallstag («BTCUSDT_251226»); nie aus dem
+        // Kalender, der träfe nach der Abrechnung (Freitag 08:00 UTC) den abgelaufenen Kontrakt.
+        return "${dayTickerOf(pairId)}?symbol=${pairId.removePrefix(BINANCE_COIN_M_MARK)}"
     }
 
     /** COIN-M antwortet mit einem Array aus einem Eintrag. */

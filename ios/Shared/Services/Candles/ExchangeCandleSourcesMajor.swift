@@ -67,32 +67,16 @@ struct BinanceFuturesCandles: ExchangeCandleSource {
     let exchangeKeys: Set<String> = ["BinanceFutures"]
     private static let coinMPrefix = "2:"
 
-    /// Verfallstag (UTC, «yyMMdd») des Laufzeit-Kontrakts wie die Kursabfrage; nil = Perpetual/Spot.
-    static func deliveryCode(_ type: FuturesContractType) -> String? {
-        guard let date = type.deliveryDate else { return nil }
-        let f = DateFormatter()
-        f.calendar = Calendar(identifier: .gregorian)
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.timeZone = TimeZone(identifier: "UTC")
-        f.dateFormat = "yyMMdd"
-        return f.string(from: date)
-    }
-
     static func id(_ pair: CandlePair) -> (symbol: String, coinM: Bool)? {
         let raw = pair.pairId?.trimmingCharacters(in: .whitespaces)
         let coinM = raw?.hasPrefix(coinMPrefix) ?? false
         if pair.isDated {
             // Symbol der Börse aus der Paarliste wie die Kursabfrage («BTCUSDT_251226»), nie aus dem
             // Kalender (nach der Abrechnung Freitag 08:00 UTC träfe der den abgelaufenen Kontrakt)
-            if let raw {
-                let stripped = coinM ? String(raw.dropFirst(coinMPrefix.count)) : raw
-                if FuturesContractType.deliveryCode(of: stripped) != nil {
-                    return CandleParse.safeId(stripped).map { (symbol: $0, coinM: coinM) }
-                }
-            }
-            // Ältere Kennung ohne Verfallstag: Kalender als Notbehelf
-            guard let code = deliveryCode(pair.contractType), let assets = CandleParse.assets(pair) else { return nil }
-            return (symbol: "\(assets.base)\(assets.quote)_\(code)", coinM: coinM)
+            guard let raw else { return nil }
+            let stripped = coinM ? String(raw.dropFirst(coinMPrefix.count)) : raw
+            guard FuturesContractType.deliveryCode(of: stripped) != nil else { return nil }
+            return CandleParse.safeId(stripped).map { (symbol: $0, coinM: coinM) }
         }
         if let raw, coinM {
             return CandleParse.safeId(String(raw.dropFirst(coinMPrefix.count))).map { (symbol: $0, coinM: true) }

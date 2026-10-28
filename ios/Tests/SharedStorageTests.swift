@@ -16,9 +16,9 @@ final class SharedStorageTests: XCTestCase {
     override func setUpWithError() throws {
         dir = FileManager.default.temporaryDirectory.appendingPathComponent("shared-storage-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        // Portfolio-Alarme werden nur noch versiegelt geschrieben: Schlüssel anlegen wie die App beim Start
+        // Portfolio-Alarme werden nur versiegelt geschrieben: Schlüssel anlegen wie die App beim Start
         // (`ProtectedStorage.prepareAtLaunch`), im Test-Schlüsselbund statt im echten — läuft so
-        // auch auf dem unsignierten CI-Host (vorher XCTSkip ohne Schlüsselbund)
+        // auch auf dem unsignierten CI-Host
         let fake = ProtectedFileTests.FakeKeychain()
         keys = StorageKey(keychain: fake, readGeneration: { nil }, writeGeneration: { _ in })
         XCTAssertNotNil(keys.createIfAbsent())
@@ -50,8 +50,8 @@ final class SharedStorageTests: XCTestCase {
         return try XCTUnwrap(any as? [String: Any])
     }
 
-    private static let watchBtc = #"{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT"}"#
-    private static let watchEth = #"{"id":2,"exchangeKey":"binance","baseAsset":"ETH","quoteAsset":"USDT"}"#
+    private static let watchBtc = #"{"id":1,"exchangeKey":"binance","baseAsset":"BTC","quoteAsset":"USDT","exchangeName":"binance","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}"#
+    private static let watchEth = #"{"id":2,"exchangeKey":"binance","baseAsset":"ETH","quoteAsset":"USDT","exchangeName":"binance","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}"#
 
     // MARK: Tolerantes Lesen
 
@@ -59,9 +59,9 @@ final class SharedStorageTests: XCTestCase {
     func testUnknownEnumValuesSkipOnlyThatEntry() throws {
         let json = """
         {"watches":[\(Self.watchBtc),
-                    {"id":7,"exchangeKey":"binance","baseAsset":"SOL","quoteAsset":"USDT","contractType":99}],
-         "alarms":[{"id":1,"watchId":1,"condition":"PRICE_ABOVE","threshold":100},
-                   {"id":2,"watchId":1,"condition":"SOMETHING_NEW","threshold":5}],
+                    {"id":7,"exchangeKey":"binance","baseAsset":"SOL","quoteAsset":"USDT","contractType":99,"exchangeName":"binance","sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}],
+         "alarms":[{"id":1,"watchId":1,"condition":"PRICE_ABOVE","threshold":100,"enabled":true,"repeating":false,"sound":true,"vibrate":true,"speak":false,"lastTriggeredAt":0,"windowHours":1,"referenceAt":0},
+                   {"id":2,"watchId":1,"condition":"SOMETHING_NEW","threshold":5,"enabled":true,"repeating":false,"sound":true,"vibrate":true,"speak":false,"lastTriggeredAt":0,"windowHours":1,"referenceAt":0}],
          "nextWatchId":3,"nextAlarmId":3,
          "portfolioAlarms":[{"id":1,"kind":"VALUE_ABOVE","threshold":1000,"currency":"USD"},
                             {"id":2,"kind":"FUTURE_KIND","threshold":1}],
@@ -82,7 +82,7 @@ final class SharedStorageTests: XCTestCase {
     }
 
     func testNextIdsNeverBehindUsedIds() throws {
-        let json = #"{"watches":[{"id":9,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B"}],"nextWatchId":2}"#
+        let json = #"{"watches":[{"id":9,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}],"alarms":[],"nextWatchId":2,"nextAlarmId":1}"#
         let snap = try JSONDecoder().decode(SharedStorage.Snapshot.self, from: Data(json.utf8))
         XCTAssertEqual(snap.nextWatchId, 10)
         XCTAssertEqual(snap.nextAlarmId, 1)
@@ -93,8 +93,8 @@ final class SharedStorageTests: XCTestCase {
     /// Alarm eines übersprungenen Paars (id 7): die Id 7 wird nicht neu vergeben.
     func testSkippedWatchIdIsNotReused() throws {
         let json = """
-        {"watches":[{"id":7,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","contractType":99}],
-         "alarms":[{"id":1,"watchId":7,"condition":"PRICE_ABOVE","threshold":1}],"nextWatchId":1}
+        {"watches":[{"id":7,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","contractType":99,"exchangeName":"m","sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}],
+         "alarms":[{"id":1,"watchId":7,"condition":"PRICE_ABOVE","threshold":1,"enabled":true,"repeating":false,"sound":true,"vibrate":true,"speak":false,"lastTriggeredAt":0,"windowHours":1,"referenceAt":0}],"nextWatchId":1,"nextAlarmId":2}
         """
         let snap = try JSONDecoder().decode(SharedStorage.Snapshot.self, from: Data(json.utf8))
         XCTAssertTrue(snap.watches.isEmpty)
@@ -113,9 +113,9 @@ final class SharedStorageTests: XCTestCase {
     /// ein übersprungener Eintrag (Kopie der Datei bleibt).
     func testDuplicateWatchIdsKeepFirst() throws {
         let json = """
-        {"watches":[{"id":4,"exchangeKey":"m","baseAsset":"BTC","quoteAsset":"USDT"},
-                    {"id":5,"exchangeKey":"m","baseAsset":"ETH","quoteAsset":"USDT"},
-                    {"id":4,"exchangeKey":"m","baseAsset":"SOL","quoteAsset":"USDT"}],"nextWatchId":6}
+        {"watches":[{"id":4,"exchangeKey":"m","baseAsset":"BTC","quoteAsset":"USDT","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0},
+                    {"id":5,"exchangeKey":"m","baseAsset":"ETH","quoteAsset":"USDT","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0},
+                    {"id":4,"exchangeKey":"m","baseAsset":"SOL","quoteAsset":"USDT","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}],"alarms":[],"nextWatchId":6,"nextAlarmId":1}
         """
         let counter = SharedStorage.DropCounter()
         let decoder = JSONDecoder()
@@ -138,10 +138,19 @@ final class SharedStorageTests: XCTestCase {
         XCTAssertThrowsError(try JSONDecoder().decode(SharedStorage.Snapshot.self, from: Data(json.utf8)))
     }
 
-    func testEmptyObjectLoads() throws {
-        let snap = try JSONDecoder().decode(SharedStorage.Snapshot.self, from: Data("{}".utf8))
+    /// Leere Listen laden; fehlt eine immer geschriebene Liste oder ein Zähler, gilt die Datei als unlesbar.
+    func testEmptyListsLoadAndListsAndCountersAreRequired() throws {
+        let snap = try JSONDecoder().decode(SharedStorage.Snapshot.self,
+                                            from: Data(#"{"watches":[],"alarms":[],"nextWatchId":1,"nextAlarmId":1}"#.utf8))
         XCTAssertTrue(snap.watches.isEmpty)
         XCTAssertEqual(snap.nextWatchId, 1)
+        XCTAssertThrowsError(try JSONDecoder().decode(SharedStorage.Snapshot.self, from: Data("{}".utf8)))
+        XCTAssertThrowsError(try JSONDecoder().decode(SharedStorage.Snapshot.self,
+                                                      from: Data(#"{"watches":[],"alarms":[],"nextWatchId":1}"#.utf8)))
+        XCTAssertThrowsError(try JSONDecoder().decode(SharedStorage.Snapshot.self,
+                                                      from: Data(#"{"watches":[],"nextWatchId":1,"nextAlarmId":1}"#.utf8)))
+        XCTAssertThrowsError(try JSONDecoder().decode(SharedStorage.PortfolioAlarmsFile.self, from: Data(#"{"alarms":[]}"#.utf8)))
+        XCTAssertThrowsError(try JSONDecoder().decode(SharedStorage.PortfolioAlarmsFile.self, from: Data(#"{"nextId":1}"#.utf8)))
     }
 
     // MARK: Lesen der Dateien
@@ -178,7 +187,7 @@ final class SharedStorageTests: XCTestCase {
 
     /// Übersprungene Einträge: Original wird gesichert, bevor ein Schreiben sie verwirft.
     func testDroppedEntriesKeepCopyOfOriginal() throws {
-        let json = #"{"watches":[\#(Self.watchBtc)],"alarms":[{"id":1,"watchId":1,"condition":"NEW","threshold":1}]}"#
+        let json = #"{"watches":[\#(Self.watchBtc)],"alarms":[{"id":1,"watchId":1,"condition":"NEW","threshold":1,"enabled":true,"repeating":false,"sound":true,"vibrate":true,"speak":false,"lastTriggeredAt":0,"windowHours":1,"referenceAt":0}],"nextWatchId":2,"nextAlarmId":2}"#
         try write(json, to: watchlist)
         let snap = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
         XCTAssertEqual(snap.watches.count, 1)
@@ -186,8 +195,17 @@ final class SharedStorageTests: XCTestCase {
         XCTAssertEqual(try copyContent(SharedStorage.unreadableCopyURL(of: watchlist)), Data(json.utf8))
     }
 
+    /// Paar ohne Pflichtfeld: übersprungen und gezählt, Original gesichert (wie ein unbekannter Wert).
+    func testIncompleteEntryIsSkippedAndCopyKept() throws {
+        let json = #"{"watches":[\#(Self.watchBtc),{"id":2,"exchangeKey":"binance","baseAsset":"ETH","quoteAsset":"USDT"}],"alarms":[],"nextWatchId":3,"nextAlarmId":1}"#
+        try write(json, to: watchlist)
+        let snap = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
+        XCTAssertEqual(snap.watches.map(\.id), [1])
+        XCTAssertEqual(try copyContent(SharedStorage.unreadableCopyURL(of: watchlist)), Data(json.utf8))
+    }
+
     func testCleanFileMakesNoCopy() throws {
-        try write(#"{"watches":[\#(Self.watchBtc)]}"#, to: watchlist)
+        try write(#"{"watches":[\#(Self.watchBtc)],"alarms":[],"nextWatchId":2,"nextAlarmId":1}"#, to: watchlist)
         XCTAssertNotNil(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
         XCTAssertFalse(FileManager.default.fileExists(atPath: SharedStorage.unreadableCopyURL(of: watchlist).path))
     }
@@ -197,7 +215,7 @@ final class SharedStorageTests: XCTestCase {
     /// Portfolio-Alarme nur in der eigenen Datei, nie in `watchlist.json`; ein zweites Schreiben ändert nichts mehr.
     func testPortfolioAlarmsOnlyInOwnFile() throws {
         var snap = try JSONDecoder().decode(SharedStorage.Snapshot.self,
-                                            from: Data(#"{"watches":[\#(Self.watchBtc)],"nextWatchId":2}"#.utf8))
+                                            from: Data(#"{"watches":[\#(Self.watchBtc)],"alarms":[],"nextWatchId":2,"nextAlarmId":1}"#.utf8))
         snap.portfolioAlarms = [PortfolioAlarm(id: 4, kind: .VALUE_BELOW, threshold: 500, currency: "CHF")]
         snap.nextPortfolioAlarmId = 5
         XCTAssertTrue(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
@@ -222,7 +240,7 @@ final class SharedStorageTests: XCTestCase {
 
     /// nil = unbekannt: Die Datei der Portfolio-Alarme bleibt unberührt.
     func testNilPortfolioAlarmsLeaveFileAlone() throws {
-        try write(#"{"alarms":[{"id":1,"kind":"CHANGE_UP","threshold":5}],"nextId":2}"#, to: portfolioAlarms)
+        try write(#"{"alarms":[{"id":1,"kind":"CHANGE_UP","threshold":5,"enabled":true,"repeating":false,"referenceAt":0,"lastTriggeredAt":0}],"nextId":2}"#, to: portfolioAlarms)
         var snap = SharedStorage.Snapshot()
         snap.watches = []
         XCTAssertNil(snap.portfolioAlarms)
@@ -258,7 +276,7 @@ final class SharedStorageTests: XCTestCase {
 
     func testMergeNewerPricesOnlyForSamePair() throws {
         let decoder = JSONDecoder()
-        var app = try decoder.decode(SharedStorage.Snapshot.self, from: Data(#"{"watches":[\#(Self.watchBtc),\#(Self.watchEth)]}"#.utf8))
+        var app = try decoder.decode(SharedStorage.Snapshot.self, from: Data(#"{"watches":[\#(Self.watchBtc),\#(Self.watchEth)],"alarms":[],"nextWatchId":3,"nextAlarmId":1}"#.utf8))
         app.watches[0].lastPrice = 100
         app.watches[0].lastUpdate = 1_000
         app.watches[1].lastPrice = 10
@@ -273,7 +291,7 @@ final class SharedStorageTests: XCTestCase {
         disk.watches[1].lastPrice = 0.5
         disk.watches[1].lastUpdate = 3_000
         // Neues Paar nur auf der Platte: der Stand der App entscheidet (bleibt draussen)
-        disk.watches.append(try decoder.decode(Watch.self, from: Data(#"{"id":3,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B"}"#.utf8)))
+        disk.watches.append(try decoder.decode(Watch.self, from: Data(#"{"id":3,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}"#.utf8)))
 
         SharedStorage.mergeNewerPrices(from: disk, into: &app)
         XCTAssertEqual(app.watches.map(\.id), [1, 2])
@@ -325,21 +343,21 @@ final class SharedStorageTests: XCTestCase {
         XCTAssertEqual(own.alarms[0].lastTriggeredAt, 9_000)
     }
 
-    /// «Deaktiviert»: Dateien ohne Feld → aktiv; gespeichert und
-    /// wieder gelesen bleibt der Wert erhalten; ein unlesbarer Wert kostet nicht das ganze Paar.
-    func testDisabledDecodesLenientlyAndRoundTrips() throws {
+    /// «Deaktiviert»: gespeichert und wieder gelesen bleibt der Wert erhalten. Immer geschrieben: fehlt das Feld oder
+    /// ist es unlesbar, ist der Eintrag unlesbar (die Merkliste überspringt und zählt ihn).
+    func testDisabledIsRequiredAndRoundTrips() throws {
         let decoder = JSONDecoder()
-        let old = try decoder.decode(Watch.self, from: Data(#"{"id":3,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B"}"#.utf8))
-        XCTAssertFalse(old.disabled)
-        let wrong = try decoder.decode(Watch.self, from: Data(#"{"id":4,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","disabled":"ja"}"#.utf8))
-        XCTAssertFalse(wrong.disabled)
-        var w = old
+        let minimal = try decoder.decode(Watch.self, from: Data(#"{"id":3,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}"#.utf8))
+        XCTAssertFalse(minimal.disabled)
+        XCTAssertThrowsError(try decoder.decode(Watch.self, from: Data(#"{"id":4,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","disabled":"ja","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"priceChangedAt":0}"#.utf8)))
+        XCTAssertThrowsError(try decoder.decode(Watch.self, from: Data(#"{"id":5,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"priceChangedAt":0}"#.utf8)))
+        var w = minimal
         w.disabled = true
         let again = try decoder.decode(Watch.self, from: JSONEncoder().encode(w))
         XCTAssertTrue(again.disabled)
         // Ganze Merkliste: das deaktivierte Paar bleibt deaktiviert, das andere aktiv
         let snapshot = try decoder.decode(SharedStorage.Snapshot.self,
-                                          from: Data(#"{"watches":[\#(Self.watchBtc),{"id":9,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","disabled":true}]}"#.utf8))
+                                          from: Data(#"{"watches":[\#(Self.watchBtc),{"id":9,"exchangeKey":"m","baseAsset":"A","quoteAsset":"B","disabled":true,"exchangeName":"m","contractType":0,"sortOrder":0,"notificationEnabled":true,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"priceChangedAt":0}],"alarms":[],"nextWatchId":10,"nextAlarmId":1}"#.utf8))
         XCTAssertEqual(snapshot.watches.map(\.disabled), [false, true])
     }
 

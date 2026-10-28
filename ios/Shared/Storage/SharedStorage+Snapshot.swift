@@ -34,11 +34,12 @@ extension SharedStorage {
         private enum CodingKeys: String, CodingKey { case alarms, nextId }
 
         /// Unbekannte Einträge (z. B. eine neuere Alarmart nach einem Downgrade) werden übersprungen,
-        /// statt die ganze Datei unlesbar zu machen; die Id läuft nie hinter vergebene Ids zurück.
+        /// statt die ganze Datei unlesbar zu machen; die Id läuft nie hinter vergebene Ids zurück. «alarms» und «nextId»
+        /// werden immer geschrieben: fehlt eines, ist die Datei unlesbar.
         init(from decoder: Decoder) throws {
             let c = try decoder.container(keyedBy: CodingKeys.self)
-            alarms = try SharedStorage.lenientArray(c, .alarms, decoder: decoder) ?? []
-            let stored = (try? c.decodeIfPresent(Int64.self, forKey: .nextId)) ?? 1
+            alarms = try SharedStorage.lenientArray(c, .alarms, decoder: decoder)
+            let stored = try c.decode(Int64.self, forKey: .nextId)
             nextId = SharedStorage.nextId(stored: stored, used: alarms.map(\.id))
         }
     }
@@ -217,12 +218,11 @@ extension SharedStorage {
         init(from decoder: Decoder) throws { value = try? T(from: decoder) }
     }
 
-    /// Liste tolerant lesen: fehlt der Schlüssel (oder null) → nil; ist er keine Liste → Fehler
-    /// (die Datei gilt dann als unlesbar und wird nicht überschrieben); einzelne unlesbare
-    /// Einträge werden übersprungen und gezählt.
+    /// Immer geschriebene Liste lesen: fehlt der Schlüssel oder ist er keine Liste → Fehler (die Datei gilt dann als
+    /// unlesbar und wird nicht überschrieben); einzelne unlesbare Einträge werden übersprungen und gezählt.
     static func lenientArray<T: Decodable, K: CodingKey>(_ c: KeyedDecodingContainer<K>, _ key: K,
-                                                         decoder: Decoder) throws -> [T]? {
-        guard let items = try c.decodeIfPresent([Lenient<T>].self, forKey: key) else { return nil }
+                                                         decoder: Decoder) throws -> [T] {
+        let items = try c.decode([Lenient<T>].self, forKey: key)
         let values = items.compactMap(\.value)
         if values.count < items.count {
             (decoder.userInfo[DropCounter.key] as? DropCounter)?.count += items.count - values.count
@@ -270,24 +270,25 @@ extension SharedStorage.Snapshot {
     /// Ein unbekannter Wert in einem Eintrag (z. B. eine unbekannte `AlarmCondition` oder ein unbekannter
     /// `FuturesContractType`) überspringt nur diesen Eintrag — sonst wäre die ganze Datei unlesbar, und das
     /// Zurückschreiben einer leeren Merkliste löschte alle Paare und Alarme. Die nächsten Ids laufen nie hinter
-    /// vergebene zurück. Die Portfolio-Alarme stehen nicht in `watchlist.json` (bleiben nil, `readFiles` liest sie).
+    /// vergebene zurück. Listen und Zähler werden immer geschrieben: fehlt eines davon, ist die Datei unlesbar. Die
+    /// Portfolio-Alarme stehen nicht in `watchlist.json` (bleiben nil, `readFiles` liest sie).
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        // Doppelte Paar-Ids (z. B. von Hand bearbeitete Datei, alter Fehler) behalten nur den ersten Eintrag —
+        // Doppelte Paar-Ids (z. B. von Hand bearbeitete Datei) behalten nur den ersten Eintrag —
         // sonst stürzt jedes `Dictionary(uniqueKeysWithValues:)` über die Paare ab. Gezählt wie ein
         // übersprungener Eintrag, damit eine Kopie der Datei erhalten bleibt.
-        let decodedWatches: [Watch] = try SharedStorage.lenientArray(c, .watches, decoder: decoder) ?? []
+        let decodedWatches: [Watch] = try SharedStorage.lenientArray(c, .watches, decoder: decoder)
         watches = SharedStorage.uniqueById(decodedWatches) { $0.id }
         if watches.count < decodedWatches.count {
             (decoder.userInfo[SharedStorage.DropCounter.key] as? SharedStorage.DropCounter)?.count +=
                 decodedWatches.count - watches.count
         }
-        alarms = try SharedStorage.lenientArray(c, .alarms, decoder: decoder) ?? []
+        alarms = try SharedStorage.lenientArray(c, .alarms, decoder: decoder)
         // Auch die Paar-Ids der Alarme zählen: Ein übersprungenes Paar darf seine Id nicht an ein neues
         // weitergeben, sonst hinge dessen verwaister Alarm plötzlich an diesem
-        nextWatchId = SharedStorage.nextId(stored: (try? c.decodeIfPresent(Int64.self, forKey: .nextWatchId)) ?? 1,
+        nextWatchId = SharedStorage.nextId(stored: try c.decode(Int64.self, forKey: .nextWatchId),
                                            used: watches.map(\.id) + alarms.map(\.watchId))
-        nextAlarmId = SharedStorage.nextId(stored: (try? c.decodeIfPresent(Int64.self, forKey: .nextAlarmId)) ?? 1,
+        nextAlarmId = SharedStorage.nextId(stored: try c.decode(Int64.self, forKey: .nextAlarmId),
                                            used: alarms.map(\.id))
     }
 }

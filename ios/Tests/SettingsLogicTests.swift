@@ -1004,12 +1004,9 @@ final class NotificationDefaultsTests: XCTestCase {
         XCTAssertEqual(s.watches.first { $0.id == id }?.notificationEnabled, true)
         XCTAssertTrue(Watch.newPairNotificationEnabled)
 
-        // Gespeicherte Paare ohne Angabe: Standard neuer Paare (an)
-        let old = try JSONDecoder().decode(Watch.self, from: Data(
-            #"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR"}"#.utf8))
-        XCTAssertTrue(old.notificationEnabled)
+        // Gespeicherter Wert bleibt
         let off = try JSONDecoder().decode(Watch.self, from: Data(
-            #"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR","notificationEnabled":false}"#.utf8))
+            #"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR","notificationEnabled":false,"contractType":0,"sortOrder":0,"ttsEnabled":false,"lastUpdate":0,"notifiedAt":0,"favorite":false,"disabled":false,"priceChangedAt":0}"#.utf8))
         XCTAssertFalse(off.notificationEnabled)
     }
 

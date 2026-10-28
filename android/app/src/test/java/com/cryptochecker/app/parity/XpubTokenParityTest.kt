@@ -219,7 +219,7 @@ class XpubTokenParityTest {
         assertTrue(WatchedAddressRules.applyFetched(off, 99, "1", null, mapOf("USDT" to "1")).tokenBalances.isEmpty())
         assertEquals(false, WatchedAddressExtras.decode(WatchedAddressExtras.encode(off), off.chain).countTokens)
         assertEquals(0L, WatchedAddressRules.withCountTokens(off, true).lastAttempt)
-        // Ohne Zusatzdaten bleibt die Spalte das alte Array
+        // Ohne Zusatzdaten steht in der Spalte nur das Array der Beobachtungen
         val plain = WatchedAddress(chain = AddressChain.BTC, address = "x", observations = listOf(AddressObservation(5, BigDecimal("0.1"))))
         assertEquals(AddressBalanceHistory.encode(plain.observations), WatchedAddressExtras.encode(plain))
         assertEquals(plain.observations, WatchedAddressExtras.decode("[{\"t\":5,\"b\":\"0.1\"}]", AddressChain.BTC).observations)
@@ -300,17 +300,17 @@ class XpubTokenParityTest {
         // Zwischenspeicher hin und zurück; unpassende Indizes fallen weg
         val cache = XpubCache(listOf("a", "b"), listOf("c"), listOf(1), listOf(0), 42)
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
-        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"ru\":[1,5,-1,1]}"))!!.usedReceive)
+        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"c\":[],\"ru\":[1,5,-1,1],\"cu\":[],\"f\":0}"))!!.usedReceive)
         // Leere benutzte hin und zurück; nur benutzte Indizes bleiben
         val withEmpty = XpubCache(listOf("a", "b"), listOf("c"), listOf(0, 1), listOf(0), 42, emptyReceive = listOf(1), emptyChange = listOf(0))
         assertEquals(withEmpty, XpubCache.fromJson(XpubCache.toJson(withEmpty)))
-        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"ru\":[1],\"re\":[0,1,7]}"))!!.emptyReceive)
+        assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"c\":[],\"ru\":[1],\"cu\":[],\"f\":0,\"re\":[0,1,7]}"))!!.emptyReceive)
         // Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         val limited = cache.copy(limitedFallback = true)
         assertEquals(true, XpubCache.toJson(limited).getBoolean("lf"))
         assertEquals(limited, XpubCache.fromJson(XpubCache.toJson(limited)))
         assertTrue(!XpubCache.toJson(cache).has("lf"))
-        assertEquals(false, XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"lf\":\"ja\"}"))!!.limitedFallback)
+        assertEquals(false, XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"c\":[],\"ru\":[],\"cu\":[],\"f\":0,\"lf\":\"ja\"}"))!!.limitedFallback)
         assertEquals(true, XpubScan(XpubScan.Mode.QUICK, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
         assertEquals(false, XpubScan(XpubScan.Mode.FULL, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
     }
@@ -347,8 +347,8 @@ class XpubTokenParityTest {
         val all = listOf(Bip32.Script.P2PKH, Bip32.Script.P2SH_P2WPKH, Bip32.Script.P2WPKH)
         assertEquals(all, XpubScan.scripts(xpub, null))
         assertEquals(all, XpubScan.scripts(xpub, XpubCache(listOf("a"), fullScan = 5)))
-        // Ohne Skript, mit benutzter Adresse = als P2PKH gefunden
-        assertEquals(listOf(Bip32.Script.P2PKH), XpubScan.scripts(xpub, XpubCache(listOf("a"), usedReceive = listOf(0))))
+        // Ohne gemerkten Typ alle, auch mit benutzter Adresse im Zwischenspeicher
+        assertEquals(all, XpubScan.scripts(xpub, XpubCache(listOf("a"), usedReceive = listOf(0))))
         assertEquals(listOf(Bip32.Script.P2WPKH), XpubScan.scripts(xpub, XpubCache(script = Bip32.Script.P2WPKH)))
         // Erster Typ mit Verlauf; keiner = null (wieder alle prüfen); nur einer = dieser
         assertEquals(Bip32.Script.P2WPKH, XpubScan.pickScript(xpub, listOf(Bip32.Script.P2PKH to 0, Bip32.Script.P2SH_P2WPKH to 0, Bip32.Script.P2WPKH to 2)))
@@ -359,7 +359,9 @@ class XpubTokenParityTest {
         assertEquals("P2SH_P2WPKH", XpubCache.toJson(cache).getString("s"))
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
         assertTrue(!XpubCache.toJson(cache.copy(script = null)).has("s"))
-        assertNull(XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"s\":\"P2XX\"}"))!!.script)
+        assertNull(XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"c\":[],\"ru\":[],\"cu\":[],\"f\":0,\"s\":\"P2XX\"}"))!!.script)
+        // Ohne ein immer geschriebenes Feld: kein Zwischenspeicher
+        assertNull(XpubCache.fromJson(JsonObject("{\"r\":[\"a\"],\"c\":[],\"ru\":[],\"cu\":[]}")))
     }
 
     @Test

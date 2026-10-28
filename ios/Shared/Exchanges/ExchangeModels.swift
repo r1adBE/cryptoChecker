@@ -66,7 +66,7 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
     var isRolling: Bool { self != .none && !isPerpetual }
 
     /// Verfallstag als «yyMMdd», abgelesen an der Kennung der Börse (etwa «BTCUSDT_251226» oder COIN-M
-    /// «2:BTCUSD_251226»); nil, wenn kein Datum drinsteht (Perpetual, alte Kennungen). Abfragen richten sich
+    /// «2:BTCUSD_251226»); nil, wenn kein Datum drinsteht (Perpetual). Abfragen richten sich
     /// immer nach dieser Kennung, nie nach dem Kalender. Wie `FuturesContractType.deliveryCodeOf` (Android).
     static func deliveryCode(of pairId: String?) -> String? {
         guard let trimmed = pairId?.trimmingCharacters(in: .whitespaces),

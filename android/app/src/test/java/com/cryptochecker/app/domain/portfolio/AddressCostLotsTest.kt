@@ -105,9 +105,9 @@ class AddressCostLotsTest {
         assertTrue(json.getJSONObject(0).has("costLots"))
         val back = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(JsonArray(json.toString())))
         assertEquals(lots, back.single().costLots)
-        // Ältere Sicherung ohne das Feld: Adresse ohne Posten
-        val old = JsonArray("""[{"chain":"BTC","address":"$btc","addedAt":5}]""")
-        val restored = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(old))
+        // Sicherung ohne das Feld (ohne Posten weggelassen): Adresse ohne Posten
+        val plain = JsonArray("""[{"chain":"BTC","address":"$btc","addedAt":5}]""")
+        val restored = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(plain))
         assertTrue(restored.single().costLots.isEmpty())
         // Ohne Posten schreibt die Sicherung das Feld nicht
         assertFalse(WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(listOf(a.copy(costLots = emptyList())))).getJSONObject(0).has("costLots"))

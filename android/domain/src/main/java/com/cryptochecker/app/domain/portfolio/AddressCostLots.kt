@@ -347,7 +347,7 @@ object AddressCostLots {
         return array
     }
 
-    /** Lesen; unlesbare Einträge fallen weg ([clean]). */
+    /** Lesen; unlesbare Einträge (auch ohne die immer geschriebene «id») fallen weg ([clean]). */
     fun fromJson(array: JsonArray?): List<AddressCostLot> {
         if (array == null) return emptyList()
         val out = ArrayList<AddressCostLot>()
@@ -355,7 +355,7 @@ object AddressCostLots {
             val o = array.optJSONObject(i) ?: continue
             val amount = PortfolioDecimal.parse(o.opt("amount") as? String) ?: continue
             out += AddressCostLot(
-                id = (o.opt("id") as? Number)?.toLong() ?: (i + 1L),
+                id = (o.opt("id") as? Number)?.toLong() ?: continue,
                 coin = o.opt("coin") as? String ?: continue,
                 time = (o.opt("t") as? Number)?.toLong() ?: continue,
                 amount = amount,

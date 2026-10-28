@@ -19,8 +19,8 @@ struct SingleEntry: TimelineEntry {
     /// Kerzen oder Linie.
     let chartType: WidgetChartTypeOption
     let theme: WidgetThemeOption
-    /// Werte aus den App-Einstellungen: beim Erstellen des Eintrags EINMAL dekodiert (vorher je Feld
-    /// und bei jedem Zeichnen erneut).
+    /// Werte aus den App-Einstellungen: beim Erstellen des Eintrags EINMAL dekodiert (nicht je Feld und bei jedem
+    /// Zeichnen erneut).
     let accent: AccentColor
     /// Kursfarben aus der App-Einstellung.
     var priceColors: PriceColorScheme

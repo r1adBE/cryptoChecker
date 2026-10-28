@@ -512,12 +512,13 @@ class PortfolioHistoryTest {
             addresses = listOf(observed(noon(today - 20) to "2")),
         )
         assertEquals(2.0 * (110.0 - 93.0), week.pnlChange!!, d)
-        // Adress-Einzahlung in den Transaktionen (negative Id): nie rückwirkend — zählt gar nicht
-        val legacy = PortfolioHistory.build(
+        // Zusammengeführte Adress-Einzahlung ([AddressBalance.withAddresses], negative Id) ohne beobachtete Reihe:
+        // nie rückwirkend — zählt gar nicht
+        val merged = PortfolioHistory.build(
             listOf(buy("BTC", 1.0, noon(today - 5)), PortfolioTrade(-1, "BTC", PortfolioTxType.DEPOSIT, 2.0, null, noon(today - 20))),
             closes, mapOf("BTC" to 110.0), PortfolioHistoryRange.WEEK, today,
         )
-        assertEquals(110.0, legacy.points.last().value, d)
+        assertEquals(110.0, merged.points.last().value, d)
     }
 
     @Test

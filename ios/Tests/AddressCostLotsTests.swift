@@ -110,8 +110,9 @@ final class AddressCostLotsTests: XCTestCase {
         XCTAssertNotNil((array.first as? [String: Any])?["costLots"])
         let back = WatchedAddressRules.merge([], WatchedAddressRules.entries(fromJSON: array))
         XCTAssertEqual(back.first?.costLots, lots)
-        let old: [Any] = [["chain": "BTC", "address": btc, "addedAt": 5]]
-        XCTAssertEqual(WatchedAddressRules.merge([], WatchedAddressRules.entries(fromJSON: old)).first?.costLots, [])
+        // Sicherung ohne das Feld (ohne Posten weggelassen): Adresse ohne Posten
+        let plain: [Any] = [["chain": "BTC", "address": btc, "addedAt": 5]]
+        XCTAssertEqual(WatchedAddressRules.merge([], WatchedAddressRules.entries(fromJSON: plain)).first?.costLots, [])
     }
 
     func testExportTradesAddLotsAndFrHistoryWithoutLottedPart() {

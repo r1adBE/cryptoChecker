@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Auch Alarm-Sätze, Funding, Spot-Kennzahlen und Schwellen ihre Prozente über `PercentText`
-/// (vorher `NumberFormatter.percent` oder « %» von Hand) — Zeichen für Zeichen wie Android
+/// — Zeichen für Zeichen wie Android
 /// (`AlarmSentenceTest`, `PercentTextTest`, `PortfolioWidgetMathTest`).
 final class PercentCallersTests: XCTestCase {
     private let us = Locale(identifier: "en_US")

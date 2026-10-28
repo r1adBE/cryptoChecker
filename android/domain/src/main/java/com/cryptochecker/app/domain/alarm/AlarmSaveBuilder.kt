@@ -5,8 +5,8 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 
 /**
  * Gespeicherter Alarm aus den Eingaben des Editors und dem GESPEICHERTEN Stand: Der bestehende Alarm
- * wird in derselben Transaktion gelesen, in der gespeichert wird (WatchRepository.saveAlarmMerged). Vorher kam er aus
- * dem Zwischenstand der Oberfläche — hatte eine Aktualisierung den Alarm eben ausgelöst, überschrieb das Speichern
+ * wird in derselben Transaktion gelesen, in der gespeichert wird (WatchRepository.saveAlarmMerged), nicht aus dem
+ * Zwischenstand der Oberfläche — hätte eine Aktualisierung den Alarm eben ausgelöst, überschriebe das Speichern sonst
  * diesen Zustand mit dem alten (scharf) und er meldete ein zweites Mal. Reines Kotlin.
  */
 object AlarmSaveBuilder {

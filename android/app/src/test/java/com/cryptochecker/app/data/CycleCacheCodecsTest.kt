@@ -32,8 +32,8 @@ import java.time.LocalDate
 
 /**
  * Speicherformate der Markt-Bereiche ([CycleCacheCodecs], Hilfen [CycleCacheJson]): Hin und zurück über den Text der
- * Datei, fehlende oder nicht endliche Zahlen fallen weg, ältere Einträge ohne neue Felder bleiben lesbar, kaputte
- * Einträge werfen (der Zwischenspeicher gilt dann als leer).
+ * Datei, fehlende oder nicht endliche Zahlen fallen weg, Einträge ohne die nur bei einem Wert geschriebenen Felder
+ * bleiben lesbar, kaputte Einträge werfen (der Zwischenspeicher gilt dann als leer).
  */
 class CycleCacheCodecsTest {
 

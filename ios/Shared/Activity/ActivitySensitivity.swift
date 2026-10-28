@@ -85,7 +85,7 @@ struct SignalThresholds: Equatable, Sendable {
         if value.isNaN || signal.factor?.isNaN == true { return nil }
         switch signal.kind {
         case .PRICE_MOVE:
-            // Ältere gespeicherte Signale ohne z: nur nach der Bewegung beurteilen
+            // Gespeicherte Signale ohne z (nicht endlich, als null gespeichert): nur nach der Bewegung beurteilen
             let z = signal.factor.map { abs($0) }
             if let z, z < priceZ { return nil }
             if value < priceMinMovePercent { return nil }

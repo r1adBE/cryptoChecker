@@ -5,7 +5,6 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.exchange.BinanceFutures
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -23,11 +22,6 @@ class BinanceFuturesUrlTest {
             m.tickerAddress(0, PairQuery("BTC", "USD", "2:BTCUSD_260327", FuturesContractType.BIQUARTERLY)))
         assertEquals("https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT",
             m.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT", FuturesContractType.PERPETUAL)))
-        // Ältere Kennung ohne Verfallstag: Kalender als Notbehelf
-        val prefix = "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT_"
-        val legacy = m.tickerAddress(0, PairQuery("BTC", "USDT", "BTCUSDT", FuturesContractType.QUARTERLY))
-        assertTrue(legacy, legacy.startsWith(prefix))
-        assertEquals(prefix.length + 6, legacy.length)
     }
 
     /** Nur «TRADING»-Kontrakte sind wählbar (USD-M «status», COIN-M «contractStatus»). Wie iOS `BinanceFuturesPairsTests`. */

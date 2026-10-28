@@ -1320,7 +1320,7 @@
     ]
   },
   "backupJson": {
-    "text": "[{\"chain\":\"BTC\",\"address\":\"bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\",\"label\":\"Cold\",\"addedAt\":1760000000000},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"addedAt\":0},{\"chain\":\"DOGE\",\"address\":\"x\"},{\"chain\":\"BTC\"},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"label\":null}]",
+    "text": "[{\"chain\":\"BTC\",\"address\":\"bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\",\"label\":\"Cold\",\"addedAt\":1760000000000},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"addedAt\":0},{\"chain\":\"DOGE\",\"address\":\"x\"},{\"chain\":\"BTC\"},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"label\":null,\"addedAt\":0},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"label\":\"ohne addedAt\"}]",
     "expected": [
       {
         "chain": "BTC",

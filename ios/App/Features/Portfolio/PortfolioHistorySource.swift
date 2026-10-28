@@ -2,8 +2,7 @@ import Foundation
 import os
 
 /// Tagesschlüsse eines Coins und wie viele Tage bis heute dafür abgefragt wurden (`span`);
-/// `ranges` = Eröffnung/Hoch/Tief derselben Kerzen (nil bei Einträgen ohne dieses Feld — Kerzen
-/// dann ohne Docht, bis der Eintrag nach 12 h neu geholt wird).
+/// `ranges` = Eröffnung/Hoch/Tief derselben Kerzen (nil beim leeren Eintrag ohne Paar).
 struct PortfolioCoinCloses: Codable, Sendable {
     let closes: [Int: Double]
     let span: Int
@@ -306,7 +305,6 @@ enum PortfolioHistorySource {
            CycleCachePolicy.isFresh(savedAt: hit.at, now: now, ttl: ttl) {
             return hit.entry
         }
-        // Ältere Einträge (nur Schlüsse, ohne Spanne) sind nicht lesbar und werden neu geholt
         let stored = CycleCache.read(cacheKey(coin), as: PortfolioCoinCloses.self)
         if let stored, stored.value.span >= span, CycleCachePolicy.isFresh(savedAt: stored.savedAt, now: now, ttl: ttl) {
             remember(coin, stored.value, at: stored.savedAt)

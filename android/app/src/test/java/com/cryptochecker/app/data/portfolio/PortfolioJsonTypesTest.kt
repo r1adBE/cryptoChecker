@@ -71,8 +71,6 @@ class PortfolioJsonTypesTest {
         assertNull(PortfolioJson.jsonToTx(PortfolioJson.txToJson(buy))!!.acquiredTime)
         assertNull(buy.toTrade().acquiredTime)
         assertNull(PortfolioJson.cleanAcquiredTime(PortfolioTxType.DEPOSIT, 0L))
-        // Ältere Sicherung ohne Feld
-        assertNull(PortfolioJson.jsonToTx(PortfolioJson.txToJson(deposit).apply { remove("acquiredTime") })!!.acquiredTime)
     }
 
     /** Schenkung an Ehe-/Lebenspartner als eigenes Feld — übersteht Sicherung und Systemsicherungs-Kopie. Wie iOS. */

@@ -3,7 +3,7 @@ import Foundation
 /// Zwischenspeicher eines beobachteten xpub/ypub/zpub — wie `XpubCache` (Kotlin): abgeleitete Adressen je Kette
 /// (0 = Empfang, 1 = Wechselgeld, Index = Position) und die benutzten Indizes (mindestens eine Transaktion). `fullScan` =
 /// letzte vollständige Suche (ms, 0 = nie). `script` = gefundener Adresstyp eines xpub (Segwit-Konto mit xpub,
-/// `XpubScan.scripts`); nil = noch keiner mit Verlauf (in alten Zwischenspeichern immer nil: P2PKH).
+/// `XpubScan.scripts`); nil = noch keiner mit Verlauf.
 /// `emptyReceive`/`emptyChange` = benutzte Indizes ohne Guthaben beim letzten Abruf: QUICK und BACKGROUND fragen
 /// sie nicht erneut (nur FULL), sonst scheitert ein xpub mit vielen benutzten Adressen an `XpubScan.maxRequests`.
 /// `limitedFallback` = die tägliche vollständige Suche war zu gross und wurde durch die schnelle ersetzt;
@@ -44,9 +44,13 @@ struct XpubCache: Codable, Equatable, Sendable {
     private enum CodingKeys: String, CodingKey { case r, c, ru, cu, f, s, re, ce, lf }
 
     /// Gleiche Kurzform wie Android (`{"r":[…],"c":[…],"ru":[…],"cu":[…],"f":…,"s":"P2WPKH","re":[…],"ce":[…],"lf":true}`,
-    /// «s», «re», «ce» nur wenn vorhanden, «lf» nur wenn true); unlesbare Teile = leer, unbekannter Typ = keiner.
+    /// «s», «re», «ce» nur wenn vorhanden, «lf» nur wenn true); ohne eines der immer geschriebenen Felder («r», «c», «ru»,
+    /// «cu», «f») unlesbar (wie Android: kein Zwischenspeicher), unlesbare Teile = leer, unbekannter Typ = keiner.
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
+        for key in [CodingKeys.r, .c, .ru, .cu, .f] where !c.contains(key) {
+            throw DecodingError.keyNotFound(key, .init(codingPath: c.codingPath, debugDescription: key.stringValue))
+        }
         let receive = (try? c.decodeIfPresent([String].self, forKey: .r)) ?? []
         let change = (try? c.decodeIfPresent([String].self, forKey: .c)) ?? []
         self.receive = receive.contains(where: \.isEmpty) ? [] : receive
@@ -231,13 +235,11 @@ final class XpubScan {
                   limitedFallback: mode != .FULL && old.limitedFallback)
     }
 
-    /// Adresstypen der Suche in dieser Reihenfolge — wie Android `scripts`: ypub/zpub/Taproot-Konto nur ihr Typ; xpub mit gemerktem Typ
-    /// oder mit benutzten Adressen im alten Zwischenspeicher (P2PKH) nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH
-    /// (Ledger Live zeigt die xpub auch für Segwit-Konten). `cache` muss zum Schlüssel gehören.
+    /// Adresstypen der Suche in dieser Reihenfolge — wie Android `scripts`: ypub/zpub/Taproot-Konto nur ihr Typ; xpub mit
+    /// gemerktem Typ nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH (Ledger Live zeigt die xpub auch für Segwit-Konten). `cache` muss zum Schlüssel gehören.
     static func scripts(_ key: Bip32.ExtendedKey, cache: XpubCache?) -> [Bip32.Script] {
         guard key.detectsScript else { return [key.script] }
         if let s = cache?.script { return [s] }
-        if let cache, cache.usedCount > 0 { return [.p2pkh] }
         return [.p2pkh, .p2shP2wpkh, .p2wpkh]
     }
 

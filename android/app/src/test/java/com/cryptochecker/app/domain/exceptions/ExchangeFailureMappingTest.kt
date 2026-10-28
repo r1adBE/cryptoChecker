@@ -77,7 +77,7 @@ class ExchangeFailureMappingTest {
         assertFalse(NotTraded.confirmedBySingle(false, null, ExchangeFailure.Other))
         assertFalse(NotTraded.confirmedBySingle(false, "", IllegalStateException().toExchangeFailure()))
         assertFalse(NotTraded.confirmedBySingle(false, " ", ExchangeFailure.Parse))
-        // Ohne Art (gespeicherte Ergebnisse) wie bisher
+        // Ohne Art (gespeicherte Ergebnisse): leerer Text bestätigt
         assertTrue(NotTraded.confirmedBySingle(false, null))
     }
 }

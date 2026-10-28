@@ -46,17 +46,17 @@ struct PortfolioAlarm: Codable, Identifiable, Hashable, Sendable {
         self.lastTriggeredValue = lastTriggeredValue
     }
 
-    // Fehlende Felder → Standard (tolerant wie `Alarm`)
+    // Pflicht sind die immer geschriebenen Felder (wie `Alarm`); Währung und letzter Wert stehen nur mit Wert in der Datei.
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         id = try c.decode(Int64.self, forKey: .id)
         kind = try c.decode(PortfolioAlarmKind.self, forKey: .kind)
         threshold = try c.decode(Double.self, forKey: .threshold)
         currency = try? c.decodeIfPresent(String.self, forKey: .currency)
-        enabled = (try? c.decodeIfPresent(Bool.self, forKey: .enabled)) ?? true
-        repeating = (try? c.decodeIfPresent(Bool.self, forKey: .repeating)) ?? false
-        referenceAt = (try? c.decodeIfPresent(Int64.self, forKey: .referenceAt)) ?? 0
-        lastTriggeredAt = (try? c.decodeIfPresent(Int64.self, forKey: .lastTriggeredAt)) ?? 0
+        enabled = try c.decode(Bool.self, forKey: .enabled)
+        repeating = try c.decode(Bool.self, forKey: .repeating)
+        referenceAt = try c.decode(Int64.self, forKey: .referenceAt)
+        lastTriggeredAt = try c.decode(Int64.self, forKey: .lastTriggeredAt)
         lastTriggeredValue = try? c.decodeIfPresent(Double.self, forKey: .lastTriggeredValue)
     }
 }

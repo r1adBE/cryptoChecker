@@ -278,7 +278,7 @@ struct WatchedAddressBackupEntry: Codable, Equatable, Sendable {
         chain = try c.decode(AddressChain.self, forKey: .chain)
         address = try c.decode(String.self, forKey: .address)
         label = try c.decodeIfPresent(String.self, forKey: .label)
-        addedAt = try c.decodeIfPresent(Int64.self, forKey: .addedAt) ?? 0
+        addedAt = try c.decode(Int64.self, forKey: .addedAt)
         observations = AddressBalanceHistory.clean(
             (try? c.decodeIfPresent([AddressObservation].self, forKey: .observations)) ?? [])
         countTokens = (try? c.decodeIfPresent(Bool.self, forKey: .countTokens)) ?? true

@@ -348,7 +348,10 @@ object WatchedAddressRules {
         return array
     }
 
-    /** Lesen; unlesbare Einträge (unbekanntes Netz, keine Adresse) fallen weg — geprüft wird in [merge]. */
+    /**
+     * Lesen; unlesbare Einträge (unbekanntes Netz, keine Adresse, kein `addedAt`) fallen weg — geprüft wird in [merge].
+     * Die übrigen Felder schreibt [toJson] nur bei einem Wert ausser dem Standard.
+     */
     fun fromJson(array: JsonArray?): List<WatchedAddressBackupEntry> {
         if (array == null) return emptyList()
         val out = ArrayList<WatchedAddressBackupEntry>()
@@ -357,6 +360,7 @@ object WatchedAddressRules {
             val chain = AddressChain.fromName(o.optString("chain")) ?: continue
             val address = o.optString("address").takeIf { it.isNotEmpty() } ?: continue
             val label = if (o.isNull("label")) null else o.optString("label")
+            if (!o.has("addedAt")) continue
             val addedAt = o.optLong("addedAt", 0L)
             val observations = AddressBalanceHistory.fromJson(o.optJSONArray("observations"))
             val countTokens = o.opt("countTokens") as? Boolean ?: true

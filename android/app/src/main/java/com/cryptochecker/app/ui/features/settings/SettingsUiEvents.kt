@@ -1,6 +1,6 @@
 // Einstellungen › Alarme › Kursbenachrichtigungen › Paare: Erlaubnis-Abfrage nach dem Schreiben als Einmal-Ereignis
 // für den GERADE gezeigten Bildschirm (Muster wie `WatchUiEvents`/`AlarmEditorEffects`).
-// Vorher ein Rückruf in die Komposition, die beim Tippen bestand: nach dem Drehen während der Rückfrage «nicht gespeichert» traf er
+// Ein Rückruf in die Komposition, die beim Tippen bestand, träfe nach dem Drehen während der Rückfrage «nicht gespeichert»
 // den abgemeldeten Launcher.
 package com.cryptochecker.app.ui.features.settings
 

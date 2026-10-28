@@ -68,8 +68,8 @@ enum BackupRestoreLimits {
     }
 
     /// Was nach `accept` bzw. `limit` übernommen wird; `droppedPairs`/`droppedAlarms` = wie viele wegen der Grenzen
-    /// wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine eigene ältere Sicherung mit mehr Paaren
-    /// oder Alarmen verlöre sonst still Daten (wie Android `Limited`).
+    /// wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine Sicherung mit mehr Paaren oder
+    /// Alarmen als erlaubt verlöre sonst still Daten (wie Android `Limited`).
     struct Limited {
         var watches: [Watch]
         var alarms: [Alarm]

@@ -67,7 +67,7 @@ data class SignalThresholds(
         if (value.isNaN() || signal.factor?.isNaN() == true) return null
         return when (signal.kind) {
             SignalKind.PRICE_MOVE -> {
-                // Gespeicherte Signale ohne z: nur nach der Bewegung beurteilen
+                // Gespeicherte Signale ohne z (nicht endlich, als null gespeichert): nur nach der Bewegung beurteilen
                 val z = signal.factor?.let { abs(it) }
                 if ((z != null && z < priceZ) || value < priceMinMovePercent) null
                 else if ((z != null && z >= priceStrongZ) || value >= priceStrongMovePercent) SignalSeverity.STRONG

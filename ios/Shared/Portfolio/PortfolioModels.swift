@@ -18,7 +18,7 @@ import Foundation
 ///  - `PAYMENT`: «Damit bezahlt» — Tausch gegen Waren/Dienstleistungen: überall eine Veräusserung zum MARKTWERT wie
 ///    ein Verkauf (`isSaleLike`), Steuer-Export «Zahlung mit Krypto»; ohne Preis zum Tagesschluss geschätzt. Wie Android.
 /// Unbekannte Arten werden beim Lesen verworfen (gezählt,
-/// kein Absturz). Rohwert als Text: ein neuer Fall liest alte Dateien unverändert.
+/// kein Absturz). Gespeichert als Name des Falls (Rohwert als Text).
 enum PortfolioTxType: String, Codable, CaseIterable, Sendable {
     case BUY
     case SELL
@@ -205,17 +205,18 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         PortfolioDecimal.parse((try? c.decodeIfPresent(String.self, forKey: key)) ?? nil)
     }
 
-    // Tolerant: fehlende Nebenfelder bekommen Standardwerte; ohne Coin, Art
-    // oder gültige Menge ist der Eintrag unbrauchbar (wird beim Laden übersprungen).
+    // Pflicht sind die Felder, die `encode` immer schreibt (Id, Coin, Art, Menge, Zeit, Gebühr-Zeile, Zins); die übrigen
+    // stehen nur mit Wert in der Datei. Ohne Pflichtfeld oder gültige Menge ist der Eintrag unbrauchbar (wird beim Laden
+    // übersprungen und gezählt).
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        id = (try? c.decodeIfPresent(Int64.self, forKey: .id)) ?? 0
+        id = try c.decode(Int64.self, forKey: .id)
         let rawCoin = try c.decode(String.self, forKey: .coin)
         coin = PortfolioCalculator.normalizeCoin(rawCoin)
         type = try c.decode(PortfolioTxType.self, forKey: .type)
         amountExact = Self.decimal(c, .amountText) ?? 0
         priceExact = Self.decimal(c, .priceText).flatMap { $0 >= 0 ? $0 : nil }
-        time = (try? c.decodeIfPresent(Int64.self, forKey: .time)) ?? 0
+        time = try c.decode(Int64.self, forKey: .time)
         note = (try? c.decodeIfPresent(String.self, forKey: .note)) ?? nil
         // Fehlen = keine Angabe, ungültig = keine Gebühr
         feeExact = Self.validFee(Self.decimal(c, .feeText))
@@ -254,9 +255,9 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
             }
         }
         importBatch = PortfolioImportBatch.clean((try? c.decodeIfPresent(String.self, forKey: .importBatch)) ?? nil)
-        // Gebühr-Zeile und Zins: fehlt = nein
-        feeRow = (((try? c.decodeIfPresent(Bool.self, forKey: .feeRow)) ?? nil) ?? false) && type == .SELL
-        interest = (((try? c.decodeIfPresent(Bool.self, forKey: .interest)) ?? nil) ?? false) && type == .REWARD
+        // Gebühr-Zeile und Zins: nur bei Verkauf bzw. Belohnung
+        feeRow = try c.decode(Bool.self, forKey: .feeRow) && type == .SELL
+        interest = try c.decode(Bool.self, forKey: .interest) && type == .REWARD
         guard !coin.isEmpty, amountExact > 0 else {
             throw DecodingError.dataCorruptedError(forKey: .amountText, in: c, debugDescription: "Ungültige Transaktion")
         }
@@ -318,15 +319,14 @@ struct PortfolioFile: Codable, Sendable {
         init(from decoder: Decoder) throws { tx = try? PortfolioTx(from: decoder) }
     }
 
+    /// «transactions» und «nextId» werden immer geschrieben: fehlt eines oder ist «transactions» keine Liste, ist die
+    /// ganze Datei unlesbar (`PortfolioStore.loadChecked`: nicht intakt, wird nicht als leeres Portfolio überschrieben).
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        let decoded = (try? c.decodeIfPresent([Lossy].self, forKey: .transactions)) ?? nil
-        let raw = decoded ?? []
+        let raw = try c.decode([Lossy].self, forKey: .transactions)
         transactions = raw.compactMap(\.tx)
         dropped = raw.count - transactions.count
-        // «transactions» da, aber keine Liste: ganze Datei beschädigt — nicht als leeres Portfolio überschreiben
-        if decoded == nil && c.contains(.transactions) { dropped = max(dropped, 1) }
-        nextId = (try? c.decodeIfPresent(Int64.self, forKey: .nextId)) ?? 1
+        nextId = try c.decode(Int64.self, forKey: .nextId)
     }
 
     func encode(to encoder: Encoder) throws {

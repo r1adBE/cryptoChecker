@@ -241,7 +241,7 @@ class DatabaseFreshInstallTest {
         db.query("SELECT COUNT(*) FROM $from").use { c -> c.moveToFirst(); c.getInt(0) }
 
     internal companion object {
-        const val TEST_DB = "migration-test.db"
-        const val TEST_PORTFOLIO_DB = "migration-test-portfolio.db"
+        const val TEST_DB = "fresh-install-test.db"
+        const val TEST_PORTFOLIO_DB = "fresh-install-test-portfolio.db"
     }
 }

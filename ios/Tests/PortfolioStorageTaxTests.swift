@@ -76,7 +76,8 @@ final class PortfolioStorageTaxTests: XCTestCase {
         missing.removeValue(forKey: "feeRow")
         missing.removeValue(forKey: "interest")
         let missingData = try JSONSerialization.data(withJSONObject: missing)
-        XCTAssertFalse(try JSONDecoder().decode(PortfolioTx.self, from: missingData).feeRow, "fehlendes Feld = nein")
+        // Immer geschrieben: ohne die Felder ist der Eintrag unbrauchbar
+        XCTAssertThrowsError(try JSONDecoder().decode(PortfolioTx.self, from: missingData))
         var explicit = object
         explicit["feeRow"] = false
         XCTAssertFalse(try JSONDecoder().decode(PortfolioTx.self, from: JSONSerialization.data(withJSONObject: explicit)).feeRow)

@@ -129,9 +129,6 @@ class PairCandlesTest {
 
     @Test
     fun binanceQuarterlyUsesOwnContractCandles() = runBlocking {
-        val code = BinanceFuturesCandles.deliveryCode(FuturesContractType.QUARTERLY)!!
-        assertEquals(6, code.length)
-        assertNull(BinanceFuturesCandles.deliveryCode(FuturesContractType.PERPETUAL))
         val body = "[[1760400000000, \"62000\", \"62100\", \"61900\", \"62050\", \"10\", 1760403599999, \"620500\"]," +
             "[1760403600000, \"62050\", \"62200\", \"62000\", \"62150\", \"12\", 1760407199999, \"745800\"]]"
         // USDⓈ-M: Symbol der Börse aus der Paarliste, nie aus dem Kalender (Abrechnung Freitag 08:00 UTC)
@@ -151,11 +148,8 @@ class PairCandlesTest {
         assertEquals(listOf("https://dapi.binance.com/dapi/v1/klines?symbol=BTCUSD_250926&interval=1d&limit=2"), urls)
         // Zweites Quartal: eigenes Symbol
         assertEquals("BTCUSDT_260327" to false, BinanceFuturesCandles.id(pair(FuturesContractType.BIQUARTERLY, "BinanceFutures", "BTCUSDT_260327")))
-        // Ältere Kennung ohne Verfallstag: Kalender als Notbehelf
-        val next = BinanceFuturesCandles.deliveryCode(FuturesContractType.BIQUARTERLY)!!
-        assertTrue(next > code)
-        assertEquals("BTCUSDT_$code" to false, BinanceFuturesCandles.id(pair(FuturesContractType.QUARTERLY, "BinanceFutures", "BTCUSDT")))
-        assertEquals("BTCUSD_$next" to true, BinanceFuturesCandles.id(pair(FuturesContractType.BIQUARTERLY, "BinanceFutures", "2:BTCUSD", quote = "USD")))
+        // Laufzeit-Kontrakt ohne Verfallstag in der Kennung: kein Symbol, kein Chart (nie aus dem Kalender)
+        assertNull(BinanceFuturesCandles.id(pair(FuturesContractType.QUARTERLY, "BinanceFutures", "BTCUSDT")))
         // Perpetual unverändert
         assertEquals("BTCUSD_PERP" to true, BinanceFuturesCandles.id(pair(FuturesContractType.PERPETUAL, "BinanceFutures", "2:BTCUSD_PERP", quote = "USD")))
         // Andere Börse mit Laufzeit-Kontrakt: keine eigene Quelle → kein Chart, keine Ausweich-Reihe

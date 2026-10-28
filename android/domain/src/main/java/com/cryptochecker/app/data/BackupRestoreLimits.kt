@@ -65,8 +65,8 @@ object BackupRestoreLimits {
 
     /**
      * Was nach [accept] bzw. [limit] übernommen wird; [droppedPairs]/[droppedAlarms] = wie viele wegen der Grenzen
-     * wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine eigene ältere Sicherung mit mehr Paaren
-     * oder Alarmen verlöre sonst still Daten.
+     * wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine Sicherung mit mehr Paaren oder
+     * Alarmen als erlaubt verlöre sonst still Daten.
      */
     data class Limited<W, A>(val watches: List<W>, val alarms: List<A>, val droppedPairs: Int = 0, val droppedAlarms: Int = 0)
 

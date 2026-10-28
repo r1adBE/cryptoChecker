@@ -74,8 +74,8 @@ class DayReferenceCacheTest {
             now,
         )
         assertEquals(mapOf(dayUtc to 2.0), restored.getValue("BTC|USDT").starts)
-        // Ältere Einträge ohne Tagesbeginne bleiben gültig
-        val old = DayReferenceCache.restore(DayReferenceCache.FORMAT_VERSION, listOf(Stored("ETH|USDT", now - hour, 1.0, 1.0)), now)
-        assertTrue(old.getValue("ETH|USDT").starts.isEmpty())
+        // Einträge ohne Tagesbeginne («s» nur bei Kerzen geschrieben) bleiben gültig
+        val noStarts = DayReferenceCache.restore(DayReferenceCache.FORMAT_VERSION, listOf(Stored("ETH|USDT", now - hour, 1.0, 1.0)), now)
+        assertTrue(noStarts.getValue("ETH|USDT").starts.isEmpty())
     }
 }

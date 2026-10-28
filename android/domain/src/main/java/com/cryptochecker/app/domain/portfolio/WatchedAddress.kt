@@ -147,7 +147,7 @@ data class WatchedAddressBackupEntry(
 
 /**
  * Zusatzdaten einer beobachteten Adresse in EINER Text-Spalte (Android: `observations` der Tabelle
- * `watched_addresses`, ohne neue Spalte). Ohne Zusatzdaten nur das Array der Beobachtungen
+ * `watched_addresses`). Ohne Zusatzdaten nur das Array der Beobachtungen
  * (`[{"t":…,"b":"…"}]`, [AddressBalanceHistory.encode]); mit Zusatzdaten ein Objekt:
  * `{"o":[…],"tb":{"USDT":"12.5"},"to":{"USDT":[…]},"tokens":false,"x":{…},"n":["BSC"],"show":false,"uk":2}` —
  * «tokens»/«show» nur, wenn aus; «x» = [XpubCache]; «n» = EVM-Netze; «uk» = unbekannte Solana-Token; «ovl»: true =

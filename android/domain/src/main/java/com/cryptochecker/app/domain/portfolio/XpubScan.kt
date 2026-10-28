@@ -48,9 +48,12 @@ data class XpubCache(
             .apply { if (c.emptyChange.isNotEmpty()) put("ce", JsonArray(c.emptyChange)) }
             .apply { if (c.limitedFallback) put("lf", true) }
 
-        /** Lesen; unlesbare Teile = leer (dann sucht die nächste Aktualisierung vollständig). */
+        /**
+         * Lesen; ohne eines der immer geschriebenen Felder («r», «c», «ru», «cu», «f») kein Zwischenspeicher, unlesbare
+         * Teile = leer (dann sucht die nächste Aktualisierung vollständig).
+         */
         fun fromJson(o: JsonObject?): XpubCache? {
-            if (o == null) return null
+            if (o == null || REQUIRED.any { !o.has(it) }) return null
             fun strings(key: String): List<String> {
                 val a = o.optJSONArray(key) ?: return emptyList()
                 return (0 until a.length()).map { a.optString(it) }.takeIf { list -> list.all { it.isNotEmpty() } } ?: emptyList()
@@ -78,6 +81,9 @@ data class XpubCache(
                 limitedFallback = o.opt("lf") == true,
             )
         }
+
+        /** Felder, die [toJson] immer schreibt. */
+        private val REQUIRED = listOf("r", "c", "ru", "cu", "f")
     }
 }
 
@@ -256,15 +262,14 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
         const val TOO_MANY_MARKER = "XPUB_TOO_MANY"
 
         /**
-         * Adresstypen der Suche in dieser Reihenfolge: ypub/zpub und Taproot-Konto nur ihr Typ; xpub mit gemerktem Typ ([XpubCache.script])
-         * oder mit benutzten Adressen im alten Zwischenspeicher (gefunden als P2PKH) nur dieser; sonst P2PKH,
-         * P2SH-P2WPKH, P2WPKH — Ledger Live zeigt die xpub auch für Segwit-Konten. Mehr als ein Typ = vollständig suchen
+         * Adresstypen der Suche in dieser Reihenfolge: ypub/zpub und Taproot-Konto nur ihr Typ; xpub mit gemerktem Typ
+         * ([XpubCache.script]) nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH — Ledger Live zeigt die xpub auch für
+         * Segwit-Konten. Mehr als ein Typ = vollständig suchen
          * und den ersten mit benutzter Adresse behalten ([pickScript]). [cache] muss zum Schlüssel gehören.
          */
         fun scripts(key: Bip32.ExtendedKey, cache: XpubCache?): List<Bip32.Script> {
             if (!key.detectsScript) return listOf(key.script)
             cache?.script?.let { return listOf(it) }
-            if (cache != null && cache.usedCount > 0) return listOf(Bip32.Script.P2PKH)
             return listOf(Bip32.Script.P2PKH, Bip32.Script.P2SH_P2WPKH, Bip32.Script.P2WPKH)
         }
 

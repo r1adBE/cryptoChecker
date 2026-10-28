@@ -287,10 +287,16 @@ final class ChainTests: XCTestCase {
         XCTAssertEqual(Set(WatchedAddressRules.withCountTokens(base, false).tokenBalances.keys), ["ARBITRUM:ETH", "BSC:BNB"])
         // Ohne die nur bei Abweichung geschriebenen Felder: Standardwerte
         let plain = Data(#"{"id":1,"chain":"SOL","address":"x","lastUpdated":0,"lastAttempt":0,"addedAt":0,"observations":[]}"#.utf8)
-        let decoded = try JSONDecoder().decode(WatchedAddress.self, from: plain)
-        XCTAssertNil(decoded.networks)
-        XCTAssertTrue(decoded.countInPortfolio)
-        XCTAssertEqual(decoded.unknownTokens, 0)
+        let stored = try JSONDecoder().decode(WatchedAddress.self, from: plain)
+        XCTAssertNil(stored.networks)
+        XCTAssertTrue(stored.countInPortfolio)
+        XCTAssertEqual(stored.unknownTokens, 0)
+        // Sicherung nur mit den immer geschriebenen Feldern: übrige mit Standardwert; ohne `addedAt` fällt der Eintrag weg
+        let sol = try XCTUnwrap((try balance(d)["solana"] as? [String: Any])?["address"] as? String)
+        let plainEntry: [Any] = [["chain": "SOL", "address": sol, "addedAt": 0]]
+        XCTAssertEqual(WatchedAddressRules.entries(fromJSON: plainEntry), [WatchedAddressBackupEntry(chain: .SOL, address: sol)])
+        let withoutAddedAt: [Any] = [["chain": "SOL", "address": sol]]
+        XCTAssertEqual(WatchedAddressRules.entries(fromJSON: withoutAddedAt), [])
     }
 
     func testWrappedCoinsStayOwnCoinWithBaseFallback() {

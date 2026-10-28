@@ -125,9 +125,6 @@ final class PairCandlesTests: XCTestCase {
     }
 
     func testBinanceQuarterlyUsesOwnContractCandles() async throws {
-        let code = try XCTUnwrap(BinanceFuturesCandles.deliveryCode(.quarterly))
-        XCTAssertEqual(code.count, 6)
-        XCTAssertNil(BinanceFuturesCandles.deliveryCode(.perpetual))
         let body = "[[1760400000000, \"62000\", \"62100\", \"61900\", \"62050\", \"10\", 1760403599999, \"620500\"],"
             + "[1760403600000, \"62050\", \"62200\", \"62000\", \"62150\", \"12\", 1760407199999, \"745800\"]]"
         let urls = Counter()
@@ -147,13 +144,8 @@ final class PairCandlesTests: XCTestCase {
         let nextId = BinanceFuturesCandles.id(pair(.biquarterly, "BinanceFutures", pairId: "BTCUSDT_260327"))
         XCTAssertEqual(nextId?.symbol, "BTCUSDT_260327")
         XCTAssertEqual(nextId?.coinM, false)
-        // Ältere Kennung ohne Verfallstag: Kalender als Notbehelf
-        let next = try XCTUnwrap(BinanceFuturesCandles.deliveryCode(.biquarterly))
-        XCTAssertGreaterThan(next, code)
-        XCTAssertEqual(BinanceFuturesCandles.id(pair(.quarterly, "BinanceFutures", pairId: "BTCUSDT"))?.symbol, "BTCUSDT_\(code)")
-        let legacyCoinM = BinanceFuturesCandles.id(pair(.biquarterly, "BinanceFutures", pairId: "2:BTCUSD", quote: "USD"))
-        XCTAssertEqual(legacyCoinM?.symbol, "BTCUSD_\(next)")
-        XCTAssertEqual(legacyCoinM?.coinM, true)
+        // Laufzeit-Kontrakt ohne Verfallstag in der Kennung: kein Symbol, kein Chart (nie aus dem Kalender)
+        XCTAssertNil(BinanceFuturesCandles.id(pair(.quarterly, "BinanceFutures", pairId: "BTCUSDT")))
         // Perpetual unverändert
         let perp = BinanceFuturesCandles.id(pair(.perpetual, "BinanceFutures", pairId: "2:BTCUSD_PERP", quote: "USD"))
         XCTAssertEqual(perp?.symbol, "BTCUSD_PERP")

@@ -6,7 +6,7 @@ import com.cryptochecker.marketdata.model.exchange.DexScreener
  * Vertragsadresse des Basis-Tokens eines DEX-Pools («baseToken.address» aus der DexScreener-Suche) fürs Paar-Blatt:
  * Gleichnamige Token (zweimal «PEPE») sind nur über die Adresse sicher zu unterscheiden. Gemerkt wird sie beim
  * Hinzufügen je Pool-Kennung ([DexLiquidity.key]) in einer kleinen Einstellungsdatei — nicht im Paar selbst, weil
- * Basis, Gegenwährung und Kennung zur Identität des Paars gehören und eine Spalte eine Datenbankmigration bräuchte.
+ * Basis, Gegenwährung und Kennung zur Identität des Paars gehören.
  * Reine Logik — wie `DexTokenAddress.swift`.
  */
 object DexTokenAddress {

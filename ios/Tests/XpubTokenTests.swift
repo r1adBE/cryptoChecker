@@ -283,13 +283,13 @@ final class XpubTokenTests: XCTestCase {
         // Zwischenspeicher hin und zurück (Kurzform wie Android); unpassende Indizes fallen weg
         let cache = XpubCache(receive: ["a", "b"], change: ["c"], usedReceive: [1], usedChange: [0], fullScan: 42)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(cache)), cache)
-        let raw = Data(#"{"r":["a","b"],"ru":[1,5,-1,1]}"#.utf8)
+        let raw = Data(#"{"r":["a","b"],"c":[],"ru":[1,5,-1,1],"cu":[],"f":0}"#.utf8)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: raw).usedReceive, [1])
         // Leere benutzte hin und zurück; nur benutzte Indizes bleiben
         let withEmpty = XpubCache(receive: ["a", "b"], change: ["c"], usedReceive: [0, 1], usedChange: [0], fullScan: 42,
                                   emptyReceive: [1], emptyChange: [0])
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(withEmpty)), withEmpty)
-        let rawEmpty = Data(#"{"r":["a","b"],"ru":[1],"re":[0,1,7]}"#.utf8)
+        let rawEmpty = Data(#"{"r":["a","b"],"c":[],"ru":[1],"cu":[],"f":0,"re":[0,1,7]}"#.utf8)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: rawEmpty).emptyReceive, [1])
         // Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         var limited = cache
@@ -299,7 +299,7 @@ final class XpubTokenTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(limited)), limited)
         let plainJson = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(cache)) as? [String: Any])
         XCTAssertNil(plainJson["lf"])
-        XCTAssertFalse(try JSONDecoder().decode(XpubCache.self, from: Data(#"{"r":["a"],"lf":"ja"}"#.utf8)).limitedFallback)
+        XCTAssertFalse(try JSONDecoder().decode(XpubCache.self, from: Data(#"{"r":["a"],"c":[],"ru":[],"cu":[],"f":0,"lf":"ja"}"#.utf8)).limitedFallback)
         XCTAssertTrue(XpubScan(mode: .QUICK, cache: limited).cache(receive: ["a"], change: ["c"], now: 777).limitedFallback)
         XCTAssertFalse(XpubScan(mode: .FULL, cache: limited).cache(receive: ["a"], change: ["c"], now: 777).limitedFallback)
     }
@@ -343,8 +343,8 @@ final class XpubTokenTests: XCTestCase {
         let all: [Bip32.Script] = [.p2pkh, .p2shP2wpkh, .p2wpkh]
         XCTAssertEqual(XpubScan.scripts(xpub, cache: nil), all)
         XCTAssertEqual(XpubScan.scripts(xpub, cache: XpubCache(receive: ["a"], fullScan: 5)), all)
-        // Ältere Daten mit benutzter Adresse = als P2PKH gefunden
-        XCTAssertEqual(XpubScan.scripts(xpub, cache: XpubCache(receive: ["a"], usedReceive: [0])), [.p2pkh])
+        // Ohne gemerkten Typ alle, auch mit benutzter Adresse im Zwischenspeicher
+        XCTAssertEqual(XpubScan.scripts(xpub, cache: XpubCache(receive: ["a"], usedReceive: [0])), all)
         XCTAssertEqual(XpubScan.scripts(xpub, cache: XpubCache(script: .p2wpkh)), [.p2wpkh])
         // Erster Typ mit Verlauf; keiner = nil (wieder alle prüfen); nur einer = dieser
         XCTAssertEqual(XpubScan.pickScript(xpub, tried: [(script: .p2pkh, used: 0), (script: .p2shP2wpkh, used: 0),
@@ -361,8 +361,10 @@ final class XpubTokenTests: XCTestCase {
         noScript.script = nil
         let plain = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(noScript)) as? [String: Any])
         XCTAssertNil(plain["s"])
-        let unknown = Data(#"{"r":["a"],"s":"P2XX"}"#.utf8)
+        let unknown = Data(#"{"r":["a"],"c":[],"ru":[],"cu":[],"f":0,"s":"P2XX"}"#.utf8)
         XCTAssertNil(try JSONDecoder().decode(XpubCache.self, from: unknown).script)
+        // Ohne ein immer geschriebenes Feld: unlesbar (die Adresse hat dann keinen Zwischenspeicher)
+        XCTAssertThrowsError(try JSONDecoder().decode(XpubCache.self, from: Data(#"{"r":["a"],"c":[],"ru":[],"cu":[]}"#.utf8)))
     }
 
     func testBackupWithTokens() throws {

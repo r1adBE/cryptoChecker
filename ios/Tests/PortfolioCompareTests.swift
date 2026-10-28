@@ -127,10 +127,10 @@ final class PortfolioCompareTests: XCTestCase {
         s.portfolioHistoryPnl = true
         let back = try JSONDecoder().decode(AppSettings.self, from: JSONEncoder().encode(s))
         XCTAssertTrue(back.portfolioHistoryPnl)
-        // Ältere Einstellungen ohne Schlüssel: «Wert»
+        // Fehlender Schlüssel: «Wert»
         var json = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(s)) as? [String: Any])
         json.removeValue(forKey: "portfolioHistoryPnl")
-        let old = try JSONDecoder().decode(AppSettings.self, from: JSONSerialization.data(withJSONObject: json))
-        XCTAssertFalse(old.portfolioHistoryPnl)
+        let missing = try JSONDecoder().decode(AppSettings.self, from: JSONSerialization.data(withJSONObject: json))
+        XCTAssertFalse(missing.portfolioHistoryPnl)
     }
 }

@@ -88,6 +88,9 @@ final class WatchedAddressPendingTests: XCTestCase {
         XCTAssertEqual(file.nextId, 4)
         // Keine Liste: unlesbar (nicht überschreiben)
         XCTAssertThrowsError(try JSONDecoder().decode(WatchedAddressFile.self, from: Data(#"{"addresses":5}"#.utf8)))
+        // Liste und Zähler werden immer geschrieben: fehlt eines, ist die Datei unlesbar
+        XCTAssertThrowsError(try JSONDecoder().decode(WatchedAddressFile.self, from: Data(#"{"nextId":1}"#.utf8)))
+        XCTAssertThrowsError(try JSONDecoder().decode(WatchedAddressFile.self, from: Data(#"{"addresses":[]}"#.utf8)))
     }
 
     func testPauseTextCoins() {

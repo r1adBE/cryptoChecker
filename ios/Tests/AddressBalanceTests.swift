@@ -403,7 +403,7 @@ final class AddressBalanceTests: XCTestCase {
         XCTAssertEqual(roundTrip, file)
         // Eintrag ohne Pflichtfelder: übersprungen, die übrige Datei bleibt lesbar
         let partial = try JSONDecoder().decode(WatchedAddressFile.self,
-                                               from: Data("{\"addresses\":[{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"}]}".utf8))
+                                               from: Data("{\"addresses\":[{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"}],\"nextId\":1}".utf8))
         XCTAssertTrue(partial.addresses.isEmpty)
         XCTAssertEqual(partial.nextId, 1)
     }

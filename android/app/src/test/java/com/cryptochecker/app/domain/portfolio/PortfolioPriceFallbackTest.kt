@@ -78,8 +78,8 @@ class PortfolioPriceFallbackTest {
         assertTrue(text.contains("\nBEAM;0.02;$now;u"))
         assertEquals(entries, PortfolioPriceFallback.decode(text))
         // Ohne 4. Feld: geprüft; unbekanntes 4. Feld: Zeile verworfen
-        val old = PortfolioPriceFallback.FORMAT_HEADER + "\nBEAM;0.02;$now\nETH;3000.0;$now;x"
-        assertEquals(mapOf("BEAM" to StoredPrice(0.02, now)), PortfolioPriceFallback.decode(old))
+        val plain = PortfolioPriceFallback.FORMAT_HEADER + "\nBEAM;0.02;$now\nETH;3000.0;$now;x"
+        assertEquals(mapOf("BEAM" to StoredPrice(0.02, now)), PortfolioPriceFallback.decode(plain))
     }
 
     /** Neuerer Kurs gewinnt samt Stand: ein später geprüfter Kurs hebt «ungeprüft» auf. */

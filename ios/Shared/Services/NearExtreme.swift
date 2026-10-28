@@ -4,7 +4,7 @@ import os
 /// Alarm «Nahe am Hoch / Tief» — wie `NearExtreme.kt`: Abstand des aktuellen Kurses
 /// zum Hoch bzw. Tief der letzten 30 / 90 / 365 Tage (Tageskerzen).
 ///
-/// Gespeichert wird ohne neue Felder:
+/// Gespeichert in den Feldern jedes Alarms (ohne eigene Felder):
 ///  - `threshold` = Abstand in Prozent (Standard 2 %)
 ///  - `windowHours` = Zeitraum in TAGEN (30, 90, 365; alles andere gilt als 30)
 ///  - `referenceAt` = 0 → scharf; > 0 → schon gemeldet, wartet auf Wiederscharfstellung

@@ -566,8 +566,8 @@ final class PortfolioWidgetChartTests: XCTestCase {
                                                      currency: "CHF", hidden: false).count, 1)
     }
 
-    func testOldSnapshotWithoutPnlStillDecodes() throws {
-        // Älterer Stand ohne Gewinn/Verlust-Felder: lädt, Felder nil
+    func testSnapshotWithoutPnlDecodes() throws {
+        // Stand ohne Gewinn/Verlust-Felder (nur geschrieben, wenn bekannt): lädt, Felder nil
         let json = """
         {"total":900,"currency":"CHF","updatedAt":1,"empty":false,
          "positions":[{"symbol":"BTC","value":900,"sharePercent":100,"change24hPercent":1}]}
@@ -575,7 +575,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         let s = try JSONDecoder().decode(PortfolioWidgetSnapshot.self, from: Data(json.utf8))
         XCTAssertNil(s.coinPnl)
         XCTAssertNil(s.positions?.first?.pnlAmount)
-        // Neuer Stand: Werte bleiben beim Speichern erhalten
+        // Mit Werten: bleiben beim Speichern erhalten
         var fresh = snapshot()
         fresh.coinPnl = ["BTC": PortfolioWidgetChange(amount: 12, percent: 1.3)]
         fresh.positions = [PortfolioWidgetPosition(symbol: "BTC", value: 900, sharePercent: 100, change24hPercent: 1,

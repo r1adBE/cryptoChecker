@@ -48,9 +48,9 @@ final class BackupExclusionTests: XCTestCase {
 
     func testDefaultKeepsPortfolioOutOfBackups() throws {
         XCTAssertFalse(AppSettings().portfolioSystemBackup)
-        // Ältere Einstellungen ohne den Schlüssel: Standard (aus)
-        let old = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
-        XCTAssertFalse(old.portfolioSystemBackup)
+        // Fehlender Schlüssel: Standard (aus)
+        let empty = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
+        XCTAssertFalse(empty.portfolioSystemBackup)
         var on = AppSettings()
         on.portfolioSystemBackup = true
         let roundTrip = try JSONDecoder().decode(AppSettings.self, from: JSONEncoder().encode(on))

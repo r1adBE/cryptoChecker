@@ -14,7 +14,7 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
 
     var sortOrder: Int = 0
 
-    /// Kurs-Mitteilung für dieses Paar. Ohne Angabe und für neue Paare: `Watch.newPairNotificationEnabled`.
+    /// Kurs-Mitteilung für dieses Paar. Für neue Paare: `Watch.newPairNotificationEnabled`.
     var notificationEnabled: Bool = true
 
     /// Kurs-Mitteilung neuer Paare (Start-Auswahl und später hinzugefügte): an (wer einen
@@ -211,30 +211,31 @@ enum FavoriteKind: String, CaseIterable, Codable, Sendable {
     case EXCHANGE, COIN, QUOTE
 }
 
-// MARK: Tolerantes Lesen
-// Fehlt ein Feld (nil nicht geschrieben) oder ist es unlesbar, gilt der Standardwert — sonst ginge
-// beim Laden die ganze Merkliste verloren.
+// MARK: Lesen
+// Pflicht sind die Felder, die das Schreiben immer enthält (alle ohne Optional); fehlt eines, ist der Eintrag unlesbar
+// (`SharedStorage.lenientArray` überspringt und zählt ihn, die Datei wird gesichert). Optionale Felder stehen nur mit
+// Wert in der Datei; Notiz, Gruppe, 24-h-Änderung und Börsenzeit sind dazu tolerant (unlesbar = ohne).
 
 extension Watch {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         id = try c.decode(Int64.self, forKey: .id)
         exchangeKey = try c.decode(String.self, forKey: .exchangeKey)
-        exchangeName = try c.decodeIfPresent(String.self, forKey: .exchangeName) ?? exchangeKey
+        exchangeName = try c.decode(String.self, forKey: .exchangeName)
         baseAsset = try c.decode(String.self, forKey: .baseAsset)
         quoteAsset = try c.decode(String.self, forKey: .quoteAsset)
         pairId = try c.decodeIfPresent(String.self, forKey: .pairId)
-        contractType = try c.decodeIfPresent(FuturesContractType.self, forKey: .contractType) ?? .none
-        sortOrder = try c.decodeIfPresent(Int.self, forKey: .sortOrder) ?? 0
-        notificationEnabled = try c.decodeIfPresent(Bool.self, forKey: .notificationEnabled) ?? Watch.newPairNotificationEnabled
-        ttsEnabled = try c.decodeIfPresent(Bool.self, forKey: .ttsEnabled) ?? false
+        contractType = try c.decode(FuturesContractType.self, forKey: .contractType)
+        sortOrder = try c.decode(Int.self, forKey: .sortOrder)
+        notificationEnabled = try c.decode(Bool.self, forKey: .notificationEnabled)
+        ttsEnabled = try c.decode(Bool.self, forKey: .ttsEnabled)
         lastPrice = try c.decodeIfPresent(Double.self, forKey: .lastPrice)
         previousPrice = try c.decodeIfPresent(Double.self, forKey: .previousPrice)
-        lastUpdate = try c.decodeIfPresent(Int64.self, forKey: .lastUpdate) ?? 0
+        lastUpdate = try c.decode(Int64.self, forKey: .lastUpdate)
         notifiedPrice = try c.decodeIfPresent(Double.self, forKey: .notifiedPrice)
-        notifiedAt = try c.decodeIfPresent(Int64.self, forKey: .notifiedAt) ?? 0
+        notifiedAt = try c.decode(Int64.self, forKey: .notifiedAt)
         lastError = try c.decodeIfPresent(String.self, forKey: .lastError)
-        favorite = try c.decodeIfPresent(Bool.self, forKey: .favorite) ?? false
+        favorite = try c.decode(Bool.self, forKey: .favorite)
         // Ungültige Werte gelten als «keine Gruppe» bzw. «keine Notiz».
         let group = try? c.decodeIfPresent(String.self, forKey: .groupName)
         groupName = Watch.validGroupName(group)
@@ -243,10 +244,10 @@ extension Watch {
         // Ohne Wert «—» bis zur nächsten Aktualisierung
         let day = try? c.decodeIfPresent(Double.self, forKey: .change24h)
         change24h = day.flatMap { $0.isFinite ? $0 : nil }
-        // Paar deaktiviert (wie Android `WatchEntity.disabled`); fehlt: aktiv
-        disabled = (try? c.decodeIfPresent(Bool.self, forKey: .disabled)) ?? false
-        // Frische des Kurses (wie Android); fehlt: unbekannt bzw. keine Börsenzeit
-        priceChangedAt = (try? c.decodeIfPresent(Int64.self, forKey: .priceChangedAt)) ?? 0
+        // Paar deaktiviert (wie Android `WatchEntity.disabled`)
+        disabled = try c.decode(Bool.self, forKey: .disabled)
+        // Frische des Kurses (wie Android); Börsenzeit fehlt = die Börse liefert keine
+        priceChangedAt = try c.decode(Int64.self, forKey: .priceChangedAt)
         exchangeTime = try? c.decodeIfPresent(Int64.self, forKey: .exchangeTime)
     }
 
@@ -260,7 +261,7 @@ extension Watch {
     static let groupNameMax = 24
 
     /// Gruppenname getrimmt und auf `groupNameMax` gekürzt; leer = keine Gruppe (wie `setGroup` in Android).
-    /// Gilt auch für Sicherungen — vorher kam ein beliebig langer Name aus der Datei durch.
+    /// Gilt auch für Sicherungen.
     static func validGroupName(_ name: String?) -> String? { TextLimit.clean(name, max: groupNameMax) }
 }
 
@@ -290,18 +291,18 @@ extension Alarm {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         id = try c.decode(Int64.self, forKey: .id)
         watchId = try c.decode(Int64.self, forKey: .watchId)
-        condition = try c.decodeIfPresent(AlarmCondition.self, forKey: .condition) ?? .PRICE_ABOVE
+        condition = try c.decode(AlarmCondition.self, forKey: .condition)
         threshold = try c.decode(Double.self, forKey: .threshold)
-        enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
-        repeating = try c.decodeIfPresent(Bool.self, forKey: .repeating) ?? false
-        sound = try c.decodeIfPresent(Bool.self, forKey: .sound) ?? true
-        vibrate = try c.decodeIfPresent(Bool.self, forKey: .vibrate) ?? true
-        speak = try c.decodeIfPresent(Bool.self, forKey: .speak) ?? false
+        enabled = try c.decode(Bool.self, forKey: .enabled)
+        repeating = try c.decode(Bool.self, forKey: .repeating)
+        sound = try c.decode(Bool.self, forKey: .sound)
+        vibrate = try c.decode(Bool.self, forKey: .vibrate)
+        speak = try c.decode(Bool.self, forKey: .speak)
         referencePrice = try c.decodeIfPresent(Double.self, forKey: .referencePrice)
-        lastTriggeredAt = try c.decodeIfPresent(Int64.self, forKey: .lastTriggeredAt) ?? 0
+        lastTriggeredAt = try c.decode(Int64.self, forKey: .lastTriggeredAt)
         lastTriggeredPrice = try c.decodeIfPresent(Double.self, forKey: .lastTriggeredPrice)
-        windowHours = try Alarm.clampWindowHours(c.decodeIfPresent(Int.self, forKey: .windowHours) ?? 1)
-        referenceAt = try c.decodeIfPresent(Int64.self, forKey: .referenceAt) ?? 0
+        windowHours = try Alarm.clampWindowHours(c.decode(Int.self, forKey: .windowHours))
+        referenceAt = try c.decode(Int64.self, forKey: .referenceAt)
         // «≈ Umrechnung»; fehlt = Quote-Währung
         let code = try? c.decodeIfPresent(String.self, forKey: .currency)
         currency = Alarm.validCurrency(code)

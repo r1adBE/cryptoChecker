@@ -131,10 +131,6 @@ final class BinanceFuturesUrlTests: XCTestCase {
                        "https://dapi.binance.com/dapi/v1/ticker/24hr?symbol=BTCUSD_260327")
         XCTAssertEqual(m.tickerAddress(call: 0, info: PairQuery("BTC", "USDT", "BTCUSDT", .perpetual)),
                        "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT")
-        // Ältere Kennung ohne Verfallstag: Kalender als Notbehelf
-        let legacy = m.tickerAddress(call: 0, info: PairQuery("BTC", "USDT", "BTCUSDT", .quarterly))
-        XCTAssertTrue(legacy.hasPrefix("https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT_"), legacy)
-        XCTAssertEqual(legacy.count, "https://fapi.binance.com/fapi/v1/ticker/24hr?symbol=BTCUSDT_".count + 6)
     }
 
     func testDeliveryCodeOfPairId() {
@@ -171,7 +167,7 @@ final class BinanceFuturesPairsTests: XCTestCase {
         XCTAssertEqual(pairs.map(\.isTradFi), [false, true, true, false])
         XCTAssertEqual(pairs[1].contractType, .perpetual)
         XCTAssertEqual(pairs[1].pairId, "AMCUSDT")
-        // Immer gesetzt, auch bei Krypto: so erkennt der Paarspeicher Listen ohne das Feld
+        // Immer gesetzt, auch bei Krypto (die Börse nennt die Art jedes Kontrakts)
         XCTAssertTrue(pairs.allSatisfy { $0.tradFi != nil })
     }
 
@@ -245,9 +241,9 @@ final class BinanceFuturesPairsTests: XCTestCase {
         XCTAssertFalse(TradFi.phemex(perpProductSubType: ""))
     }
 
-    func testOlderCachedPairsDecodeWithoutTheFlag() throws {
-        let old = Data(#"{"base":"BTC","quote":"USDT","pairId":"BTCUSDT","contractType":1}"#.utf8)
-        let pair = try JSONDecoder().decode(ExchangePair.self, from: old)
+    func testCachedPairsDecodeWithoutTheFlag() throws {
+        let plain = Data(#"{"base":"BTC","quote":"USDT","pairId":"BTCUSDT","contractType":1}"#.utf8)
+        let pair = try JSONDecoder().decode(ExchangePair.self, from: plain)
         XCTAssertNil(pair.tradFi)
         XCTAssertFalse(pair.isTradFi)
     }

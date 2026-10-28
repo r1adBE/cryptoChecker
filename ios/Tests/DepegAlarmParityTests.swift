@@ -150,11 +150,11 @@ final class DepegAlarmParityTests: XCTestCase {
         }
     }
 
-    /// Ältere Einstellungen ohne die Felder: aus, 0.5 %; unbekannte Schwelle → Standard.
+    /// Fehlende Felder: aus, 0.5 %; unbekannte Schwelle → Standard.
     func testSettingsDefaults() throws {
-        let old = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
-        XCTAssertFalse(old.depegAlarm)
-        XCTAssertEqual(old.depegThresholdTenths, 5)
+        let empty = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
+        XCTAssertFalse(empty.depegAlarm)
+        XCTAssertEqual(empty.depegThresholdTenths, 5)
         let odd = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"depegAlarm":true,"depegThresholdTenths":7}"#.utf8))
         XCTAssertTrue(odd.depegAlarm)
         XCTAssertEqual(odd.depegThresholdTenths, 5)

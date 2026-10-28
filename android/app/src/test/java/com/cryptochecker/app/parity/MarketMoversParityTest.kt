@@ -67,7 +67,7 @@ class MarketMoversParityTest {
         assertNull(CryptoPulse.evaluate(input.copy(movers = null))!!.movers)
     }
 
-    /** Zwischenspeicher auf dem Gerät: hin und zurück gleich; ältere Einträge ohne «movers» = null. */
+    /** Zwischenspeicher auf dem Gerät: hin und zurück gleich; ohne «movers» (keine Liste, nicht geschrieben) = null. */
     @Test
     fun cacheRoundTrip() {
         val movers = MarketMovers.select(coins(data["cases"].list().first().obj()["coins"]))

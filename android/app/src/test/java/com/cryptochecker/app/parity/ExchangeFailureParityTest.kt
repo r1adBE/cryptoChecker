@@ -9,7 +9,7 @@ import org.junit.Test
 
 /**
  * Art des Fehlers neben dem Text (`testdata/parity/exchange_failure.json`): Die Art entscheidet, wo sie kann; sonst
- * und für gespeicherte ältere Texte die Stichwörter. Gegenstück: `Tests/ExchangeFailureParityTests.swift`.
+ * und für gespeicherte Texte (ohne Art) die Stichwörter. Gegenstück: `Tests/ExchangeFailureParityTests.swift`.
  */
 class ExchangeFailureParityTest {
 

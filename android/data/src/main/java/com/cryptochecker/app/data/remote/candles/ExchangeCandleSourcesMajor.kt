@@ -84,11 +84,6 @@ object BinanceUsCandles : ExchangeCandleSource {
 object BinanceFuturesCandles : ExchangeCandleSource {
     override val exchangeKeys = setOf("BinanceFutures")
     private const val COIN_M_PREFIX = "2:"
-    private val DELIVERY_FORMAT = java.time.format.DateTimeFormatter.ofPattern("yyMMdd", java.util.Locale.ROOT)
-
-    /** Verfallstag (UTC, «yyMMdd») des Laufzeit-Kontrakts wie die Kursabfrage; null = Perpetual/Spot. */
-    fun deliveryCode(type: FuturesContractType): String? =
-        FuturesContractType.getDeliveryDate(type)?.format(DELIVERY_FORMAT)
 
     fun id(pair: CandlePair): Pair<String, Boolean>? {
         val raw = pair.pairId?.trim()
@@ -97,14 +92,8 @@ object BinanceFuturesCandles : ExchangeCandleSource {
             // Symbol der Börse aus der Paarliste wie die Kursabfrage («BTCUSDT_251226»), nie aus dem
             // Kalender (nach der Abrechnung Freitag 08:00 UTC träfe der den abgelaufenen Kontrakt)
             val stripped = raw?.removePrefix(COIN_M_PREFIX)
-            if (FuturesContractType.deliveryCodeOf(stripped) != null) {
-                return CandleParse.safeId(stripped)?.let { it to coinM }
-            }
-            // Ältere Kennung ohne Verfallstag: Kalender als Notbehelf
-            val code = deliveryCode(pair.contractType) ?: return null
-            val base = CandleParse.asset(pair.base) ?: return null
-            val quote = CandleParse.asset(pair.quote) ?: return null
-            return "$base${quote}_$code" to coinM
+            if (FuturesContractType.deliveryCodeOf(stripped) == null) return null
+            return CandleParse.safeId(stripped)?.let { it to coinM }
         }
         if (coinM) {
             return CandleParse.safeId(raw.removePrefix(COIN_M_PREFIX))?.let { it to true }

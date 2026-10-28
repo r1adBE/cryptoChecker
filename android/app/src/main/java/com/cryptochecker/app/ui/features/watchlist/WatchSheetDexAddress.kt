@@ -32,8 +32,9 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * «0x1234…abcd» unter der Börse eines DEX-Pools ([DexTokenAddress]); Tippen legt die volle Adresse in die
- * Zwischenablage (Android 13+ bestätigt das selbst, darunter ein Toast — wie iOS). Ohne gemerkte Adresse (Paar aus
- * älterer Version) nichts. TalkBack liest statt «0 x 1 2 3 4 …» die letzten vier Zeichen einzeln (wie iOS).
+ * Zwischenablage (Android 13+ bestätigt das selbst, darunter ein Toast — wie iOS). Ohne gemerkte Adresse (Paar nicht
+ * aus der Suche, z. B. aus einer Sicherung) nichts. TalkBack liest statt «0 x 1 2 3 4 …» die letzten vier Zeichen
+ * einzeln (wie iOS).
  */
 @Composable
 internal fun DexTokenAddressLine(watch: WatchEntity) {

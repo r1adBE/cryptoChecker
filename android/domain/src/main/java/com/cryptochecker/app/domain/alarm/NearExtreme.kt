@@ -10,7 +10,7 @@ import kotlin.math.max
  * letzten 30 / 90 / 365 Tage (Tageskerzen). Reines Kotlin, damit die Regeln als
  * Unit-Test prüfbar bleiben (Spiegel: Shared/Services/NearExtreme.swift).
  *
- * Gespeichert wird ohne neue Spalten:
+ * Gespeichert in den Spalten jedes Alarms (ohne eigene Spalten):
  *  - `threshold` = Abstand in Prozent (Standard 2 %)
  *  - `windowHours` = Zeitraum in TAGEN (30, 90, 365; alles andere gilt als 30)
  *  - `referenceAt` = 0 → scharf; > 0 → schon gemeldet (Zeitpunkt), wartet auf Wiederscharfstellung

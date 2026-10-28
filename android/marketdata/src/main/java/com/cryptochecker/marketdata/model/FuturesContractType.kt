@@ -65,7 +65,7 @@ enum class FuturesContractType(val value: Int) {
 
         /**
          * Verfall als «yyMMdd», wenn die Kennung mit «_» und sechs Ziffern endet («BTCUSDT_251226», COIN-M
-         * «2:BTCUSD_251226»); sonst null (Perpetual, ältere Kennungen). Abfragen richten sich nur danach, nie nach
+         * «2:BTCUSD_251226»); sonst null (Perpetual, Kennung ohne Datum). Abfragen richten sich nur danach, nie nach
          * dem Kalender.
          */
         fun deliveryCodeOf(pairId: String?): String? {

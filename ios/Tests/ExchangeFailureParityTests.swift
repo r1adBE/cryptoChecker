@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Art des Fehlers neben dem Text (`Parity/exchange_failure.json`): Die Art entscheidet, wo sie kann; sonst und für
-/// gespeicherte ältere Texte die Stichwörter. Dazu `ExchangeFailure.of` am Ort des Fehlers. Wie
+/// gespeicherte Texte (ohne Art) die Stichwörter. Dazu `ExchangeFailure.of` am Ort des Fehlers. Wie
 /// `ExchangeFailureParityTest.kt` und `ExchangeFailureMappingTest.kt`.
 final class ExchangeFailureParityTests: XCTestCase {
 

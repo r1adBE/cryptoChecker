@@ -4,16 +4,13 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.CacheCodec
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
-import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import org.json.JSONArray
 import org.json.JSONObject
 
 object PortfolioHistoryCodecs {
     /**
      * {"span": 366, "days":[[epochDay, close, open, high, low], …]} — leere Liste = kein Paar.
-     * Ältere Einträge ohne «span» stammen aus der festen Jahres-Abfrage ([PortfolioHistory.MAX_DAYS]);
-     * ältere Tage nur mit [epochDay, close] haben keine Eröffnung/Hoch/Tief (Kerzen ohne Docht,
-     * bis der Eintrag nach 12 h neu geholt wird).
+     * Tage ohne gültige Eröffnung/Hoch/Tief stehen nur als [epochDay, close] (Kerzen ohne Docht).
      */
     val closes = CacheCodec<CoinCloses>(
         encode = { entry ->
@@ -40,7 +37,7 @@ object PortfolioHistoryCodecs {
                         .takeIf { it.valid }?.let { ranges[day] = it }
                 }
             }
-            CoinCloses(byDay, o.optInt("span", PortfolioHistory.MAX_DAYS), ranges)
+            CoinCloses(byDay, o.getInt("span"), ranges)
         },
     )
 

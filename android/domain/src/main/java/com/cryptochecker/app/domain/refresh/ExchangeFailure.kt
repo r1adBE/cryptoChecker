@@ -4,11 +4,11 @@ package com.cryptochecker.app.domain.refresh
  * Art eines gescheiterten Börsenabrufs, festgestellt dort, wo der Fehler entsteht (HTTP-Schicht, Ausnahme;
  * siehe `toExchangeFailure` in ExchangeError.kt). Wandert im Speicher neben dem Fehlertext mit
  * ([com.cryptochecker.app.domain.model.ExchangeTickerResult], [com.cryptochecker.app.domain.model.BulkTickers],
- * [Fetched]); gespeichert wird weiterhin nur der Text ([StoredError.sanitize]).
+ * [Fetched]); gespeichert wird nur der Text ([StoredError.sanitize]).
  *
  * Warum neben dem Text: Die Einordnung ([RefreshReportLogic.classify]) nur über Stichwörter («ssl», «eof»,
  * «timeout» …) im Text wäre unsicher — Ausnahmetexte enthalten Hosts, Server-Antworten und Klassennamen. Mit der Art
- * entscheidet der Typ; die Stichwortsuche bleibt nur für Texte ohne Art (gespeicherte ältere Fehler, eigene
+ * entscheidet der Typ; die Stichwortsuche bleibt nur für Texte ohne Art (gespeicherte Fehlertexte, eigene
  * Marker, Meldungen der Börse). Reines Kotlin, gespiegelt in `ExchangeFailure.swift`.
  */
 sealed interface ExchangeFailure {

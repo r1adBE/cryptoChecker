@@ -71,7 +71,7 @@ struct IndicatorHistory: Equatable, Sendable {
 }
 
 /// Eine Kennzahl; `value` nil heisst: zu wenig Daten bzw. nicht verfügbar. `stat` = Einordnung in den
-/// Verlauf; nil = ohne Verlauf (auch in älteren gespeicherten Berichten).
+/// Verlauf; nil = ohne Verlauf.
 struct Indicator: Equatable, Sendable, Codable {
     let id: IndicatorId
     let value: Double?

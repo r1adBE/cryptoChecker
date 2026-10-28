@@ -8,8 +8,8 @@ import com.cryptochecker.marketdata.model.PairQuery
 private const val UNKNOWN_LABEL = "UNKNOWN"
 
 /**
- * Platzhalter für einen gespeicherten Börsenschlüssel, den diese Version nicht (mehr) kennt — etwa aus einer
- * Sicherung mit einer inzwischen entfernten Börse. Fragt nichts ab (leere Adresse) und bietet keine Paare an
+ * Platzhalter für einen gespeicherten Börsenschlüssel, den diese App nicht kennt — etwa aus einer Sicherung, die
+ * eine hier nicht vorhandene Börse nennt. Fragt nichts ab (leere Adresse) und bietet keine Paare an
  * (leere Tabelle), damit nichts Neues darauf angelegt wird. Gegenstück auf iOS: `UnknownExchange.swift`.
  */
 class UnknownExchange : Exchange(UNKNOWN_LABEL, UNKNOWN_LABEL, CurrencyPairsMap()) {

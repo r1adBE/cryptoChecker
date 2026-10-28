@@ -42,7 +42,7 @@ struct AddressCostLot: Codable, Equatable, Hashable, Sendable {
 
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        id = (try? c.decodeIfPresent(Int64.self, forKey: .id)) ?? 0
+        id = try c.decode(Int64.self, forKey: .id)
         coin = try c.decode(String.self, forKey: .coin)
         time = try c.decode(Int64.self, forKey: .t)
         guard let a = PortfolioDecimal.parse(try c.decode(String.self, forKey: .amount)) else {
@@ -353,15 +353,17 @@ enum AddressCostLots {
         return amount * close
     }
 
-    /// Lesen aus der Sicherung (JSON-Objekte); unlesbare Einträge fallen weg. Wie `fromJson` (Kotlin).
+    /// Lesen aus der Sicherung (JSON-Objekte); unlesbare Einträge (auch ohne «id») fallen weg. Wie `fromJson`
+    /// (Kotlin).
     static func lots(fromJSON raw: Any?) -> [AddressCostLot] {
         guard let array = raw as? [Any] else { return [] }
         var out: [AddressCostLot] = []
-        for (i, item) in array.enumerated() {
-            guard let o = item as? [String: Any], let coin = o["coin"] as? String,
+        for item in array {
+            guard let o = item as? [String: Any], let id = (o["id"] as? NSNumber)?.int64Value,
+                  let coin = o["coin"] as? String,
                   let time = (o["t"] as? NSNumber)?.int64Value,
                   let amount = PortfolioDecimal.parse(o["amount"] as? String) else { continue }
-            out.append(AddressCostLot(id: (o["id"] as? NSNumber)?.int64Value ?? Int64(i + 1), coin: coin, time: time,
+            out.append(AddressCostLot(id: id, coin: coin, time: time,
                                       amount: amount, priceUsdt: PortfolioDecimal.parse(o["price"] as? String),
                                       costUsdt: PortfolioDecimal.parse(o["cost"] as? String)))
         }

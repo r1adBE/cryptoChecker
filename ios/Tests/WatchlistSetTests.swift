@@ -183,11 +183,11 @@ final class WatchlistOnboardingTests: XCTestCase {
                        UsageDays(count: UsageDays.maxCount, lastDay: 6))
     }
 
-    /// Ältere Einstellungen ohne die Felder: noch kein Tag gezählt; gespeicherte Werte bleiben erhalten.
+    /// Fehlende Felder: noch kein Tag gezählt; gespeicherte Werte bleiben erhalten.
     func testSettingsDecodeUsageDays() throws {
-        let old = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
-        XCTAssertEqual(old.usageDays, 0)
-        XCTAssertNil(old.usageLastDay)
+        let empty = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
+        XCTAssertEqual(empty.usageDays, 0)
+        XCTAssertNil(empty.usageLastDay)
         var s = AppSettings()
         s.usageDays = 2
         s.usageLastDay = 20_000

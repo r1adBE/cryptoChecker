@@ -834,11 +834,12 @@ final class PortfolioNumbersTests: XCTestCase {
         // Im Zeitraum (vor dem Zeitraum beobachtet): Guthaben × Kursänderung
         let week = build([], range: .week, closes, ["BTC": 110], addresses: [observed((noon(today - 20), "2"))])
         XCTAssertEqual(try XCTUnwrap(week.pnlChange), 2 * (110 - 93), accuracy: d)
-        // Adress-Einzahlung in den Transaktionen (negative Id): nie rückwirkend — zählt gar nicht
-        let legacy = build([buy("BTC", 1, noon(today - 5)),
+        // Zusammengeführte Adress-Einzahlung (`AddressBalance.withAddresses`, negative Id) ohne beobachtete Reihe:
+        // nie rückwirkend — zählt gar nicht
+        let merged = build([buy("BTC", 1, noon(today - 5)),
                             PortfolioTx(id: -1, coin: "BTC", type: .DEPOSIT, amount: 2, priceUsdt: nil, time: noon(today - 20))],
                            closes, ["BTC": 110])
-        XCTAssertEqual(try XCTUnwrap(legacy.points.last?.value), 110, accuracy: d)
+        XCTAssertEqual(try XCTUnwrap(merged.points.last?.value), 110, accuracy: d)
     }
 
     func testWithdrawalWithoutPriceIsValuedAtTheMarket() throws {

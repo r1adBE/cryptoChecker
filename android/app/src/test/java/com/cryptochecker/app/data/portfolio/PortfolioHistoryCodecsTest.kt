@@ -59,9 +59,9 @@ class PortfolioHistoryCodecsTest {
     }
 
     @Test
-    fun olderEntriesWithoutSpanUseTheYear() {
+    fun rowsWithoutFullRangeHaveNoWick() {
         val days = JSONArray().put(JSONArray().put(7L).put(1.5)).put(JSONArray().put(8L).put(2.5).put(2.0).put(3.0))
-        val decoded = PortfolioHistoryCodecs.closes.decode(JSONObject().put("days", days))
+        val decoded = PortfolioHistoryCodecs.closes.decode(JSONObject().put("span", PortfolioHistory.MAX_DAYS).put("days", days))
         assertEquals(PortfolioHistory.MAX_DAYS, decoded.span)
         assertEquals(mapOf(7L to 1.5, 8L to 2.5), decoded.closes)
         // Zeile mit vier Werten ist unvollständig: keine Spanne
@@ -74,6 +74,8 @@ class PortfolioHistoryCodecsTest {
         val empty = CoinCloses(emptyMap(), span = 366)
         assertEquals(empty, roundTrip(PortfolioHistoryCodecs.closes, empty))
         assertThrows(Exception::class.java) { PortfolioHistoryCodecs.closes.decode(JSONObject()) }
+        // «span» schreibt der Encoder immer: ohne ist der Eintrag unlesbar (wird neu geholt)
+        assertThrows(Exception::class.java) { PortfolioHistoryCodecs.closes.decode(JSONObject().put("days", JSONArray())) }
     }
 
     @Test

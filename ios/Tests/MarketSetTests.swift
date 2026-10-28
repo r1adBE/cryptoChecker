@@ -181,7 +181,7 @@ final class MarketMoversTests: XCTestCase {
         XCTAssertTrue(MarketMovers.select([]).isEmpty)
     }
 
-    /// Gemeinsamer Stand (App Group): hin und zurück gleich; ältere Stände ohne «movers» = nil.
+    /// Gemeinsamer Stand (App Group): hin und zurück gleich; ohne «movers» (keine Liste, nicht geschrieben) = nil.
     func testStoredRoundTrip() throws {
         let first = try XCTUnwrap(S.list(try data()["cases"]).first)
         let movers = MarketMovers.select(coins(first["coins"]))
@@ -189,8 +189,8 @@ final class MarketMoversTests: XCTestCase {
                                      topChanges: [1, -1], movers: movers)
         let raw = try JSONEncoder().encode(market)
         XCTAssertEqual(try JSONDecoder().decode(PulseMarketData.self, from: raw), market)
-        let old = PulseMarketData(btc: 1, eth: -2, sol: 3, volumeRatio: nil, fundingPercent: nil, time: 5)
-        var dict = try XCTUnwrap(try JSONSerialization.jsonObject(with: try JSONEncoder().encode(old)) as? [String: Any])
+        let plain = PulseMarketData(btc: 1, eth: -2, sol: 3, volumeRatio: nil, fundingPercent: nil, time: 5)
+        var dict = try XCTUnwrap(try JSONSerialization.jsonObject(with: try JSONEncoder().encode(plain)) as? [String: Any])
         dict.removeValue(forKey: "movers")
         let decoded = try JSONDecoder().decode(PulseMarketData.self, from: try JSONSerialization.data(withJSONObject: dict))
         XCTAssertNil(decoded.movers)

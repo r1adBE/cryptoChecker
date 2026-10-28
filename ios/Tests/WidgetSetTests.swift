@@ -174,14 +174,14 @@ final class WidgetQuantityFormatTests: XCTestCase {
         let top = PortfolioWidgetStore.topPositions(valuesUsd: values, totalUsd: 63_000, factor: 1, changes: [:],
                                                     amounts: ["BTC": 1.13, "ETH": 1.2e-5])
         XCTAssertEqual(top.positions.map(\.quantity), ["1.13", "0.000012"])
-        let old = PortfolioWidgetStore.topPositions(valuesUsd: ["BTC": 1], totalUsd: 1, factor: 1, changes: [:])
-        XCTAssertNil(old.positions.first?.quantity)
+        let noAmounts = PortfolioWidgetStore.topPositions(valuesUsd: ["BTC": 1], totalUsd: 1, factor: 1, changes: [:])
+        XCTAssertNil(noAmounts.positions.first?.quantity)
     }
 
-    /// Ältere gespeicherte Positionen ohne `quantity` laden weiter; neue behalten die Menge.
+    /// Gespeicherte Positionen ohne `quantity` (nur geschrieben, wenn bekannt) laden; mit Menge bleibt sie erhalten.
     func testPositionDecodesWithoutQuantity() throws {
-        let old = Data(#"{"symbol":"BTC","value":100,"sharePercent":50}"#.utf8)
-        let decoded = try JSONDecoder().decode(PortfolioWidgetPosition.self, from: old)
+        let plain = Data(#"{"symbol":"BTC","value":100,"sharePercent":50}"#.utf8)
+        let decoded = try JSONDecoder().decode(PortfolioWidgetPosition.self, from: plain)
         XCTAssertEqual(decoded.symbol, "BTC")
         XCTAssertNil(decoded.quantity)
         let fresh = PortfolioWidgetPosition(symbol: "ETH", value: 1, sharePercent: 1, change24hPercent: nil,

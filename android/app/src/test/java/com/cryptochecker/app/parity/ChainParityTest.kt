@@ -289,9 +289,11 @@ class ChainParityTest {
         // «Tokens mitzählen» aus: Netz-Guthaben bleiben, Token weg
         val noTokens = WatchedAddressRules.withCountTokens(base, false)
         assertEquals(setOf("ARBITRUM:ETH", "BSC:BNB"), noTokens.tokenBalances.keys)
-        // Ältere Sicherung ohne neue Felder
-        val legacy = WatchedAddressRules.fromJson(JsonArray("[{\"chain\":\"SOL\",\"address\":\"${data["chainBalance"].obj()["solana"].obj()["address"]}\"}]"))
-        assertEquals(listOf(WatchedAddressBackupEntry(AddressChain.SOL, legacy[0].address)), legacy)
+        // Nur die immer geschriebenen Felder: übrige mit Standardwert; ohne `addedAt` fällt der Eintrag weg
+        val sol = data["chainBalance"].obj()["solana"].obj()["address"] as String
+        val plain = WatchedAddressRules.fromJson(JsonArray("[{\"chain\":\"SOL\",\"address\":\"$sol\",\"addedAt\":0}]"))
+        assertEquals(listOf(WatchedAddressBackupEntry(AddressChain.SOL, sol)), plain)
+        assertTrue(WatchedAddressRules.fromJson(JsonArray("[{\"chain\":\"SOL\",\"address\":\"$sol\"}]")).isEmpty())
     }
 
     @Test

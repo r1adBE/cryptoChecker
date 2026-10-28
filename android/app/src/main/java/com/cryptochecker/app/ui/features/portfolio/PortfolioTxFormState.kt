@@ -32,7 +32,7 @@ import java.time.ZoneId
 internal fun rememberTxFormState(initial: TxDraft): TxFormState {
     // Dezimalzeichen der Region (Sprache der App, Region des Geräts) — wie bei den Alarmen
     val decimalSeparator = remember { inputDecimalSeparator() }
-    return rememberSaveable(saver = TxFormState.saver(initial, decimalSeparator)) { TxFormState(initial, decimalSeparator) }
+    return rememberSaveable(saver = TxFormState.saver(initial)) { TxFormState(initial, decimalSeparator) }
 }
 
 /**
@@ -304,10 +304,9 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         /**
          * Sichert die Felder und Merker in fester Reihenfolge (Bundle-taugliche Werte: Text, Zahlen, Enums), zuletzt das
          * Dezimalzeichen, mit dem die Texte getippt wurden: nach einem Sprachwechsel liest das Blatt «2,125» weiter mit
-         * dem alten Zeichen statt mit dem der neuen Sprache (sonst würde daraus 2125) — wie der Alarm-Entwurf. Eine
-         * Liste ohne Zeichen nimmt [decimalSeparator].
+         * dem alten Zeichen statt mit dem der neuen Sprache (sonst würde daraus 2125) — wie der Alarm-Entwurf.
          */
-        fun saver(initial: TxDraft, decimalSeparator: Char): Saver<TxFormState, Any> = listSaver(
+        fun saver(initial: TxDraft): Saver<TxFormState, Any> = listSaver(
             save = { s ->
                 listOf<Any?>(
                     s.type, s.coinQuery, s.amountText, s.priceText, s.priceHint, s.priceAuto, s.priceHistoricDay,
@@ -318,8 +317,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
                 )
             },
             restore = { v ->
-                val saved = (v.getOrNull(SEPARATOR_INDEX) as? String)?.singleOrNull()
-                TxFormState(initial, saved ?: decimalSeparator).apply {
+                TxFormState(initial, (v[SEPARATOR_INDEX] as String).single()).apply {
                     type = v[0] as PortfolioTxType
                     coinQuery = v[1] as String
                     amountText = v[2] as String

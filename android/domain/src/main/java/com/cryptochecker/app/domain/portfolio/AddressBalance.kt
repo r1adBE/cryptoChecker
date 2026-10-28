@@ -270,8 +270,8 @@ object AddressBalance {
     // --- Adress-Bestände im Portfolio-Rechner ---
     //
     // Ehrliche Regel: Das Guthaben beobachteter Adressen ist ein EIGENER Teil der Position,
-    // kein Posten der Buchhaltung. Die Eingabe bleibt kompatibel: [withAddresses] hängt je Coin eine Einzahlung
-    // ohne Kaufpreis mit negativer Id an; [split] trennt sie wieder ab. Daraus folgt:
+    // kein Posten der Buchhaltung. Die Eingabe ist eine Transaktionsliste: [withAddresses] hängt je Coin eine
+    // Einzahlung ohne Kaufpreis mit negativer Id an; [split] trennt sie wieder ab. Daraus folgt:
     //  - Gesamtwert, Positionen, Widget und Portfolio-Alarme zählen das Guthaben × aktueller Kurs mit
     //    ([CoinPosition.addressHoldingsExact]).
     //  - Einstand, Ø, «Seit Kauf», realisiert und Steuer nur aus den eigenen Transaktionen — ein Adress-Guthaben

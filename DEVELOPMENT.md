@@ -2641,7 +2641,11 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   the area files (`dimens_widgets.xml`); tests renamed by content (no build numbers), `DatabaseMigrationTest` →
   `DatabaseFreshInstallTest`; `FuturesContractType.normalized`, `smallIdOf` and unused parameters (`dayEndMillis`,
   `cleanName` symbol, `startQuote` region) removed; parity fixtures without review IDs or history; the «Verlauf»
-  sections of both READMEs removed (history lives here and in the CHANGELOG).
+  sections of both READMEs removed (history lives here and in the CHANGELOG). Second sweep: iOS persisted models (watchlist snapshot,
+  Watch, Alarm, portfolio and address files, portfolio alarms, xpub cache, cost lots) require every field the writer
+  always writes – a missing field takes the existing damaged-file path; Binance quarterly ids without expiry get no
+  calendar fallback (prices and candles); a watched address without `addedAt` is dropped; xpub cache without a stored
+  address type is not guessed as P2PKH.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

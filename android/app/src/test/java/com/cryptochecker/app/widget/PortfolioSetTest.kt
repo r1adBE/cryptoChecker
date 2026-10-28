@@ -59,9 +59,10 @@ class PortfolioSnapshotCodecTest {
     }
 
     @Test
-    fun oldPositionsWithoutPnlStillLoad() {
-        val old = """[{"s":"BTC","v":900.0,"p":100.0,"c":1.0,"q":"0.01"}]"""
-        val p = PortfolioSnapshotCodec.readPositions(old).single()
+    fun positionsWithoutPnlLoad() {
+        // Gewinn/Verlust nur geschrieben, wenn bekannt
+        val plain = """[{"s":"BTC","v":900.0,"p":100.0,"c":1.0,"q":"0.01"}]"""
+        val p = PortfolioSnapshotCodec.readPositions(plain).single()
         assertEquals("BTC", p.symbol)
         assertEquals(1.0, p.change24hPercent!!, 1e-9)
         assertNull(p.pnlAmount)

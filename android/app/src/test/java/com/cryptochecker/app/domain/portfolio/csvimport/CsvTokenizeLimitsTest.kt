@@ -74,7 +74,7 @@ class CsvTokenizeLimitsTest {
         assertEquals(CsvImportRefusal.TOO_LARGE, CsvImportRefusal.of(fileTooLarge = false, preview = long))
         // Über 16 MB: das Lesen bricht ab, keine Vorschau
         assertEquals(CsvImportRefusal.TOO_LARGE, CsvImportRefusal.of(fileTooLarge = true, preview = null))
-        // Fremdes Format oder nicht lesbar: wie bisher
+        // Fremdes Format oder nicht lesbar: unlesbar
         assertEquals(CsvImportRefusal.UNREADABLE, CsvImportRefusal.of(fileTooLarge = false, preview = preview("a,b,c\n1,2,3\n")))
         assertEquals(CsvImportRefusal.UNREADABLE, CsvImportRefusal.of(fileTooLarge = false, preview = null))
         // Lesbare Datei: Vorschau

@@ -61,7 +61,7 @@ import kotlinx.coroutines.withContext
  * grosser Börsen-Apps): je Gruppe eine Karte wie im Markt-Tab «Jetzt» ([SettingsSection]) mit der
  * Überschrift oben in der Karte, darunter schlichte Zeilen mit Titel, aktuellem Wert in Grau und
  * Pfeil. Alles Ausführliche steht auf Unterseiten
- * ([SettingsPageScreen], Markt-Meldungen, Sprachausgabe). Schlüssel und Verhalten unverändert.
+ * ([SettingsPageScreen], Markt-Meldungen, Sprachausgabe).
  *
  * Gruppen: Allgemein (Sprache, Währung, Merkliste, Portfolio, Alarme, Kurs-Aktualisierung)
  * · Darstellung (Hell/Dunkel, Akzent, Kursfarben, Coin-Logos, Widgets) · Mehr (Sicherung, Über die App)

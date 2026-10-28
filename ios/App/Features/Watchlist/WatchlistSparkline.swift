@@ -188,7 +188,7 @@ struct WatchlistSparkline: View {
 struct WatchlistSparklineSlot: Layout {
     var minInfoWidth: CGFloat
     var sparkWidth: CGFloat = 56
-    /// 28 pt (vorher 22) — bleibt unter der Höhe von Paar-Spalte und Stern (≈ 40 pt),
+    /// 28 pt — bleibt unter der Höhe von Paar-Spalte und Stern (≈ 40 pt),
     /// die Zeile wird dadurch nicht höher.
     var sparkHeight: CGFloat = 28
     var gap: CGFloat = 8

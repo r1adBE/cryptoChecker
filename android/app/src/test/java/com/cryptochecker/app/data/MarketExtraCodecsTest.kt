@@ -120,7 +120,7 @@ class MarketExtraCodecsTest {
     @Test
     fun storedNameAndMarketCapAreRead() {
         val coins = JSONArray().put(JSONObject().put("s", "OP").put("n", "Optimism").put("c", 0.0).put("m", 5.0e9))
-        val decoded = MarketExtraCodecs.unusualInput.decode(JSONObject().put("coins", coins).put("time", 1L))
+        val decoded = MarketExtraCodecs.unusualInput.decode(JSONObject().put("coins", coins).put("own", JSONObject()).put("time", 1L))
         val coin = decoded.coins.single()
         assertEquals("Optimism", coin.name)
         assertEquals(5.0e9, coin.marketCap!!, 0.0)

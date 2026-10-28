@@ -2,11 +2,11 @@ import Foundation
 
 /// Art eines gescheiterten Börsenabrufs, festgestellt dort, wo der Fehler entsteht (`ExchangeFailure.of`). Wandert im
 /// Speicher neben dem Fehlertext mit (`BulkTickers.exchangeFailure`, `PriceRefresher.Fetched.exchangeFailure`);
-/// gespeichert wird weiterhin nur der Text (`StoredError.sanitize`).
+/// gespeichert wird nur der Text (`StoredError.sanitize`).
 ///
 /// Warum neben dem Text: Die Einordnung (`RefreshReportLogic.classify`) müsste sonst Stichwörter («ssl», «eof»,
 /// «timeout» …) im Text suchen. Mit der Art entscheidet der Typ; die Stichwortsuche bleibt nur für Texte ohne Art
-/// (gespeicherte ältere Fehler, eigene Marker, Meldungen der Börse). Wie `ExchangeFailure.kt` (Android).
+/// (gespeicherte Fehlertexte, eigene Marker, Meldungen der Börse). Wie `ExchangeFailure.kt` (Android).
 ///
 /// Nur Foundation: auch im Widget nutzbar.
 enum ExchangeFailure: Equatable, Sendable {

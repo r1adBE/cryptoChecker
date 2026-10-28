@@ -34,7 +34,7 @@ class PortfolioTxTypesTest {
             listOf("BUY", "SELL", "TRANSFER", "REWARD", "DEPOSIT", "WITHDRAWAL", "SWAP", "GIFT", "PAYMENT"),
             PortfolioTxType.entries.map { it.name },
         )
-        // «Verschenkt» und «Damit bezahlt» als Text gespeichert (neue Namen am Ende, alte Daten unverändert)
+        // «Verschenkt» und «Damit bezahlt» als Text gespeichert (Name je Fall)
         assertEquals(PortfolioTxType.GIFT, PortfolioTxType.fromName("GIFT"))
         assertEquals(PortfolioTxType.PAYMENT, PortfolioTxType.fromName("PAYMENT"))
         assertTrue(PortfolioTxType.GIFT.isOutflow && PortfolioTxType.GIFT.isWithdrawalLike && !PortfolioTxType.GIFT.isSaleLike)

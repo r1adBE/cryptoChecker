@@ -30,7 +30,7 @@ enum NotTraded {
     /// `failure`: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; bei Lesefehler und Meldung der
     /// Börse der Text. `.other` (interner Fehler ohne klaren Typ, z. B. ein Fehler ohne Text) bestätigt
     /// nie — sonst verstummte ein Paar wegen eines eigenen Fehlers für Stunden (BulkDelisted). Ein leerer Text
-    /// bestätigt nur ohne Art (gespeicherte ältere Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet «ohne
+    /// bestätigt nur ohne Art (gespeicherte Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet «ohne
     /// Kurs» als Lesefehler («Parsed ticker has no data»).
     ///
     /// Meldet der Leser in einer sonst gültigen Antwort «kein Eintrag für das Paar» (`isMissingEntry`), bestätigt das

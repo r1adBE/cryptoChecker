@@ -77,11 +77,11 @@ final class PortfolioLedgerTests: XCTestCase {
         XCTAssertEqual(PortfolioDecimal.parse("1e-08"), dec("0.00000001"))
         XCTAssertNil(ThresholdParser.parseDecimal("1" + String(repeating: "0", count: 30), decimalSeparator: "."))
         // Eintrag mit absurder Menge ist ungültig (wird beim Laden übersprungen)
-        let crafted = #"{"id":3,"coin":"BTC","type":"BUY","amountText":"1E300000000","time":1}"#
+        let crafted = #"{"id":3,"coin":"BTC","type":"BUY","amountText":"1E300000000","time":1,"feeRow":false,"interest":false}"#
         XCTAssertThrowsError(try JSONDecoder().decode(PortfolioTx.self, from: Data(crafted.utf8)))
     }
 
-    func testFileKeepsExactTextAndReadsOldNumbers() throws {
+    func testFileKeepsExactText() throws {
         let tx = trade(7, "BTC", .BUY, "0.00000001", "60000.5", 1, fee: "0.1", unit: .QUOTE)
         let data = try JSONEncoder().encode(tx)
         let back = try JSONDecoder().decode(PortfolioTx.self, from: data)
@@ -93,7 +93,7 @@ final class PortfolioLedgerTests: XCTestCase {
         XCTAssertNil(object["amount"])
         XCTAssertNil(object["priceUsdt"])
         XCTAssertNil(object["fee"])
-        let text = #"{"id":3,"coin":"btc","type":"BUY","amountText":"0.1","priceText":"100","time":1}"#
+        let text = #"{"id":3,"coin":"btc","type":"BUY","amountText":"0.1","priceText":"100","time":1,"feeRow":false,"interest":false}"#
         let parsed = try JSONDecoder().decode(PortfolioTx.self, from: Data(text.utf8))
         XCTAssertEqual(parsed.amountExact, dec("0.1"))
         XCTAssertEqual(parsed.coin, "BTC")

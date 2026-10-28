@@ -347,16 +347,17 @@ enum WatchedAddressRules {
         return x > 0 && abs(diff) <= limit
     }
 
-    /// Lesen aus der Sicherung; unlesbare Einträge (unbekanntes Netz, keine Adresse) fallen weg —
-    /// geprüft wird in `merge`. Wie `fromJson` (Kotlin).
+    /// Lesen aus der Sicherung; unlesbare Einträge (unbekanntes Netz, keine Adresse, kein `addedAt`) fallen weg —
+    /// geprüft wird in `merge`. Die übrigen Felder schreibt `json` nur bei einem Wert ausser dem Standard. Wie
+    /// `fromJson` (Kotlin).
     static func entries(fromJSON array: [Any]?) -> [WatchedAddressBackupEntry] {
         guard let array else { return [] }
         return array.compactMap { item -> WatchedAddressBackupEntry? in
             guard let o = item as? [String: Any],
                   let chain = AddressChain(rawValue: o["chain"] as? String ?? ""),
-                  let address = o["address"] as? String, !address.isEmpty else { return nil }
+                  let address = o["address"] as? String, !address.isEmpty,
+                  let addedAt = (o["addedAt"] as? NSNumber)?.int64Value else { return nil }
             let label = o["label"] as? String
-            let addedAt = (o["addedAt"] as? NSNumber)?.int64Value ?? 0
             var tokens: [String: [AddressObservation]] = [:]
             for (key, raw) in o["tokenObservations"] as? [String: Any] ?? [:] {
                 tokens[key] = AddressBalanceHistory.observations(fromJSON: raw)

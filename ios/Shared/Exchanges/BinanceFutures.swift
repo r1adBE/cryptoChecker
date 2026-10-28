@@ -35,12 +35,9 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
         let pairId = info.pairId ?? ""
         let endpoint = BinanceFutures.dayTicker(of: pairId)
         let symbol = BinanceFutures.isCoinM(pairId) ? String(pairId.dropFirst(binanceCoinMMark.count)) : pairId
-        // Laufzeit-Kontrakt: immer das Symbol der Paarliste («BTCUSDT_251226»). Der Kalender träfe nach der
-        // Abrechnung (Freitag 08:00 UTC) den abgelaufenen Kontrakt — er dient nur alten Kennungen ohne Datum.
-        guard FuturesContractType.deliveryCode(of: symbol) == nil, let delivery = info.contractType.deliveryDate else {
-            return endpoint + "?symbol=" + symbol
-        }
-        return endpoint + "?symbol=" + info.base + info.quote + "_" + BinanceFutures.expiryCode(delivery)
+        // Immer das Symbol der Paarliste, bei Laufzeit-Kontrakten samt Verfallstag («BTCUSDT_251226»); nie aus dem
+        // Kalender, der träfe nach der Abrechnung (Freitag 08:00 UTC) den abgelaufenen Kontrakt.
+        return endpoint + "?symbol=" + symbol
     }
 
     /// COIN-M antwortet mit einem Array aus einem Eintrag.
@@ -136,15 +133,6 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
         case "NEXT_QUARTER": .biquarterly
         default: nil
         }
-    }
-
-    /// Verfallstag im Symbol der Laufzeit-Kontrakte («251226», UTC).
-    private static func expiryCode(_ date: Date) -> String {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "UTC")!
-        let parts = calendar.dateComponents([.year, .month, .day], from: date)
-        func twoDigits(_ n: Int) -> String { n < 10 ? "0\(n)" : "\(n)" }
-        return twoDigits((parts.year ?? 0) % 100) + twoDigits(parts.month ?? 0) + twoDigits(parts.day ?? 0)
     }
 
     private static func dayTicker(of pairId: String) -> String {
