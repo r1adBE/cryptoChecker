@@ -104,8 +104,17 @@ class LogoFallbackParityTest {
 
     @Test
     fun imagePauses() {
-        fallback["pauseCodes"].list().map { it.list() }.forEach { (code, expected) ->
-            assertEquals("code: $code", expected, CoinLogoRetry.pausesImages((code as Double).toInt()))
+        fallback["pauseResponse"].list().map { it.list() }.forEach { (code, retryAfter, expected) ->
+            assertEquals("code: $code/$retryAfter", expected, CoinLogoRetry.pausesImages((code as Double).toInt(), retryAfter as Boolean))
+        }
+        // Folge von 403 je Server: erst das dritte Bild in Folge pausiert
+        fallback["forbiddenStreak"].list().map { it.list() }.forEach { (sequence, expected) ->
+            var streak = 0
+            val actual = sequence.list().map { forbidden ->
+                streak = CoinLogoRetry.nextForbiddenStreak(streak, forbidden as Boolean)
+                CoinLogoRetry.forbiddenStreakPauses(streak)
+            }
+            assertEquals("streak: $sequence", expected, actual)
         }
         fallback["pauseMillis"].list().map { it.list() }.forEach { (retry, expected) ->
             assertEquals("pause: $retry", (expected as Double).toLong(), CoinLogoRetry.imagePauseMillis((retry as Double?)?.toLong()))

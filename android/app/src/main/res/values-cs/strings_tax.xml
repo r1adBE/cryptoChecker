@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Sledované adresy nelze načíst – jejich zůstatky v tomto souboru chybí</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Upozornění: sledovaná adresa má položky pořizovací ceny s datem po své poslední kontrole zůstatku před tímto datem – zde mohou chybět.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Položky sledovaných adres se počítají od data nákupu; je-li dnešní zůstatek adresy nižší, sníží se.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Sledované adresy se započítávají do celkové hodnoty, ale nemají pořizovací cenu – zisk je proto spíše nadhodnocený. Zadej pořizovací cenu jako nákup.</string>

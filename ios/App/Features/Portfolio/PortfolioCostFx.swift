@@ -92,7 +92,7 @@ enum PortfolioCostFx {
             }
             if approximate { usdtApproximate = true }
             // Teile und Einstand gehen exakt auf; ein Rest aus Teilungen zählt anteilig mit
-            if partsSum != 0, partsSum != cost { return PortfolioDecimal.divide(PortfolioDecimal.multiply(sum, cost), partsSum) }
+            if partsSum != 0, partsSum != cost { return PortfolioDecimal.divide(sum, cost, by: partsSum) }
             return sum
         }
         func target(_ p: CoinPosition) -> Decimal? {

@@ -104,7 +104,7 @@ object TaxExport {
     /**
      * Freigrenze für private Veräusserungsgeschäfte (§ 23 Abs. 3 Satz 5 EStG) in EUR: steuerfrei, wenn der Gesamtgewinn
      * des Jahres WENIGER als die Grenze beträgt (Freigrenze, kein Freibetrag): 1000 € ab 2024 (Wachstumschancengesetz),
-     * 600 € 2008–2023 (Jahressteuergesetz 2008, ab Veranlagungszeitraum 2008), 512 € bis 2007.
+     * 600 € 2008–2023 (Unternehmensteuerreformgesetz 2008, ab Veranlagungszeitraum 2008), 512 € bis 2007.
      */
     fun privateSalesLimitEur(year: Int): BigDecimal = when {
         year >= 2024 -> BigDecimal(1000)

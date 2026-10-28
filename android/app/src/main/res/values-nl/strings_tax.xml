@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Gevolgde adressen konden niet worden gelezen – hun saldi ontbreken in dit bestand</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Let op: een gevolgd adres heeft aanschafposten gedateerd na de laatste saldocontrole vóór deze datum – die kunnen hier ontbreken.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Posten van gevolgde adressen tellen vanaf hun aankoopdatum; is het huidige saldo van het adres lager, dan worden ze verlaagd.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Gevolgde adressen tellen mee in de totale waarde, maar hebben geen aanschafwaarde – de winst is daardoor eerder te hoog. Leg de aanschafwaarde vast als aankoop.</string>

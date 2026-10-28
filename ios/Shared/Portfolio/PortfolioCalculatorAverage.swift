@@ -13,6 +13,8 @@ extension PortfolioCalculator {
         let costRemoved: Decimal
         let removedPriced: Decimal
         let partsRemoved: PortfolioCostPartList
+        /// Abgegebener Einstand enthält einen geschätzten Wert.
+        let estimated: Bool
     }
 
     /// Bestand eines Coins während der Rechnung (Teil mit/ohne Kaufpreis, Einstand samt Herkunft).
@@ -21,21 +23,24 @@ extension PortfolioCalculator {
         var unpriced: Decimal = 0    // Menge ohne Kaufpreis
         var cost: Decimal = 0        // Einstand des Teils mit Kaufpreis (inkl. Gebühren in USDT)
         var parts = PortfolioCostPartPool() // Herkunft von `cost` (nur mit `withParts`; je Abgang O(1))
+        var estimated = false // `cost` enthält einen geschätzten Wert (`PortfolioTx.costEstimated`), bis der Topf leer ist
         /// Herkunft führen? Ohne bleibt `parts` leer.
         let withParts: Bool
 
         var holdings: Decimal { priced + unpriced }
 
-        mutating func addCost(_ time: Int64, _ usdt: Decimal) {
+        mutating func addCost(_ time: Int64, _ usdt: Decimal, est: Bool = false) {
             cost += usdt
             if withParts { parts.add(time, usdt) }
+            if est && usdt != 0 { estimated = true }
         }
 
-        /// Einstand und Herkunft ganz verwerfen (Teil mit Kaufpreis ist leer).
+        /// Einstand, Herkunft und Merker ganz verwerfen (Teil mit Kaufpreis ist leer).
         mutating func resetPriced() {
             priced = 0
             cost = 0
             parts.clear()
+            estimated = false
         }
 
         /// Gibt `requested` ab (gekappt auf den Bestand > 0), beide Teile anteilig samt Einstand — wie `take` (Android).
@@ -52,10 +57,11 @@ extension PortfolioCalculator {
             } else if removedPriced >= priced {
                 costRemoved = cost
             } else {
-                costRemoved = PortfolioDecimal.divide(cost * removedPriced, priced)
+                costRemoved = PortfolioDecimal.divide(cost, removedPriced, by: priced)
             }
             // Anteilig aus allen Herkunftsteilen, Summe exakt `costRemoved`
             let partsRemoved = parts.take(costRemoved, total: cost)
+            let est = estimated && removedPriced > 0
             // Gesamtbestand bleibt exakt; der Teil ohne Preis ist der Rest
             let rest = total - removed
             priced -= removedPriced
@@ -64,7 +70,7 @@ extension PortfolioCalculator {
             unpriced = max(0, rest - priced)
             if PortfolioDecimal.isDust(unpriced) { unpriced = 0 }
             return Taken(removed: removed, allPriced: allPriced, share: share, costRemoved: costRemoved,
-                         removedPriced: removedPriced, partsRemoved: partsRemoved)
+                         removedPriced: removedPriced, partsRemoved: partsRemoved, estimated: est)
         }
     }
 
@@ -98,13 +104,14 @@ extension PortfolioCalculator {
             // Geschätzter Gebühr-Preis auch am Erlös, den die Gebühr mindert
             let estimated = feeLeg ? t.feePriceEstimated : t.valueEstimated || (t.feePriceEstimated && proceeds != nil)
             func add(_ amount: Decimal, cost: Decimal?, proceeds part: Decimal?, gain: Decimal?,
-                     costParts: PortfolioCostPartList = [], isUncovered: Bool = false) {
+                     costParts: PortfolioCostPartList = [], isUncovered: Bool = false, partEstimated: Bool = false) {
                 guard amount > 0 else { return }
                 disposals.append(PortfolioDisposal(
                     coin: symbol, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
                     amount: amount, costUsdt: cost, proceedsUsdt: part, gainUsdt: gain, holdingDays: nil,
                     feeLeg: feeLeg, feeValueMissing: feeMissing, method: .AVERAGE,
-                    costParts: costParts, uncovered: isUncovered, swap: swap, gift: gift, payment: payment, valueEstimated: estimated))
+                    costParts: costParts, uncovered: isUncovered, swap: swap, gift: gift, payment: payment,
+                    valueEstimated: estimated || partEstimated))
             }
             if let taken {
                 if !hadPriced {
@@ -112,7 +119,8 @@ extension PortfolioCalculator {
                 } else {
                     let pricedProceeds = coveredProceeds.map { taken.allPriced ? $0 : PortfolioDecimal.multiply($0, taken.share) }
                     add(taken.removedPriced, cost: taken.costRemoved, proceeds: pricedProceeds,
-                        gain: pricedProceeds.map { $0 - taken.costRemoved }, costParts: taken.partsRemoved)
+                        gain: pricedProceeds.map { $0 - taken.costRemoved }, costParts: taken.partsRemoved,
+                        partEstimated: taken.estimated)
                     if !taken.allPriced {
                         var rest: Decimal?
                         if let coveredProceeds, let pricedProceeds { rest = coveredProceeds - pricedProceeds }
@@ -139,7 +147,7 @@ extension PortfolioCalculator {
             guard let proceeds else { return nil }
             if removed == requested { return proceeds }
             if removed <= 0 { return nil }
-            return PortfolioDecimal.divide(proceeds * removed, requested)
+            return PortfolioDecimal.divide(proceeds, removed, by: requested)
         }
 
         for e in events {
@@ -155,7 +163,7 @@ extension PortfolioCalculator {
                     continue
                 }
                 if let value = t.swapValue {
-                    book.addCost(t.time, value)
+                    book.addCost(t.time, value, est: t.costEstimated(swapIn: true))
                     book.priced += received
                 } else {
                     book.unpriced += received
@@ -166,7 +174,7 @@ extension PortfolioCalculator {
                 // Gebühr einer anderen Transaktion in diesem Coin bezahlt: Veräusserung zum Gebühr-Preis
                 let fee = t.thirdFeeAmount
                 if fee > book.holdings { oversold = true }
-                let proceeds = t.thirdFeePrice.map { fee * $0 }
+                let proceeds = t.thirdFeePrice.map { PortfolioDecimal.multiply(fee, $0) }
                 if book.holdings <= 0 {
                     record(t, nil, hadPriced: false, proceeds: proceeds, coveredProceeds: nil, uncovered: fee,
                            feeLeg: true, feeMissing: false)
@@ -199,7 +207,7 @@ extension PortfolioCalculator {
                 }
                 if let price {
                     // Gebühren in USDT und im dritten Coin gehören zum Einstand (Herkunft: Erwerb)
-                    book.addCost(t.acquisitionTime, amount * price + t.quoteFeeExact + (feeValue ?? 0))
+                    book.addCost(t.acquisitionTime, PortfolioDecimal.multiply(amount, price) + t.quoteFeeExact + (feeValue ?? 0), est: t.costEstimated())
                     book.priced += received
                     if feeValue == nil { feeValueMissing = true }
                 } else {
@@ -214,7 +222,7 @@ extension PortfolioCalculator {
                 if requested > holdings { oversold = true }
                 // Erlös des ganzen Abgangs (Tausch: sein Wert); der gedeckte Teil bekommt seinen Anteil nach Menge
                 // Tausch ohne gültigen Zugang (erhaltener Coin fehlt): Erlös unbekannt → «realisiert unvollständig»
-                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { amount * $0 }
+                let gross: Decimal? = swap ? (t.swapToCoin != nil ? t.swapValue : nil) : price.map { PortfolioDecimal.multiply(amount, $0) }
                 let proceeds = gross.map { $0 - t.quoteFeeExact - (feeValue ?? 0) }
                 let feeMissing = gross != nil && feeValue == nil
                 if feeMissing { feeValueMissing = true }
@@ -225,7 +233,7 @@ extension PortfolioCalculator {
                 }
                 let hadPriced = book.priced > 0
                 let taken = book.take(requested)
-                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed * amount, requested)
+                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
                 let covered = coveredShare(proceeds, removed: taken.removed, requested: requested)
                 // Verkauf anteilig auf beide Teile; nur der Teil mit Kaufpreis ist bekannt
                 if let covered, hadPriced {
@@ -253,7 +261,7 @@ extension PortfolioCalculator {
                 // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
                 expense(e, .WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings: holdings))
                 let taken = book.take(requested)
-                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed * amount, requested)
+                let sold = taken.removed == requested ? amount : PortfolioDecimal.divide(taken.removed, amount, by: requested)
                 withdrawn += sold
                 withdrawals.append(PortfolioWithdrawalCost(trade: t, sold: sold, removed: taken.removed,
                                                            pricedRemoved: taken.removedPriced, cost: taken.costRemoved))
@@ -275,16 +283,16 @@ extension PortfolioCalculator {
                 var assigned: Decimal = 0
                 if book.priced > 0 {
                     if feeValue == nil { feeValueMissing = true }
-                    assigned = allPriced ? extra : PortfolioDecimal.divide(extra * book.priced, holdings)
+                    assigned = allPriced ? extra : PortfolioDecimal.divide(extra, book.priced, by: holdings)
                 }
-                if extra > 0 { book.addCost(t.time, assigned) }
+                if extra > 0 { book.addCost(t.time, assigned, est: t.feePriceEstimated) }
                 let noted = extra - assigned + lost
                 if noted > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: noted)) }
                 // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
                 if coinFee > 0 {
                     let removed = min(coinFee, holdings)
                     let removedPriced = allPriced ? removed
-                        : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed * book.priced, holdings)), book.priced)
+                        : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed, book.priced, by: holdings)), book.priced)
                     book.priced -= removedPriced
                     if PortfolioDecimal.isDust(book.priced) || book.priced < 0 {
                         // Kein Teil mit Kaufpreis mehr: Einstand nicht still verlieren, sondern vermerken

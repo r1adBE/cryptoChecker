@@ -276,7 +276,7 @@ fun TaxExport.incomeRows(
     usdtUsd: Map<Long, BigDecimal>? = null,
 ): List<TaxIncomeRow> = PortfolioLedger.valueRewardsAtDayClose(rewardsIn(trades, period, zone), priceAt).map { t ->
     val date = localDate(t.time, zone)
-    val value = t.validPrice?.let { t.amount * it }
+    val value = t.validPrice?.let { t.amount.multiply(it, PortfolioDecimal.MC) }
     val rate = rateOn(rates, date, currency, usdtUsd)
     TaxIncomeRow(
         date = date,

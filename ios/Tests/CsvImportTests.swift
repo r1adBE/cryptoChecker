@@ -69,6 +69,16 @@ final class CsvImportTests: XCTestCase {
         }
     }
 
+    /// Abgeleiteter Preis: exakt, einmal auf 34 Stellen gerundet — gleich wie Android `CsvImport.derive`.
+    func testDivide() throws {
+        let posix = Locale(identifier: "en_US_POSIX")
+        for c in S.list(try S.fixture("csv_import")["divide"]) {
+            let a = try XCTUnwrap(Decimal(string: string(c["a"]) ?? "", locale: posix), "divide: \(c)")
+            let b = try XCTUnwrap(Decimal(string: string(c["b"]) ?? "", locale: posix), "divide: \(c)")
+            XCTAssertEqual(text(PortfolioDecimal.divide(a, b)), string(c["expected"]), "divide: \(c)")
+        }
+    }
+
     func testDates() throws {
         for c in S.list(try S.fixture("csv_import")["dates"]) {
             // Optionale Zeitzone (Sommerzeit-Wechsel Zürich/New York)

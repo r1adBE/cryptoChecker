@@ -52,6 +52,9 @@ fun TaxEngines.caAcb(
     }
     val pool = TaxPool(zone)
     val pending = ArrayList<PortfolioCostPart>()
+    // Nicht abziehbarer Verlust aus einer Zeile mit geschätztem Wert: der ACB enthält dann einen geschätzten Teil
+    var pendingEstimated = false
+    val pendingAtEstimated = HashSet<Int>()
     // Ersatz-Menge je Zugang: deckt nur einen nicht abziehbaren Verlust (wird verbraucht)
     val replaceLeft = steps.map { if (it.kind == TaxStepKind.ACQUIRE) it.qty else zero }.toMutableList()
     // Nicht abziehbarer Verlust (Herkunft: Verkauf) für einen Ersatz NACH dem Verkauf: kommt bei diesem Zugang zum ACB
@@ -80,21 +83,28 @@ fun TaxEngines.caAcb(
         return !a.isBefore(from) && !a.isAfter(to)
     }
 
-    /** Nicht abziehbarer Betrag zum ACB des Bestands (ohne Teil mit Kaufpreis: zum nächsten Zugang mit Kaufpreis). */
-    fun toAcb(time: Long, amount: BigDecimal) {
+    /**
+     * Nicht abziehbarer Betrag zum ACB des Bestands (ohne Teil mit Kaufpreis: zum nächsten Zugang mit Kaufpreis); [est] =
+     * aus einer Zeile mit geschätztem Wert.
+     */
+    fun toAcb(time: Long, amount: BigDecimal, est: Boolean) {
         if (amount.signum() <= 0) return
-        if (pool.priced.signum() > 0) pool.addCost(time, amount) else pending += PortfolioCostPart(time, amount)
+        if (pool.priced.signum() > 0) return pool.addCost(time, amount, est)
+        pending += PortfolioCostPart(time, amount)
+        if (est) pendingEstimated = true
     }
     steps.forEachIndexed { i, s ->
         when (s.kind) {
             TaxStepKind.ACQUIRE -> {
-                pool.add(s.qty, s.cost, s.acquired)
+                pool.add(s.qty, s.cost, s.acquired, s.costEstimated)
                 // Ersatz dieses Zugangs für einen früheren Verkauf: dessen nicht abziehbarer Verlust zum ACB
-                pendingAt.remove(i)?.forEach { toAcb(it.time, it.usdt) }
+                val atEstimated = pendingAtEstimated.remove(i)
+                pendingAt.remove(i)?.forEach { toAcb(it.time, it.usdt, atEstimated) }
                 // Nicht abziehbarer Verlust ohne Bestand: zum nächsten Zugang mit Kaufpreis
                 if (s.cost != null && pending.isNotEmpty()) {
-                    pending.forEach { pool.addCost(it.time, it.usdt) }
+                    pending.forEach { pool.addCost(it.time, it.usdt, pendingEstimated) }
                     pending.clear()
+                    pendingEstimated = false
                 }
             }
             TaxStepKind.DISPOSE -> {
@@ -120,6 +130,7 @@ fun TaxEngines.caAcb(
                 val heldEnd = heldAfter[endIndex]
                 val n = s.qty.min(bought).min(heldEnd).max(zero)
                 var denied = zero
+                var deniedEstimated = false
                 val rows = emit(coin, s, list, s.proceeds) { _, row ->
                     val g = row.gainUsdt.takeUnless { s.spouseGift }
                     // Verlust in der Steuerwährung entscheiden (Schenkung an Partner: kein Verlust, ITA 73(1)) (CAD: gemeldet wird in CAD — ein USDT-Verlust kann in CAD
@@ -130,6 +141,7 @@ fun TaxEngines.caAcb(
                         val part = if (n.compareTo(s.qty) == 0) loss else loss.multiply(n).divide(s.qty, PortfolioDecimal.MC)
                         if (part.signum() > 0) {
                             denied += part
+                            if (row.valueEstimated) deniedEstimated = true
                             return@emit row.copy(adjustmentUsdt = part)
                         }
                     }
@@ -152,13 +164,15 @@ fun TaxEngines.caAcb(
                     matched.forEachIndexed { k, (j, q) ->
                         val part = if (k == matched.size - 1) left else denied.multiply(q).divide(n, PortfolioDecimal.MC)
                         left -= part
-                        if (j > i) pendingAt.getOrPut(j) { ArrayList() } += PortfolioCostPart(s.time, part) else toAcb(s.time, part)
+                        if (j <= i) return@forEachIndexed toAcb(s.time, part, deniedEstimated)
+                        pendingAt.getOrPut(j) { ArrayList() } += PortfolioCostPart(s.time, part)
+                        if (deniedEstimated) pendingAtEstimated += j
                     }
                 }
             }
             TaxStepKind.REMOVE -> pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))
-            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: zero, s.trade.amount, s.trade.coinFee))
+            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: zero, s.trade.amount, s.trade.coinFee, s.costEstimated))
         }
     }
     return out

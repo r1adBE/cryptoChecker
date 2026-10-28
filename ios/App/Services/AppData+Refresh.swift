@@ -45,8 +45,11 @@ extension AppData {
     /// Nach unten ziehen bzw. Knopf oben: gesperrt, solange eine Aktualisierung läuft oder die
     /// letzte vollständige keine 15 s her ist (`RefreshDebounce`). Dann kein neuer Durchlauf —
     /// der Menüpunkt ist grau mit Countdown (`WatchlistMenuHead`). Live-Takt und neue Paare laufen ohne Sperre.
+    /// Startet immer auch den Abgleich aller Logos (`startCoinLogoSync`: Schalter «Coin-Logos», Fristen und Pausen
+    /// der Bild-Server gelten dort) — derselbe Sammel-Abruf wie beim Öffnen, verrät also keine Merkliste.
     @discardableResult
     func refreshAllByUser() async -> RefreshDebounce.Decision {
+        startCoinLogoSync()
         let decision = RefreshDebounce.decide(running: refreshState.refreshing,
                                               lastFinishedAt: SharedStorage.lastFullRefreshAt, now: EpochTime.nowMillis)
         if decision == .start {

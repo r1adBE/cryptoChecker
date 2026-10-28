@@ -266,5 +266,165 @@
    "text": null,
    "interest": false
   }
+ ],
+ "_backupAmountsComment": "Transaktion aus der Sicherung (Android PortfolioJson.jsonToTx, iOS BackupManager.jsonToTx): Grundeintrag {id 1, coin BTC, type BUY, amountText 1, time 1, sonst leer} mit «changes». Mengen, Gebühren und Werte gerundet wie gespeichert (18 Nachkommastellen, halbe auf gerade); eine Menge oder erhaltene Menge, die dabei 0 wird, macht den Eintrag ungültig (expected null, gezählt); eine Gebühr bzw. Gebühr im dritten Coin fällt weg. Preise nach der Regel der Preise. «expected» = Felder, wie die Sicherung sie danach wieder schreibt (txToJson).",
+ "backupAmounts": [
+  {
+   "name": "amount rounds to 18 decimals",
+   "changes": {
+    "amountText": "1.0000000000000000004"
+   },
+   "expected": {
+    "amountText": "1",
+    "priceText": null,
+    "feeText": null,
+    "feeUnit": null,
+    "feeCoin": null,
+    "feeCoinAmountText": null,
+    "feeCoinPriceText": null,
+    "toCoin": null,
+    "toAmountText": null,
+    "swapValueText": null
+   }
+  },
+  {
+   "name": "amount below 1e-18 is invalid",
+   "changes": {
+    "amountText": "1E-19"
+   },
+   "expected": null
+  },
+  {
+   "name": "amount exactly half of 1e-18 rounds to 0 (half even): invalid",
+   "changes": {
+    "amountText": "0.0000000000000000005"
+   },
+   "expected": null
+  },
+  {
+   "name": "amount 1.5e-18 rounds to 2e-18",
+   "changes": {
+    "amountText": "0.0000000000000000015"
+   },
+   "expected": {
+    "amountText": "0.000000000000000002",
+    "priceText": null,
+    "feeText": null,
+    "feeUnit": null,
+    "feeCoin": null,
+    "feeCoinAmountText": null,
+    "feeCoinPriceText": null,
+    "toCoin": null,
+    "toAmountText": null,
+    "swapValueText": null
+   }
+  },
+  {
+   "name": "fee below 1e-18: no fee",
+   "changes": {
+    "feeText": "1E-19",
+    "feeUnit": "COIN"
+   },
+   "expected": {
+    "amountText": "1",
+    "priceText": null,
+    "feeText": null,
+    "feeUnit": null,
+    "feeCoin": null,
+    "feeCoinAmountText": null,
+    "feeCoinPriceText": null,
+    "toCoin": null,
+    "toAmountText": null,
+    "swapValueText": null
+   }
+  },
+  {
+   "name": "fee rounds to 18 decimals",
+   "changes": {
+    "feeText": "0.1234567890123456789",
+    "feeUnit": "COIN"
+   },
+   "expected": {
+    "amountText": "1",
+    "priceText": null,
+    "feeText": "0.123456789012345679",
+    "feeUnit": "COIN",
+    "feeCoin": null,
+    "feeCoinAmountText": null,
+    "feeCoinPriceText": null,
+    "toCoin": null,
+    "toAmountText": null,
+    "swapValueText": null
+   }
+  },
+  {
+   "name": "third-coin fee below 1e-18: no third-coin fee",
+   "changes": {
+    "feeCoin": "BNB",
+    "feeCoinAmountText": "1E-19",
+    "feeCoinPriceText": "600"
+   },
+   "expected": {
+    "amountText": "1",
+    "priceText": null,
+    "feeText": null,
+    "feeUnit": null,
+    "feeCoin": null,
+    "feeCoinAmountText": null,
+    "feeCoinPriceText": null,
+    "toCoin": null,
+    "toAmountText": null,
+    "swapValueText": null
+   }
+  },
+  {
+   "name": "swap received amount below 1e-18 is invalid",
+   "changes": {
+    "type": "SWAP",
+    "toCoin": "ETH",
+    "toAmountText": "1E-19",
+    "swapValueText": "100"
+   },
+   "expected": null
+  },
+  {
+   "name": "swap amounts and value round to 18 decimals",
+   "changes": {
+    "type": "SWAP",
+    "toCoin": "ETH",
+    "toAmountText": "2.0000000000000000001",
+    "swapValueText": "100.1234567890123456789"
+   },
+   "expected": {
+    "amountText": "1",
+    "priceText": null,
+    "feeText": null,
+    "feeUnit": null,
+    "feeCoin": null,
+    "feeCoinAmountText": null,
+    "feeCoinPriceText": null,
+    "toCoin": "ETH",
+    "toAmountText": "2",
+    "swapValueText": "100.123456789012345679"
+   }
+  },
+  {
+   "name": "price keeps the price rule (34 significant digits)",
+   "changes": {
+    "priceText": "0.000000001234567890123456789012345678"
+   },
+   "expected": {
+    "amountText": "1",
+    "priceText": "0.000000001234567890123456789012345678",
+    "feeText": null,
+    "feeUnit": null,
+    "feeCoin": null,
+    "feeCoinAmountText": null,
+    "feeCoinPriceText": null,
+    "toCoin": null,
+    "toAmountText": null,
+    "swapValueText": null
+   }
+  }
  ]
 }

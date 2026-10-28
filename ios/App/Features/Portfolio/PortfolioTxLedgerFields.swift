@@ -173,7 +173,7 @@ extension PortfolioTxSheet {
     @ViewBuilder
     var totalLine: some View {
         if fields.price, let value = amount, let p = price {
-            Text(L("portfolio_tx_total", PortfolioFormat.usdtValue(PortfolioDecimal.double(value * p))))
+            Text(L("portfolio_tx_total", PortfolioFormat.usdtValue(PortfolioDecimal.double(PortfolioDecimal.multiply(value, p)))))
                 .font(.subheadline.weight(.medium).monospacedDigit())
                 .foregroundStyle(accent.primary)
                 .contentTransition(.numericText())

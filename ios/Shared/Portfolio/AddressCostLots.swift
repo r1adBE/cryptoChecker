@@ -34,7 +34,7 @@ struct AddressCostLot: Codable, Equatable, Hashable, Sendable {
     /// Einstand gesamt: erfasster Einstand, sonst Menge × Preis; nil ohne gültigen Einstand.
     var cost: Decimal? {
         if let c = costUsdt, c >= 0 { return c }
-        if let p = priceUsdt, p >= 0 { return amount * p }
+        if let p = priceUsdt, p >= 0 { return PortfolioDecimal.multiply(amount, p) }
         return nil
     }
 
@@ -74,7 +74,7 @@ struct AddressCostLot: Codable, Equatable, Hashable, Sendable {
 /// «Nur anzeigen» und Adressen in einem xpub zählen nicht. Auch eine Adresse OHNE Posten verrechnet die erfassten
 /// Bewegungen ihrer Wallet (eine Umbuchung zur Adresse steckt schon im Guthaben, zählt nur einmal). Zeiträume und Verlauf
 /// rechnen wie die Karte: Posten als Käufe ab ihrer Zeit, dazu die Reihe ohne das schon Gebuchte (`AddressBooked`);
-/// Stichtag und CH-Vermögenswert ebenso mit dem Guthaben am Stichtag (`AddressCutoff`).
+/// Stichtag und CH-Vermögenswert ebenso, mit der Stufe dieser Reihe am Stichtag (`AddressCutoff`).
 enum AddressCostLots {
 
     /// Höchstens so viele Posten je Adresse.
@@ -317,43 +317,19 @@ enum AddressCostLots {
         return out
     }
 
-    /// Steuer-Export: eigene Transaktionen + Eröffnungsposten als Käufe; FR dazu die beobachteten Guthaben-Reihen für den
-    /// Gesamtwert — ohne den belegten Teil (`withoutLotted`, `accounted`), der schon als Posten zählt. Wie Android.
+    /// Steuer-Export: eigene Transaktionen + Eröffnungsposten als Käufe; FR dazu für den Gesamtwert die beobachteten
+    /// Guthaben-Reihen in der Sicht der Karte (`AddressBooked.histories`: ohne Posten und erfasste Bewegungen der
+    /// Adress-Wallet, die schon als Buchung zählen) — dieselbe Menge wie Karte und Wertverlauf. Wie Android.
     static func exportTrades(_ real: [PortfolioTx], addresses: [WatchedAddress], frTotalValue: Bool) -> [PortfolioTx] {
         let lots = trades(addresses, real: real)
         guard frTotalValue else { return real + lots }
-        return real + lots + withoutLotted(AddressBalanceHistory.trades(AddressBalanceHistory.of(addresses)),
-                                           lotted: accounted(addresses, real: real))
-    }
-
-    /// Beobachtete Guthaben-Reihen ohne den belegten Teil (je Coin, ≤ 0 = nichts): die ältesten Zugänge werden gekürzt (bzw. fallen
-    /// weg), Abgänge bleiben. Reihenfolge der Eingabe. Wie Android.
-    static func withoutLotted(_ history: [PortfolioTx], lotted: [String: Decimal]) -> [PortfolioTx] {
-        guard !lotted.isEmpty else { return history }
-        var left = lotted
-        var cut: [Int: Decimal] = [:]
-        let order = history.indices.sorted { history[$0].time != history[$1].time ? history[$0].time < history[$1].time : $0 < $1 }
-        for i in order {
-            let t = history[i]
-            let coin = PortfolioCalculator.normalizeCoin(t.coin)
-            guard let open = left[coin], t.type == .DEPOSIT, open > 0 else { continue }
-            let take = min(open, t.amountExact)
-            left[coin] = open - take
-            cut[i] = t.amountExact - take
-        }
-        return history.indices.compactMap { i in
-            guard let rest = cut[i] else { return history[i] }
-            guard rest > 0 else { return nil }
-            var t = history[i]
-            t.amountExact = rest
-            return t
-        }
+        return real + lots + AddressBalanceHistory.trades(AddressBooked.histories(addresses, real: real))
     }
 
     /// Vorschlag Einstand gesamt = Menge × Tagesschluss (> 0); sonst nil.
     static func suggestion(amount: Decimal, close: Decimal?) -> Decimal? {
         guard let close, close > 0, amount > 0 else { return nil }
-        return amount * close
+        return PortfolioDecimal.multiply(amount, close)
     }
 
     /// Lesen aus der Sicherung (JSON-Objekte); unlesbare Einträge (auch ohne «id») fallen weg. Wie `fromJson`

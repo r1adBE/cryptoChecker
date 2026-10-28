@@ -3,6 +3,7 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
 import java.math.BigDecimal
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser.Record
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser.Header
@@ -85,7 +86,7 @@ fun CsvImportParser.stableSwap(format: CsvImportFormat, r: CsvImportRow, stableA
     val price = r.price ?: return null
     // Stablecoin oder Krypto-Coin als Preiswährung (Paar «ETH/BTC»): Tausch, Wert nur mit USDT-Seite
     val stable = r.quote?.takeIf { (CsvImport.isStable(it) || CsvImport.isCryptoQuote(it)) && it != r.coin } ?: return null
-    val sAmount = stableAmount ?: price.multiply(r.amount)
+    val sAmount = stableAmount ?: price.multiply(r.amount, PortfolioDecimal.MC)
     val sell = r.kind == CsvImportKind.SELL
     val coin = if (sell) r.coin else stable
     val amount = if (sell) r.amount else sAmount
@@ -250,7 +251,7 @@ private fun CsvImportParser.row(
     var toCoin: String? = null
     var toAmount: BigDecimal? = null
     if (kind == CsvImportKind.SWAP) {
-        swapValue = (number(Role.FIAT_AMOUNT)?.abs()?.takeIf { it.signum() > 0 } ?: price?.multiply(amount))
+        swapValue = (number(Role.FIAT_AMOUNT)?.abs()?.takeIf { it.signum() > 0 } ?: price?.multiply(amount, PortfolioDecimal.MC))
             ?.takeIf { quote != null && quote in CsvImport.MONEY }
         price = null
         toCoin = cell(Role.TO_COIN).uppercase().ifEmpty { null }

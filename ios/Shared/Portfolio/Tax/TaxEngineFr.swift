@@ -29,6 +29,9 @@ extension TaxEngines {
         }
         var pta: Decimal = 0
         var ptaParts: [PortfolioCostPart] = []
+        // Die Summe enthält einen geschätzten Wert (`PortfolioTx.costEstimated`) — bis sie ganz abgegangen ist; jede
+        // Kürzung daraus trägt «Wert geschätzt»
+        var ptaEstimated = false
         var incomplete = false
         var out: [PortfolioDisposal] = []
         let events = mergedEvents(real)
@@ -58,14 +61,17 @@ extension TaxEngines {
             return value
         }
 
-        /// Kürzt die PTA um den Anteil `part` / `value` (gekappt auf 1); Rückgabe = Kürzung samt Herkunft.
-        func reduce(_ part: Decimal, _ value: Decimal) -> (cost: Decimal, parts: [PortfolioCostPart]) {
+        /// Kürzt die PTA um den Anteil `part` / `value` (gekappt auf 1); Rückgabe = Kürzung samt Herkunft und «enthält einen
+        /// geschätzten Wert».
+        func reduce(_ part: Decimal, _ value: Decimal) -> (cost: Decimal, parts: [PortfolioCostPart], estimated: Bool) {
             let f = min(PortfolioDecimal.divide(part, value), 1)
             let c: Decimal = f == 1 ? pta : PortfolioDecimal.multiply(pta, f)
             let parts = scaleParts(ptaParts, total: pta, target: c)
+            let estimated = ptaEstimated && c != 0
             ptaParts = scaleParts(ptaParts, total: pta, target: pta - c)
             pta -= c
-            return (c, parts)
+            if f == 1 { ptaEstimated = false }
+            return (c, parts, estimated)
         }
 
         var i = 0
@@ -82,12 +88,15 @@ extension TaxEngines {
                 let thirdPrice: Decimal? = t.thirdFeeCoin.flatMap { tc in
                     t.thirdFeePrice ?? priceAt?(tc, t.time).flatMap { $0 >= 0 ? $0 : nil }
                 }
-                let feeValue: Decimal? = t.thirdFeeCoin == nil ? 0 : thirdPrice.map { t.thirdFeeAmount * $0 }
+                let feeValue: Decimal? = t.thirdFeeCoin == nil ? 0 : thirdPrice.map { PortfolioDecimal.multiply(t.thirdFeeAmount, $0) }
                 // Kurs des Haupt-Coins für Gebühr und Abgang: Preis, Wert des Tauschs je Coin, Stablecoin 1, sonst priceAt
                 var unit: Decimal? = price
                 if unit == nil, let sv = t.swapValue { unit = PortfolioDecimal.divide(sv, t.amountExact) }
                 if unit == nil && !PortfolioStables.needsQuote(coin) { unit = 1 }
                 if unit == nil { unit = priceAt?(coin, t.time).flatMap { $0 >= 0 ? $0 : nil } }
+                // Netzwerkgebühr im Coin zum Tagesschluss (kein Preis und kein erfasster Wert des Tauschs, kein Stablecoin): geschätzt
+                let coinFeeEstimated = unit != nil && PortfolioStables.needsQuote(coin)
+                    && ((price == nil && t.swapValue == nil) || t.valueEstimated)
                 // Wert der Gebühr-Abtretungen dieser Transaktion: der Gesamtwert danach ist um so viel kleiner
                 var spent: Decimal = 0
 
@@ -106,10 +115,12 @@ extension TaxEngines {
                         let wasIncomplete = incomplete
                         var cost: Decimal? = nil
                         var parts: [PortfolioCostPart] = []
+                        var costEstimated = false
                         if let coveredGross, let value, value > 0 {
                             let r = reduce(coveredGross, value)
                             cost = r.cost
                             parts = r.parts
+                            costEstimated = r.estimated
                         } else {
                             incomplete = true
                         }
@@ -125,7 +136,7 @@ extension TaxEngines {
                         d.portfolioValueUsdt = value
                         d.grossProceedsUsdt = coveredGross
                         d.addressValueIncluded = withAddresses
-                        d.valueEstimated = estimated
+                        d.valueEstimated = estimated || costEstimated
                         out.append(d)
                     }
                     if covered < qty {
@@ -154,9 +165,11 @@ extension TaxEngines {
                     // Gebühr im dritten Coin: Abtretung vor dem Zugang (Gesamtwert ohne den neuen Coin)
                     thirdFeeCession()
                     if let price {
-                        let c: Decimal = t.amountExact * price + t.quoteFeeExact + (feeValue ?? 0)
+                        let c: Decimal = PortfolioDecimal.multiply(t.amountExact, price) + t.quoteFeeExact + (feeValue ?? 0)
                         pta += c
                         if c != 0 { ptaParts.append(PortfolioCostPart(time: t.acquisitionTime, usdt: c)) }
+                        // Belohnung zum Tagesschluss bzw. Gebühr im dritten Coin mit geschätztem Preis
+                        if c != 0 && t.costEstimated() { ptaEstimated = true }
                         // Wert der Gebühr im dritten Coin unbekannt: die Summe enthält sie nicht
                         if feeValue == nil { incomplete = true }
                     } else {
@@ -169,8 +182,8 @@ extension TaxEngines {
                     // Eine Operation (BOFiP § 50): Preis vor Gebühren = (Menge + Gebühr im Coin) × Preis + Wert der Gebühr
                     // im dritten Coin; Gebühren = Gebühr USDT + dieselben Gebühr-Werte → Erlös = Menge × Preis − Gebühr USDT
                     let qty: Decimal = t.amountExact + t.coinFeeExact
-                    let gross: Decimal? = price.map { qty * $0 + (feeValue ?? 0) }
-                    let net: Decimal? = price.map { t.amountExact * $0 - t.quoteFeeExact }
+                    let gross: Decimal? = price.map { PortfolioDecimal.multiply(qty, $0) + (feeValue ?? 0) }
+                    let net: Decimal? = price.map { PortfolioDecimal.multiply(t.amountExact, $0) - t.quoteFeeExact }
                     // Über den erfassten Bestand hinaus: nur der gedeckte Anteil ist eine Abtretung mit Einstand
                     let removed: Decimal = min(qty, max(0, held))
                     let share: Decimal = removed <= 0 ? 0 : (removed == qty ? 1 : PortfolioDecimal.divide(removed, qty))
@@ -188,10 +201,12 @@ extension TaxEngines {
                         let wasIncomplete = incomplete
                         var cost: Decimal? = nil
                         var parts: [PortfolioCostPart] = []
+                        var costEstimated = false
                         if let grossCovered, let value, value > 0 {
                             let r = reduce(grossCovered, value)
                             cost = r.cost
                             parts = r.parts
+                            costEstimated = r.estimated
                         } else {
                             // Formel nicht anwendbar: die Erwerbspreis-Summe danach ist nicht mehr gesichert
                             incomplete = true
@@ -208,7 +223,7 @@ extension TaxEngines {
                         d.portfolioValueUsdt = value
                         d.grossProceedsUsdt = grossCovered
                         d.addressValueIncluded = withAddresses
-                        d.valueEstimated = feeEstimated
+                        d.valueEstimated = feeEstimated || costEstimated
                         out.append(d)
                     }
                     if removed < qty {
@@ -226,11 +241,15 @@ extension TaxEngines {
                 case .WITHDRAWAL, .GIFT:
                     // Verschenkt = Abtretung «à titre gratuit»: keine Veräusserung, PTA anteilig gekürzt wie die Auszahlung
                     // Gebühren in Krypto zuerst als eigene Abtretungen
-                    feeCession(coin, t.coinFeeExact, unit, feeLeg: false)
+                    feeCession(coin, t.coinFeeExact, unit, feeLeg: false, estimated: coinFeeEstimated)
                     thirdFeeCession()
                     // Abgang ohne Verkauf (Schenkung, Verlust, unbekannt): PTA anteilig kürzen (BOFiP § 100,
-                    // «à titre gratuit»), Wert = Menge × Kurs (erfasst, Stablecoin oder priceAt)
-                    let qty: Decimal = t.amountExact
+                    // «à titre gratuit»), Wert = Menge × Kurs (erfasst, Stablecoin oder priceAt) — nur der gedeckte
+                    // Teil (Bestand nach der Gebühr im Coin) verlässt das Portfolio; der Rest war nie erfasst: die
+                    // PTA danach ist nicht mehr gesichert
+                    let book: Decimal = max(0, books[coin]?.total ?? 0)
+                    let qty: Decimal = min(t.amountExact, book - min(t.coinFeeExact, book))
+                    if qty < t.amountExact { incomplete = true }
                     let v: Decimal? = unit.map { PortfolioDecimal.multiply(qty, $0) }
                     let value: Decimal? = portfolioValue(coin, unit, t.time).map { $0 - spent }
                     var reduction: Decimal? = nil
@@ -249,7 +268,7 @@ extension TaxEngines {
                     // Tausch Krypto↔Krypto: aufgeschoben (sursis d'imposition), PTA unverändert — auch in einen Stablecoin
                     // (USDT, USDC …): er bleibt im Gesamtwert, steuerbar erst sein Verkauf gegen Euro; Umbuchung zwischen
                     // eigenen Wallets: bleibt im Portfolio — Gebühren in Krypto (Coin, dritter Coin) sind eigene Abtretungen
-                    feeCession(coin, t.coinFeeExact, unit, feeLeg: false)
+                    feeCession(coin, t.coinFeeExact, unit, feeLeg: false, estimated: coinFeeEstimated)
                     thirdFeeCession()
                 }
             }
@@ -281,7 +300,8 @@ extension TaxEngines {
     }
 }
 
-/// FR: Abgang ohne Verkauf (Auszahlung) — wie `TaxOutflow` (Android): Menge ohne Gebühr (die ist eine Abtretung), Wert beim Abgang,
+/// FR: Abgang ohne Verkauf (Auszahlung) — wie `TaxOutflow` (Android): Menge ohne Gebühr (die ist eine Abtretung; gekappt auf
+/// den erfassten Bestand, der Rest macht die Erwerbspreis-Summe danach unvollständig), Wert beim Abgang,
 /// Kürzung der Erwerbspreis-Summe (USDT); nil = Kurs fehlt. `ptaReductionParts` = Herkunft der Kürzung (Anteil der
 /// Erwerbspreis-Summe je Kaufdatum, Summe = `ptaReductionUsdt`) — in der Steuerwährung zum Kurs der Kaufdaten wie der
 /// Einstand einer Abtretung, nicht zum Kurs des Abgangs.

@@ -141,10 +141,10 @@ object PortfolioCalculator {
         // Wert und unrealisierter Gewinn exakt (Kurs über seine kürzeste Darstellung); Double nur für die Anzeige.
         // Wert = ganzer Bestand (mit Adressen), «Seit Kauf» nur auf den eigenen Teil mit Kaufpreis.
         val priceExact = price?.let { PortfolioDecimal.of(it) }
-        val valueExact = priceExact?.let { holdings * it }
+        val valueExact = priceExact?.let { holdings.multiply(it, PortfolioDecimal.MC) }
         val value = valueExact?.toDouble()
         // Ganz mit Kaufpreis: ganzer eigener Bestand (Staub inklusive), sonst nur der Teil mit Kaufpreis
-        val pricedValueExact = priceExact?.let { (if (priceMissing) pricedHoldings else ledgerHoldings) * it }
+        val pricedValueExact = priceExact?.let { (if (priceMissing) pricedHoldings else ledgerHoldings).multiply(it, PortfolioDecimal.MC) }
         val unrealizedExact = if (pricedCostExact != null && pricedValueExact != null) pricedValueExact - pricedCostExact else null
         val unrealized = unrealizedExact?.toDouble()
         val unrealizedPercent = if (unrealizedExact != null && pricedCostExact != null && pricedCostExact.signum() > 0) {
@@ -176,7 +176,7 @@ object PortfolioCalculator {
             realizedFeeMissing = book.realizedFeeMissing,
             withdrawnAmount = if (PortfolioDecimal.isDust(book.withdrawn)) 0.0 else book.withdrawn.toDouble(),
             addressHoldingsExact = addressHoldings,
-            addressValueExact = priceExact?.let { addressHoldings * it },
+            addressValueExact = priceExact?.let { addressHoldings.multiply(it, PortfolioDecimal.MC) },
             method = method,
             lostFeeCostUsdt = book.lostFeeCosts.fold(zero) { acc, l -> acc + l.costUsdt },
             unassignedFeeUsdt = book.unassignedFees.fold(zero) { acc, f -> acc + f.usdt },
@@ -259,7 +259,7 @@ object PortfolioCalculator {
             if (price == null || w.pricedRemoved.signum() <= 0) { incomplete = true; continue }
             if (w.pricedRemoved < w.removed) incomplete = true
             // Gebühren: realisierter Aufwand, nicht hier
-            val value = w.sold * price
+            val value = w.sold.multiply(price, PortfolioDecimal.MC)
             val pricedValue = if (w.pricedRemoved.compareTo(w.removed) == 0) value
             else value.multiply(w.pricedRemoved).divide(w.removed, PortfolioDecimal.MC)
             sum += pricedValue - w.cost

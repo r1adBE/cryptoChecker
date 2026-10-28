@@ -59,7 +59,7 @@ object PortfolioCostGaps {
      * ergibt (Gebühren kommen dort wie bei jedem Kauf dazu); sonst null.
      */
     fun suggestion(t: PortfolioTrade, close: BigDecimal?): BigDecimal? =
-        close?.takeIf { it.signum() > 0 && t.amount.signum() > 0 }?.let { t.amount * it }
+        close?.takeIf { it.signum() > 0 && t.amount.signum() > 0 }?.let { t.amount.multiply(it, PortfolioDecimal.MC) }
 
     /** Preis je Coin aus einem Einstand gesamt [total] (≥ 0) für die Menge [amount] (> 0), 34 Stellen; sonst null. */
     fun priceFromTotal(total: BigDecimal?, amount: BigDecimal): BigDecimal? =

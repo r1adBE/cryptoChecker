@@ -87,7 +87,7 @@ enum CsvImportBitpanda {
                 var quote: String?
                 if kind == .BUY || kind == .SELL || kind == .REWARD {
                     if kind != .REWARD, let paid = fiatAmount, let fiat {
-                        price = CsvImport.divide(paid, amount)
+                        price = PortfolioDecimal.divide(paid, amount)
                         quote = fiat
                     } else if let marketPrice, let marketCurrency {
                         price = marketPrice

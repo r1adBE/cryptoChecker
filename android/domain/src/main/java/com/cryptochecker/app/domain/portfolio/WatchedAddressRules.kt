@@ -319,7 +319,7 @@ object WatchedAddressRules {
 
     /** |[x] − [goal]| ≤ [tolerance] von [goal] (goal > 0; Standard 1 %). */
     private fun nearlyEqual(x: BigDecimal, goal: BigDecimal, tolerance: BigDecimal = MATCH_TOLERANCE): Boolean =
-        x.signum() > 0 && (x - goal).abs() <= goal * tolerance
+        x.signum() > 0 && (x - goal).abs() <= goal.multiply(tolerance, PortfolioDecimal.MC)
 
     /**
      * Für die App-Sicherung: `[{"chain":"BTC","address":"…","label":"…","addedAt":…,"observations":[{"t":…,"b":"…"}]}]`

@@ -53,12 +53,29 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
         prefs.edit { putString(KEY_FAILED, failures.entries.joinToString(";") { "${it.key}:${it.value}" }) }
     }
 
-    /** Kürzeste verbleibende Pause der Server von [jobs] (ms); null = keiner pausiert. */
+    /** Kürzeste verbleibende Pause der Server von [jobs] (ms); null = keiner (mehr) pausiert — wie iOS `remainingMillis`. */
     fun shortestPauseMillis(jobs: List<Pair<String, String>>): Long? {
         val now = System.currentTimeMillis()
         return jobs.mapNotNull { CoinLogoRetry.hostOf(it.second) }.distinct()
-            .mapNotNull { host -> imagePauses[host]?.let { (it - now).coerceAtLeast(0L) } }
+            .mapNotNull { host -> imagePauses[host]?.takeIf { it > now }?.let { it - now } }
             .minOrNull()
+    }
+
+    /** Frühestes Ende (ms) der laufenden Pausen der Server von [jobs]; null = keiner pausiert. */
+    fun earliestPauseEnd(jobs: List<Pair<String, String>>): Long? =
+        shortestPauseMillis(jobs)?.let { System.currentTimeMillis() + it }
+
+    /**
+     * Bilder je Server in Folge mit 403 in einem Durchgang ([CoinLogoRetry.nextForbiddenStreak]); ein Objekt je
+     * Durchgang. [note] nach jedem fertigen Bild: true = Server jetzt pausieren ([CoinLogoRetry.forbiddenStreakPauses]).
+     */
+    class ForbiddenStreaks {
+        private val streaks = ConcurrentHashMap<String, Int>()
+
+        fun note(host: String, forbidden: Boolean): Boolean {
+            val streak = streaks.compute(host) { _, old -> CoinLogoRetry.nextForbiddenStreak(old ?: 0, forbidden) } ?: 0
+            return CoinLogoRetry.forbiddenStreakPauses(streak)
+        }
     }
 
     companion object {

@@ -246,8 +246,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Οι παρακολουθούμενες διευθύνσεις δεν ήταν δυνατό να διαβαστούν – τα υπόλοιπά τους λείπουν από αυτό το αρχείο</string>
-    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Σημείωση: μια παρακολουθούμενη διεύθυνση έχει θέσεις κόστους κτήσης με ημερομηνία μετά τον τελευταίο έλεγχο υπολοίπου της πριν από αυτή την ημερομηνία – μπορεί να λείπουν εδώ.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte), nur bei Posten nach der letzten Guthabenabfrage vor dem Stichtag (AddressCutoff.lateLots): Posten zählen ab Kaufdatum, gekürzt bei tieferem heutigem Guthaben -->
+    <string name="portfolio_export_address_lots_note">Οι παρτίδες των παρακολουθούμενων διευθύνσεων μετρούν από την ημερομηνία αγοράς τους· αν το σημερινό υπόλοιπο της διεύθυνσης είναι χαμηλότερο, μειώνονται.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Οι παρακολουθούμενες διευθύνσεις μετρούν στη συνολική αξία, αλλά δεν έχουν κόστος κτήσης – το κέρδος είναι επομένως μάλλον υψηλότερο. Καταχώρισε το κόστος ως αγορά.</string>

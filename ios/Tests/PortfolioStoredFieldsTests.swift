@@ -58,6 +58,25 @@ final class PortfolioStoredFieldsTests: XCTestCase {
         XCTAssertNil(restoredOrphan.importRestoreState)
     }
 
+    /// Sicherung: Mengen, Gebühren und Werte gerundet wie gespeichert, eine Menge 0 nach dem Runden ungültig; Preise nach
+    /// der Regel der Preise («backupAmounts»). Wie Android `backupAmountsRoundLikeStored`.
+    func testBackupAmountsRoundLikeStored() throws {
+        let base = BackupManager.txToJson(PortfolioTx(id: 1, coin: "BTC", type: .BUY, amountExact: 1, time: 1))
+        for c in S.list(try data()["backupAmounts"]) {
+            let name = string(c["name"]) ?? "?"
+            let changes = try XCTUnwrap(c["changes"] as? [String: Any], name)
+            let tx = try BackupManager.jsonToTx(base.merging(changes) { _, new in new })
+            guard let expected = c["expected"] as? [String: Any] else {
+                XCTAssertNil(tx, name)
+                continue
+            }
+            let back = BackupManager.txToJson(try XCTUnwrap(tx, name))
+            for (key, value) in expected {
+                XCTAssertEqual(back[key] as? String, value as? String, "\(name) \(key)")
+            }
+        }
+    }
+
     /// Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht). Wie Android.
     func testInterestRewardMatchesWholeWords() throws {
         for c in S.list(try data()["interestReward"]) {

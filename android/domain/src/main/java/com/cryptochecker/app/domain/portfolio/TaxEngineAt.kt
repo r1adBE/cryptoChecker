@@ -5,8 +5,15 @@ import java.time.ZoneId
 
 // AT: Altbestand (FIFO) und Neubestand (gleitender Durchschnitt) je Coin und Wallet — Regeln in [TaxEngines].
 
-/** Altbestand-Posten (FIFO). */
-private class AtLot(val txId: Long, val acquired: Long, val kind: PortfolioTxType, var qty: BigDecimal, var cost: BigDecimal?)
+/** Altbestand-Posten (FIFO); [estimated] = Einstand enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]). */
+private class AtLot(
+    val txId: Long,
+    val acquired: Long,
+    val kind: PortfolioTxType,
+    var qty: BigDecimal,
+    var cost: BigDecimal?,
+    var estimated: Boolean = false,
+)
 
 /** Topf eines Coins in EINER Wallet ([wallet] = Anzeigename, leer = ohne Angabe). */
 private class AtCoin(val wallet: String, zone: ZoneId) {
@@ -27,16 +34,25 @@ private class AtCoin(val wallet: String, zone: ZoneId) {
         if (i < 0) old += lot else old.add(i, lot)
     }
 
-    /** Zugang im Neubestand mit Einstand ohne Gebühren [cost] und Kaufgebühr [fee] (nur mit Kaufpreis). */
-    fun addNew(qty: BigDecimal, cost: BigDecimal?, time: Long, fee: BigDecimal = BigDecimal.ZERO) {
-        neu.add(qty, cost, time)
-        fees.add(qty, cost?.let { fee }, time)
+    /**
+     * Zugang im Neubestand mit Einstand ohne Gebühren [cost] und Kaufgebühr [fee] (nur mit Kaufpreis); [est] bzw. [feeEst]
+     * = Einstand bzw. Kaufgebühr enthält einen geschätzten Wert.
+     */
+    fun addNew(qty: BigDecimal, cost: BigDecimal?, time: Long, fee: BigDecimal = BigDecimal.ZERO, est: Boolean = false, feeEst: Boolean = false) {
+        neu.add(qty, cost, time, est)
+        fees.add(qty, cost?.let { fee }, time, feeEst)
     }
 
-    /** Zugang mit fortgeführtem Einstand [parts] samt Gebührenteil [feeParts]. */
-    fun addNewCarried(qty: BigDecimal, parts: List<PortfolioCostPart>, feeParts: List<PortfolioCostPart> = emptyList()) {
-        neu.addCarried(qty, parts)
-        fees.addCarried(qty, feeParts)
+    /** Zugang mit fortgeführtem Einstand [parts] samt Gebührenteil [feeParts] und deren Merkern «geschätzt». */
+    fun addNewCarried(
+        qty: BigDecimal,
+        parts: List<PortfolioCostPart>,
+        feeParts: List<PortfolioCostPart> = emptyList(),
+        est: Boolean = false,
+        feeEst: Boolean = false,
+    ) {
+        neu.addCarried(qty, parts, est)
+        fees.addCarried(qty, feeParts, feeEst)
     }
 
     /** Abgang aus dem Neubestand: Einstand ohne Gebühren und der zugehörige Gebührenteil. */
@@ -55,7 +71,7 @@ private class AtCoin(val wallet: String, zone: ZoneId) {
 /** Einstand nach alter Rechtslage (§ 31 EStG a. F.): Einstand ohne Gebühren [taken] plus Anschaffungsnebenkosten [fees]. */
 private fun withFees(taken: TaxTaken, fees: TaxTaken): TaxTaken =
     if (fees.cost.signum() == 0) taken
-    else TaxTaken(taken.removed, taken.removedPriced, taken.cost + fees.cost, taken.parts + fees.parts)
+    else TaxTaken(taken.removed, taken.removedPriced, taken.cost + fees.cost, taken.parts + fees.parts, taken.estimated || fees.estimated)
 
 fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableList<PortfolioLostFeeCost>): List<PortfolioDisposal> {
     val zero = BigDecimal.ZERO
@@ -90,7 +106,9 @@ fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableLi
             if (cost != null && lotCost != null) lot.cost = lotCost - cost
             if (lot.qty.signum() <= 0) c.old.removeAt(0)
             left -= q
-            pieces += TaxPiece(q, cost, acquiredTime = lot.acquired, lotTxId = lot.txId, lotKind = lot.kind, oldHolding = true)
+            pieces += TaxPiece(
+                q, cost, acquiredTime = lot.acquired, lotTxId = lot.txId, lotKind = lot.kind, oldHolding = true, estimated = lot.estimated,
+            )
         }
         return pieces
     }
@@ -109,7 +127,7 @@ fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableLi
      * Zufluss, denn er ist dort schon Einkunft (§ 27b Abs. 2 Z 1 EStG).
      */
     fun newCost(s: TaxStep): BigDecimal? =
-        if (s.trade.type == PortfolioTxType.REWARD && !s.trade.interestIncome) zero else s.trade.validPrice?.let { s.qty * it }
+        if (s.trade.type == PortfolioTxType.REWARD && !s.trade.interestIncome) zero else s.trade.validPrice?.let { s.qty.multiply(it, PortfolioDecimal.MC) }
 
     /**
      * Anschaffungsnebenkosten eines Zugangs im Neubestand: Einstand mit Gebühren ([TaxStep.cost]: Gebühr USDT, im Coin und
@@ -120,6 +138,13 @@ fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableLi
         val full = s.cost
         if (cost == null || cost.signum() == 0 || full == null) return zero
         return (full - cost).max(zero)
+    }
+
+    /** Zugang im Neubestand: Einstand ([newCost]) und Anschaffungsnebenkosten ([newFee]) mit ihren Merkern «geschätzt». */
+    fun acquireNew(c: AtCoin, s: TaxStep) {
+        val cost = newCost(s)
+        val fee = newFee(s, cost)
+        c.addNew(s.qty, cost, s.acquired, fee, s.trade.valueEstimated, s.trade.feePriceEstimated && fee.signum() != 0)
     }
 
     /**
@@ -155,10 +180,16 @@ fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableLi
     fun networkFee(coin: String, c: AtCoin, s: TaxStep) {
         val fromOld = s.qty.min(c.oldHeld)
         if (fromOld.signum() > 0) {
-            val carried = takeBoth(c, fromOld).first.fold(zero) { a, p -> a + (p.cost ?: zero) }
+            val carriedPieces = takeBoth(c, fromOld).first
+            val carried = carriedPieces.fold(zero) { a, p -> a + (p.cost ?: zero) }
             val target = c.old.firstOrNull { it.cost != null }
             val targetCost = target?.cost
-            if (target != null && targetCost != null) target.cost = targetCost + carried else lost.note(coin, s, carried)
+            if (target != null && targetCost != null) {
+                target.cost = targetCost + carried
+                if (carriedPieces.any { it.estimated && it.cost != null }) target.estimated = true
+            } else {
+                lost.note(coin, s, carried)
+            }
         }
         lost.note(coin, s, c.dropNew(s.qty - fromOld))
     }
@@ -183,11 +214,11 @@ fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableLi
                     // Altbestand-Teile tragen immer ihren Posten; fehlt er doch, wandert die Menge ohne Kaufpreis
                     // (im Export unbewertet) statt den ganzen Bericht abzubrechen
                     dst.insertOld(
-                        if (lotTxId != null && acquired != null && lotKind != null) AtLot(lotTxId, acquired, lotKind, p.amount, p.cost)
+                        if (lotTxId != null && acquired != null && lotKind != null) AtLot(lotTxId, acquired, lotKind, p.amount, p.cost, p.estimated)
                         else AtLot(t.id, t.time, t.type, p.amount, null)
                     )
                 }
-                dst.addNewCarried(taken.removedPriced, taken.parts, fees.parts)
+                dst.addNewCarried(taken.removedPriced, taken.parts, fees.parts, taken.estimated, fees.estimated)
                 dst.addNew(taken.removedUnpriced, null, t.time)
             }
             continue
@@ -199,16 +230,18 @@ fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableLi
                 if (carry != null && carry.realized) {
                     // Tausch vor dem 1.3.2022 = Anschaffung zum Wert des Tauschs: vor dem 1.3.2021 Altbestand (Frist 1 Jahr ab
                     // dem Tausch), danach Neubestand
+                    // Wert des Tauschs zum Tagesschluss: Einstand geschätzt
+                    val est = s.trade.valueEstimated
                     if (s.time < newFrom) {
-                        c.insertOld(AtLot(s.id, s.time, s.trade.type, s.qty, carry.value))
+                        c.insertOld(AtLot(s.id, s.time, s.trade.type, s.qty, carry.value, est))
                     } else {
-                        c.addNew(s.qty, carry.value, s.time)
+                        c.addNew(s.qty, carry.value, s.time, est = est)
                     }
                 } else if (carry == null) {
                     // Nach Erwerb einsortieren: eine nachdatierte Einzahlung (Kaufdatum vor einem früher gebuchten Kauf)
                     // ist der ältere Posten und geht beim Verkauf zuerst ab
-                    if (s.acquired < newFrom) c.insertOld(AtLot(s.id, s.acquired, s.trade.type, s.qty, s.cost))
-                    else newCost(s).let { cost -> c.addNew(s.qty, cost, s.acquired, newFee(s, cost)) }
+                    if (s.acquired < newFrom) c.insertOld(AtLot(s.id, s.acquired, s.trade.type, s.qty, s.cost, s.costEstimated))
+                    else acquireNew(c, s)
                 } else if (carry.total.signum() > 0) {
                     // Erhaltene Menge anteilig: aus Altbestand (Veräusserung, Einstand = Wert), aus Neubestand mit
                     // fortgeführtem Einstand, ohne Kaufpreis bzw. ungedeckt ohne Kaufpreis — Tausch ab dem 1.3.2022, also kein
@@ -216,10 +249,11 @@ fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: MutableLi
                     fun part(q: BigDecimal): BigDecimal = if (q.compareTo(carry.total) == 0) s.qty else s.qty.multiply(q).divide(carry.total, mc)
                     val fromOld = part(carry.oldQty)
                     if (fromOld.signum() > 0) {
-                        c.addNew(fromOld, carry.value?.let { v -> if (carry.oldQty.compareTo(carry.total) == 0) v else v.multiply(carry.oldQty).divide(carry.total, mc) }, s.time)
+                        val oldValue = carry.value?.let { v -> if (carry.oldQty.compareTo(carry.total) == 0) v else v.multiply(carry.oldQty).divide(carry.total, mc) }
+                        c.addNew(fromOld, oldValue, s.time, est = s.trade.valueEstimated)
                     }
                     val fromPriced = part(carry.taken.removedPriced)
-                    if (fromPriced.signum() > 0) c.addNewCarried(fromPriced, carry.taken.parts)
+                    if (fromPriced.signum() > 0) c.addNewCarried(fromPriced, carry.taken.parts, est = carry.taken.estimated)
                     val restQty = s.qty - fromOld - fromPriced
                     if (restQty.signum() > 0) c.addNew(restQty, null, s.time)
                 } else {

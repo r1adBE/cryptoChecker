@@ -233024,187 +233024,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ملاحظة: لعنوان مراقَب دفعات تكلفة بتاريخ بعد آخر فحص لرصيده قبل هذا التاريخ – قد تكون مفقودة هنا."
+            "value" : "تُحتسب دفعات العناوين المراقَبة من تاريخ شرائها؛ وإذا كان رصيد العنوان اليوم أقل، فإنها تُخفَّض."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upozornění: sledovaná adresa má položky pořizovací ceny s datem po své poslední kontrole zůstatku před tímto datem – zde mohou chybět."
+            "value" : "Položky sledovaných adres se počítají od data nákupu; je-li dnešní zůstatek adresy nižší, sníží se."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bemærk: en overvåget adresse har anskaffelsesposter dateret efter dens seneste saldotjek før denne dato – de kan mangle her."
+            "value" : "Poster på overvågede adresser tæller fra deres købsdato; er adressens saldo i dag lavere, bliver de reduceret."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hinweis: Eine beobachtete Adresse hat Einstandsposten nach ihrer letzten Guthabenabfrage vor diesem Datum – sie können hier fehlen."
+            "value" : "Posten beobachteter Adressen zählen ab ihrem Kaufdatum; ist das heutige Guthaben der Adresse tiefer, werden sie gekürzt."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Σημείωση: μια παρακολουθούμενη διεύθυνση έχει θέσεις κόστους κτήσης με ημερομηνία μετά τον τελευταίο έλεγχο υπολοίπου της πριν από αυτή την ημερομηνία – μπορεί να λείπουν εδώ."
+            "value" : "Οι παρτίδες των παρακολουθούμενων διευθύνσεων μετρούν από την ημερομηνία αγοράς τους· αν το σημερινό υπόλοιπο της διεύθυνσης είναι χαμηλότερο, μειώνονται."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Note: a watched address has cost-basis lots dated after its last balance check before this date – they may be missing here."
+            "value" : "Lots of watched addresses count from their purchase date; if the address's balance today is lower, they are reduced."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nota: una dirección vigilada tiene lotes con coste fechados después de su última consulta de saldo antes de esta fecha; pueden faltar aquí."
+            "value" : "Los lotes de las direcciones vigiladas cuentan desde su fecha de compra; si el saldo actual de la dirección es menor, se reducen."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "توجه: یک آدرس تحت نظر اقلام بهای تمام‌شده‌ای دارد که تاریخشان پس از آخرین بررسی موجودی آن پیش از این تاریخ است – ممکن است اینجا نباشند."
+            "value" : "دسته‌های نشانی‌های تحت نظر از تاریخ خریدشان حساب می‌شوند؛ اگر موجودی امروز نشانی کمتر باشد، کاهش می‌یابند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Huomio: seuratulla osoitteella on hankintamenoeriä, jotka on päivätty sen viimeisimmän ennen tätä päivää tehdyn saldotarkistuksen jälkeen – ne voivat puuttua tästä."
+            "value" : "Seurattujen osoitteiden erät lasketaan ostopäivästään alkaen; jos osoitteen nykyinen saldo on pienempi, niitä pienennetään."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remarque : une adresse surveillée a des lots avec prix de revient datés après sa dernière consultation du solde avant cette date – ils peuvent manquer ici."
+            "value" : "Les lots des adresses surveillées comptent à partir de leur date d’achat ; si le solde actuel de l’adresse est plus bas, ils sont réduits."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הערה: לכתובת במעקב יש פריטי עלות רכישה שתאריכם אחרי בדיקת היתרה האחרונה שלה לפני תאריך זה – ייתכן שהם חסרים כאן."
+            "value" : "המנות של כתובות במעקב נספרות מתאריך הרכישה שלהן; אם היתרה הנוכחית של הכתובת נמוכה יותר, הן מוקטנות."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ध्यान दो: किसी निगरानी वाले पते में ऐसी लागत प्रविष्टियाँ हैं जिनकी तारीख इस तारीख से पहले उसकी आख़िरी बैलेंस जाँच के बाद की है – वे यहाँ गायब हो सकती हैं।"
+            "value" : "निगरानी वाले पतों के लॉट अपनी ख़रीद की तारीख़ से गिने जाते हैं; अगर पते का आज का बैलेंस कम है, तो उन्हें घटा दिया जाता है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Megjegyzés: egy figyelt címnek olyan bekerülési tételei vannak, amelyek dátuma az e dátum előtti utolsó egyenleglekérdezése utánra esik – ezek itt hiányozhatnak."
+            "value" : "A figyelt címek tételei a vásárlás dátumától számítanak; ha a cím mai egyenlege alacsonyabb, a tételek csökkennek."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Catatan: sebuah alamat yang dipantau memiliki lot biaya perolehan bertanggal setelah pengecekan saldo terakhirnya sebelum tanggal ini – lot tersebut mungkin tidak tercantum di sini."
+            "value" : "Lot alamat yang dipantau dihitung sejak tanggal pembeliannya; jika saldo alamat hari ini lebih rendah, lot tersebut dikurangi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nota: un indirizzo osservato ha lotti con costo datati dopo l'ultima verifica del saldo prima di questa data – qui possono mancare."
+            "value" : "I lotti degli indirizzi osservati contano dalla loro data di acquisto; se il saldo attuale dell’indirizzo è più basso, vengono ridotti."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "注意：監視中のアドレスに、この日付より前の最後の残高確認より後の日付の取得価額ロットがあります。ここでは含まれていない場合があります。"
+            "value" : "監視中のアドレスのロットは購入日から計上されます。アドレスの現在の残高のほうが少ない場合は、減額されます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "참고: 관찰 중인 주소에 이 날짜 이전의 마지막 잔액 확인 이후 날짜의 취득가 항목이 있습니다. 여기에서 누락될 수 있습니다."
+            "value" : "관찰 중인 주소의 로트는 구매일부터 반영됩니다. 주소의 현재 잔액이 더 적으면 로트가 줄어듭니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merk: en overvåket adresse har anskaffelsesposter datert etter siste saldosjekk før denne datoen – de kan mangle her."
+            "value" : "Poster på overvåkede adresser teller fra kjøpsdatoen sin; er adressens saldo i dag lavere, blir de redusert."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Let op: een gevolgd adres heeft aanschafposten gedateerd na de laatste saldocontrole vóór deze datum – die kunnen hier ontbreken."
+            "value" : "Posten van gevolgde adressen tellen vanaf hun aankoopdatum; is het huidige saldo van het adres lager, dan worden ze verlaagd."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uwaga: obserwowany adres ma pozycje kosztu nabycia z datą po ostatnim sprawdzeniu salda przed tą datą – może ich tu brakować."
+            "value" : "Partie obserwowanych adresów liczą się od daty zakupu; jeśli dzisiejsze saldo adresu jest niższe, zostają pomniejszone."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nota: um endereço observado tem lotes com custo de aquisição datados após a última consulta de saldo antes desta data – podem estar em falta aqui."
+            "value" : "Os lotes dos endereços observados contam a partir da data de compra; se o saldo atual do endereço for inferior, são reduzidos."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Observação: um endereço monitorado tem lotes com custo de aquisição datados após a última consulta de saldo antes desta data – eles podem estar faltando aqui."
+            "value" : "Os lotes dos endereços monitorados contam a partir da data de compra; se o saldo atual do endereço for menor, eles são reduzidos."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notă: o adresă urmărită are loturi cu cost de achiziție datate după ultima verificare a soldului înainte de această dată – pot lipsi aici."
+            "value" : "Loturile adreselor urmărite contează de la data cumpărării; dacă soldul actual al adresei este mai mic, ele sunt reduse."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Примечание: у отслеживаемого адреса есть позиции со стоимостью приобретения, датированные после последней проверки баланса до этой даты, — здесь они могут отсутствовать."
+            "value" : "Партии отслеживаемых адресов учитываются с даты покупки; если текущий баланс адреса ниже, они уменьшаются."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shënim: një adresë e vëzhguar ka pozicione me kosto blerjeje të datuara pas kontrollit të fundit të bilancit para kësaj date – mund të mungojnë këtu."
+            "value" : "Pjesët e adresave të vëzhguara llogariten nga data e blerjes; nëse bilanci i sotëm i adresës është më i ulët, ato zvogëlohen."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Obs: en bevakad adress har anskaffningsposter daterade efter dess senaste saldokontroll före detta datum – de kan saknas här."
+            "value" : "Poster för bevakade adresser räknas från sitt köpdatum; är adressens saldo i dag lägre, minskas de."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "หมายเหตุ: ที่อยู่ที่ติดตามมีรายการต้นทุนที่ลงวันที่หลังการตรวจยอดคงเหลือครั้งล่าสุดก่อนวันที่นี้ – รายการเหล่านั้นอาจไม่ปรากฏที่นี่"
+            "value" : "ล็อตของที่อยู่ที่ติดตามจะนับตั้งแต่วันที่ซื้อ หากยอดคงเหลือปัจจุบันของที่อยู่ต่ำกว่า ล็อตเหล่านั้นจะถูกลดลง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Not: izlenen bir adresin, bu tarihten önceki son bakiye sorgusundan sonra tarihli maliyet kalemleri var – bunlar burada eksik olabilir."
+            "value" : "İzlenen adreslerin partileri alış tarihlerinden itibaren sayılır; adresin bugünkü bakiyesi daha düşükse azaltılır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Примітка: відстежувана адреса має позиції з вартістю придбання, датовані після останньої перевірки балансу до цієї дати, — тут їх може не бути."
+            "value" : "Партії відстежуваних адрес враховуються з дати купівлі; якщо поточний баланс адреси нижчий, їх буде зменшено."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lưu ý: một địa chỉ đang theo dõi có các lô giá vốn ghi ngày sau lần kiểm tra số dư cuối cùng của nó trước ngày này – chúng có thể bị thiếu ở đây."
+            "value" : "Các lô của địa chỉ đang theo dõi được tính từ ngày mua; nếu số dư hiện tại của địa chỉ thấp hơn, chúng sẽ được giảm bớt."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "注意：某个被关注地址有成本价条目，其日期晚于该地址在此日期之前最后一次查询余额的时间——这些条目在此可能缺失。"
+            "value" : "被关注地址的批次自其购买日期起计入；如果该地址当前的余额较低，这些批次会被削减。"
           }
         }
       }

@@ -138,8 +138,8 @@ object PortfolioTxForm {
         valueUsdt: BigDecimal? = null,
     ): BigDecimal? {
         valueUsdt?.takeIf { it.signum() >= 0 }?.let { return it }
-        if (amount != null && amount.signum() > 0 && priceUsdt != null && priceUsdt.signum() >= 0) return amount * priceUsdt
-        if (toAmount != null && toAmount.signum() > 0 && toPriceUsdt != null && toPriceUsdt.signum() >= 0) return toAmount * toPriceUsdt
+        if (amount != null && amount.signum() > 0 && priceUsdt != null && priceUsdt.signum() >= 0) return amount.multiply(priceUsdt, PortfolioDecimal.MC)
+        if (toAmount != null && toAmount.signum() > 0 && toPriceUsdt != null && toPriceUsdt.signum() >= 0) return toAmount.multiply(toPriceUsdt, PortfolioDecimal.MC)
         return null
     }
 

@@ -86,6 +86,15 @@ class CsvImportParityTest {
         }
     }
 
+    /** Abgeleiteter Preis: exakt, einmal auf 34 Stellen gerundet — gleich wie iOS `PortfolioDecimal.divide`. */
+    @Test
+    fun divide() {
+        data["divide"].list().map { it.obj() }.forEach { c ->
+            val q = CsvImport.derive(BigDecimal(c["a"] as String), BigDecimal(c["b"] as String))
+            assertEquals("divide: $c", c["expected"], text(q))
+        }
+    }
+
     @Test
     fun dates() {
         data["dates"].list().map { it.obj() }.forEach { c ->

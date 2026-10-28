@@ -10,6 +10,8 @@ extension TaxEngines {
         var carryUnpriced: Decimal = 0
         var carryCost: Decimal = 0
         var carryParts: [PortfolioCostPart] = []
+        // Einstand (Übertrag bzw. Zugang des Jahres) enthält einen geschätzten Wert: jeder Abgang des Jahres zum Stückpreis
+        var carryEstimated = false
         var out: [PortfolioDisposal] = []
         var byYear: [Int: [TaxStep]] = [:]
         for s in steps { byYear[day(s.time, zone).year, default: []].append(s) }
@@ -20,11 +22,13 @@ extension TaxEngines {
             var totUnpriced = carryUnpriced
             var totCost = carryCost
             var parts = carryParts
+            var estimated = carryEstimated
             for s in ys where s.kind == .acquire {
                 if let c = s.cost {
                     totPriced += s.qty
                     totCost += c
                     if c != 0 { parts.append(PortfolioCostPart(time: s.acquired, usdt: c)) }
+                    if s.costEstimated && c != 0 { estimated = true }
                 } else {
                     totUnpriced += s.qty
                 }
@@ -41,7 +45,8 @@ extension TaxEngines {
                 let c: Decimal = totPriced > 0 ? PortfolioDecimal.multiply(removedPriced, unit) : 0
                 costOut += c
                 return TaxTaken(removed: removed, removedPriced: removedPriced, cost: c,
-                                parts: PortfolioCostPartList(scaleParts(parts, total: totCost, target: c)))
+                                parts: PortfolioCostPartList(scaleParts(parts, total: totCost, target: c)),
+                                estimated: estimated && c != 0)
             }
             var lastFee: TaxStep? = nil
             for s in ys {
@@ -74,6 +79,7 @@ extension TaxEngines {
             let restCost: Decimal = carryPriced > 0 ? restRaw : 0
             carryParts = scaleParts(parts, total: totCost, target: restCost)
             carryCost = restCost
+            carryEstimated = estimated && restCost != 0
         }
         return out
     }

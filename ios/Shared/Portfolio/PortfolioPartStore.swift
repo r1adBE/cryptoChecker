@@ -166,7 +166,7 @@ final class PortfolioPartStore: @unchecked Sendable {
         out.reserveCapacity(len)
         var left = removed
         for i in 0..<len {
-            let r = i == len - 1 ? left : (all ? values[i] : PortfolioDecimal.divide(values[i] * removed, total))
+            let r = i == len - 1 ? left : (all ? values[i] : PortfolioDecimal.divide(values[i], removed, by: total))
             left -= r
             out.append(PortfolioCostPart(time: slotTime[i], usdt: r))
         }
@@ -221,7 +221,7 @@ final class PortfolioPartStore: @unchecked Sendable {
                 at = running
             }
             if missingFrom < view.seq { return nil }
-            return view.removed == view.total ? at : PortfolioDecimal.divide(at * view.removed, view.total)
+            return view.removed == view.total ? at : PortfolioDecimal.divide(at, view.removed, by: view.total)
         }
     }
 

@@ -19,12 +19,26 @@ extension CsvImportBinance {
         return (String(p.dropLast(quote.count)), quote)
     }
 
-    /// «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, nil); unlesbar = nil.
+    /// «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, nil); unlesbar = nil. Die Einheit beginnt
+    /// beim ersten Buchstaben nach der Zahl; ein Exponent gehört zur Zahl («1E-8BNB» → 0.00000001 BNB) — wie Android.
     private static func withUnit(_ text: String) -> (value: Decimal, unit: String?)? {
-        let t = text.trimmingCharacters(in: .whitespaces)
-        guard let cut = t.firstIndex(where: { $0.isLetter }) else { return decimal(t).map { (value: $0, unit: nil as String?) } }
+        let t = Array(text.trimmingCharacters(in: .whitespaces))
+        guard let cut = unitStart(t) else { return decimal(String(t)).map { (value: $0, unit: nil as String?) } }
         guard let number = decimal(String(t[..<cut])) else { return nil }
         return (number, String(t[cut...]).uppercased())
+    }
+
+    /// Index des ersten Buchstabens der Einheit (ein Exponent der Zahl übersprungen: «E»/«e» nach einer Ziffer, gefolgt
+    /// von Ziffern, mit Vorzeichen davor); keine Einheit = nil. Wie Android `unitStart`.
+    private static func unitStart(_ t: [Character]) -> Int? {
+        func digit(_ j: Int) -> Bool { j >= 0 && j < t.count && t[j].isASCII && t[j].isNumber }
+        guard let first = t.firstIndex(where: { $0.isLetter }) else { return nil }
+        guard first >= 1, t[first] == "e" || t[first] == "E", digit(first - 1) else { return first }
+        var j = first + 1
+        if j < t.count, t[j] == "+" || t[j] == "-" { j += 1 }
+        guard digit(j) else { return first }
+        while digit(j) { j += 1 }
+        return t[j...].firstIndex(where: { $0.isLetter })
     }
 
     /// Eine Ausführung des Handelsverlaufs (vor dem Zusammenfassen je Sekunde, Paar und Seite).
@@ -126,7 +140,7 @@ extension CsvImportBinance {
         let amount = fills.reduce(Decimal(0)) { $0 + $1.amount }
         let total = fills.reduce(Decimal(0)) { $0 + $1.total }
         let fee: Decimal? = split.primary?.amount
-        let price = fills.count == 1 ? first.price : CsvImport.divide(total, amount)
+        let price = fills.count == 1 ? first.price : PortfolioDecimal.divide(total, amount)
         let draft = CsvImportRow(
             line: first.line, kind: first.kind, rawKind: first.rawKind, coin: first.base, amount: amount, price: price,
             quote: first.quote, fee: fee, feeUnit: fee == nil ? nil : split.primary?.unit, timeMillis: first.time, externalId: nil,

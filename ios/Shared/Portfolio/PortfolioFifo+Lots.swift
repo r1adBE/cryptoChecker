@@ -18,6 +18,8 @@ extension PortfolioFifo {
         var amount: Decimal
         /// Kaufpreis bekannt (sonst kein Einstand und keine Teile).
         let priced: Bool
+        /// Einstand enthält einen geschätzten Wert (`PortfolioTx.costEstimated`); bleibt bis zum Abgang des Postens.
+        var estimated: Bool
         /// Eigene Teile (ohne die Umbuchungen seit `from`).
         private(set) var own = Entries()
         /// Summe von `own`.
@@ -28,12 +30,13 @@ extension PortfolioFifo {
 
         /// `entries` nil = ganzer Einstand zum Erwerb.
         init(txId: Int64, acquired: Int64, time: Int64, kind: PortfolioTxType, amount: Decimal, cost: Decimal?,
-             entries: [Entry]? = nil) {
+             entries: [Entry]? = nil, estimated: Bool = false) {
             self.txId = txId
             self.acquired = acquired
             self.time = time
             self.kind = kind
             self.amount = amount
+            self.estimated = estimated
             priced = cost != nil
             guard let cost else { return }
             if let entries {
@@ -110,7 +113,7 @@ extension PortfolioFifo {
         /// eine Liste (letzter Teil = Rest, `PortfolioCostParts.take`).
         func take(_ qty: Decimal) -> Taken? {
             guard let c = cost else { return nil }
-            let removed = qty == amount ? c : PortfolioDecimal.divide(c * qty, amount)
+            let removed = qty == amount ? c : PortfolioDecimal.divide(c, qty, by: amount)
             if qty == amount {
                 let out = allEntries(amount)
                 own.removeAll()
@@ -128,11 +131,11 @@ extension PortfolioFifo {
             for e in own.items {
                 switch e {
                 case .point(let time, let usdt):
-                    let part = c == 0 ? 0 : PortfolioDecimal.divide(usdt * removed, c)
+                    let part = c == 0 ? 0 : PortfolioDecimal.divide(usdt, removed, by: c)
                     out.append(.point(time: time, usdt: part))
                     rest.add(.point(time: time, usdt: usdt - part))
                 case .range(let stream, let from, let to, let weight):
-                    let part = PortfolioDecimal.divide(weight * qty, amount)
+                    let part = PortfolioDecimal.divide(weight, qty, by: amount)
                     out.append(.range(stream: stream, from: from, to: to, weight: part))
                     rest.add(.range(stream: stream, from: from, to: to, weight: weight - part))
                 }
@@ -172,6 +175,8 @@ extension PortfolioFifo {
         var pendingLost: [PortfolioLostFeeCost] = []
         /// Herkunft von `pendingLost` (Summe gleich).
         var pending = Entries()
+        /// `pendingLost` enthält einen geschätzten Wert (`Lot.estimated`).
+        var pendingEstimated = false
 
         init(key: String) { self.key = key }
 
@@ -228,7 +233,7 @@ extension PortfolioFifo {
         }
     }
 
-    /// Verbrauchter Teil eines Postens: Menge, Einstand (nil = ohne Kaufpreis) und dessen Herkunft.
+    /// Verbrauchter Teil eines Postens: Menge, Einstand (nil = ohne Kaufpreis), dessen Herkunft und «geschätzt».
     struct Slice {
         let txId: Int64
         let acquired: Int64
@@ -237,6 +242,7 @@ extension PortfolioFifo {
         let amount: Decimal
         let cost: Decimal?
         let entries: [Entry]
+        let estimated: Bool
     }
 
     /// Summe der Einstände (ohne Kaufpreis = 0).
@@ -245,8 +251,10 @@ extension PortfolioFifo {
     /// Gebühr `extra` einer Umbuchung zum Zeitpunkt `at` nach Menge auf alle Posten von `q` (Bestand `h`): ein Eintrag im
     /// Gebühren-Strom (Anteil je Coin), kein Teil je Posten. Haben alle Posten einen Kaufpreis, bekommt der letzte den
     /// Rundungsrest (Summe exakt `extra`). Rückgabe = Anteil der Posten OHNE Kaufpreis; 0 = alles zugeordnet.
-    static func spreadQueue(_ q: Queue, _ extra: Decimal, _ h: Decimal, at: Int64) -> Decimal {
+    /// `estimated`: `extra` enthält einen geschätzten Wert — alle Posten mit Kaufpreis tragen ihn (`Lot.estimated`).
+    static func spreadQueue(_ q: Queue, _ extra: Decimal, _ h: Decimal, at: Int64, estimated: Bool) -> Decimal {
         guard extra > 0, h > 0 else { return 0 }
+        if estimated { for lot in q.lots where lot.priced { lot.estimated = true } }
         let factor = PortfolioDecimal.divide(extra, h)
         q.stream.append(at, factor)
         guard q.allPriced else { return extra - PortfolioDecimal.multiply(q.pricedHeld, factor) }

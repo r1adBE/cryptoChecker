@@ -46,17 +46,23 @@ class TaxStep(
     val payment: Boolean = false,
     /** Erlös aus geschätztem Wert ([PortfolioTrade.valueEstimated]) bzw. mit geschätztem Gebühr-Preis ([PortfolioTrade.feePriceEstimated]). */
     val estimated: Boolean = false,
+    /** Zugang bzw. [TaxStepKind.ADD_FEE]: [cost] enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]). */
+    val costEstimated: Boolean = false,
 ) {
     val time: Long get() = trade.time
     val id: Long get() = trade.id
 }
 
-/** Ergebnis von [TaxPool.take]: abgegebene Menge, Teil mit Kaufpreis, abgegebener Einstand samt Herkunft. */
+/**
+ * Ergebnis von [TaxPool.take]: abgegebene Menge, Teil mit Kaufpreis, abgegebener Einstand samt Herkunft; [estimated] =
+ * der Einstand enthält einen geschätzten Wert.
+ */
 class TaxTaken(
     val removed: BigDecimal,
     val removedPriced: BigDecimal,
     val cost: BigDecimal,
     val parts: List<PortfolioCostPart>,
+    val estimated: Boolean = false,
 ) {
     val removedUnpriced: BigDecimal get() = removed - removedPriced
 }
@@ -80,38 +86,47 @@ class TaxPool(
         private set
     var cost: BigDecimal = BigDecimal.ZERO
         private set
+
+    /** [cost] enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]) — bis kein Teil mit Kaufpreis mehr bleibt. */
+    var estimated: Boolean = false
+        private set
     private val costParts = PortfolioCostPartPool(zone)
 
     /** Offene Herkunftsteile (Summe exakt [cost]). */
     val parts: List<PortfolioCostPart> get() = costParts.toList(cost)
     val held: BigDecimal get() = priced + unpriced
 
-    /** Zugang [qty] mit Einstand [cost] (null = ohne Kaufpreis), Herkunft [time]. */
-    fun add(qty: BigDecimal, cost: BigDecimal?, time: Long) {
+    /** Zugang [qty] mit Einstand [cost] (null = ohne Kaufpreis), Herkunft [time]; [est] = Einstand geschätzt. */
+    fun add(qty: BigDecimal, cost: BigDecimal?, time: Long, est: Boolean = false) {
         if (qty.signum() <= 0) return
         if (cost == null) {
             unpriced += qty
             return
         }
         priced += qty
-        addCost(time, cost)
+        addCost(time, cost, est)
     }
 
-    /** Zugang mit fortgeführtem Einstand (Herkunftsteile [from]). */
-    fun addCarried(qty: BigDecimal, from: List<PortfolioCostPart>) {
+    /** Zugang mit fortgeführtem Einstand (Herkunftsteile [from]); [est] = Einstand geschätzt. */
+    fun addCarried(qty: BigDecimal, from: List<PortfolioCostPart>, est: Boolean = false) {
         if (qty.signum() <= 0) return
         priced += qty
         from.forEach { addCost(it.time, it.usdt) }
+        if (est && from.isNotEmpty()) estimated = true
     }
 
-    /** Einstand direkt zum Teil mit Kaufpreis (z. B. nicht abziehbarer Verlust). */
-    fun addCost(time: Long, usdt: BigDecimal) {
+    /** Einstand direkt zum Teil mit Kaufpreis (z. B. nicht abziehbarer Verlust); [est] = Betrag geschätzt. */
+    fun addCost(time: Long, usdt: BigDecimal, est: Boolean = false) {
         cost += usdt
         costParts.add(time, usdt)
+        if (est && usdt.signum() != 0) estimated = true
     }
 
-    /** Alle Herkunftsteile entfernen (samt Tag-Index). */
-    private fun clearParts() = costParts.clear()
+    /** Alle Herkunftsteile entfernen (samt Tag-Index) und den Merker [estimated]. */
+    private fun clearParts() {
+        costParts.clear()
+        estimated = false
+    }
 
     /**
      * Gebühr [extra] einer Umbuchung der Menge [amount] mit Netzwerkgebühr [coinFee] (vor dem Schritt
@@ -119,15 +134,15 @@ class TaxPool(
      * Bestand − Netzwerkgebühr, wie FIFO je Wallet, [PortfolioFeeExpenses.uncoveredShare]; leerer Pool: die ganze Gebühr),
      * der Rest anteilig (Menge mit Kaufpreis / Bestand) zum Einstand. Rückgabe = nicht gedeckter Anteil + Anteil des Teils
      * ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) — der Aufrufer vermerkt ihn als [PortfolioUnassignedFee];
-     * 0 = alles zugeordnet.
+     * 0 = alles zugeordnet. [est] = Gebühr enthält einen geschätzten Wert.
      */
-    fun addFee(time: Long, extra: BigDecimal, amount: BigDecimal, coinFee: BigDecimal): BigDecimal {
+    fun addFee(time: Long, extra: BigDecimal, amount: BigDecimal, coinFee: BigDecimal, est: Boolean = false): BigDecimal {
         if (extra.signum() <= 0) return BigDecimal.ZERO
         val h = held
         val rest = extra - PortfolioFeeExpenses.uncoveredShare(extra, amount, (h - coinFee).max(BigDecimal.ZERO))
         if (rest.signum() <= 0 || priced.signum() <= 0) return extra
         val assigned = if (unpriced.signum() == 0) rest else rest.multiply(priced).divide(h, PortfolioDecimal.MC)
-        addCost(time, assigned)
+        addCost(time, assigned, est)
         return extra - assigned
     }
 
@@ -139,6 +154,7 @@ class TaxPool(
         val c = cost
         other.parts.forEach { addCost(it.time, it.usdt) }
         cost = c + other.cost
+        if (other.estimated && other.priced.signum() > 0) estimated = true
         other.priced = BigDecimal.ZERO
         other.unpriced = BigDecimal.ZERO
         other.cost = BigDecimal.ZERO
@@ -160,13 +176,14 @@ class TaxPool(
             else -> cost.multiply(removedPriced).divide(priced, mc)
         }
         val partsRemoved = takeParts(costRemoved)
+        val est = estimated && removedPriced.signum() > 0
         val rest = h - removed
         priced -= removedPriced
         cost -= costRemoved
         if (PortfolioDecimal.isDust(priced) || priced.signum() < 0) { priced = zero; cost = zero; clearParts() }
         unpriced = (rest - priced).max(zero)
         if (PortfolioDecimal.isDust(unpriced)) unpriced = zero
-        return TaxTaken(removed, removedPriced, costRemoved, partsRemoved)
+        return TaxTaken(removed, removedPriced, costRemoved, partsRemoved, est)
     }
 
     /**
@@ -206,4 +223,6 @@ class TaxPiece(
     val matchedTime: Long? = null,
     val uncovered: Boolean = false,
     val oldHolding: Boolean? = null,
+    /** [cost] enthält einen geschätzten Wert ([TaxTaken.estimated]): Vermerk «Wert geschätzt» an der Zeile ([emit]). */
+    val estimated: Boolean = false,
 )

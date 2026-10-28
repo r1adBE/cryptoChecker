@@ -1678,7 +1678,8 @@
           "match": null,
           "portfolioValue": "40000",
           "gross": "1000",
-          "costIncomplete": false
+          "costIncomplete": false,
+          "valueEstimated": true
         },
         {
           "coin": "BTC",
@@ -2070,7 +2071,8 @@
           "portfolioValue": null,
           "gross": "30",
           "costIncomplete": true,
-          "uncovered": true
+          "uncovered": true,
+          "valueEstimated": true
         },
         {
           "coin": "BTC",
@@ -2209,7 +2211,8 @@
           "portfolioValue": "40012",
           "gross": "12",
           "costIncomplete": false,
-          "uncovered": false
+          "uncovered": false,
+          "valueEstimated": true
         },
         {
           "coin": "ETH",
@@ -2222,7 +2225,8 @@
           "portfolioValue": null,
           "gross": "18",
           "costIncomplete": true,
-          "uncovered": true
+          "uncovered": true,
+          "valueEstimated": true
         },
         {
           "coin": "BTC",
@@ -2847,7 +2851,7 @@
           "cost": "2000",
           "proceeds": "3000",
           "gain": "1000",
-          "valueEstimated": false
+          "valueEstimated": true
         }
       ]
     },
@@ -2903,7 +2907,8 @@
           "amount": "0.05",
           "cost": "2500",
           "proceeds": "3000",
-          "gain": "500"
+          "gain": "500",
+          "valueEstimated": true
         }
       ]
     },
@@ -4246,7 +4251,7 @@
           "cost": "2000",
           "proceeds": "2900",
           "gain": "900",
-          "valueEstimated": false
+          "valueEstimated": true
         }
       ]
     },
@@ -4540,7 +4545,7 @@
           "proceeds": "5000",
           "gain": "994",
           "match": null,
-          "valueEstimated": false
+          "valueEstimated": true
         }
       ]
     },
@@ -4599,7 +4604,7 @@
           "proceeds": "5000",
           "gain": "994",
           "match": "POOL",
-          "valueEstimated": false
+          "valueEstimated": true
         }
       ]
     },
@@ -4658,7 +4663,7 @@
           "proceeds": "5000",
           "gain": "994",
           "match": null,
-          "valueEstimated": false
+          "valueEstimated": true
         }
       ]
     },
@@ -4723,7 +4728,8 @@
           "match": null,
           "portfolioValue": "20300",
           "gross": "20000",
-          "costIncomplete": false
+          "costIncomplete": false,
+          "valueEstimated": true
         }
       ]
     },
@@ -5144,7 +5150,7 @@
           "proceeds": "5000",
           "gain": "994",
           "match": null,
-          "valueEstimated": false,
+          "valueEstimated": true,
           "feeValueMissing": false
         }
       ]
@@ -5439,7 +5445,7 @@
       ]
     },
     {
-      "name": "FR Auszahlung über den Bestand mit Gebühr USDT und Gebühr im dritten Coin: Aufwand nur die Gebühr USDT zum gedeckten Anteil 1/2 — 10 × 0.5 = 5 (nicht 10); BNB-Gebühr eigene Abtretung 30",
+      "name": "FR Auszahlung über den Bestand mit Gebühr USDT und Gebühr im dritten Coin: Aufwand nur die Gebühr USDT zum gedeckten Anteil 1/2 — 10 × 0.5 = 5 (nicht 10); BNB-Gebühr eigene Abtretung 30; nur 1 ETH gedeckt: Wert 2000, Kürzung 2270 × 2000/2270 = 2000 (nicht die ganze Summe), Rest 270 — der spätere BNB-Verkauf hat Einstand 270, «unvollständig»",
       "method": "FR_PTA",
       "trades": [
         {
@@ -5469,6 +5475,14 @@
           "feeCoin": "BNB",
           "feeCoinAmount": "0.1",
           "feeCoinPrice": "300"
+        },
+        {
+          "id": 4,
+          "coin": "BNB",
+          "type": "SELL",
+          "amount": "0.9",
+          "time": 1738411200000,
+          "price": "300"
         }
       ],
       "prices": {
@@ -5499,14 +5513,27 @@
           "gain": "-5",
           "match": null,
           "gross": "0"
+        },
+        {
+          "coin": "BNB",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.9",
+          "cost": "270",
+          "proceeds": "270",
+          "gain": "0",
+          "match": null,
+          "portfolioValue": "270",
+          "gross": "270",
+          "costIncomplete": true
         }
       ],
       "outflows": [
         {
           "coin": "ETH",
-          "amount": "2",
-          "value": "4000",
-          "reduction": "2270"
+          "amount": "1",
+          "value": "2000",
+          "reduction": "2000"
         }
       ]
     },
@@ -5587,6 +5614,823 @@
           "proceeds": "900",
           "gain": "600",
           "match": "POOL"
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) Ø: Belohnung ohne Wert 1 × 2000 im Topf — beide Verkäufe zum Ø (1000 + 2000)/2 = 1500 «Wert geschätzt»; Topf leer, neuer Kauf 1000 ohne Vermerk",
+      "method": "AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "1000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1735905600000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1735992000000,
+          "price": "3000"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736078400000,
+          "price": "3000"
+        },
+        {
+          "id": 5,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736164800000,
+          "price": "1000"
+        },
+        {
+          "id": 6,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736251200000,
+          "price": "3000"
+        }
+      ],
+      "prices": {
+        "ETH": "2000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-01-04",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1500",
+          "proceeds": "3000",
+          "gain": "1500",
+          "match": null,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-01-05",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1500",
+          "proceeds": "3000",
+          "gain": "1500",
+          "match": null,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-01-07",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "3000",
+          "gain": "2000",
+          "match": null,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) FIFO je Wallet: Belohnung 1 × 2000 in A, Kauf 1000 in A, Umbuchung A → B nimmt den ältesten Posten mit — Verkauf in B Einstand 2000 «Wert geschätzt», Verkauf in A Einstand 1000 ohne Vermerk",
+      "method": "FIFO_WALLET",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1735819200000,
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735905600000,
+          "price": "1000",
+          "exchange": "A"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1735992000000,
+          "transferFrom": "A",
+          "transferTo": "B"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736078400000,
+          "price": "3000",
+          "exchange": "B"
+        },
+        {
+          "id": 5,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736164800000,
+          "price": "3000",
+          "exchange": "A"
+        }
+      ],
+      "prices": {
+        "ETH": "2000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-01-05",
+          "acquired": "2025-01-02",
+          "amount": "1",
+          "cost": "2000",
+          "proceeds": "3000",
+          "gain": "1000",
+          "match": null,
+          "wallet": "B",
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-01-06",
+          "acquired": "2025-01-03",
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "3000",
+          "gain": "2000",
+          "match": null,
+          "wallet": "A",
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) FIFO: Netzwerkgebühr 0.001 verbraucht die Belohnung (0.001 × 2000 = 2), ihr Einstand geht auf den Kauf über — Verkauf Einstand 1000 + 2 = 1002 «Wert geschätzt»",
+      "method": "FIFO",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "0.001",
+          "time": 1735819200000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735905600000,
+          "price": "1000"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "0.5",
+          "time": 1735992000000,
+          "fee": "0.001",
+          "feeUnit": "COIN",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736078400000,
+          "price": "3000"
+        }
+      ],
+      "prices": {
+        "ETH": "2000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-01-05",
+          "acquired": "2025-01-03",
+          "amount": "1",
+          "cost": "1002",
+          "proceeds": "3000",
+          "gain": "1998",
+          "match": null,
+          "valueEstimated": true
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) UK Pool: Belohnung 1 × 2000 im Pool — Verkauf Einstand 2000 «Wert geschätzt»; Pool leer, späterer Kauf 1000 ohne Vermerk",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1714564800000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1718020800000,
+          "price": "3000"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1722513600000,
+          "price": "1000"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1726401600000,
+          "price": "3000"
+        }
+      ],
+      "prices": {
+        "ETH": "2000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "1",
+          "cost": "2000",
+          "proceeds": "3000",
+          "gain": "1000",
+          "match": "POOL",
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2024-09-15",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "3000",
+          "gain": "2000",
+          "match": "POOL",
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) CA ACB: Belohnung 1 × 2000 im Pool — Verkauf Einstand 2000 «Wert geschätzt»; Pool leer, späterer Kauf 1000 ohne Vermerk",
+      "method": "CA_ACB",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1714564800000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1718020800000,
+          "price": "3000"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1722513600000,
+          "price": "1000"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1726401600000,
+          "price": "3000"
+        }
+      ],
+      "prices": {
+        "ETH": "2000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "1",
+          "cost": "2000",
+          "proceeds": "3000",
+          "gain": "1000",
+          "match": null,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2024-09-15",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "3000",
+          "gain": "2000",
+          "match": null,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) JP: Belohnung 1 × 2000 und Kauf 1000 (2024), Stückpreis 2025 = 3000/2 = 1500 — beide Verkäufe 2025 «Wert geschätzt»; 2026 nur ein neuer Kauf 1000 ohne Vermerk",
+      "method": "JP_TOTAL_AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1714564800000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1717243200000,
+          "price": "1000"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "3000"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1743508800000,
+          "price": "3000"
+        },
+        {
+          "id": 5,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1768046400000,
+          "price": "1000"
+        },
+        {
+          "id": 6,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1769947200000,
+          "price": "3000"
+        }
+      ],
+      "prices": {
+        "ETH": "2000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1500",
+          "proceeds": "3000",
+          "gain": "1500",
+          "match": null,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-04-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1500",
+          "proceeds": "3000",
+          "gain": "1500",
+          "match": null,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2026-02-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "3000",
+          "gain": "2000",
+          "match": null,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) AT: Belohnung 2020 (Altbestand, 1 × 200) und Zins 2023 (Neubestand, Wert beim Zufluss 1 × 200) — Verkauf Altbestand Einstand 200, Neubestand Ø (1000 + 200)/2 = 600, alle «Wert geschätzt»; Topf leer, Kauf 1000 ohne Vermerk",
+      "method": "AT_MOVING_AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1591012800000
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1654084800000,
+          "price": "1000"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1672660800000,
+          "interest": true
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "3000"
+        },
+        {
+          "id": 5,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736596800000,
+          "price": "3000"
+        },
+        {
+          "id": 6,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1736683200000,
+          "price": "3000"
+        },
+        {
+          "id": 7,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1738411200000,
+          "price": "1000"
+        },
+        {
+          "id": 8,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1738497600000,
+          "price": "3000"
+        }
+      ],
+      "prices": {
+        "ETH": "200"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-01-10",
+          "acquired": "2020-06-01",
+          "amount": "1",
+          "cost": "200",
+          "proceeds": "3000",
+          "gain": "2800",
+          "match": null,
+          "oldHolding": true,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-01-11",
+          "acquired": null,
+          "amount": "1",
+          "cost": "600",
+          "proceeds": "3000",
+          "gain": "2400",
+          "match": null,
+          "oldHolding": false,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-01-12",
+          "acquired": null,
+          "amount": "1",
+          "cost": "600",
+          "proceeds": "3000",
+          "gain": "2400",
+          "match": null,
+          "oldHolding": false,
+          "valueEstimated": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-02-02",
+          "acquired": null,
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "3000",
+          "gain": "2000",
+          "match": null,
+          "oldHolding": false,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Einstand mit geschätztem Wert (Tagesschluss) FR: Belohnung 1 × 20000 in der Erwerbspreis-Summe 10000 + 20000 = 30000 — Abtretungen 30000 × 20000/40000 = 15000 und der Rest 15000 «Wert geschätzt»; Summe leer, neuer Kauf 10000 ohne Vermerk",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "REWARD",
+          "amount": "1",
+          "time": 1735905600000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "20000"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1743508800000,
+          "price": "20000"
+        },
+        {
+          "id": 5,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1746100800000,
+          "price": "10000"
+        },
+        {
+          "id": 6,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1748779200000,
+          "price": "20000"
+        }
+      ],
+      "prices": {
+        "BTC": "20000"
+      },
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "15000",
+          "proceeds": "20000",
+          "gain": "5000",
+          "match": null,
+          "portfolioValue": "40000",
+          "gross": "20000",
+          "costIncomplete": false,
+          "valueEstimated": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-04-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "15000",
+          "proceeds": "20000",
+          "gain": "5000",
+          "match": null,
+          "portfolioValue": "20000",
+          "gross": "20000",
+          "costIncomplete": false,
+          "valueEstimated": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-06-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "10000",
+          "proceeds": "20000",
+          "gain": "10000",
+          "match": null,
+          "portfolioValue": "20000",
+          "gross": "20000",
+          "costIncomplete": false,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "UK Auszahlung zwischen zwei Verkäufen desselben Tags: Pool 10, 10:00 Verkauf 5, 12:00 Auszahlung 5, 14:00 Verkauf 5 — die Verkäufe des Tags (EINE Veräusserung) zuerst aus dem Pool: je 5 × 100 = 500 gedeckt, die Auszahlung danach (nicht je 2.5 ungedeckt)",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "10",
+          "time": 1714564800000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "5",
+          "time": 1718013600000,
+          "price": "300"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "5",
+          "time": 1718020800000
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "5",
+          "time": 1718028000000,
+          "price": "300"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "5",
+          "cost": "500",
+          "proceeds": "1500",
+          "gain": "1000",
+          "match": "POOL",
+          "uncovered": false,
+          "valueEstimated": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "5",
+          "cost": "500",
+          "proceeds": "1500",
+          "gain": "1000",
+          "match": "POOL",
+          "uncovered": false,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "UK Auszahlung vor dem ersten Verkauf des Tags bleibt davor: Pool 10, 09:00 Auszahlung 5, 10:00 und 14:00 Verkauf je 5 — Pool 5 für die Gruppe, je 2.5 gedeckt (Einstand 250) und 2.5 ungedeckt",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "10",
+          "time": 1714564800000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "5",
+          "time": 1718010000000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "5",
+          "time": 1718013600000,
+          "price": "300"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "5",
+          "time": 1718028000000,
+          "price": "300"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "2.5",
+          "cost": "250",
+          "proceeds": "750",
+          "gain": "500",
+          "match": "POOL",
+          "uncovered": false,
+          "valueEstimated": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "2.5",
+          "cost": null,
+          "proceeds": "750",
+          "gain": null,
+          "match": null,
+          "uncovered": true,
+          "valueEstimated": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "2.5",
+          "cost": "250",
+          "proceeds": "750",
+          "gain": "500",
+          "match": "POOL",
+          "uncovered": false,
+          "valueEstimated": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "2.5",
+          "cost": null,
+          "proceeds": "750",
+          "gain": null,
+          "match": null,
+          "uncovered": true,
+          "valueEstimated": false
         }
       ]
     }

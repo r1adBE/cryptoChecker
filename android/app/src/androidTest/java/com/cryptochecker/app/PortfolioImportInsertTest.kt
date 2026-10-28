@@ -152,4 +152,22 @@ class PortfolioImportInsertTest {
         repository.insertImported(listOf(row(1).copy(priceUsdt = price)), batch = "b1")
         assertEquals(0, price.compareTo(db.getPortfolioDao().getAll().single().priceUsdt))
     }
+
+    /** Room schreibt Mengen, Gebühren und Werte mit der Regel der Mengen (18 Nachkommastellen), Preise mit ihrer. */
+    @Test
+    fun roomRoundsAmountsButKeepsPrices() = runBlocking {
+        val price = BigDecimal("0.000000001371733333333333333333333333")
+        db.getPortfolioDao().insert(
+            row(1, amount = "1.0000000000000000004").copy(
+                priceUsdt = price, fee = BigDecimal("0.0000000000000000015"), feeUnit = PortfolioFeeUnit.COIN.name,
+                feeCoin = "BNB", feeCoinAmount = BigDecimal("1E-19"), feeCoinPriceUsdt = price,
+            ),
+        )
+        val stored = db.getPortfolioDao().getAll().single()
+        assertEquals(0, BigDecimal.ONE.compareTo(stored.amount))
+        assertEquals(0, BigDecimal("0.000000000000000002").compareTo(stored.fee))
+        assertEquals(0, BigDecimal.ZERO.compareTo(stored.feeCoinAmount))
+        assertEquals(0, price.compareTo(stored.priceUsdt))
+        assertEquals(0, price.compareTo(stored.feeCoinPriceUsdt))
+    }
 }

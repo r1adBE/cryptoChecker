@@ -271,6 +271,93 @@
         "BTC;0.1;40000;4000.00;0.9;3600.00;aus Adresse",
         "Total;;;20000.00;0.9;18000.00;"
       ]
+    },
+    {
+      "name": "lot before the first observation: counted from its purchase date, address part not observed",
+      "date": "2024-12-31",
+      "zone": "UTC",
+      "method": "FIFO",
+      "addresses": [
+        {
+          "id": 17,
+          "chain": "BTC",
+          "address": "bc1qtestcutoff17",
+          "label": "Cold",
+          "lastBalance": "0.5",
+          "lastUpdated": 1738368000000,
+          "observations": [
+            {
+              "t": 1738368000000,
+              "b": "0.5"
+            }
+          ],
+          "costLots": [
+            {
+              "id": 1,
+              "coin": "BTC",
+              "t": 1672531200000,
+              "amount": "0.5",
+              "price": "16500"
+            }
+          ]
+        }
+      ],
+      "trades": [],
+      "prices": {
+        "BTC": "40000"
+      },
+      "fxRate": "0.9",
+      "expected": [
+        "Coin;Menge;Kurs USDT;Wert USDT;Kurs;Wert;Hinweis",
+        "BTC;0.5;40000;20000.00;0.9;18000.00;",
+        "BTC;;;;0.9;;aus Adresse, nicht beobachtet",
+        "Total;;;20000.00;0.9;18000.00;unvollständig"
+      ]
+    },
+    {
+      "name": "lot covered by today's balance: counted in full at the cutoff",
+      "date": "2024-12-31",
+      "zone": "UTC",
+      "method": "FIFO",
+      "addresses": [
+        {
+          "id": 18,
+          "chain": "BTC",
+          "address": "bc1qtestcutoff18",
+          "label": "Cold",
+          "lastBalance": "1.0",
+          "lastUpdated": 1740787200000,
+          "observations": [
+            {
+              "t": 1685577600000,
+              "b": "0.5"
+            },
+            {
+              "t": 1740787200000,
+              "b": "1.0"
+            }
+          ],
+          "costLots": [
+            {
+              "id": 1,
+              "coin": "BTC",
+              "t": 1673740800000,
+              "amount": "1",
+              "price": "20000"
+            }
+          ]
+        }
+      ],
+      "trades": [],
+      "prices": {
+        "BTC": "40000"
+      },
+      "fxRate": "0.9",
+      "expected": [
+        "Coin;Menge;Kurs USDT;Wert USDT;Kurs;Wert;Hinweis",
+        "BTC;1;40000;40000.00;0.9;36000.00;",
+        "Total;;;40000.00;0.9;36000.00;"
+      ]
     }
   ],
   "referenceCases": [

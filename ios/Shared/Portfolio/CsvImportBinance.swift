@@ -240,10 +240,10 @@ enum CsvImportBinance {
             let (out, outAmount) = (g.coin, g.amount)
             let (inn, inAmount) = (r.coin, r.amount)
             if CsvImport.isFiat(out) {
-                rows.append(row(line, .BUY, rawKind(inn), inn, inAmount, CsvImport.divide(outAmount, inAmount), out,
+                rows.append(row(line, .BUY, rawKind(inn), inn, inAmount, PortfolioDecimal.divide(outAmount, inAmount), out,
                                 feeAmount, feeUnit, first))
             } else if CsvImport.isFiat(inn) {
-                rows.append(row(line, .SELL, rawKind(out), out, outAmount, CsvImport.divide(inAmount, outAmount), inn,
+                rows.append(row(line, .SELL, rawKind(out), out, outAmount, PortfolioDecimal.divide(inAmount, outAmount), inn,
                                 feeAmount, feeUnit, first))
             } else {
                 let value = CsvImport.stableSwapValue(coin: out, amount: outAmount, toCoin: inn, toAmount: inAmount)

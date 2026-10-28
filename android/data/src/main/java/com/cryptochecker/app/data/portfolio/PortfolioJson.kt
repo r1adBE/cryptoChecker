@@ -84,23 +84,25 @@ object PortfolioJson {
 
     /**
      * Eine Transaktion; jedes Feld, das [txToJson] schreibt, muss da sein ([org.json.JSONException] sonst — geprüft wird
-     * vorher mit `BackupFields`). Ungültige Werte → null (der Aufrufer zählt sie, [parseTxs]).
+     * vorher mit `BackupFields`). Ungültige Werte → null (der Aufrufer zählt sie, [parseTxs]). Mengen, Gebühren und Werte
+     * gelesen wie gespeichert ([amountOf]: 18 Nachkommastellen) — eine Menge, die dabei 0 wird (unter 10⁻¹⁸), ist ungültig
+     * wie eine fehlende. Wie iOS.
      */
     fun jsonToTx(o: JSONObject): PortfolioTxEntity? {
         val coin = PortfolioCalculator.normalizeCoin(o.getString("coin"))
         // Unbekannte Art (neuere Version): ungültig, wird gezählt ([parseTxs])
         val type = PortfolioTxType.fromName(o.getString("type")) ?: return null
-        val amount = decimal(o, "amountText")?.takeIf { it.signum() > 0 } ?: return null
+        val amount = amountOf(o, "amountText")?.takeIf { it.signum() > 0 } ?: return null
         if (coin.isEmpty()) return null
         // null oder ungültig: keine Gebühr
-        val fee = decimal(o, "feeText")?.takeIf { it.signum() > 0 }
+        val fee = amountOf(o, "feeText")?.takeIf { it.signum() > 0 }
         // Gebühr im dritten Coin: nur mit Coin und Menge > 0, sonst keine
-        val third = cleanFeeCoin(text(o, "feeCoin"), coin, text(o, "feeCoinAmountText")?.let { PortfolioDecimal.parse(it) })
+        val third = cleanFeeCoin(text(o, "feeCoin"), coin, amountOf(o, "feeCoinAmountText"))
         // Tausch: ohne gültigen erhaltenen Coin und Menge ungültig (gezählt)
         val swap = type == PortfolioTxType.SWAP
         val toCoin = if (swap) cleanToCoin(text(o, "toCoin"), coin) ?: return null else null
-        val toAmount = if (swap) text(o, "toAmountText")?.let { PortfolioDecimal.parse(it) }?.takeIf { it.signum() > 0 } ?: return null else null
-        val swapValue = if (swap) text(o, "swapValueText")?.let { PortfolioDecimal.parse(it) }?.takeIf { it.signum() >= 0 } else null
+        val toAmount = if (swap) amountOf(o, "toAmountText")?.takeIf { it.signum() > 0 } ?: return null else null
+        val swapValue = if (swap) amountOf(o, "swapValueText")?.takeIf { it.signum() >= 0 } else null
         // Zweiter Schlüssel nur mit erstem, Zustand nur mit Verknüpfung
         val importKey = cleanImportKey(text(o, "importKey"))
         val linkedImportKey = cleanImportKey(text(o, "linkedImportKey"))?.takeIf { importKey != null }
@@ -179,6 +181,9 @@ object PortfolioJson {
 
     /** Exakte Zahl aus dem Text [key]; null/ungültig = null. */
     private fun decimal(o: JSONObject, key: String): BigDecimal? = text(o, key)?.let { PortfolioDecimal.parse(it) }
+
+    /** Menge, Gebühr oder Wert aus dem Text [key], gerundet wie gespeichert ([PortfolioDecimal.amount]); null/ungültig = null. */
+    private fun amountOf(o: JSONObject, key: String): BigDecimal? = decimal(o, key)?.let { PortfolioDecimal.amount(it) }
 
     /** Börse: getrimmt, höchstens [MAX_EXCHANGE] sichtbare Zeichen (nie mitten im Emoji gekürzt); leer = null. */
     fun cleanExchange(raw: String?): String? = TextLimit.clean(raw, MAX_EXCHANGE)

@@ -4,13 +4,14 @@ import Foundation
 
 extension TaxEngines {
 
-    /// Altbestand-Posten (FIFO).
+    /// Altbestand-Posten (FIFO); `estimated` = Einstand enthält einen geschätzten Wert (`PortfolioTx.costEstimated`).
     private struct AtLot {
         let txId: Int64
         let acquired: Int64
         let kind: PortfolioTxType
         var qty: Decimal
         var cost: Decimal?
+        var estimated = false
     }
 
     /// Topf eines Coins in EINER Wallet (`wallet` = Anzeigename, leer = ohne Angabe).
@@ -31,17 +32,19 @@ extension TaxEngines {
             fees = TaxPool(zone: zone)
         }
 
-        /// Zugang im Neubestand mit Einstand ohne Gebühren `cost` und Kaufgebühr `fee` (nur mit Kaufpreis).
-        mutating func addNew(_ qty: Decimal, cost: Decimal?, time: Int64, fee: Decimal = 0) {
-            neu.add(qty, cost: cost, time: time)
-            fees.add(qty, cost: cost.map { _ in fee }, time: time)
+        /// Zugang im Neubestand mit Einstand ohne Gebühren `cost` und Kaufgebühr `fee` (nur mit Kaufpreis); `est` bzw.
+        /// `feeEst` = Einstand bzw. Kaufgebühr enthält einen geschätzten Wert.
+        mutating func addNew(_ qty: Decimal, cost: Decimal?, time: Int64, fee: Decimal = 0, est: Bool = false,
+                             feeEst: Bool = false) {
+            neu.add(qty, cost: cost, time: time, est: est)
+            fees.add(qty, cost: cost.map { _ in fee }, time: time, est: feeEst)
         }
 
-        /// Zugang mit fortgeführtem Einstand `parts` samt Gebührenteil `feeParts`.
+        /// Zugang mit fortgeführtem Einstand `parts` samt Gebührenteil `feeParts` und deren Merkern «geschätzt».
         mutating func addNewCarried(_ qty: Decimal, from parts: PortfolioCostPartList,
-                                    feeParts: PortfolioCostPartList = []) {
-            neu.addCarried(qty, from: parts)
-            fees.addCarried(qty, from: feeParts)
+                                    feeParts: PortfolioCostPartList = [], est: Bool = false, feeEst: Bool = false) {
+            neu.addCarried(qty, from: parts, est: est)
+            fees.addCarried(qty, from: feeParts, est: feeEst)
         }
 
         /// Abgang aus dem Neubestand: Einstand ohne Gebühren und der zugehörige Gebührenteil.
@@ -90,13 +93,13 @@ extension TaxEngines {
             var lot = c.old[0]
             let q = min(left, lot.qty)
             var cost: Decimal? = nil
-            if let lc = lot.cost { cost = q == lot.qty ? lc : PortfolioDecimal.divide(lc * q, lot.qty) }
+            if let lc = lot.cost { cost = q == lot.qty ? lc : PortfolioDecimal.divide(lc, q, by: lot.qty) }
             lot.qty -= q
             if let lc = lot.cost, let cost { lot.cost = lc - cost }
             if lot.qty <= 0 { c.old.removeFirst() } else { c.old[0] = lot }
             left -= q
             pieces.append(Piece(amount: q, cost: cost, acquiredTime: lot.acquired, lotTxId: lot.txId, lotKind: lot.kind,
-                                oldHolding: true))
+                                oldHolding: true, estimated: lot.estimated))
         }
         return pieces
     }
@@ -112,7 +115,8 @@ extension TaxEngines {
     private static func withFees(_ taken: TaxTaken, _ fees: TaxTaken) -> TaxTaken {
         if fees.cost == 0 { return taken }
         return TaxTaken(removed: taken.removed, removedPriced: taken.removedPriced, cost: taken.cost + fees.cost,
-                        parts: PortfolioCostPartList(taken.parts.items + fees.parts.items))
+                        parts: PortfolioCostPartList(taken.parts.items + fees.parts.items),
+                        estimated: taken.estimated || fees.estimated)
     }
 
     /// Anschaffungskosten eines Zugangs im Neubestand — wie Android `newCost`: Menge × Preis ohne Gebühren (§ 27a Abs. 4 Z 2
@@ -121,7 +125,7 @@ extension TaxEngines {
     /// er ist dort schon Einkunft (§ 27b Abs. 2 Z 1 EStG).
     private static func atNewCost(_ s: TaxStep) -> Decimal? {
         if s.trade.type == .REWARD && !s.trade.interest { return 0 }
-        return s.trade.validPriceExact.map { s.qty * $0 }
+        return s.trade.validPriceExact.map { PortfolioDecimal.multiply(s.qty, $0) }
     }
 
     /// Anschaffungsnebenkosten eines Zugangs im Neubestand — wie Android `newFee`: Einstand mit Gebühren (`TaxStep.cost`:
@@ -147,11 +151,11 @@ extension TaxEngines {
         let oldLaw = s.time < neutralFrom
         // Gebühr im dritten Coin: der ganze Schritt ist die Gebühr, darin steckt keine Gebühr im Coin
         let fee: Decimal = s.feeLeg || oldLaw ? 0 : s.trade.coinFeeExact
-        let newFee: Decimal = fee == 0 || newQty <= 0 ? 0 : PortfolioDecimal.divide(newQty * fee, s.qty)
+        let newFee: Decimal = fee == 0 || newQty <= 0 ? 0 : PortfolioDecimal.divide(newQty, fee, by: s.qty)
         let n = c.takeNew(newQty - newFee)
         let taken = n.taken
         note(&lost, coin, s, c.dropNew(newFee))
-        func oldShare(_ v: Decimal) -> Decimal { oldQty == s.qty ? v : PortfolioDecimal.divide(v * oldQty, s.qty) }
+        func oldShare(_ v: Decimal) -> Decimal { oldQty == s.qty ? v : PortfolioDecimal.divide(v, oldQty, by: s.qty) }
         var newPieces = piecesOf(oldLaw ? withFees(taken, n.fees) : taken, oldHolding: false)
         let rest = newQty - newFee - taken.removed
         if rest > 0 { newPieces.append(Piece(amount: rest, cost: nil, uncovered: true)) }
@@ -170,6 +174,7 @@ extension TaxEngines {
             let carried: Decimal = pieces.reduce(Decimal(0)) { $0 + ($1.cost ?? 0) }
             if let i = c.old.firstIndex(where: { $0.cost != nil }), let tc = c.old[i].cost {
                 c.old[i].cost = tc + carried
+                if pieces.contains(where: { $0.estimated && $0.cost != nil }) { c.old[i].estimated = true }
             } else {
                 note(&lost, coin, s, carried)
             }
@@ -214,10 +219,12 @@ extension TaxEngines {
                     var dst = pot(dstKey)
                     for p in both.pieces {
                         if let txId = p.lotTxId, let acquired = p.acquiredTime, let kind = p.lotKind {
-                            dst.insertOld(AtLot(txId: txId, acquired: acquired, kind: kind, qty: p.amount, cost: p.cost))
+                            dst.insertOld(AtLot(txId: txId, acquired: acquired, kind: kind, qty: p.amount, cost: p.cost,
+                                                estimated: p.estimated))
                         }
                     }
-                    dst.addNewCarried(both.taken.removedPriced, from: both.taken.parts, feeParts: both.fees.parts)
+                    dst.addNewCarried(both.taken.removedPriced, from: both.taken.parts, feeParts: both.fees.parts,
+                                      est: both.taken.estimated, feeEst: both.fees.estimated)
                     dst.addNew(both.taken.removedUnpriced, cost: nil, time: t.time)
                     coins[dstKey] = dst
                 }
@@ -233,25 +240,28 @@ extension TaxEngines {
                     if let carry, carry.realized {
                         // Tausch vor dem 1.3.2022 = Anschaffung zum Wert des Tauschs: vor dem 1.3.2021 Altbestand (Frist 1 Jahr
                         // ab dem Tausch), danach Neubestand
+                        // Wert des Tauschs zum Tagesschluss: Einstand geschätzt
+                        let est = s.trade.valueEstimated
                         if s.time < newFrom {
-                            c.insertOld(AtLot(txId: s.id, acquired: s.time, kind: s.trade.type, qty: s.qty, cost: carry.value))
+                            c.insertOld(AtLot(txId: s.id, acquired: s.time, kind: s.trade.type, qty: s.qty, cost: carry.value,
+                                              estimated: est))
                         } else {
-                            c.addNew(s.qty, cost: carry.value, time: s.time)
+                            c.addNew(s.qty, cost: carry.value, time: s.time, est: est)
                         }
                     } else if let carry {
                         if carry.total > 0 {
                             // Erhaltene Menge anteilig: aus Altbestand (Einstand = Wert), aus Neubestand fortgeführt, Rest ohne Kaufpreis
                             // — Tausch ab dem 1.3.2022, also kein späterer Verkauf nach alter Rechtslage: ohne Gebührenteil
-                            func part(_ q: Decimal) -> Decimal { q == carry.total ? s.qty : PortfolioDecimal.divide(s.qty * q, carry.total) }
+                            func part(_ q: Decimal) -> Decimal { q == carry.total ? s.qty : PortfolioDecimal.divide(s.qty, q, by: carry.total) }
                             let fromOld = part(carry.oldQty)
                             if fromOld > 0 {
                                 let v: Decimal? = carry.value.map {
-                                    carry.oldQty == carry.total ? $0 : PortfolioDecimal.divide($0 * carry.oldQty, carry.total)
+                                    carry.oldQty == carry.total ? $0 : PortfolioDecimal.divide($0, carry.oldQty, by: carry.total)
                                 }
-                                c.addNew(fromOld, cost: v, time: s.time)
+                                c.addNew(fromOld, cost: v, time: s.time, est: s.trade.valueEstimated)
                             }
                             let fromPriced = part(carry.taken.removedPriced)
-                            if fromPriced > 0 { c.addNewCarried(fromPriced, from: carry.taken.parts) }
+                            if fromPriced > 0 { c.addNewCarried(fromPriced, from: carry.taken.parts, est: carry.taken.estimated) }
                             let restQty = s.qty - fromOld - fromPriced
                             if restQty > 0 { c.addNew(restQty, cost: nil, time: s.time) }
                         } else {
@@ -260,10 +270,14 @@ extension TaxEngines {
                     } else if s.acquired < newFrom {
                         // Nach Erwerb einsortieren: eine nachdatierte Einzahlung (Kaufdatum vor einem früher gebuchten Kauf)
                         // ist der ältere Posten und geht beim Verkauf zuerst ab
-                        c.insertOld(AtLot(txId: s.id, acquired: s.acquired, kind: s.trade.type, qty: s.qty, cost: s.cost))
+                        c.insertOld(AtLot(txId: s.id, acquired: s.acquired, kind: s.trade.type, qty: s.qty, cost: s.cost,
+                                          estimated: s.costEstimated))
                     } else {
+                        // Einstand und Anschaffungsnebenkosten mit ihren Merkern «geschätzt» (Zins zum Tagesschluss, Gebühr)
                         let cost = atNewCost(s)
-                        c.addNew(s.qty, cost: cost, time: s.acquired, fee: atNewFee(s, cost))
+                        let fee = atNewFee(s, cost)
+                        c.addNew(s.qty, cost: cost, time: s.acquired, fee: fee, est: s.trade.valueEstimated,
+                                 feeEst: s.trade.feePriceEstimated && fee != 0)
                     }
                 case .dispose:
                     guard s.swap else {
@@ -288,7 +302,7 @@ extension TaxEngines {
                         // Neubestand geht steuerneutral über (§ 27b Abs. 3 Z 2 EStG) — auch in einen Stablecoin (USDT, USDC …):
                         // der Einstand geht mit, steuerbar erst der Verkauf gegen Euro
                         let proceedsOld: Decimal? = s.proceeds.map {
-                            oldQty == s.qty ? $0 : PortfolioDecimal.divide($0 * oldQty, s.qty)
+                            oldQty == s.qty ? $0 : PortfolioDecimal.divide($0, oldQty, by: s.qty)
                         }
                         if oldQty > 0 { rows = emit(coin, s, both.pieces, proceeds: proceedsOld) }
                         carries[s.id] = AtCarry(total: s.qty, oldQty: oldQty, taken: both.taken, value: s.gross, realized: false)

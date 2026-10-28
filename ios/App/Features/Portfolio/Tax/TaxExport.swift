@@ -89,7 +89,7 @@ enum TaxExport {
     }
 
     /// Freigrenze § 23 Abs. 3 Satz 5 EStG in EUR (steuerfrei bei WENIGER als der Grenze): 1000 € ab 2024, 600 € 2008–2023
-    /// (ab Veranlagungszeitraum 2008), 512 € bis 2007 — wie `privateSalesLimitEur` (Android).
+    /// (Unternehmensteuerreformgesetz 2008, ab Veranlagungszeitraum 2008), 512 € bis 2007 — wie `privateSalesLimitEur` (Android).
     static func privateSalesLimitEur(_ year: Int) -> Decimal {
         if year >= 2024 { return 1000 }
         if year >= 2008 { return 600 }

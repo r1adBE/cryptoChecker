@@ -114,11 +114,11 @@ enum PortfolioCalculator {
         // Wert und unrealisierter Gewinn exakt (Kurs über seine kürzeste Darstellung); Double nur für die Anzeige.
         // Wert = ganzer Bestand (mit Adressen), «Seit Kauf» nur auf den eigenen Teil mit Kaufpreis.
         let priceExact: Decimal? = price.flatMap { PortfolioDecimal.of($0) }
-        let valueExact: Decimal? = priceExact.map { holdings * $0 }
+        let valueExact: Decimal? = priceExact.map { PortfolioDecimal.multiply(holdings, $0) }
         let value = valueExact.map(PortfolioDecimal.double)
         // Ganz mit Kaufpreis: ganzer eigener Bestand (Staub inklusive), sonst nur der Teil mit Kaufpreis
         let pricedBase: Decimal = priceMissing ? pricedHoldings : ledgerHoldings
-        let pricedValueExact: Decimal? = priceExact.map { pricedBase * $0 }
+        let pricedValueExact: Decimal? = priceExact.map { PortfolioDecimal.multiply(pricedBase, $0) }
         var unrealizedExact: Decimal?
         if let pricedCostExact, let pricedValueExact { unrealizedExact = pricedValueExact - pricedCostExact }
         let unrealized = unrealizedExact.map(PortfolioDecimal.double)
@@ -152,7 +152,7 @@ enum PortfolioCalculator {
             realizedFeeMissing: book.realizedFeeMissing,
             withdrawnAmount: PortfolioDecimal.isDust(book.withdrawn) ? 0 : PortfolioDecimal.double(book.withdrawn),
             addressHoldingsExact: addressHoldings,
-            addressValueExact: priceExact.map { addressHoldings * $0 },
+            addressValueExact: priceExact.map { PortfolioDecimal.multiply(addressHoldings, $0) },
             method: method,
             lostFeeCostUsdt: book.lostFeeCosts.reduce(Decimal(0)) { $0 + $1.costUsdt },
             unassignedFeeUsdt: book.unassignedFees.reduce(Decimal(0)) { $0 + $1.usdt },
@@ -272,9 +272,9 @@ enum PortfolioCalculator {
             }
             if w.pricedRemoved < w.removed { incomplete = true }
             // Gebühren: realisierter Aufwand, nicht hier
-            let value: Decimal = w.sold * price
+            let value: Decimal = PortfolioDecimal.multiply(w.sold, price)
             let pricedValue = w.pricedRemoved == w.removed ? value
-                : PortfolioDecimal.divide(value * w.pricedRemoved, w.removed)
+                : PortfolioDecimal.divide(value, w.pricedRemoved, by: w.removed)
             sum += pricedValue - w.cost
         }
         return WithdrawnGain(amount: sum, incomplete: incomplete, count: count)

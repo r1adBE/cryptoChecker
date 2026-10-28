@@ -4,10 +4,10 @@ import Foundation
 /// Einstand, realisierter Gewinn) — wie `PortfolioDecimal.kt` (Android, `BigDecimal`). Ein Bitcoin
 /// hat 8 Nachkommastellen (1 Satoshi = 0.00000001 BTC), Ethereum-Tokens bis 18 (1 Wei); mit
 /// `Double` summieren sich Rundungsfehler («0.1 + 0.2 = 0.30000000000000004»), mit `Decimal` nicht.
-/// `Decimal` hält rund 38 gültige Stellen (Mantisse 128 Bit): Addition, Subtraktion und Multiplikation sind
-/// exakt, solange das Ergebnis darin Platz hat — für Portfolio-Beträge immer; anders als `BigDecimal` (Android)
-/// ist die Genauigkeit aber nicht unbegrenzt. Teilungen (und anteilige Produkte) runden auf 34 gültige Stellen
-/// (`divide`, `multiply`) — wie Android (`MathContext.DECIMAL128`, halbe auf gerade).
+/// `Decimal` hält rund 38 gültige Stellen (Mantisse 128 Bit): `+`, `−` und `*` sind exakt, solange das Ergebnis darin
+/// Platz hat; anders als `BigDecimal` (Android) ist die Genauigkeit nicht unbegrenzt. Teilungen und alle Produkte der
+/// Geldpfade (`divide`, `multiply`, `divide(_:_:by:)`; nie ein einfaches `*`) rechnen darum exakt über die Mantissen und
+/// runden einmal auf 34 gültige Stellen — wie Android (`MathContext.DECIMAL128`, halbe auf gerade).
 /// Börsenkurse kommen als `Double` an; Wert und unrealisierter Gewinn rechnen exakt mit ihrer kürzesten
 /// Darstellung (`of`).
 enum PortfolioDecimal {
@@ -76,13 +76,7 @@ enum PortfolioDecimal {
     /// Gültige Stellen für Teilungen — wie Android (`PortfolioDecimal.MC` = decimal128, 34 Stellen).
     static let significantDigits = 34
 
-    /// `a / b`, gerundet auf `significantDigits` gültige Stellen (halbe auf gerade) — wie
-    /// `a.divide(b, MathContext.DECIMAL128)` (Android). `Decimal` teilt selbst auf 38 Stellen; ohne
-    /// das Runden wichen Einstand und realisierter Gewinn in den hinteren Stellen ab.
-    static func divide(_ a: Decimal, _ b: Decimal) -> Decimal { roundSignificant(a / b) }
-
-    /// `a × b`, gerundet auf `significantDigits` gültige Stellen — wie `a.multiply(b, MathContext.DECIMAL128)`.
-    static func multiply(_ a: Decimal, _ b: Decimal) -> Decimal { roundSignificant(a * b) }
+    // `divide` und `multiply`: exakt, einmal gerundet (PortfolioDecimal+Exact.swift)
 
     /// Auf `digits` gültige Stellen runden (halbe auf gerade); 0, NaN und kürzere Werte unverändert.
     static func roundSignificant(_ value: Decimal, digits: Int = significantDigits) -> Decimal {

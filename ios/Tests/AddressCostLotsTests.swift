@@ -115,16 +115,25 @@ final class AddressCostLotsTests: XCTestCase {
         XCTAssertEqual(WatchedAddressRules.merge([], WatchedAddressRules.entries(fromJSON: plain)).first?.costLots, [])
     }
 
-    func testExportTradesAddLotsAndFrHistoryWithoutLottedPart() {
-        let history = [
-            PortfolioTx(id: -1_000_001, coin: "BTC", type: .DEPOSIT, amountExact: d("0.3"), priceExact: nil, time: 10),
-            PortfolioTx(id: -1_000_002, coin: "BTC", type: .DEPOSIT, amountExact: d("0.5"), priceExact: nil, time: 20),
-            PortfolioTx(id: -1_000_003, coin: "BTC", type: .WITHDRAWAL, amountExact: d("0.1"), priceExact: nil, time: 30),
-        ]
-        let cut = AddressCostLots.withoutLotted(history, lotted: ["BTC": d("0.4")])
-        XCTAssertEqual(cut.map(\.id), [-1_000_002, -1_000_003])
-        XCTAssertEqual(cut.first?.amountExact, d("0.4"))
-        XCTAssertEqual(AddressCostLots.withoutLotted(history, lotted: [:]), history)
+    func testExportTradesAddLotsAndFrHistoryAsTheCard() {
+        // FR-Gesamtwert wie die Karte (`AddressBooked`): erfasste Umbuchung weg von der Adresse (1 → 0.5) bzw. zu ihr hin
+        // (1 → 1.3) steckt schon im Guthaben — der Adress-Teil bleibt 1, nur die erste Beobachtung ist ein Zugang
+        let obs = [AddressObservation(time: 10, balance: 1)]
+        func transfer(_ amount: String, from: String, to: String) -> PortfolioTx {
+            var t = PortfolioTx(id: 7, coin: "BTC", type: .TRANSFER, amountExact: d(amount), priceExact: nil, time: 20)
+            t.transferFrom = from
+            t.transferTo = to
+            return t
+        }
+        let cases = [("0.5", transfer("0.5", from: "Ledger", to: "Binance")), ("1.3", transfer("0.3", from: "Binance", to: "Ledger"))]
+        for (later, transfer) in cases {
+            let ledger = WatchedAddress(id: 3, chain: .BTC, address: btc, label: "Ledger", lastBalance: later, lastUpdated: 30,
+                                        observations: obs + [AddressObservation(time: 30, balance: d(later))])
+            let fr = Array(AddressCostLots.exportTrades([transfer], addresses: [ledger], frTotalValue: true).dropFirst())
+            XCTAssertEqual(fr.map(\.type), [.DEPOSIT])
+            XCTAssertEqual(fr.first?.amountExact, 1)
+            XCTAssertEqual(fr.first?.time, 10)
+        }
         let a = WatchedAddress(id: 2, chain: .BTC, address: btc, lastBalance: "1", costLots: [lot(1, 5, "0.4", price: "100")])
         let real = [PortfolioTx(id: 1, coin: "BTC", type: .BUY, amountExact: 1, priceExact: 200, time: 50)]
         let export = AddressCostLots.exportTrades(real, addresses: [a], frTotalValue: false)

@@ -241,7 +241,7 @@ object PortfolioHistory {
                     ranges[coin]?.get(day)?.takeIf { it.valid }
                 } else null
                 // Menge × Kurs exakt (Kurs über seine kürzeste Darstellung); Double erst in der Summe je Tag ([sumCells])
-                fun times(p: Double): BigDecimal = amount.multiply(BigDecimal.valueOf(p))
+                fun times(p: Double): BigDecimal = amount.multiply(BigDecimal.valueOf(p), PortfolioDecimal.MC)
                 row[index] = if (dayRange != null) {
                     DayCell(times(price), times(dayRange.open), times(max(dayRange.high, price)), times(min(dayRange.low, price)), true)
                 } else {

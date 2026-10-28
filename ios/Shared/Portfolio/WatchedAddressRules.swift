@@ -343,7 +343,7 @@ enum WatchedAddressRules {
     /// |x − goal| ≤ `tolerance` von goal (goal > 0; Standard 1 %).
     private static func nearlyEqual(_ x: Decimal, _ goal: Decimal, tolerance: Decimal = matchTolerance) -> Bool {
         let diff: Decimal = x - goal
-        let limit: Decimal = goal * tolerance
+        let limit: Decimal = PortfolioDecimal.multiply(goal, tolerance)
         return x > 0 && abs(diff) <= limit
     }
 

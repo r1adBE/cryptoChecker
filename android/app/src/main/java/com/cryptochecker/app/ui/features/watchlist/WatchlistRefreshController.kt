@@ -4,6 +4,7 @@
 // (Hilt setzt die Abhängigkeiten ein) und gibt [scope] (seinen viewModelScope) mit.
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.data.CoinLogoSync
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.SheetChartRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -16,12 +17,14 @@ import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 internal class WatchlistRefreshController @AssistedInject constructor(
     @Assisted private val scope: CoroutineScope,
@@ -30,6 +33,8 @@ internal class WatchlistRefreshController @AssistedInject constructor(
     private val refreshStats: RefreshStats,
     private val sheetChartRepository: SheetChartRepository,
     scheduler: PriceUpdateScheduler,
+    /** Logo-Abgleich: Nach-unten-Ziehen startet auch ihn ([refreshAllByUser]). */
+    private val coinLogoSync: CoinLogoSync,
 ) {
     /** Erzeugt den Controller mit dem viewModelScope des Besitzers; die übrigen Abhängigkeiten setzt Hilt ein. */
     @AssistedFactory
@@ -84,12 +89,24 @@ internal class WatchlistRefreshController @AssistedInject constructor(
      * ([ManualRefresh]), nicht über WorkManager — läuft auch nach dem Schliessen der
      * App zu Ende. Gesperrt, solange eine läuft oder die letzte keine 15 s her ist
      * ([RefreshDebounce]); dann zeigt die Merkliste kurz «Wieder möglich in N s».
+     * Startet immer auch den Abgleich aller Logos ([CoinLogoSync.startIfEnabled]: Schalter «Coin-Logos», Fristen und
+     * Pausen der Bild-Server gelten dort) — derselbe Sammel-Abruf wie beim Öffnen, verrät also keine Merkliste.
      */
-    fun refreshAllByUser(): RefreshDebounce.Decision =
-        manualRefresh.request(otherRunning = refreshing.value).also {
+    fun refreshAllByUser(): RefreshDebounce.Decision {
+        scope.launch {
+            try {
+                coinLogoSync.startIfEnabled()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Timber.w(e, "Coin-Logos: Abgleich nach dem Aktualisieren nicht gestartet")
+            }
+        }
+        return manualRefresh.request(otherRunning = refreshing.value).also {
             // Von Hand aktualisiert: Charts im Aktionsblatt nicht mehr aus dem Zwischenspeicher
             if (it == RefreshDebounce.Decision.START) sheetChartRepository.invalidateAll()
         }
+    }
 
     /**
      * Ende der letzten vollständigen Aktualisierung (0 = noch keine): Daraus zählt «Aktualisieren»

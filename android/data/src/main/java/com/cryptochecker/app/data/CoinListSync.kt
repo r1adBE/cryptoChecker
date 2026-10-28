@@ -304,6 +304,7 @@ class CoinListSync @Inject constructor(
         } else {
             symbolMap()
             _retryPending.value = listsNetworkFailed || mapNetworkFailed
+            imagesPausedUntil = null
             0
         }
     } catch (e: CancellationException) {
@@ -337,8 +338,16 @@ class CoinListSync @Inject constructor(
         var result = first.await()
         if (usedEarly) result += imageStore.downloadMissing(wanted)
         _retryPending.value = listsNetworkFailed || mapNetworkFailed || result.network
+        imagesPausedUntil = result.pausedUntil
         result.added
     }
+
+    /**
+     * Frühestes Ende der Pausen gebremster Bild-Server nach dem letzten Abgleich mit Bildern (ms; null = nichts
+     * gebremst): [CoinLogoSync] holt die fehlenden Bilder danach von selbst nach. Nur im Speicher.
+     */
+    @Volatile var imagesPausedUntil: Long? = null
+        private set
 
     // ---- 2. Zuordnung Kürzel → Bild (Rangliste von CoinGecko)
 

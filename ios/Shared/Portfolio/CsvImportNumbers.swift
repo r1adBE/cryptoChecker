@@ -74,8 +74,9 @@ extension CsvImportParser {
 
     /// «1.234E-05» → 0.00001234 (das «+» eines Exponenten entfernt schon `stripGrouping`): Mantisse mit höchstens einem
     /// Dezimalzeichen («.» oder «,», nie Tausender, höchstens 60 Zeichen), «E»/«e», Exponent mit 1–3 Ziffern. Der Wert
-    /// muss in den Grenzen des Speicherns liegen (`PortfolioDecimal.withinLimits`: unter 10³⁰, höchstens 40
-    /// Nachkommastellen), sonst ungültig. Wie Android `scientific`.
+    /// muss unter 10³⁰ liegen (`PortfolioDecimal.maxIntegerDigits`), sonst ungültig. Die Nachkommastellen prüft wie bei
+    /// einer gewöhnlichen Zahl erst das Speichern (gerundet, `CsvImportMapping.unsavableReason`): «1.234E-38» als Preis
+    /// gilt wie «0.00…01234». Höchstens 128 Nachkommastellen (kleinster Exponent von `Decimal`). Wie Android `scientific`.
     private static func scientific(_ t: String) -> Decimal? {
         let parts = t.split(omittingEmptySubsequences: false, whereSeparator: { $0 == "e" || $0 == "E" }).map(String.init)
         guard parts.count == 2 else { return nil }
@@ -92,7 +93,7 @@ extension CsvImportParser {
         // Ausserhalb des Bereichs von `Decimal` (Exponent −128…127) liegt jeder Wert weit ausserhalb der Grenzen
         guard (-128...127).contains(Int(m.exponent) + shift) else { return nil }
         let value = Decimal(sign: m < 0 ? .minus : .plus, exponent: shift, significand: abs(m))
-        return PortfolioDecimal.withinLimits(value) ? value : nil
+        return abs(value) < Decimal(sign: .plus, exponent: PortfolioDecimal.maxIntegerDigits, significand: 1) ? value : nil
     }
 
     /// `sep` als Tausender gültig: erste Gruppe 1–3 Ziffern ohne führende 0 (eine einzelne «0» nie), alle weiteren genau

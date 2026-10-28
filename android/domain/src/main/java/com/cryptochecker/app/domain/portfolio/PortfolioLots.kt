@@ -65,7 +65,19 @@ data class PortfolioLot(
     val costUsdt: BigDecimal?,
     /** [CostMethod.FIFO_WALLET]: Wallet (Anzeigename, [PortfolioWallets.UNSPECIFIED] = ohne Angabe); sonst null. */
     val wallet: String? = null,
+    /** Einstand enthält einen geschätzten Wert ([PortfolioTrade.costEstimated]); nur während der Rechnung, nie gespeichert. */
+    val estimated: Boolean = false,
 )
+
+/**
+ * Einstand eines Zugangs enthält einen geschätzten Wert (Tagesschluss, nur Steuer-Export): Belohnung bzw. Tausch ohne
+ * Wert ([PortfolioTrade.valueEstimated]) oder Gebühr im dritten Coin mit geschätztem Preis
+ * ([PortfolioTrade.feePriceEstimated]; beim Zugang aus einem Tausch [swapIn] nicht — sie mindert dort den Erlös des
+ * abgegebenen Coins). Posten und Töpfe tragen den Merker weiter, bis ihr Einstand ganz abgegangen ist; jede Veräusserung
+ * mit einem Teil davon im Einstand trägt «Wert geschätzt» ([PortfolioDisposal.valueEstimated]). Nur während der
+ * Rechnung abgeleitet, nie gespeichert.
+ */
+fun PortfolioTrade.costEstimated(swapIn: Boolean = false): Boolean = valueEstimated || (!swapIn && feePriceEstimated)
 
 /**
  * Offene Position für die Anzeige «Offene Posten» ([PortfolioCalculator.openLots]): FIFO (beide Arten) je Posten mit
@@ -202,8 +214,9 @@ data class PortfolioDisposal(
     val payment: Boolean = false,
     /**
      * Wert aus einem geschätzten Kurs (Tagesschluss): [PortfolioTrade.valueEstimated] bzw. Gebühr im dritten Coin mit
-     * [PortfolioTrade.feePriceEstimated] (Zeile der Gebühr-Coins, Erlös bzw. Aufwand mit dem Wert der Gebühr): Vermerk
-     * «Wert geschätzt (Tagesschluss)» — geschätzt, nicht fehlend.
+     * [PortfolioTrade.feePriceEstimated] (Zeile der Gebühr-Coins, Erlös bzw. Aufwand mit dem Wert der Gebühr) oder ein
+     * Einstand mit geschätztem Teil ([PortfolioTrade.costEstimated], durch Posten und Töpfe getragen): Vermerk «Wert
+     * geschätzt (Tagesschluss)» — geschätzt, nicht fehlend.
      */
     val valueEstimated: Boolean = false,
     // ---- Nur Steuer-Vorlagen ([TaxEngines]) ----

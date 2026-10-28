@@ -1,12 +1,16 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.data.portfolio.PortfolioJson
+import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.util.json.JsonObject
+import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
+import java.math.BigDecimal
 
 /** Gemeinsame Testfälle `portfolio_stored_fields.json` (iOS: `PortfolioStoredFieldsTests.swift`). */
 class PortfolioStoredFieldsParityTest {
@@ -37,6 +41,30 @@ class PortfolioStoredFieldsParityTest {
         }
         // Unsinnig langer Text (Sicherung von aussen) wird nicht gelesen
         assertNull(CsvRestoreState.decode(" ".repeat(CsvRestoreState.MAX_TEXT + 1)))
+    }
+
+    /**
+     * Sicherung: Mengen, Gebühren und Werte gerundet wie gespeichert, eine Menge 0 nach dem Runden ungültig; Preise nach
+     * der Regel der Preise («backupAmounts»).
+     */
+    @Test
+    fun backupAmountsRoundLikeStored() {
+        val base = PortfolioTxEntity(id = 1, coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal.ONE, time = 1L)
+        data["backupAmounts"].list().map { it.obj() }.forEach { c ->
+            val name = c["name"] as String
+            val o = PortfolioJson.txToJson(base)
+            c["changes"].obj().forEach { (key, value) -> o.put(key, value) }
+            val tx = PortfolioJson.jsonToTx(o)
+            val expected = c["expected"]
+            if (expected == null) {
+                assertNull(name, tx)
+            } else {
+                val back = PortfolioJson.txToJson(tx!!)
+                expected.obj().forEach { (key, value) ->
+                    assertEquals("$name $key", value, back.opt(key).takeIf { it != JSONObject.NULL })
+                }
+            }
+        }
     }
 
     /** Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht). */

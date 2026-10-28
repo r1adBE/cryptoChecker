@@ -348,6 +348,27 @@ object CoinLogos {
         savedAt in 1..now && now - savedAt < ttl
 
     /**
+     * Bild-Adresse für [symbol] aus der Zuordnung [map]: Schlüssel wie beim Zusammenführen ([pick]) —
+     * Krypto über [normalize] («1000CHEEMS» → «CHEEMS»), TradFi über [tradFiKey]. null = keine.
+     */
+    fun urlFor(map: Map<String, String>, symbol: String): String? =
+        if (symbol.startsWith(TRADFI_PREFIX)) map[tradFiKey(displaySymbol(symbol))] else map[normalize(symbol)]
+
+    /**
+     * Abrufe eines Bild-Durchgangs: je Dateiname ([fileName]) höchstens einer — zwei Kürzel mit derselben Datei
+     * («FLOKI», «1000FLOKI» → «FLOKI.png») schreiben nie gleichzeitig dieselbe Datei; der erste in [wanted] gilt.
+     * Ohne Dateinamen und mit [skip] (Datei schon da, Fehlschlag gesperrt) fällt ein Eintrag weg.
+     * Ergebnis: Dateiname → Adresse, in der Reihenfolge von [wanted]. Gleich in iOS `CoinLogos+Files.swift`.
+     */
+    fun downloadJobs(wanted: List<Pair<String, String>>, skip: (String) -> Boolean): List<Pair<String, String>> {
+        val seen = HashSet<String>()
+        return wanted.mapNotNull { (symbol, url) ->
+            val name = fileName(symbol) ?: return@mapNotNull null
+            if (!seen.add(name) || skip(name)) null else name to url
+        }
+    }
+
+    /**
      * Dateiname im Bild-Zwischenspeicher. Nur Symbole aus A–Z und 0–9 (sonst null → Initialen),
      * damit zwei Symbole nie dieselbe Datei teilen; TradFi-Logos als «T_NVDA.png».
      */

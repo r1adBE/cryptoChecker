@@ -55,6 +55,18 @@ struct PortfolioLot: Sendable, Equatable {
     let costUsdt: Decimal?
     /// `.FIFO_WALLET`: Wallet (Anzeigename, `PortfolioWallets.unspecified` = ohne Angabe); sonst nil.
     var wallet: String? = nil
+    /// Einstand enthält einen geschätzten Wert (`PortfolioTx.costEstimated`); nur während der Rechnung, nie gespeichert.
+    var estimated = false
+}
+
+extension PortfolioTx {
+    /// Einstand eines Zugangs enthält einen geschätzten Wert (Tagesschluss, nur Steuer-Export) — wie
+    /// `PortfolioTrade.costEstimated` (Android): Belohnung bzw. Tausch ohne Wert (`valueEstimated`) oder Gebühr im
+    /// dritten Coin mit geschätztem Preis (`feePriceEstimated`; beim Zugang aus einem Tausch `swapIn` nicht — sie mindert
+    /// dort den Erlös des abgegebenen Coins). Posten und Töpfe tragen den Merker weiter, bis ihr Einstand ganz abgegangen
+    /// ist; jede Veräusserung mit einem Teil davon im Einstand trägt «Wert geschätzt» (`PortfolioDisposal.valueEstimated`).
+    /// Nur während der Rechnung abgeleitet, nie gespeichert.
+    func costEstimated(swapIn: Bool = false) -> Bool { valueEstimated || (!swapIn && feePriceEstimated) }
 }
 
 /// Offene Position für die Anzeige «Offene Posten» (`PortfolioCalculator.openLots`) — wie `PortfolioOpenLot` (Android):
@@ -131,7 +143,7 @@ enum PortfolioCostParts {
         var left = target
         for i in parts.indices {
             let p = parts[i]
-            let r = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * target, total)
+            let r = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt, target, by: total)
             left -= r
             out.append(PortfolioCostPart(time: p.time, usdt: r))
             parts[i] = PortfolioCostPart(time: p.time, usdt: p.usdt - r)
@@ -183,7 +195,8 @@ struct PortfolioDisposal: Sendable, Equatable {
     /// Zahlung mit Krypto (`.PAYMENT`, Veräusserung zum Marktwert): Vermerk «Zahlung mit Krypto».
     var payment = false
     /// Wert aus einem geschätzten Kurs (Tagesschluss): `PortfolioTx.valueEstimated` bzw. Gebühr im dritten Coin mit
-    /// `feePriceEstimated` (Zeile der Gebühr-Coins, Erlös bzw. Aufwand mit dem Wert der Gebühr): Vermerk «Wert geschätzt
+    /// `feePriceEstimated` (Zeile der Gebühr-Coins, Erlös bzw. Aufwand mit dem Wert der Gebühr) oder ein Einstand mit
+    /// geschätztem Teil (`PortfolioTx.costEstimated`, durch Posten und Töpfe getragen): Vermerk «Wert geschätzt
     /// (Tagesschluss)».
     var valueEstimated = false
     // ---- Nur Steuer-Vorlagen (`TaxEngines`), wie Android ----

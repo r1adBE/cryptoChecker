@@ -356,7 +356,10 @@ class PortfolioParityTest {
         }
     }
 
-    /** «Heute»: Beginn je Coin = Zeit seines Vergleichskurses; ein Kauf nach der Basis ist Zufluss, kein Gewinn. */
+    /**
+     * «Heute»: Beginn je Coin = Zeit seines Vergleichskurses (rollend, mit «dayStart» seit Tagesbeginn); ein Kauf nach der
+     * Basis ist Zufluss, kein Gewinn.
+     */
     @Test
     fun todayBase() {
         for (raw in data["todayBase"].list()) {
@@ -368,7 +371,9 @@ class PortfolioParityTest {
             val hourly = c["hourly"].obj().mapValues { (_, list) ->
                 list.list().map { it.obj() }.map { TimedPrice(it["time"].num()!!.toLong(), it["price"].num()!!) }
             }
-            val since = PortfolioWidgetSeries.changeSince(current, base, hourly, now)
+            // «seit 00:00»: Vergleichskurs bis 90 min vor Tagesbeginn
+            val since = c["dayStart"].num()?.let { PortfolioWidgetSeries.changeSinceDay(current, base, hourly, it.toLong()) }
+                ?: PortfolioWidgetSeries.changeSince(current, base, hourly, now)
             val e = c["expected"].obj()
             assertEquals("$name since", e["since"].obj().mapValues { it.value.num()!!.toLong() }, since)
             val coinChanges = prices(c["coinChanges"])

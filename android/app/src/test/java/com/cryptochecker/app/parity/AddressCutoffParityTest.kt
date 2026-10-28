@@ -3,6 +3,7 @@ package com.cryptochecker.app.parity
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressCostLot
 import com.cryptochecker.app.domain.portfolio.AddressCutoff
+import com.cryptochecker.app.domain.portfolio.AddressObservation
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCloses
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
@@ -43,6 +44,7 @@ class AddressCutoffParityTest {
             id = o["id"].num()!!.toLong(), chain = AddressChain.valueOf(o["chain"] as String), address = o["address"] as String,
             label = o["label"] as String?, lastBalance = o["lastBalance"] as String?,
             lastUpdated = o["lastUpdated"].num()?.toLong() ?: 0L,
+            observations = o["observations"]?.list()?.map { it.obj() }?.map { AddressObservation(it["t"].num()!!.toLong(), dec(it["b"])!!) }.orEmpty(),
             costLots = o["costLots"]?.list()?.map { it.obj() }?.map {
                 AddressCostLot(it["id"].num()!!.toLong(), it["coin"] as String, it["t"].num()!!.toLong(), dec(it["amount"])!!, dec(it["price"]))
             }.orEmpty(),
@@ -62,7 +64,8 @@ class AddressCutoffParityTest {
         coin = "Coin", amount = "Menge", priceUsdt = "Kurs USDT", valueUsdt = "Wert USDT",
         rate = "Kurs", valueTarget = "Wert", note = "Hinweis", total = "Total",
         noPrice = "kein Kurs", noFx = "kein Devisenkurs", unchecked = "ungeprüft", incomplete = "unvollständig",
-        commentFormat = "# %1\$s %2\$s %3\$s", fromAddress = "aus Adresse", addressLots = "Posten nach Beobachtung",
+        commentFormat = "# %1\$s %2\$s %3\$s", fromAddress = "aus Adresse", addressUnobserved = "nicht beobachtet",
+        addressLots = "Posten nach Beobachtung",
     )
 
     @Test

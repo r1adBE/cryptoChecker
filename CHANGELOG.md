@@ -15,6 +15,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 167)
+
+* Portfolio with watched addresses: with average cost and FIFO the address part is kept apart from your own holdings in 7 d / 1 y, the history and «Today», as on the card; opening lots count from their purchase date at the cut-off date and in the Swiss wealth value too; the list widget no longer shows the address balance as a booking; «Today» since 00:00 starts each coin at the time of its reference price.
+* CSV import: Coinbase and Binance trade history read numbers like «1.23457E+11» correctly; amounts from a restored backup are rounded like stored ones; Android and iOS divide and multiply exactly the same way.
+* Tax export: a withdrawal beyond the holdings no longer clears the French acquisition total; every row whose cost basis contains a value estimated at a day close is marked «estimated»; the French network fee at a day close is marked too; in the UK a withdrawal between two sales of the same day no longer affects the earlier sale.
+* Coin logos: a missing image no longer blocks a whole image server, pull to refresh also loads missing logos, loading resumes by itself after a server pause, and starter logos are found for «1000…» futures symbols.
+
 ## 16.2.2 (build 166)
 
 * Portfolio with watched addresses: «Today», 7 d / 1 y and the value history no longer count opening lots or recorded transfers to the address twice; opening lots count everywhere like buys from their date. A trade exactly at midnight UTC counts on the same day in the header and in the history; «Today» no longer counts a recent purchase as gain when the reference price is older than 24 h; the widget history no longer drops when a coin has no current price.

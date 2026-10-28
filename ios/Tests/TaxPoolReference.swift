@@ -71,7 +71,7 @@ struct TaxPoolReference {
         let h = held
         let rest = extra - PortfolioFeeExpenses.uncoveredShare(extra, amount: amount, covered: max(0, h - coinFee))
         guard rest > 0, priced > 0 else { return extra }
-        let assigned = unpriced == 0 ? rest : PortfolioDecimal.divide(rest * priced, h)
+        let assigned = unpriced == 0 ? rest : PortfolioDecimal.divide(rest, priced, by: h)
         addCost(time, assigned)
         return extra - assigned
     }
@@ -94,14 +94,14 @@ struct TaxPoolReference {
         guard removed > 0 else { return TaxTaken(removed: 0, removedPriced: 0, cost: 0, parts: []) }
         let allPriced = unpriced == 0
         let removedPriced: Decimal = allPriced ? removed
-            : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed * priced, h)), priced)
+            : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed, priced, by: h)), priced)
         let costRemoved: Decimal
         if priced == 0 {
             costRemoved = 0
         } else if removedPriced >= priced {
             costRemoved = cost
         } else {
-            costRemoved = PortfolioDecimal.divide(cost * removedPriced, priced)
+            costRemoved = PortfolioDecimal.divide(cost, removedPriced, by: priced)
         }
         let partsRemoved = takeParts(costRemoved)
         let rest = h - removed
@@ -122,7 +122,7 @@ struct TaxPoolReference {
         guard qty > 0, h > 0 else { return 0 }
         let removed = min(qty, h)
         let removedPriced: Decimal = unpriced == 0 ? removed
-            : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed * priced, h)), priced)
+            : min(PortfolioDecimal.amount(PortfolioDecimal.divide(removed, priced, by: h)), priced)
         priced -= removedPriced
         var lost: Decimal = 0
         if PortfolioDecimal.isDust(priced) || priced < 0 {
@@ -146,7 +146,7 @@ struct TaxPoolReference {
         var left = removed
         for i in parts.indices {
             let p = parts[i]
-            let r: Decimal = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt * removed, cost)
+            let r: Decimal = i == parts.count - 1 ? left : PortfolioDecimal.divide(p.usdt, removed, by: cost)
             left -= r
             out.append(PortfolioCostPart(time: p.time, usdt: r))
             parts[i] = PortfolioCostPart(time: p.time, usdt: p.usdt - r)

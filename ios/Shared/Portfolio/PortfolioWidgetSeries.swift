@@ -110,12 +110,17 @@ enum PortfolioWidgetSeries {
 
     /// Jüngster Kurs höchstens 90 Minuten vor `time` (nicht danach); sonst nil.
     static func price(_ prices: [PortfolioTimedPrice]?, at time: Int64) -> Double? {
+        valid(timed(prices, at: time)?.price)
+    }
+
+    /// Der Eintrag, den `price(_:at:)` nimmt (mit seiner Zeit); nil = keiner.
+    private static func timed(_ prices: [PortfolioTimedPrice]?, at time: Int64) -> PortfolioTimedPrice? {
         guard let prices else { return nil }
         var best: PortfolioTimedPrice?
         for p in prices where p.at <= time && time - p.at <= toleranceMillis {
             if best == nil || p.at > (best?.at ?? 0) { best = p }
         }
-        return valid(best?.price)
+        return best
     }
 
     /// Stündlicher Wertverlauf des heutigen Bestands (Anzeigewährung): Stunden jetzt − 24 h …
@@ -289,6 +294,22 @@ enum PortfolioWidgetSeries {
         }
         for (coin, price) in current where valid(price) != nil {
             if let then = dayAgo(prices, coin: coin, now: now), valid(then.price) != nil { out[coin] = then.at }
+        }
+        return out
+    }
+
+    /// «Heute» seit Tagesbeginn: Zeit des Vergleichskurses je Coin — Stundenkurs von `coinChangesSince` (geht vor;
+    /// `price(_:at:)` nimmt bis `toleranceMillis` vor `dayStart`), sonst der Stand zum Tagesbeginn `baseTime`/`basePrices`
+    /// (`PortfolioWidgetStore.reference(in:dayStart:)`). Beginn des Zeitraums je Coin wie `changeSince`: ein Kauf zwischen
+    /// diesem Kurs und Tagesbeginn ist Zufluss, nie Gewinn zum älteren Kurs. Wie Android.
+    static func changeSinceDay(current: [String: Double], baseTime: Int64?, basePrices: [String: Double]?,
+                               prices: [String: [PortfolioTimedPrice]], dayStart: Int64) -> [String: Int64] {
+        var out: [String: Int64] = [:]
+        if let baseTime {
+            for coin in PortfolioWidgetStore.coinChanges(current: current, reference: basePrices).keys { out[coin] = baseTime }
+        }
+        for (coin, price) in current where valid(price) != nil {
+            if let then = timed(prices[coin.uppercased()], at: dayStart), valid(then.price) != nil { out[coin] = then.at }
         }
         return out
     }

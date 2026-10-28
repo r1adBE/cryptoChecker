@@ -1,5 +1,5 @@
 {
- "description": "Mitgelieferte Icons aus «Cryptocurrency Icons» (CC0, 0.18.1, coin_icons.bin): Inhaltsverzeichnis «CCIP1», je Icon «name länge», Leerzeile, dann die PNG-Bytes (iconPack: Name → [Anfang, Länge], doppelte Namen: der erste gilt; invalidPack → kein Paket); bundledName: Kürzel → Name im Paket (normalize, klein; TradFi/ungültig: null). Dazu Pausen der Bild-Server (429/403/503).",
+ "description": "Mitgelieferte Icons aus «Cryptocurrency Icons» (CC0, 0.18.1, coin_icons.bin): Inhaltsverzeichnis «CCIP1», je Icon «name länge», Leerzeile, dann die PNG-Bytes (iconPack: Name → [Anfang, Länge], doppelte Namen: der erste gilt; invalidPack → kein Paket); bundledName: Kürzel → Name im Paket (normalize, klein; TradFi/ungültig: null). Dazu Pausen der Bild-Server: pauseResponse [Code, Retry-After vorhanden, Server sofort pausieren] — 429 und 503 immer, 403 nur mit Retry-After; forbiddenStreak [letzte Antwort je fertigem Bild war 403 …, Server pausiert …] — erst das dritte Bild eines Servers in Folge mit 403 pausiert, jedes andere Ergebnis beendet die Folge. pauseRetry: [pausedUntil, now, Wartezeit bis zum Nachholen] = bis zum frühesten Pausenende (höchstens 6 h, vorbei = sofort) plus 1 s, null = nichts gebremst.",
  "iconPack": {
   "text": "CCIP1\nbtc 3\neth 2\nbtc 1\n\nAAABBC",
   "expected": {
@@ -55,32 +55,6 @@
    null
   ]
  ],
- "pauseCodes": [
-  [
-   429,
-   true
-  ],
-  [
-   403,
-   true
-  ],
-  [
-   503,
-   true
-  ],
-  [
-   404,
-   false
-  ],
-  [
-   500,
-   false
-  ],
-  [
-   200,
-   false
-  ]
- ],
  "pauseMillis": [
   [
    null,
@@ -129,5 +103,137 @@
    "cdn.jsdelivr.net": 1600000
   },
   "encoded": "bin.bnbstatic.com=1000001;cdn.jsdelivr.net=1600000"
- }
+ },
+ "pauseRetry": [
+  [
+   null,
+   1000000,
+   null
+  ],
+  [
+   1600000,
+   1000000,
+   601000
+  ],
+  [
+   900000,
+   1000000,
+   1000
+  ],
+  [
+   1000000,
+   1000000,
+   1000
+  ],
+  [
+   99999999999,
+   1000000,
+   21601000
+  ]
+ ],
+ "pauseResponse": [
+  [
+   429,
+   false,
+   true
+  ],
+  [
+   429,
+   true,
+   true
+  ],
+  [
+   503,
+   false,
+   true
+  ],
+  [
+   403,
+   false,
+   false
+  ],
+  [
+   403,
+   true,
+   true
+  ],
+  [
+   404,
+   false,
+   false
+  ],
+  [
+   404,
+   true,
+   false
+  ],
+  [
+   500,
+   false,
+   false
+  ],
+  [
+   200,
+   false,
+   false
+  ]
+ ],
+ "forbiddenStreak": [
+  [
+   [
+    true,
+    true,
+    true
+   ],
+   [
+    false,
+    false,
+    true
+   ]
+  ],
+  [
+   [
+    true,
+    true,
+    false,
+    true,
+    true
+   ],
+   [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  ],
+  [
+   [
+    true,
+    false,
+    true,
+    true,
+    true,
+    true
+   ],
+   [
+    false,
+    false,
+    false,
+    false,
+    true,
+    true
+   ]
+  ],
+  [
+   [
+    false,
+    false
+   ],
+   [
+    false,
+    false
+   ]
+  ]
+ ]
 }

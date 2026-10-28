@@ -28,10 +28,12 @@ extension CoinLogoStore {
         return URLSession(configuration: c)
     }()
 
-    /// Ergebnis eines Bild-Durchgangs; `network` = am fehlenden Netz gescheitert.
+    /// Ergebnis eines Bild-Durchgangs; `network` = am fehlenden Netz gescheitert; `pausedUntil` = frühestes Ende
+    /// der Pausen gebremster Server, deren Bilder noch fehlen (nil = keine) — danach holt `AppData` nach.
     struct DownloadResult: Sendable {
         var added = 0
         var network = false
+        var pausedUntil: Int64?
     }
 
     /// Ergebnis der Bilder eines Servers.
@@ -58,26 +60,23 @@ extension CoinLogoStore {
         let now = EpochTime.nowMillis
         let failedBefore = loadFailures(now: now)
         let fm = FileManager.default
-        var seen = Set<String>()
-        var pending: [DownloadJob] = []
-        for (symbol, url) in wanted {
-            guard let name = CoinLogos.fileName(symbol), failedBefore[name] == nil, !seen.contains(name),
-                  !fm.fileExists(atPath: directory.appendingPathComponent(name).path)
-            else { continue }
-            seen.insert(name)
-            pending.append(DownloadJob(name: name, url: url))
-        }
+        // Je Datei höchstens ein Abruf (zwei Kürzel, eine Datei: nie gleichzeitig dieselbe Datei schreiben)
+        var pending = CoinLogos.downloadJobs(wanted.map { ($0.key, $0.value) }) { name in
+            failedBefore[name] != nil || fm.fileExists(atPath: directory.appendingPathComponent(name).path)
+        }.map { DownloadJob(name: $0.name, url: $0.url) }
         guard !pending.isEmpty else { return DownloadResult() }
         let attempted = pending.count
         var added = 0
         var newFailures: [String] = []
         var paused: [DownloadJob] = []
+        // 403 in Folge je Server in diesem Durchgang (erst die dritte pausiert den Server)
+        let streaks = ForbiddenStreaks()
         for round in 1...pauseRounds {
             let byHost = Dictionary(grouping: pending) { CoinLogoRetry.hostOf($0.url) ?? "" }
             var roundPaused: [DownloadJob] = []
             await withTaskGroup(of: HostResult.self) { group in
                 for list in byHost.values {
-                    group.addTask { await CoinLogoStore.downloadHost(list) }
+                    group.addTask { await CoinLogoStore.downloadHost(list, streaks: streaks) }
                 }
                 for await r in group {
                     added += r.added
@@ -87,7 +86,9 @@ extension CoinLogoStore {
             }
             paused = roundPaused
             if paused.isEmpty || round == pauseRounds { break }
-            guard let wait = shortestPauseMillis(paused), wait <= shortPauseMaxMillis else { break }
+            // Pause schon vorbei (nil): gleich die nächste Runde
+            let wait = shortestPauseMillis(paused) ?? 0
+            guard wait <= shortPauseMaxMillis else { break }
             try? await Task.sleep(nanoseconds: UInt64(wait) * 1_000_000)
             pending = paused
         }
@@ -101,17 +102,19 @@ extension CoinLogoStore {
             saveFailures(failed)
         }
         if added > 0 { await CoinLogoRevision.bump() }
-        return DownloadResult(added: added, network: network)
+        // Gebremste Bilder übrig, Pause aber schon vorbei: gleich nachholen (Ende = jetzt)
+        let pausedUntil = paused.isEmpty ? nil : EpochTime.nowMillis + (shortestPauseMillis(paused) ?? 0)
+        return DownloadResult(added: added, network: network, pausedUntil: pausedUntil)
     }
 
     /// Bilder eines Servers, `perHostParallel` gleichzeitig.
-    private static func downloadHost(_ jobs: [DownloadJob]) async -> HostResult {
+    private static func downloadHost(_ jobs: [DownloadJob], streaks: ForbiddenStreaks) async -> HostResult {
         var out = HostResult()
         var iterator = jobs.makeIterator()
         await withTaskGroup(of: (job: DownloadJob, result: Fetched).self) { group in
             for _ in 0..<perHostParallel {
                 guard let job = iterator.next() else { break }
-                group.addTask { (job, await CoinLogoStore.download(name: job.name, url: job.url)) }
+                group.addTask { (job, await CoinLogoStore.download(name: job.name, url: job.url, streaks: streaks)) }
             }
             while let done = await group.next() {
                 switch done.result {
@@ -125,14 +128,14 @@ extension CoinLogoStore {
                     out.paused.append(done.job)
                 }
                 if let job = iterator.next() {
-                    group.addTask { (job, await CoinLogoStore.download(name: job.name, url: job.url)) }
+                    group.addTask { (job, await CoinLogoStore.download(name: job.name, url: job.url, streaks: streaks)) }
                 }
             }
         }
         return out
     }
 
-    /// Kürzeste verbleibende Pause der Server von `jobs` (ms); nil = keiner pausiert.
+    /// Kürzeste verbleibende Pause der Server von `jobs` (ms); nil = keiner (mehr) pausiert — wie Android.
     private static func shortestPauseMillis(_ jobs: [DownloadJob]) -> Int64? {
         let hosts = Set(jobs.compactMap { CoinLogoRetry.hostOf($0.url) })
         let waits: [Int64] = hosts.compactMap { pauses.remainingMillis($0) }
@@ -143,26 +146,40 @@ extension CoinLogoStore {
     /// nicht als fehlgeschlagen — wie Android `Fetched`.
     enum Fetched: Sendable { case ok, failed, paused }
 
-    /// Erst die kleine Fassung, sonst das Bild aus der Rangliste.
-    static func download(name: String, url: String) async -> Fetched {
-        if let host = CoinLogoRetry.hostOf(url), pauses.isPaused(host) { return .paused }
+    /// Erst die kleine Fassung, sonst das Bild aus der Rangliste. Ein 403 ohne «Retry-After» ist nur dieses Bild;
+    /// erst das dritte Bild des Servers in Folge mit 403 (`streaks`) pausiert den Server — wie Android `fetchTo`.
+    static func download(name: String, url: String, streaks: ForbiddenStreaks) async -> Fetched {
+        let host = CoinLogoRetry.hostOf(url)
+        if let host, pauses.isPaused(host) { return .paused }
         var candidates = [CoinLogos.smallURL(url)]
         if candidates[0] != url { candidates.append(url) }
+        // Letzte Antwort war 403 (für die Folge je Server)
+        var forbidden = false
         for candidate in candidates {
+            forbidden = false
             guard let u = URL(string: candidate),
                   let loaded = try? await loadImage(u, session: session)
             else { continue }
             let http = loaded.response
-            if CoinLogoRetry.pausesImages(httpCode: http.statusCode) {
-                let retry = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
-                                                                   now: EpochTime.nowMillis)
+            let retry = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
+                                                               now: EpochTime.nowMillis)
+            if CoinLogoRetry.pausesImages(httpCode: http.statusCode, retryAfter: retry != nil) {
                 pauses.pause(CoinLogoRetry.hostOf(candidate) ?? "", retryAfterSeconds: retry)
                 return .paused
             }
+            forbidden = http.statusCode == 403
             guard let body = loaded.body, let png = CoinLogoDecode.pngData(body) else { continue }
+            // `.atomic`: erst eine eigene Hilfsdatei, dann in einem Schritt umbenennen — nie ein halbes Bild, auch
+            // wenn zwei Abrufe gleichzeitig dieselbe Datei schreiben. Nicht gespeichert: nächste Fassung, sonst
+            // Fehlschlag (Tagessperre, später erneut) — wie Android `LogoFiles.write`
             if (try? png.write(to: directory.appendingPathComponent(name), options: [.atomic])) != nil {
+                if let host { _ = await streaks.note(host, forbidden: false) }
                 return .ok
             }
+        }
+        if let host, await streaks.note(host, forbidden: forbidden) {
+            pauses.pause(host, retryAfterSeconds: nil)
+            return .paused
         }
         return .failed
     }
@@ -207,6 +224,18 @@ extension CoinLogoStore {
     private static func saveFailures(_ failures: [String: Int64]) {
         let text = failures.map { "\($0.key):\($0.value)" }.joined(separator: ";")
         SharedStorage.defaults.set(text, forKey: failedKey)
+    }
+}
+
+/// Bilder je Server in Folge mit 403 in einem Durchgang (`CoinLogoRetry.nextForbiddenStreak`); ein Objekt je
+/// Durchgang — wie Android `LogoImagePauses.ForbiddenStreaks`. `note` nach jedem fertigen Bild: true = Server pausieren.
+actor ForbiddenStreaks {
+    private var streaks: [String: Int] = [:]
+
+    func note(_ host: String, forbidden: Bool) -> Bool {
+        let streak = CoinLogoRetry.nextForbiddenStreak(streaks[host] ?? 0, forbidden: forbidden)
+        streaks[host] = streak
+        return CoinLogoRetry.forbiddenStreakPauses(streak)
     }
 }
 

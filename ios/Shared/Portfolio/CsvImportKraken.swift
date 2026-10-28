@@ -262,11 +262,11 @@ enum CsvImportKraken {
             for leg in group { skipped.append(CsvImportSkip(line: leg.line, reason: .NOT_CRYPTO)) }
         } else if isMoney(out.asset) {
             // Kauf: Geld weg, Coin rein
-            let price: Decimal = CsvImport.divide(outAmount, inAmount)
+            let price: Decimal = PortfolioDecimal.divide(outAmount, inAmount)
             rows.append(row(line, .BUY, rawKind(inn), inn.asset, inAmount, price, out.asset, fees.fee, fees.unit, inn.time, refid))
         } else if isMoney(inn.asset) {
             // Verkauf: Coin weg, Geld rein
-            let price: Decimal = CsvImport.divide(inAmount, outAmount)
+            let price: Decimal = PortfolioDecimal.divide(inAmount, outAmount)
             rows.append(row(line, .SELL, rawKind(out), out.asset, outAmount, price, inn.asset, fees.fee, fees.unit, out.time, refid))
         } else {
             // Mit Stablecoin-Seite Hinweis in der Vorschau, mit USDT-Seite Wert in USDT — wie Android

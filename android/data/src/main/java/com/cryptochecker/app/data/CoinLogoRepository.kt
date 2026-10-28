@@ -123,6 +123,9 @@ class CoinLogoRepository @Inject constructor(
     /** Aufeinanderfolgende, am Netz gescheiterte Abgleiche ([CoinListSync.networkFailures]). */
     val networkFailures: Int get() = listSync.networkFailures
 
+    /** Frühestes Ende der Pausen gebremster Bild-Server nach dem letzten Abgleich ([CoinListSync.imagesPausedUntil]). */
+    val imagesPausedUntil: Long? get() = listSync.imagesPausedUntil
+
     /** Zeitpunkt des letzten am Netz gescheiterten Abgleichs (ms). */
     val lastNetworkFailureAt: Long get() = listSync.lastNetworkFailureAt
 

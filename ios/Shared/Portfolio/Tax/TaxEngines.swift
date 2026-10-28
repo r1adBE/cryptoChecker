@@ -16,6 +16,9 @@ import Foundation
 // FR: Gesamtwert samt beobachteter Adressen. UK: Einzahlung mit früherem Kaufdatum «gleicher Tag»/«30 Tage» am
 // Kaufdatum, Rest erst ab Buchungstag im Pool. CA: ein Ersatz-Zugang deckt nur einen nicht abziehbaren Verlust (verbraucht).
 // FR: Verkauf über den Bestand — nur der gedeckte Anteil hat Einstand, der Rest eine eigene Zeile ohne Einstand.
+// FR: Auszahlung über den Bestand — nur die gedeckte Menge kürzt die PTA, danach ist sie unvollständig. UK: Auszahlung
+// zwischen zwei Abgängen desselben Tags erst nach deren Pool-Teil. Geschätzter Wert im Einstand (`PortfolioTx.costEstimated`)
+// tragen Posten und Töpfe jeder Rechnung weiter — Vermerk «Wert geschätzt» an jeder Veräusserung daraus.
 
 enum TaxEngines {
 
@@ -121,9 +124,9 @@ enum TaxEngines {
             while left > 0 {
                 let slot: PortfolioLot? = si < slots.count ? slots[si] : nil
                 let qty = slot == nil ? left : min(left, slotLeft)
-                let c: Decimal? = costLeft.map { qty == left ? $0 : PortfolioDecimal.divide($0 * qty, left) }
+                let c: Decimal? = costLeft.map { qty == left ? $0 : PortfolioDecimal.divide($0, qty, by: left) }
                 out.append(PortfolioLot(coin: coin, txId: lot.txId, acquiredTime: lot.acquiredTime, kind: lot.kind,
-                                        amount: qty, costUsdt: c, wallet: slot?.wallet ?? fallback))
+                                        amount: qty, costUsdt: c, wallet: slot?.wallet ?? fallback, estimated: lot.estimated))
                 left -= qty
                 if let c, let cl = costLeft { costLeft = cl - c }
                 if slot != nil {

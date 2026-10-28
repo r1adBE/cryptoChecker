@@ -19,13 +19,29 @@ fun CsvImportBinance.splitPair(pair: String): Pair<String, String>? {
     return p.removeSuffix(quote) to quote
 }
 
-/** «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, null); unlesbar = null. */
+/**
+ * «0.00100000BTC» → (0.001, BTC); ohne Einheit (früherer Aufbau) → (Zahl, null); unlesbar = null. Die Einheit beginnt beim
+ * ersten Buchstaben nach der Zahl; ein Exponent gehört zur Zahl («1E-8BNB» → 0.00000001 BNB, «1.5ETH» → 1.5 ETH):
+ * «E»/«e» nach einer Ziffer, gefolgt von Ziffern (mit Vorzeichen davor). Wie iOS.
+ */
 private fun CsvImportBinance.withUnit(text: String): Pair<BigDecimal, String?>? {
     val t = text.trim()
-    val cut = t.indexOfFirst { it.isLetter() }
+    val cut = unitStart(t)
     if (cut < 0) return decimal(t)?.let { it to null }
     val number = decimal(t.substring(0, cut)) ?: return null
     return number to t.substring(cut).uppercase()
+}
+
+/** Index des ersten Buchstabens der Einheit in [t] (ein Exponent der Zahl übersprungen); keine Einheit = −1. */
+private fun unitStart(t: String): Int {
+    fun digit(j: Int) = t.getOrNull(j)?.let { it in '0'..'9' } == true
+    val first = t.indexOfFirst { it.isLetter() }
+    if (first < 1 || (t[first] != 'e' && t[first] != 'E') || !digit(first - 1)) return first
+    var j = first + 1
+    if (t.getOrNull(j) == '+' || t.getOrNull(j) == '-') j++
+    if (!digit(j)) return first
+    while (digit(j)) j++
+    return (j until t.length).firstOrNull { t[it].isLetter() } ?: -1
 }
 
 /** Eine Ausführung des Handelsverlaufs (vor dem Zusammenfassen je Sekunde, Paar und Seite). */

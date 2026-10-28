@@ -120,8 +120,9 @@ data class PortfolioSnapshot(
     /** Wert dieser Coins in USDT; 0 = keine bzw. nicht gespeichert. */
     val unverifiedValueUsdt: Double = 0.0,
     /**
-     * Zeit des Vergleichskurses je Coin von [coinChanges] (rollend, [PortfolioWidgetSeries.changeSince]) — Beginn des
-     * Zeitraums von «Heute» je Coin. Nur im Speicher; leer = Beginn der %-Basis.
+     * Zeit des Vergleichskurses je Coin von [coinChanges] (rollend [PortfolioWidgetSeries.changeSince], seit Tagesbeginn
+     * [PortfolioWidgetSeries.changeSinceDay] — bis 90 min vor 00:00) — Beginn des Zeitraums von «Heute» je Coin. Nur im
+     * Speicher; leer = Beginn der %-Basis.
      */
     val coinChangeSince: Map<String, Long> = emptyMap(),
 )
@@ -341,6 +342,7 @@ object PortfolioSnapshotMath {
             coinChanges = coinChanges,
             missingPrices = missingPrices(values),
             missingCoins = missingCoins(values),
+            coinChangeSince = PortfolioWidgetSeries.changeSinceDay(current, base, hourlyPrices, dayStart),
         )
     }
 

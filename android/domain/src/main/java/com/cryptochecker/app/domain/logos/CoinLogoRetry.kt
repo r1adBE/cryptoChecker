@@ -34,13 +34,26 @@ object CoinLogoRetry {
     // ---- Bild-Server bremst
 
     /**
-     * Antwort eines Bild-Servers, die eine Pause verlangt statt «Bild kaputt»: zu viele Anfragen (429),
-     * gesperrt (403, z. B. Schutz vor Massenabrufen) oder überlastet (503). Vorher galt jedes dieser
-     * Bilder einen Tag lang als fehlgeschlagen — beim Laden aller ~4000 Logos bremste der Server nach
-     * einigen Hundert, der Rest blieb einen Tag lang bei Initialen (bzw. alle scheiterten, das galt als
-     * Netzfehler und der ganze Abgleich lief wieder und wieder).
+     * Antwort eines Bild-Servers, die sofort eine Pause des ganzen Servers verlangt statt «Bild kaputt»: zu viele
+     * Anfragen (429), überlastet (503) oder gesperrt (403) mit Angabe «Retry-After» ([retryAfter]). Ein 403 ohne
+     * Angabe ist zuerst nur ein fehlgeschlagenes Bild: CloudFront/S3 antwortet so auch auf eine fehlende Datei, und
+     * ein einziges fehlendes Bild sperrte sonst den ganzen Server bei jedem Lauf an derselben Stelle. Erst
+     * [FORBIDDEN_PAUSE_STREAK] 403 in Folge pausieren den Server ([forbiddenStreakPauses]).
      */
-    fun pausesImages(httpCode: Int): Boolean = httpCode == 429 || httpCode == 403 || httpCode == 503
+    fun pausesImages(httpCode: Int, retryAfter: Boolean): Boolean =
+        httpCode == 429 || httpCode == 503 || (httpCode == 403 && retryAfter)
+
+    /** So viele Bilder eines Servers in Folge mit 403 (ohne «Retry-After») in einem Durchgang: Server pausieren. */
+    const val FORBIDDEN_PAUSE_STREAK = 3
+
+    /**
+     * Neue Zahl der 403 in Folge eines Servers nach einem fertigen Bild: [forbidden] = seine letzte Antwort war 403
+     * (ohne Pause) → +1; jedes andere Ergebnis (geladen, 404, unlesbar) beendet die Folge → 0.
+     */
+    fun nextForbiddenStreak(streak: Int, forbidden: Boolean): Int = if (forbidden) streak + 1 else 0
+
+    /** Pausiert diese Folge von 403 den Server ([FORBIDDEN_PAUSE_STREAK])? Dann ohne Angabe [IMAGE_PAUSE_MILLIS]. */
+    fun forbiddenStreakPauses(streak: Int): Boolean = streak >= FORBIDDEN_PAUSE_STREAK
 
     /** Pause ohne Angabe des Servers. */
     const val IMAGE_PAUSE_MILLIS = 15 * 60_000L
@@ -48,10 +61,21 @@ object CoinLogoRetry {
     /** Höchstens so lange (auch bei längerer «Retry-After»-Angabe). */
     const val IMAGE_PAUSE_MAX_MILLIS = 6 * 60 * 60_000L
 
-    /** Pause für einen Bild-Server nach [pausesImages] («Retry-After» in Sekunden), 1 Min. … 6 h. */
+    /** Pause für einen Bild-Server nach [pausesImages] bzw. [forbiddenStreakPauses] («Retry-After» in Sekunden), 1 Min. … 6 h. */
     fun imagePauseMillis(retryAfterSeconds: Long?): Long =
         (retryAfterSeconds?.coerceIn(0L, IMAGE_PAUSE_MAX_MILLIS / 1000)?.times(1000) ?: IMAGE_PAUSE_MILLIS)
             .coerceIn(60_000L, IMAGE_PAUSE_MAX_MILLIS)
+
+    /** Nach dem Ende einer Pause so viel länger warten (Uhren und Zeitgeber gehen nicht genau gleich). */
+    const val PAUSE_RETRY_MARGIN_MILLIS = 1_000L
+
+    /**
+     * Wartezeit bis zum Nachholen der gebremsten Bilder ([pausedUntil] = frühestes Ende der Pausen, ms): bis
+     * zum Ende (höchstens [IMAGE_PAUSE_MAX_MILLIS], vorbei → sofort) plus [PAUSE_RETRY_MARGIN_MILLIS];
+     * null = nichts gebremst. So läuft der Abgleich nach der Pause von selbst weiter, solange die App lebt.
+     */
+    fun pauseRetryDelayMillis(pausedUntil: Long?, now: Long): Long? =
+        pausedUntil?.let { (it - now).coerceIn(0L, IMAGE_PAUSE_MAX_MILLIS) + PAUSE_RETRY_MARGIN_MILLIS }
 
     /** Host einer HTTPS-Adresse, klein; null, wenn keine. */
     fun hostOf(url: String): String? {

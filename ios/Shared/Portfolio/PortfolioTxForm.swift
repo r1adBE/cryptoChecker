@@ -122,8 +122,8 @@ enum PortfolioTxForm {
     static func swapValue(amount: Decimal?, price: Decimal?, toAmount: Decimal?, toPrice: Decimal?,
                           value: Decimal? = nil) -> Decimal? {
         if let value, value >= 0 { return value }
-        if let amount, amount > 0, let price, price >= 0 { return amount * price }
-        if let toAmount, toAmount > 0, let toPrice, toPrice >= 0 { return toAmount * toPrice }
+        if let amount, amount > 0, let price, price >= 0 { return PortfolioDecimal.multiply(amount, price) }
+        if let toAmount, toAmount > 0, let toPrice, toPrice >= 0 { return PortfolioDecimal.multiply(toAmount, toPrice) }
         return nil
     }
 
