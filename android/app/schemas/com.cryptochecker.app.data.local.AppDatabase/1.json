@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e1ae22a784c9eb058d2951022997e226",
+    "identityHash": "761b39139ce220e380ee39a1ec3ef2f7",
     "entities": [
       {
-        "tableName": "markets",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `marketKey` TEXT NOT NULL COLLATE NOCASE, `updateDate` INTEGER NOT NULL)",
+        "tableName": "exchanges",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exchangeKey` TEXT NOT NULL COLLATE NOCASE, `updateDate` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,8 +15,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "marketKey",
-            "columnName": "marketKey",
+            "fieldPath": "exchangeKey",
+            "columnName": "exchangeKey",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -35,23 +35,23 @@
         },
         "indices": [
           {
-            "name": "index_markets_marketKey",
+            "name": "index_exchanges_exchangeKey",
             "unique": false,
             "columnNames": [
-              "marketKey"
+              "exchangeKey"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_markets_marketKey` ON `${TABLE_NAME}` (`marketKey`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_exchanges_exchangeKey` ON `${TABLE_NAME}` (`exchangeKey`)"
           }
         ]
       },
       {
-        "tableName": "market_pairs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`marketId` INTEGER NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `marketPairId` TEXT, `tradFi` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`marketId`, `baseAsset`, `quoteAsset`, `contractType`), FOREIGN KEY(`marketId`) REFERENCES `markets`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "tableName": "exchange_pairs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`exchangeId` INTEGER NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `exchangePairId` TEXT, `tradFi` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`exchangeId`, `baseAsset`, `quoteAsset`, `contractType`), FOREIGN KEY(`exchangeId`) REFERENCES `exchanges`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
-            "fieldPath": "marketId",
-            "columnName": "marketId",
+            "fieldPath": "exchangeId",
+            "columnName": "exchangeId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -74,8 +74,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "marketPairId",
-            "columnName": "marketPairId",
+            "fieldPath": "exchangePairId",
+            "columnName": "exchangePairId",
             "affinity": "TEXT"
           },
           {
@@ -89,7 +89,7 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "marketId",
+            "exchangeId",
             "baseAsset",
             "quoteAsset",
             "contractType"
@@ -97,11 +97,11 @@
         },
         "foreignKeys": [
           {
-            "table": "markets",
+            "table": "exchanges",
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "marketId"
+              "exchangeId"
             ],
             "referencedColumns": [
               "id"
@@ -111,7 +111,7 @@
       },
       {
         "tableName": "watches",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `marketKey` TEXT NOT NULL, `marketName` TEXT NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `pairId` TEXT, `sortOrder` INTEGER NOT NULL, `notificationEnabled` INTEGER NOT NULL, `ttsEnabled` INTEGER NOT NULL, `lastPrice` REAL, `previousPrice` REAL, `lastUpdate` INTEGER NOT NULL, `notifiedPrice` REAL, `notifiedAt` INTEGER NOT NULL, `lastError` TEXT, `favorite` INTEGER NOT NULL DEFAULT 0, `holdings` REAL, `groupName` TEXT, `note` TEXT, `change24h` REAL, `disabled` INTEGER NOT NULL DEFAULT 0, `priceChangedAt` INTEGER NOT NULL DEFAULT 0, `exchangeTime` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exchangeKey` TEXT NOT NULL, `exchangeName` TEXT NOT NULL, `baseAsset` TEXT NOT NULL, `quoteAsset` TEXT NOT NULL, `contractType` TEXT NOT NULL, `pairId` TEXT, `sortOrder` INTEGER NOT NULL, `notificationEnabled` INTEGER NOT NULL, `ttsEnabled` INTEGER NOT NULL, `lastPrice` REAL, `previousPrice` REAL, `lastUpdate` INTEGER NOT NULL, `notifiedPrice` REAL, `notifiedAt` INTEGER NOT NULL, `lastError` TEXT, `favorite` INTEGER NOT NULL DEFAULT 0, `holdings` REAL, `groupName` TEXT, `note` TEXT, `change24h` REAL, `disabled` INTEGER NOT NULL DEFAULT 0, `priceChangedAt` INTEGER NOT NULL DEFAULT 0, `exchangeTime` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -120,14 +120,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "marketKey",
-            "columnName": "marketKey",
+            "fieldPath": "exchangeKey",
+            "columnName": "exchangeKey",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "marketName",
-            "columnName": "marketName",
+            "fieldPath": "exchangeName",
+            "columnName": "exchangeName",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -259,17 +259,17 @@
         },
         "indices": [
           {
-            "name": "index_watches_marketKey_baseAsset_quoteAsset_contractType_pairId",
+            "name": "index_watches_exchangeKey_baseAsset_quoteAsset_contractType_pairId",
             "unique": true,
             "columnNames": [
-              "marketKey",
+              "exchangeKey",
               "baseAsset",
               "quoteAsset",
               "contractType",
               "pairId"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_watches_marketKey_baseAsset_quoteAsset_contractType_pairId` ON `${TABLE_NAME}` (`marketKey`, `baseAsset`, `quoteAsset`, `contractType`, `pairId`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_watches_exchangeKey_baseAsset_quoteAsset_contractType_pairId` ON `${TABLE_NAME}` (`exchangeKey`, `baseAsset`, `quoteAsset`, `contractType`, `pairId`)"
           }
         ]
       },
@@ -401,7 +401,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e1ae22a784c9eb058d2951022997e226')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '761b39139ce220e380ee39a1ec3ef2f7')"
     ]
   }
 }
