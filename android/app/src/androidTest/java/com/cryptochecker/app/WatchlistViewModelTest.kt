@@ -82,9 +82,9 @@ class WatchlistViewModelTest {
     @Inject lateinit var tokenIdentityStore: TokenIdentityStore
     @Inject lateinit var portfolioAlarmRepository: PortfolioAlarmRepository
     @Inject lateinit var sheetData: WatchlistSheetData
-    @Inject lateinit var refreshFactory: WatchlistRefreshController.Factory
-    @Inject lateinit var starterFactory: WatchlistStarterController.Factory
-    @Inject lateinit var editsFactory: WatchlistEditController.Factory
+    @Inject internal lateinit var refreshFactory: WatchlistRefreshController.Factory
+    @Inject internal lateinit var starterFactory: WatchlistStarterController.Factory
+    @Inject internal lateinit var editsFactory: WatchlistEditController.Factory
 
     /** Eigener Speicher: [ViewModelStore.clear] beendet den viewModelScope nach jedem Test. */
     private val store = ViewModelStore()
