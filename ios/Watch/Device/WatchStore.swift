@@ -1,16 +1,24 @@
 import Foundation
 
-/// Speicher der Uhr (App-Gruppe, damit die Komplikation mitliest; nicht gesichert): Wahl der Liste und die zuletzt
-/// geladenen Kurse, je Coin mit der Zeit seines Abrufs (`WatchCache`), als ein einziger Eintrag — die Komplikation zeigt
-/// sie auch ohne Netz. Wie Android `WatchStore`.
+/// Speicher der Uhr (App-Gruppe, damit die Komplikation mitliest; nicht gesichert): Wahl der Liste in `UserDefaults` und
+/// die zuletzt geladenen Kurse, je Coin mit dem Start seines Abrufs (`WatchCached.time`), in einer Datei, die Uhr-App und
+/// Komplikation nur über `NSFileCoordinator` lesen und zusammenführen (`WatchQuoteFile`) — die Komplikation zeigt sie
+/// auch ohne Netz. Die Wahl schreibt nur die Uhr-App, auf dem MainActor (`WatchModel`). Wie Android `WatchStore`.
 enum WatchStore {
     private static let group = "group.com.cryptochecker.app"
     private static let keySettings = "watch_settings"
-    private static let keyQuotes = "watch_quotes"
+    private static let quotesFileName = "watch_quotes.json"
 
     private static var defaults: UserDefaults { UserDefaults(suiteName: group) ?? .standard }
 
-    /// Wahl der Uhr («Wie iPhone» oder «Eigene Liste»), mit dem iPhone abgeglichen (`WatchLink`).
+    /// Datei der Kurse im Container der App-Gruppe (ohne Gruppe: eigener temporärer Ordner, dann ohne Komplikation).
+    private static var quoteFile: WatchQuoteFile {
+        let dir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group)
+            ?? FileManager.default.temporaryDirectory
+        return WatchQuoteFile(url: dir.appendingPathComponent(quotesFileName))
+    }
+
+    /// Wahl der Uhr («Wie iPhone» oder «Eigene Liste»), mit dem iPhone abgeglichen (`WatchLink`, `WatchModel`).
     static var settings: WatchSettings {
         get { WatchSettings.fromJson(defaults.string(forKey: keySettings)) ?? WatchSettings() }
         set { defaults.set(newValue.toJson(), forKey: keySettings) }
@@ -18,21 +26,16 @@ enum WatchStore {
 
     /// Zuletzt geladene Kurse je Coin; Einträge ohne Zeit fallen weg.
     static func quotes() -> [String: WatchCached] {
-        guard let data = defaults.data(forKey: keyQuotes),
-              let list = try? JSONDecoder().decode([WatchCached].self, from: data) else { return [:] }
-        return Dictionary(list.filter { $0.time > 0 }.map { ($0.quote.symbol, $0) }, uniquingKeysWith: { a, _ in a })
+        quoteFile.read() ?? [:]
     }
 
-    /// Neue Kurse je Coin übernehmen (`WatchCache.merge`, Abruf zur Zeit `time`) und als ein Eintrag speichern
-    /// (Kurse und Zeiten zusammen, nie getrennt); Ergebnis = neuer Stand.
+    /// Neue Kurse eines Abrufs, der zur Zeit `startedAt` begann, je Coin übernehmen (`WatchCache.merge`: ein Coin, den
+    /// ein später gestarteter Abruf schon geschrieben hat, bleibt) und speichern; Ergebnis = neuer Stand, nil = nicht
+    /// gespeichert.
     @discardableResult
-    static func mergeQuotes(_ fresh: [String: WatchQuote], time: Int64) -> [String: WatchCached] {
+    static func mergeQuotes(_ fresh: [String: WatchQuote], startedAt: Int64) -> [String: WatchCached]? {
         let choice = settings
-        let merged = WatchCache.merge(quotes(), fresh: fresh, time: time, keep: choice.own + choice.phone)
-        if let data = try? JSONEncoder().encode(Array(merged.values)) {
-            defaults.set(data, forKey: keyQuotes)
-        }
-        return merged
+        return quoteFile.merge(fresh, startedAt: startedAt, keep: choice.own + choice.phone)
     }
 
     static func now() -> Int64 { Int64(Date().timeIntervalSince1970 * 1000) }

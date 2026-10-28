@@ -2658,6 +2658,18 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   instead of wall-clock time, own changes `nextRevision()`, higher revision wins, on a tie the phone's settings.
   Fixtures `watch_quotes.json` (`cache`, `gate`), `watch_settings.json` (`nextRevision`, tie cases); tests
   `WatchFetcherTest`, iOS `WatchCacheTests`.
+* Build 165: reviews of build 164. Watch cache: every fetch (app, Wear complication, watchOS widget) records
+  `startedAt`; `WatchCache.merge` takes a delivered coin only if the stored entry is not newer than `startedAt` (equal:
+  delivered wins) and stores `startedAt` as its time («as of the fetch» = its start). watchOS: prices in an App Group
+  file (`WatchQuoteFile`, read-merge-write under `NSFileCoordinator`, excluded from backup) shared by app and widget
+  extension; `WatchBodyLimit` streams the answer and stops after 4 MB like Wear. Settings sync: `SerialPublisher`
+  (Wear and phone) sends one after another and reads the current state at send time; the phone loads its stored
+  settings before any merge (`ensureLoaded`); watchOS merges the phone's context on the MainActor
+  (`WatchModel.takeFromPhone`) and republishes its state after activation. watchOS complication description
+  `watch_complication_label`. `gen_xcodeproj.py --check` compares `MARKETING_VERSION`/`CURRENT_PROJECT_VERSION` of
+  every build configuration. Privacy page names `CryptoChecker-Wear`/`CryptoChecker-Watch`. Tests: fixture
+  `watch_quotes.json` (stale fetch, equal start), `WatchFetcherTest`, `SerialPublisherTest` (wear and app),
+  `WatchQuoteFileTests`, `WatchCacheTests`.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

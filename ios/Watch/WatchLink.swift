@@ -15,29 +15,29 @@ final class WatchLink: NSObject, WCSessionDelegate, @unchecked Sendable {
         WCSession.default.activate()
     }
 
-    /// Eigene Änderung ans iPhone geben (dort gewinnt die höhere Änderungsnummer).
+    /// Eigenen Stand ans iPhone geben (dort gewinnt die höhere Änderungsnummer). Vor der Aktivierung geht nichts weg;
+    /// `activationDidComplete` sendet den dann aktuellen Stand nach.
     func publish(_ settings: WatchSettings) {
         guard WCSession.isSupported(), WCSession.default.activationState == .activated else { return }
         try? WCSession.default.updateApplicationContext([Self.key: settings.toJson()])
     }
 
-    private func take(_ context: [String: Any]) {
-        guard let remote = WatchSettings.fromJson(context[Self.key] as? String) else { return }
-        let merged = WatchSettings.merge(WatchStore.settings, remote, remoteIsPhone: true)
-        guard merged != WatchStore.settings else { return }
-        WatchStore.settings = merged
-        Task { @MainActor in
-            WatchModel.shared.reloadFromStore()
-            WatchComplications.reload()
-        }
-    }
+    // MARK: WCSessionDelegate (Aufrufe auf einem Hintergrund-Thread: nur das JSON auslesen; Zusammenführen und
+    // Speichern auf dem MainActor in `WatchModel`, wo auch die Änderungen auf der Uhr laufen)
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState,
                  error: Error?) {
-        if activationState == .activated { take(session.receivedApplicationContext) }
+        guard activationState == .activated else { return }
+        let json = session.receivedApplicationContext[Self.key] as? String
+        Task { @MainActor in
+            WatchModel.shared.takeFromPhone(json)
+            // Änderungen vor der Aktivierung gingen nicht weg: den aktuellen Stand jetzt senden (wie `PhoneWatchLink`)
+            self.publish(WatchModel.shared.settings)
+        }
     }
 
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        take(applicationContext)
+        let json = applicationContext[Self.key] as? String
+        Task { @MainActor in WatchModel.shared.takeFromPhone(json) }
     }
 }

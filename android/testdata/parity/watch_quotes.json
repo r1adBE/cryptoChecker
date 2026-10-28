@@ -1,5 +1,5 @@
 {
- "description": "Watch apps: quote parsing per exchange (Binance ticker/24hr with symbols=[...], Bybit v5/market/tickers?category=spot&symbol=, OKX v5/market/ticker?instId= - single-symbol answers, only wanted coins, price > 0, Bybit price24hPcnt x 100, OKX change = last vs open24h), fallback (Binance for all coins in one request, then only the missing coins one request each at Bybit, then OKX; null response = HTTP error/blocked; request keys binance / bybit:<SYMBOL> / okx:<INST-ID>, compared as a set because requests per exchange run in parallel; expected in coin order), at most 8 coins (WatchCoins.MAX), freshness (WatchFreshness, per coin from the time of its own fetch = «as of the fetch», not the last trade: outdated when older than OutdatedRule.afterMillis(15) = 45 min, strictly more; age unit/count like A11ySpeech.age: under 1 min justNow, then minutes, hours, days; time 0 = never loaded), cache (WatchCache.merge: a fetch replaces only the coins it delivered, every other coin keeps its last price and its own time; coins outside keep = both lists of the choice are dropped; expected compared per coin with outdated/age at now; listTime = time of the oldest shown coin, 0 = none), gate (WatchFetchGate: start takes the current shown list and invalidates every earlier run; finish is accepted only for the newest run while the shown list is still the one it asked for). Android wear WatchQuotes/WatchPriceSource/WatchCache + marketdata WatchFreshness, iOS WatchCore WatchQuoteParser/WatchQuoteFetch/WatchCache/WatchFreshness.",
+ "description": "Watch apps: quote parsing per exchange (Binance ticker/24hr with symbols=[...], Bybit v5/market/tickers?category=spot&symbol=, OKX v5/market/ticker?instId= - single-symbol answers, only wanted coins, price > 0, Bybit price24hPcnt x 100, OKX change = last vs open24h), fallback (Binance for all coins in one request, then only the missing coins one request each at Bybit, then OKX; null response = HTTP error/blocked; request keys binance / bybit:<SYMBOL> / okx:<INST-ID>, compared as a set because requests per exchange run in parallel; expected in coin order), at most 8 coins (WatchCoins.MAX), freshness (WatchFreshness, per coin from the start of its own fetch = «as of the fetch», not the last trade: outdated when older than OutdatedRule.afterMillis(15) = 45 min, strictly more; age unit/count like A11ySpeech.age: under 1 min justNow, then minutes, hours, days; time 0 = never loaded), cache (WatchCache.merge: a fetch that started at startedAt replaces only the coins it delivered, and only where the stored entry is not newer than startedAt (a later-started fetch of the app or the complication already wrote it: that price stays; equal times: the delivered one wins); a taken coin gets startedAt as its time («as of the fetch» = its start, not the save time); every other coin keeps its last price and its own time; coins outside keep = both lists of the choice are dropped; expected compared per coin with outdated/age at now; listTime = time of the oldest shown coin, 0 = none), gate (WatchFetchGate: start takes the current shown list and invalidates every earlier run; finish is accepted only for the newest run while the shown list is still the one it asked for). Android wear WatchQuotes/WatchPriceSource/WatchCache + marketdata WatchFreshness, iOS WatchCore WatchQuoteParser/WatchQuoteFetch/WatchCache/WatchFreshness.",
  "maxCoins": 8,
  "urls": {
   "coins": [
@@ -460,7 +460,7 @@
       "source": "Binance"
      }
     ],
-    "time": 1699999970000,
+    "startedAt": 1699999970000,
     "keep": [
      "BTC",
      "ETH",
@@ -506,7 +506,7 @@
      }
     ],
     "fresh": [],
-    "time": 1699999970000,
+    "startedAt": 1699999970000,
     "keep": [
      "BTC"
     ],
@@ -538,7 +538,7 @@
       "source": "OKX"
      }
     ],
-    "time": 1699999400000,
+    "startedAt": 1699999400000,
     "keep": [
      "BTC",
      "ETH"
@@ -580,7 +580,7 @@
       "source": "Binance"
      }
     ],
-    "time": 1699999970000,
+    "startedAt": 1699999970000,
     "keep": [
      "BTC"
     ],
@@ -605,7 +605,7 @@
     "name": "Nothing loaded: list time 0",
     "old": [],
     "fresh": [],
-    "time": 1699999970000,
+    "startedAt": 1699999970000,
     "keep": [
      "BTC"
     ],
@@ -614,6 +614,111 @@
     ],
     "expected": [],
     "listTime": 0
+   },
+   {
+    "name": "Stale fetch does not overwrite newer: BTC stays from the later-started fetch, ETH (older) takes the stale fetch",
+    "old": [
+     {
+      "symbol": "BTC",
+      "price": 67500.0,
+      "change24h": 1.5,
+      "source": "Binance",
+      "time": 1699999990000
+     },
+     {
+      "symbol": "ETH",
+      "price": 2900.0,
+      "change24h": -1.0,
+      "source": "Bybit",
+      "time": 1699990000000
+     }
+    ],
+    "fresh": [
+     {
+      "symbol": "BTC",
+      "price": 67000.0,
+      "change24h": 1.0,
+      "source": "Bybit"
+     },
+     {
+      "symbol": "ETH",
+      "price": 3000.0,
+      "change24h": 0.5,
+      "source": "Binance"
+     }
+    ],
+    "startedAt": 1699999970000,
+    "keep": [
+     "BTC",
+     "ETH"
+    ],
+    "coins": [
+     "BTC",
+     "ETH"
+    ],
+    "expected": [
+     {
+      "symbol": "BTC",
+      "price": 67500.0,
+      "change24h": 1.5,
+      "source": "Binance",
+      "time": 1699999990000,
+      "outdated": false,
+      "unit": "justNow",
+      "count": 0
+     },
+     {
+      "symbol": "ETH",
+      "price": 3000.0,
+      "change24h": 0.5,
+      "source": "Binance",
+      "time": 1699999970000,
+      "outdated": false,
+      "unit": "justNow",
+      "count": 0
+     }
+    ],
+    "listTime": 1699999970000
+   },
+   {
+    "name": "Stored entry from the same start time: the delivered price wins",
+    "old": [
+     {
+      "symbol": "BTC",
+      "price": 67500.0,
+      "change24h": 1.5,
+      "source": "Binance",
+      "time": 1699999970000
+     }
+    ],
+    "fresh": [
+     {
+      "symbol": "BTC",
+      "price": 67000.0,
+      "change24h": 1.0,
+      "source": "Bybit"
+     }
+    ],
+    "startedAt": 1699999970000,
+    "keep": [
+     "BTC"
+    ],
+    "coins": [
+     "BTC"
+    ],
+    "expected": [
+     {
+      "symbol": "BTC",
+      "price": 67000.0,
+      "change24h": 1.0,
+      "source": "Bybit",
+      "time": 1699999970000,
+      "outdated": false,
+      "unit": "justNow",
+      "count": 0
+     }
+    ],
+    "listTime": 1699999970000
    }
   ]
  },

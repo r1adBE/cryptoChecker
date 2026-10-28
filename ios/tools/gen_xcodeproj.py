@@ -41,7 +41,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "164"
+CURRENT_PROJECT_VERSION = "165"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -933,6 +933,23 @@ def project_yml_differences():
     return errors
 
 
+def pbxproj_version_differences(path):
+    """Jede Build-Konfiguration des Projekts trägt Version und Build-Nummer dieses Skripts — sonst baut Xcode aus
+    dem eingecheckten Projekt eine andere Nummer als Android und project.yml."""
+    with open(path, encoding="utf-8") as f:
+        objs = parse_openstep(f.read())["objects"]
+    errors = []
+    for oid, o in objs.items():
+        if o.get("isa") != "XCBuildConfiguration":
+            continue
+        settings = o.get("buildSettings", {})
+        for key, expected in (("MARKETING_VERSION", MARKETING_VERSION),
+                              ("CURRENT_PROJECT_VERSION", CURRENT_PROJECT_VERSION)):
+            if key in settings and str(settings[key]) != expected:
+                errors.append(f"{oid} ({o.get('name')}): {key} {settings[key]} != {expected} (run without --check)")
+    return errors
+
+
 def main():
     if "--check" not in sys.argv:
         for label, sources, copy, ext in FIXTURE_SETS:
@@ -948,6 +965,7 @@ def main():
                     '   <FileRef\n      location = "self:">\n   </FileRef>\n</Workspace>\n')
     errors, summary = validate(os.path.join(PROJ_DIR, "project.pbxproj"))
     errors += project_yml_differences()
+    errors += pbxproj_version_differences(os.path.join(PROJ_DIR, "project.pbxproj"))
     for label, sources, copy, ext in FIXTURE_SETS:
         errors += [f"{os.path.relpath(copy, ROOT)}/{f} differs from android/testdata/{label} (run without --check)"
                    for f in parity_differences(sources, copy, ext)]

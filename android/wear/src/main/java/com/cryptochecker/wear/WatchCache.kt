@@ -1,6 +1,10 @@
 package com.cryptochecker.wear
 
-/** Gespeicherter Kurs eines Coins mit der Zeit seines Abrufs (Epoch-ms, «Stand des Abrufs»). */
+/**
+ * Gespeicherter Kurs eines Coins mit dem «Stand des Abrufs» [time] (Epoch-ms): der Start des Abrufs, der ihn geliefert
+ * hat, nicht der Zeitpunkt des Speicherns. Der Kurs ist also mindestens so frisch wie [time]; Alter und «veraltet»
+ * ([WatchFreshness]) zählen ab dort, und zwei Abrufe lassen sich danach ordnen, wann sie gestartet sind.
+ */
 data class WatchCached(val quote: WatchQuote, val time: Long)
 
 /**
@@ -11,18 +15,23 @@ data class WatchCached(val quote: WatchQuote, val time: Long)
  */
 object WatchCache {
     /**
-     * [fresh] (Abruf zur Zeit [time]) in [old] übernehmen. Behalten werden nur Coins aus [keep] (beide Listen der
-     * Wahl), damit alte Favoriten den Speicher nicht füllen.
+     * [fresh] eines Abrufs, der zur Zeit [startedAt] begann, in [old] übernehmen. Ein Coin wird nur ersetzt, wenn sein
+     * gespeicherter Stand nicht neuer als [startedAt] ist; sonst hat ein später gestarteter Abruf (Uhr-App,
+     * Komplikation) schon geschrieben, und dessen Kurs bleibt. Übernommene Kurse bekommen [startedAt] als Zeit.
+     * Behalten werden nur Coins aus [keep] (beide Listen der Wahl), damit alte Favoriten den Speicher nicht füllen.
      */
     fun merge(
         old: Map<String, WatchCached>,
         fresh: Map<String, WatchQuote>,
-        time: Long,
+        startedAt: Long,
         keep: Collection<String>,
     ): Map<String, WatchCached> {
         val out = LinkedHashMap<String, WatchCached>()
         old.forEach { (coin, cached) -> if (coin in keep) out[coin] = cached }
-        fresh.forEach { (coin, quote) -> if (coin in keep) out[coin] = WatchCached(quote, time) }
+        fresh.forEach { (coin, quote) ->
+            val stored = out[coin]
+            if (coin in keep && (stored == null || stored.time <= startedAt)) out[coin] = WatchCached(quote, startedAt)
+        }
         return out
     }
 

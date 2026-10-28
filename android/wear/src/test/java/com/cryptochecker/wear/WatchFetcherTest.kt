@@ -13,7 +13,8 @@ import java.net.SocketTimeoutException
 
 /**
  * Abrufe der Uhr-App ([WatchFetcher]): ein langsamer erster Abruf überschreibt den schnelleren zweiten nicht, ein
- * veraltetes Ergebnis fällt weg, und ein Teil-Ausfall behält je Coin den letzten Kurs samt Zeit ([WatchCache]).
+ * veraltetes Ergebnis fällt weg, ein Teil-Ausfall behält je Coin den letzten Kurs samt Zeit, und ein früher gestarteter
+ * Abruf der Komplikation ersetzt keinen Kurs eines später gestarteten ([WatchCache]).
  */
 class WatchFetcherTest {
 
@@ -42,7 +43,7 @@ class WatchFetcherTest {
                 } else {
                     mapOf("SOL" to q("SOL", 3.0))
                 }
-            }, save = { saved += it })
+            }, save = { quotes, _ -> saved += quotes })
 
             fetcher.refresh()
             yield()
@@ -76,7 +77,7 @@ class WatchFetcherTest {
                 } else {
                     mapOf("BTC" to q("BTC", 2.0))
                 }
-            }, save = { saved += it })
+            }, save = { quotes, _ -> saved += quotes })
 
             fetcher.refresh()
             yield()
@@ -93,7 +94,7 @@ class WatchFetcherTest {
     fun nothingDeliveredKeepsTheCacheAndReportsFailure() {
         runBlocking {
             var saves = 0
-            val fetcher = WatchFetcher(this, shown = { listOf("BTC") }, fetch = { emptyMap() }, save = { saves++ })
+            val fetcher = WatchFetcher(this, shown = { listOf("BTC") }, fetch = { emptyMap() }, save = { _, _ -> saves++ })
             fetcher.refresh()
             settle(fetcher)
             assertEquals(0, saves)
@@ -118,7 +119,7 @@ class WatchFetcherTest {
                         else -> throw SocketTimeoutException("timeout")
                     }
                 }
-            }, save = { fresh -> cache = WatchCache.merge(cache, fresh, time, coins) })
+            }, save = { fresh, startedAt -> cache = WatchCache.merge(cache, fresh, startedAt, coins) }, now = { time })
 
             fetcher.refresh()
             settle(fetcher)
@@ -138,5 +139,38 @@ class WatchFetcherTest {
             assertEquals(1_000L, WatchCache.listTime(cache, coins))
             assertFalse(fetcher.failed.value)
         }
+    }
+
+    @Test
+    fun saveGetsTheStartOfTheFetchNotTheSaveTime() {
+        runBlocking {
+            var clock = 1_000L
+            val slow = CompletableDeferred<Unit>()
+            val starts = ArrayList<Long>()
+            val fetcher = WatchFetcher(this, shown = { listOf("BTC") }, fetch = {
+                slow.await()
+                mapOf("BTC" to q("BTC", 1.0))
+            }, save = { _, startedAt -> starts += startedAt }, now = { clock })
+
+            fetcher.refresh()
+            yield()
+            clock = 5_000L
+            slow.complete(Unit)
+            settle(fetcher)
+
+            assertEquals(listOf(1_000L), starts)
+        }
+    }
+
+    @Test
+    fun staleComplicationFetchDoesNotOverwriteTheNewerAppFetch() {
+        val keep = listOf("BTC", "ETH")
+        // Komplikation startet um 1000, die Uhr-App um 2000 und ist zuerst fertig
+        var cache = WatchCache.merge(emptyMap(), mapOf("BTC" to q("BTC", 2.0)), 2_000L, keep)
+        cache = WatchCache.merge(cache, mapOf("BTC" to q("BTC", 1.0), "ETH" to q("ETH", 3.0)), 1_000L, keep)
+
+        assertEquals(WatchCached(q("BTC", 2.0), 2_000L), cache["BTC"])
+        // ETH hatte keinen neueren Stand: der Kurs der Komplikation gilt, mit ihrem Start als Zeit
+        assertEquals(WatchCached(q("ETH", 3.0), 1_000L), cache["ETH"])
     }
 }

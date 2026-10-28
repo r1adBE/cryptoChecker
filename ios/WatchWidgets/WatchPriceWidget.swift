@@ -37,10 +37,12 @@ struct WatchPriceProvider: TimelineProvider {
             let first = coins.first
             var cached = first.flatMap { WatchStore.quotes()[$0] }
             if let first, cached.map({ WatchStore.now() - $0.time > Self.maxAgeMs }) ?? true {
+                let startedAt = WatchStore.now()
                 let fresh = await WatchPriceSource.fetch(coins)
-                // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis, bleibt sein letzter Kurs samt Zeit
+                // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis oder hat ein später gestarteter Abruf
+                // (Uhr-App) schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
                 if !fresh.isEmpty {
-                    cached = WatchStore.mergeQuotes(fresh, time: WatchStore.now())[first] ?? cached
+                    cached = WatchStore.mergeQuotes(fresh, startedAt: startedAt)?[first] ?? cached
                 }
             }
             let now = Date()
@@ -124,7 +126,7 @@ struct WatchPriceWidget: Widget {
             WatchPriceWidgetView(entry: entry)
         }
         .configurationDisplayName(WatchText.t("watch_complication_label"))
-        .description(WatchText.t("watch_choose_hint", WatchCoins.max))
+        .description(WatchText.t("watch_complication_label"))
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline, .accessoryCorner])
     }
 }

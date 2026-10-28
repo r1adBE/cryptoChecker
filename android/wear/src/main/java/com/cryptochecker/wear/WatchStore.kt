@@ -12,7 +12,7 @@ import org.json.JSONObject
 
 /**
  * Speicher der Uhr (eigene kleine Datei, nicht gesichert): Wahl der Liste und die zuletzt geladenen Kurse, je Coin mit
- * der Zeit seines Abrufs ([WatchCache]) — die Komplikation zeigt sie auch ohne Netz. Beides liegt zusätzlich als
+ * dem Start seines Abrufs ([WatchCached.time]) — die Komplikation zeigt sie auch ohne Netz. Beides liegt zusätzlich als
  * [StateFlow] einmal im Prozess: Uhr-App, [WatchDataListener] (Handy) und Komplikation schreiben und lesen denselben
  * Stand, die offene Liste folgt also auch Änderungen vom Handy.
  */
@@ -43,10 +43,15 @@ class WatchStore(context: Context) {
 
     fun quotes(): Map<String, WatchCached> = state.quotes.value
 
-    /** Neue Kurse je Coin übernehmen ([WatchCache.merge], Abruf zur Zeit [time]) und speichern; Ergebnis = neuer Stand. */
-    fun mergeQuotes(fresh: Map<String, WatchQuote>, time: Long): Map<String, WatchCached> = synchronized(LOCK) {
+    /**
+     * Neue Kurse eines Abrufs, der zur Zeit [startedAt] begann, je Coin übernehmen und speichern; Ergebnis = neuer
+     * Stand. Lesen, Zusammenführen und Schreiben laufen unter einer Sperre (Uhr-App, Komplikation und [WatchDataListener]
+     * teilen sich den Prozess); [WatchCache.merge] lässt einen Coin stehen, den ein später gestarteter Abruf schon
+     * geschrieben hat.
+     */
+    fun mergeQuotes(fresh: Map<String, WatchQuote>, startedAt: Long): Map<String, WatchCached> = synchronized(LOCK) {
         val keep = state.settings.value.let { it.own + it.phone }
-        val merged = WatchCache.merge(state.quotes.value, fresh, time, keep)
+        val merged = WatchCache.merge(state.quotes.value, fresh, startedAt, keep)
         val list = JSONArray()
         merged.values.forEach { c ->
             val o = JSONObject().put("s", c.quote.symbol).put("p", c.quote.price).put("x", c.quote.source).put("t", c.time)

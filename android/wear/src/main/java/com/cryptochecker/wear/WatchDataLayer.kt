@@ -9,7 +9,10 @@ import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
@@ -23,11 +26,24 @@ object WatchDataLayer {
     private const val KEY = "json"
     private const val TIMEOUT_S = 10L
 
+    /** Scope für die Lebensdauer des Prozesses (nie abgebrochen); ein Fehler betrifft nur seinen eigenen Job. */
+    val processScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    private val publishing = SerialPublisher()
+
     /** Geänderter Eintrag: Gerät (Host der Adresse) und JSON. */
     class Item(val node: String?, val json: String?)
 
-    /** Eigenen Stand veröffentlichen. */
-    suspend fun publish(context: Context, settings: WatchSettings) = withContext(Dispatchers.IO) {
+    /**
+     * Eigenen Stand veröffentlichen, nach jeder Änderung auf der Uhr: nacheinander ([SerialPublisher]) und immer mit dem
+     * aktuellen Stand aus [store], nicht mit dem Wert zum Zeitpunkt der Änderung. Läuft in [processScope] weiter, auch
+     * wenn die Uhr-App schon geschlossen ist.
+     */
+    fun publish(context: Context, store: WatchStore) {
+        processScope.launch { publishing.publish({ store.settings }) { publish(context, it) } }
+    }
+
+    private suspend fun publish(context: Context, settings: WatchSettings) = withContext(Dispatchers.IO) {
         runCatching {
             val request = PutDataMapRequest.create(PATH).apply { dataMap.putString(KEY, settings.toJson()) }
                 .asPutDataRequest().setUrgent()
