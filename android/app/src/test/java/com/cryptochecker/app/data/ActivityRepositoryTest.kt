@@ -136,7 +136,12 @@ class ActivityRepositoryTest {
         assertTrue(repo.oiSeries(3L).isEmpty())
         assertTrue(repo.pendingKinds(3L).isEmpty())
         assertTrue(repo.oiHistory(3L).isEmpty())
-        assertEquals("""{"1":{"u":1,"t":1}}""", prefs.getString("open_interest", null))
+        // Reihenfolge der Schlüssel im JSON ist nicht festgelegt: Inhalt vergleichen
+        val stored = org.json.JSONObject(prefs.getString("open_interest", null)!!)
+        assertEquals(setOf("1"), stored.keys().asSequence().toSet())
+        assertEquals(1, stored.getJSONObject("1").getInt("u"))
+        assertEquals(1, stored.getJSONObject("1").getInt("t"))
+        assertEquals(2, stored.getJSONObject("1").length())
         // Nichts zu löschen: keine Änderung
         val before = prefs.all
         repo.retain(setOf(1L, 2L, 9L))
