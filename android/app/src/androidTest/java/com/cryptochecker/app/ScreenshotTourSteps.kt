@@ -1,5 +1,6 @@
 package com.cryptochecker.app
 
+import android.content.Intent
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
@@ -14,6 +15,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.UiTestTags
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertTrue
 
 /**
@@ -27,7 +29,7 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
     // ── Ausgangspunkte ──
 
     /** Merkliste ohne Blatt, Unterseite oder Bericht darüber. */
-    fun onWatchlist(): Boolean = exists(UiTestTags.WATCH_ROW) && !overlayOpen()
+    fun onWatchlist(): Boolean = shown(UiTestTags.WATCH_ROW) && !overlayOpen()
 
     /** Hauptseite der Einstellungen (nicht «Sichern» oder eine andere Unterseite). */
     fun onSettings(): Boolean = exists(UiTestTags.SETTINGS_BACKUP) && !exists(UiTestTags.BACKUP_EXPORT)
@@ -38,10 +40,17 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
      * kein Zurück zu viel die App verlässt.
      */
     fun toWatchlist() {
+        var backs = 0
         repeat(MAX_STEPS) {
             compose.waitForIdle()
             if (onWatchlist()) return
-            if (!overlayOpen() && exists(UiTestTags.TAB_WATCHLIST)) clickTag(UiTestTags.TAB_WATCHLIST) else back()
+            when {
+                // App verlassen (ein Zurück zu viel): wieder starten, sie öffnet mit der Merkliste
+                !exists(UiTestTags.TAB_WATCHLIST) && !overlayOpen() -> relaunch()
+                // Nach zwei Zurück ohne Erfolg (Blatt hängt noch im Baum) lieber den Tab tippen
+                (!overlayOpen() || backs >= 2) && shown(UiTestTags.TAB_WATCHLIST) -> clickTag(UiTestTags.TAB_WATCHLIST)
+                else -> { back(); backs++ }
+            }
             runCatching { compose.waitUntil(BACK_TIMEOUT) { onWatchlist() } }
         }
         compose.waitForIdle()
@@ -85,8 +94,23 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
         AppTestEnvironmentRule.shell("input keyevent KEYCODE_BACK")
     }
 
-    /** Blatt, Unterseite oder Bericht über der Merkliste offen. */
-    private fun overlayOpen(): Boolean = OVERLAY_TAGS.any(::exists) || count(reportTitle()) > 0
+    /** Blatt, Unterseite oder Bericht über der Merkliste offen (sichtbar, nicht nur noch im Baum). */
+    private fun overlayOpen(): Boolean = OVERLAY_TAGS.any(::shown) || count(reportTitle()) > 0
+
+    /** Knoten mit [tag] auf dem Bildschirm: platziert und mit Fläche im Fenster. */
+    fun shown(tag: String): Boolean =
+        compose.onAllNodes(hasTestTag(tag), useUnmergedTree = true).fetchSemanticsNodes().any { node ->
+            val bounds = node.boundsInWindow
+            node.layoutInfo.isPlaced && bounds.width > 0f && bounds.height > 0f
+        }
+
+    /** App neu in den Vordergrund holen (gleicher Prozess, Daten bleiben). */
+    private fun relaunch() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val intent = checkNotNull(context.packageManager.getLaunchIntentForPackage(context.packageName))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
 
     // ── Treffer ──
 
@@ -147,7 +171,7 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
         const val TIMEOUT = 15_000L
         const val BACK_TIMEOUT = 4_000L
         /** Tastatur, Suche, Blatt, Unterseite, Tab: so viele Schritte höchstens. */
-        const val MAX_STEPS = 6
+        const val MAX_STEPS = 8
 
         /** Kennungen von Blättern und Seiten über der Merkliste. */
         val OVERLAY_TAGS = listOf(
