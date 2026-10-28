@@ -3,7 +3,7 @@
 # (main flows over the UI: add a coin from the search, price alarm, CSV import with undo, backup
 # with password — fake exchange answers, no network; the document picker is answered by
 # DocumentPickerStub).
-# Every instrumented test class runs (no filter), also AccessibilityAuditTest.
+# Every instrumented test class runs (no filter), also AccessibilityAuditTest; ScreenshotTourTest skips itself here (screenshots.yml).
 # Too slow for every pull request (android.yml only compiles them): runs on pushes to main and by
 # hand (Actions › Android device tests › Run workflow). On a pull request the job «changes» (git diff against the
 # base branch) decides what runs: release-smoke only when a file changes that decides about the R8 release build

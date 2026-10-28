@@ -658,6 +658,30 @@ workflow, step «UI tests
 (iOS Simulator)» after the unit tests (30-minute limit, one retry per failed test, the `.xcresult` with
 screenshots is uploaded on failure).
 
+**Screenshots branch** (`.github/workflows/screenshots.yml`, on pushes to `main` that touch `android/`, `ios/` or
+the workflow, and by hand): screenshots of every main screen of both apps, light and dark, readable with plain git
+(no artifact download needed). Two jobs in parallel – `ScreenshotTourTest` (androidTest, API 34 emulator, images
+written by `screencap` to `/data/local/tmp/cc-screenshots` and pulled with `adb`) and `ScreenshotTourTests`
+(XCUITest, attachments `NN_name_light|dark` exported with `xcrun xcresulttool export attachments`) – then the job
+`publish` (the only one with `contents: write`) checks the PNGs and force-pushes ONE orphan commit to the branch
+`screenshots` (never `main`; each run replaces the previous set, older runs are cancelled). Layout:
+`android/<light|dark>/NN_name.png`, `ios/<light|dark>/NN_name.png` and `README.md` with the source commit, date
+and run. A platform whose job failed keeps its images from the previous set (marked «kept» in the README). Data:
+the store demo backup (`android/docs/store/screenshots/demo-backup.json`; Android seeds the same pairs, alarms and
+buys through the repositories, iOS restores the file), prices from the fake exchanges, light/dark through the app's
+own setting. Both tests skip themselves in the normal runs: Android needs the runner argument
+`screenshotTour=true`, iOS the environment `TEST_RUNNER_SCREENSHOT_TOUR=1`. Screen list: `01_watchlist`,
+`02_pair_actions`, `03_pair_alarms`, `04_alarm_editor`, `05_alarms_overview`, `06_refresh_report` (Android only),
+`07_explorer`, `08_coin_search`, `09_market` (only the fake exchanges answer, so market data is mostly missing),
+`10_portfolio`, `11_settings`, `12_settings_display`, `13_settings_alarms`, `14_settings_backup`, `15_about`.
+
+```sh
+git fetch origin screenshots
+git show origin/screenshots:README.md                              # source commit of the images
+git worktree add ../cc-screenshots origin/screenshots              # or: git archive origin/screenshots | tar -x -C DIR
+git show origin/screenshots:android/dark/01_watchlist.png > /tmp/01_watchlist.png
+```
+
 **CI gates** (`.github/workflows/android.yml`, on pushes to `main` and pull requests touching
 `android/` or the Swift sources checked by the source guards, and on every release tag `v*`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
 build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
@@ -2546,6 +2570,11 @@ after the encryption step.
   from the error checks.
   CI: «Compile instrumented tests» (android.yml) and «Build debug and test APKs» (android-device-tests.yml) turn
   Kotlin errors into annotations via `gradle_errors.sh`, like the unit-test step.
+  New workflow «Screenshots» (`screenshots.yml`): after every push to `main` touching `android/` or `ios/` (and
+  by hand) the instrumented test `ScreenshotTourTest` (API 34 emulator) and the XCUITest `ScreenshotTourTests`
+  photograph the main screens in light and dark mode with the store demo data; a publish job replaces the orphan
+  branch `screenshots` (`git fetch origin screenshots`). Both tests skip themselves in the regular runs. No new
+  dependencies or actions.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

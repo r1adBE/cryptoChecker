@@ -1,0 +1,356 @@
+# Screenshots of every main screen of both apps, light and dark, published to the orphan branch «screenshots»
+# (one commit, replaced on every run), so they can be fetched with plain git: git fetch origin screenshots.
+# Layout there: android/<light|dark>/NN_name.png, ios/<light|dark>/NN_name.png and README.md with the source commit.
+# android: ScreenshotTourTest (androidTest, Hilt, fake exchange answers) on an API 34 emulator; it only runs with the
+# runner argument screenshotTour=true, so the regular device tests skip it. The images are written by screencap to
+# /data/local/tmp/cc-screenshots and pulled with adb.
+# ios: ScreenshotTourTests (XCUITest, app started with -uiTesting, demo backup restored); it only runs with
+# TEST_RUNNER_SCREENSHOT_TOUR=1, so the regular UI test job skips it. The screenshots are XCTest attachments,
+# exported from the result bundle with xcresulttool.
+# publish: the only job with contents: write; checks the images (names, PNG header, size) and force-pushes the
+# branch «screenshots» – never main. A platform whose job failed keeps its images from the previous set.
+name: Screenshots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - 'ios/**'
+      - '.github/workflows/screenshots.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # One branch for all runs: a newer run replaces an older one
+  group: screenshots
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Same toolchain as android-device-tests.yml: Java 17, Gradle with cache.
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-read-only: true
+
+      # Hardware acceleration for the x86_64 emulator (see reactivecircus/android-emulator-runner).
+      - name: Enable KVM
+        working-directory: .
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      # Build the app and test APKs before the emulator starts, so its boot time is not wasted.
+      - name: Build debug and test APKs
+        run: |
+          chmod +x gradlew
+          set -o pipefail
+          ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-apks.log" \
+            || { bash "$GITHUB_WORKSPACE/.github/scripts/gradle_errors.sh" "$RUNNER_TEMP/gradle-apks.log"; exit 1; }
+
+      # Every line runs on its own; a failed tour only leaves a marker, so the images taken so far are still pulled.
+      # System UI demo mode: fixed clock, no notification icons (cosmetic, failures ignored).
+      - name: Take screenshots (API 34)
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          working-directory: android
+          emulator-boot-timeout: 900
+          script: |
+            adb shell settings put global sysui_demo_allowed 1 || true
+            adb shell am broadcast -a com.android.systemui.demo -e command enter || true
+            adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941 || true
+            adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false || true
+            ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.ScreenshotTourTest -Pandroid.testInstrumentationRunnerArguments.screenshotTour=true --stacktrace || touch "$RUNNER_TEMP/android-tour-failed"
+            mkdir -p "$RUNNER_TEMP/screenshots"
+            adb pull /data/local/tmp/cc-screenshots "$RUNNER_TEMP/screenshots/android" || touch "$RUNNER_TEMP/android-tour-failed"
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshots-android
+          path: ${{ runner.temp }}/screenshots/android/
+          if-no-files-found: warn
+          retention-days: 3
+
+      # Failed tests as annotations (artifacts are not always reachable for reviewers); then fail the job
+      - name: Tour result
+        if: always()
+        run: |
+          python3 - <<'PY' || true
+          import glob, xml.etree.ElementTree as ET
+          for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
+              for tc in ET.parse(f).getroot().iter('testcase'):
+                  for fail in list(tc.findall('failure')) + list(tc.findall('error')):
+                      body = ' | '.join(l.strip() for l in (fail.text or '').strip().splitlines()[:6])
+                      print(f"::error::{tc.get('classname')}.{tc.get('name')}: {body[:900]}")
+          PY
+          find "$RUNNER_TEMP/screenshots" -name '*.png' 2>/dev/null | sort || true
+          if [ -f "$RUNNER_TEMP/android-tour-failed" ]; then
+            echo "::error title=Android screenshots::tour failed or no images pulled"
+            exit 1
+          fi
+
+  ios:
+    # Same runner and toolchain as ios.yml (Xcode 26 / iOS 26 SDK)
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Select Xcode 26
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90 # v1.7.0
+        with:
+          xcode-version: '26'
+
+      - name: Xcode version
+        run: |
+          xcodebuild -version
+          xcodebuild -version | head -n1 | grep -qE '^Xcode 26(\.|$)' || { echo "::error::Xcode 26 required"; exit 1; }
+
+      # Simulator: "iPhone 17" if the installed Xcode has it, otherwise its first available iPhone (as in ios.yml).
+      # Booted here so the status bar can be fixed (9:41, full battery; cosmetic, failures ignored).
+      - name: Pick and boot iOS Simulator
+        run: |
+          DEVICE="iPhone 17"
+          if ! xcrun simctl list devices available | grep -q "$DEVICE ("; then
+            DEVICE=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone [^()]+' | sed 's/ *$//')
+          fi
+          echo "Simulator: $DEVICE"
+          echo "SIM_DEVICE=$DEVICE" >> "$GITHUB_ENV"
+          xcrun simctl boot "$DEVICE" || true
+          xcrun simctl bootstatus "$DEVICE" -b || true
+          xcrun simctl status_bar "$DEVICE" override --time 9:41 --batteryState charged --batteryLevel 100 \
+            --cellularBars 4 --wifiBars 3 || true
+
+      # Only ScreenshotTourTests; xcodebuild hands TEST_RUNNER_SCREENSHOT_TOUR to the test as SCREENSHOT_TOUR.
+      - name: Take screenshots (iOS Simulator)
+        working-directory: ios
+        timeout-minutes: 40
+        env:
+          TEST_RUNNER_SCREENSHOT_TOUR: '1'
+        run: |
+          LOG="$RUNNER_TEMP/xcode-screenshots.log"
+          set +e
+          xcodebuild test \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,name=$SIM_DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            -only-testing:CryptoCheckerUITests/ScreenshotTourTests \
+            -parallel-testing-enabled NO \
+            -resultBundlePath "$RUNNER_TEMP/Screenshots.xcresult" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 80 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
+      # Attachments «NN_name_light|dark» -> ios/<light|dark>/NN_name.png. xcresulttool export attachments (Xcode 16+)
+      # writes the files plus manifest.json (exported file name -> suggested human-readable name, which starts with
+      # the attachment name). Runs also after a failed tour: the images taken so far are kept.
+      - name: Export screenshots from the result bundle
+        if: always()
+        run: |
+          B="$RUNNER_TEMP/Screenshots.xcresult"
+          [ -d "$B" ] || { echo "::warning::no result bundle"; exit 0; }
+          A="$RUNNER_TEMP/attachments"
+          xcrun xcresulttool export attachments --path "$B" --output-path "$A"
+          python3 -I - "$A" "$RUNNER_TEMP/screenshots/ios" <<'PY'
+          import json, os, re, shutil, sys
+          src, dst = sys.argv[1], sys.argv[2]
+          name_re = re.compile(r"^(\d{2}_[a-z0-9_]+?)_(light|dark)(?:[_.]|$)")
+          entries = []
+
+          def walk(node):
+              if isinstance(node, dict):
+                  if "exportedFileName" in node:
+                      entries.append(node)
+                  for v in node.values():
+                      walk(v)
+              elif isinstance(node, list):
+                  for v in node:
+                      walk(v)
+
+          manifest = os.path.join(src, "manifest.json")
+          if os.path.isfile(manifest):
+              with open(manifest, encoding="utf-8") as f:
+                  walk(json.load(f))
+          else:
+              print("::warning::manifest.json missing, using the exported file names")
+              entries = [{"exportedFileName": n, "suggestedHumanReadableName": n} for n in os.listdir(src)]
+          count = 0
+          for e in entries:
+              label = e.get("suggestedHumanReadableName") or e.get("name") or ""
+              m = name_re.match(os.path.basename(label))
+              exported = os.path.join(src, os.path.basename(e.get("exportedFileName") or ""))
+              if not m or not os.path.isfile(exported):
+                  continue
+              os.makedirs(os.path.join(dst, m.group(2)), exist_ok=True)
+              shutil.copyfile(exported, os.path.join(dst, m.group(2), m.group(1) + ".png"))
+              count += 1
+          print(f"exported screenshots: {count}")
+          PY
+          find "$RUNNER_TEMP/screenshots" -name '*.png' | sort
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshots-ios
+          path: ${{ runner.temp }}/screenshots/ios/
+          if-no-files-found: warn
+          retention-days: 3
+
+      - name: Upload Xcode log
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: xcode-logs-screenshots
+          path: ${{ runner.temp }}/xcode-screenshots.log
+          if-no-files-found: ignore
+          retention-days: 7
+
+  # Publishes whatever the two jobs produced, also when one of them failed (not when the run was cancelled: a newer
+  # run is on its way). No checkout of the repository and nothing from the artifacts is executed.
+  publish:
+    needs: [android, ios]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write   # force-push the branch «screenshots» (only that branch)
+      actions: read     # download the artifacts of this run (gh run download)
+    timeout-minutes: 10
+    steps:
+      - name: Download artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for p in android ios; do
+            gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "screenshots-$p" --dir "$RUNNER_TEMP/in/$p" \
+              || echo "::warning title=Screenshots::no $p screenshots in this run"
+          done
+
+      # Only <platform>/<light|dark>/NN_name.png: regular files, PNG header, at most 8 MB each and 60 per platform.
+      # Valid images are copied to the new tree; anything else fails the job before the push.
+      - name: Check screenshots
+        id: check
+        run: |
+          python3 -I - "$RUNNER_TEMP/in" "$RUNNER_TEMP/site" <<'PY'
+          import os, re, shutil, stat, sys
+          src, dst = sys.argv[1], sys.argv[2]
+          name_re = re.compile(r"\d{2}_[a-z0-9_]{1,40}\.png\Z")
+          found = []
+          for platform in ("android", "ios"):
+              root = os.path.join(src, platform)
+              if not os.path.isdir(root):
+                  continue
+              n = 0
+              for dirpath, dirs, files in os.walk(root):
+                  rel = os.path.relpath(dirpath, root)
+                  for name in files:
+                      path = os.path.join(dirpath, name)
+                      st = os.lstat(path)
+                      if rel not in ("light", "dark") or not name_re.match(name) or not stat.S_ISREG(st.st_mode):
+                          sys.exit(f"::error title=Screenshots::unexpected file {platform}/{rel}/{name}")
+                      if not 0 < st.st_size <= 8 * 1024 * 1024:
+                          sys.exit(f"::error title=Screenshots::bad size {platform}/{rel}/{name}")
+                      with open(path, "rb") as f:
+                          if f.read(8) != b"\x89PNG\r\n\x1a\n":
+                              sys.exit(f"::error title=Screenshots::not a PNG {platform}/{rel}/{name}")
+                      os.makedirs(os.path.join(dst, platform, rel), exist_ok=True)
+                      shutil.copyfile(path, os.path.join(dst, platform, rel, name))
+                      n += 1
+              if n > 60:
+                  sys.exit(f"::error title=Screenshots::too many files for {platform}: {n}")
+              if n:
+                  found.append(platform)
+              print(f"{platform}: {n} screenshots")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"platforms={' '.join(found)}\n")
+          PY
+
+      # Orphan commit in a new repository, force-pushed to refs/heads/screenshots only. A platform without images in
+      # this run keeps its folder and README line from the previous set.
+      - name: Push branch screenshots
+        if: steps.check.outputs.platforms != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PLATFORMS: ${{ steps.check.outputs.platforms }}
+        run: |
+          set -euo pipefail
+          SITE="$RUNNER_TEMP/site"
+          URL="https://github.com/$GITHUB_REPOSITORY.git"
+          # The token is passed per command only, never stored in .git/config
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          echo "::add-mask::$AUTH"
+          GIT_AUTH=(-c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH")
+          PREV="$RUNNER_TEMP/previous"
+          git init -q "$PREV"
+          if git -C "$PREV" "${GIT_AUTH[@]}" fetch -q --depth 1 "$URL" refs/heads/screenshots 2>/dev/null; then
+            git -C "$PREV" checkout -q FETCH_HEAD
+          fi
+          NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          LINES=""
+          for p in android ios; do
+            if [[ " $PLATFORMS " == *" $p "* ]]; then
+              LINES+="- $p: $GITHUB_SHA ($NOW)"$'\n'
+            elif [ -d "$PREV/$p" ]; then
+              cp -R "$PREV/$p" "$SITE/$p"
+              OLD=$(grep -E "^- $p: " "$PREV/README.md" 2>/dev/null | head -n 1 | sed -E 's/ \(kept: .*\)$//' || true)
+              LINES+="${OLD:-- $p: unknown commit} (kept: not refreshed in run $GITHUB_RUN_ID)"$'\n'
+            else
+              LINES+="- $p: none"$'\n'
+            fi
+          done
+          {
+            echo "# Screenshots"
+            echo
+            echo "Generated by the workflow «Screenshots» (.github/workflows/screenshots.yml) – do not edit."
+            echo "Source commit: $GITHUB_SHA ($GITHUB_REF), $NOW, run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo
+            echo "Images per platform (commit and time they were taken):"
+            echo
+            printf '%s' "$LINES"
+            echo
+            echo 'Layout: `android/<light|dark>/NN_name.png`, `ios/<light|dark>/NN_name.png`.'
+          } > "$SITE/README.md"
+          cd "$SITE"
+          git init -q -b screenshots
+          git config user.name 'r1AD'
+          git config user.email '68864596+r1adBE@users.noreply.github.com'
+          git add -A
+          git commit -q -m "Screenshots of ${GITHUB_SHA:0:12}"
+          git "${GIT_AUTH[@]}" push --force "$URL" HEAD:refs/heads/screenshots
+          echo "::notice title=Screenshots::published ($PLATFORMS) to the branch screenshots"

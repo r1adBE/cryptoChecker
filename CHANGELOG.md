@@ -19,6 +19,7 @@ Detailed build history below.
 
 * No visible change. In the code, the word for a trading venue is now «exchange» everywhere (Android and iOS: classes, files, keys, database tables `exchanges` / `exchange_pairs`, backup and widget keys); «market» stays only where it means the whole market (market tab, market cap, movers).
 * Android: the watchlist database starts over at version 1.
+* CI: screenshots of the main screens (light and dark) after every change, on the branch `screenshots`.
 
 ## 16.2.2 (build 158)
 
