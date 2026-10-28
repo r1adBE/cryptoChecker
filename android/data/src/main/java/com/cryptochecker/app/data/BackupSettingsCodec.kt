@@ -20,13 +20,9 @@ class BackupSettingsCodec(
     suspend fun settingsToJson(): JSONObject {
         val s = settings.current()
         return JSONObject()
-            // «Wie aktuell?»; dazu die früheren Schalter, abgeleitet, für ältere Versionen
+            // «Wie aktuell?»
             .put("updateMode", s.updateMode.name)
-            .put("backgroundUpdates", s.updateMode.legacyFlags.backgroundUpdates)
             .put("backgroundIntervalMinutes", s.backgroundIntervalMinutes)
-            .put("liveService", s.updateMode.legacyFlags.liveService)
-            .put("liveIntervalSeconds", s.liveIntervalSeconds)
-            .put("liveWebSocket", s.updateMode.legacyFlags.liveWebSocket)
             .put("priceNotifications", s.priceNotifications)
             .put("ongoingNotifications", s.ongoingNotifications)
             .put("notificationChangePercent", s.notificationChangePercent)
@@ -36,8 +32,6 @@ class BackupSettingsCodec(
             .put("alarmCooldownMinutes", s.alarmCooldownMinutes)
             .put("includeRollingFutures", s.includeRollingFutures)
             .put("assetScope", s.assetScope.name)
-            // Für ältere Versionen (kennen nur den Schalter): TradFi in der Auswahl ja/nein
-            .put("includeTradFiFutures", s.assetScope.allowsTradFi)
             .put("includeAlphaTokens", s.includeAlphaTokens)
             .put("accentColor", s.accentColor.name)
             .put("darkMode", s.darkMode ?: JSONObject.NULL)
@@ -47,7 +41,7 @@ class BackupSettingsCodec(
             .put("fearGreedAbove", s.fearGreedAbove)
             .put("gasAlertEthTenths", s.gasAlertEthTenths)
             .put("gasAlertBtc", s.gasAlertBtc)
-            // USDT-Depeg-Alarm; ältere Versionen ignorieren die Felder
+            // USDT-Depeg-Alarm
             .put("depegAlarm", s.depegAlarm)
             .put("depegThresholdTenths", s.depegThresholdTenths)
             .put("activityAlerts", s.activityAlerts)
@@ -91,15 +85,9 @@ class BackupSettingsCodec(
      * @return Hinweise für die Meldung ([SettingsRestoreNotes]).
      */
     suspend fun restoreSettings(o: JSONObject, trusted: Boolean): SettingsRestoreNotes = with(settings) {
-        // «Wie aktuell?»; ältere Sicherungen nur mit den früheren Schaltern (UpdateMode.fromBackup)
-        com.cryptochecker.app.settings.UpdateMode.fromBackup(
-            stored = o.string("updateMode"),
-            legacyLiveService = o.bool("liveService"),
-            legacyWebSocket = o.bool("liveWebSocket"),
-            legacyBackground = o.bool("backgroundUpdates"),
-        )?.let { setUpdateMode(it) }
+        // «Wie aktuell?»; fehlt oder unbekannt: Einstellung bleibt
+        com.cryptochecker.app.settings.UpdateMode.fromNameOrNull(o.string("updateMode"))?.let { setUpdateMode(it) }
         o.int("backgroundIntervalMinutes")?.let { setBackgroundInterval(it) }
-        o.int("liveIntervalSeconds")?.let { setLiveInterval(it) }
         o.bool("priceNotifications")?.let { setPriceNotifications(it) }
         o.bool("ongoingNotifications")?.let { setOngoingNotifications(it) }
         o.double("notificationChangePercent")?.let { setNotificationChangePercent(it) }
@@ -108,19 +96,14 @@ class BackupSettingsCodec(
         o.double("ttsSpeechRate")?.let { setTtsSpeechRate(it.toFloat()) }
         o.int("alarmCooldownMinutes")?.let { setAlarmCooldown(it) }
         o.bool("includeRollingFutures")?.let { setIncludeRollingFutures(it) }
-        // «Token & TradFi»; ältere Sicherungen nur mit dem Schalter: an → beides, aus → nur Token
-        com.cryptochecker.app.settings.AssetScope.fromBackup(
-            if (o.isNull("assetScope")) null else o.optString("assetScope"),
-            o.bool("includeTradFiFutures"),
-        )?.let { setAssetScope(it) }
-        // «inkl. Alpha-Tokens»; ältere Sicherungen ohne den Wert: bisheriger Standard (an), wie iOS
-        setIncludeAlphaTokens(o.bool("includeAlphaTokens") ?: com.cryptochecker.app.settings.AppSettings.LEGACY_INCLUDE_ALPHA_TOKENS)
+        // «Token & TradFi»; fehlt oder unbekannt: Einstellung bleibt
+        com.cryptochecker.app.settings.AssetScope.fromNameOrNull(o.string("assetScope"))?.let { setAssetScope(it) }
+        o.bool("includeAlphaTokens")?.let { setIncludeAlphaTokens(it) }
         if (o.has("accentColor")) setAccentColor(AccentColor.fromName(o.string("accentColor")))
         // Ungültiger Wert: «Wie das System» (wie iOS)
         if (o.has("darkMode")) setDarkMode(if (o.isNull("darkMode")) null else o.bool("darkMode"))
-        // «zoneAlerts» älterer Sicherungen: Meldung «Marktphase gewechselt» gibt es nicht mehr, ignoriert
         o.int("fearGreedBelow")?.let { setFearGreedBelow(it) }
-        // Ältere Sicherungen ohne das Feld lassen die Grenzen stehen; unbekannte Arten werden übergangen
+        // Fehlt das Feld, bleiben die Grenzen stehen; unbekannte Arten werden übergangen
         o.optJSONObject("indicatorAlerts")?.let { alerts ->
             com.cryptochecker.app.domain.market.IndicatorAlertKind.entries.forEach { kind ->
                 setIndicatorAlert(kind, alerts.int(kind.key) ?: 0)
@@ -129,39 +112,31 @@ class BackupSettingsCodec(
         o.int("fearGreedAbove")?.let { setFearGreedAbove(it) }
         o.int("gasAlertEthTenths")?.let { setGasAlertEth(it) }
         o.int("gasAlertBtc")?.let { setGasAlertBtc(it) }
-        // Ältere Sicherungen ohne die Felder lassen die Einstellung stehen
+        // Fehlen die Felder, bleibt die Einstellung stehen
         o.bool("depegAlarm")?.let { setDepegAlarm(it) }
         o.int("depegThresholdTenths")?.let { setDepegThreshold(it) }
         o.bool("activityAlerts")?.let { setActivityAlerts(it) }
-        // Fehlt der Schlüssel (ältere Sicherung) oder ist er unbekannt: «Normal»
+        // Fehlt der Schlüssel oder ist er unbekannt: «Normal»
         setActivitySensitivity(
             com.cryptochecker.app.domain.activity.ActivitySensitivity.fromName(
                 if (o.isNull("activitySensitivity")) null else o.optString("activitySensitivity")
             )
         )
         o.bool("macroNotifications")?.let { setMacroNotifications(it) }
-        // Fehlt der Schlüssel (ältere Sicherung): Portfolio an (Standard), wie iOS
-        // Sicherung ohne das Feld (vor dem Schalter): bisheriger Standard an
-        setPortfolioEnabled(o.bool("portfolioEnabled") ?: com.cryptochecker.app.settings.AppSettings.LEGACY_PORTFOLIO_ENABLED)
+        o.bool("portfolioEnabled")?.let { setPortfolioEnabled(it) }
         o.string("portfolioCurrency")?.let { setPortfolioCurrency(it) }
-        // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus), nicht der neue
-        setShowConverted(o.bool("showConverted") ?: com.cryptochecker.app.settings.AppSettings.LEGACY_SHOW_CONVERTED)
+        o.bool("showConverted")?.let { setShowConverted(it) }
         if (o.has("priceColorScheme") && !o.isNull("priceColorScheme")) {
             setPriceColorScheme(com.cryptochecker.app.settings.PriceColorScheme.fromName(o.optString("priceColorScheme")))
         }
-        // «pillTextColor» (frühere Einstellung «Schrift auf Pillen und Buttons») in älteren
-        // Sicherungen wird bewusst übergangen — die Einstellung gibt es nicht mehr
         o.bool("watchlistSparkline")?.let { setWatchlistSparkline(it) }
-        // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus), wie iOS
-        setWatchlistNames(o.bool("watchlistNames") ?: com.cryptochecker.app.settings.AppSettings.LEGACY_WATCHLIST_NAMES)
-        // «showChangePeriod» (früherer Schalter «Zeitraum neben der Änderung») in älteren Sicherungen wird
-        // übergangen — der Zeitraum steht immer da
+        o.bool("watchlistNames")?.let { setWatchlistNames(it) }
         o.bool("appIconBadge")?.let { setAppIconBadge(it) }
         o.bool("watchlistActivityCard")?.let { setWatchlistActivityCard(it) }
         o.bool("coinLogos")?.let { setCoinLogos(it) }
         o.bool("widgetCoinLogos")?.let { setWidgetCoinLogos(it) }
         o.bool("portfolioCoinLogos")?.let { setPortfolioCoinLogos(it) }
-        // %-Basis: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen; unbekannt → «Letzte 24 Std.»
+        // %-Basis: fehlt der Schlüssel, bleibt die Einstellung stehen; unbekannt → «Letzte 24 Std.»
         if (o.has("changeBasis")) {
             setChangeBasis(
                 com.cryptochecker.app.domain.watch.ChangeBasis.fromName(
@@ -169,10 +144,10 @@ class BackupSettingsCodec(
                 )
             )
         }
-        // Ältere Sicherungen ohne den Schlüssel lassen die aktuelle Einstellung stehen.
+        // Fehlt der Schlüssel, bleibt die aktuelle Einstellung stehen.
         o.bool("highContrast")?.let { setHighContrast(it) }
         o.bool("priceColorsInverted")?.let { setPriceColorsInverted(it) }
-        // Alarm-Signal: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen;
+        // Alarm-Signal: fehlt der Schlüssel, bleibt die Einstellung stehen;
         // unbekannter Wert (neuere Version) → «System»
         if (o.has("alarmSignal")) {
             setAlarmSignal(
@@ -188,14 +163,14 @@ class BackupSettingsCodec(
         // Ohne Passwort (nicht [trusted]) nur in Richtung «mehr Schutz» ([BackupRestorePolicy])
         BackupRestorePolicy.hideAmounts(o.bool("hidePortfolioAmounts"), current().hidePortfolioAmounts, trusted)
             ?.let { setHidePortfolioAmounts(it) }
-        // «Portfolio in Systemsicherung»: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen
+        // «Portfolio in Systemsicherung»: fehlt der Schlüssel, bleibt die Einstellung stehen
         BackupRestorePolicy.systemBackup(o.bool("portfolioSystemBackup"), current().portfolioSystemBackup, trusted)
             ?.let { setPortfolioSystemBackup(it) }
-        // Einstandsmethode: ältere Sicherungen ohne den Schlüssel (oder unbekannter Wert) → FIFO (Standard)
+        // Einstandsmethode: fehlt der Schlüssel (oder unbekannter Wert) → FIFO (Standard)
         setCostMethod(com.cryptochecker.app.domain.portfolio.CostMethod.fromName(o.string("costMethod")))
-        // Steuer-Vorlage: ältere Sicherungen ohne den Schlüssel lassen sie stehen; unbekannt → Neutral
+        // Steuer-Vorlage: fehlt der Schlüssel, bleibt sie stehen; unbekannt → Neutral
         o.string("taxTemplate")?.let { setTaxTemplate(com.cryptochecker.app.domain.portfolio.TaxTemplate.fromName(it)) }
-        // Spaltensortierung: ältere Sicherungen ohne das Feld lassen sie stehen; null/unbekannt = eigene Reihenfolge
+        // Spaltensortierung: fehlt das Feld, bleibt sie stehen; null/unbekannt = eigene Reihenfolge
         if (o.has(ColumnSort.BACKUP_FIELD)) setWatchlistColumnSort(ColumnSort.backupValue(o.string(ColumnSort.BACKUP_FIELD)))
         // Eigener Bitcoin-Server: fehlt/ungültig bleibt er; ohne Passwort nie gesetzt, ersetzt oder gelöscht
         val currentServer = addressServer()

@@ -39,8 +39,6 @@ final class LaunchSnapshotPerformanceTests: XCTestCase {
             }
         }
 
-        func isDeviceOnly() throws -> Bool? { lock.withLock { stored == nil ? nil : true } }
-        func makeDeviceOnly() throws {}
         func delete() throws { lock.withLock { stored = nil } }
     }
 

@@ -22,7 +22,7 @@ enum NearExtreme {
     static let defaultWindowDays = 30
     static let defaultDistancePercent = 2.0
     /// Abstand 0 = nur neue Hochs/Tiefs melden (Vorlage «Neues 30-Tage-Hoch»), keine Annäherung.
-    /// Gespeichert wie jeder Abstand in `threshold`; ältere Versionen melden damit nie.
+    /// Gespeichert wie jeder Abstand in `threshold`.
     static let newOnlyDistance = 0.0
 
     /// Alarm meldet nur neue Hochs/Tiefs (`newOnlyDistance`)?
@@ -190,7 +190,7 @@ struct NearExtremeRanges: Codable, Sendable {
 /// Keine neuen Hosts. Wie `NearExtremeDataSource.kt`. Die Reihe stammt nie von der Börse des Paars: Der Aufrufer prüft
 /// Name und Kursband (`seriesAllowed`, wie der Mini-Chart) und lässt den Alarm sonst ungeprüft.
 enum NearExtremeDataSource {
-    /// 2: mit letztem Schluss und Anbieter (ältere Dateien werden neu geladen).
+    /// Formatversion der Datei (mit letztem Schluss und Anbieter); eine andere Version wird neu geladen.
     private static let formatVersion = 2
     private static let missingMillis: Int64 = 60 * 60_000
     /// Spannen im Speicher und Paare ohne Daten (Zeitpunkt), zusammen hinter einer Sperre.

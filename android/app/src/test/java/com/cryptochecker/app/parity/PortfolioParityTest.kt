@@ -55,10 +55,8 @@ class PortfolioParityTest {
             toAmount = (o["toAmount"] as String?)?.let(::BigDecimal),
             swapValueUsdt = (o["swapValue"] as String?)?.let(::BigDecimal),
             imported = o["importKey"] != null,
-            // Gebühr-Zeile: eigenes Feld; fehlt es im Fixture, die frühere Regel (wie beim Wiederherstellen)
-            feeRow = (o["feeRow"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow(
-                PortfolioTxType.valueOf(o["type"] as String), o["importKey"] as String?, (o["price"] as String?)?.let(::BigDecimal),
-            ),
+            // Gebühr-Zeile: eigenes Feld; fehlt = nein
+            feeRow = o["feeRow"] == true,
         )
     }
 

@@ -12,7 +12,7 @@ struct PhemexScales: Sendable {
     var pairs: [String: (base: String, quote: String)] = [:]
     /// Aus der Produktliste (oder ihrer gespeicherten Kopie); false = nie geladen.
     var loaded = false
-    /// Zeitpunkt der Produktliste in ms; 0 = unbekannt (ältere Datei) → gilt als veraltet.
+    /// Zeitpunkt der Produktliste in ms; 0 = unbekannt → gilt als veraltet.
     var loadedAt: Int64 = 0
 
     static let defaultScale = 8

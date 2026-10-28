@@ -10,7 +10,7 @@ extension CsvImportParser {
         let reason: CsvImportSkipReason
     }
 
-    static func build(_ format: CsvImportFormat, _ h: Header, _ data: [Record], zone: String, deviceZone: String,
+    static func build(_ format: CsvImportFormat, _ h: Header, _ data: [Record], zone: String,
                               chosenOrder: CsvDateOrder?, chosenMark: Character?) -> CsvImportResult {
         switch format {
         case .KRAKEN: return CsvImportKraken.build(names: h.names, data: data, zone: zone)
@@ -45,11 +45,9 @@ extension CsvImportParser {
         }
         var parsed: [(row: CsvImportRow, sign: Int)] = []
         var skipped: [CsvImportSkip] = []
-        // Zeile → ursprünglicher Kauf/Verkauf (vor dem Tausch gegen Stablecoin), für die früheren Schlüssel
-        var origins: [Int: CsvImportRow] = [:]
         for rec in data {
             do {
-                parsed.append(try row(format, h, rec, hint: hint, zone: zone, monthFirst: monthFirst, origins: &origins))
+                parsed.append(try row(format, h, rec, hint: hint, zone: zone, monthFirst: monthFirst))
             } catch let s as Skip {
                 skipped.append(CsvImportSkip(line: rec.line, reason: s.reason))
             } catch {
@@ -65,31 +63,7 @@ extension CsvImportParser {
         // stabil nach Zeile (wie Android `sortBy`)
         skipped = skipped.enumerated().sorted { ($0.element.line, $0.offset) < ($1.element.line, $1.offset) }.map(\.element)
         let keys = CsvImport.withOccurrence(drafts.map(\.key))
-        // Frühere Schlüssel: Zeit in UTC je Zeitzone der Auswahl, Kauf/Verkauf gegen Stablecoin noch
-        // als Kauf/Verkauf und Belohnung ohne Preis — ältere Importe weiter als Duplikat erkennen
-        let old: [CsvImportRow] = drafts.map { r in r.kind == .SWAP || r.kind == .REWARD ? (origins[r.line] ?? r) : r }
-        let oldKeys = CsvImport.withOccurrence(old.map(\.key))
-        var legacyZones: [String] = []
-        for z in [zone, deviceZone, swissZone, "UTC"] where !legacyZones.contains(z) { legacyZones.append(z) }
-        var seen: [String: Int] = [:]
-        for i in drafts.indices {
-            let r = drafts[i]
-            let o = old[i]
-            let n = (seen[o.key] ?? 0) + 1
-            seen[o.key] = n
-            var legacy: [String] = []
-            if oldKeys[i] != keys[i] { legacy.append(oldKeys[i]) }
-            if let local = r.localTime {
-                for z in legacyZones {
-                    let k = CsvImport.key(format: format, kind: o.kind, coin: o.coin, amount: o.amount, price: o.price,
-                                          timeMillis: toUtc(local, zone: z), externalId: o.externalId)
-                    let suffixed = n == 1 ? k : "\(k)#\(n)"
-                    if suffixed != keys[i] && !legacy.contains(suffixed) { legacy.append(suffixed) }
-                }
-            }
-            drafts[i].key = keys[i]
-            drafts[i].legacyKeys = legacy
-        }
+        for i in drafts.indices { drafts[i].key = keys[i] }
         // Zählt die Zeitzone? Nur wenn eine lesbare Zeit ohne Versatz vorkommt
         var localTimes = false
         if let di = dateIndex {
@@ -141,7 +115,6 @@ extension CsvImportParser {
             toAmount: toAmount,
             swapValue: value.value,
             localTime: r.localTime,
-            legacyKeys: r.legacyKeys,
             stableSwap: CsvImport.isStable(stable)
         )
     }
@@ -228,7 +201,7 @@ extension CsvImportParser {
 
     /// Eine Zeile samt Vorzeichen der Menge in der Datei (−1 negativ, sonst 1; für Tausch-Seiten).
     private static func row(_ format: CsvImportFormat, _ h: Header, _ rec: Record, hint: Character?, zone: String,
-                            monthFirst: Bool, origins: inout [Int: CsvImportRow]) throws -> (row: CsvImportRow, sign: Int) {
+                            monthFirst: Bool) throws -> (row: CsvImportRow, sign: Int) {
         func cell(_ role: Role) -> String {
             guard let i = h.index[role], i < rec.cells.count else { return "" }
             return rec.cells[i]
@@ -281,17 +254,13 @@ extension CsvImportParser {
         // Belohnung mit Fiat-Betrag (wie Coinbase/Bitpanda): Preis = Betrag / Menge — nur mit Geld als
         // Preiswährung (Fiat oder USDT), sonst bliebe sie ohne Wert bzw. würde mangels Währung übersprungen. Wie Android
         let rewardValue = kind == .REWARD && (CsvImport.isFiat(quote) || quote == PortfolioStables.valuation)
-        var derivedReward = false
         if price == nil && (kind == .BUY || kind == .SELL || rewardValue) {
             // Belohnung mit unlesbarem Betrag: ohne Preis wie früher, nicht übersprungen
             let fiatAmount: Decimal?
             if kind == .REWARD { fiatAmount = try? number(.fiatAmount) } else { fiatAmount = try number(.fiatAmount) }
             if let fiat = fiatAmount {
                 let f = fiat < 0 ? -fiat : fiat
-                if f > 0 {
-                    price = CsvImport.divide(f, amount)
-                    derivedReward = kind == .REWARD
-                }
+                if f > 0 { price = CsvImport.divide(f, amount) }
             }
         }
         // Tausch: kein Preis, sondern Wert (Fiat-Betrag, sonst Preis × Menge) — nur in Geld, sonst unbekannt
@@ -354,28 +323,13 @@ extension CsvImportParser {
             swapValue: swapValue,
             localTime: local
         )
-        // Gegen Stablecoin bzw. Krypto-Coin: Tausch; der ursprüngliche Kauf/Verkauf bleibt für die früheren Schlüssel
+        // Gegen Stablecoin bzw. Krypto-Coin: Tausch
         var stableAmount: Decimal?
         if kind == .BUY || kind == .SELL, CsvImport.isStable(quote) || CsvImport.isCryptoQuote(quote),
            let fiat = try number(.fiatAmount) {
             let f = fiat < 0 ? -fiat : fiat
             if f > 0 { stableAmount = f }
         }
-        if let swapped = stableSwap(format, draft, stableAmount: stableAmount) {
-            origins[rec.line] = draft
-            return (swapped, sign)
-        }
-        // Belohnung mit abgeleitetem Preis: früher ohne Preis importiert — dieser Schlüssel bleibt als früherer
-        // (`CsvImportRow.legacyKeys`), sonst käme eine schon importierte Belohnung ein zweites Mal. Wie Android
-        if derivedReward {
-            var priceless = CsvImportRow(
-                line: rec.line, kind: kind, rawKind: rawKind, coin: coin, amount: amount, price: nil, quote: quote,
-                fee: fee, feeUnit: feeUnit, timeMillis: time, externalId: externalId,
-                key: CsvImport.key(format: format, kind: kind, coin: coin, amount: amount, price: nil,
-                                   timeMillis: time, externalId: externalId, localTime: local))
-            priceless.localTime = local
-            origins[rec.line] = priceless
-        }
-        return (draft, sign)
+        return (stableSwap(format, draft, stableAmount: stableAmount) ?? draft, sign)
     }
 }

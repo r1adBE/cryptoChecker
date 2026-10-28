@@ -17,15 +17,7 @@ import java.math.BigDecimal
  * Transaktion im Portfolio ([PortfolioTxType]: Kauf, Verkauf, Umbuchung, Belohnung, Ein-/Auszahlung) —
  * unabhängig von der Merkliste.
  * Preise in USDT; [priceUsdt] null = unbekannt (z. B. übernommener Bestand). Menge, Preis und Gebühr
- * sind exakt ([BigDecimal], seit Portfolio-Datenbank v2 als Text gespeichert): 1 Satoshi =
- * 0.00000001 BTC bleibt genau 1 Satoshi.
- *
- * Spalten bis `note` bilden die Tabelle der Portfolio-Datenbank v1; `fee`, `feeUnit`, `exchange` kamen mit
- * [PortfolioDatabase.MIGRATION_1_2] dazu (alle optional); `transferFrom`, `transferTo`, `feeCoin`,
- * `feeCoinAmount`, `feeCoinPriceUsdt`, `importKey` (mit Index), `acquiredTime`, `toCoin`, `toAmount`,
- * `swapValueUsdt` (Tausch) und `importBatch` (CSV-Importlauf) mit [PortfolioDatabase.MIGRATION_2_3] (alle optional);
- * `giftToSpouse`, `linkedImportKey` und `importRestoreState` mit [PortfolioDatabase.MIGRATION_3_4]; `feeRow` und `interest`
- * mit [PortfolioDatabase.MIGRATION_4_5].
+ * sind exakt ([BigDecimal], als Text gespeichert): 1 Satoshi = 0.00000001 BTC bleibt genau 1 Satoshi.
  */
 @Entity(tableName = "portfolio_tx", indices = [Index(value = ["importKey"])])
 data class PortfolioTxEntity(
@@ -97,7 +89,7 @@ data class PortfolioTxEntity(
 
     /**
      * CSV-Importlauf ([com.cryptochecker.app.domain.portfolio.PortfolioImportBatch]): alle Transaktionen eines Imports
-     * haben dieselbe Kennung — «Import rückgängig» löscht genau sie. null = von Hand erfasst (oder früher importiert).
+     * haben dieselbe Kennung — «Import rückgängig» löscht genau sie. null = von Hand erfasst.
      */
     @ColumnInfo val importBatch: String? = null,
 
@@ -121,16 +113,13 @@ data class PortfolioTxEntity(
 
     /**
      * Gebühr-Zeile (CSV «Fee»): eine Veräusserung zum Tageskurs ([com.cryptochecker.app.domain.portfolio.PortfolioLedger.isFeeDisposal]),
-     * gespeichert als Verkauf. Eigenes Feld seit Portfolio-Datenbank v5 — bis dahin aus «Verkauf zum Preis 0 mit
-     * Import-Herkunft» geschlossen ([com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow]). Nur bei
-     * [PortfolioTxType.SELL].
+     * gespeichert als Verkauf. Nur bei [PortfolioTxType.SELL].
      */
     @ColumnInfo(defaultValue = "0") val feeRow: Boolean = false,
 
     /**
-     * Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. Eigenes Feld seit v5 (CSV-Import
-     * setzt es, wo die Börse Zinsen ausweist; im Erfassen-Blatt umschaltbar) — bis dahin aus der Notiz geschlossen
-     * ([com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyInterest]). Nur bei [PortfolioTxType.REWARD].
+     * Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. CSV-Import setzt es, wo die
+     * Börse Zinsen ausweist; im Erfassen-Blatt umschaltbar. Nur bei [PortfolioTxType.REWARD].
      */
     @ColumnInfo(defaultValue = "0") val interest: Boolean = false,
 ) {
@@ -176,8 +165,7 @@ data class PortfolioTxEntity(
 }
 
 /**
- * Room: exakte Dezimalzahl ↔ Text («0.00000001», ohne Exponent). Gelesen wird auch, was die
- * Migration v1 → v2 aus den früheren REAL-Werten macht («1.0e-08»). Unlesbar → 0 bzw. null
+ * Room: exakte Dezimalzahl ↔ Text («0.00000001», ohne Exponent). Unlesbar → 0 bzw. null
  * (eine Menge 0 überspringt der Rechner).
  */
 class PortfolioDecimalConverters {

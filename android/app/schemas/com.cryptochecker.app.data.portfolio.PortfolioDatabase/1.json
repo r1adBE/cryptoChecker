@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "413df2447d852c4a056795d9ebeb4b46",
+    "identityHash": "43b8ee25d1e9710217c0403c95357fef",
     "entities": [
       {
         "tableName": "portfolio_tx",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `coin` TEXT NOT NULL, `type` TEXT NOT NULL, `amount` REAL NOT NULL, `priceUsdt` REAL, `time` INTEGER NOT NULL, `note` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `coin` TEXT NOT NULL, `type` TEXT NOT NULL, `amount` TEXT NOT NULL, `priceUsdt` TEXT, `time` INTEGER NOT NULL, `note` TEXT, `fee` TEXT, `feeUnit` TEXT, `exchange` TEXT, `transferFrom` TEXT, `transferTo` TEXT, `feeCoin` TEXT, `feeCoinAmount` TEXT, `feeCoinPriceUsdt` TEXT, `importKey` TEXT, `acquiredTime` INTEGER, `toCoin` TEXT, `toAmount` TEXT, `swapValueUsdt` TEXT, `importBatch` TEXT, `giftToSpouse` INTEGER NOT NULL DEFAULT 0, `linkedImportKey` TEXT, `importRestoreState` TEXT, `feeRow` INTEGER NOT NULL DEFAULT 0, `interest` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "id",
@@ -29,13 +29,13 @@
           {
             "fieldPath": "amount",
             "columnName": "amount",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "priceUsdt",
             "columnName": "priceUsdt",
-            "affinity": "REAL"
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "time",
@@ -47,6 +47,107 @@
             "fieldPath": "note",
             "columnName": "note",
             "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fee",
+            "columnName": "fee",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "feeUnit",
+            "columnName": "feeUnit",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "exchange",
+            "columnName": "exchange",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "transferFrom",
+            "columnName": "transferFrom",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "transferTo",
+            "columnName": "transferTo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "feeCoin",
+            "columnName": "feeCoin",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "feeCoinAmount",
+            "columnName": "feeCoinAmount",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "feeCoinPriceUsdt",
+            "columnName": "feeCoinPriceUsdt",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "importKey",
+            "columnName": "importKey",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "acquiredTime",
+            "columnName": "acquiredTime",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "toCoin",
+            "columnName": "toCoin",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "toAmount",
+            "columnName": "toAmount",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "swapValueUsdt",
+            "columnName": "swapValueUsdt",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "importBatch",
+            "columnName": "importBatch",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "giftToSpouse",
+            "columnName": "giftToSpouse",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "linkedImportKey",
+            "columnName": "linkedImportKey",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "importRestoreState",
+            "columnName": "importRestoreState",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "feeRow",
+            "columnName": "feeRow",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "interest",
+            "columnName": "interest",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -54,7 +155,18 @@
           "columnNames": [
             "id"
           ]
-        }
+        },
+        "indices": [
+          {
+            "name": "index_portfolio_tx_importKey",
+            "unique": false,
+            "columnNames": [
+              "importKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_portfolio_tx_importKey` ON `${TABLE_NAME}` (`importKey`)"
+          }
+        ]
       },
       {
         "tableName": "portfolio_alarms",
@@ -119,11 +231,102 @@
             "id"
           ]
         }
+      },
+      {
+        "tableName": "watched_addresses",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `chain` TEXT NOT NULL, `address` TEXT NOT NULL, `label` TEXT, `lastBalance` TEXT, `lastUpdated` INTEGER NOT NULL, `lastAttempt` INTEGER NOT NULL, `lastError` TEXT, `lastProvider` TEXT, `addedAt` INTEGER NOT NULL, `observations` TEXT, `costLots` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chain",
+            "columnName": "chain",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastBalance",
+            "columnName": "lastBalance",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastUpdated",
+            "columnName": "lastUpdated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastAttempt",
+            "columnName": "lastAttempt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastError",
+            "columnName": "lastError",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastProvider",
+            "columnName": "lastProvider",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "addedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observations",
+            "columnName": "observations",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "costLots",
+            "columnName": "costLots",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_watched_addresses_chain_address",
+            "unique": true,
+            "columnNames": [
+              "chain",
+              "address"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_watched_addresses_chain_address` ON `${TABLE_NAME}` (`chain`, `address`)"
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '413df2447d852c4a056795d9ebeb4b46')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '43b8ee25d1e9710217c0403c95357fef')"
     ]
   }
 }

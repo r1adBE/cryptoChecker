@@ -29,10 +29,6 @@ enum HostStorageKey {
             return added
         }
 
-        func isDeviceOnly() throws -> Bool? { stored.current == nil ? nil : true }
-
-        func makeDeviceOnly() throws {}
-
         func delete() throws { stored.current = nil }
     }
 

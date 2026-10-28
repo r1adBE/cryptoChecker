@@ -102,14 +102,6 @@ class PortfolioViewModel @Inject constructor(
     /** Hinweis «einmal automatisch Nur anzeigen» mit «Rückgängig»; der Bildschirm zeigt ihn und ruft [consumeAddressOverlapNotice]. */
     val addressOverlapNotice: StateFlow<AddressOverlapNotice?> = _addressOverlapNotice.asStateFlow()
 
-    internal val _addressOverlapRestored = MutableStateFlow<AddressOverlapNotice?>(null)
-
-    /**
-     * Einmaliger Hinweis: früher automatisch auf «Nur anzeigen» gestellte Adressen ohne passende Menge zählen wieder
-     * ([WatchedAddressRules.overlapLegacyRevert]); der Bildschirm zeigt ihn und ruft [consumeAddressOverlapRestored].
-     */
-    val addressOverlapRestored: StateFlow<AddressOverlapNotice?> = _addressOverlapRestored.asStateFlow()
-
     /**
      * Eingabe aller Berechnungen (Gesamtwert, Zeiträume, Verlauf, Widget, Alarme): echte Transaktionen +
      * Adress-Guthaben als Einzahlung ohne Kaufpreis ([AddressBalance.withAddresses]). Listen und Blatt
@@ -346,7 +338,6 @@ class PortfolioViewModel @Inject constructor(
 
     init {
         // Hintergrund-Aufgaben in PortfolioBackgroundJobs.kt
-        restoreLegacyAddressOverlap()
         switchOverlappingAddresses()
         recordWidgetSnapshots()
     }

@@ -25,15 +25,6 @@ fun PortfolioViewModel.undoAddressOverlap(notice: AddressOverlapNotice) {
     viewModelScope.launch { notice.ids.forEach { id -> safe { repository.setWatchedAddressCountInPortfolio(id, true) } } }
 }
 
-fun PortfolioViewModel.consumeAddressOverlapRestored() {
-    _addressOverlapRestored.value = null
-}
-
-/** «Rückgängig» zum Hinweis [addressOverlapRestored]: wieder «Nur anzeigen» (gilt als entschieden). */
-fun PortfolioViewModel.undoAddressOverlapRestored(notice: AddressOverlapNotice) {
-    viewModelScope.launch { notice.ids.forEach { id -> safe { repository.setWatchedAddressCountInPortfolio(id, false) } } }
-}
-
 /**
  * Adresse beobachten (Netz aus [AddressValidation][com.cryptochecker.app.domain.portfolio.AddressValidation]
  * erkannt). [onResult] im Hauptthread; hinzugefügt mit ausgeschaltetem Portfolio schaltet es ein wie die

@@ -261,7 +261,7 @@ fun AlarmsOverviewScreen(
                                 currency = alarm.convertCurrency ?: watch.quoteAsset,
                                 windowHours = alarm.windowHours,
                             )
-                            // «fällt um ≥ 100 %» (aus älteren Versionen) löst nie aus — kennzeichnen
+                            // «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus — kennzeichnen
                             val invalidText = if (AlarmJson.exceedsFall(alarm.condition, alarm.threshold)) {
                                 stringResource(R.string.alarm_threshold_invalid_fix)
                             } else null

@@ -7,7 +7,7 @@ private let pwWrong = "falsch-1234"
 private let pwEight = "12345678"
 
 /// Wie `BackupCryptoTest.kt` — vor allem die festen Prüfwerte (mit Python `cryptography`
-/// nachgerechnet; v3 auch in `backup_crypto.json`): Android und iOS müssen Sicherungen gegenseitig lesen können.
+/// nachgerechnet, auch in `backup_crypto.json`): Android und iOS müssen Sicherungen gegenseitig lesen können.
 final class BackupCryptoTests: XCTestCase {
 
     private typealias V = BackupCrypto.TestVector
@@ -16,7 +16,9 @@ final class BackupCryptoTests: XCTestCase {
 
     /// Rasche Argon2id-Parameter für Tests, die nicht den Prüfwert betreffen.
     private let fastKdf = BackupCrypto.Kdf.argon2(memoryKiB: 256, time: 1, parallelism: 1)
-    private let legacyKdf = BackupCrypto.Kdf.pbkdf2(iterations: BackupCrypto.legacyIterations)
+    /// Beliebige gültige Base64-Daten (≥ 16 Bytes) für Hüllen, die schon beim Lesen scheitern.
+    private let someData =
+        "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
 
     private func data(_ base64: String) throws -> Data { try XCTUnwrap(Data(base64Encoded: base64)) }
 
@@ -31,33 +33,14 @@ final class BackupCryptoTests: XCTestCase {
     }
 
     func testVectorMatchesAndroidAndPython() throws {
-        // Gleiche Werte wie in BackupCryptoTest.kt
+        // Gleiche Werte wie in backup_crypto.json
         XCTAssertEqual(V.password, "Kryptö-Test 2026!")
         XCTAssertEqual(V.salt, salt)
         XCTAssertEqual(V.iv, iv)
         XCTAssertEqual(V.plain, #"{"format":"cryptochecker-backup","version":1,"portfolio":[]}"#)
-        XCTAssertEqual(V.data,
-                       "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA==")
         XCTAssertEqual(try data(salt), Data((0..<16).map { UInt8($0) }))
         XCTAssertEqual(try data(iv), Data((0..<12).map { (i: Int) -> UInt8 in UInt8(0xA0 + i) }))
-
-        // v2 (PBKDF2, ohne AAD): schreiben nur noch Tests, der Prüfwert bleibt
-        let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
-                                           kdf: legacyKdf)
-        XCTAssertEqual(env.data.base64EncodedString(), V.data)
-        XCTAssertEqual(env.kdf, .pbkdf2(iterations: 210_000))
-        XCTAssertEqual(env.version, 2)
         XCTAssertTrue(BackupCrypto.verifyTestVector())
-    }
-
-    func testV2With600kIterationsMatchesPython() throws {
-        XCTAssertEqual(BackupCrypto.defaultIterations, 600_000)
-        XCTAssertEqual(V.data600k,
-                       "0Ku8OwoZGZNMLB4nSmFxc+ftNLme+bH0q7YUsGipFoc6Edly6EQAyI3y2P5g9FVosu0L/CWRglvDAWzcW6/sO5/liBMAHn0IC/qYSg==")
-        let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
-                                           kdf: .pbkdf2(iterations: BackupCrypto.defaultIterations))
-        XCTAssertEqual(env.data.base64EncodedString(), V.data600k)
-        XCTAssertTrue(String(decoding: BackupCrypto.json(env), as: UTF8.self).contains(#""iter": 600000"#))
     }
 
     func testNewBackupsUseArgon2idV3() throws {
@@ -82,7 +65,7 @@ final class BackupCryptoTests: XCTestCase {
     func testV3HeaderIsBoundAsAad() throws {
         let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
                                            kdf: fastKdf)
-        XCTAssertEqual(String(decoding: try BackupCrypto.header(env), as: UTF8.self),
+        XCTAssertEqual(String(decoding: BackupCrypto.header(env), as: UTF8.self),
                        #"{"format":"cryptochecker-backup-enc","v":3,"enc":"AES-256-GCM","kdf":"Argon2id","m":256,"t":1,"p":1,"salt":"AAECAwQFBgcICQoLDA0ODw==","iv":"oKGio6Slpqeoqaqr"}"#)
         // Veränderter Kopf (t, p, m) → «falsches Passwort oder beschädigte Datei», nicht «nicht unterstützt»
         let changed: [BackupCrypto.Kdf] = [.argon2(memoryKiB: 256, time: 2, parallelism: 1),
@@ -112,30 +95,8 @@ final class BackupCryptoTests: XCTestCase {
         }
     }
 
-    func testVectorDecrypts() throws {
-        // Alte Datei (iter 210000) bleibt lesbar
-        let root: [String: Any] = ["format": "cryptochecker-backup-enc", "v": 2, "enc": "AES-256-GCM",
-                                   "kdf": "PBKDF2-HMAC-SHA256", "iter": 210_000, "salt": salt, "iv": iv, "data": V.data]
-        let env = try BackupCrypto.envelope(from: root)
-        let plain = try BackupCrypto.decrypt(env, password: V.password)
-        XCTAssertEqual(String(decoding: plain, as: UTF8.self), V.plain)
-    }
-
-    func testVector600kDecrypts() throws {
-        let root: [String: Any] = ["format": "cryptochecker-backup-enc", "v": 2, "enc": "AES-256-GCM",
-                                   "kdf": "PBKDF2-HMAC-SHA256", "iter": 600_000, "salt": salt, "iv": iv,
-                                   "data": V.data600k]
-        let env = try BackupCrypto.envelope(from: root)
-        let plain = try BackupCrypto.decrypt(env, password: V.password)
-        XCTAssertEqual(String(decoding: plain, as: UTF8.self), V.plain)
-    }
-
     func testDecomposedPasswordEqualsComposed() throws {
-        // «ö» als o + U+0308 (NFD) ergibt denselben Schlüssel wie das vorkomponierte «ö»
-        let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: "Krypto\u{0308}-Test 2026!",
-                                           salt: data(salt), iv: data(iv), kdf: legacyKdf)
-        XCTAssertEqual(env.data.base64EncodedString(), V.data)
-        // Auch für Argon2id (v3): gleiche Bytes wie mit dem vorkomponierten «ö»
+        // «ö» als o + U+0308 (NFD) ergibt dieselben Bytes und denselben Schlüssel wie das vorkomponierte «ö»
         XCTAssertEqual(BackupCrypto.passwordBytes("Krypto\u{0308}-Test 2026!"), BackupCrypto.passwordBytes(V.password))
         let decomposed = try BackupCrypto.encrypt(Data(V.plain.utf8), password: "Krypto\u{0308}-Test 2026!",
                                                   salt: data(salt), iv: data(iv), kdf: V.kdf3Fast)
@@ -176,11 +137,11 @@ final class BackupCryptoTests: XCTestCase {
 
     func testEnvelopeJsonHasTheAndroidFields() throws {
         let env = try BackupCrypto.encrypt(Data(V.plain.utf8), password: V.password, salt: data(salt), iv: data(iv),
-                                           kdf: legacyKdf)
+                                           kdf: fastKdf)
         let json = String(decoding: BackupCrypto.json(env), as: UTF8.self)
-        for field in [#""format": "cryptochecker-backup-enc""#, #""v": 2"#, #""enc": "AES-256-GCM""#,
-                      #""kdf": "PBKDF2-HMAC-SHA256""#, #""iter": 210000"#, "\"salt\": \"\(salt)\"",
-                      "\"iv\": \"\(iv)\"", "\"data\": \"\(V.data)\""] {
+        for field in [#""format": "cryptochecker-backup-enc""#, #""v": 3"#, #""enc": "AES-256-GCM""#,
+                      #""kdf": "Argon2id""#, #""m": 256"#, #""t": 1"#, #""p": 1"#, "\"salt\": \"\(salt)\"",
+                      "\"iv\": \"\(iv)\"", "\"data\": \"\(env.data.base64EncodedString())\""] {
             XCTAssertTrue(json.contains(field), field)
         }
         // Und wieder lesbar
@@ -191,11 +152,12 @@ final class BackupCryptoTests: XCTestCase {
     }
 
     func testUnsupportedEnvelopesAreRejected() {
-        func root(v: Int = 2, enc: String = "AES-256-GCM", kdf: String = "PBKDF2-HMAC-SHA256", iter: Int = 210_000,
+        func root(v: Int = 3, enc: String = "AES-256-GCM", kdf: String = "Argon2id", argon2: Bool = true,
                   salt: String? = "AAECAwQFBgcICQoLDA0ODw==", iv: String = "oKGio6Slpqeoqaqr",
-                  data: String = BackupCrypto.TestVector.data) -> [String: Any] {
-            var r: [String: Any] = ["format": "cryptochecker-backup-enc", "v": v, "enc": enc, "kdf": kdf, "iter": iter,
-                                    "iv": iv, "data": data]
+                  data: String? = nil) -> [String: Any] {
+            var r: [String: Any] = ["format": "cryptochecker-backup-enc", "v": v, "enc": enc, "kdf": kdf,
+                                    "iv": iv, "data": data ?? someData]
+            if argon2 { r["m"] = 65_536; r["t"] = 3; r["p"] = 1 }
             if let salt { r["salt"] = salt }
             return r
         }
@@ -203,15 +165,14 @@ final class BackupCryptoTests: XCTestCase {
         XCTAssertThrowsError(try BackupCrypto.envelope(from: root(v: 4))) { error in
             XCTAssertEqual(error as? BackupVersion.Failure, .newer(4), "\(error)")
         }
-        // v3 nur mit Argon2id und m, t, p; v2 nur mit PBKDF2
-        var argonInV2 = root(kdf: "Argon2id")
-        argonInV2["m"] = 65_536; argonInV2["t"] = 3; argonInV2["p"] = 1
-        var argonTooBig = root(v: 3, kdf: "Argon2id")
-        argonTooBig["m"] = 262_145; argonTooBig["t"] = 3; argonTooBig["p"] = 1
+        // Nur v3 mit Argon2id und m, t, p
+        var tooBig = root()
+        tooBig["m"] = 262_145
+        var pbkdf2 = root(v: 2, kdf: "PBKDF2-HMAC-SHA256", argon2: false)
+        pbkdf2["iter"] = 210_000
         let rejected: [[String: Any]] = [
-            root(v: 1), root(enc: "ChaCha20"), root(kdf: "scrypt"), root(iter: 1), root(iter: 2_147_483_647),
-            root(iv: "AAEC"), root(data: "%%%"), root(salt: nil), root(data: "AAEC"),
-            root(v: 3), root(v: 3, kdf: "Argon2id"), argonInV2, argonTooBig,
+            root(v: 1), root(v: 2), pbkdf2, root(kdf: "PBKDF2-HMAC-SHA256"), root(kdf: "scrypt"), root(enc: "ChaCha20"),
+            root(argon2: false), tooBig, root(iv: "AAEC"), root(data: "%%%"), root(salt: nil), root(data: "AAEC"),
         ]
         for r in rejected {
             XCTAssertThrowsError(try BackupCrypto.envelope(from: r)) { error in
@@ -246,18 +207,16 @@ final class BackupCryptoTests: XCTestCase {
         for weak in weakSamples {
             XCTAssertFalse(BackupCrypto.canExport(protect: true, password: weak, repeated: weak), weak)
         }
-        XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (in älteren Versionen erlaubt)
+        XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen
         XCTAssertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ"))   // 11 Zeichen
         XCTAssertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2"))   // 12 Zeichen
     }
 
-    func testOldFilesDecryptWithShortPassword() throws {
-        // Entschlüsseln prüft das Passwort nicht: alte Sicherungen mit 8 Zeichen bleiben lesbar
+    func testDecryptDoesNotCheckPasswordLength() throws {
+        // Die Mindestlänge gilt nur beim Sichern
         let plain = Data("{}".utf8)
-        let env = try BackupCrypto.encrypt(plain, password: pwEight, kdf: .pbkdf2(iterations: 10_000))
+        let env = try BackupCrypto.encrypt(plain, password: pwEight, kdf: fastKdf)
         XCTAssertEqual(try BackupCrypto.decrypt(env, password: pwEight), plain)
-        let v3 = try BackupCrypto.encrypt(plain, password: pwEight, kdf: fastKdf)
-        XCTAssertEqual(try BackupCrypto.decrypt(v3, password: pwEight), plain)
     }
 
     // MARK: Schwaches Passwort — gleiche Fälle wie BackupPasswordStrengthTest.kt
@@ -265,7 +224,7 @@ final class BackupCryptoTests: XCTestCase {
     func testPasswordStrengthShortIsWeak() {
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9"))
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9x"))        // 9 Zeichen
-        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen (in älteren Versionen erlaubt)
+        XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xy"))       // 10 Zeichen
         XCTAssertTrue(BackupPasswordStrength.isWeak("Abc!def9xyZ"))      // 11 Zeichen
         XCTAssertFalse(BackupPasswordStrength.isWeak("Abc!def9xyZ2"))    // 12 Zeichen
         // Emoji zählt als ein Zeichen
@@ -323,18 +282,19 @@ final class BackupLimitsTests: XCTestCase {
         XCTAssertEqual(try BackupManager.invalidEntries(Data(json.utf8)), 3)
     }
 
-    /// Ohne «amountText» gelten für die Zahl dieselben Grenzen wie für den Text (wie Android `PortfolioJson.decimal`).
-    func testNumberWithoutTextHasSameLimits() throws {
+    /// Grenzen der exakten Zahlen (wie Android `PortfolioJson.decimal`); eine Zahl statt Text gilt als fehlend.
+    func testTextNumbersHaveLimits() throws {
         let json = #"""
         {"format":"cryptochecker-backup","portfolio":[
-          {"coin":"BTC","type":"BUY","amount":0.5,"time":1},
-          {"coin":"BTC","type":"BUY","amount":1e300,"time":2},
-          {"coin":"BTC","type":"BUY","amount":1e-50,"time":3},
-          {"coin":"BTC","type":"BUY","amount":1,"priceUsdt":1e31,"time":4},
-          {"coin":"BTC","type":"BUY","amount":1,"fee":1e35,"time":5}]}
+          {"coin":"BTC","type":"BUY","amountText":"0.5","time":1},
+          {"coin":"BTC","type":"BUY","amountText":"1e300","time":2},
+          {"coin":"BTC","type":"BUY","amountText":"1e-50","time":3},
+          {"coin":"BTC","type":"BUY","amountText":"1","priceText":"1e31","time":4},
+          {"coin":"BTC","type":"BUY","amountText":"1","feeText":"1e35","time":5},
+          {"coin":"BTC","type":"BUY","amount":1,"time":6}]}
         """#
-        // Menge zu gross bzw. zu fein → ungültig; ungültiger Preis bzw. Gebühr → Eintrag gilt ohne
-        XCTAssertEqual(try BackupManager.invalidEntries(Data(json.utf8)), 2)
+        // Menge zu gross, zu fein bzw. nur als Zahl → ungültig; ungültiger Preis bzw. Gebühr → Eintrag gilt ohne
+        XCTAssertEqual(try BackupManager.invalidEntries(Data(json.utf8)), 3)
     }
 
     /// Wie `BackupLimitsTest.kt`: nie eine Datei schreiben, die sich danach nicht mehr einlesen lässt.

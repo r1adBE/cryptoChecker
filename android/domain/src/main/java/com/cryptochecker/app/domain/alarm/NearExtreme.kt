@@ -34,7 +34,7 @@ object NearExtreme {
 
     /**
      * Abstand 0 = nur neue Hochs/Tiefs melden (Vorlage «Neues 30-Tage-Hoch»), keine
-     * Annäherung. Gespeichert wie jeder Abstand in `threshold`; ältere Versionen melden damit nie.
+     * Annäherung. Gespeichert wie jeder Abstand in `threshold`.
      */
     const val NEW_ONLY_DISTANCE = 0.0
 

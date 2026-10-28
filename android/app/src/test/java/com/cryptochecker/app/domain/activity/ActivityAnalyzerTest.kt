@@ -210,24 +210,6 @@ class ActivityAnalyzerTest {
     }
 
     @Test
-    fun openInterest_comparesOnlyAgainstSamplesThirtyMinutesToSixHoursOld() {
-        assertEquals(OiUpdate(null, null, store = true), ActivityAnalyzer.oiChange(null, 1000.0, now))
-        assertEquals(
-            OiUpdate(null, null, store = false),
-            ActivityAnalyzer.oiChange(OiSample(1000.0, now - 20 * 60_000L), 1200.0, now)
-        )
-        val fresh = ActivityAnalyzer.oiChange(OiSample(1000.0, now - 45 * 60_000L), 1120.0, now)
-        assertEquals(12.0, fresh.changePercent!!, 1e-9)
-        assertEquals(45, fresh.minutes)
-        assertTrue(fresh.store)
-        assertEquals(
-            OiUpdate(null, null, store = true),
-            ActivityAnalyzer.oiChange(OiSample(1000.0, now - 7 * h), 1200.0, now)
-        )
-        assertEquals(OiUpdate(null, null, store = false), ActivityAnalyzer.oiChange(null, null, now))
-    }
-
-    @Test
     fun openInterest_jumpSignal() {
         assertTrue(ActivityAnalyzer.signals(null, null, 14.0, 40, now).isEmpty())
         val signal = ActivityAnalyzer.signals(null, null, -16.0, 40, now).single()

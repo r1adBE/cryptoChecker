@@ -18,12 +18,6 @@ import WidgetKit
 enum PortfolioWidgetStore {
     static let kind = "PortfolioWidget"
 
-    private static let snapshotKey = "portfolio_widget_snapshot"
-    private static let historyKey = "portfolio_widget_history"
-    /// Gemerkte Stundenkurse je Coin für den 24-h-Wertverlauf (`PortfolioWidgetSeries.merge`).
-    private static let hourlyKey = "portfolio_widget_hourly_v1"
-    /// Letzter Kerzen-Abruf je Coin (ms) — höchstens einer je Stunde, auch über App und Widget.
-    private static let candleAttemptsKey = "portfolio_widget_candle_attempts_v1"
     /// Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (`PortfolioFxMemo`) — Widget und Hintergrund ohne Netz.
     private static let fxMemoKey = "portfolio_widget_fx_v1"
     /// Kerzen für alle fehlenden Coins zusammen höchstens so lange laden (Sekunden).
@@ -34,7 +28,7 @@ enum PortfolioWidgetStore {
     static let historyMaxAgeMillis: Int64 = 48 * 3_600_000
     /// Höchstens ein Stand je 30 Minuten.
     static let historyStepMillis: Int64 = 30 * 60_000
-    /// Höchstens so viele Positionen werden gespeichert (Ansicht «Liste»; ältere Stände: 5).
+    /// Höchstens so viele Positionen werden gespeichert (Ansicht «Liste»).
     static let maxPositions = 12
 
     /// Gemerkte USDT-Kurse je Coin zu einem Zeitpunkt.
@@ -51,11 +45,7 @@ enum PortfolioWidgetStore {
     static var snapshotURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_widget.json") }
 
     static func load() -> PortfolioWidgetSnapshot? {
-        // Ein Eintrag unter `snapshotKey` ist neuer als die Datei: alter Stand vor der Umstellung
-        // (`migrateSnapshotToFile`) oder früherer Ausweichweg, als die Datei nicht schreibbar war. Heute
-        // entsteht er nie mehr; der nächste Start der App zieht ihn um oder entfernt ihn.
-        guard let data = SharedStorage.defaults.data(forKey: snapshotKey) ?? (try? ProtectedFile.read(snapshotURL))
-        else { return nil }
+        guard let data = try? ProtectedFile.read(snapshotURL) else { return nil }
         return try? JSONDecoder().decode(PortfolioWidgetSnapshot.self, from: data)
     }
 
@@ -91,16 +81,14 @@ enum PortfolioWidgetStore {
     static func save(_ snapshot: PortfolioWidgetSnapshot) -> Bool {
         guard load() != snapshot, let data = try? JSONEncoder().encode(snapshot) else { return false }
         // Nicht versiegelt speicherbar (Schlüssel gerade nicht lesbar, Datei nicht schreibbar): nichts ablegen — kein
-        // Ausweichen in die App-Group-Einstellungen mehr, dort stünden die Beträge im Klartext. Das
+        // Ausweichen in die App-Group-Einstellungen, dort stünden die Beträge im Klartext. Das
         // Widget zeigt den letzten versiegelten Stand oder keine Werte; die nächste Aktualisierung versucht es neu.
         return writeSnapshotFile(data)
     }
 
-    /// Schreibt die Datei versiegelt und setzt das Backup-Merkmal neu (das atomare Schreiben verliert es). Der alte
-    /// Klartext-Eintrag in den Einstellungen fällt in jedem Fall weg — auch wenn nicht geschrieben
-    /// werden konnte: ein Zwischenspeicher, den die nächste Aktualisierung neu berechnet. false = nicht geschrieben.
+    /// Schreibt die Datei versiegelt und setzt das Backup-Merkmal neu (das atomare Schreiben verliert es). false = nicht
+    /// geschrieben (ein Zwischenspeicher, den die nächste Aktualisierung neu berechnet).
     private static func writeSnapshotFile(_ data: Data) -> Bool {
-        defer { SharedStorage.defaults.removeObject(forKey: snapshotKey) }
         // Beträge nur verschlüsselt (`ProtectedFile`): ohne Schlüssel schriebe `ProtectedFile.write`
         // Klartext — für diesen Zwischenspeicher lieber gar nichts (wie Android `PortfolioSnapshotSeal`)
         guard case .key(_) = StorageKey.shared.lookup() else { return false }
@@ -115,22 +103,14 @@ enum PortfolioWidgetStore {
         return true
     }
 
-    /// Beim Start (`PortfolioStore.applyBackupPolicy`): alten Stand aus den Einstellungen versiegelt in die
-    /// Datei übernehmen (der Eintrag ist immer der neuere, siehe `load`) oder, wenn das nicht geht, nur entfernen.
-    static func migrateSnapshotToFile() {
-        guard let pending = SharedStorage.defaults.data(forKey: snapshotKey) else { return }
-        _ = writeSnapshotFile(pending)
-    }
-
     /// Gemerkte Kurs-Stände (`loadHistory`) und Stundenkurse (`loadHourly`) der gehaltenen Coins als Dateien
     /// in der App Group, wie die Momentaufnahme nie im Geräte-Backup (Android: `portfolio_widget` steht nicht
-    /// in den Backup-Regeln) — die App-Group-Einstellungen lassen sich nicht je Schlüssel ausnehmen. Ältere
-    /// Einträge unter `historyKey`/`hourlyKey` zieht `migrateCachesToFiles` (bzw. das nächste Speichern) um.
+    /// in den Backup-Regeln) — die App-Group-Einstellungen lassen sich nicht je Schlüssel ausnehmen.
     static var historyURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_widget_history.json") }
     static var hourlyURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_widget_hourly.json") }
 
     static func loadHistory() -> [PricePoint] {
-        guard let data = readCache(historyURL, legacyKey: historyKey),
+        guard let data = try? Data(contentsOf: historyURL),
               let list = try? JSONDecoder().decode([PricePoint].self, from: data)
         else { return [] }
         return list
@@ -138,12 +118,12 @@ enum PortfolioWidgetStore {
 
     static func saveHistory(_ list: [PricePoint]) {
         if let data = try? JSONEncoder().encode(list) {
-            writeCache(data, to: historyURL, legacyKey: historyKey)
+            writeCache(data, to: historyURL)
         }
     }
 
     static func loadHourly() -> [String: [PortfolioTimedPrice]] {
-        guard let data = readCache(hourlyURL, legacyKey: hourlyKey),
+        guard let data = try? Data(contentsOf: hourlyURL),
               let map = try? JSONDecoder().decode([String: [PortfolioTimedPrice]].self, from: data)
         else { return [:] }
         return map
@@ -151,56 +131,28 @@ enum PortfolioWidgetStore {
 
     static func saveHourly(_ map: [String: [PortfolioTimedPrice]]) {
         if let data = try? JSONEncoder().encode(map) {
-            writeCache(data, to: hourlyURL, legacyKey: hourlyKey)
+            writeCache(data, to: hourlyURL)
         }
     }
 
-    /// Ein Eintrag unter `legacyKey` ist neuer als die Datei (Stand vor der Umstellung).
-    private static func readCache(_ url: URL, legacyKey: String) -> Data? {
-        SharedStorage.defaults.data(forKey: legacyKey) ?? (try? Data(contentsOf: url))
-    }
-
-    /// Schreibt die Datei, nimmt sie aus dem Backup (das atomare Schreiben verliert das Merkmal) und entfernt
-    /// den alten Eintrag. Kein Ausweichen in die Einstellungen: Der Zwischenspeicher entsteht neu.
-    private static func writeCache(_ data: Data, to url: URL, legacyKey: String) {
+    /// Schreibt die Datei und nimmt sie aus dem Backup (das atomare Schreiben verliert das Merkmal). Kein Ausweichen
+    /// in die Einstellungen: Der Zwischenspeicher entsteht neu.
+    private static func writeCache(_ data: Data, to url: URL) {
         do {
             try data.write(to: url, options: [.atomic])
         } catch {
             return
         }
         BackupExclusion.set(excluded: true, for: url)
-        SharedStorage.defaults.removeObject(forKey: legacyKey)
     }
 
-    /// Beim Start (`PortfolioStore.applyBackupPolicy`): Kurs-Stände und Stundenkurse aus den Einstellungen
-    /// einmalig in ihre Dateien übernehmen, danach die Schlüssel entfernen. Wiederholbar; schlägt das
-    /// Schreiben fehl, bleibt der Eintrag stehen.
-    static func migrateCachesToFiles() {
-        for (url, key) in [(historyURL, historyKey), (hourlyURL, hourlyKey)] {
-            guard let pending = SharedStorage.defaults.data(forKey: key) else { continue }
-            writeCache(pending, to: url, legacyKey: key)
-        }
-        // Kerzen-Abrufe lagen als Wörterbuch (nicht als Data) in den Einstellungen
-        if let pending = legacyCandleAttempts() {
-            saveCandleAttempts(pending)
-        }
-    }
-
-    /// Letzte Kerzen-Abrufe je Coin (nennen die gehaltenen Coins): ebenfalls Datei in der App Group,
-    /// nie im Geräte-Backup (Android hält sie nur im Speicher). Ältere Einträge unter
-    /// `candleAttemptsKey` zieht `migrateCachesToFiles` (bzw. das nächste Speichern) um.
+    /// Letzter Kerzen-Abruf je Coin (ms; nennt die gehaltenen Coins) — höchstens einer je Stunde, auch über App und
+    /// Widget. Ebenfalls Datei in der App Group, nie im Geräte-Backup (Android hält sie nur im Speicher).
     static var candleAttemptsURL: URL {
         SharedStorage.directory.appendingPathComponent("portfolio_widget_candle_attempts.json")
     }
 
-    /// Alter Eintrag in den Einstellungen (Stand vor der Umstellung), sonst nil.
-    private static func legacyCandleAttempts() -> [String: Double]? {
-        SharedStorage.defaults.dictionary(forKey: candleAttemptsKey) as? [String: Double]
-    }
-
     private static func loadCandleAttempts() -> [String: Double] {
-        // Ein Eintrag in den Einstellungen ist neuer als die Datei (wie `readCache`)
-        if let legacy = legacyCandleAttempts() { return legacy }
         guard let data = try? Data(contentsOf: candleAttemptsURL),
               let map = try? JSONDecoder().decode([String: Double].self, from: data)
         else { return [:] }
@@ -209,7 +161,7 @@ enum PortfolioWidgetStore {
 
     private static func saveCandleAttempts(_ attempts: [String: Double]) {
         if let data = try? JSONEncoder().encode(attempts) {
-            writeCache(data, to: candleAttemptsURL, legacyKey: candleAttemptsKey)
+            writeCache(data, to: candleAttemptsURL)
         }
     }
 

@@ -6,12 +6,10 @@ import Foundation
 /// der letzten Meldung je Paar — wie `ActivityRepository.kt`.
 ///
 /// Bewusst UserDefaults (App Group) statt der Merkliste-Datei: kleine, kurzlebige
-/// Daten ohne Migration. Format wie in Android:
+/// Daten. Format wie in Android:
 /// `{"<watchId>": {"t": computedAt, "s": [{"k","sv","v","f","a"}]}}`.
 enum ActivityRepository {
     private static let keyReports = "activity_reports"
-    /// Alte Einzelmessung je Paar (vor dem Verlauf); wird beim ersten Speichern übernommen.
-    private static let keyOi = "activity_oi"
     /// Open-Interest-Verlauf für «Ungewöhnliche Aktivität»/«Warum?» (`OiSeries`): `{"<watchId>": [[zeit, coins, quelle], …]}`.
     private static let keyOiSeries = "activity_oi_series"
     /// Open-Interest-Verlauf für die Alarme OI_UP/OI_DOWN: `{"<watchId>": [[zeit, coins], …]}`.
@@ -42,7 +40,7 @@ enum ActivityRepository {
     /// Daten gelöschter Paare wegräumen.
     static func retain(_ watchIds: Set<Int64>) {
         lock.lock(); defer { lock.unlock() }
-        for key in [keyReports, keyOi, keyOiSeries, keyOiHistory, keyNotified, keyPending] {
+        for key in [keyReports, keyOiSeries, keyOiHistory, keyNotified, keyPending] {
             let map = readMap(key)
             let kept = map.filter { entry in
                 guard let id = Int64(entry.key) else { return false }
@@ -57,7 +55,7 @@ enum ActivityRepository {
     static func forget(_ watchId: Int64) {
         lock.lock(); defer { lock.unlock() }
         let key = String(watchId)
-        for mapKey in [keyReports, keyOi, keyOiSeries, keyOiHistory, keyNotified, keyPending] {
+        for mapKey in [keyReports, keyOiSeries, keyOiHistory, keyNotified, keyPending] {
             var map = readMap(mapKey)
             if map.removeValue(forKey: key) != nil { writeMap(mapKey, map) }
         }
@@ -65,34 +63,27 @@ enum ActivityRepository {
 
     // MARK: Open Interest
 
-    /// Gespeicherter Open-Interest-Verlauf des Paars (`OiSeries`), älteste zuerst. Fehlt er, zählt
-    /// die alte Einzelmessung (`keyOi`) als Verlauf mit einer Messung ohne Quelle (Übernahme) — wie Android.
+    /// Gespeicherter Open-Interest-Verlauf des Paars (`OiSeries`), älteste zuerst — wie Android.
     static func oiSeries(_ watchId: Int64) -> [OiSample] {
         lock.lock(); defer { lock.unlock() }
-        let key = String(watchId)
-        if let array = readMap(keyOiSeries)[key] as? [Any] {
-            return array.compactMap { item in
-                guard let entry = item as? [Any], entry.count >= 2 else { return nil }
-                let source = entry.count > 2 ? entry[2] as? String : nil
-                return OiSample(units: number(entry[1]) ?? 0, time: int64(entry[0]) ?? 0,
-                                source: source.flatMap { $0.isEmpty ? nil : $0 })
-            }
+        guard let array = readMap(keyOiSeries)[String(watchId)] as? [Any] else { return [] }
+        return array.compactMap { item in
+            guard let entry = item as? [Any], entry.count > 2,
+                  let source = entry[2] as? String, !source.trimmingCharacters(in: .whitespaces).isEmpty
+            else { return nil }
+            return OiSample(units: number(entry[1]) ?? 0, time: int64(entry[0]) ?? 0, source: source)
         }
-        guard let o = readMap(keyOi)[key] as? [String: Any] else { return [] }
-        return [OiSample(units: number(o["u"]) ?? 0, time: int64(o["t"]) ?? 0)]
     }
 
-    /// Verlauf speichern; die alte Einzelmessung des Paars fällt dabei weg (übernommen).
+    /// Verlauf speichern.
     static func setOiSeries(_ watchId: Int64, _ series: [OiSample]) {
         lock.lock(); defer { lock.unlock() }
         let key = String(watchId)
         var map = readMap(keyOiSeries)
         map[key] = series.map { s -> [Any] in
-            [NSNumber(value: s.time), NSNumber(value: s.units.isFinite ? s.units : 0), s.source.map { $0 as Any } ?? NSNull()]
+            [NSNumber(value: s.time), NSNumber(value: s.units.isFinite ? s.units : 0), s.source]
         }
         writeMap(keyOiSeries, map)
-        var legacy = readMap(keyOi)
-        if legacy.removeValue(forKey: key) != nil { writeMap(keyOi, legacy) }
     }
 
     // MARK: Open-Interest-Verlauf (Alarme OI_UP/OI_DOWN)

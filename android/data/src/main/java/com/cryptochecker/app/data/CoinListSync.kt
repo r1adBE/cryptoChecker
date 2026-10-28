@@ -97,7 +97,7 @@ class CoinListSync @Inject constructor(
     /**
      * Beim Start, ohne Netz: gespeicherte Namen, sonst der mitgelieferte Auszug (Namen und
      * Alpha-Kennzeichen, solange nie eine Liste kam) — so zeigt schon eine frische Installation
-     * Namen und «α». Räumt die Ablage der früheren Ersatz-Logos (jsDelivr) weg.
+     * Namen und «α».
      */
     private suspend fun loadStartValues() {
         names.loadSavedNames()
@@ -116,7 +116,6 @@ class CoinListSync @Inject constructor(
                 if (needNames) names.showSnapshotIfEmpty { CoinMeta.listNames(snapshot.binance, snapshot.alpha) }
             }
         }
-        imageStore.removeOldFallback()
     }
 
     suspend fun savedLists(): CoinMeta.Meta? {
@@ -154,7 +153,7 @@ class CoinListSync @Inject constructor(
         val alphaAt = alpha.fetchedAt()
         val binanceDue = includeBinance &&
             CoinLogos.alphaListDue(binanceAt, prefs.getLong(KEY_BINANCE_ATTEMPT, 0L), now, saved?.binance?.isNotEmpty() == true)
-        // Ohne Kennungen (Liste einer älteren Version): einmal direkt neu, sonst fehlen die Alpha-Paare
+        // Ohne Kennungen für die Alpha-Paare: einmal direkt neu, sonst fehlen die Alpha-Paare
         val alphaDue = CoinLogos.alphaListDue(
             alphaAt, prefs.getLong(KEY_ALPHA_ATTEMPT, 0L), now, alpha.hasStoredSymbols() && CoinLogos.hasAlphaIds(saved?.alpha),
         )
@@ -374,15 +373,11 @@ class CoinListSync @Inject constructor(
     }
 
     companion object {
-        // «v5»: Einträge der früheren GitHub-Liste fallen beim Lesen weg (isAllowedUrl), dann neu direkt
+        /** Zeitpunkt der zuletzt geholten Rangliste bzw. des letzten Versuchs. */
         const val KEY_MAP_TIME = "map_time_v5"
         const val KEY_MAP_ATTEMPT = "map_attempt_v5"
-        /** Kennung der früheren GitHub-Liste (nicht mehr benutzt, wird gelöscht). */
-        const val OLD_KEY_INDEX_ETAG = "index_etag_v5"
         const val KEY_ALPHA_ATTEMPT = "alpha_attempt_v1"
         const val MAP_FILE = "coin_logos/map5.txt"
-        /** Zuordnung und Namen älterer Fassungen (gelesen bis zur ersten neuen Rangliste, dann gelöscht). */
-        val OLD_FILES = listOf("coin_logos/map4.txt", "coin_logos/names4.txt")
         /** Zuletzt geholte Binance- und Alpha-Liste (Format wie `coin_meta.json`, [CoinMeta.encode]). */
         const val LISTS_FILE = "coin_logos/lists1.json"
         /** Zeitpunkt der zuletzt direkt geholten Binance-Symbolliste bzw. des letzten Versuchs. */

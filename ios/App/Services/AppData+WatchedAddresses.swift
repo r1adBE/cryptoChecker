@@ -120,28 +120,11 @@ extension AppData {
     /// `PortfolioViewModel` mit `setWatchedAddressOverlapShowOnly`.
     func applyWatchedAddressOverlapShowOnly(txs: [PortfolioTx]) -> [WatchedAddress] {
         var file = currentWatchedAddressFile()
-        let due = WatchedAddressRules.overlapAutoShowOnly(file.addresses.filter { !$0.overlapLegacy }, txs: txs)
+        let due = WatchedAddressRules.overlapAutoShowOnly(file.addresses, txs: txs)
         guard !due.isEmpty else { return [] }
         for a in due { WatchedAddressStore.change(id: a.id, in: &file) { WatchedAddressRules.withOverlapShowOnly($0) } }
         guard setWatchedAddressFile(file) else { return [] }
         return due
-    }
-
-    /// Alte Überschneidungs-Entscheide (früher genügte derselbe Coin) einmal übernehmen: «Nur anzeigen» ohne passende Menge
-    /// zählt wieder (`WatchedAddressRules.overlapLegacyRevert`); Rückgabe = wieder zählende Adressen (Stand vorher) — wie
-    /// Android `PortfolioViewModel` mit `migrateWatchedAddressOverlap`.
-    func migrateWatchedAddressOverlap(txs: [PortfolioTx]) -> [WatchedAddress] {
-        var file = currentWatchedAddressFile()
-        let legacy: [WatchedAddress] = file.addresses.filter(\.overlapLegacy)
-        guard !legacy.isEmpty else { return [] }
-        var restored: [WatchedAddress] = []
-        for a in legacy {
-            let revert: Bool = WatchedAddressRules.overlapLegacyRevert(a, txs: txs)
-            if revert { restored.append(a) }
-            WatchedAddressStore.change(id: a.id, in: &file) { WatchedAddressRules.withOverlapMigrated($0, revert: revert) }
-        }
-        guard setWatchedAddressFile(file) else { return [] }
-        return restored
     }
 
     /// Eröffnungsposten einer Adresse ersetzen (geprüft, `AddressCostLots.clean`) — wie

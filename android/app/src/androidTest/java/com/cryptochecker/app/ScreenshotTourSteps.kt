@@ -41,14 +41,20 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
      */
     fun toWatchlist() {
         var backs = 0
+        var sheetBacks = 0
         repeat(MAX_STEPS) {
             compose.waitForIdle()
             if (onWatchlist()) return
             when {
                 // App verlassen (ein Zurück zu viel): wieder starten, sie öffnet mit der Merkliste
                 !exists(UiTestTags.TAB_WATCHLIST) && !overlayOpen() -> relaunch()
-                // Aktionsblatt sichtbar: Zurück schliesst es (auch wenn es nach einer Unterseite wieder erscheint)
-                shown(UiTestTags.WATCH_ACTION_ALARM) -> { back(); backs++ }
+                // Aktionsblatt sichtbar: Zurück schliesst es (auch wenn es nach einer Unterseite wieder erscheint);
+                // bleibt es nach einem Zurück stehen, auf die Abdunkelung darüber tippen
+                shown(UiTestTags.WATCH_ACTION_ALARM) -> {
+                    if (sheetBacks > 0) tapAboveSheet() else back()
+                    sheetBacks = if (sheetBacks > 0) 0 else 1
+                    backs++
+                }
                 // Nach drei Zurück ohne Erfolg lieber den Tab tippen
                 (!overlayOpen() || backs >= 3) && shown(UiTestTags.TAB_WATCHLIST) -> clickTag(UiTestTags.TAB_WATCHLIST)
                 else -> { back(); backs++ }
@@ -94,6 +100,12 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
 
     private fun back() {
         AppTestEnvironmentRule.shell("input keyevent KEYCODE_BACK")
+    }
+
+    /** Tippt oben in die Mitte des Bildschirms (Abdunkelung über einem Blatt): schliesst es wie ein Tipp daneben. */
+    private fun tapAboveSheet() {
+        val metrics = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics
+        AppTestEnvironmentRule.shell("input tap ${metrics.widthPixels / 2} ${metrics.heightPixels / 6}")
     }
 
     /** Blatt, Unterseite oder Bericht über der Merkliste offen (sichtbar, nicht nur noch im Baum). */

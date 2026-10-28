@@ -11,9 +11,6 @@
              Keystore dieses Geräts und ginge nicht mit. Ebenso nie: Schlüsseldateien (noBackupFilesDir/db_keys),
              beiseitegelegte *.unreadable. -->
         <include domain="database" path="cryptochecker_system_backup.db" />
-        <!-- Nur für die Wiederherstellung alter Sicherungen (ältere Versionen mit unverschlüsselter Datenbank: cryptochecker.db-wal), die der Agent
-             hierhin umleitet (SystemBackupAgent.onRestoreFile); beim Sichern gibt es die Datei nie. -->
-        <include domain="database" path="cryptochecker_system_backup.db-wal" />
         <!-- Einstellungen (DataStore «settings», SettingsRepository) -->
         <include domain="file" path="datastore/settings.preferences_pb" />
         <!-- Portfolio: Die eigene Datenbank (PortfolioDatabase.DB_NAME, cryptochecker_portfolio.db)
@@ -39,9 +36,6 @@
              Keystore dieses Geräts und ginge nicht mit. Ebenso nie: Schlüsseldateien (noBackupFilesDir/db_keys),
              beiseitegelegte *.unreadable. -->
         <include domain="database" path="cryptochecker_system_backup.db" />
-        <!-- Nur für die Wiederherstellung alter Sicherungen (ältere Versionen mit unverschlüsselter Datenbank: cryptochecker.db-wal), die der Agent
-             hierhin umleitet (SystemBackupAgent.onRestoreFile); beim Sichern gibt es die Datei nie. -->
-        <include domain="database" path="cryptochecker_system_backup.db-wal" />
         <!-- Einstellungen (DataStore «settings», SettingsRepository) -->
         <include domain="file" path="datastore/settings.preferences_pb" />
         <!-- Portfolio: Die eigene Datenbank (PortfolioDatabase.DB_NAME, cryptochecker_portfolio.db)

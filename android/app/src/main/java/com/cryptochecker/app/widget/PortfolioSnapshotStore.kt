@@ -22,14 +22,12 @@ import javax.inject.Singleton
  * Flüchtige Daten — von der Android-Sicherung ausgenommen (backup_rules.xml).
  *
  * Versiegelt ([PortfolioSnapshotSeal]): alle Werte als ein JSON-Objekt in einem mit AES-256-GCM
- * verschlüsselten Eintrag ([KEY_SEALED]), Schlüssel im Android Keystore ([PortfolioSnapshotSeal.Keys]). Die Schlüssel
- * im JSON heissen wie die früheren Einzel-Einträge; Klartext älterer Versionen wird einmal gelesen und versiegelt
- * neu geschrieben. Ohne Schlüssel: keine Aufnahme (Leer-Zustand des Widgets), nie Klartext. Lesbar bleibt nur der
- * gemerkte Devisenkurs ([fxMemo], kein Bestand).
+ * verschlüsselten Eintrag ([KEY_SEALED]), Schlüssel im Android Keystore ([PortfolioSnapshotSeal.Keys]). Ohne
+ * Schlüssel: keine Aufnahme (Leer-Zustand des Widgets), nie Klartext. Lesbar bleibt nur der gemerkte Devisenkurs
+ * ([fxMemo], kein Bestand).
  *
- * Seit Version 2 zusätzlich: Gesamtwert in USDT, die grössten Positionen und der
- * Wertverlauf — unter eigenen Schlüsseln mit «_v2». Fehlen sie (Aufnahme einer älteren
- * Version) oder sind sie nicht lesbar, lädt die Aufnahme trotzdem, nur ohne diese Teile.
+ * Fehlt ein Teil (z. B. Gesamtwert in USDT, Positionen, Wertverlauf) oder ist er nicht lesbar, lädt die Aufnahme
+ * trotzdem, nur ohne diesen Teil.
  */
 @Singleton
 class PortfolioSnapshotStore @Inject constructor(
@@ -59,31 +57,31 @@ class PortfolioSnapshotStore @Inject constructor(
             otherPositions = p.optInt(KEY_OTHER_POSITIONS_V2, 0).coerceAtLeast(0),
             history = PortfolioSnapshotCodec.readValueHistory(p.text(KEY_VALUE_HISTORY_V2)),
             stamp = ChangeStamp.decode(p.text(KEY_CHANGE_STAMP)),
-            // fehlt bei älteren Aufnahmen → 0 (kein Hinweis)
+            // fehlt → 0 (kein Hinweis)
             missingPrices = p.optInt(KEY_MISSING_PRICES, 0).coerceAtLeast(0),
             stalePrices = p.optInt(KEY_STALE_PRICES, 0).coerceAtLeast(0),
             daily = PortfolioSnapshotCodec.readDaily(p.text(KEY_DAILY_V4)),
             periodChanges = PortfolioSnapshotCodec.readPeriodChanges(p.text(KEY_PERIOD_CHANGES_V4)),
-            // fehlt bei älteren Aufnahmen → null («Gesamt» der Übersicht «—»)
+            // fehlt → null («Gesamt» der Übersicht «—»)
             unrealized = PortfolioSnapshotCodec.readChange(p.text(KEY_UNREALIZED_V5)),
-            // fehlt bei älteren Aufnahmen → leer (kein Hinweis «Heute ohne …»)
+            // fehlt → leer (kein Hinweis «Heute ohne …»)
             todaySkipped = PortfolioSnapshotCodec.readCoins(p.text(KEY_TODAY_SKIPPED_V6)),
-            // fehlt bei älteren Aufnahmen → leer (Zeilen im Portfolio-Tab «—» bis zur nächsten Aufnahme)
+            // fehlt → leer (Zeilen im Portfolio-Tab «—» bis zur nächsten Aufnahme)
             coinPnl = PortfolioSnapshotCodec.readCoinPnl(p.text(KEY_COIN_PNL_V7)),
-            // fehlen bei älteren Aufnahmen → null («Seit Kauf» «—», «7 T» in USDT bis zur nächsten Aufnahme)
+            // fehlen → null («Seit Kauf» «—», «7 T» in USDT bis zur nächsten Aufnahme)
             displayFx = PortfolioSnapshotCodec.readDisplayFx(p.text(KEY_DISPLAY_FX_V8)),
             unrealizedDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_UNREALIZED_DISPLAY_V8)),
             weekDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_WEEK_DISPLAY_V8)),
-            // fehlen bei älteren Aufnahmen → leer/0/null (Hinweis «Portfolio-Alarme pausiert» ohne Namen)
+            // fehlen → leer/0/null (Hinweis «Portfolio-Alarme pausiert» ohne Namen)
             missingCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_MISSING_COINS_V9)),
             staleCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_COINS_V9)),
             staleValueUsdt = p.number(KEY_STALE_VALUE_V9),
             addressesPending = p.optInt(KEY_ADDRESSES_PENDING_V9, 0).coerceAtLeast(0),
-            // fehlen bei älteren Aufnahmen → leer/0
+            // fehlen → leer/0
             addressesFailing = PortfolioSnapshotCodec.readCoins(p.text(KEY_ADDRESSES_FAILING_V10)),
             staleTokenAddresses = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_TOKEN_ADDRESSES_V10)),
             staleTokenValueUsdt = p.number(KEY_STALE_TOKEN_VALUE_V10)?.coerceAtLeast(0.0) ?: 0.0,
-            // fehlen bei älteren Aufnahmen → leer/0
+            // fehlen → leer/0
             unverifiedCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_UNVERIFIED_COINS_V11)),
             unverifiedValueUsdt = p.number(KEY_UNVERIFIED_VALUE_V11)?.coerceAtLeast(0.0) ?: 0.0,
         )
@@ -102,35 +100,20 @@ class PortfolioSnapshotStore @Inject constructor(
         val p = prefs
         val sealed = p.getString(KEY_SEALED, null)
         val key = currentKey()
-        when (val plan = PortfolioSnapshotSeal.planRead(sealed, PLAIN_KEYS.any(p::contains), key != null)) {
+        when (val plan = PortfolioSnapshotSeal.planRead(sealed, key != null)) {
             is PortfolioSnapshotSeal.ReadPlan.Open -> {
                 opened?.takeIf { it.first == plan.sealed }?.second
                     ?: PortfolioSnapshotSeal.open(key ?: return null, plan.sealed)
                         ?.let(::JSONObject)
                         ?.also { opened = plan.sealed to it }
             }
-            PortfolioSnapshotSeal.ReadPlan.MigratePlain -> migratePlain(p, key ?: return null)
             PortfolioSnapshotSeal.ReadPlan.Empty -> null
         }
     }.onFailure { Timber.d(it, "Portfolio-Widget: Aufnahme nicht lesbar") }.getOrNull()
 
-    /** Klartext einer älteren Version einmal lesen, versiegelt speichern, Klartext entfernen. */
-    private fun migratePlain(p: android.content.SharedPreferences, key: SecretKey): JSONObject? {
-        val payload = JSONObject()
-        if (p.contains(KEY_TIME)) payload.put(KEY_TIME, p.getLong(KEY_TIME, 0L))
-        if (p.contains(KEY_EMPTY)) payload.put(KEY_EMPTY, p.getBoolean(KEY_EMPTY, true))
-        for (k in PLAIN_DOUBLE_KEYS) p.getDouble(k)?.let { payload.putNumber(k, it) }
-        for (k in PLAIN_INT_KEYS) if (p.contains(k)) payload.put(k, p.getInt(k, 0))
-        for (k in PLAIN_STRING_KEYS) p.getString(k, null)?.let { payload.put(k, it) }
-        // Schlägt das Versiegeln fehl, ist der Klartext trotzdem weg (Zwischenspeicher: die nächste Aktualisierung
-        // berechnet neu) und angezeigt wird nichts — lieber kurz keine Werte als Bestände im Klartext
-        if (!writeSealed(payload, key)) return null
-        return payload
-    }
-
     /**
-     * Versiegelt speichern und Klartext älterer Versionen entfernen; false = nicht versiegelt (Schlüssel fehlt oder
-     * Fehler): dann nichts geschrieben, ein vorhandener versiegelter Eintrag bleibt.
+     * Versiegelt speichern; false = nicht versiegelt (Schlüssel fehlt oder Fehler): dann nichts geschrieben, ein
+     * vorhandener versiegelter Eintrag bleibt.
      */
     private fun writeSealed(payload: JSONObject, key: SecretKey? = currentKey()): Boolean {
         val sealed = when (PortfolioSnapshotSeal.planWrite(key != null)) {
@@ -142,13 +125,11 @@ class PortfolioSnapshotStore @Inject constructor(
                 .getOrNull()
             PortfolioSnapshotSeal.WritePlan.KEEP_SEALED -> null
         }
-        prefs.edit {
-            // Nie Klartext schreiben: ohne Versiegelung bleibt ein versiegelter Eintrag, wie er ist
-            if (sealed != null) putString(KEY_SEALED, sealed)
-            PLAIN_KEYS.forEach { remove(it) }
-        }
-        if (sealed != null) opened = sealed to payload
-        return sealed != null
+        // Nie Klartext schreiben: ohne Versiegelung bleibt ein versiegelter Eintrag, wie er ist
+        if (sealed == null) return false
+        prefs.edit { putString(KEY_SEALED, sealed) }
+        opened = sealed to payload
+        return true
     }
 
     fun history(): List<PriceSample> = runCatching {
@@ -222,7 +203,7 @@ class PortfolioSnapshotStore @Inject constructor(
             val row = JSONArray().put(change.amount)
             val percent = change.percent?.takeIf { it.isFinite() }
             val skipped = change.skipped.filter { it.isNotBlank() }
-            // [Betrag, Prozent?, [fehlende Coins]?]; ohne Prozent, aber mit Coins: null an zweiter Stelle (ältere lesen NaN)
+            // [Betrag, Prozent?, [fehlende Coins]?]; ohne Prozent, aber mit Coins: null an zweiter Stelle
             if (percent != null) row.put(percent) else if (skipped.isNotEmpty()) row.put(JSONObject.NULL)
             if (skipped.isNotEmpty()) row.put(JSONArray(skipped))
             periodChanges.put(days.toString(), row)
@@ -277,7 +258,7 @@ class PortfolioSnapshotStore @Inject constructor(
         writeSealed(payload)
     }
 
-    /** Klartext-Zahl (Bits als Long, wie vor der Versiegelung und im Devisenkurs); null = fehlt oder NaN. */
+    /** Klartext-Zahl des Devisenkurses (Bits als Long); null = fehlt oder NaN. */
     private fun android.content.SharedPreferences.getDouble(key: String): Double? =
         if (contains(key)) Double.fromBits(getLong(key, 0L)).takeIf { !it.isNaN() } else null
 
@@ -288,7 +269,7 @@ class PortfolioSnapshotStore @Inject constructor(
         if (value == null || value.isNaN() || value.isInfinite()) remove(key)
         else putLong(key, value.toRawBits())
 
-    /** Zahl im versiegelten JSON; nicht endlich oder null = weggelassen (wie bisher `putDouble`). */
+    /** Zahl im versiegelten JSON; nicht endlich oder null = weggelassen. */
     private fun JSONObject.putNumber(key: String, value: Double?): JSONObject =
         if (value == null || !value.isFinite()) this else put(key, value)
 
@@ -307,38 +288,38 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_TIME = "time"
         const val KEY_EMPTY = "empty"
         const val KEY_HISTORY = "history"
-        // Version 2 (grosses Widget): eigene Schlüssel, ältere Aufnahmen laden ohne sie
+        // Grosses Widget: Gesamtwert in USDT, Positionen, Wertverlauf
         const val KEY_TOTAL_USDT_V2 = "total_usdt_v2"
         const val KEY_POSITIONS_V2 = "positions_v2"
         const val KEY_OTHER_POSITIONS_V2 = "other_positions_v2"
         const val KEY_VALUE_HISTORY_V2 = "value_history_v2"
-        // Version 3: Stundenkurse je Coin für den 24-h-Wertverlauf
+        // Stundenkurse je Coin für den 24-h-Wertverlauf
         const val KEY_HOURLY_PRICES_V3 = "hourly_prices_v3"
         // %-Basis der Veränderung (fehlt = rollende 24 Stunden)
         const val KEY_CHANGE_STAMP = "change_stamp"
-        // Offene Coins ohne Kurs (fehlt = 0, ältere Aufnahme)
+        // Offene Coins ohne Kurs (fehlt = 0)
         const val KEY_MISSING_PRICES = "missing_prices"
         const val KEY_STALE_PRICES = "stale_prices"
-        // Version 4: Tagesverlauf (USDT) und Veränderung je Zeitraum für 7 T / 30 T / 1 J
+        // Tagesverlauf (USDT) und Veränderung je Zeitraum für 7 T / 30 T / 1 J
         const val KEY_DAILY_V4 = "daily_v4"
         const val KEY_PERIOD_CHANGES_V4 = "period_changes_v4"
-        // Version 5: ± seit Kauf (USDT) für «Gesamt» der Übersicht; bis zu 12 Positionen für die Liste
+        // ± seit Kauf (USDT) für «Gesamt» der Übersicht; bis zu 12 Positionen für die Liste
         const val KEY_UNREALIZED_V5 = "unrealized_v5"
-        // Version 6: Coins, die in «Heute» fehlen (Hinweis «Heute ohne …» wie die Gesamtkarte)
+        // Coins, die in «Heute» fehlen (Hinweis «Heute ohne …» wie die Gesamtkarte)
         const val KEY_TODAY_SKIPPED_V6 = "today_skipped_v6"
-        // Version 7: MEIN Gewinn/Verlust je Coin (USDT) für die Zeilen des Portfolio-Tabs (wie iOS `coinPnl`);
+        // MEIN Gewinn/Verlust je Coin (USDT) für die Zeilen des Portfolio-Tabs (wie iOS `coinPnl`);
         // je Position steht er in den Positionen («pa»/«pr»), das Total in «change»
         const val KEY_COIN_PNL_V7 = "coin_pnl_v7"
-        // Version 8: «Seit Kauf» und «7 T» in der Anzeigewährung samt Merkzettel der App (Einstand je Coin, Tagesfaktoren)
+        // «Seit Kauf» und «7 T» in der Anzeigewährung samt Merkzettel der App (Einstand je Coin, Tagesfaktoren)
         const val KEY_DISPLAY_FX_V8 = "display_fx_v8"
         const val KEY_UNREALIZED_DISPLAY_V8 = "unrealized_display_v8"
         const val KEY_WEEK_DISPLAY_V8 = "week_display_v8"
-        // Version 9: warum Portfolio-Alarme pausieren (Coins ohne aktuellen Kurs, Wert alter Kurse, nie geladene Adressen)
+        // Warum Portfolio-Alarme pausieren (Coins ohne aktuellen Kurs, Wert alter Kurse, nie geladene Adressen)
         const val KEY_MISSING_COINS_V9 = "missing_coins_v9"
         const val KEY_STALE_COINS_V9 = "stale_coins_v9"
         const val KEY_STALE_VALUE_V9 = "stale_value_v9"
         const val KEY_ADDRESSES_PENDING_V9 = "addresses_pending_v9"
-        // Version 10: seit über 24 h scheiternde Adressen, nicht bestätigte Token-Guthaben (Namen, Wert)
+        // Seit über 24 h scheiternde Adressen, nicht bestätigte Token-Guthaben (Namen, Wert)
         const val KEY_ADDRESSES_FAILING_V10 = "addresses_failing_v10"
         const val KEY_STALE_TOKEN_ADDRESSES_V10 = "stale_token_addresses_v10"
         const val KEY_STALE_TOKEN_VALUE_V10 = "stale_token_value_v10"
@@ -348,14 +329,5 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_FX_CURRENCY = "fx_currency"
         const val KEY_FX_RATE = "fx_rate"
         const val KEY_FX_AT = "fx_at"
-
-        // Klartext-Einträge älterer Versionen nach Typ (Überführung [migratePlain]); der Devisenkurs bleibt Klartext
-        val PLAIN_DOUBLE_KEYS = listOf(KEY_TOTAL, KEY_CHANGE, KEY_CHANGE_PERCENT, KEY_TOTAL_USDT_V2)
-        val PLAIN_INT_KEYS = listOf(KEY_OTHER_POSITIONS_V2, KEY_MISSING_PRICES, KEY_STALE_PRICES)
-        val PLAIN_STRING_KEYS = listOf(
-            KEY_CURRENCY, KEY_HISTORY, KEY_POSITIONS_V2, KEY_VALUE_HISTORY_V2, KEY_HOURLY_PRICES_V3, KEY_CHANGE_STAMP,
-            KEY_DAILY_V4, KEY_PERIOD_CHANGES_V4, KEY_UNREALIZED_V5, KEY_TODAY_SKIPPED_V6, KEY_COIN_PNL_V7,
-        )
-        val PLAIN_KEYS = listOf(KEY_TIME, KEY_EMPTY) + PLAIN_DOUBLE_KEYS + PLAIN_INT_KEYS + PLAIN_STRING_KEYS
     }
 }

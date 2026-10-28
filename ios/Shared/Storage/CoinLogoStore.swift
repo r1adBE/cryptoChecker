@@ -33,10 +33,10 @@ actor CoinLogoStore {
         return cache
     }()
 
-    // «v5»: Einträge der früheren GitHub-Liste fallen beim Lesen weg (`isAllowedURL`), dann neu direkt
+    /// Zeitpunkt der zuletzt geholten Rangliste bzw. des letzten Versuchs.
     private static let mapTimeKey = "coin_logos_map_time_v5"
     private static let mapAttemptKey = "coin_logos_map_attempt_v5"
-    /// «v2»: Fehlschläge unter der früheren 512-KB-Grenze nicht 24 h abwarten.
+    /// Fehlgeschlagene Bilder (Name → Zeitpunkt der letzten `CoinLogos.failureTTLMillis`).
     static let failedKey = "coin_logos_failed_v2"
     /// Kürzel, die nur die Zusatzseiten der Rangliste bringen (`CoinLogos.extraOnlyKeys`).
     static let extraOnlyKey = "coin_logos_extra_only_v1"
@@ -77,22 +77,10 @@ actor CoinLogoStore {
         return url
     }()
 
-    // «5»: mit Alpha-Liste; eine unvollständige v4-Liste galt eine Woche lang — einmal neu holen
     private static var mapURL: URL { directory.appendingPathComponent("map5.txt") }
     static var namesURL: URL { directory.appendingPathComponent("names5.txt") }
-    static let oldFiles = ["map4.txt", "names4.txt"]
     /// Zuletzt geholte Binance- und Alpha-Liste (Format wie `coin_meta.json`, `CoinMeta.encode`).
     private static var listsURL: URL { directory.appendingPathComponent("lists1.json") }
-
-    /// Ablage der früheren Ersatz-Logos über jsDelivr: einmal löschen.
-    private static func removeOldFallback() {
-        let fm = FileManager.default
-        let old = SharedStorage.directory.appendingPathComponent("coin_logos_fallback", isDirectory: true)
-        guard fm.fileExists(atPath: old.path) else { return }
-        try? fm.removeItem(at: old)
-        try? fm.removeItem(at: directory.appendingPathComponent("fallback_manifest_0_18_1.json"))
-        SharedStorage.defaults.removeObject(forKey: "coin_logos_fallback_attempt_v1")
-    }
 
     // MARK: 1. Binance-Symbolliste und Alpha-Liste — vor allem anderen
 
@@ -122,7 +110,7 @@ actor CoinLogoStore {
         let binanceDue = includeBinance
             && CoinLogos.alphaListDue(savedAt: binanceAt, attemptAt: Int64(defaults.double(forKey: Self.binanceAttemptKey)),
                                       now: now, hasSymbols: hasBinance)
-        // Ohne Kennungen (Liste einer älteren Version): einmal direkt neu, sonst fehlen die Alpha-Paare
+        // Ohne Kennungen für die Alpha-Paare: einmal direkt neu, sonst fehlen die Alpha-Paare
         let alphaDue = CoinLogos.alphaListDue(savedAt: alphaAt, attemptAt: Int64(defaults.double(forKey: Self.alphaAttemptKey)),
                                               now: now, hasSymbols: Self.hasAlphaSymbols && CoinLogos.hasAlphaIds(saved?.alpha))
         guard binanceDue || alphaDue else {
@@ -188,7 +176,6 @@ actor CoinLogoStore {
         guard !syncing else { return 0 }
         syncing = true
         defer { syncing = false }
-        Self.removeOldFallback()
 
         let tradFiBases = Self.tradFiBases
         var earlyTask: Task<DownloadResult, Never>?
@@ -253,14 +240,13 @@ actor CoinLogoStore {
     }
 
     /// Zuordnung aus Datei bzw. frisch von CoinGecko, zusammengeführt mit den Binance-Listen aus
-    /// `refreshLists`; bei Fehlern die alte (auch abgelaufen). Einträge der früheren eigenen Logo-Liste
-    /// (GitHub Pages) fallen beim Lesen weg (`CoinLogos.isAllowedURL`) — dann wird die Liste neu geholt.
+    /// `refreshLists`; bei Fehlern die alte (auch abgelaufen). Nur freigegebene Bild-Adressen
+    /// (`CoinLogos.isAllowedURL`).
     /// `onTop`: Zuordnung nach den grössten 1000 (früher Start der Bilder), nur bei neuem Abruf.
     private func symbolMap(onTop: ([String: String]) -> Void = { _ in }) async -> [String: String] {
         let defaults = SharedStorage.defaults
         let now = EpochTime.nowMillis
-        // Nach dem Update: bis zum ersten Abruf die Liste der Vorgängerfassung
-        let known = map ?? CoinLogos.decode(Self.readFirst([Self.mapURL, Self.directory.appendingPathComponent(Self.oldFiles[0])]))
+        let known = map ?? CoinLogos.decode(Self.readNonBlank(Self.mapURL))
         map = known
         let saved = savedLists()
         mapNetworkFailed = false
@@ -312,7 +298,6 @@ actor CoinLogoStore {
             CoinLogos.withKnown(&merged.names, order: &merged.nameOrder, known: Self.names)
         }
         try? CoinLogos.encode(merged.map, order: merged.order).write(to: Self.mapURL, atomically: true, encoding: .utf8)
-        for old in Self.oldFiles { try? FileManager.default.removeItem(at: Self.directory.appendingPathComponent(old)) }
         if !merged.names.isEmpty {
             try? CoinLogos.encodeNames(merged.names, order: merged.nameOrder)
                 .write(to: Self.namesURL, atomically: true, encoding: .utf8)
@@ -320,7 +305,6 @@ actor CoinLogoStore {
             await CoinLogoRevision.bump()
         }
         defaults.set(Double(CoinLogos.savedAt(now: now, complete: full)), forKey: Self.mapTimeKey)
-        defaults.removeObject(forKey: Self.oldIndexETagKey)
         // Geänderte Bild-Adressen (anderes Logo, andere Quelle): gespeichertes Bild neu laden
         _ = Self.dropChangedImages(old: known, new: merged.map, skip: handled)
         map = merged.map

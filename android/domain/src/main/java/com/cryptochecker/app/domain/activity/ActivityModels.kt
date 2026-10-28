@@ -77,20 +77,9 @@ data class ActivityReport(
 
 /**
  * Gespeicherte Open-Interest-Messung (in Coins, nicht USD — Kursbewegungen zählen so nicht mit).
- * [source] = Futures-Quelle («Binance Futures», «Bybit», «OKX»); null = alte Messung ohne Angabe
- * (vor dem Verlauf [OiSeries] gespeichert), passt zu jeder Quelle.
+ * [source] = Futures-Quelle («Binance Futures», «Bybit», «OKX»).
  */
-data class OiSample(val units: Double, val time: Long, val source: String? = null)
-
-/** Ergebnis des Open-Interest-Vergleichs. */
-data class OiUpdate(
-    /** Veränderung in %, null wenn kein brauchbarer Vergleichswert (zu jung/zu alt/fehlt). */
-    val changePercent: Double?,
-    /** Minuten seit der Vergleichsmessung, sofern verglichen. */
-    val minutes: Int?,
-    /** Neue Messung speichern? */
-    val store: Boolean,
-)
+data class OiSample(val units: Double, val time: Long, val source: String)
 
 // ---------------- «Warum bewegt sich das?» ----------------
 

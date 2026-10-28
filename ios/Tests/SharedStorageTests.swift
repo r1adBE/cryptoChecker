@@ -346,9 +346,9 @@ final class SharedStorageTests: XCTestCase {
     }
 
     func testWrongTypeResetsOnlyThatSetting() throws {
-        let json = #"{"liveService":"ja","backgroundIntervalMinutes":30}"#
+        let json = #"{"updateMode":7,"backgroundIntervalMinutes":30}"#
         let s = try JSONDecoder().decode(AppSettings.self, from: Data(json.utf8))
-        // Ungültiger früherer Schalter: nichts zu übernehmen → Standard von «Wie aktuell?»
+        // Falscher Typ: Standard von «Wie aktuell?», der Rest bleibt
         XCTAssertEqual(s.updateMode, AppSettings().updateMode)
         XCTAssertEqual(s.backgroundIntervalMinutes, 30)
     }
@@ -446,11 +446,6 @@ final class SharedStorageTests: XCTestCase {
         XCTAssertTrue(ZoneSchedule.shouldRunInRefresh(wanted: true, lastRunMillis: now - 12 * h, now: now))
         XCTAssertFalse(ZoneSchedule.shouldRunInRefresh(wanted: true, lastRunMillis: now - 11 * h, now: now))
         XCTAssertFalse(ZoneSchedule.shouldRunInRefresh(wanted: false, lastRunMillis: 0, now: now))
-    }
-
-    /// Die alte zweite Aufgabe wird nur noch abgesagt, nie mehr geplant.
-    func testOnlyOneRefreshIdentifier() {
-        XCTAssertNotEqual(BackgroundRefresh.refreshId, BackgroundRefresh.legacyZoneId)
     }
 
     // MARK: Ende der Hintergrund-Aufgabe genau einmal

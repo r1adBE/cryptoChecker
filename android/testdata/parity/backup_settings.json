@@ -4,7 +4,6 @@
  "settings": {
   "updateMode": "LIVE_OFFEN",
   "backgroundIntervalMinutes": 30,
-  "liveIntervalSeconds": 120,
   "priceNotifications": false,
   "ongoingNotifications": true,
   "notificationChangePercent": 2.5,

@@ -8,10 +8,7 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_BACKGROUND_UPDATES
 import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_INCLUDE_ALPHA_TOKENS
-import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_LIVE_SERVICE
-import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_LIVE_WEBSOCKET
 import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_ONGOING_NOTIFICATIONS
 import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_PORTFOLIO_ENABLED
 import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_SHOW_CONVERTED
@@ -22,20 +19,13 @@ import com.cryptochecker.app.settings.SettingsRepository.Companion.KEY_WATCHLIST
 object SettingsKeys {
     /** «Wie aktuell?» ([UpdateMode.name]). */
     val updateMode = stringPreferencesKey(KEY_UPDATE_MODE)
-    /** Frühere Schalter: nur noch mitgeschrieben (aus [UpdateMode.legacyFlags]) für ältere Versionen. */
-    val backgroundUpdatesLegacy = booleanPreferencesKey(KEY_BACKGROUND_UPDATES)
     val backgroundInterval = intPreferencesKey("background_interval_minutes")
     /** «Pünktlich prüfen». */
     val exactChecks = booleanPreferencesKey("exact_checks")
-    val liveServiceLegacy = booleanPreferencesKey(KEY_LIVE_SERVICE)
-    val liveInterval = intPreferencesKey("live_interval_seconds")
-    val liveWebSocketLegacy = booleanPreferencesKey(KEY_LIVE_WEBSOCKET)
     val priceNotifications = booleanPreferencesKey("price_notifications")
     val ongoingNotifications = booleanPreferencesKey(KEY_ONGOING_NOTIFICATIONS)
     /** Preis-Overlay (nur Android, gerätebezogen, nicht in der Sicherung). */
     val priceOverlay = booleanPreferencesKey("price_overlay")
-    /** Früher ganze Prozent; wird nur noch gelesen, falls der neue Wert fehlt. */
-    val notificationChangeLegacy = intPreferencesKey("notification_change_percent")
     /** Freie Eingabe mit Nachkommastellen, z. B. 2,5 %. */
     val notificationChange = doublePreferencesKey("notification_change_percent_exact")
     val tts = booleanPreferencesKey("tts_enabled")
@@ -43,8 +33,6 @@ object SettingsKeys {
     val ttsSpeechRate = floatPreferencesKey("tts_speech_rate")
     val alarmCooldown = intPreferencesKey("alarm_cooldown_minutes")
     val includeRollingFutures = booleanPreferencesKey("include_rolling_futures")
-    /** Früherer Schalter «TradFi»; wird nur noch gelesen, falls [assetScope] fehlt. */
-    val includeTradFiFuturesLegacy = booleanPreferencesKey("include_tradfi_futures")
     /** «Token & TradFi» ([AssetScope.name]). */
     val assetScope = stringPreferencesKey("asset_scope")
     /** «inkl. Alpha-Tokens». */
@@ -57,7 +45,6 @@ object SettingsKeys {
     val firstAlarmCardDismissed = booleanPreferencesKey("first_alarm_card_dismissed")
     val usageDays = intPreferencesKey("usage_days")
     val usageLastDay = longPreferencesKey("usage_last_day")
-    // «zone_alerts» (Meldung «Marktphase gewechselt») gibt es nicht mehr; der Schlüssel bleibt unbenutzt liegen
     val fearGreedBelow = intPreferencesKey("fear_greed_below")
     val fearGreedAbove = intPreferencesKey("fear_greed_above")
 

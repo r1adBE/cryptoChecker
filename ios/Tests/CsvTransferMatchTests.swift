@@ -256,16 +256,15 @@ final class CsvTransferMatchTests: XCTestCase {
         }
     }
 
-    /// Beide Seiten einer Verknüpfung gelten als importiert, auch von älteren Versionen gekürzte lange Teile.
+    /// Beide Seiten einer Verknüpfung gelten als importiert.
     func testLinkedKeysCountAsImported() throws {
         let d = try XCTUnwrap(try data()["duplicates"] as? [String: Any])
-        let long = string(d["longKey"]) ?? ""
-        let existing = Set(strings(d["existing"])).union([LegacyStorageMigration.shortKey(long)])
+        let existing = Set(strings(d["existing"]))
         func row(_ key: String) -> CsvImportRow {
             CsvImportRow(line: 1, kind: .DEPOSIT, rawKind: "Deposit", coin: "BTC", amount: 1, price: nil, quote: nil, fee: nil,
                          feeUnit: nil, timeMillis: 0, externalId: nil, key: key)
         }
-        let known = strings(d["known"]) + [long]
+        let known = strings(d["known"])
         let split = CsvImport.splitDuplicates((known + strings(d["unknown"])).map(row), existingKeys: existing)
         XCTAssertEqual(split.duplicates.map(\.key), known)
         XCTAssertEqual(split.fresh.map(\.key), strings(d["unknown"]))
@@ -277,7 +276,6 @@ final class CsvTransferMatchTests: XCTestCase {
         let found = links(c)
         let plan = CsvTransferMatch.apply(S.list(c["txs"]).map(tx), links: found, chosen: CsvTransferMatch.defaultChoice(found))
         let long = try XCTUnwrap(plan.storedUpdates.first { $0.id == 13 })
-        // In älteren Versionen nicht verknüpft (Teil über 98 Zeichen passte nicht in den gepackten Schlüssel)
         XCTAssertEqual(long.importKey, S.list(c["stored"]).first { id($0["id"]) == 13 }.flatMap { string($0["importKey"]) })
         XCTAssertGreaterThan(long.importKey.count, 98)
         XCTAssertNil(plan.transactions.first { $0.importKey == "COINBASE|X11" })

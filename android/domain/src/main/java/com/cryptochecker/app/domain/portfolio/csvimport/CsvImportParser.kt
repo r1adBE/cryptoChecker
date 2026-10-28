@@ -26,10 +26,9 @@ import java.math.BigDecimal
  *    → Tausch ([stableSwap]): Verkauf X gegen S = Tausch X → S, Kauf X mit S = Tausch S → X; S-Menge = Fiat-/Quote-Betrag
  *    der Datei, sonst Preis × Menge. Wert nur bei USDT (= S-Menge, [CsvImport.stableSwapValue]), sonst unbekannt.
  *    Gebühr bleibt in ihrer Einheit. Ohne Preis bleibt die Zeile Kauf/Verkauf (ohne Preis, Vorschau nennt sie).
- *    Frühere Schlüssel (noch Kauf/Verkauf) stehen in [CsvImportRow.legacyKeys].
  *  - Kauf/Verkauf gegen einen Krypto-Coin ([CsvImport.isCryptoQuote], Paar «ETH/BTC») ebenso → Tausch (Kauf ETH = BTC → ETH,
  *    Verkauf ETH = ETH → BTC; BTC-Menge = Quote-Betrag, sonst Preis × Menge), Wert unbekannt (Tagesschluss beim Rechnen),
- *    ohne Stablecoin-Hinweis; frühere Schlüssel (Kauf/Verkauf ohne Preis in USDT) in [CsvImportRow.legacyKeys].
+ *    ohne Stablecoin-Hinweis.
  */
 object CsvImportParser {
 
@@ -146,8 +145,8 @@ object CsvImportParser {
                     val records = tokenizeOrNull(clean, d) ?: return tooLarge()
                     val override = zone ?: "UTC".takeIf { header.utcDate }
                     return build(
-                        format, header, records.subList(h + 1, records.size), zoneFor(format, deviceZone, override), deviceZone,
-                        dateOrder, decimalMark,
+                        format, header, records.subList(h + 1, records.size), zoneFor(format, deviceZone, override), dateOrder,
+                        decimalMark,
                     ).copy(columns = header.recognized(), fxZone = deviceZone)
                 }
             }

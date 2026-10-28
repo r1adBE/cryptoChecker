@@ -16,7 +16,7 @@ import org.junit.rules.TemporaryFolder
 
 /**
  * Ergebnisse «Ungewöhnliche Aktivität» je Paar ([ActivityRepository]) in SharedPreferences (hier im Speicher): Berichte
- * überstehen einen Neustart, Open-Interest-Verlauf samt Übernahme der alten Einzelmessung, Verlauf der OI-Alarme,
+ * überstehen einen Neustart, Open-Interest-Verlauf, Verlauf der OI-Alarme,
  * Meldezeit und zurückgehaltene Signale; Aufräumen gelöschter und bearbeiteter Paare.
  */
 class ActivityRepositoryTest {
@@ -75,20 +75,22 @@ class ActivityRepositoryTest {
     }
 
     @Test
-    fun openInterestSeriesTakesOverTheOldSingleReading() {
-        // Alte Einzelmessung (vor dem Verlauf) zählt als Verlauf mit einer Messung ohne Quelle
-        prefs.edit().putString("open_interest", """{"4":{"u":1500.0,"t":100}}""").apply()
+    fun openInterestSeriesRoundTrip() {
         val repo = ActivityRepository(context)
-        assertEquals(listOf(OiSample(1500.0, 100L)), repo.oiSeries(4L))
+        assertTrue(repo.oiSeries(4L).isEmpty())
+
+        repo.setOiSeries(
+            4L,
+            listOf(OiSample(1600.0, 200L, "Binance"), OiSample(Double.POSITIVE_INFINITY, 300L, "Bybit")),
+        )
+        assertEquals(listOf(OiSample(1600.0, 200L, "Binance"), OiSample(0.0, 300L, "Bybit")), repo.oiSeries(4L))
         assertTrue(repo.oiSeries(5L).isEmpty())
 
-        repo.setOiSeries(4L, listOf(OiSample(1600.0, 200L, "Binance"), OiSample(Double.POSITIVE_INFINITY, 300L)))
-        assertEquals(listOf(OiSample(1600.0, 200L, "Binance"), OiSample(0.0, 300L)), repo.oiSeries(4L))
-        assertEquals("übernommen: alte Messung weg", "{}", prefs.getString("open_interest", null))
-
-        // Einträge, die keine Liste sind, fallen weg; leere Quelle = unbekannt
-        prefs.edit().putString("open_interest_series", """{"4":[[1,2.0," "],"kaputt",[3,4.0]]}""").apply()
-        assertEquals(listOf(OiSample(2.0, 1L), OiSample(4.0, 3L)), repo.oiSeries(4L))
+        // Einträge, die keine Liste sind oder keine Quelle haben, fallen weg
+        prefs.edit()
+            .putString("open_interest_series", """{"4":[[1,2.0," "],"kaputt",[3,4.0],[5,6.0,null],[7,8.0,"OKX"]]}""")
+            .apply()
+        assertEquals(listOf(OiSample(8.0, 7L, "OKX")), repo.oiSeries(4L))
     }
 
     @Test
@@ -123,11 +125,11 @@ class ActivityRepositoryTest {
         repo.putAll((1L..3L).associateWith { ActivityReport(listOf(strong), it * 10) })
         for (id in 1L..3L) {
             repo.setNotifiedAt(id, id)
-            repo.setOiSeries(id, listOf(OiSample(1.0, id)))
+            repo.setOiSeries(id, listOf(OiSample(1.0, id, "Bybit")))
             repo.setPendingKinds(id, setOf(SignalKind.PRICE_MOVE))
             repo.appendOiHistory(id, DerivativesAlarm.OiPoint(5.0, 1_000L), 1_000L)
         }
-        prefs.edit().putString("open_interest", """{"1":{"u":1,"t":1},"x":{}}""").apply()
+        prefs.edit().putString("notified", """{"1":1,"2":2,"3":3,"x":5}""").apply()
 
         // Paar 3 gelöscht
         repo.retain(setOf(1L, 2L))
@@ -136,12 +138,9 @@ class ActivityRepositoryTest {
         assertTrue(repo.oiSeries(3L).isEmpty())
         assertTrue(repo.pendingKinds(3L).isEmpty())
         assertTrue(repo.oiHistory(3L).isEmpty())
-        // Reihenfolge der Schlüssel im JSON ist nicht festgelegt: Inhalt vergleichen
-        val stored = org.json.JSONObject(prefs.getString("open_interest", null)!!)
-        assertEquals(setOf("1"), stored.keys().asSequence().toSet())
-        assertEquals(1, stored.getJSONObject("1").getInt("u"))
-        assertEquals(1, stored.getJSONObject("1").getInt("t"))
-        assertEquals(2, stored.getJSONObject("1").length())
+        // Ungültige Schlüssel fallen ebenfalls weg (Reihenfolge im JSON nicht festgelegt: Inhalt vergleichen)
+        val stored = org.json.JSONObject(prefs.getString("notified", null)!!)
+        assertEquals(setOf("1", "2"), stored.keys().asSequence().toSet())
         // Nichts zu löschen: keine Änderung
         val before = prefs.all
         repo.retain(setOf(1L, 2L, 9L))

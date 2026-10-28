@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Και στις δικές σου συναλλαγές: %1$s – προστίθενται και τα δύο. Ίδια νομίσματα; Επίλεξε «Μόνο προβολή».</string>
     <string name="portfolio_address_overlap_ask">Καταγράφεις ήδη το %1$s με δικές σου συναλλαγές. Να προστεθεί το υπόλοιπο αυτής της διεύθυνσης στο χαρτοφυλάκιο ή μόνο να εμφανίζεται;</string>
     <string name="portfolio_address_overlap_auto">Το «%1$s» πλέον μόνο εμφανίζεται, δεν μετράται – τα %2$s υπάρχουν και στις συναλλαγές σου.</string>
-    <string name="portfolio_address_overlap_restored">Το «%1$s» μετρά ξανά – οι ποσότητες δεν ταιριάζουν με τις συναλλαγές σου. Επίλεξε «Μόνο προβολή» αν είναι τα ίδια νομίσματα.</string>
     <string name="portfolio_address_overlap_title">Ίδια νομίσματα με τις συναλλαγές σου;</string>
     <string name="portfolio_address_overlap_tx">Ίδια ποσότητα με τη δική σου κατάθεση/μεταφορά (%1$s) – μάλλον μετριέται διπλά.</string>
     <string name="portfolio_address_period_observed">Οι παρακολουθούμενες διευθύνσεις μετρούν από το πρώτο παρατηρημένο υπόλοιπο· οι μεταγενέστερες αλλαγές είναι εισροές/εκροές, όχι κέρδος.</string>

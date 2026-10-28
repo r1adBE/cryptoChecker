@@ -247,18 +247,6 @@ class LogoImageStore @Inject constructor(
         return changed
     }
 
-    /** Ablage der früheren Ersatz-Logos (jsDelivr) einmal wegräumen. */
-    suspend fun removeOldFallback() {
-        withContext(Dispatchers.IO) {
-            val oldDir = File(context.cacheDir, OLD_FALLBACK_DIR)
-            if (oldDir.exists()) {
-                oldDir.deleteRecursively()
-                File(context.noBackupFilesDir, OLD_FALLBACK_MANIFEST_FILE).delete()
-                prefs.edit { remove(OLD_KEY_FALLBACK_ATTEMPT) }
-            }
-        }
-    }
-
     /** Anzeigen auffrischen: höchstens alle [REVISION_INTERVAL_MILLIS] (sonst bei jedem Bild), [force] sofort. */
     private val lastRevisionAt = AtomicLong(0L)
 
@@ -334,10 +322,6 @@ class LogoImageStore @Inject constructor(
         const val KEY_EXTRA_ONLY = "extra_only_v1"
         /** Mitgelieferte Icons im Speicher (eigene Vorsilbe: Vorrang haben die geladenen Logos). */
         const val BUNDLED_MEMORY_PREFIX = "B_"
-        /** Ablage der früheren Ersatz-Logos über jsDelivr (wird einmal gelöscht). */
-        const val OLD_FALLBACK_DIR = "coin_logos_fallback"
-        const val OLD_FALLBACK_MANIFEST_FILE = "coin_logos/fallback_manifest_0_18_1.json"
-        const val OLD_KEY_FALLBACK_ATTEMPT = "fallback_attempt_v1"
         const val MEMORY_BYTES = 4 * 1024 * 1024
         /** Bild-Abrufe gleichzeitig: insgesamt und je Server (CoinGecko, Binance). */
         const val MAX_PARALLEL_DOWNLOADS = 12

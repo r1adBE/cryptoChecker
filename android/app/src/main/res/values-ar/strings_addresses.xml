@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">موجودة أيضًا في معاملاتك: %1$s – يُجمع الاثنان. نفس العملات؟ اختر «العرض فقط».</string>
     <string name="portfolio_address_overlap_ask">أنت تسجّل %1$s بالفعل بمعاملاتك. هل يُضاف رصيد هذا العنوان إلى المحفظة أم يُعرض فقط؟</string>
     <string name="portfolio_address_overlap_auto">«%1$s» يُعرض الآن فقط ولا يُحتسب – %2$s موجودة أيضًا في معاملاتك.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» يُحتسب مجددًا – كمياته لا تطابق معاملاتك. اختر «العرض فقط» إن كانت نفس العملات.</string>
     <string name="portfolio_address_overlap_title">نفس العملات الموجودة في معاملاتك؟</string>
     <string name="portfolio_address_overlap_tx">نفس كمية إيداعك/تحويلك (%1$s) – على الأرجح محتسبة مرتين.</string>
     <string name="portfolio_address_period_observed">تُحتسب العناوين المراقَبة من أول رصيد مرصود؛ والتغييرات اللاحقة تدفقات داخلة/خارجة وليست ربحًا.</string>

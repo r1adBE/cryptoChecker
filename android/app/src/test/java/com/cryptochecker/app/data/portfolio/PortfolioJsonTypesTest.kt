@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -32,8 +33,8 @@ class PortfolioJsonTypesTest {
     }
 
     @Test
-    fun olderBackupsWithoutNewFieldsReadAsBefore() {
-        val o = JSONObject().put("id", 1).put("coin", "eth").put("type", "BUY").put("amount", 2.0).put("time", 7L)
+    fun missingOptionalFieldsReadAsNone() {
+        val o = JSONObject().put("id", 1).put("coin", "eth").put("type", "BUY").put("amountText", "2").put("time", 7L)
         val t = PortfolioJson.jsonToTx(o)!!
         assertNull(t.transferFrom); assertNull(t.transferTo); assertNull(t.feeCoin); assertNull(t.feeCoinAmount)
         assertEquals("ETH", t.coin)
@@ -94,27 +95,19 @@ class PortfolioJsonTypesTest {
         assertFalse(gift.copy(type = PortfolioTxType.WITHDRAWAL).toTrade().isGiftToSpouse)
     }
 
-    /** Ältere Sicherung: Merker «@spouse» und gepackte Verknüpfung werden beim Wiederherstellen Felder. */
+    /** Verknüpfte Umbuchung: zweiter Herkunftsschlüssel und Zustand davor als eigene Felder. */
     @Test
-    fun oldBackupFormsBecomeFields() {
-        val oldGift = JSONObject(PortfolioJson.txToJson(PortfolioTxEntity(id = 9, coin = "BTC", type = PortfolioTxType.GIFT,
-            amount = BigDecimal("0.1"), time = 12L)).toString())
-            .put("transferTo", "@spouse").apply { remove("giftToSpouse") }
-        val gift = PortfolioJson.jsonToTx(oldGift)!!
-        assertTrue(gift.giftToSpouse)
-        assertNull(gift.transferTo)
-        val oldLink = JSONObject(PortfolioJson.txToJson(transfer).toString())
-            .put("importKey", "BINANCE|W ⇄ COINBASE|D ⟲ 2|BINANCE:1729000000000:0a1b2c3d|WITHDRAWAL|0.005||1704987000000" +
-                "||||||||| ⟲ DEPOSIT|0.0049||1704989100000||||")
-            .put("importBatch", "COINBASE:1729100000000:1b2c3d4e")
-            .apply { remove("linkedImportKey"); remove("importRestoreState") }
-        val linked = PortfolioJson.jsonToTx(oldLink)!!
-        assertEquals("BINANCE|W", linked.importKey)
-        assertEquals("COINBASE|D", linked.linkedImportKey)
-        val restore = linked.importRestoreState!!
-        assertEquals("BINANCE:1729000000000:0a1b2c3d", restore.importBatch)
-        assertEquals("COINBASE|D", restore.absorbed!!.importKey)
-        // Neue Form übersteht Sicherung und Systemsicherungs-Kopie unverändert
+    fun linkedTransferFieldsRoundTrip() {
+        val state = CsvRestoreState.decode(
+            "{\"v\":1,\"stored\":{\"type\":\"WITHDRAWAL\",\"amount\":\"0.005\",\"time\":1704987000000," +
+                "\"importKey\":\"BINANCE|W\",\"importBatch\":\"BINANCE:1729000000000:0a1b2c3d\"}," +
+                "\"absorbed\":{\"type\":\"DEPOSIT\",\"amount\":\"0.0049\",\"time\":1704989100000,\"importKey\":\"COINBASE|D\"}}",
+        )!!
+        val linked = transfer.copy(
+            importKey = "BINANCE|W", linkedImportKey = "COINBASE|D", importRestoreState = state,
+            importBatch = "COINBASE:1729100000000:1b2c3d4e",
+        )
+        // Übersteht Sicherung und Systemsicherungs-Kopie unverändert
         assertEquals(linked, PortfolioJson.jsonToTx(JSONObject(PortfolioJson.txToJson(linked).toString())))
         assertEquals(listOf(linked), PortfolioBackupMirror.parse(PortfolioBackupMirror.encode(listOf(linked), emptyList())).txs)
         // Zweiter Schlüssel ohne ersten bzw. Zustand ohne Verknüpfung: weggelassen

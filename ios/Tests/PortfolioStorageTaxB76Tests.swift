@@ -62,18 +62,7 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
 
     // MARK: Gebühr-Zeile und Zins als eigene Merker
 
-    func testLegacyRulesDeriveFlagsOnce() {
-        XCTAssertTrue(LegacyStorageMigration.legacyFeeRow(.SELL, importKey: "KRAKEN|F1", price: dec("0.00")))
-        XCTAssertFalse(LegacyStorageMigration.legacyFeeRow(.SELL, importKey: nil, price: 0))
-        XCTAssertFalse(LegacyStorageMigration.legacyFeeRow(.SELL, importKey: " ", price: 0))
-        XCTAssertFalse(LegacyStorageMigration.legacyFeeRow(.SELL, importKey: "K", price: nil))
-        XCTAssertFalse(LegacyStorageMigration.legacyFeeRow(.BUY, importKey: "K", price: 0))
-        XCTAssertTrue(LegacyStorageMigration.legacyInterest(.REWARD, note: "Lending interest"))
-        XCTAssertFalse(LegacyStorageMigration.legacyInterest(.REWARD, note: "staking"))
-        XCTAssertFalse(LegacyStorageMigration.legacyInterest(.BUY, note: "interest"))
-    }
-
-    func testFileAndBackupCarryFlagsAndDeriveThemWhenMissing() throws {
+    func testFileAndBackupCarryFlags() throws {
         var fee = PortfolioTx(id: 3, coin: "BTC", type: .SELL, amountExact: dec("0.0001"), priceExact: 0, time: 10, note: "Fee")
         fee.importKey = "KRAKEN|F1"
         fee.feeRow = true
@@ -83,11 +72,11 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
         XCTAssertEqual(object["feeRow"] as? Bool, true)
         XCTAssertEqual(object["interest"] as? Bool, false)
         XCTAssertTrue(try JSONDecoder().decode(PortfolioTx.self, from: encoded).feeRow)
-        var old = object
-        old.removeValue(forKey: "feeRow")
-        old.removeValue(forKey: "interest")
-        let oldData = try JSONSerialization.data(withJSONObject: old)
-        XCTAssertTrue(try JSONDecoder().decode(PortfolioTx.self, from: oldData).feeRow, "frühere Regel bei fehlendem Feld")
+        var missing = object
+        missing.removeValue(forKey: "feeRow")
+        missing.removeValue(forKey: "interest")
+        let missingData = try JSONSerialization.data(withJSONObject: missing)
+        XCTAssertFalse(try JSONDecoder().decode(PortfolioTx.self, from: missingData).feeRow, "fehlendes Feld = nein")
         var explicit = object
         explicit["feeRow"] = false
         XCTAssertFalse(try JSONDecoder().decode(PortfolioTx.self, from: JSONSerialization.data(withJSONObject: explicit)).feeRow)
@@ -95,10 +84,12 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
         let json = BackupManager.txToJson(fee)
         XCTAssertEqual(json["feeRow"] as? Bool, true)
         XCTAssertEqual(BackupManager.jsonToTx(json)?.feeRow, true)
-        var legacy = json
-        legacy.removeValue(forKey: "feeRow")
-        XCTAssertEqual(BackupManager.jsonToTx(legacy)?.feeRow, true)
-        let reward: [String: Any] = ["coin": "ETH", "type": "REWARD", "amountText": "0.1", "time": 5, "note": "Lending interest"]
+        var withoutFlag = json
+        withoutFlag.removeValue(forKey: "feeRow")
+        XCTAssertEqual(BackupManager.jsonToTx(withoutFlag)?.feeRow, false)
+        var reward: [String: Any] = ["coin": "ETH", "type": "REWARD", "amountText": "0.1", "time": 5, "note": "Lending interest"]
+        XCTAssertEqual(BackupManager.jsonToTx(reward)?.interest, false)
+        reward["interest"] = true
         XCTAssertEqual(BackupManager.jsonToTx(reward)?.interest, true)
         var buy = json
         buy["type"] = "BUY"

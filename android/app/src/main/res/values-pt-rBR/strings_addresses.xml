@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Também nas suas próprias transações: %1$s – os dois são somados. As mesmas moedas? Escolha “Só mostrar”.</string>
     <string name="portfolio_address_overlap_ask">Você já registra %1$s com suas próprias transações. Somar o saldo deste endereço ao portfólio ou só mostrá-lo?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” agora só é mostrado, não somado – %2$s também aparecem nas suas transações.</string>
-    <string name="portfolio_address_overlap_restored">“%1$s” volta a contar – as quantidades não batem com suas transações. Escolha “Só mostrar” se forem as mesmas moedas.</string>
     <string name="portfolio_address_overlap_title">As mesmas moedas das suas transações?</string>
     <string name="portfolio_address_overlap_tx">A mesma quantidade do seu depósito/transferência (%1$s) – provavelmente contado duas vezes.</string>
     <string name="portfolio_address_period_observed">Os endereços monitorados contam a partir do primeiro saldo observado; mudanças posteriores são entradas/saídas, não ganho.</string>

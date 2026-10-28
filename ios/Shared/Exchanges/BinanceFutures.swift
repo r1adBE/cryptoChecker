@@ -103,7 +103,6 @@ final class BinanceFutures: Exchange, @unchecked Sendable { // @unchecked: wie `
                 try entry.string("quoteAsset"),
                 coinM ? binanceCoinMMark + symbol : symbol,
                 type,
-                // Immer gesetzt (auch false): daran erkennt der Paarspeicher Listen älterer Versionen
                 tradFi: TradFi.binance(contractType: kind, subTypes: entry.optStrings("underlyingSubType"))
             ))
         }

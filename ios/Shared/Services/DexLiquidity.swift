@@ -28,20 +28,16 @@ enum DexLiquidity {
 /// abgeleiteter Marktwert, nicht in der Sicherung; fehlt er, gilt die Liquidität als unbekannt (kein Alarm bis zur
 /// nächsten Abfrage). Wie `DexLiquidityStore.kt`.
 enum DexLiquidityStore {
-    /// Ein Schlüssel je Pool (`PerKeyDefaults`); in älteren Versionen ein Wörterbuch unter «dex_liquidity».
-    static let storage = PerKeyDefaults(prefix: "dex_liquidity.", legacyKey: "dex_liquidity")
-    /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
-    private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)
+    /// Ein Schlüssel je Pool (`PerKeyDefaults`).
+    static let storage = PerKeyDefaults(prefix: "dex_liquidity.")
 
     static func get(_ pairId: String?, defaults: UserDefaults = SharedStorage.defaults) -> Double? {
-        _ = migration
         guard let key = DexLiquidity.key(pairId) else { return nil }
         return (defaults.object(forKey: storage.key(key)) as? NSNumber)?.doubleValue
     }
 
     /// Neue Messung; nil = unbekannt (Eintrag entfällt). Schreibt nur den eigenen Pool.
     static func put(_ pairId: String?, _ liquidityUsd: Double?, defaults: UserDefaults = SharedStorage.defaults) {
-        _ = migration
         guard let key = DexLiquidity.key(pairId) else { return }
         let value = liquidityUsd.flatMap { $0.isFinite && $0 >= 0 ? $0 : nil }
         if get(pairId, defaults: defaults) == value { return }

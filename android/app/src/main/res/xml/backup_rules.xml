@@ -9,7 +9,7 @@
          Ebenso keine Merkliste und keine Einstellungen (siehe unten). Gesichert werden nur App-Sprache,
          Favoriten und der Portfolio-Zwischenspeicher der Coin-Listen; sie enthalten keine Bestände, Beträge oder Adressen. -->
     <!-- Merkliste, Alarme, Gruppen, Notizen: auf Android 8/8.1 NICHT gesichert. Die Kopie der
-         Hauptdatenbank (SystemBackupAgent.EXPORT_NAME, cryptochecker_system_backup.db samt -wal) ist
+         Hauptdatenbank (SystemBackupAgent.EXPORT_NAME, cryptochecker_system_backup.db) ist
          unverschlüsselt und ginge hier ohne Ende-zu-Ende-Verschlüsselung in die Cloud; der Agent legt sie
          darum gar nicht erst an (SystemBackupScope.writesDatabaseCopy), und eine Wiederherstellung bringt sie
          nicht mit. Die Datenbank selbst (cryptochecker.db, verschlüsselt), Schlüsseldateien

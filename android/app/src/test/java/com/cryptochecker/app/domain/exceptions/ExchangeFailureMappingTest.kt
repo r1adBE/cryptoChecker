@@ -56,7 +56,7 @@ class ExchangeFailureMappingTest {
     }
 
     @Test
-    fun typedClassificationMatchesTheLegacyText() {
+    fun typedClassificationMatchesTheText() {
         for ((error, _) in cases) {
             val text = error.message ?: error.javaClass.simpleName
             val failure = error.toExchangeFailure()
@@ -64,8 +64,8 @@ class ExchangeFailureMappingTest {
             assertEquals(text, RefreshReportLogic.httpStatus(text), RefreshReportLogic.httpStatus(failure, text))
             // Ausnahme mit Absicht: Other (interner Fehler) bestätigt nie «nicht mehr gehandelt», auch wenn der Text
             // allein es täte (z. B. «Response data is empty»)
-            val legacy = NotTraded.confirmedBySingle(false, text)
-            assertEquals(text, legacy && failure != ExchangeFailure.Other, NotTraded.confirmedBySingle(false, text, failure))
+            val byText = NotTraded.confirmedBySingle(false, text)
+            assertEquals(text, byText && failure != ExchangeFailure.Other, NotTraded.confirmedBySingle(false, text, failure))
         }
     }
 

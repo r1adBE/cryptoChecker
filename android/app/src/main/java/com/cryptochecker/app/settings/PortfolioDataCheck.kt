@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.first
 import timber.log.Timber
 
 /**
- * Einstellungen als neue Installation angelegt (fehlend oder beschädigt und durch leere ersetzt): Die Migration
- * schreibt «Portfolio aus» und den Merker [SettingsRepository.KEY_PORTFOLIO_DATA_CHECK]. Beim Start prüft
+ * Einstellungen neu angelegt (fehlend oder beschädigt und durch leere ersetzt): Portfolio steht auf dem Standard aus,
+ * `SettingsDataStore.kt` setzt den Merker [SettingsRepository.KEY_PORTFOLIO_DATA_CHECK]. Beim Start prüft
  * [resolve], ob trotzdem Portfolio-Daten da sind, und schaltet das Portfolio dann wieder ein
  * ([AppSettings.enablePortfolioForData]).
  */

@@ -12,8 +12,7 @@ import Foundation
 /// `hiddenAlpha`).
 ///
 /// Gemerkte Paare bleiben immer in der Merkliste. Gespeichert und gesichert unter dem Namen
-/// (Schlüssel «assetScope», wie Android); der frühere Schalter «includeTradFiFutures»: an → `BOTH`,
-/// aus → `TOKENS`.
+/// (Schlüssel «assetScope», wie Android).
 enum AssetScope: String, Codable, CaseIterable, Sendable {
     case TOKENS
     case TRADFI
@@ -64,21 +63,5 @@ enum AssetScope: String, Codable, CaseIterable, Sendable {
     static func from(name: String?) -> AssetScope? {
         guard let n = name?.trimmingCharacters(in: .whitespacesAndNewlines).uppercased(), !n.isEmpty else { return nil }
         return AssetScope(rawValue: n)
-    }
-
-    /// Früherer Schalter «TradFi»: an → `BOTH`, sonst `TOKENS`.
-    static func fromLegacy(_ includeTradFi: Bool?) -> AssetScope { includeTradFi == true ? .BOTH : .TOKENS }
-
-    /// Gespeicherte Einstellung: der neue Wert, sonst (Update) der frühere Schalter, sonst der Standard.
-    static func resolve(stored: String?, legacyTradFi: Bool?) -> AssetScope {
-        fromBackup(stored, legacyTradFi: legacyTradFi) ?? .default
-    }
-
-    /// Aus einer Sicherung: «assetScope», sonst «includeTradFiFutures» (ältere Sicherung); fehlen
-    /// beide, nil = aktuelle Einstellung stehen lassen.
-    static func fromBackup(_ scope: String?, legacyTradFi: Bool?) -> AssetScope? {
-        if let s = from(name: scope) { return s }
-        guard let legacyTradFi else { return nil }
-        return fromLegacy(legacyTradFi)
     }
 }

@@ -62,13 +62,9 @@ class TaxTemplatesParityTest {
             giftToSpouse = t["giftToSpouse"] == true,
             acquiredTime = t["acquiredTime"].num()?.toLong(),
             imported = t["importKey"] != null,
-            // Gebühr-Zeile, Zins: eigene Felder; fehlen sie im Fixture, die frühere Regel (wie beim Wiederherstellen)
-            feeRow = (t["feeRow"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow(
-                PortfolioTxType.fromName(t["type"] as String), t["importKey"] as String?, dec(t["price"]),
-            ),
-            interestIncome = (t["interest"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyInterest(
-                PortfolioTxType.fromName(t["type"] as String), t["note"] as String?,
-            ),
+            // Gebühr-Zeile, Zins: eigene Felder; fehlen = nein
+            feeRow = t["feeRow"] == true,
+            interestIncome = t["interest"] == true,
         )
     }
 

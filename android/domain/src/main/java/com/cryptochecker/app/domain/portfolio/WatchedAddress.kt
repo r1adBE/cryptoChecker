@@ -75,11 +75,6 @@ data class WatchedAddress(
      */
     val overlapChecked: Boolean = false,
     /**
-     * Entscheid [overlapChecked] stammt aus der Zeit, als «Nur anzeigen» schon bei gleichem Coin automatisch kam (ohne
-     * Mengenvergleich; gespeichert ohne «ovl2»). Beim Laden einmal geprüft ([WatchedAddressRules.overlapLegacyRevert]).
-     */
-    val overlapLegacy: Boolean = false,
-    /**
      * Eröffnungsposten («Einstand für Adressguthaben», [AddressCostLots]): Einstand für einen Teil des Guthabens; eigene
      * Spalte `costLots` (nicht in den Zusatzdaten — ein Abruf schreibt diese, nie die Posten).
      */
@@ -125,8 +120,7 @@ data class TokenHolding(val key: String, val label: String, val coin: String, va
 
 /**
  * Eintrag in der App-Sicherung: was der Nutzer eingegeben hat, dazu die beobachteten Guthaben (sie bestimmen
- * den Verlauf ab der ersten Beobachtung). Das aktuelle Guthaben wird neu geladen. Ältere Sicherungen ohne
- * Beobachtungen: leer.
+ * den Verlauf ab der ersten Beobachtung). Das aktuelle Guthaben wird neu geladen. Ohne Beobachtungen: leer.
  */
 data class WatchedAddressBackupEntry(
     val chain: AddressChain,
@@ -149,8 +143,6 @@ data class WatchedAddressBackupEntry(
      * entschieden («overlapChecked»), sonst fragte bzw. schaltete die App nach dem Einspielen erneut.
      */
     val overlapChecked: Boolean = false,
-    /** Entscheid nach der alten Regel ([WatchedAddress.overlapLegacy], «overlapLegacy»); nur mit [overlapChecked]. */
-    val overlapLegacy: Boolean = false,
 )
 
 /**
@@ -159,9 +151,8 @@ data class WatchedAddressBackupEntry(
  * (`[{"t":…,"b":"…"}]`, [AddressBalanceHistory.encode]); mit Zusatzdaten ein Objekt:
  * `{"o":[…],"tb":{"USDT":"12.5"},"to":{"USDT":[…]},"tokens":false,"x":{…},"n":["BSC"],"show":false,"uk":2}` —
  * «tokens»/«show» nur, wenn aus; «x» = [XpubCache]; «n» = EVM-Netze; «uk» = unbekannte Solana-Token; «ovl»: true =
- * Überschneidung entschieden ([WatchedAddress.overlapChecked]), «ovl2»: true = nach der Mengenregel (sonst
- * [WatchedAddress.overlapLegacy]); «stk» = nicht bestätigte Token ([WatchedAddress.staleTokens]); «ps» = angelegt auf
- * diesem Gerät ([WatchedAddress.pendingSince]).
+ * Überschneidung entschieden ([WatchedAddress.overlapChecked]); «stk» = nicht bestätigte Token
+ * ([WatchedAddress.staleTokens]); «ps» = angelegt auf diesem Gerät ([WatchedAddress.pendingSince]).
  * Lesen versteht beide Formen; unlesbar = leer. iOS speichert dieselben Felder in `watched_addresses.json`.
  */
 object WatchedAddressExtras {
@@ -176,7 +167,6 @@ object WatchedAddressExtras {
         val countInPortfolio: Boolean = true,
         val unknownTokens: Int = 0,
         val overlapChecked: Boolean = false,
-        val overlapLegacy: Boolean = false,
         val staleTokens: List<String> = emptyList(),
         val pendingSince: Long = 0,
     )
@@ -200,8 +190,6 @@ object WatchedAddressExtras {
         if (!a.countInPortfolio) o.put("show", false)
         if (a.unknownTokens > 0) o.put("uk", a.unknownTokens)
         if (a.overlapChecked) o.put("ovl", true)
-        // Entscheid nach der Mengenregel (ohne «ovl2» = alter Entscheid, [WatchedAddress.overlapLegacy])
-        if (a.overlapChecked && !a.overlapLegacy) o.put("ovl2", true)
         if (a.staleTokens.isNotEmpty()) o.put("stk", JsonArray(a.staleTokens))
         if (a.pendingSince > 0) o.put("ps", a.pendingSince)
         return o.toString()
@@ -230,7 +218,6 @@ object WatchedAddressExtras {
             countInPortfolio = o.opt("show") as? Boolean ?: true,
             unknownTokens = ((o.opt("uk") as? Number)?.toInt() ?: 0).coerceAtLeast(0),
             overlapChecked = o.opt("ovl") as? Boolean ?: false,
-            overlapLegacy = (o.opt("ovl") as? Boolean ?: false) && (o.opt("ovl2") as? Boolean) != true,
             staleTokens = o.optJSONArray("stk")?.let { arr ->
                 (0 until arr.length()).map { arr.optString(it) }.filter { k -> k in balances }.distinct()
             }.orEmpty(),

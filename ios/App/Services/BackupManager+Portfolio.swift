@@ -43,7 +43,7 @@ extension BackupManager {
         WatchedAddressRules.json(entries)
     }
 
-    /// Adressen der Sicherung; nil = Schlüssel fehlt (ältere Sicherung — bestehende bleiben).
+    /// Adressen der Sicherung; nil = Schlüssel fehlt (bestehende bleiben).
     static func watchedEntries(_ root: [String: Any]) -> [WatchedAddressBackupEntry]? {
         guard root[WatchedAddressRules.backupKey] != nil else { return nil }
         return WatchedAddressRules.entries(fromJSON: root[WatchedAddressRules.backupKey] as? [Any])
@@ -57,20 +57,16 @@ extension BackupManager {
         o["id"] = NSNumber(value: t.id)
         o["coin"] = t.coin
         o["type"] = t.type.rawValue
-        // Zahl für ältere Versionen (lesen nur sie), exakter Text für diese («amountText»: «0.00000001»)
-        o["amount"] = t.amount
+        // Zahlen exakt als Text («amountText»: «0.00000001»)
         o["amountText"] = PortfolioDecimal.text(t.amountExact)
-        o["priceUsdt"] = t.priceUsdt.map { $0 as Any } ?? NSNull()
         o["priceText"] = t.priceExact.map { PortfolioDecimal.text($0) as Any } ?? NSNull()
         o["time"] = NSNumber(value: t.time)
         o["note"] = t.note.map { $0 as Any } ?? NSNull()
-        // Seit Gebühr/Börse; ältere Sicherungen haben sie nicht (= keine Angabe)
-        o["fee"] = PortfolioTx.validFee(t.fee).map { $0 as Any } ?? NSNull()
+        // Gebühr und Börse; fehlen = keine Angabe
         o["feeText"] = PortfolioTx.validFee(t.feeExact).map { PortfolioDecimal.text($0) as Any } ?? NSNull()
         o["feeUnit"] = PortfolioTx.validFee(t.fee) == nil ? NSNull() as Any : (t.feeUnit ?? .QUOTE).rawValue as Any
         o["exchange"] = t.exchange.map { $0 as Any } ?? NSNull()
-        // Wie Android; ältere Versionen kennen sie nicht (und die neuen Arten nicht:
-        // sie zählen sie als ungültig, Rückfrage)
+        // Umbuchung und Gebühr im dritten Coin (wie Android); fehlen = keine Angabe
         o["transferFrom"] = t.transferFrom.map { $0 as Any } ?? NSNull()
         o["transferTo"] = t.transferTo.map { $0 as Any } ?? NSNull()
         o["feeCoin"] = t.feeCoin.map { $0 as Any } ?? NSNull()
@@ -80,7 +76,7 @@ extension BackupManager {
         o["importKey"] = t.importKey.map { $0 as Any } ?? NSNull()
         // Einzahlung: ursprüngliches Kaufdatum; fehlt = Datum der Einzahlung
         o["acquiredTime"] = PortfolioTx.cleanAcquiredTime(t.type, t.acquiredTime).map { $0 as Any } ?? NSNull()
-        // Tausch: erhaltener Coin, Menge und Wert exakt als Text; ältere Versionen kennen die Art nicht
+        // Tausch: erhaltener Coin, Menge und Wert exakt als Text
         let swap = t.type == .SWAP
         let toCoin: String? = swap ? t.toCoin : nil
         let toAmount: String? = swap ? t.toAmountExact.map(PortfolioDecimal.text) : nil
@@ -90,13 +86,11 @@ extension BackupManager {
         o["swapValueText"] = swapValue.map { $0 as Any } ?? NSNull()
         // CSV-Importlauf: «Import rückgängig» auch nach dem Wiederherstellen
         o["importBatch"] = t.importBatch.map { $0 as Any } ?? NSNull()
-        // Eigene Felder statt der alten Formen in «transferTo»/«importKey» (wie Android). Ältere Versionen
-        // ignorieren unbekannte Felder und lesen den Eintrag trotzdem — ohne Partner-Merker, mit nur dem Schlüssel der
-        // Auszahlung und ohne «Rückgängig» der Verknüpfung (kein Absturz, nichts ungültig)
+        // Partner-Merker und Verknüpfung (zweiter Herkunftsschlüssel, Zustand davor) als eigene Felder (wie Android)
         o["giftToSpouse"] = t.isGiftToSpouse
         o["linkedImportKey"] = t.linkedImportKey.map { $0 as Any } ?? NSNull()
         o["importRestoreState"] = t.importRestoreState?.json().map { $0 as Any } ?? NSNull()
-        // Gebühr-Zeile und Zins als eigene Merker (wie Android); ältere Versionen ignorieren sie
+        // Gebühr-Zeile und Zins als eigene Merker (wie Android)
         o["feeRow"] = t.feeRow && t.type == .SELL
         o["interest"] = t.interest && t.type == .REWARD
         return o
@@ -106,13 +100,13 @@ extension BackupManager {
     static func jsonToTx(_ o: [String: Any]) -> PortfolioTx? {
         let coin = PortfolioCalculator.normalizeCoin(string(o, "coin") ?? "")
         guard let type = PortfolioTxType(rawValue: string(o, "type") ?? "") else { return nil }
-        guard let amount = exact(o, text: "amountText", number: "amount"), amount > 0 else { return nil }
+        guard let amount = exact(o, "amountText"), amount > 0 else { return nil }
         guard !coin.isEmpty else { return nil }
-        let price: Decimal? = exact(o, text: "priceText", number: "priceUsdt").flatMap { $0 >= 0 ? $0 : nil }
+        let price: Decimal? = exact(o, "priceText").flatMap { $0 >= 0 ? $0 : nil }
         let note: String? = isNull(o, "note") ? nil
             : Watch.validNote(string(o, "note"))  // höchstens 120 Zeichen wie in der Merkliste
-        // Fehlt (ältere Sicherung) oder ungültig: keine Gebühr
-        let fee: Decimal? = PortfolioTx.validFee(exact(o, text: "feeText", number: "fee"))
+        // Fehlt oder ungültig: keine Gebühr
+        let fee: Decimal? = PortfolioTx.validFee(exact(o, "feeText"))
         let feeUnit: PortfolioFeeUnit? = fee == nil ? nil
             : PortfolioFeeUnit.from(name: isNull(o, "feeUnit") ? nil : string(o, "feeUnit"))
         var tx = PortfolioTx(
@@ -137,18 +131,13 @@ extension BackupManager {
             tx.feeCoinPriceExact = isNull(o, "feeCoinPriceText") ? nil
                 : PortfolioDecimal.parse(string(o, "feeCoinPriceText")).flatMap { $0 >= 0 ? $0 : nil }
         }
-        // Ältere Sicherungen tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen)
-        let stored = LegacyStorageMigration.convert(type, LegacyStorageMigration.Fields(
-            transferTo: isNull(o, "transferTo") ? nil : PortfolioTx.cleanExchange(string(o, "transferTo")),
-            giftToSpouse: o["giftToSpouse"] as? Bool ?? false,
-            importKey: isNull(o, "importKey") ? nil : PortfolioTx.cleanImportKey(string(o, "importKey")),
-            linkedImportKey: isNull(o, "linkedImportKey") ? nil : PortfolioTx.cleanImportKey(string(o, "linkedImportKey")),
-            importRestoreState: CsvRestoreState.from(json: o["importRestoreState"])))
-        tx.transferTo = stored.transferTo
-        tx.giftToSpouse = stored.giftToSpouse && type == .GIFT
-        tx.importKey = stored.importKey
-        tx.linkedImportKey = stored.importKey == nil ? nil : stored.linkedImportKey
-        tx.importRestoreState = tx.linkedImportKey == nil ? nil : stored.importRestoreState
+        tx.transferTo = isNull(o, "transferTo") ? nil : PortfolioTx.cleanExchange(string(o, "transferTo"))
+        tx.giftToSpouse = (o["giftToSpouse"] as? Bool ?? false) && type == .GIFT
+        // Zweiter Schlüssel nur mit erstem, Zustand nur mit Verknüpfung
+        tx.importKey = isNull(o, "importKey") ? nil : PortfolioTx.cleanImportKey(string(o, "importKey"))
+        tx.linkedImportKey = tx.importKey == nil || isNull(o, "linkedImportKey") ? nil
+            : PortfolioTx.cleanImportKey(string(o, "linkedImportKey"))
+        tx.importRestoreState = tx.linkedImportKey == nil ? nil : CsvRestoreState.from(json: o["importRestoreState"])
         tx.acquiredTime = isNull(o, "acquiredTime") ? nil : PortfolioTx.cleanAcquiredTime(type, int64(o, "acquiredTime"))
         // Tausch: ohne gültigen erhaltenen Coin und Menge ungültig (gezählt) — wie Android
         if type == .SWAP {
@@ -161,28 +150,14 @@ extension BackupManager {
                 : PortfolioDecimal.parse(string(o, "swapValueText")).flatMap { $0 >= 0 ? $0 : nil }
         }
         tx.importBatch = isNull(o, "importBatch") ? nil : PortfolioImportBatch.clean(string(o, "importBatch"))
-        // Fehlen die Merker (ältere Sicherung), einmal nach der früheren Regel ableiten — wie Android
-        if let flag = o["feeRow"] as? Bool {
-            tx.feeRow = flag && type == .SELL
-        } else {
-            tx.feeRow = LegacyStorageMigration.legacyFeeRow(type, importKey: tx.importKey, price: price)
-        }
-        if let flag = o["interest"] as? Bool {
-            tx.interest = flag && type == .REWARD
-        } else {
-            tx.interest = LegacyStorageMigration.legacyInterest(type, note: note)
-        }
+        // Gebühr-Zeile und Zins: fehlt = nein — wie Android
+        tx.feeRow = (o["feeRow"] as? Bool ?? false) && type == .SELL
+        tx.interest = (o["interest"] as? Bool ?? false) && type == .REWARD
         return tx
     }
 
-    /// Exakte Zahl: zuerst der Text `text` (seit Runde 35), sonst die Zahl `number` älterer
-    /// Sicherungen (über ihre kürzeste Darstellung). Fehlt/ungültig = nil. Die Zahl unterliegt denselben
-    /// Grenzen wie der Text (`PortfolioDecimal.withinLimits`: < 10³⁰, höchstens 40 Nachkommastellen) —
-    /// wie `PortfolioJson.decimal` (Android).
-    private static func exact(_ o: [String: Any], text: String, number: String) -> Decimal? {
-        if !isNull(o, text), let raw = string(o, text), let value = PortfolioDecimal.parse(raw) { return value }
-        if isNull(o, number) { return nil }
-        // Gleiche Grenzen wie der Text (absurde Grössen = ungültig)
-        return PortfolioDecimal.of(double(o, number)).flatMap { PortfolioDecimal.withinLimits($0) ? $0 : nil }
+    /// Exakte Zahl aus dem Text `key` — wie `PortfolioJson.decimal` (Android). Fehlt/ungültig = nil.
+    private static func exact(_ o: [String: Any], _ key: String) -> Decimal? {
+        isNull(o, key) ? nil : PortfolioDecimal.parse(string(o, key))
     }
 }

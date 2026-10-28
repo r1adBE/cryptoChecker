@@ -5,7 +5,6 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.cryptochecker.app.refresh</string>
-		<string>com.cryptochecker.app.zone</string>
 	</array>
 	<key>CCGitCommit</key>
 	<string>$(GIT_COMMIT)</string>

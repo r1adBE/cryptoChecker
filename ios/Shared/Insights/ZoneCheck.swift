@@ -2,11 +2,8 @@ import Foundation
 
 /// Prüft den Fear & Greed Index und meldet, wenn er die eingestellte Grenze unter- bzw.
 /// überschreitet (reine Zahl, keine Deutung) — wie `ZoneCheckWorker.doWork`, aber ohne eigene
-/// Planung (der Aufrufer entscheidet, wann es läuft). Die frühere Meldung «Marktphase
-/// gewechselt» gibt es nicht mehr; der Name bleibt, damit die Planung gleich bleibt.
+/// Planung (der Aufrufer entscheidet, wann es läuft).
 enum ZoneCheck {
-    /// Zuletzt gemerkte Marktzone früherer Versionen (wird nur noch aufgeräumt).
-    static let legacyKeyZone = "last_zone"
     static let keyFearGreed = "last_fear_greed"
     /// Grenzen, zu denen der gemerkte Stand gehört (wie Android).
     static let keyFearGreedBelow = "last_fear_greed_below"
@@ -16,7 +13,6 @@ enum ZoneCheck {
     @discardableResult
     static func run(settings: AppSettings) async -> Bool {
         let defaults = SharedStorage.defaults
-        defaults.removeObject(forKey: legacyKeyZone)
         await checkFearGreed(below: settings.fearGreedBelow, above: settings.fearGreedAbove, defaults: defaults)
         await checkIndicators(settings.indicatorAlerts, defaults: defaults)
         return true
@@ -165,8 +161,8 @@ enum MarketNoticeGate {
         return FearGreedStep(step: canNotify ? .notify : .hold, kind: kind)
     }
 
-    /// Gilt die Grenze `current` nicht mehr für den gemerkten Stand? `stored` nil = Stand vor dieser Regel:
-    /// als unverändert werten (nach dem Update nichts doppelt). Wie `MarketNoticeGate.boundChanged` (Android).
+    /// Gilt die Grenze `current` nicht mehr für den gemerkten Stand? `stored` nil = keine Grenze gemerkt:
+    /// als unverändert werten. Wie `MarketNoticeGate.boundChanged` (Android).
     static func boundChanged(stored: Int?, current: Int) -> Bool {
         guard let stored else { return false }
         return stored != current

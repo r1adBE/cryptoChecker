@@ -16,7 +16,6 @@ interface SettingsBackupTarget {
     suspend fun current(): AppSettings
     suspend fun setUpdateMode(mode: UpdateMode)
     suspend fun setBackgroundInterval(minutes: Int)
-    suspend fun setLiveInterval(seconds: Int)
     suspend fun setPriceNotifications(enabled: Boolean)
     suspend fun setOngoingNotifications(enabled: Boolean)
     suspend fun setNotificationChangePercent(percent: Double)

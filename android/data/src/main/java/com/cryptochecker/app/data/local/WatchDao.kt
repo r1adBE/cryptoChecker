@@ -71,13 +71,6 @@ interface WatchDao {
     ): Long?
 
     /**
-     * Von älteren Versionen als PERPETUAL gespeicherte inverse Perpetuals umstellen (FuturesContractType.normalized).
-     * OR IGNORE: Gibt es dasselbe Paar schon als INVERSE_PERPETUAL, bleibt der alte Eintrag wie er ist.
-     */
-    @Query("UPDATE OR IGNORE watches SET contractType = :contractType WHERE id IN (:ids)")
-    suspend fun updateContractType(ids: List<Long>, contractType: String): Int
-
-    /**
      * Kurs speichern — nur, wenn er nicht älter ist als der gespeicherte
      * ([com.cryptochecker.app.domain.refresh.PriceWriteOrder]: `lastUpdate <= :time`; ein mehr als eine Stunde in der
      * Zukunft liegender gespeicherter Zeitpunkt gilt als unplausibel).
@@ -341,14 +334,4 @@ interface WatchDao {
             "AND `condition` IN ('CHANGE_PERCENT_UP', 'CHANGE_PERCENT_DOWN')"
     )
     suspend fun setMissingPercentReferences(watchId: Long, price: Double)
-
-    /**
-     * «fällt um ≥ [maxFall] %» (Kurs, Open Interest) löst nie aus — ausschalten ([FallAlarmCleanup],
-     * einmalig). Rückgabe: geänderte Zeilen.
-     */
-    @Query(
-        "UPDATE alarms SET enabled = 0 WHERE enabled = 1 AND `condition` IN ('CHANGE_PERCENT_DOWN', 'OI_DOWN') " +
-            "AND threshold >= :maxFall"
-    )
-    suspend fun disableInvalidFallAlarms(maxFall: Double): Int
 }

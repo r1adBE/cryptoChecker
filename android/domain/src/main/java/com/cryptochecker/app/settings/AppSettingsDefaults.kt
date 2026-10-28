@@ -1,49 +1,21 @@
-// Grenzen, Migrations-Standards und Geräte-Standards der Einstellungen (Teil von `AppSettings.kt`, gespiegelt in
-// `AppSettings+Defaults.swift`). Erweiterungen von `AppSettings.Companion`, damit `AppSettings.clampLiveInterval(…)` usw.
-// bleiben; die Konstanten stehen in [AppSettings].
+// Grenzen und Geräte-Standards der Einstellungen (Teil von `AppSettings.kt`, gespiegelt in
+// `AppSettings+Defaults.swift`). Erweiterungen von `AppSettings.Companion`, damit `AppSettings.clampBackgroundInterval(…)` usw.
+// gelten; die Konstanten stehen in [AppSettings].
 package com.cryptochecker.app.settings
 
-import com.cryptochecker.app.settings.AppSettings.Companion.LEGACY_ONGOING_NOTIFICATIONS
 import com.cryptochecker.app.settings.AppSettings.Companion.MAX_ALARM_COOLDOWN_MINUTES
 import com.cryptochecker.app.settings.AppSettings.Companion.MAX_BACKGROUND_INTERVAL_MINUTES
-import com.cryptochecker.app.settings.AppSettings.Companion.MAX_LIVE_INTERVAL_SECONDS
 import com.cryptochecker.app.settings.AppSettings.Companion.MIN_BACKGROUND_INTERVAL_MINUTES
-import com.cryptochecker.app.settings.AppSettings.Companion.MIN_LIVE_INTERVAL_SECONDS
 
 fun AppSettings.Companion.clampBackgroundInterval(minutes: Int): Int =
     minutes.coerceIn(MIN_BACKGROUND_INTERVAL_MINUTES, MAX_BACKGROUND_INTERVAL_MINUTES)
 
-fun AppSettings.Companion.clampLiveInterval(seconds: Int): Int = seconds.coerceIn(MIN_LIVE_INTERVAL_SECONDS, MAX_LIVE_INTERVAL_SECONDS)
-
 fun AppSettings.Companion.clampAlarmCooldown(minutes: Int): Int = minutes.coerceIn(0, MAX_ALARM_COOLDOWN_MINUTES)
 
 /**
- * Einmalige Festschreibung von «Nicht wegwischbar», wenn der Schlüssel fehlt (Android
- * speichert ihn nur beim Umschalten): bestehende Installation → bisheriger Standard (an),
- * neue Installation → neuer Standard (aus).
- */
-fun AppSettings.Companion.ongoingForMigration(existingInstall: Boolean): Boolean =
-    if (existingInstall) LEGACY_ONGOING_NOTIFICATIONS else AppSettings().ongoingNotifications
-
-/**
- * Einmalige Festschreibung eines geänderten Standards, wenn der Schlüssel fehlt: bestehende
- * Installation → bisheriger Standard [legacy], neue → neuer Standard [current].
- */
-fun AppSettings.Companion.defaultForMigration(existingInstall: Boolean, legacy: Boolean, current: Boolean): Boolean =
-    if (existingInstall) legacy else current
-
-/**
- * Bestehende Installation? Ja, sobald ein gespeicherter Schlüssel nicht zu [ignored] gehört
- * (Schlüssel, die eine vorher gelaufene Migration auch bei neuen Installationen schreibt).
- */
-fun AppSettings.Companion.isExistingInstall(storedKeys: Collection<String>, ignored: Set<String>): Boolean =
-    storedKeys.any { it !in ignored }
-
-/**
- * Portfolio nach Standardwerten einschalten? Ja, wenn die Einstellungen als neue Installation angelegt wurden
- * ([resetDefaults], z. B. nach beschädigter Datei), das Portfolio aus ist und trotzdem Portfolio-Daten da sind
- * (Transaktionen, Adressen, Portfolio-Alarme) — dann ist es eine bestehende Installation, sonst blieben Tab und
- * Portfolio-Alarme stumm. Wie iOS `AppSettings.enablePortfolioForData`.
+ * Portfolio nach Standardwerten einschalten? Ja, wenn die Einstellungen neu angelegt wurden ([resetDefaults], z. B.
+ * nach beschädigter Datei), das Portfolio aus ist und trotzdem Portfolio-Daten da sind (Transaktionen, Adressen,
+ * Portfolio-Alarme) — sonst blieben Tab und Portfolio-Alarme stumm. Wie iOS `AppSettings.enablePortfolioForData`.
  */
 fun AppSettings.Companion.enablePortfolioForData(resetDefaults: Boolean, portfolioEnabled: Boolean, hasPortfolioData: Boolean): Boolean =
     resetDefaults && !portfolioEnabled && hasPortfolioData
@@ -84,8 +56,7 @@ fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): S
 }
 
 /**
- * Wahlmöglichkeiten und bisherige Standards der Einstellungen — aus `AppSettings.kt` ausgelagert (Datei
- * über 400 Zeilen). `AppSettings.Companion` erbt sie: Aufrufe bleiben `AppSettings.GAS_ETH_CHOICES` usw.
+ * Wahlmöglichkeiten der Einstellungen — aus `AppSettings.kt` ausgelagert (Datei über 400 Zeilen). `AppSettings.Companion` erbt sie: Aufrufe bleiben `AppSettings.GAS_ETH_CHOICES` usw.
  */
 open class AppSettingsChoices constructor() {
     val BACKGROUND_INTERVAL_CHOICES = listOf(15, 30, 60)
@@ -98,12 +69,4 @@ open class AppSettingsChoices constructor() {
 
     /** Gas-Alarm Bitcoin in sat/vB. */
     val GAS_BTC_CHOICES = listOf(0, 1, 2, 5, 10)
-
-    /** Bisherige Standards der später geänderten Schalter (bestehende Installationen). */
-    val LEGACY_WATCHLIST_NAMES = false
-    val LEGACY_SHOW_CONVERTED = false
-    val LEGACY_INCLUDE_ALPHA_TOKENS = true
-
-    /** Bisheriger Standard des Portfolio-Tabs (bestehende Installationen); auch für Sicherungen ohne das Feld. */
-    val LEGACY_PORTFOLIO_ENABLED = true
 }

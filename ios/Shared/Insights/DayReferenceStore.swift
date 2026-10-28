@@ -272,8 +272,8 @@ enum DayReferenceCache {
     }
 
     /// Ein gespeicherter Bezug; `key` wie «BTC|USDT»; `starts` nur für die Tagesbeginne
-    /// (`keepStarts`), ältere Dateien ohne sie bleiben gültig. `provider`: Anbieter der Kerzen
-    /// (Hinweis «Veränderung aus …-Kerzen»), ältere Dateien ohne ihn ebenso.
+    /// (`keepStarts`), Einträge ohne sie bleiben gültig. `provider`: Anbieter der Kerzen
+    /// (Hinweis «Veränderung aus …-Kerzen»), Einträge ohne ihn ebenso.
     struct Stored: Codable, Equatable, Sendable {
         var key: String
         var time: Int64

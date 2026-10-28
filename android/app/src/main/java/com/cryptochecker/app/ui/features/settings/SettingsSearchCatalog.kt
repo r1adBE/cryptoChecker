@@ -58,8 +58,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     val updates = stringResource(R.string.settings_row_updates)
     addPage(SettingsPage.UPDATES, updates)
     val updatesPath = updates
-    // «Wie aktuell?»: eine Wahl statt der früheren Schalter; deren Namen bleiben Suchwörter
-    // («Immer kurz» bzw. «Häufig aktualisieren» nicht mehr: seit 1.0 entfernt)
+    // «Wie aktuell?»: Suchwörter auch «Im Hintergrund aktualisieren» und «Live-Kurse»
     add("updates.mode", stringResource(R.string.update_mode_title), updatesPath,
         SettingsSearchTarget.Page(SettingsPage.UPDATES, "updates.mode"),
         stringResource(R.string.update_mode_sparsam), stringResource(R.string.update_mode_live),
@@ -240,8 +239,7 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
     add("main.reset", stringResource(R.string.settings_reset_app), "", SettingsSearchTarget.Main("main.reset"),
         stringResource(R.string.settings_reset_app_confirm))
-    // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»; frühere Namen bleiben
-    // Suchwörter
+    // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»; weitere Namen als Suchwörter
     val futures = stringResource(R.string.settings_asset_scope_title)
     add("page.exchanges", futures, watchlist, SettingsSearchTarget.Page(SettingsPage.EXCHANGES))
     add("futures.scope", stringResource(R.string.settings_asset_scope_title), futures,

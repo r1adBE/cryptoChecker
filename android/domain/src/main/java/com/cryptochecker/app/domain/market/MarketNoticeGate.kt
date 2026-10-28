@@ -55,7 +55,7 @@ object MarketNoticeGate {
 
     /**
      * Gilt die Grenze [current] nicht mehr für den gemerkten Stand? [stored] = mit dem Stand gemerkte Grenze;
-     * null = Stand vor dieser Regel (nichts gemerkt): als unverändert werten, damit nach dem Update nichts doppelt kommt.
+     * null = keine Grenze gemerkt: als unverändert werten.
      */
     fun boundChanged(stored: Int?, current: Int): Boolean = stored != null && stored != current
 

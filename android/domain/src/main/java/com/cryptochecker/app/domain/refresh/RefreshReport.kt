@@ -22,7 +22,7 @@ data class RefreshReport(
     val waitMillis: Long? = null,
     /**
      * Nummer des Versuchs (WorkManager, 1 = erster): grösser als 1, wenn der Datenbank-Schlüssel beim
-     * ersten noch nicht lesbar war ([RetryWait]); null = nicht gemessen (App-Knopf, ältere Berichte).
+     * ersten noch nicht lesbar war ([RetryWait]); null = nicht gemessen (App-Knopf).
      */
     val attempt: Int? = null,
     /** Durchlauf abgebrochen: kurze technische Ursache. */
@@ -133,7 +133,7 @@ object RefreshReportLogic {
 
     /**
      * Fehlertext (Android: Ausnahme bzw. Kennung; iOS: `ConnectionErrors`) → Ursache, über Stichwörter. Für
-     * gespeicherte Texte ohne [ExchangeFailure] (ältere Fassungen, Datenbank, Einstellungen) und als Rückfall.
+     * gespeicherte Texte ohne [ExchangeFailure] (Datenbank, Einstellungen) und als Rückfall.
      */
     fun classify(error: String?): RefreshFailure {
         val e = error?.trim().orEmpty()

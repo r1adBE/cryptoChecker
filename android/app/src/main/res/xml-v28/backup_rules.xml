@@ -14,10 +14,6 @@
          beiseitegelegte *.unreadable. -->
     <include domain="database" path="cryptochecker_system_backup.db" requireFlags="clientSideEncryption" />
     <include domain="database" path="cryptochecker_system_backup.db" requireFlags="deviceToDeviceTransfer" />
-    <!-- Nur für die Wiederherstellung alter Sicherungen (ältere Versionen mit unverschlüsselter Datenbank: cryptochecker.db-wal), die der Agent
-         hierhin umleitet (SystemBackupAgent.onRestoreFile); beim Sichern gibt es die Datei nie. -->
-    <include domain="database" path="cryptochecker_system_backup.db-wal" requireFlags="clientSideEncryption" />
-    <include domain="database" path="cryptochecker_system_backup.db-wal" requireFlags="deviceToDeviceTransfer" />
     <!-- Einstellungen (DataStore «settings», SettingsRepository) -->
     <include domain="file" path="datastore/settings.preferences_pb" requireFlags="clientSideEncryption" />
     <include domain="file" path="datastore/settings.preferences_pb" requireFlags="deviceToDeviceTransfer" />

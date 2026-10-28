@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Și în propriile tranzacții: %1$s – ambele se adună. Aceleași monede? Alege „Doar afișează”.</string>
     <string name="portfolio_address_overlap_ask">Înregistrezi deja %1$s cu propriile tranzacții. Adaugi soldul acestei adrese la portofoliu sau doar îl afișezi?</string>
     <string name="portfolio_address_overlap_auto">„%1$s” este acum doar afișat, nu inclus – %2$s apar și în tranzacțiile tale.</string>
-    <string name="portfolio_address_overlap_restored">„%1$s” contează din nou – cantitățile nu se potrivesc cu tranzacțiile tale. Alege „Doar afișează” dacă sunt aceleași monede.</string>
     <string name="portfolio_address_overlap_title">Aceleași monede ca în tranzacțiile tale?</string>
     <string name="portfolio_address_overlap_tx">Aceeași cantitate ca propria depunere/transfer (%1$s) – probabil numărată de două ori.</string>
     <string name="portfolio_address_period_observed">Adresele urmărite contează de la primul sold observat; modificările ulterioare sunt intrări/ieșiri, nu câștig.</string>

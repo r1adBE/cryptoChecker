@@ -61,7 +61,6 @@ enum WatchedAddressRules {
                                    networks: entry.chain == .ETH ? cleanNetworks(entry.networks) : nil,
                                    countInPortfolio: entry.countInPortfolio,
                                    overlapChecked: entry.overlapChecked,
-                                   overlapLegacy: entry.overlapChecked && entry.overlapLegacy,
                                    costLots: AddressCostLots.clean(entry.costLots), pendingSince: now)
             // Reihen nur, wo sie heute zählen würden (Token aus, Netz abgewählt: weg)
             let snapshot = a
@@ -100,12 +99,12 @@ enum WatchedAddressRules {
                                       observations: $0.observations, countTokens: $0.countTokens,
                                       tokenObservations: $0.tokenObservations, networks: $0.networks,
                                       countInPortfolio: $0.countInPortfolio, costLots: $0.costLots,
-                                      overlapChecked: $0.overlapChecked, overlapLegacy: $0.overlapChecked && $0.overlapLegacy)
+                                      overlapChecked: $0.overlapChecked)
         }
     }
 
     /// Wie `toJson` (Android) für die App-Sicherung: `[{"chain","address","label"?,"addedAt","observations"?,
-    /// "countTokens"?,"tokenObservations"?,"networks"?,"countInPortfolio"?,"costLots"?,"overlapChecked"?,"overlapLegacy"?}]`.
+    /// "countTokens"?,"tokenObservations"?,"networks"?,"countInPortfolio"?,"costLots"?,"overlapChecked"?}]`.
     static func json(_ entries: [WatchedAddressBackupEntry]) -> [[String: Any]] {
         entries.map { e in
             var o: [String: Any] = ["chain": e.chain.rawValue, "address": e.address, "addedAt": NSNumber(value: e.addedAt)]
@@ -123,7 +122,6 @@ enum WatchedAddressRules {
                 o["costLots"] = lots
             }
             if e.overlapChecked { o["overlapChecked"] = true }
-            if e.overlapChecked && e.overlapLegacy { o["overlapLegacy"] = true }
             return o
         }
     }
@@ -222,7 +220,6 @@ enum WatchedAddressRules {
         var out = a
         out.countInPortfolio = on
         out.overlapChecked = true
-        out.overlapLegacy = false
         return out
     }
 
@@ -249,7 +246,6 @@ enum WatchedAddressRules {
         var out = a
         out.countInPortfolio = false
         out.overlapChecked = true
-        out.overlapLegacy = false
         return out
     }
 
@@ -268,25 +264,6 @@ enum WatchedAddressRules {
             guard let balance = PortfolioDecimal.parse(h.amount), balance > 0 else { continue }
             let amountMatch: Bool = own[h.coin].map { nearlyEqual($0, balance, tolerance: overlapTolerance) } ?? false
             if amountMatch || transferred.contains(h.coin) { out.append(h.coin) }
-        }
-        return out
-    }
-
-    /// Alte Entscheide (`overlapLegacy`), die wieder zählen sollen: «Nur anzeigen» ohne passende Menge (`overlapMatched`)
-    /// — früher genügte derselbe Coin. Einmal beim Laden, mit Hinweis und «Rückgängig». Wie Android.
-    static func overlapLegacyRevert(_ a: WatchedAddress, txs: [PortfolioTx]) -> Bool {
-        a.overlapLegacy && !a.countInPortfolio && overlapMatched(a, txs: txs).isEmpty
-    }
-
-    /// Alten Entscheid übernehmen (`overlapLegacy` weg): `revert` = zählt wieder und gilt als nicht entschieden (die neue
-    /// Regel darf später bei passender Menge umstellen); sonst bleibt die Wahl. Wie Android.
-    static func withOverlapMigrated(_ a: WatchedAddress, revert: Bool) -> WatchedAddress {
-        guard a.overlapLegacy else { return a }
-        var out = a
-        out.overlapLegacy = false
-        if revert {
-            out.countInPortfolio = true
-            out.overlapChecked = false
         }
         return out
     }
@@ -392,8 +369,7 @@ enum WatchedAddressRules {
                                              networks: cleanNetworks(networks),
                                              countInPortfolio: o["countInPortfolio"] as? Bool ?? true,
                                              costLots: AddressCostLots.lots(fromJSON: o["costLots"]),
-                                             overlapChecked: o["overlapChecked"] as? Bool ?? false,
-                                             overlapLegacy: o["overlapLegacy"] as? Bool ?? false)
+                                             overlapChecked: o["overlapChecked"] as? Bool ?? false)
         }
     }
 }

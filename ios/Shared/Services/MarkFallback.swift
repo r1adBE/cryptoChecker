@@ -5,13 +5,10 @@ import Foundation
 /// Kurs». In den gemeinsamen Einstellungen (App, Hintergrund) statt im Stand, wie `DexLiquidityStore` — abgeleiteter
 /// Marktwert, nicht in der Sicherung; jede Abfrage setzt ihn neu. Wie `MarkFallbackStore.kt`.
 enum MarkFallbackStore {
-    /// Ein Schlüssel je Watch-Id (`PerKeyDefaults`); in älteren Versionen eine Liste unter «mark_fallback».
-    static let storage = PerKeyDefaults(prefix: "mark_fallback.", legacyKey: "mark_fallback")
-    /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
-    private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)
+    /// Ein Schlüssel je Watch-Id (`PerKeyDefaults`).
+    static let storage = PerKeyDefaults(prefix: "mark_fallback.")
 
     static func contains(_ watchId: Int64, defaults: UserDefaults = SharedStorage.defaults) -> Bool {
-        _ = migration
         return defaults.bool(forKey: storage.key(String(watchId)))
     }
 

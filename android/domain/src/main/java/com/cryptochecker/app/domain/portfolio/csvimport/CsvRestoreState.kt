@@ -25,10 +25,10 @@ data class CsvAbsorbedRow(
 
 /**
  * Zustand einer gespeicherten Transaktion vor der Verknüpfung zu einer Umbuchung ([CsvTransferMatch.restoreState]) —
- * gespeichert in der Spalte `importRestoreState` (Portfolio-Datenbank v4, iOS `PortfolioTx.importRestoreState`, Sicherung
+ * gespeichert in der Spalte `importRestoreState` (Portfolio-Datenbank, iOS `PortfolioTx.importRestoreState`, Sicherung
  * «importRestoreState»). «Import rückgängig» des verknüpfenden Laufs setzt die Transaktion darauf zurück (Art, Menge, Preis,
  * Zeit, Gebühren, von/nach, Kaufdatum, Börse, Herkunftsschlüssel und Importlauf). [absorbed] = die darin aufgegangene neue
- * Zeile; null nur bei Altbestand aus Build 56 ([com.cryptochecker.app.domain.portfolio.LegacyStorageMigration]).
+ * Zeile.
  *
  * Warum EIN JSON-Feld statt eigener Spalten: Der Zustand umfasst 23 Werte (15 der gespeicherten Seite, 8 der aufgegangenen
  * Zeile), die nur «Import rückgängig» liest — immer alle zusammen, nie einzeln gesucht oder sortiert. Als Spalten trügen

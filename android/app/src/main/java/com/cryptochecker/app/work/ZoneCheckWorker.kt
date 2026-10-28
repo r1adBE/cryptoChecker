@@ -24,8 +24,7 @@ import com.cryptochecker.app.notification.showFearGreed
 /**
  * Prüft zweimal täglich den Fear & Greed Index und die eigenen Grenzen der Bitcoin-Kennzahlen und meldet,
  * wenn ein Wert die eingestellte Grenze unter- bzw. überschreitet (reine Zahl, keine Deutung). Der zuletzt gesehene Wert liegt in
- * den Prefs. Die frühere Meldung «Marktphase gewechselt» gibt es nicht mehr; Name und
- * Arbeits-Kennung bleiben, damit eingeplante Läufe weiterlaufen bzw. ersetzt werden.
+ * den Prefs.
  */
 @HiltWorker
 class ZoneCheckWorker @AssistedInject constructor(
@@ -40,8 +39,6 @@ class ZoneCheckWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
         val prefs = applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         val settings = settingsRepository.current()
-        // Aufräumen: zuletzt gemerkte Marktzone früherer Versionen
-        if (prefs.contains(LEGACY_KEY_ZONE)) prefs.edit { remove(LEGACY_KEY_ZONE) }
         val fearGreedFailed = !checkFearGreed(settings.fearGreedBelow, settings.fearGreedAbove, prefs)
         val indicatorsFailed = !checkIndicators(settings.indicatorAlerts, prefs)
         // Abruf gescheitert: mit dem Backoff von WorkManager (exponentiell ab 30 s) erneut statt
@@ -139,7 +136,6 @@ class ZoneCheckWorker @AssistedInject constructor(
         const val WORK_NAME = "zone-check"
         /** Gemerkter Stand; beim Ausschalten in den Einstellungen zurückgesetzt (MarketAlertReset). */
         internal const val PREFS = ZoneCheckPrefs.PREFS
-        private const val LEGACY_KEY_ZONE = "last_zone"
         internal const val KEY_FNG = ZoneCheckPrefs.KEY_FNG
         /** Grenzen, zu denen der gemerkte Stand gehört. */
         internal const val KEY_FNG_BELOW = ZoneCheckPrefs.KEY_FNG_BELOW

@@ -68,22 +68,11 @@ struct ActivityReport: Equatable, Sendable {
 }
 
 /// Gespeicherte Open-Interest-Messung (in Coins, nicht USD — Kursbewegungen zählen so nicht mit).
-/// `source` = Futures-Quelle («Binance Futures», «Bybit», «OKX»); nil = alte Messung ohne Angabe
-/// (vor dem Verlauf `OiSeries` gespeichert), passt zu jeder Quelle.
+/// `source` = Futures-Quelle («Binance Futures», «Bybit», «OKX»).
 struct OiSample: Equatable, Sendable {
     let units: Double
     let time: Int64
-    var source: String? = nil
-}
-
-/// Ergebnis des Open-Interest-Vergleichs.
-struct OiUpdate: Equatable, Sendable {
-    /// Veränderung in %, nil wenn kein brauchbarer Vergleichswert (zu jung/zu alt/fehlt).
-    let changePercent: Double?
-    /// Minuten seit der Vergleichsmessung, sofern verglichen.
-    let minutes: Int?
-    /// Neue Messung speichern?
-    let store: Bool
+    let source: String
 }
 
 // MARK: «Warum bewegt sich das?»

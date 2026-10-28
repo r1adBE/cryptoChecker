@@ -188,20 +188,20 @@ final class BackgroundScheduleTests: XCTestCase {
         XCTAssertEqual(Set(CheckRunStore.load(from: url).map(\.at)), Set((1...15).map(Int64.init)))
     }
 
-    /// Zähler am App-Symbol: ohne Datei ab dem alten Wert (Defaults), danach aus der Datei; nie eine Mitteilung verloren.
-    func testBadgeCounterStartsFromFallbackThenCountsInFile() throws {
+    /// Zähler am App-Symbol: ohne Datei ab 0, danach aus der Datei; nie eine Mitteilung verloren.
+    func testBadgeCounterStartsAtZeroThenCountsInFile() throws {
         let url = try tempDir().appendingPathComponent("app_icon_badge.txt")
         XCTAssertNil(Notifier.readBadge(at: url))
-        XCTAssertEqual(Notifier.incrementBadge(at: url, fallback: 3), 4)
-        XCTAssertEqual(Notifier.incrementBadge(at: url, fallback: 0), 5)
+        XCTAssertEqual(Notifier.incrementBadge(at: url), 1)
+        XCTAssertEqual(Notifier.incrementBadge(at: url), 2)
         Notifier.storeBadgeCount(0, at: url)
         XCTAssertEqual(Notifier.readBadge(at: url), 0)
-        XCTAssertEqual(Notifier.incrementBadge(at: url, fallback: 9), 1)
+        XCTAssertEqual(Notifier.incrementBadge(at: url), 1)
     }
 
     func testConcurrentBadgeIncrementsAreNotLost() throws {
         let url = try tempDir().appendingPathComponent("app_icon_badge.txt")
-        DispatchQueue.concurrentPerform(iterations: 40) { _ in _ = Notifier.incrementBadge(at: url, fallback: 0) }
+        DispatchQueue.concurrentPerform(iterations: 40) { _ in _ = Notifier.incrementBadge(at: url) }
         XCTAssertEqual(Notifier.readBadge(at: url), 40)
     }
 }

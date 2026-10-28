@@ -46,7 +46,7 @@ enum SettingsSearchCatalog {
         let updates = L("settings_row_updates")
         addPage("page.updates", .updates, updates)
         let updatesPath = updates
-        // «Wie aktuell?»: eine Wahl statt der früheren drei Schalter; deren Namen bleiben Suchwörter (wie Android)
+        // «Wie aktuell?»: Suchwörter auch «Im Hintergrund aktualisieren», «Häufig aktualisieren» und «Live-Kurse»
         add("updates.mode", L("update_mode_title"), updatesPath, .page(.updates, anchor: "updates.mode"),
             [L("update_mode_sparsam"), L("update_mode_live"), L("settings_background_updates"),
              L("settings_live_service"), L("settings_live_websocket")])
@@ -168,8 +168,7 @@ enum SettingsSearchCatalog {
         add("backup.import", L("backup_import"), backup, .page(.backup, anchor: "backup.actions"))
         // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
         add("main.reset", L("settings_reset_app"), "", .main("main.reset"), [L("settings_reset_app_confirm")])
-        // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»;
-        // frühere Namen bleiben Suchwörter
+        // «Token & TradFi» mit Alpha und QTLY: eigene Seite, Zeile auf «Merkliste»; weitere Namen als Suchwörter
         let futures = L("settings_asset_scope_title")
         add("page.exchanges", futures, watchlist, .page(.exchanges, anchor: nil))
         let scopeWords: [String] = [

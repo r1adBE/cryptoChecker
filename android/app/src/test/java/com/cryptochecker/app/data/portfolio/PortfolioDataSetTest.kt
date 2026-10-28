@@ -227,7 +227,6 @@ class PortfolioStorageLockTest {
         assertFalse(source("WatchedAddressBalanceWriter.kt").contains("ensure"))
         // Nutzer-Änderungen über changeWatched (Standard userEdit = true), automatische ausdrücklich ohne Sperre
         assertTrue(body(source, "setWatchedAddressOverlapShowOnly").contains("userEdit = false"))
-        assertTrue(body(source, "migrateWatchedAddressOverlap").contains("userEdit = false"))
         for (name in listOf("setWatchedAddressCountTokens", "setWatchedAddressNetworks", "setWatchedAddressCountInPortfolio")) {
             assertFalse("$name darf die Sperre nicht umgehen", body(source, name).contains("userEdit = false"))
         }

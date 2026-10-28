@@ -73,8 +73,6 @@ data class CsvImportSkip(val line: Int, val reason: CsvImportSkipReason)
  * @param swapValue Tausch: Wert in [quote] (Fiat/USD aus der Datei); null = unbekannt
  * @param localTime Kalenderzeit der Datei (als wäre sie UTC), wenn sie ohne Versatz steht — Schlüssel unabhängig
  *   von der gewählten Zeitzone ([CsvImport.key]); null = Zeit mit Versatz/«Z»
- * @param legacyKeys frühere Schlüssel derselben Zeile (Zeit je Zeitzone in UTC; Kauf/Verkauf gegen
- *   Stablecoin) — erkennt ältere Importe
  * @param stableSwap Kauf/Verkauf gegen einen Stablecoin, als Tausch gebucht ([CsvImport.STABLES]) — Hinweis in der Vorschau
  */
 data class CsvImportRow(
@@ -94,7 +92,6 @@ data class CsvImportRow(
     val toAmount: BigDecimal? = null,
     val swapValue: BigDecimal? = null,
     val localTime: Long? = null,
-    val legacyKeys: List<String> = emptyList(),
     val stableSwap: Boolean = false,
 )
 

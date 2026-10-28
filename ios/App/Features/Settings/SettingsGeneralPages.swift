@@ -91,7 +91,7 @@ struct UpdatesSettingsPage: View {
 }
 
 /// «Wie aktuell?»: Wahlen als Auswahlzeilen mit ehrlichem Satz (Intervall aus den Feinheiten);
-/// «Sparsam» ist empfohlen (Standard); «Live, solange offen» für Profis. iOS ohne «Immer kurz» (`UpdateMode.iosChoices`).
+/// «Sparsam» ist empfohlen (Standard); «Live, solange offen» für Profis (`UpdateMode.iosChoices`).
 /// Wie `UpdateModeCard` (Android).
 @MainActor
 private struct UpdateModeCard: View {
@@ -123,8 +123,7 @@ private struct UpdateModeCard: View {
         switch mode {
         // Sparsam ist Standard und empfohlen; Live nur für Profis (wie Android)
         case .SPARSAM: return L("update_mode_sparsam") + " · " + L("update_mode_recommended")
-        // «Immer kurz» steht nie zur Wahl (`iosChoices`); der Fall gilt wie überall als Live
-        case .LIVE_OFFEN, .IMMER_KURZ: return L("update_mode_live") + " · " + L("update_mode_for_pros")
+        case .LIVE_OFFEN: return L("update_mode_live") + " · " + L("update_mode_for_pros")
         }
     }
 
@@ -132,7 +131,7 @@ private struct UpdateModeCard: View {
         switch mode {
         // Eigene iOS-Sätze: iOS entscheidet, wann im Hintergrund geprüft wird — kein «etwa alle 15 Min.»
         case .SPARSAM: return L("update_mode_sparsam_hint_ios")
-        case .LIVE_OFFEN, .IMMER_KURZ: return L("update_mode_live_hint_ios")
+        case .LIVE_OFFEN: return L("update_mode_live_hint_ios")
         }
     }
 }

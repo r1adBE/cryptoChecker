@@ -14,7 +14,6 @@ import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.marketdata.config.ExchangesConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.ExchangePair
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Exchange
 import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
 import com.cryptochecker.marketdata.model.exchange.DexPool
@@ -55,12 +54,10 @@ class ExchangeRepositoryImpl @Inject constructor(
             return ExchangePairsInfo(lastSyncDate = 0, pairs = builtInPairs(builtIn))
         }
 
-        // Listen älterer Versionen: inverse Perpetuals wie heute als INVERSE_PERPETUAL
-        val normalized = stored.withInversePerpetuals(exchange.key)
         val visible = when {
-            normalized.pairs.none { it.tradFi } -> normalized
-            settings.current().assetScope.allowsTradFi -> normalized
-            else -> normalized.copy(pairs = normalized.pairs.filterNot { it.tradFi })
+            stored.pairs.none { it.tradFi } -> stored
+            settings.current().assetScope.allowsTradFi -> stored
+            else -> stored.copy(pairs = stored.pairs.filterNot { it.tradFi })
         }
         return if (withAlpha) addAlphaPairs(exchange.key, visible) else visible
     }
@@ -141,15 +138,4 @@ private fun builtInPairs(byBase: Map<String, Array<String>>): List<ExchangePair>
         quotes.forEach { quote -> result += ExchangePair(base, quote, null) }
     }
     return result
-}
-
-/** Gespeicherte Liste mit inversen Perpetuals als INVERSE_PERPETUAL ([FuturesContractType.normalized]). */
-private fun ExchangePairsInfo.withInversePerpetuals(exchangeKey: String): ExchangePairsInfo {
-    val types = pairs.map { FuturesContractType.normalized(exchangeKey, it.pairId, it.contractType) }
-    if (pairs.indices.all { types[it] == pairs[it].contractType }) return this
-    return copy(pairs = pairs.mapIndexed { i, pair ->
-        val type = types[i]
-        if (type == pair.contractType) pair
-        else ExchangePair(pair.base, pair.quote, pair.pairId, type, pair.tradFi)
-    })
 }

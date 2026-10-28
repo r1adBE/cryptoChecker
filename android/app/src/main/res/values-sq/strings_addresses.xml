@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Edhe në transaksionet e tua: %1$s – mblidhen të dyja. Të njëjtat monedha? Zgjidh «Vetëm shfaq».</string>
     <string name="portfolio_address_overlap_ask">E regjistron tashmë %1$s me transaksionet e tua. Të llogaritet balanca e kësaj adrese në portofol apo vetëm të shfaqet?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» tani vetëm shfaqet, nuk llogaritet – %2$s shfaqen edhe në transaksionet e tua.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» llogaritet përsëri – sasitë nuk përputhen me transaksionet e tua. Zgjidh «Vetëm shfaq» nëse janë të njëjtat monedha.</string>
     <string name="portfolio_address_overlap_title">Të njëjtat monedha si në transaksionet e tua?</string>
     <string name="portfolio_address_overlap_tx">E njëjta sasi si depozita/transferimi yt (%1$s) – ndoshta llogaritet dy herë.</string>
     <string name="portfolio_address_period_observed">Adresat e ndjekura llogariten nga balanca e parë e vërejtur; ndryshimet e mëvonshme janë hyrje/dalje, jo fitim.</string>

@@ -17,7 +17,6 @@ fun CsvImportParser.build(
     h: Header,
     data: List<Record>,
     zone: String,
-    deviceZone: String,
     chosenOrder: CsvDateOrder?,
     chosenMark: Char?,
 ): CsvImportResult {
@@ -46,11 +45,9 @@ fun CsvImportParser.build(
     }
     val parsed = ArrayList<Pair<CsvImportRow, Int>>()
     val skipped = ArrayList<CsvImportSkip>()
-    // Zeile → ursprünglicher Kauf/Verkauf (vor dem Tausch gegen Stablecoin), für die früheren Schlüssel
-    val origins = HashMap<Int, CsvImportRow>()
     for (rec in data) {
         try {
-            parsed.add(row(format, h, rec, hint, zone, monthFirst, origins))
+            parsed.add(row(format, h, rec, hint, zone, monthFirst))
         } catch (s: Skip) {
             skipped.add(CsvImportSkip(rec.line, s.reason))
         }
@@ -63,24 +60,7 @@ fun CsvImportParser.build(
     }
     skipped.sortBy { it.line }
     val keys = CsvImport.withOccurrence(drafts.map { it.key })
-    // Frühere Schlüssel älterer Versionen: Zeit in UTC je Zeitzone der Auswahl, Kauf/Verkauf gegen Stablecoin noch
-    // als Kauf/Verkauf und Belohnung ohne Preis — ältere Importe weiter als Duplikat erkennen
-    val old = drafts.map { r -> origins[r.line]?.takeIf { r.kind == CsvImportKind.SWAP || r.kind == CsvImportKind.REWARD } ?: r }
-    val oldKeys = CsvImport.withOccurrence(old.map { it.key })
-    val legacyZones = listOf(zone, deviceZone, SWISS_ZONE, "UTC").distinct()
-    val seen = HashMap<String, Int>()
-    val rows = drafts.mapIndexed { i, r ->
-        val o = old[i]
-        val n = (seen[o.key] ?: 0) + 1
-        seen[o.key] = n
-        val local = r.localTime
-        val zoned = if (local == null) emptyList() else legacyZones.map { z ->
-            val k = CsvImport.key(format, o.kind, o.coin, o.amount, o.price, toUtc(local, z), o.externalId)
-            if (n == 1) k else "$k#$n"
-        }
-        val legacy = (listOf(oldKeys[i]) + zoned).distinct().filter { it != keys[i] }
-        r.copy(key = keys[i], legacyKeys = legacy)
-    }
+    val rows = drafts.mapIndexed { i, r -> r.copy(key = keys[i]) }
     // Zählt die Zeitzone? Nur wenn eine lesbare Zeit ohne Versatz vorkommt
     val localTimes = dateIndex != null && data.any { r ->
         val t = r.cells.getOrNull(dateIndex).orEmpty()
@@ -216,7 +196,6 @@ private fun CsvImportParser.row(
     hint: Char?,
     zone: String,
     monthFirst: Boolean,
-    origins: MutableMap<Int, CsvImportRow>,
 ): Pair<CsvImportRow, Int> {
     fun cell(role: Role): String = h.index[role]?.let { rec.cells.getOrNull(it) }.orEmpty()
     fun number(role: Role): BigDecimal? {
@@ -259,14 +238,12 @@ private fun CsvImportParser.row(
     // Belohnung mit Fiat-Betrag (wie Coinbase/Bitpanda): Preis = Betrag / Menge — nur mit Geld als
     // Preiswährung (Fiat oder USDT), sonst bliebe sie ohne Wert bzw. würde mangels Währung übersprungen
     val rewardValue = kind == CsvImportKind.REWARD && (CsvImport.isFiat(quote) || quote == PortfolioStables.VALUATION)
-    var derivedReward = false
     if (price == null && (kind == CsvImportKind.BUY || kind == CsvImportKind.SELL || rewardValue)) {
         // Belohnung mit unlesbarem Betrag: ohne Preis wie früher, nicht übersprungen
         val fiat = if (kind == CsvImportKind.REWARD) {
             try { number(Role.FIAT_AMOUNT) } catch (_: Skip) { null }
         } else number(Role.FIAT_AMOUNT)
         price = fiat?.abs()?.takeIf { it.signum() > 0 }?.let { CsvImport.derive(it, amount) }
-        derivedReward = kind == CsvImportKind.REWARD && price != null
     }
     // Tausch: kein Preis, sondern Wert (Fiat-Betrag, sonst Preis × Menge) — nur in Geld, sonst unbekannt
     var swapValue: BigDecimal? = null
@@ -315,16 +292,11 @@ private fun CsvImportParser.row(
         swapValue = swapValue,
         localTime = local,
     )
-    // Gegen Stablecoin bzw. Krypto-Coin: Tausch; der ursprüngliche Kauf/Verkauf bleibt für die früheren Schlüssel
+    // Gegen Stablecoin bzw. Krypto-Coin: Tausch
     val stableAmount = if ((kind == CsvImportKind.BUY || kind == CsvImportKind.SELL) &&
         (CsvImport.isStable(quote) || CsvImport.isCryptoQuote(quote))
     ) {
         number(Role.FIAT_AMOUNT)?.abs()?.takeIf { it.signum() > 0 }
     } else null
-    val swapped = stableSwap(format, draft, stableAmount)
-    if (swapped != null) origins[rec.line] = draft
-    // Belohnung mit abgeleitetem Preis: früher ohne Preis importiert — dieser Schlüssel bleibt als früherer
-    // ([CsvImportRow.legacyKeys]), sonst käme eine schon importierte Belohnung ein zweites Mal
-    if (derivedReward) origins[rec.line] = draft.copy(price = null, key = CsvImport.key(format, kind, coin, amount, null, time, externalId, local))
-    return (swapped ?: draft) to (if (signed.signum() < 0) -1 else 1)
+    return (stableSwap(format, draft, stableAmount) ?: draft) to (if (signed.signum() < 0) -1 else 1)
 }

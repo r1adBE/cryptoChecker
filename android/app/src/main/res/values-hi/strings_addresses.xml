@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">तुम्हारे अपने लेन-देन में भी: %1$s – दोनों जोड़े जाते हैं। वही कॉइन? “सिर्फ़ दिखाओ” चुनो।</string>
     <string name="portfolio_address_overlap_ask">तुम %1$s को पहले से अपने लेन-देन से दर्ज करते हो। इस पते का बैलेंस पोर्टफ़ोलियो में जोड़ो या सिर्फ़ दिखाओ?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” अब सिर्फ़ दिखाया जाता है, गिना नहीं जाता – %2$s तुम्हारे लेन-देन में भी हैं।</string>
-    <string name="portfolio_address_overlap_restored">“%1$s” फिर से गिना जा रहा है – मात्राएँ तुम्हारे लेन-देन से मेल नहीं खातीं। अगर वही कॉइन हैं तो “सिर्फ़ दिखाओ” चुनो।</string>
     <string name="portfolio_address_overlap_title">तुम्हारे लेन-देन वाले ही कॉइन?</string>
     <string name="portfolio_address_overlap_tx">तुम्हारे अपने जमा/ट्रांसफ़र (%1$s) जितनी ही मात्रा – शायद दो बार गिनी जा रही है।</string>
     <string name="portfolio_address_period_observed">देखे जा रहे पते पहली बार देखे गए बैलेंस से गिने जाते हैं; बाद के बदलाव आवक/जावक हैं, लाभ नहीं।</string>

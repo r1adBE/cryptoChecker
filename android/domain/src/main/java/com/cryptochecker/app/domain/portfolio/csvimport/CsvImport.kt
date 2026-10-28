@@ -1,7 +1,6 @@
 // Schlüssel, Duplikate und Umrechnung der CSV-Zeilen in USDT; die Datentypen stehen in `CsvImportRow.kt`.
 package com.cryptochecker.app.domain.portfolio.csvimport
 
-import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import java.math.BigDecimal
@@ -82,7 +81,7 @@ object CsvImport {
      *  - Swissquote: «SWISSQUOTE|<Order #>|<Zeit>|<Menge>» (Teilausführungen teilen die Auftragsnummer)
      *  - ohne Kennung: «<Format>|<Art>|<Coin>|<Zeit>|<Menge>|<Preis oder ->»
      * <Zeit>: UTC-ms; steht die Zeit ohne Versatz in der Datei ([localTime]), «L» + Kalenderzeit — so ändert eine
-     * andere Zeitzone beim zweiten Import den Schlüssel nicht (frühere Schlüssel: [CsvImportRow.legacyKeys]).
+     * andere Zeitzone beim zweiten Import den Schlüssel nicht.
      * Gleiche Schlüssel innerhalb einer Datei bekommen «#2», «#3» … ([withOccurrence]).
      */
     fun key(
@@ -169,14 +168,11 @@ object CsvImport {
     }
 
     /**
-     * Zeilen, deren Schlüssel (oder ein früherer, [CsvImportRow.legacyKeys]) schon gespeichert ist, als Duplikate abtrennen.
-     * [existingKeys] = alle gespeicherten Herkunftsschlüssel samt `linkedImportKey` verknüpfter Umbuchungen: jede ihrer
-     * Seiten gilt als importiert. Vor Portfolio-Datenbank v4 verknüpfte Umbuchungen tragen lange Teile gekürzt
-     * ([LegacyStorageMigration.shortKey]) — auch darüber erkannt.
+     * Zeilen, deren Schlüssel schon gespeichert ist, als Duplikate abtrennen. [existingKeys] = alle gespeicherten
+     * Herkunftsschlüssel samt `linkedImportKey` verknüpfter Umbuchungen: jede ihrer Seiten gilt als importiert.
      */
     fun splitDuplicates(rows: List<CsvImportRow>, existingKeys: Set<String>): CsvImportSplit {
-        fun isKnown(key: String) = key in existingKeys || LegacyStorageMigration.shortKey(key) in existingKeys
-        val (dup, fresh) = rows.partition { r -> isKnown(r.key) || r.legacyKeys.any { isKnown(it) } }
+        val (dup, fresh) = rows.partition { r -> r.key in existingKeys }
         return CsvImportSplit(fresh = fresh, duplicates = dup)
     }
 

@@ -53,7 +53,7 @@ extension CoinLogos {
         }
     }
 
-    /// Hat die Liste Kennungen für die Alpha-Paare (sonst einmal direkt neu holen, z. B. nach dem Update)?
+    /// Hat die Liste Kennungen für die Alpha-Paare (sonst einmal direkt neu holen)?
     static func hasAlphaIds(_ entries: [AlphaEntry]?) -> Bool {
         entries?.contains { $0.alphaId != nil } ?? false
     }

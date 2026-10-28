@@ -1,5 +1,5 @@
 {
-  "_comment": "Verschluesselte Sicherungen (BackupCrypto): v3 Argon2id (RFC 9106) + AES-256-GCM mit kanonischem Kopf als AAD (header), v2 PBKDF2 ohne AAD (weiterhin lesbar). Mit Python cryptography nachgerechnet. Gegenstuecke: BackupCryptoParityTest.kt / BackupCryptoParityTests.swift.",
+  "_comment": "Verschluesselte Sicherungen (BackupCrypto): v3 Argon2id (RFC 9106) + AES-256-GCM mit kanonischem Kopf als AAD (header); andere Versionen werden nicht gelesen. Mit Python cryptography nachgerechnet. Gegenstuecke: BackupCryptoParityTest.kt / BackupCryptoParityTests.swift.",
   "password": "Krypt\u00f6-Test 2026!",
   "plain": "{\"format\":\"cryptochecker-backup\",\"version\":1,\"portfolio\":[]}",
   "v3": [
@@ -41,28 +41,6 @@
       "iv": "oKGio6Slpqeoqaqr",
       "header": "{\"format\":\"cryptochecker-backup-enc\",\"v\":3,\"enc\":\"AES-256-GCM\",\"kdf\":\"Argon2id\",\"m\":256,\"t\":1,\"p\":1,\"salt\":\"AAECAwQFBgcICQoLDA0ODw==\",\"iv\":\"oKGio6Slpqeoqaqr\"}",
       "data": "n8rtz3KAnSu82GXee54Gsm4+j2Hm8+Y8El7HRLL0MNegT84pW4IG23nTjMPgQk5cdoQGe8TDu9adv1lqQhsSl0pv2z5hbFFBB1pPJQ=="
-    }
-  ],
-  "v2": [
-    {
-      "format": "cryptochecker-backup-enc",
-      "v": 2,
-      "enc": "AES-256-GCM",
-      "kdf": "PBKDF2-HMAC-SHA256",
-      "iter": 210000,
-      "salt": "AAECAwQFBgcICQoLDA0ODw==",
-      "iv": "oKGio6Slpqeoqaqr",
-      "data": "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
-    },
-    {
-      "format": "cryptochecker-backup-enc",
-      "v": 2,
-      "enc": "AES-256-GCM",
-      "kdf": "PBKDF2-HMAC-SHA256",
-      "iter": 600000,
-      "salt": "AAECAwQFBgcICQoLDA0ODw==",
-      "iv": "oKGio6Slpqeoqaqr",
-      "data": "0Ku8OwoZGZNMLB4nSmFxc+ftNLme+bH0q7YUsGipFoc6Edly6EQAyI3y2P5g9FVosu0L/CWRglvDAWzcW6/sO5/liBMAHn0IC/qYSg=="
     }
   ],
   "reject": [
@@ -297,6 +275,20 @@
         "v": 2,
         "enc": "AES-256-GCM",
         "kdf": "Argon2id",
+        "iter": 210000,
+        "salt": "AAECAwQFBgcICQoLDA0ODw==",
+        "iv": "oKGio6Slpqeoqaqr",
+        "data": "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
+      },
+      "result": "unsupported"
+    },
+    {
+      "name": "v2 (PBKDF2) wird nicht gelesen",
+      "file": {
+        "format": "cryptochecker-backup-enc",
+        "v": 2,
+        "enc": "AES-256-GCM",
+        "kdf": "PBKDF2-HMAC-SHA256",
         "iter": 210000,
         "salt": "AAECAwQFBgcICQoLDA0ODw==",
         "iv": "oKGio6Slpqeoqaqr",

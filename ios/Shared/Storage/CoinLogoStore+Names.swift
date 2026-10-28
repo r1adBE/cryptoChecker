@@ -7,9 +7,6 @@ extension CoinLogoStore {
     // MARK: Aktiennamen (Nasdaq-Symbolliste)
 
     private static let stockNamesTimeKey = "coin_logos_stock_names_time_v1"
-    /// Kennungen der früheren GitHub-Liste (nicht mehr benutzt, werden gelöscht).
-    private static let oldStocksETagKey = "coin_logos_stocks_etag_v1"
-    static let oldIndexETagKey = "coin_logos_index_etag_v5"
     private static let stockNamesAttemptKey = "coin_logos_stock_names_attempt_v1"
     fileprivate static var stockNamesURL: URL { directory.appendingPathComponent("stock_names1.txt") }
 
@@ -36,7 +33,6 @@ extension CoinLogoStore {
         try? CoinLogos.encodeNames(fresh, order: fresh.keys.sorted())
             .write(to: Self.stockNamesURL, atomically: true, encoding: .utf8)
         defaults.set(Double(now), forKey: Self.stockNamesTimeKey)
-        defaults.removeObject(forKey: Self.oldStocksETagKey)
         Self.stockNamesBox.store(fresh)
         await CoinLogoRevision.bump()
         return true
@@ -58,7 +54,7 @@ extension CoinLogoStore {
     /// mitgelieferten Auszug (`CoinMeta.snapshotName`), damit schon eine frische Installation Namen zeigt.
     static var names: [String: String] {
         namesBox.read(
-            { CoinLogos.decodeNames(readFirst([namesURL, directory.appendingPathComponent(oldFiles[1])])) },
+            { CoinLogos.decodeNames(readNonBlank(namesURL)) },
             snapshot: { snapshotMeta.map { CoinMeta.listNames(binance: $0.binance, alpha: $0.alpha).names } ?? [:] }
         )
     }
@@ -69,13 +65,11 @@ extension CoinLogoStore {
         return CoinMeta.parse(try? String(contentsOf: url, encoding: .utf8))
     }()
 
-    /// Inhalt der ersten vorhandenen, nicht leeren Datei.
-    static func readFirst(_ urls: [URL]) -> String? {
-        for url in urls {
-            if let text = try? String(contentsOf: url, encoding: .utf8),
-               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return text }
-        }
-        return nil
+    /// Inhalt der Datei; fehlend, unlesbar oder leer → nil.
+    static func readNonBlank(_ url: URL) -> String? {
+        guard let text = try? String(contentsOf: url, encoding: .utf8),
+              !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
+        return text
     }
 
     /// Name für ein Paar der Merkliste (TradFi beachtet); nil bei DEX-Pools und unbekannten Coins.

@@ -4,9 +4,8 @@ import Foundation
 // Verschenkt/bezahlt und Belohnungen zum Tageskurs, nötige Tageskurse — wie `PortfolioLedger.kt` (Android).
 
 extension PortfolioLedger {
-    /// Gebühr-Zeile (CSV «Fee», `CsvImportMapping`), gespeichert als Verkauf mit eigenem Merker (`feeRow`;
-    /// vorher aus «Preis 0 mit Import-Herkunft» geschlossen, `LegacyStorageMigration.legacyFeeRow` — von Hand erfasst ist
-    /// ein Verkauf zum Preis 0 ein Verkauf eines wertlosen Coins): Veräusserung zum
+    /// Gebühr-Zeile (CSV «Fee», `CsvImportMapping`), gespeichert als Verkauf mit eigenem Merker (`feeRow` — von Hand
+    /// erfasst ist ein Verkauf zum Preis 0 ein Verkauf eines wertlosen Coins): Veräusserung zum
     /// TAGESKURS — Erlös = Menge × Tagesschluss ihres Tags (`valueFeeDisposals`), realisiert = Marktwert − Einstand; ohne
     /// Kurs Erlös unbekannt («unvollständig», nie 0). Steuer-Export: Vermerk «Gebühr» (`TaxGainRow.feeRow`). Verlauf und
     /// «Heute/7 T/1 J» (`flow`): Abfluss zum Marktkurs — über die ganze Haltedauer Kurve = «Seit Kauf» + realisiert, kein

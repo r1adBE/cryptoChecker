@@ -1,6 +1,5 @@
 package com.cryptochecker.app.data
 
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.WatchFilter
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
@@ -16,7 +15,6 @@ import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.ExchangePair
-import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -32,25 +30,12 @@ class WatchRepository @Inject constructor(
     private val alarmLogStore: AlarmLogStore,
     /** Vermerke «wird gemeldet» gelöschter Alarme aufräumen ([forgetDeletedAlarms], [deleteAlarm]). */
     private val deliveryMarkers: AlarmDeliveryMarkers,
-    /** «fällt um ≥ 100 %»-Alarme einmalig ausschalten (vor dem ersten Lesen, [getWatches]). */
-    private val fallAlarmCleanup: FallAlarmCleanup,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchDao.observeWatches()
 
     fun observeWatch(id: Long): Flow<WatchEntity?> = watchDao.observeWatch(id)
 
-    suspend fun getWatches(): List<WatchEntity> {
-        // Einmal je Prozess vor dem ersten Lesen (Aktualisierung, Widgets, Alarme): Vertragsarten angleichen
-        if (!contractTypesNormalized) {
-            contractTypesNormalized = true
-            runCatchingCancellable { normalizeContractTypes() }
-        }
-        fallAlarmCleanup.runOnce()
-        return watchDao.getWatches()
-    }
-
-    @Volatile
-    private var contractTypesNormalized = false
+    suspend fun getWatches(): List<WatchEntity> = watchDao.getWatches()
 
     /**
      * Datenbank öffnen, falls noch nicht geschehen (blockiert, nicht auf dem Hauptthread): Erst danach sagt
@@ -62,19 +47,6 @@ class WatchRepository @Inject constructor(
     }
 
     suspend fun getWatch(id: Long): WatchEntity? = watchDao.getWatch(id)
-
-    /**
-     * Inverse Perpetuals (Binance COIN-M, OKX «-USD-SWAP», Deribit BTC/ETH), die ältere Versionen als PERPETUAL
-     * gespeichert wurden, auf INVERSE_PERPETUAL umstellen — wie die Paarlisten sie heute liefern. Kennung,
-     * Kurs, Alarme bleiben; nur so passt die Dublettenprüfung zur Paarliste. Einmal je Prozess ([getWatches]; wirkt
-     * auch nach dem Wiederherstellen einer älteren Sicherung), ohne passende Einträge ohne Schreibzugriff.
-     */
-    suspend fun normalizeContractTypes() {
-        val ids = watchDao.getWatches()
-            .filter { FuturesContractType.normalized(it.exchangeKey, it.pairId, it.contractType) != it.contractType }
-            .map { it.id }
-        if (ids.isNotEmpty()) watchDao.updateContractType(ids, FuturesContractType.INVERSE_PERPETUAL.name)
-    }
 
     // Paare anlegen (einzeln, gesammelt, mit Obergrenze): `WatchRepositoryAdd.kt`
 
@@ -384,12 +356,5 @@ class WatchRepository @Inject constructor(
          * Kursmitteilungen › Paare. Wie iOS `Watch.newPairNotificationEnabled`.
          */
         const val DEFAULT_NOTIFICATION_ENABLED = true
-
-        /**
-         * Gesicherte Paare OHNE Angabe: an. In älteren Versionen hatte jedes Paar die Kurs-Benachrichtigung
-         * standardmässig an (Spalten-Standard, iOS ebenso); fehlt das Feld, stammt die Sicherung aus
-         * so einer Version — «an» erhält ihr damaliges Verhalten.
-         */
-        const val LEGACY_NOTIFICATION_ENABLED = true
     }
 }

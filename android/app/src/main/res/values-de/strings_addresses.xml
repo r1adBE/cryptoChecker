@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Auch in deinen eigenen Transaktionen: %1$s – beides wird addiert. Dieselben Coins? Wähle «Nur anzeigen».</string>
     <string name="portfolio_address_overlap_ask">Du erfasst %1$s schon mit eigenen Transaktionen. Soll das Guthaben dieser Adresse zum Portfolio zählen oder nur angezeigt werden?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» wird jetzt nur angezeigt, nicht gezählt – %2$s stehen auch in deinen Transaktionen.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» zählt wieder – die Mengen passen nicht zu deinen Transaktionen. Wähle «Nur anzeigen», wenn es dieselben Coins sind.</string>
     <string name="portfolio_address_overlap_title">Dieselben Coins wie in deinen Transaktionen?</string>
     <string name="portfolio_address_overlap_tx">Gleiche Menge wie deine eigene Einzahlung/Umbuchung (%1$s) – zählt wohl doppelt.</string>
     <string name="portfolio_address_period_observed">Beobachtete Adressen zählen ab dem ersten beobachteten Guthaben; spätere Änderungen sind Zu-/Abflüsse, kein Gewinn.</string>

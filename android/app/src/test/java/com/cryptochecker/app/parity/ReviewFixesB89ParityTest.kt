@@ -20,7 +20,7 @@ class ReviewFixesB89ParityTest {
 
     private val data = ParityJson.load("address_balance.json")
 
-    /** Entscheid «trotzdem zählen» (bzw. alte Regel) übersteht Sichern, Einspielen und erneutes Sichern. */
+    /** Entscheid «trotzdem zählen» übersteht Sichern, Einspielen und erneutes Sichern. */
     @Test
     fun backupKeepsOverlapDecision() {
         val c = data["backupOverlap"].obj()
@@ -32,13 +32,12 @@ class ReviewFixesB89ParityTest {
             assertEquals(name, AddressChain.fromName(x["chain"] as String), e.chain)
             assertEquals(name, x["address"], e.address)
             assertEquals("$name checked", x["overlapChecked"], e.overlapChecked)
-            assertEquals("$name legacy", x["overlapLegacy"], e.overlapLegacy)
         }
         // Geschrieben nur die gesetzten Felder; zurückgelesen ohne Verlust
         val json = WatchedAddressRules.toJson(parsed)
         expected.forEachIndexed { i, x ->
             val o = json.getJSONObject(i)
-            val written = listOf("overlapChecked", "overlapLegacy").filter { o.has(it) }
+            val written = listOf("overlapChecked").filter { o.has(it) }
             assertEquals("${x["address"]} written", x["written"], written)
         }
         assertEquals(parsed, WatchedAddressRules.fromJson(json))
@@ -46,7 +45,6 @@ class ReviewFixesB89ParityTest {
         val merged = WatchedAddressRules.merge(emptyList(), parsed)
         expected.zip(merged).forEach { (x, a) ->
             assertEquals("${x["address"]} merge checked", x["overlapChecked"], a.overlapChecked)
-            assertEquals("${x["address"]} merge legacy", x["overlapLegacy"], a.overlapLegacy)
             assertEquals("${x["address"]} merge count", x["countInPortfolio"], a.countInPortfolio)
         }
         assertEquals(parsed, WatchedAddressRules.backupEntries(merged))

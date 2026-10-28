@@ -43,7 +43,7 @@ final class WhyAnalysisParityTests: XCTestCase {
             let sample = Self.samples([c["sample"] as Any], now: now)[0]
             let out = OiSeries.append(Self.samples(c["series"], now: now), sample, now: now)
             let actual: [Any] = out.map { s -> [Any] in
-                [Double((s.time - now) / 60_000), s.units, s.source as Any]
+                [Double((s.time - now) / 60_000), s.units, s.source]
             }
             XCTAssertEqual(Self.canonical(actual), Self.canonical(c["expected"]), c["name"] as? String ?? "?")
         }
@@ -154,12 +154,11 @@ final class WhyAnalysisParityTests: XCTestCase {
         }
     }
 
-    /// [[Minuten, Coins, Quelle|null], …]
+    /// [[Minuten, Coins, Quelle], …]
     static func samples(_ spec: Any?, now: Int64) -> [OiSample] {
         (spec as? [Any] ?? []).compactMap { raw in
-            guard let e = raw as? [Any], e.count >= 2 else { return nil }
-            return OiSample(units: S.number(e[1]) ?? 0, time: now + Int64(S.number(e[0]) ?? 0) * 60_000,
-                            source: e.count > 2 ? e[2] as? String : nil)
+            guard let e = raw as? [Any], e.count > 2, let source = e[2] as? String else { return nil }
+            return OiSample(units: S.number(e[1]) ?? 0, time: now + Int64(S.number(e[0]) ?? 0) * 60_000, source: source)
         }
     }
 

@@ -10,50 +10,21 @@ import java.util.Base64
 
 class BackupCryptoTest {
 
-    // v2-Prüfwert, auch für `BackupCrypto.swift` (selbstTest) — mit Python `cryptography` nachgerechnet:
-    // hashlib.pbkdf2_hmac("sha256", pw.encode(), salt, 210000, 32) + AESGCM(key).encrypt(iv, plain, None).
-    // v3-Prüfwerte (Argon2id + AAD): testdata/parity/backup_crypto.json (BackupCryptoParityTest)
+    // Prüfwerte (Argon2id + AAD): testdata/parity/backup_crypto.json (BackupCryptoParityTest)
     private val vectorPassword = "Kryptö-Test 2026!"
     private val vectorSalt = ByteArray(16) { it.toByte() }                  // 00..0f
     private val vectorIv = ByteArray(12) { (0xa0 + it).toByte() }           // a0..ab
     private val vectorPlain = """{"format":"cryptochecker-backup","version":1,"portfolio":[]}"""
-    private val vectorData =
+    // Beliebige gültige Base64-Daten (≥ 16 Bytes) für Hüllen, die schon beim Lesen scheitern
+    private val someData =
         "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
-    // Gleich, aber iter 600000 (neue Sicherungen)
-    private val vectorData600k =
-        "0Ku8OwoZGZNMLB4nSmFxc+ftNLme+bH0q7YUsGipFoc6Edly6EQAyI3y2P5g9FVosu0L/CWRglvDAWzcW6/sO5/liBMAHn0IC/qYSg=="
 
     // Rasche Argon2id-Parameter für Tests, die nicht den Prüfwert betreffen (64 MiB brauchen je Aufruf ~0,5 s)
     private val fastKdf = BackupCrypto.Kdf.Argon2(256, 1, 1)
-    private val legacyKdf = BackupCrypto.Kdf.Pbkdf2(BackupCrypto.LEGACY_ITERATIONS)
 
     private fun b64(bytes: ByteArray): String = Base64.getEncoder().encodeToString(bytes)
 
     private fun pw(value: String): CharArray = value.toCharArray()
-
-    @Test
-    fun testVectorMatchesPython() {
-        // v2 (PBKDF2, ohne AAD): schreiben nur noch Tests, der Prüfwert bleibt
-        val env = BackupCrypto.encrypt(
-            vectorPlain.toByteArray(Charsets.UTF_8), pw(vectorPassword), vectorSalt, vectorIv, legacyKdf
-        )
-        assertEquals("AAECAwQFBgcICQoLDA0ODw==", b64(env.salt))
-        assertEquals("oKGio6Slpqeoqaqr", b64(env.iv))
-        assertEquals(vectorData, b64(env.data))
-        assertEquals(BackupCrypto.Kdf.Pbkdf2(210_000), env.kdf)
-        assertEquals(2, env.version)
-    }
-
-    @Test
-    fun v2With600kIterationsMatchesPython() {
-        assertEquals(600_000, BackupCrypto.ITERATIONS)
-        val env = BackupCrypto.encrypt(
-            vectorPlain.toByteArray(Charsets.UTF_8), pw(vectorPassword), vectorSalt, vectorIv,
-            BackupCrypto.Kdf.Pbkdf2(BackupCrypto.ITERATIONS)
-        )
-        assertEquals(vectorData600k, b64(env.data))
-        assertTrue(BackupCrypto.toJson(env).contains("\"iter\": 600000"))
-    }
 
     @Test
     fun newBackupsUseArgon2idV3() {
@@ -119,33 +90,9 @@ class BackupCryptoTest {
     }
 
     @Test
-    fun testVectorDecrypts() {
-        // Alte Datei (iter 210000) bleibt lesbar
-        val env = BackupCrypto.envelope(
-            2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 210_000,
-            "AAECAwQFBgcICQoLDA0ODw==", "oKGio6Slpqeoqaqr", vectorData
-        )
-        assertEquals(vectorPlain, BackupCrypto.decrypt(env, pw(vectorPassword)).toString(Charsets.UTF_8))
-    }
-
-    @Test
-    fun testVector600kDecrypts() {
-        val env = BackupCrypto.envelope(
-            2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 600_000,
-            "AAECAwQFBgcICQoLDA0ODw==", "oKGio6Slpqeoqaqr", vectorData600k
-        )
-        assertEquals(vectorPlain, BackupCrypto.decrypt(env, pw(vectorPassword)).toString(Charsets.UTF_8))
-    }
-
-    @Test
     fun decomposedPasswordEqualsComposed() {
         // «ö» als o + U+0308 (NFD) ergibt denselben Schlüssel wie das vorkomponierte «ö»
         val nfd = "Kryptö-Test 2026!"
-        val env = BackupCrypto.encrypt(
-            vectorPlain.toByteArray(Charsets.UTF_8), pw(nfd), vectorSalt, vectorIv, legacyKdf
-        )
-        assertEquals(vectorData, b64(env.data))
-        // Auch für Argon2id (v3): gleicher Schlüssel wie mit dem vorkomponierten «ö»
         val composed = BackupCrypto.encrypt(vectorPlain.toByteArray(Charsets.UTF_8), pw(vectorPassword), vectorSalt, vectorIv, fastKdf)
         val decomposed = BackupCrypto.encrypt(vectorPlain.toByteArray(Charsets.UTF_8), pw(nfd), vectorSalt, vectorIv, fastKdf)
         assertArrayEquals(composed.data, decomposed.data)
@@ -199,19 +146,21 @@ class BackupCryptoTest {
     }
 
     @Test
-    fun envelopeJsonRoundTrip() {
+    fun envelopeJson() {
         val env = BackupCrypto.encrypt(
-            vectorPlain.toByteArray(Charsets.UTF_8), pw(vectorPassword), vectorSalt, vectorIv, legacyKdf
+            vectorPlain.toByteArray(Charsets.UTF_8), pw(vectorPassword), vectorSalt, vectorIv, fastKdf
         )
         val json = BackupCrypto.toJson(env)
         assertTrue(json.contains("\"format\": \"cryptochecker-backup-enc\""))
-        assertTrue(json.contains("\"v\": 2"))
+        assertTrue(json.contains("\"v\": 3"))
         assertTrue(json.contains("\"enc\": \"AES-256-GCM\""))
-        assertTrue(json.contains("\"kdf\": \"PBKDF2-HMAC-SHA256\""))
-        assertTrue(json.contains("\"iter\": 210000"))
+        assertTrue(json.contains("\"kdf\": \"Argon2id\""))
+        assertTrue(json.contains("\"m\": 256"))
+        assertTrue(json.contains("\"t\": 1"))
+        assertTrue(json.contains("\"p\": 1"))
         assertTrue(json.contains("\"salt\": \"AAECAwQFBgcICQoLDA0ODw==\""))
         assertTrue(json.contains("\"iv\": \"oKGio6Slpqeoqaqr\""))
-        assertTrue(json.contains("\"data\": \"$vectorData\""))
+        assertTrue(json.contains("\"data\": \"${b64(env.data)}\""))
     }
 
     @Test
@@ -224,27 +173,25 @@ class BackupCryptoTest {
         val iv = "oKGio6Slpqeoqaqr"
         // Neuere Hülle: eigene Meldung «neuere App-Version»
         try {
-            BackupCrypto.envelope(4, "AES-256-GCM", "Argon2id", 0, salt, iv, vectorData, 65_536, 3, 1); fail("accepted")
+            BackupCrypto.envelope(4, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 3, 1); fail("accepted")
         } catch (e: BackupVersion.NewerVersionException) {
             assertEquals(4, e.version)
         }
-        rejects { BackupCrypto.envelope(1, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 210_000, salt, iv, vectorData) }
-        // v3 nur mit Argon2id, v2 nur mit PBKDF2
-        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 210_000, salt, iv, vectorData) }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "Argon2id", 210_000, salt, iv, vectorData, 65_536, 3, 1) }
-        rejects { BackupCrypto.envelope(3, "ChaCha20", "Argon2id", 0, salt, iv, vectorData, 65_536, 3, 1) }
-        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", 0, salt, iv, vectorData, 262_145, 3, 1) }
-        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", 0, salt, iv, vectorData, 65_536, 11, 1) }
-        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", 0, salt, iv, vectorData, 65_536, 3, 5) }
-        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", 0, salt, iv, vectorData) }   // m, t, p fehlen
-        rejects { BackupCrypto.envelope(2, "ChaCha20", "PBKDF2-HMAC-SHA256", 210_000, salt, iv, vectorData) }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "scrypt", 210_000, salt, iv, vectorData) }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 1, salt, iv, vectorData) }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", Int.MAX_VALUE, salt, iv, vectorData) }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 210_000, salt, "AAEC", vectorData) }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 210_000, salt, iv, "%%%") }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 210_000, null, iv, vectorData) }
-        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", 210_000, salt, iv, "AAEC") }
+        // Nur v3 mit Argon2id
+        rejects { BackupCrypto.envelope(1, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 3, 1) }
+        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "PBKDF2-HMAC-SHA256", salt, iv, someData) }
+        rejects { BackupCrypto.envelope(2, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 3, 1) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "PBKDF2-HMAC-SHA256", salt, iv, someData) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "scrypt", salt, iv, someData, 65_536, 3, 1) }
+        rejects { BackupCrypto.envelope(3, "ChaCha20", "Argon2id", salt, iv, someData, 65_536, 3, 1) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData, 262_145, 3, 1) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 11, 1) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData, 65_536, 3, 5) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, someData) }   // m, t, p fehlen
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, "AAEC", someData, 65_536, 3, 1) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, "%%%", 65_536, 3, 1) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", null, iv, someData, 65_536, 3, 1) }
+        rejects { BackupCrypto.envelope(3, "AES-256-GCM", "Argon2id", salt, iv, "AAEC", 65_536, 3, 1) }
     }
 
     @Test
@@ -253,7 +200,7 @@ class BackupCryptoTest {
         assertFalse(BackupCrypto.isEnvelope("cryptochecker-backup-enc", null))
         assertFalse(BackupCrypto.isEnvelope("cryptochecker-backup-enc", ""))
         assertFalse(BackupCrypto.isEnvelope("other", "AES-256-GCM"))
-        // Lesbare Sicherung (älteres «format») ist nie eine Hülle — ältere Apps lehnen die Hülle ab
+        // Lesbare Sicherung («format» ohne «-enc») ist nie eine Hülle
         assertFalse(BackupCrypto.isEnvelope("cryptochecker-backup", "AES-256-GCM"))
     }
 
@@ -276,18 +223,16 @@ class BackupCryptoTest {
         for (weak in weakSamples) {
             assertFalse(weak, BackupCrypto.canExport(protect = true, password = weak, repeat = weak))
         }
-        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen (früher erlaubt)
+        assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xy"))    // 10 Zeichen
         assertFalse(BackupCrypto.isPasswordAllowed("Abc!def9xyZ"))   // 11 Zeichen
         assertTrue(BackupCrypto.isPasswordAllowed("Abc!def9xyZ2"))   // 12 Zeichen
     }
 
     @Test
-    fun oldFilesDecryptWithShortPassword() {
-        // Entschlüsseln prüft das Passwort nicht: alte Sicherungen mit 8 Zeichen bleiben lesbar
+    fun decryptDoesNotCheckPasswordLength() {
+        // Die Mindestlänge gilt nur beim Sichern
         val plain = "{}".toByteArray()
-        val env = BackupCrypto.encrypt(plain, pw("12345678"), kdf = BackupCrypto.Kdf.Pbkdf2(10_000))
+        val env = BackupCrypto.encrypt(plain, pw("12345678"), kdf = fastKdf)
         assertTrue(BackupCrypto.decrypt(env, pw("12345678")).contentEquals(plain))
-        val v3 = BackupCrypto.encrypt(plain, pw("12345678"), kdf = fastKdf)
-        assertTrue(BackupCrypto.decrypt(v3, pw("12345678")).contentEquals(plain))
     }
 }

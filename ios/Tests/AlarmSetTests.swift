@@ -133,23 +133,6 @@ final class AlarmDeliveryB104Tests: XCTestCase {
         XCTAssertEqual(retracted.current, 1)
         XCTAssertNil(portfolio.unconfirmedAt(6))
     }
-
-    /// Nur eingeschaltete fallende Prozent-Alarme ab 100 % werden ausgeschaltet.
-    func testFaelltUmHundertProzentWirdAusgeschaltet() {
-        func alarm(_ id: Int64, _ condition: String, _ threshold: Double, enabled: Bool = true) -> Alarm {
-            var a = S.alarm(["condition": condition, "threshold": threshold, "enabled": enabled])
-            a.id = id
-            return a
-        }
-        let alarms = [
-            alarm(1, "CHANGE_PERCENT_DOWN", 100),
-            alarm(2, "CHANGE_PERCENT_DOWN", 99.5),
-            alarm(3, "OI_DOWN", 150),
-            alarm(4, "CHANGE_PERCENT_UP", 150),
-            alarm(5, "CHANGE_PERCENT_DOWN", 120, enabled: false),
-        ]
-        XCTAssertEqual(FallAlarmCleanup.idsToDisable(alarms), [1, 3])
-    }
 }
 
 // ---- aus AlarmPairPickerTests

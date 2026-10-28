@@ -273,7 +273,7 @@ final class PortfolioCalculatorTests: XCTestCase {
 /// lesbar und wird vor dem Überschreiben gesichert).
 final class PortfolioFileIntegrityTests: XCTestCase {
     func testDroppedEntriesAreCounted() throws {
-        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"BUY","amount":1,"time":1},{"id":2,"coin":"","type":"BUY","amount":0,"time":2}],"nextId":3}"#
+        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"BUY","amountText":"1","time":1},{"id":2,"coin":"","type":"BUY","amountText":"0","time":2}],"nextId":3}"#
         let file = try JSONDecoder().decode(PortfolioFile.self, from: Data(json.utf8))
         XCTAssertEqual(file.transactions.count, 1)
         XCTAssertEqual(file.dropped, 1)

@@ -12135,7 +12135,7 @@
         "autoShowOnly": true
       }
     ],
-    "overlapAmountsNote": "overlapAmounts: WatchedAddressRules.overlapMatched(address counted, trades) = coins whose address balance ≈ own holdings (±5 %) or with a matching own deposit/transfer; overlapAutoShowOnly (autoShowOnly) switches only when EVERY coin of the address with a balance > 0 matches — otherwise the address keeps counting and only the overlap hint shows. A legacy decision (stored «ovl» without «ovl2», «show only») without any match goes back to counting (overlapLegacyRevert), with a match it stays. The first case must match fully (used for the switched/undone checks)."
+    "overlapAmountsNote": "overlapAmounts: WatchedAddressRules.overlapMatched(address counted, trades) = coins whose address balance ≈ own holdings (±5 %) or with a matching own deposit/transfer; overlapAutoShowOnly (autoShowOnly) switches only when EVERY coin of the address with a balance > 0 matches — otherwise the address keeps counting and only the overlap hint shows. The first case must match fully (used for the switched/undone checks)."
   },
   "networkRules": {
     "firstScan": {
@@ -12230,15 +12230,14 @@
     ]
   },
   "backupOverlap": {
-    "_comment": "Sicherung beobachteter Adressen mit dem Ueberschneidungs-Entscheid: «overlapChecked»:true nur, wenn entschieden (z. B. «trotzdem zaehlen»), «overlapLegacy»:true nur dazu (Entscheid nach der alten Regel, wie «ovl» ohne «ovl2» in den Zusatzdaten). Ohne Feld (aeltere Sicherung) = nicht entschieden; «overlapLegacy» ohne «overlapChecked» zaehlt nicht. Lesen, Schreiben (nur diese Felder), Einspielen (merge) und zurueck in die Sicherung uebernehmen den Wert.",
-    "text": "[{\"chain\":\"BTC\",\"address\":\"bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\",\"addedAt\":1,\"overlapChecked\":true},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"addedAt\":2,\"countInPortfolio\":false,\"overlapChecked\":true,\"overlapLegacy\":true},{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\",\"addedAt\":3,\"overlapLegacy\":true},{\"chain\":\"BTC\",\"address\":\"bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4\",\"addedAt\":4}]",
+    "_comment": "Sicherung beobachteter Adressen mit dem Ueberschneidungs-Entscheid: «overlapChecked»:true nur, wenn entschieden (z. B. «trotzdem zaehlen»). Ohne Feld = nicht entschieden. Lesen, Schreiben (nur dieses Feld), Einspielen (merge) und zurueck in die Sicherung uebernehmen den Wert.",
+    "text": "[{\"chain\":\"BTC\",\"address\":\"bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\",\"addedAt\":1,\"overlapChecked\":true},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"addedAt\":2,\"countInPortfolio\":false,\"overlapChecked\":true},{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\",\"addedAt\":3},{\"chain\":\"BTC\",\"address\":\"bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4\",\"addedAt\":4}]",
     "expected": [
       {
         "chain": "BTC",
         "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
         "countInPortfolio": true,
         "overlapChecked": true,
-        "overlapLegacy": false,
         "written": [
           "overlapChecked"
         ]
@@ -12248,10 +12247,8 @@
         "address": "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
         "countInPortfolio": false,
         "overlapChecked": true,
-        "overlapLegacy": true,
         "written": [
-          "overlapChecked",
-          "overlapLegacy"
+          "overlapChecked"
         ]
       },
       {
@@ -12259,7 +12256,6 @@
         "address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
         "countInPortfolio": true,
         "overlapChecked": false,
-        "overlapLegacy": false,
         "written": []
       },
       {
@@ -12267,7 +12263,6 @@
         "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
         "countInPortfolio": true,
         "overlapChecked": false,
-        "overlapLegacy": false,
         "written": []
       }
     ]

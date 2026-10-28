@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Også i dine egne transaksjoner: %1$s – begge legges sammen. Samme coins? Velg «Bare vis».</string>
     <string name="portfolio_address_overlap_ask">Du registrerer allerede %1$s med egne transaksjoner. Skal saldoen for denne adressen telle med i porteføljen eller bare vises?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» vises nå bare og telles ikke med – %2$s finnes også i transaksjonene dine.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» telles igjen – mengdene stemmer ikke med transaksjonene dine. Velg «Bare vis» hvis det er de samme coinene.</string>
     <string name="portfolio_address_overlap_title">Samme coins som i transaksjonene dine?</string>
     <string name="portfolio_address_overlap_tx">Samme mengde som ditt eget innskudd/overføring (%1$s) – telles trolig dobbelt.</string>
     <string name="portfolio_address_period_observed">Overvåkede adresser teller fra den første observerte saldoen; senere endringer er inn-/utstrømmer, ikke gevinst.</string>

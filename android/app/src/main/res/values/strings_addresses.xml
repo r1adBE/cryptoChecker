@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Also in your own transactions: %1$s – both are added. Same coins? Choose “Show only”.</string>
     <string name="portfolio_address_overlap_ask">You already record %1$s with your own transactions. Add this address\'s balance to the portfolio, or only show it?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” is now shown only, not counted – %2$s also appear in your transactions.</string>
-    <string name="portfolio_address_overlap_restored">“%1$s” counts again – its amounts don’t match your transactions. Choose “Show only” if it’s the same coins.</string>
     <string name="portfolio_address_overlap_title">Same coins as your transactions?</string>
     <string name="portfolio_address_overlap_tx">Same amount as your own deposit/transfer (%1$s) – likely counted twice.</string>
     <string name="portfolio_address_period_observed">Watched addresses count from their first observed balance; later changes are inflows/outflows, not gain.</string>

@@ -19,37 +19,12 @@ class AssetScopeTest {
     }
 
     @Test
-    fun legacySwitch_mapsOnToBoth_offToTokens() {
-        assertEquals(AssetScope.BOTH, AssetScope.fromLegacy(true))
-        assertEquals(AssetScope.TOKENS, AssetScope.fromLegacy(false))
-        assertEquals(AssetScope.TOKENS, AssetScope.fromLegacy(null))
-    }
-
-    @Test
-    fun resolve_prefersNewValue_thenLegacy_thenDefault() {
-        // Neuer Wert gesetzt: der alte Schalter zählt nicht mehr
-        assertEquals(AssetScope.TRADFI, AssetScope.resolve("TRADFI", true))
-        assertEquals(AssetScope.TOKENS, AssetScope.resolve("TOKENS", true))
-        // Update von einer älteren Version: nur der alte Schalter
-        assertEquals(AssetScope.BOTH, AssetScope.resolve(null, true))
-        assertEquals(AssetScope.TOKENS, AssetScope.resolve(null, false))
-        // Neu installiert
-        assertEquals(AssetScope.TOKENS, AssetScope.resolve(null, null))
-        // Unbekannter Wert (neuere Version nach Downgrade): alter Schalter, sonst Standard
-        assertEquals(AssetScope.BOTH, AssetScope.resolve("STOCKS", true))
-        assertEquals(AssetScope.TOKENS, AssetScope.resolve("STOCKS", null))
-    }
-
-    @Test
-    fun backup_newKey_legacyKey_orKeepCurrent() {
-        assertEquals(AssetScope.TRADFI, AssetScope.fromBackup("TRADFI", false))
-        assertEquals(AssetScope.BOTH, AssetScope.fromBackup(" both ", null))
-        // Ältere Sicherung: nur «includeTradFiFutures»
-        assertEquals(AssetScope.BOTH, AssetScope.fromBackup(null, true))
-        assertEquals(AssetScope.TOKENS, AssetScope.fromBackup("", false))
-        // Weder noch: aktuelle Einstellung bleibt
-        assertNull(AssetScope.fromBackup(null, null))
-        assertNull(AssetScope.fromBackup("UNKNOWN", null))
+    fun fromName_trimmedCaseInsensitive_unknownNull() {
+        assertEquals(AssetScope.TRADFI, AssetScope.fromNameOrNull("TRADFI"))
+        assertEquals(AssetScope.BOTH, AssetScope.fromNameOrNull(" both "))
+        assertNull(AssetScope.fromNameOrNull(""))
+        assertNull(AssetScope.fromNameOrNull(null))
+        assertNull(AssetScope.fromNameOrNull("UNKNOWN"))
     }
 
     @Test
@@ -100,10 +75,9 @@ class AssetScopeTest {
         assertSame(info, info.scoped(AssetScope.TOKENS, "BinanceFutures"))
     }
 
-    /** Für neue Installationen aus; bestehende behalten an ([InstallDefaultsTest]). */
+    /** Ab Werk aus ([InstallDefaultsTest]). */
     @Test
     fun alpha_defaultExcludedForNewInstalls() {
         assertFalse(AppSettings().includeAlphaTokens)
-        assertTrue(AppSettings.LEGACY_INCLUDE_ALPHA_TOKENS)
     }
 }

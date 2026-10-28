@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Також у твоїх власних транзакціях: %1$s – враховується і те й інше. Ті самі монети? Вибери «Лише показувати».</string>
     <string name="portfolio_address_overlap_ask">Ти вже враховуєш %1$s у власних транзакціях. Додати баланс цієї адреси до портфеля чи лише показувати?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» тепер лише показується й не враховується – %2$s є і у твоїх транзакціях.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» знову враховується – кількості не збігаються з твоїми транзакціями. Вибери «Лише показувати», якщо це ті самі монети.</string>
     <string name="portfolio_address_overlap_title">Ті самі монети, що у твоїх транзакціях?</string>
     <string name="portfolio_address_overlap_tx">Та сама кількість, що й твоє поповнення/переказ (%1$s) – імовірно враховано двічі.</string>
     <string name="portfolio_address_period_observed">Відстежувані адреси враховуються з першого зафіксованого балансу; подальші зміни – це надходження/списання, а не прибуток.</string>

@@ -198,7 +198,7 @@ class CsvImportParityTest {
         assertEquals(0, again.fresh.size)
     }
 
-    /** Schlüssel ohne Versatz unabhängig von der Zeitzone; frühere Schlüssel (je Zeitzone) als legacyKeys. */
+    /** Schlüssel ohne Versatz unabhängig von der Zeitzone. */
     @Test
     fun zoneKeys() {
         data["zoneKeys"].list().map { it.obj() }.forEach { c ->
@@ -207,11 +207,10 @@ class CsvImportParityTest {
             val row = result.rows[c["row"].num()!!.toInt()]
             val m = "zoneKeys $c"
             assertEquals("$m key", c["key"], row.key)
-            assertEquals("$m legacyKeys", c["legacyKeys"].list().map { it as String }.toSet(), row.legacyKeys.toSet())
         }
     }
 
-    /** Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel (auch gegen Schlüssel älterer Versionen). */
+    /** Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel. */
     @Test
     fun zoneDedupe() {
         data["zoneDedupe"].list().map { it.obj() }.forEach { c ->
@@ -322,9 +321,8 @@ class CsvImportParityTest {
                 balances.forEach { (coin, v) -> assertEquals("$name balance $coin", v, text(held[coin])) }
             }
         }
-        // Schon importiert (alte Schlüssel als Kauf/Verkauf): kein Hinweis
-        val rows = parse("generic_stable").rows
-        val all = rows.flatMap { it.legacyKeys + it.key }.toSet()
+        // Schon importiert: kein Hinweis
+        val all = parse("generic_stable").rows.map { it.key }.toSet()
         assertEquals(false, CsvImportMapping.preview(parse("generic_stable"), all) { _, _ -> null }.stableSwaps)
     }
 
@@ -376,7 +374,7 @@ class CsvImportParityTest {
     /**
      * Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
      * missingFx (nie still weg); Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso; Belohnung mit Fiat-Betrag
-     * bekommt Preis = Betrag / Menge, der ältere Schlüssel (ohne Preis) erkennt den früheren Import weiter.
+     * bekommt Preis = Betrag / Menge (Schlüssel mit Preis).
      */
     @Test
     fun fiatFeeReward() {
@@ -406,10 +404,8 @@ class CsvImportParityTest {
         }
         // Tageskurse: Gebühr in jeder Fiat-Währung (GBP neben der Preiswährung USD)
         assertEquals(c["fxNeeds"].list(), CsvImportMapping.fxNeeds(result.rows).keys.sorted())
-        // Belohnung mit Preis: früherer Schlüssel ohne Preis bleibt erkannt
-        val reward = result.rows.single { it.line == c["legacyLine"].num()!!.toInt() }
+        // Belohnung mit Preis: Schlüssel mit Preis
+        val reward = result.rows.single { it.line == c["rewardLine"].num()!!.toInt() }
         assertEquals(c["key"], reward.key)
-        assertEquals(true, c["legacyKey"] in reward.legacyKeys)
-        assertEquals(listOf(reward), CsvImport.splitDuplicates(result.rows, setOf(c["legacyKey"] as String)).duplicates)
     }
 }

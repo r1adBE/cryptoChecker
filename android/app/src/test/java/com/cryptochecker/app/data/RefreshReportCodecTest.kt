@@ -48,16 +48,6 @@ class RefreshReportCodecTest {
     }
 
     @Test
-    fun olderReportWithoutAttemptStillReadable() {
-        // Gespeichert von einer Fassung ohne Versuchszahl: Wartezeit bleibt, Versuch unbekannt (kein Zusatz)
-        val old = """{"at":5,"total":100,"pairs":1,"network":80,"exchanges":[],""" +
-            """"alarms":0,"notifications":0,"wait":30000}"""
-        val decoded = RefreshReportCodec.decode(old)
-        assertEquals(30_000L, decoded?.waitMillis)
-        assertNull(decoded?.attempt)
-    }
-
-    @Test
     fun unreadableIsNoReport() {
         assertNull(RefreshReportCodec.decode(null))
         assertNull(RefreshReportCodec.decode(""))

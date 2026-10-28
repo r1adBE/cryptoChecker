@@ -303,15 +303,13 @@ enum SharedStorage {
         }
     }
 
-    /// Bericht «Letzte Aktualisierung» (JSON); nil = noch keiner. Bis Runde 21 als Klartext
-    /// unter `last_refresh_report` — der wird beim ersten neuen Bericht entfernt.
+    /// Bericht «Letzte Aktualisierung» (JSON); nil = noch keiner.
     static var lastRefreshReport: RefreshReport? {
         get {
             guard let data = defaults.data(forKey: "last_refresh_report_v2") else { return nil }
             return try? JSONDecoder().decode(RefreshReport.self, from: data)
         }
         set {
-            defaults.removeObject(forKey: "last_refresh_report")
             if let newValue, let data = try? JSONEncoder().encode(newValue) {
                 defaults.set(data, forKey: "last_refresh_report_v2")
             } else {

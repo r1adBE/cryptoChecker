@@ -65,7 +65,7 @@ class SettingsSlicesTest {
         val s = AppSettings(
             highContrast = true, coinLogos = false, widgetCoinLogos = true, watchlistNames = false,
             hidePortfolioAmounts = true, portfolioCoinLogos = false, taxTemplateConfirmed = true,
-            exactChecks = true, liveIntervalSeconds = 30, ttsEnabled = true, alarmCooldownMinutes = 15,
+            exactChecks = true, ttsEnabled = true, alarmCooldownMinutes = 15,
         )
         val a = AppearanceSettings.of(s)
         assertEquals(true, a.highContrast)
@@ -80,7 +80,6 @@ class SettingsSlicesTest {
         assertEquals(s.portfolioCurrency, p.currency)
         val u = UpdateSettings.of(s)
         assertEquals(true, u.exactChecks)
-        assertEquals(30, u.liveIntervalSeconds)
         assertEquals(s.updateMode, u.updateMode)
         val al = AlarmSettings.of(s)
         assertEquals(true, al.ttsEnabled)

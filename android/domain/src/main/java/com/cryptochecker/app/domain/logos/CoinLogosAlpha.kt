@@ -90,7 +90,7 @@ fun CoinLogos.keepAlphaIds(fresh: List<AlphaEntry>, saved: List<AlphaEntry>): Li
     return fresh.map { e -> if (e.alphaId != null) e else ids[e.symbol]?.let { e.copy(alphaId = it) } ?: e }
 }
 
-/** Hat die Liste Kennungen für die Alpha-Paare (sonst einmal direkt neu holen, z. B. nach dem Update)? */
+/** Hat die Liste Kennungen für die Alpha-Paare (sonst einmal direkt neu holen)? */
 fun CoinLogos.hasAlphaIds(entries: List<AlphaEntry>?): Boolean = entries?.any { it.alphaId != null } == true
 
 /** Namen der Alpha-Token je Kürzel (wie [normalize]); bei gleichem Kürzel gilt der erste. */

@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">מופיע גם בעסקאות שלך: %1$s – שניהם מתווספים. אותם מטבעות? בחרו «הצגה בלבד».</string>
     <string name="portfolio_address_overlap_ask">%1$s כבר מתועד בעסקאות שלך. להוסיף את היתרה של הכתובת הזו לתיק או רק להציג אותה?</string>
     <string name="portfolio_address_overlap_auto">«%1$s» מוצג עכשיו בלבד ולא נספר – %2$s מופיעים גם בעסקאות שלך.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» נספר שוב – הכמויות לא תואמות לעסקאות שלך. בחרו «הצגה בלבד» אם אלה אותם מטבעות.</string>
     <string name="portfolio_address_overlap_title">אותם מטבעות כמו בעסקאות שלך?</string>
     <string name="portfolio_address_overlap_tx">אותה כמות כמו ההפקדה/ההעברה שלך (%1$s) – כנראה נספרת פעמיים.</string>
     <string name="portfolio_address_period_observed">כתובות במעקב נספרות מהיתרה הראשונה שנצפתה; שינויים מאוחרים יותר הם כניסות/יציאות, לא רווח.</string>

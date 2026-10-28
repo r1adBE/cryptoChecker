@@ -8,7 +8,7 @@ package com.cryptochecker.app.domain.activity
  * mindestens [MIN_AGE_MILLIS] alt sind — eine einzelne Ausreisser-Messung kippt so nichts.
  * Die Richtung gilt als einheitlich, wenn der aktuelle Wert über (bzw. unter) JEDER dieser
  * Messungen liegt. Messungen einer anderen Futures-Quelle zählen nicht (andere Börse = anderer
- * Bestand); alte Messungen ohne Quelle passen zu jeder.
+ * Bestand).
  */
 object OiSeries {
 
@@ -39,9 +39,6 @@ object OiSeries {
 
     private val NONE = Result(null, null, consistent = false, samples = 0)
 
-    /** Gleiche Quelle? null (alte Messung) passt zu jeder. */
-    fun sameSource(a: String?, b: String?): Boolean = a == null || b == null || a == b
-
     private fun valid(sample: OiSample): Boolean = sample.units.isFinite() && sample.units > 0.0
 
     /**
@@ -65,7 +62,7 @@ object OiSeries {
      * einer anderen Quelle fallen dabei weg (der Verlauf beginnt neu).
      */
     fun append(series: List<OiSample>, sample: OiSample, now: Long): List<OiSample> {
-        val base = prune(series, now).filter { sameSource(it.source, sample.source) }
+        val base = prune(series, now).filter { it.source == sample.source }
         if (!valid(sample)) return base
         val last = base.lastOrNull()
         val add = last == null || sample.time - last.time >= MIN_SPACING_MILLIS
@@ -76,7 +73,7 @@ object OiSeries {
     fun change(series: List<OiSample>, currentUnits: Double?, source: String?, now: Long): Result {
         if (currentUnits == null || !currentUnits.isFinite() || currentUnits <= 0.0) return NONE
         val comparable = prune(series, now).filter {
-            sameSource(it.source, source) && now - it.time >= MIN_AGE_MILLIS
+            it.source == source && now - it.time >= MIN_AGE_MILLIS
         }
         if (comparable.isEmpty()) return NONE
         val reference = BroadMarket.median(comparable.map { it.units })

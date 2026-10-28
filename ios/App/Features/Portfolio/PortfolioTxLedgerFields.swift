@@ -326,12 +326,12 @@ extension PortfolioTxSheet {
         }
     }
 
-    /// Börse als Auswahl: «Keine (Binance)», ein früher frei getippter Name (falls keiner der Liste) und die
-    /// Spot-Börsen der App; der Coin wird dann mit ihrem Kurs bewertet (sonst Binance) — wie Android.
+    /// Börse als Auswahl: «Keine (Binance)», der gespeicherte Name (falls keiner der Liste, z. B. aus einer
+    /// Sicherung) und die Spot-Börsen der App; der Coin wird dann mit ihrem Kurs bewertet (sonst Binance) — wie Android.
     private var exchangeField: some View {
         let names = PortfolioRouteResolver.spotExchangeNames
         let current = exchange.trimmingCharacters(in: .whitespaces)
-        let legacy: String? = current.isEmpty || names.contains(where: { $0.caseInsensitiveCompare(current) == .orderedSame })
+        let other: String? = current.isEmpty || names.contains(where: { $0.caseInsensitiveCompare(current) == .orderedSame })
             ? nil : current
         let selection = Binding<String>(
             get: { names.first(where: { $0.caseInsensitiveCompare(current) == .orderedSame }) ?? current },
@@ -341,7 +341,7 @@ extension PortfolioTxSheet {
             fieldLabel(L("ledger_exchange"))
             Picker(selection: selection) {
                 Text(L("ledger_exchange_none")).tag("")
-                if let legacy { Text(legacy).tag(legacy) }
+                if let other { Text(other).tag(other) }
                 ForEach(names, id: \.self) { name in Text(name).tag(name) }
             } label: {
                 Text(L("ledger_exchange"))

@@ -90,8 +90,7 @@ class PortfolioLockPolicyTest {
         assertTrue(v28.contains("path=\"cryptochecker_system_backup.db\" requireFlags=\"clientSideEncryption\""))
         // Sonst gleicher Umfang
         val onlyWithEncryption = setOf(
-            "portfolio_system_backup.json", "cryptochecker_system_backup.db", "cryptochecker_system_backup.db-wal",
-            "datastore/settings.preferences_pb",
+            "portfolio_system_backup.json", "cryptochecker_system_backup.db", "datastore/settings.preferences_pb",
         )
         assertEquals(include.findAll(v28).map { it.groupValues[1] }.toSet() - onlyWithEncryption, basePaths)
     }

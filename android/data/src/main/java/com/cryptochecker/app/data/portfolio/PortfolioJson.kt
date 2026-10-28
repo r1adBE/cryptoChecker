@@ -6,7 +6,6 @@ import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
-import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
@@ -26,20 +25,16 @@ object PortfolioJson {
         .put("id", t.id)
         .put("coin", t.coin)
         .put("type", t.type.name)
-        // Zahl für ältere Versionen (lesen nur sie), exakter Text für diese («amountText»: «0.00000001»)
-        .put("amount", t.amount.toDouble())
+        // Zahlen exakt als Text («amountText»: «0.00000001»)
         .put("amountText", PortfolioDecimal.text(t.amount))
-        .put("priceUsdt", t.priceUsdt?.toDouble() ?: JSONObject.NULL)
         .put("priceText", t.priceUsdt?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
         .put("time", t.time)
         .put("note", t.note ?: JSONObject.NULL)
-        // Seit Portfolio-Datenbank v2; ältere Sicherungen haben sie nicht (= keine Angabe)
-        .put("fee", t.fee?.toDouble() ?: JSONObject.NULL)
+        // Gebühr und Börse; fehlen = keine Angabe
         .put("feeText", t.fee?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
         .put("feeUnit", t.fee?.let { PortfolioFeeUnit.fromName(t.feeUnit).name } ?: JSONObject.NULL)
         .put("exchange", t.exchange ?: JSONObject.NULL)
-        // Ab Portfolio-Datenbank v3; fehlen = keine Angabe. Nur exakter Text — ältere Versionen
-        // kennen die Felder nicht (und die neuen Arten nicht: sie zählen sie als ungültig, Rückfrage)
+        // Umbuchung und Gebühr im dritten Coin; fehlen = keine Angabe. Nur exakter Text
         .put("transferFrom", t.transferFrom ?: JSONObject.NULL)
         .put("transferTo", t.transferTo ?: JSONObject.NULL)
         .put("feeCoin", t.feeCoin ?: JSONObject.NULL)
@@ -49,21 +44,17 @@ object PortfolioJson {
         .put("importKey", t.importKey ?: JSONObject.NULL)
         // Einzahlung: ursprüngliches Kaufdatum; fehlt = Datum der Einzahlung
         .put("acquiredTime", t.acquiredTime?.takeIf { t.type == PortfolioTxType.DEPOSIT } ?: JSONObject.NULL)
-        // Tausch: erhaltener Coin, Menge und Wert (exakt als Text); ältere Versionen kennen die Art nicht
-        // und zählen den Eintrag als ungültig (Rückfrage)
+        // Tausch: erhaltener Coin, Menge und Wert (exakt als Text)
         .put("toCoin", t.toCoin?.takeIf { t.type == PortfolioTxType.SWAP } ?: JSONObject.NULL)
         .put("toAmountText", t.toAmount?.takeIf { t.type == PortfolioTxType.SWAP }?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
         .put("swapValueText", t.swapValueUsdt?.takeIf { t.type == PortfolioTxType.SWAP }?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
         // CSV-Importlauf: «Import rückgängig» auch nach dem Wiederherstellen
         .put("importBatch", t.importBatch ?: JSONObject.NULL)
-        // Portfolio-Datenbank v4: eigene Felder statt der alten Formen in «transferTo»/«importKey». Ältere
-        // Versionen ignorieren unbekannte Felder und lesen den Eintrag trotzdem — ohne Partner-Merker, mit nur dem
-        // Schlüssel der Auszahlung und ohne «Rückgängig» der Verknüpfung (kein Absturz, nichts ungültig)
+        // Partner-Merker und Verknüpfung (zweiter Herkunftsschlüssel, Zustand davor) als eigene Felder
         .put("giftToSpouse", t.giftToSpouse && t.type == PortfolioTxType.GIFT)
         .put("linkedImportKey", t.linkedImportKey ?: JSONObject.NULL)
         .put("importRestoreState", t.importRestoreState?.toJson()?.asOrgJson() ?: JSONObject.NULL)
-        // Portfolio-Datenbank v5: Gebühr-Zeile und Zins als eigene Merker. Ältere Versionen ignorieren sie und
-        // schliessen wie bisher aus Preis 0 + Herkunft bzw. aus der Notiz (beides bleibt gespeichert)
+        // Gebühr-Zeile und Zins als eigene Merker
         .put("feeRow", t.feeRow && t.type == PortfolioTxType.SELL)
         .put("interest", t.interest && t.type == PortfolioTxType.REWARD)
 
@@ -91,10 +82,10 @@ object PortfolioJson {
         val coin = PortfolioCalculator.normalizeCoin(o.optString("coin"))
         // Unbekannte Art (neuere Version): ungültig, wird gezählt ([parseTxs])
         val type = PortfolioTxType.fromName(o.optString("type")) ?: return null
-        val amount = decimal(o, "amountText", "amount")?.takeIf { it.signum() > 0 } ?: return null
+        val amount = decimal(o, "amountText")?.takeIf { it.signum() > 0 } ?: return null
         if (coin.isEmpty()) return null
-        // Fehlt (ältere Sicherung) oder ungültig: keine Gebühr
-        val fee = decimal(o, "feeText", "fee")?.takeIf { it.signum() > 0 }
+        // Fehlt oder ungültig: keine Gebühr
+        val fee = decimal(o, "feeText")?.takeIf { it.signum() > 0 }
         // Gebühr im dritten Coin: nur mit Coin und Menge > 0, sonst keine
         val third = cleanFeeCoin(text(o, "feeCoin"), coin, text(o, "feeCoinAmountText")?.let { PortfolioDecimal.parse(it) })
         // Tausch: ohne gültigen erhaltenen Coin und Menge ungültig (gezählt)
@@ -102,19 +93,10 @@ object PortfolioJson {
         val toCoin = if (swap) cleanToCoin(text(o, "toCoin"), coin) ?: return null else null
         val toAmount = if (swap) text(o, "toAmountText")?.let { PortfolioDecimal.parse(it) }?.takeIf { it.signum() > 0 } ?: return null else null
         val swapValue = if (swap) text(o, "swapValueText")?.let { PortfolioDecimal.parse(it) }?.takeIf { it.signum() >= 0 } else null
-        // Ältere Sicherungen tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen)
-        val stored = LegacyStorageMigration.convert(
-            type,
-            LegacyStorageMigration.Fields(
-                transferTo = cleanExchange(text(o, "transferTo")),
-                giftToSpouse = o.optBoolean("giftToSpouse", false),
-                importKey = cleanImportKey(text(o, "importKey")),
-                linkedImportKey = cleanImportKey(text(o, "linkedImportKey")),
-                importRestoreState = o.optJSONObject("importRestoreState")?.let { CsvRestoreState.decode(it.toString()) },
-            ),
-        )
-        val linkedImportKey = stored.linkedImportKey?.takeIf { stored.importKey != null }
-        val price = decimal(o, "priceText", "priceUsdt")?.takeIf { it.signum() >= 0 }
+        // Zweiter Schlüssel nur mit erstem, Zustand nur mit Verknüpfung
+        val importKey = cleanImportKey(text(o, "importKey"))
+        val linkedImportKey = cleanImportKey(text(o, "linkedImportKey"))?.takeIf { importKey != null }
+        val price = decimal(o, "priceText")?.takeIf { it.signum() >= 0 }
         val note = if (o.isNull("note")) null else TextLimit.clean(o.optString("note"), NOTE_MAX)
         return PortfolioTxEntity(
             id = o.optLong("id", 0L).coerceAtLeast(0L),
@@ -129,24 +111,24 @@ object PortfolioJson {
             feeUnit = fee?.let { PortfolioFeeUnit.fromName(if (o.isNull("feeUnit")) null else o.optString("feeUnit")).name },
             exchange = if (o.isNull("exchange")) null else cleanExchange(o.optString("exchange")),
             transferFrom = cleanExchange(text(o, "transferFrom")),
-            transferTo = stored.transferTo,
+            transferTo = cleanExchange(text(o, "transferTo")),
             feeCoin = third?.first,
             feeCoinAmount = third?.second,
             feeCoinPriceUsdt = third?.let { text(o, "feeCoinPriceText")?.let { t -> PortfolioDecimal.parse(t) }?.takeIf { it.signum() >= 0 } },
-            importKey = stored.importKey,
+            importKey = importKey,
             acquiredTime = cleanAcquiredTime(type, if (o.has("acquiredTime") && !o.isNull("acquiredTime")) o.optLong("acquiredTime", 0L) else null),
             toCoin = toCoin,
             toAmount = toAmount,
             swapValueUsdt = swapValue,
             importBatch = PortfolioImportBatch.clean(text(o, "importBatch")),
-            giftToSpouse = stored.giftToSpouse && type == PortfolioTxType.GIFT,
+            giftToSpouse = o.optBoolean("giftToSpouse", false) && type == PortfolioTxType.GIFT,
             linkedImportKey = linkedImportKey,
-            importRestoreState = stored.importRestoreState?.takeIf { linkedImportKey != null },
-            // Fehlen die Merker (Sicherung vor Portfolio-Datenbank v5), einmal nach der früheren Regel ableiten
-            feeRow = type == PortfolioTxType.SELL &&
-                (if (o.has("feeRow")) o.optBoolean("feeRow", false) else LegacyStorageMigration.legacyFeeRow(type, stored.importKey, price)),
-            interest = type == PortfolioTxType.REWARD &&
-                (if (o.has("interest")) o.optBoolean("interest", false) else LegacyStorageMigration.legacyInterest(type, note)),
+            importRestoreState = linkedImportKey?.let {
+                o.optJSONObject("importRestoreState")?.let { state -> CsvRestoreState.decode(state.toString()) }
+            },
+            // Gebühr-Zeile und Zins: fehlt = nein
+            feeRow = type == PortfolioTxType.SELL && o.optBoolean("feeRow", false),
+            interest = type == PortfolioTxType.REWARD && o.optBoolean("interest", false),
         )
     }
 
@@ -183,16 +165,8 @@ object PortfolioJson {
     /** Höchstlänge eines Gebühr-Coins (wie die Coin-Eingabe des Erfassen-Blatts). */
     const val MAX_FEE_COIN = 15
 
-    /**
-     * Exakte Zahl: zuerst der Text [textKey] (seit Runde 35), sonst die Zahl [numberKey] älterer
-     * Sicherungen (über ihre kürzeste Darstellung, 0.1 → «0.1»). Fehlt/ungültig = null.
-     */
-    private fun decimal(o: JSONObject, textKey: String, numberKey: String): BigDecimal? {
-        if (o.has(textKey) && !o.isNull(textKey)) PortfolioDecimal.parse(o.optString(textKey))?.let { return it }
-        if (!o.has(numberKey) || o.isNull(numberKey)) return null
-        // Gleiche Grenzen wie der Text (absurde Grössen = ungültig)
-        return PortfolioDecimal.of(o.optDouble(numberKey))?.takeIf { PortfolioDecimal.withinLimits(it) }
-    }
+    /** Exakte Zahl aus dem Text [key]; fehlt/ungültig = null. */
+    private fun decimal(o: JSONObject, key: String): BigDecimal? = text(o, key)?.let { PortfolioDecimal.parse(it) }
 
     /** Börse: getrimmt, höchstens [MAX_EXCHANGE] sichtbare Zeichen (nie mitten im Emoji gekürzt); leer = null. */
     fun cleanExchange(raw: String?): String? = TextLimit.clean(raw, MAX_EXCHANGE)

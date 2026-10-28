@@ -1,7 +1,6 @@
 package com.cryptochecker.app.di
 
 import android.content.Context
-import androidx.core.content.edit
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -84,11 +83,9 @@ object LocalDataModule {
     ): PortfolioDatabase {
         val builder = Room.databaseBuilder(context, PortfolioDatabase::class.java, PortfolioDatabase.DB_NAME)
             .openHelperFactory(openHelperFactory)
-            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
         builder.addCallback(PortfolioDatabase.callback(context))
         // Gelöschte Transaktionen (Menge, Preis, Notiz) und Alarm-Schwellen mit Nullen überschreiben
         builder.addCallback(SecureDeleteCallback)
-        builder.addCallback(PortfolioScrubCallback(context))
         builder.addCallback(DeliveryMarkerResetCallback(context, PortfolioAlarmDeliveryMarkers.PREFS, PortfolioDatabase.DB_NAME))
         return builder.build()
     }
@@ -166,41 +163,6 @@ object LocalDataModule {
         override fun onOpen(db: SupportSQLiteDatabase) {
             val result = runCatching { db.query("PRAGMA secure_delete = ON").close() }
             result.exceptionOrNull()?.let { Timber.w(it, "Hauptdatenbank: secure_delete nicht gesetzt") }
-        }
-    }
-
-    /**
-     * Einmalig nach dem Einschalten von `secure_delete`: Früher Gelöschtes liegt noch in freien
-     * Seiten von `cryptochecker_portfolio.db`; ein VACUUM baut die Datei ohne sie neu. Gemerkt wird das
-     * erst nach Erfolg (sonst beim nächsten Öffnen nochmals); ein Fehler wird nur protokolliert.
-     */
-    private class PortfolioScrubCallback(private val context: Context) : RoomDatabase.Callback() {
-        override fun onOpen(db: SupportSQLiteDatabase) {
-            val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            if (prefs.getBoolean(KEY_DONE, false)) return
-            // Nur im Arbeitsspeicher (kein Schlüssel): keine Datei zu verdichten — nicht als erledigt merken
-            if (PortfolioDatabase.inMemory()) return
-
-            val outcome = runCatching {
-                db.checkpoint()
-                db.execSQL("VACUUM")
-                db.checkpoint()
-            }
-            if (outcome.isSuccess) {
-                prefs.edit { putBoolean(KEY_DONE, true) }
-            } else {
-                Timber.w(outcome.exceptionOrNull(), "Portfolio-Datenbank: VACUUM fehlgeschlagen")
-            }
-        }
-
-        /** WAL vollständig in die Hauptdatei schreiben und kürzen. */
-        private fun SupportSQLiteDatabase.checkpoint() {
-            query("PRAGMA wal_checkpoint(TRUNCATE)").close()
-        }
-
-        private companion object {
-            const val PREFS_NAME = "portfolio_db"
-            const val KEY_DONE = "secure_delete_vacuum_done"
         }
     }
 }

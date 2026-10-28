@@ -564,10 +564,8 @@ class WhyAnalysisTest {
         assertEquals(3, r.samples)
         val clean = OiSeries.change(series.take(2), 1155.0, "Bybit", now)
         assertTrue(clean.consistent)
-        // Andere Quelle zählt nicht, alte ohne Quelle schon
+        // Andere Quelle zählt nicht
         assertNull(OiSeries.change(series, 1155.0, "OKX", now).changePercent)
-        val legacy = listOf(OiSample(1000.0, now - 60 * m))
-        assertEquals(15.5, OiSeries.change(legacy, 1155.0, "OKX", now).changePercent!!, 1e-9)
         assertNull(OiSeries.change(series, 0.0, "Bybit", now).changePercent)
         assertNull(OiSeries.change(series, null, "Bybit", now).changePercent)
     }
@@ -585,11 +583,8 @@ class WhyAnalysisTest {
         // Quellwechsel: Verlauf beginnt neu
         val switched = OiSeries.append(s, OiSample(500.0, now + 31 * m, "Bybit"), now + 31 * m)
         assertEquals(listOf(OiSample(500.0, now + 31 * m, "Bybit")), switched)
-        // Übernahme der alten Einzelmessung (ohne Quelle) bleibt erhalten
-        val migrated = OiSeries.append(listOf(OiSample(900.0, now - 60 * m)), OiSample(950.0, now, "Bybit"), now)
-        assertEquals(2, migrated.size)
         // Ungültige Messung wird nicht angehängt
-        assertEquals(1, OiSeries.append(listOf(OiSample(900.0, now - 60 * m)), OiSample(Double.NaN, now, "Bybit"), now).size)
+        assertEquals(1, OiSeries.append(listOf(OiSample(900.0, now - 60 * m, "Bybit")), OiSample(Double.NaN, now, "Bybit"), now).size)
     }
 
     // ---------------- Breiter Markt ----------------

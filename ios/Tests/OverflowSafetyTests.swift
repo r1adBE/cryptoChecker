@@ -20,32 +20,25 @@ final class OverflowSafetyTests: XCTestCase {
     func testBackupWithHugeSettingsRestoresClamped() {
         let backup: [String: Any] = [
             "backgroundIntervalMinutes": NSNumber(value: Int64.max),
-            "liveIntervalSeconds": NSNumber(value: Int64.max),
             "alarmCooldownMinutes": NSNumber(value: Int64.max),
         ]
         let s = BackupManager.applySettings(backup, onto: AppSettings())
         XCTAssertEqual(s.backgroundIntervalMinutes, AppSettings.maxBackgroundIntervalMinutes)
-        XCTAssertEqual(s.liveIntervalSeconds, AppSettings.maxLiveIntervalSeconds)
         XCTAssertEqual(s.alarmCooldownMinutes, AppSettings.maxAlarmCooldownMinutes)
         // Untergrenzen bleiben
-        let low = BackupManager.applySettings(["backgroundIntervalMinutes": 1, "liveIntervalSeconds": 1,
-                                               "alarmCooldownMinutes": -5], onto: AppSettings())
+        let low = BackupManager.applySettings(["backgroundIntervalMinutes": 1, "alarmCooldownMinutes": -5], onto: AppSettings())
         XCTAssertEqual(low.backgroundIntervalMinutes, AppSettings.minBackgroundIntervalMinutes)
-        XCTAssertEqual(low.liveIntervalSeconds, AppSettings.minLiveIntervalSeconds)
         XCTAssertEqual(low.alarmCooldownMinutes, 0)
         // Werte der Auswahl bleiben unverändert
-        let kept = BackupManager.applySettings(["backgroundIntervalMinutes": 60, "liveIntervalSeconds": 300,
-                                                "alarmCooldownMinutes": 15], onto: AppSettings())
+        let kept = BackupManager.applySettings(["backgroundIntervalMinutes": 60, "alarmCooldownMinutes": 15], onto: AppSettings())
         XCTAssertEqual(kept.backgroundIntervalMinutes, 60)
-        XCTAssertEqual(kept.liveIntervalSeconds, 300)
         XCTAssertEqual(kept.alarmCooldownMinutes, 15)
     }
 
     func testStoredSettingsDecodeClamped() throws {
-        let json = #"{"backgroundIntervalMinutes": 9223372036854775807, "liveIntervalSeconds": 9223372036854775807, "alarmCooldownMinutes": 9223372036854775807}"#
+        let json = #"{"backgroundIntervalMinutes": 9223372036854775807, "alarmCooldownMinutes": 9223372036854775807}"#
         let s = try JSONDecoder().decode(AppSettings.self, from: Data(json.utf8))
         XCTAssertEqual(s.backgroundIntervalMinutes, AppSettings.maxBackgroundIntervalMinutes)
-        XCTAssertEqual(s.liveIntervalSeconds, AppSettings.maxLiveIntervalSeconds)
         XCTAssertEqual(s.alarmCooldownMinutes, AppSettings.maxAlarmCooldownMinutes)
     }
 

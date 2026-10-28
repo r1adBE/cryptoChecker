@@ -38,8 +38,6 @@ struct PortfolioScreen: View {
     @State var addressesOpen = false
     /// Einmal automatisch «Nur anzeigen» gestellte Adressen (später aufgetauchte Überschneidung), Hinweis noch offen.
     @State var overlapSwitched: [WatchedAddress] = []
-    /// Früher automatisch «Nur anzeigen» ohne passende Menge, jetzt wieder zählend (einmal), Hinweis noch offen.
-    @State var overlapRestored: [WatchedAddress] = []
     /// ⋯ › «CSV importieren» (Relai, Swissquote): Dateiauswahl, dann Vorschau.
     @State var csvPickerOpen = false
     /// ⋯ › «Importe»: Importläufe mit «Rückgängig».

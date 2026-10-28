@@ -132,7 +132,7 @@ enum RefreshReportLogic {
     }
 
     /// Fehlertext (iOS: `ConnectionErrors`/`ExchangeHTTP`; Android: Ausnahme bzw. Kennung) → Ursache, über
-    /// Stichwörter. Für gespeicherte Texte ohne `ExchangeFailure` (ältere Fassungen) und als Rückfall.
+    /// Stichwörter. Für gespeicherte Texte ohne `ExchangeFailure` und als Rückfall.
     static func classify(_ error: String?) -> RefreshFailure {
         let e = (error ?? "").trimmingCharacters(in: .whitespaces)
         let lower = e.lowercased()

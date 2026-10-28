@@ -140,9 +140,8 @@ object CoinLogoStorage {
 
     fun prefs(context: Context): SharedPreferences = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
-    /** Erste lesbare, nicht leere Datei. */
-    fun readFirst(vararg files: File): String? =
-        files.firstNotNullOfOrNull { f -> runCatching { f.readText() }.getOrNull()?.takeIf { it.isNotBlank() } }
+    /** Inhalt der Datei; unlesbar oder leer → null. */
+    fun readNonBlank(file: File): String? = runCatching { file.readText() }.getOrNull()?.takeIf { it.isNotBlank() }
 
     /**
      * Nicht getaktetes Netz (WLAN, Ethernet)? Unbekannt oder kein Netz → false (lieber sparsam).

@@ -18,40 +18,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Alte Entscheide (früher genügte derselbe Coin): einmal übernehmen; «Nur anzeigen» ohne passende Menge zählt
- * wieder (Hinweis mit «Rückgängig»)
- */
-internal fun PortfolioViewModel.restoreLegacyAddressOverlap() {
-    viewModelScope.launch {
-        combine(transactions.filterNotNull(), watchedAddresses) { txs, list -> txs to list }
-            .filter { (_, list) -> list.any { it.overlapLegacy } }
-            .collect { (txs, list) ->
-                val trades = withContext(Dispatchers.Default) { txs.map { it.toTrade() } }
-                val legacy = list.filter { it.overlapLegacy }
-                val restored = legacy.filter { a ->
-                    val revert = WatchedAddressRules.overlapLegacyRevert(a, trades)
-                    safe { repository.migrateWatchedAddressOverlap(a.id, revert) } != null && revert
-                }
-                if (restored.isEmpty()) return@collect
-                val own = txs.map { PortfolioCalculator.normalizeCoin(it.coin) }.toSet()
-                val previous = _addressOverlapRestored.value
-                _addressOverlapRestored.value = AddressOverlapNotice(
-                    ids = previous?.ids.orEmpty() + restored.map { it.id },
-                    names = previous?.names.orEmpty() + restored.map { it.label ?: WatchedAddressRules.shortAddress(it.address) },
-                    coins = (previous?.coins.orEmpty() + restored.flatMap { WatchedAddressRules.overlap(it, own) }).distinct(),
-                )
-            }
-    }
-}
-
-/**
  * Später aufgetauchte Überschneidung Adresse ↔ eigene Transaktionen mit passender Menge: einmal automatisch
  * «Nur anzeigen» (Hinweis); nur gleicher Coin: zählt weiter (Hinweis an der Adresse)
  */
 internal fun PortfolioViewModel.switchOverlappingAddresses() {
     viewModelScope.launch {
         combine(transactions.filterNotNull(), watchedAddresses) { txs, list ->
-            WatchedAddressRules.overlapAutoShowOnly(list.filter { !it.overlapLegacy }, txs.map { it.toTrade() }) to txs
+            WatchedAddressRules.overlapAutoShowOnly(list, txs.map { it.toTrade() }) to txs
         }
             .flowOn(Dispatchers.Default)
             .filter { (due, _) -> due.isNotEmpty() }

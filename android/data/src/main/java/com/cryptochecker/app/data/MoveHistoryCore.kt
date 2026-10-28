@@ -2,7 +2,6 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import org.json.JSONArray
-import org.json.JSONObject
 
 /** Ablage der Verläufe ([MoveHistoryCore]): Text je Schlüssel; in [write] steht null für «entfernen». */
 interface MoveHistoryStorage {
@@ -12,15 +11,12 @@ interface MoveHistoryStorage {
 }
 
 /**
- * Kern von [MoveHistoryStore]: ein Schlüssel je Paar statt aller Verläufe unter einem. Vorher las
- * und schrieb jedes [append] den gesamten Inhalt aller Paare und dekodierte zusätzlich jeden fremden Verlauf — bei
- * M Paaren mit Bewegungs-Alarm O(M²) je Durchlauf, im Live-Modus alle 10 s. Jetzt liest und schreibt ein Paar nur
- * den eigenen Eintrag; fremde, abgelaufene Verläufe (gelöschte Paare, Alarm entfernt) räumt höchstens alle
- * [CLEANUP_INTERVAL_MILLIS] ein Durchgang weg. Der alte Sammelschlüssel wird einmal aufgeteilt. Gleich wie iOS.
+ * Kern von [MoveHistoryStore]: ein Schlüssel je Paar — ein Paar liest und schreibt nur den eigenen Eintrag (auch
+ * bei vielen Paaren mit Bewegungs-Alarm im Live-Modus alle 10 s nur O(N) je Paar). Fremde, abgelaufene Verläufe
+ * (gelöschte Paare, Alarm entfernt) räumt höchstens alle [CLEANUP_INTERVAL_MILLIS] ein Durchgang weg. Gleich wie iOS.
  */
 class MoveHistoryCore(private val storage: MoveHistoryStorage) {
     private val lock = Any()
-    private var migrated = false
     private var lastCleanupAt: Long? = null
 
     /** Dekodierte Verläufe seit dem Start (für den Test: append bleibt O(N)). */
@@ -29,7 +25,6 @@ class MoveHistoryCore(private val storage: MoveHistoryStorage) {
 
     /** Gespeicherter Verlauf des Paars, älteste zuerst. */
     fun history(watchId: Long): List<MoveWindow.PricePoint> = synchronized(lock) {
-        migrate()
         decode(storage.read(key(watchId)))
     }
 
@@ -40,7 +35,6 @@ class MoveHistoryCore(private val storage: MoveHistoryStorage) {
 
     /** [append] unter [lock]. */
     private fun appendLocked(watchId: Long, point: MoveWindow.PricePoint, now: Long) {
-        migrate()
         val key = key(watchId)
         val before = decode(storage.read(key))
         val updated = MoveWindow.append(before, point, now)
@@ -67,22 +61,6 @@ class MoveHistoryCore(private val storage: MoveHistoryStorage) {
             last == null || now - last > MoveWindow.RETENTION_MILLIS
         }
 
-    /** Früher standen alle Verläufe unter [LEGACY_KEY] ({"<watchId>": [[zeit, kurs], …]}): einmal aufteilen. */
-    private fun migrate() {
-        if (migrated) return
-        migrated = true
-        val legacy = storage.read(LEGACY_KEY) ?: return
-        val changes = HashMap<String, String?>()
-        runCatching { JSONObject(legacy) }.getOrNull()?.let { map ->
-            map.keys().forEach { id ->
-                val array = map.optJSONArray(id)
-                if (array != null && id.toLongOrNull() != null) changes[PREFIX + id] = array.toString()
-            }
-        }
-        changes[LEGACY_KEY] = null
-        storage.write(changes)
-    }
-
     private fun decode(text: String?): List<MoveWindow.PricePoint> {
         if (text == null) return emptyList()
         decodes++
@@ -102,7 +80,6 @@ class MoveHistoryCore(private val storage: MoveHistoryStorage) {
     companion object {
         /** Schlüssel je Paar: «h_<watchId>». */
         const val PREFIX = "h_"
-        const val LEGACY_KEY = "history"
         const val CLEANUP_INTERVAL_MILLIS = 30 * 60_000L
 
         fun key(watchId: Long): String = PREFIX + watchId

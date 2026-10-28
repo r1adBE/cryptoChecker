@@ -12,22 +12,12 @@ class NotificationDefaultsTest {
     @Test
     fun newInstallHasOngoingOff() {
         assertFalse(AppSettings().ongoingNotifications)
-        assertFalse(AppSettings.ongoingForMigration(existingInstall = false))
-    }
-
-    /** Bestehende Installation ohne gespeicherten Schlüssel behält den bisherigen Standard (an). */
-    @Test
-    fun existingInstallKeepsOngoingOn() {
-        assertTrue(AppSettings.LEGACY_ONGOING_NOTIFICATIONS)
-        assertTrue(AppSettings.ongoingForMigration(existingInstall = true))
     }
 
     @Test
     fun newPairsStartWithPriceNotification() {
         // Entscheid 16. Oktober 2026: neue Paare zeigen den Kurs in der Mitteilungsleiste (vorher aus)
         assertTrue(WatchRepository.DEFAULT_NOTIFICATION_ENABLED)
-        // Sicherung ohne Feld (in älteren Versionen war jedes Paar an): bleibt an — wie iOS
-        assertTrue(WatchRepository.LEGACY_NOTIFICATION_ENABLED)
         // Gespeicherte/gesicherte Paare: Entity-Standard unverändert (kein Schemawechsel)
         assertTrue(WatchEntity(exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR").notificationEnabled)
     }

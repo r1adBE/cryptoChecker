@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">در تراکنش‌های خودت هم هست: %1$s – هر دو جمع می‌شوند. همان سکه‌ها؟ «فقط نمایش» را انتخاب کن.</string>
     <string name="portfolio_address_overlap_ask">%1$s را از قبل با تراکنش‌های خودت ثبت می‌کنی. موجودی این آدرس به سبد اضافه شود یا فقط نمایش داده شود؟</string>
     <string name="portfolio_address_overlap_auto">«%1$s» اکنون فقط نمایش داده می‌شود و حساب نمی‌شود – %2$s در تراکنش‌هایت هم هست.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» دوباره حساب می‌شود – مقدارها با تراکنش‌هایت جور نیست. اگر همان سکه‌هاست «فقط نمایش» را انتخاب کن.</string>
     <string name="portfolio_address_overlap_title">همان سکه‌های تراکنش‌هایت؟</string>
     <string name="portfolio_address_overlap_tx">همان مقدارِ واریز/انتقال خودت (%1$s) – احتمالاً دو بار حساب می‌شود.</string>
     <string name="portfolio_address_period_observed">آدرس‌های زیر نظر از نخستین موجودی مشاهده‌شده حساب می‌شوند؛ تغییرات بعدی ورود/خروج است، نه سود.</string>

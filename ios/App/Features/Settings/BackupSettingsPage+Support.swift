@@ -43,7 +43,7 @@ extension BackupSettingsPage {
 }
 
 extension View {
-    /// Nur Debug ohne Test-Ziel: Prüfwerte v2 und v3 (backup_crypto.json) einmal nachrechnen (gleiche Bytes wie Android).
+    /// Nur Debug ohne Test-Ziel: Prüfwert (backup_crypto.json) einmal nachrechnen (gleiche Bytes wie Android).
     @ViewBuilder
     func backupCryptoSelfCheck() -> some View {
         #if DEBUG

@@ -11,7 +11,7 @@ package com.cryptochecker.app.domain.watch
  *  - Datei mit Formatversion [FORMAT_VERSION]; fremde Version oder kaputte Einträge = nichts gespeichert.
  *  - Für die Tages-Basen der %-Änderung ([ChangeBasis]) zusätzlich je Eintrag die Eröffnungen der
  *    Stundenkerzen, in denen der heutige Tagesbeginn (UTC und Ortszeit) liegt ([Stored.starts],
- *    [keepStarts]) — ältere Dateien ohne sie bleiben gültig.
+ *    [keepStarts]) — Einträge ohne sie bleiben gültig.
  */
 object DayReferenceCache {
 
@@ -30,7 +30,7 @@ object DayReferenceCache {
      * Ein gespeicherter Bezug; [key] wie «BTC|USDT». [starts]: Kerzen-Startzeit (volle Stunde)
      * → Eröffnung, nur für die Tagesbeginne ([keepStarts]). [provider]: Anbieter der Kerzen
      * («Binance», «Binance.US», «Coinbase»; für den Hinweis «Veränderung aus …-Kerzen») —
-     * ältere Dateien ohne ihn bleiben gültig (null).
+     * Einträge ohne ihn bleiben gültig (null).
      */
     data class Stored(
         val key: String,

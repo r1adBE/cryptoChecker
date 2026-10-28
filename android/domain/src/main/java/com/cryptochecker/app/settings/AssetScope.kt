@@ -21,8 +21,6 @@ import com.cryptochecker.marketdata.model.exchange.BinanceAlpha
  *
  * Gemerkte Paare bleiben immer in der Merkliste, die Einstellung blendet dort nichts aus.
  * Gespeichert und gesichert unter [name] (Schlüssel «asset_scope» bzw. «assetScope», wie iOS).
- * Ersetzt den früheren Schalter «include_tradfi_futures» / «includeTradFiFutures»: an → [BOTH],
- * aus → [TOKENS] ([fromLegacy]).
  */
 enum class AssetScope {
     TOKENS,
@@ -70,23 +68,6 @@ enum class AssetScope {
         /** Gespeicherter Name; unbekannt (neuere Version) oder leer → null. */
         fun fromNameOrNull(name: String?): AssetScope? =
             name?.trim()?.uppercase()?.let { n -> entries.firstOrNull { it.name == n } }
-
-        /** Früherer Schalter «TradFi»: an → [BOTH], sonst [TOKENS]. */
-        fun fromLegacy(includeTradFi: Boolean?): AssetScope = if (includeTradFi == true) BOTH else TOKENS
-
-        /**
-         * Gespeicherte Einstellung: der neue Wert, sonst (Update von einer älteren Version) der
-         * frühere Schalter, sonst der Standard.
-         */
-        fun resolve(stored: String?, legacyTradFi: Boolean?): AssetScope =
-            fromBackup(stored, legacyTradFi) ?: DEFAULT
-
-        /**
-         * Aus einer Sicherung: «assetScope», sonst «includeTradFiFutures» (ältere Sicherung);
-         * fehlen beide, null = aktuelle Einstellung stehen lassen.
-         */
-        fun fromBackup(scope: String?, legacyTradFi: Boolean?): AssetScope? =
-            fromNameOrNull(scope) ?: legacyTradFi?.let { fromLegacy(it) }
 
         /**
          * Platzhalter, wenn «inkl. Alpha-Tokens» aus ist, aber noch keine Alpha-Liste vorliegt: hält

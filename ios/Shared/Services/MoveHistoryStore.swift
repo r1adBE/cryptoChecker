@@ -37,18 +37,15 @@ enum MoveHistoryStore {
     }
 }
 
-/// Kern von `MoveHistoryStore` — wie `MoveHistoryCore.kt`: ein Schlüssel je Paar statt aller Verläufe
-/// unter einem. Vorher las und schrieb jedes `append` den Inhalt aller Paare und dekodierte jeden fremden Verlauf —
-/// O(M²) je Durchlauf. Jetzt nur der eigene Eintrag; fremde, abgelaufene Verläufe räumt höchstens alle
-/// `cleanupIntervalMillis` ein Durchgang weg. Der alte Sammelschlüssel wird einmal aufgeteilt.
+/// Kern von `MoveHistoryStore` — wie `MoveHistoryCore.kt`: ein Schlüssel je Paar — ein Paar liest und schreibt
+/// nur den eigenen Eintrag; fremde, abgelaufene Verläufe räumt höchstens alle `cleanupIntervalMillis` ein
+/// Durchgang weg.
 final class MoveHistoryCore: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     static let prefix = "move_history_"
-    static let legacyKey = "move_history"
     static let cleanupIntervalMillis: Int64 = 30 * 60_000
 
     private let storage: MoveHistoryStorage
     private let lock = NSLock()
-    private var migrated = false
     private var lastCleanupAt: Int64?
     /// Dekodierte Verläufe seit dem Start (für den Test: append bleibt O(N)); nur unter `lock`.
     private var decodeCount = 0
@@ -60,15 +57,11 @@ final class MoveHistoryCore: @unchecked Sendable { // @unchecked: veränderliche
     var decodes: Int { lock.withLock { decodeCount } }
 
     func history(_ watchId: Int64) -> [MoveWindow.PricePoint] {
-        lock.withLock {
-            migrate()
-            return decode(storage.read(Self.key(watchId)))
-        }
+        lock.withLock { decode(storage.read(Self.key(watchId))) }
     }
 
     func append(_ watchId: Int64, _ point: MoveWindow.PricePoint, now: Int64) {
         lock.withLock {
-            migrate()
             let key = Self.key(watchId)
             let before = decode(storage.read(key))
             let updated = MoveWindow.append(before, point, now: now)
@@ -95,24 +88,6 @@ final class MoveHistoryCore: @unchecked Sendable { // @unchecked: veränderliche
             guard let last = decode(storage.read(other)).map(\.time).max() else { return true }
             return now - last > MoveWindow.retentionMillis
         }
-    }
-
-    /// Früher standen alle Verläufe unter `legacyKey` (`{"<watchId>": [[zeit, kurs], …]}`): einmal aufteilen.
-    private func migrate() {
-        guard !migrated else { return }
-        migrated = true
-        guard let legacy = storage.read(Self.legacyKey) else { return }
-        var changes: [String: String?] = [Self.legacyKey: nil]
-        if let data = legacy.data(using: .utf8),
-           let map = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-            for (id, value) in map {
-                guard Int64(id) != nil, let array = value as? [Any],
-                      let json = try? JSONSerialization.data(withJSONObject: array),
-                      let text = String(data: json, encoding: .utf8) else { continue }
-                changes[Self.prefix + id] = .some(text)
-            }
-        }
-        storage.write(changes)
     }
 
     private func decode(_ text: String?) -> [MoveWindow.PricePoint] {

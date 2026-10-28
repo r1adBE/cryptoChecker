@@ -8,7 +8,7 @@ import Security
 
 /// Format einer verschlüsselten Datei: 4 Bytes Kennung «CCSE», 1 Byte Version (1), 12 Bytes Nonce, Chiffrat (AES-256-GCM),
 /// 16 Bytes Tag. Kennung und Version sind als Zusatzdaten mitgeprüft. JSON und Text beginnen nie mit der Kennung —
-/// so liest jede Stelle alte Klartext-Dateien weiter, bis sie verschlüsselt sind.
+/// so liest jede Stelle unverschlüsselte Dateien (ohne Schlüssel geschrieben) weiter, bis sie verschlüsselt sind.
 enum ProtectedContainer {
     static let magic = Data("CCSE".utf8)
     static let version: UInt8 = 1
@@ -59,10 +59,6 @@ protocol StorageKeychain: Sendable {
     func read() throws -> Data?
     /// Speichert einen neuen Schlüssel; false = es gibt schon einen (dann gilt der gespeicherte).
     func add(_ key: Data) throws -> Bool
-    /// Ist der gespeicherte Eintrag nur auf diesem Gerät lesbar (`…ThisDeviceOnly`)? nil = kein Eintrag.
-    func isDeviceOnly() throws -> Bool?
-    /// Den bestehenden Eintrag auf «nur dieses Gerät» umstellen — dieselben Schlüsselbytes, nie löschen und neu anlegen.
-    func makeDeviceOnly() throws
     /// Eintrag löschen (nur «App zurücksetzen»); fehlt er, ist nichts zu tun.
     func delete() throws
 }
@@ -80,8 +76,7 @@ struct StorageKeychainError: Error, Equatable {
 /// auf ein anderes iPhone — wer ein Geräte-Backup in die Hände bekommt, hat die Dateien, aber nie ihren Schlüssel.
 /// Folge: Nach einem Gerätewechsel sind die verschlüsselten Dateien unlesbar; `prepareAtLaunch` legt sie beiseite
 /// und `StorageRecoveryNotice` nennt das einmal. Weg zurück ist die Sicherungsdatei (Einstellungen › Sicherung sagt
-/// das vorab). Früher hiess der Zugriff `kSecAttrAccessibleAfterFirstUnlock`; `StorageKey.restrictToThisDevice`
-/// stellt einen solchen Eintrag beim Start um. Nicht mit dem iCloud-Schlüsselbund synchronisiert.
+/// das vorab). Nicht mit dem iCloud-Schlüsselbund synchronisiert.
 struct SystemStorageKeychain: StorageKeychain {
     static let service = "com.cryptochecker.storage-key"
     static let account = "v1"
@@ -116,32 +111,6 @@ struct SystemStorageKeychain: StorageKeychain {
         case errSecDuplicateItem: return false
         default: throw StorageKeychainError(status: status)
         }
-    }
-
-    func isDeviceOnly() throws -> Bool? {
-        var q = query
-        q[kSecReturnAttributes as String] = true
-        q[kSecMatchLimit as String] = kSecMatchLimitOne
-        var result: CFTypeRef?
-        let status = SecItemCopyMatching(q as CFDictionary, &result)
-        switch status {
-        case errSecSuccess:
-            let attributes = result as? [String: Any] ?? [:]
-            let current = attributes[kSecAttrAccessible as String] as? String
-            let wanted = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly as String
-            return current == wanted
-        case errSecItemNotFound:
-            return nil
-        default:
-            throw StorageKeychainError(status: status)
-        }
-    }
-
-    func makeDeviceOnly() throws {
-        // Abfrage samt App-Group-Zugriffsgruppe unverändert: die Widgets lesen den Eintrag weiter
-        let change: [String: Any] = [kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly]
-        let status = SecItemUpdate(query as CFDictionary, change as CFDictionary)
-        guard status == errSecSuccess else { throw StorageKeychainError(status: status) }
     }
 
     func delete() throws {
@@ -222,23 +191,6 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
         return nil
     }
 
-    /// Einen früher angelegten Eintrag (`…AfterFirstUnlock`, im Geräte-Backup enthalten) auf «nur dieses Gerät»
-    /// umstellen. Ändert nur den Zugriff des bestehenden Eintrags (`SecItemUpdate`), nie die Schlüsselbytes — ein neuer
-    /// Schlüssel machte alle Dateien unlesbar. Scheitert es (z. B. vor dem ersten Entsperren), bleibt alles wie es ist
-    /// und der nächste Start versucht es erneut. true = umgestellt oder schon so (oder kein Eintrag).
-    @discardableResult
-    func restrictToThisDevice() -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        do {
-            guard let deviceOnly = try keychain.isDeviceOnly(), !deviceOnly else { return true }
-            try keychain.makeDeviceOnly()
-            return true
-        } catch {
-            return false
-        }
-    }
-
     /// «App zurücksetzen»: alten Schlüssel löschen und gleich einen neuen anlegen — unter derselben Sperre, damit kein
     /// Schreiber dieses Prozesses dazwischen «kein Schlüssel» sieht (und Klartext schriebe). Die App läuft danach
     /// weiter und versiegelt ab hier mit dem neuen Schlüssel. Nur nach dem Löschen aller verschlüsselten Dateien
@@ -310,7 +262,7 @@ enum ProtectedFile {
         case renameFailed(Int32)
     }
 
-    /// Klartext der Datei; eine alte unverschlüsselte Datei kommt unverändert zurück.
+    /// Klartext der Datei; eine unverschlüsselte Datei kommt unverändert zurück.
     static func read(_ url: URL, keys: StorageKey = .shared) throws -> Data {
         let raw = try Data(contentsOf: url)
         guard ProtectedContainer.isSealed(raw) else { return raw }
@@ -324,8 +276,8 @@ enum ProtectedFile {
         }
     }
 
-    /// Schreibt verschlüsselt (geprüft, atomar ersetzt); ohne Schlüssel unverschlüsselt wie früher — der nächste
-    /// Start der App überführt die Datei. Liegt dort aber schon eine verschlüsselte Datei, wird sie ohne Schlüssel nie
+    /// Schreibt verschlüsselt (geprüft, atomar ersetzt); ohne Schlüssel unverschlüsselt — der nächste Start der App
+    /// überführt die Datei. Liegt dort aber schon eine verschlüsselte Datei, wird sie ohne Schlüssel nie
     /// durch Klartext ersetzt (`locked`): sonst stünden z. B. Widget-Daten nach einem kurz gesperrten Schlüsselbund
     /// wieder unverschlüsselt da. Das Backup-Merkmal setzen die Aufrufer danach neu (neue Datei).
     /// `requireSealed` (Merkliste, Portfolio, Portfolio-Alarme, Adressen, Alarm-Protokoll): ohne Schlüssel nie Klartext,

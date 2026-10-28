@@ -32,7 +32,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
  *    verringert beim Verkauf den Erlös; Gebühr im Coin verringert die Menge.
  *  - Auszahlung: Gebühr nur im Coin; Umbuchung: Netzwerkgebühr im Coin (senkt nur die Menge).
  *  - Börse (nicht bei der Umbuchung): eine Spot-Börse der App ([exchanges]); der Coin wird dann mit ihrem
- *    Kurs bewertet (sonst Binance, PortfolioExchangeRoute). Ein früher frei getippter Name bleibt wählbar.
+ *    Kurs bewertet (sonst Binance, PortfolioExchangeRoute). Ein gespeicherter Name ausserhalb der Liste (z. B. aus einer
+ *    Sicherung, oder solange die Liste noch lädt) bleibt wählbar.
  */
 @Composable
 internal fun LedgerFields(
@@ -100,14 +101,14 @@ internal fun LedgerFields(
             }
         }
         if (fields.exchange) {
-            // Börse: «Keine (Binance)», ein früher frei getippter Name (falls keiner der Liste) und die Spot-Börsen
+            // Börse: «Keine (Binance)», der gespeicherte Name (falls keiner der Liste) und die Spot-Börsen
             val none = stringResource(R.string.ledger_exchange_none)
             val current = exchange.trim()
-            val legacy = current.takeIf { c -> c.isNotEmpty() && exchanges.none { it.equals(c, ignoreCase = true) } }
-            val options = listOf(none) + listOfNotNull(legacy) + exchanges
+            val other = current.takeIf { c -> c.isNotEmpty() && exchanges.none { it.equals(c, ignoreCase = true) } }
+            val options = listOf(none) + listOfNotNull(other) + exchanges
             val selected = when {
                 current.isEmpty() -> 0
-                legacy != null -> 1
+                other != null -> 1
                 else -> options.indexOfFirst { it.equals(current, ignoreCase = true) }.coerceAtLeast(0)
             }
             DropdownField(

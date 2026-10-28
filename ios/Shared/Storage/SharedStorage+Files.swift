@@ -73,8 +73,8 @@ extension SharedStorage {
     /// `watchlist.json` (Paare mit Notizen und Mengen, Alarme) wie die Portfolio-Alarme nur versiegelt (`requireSealed`):
     /// ohne Schlüssel kein Klartext, auch nicht für eine neue oder noch unverschlüsselte Datei — die Datei behält ihren
     /// letzten Stand, die Änderung bleibt im Speicher (`AppData`) und geht mit dem nächsten Speichern hinaus
-    /// (`watchlistPending`). Eine unverschlüsselte Datei aus älteren Versionen bleibt lesbar und wird beim nächsten
-    /// Schreiben mit Schlüssel versiegelt.
+    /// (`watchlistPending`). Eine unverschlüsselte Datei bleibt lesbar und wird beim nächsten Schreiben mit Schlüssel
+    /// versiegelt.
     /// - Parameter durability: nur für `watchlist.json`: `.barrier` bei reinen Kurs-Speicherungen
     ///   (Live-Takt); die Portfolio-Alarme immer voll (`ProtectedFile.Durability`).
     /// - Returns: true, wenn `watchlist.json` geschrieben wurde.

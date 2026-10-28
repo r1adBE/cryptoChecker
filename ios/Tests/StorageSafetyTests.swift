@@ -46,8 +46,7 @@ final class StorageSafetyTests: XCTestCase {
                      "setWatchedAddressLabel", "replaceWatchedAddresses", "mergeWatchedAddresses"] {
             XCTAssertTrue(body(name).contains("guard !portfolioStorageLocked"), "\(name) prüft die Sperre nicht")
         }
-        for name in ["applyWatchedAddressUpdates", "applyWatchedAddressOverlapShowOnly", "migrateWatchedAddressOverlap",
-                     "rollBackWatchedAddresses"] {
+        for name in ["applyWatchedAddressUpdates", "applyWatchedAddressOverlapShowOnly", "rollBackWatchedAddresses"] {
             XCTAssertFalse(body(name).contains("portfolioStorageLocked"), "\(name) darf nicht gesperrt werden")
         }
     }

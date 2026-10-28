@@ -1,10 +1,9 @@
-import CommonCrypto
 import CryptoKit
 import Foundation
 import os
 
 /// Passwortschutz der Sicherungsdatei — wie `BackupCrypto.kt` (gleiches Format, gleiche Prüfwerte),
-/// damit verschlüsselte Sicherungen zwischen Android und iOS austauschbar bleiben. Geschrieben wird immer v3:
+/// damit verschlüsselte Sicherungen zwischen Android und iOS austauschbar bleiben. Version 3:
 ///
 /// `{"format":"cryptochecker-backup-enc","v":3,"enc":"AES-256-GCM","kdf":"Argon2id","m":65536,"t":3,"p":1,
 ///   "salt":"<Base64, 16 Bytes>","iv":"<Base64, 12 Bytes>","data":"<Base64: Chiffrat || Tag>"}`
@@ -17,39 +16,28 @@ import os
 /// `{"format":"cryptochecker-backup-enc","v":3,"enc":"AES-256-GCM","kdf":"Argon2id","m":65536,"t":3,"p":1,"salt":"…","iv":"…"}`
 /// Ein veränderter Kopf scheitert damit am GCM-Tag — gemeldet wie ein falsches Passwort (`Failure.wrongPassword`),
 /// denn beides ist nicht zu unterscheiden. Byte-Folge wie unter Android (`Cipher.doFinal`): `iv` steht eigens, `data`
-/// ist `ciphertext + tag` — nicht `SealedBox.combined` (das hätte die Nonce vorne).
-///
-/// v2 (ältere Sicherungen, weiterhin lesbar, unverändert): «kdf» PBKDF2-HMAC-SHA256 (CommonCrypto) mit «iter» (600 000,
-/// ältere Dateien 210 000), ohne AAD.
+/// ist `ciphertext + tag` — nicht `SealedBox.combined` (das hätte die Nonce vorne). Andere Versionen werden nicht gelesen
+/// (`Failure.unsupported`, neuere: `BackupVersion.Failure.newer`).
 ///
 /// Gemeinsame Prüfwerte: `Tests/Parity/backup_crypto.json` (gleiche Datei wie Android). Argon2id mit 64 MiB dauert
 /// einige 100 ms bis wenige Sekunden — nie auf dem Main-Thread aufrufen.
 enum BackupCrypto {
     static let format = "cryptochecker-backup-enc"
-    /// Version neuer Sicherungen (Argon2id + AAD).
+    /// Version der Hülle (Argon2id + AAD).
     static let version = 3
-    /// Ältere Hülle mit PBKDF2 (weiterhin lesbar).
-    static let versionPBKDF2 = 2
     static let enc = "AES-256-GCM"
     static let kdf = "Argon2id"
-    static let kdfPBKDF2 = "PBKDF2-HMAC-SHA256"
     /// Argon2id neuer Sicherungen: 64 MiB, 3 Durchgänge, 1 Bahn (RFC 9106, zweite empfohlene Wahl).
     static let argon2MemoryKiB = 65_536
     static let argon2Time = 3
     static let argon2Parallelism = 1
-    /// «iter» der v2-Sicherungen mit PBKDF2 (ältere Sicherungen).
-    static let defaultIterations = 600_000
-    /// «iter» noch älterer v2-Sicherungen (weiterhin lesbar).
-    static let legacyIterations = 210_000
     static let saltBytes = 16
     static let ivBytes = 12
     static let tagBytes = 16
     static let keyBytes = 32
-    /// Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen, wie `codePointCount` unter Android; 12,
-    /// früher 10 bzw. 8). Ältere Dateien lassen sich mit jedem Passwort entschlüsseln.
+    /// Mindestlänge des Passworts für neue Sicherungen (Unicode-Zeichen, wie `codePointCount` unter Android). Gilt nur
+    /// beim Sichern.
     static let minPasswordLength = 12
-    /// Grenzen für «iter» beim Lesen: Schutz vor unsinnigen oder absichtlich lähmenden Werten (umfasst 210 000 und 600 000).
-    private static let iterationRange = 10_000...10_000_000
     /// Obergrenzen für m, t, p beim Lesen: Eine manipulierte Datei soll das Gerät nicht mit Gigabytes oder Minuten
     /// Rechenzeit lähmen. Untergrenze für m ist das Minimum von Argon2 (8 KiB je Bahn).
     static let maxArgon2MemoryKiB = 262_144
@@ -60,9 +48,7 @@ enum BackupCrypto {
 
     /// Schlüsselableitung samt Parametern, wie in der Datei.
     enum Kdf: Equatable {
-        /// v2: PBKDF2-HMAC-SHA256 mit «iter».
-        case pbkdf2(iterations: Int)
-        /// v3: Argon2id mit «m» (KiB), «t», «p».
+        /// Argon2id mit «m» (KiB), «t», «p».
         case argon2(memoryKiB: Int, time: Int, parallelism: Int)
     }
 
@@ -76,15 +62,12 @@ enum BackupCrypto {
         let iv: Data
         let data: Data
 
-        /// «v»: 2 für PBKDF2, 3 für Argon2id.
-        var version: Int {
-            if case .pbkdf2 = kdf { return BackupCrypto.versionPBKDF2 }
-            return BackupCrypto.version
-        }
+        /// «v».
+        var version: Int { BackupCrypto.version }
     }
 
     enum Failure: Error {
-        /// Passwort falsch oder Datei verändert (GCM-Tag passt nicht; bei v3 auch ein veränderter Kopf).
+        /// Passwort falsch oder Datei verändert (GCM-Tag passt nicht, auch bei verändertem Kopf).
         case wrongPassword
         /// Unbekannte Version, Verfahren oder ungültige Felder (z. B. aus einer neueren App).
         case unsupported(String)
@@ -126,27 +109,17 @@ enum BackupCrypto {
         return !e.isEmpty
     }
 
-    /// Felder aus dem JSON prüfen und dekodieren: v2 mit «iter», v3 mit «m», «t», «p».
+    /// Felder aus dem JSON prüfen und dekodieren (Argon2id mit «m», «t», «p»).
     static func envelope(from root: [String: Any]) throws -> Envelope {
         guard let v = root["v"] as? Int else { throw Failure.unsupported("version") }
         // Neuere Hülle: klare Meldung «neuere App-Version» statt «fehlgeschlagen» (wie Android)
         if v > version { throw BackupVersion.Failure.newer(v) }
-        let parsed: Kdf
-        switch v {
-        case versionPBKDF2:
-            guard root["kdf"] as? String == kdfPBKDF2 else { throw Failure.unsupported("enc/kdf") }
-            guard let iterations = root["iter"] as? Int else { throw Failure.unsupported("iter") }
-            parsed = .pbkdf2(iterations: iterations)
-        case version:
-            guard root["kdf"] as? String == kdf else { throw Failure.unsupported("enc/kdf") }
-            guard let m = root["m"] as? Int, let t = root["t"] as? Int, let p = root["p"] as? Int else {
-                throw Failure.unsupported("argon2")
-            }
-            parsed = .argon2(memoryKiB: m, time: t, parallelism: p)
-        default:
-            throw Failure.unsupported("version")
+        guard v == version else { throw Failure.unsupported("version") }
+        guard root["kdf"] as? String == kdf, root["enc"] as? String == enc else { throw Failure.unsupported("enc/kdf") }
+        guard let m = root["m"] as? Int, let t = root["t"] as? Int, let p = root["p"] as? Int else {
+            throw Failure.unsupported("argon2")
         }
-        guard root["enc"] as? String == enc else { throw Failure.unsupported("enc/kdf") }
+        let parsed = Kdf.argon2(memoryKiB: m, time: t, parallelism: p)
         guard let salt = (root["salt"] as? String).flatMap({ Data(base64Encoded: $0) }),
               let iv = (root["iv"] as? String).flatMap({ Data(base64Encoded: $0) }),
               let data = (root["data"] as? String).flatMap({ Data(base64Encoded: $0) })
@@ -156,15 +129,10 @@ enum BackupCrypto {
         return envelope
     }
 
-    /// JSON der verschlüsselten Sicherung — gleiche Felder und Reihenfolge wie unter Android (v2 wie bisher).
+    /// JSON der verschlüsselten Sicherung — gleiche Felder und Reihenfolge wie unter Android.
     static func json(_ envelope: Envelope) -> Data {
         let kdfLines: String
         switch envelope.kdf {
-        case .pbkdf2(let iterations):
-            kdfLines = """
-              "kdf": "\(kdfPBKDF2)",
-              "iter": \(iterations),
-            """
         case let .argon2(m, t, p):
             kdfLines = """
               "kdf": "\(kdf)",
@@ -187,21 +155,23 @@ enum BackupCrypto {
         return Data(text.utf8)
     }
 
-    /// Kanonischer Kopf einer v3-Hülle als AAD (UTF-8, kompaktes JSON, feste Reihenfolge; gleiche Bytes wie Android
+    /// Kanonischer Kopf der Hülle als AAD (UTF-8, kompaktes JSON, feste Reihenfolge; gleiche Bytes wie Android
     /// `BackupCrypto.header`). Aus den gelesenen Werten neu gebaut, nie aus dem Dateitext: Leerzeichen oder
     /// Feldreihenfolge der Datei spielen keine Rolle, jeder geänderte Wert schon.
-    static func header(_ envelope: Envelope) throws -> Data {
-        guard case let .argon2(m, t, p) = envelope.kdf else { throw Failure.unsupported("header v2") }
+    static func header(_ envelope: Envelope) -> Data {
         let salt = envelope.salt.base64EncodedString()
         let iv = envelope.iv.base64EncodedString()
-        let text = #"{"format":"\#(format)","v":\#(version),"enc":"\#(enc)","kdf":"\#(kdf)","m":\#(m),"t":\#(t),"p":\#(p),"salt":"\#(salt)","iv":"\#(iv)"}"#
-        return Data(text.utf8)
+        switch envelope.kdf {
+        case let .argon2(m, t, p):
+            let text = #"{"format":"\#(format)","v":\#(version),"enc":"\#(enc)","kdf":"\#(kdf)","m":\#(m),"t":\#(t),"p":\#(p),"salt":"\#(salt)","iv":"\#(iv)"}"#
+            return Data(text.utf8)
+        }
     }
 
     // MARK: Ver- und Entschlüsseln
 
     /// Verschlüsselt `plain`. `password` = `passwordBytes(_:)`; gehört dem Aufrufer, der es danach überschreibt.
-    /// `kdf` ist für neue Sicherungen immer `defaultKdf` — v2 schreiben nur noch Tests (Prüfwerte).
+    /// `kdf` ist für neue Sicherungen immer `defaultKdf`; andere Parameter nur in Tests (Prüfwerte).
     /// - Throws: `Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht.
     static func encrypt(_ plain: Data, password: [UInt8], salt: Data? = nil, iv: Data? = nil,
                         kdf: Kdf = defaultKdf) throws -> Envelope {
@@ -212,12 +182,7 @@ enum BackupCrypto {
         try validate(draft, checkData: false)
         let key = try deriveKey(password, envelope: draft)
         let nonce = try AES.GCM.Nonce(data: iv)
-        let box: AES.GCM.SealedBox
-        if case .argon2 = kdf {
-            box = try AES.GCM.seal(plain, using: key, nonce: nonce, authenticating: try header(draft))
-        } else {
-            box = try AES.GCM.seal(plain, using: key, nonce: nonce)
-        }
+        let box = try AES.GCM.seal(plain, using: key, nonce: nonce, authenticating: header(draft))
         // Chiffrat || Tag, wie `Cipher.doFinal` unter Android
         var data = Data(box.ciphertext)
         data.append(box.tag)
@@ -232,7 +197,7 @@ enum BackupCrypto {
         return try encrypt(plain, password: bytes, salt: salt, iv: iv, kdf: kdf)
     }
 
-    /// - Throws: `Failure.wrongPassword` bei falschem Passwort oder veränderter Datei (bei v3 auch verändertem Kopf),
+    /// - Throws: `Failure.wrongPassword` bei falschem Passwort oder veränderter Datei (auch verändertem Kopf),
     ///   `Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht.
     static func decrypt(_ envelope: Envelope, password: [UInt8]) throws -> Data {
         try validate(envelope)
@@ -245,11 +210,7 @@ enum BackupCrypto {
             tag: envelope.data.suffix(tagBytes)
         )
         do {
-            // v2 bleibt ohne AAD (so wurden die Dateien geschrieben)
-            if case .argon2 = envelope.kdf {
-                return try AES.GCM.open(box, using: key, authenticating: try header(envelope))
-            }
-            return try AES.GCM.open(box, using: key)
+            return try AES.GCM.open(box, using: key, authenticating: header(envelope))
         } catch {
             throw Failure.wrongPassword
         }
@@ -264,18 +225,13 @@ enum BackupCrypto {
 
     // MARK: Prüfwert
 
-    /// Prüfwerte wie in `BackupCryptoTest.kt` und `backup_crypto.json` (mit Python `cryptography` nachgerechnet):
-    /// Passwort `Kryptö-Test 2026!`, salt 00..0f, iv a0..ab; v2 `data` mit iter 210000 (alte Datei), `data600k` mit
-    /// iter 600000; v3 `data3` mit Argon2id m 65536, t 3, p 1 (neue Sicherungen), `data3Fast` mit m 64, t 2, p 2.
+    /// Prüfwerte wie in `backup_crypto.json` (mit Python `cryptography` nachgerechnet): Passwort `Kryptö-Test 2026!`,
+    /// salt 00..0f, iv a0..ab; `data3` mit Argon2id m 65536, t 3, p 1 (neue Sicherungen), `data3Fast` mit m 64, t 2, p 2.
     enum TestVector {
         static let password = "Kryptö-Test 2026!"
         static let salt = "AAECAwQFBgcICQoLDA0ODw=="
         static let iv = "oKGio6Slpqeoqaqr"
         static let plain = #"{"format":"cryptochecker-backup","version":1,"portfolio":[]}"#
-        static let data =
-            "F8ZO22w17BWWRjDa0IBQavtrw3kOeap/pSDHBNMr2yCCLsZy82l3RqH6OxEDzba6sota8lpn/SClooHDYy0tm81k5gCByAiia3plAA=="
-        static let data600k =
-            "0Ku8OwoZGZNMLB4nSmFxc+ftNLme+bH0q7YUsGipFoc6Edly6EQAyI3y2P5g9FVosu0L/CWRglvDAWzcW6/sO5/liBMAHn0IC/qYSg=="
         static let data3 =
             "+SPClkaGX/1HR97Xx2B2RkuJ5sOCke/BDIWZy+pBS/5Q9ahYvVYgL1NvS5CbKq1YF51Ekq4lXZYjbOMggfmkUn3RmvloYKVoB1ajeA=="
         static let data3Fast =
@@ -283,33 +239,23 @@ enum BackupCrypto {
         static let kdf3Fast = Kdf.argon2(memoryKiB: 64, time: 2, parallelism: 2)
     }
 
-    /// Verschlüsselt die Prüfwerte v2 (alte Datei, iter 210000) und v3 (Argon2id mit kleinen Parametern, mit AAD)
-    /// und entschlüsselt sie wieder; true, wenn alles mit Android übereinstimmt. Dauert spürbar — nur im Hintergrund.
+    /// Verschlüsselt den Prüfwert (Argon2id mit kleinen Parametern, mit AAD) und entschlüsselt ihn wieder; true, wenn
+    /// alles mit Android übereinstimmt. Dauert spürbar — nur im Hintergrund.
     static func verifyTestVector() -> Bool {
         guard let salt = Data(base64Encoded: TestVector.salt),
-              let iv = Data(base64Encoded: TestVector.iv)
+              let iv = Data(base64Encoded: TestVector.iv),
+              let env = try? encrypt(Data(TestVector.plain.utf8), password: TestVector.password, salt: salt, iv: iv,
+                                     kdf: TestVector.kdf3Fast),
+              env.data.base64EncodedString() == TestVector.data3Fast,
+              let back = try? decrypt(env, password: TestVector.password)
         else { return false }
-        let cases: [(Kdf, String)] = [
-            (.pbkdf2(iterations: legacyIterations), TestVector.data),
-            (TestVector.kdf3Fast, TestVector.data3Fast),
-        ]
-        for (kdf, expected) in cases {
-            guard let env = try? encrypt(Data(TestVector.plain.utf8), password: TestVector.password, salt: salt, iv: iv,
-                                         kdf: kdf),
-                  env.data.base64EncodedString() == expected,
-                  let back = try? decrypt(env, password: TestVector.password),
-                  String(decoding: back, as: UTF8.self) == TestVector.plain
-            else { return false }
-        }
-        return true
+        return String(decoding: back, as: UTF8.self) == TestVector.plain
     }
 
     // MARK: Intern
 
     private static func validate(_ envelope: Envelope, checkData: Bool = true) throws {
         switch envelope.kdf {
-        case .pbkdf2(let iterations):
-            guard iterationRange.contains(iterations) else { throw Failure.unsupported("iter") }
         case let .argon2(m, t, p):
             guard (1...maxArgon2Parallelism).contains(p), (1...maxArgon2Time).contains(t),
                   m >= 8 * p, m <= maxArgon2MemoryKiB
@@ -322,31 +268,9 @@ enum BackupCrypto {
 
     private static func deriveKey(_ password: [UInt8], envelope: Envelope) throws -> SymmetricKey {
         switch envelope.kdf {
-        case .pbkdf2(let iterations):
-            return try pbkdf2(password, salt: envelope.salt, iterations: iterations)
         case let .argon2(m, t, p):
             return try argon2(password, salt: envelope.salt, memoryKiB: m, time: t, parallelism: p)
         }
-    }
-
-    /// v2, unverändert (Passwort-Bytes = NFC, UTF-8 wie bisher).
-    private static func pbkdf2(_ password: [UInt8], salt: Data, iterations: Int) throws -> SymmetricKey {
-        var passwordChars = password.map { CChar(bitPattern: $0) }
-        defer { for i in passwordChars.indices { passwordChars[i] = 0 } }
-        let saltArray = [UInt8](salt)
-        let length = keyBytes
-        var derived = [UInt8](repeating: 0, count: length)
-        defer { Argon2id.wipe(&derived) }
-        let status = CCKeyDerivationPBKDF(
-            CCPBKDFAlgorithm(kCCPBKDF2),
-            passwordChars, passwordChars.count,
-            saltArray, saltArray.count,
-            CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256),
-            UInt32(iterations),
-            &derived, length
-        )
-        guard status == Int32(kCCSuccess) else { throw Failure.unsupported("pbkdf2") }
-        return SymmetricKey(data: derived)
     }
 
     private static func argon2(_ password: [UInt8], salt: Data, memoryKiB: Int, time: Int,

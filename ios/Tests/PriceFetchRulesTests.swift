@@ -122,13 +122,6 @@ final class PriceFetchRulesTests: XCTestCase {
         XCTAssertEqual(n("OkexFutures", nil, .perpetual), .perpetual)
     }
 
-    func testSavedInversePerpetualIsNormalizedOnLoad() throws {
-        let json = #"{"id":7,"exchangeKey":"BinanceFutures","exchangeName":"Binance Futures","baseAsset":"BTC","quoteAsset":"USD","contractType":1,"pairId":"2:BTCUSD_PERP"}"#
-        let watch = try JSONDecoder().decode(Watch.self, from: Data(json.utf8))
-        XCTAssertEqual(watch.contractType, .inversePerpetual)
-        XCTAssertTrue(watch.contractType.isPerpetual)
-    }
-
     // MARK: «veraltet» am Abruf, Zeit der Börse nur zur Anzeige
 
     /// «veraltet»: Abruf wie bisher, Zeit der Börse erst ab der Grenze der Alarmsperre — wie Android.

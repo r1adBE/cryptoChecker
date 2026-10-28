@@ -9,8 +9,7 @@ import Foundation
 /// sonst Zeitzone des Geräts; in der Vorschau wählbar).
 /// Tausch («Tausch», «Swap», «Convert», «Échange» → `.SWAP`): beide Seiten in einer Zeile («To Coin»/«To Amount»)
 /// oder in zwei aufeinanderfolgenden Tausch-Zeilen mit gleicher Kennung (ohne: gleicher Zeit) — Regeln wie Android.
-/// Kauf/Verkauf gegen einen Stablecoin (`CsvImport.stables`) → Tausch (`stableSwap`); frühere Schlüssel in
-/// `legacyKeys` — wie Android.
+/// Kauf/Verkauf gegen einen Stablecoin (`CsvImport.stables`) → Tausch (`stableSwap`) — wie Android.
 enum CsvImportParser {
 
     /// Zeitzone ohne Angabe des Geräts (Tests) und der Swissquote-Exporte.
@@ -156,7 +155,7 @@ enum CsvImportParser {
                     guard let records = tokenizeOrNil(clean, delimiter: candidates[di]) else { return tooLarge }
                     let override = zone ?? (header.utcDate ? "UTC" : nil)
                     var result = build(format, header, Array(records[(h + 1)...]),
-                                       zone: zoneFor(format, deviceZone: deviceZone, override: override), deviceZone: deviceZone,
+                                       zone: zoneFor(format, deviceZone: deviceZone, override: override),
                                        chosenOrder: dateOrder, chosenMark: decimalMark)
                     result.columns = header.recognized()
                     result.fxZone = deviceZone

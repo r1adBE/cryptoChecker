@@ -101,11 +101,4 @@ interface PortfolioAlarmDao {
         repeating: Boolean,
         currency: String?,
     ): Int
-
-    /**
-     * Review FUN3-01: «fällt um ≥ [maxFall] %» ausschalten (löst nie aus); Rückgabe: geänderte Zeilen.
-     * Wie `PortfolioAlarmLogic.exceedsFall`.
-     */
-    @Query("UPDATE portfolio_alarms SET enabled = 0 WHERE enabled = 1 AND kind = 'CHANGE_DOWN' AND threshold >= :maxFall")
-    suspend fun disableInvalidFallAlarms(maxFall: Double): Int
 }

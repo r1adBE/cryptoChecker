@@ -80,7 +80,7 @@ internal fun AlarmCard(
             } to R.drawable.ic_error
         }
     }
-    // «fällt um ≥ 100 %» (aus älteren Versionen) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet
+    // «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet
     val invalidThreshold = AlarmJson.exceedsFall(alarm.condition, alarm.threshold)
     val statusLine: Pair<Int, Int>? =
         if (invalidThreshold) R.string.alarm_threshold_invalid_fix to R.drawable.ic_warning else checkLine

@@ -20,24 +20,20 @@ enum DexTokenAddress {
 }
 
 /// Vertragsadresse des Basis-Tokens je DEX-Pool (`DexTokenAddress`), gemerkt beim Hinzufügen aus der Suche. In den
-/// gemeinsamen Einstellungen statt im Stand (wie `DexLiquidityStore`) — nicht in der Sicherung; fehlt sie (Paar von
-/// einer älteren Version hinzugefügt), zeigt das Paar-Blatt einfach keine Adresse. Wie `DexTokenAddressStore.kt`.
+/// gemeinsamen Einstellungen statt im Stand (wie `DexLiquidityStore`) — nicht in der Sicherung; fehlt sie, zeigt das
+/// Paar-Blatt einfach keine Adresse. Wie `DexTokenAddressStore.kt`.
 enum DexTokenAddressStore {
-    /// Ein Schlüssel je Pool (`PerKeyDefaults`); in älteren Versionen ein Wörterbuch unter «dex_token_address».
-    static let storage = PerKeyDefaults(prefix: "dex_token_address.", legacyKey: "dex_token_address")
-    /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
-    private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)
+    /// Ein Schlüssel je Pool (`PerKeyDefaults`).
+    static let storage = PerKeyDefaults(prefix: "dex_token_address.")
 
     /// Gemerkte Adresse des Pools `pairId`; nil = unbekannt.
     static func get(_ pairId: String?, defaults: UserDefaults = SharedStorage.defaults) -> String? {
-        _ = migration
         guard let key = DexLiquidity.key(pairId) else { return nil }
         return DexTokenAddress.cleaned(defaults.string(forKey: storage.key(key)))
     }
 
     /// Adresse aus der Suche merken; leer/ungültig = nichts ändern (eine frühere Adresse bleibt).
     static func put(_ pairId: String?, _ address: String?, defaults: UserDefaults = SharedStorage.defaults) {
-        _ = migration
         guard let key = DexLiquidity.key(pairId), let value = DexTokenAddress.cleaned(address) else { return }
         if defaults.string(forKey: storage.key(key)) == value { return }
         defaults.set(value, forKey: storage.key(key))

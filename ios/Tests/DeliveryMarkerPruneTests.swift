@@ -1,8 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Review IOS4-R01, FUN4-R1: Vermerke «wird gemeldet» beim Löschen erst nach dem Ergebnis DIESES
-/// Schreibens kürzen; Portfolio-Bereinigung setzt ihren Merker nur bei wirklich gelesenen Portfolio-Alarmen.
+/// Review IOS4-R01: Vermerke «wird gemeldet» beim Löschen erst nach dem Ergebnis DIESES Schreibens kürzen.
 final class DeliveryMarkerPruneTests: XCTestCase {
     /// (a) Lösch-Schreiben scheitert → Vermerk bleibt (auch wenn alle früheren Schreiben gelangen).
     func testLoeschSchreibenScheitertVermerkBleibt() {
@@ -37,25 +36,6 @@ final class DeliveryMarkerPruneTests: XCTestCase {
             XCTAssertFalse(text.contains("AlarmDelivery.pairs.retain("), "sofortiges Kürzen")
             XCTAssertFalse(text.contains("AlarmDelivery.portfolio.remove("), "sofortiges Kürzen")
         }
-    }
-
-    /// FUN4-R1: `nil` bei vorhandener Datei = nicht gelesen → kein Merker; ohne Datei bzw. mit Liste → Merker.
-    func testPortfolioBereinigungNurNachLesen() {
-        XCTAssertFalse(FallAlarmCleanup.portfolioAlarmsRead(nil, fileExists: true))
-        XCTAssertTrue(FallAlarmCleanup.portfolioAlarmsRead(nil, fileExists: false))
-        let invalid = PortfolioAlarm(id: 7, kind: .CHANGE_DOWN, threshold: 150, currency: nil)
-        XCTAssertTrue(FallAlarmCleanup.portfolioAlarmsRead([invalid], fileExists: true))
-        XCTAssertTrue(FallAlarmCleanup.portfolioAlarmsRead([], fileExists: true))
-        // Danach mit gelesener Liste: CHANGE_DOWN 150 wird ausgeschaltet
-        XCTAssertEqual(FallAlarmCleanup.portfolioIdsToDisable([invalid]), [7])
-    }
-
-    /// Der Guard steht vor dem Merker.
-    func testPortfolioMerkerErstNachDemGuard() throws {
-        let text = try source("AppData+FallAlarmCleanup.swift")
-        let guardAt = try XCTUnwrap(text.range(of: "guard FallAlarmCleanup.portfolioAlarmsRead("))
-        let markAt = try XCTUnwrap(text.range(of: "defaults.set(true, forKey: FallAlarmCleanup.portfolioDoneKey)"))
-        XCTAssertLessThan(guardAt.lowerBound, markAt.lowerBound)
     }
 
     private func source(_ name: String) throws -> String {

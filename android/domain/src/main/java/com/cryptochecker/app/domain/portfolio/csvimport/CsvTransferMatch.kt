@@ -175,7 +175,7 @@ object CsvTransferMatch {
      * «Import rückgängig» des Laufs [batch] über alle importierten Transaktionen [rows]: eine Umbuchung, die dieser Lauf
      * mit einer gespeicherten Seite verknüpft hat, wird auf deren Zustand davor zurückgesetzt (samt früherem Importlauf);
      * eine verknüpfte Umbuchung, deren gespeicherte Seite aus diesem Lauf stammt, wird wieder die aufgegangene neue Zeile
-     * der späteren Datei (bleibt in deren Lauf; ohne deren Zustand, Altbestand aus Build 56: gelöscht); die übrigen
+     * der späteren Datei (bleibt in deren Lauf; ohne aufgegangene Zeile im Zustand: gelöscht); die übrigen
      * Transaktionen des Laufs werden gelöscht.
      */
     fun undoPlan(rows: List<CsvImportedRef>, batch: String): CsvUndoPlan {

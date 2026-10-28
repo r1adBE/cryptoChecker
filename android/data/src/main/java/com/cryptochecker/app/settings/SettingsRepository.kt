@@ -24,7 +24,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Einstellungen lesen und schreiben. Ablage und Migrationen in `SettingsDataStore.kt`, Schlüssel in [SettingsKeys].
+ * Einstellungen lesen und schreiben. Ablage in `SettingsDataStore.kt`, Schlüssel in [SettingsKeys].
  */
 @Singleton
 class SettingsRepository @Inject constructor(
@@ -76,18 +76,8 @@ class SettingsRepository @Inject constructor(
 
     override suspend fun current(): AppSettings = settings.first()
 
-    /**
-     * «Wie aktuell?»; die früheren Schalter werden passend mitgeschrieben (Downgrade). «Immer kurz»
-     * wird nie gespeichert ([UpdateMode.withoutService]).
-     */
-    override suspend fun setUpdateMode(mode: UpdateMode) = edit {
-        val saved = mode.withoutService()
-        val flags = saved.legacyFlags
-        it[SettingsKeys.updateMode] = saved.name
-        it[SettingsKeys.backgroundUpdatesLegacy] = flags.backgroundUpdates
-        it[SettingsKeys.liveServiceLegacy] = flags.liveService
-        it[SettingsKeys.liveWebSocketLegacy] = flags.liveWebSocket
-    }
+    /** «Wie aktuell?». */
+    override suspend fun setUpdateMode(mode: UpdateMode) = edit { it[SettingsKeys.updateMode] = mode.name }
 
     override suspend fun setBackgroundInterval(minutes: Int) = edit {
         it[SettingsKeys.backgroundInterval] = AppSettings.clampBackgroundInterval(minutes)
@@ -97,11 +87,6 @@ class SettingsRepository @Inject constructor(
 
     /** Preis-Overlay ein/aus (gerätebezogen). */
     suspend fun setPriceOverlay(enabled: Boolean) = edit { it[SettingsKeys.priceOverlay] = enabled }
-
-
-    override suspend fun setLiveInterval(seconds: Int) = edit {
-        it[SettingsKeys.liveInterval] = AppSettings.clampLiveInterval(seconds)
-    }
 
     override suspend fun setPriceNotifications(enabled: Boolean) = edit { it[SettingsKeys.priceNotifications] = enabled }
 
@@ -129,11 +114,7 @@ class SettingsRepository @Inject constructor(
     override suspend fun setIncludeAlphaTokens(enabled: Boolean) =
         edit { it[SettingsKeys.includeAlphaTokens] = enabled }
 
-    /** Ab hier gilt nur noch der neue Wert; der frühere Schalter wird entfernt. */
-    override suspend fun setAssetScope(scope: AssetScope) = edit {
-        it[SettingsKeys.assetScope] = scope.name
-        it.remove(SettingsKeys.includeTradFiFuturesLegacy)
-    }
+    override suspend fun setAssetScope(scope: AssetScope) = edit { it[SettingsKeys.assetScope] = scope.name }
 
     override suspend fun setAccentColor(accent: AccentColor) = edit { it[SettingsKeys.accentColor] = accent.name }
 
@@ -365,26 +346,18 @@ class SettingsRepository @Inject constructor(
     suspend fun setMarketMoreExpanded(expanded: Boolean) = edit { it[SettingsKeys.marketMoreExpanded] = expanded }
 
     companion object {
-        /** Schlüssel von «Wie aktuell?» und der früheren Schalter (auch für [UpdateModeMigration]). */
+        /** «Wie aktuell?». */
         const val KEY_UPDATE_MODE = "update_mode"
-        const val KEY_BACKGROUND_UPDATES = "background_updates"
-        const val KEY_LIVE_SERVICE = "live_service"
-        const val KEY_LIVE_WEBSOCKET = "live_websocket"
-        /** «Nicht wegwischbar» (auch für [OngoingNotificationsMigration]). */
+        /** «Nicht wegwischbar». */
         const val KEY_ONGOING_NOTIFICATIONS = "ongoing_notifications"
-        /** «Coin-Namen», «Umgerechnete Kurse», «inkl. Alpha-Tokens» (auch für [InstallDefaultsMigration]). */
+        /** «Coin-Namen», «Umgerechnete Kurse», «inkl. Alpha-Tokens». */
         const val KEY_WATCHLIST_NAMES = "watchlist_names"
         const val KEY_SHOW_CONVERTED = "show_converted"
         const val KEY_INCLUDE_ALPHA_TOKENS = "include_alpha_tokens"
-        /** Portfolio-Tab (auch für [InstallDefaultsMigration]). */
+        /** Portfolio-Tab. */
         const val KEY_PORTFOLIO_ENABLED = "portfolio_enabled"
-        /** Merker «Portfolio-Daten prüfen» nach Standardwerten einer neuen Installation ([PortfolioDataCheck]). */
+        /** Merker «Portfolio-Daten prüfen» nach neu angelegten Einstellungen ([PortfolioDataCheck]). */
         const val KEY_PORTFOLIO_DATA_CHECK = "portfolio_data_check"
-        /** Schlüssel, die die Migrationen vor [UpdateModeMigration] auch bei neuen Installationen schreiben. */
-        val MIGRATION_WRITTEN_KEYS = setOf(
-            KEY_ONGOING_NOTIFICATIONS, KEY_WATCHLIST_NAMES, KEY_SHOW_CONVERTED, KEY_INCLUDE_ALPHA_TOKENS,
-            KEY_PORTFOLIO_ENABLED, KEY_PORTFOLIO_DATA_CHECK,
-        )
     }
 
     private suspend fun edit(block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {

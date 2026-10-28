@@ -114,9 +114,8 @@ object PortfolioLedger {
 
     /**
      * Gebühr-Zeile (CSV «Fee», [com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping]), gespeichert als Verkauf
-     * mit eigenem Merker ([PortfolioTrade.feeRow], seit Portfolio-Datenbank v5; vorher aus «Preis 0 mit Import-Herkunft»
-     * geschlossen, [LegacyStorageMigration.legacyFeeRow] — ein von Hand erfasster Verkauf zum Preis 0 bleibt ein Verkauf
-     * eines wertlosen Coins): Veräusserung zum TAGESKURS — Erlös = Menge × Tagesschluss ihres Tags ([valueFeeDisposals]),
+     * mit eigenem Merker ([PortfolioTrade.feeRow] — ein von Hand erfasster Verkauf zum Preis 0 bleibt ein Verkauf eines
+     * wertlosen Coins): Veräusserung zum TAGESKURS — Erlös = Menge × Tagesschluss ihres Tags ([valueFeeDisposals]),
      * realisiert = Marktwert − Einstand; ohne Kurs Erlös unbekannt («unvollständig», nie 0). Steuer-Export: Vermerk
      * «Gebühr» ([TaxGainRow.feeRow]). Verlauf und «Heute/7 T/1 J» ([flow]): Abfluss zum Marktkurs — über die ganze
      * Haltedauer Gewinn/Verlust-Kurve = «Seit Kauf» + realisiert, kein Sprung am Gebühr-Tag.

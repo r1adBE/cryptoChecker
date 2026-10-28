@@ -26,7 +26,7 @@ import javax.inject.Singleton
  * Open-Interest-Messungen ([com.cryptochecker.app.domain.activity.OiSeries]) und die Zeit der
  * letzten Meldung je Paar.
  *
- * Bewusst SharedPreferences statt Room: kleine, kurzlebige Daten ohne Migration.
+ * Bewusst SharedPreferences statt Room: kleine, kurzlebige Daten.
  */
 @Singleton
 class ActivityRepository @Inject constructor(
@@ -73,7 +73,6 @@ class ActivityRepository @Inject constructor(
                 }
             }
             prefs.edit {
-                putString(KEY_OI, readMap(KEY_OI).keepOnly().toString())
                 putString(KEY_OI_SERIES, readMap(KEY_OI_SERIES).keepOnly().toString())
                 putString(KEY_OI_HISTORY, readMap(KEY_OI_HISTORY).keepOnly().toString())
                 putString(KEY_NOTIFIED, readMap(KEY_NOTIFIED).keepOnly().toString())
@@ -95,7 +94,6 @@ class ActivityRepository @Inject constructor(
         synchronized(lock) {
             val key = watchId.toString()
             prefs.edit {
-                putString(KEY_OI, readMap(KEY_OI).apply { remove(key) }.toString())
                 putString(KEY_OI_SERIES, readMap(KEY_OI_SERIES).apply { remove(key) }.toString())
                 putString(KEY_OI_HISTORY, readMap(KEY_OI_HISTORY).apply { remove(key) }.toString())
                 putString(KEY_NOTIFIED, readMap(KEY_NOTIFIED).apply { remove(key) }.toString())
@@ -108,42 +106,28 @@ class ActivityRepository @Inject constructor(
 
     /**
      * Gespeicherter Open-Interest-Verlauf des Paars ([OiSeries]), älteste zuerst:
-     * {"<watchId>": [[zeit, coins, quelle], …]}. Fehlt er, zählt die alte Einzelmessung
-     * (Schlüssel [KEY_OI]) als Verlauf mit einer Messung ohne Quelle (Übernahme).
+     * {"<watchId>": [[zeit, coins, quelle], …]}.
      */
     fun oiSeries(watchId: Long): List<OiSample> = synchronized(lock) {
-        val key = watchId.toString()
-        val series = readMap(KEY_OI_SERIES).optJSONArray(key)
-        if (series != null) {
-            return@synchronized (0 until series.length()).mapNotNull { i ->
-                val item = series.optJSONArray(i) ?: return@mapNotNull null
-                OiSample(
-                    units = item.optDouble(1, 0.0),
-                    time = item.optLong(0, 0L),
-                    source = if (item.length() > 2 && !item.isNull(2)) item.optString(2).ifBlank { null } else null,
-                )
-            }
+        val series = readMap(KEY_OI_SERIES).optJSONArray(watchId.toString()) ?: return@synchronized emptyList()
+        (0 until series.length()).mapNotNull { i ->
+            val item = series.optJSONArray(i) ?: return@mapNotNull null
+            val source = item.optString(2).takeIf { !item.isNull(2) && it.isNotBlank() } ?: return@mapNotNull null
+            OiSample(units = item.optDouble(1, 0.0), time = item.optLong(0, 0L), source = source)
         }
-        readMap(KEY_OI).optJSONObject(key)?.let {
-            listOf(OiSample(units = it.optDouble("u", 0.0), time = it.optLong("t", 0L)))
-        }.orEmpty()
     }
 
-    /** Verlauf speichern; die alte Einzelmessung des Paars fällt dabei weg (übernommen). */
+    /** Verlauf speichern. */
     fun setOiSeries(watchId: Long, series: List<OiSample>) = synchronized(lock) {
         val key = watchId.toString()
         val array = JSONArray()
         series.forEach { s ->
             array.put(
-                JSONArray().put(s.time).put(if (s.units.isFinite()) s.units else 0.0).put(s.source ?: JSONObject.NULL)
+                JSONArray().put(s.time).put(if (s.units.isFinite()) s.units else 0.0).put(s.source)
             )
         }
         val map = readMap(KEY_OI_SERIES).put(key, array)
-        val legacy = readMap(KEY_OI)
-        prefs.edit {
-            putString(KEY_OI_SERIES, map.toString())
-            if (legacy.has(key)) putString(KEY_OI, legacy.apply { remove(key) }.toString())
-        }
+        prefs.edit { putString(KEY_OI_SERIES, map.toString()) }
     }
 
     // ---------------- Open-Interest-Verlauf (Alarme OI_UP/OI_DOWN) ----------------
@@ -225,8 +209,6 @@ class ActivityRepository @Inject constructor(
     private companion object {
         const val PREFS = "activity"
         const val KEY_REPORTS = "reports"
-        /** Alte Einzelmessung je Paar (vor dem Verlauf); wird beim ersten Speichern übernommen. */
-        const val KEY_OI = "open_interest"
         const val KEY_OI_SERIES = "open_interest_series"
         const val KEY_OI_HISTORY = "open_interest_history"
         const val KEY_NOTIFIED = "notified"

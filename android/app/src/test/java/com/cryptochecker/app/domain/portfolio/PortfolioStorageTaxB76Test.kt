@@ -125,19 +125,7 @@ class PortfolioStorageTaxB76Test {
     // ── Gebühr-Zeile und Zins als eigene Merker ──
 
     @Test
-    fun legacyRulesDeriveFlagsOnce() {
-        assertTrue(LegacyStorageMigration.legacyFeeRow(PortfolioTxType.SELL, "KRAKEN|F1", BigDecimal("0.00")))
-        assertFalse(LegacyStorageMigration.legacyFeeRow(PortfolioTxType.SELL, null, BigDecimal.ZERO))
-        assertFalse(LegacyStorageMigration.legacyFeeRow(PortfolioTxType.SELL, " ", BigDecimal.ZERO))
-        assertFalse(LegacyStorageMigration.legacyFeeRow(PortfolioTxType.SELL, "K", null))
-        assertFalse(LegacyStorageMigration.legacyFeeRow(PortfolioTxType.BUY, "K", BigDecimal.ZERO))
-        assertTrue(LegacyStorageMigration.legacyInterest(PortfolioTxType.REWARD, "Lending interest"))
-        assertFalse(LegacyStorageMigration.legacyInterest(PortfolioTxType.REWARD, "staking"))
-        assertFalse(LegacyStorageMigration.legacyInterest(PortfolioTxType.BUY, "interest"))
-    }
-
-    @Test
-    fun backupJsonCarriesFlagsAndDerivesThemWhenMissing() {
+    fun backupJsonCarriesFlags() {
         val fee = PortfolioTxEntity(
             id = 3, coin = "BTC", type = PortfolioTxType.SELL, amount = BigDecimal("0.0001"), priceUsdt = BigDecimal.ZERO,
             time = 10, note = "Fee", importKey = "KRAKEN|F1", feeRow = true,
@@ -146,15 +134,16 @@ class PortfolioStorageTaxB76Test {
         assertTrue(json.getBoolean("feeRow"))
         assertFalse(json.getBoolean("interest"))
         assertEquals(fee, PortfolioJson.jsonToTx(JSONObject(json.toString())))
-        // Ausdrücklich false bleibt false, auch wenn die frühere Regel true ergäbe
+        // Ausdrücklich false bleibt false (Preis 0 mit Herkunft macht keine Gebühr-Zeile)
         val explicit = JSONObject(json.toString()).put("feeRow", false)
         assertFalse(PortfolioJson.jsonToTx(explicit)!!.feeRow)
-        // Ältere Sicherung (ohne Feld): einmal nach der früheren Regel
-        val old = JSONObject(json.toString()).apply { remove("feeRow"); remove("interest") }
-        assertTrue(PortfolioJson.jsonToTx(old)!!.feeRow)
+        // Ohne Feld: nein
+        val missing = JSONObject(json.toString()).apply { remove("feeRow"); remove("interest") }
+        assertFalse(PortfolioJson.jsonToTx(missing)!!.feeRow)
         val reward = JSONObject()
             .put("coin", "ETH").put("type", "REWARD").put("amountText", "0.1").put("time", 5).put("note", "Lending interest")
-        assertTrue(PortfolioJson.jsonToTx(reward)!!.interest)
+        assertFalse(PortfolioJson.jsonToTx(reward)!!.interest)
+        assertTrue(PortfolioJson.jsonToTx(reward.put("interest", true))!!.interest)
         // Merker gelten nur für ihre Art
         val buy = PortfolioJson.jsonToTx(JSONObject(json.toString()).put("type", "BUY"))!!
         assertFalse(buy.feeRow)

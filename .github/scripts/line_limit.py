@@ -10,15 +10,14 @@ is fine. File names and texts in annotations are escaped like annotate.py (a cra
 further workflow commands).
 
 Build numbers («Build 133») in the same files: release history belongs in CHANGELOG/DEVELOPMENT, not in the code.
-The remaining ones name storage formats of early test versions that a migration still reads; BUILD_REFS_CEILING caps
-them so no new ones appear (error above, notice below the ceiling).
+BUILD_REFS_CEILING is 0: any build number in production code is an error.
 """
 import os
 import re
 import sys
 
 LIMIT = 400
-BUILD_REFS_CEILING = 6
+BUILD_REFS_CEILING = 0
 BUILD_REF = re.compile(r"\b[Bb]uild \d{2,3}\b")
 IOS_AREAS = ("App", "Shared", "Widgets", "WatchCore", "Watch", "WatchWidgets")
 

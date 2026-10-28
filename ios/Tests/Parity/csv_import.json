@@ -2330,94 +2330,59 @@
       "time": 1706828400250
     }
   ],
-  "_keysComment": "Schlüssel: Zeit ohne Versatz in der Datei = «L» + Kalenderzeit (unabhängig von der Zeitzone); legacyKeys = frühere Schlüssel (UTC-Zeit je Zeitzone aus [zone, deviceZone, Europe/Zurich, UTC]) — ältere Importe bleiben Duplikate.",
+  "_keysComment": "Schlüssel: Zeit ohne Versatz in der Datei = «L» + Kalenderzeit (unabhängig von der Zeitzone).",
   "zoneKeys": [
     {
       "file": "generic_tab",
       "deviceZone": "Europe/Zurich",
       "override": "UTC",
       "row": 1,
-      "key": "GENERIC|DEPOSIT|SOL|L1706860800250|3|-",
-      "legacyKeys": [
-        "GENERIC|DEPOSIT|SOL|1706860800250|3|-",
-        "GENERIC|DEPOSIT|SOL|1706857200250|3|-"
-      ]
+      "key": "GENERIC|DEPOSIT|SOL|L1706860800250|3|-"
     },
     {
       "file": "generic_tab",
       "deviceZone": "America/New_York",
       "override": null,
       "row": 1,
-      "key": "GENERIC|DEPOSIT|SOL|L1706860800250|3|-",
-      "legacyKeys": [
-        "GENERIC|DEPOSIT|SOL|1706878800250|3|-",
-        "GENERIC|DEPOSIT|SOL|1706857200250|3|-",
-        "GENERIC|DEPOSIT|SOL|1706860800250|3|-"
-      ]
+      "key": "GENERIC|DEPOSIT|SOL|L1706860800250|3|-"
     },
     {
       "file": "generic_tab",
       "deviceZone": "America/New_York",
       "override": null,
       "row": 0,
-      "key": "GENERIC|tx-1",
-      "legacyKeys": []
+      "key": "GENERIC|tx-1"
     },
     {
       "file": "swissquote_en",
       "deviceZone": "Europe/Zurich",
       "override": null,
       "row": 1,
-      "key": "SWISSQUOTE|113885172|L1660047744000|0.05#2",
-      "legacyKeys": [
-        "SWISSQUOTE|113885172|1660040544000|0.05#2",
-        "SWISSQUOTE|113885172|1660047744000|0.05#2"
-      ]
+      "key": "SWISSQUOTE|113885172|L1660047744000|0.05#2"
     },
     {
       "file": "generic_stable",
       "deviceZone": "Europe/Zurich",
       "override": null,
       "row": 0,
-      "key": "GENERIC|SWAP|BTC|1711965600000|0.1|-",
-      "legacyKeys": [
-        "GENERIC|SELL|BTC|1711965600000|0.1|60000"
-      ]
+      "key": "GENERIC|SWAP|BTC|1711965600000|0.1|-"
     },
     {
       "file": "generic_stable",
       "deviceZone": "Europe/Zurich",
       "override": null,
       "row": 4,
-      "key": "GENERIC|SWAP|BTC|L1712311200000|0.01|-",
-      "legacyKeys": [
-        "GENERIC|SELL|BTC|L1712311200000|0.01|61000",
-        "GENERIC|SELL|BTC|1712304000000|0.01|61000",
-        "GENERIC|SELL|BTC|1712311200000|0.01|61000"
-      ]
+      "key": "GENERIC|SWAP|BTC|L1712311200000|0.01|-"
     },
     {
       "file": "generic_stable",
       "deviceZone": "Europe/Zurich",
       "override": null,
       "row": 6,
-      "key": "GENERIC|a-1",
-      "legacyKeys": []
+      "key": "GENERIC|a-1"
     }
   ],
   "zoneDedupe": [
-    {
-      "name": "old key from a Zurich import, second import in UTC",
-      "file": "generic_tab",
-      "deviceZone": "Europe/Zurich",
-      "override": "UTC",
-      "existing": [
-        "GENERIC|DEPOSIT|SOL|1706857200250|3|-"
-      ],
-      "duplicateLines": [
-        3
-      ]
-    },
     {
       "name": "new key, second import in another zone",
       "file": "generic_tab",
@@ -2430,38 +2395,6 @@
       "duplicateLines": [
         2,
         3
-      ]
-    },
-    {
-      "name": "swissquote old keys",
-      "file": "swissquote_en",
-      "deviceZone": "Europe/Zurich",
-      "override": "UTC",
-      "existing": [
-        "SWISSQUOTE|113885172|1660040544000|0.05",
-        "SWISSQUOTE|113885172|1660040544000|0.05#2"
-      ],
-      "duplicateLines": [
-        4,
-        5
-      ]
-    },
-    {
-      "name": "stablecoin trades imported as buy/sell by older versions",
-      "file": "generic_stable",
-      "deviceZone": "Europe/Zurich",
-      "override": null,
-      "existing": [
-        "GENERIC|SELL|BTC|1711965600000|0.1|60000",
-        "GENERIC|BUY|ETH|1712052000000|2|3000",
-        "GENERIC|SELL|BTC|1712304000000|0.01|61000",
-        "GENERIC|a-1"
-      ],
-      "duplicateLines": [
-        2,
-        3,
-        6,
-        8
       ]
     }
   ],
@@ -2915,7 +2848,7 @@
       ]
     }
   ],
-  "_fiatFeeRewardComment": "Gebühr in einer anderen Fiat-Währung als der Preiswährung (Kauf in USD, Gebühr EUR) zum Tageskurs ihrer Währung, ohne Kurs (GBP) needsFx/missingFx statt still weg; Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso. Belohnung mit Fiat-Betrag (Fiat Amount, Währung Fiat/USDT): Preis = Betrag / Menge (wie Coinbase/Bitpanda); Währung ein Coin (DOT) → ohne Preis wie bisher. legacyKey = älterer Schlüssel (Belohnung ohne Preis) der Zeile legacyLine — erkennt den früheren Import als Duplikat. fxNeeds: Währungen der Tageskurse (Gebühr in jeder Fiat-Währung).",
+  "_fiatFeeRewardComment": "Gebühr in einer anderen Fiat-Währung als der Preiswährung (Kauf in USD, Gebühr EUR) zum Tageskurs ihrer Währung, ohne Kurs (GBP) needsFx/missingFx statt still weg; Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso. Belohnung mit Fiat-Betrag (Fiat Amount, Währung Fiat/USDT): Preis = Betrag / Menge (wie Coinbase/Bitpanda); Währung ein Coin (DOT) → ohne Preis wie bisher. key = Schlüssel der Belohnung in Zeile rewardLine (mit Preis). fxNeeds: Währungen der Tageskurse (Gebühr in jeder Fiat-Währung).",
   "fiatFeeReward": {
     "file": "generic_fiat_fee_reward",
     "rates": {
@@ -2993,8 +2926,7 @@
     "missingFx": [
       3
     ],
-    "legacyLine": 9,
-    "legacyKey": "GENERIC|REWARD|ETH|1709805600000|0.02|-",
+    "rewardLine": 9,
     "key": "GENERIC|REWARD|ETH|1709805600000|0.02|3000",
     "fxNeeds": [
       "EUR",

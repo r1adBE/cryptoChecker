@@ -46,7 +46,7 @@ class CycleCacheStore @Inject constructor(
             }
             val savedAt = root.optLong(KEY_AT, 0L)
             if (savedAt <= 0L) return@withContext null
-            // Anbieter fehlt in älteren Dateien: einfach unbekannt
+            // Anbieter fehlt: einfach unbekannt
             val provider = root.optString(KEY_PROVIDER).takeIf { it.isNotBlank() }
             CachedValue(codec.decode(root.getJSONObject(KEY_DATA)), savedAt, provider)
         } catch (e: CancellationException) {

@@ -64,7 +64,6 @@ enum Notifier {
 
     // MARK: Zahl am App-Symbol
 
-    private static let badgeKey = "app_icon_badge_count"
     /// Zähler am App-Symbol als Datei im App-Group-Ordner: App, Hintergrund-Aufgabe und Widget zählen hoch — lesen,
     /// erhöhen und schreiben laufen abgestimmt (`SharedStorage.coordinatedWrite`), sonst ginge bei gleichzeitigen
     /// Mitteilungen eine verloren. Aus den Geräte-Backups ausgenommen.
@@ -75,16 +74,15 @@ enum Notifier {
     /// Einstellung aus: kein Kennzeichen.
     static func badge(_ content: UNMutableNotificationContent, _ settings: AppSettings) {
         guard settings.appIconBadge else { return }
-        // In älteren Versionen stand der Zähler in den Defaults: ohne Datei dort weiterzählen
-        let count = incrementBadge(at: badgeURL, fallback: SharedStorage.defaults.integer(forKey: badgeKey))
+        let count = incrementBadge(at: badgeURL)
         content.badge = NSNumber(value: count)
     }
 
     /// Zähler in `url` um 1 erhöhen, als ein abgestimmter Schritt; fehlt die Datei (oder ist sie unlesbar), zählt er
-    /// ab `fallback`. Gibt die neue Zahl zurück.
-    static func incrementBadge(at url: URL, fallback: Int) -> Int {
+    /// ab 0. Gibt die neue Zahl zurück.
+    static func incrementBadge(at url: URL) -> Int {
         SharedStorage.coordinatedWrite(at: url) { () -> Int in
-            let next = Swift.max(readBadge(at: url) ?? fallback, 0) + 1
+            let next = Swift.max(readBadge(at: url) ?? 0, 0) + 1
             writeBadge(next, at: url)
             return next
         }
@@ -110,7 +108,6 @@ enum Notifier {
     /// App geöffnet (oder Einstellung aus): Zahl am App-Symbol auf 0. Die Mitteilungen selbst
     /// bleiben in der Mitteilungszentrale.
     static func clearBadge() {
-        SharedStorage.defaults.set(0, forKey: badgeKey)
         storeBadgeCount(0, at: badgeURL)
         center.setBadgeCount(0) { _ in }
     }

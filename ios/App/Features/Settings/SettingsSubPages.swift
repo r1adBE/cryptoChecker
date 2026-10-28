@@ -77,8 +77,7 @@ enum SettingsSummary {
     static func updatesText(_ s: AppSettings) -> String {
         switch s.updateMode {
         case .SPARSAM: return L("update_mode_sparsam")
-        // «Immer kurz» kommt nur aus alten Daten und wird beim Lesen schon zu «Live, solange offen»
-        case .LIVE_OFFEN, .IMMER_KURZ: return L("update_mode_live")
+        case .LIVE_OFFEN: return L("update_mode_live")
         }
     }
 

@@ -25,11 +25,7 @@ class WidgetPrefs @Inject constructor(
      * Die Akzentfarbe kommt aus der App-Einstellung.
      */
     fun setOpacity(appWidgetId: Int, opacityPercent: Int) {
-        prefs.edit {
-            putInt(opacityKey(appWidgetId), opacityPercent.coerceIn(WidgetColors.MIN_OPACITY, 100))
-            // Frühere Hintergrundwahl wird nicht mehr gebraucht.
-            remove(backgroundKey(appWidgetId))
-        }
+        prefs.edit { putInt(opacityKey(appWidgetId), opacityPercent.coerceIn(WidgetColors.MIN_OPACITY, 100)) }
     }
 
     /** Einzel-Widget: welches Paar es zeigt. */
@@ -56,20 +52,16 @@ class WidgetPrefs @Inject constructor(
         WidgetTheme.LIGHT -> false
     }
 
-    fun getOpacity(appWidgetId: Int): Int =
-        // Früher ab 0 % wählbar: tiefere gespeicherte Werte gelten als Minimum
-        prefs.getInt(opacityKey(appWidgetId), WidgetColors.DEFAULT_OPACITY).coerceIn(WidgetColors.MIN_OPACITY, 100)
+    fun getOpacity(appWidgetId: Int): Int = prefs.getInt(opacityKey(appWidgetId), WidgetColors.DEFAULT_OPACITY)
 
     fun remove(appWidgetId: Int) {
         prefs.edit {
-            remove(backgroundKey(appWidgetId))
             remove(opacityKey(appWidgetId))
             remove(themeKey(appWidgetId))
             remove(watchKey(appWidgetId))
             remove(chartRangeKey(appWidgetId))
             remove(chartTypeKey(appWidgetId))
             remove(groupKey(appWidgetId))
-            remove(portfolioShowUsdtKey(appWidgetId))
             remove(portfolioDisplayKey(appWidgetId))
             remove(portfolioRangeKey(appWidgetId))
             remove(portfolioChartTypeKey(appWidgetId))
@@ -99,26 +91,16 @@ class WidgetPrefs @Inject constructor(
     private fun portfolioEntriesKey(appWidgetId: Int) = "portfolio_entries_$appWidgetId"
 
     /**
-     * Portfolio-Widget: Anzeige («Nur USDT» / «Umrechnung» / «Umrechnung + USDT»). Ohne Wahl:
-     * gespeicherte frühere Wahl der USDT-Zeile (an = «Umrechnung + USDT», aus = «Umrechnung»),
-     * sonst [PortfolioDisplay.defaultFor] die Umrechnungswährung [currency].
+     * Portfolio-Widget: Anzeige («Nur USDT» / «Umrechnung» / «Umrechnung + USDT»). Ohne Wahl
+     * [PortfolioDisplay.defaultFor] die Umrechnungswährung [currency].
      */
     fun setPortfolioDisplay(appWidgetId: Int, display: PortfolioDisplay) {
-        prefs.edit {
-            putString(portfolioDisplayKey(appWidgetId), display.name)
-            remove(portfolioShowUsdtKey(appWidgetId))
-        }
+        prefs.edit { putString(portfolioDisplayKey(appWidgetId), display.name) }
     }
 
-    fun getPortfolioDisplay(appWidgetId: Int, currency: String): PortfolioDisplay {
-        val p = prefs
-        PortfolioDisplay.fromName(p.getString(portfolioDisplayKey(appWidgetId), null))?.let { return it }
-        val legacy = portfolioShowUsdtKey(appWidgetId)
-        if (p.contains(legacy)) {
-            return if (p.getBoolean(legacy, true)) PortfolioDisplay.CONVERSION_USDT else PortfolioDisplay.CONVERSION
-        }
-        return PortfolioDisplay.defaultFor(currency)
-    }
+    fun getPortfolioDisplay(appWidgetId: Int, currency: String): PortfolioDisplay =
+        PortfolioDisplay.fromName(prefs.getString(portfolioDisplayKey(appWidgetId), null))
+            ?: PortfolioDisplay.defaultFor(currency)
 
     /** Portfolio-Widget: Zeitraum für Veränderung und Chart; ohne Wahl 24 h. */
     fun setPortfolioRange(appWidgetId: Int, range: PortfolioChartRange) {
@@ -138,8 +120,6 @@ class WidgetPrefs @Inject constructor(
             ?.let { name -> WidgetChartType.entries.firstOrNull { it.name == name } }
             ?: WidgetChartType.LINE
 
-    /** Frühere Wahl «≈ USDT» (vor «Anzeige» mit drei Möglichkeiten), nur noch gelesen. */
-    private fun portfolioShowUsdtKey(appWidgetId: Int) = "portfolio_show_usdt_$appWidgetId"
     private fun portfolioDisplayKey(appWidgetId: Int) = "portfolio_display_$appWidgetId"
     private fun portfolioRangeKey(appWidgetId: Int) = "portfolio_range_$appWidgetId"
     private fun portfolioChartTypeKey(appWidgetId: Int) = "portfolio_chart_type_$appWidgetId"
@@ -159,7 +139,7 @@ class WidgetPrefs @Inject constructor(
         prefs.edit { putString(chartTypeKey(appWidgetId), type.name) }
     }
 
-    /** Ohne gespeicherten Wert (neue und bestehende Widgets): Kerzen. */
+    /** Ohne gespeicherten Wert: Kerzen. */
     fun getChartType(appWidgetId: Int): WidgetChartType =
         prefs.getString(chartTypeKey(appWidgetId), null)
             ?.let { name -> WidgetChartType.entries.firstOrNull { it.name == name } }
@@ -184,7 +164,7 @@ class WidgetPrefs @Inject constructor(
 
     /**
      * Wirksamer hoher Kontrast beim letzten Zeichnen der Widgets; null = noch nie
-     * gezeichnet (oder vor diesem Update). Ändert sich der System-Kontrast, merkt
+     * gezeichnet. Ändert sich der System-Kontrast, merkt
      * es die App beim nächsten Start und zeichnet neu.
      */
     var lastHighContrast: Boolean?
@@ -197,7 +177,6 @@ class WidgetPrefs @Inject constructor(
     private fun chartRangeKey(appWidgetId: Int) = "widget_chart_range_$appWidgetId"
     private fun chartTypeKey(appWidgetId: Int) = "widget_chart_type_$appWidgetId"
 
-    private fun backgroundKey(appWidgetId: Int) = "widget_bg_$appWidgetId"
     private fun opacityKey(appWidgetId: Int) = "widget_opacity_$appWidgetId"
     private fun themeKey(appWidgetId: Int) = "widget_theme_$appWidgetId"
     private fun watchKey(appWidgetId: Int) = "widget_watch_$appWidgetId"

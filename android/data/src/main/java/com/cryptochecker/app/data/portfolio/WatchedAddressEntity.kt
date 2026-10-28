@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.Flow
  * Beobachtete öffentliche Adresse (nur lesen) in der PORTFOLIO-Datenbank — gehört zu den
  * Portfolio-Daten (gleiche Regel für die Systemsicherung, [PortfolioBackupMirror]).
  *
- * Registriert in [PortfolioDatabase] (v3, angelegt in [PortfolioDatabase.MIGRATION_2_3]; `costLots` seit v6).
- * Spalten, Typen und NOT NULL müssen exakt zu [CREATE_SQL] passen (Room prüft beim Öffnen).
+ * Registriert in [PortfolioDatabase]. Spalten, Typen und NOT NULL müssen exakt zu [CREATE_SQL] passen (Room prüft beim
+ * Öffnen).
  * [chain] als Text (Name von [AddressChain]) — so braucht die Datenbank keinen neuen TypeConverter.
  */
 @Entity(
@@ -48,24 +48,15 @@ data class WatchedAddressEntity(
      */
     @ColumnInfo val observations: String? = null,
     /**
-     * Eröffnungsposten als JSON ([AddressCostLots.encode]); null = keine. Seit v6 ([PortfolioDatabase.MIGRATION_5_6]):
-     * eigene Spalte, damit ein Abruf (schreibt `observations`) nie die Posten überschreibt.
+     * Eröffnungsposten als JSON ([AddressCostLots.encode]); null = keine. Eigene Spalte, damit ein Abruf (schreibt
+     * `observations`) nie die Posten überschreibt.
      */
     @ColumnInfo val costLots: String? = null,
 ) {
     companion object {
         const val TABLE = "watched_addresses"
 
-        /**
-         * Tabelle wie in v3 ([PortfolioDatabase.MIGRATION_2_3]) — ohne `costLots`, die erst [PortfolioDatabase.MIGRATION_5_6]
-         * anfügt (sonst scheiterte die Kette 2 → 6 an einer doppelten Spalte).
-         */
-        const val CREATE_SQL_V3 = "CREATE TABLE IF NOT EXISTS `watched_addresses` (" +
-            "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `chain` TEXT NOT NULL, `address` TEXT NOT NULL, " +
-            "`label` TEXT, `lastBalance` TEXT, `lastUpdated` INTEGER NOT NULL, `lastAttempt` INTEGER NOT NULL, " +
-            "`lastError` TEXT, `lastProvider` TEXT, `addedAt` INTEGER NOT NULL, `observations` TEXT)"
-
-        /** Aktuelle Tabelle (Spalten exakt wie die Entity, v6). */
+        /** Tabelle (Spalten exakt wie die Entity). */
         const val CREATE_SQL = "CREATE TABLE IF NOT EXISTS `watched_addresses` (" +
             "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `chain` TEXT NOT NULL, `address` TEXT NOT NULL, " +
             "`label` TEXT, `lastBalance` TEXT, `lastUpdated` INTEGER NOT NULL, `lastAttempt` INTEGER NOT NULL, " +
@@ -107,7 +98,6 @@ fun WatchedAddressEntity.toDomain(): WatchedAddress? {
         countInPortfolio = extras.countInPortfolio,
         unknownTokens = extras.unknownTokens,
         overlapChecked = extras.overlapChecked,
-        overlapLegacy = extras.overlapLegacy,
         costLots = AddressCostLots.decode(costLots),
         staleTokens = extras.staleTokens,
         pendingSince = extras.pendingSince,

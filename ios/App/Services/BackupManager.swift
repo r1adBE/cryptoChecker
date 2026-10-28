@@ -10,7 +10,7 @@ import CryptoKit
 /// Android und iOS austauschbar bleiben (mit Passwort zusätzlich verschlüsselt, `BackupCrypto`):
 /// `{"format":"cryptochecker-backup","version":1,"createdAt":…,"watches":[…],
 ///   "alarms":[…],"favorites":{"EXCHANGE":[…],"COIN":[…],"QUOTE":[…]},"settings":{…},
-///   "portfolio":[{"id","coin","type","amount","amountText","priceUsdt","priceText","time","note","fee","feeText",
+///   "portfolio":[{"id","coin","type","amountText","priceText","time","note","feeText",
 ///                 "feeUnit","exchange","transferFrom","transferTo","feeCoin","feeCoinAmountText","feeCoinPriceText",
 ///                 "importKey","acquiredTime"?}…],
 ///   "portfolioAlarms":[{"id","kind","threshold","currency","enabled","repeating"}…],
@@ -132,8 +132,7 @@ enum BackupManager {
     }
 
     /// Klartext-JSON der Sicherung; verschlüsselt ohne Passwort gilt als falsches Passwort.
-    /// Mit Passwort spürbar langsam (Argon2id bzw. bei v2 PBKDF2 mit den Parametern der Datei) — nicht auf dem
-    /// Main-Thread aufrufen.
+    /// Mit Passwort spürbar langsam (Argon2id mit den Parametern der Datei) — nicht auf dem Main-Thread aufrufen.
     /// - Throws: `BackupCrypto.Failure.wrongPassword` bei falschem Passwort oder veränderter Datei,
     ///   `BackupCrypto.Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht.
     static func plainJSON(_ file: Data, password: String?) throws -> Data {

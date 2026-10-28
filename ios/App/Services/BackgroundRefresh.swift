@@ -8,12 +8,9 @@ import WidgetKit
 /// iOS entscheidet selbst, wann die Aufgabe läuft: frühestens nach dem
 /// eingestellten Intervall, oft später (je nach Nutzung, Akku und Netz).
 enum BackgroundRefresh {
+    /// Die einzige Aufgabe: iOS erlaubt nur EINE vorgemerkte Aktualisierung je App (`tooManyPendingTaskRequests`) —
+    /// die Prüfung von Fear & Greed läuft darum als Schritt darin.
     static let refreshId = "com.cryptochecker.app.refresh"
-    /// Frühere eigene Aufgabe für Fear & Greed. iOS erlaubt nur EINE vorgemerkte Aktualisierung je App
-    /// (`tooManyPendingTaskRequests`) — die Prüfung läuft darum jetzt als Schritt in `refreshId`. Bleibt in
-    /// `BGTaskSchedulerPermittedIdentifiers` und registriert, damit eine alte Anfrage abgesagt (und, falls sie
-    /// vorher noch startet, sauber beendet) werden kann.
-    static let legacyZoneId = "com.cryptochecker.app.zone"
 
     /// Muss vor dem Ende von `application(_:didFinishLaunchingWithOptions:)` aufgerufen werden.
     static func register() {
@@ -29,11 +26,6 @@ enum BackgroundRefresh {
             }
             _ = handleRefresh(refresh)
         }
-        // Übrig gebliebene Anfrage eines alten Builds: nichts tun, nur abschliessen
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: legacyZoneId, using: nil) { task in
-            task.setTaskCompleted(success: true)
-        }
-        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: legacyZoneId)
     }
 
     // Planen und Absagen (`schedule`, `scheduleRefresh`, Bedarf): BackgroundRefresh+Planning.swift.
@@ -53,7 +45,7 @@ enum BackgroundRefresh {
     }
 
     /// Grenzen von Fear & Greed bzw. Kennzahlen geändert: die eine Hintergrund-Aufgabe neu planen, damit ihr
-    /// Beginn die Prüfung berücksichtigt (oder nicht mehr). Eine eigene Aufgabe gibt es nicht mehr (`legacyZoneId`).
+    /// Beginn die Prüfung berücksichtigt (oder nicht mehr).
     static func scheduleZone(settings: AppSettings) {
         scheduleRefresh(settings: settings, replace: true)
     }

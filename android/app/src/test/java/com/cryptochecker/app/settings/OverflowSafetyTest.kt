@@ -14,21 +14,17 @@ class OverflowSafetyTest {
     @Test
     fun `huge settings are clamped to the maxima`() {
         assertEquals(AppSettings.MAX_BACKGROUND_INTERVAL_MINUTES, AppSettings.clampBackgroundInterval(Int.MAX_VALUE))
-        assertEquals(AppSettings.MAX_LIVE_INTERVAL_SECONDS, AppSettings.clampLiveInterval(Int.MAX_VALUE))
         assertEquals(AppSettings.MAX_ALARM_COOLDOWN_MINUTES, AppSettings.clampAlarmCooldown(Int.MAX_VALUE))
         assertEquals(1_440, AppSettings.MAX_BACKGROUND_INTERVAL_MINUTES)
-        assertEquals(3_600, AppSettings.MAX_LIVE_INTERVAL_SECONDS)
         assertEquals(1_440, AppSettings.MAX_ALARM_COOLDOWN_MINUTES)
     }
 
     @Test
     fun `lower bounds stay, choices are kept`() {
         assertEquals(AppSettings.MIN_BACKGROUND_INTERVAL_MINUTES, AppSettings.clampBackgroundInterval(1))
-        assertEquals(AppSettings.MIN_LIVE_INTERVAL_SECONDS, AppSettings.clampLiveInterval(Int.MIN_VALUE))
         assertEquals(0, AppSettings.clampAlarmCooldown(-5))
         AppSettings.BACKGROUND_INTERVAL_CHOICES.forEach { assertEquals(it, AppSettings.clampBackgroundInterval(it)) }
         AppSettings.ALARM_COOLDOWN_CHOICES.forEach { assertEquals(it, AppSettings.clampAlarmCooldown(it)) }
-        listOf(15, 30, 60, 300).forEach { assertEquals(it, AppSettings.clampLiveInterval(it)) }
     }
 
     @Test

@@ -134,7 +134,7 @@ class DiagnosticsViewModel @Inject constructor(
         _preview.value = null
     }
 
-    /** Vorschau ohne Teilen geschlossen: eine von früher liegende Berichtsdatei gleich mit löschen ([DiagnosticsFiles]). */
+    /** Vorschau ohne Teilen geschlossen: eine vom letzten Teilen noch liegende Berichtsdatei gleich mit löschen ([DiagnosticsFiles]). */
     fun cancel(cacheDir: File) {
         dismiss()
         viewModelScope.launch(Dispatchers.IO) { DiagnosticsFiles.clear(cacheDir) }

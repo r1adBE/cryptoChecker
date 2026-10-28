@@ -5,18 +5,14 @@ import Foundation
 /// Unterschiede zu Android (iOS erlaubt keinen Dauerdienst):
 /// - `backgroundIntervalMinutes`: iOS führt die Hintergrund-Aktualisierung frühestens nach dem
 ///   Intervall aus, oft später.
-/// - `updateMode` kennt kein «Immer kurz» (`UpdateMode.IMMER_KURZ` wird zu `LIVE_OFFEN`);
-///   `liveIntervalSeconds` bleibt nur für Sicherungen erhalten.
 /// - `ongoingNotifications` hat auf iOS keine Wirkung, bleibt aber für Sicherungen erhalten.
 struct AppSettings: Codable, Equatable, Sendable {
-    /// «Wie aktuell?»: Sparsam (Standard) oder Live, solange offen — wie Android (`UpdateMode`).
-    /// Ersetzt die früheren Schalter «backgroundUpdates», «liveService» und «liveWebSocket»; die
+    /// «Wie aktuell?»: Sparsam (Standard) oder Live, solange offen — wie Android (`UpdateMode`); die
     /// Hintergrund-Aktualisierung läuft in jeder Wahl.
     var updateMode: UpdateMode = .default
     var backgroundIntervalMinutes: Int = 15
-    var liveIntervalSeconds: Int = 60
     var priceNotifications: Bool = true
-    /// Ohne Wirkung auf iOS; Standard wie Android (aus), gespeicherte Werte bleiben.
+    /// Ohne Wirkung auf iOS; Standard wie Android (aus).
     var ongoingNotifications: Bool = false
     /// Mindestveränderung in Prozent für eine Kurs-Mitteilung (0 = jede Aktualisierung).
     var notificationChangePercent: Double = 5.0
@@ -29,12 +25,10 @@ struct AppSettings: Codable, Equatable, Sendable {
     var includeRollingFutures: Bool = false
     /// «Token & TradFi»: Was die Paar-Auswahl zeigt — nur Token (Krypto, Standard), nur TradFi
     /// (Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO) oder beides. Gemerkte Paare bleiben in
-    /// der Merkliste. Ersetzt den früheren Schalter «includeTradFiFutures» (siehe `AssetScope`).
+    /// der Merkliste (siehe `AssetScope`).
     var assetScope: AssetScope = .default
     /// «inkl. Alpha-Tokens» (bei «Token & TradFi»): Alpha-Tokens (`AssetKind.ALPHA`) in der
-    /// Paar-Auswahl zeigen. Für neue Installationen aus; gespeicherte Einstellungen ohne
-    /// den Wert behalten den bisherigen Standard an (`legacyIncludeAlphaTokens`). Gemerkte Paare
-    /// bleiben immer — wie Android `includeAlphaTokens`.
+    /// Paar-Auswahl zeigen. Standard aus. Gemerkte Paare bleiben immer — wie Android `includeAlphaTokens`.
     var includeAlphaTokens: Bool = false
     var accentColor: AccentColor = .default
     /// nil = wie das System.
@@ -76,32 +70,19 @@ struct AppSettings: Codable, Equatable, Sendable {
     var activitySensitivity: ActivitySensitivity = .NORMAL
     /// Morgen-Mitteilung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten.
     var macroNotifications: Bool = false
-    /// Optionaler Bereich «Portfolio» (eigener Tab vor den Einstellungen). Für neue Installationen
-    /// ab Werk aus; gespeicherte Einstellungen ohne den Wert behalten den bisherigen Standard an
-    /// (`legacyPortfolioEnabled`) — wie Android.
+    /// Optionaler Bereich «Portfolio» (eigener Tab vor den Einstellungen). Ab Werk aus — wie Android.
     var portfolioEnabled: Bool = false
-    /// Merker der einmaligen Umstellung «Portfolio ab Werk an». iOS speichert alle Einstellungen als
-    /// Ganzes — frühere Versionen schrieben dabei auch den damaligen Standard «aus» mit, ohne dass der
-    /// Nutzer umgeschaltet hätte; ein gespeichertes «aus» ist darum nicht als Wahl erkennbar. Fehlt der
-    /// Merker (Einstellungen von vor der Umstellung), gilt «an»; danach bleibt jede Wahl stehen.
-    /// Android braucht das nicht: Dort wird der Schlüssel nur beim Umschalten geschrieben.
-    var portfolioDefaultV2: Bool = true
     /// Umrechnungswährung: Zielwährung der Umrechnungszeile im Portfolio und der
     /// umgerechneten Kurse in der Merkliste (USD = keine Umrechnung im Portfolio).
     var portfolioCurrency: String = AppSettings.defaultCurrency()
     /// Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen («≈ 61’234 CHF»).
-    /// Für neue Installationen an; gespeicherte Einstellungen ohne den Wert: bisher aus (`legacyShowConverted`).
+    /// Ab Werk an.
     var showConverted: Bool = true
     /// Kursfarben steigend/fallend: Grün/Rot oder Blau/Orange (Rot-Grün-Sehschwäche).
     var priceColorScheme: PriceColorScheme = .default
-    /// Merker «Ruhig ist Standard»: fehlt er, ist ein gespeichertes «Frisch» (GREEN_RED) der
-    /// frühere, mitgespeicherte Standard und keine erkennbare Wahl → einmalig «Ruhig». Wie Android: dort
-    /// steht ohne eigene Wahl gar nichts gespeichert.
-    var priceColorDefaultV2: Bool = true
     /// Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste.
     var watchlistSparkline: Bool = false
-    /// Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Für neue Installationen an;
-    /// gespeicherte Einstellungen ohne den Wert: bisher aus (`legacyWatchlistNames`).
+    /// Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Ab Werk an.
     var watchlistNames: Bool = true
     /// «Zahl am App-Symbol»: neue Alarme und Marktmeldungen zählen am Kennzeichen, beim Öffnen
     /// der App wieder 0 (`Notifier.badge`); ab Werk an — wie `appIconBadge` (Android).
@@ -168,12 +149,11 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// («portfolioHistoryPnl»); nicht in der Sicherung.
     var portfolioHistoryPnl: Bool = false
     /// Einstandsmethode des Portfolios (FIFO | Ø): Einstand, Ø, «Seit Kauf», realisiert und Steuer-Export. Standard
-    /// FIFO für alle (neue und bestehende Installationen), wie Android («costMethod»); in der App-Sicherung
-    /// (ältere Sicherungen ohne den Schlüssel → FIFO).
+    /// FIFO, wie Android («costMethod»); in der App-Sicherung (fehlt der Schlüssel → FIFO).
     var costMethod: CostMethod = .defaultMethod
     /// Steuer-Vorlage der Arbeitsunterlage (Neutral | DE | AT | CH | UK | US | CA | AU | FR | JP), Standard Neutral — wie
     /// Android («tax_template»). Die Region des Geräts wird nur vorgeschlagen, nie still übernommen. In der App-Sicherung
-    /// («taxTemplate»; ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen).
+    /// («taxTemplate»; fehlt der Schlüssel, bleibt die Einstellung stehen).
     var taxTemplate: TaxTemplate = .defaultTemplate
     /// Hinweis «Beta, vereinfachte Regeln …» zu den Länder-Vorlagen einmal mit OK bestätigt — wie Android
     /// («tax_template_confirmed»); nur auf diesem Gerät, nicht in der Sicherung.
@@ -190,26 +170,15 @@ struct AppSettings: Codable, Equatable, Sendable {
 
     init() {}
 
-    // Fehlende Felder (ältere Versionen) bekommen den Standardwert.
+    // Fehlende Felder bekommen den Standardwert.
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         let d = AppSettings()
-        // Alle Felder tolerant (`try?`): Ein unbekannter Wert (z. B. eine Akzentfarbe aus einer
-        // neueren Version nach einem Downgrade) setzt nur dieses Feld zurück, nicht alle Einstellungen.
-        // Fehlt «updateMode» (Update): einmalig aus den früheren Schaltern übernehmen — beim nächsten
-        // Speichern steht dann der neue Wert da (iOS speichert alle Einstellungen als Ganzes)
-        let legacy = try? decoder.container(keyedBy: LegacyCodingKeys.self)
-        updateMode = UpdateMode.resolve(
-            stored: (try? c.decodeIfPresent(String.self, forKey: .updateMode)) ?? nil,
-            legacyLiveService: (try? legacy?.decodeIfPresent(Bool.self, forKey: .liveService)) ?? nil,
-            legacyWebSocket: (try? legacy?.decodeIfPresent(Bool.self, forKey: .liveWebSocket)) ?? nil,
-            legacyBackground: (try? legacy?.decodeIfPresent(Bool.self, forKey: .backgroundUpdates)) ?? nil,
-            existingInstall: false, serviceAvailable: false)
-        // Grenzen wie bei der Sicherung (ältere/fremde Werte)
+        // Alle Felder tolerant (`try?`): Ein unbekannter Wert setzt nur dieses Feld zurück, nicht alle Einstellungen.
+        updateMode = UpdateMode.from(name: (try? c.decodeIfPresent(String.self, forKey: .updateMode)) ?? nil) ?? d.updateMode
+        // Grenzen wie bei der Sicherung
         backgroundIntervalMinutes = Self.clampBackgroundInterval(
             (try? c.decodeIfPresent(Int.self, forKey: .backgroundIntervalMinutes)) ?? d.backgroundIntervalMinutes)
-        liveIntervalSeconds = Self.clampLiveInterval(
-            (try? c.decodeIfPresent(Int.self, forKey: .liveIntervalSeconds)) ?? d.liveIntervalSeconds)
         priceNotifications = (try? c.decodeIfPresent(Bool.self, forKey: .priceNotifications)) ?? d.priceNotifications
         ongoingNotifications = (try? c.decodeIfPresent(Bool.self, forKey: .ongoingNotifications)) ?? d.ongoingNotifications
         notificationChangePercent = (try? c.decodeIfPresent(Double.self, forKey: .notificationChangePercent)) ?? d.notificationChangePercent
@@ -219,14 +188,8 @@ struct AppSettings: Codable, Equatable, Sendable {
         alarmCooldownMinutes = Self.clampAlarmCooldown(
             (try? c.decodeIfPresent(Int.self, forKey: .alarmCooldownMinutes)) ?? d.alarmCooldownMinutes)
         includeRollingFutures = (try? c.decodeIfPresent(Bool.self, forKey: .includeRollingFutures)) ?? d.includeRollingFutures
-        // Fehlt der neue Wert (Update): einmalig aus dem früheren Schalter übernehmen
-        let legacyTradFi = (try? legacy?.decodeIfPresent(Bool.self, forKey: .includeTradFiFutures)) ?? nil
-        assetScope = AssetScope.resolve(stored: (try? c.decodeIfPresent(String.self, forKey: .assetScope)) ?? nil,
-                                        legacyTradFi: legacyTradFi)
-        // Fehlt (vor dem Schalter gespeichert): bisheriger Standard, nicht der neue
-        includeAlphaTokens = (try? c.decodeIfPresent(Bool.self, forKey: .includeAlphaTokens))
-            ?? AppSettings.defaultForMigration(existingInstall: true, legacy: AppSettings.legacyIncludeAlphaTokens,
-                                               current: d.includeAlphaTokens)
+        assetScope = AssetScope.from(name: (try? c.decodeIfPresent(String.self, forKey: .assetScope)) ?? nil) ?? d.assetScope
+        includeAlphaTokens = (try? c.decodeIfPresent(Bool.self, forKey: .includeAlphaTokens)) ?? d.includeAlphaTokens
         accentColor = (try? c.decodeIfPresent(AccentColor.self, forKey: .accentColor)) ?? d.accentColor
         darkMode = try? c.decodeIfPresent(Bool.self, forKey: .darkMode)
         showHttpLog = (try? c.decodeIfPresent(Bool.self, forKey: .showHttpLog)) ?? d.showHttpLog
@@ -242,22 +205,12 @@ struct AppSettings: Codable, Equatable, Sendable {
         aboutSeen = (try? c.decodeIfPresent(Bool.self, forKey: .aboutSeen)) ?? d.aboutSeen
         watchlistGroup = try? c.decodeIfPresent(String.self, forKey: .watchlistGroup)
         activityAlerts = (try? c.decodeIfPresent(Bool.self, forKey: .activityAlerts)) ?? d.activityAlerts
-        // Fehlt (ältere Einstellungen) oder unbekannt: «Normal»
+        // Fehlt oder unbekannt: «Normal»
         activitySensitivity = ActivitySensitivity.from(name: try? c.decodeIfPresent(String.self, forKey: .activitySensitivity))
         macroNotifications = (try? c.decodeIfPresent(Bool.self, forKey: .macroNotifications)) ?? d.macroNotifications
-        // Fehlt (vor dem Schalter gespeichert): bisheriger Standard an, nicht der neue
-        portfolioEnabled = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioEnabled))
-            ?? AppSettings.defaultForMigration(existingInstall: true, legacy: AppSettings.legacyPortfolioEnabled,
-                                               current: d.portfolioEnabled)
-        // Einstellungen von vor «Portfolio ab Werk an»: das mitgespeicherte frühere Standard-«aus» ist
-        // keine erkennbare Wahl → einmalig «an» (siehe `portfolioDefaultV2`)
-        let defaultMigrated: Bool? = try? c.decodeIfPresent(Bool.self, forKey: .portfolioDefaultV2)
-        if defaultMigrated == nil { portfolioEnabled = AppSettings.legacyPortfolioEnabled }
-        portfolioDefaultV2 = true
+        portfolioEnabled = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioEnabled)) ?? d.portfolioEnabled
         portfolioCurrency = (try? c.decodeIfPresent(String.self, forKey: .portfolioCurrency)) ?? d.portfolioCurrency
-        showConverted = (try? c.decodeIfPresent(Bool.self, forKey: .showConverted))
-            ?? AppSettings.defaultForMigration(existingInstall: true, legacy: AppSettings.legacyShowConverted,
-                                               current: d.showConverted)
+        showConverted = (try? c.decodeIfPresent(Bool.self, forKey: .showConverted)) ?? d.showConverted
         gasAlertEthTenths = (try? c.decodeIfPresent(Int.self, forKey: .gasAlertEthTenths)) ?? d.gasAlertEthTenths
         gasAlertBtc = (try? c.decodeIfPresent(Int.self, forKey: .gasAlertBtc)) ?? d.gasAlertBtc
         depegAlarm = (try? c.decodeIfPresent(Bool.self, forKey: .depegAlarm)) ?? d.depegAlarm
@@ -266,25 +219,20 @@ struct AppSettings: Codable, Equatable, Sendable {
         alarmSound = try? c.decodeIfPresent(String.self, forKey: .alarmSound)
         // Fehlt oder unbekannt: «System»; Android-Werte → nächster iOS-Wert
         alarmSignal = AlarmSignal.from(name: try? c.decodeIfPresent(String.self, forKey: .alarmSignal)).ios
-        // Unbekannter Wert (z. B. aus einer neueren Version) → Standard
+        // Unbekannter Wert → Standard
         priceColorScheme = (try? c.decodeIfPresent(PriceColorScheme.self, forKey: .priceColorScheme)) ?? d.priceColorScheme
-        let colorDefaultMigrated: Bool? = try? c.decodeIfPresent(Bool.self, forKey: .priceColorDefaultV2)
-        priceColorScheme = PriceColorScheme.migrated(priceColorScheme, markerPresent: colorDefaultMigrated != nil)
-        priceColorDefaultV2 = true
         watchlistSparkline = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistSparkline)) ?? d.watchlistSparkline
-        watchlistNames = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistNames))
-            ?? AppSettings.defaultForMigration(existingInstall: true, legacy: AppSettings.legacyWatchlistNames,
-                                               current: d.watchlistNames)
+        watchlistNames = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistNames)) ?? d.watchlistNames
         appIconBadge = (try? c.decodeIfPresent(Bool.self, forKey: .appIconBadge)) ?? d.appIconBadge
         watchlistActivityCard = (try? c.decodeIfPresent(Bool.self, forKey: .watchlistActivityCard)) ?? d.watchlistActivityCard
         coinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .coinLogos)) ?? d.coinLogos
         widgetCoinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .widgetCoinLogos)) ?? d.widgetCoinLogos
         portfolioCoinLogos = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioCoinLogos)) ?? d.portfolioCoinLogos
-        // Fehlt (ältere Einstellungen) oder unbekannt: «Letzte 24 Std.»
+        // Fehlt oder unbekannt: «Letzte 24 Std.»
         changeBasis = ChangeBasis.from(name: try? c.decodeIfPresent(String.self, forKey: .changeBasis))
         highContrast = (try? c.decodeIfPresent(Bool.self, forKey: .highContrast)) ?? d.highContrast
         priceColorsInverted = (try? c.decodeIfPresent(Bool.self, forKey: .priceColorsInverted)) ?? d.priceColorsInverted
-        // Seit dem Komfort-Paket; ungültige Zeiten → Standard
+        // Ungültige Zeiten → Standard
         quietHoursEnabled = (try? c.decodeIfPresent(Bool.self, forKey: .quietHoursEnabled)) ?? d.quietHoursEnabled
         let start = (try? c.decodeIfPresent(Int.self, forKey: .quietHoursStart)) ?? nil
         quietHoursStart = start.flatMap { QuietHours.isValidMinute($0) ? $0 : nil } ?? d.quietHoursStart
@@ -299,16 +247,16 @@ struct AppSettings: Codable, Equatable, Sendable {
         sheetChartLine = (try? c.decodeIfPresent(Bool.self, forKey: .sheetChartLine)) ?? d.sheetChartLine
         portfolioHistoryExpanded = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioHistoryExpanded))
             ?? d.portfolioHistoryExpanded
-        // Unbekannter Zeitraum (neuere Version): Standard 30 Tage
+        // Unbekannter Zeitraum: Standard 30 Tage
         portfolioHistoryRange = (try? c.decodeIfPresent(PortfolioHistoryRange.self, forKey: .portfolioHistoryRange))
             ?? d.portfolioHistoryRange
-        // Unbekannte Darstellung (neuere Version): in der Währung
+        // Unbekannte Darstellung: in der Währung
         portfolioHistoryView = (try? c.decodeIfPresent(PortfolioHistoryView.self, forKey: .portfolioHistoryView))
             ?? d.portfolioHistoryView
         portfolioHistoryCandles = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioHistoryCandles))
             ?? d.portfolioHistoryCandles
         portfolioHistoryPnl = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioHistoryPnl)) ?? d.portfolioHistoryPnl
-        // Fehlt oder unbekannt (auch bestehende Installationen): FIFO
+        // Fehlt oder unbekannt: FIFO
         costMethod = (try? c.decodeIfPresent(CostMethod.self, forKey: .costMethod)) ?? d.costMethod
         // Fehlt oder unbekannt: Neutral
         taxTemplate = (try? c.decodeIfPresent(TaxTemplate.self, forKey: .taxTemplate)) ?? d.taxTemplate
@@ -328,16 +276,4 @@ extension AppSettings {
     /// Werden Kurse von Paaren mit «Kurs vorlesen» angesagt? Nur mit Sprachausgabe an und «Nur Alarme»
     /// aus — wie `speaksPairPrices` (Android). Sonst schaltet «Kurs vorlesen» beides passend um.
     var speaksPairPrices: Bool { ttsEnabled && !ttsAlarmsOnly }
-}
-
-extension AppSettings {
-    /// Schlüssel früherer Versionen, die nur noch gelesen werden.
-    enum LegacyCodingKeys: String, CodingKey {
-        /// Früherer Schalter «TradFi» → `assetScope`.
-        case includeTradFiFutures
-        /// Frühere Schalter der Aktualisierung → `updateMode`.
-        case backgroundUpdates
-        case liveService
-        case liveWebSocket
-    }
 }

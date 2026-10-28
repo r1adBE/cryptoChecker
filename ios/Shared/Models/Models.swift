@@ -14,19 +14,13 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
 
     var sortOrder: Int = 0
 
-    /// Kurs-Mitteilung für dieses Paar. Gespeicherte Paare ohne Angabe: an (bisheriger Stand);
-    /// neue Paare erhalten `Watch.newPairNotificationEnabled`.
+    /// Kurs-Mitteilung für dieses Paar. Ohne Angabe und für neue Paare: `Watch.newPairNotificationEnabled`.
     var notificationEnabled: Bool = true
 
     /// Kurs-Mitteilung neuer Paare (Start-Auswahl und später hinzugefügte): an (Entscheid 16. Oktober 2026 —
     /// wer einen Kurs-Checker installiert, will den Kurs sehen; vorher aus). Auswahl je Paar: Einstellungen ›
     /// Alarme › Kursmitteilungen › Paare. Wie `WatchRepository.DEFAULT_NOTIFICATION_ENABLED` (Android).
     static let newPairNotificationEnabled = true
-
-    /// Gespeicherte/gesicherte Paare OHNE Angabe: an. In älteren Versionen hatte jedes Paar die Kurs-Mitteilung
-    /// standardmässig an (Android ebenso); fehlt das Feld, stammt es aus so einer Version — «an» erhält
-    /// das damalige Verhalten. Wie `WatchRepository.LEGACY_NOTIFICATION_ENABLED` (Android).
-    static let legacyNotificationEnabled = true
 
     /// Kurs bei jeder Aktualisierung vorlesen.
     var ttsEnabled: Bool = false
@@ -60,7 +54,7 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
     var disabled: Bool = false
 
     /// Zeitpunkt, an dem sich `lastPrice` zuletzt WIRKLICH geändert hat (bleibt bei gleichem Kurs
-    /// stehen, anders als `lastUpdate`). 0 = unbekannt (ältere Dateien). Grundlage für «Kurs
+    /// stehen, anders als `lastUpdate`). 0 = unbekannt. Grundlage für «Kurs
     /// unverändert seit …» bei Börsen ohne eigene Zeit (`PriceFreshness`). Nicht in der Sicherung.
     var priceChangedAt: Int64 = 0
 
@@ -218,7 +212,7 @@ enum FavoriteKind: String, CaseIterable, Codable, Sendable {
 }
 
 // MARK: Tolerantes Lesen
-// Fehlt in einer älteren Datei ein Feld, gilt der Standardwert — sonst ginge
+// Fehlt ein Feld (nil nicht geschrieben) oder ist es unlesbar, gilt der Standardwert — sonst ginge
 // beim Laden die ganze Merkliste verloren.
 
 extension Watch {
@@ -230,12 +224,9 @@ extension Watch {
         baseAsset = try c.decode(String.self, forKey: .baseAsset)
         quoteAsset = try c.decode(String.self, forKey: .quoteAsset)
         pairId = try c.decodeIfPresent(String.self, forKey: .pairId)
-        // Früher als `.perpetual` gespeicherte inverse Perpetuals (COIN-M, OKX «-USD-SWAP», Deribit BTC/ETH)
-        // wie die heutige Paarliste — sonst passte die Dublettenprüfung nicht. Wie Android `normalizeContractTypes`.
-        let storedType = try c.decodeIfPresent(FuturesContractType.self, forKey: .contractType) ?? .none
-        contractType = FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: pairId, storedType)
+        contractType = try c.decodeIfPresent(FuturesContractType.self, forKey: .contractType) ?? .none
         sortOrder = try c.decodeIfPresent(Int.self, forKey: .sortOrder) ?? 0
-        notificationEnabled = try c.decodeIfPresent(Bool.self, forKey: .notificationEnabled) ?? Watch.legacyNotificationEnabled
+        notificationEnabled = try c.decodeIfPresent(Bool.self, forKey: .notificationEnabled) ?? Watch.newPairNotificationEnabled
         ttsEnabled = try c.decodeIfPresent(Bool.self, forKey: .ttsEnabled) ?? false
         lastPrice = try c.decodeIfPresent(Double.self, forKey: .lastPrice)
         previousPrice = try c.decodeIfPresent(Double.self, forKey: .previousPrice)
@@ -249,12 +240,12 @@ extension Watch {
         groupName = Watch.validGroupName(group)
         let note = try? c.decodeIfPresent(String.self, forKey: .note)
         self.note = Watch.validNote(note)
-        // Seit Runde 11; ältere Dateien haben keinen Wert («—» bis zur nächsten Aktualisierung)
+        // Ohne Wert «—» bis zur nächsten Aktualisierung
         let day = try? c.decodeIfPresent(Double.self, forKey: .change24h)
         change24h = day.flatMap { $0.isFinite ? $0 : nil }
-        // Paar deaktivieren (wie Android DB v14); ältere Dateien: aktiv
+        // Paar deaktiviert (wie Android `WatchEntity.disabled`); fehlt: aktiv
         disabled = (try? c.decodeIfPresent(Bool.self, forKey: .disabled)) ?? false
-        // Frische des Kurses (wie Android DB v15); ältere Dateien: unbekannt bzw. keine Börsenzeit
+        // Frische des Kurses (wie Android); fehlt: unbekannt bzw. keine Börsenzeit
         priceChangedAt = (try? c.decodeIfPresent(Int64.self, forKey: .priceChangedAt)) ?? 0
         exchangeTime = try? c.decodeIfPresent(Int64.self, forKey: .exchangeTime)
     }
@@ -311,7 +302,7 @@ extension Alarm {
         lastTriggeredPrice = try c.decodeIfPresent(Double.self, forKey: .lastTriggeredPrice)
         windowHours = try Alarm.clampWindowHours(c.decodeIfPresent(Int.self, forKey: .windowHours) ?? 1)
         referenceAt = try c.decodeIfPresent(Int64.self, forKey: .referenceAt) ?? 0
-        // Seit der «≈ Umrechnung»; fehlt in älteren Dateien (= Quote-Währung)
+        // «≈ Umrechnung»; fehlt = Quote-Währung
         let code = try? c.decodeIfPresent(String.self, forKey: .currency)
         currency = Alarm.validCurrency(code)
     }

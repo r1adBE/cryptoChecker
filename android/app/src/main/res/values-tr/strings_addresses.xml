@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Kendi işlemlerinde de var: %1$s – ikisi de toplanır. Aynı coin\'ler mi? “Yalnızca göster” seç.</string>
     <string name="portfolio_address_overlap_ask">%1$s zaten kendi işlemlerinle kayıtlı. Bu adresin bakiyesi portföye eklensin mi yoksa yalnızca gösterilsin mi?</string>
     <string name="portfolio_address_overlap_auto">“%1$s” artık yalnızca gösteriliyor, sayılmıyor – %2$s işlemlerinde de var.</string>
-    <string name="portfolio_address_overlap_restored">“%1$s” yeniden sayılıyor – miktarlar işlemlerinle uyuşmuyor. Aynı coin\'lerse “Yalnızca göster” seç.</string>
     <string name="portfolio_address_overlap_title">İşlemlerindeki coin\'lerle aynı mı?</string>
     <string name="portfolio_address_overlap_tx">Kendi yatırma/transferinle aynı miktar (%1$s) – muhtemelen iki kez sayılıyor.</string>
     <string name="portfolio_address_period_observed">İzlenen adresler ilk görülen bakiyeden itibaren sayılır; sonraki değişiklikler giriş/çıkıştır, kâr değil.</string>

@@ -71,10 +71,8 @@
     "QUOTE": []
   },
   "settings": {
-    "backgroundUpdates": true,
+    "updateMode": "SPARSAM",
     "backgroundIntervalMinutes": 15,
-    "liveService": false,
-    "liveIntervalSeconds": 60,
     "priceNotifications": false,
     "ongoingNotifications": false,
     "notificationChangePercent": 5.0,
@@ -85,7 +83,6 @@
     "includeRollingFutures": false,
     "accentColor": "ORANGE",
     "darkMode": false,
-    "zoneAlerts": true,
     "fearGreedBelow": 0,
     "fearGreedAbove": 0,
     "gasAlertEthTenths": 0,
@@ -100,15 +97,17 @@
     "quietHoursEnabled": false,
     "quietHoursStart": 1380,
     "quietHoursEnd": 420,
-    "appLock": false
+    "appLock": false,
+    "includeAlphaTokens": true,
+    "watchlistNames": false
   },
   "portfolio": [
     {
       "id": 3,
       "coin": "SOL",
       "type": "BUY",
-      "amount": 10.0,
-      "priceUsdt": 165.0,
+      "amountText": "10",
+      "priceText": "165",
       "time": 1754049600000,
       "note": null
     },
@@ -116,8 +115,8 @@
       "id": 2,
       "coin": "ETH",
       "type": "BUY",
-      "amount": 1.2,
-      "priceUsdt": 2400.0,
+      "amountText": "1.2",
+      "priceText": "2400",
       "time": 1750420800000,
       "note": null
     },
@@ -125,8 +124,8 @@
       "id": 1,
       "coin": "BTC",
       "type": "BUY",
-      "amount": 0.05,
-      "priceUsdt": 77500.0,
+      "amountText": "0.05",
+      "priceText": "77500",
       "time": 1744113600000,
       "note": null
     }

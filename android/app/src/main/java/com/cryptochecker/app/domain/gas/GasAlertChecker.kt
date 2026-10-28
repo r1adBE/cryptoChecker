@@ -49,7 +49,7 @@ object GasAlertLogic {
      * Gespeicherter Zustand für die aktuelle Grenze: Wurde er bei einer anderen Grenze gemerkt
      * (geändert oder zwischendurch aus = 0), ist der Alarm wieder scharf — sonst bliebe er nach
      * einer neuen Grenze stumm, bis die Gebühr einmal deutlich über der alten lag.
-     * [storedThreshold] null = Stand vor dieser Regel: Zustand übernehmen (kein Doppelalarm nach dem Update).
+     * [storedThreshold] null = keine Grenze gemerkt: Zustand übernehmen.
      */
     fun armedFor(storedArmed: Boolean, storedThreshold: Double?, threshold: Double): Boolean =
         if (storedThreshold != null && storedThreshold != threshold) true else storedArmed

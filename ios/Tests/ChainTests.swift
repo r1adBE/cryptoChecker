@@ -213,20 +213,6 @@ final class ChainTests: XCTestCase {
             XCTAssertTrue(!auto || due, name)
             XCTAssertEqual(WatchedAddressRules.overlapAllMatched(a, txs: txs), auto, name)
             XCTAssertEqual(WatchedAddressRules.overlapAutoShowOnly([a], txs: txs), auto ? [a] : [], name)
-            // Alter Entscheid «Nur anzeigen»: ohne passende Menge zurück auf zählen, mit bleibt er
-            var legacy = a
-            legacy.countInPortfolio = false
-            legacy.overlapChecked = true
-            legacy.overlapLegacy = true
-            XCTAssertEqual(WatchedAddressRules.overlapLegacyRevert(legacy, txs: txs), !due, name)
-            let migrated = WatchedAddressRules.withOverlapMigrated(legacy, revert: !due)
-            XCTAssertFalse(migrated.overlapLegacy, name)
-            XCTAssertEqual(migrated.countInPortfolio, !due, name)
-            XCTAssertEqual(migrated.overlapChecked, due, name)
-            // Alter Entscheid «zählen» bleibt immer
-            var legacyCounting = legacy
-            legacyCounting.countInPortfolio = true
-            XCTAssertFalse(WatchedAddressRules.overlapLegacyRevert(legacyCounting, txs: txs), name)
         }
         let matching: [PortfolioTx] = S.list(amountCases.first?["trades"]).map(overlapTx)
         XCTAssertEqual(WatchedAddressRules.overlapAutoShowOnly([counting], txs: matching), [counting])
@@ -239,13 +225,8 @@ final class ChainTests: XCTestCase {
         XCTAssertTrue(WatchedAddressRules.overlapAutoShowOnly([undone], txs: matching).isEmpty)
         let stored = try JSONDecoder().decode(WatchedAddress.self, from: JSONEncoder().encode(undone))
         XCTAssertEqual(stored, undone)
-        // Gespeichert ohne `overlapV2` (alte Regel): alter Entscheid, nach der Übernahme mit `overlapV2`
-        let oldJson = #"{"chain":"BTC","address":"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa","countInPortfolio":false,"overlapChecked":true}"#
-        let old = try JSONDecoder().decode(WatchedAddress.self, from: Data(oldJson.utf8))
-        XCTAssertTrue(old.overlapChecked && old.overlapLegacy && !old.countInPortfolio)
-        let kept = WatchedAddressRules.withOverlapMigrated(old, revert: false)
-        let keptStored = try JSONDecoder().decode(WatchedAddress.self, from: JSONEncoder().encode(kept))
-        XCTAssertFalse(keptStored.overlapLegacy)
+        let shownStored = try JSONDecoder().decode(WatchedAddress.self, from: JSONEncoder().encode(switched))
+        XCTAssertEqual(shownStored, switched)
         for c in S.list(h["overlapAtAdd"]) {
             let chain = try XCTUnwrap(AddressChain(rawValue: c["chain"] as? String ?? ""))
             XCTAssertEqual(WatchedAddressRules.overlapAtAdd(chain, ownCoins: Set(c["ownCoins"] as? [String] ?? [])),

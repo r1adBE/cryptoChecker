@@ -66,7 +66,6 @@ object WatchedAddressRules {
                 countInPortfolio = entry.countInPortfolio,
                 costLots = AddressCostLots.clean(entry.costLots),
                 overlapChecked = entry.overlapChecked,
-                overlapLegacy = entry.overlapChecked && entry.overlapLegacy,
                 pendingSince = now,
             )
             // Reihen nur, wo sie heute zählen würden (Token aus, Netz abgewählt: weg)
@@ -105,7 +104,7 @@ object WatchedAddressRules {
         list.map {
             WatchedAddressBackupEntry(
                 it.chain, it.address, it.label, it.addedAt, it.observations, it.countTokens, it.tokenObservations,
-                it.networks, it.countInPortfolio, it.costLots, it.overlapChecked, it.overlapChecked && it.overlapLegacy,
+                it.networks, it.countInPortfolio, it.costLots, it.overlapChecked,
             )
         }
 
@@ -211,7 +210,7 @@ object WatchedAddressRules {
 
     /** «Nur anzeigen, nicht zum Portfolio zählen» (false) bzw. zählen (true); die Wahl gilt als entschieden. */
     fun withCountInPortfolio(a: WatchedAddress, on: Boolean): WatchedAddress =
-        a.copy(countInPortfolio = on, overlapChecked = true, overlapLegacy = false)
+        a.copy(countInPortfolio = on, overlapChecked = true)
 
     /**
      * Zählende Adressen, deren Guthaben MENGENMÄSSIG zu eigenen Transaktionen passt ([overlapMatched]) und die noch nie
@@ -233,7 +232,7 @@ object WatchedAddressRules {
 
     /** Einmal automatisch «Nur anzeigen» ([overlapAutoShowOnly]); schon entschieden bzw. nicht zählend: unverändert. */
     fun withOverlapShowOnly(a: WatchedAddress): WatchedAddress =
-        if (a.overlapChecked || !a.countInPortfolio) a else a.copy(countInPortfolio = false, overlapChecked = true, overlapLegacy = false)
+        if (a.overlapChecked || !a.countInPortfolio) a else a.copy(countInPortfolio = false, overlapChecked = true)
 
     /**
      * Coins der Adresse ([overlap]), deren Menge zu eigenen Transaktionen passt: Guthaben ≈ eigener Bestand des Coins
@@ -249,23 +248,6 @@ object WatchedAddressRules {
             val mine = own[coin]
             coin.takeIf { (mine != null && nearlyEqual(mine, balance, OVERLAP_TOLERANCE)) || coin in transferred }
         }
-    }
-
-    /**
-     * Alte Entscheide ([WatchedAddress.overlapLegacy]), die wieder zählen sollen: «Nur anzeigen» ohne passende Menge
-     * ([overlapMatched]) — früher genügte derselbe Coin. Einmal beim Laden, mit Hinweis und «Rückgängig».
-     */
-    fun overlapLegacyRevert(a: WatchedAddress, trades: List<PortfolioTrade>): Boolean =
-        a.overlapLegacy && !a.countInPortfolio && overlapMatched(a, trades).isEmpty()
-
-    /**
-     * Alten Entscheid übernehmen ([WatchedAddress.overlapLegacy] weg): [revert] = zählt wieder und gilt als nicht
-     * entschieden (die neue Regel darf später bei passender Menge umstellen); sonst bleibt die Wahl.
-     */
-    fun withOverlapMigrated(a: WatchedAddress, revert: Boolean): WatchedAddress = when {
-        !a.overlapLegacy -> a
-        revert -> a.copy(countInPortfolio = true, overlapChecked = false, overlapLegacy = false)
-        else -> a.copy(overlapLegacy = false)
     }
 
     /**
@@ -344,8 +326,7 @@ object WatchedAddressRules {
      * («observations» nur, wenn vorhanden; dazu «countTokens»:false und «countInPortfolio»:false nur, wenn aus,
      * «tokenObservations»:{"USDT":[…]} nur, wenn vorhanden, «networks»:[…] nur ETH nach der ersten Suche, «costLots»:[…]
      * nur mit Eröffnungsposten — [AddressCostLots]; «overlapChecked»:true nur, wenn die Überschneidung entschieden ist,
-     * dazu «overlapLegacy»:true für einen Entscheid nach der alten Regel; ältere Versionen übergehen die Felder, ältere
-     * Sicherungen ohne sie gelten als nicht entschieden).
+     * ohne gilt sie als nicht entschieden).
      */
     fun toJson(entries: List<WatchedAddressBackupEntry>): JsonArray {
         val array = JsonArray()
@@ -362,7 +343,6 @@ object WatchedAddressRules {
             if (!e.countInPortfolio) o.put("countInPortfolio", false)
             if (e.costLots.isNotEmpty()) o.put("costLots", AddressCostLots.toJson(e.costLots))
             if (e.overlapChecked) o.put("overlapChecked", true)
-            if (e.overlapChecked && e.overlapLegacy) o.put("overlapLegacy", true)
             array.put(o)
         }
         return array
@@ -385,10 +365,9 @@ object WatchedAddressRules {
             val countInPortfolio = o.opt("countInPortfolio") as? Boolean ?: true
             val costLots = AddressCostLots.fromJson(o.optJSONArray("costLots"))
             val overlapChecked = o.opt("overlapChecked") as? Boolean ?: false
-            val overlapLegacy = overlapChecked && (o.opt("overlapLegacy") as? Boolean ?: false)
             out += WatchedAddressBackupEntry(
                 chain, address, label, addedAt, observations, countTokens, tokens, networks, countInPortfolio, costLots,
-                overlapChecked, overlapLegacy,
+                overlapChecked,
             )
         }
         return out

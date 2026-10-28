@@ -36,8 +36,6 @@ object ActivityAnalyzer {
     const val FUNDING_STRONG_PERCENT = 0.1
     const val OI_JUMP_PERCENT = 10.0
     const val OI_STRONG_PERCENT = 20.0
-    const val OI_MIN_AGE_MILLIS = 30 * 60_000L
-    const val OI_MAX_AGE_MILLIS = 6 * HOUR_MILLIS
 
     /**
      * Höchstens so viele der 24 Vergleichsstunden dürfen ganz ohne Handel sein (ein Viertel),
@@ -207,26 +205,6 @@ object ActivityAnalyzer {
         val current = candles.last().close
         val past = priceAt(candles, now - hours * HOUR_MILLIS) ?: return null
         return if (past > 0.0 && current > 0.0) (current / past - 1.0) * 100.0 else null
-    }
-
-    /**
-     * Open-Interest-Vergleich mit der gespeicherten Messung. Verglichen wird nur
-     * gegen eine Messung, die 30 Min.–6 Std. alt ist. Jüngere bleibt stehen
-     * (sonst wäre der Abstand immer nur 10 Min.), ältere oder fehlende wird ersetzt.
-     */
-    fun oiChange(previous: OiSample?, currentUnits: Double?, now: Long): OiUpdate {
-        if (currentUnits == null || currentUnits <= 0.0) return OiUpdate(null, null, store = false)
-        if (previous == null || previous.units <= 0.0) return OiUpdate(null, null, store = true)
-        val age = now - previous.time
-        return when {
-            age < 0 || age > OI_MAX_AGE_MILLIS -> OiUpdate(null, null, store = true)
-            age < OI_MIN_AGE_MILLIS -> OiUpdate(null, null, store = false)
-            else -> OiUpdate(
-                changePercent = (currentUnits / previous.units - 1.0) * 100.0,
-                minutes = (age / 60_000L).toInt(),
-                store = true,
-            )
-        }
     }
 
     // ---------------- Signale ----------------

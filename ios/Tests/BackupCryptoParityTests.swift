@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Verschlüsselte Sicherungen v3 (Argon2id + AAD) und v2 (PBKDF2) mit festen Prüfwerten (`backup_crypto.json`, mit
+/// Verschlüsselte Sicherungen v3 (Argon2id + AAD) mit festen Prüfwerten (`backup_crypto.json`, mit
 /// Python `cryptography` nachgerechnet); Gegenstück: `BackupCryptoParityTest.kt`. Gleiche Bytes auf beiden Seiten =
 /// Sicherungen zwischen Android und iPhone austauschbar.
 final class BackupCryptoParityTests: XCTestCase {
@@ -24,7 +24,7 @@ final class BackupCryptoParityTests: XCTestCase {
         for f in files {
             let env = try BackupCrypto.envelope(from: f)
             XCTAssertEqual(env.version, 3)
-            XCTAssertEqual(String(decoding: try BackupCrypto.header(env), as: UTF8.self), f["header"] as? String)
+            XCTAssertEqual(String(decoding: BackupCrypto.header(env), as: UTF8.self), f["header"] as? String)
             XCTAssertEqual(String(decoding: try BackupCrypto.decrypt(env, password: password), as: UTF8.self), plain)
         }
     }
@@ -48,19 +48,6 @@ final class BackupCryptoParityTests: XCTestCase {
             for key in ["v", "m", "t", "p"] {
                 XCTAssertEqual(written[key] as? Int, f[key] as? Int, key)
             }
-        }
-    }
-
-    func testV2FilesStayReadable() throws {
-        let root = try TestSupport.fixture("backup_crypto")
-        let password = try XCTUnwrap(root["password"] as? String)
-        let plain = try XCTUnwrap(root["plain"] as? String)
-        let files = TestSupport.list(root["v2"])
-        XCTAssertEqual(files.count, 2)
-        for f in files {
-            let env = try BackupCrypto.envelope(from: f)
-            XCTAssertEqual(env.version, 2)
-            XCTAssertEqual(String(decoding: try BackupCrypto.decrypt(env, password: password), as: UTF8.self), plain)
         }
     }
 

@@ -230,7 +230,7 @@ final class CsvImportTests: XCTestCase {
         XCTAssertTrue(CsvImport.splitDuplicates(rows, existingKeys: Set(rows.map(\.key))).fresh.isEmpty)
     }
 
-    /// Schlüssel ohne Versatz unabhängig von der Zeitzone; frühere Schlüssel (je Zeitzone) als `legacyKeys`.
+    /// Schlüssel ohne Versatz unabhängig von der Zeitzone.
     func testZoneKeys() throws {
         let d = try S.fixture("csv_import")
         let files = S.list(d["files"])
@@ -245,11 +245,10 @@ final class CsvImportTests: XCTestCase {
             XCTAssertTrue(row < result.rows.count, m)
             guard row < result.rows.count else { continue }
             XCTAssertEqual(result.rows[row].key, string(c["key"]), "\(m) key")
-            XCTAssertEqual(Set(result.rows[row].legacyKeys), Set((c["legacyKeys"] as? [String]) ?? []), "\(m) legacyKeys")
         }
     }
 
-    /// Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel (auch gegen Schlüssel älterer Importe).
+    /// Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel.
     func testZoneDedupe() throws {
         let d = try S.fixture("csv_import")
         let files = S.list(d["files"])
@@ -385,10 +384,10 @@ final class CsvImportTests: XCTestCase {
                 }
             }
         }
-        // Schon importiert (alte Schlüssel als Kauf/Verkauf): kein Hinweis
+        // Schon importiert: kein Hinweis
         let rows = try parse("generic_stable").rows
         XCTAssertFalse(rows.isEmpty)
-        let all = Set(rows.flatMap { $0.legacyKeys + [$0.key] })
+        let all = Set(rows.map(\.key))
         XCTAssertFalse(CsvImportMapping.preview(try parse("generic_stable"), existingKeys: all) { _, _ in nil }.stableSwaps)
     }
 
@@ -409,8 +408,7 @@ final class CsvImportTests: XCTestCase {
 
     /// Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
     /// missingFx (nie still weg); Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso; Belohnung mit Fiat-Betrag
-    /// bekommt Preis = Betrag / Menge, der Schlüssel älterer Importe (ohne Preis) erkennt den früheren Import
-    /// weiter. Wie Android `fiatFeeReward`.
+    /// bekommt Preis = Betrag / Menge (Schlüssel mit Preis). Wie Android `fiatFeeReward`.
     func testFiatFeeReward() throws {
         let c = try XCTUnwrap(try S.fixture("csv_import")["fiatFeeReward"] as? [String: Any])
         var rates: [String: [Int64: Decimal]] = [:]
@@ -442,11 +440,8 @@ final class CsvImportTests: XCTestCase {
         }
         // Tageskurse: Gebühr in jeder Fiat-Währung (GBP neben der Preiswährung USD)
         XCTAssertEqual(CsvImportMapping.fxNeeds(result.rows).keys.sorted(), ((c["fxNeeds"] as? [Any]) ?? []).compactMap { string($0) })
-        // Belohnung mit Preis: früherer Schlüssel ohne Preis bleibt erkannt
-        let reward = try XCTUnwrap(result.rows.first { $0.line == int(c["legacyLine"]) })
-        let legacyKey = string(c["legacyKey"]) ?? ""
+        // Belohnung mit Preis: Schlüssel mit Preis
+        let reward = try XCTUnwrap(result.rows.first { $0.line == int(c["rewardLine"]) })
         XCTAssertEqual(reward.key, string(c["key"]))
-        XCTAssertTrue(reward.legacyKeys.contains(legacyKey))
-        XCTAssertEqual(CsvImport.splitDuplicates(result.rows, existingKeys: [legacyKey]).duplicates.map(\.line), [reward.line])
     }
 }

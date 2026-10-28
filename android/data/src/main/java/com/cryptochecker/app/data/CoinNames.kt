@@ -127,7 +127,7 @@ class CoinNames @Inject constructor(
     private suspend fun loadSavedNamesLocked() {
         if (baseNames.isNotEmpty()) return
         val saved = withContext(Dispatchers.IO) {
-            CoinLogos.decodeNames(CoinLogoStorage.readFirst(namesFile, File(context.noBackupFilesDir, OLD_NAMES_FILE)))
+            CoinLogos.decodeNames(CoinLogoStorage.readNonBlank(namesFile))
         }
         if (saved.isEmpty()) return
         baseNames = saved
@@ -220,10 +220,7 @@ class CoinNames @Inject constructor(
                 stockNamesFile.writeText(CoinLogos.encodeNames(fresh))
             }.onFailure { Timber.w(it, "Aktiennamen nicht gespeichert") }
         }
-        prefs.edit {
-            putLong(KEY_STOCK_NAMES_TIME, now)
-            remove(OLD_KEY_STOCKS_ETAG)
-        }
+        prefs.edit { putLong(KEY_STOCK_NAMES_TIME, now) }
         stockNames = fresh
         publishNames()
     }
@@ -239,11 +236,7 @@ class CoinNames @Inject constructor(
         const val KEY_TRADFI_BASES = "tradfi_bases"
         const val KEY_STOCK_NAMES_TIME = "stock_names_time_v1"
         const val KEY_STOCK_NAMES_ATTEMPT = "stock_names_attempt_v1"
-        /** Kennung der früheren GitHub-Liste (nicht mehr benutzt, wird gelöscht). */
-        const val OLD_KEY_STOCKS_ETAG = "stocks_etag_v1"
         const val STOCK_NAMES_FILE = "coin_logos/stock_names1.txt"
         const val NAMES_FILE = "coin_logos/names5.txt"
-        /** Namen der Vorgängerfassung (bis zur ersten neuen Rangliste gelesen). */
-        const val OLD_NAMES_FILE = "coin_logos/names4.txt"
     }
 }

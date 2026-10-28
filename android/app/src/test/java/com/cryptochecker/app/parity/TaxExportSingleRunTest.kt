@@ -154,12 +154,8 @@ class TaxExportSingleRunTest {
             giftToSpouse = t["giftToSpouse"] == true,
             acquiredTime = t["acquiredTime"].num()?.toLong(),
             imported = t["importKey"] != null,
-            feeRow = (t["feeRow"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow(
-                type, t["importKey"] as String?, dec(t["price"]),
-            ),
-            interestIncome = (t["interest"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyInterest(
-                type, t["note"] as String?,
-            ),
+            feeRow = t["feeRow"] == true,
+            interestIncome = t["interest"] == true,
         )
     }
 

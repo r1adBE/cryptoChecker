@@ -7,9 +7,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 /**
- * Bericht «Letzte Aktualisierung» als JSON für [RefreshStats] (SharedPreferences). Fehlende Felder
- * gelten als nicht gemessen (null) bzw. 0 — so bleiben ältere gespeicherte Berichte lesbar, und
- * ältere Fassungen der App überspringen neue Felder.
+ * Bericht «Letzte Aktualisierung» als JSON für [RefreshStats] (SharedPreferences). Nicht gemessene
+ * Werte (null) werden nicht geschrieben und fehlen beim Lesen.
  */
 object RefreshReportCodec {
 

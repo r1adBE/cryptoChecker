@@ -28,16 +28,6 @@ final class MoveHistoryStoreTests: XCTestCase {
         XCTAssertEqual(core.history(7).count, 2)
     }
 
-    func testLegacyKeyIsSplitOnce() {
-        let legacy = #"{"1":[[1000,100.0],[200000,101.0]],"2":[[1000,50.0]],"x":[[1,1]]}"#
-        let storage = FakeStorage([MoveHistoryCore.legacyKey: legacy])
-        let core = MoveHistoryCore(storage: storage)
-        XCTAssertEqual(core.history(1).map(\.price), [100, 101])
-        XCTAssertEqual(core.history(2).count, 1)
-        XCTAssertNil(storage.map[MoveHistoryCore.legacyKey])
-        XCTAssertNil(storage.map[MoveHistoryCore.prefix + "x"])
-    }
-
     func testExpiredForeignHistoriesAreCleanedUp() {
         let now = 40 * hour
         let storage = FakeStorage([

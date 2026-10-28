@@ -6,7 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.AlarmSaveResult
-import com.cryptochecker.app.data.FallAlarmCleanup
 import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.RestoreOutcome
 import com.cryptochecker.app.data.WatchMove
@@ -84,7 +83,7 @@ class WatchlistLockDeviceTest {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         repo = WatchRepository(
             db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys),
-            AlarmDeliveryMarkers(context), FallAlarmCleanup(context, db.getWatchDao()),
+            AlarmDeliveryMarkers(context),
         )
         runBlocking {
             watchId = checkNotNull(repo.addWatch(BINANCE, ExchangePair("BTC", "USDT", "BTCUSDT"), group = "Layer 1"))
@@ -277,11 +276,11 @@ class WatchlistLockDeviceTest {
         val READS = setOf("getWatches", "getWatch", "snapshot", "getEnabledAlarms", "getAllEnabledAlarms", "getAllAlarmIds")
 
         /**
-         * Hintergrund (Kurse, Fehler, Alarm-Zustand, Vertragsarten): schreibt bewusst weiter in die leere Datenbank im
+         * Hintergrund (Kurse, Fehler, Alarm-Zustand): schreibt bewusst weiter in die leere Datenbank im
          * Arbeitsspeicher, siehe `WatchRepositoryLock.kt`.
          */
         val BACKGROUND = setOf(
-            "normalizeContractTypes", "clearChanges", "updatePrice", "writePrice", "writeError", "updateError", "fillChange",
+            "clearChanges", "updatePrice", "writePrice", "writeError", "updateError", "fillChange",
             "applyRefresh", "setNotifiedPrices", "markAlarmTriggered", "setAlarmReferenceIfUnchanged", "rearmAlarm",
             "rearmAlarmIfUnchanged",
         )

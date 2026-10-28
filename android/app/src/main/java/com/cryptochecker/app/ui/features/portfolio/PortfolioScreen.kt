@@ -144,14 +144,6 @@ fun PortfolioScreen(
         )
         banner.show(text) { viewModel.undoAddressOverlap(notice) }
     }
-    // Einmal: früher automatisch «Nur anzeigen» ohne passende Menge zählt wieder — sichtbar, mit «Rückgängig»
-    val restoredNotice by viewModel.addressOverlapRestored.collectAsStateWithLifecycle()
-    LaunchedEffect(restoredNotice, addressesOpen) {
-        val notice = restoredNotice?.takeIf { !addressesOpen } ?: return@LaunchedEffect
-        viewModel.consumeAddressOverlapRestored()
-        val text = resources.getString(R.string.portfolio_address_overlap_restored, notice.names.joinToString(", "))
-        banner.show(text) { viewModel.undoAddressOverlapRestored(notice) }
-    }
 
     // Kein Schlüssel: Portfolio nur im Arbeitsspeicher, nie unverschlüsselt gespeichert — sagen, nicht still (wie iOS
     // «portfolio_save_pending»); der nächste Start versucht es erneut

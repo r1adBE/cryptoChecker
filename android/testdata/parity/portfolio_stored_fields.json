@@ -1,0 +1,270 @@
+{
+ "_comment": "Gespeicherte Portfolio-Felder (Android PortfolioStoredFieldsParityTest / iOS PortfolioStoredFieldsTests).",
+ "_restoreStateComment": "Format von importRestoreState (CsvRestoreState.toJson/fromJson): gültige Fälle (restoreStates) kommen unverändert zurück, ungültige (restoreStateInvalid) werden null.",
+ "restoreStates": [
+  {
+   "name": "v2 state: stored withdrawal of an earlier import and absorbed deposit",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "0.005",
+     "time": 1704987000000,
+     "importKey": "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
+     "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+    },
+    "absorbed": {
+     "type": "DEPOSIT",
+     "amount": "0.0049",
+     "time": 1704989100000,
+     "importKey": "COINBASE|65a1b2c3d4e5f60718293a01"
+    }
+   }
+  },
+  {
+   "name": "v2 state: stored deposit keeps price, purchase date and exchange; own key is the right part",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "DEPOSIT",
+     "amount": "0.005",
+     "priceUsdt": "43000",
+     "time": 1704544800000,
+     "acquiredTime": 1700000000000,
+     "exchange": "Kraken",
+     "importKey": "KRAKEN|QX1"
+    },
+    "absorbed": {
+     "type": "WITHDRAWAL",
+     "amount": "0.005",
+     "time": 1704542400000,
+     "fee": "0.0001",
+     "feeUnit": "COIN",
+     "importKey": "BITPANDA|T0a1b2c3d-0006"
+    }
+   }
+  },
+  {
+   "name": "v2 state: escaped separators in text come back",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "TRANSFER",
+     "amount": "1",
+     "time": 1717225200000,
+     "fee": "0.5",
+     "feeUnit": "QUOTE",
+     "transferFrom": "Kraken | Pro ⇄ 100%",
+     "importKey": "KRAKEN|R2",
+     "importBatch": "KRAKEN:1720000000000:00ff00ff"
+    },
+    "absorbed": {
+     "type": "DEPOSIT",
+     "amount": "1",
+     "time": 1717228800000,
+     "importKey": "COINBASE|X10"
+    }
+   }
+  },
+  {
+   "name": "v1 state: only the stored side",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "0.005",
+     "time": 1704987000000,
+     "importKey": "BINANCE|W5",
+     "importBatch": "BINANCE:1729000000000:0a1b2c3d"
+    }
+   }
+  }
+ ],
+ "restoreStateInvalid": [
+  {
+   "name": "unknown version",
+   "json": {
+    "v": 2,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "missing stored",
+   "json": {
+    "v": 1
+   }
+  },
+  {
+   "name": "unknown type",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "LOAN",
+     "amount": "1",
+     "time": 1,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "amount not a number",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "x",
+     "time": 1,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "time not a whole number",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1.5,
+     "importKey": "K"
+    }
+   }
+  },
+  {
+   "name": "missing import key",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1
+    }
+   }
+  },
+  {
+   "name": "unreadable absorbed row",
+   "json": {
+    "v": 1,
+    "stored": {
+     "type": "WITHDRAWAL",
+     "amount": "1",
+     "time": 1,
+     "importKey": "K"
+    },
+    "absorbed": {
+     "type": "DEPOSIT",
+     "time": 2,
+     "importKey": "L"
+    }
+   }
+  }
+ ],
+ "_interestRewardComment": "Zins-Erkennung (TaxEngines.interestReward, für neue Eingaben und den CSV-Import; AT: Anschaffungskosten = Wert beim Zufluss): nur ganze Wörter, Trenner = alles ausser Buchstaben/Ziffern und der Wechsel klein → gross — «Verzinsung», «Zinseszins», «keine Verzinsung» sind kein Zins.",
+ "interestReward": [
+  {
+   "text": "Lending interest",
+   "interest": true
+  },
+  {
+   "text": "Interest",
+   "interest": true
+  },
+  {
+   "text": "Interests",
+   "interest": true
+  },
+  {
+   "text": "Intérêts",
+   "interest": true
+  },
+  {
+   "text": "intérêt",
+   "interest": true
+  },
+  {
+   "text": "Interet",
+   "interest": true
+  },
+  {
+   "text": "Zinsen",
+   "interest": true
+  },
+  {
+   "text": "Zins",
+   "interest": true
+  },
+  {
+   "text": "Zinsertrag",
+   "interest": true
+  },
+  {
+   "text": "Zinserträge Mai",
+   "interest": true
+  },
+  {
+   "text": "LENDING",
+   "interest": true
+  },
+  {
+   "text": "interest_payment",
+   "interest": true
+  },
+  {
+   "text": "LendingInterest",
+   "interest": true
+  },
+  {
+   "text": "Simple Earn Flexible Interest",
+   "interest": true
+  },
+  {
+   "text": "Zinsgutschrift",
+   "interest": true
+  },
+  {
+   "text": "Verzinsung",
+   "interest": false
+  },
+  {
+   "text": "Zinseszins",
+   "interest": false
+  },
+  {
+   "text": "keine Verzinsung",
+   "interest": false
+  },
+  {
+   "text": "Staking Reward",
+   "interest": false
+  },
+  {
+   "text": "Earn reward",
+   "interest": false
+  },
+  {
+   "text": "Airdrop",
+   "interest": false
+  },
+  {
+   "text": "Open interestless",
+   "interest": false
+  },
+  {
+   "text": "disinterest",
+   "interest": false
+  },
+  {
+   "text": "",
+   "interest": false
+  },
+  {
+   "text": null,
+   "interest": false
+  }
+ ]
+}

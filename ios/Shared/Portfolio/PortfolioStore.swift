@@ -85,13 +85,10 @@ enum PortfolioStore {
     /// «Portfolio in Systemsicherung» (wie Android, Standard aus): aus = Portfolio-Daten nicht in
     /// iCloud-/Geräte-Backups (`backupPolicyURLs`). Beim Start und beim Umschalten aufrufen; die
     /// Schreibstellen setzen das Merkmal nach jedem Schreiben selbst neu.
-    /// Die Momentaufnahme des Portfolio-Widgets ist nie im Backup (wie Android `portfolio_widget`); beim
-    /// Start zieht sie zudem aus den App-Group-Einstellungen (die sich nicht ausnehmen lassen) in ihre Datei.
+    /// Die Momentaufnahme des Portfolio-Widgets ist nie im Backup (wie Android `portfolio_widget`).
     /// Ebenso die gemerkten Kurs-Stände, Stundenkurse, Kerzen-Abrufe und Tageskurse des Widgets (`historyURL`,
     /// `hourlyURL`, `candleAttemptsURL`, `PortfolioWidgetDailyStore.url`; Letztere auch nach jedem Schreiben).
     static func applyBackupPolicy(includeInBackup: Bool) {
-        PortfolioWidgetStore.migrateSnapshotToFile()
-        PortfolioWidgetStore.migrateCachesToFiles()
         // Dazu die gemerkten Kurse des Portfolio-Tabs (`PortfolioPriceSource.storeURL`, nennen die Coins)
         let widgetFiles = [PortfolioWidgetStore.snapshotURL, PortfolioWidgetStore.historyURL,
                            PortfolioWidgetStore.hourlyURL, PortfolioWidgetStore.candleAttemptsURL,

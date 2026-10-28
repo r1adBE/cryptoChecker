@@ -12,7 +12,7 @@ import java.io.File
 import java.util.Base64
 
 /**
- * Verschlüsselte Sicherungen v3 (Argon2id + AAD) und v2 (PBKDF2) mit festen Prüfwerten
+ * Verschlüsselte Sicherungen v3 (Argon2id + AAD) mit festen Prüfwerten
  * (`testdata/parity/backup_crypto.json`, mit Python `cryptography` nachgerechnet); Gegenstück:
  * `BackupCryptoParityTests.swift`. Gleiche Bytes auf beiden Seiten = Sicherungen zwischen Android und iPhone austauschbar.
  */
@@ -32,7 +32,6 @@ class BackupCryptoParityTest {
         version = f.optInt("v"),
         enc = f.optString("enc"),
         kdf = f.optString("kdf"),
-        iterations = f.optInt("iter"),
         salt = f.optString("salt"),
         iv = f.optString("iv"),
         data = f.optString("data"),
@@ -79,18 +78,6 @@ class BackupCryptoParityTest {
         assertEquals(BackupCrypto.DEFAULT_KDF, BackupCrypto.Kdf.Argon2(f.getInt("m"), f.getInt("t"), f.getInt("p")))
         val env = BackupCrypto.encrypt(plain.toByteArray(Charsets.UTF_8), password(), b64(f.getString("salt")), b64(f.getString("iv")))
         assertEquals(f.getString("data"), Base64.getEncoder().encodeToString(env.data))
-    }
-
-    @Test
-    fun v2FilesStayReadable() {
-        val files = root.getJSONArray("v2")
-        assertEquals(2, files.length())
-        for (i in 0 until files.length()) {
-            val f = files.getJSONObject(i)
-            val env = envelope(f)
-            assertEquals(2, env.version)
-            assertEquals(plain, BackupCrypto.decrypt(env, password()).toString(Charsets.UTF_8))
-        }
     }
 
     @Test

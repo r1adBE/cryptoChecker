@@ -27,7 +27,7 @@ enum class AlarmCondition {
      * Handelsvolumen der letzten abgeschlossenen Stunde ist mindestens x-mal so hoch
      * wie der Durchschnitt der 24 Stunden davor (Binance-Stundenkerzen).
      * [AlarmEntity.threshold] = Faktor, [AlarmEntity.referenceAt] = Startzeit der
-     * zuletzt gemeldeten Kerze. Gespeichert wird der Name — keine Migration nötig.
+     * zuletzt gemeldeten Kerze.
      */
     VOLUME_SPIKE,
 
@@ -36,7 +36,6 @@ enum class AlarmCondition {
      * macht ein neues (Tageskerzen, siehe NearExtreme). [AlarmEntity.threshold] = Abstand
      * in %, [AlarmEntity.windowHours] = Zeitraum in TAGEN, [AlarmEntity.referenceAt] = 0
      * scharf / > 0 gemeldet, [AlarmEntity.referencePrice] = zuletzt gemeldete Marke.
-     * Gespeichert wird der Name — keine Migration nötig.
      */
     NEAR_HIGH,
 
@@ -46,8 +45,7 @@ enum class AlarmCondition {
     /**
      * Nur Perpetual-Futures (siehe DerivativesAlarm.supports): Funding Rate je Intervall erreicht
      * oder übersteigt x % ([AlarmEntity.threshold] in Prozent, darf negativ sein).
-     * [AlarmEntity.referenceAt] 0 = scharf / > 0 = gemeldet (wie Kursmarken). Gespeichert
-     * wird der Name — keine Migration nötig.
+     * [AlarmEntity.referenceAt] 0 = scharf / > 0 = gemeldet (wie Kursmarken).
      */
     FUNDING_ABOVE,
 
@@ -57,7 +55,7 @@ enum class AlarmCondition {
     /**
      * Nur Perpetual-Futures: Open Interest (in Coins) liegt mindestens x % über der gespeicherten
      * Messung von vor [AlarmEntity.windowHours] Stunden (1, 4 oder 24). [AlarmEntity.referenceAt]
-     * 0 = scharf / > 0 = gemeldet. Gespeichert wird der Name — keine Migration nötig.
+     * 0 = scharf / > 0 = gemeldet.
      */
     OI_UP,
 
@@ -142,7 +140,7 @@ data class AlarmEntity(
 
     /**
      * Währung des Schwellwerts bei PRICE_ABOVE/PRICE_BELOW, z. B. «CHF».
-     * null = Quote-Währung des Paars (wie bisher). Bei einer anderen Währung
+     * null = Quote-Währung des Paars. Bei einer anderen Währung
      * wird der Kurs vor dem Vergleich umgerechnet.
      */
     @ColumnInfo val currency: String? = null,

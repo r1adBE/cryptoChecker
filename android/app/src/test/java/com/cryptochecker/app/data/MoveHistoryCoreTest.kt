@@ -3,7 +3,6 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -33,20 +32,9 @@ class MoveHistoryCoreTest {
         (1..n).forEach { core.append(it.toLong(), MoveWindow.PricePoint(100.0, 1_000L), 1_000L) }
         val afterFirst = core.decodes
         (1..n).forEach { core.append(it.toLong(), MoveWindow.PricePoint(101.0, 301_000L), 301_000L) }
-        // Je Paar genau ein Verlauf dekodiert — nicht alle fremden dazu (vorher O(N²))
+        // Je Paar genau ein Verlauf dekodiert — nicht alle fremden dazu
         assertEquals(n, core.decodes - afterFirst)
         assertEquals(2, core.history(7).size)
-    }
-
-    @Test
-    fun alterSammelschluesselWirdEinmalAufgeteilt() {
-        val legacy = """{"1":[[1000,100.0],[200000,101.0]],"2":[[1000,50.0]],"x":[[1,1]]}"""
-        val storage = FakeStorage(mapOf(MoveHistoryCore.LEGACY_KEY to legacy))
-        val core = MoveHistoryCore(storage)
-        assertEquals(listOf(100.0, 101.0), core.history(1).map { it.price })
-        assertEquals(1, core.history(2).size)
-        assertNull(storage.map[MoveHistoryCore.LEGACY_KEY])
-        assertFalse(storage.map.containsKey("h_x"))
     }
 
     @Test

@@ -6,7 +6,7 @@ import Foundation
 /// Wert mit dem MEDIAN der Messungen, die mindestens `minAgeMillis` alt sind — eine einzelne
 /// Ausreisser-Messung kippt so nichts. Die Richtung gilt als einheitlich, wenn der aktuelle Wert
 /// über (bzw. unter) JEDER dieser Messungen liegt. Messungen einer anderen Futures-Quelle zählen
-/// nicht (andere Börse = anderer Bestand); alte Messungen ohne Quelle passen zu jeder.
+/// nicht (andere Börse = anderer Bestand).
 enum OiSeries {
     /// So viele Messungen bleiben höchstens.
     static let maxSamples = 5
@@ -30,9 +30,6 @@ enum OiSeries {
 
     private static let none = Result(changePercent: nil, minutes: nil, consistent: false, samples: 0)
 
-    /// Gleiche Quelle? nil (alte Messung) passt zu jeder.
-    static func sameSource(_ a: String?, _ b: String?) -> Bool { a == nil || b == nil || a == b }
-
     private static func valid(_ s: OiSample) -> Bool { s.units.isFinite && s.units > 0 }
 
     /// Aufräumen: ungültige, zu alte und künftige Messungen weg, nach Zeit sortiert, ausgedünnt auf
@@ -54,7 +51,7 @@ enum OiSeries {
     /// Neue Messung anhängen, wenn die letzte mindestens `minSpacingMillis` älter ist. Messungen
     /// einer anderen Quelle fallen dabei weg (der Verlauf beginnt neu).
     static func append(_ series: [OiSample], _ sample: OiSample, now: Int64) -> [OiSample] {
-        let base = prune(series, now: now).filter { sameSource($0.source, sample.source) }
+        let base = prune(series, now: now).filter { $0.source == sample.source }
         guard valid(sample) else { return base }
         let add = base.last.map { sample.time - $0.time >= minSpacingMillis } ?? true
         return Array((add ? base + [sample] : base).suffix(maxSamples))
@@ -64,7 +61,7 @@ enum OiSeries {
     static func change(_ series: [OiSample], currentUnits: Double?, source: String?, now: Int64) -> Result {
         guard let currentUnits, currentUnits.isFinite, currentUnits > 0 else { return none }
         let comparable = prune(series, now: now).filter {
-            sameSource($0.source, source) && now - $0.time >= minAgeMillis
+            $0.source == source && now - $0.time >= minAgeMillis
         }
         guard let oldest = comparable.first else { return none }
         let reference = BroadMarket.median(comparable.map(\.units))

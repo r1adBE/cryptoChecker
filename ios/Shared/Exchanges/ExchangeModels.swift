@@ -77,9 +77,8 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
     }
 
     /// Erkennt an der Kennung ein inverses (in Coins abgerechnetes) Perpetual: Binance COIN-M «2:BTCUSD_PERP»,
-    /// OKX «BTC-USD-SWAP», Deribit «BTC-PERPETUAL» (lineare Deribit-Paare heissen «SOL_USDC-PERPETUAL»). Nötig
-    /// für Paare, die in älteren Versionen noch als `.perpetual` abgelegt wurden (`normalized`); neue Paarlisten setzen
-    /// `.inversePerpetual` selbst. Wie `FuturesContractType.isInversePerpetualId` (Android).
+    /// OKX «BTC-USD-SWAP», Deribit «BTC-PERPETUAL» (lineare Deribit-Paare heissen «SOL_USDC-PERPETUAL»), für
+    /// `normalized`; die Paarlisten setzen `.inversePerpetual` selbst. Wie `FuturesContractType.isInversePerpetualId` (Android).
     static func isInversePerpetualId(exchangeKey: String, pairId: String?) -> Bool {
         guard let id = pairId?.trimmingCharacters(in: .whitespaces), !id.isEmpty else { return false }
         if exchangeKey == "BinanceFutures" { return id.hasPrefix("2:") && deliveryCode(of: id) == nil }
@@ -88,8 +87,8 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
         return false
     }
 
-    /// Gleicht eine gespeicherte Vertragsart an die heutige Paarliste an: Ein früher als `.perpetual`
-    /// gespeichertes inverses Perpetual wird `.inversePerpetual`, alles andere bleibt. Wie Android `normalized`.
+    /// Gleicht eine Vertragsart an die Paarliste an: Ein `.perpetual` mit inverser Kennung wird
+    /// `.inversePerpetual`, alles andere bleibt. Wie Android `normalized`.
     static func normalized(exchangeKey: String, pairId: String?, _ type: FuturesContractType) -> FuturesContractType {
         guard type == .perpetual, isInversePerpetualId(exchangeKey: exchangeKey, pairId: pairId) else { return type }
         return .inversePerpetual
@@ -163,8 +162,7 @@ struct ExchangePair: Codable, Hashable, Comparable, Sendable, CustomStringConver
     var contractType: FuturesContractType = .none
     /// Kontrakt auf etwas anderes als einen Krypto-Token: Aktie, Rohstoff (etwa Gold), Devisen oder eine Firma
     /// vor dem Börsengang (Binance «TradFi-Perpetuals»). Ob die Auswahl solche Paare zeigt, regelt «Token &
-    /// TradFi» unter Einstellungen › Merkliste. nil: Die Börse sagt dazu nichts oder die Liste stammt aus einer
-    /// älteren Version (zählt als Krypto). Wie `ExchangePair.tradFi` auf Android.
+    /// TradFi» unter Einstellungen › Merkliste. nil: Die Börse sagt dazu nichts (zählt als Krypto). Wie `ExchangePair.tradFi` auf Android.
     var tradFi: Bool?
 
     init(_ base: String, _ quote: String, _ pairId: String?, _ contractType: FuturesContractType = .none,

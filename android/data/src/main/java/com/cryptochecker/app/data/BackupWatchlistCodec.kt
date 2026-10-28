@@ -41,15 +41,14 @@ object BackupWatchlistCodec {
             ?: FuturesContractType.NONE,
         pairId = if (o.isNull("pairId")) null else o.optString("pairId"),
         sortOrder = o.optInt("sortOrder"),
-        // Ohne Angabe: an wie in der Version der Sicherung (nicht der Standard neuer Paare)
-        notificationEnabled = o.optBoolean("notificationEnabled", WatchRepository.LEGACY_NOTIFICATION_ENABLED),
+        // Ohne Angabe: Standard neuer Paare (wie iOS)
+        notificationEnabled = o.optBoolean("notificationEnabled", WatchRepository.DEFAULT_NOTIFICATION_ENABLED),
         ttsEnabled = o.optBoolean("ttsEnabled", false),
         favorite = o.optBoolean("favorite", false),
         // Gruppe und Notiz mit denselben Grenzen wie die Eingabe (wie iOS `Watch.validGroupName`/`validNote`)
         groupName = if (o.isNull("group")) null else TextLimit.clean(o.optString("group"), GROUP_NAME_MAX),
-        // Ältere Sicherungen haben keine Notiz
         note = if (o.isNull("note")) null else TextLimit.clean(o.optString("note"), NOTE_MAX),
-        // Ältere Sicherungen kennen «deaktiviert» nicht: Paar aktiv
+        // Ohne Angabe: Paar aktiv
         disabled = o.optBoolean("disabled", false),
     )
 

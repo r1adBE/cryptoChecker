@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">A saját tranzakcióidban is: %1$s – mindkettő összeadódik. Ugyanazok a coinok? Válaszd ezt: „Csak megjelenítés”.</string>
     <string name="portfolio_address_overlap_ask">A(z) %1$s eszközt már saját tranzakciókkal rögzíted. Beszámítsuk ennek a címnek az egyenlegét a portfólióba, vagy csak jelenítsük meg?</string>
     <string name="portfolio_address_overlap_auto">„%1$s” mostantól csak megjelenik, nem számít bele – %2$s a tranzakcióidban is szerepelnek.</string>
-    <string name="portfolio_address_overlap_restored">„%1$s” ismét beszámít – a mennyiségek nem egyeznek a tranzakcióiddal. Válaszd ezt: „Csak megjelenítés”, ha ugyanazokról a coinokról van szó.</string>
     <string name="portfolio_address_overlap_title">Ugyanazok a coinok, mint a tranzakcióidban?</string>
     <string name="portfolio_address_overlap_tx">Ugyanannyi, mint a saját befizetésed/átvezetésed (%1$s) – valószínűleg kétszer számít.</string>
     <string name="portfolio_address_period_observed">A figyelt címek az első észlelt egyenlegtől számítanak; a későbbi változások be- és kiáramlások, nem nyereség.</string>

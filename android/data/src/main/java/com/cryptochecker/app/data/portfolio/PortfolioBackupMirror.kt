@@ -31,8 +31,8 @@ import java.io.File
  *    ([writeForBackup]) und löscht sie danach wieder.
  *  - Schalter aus: kein Merker, keine Kopie.
  * Nach einer Wiederherstellung (neue Installation, die Portfolio-Datenbank gibt es noch nicht) übernimmt
- * [PortfolioDatabase] die Datei beim Anlegen ([importInto]) und löscht sie danach. Früher lag die Kopie dauernd
- * da; [cleanUpLeftover] löscht eine solche (und eine nach abgebrochener Sicherung liegengebliebene) beim Start.
+ * [PortfolioDatabase] die Datei beim Anlegen ([importInto]) und löscht sie danach. Eine nach abgebrochener Sicherung
+ * liegengebliebene Kopie löscht [cleanUpLeftover] beim Start.
  * Scheitert die Übernahme, liegt die Kopie bis zum nächsten Start beiseite ([setAside]); dann folgt genau ein weiterer
  * Versuch ([retryFailed]) und sie wird gelöscht — Klartext bleibt nie dauerhaft liegen.
  */
@@ -72,7 +72,7 @@ object PortfolioBackupMirror {
 
     /**
      * Beim Start, vor dem ersten Öffnen der Portfolio-Datenbank: Eine Kopie neben einer bestehenden Datenbank ist ein Rest
-     * (alte dauernde Kopie oder abgebrochene Sicherung) — Klartext, also weg. Ohne Datenbank ist sie eine noch nicht
+     * (abgebrochene Sicherung) — Klartext, also weg. Ohne Datenbank ist sie eine noch nicht
      * übernommene Wiederherstellung und bleibt für [importInto].
      */
     fun cleanUpLeftover(context: Context) {
@@ -81,8 +81,7 @@ object PortfolioBackupMirror {
     }
 
     /**
-     * Im Sicherungs-Agenten: Kopie aus der Portfolio-Datenbank schreiben (geöffnet wie in der App, verschlüsselt, alle
-     * Migrationen). Ohne Datenbank keine Kopie. Fehler werfen — der Agent bricht die Sicherung dann ab, die vorige (mit
+     * Im Sicherungs-Agenten: Kopie aus der Portfolio-Datenbank schreiben (geöffnet wie in der App, verschlüsselt). Ohne Datenbank keine Kopie. Fehler werfen — der Agent bricht die Sicherung dann ab, die vorige (mit
      * Portfolio) bleibt bestehen.
      */
     fun writeForBackup(context: Context) {
@@ -92,7 +91,6 @@ object PortfolioBackupMirror {
         if (!context.getDatabasePath(PortfolioDatabase.DB_NAME).exists()) return
         val db = androidx.room.Room.databaseBuilder(context, PortfolioDatabase::class.java, PortfolioDatabase.DB_NAME)
             .openHelperFactory(com.cryptochecker.app.data.local.EncryptingOpenHelperFactory(context))
-            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
             .build()
         try {
             val text = kotlinx.coroutines.runBlocking {
@@ -164,7 +162,7 @@ object PortfolioBackupMirror {
         .put("version", VERSION)
         .put("portfolio", JSONArray().apply { txs.forEach { put(PortfolioJson.txToJson(it)) } })
         .put("portfolioAlarms", JSONArray().apply { alarms.forEach { put(PortfolioJson.alarmToJson(it)) } })
-        // Gleiches Format wie die eigene Sicherung; ältere Kopien haben den Schlüssel nicht
+        // Gleiches Format wie die eigene Sicherung
         .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(addresses).asOrgJson())
         .toString()
 
@@ -261,9 +259,9 @@ object PortfolioBackupMirror {
                     t.importKey, t.acquiredTime,
                     // Tausch und Importlauf
                     t.toCoin, decimals.toText(t.toAmount), decimals.toText(t.swapValueUsdt), t.importBatch,
-                    // Partner-Merker und Verknüpfung (Portfolio-Datenbank v4)
+                    // Partner-Merker und Verknüpfung
                     if (t.giftToSpouse) 1L else 0L, t.linkedImportKey, restoreStates.toText(t.importRestoreState),
-                    // Gebühr-Zeile und Zins (Portfolio-Datenbank v5)
+                    // Gebühr-Zeile und Zins
                     if (t.feeRow) 1L else 0L, if (t.interest) 1L else 0L,
                 ),
             )
@@ -280,7 +278,7 @@ object PortfolioBackupMirror {
         }
         // Beobachtete Adressen ohne Guthaben (lädt die nächste Aktualisierung), mit ihren Beobachtungen,
         // Zusatzdaten (Token-Reihen, «Tokens mitzählen», EVM-Netze, «Nur anzeigen» — WatchedAddressExtras) und
-        // Eröffnungsposten (Portfolio-Datenbank v6)
+        // Eröffnungsposten
         content.addresses.forEach { a ->
             db.execSQL(
                 "INSERT OR IGNORE INTO `${WatchedAddressEntity.TABLE}` (`chain`, `address`, `label`, `lastBalance`, " +

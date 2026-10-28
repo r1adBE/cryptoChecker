@@ -1,7 +1,6 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.portfolio.CostMethod
-import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
@@ -265,14 +264,13 @@ class CsvTransferMatchParityTest {
         }
     }
 
-    /** Beide Seiten einer Verknüpfung gelten als importiert, auch früher gekürzte lange Teile. */
+    /** Beide Seiten einer Verknüpfung gelten als importiert. */
     @Test
     fun linkedKeysCountAsImported() {
         val d = data["duplicates"].obj()
-        val long = d["longKey"] as String
-        val existing = d["existing"].list().map { it as String }.toSet() + LegacyStorageMigration.shortKey(long)
+        val existing = d["existing"].list().map { it as String }.toSet()
         fun row(key: String) = CsvImportRow(1, CsvImportKind.DEPOSIT, "Deposit", "BTC", BigDecimal.ONE, null, null, null, null, 0L, null, key)
-        val known = d["known"].list().map { it as String } + long
+        val known = d["known"].list().map { it as String }
         val split = CsvImport.splitDuplicates((known + d["unknown"].list().map { it as String }).map { row(it) }, existing)
         assertEquals(known, split.duplicates.map { it.key })
         assertEquals(d["unknown"].list(), split.fresh.map { it.key })
@@ -284,7 +282,6 @@ class CsvTransferMatchParityTest {
         val c = cases().first { it["name"] == "stored side with separators in its text and a long key both link" }
         val plan = CsvTransferMatch.apply(c["txs"].list().map { tx(it.obj()) }, linksOf(c), CsvTransferMatch.defaultChoice(linksOf(c)))
         val long = plan.storedUpdates.single { it.id == 13L }
-        // Früher nicht verknüpft (Teil über 98 Zeichen passte nicht in den gepackten Schlüssel)
         assertEquals(c["stored"].list().map { it.obj() }.first { it["id"] == 13.0 }["importKey"], long.importKey)
         assertTrue(long.importKey.length > 98)
         assertNull(plan.transactions.firstOrNull { it.importKey == "COINBASE|X11" })

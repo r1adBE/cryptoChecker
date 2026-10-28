@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Finns även i dina egna transaktioner: %1$s – båda läggs ihop. Samma mynt? Välj ”Visa bara”.</string>
     <string name="portfolio_address_overlap_ask">Du registrerar redan %1$s med egna transaktioner. Ska saldot för den här adressen räknas in i portföljen eller bara visas?</string>
     <string name="portfolio_address_overlap_auto">”%1$s” visas nu bara och räknas inte – %2$s finns även i dina transaktioner.</string>
-    <string name="portfolio_address_overlap_restored">”%1$s” räknas igen – mängderna stämmer inte med dina transaktioner. Välj ”Visa bara” om det är samma mynt.</string>
     <string name="portfolio_address_overlap_title">Samma mynt som i dina transaktioner?</string>
     <string name="portfolio_address_overlap_tx">Samma mängd som din egen insättning/överföring (%1$s) – räknas troligen dubbelt.</string>
     <string name="portfolio_address_period_observed">Bevakade adresser räknas från det första observerade saldot; senare ändringar är in-/utflöden, inte vinst.</string>

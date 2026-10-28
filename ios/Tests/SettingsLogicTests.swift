@@ -91,18 +91,13 @@ final class PriceColorSchemeTests: XCTestCase {
         XCTAssertNil(PriceColorScheme(rawValue: "BLUE_YELLOW"))
     }
 
-    /// Nie gewählt → «Ruhig»; gespeicherte Wahl bleibt (wie Android: dort ist ohne Wahl nichts gespeichert).
-    func testCalmDefaultMigration() throws {
+    /// Nie gewählt → «Ruhig»; gespeicherte Wahl bleibt.
+    func testCalmDefault() throws {
         func decode(_ json: String) throws -> AppSettings {
             try JSONDecoder().decode(AppSettings.self, from: Data(json.utf8))
         }
-        // Alte Einstellungen ohne Merker: mitgespeichertes «Frisch» war der Standard → «Ruhig»
-        XCTAssertEqual(try decode(#"{"priceColorScheme":"GREEN_RED"}"#).priceColorScheme, .CALM)
-        XCTAssertEqual(try decode(#"{"priceColorScheme":"BLUE_ORANGE"}"#).priceColorScheme, .BLUE_ORANGE)
         XCTAssertEqual(try decode("{}").priceColorScheme, .CALM)
-        // Mit Merker: «Frisch» ist eine Wahl und bleibt
-        XCTAssertEqual(try decode(#"{"priceColorScheme":"GREEN_RED","priceColorDefaultV2":true}"#).priceColorScheme, .GREEN_RED)
-        // Nach dem Speichern steht der Merker da
+        XCTAssertEqual(try decode(#"{"priceColorScheme":"GREEN_RED"}"#).priceColorScheme, .GREEN_RED)
         var s = AppSettings()
         s.priceColorScheme = .GREEN_RED
         let round = try JSONDecoder().decode(AppSettings.self, from: JSONEncoder().encode(s))
@@ -819,35 +814,12 @@ final class AssetScopeTests: XCTestCase {
         XCTAssertEqual(AppSettings().assetScope, .TOKENS)
     }
 
-    func testLegacySwitchMapsOnToBothOffToTokens() {
-        XCTAssertEqual(AssetScope.fromLegacy(true), .BOTH)
-        XCTAssertEqual(AssetScope.fromLegacy(false), .TOKENS)
-        XCTAssertEqual(AssetScope.fromLegacy(nil), .TOKENS)
-    }
-
-    func testResolvePrefersNewValueThenLegacyThenDefault() {
-        // Neuer Wert gesetzt: der alte Schalter zählt nicht mehr
-        XCTAssertEqual(AssetScope.resolve(stored: "TRADFI", legacyTradFi: true), .TRADFI)
-        XCTAssertEqual(AssetScope.resolve(stored: "TOKENS", legacyTradFi: true), .TOKENS)
-        // Update von einer älteren Version: nur der alte Schalter
-        XCTAssertEqual(AssetScope.resolve(stored: nil, legacyTradFi: true), .BOTH)
-        XCTAssertEqual(AssetScope.resolve(stored: nil, legacyTradFi: false), .TOKENS)
-        // Neu installiert
-        XCTAssertEqual(AssetScope.resolve(stored: nil, legacyTradFi: nil), .TOKENS)
-        // Unbekannter Wert (neuere Version nach Downgrade): alter Schalter, sonst Standard
-        XCTAssertEqual(AssetScope.resolve(stored: "STOCKS", legacyTradFi: true), .BOTH)
-        XCTAssertEqual(AssetScope.resolve(stored: "STOCKS", legacyTradFi: nil), .TOKENS)
-    }
-
-    func testBackupNewKeyLegacyKeyOrKeepCurrent() {
-        XCTAssertEqual(AssetScope.fromBackup("TRADFI", legacyTradFi: false), .TRADFI)
-        XCTAssertEqual(AssetScope.fromBackup(" both ", legacyTradFi: nil), .BOTH)
-        // Ältere Sicherung: nur «includeTradFiFutures»
-        XCTAssertEqual(AssetScope.fromBackup(nil, legacyTradFi: true), .BOTH)
-        XCTAssertEqual(AssetScope.fromBackup("", legacyTradFi: false), .TOKENS)
-        // Weder noch: aktuelle Einstellung bleibt
-        XCTAssertNil(AssetScope.fromBackup(nil, legacyTradFi: nil))
-        XCTAssertNil(AssetScope.fromBackup("UNKNOWN", legacyTradFi: nil))
+    func testFromNameTrimmedCaseInsensitiveUnknownNil() {
+        XCTAssertEqual(AssetScope.from(name: "TRADFI"), .TRADFI)
+        XCTAssertEqual(AssetScope.from(name: " both "), .BOTH)
+        XCTAssertNil(AssetScope.from(name: ""))
+        XCTAssertNil(AssetScope.from(name: nil))
+        XCTAssertNil(AssetScope.from(name: "UNKNOWN"))
     }
 
     func testHelpersTokensAndTradFi() {
@@ -893,50 +865,26 @@ final class AssetScopeTests: XCTestCase {
         XCTAssertEqual(info.scoped(.TOKENS, exchangeKey: "BinanceFutures").pairs, [btc, aia])
     }
 
-    /// «inkl. Alpha-Tokens»: für neue Installationen aus; ältere gespeicherte Einstellungen
-    /// ohne den Wert behalten den bisherigen Standard an.
-    func testIncludeAlphaTokensDefaultsOffForNewInstallsOnly() throws {
+    /// «inkl. Alpha-Tokens»: ab Werk aus; gespeicherte Wahl bleibt.
+    func testIncludeAlphaTokensDefaultsOff() throws {
         XCTAssertFalse(AppSettings().includeAlphaTokens)
-        let old = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"assetScope":"TOKENS"}"#.utf8))
-        XCTAssertTrue(old.includeAlphaTokens)
+        XCTAssertFalse(try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8)).includeAlphaTokens)
         var s = AppSettings()
-        s.includeAlphaTokens = false
+        s.includeAlphaTokens = true
         let data = try JSONEncoder().encode(s)
-        XCTAssertFalse(try JSONDecoder().decode(AppSettings.self, from: data).includeAlphaTokens)
+        XCTAssertTrue(try JSONDecoder().decode(AppSettings.self, from: data).includeAlphaTokens)
     }
 
-    /// Portfolio-Tab: neue Installationen aus; ältere gespeicherte Einstellungen (mit dem damals
-    /// mitgespeicherten Standard «aus», ohne Merker) einmalig an; danach bleibt eine Wahl «aus» stehen.
-    func testPortfolioEnabledDefaultsWithOneTimeMigration() throws {
+    /// Portfolio-Tab: ab Werk aus; gespeicherte Wahl bleibt.
+    func testPortfolioEnabledDefaults() throws {
         XCTAssertFalse(AppSettings().portfolioEnabled)
-        XCTAssertTrue(AppSettings.legacyPortfolioEnabled)
-        let legacy = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"portfolioEnabled":false}"#.utf8))
-        XCTAssertTrue(legacy.portfolioEnabled)
-        XCTAssertTrue(legacy.portfolioDefaultV2)
+        XCTAssertFalse(try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8)).portfolioEnabled)
         var s = AppSettings()
-        s.portfolioEnabled = false
+        s.portfolioEnabled = true
         let data = try JSONEncoder().encode(s)
-        XCTAssertFalse(try JSONDecoder().decode(AppSettings.self, from: data).portfolioEnabled)
-        let chosen = try JSONDecoder().decode(AppSettings.self,
-                                              from: Data(#"{"portfolioEnabled":false,"portfolioDefaultV2":true}"#.utf8))
-        XCTAssertFalse(chosen.portfolioEnabled)
-        // Gespeicherte Einstellungen (bestehende ältere Installation) ohne den Wert: bisheriger Standard an
-        let build43 = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"portfolioDefaultV2":true}"#.utf8))
-        XCTAssertTrue(build43.portfolioEnabled)
-        // Neue Installation, gespeichert und wieder gelesen: bleibt aus
+        XCTAssertTrue(try JSONDecoder().decode(AppSettings.self, from: data).portfolioEnabled)
         let fresh = try JSONDecoder().decode(AppSettings.self, from: JSONEncoder().encode(AppSettings()))
         XCTAssertFalse(fresh.portfolioEnabled)
-    }
-
-    /// Gespeicherte Einstellungen einer älteren Version: nur «includeTradFiFutures».
-    func testDecodingOldSettingsMigratesTheSwitch() throws {
-        let on = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"includeTradFiFutures":true}"#.utf8))
-        XCTAssertEqual(on.assetScope, .BOTH)
-        let off = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"includeTradFiFutures":false}"#.utf8))
-        XCTAssertEqual(off.assetScope, .TOKENS)
-        let newer = try JSONDecoder().decode(AppSettings.self,
-                                             from: Data(#"{"assetScope":"TRADFI","includeTradFiFutures":true}"#.utf8))
-        XCTAssertEqual(newer.assetScope, .TRADFI)
     }
 
     func testEncodingWritesTheNewKeyRoundTrip() throws {
@@ -989,7 +937,7 @@ final class QuietHoursTests: XCTestCase {
 
 // MARK: - Wie aktuell?
 
-/// Wie `UpdateModeTest.kt`: Übernahme aus den früheren Schaltern, Sicherung und abgeleitete Schalter.
+/// Wie `UpdateModeTest.kt`: Standard, gespeicherter Name und abgeleitete Schalter.
 final class UpdateModeTests: XCTestCase {
 
     func testDefaultIsSparsam() {
@@ -998,72 +946,22 @@ final class UpdateModeTests: XCTestCase {
         XCTAssertEqual(UpdateMode.iosChoices, [.SPARSAM, .LIVE_OFFEN])
     }
 
-    func testLegacyServiceWinsThenWebSocketElseSparsam() {
-        XCTAssertEqual(UpdateMode.fromLegacy(liveService: true, liveWebSocket: true, backgroundUpdates: true, serviceAvailable: true),
-                       .IMMER_KURZ)
-        // iOS (kein Dauerdienst) → Live, solange offen
-        XCTAssertEqual(UpdateMode.fromLegacy(liveService: true, liveWebSocket: false, backgroundUpdates: true, serviceAvailable: false),
-                       .LIVE_OFFEN)
-        XCTAssertEqual(UpdateMode.fromLegacy(liveService: false, liveWebSocket: true, backgroundUpdates: false, serviceAvailable: true),
-                       .LIVE_OFFEN)
-        XCTAssertEqual(UpdateMode.fromLegacy(liveService: nil, liveWebSocket: true, backgroundUpdates: nil, serviceAvailable: false),
-                       .LIVE_OFFEN)
-        XCTAssertEqual(UpdateMode.fromLegacy(liveService: false, liveWebSocket: false, backgroundUpdates: true, serviceAvailable: true),
-                       .SPARSAM)
-        XCTAssertEqual(UpdateMode.fromLegacy(liveService: false, liveWebSocket: false, backgroundUpdates: false, serviceAvailable: false),
-                       .SPARSAM)
-        XCTAssertNil(UpdateMode.fromLegacy(liveService: nil, liveWebSocket: nil, backgroundUpdates: nil, serviceAvailable: true))
+    func testFromNameTrimmedCaseInsensitiveUnknownNil() {
+        XCTAssertEqual(UpdateMode.from(name: "sparsam"), .SPARSAM)
+        XCTAssertEqual(UpdateMode.from(name: " LIVE_OFFEN "), .LIVE_OFFEN)
+        XCTAssertNil(UpdateMode.from(name: "TURBO"))
+        XCTAssertNil(UpdateMode.from(name: ""))
+        XCTAssertNil(UpdateMode.from(name: nil))
     }
 
-    func testResolve() {
-        XCTAssertEqual(UpdateMode.resolve(stored: "SPARSAM", legacyLiveService: true, legacyWebSocket: true, legacyBackground: true,
-                                          existingInstall: true, serviceAvailable: true), .SPARSAM)
-        XCTAssertEqual(UpdateMode.resolve(stored: "IMMER_KURZ", legacyLiveService: nil, legacyWebSocket: nil, legacyBackground: nil,
-                                          existingInstall: false, serviceAvailable: false), .LIVE_OFFEN)
-        XCTAssertEqual(UpdateMode.resolve(stored: "TURBO", legacyLiveService: true, legacyWebSocket: false, legacyBackground: true,
-                                          existingInstall: true, serviceAvailable: true), .IMMER_KURZ)
-        XCTAssertEqual(UpdateMode.resolve(stored: nil, legacyLiveService: nil, legacyWebSocket: nil, legacyBackground: nil,
-                                          existingInstall: true, serviceAvailable: true), .SPARSAM)
-        XCTAssertEqual(UpdateMode.resolve(stored: nil, legacyLiveService: nil, legacyWebSocket: nil, legacyBackground: nil,
-                                          existingInstall: false, serviceAvailable: false), .SPARSAM)
-    }
-
-    func testBackupNewKeyThenLegacyElseUnchanged() {
-        XCTAssertEqual(UpdateMode.fromBackup("SPARSAM", legacyLiveService: true, legacyWebSocket: true, legacyBackground: true,
-                                             serviceAvailable: false), .SPARSAM)
-        XCTAssertEqual(UpdateMode.fromBackup(nil, legacyLiveService: true, legacyWebSocket: false, legacyBackground: true,
-                                             serviceAvailable: false), .LIVE_OFFEN)
-        XCTAssertEqual(UpdateMode.fromBackup("IMMER_KURZ", legacyLiveService: nil, legacyWebSocket: nil, legacyBackground: nil,
-                                             serviceAvailable: false), .LIVE_OFFEN)
-        XCTAssertNil(UpdateMode.fromBackup(nil, legacyLiveService: nil, legacyWebSocket: nil, legacyBackground: nil,
-                                           serviceAvailable: false))
-    }
-
-    func testLegacyFlagsRoundTrip() {
-        for mode in UpdateMode.allCases {
-            XCTAssertTrue(mode.legacyBackgroundUpdates)
-            XCTAssertEqual(UpdateMode.fromLegacy(liveService: mode.legacyLiveService, liveWebSocket: mode.legacyLiveWebSocket,
-                                                 backgroundUpdates: mode.legacyBackgroundUpdates, serviceAvailable: true), mode)
-        }
-    }
-
-    /// Gespeicherte Einstellungen einer älteren Version: die früheren Schalter → eine Wahl.
-    func testDecodingOldSettingsMigrates() throws {
-        let service = try JSONDecoder().decode(AppSettings.self,
-                                               from: Data(#"{"backgroundUpdates":true,"liveService":true,"liveWebSocket":false}"#.utf8))
-        XCTAssertEqual(service.updateMode, .LIVE_OFFEN)
-        let socket = try JSONDecoder().decode(AppSettings.self,
-                                              from: Data(#"{"backgroundUpdates":false,"liveService":false,"liveWebSocket":true}"#.utf8))
-        XCTAssertEqual(socket.updateMode, .LIVE_OFFEN)
-        let plain = try JSONDecoder().decode(AppSettings.self,
-                                             from: Data(#"{"backgroundUpdates":true,"liveService":false,"liveWebSocket":false}"#.utf8))
-        XCTAssertEqual(plain.updateMode, .SPARSAM)
-        XCTAssertFalse(plain.liveWebSocket)
+    func testDecodingMissingOrUnknownIsDefault() throws {
         let empty = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
         XCTAssertEqual(empty.updateMode, .SPARSAM)
-        let newer = try JSONDecoder().decode(AppSettings.self,
-                                             from: Data(#"{"updateMode":"SPARSAM","liveWebSocket":true}"#.utf8))
-        XCTAssertEqual(newer.updateMode, .SPARSAM)
+        XCTAssertFalse(empty.liveWebSocket)
+        let unknown = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"updateMode":"TURBO"}"#.utf8))
+        XCTAssertEqual(unknown.updateMode, .SPARSAM)
+        let live = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"updateMode":"LIVE_OFFEN"}"#.utf8))
+        XCTAssertTrue(live.liveWebSocket)
     }
 
     func testEncodingWritesTheModeRoundTrip() throws {
@@ -1105,10 +1003,8 @@ final class NotificationDefaultsTests: XCTestCase {
         let id = try XCTUnwrap(AppData.insert(&s, exchange: exchange, pair: ExchangePair("BTC", "USDT", "BTCUSDT")))
         XCTAssertEqual(s.watches.first { $0.id == id }?.notificationEnabled, true)
         XCTAssertTrue(Watch.newPairNotificationEnabled)
-        // Sicherung ohne Feld (in älteren Versionen war jedes Paar an): bleibt an — wie Android
-        XCTAssertTrue(Watch.legacyNotificationEnabled)
 
-        // Bestehende Paare ohne Angabe (ältere Version): bleiben an
+        // Gespeicherte Paare ohne Angabe: Standard neuer Paare (an)
         let old = try JSONDecoder().decode(Watch.self, from: Data(
             #"{"id":1,"exchangeKey":"Kraken","exchangeName":"Kraken","baseAsset":"BTC","quoteAsset":"EUR"}"#.utf8))
         XCTAssertTrue(old.notificationEnabled)
@@ -1125,29 +1021,20 @@ final class NotificationDefaultsTests: XCTestCase {
     }
 }
 
-/// Geänderte Standards nur für neue Installationen — wie `InstallDefaultsTest` (Android).
-/// iOS speichert alle Einstellungen als Ganzes: Gespeicherte Einstellungen ohne den Wert stammen von vor
-/// dem Schalter (bestehende Installation) und behalten den bisherigen Standard.
+/// Standards einer neuen Installation und Portfolio nach neu angelegten Einstellungen — wie `InstallDefaultsTest` (Android).
 final class InstallDefaultsTests: XCTestCase {
     func testNewDefaults() {
         let d = AppSettings()
         XCTAssertTrue(d.watchlistNames)
         XCTAssertTrue(d.showConverted)
         XCTAssertFalse(d.includeAlphaTokens)
-        XCTAssertFalse(AppSettings.legacyWatchlistNames)
-        XCTAssertFalse(AppSettings.legacyShowConverted)
-        XCTAssertTrue(AppSettings.legacyIncludeAlphaTokens)
         XCTAssertFalse(d.portfolioEnabled)
-        XCTAssertTrue(AppSettings.legacyPortfolioEnabled)
-    }
-
-    func testDecisionFunction() {
-        XCTAssertTrue(AppSettings.defaultForMigration(existingInstall: true, legacy: true, current: false))
-        XCTAssertFalse(AppSettings.defaultForMigration(existingInstall: false, legacy: true, current: false))
+        XCTAssertFalse(d.ongoingNotifications)
+        XCTAssertEqual(d.updateMode, .default)
     }
 
     /// Unlesbare (oder fehlende) Einstellungen bei vorhandenem Portfolio: Portfolio wieder an — wie Android
-    /// `InstallDefaultsTest.corruptedSettingsWithPortfolioData`.
+    /// `InstallDefaultsTest.resetSettingsWithPortfolioData`.
     func testCorruptedSettingsWithPortfolioData() {
         let unreadable = SharedStorage.settingsReadState(hasData: true, decodes: false, markerPresent: true,
                                                          protectedDataAvailable: true)
@@ -1193,13 +1080,13 @@ final class InstallDefaultsTests: XCTestCase {
         XCTAssertEqual(decide(false, true, true, true), D.decide)
     }
 
-    /// Ältere gespeicherte Einstellungen ohne die Schlüssel: bisherige Standards.
-    func testStoredSettingsWithoutKeysKeepOldDefaults() throws {
-        let old = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"darkMode":true}"#.utf8))
-        XCTAssertFalse(old.watchlistNames)
-        XCTAssertFalse(old.showConverted)
-        XCTAssertTrue(old.includeAlphaTokens)
-        XCTAssertTrue(old.portfolioEnabled)
+    /// Gespeicherte Einstellungen ohne die Schlüssel: Standards.
+    func testStoredSettingsWithoutKeysGetDefaults() throws {
+        let stored = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"darkMode":true}"#.utf8))
+        XCTAssertTrue(stored.watchlistNames)
+        XCTAssertTrue(stored.showConverted)
+        XCTAssertFalse(stored.includeAlphaTokens)
+        XCTAssertFalse(stored.portfolioEnabled)
     }
 
     /// Gespeicherte Werte bleiben, auch nach erneutem Speichern und Lesen.

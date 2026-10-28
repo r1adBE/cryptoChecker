@@ -13,7 +13,7 @@ import javax.inject.Singleton
  * [MoveWindow]). Nur für Paare mit so einem Alarm; höchstens alle 2 Minuten ein Punkt, ältere
  * ausgedünnt, 31 Stunden lang (Spiegel: `MoveHistoryStore.swift`).
  *
- * Bewusst SharedPreferences statt Room: kleine, kurzlebige Daten ohne Migration (wie der
+ * Bewusst SharedPreferences statt Room: kleine, kurzlebige Daten (wie der
  * Open-Interest-Verlauf in [ActivityRepository]). Format: ein Schlüssel je Paar
  * («h_<watchId>» = [[zeit, kurs], …], [MoveHistoryCore]).
  * Fehlt der Verlauf (gelöscht, neu installiert), prüft der Alarm gegen seinen gespeicherten Bezug.
@@ -24,7 +24,7 @@ class MoveHistoryStore @Inject constructor(
 ) {
     private val prefs: SharedPreferences by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
-    /** Ein Schlüssel je Paar, Aufräumen und Überführung des alten Formats: [MoveHistoryCore]. */
+    /** Ein Schlüssel je Paar und Aufräumen: [MoveHistoryCore]. */
     private val core by lazy {
         MoveHistoryCore(object : MoveHistoryStorage {
             override fun read(key: String): String? = prefs.getString(key, null)

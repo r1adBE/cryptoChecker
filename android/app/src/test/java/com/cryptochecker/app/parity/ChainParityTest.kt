@@ -218,15 +218,6 @@ class ChainParityTest {
             assertTrue(name, !auto || due)
             assertEquals(name, auto, WatchedAddressRules.overlapAllMatched(a, trades))
             assertEquals(name, if (auto) listOf(a) else emptyList(), WatchedAddressRules.overlapAutoShowOnly(listOf(a), trades))
-            // Alter Entscheid «Nur anzeigen»: ohne passende Menge zurück auf zählen, mit bleibt er
-            val legacy = a.copy(countInPortfolio = false, overlapChecked = true, overlapLegacy = true)
-            assertEquals(name, !due, WatchedAddressRules.overlapLegacyRevert(legacy, trades))
-            val migrated = WatchedAddressRules.withOverlapMigrated(legacy, !due)
-            assertFalse(name, migrated.overlapLegacy)
-            assertEquals(name, !due, migrated.countInPortfolio)
-            assertEquals(name, due, migrated.overlapChecked)
-            // Alter Entscheid «zählen» bleibt immer
-            assertFalse(name, WatchedAddressRules.overlapLegacyRevert(legacy.copy(countInPortfolio = true), trades))
         }
         val matching = h["overlapAmounts"].list().first().obj()["trades"].list().map { tradeOf(it.obj()) }
         assertEquals(listOf(counting), WatchedAddressRules.overlapAutoShowOnly(listOf(counting), matching))
@@ -238,12 +229,9 @@ class ChainParityTest {
         assertTrue(undone.countInPortfolio && undone.overlapChecked)
         assertTrue(WatchedAddressRules.overlapAutoShowOnly(listOf(undone), matching).isEmpty())
         val stored = WatchedAddressExtras.decode(WatchedAddressExtras.encode(undone), undone.chain)
-        assertTrue(stored.overlapChecked && stored.countInPortfolio && !stored.overlapLegacy)
-        // Gespeichert ohne «ovl2» (alte Regel): alter Entscheid, nach der Übernahme mit «ovl2»
-        val old = WatchedAddressExtras.decode("{\"o\":[],\"show\":false,\"ovl\":true}", AddressChain.BTC)
-        assertTrue(old.overlapChecked && old.overlapLegacy && !old.countInPortfolio)
-        val kept = WatchedAddressRules.withOverlapMigrated(switched.copy(overlapLegacy = true), revert = false)
-        assertFalse(WatchedAddressExtras.decode(WatchedAddressExtras.encode(kept), kept.chain).overlapLegacy)
+        assertTrue(stored.overlapChecked && stored.countInPortfolio)
+        val shownStored = WatchedAddressExtras.decode(WatchedAddressExtras.encode(switched), switched.chain)
+        assertTrue(shownStored.overlapChecked && !shownStored.countInPortfolio)
         h["overlapAtAdd"].list().map { it.obj() }.forEach { c ->
             assertEquals(c["ask"], WatchedAddressRules.overlapAtAdd(AddressChain.fromName(c["chain"] as String)!!, c["ownCoins"].list().map { it as String }.toSet()))
         }

@@ -92,9 +92,8 @@ class WatchRepositoryLockTest {
     fun backgroundWritesDoNotAskTheLock() {
         assertFalse(source("WatchRepositoryRefresh.kt").contains("userWriteRefused("))
         val repo = source("WatchRepository.kt")
-        for (signature in listOf("suspend fun normalizeContractTypes()", "suspend fun clearChanges(")) {
-            assertFalse(signature, member(repo, signature).contains("userWriteRefused("))
-        }
+        val signature = "suspend fun clearChanges("
+        assertFalse(signature, member(repo, signature).contains("userWriteRefused("))
     }
 
     /**

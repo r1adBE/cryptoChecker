@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">自分の取引にもあります：%1$s – 両方が合算されます。同じコインなら「表示のみ」を選んでください。</string>
     <string name="portfolio_address_overlap_ask">%1$s はすでに自分の取引で記録しています。このアドレスの残高をポートフォリオに加えますか？それとも表示だけにしますか？</string>
     <string name="portfolio_address_overlap_auto">「%1$s」は表示のみになり、計上されません – %2$s は自分の取引にもあります。</string>
-    <string name="portfolio_address_overlap_restored">「%1$s」は再び計上されます – 数量が取引と一致しません。同じコインなら「表示のみ」を選んでください。</string>
     <string name="portfolio_address_overlap_title">取引と同じコインですか？</string>
     <string name="portfolio_address_overlap_tx">自分の入庫/振替（%1$s）と同じ数量です – 二重に計上されている可能性があります。</string>
     <string name="portfolio_address_period_observed">監視中のアドレスは最初に確認した残高から計算します。その後の変化は入出金であり、利益ではありません。</string>

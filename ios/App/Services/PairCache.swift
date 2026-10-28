@@ -152,9 +152,6 @@ actor PairCache {
     /// Schon gelesene bzw. frisch geladene Listen.
     private var memory: [String: ExchangePairsInfo] = [:]
 
-    /// Börsen, deren Paarliste Kontrakte mit TradFi-Kennzeichen enthält.
-    private static let marksTradFi: Set<String> = ["BinanceFutures", "BybitFutures", "OkexFutures", "MexcFutures", "BitgetFutures"]
-
     // MARK: Ablage
 
     private var folder: URL {
@@ -236,16 +233,8 @@ actor PairCache {
     private func storedPairs(for key: String) -> ExchangePairsInfo {
         if let known = memory[key] { return known }
         guard let fromDisk = readFile(key) else { return builtIn(key) }
-        // Datei einer älteren Version ohne TradFi-Kontrakte: löschen; die leere Liste sorgt beim
-        // nächsten Wählen der Börse für ein vollständiges neues Laden
-        if Self.marksTradFi.contains(key), !fromDisk.pairs.isEmpty, !fromDisk.pairs.contains(where: { $0.tradFi != nil }) {
-            try? FileManager.default.removeItem(at: fileURL(key))
-            return ExchangePairsInfo()
-        }
-        // Ältere Dateien kennen inverse Perpetuals noch nicht (`FuturesContractType.normalized`)
-        let upgraded = Self.withInversePerpetuals(fromDisk, exchangeKey: key)
-        memory[key] = upgraded
-        return upgraded
+        memory[key] = fromDisk
+        return fromDisk
     }
 
     /// Ohne Datei: die fest hinterlegten Paare der Börse (sortiert, Datum 0, nicht gemerkt).
@@ -256,20 +245,6 @@ actor PairCache {
             for quote in quotes { list.append(ExchangePair(base, quote, nil)) }
         }
         return ExchangePairsInfo(lastSyncDate: 0, pairs: list.sorted())
-    }
-
-    /// Kontrakttypen der gespeicherten Liste so, wie die heutige Paarliste sie liefert (inverse
-    /// Perpetuals als `.inversePerpetual`); unverändert, wenn nichts anders wird. Wie Android.
-    private static func withInversePerpetuals(_ info: ExchangePairsInfo, exchangeKey: String) -> ExchangePairsInfo {
-        let target = info.pairs.map { FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: $0.pairId, $0.contractType) }
-        guard zip(info.pairs, target).contains(where: { $0.0.contractType != $0.1 }) else { return info }
-        var result = info
-        result.pairs = zip(info.pairs, target).map { item, type in
-            var changed = item
-            changed.contractType = type
-            return changed
-        }
-        return result
     }
 
     /// TradFi-Paare fallen weg, solange «Token & TradFi» sie nicht zulässt. Krypto bleibt hier immer

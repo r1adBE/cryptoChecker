@@ -28,8 +28,6 @@ enum ActivityAnalyzer {
     static let fundingStrongPercent = 0.1
     static let oiJumpPercent = 10.0
     static let oiStrongPercent = 20.0
-    static let oiMinAgeMillis: Int64 = 30 * 60_000
-    static let oiMaxAgeMillis: Int64 = 6 * hourMillis
 
     /// Höchstens so viele der 24 Vergleichsstunden dürfen ganz ohne Handel sein (ein Viertel),
     /// sonst ist das Volumen-Verhältnis unzuverlässig und entfällt.
@@ -194,22 +192,6 @@ enum ActivityAnalyzer {
         guard let candles, let current = candles.last?.close else { return nil }
         guard let past = priceAt(candles, now - Int64(hours) * hourMillis) else { return nil }
         return past > 0 && current > 0 ? (current / past - 1) * 100 : nil
-    }
-
-    /// Open-Interest-Vergleich mit der gespeicherten Messung. Verglichen wird nur
-    /// gegen eine Messung, die 30 Min.–6 Std. alt ist. Jüngere bleibt stehen
-    /// (sonst wäre der Abstand immer nur 10 Min.), ältere oder fehlende wird ersetzt.
-    static func oiChange(previous: OiSample?, currentUnits: Double?, now: Int64) -> OiUpdate {
-        guard let currentUnits, currentUnits > 0 else { return OiUpdate(changePercent: nil, minutes: nil, store: false) }
-        guard let previous, previous.units > 0 else { return OiUpdate(changePercent: nil, minutes: nil, store: true) }
-        let age = now - previous.time
-        if age < 0 || age > oiMaxAgeMillis { return OiUpdate(changePercent: nil, minutes: nil, store: true) }
-        if age < oiMinAgeMillis { return OiUpdate(changePercent: nil, minutes: nil, store: false) }
-        return OiUpdate(
-            changePercent: (currentUnits / previous.units - 1) * 100,
-            minutes: Int(age / 60_000),
-            store: true
-        )
     }
 
     // MARK: Signale

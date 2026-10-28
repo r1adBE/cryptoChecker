@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Také ve tvých vlastních transakcích: %1$s – sčítá se obojí. Stejné mince? Zvol „Jen zobrazit“.</string>
     <string name="portfolio_address_overlap_ask">%1$s už zaznamenáváš vlastními transakcemi. Má se zůstatek této adresy započítat do portfolia, nebo se jen zobrazit?</string>
     <string name="portfolio_address_overlap_auto">„%1$s“ se teď jen zobrazuje, nezapočítává – %2$s jsou i ve tvých transakcích.</string>
-    <string name="portfolio_address_overlap_restored">„%1$s“ se znovu započítává – množství neodpovídají tvým transakcím. Zvol „Jen zobrazit“, pokud jde o stejné mince.</string>
     <string name="portfolio_address_overlap_title">Stejné mince jako ve tvých transakcích?</string>
     <string name="portfolio_address_overlap_tx">Stejné množství jako tvůj vklad/převod (%1$s) – nejspíš se počítá dvakrát.</string>
     <string name="portfolio_address_period_observed">Sledované adresy se počítají od prvního zjištěného zůstatku; pozdější změny jsou přítoky/odtoky, ne zisk.</string>

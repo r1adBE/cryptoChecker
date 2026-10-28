@@ -3902,20 +3902,6 @@
       }
     },
     {
-      "name": "legacy_without_source",
-      "series": [
-        [-120.0, 1000.0, null]
-      ],
-      "current": 1100.0,
-      "source": "OKX",
-      "expected": {
-        "change": 10.000000000000009,
-        "minutes": 120.0,
-        "consistent": true,
-        "samples": 1.0
-      }
-    },
-    {
       "name": "no_current",
       "series": [
         [-120.0, 1000.0, "Bybit"]
@@ -3992,17 +3978,6 @@
       "sample": [0.0, 500.0, "OKX"],
       "expected": [
         [0.0, 500.0, "OKX"]
-      ]
-    },
-    {
-      "name": "legacy_kept",
-      "series": [
-        [-60.0, 900.0, null]
-      ],
-      "sample": [0.0, 950.0, "Bybit"],
-      "expected": [
-        [-60.0, 900.0, null],
-        [0.0, 950.0, "Bybit"]
       ]
     },
     {

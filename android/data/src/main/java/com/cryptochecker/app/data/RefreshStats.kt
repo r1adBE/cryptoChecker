@@ -104,8 +104,6 @@ class RefreshStats @Inject constructor(
     fun setLastReport(report: RefreshReport) {
         prefs.edit {
             putString(KEY_LAST_REPORT, RefreshReportCodec.encode(report))
-            // Bis Runde 21 als Klartext gespeichert
-            remove(KEY_LEGACY_REPORT)
         }
         _lastReport.value = report
     }
@@ -162,7 +160,6 @@ class RefreshStats @Inject constructor(
         const val KEY_LAST_FULL_CHECK_AT = "last_full_check_at"
         const val KEY_LAST_FULL_REFRESH_AT = "last_full_refresh_at"
         const val KEY_LAST_REPORT = "last_refresh_report_v2"
-        const val KEY_LEGACY_REPORT = "last_refresh_report"
         const val KEY_CHANGE_STAMP = "change_basis_stamp"
         const val KEY_APP_START = "app_start_millis"
         const val KEY_BACKOFF = "exchange_backoff"

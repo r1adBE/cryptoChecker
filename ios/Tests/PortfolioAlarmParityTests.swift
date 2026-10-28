@@ -23,9 +23,6 @@ final class PortfolioAlarmParityTests: XCTestCase {
             let restored = BackupManager.jsonToPortfolioAlarm(json)
             XCTAssertEqual(restored != nil, c["restored"] as? Bool, "\(name): übernommen")
             XCTAssertEqual(restored?.enabled ?? false, c["restoredEnabled"] as? Bool, "\(name): danach an")
-            let alarm = PortfolioAlarm(id: 7, kind: kind, threshold: threshold, currency: nil, enabled: true)
-            XCTAssertEqual(FallAlarmCleanup.portfolioIdsToDisable([alarm]) == [7], c["exceedsFall"] as? Bool,
-                           "\(name): Bereinigung")
         }
     }
 

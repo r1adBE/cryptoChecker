@@ -97,8 +97,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
             runCatching { com.cryptochecker.app.data.local.DatabaseSystemBackup(this).cleanUpLeftover() }
                 .onFailure { Timber.w(it, "Systemsicherung: Aufräumen fehlgeschlagen") }
         }
-        // Ebenso eine unverschlüsselte Portfolio-Kopie neben der Portfolio-Datenbank (dauernd in älteren Versionen
-        // oder eine abgebrochene Sicherung); ohne Datenbank bleibt sie für die Übernahme nach einer Wiederherstellung
+        // Ebenso eine unverschlüsselte Portfolio-Kopie neben der Portfolio-Datenbank (abgebrochene Sicherung); ohne
+        // Datenbank bleibt sie für die Übernahme nach einer Wiederherstellung
         runCatching { PortfolioBackupMirror.cleanUpLeftover(this) }
             .onFailure { Timber.w(it, "Portfolio: Kopie für die Systemsicherung nicht aufgeräumt") }
         super.onCreate()
@@ -186,7 +186,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
      * nie runBlocking auf dem Hauptthread (ANR-Gefahr bei langsamem Speicher).
      * Danach im Hintergrund mit den Einstellungen abgleichen; das schreibt auch den Zwischenspeicher.
      *
-     * Fehlt er (Update von einem älteren Build, nach Wiederherstellung), startet die App wie das
+     * Fehlt er (erster Start, nach einer Wiederherstellung), startet die App wie das
      * System und übernimmt die gespeicherte Wahl, sobald sie gelesen ist. Abwägung: Weicht die Wahl
      * vom System ab und ist das erste Fenster dann schon offen, baut AppCompat es einmal neu auf
      * (kurzes Umschalten) — nur bei diesem einen Start, danach liegt der Zwischenspeicher vor.

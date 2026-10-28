@@ -170,12 +170,11 @@ struct CryptoCheckerApp: App {
                 // Verschlüsselte Daten ohne Schlüssel beiseitegelegt: sagen, wie sie zurückkommen (bis bestätigt);
                 // «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung
                 .storageRecoveryNotice(onRestoreBackup: { router.openBackupSettings() })
-                // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken;
-                // danach einmalig «fällt um ≥ 100 %»-Alarme ausschalten — beides mit dem beim Start gelesenen Stand
+                // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken
+                // (mit dem beim Start gelesenen Stand)
                 .task {
                     await data.waitForSnapshot()
                     BackupManager.recoverInterruptedRestore(data)
-                    data.disableInvalidFallAlarmsOnce()
                 }
                 // Portfolio-Sperre: gesperrt ist nur der Portfolio-Tab (RootView); hier nur der
                 // Sichtschutz im App-Umschalter, solange die Sperre an ist
@@ -267,8 +266,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // Alarmtöne auch nach `Library/Sounds` der App Group: dort findet iOS sie sicher, wenn die Widget-Erweiterung
         // einen Kursalarm meldet (`AlarmSounds.installSharedSounds`, wiederholbar, kopiert nur Fehlendes/Geändertes)
         DispatchQueue.global(qos: .utility).async { AlarmSounds.installSharedSounds() }
-        // Keine Kennungen: Cookies/Cache-Antworten älterer Versionen weg (eigene Sitzungen speichern
-        // keine mehr), ebenso ein nach Absturz oder Beenden liegen gebliebener Diagnosebericht im `tmp`-Ordner
+        // Keine Kennungen: Cookies/Cache-Antworten der gemeinsamen Speicher weg (eigene Sitzungen speichern
+        // keine), ebenso ein nach Absturz oder Beenden liegen gebliebener Diagnosebericht im `tmp`-Ordner
         DispatchQueue.global(qos: .utility).async {
             PrivateSessionConfig.clearSharedStores()
             DiagnosticsShareFile.remove()

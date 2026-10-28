@@ -20,29 +20,24 @@ import androidx.datastore.preferences.core.Preferences
 fun appSettingsOf(prefs: Preferences): AppSettings {
     val defaults = AppSettings()
     return AppSettings(
-        // Die Migration ([UpdateModeMigration]) hat den Wert beim ersten Lesen gesetzt
         updateMode = UpdateMode.fromNameOrNull(prefs[SettingsKeys.updateMode]) ?: defaults.updateMode,
-        // Grenzen wie beim Setzen (früher gespeicherte, zu grosse Werte), wie iOS
+        // Grenzen wie beim Setzen, wie iOS
         backgroundIntervalMinutes = AppSettings.clampBackgroundInterval(
             prefs[SettingsKeys.backgroundInterval] ?: defaults.backgroundIntervalMinutes
         ),
         exactChecks = prefs[SettingsKeys.exactChecks] ?: defaults.exactChecks,
-        liveIntervalSeconds = AppSettings.clampLiveInterval(prefs[SettingsKeys.liveInterval] ?: defaults.liveIntervalSeconds),
         priceNotifications = prefs[SettingsKeys.priceNotifications] ?: defaults.priceNotifications,
         ongoingNotifications = prefs[SettingsKeys.ongoingNotifications]
             ?: defaults.ongoingNotifications,
         priceOverlay = prefs[SettingsKeys.priceOverlay] ?: defaults.priceOverlay,
-        notificationChangePercent = prefs[SettingsKeys.notificationChange]
-            ?: prefs[SettingsKeys.notificationChangeLegacy]?.toDouble()
-            ?: defaults.notificationChangePercent,
+        notificationChangePercent = prefs[SettingsKeys.notificationChange] ?: defaults.notificationChangePercent,
         ttsEnabled = prefs[SettingsKeys.tts] ?: defaults.ttsEnabled,
         ttsAlarmsOnly = prefs[SettingsKeys.ttsAlarmsOnly] ?: defaults.ttsAlarmsOnly,
         ttsSpeechRate = prefs[SettingsKeys.ttsSpeechRate] ?: defaults.ttsSpeechRate,
         alarmCooldownMinutes = AppSettings.clampAlarmCooldown(prefs[SettingsKeys.alarmCooldown] ?: defaults.alarmCooldownMinutes),
         includeRollingFutures = prefs[SettingsKeys.includeRollingFutures]
             ?: defaults.includeRollingFutures,
-        // Fehlt der neue Wert (Update): einmalig aus dem früheren Schalter übernehmen
-        assetScope = AssetScope.resolve(prefs[SettingsKeys.assetScope], prefs[SettingsKeys.includeTradFiFuturesLegacy]),
+        assetScope = AssetScope.fromNameOrNull(prefs[SettingsKeys.assetScope]) ?: defaults.assetScope,
         includeAlphaTokens = prefs[SettingsKeys.includeAlphaTokens] ?: defaults.includeAlphaTokens,
         accentColor = AccentColor.fromName(prefs[SettingsKeys.accentColor]),
         darkMode = prefs[SettingsKeys.darkMode],
@@ -104,7 +99,7 @@ fun appSettingsOf(prefs: Preferences): AppSettings {
         portfolioHistoryView = PortfolioHistoryView.fromName(prefs[SettingsKeys.portfolioHistoryView]),
         portfolioHistoryCandles = prefs[SettingsKeys.portfolioHistoryCandles] ?: defaults.portfolioHistoryCandles,
         portfolioHistoryPnl = prefs[SettingsKeys.portfolioHistoryPnl] ?: defaults.portfolioHistoryPnl,
-        // Fehlt oder unbekannt (auch bestehende Installationen): FIFO
+        // Fehlt oder unbekannt: FIFO
         costMethod = CostMethod.fromName(prefs[SettingsKeys.costMethod]),
         // Fehlt oder unbekannt: Neutral
         taxTemplate = com.cryptochecker.app.domain.portfolio.TaxTemplate.fromName(prefs[SettingsKeys.taxTemplate]),

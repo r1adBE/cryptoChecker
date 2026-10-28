@@ -142,14 +142,12 @@ data class UpdateSettings(
     val updateMode: UpdateMode,
     val backgroundIntervalMinutes: Int,
     val exactChecks: Boolean,
-    val liveIntervalSeconds: Int,
 ) {
     companion object {
         fun of(s: AppSettings) = UpdateSettings(
             updateMode = s.updateMode,
             backgroundIntervalMinutes = s.backgroundIntervalMinutes,
             exactChecks = s.exactChecks,
-            liveIntervalSeconds = s.liveIntervalSeconds,
         )
     }
 }

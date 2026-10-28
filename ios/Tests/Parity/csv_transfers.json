@@ -1705,13 +1705,12 @@
   }
  ],
  "duplicates": {
-  "_comment": "gespeicherte Schlüssel samt linkedImportKey verknüpfter Umbuchungen: beide Seiten gelten als importiert; früher gekürzte Teile (LegacyStorageMigration.shortKey von longKey) ebenso",
+  "_comment": "gespeicherte Schlüssel samt linkedImportKey verknüpfter Umbuchungen: beide Seiten gelten als importiert",
   "existing": [
    "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",
    "COINBASE|65a1b2c3d4e5f60718293a01",
    "KRAKEN|R7"
   ],
-  "longKey": "GENERIC|WITHDRAWAL|BTC|L1704987000000|0.005|-|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "known": [
    "COINBASE|65a1b2c3d4e5f60718293a01",
    "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-",

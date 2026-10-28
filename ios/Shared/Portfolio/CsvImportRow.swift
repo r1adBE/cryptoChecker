@@ -84,9 +84,6 @@ struct CsvImportRow: Equatable {
     /// Kalenderzeit der Datei (als wäre sie UTC), wenn sie ohne Versatz steht — Schlüssel unabhängig von der gewählten
     /// Zeitzone (`CsvImport.key`); nil = Zeit mit Versatz/«Z».
     var localTime: Int64? = nil
-    /// Frühere Schlüssel derselben Zeile (Zeit je Zeitzone in UTC; Kauf/Verkauf gegen Stablecoin
-    /// als Kauf/Verkauf) — erkennt ältere Importe.
-    var legacyKeys: [String] = []
     /// Kauf/Verkauf gegen einen Stablecoin, als Tausch gebucht (`CsvImport.stables`) — Hinweis in der Vorschau.
     var stableSwap = false
 }
@@ -292,16 +289,11 @@ enum CsvImport {
         }
     }
 
-    /// Zeilen, deren Schlüssel (oder ein früherer, `legacyKeys`) schon gespeichert ist, als Duplikate abtrennen.
-    /// `existingKeys` = alle gespeicherten Herkunftsschlüssel samt `linkedImportKey` verknüpfter Umbuchungen: jede ihrer
-    /// Seiten gilt als importiert. Von älteren Versionen verknüpfte Umbuchungen tragen lange Teile gekürzt
-    /// (`LegacyStorageMigration.shortKey`) — auch darüber erkannt. Wie Android.
+    /// Zeilen, deren Schlüssel schon gespeichert ist, als Duplikate abtrennen. `existingKeys` = alle gespeicherten
+    /// Herkunftsschlüssel samt `linkedImportKey` verknüpfter Umbuchungen: jede ihrer Seiten gilt als importiert. Wie Android.
     static func splitDuplicates(_ rows: [CsvImportRow], existingKeys: Set<String>) -> CsvImportSplit {
-        func isKnown(_ key: String) -> Bool {
-            existingKeys.contains(key) || existingKeys.contains(LegacyStorageMigration.shortKey(key))
-        }
-        func known(_ r: CsvImportRow) -> Bool { isKnown(r.key) || r.legacyKeys.contains(where: isKnown) }
-        return CsvImportSplit(fresh: rows.filter { !known($0) }, duplicates: rows.filter { known($0) })
+        CsvImportSplit(fresh: rows.filter { !existingKeys.contains($0.key) },
+                       duplicates: rows.filter { existingKeys.contains($0.key) })
     }
 
     /// Gemeinsamer Abschluss der Börsen-Leser (Kraken, Binance, Coinbase, Bitpanda) — wie Android `finish`: Zeilen nach

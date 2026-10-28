@@ -26,10 +26,7 @@ object BackupFormat {
         return parse(text)
     }
 
-    /**
-     * Text einer Sicherungsdatei: eingerückt (ältere Sicherungen) oder kompakt ([encode]) — der Parser nimmt
-     * beides, auch Sicherungen von iOS.
-     */
+    /** Text einer Sicherungsdatei: kompakt ([encode]) oder eingerückt — der Parser nimmt beides, auch Sicherungen von iOS. */
     fun parse(text: String): BackupFile {
         BackupLimits.checkDepth(text)
         val root = JSONObject(text)
@@ -44,11 +41,10 @@ object BackupFormat {
                 version = root.optInt("v"),
                 enc = root.optString("enc"),
                 kdf = root.optString("kdf"),
-                iterations = root.optInt("iter"),
                 salt = root.optString("salt"),
                 iv = root.optString("iv"),
                 data = root.optString("data"),
-                // v3 (Argon2id): Speicher in KiB, Durchgänge, Bahnen
+                // Argon2id: Speicher in KiB, Durchgänge, Bahnen
                 memoryKiB = root.optInt("m"),
                 time = root.optInt("t"),
                 parallelism = root.optInt("p"),

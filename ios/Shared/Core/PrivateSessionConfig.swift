@@ -17,7 +17,7 @@ enum PrivateSessionConfig {
         return c
     }
 
-    /// Einmal beim Start: Cookies und Cache-Antworten aus älteren Versionen (oder aus `URLSession.shared`)
+    /// Einmal beim Start: Cookies und Cache-Antworten der gemeinsamen Speicher (`URLSession.shared`)
     /// entfernen. Billig, darum ohne Merker bei jedem Start.
     static func clearSharedStores() {
         HTTPCookieStorage.shared.removeCookies(since: .distantPast)

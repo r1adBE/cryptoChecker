@@ -21,14 +21,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Überführung echter Datenbankdateien eines Testgeräts (unverschlüsselt, vom Inhaber geliefert; Hauptdatenbank im aktuellen
+ * Überführung echter Datenbankdateien eines Testgeräts (unverschlüsselt, vom Inhaber geliefert; beide im aktuellen
  * Schema): `cryptochecker.db` und
  * `cryptochecker_portfolio.db` samt `-wal`/`-shm` unter `app/src/androidTest/assets/realdb/` ablegen (nur Testgerät,
  * keine echten Bestände ins Repository). Fehlen sie, wird der Test übersprungen.
  *
- * Geprüft: Jede Tabelle hat nach Verschlüsselung und Room-Migrationen (Portfolio-Datenbank) mindestens so viele Zeilen wie
- * vorher (Room-Migrationen fügen höchstens hinzu; die Merkliste-/Portfolio-Tabellen exakt gleich viele), beide Dateien sind
- * verschlüsselt.
+ * Geprüft: Jede Tabelle hat nach der Verschlüsselung mindestens so viele Zeilen wie vorher (Zwischenspeicher dürfen
+ * wachsen; die Merkliste-/Portfolio-Tabellen exakt gleich viele), beide Dateien sind verschlüsselt.
  */
 @RunWith(AndroidJUnit4::class)
 class RealDatabaseEncryptionTest {
@@ -70,7 +69,6 @@ class RealDatabaseEncryptionTest {
             .build()
         val portfolio = Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO)
             .openHelperFactory(factory)
-            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
             .addCallback(PortfolioDatabase.callback(context, File(context.cacheDir, "realdb-mirror.json")))
             .build()
         try {

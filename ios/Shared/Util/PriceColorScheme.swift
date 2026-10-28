@@ -38,12 +38,6 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     /// Standard: «Ruhig» (gedämpftes Grün/Rot); «Frisch» (Binance-Grün/-Rot) bleibt wählbar.
     static let `default`: PriceColorScheme = .CALM
 
-    /// Gespeicherte Einstellungen ohne Merker `priceColorDefaultV2`: «Frisch» war der mitgespeicherte
-    /// frühere Standard (iOS speichert alle Einstellungen als Ganzes) → «Ruhig»; andere Wahl bleibt.
-    static func migrated(_ stored: PriceColorScheme, markerPresent: Bool) -> PriceColorScheme {
-        !markerPresent && stored == .GREEN_RED ? .default : stored
-    }
-
     var id: String { rawValue }
 
     /// Mindestabstand (ΔE2000) jeder Kursfarbe zur Akzentfarbe, hell und dunkel je für sich.

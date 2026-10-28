@@ -96,8 +96,8 @@ final class ExchangeFailureParityTests: XCTestCase {
         XCTAssertEqual(ExchangeFailure.of(ResponseTooLargeError()), .other)
     }
 
-    /// Gleiche Einordnung wie bisher: Zeit blieb schon TIMEOUT (eigens erkannt), alles andere wie aus dem Text.
-    func testTypedMatchesLegacyClassification() {
+    /// Gleiche Einordnung über die Art wie über den Text (Zeitüberschreitung eigens erkannt: TIMEOUT).
+    func testTypedMatchesTextClassification() {
         let errors: [Error] = [
             HttpExchangeError(httpCode: 429, body: "slow down", retryAfterSeconds: 30),
             HttpExchangeError(httpCode: 404, body: "{}"),
@@ -116,9 +116,9 @@ final class ExchangeFailureParityTests: XCTestCase {
             let kind = ExchangeFailure.of(error)
             XCTAssertEqual(RefreshReportLogic.classify(kind, text), RefreshReportLogic.classify(text), text)
             // Ausnahme mit Absicht: .other (interner Fehler) bestätigt nie «nicht mehr gehandelt»
-            let legacy = NotTraded.confirmedBySingle(gotPrice: false, error: text)
+            let byText = NotTraded.confirmedBySingle(gotPrice: false, error: text)
             XCTAssertEqual(NotTraded.confirmedBySingle(gotPrice: false, error: text, failure: kind),
-                           legacy && kind != .other, text)
+                           byText && kind != .other, text)
         }
         XCTAssertEqual(RefreshReportLogic.classify(ExchangeFailure.of(URLError(.timedOut)),
                                                    ConnectionErrors.describe(URLError(.timedOut))), .TIMEOUT)

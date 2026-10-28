@@ -14,18 +14,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.io.File
 import kotlinx.coroutines.sync.withLock
 import com.cryptochecker.app.data.CoinListSync.Companion.KEY_MAP_ATTEMPT
 import com.cryptochecker.app.data.CoinListSync.Companion.KEY_MAP_TIME
-import com.cryptochecker.app.data.CoinListSync.Companion.OLD_FILES
-import com.cryptochecker.app.data.CoinListSync.Companion.OLD_KEY_INDEX_ETAG
 import com.cryptochecker.app.data.CoinListSync.NetState
 
 /**
  * Zuordnung aus Datei bzw. frisch von CoinGecko, zusammengeführt mit den Binance-Listen aus
- * [refreshLists]; bei Fehlern die alte (auch abgelaufen). Einträge der früheren eigenen Logo-Liste
- * (GitHub Pages) fallen beim Lesen weg ([CoinLogos.isAllowedUrl]) — dann wird die Liste neu geholt.
+ * [refreshLists]; bei Fehlern die alte (auch abgelaufen). Nur freigegebene Bild-Adressen
+ * ([CoinLogos.isAllowedUrl]).
  * [onTop]: Zuordnung nach den grössten 1000 (für den frühen Start der Bilder), nur bei neuem Abruf.
  */
 suspend fun CoinListSync.symbolMap(onTop: (suspend (Map<String, String>) -> Unit)? = null): Map<String, String> =
@@ -33,10 +30,8 @@ suspend fun CoinListSync.symbolMap(onTop: (suspend (Map<String, String>) -> Unit
 
 suspend fun CoinListSync.lockedSymbolMap(onTop: (suspend (Map<String, String>) -> Unit)?): Map<String, String> {
     val now = System.currentTimeMillis()
-    // Nach dem Update: bis zum ersten Abruf die Liste der Vorgängerfassung
-    val known = map ?: withContext(Dispatchers.IO) {
-        CoinLogos.decode(CoinLogoStorage.readFirst(mapFile, File(context.noBackupFilesDir, OLD_FILES[0])))
-    }.also { map = it }
+    val known = map ?: withContext(Dispatchers.IO) { CoinLogos.decode(CoinLogoStorage.readNonBlank(mapFile)) }
+        .also { map = it }
     names.loadSavedNames()
     val saved = savedLists()
     mapNetworkFailed = false
@@ -91,14 +86,9 @@ suspend fun CoinListSync.lockedSymbolMap(onTop: (suspend (Map<String, String>) -
             mapFile.parentFile?.mkdirs()
             mapFile.writeText(CoinLogos.encode(fresh))
             names.writeNamesFile(newNames)
-            // Listen älterer Fassungen
-            for (old in OLD_FILES) File(context.noBackupFilesDir, old).delete()
         }.onFailure { Timber.w(it, "Logo-Zuordnung nicht gespeichert") }
     }
-    prefs.edit {
-        putLong(KEY_MAP_TIME, CoinLogos.savedAtFor(now, full))
-        remove(OLD_KEY_INDEX_ETAG)
-    }
+    prefs.edit { putLong(KEY_MAP_TIME, CoinLogos.savedAtFor(now, full)) }
     // Geänderte Bild-Adressen (anderes Logo, andere Quelle): gespeichertes Bild neu laden
     imageStore.dropChangedImages(known, fresh, skip = handled)
     Timber.i("Coin-Logos: Liste mit %d Einträgen (%s)", fresh.size, if (full) "vollständig" else "unvollständig")

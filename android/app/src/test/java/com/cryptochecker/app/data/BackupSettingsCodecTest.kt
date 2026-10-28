@@ -37,7 +37,6 @@ class BackupSettingsCodecTest {
         override suspend fun current() = s
         override suspend fun setUpdateMode(mode: UpdateMode) { s = s.copy(updateMode = mode) }
         override suspend fun setBackgroundInterval(minutes: Int) { s = s.copy(backgroundIntervalMinutes = minutes) }
-        override suspend fun setLiveInterval(seconds: Int) { s = s.copy(liveIntervalSeconds = seconds) }
         override suspend fun setPriceNotifications(enabled: Boolean) { s = s.copy(priceNotifications = enabled) }
         override suspend fun setOngoingNotifications(enabled: Boolean) { s = s.copy(ongoingNotifications = enabled) }
         override suspend fun setNotificationChangePercent(percent: Double) { s = s.copy(notificationChangePercent = percent) }
@@ -202,16 +201,6 @@ class BackupSettingsCodecTest {
         assertEquals(null, settings.server)
         assertEquals(null, restore("https://b.example/api", trusted = true))
         assertEquals("https://b.example/api", settings.server)
-    }
-
-    @Test
-    fun frueherenSchalterZeitraumUebergehen() = runTest {
-        // Ältere Sicherung mit «showChangePeriod»: wird still übergangen, der Rest kommt an; geschrieben wird er nicht
-        val settings = FakeSettings()
-        val old = JSONObject().put("showChangePeriod", true).put("watchlistSparkline", true)
-        assertFalse(codec(settings).restoreSettings(old, trusted = true).appLockKept)
-        assertTrue(settings.s.watchlistSparkline)
-        assertFalse(codec(settings).settingsToJson().has("showChangePeriod"))
     }
 
     @Test

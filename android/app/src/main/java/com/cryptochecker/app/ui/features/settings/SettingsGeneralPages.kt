@@ -132,7 +132,7 @@ internal fun LanguagePage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
  * Aktualisierung: «Wie aktuell?» (eine Wahl: Sparsam oder Live, solange offen), darunter die
  * Feinheiten (Hintergrund-Intervall, Pünktlich prüfen, feste Mitteilung), dann die Akkunutzung und ganz
  * unten «Letzte Prüfungen». Wie iOS
- * `UpdatesPage`. «Immer kurz» (Vordergrunddienst) gibt es seit 1.0 nicht mehr.
+ * `UpdatesPage`.
  */
 @Composable
 internal fun UpdatesPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {

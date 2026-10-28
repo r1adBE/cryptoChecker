@@ -20,7 +20,7 @@ internal fun onOff(on: Boolean): String =
 @Composable
 internal fun updatesSummary(settings: AppSettings): String =
     if (settings.updateMode == UpdateMode.SPARSAM) stringResource(R.string.update_mode_sparsam)
-    else stringResource(R.string.update_mode_live) // «Immer kurz» (alte Daten) gilt als Live
+    else stringResource(R.string.update_mode_live)
 
 /** Kurzwert «Merkliste»: «Mini-Chart · ≈ CHF» oder «Nur Kurs». */
 @Composable

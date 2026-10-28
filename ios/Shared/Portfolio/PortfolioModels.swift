@@ -73,7 +73,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// Zeitpunkt des Handels (ms).
     var time: Int64
     var note: String?
-    /// Gebühr (> 0) in `feeUnit` exakt; nil = keine erfasst (ältere Dateien und Sicherungen).
+    /// Gebühr (> 0) in `feeUnit` exakt; nil = keine erfasst.
     var feeExact: Decimal?
     /// Einheit der Gebühr; nil mit Gebühr = USDT.
     var feeUnit: PortfolioFeeUnit?
@@ -111,12 +111,10 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// (`CsvRestoreState`) für «Import rückgängig»; sonst nil. Wie `PortfolioTxEntity.importRestoreState`.
     var importRestoreState: CsvRestoreState? = nil
     /// Gebühr-Zeile (CSV «Fee»): eine Veräusserung zum Tageskurs (`PortfolioLedger.isFeeDisposal`), gespeichert als Verkauf.
-    /// Eigenes Feld — früher aus «Verkauf zum Preis 0 mit Import-Herkunft» geschlossen
-    /// (`LegacyStorageMigration.legacyFeeRow`). Nur bei `.SELL`. Wie `PortfolioTxEntity.feeRow`.
+    /// Nur bei `.SELL`. Wie `PortfolioTxEntity.feeRow`.
     var feeRow = false
-    /// Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. Eigenes Feld
-    /// (CSV-Import setzt es, im Erfassen-Blatt umschaltbar) — früher aus der Notiz geschlossen
-    /// (`LegacyStorageMigration.legacyInterest`). Nur bei `.REWARD`. Wie `PortfolioTxEntity.interest`.
+    /// Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. CSV-Import setzt es, im
+    /// Erfassen-Blatt umschaltbar. Nur bei `.REWARD`. Wie `PortfolioTxEntity.interest`.
     var interest = false
     /// Wert nur geschätzt (Tagesschluss, `PortfolioLedger.valueAtDayClose`): Verschenkt/bezahlt ohne Marktwert bzw. Tausch
     /// ohne Wert — Steuer-Export «Wert geschätzt (Tagesschluss)». Nie gespeichert (nicht in `CodingKeys`). Wie Android.
@@ -188,33 +186,23 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         self.exchange = exchange
     }
 
-    /// `amount`/`priceUsdt`/`fee` als Zahl (ältere Versionen lesen nur sie), dazu exakt als Text
-    /// (`amountText`: «0.00000001») — wie die Sicherung der Android-Fassung.
+    /// Menge, Preis und Gebühr exakt als Text (`amountText`: «0.00000001») — wie die Sicherung der Android-Fassung.
     private enum CodingKeys: String, CodingKey {
-        case id, coin, type, amount, amountText, priceUsdt, priceText, time, note, fee, feeText, feeUnit, exchange
+        case id, coin, type, amountText, priceText, time, note, feeText, feeUnit, exchange
         // Optionale Felder (wie Android `PortfolioJson`); fehlen = keine Angabe
         case transferFrom, transferTo, feeCoin, feeCoinAmountText, feeCoinPriceText, importKey, acquiredTime
         case toCoin, toAmountText, swapValueText, importBatch
-        // Eigene Felder statt der alten Formen in «transferTo»/«importKey» (`LegacyStorageMigration`)
+        // Partner-Merker und Verknüpfung (zweiter Herkunftsschlüssel, Zustand davor)
         case giftToSpouse, linkedImportKey, importRestoreState
-        // Eigene Merker statt Schluss aus Preis/Herkunft bzw. Notiz
+        // Gebühr-Zeile und Zins
         case feeRow, interest
     }
 
     // Abgeleitete Werte und Bereinigung (Gebühren, Tausch, Route …): PortfolioTx+Derived.swift
 
-    /// Exakte Zahl: zuerst der Text `textKey`, sonst die Zahl `numberKey` (ältere Dateien und
-    /// Sicherungen, über ihre kürzeste Darstellung). Fehlt/ungültig = nil.
-    private static func decimal(_ c: KeyedDecodingContainer<CodingKeys>, text textKey: CodingKeys,
-                                number numberKey: CodingKeys) -> Decimal? {
-        if let text = (try? c.decodeIfPresent(String.self, forKey: textKey)) ?? nil,
-           let value = PortfolioDecimal.parse(text) {
-            return value
-        }
-        let number = (try? c.decodeIfPresent(Double.self, forKey: numberKey)) ?? nil
-        // Gleiche Grenzen wie der Text (absurde Grössen = ungültig)
-        guard let value = PortfolioDecimal.of(number), PortfolioDecimal.withinLimits(value) else { return nil }
-        return value
+    /// Exakte Zahl aus dem Text `key`; fehlt/ungültig = nil.
+    private static func decimal(_ c: KeyedDecodingContainer<CodingKeys>, _ key: CodingKeys) -> Decimal? {
+        PortfolioDecimal.parse((try? c.decodeIfPresent(String.self, forKey: key)) ?? nil)
     }
 
     // Tolerant: fehlende Nebenfelder bekommen Standardwerte; ohne Coin, Art
@@ -225,12 +213,12 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         let rawCoin = try c.decode(String.self, forKey: .coin)
         coin = PortfolioCalculator.normalizeCoin(rawCoin)
         type = try c.decode(PortfolioTxType.self, forKey: .type)
-        amountExact = Self.decimal(c, text: .amountText, number: .amount) ?? 0
-        priceExact = Self.decimal(c, text: .priceText, number: .priceUsdt).flatMap { $0 >= 0 ? $0 : nil }
+        amountExact = Self.decimal(c, .amountText) ?? 0
+        priceExact = Self.decimal(c, .priceText).flatMap { $0 >= 0 ? $0 : nil }
         time = (try? c.decodeIfPresent(Int64.self, forKey: .time)) ?? 0
         note = (try? c.decodeIfPresent(String.self, forKey: .note)) ?? nil
-        // Seit Gebühr/Börse; fehlen in älteren Dateien (= keine Angabe), ungültig = keine Gebühr
-        feeExact = Self.validFee(Self.decimal(c, text: .feeText, number: .fee))
+        // Fehlen = keine Angabe, ungültig = keine Gebühr
+        feeExact = Self.validFee(Self.decimal(c, .feeText))
         let unitName = (try? c.decodeIfPresent(String.self, forKey: .feeUnit)) ?? nil
         feeUnit = feeExact == nil ? nil : PortfolioFeeUnit.from(name: unitName)
         exchange = Self.cleanExchange((try? c.decodeIfPresent(String.self, forKey: .exchange)) ?? nil)
@@ -243,20 +231,16 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         feeCoinAmountExact = third?.amount
         let feePriceText = (try? c.decodeIfPresent(String.self, forKey: .feeCoinPriceText)) ?? nil
         feeCoinPriceExact = third == nil ? nil : feePriceText.flatMap { PortfolioDecimal.parse($0) }.flatMap { $0 >= 0 ? $0 : nil }
-        // Alte Dateien tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen); das
-        // nächste Speichern schreibt nur noch die Felder
-        let stored = LegacyStorageMigration.convert(type, LegacyStorageMigration.Fields(
-            transferTo: Self.cleanExchange((try? c.decodeIfPresent(String.self, forKey: .transferTo)) ?? nil),
-            giftToSpouse: ((try? c.decodeIfPresent(Bool.self, forKey: .giftToSpouse)) ?? nil) ?? false,
-            importKey: Self.cleanImportKey((try? c.decodeIfPresent(String.self, forKey: .importKey)) ?? nil),
-            linkedImportKey: Self.cleanImportKey((try? c.decodeIfPresent(String.self, forKey: .linkedImportKey)) ?? nil),
-            importRestoreState: (try? c.decodeIfPresent(CsvRestoreState.self, forKey: .importRestoreState)) ?? nil))
-        transferTo = stored.transferTo
-        giftToSpouse = stored.giftToSpouse && type == .GIFT
-        importKey = stored.importKey
-        let linked = stored.importKey == nil ? nil : stored.linkedImportKey
+        transferTo = Self.cleanExchange((try? c.decodeIfPresent(String.self, forKey: .transferTo)) ?? nil)
+        giftToSpouse = (((try? c.decodeIfPresent(Bool.self, forKey: .giftToSpouse)) ?? nil) ?? false) && type == .GIFT
+        // Zweiter Schlüssel nur mit erstem, Zustand nur mit Verknüpfung
+        let key = Self.cleanImportKey((try? c.decodeIfPresent(String.self, forKey: .importKey)) ?? nil)
+        importKey = key
+        let linked = key == nil ? nil
+            : Self.cleanImportKey((try? c.decodeIfPresent(String.self, forKey: .linkedImportKey)) ?? nil)
         linkedImportKey = linked
-        importRestoreState = linked == nil ? nil : stored.importRestoreState
+        importRestoreState = linked == nil ? nil
+            : (try? c.decodeIfPresent(CsvRestoreState.self, forKey: .importRestoreState)) ?? nil
         acquiredTime = Self.cleanAcquiredTime(type, (try? c.decodeIfPresent(Int64.self, forKey: .acquiredTime)) ?? nil)
         // Tausch: ohne gültigen erhaltenen Coin und Menge ungültig (gezählt) — wie Android `PortfolioJson`
         if type == .SWAP {
@@ -270,20 +254,11 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
             }
         }
         importBatch = PortfolioImportBatch.clean((try? c.decodeIfPresent(String.self, forKey: .importBatch)) ?? nil)
-        // Fehlen die Merker (alte Datei bzw. Sicherung), einmal nach der früheren Regel ableiten — das nächste
-        // Speichern schreibt sie
-        if let flag = (try? c.decodeIfPresent(Bool.self, forKey: .feeRow)) ?? nil {
-            feeRow = flag && type == .SELL
-        } else {
-            feeRow = LegacyStorageMigration.legacyFeeRow(type, importKey: importKey, price: priceExact)
-        }
-        if let flag = (try? c.decodeIfPresent(Bool.self, forKey: .interest)) ?? nil {
-            interest = flag && type == .REWARD
-        } else {
-            interest = LegacyStorageMigration.legacyInterest(type, note: note)
-        }
+        // Gebühr-Zeile und Zins: fehlt = nein
+        feeRow = (((try? c.decodeIfPresent(Bool.self, forKey: .feeRow)) ?? nil) ?? false) && type == .SELL
+        interest = (((try? c.decodeIfPresent(Bool.self, forKey: .interest)) ?? nil) ?? false) && type == .REWARD
         guard !coin.isEmpty, amountExact > 0 else {
-            throw DecodingError.dataCorruptedError(forKey: .amount, in: c, debugDescription: "Ungültige Transaktion")
+            throw DecodingError.dataCorruptedError(forKey: .amountText, in: c, debugDescription: "Ungültige Transaktion")
         }
     }
 
@@ -292,13 +267,10 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         try c.encode(id, forKey: .id)
         try c.encode(coin, forKey: .coin)
         try c.encode(type, forKey: .type)
-        try c.encode(amount, forKey: .amount)
         try c.encode(PortfolioDecimal.text(amountExact), forKey: .amountText)
-        try c.encodeIfPresent(priceUsdt, forKey: .priceUsdt)
         try c.encodeIfPresent(priceExact.map(PortfolioDecimal.text), forKey: .priceText)
         try c.encode(time, forKey: .time)
         try c.encodeIfPresent(note, forKey: .note)
-        try c.encodeIfPresent(fee, forKey: .fee)
         try c.encodeIfPresent(feeExact.map(PortfolioDecimal.text), forKey: .feeText)
         try c.encodeIfPresent(feeUnit, forKey: .feeUnit)
         try c.encodeIfPresent(exchange, forKey: .exchange)
@@ -318,7 +290,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         if isGiftToSpouse { try c.encode(true, forKey: .giftToSpouse) }
         try c.encodeIfPresent(linkedImportKey, forKey: .linkedImportKey)
         try c.encodeIfPresent(importRestoreState, forKey: .importRestoreState)
-        // Immer geschrieben (auch false): ohne Feld schlösse eine andere Version wieder nach der früheren Regel
+        // Immer geschrieben (auch false), wie Android
         try c.encode(feeRow && type == .SELL, forKey: .feeRow)
         try c.encode(interest && type == .REWARD, forKey: .interest)
     }

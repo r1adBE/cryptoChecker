@@ -131,7 +131,7 @@ struct BackupSettingsPage: View {
             sheetClosed()
         }) { file in
             BackupImportPasswordSheet { password in
-                // Schlüsselableitung (Argon2id 64 MiB bzw. PBKDF2 bei v2, bis wenige s) im Hintergrund — die Oberfläche bleibt bedienbar
+                // Schlüsselableitung (Argon2id 64 MiB, bis wenige s) im Hintergrund — die Oberfläche bleibt bedienbar
                 let encrypted = file.data
                 let backgroundTask = BackgroundTaskGuard.begin("backupDecrypt")
                 let result = await Task.detached(priority: .userInitiated) {

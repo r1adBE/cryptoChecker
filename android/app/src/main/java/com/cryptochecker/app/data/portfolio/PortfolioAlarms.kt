@@ -16,7 +16,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeoutOrNull
@@ -32,10 +31,8 @@ class PortfolioAlarmRepository @Inject constructor(
     private val dao: PortfolioAlarmDao,
     /** Vermerke «wird gemeldet» gelöschter bzw. ersetzter Alarme aufräumen. */
     private val deliveryMarkers: PortfolioAlarmDeliveryMarkers,
-    /** «fällt um ≥ 100 %» einmalig ausschalten, bevor die Liste erscheint. */
-    private val fallCleanup: PortfolioFallAlarmCleanup,
 ) {
-    fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll().onStart { fallCleanup.runOnce() }
+    fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll()
 
     suspend fun getAll(): List<PortfolioAlarmEntity> = dao.getAll()
 
@@ -86,8 +83,6 @@ class PortfolioAlarmChecker @Inject constructor(
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
     /** Vermerk «wird gemeldet» der Portfolio-Alarme. */
     deliveryMarkers: PortfolioAlarmDeliveryMarkers,
-    /** «fällt um ≥ 100 %» einmalig ausschalten (vor dem ersten Prüfen). */
-    private val fallCleanup: PortfolioFallAlarmCleanup,
 ) {
     private val mutex = Mutex()
 
@@ -97,14 +92,12 @@ class PortfolioAlarmChecker @Inject constructor(
     /** Braucht die Hintergrund-Aktualisierung eine Momentaufnahme für die Alarme? */
     suspend fun hasActiveAlarms(): Boolean {
         if (!settingsRepository.current().portfolioEnabled) return false
-        fallCleanup.runOnce()
         return dao.countEnabled() > 0
     }
 
     suspend fun check(snapshot: PortfolioSnapshot) = mutex.withLock {
         val settings = settingsRepository.current()
         if (!settings.portfolioEnabled) return@withLock
-        fallCleanup.runOnce()
         val alarms = dao.getAll().filter { it.enabled }
         if (alarms.isEmpty()) return@withLock
         // Alarme in einer anderen Währung als der Stand (z. B. nach Wechsel CHF → EUR): mit Devisenkurs umrechnen

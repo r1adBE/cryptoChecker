@@ -23,8 +23,7 @@ import java.io.IOException
  * (geprüft wie die Überführung), lässt die normale Sicherung nach den XML-Regeln laufen (`super`, gleiche Regeln und
  * Bedingungen wie bisher: nur Ende-zu-Ende-verschlüsselte Cloud-Sicherung oder Gerät zu Gerät) und löscht sie danach.
  * Nach einer Wiederherstellung wird die Kopie zur (unverschlüsselten) Hauptdatenbank ([onRestoreFinished]); der erste
- * Start verschlüsselt sie wie ein Update ([DatabaseEncryptionMigration]). Eine Sicherung älterer Versionen
- * bringt `cryptochecker.db` selbst mit — auf die Kopie umgeleitet ([onRestoreFile]), ebenso beim ersten Start verschlüsselt.
+ * Start verschlüsselt sie ([DatabaseEncryptionMigration]).
  *
  * Android 8/8.1 (API 26/27) ohne Kopie ([SystemBackupScope]): Dort wirkt `requireFlags` nicht, die Merkliste ginge
  * unverschlüsselt in die Cloud; sie wird dort weder gesichert noch wiederhergestellt.
@@ -32,7 +31,7 @@ import java.io.IOException
  * Läuft im eingeschränkten App-Prozess der Systemsicherung (ohne `CryptoCheckerApp`, ohne Hilt): nur Context, Dateien
  * und Keystore. Das Portfolio geht nur mit dem Schalter «Portfolio in Systemsicherung» mit (Merker-Datei,
  * [PortfolioBackupMirror.isEnabled]): dann schreibt [onFullBackup] auch dessen Kopie und löscht sie danach — sie liegt
- * nie länger als die Sicherung im Klartext da (in älteren Versionen dauernd).
+ * nie länger als die Sicherung im Klartext da.
  */
 class SystemBackupAgent : BackupAgent() {
 
@@ -69,16 +68,6 @@ class SystemBackupAgent : BackupAgent() {
             runCatching { PortfolioBackupMirror.deleteNow(this) }
                 .onFailure { Timber.w(it, "Systemsicherung: Kopie des Portfolios nicht gelöscht") }
         }
-    }
-
-    /**
-     * Sicherung älterer Versionen: `cryptochecker.db` (+ `-wal`) steht nicht mehr in den Regeln, Android
-     * verwürfe sie (geprüft wird gegen die heutigen Regeln). Darum auf den Namen der Kopie umgeleitet, der in den
-     * Regeln steht; [onRestoreFinished] übernimmt sie dann wie eine neue Sicherung.
-     */
-    override fun onRestoreFile(data: ParcelFileDescriptor, size: Long, destination: File, type: Int, mode: Long, mtime: Long) {
-        val target = runCatching { DatabaseSystemBackup(this).legacyRestoreTarget(destination) }.getOrNull()
-        super.onRestoreFile(data, size, target ?: destination, type, mode, mtime)
     }
 
     override fun onRestoreFinished() {
@@ -165,25 +154,12 @@ class DatabaseSystemBackup(
     }
 
     /**
-     * Nach einer Wiederherstellung: Die Kopie ersetzt die Hauptdatenbank (wie früher die gesicherte Datei selbst;
-     * Android stellt nur in eine frische Installation wieder her). Beim nächsten Öffnen wird sie verschlüsselt.
+     * Nach einer Wiederherstellung: Die Kopie ersetzt die Hauptdatenbank (Android stellt nur in eine frische Installation
+     * wieder her). Beim nächsten Öffnen wird sie verschlüsselt.
      */
     fun adoptRestored() {
         if (!export.exists()) return
         for (suffix in listOf("-wal", "-shm", "-journal")) File(main.path + suffix).delete()
         if (!export.renameTo(main)) throw IOException("Kopie nicht übernommen")
-        // WAL nur aus alten Sicherungen (umgeleitet, [legacyRestoreTarget]): gehört zur Datei, mit ihr umbenennen
-        val wal = File(export.path + "-wal")
-        if (wal.exists() && !wal.renameTo(File(main.path + "-wal"))) throw IOException("WAL nicht übernommen")
-    }
-
-    /** Ziel für eine wiederhergestellte Datei einer alten Sicherung (Hauptdatenbank selbst), sonst null. */
-    fun legacyRestoreTarget(destination: File): File? {
-        val path = destination.canonicalPath
-        return when (path) {
-            main.canonicalPath -> export
-            main.canonicalPath + "-wal" -> File(export.path + "-wal")
-            else -> null
-        }
     }
 }

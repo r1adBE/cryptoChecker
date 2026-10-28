@@ -10,7 +10,6 @@
     <string name="portfolio_address_overlap">Aussi dans tes propres transactions : %1$s – les deux sont additionnés. Mêmes coins ? Choisis « Afficher seulement ».</string>
     <string name="portfolio_address_overlap_ask">Tu saisis déjà %1$s avec tes propres transactions. Ajouter le solde de cette adresse au portefeuille ou seulement l’afficher ?</string>
     <string name="portfolio_address_overlap_auto">« %1$s » est désormais seulement affiché, pas compté – %2$s figurent aussi dans tes transactions.</string>
-    <string name="portfolio_address_overlap_restored">« %1$s » est de nouveau compté – ses quantités ne correspondent pas à tes transactions. Choisis « Afficher seulement » s’il s’agit des mêmes coins.</string>
     <string name="portfolio_address_overlap_title">Mêmes coins que dans tes transactions ?</string>
     <string name="portfolio_address_overlap_tx">Même quantité que ton propre dépôt/transfert (%1$s) – probablement compté deux fois.</string>
     <string name="portfolio_address_period_observed">Les adresses suivies comptent à partir du premier solde observé ; les changements ultérieurs sont des entrées/sorties, pas un gain.</string>

@@ -107,8 +107,7 @@ object NotificationChannels {
 
     /**
      * Kurze Meldung «Kurse werden aktualisiert …» einer angestossenen Aktualisierung (WorkManager,
-     * nur bis Android 11 sichtbar). Früher auch der Live-Dienst «Immer kurz» (vor 1.0 entfernt);
-     * die Kennung bleibt, damit bestehende Installationen keinen zweiten Kanal bekommen.
+     * nur bis Android 11 sichtbar).
      */
     const val SERVICE = "service"
 

@@ -3,8 +3,7 @@ package com.cryptochecker.app.settings
 /** Momentaufnahme aller Einstellungen. */
 data class AppSettings(
     /**
-     * «Wie aktuell?»: Sparsam (Standard) oder Live, solange offen ([UpdateMode]). Ersetzt
-     * die früheren Schalter «backgroundUpdates», «liveService» und «liveWebSocket»; die
+     * «Wie aktuell?»: Sparsam (Standard) oder Live, solange offen ([UpdateMode]); die
      * Hintergrund-Aktualisierung (WorkManager) läuft in jeder Wahl.
      */
     val updateMode: UpdateMode = UpdateMode.DEFAULT,
@@ -18,19 +17,10 @@ data class AppSettings(
      */
     val exactChecks: Boolean = false,
 
-    /**
-     * Intervall des früheren Vordergrunddienstes («Wie oft» bei «Immer kurz», vor 1.0 entfernt) in Sekunden. Ohne Wirkung
-     * und ohne Einstellung; nur noch gespeichert und gesichert, damit Sicherungen mit älteren Versionen austauschbar bleiben.
-     */
-    val liveIntervalSeconds: Int = 60,
-
     /** Kurs-Benachrichtigungen global erlauben. */
     val priceNotifications: Boolean = true,
 
-    /**
-     * Kurs-Benachrichtigungen sind nicht wegwischbar. Für neue Installationen aus;
-     * bestehende behalten den bisherigen Wert ([ongoingForMigration], OngoingNotificationsMigration).
-     */
+    /** Kurs-Benachrichtigungen sind nicht wegwischbar. Standard aus. */
     val ongoingNotifications: Boolean = false,
 
     /**
@@ -66,14 +56,13 @@ data class AppSettings(
     /**
      * «Token & TradFi»: Was die Paar-Auswahl zeigt — nur Token (Krypto, Standard), nur TradFi
      * (Futures auf Aktien, Rohstoffe, Devisen und Pre-IPO) oder beides. Schon gemerkte Paare
-     * bleiben in der Merkliste. Ersetzt den früheren Schalter «includeTradFiFutures».
+     * bleiben in der Merkliste.
      */
     val assetScope: AssetScope = AssetScope.DEFAULT,
 
     /**
      * «inkl. Alpha-Tokens» (bei «Token & TradFi»): Alpha-Tokens ([com.cryptochecker.app.domain.watch.AssetKind.ALPHA])
-     * in der Paar-Auswahl zeigen. Für neue Installationen aus; bestehende behalten den
-     * bisherigen Standard an ([LEGACY_INCLUDE_ALPHA_TOKENS], InstallDefaultsMigration). Gemerkte Paare bleiben immer.
+     * in der Paar-Auswahl zeigen. Standard aus. Gemerkte Paare bleiben immer.
      */
     val includeAlphaTokens: Boolean = false,
 
@@ -178,12 +167,7 @@ data class AppSettings(
     /** Morgen-Meldung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten. Ab Werk aus. */
     val macroNotifications: Boolean = false,
 
-    /**
-     * Optionaler Bereich «Portfolio» (eigener Tab vor den Einstellungen). Für neue Installationen
-     * ab Werk aus; bestehende Installationen behalten den bisherigen Standard an
-     * ([LEGACY_PORTFOLIO_ENABLED], einmalig festgeschrieben von InstallDefaultsMigration), wer ihn
-     * umgeschaltet hat, behält seine Wahl.
-     */
+    /** Optionaler Bereich «Portfolio» (eigener Tab vor den Einstellungen). Ab Werk aus. */
     val portfolioEnabled: Boolean = false,
 
     /**
@@ -192,10 +176,7 @@ data class AppSettings(
      */
     val portfolioCurrency: String = defaultCurrency(),
 
-    /**
-     * Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen (« ≈ 61’234 CHF »). Für neue
-     * Installationen an; bestehende behalten den bisherigen Standard aus ([LEGACY_SHOW_CONVERTED]).
-     */
+    /** Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen (« ≈ 61’234 CHF »). Ab Werk an. */
     val showConverted: Boolean = true,
 
     /** Kursfarben steigend/fallend: Grün/Rot oder Blau/Orange (Rot-Grün-Sehschwäche). */
@@ -204,10 +185,7 @@ data class AppSettings(
     /** Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste. */
     val watchlistSparkline: Boolean = false,
 
-    /**
-     * Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Für neue Installationen an;
-     * bestehende behalten den bisherigen Standard aus ([LEGACY_WATCHLIST_NAMES]).
-     */
+    /** Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Ab Werk an. */
     val watchlistNames: Boolean = true,
 
     /**
@@ -348,16 +326,15 @@ data class AppSettings(
 
     /**
      * Einstandsmethode des Portfolios (FIFO | Ø): Einstand, Ø, «Seit Kauf», realisiert und Steuer-Export.
-     * Standard FIFO für alle (neue und bestehende Installationen). In der App-Sicherung («costMethod»; ältere
-     * Sicherungen ohne den Schlüssel → FIFO).
+     * Standard FIFO. In der App-Sicherung («costMethod»; fehlt der Schlüssel → FIFO).
      */
     val costMethod: com.cryptochecker.app.domain.portfolio.CostMethod =
         com.cryptochecker.app.domain.portfolio.CostMethod.DEFAULT,
 
     /**
      * Steuer-Vorlage der Arbeitsunterlage (Neutral | DE | AT | CH | UK | US | CA | AU | FR | JP), Standard Neutral. Die
-     * Region des Geräts wird nur vorgeschlagen, nie still übernommen. In der App-Sicherung («taxTemplate»; ältere
-     * Sicherungen ohne den Schlüssel lassen die Einstellung stehen).
+     * Region des Geräts wird nur vorgeschlagen, nie still übernommen. In der App-Sicherung («taxTemplate»; fehlt der
+     * Schlüssel, bleibt die Einstellung stehen).
      */
     val taxTemplate: com.cryptochecker.app.domain.portfolio.TaxTemplate =
         com.cryptochecker.app.domain.portfolio.TaxTemplate.DEFAULT,
@@ -380,20 +357,15 @@ data class AppSettings(
      */
     val speaksPairPrices: Boolean get() = ttsEnabled && !ttsAlarmsOnly
 
-    /** Wahlmöglichkeiten und weitere bisherige Standards erbt der Companion ([AppSettingsChoices]). */
+    /** Wahlmöglichkeiten erbt der Companion ([AppSettingsChoices]). */
     companion object : AppSettingsChoices() {
         const val MIN_BACKGROUND_INTERVAL_MINUTES = 15
-        const val MIN_LIVE_INTERVAL_SECONDS = 15
 
         /**
          * Obergrenzen (weit über den Wahlmöglichkeiten): Werte aus Sicherungen und gespeicherten Einstellungen
          * werden darauf gekürzt, wie iOS (dort liessen riesige Werte Zeitrechnungen überlaufen).
          */
         const val MAX_BACKGROUND_INTERVAL_MINUTES = 1_440
-        const val MAX_LIVE_INTERVAL_SECONDS = 3_600
         const val MAX_ALARM_COOLDOWN_MINUTES = 1_440
-
-        /** Bisheriger Standard von «Nicht wegwischbar» (ältere Installationen). */
-        const val LEGACY_ONGOING_NOTIFICATIONS = true
     }
 }

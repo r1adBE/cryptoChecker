@@ -19,6 +19,7 @@ import com.cryptochecker.app.data.local.SqlCipherDatabaseFiles
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import java.io.File
 import java.io.IOException
 import java.security.KeyStore
@@ -31,9 +32,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Verschlüsselung der Datenbanken auf dem Gerät: unverschlüsselte Dateien (Portfolio v3, Hauptdatenbank im aktuellen
- * Schema) werden beim ersten Öffnen mit echtem SQLCipher und echtem Keystore überführt, die Room-Migrationen der
- * Portfolio-Datenbank laufen danach auf der verschlüsselten Datei. Geprüft: Daten vollständig, keine unverschlüsselte Datei
+ * Verschlüsselung der Datenbanken auf dem Gerät: unverschlüsselte Dateien (Portfolio- und Hauptdatenbank im aktuellen
+ * Schema) werden beim ersten Öffnen mit echtem SQLCipher und echtem Keystore überführt. Geprüft: Daten vollständig, keine unverschlüsselte Datei
  * oder Kopie mehr, ohne Schlüssel unlesbar; Fehler lassen die alte Datei stehen; verlorener Schlüssel legt beiseite;
  * Kopie für die Systemsicherung hin und zurück. Die Ablauflogik selbst prüft `DatabaseEncryptionMigrationTest` (Unit).
  */
@@ -67,12 +67,12 @@ class DatabaseEncryptionTest {
     }
 
     @Test
-    fun portfolioVersion3IsEncryptedThenMigratedToVersion4() {
-        plainDatabase(PORTFOLIO, version = 3, schema = DatabaseMigrationTest.PORTFOLIO_V3_SCHEMA) { db ->
-            val insert = "INSERT INTO portfolio_tx (id, coin, type, amount, priceUsdt, time, transferTo, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-            db.execSQL(insert, arrayOf<Any?>(1, "BTC", "BUY", "0.00000001", "65000.5", 10, null, "Satoshi"))
-            db.execSQL(insert, arrayOf<Any?>(2, "BTC", "GIFT", "0.5", null, 20, "@spouse", null))
-            db.execSQL(insert, arrayOf<Any?>(5, "ETH", "BUY", "2", "3000", 30, null, "Ø 3 000 · ✓"))
+    fun plainPortfolioIsEncryptedOnFirstOpen() {
+        plainDatabase(PORTFOLIO, version = PortfolioDatabase.VERSION, schema = PORTFOLIO_SCHEMA) { db ->
+            val insert = "INSERT INTO portfolio_tx (id, coin, type, amount, priceUsdt, time, giftToSpouse, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            db.execSQL(insert, arrayOf<Any?>(1, "BTC", "BUY", "0.00000001", "65000.5", 10, 0, "Satoshi"))
+            db.execSQL(insert, arrayOf<Any?>(2, "BTC", "GIFT", "0.5", null, 20, 1, null))
+            db.execSQL(insert, arrayOf<Any?>(5, "ETH", "BUY", "2", "3000", 30, 0, "Ø 3 000 · ✓"))
             db.execSQL(
                 "INSERT INTO portfolio_alarms (id, kind, threshold, currency, enabled, repeating, referenceAt, lastTriggeredAt) " +
                     "VALUES (3, 'VALUE_ABOVE', 10000.0, 'CHF', 1, 0, 0, 0)"
@@ -85,7 +85,6 @@ class DatabaseEncryptionTest {
         val before = SqlCipherDatabaseFiles(context).fingerprint(context.getDatabasePath(PORTFOLIO), passphrase = null)
 
         withDatabases { _, portfolio ->
-            // v3 → v4 lief auf der verschlüsselten Datei (Room prüft das Schema danach)
             assertEquals(PortfolioDatabase.VERSION, portfolio.version)
             portfolio.query("SELECT id, amount, giftToSpouse, transferTo, note FROM portfolio_tx ORDER BY id").use { c ->
                 assertTrue(c.moveToFirst())
@@ -279,7 +278,6 @@ class DatabaseEncryptionTest {
             .build()
         val portfolio = Room.databaseBuilder(context, PortfolioDatabase::class.java, PORTFOLIO)
             .openHelperFactory(factory)
-            .addMigrations(*PortfolioDatabase.ALL_MIGRATIONS)
             .addCallback(PortfolioDatabase.callback(context, mirrorFile))
             .build()
         try {
@@ -352,6 +350,22 @@ class DatabaseEncryptionTest {
         const val PORTFOLIO = "encryption-test-portfolio.db"
         const val EXPORT = "encryption-test-backup.db"
         const val TEST_ALIAS = "cryptochecker_db_key_test"
+
+        /** Portfolio-Datenbank, wie in `app/schemas/com.cryptochecker.app.data.portfolio.PortfolioDatabase/1.json`. */
+        val PORTFOLIO_SCHEMA = listOf(
+            "CREATE TABLE IF NOT EXISTS `portfolio_tx` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `coin` TEXT NOT NULL, " +
+                "`type` TEXT NOT NULL, `amount` TEXT NOT NULL, `priceUsdt` TEXT, `time` INTEGER NOT NULL, `note` TEXT, `fee` TEXT, " +
+                "`feeUnit` TEXT, `exchange` TEXT, `transferFrom` TEXT, `transferTo` TEXT, `feeCoin` TEXT, `feeCoinAmount` TEXT, " +
+                "`feeCoinPriceUsdt` TEXT, `importKey` TEXT, `acquiredTime` INTEGER, `toCoin` TEXT, `toAmount` TEXT, " +
+                "`swapValueUsdt` TEXT, `importBatch` TEXT, `giftToSpouse` INTEGER NOT NULL DEFAULT 0, `linkedImportKey` TEXT, " +
+                "`importRestoreState` TEXT, `feeRow` INTEGER NOT NULL DEFAULT 0, `interest` INTEGER NOT NULL DEFAULT 0)",
+            "CREATE INDEX IF NOT EXISTS `index_portfolio_tx_importKey` ON `portfolio_tx` (`importKey`)",
+            "CREATE TABLE IF NOT EXISTS `portfolio_alarms` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `kind` TEXT NOT NULL, " +
+                "`threshold` REAL NOT NULL, `currency` TEXT, `enabled` INTEGER NOT NULL, `repeating` INTEGER NOT NULL, " +
+                "`referenceAt` INTEGER NOT NULL, `lastTriggeredAt` INTEGER NOT NULL, `lastTriggeredValue` REAL)",
+            WatchedAddressEntity.CREATE_SQL,
+            WatchedAddressEntity.INDEX_SQL,
+        )
 
         /** Hauptdatenbank, wie in `app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json`. */
         val MAIN_SCHEMA = listOf(

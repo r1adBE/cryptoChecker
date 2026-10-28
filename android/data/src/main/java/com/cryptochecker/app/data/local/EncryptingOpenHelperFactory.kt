@@ -137,7 +137,7 @@ class EncryptingOpenHelperFactory(
                         throw DatabaseKeyUnavailableException(name, decision.error)
                     }
                     Timber.w(decision.error, "%s: Schlüssel gerade nicht verfügbar, für diesen Lauf nur im Arbeitsspeicher", name)
-                    // Wie bei Refused vor dem Öffnen gesetzt: keine Übernahme aus Kopien oder Altbestand, kein VACUUM, kein
+                    // Wie bei Refused vor dem Öffnen gesetzt: keine Übernahme aus Kopien oder Altbestand, kein
                     // Merker «erledigt» — die Datei bleibt, wie sie ist (nie überschrieben, gelöscht oder beiseitegelegt)
                     DatabaseEncryptionNotice.markInMemory(name, storedKept = true)
                     inMemoryHelper()

@@ -190,10 +190,10 @@ internal object WhyParityBuilder {
         }
     }
 
-    /** [[Minuten, Coins, Quelle|null], …] */
+    /** [[Minuten, Coins, Quelle], …] */
     fun samples(spec: Any?, now: Long): List<OiSample> = spec.list().map {
         val e = it.list()
-        OiSample(units = e[1].num() ?: 0.0, time = now + (e[0].num() ?: 0.0).toLong() * 60_000L, source = e.getOrNull(2) as String?)
+        OiSample(units = e[1].num() ?: 0.0, time = now + (e[0].num() ?: 0.0).toLong() * 60_000L, source = e[2] as String)
     }
 
     fun sampleSpec(s: OiSample, now: Long): List<Any?> = listOf(((s.time - now) / 60_000L).toDouble(), s.units, s.source)

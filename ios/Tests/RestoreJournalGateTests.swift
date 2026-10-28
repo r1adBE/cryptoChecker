@@ -9,8 +9,6 @@ final class RestoreJournalGateTests: XCTestCase {
     private final class LockedKeychain: StorageKeychain, @unchecked Sendable { // @unchecked: Test-Fake ohne Zustand
         func read() throws -> Data? { throw StorageKeychainError(status: errSecInteractionNotAllowed) }
         func add(_ key: Data) throws -> Bool { throw StorageKeychainError(status: errSecInteractionNotAllowed) }
-        func isDeviceOnly() throws -> Bool? { nil }
-        func makeDeviceOnly() throws {}
         func delete() throws {}
     }
 

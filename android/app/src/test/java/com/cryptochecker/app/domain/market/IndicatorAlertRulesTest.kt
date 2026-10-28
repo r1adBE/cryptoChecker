@@ -47,7 +47,7 @@ class IndicatorAlertRulesTest {
         assertTrue(IndicatorAlertRules.decide(k, 2.5, 2.0, wasCrossed = false).notify)
         // Gleiche Grenze: bleibt gemeldet (keine Doppelmeldung)
         assertTrue(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = 240, current = 240))
-        // Stand vor dieser Regel (keine Grenze gemerkt): übernehmen
+        // Keine Grenze gemerkt: übernehmen
         assertTrue(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = null, current = 200))
         assertFalse(IndicatorAlertRules.wasCrossed(storedCrossed = false, storedThreshold = 240, current = 200))
     }

@@ -74,16 +74,12 @@ class PortfolioSnapshotSealTest {
 
     @Test
     fun readPlan() {
-        // Ohne Schlüssel nie etwas anzeigen — weder versiegelt noch Klartext («App öffnen»)
-        assertSame(ReadPlan.Empty, PortfolioSnapshotSeal.planRead("x", hasPlain = true, keyReady = false))
-        assertSame(ReadPlan.Empty, PortfolioSnapshotSeal.planRead(null, hasPlain = true, keyReady = false))
-        // Versiegelt geht vor einem Klartext-Rest
-        val open = PortfolioSnapshotSeal.planRead("x", hasPlain = true, keyReady = true)
+        // Ohne Schlüssel nie etwas anzeigen («App öffnen»)
+        assertSame(ReadPlan.Empty, PortfolioSnapshotSeal.planRead("x", keyReady = false))
+        assertSame(ReadPlan.Empty, PortfolioSnapshotSeal.planRead(null, keyReady = false))
+        val open = PortfolioSnapshotSeal.planRead("x", keyReady = true)
         assertTrue(open is ReadPlan.Open && open.sealed == "x")
-        assertTrue(PortfolioSnapshotSeal.planRead("x", hasPlain = false, keyReady = true) is ReadPlan.Open)
-        // Nur Klartext (ältere Aufnahme): einmal überführen
-        assertSame(ReadPlan.MigratePlain, PortfolioSnapshotSeal.planRead(null, hasPlain = true, keyReady = true))
-        assertSame(ReadPlan.Empty, PortfolioSnapshotSeal.planRead(null, hasPlain = false, keyReady = true))
+        assertSame(ReadPlan.Empty, PortfolioSnapshotSeal.planRead(null, keyReady = true))
     }
 
     @Test

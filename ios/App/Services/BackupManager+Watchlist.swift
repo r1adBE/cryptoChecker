@@ -43,14 +43,13 @@ extension BackupManager {
             contractType: FuturesContractType(backupName: string(o, "contractType") ?? ""),
             pairId: isNull(o, "pairId") ? nil : string(o, "pairId"),
             sortOrder: int(o, "sortOrder") ?? 0,
-            // Ohne Angabe: an wie in der Version der Sicherung (nicht der Standard neuer Paare)
-            notificationEnabled: bool(o, "notificationEnabled") ?? Watch.legacyNotificationEnabled,
+            // Ohne Angabe: Standard neuer Paare (wie Android)
+            notificationEnabled: bool(o, "notificationEnabled") ?? Watch.newPairNotificationEnabled,
             ttsEnabled: bool(o, "ttsEnabled") ?? false,
             favorite: bool(o, "favorite") ?? false,
             groupName: isNull(o, "group") ? nil : Watch.validGroupName(string(o, "group")),
-            // Ältere Sicherungen haben keine Notiz
             note: isNull(o, "note") ? nil : Watch.validNote(string(o, "note")),
-            // Ältere Sicherungen kennen «deaktiviert» nicht: Paar aktiv
+            // Ohne Angabe: Paar aktiv
             disabled: bool(o, "disabled") ?? false
         )
     }

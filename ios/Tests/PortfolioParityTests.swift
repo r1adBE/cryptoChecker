@@ -31,8 +31,8 @@ final class PortfolioParityTests: XCTestCase {
         t.toAmountExact = (o["toAmount"] as? String).map(dec)
         t.swapValueExact = (o["swapValue"] as? String).map(dec)
         t.importKey = o["importKey"] as? String
-        // Gebühr-Zeile: eigenes Feld; fehlt es im Fixture, die frühere Regel (wie beim Lesen alter Dateien)
-        t.feeRow = o["feeRow"] as? Bool ?? LegacyStorageMigration.legacyFeeRow(t.type, importKey: t.importKey, price: t.priceExact)
+        // Gebühr-Zeile: eigenes Feld; fehlt = nein
+        t.feeRow = o["feeRow"] as? Bool ?? false
         return t
     }
 

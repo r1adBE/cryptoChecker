@@ -88,9 +88,13 @@ final class PortfolioLedgerTests: XCTestCase {
         XCTAssertEqual(back.amountExact, dec("0.00000001"))
         XCTAssertEqual(back.priceExact, dec("60000.5"))
         XCTAssertEqual(back.feeExact, dec("0.1"))
-        // Ältere Datei nur mit Zahlen
-        let old = #"{"id":3,"coin":"btc","type":"BUY","amount":0.1,"priceUsdt":100,"time":1}"#
-        let parsed = try JSONDecoder().decode(PortfolioTx.self, from: Data(old.utf8))
+        // Nur exakter Text, keine Zahlen daneben
+        let object = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        XCTAssertNil(object["amount"])
+        XCTAssertNil(object["priceUsdt"])
+        XCTAssertNil(object["fee"])
+        let text = #"{"id":3,"coin":"btc","type":"BUY","amountText":"0.1","priceText":"100","time":1}"#
+        let parsed = try JSONDecoder().decode(PortfolioTx.self, from: Data(text.utf8))
         XCTAssertEqual(parsed.amountExact, dec("0.1"))
         XCTAssertEqual(parsed.coin, "BTC")
     }

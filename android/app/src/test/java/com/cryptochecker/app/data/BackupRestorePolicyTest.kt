@@ -40,9 +40,9 @@ class BackupRestorePolicyTest {
         val text = """
             {"format":"cryptochecker-portfolio-system-backup","version":1,
              "portfolio":[
-               {"id":1,"coin":"BTC","type":"BUY","amount":0.5,"amountText":"0.5","time":1},
+               {"id":1,"coin":"BTC","type":"BUY","amountText":"0.5","time":1},
                {"id":2,"coin":"ETH","type":"BUY","time":2},
-               {"id":3,"coin":"ETH","type":"KAUFEN","amount":1,"time":3},
+               {"id":3,"coin":"ETH","type":"KAUFEN","amountText":"1","time":3},
                "kein Objekt"
              ],
              "portfolioAlarms":[{"kind":"UNBEKANNT"}]}

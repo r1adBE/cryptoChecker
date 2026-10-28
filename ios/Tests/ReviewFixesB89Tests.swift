@@ -8,7 +8,7 @@ final class ReviewFixesB89Tests: XCTestCase {
 
     private typealias S = TestSupport
 
-    /// Entscheid «trotzdem zählen» (bzw. alte Regel) übersteht Sichern, Einspielen und erneutes Sichern.
+    /// Entscheid «trotzdem zählen» übersteht Sichern, Einspielen und erneutes Sichern.
     func testBackupKeepsOverlapDecision() throws {
         let c = try XCTUnwrap(try S.fixture("address_balance")["backupOverlap"] as? [String: Any])
         let array = try JSONSerialization.jsonObject(with: Data((c["text"] as? String ?? "").utf8)) as? [Any]
@@ -20,12 +20,11 @@ final class ReviewFixesB89Tests: XCTestCase {
             XCTAssertEqual(e.chain.rawValue, x["chain"] as? String, name)
             XCTAssertEqual(e.address, name)
             XCTAssertEqual(e.overlapChecked, x["overlapChecked"] as? Bool, "\(name) checked")
-            XCTAssertEqual(e.overlapLegacy, x["overlapLegacy"] as? Bool, "\(name) legacy")
         }
         // Geschrieben nur die gesetzten Felder; zurückgelesen ohne Verlust (auch über Codable)
         let json = WatchedAddressRules.json(parsed)
         for (x, o) in zip(expected, json) {
-            let written = ["overlapChecked", "overlapLegacy"].filter { o[$0] != nil }
+            let written = ["overlapChecked"].filter { o[$0] != nil }
             XCTAssertEqual(written, x["written"] as? [String], "\(x["address"] ?? "") written")
         }
         let reread = try JSONSerialization.jsonObject(with: JSONSerialization.data(withJSONObject: json)) as? [Any]
@@ -36,7 +35,6 @@ final class ReviewFixesB89Tests: XCTestCase {
         let merged = WatchedAddressRules.merge([], parsed)
         for (x, a) in zip(expected, merged) {
             XCTAssertEqual(a.overlapChecked, x["overlapChecked"] as? Bool, "\(a.address) merge checked")
-            XCTAssertEqual(a.overlapLegacy, x["overlapLegacy"] as? Bool, "\(a.address) merge legacy")
             XCTAssertEqual(a.countInPortfolio, x["countInPortfolio"] as? Bool, "\(a.address) merge count")
         }
         XCTAssertEqual(WatchedAddressRules.backupEntries(merged), parsed)

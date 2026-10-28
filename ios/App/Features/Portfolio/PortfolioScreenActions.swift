@@ -67,23 +67,15 @@ extension PortfolioScreen {
 
     /// Adressen mit später aufgetauchter Überschneidung einmal automatisch auf «Nur anzeigen» (`AppData`), dann Hinweis.
     func checkAddressOverlap() {
-        // Alte Entscheide einmal übernehmen (ohne passende Menge: zählt wieder), dann die Mengenregel
-        let restored = data.migrateWatchedAddressOverlap(txs: data.portfolio)
         let switched = data.applyWatchedAddressOverlapShowOnly(txs: data.portfolio)
-        guard !switched.isEmpty || !restored.isEmpty else { return }
+        guard !switched.isEmpty else { return }
         overlapSwitched += switched
-        overlapRestored += restored
         showAddressOverlapNotice()
     }
 
     /// Hinweis «… wird jetzt nur angezeigt» mit «Rückgängig» (zählt wieder, gilt als entschieden) — wie Android.
     func showAddressOverlapNotice() {
-        guard !addressesOpen else { return }
-        if overlapSwitched.isEmpty && !overlapRestored.isEmpty {
-            showAddressOverlapRestored()
-            return
-        }
-        guard !overlapSwitched.isEmpty else { return }
+        guard !addressesOpen, !overlapSwitched.isEmpty else { return }
         let list = overlapSwitched
         overlapSwitched = []
         let own = Set(data.portfolio.map { PortfolioCalculator.normalizeCoin($0.coin) })
@@ -98,26 +90,6 @@ extension PortfolioScreen {
             text: text,
             action: WatchlistBannerAction.undo {
                 for id in ids { data.setWatchedAddressCountInPortfolio(id, on: true) }
-            }
-        )
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 300_000_000)
-            AccessibilityNotification.Announcement(text).post()
-        }
-    }
-
-    /// Einmal: früher automatisch «Nur anzeigen» ohne passende Menge zählt wieder — Hinweis mit «Rückgängig» (wieder «Nur
-    /// anzeigen», gilt als entschieden). Wie Android.
-    private func showAddressOverlapRestored() {
-        let list = overlapRestored
-        overlapRestored = []
-        let names: [String] = list.map { $0.label ?? WatchedAddressRules.shortAddress($0.address) }
-        let text = L("portfolio_address_overlap_restored", names.joined(separator: ", "))
-        let ids: [Int64] = list.map(\.id)
-        banner = WatchlistBannerMessage(
-            text: text,
-            action: WatchlistBannerAction.undo {
-                for id in ids { data.setWatchedAddressCountInPortfolio(id, on: false) }
             }
         )
         Task { @MainActor in

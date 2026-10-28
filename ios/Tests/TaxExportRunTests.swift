@@ -195,9 +195,8 @@ final class TaxExportRunTests: XCTestCase {
             tx.acquiredTime = TestSupport.number(t["acquiredTime"]).map { Int64($0) }
             tx.importKey = t["importKey"] as? String
             tx.note = t["note"] as? String
-            tx.feeRow = t["feeRow"] as? Bool
-                ?? LegacyStorageMigration.legacyFeeRow(tx.type, importKey: tx.importKey, price: tx.priceExact)
-            tx.interest = t["interest"] as? Bool ?? LegacyStorageMigration.legacyInterest(tx.type, note: tx.note)
+            tx.feeRow = t["feeRow"] as? Bool ?? false
+            tx.interest = t["interest"] as? Bool ?? false
             return tx
         }
     }

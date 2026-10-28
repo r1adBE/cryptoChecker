@@ -10,8 +10,8 @@ import javax.inject.Singleton
 
 /**
  * Vertragsadresse des Basis-Tokens je DEX-Pool ([DexTokenAddress]), gemerkt beim Hinzufügen aus der Suche. Kleine
- * Einstellungsdatei statt einer Spalte (wie [DexLiquidityStore]) — ohne Datenbankmigration, nicht in der Sicherung;
- * fehlt sie (Paar aus älterer Version), zeigt das Paar-Blatt einfach keine Adresse. Wie
+ * Einstellungsdatei statt einer Spalte (wie [DexLiquidityStore]) — nicht in der Sicherung; fehlt sie (Paar nicht
+ * aus der Suche, z. B. aus einer Sicherung), zeigt das Paar-Blatt einfach keine Adresse. Wie
  * `DexTokenAddressStore` (iOS).
  */
 @Singleton

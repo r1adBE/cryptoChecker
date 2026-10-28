@@ -68,8 +68,8 @@ enum CycleCache {
         let version: Int
         let savedAt: Int64
         let value: Value
-        /// Anbieter, der den Wert geliefert hat (z. B. «CoinGecko»); fehlt in älteren Dateien
-        /// (dann nil — wird beim Lesen nicht verlangt).
+        /// Anbieter, der den Wert geliefert hat (z. B. «CoinGecko»); nil = unbekannt (wird beim Lesen nicht
+        /// verlangt).
         var provider: String? = nil
     }
 

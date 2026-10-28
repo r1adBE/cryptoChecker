@@ -74,8 +74,6 @@ enum ProtectedStorage {
             return keepingPlain()
         case .key(let stored):
             key = stored
-            // Eintrag aus Build ≤ 68 auf «nur dieses Gerät» umstellen (gleiche Schlüsselbytes)
-            keys.restrictToThisDevice()
         case .absent:
             for file in present where isSealedFile(file.url) {
                 guard let aside = setAside(file.url) else { return keepingPlain() }

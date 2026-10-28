@@ -9,7 +9,7 @@ import javax.crypto.spec.GCMParameterSpec
 
 /**
  * Versiegelung der Momentaufnahme des Portfolio-Widgets (reines Kotlin — getestet in
- * PortfolioSnapshotSealTest). Gesamtwert, Positionen, Gewinn/Verlust und gehaltene Coins liegen nicht mehr lesbar in
+ * PortfolioSnapshotSealTest). Gesamtwert, Positionen, Gewinn/Verlust und gehaltene Coins liegen nicht lesbar in
  * den SharedPreferences `portfolio_widget`, sondern als ein mit AES-256-GCM versiegelter Eintrag; den Schlüssel hält
  * der Android Keystore ([Keys], PortfolioSnapshotKeyStore — eigener Alias, unabhängig von den Datenbank-Schlüsseln).
  *
@@ -17,9 +17,8 @@ import javax.crypto.spec.GCMParameterSpec
  * Magie und Version sind als AAD mitauthentifiziert (wie iOS `ProtectedContainer`): ein umgeschriebener Kopf fällt
  * beim Öffnen auf.
  *
- * Regeln ([planRead], [planWrite]): Klartext älterer Versionen wird einmal gelesen und versiegelt neu geschrieben;
- * ohne Schlüssel zeigt das Widget «keine Daten» und es wird nie Klartext geschrieben — schon gar nicht über einen
- * versiegelten Eintrag. Die Aufnahme ist ein Zwischenspeicher (die App berechnet sie neu), darum darf ein
+ * Regeln ([planRead], [planWrite]): Ohne Schlüssel zeigt das Widget «keine Daten» und es wird nie Klartext
+ * geschrieben — schon gar nicht über einen versiegelten Eintrag. Die Aufnahme ist ein Zwischenspeicher (die App berechnet sie neu), darum darf ein
  * unlesbarer Eintrag beim nächsten Speichern ersetzt werden.
  */
 object PortfolioSnapshotSeal {
@@ -42,22 +41,16 @@ object PortfolioSnapshotSeal {
 
     /** Was beim Lesen zu tun ist. */
     sealed interface ReadPlan {
-        /** Versiegelten Eintrag öffnen (Klartext daneben ist ein Rest und wird beim nächsten Speichern entfernt). */
+        /** Versiegelten Eintrag öffnen. */
         class Open(val sealed: String) : ReadPlan
-        /** Nur Klartext einer älteren Version: lesen, versiegelt neu schreiben, Klartext entfernen. */
-        object MigratePlain : ReadPlan
         /** Nichts anzeigen (Leer-Zustand des Widgets, `widget_portfolio_empty`): keine Aufnahme oder Schlüssel nicht verfügbar. */
         object Empty : ReadPlan
     }
 
-    fun planRead(sealed: String?, hasPlain: Boolean, keyReady: Boolean): ReadPlan = when {
-        !keyReady -> ReadPlan.Empty
-        sealed != null -> ReadPlan.Open(sealed)
-        hasPlain -> ReadPlan.MigratePlain
-        else -> ReadPlan.Empty
-    }
+    fun planRead(sealed: String?, keyReady: Boolean): ReadPlan =
+        if (keyReady && sealed != null) ReadPlan.Open(sealed) else ReadPlan.Empty
 
-    /** Was beim Speichern zu tun ist; Klartext älterer Versionen wird in beiden Fällen entfernt. */
+    /** Was beim Speichern zu tun ist. */
     enum class WritePlan {
         /** Neue Aufnahme versiegelt speichern. */
         SEAL,

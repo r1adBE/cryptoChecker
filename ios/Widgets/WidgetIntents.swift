@@ -269,11 +269,11 @@ struct SingleWidgetIntent: WidgetConfigurationIntent {
     @Parameter(title: "single_widget_choose")
     var watch: WidgetWatchEntity?
 
-    /// Bestehende Widgets ohne Wert zeigen wie bisher 24 h.
+    /// Standard 24 h.
     @Parameter(title: "widget_chart_range", default: .day)
     var range: WidgetChartRangeOption
 
-    /// Bestehende Widgets ohne Wert zeigen Kerzen (neuer Standard).
+    /// Standard Kerzen.
     @Parameter(title: "widget_chart_type", default: .candles)
     var chartType: WidgetChartTypeOption
 
@@ -285,8 +285,7 @@ struct SingleWidgetIntent: WidgetConfigurationIntent {
 
 /// Portfolio-Widget: Ansicht, Anzeige, Zeitraum, Chart-Art und Hintergrund (wie die Einrichtung in Android).
 /// Standard: Chart, «Umrechnung» (bei einem USD-Stablecoin als Umrechnungswährung zeigt das Widget ohnehin «Nur USDT»,
-/// `PortfolioWidgetChart.effectiveDisplay`), 24 h, Linie. Bereits abgelegte Widgets ohne Ansicht zeigen
-/// den Chart wie bisher; mit früherer Wahl «Umrechnung + USDT» behalten sie diese. Die Chart-Art
+/// `PortfolioWidgetChart.effectiveDisplay`), 24 h, Linie. Die Chart-Art
 /// erscheint nur bei der Ansicht «Chart», der Zeitraum nicht bei «Liste» (`parameterSummary`).
 /// Je Ansicht wirkt nur ein Teil (`PortfolioWidgetOptions`, wie Android): «Liste» zeigt «Umrechnung + USDT» wie
 /// «Umrechnung», «Übersicht» 24 h und 7 T wie 30 T. Einzelne Werte einer Auswahl lassen sich in App Intents nicht je
