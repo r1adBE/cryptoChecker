@@ -2,9 +2,10 @@ import Foundation
 
 /// Alter der Kurse auf der Uhr (Uhr-App und Komplikation): «veraltet» nach derselben Regel wie Merkliste und Widgets
 /// (`OutdatedRule`: dreimal das Intervall, mindestens 15 Min.), mit dem Takt der Komplikation (`updateMinutes`) als
-/// Intervall — also nach 45 Min. Gezählt ab dem letzten erfolgreichen Abruf (die Börsen geben der Uhr keine eigene
-/// Handelszeit). Alter für VoiceOver in Minuten, Stunden, Tagen wie `A11ySpeech.age` (Android). Wie Android
-/// `WatchFreshness` (`Parity/watch_quotes.json`, Abgleich mit `OutdatedRule` in `WatchQuotesParityTests`).
+/// Intervall — also nach 45 Min. Gezählt je Coin ab dem Stand seines Abrufs (letzter Abruf, der diesen Coin lieferte),
+/// nicht ab dem letzten Handel: die 24-h-Ticker der Börsen geben dafür keine verlässliche Zeit. Alter für VoiceOver in
+/// Minuten, Stunden, Tagen wie `A11ySpeech.age` (Android). Wie Android `WatchFreshness` (`Parity/watch_quotes.json`,
+/// Abgleich mit `OutdatedRule` in `WatchQuotesParityTests`).
 enum WatchFreshness {
     /// Takt der Komplikation: Zeitleiste alle 15 Min. (Android: `UPDATE_PERIOD_SECONDS` = 900).
     static let updateMinutes = 15

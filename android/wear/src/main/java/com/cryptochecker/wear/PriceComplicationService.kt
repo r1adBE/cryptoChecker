@@ -14,11 +14,11 @@ import androidx.wear.watchface.complications.datasource.SuspendingComplicationDa
 import com.cryptochecker.marketdata.watch.WatchFreshness
 
 /**
- * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Sind die gespeicherten
- * Kurse älter als [MAX_AGE_MS], lädt sie neu (Zifferblatt fragt etwa alle 15 min, Manifest); ohne Netz die letzten.
- * Veraltet ([WatchFreshness], 45 Min.): lang mit Alter «… +1.2%  ·  vor 47 Min.», kurz ohne Platz dafür; die
- * Beschreibung für den Screenreader nennt es immer. Farben bestimmt das Zifferblatt (kein Abblassen möglich).
- * Tippen öffnet die Uhr-App.
+ * Komplikation: der erste Favorit — kurz «BTC / +1.2%», lang «BTC 67’420.00 +1.2%». Ist sein gespeicherter Kurs
+ * älter als [MAX_AGE_MS], lädt sie neu (Zifferblatt fragt etwa alle 15 min, Manifest); ohne Netz oder ohne neuen
+ * Kurs für diesen Coin der letzte. Veraltet ([WatchFreshness], 45 Min. ab dem Stand seines Abrufs): lang mit Alter
+ * «… +1.2%  ·  vor 47 Min.», kurz ohne Platz dafür; die Beschreibung für den Screenreader nennt es immer. Farben
+ * bestimmt das Zifferblatt (kein Abblassen möglich). Tippen öffnet die Uhr-App.
  */
 class PriceComplicationService : SuspendingComplicationDataSourceService() {
 
@@ -29,16 +29,15 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val store = WatchStore(this)
         val favorites = store.shown
         val coin = favorites.firstOrNull() ?: return NoDataComplicationData()
-        var (quotes, time) = store.quotes()
-        if (System.currentTimeMillis() - time > MAX_AGE_MS || coin !in quotes) {
+        var cached = store.quotes()[coin]
+        if (cached == null || System.currentTimeMillis() - cached.time > MAX_AGE_MS) {
             val fresh = runCatching { WatchPriceSource.fetch(favorites) }.getOrNull().orEmpty()
-            if (fresh.isNotEmpty()) {
-                time = System.currentTimeMillis()
-                store.saveQuotes(fresh, time)
-                quotes = fresh
-            }
+            // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis, bleibt sein letzter Kurs samt Zeit
+            if (fresh.isNotEmpty()) cached = store.mergeQuotes(fresh, System.currentTimeMillis())[coin] ?: cached
         }
-        val q = quotes[coin] ?: return NoDataComplicationData()
+        val shown = cached ?: return NoDataComplicationData()
+        val q = shown.quote
+        val time = shown.time
         val tap = PendingIntent.getActivity(
             this, 0, Intent(this, WatchActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )

@@ -1,5 +1,5 @@
 {
- "description": "Watch apps: quote parsing per exchange (Binance ticker/24hr with symbols=[...], Bybit v5/market/tickers?category=spot&symbol=, OKX v5/market/ticker?instId= - single-symbol answers, only wanted coins, price > 0, Bybit price24hPcnt x 100, OKX change = last vs open24h), fallback (Binance for all coins in one request, then only the missing coins one request each at Bybit, then OKX; null response = HTTP error/blocked; request keys binance / bybit:<SYMBOL> / okx:<INST-ID>, compared as a set because requests per exchange run in parallel; expected in coin order), at most 8 coins (WatchCoins.MAX), freshness (WatchFreshness: outdated when the last successful fetch is older than OutdatedRule.afterMillis(15) = 45 min, strictly more; age unit/count like A11ySpeech.age: under 1 min justNow, then minutes, hours, days; time 0 = never loaded). Android wear WatchQuotes/WatchPriceSource + marketdata WatchFreshness, iOS WatchCore WatchQuoteParser/WatchQuoteFetch/WatchFreshness.",
+ "description": "Watch apps: quote parsing per exchange (Binance ticker/24hr with symbols=[...], Bybit v5/market/tickers?category=spot&symbol=, OKX v5/market/ticker?instId= - single-symbol answers, only wanted coins, price > 0, Bybit price24hPcnt x 100, OKX change = last vs open24h), fallback (Binance for all coins in one request, then only the missing coins one request each at Bybit, then OKX; null response = HTTP error/blocked; request keys binance / bybit:<SYMBOL> / okx:<INST-ID>, compared as a set because requests per exchange run in parallel; expected in coin order), at most 8 coins (WatchCoins.MAX), freshness (WatchFreshness, per coin from the time of its own fetch = «as of the fetch», not the last trade: outdated when older than OutdatedRule.afterMillis(15) = 45 min, strictly more; age unit/count like A11ySpeech.age: under 1 min justNow, then minutes, hours, days; time 0 = never loaded), cache (WatchCache.merge: a fetch replaces only the coins it delivered, every other coin keeps its last price and its own time; coins outside keep = both lists of the choice are dropped; expected compared per coin with outdated/age at now; listTime = time of the oldest shown coin, 0 = none), gate (WatchFetchGate: start takes the current shown list and invalidates every earlier run; finish is accepted only for the newest run while the shown list is still the one it asked for). Android wear WatchQuotes/WatchPriceSource/WatchCache + marketdata WatchFreshness, iOS WatchCore WatchQuoteParser/WatchQuoteFetch/WatchCache/WatchFreshness.",
  "maxCoins": 8,
  "urls": {
   "coins": [
@@ -430,5 +430,288 @@
     "count": 1
    }
   ]
- }
+ },
+ "cache": {
+  "now": 1700000000000,
+  "cases": [
+   {
+    "name": "Partial timeout: BTC new, SOL keeps its last price and its own time",
+    "old": [
+     {
+      "symbol": "BTC",
+      "price": 60000.0,
+      "change24h": 1.0,
+      "source": "Binance",
+      "time": 1699990000000
+     },
+     {
+      "symbol": "SOL",
+      "price": 100.0,
+      "change24h": -2.0,
+      "source": "Bybit",
+      "time": 1699996000000
+     }
+    ],
+    "fresh": [
+     {
+      "symbol": "BTC",
+      "price": 67420.1,
+      "change24h": 1.2,
+      "source": "Binance"
+     }
+    ],
+    "time": 1699999970000,
+    "keep": [
+     "BTC",
+     "ETH",
+     "SOL"
+    ],
+    "coins": [
+     "BTC",
+     "SOL"
+    ],
+    "expected": [
+     {
+      "symbol": "BTC",
+      "price": 67420.1,
+      "change24h": 1.2,
+      "source": "Binance",
+      "time": 1699999970000,
+      "outdated": false,
+      "unit": "justNow",
+      "count": 0
+     },
+     {
+      "symbol": "SOL",
+      "price": 100.0,
+      "change24h": -2.0,
+      "source": "Bybit",
+      "time": 1699996000000,
+      "outdated": true,
+      "unit": "hours",
+      "count": 1
+     }
+    ],
+    "listTime": 1699996000000
+   },
+   {
+    "name": "Empty result: every coin keeps its price and time",
+    "old": [
+     {
+      "symbol": "BTC",
+      "price": 60000.0,
+      "change24h": null,
+      "source": "OKX",
+      "time": 1699997000000
+     }
+    ],
+    "fresh": [],
+    "time": 1699999970000,
+    "keep": [
+     "BTC"
+    ],
+    "coins": [
+     "BTC"
+    ],
+    "expected": [
+     {
+      "symbol": "BTC",
+      "price": 60000.0,
+      "change24h": null,
+      "source": "OKX",
+      "time": 1699997000000,
+      "outdated": true,
+      "unit": "minutes",
+      "count": 50
+     }
+    ],
+    "listTime": 1699997000000
+   },
+   {
+    "name": "Coin never loaded stays missing; list time from the loaded ones",
+    "old": [],
+    "fresh": [
+     {
+      "symbol": "ETH",
+      "price": 3000.0,
+      "change24h": null,
+      "source": "OKX"
+     }
+    ],
+    "time": 1699999400000,
+    "keep": [
+     "BTC",
+     "ETH"
+    ],
+    "coins": [
+     "BTC",
+     "ETH"
+    ],
+    "expected": [
+     {
+      "symbol": "ETH",
+      "price": 3000.0,
+      "change24h": null,
+      "source": "OKX",
+      "time": 1699999400000,
+      "outdated": false,
+      "unit": "minutes",
+      "count": 10
+     }
+    ],
+    "listTime": 1699999400000
+   },
+   {
+    "name": "Coins outside both lists are dropped",
+    "old": [
+     {
+      "symbol": "XRP",
+      "price": 0.5,
+      "change24h": 1.0,
+      "source": "Binance",
+      "time": 1699999000000
+     }
+    ],
+    "fresh": [
+     {
+      "symbol": "BTC",
+      "price": 67420.1,
+      "change24h": 1.2,
+      "source": "Binance"
+     }
+    ],
+    "time": 1699999970000,
+    "keep": [
+     "BTC"
+    ],
+    "coins": [
+     "BTC"
+    ],
+    "expected": [
+     {
+      "symbol": "BTC",
+      "price": 67420.1,
+      "change24h": 1.2,
+      "source": "Binance",
+      "time": 1699999970000,
+      "outdated": false,
+      "unit": "justNow",
+      "count": 0
+     }
+    ],
+    "listTime": 1699999970000
+   },
+   {
+    "name": "Nothing loaded: list time 0",
+    "old": [],
+    "fresh": [],
+    "time": 1699999970000,
+    "keep": [
+     "BTC"
+    ],
+    "coins": [
+     "BTC"
+    ],
+    "expected": [],
+    "listTime": 0
+   }
+  ]
+ },
+ "gate": [
+  {
+   "name": "Slow first fetch, fast second after a list change: only the second counts",
+   "shown": [
+    "BTC",
+    "ETH"
+   ],
+   "steps": [
+    {
+     "start": "a"
+    },
+    {
+     "shown": [
+      "SOL"
+     ]
+    },
+    {
+     "start": "b"
+    },
+    {
+     "finish": "b",
+     "accepted": true
+    },
+    {
+     "finish": "a",
+     "accepted": false
+    }
+   ]
+  },
+  {
+   "name": "Same list refreshed twice: the older result is dropped even if it arrives last",
+   "shown": [
+    "BTC"
+   ],
+   "steps": [
+    {
+     "start": "a"
+    },
+    {
+     "start": "b"
+    },
+    {
+     "finish": "b",
+     "accepted": true
+    },
+    {
+     "finish": "a",
+     "accepted": false
+    }
+   ]
+  },
+  {
+   "name": "List changed while fetching, no new start yet: result dropped",
+   "shown": [
+    "BTC"
+   ],
+   "steps": [
+    {
+     "start": "a"
+    },
+    {
+     "shown": [
+      "ETH"
+     ]
+    },
+    {
+     "finish": "a",
+     "accepted": false
+    }
+   ]
+  },
+  {
+   "name": "List changed and changed back: the newest run counts again",
+   "shown": [
+    "BTC"
+   ],
+   "steps": [
+    {
+     "start": "a"
+    },
+    {
+     "shown": [
+      "ETH"
+     ]
+    },
+    {
+     "shown": [
+      "BTC"
+     ]
+    },
+    {
+     "finish": "a",
+     "accepted": true
+    }
+   ]
+  }
+ ]
 }

@@ -3,9 +3,10 @@ package com.cryptochecker.marketdata.watch
 /**
  * Alter der Kurse auf der Uhr (Uhr-App und Komplikation): «veraltet» nach derselben Regel wie Merkliste und Widgets
  * (`OutdatedRule`: dreimal das Intervall, mindestens 15 Min.), mit dem Takt der Komplikation ([UPDATE_MINUTES]) als
- * Intervall — also nach 45 Min. Gezählt ab dem letzten erfolgreichen Abruf (die Börsen geben der Uhr keine eigene
- * Handelszeit). Alter für den Screenreader in Minuten, Stunden, Tagen wie `A11ySpeech.age`. Wie iOS `WatchFreshness`
- * (Paritäts-Fixture `watch_quotes.json`, Abgleich mit `OutdatedRule` in `WatchFreshnessParityTest`).
+ * Intervall — also nach 45 Min. Gezählt je Coin ab dem Stand seines Abrufs (letzter Abruf, der diesen Coin lieferte),
+ * nicht ab dem letzten Handel: die 24-h-Ticker der Börsen geben dafür keine verlässliche Zeit. Alter für den
+ * Screenreader in Minuten, Stunden, Tagen wie `A11ySpeech.age`. Wie iOS `WatchFreshness` (Paritäts-Fixture
+ * `watch_quotes.json`, Abgleich mit `OutdatedRule` in `WatchFreshnessParityTest`).
  */
 object WatchFreshness {
     /** Takt der Komplikation: Manifest `UPDATE_PERIOD_SECONDS` = 900, iOS-Zeitleiste 15 Min. */
