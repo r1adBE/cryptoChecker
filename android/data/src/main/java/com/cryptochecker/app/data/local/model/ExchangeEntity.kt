@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 /**
- * Eine Börse mit gespeicherter Paarliste (Tabelle «markets»). Reihenfolge und Art der Felder
+ * Eine Börse mit gespeicherter Paarliste (Tabelle «exchanges»). Reihenfolge und Art der Felder
  * bestimmen das Schema — nicht verändern (keine Migration).
  */
 @Entity(

@@ -211,7 +211,7 @@ class ExchangeContractTest {
         // Unlesbare Zeilen werden je Paar gemeldet (BulkTickerRows), nicht still ausgelassen
         val failed = (expect["failed"] as? List<*>)?.map { it as String }?.toSet() ?: emptySet()
         if (parsed.failed != failed) throw CaseFailure("failed rows: expected $failed, got ${parsed.failed}")
-        // Antwort meldet sich selbst als lückenhaft (Market.bulkResponseComplete)
+        // Antwort meldet sich selbst als lückenhaft (Exchange.bulkResponseComplete)
         (expect["complete"] as? Boolean)?.let {
             if (parsed.complete != it) throw CaseFailure("complete: expected $it, got ${parsed.complete}")
         }

@@ -2536,14 +2536,14 @@ after the encryption step.
   where it means the whole market (market tab, `MarketMove`, `MarketMovers`, market cap, `domain.market`, iOS
   `MarketCandle`) and in API field names of the exchanges (Upbit/Luno «market», BTC Markets «marketId»). The module
   `:marketdata` keeps its name (market data).
-  Android `AppDatabase` starts over at version 1 (tables `exchanges`, `exchange_pairs`, column `exchangeKey`; only
-  test installs existed; they are reinstalled): no migrations, no destructive fallback, golden schema
+  Android `AppDatabase` starts over at version 1 (tables `exchanges`, `exchange_pairs`, column `exchangeKey`): no
+  migrations, no destructive fallback, golden schema
   `AppDatabase/1.json` only. `PortfolioLegacyImport` / `PortfolioLegacyPlan` removed,
   `PortfolioDatabase.callback(context, mirrorFile)` keeps the system-backup takeover; `portfolio_meta` is created
   by `markOnce`. `RoomSchemaRulesTest`: `N.json` with its version; for N > 1 also `N-1.json`, migration N-1 → N and
   a data test (`MAIN_DATA_TESTS` empty). Device tests for old AppDatabase versions and the legacy import removed;
-  PortfolioDatabase migration tests (1 → 6) unchanged. The old German error text «Börse nicht verfügbar» is no
-  longer recognised (stored errors start fresh with the new database).
+  PortfolioDatabase migration tests (1 → 6) unchanged. The old German error text «Börse nicht verfügbar» is gone
+  from the error checks.
   CI: «Compile instrumented tests» (android.yml) and «Build debug and test APKs» (android-device-tests.yml) turn
   Kotlin errors into annotations via `gradle_errors.sh`, like the unit-test step.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created

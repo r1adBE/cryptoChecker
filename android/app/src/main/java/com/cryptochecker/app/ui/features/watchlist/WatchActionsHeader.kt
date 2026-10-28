@@ -230,7 +230,7 @@ internal fun WatchActionsHeader(
                     note = candleNote,
                     neutral = off,
                     size = ChangePillSize.MEDIUM,
-                    // Änderung gegen den Mark-Preis (Market.changeIsMark): als «Mark» benennen
+                    // Änderung gegen den Mark-Preis (Exchange.changeIsMark): als «Mark» benennen
                     mark = com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark(
                         com.cryptochecker.marketdata.util.ExchangesConfigUtils.getExchangeByKey(watch.exchangeKey).changeIsMark,
                         headerChangeView.basis,

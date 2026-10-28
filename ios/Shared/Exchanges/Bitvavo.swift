@@ -6,7 +6,7 @@ private let bitvavoAPI = "https://api.bitvavo.com/v2"
 private let bitvavoDayTicker = bitvavoAPI + "/ticker/24h"
 
 /// Bitvavo (EU, EUR-Paare), API v2. Kennung = `market` («BTC-EUR»).
-final class Bitvavo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+final class Bitvavo: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bitvavo",

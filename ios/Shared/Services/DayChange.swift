@@ -190,7 +190,7 @@ enum DayChange {
     /// Binance-Kerzen». Gleich gilt die Börse selbst oder ihr Futures-Markt; Vergleich ohne
     /// Gross-/Kleinschreibung, Leer- und Satzzeichen — wie `DayChange.foreignCandleSource` (Android).
     /// - Parameters:
-    ///   - markets: Schlüssel und Name der Börse des Paars
+    ///   - exchanges: Schlüssel und Name der Börse des Paars
     ///   - provider: Anbieter der Kerzen («Binance», «Binance.US», «Coinbase»); nil = keine Kerzen
     static func foreignCandleSource(exchanges: [String], provider: String?) -> String? {
         guard let p = provider?.trimmingCharacters(in: .whitespaces), !p.isEmpty else { return nil }

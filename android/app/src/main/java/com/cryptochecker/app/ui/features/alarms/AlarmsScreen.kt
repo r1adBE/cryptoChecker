@@ -68,7 +68,7 @@ fun AlarmsScreen(
     // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor)
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true
-    // EZB-Referenzkurs (Forex): gar keine Alarme (Market.allowsAlarms), Hinweis statt Editor
+    // EZB-Referenzkurs (Forex): gar keine Alarme (Exchange.allowsAlarms), Hinweis statt Editor
     val referenceRate = watch?.let { !ExchangesConfigUtils.getExchangeByKey(it.exchangeKey).allowsAlarms } == true
     // Höchstzahl Alarme am Paar erreicht (WatchlistLimits): kein «Neuer Alarm», Hinweis über der Liste
     val alarmsFull = !WatchlistLimits.canAddAlarm(alarms.size)

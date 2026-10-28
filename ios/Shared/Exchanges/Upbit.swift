@@ -1,7 +1,7 @@
 import Foundation
 
 /// Upbit (Südkorea). Kennung «QUOTE-BASE», z. B. KRW-BTC. Doku: docs.upbit.com
-final class Upbit: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+final class Upbit: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Upbit",
@@ -18,7 +18,7 @@ final class Upbit: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wie 
 /// Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com. Anders als bei Upbit ist
 /// «trade_timestamp» die koreanische Uhrzeit als Epoche geschrieben (9 h zu spät); die Zeit kommt darum aus
 /// «trade_date» + «trade_time» (UTC).
-final class Bithumb: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+final class Bithumb: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bithumb",
@@ -35,7 +35,7 @@ final class Bithumb: UpbitStyleExchange, @unchecked Sendable { // @unchecked: wi
 /// Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
 /// `unfilteredURL`: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst nil (Bithumb).
 /// `tradeTimeFromUTCFields`: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
-class UpbitStyleExchange: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+class UpbitStyleExchange: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
     private let unfilteredURL: String?
     private let tradeTimeFromUTCFields: Bool
     /// Gefilterte Sammelabfrage: dahinter die Kennungen mit Komma.
@@ -145,7 +145,7 @@ class UpbitStyleExchange: SimpleExchange, @unchecked Sendable { // @unchecked: w
         ticker.vol = row.optDoubleOrMissing("acc_trade_volume_24h")
         ticker.volQuote = row.optDoubleOrMissing("acc_trade_price_24h")
         // Zeit des letzten Handels (nur Anzeige); «timestamp» wäre bloss die Antwortzeit. «Veraltet» misst am Abruf
-        // (`Market.readTicker`) — ein ruhiges Paar mit altem Handel ist nicht veraltet
+        // (`Exchange.readTicker`) — ein ruhiges Paar mit altem Handel ist nicht veraltet
         ticker.timestamp = utcFields
             ? utcTradeMillis(date: row.optString("trade_date"), time: row.optString("trade_time"))
             : row.optLong("trade_timestamp")

@@ -87,7 +87,7 @@ object DayChange {
      * Binance-Kerzen». Spot und Futures derselben Börse sind verschiedene Märkte: ein Binance-Perpetual
      * mit Spot-Kerzen heisst «Binance Spot», ein Spot-Paar mit Perp-Kerzen «Binance Futures».
      * Vergleich ohne Gross-/Kleinschreibung, Leer- und Satzzeichen («Binance.US» = «BinanceUS»).
-     * @param markets Schlüssel und Name der Börse des Paars
+     * @param exchanges Schlüssel und Name der Börse des Paars
      * @param provider Anbieter der Kerzen («Binance», «Binance.US», «Coinbase»); null = keine Kerzen
      * @return [provider], wenn fremd; sonst null
      */

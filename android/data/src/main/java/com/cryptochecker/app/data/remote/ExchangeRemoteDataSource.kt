@@ -170,13 +170,13 @@ class ExchangeRemoteDataSource @Inject constructor(
         val tickers = LinkedHashMap<String, Ticker>()
         // Paare mit unlesbarer Zeile: Fehler statt still «unverändert»
         val unreadable = LinkedHashSet<String>()
-        // Gruppen gescheiterter/ausgelassener Teilabfragen (Market.bulkTickersRequestGroup): nur deren
+        // Gruppen gescheiterter/ausgelassener Teilabfragen (Exchange.bulkTickersRequestGroup): nur deren
         // Paare gelten als unvollständig — bei Binance bleibt Spot ohne Alpha vollständig
         val brokenGroups = HashSet<Int>()
         // Bereits geholte ungefilterte Abfragen decken jede Teilanfrage mit derselben Adresse ab (Schlüssel ohne
         // Zeitstempel, RequestKey)
         val fullDone = HashSet<String>()
-        // Eine Antwort, die sich selbst als lückenhaft meldet (Market.bulkResponseComplete), hebt «vollständig» auf
+        // Eine Antwort, die sich selbst als lückenhaft meldet (Exchange.bulkResponseComplete), hebt «vollständig» auf
         var responsesComplete = true
         // «Zu viele Anfragen» bei einer Folgeanfrage: Rest weglassen, Text für die Pause (ExchangeBackoff)
         var throttled: String? = null

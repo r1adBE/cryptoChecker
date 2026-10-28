@@ -6,7 +6,7 @@ package com.cryptochecker.app.domain.starter
  *
  * Paar: Binance Spot «<COIN>/USDT» (Paar-Id wie in der Binance-Paarliste: «BTCUSDT»), in allen Regionen
  * ausser den USA (auch Schweiz/Liechtenstein, Entscheid 15. Oktober 2026); in den USA Binance.US
- * «<COIN>/USDT» (gleiche Schnittstelle, `api.binance.us`). Die Börsen-Schlüssel entsprechen Market.key in
+ * «<COIN>/USDT» (gleiche Schnittstelle, `api.binance.us`). Die Börsen-Schlüssel entsprechen Exchange.key in
  * ExchangesConfig («Binance», «BinanceUs»). Binance liefert eine gleitende 24-h-Änderung.
  */
 object StarterPairs {
@@ -59,7 +59,7 @@ object StarterPairs {
         else -> previous
     }
 
-    /** Start-Börse der Region (Schlüssel wie Market.key). */
+    /** Start-Börse der Region (Schlüssel wie Exchange.key). */
     fun exchangeKey(regionCountry: String?): String = if (isUs(regionCountry)) BINANCE_US_KEY else BINANCE_KEY
 
     /**

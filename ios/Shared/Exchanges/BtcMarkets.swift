@@ -16,7 +16,7 @@ private let btcMarketsSafeCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij
 
 /// BTC Markets (Australien, AUD-Paare), API v3: https://api.btcmarkets.net/doc/v3. Kennung = `marketId` («BTC-AUD»).
 /// Die Sammelabfrage verlangt die Märkte als Auswahl; eine ungefilterte Form ist nicht belegt.
-final class BtcMarkets: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+final class BtcMarkets: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "BtcMarkets",

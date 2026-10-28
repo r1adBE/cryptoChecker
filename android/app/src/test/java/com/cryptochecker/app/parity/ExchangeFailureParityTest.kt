@@ -8,12 +8,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * Art des Fehlers neben dem Text (`testdata/parity/market_failure.json`): Die Art entscheidet, wo sie kann; sonst
+ * Art des Fehlers neben dem Text (`testdata/parity/exchange_failure.json`): Die Art entscheidet, wo sie kann; sonst
  * und für gespeicherte ältere Texte die Stichwörter. Gegenstück: `Tests/ExchangeFailureParityTests.swift`.
  */
 class ExchangeFailureParityTest {
 
-    private val data = ParityJson.load("market_failure.json")
+    private val data = ParityJson.load("exchange_failure.json")
 
     private fun failure(raw: Any?): ExchangeFailure? {
         val f = raw as? Map<*, *> ?: return null

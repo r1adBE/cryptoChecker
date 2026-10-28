@@ -19,7 +19,7 @@ import org.junit.Test
 /**
  * Regeln der Kursabfrage: Einzelabfragen nach 429/418 stoppen ([SingleRateGate]), «vollständig» je
  * Teilabfrage ([BulkCompleteness]), inverse Perpetuals ([FuturesContractType.normalized]) und «veraltet» am Abruf,
- * am letzten Handel erst ab der Grenze der Alarmsperre (Market.readTicker, PriceFreshness.staleReason).
+ * am letzten Handel erst ab der Grenze der Alarmsperre (Exchange.readTicker, PriceFreshness.staleReason).
  * iOS: `PriceFetchRulesTests.swift`.
  */
 class PriceFetchRulesTest {

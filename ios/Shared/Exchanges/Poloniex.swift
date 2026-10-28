@@ -3,7 +3,7 @@ import Foundation
 private let poloniexMarkets = "https://api.poloniex.com/markets"
 
 /// Poloniex Spot (API v3, api-docs.poloniex.com/spot).
-final class Poloniex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
+final class Poloniex: SimpleExchange, @unchecked Sendable { // @unchecked: wie `Exchange` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Poloniex",

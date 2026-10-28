@@ -215,8 +215,8 @@ enum PortfolioPriceSource {
         let symbol = PortfolioCalculator.normalizeCoin(coin)
         if !PortfolioStables.needsQuote(symbol) { return 1 }
         // Stablecoin ohne Marktkurs: kein Wert (gleiche Regel wie Kopf, Verlauf und Widget)
-        let exchange = await prices([symbol]).prices[symbol]
-        return PortfolioStables.price(symbol, exchange: exchange)
+        let market = await prices([symbol]).prices[symbol]
+        return PortfolioStables.price(symbol, market: market)
     }
 
     /// Abfragbare Kürzel; gekapselte Coins (`ChainAssets.wrapped`, z. B. «BTC.B») auch ohne — Kurs dann über die Basis.
