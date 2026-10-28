@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 158)
+
+* Tests only (no change for users): 19 new Android unit-test files – network fees, futures funding and open interest with their fallbacks between exchanges, candle sources (error branches), cache codecs (cycle, market extras, portfolio history), backup journal, logo pauses, alarm drafts, portfolio form prefill and mappings, price formatting, widget snapshot codec, explorer state.
+
 ## 16.2.2 (build 157)
 
 * Code cleanup (no change for users): the three largest Android screens get their helpers injected instead of 16–20 single dependencies each (watchlist refresh, start choice and edits through factories; «Test alarm»/«Test voice» and «Check on time» in the settings, USDT valuation and portfolio-alarm saving in their own small classes) – no screen needs more than 14 dependencies any more, and CI now stops at 15. On iPhone, eight thread-safe helpers switch to Apple's checked lock type, so the Swift 6 compiler verifies them instead of trusting a marker. Build numbers removed from code comments (history lives in this changelog); CI caps the few that still name early storage formats.

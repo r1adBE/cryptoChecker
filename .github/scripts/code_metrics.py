@@ -5,7 +5,8 @@ Usage: python3 -I code_metrics.py [repository root, default: current directory]
 
 Scans Kotlin under android/<module>/src/main (tests are not checked) and measures:
 * Constructor dependencies: parameters of the primary constructor of every class annotated with @HiltViewModel or
-  with an `@Inject constructor`. From DEPS_WARN on a warning annotation (green), above DEPS_CEILING an error (red).
+  with an `@Inject constructor`. Above DEPS_CEILING an error (red); evaluate() can add a warning tier (deps_warn),
+  the default has none because the ceiling is today's maximum.
 * Non-public properties of ViewModels (@HiltViewModel or a subclass of ViewModel/AndroidViewModel): `private` and
   `internal` val/var declared directly in the class body (not in the constructor, not in nested classes, objects or
   functions); `internal` counts because it is the module-wide seam for the screen's extension files and tests, not
@@ -17,8 +18,8 @@ import os
 import re
 import sys
 
-DEPS_WARN = 15
-DEPS_CEILING = 15  # lowered from 20 in build 157 (largest today: 14, BackupManager)
+DEPS_WARN = None  # no warning tier: the ceiling below is today's maximum
+DEPS_CEILING = 14  # BackupManager, ExplorerViewModel, InfoViewModel, PortfolioViewModel, SettingsViewModel, WatchlistViewModel
 PROPS_CEILING = 35
 
 TITLE = "Code metrics"
@@ -285,7 +286,7 @@ def evaluate(rows, deps_warn=DEPS_WARN, deps_ceiling=DEPS_CEILING, props_ceiling
             failed = True
             lines.append(annotation("error", f"{name}: {deps} constructor dependencies, at most {deps_ceiling} - "
                                     "split the class (use case, helper) instead of injecting more", path, line))
-        elif deps is not None and deps >= deps_warn:
+        elif deps is not None and deps_warn is not None and deps >= deps_warn:
             lines.append(annotation("warning", f"{name}: {deps} constructor dependencies (warning from {deps_warn}, "
                                     f"ceiling {deps_ceiling})", path, line))
         if props is not None and props > props_ceiling:
@@ -296,8 +297,9 @@ def evaluate(rows, deps_warn=DEPS_WARN, deps_ceiling=DEPS_CEILING, props_ceiling
     props_rows = [r for r in rows if r[4] is not None]
     if deps_rows:
         top = max(deps_rows, key=lambda r: r[3])
+        warn = f"warning from {deps_warn}, " if deps_warn is not None else ""
         lines.append(f"Constructor dependencies: {len(deps_rows)} injected classes, max {top[3]} ({top[1]}), "
-                     f"warning from {deps_warn}, ceiling {deps_ceiling}")
+                     f"{warn}ceiling {deps_ceiling}")
         if top[3] < deps_ceiling and not failed:
             lines.append(annotation("notice", f"max constructor dependencies {top[3]} < ceiling {deps_ceiling} - "
                                     "lower DEPS_CEILING in .github/scripts/code_metrics.py"))

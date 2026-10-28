@@ -774,10 +774,9 @@ The *Android* workflow also shows, never failing: lint warnings counted by id (t
 and keep their ceilings in the script (today's maximum: nothing may grow past it; lower a ceiling when the code
 shrinks, raise it only deliberately with the reason in the same pull request).
 * *Code metrics* (`android.yml`, step after «Line limit», `.github/scripts/code_metrics.py`): constructor
-  dependencies of every `@HiltViewModel` / `@Inject constructor` class in `android/*/src/main` – warning from 15,
-  red above `DEPS_CEILING` 20 (`WatchlistViewModel`) – and `private`/`internal` properties declared in a ViewModel
-  body (not constructor parameters, not nested classes or functions) – red above `PROPS_CEILING` 49
-  (`ExplorerViewModel`). A class at the limit is split (use case, helper, state holder) instead of growing.
+  dependencies of every `@HiltViewModel` / `@Inject constructor` class in `android/*/src/main` – red above
+  `DEPS_CEILING` 14 – and `private`/`internal` properties declared in a ViewModel body (not constructor parameters,
+  not nested classes or functions) – red above `PROPS_CEILING` 35 (`ExplorerViewModel`). A class at the limit is split (use case, helper, state holder) instead of growing.
 * *Swift escape hatches* (`ios.yml`, job «iOS release build», first step, `.github/scripts/swift_escape_hatches.py`):
   `@unchecked Sendable`, `nonisolated(unsafe)` and `DispatchSemaphore` in `ios/App`, `ios/Shared`, `ios/Widgets`
   (not `ios/Tests`) against `CEILINGS`; above is red, below is a notice to lower it. Shared mutable state goes into
@@ -2521,6 +2520,16 @@ after the encryption step.
   `packaging.resources.excludes` drops `META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/
   verification.properties`. The remaining Gradle deprecation (`Configuration.setVisible`, removed in Gradle 11)
   comes from an applied plugin, not from the build scripts.
+* Build 158: new unit tests (app/src/test) for `:data` – `GasDataSource`, `FuturesDataSource`,
+  `FuturesDataSourceFundingHistory`, `CandleTime`/`OkxCandles`, error branches of the exchange candle sources,
+  `CycleCacheCodecs`, `MarketExtraCodecs`, `PortfolioHistoryCodecs`, `BackupJournalCodec`, `LogoImagePauses`,
+  `SharedPreferencesStore` (in-memory fake) – and for `:app` logic – `AlarmDraft` condition switches,
+  `PortfolioSnapshotCodec` readers, transaction-form prefill/derived values and entity mappings, history load helpers,
+  explorer state holders, watchlist group filter, `PriceFormat` basics. Remaining gap of the app logic: ViewModels and
+  controllers depend on final Android-bound classes; without Robolectric/MockK or interfaces (owner's decision, not
+  wanted) they stay covered by the device tests only.
+  `code_metrics.py`: `DEPS_CEILING` 15 → 14 (today's maximum), no warning tier by default (it sat above the
+  ceiling).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
