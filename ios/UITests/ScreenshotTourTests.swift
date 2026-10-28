@@ -3,22 +3,33 @@ import XCTest
 /// Bildschirmfotos aller Hauptseiten, hell und dunkel — für den Workflow «Screenshots», der sie auf den Zweig
 /// `screenshots` legt (DEVELOPMENT.md). Gleiche Seiten und Namen wie `ScreenshotTourTest.kt` (Android): Merkliste,
 /// Aktionsblatt eines Paars, Alarme des Paars, Alarm-Editor, Alle Alarme, Paar hinzufügen, Coin-Suche, Markt,
-/// Portfolio, Einstellungen mit «Light / Dark», «Alerts», «Backup & restore» und «About the app». Den Bericht
-/// «Letzte Aktualisierung» (Android `06_refresh_report`) gibt es hier nicht als eigenes Bild.
+/// Portfolio, Einstellungen mit «Light / Dark», «Alerts», «Backup & restore» und «About the app»; dazu der
+/// Bericht «Last refresh» aus dem Menü der Merkliste (`06_refresh_report`).
 ///
 /// Daten: die Demo-Sicherung der Store-Bilder (`android/docs/store/screenshots/demo-backup.json`, gelesen neben dieser
 /// Quelle wie `fixture`), über «Wiederherstellen» eingespielt (`UITEST_BACKUP`). Darin gesetzt: Hell/Dunkel als
 /// Einstellung der App (`darkMode`), Währung USD ohne Umrechnung (keine Wechselkurse ohne Netz) und je ein Alarm für
 /// ETH und SOL, damit «Alarm» im Aktionsblatt die Alarm-Liste öffnet. Kurse aus `UITestExchange` (kein Netz).
 ///
-/// Jedes Bild ist ein Anhang `NN_name_light` bzw. `NN_name_dark` (immer behalten); der Workflow holt sie mit
+/// Jedes Bild ist ein eigener Schritt (`step`) mit eigenem Weg über die Tab-Leiste: Scheitert einer, laufen die
+/// übrigen weiter, am Ende schlägt der Test fehl und nennt die fehlenden Bilder. Bedienung und Wege zurück in
+/// `ScreenshotTourSteps.swift`. Kein `app.open(URL)`: im ersten Lauf startete das die App neu (leerer Speicher,
+/// `UITesting.prepareIfRequested`), «All alerts» zeigte dann 0 Alarme im hellen Modus.
+///
+/// Die Bilder sind Anhänge `NN_name_light` bzw. `NN_name_dark` (immer behalten); der Workflow holt sie mit
 /// `xcresulttool export attachments` aus dem Result-Bundle. Läuft nur mit `TEST_RUNNER_SCREENSHOT_TOUR=1`
 /// (xcodebuild gibt es als `SCREENSHOT_TOUR` an den Test weiter), sonst übersprungen — der normale UI-Testlauf
 /// nimmt alle Klassen des Ziels.
 final class ScreenshotTourTests: XCTestCase {
 
+    /// «light» bzw. «dark»: Endung der Anhänge.
+    var mode = "light"
+    /// Bilder, die fehlen, mit Grund — am Ende der Tour gemeldet.
+    var missing: [String] = []
+
     override func setUpWithError() throws {
-        continueAfterFailure = false
+        // Ein Fehler (auch eine Meldung von XCUITest selbst) beendet die Tour nicht; `step` merkt das Bild als fehlend
+        continueAfterFailure = true
         guard ProcessInfo.processInfo.environment["SCREENSHOT_TOUR"] == "1" else {
             throw XCTSkip("Nur im Workflow «Screenshots» (TEST_RUNNER_SCREENSHOT_TOUR=1)")
         }
@@ -38,74 +49,105 @@ final class ScreenshotTourTests: XCTestCase {
 
     @MainActor
     private func tour(dark: Bool) throws {
-        let mode = dark ? "dark" : "light"
+        mode = dark ? "dark" : "light"
+        missing = []
         let app = XCUIApplication()
         // Startargument zuletzt: ohne Wert, damit es kein «-AppleLocale»-Wert verschluckt
         app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", UiTestTags.launchArgument]
         app.launchEnvironment[UiTestTags.backupEnvironment] = try demoBackup(dark: dark)
         app.launch()
         closeStorageNotice(app)
-        restoreDemoBackup(app)
+        do {
+            try restoreDemoBackup(app)
+        } catch {
+            XCTFail("Demo backup not restored: \(error)")
+            return
+        }
 
         // Einstellungen (nach dem Wiederherstellen offen): Sichern, Hauptseite, Unterseiten
-        shot("14_settings_backup", mode)
-        goBack(app)
-        XCTAssertTrue(app.tagged(UiTestTags.settingsBackup).waitForExistence(timeout: uiTimeout), "settings missing")
-        scrollToTop(app)
-        shot("11_settings", mode)
-        settingsPage(app, "Light / Dark", "12_settings_display", mode)
-        settingsPage(app, "Alerts", "13_settings_alarms", mode)
-        settingsPage(app, "About the app", "15_about", mode)
+        step("14_settings_backup") {
+            try self.require(app.tagged(UiTestTags.backupExport).exists, "backup page left")
+        }
+        step("11_settings") {
+            try self.toSettings(app)
+            self.scrollToTop(app)
+        }
+        settingsPage(app, "Light / Dark", "12_settings_display")
+        settingsPage(app, "Alerts", "13_settings_alarms")
+        settingsPage(app, "About the app", "15_about")
 
         // Tabs Markt und Portfolio
-        openTab(app, UiTestTags.tabCycle)
-        // Quellen ausser den Fake-Börsen antworten 404: Fehlerzustände abwarten
-        settle(4)
-        shot("09_market", mode)
-        openTab(app, UiTestTags.tabPortfolio)
-        XCTAssertTrue(app.tagged(UiTestTags.portfolioCoin("BTC")).waitForExistence(timeout: uiListTimeout), "portfolio empty")
-        shot("10_portfolio", mode)
+        step("09_market") {
+            try self.openTab(app, UiTestTags.tabCycle)
+            // Quellen ausser den Fake-Börsen antworten 404: Fehlerzustände abwarten
+            self.settle(4)
+        }
+        step("10_portfolio") {
+            try self.openTab(app, UiTestTags.tabPortfolio)
+            try self.require(app.tagged(UiTestTags.portfolioCoin("BTC")).waitForExistence(timeout: uiListTimeout),
+                             "portfolio empty")
+        }
 
-        // Merkliste, Alle Alarme (Link wie die App-Verknüpfung)
-        openTab(app, UiTestTags.tabWatchlist)
-        XCTAssertTrue(app.tagged(UiTestTags.watchRow).waitForExistence(timeout: uiListTimeout), "watchlist empty")
-        shot("01_watchlist", mode)
-        app.open(URL(string: "cryptochecker://alarms")!)
-        // Die Übersicht hat keine eigene Kennung: warten, bis sie die Merkliste verdeckt
-        XCTAssertTrue(wait(app.tagged(UiTestTags.watchRow), "isHittable == false"), "alarms overview not opened")
-        shot("05_alarms_overview", mode)
-        backToWatchlist(app)
+        // Merkliste, Aktionsblatt → Alarme des Paars → Editor, Alle Alarme (Glocke), Bericht
+        step("01_watchlist") { try self.toWatchlist(app) }
+        step("02_pair_actions") { try self.openPairActions(app) }
+        step("03_pair_alarms") { try self.openPairAlarms(app) }
+        step("04_alarm_editor") {
+            try self.openPairAlarms(app)
+            try self.tap(app, UiTestTags.alarmCard)
+            try self.requireTag(app, UiTestTags.alarmSave)
+        }
+        step("05_alarms_overview") { try self.openAlarmsOverview(app) }
+        step("06_refresh_report") { try self.openRefreshReport(app) }
 
         // Paar hinzufügen und Coin-Suche «btc» (Paarlisten der Fake-Börsen laden, falls nötig)
-        // «+» im Kopf der Merkliste; fehlt er, der Link der App-Verknüpfung
-        if app.tagged(UiTestTags.watchlistAddPair).waitForExistence(timeout: 5) {
-            tap(app, UiTestTags.watchlistAddPair)
-        } else {
-            app.open(URL(string: "cryptochecker://add")!)
+        step("07_explorer") { try self.openExplorer(app) }
+        step("08_coin_search") {
+            try self.openExplorer(app)
+            try self.tap(app, UiTestTags.explorerSearch)
+            // «\n» = Suchen: Tastatur zu, damit nichts die Treffer verdeckt
+            app.tagged(UiTestTags.explorerSearch).typeText("btc\n")
+            let coin = app.tagged(UiTestTags.explorerCoin("BTC"))
+            let load = app.tagged(UiTestTags.explorerListsLoad)
+            try self.require(self.waitForAny([load, coin]), "no search result")
+            if load.exists { load.tap() }
+            try self.require(coin.waitForExistence(timeout: uiListTimeout), "BTC not found")
         }
-        XCTAssertTrue(app.tagged(UiTestTags.explorerSearch).waitForExistence(timeout: uiTimeout), "explorer missing")
-        shot("07_explorer", mode)
-        tap(app, UiTestTags.explorerSearch)
-        // «\n» = Suchen: Tastatur zu, damit nichts die Treffer verdeckt
-        app.tagged(UiTestTags.explorerSearch).typeText("btc\n")
-        let coin = app.tagged(UiTestTags.explorerCoin("BTC"))
-        let load = app.tagged(UiTestTags.explorerListsLoad)
-        XCTAssertTrue(waitForAny([load, coin]), "no search result")
-        if load.exists { load.tap() }
-        XCTAssertTrue(coin.waitForExistence(timeout: uiListTimeout), "BTC not found")
-        shot("08_coin_search", mode)
-        backToWatchlist(app)
 
-        // Aktionsblatt → Alarme des Paars → Editor (zuletzt: das Blatt bleibt offen, der Test endet)
-        tap(app, UiTestTags.watchRow)
-        XCTAssertTrue(app.tagged(UiTestTags.watchActionAlarm).waitForExistence(timeout: uiTimeout), "action sheet missing")
-        shot("02_pair_actions", mode)
-        tap(app, UiTestTags.watchActionAlarm)
-        XCTAssertTrue(app.tagged(UiTestTags.alarmCard).waitForExistence(timeout: uiTimeout), "pair alarms missing")
-        shot("03_pair_alarms", mode)
-        tap(app, UiTestTags.alarmCard)
-        XCTAssertTrue(app.tagged(UiTestTags.alarmSave).waitForExistence(timeout: uiTimeout), "alarm editor missing")
-        shot("04_alarm_editor", mode)
+        if !missing.isEmpty {
+            XCTFail("Missing screenshots (\(mode)): " + missing.joined(separator: "; "))
+        }
+    }
+
+    /// Ein Bild: `open` führt zur Seite, dann das Foto `name`. Wirft `open` oder meldet XCUITest dabei einen Fehler,
+    /// wird das Bild als fehlend gemerkt (mit Grund) und die Tour läuft weiter; der nächste Schritt sucht seinen
+    /// Ausgangspunkt selbst.
+    @MainActor
+    func step(_ name: String, _ open: () throws -> Void) {
+        let failuresBefore = testRun?.totalFailureCount ?? 0
+        do {
+            try open()
+            if (testRun?.totalFailureCount ?? 0) > failuresBefore {
+                missing.append("\(name) (XCUITest failure, see log)")
+                return
+            }
+            shot(name)
+        } catch {
+            missing.append("\(name) (\(error))")
+        }
+    }
+
+    /// Unterseite der Einstellungen über ihre Beschriftung öffnen und fotografieren (eigener Schritt).
+    @MainActor
+    private func settingsPage(_ app: XCUIApplication, _ label: String, _ name: String) {
+        step(name) {
+            try self.toSettings(app)
+            let row = app.buttons.matching(NSPredicate(format: "label == %@", label)).firstMatch
+            try self.require(row.waitForExistence(timeout: uiTimeout), "settings row \(label) missing")
+            self.tapRow(app, row)
+            // Unterseite offen: die Zeile «Sichern» der Hauptseite ist weg (nur gewartet, nicht verlangt)
+            _ = self.wait(app.tagged(UiTestTags.settingsBackup), "exists == false", timeout: 5)
+        }
     }
 
     /// Demo-Sicherung mit Hell/Dunkel (`darkMode`), USD ohne Umrechnung und je einem Alarm für alle Paare.
@@ -145,12 +187,11 @@ final class ScreenshotTourTests: XCTestCase {
     /// Einstellungen › Sichern › Wiederherstellen (Datei aus `UITEST_BACKUP`) → «Import»; Ergebnis-Dialog schliessen,
     /// Mitteilungs-Abfrage beantworten. Endet auf der Seite «Backup & restore».
     @MainActor
-    private func restoreDemoBackup(_ app: XCUIApplication) {
-        openTab(app, UiTestTags.tabSettings)
-        let row = app.tagged(UiTestTags.settingsBackup)
-        XCTAssertTrue(row.waitForExistence(timeout: uiTimeout), "\(UiTestTags.settingsBackup) missing")
+    private func restoreDemoBackup(_ app: XCUIApplication) throws {
+        try openTab(app, UiTestTags.tabSettings)
+        let row = try requireTag(app, UiTestTags.settingsBackup)
         tapRow(app, row)
-        tap(app, UiTestTags.backupImport)
+        try tap(app, UiTestTags.backupImport)
         let confirm = app.tagged(UiTestTags.backupRestoreConfirm)
         if confirm.waitForExistence(timeout: uiTimeout) {
             confirm.tap()
@@ -158,8 +199,8 @@ final class ScreenshotTourTests: XCTestCase {
             // Kennungen erreichen nicht in jeder iOS-Fassung die Knöpfe einer Rückfrage: über die Beschriftung
             let byLabel = [app.alerts.firstMatch, app.sheets.firstMatch].map { $0.buttons["Import"] }
                 .first { $0.exists }
-            XCTAssertNotNil(byLabel, "restore confirmation missing")
-            byLabel?.tap()
+            guard let byLabel else { throw TourStepError("restore confirmation missing") }
+            byLabel.tap()
         }
         let alert = app.alerts.firstMatch
         if alert.waitForExistence(timeout: 5) {
@@ -169,7 +210,7 @@ final class ScreenshotTourTests: XCTestCase {
             }
         }
         allowNotificationsIfAsked(timeout: 6)
-        XCTAssertTrue(app.tagged(UiTestTags.backupExport).waitForExistence(timeout: uiTimeout), "backup page left")
+        try require(app.tagged(UiTestTags.backupExport).waitForExistence(timeout: uiTimeout), "backup page left")
         settle(2)
     }
 
@@ -177,109 +218,11 @@ final class ScreenshotTourTests: XCTestCase {
 
     /// Ganzer Bildschirm als Anhang `name_mode`, auch bei Erfolg behalten (sonst löscht Xcode ihn).
     @MainActor
-    private func shot(_ name: String, _ mode: String) {
+    private func shot(_ name: String) {
         settle(1.5)
         let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         attachment.name = "\(name)_\(mode)"
         attachment.lifetime = .keepAlways
         add(attachment)
-    }
-
-    // MARK: Navigation
-
-    /// Unterseite der Einstellungen über ihre Beschriftung öffnen, fotografieren, zurück zur Hauptseite.
-    @MainActor
-    private func settingsPage(_ app: XCUIApplication, _ label: String, _ name: String, _ mode: String) {
-        let row = app.buttons.matching(NSPredicate(format: "label == %@", label)).firstMatch
-        XCTAssertTrue(row.waitForExistence(timeout: uiTimeout), "settings row \(label) missing")
-        tapRow(app, row)
-        // Unterseite offen: die Zeile «Sichern» der Hauptseite ist weg (nur gewartet, nicht verlangt)
-        _ = wait(app.tagged(UiTestTags.settingsBackup), "exists == false", timeout: 5)
-        shot(name, mode)
-        goBack(app)
-        XCTAssertTrue(app.tagged(UiTestTags.settingsBackup).waitForExistence(timeout: uiTimeout), "settings missing")
-    }
-
-    /// Zurück-Knopf der Navigationsleiste (erster Knopf links).
-    @MainActor
-    private func goBack(_ app: XCUIApplication) {
-        let back = app.navigationBars.firstMatch.buttons.element(boundBy: 0)
-        XCTAssertTrue(back.waitForExistence(timeout: uiTimeout), "back button missing")
-        back.tap()
-        settle(1)
-    }
-
-    /// Zurück, bis die Merkliste wieder oben liegt (höchstens dreimal).
-    @MainActor
-    private func backToWatchlist(_ app: XCUIApplication) {
-        for _ in 0..<3 {
-            if app.tagged(UiTestTags.watchRow).isHittable { return }
-            goBack(app)
-        }
-        XCTAssertTrue(app.tagged(UiTestTags.watchRow).waitForExistence(timeout: uiTimeout), "watchlist not reached")
-    }
-
-    @MainActor
-    private func openTab(_ app: XCUIApplication, _ tag: String) {
-        tap(app, tag)
-        // Langsamer CI-Mac: kam der Tipp nicht an (Tab nicht gewählt), einmal erneut tippen
-        if !wait(app.tagged(tag), "isSelected == true", timeout: 5) { tap(app, tag) }
-        settle(1)
-    }
-
-    /// Hinweis zum Speicher (nur im unsignierten Simulator) schliessen, falls er erscheint.
-    @MainActor
-    private func closeStorageNotice(_ app: XCUIApplication) {
-        let close = app.tagged(UiTestTags.storageNoticeClose)
-        guard close.waitForExistence(timeout: 3) else { return }
-        close.tap()
-        if !wait(close, "exists == false"), close.exists { close.tap() }
-    }
-
-    /// Wartet, bis das Element da und bedienbar ist, und tippt — bei mehreren Treffern (Tab-Leisten verdeckter
-    /// Tabs) den sichtbaren.
-    @MainActor
-    private func tap(_ app: XCUIApplication, _ tag: String, timeout: TimeInterval = uiTimeout) {
-        let element = app.tagged(tag)
-        XCTAssertTrue(element.waitForExistence(timeout: timeout), "\(tag) missing")
-        XCTAssertTrue(wait(element, "isEnabled == true", timeout: timeout), "\(tag) disabled")
-        let matches = app.descendants(matching: .any).matching(identifier: tag).allElementsBoundByIndex
-        if matches.count > 1, let visible = matches.first(where: { $0.isHittable }) {
-            visible.tap()
-        } else {
-            element.tap()
-        }
-    }
-
-    /// Zeile so weit scrollen, dass sie ganz über der eigenen Tab-Leiste liegt (ein Tipp darunter träfe die Leiste,
-    /// siehe `CryptoCheckerUITests.openBackupPage`), dann antippen.
-    @MainActor
-    private func tapRow(_ app: XCUIApplication, _ row: XCUIElement) {
-        let bars = app.descendants(matching: .any).matching(identifier: UiTestTags.tabSettings).allElementsBoundByIndex
-        let tabTop = bars.first(where: { $0.isHittable })?.frame.minY ?? app.frame.maxY
-        var swipes = 0
-        while swipes < 8 && (!row.isHittable || row.frame.maxY > tabTop - 8) {
-            drag(app, from: 0.7, to: 0.35)
-            swipes += 1
-        }
-        row.tap()
-        settle(1)
-    }
-
-    /// Liste ganz nach oben (für das Bild der Hauptseite).
-    @MainActor
-    private func scrollToTop(_ app: XCUIApplication) {
-        for _ in 0..<4 { drag(app, from: 0.3, to: 0.8) }
-    }
-
-    @MainActor
-    private func drag(_ app: XCUIApplication, from: CGFloat, to: CGFloat) {
-        let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: from))
-        start.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: to)))
-    }
-
-    /// Ein- und Ausblendungen abwarten (keine Bedingung, auf die sich warten liesse).
-    private func settle(_ seconds: TimeInterval) {
-        _ = XCTWaiter.wait(for: [XCTestExpectation(description: "settle")], timeout: seconds)
     }
 }

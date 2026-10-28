@@ -37,15 +37,25 @@ object FakeExchange {
 
     fun price(base: String): Double? = if (base == "BTC") btcPrice else fixed[base]
 
+    /**
+     * Auch den Binance-Spiegel `data-api.binance.vision` beantworten (Coin-Liste und Sammelkurse des Portfolios,
+     * `PortfolioPriceSource`). Aus, damit die übrigen Tests unverändert ohne Portfolio-Kurse laufen; die
+     * Bildschirmfoto-Tour schaltet ihn ein (Gesamtwert statt 0.00).
+     */
+    @Volatile
+    var binanceMirror: Boolean = false
+
     fun reset() {
         btcPrice = START_PRICE
+        binanceMirror = false
     }
 }
 
 /**
- * Beantwortet Binance-, Binance.US- und Coinbase-Abfragen aus [FakeExchange]; alles andere: 404 (die App zeigt
- * dann «—»). Start-Paare: Binance, in der Geräte-Region USA Binance.US (StarterPairs) – der Emulator auf GitHub
- * läuft in en-US, die App hält ihn darum für ein US-Gerät.
+ * Beantwortet Binance-, Binance.US- und Coinbase-Abfragen (mit [FakeExchange.binanceMirror] auch den
+ * Binance-Spiegel) aus [FakeExchange]; alles andere: 404 (die App zeigt dann «—»). Start-Paare: Binance, in
+ * der Geräte-Region USA Binance.US (StarterPairs) – der Emulator auf GitHub läuft in en-US, die App hält ihn
+ * darum für ein US-Gerät.
  */
 class FakeExchangeInterceptor : Interceptor {
 
@@ -71,6 +81,12 @@ class FakeExchangeInterceptor : Interceptor {
                 "/api/v3/ticker/24hr" -> binanceTickers(url)
                 else -> null
             }
+            // Spiegel nur mit [FakeExchange.binanceMirror]: Paarliste wie oben, Kurse als `ticker/price`
+            "data-api.binance.vision" -> if (!FakeExchange.binanceMirror) null else when (path) {
+                "/api/v3/exchangeInfo" -> binanceExchangeInfo()
+                "/api/v3/ticker/price" -> binancePrices(url)
+                else -> null
+            }
             "api.exchange.coinbase.com" -> when {
                 path == "/products" -> coinbaseProducts()
                 path.startsWith("/products/") && path.endsWith("/stats") -> coinbaseStats(url.pathSegments[1])
@@ -94,11 +110,18 @@ class FakeExchangeInterceptor : Interceptor {
 
     private fun binanceTickers(url: HttpUrl): String? {
         url.queryParameter("symbol")?.let { symbol -> return binanceTicker(symbol.removeSuffix("USDT")) }
-        val wanted = url.queryParameter("symbols")
-            ?.let { Regex("\"([A-Z0-9]+)USDT\"").findAll(it).map { m -> m.groupValues[1] }.toList() }
-            ?: FakeExchange.coins
-        return wanted.mapNotNull { binanceTicker(it) }.joinToString(",", "[", "]")
+        return wantedCoins(url).mapNotNull { binanceTicker(it) }.joinToString(",", "[", "]")
     }
+
+    /** Coins aus `symbols=["BTCUSDT",…]`; ohne Auswahl alle. */
+    private fun wantedCoins(url: HttpUrl): List<String> = url.queryParameter("symbols")
+        ?.let { Regex("\"([A-Z0-9]+)USDT\"").findAll(it).map { m -> m.groupValues[1] }.toList() }
+        ?: FakeExchange.coins
+
+    /** Sammelkurse des Spiegels (`ticker/price`): nur Symbol und Kurs. */
+    private fun binancePrices(url: HttpUrl): String = wantedCoins(url)
+        .mapNotNull { coin -> FakeExchange.price(coin)?.let { """{"symbol":"${coin}USDT","price":"$it"}""" } }
+        .joinToString(",", "[", "]")
 
     private fun coinbaseProducts(): String = FakeExchange.coins.joinToString(",", "[", "]") {
         """{"id":"$it-USD","base_currency":"$it","quote_currency":"USD","status":"online"}"""

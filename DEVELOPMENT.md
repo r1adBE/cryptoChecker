@@ -2575,6 +2575,13 @@ after the encryption step.
   photograph the main screens in light and dark mode with the store demo data; a publish job replaces the orphan
   branch `screenshots` (`git fetch origin screenshots`). Both tests skip themselves in the regular runs. No new
   dependencies or actions.
+* Build 160: screenshot tour reworked – each screen is its own step that starts from the watchlist or the settings,
+  a failing step is recorded and the tour goes on; the test fails at the end with the list of missing screens
+  (`ScreenshotTourSteps.kt` / `ScreenshotTourSteps.swift`). Android: settings rows are found by their content
+  description (`SettingsNavRow` clears its semantics), the tour runs one full price refresh after seeding, and
+  `FakeExchange.binanceMirror` (only in the tour) answers `data-api.binance.vision` for the portfolio prices. iOS: no
+  deep link any more (it restarted the app with `-uiTesting`, which clears the storage); «All alerts» via the bell,
+  «Last refresh» via the watchlist menu.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 160)
+
+* Tests only (no change for users): the screenshot tour visits every screen step by step and reports missing screens at the end; Android test prices come from the fake exchange answers.
+
 ## 16.2.2 (build 159)
 
 * No visible change. In the code, the word for a trading venue is now «exchange» everywhere (Android and iOS: classes, files, keys, database tables `exchanges` / `exchange_pairs`, backup and widget keys); «market» stays only where it means the whole market (market tab, market cap, movers).
