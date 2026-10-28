@@ -47,8 +47,10 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
             when {
                 // App verlassen (ein Zurück zu viel): wieder starten, sie öffnet mit der Merkliste
                 !exists(UiTestTags.TAB_WATCHLIST) && !overlayOpen() -> relaunch()
-                // Nach zwei Zurück ohne Erfolg (Blatt hängt noch im Baum) lieber den Tab tippen
-                (!overlayOpen() || backs >= 2) && shown(UiTestTags.TAB_WATCHLIST) -> clickTag(UiTestTags.TAB_WATCHLIST)
+                // Aktionsblatt sichtbar: Zurück schliesst es (auch wenn es nach einer Unterseite wieder erscheint)
+                shown(UiTestTags.WATCH_ACTION_ALARM) -> { back(); backs++ }
+                // Nach drei Zurück ohne Erfolg lieber den Tab tippen
+                (!overlayOpen() || backs >= 3) && shown(UiTestTags.TAB_WATCHLIST) -> clickTag(UiTestTags.TAB_WATCHLIST)
                 else -> { back(); backs++ }
             }
             runCatching { compose.waitUntil(BACK_TIMEOUT) { onWatchlist() } }
@@ -178,7 +180,7 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
         const val TIMEOUT = 15_000L
         const val BACK_TIMEOUT = 4_000L
         /** Tastatur, Suche, Blatt, Unterseite, Tab: so viele Schritte höchstens. */
-        const val MAX_STEPS = 8
+        const val MAX_STEPS = 10
 
         /** Kennungen von Blättern und Seiten über der Merkliste. */
         val OVERLAY_TAGS = listOf(
