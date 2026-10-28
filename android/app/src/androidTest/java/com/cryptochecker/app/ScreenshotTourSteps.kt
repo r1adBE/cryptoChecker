@@ -13,6 +13,8 @@ import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeDown
 import com.cryptochecker.app.testing.AppTestEnvironmentRule
 import com.cryptochecker.app.ui.UiTestTags
 import androidx.test.platform.app.InstrumentationRegistry
@@ -49,10 +51,14 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
                 // App verlassen (ein Zurück zu viel): wieder starten, sie öffnet mit der Merkliste
                 !exists(UiTestTags.TAB_WATCHLIST) && !overlayOpen() -> relaunch()
                 // Aktionsblatt sichtbar: Zurück schliesst es (auch wenn es nach einer Unterseite wieder erscheint);
-                // bleibt es nach einem Zurück stehen, auf die Abdunkelung darüber tippen
+                // bleibt es stehen, abwechselnd nach unten wischen und auf die Abdunkelung darüber tippen
                 shown(UiTestTags.WATCH_ACTION_ALARM) -> {
-                    if (sheetBacks > 0) tapAboveSheet() else back()
-                    sheetBacks = if (sheetBacks > 0) 0 else 1
+                    when (sheetBacks % 3) {
+                        0 -> back()
+                        1 -> swipeSheetDown()
+                        else -> tapAboveSheet()
+                    }
+                    sheetBacks++
                     backs++
                 }
                 // Nach drei Zurück ohne Erfolg lieber den Tab tippen
@@ -100,6 +106,14 @@ internal class TourNavigator(private val compose: ComposeTestRule, private val s
 
     private fun back() {
         AppTestEnvironmentRule.shell("input keyevent KEYCODE_BACK")
+    }
+
+    /** Wischt das Aktionsblatt nach unten weg (Geste im Blatt selbst, nicht über die Shell). */
+    private fun swipeSheetDown() {
+        runCatching {
+            compose.onAllNodes(hasTestTag(UiTestTags.WATCH_ACTION_ALARM), useUnmergedTree = true).onFirst()
+                .performTouchInput { swipeDown(startY = top, endY = top + 2000f, durationMillis = 300) }
+        }
     }
 
     /** Tippt oben in die Mitte des Bildschirms (Abdunkelung über einem Blatt): schliesst es wie ein Tipp daneben. */
