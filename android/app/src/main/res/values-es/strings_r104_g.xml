@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (UX5-R1: passt so auch zur unverschlüsselten Kopie) -->
-    <string name="watchlist_not_saved_confirm_message">La lista y sus alarmas no se están guardando ahora. Este y otros cambios se perderán al cerrar la app. ¿Quieres cambiarlo de todos modos?</string>
-    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
-    <string name="watchlist_not_saved_confirm_action">Cambiar igualmente</string>
-</resources>

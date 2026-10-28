@@ -45,4 +45,18 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Cont Taproot (BIP86): din această cheie sunt derivate adrese bc1p…, pentru primire și rest.</string>
     <string name="portfolio_address_taproot_hint">Portofel Taproot? Lipește în schimb descriptorul tr(…) din portofelul tău – un xpub simplu este căutat doar ca adrese Legacy și SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Serverul propriu nu răspunde</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Cine operează %1$s vede toate adresele interogate ale acestui portofel și le poate lega între ele și de adresa ta IP.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Ca să eviți asta, introdu serverul tău în Setări › Portofoliu › Server propriu pentru adrese.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d token necunoscut (neinclus)</item>
+        <item quantity="few">+%1$d tokenuri necunoscute (neincluse)</item>
+        <item quantity="other">+%1$d de tokenuri necunoscute (neincluse)</item>
+    </plurals>
 </resources>

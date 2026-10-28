@@ -63,8 +63,8 @@ class LogoImagePauses(private val prefsProvider: () -> SharedPreferences) {
 
     companion object {
         /** Fehlgeschlagene Bilder ([loadFailures]): «Name:Zeitpunkt;…». */
-        const val KEY_FAILED = "failed_v2"
+        const val KEY_FAILED = "failed"
         /** Pausen je Bild-Server ([CoinLogoRetry.encodePauses]). */
-        const val KEY_IMAGE_PAUSES = "image_pauses_v1"
+        const val KEY_IMAGE_PAUSES = "image_pauses"
     }
 }

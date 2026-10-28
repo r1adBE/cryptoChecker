@@ -175,4 +175,10 @@
     <string name="alarm_reliability_storage_no_key">สัญญาณเตือนเบื้องหลังหยุดชั่วคราว – รายการติดตามไม่ได้บันทึก</string>
     <string name="alarms_limit_reached">หนึ่งคู่ตั้งสัญญาณเตือนได้สูงสุด %1$s รายการ</string>
     <string name="alarms_reference_rate_hint">อัตราอ้างอิงของ ECB กำหนดเพียงวันละครั้ง – จึงไม่มีสัญญาณเตือนสำหรับอัตรานี้</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">การลดลงต้องน้อยกว่า 100 เปอร์เซ็นต์</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">เกณฑ์ไม่ถูกต้อง – โปรดปรับ</string>
 </resources>

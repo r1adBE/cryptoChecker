@@ -142,7 +142,7 @@ struct WatchlistSparkline: View {
     let values: [Double]
     /// Gezeichneter Anteil von links (0…1) — für «Erst-Hinzufügen»; sonst 1.
     var progress: CGFloat = 1
-    /// Kurs veraltet: grau statt Kursfarbe, keine Fläche (früher halbe Deckkraft).
+    /// Kurs veraltet: grau statt Kursfarbe, keine Fläche.
     var stale = false
     @Environment(\.priceColorScheme) private var priceColors
     @Environment(\.priceHighContrast) private var highContrast

@@ -59,7 +59,7 @@ class PortfolioWidgetViewsTest {
         assertEquals(listOf("ADA", "SOL"), PortfolioWidgetViews.todaySkipped(s, plan(PortfolioChartRange.WEEK), overview = true))
     }
 
-    /** M-3: «7 T ohne …» im Widget wie «Gewinn 7 T» der App. */
+    /** «7 T ohne …» im Widget wie «Gewinn 7 T» der App. */
     @Test
     fun periodSkippedNamesTheCoinsOfTheVisiblePeriodNumber() {
         val s = snapshot(
@@ -317,7 +317,7 @@ class PortfolioWidgetViewsTest {
         val hidden = PortfolioWidgetViews.pnlTexts(pnl, "CHF", hideAmounts = true, locale = java.util.Locale.US)
         assertEquals("•••", hidden.last())
         assertTrue(hidden.first().startsWith("••• · "))
-        // Verlust: Richtung −1; unbekannt (ältere Aufnahme, kein Betrag): null → «—»
+        // Verlust: Richtung −1; unbekannt (kein Betrag): null → «—»
         assertEquals(-1, PortfolioWidgetViews.rowPnl(p.copy(pnlAmount = -5.0))!!.direction)
         assertNull(PortfolioWidgetViews.rowPnl(p.copy(pnlAmount = null)))
         assertNull(PortfolioWidgetViews.rowPnl(p.copy(pnlAmount = Double.NaN)))

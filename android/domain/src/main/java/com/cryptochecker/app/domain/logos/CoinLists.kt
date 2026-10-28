@@ -7,8 +7,8 @@ import kotlinx.coroutines.coroutineScope
 /**
  * Erster Schritt jedes Logo-Abgleichs: Binance-Symbolliste und Alpha-Liste **zuerst und
  * gleichzeitig** holen — unabhängig von CoinGecko und von den Bildern. Namen und Alpha-Kennzeichen
- * stehen so wenige Sekunden nach dem Start bereit; vorher kamen sie erst nach allen Seiten der
- * CoinGecko-Rangliste (Pausen, «429»-Wartezeiten) bzw. auf iOS sogar erst nach den Paarlisten.
+ * stehen so wenige Sekunden nach dem Start bereit, nicht erst nach allen Seiten der
+ * CoinGecko-Rangliste (Pausen, «429»-Wartezeiten) bzw. auf iOS erst nach den Paarlisten.
  *
  * Jede Quelle ist für sich gekapselt: Scheitert eine, bleibt die andere. Fehlt eine fällige Liste
  * direkt, kommt sie aus der Ersatzdatei `coin_meta.json` ([CoinMeta.URL], nur Binance-Daten), falls

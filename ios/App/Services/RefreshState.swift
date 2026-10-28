@@ -45,7 +45,7 @@ final class RefreshState: ObservableObject {
     }
     /// Börsen, deren Live-Strom gerade Kurse liefert («LIVE» im Bericht).
     @Published var liveExchanges: [String] = []
-    /// Watch-Ids der Paare am Live-Strom (Börse liefert gerade): Frische 2 Min., «Live» nur mit allen (K-1).
+    /// Watch-Ids der Paare am Live-Strom (Börse liefert gerade): Frische 2 Min., «Live» nur mit allen.
     @Published var liveWatchIds: Set<Int64> = [] {
         didSet {
             for id in oldValue.symmetricDifference(liveWatchIds) {

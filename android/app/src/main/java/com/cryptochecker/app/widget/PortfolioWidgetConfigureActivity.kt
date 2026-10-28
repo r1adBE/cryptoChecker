@@ -171,7 +171,7 @@ private fun PortfolioWidgetConfigureContent(
         topBar = { TopAppBar(title = { Text(stringResource(R.string.widget_portfolio_name)) }) }
     ) { padding ->
         Column(modifier = Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) {
-            // Ansicht: Übersicht (Gesamtkarte), Chart (bisher), Liste (Positionen)
+            // Ansicht: Übersicht (Gesamtkarte), Chart, Liste (Positionen)
             Text(stringResource(R.string.widget_portfolio_view), style = MaterialTheme.typography.bodyMedium)
             val views = listOf(
                 PortfolioWidgetView.OVERVIEW to R.string.widget_portfolio_view_overview,

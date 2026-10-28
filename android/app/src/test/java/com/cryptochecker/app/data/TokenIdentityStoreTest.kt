@@ -13,7 +13,7 @@ import org.junit.rules.TemporaryFolder
 import java.io.File
 
 /**
- * Namensliste für «gleicher Token» ([TokenIdentityStore], K-8): Namen je Börse und von Binance, bereinigt,
+ * Namensliste für «gleicher Token» ([TokenIdentityStore]): Namen je Börse und von Binance, bereinigt,
  * in einer Datei ohne Sicherung gespeichert und nach einem Neustart wieder gelesen; dazu die Sperren der
  * Ausweich-Reihen und der Konsens-Name aus der Merkliste.
  */

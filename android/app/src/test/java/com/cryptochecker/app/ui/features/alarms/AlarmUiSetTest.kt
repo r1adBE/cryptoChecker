@@ -40,7 +40,7 @@ class AlarmCreateGuardTest {
         assertEquals(2, inserts)
     }
 
-    /** Der Alarm-Editor sperrt auch beim Bearbeiten (IOS6-01, wie iOS `AlarmCreateGuard`): kein ungesperrter Start mehr. */
+    /** Der Alarm-Editor sperrt auch beim Bearbeiten (wie iOS `AlarmCreateGuard`): kein ungesperrter Start mehr. */
     @Test
     fun `Alarm-Editor sperrt auch beim Bearbeiten`() {
         var dir: java.io.File? = java.io.File(System.getProperty("user.dir") ?: ".").absoluteFile
@@ -132,7 +132,7 @@ class AlarmDraftEnterAmountTest {
 // ---- aus AlarmEditorStateTest
 
 /**
- * Offener Alarm-Editor übersteht das Prozess-Ende (Review ARC6 C1/TST6-R1): Der Zustand des [SavedStateHandle] wird wie
+ * Offener Alarm-Editor übersteht das Prozess-Ende: Der Zustand des [SavedStateHandle] wird wie
  * beim Prozess-Ende als einfache Map in einen NEUEN Handle übernommen (das System legt ihn aus dem Bundle neu an). Ein
  * neuer [AlarmEditorState] muss denselben Entwurf zeigen; nach `close()` keinen.
  */

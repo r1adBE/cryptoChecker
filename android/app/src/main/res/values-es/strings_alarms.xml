@@ -187,4 +187,10 @@
     <string name="alarm_reliability_storage_no_key">Alarmas en pausa en segundo plano – la lista no está guardada</string>
     <string name="alarms_limit_reached">Un par puede tener como máximo %1$s alarmas.</string>
     <string name="alarms_reference_rate_hint">Los tipos de referencia del BCE se fijan solo una vez al día – no hay alarmas para ellos.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Una caída debe ser inferior al 100 por ciento.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Umbral no válido: ajústalo</string>
 </resources>

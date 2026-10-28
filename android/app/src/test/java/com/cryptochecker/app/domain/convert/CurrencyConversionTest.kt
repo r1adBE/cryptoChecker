@@ -65,7 +65,7 @@ class CurrencyConversionTest {
 
     @Test
     fun `USDT zum Marktkurs USDT-USD`() {
-        // Owner-Entscheid Okt. 2026: USDT gilt seinen Marktkurs; USD bleibt 1
+        // USDT gilt seinen Marktkurs; USD bleibt 1
         assertEquals(0.97, CurrencyConversion.stableToUsd("USDT", null, usdtUsd = 0.97)!!, 1e-12)
         assertEquals(1.0, CurrencyConversion.stableToUsd("USD", null, usdtUsd = 0.97)!!, 0.0)
         // andere Stablecoins: Marktkurs in USDT × USDT/USD

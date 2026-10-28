@@ -20,8 +20,8 @@ import java.io.IOException
  * Die verschlüsselte `cryptochecker.db` taugt nicht für Auto Backup oder die Übertragung auf ein neues Gerät: Ihr
  * Schlüssel liegt im Keystore dieses Geräts und geht nie mit. Darum steht in den Sicherungsregeln statt der Datei
  * die Kopie [EXPORT_NAME] — und die gibt es nur während einer Sicherung: [onFullBackup] schreibt sie unverschlüsselt
- * (geprüft, [SqlCipherDatabaseFiles.exportVerified]), lässt die normale Sicherung nach den XML-Regeln laufen (`super`, gleiche Regeln und
- * Bedingungen wie bisher: nur Ende-zu-Ende-verschlüsselte Cloud-Sicherung oder Gerät zu Gerät) und löscht sie danach.
+ * (geprüft, [SqlCipherDatabaseFiles.exportVerified]), lässt die normale Sicherung nach den XML-Regeln laufen (`super`, nach deren
+ * Bedingungen: nur Ende-zu-Ende-verschlüsselte Cloud-Sicherung oder Gerät zu Gerät) und löscht sie danach.
  * Nach einer Wiederherstellung wird die Kopie gleich verschlüsselt zur Hauptdatenbank ([onRestoreFinished],
  * [DatabaseSystemBackup.adoptRestored]). Ohne Schlüssel bleibt sie liegen, und der nächste Start verschlüsselt sie,
  * bevor Room die Datenbank öffnet ([DatabaseOpenPlanner]).

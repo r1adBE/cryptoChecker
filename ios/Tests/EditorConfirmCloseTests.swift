@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// IOS5-R01/R02: Blätter mit Eingaben (Alarm-Editor, Notiz, Gruppe) fragen genau einmal (Rückfrage F-08)
+/// Blätter mit Eingaben (Alarm-Editor, Notiz, Gruppe) fragen genau einmal (Rückfrage «nicht gespeichert»)
 /// und schliessen erst danach; «Abbrechen» lässt sie mit den Eingaben offen. Quelltext-Prüfung, da ohne UI-Test.
 @MainActor
 final class EditorConfirmCloseTests: XCTestCase {
@@ -15,7 +15,7 @@ final class EditorConfirmCloseTests: XCTestCase {
         XCTAssertTrue(gate.mayAsk(notSaved: true), "zweite Prüfung würde wieder fragen")
         let refusedInAction = gate.runConsented { gate.needsConfirmation(notSaved: true, canAsk: true) }
         XCTAssertFalse(refusedInAction, "Speicher-Kern darf in dieser Aktion ohne Frage schreiben")
-        // Review F-27: ausserhalb der Aktion keine Zustimmung
+        // Ausserhalb der Aktion keine Zustimmung
         XCTAssertTrue(gate.needsConfirmation(notSaved: true, canAsk: true))
         XCTAssertFalse(gate.pending)
     }

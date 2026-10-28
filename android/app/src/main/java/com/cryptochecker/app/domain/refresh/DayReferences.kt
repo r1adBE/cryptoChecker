@@ -36,7 +36,7 @@ class DayReferences @Inject constructor(
     /** Stundenkerzen der EIGENEN Börse des Paars — vor der Ausweich-Reihe (kein Hinweis «Änderung: Binance»). */
     private val ownHourly: OwnHourlyCandles,
     private val candlePairs: CandlePairs,
-    /** Ausweich-Reihe nur ohne klaren Namens-Widerspruch zum Coin an der Börse des Paars (K-8). */
+    /** Ausweich-Reihe nur ohne klaren Namens-Widerspruch zum Coin an der Börse des Paars. */
     private val tokenIdentityStore: TokenIdentityStore,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */

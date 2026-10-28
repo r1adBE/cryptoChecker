@@ -290,4 +290,38 @@
     <string name="settings_price_overlay_needs">「%1$s」と一緒の場合のみ動作します。</string>
     <string name="settings_price_overlay_grant">ほかのアプリの上に重ねて表示を許可</string>
     <string name="price_overlay_close">オーバーレイを閉じる</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">アドレス用の独自サーバー</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin のみ：Esplora または mempool 互換の独自サーバー（例：https://node.example/api、Let\'s Encrypt などの公的に信頼された証明書が必要）。設定すると、Bitcoin アドレスと xpub はそこにだけ問い合わせます。サーバーに接続できない場合でも、公開ノードには問い合わせません。他のネットワークは引き続き公開ノードを使います。空欄＝公開ノード。</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin サーバー（https://）</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">テスト</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">テスト中…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">サーバーが応答しました – ブロック %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">有効な応答がありません – アドレスと証明書を確認してください</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">使用中：%1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">未設定 – 公開ノードを使用します</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// のアドレスのみ使用できます</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">アドレスにユーザー名やパスワードを含めないでください</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">アドレスに ? や # の部分を含めないでください</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">サーバーのアドレスが無効です</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">公開ノードに切り替えますか？</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Bitcoin アドレスと xpub は公開ノード（%1$s）に問い合わせるようになります。公開ノードにはこれらのアドレスと IP アドレスが見えます。</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">公開ノードを使う</string>
 </resources>

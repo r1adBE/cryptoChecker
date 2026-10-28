@@ -31,25 +31,24 @@ object BackupWatchlistCodec {
         .put("note", w.note ?: JSONObject.NULL)
         .put("disabled", w.disabled)
 
+    /** Ein Paar; Felder geprüft ([BackupFields.WATCH]), sonst [org.json.JSONException]. Unbekannte Vertragsart: keine. */
     fun jsonToWatch(o: JSONObject) = WatchEntity(
         id = o.getLong("id"),
         exchangeKey = o.getString("exchangeKey"),
         exchangeName = o.getString("exchangeName"),
         baseAsset = o.getString("baseAsset"),
         quoteAsset = o.getString("quoteAsset"),
-        contractType = FuturesContractType.entries.firstOrNull { it.name == o.optString("contractType") }
+        contractType = FuturesContractType.entries.firstOrNull { it.name == o.getString("contractType") }
             ?: FuturesContractType.NONE,
-        pairId = if (o.isNull("pairId")) null else o.optString("pairId"),
-        sortOrder = o.optInt("sortOrder"),
-        // Ohne Angabe: Standard neuer Paare (wie iOS)
-        notificationEnabled = o.optBoolean("notificationEnabled", WatchRepository.DEFAULT_NOTIFICATION_ENABLED),
-        ttsEnabled = o.optBoolean("ttsEnabled", false),
-        favorite = o.optBoolean("favorite", false),
+        pairId = if (o.isNull("pairId")) null else o.getString("pairId"),
+        sortOrder = o.getInt("sortOrder"),
+        notificationEnabled = o.getBoolean("notificationEnabled"),
+        ttsEnabled = o.getBoolean("ttsEnabled"),
+        favorite = o.getBoolean("favorite"),
         // Gruppe und Notiz mit denselben Grenzen wie die Eingabe (wie iOS `Watch.validGroupName`/`validNote`)
-        groupName = if (o.isNull("group")) null else TextLimit.clean(o.optString("group"), GROUP_NAME_MAX),
-        note = if (o.isNull("note")) null else TextLimit.clean(o.optString("note"), NOTE_MAX),
-        // Ohne Angabe: Paar aktiv
-        disabled = o.optBoolean("disabled", false),
+        groupName = if (o.isNull("group")) null else TextLimit.clean(o.getString("group"), GROUP_NAME_MAX),
+        note = if (o.isNull("note")) null else TextLimit.clean(o.getString("note"), NOTE_MAX),
+        disabled = o.getBoolean("disabled"),
     )
 
     /**
@@ -70,11 +69,10 @@ object BackupWatchlistCodec {
      * mit ihnen ([BackupRestoreLimits.accept]); dann [WatchlistRestoreCleanup], dann [BackupRestoreLimits.limit].
      */
     fun readWatchlist(root: JSONObject): Watchlist {
-        val parsedWatches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }
-            .orEmpty()
-        val alarmsRead = root.optJSONArray("alarms")?.let(AlarmJson::parse)
+        val parsedWatches = root.getJSONArray("watches").let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }
+        val alarmsRead = AlarmJson.parse(root.getJSONArray("alarms"))
         val accepted = BackupRestoreLimits.accept(
-            parsedWatches, alarmsRead?.items.orEmpty(), BackupRestoreLimits::acceptsWatch,
+            parsedWatches, alarmsRead.items, BackupRestoreLimits::acceptsWatch,
             watchId = { it.id }, alarmWatchId = { it.watchId },
         )
         val (cleanWatches, cleanAlarms) = WatchlistRestoreCleanup.clean(
@@ -88,7 +86,7 @@ object BackupWatchlistCodec {
         )
         val limited = BackupRestoreLimits.limit(cleanWatches, cleanAlarms, watchId = { it.id }, alarmWatchId = { it.watchId })
         return Watchlist(
-            limited.watches, limited.alarms, invalidAlarms = alarmsRead?.invalid ?: 0,
+            limited.watches, limited.alarms, invalidAlarms = alarmsRead.invalid,
             droppedPairs = accepted.droppedPairs + limited.droppedPairs,
             droppedAlarms = accepted.droppedAlarms + limited.droppedAlarms,
         )

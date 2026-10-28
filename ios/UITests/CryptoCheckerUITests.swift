@@ -25,7 +25,22 @@ final class CryptoCheckerUITests: XCTestCase {
     private static let serverNoteBackup = """
         {"format":"cryptochecker-backup","version":1,"createdAt":0,\
         "watches":[{"id":1,"exchangeKey":"Binance","exchangeName":"Binance","baseAsset":"BTC","quoteAsset":"USDT",\
-        "pairId":"BTCUSDT","sortOrder":0}],"alarms":[],"settings":{"addressServerBtc":"https://node.example.org"}}
+        "contractType":"NONE","pairId":"BTCUSDT","sortOrder":0,"notificationEnabled":false,"ttsEnabled":false,\
+        "favorite":false,"group":null,"note":null,"disabled":false}],"alarms":[],"favorites":{"EXCHANGE":[],"COIN":[],"QUOTE":[]},"settings":{\
+        "updateMode":"SPARSAM","backgroundIntervalMinutes":15,"priceNotifications":true,\
+        "ongoingNotifications":false,"notificationChangePercent":5.0,"ttsEnabled":false,\
+        "ttsAlarmsOnly":true,"ttsSpeechRate":1.0,"alarmCooldownMinutes":0,"includeRollingFutures":false,\
+        "assetScope":"TOKENS","includeAlphaTokens":false,"accentColor":"ORANGE","darkMode":null,\
+        "fearGreedBelow":0,"indicatorAlerts":{},"fearGreedAbove":0,"gasAlertEthTenths":0,"gasAlertBtc":0,\
+        "depegAlarm":false,"depegThresholdTenths":5,"activityAlerts":false,"activitySensitivity":"NORMAL",\
+        "macroNotifications":false,"portfolioEnabled":false,"portfolioCurrency":"USD","showConverted":true,\
+        "priceColorScheme":"CALM","watchlistSparkline":false,"watchlistNames":true,"appIconBadge":true,\
+        "watchlistActivityCard":true,"coinLogos":true,"widgetCoinLogos":false,"portfolioCoinLogos":true,\
+        "changeBasis":"ROLLING_24H","highContrast":false,"priceColorsInverted":false,"alarmSignal":"SYSTEM",\
+        "quietHoursEnabled":false,"quietHoursStart":1380,"quietHoursEnd":420,"appLock":false,\
+        "hidePortfolioAmounts":false,"portfolioSystemBackup":false,"costMethod":"FIFO",\
+        "taxTemplate":"NEUTRAL","watchlistColumnSort":null,"addressServerBtc":"https://node.example.org"},\
+        "portfolio":[],"portfolioAlarms":[],"watchedAddresses":[]}
         """
 
     override func setUpWithError() throws {

@@ -223,4 +223,15 @@
     <string name="compare_title">Σύγκριση</string>
     <string name="compare_basis">Οι γραμμές δείχνουν την ποσοστιαία μεταβολή από την αρχή της περιόδου.</string>
     <string name="compare_from_high">έναντι υψηλού 30 ημ.</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">Δεν επαναφέρθηκε %1$d ζεύγος – η λίστα παρακολούθησης είναι γεμάτη</item>
+        <item quantity="other">Δεν επαναφέρθηκαν %1$d ζεύγη – η λίστα παρακολούθησης είναι γεμάτη</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Η λίστα μαζί με τους συναγερμούς δεν αποθηκεύεται αυτή τη στιγμή. Αυτή και οι επόμενες αλλαγές θα χαθούν όταν κλείσει η εφαρμογή. Θέλεις να αλλάξεις παρ’ όλα αυτά;</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Αλλαγή παρ’ όλα αυτά</string>
 </resources>

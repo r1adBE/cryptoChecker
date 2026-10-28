@@ -121,7 +121,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             defaultProtect = defaultProtect,
             onConfirm = { password ->
                 exportDialog = null
-                // Gleicher Weg wie bisher (Dateiauswahl des Systems), nur mit gewähltem Schutz
+                // Dateiauswahl des Systems, mit gewähltem Schutz
                 viewModel.prepareExport(password)
                 exportLauncher.launch("cryptochecker-backup-${java.time.LocalDate.now()}.json")
             },

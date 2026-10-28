@@ -11,7 +11,7 @@ enum DepegAlarmCheck {
     private static let keyArmed = "depeg_armed"
     private static let keyLastPrice = "depeg_last_price"
     private static let keyLastPriceAt = "depeg_last_price_at"
-    /// Messung nur aus Binance USDC/USDT (`DepegAlarm.Measurement.viaUsdc`); fehlt bei älteren Messungen (false).
+    /// Messung nur aus Binance USDC/USDT (`DepegAlarm.Measurement.viaUsdc`); mit jeder Messung gespeichert.
     private static let keyLastPriceViaUsdc = "depeg_last_price_via_usdc"
     /// Höchstens alle 5 Minuten (Vordergrund kann viel öfter aktualisieren).
     private static let minInterval: Int64 = 5 * 60_000
@@ -65,7 +65,8 @@ enum DepegAlarmCheck {
     static var lastReading: DepegAlarm.Reading? {
         let defaults = SharedStorage.defaults
         let at = Int64(defaults.double(forKey: keyLastPriceAt))
-        guard at > 0, defaults.object(forKey: keyLastPrice) != nil else { return nil }
+        guard at > 0, defaults.object(forKey: keyLastPrice) != nil,
+              defaults.object(forKey: keyLastPriceViaUsdc) != nil else { return nil }
         return DepegAlarm.Reading(price: defaults.double(forKey: keyLastPrice), atMillis: at,
                                   viaUsdc: defaults.bool(forKey: keyLastPriceViaUsdc))
     }

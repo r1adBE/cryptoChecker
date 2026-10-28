@@ -81,7 +81,7 @@ struct PortfolioWidgetDay: Codable, Equatable, Sendable {
 struct PortfolioWidgetChange: Codable, Equatable, Sendable {
     var amount: Double
     var percent: Double?
-    /// Coins, die in der Zahl fehlen (kein Marktkurs) — «7 T ohne …» wie die App; nil = keiner (älterer Stand).
+    /// Coins, die in der Zahl fehlen (kein Marktkurs) — «7 T ohne …» wie die App; nil = keiner.
     var skipped: [String]? = nil
 }
 
@@ -224,11 +224,11 @@ enum PortfolioWidgetDailyStore {
 // MARK: Ansicht je Widget
 
 /// Ansicht je Widget — wie `PortfolioWidgetView` (Android; hier anders benannt, weil `PortfolioWidgetView` die SwiftUI-Ansicht des Widgets ist): Übersicht (wie die Gesamtkarte im
-/// Portfolio-Tab), Chart (bisher die einzige Ansicht, deshalb Standard) oder Liste der Positionen.
+/// Portfolio-Tab), Chart (Standard) oder Liste der Positionen.
 enum PortfolioWidgetMode: String, Sendable, CaseIterable {
     case overview, chart, list
 
-    /// Neue und bestehende Widgets ohne Wahl: Chart wie bisher.
+    /// Neue und bestehende Widgets ohne Wahl: Chart.
     static let standard: PortfolioWidgetMode = .chart
 
     /// Gespeicherter Name → Ansicht; unbekannt oder fehlend = `standard`.

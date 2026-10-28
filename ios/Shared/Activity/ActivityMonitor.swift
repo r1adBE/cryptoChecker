@@ -138,7 +138,7 @@ enum ActivityMonitor {
 
         // Meldungen: höchstens eine je Paar und Stunde, nur bei neuen Signalen. Kommt die Mitteilung
         // nicht an (keine Erlaubnis, alles Sichtbare aus), gilt nichts als gemeldet: Die Arten bleiben
-        // offen und melden sich beim nächsten Lauf (Nachtruhe: lautlos wie bisher) — wie Android
+        // offen und melden sich beim nächsten Lauf (Nachtruhe: lautlos) — wie Android
         var deliverable: Bool?
         for (watch, merge) in results.values {
             let pending = ActivityRepository.pendingKinds(watch.id)

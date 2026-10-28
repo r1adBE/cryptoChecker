@@ -105,8 +105,8 @@ enum TaxExport {
 
     /// USD → Zielwährung am `date`: USD = 1; sonst der Kurs des Tags oder des letzten Tags davor (höchstens
     /// `fxMaxGapDays` Tage); `rates` = Tag (epochDay) → Kurs, nil = nicht geladen.
-    /// Mit `usdtUsd` (USDT/USD-Tagesschluss je Datum, Owner-Entscheid Okt. 2026): USDT → Zielwährung = Kurs × USDT/USD
-    /// DES Tags; ohne Schluss × 1 (`usdtApproximateOn` markiert die Zeile). nil = USDT gilt 1 USD (bisherige Rechnung).
+    /// Mit `usdtUsd` (USDT/USD-Tagesschluss je Datum): USDT → Zielwährung = Kurs × USDT/USD
+    /// DES Tags; ohne Schluss × 1 (`usdtApproximateOn` markiert die Zeile). nil = USDT gilt 1 USD.
     static func rateOn(_ rates: [Int: Decimal]?, date: LocalDay, currency: String,
                        usdtUsd: [Int: Decimal]? = nil) -> Decimal? {
         let fx: Decimal

@@ -49,7 +49,7 @@ data class AddressCostLot(
  *    dem Guthaben am Stichtag ([AddressCutoff]).
  * Gespeichert mit der Adresse (Android Spalte `costLots`, iOS `watched_addresses.json`), in der App-Sicherung unter
  * «costLots» je Adresse: `[{"id":1,"coin":"BTC","t":…,"amount":"0.5","price":"30000"}]` («cost» statt «price», wenn
- * gesamt eingegeben). Ältere Versionen kennen das Feld nicht und lesen den Rest unverändert.
+ * gesamt eingegeben).
  */
 object AddressCostLots {
 

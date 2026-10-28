@@ -93,7 +93,7 @@ data class TaxCsvTexts(
      * AT (nur diese Vorlage füllt sie): Einkünfte getrennt wie in der Jahresübersicht ([TaxIncomeRow.interest]) — Vermerk je
      * Zeile «Zins – steuerpflichtig beim Zufluss» bzw. «Staking – nur zur Information (Anschaffungskosten 0, besteuert
      * beim Verkauf)» und statt der einen Summe zwei Summenzeilen «Summe Zins (steuerpflichtig)» / «Summe Staking
-     * (Information)». Leer (alle anderen Vorlagen) = eine Summe wie bisher.
+     * (Information)». Leer (alle anderen Vorlagen) = eine Summe.
      */
     val incomeInterest: String = "",
     val incomeStaking: String = "",
@@ -108,7 +108,7 @@ data class TaxCsvTexts(
     /**
      * DE/AT (nur diese Vorlagen füllen ihn, [TaxTemplate.withdrawalFeeApart]): Summenzeile «Auszahlungsgebühren» — die
      * Gebühr-Zeilen einer Auszahlung zählen dann NICHT in der Summe der Gewinne, sondern in dieser eigenen Zeile, wie der
-     * eigene Posten der Jahresübersicht (keine Veräusserung). Leer (alle anderen Vorlagen) = in der Summe wie bisher.
+     * eigene Posten der Jahresübersicht (keine Veräusserung). Leer (alle anderen Vorlagen) = in der Summe.
      */
     val withdrawalFeesTotal: String = "",
 )

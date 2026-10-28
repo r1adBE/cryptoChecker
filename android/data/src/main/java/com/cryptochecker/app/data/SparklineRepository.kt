@@ -180,7 +180,7 @@ class SparklineRepository @Inject constructor(
                         ?.filter { it.close.isFinite() && it.close > 0.0 }
                         ?.takeIf { it.size >= 2 }
                         ?.let { candles ->
-                            // Mini-Chart und rollender Bezug wie bisher aus den jüngsten 24 Kerzen
+                            // Mini-Chart und rollender Bezug aus den jüngsten 24 Kerzen
                             val recent = candles.takeLast(ChangeBasisMath.ROLLING_CANDLES)
                             Series(
                                 closes = recent.map { it.close },
@@ -325,7 +325,7 @@ class SparklineRepository @Inject constructor(
         const val MAX_ENTRIES = 512
         private const val QUOTE = "USDT"
         private const val SAVE_DELAY_MILLIS = 3_000L
-        private const val FILE_NAME = "day_references_v1.json"
+        private const val FILE_NAME = "day_references.json"
         private const val KEY_VERSION = "v"
         private const val KEY_ENTRIES = "e"
     }

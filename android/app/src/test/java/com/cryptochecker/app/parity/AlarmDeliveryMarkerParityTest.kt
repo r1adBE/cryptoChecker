@@ -11,7 +11,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Review FUN-05: Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
+ * Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
  * (`testdata/parity/alarm_delivery_marker.json`). Gegenstück: `Tests/AlarmDeliveryMarkerTests.swift`.
  */
 class AlarmDeliveryMarkerParityTest {
@@ -38,7 +38,7 @@ class AlarmDeliveryMarkerParityTest {
         }
     }
 
-    /** Review IOS3-R02: Auslösung zum Vermerk schon gespeichert? */
+    /** Auslösung zum Vermerk schon gespeichert? */
     @Test
     fun gespeichertSeitDemVermerkWieGemeinsameTestfaelle() {
         val cases = fixture["savedSinceCases"].list()
@@ -51,7 +51,7 @@ class AlarmDeliveryMarkerParityTest {
     }
 
     /**
-     * Review IOS3-R02: ganze Läufe von [AlarmDelivery.deliver] — ein liegengebliebener Vermerk einer schon
+     * Ganze Läufe von [AlarmDelivery.deliver] — ein liegengebliebener Vermerk einer schon
      * gespeicherten Auslösung verschluckt die neue nicht; ein Prozess-Ende zwischen Melden und Speichern speichert weiter nur.
      */
     @Test
@@ -80,7 +80,7 @@ class AlarmDeliveryMarkerParityTest {
         }
     }
 
-    /** Review ARC3-R03: Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt. */
+    /** Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt. */
     @Test
     fun zuruecksetzenWieGemeinsameTestfaelle() {
         val cases = fixture["resetCases"].list()

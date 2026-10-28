@@ -43,7 +43,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.delay
 
 /*
- * Runde 31: Suche in den Einstellungen. Die Hauptseite zeigt oben ein Suchfeld; der Index
+ * Suche in den Einstellungen. Die Hauptseite zeigt oben ein Suchfeld; der Index
  * umfasst ihre Zeilen und die Punkte der Unterseiten (Titel, Hinweise als Synonyme). Ein Treffer
  * öffnet die Unterseite und hebt den Punkt kurz hervor (scrollt dorthin); Zeilen der Hauptseite
  * werden dort hervorgehoben. Abgleich in `SettingsSearch` (rein, getestet).

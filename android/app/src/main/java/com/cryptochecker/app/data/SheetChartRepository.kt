@@ -110,7 +110,7 @@ class SheetChartRepository @Inject constructor(
             if (!OwnCandlePolicy.allowsFallback(pair)) return@withContext SheetChartResult.NoData
 
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der
-            // Name des Coins an der Börse des Paars nicht klar anders lautet (gleicher Token, K-8)
+            // Name des Coins an der Börse des Paars nicht klar anders lautet (gleicher Token)
             val identityName = tokenIdentityStore.pairName(watch.exchangeKey, watch.baseAsset)
             for (request in SheetChart.requests(watch.baseAsset, watch.quoteAsset, quoteIsFiat)) {
                 var accepted: List<WidgetCandle>? = null

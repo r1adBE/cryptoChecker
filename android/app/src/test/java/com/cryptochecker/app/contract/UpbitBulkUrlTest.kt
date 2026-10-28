@@ -21,7 +21,7 @@ class UpbitBulkUrlTest {
         assertTrue(urls.all { it.length < 2000 && it.startsWith("https://api.upbit.com/v1/ticker?markets=") })
         assertEquals(many.toSet(), urls.flatMap { it.substringAfter("markets=").split(",") }.toSet())
         assertNull(exchange.getBulkTickersUrl(count, many))
-        // Wenige Paare: eine Anfrage wie bisher
+        // Wenige Paare: eine Anfrage
         assertEquals(1, exchange.bulkTickersRequestCount(listOf("KRW-ETH", "KRW-BTC")))
         assertEquals("https://api.upbit.com/v1/ticker?markets=KRW-BTC,KRW-ETH", exchange.getBulkTickersUrl(0, listOf("KRW-ETH", "KRW-BTC")))
         // Bithumb (ohne ungefilterten Ersatz) bleibt bei einer Anfrage

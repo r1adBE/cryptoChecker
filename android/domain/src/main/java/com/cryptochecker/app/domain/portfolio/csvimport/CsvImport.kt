@@ -12,7 +12,7 @@ object CsvImport {
 
     /**
      * Abgeleiteter Preis bzw. Umrechnung `a / b` mit 34 gültigen Stellen ([PortfolioDecimal.MC], halbe auf gerade),
-     * ohne Nullen am Ende — keine feste Zahl Nachkommastellen: früher 12, das rundete Preise winziger Coins
+     * ohne Nullen am Ende — keine feste Zahl Nachkommastellen: 12 rundeten Preise winziger Coins
      * (z. B. 10¹² BABYDOGE für CHF 1234.56 → 1.23456E-9) auf wenige Stellen. iOS: `CsvImport.divide`.
      */
     fun derive(a: BigDecimal, b: BigDecimal): BigDecimal = a.divide(b, PortfolioDecimal.MC).stripTrailingZeros()
@@ -219,11 +219,11 @@ object CsvImport {
      * @param fx (Währung, Tag) → Einheiten dieser Währung je 1 USD (wie `PortfolioHistoryFx`); null = kein Kurs.
      *   USD/USDT brauchen keinen Kurs. Die Integration reicht hier die Tageskurse samt Rückgriff auf den
      *   letzten Geschäftstag davor (`PortfolioHistoryFx.rateOn`) durch.
-     * @param usdtUsd USDT/USD-Tagesschlüsse (Tag → Schluss; Owner-Entscheid Okt. 2026, wie der Steuer-Export
+     * @param usdtUsd USDT/USD-Tagesschlüsse (Tag → Schluss; wie der Steuer-Export
      *   `TaxExport.rateOn`): USD bzw. Fiat → USDT = Betrag ÷ (Devisenkurs × USDT/USD DES Tags). So ergibt ein Kauf über
      *   10 000 USD im Export wieder 10 000 USD Einstand (Export: USDT × Devisenkurs × USDT/USD desselben Tags). Fehlt
      *   der Schluss des Tags: × 1, Zeile als Näherung markiert ([CsvImportPriced.usdtApproximate]). null = USD gilt
-     *   1:1 als USDT (frühere Rechnung, ohne Markierung).
+     *   1:1 als USDT (ohne Markierung).
      */
     fun priceInUsdt(
         rows: List<CsvImportRow>,

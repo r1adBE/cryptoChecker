@@ -67,7 +67,7 @@ enum PortfolioFeeExpenses {
 
     /// Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht gedeckten
     /// Teil der Menge fällt: Gebühr × max(Menge − `covered`, 0) / Menge, bei leerem Bestand die ganze Gebühr. Wie
-    /// `withdrawalUncovered` als `PortfolioUnassignedFee` vermerkt statt still verworfen; der Rest verteilt sich wie bisher.
+    /// `withdrawalUncovered` als `PortfolioUnassignedFee` vermerkt statt still verworfen; der Rest verteilt sich regulär.
     /// `covered`: die Menge, die ankommt — für alle Methoden wie FIFO je Wallet: Menge und Netzwerkgebühr verlassen die
     /// Quelle, die Netzwerkgebühr zuerst; universell also max(Bestand − Netzwerkgebühr, 0), je Wallet die verschobene Menge.
     /// Wie Android.

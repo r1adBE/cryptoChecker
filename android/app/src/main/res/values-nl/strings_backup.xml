@@ -100,4 +100,11 @@
     <string name="portfolio_storage_locked">Opgeslagen gegevens zijn nu niet leesbaar, dus wijzigen is niet mogelijk. Start de app opnieuw.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Dit apparaat levert nu geen sleutel – de volglijst wordt niet opgeslagen, wijzigingen gaan verloren als de app sluit. Alarmen op de achtergrond zijn gepauzeerd. De app probeert het bij de volgende start opnieuw.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">‘Eigen server voor adressen’ is niet overgenomen – een onversleutelde back-up kan hem niet wijzigen.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">‘Eigen server voor adressen’ is verwijderd zoals in de back-up – Bitcoin-adressen worden weer bij openbare nodes opgevraagd.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">‘Eigen server voor adressen’ is vervangen door die uit de back-up.</string>
 </resources>

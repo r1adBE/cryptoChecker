@@ -46,8 +46,8 @@ class DatabaseKeyStore(
 
     /**
      * Von [create] beiseitegelegte frühere Schlüssel ([PREVIOUS_SUFFIX], weitere nummeriert `.previous.1`, `.previous.2` …),
-     * neuester zuerst. In älteren Versionen überschrieb ein zweites Beiseitelegen den ersten — der Schlüssel einer
-     * früher beiseitegelegten Datei war dann weg.
+     * neuester zuerst. Nummeriert, damit ein zweites Beiseitelegen den ersten nicht überschreibt — sonst wäre der
+     * Schlüssel einer früher beiseitegelegten Datei weg.
      */
     private fun previousKeyFiles(database: String): List<File> =
         slotFiles(database, PREVIOUS_SUFFIX).sortedByDescending { slotNumber(it.name, keyFile(database).name + PREVIOUS_SUFFIX) }
@@ -85,7 +85,7 @@ class DatabaseKeyStore(
                 val error = outcome.error ?: IllegalStateException("$database: Keystore liefert keinen Schlüssel")
                 // Eintrag noch da, nur gerade nicht herausgegeben: nie als verloren werten (Datei bleibt unberührt)
                 if (outcome.error == null && aliasPresent(database) != false) KeyLookup.Unavailable(error)
-                // Erst im nächsten Lauf als verloren werten: dann legt die Migration die Datei beiseite
+                // Erst im nächsten Lauf als verloren werten: dann legt [DatabaseOpenPlanner] die Datei beiseite
                 else if (suspects.escalate(database)) KeyLookup.Absent
                 else KeyLookup.Unavailable(error)
             }
@@ -214,7 +214,7 @@ class DatabaseKeyStore(
         this is KeyPermanentlyInvalidatedException || this is AEADBadTagException || cause?.isDefinite() == true
 
     companion object {
-        const val ALIAS = "cryptochecker_db_key_v1"
+        const val ALIAS = "cryptochecker_db_key"
 
         /**
          * Keystore-Alias je Datenbank: Ein endgültig verlorener Schlüssel trifft nur diese eine Datenbank

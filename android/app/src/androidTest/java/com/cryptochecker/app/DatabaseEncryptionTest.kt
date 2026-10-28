@@ -103,7 +103,7 @@ class DatabaseEncryptionTest {
     }
 
     /**
-     * Keystore gibt den Schlüssel einer vorhandenen verschlüsselten Datei gerade nicht heraus: im Hintergrund wie bisher
+     * Keystore gibt den Schlüssel einer vorhandenen verschlüsselten Datei gerade nicht heraus: im Hintergrund
      * eine Ausnahme, im Vordergrund (Portfolio/Merkliste der App) leer im Arbeitsspeicher — die Datei bleibt Byte für Byte
      * gleich, und der nächste Start mit Schlüssel sieht wieder alles.
      */

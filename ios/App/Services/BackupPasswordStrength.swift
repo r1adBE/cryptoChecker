@@ -40,7 +40,7 @@ enum BackupPasswordStrength {
     ///  - fast nur ein Zeichen: höchstens 3 verschiedene Zeichen, mindestens 75 % dasselbe Zeichen oder ein einziges
     ///    wiederholtes Zeichen, wenn man Ziffern/Zeichen vorne und hinten weglässt («aaaaaaaaaaa1», «!!bbbbbbbbbb»).
     /// Fälle in `Tests/Parity/backup_passwords.json` (gleiche Datei wie Android).
-    /// Die frühere Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» deckt die
+    /// Eine Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» braucht es nicht: sie deckt die
     /// Mindestlänge 12 ab (Zeichenklassen spielen ab 12 Zeichen keine Rolle).
     static func isWeak(_ password: String) -> Bool {
         let normalized = password.precomposedStringWithCanonicalMapping

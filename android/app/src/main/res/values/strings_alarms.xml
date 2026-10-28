@@ -184,4 +184,10 @@
     <string name="alarm_reliability_storage_no_key">Alerts paused in the background – watchlist not saved</string>
     <string name="alarms_limit_reached">A pair can have at most %1$s alerts.</string>
     <string name="alarms_reference_rate_hint">ECB reference rates are set only once a day – there are no alerts for them.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">A drop must be less than 100 percent.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Threshold invalid – please adjust</string>
 </resources>

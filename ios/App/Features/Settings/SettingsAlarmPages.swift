@@ -288,7 +288,7 @@ struct PricePairsPage: View {
             } else {
                 HStack(spacing: 8) {
                     Button(L("settings_price_pairs_all_on")) {
-                        // EINE Rückfrage F-08 für alle Paare, vorher
+                        // EINE Rückfrage «nicht gespeichert» für alle Paare, vorher
                         data.withWatchlistConfirm {
                             // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage
                             if !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }

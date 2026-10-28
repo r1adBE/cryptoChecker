@@ -55,9 +55,9 @@ object MarketNoticeGate {
 
     /**
      * Gilt die Grenze [current] nicht mehr für den gemerkten Stand? [stored] = mit dem Stand gemerkte Grenze;
-     * null = keine Grenze gemerkt: als unverändert werten.
+     * null = keine Grenze gemerkt: als geändert werten.
      */
-    fun boundChanged(stored: Int?, current: Int): Boolean = stored != null && stored != current
+    fun boundChanged(stored: Int?, current: Int): Boolean = stored != current
 
     /** Neuen Stand speichern? [posted] = die Meldung wurde abgesetzt (nur bei [Step.NOTIFY] von Belang). */
     fun storeAfterNotify(step: Step, posted: Boolean): Boolean = when (step) {

@@ -45,4 +45,16 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Taproot 계정(BIP86): 이 키에서 수신용과 잔돈용 bc1p… 주소가 파생됩니다.</string>
     <string name="portfolio_address_taproot_hint">Taproot 지갑인가요? 대신 지갑의 디스크립터 tr(…)를 붙여 넣으세요. 일반 xpub는 Legacy 및 SegWit 주소로만 검색됩니다.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">자체 서버에 연결할 수 없음</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s 운영자는 이 지갑에서 조회한 모든 주소를 볼 수 있으며, 이를 서로 그리고 사용자의 IP 주소와 연결할 수 있습니다.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">이를 피하려면 설정 › 포트폴리오 › 주소용 자체 서버에서 자체 서버를 입력하세요.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d개 알 수 없는 토큰(미포함)</item>
+    </plurals>
 </resources>

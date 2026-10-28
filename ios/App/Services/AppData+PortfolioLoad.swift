@@ -2,7 +2,7 @@ import Foundation
 
 // Portfolio beim Start im Hintergrund lesen (Teil von `AppData`): Das erste Bild wartet nicht auf Entschlüsseln und
 // Dekodieren von `portfolio.json`. Jeder Zugriff vorher (`portfolio`, `portfolioFile`, `portfolioIntact`) liest den
-// Stand sofort selbst (`ensurePortfolioLoaded`, wie bisher beim Start) — es gibt keinen sichtbaren «noch nicht
+// Stand sofort selbst (`ensurePortfolioLoaded`) — es gibt keinen sichtbaren «noch nicht
 // gelesenen» Stand, und kein Schreiben kann einen ungelesenen Stand überschreiben. Portfolio-Alarme und das
 // Portfolio-Widget lesen die Datei ohnehin selbst (`PortfolioWidgetStore`).
 
@@ -88,7 +88,7 @@ extension AppData {
     /// prüft danach selbst, `adoptPortfolioRead`).
     var portfolioUnreadable: Bool { portfolioState.loaded && !portfolioState.intact }
 
-    /// Noch nicht gelesen: jetzt sofort lesen (Hauptfaden, wie bisher beim Start). Ohne Veröffentlichung — vorher konnte
+    /// Noch nicht gelesen: jetzt sofort lesen (Hauptfaden). Ohne Veröffentlichung — vorher konnte
     /// niemand einen anderen Stand sehen (jeder Zugriff kommt hier vorbei). Zuerst das Lesen beim Start (es verschlüsselt
     /// die Dateien vor dem ersten Lesen, `LaunchRead`).
     func ensurePortfolioLoaded() {
@@ -110,7 +110,7 @@ extension AppData {
         }
     }
 
-    /// Gelesenen Stand übernehmen (nur den ersten) samt der Folge wie bisher beim Start: unlesbare Einträge einmal
+    /// Gelesenen Stand übernehmen (nur den ersten) samt der Folge: unlesbare Einträge einmal
     /// nennen. true = übernommen.
     @discardableResult
     private func adoptPortfolioRead(_ read: PortfolioRead) -> Bool {

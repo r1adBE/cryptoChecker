@@ -63,10 +63,10 @@ class AppearanceApplier @Inject constructor(
     }
 
     /**
-     * Start ohne runBlocking (K-6): Hell/Dunkel liegt zusätzlich in einer winzigen
+     * Start ohne runBlocking: Hell/Dunkel liegt zusätzlich in einer winzigen
      * SharedPreferences-Datei, die Android beim ersten Zugriff ohne DataStore liest.
-     * [CachedNightMode.Missing] = noch nie geschrieben (Update von altem Build, frische
-     * Installation, Systemsicherung ohne diese Datei) – dann liest der Start einmal synchron.
+     * [CachedNightMode.Missing] = noch nie geschrieben (frische Installation,
+     * Systemsicherung ohne diese Datei) – dann liest der Start einmal synchron.
      */
     fun cachedNightMode(): CachedNightMode =
         when (context.getSharedPreferences(CACHE_PREFS, Context.MODE_PRIVATE).getString(KEY_NIGHT, null)) {

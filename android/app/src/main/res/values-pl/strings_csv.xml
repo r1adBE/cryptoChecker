@@ -100,4 +100,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">zapis stakingu bez zapisu przeciwnego – sprawdź saldo</string>
     <string name="portfolio_csv_skip_amount_too_small">za mała ilość – przy zapisie wyniesie 0</string>
     <string name="portfolio_csv_skip_invalid_swap">wymiana bez prawidłowej otrzymanej monety lub ilości</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Ponowne wczytywanie pliku …</string>
 </resources>

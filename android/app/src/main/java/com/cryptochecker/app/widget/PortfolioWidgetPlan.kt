@@ -49,7 +49,7 @@ enum class PortfolioChartRange(val days: Int) {
     val daily: Boolean get() = this != DAY
 
     companion object {
-        /** Neue und bestehende Widgets ohne Wahl: 24 h wie bisher. */
+        /** Widgets ohne Wahl: 24 h. */
         val DEFAULT = DAY
 
         fun fromName(name: String?): PortfolioChartRange = entries.firstOrNull { it.name == name } ?: DEFAULT

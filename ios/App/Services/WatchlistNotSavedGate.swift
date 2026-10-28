@@ -1,18 +1,18 @@
 import Foundation
 
-/// Review F-08: Merkliste wird gerade nicht gespeichert (`WatchlistStorageLock.Notice.notSaved`, kein
+/// Merkliste wird gerade nicht gespeichert (`WatchlistStorageLock.Notice.notSaved`, kein
 /// Schlüssel zum Versiegeln) — Änderungen gehen beim Neustart verloren. Vor der ersten Änderung des Nutzers je App-Lauf
 /// einmal fragen: «Abbrechen» ändert nichts, «Trotzdem» führt die Änderung aus und fragt in diesem Lauf nicht mehr.
-/// Review UX3-02/05, IOS3-R04: gefragt wird EINMAL je Nutzeraktion VOR der Aktion im Bildschirm
+/// Gefragt wird EINMAL je Nutzeraktion VOR der Aktion im Bildschirm
 /// (`AppData.confirmWatchlistWrite`, wartet per `confirm`), danach läuft der normale Weg mit Banner, Rückgängig, Ansage und
-/// Erst-Alarm. Der Schreibweg in AppData fragt nicht mehr und führt nichts erneut aus, sondern lehnt ohne Bestätigung ab
+/// Erst-Alarm. Der Schreibweg in AppData fragt nicht und führt nichts erneut aus, sondern lehnt ohne Bestätigung ab
 /// (`needsConfirmation`, Sicherung). Den Dialog zeigt `WatchlistNotSavedGatePresenter` über allem (eigenes Fenster, auch
 /// über Blättern). Ohne sichtbare App nie fragen. Wie Android `WatchlistNotSavedGate` (`watchlist_not_saved_gate.json`).
-/// Review ARC4-R02, Variante A: Fehlt die Szene beim Bestätigen nur kurz, wartet `confirm` bis zu
+/// Fehlt die Szene beim Bestätigen nur kurz, wartet `confirm` bis zu
 /// `askerWaitMillis` auf sie und fragt dann. Ohne Szene durchgelassen, lehnt die Sicherung im Schreibweg danach nicht ab
 /// (`needsConfirmation`).
-/// Review F-27: Diese Zustimmung gilt nur für die eine Aktion — `run` führt sie unter `actionConsent` aus (TaskLocal, auch
-/// in Aufgaben, die die Aktion startet). Kein globaler Merker mehr: eine andere Aktion danach wird nicht still
+/// Diese Zustimmung gilt nur für die eine Aktion — `run` führt sie unter `actionConsent` aus (TaskLocal, auch
+/// in Aufgaben, die die Aktion startet). Kein globaler Merker: eine andere Aktion danach wird nicht still
 /// durchgelassen, «Abbrechen» einer anderen Aktion lehnt die laufende nicht ab. Wie Android (dort die Coroutine der Aktion).
 @MainActor
 final class WatchlistNotSavedGate: ObservableObject {
@@ -27,13 +27,13 @@ final class WatchlistNotSavedGate: ObservableObject {
     /// Reine Folge einer Antwort: «Trotzdem» bestätigt für den Rest des Laufs, «Abbrechen» nicht. Wie Android.
     nonisolated static func confirmedAfter(confirmed: Bool, proceed: Bool) -> Bool { confirmed || proceed }
 
-    /// ARC4-R02: so lange wartet `confirm` ohne sichtbare Szene auf sie (ms) — wie Android.
+    /// So lange wartet `confirm` ohne sichtbare Szene auf sie (ms) — wie Android.
     nonisolated static let askerWaitMillis: UInt64 = 2_000
 
     /// Offene Frage (Dialog zeigen).
     @Published private(set) var pending = false
     private(set) var confirmed = false
-    /// Zustimmung der laufenden Aktion (Review F-27): nur innerhalb von `runConsented` gesetzt. Gesetzt wird sie nur nach
+    /// Zustimmung der laufenden Aktion: nur innerhalb von `runConsented` gesetzt. Gesetzt wird sie nur nach
     /// einem `confirm` mit true, das gefragt werden konnte (`run` prüft `mayAsk`): also nach «Trotzdem» (dann ohnehin
     /// bestätigt) oder nach einem Durchlass ohne Szene — wie Android nur für diese Aktion.
     nonisolated static let actionConsent = TaskLocal<Bool>(wrappedValue: false)
@@ -56,7 +56,7 @@ final class WatchlistNotSavedGate: ObservableObject {
 
     /// Sicherung im Schreibweg: bräuchte er jetzt noch eine Antwort? Dann lehnt AppData ab — die Aktion
     /// hat `confirm` nicht vorher aufgerufen; fragt selbst nie. Wie Android `needsConfirmation`. Nicht in einer Aktion mit
-    /// Zustimmung (`actionConsent`), sonst lehnte sie nach einem Durchlass ohne Szene dieselbe Aktion still ab (ARC4-R02).
+    /// Zustimmung (`actionConsent`), sonst lehnte sie nach einem Durchlass ohne Szene dieselbe Aktion still ab.
     func needsConfirmation(notSaved: Bool, canAsk: Bool) -> Bool {
         !Self.actionConsent.get() && Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: canAsk)
     }
@@ -104,7 +104,7 @@ final class WatchlistNotSavedGate: ObservableObject {
 
     /// Kern von `AppData.withWatchlistConfirm`: gesperrt (`blocked`) oder keine Frage nötig → `action` sofort (synchron);
     /// sonst nach `confirm` (fragt über dieses Tor) erst bei «Trotzdem» `action`, bei «Abbrechen» `cancelled`. Eigene
-    /// Funktion, damit Tests den Ablauf mit eigenem Tor prüfen (Zähler für close/cancelled, IOS6-02).
+    /// Funktion, damit Tests den Ablauf mit eigenem Tor prüfen (Zähler für close/cancelled).
     func run(blocked: Bool, notSaved: Bool, confirm: @escaping @MainActor () async -> Bool,
              _ action: @escaping @MainActor () -> Void, cancelled: (@MainActor () -> Void)?) {
         guard !blocked, mayAsk(notSaved: notSaved) else { return action() }

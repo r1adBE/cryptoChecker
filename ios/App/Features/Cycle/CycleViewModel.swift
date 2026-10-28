@@ -104,7 +104,7 @@ final class CycleViewModel: ObservableObject {
     static let unusualKey = "unusual"
     /// «Heute auffällig» 10 Min. (wie `CycleSource.UNUSUAL` in Android).
     static let unusualTTL: Int64 = 10 * CycleCachePolicy.minute
-    /// Eigener Schlüssel seit Runde 35 (neutrale Kennzahlen statt Zonen-Bericht)
+    /// Eigener Schlüssel der neutralen Kennzahlen
     static let marketKey = "btc_indicators"
     static let fearGreedKey = "fng"
     static let globalKey = "global"

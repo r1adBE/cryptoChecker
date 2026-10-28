@@ -9,7 +9,7 @@ import com.cryptochecker.app.domain.alarm.ThresholdParser
 import java.math.BigDecimal
 
 /**
- * Runde 35: exakte Buchhaltung (BigDecimal, 1 Satoshi = 0.00000001 BTC), Gebühren und Gewinn je
+ * Exakte Buchhaltung (BigDecimal, 1 Satoshi = 0.00000001 BTC), Gebühren und Gewinn je
  * Zeitraum mit Käufen/Verkäufen. Wie `PortfolioLedgerTests` (iOS).
  */
 class PortfolioLedgerTest {
@@ -381,7 +381,7 @@ class PortfolioLedgerTest {
 
     @Test
     fun `today leaves out a coin without change instead of diluting the percent`() {
-        // BTC +10 % (90 → 99), ALT ohne Vergleichskurs: früher flach mitgezählt (verwässert), jetzt draussen
+        // BTC +10 % (90 → 99), ALT ohne Vergleichskurs: nicht flach mitgezählt (verwässert), sondern draussen
         val change = PortfolioPeriodChange.todayFromCoinChanges(
             holdings = mapOf("BTC" to 1.0, "ALT" to 100.0),
             current = mapOf("BTC" to 99.0, "ALT" to 0.2),
@@ -435,7 +435,7 @@ class PortfolioLedgerTest {
         val ids = PortfolioLedger.events("BTC", trades).map { it.trade.id }
         assertEquals(listOf(5L, 2L, 3L, 1L, 4L), ids)
         assertEquals(ids, PortfolioLedger.eventsByCoin(trades).getValue("BTC").map { it.trade.id })
-        // Bestand: 0.2 + 1 + 0.05 − 0.5 − 0.01 (der Verkauf wird nicht mehr auf 0.2 gekappt)
+        // Bestand: 0.2 + 1 + 0.05 − 0.5 − 0.01 (der Verkauf wird nicht auf 0.2 gekappt)
         val holdings = PortfolioLedger.events("BTC", trades).fold(BigDecimal.ZERO) { h, e -> PortfolioLedger.holdingsAfter(h, e) }
         assertEquals(0, dec("0.74").compareTo(holdings))
     }

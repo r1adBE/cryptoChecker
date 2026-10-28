@@ -155,7 +155,7 @@ extension ActivityAnalyzer {
     }
 
     /// Quote USD oder ein USD-Stablecoin (`CurrencyConversion.classify` → `.usd`)? Nur dann sind die Kerzen
-    /// des Paars mit den USD-Referenzen vergleichbar. Ohne Quote (unbekannt) wie bisher USD. Wie Android.
+    /// des Paars mit den USD-Referenzen vergleichbar. Ohne Quote (unbekannt) USD. Wie Android.
     static func isUsdQuote(_ quoteAsset: String?) -> Bool {
         let code = CurrencyConversion.normalize(quoteAsset)
         return code.isEmpty || CurrencyConversion.classify(code, fiat: []) == .usd

@@ -404,67 +404,50 @@
   "cleanName": [
     {
       "raw": "NVIDIA bStocks",
-      "symbol": "NVDAB",
       "expected": "NVIDIA"
     },
     {
       "raw": "Advanced Micro Devices (bStocks)",
-      "symbol": null,
       "expected": "Advanced Micro Devices"
     },
     {
       "raw": "Apple, bStocks",
-      "symbol": null,
       "expected": "Apple"
     },
     {
       "raw": "Tesla xStock",
-      "symbol": null,
       "expected": "Tesla"
     },
     {
       "raw": "Bitcoin",
-      "symbol": "BTC",
       "expected": "Bitcoin"
     },
     {
       "raw": "BNB",
-      "symbol": "BNB",
       "expected": "BNB"
     },
     {
       "raw": "Bonk",
-      "symbol": "1000BONK",
-      "expected": "Bonk"
-    },
-    {
-      "raw": "Bonk",
-      "symbol": "BONK",
       "expected": "Bonk"
     },
     {
       "raw": "XRP",
-      "symbol": "XRP",
       "expected": "XRP"
     },
     {
       "raw": "  Wrapped\tBitcoin \n",
-      "symbol": null,
       "expected": "Wrapped Bitcoin"
     },
     {
       "raw": "",
-      "symbol": null,
       "expected": null
     },
     {
       "raw": null,
-      "symbol": null,
       "expected": null
     },
     {
       "raw": "International Business Machines Corporation Common Stock",
-      "symbol": null,
       "expected": "International Business Machines Corpora…"
     }
   ],

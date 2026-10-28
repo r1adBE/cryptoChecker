@@ -7,7 +7,7 @@
     Links optional das Coin-Logo (24 dp, passt in die Zeilenhöhe).
     Unter jeder Zeile ausser der letzten eine 1-dp-Trennlinie, neutral grau (Haupttext mit
     geringer Deckkraft) (Farbe und Sichtbarkeit setzt ListWidgetRows), über die ganze Zeilenbreite
-    (innerhalb der 4 dp Innenabstand, zusammen mit den 8 dp des Widgets 12 dp wie iOS) — dieselbe Regel wie iOS (L-19). Unten 1 dp weniger
+    (innerhalb der 4 dp Innenabstand, zusammen mit den 8 dp des Widgets 12 dp wie iOS) — dieselbe Regel wie iOS. Unten 1 dp weniger
     Innenabstand, damit die Zeilenhöhe gleich bleibt.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -100,4 +100,11 @@
     <string name="portfolio_storage_locked">Të dhënat e ruajtura nuk mund të lexohen tani, ndaj ndryshimet nuk janë të mundshme. Rinis aplikacionin.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Kjo pajisje nuk po jep çelës tani – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Alarmet në sfond janë pezulluar. Aplikacioni do të provojë sërish në nisjen e ardhshme.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">«Server i yti për adresat» nuk u rikthye – një kopje e paenkriptuar nuk mund ta ndryshojë.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">«Server i yti për adresat» u hoq si në kopje – adresat Bitcoin pyeten sërish te nyje publike.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">«Server i yti për adresat» u zëvendësua me atë nga kopja.</string>
 </resources>

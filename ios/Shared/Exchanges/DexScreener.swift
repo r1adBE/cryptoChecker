@@ -212,7 +212,7 @@ final class DexScreener: Exchange, @unchecked Sendable { // @unchecked: wie `Exc
     /// Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen dürfen
     /// (`safePathCharacters`; keine Leerzeichen, kein zweites «/», kein «?», «#», «%»). Gilt für Einzelkurs, Suchtreffer
     /// und Sicherung. Wie Android `DexScreener.isSafePairId` (`Parity/dex_pair_id.json`).
-    /// SEC3-R1: kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
+    /// Kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
     static func isSafePairId(_ pairId: String) -> Bool {
         guard let cut = pairId.firstIndex(of: "/") else { return false }
         return isSafePart(pairId[..<cut]) && isSafePart(pairId[pairId.index(after: cut)...])

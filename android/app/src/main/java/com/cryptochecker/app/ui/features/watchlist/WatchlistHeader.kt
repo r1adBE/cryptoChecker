@@ -159,7 +159,7 @@ internal fun WatchlistHeader(
                 // [WatchlistHeaderActions.onBellClick]), ohne Zahl (eine Zahl läse sich leicht als «so oft ausgelöst»); immer die
                 // Alarm-Glocke mit Wellen, mit aktiven Alarmen gefüllt
                 // Glocke mit vollem 48-dp-Platz — die Tippflächen von Glocke und Menü
-                // überlappen nicht mehr (früher 34 dp Platz, 14 dp der Glocke lagen unter dem Menü)
+                // überlappen nicht
                 AlarmBell(
                     scale = bellScale,
                     active = state.activeAlarms > 0,

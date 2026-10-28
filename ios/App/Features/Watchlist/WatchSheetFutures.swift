@@ -48,7 +48,7 @@ struct WatchlistMarketDataSection: View {
 
     private var futuresPair: Bool { watch.contractType != .none }
 
-    /// Perpetuals wie bisher sofort, alles andere erst mit offenem Register (keine unnötige Abfrage).
+    /// Perpetuals sofort, alles andere erst mit offenem Register (keine unnötige Abfrage).
     private var needFutures: Bool { tab == .futures || watch.contractType.isPerpetual }
 
     private struct LoadKey: Hashable {

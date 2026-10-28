@@ -93,4 +93,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">asiento de staking sin contrapartida – revisa el saldo</string>
     <string name="portfolio_csv_skip_amount_too_small">cantidad demasiado pequeña – al guardar queda en 0</string>
     <string name="portfolio_csv_skip_invalid_swap">intercambio sin moneda o cantidad recibida válida</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Volviendo a leer el archivo …</string>
 </resources>

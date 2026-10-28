@@ -135,8 +135,7 @@ enum SharedStorage {
 
     /// Portfolio-Alarme (Beträge) in eigener Datei statt in `watchlist.json` — so gilt für sie wie für
     /// `portfolio.json` die Einstellung «Portfolio in Systemsicherung» (wie Android, wo die
-    /// Portfolio-Alarme mit dem Portfolio aus der Systemsicherung fallen). Bis Runde 28 lagen sie in
-    /// `watchlist.json`; beim ersten Schreiben wandern sie hierher (siehe `writeFiles`).
+    /// Portfolio-Alarme mit dem Portfolio aus der Systemsicherung fallen).
     static var portfolioAlarmsURL: URL { directory.appendingPathComponent("portfolio_alarms.json") }
 
 
@@ -152,7 +151,7 @@ enum SharedStorage {
     enum SettingsReadState: Equatable {
         /// Gelesen.
         case ok
-        /// Nicht vorhanden (bzw. vorhanden, aber unlesbar): Standardwerte, Speichern erlaubt (wie bisher).
+        /// Nicht vorhanden (bzw. vorhanden, aber unlesbar): Standardwerte, Speichern erlaubt.
         case missing
         /// Ablage (noch) nicht zugänglich, z. B. App nach einem Neustart vor dem ersten Entsperren vorgewärmt:
         /// Standardwerte nur zur Anzeige — nie zurückschreiben, Portfolio-Sperre gilt als an.
@@ -176,7 +175,7 @@ enum SharedStorage {
     static func settingsReadState(hasData: Bool, decodes: Bool, markerPresent: Bool,
                                   protectedDataAvailable: Bool?) -> SettingsReadState {
         if hasData && decodes { return .ok }
-        // Da, aber nicht lesbar: die Ablage war zugänglich — Standardwerte wie bisher
+        // Da, aber nicht lesbar: die Ablage war zugänglich — Standardwerte
         if hasData { return .missing }
         switch protectedDataAvailable {
         case .some(false): return .inaccessible
@@ -306,14 +305,14 @@ enum SharedStorage {
     /// Bericht «Letzte Aktualisierung» (JSON); nil = noch keiner.
     static var lastRefreshReport: RefreshReport? {
         get {
-            guard let data = defaults.data(forKey: "last_refresh_report_v2") else { return nil }
+            guard let data = defaults.data(forKey: "last_refresh_report") else { return nil }
             return try? JSONDecoder().decode(RefreshReport.self, from: data)
         }
         set {
             if let newValue, let data = try? JSONEncoder().encode(newValue) {
-                defaults.set(data, forKey: "last_refresh_report_v2")
+                defaults.set(data, forKey: "last_refresh_report")
             } else {
-                defaults.removeObject(forKey: "last_refresh_report_v2")
+                defaults.removeObject(forKey: "last_refresh_report")
             }
         }
     }

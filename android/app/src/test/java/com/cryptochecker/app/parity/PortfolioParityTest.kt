@@ -314,7 +314,7 @@ class PortfolioParityTest {
         }
     }
 
-    /** M-4: EINE Tagesgrenze (UTC) — «7 T» und Wertverlauf zählen einen Kauf um Mitternacht gleich. */
+    /** EINE Tagesgrenze (UTC) — «7 T» und Wertverlauf zählen einen Kauf um Mitternacht gleich. */
     @Test
     fun dayBoundary() {
         val cases = data["dayBoundary"].list()
@@ -324,14 +324,11 @@ class PortfolioParityTest {
             val name = c["name"] as String
             val trades = c["trades"].list().map(::trade)
             val today = c["today"].num()!!.toLong()
-            val zone = java.time.ZoneId.of(c["zone"] as String)
             val e = c["expected"].obj()
             val gain = PortfolioPeriodChange.gain(trades, prices(c["current"]), series(c["closes"]), c["baseDay"].num()!!.toLong())
             near("$name gain", e["gain"].num(), gain?.amountUsd)
             near("$name percent", e["percent"].num(), gain?.percent)
-            // Lokales Tagesende des Aufrufers zählt für die Zuordnung nicht (UTC-Tage)
-            val localDayEnd: (Long) -> Long = { day -> java.time.LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1 }
-            val history = PortfolioHistory.build(trades, series(c["closes"]), prices(c["current"]), PortfolioHistoryRange.WEEK, today, localDayEnd)
+            val history = PortfolioHistory.build(trades, series(c["closes"]), prices(c["current"]), PortfolioHistoryRange.WEEK, today)
             near("$name first point", e["firstPoint"].num(), history.points.firstOrNull()?.value)
             near("$name history pnl", e["historyPnl"].num(), history.pnlChange)
             // Dieselbe Zahl in Kopf und Kurve
@@ -473,7 +470,7 @@ class PortfolioParityTest {
         }
     }
 
-    /** USDT zum Marktkurs USDT/USD in Fiat (Owner-Entscheid Okt. 2026); ohne Kurs 1, als Näherung markiert. */
+    /** USDT zum Marktkurs USDT/USD in Fiat; ohne Kurs 1, als Näherung markiert. */
     @Test
     fun usdtMarket() {
         val m = data["usdtMarket"].obj()

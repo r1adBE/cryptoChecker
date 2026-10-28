@@ -4,8 +4,9 @@ import XCTest
 @testable import CryptoChecker
 
 /// Wartende Portfolio-Alarme erneut schreiben (`AppData.retryPendingPortfolioSaves`): über die
-/// Schreib-Warteschlange mit Übernahme neuerer Kurse und Auslösungen (`SharedStorage.mergeAndWriteFiles`) — vorher schrieb
-/// ein synchrones `saveSnapshot` den älteren Stand im Speicher über eine Auslösung des Widgets (doppelter Alarm).
+/// Schreib-Warteschlange mit Übernahme neuerer Kurse und Auslösungen (`SharedStorage.mergeAndWriteFiles`) —
+/// sonst schriebe ein synchrones `saveSnapshot` den älteren Stand im Speicher über eine Auslösung des Widgets
+/// (doppelter Alarm).
 /// Läuft in einem temporären Ordner mit gefälschtem Schlüsselbund, nie auf der App Group.
 final class PortfolioSaveRetryTests: XCTestCase {
     private var dir: URL!

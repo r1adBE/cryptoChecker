@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Volle Namen aus den Paarlisten (gleicher Token, K-8) — wie `BaseNamesTest.kt`.
+/// Volle Namen aus den Paarlisten (gleicher Token) — wie `BaseNamesTest.kt`.
 final class BaseNamesTests: XCTestCase {
 
     func testGateBaseAndQuoteNamesOfTradablePairs() throws {

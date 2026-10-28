@@ -5,8 +5,8 @@ import java.io.File
 /**
  * Vorübergehende Keystore-Fehler nicht als endgültig werten ([DatabaseKeyStore]). Auf manchen Geräten
  * liefert der Keystore kurz nach dem Start oder einem System-Update `UnrecoverableKeyException` oder gar keinen Schlüssel
- * (`getKey` = null), obwohl der Eintrag besteht. Früher legte die App die Datenbank dann sofort beiseite und
- * ersetzte den Keystore-Eintrag — die früheren Schlüsseldateien waren danach nie mehr zu öffnen.
+ * (`getKey` = null), obwohl der Eintrag besteht. Die Datenbank dann sofort beiseitezulegen und den Keystore-Eintrag zu
+ * ersetzen, machte die früheren Schlüsseldateien für immer unlesbar.
  *
  * Darum: [run] wiederholt «verdächtige» Fehler ([Failure.SUSPECT]) wie gewöhnliche mehrmals; erst wenn ein verdächtiger
  * Fehler auch in einem späteren Lauf wieder auftritt ([SuspectMarker]), gilt der Schlüssel als verloren. Nur wirklich

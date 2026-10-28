@@ -2,8 +2,8 @@ import CryptoKit
 import Foundation
 import Security
 
-// Verschlüsselte Dateien mit Nutzerdaten in der App Group — Gegenstück zu den verschlüsselten Datenbanken
-// auf Android (SQLCipher, `DatabaseOpenPlanner.kt`). Gleiche Regeln: nie Daten verlieren, Klartext erst
+// Verschlüsselte Dateien mit Nutzerdaten in der App Group (Android: SQLCipher-Datenbanken, ohne Überführung
+// von Klartext). Eigene Regeln für iOS: nie Daten verlieren, Klartext erst
 // ersetzen, wenn die verschlüsselte Fassung geprüft ist, bei jedem Fehler unverschlüsselt weiter und später erneut.
 
 /// Format einer verschlüsselten Datei: 4 Bytes Kennung «CCSE», 1 Byte Version (1), 12 Bytes Nonce, Chiffrat (AES-256-GCM),
@@ -71,7 +71,7 @@ struct StorageKeychainError: Error, Equatable {
 /// vorhandene Berechtigung `com.apple.security.application-groups`; ein eigenes `keychain-access-groups` würde die
 /// Standardgruppe aller Schlüsselbund-Einträge der App ändern).
 ///
-/// `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` (Entscheid 17. Oktober 2026): lesbar ab dem ersten
+/// `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`: lesbar ab dem ersten
 /// Entsperren nach dem Start (Widgets, Hintergrund), aber nie Teil eines iCloud-/Finder-Backups und nicht übertragbar
 /// auf ein anderes iPhone — wer ein Geräte-Backup in die Hände bekommt, hat die Dateien, aber nie ihren Schlüssel.
 /// Folge: Nach einem Gerätewechsel sind die verschlüsselten Dateien unlesbar; `prepareAtLaunch` legt sie beiseite

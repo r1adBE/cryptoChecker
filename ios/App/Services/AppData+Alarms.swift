@@ -11,7 +11,7 @@ extension AppData {
     var alarmSaveBlocked: Bool { WatchlistStorageLock.blocksAlarmSave(locked: watchlistLocked) }
 
     /// Speichert einen Alarm (id 0 = neu) — Bezugskurs und Zustand wie in `AlarmsViewModel.save`.
-    /// - Returns: eindeutig (UX3-02/03): gespeichert (mit «allererster Alarm», dann ist `firstAlarmShown`
+    /// - Returns: eindeutig: gespeichert (mit «allererster Alarm», dann ist `firstAlarmShown`
     ///   schon gesetzt), Paar voll oder abgelehnt — wie Android `AlarmSaveResult`.
     @discardableResult
     func saveAlarm(watchId: Int64, id: Int64, condition: AlarmCondition, threshold: Double,
@@ -19,7 +19,7 @@ extension AppData {
                    currency: String? = nil) -> AlarmSaveOutcome {
         // Paar inzwischen gelöscht (z. B. Editor aus einer alten Mitteilung): kein verwaister Alarm — wie Android
         guard !alarmSaveBlocked, watch(watchId) != nil else { return .refused }
-        // F-08: ohne vorherige Bestätigung (`confirmWatchlistWrite`) ablehnen
+        // Ohne vorherige Bestätigung (`confirmWatchlistWrite`) ablehnen
         guard !watchlistWriteRefused() else { return .refused }
         // Neuer Alarm an einem vollen Paar (`WatchlistLimits`): nichts anlegen — der Bildschirm prüft vorher und sagt es
         guard id != 0 || WatchlistLimits.canAddAlarm(alarms(for: watchId).count) else { return .full }
@@ -84,7 +84,7 @@ extension AppData {
         guard !alarmSaveBlocked, watch(watchId) != nil, WatchlistLimits.canAddAlarm(alarms(for: watchId).count) else {
             return (0, false)
         }
-        // F-08: wie `saveAlarm`
+        // Bestätigung wie `saveAlarm`
         guard !watchlistWriteRefused() else {
             return (0, false)
         }
@@ -139,7 +139,7 @@ extension AppData {
     func setPortfolioAlarmEnabled(_ id: Int64, _ enabled: Bool) {
         mutate({ s in
             guard var list = s.portfolioAlarms, let i = list.firstIndex(where: { $0.id == id }) else { return }
-            // FUN3-01: «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen), wie Android
+            // «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen), wie Android
             if enabled && PortfolioAlarmLogic.exceedsFall(list[i].kind, list[i].threshold) { return }
             list[i].enabled = enabled
             if enabled { list[i].referenceAt = 0 }
@@ -302,7 +302,7 @@ extension AppData {
     }
 
     /// true = geschrieben; false = abgelehnt (gesperrt bzw. nicht bestätigt, oder «fällt um ≥ 100 %»
-    /// einschalten (FUN3-02) — löst nie aus, erst im Editor anpassen; wie Android `setAlarmEnabled`).
+    /// einschalten — löst nie aus, erst im Editor anpassen; wie Android `setAlarmEnabled`).
     @discardableResult
     func setAlarmEnabled(_ id: Int64, _ enabled: Bool) -> Bool {
         guard !watchlistWriteRefused() else { return false }

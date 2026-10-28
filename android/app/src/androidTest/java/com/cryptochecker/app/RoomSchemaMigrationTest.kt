@@ -16,7 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Exportierte Schemas (`app/schemas`, Review TST-01) gegen die Entities: [MigrationTestHelper] legt die Datenbank genau
+ * Exportierte Schemas (`app/schemas`) gegen die Entities: [MigrationTestHelper] legt die Datenbank genau
  * nach `<Version>.json` an, danach öffnet Room sie. Room vergleicht dabei den `identityHash` der Datei mit dem der
  * Entities — weicht das Golden-Schema ab, schlägt das Öffnen fehl.
  *

@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Gewinne-Export und Jahresübersicht aus einer Rechnung (`TaxExport.GainsRun`, `TaxExport.feeNotes`) liefern EXAKT
-/// dieselben Spannen, Zeilen und CSV-Texte wie die bisherigen Einzelrechnungen (`fxSpan`, `gainRows`, `lostFeeCosts`,
+/// dieselben Spannen, Zeilen und CSV-Texte wie die Einzelrechnungen (`fxSpan`, `gainRows`, `lostFeeCosts`,
 /// `unassignedFees`, `yearSummary` ohne `run`) — für die Vorlagen-Fälle aus `tax_templates.json` und ein grösseres
 /// Portfolio (`PortfolioPerformanceData`) über mehrere Jahre, Methoden und Vorlagen (u. a. UK, CA, FR, DE, US).
 final class TaxExportRunTests: XCTestCase {
@@ -37,7 +37,7 @@ final class TaxExportRunTests: XCTestCase {
         var walletFrom: LocalDay? { template.walletFrom(method.costMethod ?? .defaultMethod, year) }
     }
 
-    /// Bisheriger Ablauf: jede Liste mit ihrer eigenen Rechnung.
+    /// Getrennter Ablauf: jede Liste mit ihrer eigenen Rechnung.
     private static func separate(_ i: Input) -> Files {
         let rules = i.template.eventRules
         let span = TaxExport.fxSpan(i.trades, method: i.method, period: i.period, timeZone: i.zone, priceAt: i.priceAt,
@@ -140,7 +140,7 @@ final class TaxExportRunTests: XCTestCase {
     }
 
     /// CA (Superficial Loss in CAD): fehlende Kurse an manchen Tagen ändern die Rechnung mit Kursen — die zweite
-    /// Rechnung in `GainsRun.gainRows` muss sie genau wie bisher sehen.
+    /// Rechnung in `GainsRun.gainRows` muss sie genau wie die Einzelrechnung sehen.
     func testCanadaWithGapsSameAsSeparate() {
         let trades = PortfolioPerformanceData.trades(800)
         let utc = TimeZone(identifier: "UTC") ?? .gmt

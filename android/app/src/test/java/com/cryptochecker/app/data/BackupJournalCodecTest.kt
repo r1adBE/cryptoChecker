@@ -6,17 +6,18 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.parity.ParityJson
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 import java.math.BigDecimal
 
 /**
  * Stand vor dem Wiederherstellen im Journal ([BackupJournalCodec]): Hin und zurück über den Text, Kennung und Zeitpunkt
- * im Kopf, fremde Dateien werden abgelehnt, fehlende Teile ergeben leere Listen.
+ * im Kopf, fremde Dateien und Journale ohne einen Teil werden abgelehnt.
  */
 class BackupJournalCodecTest {
 
@@ -56,8 +57,12 @@ class BackupJournalCodecTest {
         portfolioAlarms = listOf(alarm),
         watchedAddresses = emptyList(),
         favorites = favorites,
-        settings = JSONObject().put("portfolio_currency", "CHF"),
+        settings = JSONObject(settingsText),
     )
+
+    /** Vollständige Einstellungen (wie `settingsToJson`), aus `backup_settings.json`. */
+    private val settingsText =
+        JSONObject(File(ParityJson.dir(), "backup_settings.json").readText()).getJSONObject("settings").toString()
 
     @Test
     fun journalHeadNamesFormatVersionAndTime() {
@@ -95,7 +100,7 @@ class BackupJournalCodecTest {
             mapOf(FavoriteKind.EXCHANGE to emptySet<String>(), FavoriteKind.COIN to setOf("BTC", "ETH"), FavoriteKind.QUOTE to emptySet<String>()),
             back.favorites,
         )
-        assertEquals("CHF", back.settings.getString("portfolio_currency"))
+        assertEquals("JPY", back.settings.getString("portfolioCurrency"))
     }
 
     @Test
@@ -108,15 +113,13 @@ class BackupJournalCodecTest {
     }
 
     @Test
-    fun journalWithoutPartsGivesEmptyLists() {
-        val back = BackupJournalCodec.previousFromJournal(JSONObject().put("format", RestoreJournal.FORMAT))
-        assertTrue(back.watches.isEmpty())
-        assertTrue(back.alarms.isEmpty())
-        assertTrue(back.portfolio.isEmpty())
-        assertTrue(back.portfolioAlarms.isEmpty())
-        assertTrue(back.watchedAddresses.isEmpty())
-        assertTrue(back.favorites.values.all { it.isEmpty() })
-        assertEquals(0, back.settings.length())
+    fun journalWithoutAPartIsRejected() {
+        val full = BackupJournalCodec.journalJson(previous(), createdAt = 1L)
+        for (key in listOf("version", "createdAt", "watches", "alarms", "portfolio", "portfolioAlarms",
+            WatchedAddressRules.BACKUP_KEY, "favorites", "settings")) {
+            val without = JSONObject(full.toString()).apply { remove(key) }
+            assertThrows(key, IllegalArgumentException::class.java) { BackupJournalCodec.previousFromJournal(without) }
+        }
     }
 
     @Test
@@ -128,12 +131,9 @@ class BackupJournalCodecTest {
     }
 
     @Test
-    fun nonTextFavoritesAreSkipped() {
-        val root = JSONObject()
-            .put("format", RestoreJournal.FORMAT)
-            .put("favorites", JSONObject().put("EXCHANGE", org.json.JSONArray().put("Binance").put(5).put(JSONObject.NULL)))
-        val back = BackupJournalCodec.previousFromJournal(root)
-        assertEquals(setOf("Binance"), back.favorites[FavoriteKind.EXCHANGE])
-        assertFalse(back.favorites.getValue(FavoriteKind.COIN).contains("Binance"))
+    fun nonTextFavoritesAreRejected() {
+        val root = BackupJournalCodec.journalJson(previous(), createdAt = 1L)
+        root.getJSONObject("favorites").put("EXCHANGE", org.json.JSONArray().put("Binance").put(5))
+        assertThrows(IllegalArgumentException::class.java) { BackupJournalCodec.previousFromJournal(root) }
     }
 }

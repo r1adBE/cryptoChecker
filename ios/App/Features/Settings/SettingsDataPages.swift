@@ -113,7 +113,7 @@ struct BackupSettingsPage: View {
             Button(L("action_close"), role: .cancel) { closeResult() }
         } message: { Text($0) }
         .sheet(item: $exportOptions, onDismiss: {
-            // Gleicher Weg wie bisher (Dateiablage des Systems), nur mit gewähltem Schutz
+            // Dateiablage des Systems, mit gewähltem Schutz
             if let choice = exportChoice {
                 exportChoice = nil
                 export(password: choice.password)
@@ -258,8 +258,7 @@ struct BackupSettingsPage: View {
         exporting = true
     }
 
-    /// Datei gewählt: verschlüsselt → Passwort, sonst gleich die Rückfrage. Alte, lesbare
-    /// Sicherungen gehen wie bisher.
+    /// Datei gewählt: verschlüsselt → Passwort, sonst (unverschlüsselte Sicherung) gleich die Rückfrage.
     private func picked(_ file: Data) {
         // Unterwegs wieder gesperrt: verwerfen (Wiederherstellen verlangt Entsperren)
         guard !lock.locked else { return }

@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Sperre der Merkliste im Repository (Review F-08): Jeder Schreibweg des Nutzers fragt zuerst
+ * Sperre der Merkliste im Repository: Jeder Schreibweg des Nutzers fragt zuerst
  * [userWriteRefused] (zentral, nicht in jeder Oberfläche), Hintergrundarbeit nicht. Room läuft nur auf dem Gerät, darum
  * die VOLLSTÄNDIGKEIT (welche Wege fragen, in welcher Reihenfolge die Oberfläche Folgen auslöst) am Quelltext wie
  * [com.cryptochecker.app.data.local.WatchDaoAlarmQueriesTest]; die Drosselung des Hinweises ([WatchlistWriteRefusal])
@@ -74,7 +74,7 @@ class WatchRepositoryLockTest {
     }
 
     /**
-     * Review FUN-03: «Rückgängig» prüft die Obergrenze der Merkliste wie das Anlegen. Die Regeln selbst (vorhanden vor
+     * «Rückgängig» prüft die Obergrenze der Merkliste wie das Anlegen. Die Regeln selbst (vorhanden vor
      * «voll», Zählen nur ohne Dublette) prüft [WatchAddRulesTest] als Verhalten; hier nur, dass beide Transaktionen sie
      * mit der echten Zahl der Paare benutzen.
      */
@@ -134,7 +134,7 @@ class WatchRepositoryLockTest {
     }
 
     /**
-     * Review ARC3-R01, UX3-01: Lösch- und Deaktivier-Wege melden «abgelehnt» eindeutig (false); Rückgängig,
+     * Lösch- und Deaktivier-Wege melden «abgelehnt» eindeutig (false); Rückgängig,
      * Mitteilungen und Protokoll laufen erst danach und nur nach dem Schreiben.
      */
     @Test
@@ -160,7 +160,7 @@ class WatchRepositoryLockTest {
     }
 
     /**
-     * Review ARC3-R02, UX3-01/03/04: Die Rückfrage F-08 kommt EINMAL je Aktion VOR Sperren und Folgen
+     * Die Rückfrage «nicht gespeichert» kommt EINMAL je Aktion VOR Sperren und Folgen
      * ([confirmUserWrite]); der Schreibweg wartet nie auf sie (sonst hielte ein offener Dialog z. B. die Refresh-Sperre),
      * sondern lehnt ohne Bestätigung ab. Jede Datei, die Schreibwege des Nutzers aufruft, fragt vorher.
      * «Der Schreibweg wartet nie und fragt nie selbst» prüft [WatchlistWriteConsentTest] als Verhalten (echte Sicherung
@@ -213,8 +213,8 @@ class WatchRepositoryLockTest {
         val read = "database.withTransaction { WatchlistStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }"
         assertTrue(lock.contains(read))
         assertFalse("Hinweis nicht ausgetauscht", lock.contains("report ="))
-        // Die Sperre fragt nie selbst (F-08 fragt die Aktion vorher): sonst wartete ein Schreibweg auf den Dialog, z. B.
-        // unter der Refresh-Sperre
+        // Die Sperre fragt nie selbst (die Rückfrage «nicht gespeichert» kommt vorher von der Aktion): sonst wartete ein
+        // Schreibweg auf den Dialog, z. B. unter der Refresh-Sperre
         assertFalse("userWriteRefused fragt", lock.contains("confirm("))
         val decision = text.substringAfter("internal suspend fun writeRefused(").substringBefore("\n}\n")
         assertFalse("writeRefused fragt", decision.contains("confirm("))

@@ -50,7 +50,7 @@ object CoinLogos {
      * gleichem Kürzel vorgehen.
      * Nur auf nicht getakteten Netzen (WLAN, Ethernet): Auf mobilen Daten fehlen die Zusatzseiten, und die
      * Logos der Kürzel, die nur sie bringen, werden nicht geladen ([downloadable]) — die grössten 1000 sowie
-     * die Binance- und Alpha-Liste laden wie bisher. Gleich in iOS (`CoinLogos.extraPages`).
+     * die Binance- und Alpha-Liste laden immer. Gleich in iOS (`CoinLogos.extraPages`).
      */
     const val EXTRA_PAGES = 6
     const val PER_PAGE = 250
@@ -196,7 +196,7 @@ object CoinLogos {
 
     /**
      * Initialen für den Ersatz-Kreis: bis vier Zeichen ganz, sonst die ersten drei
-     * (wie bisher in CoinBadge). Bewusst vom Original-Symbol, nicht von [normalize].
+     * (für CoinBadge). Bewusst vom Original-Symbol, nicht von [normalize].
      */
     fun initials(symbol: String): String {
         val s = displaySymbol(symbol).trim().uppercase()
@@ -214,8 +214,8 @@ object CoinLogos {
 
     /**
      * Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
-     * Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Mit URL-Parser
-     * ([LogoUrlPolicy], SEC3-02).
+     * Andere Adressen (auch GitHub Pages) gelten nicht. Mit URL-Parser
+     * ([LogoUrlPolicy]).
      */
     fun isAllowedUrl(url: String?): Boolean = LogoUrlPolicy.isAllowed(url)
 
@@ -244,7 +244,7 @@ object CoinLogos {
     // ---- TradFi (Aktien, Rohstoffe, Devisen)
 
     /**
-     * Börsen, deren Paarliste TradFi kennzeichnet (wie die Migration 11 → 12 und iOS `PairCache`).
+     * Börsen, deren Paarliste TradFi kennzeichnet (wie iOS `PairCache`).
      * HTX/Phemex Futures, Aster, BingX Futures und Lighter kamen später dazu: ihre gespeicherten Listen tragen
      * das Kennzeichen erst nach dem nächsten Laden der Paarliste. Hyperliquid kennzeichnet TradFi nicht.
      */

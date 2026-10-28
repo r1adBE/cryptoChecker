@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Sperrliste des Spiegels (F-29), gemeinsame Testfälle `mirror_signature.json` → `revocation` (Android:
+/// Sperrliste des Spiegels, gemeinsame Testfälle `mirror_signature.json` → `revocation` (Android:
 /// `MirrorRevocationParityTest.kt`, `MirrorTrustRevocationTest.kt`), signiert mit zwei Test-Schlüsseln.
 final class MirrorRevocationTests: XCTestCase {
 

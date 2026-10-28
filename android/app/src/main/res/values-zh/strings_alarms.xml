@@ -175,4 +175,10 @@
     <string name="alarm_reliability_storage_no_key">后台提醒已暂停 – 自选列表未保存</string>
     <string name="alarms_limit_reached">每个交易对最多可设置 %1$s 个提醒。</string>
     <string name="alarms_reference_rate_hint">欧洲央行的参考汇率每天只确定一次——因此没有提醒。</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">跌幅必须小于百分之一百。</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">阈值无效 – 请调整</string>
 </resources>

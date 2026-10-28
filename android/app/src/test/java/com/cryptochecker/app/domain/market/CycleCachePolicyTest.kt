@@ -96,7 +96,7 @@ class CycleCachePolicyTest {
         // Ohne Stand oder mit Zeitpunkt in der Zukunft: immer
         assertTrue(CycleCachePolicy.canManualRefresh(null, now, floor))
         assertTrue(CycleCachePolicy.canManualRefresh(now + minute, now, floor))
-        // Ohne Mindestabstand wie bisher: force lädt immer
+        // Ohne Mindestabstand: force lädt immer
         assertTrue(CycleCachePolicy.needsRefresh(now - 1_000L, now, ttl, force = true))
     }
 

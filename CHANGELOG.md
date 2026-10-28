@@ -7,13 +7,19 @@
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
-* Watchlist, alerts and portfolio are stored encrypted on the device (Android: a database created unencrypted by an older version is converted once a device key is available; until then it is only read without a key – see the privacy page).
+* Watchlist, alerts and portfolio are stored encrypted on the device.
 * Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
 * 31 languages.
 * Full source code of both apps under the MIT license.
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 163)
+
+* No visible change. Internal clean-up on both platforms: no migration or compatibility code any more; Android databases are only ever opened encrypted (the copy from the Android system backup is encrypted right on restore).
+* Backups are checked completely before anything is replaced: a file missing a part, field or entry field that the app writes is rejected as invalid.
+* Code comments and developer documentation describe the current state only.
 
 ## 16.2.2 (build 162)
 

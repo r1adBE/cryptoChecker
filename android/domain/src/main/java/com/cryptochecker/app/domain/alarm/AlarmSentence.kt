@@ -88,7 +88,7 @@ object AlarmSentence {
      * vor dem Ganzen; gerundet 0 ohne Vorzeichen (nie «−0 %»).
      */
     fun fundingPercent(value: Double, locale: Locale = Locale.getDefault()): String =
-        // positive Funding ohne «+» (wie bisher), nur das Minus
+        // positive Funding ohne «+», nur das Minus
         PercentText.signed(value, 4, locale, minDecimals = 0, grouping = true).removePrefix("+")
 
     /** Veränderung mit Vorzeichen und einer Nachkommastelle: «+12,3 %», «−4 %» (echtes Minus U+2212). */

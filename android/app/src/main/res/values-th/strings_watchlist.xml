@@ -211,4 +211,14 @@
     <string name="compare_title">การเปรียบเทียบ</string>
     <string name="compare_basis">เส้นแสดงการเปลี่ยนแปลงเป็นเปอร์เซ็นต์นับจากต้นช่วงเวลา</string>
     <string name="compare_from_high">เทียบจุดสูงสุด 30 วัน</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="other">กู้คืนไม่ได้ %1$d คู่ – รายการติดตามเต็มแล้ว</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">ขณะนี้รายการติดตามและสัญญาณเตือนไม่ได้ถูกบันทึก การเปลี่ยนแปลงนี้และครั้งต่อ ๆ ไปจะหายไปเมื่อปิดแอป เปลี่ยนต่อไหม</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">เปลี่ยนต่อ</string>
 </resources>

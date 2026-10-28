@@ -23,7 +23,7 @@ import org.junit.Test
 /** Paar-Alarme aus der Sicherung (`testdata/parity/backup_alarms.json`); Gegenstück: `BackupAlarmsParityTests`. */
 class BackupAlarmsParityTest {
 
-    /** Rohes JSON (mit «NaN»/«Infinity» als Text) über org.json, wie es die App liest. */
+    /** Rohes JSON über org.json, wie es die App liest. */
     private val cases: JSONArray = JSONObject(File(ParityJson.dir(), "backup_alarms.json").readText()).getJSONArray("cases")
 
     @Test

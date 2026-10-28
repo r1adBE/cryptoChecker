@@ -69,7 +69,7 @@ enum PercentText {
     /// Sprache, ohne Tausendertrennung) und Prozentzeichen — ohne Vorzeichen. Mit `minDecimals` unter `decimals` fallen
     /// Nullen am Ende weg («5%», «2.5%», «0.0125%»; für Schwellen und Alarm-Sätze statt
     /// `NumberFormatter.percent`). Mit `grouping` mit Tausendertrennung («1,000%», Deutsch «1.000 %») — für
-    /// Alarm-Sätze, deren Schwellen bis 1000 % gehen (Open Interest); sonst ohne, wie bisher.
+    /// Alarm-Sätze, deren Schwellen bis 1000 % gehen (Open Interest); sonst ohne.
     static func unsigned(_ value: Double, decimals: Int, minDecimals: Int? = nil,
                          locale: Locale = LocaleNumbers.appLocale, grouping: Bool = false) -> String {
         wrap(LocaleNumbers.decimal(DecimalText.rounded(abs(value), decimals), maxDecimals: decimals,
@@ -78,7 +78,7 @@ enum PercentText {
     }
 
     /// Mit Vorzeichen vor dem Ganzen («+2.40%», «−1.4 %», türkisch «+%2,4»), echtes Minus U+2212; gerundet 0 ohne
-    /// Vorzeichen. Ohne Richtungs-Insel — die setzt der Aufrufer (`BidiText.ltr`), wie bisher.
+    /// Vorzeichen. Ohne Richtungs-Insel — die setzt der Aufrufer (`BidiText.ltr`).
     static func signed(_ value: Double, decimals: Int, minDecimals: Int? = nil,
                        locale: Locale = LocaleNumbers.appLocale, grouping: Bool = false) -> String {
         let rounded = DecimalText.rounded(abs(value), decimals)

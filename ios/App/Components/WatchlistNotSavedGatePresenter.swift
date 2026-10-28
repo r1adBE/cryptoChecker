@@ -2,7 +2,7 @@ import Combine
 import SwiftUI
 import UIKit
 
-/// Review UX3-05: zeigt die Rückfrage «Merkliste wird nicht gespeichert» (`WatchlistNotSavedGate`) in
+/// Zeigt die Rückfrage «Merkliste wird nicht gespeichert» (`WatchlistNotSavedGate`) in
 /// einem eigenen Fenster über allem — wie `NotificationPrePrompt` und der Sichtschutz in `AppLock`. Vorher hing sie am
 /// «obersten registrierten» Bildschirm; unter einem offenen Blatt (Alarm-Editor, Explorer) konnte sie ausbleiben und
 /// `pending` hängen. Einmal je App, wie Android `WatchlistNotSavedGateHost` (einmal in der MainActivity).
@@ -79,7 +79,7 @@ final class WatchlistNotSavedGatePresenter {
     }
 }
 
-/// Inhalt des Fensters: nur die Rückfrage (Text, «Abbrechen» / «Trotzdem»), wie bisher ohne Titel.
+/// Inhalt des Fensters: nur die Rückfrage (Text, «Abbrechen» / «Trotzdem»), ohne Titel.
 @MainActor
 private struct WatchlistNotSavedGateContent: View {
     @ObservedObject var data: AppData

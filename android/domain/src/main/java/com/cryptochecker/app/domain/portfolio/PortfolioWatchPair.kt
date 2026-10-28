@@ -24,7 +24,7 @@ object PortfolioWatchPair {
         val disabled: Boolean,
         /** Letzte Aktualisierung (Epoch-ms) — bei gleicher Gegenwährung gewinnt das frischere Paar. */
         val lastUpdate: Long,
-        /** Voller Name des Coins laut Paarliste der Börse (TokenIdentity, K-8); null = unbekannt. */
+        /** Voller Name des Coins laut Paarliste der Börse (TokenIdentity); null = unbekannt. */
         val name: String? = null,
     )
 
@@ -32,7 +32,7 @@ object PortfolioWatchPair {
      * Bestes Paar für [coin]: aktiv, Spot, Spot-Börse der App ausser Binance ([PortfolioExchangeRoute.isSpot],
      * Binance führt den Coin ja nicht), Gegenwährung aus [PortfolioExchangeRoute.QUOTES] (in dieser Reihenfolge);
      * bei Gleichstand das zuletzt aktualisierte, dann nach Börse. null = keines.
-     * Gleicher Token (K-8): Nennen die Börsen der passenden Paare den Coin klar verschieden
+     * Gleicher Token: Nennen die Börsen der passenden Paare den Coin klar verschieden
      * ([TokenIdentity.conflicting], z. B. «Simon's Cat» und «Catcoin»), ist unklar, welcher Token im
      * Portfolio steht — dann keines (kein geratener Kurs).
      */

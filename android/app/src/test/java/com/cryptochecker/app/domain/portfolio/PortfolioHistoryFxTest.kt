@@ -117,7 +117,7 @@ class PortfolioHistoryFxTest {
         fun lengths(from: LocalDate, to: LocalDate) =
             PortfolioHistoryFx.fxChunks(from, to).map { java.time.temporal.ChronoUnit.DAYS.between(it.first, it.second) + 1 }
         val from = LocalDate.of(2023, 1, 1)
-        // 1375 Tage → 4 Stücke 344/344/344/343 (vorher 365/365/365/280)
+        // 1375 Tage → 4 Stücke 344/344/344/343
         assertEquals(listOf(344L, 344L, 344L, 343L), lengths(from, LocalDate.of(2026, 10, 6)))
         // 367 Tage → 184/183 statt 365 + 2
         assertEquals(listOf(184L, 183L), lengths(LocalDate.of(2025, 10, 5), LocalDate.of(2026, 10, 6)))
@@ -153,7 +153,7 @@ class PortfolioHistoryFxTest {
         assertFalse(PortfolioHistoryFx.chunkMayHaveRates(sun, sat, sun))
     }
 
-    /** K-1: USDT zum USD-Kurs, Verlauf in der Anzeigewährung samt Devisenbewegung. */
+    /** USDT zum USD-Kurs, Verlauf in der Anzeigewährung samt Devisenbewegung. */
     @Test
     fun fxLabelFlags() {
         assertTrue(PortfolioHistoryFx.convertsUsdtAsUsd("chf"))
@@ -199,7 +199,7 @@ class PortfolioHistoryFxTest {
     }
 
     /**
-     * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag
+     * USDT zum Marktkurs: jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag
      * ohne Schluss rechnet mit 1 und markiert die Näherung ([PortfolioHistoryConverted.usdtApproximate]). Wie iOS.
      */
     @Test
@@ -236,7 +236,7 @@ class PortfolioHistoryFxTest {
         assertTrue(r.usdtApproximate)
         // Werte bleiben (nie leer): wie mit USDT = 1
         assertEquals(listOf(800.0, 800.0, 800.0, 810.0, 820.0), r.series.points.map { Math.round(it.value * 1e6) / 1e6 })
-        // Ohne USDT/USD-Kurse (bisherige Rechnung) keine Markierung
+        // Ohne USDT/USD-Kurse keine Markierung
         assertFalse(PortfolioHistoryFx.convert(flatUsd, rates, currentRate = 0.82, todayEpochDay = today).usdtApproximate)
     }
 

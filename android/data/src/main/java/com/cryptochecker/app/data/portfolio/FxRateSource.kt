@@ -54,7 +54,7 @@ class FxRateSource @Inject constructor(
                 // Lew nach der Euro-Einführung: fehlt BGN, dann EUR × 1.95583 — aus dem EUR-Kurs samt DESSEN Abrufzeit
                 // (nicht als frischer BGN-Kurs gespeichert; [fetchedAt] nennt die Zeit des EUR-Kurses)
                 val derive = derivesBgn(target)
-                // Ohne eigenen BGN-Kurs nicht bei jedem Aufruf erneut abfragen (vorher hielt der gespeicherte Ersatz 3 h)
+                // Ohne eigenen BGN-Kurs nicht bei jedem Aufruf erneut abfragen
                 val skipOwn = derive && now - bgnMissedAt in 0 until TTL_MILLIS
                 val own = if (skipOwn) cache[target]?.takeIf { now - it.second in 0 until STALE_MILLIS } else load(target, now)
                 if (own != null || !derive) return@withLock own?.first
@@ -150,7 +150,7 @@ class FxRateSource @Inject constructor(
     }
 
     companion object {
-        /** Neu holen ab 3 h (vorher 6 h): ältere Kurse zeigt die Merkliste mit Uhrzeit. */
+        /** Neu holen ab 3 h: ältere Kurse zeigt die Merkliste mit Uhrzeit. */
         private const val TTL_MILLIS = CurrencyConversion.FX_STALE_MILLIS
         private const val STALE_MILLIS = 24 * 60 * 60_000L
         private const val REQUEST_TIMEOUT_MILLIS = 10_000L

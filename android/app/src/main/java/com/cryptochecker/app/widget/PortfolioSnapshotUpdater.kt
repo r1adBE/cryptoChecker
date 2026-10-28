@@ -38,8 +38,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -104,7 +102,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
         /**
          * Hintergrund-Aktualisierung nötig? Mit Portfolio-Widget immer; sonst nur mit scharfem Portfolio-Alarm. Nicht
          * lesbar ([activeAlarms] null) zählt als «vielleicht scharf»: lieber einmal zu viel aktualisieren, als einen
-         * Alarm auszulassen — [refresh] kommt selbst mit gesperrtem Speicher zurecht (vorher «keine Alarme»).
+         * Alarm auszulassen — [refresh] kommt selbst mit gesperrtem Speicher zurecht.
          */
         internal fun shouldRefresh(hasPortfolioWidget: Boolean, activeAlarms: Boolean?): Boolean =
             hasPortfolioWidget || activeAlarms != false
@@ -351,7 +349,6 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 cached.routed + routing?.sources?.keys.orEmpty(), routing?.exchangeFailed?.keys.orEmpty(),
                 current, routing?.binance.orEmpty(),
             )
-            val zone = ZoneId.systemDefault()
             val data = PortfolioWidgetChart.dailyData(
                 trades = transactions.map { it.toTrade() },
                 closes = routed.closes,
@@ -361,7 +358,6 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 // Stichtag «7 T/1 J» und Verlauf in UTC-Tagen wie die Tageskerzen (nicht das lokale Datum)
                 todayEpochDay = PortfolioHistory.epochDayOfUtcMillis(now),
                 todayUtcDay = PortfolioHistory.epochDayOfUtcMillis(now),
-                dayEndMillis = { day -> LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1 },
                 addresses = addresses,
                 method = method,
             )

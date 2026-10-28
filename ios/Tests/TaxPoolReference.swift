@@ -1,7 +1,7 @@
 import Foundation
 @testable import CryptoChecker
 
-/// Referenz für `PortfolioCostPartsEquivalenceTests`: `TaxPool` mit der früheren Führung der Herkunftsteile — eine
+/// Referenz für `PortfolioCostPartsEquivalenceTests`: `TaxPool` mit der einfachen Führung der Herkunftsteile — eine
 /// Liste, die jeder Abgang Teil für Teil neu schreibt (Zugänge × Abgänge). Sonst Zeile für Zeile wie `TaxPool`; wie
 /// `TaxPoolReference.kt` (Android).
 struct TaxPoolReference {

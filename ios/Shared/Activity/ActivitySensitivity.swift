@@ -8,7 +8,7 @@ import Foundation
 enum ActivitySensitivity: String, CaseIterable, Codable, Sendable {
     /// Strenger: Schwellen ×1,5, in der Karte nur die 3 stärksten.
     case LESS
-    /// Bisherige Schwellen (Standard).
+    /// Grundschwellen (Standard).
     case NORMAL
     /// Lockerer: Schwellen ×0,75.
     case MORE
@@ -24,7 +24,7 @@ enum ActivitySensitivity: String, CaseIterable, Codable, Sendable {
     /// Höchstens so viele Coins in der Karte «Hier passiert gerade etwas»; nil = alle.
     var maxCardCoins: Int? { self == .LESS ? 3 : nil }
 
-    /// Gespeicherter Name; unbekannt oder fehlend (ältere Sicherung) = `.NORMAL`.
+    /// Gespeicherter Name; unbekannt oder fehlend = `.NORMAL` (wie Android `fromName`).
     static func from(name: String?) -> ActivitySensitivity {
         name.flatMap { ActivitySensitivity(rawValue: $0) } ?? .NORMAL
     }
@@ -81,7 +81,7 @@ struct SignalThresholds: Equatable, Sendable {
     /// Werte wie in `ActivitySignal` (Kurs: value = Bewegung %, factor = |z|).
     func severity(of signal: ActivitySignal) -> ActivitySignalSeverity? {
         let value = abs(signal.value)
-        // Ungültige Werte (NaN) nie als auffällig werten — wie früher die direkten Vergleiche
+        // Ungültige Werte (NaN) nie als auffällig werten
         if value.isNaN || signal.factor?.isNaN == true { return nil }
         switch signal.kind {
         case .PRICE_MOVE:

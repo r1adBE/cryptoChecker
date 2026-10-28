@@ -28,8 +28,8 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
         items += SettingsSearchItem(SettingsSearchEntry(id, title, path, synonyms.toList()), target)
     }
 
-    // Hauptseite Allgemein · Darstellung · Mehr (kein «Erweitert» mehr). Der Pfad einer Seite kommt
-    // aus ihrem Ort (SettingsPage.home), damit er nach jeder Umstellung zur Anordnung passt
+    // Hauptseite Allgemein · Darstellung · Mehr. Der Pfad einer Seite kommt aus ihrem Ort
+    // (SettingsPage.home), damit er zur Anordnung passt
     val general = stringResource(R.string.settings_group_general)
     val appearance = stringResource(R.string.settings_section_appearance)
     val more = stringResource(R.string.settings_group_more)

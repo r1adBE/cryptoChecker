@@ -161,12 +161,12 @@ fun AppNavHost(
         onOpenTargetHandled()
     }
 
-    // Keine Begrüssung mehr (Runde 32): ein neuer Nutzer landet direkt in der Starter-Auswahl der
+    // Keine Begrüssung: ein neuer Nutzer landet direkt in der Starter-Auswahl der
     // leeren Merkliste; «Was die App kann» steht unter Einstellungen › Über die App. Der Akku-Hinweis
     // kommt erst nach dem ersten Alarm, zurück auf einem Haupt-Tab (nicht über der Alarm-Bestätigung).
     BatteryOptimizationDialog(calm = currentTab != null)
 
-    // K-10: «Aktualisierung ändern» im Alarm-Hinweis öffnet die Seite «Kurs-Aktualisierung» direkt
+    // «Aktualisierung ändern» im Alarm-Hinweis öffnet die Seite «Kurs-Aktualisierung» direkt
     val openUpdateSettings: () -> Unit = remember(navigation) {
         { navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.UPDATES.name)) { launchSingleTop = true } }
     }
@@ -211,7 +211,7 @@ fun AppNavHost(
             NavHost(
                 navController = navigation,
                 startDestination = ScreenRoute.Watchlist,
-                // Tastatur (K-5): Die Tableiste bleibt unten und verschwindet hinter der Tastatur
+                // Tastatur: Die Tableiste bleibt unten und verschwindet hinter der Tastatur
                 // (adjustResize, randlos – das Fenster wird weder verschoben noch verkleinert). Der Inhalt
                 // bekommt nur den Teil der Tastatur, der über die Tableiste hinausragt, als Abstand –
                 // so bleibt das fokussierte Feld sichtbar.
@@ -283,7 +283,7 @@ fun AppNavHost(
                         jump = MarketJump.fromName(marketJump),
                         onJumpHandled = { marketJump = null },
                         onOpenAlarms = { watchId -> navigation.navigateOnce(entry, ScreenRoute.Alarms(watchId)) },
-                        // Seite «Paar hinzufügen» über dem Markt-Tab (G-13): zurück führt wieder
+                        // Seite «Paar hinzufügen» über dem Markt-Tab: zurück führt wieder
                         // hierher, nicht in die Merkliste (gleich wie iOS)
                         onOpenExplorer = { query ->
                             explorerSearch = query
@@ -304,7 +304,7 @@ fun AppNavHost(
                     )
                 }
 
-                // G-10: «Einordnung» bzw. «Daten» als eigene Seite über dem Markt-Tab (ohne Tableiste);
+                // «Einordnung» bzw. «Daten» als eigene Seite über dem Markt-Tab (ohne Tableiste);
                 // dasselbe ViewModel wie der Tab, die Daten stehen also schon
                 composable<ScreenRoute.MarketSubpage> { entry ->
                     val route = entry.toRoute<ScreenRoute.MarketSubpage>()

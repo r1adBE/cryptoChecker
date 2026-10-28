@@ -285,7 +285,7 @@ class XpubTokenParityTest {
                 XpubScan.keepBackground(c["complete"] == true, c["sats"].num()!!.toLong(), c["lastBalance"] as String?),
             )
         }
-        // F-16: benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
+        // Benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
         fun ints(v: Any?) = v?.list()?.map { it.num()!!.toInt() }.orEmpty()
         g["modeFor"].list().map { it.obj() }.forEach { c ->
             val cache = (c["cache"] as Map<String, Any?>?)?.let {
@@ -305,7 +305,7 @@ class XpubTokenParityTest {
         val withEmpty = XpubCache(listOf("a", "b"), listOf("c"), listOf(0, 1), listOf(0), 42, emptyReceive = listOf(1), emptyChange = listOf(0))
         assertEquals(withEmpty, XpubCache.fromJson(XpubCache.toJson(withEmpty)))
         assertEquals(listOf(1), XpubCache.fromJson(JsonObject("{\"r\":[\"a\",\"b\"],\"ru\":[1],\"re\":[0,1,7]}"))!!.emptyReceive)
-        // F-16: Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
+        // Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         val limited = cache.copy(limitedFallback = true)
         assertEquals(true, XpubCache.toJson(limited).getBoolean("lf"))
         assertEquals(limited, XpubCache.fromJson(XpubCache.toJson(limited)))
@@ -347,7 +347,7 @@ class XpubTokenParityTest {
         val all = listOf(Bip32.Script.P2PKH, Bip32.Script.P2SH_P2WPKH, Bip32.Script.P2WPKH)
         assertEquals(all, XpubScan.scripts(xpub, null))
         assertEquals(all, XpubScan.scripts(xpub, XpubCache(listOf("a"), fullScan = 5)))
-        // Wie in älteren Versionen: mit benutzter Adresse = als P2PKH gefunden
+        // Ohne Skript, mit benutzter Adresse = als P2PKH gefunden
         assertEquals(listOf(Bip32.Script.P2PKH), XpubScan.scripts(xpub, XpubCache(listOf("a"), usedReceive = listOf(0))))
         assertEquals(listOf(Bip32.Script.P2WPKH), XpubScan.scripts(xpub, XpubCache(script = Bip32.Script.P2WPKH)))
         // Erster Typ mit Verlauf; keiner = null (wieder alle prüfen); nur einer = dieser

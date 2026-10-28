@@ -27,7 +27,7 @@ object MarketMoveScale {
     const val NOISE_PERCENT = 0.25
 
     /**
-     * Darunter «kaum verändert» bzw. «ruhig». Gleicher Wert wie die bisherige Ruhe-Schwelle der
+     * Darunter «kaum verändert» bzw. «ruhig». Gleicher Wert wie die Ruhe-Schwelle der
      * Grosswerte und die «kaum»-Schwelle des Gesamtwerts.
      */
     const val FLAT_BELOW_PERCENT = 1.0
@@ -35,7 +35,7 @@ object MarketMoveScale {
     /**
      * Ab hier «deutlich» statt «leicht»/«etwas». Gemessen an der Veränderung des Gesamtmarkts
      * (Marktkapitalisierung aller Coins); fehlt sie, am Schnitt von BTC, ETH und SOL. Gewählt ist der
-     * Wert des Gesamtwert-Satzes (3 %), nicht die frühere Einzelcoin-Schwelle 1.5 %: Der Gesamtmarkt
+     * Wert des Gesamtwert-Satzes (3 %), nicht die Einzelcoin-Schwelle 1.5 %: Der Gesamtmarkt
      * schwankt weniger als einzelne Coins, mit 1.5 % hiesse etwa jeder zweite Tag «deutlich».
      */
     const val CLEAR_FROM_PERCENT = 3.0

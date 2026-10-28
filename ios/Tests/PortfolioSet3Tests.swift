@@ -185,7 +185,7 @@ final class PortfolioWidgetOptionsTests: XCTestCase {
         }
     }
 
-    /// Review IOS7-03: Sperrbildschirm ohne Regel der Ansicht — Zeitraum und Anzeige wirken wie gewählt, auch wenn das
+    /// Sperrbildschirm ohne Regel der Ansicht — Zeitraum und Anzeige wirken wie gewählt, auch wenn das
     /// Widget auf «Übersicht» oder «Liste» steht; das Sperrbildschirm-Widget zeichnet mit dieser Regel.
     func testLockScreenKeepsChoice() throws {
         let lock = PortfolioWidgetOptions.lockScreenView

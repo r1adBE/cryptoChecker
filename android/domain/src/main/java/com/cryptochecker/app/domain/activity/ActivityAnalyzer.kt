@@ -49,7 +49,7 @@ object ActivityAnalyzer {
     const val SIGNAL_TTL_MILLIS = 1 * HOUR_MILLIS
 
     // ⚡-Signale: bewusst strenger als die Einordnung im «Warum»-Blatt,
-    // damit nur wirklich Auffälliges markiert wird (v16.2.2 nachgeschärft).
+    // damit nur wirklich Auffälliges markiert wird.
     const val SIGNAL_PRICE_Z = 3.5
     const val SIGNAL_PRICE_MIN_MOVE_PERCENT = 2.5
     const val SIGNAL_PRICE_STRONG_Z = 5.0
@@ -159,7 +159,7 @@ object ActivityAnalyzer {
 
         val move = ret(moveOpen) ?: return null
         val moveCandle = byOpen.getValue(moveOpen)
-        // Vergleichsstunden aufsteigend (gleiche Summenreihenfolge wie bisher)
+        // Vergleichsstunden aufsteigend (feste Summenreihenfolge)
         val windowOpens = (WINDOW_HOURS downTo 1).map { moveOpen - it * HOUR_MILLIS }
         val window = windowOpens.mapNotNull { ret(it) }
         if (window.size < MIN_WINDOW_RETURNS) return null
@@ -211,7 +211,7 @@ object ActivityAnalyzer {
 
     /**
      * Alle Signale eines Paars, stärkstes zuerst. Die Schwellen kommen aus der
-     * [sensitivity] (Standard = bisherige Werte) — für Karte und Meldungen gleich.
+     * [sensitivity] (Standard = Grundschwellen) — für Karte und Meldungen gleich.
      * [fundingSource] = Quelle der Funding Rate (stündliches Funding zählt achtfach, [fundingPer8h]).
      */
     fun signals(

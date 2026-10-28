@@ -178,7 +178,7 @@ internal fun macroSummary(events: List<MacroEvent>): String {
 }
 
 /**
- * Unterseite «Einordnung» bzw. «Daten» des Markt-Tabs (G-10): dieselben Karten wie zuvor im
+ * Unterseite «Einordnung» bzw. «Daten» des Markt-Tabs: dieselben Karten wie zuvor im
  * Register, mit Zurück. [viewModel] ist dieselbe Instanz wie im Tab (Activity) — die Daten sind
  * meist schon geladen, die Seite steht sofort. Nach unten ziehen lädt alles neu.
  */

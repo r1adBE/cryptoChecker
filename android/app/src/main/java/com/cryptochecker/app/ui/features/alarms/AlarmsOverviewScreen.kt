@@ -169,7 +169,7 @@ fun AlarmsOverviewScreen(
             // Keine Sackgasse: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite
             val watches by viewModel.watches.collectAsStateWithLifecycle()
             var pickPair by remember { mutableStateOf(false) }
-            // L-18: Beispiel im Stil der Alarm-Sätze (wie iOS)
+            // Beispiel im Stil der Alarm-Sätze (wie iOS)
             EmptyState(
                 iconRes = R.drawable.ic_notifications_active,
                 title = stringResource(R.string.alarms_overview_empty),
@@ -268,7 +268,7 @@ fun AlarmsOverviewScreen(
                             // TalkBack: vollständig, inkl. Wiederholung, Ton und Ansage (sichtbare Texte stumm)
                             val description = alarmA11yDescription(context, alarm, title, sentence) +
                                 (invalidText?.let { ". $it" } ?: "")
-                            // FUN3-02: ungültige Schwelle nicht einschalten (Hinweis steht in der Zeile)
+                            // Ungültige Schwelle nicht einschalten (Hinweis steht in der Zeile)
                             val canToggle = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
@@ -344,7 +344,7 @@ private fun PortfolioAlarmsCard(
         }
         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         alarms.forEach { alarm ->
-            // FUN3-01: «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten (ausschalten geht)
+            // «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten (ausschalten geht)
             val invalid = PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                 Row(
@@ -365,7 +365,7 @@ private fun PortfolioAlarmsCard(
                             else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            // FUN4-R2: kein Editor für Portfolio-Alarme – löschen und neu anlegen
+                            // Kein Editor für Portfolio-Alarme – löschen und neu anlegen
                             if (invalid) stringResource(R.string.portfolio_alarm_threshold_invalid_recreate)
                             else stringResource(if (alarm.repeating) R.string.alarm_repeating else R.string.alarm_once),
                             style = MaterialTheme.typography.bodySmall,

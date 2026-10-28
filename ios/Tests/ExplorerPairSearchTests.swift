@@ -224,7 +224,7 @@ final class ExplorerPairSearchTests: XCTestCase {
         // Gross/klein und Akzente egal
         XCTAssertEqual(findNamed("pepe"), ["BinanceFutures PEPE/USDT"])
         XCTAssertEqual(findNamed("PÉPÉ"), ["BinanceFutures PEPE/USDT"])
-        // Ohne Namen bleibt alles wie bisher
+        // Ohne Namen keine Namenssuche
         XCTAssertEqual(findNamed("solana", .empty), [])
     }
 

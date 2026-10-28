@@ -2,7 +2,7 @@ import Combine
 import XCTest
 @testable import CryptoChecker
 
-/// Rückfrage F-08 als Verhalten an den Schreibwegen von `AppData` statt nur am Quelltext, wie Android
+/// Rückfrage «nicht gespeichert» als Verhalten an den Schreibwegen von `AppData` statt nur am Quelltext, wie Android
 /// `WatchlistWriteConsentTest`: Merkliste «nicht gespeichert», die App könnte fragen (eigenes Tor über
 /// `WatchlistNotSavedGate.appDataOverride`, damit kein Dialog der Test-App erscheint und kein «Trotzdem» des Laufs
 /// nachwirkt). Echte Testpaare auf `AppData.shared`, danach wiederhergestellt (`AppDataTestWatchlist`).
@@ -99,7 +99,7 @@ final class WatchlistConsentBehaviorTests: XCTestCase {
         XCTAssertTrue(try add("SOL").locked)
     }
 
-    /// Review F-27, ARC7-02: Durchlass ohne Szene (`run` mit `confirm` ohne Szene, wie `withWatchlistConfirm`) nur für
+    /// Durchlass ohne Szene (`run` mit `confirm` ohne Szene, wie `withWatchlistConfirm`) nur für
     /// die Aktion: Sie selbst und ein erbender `Task` schreiben, ein `Task.detached` aus ihr wird abgelehnt; nach der
     /// Aktion gilt die Sicherung wieder.
     func testUnaskedPassCoversOnlyTheActionTask() async throws {

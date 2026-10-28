@@ -17,7 +17,7 @@ import Foundation
 ///    Ehe-/Lebenspartner (`PortfolioTx.isGiftToSpouse`) in UK/CA ohne Gewinn und Verlust.
 ///  - `PAYMENT`: «Damit bezahlt» — Tausch gegen Waren/Dienstleistungen: überall eine Veräusserung zum MARKTWERT wie
 ///    ein Verkauf (`isSaleLike`), Steuer-Export «Zahlung mit Krypto»; ohne Preis zum Tagesschluss geschätzt. Wie Android.
-/// Ältere Versionen kennen nur `BUY`/`SELL` bzw. kein `SWAP`/`GIFT`/`PAYMENT`: Sie verwerfen unbekannte Arten beim Lesen (gezählt,
+/// Unbekannte Arten werden beim Lesen verworfen (gezählt,
 /// kein Absturz). Rohwert als Text: ein neuer Fall liest alte Dateien unverändert.
 enum PortfolioTxType: String, Codable, CaseIterable, Sendable {
     case BUY
@@ -161,7 +161,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         set { feeExact = PortfolioDecimal.of(newValue) }
     }
 
-    /// Mit Gleitkomma-Werten (Tests, ältere Aufrufer): über die kürzeste Darstellung (0.1 → «0.1»).
+    /// Mit Gleitkomma-Werten (Tests): über die kürzeste Darstellung (0.1 → «0.1»).
     init(id: Int64 = 0, coin: String, type: PortfolioTxType, amount: Double,
          priceUsdt: Double? = nil, time: Int64, note: String? = nil,
          fee: Double? = nil, feeUnit: PortfolioFeeUnit? = nil, exchange: String? = nil) {

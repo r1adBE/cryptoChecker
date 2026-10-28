@@ -9,7 +9,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Review FUN-03 als Verhalten: «Rückgängig» nach dem Löschen umgeht die Obergrenze der Merkliste nicht, und ein noch
+ * Als Verhalten: «Rückgängig» nach dem Löschen umgeht die Obergrenze der Merkliste nicht, und ein noch
  * bzw. wieder vorhandenes Paar geht vor «voll» — wie beim Anlegen. Geprüft an den Regeln, die [tryAddWatch] und
  * [restore] in ihrer Transaktion benutzen ([addBlocker], [restoreBlocker]), und am Ablauf Löschen → Zurückholen auf
  * einer Merkliste im Speicher ([FakeWatchStore]). iOS: `WatchlistLimitsTests` (`AppData.restoreInto`).

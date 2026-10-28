@@ -7,7 +7,7 @@ import com.cryptochecker.app.util.json.JsonArray
  * Zwischenspeicher eines beobachteten xpub/ypub/zpub: abgeleitete Adressen je Kette (0 = Empfang, 1 = Wechselgeld,
  * Index = Position) und die benutzten Indizes (mindestens eine Transaktion). [fullScan] = letzte vollständige Suche
  * (ms, 0 = nie). [script] = gefundener Adresstyp eines xpub (Segwit-Konto mit xpub, [XpubScan.scripts]); null = noch
- * keiner mit Verlauf (in älteren Versionen immer null: P2PKH). [emptyReceive]/[emptyChange] = benutzte Indizes,
+ * keiner mit Verlauf. [emptyReceive]/[emptyChange] = benutzte Indizes,
  * die beim letzten Abruf kein Guthaben hatten: QUICK und BACKGROUND fragen sie nicht erneut (nur FULL), sonst scheitert
  * ein xpub mit vielen benutzten Adressen an [XpubScan.MAX_REQUESTS]. [limitedFallback] = die tägliche
  * vollständige Suche war zu gross und wurde durch die schnelle ersetzt ([XpubScan.modeFor], Aufrufer bei [XpubScan.TooMany]);
@@ -72,7 +72,7 @@ data class XpubCache(
                 fullScan = (o.opt("f") as? Number)?.toLong()?.coerceAtLeast(0) ?: 0,
                 // Unbekannter Typ = keiner (die nächste vollständige Suche prüft wieder alle)
                 script = (o.opt("s") as? String)?.let { n -> Bip32.Script.entries.firstOrNull { it.name == n } },
-                // Nur benutzte Indizes (fehlt «re»/«ce»: ältere Fassung, die nächste Suche fragt alle)
+                // Nur benutzte Indizes (fehlt «re»/«ce»: die nächste Suche fragt alle)
                 emptyReceive = ints("re", receive.size).filter { it in usedReceive },
                 emptyChange = ints("ce", change.size).filter { it in usedChange },
                 limitedFallback = o.opt("lf") == true,

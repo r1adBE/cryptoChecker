@@ -18,7 +18,7 @@ import java.util.Locale
  */
 object WidgetQuantityFormat {
 
-    /** Anzeige im Widget: null bei verborgenen Beträgen ([hidden]) oder ohne Menge (ältere Aufnahme). */
+    /** Anzeige im Widget: null bei verborgenen Beträgen ([hidden]) oder ohne Menge. */
     fun visible(quantity: String?, hidden: Boolean, locale: Locale = LocaleNumbers.appLocale): String? =
         if (hidden) null else format(quantity, locale)
 

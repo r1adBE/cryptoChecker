@@ -142,9 +142,8 @@ final class PhemexScalesTests: XCTestCase {
         XCTAssertEqual(exchange.bulkTickersRequestGroup(call: 1), 1)
         XCTAssertTrue(try exchange.parseBulkTickersDetailed(call: 1, body: products).tickers.isEmpty)
         XCTAssertEqual(exchange.bulkTickersNumOfRequests, 1)
-        // Ältere Datei ohne Zeitpunkt: gilt als veraltet, Faktoren bleiben nutzbar
-        let legacy = try XCTUnwrap(PhemexScales.decode(#"{"v":1,"price":{"sBTCUSDT":8}}"#))
-        XCTAssertTrue(legacy.loaded && legacy.isStale())
+        // Datei ohne Zeitpunkt: keine Kopie (die Produktliste wird neu geladen)
+        XCTAssertNil(PhemexScales.decode(#"{"v":1,"price":{"sBTCUSDT":8}}"#))
         XCTAssertFalse(try XCTUnwrap(PhemexScales.decode(PhemexScales.current.encode())).isStale())
     }
 

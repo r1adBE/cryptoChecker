@@ -6,12 +6,12 @@ package com.cryptochecker.app.domain.alarm
  *
  * Android lässt Ton und Vibration eines Mitteilungskanals nach dem Anlegen nicht mehr
  * ändern — deshalb ein eigener Kanal je Signal ([channelId]). [SYSTEM] nutzt den
- * bisherigen Alarm-Kanal, den man in den Systemeinstellungen selbst einstellt.
+ * Alarm-Kanal, den man in den Systemeinstellungen selbst einstellt.
  * iOS kennt nur [SYSTEM] und [SILENT] (Vibration lässt sich dort nicht getrennt steuern).
  * Reine Logik, wie iOS `AlarmSignal`.
  */
 enum class AlarmSignal(val sound: Boolean, val vibrate: Boolean) {
-    /** Wie in den Mitteilungseinstellungen des Telefons (bisheriger Alarm-Kanal). */
+    /** Wie in den Mitteilungseinstellungen des Telefons (Alarm-Kanal). */
     SYSTEM(sound = true, vibrate = true),
     SOUND_VIBRATE(sound = true, vibrate = true),
     SOUND(sound = true, vibrate = false),
@@ -23,7 +23,7 @@ enum class AlarmSignal(val sound: Boolean, val vibrate: Boolean) {
     companion object {
         val DEFAULT = SYSTEM
 
-        /** Kanal-ID des bisherigen Alarm-Kanals ([SYSTEM]); Versionen «alarms_v<n>». */
+        /** Kanal-ID des Alarm-Kanals ([SYSTEM]); Versionen «alarms_v<n>». */
         const val SYSTEM_BASE = "alarms"
 
         /** Gespeicherter Name → Signal; fehlend oder unbekannt (neuere Version) → [DEFAULT]. */

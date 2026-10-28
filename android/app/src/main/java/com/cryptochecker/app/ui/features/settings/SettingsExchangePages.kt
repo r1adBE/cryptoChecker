@@ -79,7 +79,7 @@ internal fun WatchlistPage(
                 )
             }
         }
-        // Basis der %-Änderung (Review D13: von «Erweitert» hierher — sie bestimmt, was jede Zeile zeigt;
+        // Basis der %-Änderung (hier, weil sie bestimmt, was jede Zeile zeigt;
         // gilt auch für Puls und Widgets). Wie iOS
         NavCard {
             SettingsAnchor("watchlist.change_basis") {

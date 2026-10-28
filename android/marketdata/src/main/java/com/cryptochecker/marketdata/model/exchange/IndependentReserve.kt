@@ -43,7 +43,7 @@ class IndependentReserve : Exchange("Independent Reserve", "Independent Reserve"
         ticker.vol = json.optDoubleOrMissing("DayVolumeXbtInSecondaryCurrrency")
     }
 
-    /** `getString` wie bisher: JSON null ergibt hier den Text «null». */
+    /** Bewusst `getString`: JSON null ergibt hier den Text «null». */
     override fun errorMessageJson(call: Int, json: JSONObject, info: PairQuery): String? = json.getString("Message")
 
     // ── Paarliste: Coins (0) mal Gegenwährungen (1) ──

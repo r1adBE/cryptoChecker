@@ -39,7 +39,7 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
     private let token: String
     private let lock = NSLock()
     private var held = true
-    /// Ohne Datei (Container nicht beschreibbar): Auswertung ohne Lease wie früher — gilt nie als verloren.
+    /// Ohne Datei (Container nicht beschreibbar): Auswertung ohne Lease — gilt nie als verloren.
     private let failOpen: Bool
     /// Als verwaist übernommen: vor dem Gebrauch nachprüfen (`acquire`).
     private(set) var takenOver = false
@@ -115,7 +115,7 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
         guard fd >= 0 else {
             // Nur «gibt es schon» heisst: ein anderer Prozess wertet aus. Jeder andere Fehler
             // (Container nicht beschreibbar o. Ä.) darf die Alarme nicht dauerhaft abschalten:
-            // dann ohne Lease auswerten wie früher.
+            // dann ohne Lease auswerten.
             return errno == EEXIST ? nil : AlarmLease(url: url, token: token, held: false)
         }
         let bytes = Array(token.utf8)

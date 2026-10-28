@@ -96,7 +96,7 @@ internal fun MarketDataSection(
     var futuresLoaded by remember(pairKey) { mutableStateOf(false) }
     var spot by remember(pairKey) { mutableStateOf<SpotData?>(null) }
     var spotLoaded by remember(pairKey) { mutableStateOf(false) }
-    // Perpetuals wie bisher sofort, alles andere erst mit offenem Register (keine unnötige Abfrage)
+    // Perpetuals sofort, alles andere erst mit offenem Register (keine unnötige Abfrage)
     val needFutures = tab == MarketDataTab.FUTURES || watch.contractType.isPerpetual
     LaunchedEffect(pairKey, needFutures) {
         if (needFutures && !futuresLoaded) {
@@ -125,7 +125,7 @@ internal fun MarketDataSection(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.weight(1f)
             )
-            // (i) 20 dp, Tippfläche 48 dp (IconButton-Standard; früher 32 dp mit 18-dp-Symbol)
+            // (i) 20 dp, Tippfläche 48 dp (IconButton-Standard)
             IconButton(onClick = { showExplain = !showExplain }) {
                 Icon(
                     painterResource(R.drawable.ic_info),

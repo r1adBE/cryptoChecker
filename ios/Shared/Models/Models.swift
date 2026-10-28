@@ -17,8 +17,8 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
     /// Kurs-Mitteilung für dieses Paar. Ohne Angabe und für neue Paare: `Watch.newPairNotificationEnabled`.
     var notificationEnabled: Bool = true
 
-    /// Kurs-Mitteilung neuer Paare (Start-Auswahl und später hinzugefügte): an (Entscheid 16. Oktober 2026 —
-    /// wer einen Kurs-Checker installiert, will den Kurs sehen; vorher aus). Auswahl je Paar: Einstellungen ›
+    /// Kurs-Mitteilung neuer Paare (Start-Auswahl und später hinzugefügte): an (wer einen
+    /// Kurs-Checker installiert, will den Kurs sehen). Auswahl je Paar: Einstellungen ›
     /// Alarme › Kursmitteilungen › Paare. Wie `WatchRepository.DEFAULT_NOTIFICATION_ENABLED` (Android).
     static let newPairNotificationEnabled = true
 
@@ -176,7 +176,7 @@ struct Alarm: Codable, Identifiable, Hashable, Sendable {
     /// 0 = scharf, > 0 = gemeldet, bis der Kurs auf die andere Seite der Marke zurückkehrt.
     var referenceAt: Int64 = 0
     /// Währung des Schwellwerts bei PRICE_ABOVE/PRICE_BELOW, z. B. «CHF».
-    /// nil = Quote-Währung des Paars (wie bisher); sonst wird der Kurs vor dem Vergleich umgerechnet.
+    /// nil = Quote-Währung des Paars; sonst wird der Kurs vor dem Vergleich umgerechnet.
     var currency: String? = nil
 
     /// Währung, in der der Schwellwert umgerechnet verglichen wird; nil = keine Umrechnung.

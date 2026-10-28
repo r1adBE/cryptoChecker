@@ -265,7 +265,7 @@ class PortfolioFifoTest {
         )
         val csv = TaxExport.gainsCsv(emptyList(), texts, emptyList(), lostFeeCosts = lost, zone = zone)
         assertTrue(csv, csv.contains("BTC;;1970-01-04;;;;100.00;;;;;;Netzwerkgebühr-Einstand ohne bezahlten Posten"))
-        // Ohne Text keine Zeile (ältere Aufrufer)
+        // Ohne Text keine Zeile
         assertFalse(TaxExport.gainsCsv(emptyList(), texts.copy(lostFeeCost = ""), emptyList(), lostFeeCosts = lost).contains("BTC"))
     }
 

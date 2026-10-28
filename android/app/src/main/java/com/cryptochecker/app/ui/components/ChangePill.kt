@@ -251,7 +251,7 @@ private val TrailingQuote = Regex("""\s([A-Z][A-Z0-9]{1,9})(\p{Cf}*)$""")
 /**
  * Wie [PriceWithQuote], aber als ein Text für «Zahl Währung» ([text], z. B. «1’234.00 USDT»):
  * die Währung am Ende klein und grau wie dort (bodySmall, onSurfaceVariant), die Zahl bleibt
- * im Stil des Texts. Als ein Text bricht der Betrag bei grosser Schrift wie bisher um, statt
+ * im Stil des Texts. Als ein Text bricht der Betrag bei grosser Schrift um, statt
  * die Zeile zu sprengen. Ohne Währung («—», «•••») unverändert. Wie `PriceWithQuote.text` (iOS).
  */
 @Composable

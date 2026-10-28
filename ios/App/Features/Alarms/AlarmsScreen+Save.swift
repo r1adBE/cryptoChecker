@@ -3,9 +3,9 @@ import SwiftUI
 /// Speichern aus dem Alarm-Editor und Schnell-Alarme von `AlarmsScreen`, ausgelagert (der body war für
 /// den Swift-Typprüfer zu gross, und die Datei stand an der 400-Zeilen-Grenze).
 extension AlarmsScreen {
-    /// Editor «Speichern» (`AlarmEditorSheet.onSave`). UX4-06: Der Editor schliesst erst nach bestätigter
-    /// Rückfrage F-08 (`close`), «Abbrechen» lässt ihn mit den Eingaben offen (`cancelled`). IOS5-R01:
-    /// genau eine Frage — danach speichert `saveDraftNow` ohne zweite (vorher fragte `saveDraft` nach einem Durchlass
+    /// Editor «Speichern» (`AlarmEditorSheet.onSave`). Der Editor schliesst erst nach bestätigter
+    /// Rückfrage «nicht gespeichert» (`close`), «Abbrechen» lässt ihn mit den Eingaben offen (`cancelled`).
+    /// Genau eine Frage — danach speichert `saveDraftNow` ohne zweite (vorher fragte `saveDraft` nach einem Durchlass
     /// ohne Szene erneut, ggf. erst nach dem Schliessen).
     func saveFromEditor(_ saved: AlarmDraft, close: @escaping @MainActor () -> Void,
                         cancelled: @escaping @MainActor () -> Void) {
@@ -22,7 +22,7 @@ extension AlarmsScreen {
         guard let threshold = saved.threshold, data.watch(watchId) != nil else { return }
         // Sicherheitsnetz: Paar inzwischen voll — nichts angelegt, sagen warum
         if saved.id == 0 && !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-        // Haptik und Bestätigung erst nach dem Speichern (Rückfrage F-08 schon in `saveFromEditor`)
+        // Haptik und Bestätigung erst nach dem Speichern (Rückfrage «nicht gespeichert» schon in `saveFromEditor`)
         let outcome = withAnimation {
             data.saveAlarm(watchId: watchId, id: saved.id, condition: saved.condition, threshold: threshold,
                            repeating: saved.repeating, sound: saved.sound, vibrate: saved.vibrate, speak: saved.speak,
@@ -39,8 +39,8 @@ extension AlarmsScreen {
         if draft == nil { showPendingDialogs() }
     }
 
-    /// Schnell-Alarm aus einer Vorlage (`AlarmEditorSheet.onTemplate`): wie `saveFromEditor` genau eine Rückfrage F-08,
-    /// danach anlegen und schliessen; «Abbrechen» = Blatt bleibt offen (IOS5-R01).
+    /// Schnell-Alarm aus einer Vorlage (`AlarmEditorSheet.onTemplate`): wie `saveFromEditor` genau eine Rückfrage,
+    /// danach anlegen und schliessen; «Abbrechen» = Blatt bleibt offen.
     func templateFromEditor(_ template: AlarmTemplates.Template, close: @escaping @MainActor () -> Void,
                             cancelled: @escaping @MainActor () -> Void) {
         data.withWatchlistConfirm({
@@ -72,7 +72,7 @@ extension AlarmsScreen {
         if draft == nil { showPendingDialogs() }
     }
 
-    /// Schalter einer Alarmkarte. Rückfrage F-08 vorher; «Abbrechen» bzw. abgelehnt: der Schalter zeigt
+    /// Schalter einer Alarmkarte. Rückfrage «nicht gespeichert» vorher; «Abbrechen» bzw. abgelehnt: der Schalter zeigt
     /// wieder den echten Stand (`refusedToggles`).
     func toggleAlarm(_ id: Int64, enabled: Bool) {
         data.withWatchlistConfirm {
@@ -84,7 +84,7 @@ extension AlarmsScreen {
         }
     }
 
-    /// Löschen nach der Rückfrage «Alarm löschen?». Rückfrage F-08 vorher, Haptik nur nach dem Löschen.
+    /// Löschen nach der Rückfrage «Alarm löschen?». Rückfrage «nicht gespeichert» vorher, Haptik nur nach dem Löschen.
     func deleteConfirmed(_ id: Int64) {
         data.withWatchlistConfirm {
             let deleted = withAnimation { data.deleteAlarm(id) }

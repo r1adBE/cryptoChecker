@@ -196,7 +196,7 @@ final class PortfolioFifoTests: XCTestCase {
         return t
     }
 
-    /// M-6a: Netzwerkgebühr verbraucht den letzten bezahlten Posten, übrig nur eine Einzahlung ohne Preis.
+    /// Netzwerkgebühr verbraucht den letzten bezahlten Posten, übrig nur eine Einzahlung ohne Preis.
     func testNetworkFeeEatingTheLastPaidLotReportsItsCostInsteadOfLosingIt() {
         let trades = [tx(1, "BTC", .BUY, "0.001", "100000", day), tx(2, "BTC", .DEPOSIT, "1", nil, 2 * day),
                       fee(tx(3, "BTC", .TRANSFER, "1", nil, 3 * day), "0.001")]
@@ -231,7 +231,7 @@ final class PortfolioFifoTests: XCTestCase {
         XCTAssertFalse(TaxExport.gainsCsv([], texts: texts, header: [], lostFeeCosts: lost).contains("BTC;"))
     }
 
-    /// M-6b: Gebühr im Coin über zwei Posten mit verschiedener Haltedauer — kurz/lang getrennt richtig.
+    /// Gebühr im Coin über zwei Posten mit verschiedener Haltedauer — kurz/lang getrennt richtig.
     func testCoinFeeOfASellIsConsumedAfterTheSoldAmountAndKeepsTheShortAndLongSplit() throws {
         let trades = [tx(1, "BTC", .BUY, "1", "100", utc(2020, 1, 1)), tx(2, "BTC", .BUY, "1", "200", utc(2021, 6, 1)),
                       fee(tx(3, "BTC", .SELL, "1", "300", utc(2021, 12, 1)), "0.5")]
@@ -266,7 +266,7 @@ final class PortfolioFifoTests: XCTestCase {
         XCTAssertEqual(PortfolioCalculator.position("BTC", trades: short, currentPrice: nil).soldAmount, 1)
     }
 
-    /// M-6c: rückdatierter oder geänderter Kauf rechnet spätere Verkäufe neu (nichts zwischengespeichert).
+    /// Rückdatierter oder geänderter Kauf rechnet spätere Verkäufe neu (nichts zwischengespeichert).
     func testBackdatedOrEditedBuyRecomputesLaterSellsFromTheFullLedger() {
         let buy = tx(1, "BTC", .BUY, "1", "100", 2 * day)
         let sell = tx(2, "BTC", .SELL, "1", "300", 5 * day)

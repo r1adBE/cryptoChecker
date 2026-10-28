@@ -45,7 +45,7 @@ class PortfolioRefreshGateTest {
 
 // ---- aus PortfolioSnapshotCodecTest
 
-/** Gespeicherter Gewinn/Verlust je Position und je Coin übersteht einen Neustart; ältere Aufnahmen laden ohne. */
+/** Gespeicherter Gewinn/Verlust je Position und je Coin übersteht einen Neustart; fehlt er, lädt die Aufnahme ohne. */
 class PortfolioSnapshotCodecTest {
 
     @Test
@@ -70,19 +70,19 @@ class PortfolioSnapshotCodecTest {
     }
 
     @Test
-    fun coinPnlRoundTripAndOldSnapshotWithoutKey() {
+    fun coinPnlRoundTripAndMissingPartIsEmpty() {
         val coinPnl = mapOf("BTC" to PortfolioChange(13.0, 6.28), "SOL" to PortfolioChange(10.0, null))
         assertEquals(coinPnl, PortfolioSnapshotCodec.readCoinPnl(PortfolioSnapshotCodec.coinPnlJson(coinPnl)))
-        // Ältere Aufnahme (Schlüssel fehlt) oder unlesbar: leer
+        // Teil fehlt oder unlesbar: leer
         assertTrue(PortfolioSnapshotCodec.readCoinPnl(null).isEmpty())
         assertTrue(PortfolioSnapshotCodec.readCoinPnl("kaputt").isEmpty())
         // Nicht endliche Beträge werden nicht gespeichert
         assertTrue(PortfolioSnapshotCodec.readCoinPnl(PortfolioSnapshotCodec.coinPnlJson(mapOf("X" to PortfolioChange(Double.NaN, 1.0)))).isEmpty())
     }
 
-    /** «Seit Kauf»/«7 T» in der Anzeigewährung samt Merkzettel überstehen einen Neustart; ältere Aufnahmen laden ohne. */
+    /** «Seit Kauf»/«7 T» in der Anzeigewährung samt Merkzettel überstehen einen Neustart; fehlen sie, lädt sie ohne. */
     @Test
-    fun displayValuesRoundTripAndOldSnapshotWithoutKeys() {
+    fun displayValuesRoundTripAndMissingPartsLoadAbsent() {
         val change = PortfolioChange(-80.5, null, listOf("SOL"))
         assertEquals(change, PortfolioSnapshotCodec.readDisplayChange(PortfolioSnapshotCodec.displayChangeJson(change)))
         val plain = PortfolioChange(95.0, 2.1)

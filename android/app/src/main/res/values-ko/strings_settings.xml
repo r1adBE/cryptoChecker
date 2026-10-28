@@ -290,4 +290,38 @@
     <string name="settings_price_overlay_needs">«%1$s»와 함께일 때만 작동합니다.</string>
     <string name="settings_price_overlay_grant">다른 앱 위에 표시 허용</string>
     <string name="price_overlay_close">오버레이 닫기</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">주소용 자체 서버</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">비트코인만: Esplora 또는 mempool 호환 자체 서버(예: https://node.example/api, Let\'s Encrypt 등 공개적으로 신뢰되는 인증서 필요). 설정하면 비트코인 주소와 xpub은 그곳에만 조회합니다. 서버에 연결할 수 없어도 공개 노드에는 절대 조회하지 않습니다. 다른 네트워크는 계속 공개 노드를 사용합니다. 비워 두면 공개 노드를 사용합니다.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">비트코인 서버(https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">테스트</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">테스트 중…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">서버 응답 – 블록 %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">유효한 응답 없음 – 주소와 인증서를 확인하세요</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">사용 중: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">설정 안 됨 – 공개 노드를 사용합니다</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// 주소만 사용할 수 있습니다</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">주소에 사용자 이름이나 비밀번호를 넣지 마세요</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">주소에 ? 또는 # 부분을 넣지 마세요</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">유효하지 않은 서버 주소</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">공개 노드로 전환할까요?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">그러면 비트코인 주소와 xpub을 공개 노드(%1$s)에 조회합니다. 공개 노드는 이 주소를 IP 주소와 함께 볼 수 있습니다.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">공개 노드 사용</string>
 </resources>

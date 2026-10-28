@@ -40,7 +40,7 @@ import com.cryptochecker.app.util.PriceFormat
 @Composable
 internal fun UsdtNoteLine(usdtNote: DepegAlarm.CardNote?, priceSourceText: String) {
     when (usdtNote?.kind) {
-        // Mit usdtMarket nicht mehr geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
+        // Mit usdtMarket nie geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
         DepegAlarm.CardNoteKind.DEVIATION, null -> Unit
         DepegAlarm.CardNoteKind.PRICE_SOURCE -> Text(
             priceSourceText,

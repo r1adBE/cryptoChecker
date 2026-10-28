@@ -44,7 +44,7 @@ struct WatchlistSortBar: View {
             }
             .foregroundStyle(color)
             .padding(.horizontal, 8)
-            // Tippfläche mind. 44 pt (früher 36)
+            // Tippfläche mind. 44 pt
             .frame(minHeight: 44)
             .contentShape(Rectangle())
         }

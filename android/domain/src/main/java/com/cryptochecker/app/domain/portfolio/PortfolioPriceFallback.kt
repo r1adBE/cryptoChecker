@@ -50,7 +50,7 @@ object PortfolioPriceFallback {
     /** Kopfzeile der Datei; eine andere Version gilt als «nichts gespeichert». */
     const val FORMAT_HEADER = "portfolio-prices-v1"
 
-    /** 4. Feld einer Zeile: Kurs ungeprüft ([StoredPrice.unverified]); ältere Dateien ohne Feld = geprüft. */
+    /** 4. Feld einer Zeile: Kurs ungeprüft ([StoredPrice.unverified]); ohne Feld = geprüft. */
     const val UNVERIFIED_MARK = "u"
 
     /**

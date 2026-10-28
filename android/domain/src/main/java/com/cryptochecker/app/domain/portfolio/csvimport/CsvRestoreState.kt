@@ -104,7 +104,7 @@ data class CsvRestoreState(
     fun encode(): String = toJson().toString()
 
     companion object {
-        /** Fassung des Formats; eine neue Fassung bekommt eine neue Zahl, ältere bleiben lesbar. */
+        /** Fassung des Formats; eine andere Fassung gilt als unlesbar. */
         const val VERSION = 1
 
         /**

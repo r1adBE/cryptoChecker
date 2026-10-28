@@ -204,7 +204,7 @@ enum CsvImportKraken {
         return CsvImport.finish(.KRAKEN, rows: rows, skipped: skipped, zone: zone, localTimes: true)
     }
 
-    /// Fiat (Stablecoins zählen als Krypto, früher galt USDT als Geld).
+    /// Fiat (Stablecoins zählen als Krypto, nicht als Geld).
     private static func isMoney(_ asset: String) -> Bool { CsvImport.fiat.contains(asset) }
 
     private static func rawKind(_ leg: Leg) -> String { leg.subtype.isEmpty ? leg.type : leg.type + " " + leg.subtype }

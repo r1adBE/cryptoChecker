@@ -23,7 +23,7 @@ private const val ROUTE_MEMO_MILLIS = 60_000L
 private const val CHAIN_DAYS = 1000
 
 /**
- * Paar einer Kettenquelle ([HistoricCloseChain.pairs]) für die eigenen Kerzen. USDC gilt wie USDT (≈ 1 USD, wie bisher
+ * Paar einer Kettenquelle ([HistoricCloseChain.pairs]) für die eigenen Kerzen. USDC gilt wie USDT (≈ 1 USD, wie
  * Coinbase USDC); die Kennung bestimmt das Paar, die Gegenwährung nur die Umrechnung im Verlauf.
  */
 fun chainCandlePair(source: String, base: String, p: HistoricCloseChain.ChainPair): CandlePair =

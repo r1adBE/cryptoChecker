@@ -34,17 +34,17 @@ actor CoinLogoStore {
     }()
 
     /// Zeitpunkt der zuletzt geholten Rangliste bzw. des letzten Versuchs.
-    private static let mapTimeKey = "coin_logos_map_time_v5"
-    private static let mapAttemptKey = "coin_logos_map_attempt_v5"
+    private static let mapTimeKey = "coin_logos_map_time"
+    private static let mapAttemptKey = "coin_logos_map_attempt"
     /// Fehlgeschlagene Bilder (Name → Zeitpunkt der letzten `CoinLogos.failureTTLMillis`).
-    static let failedKey = "coin_logos_failed_v2"
+    static let failedKey = "coin_logos_failed"
     /// Kürzel, die nur die Zusatzseiten der Rangliste bringen (`CoinLogos.extraOnlyKeys`).
-    static let extraOnlyKey = "coin_logos_extra_only_v1"
+    static let extraOnlyKey = "coin_logos_extra_only"
     /// Zeitpunkt der zuletzt direkt geholten Binance-Symbolliste bzw. des letzten Versuchs.
-    private static let binanceTimeKey = "coin_logos_binance_list_time_v1"
-    private static let binanceAttemptKey = "coin_logos_binance_list_attempt_v1"
+    private static let binanceTimeKey = "coin_logos_binance_list_time"
+    private static let binanceAttemptKey = "coin_logos_binance_list_attempt"
     /// Letzter unbrauchbarer Abruf der Ersatzdatei `coin_meta.json` (dann frühestens nach einer Stunde).
-    private static let metaAttemptKey = "coin_logos_coin_meta_attempt_v1"
+    private static let metaAttemptKey = "coin_logos_coin_meta_attempt"
     /// Rangliste nicht erreichbar: frühestens nach einer Stunde erneut.
     static let mapRetryMillis: Int64 = 60 * 60 * 1000
     private var map: [String: String]?
@@ -77,10 +77,10 @@ actor CoinLogoStore {
         return url
     }()
 
-    private static var mapURL: URL { directory.appendingPathComponent("map5.txt") }
-    static var namesURL: URL { directory.appendingPathComponent("names5.txt") }
+    private static var mapURL: URL { directory.appendingPathComponent("map.txt") }
+    static var namesURL: URL { directory.appendingPathComponent("names.txt") }
     /// Zuletzt geholte Binance- und Alpha-Liste (Format wie `coin_meta.json`, `CoinMeta.encode`).
-    private static var listsURL: URL { directory.appendingPathComponent("lists1.json") }
+    private static var listsURL: URL { directory.appendingPathComponent("lists.json") }
 
     // MARK: 1. Binance-Symbolliste und Alpha-Liste — vor allem anderen
 
@@ -146,7 +146,7 @@ actor CoinLogoStore {
             // Alpha-Paare von Binance und Namen für «α» sofort
             Self.alphaTokensBox.store(CoinLogos.alphaTokens(fresh))
         }
-        // Binance-Namen für «gleicher Token» (K-8): Spot vor Futures
+        // Binance-Namen für «gleicher Token»: Spot vor Futures
         if let fresh = result.binance { TokenIdentityStore.shared.saveBinance(CoinMeta.binanceFullNames(fresh)) }
         let meta = CoinMeta.Meta(generatedAt: now,
                                  binance: result.binance ?? saved?.binance ?? [],
@@ -343,7 +343,7 @@ actor CoinLogoStore {
 
     /// Rangliste nicht geholt: Kein Netz (z. B. direkt nach der Installation) zählt nicht als Versuch —
     /// der vorige Zeitpunkt gilt wieder, nachgeholt wird, sobald wieder Netz da ist; sonst kämen eine
-    /// Stunde lang keine Logos. Ein Server-Fehler sperrt wie bisher eine Stunde.
+    /// Stunde lang keine Logos. Ein Server-Fehler sperrt eine Stunde.
     private func mapFetchFailed(networkError: Bool, previousAttempt: Int64) {
         let network = networkError || !NetworkStatus.shared.isOnline
         if !CoinLogoRetry.recordsAttempt(networkFailure: network) {

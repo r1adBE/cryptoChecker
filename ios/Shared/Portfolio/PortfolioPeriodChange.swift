@@ -129,7 +129,7 @@ enum PortfolioPeriodChange {
         // Ausgelassene Coins (Transaktion ohne Preis) auch aus der Kursänderung nehmen
         let amount = change.amount + parts.gain - parts.held - parts.skippedHeld
         let base = parts.start + parts.buys
-        // Gezählte Coins (z. B. ganz heute gekauft, ohne Veränderung) fehlen nicht mehr
+        // Gezählte Coins (z. B. ganz heute gekauft, ohne Veränderung) fehlen nicht
         let skipped = Array(Set(change.skipped.filter { !parts.countedCoins.contains($0) } + parts.skipped)).sorted()
         return PortfolioChange(amount: amount, percent: base > PortfolioCalculator.eps ? amount / base * 100 : nil,
                                skipped: skipped, rewards: parts.rewards)

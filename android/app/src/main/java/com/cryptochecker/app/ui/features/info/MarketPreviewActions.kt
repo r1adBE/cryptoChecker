@@ -20,7 +20,7 @@ suspend fun InfoViewModel.explain(watch: WatchEntity): WhyReport? =
  * «Heute auffällig» → Coin nicht in der Merkliste: Vorschau-Paar «COIN/USDT» auf Binance Spot
  * — nur im Speicher ([PREVIEW_WATCH_ID]), nichts wird gespeichert, bis der Nutzer es hinzufügt.
  * null, wenn es Binance nicht (mehr) gibt oder die gespeicherte Paarliste das Spot-Paar nicht
- * führt; dann wie bisher die Suche im Hinzufügen-Tab. (Die Zeilen kommen ohnehin aus den
+ * führt; dann die Suche im Hinzufügen-Tab. (Die Zeilen kommen ohnehin aus den
  * Binance-Tickern «…USDT», die Prüfung ist nur die Absicherung.) Wie iOS `CycleViewModel.previewWatch`.
  */
 suspend fun InfoViewModel.previewWatch(symbol: String): WatchEntity? {

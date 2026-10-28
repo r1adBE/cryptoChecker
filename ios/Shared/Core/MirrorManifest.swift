@@ -25,7 +25,7 @@ enum MirrorManifest {
     /// Öffentlicher Schlüssel zu MIRROR_SIGNING_KEY (SubjectPublicKeyInfo, DER, Base64); Wechsel: DEVELOPMENT.md.
     static let publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1"
         + "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
-    /// Reserve-Schlüssel (F-29): privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren, signiert
+    /// Reserve-Schlüssel: privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren, signiert
     /// die Action mit dem Reserve-Schlüssel weiter, ohne dass die Apps ein Update brauchen. Wird MIRROR_SIGNING_KEY
     /// bekannt (Leck), signiert die Action mit dem Reserve-Schlüssel und sperrt den alten über «revoked»: Jede App, die
     /// dieses Manifest einmal gesehen hat, nimmt nichts mehr an, was nur mit dem alten Schlüssel signiert ist.

@@ -36,8 +36,9 @@ import org.junit.Test
  * Sammelaufnahme als Verhalten ([BulkAddRunner] mit dem echten Ablauf [collectBulkAdd] und der echten Sicherung
  * [writeRefused] gegen eine Merkliste im Speicher, [FakeWatchStore]; Gegenstück iOS `AddWatchesBehaviorTests`):
  * Fortschritt zählt je Paar hoch, vorhandene Paare werden übersprungen, über der Obergrenze abgelehnt (`refused`),
- * [BulkAddResult.addedIds] sind genau die neuen und «Rückgängig» entfernt nur diese. Dazu F-08: Der Runner holt die
- * Zustimmung in SEINER Coroutine (ein Durchlass des Explorers in dessen Coroutine reicht im App-Bereich nicht).
+ * [BulkAddResult.addedIds] sind genau die neuen und «Rückgängig» entfernt nur diese. Dazu die Rückfrage «nicht gespeichert»:
+ * Der Runner holt die Zustimmung in SEINER Coroutine (ein Durchlass des Explorers in dessen Coroutine reicht im
+ * App-Bereich nicht).
  * Deterministisch: App-Bereich auf dem Test-Takt (StandardTestDispatcher), kein echtes Warten.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -169,7 +170,7 @@ class BulkAddRunnerTest {
         assertNull(runner.progress.value)
     }
 
-    /** F-08 «Abbrechen» im Dialog: eindeutiges Ende (kein Balken), nichts geschrieben, kein Erst-Moment. */
+    /** «Abbrechen» in der Rückfrage «nicht gespeichert»: eindeutiges Ende (kein Balken), nichts geschrieben, kein Erst-Moment. */
     @Test
     fun cancelledConsentWritesNothing() = runTest {
         DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME)
@@ -190,7 +191,7 @@ class BulkAddRunnerTest {
     }
 
     /**
-     * F-08, ARC7-02: Die Oberfläche fehlte beim Bestätigen (Durchlass), ist beim Schreiben aber da. Der Runner
+     * Rückfrage «nicht gespeichert»: Die Oberfläche fehlte beim Bestätigen (Durchlass), ist beim Schreiben aber da. Der Runner
      * bestätigt in seiner eigenen Coroutine — dort gilt der Durchlass, die Paare werden angelegt; «Rückgängig» ebenso.
      */
     @Test

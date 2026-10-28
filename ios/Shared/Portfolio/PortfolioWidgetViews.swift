@@ -180,7 +180,7 @@ enum PortfolioWidgetViews {
     }
 
     /// Gewinn/Verlust einer Position (`pnlAmount`/`pnlPercent`); nil = unbekannt (Kurs am Anfang oder Preis
-    /// einer Transaktion fehlt, älterer Stand) → «—». Wie Android `rowPnl`.
+    /// einer Transaktion fehlt, andere %-Basis) → «—». Wie Android `rowPnl`.
     static func rowPnl(_ p: PortfolioWidgetPosition) -> PortfolioListTotalChange? {
         guard let amount = p.pnlAmount, amount.isFinite else { return nil }
         return PortfolioListTotalChange(amount: amount, percent: p.pnlPercent.flatMap { $0.isFinite ? $0 : nil },
@@ -208,7 +208,7 @@ enum PortfolioWidgetViews {
 
     /// Schriftgrössen der Betragszeile (pt): normal, dann kleiner, bevor ein Teil wegfällt
     /// (wie Android `WidgetTextFit.CHANGE_LINE_SIZES_SP`).
-    /// J-18: nicht unter 11 pt — lieber fällt der Zeitraum bzw. Betrag weg.
+    /// Nicht unter 11 pt — lieber fällt der Zeitraum bzw. Betrag weg.
     static let changeLineSizes: [CGFloat] = [12, 11]
 
     /// Betragszeile als Text (keine Pille): «−31’997.28 CHF  −27.85% · 1J» (Pfeil davor als Symbol) —

@@ -36,7 +36,7 @@ final class LocaleNumbersTests: XCTestCase {
     }
 
     func testLocalizedOutputParsesBack() {
-        // Eingaben nehmen lokale Ziffern an (Runde 29): Anzeige → Eingabe ergibt denselben Wert
+        // Eingaben nehmen lokale Ziffern an: Anzeige → Eingabe ergibt denselben Wert
         XCTAssertEqual(ThresholdParser.latinDigits(LocaleNumbers.decimal(58.4, maxDecimals: 1, locale: arabic)), "58.4")
         XCTAssertEqual(ThresholdParser.latinDigits(LocaleNumbers.integer(1234, locale: persian)), "1234")
     }

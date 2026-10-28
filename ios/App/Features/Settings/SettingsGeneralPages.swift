@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Runde 23f: Unterseiten hinter den Zeilen der Hauptseite — wie `SettingsPages.kt`, je Gruppe eine
+// Unterseiten hinter den Zeilen der Hauptseite — wie `SettingsPages.kt`, je Gruppe eine
 // Datei (Allgemein, Darstellung, Alarme, Portfolio, Daten, Über) wie in Android.
 
 /// Währung (Liste mit Suchfeld, Kürzel und Name in der App-Sprache): gilt für Merkliste («≈»), Portfolio, Alarme, Krypto-Markt, Widget.
@@ -11,7 +11,7 @@ struct CurrencySettingsPage: View {
 
     init() {}
 
-    /// Eine früher gesetzte, nicht mehr gelistete Währung trotzdem anzeigen.
+    /// Eine gesetzte, nicht gelistete Währung (z. B. aus einer Sicherung) trotzdem anzeigen.
     private var codes: [String] {
         let selection = data.settings.portfolioCurrency
         return FxRateSource.currencies.contains(selection) ? FxRateSource.currencies : FxRateSource.currencies + [selection]
@@ -58,7 +58,7 @@ struct CurrencySettingsPage: View {
 }
 
 /// Aktualisierung: «Wie aktuell?» (Sparsam oder Live, solange offen), darunter das
-/// Hintergrund-Intervall — wie `UpdatesPage` (Android, dort zusätzlich «Immer kurz»).
+/// Hintergrund-Intervall — wie `UpdatesPage` (Android).
 @MainActor
 struct UpdatesSettingsPage: View {
     @EnvironmentObject private var data: AppData
@@ -174,7 +174,7 @@ struct WatchlistSettingsPage: View {
                 )
                 .settingsAnchor("watchlist.activity")
             }
-            // Basis der %-Änderung (Review D13: von «Erweitert» hierher — sie bestimmt, was jede Zeile zeigt;
+            // Basis der %-Änderung (hier unter «Merkliste», weil sie bestimmt, was jede Zeile zeigt;
             // gilt auch für Puls und Widgets). Wie Android
             SettingsCard {
                 SettingsNavRow(title: L("settings_change_basis", "%"), icon: .system("percent"),
@@ -196,7 +196,7 @@ struct WatchlistSettingsPage: View {
 }
 
 /// «Token & TradFi» (Zeile auf «Merkliste»): was die Paar-Auswahl zeigt,
-/// dazu Alpha-Tokens und QTLY (gehören zu Token). Gleiche Anker wie zuvor — wie `ExchangesPage` (Android).
+/// dazu Alpha-Tokens und QTLY (gehören zu Token) — wie `ExchangesPage` (Android).
 @MainActor
 struct ExchangesSettingsPage: View {
     @EnvironmentObject private var data: AppData

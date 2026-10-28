@@ -111,7 +111,7 @@ internal fun rememberPriceFlash(watchId: Long, price: Double?): PriceFlash {
         if (previous != null && current != null && current != previous) {
             flash.up = current > previous
             flash.strength.snapTo(1f)
-            // Kurz (früher 1 s): die rollenden Ziffern zeigen die Änderung schon
+            // Kurz: die rollenden Ziffern zeigen die Änderung schon
             flash.strength.animateTo(0f, tween(durationMillis = 500))
         }
     }

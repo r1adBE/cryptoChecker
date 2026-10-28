@@ -292,4 +292,38 @@
     <string name="settings_price_overlay_needs">Csak ezzel együtt működik: «%1$s».</string>
     <string name="settings_price_overlay_grant">Megjelenítés más alkalmazások fölött engedélyezése</string>
     <string name="price_overlay_close">Átfedés bezárása</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Saját szerver a címekhez</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Csak Bitcoin: a saját Esplora- vagy mempool-kompatibilis szervered (pl. https://csomopont.example/api, nyilvánosan megbízható tanúsítvány kell, pl. Let\'s Encrypt). Ha be van állítva, a Bitcoin-címeket és az xpubokat csak ott kérdezzük le – soha nyilvános csomópontoknál, akkor sem, ha a szervered nem érhető el. A többi hálózat továbbra is nyilvános csomópontokat használ. Üres = nyilvános csomópontok.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin-szerver (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Teszt</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Tesztelés…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">A szerver válaszol – %1$s. blokk</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Nincs érvényes válasz – ellenőrizd a címet és a tanúsítványt</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Használatban: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Nincs beállítva – nyilvános csomópontokat használunk</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Csak https:// címek engedélyezettek</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Ne legyen felhasználónév vagy jelszó a címben</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Ne legyen ? vagy # rész a címben</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Érvénytelen szervercím</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Átváltasz nyilvános csomópontokra?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">A Bitcoin-címeidet és az xpubokat ekkor nyilvános csomópontoknál kérdezzük le: %1$s. Ezek a címeket az IP-címeddel együtt látják.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Nyilvános csomópontok használata</string>
 </resources>

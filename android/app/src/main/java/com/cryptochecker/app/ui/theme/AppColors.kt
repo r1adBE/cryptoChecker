@@ -90,7 +90,7 @@ object AssetColors {
 }
 
 /**
- * K3: Farbe, die Knöpfe mit dieser Akzentfarbe tatsächlich haben (primary des Schemas für hell bzw.
+ * Farbe, die Knöpfe mit dieser Akzentfarbe tatsächlich haben (primary des Schemas für hell bzw.
  * dunkel) — für den Farbpunkt in den Einstellungen statt der Grundfarbe (Orange: hell #A64827,
  * dunkel #ED835E = Grundfarbe und App-Icon). Wie iOS `AccentColor.primary`.
  *

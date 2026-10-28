@@ -70,7 +70,7 @@ class WidgetPrefs @Inject constructor(
         }
     }
 
-    /** Portfolio-Widget: Ansicht (Übersicht / Chart / Liste); ohne Wahl der Chart wie bisher. */
+    /** Portfolio-Widget: Ansicht (Übersicht / Chart / Liste); ohne Wahl der Chart. */
     fun setPortfolioView(appWidgetId: Int, view: PortfolioWidgetView) {
         prefs.edit { putString(portfolioViewKey(appWidgetId), view.name) }
     }

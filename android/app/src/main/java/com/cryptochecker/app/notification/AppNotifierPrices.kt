@@ -220,9 +220,8 @@ internal fun AppNotifier.decodeOverflow(extras: Bundle?): LinkedHashMap<Long, St
     return result
 }
 
-/** Paar einer Kurs-Mitteilung: aus den Extras, bei älteren Meldungen aus der Nummer (nur kleiner Bereich). */
+/** Paar einer Kurs-Mitteilung aus den Extras ([EXTRA_WATCH_ID]); ohne Angabe null. */
 internal fun AppNotifier.watchIdOf(sbn: StatusBarNotification): Long? {
     val extra = sbn.notification.extras?.getLong(EXTRA_WATCH_ID, Long.MIN_VALUE) ?: Long.MIN_VALUE
-    if (extra != Long.MIN_VALUE) return extra
-    return NotificationIds.smallIdOf(NotificationIds.Kind.PRICE, sbn.id)
+    return extra.takeIf { it != Long.MIN_VALUE }
 }

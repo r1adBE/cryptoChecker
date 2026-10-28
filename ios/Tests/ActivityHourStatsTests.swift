@@ -73,7 +73,7 @@ final class ActivityHourStatsTests: XCTestCase {
         let stats = try XCTUnwrap(ActivityAnalyzer.hourStats(withoutRunning, now: inNextHour))
         XCTAssertEqual(stats.movePercent, 5, accuracy: 1e-9)
         XCTAssertEqual(stats.candleOpenTime, t0 + 25 * h)
-        // Ohne «jetzt» gilt die letzte Kerze als laufend (bisheriges Verhalten)
+        // Ohne «jetzt» gilt die letzte Kerze als laufend (Standard)
         XCTAssertEqual(ActivityAnalyzer.hourStats(withoutRunning)?.candleOpenTime, t0 + 24 * h)
         // Neueste volle Stunde fehlt ganz: keine Bewegung, kein PRICE_MOVE
         XCTAssertNil(ActivityAnalyzer.hourStats(withoutRunning, now: inNextHour + h))

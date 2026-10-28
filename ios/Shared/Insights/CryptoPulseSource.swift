@@ -13,12 +13,12 @@ struct PulseMarketData: Equatable, Sendable, Codable {
     let fundingPercent: Double?
     /// Zeitpunkt der Abfrage (Epoch-ms) — für «Stand HH:mm».
     let time: Int64
-    /// Marktbreite: 24-h-Veränderung der grössten Coins (fehlt in älteren Ständen).
+    /// Marktbreite: 24-h-Veränderung der grössten Coins; nil = Rangliste nicht geladen.
     var topChanges: [Double]? = nil
     /// Krypto-Markt gesamt in USD und seine Veränderung über 24 h (CoinGecko `/global`).
     var marketCapUsd: Double? = nil
     var marketCap24h: Double? = nil
-    /// «Gewinner und Verlierer 24 h» aus derselben Rangliste (`MarketMovers`); fehlt in älteren Ständen.
+    /// «Gewinner und Verlierer 24 h» aus derselben Rangliste (`MarketMovers`); nil = Rangliste nicht geladen.
     var movers: MarketMoversResult? = nil
 
     var hasMarket: Bool { btc != nil && eth != nil && sol != nil }
@@ -71,7 +71,7 @@ actor CryptoPulseSource {
     // MARK: Gemeinsamer Stand (App Group)
 
     /// Schlüssel im App-Group-Speicher; Version im Namen (anderes Format = nichts gespeichert).
-    static let storeKey = "pulse_market_data_v1"
+    static let storeKey = "pulse_market_data"
 
     /// Jünger als die Gültigkeit (5 Min.)? Ein Zeitpunkt in der Zukunft gilt als alt.
     static func isFresh(_ data: PulseMarketData, now: Int64 = EpochTime.nowMillis) -> Bool {

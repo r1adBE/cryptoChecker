@@ -13,8 +13,8 @@ struct AlarmEditorSheet: View {
     let targetCurrency: String
     /// Gespeicherter Alarm beim Bearbeiten (nil = neu): entscheidet, ob Speichern ihn neu scharf stellt.
     let existing: Alarm?
-    /// Speichern: der Aufrufer fragt (Rückfrage F-08), speichert und ruft dann `close` (UX4-06: erst nach
-    /// «Trotzdem»); nach «Abbrechen» `cancelled` — das Blatt bleibt offen mit den Eingaben. IOS5-R01:
+    /// Speichern: der Aufrufer fragt (Rückfrage «nicht gespeichert»), speichert und ruft dann `close` (erst nach
+    /// «Trotzdem»); nach «Abbrechen» `cancelled` — das Blatt bleibt offen mit den Eingaben. Alles
     /// in einem Rückruf, damit nur einmal gefragt wird.
     let onSave: ConfirmedFinish<AlarmDraft>
     /// Schnell-Alarm angetippt: der Aufrufer fragt, legt ihn an und schliesst das Blatt (`close`) — wie `onSave`.
@@ -298,7 +298,7 @@ struct AlarmEditorSheet: View {
 
     private func commit() {
         guard createGuard.begin(creating: draft.id == 0) else { return }
-        // UX4-06: erst nach bestätigter Rückfrage F-08 speichern und schliessen; «Abbrechen» = Blatt bleibt
+        // Erst nach bestätigter Rückfrage «nicht gespeichert» speichern und schliessen; «Abbrechen» = Blatt bleibt
         let saved = draft
         onSave(saved, { dismiss() }, { createGuard.reset() })
     }

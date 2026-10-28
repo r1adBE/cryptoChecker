@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.ui.theme.Spacing
 
 /*
- * Runde 23f: Unterseiten hinter den Zeilen der Hauptseite. Inhalt und Schlüssel wie
+ * Unterseiten hinter den Zeilen der Hauptseite. Inhalt und Schlüssel wie
  * zuvor auf der langen Hauptseite, nur neu verteilt. Markt-Meldungen und Sprachausgabe
  * stehen weiter in SettingsSubPages.kt (eigene Routen; Markt-Meldungen auch aus der Merkliste).
  * Die Seiten selbst liegen je Gruppe in Settings…Pages.kt (Allgemein, Merkliste/Token & TradFi,
@@ -47,7 +47,7 @@ enum class SettingsPage {
     PORTFOLIO,
     BACKUP,
     ABOUT, LICENSES, WIDGETS, DEVELOPER,
-    // «Token & TradFi» (Zeile auf «Merkliste»); die frühere Seite «Erweitert» gibt es nicht mehr
+    // «Token & TradFi» (Zeile auf «Merkliste»)
     EXCHANGES;
 
     companion object {
@@ -78,7 +78,7 @@ val SettingsPage.home: SettingsHome?
     }
 
 /**
- * Zeigt eine Unterseite; ein unbekannter Name (alte Route, z. B. die frühere Seite «Erweitert») führt gleich zurück.
+ * Zeigt eine Unterseite; ein unbekannter Name (z. B. aus einer alten Route) führt gleich zurück.
  * [onOpenPage] brauchen «Merkliste», «Alarme» und «Über die App» (öffnen weitere Unterseiten); «Alarme» öffnet auch
  * Markt-Meldungen ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]), die eigene Routen haben.
  */

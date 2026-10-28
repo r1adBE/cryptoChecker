@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Tabs: Merkliste · Markt · (Portfolio) · Einstellungen — wie Android (Runde 31: ohne Tab «Suchen»).
+/// Tabs: Merkliste · Markt · (Portfolio) · Einstellungen — wie Android.
 /// Die Tableiste ist eigen (`AppTabBar`), die des Systems ausgeblendet: Symbole 24 pt, das gewählte
 /// 10 % grösser und in der Themenfarbe, die Beschriftung immer gleich — das
 /// lässt `TabView`/`UITabBar` nicht zu (feste Leistenhöhe 49 pt, Symbolgrösse vom System). Die
@@ -50,12 +50,12 @@ struct RootView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
             keyboardVisible = false
         }
-        // Keine Begrüssung mehr (Runde 32): ein neuer Nutzer landet direkt in der Starter-Auswahl
+        // Keine Begrüssung: ein neuer Nutzer landet direkt in der Starter-Auswahl
         // der leeren Merkliste; «Was die App kann» steht unter Einstellungen › Über die App.
     }
 
     /// Tabs in der Reihenfolge der Leiste (Portfolio nur, wenn eingeschaltet). Eigene, kurze
-    /// Beschriftungen (tab_portfolio, tab_settings); die Seitentitel bleiben lang (K-4).
+    /// Beschriftungen (tab_portfolio, tab_settings); die Seitentitel bleiben lang.
     private var tabs: [AppTabItem] {
         var items: [AppTabItem] = [
             AppTabItem(tab: .watchlist, title: L("tab_watchlist"), icon: .watchlist),

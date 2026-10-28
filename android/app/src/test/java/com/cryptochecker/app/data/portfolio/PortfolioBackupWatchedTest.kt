@@ -24,10 +24,10 @@ class PortfolioBackupWatchedTest {
     )
 
     @Test
-    fun importKeyRoundTripsAndOldBackupsHaveNone() {
+    fun importKeyRoundTripsAndManualEntriesHaveNone() {
         assertEquals(imported, PortfolioJson.jsonToTx(JSONObject(PortfolioJson.txToJson(imported).toString())))
-        val old = JSONObject().put("coin", "BTC").put("type", "BUY").put("amountText", "1").put("time", 1L)
-        assertNull(PortfolioJson.jsonToTx(old)!!.importKey)
+        val manual = PortfolioJson.txToJson(imported.copy(importKey = null))
+        assertNull(PortfolioJson.jsonToTx(manual)!!.importKey)
         // Leer oder absurd lang: keiner
         assertNull(PortfolioJson.cleanImportKey("  "))
         assertNull(PortfolioJson.cleanImportKey("x".repeat(PortfolioJson.MAX_IMPORT_KEY + 1)))
@@ -63,14 +63,13 @@ class PortfolioBackupWatchedTest {
     }
 
     @Test
-    fun olderMirrorWithoutAddressesReadsFine() {
-        val old = JSONObject()
-            .put("format", "cryptochecker-portfolio-system-backup").put("version", 1)
-            .put("portfolio", org.json.JSONArray().put(PortfolioJson.txToJson(imported).apply { remove("importKey") }))
-            .toString()
-        val content = PortfolioBackupMirror.parse(old)
-        assertTrue(content.addresses.isEmpty())
-        assertNull(content.txs.single().importKey)
+    fun mirrorWithoutAPartOrVersionIsRejected() {
+        val full = JSONObject(PortfolioBackupMirror.encode(listOf(imported), emptyList()))
+        for (key in listOf("version", "portfolio", "portfolioAlarms", WatchedAddressRules.BACKUP_KEY)) {
+            val text = JSONObject(full.toString()).apply { remove(key) }.toString()
+            assertTrue(key, runCatching { PortfolioBackupMirror.parse(text) }.exceptionOrNull() is IllegalArgumentException)
+        }
+        assertTrue(runCatching { PortfolioBackupMirror.parse(full.put("version", "1").toString()) }.isFailure)
     }
 
     @Test

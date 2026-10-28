@@ -135,7 +135,7 @@ class ActivityMonitor @Inject constructor(
 
         // Meldungen: höchstens eine je Paar und Stunde, nur bei neuen Signalen. Kommt die Meldung
         // nicht an (Erlaubnis, Mitteilungen aus, Kanal stumm), gilt nichts als gemeldet: Die Arten
-        // bleiben offen und melden sich beim nächsten Lauf (Nachtruhe: lautlos wie bisher)
+        // bleiben offen und melden sich beim nächsten Lauf (Nachtruhe: lautlos)
         var deliverable: Boolean? = null
         results.values.forEach { (watch, merge) ->
             val pending = repository.pendingKinds(watch.id)

@@ -1,12 +1,12 @@
 import Foundation
 
-/// J-15: Farben der fünfstufigen Skala «Extreme Angst» … «Extreme Gier» (Fear & Greed), abgeleitet
+/// Farben der fünfstufigen Skala «Extreme Angst» … «Extreme Gier» (Fear & Greed), abgeleitet
 /// aus den aktiven Kursfarben — so gilt auch das Schema für Farbsehschwäche, hoher Kontrast und der
 /// Tausch. Angst = Fallend-Farbe, Gier = Steigend-Farbe, die mittleren Stufen je zu 45 % mit dem
 /// neutralen Grau gemischt. Nur für Flächen (Skala, Markierung), nie für Schrift; jede Stufe hält
 /// ≥ 3:1 auf allen Flächen bis #E2E2E2 bzw. #353535. Gilt für den Stufenpunkt der Fear-&-Greed-Karte
 /// (`MarketScaleColors`) und des Puls-Widgets (Skala folgt den Kursfarben, passend zu den
-/// Pfeilen; früher eine feste Skala). Wie Android `MarketScalePalette.kt`.
+/// Pfeilen). Wie Android `MarketScalePalette.kt`.
 enum MarketScalePalette {
     /// Neutrale Mitte: hell dunkler (3.82:1 auf #E2E2E2), dunkel heller (3.65:1 auf #353535).
     static let neutralLight: UInt32 = 0x707070

@@ -30,7 +30,7 @@ struct SettingsCard<Content: View>: View {
     }
 }
 
-/// Masse der Zeilen der Hauptseite (Karten statt Liste): so hoch wie bisher die Listenzeilen. Innenabstand oben und
+/// Masse der Zeilen der Hauptseite (Karten statt Liste): so hoch wie eine Listenzeile. Innenabstand oben und
 /// unten `Spacing.sm` wie Android (`SettingsNavRow`: vertical 8 dp) — eine Zeile mit Wert ist so auf beiden gleich hoch.
 enum SettingsRowMetrics {
     static let minHeight: CGFloat = 52
@@ -116,7 +116,7 @@ struct SettingsRowTitle<Value: View>: View {
 }
 
 /// Zeile der Hauptseite, die zu einer Unterseite führt: Titel oben, darunter klein und grau der
-/// Wert (höchstens zwei Zeilen), rechts der Pfeil. Mindestens so hoch wie bisher die Listenzeilen,
+/// Wert (höchstens zwei Zeilen), rechts der Pfeil. Mindestens so hoch wie eine Listenzeile,
 /// über die ganze Breite tippbar. Für VoiceOver «Titel, Wert, Taste».
 /// `icon`: Symbol links einfarbig in der Textfarbe (weiss im dunklen, schwarz im hellen Design);
 /// nil = ohne Symbol.

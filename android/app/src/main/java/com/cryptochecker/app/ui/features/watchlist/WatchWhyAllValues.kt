@@ -123,7 +123,7 @@ internal fun WhyAllValuesCard(
 }
 
 /**
- * Inhalt von «Alle Werte und Quellen» — die bisherigen Abschnitte: (1) «Beobachtung» mit
+ * Inhalt von «Alle Werte und Quellen» — die Abschnitte: (1) «Beobachtung» mit
  * Datenstand (Signale, Faktoren, Herkunft je Quelle), (2) «Mögliche Einordnung»
  * («Kurz gesagt», Gleichlauf mit BTC, Details) und (3) der ausführliche Hinweis
  * «kein Ursachenbeweis» mit den Quellen.

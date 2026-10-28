@@ -2,8 +2,8 @@ import Foundation
 
 // Reine Kurs-Speicherungen des Live-Stroms zusammenfassen (Teil von `AppData`): Bei jedem Live-Takt nur Kurs, Änderung
 // und Zeit zu speichern hiesse, alle paar Sekunden die ganze Merkliste zu kodieren, zu verschlüsseln und zu schreiben.
-// Jetzt höchstens alle `PriceSaveThrottle.intervalMillis` — die erste nach einer Pause sofort, weitere gesammelt am
-// Ende des Abstands (immer der dann aktuelle Stand). Sofort wie bisher bleibt alles andere: ausgelöste Alarme,
+// Darum höchstens alle `PriceSaveThrottle.intervalMillis` — die erste nach einer Pause sofort, weitere gesammelt am
+// Ende des Abstands (immer der dann aktuelle Stand). Sofort bleibt alles andere: ausgelöste Alarme,
 // Mitteilungen, Fehlerzustände, jede Änderung des Nutzers (`mutate` ohne `quiet`) — ein solches volles Schreiben nimmt
 // wartende Kurse samt Widget-Wünschen mit (`foldPendingPriceSave`). Beim Wechsel in den Hintergrund und vor jedem Lesen
 // von der Platte werden wartende Kurse sofort geschrieben (`flushPriceSave`).
@@ -106,7 +106,7 @@ extension AppData {
         priceSaves = PriceSaveThrottle()
     }
 
-    /// Den aktuellen Stand als reine Kurs-Speicherung schreiben (Barriere wie bisher) und die gewünschten Widgets danach
+    /// Den aktuellen Stand als reine Kurs-Speicherung schreiben (mit Barriere) und die gewünschten Widgets danach
     /// neu laden.
     private func writePendingPrices() {
         let widgets = priceSaves.take(now: EpochTime.nowMillis)

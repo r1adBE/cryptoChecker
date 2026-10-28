@@ -44,7 +44,7 @@ class PercentTextTest {
         assertEquals("2,4\u00A0%", PercentText.wrap("2,4", Locale.forLanguageTag("en-SE")))
         assertEquals("2.4%", PercentText.wrap("2.4", Locale.forLanguageTag("en-CH")))
         assertEquals("2.4%", PercentText.wrap("2.4", Locale.US))
-        // Liechtenstein und Westschweiz wie bisher ohne Abstand
+        // Liechtenstein und Westschweiz ohne Abstand
         assertEquals("2.4%", PercentText.wrap("2.4", Locale.forLanguageTag("de-LI")))
         assertEquals("2,4%", PercentText.wrap("2,4", Locale.forLanguageTag("fr-CH")))
     }
@@ -75,7 +75,7 @@ class PercentTextTest {
         assertEquals("2,5\u00A0%", PercentText.unsigned(2.5, 4, Locale.GERMANY, minDecimals = 0))
         assertEquals("%0,0125", PercentText.unsigned(0.0125, 4, Locale.forLanguageTag("tr-TR"), minDecimals = 0))
         assertEquals("+12.3%", PercentText.signed(12.34, 1, Locale.US, minDecimals = 0))
-        // ohne minDecimals wie bisher genau [decimals] Stellen
+        // ohne minDecimals genau [decimals] Stellen
         assertEquals("5.00%", PercentText.unsigned(5.0, 2, Locale.US))
     }
 
@@ -93,7 +93,7 @@ class PercentTextTest {
     @Test
     fun abstandEnglischUnveraendert() {
         val now = 10_000_000_000L
-        // Englisch wie bisher «7d» (ICU NARROW bzw. ohne ICU der Ersatz)
+        // Englisch «7d» (ICU NARROW bzw. ohne ICU der Ersatz)
         assertEquals("7d", PriceFormat.age(now - 7 * 86_400_000L, now, Locale.US))
         assertEquals("45s", PriceFormat.age(now - 45_000L, now, Locale.US))
         // Ersatz in der Sprache: arabische Ziffern

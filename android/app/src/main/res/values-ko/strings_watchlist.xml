@@ -211,4 +211,14 @@
     <string name="compare_title">비교</string>
     <string name="compare_basis">선은 기간 시작 이후 변동률을 퍼센트로 나타냅니다.</string>
     <string name="compare_from_high">30일 최고가 대비</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="other">거래쌍 %1$d개를 복원하지 못했습니다 – 관심 목록이 가득 찼습니다</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">지금은 관심 목록과 경보가 저장되지 않습니다. 이번 변경과 이후의 변경 사항은 앱을 닫으면 사라집니다. 그래도 변경할까요?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">그래도 변경</string>
 </resources>

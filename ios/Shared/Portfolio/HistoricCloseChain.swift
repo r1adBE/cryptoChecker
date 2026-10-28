@@ -41,7 +41,7 @@ enum HistoricCloseChain {
     private static let krakenAssets = ["BTC": "XBT", "DOGE": "XDG"]
 
     /// Paare einer Kettenquelle für `base`, in dieser Reihenfolge versucht; leer = Quelle nicht in der Kette oder
-    /// Kürzel unbrauchbar. Gegenwährung USDT bzw. USD/USDC (≈ USDT wie bisher bei Binance.US und Coinbase).
+    /// Kürzel unbrauchbar. Gegenwährung USDT bzw. USD/USDC (≈ USDT, wie bei Binance.US und Coinbase).
     /// Kraken führt BTC als «XBT» und DOGE als «XDG».
     static func pairs(_ exchangeKey: String, base: String) -> [ChainPair] {
         let b = base.trimmingCharacters(in: .whitespaces).uppercased()

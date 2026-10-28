@@ -3,7 +3,7 @@ import SwiftUI
 // Teile des «Was bewegt sich mit?»-Blatts (`WatchlistWhySheet` in WatchWhySheet.swift): alle Werte, Signale,
 // 1h/24h-Abzeichen, Details, Platzhalter beim Laden und leerer Zustand — wie die Teile in `WatchWhySheet.kt`.
 
-/// Inhalt von «Alle Werte und Quellen» — die bisherigen Abschnitte: (1) «Beobachtung» mit Datenstand
+/// Inhalt von «Alle Werte und Quellen» — die Abschnitte: (1) «Beobachtung» mit Datenstand
 /// (Signale, Faktoren, Herkunft je Quelle), (2) «Mögliche Einordnung»
 /// («Kurz gesagt», Gleichlauf mit BTC, Details) und (3) der ausführliche Hinweis «kein
 /// Ursachenbeweis» mit den Quellen. Wie `WhyAllValues` (Android).
@@ -121,7 +121,7 @@ struct WatchlistWhyChangeBadge: View {
 }
 
 /// «Details anzeigen»: die einzelnen Gründe als Checkliste ✓ / – / ! mit ihrer Erklärung
-/// (wie bisher unter «Details»); eingeklappt nur der Knopf.
+/// (unter «Details»); eingeklappt nur der Knopf.
 @MainActor
 struct WatchlistWhyDetails: View {
     let reasons: [WhyReason]

@@ -145,7 +145,6 @@ final class PortfolioTxTypesTests: XCTestCase {
     }
 
     func testHistoryCashFlowsCoverRewardsTransferFeesAndFeeCoins() {
-        let dayEnd: (Int) -> Int64 = { d in Int64(d + 1) * 86_400_000 - 1 }
         let today = 20_000
         var dot: [Int: Double] = [:]
         var bnb: [Int: Double] = [:]
@@ -164,7 +163,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         ]
         let withFlows: [PortfolioTx] = base + flowTxs
         let s = PortfolioHistory.build(trades: withFlows, closes: closes, livePrices: live, range: .week,
-                                       todayEpochDay: today, dayEndMillis: dayEnd)
+                                       todayEpochDay: today)
         let flows = (s.cashFlows ?? []).sorted { $0.epochDay != $1.epochDay ? $0.epochDay < $1.epochDay : $0.amount < $1.amount }
         XCTAssertEqual(flows.map(\.epochDay), [today - 2, today - 1, today - 1])
         close(flows.map(\.amount), [10, -3, 3])
@@ -174,12 +173,12 @@ final class PortfolioTxTypesTests: XCTestCase {
         // Belohnung ohne Wert: zum Tagesschluss (10) — der Coin bleibt drin
         let unpricedReward: [PortfolioTx] = base + [tx(3, "DOT", .REWARD, "1", nil, twoDaysAgo)]
         let rewardFlows = PortfolioHistory.build(trades: unpricedReward, closes: closes, livePrices: live, range: .week,
-                                                 todayEpochDay: today, dayEndMillis: dayEnd).cashFlows
+                                                 todayEpochDay: today).cashFlows
         XCTAssertEqual(rewardFlows, [PortfolioCashFlow(epochDay: today - 2, amount: 10)])
         // Kauf ohne Preis bleibt unbekannt
         let unknown: [PortfolioTx] = base + [tx(3, "DOT", .BUY, "1", nil, twoDaysAgo)]
         XCTAssertNil(PortfolioHistory.build(trades: unknown, closes: closes, livePrices: live, range: .week,
-                                            todayEpochDay: today, dayEndMillis: dayEnd).cashFlows)
+                                            todayEpochDay: today).cashFlows)
     }
 
     func testRouteFollowsLatestTransferDestination() {
@@ -226,7 +225,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertTrue(back.isGiftToSpouse)
         let json = BackupManager.txToJson(gift)
         XCTAssertEqual(json["giftToSpouse"] as? Bool, true)
-        XCTAssertEqual(BackupManager.jsonToTx(json), gift)
+        XCTAssertEqual(try BackupManager.jsonToTx(json), gift)
         // Bei einer anderen Art gibt es den Merker nicht (Datei bzw. Sicherung von aussen)
         var withdrawal = gift
         withdrawal.type = .WITHDRAWAL
@@ -234,7 +233,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertFalse(try JSONDecoder().decode(PortfolioTx.self, from: JSONEncoder().encode(withdrawal)).giftToSpouse)
         var otherJson = json
         otherJson["type"] = "WITHDRAWAL"
-        XCTAssertEqual(BackupManager.jsonToTx(otherJson)?.giftToSpouse, false)
+        XCTAssertEqual(try BackupManager.jsonToTx(otherJson)?.giftToSpouse, false)
     }
 
     func testOriginalPurchaseDateRoundTripsOnlyForDeposits() throws {
@@ -242,17 +241,13 @@ final class PortfolioTxTypesTests: XCTestCase {
         deposit.acquiredTime = 3
         let back = try JSONDecoder().decode(PortfolioTx.self, from: JSONEncoder().encode(deposit))
         XCTAssertEqual(back.acquiredTime, 3)
-        XCTAssertEqual(BackupManager.jsonToTx(BackupManager.txToJson(deposit))?.acquiredTime, 3)
+        XCTAssertEqual(try BackupManager.jsonToTx(BackupManager.txToJson(deposit))?.acquiredTime, 3)
         // Andere Arten: verworfen
         var buy = deposit
         buy.type = .BUY
         XCTAssertNil(try JSONDecoder().decode(PortfolioTx.self, from: JSONEncoder().encode(buy)).acquiredTime)
-        XCTAssertNil(BackupManager.jsonToTx(BackupManager.txToJson(buy))?.acquiredTime)
+        XCTAssertNil(try BackupManager.jsonToTx(BackupManager.txToJson(buy))?.acquiredTime)
         XCTAssertNil(PortfolioTx.cleanAcquiredTime(.DEPOSIT, 0))
-        // Ältere Sicherung ohne Feld
-        var old = BackupManager.txToJson(deposit)
-        old.removeValue(forKey: "acquiredTime")
-        XCTAssertNil(BackupManager.jsonToTx(old)?.acquiredTime)
     }
 
     /// Tausch und Importlauf in Datei und Sicherung — wie `swapAndImportBatchRoundTripExactly` (Kotlin).
@@ -267,7 +262,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         swap.importBatch = "RELAI:5:0000abcd"
         let back = try JSONDecoder().decode(PortfolioTx.self, from: JSONEncoder().encode(swap))
         XCTAssertEqual(back, swap)
-        XCTAssertEqual(BackupManager.jsonToTx(BackupManager.txToJson(swap)), swap)
+        XCTAssertEqual(try BackupManager.jsonToTx(BackupManager.txToJson(swap)), swap)
         // Gebühr im erhaltenen Coin ist keine dritte Gebühr; Tausch geht in beide Coins
         XCTAssertNil(swap.thirdFeeCoin)
         XCTAssertEqual(swap.swapReceived, Decimal(string: "0.24900001")!)
@@ -276,10 +271,10 @@ final class PortfolioTxTypesTests: XCTestCase {
         // Ohne erhaltenen Coin oder Menge: ungültig (gezählt)
         var broken = BackupManager.txToJson(swap)
         broken["toCoin"] = NSNull()
-        XCTAssertNil(BackupManager.jsonToTx(broken))
+        XCTAssertNil(try BackupManager.jsonToTx(broken))
         var sameCoin = BackupManager.txToJson(swap)
         sameCoin["toCoin"] = "btc"
-        XCTAssertNil(BackupManager.jsonToTx(sameCoin))
+        XCTAssertNil(try BackupManager.jsonToTx(sameCoin))
         let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"SWAP","amountText":"1","time":1},"#
             + #"{"id":2,"coin":"BTC","type":"SWAP","amountText":"1","time":2,"toCoin":"ETH","toAmountText":"3"}],"nextId":3}"#
         let file = try JSONDecoder().decode(PortfolioFile.self, from: Data(json.utf8))
@@ -289,7 +284,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         // Zu lange Kennung des Importlaufs: weggelassen
         var long = BackupManager.txToJson(swap)
         long["importBatch"] = String(repeating: "x", count: 65)
-        XCTAssertNil(BackupManager.jsonToTx(long)?.importBatch)
+        XCTAssertNil(try BackupManager.jsonToTx(long)?.importBatch)
     }
 
     /// Damit bezahlt = Veräusserung zum Marktwert in allen Methoden; Abfluss wie ein Verkauf. Wie Android.

@@ -102,7 +102,7 @@ class AppNotifier @Inject constructor(
             val byId = posts.associateBy { it.id }
             val shown = HashSet<Long>()
             // Mehr als 5 Meldungen: gedrosselt (Android verwirft sonst die überzähligen still, sie zählten
-            // aber als gezeigt). Die Pausen halten keinen Thread fest (delay statt sleep), brechen aber wie bisher
+            // aber als gezeigt). Die Pausen halten keinen Thread fest (delay statt sleep), brechen aber
             // nicht mitten im Durchlauf ab (sonst Meldungen ohne gespeicherten Meldekurs); ein einzelnes Paar nie
             val gap = NotificationBudget.postGapMillis(plan.individual.size + if (plan.overflow.isEmpty()) 0 else 1)
             var posted = 0
@@ -336,7 +336,7 @@ class AppNotifier @Inject constructor(
     }
 
     companion object {
-        // 1 war die Meldung des früheren Live-Dienstes «Immer kurz», 3 die frühere «Marktphase gewechselt» (nie wiederverwenden)
+        // Feste Mitteilungs-Nummern unter 100 000 (getrennt von den Bereichen in NotificationIds)
         const val REFRESH_NOTIFICATION_ID = 2
         const val FNG_NOTIFICATION_ID = 4
         /** Eigene Grenzen der Bitcoin-Kennzahlen: je Art eine Meldung (Basis + Ordnungszahl). */

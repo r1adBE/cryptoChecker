@@ -85,8 +85,8 @@ class AlphaTokens @Inject constructor(
         runCatching { prefs.getStringSet(KEY_ALPHA_SYMBOLS, null)?.toSet() }.getOrNull() ?: emptySet()
 
     private companion object {
-        const val KEY_ALPHA_SYMBOLS = "alpha_symbols_v1"
+        const val KEY_ALPHA_SYMBOLS = "alpha_symbols"
         /** Zeitpunkt der zuletzt geholten Alpha-Liste bzw. des letzten Versuchs allein ([CoinListSync.refreshAlphaOnly]). */
-        const val KEY_ALPHA_TIME = "alpha_time_v1"
+        const val KEY_ALPHA_TIME = "alpha_time"
     }
 }

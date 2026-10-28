@@ -72,8 +72,8 @@ class MarketNoticeGateTest {
             Step.STORE,
             MarketNoticeGate.fearGreed(15, last = 15, below = 20, above = 90, canNotify = true, aboveChanged = true).step,
         )
-        // Stand vor dem Update (keine Grenze gemerkt): als unverändert werten
-        assertFalse(MarketNoticeGate.boundChanged(stored = null, current = 20))
+        // Keine Grenze gemerkt: als geändert werten
+        assertTrue(MarketNoticeGate.boundChanged(stored = null, current = 20))
     }
 }
 

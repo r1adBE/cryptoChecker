@@ -194,7 +194,7 @@ class CoinListSync @Inject constructor(
             val symbols = CoinLogos.alphaSymbols(freshAlpha)
             if (result.alphaSource == CoinLists.Source.DIRECT) alpha.storeFetched(symbols, now) else alpha.storeSymbols(symbols)
         }
-        // Binance-Namen für «gleicher Token» (K-8): Spot vor Futures
+        // Binance-Namen für «gleicher Token»: Spot vor Futures
         if (freshBinance != null) tokenIdentityStore.saveBinance(CoinMeta.binanceFullNames(freshBinance))
         val meta = CoinMeta.Meta(now, freshBinance ?: saved?.binance.orEmpty(), freshAlpha ?: saved?.alpha.orEmpty())
         lists = meta
@@ -374,17 +374,17 @@ class CoinListSync @Inject constructor(
 
     companion object {
         /** Zeitpunkt der zuletzt geholten Rangliste bzw. des letzten Versuchs. */
-        const val KEY_MAP_TIME = "map_time_v5"
-        const val KEY_MAP_ATTEMPT = "map_attempt_v5"
-        const val KEY_ALPHA_ATTEMPT = "alpha_attempt_v1"
-        const val MAP_FILE = "coin_logos/map5.txt"
+        const val KEY_MAP_TIME = "map_time"
+        const val KEY_MAP_ATTEMPT = "map_attempt"
+        const val KEY_ALPHA_ATTEMPT = "alpha_attempt"
+        const val MAP_FILE = "coin_logos/map.txt"
         /** Zuletzt geholte Binance- und Alpha-Liste (Format wie `coin_meta.json`, [CoinMeta.encode]). */
-        const val LISTS_FILE = "coin_logos/lists1.json"
+        const val LISTS_FILE = "coin_logos/lists.json"
         /** Zeitpunkt der zuletzt direkt geholten Binance-Symbolliste bzw. des letzten Versuchs. */
-        const val KEY_BINANCE_TIME = "binance_list_time_v1"
-        const val KEY_BINANCE_ATTEMPT = "binance_list_attempt_v1"
+        const val KEY_BINANCE_TIME = "binance_list_time"
+        const val KEY_BINANCE_ATTEMPT = "binance_list_attempt"
         /** Letzter unbrauchbarer Abruf der Ersatzdatei `coin_meta.json` (dann frühestens nach einer Stunde). */
-        const val KEY_META_ATTEMPT = "coin_meta_attempt_v1"
+        const val KEY_META_ATTEMPT = "coin_meta_attempt"
         /** Zeitgrenze für Binance- und Alpha-Liste (wie die Paarlisten). */
         const val LIST_TIMEOUT_SECONDS = 60L
     }

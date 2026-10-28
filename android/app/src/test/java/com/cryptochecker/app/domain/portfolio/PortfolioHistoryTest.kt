@@ -60,7 +60,7 @@ class PortfolioHistoryTest {
         val trades = listOf(buy("BTC", 2.0, noon(today - 3)))
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0),
-            PortfolioHistoryRange.MONTH, today, dayEnd,
+            PortfolioHistoryRange.MONTH, today,
         )
         assertEquals(4, s.points.size)
         assertEquals(today - 3, s.points.first().epochDay)
@@ -78,14 +78,14 @@ class PortfolioHistoryTest {
         val trades = listOf(buy("ETH", 1.0, noon(today - 500)))
         val s = PortfolioHistory.build(
             trades, mapOf("ETH" to linearCloses(366)), mapOf("ETH" to 100.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(8, s.points.size)                    // 7 Tage zurück bis heute
         assertEquals(today - 7, s.points.first().epochDay)
         assertEquals(100.0, s.points.last().value, d)
         val year = PortfolioHistory.build(
             trades, mapOf("ETH" to linearCloses(366)), mapOf("ETH" to 100.0),
-            PortfolioHistoryRange.YEAR, today, dayEnd,
+            PortfolioHistoryRange.YEAR, today,
         )
         assertEquals(366, year.points.size)
     }
@@ -98,7 +98,7 @@ class PortfolioHistoryTest {
             sell("BTC", 0.5, noon(today - 1)),
         )
         val closes = mapOf("BTC" to (0..10).associate { (today - it) to 10.0 })
-        val s = PortfolioHistory.build(trades, closes, mapOf("BTC" to 10.0), PortfolioHistoryRange.WEEK, today, dayEnd)
+        val s = PortfolioHistory.build(trades, closes, mapOf("BTC" to 10.0), PortfolioHistoryRange.WEEK, today)
         assertEquals(listOf(10.0, 10.0, 10.0, 20.0, 15.0, 15.0), s.points.map { it.value })
         assertTrue(s.tradesInRange)
     }
@@ -112,7 +112,7 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(10), "XYZ" to emptyMap()), mapOf("BTC" to 100.0, "XYZ" to 3.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(listOf("XYZ"), s.skipped)
         assertEquals(98.0 + 50.0, s.points.first().value, d)
@@ -127,7 +127,7 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(10)), mapOf("BTC" to 100.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertTrue(s.skipped.isEmpty())
     }
@@ -138,7 +138,7 @@ class PortfolioHistoryTest {
         val trades = listOf(buy("ETH", 1.0, noon(today - 500)), buy("BTC", 1.0, noon(today - 500)))
         val s = PortfolioHistory.build(
             trades, mapOf("ETH" to linearCloses(366), "BTC" to linearCloses(366)), mapOf("BTC" to 100.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(listOf("ETH"), s.skipped)
         assertEquals(93.0, s.points.first().value, d)     // nur BTC
@@ -146,7 +146,7 @@ class PortfolioHistoryTest {
         // Nur ein Coin, ohne Kurs: kein Verlauf statt eines ungeprüften
         val alone = PortfolioHistory.build(
             listOf(buy("ETH", 1.0, noon(today - 500))), mapOf("ETH" to linearCloses(366)), emptyMap(),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(listOf("ETH"), alone.skipped)
         assertTrue(alone.points.isEmpty())
@@ -162,7 +162,7 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(10), "XYZ" to linearCloses(10)), mapOf("BTC" to 100.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertTrue(s.skipped.isEmpty())
         assertEquals(93.0 + 93.0, s.points.first().value, d)
@@ -172,7 +172,7 @@ class PortfolioHistoryTest {
     @Test
     fun onlyUnpricedCoinsGiveNoChart() {
         val trades = listOf(buy("XYZ", 1.0, noon(today - 3)))
-        val s = PortfolioHistory.build(trades, emptyMap(), emptyMap(), PortfolioHistoryRange.WEEK, today, dayEnd)
+        val s = PortfolioHistory.build(trades, emptyMap(), emptyMap(), PortfolioHistoryRange.WEEK, today)
         assertTrue(s.points.isEmpty())
         assertFalse(s.hasChart)
         assertEquals(listOf("XYZ"), s.skipped)
@@ -184,7 +184,7 @@ class PortfolioHistoryTest {
         val trades = listOf(buy("SOL", 2.0, noon(today - 4)))
         val closes = mapOf("SOL" to mapOf(today - 4 to 10.0, today - 1 to 20.0))
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today, dayEnd, fxRate = 0.5,
+            trades, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today, fxRate = 0.5,
         )
         assertEquals(listOf(10.0, 10.0, 10.0, 20.0, 20.0), s.points.map { it.value })
     }
@@ -193,7 +193,7 @@ class PortfolioHistoryTest {
     fun beforeFirstCandleCoinDoesNotCount() {
         val trades = listOf(buy("NEW", 1.0, noon(today - 3)))
         val closes = mapOf("NEW" to mapOf(today - 1 to 5.0))
-        val s = PortfolioHistory.build(trades, closes, mapOf("NEW" to 5.0), PortfolioHistoryRange.WEEK, today, dayEnd)
+        val s = PortfolioHistory.build(trades, closes, mapOf("NEW" to 5.0), PortfolioHistoryRange.WEEK, today)
         assertEquals(listOf(0.0, 0.0, 5.0, 5.0), s.points.map { it.value })
         assertNull(s.changePercent)                       // Ausgangswert 0
         assertEquals(5.0, s.change!!, d)
@@ -204,7 +204,7 @@ class PortfolioHistoryTest {
         val trades = listOf(buy("BTC", 1.0, noon(today)))
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(5)), mapOf("BTC" to 101.0),
-            PortfolioHistoryRange.MONTH, today, dayEnd,
+            PortfolioHistoryRange.MONTH, today,
         )
         assertEquals(1, s.points.size)
         assertFalse(s.hasChart)
@@ -217,7 +217,7 @@ class PortfolioHistoryTest {
         val t = LocalDate.ofEpochDay(today - 2).atTime(23, 30).atZone(zone).toInstant().toEpochMilli()
         val s = PortfolioHistory.build(
             listOf(buy("BTC", 1.0, t)), mapOf("BTC" to linearCloses(10)), mapOf("BTC" to 100.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(today - 2, s.points.first().epochDay)
     }
@@ -242,11 +242,11 @@ class PortfolioHistoryTest {
     fun sinceFirstStartsAtTheFirstTransaction() {
         val first = noon(today - 800)
         val trades = listOf(buy("BTC", 1.0, first), buy("BTC", 1.0, noon(today - 10)))
-        assertEquals(today - 800, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
-        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        assertEquals(today - 800, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today))
+        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today))
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to flatCloses(900)), mapOf("BTC" to 50.0),
-            PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+            PortfolioHistoryRange.SINCE_FIRST, today,
         )
         assertEquals(801, s.points.size)
         assertEquals(today - 800, s.points.first().epochDay)
@@ -258,18 +258,18 @@ class PortfolioHistoryTest {
 
     @Test
     fun sinceFirstIsNotLimitedToFiveYears() {
-        // Erster Kauf vor gut 7 Jahren: ganz gezeigt, nicht mehr auf 5 Jahre gekappt
+        // Erster Kauf vor gut 7 Jahren: ganz gezeigt, nicht auf 5 Jahre gekappt
         val first = noon(today - 2600)
         val trades = listOf(buy("BTC", 1.0, first))
-        assertEquals(today - 2600, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
-        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        assertEquals(today - 2600, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today))
+        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today))
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to flatCloses(2700)), mapOf("BTC" to 50.0),
-            PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+            PortfolioHistoryRange.SINCE_FIRST, today,
         )
         assertEquals(2601, s.points.size)
         assertFalse(s.capped)
-        assertEquals(2602, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        assertEquals(2602, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, first, today))
     }
 
     @Test
@@ -278,51 +278,51 @@ class PortfolioHistoryTest {
         assertEquals(LocalDate.of(2017, 8, 17).toEpochDay(), dataStart)
         val first = noon(today - 4000)
         val trades = listOf(buy("BTC", 1.0, first))
-        assertEquals(dataStart, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
-        assertTrue(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today, dayEnd))
+        assertEquals(dataStart, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, first, today))
+        assertTrue(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, first, today))
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to flatCloses(4100)), mapOf("BTC" to 50.0),
-            PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+            PortfolioHistoryRange.SINCE_FIRST, today,
         )
         assertEquals(today - dataStart + 1, s.points.size.toLong())
         assertTrue(s.capped)
         // Erster Kauf genau am ersten Tag mit Kursdaten: nicht begrenzt
-        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, noon(dataStart), today, dayEnd))
-        assertEquals(dataStart, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, noon(dataStart), today, dayEnd))
+        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.SINCE_FIRST, noon(dataStart), today))
+        assertEquals(dataStart, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, noon(dataStart), today))
         // Andere Zeiträume sind nie «begrenzt»
-        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.YEAR, first, today, dayEnd))
+        assertFalse(PortfolioHistory.isCapped(PortfolioHistoryRange.YEAR, first, today))
     }
 
     @Test
     fun startDayMatchesTheFixedRanges() {
         val old = noon(today - 5000)
-        assertEquals(today - 7, PortfolioHistory.startDay(PortfolioHistoryRange.WEEK, old, today, dayEnd))
-        assertEquals(today - 30, PortfolioHistory.startDay(PortfolioHistoryRange.MONTH, old, today, dayEnd))
-        assertEquals(today - 365, PortfolioHistory.startDay(PortfolioHistoryRange.YEAR, old, today, dayEnd))
+        assertEquals(today - 7, PortfolioHistory.startDay(PortfolioHistoryRange.WEEK, old, today))
+        assertEquals(today - 30, PortfolioHistory.startDay(PortfolioHistoryRange.MONTH, old, today))
+        assertEquals(today - 365, PortfolioHistory.startDay(PortfolioHistoryRange.YEAR, old, today))
         // Erster Kauf nach dem Beginn: dessen Tag; heute gekauft: heute
-        assertEquals(today - 3, PortfolioHistory.startDay(PortfolioHistoryRange.MONTH, noon(today - 3), today, dayEnd))
-        assertEquals(today, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, noon(today), today, dayEnd))
+        assertEquals(today - 3, PortfolioHistory.startDay(PortfolioHistoryRange.MONTH, noon(today - 3), today))
+        assertEquals(today, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, noon(today), today))
         // EINE Tagesgrenze (UTC): kurz nach Mitternacht UTC zählt schon der neue Tag …
         val justAfterUtcMidnight = PortfolioHistory.utcDayEnd(today - 2) + 1
-        assertEquals(today - 1, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, justAfterUtcMidnight, today, dayEnd))
+        assertEquals(today - 1, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, justAfterUtcMidnight, today))
         // … kurz nach Mitternacht Zürich-Sommerzeit (22:00 UTC) noch der UTC-Vortag, wie bei den Tageskerzen
         val justAfterLocalMidnight = dayEnd(today - 2) + 1
-        assertEquals(today - 2, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, justAfterLocalMidnight, today, dayEnd))
+        assertEquals(today - 2, PortfolioHistory.startDay(PortfolioHistoryRange.SINCE_FIRST, justAfterLocalMidnight, today))
     }
 
     @Test
     fun candleDaysOnlyGrowForSinceFirst() {
         val old = noon(today - 1500)
-        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.WEEK, old, today, dayEnd))
-        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.MONTH, old, today, dayEnd))
-        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.YEAR, old, today, dayEnd))
-        assertEquals(1502, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, old, today, dayEnd))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.WEEK, old, today))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.MONTH, old, today))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.YEAR, old, today))
+        assertEquals(1502, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, old, today))
         // Junges Portfolio: nicht weniger als die gemeinsame Jahres-Abfrage
-        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, noon(today - 20), today, dayEnd))
-        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, null, today, dayEnd))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, noon(today - 20), today))
+        assertEquals(366, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, null, today))
         // Nur durch den ersten Tag mit Kursdaten begrenzt: ab da samt heute und einem Tag davor
         val sinceDataStart = (today - PortfolioHistory.DATA_START_EPOCH_DAY + 2).toInt()
-        assertEquals(sinceDataStart, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, noon(today - 9000), today, dayEnd))
+        assertEquals(sinceDataStart, PortfolioHistory.candleDays(PortfolioHistoryRange.SINCE_FIRST, noon(today - 9000), today))
         // … in höchstens vier Abfragen zu 1000 Kerzen (Stand 2026)
         assertEquals(4, PortfolioHistory.candleChunks(sinceDataStart, today).size)
     }
@@ -379,7 +379,7 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertTrue(s.tradesInRange)
         // Brutto: 93 → 220 (samt Kauf); netto: Kauf zu 97 + 1 USDT Gebühr herausgerechnet
@@ -403,7 +403,7 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             unpriced, mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertTrue(s.tradesInRange)
         assertNull(s.cashFlows)
@@ -411,7 +411,7 @@ class PortfolioHistoryTest {
         // Ohne Transaktion im Zeitraum: netto = brutto
         val plain = PortfolioHistory.build(
             listOf(buy("BTC", 1.0, noon(today - 500))), mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(plain.change!!, plain.netChange!!, d)
         assertEquals(plain.changePercent!!, plain.netChangePercent!!, d)
@@ -425,7 +425,7 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertTrue(s.hasPnlChart)
         assertTrue(s.pnlSkipped.isEmpty())
@@ -454,7 +454,7 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0),
-            PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+            PortfolioHistoryRange.SINCE_FIRST, today,
         )
         assertTrue(s.pnlSinceFirst)
         val pnl = s.pnlPoints.associate { it.epochDay to it.value }
@@ -476,14 +476,14 @@ class PortfolioHistoryTest {
         )
         val s = PortfolioHistory.build(
             trades, mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0),
-            PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+            PortfolioHistoryRange.SINCE_FIRST, today,
         )
         assertEquals(10.0, s.pnlCapital!!, d)
         assertEquals(55.0 + 39.0, s.pnlChange!!, d)
         assertEquals(94.0 / 10.0 * 100.0, s.pnlPercent!!, d)
         // Adress-Guthaben vor dem Zeitraum beobachtet, ohne Zugang: Basis = Wert am ersten Tag
         val held = PortfolioHistory.build(
-            emptyList(), mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0), PortfolioHistoryRange.WEEK, today, dayEnd,
+            emptyList(), mapOf("BTC" to linearCloses(400)), mapOf("BTC" to 110.0), PortfolioHistoryRange.WEEK, today,
             addresses = listOf(observed(noon(today - 20) to "1")),
         )
         assertEquals(93.0, held.pnlCapital!!, d)
@@ -499,7 +499,7 @@ class PortfolioHistoryTest {
         // Beobachtetes Guthaben: erste Beobachtung = Zufluss zum Marktkurs (2 × 95), Zuwachs ebenso (1 × 98)
         val closes = mapOf("BTC" to linearCloses(400))
         val s = PortfolioHistory.build(
-            emptyList(), closes, mapOf("BTC" to 110.0), PortfolioHistoryRange.SINCE_FIRST, today, dayEnd,
+            emptyList(), closes, mapOf("BTC" to 110.0), PortfolioHistoryRange.SINCE_FIRST, today,
             addresses = listOf(observed(noon(today - 5) to "2", noon(today - 2) to "3")),
         )
         assertTrue(s.pnlSkipped.isEmpty())
@@ -508,14 +508,14 @@ class PortfolioHistoryTest {
         assertEquals(2.0 * (110.0 - 95.0) + 1.0 * (110.0 - 98.0), s.pnlChange!!, d)
         // Im Zeitraum (vor dem Zeitraum beobachtet): Guthaben × Kursänderung
         val week = PortfolioHistory.build(
-            emptyList(), closes, mapOf("BTC" to 110.0), PortfolioHistoryRange.WEEK, today, dayEnd,
+            emptyList(), closes, mapOf("BTC" to 110.0), PortfolioHistoryRange.WEEK, today,
             addresses = listOf(observed(noon(today - 20) to "2")),
         )
         assertEquals(2.0 * (110.0 - 93.0), week.pnlChange!!, d)
         // Adress-Einzahlung in den Transaktionen (negative Id): nie rückwirkend — zählt gar nicht
         val legacy = PortfolioHistory.build(
             listOf(buy("BTC", 1.0, noon(today - 5)), PortfolioTrade(-1, "BTC", PortfolioTxType.DEPOSIT, 2.0, null, noon(today - 20))),
-            closes, mapOf("BTC" to 110.0), PortfolioHistoryRange.WEEK, today, dayEnd,
+            closes, mapOf("BTC" to 110.0), PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(110.0, legacy.points.last().value, d)
     }
@@ -528,7 +528,7 @@ class PortfolioHistoryTest {
             PortfolioTrade(nextId++, "SOL", PortfolioTxType.BUY, 2.0, 10.0, noon(today - 20)),
             PortfolioTrade(nextId++, "SOL", PortfolioTxType.WITHDRAWAL, 1.0, null, noon(today - 3)),
         )
-        val week = PortfolioHistory.build(trades, flat, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today, dayEnd)
+        val week = PortfolioHistory.build(trades, flat, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today)
         assertTrue(week.pnlSkipped.isEmpty())
         assertEquals(0.0, week.pnlChange!!, d)
         assertEquals(0.0, week.netChange!!, d)
@@ -542,7 +542,7 @@ class PortfolioHistoryTest {
             PortfolioTrade(nextId++, "ETH", PortfolioTxType.BUY, 1.0, null, noon(today - 3)),
         )
         val closes = mapOf("BTC" to linearCloses(400), "ETH" to linearCloses(400))
-        val s = PortfolioHistory.build(trades, closes, mapOf("BTC" to 110.0, "ETH" to 110.0), PortfolioHistoryRange.WEEK, today, dayEnd)
+        val s = PortfolioHistory.build(trades, closes, mapOf("BTC" to 110.0, "ETH" to 110.0), PortfolioHistoryRange.WEEK, today)
         assertEquals(listOf("ETH"), s.pnlSkipped)
         // Wertkurve mit beiden Coins, Gewinn/Verlust nur BTC
         assertEquals(110.0 * 3, s.points.last().value, d)
@@ -557,13 +557,13 @@ class PortfolioHistoryTest {
             PortfolioTrade(nextId++, "SOL", PortfolioTxType.WITHDRAWAL, 1.0, null, noon(today - 3)),
             PortfolioTrade(nextId++, "SOL", PortfolioTxType.DEPOSIT, 1.0, null, noon(today - 2)),
         )
-        val week = PortfolioHistory.build(trades, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today, dayEnd)
+        val week = PortfolioHistory.build(trades, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today)
         // Einzahlung ohne Preis zum Tagesschluss: SOL bleibt in der Gewinn/Verlust-Kurve
         assertEquals(emptyList<String>(), week.pnlSkipped)
         assertTrue(week.withdrawalsInRange)
         // Auszahlung vor dem Zeitraum: kein Hinweis
         val older = trades.take(2).map { if (it.type == PortfolioTxType.WITHDRAWAL) it.copy(time = noon(today - 15)) else it }
-        assertFalse(PortfolioHistory.build(older, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today, dayEnd).withdrawalsInRange)
-        assertTrue(PortfolioHistory.build(older, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.SINCE_FIRST, today, dayEnd).withdrawalsInRange)
+        assertFalse(PortfolioHistory.build(older, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.WEEK, today).withdrawalsInRange)
+        assertTrue(PortfolioHistory.build(older, closes, mapOf("SOL" to 20.0), PortfolioHistoryRange.SINCE_FIRST, today).withdrawalsInRange)
     }
 }

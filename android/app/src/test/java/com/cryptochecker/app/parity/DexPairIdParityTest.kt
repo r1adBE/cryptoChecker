@@ -57,7 +57,7 @@ class DexPairIdParityTest {
         }
     }
 
-    /** SEC3-R1: der Pfad bleibt nach dem URL-Parser «…/<chain>/<adresse>» (keine Punkt-Segmente). */
+    /** Der Pfad bleibt nach dem URL-Parser «…/<chain>/<adresse>» (keine Punkt-Segmente). */
     @Test
     fun pfadBleibtNachUrlParser() {
         for (c in cases().filter { it["valid"] as Boolean }) {
@@ -67,7 +67,7 @@ class DexPairIdParityTest {
         }
     }
 
-    /** SEC3-R1: die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs. */
+    /** Die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs. */
     @Test
     fun sammelabfrageNurMitGueltigerKennung() {
         for (c in cases()) {

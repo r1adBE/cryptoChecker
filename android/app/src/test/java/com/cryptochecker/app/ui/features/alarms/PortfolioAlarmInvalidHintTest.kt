@@ -7,7 +7,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Review FUN4-R2: Portfolio-Alarme haben keinen Bearbeiten-Dialog – die Zeile mit ungültiger Schwelle
+ * Portfolio-Alarme haben keinen Bearbeiten-Dialog – die Zeile mit ungültiger Schwelle
  * nennt darum «löschen und neu anlegen» (die angebotene Aktion: Löschen-Knopf bzw. Kontextmenü), nicht «anpassen».
  * Beide Plattformen; Text in allen Sprachen.
  */
@@ -41,10 +41,10 @@ class PortfolioAlarmInvalidHintTest {
     @Test
     fun textInAllenSprachen() {
         val res = SourceGuard.android(file("src/main/res"), "src/main/res")
-        val folders = res.listFiles { f -> f.isDirectory && File(f, "strings_r104_g.xml").exists() }.orEmpty()
+        val folders = res.listFiles { f -> f.isDirectory && File(f, "strings_portfolio.xml").exists() }.orEmpty()
         assertTrue(folders.size >= 31)
         for (folder in folders) {
-            val xml = File(folder, "strings_r106_b.xml")
+            val xml = File(folder, "strings_portfolio.xml")
             assertTrue("${folder.name}: fehlt", xml.exists() && xml.readText().contains("name=\"portfolio_alarm_threshold_invalid_recreate\""))
         }
     }

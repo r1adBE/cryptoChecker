@@ -15,7 +15,7 @@ struct FearGreed: Equatable, Sendable, Codable {
 /// Geschrieben bei jedem erfolgreichen Abruf (`InsightsDataSource.fearGreed`).
 enum FearGreedShared {
     /// Schlüssel; Version im Namen (anderes Format = nichts gespeichert).
-    static let storeKey = "fear_greed_shared_v1"
+    static let storeKey = "fear_greed_shared"
     /// Älter zeigt das Widget nicht (24 h).
     static let maxAgeMillis: Int64 = 24 * 3_600_000
 

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Review FUN-05: Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
+/// Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
 /// (`testdata/parity/alarm_delivery_marker.json`). Gegenstück: `AlarmDeliveryMarkerParityTest.kt`.
 final class AlarmDeliveryMarkerTests: XCTestCase {
     private typealias S = TestSupport
@@ -132,7 +132,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         XCTAssertEqual(delivery.unconfirmedAt(9), at)
     }
 
-    /// Review IOS3-R02: Auslösung zum Vermerk schon gespeichert?
+    /// Auslösung zum Vermerk schon gespeichert?
     func testGespeichertSeitDemVermerkWieGemeinsameTestfaelle() throws {
         let cases = S.list(try S.fixture("alarm_delivery_marker")["savedSinceCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 5)
@@ -143,7 +143,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         }
     }
 
-    /// Review IOS3-R02: ganze Läufe von `deliver` — ein liegengebliebener Vermerk einer schon gespeicherten Auslösung
+    /// Ganze Läufe von `deliver` — ein liegengebliebener Vermerk einer schon gespeicherten Auslösung
     /// verschluckt die neue nicht; ein Prozess-Ende zwischen Melden und Speichern speichert weiter nur.
     func testMeldenWieGemeinsameTestfaelle() async throws {
         let cases = S.list(try S.fixture("alarm_delivery_marker")["deliverCases"])
@@ -176,7 +176,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         }
     }
 
-    /// Review ARC3-R03: Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt.
+    /// Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt.
     func testZuruecksetzenWieGemeinsameTestfaelle() throws {
         let cases = S.list(try S.fixture("alarm_delivery_marker")["resetCases"])
         XCTAssertGreaterThanOrEqual(cases.count, 4)
@@ -187,7 +187,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         }
     }
 
-    /// Review IOS3-R03: übernommen, aber nicht auf die Platte geschrieben → der Vermerk bleibt, die Mitteilung auch
+    /// Übernommen, aber nicht auf die Platte geschrieben → der Vermerk bleibt, die Mitteilung auch
     /// (kein Rückzug); der nächste Prozess meldet darum nicht ein zweites Mal.
     func testNichtGeschriebenBehaeltVermerk() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
@@ -210,7 +210,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         XCTAssertNil(delivery.unconfirmedAt(13))
     }
 
-    /// Review IOS3-R03: auch im Zweig «nur speichern» bleibt der Vermerk, wenn nicht geschrieben wurde; Gegenprobe
+    /// Auch im Zweig «nur speichern» bleibt der Vermerk, wenn nicht geschrieben wurde; Gegenprobe
     /// geschrieben → weg.
     func testNurSpeichernOhneSchreibenBehaeltVermerk() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)

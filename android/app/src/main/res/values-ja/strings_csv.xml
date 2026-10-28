@@ -79,4 +79,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">対応する記帳のないステーキング記帳 – 残高を確認</string>
     <string name="portfolio_csv_skip_amount_too_small">数量が小さすぎます – 保存時に0になります</string>
     <string name="portfolio_csv_skip_invalid_swap">有効な受け取ったコインまたは数量のないスワップ</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">ファイルを読み直しています…</string>
 </resources>

@@ -2,7 +2,7 @@ import BackgroundTasks
 import XCTest
 @testable import CryptoChecker
 
-/// Ein ganzer Lauf der Hintergrund-Aufgabe (`BackgroundRefresh.handleRefresh`, Review TST-03) mit einer
+/// Ein ganzer Lauf der Hintergrund-Aufgabe (`BackgroundRefresh.handleRefresh`) mit einer
 /// Fälschung statt `BGTask`: Das Ende wird genau einmal gemeldet — im normalen Lauf mit Erfolg, beim Ablauf vor dem Ende
 /// mit `false`, und der Alarm bleibt dann scharf. Die Reihenfolge im `expirationHandler` (abbrechen, melden, danach
 /// Protokoll) prüft `BackgroundExpiryTests`; hier geht es um das Zusammenspiel mit dem Arbeits-Task.
@@ -34,7 +34,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         }
     }
 
-    /// Geteilter Zustand vor dem Test (Review TST2-04).
+    /// Geteilter Zustand vor dem Test.
     private struct SavedState {
         var lastAlarmCheckAt: Int64
         var lastRefreshAt: Int64
@@ -220,7 +220,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         XCTAssertEqual(task.completions, [true])
     }
 
-    /// Review IOS2-R03: Läuft die Zeit nach dem Speichern der Kurse, aber vor dem Melden ab, wird nichts
+    /// Läuft die Zeit nach dem Speichern der Kurse, aber vor dem Melden ab, wird nichts
     /// mehr gemeldet — genau ein Ende mit `false`, der Kurs bleibt gespeichert, der Alarm scharf.
     func testExpiryAfterSavingBeforeDeliveringShowsNothing() async throws {
         try insertArmedAlarm()
@@ -254,7 +254,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         XCTAssertEqual(task.completions, [true])
     }
 
-    /// Review IOS3-R01: Ablauf nach dem Speichern der Zusatzdaten-Alarme → kein Melden, kein Vermerk,
+    /// Ablauf nach dem Speichern der Zusatzdaten-Alarme → kein Melden, kein Vermerk,
     /// genau ein Ende mit `false`, der Alarm bleibt scharf.
     func testExpiryAfterSavingExtraAlarmsShowsNothing() async throws {
         try insertArmedAlarm()
@@ -293,7 +293,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         XCTAssertEqual(task.completions, [true])
     }
 
-    /// Review IOS3-R01: Ablauf während der Melde-Schleife — die Meldung des ersten Alarms löst ihn
+    /// Ablauf während der Melde-Schleife — die Meldung des ersten Alarms löst ihn
     /// aus, der zweite wird nicht mehr gemeldet und bleibt scharf (wie Android `ensureActive` je Alarm).
     func testExpiryDuringDeliveryLoopStopsBeforeSecondAlarm() async throws {
         guard !QuietHours.holdsAlarmsNow(SharedStorage.loadSettings()) else {

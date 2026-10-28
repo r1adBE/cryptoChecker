@@ -23,7 +23,7 @@ enum class PortfolioAccess {
  */
 object PortfolioLockPolicy {
 
-    /** Länger im Hintergrund → beim Zurückkehren wieder sperren (wie bisher die App-Sperre). */
+    /** Länger im Hintergrund → beim Zurückkehren wieder sperren. */
     const val BACKGROUND_LIMIT_MILLIS = 60_000L
 
     /**
@@ -63,10 +63,7 @@ object PortfolioLockPolicy {
     /** Sichern verlangt Entsperren, wenn die Datei Portfolio-Daten enthält und gesperrt ist. */
     fun backupExportNeedsUnlock(locked: Boolean, hasPortfolioData: Boolean): Boolean = locked && hasPortfolioData
 
-    /**
-     * Wiederherstellen verlangt Entsperren, solange gesperrt: Eine Sicherung kann die Sperre
-     * ausschalten und dabei (ältere Sicherungen ohne Portfolio) das bestehende stehen lassen.
-     */
+    /** Wiederherstellen verlangt Entsperren, solange gesperrt (die Sicherung kann die Sperre ausschalten). */
     fun restoreNeedsUnlock(locked: Boolean): Boolean = locked
 
     /** Ausschalten der Sperre verlangt Entsperren, solange gesperrt (sonst wäre sie über die Einstellungen zu umgehen). */
@@ -107,7 +104,7 @@ object PortfolioLockPolicy {
      * Vor Android 13 ([sdkInt] < 33, ohne `setRecentsScreenshotEnabled`) mit Sperre auf jedem Bildschirm: Beträge
      * stehen auch ausserhalb des Portfolios (Alarm-Übersicht mit Portfolio-Alarmen, Widget-Einstellungen …), und
      * nur FLAG_SECURE hält sie dort aus dem Vorschaubild. Ab 13 verdeckt `MainActivity` das Vorschaubild mit der
-     * Sperre ohnehin; ohne Sperre bleibt alles wie bisher (nur Portfolio-Bildschirme, und die nur mit Sperre).
+     * Sperre ohnehin; ohne Sperre gilt: nur Portfolio-Bildschirme, und die nur mit Sperre.
      */
     fun secureWindow(lockSetting: Boolean, portfolioVisible: Boolean, sdkInt: Int): Boolean =
         lockSetting && (portfolioVisible || sdkInt < RECENTS_SCREENSHOT_API)

@@ -87,7 +87,7 @@ enum CurrencyConversion {
     /// Stablecoin-Regel der «≈ Umrechnung» wie das Portfolio (`PortfolioStables`): USD genau 1; USDT sein
     /// Marktkurs USDT/USD `usdtUsd` (ohne Kurs 1, `PortfolioStables.usdtUsd`); jeder andere Stablecoin sein
     /// Marktkurs in USDT `marketUsdt` × USDT/USD; ohne gültigen Kurs nil (kein ≈-Wert statt eines stillen 1).
-    /// Ohne Kürzel gilt USD. `usdtUsd` nil = USDT gilt 1 USD (bisherige Rechnung). Wie Android.
+    /// Ohne Kürzel gilt USD. `usdtUsd` nil = USDT gilt 1 USD. Wie Android.
     static func stableToUsd(_ code: String?, marketUsdt: Double?, usdtUsd: Double? = nil) -> Double? {
         let c = normalize(code)
         if c.isEmpty || c == "USD" { return 1 }
@@ -96,7 +96,7 @@ enum CurrencyConversion {
         return m * usdtFactor(usdtUsd)
     }
 
-    /// USDT in USD für die Umrechnung: `usdtUsd` (plausibel) oder 1; nil = 1 (bisherige Rechnung).
+    /// USDT in USD für die Umrechnung: `usdtUsd` (plausibel) oder 1; nil = 1.
     private static func usdtFactor(_ usdtUsd: Double?) -> Double {
         guard let usdtUsd else { return 1 }
         return PortfolioStables.usdtUsdLive(usdtUsd).rate
@@ -176,15 +176,15 @@ enum CurrencyConversion {
 /// ohne Faktor, alles andere als Krypto über den USDT-Kurs der `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Krypto- und
 /// Stablecoin-Kurse älter als `CurrencyConversion.quoteMaxAgeMillis` ergeben keinen Faktor (`freshMarket`). Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung,
 /// Hintergrund) sie braucht; beide Quellen haben eigene Zwischenspeicher.
-/// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
-/// (`DepegAlarmCheck.liveUsdtUsd`, gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1 (bisherige Rechnung).
+/// USDT zum Marktkurs: USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
+/// (`DepegAlarmCheck.liveUsdtUsd`, gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1.
 enum CurrencyConverter {
 
-    /// Live-Kurs USDT/USD (`DepegAlarmCheck.liveUsdtUsd`); nil = keiner (USDT gilt 1, bisherige Rechnung).
+    /// Live-Kurs USDT/USD (`DepegAlarmCheck.liveUsdtUsd`); nil = keiner (USDT gilt 1).
     private static func liveUsdtUsd() -> Double? { DepegAlarmCheck.liveUsdtUsd() }
 
     /// Einheiten der Ziel-Stablecoin-Währung `code` je USD: USDT = 1 ÷ USDT/USD (Marktkurs, ohne Messung 1); USD und
-    /// andere Stablecoins 1 (wie bisher). Wie Android `usdToStable`.
+    /// andere Stablecoins 1. Wie Android `usdToStable`.
     private static func usdToStable(_ code: String) -> Double {
         guard code == "USDT" else { return 1 }
         return 1 / (CurrencyConversion.stableToUsd("USDT", marketUsdt: nil, usdtUsd: liveUsdtUsd()) ?? 1)

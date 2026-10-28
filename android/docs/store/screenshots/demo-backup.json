@@ -16,7 +16,8 @@
       "ttsEnabled": false,
       "favorite": false,
       "group": "Layer 1",
-      "note": "Ø 77 500 USDT"
+      "note": "Ø 77 500 USDT",
+      "disabled": false
     },
     {
       "id": 2,
@@ -31,7 +32,8 @@
       "ttsEnabled": false,
       "favorite": false,
       "group": "Layer 1",
-      "note": null
+      "note": null,
+      "disabled": false
     },
     {
       "id": 3,
@@ -46,7 +48,8 @@
       "ttsEnabled": false,
       "favorite": false,
       "group": "Layer 1",
-      "note": null
+      "note": null,
+      "disabled": false
     }
   ],
   "alarms": [
@@ -81,25 +84,45 @@
     "ttsSpeechRate": 1.0,
     "alarmCooldownMinutes": 0,
     "includeRollingFutures": false,
+    "assetScope": "TOKENS",
+    "includeAlphaTokens": true,
     "accentColor": "ORANGE",
     "darkMode": false,
     "fearGreedBelow": 0,
+    "indicatorAlerts": {},
     "fearGreedAbove": 0,
     "gasAlertEthTenths": 0,
     "gasAlertBtc": 0,
+    "depegAlarm": false,
+    "depegThresholdTenths": 5,
     "activityAlerts": false,
+    "activitySensitivity": "NORMAL",
+    "macroNotifications": false,
     "portfolioEnabled": true,
     "portfolioCurrency": "CHF",
     "showConverted": true,
     "priceColorScheme": "CALM",
     "watchlistSparkline": true,
+    "watchlistNames": false,
+    "appIconBadge": true,
+    "watchlistActivityCard": true,
+    "coinLogos": true,
+    "widgetCoinLogos": false,
+    "portfolioCoinLogos": true,
+    "changeBasis": "ROLLING_24H",
     "highContrast": false,
+    "priceColorsInverted": false,
+    "alarmSignal": "SYSTEM",
     "quietHoursEnabled": false,
     "quietHoursStart": 1380,
     "quietHoursEnd": 420,
     "appLock": false,
-    "includeAlphaTokens": true,
-    "watchlistNames": false
+    "hidePortfolioAmounts": false,
+    "portfolioSystemBackup": false,
+    "costMethod": "FIFO",
+    "taxTemplate": "NEUTRAL",
+    "watchlistColumnSort": null,
+    "addressServerBtc": null
   },
   "portfolio": [
     {
@@ -109,7 +132,26 @@
       "amountText": "10",
       "priceText": "165",
       "time": 1754049600000,
-      "note": null
+      "note": null,
+      "feeText": null,
+      "feeUnit": null,
+      "exchange": null,
+      "transferFrom": null,
+      "transferTo": null,
+      "feeCoin": null,
+      "feeCoinAmountText": null,
+      "feeCoinPriceText": null,
+      "importKey": null,
+      "acquiredTime": null,
+      "toCoin": null,
+      "toAmountText": null,
+      "swapValueText": null,
+      "importBatch": null,
+      "giftToSpouse": false,
+      "linkedImportKey": null,
+      "importRestoreState": null,
+      "feeRow": false,
+      "interest": false
     },
     {
       "id": 2,
@@ -118,7 +160,26 @@
       "amountText": "1.2",
       "priceText": "2400",
       "time": 1750420800000,
-      "note": null
+      "note": null,
+      "feeText": null,
+      "feeUnit": null,
+      "exchange": null,
+      "transferFrom": null,
+      "transferTo": null,
+      "feeCoin": null,
+      "feeCoinAmountText": null,
+      "feeCoinPriceText": null,
+      "importKey": null,
+      "acquiredTime": null,
+      "toCoin": null,
+      "toAmountText": null,
+      "swapValueText": null,
+      "importBatch": null,
+      "giftToSpouse": false,
+      "linkedImportKey": null,
+      "importRestoreState": null,
+      "feeRow": false,
+      "interest": false
     },
     {
       "id": 1,
@@ -127,7 +188,28 @@
       "amountText": "0.05",
       "priceText": "77500",
       "time": 1744113600000,
-      "note": null
+      "note": null,
+      "feeText": null,
+      "feeUnit": null,
+      "exchange": null,
+      "transferFrom": null,
+      "transferTo": null,
+      "feeCoin": null,
+      "feeCoinAmountText": null,
+      "feeCoinPriceText": null,
+      "importKey": null,
+      "acquiredTime": null,
+      "toCoin": null,
+      "toAmountText": null,
+      "swapValueText": null,
+      "importBatch": null,
+      "giftToSpouse": false,
+      "linkedImportKey": null,
+      "importRestoreState": null,
+      "feeRow": false,
+      "interest": false
     }
-  ]
+  ],
+  "portfolioAlarms": [],
+  "watchedAddresses": []
 }

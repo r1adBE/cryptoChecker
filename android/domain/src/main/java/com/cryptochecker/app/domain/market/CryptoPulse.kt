@@ -34,7 +34,7 @@ data class PulseInput(
     val marketCapUsd: Double? = null,
     /** Veränderung der Marktkapitalisierung über 24 h in %. */
     val marketCap24h: Double? = null,
-    /** «Gewinner und Verlierer 24 h» aus derselben Rangliste ([MarketMovers]); null = unbekannt (älterer Stand). */
+    /** «Gewinner und Verlierer 24 h» aus derselben Rangliste ([MarketMovers]); null = unbekannt (Rangliste nicht geladen). */
     val movers: MarketMoversResult? = null,
 )
 

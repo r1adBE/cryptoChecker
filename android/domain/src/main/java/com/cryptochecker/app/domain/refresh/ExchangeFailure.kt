@@ -6,8 +6,8 @@ package com.cryptochecker.app.domain.refresh
  * ([com.cryptochecker.app.domain.model.ExchangeTickerResult], [com.cryptochecker.app.domain.model.BulkTickers],
  * [Fetched]); gespeichert wird weiterhin nur der Text ([StoredError.sanitize]).
  *
- * Warum neben dem Text: Die Einordnung ([RefreshReportLogic.classify]) suchte bisher Stichwörter («ssl», «eof»,
- * «timeout» …) im Text — und Ausnahmetexte enthalten Hosts, Server-Antworten und Klassennamen. Mit der Art
+ * Warum neben dem Text: Die Einordnung ([RefreshReportLogic.classify]) nur über Stichwörter («ssl», «eof»,
+ * «timeout» …) im Text wäre unsicher — Ausnahmetexte enthalten Hosts, Server-Antworten und Klassennamen. Mit der Art
  * entscheidet der Typ; die Stichwortsuche bleibt nur für Texte ohne Art (gespeicherte ältere Fehler, eigene
  * Marker, Meldungen der Börse). Reines Kotlin, gespiegelt in `ExchangeFailure.swift`.
  */
@@ -18,7 +18,7 @@ sealed interface ExchangeFailure {
     /** Keine Verbindung: Host unbekannt, Verbindung abgelehnt/abgebrochen, Netz weg. */
     data object Offline : ExchangeFailure
 
-    /** TLS/SSL gescheitert (Zertifikat, Handschlag) — zählt wie bisher als «kein Netz». */
+    /** TLS/SSL gescheitert (Zertifikat, Handschlag) — zählt als «kein Netz». */
     data object Ssl : ExchangeFailure
 
     /** HTTP-Fehlercode ohne Bremse (z. B. 400, 404, 500). */
@@ -44,7 +44,7 @@ sealed interface ExchangeFailure {
 /**
  * Ursache für Bericht, Pause und Anzeige; null = die Art legt sie nicht fest, dann entscheidet der Text
  * ([RefreshReportLogic.classify] mit Stichwörtern). Parse, Message und Other tragen ihre Aussage im Text (die
- * Meldung der Börse, eine eigene Kennung wie «Parsed ticker has no data»): dort bleibt die Einordnung wie bisher.
+ * Meldung der Börse, eine eigene Kennung wie «Parsed ticker has no data»): dort entscheidet der Text.
  */
 fun ExchangeFailure.refreshFailure(): RefreshFailure? = when (this) {
     ExchangeFailure.Timeout -> RefreshFailure.TIMEOUT

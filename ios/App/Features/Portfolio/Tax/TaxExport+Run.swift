@@ -8,7 +8,7 @@ extension TaxExport {
     /// Veräusserungen einer Vorlage, EINMAL je Export gerechnet (`TaxEngines.disposals` ohne Devisenkurs, alle Jahre):
     /// daraus die Devisenspanne (`span`, wie `fxSpan`) und die Zeilen (`gainRows`, wie `TaxExport.gainRows`). Der
     /// Devisenkurs `fx` wirkt nur in der CA-Rechnung (Superficial Loss in CAD); dort hängen die Kurse von der Spanne ab,
-    /// darum rechnet `gainRows` für `.CA_ACB` ein zweites Mal mit den Kursen — wie bisher. Alle anderen Vorlagen nutzen
+    /// darum rechnet `gainRows` für `.CA_ACB` ein zweites Mal mit den Kursen. Alle anderen Vorlagen nutzen
     /// die eine Rechnung für beides.
     struct GainsRun {
         let trades: [PortfolioTx]

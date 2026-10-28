@@ -1,6 +1,6 @@
 import Foundation
 
-/// Live-Kurse per WebSocket für die SICHTBARE Merkliste (Runde 31) — wie `LivePriceStream.kt`.
+/// Live-Kurse per WebSocket für die SICHTBARE Merkliste — wie `LivePriceStream.kt`.
 /// Nur solange die App aktiv ist (scenePhase), die Merkliste zu sehen ist, das Gerät online ist
 /// und «Live-Kurse in der App» eingeschaltet ist. Je Börse eine `URLSessionWebSocketTask`
 /// (bei vielen Paaren mehrere, siehe `LivePlanner`); Börsen ohne WebSocket bleiben bei REST.
@@ -189,7 +189,7 @@ actor LivePriceStream {
             if let name = exchangeNames[exchange.exchangeKey] { names.insert(name) }
         }
         let exchanges = names.sorted()
-        // Paare am Live-Strom: abonniert bei einer Börse mit frischen Daten (eigene Frische-Schwelle, K-1)
+        // Paare am Live-Strom: abonniert bei einer Börse mit frischen Daten (eigene Frische-Schwelle)
         var liveIds = Set<Int64>()
         for (exchange, at) in lastDataAt where now - at <= LiveRules.freshMillis {
             for ids in (watchIds[exchange] ?? [:]).values { liveIds.formUnion(ids) }

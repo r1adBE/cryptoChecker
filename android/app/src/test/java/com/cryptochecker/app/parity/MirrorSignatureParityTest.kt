@@ -29,7 +29,7 @@ class MirrorSignatureParityTest {
         assertEquals(data["signatureFile"], MirrorManifest.SIGNATURE_FILE)
         assertEquals(DataMirror.BASE + MirrorManifest.FILE, MirrorManifest.URL)
         assertNotEquals(testKey, MirrorManifest.PUBLIC_KEY)
-        // F-29: Reserve-Schlüssel eingebaut, verschieden vom aktiven und vom Test-Schlüssel
+        // Reserve-Schlüssel eingebaut, verschieden vom aktiven und vom Test-Schlüssel
         assertEquals(data["productionReservePublicKey"], MirrorManifest.RESERVE_PUBLIC_KEY)
         assertEquals(listOf(MirrorManifest.PUBLIC_KEY, MirrorManifest.RESERVE_PUBLIC_KEY), MirrorManifest.PUBLIC_KEYS)
         assertNotEquals(MirrorManifest.PUBLIC_KEY, MirrorManifest.RESERVE_PUBLIC_KEY)

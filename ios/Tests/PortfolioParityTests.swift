@@ -302,7 +302,7 @@ final class PortfolioParityTests: XCTestCase {
         }
     }
 
-    /// M-4: EINE Tagesgrenze (UTC) — «7 T» und Wertverlauf zählen einen Kauf um Mitternacht gleich.
+    /// EINE Tagesgrenze (UTC) — «7 T» und Wertverlauf zählen einen Kauf um Mitternacht gleich.
     func testDayBoundary() throws {
         let cases = TestSupport.list(try TestSupport.fixture("portfolio")["dayBoundary"])
         XCTAssertGreaterThanOrEqual(cases.count, 2)
@@ -310,16 +310,13 @@ final class PortfolioParityTests: XCTestCase {
             let name = c["name"] as? String ?? ""
             let trades = (c["trades"] as? [Any] ?? []).map(trade)
             let today = Int(TestSupport.number(c["today"]) ?? 0)
-            let zone = TimeZone(identifier: c["zone"] as? String ?? "UTC")!
             let e = c["expected"] as? [String: Any] ?? [:]
             let gain = PortfolioPeriodChange.gain(trades: trades, current: prices(c["current"]), closes: series(c["closes"]),
                                                   baseDay: Int(TestSupport.number(c["baseDay"]) ?? 0))
             near("\(name) gain", TestSupport.number(e["gain"]), gain?.amount)
             near("\(name) percent", TestSupport.number(e["percent"]), gain?.percent)
-            // Lokales Tagesende des Aufrufers zählt für die Zuordnung nicht (UTC-Tage)
             let history = PortfolioHistory.build(trades: trades, closes: series(c["closes"]), livePrices: prices(c["current"]),
-                                                 range: .week, todayEpochDay: today,
-                                                 dayEndMillis: { PortfolioHistory.dayEndMillis($0, timeZone: zone) })
+                                                 range: .week, todayEpochDay: today)
             near("\(name) first point", TestSupport.number(e["firstPoint"]), history.points.first?.value)
             near("\(name) history pnl", TestSupport.number(e["historyPnl"]), history.pnlChange)
             near("\(name) same number", gain?.amount, history.pnlChange)
@@ -464,7 +461,7 @@ final class PortfolioParityTests: XCTestCase {
         }
     }
 
-    /// USDT zum Marktkurs USDT/USD in Fiat (Owner-Entscheid Okt. 2026); ohne Kurs 1, als Näherung markiert.
+    /// USDT zum Marktkurs USDT/USD in Fiat; ohne Kurs 1, als Näherung markiert.
     func testUsdtMarket() throws {
         let m = try TestSupport.fixture("portfolio")["usdtMarket"] as? [String: Any] ?? [:]
         for c in TestSupport.list(m["usdtUsd"]) {

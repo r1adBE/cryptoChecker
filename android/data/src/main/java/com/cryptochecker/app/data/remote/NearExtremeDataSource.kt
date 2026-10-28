@@ -109,7 +109,7 @@ class NearExtremeDataSource @Inject constructor(
                     NearExtreme.Range(r.getDouble("h"), r.getDouble("l")).takeIf { it.isValid }?.let { days to it }
                 }.toMap()
                 require(map.isNotEmpty()) { "keine Zeiträume" }
-                // Ältere Einträge ohne letzten Schluss: neu laden (Kursband-Prüfung braucht ihn)
+                // Einträge ohne letzten Schluss: neu laden (Kursband-Prüfung braucht ihn)
                 val last = o.optDouble("last", Double.NaN).takeIf { it.isFinite() && it > 0.0 } ?: error("ohne letzten Schluss")
                 WindowRanges(o.getString("currency"), map, o.getLong("at"), last, o.optString("provider").ifBlank { null })
             },

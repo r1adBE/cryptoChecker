@@ -97,4 +97,11 @@
     <string name="portfolio_storage_locked">Hiện không đọc được dữ liệu đã lưu, nên không thể thay đổi. Hãy khởi động lại ứng dụng.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Thiết bị này hiện không cung cấp khóa – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Cảnh báo nền đang tạm dừng. Ứng dụng sẽ thử lại ở lần khởi động tới.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">Không khôi phục “Máy chủ riêng cho địa chỉ” – bản sao lưu không mã hóa không thể thay đổi nó.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">Đã xóa “Máy chủ riêng cho địa chỉ” như trong bản sao lưu – địa chỉ Bitcoin lại được truy vấn ở nút công khai.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">Đã thay “Máy chủ riêng cho địa chỉ” bằng máy chủ trong bản sao lưu.</string>
 </resources>

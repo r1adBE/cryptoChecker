@@ -97,7 +97,7 @@ final class TaxExportWindowTests: XCTestCase {
             XCTAssertEqual(r.proceedsTarget, dec(e["proceedsTarget"]), "\(label) proceeds")
             XCTAssertFalse(r.fxMissing, "\(label) noFx")
         }
-        // Wie früher (Kurse nur bis zum Ende des Steuerjahrs): Zugänge nach dem 5. April ohne Devisenkurs
+        // Mit Kursen nur bis zum Ende des Steuerjahrs: Zugänge nach dem 5. April ohne Devisenkurs
         let truncated = rates(d).filter { $0.key <= period.end.epochDay }
         let old = TaxExport.gainRows(txs, method: .UK_POOL, period: period, timeZone: zone, currency: currency,
                                      rates: truncated, priceAt: priceAt(d), rules: TaxTemplate.UK.eventRules)

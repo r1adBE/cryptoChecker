@@ -10,7 +10,7 @@ final class AlarmCreateGuardTests: XCTestCase {
         XCTAssertTrue(guardState.used)
     }
 
-    /// IOS6-01: Bearbeiten sperrt ebenfalls; «Abbrechen» in der Rückfrage gibt wieder frei.
+    /// Bearbeiten sperrt ebenfalls; «Abbrechen» in der Rückfrage gibt wieder frei.
     func testBearbeitenSperrtBisAbbrechen() {
         var guardState = AlarmCreateGuard()
         XCTAssertTrue(guardState.begin(creating: false))

@@ -17,12 +17,6 @@ object RestoreRecoveryPolicy {
     enum class Decision { ROLL_BACK, GIVE_UP }
 
     /**
-     * Zeitpunkt des Journals: [stored] aus dem Inhalt, sonst die Änderungszeit der Datei [fileModified]
-     * (Journale älterer Versionen; die Datei wird nur einmal geschrieben). ≤ 0 = unbekannt.
-     */
-    fun createdAt(stored: Long, fileModified: Long): Long = if (stored > 0) stored else fileModified
-
-    /**
      * [attemptedFor] = Zeitpunkt des Journals, für das ein früherer Start schon zurückrollen wollte (gescheitert) oder
      * aufgab; null = noch keiner. Unbekanntes Alter: nicht zurückrollen — lieber den Stand stehen lassen als womöglich
      * neuere Änderungen überschreiben.

@@ -152,7 +152,7 @@ internal fun PreciseSelection(
     }
 }
 
-/** Runde 13b: Börse fehlt? → GitHub-Vorlage «Exchange request». */
+/** Börse fehlt? → GitHub-Vorlage «Exchange request». */
 @Composable
 internal fun ExchangeMissingRow() {
     val uriHandler = LocalUriHandler.current

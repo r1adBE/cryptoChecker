@@ -292,4 +292,38 @@
     <string name="settings_price_overlay_needs">فقط همراه با «%1$s» کار می‌کند.</string>
     <string name="settings_price_overlay_grant">اجازه نمایش روی برنامه‌های دیگر</string>
     <string name="price_overlay_close">بستن لایه</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">سرور خودت برای آدرس‌ها</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">فقط بیت‌کوین: سرور خودت که با Esplora یا mempool سازگار است (مثلاً https://node.example/api، گواهی مورد اعتماد عمومی مانند Let\'s Encrypt لازم است). اگر تنظیم شده باشد، آدرس‌های بیت‌کوین و xpub فقط از همان‌جا پرسیده می‌شوند – هرگز از گره‌های عمومی، حتی وقتی سرورت در دسترس نیست. شبکه‌های دیگر همچنان از گره‌های عمومی استفاده می‌کنند. خالی = گره‌های عمومی.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">سرور بیت‌کوین (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">آزمایش</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">در حال آزمایش…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">سرور پاسخ می‌دهد – بلوک %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">پاسخ معتبری نیامد – آدرس و گواهی را بررسی کن</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">در حال استفاده: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">تنظیم نشده – از گره‌های عمومی استفاده می‌شود</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">فقط آدرس‌های https:// مجازند</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">نام کاربری یا گذرواژه در آدرس نباشد</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">بخش ? یا # در آدرس نباشد</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">آدرس سرور معتبر نیست</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">تغییر به گره‌های عمومی؟</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">در این صورت آدرس‌های بیت‌کوین و xpub تو از گره‌های عمومی پرسیده می‌شوند: %1$s. آن‌ها این آدرس‌ها را همراه با آدرس IP تو می‌بینند.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">استفاده از گره‌های عمومی</string>
 </resources>

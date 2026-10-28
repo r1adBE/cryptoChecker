@@ -92,7 +92,7 @@ class WatchlistSheetData @Inject constructor(
         )
     }
 
-    /** Ausweich-Reihe von [provider] beim Paar [watch] erlaubt (kein klarer Namens-Widerspruch, K-8)? */
+    /** Ausweich-Reihe von [provider] beim Paar [watch] erlaubt (kein klarer Namens-Widerspruch)? */
     private fun fallbackSeriesAllowed(watch: WatchEntity, provider: String?): Boolean =
         tokenIdentityStore.fallbackSeriesAllowed(watch.exchangeKey, watch.baseAsset, provider)
 

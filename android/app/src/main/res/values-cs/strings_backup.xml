@@ -106,4 +106,11 @@
     <string name="portfolio_storage_locked">Uložená data teď nelze přečíst, proto změny nejsou možné. Restartuj aplikaci.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Zařízení teď neposkytuje klíč – seznam se neukládá a změny se po zavření aplikace ztratí. Alarmy na pozadí jsou pozastaveny. Aplikace to zkusí znovu při příštím spuštění.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">„Vlastní server pro adresy“ nebyl převzat – nešifrovaná záloha ho nemůže změnit.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">„Vlastní server pro adresy“ byl odebrán jako v záloze – bitcoinové adresy se opět dotazují u veřejných uzlů.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">„Vlastní server pro adresy“ byl nahrazen serverem ze zálohy.</string>
 </resources>

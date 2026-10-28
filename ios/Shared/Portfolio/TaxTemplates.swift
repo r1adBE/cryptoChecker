@@ -213,8 +213,8 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     /// FR rechnet Gebühren in Krypto schon als Abtretung; DE, AT, CH, Neutral unverändert.
     var networkFeeIsDisposal: Bool { self == .UK || self == .US || self == .CA || self == .AU || self == .JP }
 
-    /// Auszahlungsgebühr in USDT bzw. Fiat (`.WITHDRAWAL`-Aufwand) ist kein Verlust, nur Information (Entscheid des Inhabers
-    /// 17.10.2026) — wie Android `quoteFeeIsInfo`: das Feld hält USDT (Fiat-Gebühren umgerechnet); Fiat-Gebühr = keine
+    /// Auszahlungsgebühr in USDT bzw. Fiat (`.WITHDRAWAL`-Aufwand) ist kein Verlust, nur Information
+    /// — wie Android `quoteFeeIsInfo`: das Feld hält USDT (Fiat-Gebühren umgerechnet); Fiat-Gebühr = keine
     /// abziehbaren Kosten, USDT-Gebühr = Veräusserung zum Nennwert ohne Gewinn. UK: HMRC CRYPTO22150 (keine «allowable cost»
     /// für Fiat-Ein-/Auszahlungen); US (IRS digital asset FAQ, § 67(g) IRC), CA (CRA), AU (ATO), JP (国税庁 FAQ): keine Regel,
     /// die sie abziehbar macht — unklar, darum «nicht abziehbar, Information». DE/AT eigener Posten, CH/FR/Neutral Aufwand.

@@ -42,7 +42,7 @@ class CheckBudgetTest {
             ExchangeBackoff.Outcome.TIMEOUT,
             CheckBudget.backoffOutcome(listOf(RefreshFailure.TIMEOUT), updated = 0, cutByBudget = 1),
         )
-        // Ohne Budget unverändert wie bisher
+        // Ohne Budget unverändert
         assertEquals(ExchangeBackoff.Outcome.SUCCESS, CheckBudget.backoffOutcome(emptyList(), updated = 0, cutByBudget = 0))
         assertEquals(CheckBudget.TIMEOUT_ERROR.let(RefreshReportLogic::classify), RefreshFailure.TIMEOUT)
     }

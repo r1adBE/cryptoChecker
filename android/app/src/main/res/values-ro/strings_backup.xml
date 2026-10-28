@@ -103,4 +103,11 @@
     <string name="portfolio_storage_locked">Datele salvate nu pot fi citite acum, așa că modificările nu sunt posibile. Repornește aplicația.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Acest dispozitiv nu oferă acum o cheie – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Alarmele din fundal sunt întrerupte. Aplicația va încerca din nou la următoarea pornire.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">„Server propriu pentru adrese” nu a fost preluat – o copie necriptată nu îl poate schimba.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">„Server propriu pentru adrese” a fost eliminat ca în copie – adresele Bitcoin sunt din nou interogate la noduri publice.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">„Server propriu pentru adrese” a fost înlocuit cu cel din copie.</string>
 </resources>

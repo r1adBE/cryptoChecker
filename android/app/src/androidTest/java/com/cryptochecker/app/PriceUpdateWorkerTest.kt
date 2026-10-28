@@ -34,11 +34,11 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Hintergrund-Prüfung von Anfang bis Ende (Review TST-03): Der echte [PriceUpdateWorker] (über die
+ * Hintergrund-Prüfung von Anfang bis Ende: Der echte [PriceUpdateWorker] (über die
  * [HiltWorkerFactory] wie in der App) fragt die Fake-Börse ab ([FakeExchange], kein Netz), wertet den Alarm aus, vermerkt
  * ihn als ausgelöst und postet die Alarm-Mitteilung — ohne Activity, wie ein geplanter WorkManager-Lauf bei
  * geschlossener App. Ergänzt die reinen Regeln (BackgroundWorkPolicyTest, JVM) und den Vordergrund-Weg (CoreFlowTest).
- * Review TST2-03: Ein geplanter Lauf liefert fast immer `Result.success()` (auch bei Fehlern, siehe
+ * Ein geplanter Lauf liefert fast immer `Result.success()` (auch bei Fehlern, siehe
  * `BackgroundWorkPolicy.outcome`) — das Ergebnis prüft darum der Fall «Merkliste nur leer im Arbeitsspeicher» (retry).
  */
 @HiltAndroidTest
@@ -94,7 +94,7 @@ class PriceUpdateWorkerTest {
             .build()
         worker.doWork()
 
-        // Kein Vergleich mit Result.success(): das liefert ein geplanter Lauf immer (TST2-03)
+        // Kein Vergleich mit Result.success(): das liefert ein geplanter Lauf immer
         val alarm = watchRepository.observeAlarms(watchId).first().single { it.id == alarmId }
         assertTrue("Alarm als ausgelöst vermerkt", alarm.lastTriggeredAt > 0)
         assertEquals(105_000.0, alarm.lastTriggeredPrice ?: 0.0, 0.0)

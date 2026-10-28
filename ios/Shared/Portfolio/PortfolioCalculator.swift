@@ -116,7 +116,7 @@ enum PortfolioCalculator {
         let priceExact: Decimal? = price.flatMap { PortfolioDecimal.of($0) }
         let valueExact: Decimal? = priceExact.map { holdings * $0 }
         let value = valueExact.map(PortfolioDecimal.double)
-        // Ganz mit Kaufpreis: ganzer eigener Bestand (wie bisher, Staub inklusive), sonst nur der Teil mit Kaufpreis
+        // Ganz mit Kaufpreis: ganzer eigener Bestand (Staub inklusive), sonst nur der Teil mit Kaufpreis
         let pricedBase: Decimal = priceMissing ? pricedHoldings : ledgerHoldings
         let pricedValueExact: Decimal? = priceExact.map { pricedBase * $0 }
         var unrealizedExact: Decimal?

@@ -1,6 +1,6 @@
 import SwiftUI
 
-// «Letzte Aktualisierung» (Runde 22) — wie `RefreshReportSheet.kt`: oben der Gesamtstatus,
+// «Letzte Aktualisierung» — wie `RefreshReportSheet.kt`: oben der Gesamtstatus,
 // darunter je Börse eine Zeile mit Status (Farbe UND Form: ✓ / ! / ×), dann der Ablauf.
 
 /// Blatt aus der Merkliste (Menü bzw. Tipp auf den Status).
@@ -8,7 +8,7 @@ struct RefreshReportSheet: View {
     let report: RefreshReport?
     /// App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen); nil = keine Zeile.
     var appStartMillis: Int64? = nil
-    /// Börsen, deren Kurse gerade per WebSocket kommen (Runde 31); leer = keine Zeile.
+    /// Börsen, deren Kurse gerade per WebSocket kommen; leer = keine Zeile.
     var liveExchanges: [String] = []
     @Environment(\.dismiss) private var dismiss
 

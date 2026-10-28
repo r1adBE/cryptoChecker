@@ -93,7 +93,7 @@ object CurrencyConversion {
      * ([com.cryptochecker.app.domain.portfolio.PortfolioStables]): USD genau 1; USDT sein Marktkurs USDT/USD
      * [usdtUsd] (ohne Kurs 1, [com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd]); jeder andere
      * Stablecoin sein Marktkurs in USDT [marketUsdt] × USDT/USD; ohne gültigen Kurs null (kein ≈-Wert statt eines
-     * stillen 1). Ohne Kürzel gilt USD. [usdtUsd] null = USDT gilt 1 USD (bisherige Rechnung).
+     * stillen 1). Ohne Kürzel gilt USD. [usdtUsd] null = USDT gilt 1 USD.
      */
     fun stableToUsd(code: String?, marketUsdt: Double?, usdtUsd: Double? = null): Double? {
         val c = normalize(code)
@@ -102,7 +102,7 @@ object CurrencyConversion {
         return marketUsdt?.takeIf { it.isValidRate() }?.let { it * usdtFactor(usdtUsd) }
     }
 
-    /** USDT in USD für die Umrechnung: [usdtUsd] (plausibel) oder 1; null = 1 (bisherige Rechnung). */
+    /** USDT in USD für die Umrechnung: [usdtUsd] (plausibel) oder 1; null = 1. */
     private fun usdtFactor(usdtUsd: Double?): Double =
         if (usdtUsd == null) 1.0 else com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsdLive(usdtUsd).rate
 

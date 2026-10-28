@@ -2,8 +2,11 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.BackupRestoreLimits
 import com.cryptochecker.app.data.BackupWatchlistCodec
+import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.local.model.NOTE_MAX
+import com.cryptochecker.app.data.local.model.WatchEntity
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -114,14 +117,12 @@ class BackupRestoreLimitsParityTest {
         for (id in 1L..c["pairs"].num()!!.toLong()) {
             val base = "B${sameAs[id] ?: id}"
             watches.put(
-                JSONObject()
-                    .put("id", id)
-                    .put("exchangeKey", "Binance")
-                    .put("exchangeName", "Binance")
-                    .put("baseAsset", base)
-                    .put("quoteAsset", "USDT")
-                    .put("contractType", "NONE")
-                    .put("pairId", if (id in invalid) "$base USDT" else "${base}USDT")
+                BackupWatchlistCodec.watchToJson(
+                    WatchEntity(
+                        id = id, exchangeKey = "Binance", exchangeName = "Binance", baseAsset = base, quoteAsset = "USDT",
+                        pairId = if (id in invalid) "$base USDT" else "${base}USDT",
+                    ),
+                ),
             )
         }
         val alarms = JSONArray()
@@ -129,7 +130,11 @@ class BackupRestoreLimitsParityTest {
         for (spec in c["alarms"].list()) {
             val (watchId, count) = spec.list().map { it.num()!!.toLong() }
             repeat(count.toInt()) {
-                alarms.put(JSONObject().put("id", ++alarmId).put("watchId", watchId).put("condition", "PRICE_ABOVE").put("threshold", 1.0))
+                alarms.put(
+                    BackupWatchlistCodec.alarmToJson(
+                        AlarmEntity(id = ++alarmId, watchId = watchId, condition = AlarmCondition.PRICE_ABOVE, threshold = 1.0),
+                    ),
+                )
             }
         }
         return JSONObject().put("watches", watches).put("alarms", alarms)

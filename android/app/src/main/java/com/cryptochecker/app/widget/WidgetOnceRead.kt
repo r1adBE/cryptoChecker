@@ -5,7 +5,7 @@ import kotlinx.coroutines.CancellationException
 /**
  * Liest höchstens EINMAL ([read]) und gibt danach immer dasselbe Ergebnis — so lesen Kopf, Zeilen und Leer-Hinweis
  * aller Listen-Widgets eines Zeichnens dieselben Paare aus einer Abfrage statt je Widget drei. Schlägt das Lesen fehl,
- * wirft jeder Abruf dieselbe Ausnahme (wie jedes einzelne Lesen bisher); ein Abbruch wird nicht gemerkt. Nicht
+ * wirft jeder Abruf dieselbe Ausnahme (wie jedes einzelne Lesen); ein Abbruch wird nicht gemerkt. Nicht
  * threadsicher: ein Zeichnen nach dem anderen (Sperre des Zeichnens).
  */
 internal class WidgetOnceRead<T : Any>(private val read: suspend () -> T) {

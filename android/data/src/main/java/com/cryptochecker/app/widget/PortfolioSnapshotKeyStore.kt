@@ -69,7 +69,7 @@ class PortfolioSnapshotKeyStore(private val alias: String = ALIAS) : PortfolioSn
         this is KeyPermanentlyInvalidatedException || this is UnrecoverableKeyException || cause?.isPermanent() == true
 
     companion object {
-        const val ALIAS = "cryptochecker_widget_key_v1"
+        const val ALIAS = "cryptochecker_widget_key"
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
         private const val ATTEMPTS = 3
         private const val RETRY_DELAY_MILLIS = 150L

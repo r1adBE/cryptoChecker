@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Lesbare Höchstbreite des Inhalts auf breiten Bildschirmen (iPad, Querformat):
-/// Karten laufen nicht mehr über die ganze Breite, sondern stehen mittig.
+/// Karten laufen nicht über die ganze Breite, sondern stehen mittig.
 /// Hintergründe und die Scroll-Fläche bleiben voll breit. Wie Android `ReadableWidth.kt`.
 enum ReadableWidth {
     static let max: CGFloat = 640

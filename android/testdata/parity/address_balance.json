@@ -1343,7 +1343,7 @@
     ]
   },
   "portfolioMerge": {
-    "_comment": "Adress-Guthaben im Rechner: withAddresses haengt je Coin eine Einzahlung ohne Kaufpreis an (Id -1 BTC, -2 ETH, datiert auf heldSince), der Rechner zaehlt sie als EIGENEN Teil (addressHoldings): Gesamtwert mit, Einstand/Seit Kauf/realisiert nur aus den eigenen Transaktionen (vorher: ganzer Coin ohne Kaufpreis, Seit Kauf null). Zeitraeume/Verlauf lassen Adress-Eintraege weg (nie rueckwirkend; vorher 3125 = heutiges Guthaben x Kursaenderung seit dem Stichtag) — nur die beobachtete Reihe 'balanceHistory' zaehlt.",
+    "_comment": "Adress-Guthaben im Rechner: withAddresses haengt je Coin eine Einzahlung ohne Kaufpreis an (Id -1 BTC, -2 ETH, datiert auf heldSince), der Rechner zaehlt sie als EIGENEN Teil (addressHoldings): Gesamtwert mit, Einstand/Seit Kauf/realisiert nur aus den eigenen Transaktionen (nicht der ganze Coin ohne Kaufpreis). Zeitraeume/Verlauf lassen Adress-Eintraege weg (nie rueckwirkend; nicht 3125 = heutiges Guthaben x Kursaenderung seit dem Stichtag) — nur die beobachtete Reihe 'balanceHistory' zaehlt.",
     "todayUtcDay": 20000,
     "addresses": [
       {
@@ -2614,7 +2614,7 @@
     "_comment": "Schritte nacheinander mit WatchedAddressRules.applyFetched. history = Eintraege fuer USDT und LINK aus AddressBalanceHistory.trades(of([Zustand nach Schritt 2])) (Reihenfolge der Reihen: ETH, dann Token nach Liste)."
   },
   "gapScan": {
-    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20 (vorher 5), hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette. Hintergrund (BACKGROUND): bekannte benutzte + die naechsten backgroundLookahead (2) je Kette; complete = hinter der neusten benutzten jeder Kette eine unbenutzte gefragt (fehlt = true). keepBackground: unvollstaendiges Hintergrund-Ergebnis nur, wenn nicht unter dem gespeicherten Guthaben (BTC; null = nie). fullEstimate (F-16): Mindestzahl Anfragen einer vollstaendigen Suche = je Kette hoechster benutzter Index + 1 + gap (ohne benutzte: gap); modeFor waehlt bei faelliger vollstaendiger Suche mit Zwischenspeicher QUICK, wenn das ueber maxRequests liegt (cache.usedReceive/usedChange optional).",
+    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20, hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette. Hintergrund (BACKGROUND): bekannte benutzte + die naechsten backgroundLookahead (2) je Kette; complete = hinter der neusten benutzten jeder Kette eine unbenutzte gefragt (fehlt = true). keepBackground: unvollstaendiges Hintergrund-Ergebnis nur, wenn nicht unter dem gespeicherten Guthaben (BTC; null = nie). fullEstimate: Mindestzahl Anfragen einer vollstaendigen Suche = je Kette hoechster benutzter Index + 1 + gap (ohne benutzte: gap); modeFor waehlt bei faelliger vollstaendiger Suche mit Zwischenspeicher QUICK, wenn das ueber maxRequests liegt (cache.usedReceive/usedChange optional).",
     "gap": 20,
     "lookahead": 20,
     "maxRequests": 400,
@@ -4646,7 +4646,7 @@
         }
       },
       {
-        "name": "schnell, 450 bekannte benutzte, 440 davon leer: unter der Anfragen-Grenze (vorher zu viele)",
+        "name": "schnell, 450 bekannte benutzte, 440 davon leer: unter der Anfragen-Grenze",
         "mode": "QUICK",
         "cache": {
           "usedReceive": [
@@ -10657,7 +10657,7 @@
         "mode": null
       },
       {
-        "_comment": "F-16: fällige vollständige Suche sicher über maxRequests (fullEstimate 401) → schnell",
+        "_comment": "Fällige vollständige Suche sicher über maxRequests (fullEstimate 401) → schnell",
         "cache": {
           "fullScan": 1000,
           "usedReceive": [
@@ -11992,7 +11992,7 @@
         "autoShowOnly": false
       },
       {
-        "name": "[R12] within ±5 % (1.53 booked vs 1.5 on chain — fees/dust): ETH matches, tokens do not — keeps counting",
+        "name": "within ±5 % (1.53 booked vs 1.5 on chain — fees/dust): ETH matches, tokens do not — keeps counting",
         "address": 0,
         "trades": [
           {
@@ -12010,7 +12010,7 @@
         "autoShowOnly": false
       },
       {
-        "name": "[R12] more than 5 % apart (1.6 vs 1.5) — keeps counting (soft hint only)",
+        "name": "more than 5 % apart (1.6 vs 1.5) — keeps counting (soft hint only)",
         "address": 0,
         "trades": [
           {
@@ -12091,7 +12091,7 @@
         "autoShowOnly": false
       },
       {
-        "name": "[B87] ETH matches, tokens do not (USDC 15 on the address, 1000 USDC booked) — address keeps counting, hint only",
+        "name": "ETH matches, tokens do not (USDC 15 on the address, 1000 USDC booked) — address keeps counting, hint only",
         "address": 0,
         "trades": [
           {

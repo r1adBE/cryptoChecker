@@ -12,15 +12,13 @@ import kotlin.math.roundToInt
  * Erster Tag des Verlaufs: erster Transaktionstag (UTC: kleinster Tag, dessen Ende nicht
  * vor [firstTradeMillis] liegt) oder Beginn des Zeitraums, je nachdem, was später ist;
  * nie nach [todayEpochDay]. «Seit 1. Kauf»: Beginn = erster Transaktionstag, frühestens
- * [DATA_START_EPOCH_DAY]. Tage nach UTC ([utcDayEnd], wie [build]); `dayEndMillis` bleibt für ältere Aufrufer.
+ * [DATA_START_EPOCH_DAY]. Tage nach UTC ([utcDayEnd], wie [build]).
  */
 fun PortfolioHistory.startDay(
     range: PortfolioHistoryRange,
     firstTradeMillis: Long,
     todayEpochDay: Long,
-    @Suppress("UNUSED_PARAMETER") dayEndMillis: (Long) -> Long = { utcDayEnd(it) },
 ): Long {
-    val dayEndMillis: (Long) -> Long = { utcDayEnd(it) }
     var lo = if (range == PortfolioHistoryRange.SINCE_FIRST) {
         // Der lokale Tag liegt höchstens einen Tag neben dem UTC-Tag (Zeitzonen −12 h … +14 h)
         min(todayEpochDay, max(DATA_START_EPOCH_DAY, epochDayOfUtcMillis(firstTradeMillis) - 2))
@@ -30,7 +28,7 @@ fun PortfolioHistory.startDay(
     var hi = todayEpochDay
     while (lo < hi) {
         val mid = lo + (hi - lo) / 2
-        if (dayEndMillis(mid) < firstTradeMillis) lo = mid + 1 else hi = mid
+        if (utcDayEnd(mid) < firstTradeMillis) lo = mid + 1 else hi = mid
     }
     return lo
 }
@@ -40,7 +38,6 @@ fun PortfolioHistory.isCapped(
     range: PortfolioHistoryRange,
     firstTradeMillis: Long,
     todayEpochDay: Long,
-    @Suppress("UNUSED_PARAMETER") dayEndMillis: (Long) -> Long = { utcDayEnd(it) },
 ): Boolean = range == PortfolioHistoryRange.SINCE_FIRST && DATA_START_EPOCH_DAY <= todayEpochDay &&
     firstTradeMillis <= utcDayEnd(DATA_START_EPOCH_DAY - 1)
 
@@ -53,10 +50,9 @@ fun PortfolioHistory.candleDays(
     range: PortfolioHistoryRange,
     firstTradeMillis: Long?,
     todayEpochDay: Long,
-    dayEndMillis: (Long) -> Long,
 ): Int {
     if (range != PortfolioHistoryRange.SINCE_FIRST || firstTradeMillis == null) return MAX_DAYS
-    val start = startDay(range, firstTradeMillis, todayEpochDay, dayEndMillis)
+    val start = startDay(range, firstTradeMillis, todayEpochDay)
     return max(MAX_DAYS, (todayEpochDay - start + 2).toInt())
 }
 

@@ -214,7 +214,7 @@ enum CsvImport {
     }
 
     /// Abgeleiteter Preis bzw. Umrechnung `a / b` mit 34 gültigen Stellen (`PortfolioDecimal.divide`, halbe auf gerade)
-    /// — keine feste Zahl Nachkommastellen: früher 12, das rundete Preise winziger Coins (z. B. 10¹² BABYDOGE für
+    /// — keine feste Zahl Nachkommastellen: 12 etwa rundete Preise winziger Coins (z. B. 10¹² BABYDOGE für
     /// CHF 1234.56 → 1.23456E-9) auf wenige Stellen. Wie Android `CsvImport.derive`.
     static func divide(_ a: Decimal, _ b: Decimal) -> Decimal {
         PortfolioDecimal.divide(a, b)

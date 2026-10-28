@@ -3,8 +3,8 @@ import Foundation
 /// Wertverlauf des Portfolios aus den Transaktionen — Spiegel von `PortfolioHistory.kt`:
 ///  - EINE Tagesgrenze: der UTC-Tag, wie die Tageskerzen und «7 T/1 J». Bestand je Coin und Tag = alle
 ///    Transaktionen bis zum Ende des UTC-Tags (`utcDayEnd`), Zuflüsse auf dem UTC-Tag ihrer Zeit (ein Kauf um 00:30
-///    Zürich-Sommerzeit = 22:30 UTC gehört zum Vortag — sonst Scheingewinn gegenüber «7 T»). `dayEndMillis` der Aufrufer
-///    zählt für die Zuordnung nicht mehr. Verkäufe werden wie in `PortfolioCalculator` beim Bestand gekappt.
+///    Zürich-Sommerzeit = 22:30 UTC gehört zum Vortag — sonst Scheingewinn gegenüber «7 T»).
+///    Verkäufe werden wie in `PortfolioCalculator` beim Bestand gekappt.
 ///  - Wert = Σ Bestand × Tagesschlusskurs (UTC-Tageskerze desselben Kalendertags) × `fxRate`.
 ///    Fehlt an einem Tag die Kerze, gilt der letzte bekannte Schluss davor; vor der ersten
 ///    Kerze zählt der Coin nicht.

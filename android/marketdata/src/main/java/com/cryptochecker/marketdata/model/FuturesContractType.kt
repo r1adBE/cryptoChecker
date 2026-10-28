@@ -49,8 +49,8 @@ enum class FuturesContractType(val value: Int) {
 
         /**
          * Erkennt ein inverses Perpetual an der Kennung der Börse: Binance COIN-M «2:BTCUSD_PERP» (ohne Datum),
-         * OKX «BTC-USD-SWAP», Deribit «BTC-PERPETUAL» (ohne «_»; linear wäre «SOL_USDC-PERPETUAL»), für
-         * [normalized]; die Paarlisten setzen die Art selbst.
+         * OKX «BTC-USD-SWAP», Deribit «BTC-PERPETUAL» (ohne «_»; linear wäre «SOL_USDC-PERPETUAL») — für die
+         * Paarlisten von OKX und Deribit.
          */
         fun isInversePerpetualId(exchangeKey: String, pairId: String?): Boolean {
             val id = pairId?.trim()
@@ -62,17 +62,6 @@ enum class FuturesContractType(val value: Int) {
                 else -> false
             }
         }
-
-        /**
-         * Art an die Paarliste angleichen: ein PERPETUAL mit inverser Kennung wird INVERSE_PERPETUAL, alles
-         * andere bleibt. iOS: `FuturesContractType.normalized`.
-         */
-        fun normalized(exchangeKey: String, pairId: String?, type: FuturesContractType): FuturesContractType =
-            when {
-                type != PERPETUAL -> type
-                isInversePerpetualId(exchangeKey, pairId) -> INVERSE_PERPETUAL
-                else -> type
-            }
 
         /**
          * Verfall als «yyMMdd», wenn die Kennung mit «_» und sechs Ziffern endet («BTCUSDT_251226», COIN-M

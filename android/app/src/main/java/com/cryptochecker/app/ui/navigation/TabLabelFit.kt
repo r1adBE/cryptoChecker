@@ -27,7 +27,7 @@ internal object TabLabelFit {
         return (0..STEPS).map { targetPx - step * it }
     }
 
-    /** Erste Grösse aus [candidates], für die [fits] stimmt; sonst die kleinste (dann «…» wie bisher). */
+    /** Erste Grösse aus [candidates], für die [fits] stimmt; sonst die kleinste (dann «…»). */
     fun pick(candidates: List<Float>, fits: (Float) -> Boolean): Float =
         candidates.firstOrNull(fits) ?: candidates.last()
 }

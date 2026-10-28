@@ -102,14 +102,16 @@ final class BackupRestoreLimitsTests: XCTestCase {
             let base = "B\(sameAs[id] ?? id)"
             return ["id": NSNumber(value: id), "exchangeKey": "Binance", "exchangeName": "Binance", "baseAsset": base,
                     "quoteAsset": "USDT", "contractType": "NONE",
-                    "pairId": invalid.contains(id) ? "\(base) USDT" : "\(base)USDT"]
+                    "pairId": invalid.contains(id) ? "\(base) USDT" : "\(base)USDT", "sortOrder": 0,
+                    "notificationEnabled": false, "ttsEnabled": false, "favorite": false, "group": NSNull(),
+                    "note": NSNull(), "disabled": false]
         }
         var alarms: [[String: Any]] = []
         for spec in c["alarms"] as? [Any] ?? [] {
             let v = ints(spec)
             for _ in 0..<v[1] {
-                alarms.append(["id": NSNumber(value: Int64(alarms.count + 1)), "watchId": NSNumber(value: v[0]),
-                               "condition": "PRICE_ABOVE", "threshold": 1.0])
+                alarms.append(BackupManager.alarmToJson(Alarm(id: Int64(alarms.count + 1), watchId: v[0],
+                                                              condition: .PRICE_ABOVE, threshold: 1.0)))
             }
         }
         return ["watches": watches, "alarms": alarms]

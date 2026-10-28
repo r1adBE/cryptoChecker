@@ -90,7 +90,7 @@ internal fun FirstAlarmDialog(
             }
         },
         confirmButton = {
-            // Ohne Navigation (Vorschau): nur «OK» wie bisher
+            // Ohne Navigation (Vorschau): nur «OK»
             val openDelivery = LocalOpenAlarmDelivery.current
             if (openDelivery != null) {
                 TextButton(onClick = {
@@ -162,7 +162,7 @@ internal fun FiresNowDialog(pending: AlarmDraft, quoteAsset: String, onSave: () 
 }
 
 /**
- * Beispiel im leeren Alarm-Zustand (Übersicht und je Paar, L-18) im Stil der Alarm-Sätze:
+ * Beispiel im leeren Alarm-Zustand (Übersicht und je Paar) im Stil der Alarm-Sätze:
  * «Zum Beispiel: Sag mir Bescheid, wenn BTC über 90’000 steigt.» — Zahl im Format der Sprache.
  * Wie iOS `AlarmsEmptyExample.text`.
  */

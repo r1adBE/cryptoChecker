@@ -68,7 +68,7 @@ internal fun ChangeBadge(label: String, change: Double?, note: String? = null) {
 
 /**
  * «Details anzeigen»: die einzelnen Gründe als Checkliste ✓ / – / ! mit ihrer Erklärung
- * (wie bisher unter «Details»); eingeklappt nur der Knopf.
+ * (unter «Details»); eingeklappt nur der Knopf.
  */
 @Composable
 internal fun ReasonDetails(reasons: List<Reason>, animate: Boolean) {

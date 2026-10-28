@@ -100,4 +100,11 @@
     <string name="portfolio_storage_locked">Τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή, γι\' αυτό δεν είναι δυνατές αλλαγές. Επανεκκίνησε την εφαρμογή.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Η συσκευή δεν παρέχει κλειδί αυτή τη στιγμή – η λίστα δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Οι συναγερμοί στο παρασκήνιο είναι σε παύση. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">Ο «Δικός σου διακομιστής για διευθύνσεις» δεν μεταφέρθηκε – ένα μη κρυπτογραφημένο αντίγραφο δεν μπορεί να τον αλλάξει.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">Ο «Δικός σου διακομιστής για διευθύνσεις» αφαιρέθηκε όπως στο αντίγραφο – οι διευθύνσεις Bitcoin ερωτώνται ξανά σε δημόσιους κόμβους.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">Ο «Δικός σου διακομιστής για διευθύνσεις» αντικαταστάθηκε από αυτόν του αντιγράφου.</string>
 </resources>

@@ -31,7 +31,7 @@ final class PercentCallersTests: XCTestCase {
         XCTAssertEqual(AlarmTexts.signedPercent(0.04, locale: us), "0%")
     }
 
-    /// Open-Interest-Schwellen bis 1000 %: mit Tausendertrennung wie früher `NumberFormatter.percent` («1,000%»),
+    /// Open-Interest-Schwellen bis 1000 %: mit Tausendertrennung wie `NumberFormatter.percent` («1,000%»),
     /// wie Android `AlarmSentenceTest.alarmProzentMitTausendertrennung`.
     func testAlarmProzentMitTausendertrennung() {
         XCTAssertEqual(AlarmTexts.percent(1000, locale: us), "1,000%")
@@ -39,7 +39,7 @@ final class PercentCallersTests: XCTestCase {
         XCTAssertEqual(AlarmTexts.percent(1000, locale: tr), "%1.000")
         XCTAssertEqual(AlarmTexts.signedPercent(1234.5, locale: us), "+1,234.5%")
         XCTAssertEqual(AlarmTexts.fundingPercent(-1500, locale: de), "\u{2212}1.500\u{00A0}%")
-        // ohne grouping (Standard) wie bisher ohne Trennung
+        // ohne grouping (Standard) ohne Trennung
         XCTAssertEqual(PercentText.unsigned(1000, decimals: 2, minDecimals: 0, locale: us), "1000%")
     }
 
@@ -48,7 +48,7 @@ final class PercentCallersTests: XCTestCase {
         XCTAssertEqual(PercentText.unsigned(2.5, decimals: 4, minDecimals: 0, locale: de), "2,5\u{00A0}%")
         XCTAssertEqual(PercentText.unsigned(0.0125, decimals: 4, minDecimals: 0, locale: tr), "%0,0125")
         XCTAssertEqual(PercentText.signed(12.34, decimals: 1, minDecimals: 0, locale: us), "+12.3%")
-        // ohne minDecimals wie bisher genau `decimals` Stellen
+        // ohne minDecimals genau `decimals` Stellen
         XCTAssertEqual(PercentText.unsigned(5, decimals: 2, locale: us), "5.00%")
     }
 
@@ -61,7 +61,7 @@ final class PercentCallersTests: XCTestCase {
         // 0.3 % ist noch eine Veränderung (gerundet «0%»), erst unter 0.005 % «unverändert»
         XCTAssertEqual(A11y.change(0.3, decimals: 0), L("a11y_change_up", PercentText.unsigned(0.3, decimals: 0)))
         XCTAssertEqual(A11y.change(0.004, decimals: 0), L("a11y_change_flat"))
-        // ohne decimals wie bisher zwei Stellen
+        // ohne decimals zwei Stellen
         XCTAssertEqual(A11y.change(1.5), L("a11y_change_up", PercentText.unsigned(1.5, decimals: 2)))
     }
 

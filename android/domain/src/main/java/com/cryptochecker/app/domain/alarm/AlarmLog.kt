@@ -115,7 +115,7 @@ data class AlarmLogEntry(
     val notable: Boolean = false,
     /** Gleiches Ergebnis mehrmals hintereinander: zuletzt gesehen um (0 = nur einmal). */
     val until: Long = 0,
-    /** Wer geprüft hat (App, Hintergrund, pünktlicher Wecker, Widget); null = unbekannt (ältere Einträge). */
+    /** Wer geprüft hat (App, Hintergrund, pünktlicher Wecker, Widget); null = unbekannt. */
     val source: CheckTrigger? = null,
 ) {
     /** Letzte Prüfung dieses Eintrags. */

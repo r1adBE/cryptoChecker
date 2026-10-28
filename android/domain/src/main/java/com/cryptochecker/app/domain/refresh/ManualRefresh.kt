@@ -12,9 +12,9 @@ import com.cryptochecker.app.util.DomainLog
 
 /**
  * Aktualisierung per Knopf bzw. nach unten ziehen in der App: direkt in einer
- * App-weiten Coroutine, nicht mehr über WorkManager. Dort stand der Auftrag als
- * «bevorzugte Arbeit» an — mit aufgebrauchtem Kontingent lief er als gewöhnliche
- * Arbeit und der Kreisel drehte, bevor überhaupt eine Anfrage ins Netz ging.
+ * App-weiten Coroutine, nicht über WorkManager. Dort stünde der Auftrag als
+ * «bevorzugte Arbeit» an — mit aufgebrauchtem Kontingent liefe er als gewöhnliche
+ * Arbeit und der Kreisel drehte, bevor überhaupt eine Anfrage ins Netz ginge.
  * App-weit (nicht im viewModelScope), damit der Durchlauf auch nach dem Schliessen
  * der App zu Ende läuft — samt Widgets. WorkManager bleibt für die Hintergrund-
  * Aktualisierung und den Knopf im Widget.

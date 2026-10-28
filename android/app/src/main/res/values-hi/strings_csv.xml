@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">बिना प्रति-प्रविष्टि की स्टेकिंग प्रविष्टि – शेष जाँचो</string>
     <string name="portfolio_csv_skip_amount_too_small">मात्रा बहुत कम – सहेजने पर 0 हो जाती है</string>
     <string name="portfolio_csv_skip_invalid_swap">मान्य मिले कॉइन या मिली मात्रा के बिना स्वैप</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">फ़ाइल फिर से पढ़ी जा रही है …</string>
 </resources>

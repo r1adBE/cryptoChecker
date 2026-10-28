@@ -14,7 +14,7 @@ final class BackupAlarmsParityTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(cases.count, 6)
         for c in cases {
             let alarm = c["alarm"] as? [String: Any] ?? [:]
-            let parsed = BackupManager.alarmFromJson(alarm)
+            let parsed = try BackupManager.alarmFromJson(alarm)
             XCTAssertEqual(parsed != nil, c["valid"] as? Bool, c["name"] as? String ?? "")
             // Zeitraum nach dem Lesen (gekürzt, kein Überlauf)
             if let expected = (c["windowHours"] as? NSNumber)?.intValue {
@@ -91,7 +91,7 @@ final class BackupSettingsParityTests: XCTestCase {
         let data = try TestSupport.fixture("backup_settings")
         let settings = try XCTUnwrap(data["settings"] as? [String: Any])
         let excluded = Set(data["excludedOnIos"] as? [String] ?? [])
-        let restored = BackupManager.applySettings(settings, onto: AppSettings(), trusted: true)
+        let restored = try BackupManager.applySettings(settings, onto: AppSettings(), trusted: true)
         let written = BackupManager.settingsJson(restored)
         XCTAssertGreaterThanOrEqual(settings.count - excluded.count, 40)
         for (key, expected) in settings where !excluded.contains(key) {
@@ -99,17 +99,58 @@ final class BackupSettingsParityTests: XCTestCase {
         }
     }
 
-    func testUntrustedOnlyTowardsMoreProtection() {
+    func testUntrustedOnlyTowardsMoreProtection() throws {
         var current = AppSettings()
         current.hidePortfolioAmounts = true
         current.portfolioSystemBackup = false
-        let less: [String: Any] = ["hidePortfolioAmounts": false, "portfolioSystemBackup": true]
-        let untrusted = BackupManager.applySettings(less, onto: current, trusted: false)
+        let less = TestSupport.settingsBackup(current, ["hidePortfolioAmounts": false, "portfolioSystemBackup": true])
+        let untrusted = try BackupManager.applySettings(less, onto: current, trusted: false)
         XCTAssertTrue(untrusted.hidePortfolioAmounts)
         XCTAssertFalse(untrusted.portfolioSystemBackup)
-        let trusted = BackupManager.applySettings(less, onto: current, trusted: true)
+        let trusted = try BackupManager.applySettings(less, onto: current, trusted: true)
         XCTAssertFalse(trusted.hidePortfolioAmounts)
         XCTAssertTrue(trusted.portfolioSystemBackup)
+    }
+
+    /// Wie Android `jedesGeschriebeneFeldIstPflicht`: Pflichtfelder = was geschrieben wird = Fixture; null nur dort,
+    /// wo der Schreiber null schreibt.
+    func testEveryWrittenFieldIsRequired() throws {
+        let data = try TestSupport.fixture("backup_settings")
+        let settings = try XCTUnwrap(data["settings"] as? [String: Any])
+        let fields = Set(BackupManager.settingsFields.map(\.key))
+        let written = BackupManager.settingsJson(AppSettings())
+        XCTAssertEqual(Set(written.keys), fields)
+        XCTAssertEqual(Set(settings.keys), fields)
+        XCTAssertEqual(BackupManager.settingsFields.count, fields.count)
+        try BackupManager.checkSettings(written)
+        try BackupManager.checkSettings(settings)
+        let nullable = Set(data["nullable"] as? [String] ?? [])
+        for key in fields {
+            var missing = settings
+            missing.removeValue(forKey: key)
+            XCTAssertThrowsError(try BackupManager.checkSettings(missing), "ohne \(key)")
+            var null = settings
+            null[key] = NSNull()
+            if nullable.contains(key) {
+                XCTAssertNoThrow(try BackupManager.checkSettings(null), key)
+            } else {
+                XCTAssertThrowsError(try BackupManager.checkSettings(null), "\(key) null")
+            }
+        }
+    }
+
+    /// Falsche Typen aus der Fixture machen die Sicherung ungültig (wie Android `falscherTypMachtDieSicherungUngueltig`).
+    func testWrongTypeMakesTheBackupInvalid() throws {
+        let data = try TestSupport.fixture("backup_settings")
+        let settings = try XCTUnwrap(data["settings"] as? [String: Any])
+        for c in TestSupport.list(data["invalid"]) {
+            var changed = settings
+            changed[c["key"] as? String ?? ""] = c["value"] ?? NSNull()
+            XCTAssertThrowsError(try BackupManager.checkSettings(changed), c["name"] as? String ?? "")
+        }
+        var noAlerts = settings
+        noAlerts["indicatorAlerts"] = [String: Any]()
+        XCTAssertNoThrow(try BackupManager.checkSettings(noAlerts))
     }
 }
 

@@ -1,5 +1,5 @@
 {
-  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs (je Teilzeile auf 2 Stellen gerundet, [B88]); fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; wie der Stichtag-Export). [B88] Wert je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse), genau wie die Zeilen der Bestandsdatei (Stichtag-Export) — beide Dateien weichen je Coin nicht um 0.01 ab, moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved). [B89] Fehlt nur ein Teil eines Coins (Adresse am 31.12. nicht beobachtet), zählt der bekannte Teil wie in der Bestandsdatei und der Coin ist «unvollständig» (6. Wert einer Zeile in rows, fehlt = false); «nicht gerechnet» (5. Wert) nur ohne jeden bekannten Teil. [B91] watchedCases: beobachtete Adressen (watched, wie address_cost_lots.json) am 31.12. in der Sicht der Karte (AddressCutoff.at): Posten im Bestand, nur der Rest ohne Einstand als Adress-Teil — eine erfasste Umbuchung zur Adresse zählt einmal (mit und ohne Posten); addressNote = Posten nach der benutzten Beobachtung (Hinweis an der Summe und in der Datei).",
+  "_comment": "CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs (je Teilzeile auf 2 Stellen gerundet); fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; wie der Stichtag-Export). Wert je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse), genau wie die Zeilen der Bestandsdatei (Stichtag-Export) — beide Dateien weichen je Coin nicht um 0.01 ab, moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved). Fehlt nur ein Teil eines Coins (Adresse am 31.12. nicht beobachtet), zählt der bekannte Teil wie in der Bestandsdatei und der Coin ist «unvollständig» (6. Wert einer Zeile in rows, fehlt = false); «nicht gerechnet» (5. Wert) nur ohne jeden bekannten Teil. watchedCases: beobachtete Adressen (watched, wie address_cost_lots.json) am 31.12. in der Sicht der Karte (AddressCutoff.at): Posten im Bestand, nur der Rest ohne Einstand als Adress-Teil — eine erfasste Umbuchung zur Adresse zählt einmal (mit und ohne Posten); addressNote = Posten nach der benutzten Beobachtung (Hinweis an der Summe und in der Datei).",
   "zone": "Europe/Zurich",
   "date": "2025-12-31",
   "cases": [
@@ -127,7 +127,7 @@
       }
     },
     {
-      "name": "[B87] Mehrere Coins und Stablecoins: Summe aus den GERUNDETEN Zeilen, wie sie in der Datei stehen (3 × 0.005 → je 0.01 = 0.03, nicht 0.015 → 0.02) — Nachrechnen der Spalte geht auf",
+      "name": "Mehrere Coins und Stablecoins: Summe aus den GERUNDETEN Zeilen, wie sie in der Datei stehen (3 × 0.005 → je 0.01 = 0.03, nicht 0.015 → 0.02) — Nachrechnen der Spalte geht auf",
       "methods": [
         "FIFO",
         "AVERAGE"
@@ -391,7 +391,7 @@
       }
     },
     {
-      "name": "[B88] Eigener Bestand und Adresse je auf 2 Stellen gerundet wie die Zeilen der Bestandsdatei (0.005 → 0.01 je Zeile = 0.02, CHF 0.004 → 0.00 je Zeile), nicht erst die Summe je Coin (0.01 bzw. 0.01)",
+      "name": "Eigener Bestand und Adresse je auf 2 Stellen gerundet wie die Zeilen der Bestandsdatei (0.005 → 0.01 je Zeile = 0.02, CHF 0.004 → 0.00 je Zeile), nicht erst die Summe je Coin (0.01 bzw. 0.01)",
       "_calc": "Bestand AAA 0.005 × 1 = 0.005 → 0.01, Adresse 0.005 → 0.01: 0.02 USDT (je Coin zusammen gerundet wären es 0.01). CHF: 0.004 → 0.00 je Zeile = 0.00 (zusammen 0.008 → 0.01).",
       "methods": [
         "FIFO",
@@ -436,7 +436,7 @@
       }
     },
     {
-      "name": "[B89] Eigener Bestand bewertet, Adresse desselben Coins am 31.12. nicht beobachtet: Coin mit dem Bekannten gerechnet und «unvollständig» (wie die Bestandsdatei: Zeile 6000, Total 6000 unvollständig), nicht «nicht gerechnet» mit Total 0",
+      "name": "Eigener Bestand bewertet, Adresse desselben Coins am 31.12. nicht beobachtet: Coin mit dem Bekannten gerechnet und «unvollständig» (wie die Bestandsdatei: Zeile 6000, Total 6000 unvollständig), nicht «nicht gerechnet» mit Total 0",
       "methods": [
         "FIFO"
       ],

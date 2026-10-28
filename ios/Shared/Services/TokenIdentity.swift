@@ -1,6 +1,6 @@
 import Foundation
 
-/// «Gleicher Token?» über mehr als Kürzel + Kursband (K-8) — Spiegel von `TokenIdentity.kt`
+/// «Gleicher Token?» über mehr als Kürzel + Kursband — Spiegel von `TokenIdentity.kt`
 /// (gemeinsame Fälle: Parity/token_identity.json).
 ///
 /// Identität eines Paars = voller Name aus der Paarliste der Börse (Gate `base_name`, Upbit/Bithumb
@@ -11,7 +11,7 @@ import Foundation
 ///  - Namen auf beiden Seiten: gleich (normalisiert, bekannte Schreibweisen, `known`) → `.medium`;
 ///    klar verschieden (kein gemeinsames Wort, verschiedene Gruppen in `known`, «Classic» nur auf einer
 ///    Seite) → `.mismatch`; ähnlich, aber nicht sicher → `.weak`.
-///  - Ohne Namen auf einer Seite: `.weak` — Kürzel + Kursband wie bisher.
+///  - Ohne Namen auf einer Seite: `.weak` — Kürzel + Kursband.
 /// `accept`: `.strong` gilt ohne Kursband, `.medium` und `.weak` nur mit Kursband, `.mismatch` nie — auch
 /// wenn die Kurse nah beieinander liegen.
 enum TokenIdentity {
@@ -171,7 +171,7 @@ enum TokenIdentity {
     /// 24-h-Bezug, Widget-Chart)? Nie bei klar anderem Namen (`compatible`): Widerspricht der eigene Name
     /// `ownName` dem Binance-Namen `binanceName`, steht das Kürzel an den grossen Börsen für einen anderen
     /// Token — dann keine Reihe, von keinem Anbieter (auch Binance.US, Coinbase …). Dazu der Name des Anbieters
-    /// selbst `providerName` (falls bekannt). Unbekannte Namen: Kürzel + Kursband wie bisher.
+    /// selbst `providerName` (falls bekannt). Unbekannte Namen: Kürzel + Kursband.
     /// Wie `TokenIdentity.fallbackSeriesAllowed` (Android).
     static func fallbackSeriesAllowed(symbol: String, ownName: String?, provider: String?, binanceName: String?,
                                       providerName: String? = nil) -> Bool {

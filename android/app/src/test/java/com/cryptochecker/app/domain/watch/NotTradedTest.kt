@@ -27,7 +27,7 @@ class NotTradedTest {
     fun shownChange_hiddenForNotTraded() {
         assertNull(NotTraded.shownChange24h(NotTraded.MARKER, 13.9))
         assertEquals(13.9, NotTraded.shownChange24h(null, 13.9)!!, 0.0)
-        // Andere Fehler (z. B. offline): letzter Wert bleibt sichtbar wie bisher
+        // Andere Fehler (z. B. offline): letzter Wert bleibt sichtbar
         assertEquals(-2.0, NotTraded.shownChange24h("NETWORK_OFFLINE", -2.0)!!, 0.0)
         assertNull(NotTraded.shownChange24h(null, null))
     }

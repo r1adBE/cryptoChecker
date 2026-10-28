@@ -68,7 +68,7 @@ object RateLimitSignal {
      * 2xx-Antwort meldet «zu viele Anfragen»? Lesbares JSON: nur die bekannten Fehlerfelder ([ERROR_FIELDS],
      * Text oder Liste von Texten) und Codes (Bybit retCode 10006, OKX code 50011, BingX code 100410, bitbank
      * data.code 10009 bei success 0); eine JSON-Liste nie (das
-     * sind Kurse). Unlesbare Antwort (kein JSON, abgeschnitten, HTML): der ganze Text wie bisher.
+     * sind Kurse). Unlesbare Antwort (kein JSON, abgeschnitten, HTML): der ganze Text.
      */
     fun okBodyRateLimited(body: String): Boolean {
         val trimmed = body.trim()

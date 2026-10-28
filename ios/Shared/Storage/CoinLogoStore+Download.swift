@@ -215,7 +215,7 @@ extension CoinLogoStore {
 final class ImagePauseBox: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
     private let lock = NSLock()
     private var pauses: [String: Int64]?
-    private let key = "coin_logos_image_pauses_v1"
+    private let key = "coin_logos_image_pauses"
 
     /// Nur mit gehaltenem `lock` aufrufen.
     private func currentLocked(now: Int64) -> [String: Int64] {

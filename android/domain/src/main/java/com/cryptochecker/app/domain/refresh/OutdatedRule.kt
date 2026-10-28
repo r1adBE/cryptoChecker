@@ -3,8 +3,8 @@ package com.cryptochecker.app.domain.refresh
 /**
  * Ab wann ein Kurs «veraltet» heisst — eine Regel für Merkliste, Portfolio und Widgets:
  * dreimal das Hintergrund-Intervall, mindestens 15 Minuten. Abgefragt wird nur im
- * Hintergrund-Takt oder von Hand; einen eigenen schnelleren Abfrage-Takt gibt es nicht mehr
- * (der frühere «Live-Dienst» ist weg). Paare am Live-Strom haben ihre eigene, kürzere
+ * Hintergrund-Takt oder von Hand; einen eigenen schnelleren Abfrage-Takt gibt es nicht.
+ * Paare am Live-Strom haben ihre eigene, kürzere
  * Grenze [LIVE_MILLIS] (siehe LiveStatus).
  * Reine Logik ohne Android (getestet in OutdatedRuleTest und den Parity-Fällen
  * `testdata/parity/outdated.json`, Swift-Spiegel OutdatedRule.swift).

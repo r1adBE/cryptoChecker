@@ -73,7 +73,7 @@ class LiveJsonDepthTest {
 
     @Test
     fun riesigeVerschachtelungIstUngueltigOhneStackOverflow() {
-        // 1 MB «[[[[…»: früher ein StackOverflowError auf dem OkHttp-Thread
+        // 1 MB «[[[[…»: kein StackOverflowError auf dem OkHttp-Thread
         assertNull(LiveJson.parse("[".repeat(1_000_000)))
         assertNull(LiveJson.parse("{\"a\":".repeat(200_000) + "1" + "}".repeat(200_000)))
     }

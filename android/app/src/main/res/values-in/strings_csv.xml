@@ -79,4 +79,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">entri staking tanpa entri lawan – periksa saldo</string>
     <string name="portfolio_csv_skip_amount_too_small">jumlah terlalu kecil – menjadi 0 saat disimpan</string>
     <string name="portfolio_csv_skip_invalid_swap">tukar tanpa koin atau jumlah diterima yang valid</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Membaca ulang file …</string>
 </resources>

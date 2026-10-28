@@ -10,7 +10,7 @@ final class WatchlistReadCacheTests: XCTestCase {
 
     override func setUp() async throws {
         watchlist = try await AppDataTestWatchlist()
-        // Rückfrage F-08 aus (eigenes Tor, «gespeichert»), wie AddWatchesBehaviorTests
+        // Rückfrage «nicht gespeichert» aus (eigenes Tor, «gespeichert»), wie AddWatchesBehaviorTests
         WatchlistNotSavedGate.appDataOverride = (gate: WatchlistNotSavedGate(), notSaved: false, canAsk: false)
     }
 

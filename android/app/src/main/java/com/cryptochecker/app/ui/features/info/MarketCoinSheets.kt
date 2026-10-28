@@ -83,7 +83,7 @@ internal class MarketCoinState(
      */
     var adding by mutableStateOf(false)
 
-    /** UX4-R2: «Hinzufügen» läuft (Rückfrage F-08 offen bzw. Schreiben); nur gegen Doppeltipp, ohne Anzeige. */
+    /** «Hinzufügen» läuft (Rückfrage «nicht gespeichert» offen bzw. Schreiben); nur gegen Doppeltipp, ohne Anzeige. */
     var addPending = false
 
     /** Paar, das gerade ins Portfolio übernommen wird (Erfassen-Blatt). */
@@ -154,7 +154,7 @@ internal fun MarketCoinSheets(
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     val haptics = rememberHaptics()
-    // ARC5-R01: Rückmeldungen nach der Rückfrage F-08 im aktuellen Bildschirm (auch nach dem Neuerstellen)
+    // Rückmeldungen nach der Rückfrage «nicht gespeichert» im aktuellen Bildschirm (auch nach dem Neuerstellen)
     val uiEvents = rememberWatchUiEvents(MARKET_COIN_UI_EVENTS)
     MarketCoinUiEffects(uiEvents, state, watchlist, banner, haptics, resources)
     val alarmCounts by watchlist.alarmCounts.collectAsStateWithLifecycle()
@@ -227,13 +227,13 @@ internal fun MarketCoinSheets(
                     state.closePreview()
                 },
                 onNotificationChange = { on ->
-                    // UX4-R3: Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
+                    // Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
                     watchlist.setNotificationEnabled(shown, on) { written ->
                         if (written && on) uiEvents.send(WatchUiEvent.RequestNotifications)
                     }
                 },
                 onTtsChange = { watchlist.setTtsEnabled(shown, it) },
-                // UX5-R2: Haptik wie in der Merkliste, erst nach dem Schreiben
+                // Haptik wie in der Merkliste, erst nach dem Schreiben
                 onToggleFavorite = {
                     watchlist.toggleFavorite(shown) { if (it) uiEvents.send(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT)) }
                 },
@@ -247,7 +247,7 @@ internal fun MarketCoinSheets(
                 // Wie in der Merkliste: sofort löschen, «Rückgängig» im Banner (keine Rückfrage)
                 onDelete = {
                     state.actionsFor = null
-                    // Banner erst nach dem Löschen (Rückfrage F-08 «Abbrechen» bzw. abgelehnt: keiner)
+                    // Banner erst nach dem Löschen (Rückfrage «nicht gespeichert» «Abbrechen» bzw. abgelehnt: keiner)
                     // «Rückgängig», Merkliste inzwischen voll → Hinweis ([handleShared])
                     watchlist.deleteWithUndo(shown) {
                         uiEvents.send(WatchUiEvent.Banner(BannerText(R.string.watchlist_removed, shown.displayName), shown.id))
@@ -264,10 +264,10 @@ internal fun MarketCoinSheets(
                         }
                     }
                 } else null,
-                // IOS5-R02: Dialog erst nach bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingabe)
+                // Dialog erst nach bestätigter Rückfrage «nicht gespeichert» zu («Abbrechen»: offen mit Eingabe)
                 onSetGroup = { group, close, cancelled -> watchlist.setGroup(shown, group, close, cancelled) },
                 onSetNote = { note, close, cancelled -> watchlist.setNote(shown, note, close, cancelled) },
-                // Wie in der Merkliste (UX5-R2): Blatt erst nach der Rückfrage zu, Haptik und kurzes Banner
+                // Wie in der Merkliste: Blatt erst nach der Rückfrage zu, Haptik und kurzes Banner
                 onToggleDisabled = { uiEvents.toggleDisabled(watchlist, shown) },
                 loadFutures = watchlist::fetchFutures,
                 loadSpot = watchlist::fetchSpot,
@@ -286,16 +286,16 @@ internal fun MarketCoinSheets(
                 loadChart = watchlist::loadSheetChart,
                 satsRate = watchlist::satsRate,
                 candleSource = if (isPreview) null else watchlist.foreignCandleSource(shown),
-                // Herkunft von Änderung/Mini-Chart wie im Blatt der Merkliste (L-14)
+                // Herkunft von Änderung/Mini-Chart wie im Blatt der Merkliste
                 rowSource = if (isPreview) null else watchlist.rowSource(shown),
                 preview = isPreview,
                 adding = state.adding,
                 onAddToWatchlist = add@{
                     val candidate = state.previewBase ?: return@add
                     if (state.adding || state.addPending) return@add
-                    // UX4-R2: «hinzugefügt» erst nach dem Schreiben zeigen (wie iOS), nicht vor der Rückfrage
+                    // «hinzugefügt» erst nach dem Schreiben zeigen (wie iOS), nicht vor der Rückfrage
                     state.addPending = true
-                    // ARC5-R01: voll bzw. hinzugefügt über Ereignisse ([MarketCoinUiEffects])
+                    // Voll bzw. hinzugefügt über Ereignisse ([MarketCoinUiEffects])
                     watchlist.addPreview(candidate, { uiEvents.send(WatchUiEvent.PreviewFull) }) { id, added ->
                         uiEvents.send(WatchUiEvent.PreviewAdded(id, added))
                     }

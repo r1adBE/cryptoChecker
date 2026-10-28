@@ -1,5 +1,5 @@
 // Daten des Wertverlaufs im Portfolio: Zustand für die Ansicht (`PortfolioHistoryUi`), benötigte Tagesschlüsse
-// und Devisen-Reihe je Zeitraum, Tagesende in der Zeitzone.
+// und Devisen-Reihe je Zeitraum.
 // Eigene Datei, weil es reine Hilfstypen der Verlaufs-Abfragen sind, die das ViewModel nur hält.
 package com.cryptochecker.app.ui.features.portfolio
 
@@ -18,7 +18,6 @@ import com.cryptochecker.app.domain.portfolio.RoutedHistory
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
-import java.time.ZoneId
 import com.cryptochecker.app.domain.portfolio.candleDays
 
 /**
@@ -135,15 +134,9 @@ internal data class HistoryCloses(
         request.coins.containsAll(needed.coins) && request.days >= needed.days
 }
 
-/** Letzte Millisekunde eines Tags in [zone]. */
-internal fun dayEndIn(zone: ZoneId): (Long) -> Long = { day ->
-    LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1
-}
-
 /** Anfrage für [range]: «Seit 1. Kauf» braucht je nach erstem Kauf mehr Tage (siehe [PortfolioHistory.candleDays]). */
 internal fun historyRequest(txs: List<PortfolioTxEntity>, range: PortfolioHistoryRange): HistoryRequest {
-    val zone = ZoneId.systemDefault()
     val first = txs.filter { it.amount.signum() > 0 }.minOfOrNull { it.time }
-    val days = PortfolioHistory.candleDays(range, first, PortfolioHistory.utcToday(), dayEndIn(zone))
+    val days = PortfolioHistory.candleDays(range, first, PortfolioHistory.utcToday())
     return HistoryRequest(txs.flatMap { it.coins() }.map { PortfolioCalculator.normalizeCoin(it) }.toSet(), days)
 }

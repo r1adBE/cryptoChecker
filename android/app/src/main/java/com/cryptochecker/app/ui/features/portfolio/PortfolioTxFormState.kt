@@ -82,7 +82,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     var toCoinQuery by mutableStateOf(initial.toCoin.orEmpty())
     var toAmountText by mutableStateOf(PriceFormat.amountForInput(initial.toAmount, decimalSeparator))
     var swapValueText by mutableStateOf(PriceFormat.amountForInput(initial.swapValueUsdt, decimalSeparator))
-    // K-2: Preis/Wert in der Anzeigewährung eingeben (gespeichert wird immer USDT, umgerechnet mit dem Tageskurs)
+    // Preis/Wert in der Anzeigewährung eingeben (gespeichert wird immer USDT, umgerechnet mit dem Tageskurs)
     var entryFiat by mutableStateOf(false)
     // Umschalten auf die Anzeigewährung: Felder (noch USDT) umrechnen, sobald der Kurs da ist
     var pendingToFiat by mutableStateOf(false)
@@ -305,7 +305,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
          * Sichert die Felder und Merker in fester Reihenfolge (Bundle-taugliche Werte: Text, Zahlen, Enums), zuletzt das
          * Dezimalzeichen, mit dem die Texte getippt wurden: nach einem Sprachwechsel liest das Blatt «2,125» weiter mit
          * dem alten Zeichen statt mit dem der neuen Sprache (sonst würde daraus 2125) — wie der Alarm-Entwurf. Eine
-         * ältere Liste ohne Zeichen nimmt [decimalSeparator].
+         * Liste ohne Zeichen nimmt [decimalSeparator].
          */
         fun saver(initial: TxDraft, decimalSeparator: Char): Saver<TxFormState, Any> = listSaver(
             save = { s ->

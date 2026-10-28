@@ -27,7 +27,7 @@ import java.time.ZoneId
 
 /**
  * Steuer-Export aus einem Lauf der Veräusserungen ([TaxExport.allDisposals] für Spanne, Übersicht und Zeilen) und einem
- * Lauf der Gebühr-Vermerke ([TaxExport.feesIn]) ergibt Zeichen für Zeichen dieselben Dateien wie der bisherige Weg (je
+ * Lauf der Gebühr-Vermerke ([TaxExport.feesIn]) ergibt Zeichen für Zeichen dieselben Dateien wie die Referenz (je
  * Teil ein eigener Lauf: [TaxExport.fxSpan], [TaxExport.yearSummary], [TaxExport.gainRows], [TaxExport.lostFeeCostsIn],
  * [TaxExport.unassignedFeesIn]) — für alle Fälle aus `tax_templates.json` und `tax_export.json` und die Daten der
  * Leistungstests (alle Vorlagen, mehrere Jahre und App-Methoden). iOS: TaxExportSingleRunTests.swift.
@@ -56,8 +56,8 @@ class TaxExportSingleRunTest {
         val incomeCsv: String,
     )
 
-    /** Bisheriger Weg (Referenz): jeder Teil rechnet selbst. */
-    private fun before(c: Case): Files {
+    /** Referenz: jeder Teil rechnet selbst. */
+    private fun reference(c: Case): Files {
         val period = c.template.period(c.year)
         val until = TaxExport.priceUntil(c.template, period, TODAY)
         val rules = c.template.eventRules
@@ -79,8 +79,8 @@ class TaxExportSingleRunTest {
         return Files(span, summaryCsv(summary, c), gains, incomeCsv(c))
     }
 
-    /** Neuer Weg wie `PortfolioExportViewModel`: Veräusserungen einmal, Gebühr-Vermerke zusammen. */
-    private fun after(c: Case): Files {
+    /** Weg der App wie `PortfolioExportViewModel`: Veräusserungen einmal, Gebühr-Vermerke zusammen. */
+    private fun singleRun(c: Case): Files {
         val period = c.template.period(c.year)
         val until = TaxExport.priceUntil(c.template, period, TODAY)
         val rules = c.template.eventRules
@@ -118,13 +118,13 @@ class TaxExportSingleRunTest {
 
     /** Prüft [c]; Rückgabe: Zahl der Gewinne-Zeilen (Abdeckung). */
     private fun check(c: Case): Int {
-        val old = before(c)
-        val new = after(c)
-        assertEquals("${c.label} Spanne", old.span, new.span)
-        assertEquals("${c.label} Jahresübersicht", old.summaryCsv, new.summaryCsv)
-        assertEquals("${c.label} Gewinne", old.gainsCsv, new.gainsCsv)
-        assertEquals("${c.label} Einkünfte", old.incomeCsv, new.incomeCsv)
-        return new.gainsCsv.count { it == '\n' }
+        val ref = reference(c)
+        val run = singleRun(c)
+        assertEquals("${c.label} Spanne", ref.span, run.span)
+        assertEquals("${c.label} Jahresübersicht", ref.summaryCsv, run.summaryCsv)
+        assertEquals("${c.label} Gewinne", ref.gainsCsv, run.gainsCsv)
+        assertEquals("${c.label} Einkünfte", ref.incomeCsv, run.incomeCsv)
+        return run.gainsCsv.count { it == '\n' }
     }
 
     // ---- Fixtures ----

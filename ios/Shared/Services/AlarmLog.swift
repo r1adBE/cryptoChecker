@@ -87,7 +87,7 @@ struct AlarmLogEntry: Equatable, Sendable {
     var notable = false
     /// Gleiches Ergebnis mehrmals hintereinander: zuletzt gesehen um (0 = nur einmal).
     var until: Int64 = 0
-    /// Wer geprüft hat (App, Hintergrund-Aufgabe, Widget); nil = unbekannt (ältere Einträge).
+    /// Wer geprüft hat (App, Hintergrund-Aufgabe, Widget); nil = unbekannt.
     var source: CheckTrigger? = nil
 
     /// Letzte Prüfung dieses Eintrags.

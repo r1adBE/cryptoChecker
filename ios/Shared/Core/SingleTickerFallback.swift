@@ -3,7 +3,7 @@ import Foundation
 /// Ausweg eines Einzelkurses, dessen Anfrage mit einem Serverfehler (HTTP 5xx) scheitert: Nennt die Börse eine
 /// Ausweichadresse (`Exchange.tickerFallbackAddress`, One Trading: die Sammelliste), kommt der Kurs von dort. Bringt
 /// auch das keinen gültigen Kurs (Paar fehlt, Netz, unlesbar), bleibt der ursprüngliche Serverfehler — er bestätigt
-/// wie bisher nie «nicht mehr gehandelt» (NotTraded). 4xx (sagt etwas über das Paar) und Bremsen (429/418) nie.
+/// nie «nicht mehr gehandelt» (NotTraded). 4xx (sagt etwas über das Paar) und Bremsen (429/418) nie.
 /// Zweiter Weg: `loadAfterMissing` für «Paar unbekannt» (DexScreener → GeckoTerminal). Android: `SingleTickerFallback.kt`.
 enum SingleTickerFallback {
     /// Nur Serverfehler lösen den Ausweg aus.

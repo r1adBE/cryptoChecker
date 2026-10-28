@@ -12,7 +12,6 @@ final class PortfolioWidgetChartTests: XCTestCase {
 
     private func start(_ day: Int) -> Int64 { PortfolioWidgetChart.dayStart(day, timeZone: zone) }
 
-    private func dayEnd(_ day: Int) -> Int64 { PortfolioHistory.dayEndMillis(day, timeZone: zone) }
 
     private func snapshot(total: Double = 900, totalUsdt: Double? = 1000, currency: String = "CHF",
                           change: Double? = 9, percent: Double? = 1, history: [PortfolioWidgetPoint] = [],
@@ -50,10 +49,10 @@ final class PortfolioWidgetChartTests: XCTestCase {
         XCTAssertEqual(PortfolioWidgetDisplay.defaultFor(currency: "USDC"), .usdt)
     }
 
-    func testEffectiveDisplayCollapsesForUsdAndOldSnapshots() {
+    func testEffectiveDisplayCollapsesForUsdStablesAndWithoutUsdt() {
         XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversionUsdt, currency: "USDT", hasUsdt: true), .usdt)
         XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversion, currency: "usdc", hasUsdt: true), .usdt)
-        // USD fällt nicht mehr zusammen (USDT zum Marktkurs USDT/USD)
+        // USD fällt nicht zusammen (USDT zum Marktkurs USDT/USD)
         XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversion, currency: "USD", hasUsdt: true), .conversion)
         XCTAssertEqual(PortfolioWidgetChart.effectiveDisplay(.conversionUsdt, currency: "USD", hasUsdt: true),
                        .conversionUsdt)
@@ -180,8 +179,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         }
         let data = PortfolioWidgetChart.dailyData(trades: trades, closes: ["BTC": btc], ranges: [:],
                                                   holdings: ["BTC": 1], current: ["BTC": 110],
-                                                  todayEpochDay: today, todayUtcDay: today,
-                                                  dayEndMillis: { self.dayEnd($0) })
+                                                  todayEpochDay: today, todayUtcDay: today)
         XCTAssertEqual(data.points.count, 366)
         XCTAssertEqual(data.points.last?.epochDay, today)
         XCTAssertEqual(data.points.last?.value ?? .nan, 110, accuracy: d)
@@ -202,10 +200,9 @@ final class PortfolioWidgetChartTests: XCTestCase {
         for day in (today - 400)..<(today - 5) { eth[day] = 10 }
         let data = PortfolioWidgetChart.dailyData(trades: trades, closes: ["BTC": btc, "ETH": eth], ranges: [:],
                                                   holdings: ["BTC": 1, "ETH": 1], current: ["BTC": 100, "ETH": 10],
-                                                  todayEpochDay: today, todayUtcDay: today,
-                                                  dayEndMillis: { self.dayEnd($0) })
+                                                  todayEpochDay: today, todayUtcDay: today)
         XCTAssertTrue(data.points.isEmpty)
-        // Zahl wie «Gewinn 7 T» der App: die übrigen Coins zählen, ETH steht unter «ohne …» (M-3: dieselbe Zahl)
+        // Zahl wie «Gewinn 7 T» der App: die übrigen Coins zählen, ETH steht unter «ohne …» (dieselbe Zahl)
         XCTAssertEqual(data.changes[7]?.amount ?? .nan, 0, accuracy: 1e-9)
         XCTAssertEqual(data.changes[7]?.skipped, ["ETH"])
     }
@@ -675,7 +672,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
         XCTAssertEqual(PortfolioWidgetViews.todaySkipped(s, plan: plan(.week), overview: true), ["ADA", "SOL"])
     }
 
-    /// M-3: «7 T ohne …» im Widget wie «Gewinn 7 T» der App.
+    /// «7 T ohne …» im Widget wie «Gewinn 7 T» der App.
     func testPeriodSkippedNamesTheCoinsOfTheVisiblePeriodNumber() {
         let s = snapshot(periodChanges: ["7": PortfolioWidgetChange(amount: 100, percent: 2, skipped: ["SOL", "ADA", "SOL", ""]),
                                          "30": PortfolioWidgetChange(amount: 50, percent: 1)])

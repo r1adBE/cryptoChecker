@@ -1,11 +1,17 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.BackupRestorePolicy.AppLockDecision
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
+import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
+import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.math.BigDecimal
 
 /** Wie `BackupRestorePolicyTests.swift`: gleiche Fälle auf beiden Seiten. */
 class BackupRestorePolicyTest {
@@ -24,8 +30,6 @@ class BackupRestorePolicyTest {
     fun lockOnOnlyIfDeviceCanUnlock() {
         assertEquals(AppLockDecision(true, false), BackupRestorePolicy.appLock(true, current = false, encrypted = false, canAuthenticate = true))
         assertEquals(AppLockDecision(null, false), BackupRestorePolicy.appLock(true, current = false, encrypted = true, canAuthenticate = false))
-        // Feld fehlt: unverändert
-        assertEquals(AppLockDecision(null, false), BackupRestorePolicy.appLock(null, current = true, encrypted = false, canAuthenticate = true))
     }
 
     @Test
@@ -37,24 +41,23 @@ class BackupRestorePolicyTest {
 
     @Test
     fun systemBackupCopyCountsInvalidEntries() {
-        val text = """
-            {"format":"cryptochecker-portfolio-system-backup","version":1,
-             "portfolio":[
-               {"id":1,"coin":"BTC","type":"BUY","amountText":"0.5","time":1},
-               {"id":2,"coin":"ETH","type":"BUY","time":2},
-               {"id":3,"coin":"ETH","type":"KAUFEN","amountText":"1","time":3},
-               "kein Objekt"
-             ],
-             "portfolioAlarms":[{"kind":"UNBEKANNT"}]}
-        """.trimIndent()
-        val content = PortfolioBackupMirror.parse(text)
+        val btc = PortfolioTxEntity(id = 1, coin = "BTC", type = PortfolioTxType.BUY, amount = BigDecimal("0.5"), time = 1)
+        val alarm = PortfolioAlarmEntity(id = 1, kind = PortfolioAlarmKind.CHANGE_UP, threshold = 5.0)
+        val root = JSONObject(PortfolioBackupMirror.encode(listOf(btc, btc.copy(id = 2, coin = "ETH"), btc.copy(id = 3)), listOf(alarm)))
+        root.getJSONArray("portfolio").getJSONObject(1).put("amountText", "0")
+        root.getJSONArray("portfolio").getJSONObject(2).put("type", "KAUFEN")
+        root.getJSONArray("portfolioAlarms").getJSONObject(0).put("kind", "UNBEKANNT")
+        val content = PortfolioBackupMirror.parse(root.toString())
         assertEquals(1, content.txs.size)
         assertEquals(0, content.alarms.size)
-        assertEquals(4, content.invalid)
+        assertEquals(3, content.invalid)
         // Kopie wie geschrieben: nichts ungültig
         val roundTrip = PortfolioBackupMirror.parse(PortfolioBackupMirror.encode(content.txs, emptyList()))
         assertEquals(1, roundTrip.txs.size)
         assertEquals(0, roundTrip.invalid)
+        // Fehlt ein Feld eines Eintrags: Kopie unlesbar
+        root.getJSONArray("portfolio").getJSONObject(0).remove("time")
+        assertTrue(runCatching { PortfolioBackupMirror.parse(root.toString()) }.exceptionOrNull() is IllegalArgumentException)
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -82,7 +85,7 @@ class BackupRestorePolicyTest {
         // Gespeicherter Stand gerade nicht lesbar: weder Sichern noch Einspielen
         assertEquals(kept, BackupRestorePolicy.storageRefusal(storedKept = true, inMemory = true, restoring = false))
         assertEquals(kept, BackupRestorePolicy.storageRefusal(storedKept = true, inMemory = true, restoring = true))
-        // Kein Schlüssel (neu oder Kopie einer alten unverschlüsselten Datei): Sichern ja, Einspielen nein
+        // Kein Schlüssel (nur im Arbeitsspeicher): Sichern ja, Einspielen nein
         assertEquals(null, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = true, restoring = false))
         assertEquals(inMemory, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = true, restoring = true))
     }
@@ -93,7 +96,6 @@ class BackupRestorePolicyTest {
         assertEquals(null, BackupRestorePolicy.systemBackup(wanted = true, current = false, trusted = false))
         assertEquals(false, BackupRestorePolicy.systemBackup(wanted = false, current = true, trusted = false))
         assertEquals(true, BackupRestorePolicy.systemBackup(wanted = true, current = true, trusted = false))
-        assertEquals(null, BackupRestorePolicy.systemBackup(wanted = null, current = true, trusted = false))
         // Mit Passwort (oder eigener Stand beim Zurückrollen): wie gesichert
         assertEquals(true, BackupRestorePolicy.systemBackup(wanted = true, current = false, trusted = true))
         assertEquals(false, BackupRestorePolicy.systemBackup(wanted = false, current = true, trusted = true))
@@ -105,7 +107,6 @@ class BackupRestorePolicyTest {
         assertEquals(null, BackupRestorePolicy.hideAmounts(wanted = false, current = true, trusted = false))
         assertEquals(true, BackupRestorePolicy.hideAmounts(wanted = true, current = false, trusted = false))
         assertEquals(false, BackupRestorePolicy.hideAmounts(wanted = false, current = false, trusted = false))
-        assertEquals(null, BackupRestorePolicy.hideAmounts(wanted = null, current = false, trusted = false))
         assertEquals(false, BackupRestorePolicy.hideAmounts(wanted = false, current = true, trusted = true))
         assertEquals(true, BackupRestorePolicy.hideAmounts(wanted = true, current = false, trusted = true))
     }

@@ -1,8 +1,8 @@
 import Foundation
 
-/// Quelltext-Scan für `WatchlistConfirmCallGuardTests` (Review TST4-01): Schreibwege aus `AppData` ableiten
-/// und je Aufruf prüfen, ob die Rückfrage F-08 davor liegt. Arbeitet auf UTF-16 (Positionen passen zu NSRegularExpression).
-/// Review ARC7-02: nur der Block von `withWatchlistConfirm` (bzw. eines Hilfswegs, der seine Aktion nur darin ausführt)
+/// Quelltext-Scan für `WatchlistConfirmCallGuardTests`: Schreibwege aus `AppData` ableiten
+/// und je Aufruf prüfen, ob die Rückfrage davor liegt. Arbeitet auf UTF-16 (Positionen passen zu NSRegularExpression).
+/// Nur der Block von `withWatchlistConfirm` (bzw. eines Hilfswegs, der seine Aktion nur darin ausführt)
 /// zählt, und nicht in einer losgelösten Ausführung darin (`escapes`).
 @MainActor
 enum CallGuard {
@@ -214,17 +214,17 @@ enum CallGuard {
         for i in from..<pos {
             if src.u[i] == 123 { open.append(i) } else if src.u[i] == 125, !open.isEmpty { open.removeLast() }
         }
-        // ARC7-02: Läuft pos losgelöst (`Task.detached`, `DispatchQueue….async`) im Block, gilt die Zustimmung dort nicht
+        // Läuft pos losgelöst (`Task.detached`, `DispatchQueue….async`) im Block, gilt die Zustimmung dort nicht
         for brace in open.reversed() {
             guard let name = callee(src, before: brace) else { continue }
             if name == "withWatchlistConfirm" { return !escapes(src, brace + 1, pos) }
             if !seen.contains(name) && helperConfirms(sources, name, seen: seen.union([name])) { return !escapes(src, brace + 1, pos) }
         }
-        // ARC7-02: `confirmWatchlistWrite` ist privat (Aktion nur unter `runConsented`) — ein direkter Aufruf zählt nicht
+        // `confirmWatchlistWrite` ist privat (Aktion nur unter `runConsented`) — ein direkter Aufruf zählt nicht
         return false
     }
 
-    /// ARC7-02: Beginnt zwischen `from` und `pos` eine losgelöste Ausführung, die `pos` noch umschliesst (`Task.detached`,
+    /// Beginnt zwischen `from` und `pos` eine losgelöste Ausführung, die `pos` noch umschliesst (`Task.detached`,
     /// `….async`/`….asyncAfter` einer Warteschlange)? Dort fehlt die Zustimmung der Aktion (TaskLocal). Ein `Task { … }`
     /// erbt sie und zählt nicht.
     private static func escapes(_ src: Source, _ from: Int, _ pos: Int) -> Bool {
@@ -322,7 +322,7 @@ enum CallGuard {
 }
 
 /// Kleiner Zerleger für Swift: Kommentare (auch verschachtelt) durch Leerraum ersetzen; Zeichenketten `"…"`, `"""…"""` und
-/// `#"…"#` samt Interpolation `\(…)` überspringen, damit z. B. `"/0/*"` keinen Kommentar öffnet. REL5-R1:
+/// `#"…"#` samt Interpolation `\(…)` überspringen, damit z. B. `"/0/*"` keinen Kommentar öffnet.
 /// auch erweiterte Regex-Literale `#/…/#` (beliebig viele `#`), wie `ios_release_audit.py`; nackte `/…/` bewusst nicht
 /// (im Swift-6-Modus möglich, die App nutzt keine; ohne Parser nicht sicher von Division zu trennen).
 private struct Stripper {
@@ -392,7 +392,7 @@ private struct Stripper {
     }
 
     /// Erweitertes Regex-Literal ab `start` (dort «#»): bis «/» plus gleich viele «#»; `\` maskiert das nächste Zeichen;
-    /// mehrzeilig, wenn nach «#/» bis zum Zeilenende nur Leerzeichen/Tabs (und das CR von CRLF) stehen (REL6-R1).
+    /// mehrzeilig, wenn nach «#/» bis zum Zeilenende nur Leerzeichen/Tabs (und das CR von CRLF) stehen.
     /// Bleibt stehen (wie Zeichenketten), wird nicht geleert.
     private func regex(_ start: Int) -> Int {
         var i = start, hashes = 0

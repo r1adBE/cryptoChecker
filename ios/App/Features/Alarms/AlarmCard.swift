@@ -39,7 +39,7 @@ struct AlarmCard: View {
                     }
                 }
 
-            // Beschriftung nur für VoiceOver: welcher Alarm geschaltet wird. FUN3-02: «Schwelle ungültig»
+            // Beschriftung nur für VoiceOver: welcher Alarm geschaltet wird. «Schwelle ungültig»
             // lässt sich nicht einschalten (erst im Editor anpassen), wie Android
             SwitchRow(isOn: Binding(get: { alarm.enabled }, set: { onToggle($0) }),
                       enabled: BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: !alarm.enabled),

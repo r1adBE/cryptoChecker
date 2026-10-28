@@ -145,7 +145,7 @@ class CoinLogosParityTest {
     @Test
     fun names() {
         data["cleanName"].list().map { it.obj() }.forEach { c ->
-            assertEquals("cleanName: $c", c["expected"], CoinLogos.cleanName(c["raw"] as String?, c["symbol"] as String?))
+            assertEquals("cleanName: $c", c["expected"], CoinLogos.cleanName(c["raw"] as String?))
         }
         val n = data["names"].obj()
         val ranked = n["ranked"].list().map { it.obj() }.map { (it["symbol"] as String) to (it["name"] as String?) }

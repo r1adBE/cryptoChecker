@@ -3,7 +3,7 @@ import Foundation
 /// Ab wann ein Kurs «veraltet» heisst — eine Regel für Merkliste, Portfolio und Widgets (wie
 /// `OutdatedRule` in Android): dreimal das Hintergrund-Intervall, mindestens 15 Minuten.
 /// Abgefragt wird nur im Hintergrund-Takt oder von Hand; einen eigenen schnelleren Abfrage-Takt
-/// gibt es nicht mehr (der frühere «Live-Dienst» ist weg). Paare am Live-Strom haben ihre eigene,
+/// gibt es nicht. Paare am Live-Strom haben ihre eigene,
 /// kürzere Grenze `liveMillis` (siehe `LiveStatus`).
 /// Gemeinsame Testfälle: `Tests/Parity/outdated.json`.
 enum OutdatedRule {

@@ -296,4 +296,38 @@
     <string name="settings_price_overlay_needs">Działa tylko razem z «%1$s».</string>
     <string name="settings_price_overlay_grant">Zezwól na wyświetlanie nad innymi aplikacjami</string>
     <string name="price_overlay_close">Zamknij nakładkę</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Własny serwer dla adresów</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Tylko Bitcoin: twój własny serwer zgodny z Esplora lub mempool (np. https://wezel.example/api, wymagany publicznie zaufany certyfikat, np. Let\'s Encrypt). Jeśli jest ustawiony, adresy Bitcoin i xpub są sprawdzane tylko tam – nigdy w publicznych węzłach, nawet gdy twój serwer jest nieosiągalny. Inne sieci nadal korzystają z publicznych węzłów. Puste = publiczne węzły.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Serwer Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Testuj</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Testowanie…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Serwer odpowiada – blok %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Brak prawidłowej odpowiedzi – sprawdź adres i certyfikat</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Używany: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Nie ustawiono – używane są publiczne węzły</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Dozwolone są tylko adresy https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Bez nazwy użytkownika i hasła w adresie</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Bez części ? ani # w adresie</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Nieprawidłowy adres serwera</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Przełączyć na publiczne węzły?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Twoje adresy Bitcoin i xpub będą wtedy sprawdzane w publicznych węzłach: %1$s. Widzą one te adresy razem z twoim adresem IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Użyj publicznych węzłów</string>
 </resources>

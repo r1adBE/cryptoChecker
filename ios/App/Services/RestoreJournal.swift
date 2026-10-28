@@ -64,11 +64,6 @@ enum RestoreJournal {
         return nil
     }
 
-    /// Änderungszeit der Datei (ms); 0 = unbekannt. Ersatz, falls «createdAt» fehlt (`RestoreRecoveryPolicy.createdAt`).
-    static func modifiedAt(_ source: URL = url) -> Int64 {
-        guard let date = (try? FileManager.default.attributesOfItem(atPath: source.path))?[.modificationDate] as? Date else { return 0 }
-        return Int64(date.timeIntervalSince1970 * 1000)
-    }
 
     static func delete(at target: URL = url) {
         try? FileManager.default.removeItem(at: target)

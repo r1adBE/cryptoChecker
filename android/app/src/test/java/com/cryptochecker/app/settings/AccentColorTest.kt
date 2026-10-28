@@ -5,7 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.File
 
-/** B3: App-Icon hängt nur an der Akzentfarbe (kein Wechsel bei Hell/Dunkel). */
+/** App-Icon hängt nur an der Akzentfarbe (kein Wechsel bei Hell/Dunkel). */
 class AccentColorTest {
 
     @Test

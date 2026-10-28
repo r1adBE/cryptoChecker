@@ -109,7 +109,7 @@ fun CoinLogos.alphaNames(tokens: List<BinanceAlpha.Token>): Map<String, String> 
  * [into] bzw. [names] (Vorhandenes von CoinGecko und Binance bleibt, wie [pick]); Ergebnis: die
  * Alpha-Kürzel ([alphaSymbols]). Der Abgleich holt die Alpha-Liste zuerst und speichert die Kürzel
  * sofort (sonst kamen sie erst nach allen Seiten der Rangliste, oft Minuten später oder nie),
- * wendet die Logos aber erst nach CoinGecko und Binance an — gleiche Vorrangregel wie bisher.
+ * wendet die Logos aber erst nach CoinGecko und Binance an — gleiche Vorrangregel.
  */
 fun CoinLogos.applyAlpha(
     entries: List<AlphaEntry>,

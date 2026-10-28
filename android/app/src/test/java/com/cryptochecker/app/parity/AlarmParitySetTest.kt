@@ -22,7 +22,7 @@ import org.junit.Test
 // ---- aus AlarmPairPickerParityTest
 
 /**
- * Review UX-02: Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
+ * Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
  * (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `Tests/AlarmPairPickerTests`. Über die
  * vorberechneten Zeilen ([alarmPickerRows]) mit gefalteten Coin-Namen.
  */
@@ -184,7 +184,7 @@ class AlarmSnoozeParityTest {
 // ---- aus AlarmToggleParityTest
 
 /**
- * Review FUN3-02/UX3-06: «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
+ * «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
  * (`testdata/parity/alarm_toggle.json`); Gegenstück: `AlarmToggleParityTests`.
  */
 class AlarmToggleParityTest {

@@ -119,7 +119,7 @@ struct SwitchRow<Label: View>: View {
     var verticalPadding: CGFloat = Spacing.md
     /// Beschriftung nur für VoiceOver (z. B. Schalter am Rand einer Karte).
     var labelHidden: Bool = false
-    /// Review UX4-R4: false = gesperrt nur den Schalter abblenden (System-Darstellung), die Beschriftung
+    /// false = gesperrt nur den Schalter abblenden (System-Darstellung), die Beschriftung
     /// bleibt voll deckend — z. B. wenn sie den Grund der Sperre nennt (wie Android: nur der `Switch`).
     var dimsLabel: Bool = true
     @ViewBuilder let label: () -> Label

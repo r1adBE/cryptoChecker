@@ -19,7 +19,7 @@ enum PlainBackupExclusion {
         remembered ?? current ?? false
     }
 
-    /// Merkmal nach dem Versiegeln beim Start: das gemerkte von vorher, sonst das aktuelle (früher immer dieses).
+    /// Merkmal nach dem Versiegeln beim Start: das gemerkte von vorher, sonst das aktuelle.
     static func afterSealing(current: Bool, remembered: Bool?) -> Bool {
         remembered ?? current
     }

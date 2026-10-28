@@ -315,4 +315,10 @@
         <item quantity="other">Samalla poistetaan %d erää ja saldohistoria.</item>
     </plurals>
     <string name="portfolio_address_remove_history">Samalla poistetaan saldohistoria.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Tallennus ei onnistunut – yritä uudelleen</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Virheellinen raja – poista hälytys ja luo se uudelleen</string>
 </resources>

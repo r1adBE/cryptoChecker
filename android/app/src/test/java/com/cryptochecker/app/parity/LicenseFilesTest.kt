@@ -19,7 +19,7 @@ class LicenseFilesTest {
     private fun bytes(path: String): ByteArray = File(android, path).readBytes()
 
     /**
-     * iOS-Gegenstück; fehlt es, nicht still grün (SEC4-R1/TST4-R1): reiner Android-Checkout übersprungen,
+     * iOS-Gegenstück; fehlt es, nicht still grün: reiner Android-Checkout übersprungen,
      * mit `REQUIRE_IOS_SOURCES=true` Fehler ([SourceGuard]).
      */
     private fun iosBytes(path: String): ByteArray =

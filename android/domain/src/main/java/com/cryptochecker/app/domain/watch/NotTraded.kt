@@ -37,7 +37,7 @@ object NotTraded {
      * «nicht gehandelt» zu verstummen.
      *
      * [failure]: beim Abruf festgestellte Art. Sagt sie etwas aus, entscheidet sie; bei Lesefehler und Meldung der
-     * Börse der Text wie bisher. [ExchangeFailure.Other] (interner Fehler ohne klaren Typ, z. B. eine Ausnahme ohne
+     * Börse der Text. [ExchangeFailure.Other] (interner Fehler ohne klaren Typ, z. B. eine Ausnahme ohne
      * Text) bestätigt nie — sonst verstummte ein Paar wegen eines eigenen Fehlers für Stunden (BulkDelisted). Ein
      * leerer Text bestätigt nur ohne Art (gespeicherte ältere Ergebnisse «ohne Kurs»); die Einzelabfrage selbst meldet
      * «ohne Kurs» als Lesefehler («Parsed ticker has no data»).
@@ -69,7 +69,7 @@ object NotTraded {
      * Einzelabfrage ohne Sammelabfrage (zu wenige Paare der Börse): wie nach dem Fehlen in der vollständigen Liste mit
      * [confirmedBySingle] werten? Nur, wenn die Einzelabfrage selbst die vollständige Liste liest
      * (`Exchange.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
-     * Fehlen in der Liste. Sonst fehlte die zweite, unabhängige Aussage: gewöhnlicher Fehler wie bisher.
+     * Fehlen in der Liste. Sonst fehlte die zweite, unabhängige Aussage: gewöhnlicher Fehler.
      */
     fun confirmWithoutBulk(bulkTried: Boolean, singleReadsFullList: Boolean): Boolean = !bulkTried && singleReadsFullList
 

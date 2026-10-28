@@ -235,7 +235,7 @@ internal fun AlarmEditorSheet(
 }
 
 /**
- * K-10: öffnet die Seite «Kurs-Aktualisierung» («Wie aktuell?») direkt, z. B. aus dem Hinweis unter dem
+ * Öffnet die Seite «Kurs-Aktualisierung» («Wie aktuell?») direkt, z. B. aus dem Hinweis unter dem
  * Alarm. Gesetzt von AppNavHost; null (Vorschau, Widget-Einrichtung) = kein Knopf.
  */
 val LocalOpenUpdateSettings = androidx.compose.runtime.staticCompositionLocalOf<(() -> Unit)?> { null }

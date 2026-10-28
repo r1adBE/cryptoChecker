@@ -133,7 +133,7 @@ internal fun WatchRow(
     kind: AssetKind = AssetKind.TOKEN,
     /** Kurzer Hinweis im Banner der Merkliste (Herkunft der Änderung, Tipp auf «*»). */
     onSourceHint: (String) -> Unit = {},
-    // L-14: Herkunft von Änderung/Mini-Chart steht im Aktionsblatt ([WatchActionsSheet] rowSource), die Zeile
+    // Herkunft von Änderung/Mini-Chart steht im Aktionsblatt ([WatchActionsSheet] rowSource), die Zeile
     // zeigt nur den Marker «*» an der Änderung ([changeSource])
 ) {
     val accent = MaterialTheme.colorScheme.primary
@@ -150,9 +150,9 @@ internal fun WatchRow(
     val off = watch.disabled
     // Veraltet nach der Regel der Alarmsperre: Abruf zu alt oder letzter Handel laut Börse > 2 h ([PriceFreshness.isStale])
     val stale = PriceFreshness.isStale(watch, now, staleAfter)
-    // Veraltet: nicht mehr abgeblasst (Kontrast AA), sondern Kurs in onSurfaceVariant ([RowPrice])
+    // Veraltet: nicht abgeblasst (Kontrast AA), sondern Kurs in onSurfaceVariant ([RowPrice])
     // samt «Börse · vor 13 Min.» in Fehlerfarbe; das Mini-Chart im selben Grau ohne Fläche ([Sparkline]).
-    // Deaktiviert (L-13): Texte in onSurfaceVariant statt abgeblasst (Kontrast AA), nur Logo und
+    // Deaktiviert: Texte in onSurfaceVariant statt abgeblasst (Kontrast AA), nur Logo und
     // kleine Symbole behalten die reduzierte Deckkraft ([DISABLED_ICON_ALPHA])
     val flash = rememberPriceFlash(watch.id, watch.lastPrice)
     // Börse pausiert: «Binance · pausiert bis 19:45» statt der Zeitzeile ([RowPause])
@@ -382,7 +382,7 @@ internal fun WatchRow(
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
                                 .padding(start = 8.dp)
-                                // 28 dp (früher 22): passt in die Zeilenhöhe
+                                // 28 dp: passt in die Zeilenhöhe
                                 .size(width = sparkWidth, height = 28.dp)
                                 .clearAndSetSemantics { }
                         )

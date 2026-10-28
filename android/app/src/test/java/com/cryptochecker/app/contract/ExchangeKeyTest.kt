@@ -7,8 +7,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * [Exchange.key] steht in Datenbank, Einstellungen, Sicherungen und Widgets. Früher war er `javaClass.simpleName`;
- * heute setzt jede Börse ihn ausdrücklich. Die Liste unten hält die gespeicherten Werte fest — ausgeschrieben, nicht
+ * [Exchange.key] steht in Datenbank, Einstellungen, Sicherungen und Widgets. Jede Börse setzt ihn
+ * ausdrücklich, nicht über `javaClass.simpleName`.
+ * Die Liste unten hält die gespeicherten Werte fest — ausgeschrieben, nicht
  * aus dem Klassennamen abgeleitet, damit ein Umbenennen der Klasse hier auffällt statt still Daten zu verlieren.
  */
 class ExchangeKeyTest {
@@ -74,10 +75,10 @@ class ExchangeKeyTest {
     )
 
     @Test
-    fun everyKeyEqualsTheLegacyClassName() {
+    fun everyKeyEqualsTheClassName() {
         for ((exchange, key) in expected) {
             assertEquals(key, exchange.key)
-            // Im Testlauf ist nichts verkleinert: der Klassenname ist der alte Schlüssel
+            // Im Testlauf ist nichts verkleinert: der Schlüssel gleicht dem Klassennamen
             assertEquals(exchange.javaClass.simpleName, exchange.key)
         }
     }

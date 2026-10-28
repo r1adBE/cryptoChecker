@@ -17,8 +17,8 @@ import java.time.ZoneOffset
  *    [UTC_DAY] ist UTC+0.
  *
  * Gespeichert und gesichert unter [name] (Schlüssel «changeBasis», wie iOS): «ROLLING_24H»,
- * «SINCE_LAST», «LOCAL_DAY», «UTC_DAY» (UTC+0) und «UTC_DAY+8» / «UTC_DAY-5». Ältere Versionen kennen die
- * Namen mit Versatz nicht und nehmen dann den Standard.
+ * «SINCE_LAST», «LOCAL_DAY», «UTC_DAY» (UTC+0) und «UTC_DAY+8» / «UTC_DAY-5»; ein unbekannter Name gilt als
+ * Standard.
  */
 class ChangeBasis private constructor(val kind: Kind, val utcOffsetHours: Int) {
 
@@ -105,7 +105,7 @@ class ChangeBasis private constructor(val kind: Kind, val utcOffsetHours: Int) {
             return utc(if (rest[0] == '-') -value else value)
         }
 
-        /** Unbekannt oder fehlend (ältere Version, neuere Sicherung): Standard. */
+        /** Unbekannt oder fehlend (nicht gesetzt, Sicherung einer neueren Version): Standard. */
         fun fromName(name: String?): ChangeBasis = parse(name) ?: DEFAULT
     }
 }
@@ -283,7 +283,7 @@ object ChangeBasisMath {
         basis.isDay || DayChange.needsCandles(tickerChange)
 
     /**
-     * Endgültiger Wert je Basis: rollend wie bisher ([DayChange.choose], Ticker vor Kerzen);
+     * Endgültiger Wert je Basis: rollend ([DayChange.choose], Ticker vor Kerzen);
      * Tages-Basen nur aus Kerzen — der Ticker-Wert ist rollend und wäre hier falsch.
      */
     inline fun choose(basis: ChangeBasis, tickerChange: Double?, candles: () -> Double?): Double? =
@@ -298,7 +298,7 @@ object ChangeBasisMath {
         changeIsMark && basis.kind == ChangeBasis.Kind.ROLLING_24H
 
     /**
-     * Gelten die gespeicherten Werte noch? Ohne Stempel (vor dieser Einstellung berechnet)
+     * Gelten die gespeicherten Werte noch? Ohne Stempel (noch nichts berechnet)
      * gelten sie als rollend. Tages-Basen: gleicher Tagesbeginn wie jetzt.
      */
     fun isCurrent(stamp: ChangeStamp?, basis: ChangeBasis, now: Long, zone: ZoneId = ZoneId.systemDefault()): Boolean {

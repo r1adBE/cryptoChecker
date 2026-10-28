@@ -139,7 +139,7 @@ fun PortfolioTxSheet(
         state.prefillFeeCoinPrice(feeCoinSymbol, coin) { viewModel.currentPrice(it) }
     }
 
-    // K-2: Tageskurs USD → Anzeigewährung für das Datum der Transaktion (heute: aktueller Kurs), nur in der Anzeigewährung
+    // Tageskurs USD → Anzeigewährung für das Datum der Transaktion (heute: aktueller Kurs), nur in der Anzeigewährung
     val day = d.day
     LaunchedEffect(currency, day, state.entryFiat) {
         state.loadEntryFx(currency, day) { c, dd -> viewModel.entryFx(c, dd) }
@@ -249,12 +249,12 @@ fun PortfolioTxSheet(
                 TxAmountSection(state, d, viewModel)
                 // Tausch: erhaltener Coin und Menge
                 if (d.isSwap) TxSwapReceivedSection(state, d, coins)
-                // K-2: Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
+                // Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
                 if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
                 TxPriceValueSection(state, d, currency)
                 // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss»
                 TxCostSuggestion(state, coin, coinValid, d.amount, viewModel)
-                // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026)
+                // Notiz direkt unter dem Preis, bei allen Arten
                 TxNoteField(state, 12.dp)
                 TxSwitchesSection(state)
                 // Umbuchung: von / nach

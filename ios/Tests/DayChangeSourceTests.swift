@@ -28,7 +28,7 @@ final class DayChangeSourceTests: XCTestCase {
         XCTAssertEqual(DayChange.foreignCandleSource(exchanges: ["Binance"],
                                                      provider: DayChange.candleSourceName(provider: " Kraken ", series: .usdt)),
                        "Kraken USDT")
-        // eigene Reihe: wie bisher nur bei fremder Börse
+        // eigene Reihe: nur bei fremder Börse
         XCTAssertNil(DayChange.foreignCandleSource(exchanges: ["Binance"],
                                                    provider: DayChange.candleSourceName(provider: "Binance", series: .pair)))
         XCTAssertNil(DayChange.candleSourceName(provider: "Binance", series: DayChange.CandleSeries.none))

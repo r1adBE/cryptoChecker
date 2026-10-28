@@ -13,7 +13,7 @@ enum AppLinks {
     /// «Börse wünschen»: GitHub-Issue mit der Vorlage `.github/ISSUE_TEMPLATE/exchange_request.md`.
     static let exchangeRequest = "https://github.com/r1adBE/cryptoChecker/issues/new?template=exchange_request.md"
 
-    /// Runde 15: Quellcode der App, öffentlich unter der MIT-Lizenz (gleich wie Android `SOURCE_CODE_URL`).
+    /// Quellcode der App, öffentlich unter der MIT-Lizenz (gleich wie Android `SOURCE_CODE_URL`).
     static let sourceCode = "https://github.com/r1adBE/cryptoChecker"
 
     static var privacyPolicyURL: URL? { URL(string: privacyPolicy) }

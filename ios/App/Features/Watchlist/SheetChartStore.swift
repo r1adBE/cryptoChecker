@@ -115,7 +115,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
                                            quoteIsFiat: DayChange.isFiat(watch.quoteAsset))
         let price = watch.lastPrice
         let pair = CandlePair.of(watch)
-        // Name des Coins an der Börse des Paars (K-8); gelesen erst in der Aufgabe (Datei, nicht auf dem Main-Thread)
+        // Name des Coins an der Börse des Paars; gelesen erst in der Aufgabe (Datei, nicht auf dem Main-Thread)
         let exchangeKey = watch.exchangeKey
         let rawBase = watch.baseAsset
         // Eigene Aufgabe abseits des Main-Threads (eigene Börse, Ausweich-Kette, Tageskurse, Umrechnung)
@@ -133,7 +133,7 @@ final class SheetChartStore: @unchecked Sendable { // @unchecked: veränderliche
             // TradFi und DEX: nie Kerzen eines gleichnamigen Krypto-Tokens
             guard OwnCandlePolicy.allowsFallback(pair) else { return nil }
             // 2. Ausweich-Kette (Binance … Coinbase), Futures-Paare zuerst USDⓈ-M; Binance nur, wenn der Name
-            // des Coins an der Börse des Paars dort nicht klar anders lautet (gleicher Token, K-8)
+            // des Coins an der Börse des Paars dort nicht klar anders lautet (gleicher Token)
             let identityName = TokenIdentityStore.shared.pairName(exchangeKey: exchangeKey, base: rawBase)
             for request in requests {
                 if Task.isCancelled { return nil }

@@ -123,7 +123,7 @@ object DayChange {
     /**
      * Kleiner Marker «*» neben der %-Änderung der Merklisten-Zeile, wenn der GEZEIGTE Wert aus den Kerzen einer
      * anderen Börse kommt (z. B. Kraken-Paar, Binance-Kerzen); der Zeilensatz sagt dann «Veränderung aus
-     * Binance-Kerzen», das Aktionsblatt erklärt es wie bisher. Kein Marker ohne gezeigten Wert («—») und bei
+     * Binance-Kerzen», das Aktionsblatt erklärt es. Kein Marker ohne gezeigten Wert («—») und bei
      * «Seit letzter Aktualisierung» (dort rechnet die App selbst aus zwei Kursen, keine Kerzen).
      * @param foreignSource fremder Anbieter der Änderung ([foreignCandleSource]); null = eigene Börse/Ticker
      * @return Anbieter für Marker und Zeilensatz; null = kein Marker

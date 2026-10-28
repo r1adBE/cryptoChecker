@@ -14,7 +14,7 @@ enum FxRateSource {
         "MYR", "PHP", "NZD", "ZAR", "BRL", "MXN", "ILS",
     ]
 
-    /// Neu holen ab 3 h (vorher 6 h): ältere Kurse zeigt die Merkliste mit Uhrzeit.
+    /// Neu holen ab 3 h: ältere Kurse zeigt die Merkliste mit Uhrzeit.
     private static let ttlMillis: Int64 = CurrencyConversion.fxStaleMillis
     private static let staleMillis: Int64 = 24 * 60 * 60_000
 

@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 /**
  * «Mehrere Paare auf einmal» app-weit: Die Aufnahme läuft im Prozess-Bereich weiter, auch wenn der Bildschirm «Paar
- * hinzufügen» verlassen wird (vorher brach das Verlassen sie ab). [progress] zeigt den Stand für den Balken im
+ * hinzufügen» verlassen wird. [progress] zeigt den Stand für den Balken im
  * Explorer und über der Merkliste; jedes Ende ist eindeutig (Ergebnis, gesperrt, abgebrochen, Fehler) und bleibt
  * stehen, bis ein Bildschirm es gemeldet hat ([clearResult]). Schreibwege ([BulkAddWrites]), Bereich und Uhr sind über
  * den internen Konstruktor austauschbar (`BulkAddRunnerTest`).
@@ -39,7 +39,7 @@ class BulkAddRunner constructor(
         val total: Int,
         val result: BulkAddResult? = null,
         val locked: Boolean = false,
-        /** «Abbrechen» der Rückfrage F-08 im Runner: nichts angelegt. */
+        /** «Abbrechen» der Rückfrage «nicht gespeichert» im Runner: nichts angelegt. */
         val cancelled: Boolean = false,
         /** Mit Fehler beendet (z. B. Datenbank-Schlüssel nicht lesbar); bis dahin angelegte Paare bleiben. */
         val failed: Boolean = false,
@@ -64,8 +64,8 @@ class BulkAddRunner constructor(
         if (!started) return false
         scope.launch {
             try {
-                // Eigene Coroutine: Zustimmung F-08 hier noch einmal (nach der Antwort im Explorer ohne Dialog; ohne
-                // Oberfläche durchgelassen gilt sie nur für die Coroutine der Aktion, also für diese)
+                // Eigene Coroutine: Zustimmung zur Rückfrage «nicht gespeichert» hier noch einmal (nach der Antwort im
+                // Explorer ohne Dialog; ohne Oberfläche durchgelassen gilt sie nur für die Coroutine der Aktion, also für diese)
                 if (!writes.confirm()) {
                     state.value = Progress(0, total, cancelled = true)
                     return@launch
@@ -93,7 +93,8 @@ class BulkAddRunner constructor(
 
     /**
      * «Rückgängig» nach dem Hinzufügen: die neu angelegten Paare [ids] wieder löschen (bestehende bleiben), ausser
-     * denen, die inzwischen einen Alarm bekommen haben. Läuft wie die Aufnahme app-weit, mit eigener Zustimmung F-08.
+     * denen, die inzwischen einen Alarm bekommen haben. Läuft wie die Aufnahme app-weit, mit eigener Zustimmung zur
+     * Rückfrage «nicht gespeichert».
      */
     fun undo(ids: List<Long>) {
         if (ids.isEmpty()) return
@@ -122,11 +123,11 @@ class BulkAddRunner constructor(
 
 /**
  * Schreibwege der Sammelaufnahme: im Betrieb das Repository ([RepositoryBulkAddWrites]); Tests setzen eine Fälschung
- * ein (`BulkAddRunnerTest`). Jeder Weg läuft in der Coroutine des Aufrufers — die Zustimmung F-08 aus [confirm] gilt
- * dort samt Kindern (`WatchlistNotSavedGate`).
+ * ein (`BulkAddRunnerTest`). Jeder Weg läuft in der Coroutine des Aufrufers — die Zustimmung zur Rückfrage
+ * «nicht gespeichert» aus [confirm] gilt dort samt Kindern (`WatchlistNotSavedGate`).
  */
 interface BulkAddWrites {
-    /** Rückfrage F-08 ([confirmUserWrite]); false = «Abbrechen». */
+    /** Rückfrage «nicht gespeichert» ([confirmUserWrite]); false = «Abbrechen». */
     suspend fun confirm(): Boolean
 
     /** Paare anlegen ([addWatches]). */

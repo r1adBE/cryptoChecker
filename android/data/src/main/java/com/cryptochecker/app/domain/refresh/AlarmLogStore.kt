@@ -182,7 +182,7 @@ class AlarmLogStore(
         const val FILE_NAME = "alarm_log.sealed"
 
         /** Eigener Keystore-Alias: unabhängig von Datenbank, Widget-Aufnahme und Journal. */
-        const val KEY_ALIAS = "cryptochecker_alarm_log_v1"
+        const val KEY_ALIAS = "cryptochecker_alarm_log"
 
         /** Höchstens so viele Einträge warten im Speicher, solange die Datei nicht lesbar ist. */
         private const val MAX_UNLOADED = 2_000

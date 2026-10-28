@@ -213,7 +213,7 @@ internal fun AlarmCard(
                     modifier = Modifier.weight(1f).clearAndSetSemantics {}
                 )
                 // Schalter mit Beschriftung: welcher Alarm geschaltet wird
-                // FUN3-02: «Schwelle ungültig» lässt sich nicht einschalten (erst im Editor anpassen)
+                // «Schwelle ungültig» lässt sich nicht einschalten (erst im Editor anpassen)
                 Switch(
                     checked = alarm.enabled,
                     onCheckedChange = onToggle,

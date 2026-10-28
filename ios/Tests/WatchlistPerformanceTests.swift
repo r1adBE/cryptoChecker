@@ -82,7 +82,7 @@ final class WatchlistPerformanceTests: XCTestCase {
         // Je Tastendruck wie in der App (`WatchlistSearchIndex`): Coin-Namen (`names(for:)`) und Schlüssel schon
         // zwischengespeichert; je Anfrage der Abgleich des Listenstands mit Namen und Schlüsseln (ohne Neuaufbau) und
         // die Faltung der Anfrage. Erwartet einige 10 ms für sechs Anfragen (Debug). Grenze 1000 statt 4000 ms
-        // (früher faltete jede Anfrage acht Felder je Paar)
+        // (ohne Index faltete jede Anfrage acht Felder je Paar)
         T.assertScales("Suche je Tastendruck (6 Anfragen, mit Coin-Namen)", limitMillis: 1_000) { n in
             let watches = PerformanceData.watches(n)
             let index = WatchlistSearchIndex()
@@ -94,7 +94,7 @@ final class WatchlistPerformanceTests: XCTestCase {
                 }
             }
         }
-        // Vorbereitung: Coin-Namen zusammenstellen und alle Schlüssel neu falten (Suche geöffnet) — so viel wie früher
+        // Vorbereitung: Coin-Namen zusammenstellen und alle Schlüssel neu falten (Suche geöffnet) — so viel wie sonst
         // jede Anfrage
         T.assertScales("Suche: Schlüssel vorbereiten (mit Coin-Namen)", limitMillis: 4_000) { n in
             let watches = PerformanceData.watches(n)

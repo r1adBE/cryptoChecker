@@ -147,7 +147,7 @@ final class PortfolioHistoryAsOfTests: XCTestCase {
 
 /// Portfolio beim Start im Hintergrund gelesen (`PortfolioLoadState`, AppData+PortfolioLoad.swift): Nur das erste
 /// Lesen wird übernommen — ein späteres (das im Hintergrund nach einem sofortigen Zugriff) ersetzt nie einen schon
-/// übernommenen oder inzwischen geänderten Stand; Sortierung wie bisher (`PortfolioStore.newestFirst`).
+/// übernommenen oder inzwischen geänderten Stand; Sortierung nach `PortfolioStore.newestFirst`.
 @MainActor
 final class PortfolioLoadStateTests: XCTestCase {
 
@@ -273,7 +273,7 @@ final class PortfolioOpenLotItemTests: XCTestCase {
 
 // ---- aus PortfolioPriceSourceClearTests
 
-/// Review IOS2-04: «Portfolio leeren» (`PortfolioPriceSource.clearStored`) vergisst auch die Coins
+/// «Portfolio leeren» (`PortfolioPriceSource.clearStored`) vergisst auch die Coins
 /// mit «Kurs nicht verfügbar» — sie nennen gehaltene Coins. Android: `PortfolioPriceSourceStore.kt` › `clearStored`.
 final class PortfolioPriceSourceClearTests: XCTestCase {
 

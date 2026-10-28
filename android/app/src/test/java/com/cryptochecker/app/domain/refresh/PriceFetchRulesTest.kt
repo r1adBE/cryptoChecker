@@ -18,7 +18,7 @@ import org.junit.Test
 
 /**
  * Regeln der Kursabfrage: Einzelabfragen nach 429/418 stoppen ([SingleRateGate]), «vollständig» je
- * Teilabfrage ([BulkCompleteness]), inverse Perpetuals ([FuturesContractType.normalized]) und «veraltet» am Abruf,
+ * Teilabfrage ([BulkCompleteness]), inverse Perpetuals ([FuturesContractType.isInversePerpetualId]) und «veraltet» am Abruf,
  * am letzten Handel erst ab der Grenze der Alarmsperre (Exchange.readTicker, PriceFreshness.staleReason).
  * iOS: `PriceFetchRulesTests.swift`.
  */
@@ -133,21 +133,20 @@ class PriceFetchRulesTest {
 
     @Test
     fun inversePerpetualIds() {
-        val n = { exchange: String, id: String?, type: FuturesContractType -> FuturesContractType.normalized(exchange, id, type) }
-        assertEquals(FuturesContractType.INVERSE_PERPETUAL, n("BinanceFutures", "2:BTCUSD_PERP", FuturesContractType.PERPETUAL))
-        assertEquals(FuturesContractType.PERPETUAL, n("BinanceFutures", "BTCUSDT", FuturesContractType.PERPETUAL))
-        // COIN-M-Laufzeit bleibt
-        assertEquals(FuturesContractType.QUARTERLY, n("BinanceFutures", "2:BTCUSD_251226", FuturesContractType.QUARTERLY))
-        assertEquals(FuturesContractType.INVERSE_PERPETUAL, n("OkexFutures", "BTC-USD-SWAP", FuturesContractType.PERPETUAL))
-        assertEquals(FuturesContractType.PERPETUAL, n("OkexFutures", "BTC-USDT-SWAP", FuturesContractType.PERPETUAL))
-        assertEquals(FuturesContractType.PERPETUAL, n("OkexFutures", "BTC-USDC-SWAP", FuturesContractType.PERPETUAL))
-        assertEquals(FuturesContractType.INVERSE_PERPETUAL, n("Deribit", "ETH-PERPETUAL", FuturesContractType.PERPETUAL))
-        assertEquals(FuturesContractType.PERPETUAL, n("Deribit", "SOL_USDC-PERPETUAL", FuturesContractType.PERPETUAL))
-        // Andere Börsen und Spot unverändert; schon invers bleibt invers
-        assertEquals(FuturesContractType.PERPETUAL, n("BybitFutures", "BTCUSD", FuturesContractType.PERPETUAL))
-        assertEquals(FuturesContractType.NONE, n("Okex", "BTC-USD", FuturesContractType.NONE))
-        assertEquals(FuturesContractType.INVERSE_PERPETUAL, n("Deribit", "BTC-PERPETUAL", FuturesContractType.INVERSE_PERPETUAL))
-        assertEquals(FuturesContractType.PERPETUAL, n("OkexFutures", null, FuturesContractType.PERPETUAL))
+        val inverse = { exchange: String, id: String? -> FuturesContractType.isInversePerpetualId(exchange, id) }
+        assertTrue(inverse("BinanceFutures", "2:BTCUSD_PERP"))
+        assertFalse(inverse("BinanceFutures", "BTCUSDT"))
+        // COIN-M-Laufzeit ist kein Perpetual
+        assertFalse(inverse("BinanceFutures", "2:BTCUSD_251226"))
+        assertTrue(inverse("OkexFutures", "BTC-USD-SWAP"))
+        assertFalse(inverse("OkexFutures", "BTC-USDT-SWAP"))
+        assertFalse(inverse("OkexFutures", "BTC-USDC-SWAP"))
+        assertTrue(inverse("Deribit", "ETH-PERPETUAL"))
+        assertFalse(inverse("Deribit", "SOL_USDC-PERPETUAL"))
+        // Andere Börsen und Spot: nie; ohne Kennung: nie
+        assertFalse(inverse("BybitFutures", "BTCUSD"))
+        assertFalse(inverse("Okex", "BTC-USD"))
+        assertFalse(inverse("OkexFutures", null))
     }
 
     @Test

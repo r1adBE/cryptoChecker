@@ -89,7 +89,7 @@ class PairCandlesTest {
         val foreign = FakeChain(listOf(series), names = listOf("Catcoin"), base = "CAT")
         assertNull(VolumeDataSource.pairCandlesOf(cat, 101.0, identityName = "Simon's Cat", ownSupported = false, own = { null }, chain = foreign.chain))
         assertEquals("Simon's Cat", foreign.identity)
-        // Gleicher Token (andere Schreibweise): wie bisher mit Kursband
+        // Gleicher Token (andere Schreibweise): mit Kursband
         val same = FakeChain(listOf(series), names = listOf("Simons Cat"), base = "CAT")
         assertEquals(series, VolumeDataSource.pairCandlesOf(cat, 101.0, identityName = "Simon's Cat", ownSupported = false, own = { null }, chain = same.chain)?.value)
         // Name unbekannt: nur Kürzel + Kursband

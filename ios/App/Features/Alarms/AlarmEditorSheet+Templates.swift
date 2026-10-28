@@ -38,7 +38,7 @@ extension AlarmEditorSheet {
         let label = Self.templateLabel(template)
         return Button {
             guard createGuard.begin(creating: true) else { return }
-            // UX4-06: erst nach bestätigter Rückfrage F-08 anlegen und schliessen
+            // Erst nach bestätigter Rückfrage «nicht gespeichert» anlegen und schliessen
             onTemplate(template, { dismiss() }, { createGuard.reset() })
         } label: {
             Text(label)

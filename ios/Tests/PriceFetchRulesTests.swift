@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Regeln der Kursabfrage: Einzelabfragen nach 429/418 stoppen (`SingleRateGate`), «vollständig» je
-/// Teilabfrage (`BulkCompleteness`), inverse Perpetuals (`FuturesContractType.normalized`) und «veraltet» am Abruf,
+/// Teilabfrage (`BulkCompleteness`), inverse Perpetuals (`FuturesContractType.isInversePerpetualId`) und «veraltet» am Abruf,
 /// am letzten Handel erst ab der Grenze der Alarmsperre (`Exchange.readTicker`, `PriceFreshness.staleReason`).
 /// Wie `PriceFetchRulesTest.kt`.
 final class PriceFetchRulesTests: XCTestCase {
@@ -103,28 +103,27 @@ final class PriceFetchRulesTests: XCTestCase {
     // MARK: inverse Perpetuals
 
     func testInversePerpetualIds() {
-        func n(_ exchange: String, _ id: String?, _ type: FuturesContractType) -> FuturesContractType {
-            FuturesContractType.normalized(exchangeKey: exchange, pairId: id, type)
+        func inverse(_ exchange: String, _ id: String?) -> Bool {
+            FuturesContractType.isInversePerpetualId(exchangeKey: exchange, pairId: id)
         }
-        XCTAssertEqual(n("BinanceFutures", "2:BTCUSD_PERP", .perpetual), .inversePerpetual)
-        XCTAssertEqual(n("BinanceFutures", "BTCUSDT", .perpetual), .perpetual)
-        // COIN-M-Laufzeit bleibt
-        XCTAssertEqual(n("BinanceFutures", "2:BTCUSD_251226", .quarterly), .quarterly)
-        XCTAssertEqual(n("OkexFutures", "BTC-USD-SWAP", .perpetual), .inversePerpetual)
-        XCTAssertEqual(n("OkexFutures", "BTC-USDT-SWAP", .perpetual), .perpetual)
-        XCTAssertEqual(n("OkexFutures", "BTC-USDC-SWAP", .perpetual), .perpetual)
-        XCTAssertEqual(n("Deribit", "ETH-PERPETUAL", .perpetual), .inversePerpetual)
-        XCTAssertEqual(n("Deribit", "SOL_USDC-PERPETUAL", .perpetual), .perpetual)
-        // Andere Börsen und Spot unverändert; schon invers bleibt invers
-        XCTAssertEqual(n("BybitFutures", "BTCUSD", .perpetual), .perpetual)
-        XCTAssertEqual(n("Okex", "BTC-USD", .none), FuturesContractType.none)
-        XCTAssertEqual(n("Deribit", "BTC-PERPETUAL", .inversePerpetual), .inversePerpetual)
-        XCTAssertEqual(n("OkexFutures", nil, .perpetual), .perpetual)
+        XCTAssertTrue(inverse("BinanceFutures", "2:BTCUSD_PERP"))
+        XCTAssertFalse(inverse("BinanceFutures", "BTCUSDT"))
+        // COIN-M-Laufzeit ist kein Perpetual
+        XCTAssertFalse(inverse("BinanceFutures", "2:BTCUSD_251226"))
+        XCTAssertTrue(inverse("OkexFutures", "BTC-USD-SWAP"))
+        XCTAssertFalse(inverse("OkexFutures", "BTC-USDT-SWAP"))
+        XCTAssertFalse(inverse("OkexFutures", "BTC-USDC-SWAP"))
+        XCTAssertTrue(inverse("Deribit", "ETH-PERPETUAL"))
+        XCTAssertFalse(inverse("Deribit", "SOL_USDC-PERPETUAL"))
+        // Andere Börsen und Spot: nie; ohne Kennung: nie
+        XCTAssertFalse(inverse("BybitFutures", "BTCUSD"))
+        XCTAssertFalse(inverse("Okex", "BTC-USD"))
+        XCTAssertFalse(inverse("OkexFutures", nil))
     }
 
     // MARK: «veraltet» am Abruf, Zeit der Börse nur zur Anzeige
 
-    /// «veraltet»: Abruf wie bisher, Zeit der Börse erst ab der Grenze der Alarmsperre — wie Android.
+    /// «veraltet»: Abrufzeit, Zeit der Börse erst ab der Grenze der Alarmsperre — wie Android.
     func testFetchTimeDrivesStalenessExchangeTimeOnlyPastAlarmLimit() throws {
         let upbit = try XCTUnwrap(ExchangesConfig.exchange("Upbit"))
         let body = #"[{"market":"KRW-BTC","trade_timestamp":1728540000000,"trade_price":86000000,"acc_trade_price_24h":1.0,"acc_trade_volume_24h":2.0}]"#

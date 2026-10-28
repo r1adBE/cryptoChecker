@@ -60,7 +60,7 @@ internal fun coinDetail(
 /**
  * Coin-Ansicht für [symbol] (normalisiert); leer, bis die Datenbank geantwortet hat. Erst mit beiden
  * Listen (alle und zählende Transaktionen — vorher kurz Bestand 0), und der Vergleich der Ergebnisse läuft vor [flowOn]
- * abseits des Hauptthreads. PERF3-R1: Kurs-Ticks anderer Coins rechnen wirklich nicht neu — der
+ * abseits des Hauptthreads. Kurs-Ticks anderer Coins rechnen wirklich nicht neu — der
  * Tageskurs für Gebühr-/Tausch-Zeilen hängt nur an den Kursen der Coins, die die eigenen Zeilen brauchen
  * ([coinDetailFeeCoins], [CoinFeePrices]); die Kursfunktion entsteht erst in der Rechnung.
  */

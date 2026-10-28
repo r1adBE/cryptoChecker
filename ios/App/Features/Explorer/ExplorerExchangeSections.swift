@@ -1,12 +1,12 @@
 import Foundation
 
 /// Börsenauswahl in Abschnitten: Spot · Futures · DEX-Pools · Forex (Referenzkurs), darin nach dem
-/// Volumen am Tag der Installation (`ExchangeOrder`, `ExchangeRankingStore`), sonst alphabetisch (wie bisher).
+/// Volumen am Tag der Installation (`ExchangeOrder`, `ExchangeRankingStore`), sonst alphabetisch.
 /// Gegenstück zu den Abschnitten der Börsen-`DropdownField` (Android `ExplorerSteps.kt`).
 extension ExplorerViewModel {
     /// Abschnitte der angebotenen Börsen (`exchanges`, «Token & TradFi» beachtet) mit übersetztem Titel.
     var marketSections: [(title: String, exchanges: [Exchange])] {
-        // Eingabe wie bisher alphabetisch (`allExchanges`); ohne Ranking bleibt diese Reihenfolge je Abschnitt
+        // Eingabe alphabetisch (`allExchanges`); ohne Ranking bleibt diese Reihenfolge je Abschnitt
         ExchangeOrder.sections(of: exchanges, volumes: exchangeRanking).map { section in
             (ExplorerViewModel.sectionTitle(section.category), section.exchanges)
         }

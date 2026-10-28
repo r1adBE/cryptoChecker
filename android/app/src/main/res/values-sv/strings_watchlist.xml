@@ -223,4 +223,15 @@
     <string name="compare_title">Jämförelse</string>
     <string name="compare_basis">Linjerna visar förändringen i procent sedan periodens början.</string>
     <string name="compare_from_high">mot 30 d topp</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d par återställdes inte – bevakningslistan är full</item>
+        <item quantity="other">%1$d par återställdes inte – bevakningslistan är full</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Bevakningslistan med larm sparas inte just nu. Den här och fler ändringar försvinner när appen stängs. Ändra ändå?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Ändra ändå</string>
 </resources>

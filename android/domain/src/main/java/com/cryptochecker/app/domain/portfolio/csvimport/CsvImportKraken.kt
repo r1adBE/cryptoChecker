@@ -206,7 +206,7 @@ object CsvImportKraken {
         else -> amount == null && text.trim() == first
     }
 
-    /** Fiat (Stablecoins zählen als Krypto; früher galt USDT als Geld). */
+    /** Fiat (Stablecoins zählen als Krypto, auch USDT). */
     private fun isMoney(asset: String) = asset in CsvImport.FIAT
 
     private fun rawKind(leg: Leg) = if (leg.subtype.isEmpty()) leg.type else leg.type + " " + leg.subtype

@@ -1,12 +1,12 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Sperre der Merkliste (Review F-08), wie Android `WatchRepositoryLockTest`: Ist die gespeicherte
+/// Sperre der Merkliste, wie Android `WatchRepositoryLockTest`: Ist die gespeicherte
 /// Merkliste gerade nicht lesbar (`watchlistLocked`), lehnt `AppData` jeden Schreibweg des Nutzers ab, Hintergrund nicht;
 /// der Hinweis ist gedrosselt und erscheint nur auf dem zuletzt erschienenen Bildschirm. Das Verhalten prüfen
-/// `WatchlistLockBehaviorTests` (jeder Schreibweg gesperrt) und `WatchlistConsentBehaviorTests` (Rückfrage F-08 am
+/// `WatchlistLockBehaviorTests` (jeder Schreibweg gesperrt) und `WatchlistConsentBehaviorTests` (Rückfrage am
 /// Schreibweg); dieser Test sichert an der Quelle zusätzlich, dass jeder Weg dieselbe Sicherung (`watchlistWriteRefused`)
-/// nutzt — nur so gilt auch F-08 für jeden — und dass Bildschirme vorher fragen.
+/// nutzt — nur so gilt auch die Rückfrage für jeden — und dass Bildschirme vorher fragen.
 @MainActor
 final class WatchlistWriteLockTests: XCTestCase {
 
@@ -88,14 +88,14 @@ final class WatchlistWriteLockTests: XCTestCase {
         XCTAssertTrue(body(alarms, "func createAlarm(").contains("!alarmSaveBlocked"))
     }
 
-    /// F-08, Review UX3-02/05, IOS3-R04: Die Rückfrage kommt EINMAL je Aktion VOR der Aktion im
+    /// Die Rückfrage kommt EINMAL je Aktion VOR der Aktion im
     /// Bildschirm (`withWatchlistConfirm`/`confirmWatchlistWrite`); der Schreibweg fragt nicht und führt nichts erneut
     /// aus (kein `retry`), sondern lehnt ohne Bestätigung ab. Gezeigt wird sie über allem (`WatchlistNotSavedGatePresenter`).
     func testActionsConfirmFirstAndWritePathsOnlyRefuse() throws {
         let lock = try source("AppData+WatchlistLock.swift")
         XCTAssertFalse(lock.contains("retry"), "Schreibweg führt nach «Trotzdem» nichts mehr erneut aus")
         // «Ohne Zustimmung abgelehnt, ohne Frage» als Verhalten: `WatchlistConsentBehaviorTests`
-        // ARC7-02: nur über `withWatchlistConfirm` (Aktion unter `runConsented`), nicht direkt aus Bildschirmen
+        // Nur über `withWatchlistConfirm` (Aktion unter `runConsented`), nicht direkt aus Bildschirmen
         XCTAssertTrue(lock.contains("private func confirmWatchlistWrite() async -> Bool"))
         for file in ["AppData+Watchlist.swift", "AppData+WatchEdits.swift", "AppData+Reading.swift", "AppData+Alarms.swift"] {
             XCTAssertFalse(try source(file).contains("retry:"), "\(file): Schreibweg mit retry")

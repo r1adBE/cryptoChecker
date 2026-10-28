@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">staking-tétel ellentétel nélkül – ellenőrizd az egyenleget</string>
     <string name="portfolio_csv_skip_amount_too_small">túl kicsi mennyiség – mentéskor 0 lesz</string>
     <string name="portfolio_csv_skip_invalid_swap">csere érvényes kapott coin vagy kapott mennyiség nélkül</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">A fájl újraolvasása …</string>
 </resources>

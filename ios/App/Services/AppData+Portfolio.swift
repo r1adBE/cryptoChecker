@@ -192,22 +192,18 @@ extension AppData {
         return PortfolioTxForm.walletHoldings(PortfolioCalculator.openLots(coin, trades: trades, method: .FIFO_WALLET), wallet: wallet)
     }
 
-    /// Nach einer Wiederherstellung — wie Android: Transaktionen der Sicherung
-    /// übernehmen (fehlt «portfolio», bleibt das bestehende stehen).
+    /// Nach einer Wiederherstellung — wie Android: Transaktionen der Sicherung übernehmen.
     /// - Returns: false, wenn das Portfolio nicht geschrieben werden konnte.
     @discardableResult
-    func restorePortfolio(_ transactions: [PortfolioTx]?) -> Bool {
-        if let transactions {
-            let current = currentPortfolioFile()
-            var file = PortfolioFile(transactions: [], nextId: current.nextId)
-            for tx in transactions {
-                var item = tx
-                item.coin = PortfolioCalculator.normalizeCoin(tx.coin)
-                PortfolioStore.insert(item, into: &file)
-            }
-            guard setPortfolioFile(file) else { return false }
+    func restorePortfolio(_ transactions: [PortfolioTx]) -> Bool {
+        let current = currentPortfolioFile()
+        var file = PortfolioFile(transactions: [], nextId: current.nextId)
+        for tx in transactions {
+            var item = tx
+            item.coin = PortfolioCalculator.normalizeCoin(tx.coin)
+            PortfolioStore.insert(item, into: &file)
         }
-        return true
+        return setPortfolioFile(file)
     }
 
     /// Stand der Portfolio-Datei vor dem Wiederherstellen (für das Rückrollen, `RestoreSteps`).
@@ -233,7 +229,7 @@ extension AppData {
             watchedAddressSavePending = result != .saved
         }
         // Portfolio-Alarme über die Schreib-Warteschlange wie `mutate` (neuere Kurse und Auslösungen der
-        // Datei bleiben, kein doppelter Alarm) und nicht mehr blockierend auf dem Haupt-Thread (`PortfolioSaveRetry`)
+        // Datei bleiben, kein doppelter Alarm) und nicht blockierend auf dem Haupt-Thread (`PortfolioSaveRetry`)
         let alarmsQueued = PortfolioSaveRetry.queuesAlarms(alarmsPending: SharedStorage.portfolioAlarmsPending,
                                                            watchlistReadOnce: watchlistReadOnce)
         if alarmsQueued {

@@ -45,4 +45,17 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Λογαριασμός Taproot (BIP86): από αυτό το κλειδί παράγονται διευθύνσεις bc1p…, για λήψη και ρέστα.</string>
     <string name="portfolio_address_taproot_hint">Πορτοφόλι Taproot; Επικόλλησε καλύτερα τον περιγραφέα tr(…) από το πορτοφόλι σου – ένα απλό xpub ελέγχεται μόνο ως διευθύνσεις Legacy και SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Ο δικός σου διακομιστής δεν είναι προσβάσιμος</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Όποιος λειτουργεί το %1$s βλέπει όλες τις διευθύνσεις αυτού του πορτοφολιού που ερωτώνται και μπορεί να τις συνδέσει μεταξύ τους και με τη διεύθυνση IP σου.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Για να το αποφύγεις, όρισε δικό σου διακομιστή στο Ρυθμίσεις › Χαρτοφυλάκιο › Δικός σου διακομιστής για διευθύνσεις.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d άγνωστο token (δεν μετράται)</item>
+        <item quantity="other">+%1$d άγνωστα tokens (δεν μετρώνται)</item>
+    </plurals>
 </resources>

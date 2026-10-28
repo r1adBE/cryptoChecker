@@ -23,7 +23,7 @@ struct LaunchRead: Sendable {
     let watched: WatchedAddressFile
     let watchedIntact: Bool
 
-    /// Zuerst verschlüsseln, dann lesen — wie früher der synchrone Start. Im Systemprotokoll als Intervall
+    /// Zuerst verschlüsseln, dann lesen. Im Systemprotokoll als Intervall
     /// «launchRead» (Instruments, Kategorie «launch»).
     static func read() -> LaunchRead {
         let signposter = OSSignposter(subsystem: AppLog.subsystem, category: "launch")
@@ -129,8 +129,7 @@ extension AppData {
         }
     }
 
-    /// Noch nicht übernommen: jetzt sofort lesen bzw. das laufende Lesen abwarten (Haupt-Thread, wie früher beim
-    /// Start).
+    /// Noch nicht übernommen: jetzt sofort lesen bzw. das laufende Lesen abwarten (Haupt-Thread).
     func ensureSnapshotLoaded() {
         guard !snapshotLoaded else { return }
         adoptLaunchRead(launchLoader.value(), immediate: true)
@@ -181,7 +180,7 @@ extension AppData {
         waiters.forEach { $0() }
     }
 
-    /// Folgen des gelesenen Stands (früher am Ende von `init`, in derselben Reihenfolge).
+    /// Folgen des gelesenen Stands, in fester Reihenfolge.
     private func finishLaunchLoad(_ launch: LaunchRead) {
         // Ohne Schlüssel unlesbare Dateien beiseitegelegt: nennen, bis bestätigt (`StorageRecoveryNotice`); öffnen sie
         // doch mit dem Schlüssel, kommen sie zurück (einmal genannt)

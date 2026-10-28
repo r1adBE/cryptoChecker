@@ -69,7 +69,7 @@ class SettingsRepository @Inject constructor(
     var cached: AppSettings = AppSettings()
         private set
 
-    /** true, sobald [cached] einmal aus der Datei gelesen wurde (Start ohne runBlocking, K-6). */
+    /** true, sobald [cached] einmal aus der Datei gelesen wurde (Start ohne runBlocking). */
     @Volatile
     var loaded: Boolean = false
         private set

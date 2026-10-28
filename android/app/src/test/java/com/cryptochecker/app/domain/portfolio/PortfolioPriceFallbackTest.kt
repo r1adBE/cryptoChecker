@@ -67,7 +67,7 @@ class PortfolioPriceFallbackTest {
         assertEquals(mapOf("ETH" to StoredPrice(3000.0, now)), PortfolioPriceFallback.decode(text))
     }
 
-    /** «Kurs ungeprüft» wird mit dem Kurs gemerkt; ältere Dateien ohne Feld gelten als geprüft. */
+    /** «Kurs ungeprüft» wird mit dem Kurs gemerkt; Zeilen ohne Feld gelten als geprüft. */
     @Test
     fun unverifiedFlagRoundTrip() {
         val entries = mapOf(
@@ -77,7 +77,7 @@ class PortfolioPriceFallbackTest {
         val text = PortfolioPriceFallback.encode(entries)
         assertTrue(text.contains("\nBEAM;0.02;$now;u"))
         assertEquals(entries, PortfolioPriceFallback.decode(text))
-        // Älterer Stand ohne 4. Feld: geprüft; unbekanntes 4. Feld: Zeile verworfen
+        // Ohne 4. Feld: geprüft; unbekanntes 4. Feld: Zeile verworfen
         val old = PortfolioPriceFallback.FORMAT_HEADER + "\nBEAM;0.02;$now\nETH;3000.0;$now;x"
         assertEquals(mapOf("BEAM" to StoredPrice(0.02, now)), PortfolioPriceFallback.decode(old))
     }
@@ -149,7 +149,7 @@ class PortfolioPriceFallbackTest {
         assertEquals(180 * minute, PortfolioPriceFallback.staleAfterMillis(60))
     }
 
-    /** K-7: Fehler (Netz, Sperre) ist nicht «kein Kurs». */
+    /** Fehler (Netz, Sperre) ist nicht «kein Kurs». */
     @Test
     fun priceIssueSeparatesErrorsFromNoPrice() {
         val of = com.cryptochecker.app.data.portfolio.PortfolioPriceIssue.Companion::of

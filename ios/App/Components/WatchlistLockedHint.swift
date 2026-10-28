@@ -24,7 +24,7 @@ enum WatchlistLockedHintHosts {
 private struct WatchlistLockedHintModifier: ViewModifier {
     @EnvironmentObject private var data: AppData
     // Die Frage «Änderungen werden gerade nicht gespeichert …» zeigt `WatchlistNotSavedGatePresenter`
-    // (eigenes Fenster über allem, auch über Blättern) — nicht mehr dieser Bildschirm
+    // (eigenes Fenster über allem, auch über Blättern), nicht dieser Bildschirm
     @State private var host = UUID()
     let show: (String) -> Void
 

@@ -253,7 +253,7 @@ class RefreshEffects constructor(
                     continue
                 }
 
-                // Gespeichert wird der Kurs in der Quote (wie bisher); gemeldet und angesagt in der Währung
+                // Gespeichert wird der Kurs in der Quote; gemeldet und angesagt in der Währung
                 // der Schwelle — sonst stünde «Über 60’000 CHF — jetzt 66’000 USDT» in der Meldung
                 report(
                     alarm,

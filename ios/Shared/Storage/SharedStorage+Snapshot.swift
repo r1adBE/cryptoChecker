@@ -162,7 +162,7 @@ extension SharedStorage {
     /// der Portfolio-Alarme wird immer unter derselben Abstimmung gelesen und geschrieben. Bewusst
     /// kein gehaltenes Datei-Lock (iOS beendet angehaltene Prozesse mit Lock im geteilten Container,
     /// 0xdead10cc — siehe `AlarmLease`). Nie verschachteln: innerhalb nur `readFiles`/`writeFiles`.
-    /// Schlägt die Abstimmung fehl, läuft der Zugriff wie bisher ohne sie.
+    /// Schlägt die Abstimmung fehl, läuft der Zugriff ohne sie.
     @discardableResult
     private static func coordinated<T>(writing: Bool, _ body: () -> T) -> T {
         let coordinator = NSFileCoordinator(filePresenter: nil)

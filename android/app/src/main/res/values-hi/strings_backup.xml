@@ -100,4 +100,11 @@
     <string name="portfolio_storage_locked">सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए बदलाव संभव नहीं हैं। ऐप दोबारा शुरू करो।</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">यह डिवाइस अभी कोई कुंजी उपलब्ध नहीं करा रहा – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। बैकग्राउंड में अलार्म रुके हुए हैं। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">“पतों के लिए अपना सर्वर” बहाल नहीं हुआ – बिना एन्क्रिप्शन वाला बैकअप इसे बदल नहीं सकता।</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">“पतों के लिए अपना सर्वर” बैकअप की तरह हटाया गया – Bitcoin पते फिर से सार्वजनिक नोड्स से पूछे जाते हैं।</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">“पतों के लिए अपना सर्वर” बैकअप वाले सर्वर से बदला गया।</string>
 </resources>

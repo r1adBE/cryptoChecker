@@ -45,4 +45,18 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Conta Taproot (BIP86): desta chave são derivados endereços bc1p…, para recebimento e troco.</string>
     <string name="portfolio_address_taproot_hint">Carteira Taproot? Cole em vez disso o descritor tr(…) da sua carteira – uma xpub simples só é buscada como endereços Legacy e SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Servidor próprio inacessível</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Quem opera %1$s vê todos os endereços consultados desta wallet e pode ligá-los entre si e ao seu endereço IP.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Para evitar isso, informe seu próprio servidor em Configurações › Portfólio › Servidor próprio para endereços.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d token desconhecido (não contado)</item>
+        <item quantity="many">+%1$d de tokens desconhecidos (não contados)</item>
+        <item quantity="other">+%1$d tokens desconhecidos (não contados)</item>
+    </plurals>
 </resources>

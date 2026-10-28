@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Runde 35: exakte Buchhaltung (`Decimal`, 1 Satoshi = 0.00000001 BTC), Gebühren und Gewinn je
+/// Exakte Buchhaltung (`Decimal`, 1 Satoshi = 0.00000001 BTC), Gebühren und Gewinn je
 /// Zeitraum mit Käufen/Verkäufen. Wie `PortfolioLedgerTest.kt`.
 final class PortfolioLedgerTests: XCTestCase {
 
@@ -322,7 +322,7 @@ final class PortfolioLedgerTests: XCTestCase {
         let ids = PortfolioLedger.events("BTC", trades: trades).map(\.trade.id)
         XCTAssertEqual(ids, [5, 2, 3, 1, 4])
         XCTAssertEqual(PortfolioLedger.eventsByCoin(trades).first { $0.coin == "BTC" }?.events.map(\.trade.id), ids)
-        // Bestand: 0.2 + 1 + 0.05 − 0.5 − 0.01 (der Verkauf wird nicht mehr auf 0.2 gekappt)
+        // Bestand: 0.2 + 1 + 0.05 − 0.5 − 0.01 (der Verkauf wird nicht auf 0.2 gekappt)
         let holdings = PortfolioLedger.events("BTC", trades: trades).reduce(Decimal(0)) { PortfolioLedger.holdingsAfter($0, $1) }
         XCTAssertEqual(holdings, dec("0.74"))
     }

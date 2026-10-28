@@ -52,8 +52,8 @@ import com.cryptochecker.app.ui.UiTestTags
  * Leere Merkliste: die fünf grössten Coins (ohne Stablecoins) als Auswahlliste im Stil
  * der Karte «Ungewöhnliche Aktivität» — je Zeile Coin, aktueller Kurs, 24-Stunden-Änderung
  * und Häkchen; anfangs alle gewählt. Ein Knopf legt alle gewählten auf einmal an
- * (gleicher Weg und Erst-Moment wie bisher). Oben steht laut, woher die Kurse kommen
- * («Kurse von Binance in USDT», [exchangeName] und [quote]). Darunter der bisherige Hinweis und der
+ * (mit Erst-Moment). Oben steht laut, woher die Kurse kommen
+ * («Kurse von Binance in USDT», [exchangeName] und [quote]). Darunter der Hinweis und der
  * Weg zu jedem anderen Coin (Seite «Paar hinzufügen» mit der Coin-Suche, auch über «+» oben rechts). [coins]
  * sofort aus Zwischenspeicher bzw. Ausweich-Liste; frischere Daten ersetzen sie still.
  */

@@ -113,7 +113,7 @@ struct WhyReason: Equatable, Sendable {
     var secondary: Double? = nil
     /// Auffällig — wird vor den ruhigen Gründen gezeigt.
     var strong: Bool = false
-    /// Markt-Gründe: welche Referenz der Marktwert meint; nil = BTC (wie bisher).
+    /// Markt-Gründe: welche Referenz der Marktwert meint; nil = BTC.
     var ref: MarketRef? = nil
     /// Schwelle, gegen die `value` (Markt: die Referenz, Coin allein/gegen den Markt: der Coin)
     /// verglichen wurde — relativ zur eigenen Schwankung (`RelativeMove`); nil = feste Schwelle.

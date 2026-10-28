@@ -103,7 +103,7 @@ class WidgetGroupSelectionTest {
         assertEquals(null to listOf("BTC", "AIA", "NVDA", "ETH"), pick(null))
         assertEquals(WatchFilter.FAVORITES to listOf("BTC"), pick(WatchFilter.FAVORITES))
         assertEquals(WatchFilter.TOKENS to listOf("BTC", "AIA", "ETH"), pick(WatchFilter.TOKENS))
-        // «Alpha»: nur Alpha-Tokens (vorher zeigte das Widget hier alle Paare)
+        // «Alpha»: nur Alpha-Tokens
         assertEquals(WatchFilter.ALPHA to listOf("AIA"), pick(WatchFilter.ALPHA))
         assertEquals("Majors" to listOf("ETH"), pick("Majors"))
         assertEquals("TradFi" to listOf("NVDA"), pick("TradFi"))

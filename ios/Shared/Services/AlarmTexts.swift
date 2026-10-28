@@ -157,7 +157,7 @@ enum AlarmTexts {
     /// Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen, echtes Minus (U+2212) vor dem Ganzen; gerundet 0
     /// ohne Vorzeichen, nie «−0 %» (wie `AlarmSentence.fundingPercent`).
     static func fundingPercent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
-        // positive Funding ohne «+» (wie bisher), nur das Minus
+        // positive Funding ohne «+», nur das Minus
         let text = PercentText.signed(value, decimals: 4, minDecimals: 0, locale: locale, grouping: true)
         return text.hasPrefix("+") ? String(text.dropFirst()) : text
     }

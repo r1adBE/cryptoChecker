@@ -324,4 +324,10 @@
         <item quantity="other">Também serão removidos %d lotes e o histórico de saldo.</item>
     </plurals>
     <string name="portfolio_address_remove_history">Também será removido o histórico de saldo.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Não foi possível guardar – tenta novamente</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Limite inválido – elimina-o e cria-o de novo</string>
 </resources>

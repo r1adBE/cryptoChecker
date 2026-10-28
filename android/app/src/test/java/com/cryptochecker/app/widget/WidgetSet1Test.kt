@@ -174,7 +174,7 @@ class WidgetListPriceFitTest {
         val fit = WidgetTextFit.listPriceFit(14f, 2f, priceWidthDp = 150f, nameWidthDp = 40f, availableDp = 200f)
         assertEquals(14f, fit.sp, 0f)
         assertEquals(50f, fit.nameDp, 0.01f)
-        // Breite unbekannt: wie bisher
+        // Breite unbekannt: 14 sp
         assertEquals(14f, WidgetTextFit.listPriceFit(14f, 2f, 400f, 40f, availableDp = null).sp, 0f)
         assertEquals(14f, WidgetTextFit.listPriceFit(14f, 2f, 400f, 40f, availableDp = 0f).sp, 0f)
     }
@@ -199,7 +199,7 @@ class WidgetListPriceFitTest {
 
     @Test
     fun normalTextKeepsPriceSizeAndShortensTheName() {
-        // Normale Schrift: Kurs bleibt 14 sp, der lange Name weicht (wie bisher)
+        // Normale Schrift: Kurs bleibt 14 sp, der lange Name weicht
         val fit = WidgetTextFit.listPriceFit(14f, 1f, priceWidthDp = 120f, nameWidthDp = 100f, availableDp = 150f)
         assertEquals(14f, fit.sp, 0f)
         assertEquals(30f, fit.nameDp, 0.01f)

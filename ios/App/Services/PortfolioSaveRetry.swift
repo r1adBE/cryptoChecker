@@ -3,7 +3,7 @@ import Foundation
 /// Entscheide von `AppData.retryPendingPortfolioSaves` ohne Dateien (testbar).
 ///
 /// Wartende Portfolio-Alarme gehen über die Schreib-Warteschlange hinaus (`SharedStorage.saveSnapshotInBackground`, mit
-/// `mergeNewerPrices`/`mergeNewerAlarmTriggers`) — vorher schrieb ein synchrones `saveSnapshot` den älteren Stand im
+/// `mergeNewerPrices`/`mergeNewerAlarmTriggers`) — ein synchrones `saveSnapshot` schriebe den älteren Stand im
 /// Speicher über Auslösungen von Widget bzw. Hintergrund-Aufgabe, und der Alarm meldete sich ein zweites Mal.
 enum PortfolioSaveRetry {
     /// Portfolio-Alarme erneut schreiben? Nur mit einmal gelesener Merkliste (sonst stünde sie leer im Speicher und

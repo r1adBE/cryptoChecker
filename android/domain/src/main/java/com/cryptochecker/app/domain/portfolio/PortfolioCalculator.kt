@@ -143,7 +143,7 @@ object PortfolioCalculator {
         val priceExact = price?.let { PortfolioDecimal.of(it) }
         val valueExact = priceExact?.let { holdings * it }
         val value = valueExact?.toDouble()
-        // Ganz mit Kaufpreis: ganzer eigener Bestand (wie bisher, Staub inklusive), sonst nur der Teil mit Kaufpreis
+        // Ganz mit Kaufpreis: ganzer eigener Bestand (Staub inklusive), sonst nur der Teil mit Kaufpreis
         val pricedValueExact = priceExact?.let { (if (priceMissing) pricedHoldings else ledgerHoldings) * it }
         val unrealizedExact = if (pricedCostExact != null && pricedValueExact != null) pricedValueExact - pricedCostExact else null
         val unrealized = unrealizedExact?.toDouble()

@@ -148,7 +148,7 @@ internal fun AboutPage(
         // Diagnose für den Support: erst Vorschau, dann Teilen-Menü — nichts geht automatisch weg
         DiagnosticsCard()
         Spacer(Modifier.height(12.dp))
-        // Was die App kann (früher im Begrüssungsblatt)
+        // Was die App kann
         GroupCard {
             AboutFeatures(modifier = Modifier.padding(16.dp))
         }

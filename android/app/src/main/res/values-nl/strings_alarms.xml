@@ -181,4 +181,10 @@
     <string name="alarm_reliability_storage_no_key">Alarmen op de achtergrond gepauzeerd – volglijst niet opgeslagen</string>
     <string name="alarms_limit_reached">Een paar kan maximaal %1$s alarmen hebben.</string>
     <string name="alarms_reference_rate_hint">Referentiekoersen van de ECB worden maar één keer per dag vastgesteld – daarvoor zijn er geen alarmen.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Een daling moet minder dan 100 procent zijn.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Ongeldige grens – pas deze aan</string>
 </resources>

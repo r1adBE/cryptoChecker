@@ -63,7 +63,7 @@ import java.util.Locale
 internal val CHART_HEIGHT = 180.dp
 
 /**
- * Beschriftungen ≈ 10 sp; grosse Systemschrift bis 1.5× (vorher 1.3×). Die Spalte der
+ * Beschriftungen ≈ 10 sp; grosse Systemschrift bis 1.5×. Die Spalte der
  * Preise misst ihre Breite (höchstens 42 % der Fläche) und die Ränder die Höhe — nichts wird abgeschnitten.
  * Wie iOS `ChartLabelMetrics`.
  */

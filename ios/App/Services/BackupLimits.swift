@@ -6,8 +6,8 @@ import Foundation
 /// Grenzen beim Einlesen einer Sicherung — wie `BackupLimits.kt`: höchstens 64 MB und höchstens 32 Ebenen
 /// verschachtelt (sonst Speicher- bzw. Stacküberlauf beim Parsen einer manipulierten Datei).
 ///
-/// Dieselbe Grenze gilt auch beim Schreiben (`checkWritable`): Ältere Versionen konnten eine Sicherung über
-/// 16 MB erzeugen, die sich danach nicht mehr einlesen liess. Seither kompaktes JSON und 64 MB auf beiden Plattformen.
+/// Dieselbe Grenze gilt auch beim Schreiben (`checkWritable`): nie eine Sicherung erzeugen, die sich danach nicht
+/// einlesen liesse. Kompaktes JSON und 64 MB auf beiden Plattformen.
 enum BackupLimits {
     static let maxBytes = 64 * 1024 * 1024
     static let maxDepth = 32

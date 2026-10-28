@@ -69,7 +69,7 @@ class AddressAlarmStateParityTest {
         assertTrue(AddressAlarmState.isPending(failed, now + 3_600_000L))
         assertFalse(AddressAlarmState.isPending(failed, now + AddressAlarmState.PENDING_MILLIS))
         assertFalse(AddressAlarmState.isPending(failed.copy(pendingSince = 0), now))
-        // Speicherform hin und zurück; ohne Zusatzdaten wie bisher (keine Beobachtungen: null)
+        // Speicherform hin und zurück; ohne Zusatzdaten (keine Beobachtungen: null)
         assertEquals(now, WatchedAddressExtras.decode(WatchedAddressExtras.encode(restored), AddressChain.BTC).pendingSince)
         assertNull(WatchedAddressExtras.encode(restored.copy(pendingSince = 0)))
         assertEquals(0L, WatchedAddressExtras.decode("""{"o":[],"ps":-5}""", AddressChain.BTC).pendingSince)

@@ -10,7 +10,7 @@ import java.time.ZoneId
 import kotlin.random.Random
 
 /**
- * Durchschnittsmethode ([average]) und Steuer-Pool ([TaxPool]) mit [PortfolioCostPartPool] gegen die frühere Rechnung
+ * Durchschnittsmethode ([average]) und Steuer-Pool ([TaxPool]) mit [PortfolioCostPartPool] gegen die Referenzrechnung
  * ([averageReference], [TaxPoolReference]: Liste der Herkunftsteile, Teil für Teil neu geschrieben) auf zufälligen
  * Ledgern mit Seed (Käufe mit Gebühren in USDT/im Coin, Teilverkäufe, Tausch, Belohnungen ohne Preis, Umbuchungen mit
  * Netzwerkgebühr, Auszahlungen) und den Leistungstest-Daten: alle Zahlen gleich, Herkunftsteile gleich bis auf die
@@ -59,26 +59,26 @@ class PortfolioCostPartsEquivalenceTest {
     }
 
     @Test
-    fun averageMatchesFormerCalculationOnRandomLedgers() {
+    fun averageMatchesReferenceCalculationOnRandomLedgers() {
         for (seed in 1..30) compareAverage("Seed $seed", randomLedger(seed, 400))
     }
 
     @Test
-    fun averageMatchesFormerCalculationOnPerformanceData() {
+    fun averageMatchesReferenceCalculationOnPerformanceData() {
         compareAverage("Leistungsdaten", PortfolioPerformanceData.trades(2_500))
     }
 
     @Test
-    fun taxPoolMatchesFormerPool() {
+    fun taxPoolMatchesReferencePool() {
         for (seed in 1..30) {
             val rnd = Random(seed)
             val zone = if (seed % 3 == 0) null else ZoneId.of("UTC")
             val pool = TaxPool(zone)
-            val former = TaxPoolReference(zone)
+            val reference = TaxPoolReference(zone)
             // Ziel der fortgeführten Teile (Umbuchung in ein anderes Wallet): ein eigener Pool wie in der App — derselbe
             // Pool würde seine Teile bei jedem Zurückbuchen verdoppeln
             val dest = TaxPool(zone)
-            val destFormer = TaxPoolReference(zone)
+            val destReference = TaxPoolReference(zone)
             var time = 1_650_000_000_000L
             var carried: Pair<TaxTaken, TaxTaken>? = null
             repeat(500) { step ->
@@ -89,10 +89,10 @@ class PortfolioCostPartsEquivalenceTest {
                     0, 1, 2 -> {
                         val cost = if (rnd.nextInt(6) == 0) null else amount(rnd, 4)
                         pool.add(qty, cost, time)
-                        former.add(qty, cost, time)
+                        reference.add(qty, cost, time)
                     }
                     3, 4, 5 -> {
-                        val expected = former.take(qty.min(former.held.multiply(BigDecimal("0.6"))))
+                        val expected = reference.take(qty.min(reference.held.multiply(BigDecimal("0.6"))))
                         val actual = pool.take(qty.min(pool.held.multiply(BigDecimal("0.6"))))
                         same("$l removed", expected.removed, actual.removed)
                         same("$l removedPriced", expected.removedPriced, actual.removedPriced)
@@ -102,39 +102,39 @@ class PortfolioCostPartsEquivalenceTest {
                     }
                     6 -> carried?.let { (e, a) ->
                         // Fortgeführter Einstand mit Herkunft (Umbuchung) — Teile eines Abgangs, je einmal in den Ziel-Pool
-                        destFormer.addCarried(e.removedPriced, e.parts)
+                        destReference.addCarried(e.removedPriced, e.parts)
                         dest.addCarried(a.removedPriced, a.parts)
-                        same("$l Ziel Einstand", destFormer.cost, dest.cost)
+                        same("$l Ziel Einstand", destReference.cost, dest.cost)
                         carried = null
                     }
-                    7 -> same("$l Netzwerkgebühr", former.dropQty(qty.min(former.held)), pool.dropQty(qty.min(pool.held)))
+                    7 -> same("$l Netzwerkgebühr", reference.dropQty(qty.min(reference.held)), pool.dropQty(qty.min(pool.held)))
                     8 -> {
                         val fee = amount(rnd, 2)
-                        val expected = former.addFee(time, fee, qty, BigDecimal.ZERO)
+                        val expected = reference.addFee(time, fee, qty, BigDecimal.ZERO)
                         same("$l Gebühr", expected, pool.addFee(time, fee, qty, BigDecimal.ZERO))
                     }
                     else -> {
                         // Tages-Pool übernehmen (UK): Zugänge eines früheren Tags
                         val day = time - rnd.nextLong(0, 10 * DAY)
-                        val otherFormer = TaxPoolReference()
+                        val otherReference = TaxPoolReference()
                         val other = TaxPool()
                         repeat(1 + rnd.nextInt(3)) {
                             val q = amount(rnd, 6)
                             val c = amount(rnd, 4)
-                            otherFormer.add(q, c, day)
+                            otherReference.add(q, c, day)
                             other.add(q, c, day)
                         }
-                        former.absorb(otherFormer)
+                        reference.absorb(otherReference)
                         pool.absorb(other)
                     }
                 }
-                same("$l priced", former.priced, pool.priced)
-                same("$l unpriced", former.unpriced, pool.unpriced)
-                same("$l Einstand", former.cost, pool.cost)
-                if (step % 50 == 0) assertParts("$l offen", former.parts, pool.parts)
+                same("$l priced", reference.priced, pool.priced)
+                same("$l unpriced", reference.unpriced, pool.unpriced)
+                same("$l Einstand", reference.cost, pool.cost)
+                if (step % 50 == 0) assertParts("$l offen", reference.parts, pool.parts)
             }
-            assertParts("Seed $seed offen", former.parts, pool.parts)
-            assertParts("Seed $seed Ziel", destFormer.parts, dest.parts)
+            assertParts("Seed $seed offen", reference.parts, pool.parts)
+            assertParts("Seed $seed Ziel", destReference.parts, dest.parts)
         }
     }
 

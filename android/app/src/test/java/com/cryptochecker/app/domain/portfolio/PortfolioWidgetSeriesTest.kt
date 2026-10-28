@@ -92,7 +92,7 @@ class PortfolioWidgetSeriesTest {
         assertEquals(100.0, points.first { it.time == now - 7 * h }.value, 1e-9)
         assertEquals(150.0, points.first { it.time == now - 6 * h }.value, 1e-9)
         assertEquals(150.0, points.last().value, 1e-9)
-        // Ohne Stufen wie bisher (heutiger Bestand über den ganzen Tag)
+        // Ohne Stufen (heutiger Bestand über den ganzen Tag)
         val plain = PortfolioWidgetSeries.hourly(mapOf("BTC" to 1.5), mapOf("BTC" to 100.0), mapOf("BTC" to series { 100.0 }), now, 1.0, stables)
         assertEquals(150.0, plain.first().value, 1e-9)
     }

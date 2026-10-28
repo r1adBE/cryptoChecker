@@ -81,7 +81,7 @@ struct AlarmsScreen: View {
                     EmptyStateView(
                         systemImage: "bell.and.waves.left.and.right",
                         title: L("alarms_empty"),
-                        // L-18: Beispiel im Stil der Alarm-Sätze (wie Android `AlarmsEmptyExample`)
+                        // Beispiel im Stil der Alarm-Sätze (wie Android `AlarmsEmptyExample`)
                         example: AlarmsEmptyExample.text,
                         actionTitle: watch == nil ? nil : L("alarms_add"),
                         action: watch == nil ? nil : { draft = AlarmDraft.blankFor() }
@@ -285,7 +285,7 @@ struct AlarmsScreen: View {
         }
     }
 
-    /// Vorgemerkte Dialoge zeigen: beim Schliessen des Editors auch nach einer späteren Antwort (F-08).
+    /// Vorgemerkte Dialoge zeigen: beim Schliessen des Editors auch nach einer späteren Antwort der Rückfrage.
     func showPendingDialogs() {
         if firstAlarmPending {
             firstAlarmPending = false

@@ -97,7 +97,7 @@ final class BulkDelistedTests: XCTestCase {
         // Uhr zurückgestellt: im Widget ebenfalls keine Neuprüfung
         XCTAssertFalse(BulkDelisted.plan(state: BulkDelisted.State(delisted: [], recheckedAt: 5_000), pairIds: ["OLDUSDT"],
                                          notTraded: ["OLDUSDT"], now: 1_000, lowMemory: true).recheck)
-        // App: alter Stand → Neuprüfung wie bisher
+        // App: alter Stand → Neuprüfung
         XCTAssertTrue(BulkDelisted.plan(state: stale, pairIds: ["OLDUSDT"], notTraded: ["OLDUSDT"],
                                         now: BulkDelisted.recheckMillis).recheck)
     }

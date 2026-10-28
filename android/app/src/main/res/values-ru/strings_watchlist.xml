@@ -247,4 +247,17 @@
     <string name="compare_title">Сравнение</string>
     <string name="compare_basis">Линии показывают изменение в процентах с начала периода.</string>
     <string name="compare_from_high">от 30-дн. максимума</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">Не восстановлено пар: %1$d – список заполнен</item>
+        <item quantity="few">Не восстановлено пар: %1$d – список заполнен</item>
+        <item quantity="many">Не восстановлено пар: %1$d – список заполнен</item>
+        <item quantity="other">Не восстановлено пар: %1$d – список заполнен</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Список вместе с оповещениями сейчас не сохраняется. Это и следующие изменения пропадут при закрытии приложения. Всё равно изменить?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Всё равно изменить</string>
 </resources>

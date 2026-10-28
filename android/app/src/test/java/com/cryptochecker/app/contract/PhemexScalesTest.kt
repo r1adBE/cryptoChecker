@@ -140,9 +140,8 @@ class PhemexScalesTest {
             assertEquals(1, exchange.bulkTickersRequestGroup(1))
             assertTrue(exchange.parseBulkTickersDetailed(1, products).tickers.isEmpty())
             assertEquals(1, exchange.bulkTickersNumOfRequests)
-            // Ältere Datei ohne Zeitpunkt: gilt als veraltet, Faktoren bleiben nutzbar
-            val old = PhemexScales.decode("""{"v":1,"price":{"sBTCUSDT":8}}""")!!
-            assertTrue(old.loaded && old.isStale())
+            // Datei ohne Zeitpunkt: keine Kopie (die Produktliste wird neu geladen)
+            assertNull(PhemexScales.decode("""{"v":1,"price":{"sBTCUSDT":8}}"""))
             assertTrue(!PhemexScales.decode(PhemexScales.current.encode())!!.isStale())
         } finally {
             PhemexScales.store = null

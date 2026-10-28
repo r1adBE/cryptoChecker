@@ -312,7 +312,7 @@ class Exchange: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterkl
         pairs.filter { pair in !pair.base.isEmpty && !pair.quote.isEmpty }
     }
 
-    // MARK: Volle Coin-Namen (Identität «gleicher Token», K-8)
+    // MARK: Volle Coin-Namen (Identität «gleicher Token»)
 
     /// Optional: symbol → full coin name (e.g. Gate `base_name`) from the same response as the pair list, without
     /// another request. Default: no names. Android: `parseBaseNames`.

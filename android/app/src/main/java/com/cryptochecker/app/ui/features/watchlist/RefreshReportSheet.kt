@@ -44,7 +44,7 @@ import com.cryptochecker.app.util.LocaleNumbers
 import java.util.Locale
 
 /**
- * «Letzte Aktualisierung» (Runde 22): oben der Gesamtstatus, darunter je Börse eine Zeile
+ * «Letzte Aktualisierung»: oben der Gesamtstatus, darunter je Börse eine Zeile
  * mit Status (Farbe UND Form: ✓ / ! / ×), dann der Ablauf (Netz, Datenbank, …).
  * Gleicher Aufbau wie `RefreshReportSheet.swift`.
  */
@@ -54,7 +54,7 @@ internal fun RefreshReportSheet(
     now: Long,
     /** App-Start bis zum ersten Bild der Merkliste (zuletzt gemessen); null = keine Zeile. */
     appStartMillis: Long? = null,
-    /** Börsen, deren Kurse gerade per WebSocket kommen (Runde 31); leer = keine Zeile. */
+    /** Börsen, deren Kurse gerade per WebSocket kommen; leer = keine Zeile. */
     liveExchanges: List<String> = emptyList(),
     onDismiss: () -> Unit,
 ) {

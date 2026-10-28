@@ -120,7 +120,7 @@ internal fun PortfolioHistoryCard(
     onPnlChange: (Boolean) -> Unit = {},
 ) {
     // Darstellung, die für diesen Verlauf gilt: USDT und Vergleich nur mit Devisen-Tageskursen
-    // (Vergleich zusätzlich mit Ausgangswert), sonst in der Währung wie bisher
+    // (Vergleich zusätzlich mit Ausgangswert), sonst in der Währung
     val shownView = history?.let { PortfolioCompare.effectiveView(view, it.usdtSeries != null, it.compare != null) }
         ?: PortfolioHistoryView.CURRENCY
     val shown = history?.forView(shownView)

@@ -17,8 +17,7 @@ struct PortfolioHistoryRequest: Equatable {
     static func make(_ txs: [PortfolioTx], range: PortfolioHistoryRange) -> PortfolioHistoryRequest {
         let first = txs.filter { $0.amount > 0 && !$0.amount.isInfinite }.map(\.time).min()
         let days = PortfolioHistory.candleDays(range: range, firstTradeMillis: first,
-                                               todayEpochDay: PortfolioHistory.utcToday(),
-                                               dayEndMillis: { PortfolioHistory.dayEndMillis($0) })
+                                               todayEpochDay: PortfolioHistory.utcToday())
         return PortfolioHistoryRequest(coins: Set(txs.flatMap(\.coins).map { PortfolioCalculator.normalizeCoin($0) }), days: days)
     }
 }

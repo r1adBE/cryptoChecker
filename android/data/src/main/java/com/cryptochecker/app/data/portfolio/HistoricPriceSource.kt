@@ -143,12 +143,12 @@ class HistoricPriceSource @Inject constructor(
         return CloseResult(resolved.price, resolved.unchecked, resolved.provider)
     }
 
-    /** Coinbase wie bisher (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %). */
+    /** Coinbase (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %). */
     suspend fun coinbaseOutcome(b: String, date: LocalDate, start: Long, reference: Double): HistoricCloseChain.Outcome =
         coinbaseClose(b, date, start, reference).let { HistoricCloseChain.Outcome(it.price, it.unchecked, DataFreshness.COINBASE) }
 
     /**
-     * Binance-Gruppe wie bisher: Spot (data-api, api; 1/3…3), Futures (±25 %), Binance.US (USDT, sonst USD; ±25 %).
+     * Binance-Gruppe: Spot (data-api, api; 1/3…3), Futures (±25 %), Binance.US (USDT, sonst USD; ±25 %).
      * Anbieter des Treffers: «Binance», «Binance Futures» bzw. «Binance.US».
      */
     private suspend fun binanceOutcome(b: String, start: Long, reference: Double, ownName: String?): HistoricCloseChain.Outcome {
@@ -161,7 +161,7 @@ class HistoricPriceSource @Inject constructor(
             Triple("api.binance.com", "https://api.binance.com/api/v3/klines", true),
             Triple("fapi.binance.com", "https://fapi.binance.com/fapi/v1/klines", false),
         )
-        // Gleicher Token (K-8): Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
+        // Gleicher Token: Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
         val binanceOk = tokenIdentityStore.binanceAllowed(b, ownName)
         if (!binanceOk) rejected = true
         for ((host, endpoint, primary) in binance) {

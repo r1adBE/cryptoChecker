@@ -32,7 +32,7 @@ class SettingsSummaryTest {
 
     @Test
     fun defaults_allOff() {
-        // Standard der App: keine Markt-Meldung an (die frühere Marktphase-Meldung gibt es nicht mehr)
+        // Standard der App: keine Markt-Meldung an
         assertEquals(0, SettingsSummary.marketAlertCount(0, 0, 0, 0, false, false))
     }
 
@@ -48,7 +48,7 @@ class SettingsSummaryTest {
         assertEquals(SettingsSummary.Speech.ALARMS_ONLY, SettingsSummary.speech(enabled = true, alarmsOnly = true))
     }
 
-    // Runde 23f: Kurzwerte der neuen Zeilen
+    // Kurzwerte der neuen Zeilen
 
     // Kurzwert «Aktualisierung» = Wahl von «Wie aktuell?» (UpdateModeTest)
 

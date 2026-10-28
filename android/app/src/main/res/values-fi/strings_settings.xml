@@ -292,4 +292,38 @@
     <string name="settings_price_overlay_needs">Toimii vain yhdessä asetuksen «%1$s» kanssa.</string>
     <string name="settings_price_overlay_grant">Salli näyttäminen muiden sovellusten päällä</string>
     <string name="price_overlay_close">Sulje peite</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Oma palvelin osoitteille</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Vain Bitcoin: oma Esplora- tai mempool-yhteensopiva palvelimesi (esim. https://solmu.example/api, julkisesti luotettu varmenne vaaditaan, esim. Let\'s Encrypt). Jos se on asetettu, Bitcoin-osoitteet ja xpubit kysytään vain sieltä – ei koskaan julkisilta solmuilta, ei edes silloin, kun palvelimesi ei vastaa. Muut verkot käyttävät edelleen julkisia solmuja. Tyhjä = julkiset solmut.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin-palvelin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Testaa</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Testataan…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Palvelin vastaa – lohko %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Ei kelvollista vastausta – tarkista osoite ja varmenne</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Käytössä: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Ei asetettu – käytetään julkisia solmuja</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Vain https://-osoitteet ovat sallittuja</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Ei käyttäjänimeä tai salasanaa osoitteeseen</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Ei ?- tai #-osaa osoitteeseen</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Virheellinen palvelimen osoite</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Vaihdetaanko julkisiin solmuihin?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Bitcoin-osoitteesi ja xpubisi kysytään silloin julkisilta solmuilta: %1$s. Ne näkevät osoitteet yhdessä IP-osoitteesi kanssa.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Käytä julkisia solmuja</string>
 </resources>

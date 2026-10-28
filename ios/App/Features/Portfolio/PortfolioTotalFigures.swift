@@ -199,7 +199,7 @@ struct PortfolioCardUnit {
 
     init(currency: String, fxRate: Double?) {
         // Auch USD: USDT gilt dort seinen Marktkurs USDT/USD (Faktor = 1 × USDT/USD, ohne Messung 1 mit
-        // «USDT = 1 angenommen»), nicht mehr still 1:1. Wie Android `cardUnit`.
+        // «USDT = 1 angenommen»), nie still 1:1. Wie Android `cardUnit`.
         if let fx = fxRate, currency != PortfolioFormat.usdt, fx > 0, fx.isFinite {
             code = currency
             rate = fx

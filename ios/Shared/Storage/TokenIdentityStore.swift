@@ -1,6 +1,6 @@
 import Foundation
 
-/// Volle Namen der Coins für die Prüfung «gleicher Token» (`TokenIdentity`, K-8): je Börse aus ihrer
+/// Volle Namen der Coins für die Prüfung «gleicher Token» (`TokenIdentity`): je Börse aus ihrer
 /// Paarliste (beim Abgleich der Paare, `saveExchange`) und von Binance aus der Symbolliste der Logos
 /// (`saveBinance`). Keine eigene Anfrage — nur, was ohnehin geladen wird. Eine Datei im App-Group-Ordner,
 /// aus Geräte-Backups ausgenommen (neu ladbar). Wie `TokenIdentityStore.kt`.
@@ -107,7 +107,7 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
     }
 
     /// Name des Coins `coin` laut den aktiven Paaren der Merkliste `watches` (alle Börsen mit Namen);
-    /// widersprechen sie sich, nil (`TokenIdentity.consensus`) — dann nur Kürzel + Kursband wie bisher.
+    /// widersprechen sie sich, nil (`TokenIdentity.consensus`) — dann nur Kürzel + Kursband.
     func watchName(_ coin: String, watches: [Watch]) -> String? {
         let key = TokenIdentity.key(coin)
         let names = watches.filter { !$0.disabled && TokenIdentity.key($0.baseAsset) == key }

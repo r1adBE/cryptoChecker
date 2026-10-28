@@ -15,7 +15,7 @@ data class BackgroundErrorSummary(
 )
 
 /**
- * F-25: Fehler in Hintergrundarbeit sind im Release sonst unsichtbar (Timber nur im Debug-Build). Statt
+ * Fehler in Hintergrundarbeit sind im Release sonst unsichtbar (Timber nur im Debug-Build). Statt
  * eines Protokolls nur ein Zähler je Bereich; im Diagnosebericht eine Zeile. Gleiches Format wie `BackgroundErrors.swift`
  * (Testfälle `background_errors.json`).
  */

@@ -20,27 +20,27 @@ final class PortfolioBackupWatchedTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(PortfolioTx.self, from: JSONEncoder().encode(t)), t)
         let json = try JSONSerialization.data(withJSONObject: BackupManager.txToJson(t))
         let o = try XCTUnwrap(JSONSerialization.jsonObject(with: json) as? [String: Any])
-        XCTAssertEqual(BackupManager.jsonToTx(o), t)
-        // Ältere Sicherung ohne Schlüssel
-        var old = o
-        old.removeValue(forKey: "importKey")
-        XCTAssertNil(BackupManager.jsonToTx(old)?.importKey)
+        XCTAssertEqual(try BackupManager.jsonToTx(o), t)
+        // Eigene Eingabe: ohne Herkunftsschlüssel
+        var manual = t
+        manual.importKey = nil
+        XCTAssertNil(try BackupManager.jsonToTx(BackupManager.txToJson(manual))?.importKey)
         XCTAssertNil(PortfolioTx.cleanImportKey("  "))
         XCTAssertNil(PortfolioTx.cleanImportKey(String(repeating: "x", count: PortfolioTx.maxImportKey + 1)))
         XCTAssertEqual(PortfolioTx.cleanImportKey(" a "), "a")
     }
 
-    func testWatchedAddressesFormatAndOldBackups() throws {
+    func testWatchedAddressesFormat() throws {
         let entries = [WatchedAddressBackupEntry(chain: .BTC, address: btc, label: "L", addedAt: 9)]
         let array = BackupManager.watchedToJson(entries)
         XCTAssertEqual(Set(array[0].keys), ["chain", "address", "label", "addedAt"])
         let data = try JSONSerialization.data(withJSONObject: [WatchedAddressRules.backupKey: array])
         let root = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
-        XCTAssertEqual(BackupManager.watchedEntries(root), entries)
-        // Ältere Sicherung: kein Schlüssel = bestehende Adressen bleiben (nil, nicht leer)
-        XCTAssertNil(BackupManager.watchedEntries(["portfolio": [] as [Any]]))
+        XCTAssertEqual(try BackupManager.watchedEntries(root), entries)
+        // Kein Schlüssel: Sicherung unlesbar
+        XCTAssertThrowsError(try BackupManager.watchedEntries(["portfolio": [] as [Any]]))
         // Leere Liste = ersetzen durch keine
-        XCTAssertEqual(BackupManager.watchedEntries([WatchedAddressRules.backupKey: [] as [Any]]), [])
+        XCTAssertEqual(try BackupManager.watchedEntries([WatchedAddressRules.backupKey: [] as [Any]]), [])
     }
 
     func testRestoreMergeValidatesAndDropsDuplicates() {

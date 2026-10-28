@@ -36,7 +36,7 @@ import com.cryptochecker.app.util.PriceFormat
 internal data class TotalHintItem(val text: String, val error: Boolean = false, val txId: Long? = null)
 
 /**
- * Bereich «Hinweise» unter der Gesamtkarte (L-15), zugeklappt: eine Zeile «Hinweise (n)» mit
+ * Bereich «Hinweise» unter der Gesamtkarte, zugeklappt: eine Zeile «Hinweise (n)» mit
  * Pfeil (48 dp hoch, Fehlerfarbe, wenn eine Zeile ein Fehler ist — veraltet, Wallet-Bestand); offen die
  * Zeilen ([TotalHint]) eng untereinander, eingerückt wie der Inhalt der Karte. Wie iOS `hints`.
  */
@@ -123,7 +123,7 @@ internal fun totalHintItems(
     }
     // Kursquelle: steht sie schon auf der Karte, nicht noch einmal unter «Hinweise»
     if (usdtNote?.kind != DepegAlarm.CardNoteKind.PRICE_SOURCE) add(TotalHintItem(priceSourceText))
-    // G-9: Modell nahe an der Zahl, nicht nur im (i) — sonst wirkt die Abweichung zur Börse wie ein Fehler
+    // Modell nahe an der Zahl, nicht nur im (i) — sonst wirkt die Abweichung zur Börse wie ein Fehler
     // Ø ist eine bewusste Wahl in den Einstellungen: kein Hinweis «nicht FIFO» mehr
     if (summary.unrealized != null && summary.method.isFifo) {
         add(TotalHintItem(stringResource(R.string.ledger_fifo_cost_note)))
@@ -136,7 +136,7 @@ internal fun totalHintItems(
         }
         if (costFx?.usdtApproximate == true) add(TotalHintItem(stringResource(R.string.ledger_cost_fx_usdt_assumed)))
     }
-    // Was im Gewinn seit Kauf fehlt (M3: nur diese Coins, nicht das ganze Portfolio)
+    // Was im Gewinn seit Kauf fehlt (nur diese Coins, nicht das ganze Portfolio)
     if (summary.missingCostCoins.isNotEmpty()) {
         add(TotalHintItem(
             pluralStringResource(

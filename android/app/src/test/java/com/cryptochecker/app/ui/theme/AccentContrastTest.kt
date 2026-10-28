@@ -12,7 +12,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * J-14: WCAG-Kontrast der Akzentfarben (primary, auch als Schrift: Dialogknöpfe, Links) auf allen
+ * WCAG-Kontrast der Akzentfarben (primary, auch als Schrift: Dialogknöpfe, Links) auf allen
  * Flächen — hell bis #E2E2E2, dunkel bis #353535 — mindestens 4.5:1; onPrimary auf primary ebenso.
  * Die Werte kommen aus [WidgetColors] (reines Kotlin); ein Quelltext-Abgleich stellt sicher, dass
  * `AppColorSchemes.kt` dieselben primary-Werte hat. Wie iOS `AccentContrastTests`.
@@ -87,19 +87,19 @@ class AccentContrastTest {
         }
     }
 
-    /** K-9: «warmes Papier» – jede warme Fläche ist mindestens so hell wie der frühere Grauton. */
+    /** «warmes Papier» – jede warme Fläche ist mindestens so hell wie der neutrale Grauton. */
     @Test
-    fun `warme Flaechen sind nicht dunkler als die frueheren Grautoene`() {
+    fun `warme Flaechen sind nicht dunkler als die neutralen Grautoene`() {
         val black = 0xFF000000.toInt()
-        for ((old, warm) in WARM_REPLACES) {
+        for ((grey, warm) in WARM_REPLACES) {
             assertTrue(
-                "%06X -> %06X".format(old and 0xFFFFFF, warm and 0xFFFFFF),
-                ratio(warm, black) >= ratio(old, black) - 1e-9
+                "%06X -> %06X".format(grey and 0xFFFFFF, warm and 0xFFFFFF),
+                ratio(warm, black) >= ratio(grey, black) - 1e-9
             )
         }
     }
 
-    /** K-9: Haupt-, Neben- und Warntext, Fehlerrot auf allen warmen Flächen ≥ 4.5:1; Linie ≥ 3:1. */
+    /** Haupt-, Neben- und Warntext, Fehlerrot auf allen warmen Flächen ≥ 4.5:1; Linie ≥ 3:1. */
     @Test
     fun `Text und Linien erreichen den Kontrast auf warmen Flaechen`() {
         for (bg in WARM_SURFACES) {
@@ -113,7 +113,7 @@ class AccentContrastTest {
         }
     }
 
-    /** K-9: Die hellen Farbschemata in `AppColorSchemes.kt` nutzen die warmen Flächen. */
+    /** Die hellen Farbschemata in `AppColorSchemes.kt` nutzen die warmen Flächen. */
     @Test
     fun `helle Farbschemata haben die warmen Flaechen`() {
         val source = schemesSource()
@@ -141,7 +141,7 @@ class AccentContrastTest {
                 assertTrue("dark=$dark btc on %06X: %.2f".format(bg and 0xFFFFFF, r), r >= 3.0)
             }
         }
-        // Der frühere Befund: #F7931A auf #FBF9F6 unter 3:1
+        // Belegt: #F7931A auf #FBF9F6 liegt unter 3:1
         assertTrue(ratio(0xFFF7931A.toInt(), 0xFFFBF9F6.toInt()) < 3.0)
         assertEquals(0xFFF7931A.toInt(), AssetPalette.bitcoin(dark = true))
     }
@@ -178,7 +178,7 @@ class AccentContrastTest {
         assertTrue(ratio(0xFFADA9A0.toInt(), 0xFFF1EEE9.toInt()) < 3.0)
     }
 
-    /** Trennlinien hell ≈ 2.2:1 auf dem Hintergrund #FBF9F6 (vorher #C9C6BF 1.6:1), unter 3:1. */
+    /** Trennlinien hell ≈ 2.2:1 auf dem Hintergrund #FBF9F6 (#C9C6BF hätte 1.6:1), unter 3:1. */
     @Test
     fun `Trennlinie hell erreicht etwa 2_2 zu 1`() {
         val r = ratio(0xFFADA9A0.toInt(), 0xFFFBF9F6.toInt())
@@ -241,7 +241,7 @@ class AccentContrastTest {
 
     /**
      * Coin-Plakette ohne Logo: Initialen in primary auf der hellen Tönung über surfaceContainer
-     * ≥ 4.5:1 für alle Akzente; mit der früheren Tönung 14 % lagen sie darunter. Wie iOS `AccentContrastTests`.
+     * ≥ 4.5:1 für alle Akzente; mit einer Tönung von 14 % lägen sie darunter. Wie iOS `AccentContrastTests`.
      */
     @Test
     fun `Initialen der Coin-Plakette erreichen AA auf der Toenung`() {
@@ -288,12 +288,12 @@ class AccentContrastTest {
             0xFFFFFFFF.toInt(), 0xFFF9F9F9.toInt(), 0xFFF3F3F3.toInt(), 0xFFEEEEEE.toInt(),
             0xFFE8E8E8.toInt(), 0xFFE4E4E4.toInt(), 0xFFE2E2E2.toInt(),
         )
-        /** K-9 warm: Lowest, surface, Low, Container (Widget), High, tiefe Widget-Fläche, Highest. */
+        /** Warme Flächen: Lowest, surface, Low, Container (Widget), High, tiefe Widget-Fläche, Highest. */
         val WARM_SURFACES = listOf(
             0xFFFFFDFA.toInt(), 0xFFFBF9F6.toInt(), 0xFFF6F3EE.toInt(), 0xFFF1EEE9.toInt(),
             0xFFEBE8E2.toInt(), 0xFFE7E4DD.toInt(), 0xFFE5E2DB.toInt(),
         )
-        /** Früherer Grauton → warmer Ersatz. */
+        /** Neutraler Grauton → warme Fläche. */
         val WARM_REPLACES = listOf(
             0xFFF9F9F9.toInt() to 0xFFFBF9F6.toInt(), 0xFFF3F3F3.toInt() to 0xFFF6F3EE.toInt(),
             0xFFEEEEEE.toInt() to 0xFFF1EEE9.toInt(), 0xFFE8E8E8.toInt() to 0xFFEBE8E2.toInt(),

@@ -343,7 +343,7 @@ object AddressBalance {
 
     /**
      * Datum der Adress-Einzahlung: Beginn des UTC-Tags [todayUtcDay] − 366, oder die erste echte Transaktion,
-     * wenn sie älter ist. Nur noch Sortierung — Zeiträume und Verlauf lassen Adress-Einzahlungen weg.
+     * wenn sie älter ist. Nur für die Sortierung — Zeiträume und Verlauf lassen Adress-Einzahlungen weg.
      */
     fun heldSince(trades: List<PortfolioTrade>, todayUtcDay: Long): Long {
         val yearAgo = (todayUtcDay - PortfolioPeriodChange.YEAR_DAYS - 1) * DAY_MILLIS

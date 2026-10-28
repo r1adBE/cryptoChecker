@@ -20,7 +20,7 @@ import javax.crypto.spec.SecretKeySpec
  *  "m":65536,"t":3,"p":1,"salt":"<Base64, 16 Bytes>","iv":"<Base64, 12 Bytes>",
  *  "data":"<Base64: Chiffrat || 16-Byte-Tag>"}
  * ```
- * Klartext = die bisherige Sicherung (JSON, UTF-8). Schlüssel = Argon2id (RFC 9106, Version 0x13, [Argon2id]) aus dem
+ * Klartext = die Sicherung als JSON (UTF-8). Schlüssel = Argon2id (RFC 9106, Version 0x13, [Argon2id]) aus dem
  * Passwort (Unicode NFC, UTF-8) und dem Salt, 32 Bytes; m = Speicher in KiB (64 MiB), t = Durchgänge, p = Bahnen.
  * AES-256-GCM mit dem kanonischen Kopf als AAD ([header]): UTF-8 dieses kompakten JSON, Felder in fester Reihenfolge,
  * ohne Leerzeichen, Zahlen dezimal, salt/iv als Base64 mit Auffüllung (aus den dekodierten Bytes neu kodiert):

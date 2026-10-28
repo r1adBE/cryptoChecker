@@ -99,7 +99,7 @@ struct WatchEditSheet: View {
 
     private func save() {
         guard let exchange = vm.exchange, let pair = vm.selectedPair else { return }
-        // Rückfrage F-08 vorher; «Abbrechen» = nichts geändert, das Blatt bleibt
+        // Rückfrage «nicht gespeichert» vorher; «Abbrechen» = nichts geändert, das Blatt bleibt
         data.withWatchlistConfirm {
             switch data.changePair(watch.id, exchange: exchange, pair: pair) {
             case .duplicate:

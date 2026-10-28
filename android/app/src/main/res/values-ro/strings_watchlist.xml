@@ -235,4 +235,16 @@
     <string name="compare_title">Comparație</string>
     <string name="compare_basis">Liniile arată variația procentuală de la începutul perioadei.</string>
     <string name="compare_from_high">vs. max. 30 z</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">Perechi nerecuperate: %1$d – lista de urmărire e plină</item>
+        <item quantity="few">Perechi nerecuperate: %1$d – lista de urmărire e plină</item>
+        <item quantity="other">Perechi nerecuperate: %1$d – lista de urmărire e plină</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Lista, împreună cu alarmele, nu se salvează acum. Această modificare și următoarele se pierd la închiderea aplicației. Modifici oricum?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Modifică oricum</string>
 </resources>

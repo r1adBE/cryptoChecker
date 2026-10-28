@@ -108,7 +108,7 @@ class TaxExportParityTest {
     }
 
     /**
-     * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
+     * USDT zum Marktkurs: Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
      * Näherung, je Zeile vermerkt. Wie iOS.
      */
     @Test
@@ -175,7 +175,7 @@ class TaxExportParityTest {
 
     /**
      * Einkünfte-CSV AT: Zufluss vor dem 1.3.2022 (vor § 27b EStG) — Vermerk «vor 1.3.2022 – mit Fachperson prüfen» statt
-     * Zins/Staking, Summen getrennt wie bisher. Wie iOS.
+     * Zins/Staking, Summen getrennt. Wie iOS.
      */
     @Test
     fun atIncomeBeforeNewLawIsMarked() {
@@ -373,8 +373,8 @@ class TaxExportParityTest {
     }
 
     /**
-     * B4: Gewinn 1020 ≤ 1 Jahr und Auszahlungsgebühr 25 USDT — die Gebühr ist keine Veräusserung: eigener
-     * Posten, NICHT in der Summe § 23 → 1020 ≥ 1000 «erreicht» (vorher 995 «unter der Freigrenze»). Wie iOS.
+     * Gewinn 1020 ≤ 1 Jahr und Auszahlungsgebühr 25 USDT — die Gebühr ist keine Veräusserung: eigener
+     * Posten, NICHT in der Summe § 23 → 1020 ≥ 1000 «erreicht». Wie iOS.
      */
     @Test
     fun withdrawalFeeIsNotNettedIntoPrivateSales() {

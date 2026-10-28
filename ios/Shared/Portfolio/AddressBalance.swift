@@ -336,7 +336,7 @@ enum AddressBalance {
     }
 
     /// Datum der Adress-Einzahlung: Beginn des UTC-Tags `todayUtcDay` − 366, oder die erste echte Transaktion, wenn
-    /// sie älter ist. Nur noch Sortierung — Zeiträume und Verlauf lassen Adress-Einzahlungen weg.
+    /// sie älter ist. Nur für die Sortierung — Zeiträume und Verlauf lassen Adress-Einzahlungen weg.
     static func heldSince(_ trades: [PortfolioTx], todayUtcDay: Int64) -> Int64 {
         let yearAgo = (todayUtcDay - Int64(PortfolioPeriodChange.yearDays) - 1) * dayMillis
         let first = trades.filter { $0.amountExact > 0 && !isAddressTrade($0.id) }.map(\.time).min()

@@ -47,13 +47,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Notfall-Sperre der Merkliste auf dem Gerät (Review TST-02): Liegt die gespeicherte Merkliste nur leer im
+ * Notfall-Sperre der Merkliste auf dem Gerät: Liegt die gespeicherte Merkliste nur leer im
  * Arbeitsspeicher ([DatabaseEncryptionNotice.storedKept]), ruft der Test JEDEN Schreibweg des Nutzers von
  * [WatchRepository] mit echtem Room auf und prüft, dass sich keine Zeile ändert — ergänzt den Quelltext-Test
  * `WatchRepositoryLockTest` (JVM). Per Reflection muss jede öffentliche suspend-Funktion des Repositorys (Klasse und
  * Erweiterungen in `WatchRepositoryAdd.kt`/`WatchRepositoryRefresh.kt`) in genau einer Liste stehen: Schreibweg des
  * Nutzers (hier aufgerufen), nur lesen oder Hintergrund — ein neuer Schreibweg fällt so auf, bis er eingeordnet ist.
- * Review TST2-03: Gegenprobe pro Eintrag — ungesperrt ändert jeder Schreibweg die Tabellen (frische
+ * Gegenprobe pro Eintrag — ungesperrt ändert jeder Schreibweg die Tabellen (frische
  * Datenbank je Eintrag), sonst bewiese der Sperr-Vergleich nichts; dafür liegt im Ausgangsstand ein %-Alarm ohne Bezug.
  */
 @RunWith(AndroidJUnit4::class)
@@ -214,7 +214,7 @@ class WatchlistLockDeviceTest {
     }
 
     /**
-     * F-08, Review ARC3-R01/R02: nur im Arbeitsspeicher ohne gespeicherten Stand und mit sichtbarer
+     * Rückfrage «nicht gespeichert»: nur im Arbeitsspeicher ohne gespeicherten Stand und mit sichtbarer
      * Oberfläche lehnt jeder Schreibweg des Nutzers OHNE vorherige Bestätigung (`confirmUserWrite`) ab — eindeutig und ohne
      * selbst zu fragen oder zu warten. Folge-Schreibwege laufen nur nach einem bestätigten und lehnen nie ab.
      */

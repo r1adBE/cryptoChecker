@@ -40,7 +40,7 @@ enum CoinLogos {
     /// Binance- und der Alpha-Liste — wie `EXTRA_PAGES` (Android). Nur auf nicht teuren Netzen (WLAN,
     /// Ethernet; `NWPath.isExpensive`/`isConstrained` false): Auf mobilen Daten fehlen die Zusatzseiten, und
     /// die Logos der Kürzel, die nur sie bringen, werden nicht geladen (`downloadable`) — die grössten 1000
-    /// sowie die Binance- und Alpha-Liste laden wie bisher.
+    /// sowie die Binance- und Alpha-Liste laden immer.
     static let extraPages = 6
     static let perPage = 250
 
@@ -156,8 +156,7 @@ enum CoinLogos {
     static func allowed(forExchange exchangeKey: String?) -> Bool { exchangeKey != dexExchangeKey }
 
     /// Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
-    /// Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Mit URL-Parser
-    /// (`LogoURLPolicy`, SEC3-02).
+    /// Mit URL-Parser (`LogoURLPolicy`).
     static func isAllowedURL(_ url: String?) -> Bool { LogoURLPolicy.isAllowed(url) }
 
     /// Kleine Fassung des Bildes (CoinGecko liefert «thumb», «small», «large»; die Rangliste nennt
@@ -259,7 +258,7 @@ enum CoinLogos {
     /// Namen der TradFi-Paare in derselben Reihenfolge wie `pickTradFi` («NVDAB» → «NVIDIA»).
     static func pickTradFiNames(_ entries: [BinanceEntry], crypto: Set<String>,
                                 into map: inout [String: String], order: inout [String]) {
-        pickTradFi(entries, crypto: crypto, into: &map, order: &order) { cleanName($0.fullName, symbol: $0.name) }
+        pickTradFi(entries, crypto: crypto, into: &map, order: &order) { cleanName($0.fullName) }
     }
 
     private static func pickTradFi(_ entries: [BinanceEntry], crypto: Set<String>,
@@ -294,7 +293,7 @@ enum CoinLogos {
     /// Name zum Anzeigen: ohne Zusatz der tokenisierten Aktien («NVIDIA bStocks» → «NVIDIA»), ohne
     /// Tabs und Zeilenumbrüche, gekürzt auf `nameMax`. nil, wenn leer. Ein Name gleich dem Kürzel bleibt
     /// («BNB», «XRP», «Bonk» zu BONK) — besser als «–»; wie Android.
-    static func cleanName(_ raw: String?, symbol: String? = nil) -> String? {
+    static func cleanName(_ raw: String?) -> String? {
         guard let raw else { return nil }
         var s = raw.split(whereSeparator: { $0.isWhitespace }).joined(separator: " ")
         if let range = s.range(of: #"[\s,(]*(bStocks?|xStocks?|Tokeni[sz]ed Stock)\)?\s*$"#,
@@ -314,7 +313,7 @@ enum CoinLogos {
                           into map: inout [String: String], order: inout [String]) {
         for (symbol, name) in ranked {
             let key = normalize(symbol)
-            guard !key.isEmpty, map[key] == nil, let clean = cleanName(name, symbol: symbol) else { continue }
+            guard !key.isEmpty, map[key] == nil, let clean = cleanName(name) else { continue }
             map[key] = clean
             order.append(key)
         }

@@ -73,8 +73,8 @@ private val JumpBannerLift = 64.dp
 
 /**
  * Kleiner runder Knopf mit Pfeil: «Zum Ende» (nach unten) bzw. «Zum Anfang» (nach oben).
- * Getippt wird auf der ganzen 48-dp-Fläche; Ripple und Schatten zeigt nur der 40-dp-Kreis (wie der
- * frühere SmallFloatingActionButton: secondaryContainer, Schatten 6 dp).
+ * Getippt wird auf der ganzen 48-dp-Fläche; Ripple und Schatten zeigt nur der 40-dp-Kreis (wie ein
+ * SmallFloatingActionButton: secondaryContainer, Schatten 6 dp).
  */
 @Composable
 private fun JumpButton(down: Boolean, onClick: () -> Unit) {

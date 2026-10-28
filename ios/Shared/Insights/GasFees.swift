@@ -319,11 +319,10 @@ enum GasAlertCheck {
     }
 
     /// Gespeicherter Zustand für die aktuelle Grenze: Wurde er bei einer anderen Grenze gemerkt (geändert
-    /// oder zwischendurch aus = 0), ist der Alarm wieder scharf. `storedThreshold` nil = Stand vor dieser
-    /// Regel: Zustand übernehmen. Wie `GasAlertLogic.armedFor`.
+    /// oder zwischendurch aus = 0), ist der Alarm wieder scharf. `storedThreshold` nil = keine Grenze gemerkt:
+    /// scharf. Wie `GasAlertLogic.armedFor`.
     static func armedFor(storedArmed: Bool, storedThreshold: Double?, threshold: Double) -> Bool {
-        if let stored = storedThreshold, stored != threshold { return true }
-        return storedArmed
+        storedThreshold != threshold ? true : storedArmed
     }
 
     /// Seit Beginn der Prüfung (`generation`) kein «Aus»? Sonst den Stand nicht schreiben; der nächste Lauf bewertet neu.
@@ -360,7 +359,7 @@ enum GasAlertCheck {
             defaults.set(Double(now - minInterval + retryAfterFailure), forKey: keyLastCheck)
             return
         }
-        // Käme eine Mitteilung jetzt an? Nachtruhe: lautlos wie bisher
+        // Käme eine Mitteilung jetzt an? Nachtruhe: lautlos
         let deliverable = await Notifier.isAuthorized()
         if let eth = report.evm.first(where: { $0.network == .ethereum }) {
             await check(keyEthArmed, keyEthThreshold, eth.normalGwei, ethThreshold, deliverable, defaults, generation) {

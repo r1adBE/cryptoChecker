@@ -163,8 +163,7 @@ private fun bulkNewOf(pairs: List<ExchangePair>, keys: Set<String>, exchange: Ex
  * die Dublettenprüfung beim Anlegen)? Gleiche Regel wie iOS `ExplorerBulk.newCount`.
  */
 internal fun bulkNewCount(exchangeKey: String, pairs: List<ExchangePair>, watched: Set<String>): Int = pairs.count { pair ->
-    val contract = FuturesContractType.normalized(exchangeKey, pair.pairId, pair.contractType)
-    watchKey(exchangeKey, pair.base, pair.quote, contract.name) !in watched
+    watchKey(exchangeKey, pair.base, pair.quote, pair.contractType.name) !in watched
 }
 
 /**

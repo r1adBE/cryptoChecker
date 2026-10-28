@@ -15,7 +15,7 @@ final class MirrorSignatureTests: XCTestCase {
         XCTAssertEqual(MirrorManifest.signatureFile, data["signatureFile"] as? String)
         XCTAssertEqual(MirrorManifest.url, DataMirror.base + MirrorManifest.file)
         XCTAssertNotEqual(data["publicKey"] as? String, MirrorManifest.publicKey)
-        // F-29: Reserve-Schlüssel eingebaut, verschieden vom aktiven und vom Test-Schlüssel
+        // Reserve-Schlüssel eingebaut, verschieden vom aktiven und vom Test-Schlüssel
         XCTAssertEqual(MirrorManifest.reservePublicKey, data["productionReservePublicKey"] as? String)
         XCTAssertEqual(MirrorManifest.publicKeys, [MirrorManifest.publicKey, MirrorManifest.reservePublicKey])
         XCTAssertNotEqual(MirrorManifest.reservePublicKey, MirrorManifest.publicKey)

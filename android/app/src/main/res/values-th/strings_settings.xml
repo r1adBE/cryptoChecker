@@ -290,4 +290,38 @@
     <string name="settings_price_overlay_needs">ใช้ได้เฉพาะร่วมกับ «%1$s»</string>
     <string name="settings_price_overlay_grant">อนุญาตให้แสดงทับแอปอื่น</string>
     <string name="price_overlay_close">ปิดโอเวอร์เลย์</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">เฉพาะ Bitcoin: เซิร์ฟเวอร์ของคุณเองที่รองรับ Esplora หรือ mempool (เช่น https://node.example/api ต้องมีใบรับรองที่เชื่อถือได้แบบสาธารณะ เช่น Let\'s Encrypt) เมื่อตั้งค่าแล้ว ที่อยู่ Bitcoin และ xpub จะถูกสอบถามที่นั่นเท่านั้น ไม่สอบถามโหนดสาธารณะเลย แม้เซิร์ฟเวอร์ของคุณจะเชื่อมต่อไม่ได้ เครือข่ายอื่นยังใช้โหนดสาธารณะ เว้นว่าง = โหนดสาธารณะ</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">เซิร์ฟเวอร์ Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">ทดสอบ</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">กำลังทดสอบ…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">เซิร์ฟเวอร์ตอบกลับ – บล็อก %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">ไม่มีคำตอบที่ถูกต้อง – ตรวจสอบที่อยู่และใบรับรอง</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">กำลังใช้: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">ยังไม่ได้ตั้งค่า – ใช้โหนดสาธารณะ</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">อนุญาตเฉพาะที่อยู่ https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">ห้ามมีชื่อผู้ใช้หรือรหัสผ่านในที่อยู่</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">ห้ามมีส่วน ? หรือ # ในที่อยู่</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">ที่อยู่เซิร์ฟเวอร์ไม่ถูกต้อง</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">เปลี่ยนไปใช้โหนดสาธารณะไหม</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">จากนั้นที่อยู่ Bitcoin และ xpub ของคุณจะถูกสอบถามที่โหนดสาธารณะ: %1$s โหนดเหล่านี้จะเห็นที่อยู่พร้อมกับที่อยู่ IP ของคุณ</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">ใช้โหนดสาธารณะ</string>
 </resources>

@@ -6,7 +6,7 @@ import SwiftUI
 /// darüber nur die Status-Pille. Darunter ruhig und kompakt Fear & Greed (`CycleFearGreedRow`, compact) und
 /// «Gewinner und Verlierer 24 h» (`CycleMoversCard`, je drei, «Alle zeigen»). Dann «Mehr Marktdaten»
 /// (`MarketMoreToggle`, Standard zu, gemerkt) mit «Heute auffällig», dem Wirtschaftsdaten-Hinweis (Termin in
-/// ±2 h) und zwei Zeilen (`MarketSectionRow`) zu den Unterseiten (`MarketSectionPage`, G-10):
+/// ±2 h) und zwei Zeilen (`MarketSectionRow`) zu den Unterseiten (`MarketSectionPage`):
 /// Einordnung (Fear & Greed, Marktphase, Dominanz mit Altcoin-Saison, Halving) und Daten
 /// (Krypto-Markt, Gas, Wirtschaftsdaten — ausser kurz vor/nach einem Termin —, Coin-Analyse).
 /// Deren Daten laden schon beim Öffnen des Tabs, die Unterseite steht sofort.
@@ -26,7 +26,7 @@ struct CycleScreen: View {
     @State private var showAbout = false
     /// Was beim ersten Anzeigen schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel).
     @State private var revealedOnEntry: Set<CycleRevealSlot>
-    /// Offene Unterseite «Einordnung» bzw. «Daten» (G-10).
+    /// Offene Unterseite «Einordnung» bzw. «Daten».
     @State private var openSection: MarketSection?
     /// «Mehr Marktdaten» nur für diesen Besuch offen (Mitteilung «Wirtschaftstermine»); die gemerkte
     /// Einstellung bleibt, wie sie ist. Wie Android `moreForJump`.
@@ -99,7 +99,7 @@ struct CycleScreen: View {
         .navigationDestination(item: $openSection) { section in
             MarketSectionPage(viewModel: viewModel, section: section)
         }
-        // «Heute auffällig» → Coin nicht bei Binance: «Paar hinzufügen» über diesem Tab (G-13)
+        // «Heute auffällig» → Coin nicht bei Binance: «Paar hinzufügen» über diesem Tab
         .navigationDestination(isPresented: $router.showExchangeExplorer) {
             ExplorerScreen()
         }
@@ -226,7 +226,7 @@ struct CycleScreen: View {
                 if let preview = await WatchPreview.watch(symbol: symbol) {
                     coinTarget = .preview(preview)
                 } else {
-                    // Über dem Markt-Tab, nicht über der Merkliste: zurück führt hierher (G-13)
+                    // Über dem Markt-Tab, nicht über der Merkliste: zurück führt hierher
                     router.explorerSearch = symbol
                     router.showExchangeExplorer = true
                 }

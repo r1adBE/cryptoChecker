@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Volle Namen der Coins für die Prüfung «gleicher Token» ([TokenIdentity], K-8): je Börse aus ihrer
+ * Volle Namen der Coins für die Prüfung «gleicher Token» ([TokenIdentity]): je Börse aus ihrer
  * Paarliste (beim Abgleich der Paare, [saveExchange]) und von Binance aus der Symbolliste der Logos
  * ([saveBinance]). Keine eigene Anfrage — nur, was ohnehin geladen wird. Eine Datei im Ordner ohne
  * Sicherung (wie der Paar-Zwischenspeicher neu ladbar). Wie `TokenIdentityStore.swift`.
@@ -85,7 +85,7 @@ class TokenIdentityStore @Inject constructor(
 
     /**
      * Name des Coins [coin] laut den aktiven Paaren der Merkliste (alle Börsen mit Namen); widersprechen
-     * sie sich, null ([TokenIdentity.consensus]) — dann nur Kürzel + Kursband wie bisher.
+     * sie sich, null ([TokenIdentity.consensus]) — dann nur Kürzel + Kursband.
      */
     suspend fun watchName(coin: String): String? {
         val key = TokenIdentity.key(coin)

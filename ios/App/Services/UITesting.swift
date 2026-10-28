@@ -48,7 +48,7 @@ enum UITesting {
         var settings = AppSettings()
         settings.aboutSeen = true
         settings.gestureHintSeen = true
-        // Karte «Ersten Alarm setzen» aus: die Abläufe erwarten die Liste wie bisher
+        // Karte «Ersten Alarm setzen» aus: die Abläufe erwarten die Liste ohne Karte
         settings.firstAlarmCardDismissed = true
         settings.portfolioEnabled = true
         SharedStorage.saveSettings(settings)

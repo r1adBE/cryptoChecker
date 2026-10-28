@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// Runde 13b: «Widgets» in den Einstellungen (Darstellung). Android legt Widgets direkt aus der
+/// «Widgets» in den Einstellungen (Darstellung). Android legt Widgets direkt aus der
 /// App an (`requestPinAppWidget`); iOS erlaubt das Apps nicht — deshalb ein Blatt mit drei
 /// kurzen Schritten und den verfügbaren Widgets (Name wie in der Widget-Galerie und ein Satz).
 /// Echte Widget-Vorschauen gehen hier nicht: Die Widget-Ansichten liegen nur im Widget-Ziel.
-/// Runde 23f: Die Zeile «Widgets» steht jetzt in der Liste der Hauptseite (`SettingsScreen`).
+/// Die Zeile «Widgets» steht in der Liste der Hauptseite (`SettingsScreen`).
 ///
 /// Drei Schritte und die Widget-Arten.
 @MainActor

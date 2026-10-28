@@ -211,4 +211,14 @@
     <string name="compare_title">So sánh</string>
     <string name="compare_basis">Các đường cho thấy mức thay đổi theo phần trăm từ đầu kỳ.</string>
     <string name="compare_from_high">so với đỉnh 30N</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="other">Không khôi phục được %1$d cặp – danh sách theo dõi đã đầy</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Danh sách cùng các cảnh báo hiện không được lưu. Thay đổi này và các thay đổi tiếp theo sẽ mất khi đóng ứng dụng. Vẫn thay đổi?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Vẫn thay đổi</string>
 </resources>

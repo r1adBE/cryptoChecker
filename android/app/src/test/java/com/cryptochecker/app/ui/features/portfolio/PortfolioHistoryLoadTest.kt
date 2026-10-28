@@ -15,7 +15,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.time.ZoneId
 import java.time.ZoneOffset
 
 /**
@@ -29,22 +28,6 @@ class PortfolioHistoryLoadTest {
 
     private fun tx(coin: String, time: Long, type: PortfolioTxType = PortfolioTxType.BUY, amount: String = "1", toCoin: String? = null) =
         PortfolioTxEntity(coin = coin, type = type, amount = BigDecimal(amount), time = time, toCoin = toCoin)
-
-    // ---- Tagesende ----
-
-    @Test
-    fun dayEndInUtcIsLastMillisecondOfDay() {
-        val end = dayEndIn(ZoneOffset.UTC)
-        assertEquals(19_001L * dayMillis - 1, end(19_000L))
-        assertEquals(dayMillis - 1, end(0L))
-    }
-
-    @Test
-    fun dayEndInFollowsZoneOffset() {
-        // 8. Januar 2022 (Winterzeit, UTC+1): Tagesende eine Stunde früher als in UTC
-        val end = dayEndIn(ZoneId.of("Europe/Zurich"))
-        assertEquals(19_001L * dayMillis - 3_600_000L - 1, end(19_000L))
-    }
 
     // ---- Anfrage je Zeitraum ----
 
@@ -73,7 +56,7 @@ class PortfolioHistoryLoadTest {
         )
         val request = historyRequest(txs, PortfolioHistoryRange.SINCE_FIRST)
         val expected = PortfolioHistory.candleDays(
-            PortfolioHistoryRange.SINCE_FIRST, first, PortfolioHistory.utcToday(), dayEndIn(ZoneId.systemDefault()),
+            PortfolioHistoryRange.SINCE_FIRST, first, PortfolioHistory.utcToday(),
         )
         assertEquals(expected, request.days)
         assertTrue(request.days > PortfolioHistory.MAX_DAYS)

@@ -93,7 +93,7 @@ final class TaxExportTests: XCTestCase {
         }
     }
 
-    /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
+    /// USDT zum Marktkurs: Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
     /// Näherung, je Zeile vermerkt. Wie Android.
     func testUsdtMarket() throws {
         let d = try data()
@@ -166,7 +166,7 @@ final class TaxExportTests: XCTestCase {
     }
 
     /// Einkünfte-CSV AT: Zufluss vor dem 1.3.2022 (vor § 27b EStG) — Vermerk «vor 1.3.2022 – mit Fachperson prüfen» statt
-    /// Zins/Staking, Summen getrennt wie bisher. Wie Android.
+    /// Zins/Staking, Summen getrennt. Wie Android.
     func testAtIncomeBeforeNewLawIsMarked() throws {
         let d = try data()
         let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))
@@ -326,7 +326,7 @@ final class TaxExportTests: XCTestCase {
         XCTAssertEqual(TaxExport.withChWealthNote(.CH, header: [], chWealthNote: note), [note])
     }
 
-    /// B4: Gewinn 1020 ≤ 1 Jahr und Auszahlungsgebühr 25 USDT — die Gebühr ist keine Veräusserung: eigener Posten,
+    /// Gewinn 1020 ≤ 1 Jahr und Auszahlungsgebühr 25 USDT — die Gebühr ist keine Veräusserung: eigener Posten,
     /// NICHT in der Summe § 23 → 1020 ≥ 1000 «erreicht» (vorher 995 «unter der Freigrenze»). Wie Android.
     /// Gebühr in USDT/Fiat einer Auszahlung bzw. Umbuchung bei UK, US, CA, AU, JP nur Information (Vermerk,
     /// nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert. FR: Auszahlungsgebühr ebenso nur Information

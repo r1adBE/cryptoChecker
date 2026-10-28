@@ -10,7 +10,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Sperre über das Manifest (F-29) im Ablauf: Ein vom Reserve-Schlüssel signiertes Manifest sperrt den aktiven
+ * Sperre über das Manifest im Ablauf: Ein vom Reserve-Schlüssel signiertes Manifest sperrt den aktiven
  * Schlüssel; danach nimmt auch eine neue Prüfung (neuer Start, gleiche Sperrliste) kein nur damit signiertes
  * Manifest mehr an.
  * Test-Schlüssel aus `mirror_signature.json` (wie iOS `MirrorRevocationTests.swift`).

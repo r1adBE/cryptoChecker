@@ -1,6 +1,6 @@
 import Foundation
 
-// Sperre der Merkliste (Review F-08): Steht die gespeicherte Merkliste nur leer im Speicher
+// Sperre der Merkliste: Steht die gespeicherte Merkliste nur leer im Speicher
 // (`watchlistLocked`), lehnt AppData jeden Schreibweg des Nutzers ab und meldet es kurz — wie Android
 // `WatchRepository.userWriteRefused` mit `WatchlistWriteRefusal`; Hinweis: `WatchlistLockedHint.swift` (Components).
 
@@ -17,7 +17,7 @@ enum WatchlistWriteRefusal {
         return now < lastAt || now - lastAt >= minGapMillis
     }
 
-    /// Monotone Zeit in ms (Uhrzeit-Änderungen des Geräts verschieben die Drosselung nicht). SEC3-01:
+    /// Monotone Zeit in ms (Uhrzeit-Änderungen des Geräts verschieben die Drosselung nicht):
     /// dieselbe Quelle wie `PortfolioLockPolicy.monotonicSeconds` statt `systemUptime` (Required-Reason-API «System
     /// boot time», nicht im Datenschutz-Manifest deklariert).
     static var nowMillis: Int64 { Int64(PortfolioLockPolicy.monotonicSeconds() * 1000) }
@@ -30,7 +30,7 @@ extension AppData {
     /// Schreibweg des Nutzers ablehnen? true = gesperrt, der Aufrufer schreibt nichts. Mit `notify` zählt die Ablehnung
     /// als Hinweis (gedrosselt, `watchlistLockedHints`). Nur Schreibwege des Nutzers fragen hier; Kurse, Alarmzustand und
     /// Widget schreiben weiter (`saveSnapshotInBackground` lässt die gesperrte Datei ohnehin unberührt).
-    /// F-08, Review UX3-02, IOS3-R04: wird die Merkliste gerade nicht gespeichert, fragt die AKTION
+    /// Wird die Merkliste gerade nicht gespeichert, fragt die AKTION
     /// vorher (`confirmWatchlistWrite`); hier nur die Sicherung — ohne Bestätigung ablehnen (true), ohne Hinweis, ohne
     /// Frage und ohne erneutes Ausführen. Nur mit `notify` (Folge-Schreibwege laufen nur nach einem bestätigten).
     @discardableResult
@@ -46,7 +46,7 @@ extension AppData {
         return true
     }
 
-    /// Lage für die Rückfrage F-08: wird die Merkliste gerade nicht gespeichert?
+    /// Lage für die Rückfrage «nicht gespeichert»: wird die Merkliste gerade nicht gespeichert?
     var watchlistGateNotSaved: Bool {
         #if DEBUG
         if let override = WatchlistNotSavedGate.appDataOverride { return override.notSaved }
@@ -62,7 +62,7 @@ extension AppData {
         return appActive && WatchlistNotSavedGatePresenter.shared.attached
     }
 
-    /// Tor der Rückfrage F-08: `WatchlistNotSavedGate.shared`, ausser ein Test gibt in Debug eines vor
+    /// Tor der Rückfrage «nicht gespeichert»: `WatchlistNotSavedGate.shared`, ausser ein Test gibt in Debug eines vor
     /// (`appDataOverride`).
     private var watchlistGate: WatchlistNotSavedGate {
         #if DEBUG
@@ -71,12 +71,12 @@ extension AppData {
         return .shared
     }
 
-    /// Review UX3-02/05, IOS3-R04: Rückfrage «Merkliste wird nicht gespeichert» EINMAL je Nutzeraktion,
+    /// Rückfrage «Merkliste wird nicht gespeichert» EINMAL je Nutzeraktion,
     /// VOR der Aktion; false = «Abbrechen» (nichts tun, kein Banner, keine Haptik). Danach läuft der normale Weg mit
     /// Banner, Rückgängig, Ansage und Erst-Alarm. Gesperrte Merkliste fragt nicht (true): Dort lehnt der Schreibweg selbst
     /// ab und zeigt den Hinweis. Wie Android `WatchRepository.confirmUserWrite`.
-    /// ARC4-R02: ohne sichtbare Szene erst kurz auf sie warten (`awaitWatchlistGateAsker`), dann fragen.
-    /// ARC7-02: privat — Bildschirme fragen nur über `withWatchlistConfirm`, damit die Aktion unter `runConsented` läuft
+    /// Ohne sichtbare Szene erst kurz auf sie warten (`awaitWatchlistGateAsker`), dann fragen.
+    /// Privat — Bildschirme fragen nur über `withWatchlistConfirm`, damit die Aktion unter `runConsented` läuft
     /// (sonst fehlte ihr nach einem Durchlass ohne Szene die Zustimmung, und der Schreibweg lehnte still ab).
     private func confirmWatchlistWrite() async -> Bool {
         if watchlistWritesBlocked { return true }
@@ -95,10 +95,10 @@ extension AppData {
     }
 
     /// Wie `confirmWatchlistWrite()`, für Aktionen der Bildschirme: ohne nötige Frage läuft `action` sofort (synchron,
-    /// Animationen und Rückgaben wie bisher), sonst erst nach «Trotzdem»; nach «Abbrechen» nie, dann `cancelled` (z. B.
+    /// Animationen und Rückgaben direkt), sonst erst nach «Trotzdem»; nach «Abbrechen» nie, dann `cancelled` (z. B.
     /// einen umgelegten Schalter zurückzeigen).
     /// Auch ohne sichtbare Szene über `confirmWatchlistWrite` (wartet kurz auf sie), sobald gefragt werden kann.
-    /// Ablauf in `WatchlistNotSavedGate.run` (dort mit eigenem Tor testbar, IOS6-02).
+    /// Ablauf in `WatchlistNotSavedGate.run` (dort mit eigenem Tor testbar).
     func withWatchlistConfirm(_ action: @escaping @MainActor () -> Void, cancelled: (@MainActor () -> Void)? = nil) {
         watchlistGate.run(blocked: watchlistWritesBlocked, notSaved: watchlistGateNotSaved,
                           confirm: { await self.confirmWatchlistWrite() }, action, cancelled: cancelled)

@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">staking-postering uten motpost – sjekk beholdningen</string>
     <string name="portfolio_csv_skip_amount_too_small">mengden er for liten – blir 0 ved lagring</string>
     <string name="portfolio_csv_skip_invalid_swap">bytte uten gyldig mottatt coin eller mottatt mengde</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Filen leses på nytt …</string>
 </resources>

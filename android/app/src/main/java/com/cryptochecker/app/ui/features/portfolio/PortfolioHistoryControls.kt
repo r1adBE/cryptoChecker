@@ -57,7 +57,7 @@ internal fun HistoryModeSwitch(pnl: Boolean, onPnlChange: (Boolean) -> Unit) {
 /**
  * Zeitraum-Chips links, Kerzen/Linie rechts in derselben Zeile (wie im Aktionsblatt); reicht der
  * Platz nicht, rutscht der Schalter rechtsbündig darunter. «Seit 1. Kauf» steht als Text auf dem Chip
- * («Seit Kauf»), nicht mehr als ∞.
+ * («Seit Kauf»), nicht als ∞.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

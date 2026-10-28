@@ -2,7 +2,7 @@ package com.cryptochecker.app.domain.portfolio
 
 /**
  * Erstes ungültiges Feld des Erfassen-Blatts in der Reihenfolge der Oberfläche: dorthin rollt «Speichern» mit
- * Fehlern, setzt den Fokus und sagt den Fehler an (früher wurde nur rot markiert, oft ausserhalb
+ * Fehlern, setzt den Fokus und sagt den Fehler an (nur rot zu markieren, läge oft ausserhalb
  * des sichtbaren Bereichs). Gleich wie `PortfolioTxFirstInvalid.swift` (iOS).
  */
 object PortfolioTxFirstInvalid {

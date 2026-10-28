@@ -119,7 +119,7 @@ data class Reason(
     val secondary: Double? = null,
     /** Auffällig — wird vor den ruhigen Gründen gezeigt. */
     val strong: Boolean = false,
-    /** Markt-Gründe: welche Referenz der Marktwert meint; null = BTC (wie bisher). */
+    /** Markt-Gründe: welche Referenz der Marktwert meint; null = BTC. */
     val ref: MarketRef? = null,
     /**
      * Schwelle, gegen die [value] (Markt: die Referenz, Coin allein/gegen den Markt: der Coin)

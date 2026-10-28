@@ -6,9 +6,9 @@ import Foundation
 extension CoinLogoStore {
     // MARK: Aktiennamen (Nasdaq-Symbolliste)
 
-    private static let stockNamesTimeKey = "coin_logos_stock_names_time_v1"
-    private static let stockNamesAttemptKey = "coin_logos_stock_names_attempt_v1"
-    fileprivate static var stockNamesURL: URL { directory.appendingPathComponent("stock_names1.txt") }
+    private static let stockNamesTimeKey = "coin_logos_stock_names_time"
+    private static let stockNamesAttemptKey = "coin_logos_stock_names_attempt"
+    fileprivate static var stockNamesURL: URL { directory.appendingPathComponent("stock_names.txt") }
 
     /// Aktiennamen («CAT» → «Caterpillar, Inc.») aus der offiziellen Nasdaq-Symbolliste (zwei
     /// Textdateien mit allen US-Aktien, für alle gleich) — nur wenn es TradFi-Kürzel gibt; höchstens
@@ -175,10 +175,10 @@ extension CoinLogoStore {
         CoinLogos.logoKey(watch.baseAsset, tradFi: tradFiPairs.contains(watch.logoPairKey))
     }
 
-    private static let alphaSymbolsKey = "coin_logos_alpha_symbols_v1"
+    private static let alphaSymbolsKey = "coin_logos_alpha_symbols"
     /// Zeitpunkt der zuletzt geholten Alpha-Liste bzw. des letzten Versuchs allein (`refreshAlphaOnly`).
-    static let alphaTimeKey = "coin_logos_alpha_time_v1"
-    static let alphaAttemptKey = "coin_logos_alpha_attempt_v1"
+    static let alphaTimeKey = "coin_logos_alpha_time"
+    static let alphaAttemptKey = "coin_logos_alpha_attempt"
 
     /// Kürzel der Alpha-Token (`CoinLogos.alphaSymbols`): Binance-Alpha-Liste ohne regulär an
     /// Binance Spot gelistete. Kommt mit demselben Logo-Abgleich (kein eigener Abruf) und liegt im gemeinsamen Speicher; leer, bis die Liste sie einmal geliefert hat. Für
@@ -201,7 +201,7 @@ extension CoinLogoStore {
     }
 
     /// Alpha-Token der zuletzt geholten Alpha-Liste (eigene kleine Datei im App-Group-Ordner).
-    static let alphaTokensBox = AlphaTokensBox(url: directory.appendingPathComponent("alpha_tokens1.json"))
+    static let alphaTokensBox = AlphaTokensBox(url: directory.appendingPathComponent("alpha_tokens.json"))
 
     /// Token der Alpha-Liste für die Alpha-Paare von Binance (`BinanceAlpha.pairs`, Kennung `alphaId`) und
     /// «gleicher Token»: gespeichert (nie Netz), nach jeder neuen Alpha-Liste ersetzt — wie Android `alphaTokens`.

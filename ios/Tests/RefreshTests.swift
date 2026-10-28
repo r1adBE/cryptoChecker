@@ -348,7 +348,7 @@ final class OutcomePairIdentityTests: XCTestCase {
         XCTAssertNil(snapshot.watches[0].lastPrice)
         XCTAssertNil(snapshot.alarms[0].referencePrice)
 
-        // Gleiches Paar: wie bisher übernommen
+        // Gleiches Paar: übernommen
         var same = SharedStorage.Snapshot()
         same.watches = [old]
         same.alarms = [alarm]

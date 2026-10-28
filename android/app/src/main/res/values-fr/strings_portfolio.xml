@@ -324,4 +324,10 @@
         <item quantity="other">%d lots et l\'historique des soldes seront aussi supprimés.</item>
     </plurals>
     <string name="portfolio_address_remove_history">L\'historique des soldes sera aussi supprimé.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Impossible d’enregistrer – réessaie</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Seuil non valide – supprime l\'alerte et recrée-la</string>
 </resources>

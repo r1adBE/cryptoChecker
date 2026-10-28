@@ -86,8 +86,8 @@ class PriceRefresher(
     val lateFillScope = appScope(Dispatchers.IO, "PriceRefresher")
 
     /**
-     * Läuft komplett auf [Dispatchers.IO]: Aus dem ViewModel aufgerufen lief
-     * bisher alles — Antwort lesen, JSON zerlegen — auf dem Main-Thread.
+     * Läuft komplett auf [Dispatchers.IO], auch aus dem ViewModel aufgerufen: Antwort lesen
+     * und JSON zerlegen nie auf dem Main-Thread.
      *
      * @param awaitPortfolioSnapshot true im WorkManager-Job: Die Momentaufnahme für das
      * Portfolio-Widget wird im Job abgewartet, nicht in einem losgelösten Job — sonst kann
@@ -224,8 +224,7 @@ class PriceRefresher(
         val alarmedIds = enabledAlarms.mapTo(HashSet()) { it.watchId }
 
         // 1) Netz: alle Börsen gleichzeitig. Je Börse erst die Massenabfrage,
-        //    was dort fehlt, parallel einzeln. Früher lief das strikt
-        //    nacheinander — Börse für Börse, Paar für Paar.
+        //    was dort fehlt, parallel einzeln (nicht Börse für Börse, Paar für Paar).
         //    Pausierte Börsen (zu viele Anfragen, wiederholte Zeitüberschreitungen) bleiben
         //    diesmal aussen vor: keine Anfrage, ihre Paare behalten den letzten Kurs.
         val backoff = refreshStats.backoffStates().toMutableMap()

@@ -97,4 +97,11 @@
     <string name="portfolio_storage_locked">暂时无法读取已保存的数据，因此无法进行更改。请重启应用。</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">此设备暂时无法提供密钥——自选列表不会被保存，关闭应用后更改将丢失。后台提醒已暂停。应用会在下次启动时重试。</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">未恢复“地址专用的自有服务器”——未加密的备份无法更改它。</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">已按备份移除“地址专用的自有服务器”——比特币地址重新向公共节点查询。</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">已将“地址专用的自有服务器”替换为备份中的服务器。</string>
 </resources>

@@ -2,7 +2,7 @@ import Foundation
 
 /// Takt der Widgets (nur iOS; Android-Widgets holen nichts selbst, sie zeigen den Stand der
 /// Hintergrund-Prüfung): neu zeichnen und Kurse holen etwa alle 45 Minuten. Nach einem misslungenen
-/// Versuch oder noch nicht geschriebenen Kursen höchstens EIN früher Neuversuch je Takt — vorher konnte
+/// Versuch oder noch nicht geschriebenen Kursen höchstens EIN früher Neuversuch je Takt — sonst könnte
 /// sich das Merkliste-Widget jede Minute neu laden und das Neuladen-Kontingent von WidgetKit aufbrauchen.
 /// Das Kontingent (rund 40–70 je Tag und Widget) teilen sich alle Widgets einer Art; darum zusätzlich ein
 /// Tageszähler (`dailyReloadSoftCap`): ist er erreicht, gibt es keine frühen Neuversuche mehr, nur den Takt.

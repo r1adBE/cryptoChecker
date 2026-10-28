@@ -10,7 +10,7 @@ struct BackgroundErrorSummary: Sendable, Equatable {
     var kinds: [String: [String: Int]] = [:]
 }
 
-/// F-25: Fehler in Hintergrundarbeit sind im Release sonst unsichtbar (nur Systemprotokoll). Statt eines
+/// Fehler in Hintergrundarbeit sind im Release sonst unsichtbar (nur Systemprotokoll). Statt eines
 /// Protokolls nur ein Zähler je Bereich; im Diagnosebericht eine Zeile. Gleiches Format wie `BackgroundErrors.kt`
 /// (Testfälle `background_errors.json`).
 enum BackgroundErrors {
@@ -97,7 +97,7 @@ enum BackgroundErrors {
     }
 }
 
-/// F-25: zählt Fehler im Hintergrund dauerhaft je Bereich in der App Group (App und Widgets zählen
+/// Zählt Fehler im Hintergrund dauerhaft je Bereich in der App Group (App und Widgets zählen
 /// zusammen) — nur Zahlen. Wie `BackgroundErrorCounter` (Android, SharedPreferences). Dazu je Bereich die Fehlerart
 /// (Typname, `BackgroundErrors.kind(of:)`, höchstens `BackgroundErrors.maxKinds` je Bereich).
 enum BackgroundErrorCounter {

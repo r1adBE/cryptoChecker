@@ -3,7 +3,7 @@ package com.cryptochecker.app.ui.features.portfolio
 import java.math.BigDecimal
 import java.time.LocalDate
 
-/** Laden des Devisenkurses für die Eingabe in der Anzeigewährung (K-2). */
+/** Laden des Devisenkurses für die Eingabe in der Anzeigewährung. */
 internal enum class EntryFxState { LOADING, READY, FAILED }
 
 /**

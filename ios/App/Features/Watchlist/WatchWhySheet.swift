@@ -12,7 +12,7 @@ private enum WatchlistWhyState: Equatable {
 /// «Was bewegt sich mit BTC?»: Kopf mit Paar, Kurs und 1h/24h; darunter kurz die Karte «Kurz gesagt ·
 /// Stand 14:00» (`WatchlistWhyBriefCard`: ein Satz, bis zu drei auffällige Faktoren als grauer Text)
 /// und zugeklappt «Alle Werte und Quellen» (für die Sitzung gemerkt) mit den
-/// bisherigen Teilen: (1) «Beobachtung» mit Datenstand — Signale und Messwerte als Tatsache;
+/// Teilen: (1) «Beobachtung» mit Datenstand — Signale und Messwerte als Tatsache;
 /// (2) «Mögliche Einordnung» — nur als zeitliches Zusammentreffen formuliert, nie als Ursache;
 /// (3) ausführlicher Hinweis «kein Ursachenbeweis» und die Quellen. Ganz unten kurz «Zeitgleich
 /// heisst nicht Ursache · Keine Anlageberatung».

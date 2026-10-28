@@ -271,4 +271,19 @@
     <string name="compare_title">المقارنة</string>
     <string name="compare_basis">تُظهر الخطوط نسبة التغيّر منذ بداية الفترة.</string>
     <string name="compare_from_high">مقابل أعلى 30 يومًا</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="zero">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="one">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="two">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="few">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="many">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="other">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">لا يتم حفظ قائمة المتابعة وتنبيهاتها الآن. سيضيع هذا التغيير وأي تغييرات أخرى عند إغلاق التطبيق. هل تريد التغيير رغم ذلك؟</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">غيّر رغم ذلك</string>
 </resources>

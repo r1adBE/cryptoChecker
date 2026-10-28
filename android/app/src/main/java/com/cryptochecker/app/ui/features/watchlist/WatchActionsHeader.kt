@@ -247,7 +247,7 @@ internal fun WatchActionsHeader(
             )
         }
     }
-    // Herkunft aus der Zeile (L-14): «Änderung & Chart: Binance»; sonst Änderung aus fremden
+    // Herkunft aus der Zeile: «Änderung & Chart: Binance»; sonst Änderung aus fremden
     // Kerzen (z. B. Kraken-Paar → Binance) — klein darunter sagen, woher
     val sourceNote = rowSource?.takeIf { watch.lastPrice != null && !preview }?.let { rowSourceText(it) }
         ?: candleNote

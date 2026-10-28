@@ -316,8 +316,8 @@ struct PortfolioWidgetIntent: WidgetConfigurationIntent {
 
     /// Chart-Art nur bei der Ansicht «Chart», Zeitraum nicht bei «Liste» (`PortfolioWidgetMode.usesRange`;
     /// die Wahl bleibt gespeichert). Dokumentierte Form `Summary("…") { … }` (wie WWDC23 «Explore
-    /// enhancements to App Intents»): die Ansicht in der Zeile, die übrigen Parameter darunter — gleiche
-    /// Reihenfolge wie zuvor; verschachteltes `When` im `otherwise`.
+    /// enhancements to App Intents»): die Ansicht in der Zeile, die übrigen Parameter darunter in
+    /// fester Reihenfolge; verschachteltes `When` im `otherwise`.
     static var parameterSummary: some ParameterSummary {
         When(\.$view, .equalTo, PortfolioViewOption.chart) {
             Summary("\(\.$view)") {

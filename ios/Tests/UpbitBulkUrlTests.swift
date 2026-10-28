@@ -20,7 +20,7 @@ final class UpbitBulkUrlTests: XCTestCase {
         }
         XCTAssertEqual(ids, Set(many))
         XCTAssertNil(exchange.bulkTickersURL(call: count, pairIds: many))
-        // Wenige Paare: eine Anfrage wie bisher
+        // Wenige Paare: eine Anfrage
         XCTAssertEqual(exchange.bulkTickersRequestCount(pairIds: ["KRW-ETH", "KRW-BTC"]), 1)
         XCTAssertEqual(exchange.bulkTickersURL(call: 0, pairIds: ["KRW-ETH", "KRW-BTC"]),
                        "https://api.upbit.com/v1/ticker?markets=KRW-BTC,KRW-ETH")

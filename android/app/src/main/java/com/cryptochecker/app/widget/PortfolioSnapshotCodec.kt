@@ -15,7 +15,7 @@ import timber.log.Timber
 
 /**
  * JSON der Positionen, des Gewinn/Verlusts je Coin, des Tagesverlaufs und der übrigen Teile der Aufnahme
- * (reines Kotlin, getestet in PortfolioSnapshotCodecTest). Fehlende Felder älterer Aufnahmen laden als null bzw. leer.
+ * (reines Kotlin, getestet in PortfolioSnapshotCodecTest). Fehlende Felder laden als null bzw. leer.
  * Eigene Datei neben [PortfolioSnapshotStore]: der Speicher (versiegelte SharedPreferences) bleibt dort, hier nur
  * das Lesen und Schreiben der JSON-Teile.
  */
@@ -103,7 +103,7 @@ internal object PortfolioSnapshotCodec {
             p.quantity?.takeIf { it.isNotBlank() }?.let { o.put("q", it) }
             p.pnlAmount?.takeIf { it.isFinite() }?.let { o.put("pa", it) }
             p.pnlPercent?.takeIf { it.isFinite() }?.let { o.put("pr", it) }
-            // Buchungen für die Liste: [{"t","q","v"?,"n"?}, …] (fehlen in älteren Aufnahmen)
+            // Buchungen für die Liste: [{"t","q","v"?,"n"?}, …] (können fehlen)
             p.entries?.let { entries ->
                 val list = JSONArray()
                 entries.forEach { e ->
@@ -132,9 +132,9 @@ internal object PortfolioSnapshotCodec {
                 value = value,
                 sharePercent = o.optDouble("p").takeIf { it.isFinite() } ?: 0.0,
                 change24hPercent = if (o.has("c")) o.optDouble("c").takeIf { it.isFinite() } else null,
-                // Menge als Text (fehlt in älteren Aufnahmen)
+                // Menge als Text (kann fehlen)
                 quantity = if (o.has("q")) o.optString("q").takeIf { it.isNotBlank() } else null,
-                // Gewinn/Verlust 24 h je Position (fehlt in älteren Aufnahmen)
+                // Gewinn/Verlust 24 h je Position (kann fehlen)
                 pnlAmount = if (o.has("pa")) o.optDouble("pa").takeIf { it.isFinite() } else null,
                 pnlPercent = if (o.has("pr")) o.optDouble("pr").takeIf { it.isFinite() } else null,
                 entries = o.optJSONArray("e")?.let(::readEntries),

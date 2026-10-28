@@ -23,7 +23,7 @@ import com.cryptochecker.app.util.WidgetQuantityFormat
  * Ansicht «Liste» (wie die Positionen im Portfolio-Tab): Kopfzeile, so viele Positionen
  * nach Wert wie ganz passen ([PortfolioWidgetViews.listLayout]), fest darunter die Total-Zeile
  * ([bindListTotal]) und «Stand 15:19 · + 3 weitere».
- * Ohne gespeicherte Positionen (ältere Aufnahme) der Hinweis, die App zu öffnen.
+ * Ohne gespeicherte Positionen der Hinweis, die App zu öffnen.
  * @param logos Coin-Logo je Kürzel (Grossschreibung); null = Schalter «Coin-Logos in Widgets» aus
  */
 internal fun PortfolioWidgetRenderer.listViews(

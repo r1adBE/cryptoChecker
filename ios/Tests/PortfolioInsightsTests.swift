@@ -161,7 +161,7 @@ final class PortfolioAlarmLogicTests: XCTestCase {
         var firedBelow = alarm(.VALUE_BELOW, 10)
         firedBelow.referenceAt = start
         XCTAssertEqual(PortfolioAlarmLogic.decide(firedBelow, missing, now: start, cooldownMinutes: 0), .nothing)
-        // Mit allen Kursen wie bisher
+        // Mit allen Kursen: auslösen
         XCTAssertEqual(PortfolioAlarmLogic.decide(alarm(.VALUE_BELOW, 100), reading(50), now: start, cooldownMinutes: 0), .fire(50))
         XCTAssertEqual(PortfolioAlarmLogic.decide(firedBelow, reading(50), now: start + 60_000, cooldownMinutes: 0), .rearm)
         // Fehlender Vergleichskurs in «heute» betrifft nur die %-Alarme
@@ -192,7 +192,7 @@ final class PortfolioAlarmLogicTests: XCTestCase {
             fired.referenceAt = start
             XCTAssertEqual(PortfolioAlarmLogic.decide(fired, stale, now: start, cooldownMinutes: 0), .nothing)
         }
-        // Alle frisch: wie bisher
+        // Alle frisch: normal
         stale.stalePrices = 0
         XCTAssertEqual(PortfolioAlarmLogic.decide(alarm(.VALUE_BELOW, 100), stale, now: start, cooldownMinutes: 0), .fire(50))
     }

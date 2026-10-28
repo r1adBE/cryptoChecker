@@ -26,7 +26,7 @@ enum AlarmLogTexts {
         }
     }
 
-    /// Wer geprüft hat, z. B. «über Widget»; nil bei älteren Einträgen ohne Angabe. Wie Android.
+    /// Wer geprüft hat, z. B. «über Widget»; nil bei Einträgen ohne Angabe. Wie Android.
     static func source(_ entry: AlarmLogEntry) -> String? {
         switch entry.source {
         case nil: return nil

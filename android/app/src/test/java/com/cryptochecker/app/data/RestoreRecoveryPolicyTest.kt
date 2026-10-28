@@ -39,14 +39,6 @@ class RestoreRecoveryPolicyTest {
     }
 
     @Test
-    fun storedTimeWinsOverFileTime() {
-        assertEquals(created, RestoreRecoveryPolicy.createdAt(stored = created, fileModified = created + hour))
-        // Journal einer älteren Version ohne «createdAt»: Änderungszeit der Datei
-        assertEquals(created + hour, RestoreRecoveryPolicy.createdAt(stored = 0L, fileModified = created + hour))
-        assertEquals(0L, RestoreRecoveryPolicy.createdAt(stored = 0L, fileModified = 0L))
-    }
-
-    @Test
     fun noticeOnGiveUpOnlyOncePerJournal() {
         // Zu alt, nie versucht: Hinweis jetzt
         assertTrue(RestoreRecoveryPolicy.noticeOnGiveUp(created, attemptedFor = null))

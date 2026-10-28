@@ -37,7 +37,7 @@ object PortfolioDecimal {
     const val MAX_PARSE_SCALE = 40
 
     /**
-     * Gespeicherter Text («0.00000001», auch «1.0E-8» aus älteren Ständen) → Dezimal; ungültig = null.
+     * Gespeicherter Text («0.00000001», auch «1.0E-8») → Dezimal; ungültig = null.
      * Absurde Grössen (z. B. «1E300000000» aus einer manipulierten Sicherung) sind ungültig: mehr als
      * [MAX_INTEGER_DIGITS] Stellen vor dem Komma oder mehr als [MAX_PARSE_SCALE] Nachkommastellen —
      * sonst sprengen toPlainString/setScale den Speicher. Gleich wie iOS (`PortfolioDecimal.parse`).

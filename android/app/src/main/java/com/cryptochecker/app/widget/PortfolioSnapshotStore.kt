@@ -52,38 +52,38 @@ class PortfolioSnapshotStore @Inject constructor(
             currency = p.text(KEY_CURRENCY) ?: "USD",
             time = time,
             empty = p.optBoolean(KEY_EMPTY, true),
-            totalUsdt = p.number(KEY_TOTAL_USDT_V2),
-            positions = PortfolioSnapshotCodec.readPositions(p.text(KEY_POSITIONS_V2)),
-            otherPositions = p.optInt(KEY_OTHER_POSITIONS_V2, 0).coerceAtLeast(0),
-            history = PortfolioSnapshotCodec.readValueHistory(p.text(KEY_VALUE_HISTORY_V2)),
+            totalUsdt = p.number(KEY_TOTAL_USDT),
+            positions = PortfolioSnapshotCodec.readPositions(p.text(KEY_POSITIONS)),
+            otherPositions = p.optInt(KEY_OTHER_POSITIONS, 0).coerceAtLeast(0),
+            history = PortfolioSnapshotCodec.readValueHistory(p.text(KEY_VALUE_HISTORY)),
             stamp = ChangeStamp.decode(p.text(KEY_CHANGE_STAMP)),
             // fehlt → 0 (kein Hinweis)
             missingPrices = p.optInt(KEY_MISSING_PRICES, 0).coerceAtLeast(0),
             stalePrices = p.optInt(KEY_STALE_PRICES, 0).coerceAtLeast(0),
-            daily = PortfolioSnapshotCodec.readDaily(p.text(KEY_DAILY_V4)),
-            periodChanges = PortfolioSnapshotCodec.readPeriodChanges(p.text(KEY_PERIOD_CHANGES_V4)),
+            daily = PortfolioSnapshotCodec.readDaily(p.text(KEY_DAILY)),
+            periodChanges = PortfolioSnapshotCodec.readPeriodChanges(p.text(KEY_PERIOD_CHANGES)),
             // fehlt → null («Gesamt» der Übersicht «—»)
-            unrealized = PortfolioSnapshotCodec.readChange(p.text(KEY_UNREALIZED_V5)),
+            unrealized = PortfolioSnapshotCodec.readChange(p.text(KEY_UNREALIZED)),
             // fehlt → leer (kein Hinweis «Heute ohne …»)
-            todaySkipped = PortfolioSnapshotCodec.readCoins(p.text(KEY_TODAY_SKIPPED_V6)),
+            todaySkipped = PortfolioSnapshotCodec.readCoins(p.text(KEY_TODAY_SKIPPED)),
             // fehlt → leer (Zeilen im Portfolio-Tab «—» bis zur nächsten Aufnahme)
-            coinPnl = PortfolioSnapshotCodec.readCoinPnl(p.text(KEY_COIN_PNL_V7)),
+            coinPnl = PortfolioSnapshotCodec.readCoinPnl(p.text(KEY_COIN_PNL)),
             // fehlen → null («Seit Kauf» «—», «7 T» in USDT bis zur nächsten Aufnahme)
-            displayFx = PortfolioSnapshotCodec.readDisplayFx(p.text(KEY_DISPLAY_FX_V8)),
-            unrealizedDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_UNREALIZED_DISPLAY_V8)),
-            weekDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_WEEK_DISPLAY_V8)),
+            displayFx = PortfolioSnapshotCodec.readDisplayFx(p.text(KEY_DISPLAY_FX)),
+            unrealizedDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_UNREALIZED_DISPLAY)),
+            weekDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_WEEK_DISPLAY)),
             // fehlen → leer/0/null (Hinweis «Portfolio-Alarme pausiert» ohne Namen)
-            missingCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_MISSING_COINS_V9)),
-            staleCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_COINS_V9)),
-            staleValueUsdt = p.number(KEY_STALE_VALUE_V9),
-            addressesPending = p.optInt(KEY_ADDRESSES_PENDING_V9, 0).coerceAtLeast(0),
+            missingCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_MISSING_COINS)),
+            staleCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_COINS)),
+            staleValueUsdt = p.number(KEY_STALE_VALUE),
+            addressesPending = p.optInt(KEY_ADDRESSES_PENDING, 0).coerceAtLeast(0),
             // fehlen → leer/0
-            addressesFailing = PortfolioSnapshotCodec.readCoins(p.text(KEY_ADDRESSES_FAILING_V10)),
-            staleTokenAddresses = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_TOKEN_ADDRESSES_V10)),
-            staleTokenValueUsdt = p.number(KEY_STALE_TOKEN_VALUE_V10)?.coerceAtLeast(0.0) ?: 0.0,
+            addressesFailing = PortfolioSnapshotCodec.readCoins(p.text(KEY_ADDRESSES_FAILING)),
+            staleTokenAddresses = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_TOKEN_ADDRESSES)),
+            staleTokenValueUsdt = p.number(KEY_STALE_TOKEN_VALUE)?.coerceAtLeast(0.0) ?: 0.0,
             // fehlen → leer/0
-            unverifiedCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_UNVERIFIED_COINS_V11)),
-            unverifiedValueUsdt = p.number(KEY_UNVERIFIED_VALUE_V11)?.coerceAtLeast(0.0) ?: 0.0,
+            unverifiedCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_UNVERIFIED_COINS)),
+            unverifiedValueUsdt = p.number(KEY_UNVERIFIED_VALUE)?.coerceAtLeast(0.0) ?: 0.0,
         )
     }
 
@@ -152,7 +152,7 @@ class PortfolioSnapshotStore @Inject constructor(
      * leer, wenn noch nichts gemerkt oder nicht lesbar.
      */
     fun hourlyPrices(): Map<String, List<TimedPrice>> = runCatching {
-        val root = JSONObject(payload()?.text(KEY_HOURLY_PRICES_V3) ?: return emptyMap())
+        val root = JSONObject(payload()?.text(KEY_HOURLY_PRICES) ?: return emptyMap())
         val out = HashMap<String, List<TimedPrice>>()
         root.keys().forEach { coin ->
             val array = root.optJSONArray(coin) ?: return@forEach
@@ -222,39 +222,39 @@ class PortfolioSnapshotStore @Inject constructor(
             .put(KEY_TIME, snapshot.time)
             .put(KEY_EMPTY, snapshot.empty)
             .put(KEY_HISTORY, array.toString())
-            .putNumber(KEY_TOTAL_USDT_V2, snapshot.totalUsdt)
-            .put(KEY_POSITIONS_V2, positions.toString())
-            .put(KEY_OTHER_POSITIONS_V2, snapshot.otherPositions.coerceAtLeast(0))
-            .put(KEY_VALUE_HISTORY_V2, valueHistory.toString())
-            .put(KEY_HOURLY_PRICES_V3, hourly.toString())
+            .putNumber(KEY_TOTAL_USDT, snapshot.totalUsdt)
+            .put(KEY_POSITIONS, positions.toString())
+            .put(KEY_OTHER_POSITIONS, snapshot.otherPositions.coerceAtLeast(0))
+            .put(KEY_VALUE_HISTORY, valueHistory.toString())
+            .put(KEY_HOURLY_PRICES, hourly.toString())
             .put(KEY_MISSING_PRICES, snapshot.missingPrices.coerceAtLeast(0))
             .put(KEY_STALE_PRICES, snapshot.stalePrices.coerceAtLeast(0))
-            .put(KEY_DAILY_V4, daily.toString())
-            .put(KEY_PERIOD_CHANGES_V4, periodChanges.toString())
-            .put(KEY_COIN_PNL_V7, PortfolioSnapshotCodec.coinPnlJson(snapshot.coinPnl))
+            .put(KEY_DAILY, daily.toString())
+            .put(KEY_PERIOD_CHANGES, periodChanges.toString())
+            .put(KEY_COIN_PNL, PortfolioSnapshotCodec.coinPnlJson(snapshot.coinPnl))
         snapshot.stamp?.let { payload.put(KEY_CHANGE_STAMP, it.encode()) }
         snapshot.unrealized?.takeIf { it.amount.isFinite() }?.let { unrealized ->
             val row = JSONArray().put(unrealized.amount)
             unrealized.percent?.takeIf { it.isFinite() }?.let { row.put(it) }
-            payload.put(KEY_UNREALIZED_V5, row.toString())
+            payload.put(KEY_UNREALIZED, row.toString())
         }
         val skipped = snapshot.todaySkipped.filter { it.isNotBlank() }
-        if (skipped.isNotEmpty()) payload.put(KEY_TODAY_SKIPPED_V6, JSONArray().apply { skipped.forEach { put(it) } }.toString())
-        snapshot.displayFx?.let { payload.put(KEY_DISPLAY_FX_V8, PortfolioSnapshotCodec.displayFxJson(it)) }
-        PortfolioSnapshotCodec.displayChangeJson(snapshot.unrealizedDisplay)?.let { payload.put(KEY_UNREALIZED_DISPLAY_V8, it) }
-        PortfolioSnapshotCodec.displayChangeJson(snapshot.weekDisplay)?.let { payload.put(KEY_WEEK_DISPLAY_V8, it) }
+        if (skipped.isNotEmpty()) payload.put(KEY_TODAY_SKIPPED, JSONArray().apply { skipped.forEach { put(it) } }.toString())
+        snapshot.displayFx?.let { payload.put(KEY_DISPLAY_FX, PortfolioSnapshotCodec.displayFxJson(it)) }
+        PortfolioSnapshotCodec.displayChangeJson(snapshot.unrealizedDisplay)?.let { payload.put(KEY_UNREALIZED_DISPLAY, it) }
+        PortfolioSnapshotCodec.displayChangeJson(snapshot.weekDisplay)?.let { payload.put(KEY_WEEK_DISPLAY, it) }
         for ((key, coins) in listOf(
-            KEY_MISSING_COINS_V9 to snapshot.missingCoins, KEY_STALE_COINS_V9 to snapshot.staleCoins,
-            KEY_ADDRESSES_FAILING_V10 to snapshot.addressesFailing, KEY_STALE_TOKEN_ADDRESSES_V10 to snapshot.staleTokenAddresses,
-            KEY_UNVERIFIED_COINS_V11 to snapshot.unverifiedCoins,
+            KEY_MISSING_COINS to snapshot.missingCoins, KEY_STALE_COINS to snapshot.staleCoins,
+            KEY_ADDRESSES_FAILING to snapshot.addressesFailing, KEY_STALE_TOKEN_ADDRESSES to snapshot.staleTokenAddresses,
+            KEY_UNVERIFIED_COINS to snapshot.unverifiedCoins,
         )) {
             val list = coins.filter { it.isNotBlank() }
             if (list.isNotEmpty()) payload.put(key, JSONArray().apply { list.forEach { put(it) } }.toString())
         }
-        payload.putNumber(KEY_STALE_VALUE_V9, snapshot.staleValueUsdt)
-        if (snapshot.addressesPending > 0) payload.put(KEY_ADDRESSES_PENDING_V9, snapshot.addressesPending)
-        if (snapshot.staleTokenValueUsdt > 0.0) payload.putNumber(KEY_STALE_TOKEN_VALUE_V10, snapshot.staleTokenValueUsdt)
-        if (snapshot.unverifiedValueUsdt > 0.0) payload.putNumber(KEY_UNVERIFIED_VALUE_V11, snapshot.unverifiedValueUsdt)
+        payload.putNumber(KEY_STALE_VALUE, snapshot.staleValueUsdt)
+        if (snapshot.addressesPending > 0) payload.put(KEY_ADDRESSES_PENDING, snapshot.addressesPending)
+        if (snapshot.staleTokenValueUsdt > 0.0) payload.putNumber(KEY_STALE_TOKEN_VALUE, snapshot.staleTokenValueUsdt)
+        if (snapshot.unverifiedValueUsdt > 0.0) payload.putNumber(KEY_UNVERIFIED_VALUE, snapshot.unverifiedValueUsdt)
         writeSealed(payload)
     }
 
@@ -289,42 +289,42 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_EMPTY = "empty"
         const val KEY_HISTORY = "history"
         // Grosses Widget: Gesamtwert in USDT, Positionen, Wertverlauf
-        const val KEY_TOTAL_USDT_V2 = "total_usdt_v2"
-        const val KEY_POSITIONS_V2 = "positions_v2"
-        const val KEY_OTHER_POSITIONS_V2 = "other_positions_v2"
-        const val KEY_VALUE_HISTORY_V2 = "value_history_v2"
+        const val KEY_TOTAL_USDT = "total_usdt"
+        const val KEY_POSITIONS = "positions"
+        const val KEY_OTHER_POSITIONS = "other_positions"
+        const val KEY_VALUE_HISTORY = "value_history"
         // Stundenkurse je Coin für den 24-h-Wertverlauf
-        const val KEY_HOURLY_PRICES_V3 = "hourly_prices_v3"
+        const val KEY_HOURLY_PRICES = "hourly_prices"
         // %-Basis der Veränderung (fehlt = rollende 24 Stunden)
         const val KEY_CHANGE_STAMP = "change_stamp"
         // Offene Coins ohne Kurs (fehlt = 0)
         const val KEY_MISSING_PRICES = "missing_prices"
         const val KEY_STALE_PRICES = "stale_prices"
         // Tagesverlauf (USDT) und Veränderung je Zeitraum für 7 T / 30 T / 1 J
-        const val KEY_DAILY_V4 = "daily_v4"
-        const val KEY_PERIOD_CHANGES_V4 = "period_changes_v4"
+        const val KEY_DAILY = "daily"
+        const val KEY_PERIOD_CHANGES = "period_changes"
         // ± seit Kauf (USDT) für «Gesamt» der Übersicht; bis zu 12 Positionen für die Liste
-        const val KEY_UNREALIZED_V5 = "unrealized_v5"
+        const val KEY_UNREALIZED = "unrealized"
         // Coins, die in «Heute» fehlen (Hinweis «Heute ohne …» wie die Gesamtkarte)
-        const val KEY_TODAY_SKIPPED_V6 = "today_skipped_v6"
+        const val KEY_TODAY_SKIPPED = "today_skipped"
         // MEIN Gewinn/Verlust je Coin (USDT) für die Zeilen des Portfolio-Tabs (wie iOS `coinPnl`);
         // je Position steht er in den Positionen («pa»/«pr»), das Total in «change»
-        const val KEY_COIN_PNL_V7 = "coin_pnl_v7"
+        const val KEY_COIN_PNL = "coin_pnl"
         // «Seit Kauf» und «7 T» in der Anzeigewährung samt Merkzettel der App (Einstand je Coin, Tagesfaktoren)
-        const val KEY_DISPLAY_FX_V8 = "display_fx_v8"
-        const val KEY_UNREALIZED_DISPLAY_V8 = "unrealized_display_v8"
-        const val KEY_WEEK_DISPLAY_V8 = "week_display_v8"
+        const val KEY_DISPLAY_FX = "display_fx"
+        const val KEY_UNREALIZED_DISPLAY = "unrealized_display"
+        const val KEY_WEEK_DISPLAY = "week_display"
         // Warum Portfolio-Alarme pausieren (Coins ohne aktuellen Kurs, Wert alter Kurse, nie geladene Adressen)
-        const val KEY_MISSING_COINS_V9 = "missing_coins_v9"
-        const val KEY_STALE_COINS_V9 = "stale_coins_v9"
-        const val KEY_STALE_VALUE_V9 = "stale_value_v9"
-        const val KEY_ADDRESSES_PENDING_V9 = "addresses_pending_v9"
+        const val KEY_MISSING_COINS = "missing_coins"
+        const val KEY_STALE_COINS = "stale_coins"
+        const val KEY_STALE_VALUE = "stale_value"
+        const val KEY_ADDRESSES_PENDING = "addresses_pending"
         // Seit über 24 h scheiternde Adressen, nicht bestätigte Token-Guthaben (Namen, Wert)
-        const val KEY_ADDRESSES_FAILING_V10 = "addresses_failing_v10"
-        const val KEY_STALE_TOKEN_ADDRESSES_V10 = "stale_token_addresses_v10"
-        const val KEY_STALE_TOKEN_VALUE_V10 = "stale_token_value_v10"
-        const val KEY_UNVERIFIED_COINS_V11 = "unverified_coins_v11"
-        const val KEY_UNVERIFIED_VALUE_V11 = "unverified_value_v11"
+        const val KEY_ADDRESSES_FAILING = "addresses_failing"
+        const val KEY_STALE_TOKEN_ADDRESSES = "stale_token_addresses"
+        const val KEY_STALE_TOKEN_VALUE = "stale_token_value"
+        const val KEY_UNVERIFIED_COINS = "unverified_coins"
+        const val KEY_UNVERIFIED_VALUE = "unverified_value"
         // Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (Hintergrund und Widget ohne Netz)
         const val KEY_FX_CURRENCY = "fx_currency"
         const val KEY_FX_RATE = "fx_rate"

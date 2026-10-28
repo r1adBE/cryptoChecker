@@ -11,7 +11,7 @@ import org.junit.Test
 class NotTradedConfirmTest {
 
     @Test
-    fun unknownExceptionsNoLongerConfirm() {
+    fun unknownExceptionsDoNotConfirm() {
         assertFalse(NotTraded.confirmedBySingle(false, "java.lang.IllegalStateException: Expected BEGIN_OBJECT"))
         assertFalse(NotTraded.confirmedBySingle(false, "Unknown error (empty)"))
         assertFalse(NotTraded.confirmedBySingle(false, "Something went wrong"))

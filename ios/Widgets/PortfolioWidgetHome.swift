@@ -276,7 +276,7 @@ struct PortfolioHomeView: View {
             let all = PortfolioWidgetViews.changeLineCandidates(
                 amount: amount, percent: PortfolioWidgetChart.percentText(plan),
                 period: PortfolioWidgetText.changePeriod(plan, s))
-            // Gesperrtes Gerät (StandBy): nur das Prozent zeigen (wie früher die Pille); ohne Prozent verdeckt
+            // Gesperrtes Gerät (StandBy): nur das Prozent zeigen; ohne Prozent verdeckt
             let percentOnly = all.filter { $0.amount == nil }
             let options = redactionReasons.contains(.privacy) && !percentOnly.isEmpty ? percentOnly : all
             ViewThatFits(in: .horizontal) {

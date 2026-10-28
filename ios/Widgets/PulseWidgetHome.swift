@@ -97,7 +97,7 @@ struct PulseHomeView: View {
     }
 
     /// Leitsatz: mittel der erste Satz von «Kurz gesagt», wenn er ganz in die 2 Zeilen des Leitsatzes passt
-    /// (gemessen wie Android `PulseWidgetPlain.sentenceAsLead`); sonst der bisherige Leitsatz.
+    /// (gemessen wie Android `PulseWidgetPlain.sentenceAsLead`); sonst der Leitsatz.
     private func lead(_ report: PulseReport, sentences: [String]) -> String {
         if size == .medium, let first = sentences.first,
            PulseWidgetPlain.sentenceAsLead(
@@ -119,7 +119,7 @@ struct PulseHomeView: View {
         let breadth: Text? = wide ? report.breadth.map { PulseSideLine.breadth($0, palette: palette) } : nil
         let sentences: [String] = size == .small ? [] : entry.plainSentences
         let leadText = lead(report, sentences: sentences)
-        // Zuerst die bisherige Anordnung (zwei Nebenzeilen nur, wenn die Höhe reicht), darunter im grossen
+        // Zuerst die Grundanordnung (zwei Nebenzeilen nur, wenn die Höhe reicht), darunter im grossen
         // Widget so viele ganze Sätze, wie noch passen — die Coins behalten ihren Platz, Sätze fallen von hinten weg
         let twoLineOptions = fearGreedText != nil && breadth != nil ? [true, false] : [false]
         let counts = size == .large ? PulseWidgetPlain.candidateCounts(sentences.count) : [0]

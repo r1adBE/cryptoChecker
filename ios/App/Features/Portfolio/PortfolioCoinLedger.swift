@@ -3,8 +3,8 @@ import Foundation
 /// Eingaben der Coin-Ansicht (`PortfolioCalculator.ledger`): Coin, Transaktionen samt Adress-Guthaben, aktuelle Kurse
 /// (auch für die Gebühr-Zeilen), Einstandsmethode und Ladung der Tagesschlüsse (Zähler) — Schlüssel für `.task(id:)`.
 /// Abseits des Hauptthreads gerechnet statt in `body`, wie Android `coinDetailFlow`.
-/// PERF3-R1: `prices` nur für den Coin und `feeCoins` — Kurs-Ticks anderer Coins ändern den Schlüssel
-/// nicht mehr (wie Android `CoinFeePrices`).
+/// `prices` nur für den Coin und `feeCoins` — Kurs-Ticks anderer Coins ändern den Schlüssel
+/// nicht (wie Android `CoinFeePrices`).
 struct PortfolioCoinLedgerKey: Equatable, Sendable {
     let coin: String
     let trades: [PortfolioTx]

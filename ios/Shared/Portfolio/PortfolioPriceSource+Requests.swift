@@ -15,7 +15,7 @@ extension PortfolioPriceSource {
         let candidates = watches.map { w in
             PortfolioWatchPair.Candidate(exchangeKey: w.exchangeKey, base: w.baseAsset, quote: w.quoteAsset, pairId: w.pairId,
                                          spot: w.contractType == .none, disabled: w.disabled, lastUpdate: w.lastUpdate,
-                                         // Voller Name aus der Paarliste der Börse (gleicher Token, K-8)
+                                         // Voller Name aus der Paarliste der Börse (gleicher Token)
                                          name: names.pairName(exchangeKey: w.exchangeKey, base: w.baseAsset))
         }
         var picks: [(String, PortfolioWatchPair.Candidate)] = []
@@ -90,7 +90,7 @@ extension PortfolioPriceSource {
     }
 
     static func candlePrice(_ coin: String, identityName: String?) async -> Double? {
-        // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token, K-8)
+        // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token)
         guard let close = await CandleDataSource.candles(base: coin, quote: stable, interval: .h1, limit: 2,
                                                          identityName: identityName)?.last?.close,
               close > 0, close.isFinite

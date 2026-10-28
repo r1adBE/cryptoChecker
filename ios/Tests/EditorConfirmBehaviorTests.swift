@@ -1,10 +1,10 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Review IOS6-02: Verhalten statt Quelltext-Muster. Blatt-Speichern (Alarm-Editor, Notiz, Gruppe, «Gruppe bearbeiten»)
+/// Verhalten statt Quelltext-Muster. Blatt-Speichern (Alarm-Editor, Notiz, Gruppe, «Gruppe bearbeiten»)
 /// über `WatchlistNotSavedGate.run` — den Kern von `AppData.withWatchlistConfirm` — mit eigenem Tor in Zustand «offen»:
 /// «Abbrechen» → nur `cancelled` (Blatt bleibt, Merker wieder frei), «Trotzdem» → genau einmal schreiben und `close`;
-/// ein zweiter Tipp vor der Antwort zählt nicht (Merker `saving` der Blätter bzw. `AlarmCreateGuard` im Editor, IOS6-01).
+/// ein zweiter Tipp vor der Antwort zählt nicht (Merker `saving` der Blätter bzw. `AlarmCreateGuard` im Editor).
 @MainActor
 final class EditorConfirmBehaviorTests: XCTestCase {
 
@@ -75,7 +75,7 @@ final class EditorConfirmBehaviorTests: XCTestCase {
     func testDoubleTapWhileEditingWritesOnce() async {
         let gate = WatchlistNotSavedGate()
         let sheet = Sheet(gate: gate)
-        // Bestehender Alarm (IOS6-01): auch beim Bearbeiten nur ein Speichern
+        // Bestehender Alarm: auch beim Bearbeiten nur ein Speichern
         sheet.tap(creating: false)
         sheet.tap(creating: false)
         await settle { gate.pending }

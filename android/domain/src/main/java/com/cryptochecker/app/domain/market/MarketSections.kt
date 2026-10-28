@@ -4,7 +4,7 @@ import kotlin.math.abs
 
 /**
  * Die drei Bereiche des Markt-Tabs: «Jetzt» ([NOW]) steht im Tab selbst, «Einordnung» ([CONTEXT])
- * und «Daten» ([DATA]) sind seit G-10 eigene Unterseiten. Wie `MarketSection` (iOS).
+ * und «Daten» ([DATA]) sind eigene Unterseiten. Wie `MarketSection` (iOS).
  */
 enum class MarketSection {
     NOW,
@@ -16,14 +16,14 @@ enum class MarketSection {
  * Register im Markt-Tab (reines Kotlin, testbar): welcher Teil ([MarketRevealSlot]) in welchem
  * Register steht, wann unter einem Register noch die Ladezeile steht, wohin Wischen führt und in
  * welchem Register der Wirtschaftsdaten-Hinweis liegt. Das gewählte Register gilt für die
- * App-Sitzung (wie früher das Auf-/Zuklappen; nicht gespeichert, beim Start immer «Jetzt»).
+ * App-Sitzung (nicht gespeichert, beim Start immer «Jetzt»).
  * Wie `MarketSections` (iOS).
  */
 object MarketSections {
     /** Beim Start der App: «Jetzt». */
     val DEFAULT: MarketSection = MarketSection.NOW
 
-    /** Register, in dem ein Teil steht (die früheren Überschriften-Teile zählen zu ihrem Register). */
+    /** Register, in dem ein Teil steht (die Überschriften-Teile zählen zu ihrem Register). */
     fun of(slot: MarketRevealSlot): MarketSection = when (slot) {
         MarketRevealSlot.PULSE, MarketRevealSlot.UNUSUAL -> MarketSection.NOW
         MarketRevealSlot.HEADER_CONTEXT, MarketRevealSlot.FEAR_GREED, MarketRevealSlot.PHASE,
@@ -54,7 +54,7 @@ object MarketSections {
     }
 
     /**
-     * Unterseite aus dem Namen in der Route (G-10): «Einordnung» oder «Daten»; Unbekanntes und
+     * Unterseite aus dem Namen in der Route: «Einordnung» oder «Daten»; Unbekanntes und
      * «Jetzt» (steht im Tab selbst) ergeben «Einordnung».
      */
     fun subpage(name: String?): MarketSection =

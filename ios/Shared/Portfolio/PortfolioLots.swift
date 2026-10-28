@@ -8,7 +8,7 @@ import Foundation
 /// dann Id. `.FIFO_WALLET`: FIFO je Börse/Wallet (Wallet = Börse der Transaktion, leer = Topf «ohne Angabe»; Umbuchungen
 /// verschieben Posten mit Kaufdatum) — das BMF-Schreiben zu Kryptowerten (10.05.2022, neu 06.03.2025, Rn. 62:
 /// walletbezogene Betrachtung) lässt das zu; das universelle FIFO bleibt Standard. `.AVERAGE`: gleitender Durchschnitt
-/// («Ø»), wie früher. Rohwert wird so gespeichert; ältere Versionen kennen `.FIFO_WALLET` nicht (→ Standard).
+/// («Ø»). Rohwert wird so gespeichert; ein unbekannter Wert gilt als Standard.
 enum CostMethod: String, Codable, CaseIterable, Sendable {
     case FIFO
     case FIFO_WALLET
@@ -242,7 +242,7 @@ struct PortfolioLostFeeCost: Sendable, Equatable {
     let costUsdt: Decimal
 }
 
-/// «Offener Posten sichtbar» (Entscheid des Inhabers 17.10.2026): Anteil einer Umbuchungsgebühr (Gebühr USDT + Wert der
+/// «Offener Posten sichtbar»: Anteil einer Umbuchungsgebühr (Gebühr USDT + Wert der
 /// Gebühr im dritten Coin), der nach Menge auf Bestand OHNE Kaufpreis fällt — gehört zu dessen unbekanntem Einstand und
 /// steht hier statt still zu entfallen (Anzeige «Gebühr nicht zugeordnet – Einstand unbekannt», Steuer-Export: Info-Zeile).
 /// Weder im Einstand noch realisiert. Auch der Anteil einer Auszahlungsgebühr, der auf nicht erfassten

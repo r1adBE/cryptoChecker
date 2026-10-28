@@ -108,6 +108,42 @@ class BackupSettingsCodecTest {
 
     private fun keys(o: JSONObject): Set<String> = o.keys().asSequence().toSet()
 
+    /** Vollständige Einstellungen der Sicherung: der Stand von [settings], darüber [changes]. */
+    private suspend fun backup(settings: FakeSettings, vararg changes: Pair<String, Any?>): JSONObject =
+        codec(settings).settingsToJson().apply { changes.forEach { (k, v) -> put(k, v ?: JSONObject.NULL) } }
+
+    private fun invalid(o: JSONObject): Boolean = runCatching { BackupSettingsCodec.checkSettings(o) }.isFailure
+
+    @Test
+    fun jedesGeschriebeneFeldIstPflicht() = runTest {
+        val written = codec(FakeSettings()).settingsToJson()
+        // Liste der Pflichtfelder = was geschrieben wird = Fixture
+        assertEquals(keys(written), BackupSettingsCodec.FIELDS.keys)
+        assertEquals(keys(fixtureSettings), BackupSettingsCodec.FIELDS.keys)
+        BackupSettingsCodec.checkSettings(written)
+        BackupSettingsCodec.checkSettings(fixtureSettings)
+        for (key in keys(written)) {
+            assertTrue("ohne $key", invalid(JSONObject(written.toString()).apply { remove(key) }))
+        }
+        // null nur, wo der Schreiber null schreibt
+        val nullable = fixture.getJSONArray("nullable").let { a -> (0 until a.length()).map { a.getString(it) }.toSet() }
+        for (key in keys(written)) {
+            assertEquals(key, key !in nullable, invalid(JSONObject(written.toString()).put(key, JSONObject.NULL)))
+        }
+    }
+
+    @Test
+    fun falscherTypMachtDieSicherungUngueltig() {
+        val cases = fixture.getJSONArray("invalid")
+        for (i in 0 until cases.length()) {
+            val c = cases.getJSONObject(i)
+            val changed = JSONObject(fixtureSettings.toString()).put(c.getString("key"), c.opt("value"))
+            assertTrue(c.getString("name"), invalid(changed))
+        }
+        // Eine nicht eingeschaltete Kennzahl fehlt in «indicatorAlerts»: gültig
+        BackupSettingsCodec.checkSettings(JSONObject(fixtureSettings.toString()).put("indicatorAlerts", JSONObject()))
+    }
+
     @Test
     fun alleWerteDerFixtureKommenUnveraendertZurueck() = runTest {
         val settings = FakeSettings()
@@ -144,10 +180,9 @@ class BackupSettingsCodecTest {
     fun ohnePasswortNieWenigerSchutz() = runTest {
         val protectedNow = AppSettings(appLock = true, hidePortfolioAmounts = true, portfolioSystemBackup = false)
         val settings = FakeSettings(protectedNow)
-        val lessProtection = JSONObject()
-            .put("appLock", false)
-            .put("hidePortfolioAmounts", false)
-            .put("portfolioSystemBackup", true)
+        val lessProtection = backup(
+            settings, "appLock" to false, "hidePortfolioAmounts" to false, "portfolioSystemBackup" to true,
+        )
         val keptOn = codec(settings).restoreSettings(lessProtection, trusted = false).appLockKept
         assertTrue(keptOn)
         assertTrue(settings.s.appLock)
@@ -163,10 +198,9 @@ class BackupSettingsCodecTest {
     @Test
     fun ohnePasswortMehrSchutzErlaubt() = runTest {
         val settings = FakeSettings(AppSettings(appLock = false, hidePortfolioAmounts = false, portfolioSystemBackup = true))
-        val moreProtection = JSONObject()
-            .put("appLock", true)
-            .put("hidePortfolioAmounts", true)
-            .put("portfolioSystemBackup", false)
+        val moreProtection = backup(
+            settings, "appLock" to true, "hidePortfolioAmounts" to true, "portfolioSystemBackup" to false,
+        )
         assertFalse(codec(settings).restoreSettings(moreProtection, trusted = false).appLockKept)
         assertTrue(settings.s.appLock)
         assertTrue(settings.s.hidePortfolioAmounts)
@@ -180,9 +214,8 @@ class BackupSettingsCodecTest {
     @Test
     fun eigenerServerAusDerSicherung() = runTest {
         val settings = FakeSettings().apply { server = "https://a.example/api" }
-        suspend fun restore(value: Any?, trusted: Boolean) = codec(settings).restoreSettings(
-            if (value == Unit) JSONObject() else JSONObject().put("addressServerBtc", value ?: JSONObject.NULL), trusted,
-        ).addressServer
+        suspend fun restore(value: String?, trusted: Boolean) =
+            codec(settings).restoreSettings(backup(settings, "addressServerBtc" to value), trusted).addressServer
         assertEquals(KEPT, restore(null, trusted = false))
         assertEquals("https://a.example/api", settings.server)
         assertEquals(null, restore("http://b.example", trusted = true))
@@ -192,7 +225,7 @@ class BackupSettingsCodecTest {
         assertEquals(null, restore("https://A.example/api/", trusted = false))
         assertEquals(CHANGED, restore("https://B.example/api/", trusted = true))
         assertEquals("https://b.example/api", settings.server)
-        assertEquals(null, restore(Unit, trusted = true))
+        assertEquals(null, restore("https://b.example/api", trusted = true))
         assertEquals("https://b.example/api", settings.server)
         assertEquals(PUBLIC, restore(null, trusted = true))
         assertEquals(null, settings.server)
@@ -206,7 +239,7 @@ class BackupSettingsCodecTest {
     @Test
     fun sperreNurMitEntsperrbaremGeraet() = runTest {
         val settings = FakeSettings()
-        codec(settings, canAuthenticate = false).restoreSettings(JSONObject().put("appLock", true), trusted = true)
+        codec(settings, canAuthenticate = false).restoreSettings(backup(settings, "appLock" to true), trusted = true)
         assertFalse(settings.s.appLock)
     }
 }

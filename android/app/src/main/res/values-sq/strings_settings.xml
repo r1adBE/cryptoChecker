@@ -292,4 +292,38 @@
     <string name="settings_price_overlay_needs">Funksionon vetëm bashkë me «%1$s».</string>
     <string name="settings_price_overlay_grant">Lejo shfaqjen mbi aplikacionet e tjera</string>
     <string name="price_overlay_close">Mbyll mbishtresën</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Server i yti për adresat</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Vetëm Bitcoin: serveri yt i përputhshëm me Esplora ose mempool (p.sh. https://nyje.example/api, duhet certifikatë e besuar publikisht, p.sh. Let\'s Encrypt). Nëse është vendosur, adresat Bitcoin dhe xpub pyeten vetëm aty – kurrë te nyjet publike, as kur serveri yt nuk arrihet. Rrjetet e tjera përdorin ende nyje publike. Bosh = nyje publike.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Serveri Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Testo</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Po testohet…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Serveri përgjigjet – blloku %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Asnjë përgjigje e vlefshme – kontrollo adresën dhe certifikatën</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Në përdorim: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">I pavendosur – përdoren nyje publike</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Lejohen vetëm adresa https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Pa emër përdoruesi ose fjalëkalim në adresë</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Pa pjesë ? ose # në adresë</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Adresë serveri e pavlefshme</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Kalon te nyjet publike?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Adresat e tua Bitcoin dhe xpub do të pyeten atëherë te nyjet publike: %1$s. Ato i shohin adresat bashkë me adresën tënde IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Përdor nyjet publike</string>
 </resources>

@@ -176,7 +176,7 @@ final class ChangeBasisTests: XCTestCase {
         XCTAssertEqual(ChangeBasis.from(name: "UTC_DAY+99"), .ROLLING_24H)
         let stamp = ChangeStamp(basis: try XCTUnwrap(ChangeBasis.utc(-5)), dayStart: 1_760_000_000_000)
         XCTAssertEqual(ChangeStamp.decode(stamp.encoded), stamp)
-        // Gespeichert wie bisher als einfacher Text (Einstellungen, Sicherung, Live-Aktivität)
+        // Gespeichert als einfacher Text (Einstellungen, Sicherung, Live-Aktivität)
         let json = try JSONEncoder().encode([try XCTUnwrap(ChangeBasis.utc(8))])
         XCTAssertEqual(String(data: json, encoding: .utf8), "[\"UTC_DAY+8\"]")
         XCTAssertEqual(try JSONDecoder().decode([ChangeBasis].self, from: Data("[\"UTC_DAY-3\",\"WEEK\"]".utf8)),

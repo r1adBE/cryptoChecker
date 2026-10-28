@@ -161,7 +161,7 @@ fun ActivityAnalyzer.explain(input: WhyInput): WhyReport {
 
 /**
  * Quote USD oder ein USD-Stablecoin ([CurrencyConversion.classify] → USD)? Nur dann sind die Kerzen
- * des Paars mit den USD-Referenzen vergleichbar. Ohne Quote (unbekannt) wie bisher USD.
+ * des Paars mit den USD-Referenzen vergleichbar. Ohne Quote (unbekannt) USD.
  */
 fun ActivityAnalyzer.isUsdQuote(quoteAsset: String?): Boolean {
     val code = CurrencyConversion.normalize(quoteAsset)

@@ -131,7 +131,7 @@ fun ExplorerViewModel.addSelectedPair() {
  */
 internal fun ExplorerViewModel.launchAdd(target: ExchangeInfo, pair: ExchangePair, report: (added: Boolean) -> Unit) {
     viewModelScope.launch {
-        // Rückfrage F-08 vor dem Anlegen; «Abbrechen» = nichts, keine Meldung
+        // Rückfrage «nicht gespeichert» vor dem Anlegen; «Abbrechen» = nichts, keine Meldung
         if (!watchRepository.confirmUserWrite()) return@launch
         when (val outcome = watchRepository.tryAddWatch(target, pair, sessionTargetGroup.value)) {
             is AddWatchOutcome.Added -> {

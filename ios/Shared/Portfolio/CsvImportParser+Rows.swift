@@ -255,7 +255,7 @@ extension CsvImportParser {
         // Preiswährung (Fiat oder USDT), sonst bliebe sie ohne Wert bzw. würde mangels Währung übersprungen. Wie Android
         let rewardValue = kind == .REWARD && (CsvImport.isFiat(quote) || quote == PortfolioStables.valuation)
         if price == nil && (kind == .BUY || kind == .SELL || rewardValue) {
-            // Belohnung mit unlesbarem Betrag: ohne Preis wie früher, nicht übersprungen
+            // Belohnung mit unlesbarem Betrag: ohne Preis übernehmen, nicht überspringen
             let fiatAmount: Decimal?
             if kind == .REWARD { fiatAmount = try? number(.fiatAmount) } else { fiatAmount = try number(.fiatAmount) }
             if let fiat = fiatAmount {

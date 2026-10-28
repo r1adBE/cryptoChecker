@@ -38,7 +38,7 @@ enum PortfolioPriceFallback {
     static let maxEntries = 300
     /// Kopfzeile der Datei; eine andere Version gilt als «nichts gespeichert».
     static let formatHeader = "portfolio-prices-v1"
-    /// 4. Feld einer Zeile: Kurs ungeprüft (`StoredPrice.unverified`); ältere Dateien ohne Feld = geprüft. Wie Android.
+    /// 4. Feld einer Zeile: Kurs ungeprüft (`StoredPrice.unverified`); ohne Feld = geprüft. Wie Android.
     static let unverifiedMark = "u"
 
     /// Frische-Schwelle der Portfolio-Kurse: wie die Merkliste ohne Live-Modus (`OutdatedRule`) —

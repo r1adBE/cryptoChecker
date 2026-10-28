@@ -45,4 +45,17 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Taproot-konto (BIP86): Fra denne nøkkelen avledes bc1p…-adresser, for mottak og vekslepenger.</string>
     <string name="portfolio_address_taproot_hint">Taproot-lommebok? Lim heller inn deskriptoren tr(…) fra lommeboken din – en vanlig xpub søkes bare som Legacy- og SegWit-adresser.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Egen server kan ikke nås</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Den som driver %1$s, ser alle forespurte adresser i denne walleten og kan koble dem til hverandre og til IP-adressen din.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Unngå det ved å angi din egen server under Innstillinger › Portefølje › Egen server for adresser.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d ukjent token (ikke regnet med)</item>
+        <item quantity="other">+%1$d ukjente tokens (ikke regnet med)</item>
+    </plurals>
 </resources>

@@ -7,7 +7,7 @@ import com.cryptochecker.marketdata.model.exchange.Upbit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/** Volle Namen aus den Paarlisten (gleicher Token, K-8) — wie `BaseNamesTests.swift`. */
+/** Volle Namen aus den Paarlisten (gleicher Token) — wie `BaseNamesTests.swift`. */
 class BaseNamesTest {
 
     @Test

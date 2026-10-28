@@ -2,7 +2,7 @@ import Foundation
 
 /// Feste Endzeit eines Durchlaufs (Hintergrund-Aktualisierung: iOS gibt rund 30 s). Wird an alle
 /// Schritte weitergereicht — Kurse, Tages-Bezüge, Alarm-Daten, Lease, Nebenprüfungen —, damit keiner
-/// über das Ende hinaus wartet. Ohne Endzeit (App im Vordergrund) läuft alles wie bisher.
+/// über das Ende hinaus wartet. Ohne Endzeit (App im Vordergrund) gilt keine Grenze.
 /// Nur iOS: Android (WorkManager) hat rund 10 Minuten.
 struct RefreshDeadline: Sendable, Equatable {
     /// Bleibt immer für Speichern und Abschluss.

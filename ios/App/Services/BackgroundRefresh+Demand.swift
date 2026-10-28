@@ -2,7 +2,7 @@ import BackgroundTasks
 import Foundation
 import os
 
-// Bedarfs-Entscheid nach dem Vormerken (Teil von `BackgroundRefresh`, Review IOS2-R02): Die Prüfung
+// Bedarfs-Entscheid nach dem Vormerken (Teil von `BackgroundRefresh`): Die Prüfung
 // wartet auf WidgetKit und die Platte; mehrere Planungen kurz hintereinander können ihre Entscheide darum in anderer
 // Reihenfolge liefern. Nur der Entscheid der neuesten Planung darf absagen oder nachholen.
 
@@ -80,7 +80,7 @@ extension BackgroundRefresh {
         }
     }
 
-    /// Review IOS3-R05: erstes Vormerken einer nicht ersetzenden Planung — es folgt erst nach der
+    /// Erstes Vormerken einer nicht ersetzenden Planung — es folgt erst nach der
     /// asynchronen Abfrage der vorgemerkten Anfrage, darum nur, solange `generation` die neueste Planung ist; sonst
     /// ersetzte es die Anfrage einer neueren (z. B. neues Intervall). Protokoll ausserhalb der Sperre (wie `followDemand`).
     /// - Returns: true = vorgemerkt bzw. versucht; false = von einer neueren Planung überholt.

@@ -14,8 +14,8 @@ package com.cryptochecker.app.settings
  * #C3213A 4.50 auf #E2E2E2) — sie liegen so nah am Börsenton, wie der Kontrast erlaubt.
  * Siehe PriceColorSchemeTest.
  *
- * Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche», Entscheid 18. Oktober 2026:
- * «Farben wie bei allen Börsen, die Akzentfarbe soll nicht irritieren»), geprüft mit
+ * Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche»:
+ * Farben wie bei allen Börsen, die Akzentfarbe soll nicht irritieren), geprüft mit
  * `android/tools/check_price_colors.py` und PriceColorSchemeTest:
  *  - je Farbe der Ton der Börsen-App, so nah wie möglich (CIEDE2000): «Frisch» = Binance
  *    #0ECB81 / #F6465D, «Traditionell» = TradingView #089981 / #F23645, «Farbsehschwäche» =
@@ -34,7 +34,7 @@ package com.cryptochecker.app.settings
  * Kombination die nächste Fassung der Liste (Karmin statt Rot bei orangem Akzent, Blau statt Grün
  * bei grünem; Petrol statt Blau, Senfgelb statt Orange). «Frisch», «Traditionell» und
  * «Farbsehschwäche» haben je nur eine Fassung und bleiben
- * bei jedem Akzent die festen Börsenfarben (Entscheid 16. Oktober 2026). Geprüft
+ * bei jedem Akzent die festen Börsenfarben. Geprüft
  * wird mit [ColorDifference]; hoher Kontrast nimmt dieselbe Fassung. Eine Fassung kann eine tiefere
  * eigene Schwelle haben ([PriceTone.minAccentLight] / [PriceTone.minAccentDark]). Wie iOS.
  *
@@ -62,8 +62,8 @@ enum class PriceColorScheme(
     ),
 
     /**
-     * «Frisch»: Binance-Grün/-Rot (#0ECB81 / #F6465D, früher der Standard). Wie «Traditionell»
-     * und «Farbsehschwäche» feste Standardfarben wie an jeder Börse (Entscheid 16. Oktober 2026):
+     * «Frisch»: Binance-Grün/-Rot (#0ECB81 / #F6465D). Wie «Traditionell»
+     * und «Farbsehschwäche» feste Standardfarben wie an jeder Börse:
      * nur «Ruhig» und «Ruhig Farbsehschwäche» weichen je Akzent aus. Dunkel steigend genau der
      * Binance-Ton; sonst gleicher Farbton, so hell bzw. dunkel wie der Kontrast verlangt.
      */
@@ -92,8 +92,8 @@ enum class PriceColorScheme(
 
     /**
      * «Farbsehschwäche»: Blau steigend, Orange fallend wie die Farbsehschwäche-Option der
-     * Börsen-Apps – feste Standardfarben, kein Ersatz je Akzent (Entscheid 16. Oktober 2026; die
-     * früheren, ruhigeren Werte trägt [CALM_COLOR_VISION]). Nah an #1565C0 / #E65100 (hell) bzw.
+     * Börsen-Apps – feste Standardfarben, kein Ersatz je Akzent (ruhigere
+     * Werte trägt [CALM_COLOR_VISION]). Nah an #1565C0 / #E65100 (hell) bzw.
      * #3D9BFF / #F7931A (dunkel); Helligkeit ≥ 1.4:1 getrennt und bei jeder simulierten
      * Farbsehschwäche ΔE2000 ≥ 35.
      */
@@ -107,8 +107,8 @@ enum class PriceColorScheme(
     ),
 
     /**
-     * «Ruhig Farbsehschwäche»: gedämpftes Blau steigend, gedämpftes Orange fallend (früher die
-     * Werte von «Farbsehschwäche»). Weicht wie «Ruhig» je Akzent aus, auf der Blau-Gelb-Achse:
+     * «Ruhig Farbsehschwäche»: gedämpftes Blau steigend, gedämpftes Orange fallend.
+     * Weicht wie «Ruhig» je Akzent aus, auf der Blau-Gelb-Achse:
      * Petrol bzw. Blau-Violett statt Blau, Senfgelb statt Orange.
      */
     CALM_COLOR_VISION(
@@ -212,7 +212,7 @@ object PriceTones {
     /**
      * «Ruhig» fallend: hell dunkles Rot (#771D23, ≥ 8.1:1 auf allen hellen Flächen), dunkel
      * Lachs-Rot (#FFB097, HSL 14°, C* 35.6 — das bunteste Rot 5–15°, das 1.5:1 heller als das Grün
-     * bleibt, auch bei Deuteranopie; bis 18. Oktober 2026 das rosigere #FFAFA8; ΔE ≥ 39 zu Blau,
+     * bleibt, auch bei Deuteranopie, nicht das rosigere #FFAFA8; ΔE ≥ 39 zu Blau,
      * Grün, Marrs Green).
      */
     val CALM_RED = PriceTone(0xFF771D23.toInt(), 0xFFFFB097.toInt(), 0xFF5A0813.toInt(), 0xFFFFD1CF.toInt())

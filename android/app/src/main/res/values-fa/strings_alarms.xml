@@ -181,4 +181,10 @@
     <string name="alarm_reliability_storage_no_key">هشدارها در پس‌زمینه متوقف شده‌اند – واچ‌لیست ذخیره نشده است</string>
     <string name="alarms_limit_reached">هر جفت حداکثر می‌تواند %1$s هشدار داشته باشد.</string>
     <string name="alarms_reference_rate_hint">نرخ‌های مرجع بانک مرکزی اروپا فقط روزی یک بار تعیین می‌شوند – برای آن‌ها هشداری وجود ندارد.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">کاهش باید کمتر از ۱۰۰ درصد باشد.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">آستانه نامعتبر است – لطفاً آن را تغییر بده</string>
 </resources>

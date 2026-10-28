@@ -39,16 +39,16 @@ object MarketExtraCodecs {
                 val c = array.getJSONObject(i)
                 UnusualCoin(
                     symbol = c.getString("s"),
-                    name = c.optString("n", c.getString("s")),
+                    name = c.getString("n"),
                     change24h = c.getDouble("c"),
                     quoteVolume = c.finiteOrNull("v"),
                     marketCap = c.finiteOrNull("m"),
                     fundingPercent = c.finiteOrNull("f"),
                 )
             }
-            val ownJson = o.optJSONObject("own")
+            val ownJson = o.getJSONObject("own")
             val own = HashMap<String, Double>()
-            ownJson?.keys()?.forEach { key -> ownJson.finiteOrNull(key)?.let { own[key] = it } }
+            ownJson.keys().forEach { key -> ownJson.finiteOrNull(key)?.let { own[key] = it } }
             UnusualInput(coins = coins, ownTypical = own, time = o.getLong("time"))
         },
     )

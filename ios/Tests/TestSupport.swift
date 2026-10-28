@@ -16,6 +16,11 @@ enum TestSupport {
         return try XCTUnwrap(object as? [String: Any], file: file, line: line)
     }
 
+    /// Vollständige Einstellungen einer Sicherung (`BackupManager.settingsJson`) für `current`, darüber `changes`.
+    static func settingsBackup(_ current: AppSettings = AppSettings(), _ changes: [String: Any] = [:]) -> [String: Any] {
+        BackupManager.settingsJson(current).merging(changes) { _, new in new }
+    }
+
     /// Zahl aus JSON: null → nil; «NaN», «Infinity», «-Infinity» als Text.
     static func number(_ value: Any?) -> Double? {
         guard let value, !(value is NSNull) else { return nil }

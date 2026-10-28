@@ -21,7 +21,7 @@ extension PortfolioHistoryRange {
         }
     }
 
-    /// Text auf dem Chip: «Seit 1. Kauf» als «Seit Kauf» (nicht mehr ∞) — wie Android.
+    /// Text auf dem Chip: «Seit 1. Kauf» als «Seit Kauf» — wie Android.
     var chipLabel: String {
         self == .sinceFirst ? L("portfolio_history_chip_since_first") : shortLabel
     }
@@ -89,7 +89,7 @@ struct PortfolioHistoryCard: View {
     // MARK: Kopfzeile
 
     /// Darstellung, die für diesen Verlauf gilt: USDT und Vergleich nur mit Devisen-Tageskursen
-    /// (Vergleich zusätzlich mit Ausgangswert), sonst in der Währung wie bisher.
+    /// (Vergleich zusätzlich mit Ausgangswert), sonst in der Währung.
     var shownView: PortfolioHistoryView {
         guard let history else { return .currency }
         return PortfolioCompare.effectiveView(view, usdtAvailable: history.usdtSeries != nil,

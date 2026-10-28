@@ -16,7 +16,7 @@ struct PortfolioHistoryConverted: Equatable, Sendable {
 /// `PortfolioHistoryFx.kt`:
 ///  - Jeder Punkt (Wert in USDT) × Kurs USD → Zielwährung SEINES Tags (× USDT/USD-Tagesschluss, wenn `UsdtUsdRates`
 ///    mitgegeben: USDT zum Marktkurs, Tag ohne Schluss = 1 als Näherung, `PortfolioHistoryConverted.usdtApproximate`;
-///    ohne sie USDT = USD wie in älteren Versionen). Wochenenden und
+///    ohne sie USDT = USD). Wochenenden und
 ///    Feiertage (keine EZB-Fixierung) nehmen den Kurs des letzten Geschäftstags davor (`rateOn`).
 ///  - Der heutige Punkt nimmt den aktuellen Kurs (wie die Umrechnungszeile im Kopf).
 ///  - Liegt ein Tag vor dem ersten Tageskurs, gilt der erste (die Abfrage beginnt ohnehin
@@ -196,7 +196,7 @@ enum PortfolioHistoryFx {
         return out
     }
 
-    /// `usdt`: Marktkurse USDT/USD; nil = USDT gilt 1 USD (bisherige Rechnung).
+    /// `usdt`: Marktkurse USDT/USD; nil = USDT gilt 1 USD.
     static func convert(_ series: PortfolioHistorySeries, dailyRates: [Int: Double]?,
                         currentRate: Double, todayEpochDay: Int,
                         usdt: UsdtUsdRates? = nil) -> PortfolioHistoryConverted {

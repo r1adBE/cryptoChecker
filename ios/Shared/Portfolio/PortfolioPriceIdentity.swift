@@ -1,6 +1,6 @@
 import Foundation
 
-/// Gleicher Token auch beim Binance-Kurs des Portfolios (K-8, wie Merkliste und Kerzen-Kette): Der Sammel-Ticker
+/// Gleicher Token auch beim Binance-Kurs des Portfolios (wie Merkliste und Kerzen-Kette): Der Sammel-Ticker
 /// `SYMBOLUSDT` nennt nur das Kürzel. Heisst der Coin laut den Paaren der Merkliste klar anders als bei Binance (LUNA
 /// Terra Classic gegen Terra 2.0, TON Tokamak gegen Toncoin, GMT GoMining gegen STEPN, HOT Hydro gegen Holo), gilt
 /// Binances Kurs nicht — dann Merklisten-Paar bzw. Kerzen-Kette (die prüft den Namen ebenso). Ist kein Name bekannt,

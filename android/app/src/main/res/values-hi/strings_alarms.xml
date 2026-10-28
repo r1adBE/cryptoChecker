@@ -181,4 +181,10 @@
     <string name="alarm_reliability_storage_no_key">बैकग्राउंड में अलार्म रुके हुए हैं – वॉचलिस्ट सहेजी नहीं गई</string>
     <string name="alarms_limit_reached">एक पेयर पर अधिकतम %1$s अलार्म हो सकते हैं।</string>
     <string name="alarms_reference_rate_hint">ECB की संदर्भ दरें दिन में सिर्फ़ एक बार तय होती हैं – इनके लिए कोई अलार्म नहीं है।</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">गिरावट 100 प्रतिशत से कम होनी चाहिए।</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">सीमा अमान्य है – कृपया इसे बदलो</string>
 </resources>

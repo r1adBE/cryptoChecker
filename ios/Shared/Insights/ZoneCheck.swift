@@ -162,10 +162,9 @@ enum MarketNoticeGate {
     }
 
     /// Gilt die Grenze `current` nicht mehr für den gemerkten Stand? `stored` nil = keine Grenze gemerkt:
-    /// als unverändert werten. Wie `MarketNoticeGate.boundChanged` (Android).
+    /// als geändert werten. Wie `MarketNoticeGate.boundChanged` (Android).
     static func boundChanged(stored: Int?, current: Int) -> Bool {
-        guard let stored else { return false }
-        return stored != current
+        stored != current
     }
 
     /// Neuen Stand speichern? `posted` = die Mitteilung wurde angenommen (nur bei `.notify` von Belang).

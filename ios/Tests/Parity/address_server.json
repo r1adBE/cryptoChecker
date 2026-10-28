@@ -1,5 +1,5 @@
 {
- "description": "Own server for address queries (Settings › Portfolio, Bitcoin only, Esplora/mempool-compatible). Android AddressServer.kt, iOS AddressServer.swift. «check»: input → normalized url (null = empty/public nodes or invalid) and problem (null = ok). «urls»: entry (own server base or public host) + address → request URL. «tip»: body of GET {server}/blocks/tip/height → height or null. «providers»: host → provider name (AddressBalance.providerName; IPv4 stays whole). «consent»: privacy consent before adding (first address, first xpub). «restore»: value from a backup (present = key in the file); only a backup with password (trusted) sets, replaces or clears it. «note» = hint in the restore message (BackupRestorePolicy.addressServerNote): KEPT = backup without password had another valid value or none, not applied; PUBLIC = backup with password cleared an existing server; CHANGED = backup with password replaced an existing server; null = no hint.",
+ "description": "Own server for address queries (Settings › Portfolio, Bitcoin only, Esplora/mempool-compatible). Android AddressServer.kt, iOS AddressServer.swift. «check»: input → normalized url (null = empty/public nodes or invalid) and problem (null = ok). «urls»: entry (own server base or public host) + address → request URL. «tip»: body of GET {server}/blocks/tip/height → height or null. «providers»: host → provider name (AddressBalance.providerName; IPv4 stays whole). «consent»: privacy consent before adding (first address, first xpub). «restore»: value from a backup; only a backup with password (trusted) sets, replaces or clears it. «note» = hint in the restore message (BackupRestorePolicy.addressServerNote): KEPT = backup without password had another valid value or none, not applied; PUBLIC = backup with password cleared an existing server; CHANGED = backup with password replaced an existing server; null = no hint.",
  "check": [
   {"input": "", "url": null, "problem": null},
   {"input": "   ", "url": null, "problem": null},
@@ -68,21 +68,19 @@
   {"addresses": 3, "xpubs": 1, "newIsKey": true, "needed": false}
  ],
  "restore": [
-  {"present": false, "value": null, "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api", "note": null},
-  {"present": false, "value": null, "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": null},
-  {"present": true, "value": "https://b.example/api/", "current": null, "trusted": false, "result": null, "note": "KEPT"},
-  {"present": true, "value": "https://b.example/api", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": "KEPT"},
-  {"present": true, "value": null, "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": "KEPT"},
-  {"present": true, "value": "", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": "KEPT"},
-  {"present": true, "value": "https://A.example/api/", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": null},
-  {"present": true, "value": "http://b.example", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": null},
-  {"present": true, "value": null, "current": null, "trusted": false, "result": null, "note": null},
-  {"present": true, "value": "https://b.example/api", "current": "https://a.example/api", "trusted": true, "result": "https://b.example/api", "note": "CHANGED"},
-  {"present": true, "value": "https://a.example/api/", "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api", "note": null},
-  {"present": true, "value": null, "current": "https://a.example/api", "trusted": true, "result": null, "note": "PUBLIC"},
-  {"present": true, "value": "", "current": "https://a.example/api", "trusted": true, "result": null, "note": "PUBLIC"},
-  {"present": true, "value": "http://b.example", "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api", "note": null},
-  {"present": true, "value": "http://b.example", "current": null, "trusted": true, "result": null, "note": null},
-  {"present": true, "value": "https://b.example/api/", "current": null, "trusted": true, "result": "https://b.example/api", "note": null}
+  {"value": "https://b.example/api/", "current": null, "trusted": false, "result": null, "note": "KEPT"},
+  {"value": "https://b.example/api", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": "KEPT"},
+  {"value": null, "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": "KEPT"},
+  {"value": "", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": "KEPT"},
+  {"value": "https://A.example/api/", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": null},
+  {"value": "http://b.example", "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api", "note": null},
+  {"value": null, "current": null, "trusted": false, "result": null, "note": null},
+  {"value": "https://b.example/api", "current": "https://a.example/api", "trusted": true, "result": "https://b.example/api", "note": "CHANGED"},
+  {"value": "https://a.example/api/", "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api", "note": null},
+  {"value": null, "current": "https://a.example/api", "trusted": true, "result": null, "note": "PUBLIC"},
+  {"value": "", "current": "https://a.example/api", "trusted": true, "result": null, "note": "PUBLIC"},
+  {"value": "http://b.example", "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api", "note": null},
+  {"value": "http://b.example", "current": null, "trusted": true, "result": null, "note": null},
+  {"value": "https://b.example/api/", "current": null, "trusted": true, "result": "https://b.example/api", "note": null}
  ]
 }

@@ -381,7 +381,7 @@ final class AddressBalanceTests: XCTestCase {
         XCTAssertNil(AddressValidation.check(nil).normalized)
     }
 
-    /// Speicher: Einfügen ohne Doppelte, Ergebnis übernehmen (Fehler lässt das Guthaben stehen), alte Dateien lesbar.
+    /// Speicher: Einfügen ohne Doppelte, Ergebnis übernehmen (Fehler lässt das Guthaben stehen), Eintrag ohne Pflichtfelder.
     func testStoreFile() throws {
         var file = WatchedAddressFile()
         let id = try XCTUnwrap(WatchedAddressStore.insert(
@@ -401,11 +401,11 @@ final class AddressBalanceTests: XCTestCase {
         XCTAssertEqual(a.observations, [AddressObservation(time: 1000, balance: PortfolioDecimal.parse("1.5") ?? 0)])
         let roundTrip = try JSONDecoder().decode(WatchedAddressFile.self, from: JSONEncoder().encode(file))
         XCTAssertEqual(roundTrip, file)
-        let minimal = try JSONDecoder().decode(WatchedAddressFile.self,
+        // Eintrag ohne Pflichtfelder: übersprungen, die übrige Datei bleibt lesbar
+        let partial = try JSONDecoder().decode(WatchedAddressFile.self,
                                                from: Data("{\"addresses\":[{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\"}]}".utf8))
-        XCTAssertEqual(minimal.addresses.first?.lastAttempt, 0)
-        XCTAssertEqual(minimal.nextId, 1)
-        XCTAssertEqual(minimal.addresses.first?.observations, [])
+        XCTAssertTrue(partial.addresses.isEmpty)
+        XCTAssertEqual(partial.nextId, 1)
     }
     /// Einzahlung/Umbuchung gleich Guthaben oder beobachtetem Zugang (± 1 %) — gleiche Fälle wie Android.
     func testTransferMatchesAddress() {

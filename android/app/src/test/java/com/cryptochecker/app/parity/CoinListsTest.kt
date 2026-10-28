@@ -157,7 +157,7 @@ class CoinListsTest {
             assertEquals("Logo $symbol", logo, binance.first { it.name == symbol }.logo)
         }
         expected["withoutNames"].list().forEach { symbol -> assertNull("$symbol", fullNames[symbol as String]) }
-        // Ohne gespeicherte Liste füllt die Ersatzdatei wie bisher
+        // Ohne gespeicherte Liste füllt die Ersatzdatei
         val fresh = run(server, request(lastBinance = 0))
         assertEquals(listOf("BTC", "ETH", "WLD", "SOL"), fresh.binance.orEmpty().map { it.name })
     }

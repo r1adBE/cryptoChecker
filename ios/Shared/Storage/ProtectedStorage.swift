@@ -65,7 +65,7 @@ enum ProtectedStorage {
         let fm = FileManager.default
         let present = files.filter { fm.fileExists(atPath: $0.url.path) }
         let plainCapable = present.filter { !$0.sealedOnly }
-        // Schon versiegelt (normal geschrieben, das Merkmal setzte der Schreiber): kein Merkmal von früher mehr nötig
+        // Schon versiegelt (normal geschrieben, das Merkmal setzte der Schreiber): kein gemerktes Merkmal mehr nötig
         for file in present where isSealedFile(file.url) { PlainBackupExclusion.forget(file.url, defaults: defaults) }
         /// Ohne Schlüssel bleibt jede Klartext-Datei, wie sie ist — vermerkt für den Hinweis (`encryptionPending`).
         func keepingPlain() -> LaunchOutcome {

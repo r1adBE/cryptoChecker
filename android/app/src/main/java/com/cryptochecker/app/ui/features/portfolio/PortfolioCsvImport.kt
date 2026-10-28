@@ -174,7 +174,7 @@ fun PortfolioCsvImportFlow(
 }
 
 /**
- * Inhalt des Lade- bzw. Speicherdialogs: ohne Zeilenzahl (Datei lesen, Tageskurse laden) Kreis und Text wie bisher;
+ * Inhalt des Lade- bzw. Speicherdialogs: ohne Zeilenzahl (Datei lesen, Tageskurse laden) Kreis und Text;
  * sobald Zeilen gezählt werden, Balken «Zeile X von Y» ([BulkAddProgress]). Für TalkBack ein Element: Text, Zeile und
  * Fortschritt des Balkens werden zusammen angesagt.
  */

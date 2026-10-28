@@ -193,4 +193,10 @@
     <string name="alarm_reliability_storage_no_key">Alarmy na pozadí pozastaveny – seznam není uložen</string>
     <string name="alarms_limit_reached">Pár může mít nejvýše %1$s alarmů.</string>
     <string name="alarms_reference_rate_hint">Referenční kurzy ECB se stanovují jen jednou denně – nejsou pro ně žádné alarmy.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Pokles musí být menší než 100 procent.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Neplatná hranice – uprav ji, prosím</string>
 </resources>

@@ -234,9 +234,9 @@ class CoinNames @Inject constructor(
     private companion object {
         const val KEY_TRADFI_PAIRS = "tradfi_pairs"
         const val KEY_TRADFI_BASES = "tradfi_bases"
-        const val KEY_STOCK_NAMES_TIME = "stock_names_time_v1"
-        const val KEY_STOCK_NAMES_ATTEMPT = "stock_names_attempt_v1"
-        const val STOCK_NAMES_FILE = "coin_logos/stock_names1.txt"
-        const val NAMES_FILE = "coin_logos/names5.txt"
+        const val KEY_STOCK_NAMES_TIME = "stock_names_time"
+        const val KEY_STOCK_NAMES_ATTEMPT = "stock_names_attempt"
+        const val STOCK_NAMES_FILE = "coin_logos/stock_names.txt"
+        const val NAMES_FILE = "coin_logos/names.txt"
     }
 }

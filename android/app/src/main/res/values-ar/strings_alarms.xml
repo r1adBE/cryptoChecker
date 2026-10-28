@@ -205,4 +205,10 @@
     <string name="alarm_reliability_storage_no_key">التنبيهات متوقفة مؤقتًا في الخلفية – قائمة المتابعة غير محفوظة</string>
     <string name="alarms_limit_reached">يمكن أن يحتوي الزوج على %1$s تنبيهات كحد أقصى.</string>
     <string name="alarms_reference_rate_hint">تُحدَّد الأسعار المرجعية للبنك المركزي الأوروبي مرة واحدة يوميًا فقط – لا توجد تنبيهات لها.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">يجب أن يكون الانخفاض أقل من 100 بالمئة.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">الحد غير صالح – يرجى تعديله</string>
 </resources>

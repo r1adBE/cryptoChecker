@@ -15,31 +15,25 @@ enum BackupRestorePolicy {
         let keptOn: Bool
     }
 
-    /// `wanted` = Wert in der Sicherung (nil = fehlt), `current` = Sperre jetzt, `encrypted` = Sicherung
+    /// `wanted` = Wert in der Sicherung, `current` = Sperre jetzt, `encrypted` = Sicherung
     /// mit Passwort, `canAuthenticate` = Gerät kann entsperren (sonst sperrte «an» das Portfolio aus).
-    static func appLock(wanted: Bool?, current: Bool, encrypted: Bool, canAuthenticate: Bool) -> AppLockDecision {
-        switch wanted {
-        case nil:
-            return AppLockDecision(apply: nil, keptOn: false)
-        case true?:
-            return AppLockDecision(apply: canAuthenticate ? true : nil, keptOn: false)
-        case false?:
-            if current && !encrypted { return AppLockDecision(apply: nil, keptOn: true) }
-            return AppLockDecision(apply: false, keptOn: false)
-        }
+    static func appLock(wanted: Bool, current: Bool, encrypted: Bool, canAuthenticate: Bool) -> AppLockDecision {
+        if wanted { return AppLockDecision(apply: canAuthenticate ? true : nil, keptOn: false) }
+        if current && !encrypted { return AppLockDecision(apply: nil, keptOn: true) }
+        return AppLockDecision(apply: false, keptOn: false)
     }
 
     /// «Portfolio in Systemsicherung» aus der Sicherung: neuer Wert oder nil (unverändert). Ohne Echtheitsprüfung
     /// (`trusted` false) nur ausschalten — einschalten gäbe die Portfolio-Daten in die Systemsicherung.
-    static func systemBackup(wanted: Bool?, current: Bool, trusted: Bool) -> Bool? {
-        if wanted == true && !current && !trusted { return nil }
+    static func systemBackup(wanted: Bool, current: Bool, trusted: Bool) -> Bool? {
+        if wanted && !current && !trusted { return nil }
         return wanted
     }
 
     /// «Beträge verbergen» aus der Sicherung: neuer Wert oder nil (unverändert). Ohne Echtheitsprüfung
     /// (`trusted` false) nur einschalten — ausschalten zeigte die Beträge offen.
-    static func hideAmounts(wanted: Bool?, current: Bool, trusted: Bool) -> Bool? {
-        if wanted == false && current && !trusted { return nil }
+    static func hideAmounts(wanted: Bool, current: Bool, trusted: Bool) -> Bool? {
+        if !wanted && current && !trusted { return nil }
         return wanted
     }
 
@@ -54,9 +48,9 @@ enum BackupRestorePolicy {
     }
 
     /// Hinweis zum eigenen Bitcoin-Server (`AddressServer.restored`, gleiche Fälle in address_server.json «restore»):
-    /// nil = nichts zu sagen (Wert gleich, ungültig, fehlt, oder neu gesetzt, wo keiner war).
-    static func addressServerNote(present: Bool, value: String?, current: String?, trusted: Bool) -> AddressServerNote? {
-        let wanted = AddressServer.restored(present: present, value: value, current: current, trusted: true)
+    /// nil = nichts zu sagen (Wert gleich, ungültig oder neu gesetzt, wo keiner war).
+    static func addressServerNote(value: String?, current: String?, trusted: Bool) -> AddressServerNote? {
+        let wanted = AddressServer.restored(value: value, current: current, trusted: true)
         if wanted == current { return nil }
         if !trusted { return .KEPT }
         if current == nil { return nil }

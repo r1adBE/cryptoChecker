@@ -4,7 +4,7 @@ import kotlin.math.min
 import kotlin.math.roundToLong
 
 /*
- * Live-Kurse per WebSocket (Runde 31): reine Logik ohne Android — Börsen, Abo-Nachrichten,
+ * Live-Kurse per WebSocket: reine Logik ohne Android — Börsen, Abo-Nachrichten,
  * Parser, Planung der Verbindungen, Puffer und Regeln. Die Verbindungen selbst hält
  * `data/live/LivePriceStream`. Gleiche Logik in iOS `App/Services/LiveFeed.swift`;
  * gemeinsame Testfälle in `testdata/parity/live_feed.json`. Siehe DEVELOPMENT.md (Repository-Hauptordner), «Live prices».

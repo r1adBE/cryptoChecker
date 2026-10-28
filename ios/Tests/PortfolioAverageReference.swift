@@ -1,7 +1,7 @@
 import Foundation
 @testable import CryptoChecker
 
-// Referenz für `PortfolioCostPartsEquivalenceTests`: die Durchschnittsmethode mit der früheren Führung der
+// Referenz für `PortfolioCostPartsEquivalenceTests`: die Durchschnittsmethode mit der einfachen Führung der
 // Herkunftsteile — eine Liste, die jeder Abgang Teil für Teil neu schreibt (Zugänge × Abgänge). Sonst Zeile für Zeile
 // wie `PortfolioCalculator.average`; wie `PortfolioAverageReference.kt` (Android).
 

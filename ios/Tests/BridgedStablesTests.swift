@@ -21,7 +21,7 @@ final class BridgedStablesTests: XCTestCase {
     func testBridgedVariantsAreListedPerBaseStable() {
         let bridged = AddressBalance.bridgedStables([evm()])
         XCTAssertEqual(bridged, ["USDC": ["USDC.e", "USDbC"], "USDT": ["USDT.e"]])
-        // Summe bleibt wie bisher (zusammengezählt), nur markiert
+        // Summe bleibt zusammengezählt, nur markiert
         let holdings = Dictionary(uniqueKeysWithValues: AddressBalance.holdings([evm()]).map { ($0.coin, $0.amount) })
         XCTAssertEqual(holdings["USDC"], "182")
         XCTAssertEqual(holdings["USDT"], "15")

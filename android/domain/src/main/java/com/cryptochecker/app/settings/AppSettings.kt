@@ -120,7 +120,7 @@ data class AppSettings(
     val alarmChannelVersion: Int = 0,
 
     /**
-     * «Alarm-Signal»: System (bisheriger Kanal), Ton und Vibration, nur Ton, nur Vibration
+     * «Alarm-Signal»: System (Alarm-Kanal), Ton und Vibration, nur Ton, nur Vibration
      * oder lautlos (nur Mitteilung). Je Signal ein eigener Mitteilungskanal.
      */
     val alarmSignal: com.cryptochecker.app.domain.alarm.AlarmSignal =
@@ -142,7 +142,7 @@ data class AppSettings(
     /** Lokaler Epoch-Tag des letzten gezählten Öffnens ([usageDays]); null = noch nie. */
     val usageLastDay: Long? = null,
 
-    /** Früher: Willkommensdialog bestätigt (seit Runde 32 keine Begrüssung mehr); nur noch gespeichert, ohne Wirkung. */
+    /** Willkommensdialog bestätigt; ohne Wirkung (die App zeigt keine Begrüssung), nur gespeichert. */
     val aboutSeen: Boolean = false,
 
     /** Der Hinweis zur Akku-Optimierung wurde bereits gezeigt. */
@@ -160,7 +160,7 @@ data class AppSettings(
      */
     val activityAlerts: Boolean = false,
 
-    /** Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Meldungen); Standard = bisherige Schwellen. */
+    /** Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Meldungen); Standard = Grundschwellen. */
     val activitySensitivity: com.cryptochecker.app.domain.activity.ActivitySensitivity =
         com.cryptochecker.app.domain.activity.ActivitySensitivity.NORMAL,
 
@@ -241,7 +241,7 @@ data class AppSettings(
     val quietHoursEnd: Int = com.cryptochecker.app.domain.alarm.QuietHours.DEFAULT_END,
 
     /**
-     * Portfolio-Sperre (Schlüssel «app_lock» wie bisher): Portfolio-Tab, seine Unterseiten,
+     * Portfolio-Sperre (Schlüssel «app_lock»): Portfolio-Tab, seine Unterseiten,
      * Sicherung mit Portfolio-Daten und Portfolio-Widget erst nach Biometrie oder Geräte-PIN
      * (Kaltstart, nach > 60 s im Hintergrund). Die übrige App ist nie gesperrt.
      */
@@ -290,8 +290,8 @@ data class AppSettings(
     val portfolioHistoryExpanded: Boolean = false,
 
     /**
-     * Früher: Markt-Tab gesehen («Einordnung» und «Daten» danach zugeklappt). Seit den Registern
-     * ohne Wirkung, nur noch gespeichert. Nur auf diesem Gerät, nicht in der Sicherung.
+     * Markt-Tab gesehen; ohne Wirkung (der Markt-Tab hat Register statt aufklappbarer Teile), nur
+     * gespeichert. Nur auf diesem Gerät, nicht in der Sicherung.
      */
     val marketTabSeen: Boolean = false,
 
@@ -326,15 +326,15 @@ data class AppSettings(
 
     /**
      * Einstandsmethode des Portfolios (FIFO | Ø): Einstand, Ø, «Seit Kauf», realisiert und Steuer-Export.
-     * Standard FIFO. In der App-Sicherung («costMethod»; fehlt der Schlüssel → FIFO).
+     * Standard FIFO. In der App-Sicherung («costMethod»; unbekannter Wert → FIFO).
      */
     val costMethod: com.cryptochecker.app.domain.portfolio.CostMethod =
         com.cryptochecker.app.domain.portfolio.CostMethod.DEFAULT,
 
     /**
      * Steuer-Vorlage der Arbeitsunterlage (Neutral | DE | AT | CH | UK | US | CA | AU | FR | JP), Standard Neutral. Die
-     * Region des Geräts wird nur vorgeschlagen, nie still übernommen. In der App-Sicherung («taxTemplate»; fehlt der
-     * Schlüssel, bleibt die Einstellung stehen).
+     * Region des Geräts wird nur vorgeschlagen, nie still übernommen. In der App-Sicherung («taxTemplate»; unbekannter
+     * Wert → Neutral).
      */
     val taxTemplate: com.cryptochecker.app.domain.portfolio.TaxTemplate =
         com.cryptochecker.app.domain.portfolio.TaxTemplate.DEFAULT,

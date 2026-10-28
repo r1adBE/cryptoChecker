@@ -30,8 +30,8 @@ extension BackupManager {
         return nil
     }
 
-    /// Ganzzahl aus einer Kommazahl der Sicherung, nach Null hin abgeschnitten (wie bisher
-    /// `Int64(d)`); nil bei NaN, ±Unendlich oder ausserhalb von Int64 — `Int64(d)` brach dort ab.
+    /// Ganzzahl aus einer Kommazahl der Sicherung, nach Null hin abgeschnitten (wie
+    /// `Int64(d)`); nil bei NaN, ±Unendlich oder ausserhalb von Int64 — `Int64(d)` bricht dort ab.
     static func int64Truncating(_ value: Double) -> Int64? {
         guard value.isFinite else { return nil }
         return Int64(exactly: value.rounded(.towardZero))

@@ -34,7 +34,7 @@ extension BackgroundRefresh {
         // «Wie aktuell?»: Die Hintergrund-Aktualisierung läuft in jeder Wahl (auch «Sparsam»)
         let minutes = max(settings.backgroundIntervalMinutes, AppSettings.minBackgroundIntervalMinutes)
         let zoneOn = zoneWanted(settings)
-        // Zuerst wie bisher vormerken (aus der laufenden Aufgabe synchron, bevor sie ihr Ende meldet und iOS die App
+        // Zuerst vormerken (aus der laufenden Aufgabe synchron, bevor sie ihr Ende meldet und iOS die App
         // anhält), danach den Bedarf prüfen und ohne Bedarf wieder absagen — nie umgekehrt: Die Bedarfsprüfung wartet
         // auf WidgetKit und die Platte, und ein angehaltener Prozess hätte sonst gar nichts vorgemerkt.
         // Nummer dieser Planung — nur ihr Entscheid gilt, solange keine neuere kommt (`followDemand`)

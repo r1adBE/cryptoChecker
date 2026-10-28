@@ -23,9 +23,6 @@ final class BackupRestorePolicyTests: XCTestCase {
                        D(apply: true, keptOn: false))
         XCTAssertEqual(BackupRestorePolicy.appLock(wanted: true, current: false, encrypted: true, canAuthenticate: false),
                        D(apply: nil, keptOn: false))
-        // Feld fehlt: unverändert
-        XCTAssertEqual(BackupRestorePolicy.appLock(wanted: nil, current: true, encrypted: false, canAuthenticate: true),
-                       D(apply: nil, keptOn: false))
     }
 
     func testNoticeTotalSumsWithoutOverflow() {
@@ -69,7 +66,6 @@ final class BackupRestorePolicyTests: XCTestCase {
         XCTAssertNil(BackupRestorePolicy.systemBackup(wanted: true, current: false, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: false, current: true, trusted: false), false)
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: true, current: true, trusted: false), true)
-        XCTAssertNil(BackupRestorePolicy.systemBackup(wanted: nil, current: true, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: true, current: false, trusted: true), true)
         XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: false, current: true, trusted: true), false)
     }
@@ -79,21 +75,20 @@ final class BackupRestorePolicyTests: XCTestCase {
         XCTAssertNil(BackupRestorePolicy.hideAmounts(wanted: false, current: true, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: true, current: false, trusted: false), true)
         XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: false, current: false, trusted: false), false)
-        XCTAssertNil(BackupRestorePolicy.hideAmounts(wanted: nil, current: false, trusted: false))
         XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: false, current: true, trusted: true), false)
         XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: true, current: false, trusted: true), true)
     }
 
     /// `applySettings` hält sich daran: ohne Passwort bleiben Systemsicherung aus und Beträge verborgen.
-    func testApplySettingsOhnePasswortNurMehrSchutz() {
+    func testApplySettingsOhnePasswortNurMehrSchutz() throws {
         var current = AppSettings()
         current.portfolioSystemBackup = false
         current.hidePortfolioAmounts = true
-        let backup: [String: Any] = ["portfolioSystemBackup": true, "hidePortfolioAmounts": false]
-        let untrusted = BackupManager.applySettings(backup, onto: current, trusted: false)
+        let backup = TestSupport.settingsBackup(current, ["portfolioSystemBackup": true, "hidePortfolioAmounts": false])
+        let untrusted = try BackupManager.applySettings(backup, onto: current, trusted: false)
         XCTAssertFalse(untrusted.portfolioSystemBackup)
         XCTAssertTrue(untrusted.hidePortfolioAmounts)
-        let trusted = BackupManager.applySettings(backup, onto: current, trusted: true)
+        let trusted = try BackupManager.applySettings(backup, onto: current, trusted: true)
         XCTAssertTrue(trusted.portfolioSystemBackup)
         XCTAssertFalse(trusted.hidePortfolioAmounts)
     }

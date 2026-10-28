@@ -64,7 +64,7 @@ class LocaleNumbersTest {
 
     @Test
     fun localizedOutputParsesBack() {
-        // Eingaben nehmen lokale Ziffern an (Runde 29): Anzeige → Eingabe ergibt denselben Wert
+        // Eingaben nehmen lokale Ziffern an: Anzeige → Eingabe ergibt denselben Wert
         assertEquals("58.4", ThresholdParser.latinDigits(LocaleNumbers.decimal(58.4, 1, locale = arabic)))
         assertEquals("1234", ThresholdParser.latinDigits(LocaleNumbers.integer(1234, persian)))
     }

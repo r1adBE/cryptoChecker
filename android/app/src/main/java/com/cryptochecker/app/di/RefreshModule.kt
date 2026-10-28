@@ -71,7 +71,7 @@ import javax.inject.Singleton
  * Aktualisierung ([PriceRefresher]) und Auswertung nach einem neuen Kurs ([RefreshEffects], [RefreshResultProcessor],
  * [LivePriceApplier]) — die Klassen liegen in :domain und kennen nur die schmalen Schnittstellen aus `RefreshPorts.kt`
  * und `PriceRefresherPorts.kt`. Hier reicht die App ihre Klassen
- * über die Hüllen aus `RefreshPortAdapters.kt` bzw. `PriceRefresherAdapters.kt` hinein (vorher je ein zweiter @Inject-Konstruktor in der Klasse).
+ * über die Hüllen aus `RefreshPortAdapters.kt` bzw. `PriceRefresherAdapters.kt` hinein (kein zweiter @Inject-Konstruktor in der Klasse).
  */
 @Module
 @InstallIn(SingletonComponent::class)

@@ -36,7 +36,7 @@ final class NotificationDeliveryTests: XCTestCase {
         // Unveränderte Grenze: kein Doppelalarm
         XCTAssertFalse(GasAlertCheck.armedFor(storedArmed: false, storedThreshold: 2.0, threshold: 2.0))
         XCTAssertFalse(GasAlertCheck.evaluate(value: 1.5, threshold: 2.0, armed: false).fire)
-        XCTAssertFalse(GasAlertCheck.armedFor(storedArmed: false, storedThreshold: nil, threshold: 2.0))
+        XCTAssertTrue(GasAlertCheck.armedFor(storedArmed: false, storedThreshold: nil, threshold: 2.0))
     }
 
     /// Wie `CheckIntervalDueTest` (Android): nach zurückgestellter Uhr nicht stumm.
@@ -85,7 +85,7 @@ final class NotificationDeliveryTests: XCTestCase {
         settings.appLock = true
         XCTAssertEqual(PortfolioAlarmNotice.body(alarm, measured: 6.2, settings: settings),
                        L("notification_portfolio_alarm_locked"))
-        // Ohne Sperre: Satz und Messwert wie bisher
+        // Ohne Sperre: Satz und Messwert
         settings.appLock = false
         XCTAssertNotEqual(PortfolioAlarmNotice.body(alarm, measured: 6.2, settings: settings),
                           L("notification_portfolio_alarm_locked"))
@@ -146,6 +146,6 @@ final class FearGreedBoundChangeTests: XCTestCase {
         XCTAssertEqual(MarketNoticeGate.fearGreed(value: 14, last: 15, below: 20, above: 0, canNotify: true).step, .store)
         XCTAssertEqual(MarketNoticeGate.fearGreed(value: 15, last: 15, below: 20, above: 90, canNotify: true,
                                                   aboveChanged: true).step, .store)
-        XCTAssertFalse(MarketNoticeGate.boundChanged(stored: nil, current: 20))
+        XCTAssertTrue(MarketNoticeGate.boundChanged(stored: nil, current: 20))
     }
 }

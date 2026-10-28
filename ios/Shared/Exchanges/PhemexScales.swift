@@ -12,7 +12,7 @@ struct PhemexScales: Sendable {
     var pairs: [String: (base: String, quote: String)] = [:]
     /// Aus der Produktliste (oder ihrer gespeicherten Kopie); false = nie geladen.
     var loaded = false
-    /// Zeitpunkt der Produktliste in ms; 0 = unbekannt → gilt als veraltet.
+    /// Zeitpunkt der Produktliste in ms; 0 = nie geladen.
     var loadedAt: Int64 = 0
 
     static let defaultScale = 8
@@ -96,9 +96,10 @@ struct PhemexScales: Sendable {
         return String(decoding: bytes, as: UTF8.self)
     }
 
-    /// Gegenstück zu `encode`; andere Version, unlesbar oder ganz ohne Angaben → nil.
+    /// Gegenstück zu `encode`; andere Version, ohne Zeitpunkt, unlesbar oder ganz ohne Angaben → nil.
     static func decode(_ text: String?) -> PhemexScales? {
-        guard let text, !text.isEmpty, let root = try? JObject(string: text), root.optInt("v") == formatVersion else {
+        guard let text, !text.isEmpty, let root = try? JObject(string: text), root.optInt("v") == formatVersion,
+              root.has("t") else {
             return nil
         }
         /// Ganzzahlen eines Unterobjekts; null-Werte fallen weg.

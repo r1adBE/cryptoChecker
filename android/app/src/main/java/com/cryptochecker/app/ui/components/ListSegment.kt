@@ -50,7 +50,7 @@ object ListSegment {
     @ReadOnlyComposable
     fun dividerColor(): Color = MaterialTheme.colorScheme.outlineVariant
 
-    /** Farbe des feinen Rands aussen um die Liste (wie früher der Rand jeder Karte); gleich wie die Trennlinie. */
+    /** Farbe des feinen Rands aussen um die Liste; gleich wie die Trennlinie. */
     @Composable
     @ReadOnlyComposable
     fun outlineColor(): Color = MaterialTheme.colorScheme.outlineVariant

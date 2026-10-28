@@ -56,7 +56,7 @@ fun PortfolioViewModel.walletHoldingsOf(coin: String, wallet: String?, excluding
 }
 
 /**
- * Faktor USDT → [currency] für die Eingabe in der Anzeigewährung (K-2): Devisenkurs USD → Währung × USDT/USD
+ * Faktor USDT → [currency] für die Eingabe in der Anzeigewährung: Devisenkurs USD → Währung × USDT/USD
  * ([PortfolioTxForm.entryRate], wie CSV-Import und Steuer-Export). Heute der aktuelle Kurs und der Live-Kurs USDT/USD,
  * sonst der Tageskurs (EZB, letzter Geschäftstag ≤ [date]) mit seinem tatsächlichen Datum und der USDT/USD-Tagesschluss
  * DES Tags [date] (fehlt er: × 1, [EntryFx.usdtAssumed]). null = kein Kurs.

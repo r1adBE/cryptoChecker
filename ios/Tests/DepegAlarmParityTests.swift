@@ -98,7 +98,7 @@ final class DepegAlarmParityTests: XCTestCase {
         }
     }
 
-    /// Live-Kurs USDT/USD der Bewertung aus der letzten Messung (USDT zum Marktkurs, Owner-Entscheid Okt. 2026; 6 Std. gültig).
+    /// Live-Kurs USDT/USD der Bewertung aus der letzten Messung (USDT zum Marktkurs; 6 Std. gültig).
     func testLiveUsdtUsd() throws {
         let now: Int64 = 1_800_000_000_000
         // 6 Std. statt der 30 Min. der Warnzeile (lange Hintergrund-Intervalle)

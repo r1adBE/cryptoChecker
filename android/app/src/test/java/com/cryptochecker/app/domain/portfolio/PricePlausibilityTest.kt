@@ -14,9 +14,6 @@ class PricePlausibilityTest {
 
     private var nextId = 1L
     private val zone = ZoneId.of("Europe/Zurich")
-    private val dayEnd: (Long) -> Long = { day ->
-        LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1
-    }
     private val today = LocalDate.of(2026, 10, 6).toEpochDay()
 
     private fun noon(day: Long): Long =
@@ -87,7 +84,7 @@ class PricePlausibilityTest {
         // Zwischengespeicherte Kerzen enden gestern bei 100, jetzt +30 %
         val closes = mapOf("BTC" to (1..5).associate { (today - it) to 100.0 })
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 130.0), PortfolioHistoryRange.WEEK, today, dayEnd,
+            trades, closes, mapOf("BTC" to 130.0), PortfolioHistoryRange.WEEK, today,
         )
         assertTrue(s.skipped.isEmpty())
         assertEquals(100.0, s.points.first().value, 1e-9)
@@ -110,7 +107,7 @@ class PricePlausibilityTest {
         assertFalse(PricePlausibility.acceptSourceClose(5.0, primary = false, sourceLatest = 40.0, current = 1.0))
         // Prüfung nötig, aber die Quelle nennt keinen heutigen Kurs
         assertFalse(PricePlausibility.acceptSourceClose(5.0, primary = false, sourceLatest = null, current = 1.0))
-        // Kein aktueller Kurs bekannt: streng → nicht übernommen (früher: gilt ungeprüft)
+        // Kein aktueller Kurs bekannt: streng → nicht übernommen
         assertFalse(PricePlausibility.acceptSourceClose(5.0, primary = false, sourceLatest = 1.0, current = null))
         assertFalse(PricePlausibility.acceptSourceClose(5.0, primary = false, sourceLatest = null, current = null))
         assertFalse(PricePlausibility.acceptSourceClose(5.0, primary = true, sourceLatest = 1.0, current = Double.NaN))
@@ -126,7 +123,7 @@ class PricePlausibilityTest {
             "FOO" to (0..5).associate { (today - it) to 50.0 },
         )
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 101.0, "FOO" to 1.0), PortfolioHistoryRange.WEEK, today, dayEnd,
+            trades, closes, mapOf("BTC" to 101.0, "FOO" to 1.0), PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(listOf("FOO"), s.skipped)
         assertEquals(100.0, s.points.first().value, 1e-9)
@@ -139,7 +136,7 @@ class PricePlausibilityTest {
         val trades = listOf(buy("USDC", 10.0, noon(today - 1)))
         val s = PortfolioHistory.build(
             trades, mapOf("USDC" to mapOf(today - 1 to 7.0, today to 7.0)), mapOf("USDC" to 1.0),
-            PortfolioHistoryRange.WEEK, today, dayEnd,
+            PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(listOf("USDC"), s.skipped)
         assertTrue(s.points.isEmpty())

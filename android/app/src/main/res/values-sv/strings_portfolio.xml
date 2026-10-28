@@ -315,4 +315,10 @@
         <item quantity="other">Det tar även bort %d poster och saldohistoriken.</item>
     </plurals>
     <string name="portfolio_address_remove_history">Det tar även bort saldohistoriken.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Kunde inte sparas – försök igen</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Ogiltig gräns – ta bort larmet och skapa det igen</string>
 </resources>

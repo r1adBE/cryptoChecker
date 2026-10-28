@@ -3,7 +3,7 @@ import Foundation
 /// Darf ein beim Start gefundenes Journal (`RestoreJournal`) noch zurückgerollt werden? Wie `RestoreRecoveryPolicy.kt`,
 /// gleiche Fälle auf beiden Seiten.
 ///
-/// Scheiterte das Zurückrollen, blieb früher das Journal liegen und jeder Start versuchte es erneut. Der Nutzer
+/// Bliebe nach gescheitertem Zurückrollen das Journal liegen, versuchte es jeder Start erneut. Der Nutzer
 /// arbeitet aber weiter — ein späteres, gelungenes Zurückrollen hätte Tage an Änderungen mit dem Stand vor dem
 /// Wiederherstellen überschrieben, und der Hinweis «nicht vollständig» kam bei jedem Start. Darum je Journal genau ein
 /// Zurückrollen beim Start (nie mit einem Journal, das älter als `maxAgeMillis` ist); scheitert es, gibt der nächste
@@ -14,13 +14,7 @@ enum RestoreRecoveryPolicy {
 
     enum Decision: Equatable { case rollBack, giveUp }
 
-    /// Zeitpunkt des Journals: `stored` aus dem Inhalt («createdAt» der Sicherung), sonst die Änderungszeit der Datei
-    /// `fileModified` (die Datei wird nur einmal geschrieben). ≤ 0 = unbekannt.
-    static func createdAt(stored: Int64, fileModified: Int64) -> Int64 {
-        stored > 0 ? stored : fileModified
-    }
-
-    /// «createdAt» aus dem Journal-Inhalt; 0 = fehlt oder nicht lesbar.
+    /// «createdAt» aus dem Journal-Inhalt (jedes Journal schreibt es); 0 = fehlt oder nicht lesbar: Alter unbekannt.
     static func storedCreatedAt(_ json: Data) -> Int64 {
         guard let root = try? JSONSerialization.jsonObject(with: json) as? [String: Any],
               let value = root["createdAt"] as? NSNumber else { return 0 }

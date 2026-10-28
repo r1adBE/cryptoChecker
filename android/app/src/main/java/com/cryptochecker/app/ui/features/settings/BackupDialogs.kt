@@ -41,7 +41,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.rememberOneShotGate
 
 /*
- * Runde 25: Passwortschutz der Sicherungsdatei (BackupCrypto). Passwörter nur in `remember`
+ * Passwortschutz der Sicherungsdatei (BackupCrypto). Passwörter nur in `remember`
  * (nicht im gespeicherten Zustand der Aktivität) und nie in einer Meldung.
  */
 

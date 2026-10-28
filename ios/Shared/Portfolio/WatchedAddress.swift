@@ -148,19 +148,24 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         case costLots, staleTokens, pendingSince
     }
 
-    /// Fehlende Felder (ältere/neuere Dateien) bekommen Standardwerte; Netz und Adresse sind Pflicht.
+    /// Pflicht sind die Felder, die `encode` immer schreibt (Id, Netz, Adresse, Zeitpunkte, Beobachtungen); die übrigen
+    /// stehen nur bei einem Wert ausser dem Standard in der Datei und bekommen sonst den Standardwert.
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        id = try c.decodeIfPresent(Int64.self, forKey: .id) ?? 0
+        id = try c.decode(Int64.self, forKey: .id)
         chain = try c.decode(AddressChain.self, forKey: .chain)
         address = try c.decode(String.self, forKey: .address)
         label = try c.decodeIfPresent(String.self, forKey: .label)
         lastBalance = try c.decodeIfPresent(String.self, forKey: .lastBalance)
-        lastUpdated = try c.decodeIfPresent(Int64.self, forKey: .lastUpdated) ?? 0
-        lastAttempt = try c.decodeIfPresent(Int64.self, forKey: .lastAttempt) ?? 0
+        lastUpdated = try c.decode(Int64.self, forKey: .lastUpdated)
+        lastAttempt = try c.decode(Int64.self, forKey: .lastAttempt)
         lastError = try c.decodeIfPresent(String.self, forKey: .lastError)
         lastProvider = try c.decodeIfPresent(String.self, forKey: .lastProvider)
-        addedAt = try c.decodeIfPresent(Int64.self, forKey: .addedAt) ?? 0
+        addedAt = try c.decode(Int64.self, forKey: .addedAt)
+        guard c.contains(.observations) else {
+            throw DecodingError.keyNotFound(CodingKeys.observations,
+                                            .init(codingPath: c.codingPath, debugDescription: "observations"))
+        }
         // Unlesbare Beobachtungen machen die Datei nicht unlesbar: dann ohne
         observations = AddressBalanceHistory.clean(
             (try? c.decodeIfPresent([AddressObservation].self, forKey: .observations)) ?? [])

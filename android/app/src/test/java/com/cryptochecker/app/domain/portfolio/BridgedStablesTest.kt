@@ -27,7 +27,7 @@ class BridgedStablesTest {
     fun bridgedVariantsAreListedPerBaseStable() {
         val bridged = AddressBalance.bridgedStables(listOf(evm))
         assertEquals(mapOf("USDC" to listOf("USDC.e", "USDbC"), "USDT" to listOf("USDT.e")), bridged)
-        // Summe bleibt wie bisher (zusammengezählt), nur markiert
+        // Summe bleibt zusammengezählt, nur markiert
         val holdings = AddressBalance.holdings(listOf(evm)).toMap()
         assertEquals("182", holdings["USDC"])
         assertEquals("15", holdings["USDT"])

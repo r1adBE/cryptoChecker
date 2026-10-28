@@ -298,7 +298,7 @@ internal class CardUnit(val code: String, private val rate: Double) {
 
 /**
  * Anzeigewährung mit gültigem Faktor — sonst USDT. Auch USD: USDT gilt dort seinen Marktkurs USDT/USD (Faktor = 1 ×
- * USDT/USD, ohne Messung 1 mit «USDT = 1 angenommen»), nicht mehr still 1:1. Wie iOS `PortfolioCardUnit`.
+ * USDT/USD, ohne Messung 1 mit «USDT = 1 angenommen»), nie still 1:1. Wie iOS `PortfolioCardUnit`.
  */
 internal fun cardUnit(currency: String, fxRate: Double?): CardUnit =
     fxRate?.takeIf { currency != PortfolioFormat.USDT && it > 0.0 && it.isFinite() }

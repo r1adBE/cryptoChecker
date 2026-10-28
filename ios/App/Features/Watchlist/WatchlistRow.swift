@@ -117,8 +117,8 @@ struct WatchlistRow: View {
     var off: Bool { watch.disabled }
 
     /// Deckkraft von Logo und kleinen Symbolen eines deaktivierten Paars. Texte (Paar, Kurs, Anzahl
-    /// Alarme) werden nicht mehr abgeblasst (45 % lag unter 4.5:1), sondern stehen in `onSurfaceVariant`;
-    /// «Binance · deaktiviert» sagt den Zustand in Worten (L-13, wie Android `DISABLED_ICON_ALPHA`).
+    /// Alarme) werden nicht abgeblasst (45 % läge unter 4.5:1), sondern stehen in `onSurfaceVariant`;
+    /// «Binance · deaktiviert» sagt den Zustand in Worten (wie Android `DISABLED_ICON_ALPHA`).
     /// Veraltet: Kurs ebenfalls in `onSurfaceVariant` samt «Börse · vor 13 Min.» in Fehlerfarbe.
     static let disabledIconOpacity = 0.45
 
@@ -154,7 +154,7 @@ struct WatchlistRow: View {
             // im Sortiermodus und bei deaktivierten Paaren ausgeblendet.
             WatchlistSparklineSlot(minInfoWidth: minInfoWidth,
                                    sparkWidth: DenseRowText.sparklineWidth(rowWidth: rowWidth)) {
-                // Deaktiviert: nicht mehr abgeblasst, Farben siehe `info` (L-13)
+                // Deaktiviert: nicht abgeblasst, Farben siehe `info`
                 info
                     .frame(maxWidth: .infinity, alignment: .leading)
                 if sparklineEnabled, !sorting, !off, let sparkline {
@@ -270,7 +270,7 @@ struct WatchlistRow: View {
                 if own == nil && fallback {
                     let loaded = await WatchlistSparklineStore.shared.closes(base: base)
                     if Task.isCancelled { break }
-                    // Reihe eines klar anders benannten Tokens (K-8): lieber kein Chart
+                    // Reihe eines klar anders benannten Tokens: lieber kein Chart
                     let allowed: Bool = await Self.sparklineFallbackAllowed(watch)
                     foreign = !allowed
                     // USDT-Reihe nur bei gleichem Token wie das Paar (letzter Schluss gegen Kurs × USD je Quote)

@@ -142,7 +142,7 @@ extension WatchActionsSheet {
     /// Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt zu, der Aufrufer
     /// zeigt ein kurzes Banner (`onDisabledChange`).
     func toggleDisabled(_ watch: Watch) {
-        // Rückfrage F-08 vorher; «Abbrechen» = nichts, kein Banner
+        // Rückfrage «nicht gespeichert» vorher; «Abbrechen» = nichts, kein Banner
         data.withWatchlistConfirm {
             data.setDisabled(ids: [watch.id], !watch.disabled)
             // Wie Android: gesperrt → nur der Hinweis, kein Banner «deaktiviert», keine Haptik
@@ -154,7 +154,7 @@ extension WatchActionsSheet {
         }
     }
 
-    /// Notiz-Blatt «Speichern»/«Entfernen» (IOS5-R02): erst nach bestätigter Rückfrage F-08 schreiben und
+    /// Notiz-Blatt «Speichern»/«Entfernen»: erst nach bestätigter Rückfrage «nicht gespeichert» schreiben und
     /// das Blatt schliessen; «Abbrechen» = Blatt bleibt mit dem Text (wie der Alarm-Editor).
     func saveNote(_ note: String?, close: @escaping @MainActor () -> Void, cancelled: @escaping @MainActor () -> Void) {
         data.withWatchlistConfirm({

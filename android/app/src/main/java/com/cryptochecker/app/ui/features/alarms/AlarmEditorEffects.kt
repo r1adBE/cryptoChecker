@@ -22,9 +22,9 @@ import com.cryptochecker.app.ui.components.showAppSnackbar
 import com.cryptochecker.app.ui.theme.SnackbarKind
 
 /**
- * Review ARC5-R01: Ergebnisse von Speichern und Schnell-Alarm ([AlarmEditorEvent]) im GERADE gezeigten
- * Bildschirm — auch wenn die Activity während der Rückfrage F-08 neu erstellt wurde: Erlaubnis über den Launcher dieser
- * Komposition, Bestätigung in ihrer Snackbar. Vorher Rückrufe in `AlarmsScreen` (saveDraft, onTemplate), Ablauf unverändert.
+ * Ergebnisse von Speichern und Schnell-Alarm ([AlarmEditorEvent]) im GERADE gezeigten
+ * Bildschirm — auch wenn die Activity während der Rückfrage «nicht gespeichert» neu erstellt wurde: Erlaubnis über den
+ * Launcher dieser Komposition, Bestätigung in ihrer Snackbar.
  */
 @Composable
 internal fun AlarmEditorEffects(

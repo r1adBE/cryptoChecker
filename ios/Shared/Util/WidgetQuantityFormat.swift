@@ -13,7 +13,7 @@ import Foundation
 /// so schneidet 1.13 nicht wegen 1.1299999… auf «1.12» ab.
 enum WidgetQuantityFormat {
 
-    /// Anzeige im Widget: nil bei verborgenen Beträgen (`hidden`) oder ohne Menge (älterer Stand).
+    /// Anzeige im Widget: nil bei verborgenen Beträgen (`hidden`) oder ohne Menge.
     static func visible(_ quantity: String?, hidden: Bool, locale: Locale = .current) -> String? {
         hidden ? nil : format(quantity, locale: locale)
     }

@@ -1,0 +1,259 @@
+{
+ "description": "Fields of the entries in a backup (also journal and Android system-backup copy). «required»: the writer always writes the field (JSON null where «_OR_NULL»); missing or with another type → the whole backup is invalid, nothing is replaced (Android BackupFields.checkEntry, iOS BackupFields.checkEntry). «optional»: the writer omits it when empty; if present, its type counts. «sample» passes the check; without any required field it fails, without any optional field it passes. Each case in «invalid» changes one field of the sample of «part»; the entry must be invalid on both platforms. Invalid values (unknown kind, amount 0 …) are not part of this check: such entries are counted and named before the restore.",
+ "watches": {
+  "required": {
+   "id": "INT",
+   "exchangeKey": "STRING",
+   "exchangeName": "STRING",
+   "baseAsset": "STRING",
+   "quoteAsset": "STRING",
+   "contractType": "STRING",
+   "pairId": "STRING_OR_NULL",
+   "sortOrder": "INT",
+   "notificationEnabled": "BOOL",
+   "ttsEnabled": "BOOL",
+   "favorite": "BOOL",
+   "group": "STRING_OR_NULL",
+   "note": "STRING_OR_NULL",
+   "disabled": "BOOL"
+  },
+  "optional": {},
+  "sample": {
+   "id": 1,
+   "exchangeKey": "Binance",
+   "exchangeName": "Binance",
+   "baseAsset": "BTC",
+   "quoteAsset": "USDT",
+   "contractType": "NONE",
+   "pairId": "BTCUSDT",
+   "sortOrder": 0,
+   "notificationEnabled": false,
+   "ttsEnabled": false,
+   "favorite": true,
+   "group": "Layer 1",
+   "note": null,
+   "disabled": false
+  }
+ },
+ "alarms": {
+  "required": {
+   "id": "INT",
+   "watchId": "INT",
+   "condition": "STRING",
+   "threshold": "DOUBLE",
+   "enabled": "BOOL",
+   "repeating": "BOOL",
+   "sound": "BOOL",
+   "vibrate": "BOOL",
+   "speak": "BOOL",
+   "referencePrice": "DOUBLE_OR_NULL",
+   "windowHours": "INT",
+   "currency": "STRING_OR_NULL"
+  },
+  "optional": {},
+  "sample": {
+   "id": 1,
+   "watchId": 1,
+   "condition": "PRICE_ABOVE",
+   "threshold": 70000.0,
+   "enabled": true,
+   "repeating": false,
+   "sound": true,
+   "vibrate": true,
+   "speak": false,
+   "referencePrice": null,
+   "windowHours": 1,
+   "currency": null
+  }
+ },
+ "portfolio": {
+  "required": {
+   "id": "INT",
+   "coin": "STRING",
+   "type": "STRING",
+   "amountText": "STRING",
+   "priceText": "STRING_OR_NULL",
+   "time": "INT",
+   "note": "STRING_OR_NULL",
+   "feeText": "STRING_OR_NULL",
+   "feeUnit": "STRING_OR_NULL",
+   "exchange": "STRING_OR_NULL",
+   "transferFrom": "STRING_OR_NULL",
+   "transferTo": "STRING_OR_NULL",
+   "feeCoin": "STRING_OR_NULL",
+   "feeCoinAmountText": "STRING_OR_NULL",
+   "feeCoinPriceText": "STRING_OR_NULL",
+   "importKey": "STRING_OR_NULL",
+   "acquiredTime": "INT_OR_NULL",
+   "toCoin": "STRING_OR_NULL",
+   "toAmountText": "STRING_OR_NULL",
+   "swapValueText": "STRING_OR_NULL",
+   "importBatch": "STRING_OR_NULL",
+   "giftToSpouse": "BOOL",
+   "linkedImportKey": "STRING_OR_NULL",
+   "importRestoreState": "OBJECT_OR_NULL",
+   "feeRow": "BOOL",
+   "interest": "BOOL"
+  },
+  "optional": {},
+  "sample": {
+   "id": 1,
+   "coin": "BTC",
+   "type": "BUY",
+   "amountText": "0.5",
+   "priceText": "60000",
+   "time": 1760000000000,
+   "note": null,
+   "feeText": null,
+   "feeUnit": null,
+   "exchange": "Kraken",
+   "transferFrom": null,
+   "transferTo": null,
+   "feeCoin": null,
+   "feeCoinAmountText": null,
+   "feeCoinPriceText": null,
+   "importKey": null,
+   "acquiredTime": null,
+   "toCoin": null,
+   "toAmountText": null,
+   "swapValueText": null,
+   "importBatch": null,
+   "giftToSpouse": false,
+   "linkedImportKey": null,
+   "importRestoreState": null,
+   "feeRow": false,
+   "interest": false
+  }
+ },
+ "portfolioAlarms": {
+  "required": {
+   "id": "INT",
+   "kind": "STRING",
+   "threshold": "DOUBLE",
+   "currency": "STRING_OR_NULL",
+   "enabled": "BOOL",
+   "repeating": "BOOL"
+  },
+  "optional": {},
+  "sample": {
+   "id": 1,
+   "kind": "CHANGE_UP",
+   "threshold": 5.0,
+   "currency": null,
+   "enabled": true,
+   "repeating": false
+  }
+ },
+ "watchedAddresses": {
+  "required": {
+   "chain": "STRING",
+   "address": "STRING",
+   "addedAt": "INT"
+  },
+  "optional": {
+   "label": "STRING",
+   "observations": "ARRAY",
+   "countTokens": "BOOL",
+   "tokenObservations": "OBJECT",
+   "networks": "ARRAY",
+   "countInPortfolio": "BOOL",
+   "costLots": "ARRAY",
+   "overlapChecked": "BOOL"
+  },
+  "sample": {
+   "chain": "BTC",
+   "address": "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+   "addedAt": 1760000000000,
+   "label": "Cold",
+   "observations": [],
+   "countTokens": false,
+   "tokenObservations": {},
+   "networks": [
+    "ETH"
+   ],
+   "countInPortfolio": false,
+   "costLots": [],
+   "overlapChecked": true
+  }
+ },
+ "invalid": [
+  {
+   "name": "Sortierung als Text",
+   "part": "watches",
+   "key": "sortOrder",
+   "value": "0"
+  },
+  {
+   "name": "Paar-Kennung als Zahl",
+   "part": "watches",
+   "key": "pairId",
+   "value": 5
+  },
+  {
+   "name": "Schalter als Zahl",
+   "part": "watches",
+   "key": "disabled",
+   "value": 0
+  },
+  {
+   "name": "Schwelle als Text",
+   "part": "alarms",
+   "key": "threshold",
+   "value": "70000"
+  },
+  {
+   "name": "Zeitraum gebrochen",
+   "part": "alarms",
+   "key": "windowHours",
+   "value": 1.5
+  },
+  {
+   "name": "Menge als Zahl",
+   "part": "portfolio",
+   "key": "amountText",
+   "value": 0.5
+  },
+  {
+   "name": "Zeit null",
+   "part": "portfolio",
+   "key": "time",
+   "value": null
+  },
+  {
+   "name": "Kaufdatum als Text",
+   "part": "portfolio",
+   "key": "acquiredTime",
+   "value": "3"
+  },
+  {
+   "name": "Zustand als Liste",
+   "part": "portfolio",
+   "key": "importRestoreState",
+   "value": []
+  },
+  {
+   "name": "Alarm-Schalter als Zahl",
+   "part": "portfolioAlarms",
+   "key": "enabled",
+   "value": 1
+  },
+  {
+   "name": "Adresse null",
+   "part": "watchedAddresses",
+   "key": "address",
+   "value": null
+  },
+  {
+   "name": "Bezeichnung als Zahl",
+   "part": "watchedAddresses",
+   "key": "label",
+   "value": 5
+  },
+  {
+   "name": "Verlauf als Objekt",
+   "part": "watchedAddresses",
+   "key": "observations",
+   "value": {}
+  }
+ ]
+}

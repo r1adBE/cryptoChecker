@@ -86,7 +86,7 @@ final class WatchedAddressPendingTests: XCTestCase {
         let file = try JSONDecoder().decode(WatchedAddressFile.self, from: Data(json.utf8))
         XCTAssertEqual(file.addresses.map(\.id), [1, 3])
         XCTAssertEqual(file.nextId, 4)
-        // Keine Liste: unlesbar wie bisher (nicht überschreiben)
+        // Keine Liste: unlesbar (nicht überschreiben)
         XCTAssertThrowsError(try JSONDecoder().decode(WatchedAddressFile.self, from: Data(#"{"addresses":5}"#.utf8)))
     }
 

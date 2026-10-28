@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 
 /**
- * Referenz für [PortfolioCostPartPoolTest]: [TaxPool] mit der früheren Führung der Herkunftsteile — eine Liste, die jeder
+ * Referenz für [PortfolioCostPartPoolTest]: [TaxPool] mit der einfachen Führung der Herkunftsteile — eine Liste, die jeder
  * Abgang Teil für Teil neu schreibt (Zugänge × Abgänge). Sonst Zeile für Zeile wie [TaxPool].
  */
 internal class TaxPoolReference(

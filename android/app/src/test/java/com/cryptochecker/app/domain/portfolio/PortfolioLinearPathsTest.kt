@@ -11,7 +11,7 @@ import java.math.BigDecimal
 import java.time.ZoneOffset
 
 /**
- * Schnellere Wege liefern dieselben Zahlen wie die bisherigen:
+ * Schnelle Wege liefern dieselben Zahlen wie die Referenz-Wege:
  *  - Ø ohne Herkunftsteile ([PortfolioCalculator.summarize] `withParts = false`): alles gleich ausser den leeren Teilen;
  *  - Schritte je Coin einmal gesammelt ([PortfolioLedger.eventsByCoin], [PortfolioCalculator.ledgers]): gleich wie je
  *    Coin über alle Transaktionen ([PortfolioLedger.events], [PortfolioCalculator.ledger]) — Bücher, Steuer-Vermerke,
@@ -84,7 +84,7 @@ class PortfolioLinearPathsTest {
         for (data in listOf(trades, feeNotes)) {
             for (m in CostMethod.entries) {
                 for (rules in rulesSets) {
-                    val books = oldBooks(data, rules, m)
+                    val books = referenceBooks(data, rules, m)
                     for (year in listOf(2020, 2023, 2024, 2025)) {
                         val period = TaxExport.calendar(year)
                         val method = TaxMethod.of(m)
@@ -143,8 +143,8 @@ class PortfolioLinearPathsTest {
         assertEquals(6, computed)
     }
 
-    /** Bisheriger Weg der Steuer-Vermerke: je Coin [PortfolioCalculator.ledger] über alle Transaktionen. */
-    private fun oldBooks(data: List<PortfolioTrade>, rules: TaxEventRules, method: CostMethod): List<CoinLedger> {
+    /** Referenz der Steuer-Vermerke: je Coin [PortfolioCalculator.ledger] über alle Transaktionen. */
+    private fun referenceBooks(data: List<PortfolioTrade>, rules: TaxEventRules, method: CostMethod): List<CoinLedger> {
         val real = data.filter { !AddressBalance.isAddressPart(it.id) && it.amount.signum() > 0 }
         val applied = TaxEngines.applyRules(real, rules, null)
         return PortfolioLedger.coins(applied).map { PortfolioCalculator.ledger(it, applied, null, method) }

@@ -195,12 +195,15 @@ final class XpubTokenTests: XCTestCase {
             .tokenBalances.isEmpty)
         XCTAssertEqual(try JSONDecoder().decode(WatchedAddress.self, from: JSONEncoder().encode(off)).countTokens, false)
         XCTAssertEqual(WatchedAddressRules.withCountTokens(off, true).lastAttempt, 0)
-        // Ältere Datei ohne Zusatzfelder: Standardwerte
-        let old = Data(#"{"id":1,"chain":"ETH","address":"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"}"#.utf8)
-        let legacy = try JSONDecoder().decode(WatchedAddress.self, from: old)
-        XCTAssertTrue(legacy.countTokens)
-        XCTAssertTrue(legacy.tokenBalances.isEmpty)
-        XCTAssertNil(legacy.xpub)
+        // Ohne Zusatzfelder (nur bei einem Wert ausser dem Standard geschrieben): Standardwerte
+        let plain = Data(#"{"id":1,"chain":"ETH","address":"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed","lastUpdated":0,"lastAttempt":0,"addedAt":0,"observations":[]}"#.utf8)
+        let decoded = try JSONDecoder().decode(WatchedAddress.self, from: plain)
+        XCTAssertTrue(decoded.countTokens)
+        XCTAssertTrue(decoded.tokenBalances.isEmpty)
+        XCTAssertNil(decoded.xpub)
+        // Ohne Pflichtfelder: unlesbar
+        let partial = Data(#"{"id":1,"chain":"ETH","address":"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed"}"#.utf8)
+        XCTAssertThrowsError(try JSONDecoder().decode(WatchedAddress.self, from: partial))
     }
 
     private func scanCache(_ m: [String: Any]?) -> XpubCache? {
@@ -264,7 +267,7 @@ final class XpubTokenTests: XCTestCase {
                                                    lastBalance: c["lastBalance"] as? String),
                            c["keep"] as? Bool, "keepBackground \(c)")
         }
-        // F-16: benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
+        // Benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
         func ints(_ v: Any?) -> [Int] { (v as? [Any] ?? []).map { int($0) } }
         for c in S.list(g["modeFor"]) {
             let cache = (c["cache"] as? [String: Any]).map {
@@ -288,7 +291,7 @@ final class XpubTokenTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(withEmpty)), withEmpty)
         let rawEmpty = Data(#"{"r":["a","b"],"ru":[1],"re":[0,1,7]}"#.utf8)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: rawEmpty).emptyReceive, [1])
-        // F-16: Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
+        // Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         var limited = cache
         limited.limitedFallback = true
         let limitedJson = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(limited)) as? [String: Any])

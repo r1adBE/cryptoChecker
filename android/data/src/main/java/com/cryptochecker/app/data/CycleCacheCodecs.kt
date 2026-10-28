@@ -65,13 +65,13 @@ object CycleCacheCodecs {
                 fundingPercent = o.doubleOrNull("funding"),
                 ethGasGwei = o.doubleOrNull("gas"),
                 time = o.getLong("time"),
-                // Ältere Einträge ohne diese Felder: Zeilen entfallen bis zum nächsten Abruf
+                // Einträge ohne diese Felder: Zeilen entfallen bis zum nächsten Abruf
                 topChanges = o.optJSONArray("top")?.let { a ->
                     (0 until a.length()).mapNotNull { i -> a.optDouble(i).takeIf { it.isFinite() } }
                 }.orEmpty(),
                 marketCapUsd = o.doubleOrNull("marketCap"),
                 marketCap24h = o.doubleOrNull("marketCap24h"),
-                // Ältere Einträge ohne «movers»: Karte entfällt bis zum nächsten Abruf
+                // Einträge ohne «movers»: Karte entfällt bis zum nächsten Abruf
                 movers = o.optJSONObject("movers")?.let { moversFrom(it) },
             )
         },
@@ -134,7 +134,7 @@ object CycleCacheCodecs {
                 puell = o.doubleOrNull("puell"),
                 hash30d = o.doubleOrNull("hash30d"),
                 hash60d = o.doubleOrNull("hash60d"),
-                // Ältere Einträge ohne Verlauf: ohne Einordnung bis zum nächsten Abruf
+                // Einträge ohne Verlauf: ohne Einordnung bis zum nächsten Abruf
                 history = o.optJSONObject("history")?.let { decodeHistory(it) },
             )
         },
@@ -346,7 +346,7 @@ object CycleCacheCodecs {
             val report = GasReport(
                 evm = (0 until evm.length()).mapNotNull { i ->
                     val e = evm.getJSONObject(i)
-                    // Unbekanntes Netz (ältere/neuere App-Version): auslassen
+                    // Unbekanntes Netz: auslassen
                     val network = GasNetwork.entries.firstOrNull { it.name == e.optString("network") }
                         ?: return@mapNotNull null
                     EvmGas(

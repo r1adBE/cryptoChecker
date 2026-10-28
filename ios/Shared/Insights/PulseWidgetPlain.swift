@@ -3,7 +3,7 @@ import Foundation
 
 /// Grösse des Widgets «Was gerade auffällt» für «Kurz gesagt» — wie Android `PulseWidgetSize`:
 /// klein bleibt unverändert, mittel ersetzt den Leitsatz durch den ersten Satz, gross zeigt unter dem
-/// bisherigen Inhalt den Block «Kurz gesagt».
+/// übrigen Inhalt den Block «Kurz gesagt».
 enum PulseWidgetSize: Equatable, Sendable {
     case small, medium, large
 }

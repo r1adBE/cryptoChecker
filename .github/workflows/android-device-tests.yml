@@ -10,7 +10,7 @@
 # (keep rules, build script, dependency versions, the smoke test itself); migration-tests only when the databases
 # change (data/local, data/portfolio, Room schemas).
 # Job connected-tests-api26: only the ICU device tests (TextLimit, MonthYearFormat) on API 26 (minSdk).
-# Job migration-tests (pull requests only): RoomSchemaMigrationTest, DatabaseMigrationTest, DatabaseEncryption* and PortfolioMigration*
+# Job migration-tests (pull requests only): RoomSchemaMigrationTest, DatabaseFreshInstallTest and DatabaseEncryption*
 # on API 34.
 # Job release-smoke: the R8 release build (signed with a throwaway key) on API 26 (minSdk) and 34:
 # start, monkey, WorkManager jobs, crash buffer -> annotations (android_smoke_test.sh).
@@ -259,7 +259,7 @@ jobs:
           retention-days: 14
 
   # Pull requests that change the databases (data/local, data/portfolio, app/schemas): the migration and encryption
-  # device tests (RoomSchemaMigrationTest, DatabaseMigrationTest, every DatabaseEncryption* and PortfolioMigration* class; also when this workflow changes) on API 34, before
+  # device tests (RoomSchemaMigrationTest, DatabaseFreshInstallTest, every DatabaseEncryption* class; also when this workflow changes) on API 34, before
   # the merge instead of only on main. The class list comes from the androidTest sources (package + file name).
   migration-tests:
     needs: changes
@@ -293,7 +293,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       # Fully qualified class names for -Pandroid.testInstrumentationRunnerArguments.class (no wildcards there);
-      # RoomSchemaMigrationTest and DatabaseMigrationTest must exist, otherwise the job is red.
+      # RoomSchemaMigrationTest and DatabaseFreshInstallTest must exist, otherwise the job is red.
       - name: Migration test classes
         run: |
           set -euo pipefail
@@ -301,9 +301,9 @@ jobs:
           while IFS= read -r f; do
             PKG=$(sed -n 's/^package \([A-Za-z0-9_.]*\).*/\1/p' "$f" | head -n 1)
             CLASSES="${CLASSES:+$CLASSES,}${PKG:+$PKG.}$(basename "$f" .kt)"
-          done < <(find app/src/androidTest -type f \( -name 'RoomSchemaMigrationTest.kt' -o -name 'DatabaseMigrationTest.kt' \
-            -o -name 'DatabaseEncryption*.kt' -o -name 'PortfolioMigration*.kt' \) | sort)
-          for required in RoomSchemaMigrationTest DatabaseMigrationTest; do
+          done < <(find app/src/androidTest -type f \( -name 'RoomSchemaMigrationTest.kt' -o -name 'DatabaseFreshInstallTest.kt' \
+            -o -name 'DatabaseEncryption*.kt' \) | sort)
+          for required in RoomSchemaMigrationTest DatabaseFreshInstallTest; do
             printf '%s\n' "${CLASSES//,/$'\n'}" | grep -qE "(^|\.)$required\$" \
               || { echo "::error title=Migration tests::$required not found in app/src/androidTest"; exit 1; }
           done

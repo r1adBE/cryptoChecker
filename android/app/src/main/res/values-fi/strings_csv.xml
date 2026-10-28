@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">staking-kirjaus ilman vastakirjausta – tarkista saldo</string>
     <string name="portfolio_csv_skip_amount_too_small">määrä liian pieni – tallennettaessa 0</string>
     <string name="portfolio_csv_skip_invalid_swap">vaihto ilman kelvollista saatua kolikkoa tai saatua määrää</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Tiedostoa luetaan uudelleen …</string>
 </resources>

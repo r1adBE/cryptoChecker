@@ -6,7 +6,7 @@ import XCTest
 /// `addedIds` sind genau die neuen und «Rückgängig» (`deleteForUndo(ids:)` bzw. `deleteNewWatchesForUndo`, wie
 /// `ExplorerBulkActions.undoBulkAdd`) entfernt nur diese — Paare mit Alarm bleiben. Einen Fortschritt meldet iOS
 /// nicht (`addWatches` legt alles in einem Schritt an).
-/// Rückfrage F-08 hier aus (eigenes Tor, «gespeichert»), sie prüft `WatchlistConsentBehaviorTests`.
+/// Rückfrage «nicht gespeichert» hier aus (eigenes Tor, «gespeichert»), sie prüft `WatchlistConsentBehaviorTests`.
 @MainActor
 final class AddWatchesBehaviorTests: XCTestCase {
     static let btc = Watch(id: 990_201, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC",

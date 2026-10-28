@@ -45,7 +45,7 @@ enum ExchangeService {
         let pairs = try await Task.detached(priority: .utility) {
             try exchange.readPairListCombined(bodies: gathered)
         }.value.sorted()
-        // Volle Coin-Namen (K-8) aus denselben Antworten; ein Fehler dabei lässt die Liste unberührt
+        // Volle Coin-Namen aus denselben Antworten; ein Fehler dabei lässt die Liste unberührt
         if !pairs.isEmpty {
             let names = (try? exchange.parseBaseNamesCombined(bodies: gathered)) ?? [:]
             TokenIdentityStore.shared.saveExchange(exchange.key, names: names)

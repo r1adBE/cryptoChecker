@@ -34,7 +34,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Review ARC5-R01: Merkliste wird nicht gespeichert, Alarm-Editor «Speichern» → Rückfrage F-08 offen →
+ * Merkliste wird nicht gespeichert, Alarm-Editor «Speichern» → Rückfrage «nicht gespeichert» offen →
  * Activity neu erstellt (Drehen, Dunkelmodus, Sprache) → «Trotzdem»: Der Editor schliesst sich im NEUEN Bildschirm, es gibt
  * genau einen Alarm und keinen Absturz. Vorher schloss der Rückruf nur den Editor der alten Komposition (der neue blieb mit
  * den Eingaben offen; ein zweites «Speichern» legte einen zweiten Alarm an). Erlaubnis erteilt [AppTestEnvironmentRule]
@@ -90,7 +90,7 @@ class AlarmEditorRecreateTest {
     }
 
     /**
-     * Review TST6-R1/ARC6 C2: nicht der allererste Alarm — dann kommt nach «Trotzdem» die Zeile «Alarm aktiv · Testen»
+     * Nicht der allererste Alarm — dann kommt nach «Trotzdem» die Zeile «Alarm aktiv · Testen»
      * über das Ereignis im NEUEN Bildschirm (beim ersten Alarm endet der Weg früh im Bestätigungsdialog).
      */
     @Test
@@ -136,7 +136,7 @@ class AlarmEditorRecreateTest {
         // Neuer Bildschirm: Editor samt Eingaben wieder da, die Frage noch offen
         compose.waitUntil(TIMEOUT) { exists(UiTestTags.ALARM_THRESHOLD) && WatchlistNotSavedGate.request.value != null }
         assertEquals(0, alarms())
-        // Review TST6-R1: die Eingabe steht nach dem Drehen noch im Feld (nur Ziffern verglichen, Gruppierung egal)
+        // Die Eingabe steht nach dem Drehen noch im Feld (nur Ziffern verglichen, Gruppierung egal)
         assertEquals(THRESHOLD, thresholdDigits())
 
         WatchlistNotSavedGate.answer(true)

@@ -68,8 +68,8 @@ internal class WatchlistEditController @AssistedInject constructor(
     private val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
     /**
-     * F-08: Rückfrage EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts
-     * ausser [cancelled] (Rückmeldung «nicht geschrieben» an den Bildschirm, ARC4-R01).
+     * Rückfrage «nicht gespeichert» EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts
+     * ausser [cancelled] (Rückmeldung «nicht geschrieben» an den Bildschirm).
      */
     private fun launchWrite(cancelled: () -> Unit = {}, block: suspend () -> Unit) =
         scope.launch { if (watchRepository.confirmUserWrite()) block() else cancelled() }
@@ -78,7 +78,7 @@ internal class WatchlistEditController @AssistedInject constructor(
         scope.launch { settingsRepository.setWatchlistGroup(group) }
     }
 
-    /** Notiz bzw. Gruppe eines Paars; [onProceed] (IOS5-R02): nach bestätigter Rückfrage (Dialog zu). */
+    /** Notiz bzw. Gruppe eines Paars; [onProceed]: nach bestätigter Rückfrage (Dialog zu). */
     fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) {
         launchWrite(cancelled) { onProceed(); watchRepository.setNote(watch.id, note) }
     }
@@ -94,7 +94,7 @@ internal class WatchlistEditController @AssistedInject constructor(
     /**
      * «Gruppe bearbeiten» übernehmen (ein Vorgang): [oldName] = bisheriger Name, null für eine neue Gruppe. Eine neue Gruppe
      * ohne Paare entsteht gar nicht; eine bestehende ohne Paare verschwindet. [onDone] erst nach der Rückfrage
-     * F-08 und dem Schreiben (Haptik, Blatt zu; wie iOS), nicht bei «Abbrechen».
+     * «nicht gespeichert» und dem Schreiben (Haptik, Blatt zu; wie iOS), nicht bei «Abbrechen».
      */
     fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) {
         val name = newName.trim()
@@ -256,8 +256,8 @@ internal class WatchlistEditController @AssistedInject constructor(
     }
 
     /**
-     * Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen. ARC4-R01,
-     * UX4-06: [onDone] erst nach dem Schreiben — true = geschrieben (Haptik, Auswahl zu), false = «Abbrechen» bzw. abgelehnt.
+     * Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen.
+     * [onDone] erst nach dem Schreiben — true = geschrieben (Haptik, Auswahl zu), false = «Abbrechen» bzw. abgelehnt.
      */
     fun setFavorite(ids: Collection<Long>, favorite: Boolean, onDone: (Boolean) -> Unit = {}) {
         launchWrite(cancelled = { onDone(false) }) {
@@ -325,7 +325,7 @@ internal class WatchlistEditController @AssistedInject constructor(
         }
     }
 
-    /** Kursmitteilung an/aus; [onDone] wie bei [setFavorite] (erst dann die Erlaubnis fragen, UX4-R3). */
+    /** Kursmitteilung an/aus; [onDone] wie bei [setFavorite] (erst dann die Erlaubnis fragen). */
     fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
         launchWrite(cancelled = { onDone(false) }) {
             // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
@@ -384,7 +384,7 @@ internal class WatchlistEditController @AssistedInject constructor(
         val blocked = com.cryptochecker.app.data.local.WatchlistStorageLock
             .blocksWrites(com.cryptochecker.app.data.local.DatabaseEncryptionNotice.storedKept.value)
         val turnOnSpeech = enabled && !blocked && !settingsRepository.cached.speaksPairPrices
-        // Kommt erst die Rückfrage (F-08), keinen Hinweis vorwegnehmen; auch ohne sichtbare Oberfläche
+        // Kommt erst die Rückfrage «nicht gespeichert», keinen Hinweis vorwegnehmen; auch ohne sichtbare Oberfläche
         val asksFirst = com.cryptochecker.app.data.local.WatchlistNotSavedGate.mayAsk()
         launchWrite {
             // Abgelehnt (Merkliste gesperrt): die Sprachausgabe bleibt, wie sie ist

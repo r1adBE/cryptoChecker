@@ -88,7 +88,7 @@ object PriceFreshness {
 
     /**
      * `priceChangedAt` nach einem erfolgreichen Abruf zum Zeitpunkt [time]: bleibt bei gleichem Kurs
-     * stehen (sofern bekannt), sonst [time]. Unbekannt (0, z. B. nach dem Update) beginnt bei [time].
+     * stehen (sofern bekannt), sonst [time]. Unbekannt (0) beginnt bei [time].
      */
     fun nextPriceChangedAt(previousPrice: Double?, previousChangedAt: Long, price: Double, time: Long): Long =
         if (previousPrice != null && previousPrice == price && previousChangedAt > 0) previousChangedAt else time

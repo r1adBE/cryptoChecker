@@ -315,4 +315,10 @@
         <item quantity="other">Dabei werden auch %d Posten und der Guthaben-Verlauf entfernt.</item>
     </plurals>
     <string name="portfolio_address_remove_history">Dabei wird auch der Guthaben-Verlauf entfernt.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Konnte nicht gespeichert werden – versuch es nochmals</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Schwelle ungültig – löschen und neu anlegen</string>
 </resources>

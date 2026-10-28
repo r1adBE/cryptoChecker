@@ -30,7 +30,7 @@ struct AlarmLastCheckedLine: View {
 
 /// Graue Zeile mit dem einen Satz «Wann Alarme geprüft werden» (`AlarmTimingHint`) — vollständig sichtbar,
 /// darum ohne (i), das ihn nur wiederholen würde; wie `ClosedAppHint` (Android). Darunter
-/// (K-10) «Aktualisierung ändern»: schliesst das Blatt und öffnet Einstellungen › Kurs-Aktualisierung; und
+/// «Aktualisierung ändern»: schliesst das Blatt und öffnet Einstellungen › Kurs-Aktualisierung; und
 /// «Damit Alarme ankommen» als Blatt darüber.
 @MainActor
 struct ClosedAppHintRow: View {

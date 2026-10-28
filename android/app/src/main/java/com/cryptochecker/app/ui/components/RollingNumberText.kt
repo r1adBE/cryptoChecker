@@ -190,7 +190,7 @@ private fun RollingRow(shown: String, up: Boolean, style: TextStyle, color: Colo
 /**
  * Animationen im System ausgeschaltet (Entwickleroption bzw. Bedienungshilfe
  * «Animationen entfernen»: Animator-Dauer 0)? Beobachtet die Einstellung, damit ein Wechsel bei
- * laufender App sofort gilt (vorher erst nach dem Neuaufbau des Bildschirms).
+ * laufender App sofort gilt (nicht erst nach dem Neuaufbau des Bildschirms).
  */
 @Composable
 fun rememberReduceMotion(): Boolean {

@@ -294,4 +294,38 @@
     <string name="settings_price_overlay_needs">פועל רק יחד עם «%1$s».</string>
     <string name="settings_price_overlay_grant">אפשרו הצגה מעל אפליקציות אחרות</string>
     <string name="price_overlay_close">סגירת השכבה</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">שרת משלכם לכתובות</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">רק ביטקוין: שרת משלכם התואם ל-Esplora או ל-mempool (למשל https://node.example/api, נדרשת תעודה מהימנה ציבורית, למשל Let\'s Encrypt). אם הוגדר, כתובות ביטקוין ו-xpub נשאלות רק שם – אף פעם לא בצמתים ציבוריים, גם לא כשהשרת אינו זמין. רשתות אחרות ממשיכות להשתמש בצמתים ציבוריים. ריק = צמתים ציבוריים.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">שרת ביטקוין (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">בדיקה</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">הבדיקה מתבצעת…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">השרת עונה – בלוק %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">אין תשובה תקפה – בדקו את הכתובת ואת התעודה</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">בשימוש: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">לא הוגדר – נעשה שימוש בצמתים ציבוריים</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">מותרות רק כתובות https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">בלי שם משתמש או סיסמה בכתובת</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">בלי חלק ? או # בכתובת</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">כתובת שרת לא תקפה</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">לעבור לצמתים ציבוריים?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">כתובות הביטקוין וה-xpub שלכם ייבדקו אז בצמתים ציבוריים: %1$s. הם רואים את הכתובות יחד עם כתובת ה-IP שלכם.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">שימוש בצמתים ציבוריים</string>
 </resources>

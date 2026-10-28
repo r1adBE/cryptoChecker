@@ -8,7 +8,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** J-15: Stufenfarben der Fear-&-Greed-Skala. Wie iOS `MarketScalePaletteTests`. */
+/** Stufenfarben der Fear-&-Greed-Skala. Wie iOS `MarketScalePaletteTests`. */
 class MarketScalePaletteTest {
 
     @Test
@@ -115,7 +115,7 @@ class MarketScalePaletteTest {
         val LIGHT = listOf(
             0xFFFFFFFF.toInt(), 0xFFF9F9F9.toInt(), 0xFFF3F3F3.toInt(), 0xFFEEEEEE.toInt(),
             0xFFE8E8E8.toInt(), 0xFFE2E2E2.toInt(),
-            // K-9 warm
+            // Warme Flächen
             0xFFFBF9F6.toInt(), 0xFFF6F3EE.toInt(), 0xFFF1EEE9.toInt(), 0xFFEBE8E2.toInt(), 0xFFE5E2DB.toInt(),
         )
         val DARK = listOf(

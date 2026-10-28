@@ -100,4 +100,11 @@
     <string name="portfolio_storage_locked">Sparade data kan inte läsas just nu, så ändringar går inte att göra. Starta om appen.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Enheten tillhandahåller ingen nyckel just nu – bevakningslistan sparas inte, och ändringar försvinner när appen stängs. Larm i bakgrunden är pausade. Appen försöker igen vid nästa start.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">”Egen server för adresser” överfördes inte – en okrypterad säkerhetskopia kan inte ändra den.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">”Egen server för adresser” togs bort som i säkerhetskopian – Bitcoin-adresser frågas åter hos offentliga noder.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">”Egen server för adresser” ersattes med den från säkerhetskopian.</string>
 </resources>

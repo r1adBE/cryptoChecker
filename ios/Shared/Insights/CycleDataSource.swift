@@ -112,7 +112,7 @@ enum CycleDataSource {
     // MARK: On-Chain-Zwischenspeicher (12 h)
 
     /// Versionierter Schlüssel: ein altes oder kaputtes Format wird einfach übergangen.
-    private static let onChainKey = "cycle_onchain_v1"
+    private static let onChainKey = "cycle_onchain"
     static let onChainMaxAgeMillis: Int64 = 12 * 60 * 60_000
 
     private struct StoredOnChain: Codable {

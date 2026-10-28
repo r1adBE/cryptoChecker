@@ -1,6 +1,6 @@
 import Foundation
 
-// Live-Kurse per WebSocket (Runde 31): reine Logik — Börsen, Abo-Nachrichten, Parser, Planung
+// Live-Kurse per WebSocket: reine Logik — Börsen, Abo-Nachrichten, Parser, Planung
 // der Verbindungen, Puffer und Regeln. Wie `LiveFeed.kt`; gemeinsame Testfälle in
 // `Tests/Parity/live_feed.json`. Die Verbindungen hält `App/Services/LivePriceStream.swift`
 // (nur App, nie Widgets). Liegt in Shared, weil `PriceRefresher` die Regeln braucht.

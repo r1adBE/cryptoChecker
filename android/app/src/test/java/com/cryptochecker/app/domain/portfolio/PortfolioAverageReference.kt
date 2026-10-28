@@ -3,9 +3,9 @@ package com.cryptochecker.app.domain.portfolio
 import java.math.BigDecimal
 
 /**
- * Referenz für [PortfolioCostPartPoolTest]: die Durchschnittsmethode mit der früheren Führung der Herkunftsteile — eine
+ * Referenz für [PortfolioCostPartPoolTest]: die Durchschnittsmethode mit der einfachen Führung der Herkunftsteile — eine
  * Liste, die jeder Abgang Teil für Teil neu schreibt (Zugänge × Abgänge). Sonst Zeile für Zeile wie [average]; die
- * neue Rechnung muss dieselben Zahlen liefern (Teile bis auf die Rundung der 34. Stelle, Summen exakt).
+ * Rechnung der App muss dieselben Zahlen liefern (Teile bis auf die Rundung der 34. Stelle, Summen exakt).
  */
 internal fun PortfolioCalculator.averageReference(
     symbol: String,

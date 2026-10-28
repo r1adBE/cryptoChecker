@@ -1,7 +1,7 @@
 import Foundation
 
 /// Darstellung des Wertverlaufs bei einer Umrechnungswährung (Umschalter «CHF | USDT | Vergleich»):
-/// `currency` = in der gewählten Währung (Standard, wie bisher), `usdt` = unumgerechnet,
+/// `currency` = in der gewählten Währung (Standard), `usdt` = unumgerechnet,
 /// `compare` = beide Kurven als Veränderung in Prozent — wie `PortfolioHistoryView` (Android).
 /// Nur auf diesem Gerät, nicht in der Sicherung.
 enum PortfolioHistoryView: String, CaseIterable, Identifiable, Codable, Sendable {
@@ -104,7 +104,7 @@ enum PortfolioCompare {
 
     /// Welche Darstellung gilt: `saved` nur, wenn sie möglich ist — USDT braucht den unumgerechneten
     /// Verlauf mit Tageskursen (`usdtAvailable`), der Vergleich zusätzlich einen Ausgangspunkt
-    /// (`compareAvailable`); sonst in der Währung (wie bisher).
+    /// (`compareAvailable`); sonst in der Währung.
     static func effectiveView(_ saved: PortfolioHistoryView, usdtAvailable: Bool,
                               compareAvailable: Bool) -> PortfolioHistoryView {
         if !usdtAvailable { return .currency }

@@ -2,7 +2,6 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.WatchIdentity
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.ExchangePair
 
 /**
@@ -59,7 +58,7 @@ internal class FakeWatchStore(filler: Int = 0) {
 
         fun key(exchange: ExchangeInfo, pair: ExchangePair): WatchIdentity.Key = WatchIdentity.key(
             exchange.key, pair.base, pair.quote,
-            FuturesContractType.normalized(exchange.key, pair.pairId, pair.contractType).name, pair.pairId,
+            pair.contractType.name, pair.pairId,
         )
     }
 }

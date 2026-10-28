@@ -37,7 +37,7 @@ fun CsvImportParser.build(
     val numericRoles = listOf(Role.AMOUNT, Role.AMOUNT_SATS, Role.PRICE, Role.FIAT_AMOUNT, Role.FEE)
     val numericCells = data.flatMap { r -> numericRoles.mapNotNull { role -> h.index[role]?.let { r.cells.getOrNull(it) } } }
     val detectedMark = decimalHint(numericCells)
-    // Datei verrät kein Dezimalzeichen und hat «42,000»: Vorschau fragt; ohne Wahl wie bisher das Zeichen der ersten
+    // Datei verrät kein Dezimalzeichen und hat «42,000»: Vorschau fragt; ohne Wahl das Zeichen der ersten
     // mehrdeutigen Zahl = Dezimalzeichen (gilt dann für die ganze Datei, wie angezeigt)
     val decimalSample = if (detectedMark == null) ambiguousNumber(numericCells) else null
     val hint = detectedMark ?: decimalSample?.let { sample ->
@@ -239,7 +239,7 @@ private fun CsvImportParser.row(
     // Preiswährung (Fiat oder USDT), sonst bliebe sie ohne Wert bzw. würde mangels Währung übersprungen
     val rewardValue = kind == CsvImportKind.REWARD && (CsvImport.isFiat(quote) || quote == PortfolioStables.VALUATION)
     if (price == null && (kind == CsvImportKind.BUY || kind == CsvImportKind.SELL || rewardValue)) {
-        // Belohnung mit unlesbarem Betrag: ohne Preis wie früher, nicht übersprungen
+        // Belohnung mit unlesbarem Betrag: ohne Preis, nicht übersprungen
         val fiat = if (kind == CsvImportKind.REWARD) {
             try { number(Role.FIAT_AMOUNT) } catch (_: Skip) { null }
         } else number(Role.FIAT_AMOUNT)

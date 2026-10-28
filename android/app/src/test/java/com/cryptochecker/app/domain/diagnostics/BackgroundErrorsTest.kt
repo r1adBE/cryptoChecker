@@ -11,7 +11,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Instant
 
-/** F-25: Zeile «Background errors» — gleiche Fälle wie `BackgroundErrorsTests.swift`. */
+/** Zeile «Background errors» — gleiche Fälle wie `BackgroundErrorsTests.swift`. */
 class BackgroundErrorsTest {
 
     private val data = ParityJson.load("background_errors.json")

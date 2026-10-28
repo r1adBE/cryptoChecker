@@ -10,7 +10,7 @@ import kotlin.math.max
  */
 object WidgetQuoteText {
 
-    /** Kleinste Schriftgrösse der Währung (sp) — wie iOS `WidgetPriceText`. J-18: 11 statt 9 (lesbar). */
+    /** Kleinste Schriftgrösse der Währung (sp) — wie iOS `WidgetPriceText`. 11 statt 9 (lesbar). */
     const val MIN_QUOTE_SP = 11f
 
     /** Währung ≈ 42 % der Kursgrösse, mindestens [MIN_QUOTE_SP]. */

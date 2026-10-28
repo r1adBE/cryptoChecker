@@ -56,7 +56,7 @@ final class PriceColorSchemeTests: XCTestCase {
     }
 
     func testValuesAsSpecified() {
-        // Feste Börsenfarben (Entscheid 18. Oktober 2026): hell, dunkel, je normal und hoher Kontrast
+        // Feste Börsenfarben: hell, dunkel, je normal und hoher Kontrast
         assertTones(.GREEN_RED, up: true, [0x127248, 0x0ECB81, 0x025430, 0x30DE92])
         assertTones(.GREEN_RED, up: false, [0xC3213A, 0xFC6F7D, 0x911127, 0xFFAEB7])
         assertTones(.TRADITIONAL, up: true, [0x0A7262, 0x3EAE97, 0x005246, 0x5AD8BE])
@@ -85,7 +85,7 @@ final class PriceColorSchemeTests: XCTestCase {
         XCTAssertEqual(PriceColorScheme.CALM.upHex(dark: false), 0x396E54)
         XCTAssertEqual(PriceColorScheme.CALM.upHex(dark: true), 0x61AE87)
         XCTAssertEqual(PriceColorScheme.CALM.downHex(dark: false), 0x771D23)
-        // Dunkel Lachs-Rot statt Rosa (Entscheid 18. Oktober 2026, früher #FFAFA8)
+        // Dunkel Lachs-Rot statt Rosa
         XCTAssertEqual(PriceColorScheme.CALM.downHex(dark: true), 0xFFB097)
         XCTAssertEqual(PriceColorScheme(rawValue: "TRADITIONAL"), .TRADITIONAL)
         XCTAssertNil(PriceColorScheme(rawValue: "BLUE_YELLOW"))
@@ -151,7 +151,7 @@ final class PriceColorSchemeTests: XCTestCase {
     // MARK: Börsenschemata fest, wie PriceColorSchemeTest.kt
 
     /// «Frisch», «Traditionell» und «Farbsehschwäche»: feste Börsenfarben — bei jeder Akzentfarbe,
-    /// hell/dunkel, normal/hoher Kontrast und getauscht genau der Standard (Entscheid 16. Oktober 2026).
+    /// hell/dunkel, normal/hoher Kontrast und getauscht genau der Standard.
     func testExchangeSchemesStayStandardForEveryAccent() {
         let fixed: [PriceColorScheme] = [.GREEN_RED, .TRADITIONAL, .BLUE_ORANGE]
         for scheme in fixed {
@@ -213,7 +213,7 @@ final class PriceColorSchemeTests: XCTestCase {
                 XCTAssertEqual(scheme.downHex(dark: dark, highContrast: hc, inverted: true, accent: .BLUE), rise)
             }
         }
-        // Belegt: das bisherige Blau lag zu nah am Akzent (hell ΔE ≈ 5)
+        // Belegt: das verworfene Blau lag zu nah am Akzent (hell ΔE ≈ 5)
         XCTAssertLessThan(deltaE2000(scheme.upHex(dark: false), blueAccentLight[0]), 15.0)
         // Werte wie Android
         XCTAssertEqual(scheme.upHex(dark: false, accent: .BLUE), 0x0D6F73)
@@ -256,7 +256,7 @@ final class PriceColorSchemeTests: XCTestCase {
                 }
             }
         }
-        // Belegt: der frühere Standard «Ruhig» neben Orange (Standard-Akzent) lag bei ΔE ≈ 9.5
+        // Belegt: «Ruhig» als Standard neben Orange (Standard-Akzent) lag bei ΔE ≈ 9.5
         XCTAssertLessThan(deltaE2000(0xA74340, AccentColor.ORANGE.primaryHex(dark: false)), 10.0)
         XCTAssertEqual(PriceColorScheme.CALM.downHex(dark: false, accent: .ORANGE), 0x77212F)
         XCTAssertEqual(PriceColorScheme.CALM.downHex(dark: true, accent: .ORANGE), 0xFFAFBB)
@@ -309,11 +309,11 @@ final class PriceColorSchemeTests: XCTestCase {
                 XCTAssertGreaterThanOrEqual(chroma, minChroma, key)
             }
         }
-        // Belegt: das frühere Weinrot war kein Rot
+        // Belegt: das verworfene Weinrot war kein Rot
         XCTAssertTrue((300.0...340.0).contains(hslHue(0x701F4A)))
     }
 
-    // MARK: Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche» (Entscheid 18. Oktober 2026)
+    // MARK: Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche»
     // «Farben wie bei allen Börsen»: hart nur der Kontrast (testContrastOnAllSurfaces); Zieltöne und
     // Abstand dazu in android/tools/check_price_colors.py. Wie PriceColorSchemeTest.kt.
 
@@ -366,7 +366,7 @@ final class PriceColorSchemeTests: XCTestCase {
     }
 
     /// «Ruhig» dunkel fallend: Lachs-Rot (HSL 5–15°, C* ≥ 35) statt Rosa; Karmin neben Orange so rot,
-    /// wie ΔE 20 zum Akzent erlaubt (HSL ≥ 350° oder ≤ 10°). Entscheid 18. Oktober 2026.
+    /// wie ΔE 20 zum Akzent erlaubt (HSL ≥ 350° oder ≤ 10°).
     func testCalmDarkFallIsSalmonRed() {
         let red: UInt32 = PriceColorScheme.CALM.downHex(dark: true)
         XCTAssertTrue((5.0...15.0).contains(hslHue(red)), "\(hslHue(red))")
@@ -440,25 +440,25 @@ private enum ContrastMath {
         return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
     }
 
-    /// Frühere Grautöne und (K-9) die warmen Flächen «warmes Papier».
+    /// Grautöne und die warmen Flächen «warmes Papier».
     static let lightSurfaces: [UInt32] = [0xFFFFFF, 0xF9F9F9, 0xF3F3F3, 0xEEEEEE, 0xE8E8E8, 0xE4E4E4, 0xE2E2E2,
                                           0xFFFDFA, 0xFBF9F6, 0xF6F3EE, 0xF1EEE9, 0xEBE8E2, 0xE7E4DD, 0xE5E2DB]
     static let darkSurfaces: [UInt32] = [0x0E0E0E, 0x121212, 0x131313, 0x1B1B1B, 0x1F1F1F, 0x2A2A2A, 0x333333, 0x353535]
 }
 
-/// K-9 und M-8, wie `AccentContrastTest.kt`: warme Flächen nicht dunkler als die früheren Grautöne,
+/// Wie `AccentContrastTest.kt`: warme Flächen nicht dunkler als die Grautöne,
 /// feste Fear-&-Greed-Skala (Puls-Widget) als Schrift ≥ 4.5:1 in Hell und Dunkel.
 final class WarmSurfaceAndScaleContrastTests: XCTestCase {
 
-    func testWarmTokensAreNotDarkerThanFormerGreys() {
+    func testWarmTokensAreNotDarkerThanNeutralGreys() {
         let pairs: [(UInt32, UInt32)] = [
             (0xF9F9F9, ColorTokens.background.light), (0xF3F3F3, ColorTokens.surfaceContainerLow.light),
             (0xEEEEEE, ColorTokens.surfaceContainer.light), (0xE8E8E8, ColorTokens.surfaceContainerHigh.light),
             (0xE2E2E2, ColorTokens.surfaceContainerHighest.light), (0xE4E4E4, ColorTokens.widgetSurfaceDeep.light),
             // outlineVariant bewusst dunkler (≈ 2.2:1): eigener Test
         ]
-        for (old, warm) in pairs {
-            XCTAssertGreaterThanOrEqual(ContrastMath.luminance(warm), ContrastMath.luminance(old) - 1e-9,
+        for (grey, warm) in pairs {
+            XCTAssertGreaterThanOrEqual(ContrastMath.luminance(warm), ContrastMath.luminance(grey) - 1e-9,
                                         String(warm, radix: 16))
         }
     }
@@ -492,7 +492,7 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
         }
     }
 
-    /// Widget «unverändert» (`WidgetPalette.neutral`): #5F5F5F hell (früher outline #777777, 3.87:1),
+    /// Widget «unverändert» (`WidgetPalette.neutral`): #5F5F5F hell (outline #777777 hätte 3.87:1),
     /// ≥ 4.5:1 auf dem Widget-Grund in Hell und Dunkel — wie Android `WidgetContrastTest`.
     func testWidgetNeutralReachesAAOnWidgetBase() {
         XCTAssertEqual(ColorTokens.widgetNeutral.light, 0x5F5F5F)
@@ -544,7 +544,7 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
     }
 }
 
-/// J-14, wie `AccentContrastTest.kt`: Akzent ≥ 4.5:1 auf allen Flächen (hell bis #E2E2E2,
+/// Wie `AccentContrastTest.kt`: Akzent ≥ 4.5:1 auf allen Flächen (hell bis #E2E2E2,
 /// dunkel bis #353535), Text auf dem Akzent ≥ 4.5:1, hoher Kontrast ≥ 7:1 auf #E2E2E2 / #353535.
 final class AccentContrastTests: XCTestCase {
 
@@ -581,7 +581,7 @@ final class AccentContrastTests: XCTestCase {
     }
 
     /// Coin-Plakette ohne Logo: Initialen in primary auf der hellen Tönung über surfaceContainer
-    /// ≥ 4.5:1 für alle Akzente; mit der früheren Tönung 0.14 lagen sie darunter. Wie Android `AccentContrastTest`.
+    /// ≥ 4.5:1 für alle Akzente; mit Tönung 0.14 lägen sie darunter. Wie Android `AccentContrastTest`.
     func testCoinBadgeInitialsReachAAOnTint() {
         let container = ColorTokens.surfaceContainer.light
         func over(_ fg: UInt32, _ alpha: Double, _ bg: UInt32) -> UInt32 {
@@ -627,7 +627,7 @@ final class AccentContrastTests: XCTestCase {
     }
 }
 
-/// J-15, wie `MarketScalePaletteTest.kt`: Stufenfarben der Fear-&-Greed-Skala.
+/// Wie `MarketScalePaletteTest.kt`: Stufenfarben der Fear-&-Greed-Skala.
 final class MarketScalePaletteTests: XCTestCase {
 
     func testEdgesArePriceColorsAndMiddleIsNeutral() {
@@ -995,7 +995,7 @@ final class SpeaksPairPricesTests: XCTestCase {
 @MainActor
 final class NotificationDefaultsTests: XCTestCase {
 
-    /// Neue Paare (Start-Auswahl und später) mit Kurs-Mitteilung (Entscheid 16. Oktober 2026); gespeicherte
+    /// Neue Paare (Start-Auswahl und später) mit Kurs-Mitteilung; gespeicherte
     /// behalten ihren Wert.
     func testNewPairsStartWithPriceNotification() throws {
         var s = SharedStorage.Snapshot()

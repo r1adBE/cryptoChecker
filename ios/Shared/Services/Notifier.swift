@@ -21,7 +21,7 @@ enum Notifier {
     static let userInfoExchangeUrl = "exchangeUrl"
 
     /// Kategorien der Mitteilungen registrieren (beim Start der App). «Was bewegt sich mit?» und «Anpassen» öffnen
-    /// die App im Vordergrund, «1 h später» nicht; die Mitteilung selbst bleibt wie bisher (Tipp = zum Paar).
+    /// die App im Vordergrund, «1 h später» nicht; die Mitteilung selbst führt beim Tippen zum Paar.
     static func registerCategories() {
         let exchange = UNNotificationAction(identifier: actionOpenExchange,
                                             title: L("notification_depeg_action_exchange"), options: [.foreground])

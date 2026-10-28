@@ -72,7 +72,7 @@ final class MarketAlertResetTests: XCTestCase {
         XCTAssertFalse(IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: 240, current: 200))
         XCTAssertTrue(IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.5, threshold: 2.0, wasCrossed: false).notify)
         XCTAssertTrue(IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: 240, current: 240))
-        XCTAssertTrue(IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: nil, current: 200))
+        XCTAssertFalse(IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: nil, current: 200))
         XCTAssertFalse(IndicatorAlertRules.wasCrossed(storedCrossed: false, storedThreshold: 240, current: 200))
     }
 
@@ -104,17 +104,6 @@ final class MarketAlertResetTests: XCTestCase {
         draft.thresholdText = ""
         XCTAssertTrue(draft.showsSentence)
         XCTAssertNotEqual(draft.showsSentence, draft.showsEnterAmountHint)
-    }
-
-    /// Stand vor der gemerkten Grenze (nur «jenseits»): übernehmen, ohne doppelt zu melden, aber den Zustand schreiben —
-    /// samt Grenze. Danach meldet eine neue Grenze, obwohl der Wert jenseits bleibt. Wie Android `IndicatorAlertRulesTest`.
-    func testLegacyCrossedStateWithoutBoundPicksUpBound() {
-        let wasCrossed = IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: nil, current: 240)
-        let run = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.6, threshold: 2.4, wasCrossed: wasCrossed)
-        XCTAssertEqual(run, .init(notify: false, crossed: true))
-        let afterChange = IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: 240, current: 200)
-        XCTAssertFalse(afterChange)
-        XCTAssertTrue(IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.6, threshold: 2.0, wasCrossed: afterChange).notify)
     }
 
     /// «Aus» während einer laufenden Gas-Prüfung: Die Prüfung schreibt danach ihren Stand nicht mehr (sonst kehrte die

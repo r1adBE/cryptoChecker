@@ -28,7 +28,7 @@ plugins {
 }
 
 // Lieferkette: Abhängigkeiten je Modul gesperrt (gradle.lockfile, erzeugt vom Workflow «Supply chain update»).
-// Ohne Lockfile LENIENT (alles wie bisher), mit Lockfile DEFAULT: eine Abweichung von der gesperrten Version bricht
+// Ohne Lockfile LENIENT (keine Prüfung), mit Lockfile DEFAULT: eine Abweichung von der gesperrten Version bricht
 // ab, Konfigurationen ohne Eintrag (z. B. nur auf dem Gerät aufgelöste) bleiben erlaubt. Die Prüfsummen
 // (gradle/verification-metadata.xml) prüft Gradle von selbst, sobald die Datei existiert. Siehe DEVELOPMENT.md.
 allprojects {

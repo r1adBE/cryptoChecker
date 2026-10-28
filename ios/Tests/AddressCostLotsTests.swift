@@ -96,9 +96,10 @@ final class AddressCostLotsTests: XCTestCase {
         let data = try JSONEncoder().encode(WatchedAddressFile(addresses: [a], nextId: 4))
         let back = try JSONDecoder().decode(WatchedAddressFile.self, from: data)
         XCTAssertEqual(back.addresses.first?.costLots, lots)
-        // Ältere Datei ohne das Feld: keine Posten
-        let old = Data("{\"addresses\":[{\"id\":1,\"chain\":\"BTC\",\"address\":\"\(btc)\"}],\"nextId\":2}".utf8)
-        XCTAssertEqual(try JSONDecoder().decode(WatchedAddressFile.self, from: old).addresses.first?.costLots, [])
+        // Ohne Posten schreibt `encode` das Feld nicht: keine Posten
+        let plain = try JSONEncoder().encode(WatchedAddressFile(addresses: [WatchedAddress(id: 1, chain: .BTC, address: btc)], nextId: 2))
+        XCTAssertFalse(String(decoding: plain, as: UTF8.self).contains("costLots"))
+        XCTAssertEqual(try JSONDecoder().decode(WatchedAddressFile.self, from: plain).addresses.first?.costLots, [])
     }
 
     func testBackupRoundTripAndBackupWithoutField() throws {

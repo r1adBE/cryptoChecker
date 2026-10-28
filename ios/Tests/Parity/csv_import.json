@@ -629,7 +629,7 @@
     },
     {
       "name": "generic_stable",
-      "_comment": "Kauf/Verkauf gegen Stablecoin = Tausch (Review 10 F1, FR/AT): Verkauf BTC gegen USDT → Tausch BTC → USDT (Wert = USDT-Menge), Kauf ETH mit USDT → Tausch USDT → ETH, Kauf SOL mit USDC → Tausch ohne Wert (Tagesschluss), USDT mit EUR bleibt Kauf, ohne Preis bleibt Kauf, Fiat-Betrag der Datei = Stablecoin-Menge, USDC mit USDT → Tausch",
+      "_comment": "Kauf/Verkauf gegen Stablecoin = Tausch (FR/AT): Verkauf BTC gegen USDT → Tausch BTC → USDT (Wert = USDT-Menge), Kauf ETH mit USDT → Tausch USDT → ETH, Kauf SOL mit USDC → Tausch ohne Wert (Tagesschluss), USDT mit EUR bleibt Kauf, ohne Preis bleibt Kauf, Fiat-Betrag der Datei = Stablecoin-Menge, USDC mit USDT → Tausch",
       "format": "GENERIC",
       "csv": "Timestamp,Type,Asset,Amount,Price,Fiat Amount,Currency,Fee,Fee Currency,ID\n2024-04-01T10:00:00Z,Sell,BTC,0.1,60000,,USDT,6,USDT,\n2024-04-02T10:00:00Z,Buy,ETH,2,3000,,USDT,0.002,ETH,\n2024-04-03T10:00:00Z,Buy,SOL,10,150,,USDC,,,\n2024-04-04T10:00:00Z,Buy,USDT,1000,0.92,,EUR,,,\n2024-04-05 10:00:00,Sell,BTC,0.01,61000,,USDT,,,\n2024-04-06T10:00:00Z,Buy,BTC,0.01,,,USDT,,,\n2024-04-07T10:00:00Z,Sell,ADA,100,,45.5,USDT,,,a-1\n2024-04-08T10:00:00Z,Buy,USDC,500,1,,USDT,,,\n",
       "rows": [
@@ -774,7 +774,7 @@
     },
     {
       "name": "kraken_stable",
-      "_comment": "Kraken mit Stablecoins (Review 10 F1): EUR → USDT = Kauf USDT (Preis in EUR), BTC → USDT und USDT → ETH und USDC → USDT = Tausch (Wert = USDT-Menge), EUR → USD kein Krypto, USDT-Einzahlung = Einzahlung",
+      "_comment": "Kraken mit Stablecoins: EUR → USDT = Kauf USDT (Preis in EUR), BTC → USDT und USDT → ETH und USDC → USDT = Tausch (Wert = USDT-Menge), EUR → USD kein Krypto, USDT-Einzahlung = Einzahlung",
       "format": "KRAKEN",
       "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"T1\",\"2024-05-01 10:00:00\",\"trade\",\"\",\"currency\",\"ZEUR\",\"spot / main\",\"-920.0000\",\"0.0000\",\"80.0000\"\n\"L2\",\"T1\",\"2024-05-01 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"1000.00000000\",\"2.00000000\",\"998.00000000\"\n\"L3\",\"T2\",\"2024-05-02 10:00:00\",\"trade\",\"\",\"currency\",\"XXBT\",\"spot / main\",\"-0.0100000000\",\"0.0000000000\",\"0.0000000000\"\n\"L4\",\"T2\",\"2024-05-02 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"600.00000000\",\"1.20000000\",\"1596.80000000\"\n\"L5\",\"T3\",\"2024-05-03 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"-500.00000000\",\"0.00000000\",\"1096.80000000\"\n\"L6\",\"T3\",\"2024-05-03 10:00:00\",\"trade\",\"\",\"currency\",\"XETH\",\"spot / main\",\"0.1600000000\",\"0.0000000000\",\"0.1600000000\"\n\"L7\",\"T4\",\"2024-05-04 10:00:00\",\"trade\",\"\",\"currency\",\"USDC\",\"spot / main\",\"-100.00000000\",\"0.00000000\",\"0.00000000\"\n\"L8\",\"T4\",\"2024-05-04 10:00:00\",\"trade\",\"\",\"currency\",\"USDT\",\"spot / main\",\"99.90000000\",\"0.00000000\",\"1196.70000000\"\n\"L9\",\"T5\",\"2024-05-05 10:00:00\",\"trade\",\"\",\"currency\",\"ZEUR\",\"spot / main\",\"-50.0000\",\"0.0000\",\"30.0000\"\n\"L10\",\"T5\",\"2024-05-05 10:00:00\",\"trade\",\"\",\"currency\",\"ZUSD\",\"spot / main\",\"54.0000\",\"0.0000\",\"54.0000\"\n\"L11\",\"D1\",\"2024-05-06 10:00:00\",\"deposit\",\"\",\"currency\",\"USDT\",\"spot / main\",\"50.00000000\",\"0.00000000\",\"1246.70000000\"\n",
       "rows": [
@@ -1002,7 +1002,7 @@
     },
     {
       "name": "kraken_staking_dupes",
-      "_comment": "Review 13: doppelte Ledger-Zeile (gleiche txid L1) zählt einmal; Spot → Staking als Auszahlung XETH + Einzahlung ETH2.S (5 s auseinander) und spend/receive XETH → ETH2.S übersprungen (kein Bestand doppelt, kein Posten mit Kaufpreis ab); Staking-Belohnung ETH2.S = ETH. Bestand ETH = 1 − 0.1 − 0.001 + 0.001 = 0.9.",
+      "_comment": "Doppelte Ledger-Zeile (gleiche txid L1) zählt einmal; Spot → Staking als Auszahlung XETH + Einzahlung ETH2.S (5 s auseinander) und spend/receive XETH → ETH2.S übersprungen (kein Bestand doppelt, kein Posten mit Kaufpreis ab); Staking-Belohnung ETH2.S = ETH. Bestand ETH = 1 − 0.1 − 0.001 + 0.001 = 0.9.",
       "format": "KRAKEN",
       "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"R1\",\"2024-04-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L1\",\"R1\",\"2024-04-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L2\",\"B1\",\"2024-04-02 09:00:00\",\"withdrawal\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.5000000000\",\"0.0000000000\",\"0.5000000000\"\n\"L3\",\"B2\",\"2024-04-02 09:00:05\",\"deposit\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"0.5000000000\",\"0.0000000000\",\"0.5000000000\"\n\"L4\",\"C1\",\"2024-04-03 09:00:00\",\"spend\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.2000000000\",\"0.0000000000\",\"0.3000000000\"\n\"L5\",\"C1\",\"2024-04-03 09:00:00\",\"receive\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"0.2000000000\",\"0.0000000000\",\"0.7000000000\"\n\"L6\",\"S1\",\"2024-04-04 00:00:00\",\"staking\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"0.0010000000\",\"0.0000000000\",\"0.7010000000\"\n\"L7\",\"W1\",\"2024-04-05 09:00:00\",\"withdrawal\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.1000000000\",\"0.0010000000\",\"0.1990000000\"\n",
       "rows": [
@@ -1173,7 +1173,7 @@
     },
     {
       "name": "generic_utc_fiat",
-      "_comment": "Review 13: Kopf «Date(UTC)» = Datumsspalte in UTC; Zeile nur in Fiat (EUR-Einzahlung) = NOT_CRYPTO.",
+      "_comment": "Kopf «Date(UTC)» = Datumsspalte in UTC; Zeile nur in Fiat (EUR-Einzahlung) = NOT_CRYPTO.",
       "format": "GENERIC",
       "csv": "Date(UTC),Type,Coin,Amount,Price,Currency\n2024-05-01 23:30:00,Buy,BTC,0.01,60000,EUR\n2024-05-02 08:00:00,Deposit,EUR,1000,,EUR\n",
       "rows": [
@@ -1238,7 +1238,7 @@
     },
     {
       "name": "generic_babydoge",
-      "_comment": "Abgeleiteter Preis (Fiat-Betrag / Menge) mit 34 gültigen Stellen statt 12 Nachkommastellen: 10^12 BABYDOGE für CHF 1234.56 → 0.00000000123456 (früher gerundet 0.000000001235).",
+      "_comment": "Abgeleiteter Preis (Fiat-Betrag / Menge) mit 34 gültigen Stellen statt 12 Nachkommastellen: 10^12 BABYDOGE für CHF 1234.56 → 0.00000000123456 (nicht gerundet auf 0.000000001235).",
       "format": "GENERIC",
       "csv": "Timestamp,Type,Asset,Amount,Fiat Amount,Currency\n2025-02-03T10:00:00Z,Buy,BABYDOGE,1000000000000,1234.56,CHF\n",
       "rows": [
@@ -1261,7 +1261,7 @@
     },
     {
       "name": "binance_eth2_rewards",
-      "_comment": "Binance: «ETH 2.0 Staking» (ETH → BETH) genau = Verschiebung (INTERNAL_MOVE); «ETH 2.0 Staking Rewards» = Belohnung (früher als Teilwort «eth20staking» übersprungen).",
+      "_comment": "Binance: «ETH 2.0 Staking» (ETH → BETH) genau = Verschiebung (INTERNAL_MOVE); «ETH 2.0 Staking Rewards» = Belohnung (nicht als Teilwort «eth20staking» übersprungen).",
       "format": "BINANCE",
       "csv": "User_ID,UTC_Time,Account,Operation,Coin,Change,Remark\n1,2024-02-01 00:00:00,Spot,ETH 2.0 Staking,ETH,-1.00000000,\n1,2024-02-01 00:00:00,Spot,ETH 2.0 Staking,BETH,1.00000000,\n1,2024-02-02 00:00:00,Spot,ETH 2.0 Staking Rewards,BETH,0.00010000,\n",
       "rows": [
@@ -2207,7 +2207,7 @@
     },
     {
       "file": "generic_usd_close",
-      "_comment": "Ohne usdtUsd (null): USD gilt 1:1 als USDT (frühere Rechnung), keine Markierung.",
+      "_comment": "Ohne usdtUsd (null): USD gilt 1:1 als USDT, keine Markierung.",
       "rates": {
         "CHF": {
           "2025-03-05": "0.9"
@@ -2487,7 +2487,7 @@
       ]
     }
   ],
-  "_stableSwapsComment": "Vorschau: Hinweis «gegen Stablecoin als Tausch gebucht» (stableSwaps), sobald eine neue Zeile so umgebucht wurde; txs = zugeordnete Transaktionen (Tausch mit Wert in USDT wie die [R10]-Fälle FR/AT in tax_templates.json). fee/feeUnit/feeCoin/feeCoinAmount (fehlt = nicht geprüft) — Gebühr im erhaltenen Coin eines Tauschs (auch USDT) = feeCoin = toCoin (weniger erhalten); balances = Bestand je Coin nach allen Transaktionen der Vorschau (PortfolioCalculator.holdingsAt), z. B. Kraken-Saldo 1246.7 USDT.",
+  "_stableSwapsComment": "Vorschau: Hinweis «gegen Stablecoin als Tausch gebucht» (stableSwaps), sobald eine neue Zeile so umgebucht wurde; txs = zugeordnete Transaktionen (Tausch mit Wert in USDT wie die Stablecoin-Fälle FR/AT in tax_templates.json). fee/feeUnit/feeCoin/feeCoinAmount (fehlt = nicht geprüft) — Gebühr im erhaltenen Coin eines Tauschs (auch USDT) = feeCoin = toCoin (weniger erhalten); balances = Bestand je Coin nach allen Transaktionen der Vorschau (PortfolioCalculator.holdingsAt), z. B. Kraken-Saldo 1246.7 USDT.",
   "stableSwaps": [
     {
       "file": "generic_stable",
@@ -2763,7 +2763,7 @@
     "line": 2,
     "priceUsdt": "63157.89473684210526315789473684211"
   },
-  "_usdtRoundTripComment": "USDT zum Marktkurs, Rundlauf Import → Steuer-Export (Owner-Entscheid Okt. 2026): CsvImportMapping.preview mit usdtUsd (Datum → USDT/USD-Schluss) und fx (rates, Datum → Einheiten je USD), Zeitzone UTC; die Transaktionen (Id = Reihenfolge ab 1) gehen in TaxExport.gainRows (FIFO, Steuerjahr year, currency, dieselben rates und usdtUsd). Erwartet: priceUsdt je Zeile (exakter Text), Zeilen mit Näherung (usdtApproximate, kein Schluss DES Tags → × 1) und Beträge der Gewinnzeile auf 2 Stellen (CutoffExport.money): ein USD-Kauf über 10 000 ergibt 10 000 USD Einstand; CHF-Kauf/Verkauf zu gleichem CHF-Preis an Tagen mit verschiedenem USDT/USD ergibt keinen Scheingewinn.",
+  "_usdtRoundTripComment": "USDT zum Marktkurs, Rundlauf Import → Steuer-Export: CsvImportMapping.preview mit usdtUsd (Datum → USDT/USD-Schluss) und fx (rates, Datum → Einheiten je USD), Zeitzone UTC; die Transaktionen (Id = Reihenfolge ab 1) gehen in TaxExport.gainRows (FIFO, Steuerjahr year, currency, dieselben rates und usdtUsd). Erwartet: priceUsdt je Zeile (exakter Text), Zeilen mit Näherung (usdtApproximate, kein Schluss DES Tags → × 1) und Beträge der Gewinnzeile auf 2 Stellen (CutoffExport.money): ein USD-Kauf über 10 000 ergibt 10 000 USD Einstand; CHF-Kauf/Verkauf zu gleichem CHF-Preis an Tagen mit verschiedenem USDT/USD ergibt keinen Scheingewinn.",
   "usdtRoundTrip": [
     {
       "name": "coinbase_usd",
@@ -2848,7 +2848,7 @@
       ]
     }
   ],
-  "_fiatFeeRewardComment": "Gebühr in einer anderen Fiat-Währung als der Preiswährung (Kauf in USD, Gebühr EUR) zum Tageskurs ihrer Währung, ohne Kurs (GBP) needsFx/missingFx statt still weg; Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso. Belohnung mit Fiat-Betrag (Fiat Amount, Währung Fiat/USDT): Preis = Betrag / Menge (wie Coinbase/Bitpanda); Währung ein Coin (DOT) → ohne Preis wie bisher. key = Schlüssel der Belohnung in Zeile rewardLine (mit Preis). fxNeeds: Währungen der Tageskurse (Gebühr in jeder Fiat-Währung).",
+  "_fiatFeeRewardComment": "Gebühr in einer anderen Fiat-Währung als der Preiswährung (Kauf in USD, Gebühr EUR) zum Tageskurs ihrer Währung, ohne Kurs (GBP) needsFx/missingFx statt still weg; Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso. Belohnung mit Fiat-Betrag (Fiat Amount, Währung Fiat/USDT): Preis = Betrag / Menge (wie Coinbase/Bitpanda); Währung ein Coin (DOT) → ohne Preis. key = Schlüssel der Belohnung in Zeile rewardLine (mit Preis). fxNeeds: Währungen der Tageskurse (Gebühr in jeder Fiat-Währung).",
   "fiatFeeReward": {
     "file": "generic_fiat_fee_reward",
     "rates": {

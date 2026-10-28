@@ -21,7 +21,7 @@ import java.util.Locale
 /**
  * Nur für instrumentierte Tests (Barrierefreiheits-Audit mit grosser Schrift und auf Arabisch): Schriftgrösse und Sprache
  * allein für die Oberfläche der App — nie systemweit und ohne Konfigurationswechsel der Activity. So bleiben die übrigen
- * Tests im selben Lauf unberührt (der frühere Versuch über `settings put system font_scale` und die App-Sprache stellte
+ * Tests im selben Lauf unberührt (ein Weg über `settings put system font_scale` und die App-Sprache stellte
  * das Gerät nicht sauber zurück). Im Betrieb immer leer: [Provide] gibt den Inhalt unverändert weiter.
  */
 object TestDisplayOverride {

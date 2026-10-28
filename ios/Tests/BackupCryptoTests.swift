@@ -271,30 +271,118 @@ final class BackupLimitsTests: XCTestCase {
         try BackupLimits.checkDepth(Data(#"{"a":"x\"[[[[[[["}"#.utf8), max: 2)
     }
 
-    func testInvalidPortfolioEntriesAreCounted() throws {
-        let json = #"""
-        {"format":"cryptochecker-backup","portfolio":[
-          {"coin":"BTC","type":"BUY","amountText":"1","time":1},
-          {"coin":"ETH","type":"BUY","time":2},
-          "kein Objekt"],
-         "portfolioAlarms":[{"kind":"UNKNOWN","threshold":1}]}
-        """#
-        XCTAssertEqual(try BackupManager.invalidEntries(Data(json.utf8)), 3)
+    /// Klartext mit allen Teilen, die `plainExportData` schreibt (Einstellungen aus `backup_settings.json`).
+    private func backupJSON(portfolio: [[String: Any]] = [], portfolioAlarms: [[String: Any]] = []) throws -> Data {
+        let settings = try XCTUnwrap(TestSupport.fixture("backup_settings")["settings"] as? [String: Any])
+        let root: [String: Any] = [
+            "format": BackupManager.format, "version": BackupManager.version, "createdAt": 1, "watches": [[String: Any]](),
+            "alarms": [[String: Any]](), "favorites": ["EXCHANGE": [String](), "COIN": ["BTC"], "QUOTE": [String]()],
+            "settings": settings, WatchedAddressRules.backupKey: [[String: Any]](),
+            "portfolio": portfolio, "portfolioAlarms": portfolioAlarms,
+        ]
+        return try JSONSerialization.data(withJSONObject: root)
     }
 
-    /// Grenzen der exakten Zahlen (wie Android `PortfolioJson.decimal`); eine Zahl statt Text gilt als fehlend.
+    /// Transaktion so, wie die Sicherung sie schreibt, mit geänderten Feldern `changes`.
+    private func tx(_ changes: [String: Any] = [:]) -> [String: Any] {
+        BackupManager.txToJson(PortfolioTx(id: 1, coin: "BTC", type: .BUY, amountExact: 1, time: 1))
+            .merging(changes) { _, new in new }
+    }
+
+    func testInvalidPortfolioEntriesAreCounted() throws {
+        let alarm = BackupManager.portfolioAlarmToJson(PortfolioAlarm(id: 1, kind: .CHANGE_UP, threshold: 5, currency: nil))
+            .merging(["kind": "UNKNOWN"]) { _, new in new }
+        let json = try backupJSON(portfolio: [tx(), tx(["amountText": "0"]), tx(["type": "LOAN"])], portfolioAlarms: [alarm])
+        XCTAssertEqual(try BackupManager.invalidEntries(json), 3)
+    }
+
+    /// Grenzen der exakten Zahlen (wie Android `PortfolioJson.decimal`).
     func testTextNumbersHaveLimits() throws {
-        let json = #"""
-        {"format":"cryptochecker-backup","portfolio":[
-          {"coin":"BTC","type":"BUY","amountText":"0.5","time":1},
-          {"coin":"BTC","type":"BUY","amountText":"1e300","time":2},
-          {"coin":"BTC","type":"BUY","amountText":"1e-50","time":3},
-          {"coin":"BTC","type":"BUY","amountText":"1","priceText":"1e31","time":4},
-          {"coin":"BTC","type":"BUY","amountText":"1","feeText":"1e35","time":5},
-          {"coin":"BTC","type":"BUY","amount":1,"time":6}]}
-        """#
-        // Menge zu gross, zu fein bzw. nur als Zahl → ungültig; ungültiger Preis bzw. Gebühr → Eintrag gilt ohne
-        XCTAssertEqual(try BackupManager.invalidEntries(Data(json.utf8)), 3)
+        let json = try backupJSON(portfolio: [
+            tx(["amountText": "0.5"]), tx(["amountText": "1e300"]), tx(["amountText": "1e-50"]),
+            tx(["priceText": "1e31"]), tx(["feeText": "1e35"]),
+        ])
+        // Menge zu gross bzw. zu fein → ungültig; ungültiger Preis bzw. Gebühr → Eintrag gilt ohne
+        XCTAssertEqual(try BackupManager.invalidEntries(json), 2)
+        // Zahl statt Text: Sicherung unlesbar
+        XCTAssertThrowsError(try BackupManager.invalidEntries(backupJSON(portfolio: [tx(["amountText": 1])])))
+    }
+
+    /// Wie `BackupLimitsTest.kt`: Jedes Pflichtfeld eines Eintrags fehlt → Sicherung unlesbar; wahlfreie Felder dürfen
+    /// fehlen (`Parity/backup_entries.json`).
+    func testEntryFieldsMatchFixture() throws {
+        let fixture = try TestSupport.fixture("backup_entries")
+        for entry in BackupFields.entries {
+            let spec = try XCTUnwrap(fixture[entry.part] as? [String: Any], entry.part)
+            XCTAssertEqual(spec["required"] as? [String: String] ?? [:],
+                           Dictionary(uniqueKeysWithValues: entry.required.map { ($0.key, $0.type.rawValue) }), entry.part)
+            XCTAssertEqual(spec["optional"] as? [String: String] ?? [:],
+                           Dictionary(uniqueKeysWithValues: entry.optional.map { ($0.key, $0.type.rawValue) }), entry.part)
+            let sample = try XCTUnwrap(spec["sample"] as? [String: Any], entry.part)
+            try BackupFields.checkEntry(entry, sample)
+            for field in entry.required {
+                var missing = sample
+                missing.removeValue(forKey: field.key)
+                XCTAssertThrowsError(try BackupFields.checkEntry(entry, missing), "\(entry.part) ohne \(field.key)")
+            }
+            for field in entry.optional {
+                var without = sample
+                without.removeValue(forKey: field.key)
+                XCTAssertNoThrow(try BackupFields.checkEntry(entry, without), "\(entry.part) ohne \(field.key)")
+            }
+            XCTAssertThrowsError(try BackupFields.checkEntry(entry, "kein Objekt"), entry.part)
+        }
+        for c in TestSupport.list(fixture["invalid"]) {
+            let part = c["part"] as? String ?? ""
+            let entry = try XCTUnwrap(BackupFields.entries.first { $0.part == part }, part)
+            var sample = try XCTUnwrap((fixture[part] as? [String: Any])?["sample"] as? [String: Any])
+            sample[c["key"] as? String ?? ""] = c["value"] ?? NSNull()
+            XCTAssertThrowsError(try BackupFields.checkEntry(entry, sample), c["name"] as? String ?? "")
+        }
+        // Was der Schreiber schreibt, besteht die Prüfung
+        let watch = Watch(id: 1, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC", quoteAsset: "USDT")
+        try BackupFields.checkEntry(BackupFields.watch, BackupManager.watchToJson(watch))
+        try BackupFields.checkEntry(BackupFields.alarm, BackupManager.alarmToJson(
+            Alarm(id: 1, watchId: 1, condition: .PRICE_ABOVE, threshold: 1)))
+        try BackupFields.checkEntry(BackupFields.tx, tx())
+        try BackupFields.checkEntry(BackupFields.portfolioAlarm,
+                                    BackupManager.portfolioAlarmToJson(PortfolioAlarm(id: 1, kind: .CHANGE_UP, threshold: 5, currency: nil)))
+    }
+
+    /// Wie `BackupLimitsTest.kt`: Jeder Teil, den `plainExportData` schreibt, ist Pflicht; ohne «version» unlesbar.
+    func testEveryPartTheExportWritesIsRequired() throws {
+        let full = try XCTUnwrap(JSONSerialization.jsonObject(with: backupJSON()) as? [String: Any])
+        XCTAssertEqual(try BackupManager.invalidEntries(backupJSON()), 0)
+        // Jede Favoriten-Art als Liste von Texten, jedes Feld der Einstellungen
+        var noQuote = full
+        noQuote["favorites"] = ["EXCHANGE": [String](), "COIN": [String]()]
+        XCTAssertThrowsError(try BackupFields.checkParts(noQuote))
+        var numberFavorite = full
+        numberFavorite["favorites"] = ["EXCHANGE": [String](), "COIN": [1], "QUOTE": [String]()]
+        XCTAssertThrowsError(try BackupFields.checkParts(numberFavorite))
+        var noLock = full
+        var settings = try XCTUnwrap(full["settings"] as? [String: Any])
+        settings.removeValue(forKey: "appLock")
+        noLock["settings"] = settings
+        XCTAssertThrowsError(try BackupFields.checkParts(noLock))
+        for key in ["createdAt", "watches", "alarms", "favorites", "settings", "portfolio", "portfolioAlarms",
+                    WatchedAddressRules.backupKey] {
+            var root = full
+            root.removeValue(forKey: key)
+            XCTAssertThrowsError(try BackupManager.invalidEntries(JSONSerialization.data(withJSONObject: root)), key) { error in
+                guard case BackupManager.Failure.invalid(let part) = error else { return XCTFail("\(key): \(error)") }
+                XCTAssertEqual(part, key)
+            }
+        }
+        // Falscher Typ zählt wie fehlend
+        var wrongType = full
+        wrongType["portfolio"] = [String: Any]()
+        XCTAssertThrowsError(try BackupFields.checkParts(wrongType))
+        var noVersion = full
+        noVersion.removeValue(forKey: "version")
+        XCTAssertThrowsError(try BackupManager.invalidEntries(JSONSerialization.data(withJSONObject: noVersion))) { error in
+            XCTAssertEqual(error as? BackupVersion.Failure, .invalid)
+        }
     }
 
     /// Wie `BackupLimitsTest.kt`: nie eine Datei schreiben, die sich danach nicht mehr einlesen lässt.
@@ -311,40 +399,21 @@ final class BackupLimitsTests: XCTestCase {
     func testBackupIsWrittenCompactAndReadBack() throws {
         let root: [String: Any] = [
             "format": BackupManager.format, "version": BackupManager.version,
-            "watches": [["id": 7, "note": "zwei\nZeilen"]], "alarms": [],
+            "createdAt": 1,
+            "watches": [BackupManager.watchToJson(Watch(id: 7, exchangeKey: "Binance", exchangeName: "Binance", baseAsset: "BTC",
+                                                        quoteAsset: "USDT", note: "zwei\nZeilen"))],
+            "alarms": [], "favorites": ["EXCHANGE": [String](), "COIN": [String](), "QUOTE": [String]()],
+            "settings": TestSupport.settingsBackup(),
+            "portfolio": [], "portfolioAlarms": [], WatchedAddressRules.backupKey: [],
         ]
         let data = try BackupManager.encode(root)
         let text = String(decoding: data, as: UTF8.self)
         XCTAssertFalse(text.contains("\n"))
         XCTAssertFalse(text.contains("  "))
-        XCTAssertTrue(text.hasPrefix(#"{"alarms":[],"format":"cryptochecker-backup""#))
+        XCTAssertTrue(text.hasPrefix(#"{"alarms":[],"favorites":{"COIN":[],"EXCHANGE":[],"QUOTE":[]},"format":"cryptochecker-backup""#))
         XCTAssertFalse(try BackupManager.needsPassword(data))
         XCTAssertEqual(try BackupManager.plainJSON(data, password: nil), data)
         XCTAssertEqual(try BackupManager.invalidEntries(data), 0)
-    }
-
-    /// Eingerückte Sicherung älterer Versionen (iOS `.prettyPrinted`, Android `toString(2)`) liest sich weiter.
-    func testIndentedBackupUpToBuild91IsStillRead() throws {
-        let indented = Data(#"""
-        {
-          "alarms" : [
-
-          ],
-          "format" : "cryptochecker-backup",
-          "version" : 1,
-          "watches" : [
-            {
-              "baseAsset" : "BTC",
-              "id" : 3,
-              "exchangeKey" : "binance",
-              "quoteAsset" : "USDT"
-            }
-          ]
-        }
-        """#.utf8)
-        XCTAssertFalse(try BackupManager.needsPassword(indented))
-        XCTAssertEqual(try BackupManager.plainJSON(indented, password: nil), indented)
-        XCTAssertEqual(try BackupManager.invalidEntries(indented), 0)
     }
 }
 
@@ -429,11 +498,8 @@ final class RestoreRecoveryPolicyTests: XCTestCase {
         XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: -5, attemptedFor: nil, now: created), .giveUp)
     }
 
-    func testStoredTimeWinsOverFileTime() {
-        XCTAssertEqual(RestoreRecoveryPolicy.createdAt(stored: created, fileModified: created + hour), created)
-        // Ohne «createdAt»: Änderungszeit der Datei
-        XCTAssertEqual(RestoreRecoveryPolicy.createdAt(stored: 0, fileModified: created + hour), created + hour)
-        XCTAssertEqual(RestoreRecoveryPolicy.createdAt(stored: 0, fileModified: 0), 0)
+    /// «createdAt» aus dem Journal; ohne gilt das Alter als unbekannt (0, aufgeben).
+    func testCreatedAtComesFromTheJournal() {
         XCTAssertEqual(RestoreRecoveryPolicy.storedCreatedAt(Data(#"{"createdAt":1800000000000,"watches":[]}"#.utf8)), created)
         XCTAssertEqual(RestoreRecoveryPolicy.storedCreatedAt(Data(#"{"watches":[]}"#.utf8)), 0)
         XCTAssertEqual(RestoreRecoveryPolicy.storedCreatedAt(Data("kein json".utf8)), 0)

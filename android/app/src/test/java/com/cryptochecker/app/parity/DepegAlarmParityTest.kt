@@ -102,7 +102,7 @@ class DepegAlarmParityTest {
         }
     }
 
-    /** Live-Kurs USDT/USD der Bewertung aus der letzten Messung (USDT zum Marktkurs, Owner-Entscheid Okt. 2026; 6 Std. gültig). */
+    /** Live-Kurs USDT/USD der Bewertung aus der letzten Messung (USDT zum Marktkurs; 6 Std. gültig). */
     @Test
     fun liveUsdtUsd() {
         val now = 1_800_000_000_000L

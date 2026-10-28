@@ -11,7 +11,7 @@ import org.junit.Test
 /**
  * JSON-Teile der Portfolio-Momentaufnahme ([PortfolioSnapshotCodec]): Coins ohne «Heute», ± seit Kauf, Tagesverlauf
  * (samt Hin- und Rückweg über [PortfolioSnapshotCodec.dailyJson]), Veränderung je Zeitraum und Wertverlauf. Fehlende
- * oder unlesbare Teile älterer Aufnahmen laden leer bzw. als null, unlesbare Zeilen entfallen einzeln.
+ * oder unlesbare Teile laden leer bzw. als null, unlesbare Zeilen entfallen einzeln.
  */
 class PortfolioSnapshotCodecReadTest {
 

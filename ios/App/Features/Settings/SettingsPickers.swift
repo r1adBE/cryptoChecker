@@ -130,7 +130,7 @@ struct SettingsAccentPicker: View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(AccentColor.allCases) { accent in
                 SettingsChoiceRow(title: L(accent.labelKey), selected: accent == selection) {
-                    // K3: Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
+                    // Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
                     Circle().fill(accent.primary).frame(width: 22, height: 22)
                         .accessibilityHidden(true)
                 } action: {

@@ -170,7 +170,7 @@ enum PortfolioTxForm {
     }
 
     /// Wert beim Erhalt (Belohnung, Einzahlung) bzw. Marktwert (Verschenkt, Damit bezahlt) für einen vergangenen Tag: geprüften
-    /// Tagesschluss vorbelegen (markiert), wenn das Feld leer ist. Kauf/Verkauf wie bisher nur mit Hinweis.
+    /// Tagesschluss vorbelegen (markiert), wenn das Feld leer ist. Kauf/Verkauf nur mit Hinweis.
     static func mayPrefillHistoricClose(type: PortfolioTxType, isEdit: Bool, isToday: Bool, priceBlank: Bool) -> Bool {
         (type == .REWARD || type == .DEPOSIT || type == .GIFT || type == .PAYMENT) && !isEdit && !isToday && priceBlank
     }
@@ -203,7 +203,7 @@ enum PortfolioTxForm {
         return entered == 0
     }
 
-    /// Faktor USDT → Anzeigewährung für die Eingabe (Owner-Entscheid Okt. 2026, wie CSV-Import, Steuer-Export
+    /// Faktor USDT → Anzeigewährung für die Eingabe (wie CSV-Import, Steuer-Export
     /// `TaxExport.rateOn` und Live-Kurse): Devisenkurs USD → Währung `usdToFiat` × USDT/USD `usdtUsd` (heute der Live-Kurs,
     /// sonst der Tagesschluss DES Tags). Ohne gültigen, plausiblen USDT/USD-Kurs (`PortfolioStables.usdtUsd`) × 1
     /// (Näherung). `fiatToUsdt`/`usdtToFiat` rechnen mit diesem Faktor. nil ohne Devisenkurs — wie `entryRate` (Kotlin).

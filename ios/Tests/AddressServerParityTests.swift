@@ -54,14 +54,13 @@ final class AddressServerParityTests: XCTestCase {
         let restoreCases = try cases("restore")
         XCTAssertTrue(restoreCases.contains { $0["trusted"] as? Bool == false && $0["current"] is NSNull && $0["value"] is String })
         for c in restoreCases {
-            let present = try XCTUnwrap(c["present"] as? Bool)
             let trusted = try XCTUnwrap(c["trusted"] as? Bool)
             let value = c["value"] as? String
             let current = c["current"] as? String
-            XCTAssertEqual(AddressServer.restored(present: present, value: value, current: current, trusted: trusted),
+            XCTAssertEqual(AddressServer.restored(value: value, current: current, trusted: trusted),
                            c["result"] as? String, "\(c)")
             // Hinweis in der Wiederherstellungsmeldung (wie Android)
-            let note = BackupRestorePolicy.addressServerNote(present: present, value: value, current: current, trusted: trusted)
+            let note = BackupRestorePolicy.addressServerNote(value: value, current: current, trusted: trusted)
             XCTAssertEqual(note?.rawValue, c["note"] as? String, "\(c)")
         }
     }
@@ -73,17 +72,20 @@ final class AddressServerParityTests: XCTestCase {
     }
 
     /// Sicherung: ohne Passwort nie gesetzt, ersetzt oder gelöscht, mit Passwort schon — wie Android.
-    func testSicherungOhnePasswortLoeschtNicht() {
+    func testSicherungOhnePasswortLoeschtNicht() throws {
         var current = AppSettings()
         current.addressServerBtc = "https://a.example/api"
-        let cleared: [String: Any] = ["addressServerBtc": NSNull()]
-        let other: [String: Any] = ["addressServerBtc": "https://B.example/api/"]
-        XCTAssertEqual(BackupManager.applySettings(cleared, onto: current, trusted: false).addressServerBtc, "https://a.example/api")
-        XCTAssertNil(BackupManager.applySettings(cleared, onto: current, trusted: true).addressServerBtc)
-        XCTAssertEqual(BackupManager.applySettings([:], onto: current, trusted: true).addressServerBtc, "https://a.example/api")
-        XCTAssertEqual(BackupManager.applySettings(other, onto: current, trusted: false).addressServerBtc, "https://a.example/api")
-        XCTAssertEqual(BackupManager.applySettings(other, onto: current, trusted: true).addressServerBtc, "https://b.example/api")
+        let cleared = TestSupport.settingsBackup(current, ["addressServerBtc": NSNull()])
+        let other = TestSupport.settingsBackup(current, ["addressServerBtc": "https://B.example/api/"])
+        XCTAssertEqual(try BackupManager.applySettings(cleared, onto: current, trusted: false).addressServerBtc, "https://a.example/api")
+        XCTAssertNil(try BackupManager.applySettings(cleared, onto: current, trusted: true).addressServerBtc)
+        // Fehlt das Feld, ist die Sicherung unlesbar
+        var missing = TestSupport.settingsBackup(current)
+        missing.removeValue(forKey: "addressServerBtc")
+        XCTAssertThrowsError(try BackupManager.applySettings(missing, onto: current, trusted: true))
+        XCTAssertEqual(try BackupManager.applySettings(other, onto: current, trusted: false).addressServerBtc, "https://a.example/api")
+        XCTAssertEqual(try BackupManager.applySettings(other, onto: current, trusted: true).addressServerBtc, "https://b.example/api")
         // Ohne Passwort auch keinen Server setzen, wo keiner war
-        XCTAssertNil(BackupManager.applySettings(other, onto: AppSettings(), trusted: false).addressServerBtc)
+        XCTAssertNil(try BackupManager.applySettings(other, onto: AppSettings(), trusted: false).addressServerBtc)
     }
 }

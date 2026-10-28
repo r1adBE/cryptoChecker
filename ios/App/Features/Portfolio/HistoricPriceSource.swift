@@ -114,13 +114,13 @@ enum HistoricPriceSource {
         return CloseResult(price: resolved.price, unchecked: resolved.unchecked, source: resolved.provider)
     }
 
-    /// Coinbase wie bisher (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %).
+    /// Coinbase (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %).
     static func coinbaseOutcome(_ b: String, day: CutoffDay, start: Int64, reference: Double) async -> HistoricCloseChain.Outcome {
         let r = await coinbaseClose(b, day: day, start: start, current: reference)
         return HistoricCloseChain.Outcome(price: r.price, rejected: r.unchecked, provider: DataFreshness.coinbase)
     }
 
-    /// Binance-Gruppe wie bisher: Spot (data-api, api; 1/3…3), Futures (±25 %), Binance.US (USDT, sonst USD; ±25 %).
+    /// Binance-Gruppe: Spot (data-api, api; 1/3…3), Futures (±25 %), Binance.US (USDT, sonst USD; ±25 %).
     private static func binanceOutcome(_ b: String, start: Int64, reference: Double,
                                        ownName: String?) async -> HistoricCloseChain.Outcome {
         // Gab es einen Kurs, der die Prüfung nicht bestand?
@@ -132,7 +132,7 @@ enum HistoricPriceSource {
             ("api.binance.com", "https://api.binance.com/api/v3/klines", true),
             ("fapi.binance.com", "https://fapi.binance.com/fapi/v1/klines", false),
         ]
-        // Gleicher Token (K-8): Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
+        // Gleicher Token: Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
         let binanceOk = TokenIdentityStore.shared.binanceAllowed(base: b, ownName: ownName)
         if !binanceOk { rejected = true }
         for source in binance where binanceOk {

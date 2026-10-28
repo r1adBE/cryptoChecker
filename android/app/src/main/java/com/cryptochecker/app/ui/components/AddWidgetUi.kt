@@ -44,7 +44,7 @@ import com.cryptochecker.app.widget.WidgetKind
 import com.cryptochecker.app.widget.WidgetPinner
 
 /*
- * Runde 13b: Widgets direkt aus der App hinzufügen (requestPinAppWidget). Einstellungen ›
+ * Widgets direkt aus der App hinzufügen (requestPinAppWidget). Einstellungen ›
  * Darstellung › «Widgets» öffnet eine Seite mit allen Widget-Arten samt Vorschaubild (`WidgetsPage`); das
  * Aktionen-Blatt der Merkliste legt ein Einzel-Widget für das Paar an. Kann der
  * Startbildschirm das nicht, steht stattdessen eine kurze Anleitung da.

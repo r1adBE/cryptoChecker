@@ -92,7 +92,7 @@ final class KrakenAssetCodesTests: XCTestCase {
     func testOnlyTheTwoKrakenAliasesAreMapped() {
         XCTAssertEqual(KrakenAssetCodes.common("XBT"), "BTC")
         XCTAssertEqual(KrakenAssetCodes.common("XDG"), "DOGE")
-        // Frühere Einträge der alten Tabelle (XVN, ICN, NMC) gibt es bei Kraken nicht mehr
+        // XVN, ICN, NMC gibt es bei Kraken nicht: Kürzel bleibt
         XCTAssertEqual(KrakenAssetCodes.common("XVN"), "XVN")
         XCTAssertEqual(KrakenAssetCodes.common("XXBT"), "XXBT")
         XCTAssertEqual(KrakenAssetCodes.common("USDT"), "USDT")
@@ -171,7 +171,7 @@ final class BinanceFuturesPairsTests: XCTestCase {
         XCTAssertEqual(pairs.map(\.isTradFi), [false, true, true, false])
         XCTAssertEqual(pairs[1].contractType, .perpetual)
         XCTAssertEqual(pairs[1].pairId, "AMCUSDT")
-        // Immer gesetzt, auch bei Krypto: so erkennt der Paarspeicher Listen älterer Versionen
+        // Immer gesetzt, auch bei Krypto: so erkennt der Paarspeicher Listen ohne das Feld
         XCTAssertTrue(pairs.allSatisfy { $0.tradFi != nil })
     }
 
@@ -454,7 +454,7 @@ final class IndicatorAlertRulesTests: XCTestCase {
         let first = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.5, threshold: 2.4, wasCrossed: false)
         XCTAssertEqual(first, .init(notify: true, crossed: true))
         let again = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.6, threshold: 2.4, wasCrossed: true)
-        XCTAssertEqual(again, .init(notify: false, crossed: true)) // erneut schreiben (samt Grenze), nicht melden
+        XCTAssertEqual(again, .init(notify: false, crossed: nil)) // nicht melden, Zustand bleibt
         let back = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.3, threshold: 2.4, wasCrossed: true)
         XCTAssertEqual(back, .init(notify: false, crossed: false))
         XCTAssertNil(IndicatorAlertRules.decide(.MAYER_ABOVE, value: nil, threshold: 2.4, wasCrossed: true).crossed)
@@ -489,7 +489,7 @@ final class HttpUserAgentTests: XCTestCase {
     func testVersionFromBundle() {
         XCTAssertEqual(HttpUserAgent.ios("16.2.2"), "cryptoChecker-iOS/16.2.2")
         XCTAssertEqual(HttpUserAgent.ios(" 16.2.2 "), "cryptoChecker-iOS/16.2.2")
-        // Ohne lesbare Version: nur die Hauptversion (wie bisher fest)
+        // Ohne lesbare Version: nur die Hauptversion
         XCTAssertEqual(HttpUserAgent.ios(nil), "cryptoChecker-iOS/16")
         XCTAssertEqual(HttpUserAgent.ios(""), "cryptoChecker-iOS/16")
         XCTAssertEqual(HttpUserAgent.header, "User-Agent")

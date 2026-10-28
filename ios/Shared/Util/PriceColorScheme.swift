@@ -13,7 +13,7 @@ import UIKit
 /// Schrift ohne Pille). Die Börsenfarben liegen je knapp über 4.5:1 bzw. 7:1 (so nah am Börsenton,
 /// wie der Kontrast erlaubt).
 ///
-/// Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche», Entscheid 18. Oktober 2026:
+/// Feste Börsenfarben («Frisch», «Traditionell», «Farbsehschwäche»:
 /// «Farben wie bei allen Börsen, die Akzentfarbe soll nicht irritieren»), geprüft mit
 /// `android/tools/check_price_colors.py` und `SettingsLogicTests`: je Farbe der Börsenton so nah wie
 /// möglich (CIEDE2000; «Frisch» = Binance #0ECB81 / #F6465D, «Traditionell» = TradingView #089981 /
@@ -44,7 +44,7 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     static let minAccentDeltaE: Double = 24
 
     /// Steigend: erste Fassung = Standard. Nur «Ruhig» und «Ruhig Farbsehschwäche» haben Ersatz für Akzente, die ihr zu ähnlich sind;
-    /// die übrigen Schemata bleiben feste Börsenfarben (Entscheid 16. Oktober 2026).
+    /// die übrigen Schemata bleiben feste Börsenfarben.
     private var rises: [PriceTone] {
         switch self {
         case .CALM: [.calmGreen, .calmBlue]
@@ -52,7 +52,7 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
         case .GREEN_RED: [PriceTone(0x127248, 0x0ECB81, 0x025430, 0x30DE92)]
         // TradingView-Grün #089981
         case .TRADITIONAL: [PriceTone(0x0A7262, 0x3EAE97, 0x005246, 0x5AD8BE)]
-        // Blau nahe #1565C0 / #3D9BFF (Entscheid 18. Oktober 2026)
+        // Blau nahe #1565C0 / #3D9BFF
         case .BLUE_ORANGE: [PriceTone(0x064E93, 0x4F9FFD, 0x00335F, 0xCFEAFF)]
         // Ersatz auf der Blau-Gelb-Achse: Petrol bzw. Blau-Violett statt Blau
         case .CALM_COLOR_VISION: [PriceTone(0x1460AB, 0x64B5F6, 0x093D83, 0xA6D4FF), .petrol, .vividBlue]

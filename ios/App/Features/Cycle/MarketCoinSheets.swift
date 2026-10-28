@@ -43,7 +43,7 @@ struct CycleCoinSheets: ViewModifier {
                     .environmentObject(data)
                     .environment(\.appAccent, accent)
                     .environment(\.changeView, data.changeView())
-                    // Halb hoch öffnen, auf volle Höhe ziehbar (L-16, `WatchActionsDetents`)
+                    // Halb hoch öffnen, auf volle Höhe ziehbar (`WatchActionsDetents`)
                     .modifier(WatchActionsDetents())
                     .presentationDragIndicator(.visible)
                     .presentationCornerRadius(28)
@@ -161,7 +161,7 @@ struct CycleCoinSheets: ViewModifier {
 
     /// Wie nach links wischen in der Merkliste: sofort löschen, «Rückgängig» im Banner, Ansage.
     private func delete(_ watch: Watch) {
-        // Rückfrage F-08 vorher; nach «Trotzdem» Banner mit «Rückgängig» und Ansage, nach «Abbrechen» nichts
+        // Rückfrage vorher; nach «Trotzdem» Banner mit «Rückgängig» und Ansage, nach «Abbrechen» nichts
         data.withWatchlistConfirm {
             var result: DeletedWatch?
             withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }

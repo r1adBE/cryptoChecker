@@ -23,8 +23,8 @@ import javax.inject.Singleton
  * den USDT-Kurs der [PortfolioPriceSource]. Danach USD → Ziel über
  * [FxRateSource]. Beide Quellen haben eigene Zwischenspeicher; Alter der Devisenkurse: [staleFxTime]. Krypto- und
  * Stablecoin-Kurse älter als [CurrencyConversion.QUOTE_MAX_AGE_MILLIS] ergeben keinen Faktor ([freshMarket]).
- * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
- * ([DepegReadingStore.liveUsdtUsd], gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1 (bisherige Rechnung).
+ * USDT zum Marktkurs: USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
+ * ([DepegReadingStore.liveUsdtUsd], gemessen mit Portfolio oder Depeg-Alarm); ohne frische Messung 1.
  */
 @Singleton
 class CurrencyConverter @Inject constructor(
@@ -171,12 +171,12 @@ class CurrencyConverter @Inject constructor(
     fun usdtMeasured(): Flow<Boolean> =
         depegReadings.reading.map { DepegAlarm.liveUsdtUsd(it, System.currentTimeMillis()) != null }.distinctUntilChanged()
 
-    /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1, bisherige Rechnung). */
+    /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1). */
     private fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()
 
     /**
      * Einheiten der Ziel-Stablecoin-Währung [code] je USD: USDT = 1 ÷ USDT/USD (Marktkurs, ohne Messung 1); USD und
-     * andere Stablecoins 1 (wie bisher).
+     * andere Stablecoins 1.
      */
     private fun usdToStable(code: String): Double =
         if (code == "USDT") 1.0 / (CurrencyConversion.stableToUsd("USDT", null, liveUsdtUsd()) ?: 1.0) else 1.0

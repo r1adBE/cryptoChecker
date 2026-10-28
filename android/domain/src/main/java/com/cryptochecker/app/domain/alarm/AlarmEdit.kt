@@ -64,8 +64,8 @@ object AlarmEdit {
         edited.repeating && !existing.repeating && !existing.enabled && existing.lastTriggeredAt > 0
 
     /**
-     * Gespeicherter Alarm: [edited] = Eingaben mit dem Zustand «neu scharf» (so wie bisher immer
-     * gespeichert). Hat sich die Bedingung nicht geändert, behält er Ein/Aus, letzte Meldung,
+     * Gespeicherter Alarm: [edited] = Eingaben mit dem Zustand «neu scharf».
+     * Hat sich die Bedingung nicht geändert, behält er Ein/Aus, letzte Meldung,
      * Bezugskurs und Scharf/Gemeldet von [existing] — nur Ton, Vibration, Ansage und
      * Wiederholung ändern sich.
      *

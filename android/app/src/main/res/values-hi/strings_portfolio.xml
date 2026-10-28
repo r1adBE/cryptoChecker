@@ -315,4 +315,10 @@
         <item quantity="other">इसके साथ %d लॉट और बैलेंस इतिहास भी हट जाएँगे।</item>
     </plurals>
     <string name="portfolio_address_remove_history">इसके साथ बैलेंस इतिहास भी हट जाएगा।</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">सहेजा नहीं जा सका – कृपया फिर से कोशिश करो</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">सीमा अमान्य है – इसे हटाओ और फिर से बनाओ</string>
 </resources>

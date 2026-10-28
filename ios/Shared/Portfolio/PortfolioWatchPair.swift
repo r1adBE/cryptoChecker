@@ -20,14 +20,14 @@ enum PortfolioWatchPair {
         let disabled: Bool
         /// Letzte Aktualisierung (ms) — bei gleicher Gegenwährung gewinnt das frischere Paar.
         let lastUpdate: Int64
-        /// Voller Name des Coins laut Paarliste der Börse (TokenIdentity, K-8); nil = unbekannt.
+        /// Voller Name des Coins laut Paarliste der Börse (TokenIdentity); nil = unbekannt.
         var name: String? = nil
     }
 
     /// Bestes Paar für `coin`: aktiv, Spot, Spot-Börse der App ausser Binance (`PortfolioExchangeRoute.isSpot`,
     /// Binance führt den Coin ja nicht), Gegenwährung aus `PortfolioExchangeRoute.quotes` (in dieser Reihenfolge);
     /// bei Gleichstand das zuletzt aktualisierte, dann nach Börse. nil = keines.
-    /// Gleicher Token (K-8): Nennen die Börsen der passenden Paare den Coin klar verschieden
+    /// Gleicher Token: Nennen die Börsen der passenden Paare den Coin klar verschieden
     /// (`TokenIdentity.conflicting`, z. B. «Simon's Cat» und «Catcoin»), ist unklar, welcher Token im
     /// Portfolio steht — dann keines (kein geratener Kurs).
     static func pick(_ coin: String, watches: [Candidate]) -> Candidate? {

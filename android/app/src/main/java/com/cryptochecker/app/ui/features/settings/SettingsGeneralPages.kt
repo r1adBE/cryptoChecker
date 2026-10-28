@@ -49,7 +49,7 @@ internal fun CurrencyPage(onBack: () -> Unit, viewModel: SettingsViewModel = hil
     // Sprache der Konfiguration (beobachtbar); Locale.ROOT nur als Notnagel
     val locale = LocalConfiguration.current.locales[0] ?: Locale.ROOT
     var query by rememberSaveable { mutableStateOf("") }
-    // Eine früher gesetzte, nicht mehr gelistete Währung trotzdem anzeigen
+    // Eine gesetzte, nicht gelistete Währung (z. B. aus einer Sicherung) trotzdem anzeigen
     val codes = remember(selected) {
         if (selected in FxRateSource.CURRENCIES) FxRateSource.CURRENCIES else FxRateSource.CURRENCIES + selected
     }

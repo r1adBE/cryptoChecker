@@ -10,7 +10,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Erlaubnis-Abfrage nach dem Neuerstellen der Activity (Review TST6-R1): Ein abgemeldeter Launcher der alten Komposition
+ * Erlaubnis-Abfrage nach dem Neuerstellen der Activity: Ein abgemeldeter Launcher der alten Komposition
  * wirft `IllegalStateException`. [launchOrSkip] stürzt dann nicht ab und merkt nichts als «gefragt».
  */
 class LaunchOrSkipTest {

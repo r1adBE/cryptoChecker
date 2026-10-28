@@ -86,11 +86,11 @@ final class AlarmCardStatusTests: XCTestCase {
     }
 }
 
-// ---- aus AlarmDeliveryB104Tests
+// ---- aus PortfolioAlarmDeliveryTests
 
-/// Review ARC2-02, FUN2-04: Portfolio-Alarme mit eigenem Vermerk-Speicher und einmaliges Ausschalten der
-/// «fällt um ≥ 100 %»-Alarme. Gegenstück: `AlarmDeliveryB104Test`.
-final class AlarmDeliveryB104Tests: XCTestCase {
+/// Portfolio-Alarme mit eigenem Vermerk-Speicher und einmaliges Ausschalten der
+/// «fällt um ≥ 100 %»-Alarme. Gegenstück: `PortfolioAlarmDeliveryTest`.
+final class PortfolioAlarmDeliveryTests: XCTestCase {
     private typealias S = TestSupport
     private let at: Int64 = 1_700_000_000_000
     private var defaults: UserDefaults!
@@ -98,7 +98,7 @@ final class AlarmDeliveryB104Tests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        suiteName = "AlarmDeliveryB104Tests-\(UUID().uuidString)"
+        suiteName = "PortfolioAlarmDeliveryTests-\(UUID().uuidString)"
         defaults = UserDefaults(suiteName: suiteName)
     }
 
@@ -137,7 +137,7 @@ final class AlarmDeliveryB104Tests: XCTestCase {
 
 // ---- aus AlarmPairPickerTests
 
-/// Review UX-02: Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
+/// Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
 /// (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `AlarmPairPickerParityTest`. Über die
 /// vorberechneten Zeilen (`AlarmPairPicker.makeRows`) mit gefalteten Coin-Namen.
 @MainActor
@@ -173,13 +173,13 @@ final class AlarmPairPickerTests: XCTestCase {
         XCTAssertEqual(watches.map(AlarmPairPicker.Source.init), priced.map(AlarmPairPicker.Source.init))
         let flipped = watches.map { w -> Watch in var copy = w; copy.favorite.toggle(); return copy }
         XCTAssertNotEqual(watches.map(AlarmPairPicker.Source.init), flipped.map(AlarmPairPicker.Source.init))
-        // PERF3-R2: Schlüssel für `.task(id:)` ebenso
+        // Schlüssel für `.task(id:)` ebenso
         XCTAssertEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(priced))
         XCTAssertNotEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(flipped))
         XCTAssertNotEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(Array(watches.reversed())))
     }
 
-    /// PERF3-R2: das Struct neu zu erzeugen (Elternbildschirm zeichnet neu) faltet keine Zeilen.
+    /// Das Struct neu zu erzeugen (Elternbildschirm zeichnet neu) faltet keine Zeilen.
     func testErzeugenRechnetKeineZeilen() {
         let watches = (1...50).map { Watch(id: Int64($0), exchangeKey: "binance", exchangeName: "Binance", baseAsset: "C\($0)",
                                            quoteAsset: "USDT") }
@@ -277,7 +277,7 @@ final class AlarmReliabilityTests: XCTestCase {
 
 // ---- aus AlarmToggleParityTests
 
-/// Review FUN3-02/UX3-06: «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
+/// «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
 /// (`Parity/alarm_toggle.json`) — wie `AlarmToggleParityTest`.
 final class AlarmToggleParityTests: XCTestCase {
     func testToggleMatchesFixture() throws {

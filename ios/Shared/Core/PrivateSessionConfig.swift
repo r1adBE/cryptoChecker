@@ -5,7 +5,7 @@ import Foundation
 /// Kennung setzen, die bei jedem weiteren Abruf zurückginge (Android: OkHttp ohne CookieJar, also ebenfalls nichts).
 enum PrivateSessionConfig {
     /// Neue Konfiguration auf Basis von `.default` (UI-Tests tauschen genau diese aus, um ihr Protokoll einzuhängen);
-    /// Zeitgrenzen und weitere Einstellungen setzt jede Aufrufstelle wie bisher selbst.
+    /// Zeitgrenzen und weitere Einstellungen setzt jede Aufrufstelle selbst.
     static func make(timeout: TimeInterval, resource: TimeInterval? = nil) -> URLSessionConfiguration {
         let c = URLSessionConfiguration.default
         c.timeoutIntervalForRequest = timeout

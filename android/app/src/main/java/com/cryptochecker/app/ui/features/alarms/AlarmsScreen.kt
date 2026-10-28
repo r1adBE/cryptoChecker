@@ -76,7 +76,7 @@ fun AlarmsScreen(
     var confirmFiresNow by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
 
     // Offener Editor samt Eingaben übersteht Drehen und Prozess-Neustart (sonst wäre alles Getippte weg). Im ViewModel
-    // (ARC5-R01): «Trotzdem» in der Rückfrage F-08 schliesst ihn auch nach dem Neuerstellen der Activity
+    // liegt er: «Trotzdem» in der Rückfrage «nicht gespeichert» schliesst ihn auch nach dem Neuerstellen der Activity
     var draft by viewModel.editor
     // Neuer Alarm im einfachen Modus: Feld leer, aktueller Kurs nur als Platzhalter
     val newDraft: () -> AlarmDraft = { AlarmDraft.blankFor() }
@@ -143,7 +143,7 @@ fun AlarmsScreen(
             snackbar.showSnackbar(text, duration = SnackbarDuration.Long)
         }
     }
-    // ARC5-R01: Erlaubnis, Haptik und Bestätigung nach dem Speichern im aktuellen Bildschirm
+    // Erlaubnis, Haptik und Bestätigung nach dem Speichern im aktuellen Bildschirm
     AlarmEditorEffects(viewModel, snackbar, watch, testAlarm)
 
     // Einmal nach dem Speichern: ehrlich, wann bei geschlossener App geprüft wird
@@ -223,7 +223,7 @@ fun AlarmsScreen(
             // DEX-Pool zu dünn: statt «Alarm hinzufügen» die Erklärung
             Column(modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp)) { DexLowLiquidityNote() }
         } else if (alarms.isEmpty()) {
-            // L-18: Beispiel im Stil der Alarm-Sätze, damit klar ist, was ein Alarm kann (wie iOS)
+            // Beispiel im Stil der Alarm-Sätze, damit klar ist, was ein Alarm kann (wie iOS)
             EmptyState(
                 iconRes = R.drawable.ic_notifications_active,
                 title = stringResource(R.string.alarms_empty),
@@ -289,8 +289,8 @@ fun AlarmsScreen(
     }
 
     /**
-     * Speichern; Editor zu, Erlaubnis und Bestätigung ([AlarmEditorEffects]). UX4-06, UX4-R3: Editor erst nach
-     * bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingaben), Erlaubnis erst nach dem Speichern.
+     * Speichern; Editor zu, Erlaubnis und Bestätigung ([AlarmEditorEffects]). Editor erst nach
+     * bestätigter Rückfrage «nicht gespeichert» zu («Abbrechen»: offen mit Eingaben), Erlaubnis erst nach dem Speichern.
      */
     fun saveDraft(toSave: AlarmDraft) {
         if (showSaveLocked()) return
@@ -315,7 +315,7 @@ fun AlarmsScreen(
             } == true,
             onLoadRate = viewModel::loadRate,
             onDraftChange = { draft = it },
-            // Editor erst nach bestätigter Rückfrage F-08 zu, Erlaubnis erst nach dem Anlegen
+            // Editor erst nach bestätigter Rückfrage «nicht gespeichert» zu, Erlaubnis erst nach dem Anlegen
             onTemplate = { template -> if (!showSaveLocked()) viewModel.createFromTemplate(template) },
             onDismiss = { draft = null },
             // Kopf mit Paar und aktuellem Kurs (wie iOS)

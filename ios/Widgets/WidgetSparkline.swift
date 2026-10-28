@@ -51,7 +51,7 @@ enum WidgetSparkline {
         let fallback = await sourcedCandles(base: watch.baseAsset, quote: watch.quoteAsset, range: range,
                                             preferFutures: pair.isFutures, price: price)
         guard let accepted = WidgetChartGeometry.pairCandles(fallback?.value, price: price) else { return nil }
-        // Börse der Ausweich-Reihe (für «Chart: Binance»); klar anders benannter Token (K-8): kein Chart
+        // Börse der Ausweich-Reihe (für «Chart: Binance»); klar anders benannter Token: kein Chart
         let provider: String? = fallback?.provider
         guard TokenIdentityStore.shared.fallbackSeriesAllowed(exchangeKey: watch.exchangeKey, base: watch.baseAsset,
                                                               provider: provider) else { return nil }
@@ -59,7 +59,7 @@ enum WidgetSparkline {
     }
 
     /// Kerzen im gewählten Zeitraum (aufsteigend); Zwischenspeicher je Paar und Zeitraum.
-    /// Ältere Einträge (nur Schlusskurse unter «v») werden nicht mehr gelesen und beim
+    /// Einträge nur mit Schlusskursen (unter «v») werden nicht gelesen und beim
     /// nächsten Laden ersetzt. `price`: Kurs des Paars — passt die Reihe einer Quelle nicht
     /// (anderer Token), ist die nächste der Kette dran.
     static func candles(base: String, quote: String, range: WidgetChartRangeOption = .day,
@@ -67,7 +67,7 @@ enum WidgetSparkline {
         await sourcedCandles(base: base, quote: quote, range: range, preferFutures: preferFutures, price: price)?.value
     }
 
-    /// Wie `candles(base:…)`, dazu die Börse der Reihe (im Zwischenspeicher unter «p»; älterer Eintrag ohne = nil).
+    /// Wie `candles(base:…)`, dazu die Börse der Reihe (im Zwischenspeicher unter «p»; nil = Börse unbekannt).
     static func sourcedCandles(base: String, quote: String, range: WidgetChartRangeOption = .day,
                                preferFutures: Bool = false, price: Double? = nil) async -> Sourced<[MarketCandle]>? {
         guard let symbol = symbol(base: base, quote: quote) else { return nil }

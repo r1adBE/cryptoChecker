@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.watch
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 
 /**
- * «Live» muss stimmen (K-1): Frische-Schwelle je Paar und das Wort «Live» in der Status-Pille.
+ * «Live» muss stimmen: Frische-Schwelle je Paar und das Wort «Live» in der Status-Pille.
  *
  *  - Paar am Live-Strom (seine Börse liefert gerade per WebSocket Kurse, nur bei «Live, solange
  *    offen»): veraltet nach [LIVE_STALE_MILLIS] (2 Min.) ohne neuen Kurs.

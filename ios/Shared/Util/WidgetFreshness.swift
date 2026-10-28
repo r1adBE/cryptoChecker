@@ -1,6 +1,6 @@
 import Foundation
 
-/// Frische eines Kurses in den Widgets — gleiche Regeln wie die Merkliste (K-1, K-4), wie
+/// Frische eines Kurses in den Widgets — gleiche Regeln wie die Merkliste, wie
 /// `WidgetFreshness.kt`:
 ///  - «veraltet»: Widgets sind nie am Live-Strom, also immer die Abfrage-Schwelle
 ///    (`LiveStatus.pollingStaleAfterMillis`: 3 × Hintergrund-Intervall, mind. 15 Min.).

@@ -79,7 +79,7 @@ suspend fun PortfolioPriceSource.watchPairPrices(coins: List<String>): Map<Strin
             spot = w.contractType == FuturesContractType.NONE,
             disabled = w.disabled,
             lastUpdate = w.lastUpdate,
-            // Voller Name aus der Paarliste der Börse (gleicher Token, K-8)
+            // Voller Name aus der Paarliste der Börse (gleicher Token)
             name = tokenIdentityStore.pairName(w.exchangeKey, w.baseAsset),
         )
     }

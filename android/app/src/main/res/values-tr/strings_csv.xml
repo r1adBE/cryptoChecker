@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">karşı kaydı olmayan staking kaydı – bakiyeyi kontrol et</string>
     <string name="portfolio_csv_skip_amount_too_small">miktar çok küçük – kaydedilince 0 olur</string>
     <string name="portfolio_csv_skip_invalid_swap">geçerli alınan coin veya miktar olmadan takas</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Dosya yeniden okunuyor …</string>
 </resources>

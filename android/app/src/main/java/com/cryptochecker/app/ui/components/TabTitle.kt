@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.isSpecified
  * nur dekorativ. Wie `TabTitle` (iOS).
  *
  * Die Schriftstärke ist fest halbfett (wie iOS `.headline`): Sie gehört zur Komponente, nicht zur
- * Seite — früher setzte nur Portfolio sie, Markt und Einstellungen blieben normal.
+ * Seite.
  */
 @Composable
 fun TabTitle(text: String, @DrawableRes iconRes: Int) {

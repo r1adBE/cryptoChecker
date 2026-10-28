@@ -26,13 +26,13 @@ enum MarketMoveScale {
     /// Rauschschwelle in dieselbe Richtung gehen (genau 0.25 zählt nicht).
     static let noisePercent = 0.25
 
-    /// Darunter «kaum verändert» bzw. «ruhig». Gleicher Wert wie die bisherige Ruhe-Schwelle der
+    /// Darunter «kaum verändert» bzw. «ruhig». Gleicher Wert wie die Ruhe-Schwelle der
     /// Grosswerte und die «kaum»-Schwelle des Gesamtwerts.
     static let flatBelowPercent = 1.0
 
     /// Ab hier «deutlich» statt «leicht»/«etwas». Gemessen an der Veränderung des Gesamtmarkts
     /// (Marktkapitalisierung aller Coins); fehlt sie, am Schnitt von BTC, ETH und SOL. Gewählt ist der
-    /// Wert des Gesamtwert-Satzes (3 %), nicht die frühere Einzelcoin-Schwelle 1.5 %: Der Gesamtmarkt
+    /// Wert des Gesamtwert-Satzes (3 %), nicht die Einzelcoin-Schwelle 1.5 %: Der Gesamtmarkt
     /// schwankt weniger als einzelne Coins, mit 1.5 % hiesse etwa jeder zweite Tag «deutlich».
     static let clearFromPercent = 3.0
 

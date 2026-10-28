@@ -35,8 +35,8 @@ import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 
 /*
- * Runde 35 (M1): Die frühere «Marktphase» (Zonen, Hoch-/Tief-Punkte, Skala, Phasen nach dem
- * Halving) ist weg. Übrig bleiben reine Messwerte: je Kennzahl der Wert, ein Satz, was sie misst,
+ * Reine Messwerte, keine «Marktphase» (keine Zonen, Hoch-/Tief-Punkte, Skala, Phasen nach dem
+ * Halving): je Kennzahl der Wert, ein Satz, was sie misst,
  * und eine Zeile «hoch heisst …, tief heisst …» — in normaler Textfarbe, ohne Schwellen,
  * Punkte oder Signal. Wie iOS `MarketPhaseCard`.
  */

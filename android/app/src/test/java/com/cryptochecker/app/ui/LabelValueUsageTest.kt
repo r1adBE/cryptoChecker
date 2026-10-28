@@ -37,7 +37,7 @@ class LabelValueUsageTest {
         val roots = listOf("App", "Shared", "Widgets").mapNotNull { dir ->
             findUp(listOf("ios/$dir", "../ios/$dir", "../../ios/$dir"))
         }
-        // SEC4-R1/TST4-R1: fehlt ios/, nicht still grün — übersprungen bzw. mit REQUIRE_IOS_SOURCES Fehler
+        // Fehlt ios/, nicht still grün — übersprungen bzw. mit REQUIRE_IOS_SOURCES Fehler
         val found = SourceGuard.ios(roots.takeIf { it.isNotEmpty() }, "ios/App|Shared|Widgets")
         val problems = found.flatMap { offenders(it, "swift", SWIFT_PATTERNS) }
         assertTrue(

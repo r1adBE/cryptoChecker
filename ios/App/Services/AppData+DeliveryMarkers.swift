@@ -1,15 +1,15 @@
 import Foundation
 
-// Review ARC3-R03: Vermerke «wird gemeldet» (`AlarmDelivery`) beim Löschen nur kürzen, wenn der Stand
+// Vermerke «wird gemeldet» (`AlarmDelivery`) beim Löschen nur kürzen, wenn der Stand
 // dieses Laufs auch bleibt — wie Android `PrefsAlarmDeliveryMarkers.prunable`.
-// Review IOS4-R01: entschieden nach dem Ergebnis DIESES Lösch-Schreibens (nicht des vorigen) — erst
+// Entschieden nach dem Ergebnis DIESES Lösch-Schreibens (nicht des vorigen) — erst
 // wenn die Schreib-Warteschlange es ausgeführt hat (`SharedStorage.snapshotWritesSettled`).
 
 extension AppData {
     /// Vermerke kürzen? Nur wenn das Lösch-Schreiben die Datei wirklich geschrieben hat (`written`), die Merkliste nicht
     /// gesperrt ist und der Stand nicht nur im Speicher wartet (`pending`), während die Datei noch den alten Stand hält —
-    /// endet die App vorher, kommen die Alarme der Datei zurück, und ihr Vermerk muss noch stehen (wie Android bei einer
-    /// Kopie im Speicher, PlaintextKept). Rein, testbar.
+    /// endet die App vorher, kommen die Alarme der Datei zurück, und ihr Vermerk muss noch stehen (iOS-eigene Regel:
+    /// Android hält keinen Stand nur im Speicher). Rein, testbar.
     nonisolated static func markersPrunable(written: Bool, locked: Bool, pending: Bool, fileExists: Bool) -> Bool {
         written && AlarmDelivery.shouldClear(storedKept: locked, volatileCopy: pending && fileExists)
     }

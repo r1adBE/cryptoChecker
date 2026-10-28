@@ -156,7 +156,7 @@ class WidgetToolkit @Inject constructor(
     }
 }
 
-/** Bildfläche der Charts ohne Widget-Optionen (dp), etwa die bisherige Mindestgrösse. */
+/** Bildfläche der Charts ohne Widget-Optionen (dp), etwa die Mindestgrösse. */
 internal const val DEFAULT_CHART_WIDTH_DP = 160f
 internal const val DEFAULT_CHART_HEIGHT_DP = 56f
 

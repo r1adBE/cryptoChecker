@@ -39,7 +39,7 @@ enum MarketInfoTopic: String, Identifiable {
         }
     }
 
-    /// Runde 35: Bitcoin- und Coin-Kennzahlen, Altcoins und Halving mit neutralen Texten (wie Android).
+    /// Bitcoin- und Coin-Kennzahlen, Altcoins und Halving mit neutralen Texten (wie Android).
     var whatKey: String {
         switch self {
         case .phase: return "neutral_info_btc_what"

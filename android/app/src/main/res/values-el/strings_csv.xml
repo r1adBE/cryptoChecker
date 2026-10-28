@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">εγγραφή staking χωρίς αντίστοιχη – έλεγξε το υπόλοιπο</string>
     <string name="portfolio_csv_skip_amount_too_small">πολύ μικρή ποσότητα – γίνεται 0 κατά την αποθήκευση</string>
     <string name="portfolio_csv_skip_invalid_swap">ανταλλαγή χωρίς έγκυρο νόμισμα ή ποσότητα που ελήφθη</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Το αρχείο διαβάζεται ξανά …</string>
 </resources>

@@ -3,7 +3,7 @@ import SwiftUI
 /// «Einträge ohne Einstand» — wie `PortfolioCostGapsSheet.kt`: Zugänge ohne Kaufpreis (`PortfolioCostGaps`),
 /// neueste zuerst, wahlweise nur ein Coin. Je Kauf/Einzahlung der Vorschlag Menge × geprüfter Tagesschluss des Datums und
 /// «Einstand erfassen» (öffnet den Eintrag mit dem Vorschlag zum Übernehmen und Anpassen) oder «Unbekannt lassen» (zählt
-/// auf der Karte nicht mehr). Belohnungen: «Einstand = Wert bei Zufluss (Einkommen)» — kein Angebot, ihn zu ändern.
+/// danach auf der Karte nicht). Belohnungen: «Einstand = Wert bei Zufluss (Einkommen)» — kein Angebot, ihn zu ändern.
 @MainActor
 struct PortfolioCostGapsSheet: View {
     @EnvironmentObject private var data: AppData

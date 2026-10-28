@@ -14,7 +14,7 @@ import kotlin.math.abs
  * die grösste Bewegung. Punkte vor `since` (gespeichert in `referenceAt`: Beginn des Alarms bzw.
  * letzte Meldung) zählen nicht, damit dieselbe Bewegung nicht zweimal meldet. Der gespeicherte
  * Bezug (`referencePrice` zur Zeit `referenceAt`) zählt wie ein Punkt des Verlaufs — ohne Verlauf
- * (z. B. direkt nach dem Update) wird also wenigstens gegen ihn geprüft.
+ * wird also wenigstens gegen ihn geprüft.
  */
 object MoveWindow {
 

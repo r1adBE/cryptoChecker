@@ -1,4 +1,4 @@
-// Review ARC5-R01: Rückmeldungen der Merkliste-Aktionen nach der Rückfrage F-08 (Banner, Haptik, Erlaubnis,
+// Rückmeldungen der Merkliste-Aktionen nach der Rückfrage «nicht gespeichert» (Banner, Haptik, Erlaubnis,
 // Blatt bzw. Auswahl zu) als Einmal-Ereignisse für den GERADE gezeigten Bildschirm. Die Rückrufe an das ViewModel schicken
 // nur noch Daten ([WatchUiEvent]); ausgeführt wird in [WatchlistUiEffects] bzw. `MarketCoinUiEffects` — auch wenn die
 // Activity inzwischen neu erstellt wurde (alte Komposition: Banner weg, abgemeldeter Erlaubnis-Launcher).
@@ -112,8 +112,8 @@ internal fun WatchUiEventsHolder.favoriteWithBanner(viewModel: WatchlistViewMode
 }
 
 /**
- * Deaktivieren bzw. wieder aktivieren (Aktionsblatt, Merkliste und Markt) — UX5-R2, wie iOS: Blatt erst nach
- * der Rückfrage F-08 zu, mit leichter Haptik und Banner; «Abbrechen» = Blatt bleibt, gesperrt = Blatt zu ohne Banner.
+ * Deaktivieren bzw. wieder aktivieren (Aktionsblatt, Merkliste und Markt) — wie iOS: Blatt erst nach
+ * der Rückfrage «nicht gespeichert» zu, mit leichter Haptik und Banner; «Abbrechen» = Blatt bleibt, gesperrt = Blatt zu ohne Banner.
  */
 internal fun WatchUiEventsHolder.toggleDisabled(viewModel: WatchlistViewModel, watch: WatchEntity) {
     viewModel.setDisabled(listOf(watch.id), !watch.disabled) { written ->

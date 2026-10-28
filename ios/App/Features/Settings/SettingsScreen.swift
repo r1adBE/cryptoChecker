@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 import UserNotifications
 
-/// Tab «Einstellungen» — wie `SettingsScreen.kt` (Runde 23f): eine kurze, gruppierte Liste.
+/// Tab «Einstellungen» — wie `SettingsScreen.kt`: eine kurze, gruppierte Liste.
 /// Je Gruppe eine Karte wie im Markt-Tab «Jetzt» (Überschrift mit Strich oben in der Karte),
 /// darin Zeilen mit Titel, aktuellem Wert in Grau und Pfeil;
 /// alles Ausführliche steht auf Unterseiten (`Settings…Pages.swift` je Gruppe, Markt-Meldungen, Sprachausgabe).
@@ -11,8 +11,8 @@ import UserNotifications
 /// · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
 /// Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
 /// genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
-/// und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Kein «Erweitert» mehr
-///: Token & TradFi auf «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter
+/// und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Token & TradFi stehen auf
+/// «Merkliste», Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter
 /// «Darstellung»; Datenschutz, Börse wünschen, Quellcode, Lizenzen und (freigeschaltet) Entwickler stehen auf «Über die
 /// App» — wie Android.
 /// Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
@@ -32,7 +32,7 @@ struct SettingsScreen: View {
 
     /// Erlaubnis für Mitteilungen; `.authorized` als Startwert, damit kein Hinweis aufblitzt.
     @State private var notificationStatus: UNAuthorizationStatus = .authorized
-    /// Runde 31: Suche oben; bleibt nach dem Öffnen eines Treffers stehen (zurück = weitere Treffer).
+    /// Suche oben; bleibt nach dem Öffnen eines Treffers stehen (zurück = weitere Treffer).
     @State private var query = ""
     /// Treffer auf der Hauptseite selbst (Sprache, «App zurücksetzen»): Zeile kurz hervorheben.
     @State private var mainHighlight: String?
@@ -77,7 +77,7 @@ struct SettingsScreen: View {
             .navigationDestination(isPresented: $router.showPortfolioSettings) {
                 PortfolioSettingsPage()
             }
-            // K-10: «Aktualisierung ändern» im Alarm-Hinweis: gleich die Seite «Kurs-Aktualisierung»
+            // «Aktualisierung ändern» im Alarm-Hinweis: gleich die Seite «Kurs-Aktualisierung»
             .navigationDestination(isPresented: $router.showUpdateSettings) {
                 UpdatesSettingsPage()
             }
@@ -93,7 +93,7 @@ struct SettingsScreen: View {
             }
     }
 
-    /// Ohne Suche die Gruppen als Karten, sonst die Treffer (Liste wie bisher).
+    /// Ohne Suche die Gruppen als Karten, sonst die Treffer als Liste.
     @ViewBuilder
     private var content: some View {
         if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -198,7 +198,7 @@ struct SettingsScreen: View {
             RowDivider()
             priceColorsRow
             RowDivider()
-            // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (von «Erweitert» hierher)
+            // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen
             SettingsNavRow(title: L("settings_coin_logos"), icon: .system("circle.circle"),
                            value: SettingsSummary.coinLogosText(settings)) {
                 CoinLogosSettingsPage()
@@ -226,7 +226,7 @@ struct SettingsScreen: View {
         return SettingsNavRow(title: L("settings_accent"), icon: .system("paintpalette"), valueDescription: accentName) {
             // Farbpunkt passend zum kleinen Wert unter dem Titel
             HStack(spacing: 4) {
-                // K3: Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
+                // Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
                 Circle().fill(settings.accentColor.primary).frame(width: 10, height: 10)
                 Text(accentName)
             }
@@ -237,7 +237,7 @@ struct SettingsScreen: View {
 
     // MARK: Mehr
 
-    /// Sicherung und Über die App — wie Android (kein «Erweitert» mehr).
+    /// Sicherung und Über die App — wie Android.
     private var moreSection: some View {
         SettingsCard(title: L("settings_group_more")) {
             SettingsNavRow(title: L("backup_title"), icon: .system("square.and.arrow.up"), value: nil) {

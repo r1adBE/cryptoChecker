@@ -155,7 +155,7 @@ actor DayReferenceStore {
         let q = quote.trimmingCharacters(in: .whitespaces).uppercased()
         let fetched = await CandleDataSource.candlesSourced(base: b, quote: q, interval: .h1, limit: ChangeBasisMath.candles)
         let candles = (fetched?.value ?? []).filter { $0.close.isFinite && $0.close > 0 }
-        // Mini-Chart und rollender Bezug wie bisher aus den jüngsten 24 Kerzen
+        // Mini-Chart und rollender Bezug aus den jüngsten 24 Kerzen
         let recent = Array(candles.suffix(ChangeBasisMath.rollingCandles))
         guard recent.count >= 2, let first = recent.first, let last = recent.last else { return nil }
         var opens: [Int64: Double] = [:]

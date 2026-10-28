@@ -71,7 +71,7 @@ final class PlainBackupExclusionTests: XCTestCase {
     func testAfterSealingPrefersRemembered() {
         XCTAssertFalse(PlainBackupExclusion.afterSealing(current: true, remembered: false))
         XCTAssertTrue(PlainBackupExclusion.afterSealing(current: false, remembered: true))
-        // Nichts gemerkt (ältere Installation): das aktuelle Merkmal
+        // Nichts gemerkt: das aktuelle Merkmal
         XCTAssertTrue(PlainBackupExclusion.afterSealing(current: true, remembered: nil))
         XCTAssertFalse(PlainBackupExclusion.afterSealing(current: false, remembered: nil))
     }

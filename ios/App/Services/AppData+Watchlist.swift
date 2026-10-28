@@ -55,7 +55,7 @@ extension AppData {
     }
 
     /// Fügt die Startpaare hinzu wie die Seite «Paar hinzufügen» (vorhandene Paare werden
-    /// übersprungen), mit Kurs-Mitteilung wie jedes neue Paar (Entscheid 16. Oktober 2026). Nach der Erlaubnis
+    /// übersprungen), mit Kurs-Mitteilung wie jedes neue Paar. Nach der Erlaubnis
     /// fragt die Startauswahl (`WatchlistStarter`) gleich danach. Holt gleich die Kurse.
     /// - Returns: Anzahl neu hinzugefügter Paare.
     @discardableResult
@@ -88,9 +88,8 @@ extension AppData {
     }
 
     func contains(exchangeKey: String, pair: ExchangePair) -> Bool {
-        let type = FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: pair.pairId, pair.contractType)
         let wanted = WatchIdentity.key(exchangeKey: exchangeKey, base: pair.base, quote: pair.quote,
-                                       contract: String(type.rawValue), pairId: pair.pairId)
+                                       contract: String(pair.contractType.rawValue), pairId: pair.pairId)
         return snapshot.watches.contains { $0.identity == wanted }
     }
 
@@ -347,7 +346,7 @@ extension AppData {
     func deleteAllForUndo() -> [DeletedWatch] {
         guard !watchlistWriteRefused() else { return [] }
         let deleted = deleteForUndo(ids: Set(snapshot.watches.map(\.id)))
-        // Wie bisher «alles weg»: auch Alarme ohne Paar, alle Aktivitäts-Berichte und Live-Aktivitäten
+        // «Alles weg»: auch Alarme ohne Paar, alle Aktivitäts-Berichte und Live-Aktivitäten
         let orphans = snapshot.alarms
         orphans.forEach { Notifier.cancelAlarm($0.id) }
         activityReports = [:]

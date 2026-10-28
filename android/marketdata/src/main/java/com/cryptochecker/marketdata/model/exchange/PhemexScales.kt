@@ -23,7 +23,7 @@ class PhemexScales(
     val pairs: Map<String, Pair<String, String>> = emptyMap(),
     /** Stammt aus der Produktliste oder ihrer gespeicherten Kopie; false = nie geladen. */
     val loaded: Boolean = false,
-    /** Zeitpunkt der Produktliste in ms; 0 = unbekannt (alte Datei), gilt als veraltet. */
+    /** Zeitpunkt der Produktliste in ms; 0 = nie geladen. */
     val loadedAt: Long = 0L,
 ) {
     /** Neu laden, wenn nie geladen oder das Alter nicht in [0, [REFRESH_MILLIS]) liegt. */
@@ -168,12 +168,12 @@ class PhemexScales(
                 }
             }
 
-        /** Gegenstück zu [encode]; andere Version, unlesbar oder ganz ohne Angaben → null (dann neu laden). */
+        /** Gegenstück zu [encode]; andere Version, ohne Zeitpunkt, unlesbar oder ganz ohne Angaben → null (dann neu laden). */
         fun decode(text: String?): PhemexScales? {
             if (text.isNullOrBlank()) return null
             return try {
                 val root = JSONObject(text)
-                if (root.optInt("v") != FORMAT_VERSION) {
+                if (root.optInt("v") != FORMAT_VERSION || !root.has("t")) {
                     null
                 } else {
                     val price = scaleMap(root.optJSONObject("price"))

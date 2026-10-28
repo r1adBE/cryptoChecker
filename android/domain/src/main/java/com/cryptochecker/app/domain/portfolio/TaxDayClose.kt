@@ -12,9 +12,9 @@ import java.time.ZoneOffset
  * Veräusserung und den FR-Gesamtwert.
  *
  * Warum diese Regel: Karte und Wertverlauf ([PortfolioPeriodChange.marketPriceAt]), Einkünfte ([TaxExport.incomeRows]) und
- * Gebühr-Zeilen rechneten schon so, und die Quellen liefern Tageskerzen in UTC (Schluss = 24:00 UTC). Früher
- * nahmen Netzwerkgebühren und der FR-Gesamtwert den Vortag — dieselbe Unterlage bewertete eine Kraken-Gebühr und die
- * Netzwerkgebühr derselben Stunde dann verschieden. Behörden verlangen einen nachvollziehbaren, stetig angewandten
+ * Gebühr-Zeilen rechneten schon so, und die Quellen liefern Tageskerzen in UTC (Schluss = 24:00 UTC). Nähmen
+ * Netzwerkgebühren und der FR-Gesamtwert den Vortag, bewertete dieselbe Unterlage eine Kraken-Gebühr und die
+ * Netzwerkgebühr derselben Stunde verschieden. Behörden verlangen einen nachvollziehbaren, stetig angewandten
  * Tageskurs; die Regel steht darum im Kopf jeder Datei.
  */
 object TaxDayClose {

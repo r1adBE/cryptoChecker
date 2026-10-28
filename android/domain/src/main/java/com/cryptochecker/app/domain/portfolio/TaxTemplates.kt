@@ -9,7 +9,7 @@ import java.time.ZoneId
  * Arbeitsunterlage nennen nur Tatsachen (Daten, Haltedauer, Beträge); Schlüsse wie «steuerfrei» stehen nur in der
  * Jahresübersicht als «Orientierung» mit Hinweis. Je Vorlage: erlaubte Methoden (erste = Standard), Steuerjahr,
  * Haltedauer-Gruppen, Tausch Krypto↔Krypto, Grenzen. Quellen und Stand (14./15.10.2026, alle abgerufen). Alle Beträge in
- * USDT; Umrechnung mit USD-Kursen × USDT/USD-Tagesschluss ([TaxExport.rateOn] `usdtUsd`, Owner-Entscheid Okt. 2026);
+ * USDT; Umrechnung mit USD-Kursen × USDT/USD-Tagesschluss ([TaxExport.rateOn] `usdtUsd`);
  * ohne Schluss des Tags USDT = 1 USD als Näherung, je Zeile vermerkt ([TaxCsvTexts.usdtAssumed]):
  *  - DE: § 23 Abs. 1 Nr. 2, Abs. 3 Satz 5 EStG (Freigrenze 1000 € ab 2024, 600 € 2009–2023), § 22 Nr. 3 Satz 2 EStG (256 €);
  *    BMF-Schreiben Kryptowerte vom 06.03.2025 (Rn. 61 f.: FIFO; Rn. 62: Verwendungsreihenfolge je Wallet bzw. Konto —
@@ -186,8 +186,8 @@ enum class TaxTemplate {
 
     /**
      * Auszahlungsgebühr in USDT bzw. Fiat ([PortfolioTrade.quoteFee] einer Auszahlung/Schenkung, [PortfolioFeeExpense.WITHDRAWAL])
-     * ist kein Verlust, nur Information (Entscheid des Inhabers 17.10.2026, statt «überall realisierter Aufwand» wie
-     * früher). Das Feld hält USDT (Preiswährung; der CSV-Import rechnet Fiat-Gebühren darin um), darum beide Lesarten:
+     * ist kein Verlust, nur Information (nicht «überall realisierter Aufwand»).
+     * Das Feld hält USDT (Preiswährung; der CSV-Import rechnet Fiat-Gebühren darin um), darum beide Lesarten:
      * Fiat-Gebühr = keine Veräusserung und keine abziehbaren Kosten; USDT-Gebühr = Veräusserung von USDT zum Nennwert
      * (Einstand 1 wie überall angenommen, Kopfzeile «USDT = 1 USD») ohne Gewinn — in beiden Fällen kein Verlust.
      *  - UK: HMRC CRYPTO22150 — Ein-/Auszahlungen von Fiat haben keine «allowable cost» (keine Anschaffung/Veräusserung).
@@ -199,8 +199,8 @@ enum class TaxTemplate {
      * Gebühren in Krypto (auch in einem Stablecoin als drittem Coin) sind dagegen Veräusserungen ([networkFeeIsDisposal]).
      * DE/AT führen die Gebühr als eigenen Posten (dort unverändert), CH, FR und Neutral rechnen sie weiter als Aufwand.
      *
-     * Entscheid des Inhabers 17.10.2026: ebenso die Gebühr USDT/Fiat einer Umbuchung zwischen eigenen Wallets —
-     * sie erhöht den Einstand nicht mehr (UK CRYPTO22150: Kosten nur bei Anschaffung/Veräusserung, eine Umbuchung ist
+     * Ebenso die Gebühr USDT/Fiat einer Umbuchung zwischen eigenen Wallets —
+     * sie erhöht den Einstand nicht (UK CRYPTO22150: Kosten nur bei Anschaffung/Veräusserung, eine Umbuchung ist
      * keins von beiden; US/CA/AU/JP: Umbuchung zwischen eigenen Wallets kein steuerbarer Vorgang, keine Regel für einen
      * Zuschlag zum Einstand — unklar, darum «nicht abziehbar, Information»), eigene Zeile [PortfolioFeeExpense.TRANSFER].
      * Die übrigen Vorlagen bleiben bewusst beim Zuschlag zum Einstand (wie das Portfolio): DE — weder BMF-Schreiben

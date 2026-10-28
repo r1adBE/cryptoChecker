@@ -12,7 +12,7 @@ import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Alarm «Portfolio-Wert» (Runde 28): Gesamtwert über/unter einem Betrag oder Veränderung
+ * Alarm «Portfolio-Wert»: Gesamtwert über/unter einem Betrag oder Veränderung
  * «heute» ±x %. Eigene Tabelle `portfolio_alarms` statt der Tabelle
  * `alarms`: Die gehört über einen Fremdschlüssel zu einem Paar der Merkliste — ein
  * Portfolio-Alarm hat keins, ein Schein-Paar wäre in Merkliste, Sicherung und Widgets sichtbar.

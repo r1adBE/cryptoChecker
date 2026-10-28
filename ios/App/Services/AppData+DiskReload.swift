@@ -1,7 +1,7 @@
 import Foundation
 
 // Merkliste beim Wechsel nach vorne im Hintergrund neu lesen (Teil von `AppData`): Lesen, Entschlüsseln und Dekodieren
-// von `watchlist.json` liefen bisher auf dem Haupt-Thread und konnten über `NSFileCoordinator` auf das Widget warten.
+// von `watchlist.json` liefen sonst auf dem Haupt-Thread und könnten über `NSFileCoordinator` auf das Widget warten.
 // Vor dem Lesen beim Start (AppData+SnapshotLoad.swift) wartet ein Neulesen darauf: erst danach gibt es einen Stand im
 // Speicher, mit dem verglichen und zusammengeführt wird.
 
@@ -45,7 +45,7 @@ extension AppData {
         }
         guard prepareDiskReload() else { return }
         // Einstellungen und geschützte Dateien (Verschlüsselung nachholen) gleich hier, vor dem Lesen: Die Aufrufe nach dem
-        // Wechsel nach vorne nutzen die Einstellungen sofort (bisher lief das synchron im selben Schritt)
+        // Wechsel nach vorne nutzen die Einstellungen sofort
         reloadSettingsIfInaccessible()
         diskReloadSequence &+= 1
         let ticket = DiskReloadTicket(sequence: diskReloadSequence, generation: snapshotGeneration, reset: resetGeneration)

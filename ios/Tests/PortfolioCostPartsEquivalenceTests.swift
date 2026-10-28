@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Durchschnittsmethode (`PortfolioCalculator.average`) und Steuer-Pool (`TaxPool`) mit `PortfolioCostPartPool` gegen die
-/// frühere Rechnung (`averageReference`, `TaxPoolReference`: Liste der Herkunftsteile, Teil für Teil neu geschrieben) auf
+/// Referenzrechnung (`averageReference`, `TaxPoolReference`: Liste der Herkunftsteile, Teil für Teil neu geschrieben) auf
 /// zufälligen Ledgern mit Seed (Käufe mit Gebühren in USDT/im Coin, Teilverkäufe, Tausch, Belohnungen ohne Preis,
 /// Umbuchungen mit Netzwerkgebühr, Auszahlungen) und den Leistungstest-Daten: alle Zahlen gleich, Herkunftsteile gleich
 /// bis auf die Rundung der 34. Stelle, ihre Summen exakt. Wie `PortfolioCostPartsEquivalenceTest.kt` (Android).
@@ -66,26 +66,26 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
         }
     }
 
-    func testAverageMatchesFormerCalculationOnRandomLedgers() {
+    func testAverageMatchesReferenceCalculationOnRandomLedgers() {
         for seed in UInt64(1)...30 { compareAverage("Seed \(seed)", Self.randomLedger(seed: seed, count: 400)) }
     }
 
-    func testAverageMatchesFormerCalculationOnPerformanceData() {
+    func testAverageMatchesReferenceCalculationOnPerformanceData() {
         compareAverage("Leistungsdaten", PortfolioPerformanceData.trades(2_500))
     }
 
-    func testTaxPoolMatchesFormerPool() {
+    func testTaxPoolMatchesReferencePool() {
         for seed in UInt64(1)...30 {
             var rng = PerformanceRandom(seed: seed)
             let zone: TimeZone? = seed % 3 == 0 ? nil : TimeZone(identifier: "UTC")
             var pool = TaxPool(zone: zone)
-            var former = TaxPoolReference(zone: zone)
+            var reference = TaxPoolReference(zone: zone)
             // Ziel der fortgeführten Teile (Umbuchung in ein anderes Wallet): ein eigener Pool wie in der App — derselbe
             // Pool würde seine Teile bei jedem Zurückbuchen verdoppeln
             var dest = TaxPool(zone: zone)
-            var destFormer = TaxPoolReference(zone: zone)
+            var destReference = TaxPoolReference(zone: zone)
             var time: Int64 = 1_650_000_000_000
-            var carried: (former: TaxTaken, pool: TaxTaken)?
+            var carried: (reference: TaxTaken, pool: TaxTaken)?
             for step in 0..<500 {
                 let l = "Seed \(seed) Schritt \(step)"
                 time += Self.hour + Int64(rng.nextInt(Int(2 * Self.day - Self.hour)))
@@ -94,9 +94,9 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
                 case 0, 1, 2:
                     let cost: Decimal? = rng.nextInt(6) == 0 ? nil : Self.amount(&rng, scale: 4)
                     pool.add(qty, cost: cost, time: time)
-                    former.add(qty, cost: cost, time: time)
+                    reference.add(qty, cost: cost, time: time)
                 case 3, 4, 5:
-                    let expected = former.take(min(qty, former.held * Decimal(string: "0.6")!))
+                    let expected = reference.take(min(qty, reference.held * Decimal(string: "0.6")!))
                     let actual = pool.take(min(qty, pool.held * Decimal(string: "0.6")!))
                     XCTAssertEqual(expected.removed, actual.removed, "\(l) removed")
                     XCTAssertEqual(expected.removedPriced, actual.removedPriced, "\(l) removedPriced")
@@ -106,39 +106,39 @@ final class PortfolioCostPartsEquivalenceTests: XCTestCase {
                 case 6:
                     // Fortgeführter Einstand mit Herkunft (Umbuchung) — Teile eines Abgangs, je einmal in den Ziel-Pool
                     if let taken = carried {
-                        destFormer.addCarried(taken.former.removedPriced, from: taken.former.parts.items)
+                        destReference.addCarried(taken.reference.removedPriced, from: taken.reference.parts.items)
                         dest.addCarried(taken.pool.removedPriced, from: taken.pool.parts)
-                        XCTAssertLessThanOrEqual(abs(destFormer.cost - dest.cost), Self.tolerance, "\(l) Ziel Einstand")
+                        XCTAssertLessThanOrEqual(abs(destReference.cost - dest.cost), Self.tolerance, "\(l) Ziel Einstand")
                         carried = nil
                     }
                 case 7:
-                    let expected = former.dropQty(min(qty, former.held))
+                    let expected = reference.dropQty(min(qty, reference.held))
                     XCTAssertEqual(expected, pool.dropQty(min(qty, pool.held)), "\(l) Netzwerkgebühr")
                 case 8:
                     let fee = Self.amount(&rng, scale: 2)
-                    let expected = former.addFee(time, fee, amount: qty, coinFee: 0)
+                    let expected = reference.addFee(time, fee, amount: qty, coinFee: 0)
                     XCTAssertEqual(expected, pool.addFee(time, fee, amount: qty, coinFee: 0), "\(l) Gebühr")
                 default:
                     // Tages-Pool übernehmen (UK): Zugänge eines früheren Tags
                     let day = time - Int64(rng.nextInt(Int(10 * Self.day)))
-                    var otherFormer = TaxPoolReference()
+                    var otherReference = TaxPoolReference()
                     var other = TaxPool()
                     for _ in 0..<(1 + rng.nextInt(3)) {
                         let q = Self.amount(&rng, scale: 6)
                         let c = Self.amount(&rng, scale: 4)
-                        otherFormer.add(q, cost: c, time: day)
+                        otherReference.add(q, cost: c, time: day)
                         other.add(q, cost: c, time: day)
                     }
-                    former.absorb(&otherFormer)
+                    reference.absorb(&otherReference)
                     pool.absorb(&other)
                 }
-                XCTAssertEqual(former.priced, pool.priced, "\(l) priced")
-                XCTAssertEqual(former.unpriced, pool.unpriced, "\(l) unpriced")
-                XCTAssertEqual(former.cost, pool.cost, "\(l) Einstand")
-                if step % 50 == 0 { assertParts("\(l) offen", former.parts, pool.parts) }
+                XCTAssertEqual(reference.priced, pool.priced, "\(l) priced")
+                XCTAssertEqual(reference.unpriced, pool.unpriced, "\(l) unpriced")
+                XCTAssertEqual(reference.cost, pool.cost, "\(l) Einstand")
+                if step % 50 == 0 { assertParts("\(l) offen", reference.parts, pool.parts) }
             }
-            assertParts("Seed \(seed) offen", former.parts, pool.parts)
-            assertParts("Seed \(seed) Ziel", destFormer.parts, dest.parts)
+            assertParts("Seed \(seed) offen", reference.parts, pool.parts)
+            assertParts("Seed \(seed) Ziel", destReference.parts, dest.parts)
         }
     }
 

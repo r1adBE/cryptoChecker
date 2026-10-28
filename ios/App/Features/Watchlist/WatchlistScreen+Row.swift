@@ -23,7 +23,7 @@ extension WatchlistScreen {
         let usdtNotes = convertUsdtNotes
         return WatchlistLiveRow(watch: watch, rollingBasis: !data.settings.changeBasis.isDay,
                                 state: data.refreshState) { shown, status in
-            // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille, K-1)
+            // Am Live-Strom: veraltet schon nach 2 Min. ohne Kurs (wie die Status-Pille)
             let staleAfter = LiveStatus.staleAfterMillis(onLiveSocket: status.onLive, pollingAfter: pollingStaleAfter)
             WatchlistRow(
                 watch: shown,
@@ -94,8 +94,8 @@ extension WatchlistScreen {
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             if swipeEnabled {
-                // UX4-R5: ohne destruktive Rolle — sonst blendet die Liste die Zeile sofort aus,
-                // obwohl die Rückfrage F-08 noch kommt und «Abbrechen» nichts löscht
+                // Ohne destruktive Rolle — sonst blendet die Liste die Zeile sofort aus,
+                // obwohl die Rückfrage «nicht gespeichert» noch kommt und «Abbrechen» nichts löscht
                 Button { swipeDelete(watch) } label: {
                     Label(L("action_delete"), systemImage: "trash")
                 }

@@ -44,7 +44,7 @@ object HistoricCloseChain {
 
     /**
      * Paare einer Kettenquelle für [base], in dieser Reihenfolge versucht; leer = Quelle nicht in der Kette oder
-     * Kürzel unbrauchbar. Gegenwährung USDT bzw. USD/USDC (≈ USDT wie bisher bei Binance.US und Coinbase).
+     * Kürzel unbrauchbar. Gegenwährung USDT bzw. USD/USDC (≈ USDT, wie bei Binance.US und Coinbase).
      * Kraken führt BTC als «XBT» und DOGE als «XDG».
      */
     fun pairs(exchangeKey: String, base: String): List<ChainPair> {

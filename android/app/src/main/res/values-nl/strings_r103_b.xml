@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
-    <string name="portfolio_write_failed">Kon niet worden opgeslagen – probeer het opnieuw</string>
-</resources>

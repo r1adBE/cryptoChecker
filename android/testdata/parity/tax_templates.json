@@ -1,5 +1,5 @@
 {
-  "_comment": "Steuer-Vorlagen (TaxTemplates/TaxEngines, Android + iOS). Beträge in USDT; Übersichten mit Währung USD (Kurs 1). Beispiele: HMRC CRYPTO22251–22253 (Pool, gleicher Tag, 30 Tage), CRA Superficial Loss (konstruiert nach der Regel), 国税庁 2017 (総平均法 600,000/BTC), AT Alt-/Neubestand, FR art. 150 VH bis (konstruiert). Jede Vorlage hat ein durchgerechnetes Beispiel (cases/summaries, Rechnung in «_calc»): HMRC CRYPTO22280 (Terri, amtlich), UK Netzwerkgebühr, AT Belohnung, FR Gebühr in Krypto, Übersichten Neutral/CH/US/AT (von Hand gerechnet). Gebühr-Zeile (CSV «Fee», Feld feeRow) zum Tageskurs aus prices; lines[i][4] (optional) = Zusatz-Vermerk (TaxSummaryNote). Vergleich auf 8 Nachkommastellen. Review 10 ([R10]): FR/AT Verkauf gegen Stablecoin als Tausch (steuerneutral, Einstand fortgeführt), AT Tausch vor 1.3.2021/1.3.2022, UK Einzahlung ohne Kaufdatum kein Erwerb, CA Superficial Loss in CAD (cases[].fx bzw. summaries[].currency/rates: Tag → USD→Währung), FR unvollständiger Einstand (summaries[].incompleteLines), CH FIFO-Summen nur Information. [B47]: Damit bezahlt (PAYMENT) = Veräusserung zum Marktwert in jeder Vorlage (disposals[].payment); Verschenkt (GIFT) nur für UK/CA (Rechnung) bzw. mit template AU eine Veräusserung (disposals[].gift), sonst wie eine Auszahlung (FR: PTA gekürzt); ohne Marktwert und Tausch ohne Wert zum Tagesschluss aus prices geschätzt (disposals[].valueEstimated); UK Netzwerkgebühr einer Auszahlung = eigene Veräusserung; FR Gesamtwert samt beobachteter Adresse (Adress-Eintrag mit negativer Id); DE/AT Auszahlungsgebühren als eigener Posten WITHDRAWAL_FEES (nicht in § 23 bzw. Neubestand). [B55]: AT Neubestand ohne Gebühren (§ 27a Abs. 4 Z 2, § 20 Abs. 2 EStG; BMF): Anschaffungskosten = erhaltene Menge × Preis, Erlös vor Gebühren, Gebühr im Coin eines Verkaufs keine Veräusserung (Einstand bleibt im Rest), keine Zeile für eine Gebühr, die einen Zugang ganz verbraucht; Altbestand unverändert mit Gebühren. AT Zinsen (Lending) beim Zufluss eigener Posten AT_INTEREST (zählt, § 27b Abs. 2 Z 1 EStG), AT_RATE = Neubestand netto + Zinsen. [B56]: cases[].template = Regeln der Vorlage (TaxEventRules: Schenkung, Schenkung an Ehe-/Lebenspartner, Netzwerkgebühr), sonst nach der Rechnung (TaxEventRules.of). Schenkung an Ehe-/Lebenspartner (Feld giftToSpouse) nur UK/CA ohne Gewinn/Verlust (disposals[].spouseGift, Erlös = Einstand, in der Steuerwährung ebenso). Netzwerkgebühr in Krypto (Umbuchung, Auszahlung, Schenkung; Coin und dritter Coin) bei UK/US/CA/AU/JP = eigene Veräusserung zum Marktwert (prices = Tagesschluss), kein Aufwand und kein Einstand-Zuschlag; DE/AT/CH/FR/Neutral unverändert. [B57]: Gebühr USDT/Fiat einer Umbuchung bei UK/US/CA/AU/JP (quoteFeeIsInfo) nicht im Einstand, eigene Zeile (Menge 0, Einstand = Gebühr, Erlös 0) und Posten TRANSFER_FEES nur zur Information; DE/AT/CH/FR/Neutral unverändert.",
+  "_comment": "Steuer-Vorlagen (TaxTemplates/TaxEngines, Android + iOS). Beträge in USDT; Übersichten mit Währung USD (Kurs 1). Beispiele: HMRC CRYPTO22251–22253 (Pool, gleicher Tag, 30 Tage), CRA Superficial Loss (konstruiert nach der Regel), 国税庁 2017 (総平均法 600,000/BTC), AT Alt-/Neubestand, FR art. 150 VH bis (konstruiert). Jede Vorlage hat ein durchgerechnetes Beispiel (cases/summaries, Rechnung in «_calc»): HMRC CRYPTO22280 (Terri, amtlich), UK Netzwerkgebühr, AT Belohnung, FR Gebühr in Krypto, Übersichten Neutral/CH/US/AT (von Hand gerechnet). Gebühr-Zeile (CSV «Fee», Feld feeRow) zum Tageskurs aus prices; lines[i][4] (optional) = Zusatz-Vermerk (TaxSummaryNote). Vergleich auf 8 Nachkommastellen. Weitere Fälle: FR/AT Verkauf gegen Stablecoin als Tausch (steuerneutral, Einstand fortgeführt), AT Tausch vor 1.3.2021/1.3.2022, UK Einzahlung ohne Kaufdatum kein Erwerb, CA Superficial Loss in CAD (cases[].fx bzw. summaries[].currency/rates: Tag → USD→Währung), FR unvollständiger Einstand (summaries[].incompleteLines), CH FIFO-Summen nur Information. Damit bezahlt (PAYMENT) = Veräusserung zum Marktwert in jeder Vorlage (disposals[].payment); Verschenkt (GIFT) nur für UK/CA (Rechnung) bzw. mit template AU eine Veräusserung (disposals[].gift), sonst wie eine Auszahlung (FR: PTA gekürzt); ohne Marktwert und Tausch ohne Wert zum Tagesschluss aus prices geschätzt (disposals[].valueEstimated); UK Netzwerkgebühr einer Auszahlung = eigene Veräusserung; FR Gesamtwert samt beobachteter Adresse (Adress-Eintrag mit negativer Id); DE/AT Auszahlungsgebühren als eigener Posten WITHDRAWAL_FEES (nicht in § 23 bzw. Neubestand). AT Neubestand ohne Gebühren (§ 27a Abs. 4 Z 2, § 20 Abs. 2 EStG; BMF): Anschaffungskosten = erhaltene Menge × Preis, Erlös vor Gebühren, Gebühr im Coin eines Verkaufs keine Veräusserung (Einstand bleibt im Rest), keine Zeile für eine Gebühr, die einen Zugang ganz verbraucht; Altbestand mit Gebühren. AT Zinsen (Lending) beim Zufluss eigener Posten AT_INTEREST (zählt, § 27b Abs. 2 Z 1 EStG), AT_RATE = Neubestand netto + Zinsen. cases[].template = Regeln der Vorlage (TaxEventRules: Schenkung, Schenkung an Ehe-/Lebenspartner, Netzwerkgebühr), sonst nach der Rechnung (TaxEventRules.of). Schenkung an Ehe-/Lebenspartner (Feld giftToSpouse) nur UK/CA ohne Gewinn/Verlust (disposals[].spouseGift, Erlös = Einstand, in der Steuerwährung ebenso). Netzwerkgebühr in Krypto (Umbuchung, Auszahlung, Schenkung; Coin und dritter Coin) bei UK/US/CA/AU/JP = eigene Veräusserung zum Marktwert (prices = Tagesschluss), kein Aufwand und kein Einstand-Zuschlag; DE/AT/CH/FR/Neutral ohne diese Regel. Gebühr USDT/Fiat einer Umbuchung bei UK/US/CA/AU/JP (quoteFeeIsInfo) nicht im Einstand, eigene Zeile (Menge 0, Einstand = Gebühr, Erlös 0) und Posten TRANSFER_FEES nur zur Information; DE/AT/CH/FR/Neutral ohne diese Regel.",
   "zone": "UTC",
   "periodOf": [
     [
@@ -194,7 +194,7 @@
       "3000"
     ]
   ],
-  "_eventRulesComment": "[B56] Regeln je Vorlage (TaxTemplate.eventRules): [Vorlage, Schenkung = Veräusserung, Schenkung an Ehe-/Lebenspartner ohne Gewinn/Verlust, Netzwerkgebühr = Veräusserung, Auszahlungsgebühr USDT/Fiat nur Information]; spouseFlag: [Art, giftToSpouse, wirksam] — nur bei einer Schenkung (PortfolioTrade.isGiftToSpouse).",
+  "_eventRulesComment": "Regeln je Vorlage (TaxTemplate.eventRules): [Vorlage, Schenkung = Veräusserung, Schenkung an Ehe-/Lebenspartner ohne Gewinn/Verlust, Netzwerkgebühr = Veräusserung, Auszahlungsgebühr USDT/Fiat nur Information]; spouseFlag: [Art, giftToSpouse, wirksam] — nur bei einer Schenkung (PortfolioTrade.isGiftToSpouse).",
   "eventRules": [
     [
       "NEUTRAL",
@@ -1783,9 +1783,9 @@
       ]
     },
     {
-      "name": "[B48] CA Superficial Loss: Einzahlung eigener Coins (ohne Kaufdatum) ist kein Ersatzkauf; mit Kaufdatum zählt dieses",
+      "name": "CA Superficial Loss: Einzahlung eigener Coins (ohne Kaufdatum) ist kein Ersatzkauf; mit Kaufdatum zählt dieses",
       "method": "CA_ACB",
-      "_calc": "X: Kauf 1 zu 60000 (2025-01-10), Verkauf 1 zu 55000 (2025-03-01) = −5000; Einzahlung 0,5 X vom Cold Wallet 2025-03-11 ohne Kaufdatum: kein Erwerb → ganz abziehbar (früher 2500 verweigert). Y: Kauf 10 zu 100, Verkauf 10 zu 60 = −400; Einzahlung 5 Y 2025-03-11 mit Kaufdatum 2025-03-05 (im Fenster): Ersatz → 400 × 5/10 = 200 verweigert. Z: wie Y, Kaufdatum 2024-12-01 (vor dem Fenster): kein Ersatz.",
+      "_calc": "X: Kauf 1 zu 60000 (2025-01-10), Verkauf 1 zu 55000 (2025-03-01) = −5000; Einzahlung 0,5 X vom Cold Wallet 2025-03-11 ohne Kaufdatum: kein Erwerb → ganz abziehbar (nicht 2500 verweigert). Y: Kauf 10 zu 100, Verkauf 10 zu 60 = −400; Einzahlung 5 Y 2025-03-11 mit Kaufdatum 2025-03-05 (im Fenster): Ersatz → 400 × 5/10 = 200 verweigert. Z: wie Y, Kaufdatum 2024-12-01 (vor dem Fenster): kein Ersatz.",
       "trades": [
         {
           "id": 1,
@@ -2023,7 +2023,7 @@
     },
     {
       "name": "FR Netzwerkgebühr ohne Bestand kürzt PTA nicht (Gebühr im Coin einer Umbuchung, ETH nie erfasst)",
-      "_calc": "PTA 20000. Umbuchung 1 ETH mit Gebühr 0,01 ETH ohne ETH-Bestand (priceAt 3000): Abtretung ohne Einstand — Wert 30, Einstand und Gewinn unbekannt, PTA bleibt 20000 (früher Kürzung 15 und Phantom-Gewinn 15). Verkauf 1 BTC zu 40000: Gesamtwert 40000, Einstand 20000 × 40000/40000 = 20000, Gewinn 20000.",
+      "_calc": "PTA 20000. Umbuchung 1 ETH mit Gebühr 0,01 ETH ohne ETH-Bestand (priceAt 3000): Abtretung ohne Einstand — Wert 30, Einstand und Gewinn unbekannt, PTA bleibt 20000 (keine Kürzung 15 und kein Phantom-Gewinn 15). Verkauf 1 BTC zu 40000: Gesamtwert 40000, Einstand 20000 × 40000/40000 = 20000, Gewinn 20000.",
       "method": "FR_PTA",
       "trades": [
         {
@@ -2239,7 +2239,7 @@
     },
     {
       "name": "AT Einzahlung mit früherem Kaufdatum (Altbestand): nach Erwerb einsortiert, geht vor dem früher gebuchten Kauf ab",
-      "_calc": "Kauf 1 ETH 2020-06-01 zu 1000 (Altbestand). Einzahlung 1 ETH gebucht 2020-09-01, ursprünglich gekauft 2019-06-01 zu 500: älterer Altbestand-Posten, steht in der FIFO-Reihe vor dem Kauf (früher angehängt → Kauf zuerst). Verkauf 1 ETH 2024-01-01 zu 4000: Posten 2019-06-01, Einstand 500, Gewinn 3500. Verkauf 1 ETH 2024-06-01 zu 5000: Posten 2020-06-01, Einstand 1000, Gewinn 4000.",
+      "_calc": "Kauf 1 ETH 2020-06-01 zu 1000 (Altbestand). Einzahlung 1 ETH gebucht 2020-09-01, ursprünglich gekauft 2019-06-01 zu 500: älterer Altbestand-Posten, steht in der FIFO-Reihe vor dem Kauf (nicht angehängt). Verkauf 1 ETH 2024-01-01 zu 4000: Posten 2019-06-01, Einstand 500, Gewinn 3500. Verkauf 1 ETH 2024-06-01 zu 5000: Posten 2020-06-01, Einstand 1000, Gewinn 4000.",
       "method": "AT_MOVING_AVERAGE",
       "trades": [
         {
@@ -2371,7 +2371,7 @@
       ]
     },
     {
-      "name": "[R10] FR Verkauf gegen Stablecoin = Tausch (art. 150 VH bis: aufgeschoben): BTC→USDT steuerneutral, USDT bleiben im Gesamtwert, steuerbar erst USDT→EUR",
+      "name": "FR Verkauf gegen Stablecoin = Tausch (art. 150 VH bis: aufgeschoben): BTC→USDT steuerneutral, USDT bleiben im Gesamtwert, steuerbar erst USDT→EUR",
       "method": "FR_PTA",
       "_calc": "Kauf 1 BTC zu 30000 (PTA 30000). Tausch 1 BTC → 60000 USDT: keine Abtretung. Verkauf 20000 USDT zu 1 gegen Euro: Gesamtwert davor 60000 USDT, Einstand 30000 × 20000 / 60000 = 10000, Gewinn 10000",
       "trades": [
@@ -2418,7 +2418,7 @@
       ]
     },
     {
-      "name": "[R10] AT Verkauf gegen Stablecoin = Tausch (ab 1.3.2022 steuerneutral, § 27b Abs. 3 Z 2 EStG): USDT übernehmen den Einstand, steuerbar erst USDT→EUR",
+      "name": "AT Verkauf gegen Stablecoin = Tausch (ab 1.3.2022 steuerneutral, § 27b Abs. 3 Z 2 EStG): USDT übernehmen den Einstand, steuerbar erst USDT→EUR",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 1 BTC 2023-01-10 zu 30000 (Neubestand). Tausch 1 BTC → 60000 USDT 2024-01-10: keine Veräusserung, USDT mit Einstand 30000. Verkauf 20000 USDT zu 1: Einstand 10000, Gewinn 10000",
       "trades": [
@@ -2463,7 +2463,7 @@
       ]
     },
     {
-      "name": "[R10] AT Tausch vor dem 1.3.2021 (EStR Rz 6103k): Veräusserung nach alter Rechtslage, erhaltener Coin = Altbestand ab dem Tausch",
+      "name": "AT Tausch vor dem 1.3.2021 (EStR Rz 6103k): Veräusserung nach alter Rechtslage, erhaltener Coin = Altbestand ab dem Tausch",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 1 BTC 2019-06-01 zu 5000. Tausch 1 BTC → 40 ETH 2020-06-01 (Wert 9000): Veräusserung Altbestand 9000 − 5000 = 4000; ETH Altbestand angeschafft 2020-06-01 zu 9000. Verkauf 40 ETH 2023-06-01 zu 2000: Altbestand > 1 Jahr, 80000 − 9000 = 71000",
       "trades": [
@@ -2518,7 +2518,7 @@
       ]
     },
     {
-      "name": "[R10] AT Tausch zwischen 1.3.2021 und 28.2.2022 (EStR Rz 6103k Bsp. 1): Neubestand realisiert nach § 31 a. F., erhaltener Coin Neubestand zum Wert",
+      "name": "AT Tausch zwischen 1.3.2021 und 28.2.2022 (EStR Rz 6103k Bsp. 1): Neubestand realisiert nach § 31 a. F., erhaltener Coin Neubestand zum Wert",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 10 ETH 2021-06-01 zu 2000 (Neubestand 20000). Tausch 10 ETH → 0.5 BTC 2022-01-15 (Wert 30000): Veräusserung 30000 − 20000 = 10000; BTC Neubestand Einstand 30000. Verkauf 0.5 BTC 2023-01-10 zu 40000: 20000 − 30000 = −10000",
       "trades": [
@@ -2573,9 +2573,9 @@
       ]
     },
     {
-      "name": "[R10] UK Einzahlung eigener Coins ohne Kaufdatum ist kein Erwerb: keine 30-Tage-Regel (Verkauf £40k aus dem Pool £10k bleibt +£30k)",
+      "name": "UK Einzahlung eigener Coins ohne Kaufdatum ist kein Erwerb: keine 30-Tage-Regel (Verkauf £40k aus dem Pool £10k bleibt +£30k)",
       "method": "UK_POOL",
-      "_calc": "Kauf 100 X 2024-05-01 zu 100 (Pool 10000). Verkauf 100 X 2024-08-01 zu 400 = 40000. Einzahlung 100 X 2024-08-11 (Wert 420, ohne Kaufdatum): kein Erwerb → nicht «30 Tage» (früher: Einstand 42000, −2000). Aus dem Pool: 40000 − 10000 = 30000",
+      "_calc": "Kauf 100 X 2024-05-01 zu 100 (Pool 10000). Verkauf 100 X 2024-08-01 zu 400 = 40000. Einzahlung 100 X 2024-08-11 (Wert 420, ohne Kaufdatum): kein Erwerb → nicht «30 Tage» (nicht Einstand 42000, −2000). Aus dem Pool: 40000 − 10000 = 30000",
       "trades": [
         {
           "id": 1,
@@ -2616,7 +2616,7 @@
       ]
     },
     {
-      "name": "[R10] CA Superficial Loss in CAD entschieden: USDT-Verlust, aber CAD-Gewinn → nichts verweigert; USDT-Gewinn, aber CAD-Verlust → verweigert (in CAD)",
+      "name": "CA Superficial Loss in CAD entschieden: USDT-Verlust, aber CAD-Gewinn → nichts verweigert; USDT-Gewinn, aber CAD-Verlust → verweigert (in CAD)",
       "method": "CA_ACB",
       "_calc": "X: Kauf 10 zu 1000 (USDCAD 1.20 → 12000 CAD), Verkauf 10 zu 900 (1.45 → 13050 CAD): USDT −1000, CAD +1050 → kein Superficial Loss trotz Rückkauf. Y: Kauf 10 zu 1000 (1.40 → 14000 CAD), Verkauf 10 zu 1100 (1.20 → 13200 CAD): CAD −800 → verweigert 800 CAD = 666.67 USDT zum Kurs 1.20 (Zeile adjustment). Rückkauf 10 zu 1000: ACB 10000 + 666.67; Verkauf zu 1200: Gewinn 12000 − 10666.67 = 1333.33",
       "fx": {
@@ -2718,7 +2718,7 @@
       ]
     },
     {
-      "name": "B47 Verschenkt (GIFT) UK: Schenkung = Veräusserung zum Marktwert aus dem Pool (TCGA 1992 s. 17)",
+      "name": "Verschenkt (GIFT) UK: Schenkung = Veräusserung zum Marktwert aus dem Pool (TCGA 1992 s. 17)",
       "_calc": "Pool 1 BTC / 1000. Verschenkt 0,5 BTC, Marktwert 3000 je Coin: Erlös 1500, Einstand 500, Gewinn 1000 (kein Geld erhalten, trotzdem Veräusserung).",
       "method": "UK_POOL",
       "trades": [
@@ -2754,7 +2754,7 @@
       ]
     },
     {
-      "name": "B47 Damit bezahlt (PAYMENT) ohne Marktwert (FIFO): zum Tagesschluss geschätzt",
+      "name": "Damit bezahlt (PAYMENT) ohne Marktwert (FIFO): zum Tagesschluss geschätzt",
       "_calc": "Posten 1 BTC / 1000. Mit 0,5 BTC bezahlt ohne Wert, Tagesschluss 4000: Erlös 2000 (geschätzt), Einstand 500, Gewinn 1500.",
       "method": "FIFO",
       "prices": {
@@ -2793,7 +2793,7 @@
       ]
     },
     {
-      "name": "B47 Tausch ohne Wert (Kraken Krypto↔Krypto): Wert = abgegebene Menge × Tagesschluss",
+      "name": "Tausch ohne Wert (Kraken Krypto↔Krypto): Wert = abgegebene Menge × Tagesschluss",
       "_calc": "1 ETH / 1000 getauscht in 0,05 BTC ohne Wert; Tagesschluss ETH 2000 → Wert 2000 (geschätzt): ETH Erlös 2000, Gewinn 1000; BTC-Posten Einstand 2000, Verkauf zu 60000 → Erlös 3000, Gewinn 1000.",
       "method": "FIFO",
       "prices": {
@@ -2851,7 +2851,7 @@
       ]
     },
     {
-      "name": "B47 Tausch ohne Wert, nur Kurs des erhaltenen Coins: Wert = erhaltene Menge × Tagesschluss",
+      "name": "Tausch ohne Wert, nur Kurs des erhaltenen Coins: Wert = erhaltene Menge × Tagesschluss",
       "_calc": "Kein Tagesschluss für ETH, BTC 50000 → Wert 0,05 × 50000 = 2500 (geschätzt): ETH Gewinn 1500; BTC Einstand 2500, Verkauf 3000 → Gewinn 500.",
       "method": "FIFO",
       "prices": {
@@ -2907,7 +2907,7 @@
       ]
     },
     {
-      "name": "B47 UK Netzwerkgebühr einer Auszahlung = eigene Veräusserung (CRYPTO22280, wie bei der Umbuchung)",
+      "name": "UK Netzwerkgebühr einer Auszahlung = eigene Veräusserung (CRYPTO22280, wie bei der Umbuchung)",
       "_calc": "Pool 1 BTC / 1000. Auszahlung 0,5 BTC mit Netzwerkgebühr 0,01 BTC (Marktwert 2000): Gebühr = Veräusserung 0,01, Einstand 10, Erlös 20, Gewinn 10; die Auszahlung selbst nimmt 0,5 BTC / 500 aus dem Pool. Verkauf 0,49 zu 3000: Einstand 490, Erlös 1470.",
       "method": "UK_POOL",
       "prices": {
@@ -2968,8 +2968,8 @@
       ]
     },
     {
-      "name": "B47 FR Gesamtwert samt beobachteter Adresse (Adress-Eintrag, negative Id)",
-      "_calc": "Eigener Bestand 1 BTC (PTA 10000), dazu 1 BTC auf einer beobachteten Adresse. Verkauf 0,5 BTC zu 20000: Gesamtwert 2 × 20000 = 40000 (vorher ohne Adresse 20000), Einstand 10000 × 10000 / 40000 = 2500, Gewinn 7500. [B81] Gesamtwert enthält die Adresse → addressValueIncluded (Vermerk FR_ADDRESS_NO_COST in der Übersicht).",
+      "name": "FR Gesamtwert samt beobachteter Adresse (Adress-Eintrag, negative Id)",
+      "_calc": "Eigener Bestand 1 BTC (PTA 10000), dazu 1 BTC auf einer beobachteten Adresse. Verkauf 0,5 BTC zu 20000: Gesamtwert 2 × 20000 = 40000 (ohne Adresse wären es 20000), Einstand 10000 × 10000 / 40000 = 2500, Gewinn 7500. Gesamtwert enthält die Adresse → addressValueIncluded (Vermerk FR_ADDRESS_NO_COST in der Übersicht).",
       "method": "FR_PTA",
       "prices": {
         "BTC": "20000"
@@ -3016,7 +3016,7 @@
       ]
     },
     {
-      "name": "B47 Verschenkt (GIFT) FIFO (DE/US/CH/Neutral): beim Schenkenden keine Veräusserung — wie eine Auszahlung",
+      "name": "Verschenkt (GIFT) FIFO (DE/US/CH/Neutral): beim Schenkenden keine Veräusserung — wie eine Auszahlung",
       "_calc": "Posten 1 BTC / 1000, Verschenkt 0,5 BTC: Bestand und Einstand gehen ab, keine Zeile.",
       "method": "FIFO",
       "prices": {
@@ -3042,7 +3042,7 @@
       "disposals": []
     },
     {
-      "name": "B47 Verschenkt (GIFT) AU (FIFO, template AU): Schenkung = Veräusserung zum Marktwert (CGT event A1), ohne Wert geschätzt",
+      "name": "Verschenkt (GIFT) AU (FIFO, template AU): Schenkung = Veräusserung zum Marktwert (CGT event A1), ohne Wert geschätzt",
       "_calc": "Posten 1 BTC / 1000. Verschenkt 0,5 BTC ohne Wert, Tagesschluss 4000: Erlös 2000 (geschätzt), Einstand 500, Gewinn 1500.",
       "method": "FIFO",
       "template": "AU",
@@ -3086,7 +3086,7 @@
       ]
     },
     {
-      "name": "B47 Verschenkt (GIFT) FR: Abtretung à titre gratuit — keine Veräusserung, PTA anteilig gekürzt (BOFiP § 100)",
+      "name": "Verschenkt (GIFT) FR: Abtretung à titre gratuit — keine Veräusserung, PTA anteilig gekürzt (BOFiP § 100)",
       "_calc": "PTA 10000 für 1 BTC. Verschenkt 0,5 BTC, Marktwert 20000 je Coin: Wert 10000, Gesamtwert 20000 → Kürzung 10000 × 10000 / 20000 = 5000; keine Zeile.",
       "method": "FR_PTA",
       "prices": {
@@ -3121,7 +3121,7 @@
       ]
     },
     {
-      "name": "[B55] AT Neubestand: Gebühren nicht abzugsfähig (§ 27a Abs. 4 Z 2, § 20 Abs. 2 EStG; BMF Kryptowährungen)",
+      "name": "AT Neubestand: Gebühren nicht abzugsfähig (§ 27a Abs. 4 Z 2, § 20 Abs. 2 EStG; BMF Kryptowährungen)",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 1 BTC zu 10000 + 50 USDT Gebühr: Anschaffungskosten 10000. Kauf 1,1 BTC zu 20000 mit 0,1 BTC Gebühr: erhalten 1,0, Anschaffungskosten 20000. Ø 30000 / 2. Verkauf 1 zu 30000 − 30 USDT Gebühr: Einstand 15000, Erlös vor Gebühren 30000, Gewinn 15000. Verkauf 0,5 zu 40000 mit 0,1 BTC Gebühr: Einstand 7500, Erlös 20000, Gewinn 12500; die 0,1 BTC Gebühr ist keine Veräusserung, der Einstand bleibt im Rest (0,4 BTC mit 7500). Verkauf 0,4 zu 40000: Einstand 7500, Gewinn 8500. ETH-Kauf, dessen Gebühr im Coin die ganze Menge verbraucht: nur Nebenkosten, keine Zeile.",
       "trades": [
@@ -3218,7 +3218,7 @@
       ]
     },
     {
-      "name": "[B55] AT Verkauf aus Alt- und Neubestand: Altbestand mit Gebühren (§ 31 EStG a. F.), Neubestand ohne",
+      "name": "AT Verkauf aus Alt- und Neubestand: Altbestand mit Gebühren (§ 31 EStG a. F.), Neubestand ohne",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 1 BTC 2020-06-01 zu 5000 + 50 Gebühr (Altbestand 5050). Kauf 1 BTC 2022-01-10 zu 20000 + 100 Gebühr (Neubestand 20000). Verkauf 1,5 zu 40000 − 300 Gebühr: Altbestand 1 BTC Erlös (60000 − 300) × 1/1,5 = 39800, Gewinn 34750; Neubestand 0,5 BTC Erlös vor Gebühren 60000 × 0,5/1,5 = 20000, Einstand 10000, Gewinn 10000.",
       "trades": [
@@ -3277,7 +3277,7 @@
       ]
     },
     {
-      "name": "[B56] UK Schenkung an Ehe-/Lebenspartner (TCGA 1992 s. 58): Veräusserung ohne Gewinn/Verlust aus dem Pool, Erlös = Einstand",
+      "name": "UK Schenkung an Ehe-/Lebenspartner (TCGA 1992 s. 58): Veräusserung ohne Gewinn/Verlust aus dem Pool, Erlös = Einstand",
       "method": "UK_POOL",
       "trades": [
         {
@@ -3315,7 +3315,7 @@
       ]
     },
     {
-      "name": "[B56] AU Schenkung an Ehe-/Lebenspartner bleibt eine Veräusserung zum Marktwert (kein Aufschub ausser bei Trennung) — Merker ignoriert",
+      "name": "AU Schenkung an Ehe-/Lebenspartner bleibt eine Veräusserung zum Marktwert (kein Aufschub ausser bei Trennung) — Merker ignoriert",
       "method": "FIFO",
       "template": "AU",
       "trades": [
@@ -3352,7 +3352,7 @@
       ]
     },
     {
-      "name": "[B56] DE Schenkung an Ehe-/Lebenspartner: wie jede Schenkung keine Veräusserung — Merker ignoriert",
+      "name": "DE Schenkung an Ehe-/Lebenspartner: wie jede Schenkung keine Veräusserung — Merker ignoriert",
       "method": "FIFO",
       "template": "DE",
       "trades": [
@@ -3377,7 +3377,7 @@
       "disposals": []
     },
     {
-      "name": "[B56] CA Schenkung an Ehe-/Lebenspartner (ITA 73(1)): zum ACB, kein Verlust — Kauf im 30-Tage-Fenster löst keinen Superficial Loss aus",
+      "name": "CA Schenkung an Ehe-/Lebenspartner (ITA 73(1)): zum ACB, kein Verlust — Kauf im 30-Tage-Fenster löst keinen Superficial Loss aus",
       "method": "CA_ACB",
       "trades": [
         {
@@ -3422,7 +3422,7 @@
       ]
     },
     {
-      "name": "[B56] CA Netzwerkgebühr einer Umbuchung = Veräusserung der Gebühr-Coins zum Marktwert (CRA: Bezahlen mit Krypto = disposition): 0.01 × 300 − 0.01 × 100; der Rest behält seinen ACB 99",
+      "name": "CA Netzwerkgebühr einer Umbuchung = Veräusserung der Gebühr-Coins zum Marktwert (CRA: Bezahlen mit Krypto = disposition): 0.01 × 300 − 0.01 × 100; der Rest behält seinen ACB 99",
       "method": "CA_ACB",
       "prices": {
         "X": "300"
@@ -3482,7 +3482,7 @@
       ]
     },
     {
-      "name": "[B56] US (FIFO je Wallet) Netzwerkgebühr = Veräusserung zum Marktwert (IRS Notice 2014-21): Gebühr im dritten Coin einer Auszahlung ohne Gebühr-Preis zum Tagesschluss (kein Aufwand mehr), Gebühr im Coin einer Umbuchung aus der Quell-Wallet",
+      "name": "US (FIFO je Wallet) Netzwerkgebühr = Veräusserung zum Marktwert (IRS Notice 2014-21): Gebühr im dritten Coin einer Auszahlung ohne Gebühr-Preis zum Tagesschluss (kein Aufwand mehr), Gebühr im Coin einer Umbuchung aus der Quell-Wallet",
       "method": "FIFO_WALLET",
       "template": "US",
       "prices": {
@@ -3558,7 +3558,7 @@
       ]
     },
     {
-      "name": "[B56] JP 総平均法: Netzwerkgebühr einer Umbuchung = Veräusserung zum Marktwert (国税庁 FAQ), Stückpreis 100",
+      "name": "JP 総平均法: Netzwerkgebühr einer Umbuchung = Veräusserung zum Marktwert (国税庁 FAQ), Stückpreis 100",
       "method": "JP_TOTAL_AVERAGE",
       "prices": {
         "X": "150"
@@ -3597,7 +3597,7 @@
       ]
     },
     {
-      "name": "[B56] DE unverändert: Netzwerkgebühr einer Umbuchung senkt nur die Menge (keine Veräusserung)",
+      "name": "DE: Netzwerkgebühr einer Umbuchung senkt nur die Menge (keine Veräusserung)",
       "method": "FIFO",
       "template": "DE",
       "prices": {
@@ -3627,7 +3627,7 @@
       "disposals": []
     },
     {
-      "name": "[B56] UK Gebühr im dritten Coin einer Auszahlung: nur die Veräusserung der ETH zum Marktwert (CRYPTO22280), kein zusätzlicher Verlust des ganzen Gebührenwerts",
+      "name": "UK Gebühr im dritten Coin einer Auszahlung: nur die Veräusserung der ETH zum Marktwert (CRYPTO22280), kein zusätzlicher Verlust des ganzen Gebührenwerts",
       "method": "UK_POOL",
       "trades": [
         {
@@ -3675,7 +3675,7 @@
       ]
     },
     {
-      "name": "[B57] UK Gebühr USDT einer Umbuchung (eigene Wallets): nicht im Einstand (HMRC CRYPTO22150), Zeile nur zur Information; Verkauf mit Einstand 100 statt 105",
+      "name": "UK Gebühr USDT einer Umbuchung (eigene Wallets): nicht im Einstand (HMRC CRYPTO22150), Zeile nur zur Information; Verkauf mit Einstand 100 statt 105",
       "method": "UK_POOL",
       "trades": [
         {
@@ -3730,7 +3730,7 @@
       ]
     },
     {
-      "name": "[B57] US (FIFO je Wallet) Gebühr USDT einer Umbuchung: nicht im Einstand, Zeile nur zur Information",
+      "name": "US (FIFO je Wallet) Gebühr USDT einer Umbuchung: nicht im Einstand, Zeile nur zur Information",
       "method": "FIFO_WALLET",
       "template": "US",
       "trades": [
@@ -3787,7 +3787,7 @@
       ]
     },
     {
-      "name": "[B57] JP 総平均法 Gebühr USDT einer Umbuchung: wie bisher nicht im Erwerbspreis, jetzt als Zeile zur Information",
+      "name": "JP 総平均法 Gebühr USDT einer Umbuchung: nicht im Erwerbspreis, als Zeile zur Information",
       "method": "JP_TOTAL_AVERAGE",
       "trades": [
         {
@@ -4166,7 +4166,7 @@
       ]
     },
     {
-      "name": "[B57] DE unverändert: Gebühr USDT einer Umbuchung erhöht den Einstand (keine Verwaltungsauffassung zu Transfergebühren zwischen eigenen Wallets), keine eigene Zeile",
+      "name": "DE: Gebühr USDT einer Umbuchung erhöht den Einstand (keine Verwaltungsauffassung zu Transfergebühren zwischen eigenen Wallets), keine eigene Zeile",
       "method": "FIFO",
       "template": "DE",
       "trades": [
@@ -4211,7 +4211,7 @@
       ]
     },
     {
-      "name": "[R12] Belohnung ohne Wert (Kraken/Binance-Import kennen keinen Preis): im Steuer-Export zum Tagesschluss — Einstand 1 × 2000, Verkauf vollständig statt aus der Summe zu fallen",
+      "name": "Belohnung ohne Wert (Kraken/Binance-Import kennen keinen Preis): im Steuer-Export zum Tagesschluss — Einstand 1 × 2000, Verkauf vollständig statt aus der Summe zu fallen",
       "method": "FIFO",
       "prices": {
         "ETH": "2000"
@@ -4248,7 +4248,7 @@
       ]
     },
     {
-      "name": "[B78] AT Verkauf von Neubestand vor dem 1.3.2022 mit Gebühr im Coin: alte Rechtslage (§ 31 EStG a. F.) wie der Tausch in dieser Zeit — Gebühr mindert den Erlös, die Gebühr-Coins gehen mit ihrem Einstand ab",
+      "name": "AT Verkauf von Neubestand vor dem 1.3.2022 mit Gebühr im Coin: alte Rechtslage (§ 31 EStG a. F.) wie der Tausch in dieser Zeit — Gebühr mindert den Erlös, die Gebühr-Coins gehen mit ihrem Einstand ab",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 1.1 BTC 1.6.2021 zu 20000 (Neubestand 22000). Verkauf 1 BTC 1.10.2021 zu 40000 mit 0.1 BTC Gebühr: abgegeben 1.1 BTC mit Einstand 22000, Erlös 1 × 40000 = 40000, Gewinn 18000 (nach neuer Rechtslage wären es 1.0 BTC, Einstand 20000, Gewinn 20000).",
       "trades": [
@@ -4285,7 +4285,7 @@
       ]
     },
     {
-      "name": "[B78] FR Kauf, dessen Gebühr im Coin den ganzen Zugang verbraucht: nur in der Erwerbspreis-Summe, keine Verlust-Zeile",
+      "name": "FR Kauf, dessen Gebühr im Coin den ganzen Zugang verbraucht: nur in der Erwerbspreis-Summe, keine Verlust-Zeile",
       "method": "FR_PTA",
       "_calc": "PTA 20000 + 0.01 × 3000 = 20030 (Gebühr verbraucht die 0.01 ETH). Verkauf 0.5 BTC zu 30000: Gesamtwert 30000, Einstand 20030 × 15000/30000 = 10015, Gewinn 4985. Keine Aufwand-Zeile −30 für den verbrauchten ETH-Kauf.",
       "trades": [
@@ -4331,7 +4331,7 @@
       ]
     },
     {
-      "name": "[B78] AT Verkauf von Neubestand vor dem 1.3.2022: alte Rechtslage (§ 31 EStG a. F.) — Einstand mit Anschaffungsnebenkosten (Kaufgebühr)",
+      "name": "AT Verkauf von Neubestand vor dem 1.3.2022: alte Rechtslage (§ 31 EStG a. F.) — Einstand mit Anschaffungsnebenkosten (Kaufgebühr)",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 1 BTC 1.4.2021 zu 1000 + 10 Gebühr (Neubestand: Ø ohne Gebühr 1000, Gebührenteil 10). Verkauf 1.10.2021 zu 1500: vor dem 1.3.2022 Spekulationsgeschäft nach alter Rechtslage — Anschaffungskosten samt Nebenkosten 1010, Erlös 1500, Gewinn 490.",
       "trades": [
@@ -4368,7 +4368,7 @@
       ]
     },
     {
-      "name": "[B78] AT Verkauf von Neubestand ab dem 1.3.2022: 27,5 % — Kaufgebühr nicht im Einstand (§ 27a Abs. 4 Z 2 EStG)",
+      "name": "AT Verkauf von Neubestand ab dem 1.3.2022: 27,5 % — Kaufgebühr nicht im Einstand (§ 27a Abs. 4 Z 2 EStG)",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "Kauf 1 BTC 1.4.2021 zu 1000 + 10 Gebühr. Verkauf 1.4.2022 zu 1500: neue Rechtslage (Sondersteuersatz 27,5 %), Anschaffungskosten ohne Nebenkosten 1000, Erlös 1500, Gewinn 500.",
       "trades": [
@@ -4405,7 +4405,7 @@
       ]
     },
     {
-      "name": "[B78] AT Neubestand mit Kaufgebühr, Umbuchung A→B, Verkäufe vor und ab dem 1.3.2022: Ø ohne Gebühren, Gebührenteil geht mit und zählt nur vor dem 1.3.2022",
+      "name": "AT Neubestand mit Kaufgebühr, Umbuchung A→B, Verkäufe vor und ab dem 1.3.2022: Ø ohne Gebühren, Gebührenteil geht mit und zählt nur vor dem 1.3.2022",
       "method": "AT_MOVING_AVERAGE",
       "_calc": "A: Kauf 2 BTC 1.4.2021 zu 1000 + 20 Gebühr, Kauf 2 BTC 1.5.2021 zu 2000 → Ø ohne Gebühren 6000/4 = 1500, Gebührenteil 20. Umbuchung aller 4 BTC nach B: Ø und Gebührenteil gehen mit. Verkauf 1 BTC 1.10.2021 zu 3000 (alte Rechtslage): Einstand 1500 + 20/4 = 1505, Gewinn 1495. Verkauf 1 BTC 1.4.2022 zu 3000 (27,5 %): Einstand 1500 ohne Gebühr, Gewinn 1500.",
       "trades": [
@@ -4843,7 +4843,7 @@
           null
         ]
       ],
-      "_calc": "[B78] CA_TAXABLE nur in CAD (USDT-Spalte leer); Werte unverändert: steuerbar (netto −300 + nicht abziehbar 400) × 1/2 = 50."
+      "_calc": "CA_TAXABLE nur in CAD (USDT-Spalte leer); steuerbar (netto −300 + nicht abziehbar 400) × 1/2 = 50."
     },
     {
       "template": "FR",
@@ -5403,7 +5403,7 @@
       "template": "CH",
       "method": "FIFO",
       "year": 2025,
-      "_calc": "Kauf 1 BTC zu 10000, Verkauf 0,5 zu 14000: Gewinn 7000 − 5000 = 2000; Belohnung 0,01 × 12000 = 120. Orientierung ohne Beträge zur Einordnung: Kapitalgewinne «nicht gerechnet – siehe ESTV», Belohnungen aufgeführt (120), Vermögenssteuer nicht gerechnet. [B80] Vermögenswert per 31.12. ohne Tagesschlüsse (nicht übergeben) «nicht gerechnet», Vermerk ESTV-Kursliste massgebend.",
+      "_calc": "Kauf 1 BTC zu 10000, Verkauf 0,5 zu 14000: Gewinn 7000 − 5000 = 2000; Belohnung 0,01 × 12000 = 120. Orientierung ohne Beträge zur Einordnung: Kapitalgewinne «nicht gerechnet – siehe ESTV», Belohnungen aufgeführt (120), Vermögenssteuer nicht gerechnet. Vermögenswert per 31.12. ohne Tagesschlüsse (nicht übergeben) «nicht gerechnet», Vermerk ESTV-Kursliste massgebend.",
       "trades": [
         {
           "id": 1,
@@ -5850,7 +5850,7 @@
         "2025-03-01": "1.45",
         "2025-03-15": "1.45"
       },
-      "_calc": "[R10] Review 10 F3: Kauf 10 X zu 1000 USDT (×1.20 = 12000 CAD), Verkauf zu 900 (×1.45 = 13050 CAD), Rückkauf 15 Tage später. USDT −1000, CAD +1050: kein nicht abziehbarer Verlust (früher +1450 CAD verweigert). Gewinn/Verlust nach CAD eingeordnet; steuerbar 1050 × 1/2 = 525 [B78] CA_TAXABLE nur in CAD (USDT-Spalte leer).",
+      "_calc": "Kauf 10 X zu 1000 USDT (×1.20 = 12000 CAD), Verkauf zu 900 (×1.45 = 13050 CAD), Rückkauf 15 Tage später. USDT −1000, CAD +1050: kein nicht abziehbarer Verlust (nicht +1450 CAD verweigert). Gewinn/Verlust nach CAD eingeordnet; steuerbar 1050 × 1/2 = 525 CA_TAXABLE nur in CAD (USDT-Spalte leer).",
       "trades": [
         {
           "id": 1,
@@ -5924,7 +5924,7 @@
         "BTC": "20000",
         "ETH": "2000"
       },
-      "_calc": "[R10] Review 10 F6: Einzahlung 5 ETH ohne Preis → Erwerbspreis-Summe unvollständig. Verkauf 0.5 BTC zu 20000: Gesamtwert 1 × 20000 + 5 × 2000 = 30000, Einstand 10000 × 10000 / 30000 = 3333.33, Gewinn 6666.67 — gezählt, aber Gewinne und netto «unvollständig»",
+      "_calc": "Einzahlung 5 ETH ohne Preis → Erwerbspreis-Summe unvollständig. Verkauf 0.5 BTC zu 20000: Gesamtwert 1 × 20000 + 5 × 2000 = 30000, Einstand 10000 × 10000 / 30000 = 3333.33, Gewinn 6666.67 — gezählt, aber Gewinne und netto «unvollständig»",
       "trades": [
         {
           "id": 1,
@@ -6003,7 +6003,7 @@
       "template": "DE",
       "method": "FIFO",
       "year": 2025,
-      "_calc": "Gewinn 1020 ≤ 1 Jahr, Auszahlungsgebühr 25 USDT: eigener Posten, NICHT mit § 23 verrechnet → netto 1020 ≥ 1000: Freigrenze erreicht (vorher 995 «unter der Freigrenze»).",
+      "_calc": "Gewinn 1020 ≤ 1 Jahr, Auszahlungsgebühr 25 USDT: eigener Posten, NICHT mit § 23 verrechnet → netto 1020 ≥ 1000: Freigrenze erreicht (nicht 995 «unter der Freigrenze»).",
       "trades": [
         {
           "id": 1,
@@ -6206,7 +6206,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2024,
-      "_calc": "[B55] Kauf 1 ETH zu 2000 + 20 Gebühr (Anschaffungskosten 2000, § 27a Abs. 4 Z 2 EStG). Zins 0,1 ETH (Lending) zu 2500: Einkunft beim Zufluss 250 (§ 27b Abs. 2 Z 1 EStG), Anschaffungskosten 250. Staking 0,1 ETH zu 2500: Anschaffungskosten 0, Einkünfte 250 nur Information. Ø 2250 / 1,2. Verkauf 0,6 zu 3000 − 18 Gebühr: Einstand 1125, Erlös vor Gebühren 1800, Gewinn 675. Sondersteuersatz 27,5 % auf 675 + 250 = 925.",
+      "_calc": "Kauf 1 ETH zu 2000 + 20 Gebühr (Anschaffungskosten 2000, § 27a Abs. 4 Z 2 EStG). Zins 0,1 ETH (Lending) zu 2500: Einkunft beim Zufluss 250 (§ 27b Abs. 2 Z 1 EStG), Anschaffungskosten 250. Staking 0,1 ETH zu 2500: Anschaffungskosten 0, Einkünfte 250 nur Information. Ø 2250 / 1,2. Verkauf 0,6 zu 3000 − 18 Gebühr: Einstand 1125, Erlös vor Gebühren 1800, Gewinn 675. Sondersteuersatz 27,5 % auf 675 + 250 = 925.",
       "trades": [
         {
           "id": 1,
@@ -6298,7 +6298,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2021,
-      "_calc": "[B78] Neuvermögen (Kauf 1.4.2021 zu 1000) verkauft am 1.10.2021 zu 1500: vor dem 1.3.2022 noch alte Rechtslage (§ 30/§ 31 EStG a. F.) — Spekulationsgeschäft (≤ 1 Jahr), Gewinn 1500 − 1000 = 500 in OLD_SHORT_NET, NICHT im Neubestand (NEW_NET 0) und nicht im Sondersteuersatz (AT_RATE 0). Freigrenze 440: 500 > 440 → REACHED (der ganze Betrag zählt). Keine Option auf 27,5 % (nur für Realisationen 1.1.–28.2.2022, § 124b Z 384 lit. c EStG) → kein Vermerk. Kein Altbestand → kein AT_OLD_LONG.",
+      "_calc": "Neuvermögen (Kauf 1.4.2021 zu 1000) verkauft am 1.10.2021 zu 1500: vor dem 1.3.2022 noch alte Rechtslage (§ 30/§ 31 EStG a. F.) — Spekulationsgeschäft (≤ 1 Jahr), Gewinn 1500 − 1000 = 500 in OLD_SHORT_NET, NICHT im Neubestand (NEW_NET 0) und nicht im Sondersteuersatz (AT_RATE 0). Freigrenze 440: 500 > 440 → REACHED (der ganze Betrag zählt). Keine Option auf 27,5 % (nur für Realisationen 1.1.–28.2.2022, § 124b Z 384 lit. c EStG) → kein Vermerk. Kein Altbestand → kein AT_OLD_LONG.",
       "trades": [
         {
           "id": 1,
@@ -6439,7 +6439,7 @@
       ]
     },
     {
-      "_comment": "[B56] CA Schenkung an Ehe-/Lebenspartner in CAD: Erlös = Einstand zum Kurs seines Datums (520), Gewinn 0 auch in CAD; nicht in den Erlösen. Verkauf 2 × 150: Einstand 200 USDT = 260 CAD, Erlös 420 CAD. [B78] CA_TAXABLE nur in CAD (USDT-Spalte leer).",
+      "_comment": "CA Schenkung an Ehe-/Lebenspartner in CAD: Erlös = Einstand zum Kurs seines Datums (520), Gewinn 0 auch in CAD; nicht in den Erlösen. Verkauf 2 × 150: Einstand 200 USDT = 260 CAD, Erlös 420 CAD. CA_TAXABLE nur in CAD (USDT-Spalte leer).",
       "template": "CA",
       "method": "CA_ACB",
       "year": 2025,
@@ -6519,7 +6519,7 @@
       "template": "UK",
       "method": "UK_POOL",
       "year": 2024,
-      "_calc": "[B56] Auszahlungsgebühr 25 USDT: kein Verlust, nur Information (TaxTemplate.quoteFeeIsInfo; UK HMRC CRYPTO22150) — eigener Posten, nicht in Gewinne/Verluste/netto; netto 1020 (vorher 995). UK: Steuerjahr 2024/25 (6.4.2024–5.4.2025).",
+      "_calc": "Auszahlungsgebühr 25 USDT: kein Verlust, nur Information (TaxTemplate.quoteFeeIsInfo; UK HMRC CRYPTO22150) — eigener Posten, nicht in Gewinne/Verluste/netto; netto 1020 (nicht 995). UK: Steuerjahr 2024/25 (6.4.2024–5.4.2025).",
       "trades": [
         {
           "id": 1,
@@ -6611,7 +6611,7 @@
       "template": "US",
       "method": "FIFO",
       "year": 2025,
-      "_calc": "[B56] Auszahlungsgebühr 25 USDT: kein Verlust, nur Information (TaxTemplate.quoteFeeIsInfo; UK HMRC CRYPTO22150) — eigener Posten, nicht in Gewinne/Verluste/netto; netto 1020 (vorher 995).",
+      "_calc": "Auszahlungsgebühr 25 USDT: kein Verlust, nur Information (TaxTemplate.quoteFeeIsInfo; UK HMRC CRYPTO22150) — eigener Posten, nicht in Gewinne/Verluste/netto; netto 1020 (nicht 995).",
       "trades": [
         {
           "id": 1,
@@ -6715,7 +6715,7 @@
       "template": "UK",
       "method": "UK_POOL",
       "year": 2024,
-      "_calc": "[B57] Gebühr USDT 5 einer Umbuchung: eigener Posten TRANSFER_FEES nur zur Information, nicht im Einstand (Gewinn 100 statt 95). UK-Steuerjahr 2024/25.",
+      "_calc": "Gebühr USDT 5 einer Umbuchung: eigener Posten TRANSFER_FEES nur zur Information, nicht im Einstand (Gewinn 100 statt 95). UK-Steuerjahr 2024/25.",
       "trades": [
         {
           "id": 1,
@@ -6798,7 +6798,7 @@
       ]
     },
     {
-      "_comment": "[R12] Belohnung ohne Wert zum Tagesschluss: Einkünfte 2000 (geschätzt) statt «unvollständig», Verkauf mit Einstand",
+      "_comment": "Belohnung ohne Wert zum Tagesschluss: Einkünfte 2000 (geschätzt) statt «unvollständig», Verkauf mit Einstand",
       "template": "DE",
       "method": "FIFO",
       "year": 2025,
@@ -6897,7 +6897,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2021,
-      "_calc": "[B76] Altbestand (Kauf 2.11.2020, vor dem 1.3.2021) nach 7 Monaten verkauft: Spekulationsgeschäft (§ 30 EStG a. F.), 0,01 × (40000 − 10000) = 300 ≤ 440 → Freigrenze § 31 Abs. 3 EStG a. F. nicht überschritten.",
+      "_calc": "Altbestand (Kauf 2.11.2020, vor dem 1.3.2021) nach 7 Monaten verkauft: Spekulationsgeschäft (§ 30 EStG a. F.), 0,01 × (40000 − 10000) = 300 ≤ 440 → Freigrenze § 31 Abs. 3 EStG a. F. nicht überschritten.",
       "trades": [
         {
           "id": 1,
@@ -6984,7 +6984,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2021,
-      "_calc": "[B76] Wie oben, 0,05 × 30000 = 1500 > 440 → Freigrenze überschritten (der ganze Betrag zählt).",
+      "_calc": "Wie oben, 0,05 × 30000 = 1500 > 440 → Freigrenze überschritten (der ganze Betrag zählt).",
       "trades": [
         {
           "id": 1,
@@ -7071,7 +7071,7 @@
       "template": "DE",
       "method": "FIFO_WALLET",
       "year": 2024,
-      "_calc": "[B78] BMF 06.03.2025 Rn. 62: FIFO je Wallet. Wallet A kauft 1 BTC am 10.1.2023 zu 20000, Wallet B 1 BTC am 1.6.2024 zu 60000; Verkauf 1 BTC aus B am 1.12.2024 zu 90000 → Posten aus B: 90000 − 60000 = 30000, gehalten < 1 Jahr → ≤ 1 Jahr (§ 23). Freigrenze 2024 1000: 30000 ≥ 1000 → REACHED. (FIFO über alle Wallets nähme den Posten aus A: > 1 Jahr, 70000 nicht steuerbar.)",
+      "_calc": "BMF 06.03.2025 Rn. 62: FIFO je Wallet. Wallet A kauft 1 BTC am 10.1.2023 zu 20000, Wallet B 1 BTC am 1.6.2024 zu 60000; Verkauf 1 BTC aus B am 1.12.2024 zu 90000 → Posten aus B: 90000 − 60000 = 30000, gehalten < 1 Jahr → ≤ 1 Jahr (§ 23). Freigrenze 2024 1000: 30000 ≥ 1000 → REACHED. (FIFO über alle Wallets nähme den Posten aus A: > 1 Jahr, 70000 nicht steuerbar.)",
       "trades": [
         {
           "id": 1,
@@ -7174,7 +7174,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2022,
-      "_calc": "[B78] Neuvermögen (Kauf 1 BTC 1.6.2021 zu 1000) verkauft am 1.2.2022 zu 1300: im Fenster 1.1.–28.2.2022 — ohne Antrag alte Rechtslage: Spekulationsgeschäft 1300 − 1000 = 300 in OLD_SHORT_NET mit Vermerk «Option auf 27,5 % möglich» (AT_TRANSITION_2021), Freigrenze 440 ohne Option geprüft: 300 ≤ 440 → BELOW, Vermerk AT_WITHOUT_OPTION. Neubestand (verkauft ab 1.3.2022) 0, AT_RATE 0. Staking 1 ETH am 1.9.2021 (Wert 100, nicht verkauft) mit Anschaffungskosten 0 → Vermerk AT_STAKING_ZERO_COST am Sondersteuersatz; Einkünfte 2022: 0 (Zufluss 2021).",
+      "_calc": "Neuvermögen (Kauf 1 BTC 1.6.2021 zu 1000) verkauft am 1.2.2022 zu 1300: im Fenster 1.1.–28.2.2022 — ohne Antrag alte Rechtslage: Spekulationsgeschäft 1300 − 1000 = 300 in OLD_SHORT_NET mit Vermerk «Option auf 27,5 % möglich» (AT_TRANSITION_2021), Freigrenze 440 ohne Option geprüft: 300 ≤ 440 → BELOW, Vermerk AT_WITHOUT_OPTION. Neubestand (verkauft ab 1.3.2022) 0, AT_RATE 0. Staking 1 ETH am 1.9.2021 (Wert 100, nicht verkauft) mit Anschaffungskosten 0 → Vermerk AT_STAKING_ZERO_COST am Sondersteuersatz; Einkünfte 2022: 0 (Zufluss 2021).",
       "trades": [
         {
           "id": 1,
@@ -7272,7 +7272,7 @@
         "2025-06-01": "1.4"
       },
       "today": "2026-01-15",
-      "_calc": "[B78] Kauf 10 X zu 100 am 10.1.2025 (1000 USDT × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 1.6.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf → nichts verweigert. Steuerbar (−460) × 1/2 = −230 → 0 (nicht negativ), NET_CAPITAL_LOSS 230 CAD (abziehbarer Teil, Vortrag); beide nur in CAD. Heute 15.1.2026: 30-Tage-Fenster bis 31.12.2025 + 30 = 30.1.2026 noch offen → Vermerk WINDOW_OPEN am Posten netto mit Datum 2026-01-30. [B78 Fix] Der Vermerk braucht eine Veräusserung mit Verlust in den letzten 30 Tagen des Jahres (ab 2.12.2025): nur sie kann ein Kauf nach dem 31.12. noch treffen. Verkauf am 1.6.2025 → kein Vermerk (Fall mit Vermerk: CA, Verkauf 15.12.2025, weiter unten).",
+      "_calc": "Kauf 10 X zu 100 am 10.1.2025 (1000 USDT × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 1.6.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf → nichts verweigert. Steuerbar (−460) × 1/2 = −230 → 0 (nicht negativ), NET_CAPITAL_LOSS 230 CAD (abziehbarer Teil, Vortrag); beide nur in CAD. Heute 15.1.2026: 30-Tage-Fenster bis 31.12.2025 + 30 = 30.1.2026 noch offen → Vermerk WINDOW_OPEN am Posten netto mit Datum 2026-01-30. Der Vermerk braucht eine Veräusserung mit Verlust in den letzten 30 Tagen des Jahres (ab 2.12.2025): nur sie kann ein Kauf nach dem 31.12. noch treffen. Verkauf am 1.6.2025 → kein Vermerk (Fall mit Vermerk: CA, Verkauf 15.12.2025, weiter unten).",
       "trades": [
         {
           "id": 1,
@@ -7340,7 +7340,7 @@
       "template": "AU",
       "method": "FIFO",
       "year": 2024,
-      "_calc": "[B78] Kauf 1 ETH 1.8.2024 zu 3000, Verkauf 1.2.2025 zu 2000: Verlust −1000 (≤ 12 Monate). Kein Gewinn → AU_DISCOUNTED 0 (nicht negativ), NET_CAPITAL_LOSS 1000 (ganzer Verlust, ohne Rabatt, vorzutragen).",
+      "_calc": "Kauf 1 ETH 1.8.2024 zu 3000, Verkauf 1.2.2025 zu 2000: Verlust −1000 (≤ 12 Monate). Kein Gewinn → AU_DISCOUNTED 0 (nicht negativ), NET_CAPITAL_LOSS 1000 (ganzer Verlust, ohne Rabatt, vorzutragen).",
       "trades": [
         {
           "id": 1,
@@ -7432,7 +7432,7 @@
         "2025-12-01": "0.75"
       },
       "today": "2026-04-20",
-      "_calc": "[B78] Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75 = 30000 GBP), Verkauf 1.12.2025 zu 80000 (× 0.75 = 60000 GBP): Gewinn 40000 USDT / 30000 GBP; nach £3,000 Freibetrag 27000. Erlöse 60000 GBP > 50000 (ab 2023/24) → Vermerk UK_HMRC_REPORT am Posten Erlöse. Heute 20.4.2026: Steuerjahr endet 5.4.2026, 30-Tage-Fenster bis 5.5.2026 offen → WINDOW_OPEN am Posten netto (2026-05-05). [B78 Fix] WINDOW_OPEN nur mit einer Veräusserung in den letzten 30 Tagen des Steuerjahrs (ab 7.3.2026) — Verkauf am 1.12.2025 → kein Vermerk (Fall mit Vermerk: UK, Verkauf 20.3.2026, weiter unten). Meldegrenze mit Erlösen vor Gebühren: 80000 × 0.75 = 60000 GBP > 50000 (keine Gebühr).",
+      "_calc": "Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75 = 30000 GBP), Verkauf 1.12.2025 zu 80000 (× 0.75 = 60000 GBP): Gewinn 40000 USDT / 30000 GBP; nach £3,000 Freibetrag 27000. Erlöse 60000 GBP > 50000 (ab 2023/24) → Vermerk UK_HMRC_REPORT am Posten Erlöse. Heute 20.4.2026: Steuerjahr endet 5.4.2026, 30-Tage-Fenster bis 5.5.2026 offen → WINDOW_OPEN am Posten netto (2026-05-05). WINDOW_OPEN nur mit einer Veräusserung in den letzten 30 Tagen des Steuerjahrs (ab 7.3.2026) — Verkauf am 1.12.2025 → kein Vermerk (Fall mit Vermerk: UK, Verkauf 20.3.2026, weiter unten). Meldegrenze mit Erlösen vor Gebühren: 80000 × 0.75 = 60000 GBP > 50000 (keine Gebühr).",
       "trades": [
         {
           "id": 1,
@@ -7501,7 +7501,7 @@
       "template": "FR",
       "method": "FR_PTA",
       "year": 2025,
-      "_calc": "[B78] Kauf 1 BTC zu 20000; Kauf 0.01 ETH zu 3000, Gebühr 0.01 ETH verbraucht den ganzen Zugang: Kaufpreis 30 zählt in der Erwerbspreis-Summe (20030), KEINE Verlust-Zeile mehr (sonst doppelt). Verkauf 0.5 BTC zu 30000: Gesamtwert 1 × 30000 = 30000 (ETH-Bestand 0), Einstand 20030 × 15000 / 30000 = 10015, Gewinn 15000 − 10015 = 4985; Verluste 0 (vorher −30).",
+      "_calc": "Kauf 1 BTC zu 20000; Kauf 0.01 ETH zu 3000, Gebühr 0.01 ETH verbraucht den ganzen Zugang: Kaufpreis 30 zählt in der Erwerbspreis-Summe (20030), KEINE Verlust-Zeile mehr (sonst doppelt). Verkauf 0.5 BTC zu 30000: Gesamtwert 1 × 30000 = 30000 (ETH-Bestand 0), Einstand 20030 × 15000 / 30000 = 10015, Gewinn 15000 − 10015 = 4985; Verluste 0 (nicht −30).",
       "trades": [
         {
           "id": 1,
@@ -7582,7 +7582,7 @@
       "prices": {
         "BTC": "20000"
       },
-      "_calc": "[B78] Kauf 1 BTC zu 20000. Auszahlung 0.5 BTC (Kurs 20000) mit Gebühr 25 USDT: PTA × 10000/20000 = 10000 gekürzt (FR_OUTFLOW 10000); die Gebühr 25 ist nur Information (WITHDRAWAL_FEES −25, Vermerk WITHDRAWAL_FEE_INFO), NICHT in Verluste/netto. Verkauf 0.5 BTC zu 30000: Gesamtwert 15000, Einstand 10000 × 15000/15000 = 10000, Gewinn 5000.",
+      "_calc": "Kauf 1 BTC zu 20000. Auszahlung 0.5 BTC (Kurs 20000) mit Gebühr 25 USDT: PTA × 10000/20000 = 10000 gekürzt (FR_OUTFLOW 10000); die Gebühr 25 ist nur Information (WITHDRAWAL_FEES −25, Vermerk WITHDRAWAL_FEE_INFO), NICHT in Verluste/netto. Verkauf 0.5 BTC zu 30000: Gesamtwert 15000, Einstand 10000 × 15000/15000 = 10000, Gewinn 5000.",
       "trades": [
         {
           "id": 1,
@@ -7685,7 +7685,7 @@
         "BTC": "20000",
         "ETH": "2000"
       },
-      "_calc": "[B78] Kauf 1 BTC zu 20000 am 10.1.2025 (Kurs 0.9) und 10 ETH zu 2000 am 1.2.2025 (Kurs 0.95): PTA 40000 USDT. Auszahlung 5 ETH am 1.3.2025: Gesamtwert 20000 + 20000 = 40000, Anteil 10000/40000 = 1/4 → Kürzung 10000 USDT = je 5000 aus beiden Käufen; in EUR zum Kurs der Kaufdaten 5000 × 0.9 + 5000 × 0.95 = 9250 (nicht 10000 × 0.92 = 9200 zum Kurs des Abgangs). Abtretungen 0 ≤ 305 → BELOW.",
+      "_calc": "Kauf 1 BTC zu 20000 am 10.1.2025 (Kurs 0.9) und 10 ETH zu 2000 am 1.2.2025 (Kurs 0.95): PTA 40000 USDT. Auszahlung 5 ETH am 1.3.2025: Gesamtwert 20000 + 20000 = 40000, Anteil 10000/40000 = 1/4 → Kürzung 10000 USDT = je 5000 aus beiden Käufen; in EUR zum Kurs der Kaufdaten 5000 × 0.9 + 5000 × 0.95 = 9250 (nicht 10000 × 0.92 = 9200 zum Kurs des Abgangs). Abtretungen 0 ≤ 305 → BELOW.",
       "trades": [
         {
           "id": 1,
@@ -7766,7 +7766,7 @@
       ]
     },
     {
-      "_calc": "[B81] Wie der Engine-Fall «B47 FR Gesamtwert samt beobachteter Adresse»: eigener Bestand 1 BTC (PTA 10000), dazu 1 BTC auf einer beobachteten Adresse (negative Id, kein Einstand). Verkauf 0,5 BTC zu 20000: Gesamtwert 40000, Einstand 2500, Gewinn 7500. Die Adresse zählt zu Recht zum Gesamtwert, hat aber keinen Einstand → Vermerk FR_ADDRESS_NO_COST am Posten netto (nicht ausgeschlossen, Beträge unverändert).",
+      "_calc": "Wie der Engine-Fall «FR Gesamtwert samt beobachteter Adresse»: eigener Bestand 1 BTC (PTA 10000), dazu 1 BTC auf einer beobachteten Adresse (negative Id, kein Einstand). Verkauf 0,5 BTC zu 20000: Gesamtwert 40000, Einstand 2500, Gewinn 7500. Die Adresse zählt zu Recht zum Gesamtwert, hat aber keinen Einstand → Vermerk FR_ADDRESS_NO_COST am Posten netto (nicht ausgeschlossen, Beträge unverändert).",
       "template": "FR",
       "method": "FR_PTA",
       "year": 2025,
@@ -7846,7 +7846,7 @@
       "incompleteLines": []
     },
     {
-      "_calc": "[B81] Wie der Fall davor, aber im laufenden Jahr 2026 (today 2026-12-20, Jahr noch offen): Der Vermerk FR_ADDRESS_NO_COST bleibt am Posten netto. Ein Fenster-Vermerk (WINDOW_OPEN) gibt es nur für UK/CA, FR verdrängt ihn also nie; Beträge unverändert.",
+      "_calc": "Wie der Fall davor, aber im laufenden Jahr 2026 (today 2026-12-20, Jahr noch offen): Der Vermerk FR_ADDRESS_NO_COST bleibt am Posten netto. Ein Fenster-Vermerk (WINDOW_OPEN) gibt es nur für UK/CA, FR verdrängt ihn also nie; Beträge unverändert.",
       "template": "FR",
       "method": "FR_PTA",
       "year": 2026,
@@ -7930,7 +7930,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2021,
-      "_calc": "[B78] Neuvermögen (Kauf 1 BTC 1.4.2021 zu 1000 + 10 Gebühr) verkauft am 1.10.2021 zu 1500: alte Rechtslage (§ 31 EStG a. F.) — Anschaffungskosten samt Kaufgebühr 1010, Spekulationsgewinn 1500 − 1010 = 490 in OLD_SHORT_NET, NEW_NET 0, AT_RATE 0. Freigrenze 440: 490 > 440 → REACHED.",
+      "_calc": "Neuvermögen (Kauf 1 BTC 1.4.2021 zu 1000 + 10 Gebühr) verkauft am 1.10.2021 zu 1500: alte Rechtslage (§ 31 EStG a. F.) — Anschaffungskosten samt Kaufgebühr 1010, Spekulationsgewinn 1500 − 1010 = 490 in OLD_SHORT_NET, NEW_NET 0, AT_RATE 0. Freigrenze 440: 490 > 440 → REACHED.",
       "trades": [
         {
           "id": 1,
@@ -8013,7 +8013,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2022,
-      "_calc": "[B78] Gleicher Kauf (1 BTC 1.4.2021 zu 1000 + 10 Gebühr), verkauft am 1.4.2022 zu 1500: neue Rechtslage, Gewinn 1500 − 1000 = 500 zum Sondersteuersatz 27,5 % (Kaufgebühr nicht abziehbar, § 27a Abs. 4 Z 2 EStG). Kein Verkauf vor dem 1.3.2022 → keine Spekulations-Zeilen, keine Freigrenze.",
+      "_calc": "Gleicher Kauf (1 BTC 1.4.2021 zu 1000 + 10 Gebühr), verkauft am 1.4.2022 zu 1500: neue Rechtslage, Gewinn 1500 − 1000 = 500 zum Sondersteuersatz 27,5 % (Kaufgebühr nicht abziehbar, § 27a Abs. 4 Z 2 EStG). Kein Verkauf vor dem 1.3.2022 → keine Spekulations-Zeilen, keine Freigrenze.",
       "trades": [
         {
           "id": 1,
@@ -8084,7 +8084,7 @@
         "2026-03-20": "0.75"
       },
       "today": "2026-05-05",
-      "_calc": "[B78 Fix] Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75), Verkauf 0.5 BTC 20.3.2026 zu 60000 (× 0.75): Einstand 20000 USDT / 15000 GBP, Erlös 30000 / 22500, Gewinn 10000 / 7500; nach £3,000 Freibetrag 4500. Verkauf in den letzten 30 Tagen des Steuerjahrs (ab 7.3.2026), heute 5.5.2026 = letzter Tag des Fensters (5.4.2026 + 30): Käufe an diesem Tag zählen noch → WINDOW_OPEN mit 2026-05-05 (vorher ab diesem Tag schon weg). Erlöse 22500 < 50000 → keine Meldung.",
+      "_calc": "Kauf 1 BTC 1.5.2025 zu 40000 (× 0.75), Verkauf 0.5 BTC 20.3.2026 zu 60000 (× 0.75): Einstand 20000 USDT / 15000 GBP, Erlös 30000 / 22500, Gewinn 10000 / 7500; nach £3,000 Freibetrag 4500. Verkauf in den letzten 30 Tagen des Steuerjahrs (ab 7.3.2026), heute 5.5.2026 = letzter Tag des Fensters (5.4.2026 + 30): Käufe an diesem Tag zählen noch → WINDOW_OPEN mit 2026-05-05 (der Tag zählt mit). Erlöse 22500 < 50000 → keine Meldung.",
       "trades": [
         {
           "id": 1,
@@ -8160,7 +8160,7 @@
         "2025-12-15": "1.4"
       },
       "today": "2026-01-30",
-      "_calc": "[B78 Fix] Kauf 10 X zu 100 am 10.1.2025 (1000 × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 15.12.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf. Steuerbar (−460) × 1/2 → 0, NET_CAPITAL_LOSS 230. Verlust-Verkauf in den letzten 30 Tagen (ab 2.12.2025), heute 30.1.2026 = letzter Tag des Fensters (31.12.2025 + 30) → WINDOW_OPEN mit 2026-01-30.",
+      "_calc": "Kauf 10 X zu 100 am 10.1.2025 (1000 × 1.3 = 1300 CAD), Verkauf 10 zu 60 am 15.12.2025 (600 × 1.4 = 840 CAD): Verlust −400 USDT / −460 CAD, kein Ersatzkauf. Steuerbar (−460) × 1/2 → 0, NET_CAPITAL_LOSS 230. Verlust-Verkauf in den letzten 30 Tagen (ab 2.12.2025), heute 30.1.2026 = letzter Tag des Fensters (31.12.2025 + 30) → WINDOW_OPEN mit 2026-01-30.",
       "trades": [
         {
           "id": 1,
@@ -8236,7 +8236,7 @@
         "2023-12-01": "0.75"
       },
       "today": "2026-10-18",
-      "_calc": "[B78 Fix] Meldegrenze mit Erlösen VOR Gebühren: Kauf 1 BTC 1.5.2023 zu 40000 (30000 GBP), Verkauf 1.12.2023 zu 67000 mit Gebühr 1000 USDT: Erlös netto 66000 USDT / 49500 GBP (Posten Erlöse), vor Gebühren 67000 × 0.75 = 50250 GBP > 50000 → UK_HMRC_REPORT (netto allein wäre darunter). Gewinn 26000 / 19500; Freibetrag 2023/24 £6,000 → 13500.",
+      "_calc": "Meldegrenze mit Erlösen VOR Gebühren: Kauf 1 BTC 1.5.2023 zu 40000 (30000 GBP), Verkauf 1.12.2023 zu 67000 mit Gebühr 1000 USDT: Erlös netto 66000 USDT / 49500 GBP (Posten Erlöse), vor Gebühren 67000 × 0.75 = 50250 GBP > 50000 → UK_HMRC_REPORT (netto allein wäre darunter). Gewinn 26000 / 19500; Freibetrag 2023/24 £6,000 → 13500.",
       "trades": [
         {
           "id": 1,
@@ -8313,7 +8313,7 @@
         "2022-12-01": "0.75"
       },
       "today": "2026-10-18",
-      "_calc": "[B78 Fix] Steuerjahr 2022/23: Meldegrenze 4 × Annual Exempt Amount = 4 × 12300 = 49200 GBP. Kauf 1 BTC 1.5.2022 zu 40000 (30000 GBP), Verkauf 1.12.2022 zu 66000 mit Gebühr 500: Erlös netto 65500 / 49125 GBP, vor Gebühren 66000 × 0.75 = 49500 > 49200 → UK_HMRC_REPORT. Gewinn 25500 / 19125; Freibetrag 12300 → 6825.",
+      "_calc": "Steuerjahr 2022/23: Meldegrenze 4 × Annual Exempt Amount = 4 × 12300 = 49200 GBP. Kauf 1 BTC 1.5.2022 zu 40000 (30000 GBP), Verkauf 1.12.2022 zu 66000 mit Gebühr 500: Erlös netto 65500 / 49125 GBP, vor Gebühren 66000 × 0.75 = 49500 > 49200 → UK_HMRC_REPORT. Gewinn 25500 / 19125; Freibetrag 12300 → 6825.",
       "trades": [
         {
           "id": 1,
@@ -8384,7 +8384,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2022,
-      "_calc": "[B78 Fix] Zinsen (Lending) nach Zufluss getrennt: 0.1 ETH am 1.2.2022 zu 2500 = 250 (vor dem 1.3.2022: alte Rechtslage, Tarif → AT_INTEREST_OLD mit Vermerk AT_INTEREST_OLD_LAW, nicht im Sondersteuersatz); 0.1 ETH am 1.6.2022 zu 2000 = 200 (§ 27b EStG → AT_INTEREST). AT_RATE = Neubestand 0 + 200 = 200 (vorher 450).",
+      "_calc": "Zinsen (Lending) nach Zufluss getrennt: 0.1 ETH am 1.2.2022 zu 2500 = 250 (vor dem 1.3.2022: alte Rechtslage, Tarif → AT_INTEREST_OLD mit Vermerk AT_INTEREST_OLD_LAW, nicht im Sondersteuersatz); 0.1 ETH am 1.6.2022 zu 2000 = 200 (§ 27b EStG → AT_INTEREST). AT_RATE = Neubestand 0 + 200 = 200 (nicht 450).",
       "trades": [
         {
           "id": 1,
@@ -8463,7 +8463,7 @@
       "template": "AT",
       "method": "AT_MOVING_AVERAGE",
       "year": 2021,
-      "_calc": "[B78 Fix] Altbestand: Kauf 1 BTC 2.11.2020 zu 10000, Verkauf 0.01 am 1.6.2021 zu 40000 → Spekulationsgeschäft 300. Kauf 0.01 ETH am 1.2.2021 zu 1000 mit Gebühr 0.01 ETH (verbraucht den ganzen Zugang, Altbestand → Aufwand 10, Zeile mit feeExpense): KEIN Spekulationsgeschäft — bleibt wie bisher im Neubestand (LOSSES/NEW_NET −10, AT_RATE −10), OLD_SHORT_NET 300 (vorher 300 − 10 = 290), Freigrenze 300 ≤ 440 → BELOW. Erlöse 400 + 0.",
+      "_calc": "Altbestand: Kauf 1 BTC 2.11.2020 zu 10000, Verkauf 0.01 am 1.6.2021 zu 40000 → Spekulationsgeschäft 300. Kauf 0.01 ETH am 1.2.2021 zu 1000 mit Gebühr 0.01 ETH (verbraucht den ganzen Zugang, Altbestand → Aufwand 10, Zeile mit feeExpense): KEIN Spekulationsgeschäft — bleibt im Neubestand (LOSSES/NEW_NET −10, AT_RATE −10), OLD_SHORT_NET 300 (nicht 300 − 10 = 290), Freigrenze 300 ≤ 440 → BELOW. Erlöse 400 + 0.",
       "trades": [
         {
           "id": 1,
@@ -8598,11 +8598,11 @@
       "FR_PTA": null
     }
   },
-  "_poolUncoveredComment": "Umbuchung über dem Bestand im Pool UK/CA wie FIFO je Wallet (Owner-Entscheid Okt. 2026, TaxPool.addFee): Gebühr USDT + Wert der Gebühr im dritten Coin — zuerst der Anteil der nicht gedeckten Menge (gedeckt = Pool − Netzwerkgebühr), Gebühr × max(Menge − gedeckt, 0) / Menge, leerer Pool die ganze Gebühr, dann der Rest anteilig zum Einstand bzw. (Teil ohne Kaufpreis) nicht zugeordnet. Geprüft mit TaxExport.unassignedFeesIn(trades, method, NEUTRAL.period(year), zone, rules) je Methode in methods; rules NONE = TaxEventRules.NONE, TEMPLATE = TaxEventRules.of(method) (Regeln der Vorlage UK bzw. CA: Gebühr im dritten Coin ist dort eine eigene Veräusserung, die Umbuchung trägt keine Gebühr). disposalCost (optional) = Summe des bekannten Einstands der Veräusserungen des Coins BTC (TaxEngines.disposals, ohne Gebühr-Abgänge).",
+  "_poolUncoveredComment": "Umbuchung über dem Bestand im Pool UK/CA wie FIFO je Wallet (TaxPool.addFee): Gebühr USDT + Wert der Gebühr im dritten Coin — zuerst der Anteil der nicht gedeckten Menge (gedeckt = Pool − Netzwerkgebühr), Gebühr × max(Menge − gedeckt, 0) / Menge, leerer Pool die ganze Gebühr, dann der Rest anteilig zum Einstand bzw. (Teil ohne Kaufpreis) nicht zugeordnet. Geprüft mit TaxExport.unassignedFeesIn(trades, method, NEUTRAL.period(year), zone, rules) je Methode in methods; rules NONE = TaxEventRules.NONE, TEMPLATE = TaxEventRules.of(method) (Regeln der Vorlage UK bzw. CA: Gebühr im dritten Coin ist dort eine eigene Veräusserung, die Umbuchung trägt keine Gebühr). disposalCost (optional) = Summe des bekannten Einstands der Veräusserungen des Coins BTC (TaxEngines.disposals, ohne Gebühr-Abgänge).",
   "poolUncovered": [
     {
       "name": "Umbuchung aus leerem Pool, Gebühr im dritten Coin (ohne Vorlage-Regeln)",
-      "_calc": "Kein BTC im Pool: gedeckt 0 → der ganze Wert der Gebühr 0,01 × 1000 = 10 nicht zugeordnet (vorher 0, still weggefallen).",
+      "_calc": "Kein BTC im Pool: gedeckt 0 → der ganze Wert der Gebühr 0,01 × 1000 = 10 nicht zugeordnet (fällt nicht still weg).",
       "methods": [
         "UK_POOL",
         "CA_ACB"
@@ -8658,7 +8658,7 @@
     },
     {
       "name": "Menge + Netzwerkgebühr über dem Pool (ohne Vorlage-Regeln), wie FIFO je Wallet",
-      "_calc": "Pool 1 BTC, Einstand 100. Umbuchung 1 + Netzwerkgebühr 0,2: gedeckt 1 − 0,2 = 0,8 → 10 × 0,2 / 1 = 2 nicht zugeordnet, 8 zum Einstand (108; vorher 10 → 110). Netzwerkgebühr: Menge 0,8, Einstand bleibt. Verkauf 0,8: Einstand 108.",
+      "_calc": "Pool 1 BTC, Einstand 100. Umbuchung 1 + Netzwerkgebühr 0,2: gedeckt 1 − 0,2 = 0,8 → 10 × 0,2 / 1 = 2 nicht zugeordnet, 8 zum Einstand (108, nicht 110). Netzwerkgebühr: Menge 0,8, Einstand bleibt. Verkauf 0,8: Einstand 108.",
       "methods": [
         "UK_POOL",
         "CA_ACB"
@@ -8708,7 +8708,7 @@
     },
     {
       "name": "Menge + Netzwerkgebühr über dem Pool mit Teil ohne Kaufpreis (ohne Vorlage-Regeln)",
-      "_calc": "Pool 1 BTC mit Kaufpreis (100) + 1 BTC ohne. Umbuchung 2 + Netzwerkgebühr 0,5: gedeckt 1,5 → 10 × 0,5 / 2 = 2,5 nicht gedeckt; Rest 7,5 zur Hälfte zum Einstand (3,75 → 103,75), zur Hälfte nicht zugeordnet: 2,5 + 3,75 = 6,25 (vorher 5, Einstand 105). Netzwerkgebühr 0,5 anteilig: 0,75 mit + 0,75 ohne Kaufpreis. Verkauf 1,5: Teil mit Kaufpreis 0,75, Einstand 103,75.",
+      "_calc": "Pool 1 BTC mit Kaufpreis (100) + 1 BTC ohne. Umbuchung 2 + Netzwerkgebühr 0,5: gedeckt 1,5 → 10 × 0,5 / 2 = 2,5 nicht gedeckt; Rest 7,5 zur Hälfte zum Einstand (3,75 → 103,75), zur Hälfte nicht zugeordnet: 2,5 + 3,75 = 6,25 (nicht 5 mit Einstand 105). Netzwerkgebühr 0,5 anteilig: 0,75 mit + 0,75 ohne Kaufpreis. Verkauf 1,5: Teil mit Kaufpreis 0,75, Einstand 103,75.",
       "methods": [
         "UK_POOL",
         "CA_ACB"
@@ -8837,7 +8837,7 @@
     ]
   ],
   "_methodOverriddenComment": "Vorlage erlaubt die Einstandsmethode der App nicht (TaxTemplate.methodOverridden): Export rechnet mit methodFor, Hinweis in Kopfzeile, Dialog und Einstellungen.",
-  "_methodForYearComment": "Methode je Steuerjahr [Vorlage, App-Methode, Beginnjahr, Export-Methode, überschrieben]: US ab 2025 nur FIFO je Wallet (Rev. Proc. 2024-28), davor auch FIFO über alle Wallets. [B78] DE nur FIFO je Wallet (BMF 06.03.2025 Rn. 62): App-Einstellung FIFO → Export FIFO je Wallet, überschrieben.",
+  "_methodForYearComment": "Methode je Steuerjahr [Vorlage, App-Methode, Beginnjahr, Export-Methode, überschrieben]: US ab 2025 nur FIFO je Wallet (Rev. Proc. 2024-28), davor auch FIFO über alle Wallets. DE nur FIFO je Wallet (BMF 06.03.2025 Rn. 62): App-Einstellung FIFO → Export FIFO je Wallet, überschrieben.",
   "methodForYear": [
     [
       "US",
@@ -8896,7 +8896,7 @@
       false
     ]
   ],
-  "_usTransitionComment": "US-Übergang 1.1.2025 (Rev. Proc. 2024-28, Safe Harbor; TaxTemplate.walletFrom, TaxEngines.usTransition): bis 31.12.2024 FIFO über alle Wallets, dessen Restposten den Wallets zugeordnet (gehaltene Einheiten je Wallet nach Erwerb sortiert, Restposten älteste zuerst), ab 2025 FIFO je Wallet. Beispiel Review 13: Kauf 1 BTC zu 10'000 in A (2020), 1 BTC zu 30'000 in B (2021), Verkauf 1 aus B 2023 (universell: Posten 10'000), Verkauf 1 aus A 2025 zu 80'000 → Einstand 30'000, Gewinn 50'000 (FIFO je Wallet über die ganze Geschichte: 70'000). walletFrom: [Vorlage, App-Methode, Beginnjahr, Stichtag|null].",
+  "_usTransitionComment": "US-Übergang 1.1.2025 (Rev. Proc. 2024-28, Safe Harbor; TaxTemplate.walletFrom, TaxEngines.usTransition): bis 31.12.2024 FIFO über alle Wallets, dessen Restposten den Wallets zugeordnet (gehaltene Einheiten je Wallet nach Erwerb sortiert, Restposten älteste zuerst), ab 2025 FIFO je Wallet. Beispiel: Kauf 1 BTC zu 10'000 in A (2020), 1 BTC zu 30'000 in B (2021), Verkauf 1 aus B 2023 (universell: Posten 10'000), Verkauf 1 aus A 2025 zu 80'000 → Einstand 30'000, Gewinn 50'000 (FIFO je Wallet über die ganze Geschichte: 70'000). walletFrom: [Vorlage, App-Methode, Beginnjahr, Stichtag|null].",
   "walletFrom": [
     [
       "US",

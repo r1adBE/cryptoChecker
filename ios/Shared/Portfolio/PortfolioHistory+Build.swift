@@ -28,12 +28,11 @@ extension PortfolioHistory {
                       livePrices: [String: Double],
                       range: PortfolioHistoryRange,
                       todayEpochDay: Int,
-                      dayEndMillis: (Int) -> Int64 = { PortfolioHistory.utcDayEnd($0) },
                       fxRate: Double = 1,
                       ranges: [String: [Int: PortfolioDayRange]] = [:],
                       addresses: [AddressBalanceHistory] = [],
                       method: CostMethod = .defaultMethod) -> PortfolioHistorySeries {
-        // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone des Aufrufers
+        // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone
         let dayEndMillis: (Int) -> Int64 = { PortfolioHistory.utcDayEnd($0) }
         // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe. Tausch ohne Wert (und die übrigen Fälle von
         // `PortfolioLedger.valueAtDayClose`) zum selben Tageskurs wie die Karte (`PortfolioPeriodChange.marketPriceAt`):
@@ -50,10 +49,8 @@ extension PortfolioHistory {
         guard let firstTime = valid.map(\.time).min() else { return .empty }
         let rate = fxRate > 0 && fxRate.isFinite ? fxRate : 1
 
-        let start = startDay(range: range, firstTradeMillis: firstTime, todayEpochDay: todayEpochDay,
-                             dayEndMillis: dayEndMillis)
-        let capped = isCapped(range: range, firstTradeMillis: firstTime, todayEpochDay: todayEpochDay,
-                              dayEndMillis: dayEndMillis)
+        let start = startDay(range: range, firstTradeMillis: firstTime, todayEpochDay: todayEpochDay)
+        let capped = isCapped(range: range, firstTradeMillis: firstTime, todayEpochDay: todayEpochDay)
 
         // Schritte aller Coins in einem Durchgang (Bestand, Zuflüsse, Gewinn/Verlust nutzen dieselben Listen)
         var eventsOf: [String: [PortfolioLedgerEvent]] = [:]

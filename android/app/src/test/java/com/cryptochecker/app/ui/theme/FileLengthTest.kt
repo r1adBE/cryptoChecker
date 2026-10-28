@@ -96,7 +96,7 @@ class FileLengthTest {
          * Datei → höchstens so viele Zeilen. Android relativ zu `src/main/java/com/cryptochecker/`
          * (`app/…`, `marketdata/…`), iOS mit `ios/` davor.
          */
-        // Leer: AppSettings.kt (vorher 422) teilt Wahlmöglichkeiten mit AppSettingsDefaults.kt
+        // Leer: AppSettings.kt teilt Wahlmöglichkeiten mit AppSettingsDefaults.kt
         val CEILINGS: Map<String, Int> = emptyMap()
     }
 }

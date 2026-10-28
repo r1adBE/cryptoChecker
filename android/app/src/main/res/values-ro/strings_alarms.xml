@@ -187,4 +187,10 @@
     <string name="alarm_reliability_storage_no_key">Alarme întrerupte în fundal – lista nu este salvată</string>
     <string name="alarms_limit_reached">O pereche poate avea cel mult %1$s alarme.</string>
     <string name="alarms_reference_rate_hint">Cursurile de referință ale BCE se stabilesc doar o dată pe zi – pentru ele nu există alarme.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">O scădere trebuie să fie sub 100 la sută.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Prag nevalid – ajustează-l</string>
 </resources>

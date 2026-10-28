@@ -16,8 +16,7 @@ extension BackupManager {
             RestoreJournal.delete()
             StorageRecoveryNotice.recordInterruptedRestore(rolledBack: false)
         case .found(let json):
-            let createdAt = RestoreRecoveryPolicy.createdAt(stored: RestoreRecoveryPolicy.storedCreatedAt(json),
-                                                            fileModified: RestoreJournal.modifiedAt())
+            let createdAt = RestoreRecoveryPolicy.storedCreatedAt(json)
             let attemptedFor = StorageRecoveryNotice.rollBackAttemptedFor()
             let markAttempt = { StorageRecoveryNotice.recordRollBackAttempt(createdAt) }
             if RestoreRecoveryPolicy.decide(createdAt: createdAt, attemptedFor: attemptedFor, now: EpochTime.nowMillis) == .giveUp {

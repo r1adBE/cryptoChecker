@@ -45,4 +45,17 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Taproot-tili (BIP86): tästä avaimesta johdetaan bc1p…-osoitteet vastaanottoon ja vaihtorahaan.</string>
     <string name="portfolio_address_taproot_hint">Taproot-lompakko? Liitä sen sijaan lompakkosi kuvaaja tr(…) – pelkästä xpubista haetaan vain Legacy- ja SegWit-osoitteita.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Omaa palvelinta ei tavoiteta</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Se, joka ylläpitää palvelua %1$s, näkee kaikki tämän lompakon kysytyt osoitteet ja voi yhdistää ne toisiinsa ja IP-osoitteeseesi.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Vältä tämä asettamalla oma palvelin kohdassa Asetukset › Salkku › Oma palvelin osoitteille.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d tuntematon token (ei laskettu)</item>
+        <item quantity="other">+%1$d tuntematonta tokenia (ei laskettu)</item>
+    </plurals>
 </resources>

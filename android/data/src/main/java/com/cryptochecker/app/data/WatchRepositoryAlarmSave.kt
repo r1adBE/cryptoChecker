@@ -1,5 +1,5 @@
 // Alarm speichern (Teil von `WatchRepository`, eigene Datei): Ergebnis eindeutig — gespeichert, Paar voll
-// oder abgelehnt (Review UX3-03). Vorher hiess null beides, und «Abbrechen» in der Rückfrage meldete «Alarm-Grenze erreicht».
+// oder abgelehnt. Nicht beides als null: «Abbrechen» in der Rückfrage meldete sonst «Alarm-Grenze erreicht».
 package com.cryptochecker.app.data
 
 import androidx.room.withTransaction

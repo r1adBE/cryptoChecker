@@ -61,7 +61,7 @@ object WidgetTextFit {
     /**
      * Betragszeile der Portfolio-Widgets als Text (keine Pille): «↘ −31’997.28 CHF  −27.85% · 1J» —
      * Kandidaten vom längsten zum kürzesten für [firstFitting]: zuerst fällt der Zeitraum weg, dann der
-     * Betrag (das Prozent bleibt, es stand früher in der Pille der Kopfzeile), zuletzt der Zeitraum
+     * Betrag (das Prozent bleibt), zuletzt der Zeitraum
      * hinter dem Prozent. Ohne Prozent: Betrag mit und ohne Zeitraum.
      * @param arrow «↗» / «↘», leer bei 0 (dann kein Pfeil)
      * @param amount Betrag mit Vorzeichen und Währung, verborgen «•••»
@@ -82,7 +82,7 @@ object WidgetTextFit {
 
     /**
      * Schriftgrössen der Betragszeile (sp): normal, dann kleiner, bevor ein Teil wegfällt.
-     * J-18: nicht unter 11 sp — lieber fällt der Zeitraum bzw. Betrag weg.
+     * Nicht unter 11 sp — lieber fällt der Zeitraum bzw. Betrag weg.
      */
     val CHANGE_LINE_SIZES_SP = listOf(12f, 11f)
 
@@ -141,7 +141,7 @@ object WidgetTextFit {
      *  1. passen beide: [baseSp] (wächst mit der Systemschrift, keine Obergrenze);
      *  2. sonst (nur bei vergrösserter Systemschrift, [fontScale] > 1) wird der Kurs kleiner, damit der Name ganz
      *     bleibt — höchstens bis [listPriceFloorSp]; bei normaler Schrift weicht gleich der Name, der Kurs bleibt
-     *     [baseSp] (wie bisher);
+     *     [baseSp];
      *  3. reicht das nicht, weicht der Name (gekürzt), der Kurs bleibt bei der Untergrenze;
      *  4. passt der Kurs selbst ohne Namen nicht, wird er so klein, dass er genau passt (Name leer).
      * Unbekannte Breite (null oder ≤ 0): [baseSp], Name unbegrenzt ([Float.MAX_VALUE]).

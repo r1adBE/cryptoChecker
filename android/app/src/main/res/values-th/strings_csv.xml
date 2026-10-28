@@ -79,4 +79,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">รายการ staking ที่ไม่มีรายการคู่ – ตรวจสอบยอดคงเหลือ</string>
     <string name="portfolio_csv_skip_amount_too_small">จำนวนน้อยเกินไป – จะเป็น 0 เมื่อบันทึก</string>
     <string name="portfolio_csv_skip_invalid_swap">สลับเหรียญโดยไม่มีเหรียญหรือจำนวนที่ได้รับที่ถูกต้อง</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">กำลังอ่านไฟล์ใหม่…</string>
 </resources>

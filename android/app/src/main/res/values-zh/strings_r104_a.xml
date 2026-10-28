@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus älteren Versionen) löst nie aus – ausgeschaltet, Schwelle anpassen -->
-    <string name="alarm_threshold_invalid_fix">阈值无效 – 请调整</string>
-</resources>

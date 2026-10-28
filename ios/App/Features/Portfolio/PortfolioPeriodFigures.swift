@@ -29,7 +29,7 @@ struct PortfolioPeriodResult: Sendable {
     let year: PortfolioChange?
 }
 
-/// «7 T»/«1 J» der Gesamtkarte — rein, ohne Hauptthread; dieselbe Rechnung wie zuvor direkt im Modell.
+/// «7 T»/«1 J» der Gesamtkarte — rein, ohne Hauptthread.
 enum PortfolioPeriodFigures {
     static func compute(_ input: PortfolioPeriodInput) -> PortfolioPeriodResult {
         // Ohne Abbruch rechnet die abbrechbare Fassung immer zu Ende

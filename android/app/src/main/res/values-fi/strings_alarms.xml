@@ -181,4 +181,10 @@
     <string name="alarm_reliability_storage_no_key">Hälytykset taustalla keskeytetty – seurantalistaa ei ole tallennettu</string>
     <string name="alarms_limit_reached">Parilla voi olla enintään %1$s hälytystä.</string>
     <string name="alarms_reference_rate_hint">EKP:n viitekurssit vahvistetaan vain kerran päivässä – niille ei ole hälytyksiä.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Laskun täytyy olla alle 100 prosenttia.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Virheellinen raja – muuta sitä</string>
 </resources>

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// F-25: Zeile «Background errors» — gleiche Fälle wie `BackgroundErrorsTest.kt`.
+/// Zeile «Background errors» — gleiche Fälle wie `BackgroundErrorsTest.kt`.
 final class BackgroundErrorsTests: XCTestCase {
     private typealias S = TestSupport
 

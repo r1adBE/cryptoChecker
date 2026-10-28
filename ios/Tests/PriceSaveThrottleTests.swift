@@ -3,7 +3,7 @@ import XCTest
 
 /// Reine Kurs-Speicherungen des Live-Stroms zusammengefasst (`PriceSaveThrottle`, AppData+PriceSave.swift): höchstens
 /// alle 30 s (die erste nach einer Pause sofort), Widget-Wünsche vereinigt; alles andere (ausgelöste Alarme, Änderungen)
-/// sofort wie bisher; Wechsel in den Hintergrund schreibt wartende Kurse sofort.
+/// sofort; Wechsel in den Hintergrund schreibt wartende Kurse sofort.
 @MainActor
 final class PriceSaveThrottleTests: XCTestCase {
     private let interval = PriceSaveThrottle.intervalMillis

@@ -3,7 +3,7 @@ package com.cryptochecker.app.data.local
 /**
  * Merkliste in diesem Lauf nur leer im Arbeitsspeicher, obwohl die verschlüsselte Datei mit gespeichertem Stand da ist
  * ([DatabaseEncryptionNotice.storedKept]): Was jetzt angelegt wird, ist nach dem Prozess-Ende weg.
- * Darum (Review F-08) ist die Merkliste nur lesbar wie das Portfolio ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]):
+ * Darum ist die Merkliste nur lesbar wie das Portfolio ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]):
  * Alle Schreibwege des Nutzers (Paare hinzufügen, bearbeiten, löschen, Notiz, Gruppe, Alarme …) lehnt
  * [com.cryptochecker.app.data.WatchRepository] zentral ab und meldet es kurz ([WatchlistWriteRefusal]); der
  * Speicher-Hinweis der Merkliste bleibt stehen (nach jedem anderen Banner kommt er wieder). Hintergrundarbeit (Kurse,

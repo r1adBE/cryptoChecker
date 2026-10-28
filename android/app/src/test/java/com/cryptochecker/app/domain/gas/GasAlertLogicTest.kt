@@ -47,8 +47,8 @@ class GasAlertLogicTest {
         // Unveränderte Grenze: Zustand bleibt, kein Doppelalarm
         assertEquals(false, GasAlertLogic.armedFor(storedArmed = false, storedThreshold = 2.0, threshold = 2.0))
         assertEquals(false to false, GasAlertLogic.evaluate(1.5, 2.0, GasAlertLogic.armedFor(false, 2.0, 2.0)))
-        // Stand vor dem Update (keine Grenze gemerkt): Zustand übernehmen
-        assertEquals(false, GasAlertLogic.armedFor(storedArmed = false, storedThreshold = null, threshold = 2.0))
+        // Keine Grenze gemerkt: scharf
+        assertEquals(true, GasAlertLogic.armedFor(storedArmed = false, storedThreshold = null, threshold = 2.0))
     }
 
     @Test

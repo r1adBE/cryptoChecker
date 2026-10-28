@@ -4,7 +4,7 @@ import SwiftUI
 /// EINE Veränderung «Heute» (`PortfolioTotalChangeLine`, %-Basis der App), dann zwei Kennzahlen
 /// nebeneinander — «7 T» (Gewinn seit dem Tagesschluss vor 7 Tagen, `PortfolioPeriodChange.gain`) und
 /// «Seit Kauf» (± unrealisiert seit Kauf). Hinter «Details» (zugeklappt): 1 J, Belohnungen, Einstand,
-/// Realisiert, Ausgebucht. L-15: Hinweise (Kursquellen, Durchschnittskosten, fehlende Coins, Börsen,
+/// Realisiert, Ausgebucht. Hinweise (Kursquellen, Durchschnittskosten, fehlende Coins, Börsen,
 /// fehlende Kurse) und Stand der Kurse stehen UNTER der Karte, zugeklappt als eine Zeile «Hinweise (n)»
 /// (`hints`); weitere Hinweiszeilen gehören dorthin. Beträge in der
 /// Anzeigewährung (ohne Devisenkurs in USDT; verborgen «•••»), Prozente bleiben; unbekannt «—». Wie `TotalCard` (Android).
@@ -30,7 +30,7 @@ struct PortfolioTotalCard: View {
     /// «1 J» für die Zeile unter dem Gesamtwert; nil = keine Zeile.
     var yearChange: PortfolioChange? = nil
     /// Kurse älter als die Frische-Schwelle (gemerkter Stand, ohne Netz): Gesamtwert in onSurfaceVariant
-    /// wie ein veralteter Kurs der Merkliste (nicht mehr abgeblasst, L-13), «Kurse von … · veraltet» in Warnfarbe.
+    /// wie ein veralteter Kurs der Merkliste (nicht abgeblasst), «Kurse von … · veraltet» in Warnfarbe.
     var stale = false
     /// Coin → Börse, deren Kurs gilt (`PortfolioPrices.sources`); leer = nur Binance.
     var priceSources: [String: String] = [:]
@@ -59,15 +59,15 @@ struct PortfolioTotalCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             card
-            // L-15: Hinweise klein unter der Karte (bleiben sichtbar, die Karte bleibt ein ruhiger Bericht)
+            // Hinweise klein unter der Karte (bleiben sichtbar, die Karte bleibt ein ruhiger Bericht)
             hints
         }
         // Weniger Bewegung: Ziffern wechseln ohne Rollen
         .animation(reduceMotion ? nil : .snappy, value: summary.totalValue)
     }
 
-    /// Verlauf der Karte (L-15): ruhig, 8 % → 2 % der Akzentfarbe über `container` (früher 16 % → 4 %
-    /// ohne Grund) — wie Android (surfaceContainer + `accentTint`), hell und dunkel gleich.
+    /// Verlauf der Karte: ruhig, 8 % → 2 % der Akzentfarbe über `container`
+    /// — wie Android (surfaceContainer + `accentTint`), hell und dunkel gleich.
     static let tintStart = 0.08
     static let tintEnd = 0.02
 
@@ -80,7 +80,7 @@ struct PortfolioTotalCard: View {
             : L("portfolio_price_source_routes", PortfolioExchangeRoute.sourcesText(priceSources))
     }
 
-    /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): ohne frische Messung trägt Ersatz 1 die Zahlen — dann
+    /// USDT zum Marktkurs: ohne frische Messung trägt Ersatz 1 die Zahlen — dann
     /// «USDT = 1 angenommen» auf der Karte (unabhängig vom Depeg-Alarm); mit Messung keine Zeile. Wie Android.
     var usdtNote: DepegAlarm.CardNote? {
         DepegAlarm.cardNote(
@@ -116,7 +116,7 @@ struct PortfolioTotalCard: View {
             if let note = usdtNote {
                 switch note.kind {
                 case .DEVIATION:
-                    // Mit usdtMarket nicht mehr geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
+                    // Mit usdtMarket nie geliefert (Abweichung = Bewertung zum Marktkurs, keine Warnzeile)
                     EmptyView()
                 case .PRICE_SOURCE:
                     Text(verbatim: priceSourceText)
@@ -152,7 +152,7 @@ struct PortfolioTotalCard: View {
                 line.padding(.top, 2)
             }
 
-            // M4: Überschrift «Gewinn/Verlust» mit (i) — was die Zahlen bedeuten (und was nicht)
+            // Überschrift «Gewinn/Verlust» mit (i) — was die Zahlen bedeuten (und was nicht)
             PortfolioGainHeader(method: summary.method)
                 .padding(.top, 12)
             figureRow
@@ -276,7 +276,7 @@ struct PortfolioTotalCard: View {
         return HStack(alignment: .firstTextBaseline, spacing: Spacing.xs) {
             Text(PortfolioInsights.mask(plain, hidden: hideAmounts))
                 .displayFont()
-                // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % lag unter 4.5:1, L-13)
+                // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % läge unter 4.5:1)
                 .foregroundStyle(stale ? AppColors.onSurfaceVariant : AppColors.onSurface)
                 .lineLimit(2)
                 .minimumScaleFactor(0.7)

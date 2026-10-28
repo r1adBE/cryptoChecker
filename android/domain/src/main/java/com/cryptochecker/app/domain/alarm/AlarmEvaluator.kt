@@ -126,9 +126,9 @@ class AlarmEvaluator @Inject constructor() {
     /**
      * Bewegungs-Alarm ohne gültigen Bezug (noch keiner, oder der Bezug liegt in der Zukunft —
      * z. B. nach einer Zeitumstellung des Geräts): Der Aufrufer setzt den aktuellen Kurs als Bezug.
-     * Ein ALTER Bezug braucht keinen Neubeginn mehr — das Fenster gleitet ([MoveWindow]); vorher
-     * setzte der Ablauf des Fensters den Bezug zurück, ohne die Bewegung zu prüfen (meldete im
-     * Hintergrund-Takt nie).
+     * Ein ALTER Bezug braucht keinen Neubeginn — das Fenster gleitet ([MoveWindow]). Setzte der
+     * Ablauf des Fensters den Bezug zurück, ohne die Bewegung zu prüfen, meldete der Alarm im
+     * Hintergrund-Takt nie.
      */
     fun needsWindowReset(alarm: AlarmEntity, now: Long): Boolean {
         if (alarm.condition != AlarmCondition.MOVE_PERCENT_WINDOW) return false

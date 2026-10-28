@@ -7,7 +7,7 @@ import UIKit
 
 extension WatchlistRow {
     /// Was von einer anderen Börse kommt (%-Änderung, Mini-Chart) — nur aus dem Speicher, keine Abfrage.
-    /// L-14: steht nicht mehr in der Zeile, sondern im Aktionsblatt unter dem Kurs (wie Android
+    /// Steht nicht in der Zeile, sondern im Aktionsblatt unter dem Kurs (wie Android
     /// `WatchlistViewModel.rowSource`).
     static func rowSource(for watch: Watch) async -> DayChange.RowSource? {
         let change = await PriceRefresher.foreignCandleSource(watch)
@@ -33,7 +33,7 @@ extension WatchlistRow {
         return DayChange.foreignCandleSource(exchanges: [watch.exchangeKey, watch.exchangeName], provider: chartProvider)
     }
 
-    /// Ausweich-Reihe von `provider` beim Paar `watch` erlaubt (kein klarer Namens-Widerspruch, K-8)?
+    /// Ausweich-Reihe von `provider` beim Paar `watch` erlaubt (kein klarer Namens-Widerspruch)?
     /// Wie Android `WatchlistViewModel.fallbackSeriesAllowed`.
     static func fallbackSeriesAllowed(_ watch: Watch, provider: String?) -> Bool {
         TokenIdentityStore.shared.fallbackSeriesAllowed(exchangeKey: watch.exchangeKey, base: watch.baseAsset, provider: provider)

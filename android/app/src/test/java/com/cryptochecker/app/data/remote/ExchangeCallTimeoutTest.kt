@@ -58,7 +58,7 @@ class ExchangeCallTimeoutTest {
             withTimeout(4_000) { slow.callExchange("https://example.invalid/slow", null) }
             fail("Zeitüberschreitung erwartet")
         } catch (e: TimeoutError) {
-            // Früher wartete die Coroutine bis zur Wache (callTimeout + 5 s)
+            // Nicht erst bei der Wache (callTimeout + 5 s)
             assertTrue(System.currentTimeMillis() - started < 4_000)
         }
     }

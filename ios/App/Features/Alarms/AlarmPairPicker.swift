@@ -5,11 +5,11 @@ import SwiftUI
 /// Bestätigungsdialogs mit bis zu 2000 Knöpfen — wie Android `AlarmPairPicker`. Zeilen ohne Kurs
 /// vorberechnet und gefaltet (`Row`), neu nur bei Änderung der Paare (`Source`); «keine Treffer» wird angesagt,
 /// Favoriten mit Stern. Der Titel ist als Navigationstitel schon eine Überschrift für VoiceOver.
-/// PERF3-R2: Zeilen nicht mehr bei jeder Erzeugung des Structs (`State(initialValue:)` rechnete eager), sondern in
+/// Zeilen nicht bei jeder Erzeugung des Structs (`State(initialValue:)` rechnet eager), sondern in
 /// `.task(id:)` im Hintergrund, nur wenn sich der Schlüssel der Paare (`sourceKey`) ändert.
 struct AlarmPairPicker: View {
     let watches: [Watch]
-    /// PERF4-R1: Schlüssel der Paare vom Elternteil (`AppData.alarmPairPickerInput`, einmal je Stand);
+    /// Schlüssel der Paare vom Elternteil (`AppData.alarmPairPickerInput`, einmal je Stand);
     /// nil = hier rechnen (gleicher Wert).
     var sourceKey: Int? = nil
     let onPick: (Int64) -> Void

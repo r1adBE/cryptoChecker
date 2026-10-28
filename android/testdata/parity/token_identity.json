@@ -1,5 +1,5 @@
 {
-  "description": "Gleicher Token? (K-8) — TokenIdentity.kt / TokenIdentity.swift. match: STRONG (gleicher Vertrag), MEDIUM (gleicher Name), WEAK (unbekannt/ähnlich: Kürzel + Kursband wie bisher), MISMATCH (Namen/Verträge bekannt und verschieden).",
+  "description": "Gleicher Token? — TokenIdentity.kt / TokenIdentity.swift. match: STRONG (gleicher Vertrag), MEDIUM (gleicher Name), WEAK (unbekannt/ähnlich: Kürzel + Kursband), MISMATCH (Namen/Verträge bekannt und verschieden).",
   "normalize": [
     {
       "name": "plain",

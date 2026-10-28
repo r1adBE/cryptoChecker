@@ -4,7 +4,7 @@ import com.cryptochecker.app.domain.diagnostics.BackgroundErrorSummary
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 
 /**
- * F-25: zählt Fehler in Hintergrundarbeit dauerhaft je Bereich ([BackgroundErrors.AREAS]) und merkt sich
+ * Zählt Fehler in Hintergrundarbeit dauerhaft je Bereich ([BackgroundErrors.AREAS]) und merkt sich
  * den Zeitpunkt des letzten — nur Zahlen, nie Meldungstexte. Dazu je Bereich die Fehlerart (einfacher Klassenname der
  * Ausnahme, [BackgroundErrors.kindOf], höchstens [BackgroundErrors.MAX_KINDS] je Bereich). Liegt in der Datei [PREFS] ([KeyValueStore], in der App SharedPreferences) (nicht gesichert, nur
  * ausdrücklich Eingeschlossenes geht in die Systemsicherung). Vor [install] (Unit-Tests, sehr früher Fehler) nur im

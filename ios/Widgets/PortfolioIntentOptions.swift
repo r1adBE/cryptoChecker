@@ -5,7 +5,7 @@ import AppIntents
 
 // MARK: Ansicht (Portfolio-Widget) — wie `PortfolioWidgetView` (Android)
 
-/// Übersicht (wie die Gesamtkarte im Portfolio-Tab), Chart (bisher, Standard) oder Liste der Positionen.
+/// Übersicht (wie die Gesamtkarte im Portfolio-Tab), Chart (Standard) oder Liste der Positionen.
 enum PortfolioViewOption: String, AppEnum {
     case overview, chart, list
 

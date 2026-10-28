@@ -79,4 +79,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">bút toán staking không có bút toán đối ứng – kiểm tra số dư</string>
     <string name="portfolio_csv_skip_amount_too_small">số lượng quá nhỏ – thành 0 khi lưu</string>
     <string name="portfolio_csv_skip_invalid_swap">hoán đổi không có coin hoặc số lượng nhận về hợp lệ</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Đang đọc lại tệp…</string>
 </resources>

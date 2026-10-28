@@ -1,10 +1,10 @@
 import Foundation
 
-/// Ziel der Glocke im Kopf der Merkliste (Entscheid 17. Okt. 2026): Ohne einen einzigen Alarm führt sie nicht
+/// Ziel der Glocke im Kopf der Merkliste: Ohne einen einzigen Alarm führt sie nicht
 /// in eine leere Übersicht, sondern gleich dorthin, wo man einen anlegt. Reine Regel — wie Android
 /// `AlarmBellRoute.kt` (gleiche Testfälle in AlarmBellRouteTests / AlarmBellRouteTest).
 enum AlarmBellRoute: Equatable, Sendable {
-    /// Mindestens ein Alarm: Übersicht wie bisher (auch das Menü «Alle Alarme» führt immer dorthin).
+    /// Mindestens ein Alarm: Übersicht (auch das Menü «Alle Alarme» führt immer dorthin).
     case overview
     /// Kein Alarm, genau ein Paar: dessen Alarm-Seite, die ohne Alarm gleich den Editor öffnet.
     case editor

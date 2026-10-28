@@ -27,31 +27,29 @@ extension BackupManager {
         ]
     }
 
+    /// Ein Paar; jedes Feld von `watchToJson` muss da sein (`BackupFields.watch`), sonst `Failure.invalid`. Wie Android.
     static func jsonToWatch(_ o: [String: Any]) throws -> Watch {
-        guard let id = int64(o, "id") else { throw Failure.invalid("watch.id") }
-        guard let exchangeKey = string(o, "exchangeKey"),
-              let exchangeName = string(o, "exchangeName"),
-              let baseAsset = string(o, "baseAsset"),
-              let quoteAsset = string(o, "quoteAsset")
-        else { throw Failure.invalid("watch") }
-        return Watch(
-            id: id,
-            exchangeKey: exchangeKey,
-            exchangeName: exchangeName,
-            baseAsset: baseAsset,
-            quoteAsset: quoteAsset,
-            contractType: FuturesContractType(backupName: string(o, "contractType") ?? ""),
-            pairId: isNull(o, "pairId") ? nil : string(o, "pairId"),
-            sortOrder: int(o, "sortOrder") ?? 0,
-            // Ohne Angabe: Standard neuer Paare (wie Android)
-            notificationEnabled: bool(o, "notificationEnabled") ?? Watch.newPairNotificationEnabled,
-            ttsEnabled: bool(o, "ttsEnabled") ?? false,
-            favorite: bool(o, "favorite") ?? false,
-            groupName: isNull(o, "group") ? nil : Watch.validGroupName(string(o, "group")),
-            note: isNull(o, "note") ? nil : Watch.validNote(string(o, "note")),
-            // Ohne Angabe: Paar aktiv
-            disabled: bool(o, "disabled") ?? false
+        try Watch(
+            id: part(o, "id"),
+            exchangeKey: part(o, "exchangeKey"),
+            exchangeName: part(o, "exchangeName"),
+            baseAsset: part(o, "baseAsset"),
+            quoteAsset: part(o, "quoteAsset"),
+            contractType: FuturesContractType(backupName: part(o, "contractType")),
+            pairId: textOrNull(o, "pairId"),
+            sortOrder: part(o, "sortOrder"),
+            notificationEnabled: part(o, "notificationEnabled"),
+            ttsEnabled: part(o, "ttsEnabled"),
+            favorite: part(o, "favorite"),
+            groupName: textOrNull(o, "group").flatMap { Watch.validGroupName($0) },
+            note: textOrNull(o, "note").flatMap { Watch.validNote($0) },
+            disabled: part(o, "disabled")
         )
+    }
+
+    /// Text oder nil (JSON null); fehlt das Feld oder ist es kein Text: `Failure.invalid`.
+    static func textOrNull(_ o: [String: Any], _ key: String) throws -> String? {
+        try o[key] is NSNull ? nil : part(o, key) as String
     }
 
     static func alarmToJson(_ a: Alarm) -> [String: Any] {
@@ -89,53 +87,45 @@ extension BackupManager {
         condition.isFallingPercent && threshold >= AlarmCondition.maxFallPercent
     }
 
-    /// Review FUN3-02/UX3-06: Schalter auf `enable` stellen erlaubt? Einschalten eines `exceedsFall`-Alarms
+    /// Schalter auf `enable` stellen erlaubt? Einschalten eines `exceedsFall`-Alarms
     /// nie (löst nie aus, die Karte zeigt «Schwelle ungültig») — erst im Editor anpassen; ausschalten immer. Wie Android
     /// `AlarmJson.toggleAllowed` (Fälle `alarm_toggle.json`).
     static func toggleAllowed(_ condition: AlarmCondition, _ threshold: Double, enable: Bool) -> Bool {
         !enable || !exceedsFall(condition, threshold)
     }
 
-    /// Ein Paar-Alarm; nil = ungültig (Id/Paar fehlt, unbekannte Alarmart einer neueren Version, Schwelle nicht
-    /// endlich bzw. ≤ 0, wo sie positiv sein muss) — nie zu «Kurs über …» mit fremder Schwelle umgedeutet. Wie Android `AlarmJson.fromJson`.
-    static func alarmFromJson(_ o: [String: Any]) -> Alarm? {
-        guard let id = int64(o, "id"), let watchId = int64(o, "watchId"),
-              let threshold = double(o, "threshold"), threshold.isFinite,
-              let condition = AlarmCondition(rawValue: string(o, "condition") ?? ""),
+    /// Ein Paar-Alarm; jedes Feld von `alarmToJson` muss da sein (`BackupFields.alarm`), sonst `Failure.invalid`.
+    /// nil = ungültig (unbekannte Alarmart einer neueren Version, Schwelle ≤ 0, wo sie positiv sein muss) — nie zu
+    /// «Kurs über …» mit fremder Schwelle umgedeutet. Wie Android `AlarmJson.fromJson`.
+    static func alarmFromJson(_ o: [String: Any]) throws -> Alarm? {
+        let threshold: Double = try part(o, "threshold")
+        let conditionName: String = try part(o, "condition")
+        guard threshold.isFinite, let condition = AlarmCondition(rawValue: conditionName),
               // Kursmarke, Prozent und Bewegung mit Schwelle ≤ 0 lösten bei jeder Prüfung aus
               !(needsPositiveThreshold(condition) && threshold <= 0)
         else { return nil }
-        let referencePrice: Double?
-        if isNull(o, "referencePrice") {
-            referencePrice = nil
-        } else if let p = double(o, "referencePrice"), p.isFinite {
-            referencePrice = p
-        } else {
-            referencePrice = nil
-        }
-        return Alarm(
-            id: id,
-            watchId: watchId,
+        let referencePrice: Double? = try o["referencePrice"] is NSNull ? nil : part(o, "referencePrice") as Double
+        return try Alarm(
+            id: part(o, "id"),
+            watchId: part(o, "watchId"),
             condition: condition,
             threshold: threshold,
             // Fallend ab 100 % löst nie aus — ausgeschaltet übernehmen
-            enabled: (bool(o, "enabled") ?? true) && !exceedsFall(condition, threshold),
-            repeating: bool(o, "repeating") ?? false,
-            sound: bool(o, "sound") ?? true,
-            vibrate: bool(o, "vibrate") ?? true,
-            speak: bool(o, "speak") ?? false,
-            referencePrice: referencePrice,
-            windowHours: Alarm.clampWindowHours(int(o, "windowHours") ?? 1),
-            // Ältere Sicherungen kennen die Alarmwährung nicht (= Quote-Währung)
-            currency: isNull(o, "currency") ? nil : Alarm.validCurrency(string(o, "currency"))
+            enabled: part(o, "enabled") && !exceedsFall(condition, threshold),
+            repeating: part(o, "repeating"),
+            sound: part(o, "sound"),
+            vibrate: part(o, "vibrate"),
+            speak: part(o, "speak"),
+            referencePrice: referencePrice.flatMap { $0.isFinite ? $0 : nil },
+            windowHours: Alarm.clampWindowHours(part(o, "windowHours")),
+            // nil = Quote-Währung
+            currency: textOrNull(o, "currency").flatMap { Alarm.validCurrency($0) }
         )
     }
 
-    /// Paar-Alarme der Sicherung; ungültige (unbekannte Alarmart, Schwelle nicht endlich) werden gezählt.
-    static func parsedAlarms(_ root: [String: Any]) -> (items: [Alarm], invalid: Int) {
-        let list = root["alarms"] as? [Any] ?? []
-        let items = list.compactMap { ($0 as? [String: Any]).flatMap(alarmFromJson) }
-        return (items, list.count - items.count)
+    /// Paar-Alarme der Sicherung; ungültige (unbekannte Alarmart, ungültige Schwelle) werden gezählt.
+    static func parsedAlarms(_ root: [String: Any]) throws -> (items: [Alarm], invalid: Int) {
+        try parsedEntries(root, "alarms", alarmFromJson)
     }
 
     /// Merkliste und Paar-Alarme einer Sicherung, so wie sie übernommen würden (wie Android
@@ -156,12 +146,8 @@ extension BackupManager {
     /// `BackupRestoreLimits.limit`. `limits: false` beim Zurückrollen des eigenen Stands (Journal): der kommt unverändert
     /// zurück, auch über den Grenzen — wie Android `previousFromJournal`.
     static func restoredWatchlist(_ root: [String: Any], limits: Bool = true) throws -> RestoredWatchlist {
-        var parsedWatches: [Watch] = []
-        for item in root["watches"] as? [Any] ?? [] {
-            guard let o = item as? [String: Any] else { throw Failure.invalid("watches") }
-            parsedWatches.append(try jsonToWatch(o))
-        }
-        let alarmsRead = parsedAlarms(root)
+        let parsedWatches = try parsedEntries(root, "watches") { o -> Watch? in try jsonToWatch(o) }.items
+        let alarmsRead = try parsedAlarms(root)
         let accepted = limits ? BackupRestoreLimits.accept(watches: parsedWatches, alarms: alarmsRead.items)
             : BackupRestoreLimits.Limited(watches: parsedWatches, alarms: alarmsRead.items)
         let cleaned = WatchlistRestoreCleanup.clean(watches: accepted.watches, alarms: accepted.alarms)

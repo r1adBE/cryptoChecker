@@ -35,7 +35,7 @@ struct PortfolioTxRow: View {
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)
                     .truncationMode(.middle)
-                // Gebühr und Börse (D1): «Gebühr 1.20 USDT · Binance», klein und grau
+                // Gebühr und Börse: «Gebühr 1.20 USDT · Binance», klein und grau
                 if let line = ledgerLine {
                     Text(verbatim: PortfolioInsights.mask(line, hidden: hideAmounts))
                         .font(.caption.monospacedDigit())

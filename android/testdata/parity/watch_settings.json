@@ -1,5 +1,5 @@
 {
- "description": "Uhr-Apps (Build 154/155): WatchCoins.toggle (max 8), cleanOwn (nur Top-30, ohne Doppelte, max 8), fromFavorites (gross, gültige Kürzel [A-Z0-9]{2,12}, ohne Doppelte, max 8); WatchSettings.fromJson (unbekannter Modus → own; Listen bereinigt; kaputt → null), shown, merge (Wahl und eigene Liste von der neueren Seite, Handy-Liste immer vom Handy). Android marketdata/watch, iOS WatchCore.",
+ "description": "Uhr-Apps: WatchCoins.toggle (max 8), cleanOwn (nur Top-30, ohne Doppelte, max 8), fromFavorites (gross, gültige Kürzel [A-Z0-9]{2,12}, ohne Doppelte, max 8); WatchSettings.fromJson (unbekannter Modus → own; Listen bereinigt; kaputt → null), shown, merge (Wahl und eigene Liste von der neueren Seite, Handy-Liste immer vom Handy). Android marketdata/watch, iOS WatchCore.",
  "top": [
   "BTC",
   "ETH",

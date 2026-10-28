@@ -69,7 +69,7 @@ internal fun RowInfo(
     /** Art des Paars: Symbol vor der Glocke ([AssetKindIcon]). */
     kind: AssetKind = AssetKind.TOKEN,
 ) {
-    // Deaktiviert (L-13): Texte in onSurfaceVariant, Symbole mit reduzierter Deckkraft
+    // Deaktiviert: Texte in onSurfaceVariant, Symbole mit reduzierter Deckkraft
     val off = watch.disabled
     val iconAlpha = if (off) DISABLED_ICON_ALPHA else 1f
     // Grosse Schrift: Paar und Zeitzeile umbrechen (zwei Zeilen) statt abschneiden — wie iOS
@@ -127,7 +127,7 @@ internal fun RowInfo(
             val whyP = why?.measure(loose.copy(maxWidth = whyMax))
             val width = nameP.width + checkW + (whyP?.width ?: 0)
             val height = maxOf(nameP.height, checkP?.height ?: 0, whyP?.height ?: 0)
-            // Mitte an Mitte wie die frühere Zeile (Alignment.CenterVertically); placeRelative spiegelt bei RTL
+            // Mitte an Mitte (wie Alignment.CenterVertically); placeRelative spiegelt bei RTL
             // (Arabisch, Hebräisch, Persisch) wie der Kopf daneben
             layout(width.coerceIn(constraints.minWidth, constraints.maxWidth), height.coerceAtLeast(constraints.minHeight)) {
                 var x = 0
@@ -179,7 +179,7 @@ internal fun RowInfo(
                     staleTime -> "${BidiText.isolate(watch.exchangeName)} · ${ago(watch.lastUpdate, now)}"
                     // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (PriceFreshness)
                     status.unchanged != null -> "${BidiText.isolate(watch.exchangeName)} · ${status.unchanged}"
-                    // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht seit L-14 nur im Aktionsblatt
+                    // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht nur im Aktionsblatt
                     else -> watch.exchangeName
                 },
                 // Lesegrösse (14 sp) statt 12 — bricht bei grosser Schrift um ([DenseRowText]),
@@ -209,7 +209,7 @@ internal fun RowInfo(
                 size = rowIcon,
                 modifier = Modifier.padding(start = Spacing.xs).alpha(iconAlpha)
             )
-            // Kursmitteilung (Entscheid 16. Oktober 2026, wieder in der Zeile): schlichte Glocke = an, durchgestrichene
+            // Kursmitteilung: schlichte Glocke = an, durchgestrichene
             // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
             // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
             val priceOn = com.cryptochecker.app.util.A11ySpeech.priceNotificationOn(

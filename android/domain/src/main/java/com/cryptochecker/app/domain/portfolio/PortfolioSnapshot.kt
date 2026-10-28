@@ -12,8 +12,8 @@ import kotlin.math.abs
  * Momentaufnahme für das Portfolio-Widget: Gesamtwert und Veränderung «heute»
  * in der Umrechnungswährung. [changeAmount]/[changePercent] null = unbekannt
  * (noch keine Vergleichsbasis).
- * Die Angaben ab [totalUsdt] kamen später dazu: Ältere gespeicherte Aufnahmen haben
- * sie nicht (null bzw. leer), das Widget blendet die Teile dann aus.
+ * Die Angaben ab [totalUsdt] können in einer gespeicherten Aufnahme fehlen (null bzw. leer);
+ * das Widget blendet die Teile dann aus.
  */
 data class PortfolioSnapshot(
     val total: Double,
@@ -23,7 +23,7 @@ data class PortfolioSnapshot(
     val time: Long,
     /** Keine offenen Positionen (Widget zeigt den Hinweis zum Erfassen). */
     val empty: Boolean,
-    /** Gesamtwert in USDT; null = unbekannt (ältere Aufnahme). */
+    /** Gesamtwert in USDT; null = unbekannt (nicht gespeichert). */
     val totalUsdt: Double? = null,
     /** Die grössten Positionen, absteigend nach Wert (höchstens [PortfolioWidgetMath.MAX_POSITIONS]). */
     val positions: List<PortfolioPosition> = emptyList(),
@@ -33,7 +33,7 @@ data class PortfolioSnapshot(
     val history: List<PortfolioValuePoint> = emptyList(),
     /**
      * Mit welcher %-Basis (und welchem Tagesbeginn) Veränderung und Verlauf gerechnet sind;
-     * null = ältere Aufnahme (rollende 24 Stunden).
+     * null = nicht gespeichert (rollende 24 Stunden).
      */
     val stamp: ChangeStamp? = null,
     /**
@@ -43,7 +43,7 @@ data class PortfolioSnapshot(
     val coinChanges: Map<String, Double> = emptyMap(),
     /**
      * Offene Coins ohne aktuellen Kurs — sie zählen in [total] als 0 (wie der Rechner, App-Hinweis
-     * `portfolio_current_missing`); das Widget zeigt dann «ohne 1 Coin». 0 bei älterer Aufnahme.
+     * `portfolio_current_missing`); das Widget zeigt dann «ohne 1 Coin». 0, wenn nicht gespeichert.
      */
     val missingPrices: Int = 0,
     /**
@@ -55,7 +55,7 @@ data class PortfolioSnapshot(
     val periodChanges: Map<Int, PortfolioChange> = emptyMap(),
     /**
      * ± seit Kauf (unrealisiert) in USDT mit Prozent — «Gesamt» der Übersicht im Widget wie in der
-     * Gesamtkarte des Portfolio-Tabs; null = unbekannt (Kaufpreis fehlt oder ältere Aufnahme).
+     * Gesamtkarte des Portfolio-Tabs; null = unbekannt (Kaufpreis fehlt oder nicht gespeichert).
      */
     val unrealized: PortfolioChange? = null,
     /**
@@ -65,24 +65,24 @@ data class PortfolioSnapshot(
     val todaySkipped: List<String> = emptyList(),
     /**
      * MEIN Gewinn/Verlust je offenem Coin seit Beginn der %-Basis in USDT ([PortfolioPeriodChange.todayByCoin])
-     * für die Zeilen im Portfolio-Tab — die Summe ist [changeAmount] (in USDT). Gespeichert (ältere Aufnahmen: leer).
+     * für die Zeilen im Portfolio-Tab — die Summe ist [changeAmount] (in USDT). Gespeichert (sonst leer).
      */
     val coinPnl: Map<String, PortfolioChange> = emptyMap(),
     /**
      * Bewertete Coins, deren Kurs beim Aufnehmen NICHT frisch war ([PortfolioPriceFallback.staleCoins]) — sie
      * zählen mit ihrem letzten Kurs; das Widget zeigt dann «teilweise alter Kurs», Portfolio-Alarme prüfen nicht
      * (ausser unwesentlich, [staleValueUsdt]).
-     * 0 = alle frisch (bzw. ältere Aufnahme).
+     * 0 = alle frisch (bzw. nicht gespeichert).
      */
     val stalePrices: Int = 0,
     /**
      * Merkzettel der App für «Seit Kauf» und «7 T» in der Anzeigewährung ([PortfolioDisplayFx]) — gespeichert, damit
-     * auch Aufnahmen im Hintergrund damit rechnen. null = keiner (ältere Aufnahme, USDT).
+     * auch Aufnahmen im Hintergrund damit rechnen. null = keiner (nicht gespeichert, USDT).
      */
     val displayFx: PortfolioDisplayFx? = null,
     /**
      * «Seit Kauf» in [currency] zum Kurs der Erwerbstage wie die Gesamtkarte ([PortfolioDisplayFigures.unrealized]);
-     * [PortfolioChange.skipped] = fehlende Coins («unvollständig»). null = unbekannt bzw. ältere Aufnahme — das Widget
+     * [PortfolioChange.skipped] = fehlende Coins («unvollständig»). null = unbekannt — das Widget
      * zeigt in der Anzeigewährung dann «—» statt USDT × heutiger Kurs.
      */
     val unrealizedDisplay: PortfolioChange? = null,
@@ -91,33 +91,33 @@ data class PortfolioSnapshot(
      * nicht rechenbar: das Widget zeigt dann [periodChanges] in USDT mit Einheit «USDT».
      */
     val weekDisplay: PortfolioChange? = null,
-    /** Coins zu [missingPrices] (Grossschreibung, sortiert) — Hinweis «Portfolio-Alarme pausiert». Leer bei älterer Aufnahme. */
+    /** Coins zu [missingPrices] (Grossschreibung, sortiert) — Hinweis «Portfolio-Alarme pausiert». Leer: nicht gespeichert. */
     val missingCoins: List<String> = emptyList(),
-    /** Coins zu [stalePrices] (sortiert) — Hinweis «Portfolio-Alarme pausiert». Leer bei älterer Aufnahme. */
+    /** Coins zu [stalePrices] (sortiert) — Hinweis «Portfolio-Alarme pausiert». Leer: nicht gespeichert. */
     val staleCoins: List<String> = emptyList(),
     /**
      * Wert der Coins mit altem Kurs in USDT (zum letzten Kurs) — Portfolio-Alarme prüfen trotzdem, wenn er unwesentlich
-     * ist ([com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic.staleMaterial]). null = unbekannt (ältere Aufnahme).
+     * ist ([com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic.staleMaterial]). null = unbekannt.
      */
     val staleValueUsdt: Double? = null,
     /**
      * Zählende Adressen ohne je geladenes Guthaben ([AddressBalance.pendingCount]) — fehlen in [total]; Portfolio-Alarme
-     * prüfen dann nicht. 0 bei älterer Aufnahme.
+     * prüfen dann nicht. 0, wenn nicht gespeichert.
      */
     val addressesPending: Int = 0,
     /** Zählende Adressen, die seit über 24 Stunden nicht laden ([AddressAlarmState.failing]) — Alarme rechnen ohne sie. */
     val addressesFailing: List<String> = emptyList(),
     /** Adressen mit nicht bestätigten Token-Guthaben ([AddressAlarmState.staleTokenAddresses]) — wie ein alter Kurs. */
     val staleTokenAddresses: List<String> = emptyList(),
-    /** Wert dieser Token in USDT ([AddressAlarmState.staleTokenValue]); 0 = keine bzw. ältere Aufnahme. */
+    /** Wert dieser Token in USDT ([AddressAlarmState.staleTokenValue]); 0 = keine bzw. nicht gespeichert. */
     val staleTokenValueUsdt: Double = 0.0,
     /**
      * Bewertete Coins mit «Kurs ungeprüft» (Token nicht bestätigt, PortfolioPrices.unverified), ohne die
      * schon in [staleCoins] — für Portfolio-Alarme wie ein alter Kurs (Wert [unverifiedValueUsdt]); das Widget zeigt
-     * deswegen NICHT «teilweise alter Kurs». Leer bei älterer Aufnahme.
+     * deswegen NICHT «teilweise alter Kurs». Leer, wenn nicht gespeichert.
      */
     val unverifiedCoins: List<String> = emptyList(),
-    /** Wert dieser Coins in USDT; 0 = keine bzw. ältere Aufnahme. */
+    /** Wert dieser Coins in USDT; 0 = keine bzw. nicht gespeichert. */
     val unverifiedValueUsdt: Double = 0.0,
 )
 
@@ -226,7 +226,7 @@ object PortfolioSnapshotMath {
      * Dazu: Gesamtwert in USDT, die grössten Positionen (Anteil, Veränderung je Coin) und der
      * Wertverlauf. Reichen die Stundenkurse ([PortfolioWidgetSeries.hourly], mindestens
      * [PortfolioWidgetSeries.MIN_POINTS] Punkte), stammen Verlauf und Veränderung über 24 h
-     * daraus; sonst aus den Kursaufnahmen wie bisher (Vergleichsbasis [baseline]).
+     * daraus; sonst aus den Kursaufnahmen (Vergleichsbasis [baseline]).
      * @param stamp %-Basis: bei «seit 00:00» Verlauf und Veränderung ab Tagesbeginn
      *   ([PortfolioWidgetSeries.hourlySince], sonst die Aufnahme zum Tagesbeginn [baselineAt]).
      */

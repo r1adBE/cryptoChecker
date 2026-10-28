@@ -25,7 +25,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 /**
  * Kleine graue Zeile unter dem Alarm-Satz: der eine Satz «Wann Alarme geprüft werden»
  * ([alarmTimingHintText]) — vollständig sichtbar, darum ohne (i), das ihn nur wiederholen würde.
- * Auch im Portfolio-Alarm. Darunter der Akku-Hinweis, (K-10) der Knopf «Aktualisierung ändern»
+ * Auch im Portfolio-Alarm. Darunter der Akku-Hinweis, der Knopf «Aktualisierung ändern»
  * direkt zur Wahl «Wie aktuell?» und der Weg zu «Damit Alarme ankommen».
  */
 @Composable

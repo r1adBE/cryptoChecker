@@ -68,7 +68,7 @@ internal data class BottomTab(
 )
 
 /**
- * Merkliste · Markt · (Portfolio) · Einstellungen (Runde 31: ohne Tab «Suchen»).
+ * Merkliste · Markt · (Portfolio) · Einstellungen.
  * Der Portfolio-Tab erscheint nur, wenn er unter Einstellungen › Portfolio eingeschaltet ist. Paare sucht und
  * fügt man auf einer eigenen Seite hinzu ([ScreenRoute.Explorer]), geöffnet mit «+» der Merkliste.
  */
@@ -180,7 +180,7 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSele
                                     label = "tabIndicator"
                                 )
                                 // Pille in der vollen Akzentfarbe, damit sie sich mit ≥ 3:1 von der Leiste abhebt
-                                // (vorher Akzent 30 % bzw. #404040: nur 1.5–1.6:1). Hell primary auf surfaceContainer
+                                // (Akzent 30 % bzw. #404040 läge bei nur 1.5–1.6:1). Hell primary auf surfaceContainer
                                 // #F1EEE9 → 5.04–5.09:1, Symbol Weiss darauf 5.84–5.89:1; dunkel primary auf #1F1F1F →
                                 // 6.17–7.05:1, Symbol onPrimary darauf 6.15–6.70:1 (TabIndicatorContrastTest). Gewählt
                                 // zudem an fetter Beschriftung erkennbar. Gleiche Werte wie iOS.

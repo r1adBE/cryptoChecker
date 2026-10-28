@@ -45,7 +45,7 @@ struct WatchGroupEditSheet: View {
     @State private var renaming = false
     @State private var renameText = ""
     @State private var askDelete = false
-    /// Speichern bzw. Löschen läuft (Rückfrage F-08 offen): weitere Tipps zählen nicht (IOS6-01, wie `WatchGroupSheet`).
+    /// Speichern bzw. Löschen läuft (Rückfrage offen): weitere Tipps zählen nicht (wie `WatchGroupSheet`).
     @State private var saving = false
     /// Suchschlüssel der Paare, solange das Blatt offen ist (`WatchlistSearchIndex`).
     @State private var searchIndex = WatchlistSearchIndex()
@@ -244,7 +244,7 @@ struct WatchGroupEditSheet: View {
         }, cancelled: { saving = false })
     }
 
-    /// Rückfrage F-08 vorher; «Abbrechen» = nichts (Blatt bleibt, wieder bereit).
+    /// Rückfrage «nicht gespeichert» vorher; «Abbrechen» = nichts (Blatt bleibt, wieder bereit).
     private func deleteGroup() {
         guard !saving else { return }
         saving = true

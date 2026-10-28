@@ -62,7 +62,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 // Einstellungen › Portfolio › «Eigener Server für Adressen» (nur Bitcoin, [AddressServer]) — wie iOS
-// `SettingsAddressServerCard`. Leer = öffentliche Knoten wie bisher; gesetzt = nur dorthin, ohne Rückfall.
+// `SettingsAddressServerCard`. Leer = öffentliche Knoten; gesetzt = nur dorthin, ohne Rückfall.
 
 /** Gespeicherter Server; [loaded] erst nach dem ersten Lesen (sonst stünde kurz «nicht gesetzt» da). */
 data class AddressServerState(val loaded: Boolean = false, val server: String? = null)

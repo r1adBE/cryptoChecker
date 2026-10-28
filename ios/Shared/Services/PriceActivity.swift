@@ -12,7 +12,7 @@ struct PriceActivityAttributes: ActivityAttributes {
         /// Veränderung in % wie die Änderung der Merkliste (`Watch.change24h`, gemäss %-Basis);
         /// nil = kein Bezug («—»).
         var change24h: Double?
-        /// %-Basis der Veränderung (Zeitraum «24h»/«heute»); nil = ältere Fassung, rollend.
+        /// %-Basis der Veränderung (Zeitraum «24h»/«heute»); nil = rollend.
         var basis: ChangeBasis?
         /// Stand des Kurses.
         var updatedAt: Date

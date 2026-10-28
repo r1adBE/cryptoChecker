@@ -44,7 +44,7 @@ final class TaprootTests: XCTestCase {
             XCTAssertEqual(check.kind, .P2TR)
             XCTAssertEqual(check.chain, .BTC)
         }
-        // Ein einfacher xpub bleibt bei der bisherigen Suche (kein Taproot ohne Deskriptor)
+        // Ein einfacher xpub bleibt bei der Suche ohne Taproot (kein Taproot ohne Deskriptor)
         XCTAssertEqual(XpubScan.scripts(try XCTUnwrap(Bip32.parse(xpub)), cache: nil), [.p2pkh, .p2shP2wpkh, .p2wpkh])
         XCTAssertEqual(XpubScan.scripts(key, cache: nil), [.p2tr])
         XCTAssertNil(XpubScan.pickScript(key, tried: [(script: .p2tr, used: 3)]))

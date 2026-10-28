@@ -53,7 +53,7 @@ internal suspend fun SingleWidgetRenderer.chartCandles(
         sparkline(watch.baseAsset, watch.quoteAsset, range, preferFutures = pair.isFutures, price = watch.lastPrice, fetch = fetch),
         watch.lastPrice,
     ) ?: return null
-    // Börse der Ausweich-Reihe (für «Chart: Binance»); klar anders benannter Token (K-8): kein Chart
+    // Börse der Ausweich-Reihe (für «Chart: Binance»); klar anders benannter Token: kein Chart
     val provider = sparkProvider[fallbackKey]
     if (!tokenIdentityStore.fallbackSeriesAllowed(watch.exchangeKey, watch.baseAsset, provider)) return null
     return com.cryptochecker.app.domain.market.Sourced(accepted, provider)

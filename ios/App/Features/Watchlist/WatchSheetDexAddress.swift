@@ -6,7 +6,7 @@ import UniformTypeIdentifiers
 // Eigene Datei wie `WatchSheetDexAddress.kt`; der Kopf (`WatchActionsHeader.swift`) setzt sie unter die Börse.
 
 /// «0x1234…abcd» unter der Börse eines DEX-Pools (`DexTokenAddress`); Tippen legt die volle Adresse in die
-/// Zwischenablage. Ohne gemerkte Adresse (Paar mit einer älteren Version hinzugefügt) nichts.
+/// Zwischenablage. Ohne gemerkte Adresse nichts.
 struct DexTokenAddressLine: View {
     let watch: Watch
     /// Kurz «kopiert» statt der Adresse: iOS bestätigt das Kopieren nicht selbst (Android 13+ schon).

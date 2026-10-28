@@ -78,7 +78,7 @@ class ExchangeRemoteDataSource @Inject constructor(
             throw ParseError(ex)
         }
         collected.sort()
-        // Volle Coin-Namen (K-8) aus denselben Antworten; ein Fehler dabei lässt die Liste unberührt
+        // Volle Coin-Namen aus denselben Antworten; ein Fehler dabei lässt die Liste unberührt
         val names = runCatchingCancellable { exchange.parseBaseNamesCombined(bodies) }.getOrDefault(emptyMap())
         return ExchangePairsInfo(lastSyncDate = System.currentTimeMillis(), pairs = collected, baseNames = names)
     }

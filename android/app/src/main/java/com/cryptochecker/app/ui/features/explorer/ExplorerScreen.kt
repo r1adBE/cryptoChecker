@@ -42,7 +42,7 @@ import com.cryptochecker.marketdata.model.ExchangePair
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * Seite «Paar hinzufügen» (seit Runde 31 kein eigener Tab) — erreichbar über «+» in der Merkliste,
+ * Seite «Paar hinzufügen» (kein eigener Tab) — erreichbar über «+» in der Merkliste,
  * die App-Verknüpfung, ein Widget oder «Heute auffällig»; [onBack] schliesst sie.
  */
 @Composable

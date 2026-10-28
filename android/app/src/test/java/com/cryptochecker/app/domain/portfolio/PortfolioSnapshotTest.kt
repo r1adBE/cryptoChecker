@@ -122,7 +122,7 @@ class PortfolioSnapshotTest {
         assertEquals(20.0, s.positions.single().change24hPercent!!, 1e-9)
         // Verlauf ohne Aufnahmen vor dem Tagesbeginn
         assertTrue(s.history.all { it.time >= dayStart })
-        // Rollend wie bisher
+        // Rollend
         val rolling = PortfolioSnapshotMath.snapshot(mapOf("BTC" to 1.0), 120.0, mapOf("BTC" to 120.0), history, now, 1.0, "USD")
         assertEquals(40.0, rolling.changeAmount!!, 1e-9)
         assertNull(rolling.stamp)
@@ -149,7 +149,7 @@ class PortfolioSnapshotTest {
         )
         assertEquals(1, day.missingPrices)
         assertEquals(listOf("ETH"), day.missingCoins)
-        // alle mit Kurs bzw. ältere Aufnahme (Standardwert): kein Hinweis
+        // alle mit Kurs bzw. Standardwert: kein Hinweis
         assertEquals(0, PortfolioSnapshotMath.snapshot(mapOf("BTC" to 1.0), 100.0, mapOf("BTC" to 100.0), emptyList(), now, 1.0, "USD").missingPrices)
         assertEquals(0, PortfolioSnapshot(1.0, null, null, "USD", now, false).missingPrices)
         assertEquals(1, PortfolioSnapshotMath.missingPrices(mapOf("A" to 1.0, "B" to null)))

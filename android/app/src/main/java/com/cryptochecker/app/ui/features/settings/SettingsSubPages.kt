@@ -44,9 +44,9 @@ import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PercentText
 
 /*
- * Runde 13b: Unterseiten der Einstellungen. «Alarme & Benachrichtigungen» hatte 17
- * Bedienelemente; Markt-Meldungen und Sprachausgabe stehen jetzt je auf einer eigenen
- * Seite, erreichbar über eine Zeile mit Kurzwert. Schlüssel und Verhalten unverändert.
+ * Unterseiten der Einstellungen: Markt-Meldungen und Sprachausgabe stehen je auf einer eigenen
+ * Seite, erreichbar über eine Zeile mit Kurzwert (sonst hätte «Alarme & Benachrichtigungen» 17
+ * Bedienelemente).
  */
 
 /** Anzahl eingeschalteter Themen der Markt-Meldungen (siehe [SettingsSummary]). */

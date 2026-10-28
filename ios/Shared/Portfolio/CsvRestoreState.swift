@@ -43,7 +43,7 @@ struct CsvRestoreState: Hashable, Sendable {
     let importBatch: String?
     let absorbed: CsvAbsorbedRow?
 
-    /// Fassung des Formats; eine neue Fassung bekommt eine neue Zahl, ältere bleiben lesbar.
+    /// Fassung des Formats; eine andere Fassung gilt als unlesbar.
     static let version = 1
 
     /// Längster gelesener Text — nur gegen unsinnige Eingaben aus einer Sicherung (wie Android `MAX_TEXT`).

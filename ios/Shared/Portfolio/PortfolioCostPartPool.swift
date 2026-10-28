@@ -7,7 +7,7 @@ import Foundation
 /// gerechnet erst beim Auslesen; der Steuer-Export rechnet grosse Ansichten ohne Auslesen um (`weightedSum`, `anyTime`,
 /// `timeBounds`).
 ///
-/// Wie die frühere Liste: Summe der abgegebenen Teile exakt = abgegebener Einstand (letzter Teil = Rest), Summe der
+/// Wie eine Liste: Summe der abgegebenen Teile exakt = abgegebener Einstand (letzter Teil = Rest), Summe der
 /// offenen Teile exakt = Einstand (`toArray`); ohne Abgang dazwischen ist ein Teil exakt sein Betrag. Mit `zone` fasst
 /// ein Teil die Zugänge desselben Kalendertags zusammen (gleicher Devisenkurs; der erste Zeitpunkt des Tags bleibt).
 /// Kopien des Werts teilen den Speicher, bis eine davon ändert (`own`). Wie `PortfolioCostPartPool.kt` (Android).

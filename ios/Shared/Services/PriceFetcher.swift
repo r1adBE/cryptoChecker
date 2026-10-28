@@ -134,7 +134,7 @@ extension PriceRefresher {
         }
 
         // Einzelabfragen, höchstens vier gleichzeitig je Börse — gleitend: sobald eine fertig
-        // ist, startet die nächste (bisher wartete jeder Viererblock auf seine langsamste).
+        // ist, startet die nächste (kein Viererblock, der auf seine langsamste wartet).
         // Erste Antwort mit 429/418: die übrigen nicht mehr senden, derselbe Fehler (`SingleRateGate`).
         let confirmIds = missing
         // Paare mit aktivem Alarm zuerst: im knappen Zeitfenster des Hintergrunds kommen so die Alarme durch
@@ -267,7 +267,7 @@ enum LowMemoryBulk {
 
 /// «Zu viele Anfragen» (429) oder «gesperrt» (418) bei einer Einzelabfrage: Die übrigen, noch nicht gesendeten
 /// Einzelabfragen derselben Börse in diesem Durchlauf gehen nicht mehr hinaus, sondern enden mit demselben
-/// Fehlertext — samt «retry-after», die Pause je Börse (`ExchangeBackoff`) wirkt wie bisher. Schon laufende
+/// Fehlertext — samt «retry-after», die Pause je Börse (`ExchangeBackoff`) wirkt normal. Schon laufende
 /// Abfragen laufen zu Ende. Je Börse und Durchlauf einer. Wie `SingleRateGate` in `PriceFetcher.kt`.
 struct SingleRateGate: Sendable {
     /// Fehlertext, mit dem noch nicht gesendete Einzelabfragen enden; nil = senden.

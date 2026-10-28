@@ -7,7 +7,7 @@ import org.junit.Test
 import java.util.Locale
 
 /**
- * Review UX9-02: Die Warnung vor dem Wiederherstellen einer unverschlüsselten Sicherung nennt die
+ * Die Warnung vor dem Wiederherstellen einer unverschlüsselten Sicherung nennt die
  * geschützten Einstellungen mit ihren exakten Namen aus den Einstellungen (Gross/Klein egal),
  * damit man sie dort wiederfindet; ebenso die Hinweise nach dem Wiederherstellen (Sperre blieb an, eigener
  * Server). Gilt in allen 31 Sprachen.

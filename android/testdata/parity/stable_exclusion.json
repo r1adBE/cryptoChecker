@@ -1,5 +1,5 @@
 {
- "_comment": "Stablecoins und Doppelgänger (CoinExclusion): gemeinsam für StableExclusionParityTest.kt und StableExclusionParityTests.swift. Gilt für Marktbreite («Top 30»), «Gewinner und Verlierer 24 h», Start-Coins und «Heute auffällig». Listen und Regeln = Vereinigung beider Plattformen, ohne Rücksicht auf Gross-/Kleinschreibung. «stablecoins» und «wrapped» = die Listen beider Plattformen (genau gleich).",
+ "_comment": "Stablecoins und Doppelgänger (CoinExclusion): gemeinsam für StableExclusionParityTest.kt und StableExclusionParityTests.swift. Gilt für Marktbreite («Top 30»), «Gewinner und Verlierer 24 h», Start-Coins und «Heute auffällig». Listen und Regeln gelten auf beiden Plattformen gleich, ohne Rücksicht auf Gross-/Kleinschreibung. «stablecoins» und «wrapped» = die Listen beider Plattformen (genau gleich).",
  "stablecoins": [
   "USDT",
   "USDC",
@@ -195,21 +195,21 @@
    "symbol": "DOLA",
    "name": "DOLA",
    "excluded": true,
-   "note": "früher nur iOS"
+   "note": "Kürzel in der Stablecoin-Liste"
   },
   {
    "id": "resolv-usr",
    "symbol": "USR",
    "name": "Resolv USR",
    "excluded": true,
-   "note": "früher nur iOS"
+   "note": "Kürzel in der Stablecoin-Liste"
   },
   {
    "id": "magic-internet-money",
    "symbol": "MIM",
    "name": "Magic Internet Money",
    "excluded": true,
-   "note": "früher nur iOS"
+   "note": "Kürzel in der Stablecoin-Liste"
   },
   {
    "id": "liquity-usd",
@@ -234,28 +234,28 @@
    "symbol": "USTC",
    "name": "TerraClassicUSD",
    "excluded": true,
-   "note": "früher nur iOS"
+   "note": "Kürzel in der Stablecoin-Liste"
   },
   {
    "id": "usdai",
    "symbol": "USDAI",
    "name": "USDai",
    "excluded": true,
-   "note": "früher nur Android"
+   "note": "Kürzel in der Stablecoin-Liste"
   },
   {
    "id": "ousg",
    "symbol": "OUSG",
    "name": "OUSG",
    "excluded": true,
-   "note": "früher nur Android"
+   "note": "Kürzel in der Stablecoin-Liste"
   },
   {
    "id": "xsgd",
    "symbol": "XSGD",
    "name": "XSGD",
    "excluded": true,
-   "note": "früher nur Android"
+   "note": "Kürzel in der Stablecoin-Liste"
   },
   {
    "id": "ethena-usde",
@@ -288,14 +288,14 @@
    "symbol": "FLCN",
    "name": "falcon usd",
    "excluded": true,
-   "note": "Name «usd» klein — früher auf Android nicht erkannt"
+   "note": "Name «usd» klein"
   },
   {
    "id": "mixed-case",
    "symbol": "ABCX",
    "name": "Abc Usd Vault",
    "excluded": true,
-   "note": "Name «Usd» gemischt — früher auf Android nicht erkannt"
+   "note": "Name «Usd» gemischt"
   },
   {
    "id": "usd-inside",
@@ -316,7 +316,7 @@
    "symbol": "PDOL",
    "name": "Petrodollars",
    "excluded": true,
-   "note": "«dollar» im Wort — früher auf Android nicht erkannt"
+   "note": "«dollar» im Wort"
   },
   {
    "id": "quantoz-euro",
@@ -330,7 +330,7 @@
    "symbol": "EURSX",
    "name": "STASIS EUR",
    "excluded": true,
-   "note": "EUR als Wort — früher auf Android nicht erkannt"
+   "note": "EUR als Wort"
   },
   {
    "id": "wrapped-bitcoin",
@@ -350,28 +350,28 @@
    "symbol": "FBTC",
    "name": "Ignition FBTC",
    "excluded": true,
-   "note": "früher nur iOS"
+   "note": "Kürzel in der Wrapped-Liste"
   },
   {
    "id": "unibtc",
    "symbol": "UNIBTC",
    "name": "Universal BTC",
    "excluded": true,
-   "note": "früher nur iOS"
+   "note": "Kürzel in der Wrapped-Liste"
   },
   {
    "id": "wpol",
    "symbol": "WPOL",
    "name": "Wrapped POL",
    "excluded": true,
-   "note": "früher nur iOS"
+   "note": "Kürzel in der Wrapped-Liste"
   },
   {
    "id": "wrapped-new",
    "symbol": "WNEW",
    "name": "Wrapped Newcoin",
    "excluded": true,
-   "note": "Name beginnt mit «Wrapped» — früher auf Android nicht erkannt"
+   "note": "Name beginnt mit «Wrapped»"
   },
   {
    "id": "staked-new",
@@ -433,7 +433,7 @@
    "symbol": "ABC.X",
    "name": "Abc",
    "excluded": true,
-   "note": "Kürzel mit Punkt — früher auf Android nicht erkannt"
+   "note": "Kürzel mit Punkt"
   },
   {
    "id": "dashed",

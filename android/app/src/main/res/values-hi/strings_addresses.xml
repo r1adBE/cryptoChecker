@@ -45,4 +45,17 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Taproot खाता (BIP86): इस कुंजी से bc1p… पते बनाए जाते हैं, प्राप्ति और चेंज दोनों के लिए।</string>
     <string name="portfolio_address_taproot_hint">Taproot वॉलेट? इसके बजाय अपने वॉलेट से डिस्क्रिप्टर tr(…) चिपकाओ – साधारण xpub में केवल Legacy और SegWit पते खोजे जाते हैं।</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">अपना सर्वर उपलब्ध नहीं</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">जो %1$s चलाता है, वह इस वॉलेट के सभी पूछे गए पते देखता है और उन्हें आपस में और तुम्हारे IP पते से जोड़ सकता है।</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">इससे बचने के लिए सेटिंग्स › पोर्टफ़ोलियो › पतों के लिए अपना सर्वर में अपना सर्वर डालो।</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d अज्ञात टोकन (गिना नहीं गया)</item>
+        <item quantity="other">+%1$d अज्ञात टोकन (गिने नहीं गए)</item>
+    </plurals>
 </resources>

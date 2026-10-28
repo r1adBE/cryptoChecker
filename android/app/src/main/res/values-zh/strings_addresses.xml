@@ -45,4 +45,16 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Taproot 账户（BIP86）：将从此密钥派生用于收款和找零的 bc1p… 地址。</string>
     <string name="portfolio_address_taproot_hint">使用 Taproot 钱包？请改为粘贴钱包中的描述符 tr(…)——普通 xpub 只会按 Legacy 和 SegWit 地址搜索。</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">无法连接自有服务器</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s 的运营者能看到此钱包被查询的全部地址，并能将它们相互关联，也能与你的 IP 地址关联。</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">如需避免，请在“设置 › 投资组合 › 地址专用的自有服务器”中填写你自己的服务器。</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d 个未知代币（未计入）</item>
+    </plurals>
 </resources>

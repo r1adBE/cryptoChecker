@@ -57,7 +57,7 @@ enum WidgetOutdated {
         L("a11y_stale", stamp(time, at: date))
     }
 
-    /// Uhrzeit wie bisher (`PriceFormat.time`) oder, wenn veraltet, «veraltet · 06:42».
+    /// Uhrzeit (`PriceFormat.time`) oder, wenn veraltet, «veraltet · 06:42».
     static func timeText(_ time: Int64, outdated: Bool, at date: Date) -> String {
         outdated ? label(time, at: date) : PriceFormat.time(time)
     }

@@ -11,7 +11,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -53,21 +52,20 @@ class MarketExtraCodecsTest {
     }
 
     @Test
-    fun unusualInputReadsOlderEntries() {
-        // Ohne Namen gilt das Kürzel; ohne «own» kein eigener üblicher Anteil; JSON-null als fehlend
-        val coins = JSONArray().put(JSONObject().put("s", "ARB").put("c", -3.0).put("v", JSONObject.NULL))
-        val decoded = MarketExtraCodecs.unusualInput.decode(JSONObject().put("coins", coins).put("time", 9L))
-        assertEquals(UnusualCoin("ARB", "ARB", -3.0, null, null, null), decoded.coins.single())
-        assertTrue(decoded.ownTypical.isEmpty())
-        assertEquals(9L, decoded.time)
-    }
-
-    @Test
-    fun unusualInputWithoutTimeOrCoinsIsBroken() {
+    fun unusualInputWithoutTimeCoinsOwnOrNameIsBroken() {
         assertThrows(Exception::class.java) {
-            MarketExtraCodecs.unusualInput.decode(JSONObject().put("coins", JSONArray()))
+            MarketExtraCodecs.unusualInput.decode(JSONObject().put("coins", JSONArray()).put("own", JSONObject()))
         }
-        assertThrows(Exception::class.java) { MarketExtraCodecs.unusualInput.decode(JSONObject().put("time", 1L)) }
+        assertThrows(Exception::class.java) {
+            MarketExtraCodecs.unusualInput.decode(JSONObject().put("time", 1L).put("own", JSONObject()))
+        }
+        assertThrows(Exception::class.java) {
+            MarketExtraCodecs.unusualInput.decode(JSONObject().put("coins", JSONArray()).put("time", 1L))
+        }
+        val nameless = JSONArray().put(JSONObject().put("s", "ARB").put("c", -3.0))
+        assertThrows(Exception::class.java) {
+            MarketExtraCodecs.unusualInput.decode(JSONObject().put("coins", nameless).put("own", JSONObject()).put("time", 1L))
+        }
     }
 
     @Test

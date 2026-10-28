@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
 
-// Einstellungen in der Sicherung (Teil von `BackupManager`): schreiben und tolerant wieder einlesen.
+// Einstellungen in der Sicherung (Teil von `BackupManager`): schreiben, prüfen und wieder einlesen.
 // Eigene Datei, weil die Liste der Einstellungen lang ist.
 
 extension BackupManager {
@@ -17,11 +17,9 @@ extension BackupManager {
         return o
     }
 
-    /// Spaltensortierung aus der Sicherung übernehmen: fehlt das Feld, bleibt sie stehen; null/unbekannt = eigene
-    /// Reihenfolge ("").
-    static func restoreColumnSort(_ o: [String: Any]?) {
-        guard let o, o[ColumnSort.backupField] != nil else { return }
-        let value = isNull(o, ColumnSort.backupField) ? nil : string(o, ColumnSort.backupField)
+    /// Spaltensortierung aus der Sicherung übernehmen (`checkSettings`): null/unbekannt = eigene Reihenfolge ("").
+    static func restoreColumnSort(_ o: [String: Any]) {
+        let value = o[ColumnSort.backupField] as? String
         UserDefaults.standard.set(ColumnSort.backupValue(value) ?? "", forKey: ColumnSort.storageKey)
     }
 
@@ -84,95 +82,138 @@ extension BackupManager {
         ]
     }
 
-    /// Übernimmt nur vorhandene Schlüssel, mit denselben Grenzen wie die Android-Setter.
-    /// `trusted` = Sicherung mit Passwort (bzw. eigener Stand); sonst nur Schutz-Einstellungen in Richtung «mehr Schutz».
-    static func applySettings(_ o: [String: Any], onto current: AppSettings, trusted: Bool = false) -> AppSettings {
+    /// Jedes Feld, das `settingsJson` schreibt, mit seinem Typ (wie Android `BackupSettingsCodec.FIELDS`).
+    static let settingsFields: BackupFields.Fields = [
+        ("updateMode", .string), ("backgroundIntervalMinutes", .int), ("priceNotifications", .bool),
+        ("ongoingNotifications", .bool), ("notificationChangePercent", .double), ("ttsEnabled", .bool),
+        ("ttsAlarmsOnly", .bool), ("ttsSpeechRate", .double), ("alarmCooldownMinutes", .int),
+        ("includeRollingFutures", .bool), ("assetScope", .string), ("includeAlphaTokens", .bool),
+        ("accentColor", .string), ("darkMode", .boolOrNull), ("fearGreedBelow", .int), ("indicatorAlerts", .intMap),
+        ("fearGreedAbove", .int), ("gasAlertEthTenths", .int), ("gasAlertBtc", .int), ("depegAlarm", .bool),
+        ("depegThresholdTenths", .int), ("activityAlerts", .bool), ("activitySensitivity", .string),
+        ("macroNotifications", .bool), ("portfolioEnabled", .bool), ("portfolioCurrency", .string),
+        ("showConverted", .bool), ("priceColorScheme", .string), ("watchlistSparkline", .bool),
+        ("watchlistNames", .bool), ("appIconBadge", .bool), ("watchlistActivityCard", .bool), ("coinLogos", .bool),
+        ("widgetCoinLogos", .bool), ("portfolioCoinLogos", .bool), ("changeBasis", .string), ("highContrast", .bool),
+        ("priceColorsInverted", .bool), ("alarmSignal", .string), ("quietHoursEnabled", .bool),
+        ("quietHoursStart", .int), ("quietHoursEnd", .int), ("appLock", .bool), ("hidePortfolioAmounts", .bool),
+        ("portfolioSystemBackup", .bool), ("costMethod", .string), ("taxTemplate", .string),
+        (ColumnSort.backupField, .stringOrNull), ("addressServerBtc", .stringOrNull),
+    ]
+
+    /// Jedes Feld aus `settingsFields` vorhanden und vom richtigen Typ (`BackupFields.check`); sonst `Failure.invalid` —
+    /// die Sicherung ist unlesbar. Unbekannte Felder werden übergangen. Wie Android `checkSettings`.
+    static func checkSettings(_ o: [String: Any]) throws {
+        try BackupFields.check(o, settingsFields, "settings.")
+    }
+
+    // Lesen nach `checkSettings`: Feld vorhanden und vom richtigen Typ, sonst `Failure.invalid`
+
+    private static func flag(_ o: [String: Any], _ key: String) throws -> Bool {
+        guard let v = o[key], BackupFields.isFlag(v), let n = v as? NSNumber else { throw Failure.invalid("settings." + key) }
+        return n.boolValue
+    }
+
+    /// Ausserhalb von Int gesättigt; die Grenzen setzt der Aufrufer.
+    private static func whole(_ o: [String: Any], _ key: String) throws -> Int {
+        guard let v = o[key], BackupFields.isWhole(v), let d = BackupFields.finiteNumber(v) else { throw Failure.invalid("settings." + key) }
+        if d >= Double(Int.max) { return Int.max }
+        if d <= Double(Int.min) { return Int.min }
+        return Int(d)
+    }
+
+    private static func real(_ o: [String: Any], _ key: String) throws -> Double {
+        guard let v = o[key], let d = BackupFields.finiteNumber(v) else { throw Failure.invalid("settings." + key) }
+        return d
+    }
+
+    private static func text(_ o: [String: Any], _ key: String) throws -> String {
+        guard let v = o[key] as? String else { throw Failure.invalid("settings." + key) }
+        return v
+    }
+
+
+    /// Übernimmt die Einstellungen der Sicherung (`checkSettings`, sonst `Failure.invalid`), mit denselben Grenzen wie
+    /// die Android-Setter. `trusted` = Sicherung mit Passwort (bzw. eigener Stand); sonst nur Schutz-Einstellungen in
+    /// Richtung «mehr Schutz».
+    static func applySettings(_ o: [String: Any], onto current: AppSettings, trusted: Bool = false) throws -> AppSettings {
+        try checkSettings(o)
         var s = current
-        // «Wie aktuell?»; fehlt oder unbekannt: Einstellung bleibt (wie Android)
-        if let mode = UpdateMode.from(name: string(o, "updateMode")) { s.updateMode = mode }
+        // «Wie aktuell?»; unbekannt: Einstellung bleibt (wie Android)
+        if let mode = UpdateMode.from(name: try text(o, "updateMode")) { s.updateMode = mode }
         // Unter- und Obergrenze (riesige Werte liessen Zeitrechnungen überlaufen), wie Android
-        if let v = int(o, "backgroundIntervalMinutes") { s.backgroundIntervalMinutes = AppSettings.clampBackgroundInterval(v) }
-        if let v = bool(o, "priceNotifications") { s.priceNotifications = v }
-        if let v = bool(o, "ongoingNotifications") { s.ongoingNotifications = v }
-        if let v = double(o, "notificationChangePercent") { s.notificationChangePercent = min(max(v, 0), 100) }
-        if let v = bool(o, "ttsEnabled") { s.ttsEnabled = v }
-        if let v = bool(o, "ttsAlarmsOnly") { s.ttsAlarmsOnly = v }
-        if let v = double(o, "ttsSpeechRate") { s.ttsSpeechRate = min(max(v, 0.5), 2.0) }
-        if let v = int(o, "alarmCooldownMinutes") { s.alarmCooldownMinutes = AppSettings.clampAlarmCooldown(v) }
-        if let v = bool(o, "includeRollingFutures") { s.includeRollingFutures = v }
-        // «Token & TradFi»; fehlt oder unbekannt: Einstellung bleibt (wie Android)
-        if let v = AssetScope.from(name: string(o, "assetScope")) { s.assetScope = v }
-        if let v = bool(o, "includeAlphaTokens") { s.includeAlphaTokens = v }
-        if o["accentColor"] != nil { s.accentColor = AccentColor(rawValue: string(o, "accentColor") ?? "") ?? .default }
-        if o["darkMode"] != nil { s.darkMode = isNull(o, "darkMode") ? nil : bool(o, "darkMode") }
-        if let v = int(o, "fearGreedBelow") { s.fearGreedBelow = min(max(v, 0), 100) }
-        // Fehlt das Feld, bleiben die Grenzen stehen; nur gültige Werte je bekannter Art
-        if let alerts = o["indicatorAlerts"] as? [String: Any] {
-            var out: [String: Int] = [:]
-            for kind in IndicatorAlertKind.allCases {
-                if let v = int(alerts, kind.rawValue), v > 0, kind.choices.contains(v) { out[kind.rawValue] = v }
-            }
-            s.indicatorAlerts = out
+        s.backgroundIntervalMinutes = AppSettings.clampBackgroundInterval(try whole(o, "backgroundIntervalMinutes"))
+        s.priceNotifications = try flag(o, "priceNotifications")
+        s.ongoingNotifications = try flag(o, "ongoingNotifications")
+        s.notificationChangePercent = min(max(try real(o, "notificationChangePercent"), 0), 100)
+        s.ttsEnabled = try flag(o, "ttsEnabled")
+        s.ttsAlarmsOnly = try flag(o, "ttsAlarmsOnly")
+        s.ttsSpeechRate = min(max(try real(o, "ttsSpeechRate"), 0.5), 2.0)
+        s.alarmCooldownMinutes = AppSettings.clampAlarmCooldown(try whole(o, "alarmCooldownMinutes"))
+        s.includeRollingFutures = try flag(o, "includeRollingFutures")
+        // «Token & TradFi»; unbekannt: Einstellung bleibt (wie Android)
+        if let v = AssetScope.from(name: try text(o, "assetScope")) { s.assetScope = v }
+        s.includeAlphaTokens = try flag(o, "includeAlphaTokens")
+        s.accentColor = AccentColor(rawValue: try text(o, "accentColor")) ?? .default
+        // null = «Wie das System»
+        s.darkMode = try o["darkMode"] is NSNull ? nil : flag(o, "darkMode")
+        s.fearGreedBelow = min(max(try whole(o, "fearGreedBelow"), 0), 100)
+        // Nur eingeschaltete Grenzen stehen in der Datei; nur gültige Werte je bekannter Art
+        let alerts = o["indicatorAlerts"] as? [String: Any] ?? [:]
+        var out: [String: Int] = [:]
+        for kind in IndicatorAlertKind.allCases where alerts[kind.rawValue] != nil {
+            let v = try whole(alerts, kind.rawValue)
+            if v > 0, kind.choices.contains(v) { out[kind.rawValue] = v }
         }
-        if let v = int(o, "fearGreedAbove") { s.fearGreedAbove = min(max(v, 0), 100) }
-        if let v = int(o, "gasAlertEthTenths") { s.gasAlertEthTenths = min(max(v, 0), 10_000) }
-        if let v = int(o, "gasAlertBtc") { s.gasAlertBtc = min(max(v, 0), 10_000) }
-        // Fehlen die Felder, bleibt die Einstellung stehen (wie Android)
-        if let v = bool(o, "depegAlarm") { s.depegAlarm = v }
-        if let v = int(o, "depegThresholdTenths") { s.depegThresholdTenths = DepegAlarm.threshold(v) }
-        if let v = bool(o, "activityAlerts") { s.activityAlerts = v }
-        // Fehlt der Schlüssel oder ist er unbekannt: «Normal» (wie Android)
-        s.activitySensitivity = ActivitySensitivity.from(name: isNull(o, "activitySensitivity") ? nil : string(o, "activitySensitivity"))
-        if let v = bool(o, "macroNotifications") { s.macroNotifications = v }
-        if let v = bool(o, "portfolioEnabled") { s.portfolioEnabled = v }
+        s.indicatorAlerts = out
+        s.fearGreedAbove = min(max(try whole(o, "fearGreedAbove"), 0), 100)
+        s.gasAlertEthTenths = min(max(try whole(o, "gasAlertEthTenths"), 0), 10_000)
+        s.gasAlertBtc = min(max(try whole(o, "gasAlertBtc"), 0), 10_000)
+        s.depegAlarm = try flag(o, "depegAlarm")
+        s.depegThresholdTenths = DepegAlarm.threshold(try whole(o, "depegThresholdTenths"))
+        s.activityAlerts = try flag(o, "activityAlerts")
+        // Unbekannt: «Normal» (wie Android)
+        s.activitySensitivity = ActivitySensitivity.from(name: try text(o, "activitySensitivity"))
+        s.macroNotifications = try flag(o, "macroNotifications")
+        s.portfolioEnabled = try flag(o, "portfolioEnabled")
         // Dreistelliger Währungscode, sonst bleibt die bisherige Währung (wie `setPortfolioCurrency`)
-        if !isNull(o, "portfolioCurrency"), let v = string(o, "portfolioCurrency") {
-            let code = v.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-            if FxRateSource.isCurrencyCode(code) { s.portfolioCurrency = code }
-        }
-        if let v = bool(o, "showConverted") { s.showConverted = v }
-        if !isNull(o, "priceColorScheme") {
-            s.priceColorScheme = PriceColorScheme(rawValue: string(o, "priceColorScheme") ?? "") ?? .default
-        }
-        if let v = bool(o, "watchlistSparkline") { s.watchlistSparkline = v }
-        if let v = bool(o, "watchlistNames") { s.watchlistNames = v }
-        if let v = bool(o, "appIconBadge") { s.appIconBadge = v }
-        if let v = bool(o, "watchlistActivityCard") { s.watchlistActivityCard = v }
-        if let v = bool(o, "coinLogos") { s.coinLogos = v }
-        if let v = bool(o, "widgetCoinLogos") { s.widgetCoinLogos = v }
-        if let v = bool(o, "portfolioCoinLogos") { s.portfolioCoinLogos = v }
-        // %-Basis (wie Android): fehlt der Schlüssel, bleibt der Wert; unbekannt → «Letzte 24 Std.»
-        if o["changeBasis"] != nil {
-            s.changeBasis = ChangeBasis.from(name: isNull(o, "changeBasis") ? nil : string(o, "changeBasis"))
-        }
-        if let v = bool(o, "highContrast") { s.highContrast = v }
-        // Fehlt der Schlüssel, bleibt der bisherige Wert
-        if let v = bool(o, "priceColorsInverted") { s.priceColorsInverted = v }
-        // Alarm-Signal (wie Android): fehlt der Schlüssel, bleibt der Wert; unbekannt → «System»;
-        // Android-Werte («Nur Vibration» …) → nächster iOS-Wert
-        if o["alarmSignal"] != nil {
-            s.alarmSignal = AlarmSignal.from(name: isNull(o, "alarmSignal") ? nil : string(o, "alarmSignal")).ios
-        }
-        // Nachtruhe: nur vorhandene Schlüssel, Zeiten nur 0…1439
-        if let v = bool(o, "quietHoursEnabled") { s.quietHoursEnabled = v }
-        if let v = minute(o, "quietHoursStart") { s.quietHoursStart = v }
-        if let v = minute(o, "quietHoursEnd") { s.quietHoursEnd = v }
+        let code = try text(o, "portfolioCurrency").trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        if FxRateSource.isCurrencyCode(code) { s.portfolioCurrency = code }
+        s.showConverted = try flag(o, "showConverted")
+        s.priceColorScheme = PriceColorScheme(rawValue: try text(o, "priceColorScheme")) ?? .default
+        s.watchlistSparkline = try flag(o, "watchlistSparkline")
+        s.watchlistNames = try flag(o, "watchlistNames")
+        s.appIconBadge = try flag(o, "appIconBadge")
+        s.watchlistActivityCard = try flag(o, "watchlistActivityCard")
+        s.coinLogos = try flag(o, "coinLogos")
+        s.widgetCoinLogos = try flag(o, "widgetCoinLogos")
+        s.portfolioCoinLogos = try flag(o, "portfolioCoinLogos")
+        // %-Basis (wie Android): unbekannt → «Letzte 24 Std.»
+        s.changeBasis = ChangeBasis.from(name: try text(o, "changeBasis"))
+        s.highContrast = try flag(o, "highContrast")
+        s.priceColorsInverted = try flag(o, "priceColorsInverted")
+        // Alarm-Signal (wie Android): unbekannt → «System»; Android-Werte («Nur Vibration» …) → nächster iOS-Wert
+        s.alarmSignal = AlarmSignal.from(name: try text(o, "alarmSignal")).ios
+        // Nachtruhe: Zeiten nur übernehmen, wenn gültig (0…1439)
+        s.quietHoursEnabled = try flag(o, "quietHoursEnabled")
+        let start = try whole(o, "quietHoursStart"), end = try whole(o, "quietHoursEnd")
+        if QuietHours.isValidMinute(start) { s.quietHoursStart = start }
+        if QuietHours.isValidMinute(end) { s.quietHoursEnd = end }
         // Ohne Passwort (nicht `trusted`) nur in Richtung «mehr Schutz» (`BackupRestorePolicy`, wie Android)
-        if let v = BackupRestorePolicy.hideAmounts(wanted: bool(o, "hidePortfolioAmounts"),
+        if let v = BackupRestorePolicy.hideAmounts(wanted: try flag(o, "hidePortfolioAmounts"),
                                                    current: current.hidePortfolioAmounts, trusted: trusted) {
             s.hidePortfolioAmounts = v
         }
-        // «Portfolio in Systemsicherung»: fehlt der Schlüssel, bleibt die Einstellung stehen
-        if let v = BackupRestorePolicy.systemBackup(wanted: bool(o, "portfolioSystemBackup"),
+        if let v = BackupRestorePolicy.systemBackup(wanted: try flag(o, "portfolioSystemBackup"),
                                                     current: current.portfolioSystemBackup, trusted: trusted) {
             s.portfolioSystemBackup = v
         }
-        // Einstandsmethode: fehlt der Schlüssel (oder unbekannter Wert) → FIFO (wie Android)
-        s.costMethod = CostMethod.fromName(string(o, "costMethod"))
-        // Steuer-Vorlage: fehlt der Schlüssel, bleibt sie stehen; unbekannt → Neutral (wie Android)
-        if let v = string(o, "taxTemplate") { s.taxTemplate = TaxTemplate.fromName(v) }
-        // Eigener Bitcoin-Server: fehlt/ungültig bleibt er; ohne Passwort nie zurück auf öffentliche Knoten (wie Android)
-        s.addressServerBtc = AddressServer.restored(present: o["addressServerBtc"] != nil, value: string(o, "addressServerBtc"),
+        // Einstandsmethode: unbekannter Wert → FIFO (wie Android)
+        s.costMethod = CostMethod.fromName(try text(o, "costMethod"))
+        // Steuer-Vorlage: unbekannt → Neutral (wie Android)
+        s.taxTemplate = TaxTemplate.fromName(try text(o, "taxTemplate"))
+        // Eigener Bitcoin-Server: ungültig bleibt er; ohne Passwort nie zurück auf öffentliche Knoten (wie Android)
+        s.addressServerBtc = AddressServer.restored(value: try textOrNull(o, "addressServerBtc"),
                                                     current: current.addressServerBtc, trusted: trusted)
         // Portfolio-Sperre: nicht hier, sondern in `restore` (`BackupRestorePolicy.appLock`)
         return s

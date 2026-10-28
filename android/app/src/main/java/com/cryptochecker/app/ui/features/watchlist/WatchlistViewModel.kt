@@ -86,7 +86,7 @@ class WatchlistViewModel @Inject internal constructor(
     private val watchlistSettings = settingsRepository.watchlistSettings
 
     /**
-     * EINE Datenbank-Beobachtung der Merkliste für alle Ableitungen unten (bisher vier):
+     * EINE Datenbank-Beobachtung der Merkliste für alle Ableitungen unten:
      * Room führte nach jedem Schreibvorgang dieselbe Abfrage über alle Paare sonst
      * mehrfach aus — bei hunderten Paaren und jeder Aktualisierung spürbar.
      */
@@ -166,8 +166,8 @@ class WatchlistViewModel @Inject internal constructor(
      * vorgelesene Satz ([OutdatedRule], wie die Widgets): Schwelle der abgefragten Paare, dreimal das
      * Hintergrund-Intervall, mindestens 15 Minuten ([com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis],
      * beide Modi). Paare am Live-Strom ([liveWatchIds]) gelten je Paar schon nach 2 Minuten als veraltet
-     * ([com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis]). Früher zählte die Änderung nach einer
-     * eigenen Regel — Sehende bekamen dann in der Lücke nur Farbe.
+     * ([com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis]). Nicht nach einer eigenen Regel für die
+     * Änderung: Sehende bekämen sonst in der Lücke nur Farbe.
      */
     private val display: StateFlow<WatchlistDisplay> = watchlistSettings
         .map { WatchlistDisplay.of(it) }

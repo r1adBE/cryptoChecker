@@ -8,7 +8,6 @@ import com.cryptochecker.app.domain.model.ExchangeInfo
 import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
-import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.ExchangePair
 
 /** Ausgang von [tryAddWatch]. */
@@ -47,8 +46,7 @@ suspend fun WatchRepository.tryAddWatch(
 ): AddWatchOutcome = if (userWriteRefused()) AddWatchOutcome.Locked else database.withTransaction {
     // Suchen, Zählen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
     // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
-    // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
-    val contractType = FuturesContractType.normalized(exchange.key, pair.pairId, pair.contractType)
+    val contractType = pair.contractType
     val existing = watchDao.findWatchId(
         exchange.key,
         pair.base,
@@ -91,8 +89,8 @@ suspend fun WatchRepository.addWatches(
     collectBulkAdd(pairs, refused = { userWriteRefused() }, add = { tryAddWatch(exchange, it, group) }, onProgress)
 
 /**
- * Ablauf von [addWatches] ohne Room ([refused] = Sperre und Sicherung F-08, [add] = ein Paar anlegen): testbar mit
- * Fälschungen (`BulkAddRunnerTest`, `WatchlistWriteConsentTest`).
+ * Ablauf von [addWatches] ohne Room ([refused] = Sperre und Sicherung der Rückfrage «nicht gespeichert», [add] = ein
+ * Paar anlegen): testbar mit Fälschungen (`BulkAddRunnerTest`, `WatchlistWriteConsentTest`).
  */
 suspend fun collectBulkAdd(
     pairs: List<ExchangePair>,
@@ -197,7 +195,7 @@ inline fun addBlocker(exists: Boolean, count: () -> Int): AddWatchOutcome? = whe
 }
 
 /**
- * Vor dem Zurückholen ([restore], Review FUN-03): Paar noch bzw. wieder da ([present]) geht vor «voll» (wie beim
+ * Vor dem Zurückholen ([restore]): Paar noch bzw. wieder da ([present]) geht vor «voll» (wie beim
  * Anlegen); null = zurückholen. «Rückgängig» umgeht so die Obergrenze nicht. Rein, testbar (`WatchAddRulesTest`).
  */
 inline fun restoreBlocker(present: Boolean, count: () -> Int): RestoreOutcome? = when {

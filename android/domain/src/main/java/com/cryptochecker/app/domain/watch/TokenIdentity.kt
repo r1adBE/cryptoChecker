@@ -5,7 +5,7 @@ import java.text.Normalizer
 import java.util.Locale
 
 /**
- * «Gleicher Token?» über mehr als Kürzel + Kursband (K-8). Reines Kotlin, gespiegelt in
+ * «Gleicher Token?» über mehr als Kürzel + Kursband. Reines Kotlin, gespiegelt in
  * `TokenIdentity.swift` (gemeinsame Fälle: testdata/parity/token_identity.json).
  *
  * Identität eines Paars = voller Name aus der Paarliste der Börse (Gate `base_name`, Upbit/Bithumb
@@ -16,7 +16,7 @@ import java.util.Locale
  *  - Namen auf beiden Seiten: gleich (normalisiert, bekannte Schreibweisen, [KNOWN]) → [Match.MEDIUM];
  *    klar verschieden (kein gemeinsames Wort, verschiedene Gruppen in [KNOWN], «Classic» nur auf einer
  *    Seite) → [Match.MISMATCH]; ähnlich, aber nicht sicher → [Match.WEAK].
- *  - Ohne Namen auf einer Seite: [Match.WEAK] — Kürzel + Kursband wie bisher.
+ *  - Ohne Namen auf einer Seite: [Match.WEAK] — Kürzel + Kursband.
  * [accept]: STRONG gilt ohne Kursband, MEDIUM und WEAK nur mit Kursband, MISMATCH nie — auch wenn die
  * Kurse nah beieinander liegen.
  */
@@ -168,7 +168,7 @@ object TokenIdentity {
      * 24-h-Bezug, Widget-Chart)? Nie bei klar anderem Namen ([compatible]): Widerspricht der eigene Name
      * [ownName] dem Binance-Namen [binanceName], steht das Kürzel an den grossen Börsen für einen anderen
      * Token — dann keine Reihe, von keinem Anbieter (auch Binance.US, Coinbase …). Dazu der Name des Anbieters
-     * selbst [providerName] (falls bekannt). Unbekannte Namen: Kürzel + Kursband wie bisher. Gleiche Regel
+     * selbst [providerName] (falls bekannt). Unbekannte Namen: Kürzel + Kursband. Gleiche Regel
      * wie die Kette bei «Warum?» und Blatt («binanceAllowed»).
      */
     fun fallbackSeriesAllowed(

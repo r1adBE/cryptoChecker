@@ -103,4 +103,11 @@
     <string name="portfolio_storage_locked">Ahora no se pueden leer los datos guardados, así que no es posible hacer cambios. Reinicia la app.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Este dispositivo no proporciona una clave ahora: la lista no se guarda y los cambios se pierden al cerrar la app. Las alarmas en segundo plano están en pausa. La app lo intentará de nuevo en el próximo inicio.</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">«Servidor propio para direcciones» no se restauró: una copia sin cifrar no puede cambiarlo.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">«Servidor propio para direcciones» se eliminó como en la copia: las direcciones de Bitcoin vuelven a consultarse en nodos públicos.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">«Servidor propio para direcciones» se reemplazó por el de la copia.</string>
 </resources>

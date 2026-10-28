@@ -24,9 +24,6 @@ class PortfolioWidgetChartTest {
     private val zone = ZoneId.of("Europe/Zurich")
     private val today = LocalDate.of(2026, 10, 11).toEpochDay()
     private val hour = 3_600_000L
-    private val dayEnd: (Long) -> Long = { day ->
-        LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1
-    }
 
     private fun start(day: Long) = LocalDate.ofEpochDay(day).atStartOfDay(zone).toInstant().toEpochMilli()
 
@@ -75,10 +72,10 @@ class PortfolioWidgetChartTest {
     }
 
     @Test
-    fun effectiveDisplayCollapsesForUsdAndOldSnapshots() {
+    fun effectiveDisplayCollapsesForUsdStablesAndWithoutUsdt() {
         assertEquals(PortfolioDisplay.USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION_USDT, "USDT", true))
         assertEquals(PortfolioDisplay.USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION, "usdc", true))
-        // USD fällt nicht mehr zusammen (USDT zum Marktkurs USDT/USD)
+        // USD fällt nicht zusammen (USDT zum Marktkurs USDT/USD)
         assertEquals(PortfolioDisplay.CONVERSION, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION, "USD", true))
         assertEquals(PortfolioDisplay.CONVERSION_USDT, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.CONVERSION_USDT, "USD", true))
         assertEquals(PortfolioDisplay.CONVERSION, PortfolioWidgetChart.effectiveDisplay(PortfolioDisplay.USDT, "CHF", false))
@@ -212,7 +209,6 @@ class PortfolioWidgetChartTest {
             current = mapOf("BTC" to 110.0),
             todayEpochDay = today,
             todayUtcDay = today,
-            dayEndMillis = dayEnd,
         )
         assertEquals(366, data.points.size)
         assertEquals(today, data.points.last().epochDay)
@@ -236,10 +232,10 @@ class PortfolioWidgetChartTest {
         )
         val data = PortfolioWidgetChart.dailyData(
             trades, closes, emptyMap(), mapOf("BTC" to 1.0, "ETH" to 1.0), mapOf("BTC" to 100.0, "ETH" to 10.0),
-            today, today, dayEnd,
+            today, today,
         )
         assertTrue(data.points.isEmpty())
-        // Zahl wie «Gewinn 7 T» der App: die übrigen Coins zählen, ETH steht unter «ohne …» (M-3: dieselbe Zahl)
+        // Zahl wie «Gewinn 7 T» der App: die übrigen Coins zählen, ETH steht unter «ohne …» (dieselbe Zahl)
         assertEquals(0.0, data.changes.getValue(7).amount, d)
         assertEquals(listOf("ETH"), data.changes.getValue(7).skipped)
         assertEquals(PortfolioPeriodChange.gain(trades, mapOf("BTC" to 100.0, "ETH" to 10.0),

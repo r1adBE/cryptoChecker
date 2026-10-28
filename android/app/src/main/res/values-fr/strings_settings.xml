@@ -294,4 +294,38 @@
     <string name="settings_price_overlay_needs">Fonctionne uniquement avec « %1$s ».</string>
     <string name="settings_price_overlay_grant">Autoriser l’affichage par-dessus d’autres apps</string>
     <string name="price_overlay_close">Fermer la superposition</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Serveur perso pour les adresses</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin uniquement : ton propre serveur compatible Esplora ou mempool (p. ex. https://noeud.example/api, certificat reconnu publiquement requis, p. ex. Let\'s Encrypt). S’il est défini, les adresses Bitcoin et les xpub ne sont interrogées que là – jamais auprès de nœuds publics, même si ton serveur est injoignable. Les autres réseaux utilisent toujours des nœuds publics. Vide = nœuds publics.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Serveur Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Tester</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Test en cours…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Le serveur répond – bloc %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Pas de réponse valide – vérifie l’adresse et le certificat</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Actif : %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Non défini – des nœuds publics sont utilisés</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Seules les adresses https:// sont autorisées</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Pas de nom d’utilisateur ni de mot de passe dans l’adresse</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Pas de partie ? ou # dans l’adresse</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Adresse de serveur non valide</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Passer aux nœuds publics ?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Tes adresses Bitcoin et tes xpub seront alors interrogées auprès de nœuds publics : %1$s. Ceux-ci voient ces adresses avec ton adresse IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Utiliser les nœuds publics</string>
 </resources>

@@ -1,12 +1,12 @@
 package com.cryptochecker.app.domain.watch
 
 /**
- * Ziel der Glocke im Kopf der Merkliste (Entscheid 17. Okt. 2026): Ohne einen einzigen Alarm führt sie nicht
+ * Ziel der Glocke im Kopf der Merkliste: Ohne einen einzigen Alarm führt sie nicht
  * in eine leere Übersicht, sondern gleich dorthin, wo man einen anlegt. Reine Regel, Swift-Spiegel
  * `AlarmBellRoute.swift` (gleiche Testfälle in AlarmBellRouteTest / AlarmBellRouteTests).
  */
 enum class AlarmBellRoute {
-    /** Mindestens ein Alarm: Übersicht wie bisher (auch das Menü «Alle Alarme» führt immer dorthin). */
+    /** Mindestens ein Alarm: Übersicht (auch das Menü «Alle Alarme» führt immer dorthin). */
     OVERVIEW,
 
     /** Kein Alarm, genau ein Paar: dessen Alarm-Seite, die ohne Alarm gleich den Editor öffnet. */

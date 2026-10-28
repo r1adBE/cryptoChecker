@@ -115,7 +115,7 @@ class PriceUpdateScheduler @Inject constructor(
 
     /**
      * true, solange eine angestossene Aktualisierung (Widget-Knopf) wartet oder läuft. Der Knopf
-     * in der App läuft direkt (ManualRefresh), nicht mehr über WorkManager.
+     * in der App läuft direkt (ManualRefresh), nicht über WorkManager.
      */
     fun observeManualRefreshRunning(): Flow<Boolean> =
         workManager.getWorkInfosForUniqueWorkFlow(PriceUpdateWorker.ONE_TIME_WORK_NAME)

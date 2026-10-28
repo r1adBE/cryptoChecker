@@ -34,7 +34,7 @@ object ActivityTexts {
 
     /**
      * «+2.9%» / «−2.9%» / «0.0%» (Deutsch «+2,9 %»), Vorzeichen als echtes Minus, gerundet 0 ohne Vorzeichen.
-     * Prozentzeichen der Sprache über [PercentText] — gleich wie die Kursänderungen (vorher immer «2.9 %»).
+     * Prozentzeichen der Sprache über [PercentText] — gleich wie die Kursänderungen.
      */
     fun percent(value: Double, decimals: Int): String =
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl

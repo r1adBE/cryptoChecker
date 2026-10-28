@@ -43,7 +43,7 @@ class BitFlyer : Exchange("bitFlyer", "bit flyer") {
         ticker.vol = json.optDoubleOrMissing("volume_by_product")
     }
 
-    /** `getString` wie bisher: JSON null ergibt hier den Text «null». */
+    /** Bewusst `getString`: JSON null ergibt hier den Text «null». */
     override fun errorMessageJson(call: Int, json: JSONObject, info: PairQuery): String? =
         json.getString("error_message")
 

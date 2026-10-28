@@ -5,7 +5,7 @@ import WidgetKit
 
 /// Tabs der App — wie die Tabs der Android-Fassung: Merkliste · Markt · (Portfolio) · Einstellungen.
 /// `portfolio` gibt es nur, wenn der Bereich unter Einstellungen › Portfolio eingeschaltet ist. «Paar hinzufügen»
-/// ist seit Runde 31 kein Tab mehr, sondern eine Seite über der Merkliste (`showExplorer`).
+/// ist kein Tab, sondern eine Seite über der Merkliste (`showExplorer`).
 enum AppTab: Hashable {
     case watchlist, cycle, portfolio, settings
 }
@@ -36,11 +36,11 @@ final class AppRouter: ObservableObject {
     /// Unterseite «Daten» des Markt-Tabs soll zum Wirtschaftsdaten-Hinweis scrollen (dann gelöscht).
     @Published var marketMacroOnData = false
     /// Seite «Paar hinzufügen» über dem Markt-Tab («Heute auffällig»): zurück führt wieder
-    /// in den Markt-Tab, nicht in die Merkliste (G-13).
+    /// in den Markt-Tab, nicht in die Merkliste.
     @Published var showExchangeExplorer = false
     /// Einstellungen › Portfolio öffnen (Portfolio-Widget, während das Portfolio aus ist).
     @Published var showPortfolioSettings = false
-    /// K-10: Einstellungen › Aktualisierung («Wie aktuell?») direkt öffnen (Hinweis im Alarm).
+    /// Einstellungen › Aktualisierung («Wie aktuell?») direkt öffnen (Hinweis im Alarm).
     @Published var showUpdateSettings = false
     /// Einstellungen › Sicherung direkt öffnen («Sicherung wiederherstellen» im Hinweis `StorageRecoveryNotice`).
     @Published var showBackupSettings = false
@@ -80,7 +80,7 @@ final class AppRouter: ObservableObject {
         }
     }
 
-    /// K-10: Tab «Einstellungen» mit der Seite «Kurs-Aktualisierung» darüber.
+    /// Tab «Einstellungen» mit der Seite «Kurs-Aktualisierung» darüber.
     func openUpdateSettings() {
         tab = .settings
         showUpdateSettings = true

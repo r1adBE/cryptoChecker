@@ -34,7 +34,7 @@ import javax.inject.Singleton
  *
  * Alle drei Schalter «Coin-Logos» aus → [startSync] lädt keine Bilder.
  *
- * Dünne Fassade für die bisherigen Aufrufer; die Arbeit liegt in [CoinListSync] (Listen, Rangliste, Abgleich),
+ * Dünne Fassade für die Aufrufer; die Arbeit liegt in [CoinListSync] (Listen, Rangliste, Abgleich),
  * [LogoImageStore] (Bilder: Dateien, Speicher, Abruf), [AlphaTokens] (Alpha-Liste) und [CoinNames] (Namen,
  * Aktiennamen, TradFi). Jede Klasse hat ihre eigenen Sperren; Reihenfolge siehe [CoinListSync].
  */

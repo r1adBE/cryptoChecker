@@ -35,7 +35,7 @@ class DepegReadingStore @Inject constructor(
 
     private fun load(): DepegAlarm.Reading? {
         val at = prefs.getLong(KEY_AT, 0)
-        if (at <= 0 || !prefs.contains(KEY_PRICE_BITS)) return null
+        if (at <= 0 || !prefs.contains(KEY_PRICE_BITS) || !prefs.contains(KEY_VIA_USDC)) return null
         return DepegAlarm.Reading(Double.fromBits(prefs.getLong(KEY_PRICE_BITS, 0)), at, prefs.getBoolean(KEY_VIA_USDC, false))
     }
 
@@ -44,7 +44,7 @@ class DepegReadingStore @Inject constructor(
         const val PREFS = "depeg_alarm"
         const val KEY_PRICE_BITS = "last_price_bits"
         const val KEY_AT = "last_price_at"
-        /** Messung nur aus Binance USDC/USDT ([DepegAlarm.Measurement.viaUsdc]); fehlt bei älteren Messungen (false). */
+        /** Messung nur aus Binance USDC/USDT ([DepegAlarm.Measurement.viaUsdc]); mit jeder Messung gespeichert. */
         const val KEY_VIA_USDC = "last_price_via_usdc"
     }
 }

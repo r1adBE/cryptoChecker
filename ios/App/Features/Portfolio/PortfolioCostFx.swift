@@ -24,10 +24,10 @@ struct PortfolioCostFxFigures: Equatable, Sendable {
     var coinCosts: [String: Decimal] = [:]
 }
 
-/// Einstand der offenen Bestände in der Anzeigewährung zum Kurs des Erwerbstags (Owner-Entscheid Okt. 2026) — wie
+/// Einstand der offenen Bestände in der Anzeigewährung zum Kurs des Erwerbstags — wie
 /// `PortfolioCostFx.kt` (Android):
-///  - Bisher rechnete die Karte auch den Einstand mit dem heutigen Faktor um; «Seit Kauf (CHF)» zeigte so nur die
-///    Bewegung in USDT. Jetzt: Wert heute × heutiger Faktor (`PortfolioStables.usdtTo`, wie der Gesamtwert) − Σ Teil
+///  - Nicht den Einstand mit dem heutigen Faktor umrechnen: «Seit Kauf (CHF)» zeigte so nur die
+///    Bewegung in USDT. Sondern: Wert heute × heutiger Faktor (`PortfolioStables.usdtTo`, wie der Gesamtwert) − Σ Teil
 ///    des Einstands × Faktor SEINES Tags. Der Faktor eines Tags folgt genau der Regel des Steuer-Exports
 ///    (`TaxExport.rateOn`): Devisenkurs des Tags bzw. des letzten Tags davor (höchstens `TaxExport.fxMaxGapDays` Tage)
 ///    × USDT/USD-Tagesschluss DES Tags (ohne Schluss × 1, `usdtApproximate`). Ab heute gilt der heutige Faktor der

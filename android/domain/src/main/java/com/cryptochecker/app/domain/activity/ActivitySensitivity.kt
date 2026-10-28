@@ -17,7 +17,7 @@ enum class ActivitySensitivity(
     /** Strenger: Schwellen ×1,5, in der Karte nur die 3 stärksten. */
     LESS(1.5, 3),
 
-    /** Bisherige Schwellen (Standard). */
+    /** Grundschwellen (Standard). */
     NORMAL(1.0, null),
 
     /** Lockerer: Schwellen ×0,75. */
@@ -25,7 +25,7 @@ enum class ActivitySensitivity(
     ;
 
     companion object {
-        /** Gespeicherter Name; unbekannt oder fehlend (ältere Sicherung) = NORMAL. */
+        /** Gespeicherter Name; unbekannt oder fehlend = NORMAL. */
         fun fromName(name: String?): ActivitySensitivity = entries.firstOrNull { it.name == name } ?: NORMAL
     }
 }
@@ -63,11 +63,11 @@ data class SignalThresholds(
      */
     fun severityOf(signal: ActivitySignal): SignalSeverity? {
         val value = abs(signal.value)
-        // Ungültige Werte (NaN) nie als auffällig werten — wie früher die direkten Vergleiche
+        // Ungültige Werte (NaN) nie als auffällig werten
         if (value.isNaN() || signal.factor?.isNaN() == true) return null
         return when (signal.kind) {
             SignalKind.PRICE_MOVE -> {
-                // Ältere gespeicherte Signale ohne z: nur nach der Bewegung beurteilen
+                // Gespeicherte Signale ohne z: nur nach der Bewegung beurteilen
                 val z = signal.factor?.let { abs(it) }
                 if ((z != null && z < priceZ) || value < priceMinMovePercent) null
                 else if ((z != null && z >= priceStrongZ) || value >= priceStrongMovePercent) SignalSeverity.STRONG

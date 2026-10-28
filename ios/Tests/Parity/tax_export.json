@@ -687,7 +687,7 @@
   }
  },
  "withdrawalFeeInfo": {
-  "_comment": "[B56] Auszahlungsgebühr in USDT/Fiat (Entscheid 17.10.2026): UK, US, CA, AU, JP nur Information (Zeile mit Vermerk, nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert in der Summe der Gewinne-CSV. Gewinn BTC 1020, Gebühr 25 USDT. Dazu Umbuchung ETH mit Gebühr 3 USDT — UK/US eine zweite Zeile nur zur Information (nicht im Einstand), DE/Neutral unverändert (Gebühr im Einstand, ETH nicht verkauft). DE (feesTotal) wie die Jahresübersicht — die Auszahlungsgebühr zählt nicht in der Summe (1020.00 = netto ≤ 1 Jahr der Übersicht), sondern in einer eigenen Summenzeile «Auszahlungsgebühren» (feesTotalGain −25.00); ohne diesen Text (Neutral) unverändert in der Summe.",
+  "_comment": "Auszahlungsgebühr in USDT/Fiat: UK, US, CA, AU, JP nur Information (Zeile mit Vermerk, nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert in der Summe der Gewinne-CSV. Gewinn BTC 1020, Gebühr 25 USDT. Dazu Umbuchung ETH mit Gebühr 3 USDT — UK/US eine zweite Zeile nur zur Information (nicht im Einstand), DE/Neutral unverändert (Gebühr im Einstand, ETH nicht verkauft). DE (feesTotal) wie die Jahresübersicht — die Auszahlungsgebühr zählt nicht in der Summe (1020.00 = netto ≤ 1 Jahr der Übersicht), sondern in einer eigenen Summenzeile «Auszahlungsgebühren» (feesTotalGain −25.00); ohne diesen Text (Neutral) unverändert in der Summe.",
   "year": 2025,
   "zone": "UTC",
   "trades": [
@@ -765,7 +765,7 @@
    {
     "template": "FR",
     "method": "FR_PTA",
-    "_calc": "[B78] FR: eigene Transaktionen (trades). Kauf 1 BTC zu 20000 (Erwerbspreis-Summe 20000). Auszahlung 0.5 BTC (Wert 20000 je BTC) mit Gebühr 25 USDT: Erwerbspreis-Summe × 10000/20000 → 10000; die Gebühr 25 ist nur Information (Zeile mit Vermerk, nicht in der Summe) wie in der Jahresübersicht. Verkauf 0.5 BTC zu 30000: Gesamtwert 15000, Einstand 10000 × 15000/15000 = 10000, Gewinn 15000 − 10000 = 5000 → Summe 5000.00 (vorher 5000 − 25 = 4975.00).",
+    "_calc": "FR: eigene Transaktionen (trades). Kauf 1 BTC zu 20000 (Erwerbspreis-Summe 20000). Auszahlung 0.5 BTC (Wert 20000 je BTC) mit Gebühr 25 USDT: Erwerbspreis-Summe × 10000/20000 → 10000; die Gebühr 25 ist nur Information (Zeile mit Vermerk, nicht in der Summe) wie in der Jahresübersicht. Verkauf 0.5 BTC zu 30000: Gesamtwert 15000, Einstand 10000 × 15000/15000 = 10000, Gewinn 15000 − 10000 = 5000 → Summe 5000.00 (nicht 5000 − 25 = 4975.00).",
     "trades": [
      {
       "id": 1,
@@ -800,7 +800,7 @@
   ]
  },
  "fifoCostParts": {
-  "_comment": "[B58] FIFO-Posten führen ihren Einstand in Teilen mit Datum (PortfolioDisposal.costParts): CH, Kauf 2018 5000 USDT (Kurs 1.00) + Umbuchungsgebühr 2024 100 USDT (Kurs 0.85) → Einstand 5085 CHF, nicht 5100 × 1.00 — FIFO, FIFO je Wallet und Ø gleich. ETH: Umbuchungsgebühr 10 USDT auf 1 ETH ohne und 1 ETH mit Kaufpreis → 5 USDT «nicht zugeordnet – Einstand unbekannt» als Info-Zeile nach der Summe (unassignedFeesIn), nicht in der Summe.",
+  "_comment": "FIFO-Posten führen ihren Einstand in Teilen mit Datum (PortfolioDisposal.costParts): CH, Kauf 2018 5000 USDT (Kurs 1.00) + Umbuchungsgebühr 2024 100 USDT (Kurs 0.85) → Einstand 5085 CHF, nicht 5100 × 1.00 — FIFO, FIFO je Wallet und Ø gleich. ETH: Umbuchungsgebühr 10 USDT auf 1 ETH ohne und 1 ETH mit Kaufpreis → 5 USDT «nicht zugeordnet – Einstand unbekannt» als Info-Zeile nach der Summe (unassignedFeesIn), nicht in der Summe.",
   "zone": "Europe/Zurich",
   "year": 2025,
   "currency": "CHF",
@@ -899,7 +899,7 @@
   ]
  },
  "usdtMarket": {
-  "_comment": "USDT zum Marktkurs (Owner-Entscheid Okt. 2026): TaxExport.rateOn mit usdtUsd (USDT/USD-Tagesschluss je Datum, Tag = Datum der Arbeitsunterlage) = Devisenkurs (rates oben, CHF) × USDT/USD DES Tags; ohne (plausiblen, 0.5..1.5) Schluss × 1 und usdtApproximateOn = true. rateOn: [Datum, Währung, erwarteter Kurs, usdtApproximateOn]. Zeilen gainRows/incomeRows (FIFO, Steuerjahr 2025, CHF) mit usdtUsd: Beträge CHF und usdtApproximate; ohne usdtUsd (null) wie bisher USDT = 1 (gainsPar/incomePar). incomeLines: Zeilen der Einkünfte-CSV (Semikolon/Punkt) mit Vermerk usdtAssumed.",
+  "_comment": "USDT zum Marktkurs: TaxExport.rateOn mit usdtUsd (USDT/USD-Tagesschluss je Datum, Tag = Datum der Arbeitsunterlage) = Devisenkurs (rates oben, CHF) × USDT/USD DES Tags; ohne (plausiblen, 0.5..1.5) Schluss × 1 und usdtApproximateOn = true. rateOn: [Datum, Währung, erwarteter Kurs, usdtApproximateOn]. Zeilen gainRows/incomeRows (FIFO, Steuerjahr 2025, CHF) mit usdtUsd: Beträge CHF und usdtApproximate; ohne usdtUsd (null) USDT = 1 (gainsPar/incomePar). incomeLines: Zeilen der Einkünfte-CSV (Semikolon/Punkt) mit Vermerk usdtAssumed.",
   "usdtUsd": {
    "20213": "0.97",
    "20270": "0.98",
@@ -1089,7 +1089,7 @@
   ]
  },
  "atIncomeBefore2022": {
-  "_comment": "[B78 Fix] Einkünfte-CSV AT: Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 — § 27b EStG gilt erst ab dann — tragen den Vermerk «vor 1.3.2022 – mit Fachperson prüfen» statt «Zins – steuerpflichtig» bzw. «Staking – nur Information»; Summen getrennt wie bisher. Währung USD (Kurs 1), Kalenderjahr 2022, Texte wie atIncome.atTexts plus incomeBeforeNewLaw.",
+  "_comment": "Einkünfte-CSV AT: Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 — § 27b EStG gilt erst ab dann — tragen den Vermerk «vor 1.3.2022 – mit Fachperson prüfen» statt «Zins – steuerpflichtig» bzw. «Staking – nur Information»; Summen getrennt. Währung USD (Kurs 1), Kalenderjahr 2022, Texte wie atIncome.atTexts plus incomeBeforeNewLaw.",
   "currency": "USD",
   "incomeBeforeNewLaw": "before 1 Mar 2022 – check with a professional",
   "trades": [
@@ -1132,7 +1132,7 @@
   ]
  },
  "ukBbWindow": {
-  "_comment": "UK 30-Tage-Regel über das Ende des Steuerjahrs (5. April) hinaus. Steuerjahr 2024/25 (6.4.2024–5.4.2025), GBP. Kauf 1 BTC 1.6.2024 zu 10000 (Pool); Verkauf 1 BTC 2.4.2025 zu 20000; Rückkäufe 9.4. (0.4 zu 15000) und 20.4. (0.3 zu 18000), Belohnung 0.1 BTC ohne Preis 10.4. (Tagesschluss 16000, closes). Zuordnung: 30 Tage 0.4 + 0.1 + 0.3, Rest 0.2 aus dem Pool. Einstand in GBP je zum Kurs des Zugangsdatums (9.4. 0.78, 10.4. 0.76, 20.4. 0.75, Pool 1.6.2024 0.79), Erlös zum Kurs des 2.4. (0.77); kein Vermerk «ohne Devisenkurs». priceUntil: [Vorlage, heute, erwartet] (TaxExport.priceUntil: UK/CA Ende Steuerjahr + 30 Tage, höchstens heute, nie vor dem Ende). fxUntil: TaxExport.fxSpan mit until = priceUntil (heute 'today'); fxUntilWithoutWindow: ohne until (spätester genutzter Zugang). truncatedFxMissing: Zeilen ohne Devisenkurs, wenn die Kurse wie früher nur bis zum 5.4. geladen werden (9.4. nimmt dann still den Kurs des 2.4.).",
+  "_comment": "UK 30-Tage-Regel über das Ende des Steuerjahrs (5. April) hinaus. Steuerjahr 2024/25 (6.4.2024–5.4.2025), GBP. Kauf 1 BTC 1.6.2024 zu 10000 (Pool); Verkauf 1 BTC 2.4.2025 zu 20000; Rückkäufe 9.4. (0.4 zu 15000) und 20.4. (0.3 zu 18000), Belohnung 0.1 BTC ohne Preis 10.4. (Tagesschluss 16000, closes). Zuordnung: 30 Tage 0.4 + 0.1 + 0.3, Rest 0.2 aus dem Pool. Einstand in GBP je zum Kurs des Zugangsdatums (9.4. 0.78, 10.4. 0.76, 20.4. 0.75, Pool 1.6.2024 0.79), Erlös zum Kurs des 2.4. (0.77); kein Vermerk «ohne Devisenkurs». priceUntil: [Vorlage, heute, erwartet] (TaxExport.priceUntil: UK/CA Ende Steuerjahr + 30 Tage, höchstens heute, nie vor dem Ende). fxUntil: TaxExport.fxSpan mit until = priceUntil (heute 'today'); fxUntilWithoutWindow: ohne until (spätester genutzter Zugang). truncatedFxMissing: Zeilen ohne Devisenkurs, wenn die Kurse nur bis zum 5.4. geladen werden (9.4. nimmt dann still den Kurs des 2.4.).",
   "zone": "Europe/London",
   "year": 2024,
   "currency": "GBP",

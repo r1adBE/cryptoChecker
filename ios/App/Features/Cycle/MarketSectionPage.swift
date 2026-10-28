@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Zeile im Markt-Tab unter «Jetzt», die eine Unterseite öffnet (G-10): Titel (Überschrift wie
+/// Zeile im Markt-Tab unter «Jetzt», die eine Unterseite öffnet: Titel (Überschrift wie
 /// die Karten), darunter eine kurze Wertzeile, rechts der Pfeil. Für VoiceOver ein Element
 /// (Schaltfläche, Überschrift). Wie `MarketSectionRow` (Android).
 struct MarketSectionRow: View {
@@ -86,8 +86,8 @@ struct MarketMoreToggle: View {
     }
 }
 
-/// Unterseite «Einordnung» bzw. «Daten» des Markt-Tabs (G-10): dieselben Karten wie zuvor im
-/// Register, mit Zurück. Dasselbe ViewModel wie der Tab (`RootView`) — die Daten sind meist
+/// Unterseite «Einordnung» bzw. «Daten» des Markt-Tabs: die Karten des
+/// Registers, mit Zurück. Dasselbe ViewModel wie der Tab (`RootView`) — die Daten sind meist
 /// schon geladen, die Seite steht sofort. Nach unten ziehen lädt alles neu.
 /// Wie `MarketSectionScreen.kt`.
 struct MarketSectionPage: View {

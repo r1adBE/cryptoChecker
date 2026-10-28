@@ -5,7 +5,7 @@ package com.cryptochecker.app.domain.starter
  * Reines Kotlin (testbar).
  *
  * Paar: Binance Spot «<COIN>/USDT» (Paar-Id wie in der Binance-Paarliste: «BTCUSDT»), in allen Regionen
- * ausser den USA (auch Schweiz/Liechtenstein, Entscheid 15. Oktober 2026); in den USA Binance.US
+ * ausser den USA (auch Schweiz/Liechtenstein); in den USA Binance.US
  * «<COIN>/USDT» (gleiche Schnittstelle, `api.binance.us`). Die Börsen-Schlüssel entsprechen Exchange.key in
  * ExchangesConfig («Binance», «BinanceUs»). Binance liefert eine gleitende 24-h-Änderung.
  */
@@ -73,8 +73,7 @@ object StarterPairs {
     }
 
     /** Anzeige-Quote für Kurse ohne eigene Quote. */
-    @Suppress("UNUSED_PARAMETER")
-    fun startQuote(regionCountry: String?): String = START_QUOTE
+    fun startQuote(): String = START_QUOTE
 
     /**
      * @param regionCountry Ländercode der Geräte-Region (z. B. «US», «CH»)

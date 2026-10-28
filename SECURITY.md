@@ -30,7 +30,7 @@ keys or other secrets never belong in this repository.
 * **Stays on your device.** Watchlist, alarms, portfolio and settings are stored
   only locally (Android: Room/DataStore in the app's private storage; iOS: the
   app's container, shared only with its own widgets).
-* **Encrypted at rest (since build 59).** On top of the operating system's
+* **Encrypted at rest.** On top of the operating system's
   storage encryption:
   * Android: both Room databases (`cryptochecker.db` – watchlist, alarms, notes;
     `cryptochecker_portfolio.db` – transactions, portfolio alarms, watched
@@ -38,13 +38,12 @@ keys or other secrets never belong in this repository.
     own random 256-bit key, stored wrapped by an AES-256-GCM key in the Android
     Keystore (no user authentication, so background checks and widgets work
     after the first unlock) in `noBackupFilesDir`, never in a backup.
-  * Android portfolio widget (since build 60): the snapshot the widget reads
+  * Android portfolio widget: the snapshot the widget reads
     synchronously (totals, positions, gains/losses, the held coins' price
     samples) is one AES-256-GCM sealed entry in the SharedPreferences
     `portfolio_widget` (versioned header `CCWS`, authenticated). Its key is a
-    separate Android Keystore key (`cryptochecker_widget_key_v1`, no user
-    authentication), not tied to the database keys. Plaintext entries of older
-    versions are read once and rewritten sealed. Without the key the widget shows
+    separate Android Keystore key (`cryptochecker_widget_key`, no user
+    authentication), not tied to the database keys. Without the key the widget shows
     its empty state; the app never writes the snapshot in plaintext. Only the
     remembered exchange rate (currency and USD rate, no holdings) stays readable.
   * iOS: the files with user data in the App Group (`watchlist.json`,
@@ -52,28 +51,25 @@ keys or other secrets never belong in this repository.
     portfolio widget snapshot and the copies of unreadable files) are sealed with
     AES-256-GCM (CryptoKit, versioned header). The 256-bit key lives in the
     keychain, shared with the widgets through the App Group
-    (`kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` since build 69, not synced
+    (created with `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`, not synced
     to iCloud Keychain and never part of an iCloud/computer backup or a device
-    transfer – a device backup holds the sealed files but never their key;
-    existing items are switched with `SecItemUpdate`, same key bytes). After a
+    transfer – a device backup holds the sealed files but never their key). After a
     restore on a new iPhone the files are set aside and the app asks for a backup
     file; Settings › Backup says so up front on both platforms (Android Keystore
     keys are device-bound too). File protection stays the system default.
-  * If encryption cannot be set up (no key, failed migration), the app never
-    writes the watchlist or the portfolio in plaintext (since build 91, the same
-    on Android and iOS). Settings › Backup says «Encryption not active yet» while
-    a plaintext file from an older version exists, and every start tries again.
-    What that means:
-    * **Readable:** a plaintext file left over from an older version is opened
-      read-only and its content shown from a copy in memory. If there is no file
-      yet, nothing is created on disk and the app starts empty.
-    * **Stays saved:** that file stays exactly as it was. Nothing is written into
-      it or deleted, and a later start with a key encrypts it.
-    * **Changes are saved:** no. Changes are kept in memory for this session only
-      and are lost when the app closes. The watchlist asks once before the first
-      change («not being saved» – change anyway?), and the watchlist and the
-      portfolio show a notice while this lasts. Watchlist alerts pause in the
-      background during this time.
+  * If no key can be created, the app never writes the watchlist or the
+    portfolio in plaintext (the same on Android and iOS): nothing is created on
+    disk, the app works from memory and every start tries again. Changes are kept
+    in memory for this session only and are lost when the app closes. The
+    watchlist asks once before the first change («not being saved» – change
+    anyway?), and the watchlist and the portfolio show a notice while this lasts.
+    Settings › Backup says «Encryption not active yet» while data cannot be stored
+    encrypted (Android: a database kept in memory; iOS: a copy of an unreadable
+    file still waiting to be sealed).
+  * If the key of an existing encrypted file is only temporarily unavailable, the
+    file stays exactly as it was (nothing is written into it, deleted or set
+    aside); the app shows the saved state again after a restart. Watchlist alerts
+    pause in the background during this time.
   * Copying the files off the device does not reveal their content without the
     device's key. On an unlocked phone the app itself still reads and shows
     everything – the portfolio lock only hides the display.
@@ -86,11 +82,12 @@ keys or other secrets never belong in this repository.
     runs, Android 9+) and the opt-in `portfolio_system_backup.json` («Portfolio
     in system backup», plain JSON by design so it can be restored on a new
     device).
-  * Migration from older versions runs once per file, never loses data: the
-    plaintext file is replaced only after the encrypted copy has been verified
+  * Encryption never loses data: a plaintext copy (Android: the restored
+    system-backup copy of the watchlist; iOS: a copy of an unreadable file written
+    without a key) is replaced only after the encrypted file has been verified
     (Android: same `user_version`, row count and row checksum per table; iOS:
-    decrypted bytes identical) by an atomic rename; any failure keeps the
-    plaintext file and retries on the next start. If the key of an encrypted file
+    decrypted bytes identical) by an atomic rename; any failure keeps the copy and
+    retries on the next start. If the key of an encrypted file
     is permanently lost (e.g. Keystore reset, or an unencrypted iOS computer
     backup restored on another iPhone), the file is set aside unchanged
     (`*.unreadable` / `*.locked`), the app starts empty and tells the user to
@@ -110,16 +107,14 @@ keys or other secrets never belong in this repository.
   optionally encrypted with a password (format v3: AES-256-GCM, key from Argon2id
   per RFC 9106 with 64 MiB memory, 3 passes, 1 lane and a random 16-byte salt; the
   file header with all parameters is authenticated as AAD, so a modified header
-  fails like a wrong password). Files from earlier versions (v2: PBKDF2-HMAC-SHA256
-  with 600 000 or 210 000 iterations) can still be opened. Parameters read from a
+  fails like a wrong password). Parameters read from a
   file are capped (at most 256 MiB, 10 passes, 4 lanes) so a crafted file cannot
   stall the device. A new backup password needs at least 12
-  characters (since build 69; 10 before); a password that is only digits, one repeated character (also with digits or
+  characters; a password that is only digits, one repeated character (also with digits or
   symbols only at the start or end, e.g. «aaaaaaaaaaa1»), mostly one character
   (75 % or more), at most 3 different characters or contains
   a common sequence (e.g. «12345678», «qwertz», «password») is blocked for new
-  backups – the protection of an exported file depends on the password. Older
-  files (minimum 8 characters back then) still decrypt with their password. The
+  backups – the protection of an exported file depends on the password. The
   password is never stored. Importing a backup without a password shows a
   warning (check that it comes from you) and never lowers protection: it never
   turns the portfolio lock or «Hide amounts» off, never turns «Portfolio in
@@ -133,28 +128,24 @@ keys or other secrets never belong in this repository.
   leaves the device, the backup agent writes a verified plaintext copy of it
   only for the duration of a backup and deletes it afterwards (if the backup is
   killed midway, the next app start deletes the leftover copy); after a restore
-  the copy becomes the database again and is encrypted on the next start.
+  the copy is encrypted into the database right away, or at the next start if
+  no key is available at that moment.
   Android 8/8.1 ignore `requireFlags="clientSideEncryption"`, so there the
-  copy is not in the backup rules and the agent does not create it (since
-  build 60): the watchlist and alarms are neither backed up nor restored on
+  copy is not in the backup rules and the agent does not create it: the watchlist and alarms are neither backed up nor restored on
   those versions, and neither are the settings (they hold the address of an own
   Bitcoin server), only the app language and favorites. The portfolio (transactions and portfolio alarms) lives in its own
   database file that is never in the backup rules; only with the switch
   «Portfolio in system backup» (default off) does the app keep a plain JSON copy
   in a backed-up file. The main database runs with `secure_delete` (deleted content
-  is overwritten with zeros); after an update from database 12, which still held
-  the portfolio, the dropped portfolio tables are compacted away with VACUUM, retried
-  on every start until it succeeds. On iOS, portfolio.json is excluded from device backups by
-  default (isExcludedFromBackup), and so are portfolio_alarms.json (same switch; while
-  portfolio alarm thresholds are still in watchlist.json – old install or a failed
-  write – watchlist.json is excluded as well)
-  and the portfolio widget file (always excluded and always sealed; since build 60
-  a snapshot that cannot be written sealed is not stored at all – no fallback to
-  the App Group defaults any more – and a plaintext copy left there by an older
-  version is moved into the sealed file or removed on the next start).
+  is overwritten with zeros). On iOS, portfolio.json is excluded from device backups by
+  default (isExcludedFromBackup), and so is portfolio_alarms.json (same switch; portfolio
+  alarm thresholds are never stored in watchlist.json)
+  and the portfolio widget file (always excluded and always sealed; a snapshot
+  that cannot be written sealed is not stored at all – never in the App Group
+  defaults).
   The portfolio widget's caches (hourly prices, value history, candle attempts)
   are files in the App Group that are always excluded from device and iCloud
-  backups (moved there once from the App Group defaults).
+  backups.
   A backup exported without a password is plain JSON. The portfolio lock protects
   what the app shows on the device, not system or device backups.
 * **What exchanges see.** Prices are fetched directly from public exchange APIs, so
@@ -209,18 +200,20 @@ keys or other secrets never belong in this repository.
 Alle Daten (Merkliste, Alarme, Portfolio) gehen nie an den Entwickler. Unter Android nimmt die
 Systemsicherung (Google-Konto, Geräteübertragung) die Merkliste samt Menge und Notiz mit, sobald sie
 eingeschaltet ist, das Portfolio nur mit dem Schalter «Portfolio in Systemsicherung». Zusätzlich zur
-Verschlüsselung des Betriebssystems sind sie seit Build 59 verschlüsselt
+Verschlüsselung des Betriebssystems sind sie verschlüsselt
 gespeichert (Android: SQLCipher, Schlüssel im Android Keystore; iOS: AES-256-GCM,
-Schlüssel im Schlüsselbund, seit Build 69 nur auf diesem Gerät und in keinem
+Schlüssel im Schlüsselbund, nur auf diesem Gerät und in keinem
 Geräte-Backup) – auf einem entsperrten Telefon zeigt die App sie trotzdem an. Vor
 einem Gerätewechsel braucht es darum eine Sicherungsdatei. Bleibt die
-Verschlüsselung aus (kein Schlüssel möglich), nennt das Einstellungen › Sicherung. Seit Build 60 ist auch die Momentaufnahme des Android-Portfolio-Widgets
+Verschlüsselung aus (kein Schlüssel möglich), speichert die App nichts im Klartext: Änderungen bleiben nur bis zum
+Schliessen im Arbeitsspeicher, und Einstellungen › Sicherung nennt das. Auch die Momentaufnahme des Android-Portfolio-Widgets ist
 versiegelt (AES-256-GCM, eigener Keystore-Schlüssel); ohne Schlüssel zeigt das
 Widget keine Werte statt Klartext. Unverschlüsselt bleiben Einstellungen,
 Kurs-Zwischenspeicher und Coin-Listen, Sicherungen ohne Passwort sowie die
 Android-Kopien für die Systemsicherung (Merkliste nur während des Sicherens – eine bei
-abgebrochener Sicherung liegengebliebene Kopie löscht der nächste App-Start – und
-erst ab Android 9, Portfolio nur mit Schalter). Verbindungen nur über HTTPS
+abgebrochener Sicherung liegengebliebene Kopie löscht der nächste App-Start; nach dem
+Wiederherstellen wird sie gleich verschlüsselt, ohne Schlüssel beim nächsten Start –
+und erst ab Android 9, Portfolio nur mit Schalter). Verbindungen nur über HTTPS
 bzw. verschlüsselte WebSockets (`wss://`) für Live-Kurse.
 Bitcoin-Adressen und xpub können statt an öffentliche Knoten an einen eigenen
 Esplora-/mempool-Server gehen (nur https, ohne Rückfall auf öffentliche Knoten).
@@ -231,13 +224,12 @@ Sperrbildschirm; «Beträge verbergen» gilt auch für Widgets und Mitteilungen.
 Sperrt sie sich wieder, schliessen sich offene Portfolio- und Sicherungs-Dialoge.
 Sicherungen gehen nur über die Dateiauswahl des Systems und lassen sich mit
 einem Passwort verschlüsseln (AES-256-GCM, Schlüssel per Argon2id mit 64 MiB, der
-Kopf der Datei ist mitgeschützt; ältere Dateien mit PBKDF2 bleiben lesbar), das
+Kopf der Datei ist mitgeschützt), das
 nirgends gespeichert wird.
-Neue Sicherungs-Passwörter brauchen mindestens 12 Zeichen (seit Build 69); leicht zu erratende
+Neue Sicherungs-Passwörter brauchen mindestens 12 Zeichen; leicht zu erratende
 (nur Ziffern, ein wiederholtes Zeichen – auch mit Ziffern oder Zeichen nur am
 Anfang oder Ende –, zu 75 % dasselbe Zeichen, höchstens 3 verschiedene Zeichen,
-häufige Folgen) sind gesperrt, ältere
-Dateien lassen sich weiter öffnen. Eine unverschlüsselte Sicherung warnt beim
+häufige Folgen) sind gesperrt. Eine unverschlüsselte Sicherung warnt beim
 Einspielen und senkt nie den Schutz: Sie schaltet die Portfolio-Sperre und
 «Beträge verbergen» nie aus, «Portfolio in Systemsicherung» nie ein und setzt,
 ersetzt oder löscht den eigenen Bitcoin-Server nie.

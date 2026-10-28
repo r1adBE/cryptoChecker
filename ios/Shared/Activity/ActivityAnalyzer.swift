@@ -146,7 +146,7 @@ enum ActivityAnalyzer {
         }
 
         guard let move = ret(moveOpen), let moveCandle = byOpen[moveOpen] else { return nil }
-        // Vergleichsstunden aufsteigend (gleiche Summenreihenfolge wie bisher)
+        // Vergleichsstunden aufsteigend (feste Summenreihenfolge)
         let windowOpens = (1...windowHours).reversed().map { moveOpen - Int64($0) * hourMillis }
         let window = windowOpens.compactMap { ret($0) }
         guard window.count >= minWindowReturns else { return nil }
@@ -197,7 +197,7 @@ enum ActivityAnalyzer {
     // MARK: Signale
 
     /// Alle Signale eines Paars, stärkstes zuerst. Die Schwellen kommen aus der
-    /// `sensitivity` (Standard = bisherige Werte) — für Karte und Meldungen gleich.
+    /// `sensitivity` (Standard = `.NORMAL`) — für Karte und Meldungen gleich.
     /// `fundingSource` = Quelle der Funding Rate (stündliches Funding zählt achtfach, `fundingPer8h`).
     static func signals(stats: HourStats?, fundingPercent: Double?, oiChangePercent: Double?,
                         oiMinutes: Int?, now: Int64,

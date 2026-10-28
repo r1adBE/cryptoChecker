@@ -17,9 +17,6 @@ class PortfolioChartTest {
     private val fiveYearsDays = 1826
     private var nextId = 1L
     private val zone = ZoneId.of("Europe/Zurich")
-    private val dayEnd: (Long) -> Long = { day ->
-        LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1
-    }
     private val today = LocalDate.of(2026, 10, 6).toEpochDay()
 
     private fun noon(day: Long): Long = LocalDate.ofEpochDay(day).atTime(12, 0).atZone(zone).toInstant().toEpochMilli()
@@ -147,7 +144,7 @@ class PortfolioChartTest {
     @Test
     fun buildSumsHoldingsTimesCoinOhlc() {
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, dayEnd, ranges = ranges,
+            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, ranges = ranges,
         )
         val p = s.points
         assertEquals(3, p.size)
@@ -174,12 +171,12 @@ class PortfolioChartTest {
 
     @Test
     fun buildWithoutRangesKeepsPlainPoints() {
-        val plain = PortfolioHistory.build(trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, dayEnd)
+        val plain = PortfolioHistory.build(trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today)
         assertTrue(plain.points.all { it.open == null && it.high == null && it.low == null })
         // Tag ohne Coin-Kerze: kein Hoch/Tief (nur fortgeschriebener Schluss)
         val gap = ranges.mapValues { (_, m) -> m - (today - 1) }
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, dayEnd, ranges = gap,
+            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, ranges = gap,
         )
         assertNull(s.points[1].high)
         assertEquals(plain.points.map { it.value }, s.points.map { it.value })
@@ -188,7 +185,7 @@ class PortfolioChartTest {
     @Test
     fun fxConvertsOhlcWithSameDailyRate() {
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, dayEnd, ranges = ranges,
+            trades, closes, mapOf("BTC" to 121.0), PortfolioHistoryRange.MONTH, today, ranges = ranges,
         )
         val r = PortfolioHistoryFx.convert(s, mapOf(today - 2 to 0.9, today - 1 to 0.8), 0.5, today)
         val p = r.series.points

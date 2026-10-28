@@ -7,7 +7,7 @@ extension WatchlistScreen {
     /// wird in `RefreshStateReader` gezeigt und zeichnet bei dessen Wechsel allein neu.
     func statusRow(_ watches: [Watch], state: RefreshState) -> some View {
         let staleAfter = data.staleAfterMillis
-        // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.), «Live» nur mit allen (K-1, `LiveStatus`)
+        // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.), «Live» nur mit allen (`LiveStatus`)
         let liveIds = state.liveWatchIds
         let lastRunMillis = state.lastRefreshMillis
         // «Nicht mehr gehandelt» ist kein Fehler: zählt weder als veraltet noch als gescheitert;
@@ -62,7 +62,7 @@ extension WatchlistScreen {
         } else if failed > 0 {
             text = L("watchlist_failed_count", count: failed, failed, traded.count)
         } else if newest > 0 && allLive {
-            // D3: ein Wort vorne — «Live» nur, wenn ALLE Paare frisch am Strom sind (K-1), sonst
+            // Ein Wort vorne — «Live» nur, wenn ALLE Paare frisch am Strom sind, sonst
             // «Kurse der gewählten Börsen · vor 2 Min.» (gemischt mit der Zeit der abgefragten Paare):
             // sagt wie der Store-Text, woher der Kurs kommt und wie alt er ist
             text = L("status_live")
@@ -75,12 +75,12 @@ extension WatchlistScreen {
             text = L("watchlist_pull_to_refresh")
         }
         // VoiceOver: derselbe Satz, Zeit ausgeschrieben («vor 2 Minuten» statt «vor 2 Min.») und
-        // « · » als Pause; Live-Hinweis wie bisher dahinter
+        // « · » als Pause; Live-Hinweis dahinter
         let agoTime = !warn && !deviceOffline ? shownTime : newest
         let shortAgo = agoTime > 0 ? WatchlistTime.ago(agoTime, now: now) : ""
         let longAgo = agoTime > 0 ? WatchlistTime.spokenAgo(agoTime, now: now) : ""
         let spokenText = A11ySpeech.spokenDots(shortAgo.isEmpty ? text : text.replacingOccurrences(of: shortAgo, with: longAgo))
-        // «Live-Kurse aktiv» nur, wenn auch sichtbar «Live» steht (K-1)
+        // «Live-Kurse aktiv» nur, wenn auch sichtbar «Live» steht
         let spokenLabel = A11ySpeech.join([spokenText, showsLive ? L("watchlist_live_a11y") : nil])
         // Höflich ansagen, aber nur beim Wechsel aktuell / veraltet / offline (nicht jede Minute) — wie Android
         let kind = A11ySpeech.statusKind(none: none, offline: deviceOffline || offline, warn: warn, newest: newest)
@@ -101,7 +101,7 @@ extension WatchlistScreen {
                 statusTextFit(text, short: shortText,
                               ageOnly: !shortAgo.isEmpty && shortAgo != text && text.contains(shortAgo) ? shortAgo : nil)
                     .contentTransition(.opacity)
-                // Kurse per WebSocket: steht jetzt als Wort «Live» im Status (D3), kein zweites Abzeichen
+                // Kurse per WebSocket: steht als Wort «Live» im Status, kein zweites Abzeichen
                 if staleOnly {
                     Image(systemName: "xmark")
                         .scaledFont(size: 10, weight: .bold, relativeTo: .caption)

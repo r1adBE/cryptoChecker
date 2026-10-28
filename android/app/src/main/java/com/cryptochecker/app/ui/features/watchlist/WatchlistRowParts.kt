@@ -334,8 +334,8 @@ internal val AssetKind.spokenRes: Int
 
 /**
  * Deckkraft von Logo und kleinen Symbolen eines deaktivierten Paars. Texte (Paar, Kurs, Anzahl
- * Alarme) werden nicht mehr abgeblasst (45 % lag unter 4.5:1), sondern stehen in onSurfaceVariant
- * ([disabledTextColor]); dazu sagt «Binance · deaktiviert» den Zustand in Worten (L-13).
+ * Alarme) werden nicht abgeblasst (45 % läge unter 4.5:1), sondern stehen in onSurfaceVariant
+ * ([disabledTextColor]); dazu sagt «Binance · deaktiviert» den Zustand in Worten.
  */
 internal const val DISABLED_ICON_ALPHA = 0.45f
 

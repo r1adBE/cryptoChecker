@@ -82,7 +82,7 @@ enum SettingsSearchCatalog {
             [L("settings_price_colors_hint")] + PriceColorScheme.allCases.map { L($0.labelKey) })
         add("price_colors.swap", L("price_colors_swap"), L("settings_price_colors"), .page(.priceColors, anchor: "price_colors.swap"),
             [L("price_colors_red_up_hint")])
-        // %-Änderung unter «Merkliste» (Review D13), Coin-Logos und Widgets unter «Darstellung»
+        // %-Änderung unter «Merkliste», Coin-Logos und Widgets unter «Darstellung»
         let changeBasis = L("settings_change_basis", "%")
         add("page.change_basis", changeBasis, watchlist, .page(.changeBasis, anchor: nil),
             [L("settings_change_basis_hint_1"), L("change_basis_rolling"), L("change_basis_since_last"), L("change_basis_device", "UTC"),

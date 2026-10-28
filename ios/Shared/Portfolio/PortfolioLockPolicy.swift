@@ -17,7 +17,7 @@ enum PortfolioAccess: Equatable, Sendable {
 /// Einstellungen und die übrigen Widgets sind immer frei. Entsperrt wird einmal je Sitzung;
 /// nach mehr als `backgroundLimitSeconds` im Hintergrund wird wieder gesperrt.
 enum PortfolioLockPolicy {
-    /// Länger im Hintergrund → beim Zurückkehren wieder sperren (wie bisher die App-Sperre).
+    /// Länger im Hintergrund → beim Zurückkehren wieder sperren.
     static let backgroundLimitSeconds: TimeInterval = 60
 
     /// Zustand des Portfolio-Bereichs. `lockSetting` nil = noch nicht gelesen.

@@ -45,9 +45,7 @@ object IndicatorAlertRules {
 
     /**
      * Einmal melden beim Überschreiten: [wasCrossed] = beim letzten Lauf schon jenseits (gemeldet). Ohne Wert
-     * (Daten fehlen) nichts ändern; zurück diesseits → wieder scharf. Schon jenseits und gemeldet: Zustand erneut
-     * schreiben, damit die aktuelle Grenze mitgespeichert wird — ältere Stände ohne gemerkte Grenze ([wasCrossed])
-     * hielten sonst eine später geänderte Grenze für unverändert, und sie bliebe stumm.
+     * (Daten fehlen) oder schon jenseits und gemeldet: nichts ändern; zurück diesseits → wieder scharf.
      */
     fun decide(kind: IndicatorAlertKind, value: Double?, threshold: Double?, wasCrossed: Boolean): Decision {
         if (threshold == null) return Decision(false, false)
@@ -55,7 +53,7 @@ object IndicatorAlertRules {
         val now = crossed(kind, v, threshold)
         return when {
             now && !wasCrossed -> Decision(true, true)
-            now -> Decision(false, true)
+            now -> Decision(false, null)
             else -> Decision(false, false)
         }
     }
@@ -64,7 +62,7 @@ object IndicatorAlertRules {
      * Gemerkter Zustand «jenseits der Grenze» für die eingestellte Grenze [current] (gespeicherte Ganzzahl): Wurde er
      * bei einer anderen Grenze [storedThreshold] gemerkt, zählt er nicht — eine neue Grenze bewertet neu, auch wenn der
      * Wert schon jenseits liegt (wie Fear & Greed, [MarketNoticeGate.boundChanged]). [storedThreshold] null = keine
-     * Grenze gemerkt: übernehmen.
+     * Grenze gemerkt: zählt nicht.
      */
     fun wasCrossed(storedCrossed: Boolean, storedThreshold: Int?, current: Int): Boolean =
         storedCrossed && !MarketNoticeGate.boundChanged(storedThreshold, current)

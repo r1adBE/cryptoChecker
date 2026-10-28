@@ -19,7 +19,7 @@ enum PortfolioWidgetStore {
     static let kind = "PortfolioWidget"
 
     /// Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (`PortfolioFxMemo`) — Widget und Hintergrund ohne Netz.
-    private static let fxMemoKey = "portfolio_widget_fx_v1"
+    private static let fxMemoKey = "portfolio_widget_fx"
     /// Kerzen für alle fehlenden Coins zusammen höchstens so lange laden (Sekunden).
     private static let candleLoadTimeout: Double = 4
     /// Vergleichsstand mindestens so alt.

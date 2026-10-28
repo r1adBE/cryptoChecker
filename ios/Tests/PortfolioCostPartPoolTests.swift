@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// `PortfolioCostPartPool` gegen die frühere Liste der Herkunftsteile (`FormerParts`: jeder Abgang schreibt alle Teile
+/// `PortfolioCostPartPool` gegen die einfache Liste der Herkunftsteile (`ReferenceParts`: jeder Abgang schreibt alle Teile
 /// neu): zufällige Folgen mit Seed aus Zugängen, Teil- und Ganz-Abgängen und Zugängen zu früheren Tagen. Gleiche Zahl
 /// und Zeitpunkte der Teile, Summen exakt, Beträge bis auf die Rundung der 34. Stelle; kurze Folgen mit runden Zahlen
 /// exakt gleich (wie die Paritäts-Fixtures). Dazu die Umrechnung grosser Ansichten ohne Auslesen (`weightedSum`,
@@ -16,8 +16,8 @@ final class PortfolioCostPartPoolTests: XCTestCase {
     private static let nice = ["0.5", "0.25", "0.1", "0.2", "0.75", "0.125"].map { Decimal(string: $0)! }
     private static let utc = TimeZone(identifier: "UTC")!
 
-    /// Frühere Rechnung (Referenz): Liste, die jeder Abgang Teil für Teil neu schreibt; mit `zone` je Tag ein Teil.
-    private struct FormerParts {
+    /// Referenzrechnung: Liste, die jeder Abgang Teil für Teil neu schreibt; mit `zone` je Tag ein Teil.
+    private struct ReferenceParts {
         let zone: TimeZone?
         var parts: [PortfolioCostPart] = []
         var dayIndex: [LocalDay: Int] = [:]
@@ -93,10 +93,10 @@ final class PortfolioCostPartPoolTests: XCTestCase {
         }
     }
 
-    /// Neue gegen frühere Rechnung über `steps` zufällige Schritte; `nice`: runde Beträge und Anteile.
+    /// Pool gegen Referenzrechnung über `steps` zufällige Schritte; `nice`: runde Beträge und Anteile.
     private func compare(seed: UInt64, steps: Int, zone: TimeZone?, nice: Bool, exact: Bool) {
         var rng = PerformanceRandom(seed: seed)
-        var former = FormerParts(zone: zone)
+        var reference = ReferenceParts(zone: zone)
         var pool = PortfolioCostPartPool(zone: zone)
         var cost: Decimal = 0
         var time: Int64 = 1_700_000_000_000
@@ -109,25 +109,25 @@ final class PortfolioCostPartPoolTests: XCTestCase {
                 let earlier = zone != nil && rng.nextInt(5) == 0
                 let at = earlier ? time - Int64(rng.nextInt(Int(20 * Self.day))) : time
                 cost += usdt
-                former.add(at, usdt)
+                reference.add(at, usdt)
                 pool.add(at, usdt)
             } else {
                 let fraction = nice ? Self.nice[rng.nextInt(Self.nice.count)] : Self.randomFraction(&rng)
                 let removed = rng.nextInt(30) == 0 ? cost : PortfolioDecimal.multiply(cost, fraction)
-                let expected = former.take(removed, total: cost)
+                let expected = reference.take(removed, total: cost)
                 let actual = pool.take(removed, total: cost)
                 assertParts("Seed \(seed) Schritt \(step)", expected, actual.items, exact: exact)
                 cost = removed >= cost ? 0 : cost - removed
             }
         }
         let open = pool.toArray(total: cost)
-        assertParts("Seed \(seed) offen", former.parts, open, exact: exact)
+        assertParts("Seed \(seed) offen", reference.parts, open, exact: exact)
         if !open.isEmpty {
             XCTAssertLessThanOrEqual(abs(Self.sum(open) - cost), Self.tolerance, "Seed \(seed) Summe offen")
         }
     }
 
-    func testMatchesFormerListOnRandomSequences() {
+    func testMatchesReferenceListOnRandomSequences() {
         for seed in UInt64(1)...24 { compare(seed: seed, steps: 400, zone: nil, nice: false, exact: false) }
         for seed in UInt64(25)...48 { compare(seed: seed, steps: 400, zone: Self.utc, nice: false, exact: false) }
     }
@@ -162,7 +162,7 @@ final class PortfolioCostPartPoolTests: XCTestCase {
     }
 
     func testCopiesOfAPoolStayIndependent() {
-        // Werttyp wie die frühere Liste: eine Kopie ändert, die andere bleibt
+        // Werttyp wie die einfache Liste: eine Kopie ändert, die andere bleibt
         var a = PortfolioCostPartPool()
         a.add(1, 100)
         a.add(2, 300)

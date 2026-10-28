@@ -7,7 +7,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.math.BigDecimal
 
-/** Erfassen-Blatt: heutiger Kurs nur für heute (L-1), Verkaufswarnung mit Gebühr im Coin (L-9). Wie `PortfolioTxFormTests` (iOS). */
+/** Erfassen-Blatt: heutiger Kurs nur für heute, Verkaufswarnung mit Gebühr im Coin. Wie `PortfolioTxFormTests` (iOS). */
 class PortfolioTxFormTest {
 
     private fun dec(s: String) = BigDecimal(s)

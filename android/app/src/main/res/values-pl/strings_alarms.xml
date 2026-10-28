@@ -193,4 +193,10 @@
     <string name="alarm_reliability_storage_no_key">Alarmy w tle wstrzymane – lista nie jest zapisana</string>
     <string name="alarms_limit_reached">Para może mieć maksymalnie %1$s alarmów.</string>
     <string name="alarms_reference_rate_hint">Kursy referencyjne EBC są ustalane tylko raz dziennie – nie ma dla nich alarmów.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Spadek musi wynosić mniej niż 100 procent.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Nieprawidłowy próg – popraw go</string>
 </resources>

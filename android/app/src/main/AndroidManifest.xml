@@ -63,8 +63,8 @@
         <!-- Startpunkt ohne eigenes Launcher-Icon: Die Einträge im Launcher
              kommen von den activity-alias unten, je einer pro Akzentfarbe.
              Aktiv ist immer genau einer (siehe AppearanceApplier). -->
-        <!-- adjustResize (K-5): mit randloser Darstellung verschiebt Android das Fenster nicht mehr
-             (sonst sprang die Tableiste über die Tastatur); den Abstand zur Tastatur setzt AppNavHost. -->
+        <!-- adjustResize: mit randloser Darstellung verschiebt Android das Fenster nicht
+             (sonst springt die Tableiste über die Tastatur); den Abstand zur Tastatur setzt AppNavHost. -->
         <!-- singleTop: Tipp auf Mitteilung oder Widget (NEW_TASK|CLEAR_TOP) erreicht die laufende
              Activity über onNewIntent, statt sie neu aufzubauen. -->
         <!-- Startbildschirm: Theme.CryptoChecker.Starting (installSplashScreen in MainActivity). -->

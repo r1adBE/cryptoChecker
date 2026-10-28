@@ -79,4 +79,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">质押记录缺少对应记录 – 请核对余额</string>
     <string name="portfolio_csv_skip_amount_too_small">数量太小 – 保存时会变为 0</string>
     <string name="portfolio_csv_skip_invalid_swap">兑换缺少有效的收到的币或数量</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">正在重新读取文件…</string>
 </resources>

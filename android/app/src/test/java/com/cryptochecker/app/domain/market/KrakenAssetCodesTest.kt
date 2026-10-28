@@ -33,7 +33,7 @@ class KrakenAssetCodesTest {
     fun onlyTheTwoKrakenAliasesAreMapped() {
         assertEquals("BTC", KrakenAssetCodes.common("XBT"))
         assertEquals("DOGE", KrakenAssetCodes.common("XDG"))
-        // Frühere Einträge der alten Tabelle (XVN, ICN, NMC) gibt es bei Kraken nicht mehr
+        // XVN, ICN, NMC gibt es bei Kraken nicht mehr
         assertEquals("XVN", KrakenAssetCodes.common("XVN"))
         assertEquals("XXBT", KrakenAssetCodes.common("XXBT"))
         assertEquals("USDT", KrakenAssetCodes.common("USDT"))

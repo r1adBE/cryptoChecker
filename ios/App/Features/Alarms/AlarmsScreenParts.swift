@@ -18,7 +18,7 @@ enum AlarmA11y {
     }
 }
 
-/// Beispielzeile unter dem leeren Alarm-Text (Übersicht und je Paar, L-18) im Stil der Alarm-Sätze:
+/// Beispielzeile unter dem leeren Alarm-Text (Übersicht und je Paar) im Stil der Alarm-Sätze:
 /// «Zum Beispiel: Sag mir Bescheid, wenn BTC über 90’000 steigt.» — Zahl im Format der Sprache.
 enum AlarmsEmptyExample {
     static var text: String { L("alarms_empty_example", LocaleNumbers.integer(90_000, grouping: true)) }

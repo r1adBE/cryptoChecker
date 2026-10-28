@@ -112,7 +112,7 @@ final class PortfolioTxFormTests: XCTestCase {
     }
 
     func testWatchPairConflictingNamesGiveNoPick() {
-        // K-8: zwei verschiedene Token unter «CAT» in der Merkliste → unklar, welcher im Portfolio steht
+        // Zwei verschiedene Token unter «CAT» in der Merkliste → unklar, welcher im Portfolio steht
         let gate = PortfolioWatchPair.Candidate(exchangeKey: "GateIo", base: "CAT", quote: "USDT", pairId: nil, spot: true,
                                                 disabled: false, lastUpdate: 5, name: "Simon's Cat")
         func upbit(_ name: String?, disabled: Bool = false) -> PortfolioWatchPair.Candidate {
@@ -120,7 +120,7 @@ final class PortfolioTxFormTests: XCTestCase {
                                          disabled: disabled, lastUpdate: 9, name: name)
         }
         XCTAssertNil(PortfolioWatchPair.pick("CAT", watches: [gate, upbit("Catcoin")]))
-        // Gleicher Name in anderer Schreibweise oder unbekannt: wie bisher
+        // Gleicher Name in anderer Schreibweise oder unbekannt: Paar gilt
         XCTAssertEqual(PortfolioWatchPair.pick("CAT", watches: [gate, upbit("Simons Cat")]), gate)
         XCTAssertEqual(PortfolioWatchPair.pick("CAT", watches: [gate, upbit(nil)]), gate)
         // Unbenutzbares Paar (deaktiviert) zählt nicht als Widerspruch

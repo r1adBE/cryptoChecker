@@ -181,4 +181,10 @@
     <string name="alarm_reliability_storage_no_key">Alarmer satt på pause i bakgrunnen – overvåkingslisten er ikke lagret</string>
     <string name="alarms_limit_reached">Et par kan ha maks %1$s alarmer.</string>
     <string name="alarms_reference_rate_hint">ECBs referansekurser fastsettes bare én gang om dagen – det finnes ingen alarmer for dem.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Et fall må være under 100 prosent.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Ugyldig grense – juster den</string>
 </resources>

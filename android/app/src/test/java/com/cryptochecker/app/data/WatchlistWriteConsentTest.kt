@@ -27,7 +27,7 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * Rückfrage F-08 als Verhalten am Schreibweg des Repositorys statt nur am Quelltext: Merkliste «nicht gespeichert»
+ * Rückfrage «nicht gespeichert» als Verhalten am Schreibweg des Repositorys statt nur am Quelltext: Merkliste «nicht gespeichert»
  * (Datenbank nur im Arbeitsspeicher, [DatabaseEncryptionNotice.markInMemory]) und — wo angegeben — eine sichtbare
  * Oberfläche, die den Dialog zeigen könnte (sammelt [WatchlistNotSavedGate.request]). Die Sicherung läuft echt
  * ([writeRefused] mit [WatchlistNotSavedGate.needsConfirmation]), der Ablauf wie [addWatches] ([collectBulkAdd]); nur
@@ -118,7 +118,7 @@ class WatchlistWriteConsentTest {
     }
 
     /**
-     * Review F-27, ARC7-02: Durchlass ohne Oberfläche (sie fehlte beim Bestätigen) nur für die Aktion. Danach ist die
+     * Durchlass ohne Oberfläche (sie fehlte beim Bestätigen) nur für die Aktion. Danach ist die
      * Oberfläche da: Die Aktion, ihre Kind-Coroutine und ein `withContext` darin schreiben; eine Coroutine in einem
      * anderen Bereich (eigener Job, wie `appScope.launch`) wird abgelehnt; nach dem Ende der Aktion gilt die Sicherung.
      */

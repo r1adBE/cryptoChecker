@@ -112,7 +112,7 @@ class PortfolioPriceSource @Inject constructor(
 
     /**
      * Letzter Stand der Kurse auf dem Gerät ([stored], [persist]) — getrennt vom Zwischenspeicher:
-     * [cached] und [prices] (auch Widget und Hintergrund) sehen nur Kurse dieses Prozesses, wie bisher.
+     * [cached] und [prices] (auch Widget und Hintergrund) sehen nur Kurse dieses Prozesses.
      */
     val storeMutex = Mutex()
     val storeFile: File get() = File(context.noBackupFilesDir, STORE_FILE)
@@ -153,7 +153,7 @@ class PortfolioPriceSource @Inject constructor(
                         (force || cache[coin]?.let { now - it.second in 0 until PRICE_TTL_MILLIS } != true)
                 }
                 if (toFetch.isNotEmpty()) {
-                    // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); ohne Namen nur bei eindeutigem
+                    // Binance-Ticker nur für denselben Token (Namen der Merkliste); ohne Namen nur bei eindeutigem
                     // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»; mehrdeutig laut anderen
                     // Paarlisten: Binance-Kurs, aber «Kurs ungeprüft»
                     val split = PortfolioPriceIdentity.binanceSplit(
@@ -304,7 +304,7 @@ class PortfolioPriceSource @Inject constructor(
      * ([PortfolioPriceIssue]).
      */
     private suspend fun candleOutcome(coin: String): Pair<Double?, Boolean> = try {
-        // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token, K-8)
+        // Binance nur ohne klaren Namens-Widerspruch zu den Paaren der Merkliste (gleicher Token)
         candleDataSource.candles(coin, STABLE, CandleInterval.H1, 2, identityName = tokenIdentityStore.watchName(coin))
             ?.lastOrNull()?.close?.takeIf { it > 0.0 } to false
     } catch (e: CancellationException) {

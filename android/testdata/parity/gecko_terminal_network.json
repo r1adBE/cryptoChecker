@@ -1,5 +1,5 @@
 {
-  "_comment": "Netzwerk-Kennung von GeckoTerminal zur Chain-Kennung von DexScreener (Ausweg der DEX-Kurse, Build 133): abweichende aus der Tabelle, sonst dieselbe Kennung kleingeschrieben. Android: GeckoTerminalParityTest.kt (GeckoTerminalNetworks.network, DexScreener.geckoTerminalUrl); iOS: ParityFixtureTests.",
+  "_comment": "Netzwerk-Kennung von GeckoTerminal zur Chain-Kennung von DexScreener (Ausweg der DEX-Kurse): abweichende aus der Tabelle, sonst dieselbe Kennung kleingeschrieben. Android: GeckoTerminalParityTest.kt (GeckoTerminalNetworks.network, DexScreener.geckoTerminalUrl); iOS: ParityFixtureTests.",
   "cases": [
     {
       "chain": "ethereum",

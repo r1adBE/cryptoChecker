@@ -219,7 +219,7 @@ object PortfolioTxForm {
     fun priceZero(entered: BigDecimal?, imported: Boolean): Boolean = imported && entered != null && entered.signum() == 0
 
     /**
-     * Faktor USDT → Anzeigewährung für die Eingabe (Owner-Entscheid Okt. 2026, wie CSV-Import, Steuer-Export
+     * Faktor USDT → Anzeigewährung für die Eingabe (wie CSV-Import, Steuer-Export
      * `TaxExport.rateOn` und Live-Kurse): Devisenkurs USD → Währung [usdToFiat] × USDT/USD [usdtUsd] (heute der
      * Live-Kurs, sonst der Tagesschluss DES Tags). Ohne gültigen, plausiblen USDT/USD-Kurs ([PortfolioStables.usdtUsd])
      * × 1 (Näherung). [fiatToUsdt]/[usdtToFiat] rechnen mit diesem Faktor. null ohne Devisenkurs. Wie iOS.

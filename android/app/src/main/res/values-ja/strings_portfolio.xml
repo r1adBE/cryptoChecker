@@ -306,4 +306,10 @@
         <item quantity="other">%d 件のロットと残高の履歴も削除されます。</item>
     </plurals>
     <string name="portfolio_address_remove_history">残高の履歴も削除されます。</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">保存できませんでした – もう一度お試しください</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">しきい値が無効です – 削除して作成し直してください</string>
 </resources>

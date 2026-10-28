@@ -62,7 +62,7 @@ import com.cryptochecker.app.widget.WidgetPinner
  * Kerzen/Linie (Notiz und Marktdaten, falls vorhanden). Alles Weitere —
  * Gruppe, Notiz, Portfolio, Aktualisieren, Widget, Vorlesen, Meldung und zuletzt Löschen — im
  * aufklappbaren Abschnitt «Mehr» (zu; Zustand für die Sitzung gemerkt). Das Blatt öffnet halb
- * hoch (Kopf mit Kurs, Aktionen, Anfang des Charts) und lässt sich auf volle Höhe ziehen (L-16).
+ * hoch (Kopf mit Kurs, Aktionen, Anfang des Charts) und lässt sich auf volle Höhe ziehen.
  *
  * [preview]: Paar steht (noch) nicht in der Merkliste (Coin aus «Heute auffällig», nur im Speicher):
  * Kopf, Kurs, Chart und «Was bewegt sich mit?» wie sonst, dazu gross «Zur Merkliste hinzufügen»
@@ -89,7 +89,7 @@ internal fun WatchActionsSheet(
     /** null = Eintrag verborgen (Vorschau); sonst immer, auch mit Portfolio aus ([PortfolioOff]). */
     onAddToPortfolio: (() -> Unit)? = null,
     /**
-     * IOS5-R02: `close` schliesst den Dialog — erst nach bestätigter Rückfrage F-08 aufrufen; `cancelled`
+     * `close` schliesst den Dialog — erst nach bestätigter Rückfrage «nicht gespeichert» aufrufen; `cancelled`
      * bei «Abbrechen» (Dialog bleibt, wieder bereit). Bis dahin zählt kein weiterer Tipp (wie iOS `saving`).
      */
     onSetGroup: (String?, close: () -> Unit, cancelled: () -> Unit) -> Unit = { _, close, _ -> close() },
@@ -105,7 +105,7 @@ internal fun WatchActionsSheet(
     /** Änderung aus den Kerzen einer anderen Börse (z. B. «Binance» bei einem Kraken-Paar); null = nicht. */
     candleSource: String? = null,
     /**
-     * Was in der Zeile von einer anderen Börse kommt (Änderung, Mini-Chart). L-14: steht nicht mehr
+     * Was in der Zeile von einer anderen Börse kommt (Änderung, Mini-Chart). Steht nicht
      * in der Zeile, sondern hier unter dem Kurs («Änderung & Chart: Binance»); null = [candleSource].
      */
     rowSource: com.cryptochecker.app.domain.watch.DayChange.RowSource? = null,
@@ -125,7 +125,7 @@ internal fun WatchActionsSheet(
 ) {
     // Deaktiviert: keine Abfragen — kein Chart, keine Futures-Kennzahlen, kein «Was bewegt sich mit?», kein «Aktualisieren»
     val off = watch.disabled && !preview
-    // L-16: halb hoch öffnen (Kurs, Aktionen, Chart-Anfang), auf volle Höhe ziehbar
+    // Halb hoch öffnen (Kurs, Aktionen, Chart-Anfang), auf volle Höhe ziehbar
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     val sheetContext = LocalContext.current
     val sheetMotion = !rememberReduceMotion()
@@ -133,7 +133,7 @@ internal fun WatchActionsSheet(
     if (showWidgetManual) WidgetManualDialog(onDismiss = { showWidgetManual = false })
     var editGroup by remember { mutableStateOf(false) }
     var editNote by remember { mutableStateOf(false) }
-    // Notiz bzw. Gruppe wird gespeichert (Rückfrage F-08 offen): weitere Tipps zählen nicht (ARC6-R02, wie iOS)
+    // Notiz bzw. Gruppe wird gespeichert (Rückfrage «nicht gespeichert» offen): weitere Tipps zählen nicht (wie iOS)
     var savingEdit by remember { mutableStateOf(false) }
     // «Paar bearbeiten» (Stift neben dem Paar): Börse, Paar, Kontrakt desselben Eintrags
     var editPair by rememberSaveable(watch.id) { mutableStateOf(false) }
@@ -144,7 +144,7 @@ internal fun WatchActionsSheet(
         NoteDialog(
             title = stringResource(R.string.note_title),
             initial = watch.note,
-            // «Abbrechen» in der Rückfrage F-08: Dialog bleibt mit dem Text (wie der Alarm-Editor)
+            // «Abbrechen» in der Rückfrage «nicht gespeichert»: Dialog bleibt mit dem Text (wie der Alarm-Editor)
             onSave = { note ->
                 if (!savingEdit) {
                     savingEdit = true
@@ -171,7 +171,7 @@ internal fun WatchActionsSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                // Kein fillMaxHeight mehr (L-16): halb offen bleibt die Höhe fest (halber Bildschirm),
+                // Kein fillMaxHeight: halb offen bleibt die Höhe fest (halber Bildschirm),
                 // nach oben ziehen zeigt alles
                 // Mit dem Chart wird das Blatt auf kleinen Geräten höher als der Bildschirm
                 .verticalScroll(rememberScrollState())
@@ -180,7 +180,7 @@ internal fun WatchActionsSheet(
         ) {
             // Eine Zeile unter dem Kurs: «↗ +41.71% · 24h · Aktualisiert 01:42:19» — Änderung farbig,
             // Zeitraum und Stand klein und grau. Mit Fehler, Vorschau ohne Kurs oder deaktiviert
-            // steht der Stand wie bisher in der eigenen Zeile weiter unten.
+            // steht der Stand in der eigenen Zeile weiter unten.
             val updatedInline = watch.lastPrice != null && watch.lastError == null && !off &&
                 !(preview && watch.lastUpdate <= 0)
             WatchActionsHeader(
@@ -328,7 +328,7 @@ internal fun WatchActionsSheet(
             // Vorschau: kein «Mehr» (alles darin braucht einen gespeicherten Eintrag)
             if (!preview) {
                 // Alles Weitere unter «Mehr» (zu, für die Sitzung gemerkt); weich auf- und zuklappen
-                // K1: «Mehr» gilt nur für dieses Blatt — jedes Paar öffnet zugeklappt
+                // «Mehr» gilt nur für dieses Blatt — jedes Paar öffnet zugeklappt
                 var moreExpanded by remember(watch.id) { mutableStateOf(false) }
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 SheetMoreToggle(

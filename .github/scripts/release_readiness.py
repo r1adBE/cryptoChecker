@@ -192,7 +192,7 @@ def expected_tag_problem(ref, name, code):
 
 
 def check_tag(repo):
-    # REL3-R1: tag run only with a matching tag
+    # Tag run only with a matching tag
     ref = os.environ.get("GITHUB_REF", "")
     if not ref.startswith("refs/tags/"):
         return
@@ -215,7 +215,7 @@ def self_test():
     assert expected_tag_problem("refs/heads/main", "16.2.2", "105") is None
     assert expected_tag_problem("refs/pull/7/merge", "16.2.2", "105") is None
     assert expected_tag_problem("refs/tags/other", "16.2.2", "105") is None
-    # REL4-02: build number in the header of ROADMAP/TESTPLAN
+    # Build number in the header of ROADMAP/TESTPLAN
     head = "# Liste\n\nStand: 22. Oktober 2026 · Version 16.2.2 (Build {} – steigt)\n"
     assert head_build_problem(head.format(105), "105") is None
     assert "Build 104" in head_build_problem(head.format(104), "105")
@@ -347,7 +347,7 @@ def head_build_problem(text, code):
 
 
 def check_head_docs(repo):
-    # REL4-02: «build number: see header» — the header must match versionCode
+    # «build number: see header» — the header must match versionCode
     code = first(r"^\s*versionCode\s*=\s*(\d+)", os.path.join(repo, "android", "app", "build.gradle.kts"))
     if not code:
         return

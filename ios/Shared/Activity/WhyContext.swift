@@ -59,7 +59,7 @@ struct Position3d: Equatable, Sendable {
 /// σ₁ₕ ist die Standardabweichung (Stichprobe) der Stunden-Renditen VOR dem bewerteten 24-h-Fenster
 /// (höchstens 72, mindestens 24 Stunden) — so bläht die Bewegung selbst ihre Schwelle nicht auf.
 /// √24 rechnet die Stunden- auf die Tagesschwankung um (Zufallsweg-Näherung). Gibt es zu wenig
-/// Verlauf, gelten die bisherigen festen Schwellen.
+/// Verlauf, gelten die festen Schwellen.
 enum RelativeMove {
     /// Mindestens so viele Stunden-Renditen für σ, sonst feste Schwelle.
     static let minReturns = 24

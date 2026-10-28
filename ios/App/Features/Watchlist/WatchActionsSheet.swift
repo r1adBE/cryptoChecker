@@ -8,7 +8,7 @@ import UIKit
 /// Alles Weitere — Gruppe, Notiz, «Zum Portfolio hinzufügen» (nur mit Portfolio), Aktualisieren,
 /// Widget, Vorlesen, Mitteilung, Sperrbildschirm (nur iOS), Sortieren und zuletzt Löschen — im
 /// aufklappbaren Abschnitt «Mehr» (zu; für die Sitzung gemerkt). Das Blatt öffnet halb hoch
-/// (Kopf, Aktionen, Chart-Anfang; `WatchActionsDetents`) und lässt sich auf volle Höhe ziehen (L-16).
+/// (Kopf, Aktionen, Chart-Anfang; `WatchActionsDetents`) und lässt sich auf volle Höhe ziehen.
 ///
 /// `preview`: Paar steht (noch) nicht in der Merkliste (Coin aus «Heute auffällig», nur im Speicher,
 /// `watchId` = `WatchPreview.watchId`): Kopf, Kurs, Chart und «Was bewegt sich mit?» wie sonst, dazu gross «Zur
@@ -47,20 +47,20 @@ struct WatchActionsSheet: View {
     @State var satsRate: Double? = nil
     /// Änderung aus den Kerzen einer anderen Börse (z. B. «Binance» bei einem Kraken-Paar); nil = nicht.
     @State var candleSource: String? = nil
-    /// Was von einer anderen Börse kommt (Änderung, Mini-Chart) — L-14: steht nicht mehr in der Zeile,
+    /// Was von einer anderen Börse kommt (Änderung, Mini-Chart) — steht nicht in der Zeile,
     /// sondern hier unter dem Kurs («Änderung & Chart: Binance»); nil = alles von der eigenen Börse.
     @State var rowSource: DayChange.RowSource? = nil
     @State var editGroup = false
     @State var editNote = false
     /// «Paar bearbeiten» (Stift neben dem Paar): Börse, Paar, Kontrakt desselben Eintrags.
     @State var editPair = false
-    /// «Als Widget hinzufügen»: iOS lässt Apps keine Widgets anlegen → Anleitung (Runde 13b).
+    /// «Als Widget hinzufügen»: iOS lässt Apps keine Widgets anlegen → Anleitung.
     @State var showWidgetHelp = false
     /// Live-Aktivität dieses Paars läuft (Sperrbildschirm).
     @State var liveActivityOn = false
     /// iOS-Einstellung «Live-Aktivitäten» ist aus — Hinweis zeigen.
     @State var liveActivityDisabled = false
-    /// «Mehr» aufgeklappt. K1: gilt nur für dieses Blatt — jedes Paar öffnet zugeklappt.
+    /// «Mehr» aufgeklappt. Gilt nur für dieses Blatt — jedes Paar öffnet zugeklappt.
     @State private var moreExpanded = false
     /// Vorschau hinzugefügt: Id des neuen Eintrags (das Blatt zeigt dann ihn).
     @State private var addedId: Int64? = nil
@@ -121,7 +121,7 @@ struct WatchActionsSheet: View {
     /// Merkliste, zeigt das Blatt einfach jenes.
     func addPreview() {
         guard let preview, !adding, let exchange = ExchangesConfig.exchange(preview.exchangeKey) else { return }
-        // Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Haptik
+        // Rückfrage «nicht gespeichert» vorher; «Abbrechen» = nichts angelegt, keine Haptik
         data.withWatchlistConfirm {
             let firstEver = data.isFirstPairAdd
             let outcome = data.tryAddWatch(exchange: exchange, pair: preview.pairInfo)
@@ -257,7 +257,7 @@ struct WatchActionsSheet: View {
                     SwitchRow(title: L("watchlist_tts"), isOn: Binding(
                         get: { data.watch(currentId)?.ttsEnabled ?? false },
                         set: { enabled in
-                            // Rückfrage F-08 vorher; «Abbrechen»: Schalter zeigt den Stand
+                            // Rückfrage «nicht gespeichert» vorher; «Abbrechen»: Schalter zeigt den Stand
                             data.withWatchlistConfirm {
                                 // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
                                 if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
@@ -353,7 +353,7 @@ struct WatchActionsSheet: View {
 
 }
 
-/// Stufen des Aktionsblatts (L-16): öffnet halb hoch (`.medium`: Kurs, Aktionen, Anfang des Charts),
+/// Stufen des Aktionsblatts: öffnet halb hoch (`.medium`: Kurs, Aktionen, Anfang des Charts),
 /// lässt sich auf volle Höhe ziehen — wie Android (`skipPartiallyExpanded = false`). Die Stufe gilt
 /// je Öffnen (eigener Zustand im Blatt), Nachladen von Chart und Kennzahlen ändert sie nicht.
 struct WatchActionsDetents: ViewModifier {

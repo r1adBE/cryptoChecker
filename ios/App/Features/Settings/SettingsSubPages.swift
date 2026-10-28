@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Runde 13b: Unterseiten der Einstellungen — wie `SettingsSubPages.kt`.
+// Unterseiten der Einstellungen — wie `SettingsSubPages.kt`.
 // «Alarme & Benachrichtigungen» hatte 17 Bedienelemente; Markt-Meldungen und
 // Sprachausgabe stehen jetzt je auf einer eigenen Seite, erreichbar über eine
 // Zeile mit Kurzwert. Einstellungen und Verhalten unverändert.
@@ -52,7 +52,7 @@ enum SettingsSummary {
         }
     }
 
-    // MARK: Runde 23f — Kurzwerte der Hauptseite
+    // MARK: Kurzwerte der Hauptseite
 
     /// «Portfolio»: Die Sperre zählt nur bei eingeschaltetem Portfolio.
     enum Portfolio { case off, on, locked }
@@ -203,7 +203,7 @@ struct SettingsSubPage<Content: View>: View {
     }
 }
 
-/// Wie `SettingsSubPage`, aber mehrere Karten (`SettingsCard`) und Hinweise untereinander (Runde 23f).
+/// Wie `SettingsSubPage`, aber mehrere Karten (`SettingsCard`) und Hinweise untereinander.
 @MainActor
 struct SettingsCardsPage<Content: View>: View {
     let title: String

@@ -31,7 +31,7 @@ android {
     }
 }
 
-// Room schreibt sein Schema in den bisherigen Ordner der App (Migrationstests, room_schema_drift.py)
+// Room schreibt sein Schema in den Ordner der App (app/schemas; Migrationstests, room_schema_drift.py)
 room {
     schemaDirectory("$rootDir/app/schemas")
 }
@@ -50,7 +50,7 @@ dependencies {
     api(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-    // SQLCipher wie bisher in :app: nur das AAR ohne Abhängigkeiten; androidx.sqlite liefert room-runtime
+    // SQLCipher wie in :app: nur das AAR ohne Abhängigkeiten; androidx.sqlite liefert room-runtime
     implementation(libs.sqlcipher.android) {
         artifact {
             type = "aar"

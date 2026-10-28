@@ -67,15 +67,14 @@ enum IndicatorAlertRules {
         guard let v = value, v.isFinite else { return Decision(notify: false, crossed: nil) }
         let now = crossed(kind, value: v, threshold: threshold)
         if now && !wasCrossed { return Decision(notify: true, crossed: true) }
-        // Schon jenseits und gemeldet: erneut schreiben, damit die aktuelle Grenze mitgespeichert wird — ältere Stände
-        // ohne gemerkte Grenze hielten sonst eine später geänderte Grenze für unverändert (stumm). Wie Android.
-        if now { return Decision(notify: false, crossed: true) }
+        // Schon jenseits und gemeldet: nichts ändern. Wie Android.
+        if now { return Decision(notify: false, crossed: nil) }
         return Decision(notify: false, crossed: false)
     }
 
     /// Gemerkter Zustand «jenseits der Grenze» für die eingestellte Grenze `current` (gespeicherte Ganzzahl): Wurde er bei
     /// einer anderen Grenze gemerkt, zählt er nicht — eine neue Grenze bewertet neu (wie Fear & Greed,
-    /// `MarketNoticeGate.boundChanged`); `storedThreshold` nil = keine Grenze gemerkt: übernehmen. Wie Android.
+    /// `MarketNoticeGate.boundChanged`); `storedThreshold` nil = keine Grenze gemerkt: zählt nicht. Wie Android.
     static func wasCrossed(storedCrossed: Bool, storedThreshold: Int?, current: Int) -> Bool {
         storedCrossed && !MarketNoticeGate.boundChanged(stored: storedThreshold, current: current)
     }

@@ -45,4 +45,17 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">حساب Taproot ‏(BIP86): از این کلید آدرس‌های bc1p… برای دریافت و باقی‌مانده مشتق می‌شوند.</string>
     <string name="portfolio_address_taproot_hint">کیف پول Taproot داری؟ به‌جای آن توصیفگر tr(…) را از کیف پول خود بچسبان – xpub ساده فقط به‌صورت آدرس‌های Legacy و SegWit جست‌وجو می‌شود.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">سرور خودت در دسترس نیست</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">هر کس %1$s را اداره می‌کند، همهٔ آدرس‌های پرسیده‌شدهٔ این کیف پول را می‌بیند و می‌تواند آن‌ها را به هم و به آدرس IP تو ربط دهد.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">برای جلوگیری از این، سرور خودت را در تنظیمات › پرتفوی › سرور خودت برای آدرس‌ها وارد کن.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d توکن ناشناخته (حساب نشده)</item>
+        <item quantity="other">+%1$d توکن ناشناخته (حساب نشده)</item>
+    </plurals>
 </resources>

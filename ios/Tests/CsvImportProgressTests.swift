@@ -89,7 +89,7 @@ final class CsvImportProgressTests: XCTestCase {
         XCTAssertEqual(base.nextId, 8)
     }
 
-    /// Ergebnis identisch zum bisherigen Weg (je Zeile `PortfolioStore.insert`), Fortschritt endet bei der Gesamtzahl.
+    /// Ergebnis identisch zum Einzelweg (je Zeile `PortfolioStore.insert`), Fortschritt endet bei der Gesamtzahl.
     func testImportedFileEqualsInsertOneByOne() throws {
         let preview = CsvImportMapping.preview(CsvImportParser.parse(relai(1_200)), existingKeys: [], fx: fx)
         var list = preview.transactions.map(PortfolioCsvImporter.tx)

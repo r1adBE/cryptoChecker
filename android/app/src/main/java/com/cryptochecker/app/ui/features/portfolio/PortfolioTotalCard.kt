@@ -44,7 +44,7 @@ import com.cryptochecker.app.util.PriceFormat
  * zwei Kennzahlen nebeneinander — «7 T» (Gewinn seit dem Tagesschluss vor 7 Tagen, Käufe/Verkäufe
  * herausgerechnet, [PortfolioViewModel.weekChange]) und «Seit Kauf» (± unrealisiert seit Kauf).
  * Hinter «Details» (zugeklappt): 1 J, Belohnungen, Einstand, Realisiert, Ausgebucht.
- * L-15: Hinweise (Kursquellen, Durchschnittskosten, fehlende Coins, Börsen, fehlende Kurse) und Stand
+ * Hinweise (Kursquellen, Durchschnittskosten, fehlende Coins, Börsen, fehlende Kurse) und Stand
  * der Kurse stehen UNTER der Karte, zugeklappt als eine Zeile «Hinweise (n)» ([TotalCardHints]);
  * weitere Hinweiszeilen gehören dorthin.
  * Beträge in der Anzeigewährung (ohne Devisenkurs in USDT; verborgen als «•••»), Prozente bleiben sichtbar; unbekannt = «—».
@@ -71,7 +71,7 @@ internal fun TotalCard(
     yearChange: TodayChange? = null,
     /**
      * Kurse älter als die Frische-Schwelle (gemerkter Stand, ohne Netz): Gesamtwert in
-     * onSurfaceVariant wie ein veralteter Kurs der Merkliste (nicht mehr abgeblasst, L-13),
+     * onSurfaceVariant wie ein veralteter Kurs der Merkliste (nicht abgeblasst),
      * «Kurse von … · veraltet» in Warnfarbe.
      */
     stale: Boolean = false,
@@ -104,7 +104,7 @@ internal fun TotalCard(
     } else {
         stringResource(R.string.portfolio_price_source_routes, com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.sourcesText(priceSources))
     }
-    // USDT zum Marktkurs (Owner-Entscheid Okt. 2026): ohne frische Messung trägt Ersatz 1 die Zahlen — dann
+    // USDT zum Marktkurs: ohne frische Messung trägt Ersatz 1 die Zahlen — dann
     // «USDT = 1 angenommen» auf der Karte (unabhängig vom Depeg-Alarm); mit Messung keine Zeile
     val usdtNote = DepegAlarm.cardNote(
         holdingCoins = summary.open.map { it.coin },
@@ -123,7 +123,7 @@ internal fun TotalCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     // Von oben links nach unten rechts, wie LinearGradient(.topLeading → .bottomTrailing);
-                    // L-15: ruhiger (8 % → 2 %, früher 16 % → 4 %), hell und dunkel gleich ([AppColors.accentTint])
+                    // Ruhig (8 % → 2 %), hell und dunkel gleich ([AppColors.accentTint])
                     .background(Brush.linearGradient(listOf(AppColors.accentTint(CARD_TINT_START), AppColors.accentTint(CARD_TINT_END))))
                     .padding(start = Spacing.lg, end = Spacing.lg, top = Spacing.lg, bottom = Spacing.xs)
             ) {
@@ -140,7 +140,7 @@ internal fun TotalCard(
                     // Verborgen («•••») ohne Währung, wie zuvor
                     quote = if (LocalHidePortfolioAmounts.current) null else unit.code,
                     value = unit.of(summary.totalValue),
-                    // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % lag unter 4.5:1, L-13)
+                    // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % läge unter 4.5:1)
                     color = if (stale) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(top = 2.dp)
                 )
@@ -176,7 +176,7 @@ internal fun TotalCard(
                     period = stringResource(R.string.portfolio_card_today),
                     spokenLabel = stringResource(R.string.portfolio_card_today),
                 )
-                // M4: Überschrift «Gewinn/Verlust» mit (i) — was die Zahlen bedeuten (und was nicht)
+                // Überschrift «Gewinn/Verlust» mit (i) — was die Zahlen bedeuten (und was nicht)
                 // (i) mit 48 dp Trefferfläche: Abstände darum knapper, damit die Karte nicht wächst
                 GainHeader(method = summary.method, modifier = Modifier.padding(top = Spacing.xs))
                 // 7 Tage · Seit Kauf nebeneinander (gleich breit); ausgeschrieben statt «7 T», weil das Kürzel
@@ -241,7 +241,7 @@ internal fun TotalCard(
                 }
             }
         }
-        // L-15: Hinweise klein unter der Karte; eine Zeile «Hinweise (n)», aufklappbar
+        // Hinweise klein unter der Karte; eine Zeile «Hinweise (n)», aufklappbar
         val hints = totalHintItems(
             summary = summary,
             updatedAt = updatedAt,
@@ -263,7 +263,7 @@ internal fun TotalCard(
     }
 }
 
-/** Verlauf der Gesamtkarte (L-15): ruhig, 8 % → 2 % der Akzentfarbe (früher 16 % → 4 %). */
+/** Verlauf der Gesamtkarte: ruhig, 8 % → 2 % der Akzentfarbe. */
 private const val CARD_TINT_START = 0.08f
 
 private const val CARD_TINT_END = 0.02f

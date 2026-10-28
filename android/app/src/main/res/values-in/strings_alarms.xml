@@ -175,4 +175,10 @@
     <string name="alarm_reliability_storage_no_key">Alarm dijeda di latar belakang – daftar pantau tidak disimpan</string>
     <string name="alarms_limit_reached">Satu pasangan dapat memiliki paling banyak %1$s alarm.</string>
     <string name="alarms_reference_rate_hint">Kurs acuan ECB hanya ditetapkan sekali sehari – tidak ada alarm untuknya.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Penurunan harus kurang dari 100 persen.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Batas tidak valid – silakan ubah</string>
 </resources>

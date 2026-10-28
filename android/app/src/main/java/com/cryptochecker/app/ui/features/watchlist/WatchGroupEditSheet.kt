@@ -80,7 +80,7 @@ internal fun GroupEditSheet(
     isNew: Boolean,
     watches: List<WatchEntity>,
     groups: List<String>,
-    /** `cancelled`: «Abbrechen» in der Rückfrage F-08 (Blatt bleibt, wieder bereit); zu geht es über den Aufrufer. */
+    /** `cancelled`: «Abbrechen» in der Rückfrage «nicht gespeichert» (Blatt bleibt, wieder bereit); zu geht es über den Aufrufer. */
     onDone: (newName: String, memberIds: Set<Long>, cancelled: () -> Unit) -> Unit,
     onDelete: (cancelled: () -> Unit) -> Unit,
     onDismiss: () -> Unit,
@@ -94,7 +94,7 @@ internal fun GroupEditSheet(
     var query by remember { mutableStateOf("") }
     var renaming by remember { mutableStateOf(false) }
     var askDelete by remember { mutableStateOf(false) }
-    // Speichern bzw. Löschen läuft (Rückfrage F-08 offen): weitere Tipps zählen nicht (IOS6-01, wie iOS `saving`)
+    // Speichern bzw. Löschen läuft (Rückfrage «nicht gespeichert» offen): weitere Tipps zählen nicht (wie iOS `saving`)
     var saving by remember { mutableStateOf(false) }
 
     if (renaming) {
@@ -276,7 +276,7 @@ internal fun GroupEditSheet(
 @Composable
 internal fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, modifier: Modifier = Modifier) {
     val keyboard = LocalSoftwareKeyboardController.current
-    // Tippflächen 48 dp, sichtbare Pille wie bisher 44 dp (2 dp Rand oben und unten)
+    // Tippflächen 48 dp, sichtbare Pille 44 dp (2 dp Rand oben und unten)
     Box(contentAlignment = Alignment.CenterEnd, modifier = modifier.fillMaxWidth().height(48.dp)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

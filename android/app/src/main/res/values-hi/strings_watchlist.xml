@@ -223,4 +223,15 @@
     <string name="compare_title">तुलना</string>
     <string name="compare_basis">रेखाएँ अवधि की शुरुआत से प्रतिशत में बदलाव दिखाती हैं।</string>
     <string name="compare_from_high">30 दिन के उच्च से</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d पेयर वापस नहीं आया – वॉचलिस्ट भरी है</item>
+        <item quantity="other">%1$d पेयर वापस नहीं आए – वॉचलिस्ट भरी है</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">वॉचलिस्ट और उसके अलार्म अभी सहेजे नहीं जा रहे। यह और आगे के बदलाव ऐप बंद होने पर खो जाएँगे। फिर भी बदलो?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">फिर भी बदलो</string>
 </resources>

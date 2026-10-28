@@ -56,7 +56,7 @@ fun RegisterTabs(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    // Tippfläche mind. 48 dp; die sichtbare Fläche 2 dp kleiner (mind. 44 dp wie bisher)
+                    // Tippfläche mind. 48 dp; die sichtbare Fläche 2 dp kleiner (mind. 44 dp)
                     .heightIn(min = 48.dp)
                     .clip(MaterialTheme.shapes.small)
                     .selectable(selected = isSelected, role = Role.Tab, onClick = { onSelect(index) })

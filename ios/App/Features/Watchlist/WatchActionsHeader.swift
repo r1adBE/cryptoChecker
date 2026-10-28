@@ -102,7 +102,7 @@ extension WatchActionsSheet {
                 SheetChangeLine(watch: watch, note: candleNote(watch),
                                 showUpdated: Self.updatedInline(watch, isPreview: isPreview))
             }
-            // Herkunft aus der Zeile (L-14): «Änderung & Chart: Binance»; sonst die Änderung aus fremden
+            // Herkunft aus der Zeile: «Änderung & Chart: Binance»; sonst die Änderung aus fremden
             // Kerzen (z. B. Kraken-Paar → Binance) — klein darunter sagen, woher (wie Android)
             if let note = sourceNote(watch) {
                 Text(note)

@@ -339,7 +339,7 @@ class WatchRepository @Inject constructor(
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung entfernen). */
     suspend fun setAlarmEnabled(id: Long, enabled: Boolean, fromUser: Boolean = true): Boolean {
         if (fromUser && userWriteRefused()) return false // Hintergrund («1 h später») nie gesperrt
-        // FUN3-02: «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst im Editor anpassen)
+        // «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst im Editor anpassen)
         val alarm = if (enabled) watchDao.getAlarm(id) else null
         if (alarm != null && !AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = true)) return false
         watchDao.setAlarmEnabled(id, enabled)
@@ -350,8 +350,8 @@ class WatchRepository @Inject constructor(
 
     companion object {
         /**
-         * Kurs-Mitteilung neuer Paare (Start-Auswahl und später hinzugefügte): an (Entscheid 16. Oktober 2026 —
-         * wer einen Kurs-Checker installiert, will den Kurs sehen; vorher aus). Bestehende Paare und gesicherte
+         * Kurs-Mitteilung neuer Paare (Start-Auswahl und später hinzugefügte): an (wer einen
+         * Kurs-Checker installiert, will den Kurs sehen). Bestehende Paare und gesicherte
          * Werte bleiben, wie sie sind (Sicherung: [BackupManager]). Auswahl je Paar: Einstellungen › Alarme ›
          * Kursmitteilungen › Paare. Wie iOS `Watch.newPairNotificationEnabled`.
          */

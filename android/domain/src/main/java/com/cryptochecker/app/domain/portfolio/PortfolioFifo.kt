@@ -24,7 +24,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spreadQueue
  *    VERKAUFTER Menge verteilt; ein Teil aus Gebühr-Coins hat Erlös 0 und sein Einstand zählt als Kosten der Veräusserung
  *    (Verlust in DIESEM Posten mit dessen Haltedauer) — so stimmt die Aufteilung kurz-/langfristig (DE-Praxis: die
  *    Gebühr ist Teil der Veräusserung). Je Teil Gewinn = Erlösanteil − Einstand des Teils; Teile aus Posten ohne Kaufpreis (oder
- *    Verkauf ohne Preis) haben unbekannten Gewinn — die bekannten zählen, «realisiert unvollständig» wie bisher.
+ *    Verkauf ohne Preis) haben unbekannten Gewinn — die bekannten zählen, «realisiert unvollständig».
  *    Mehr verkauft als erfasst: Bestand und Kennzahlen gekappt (markiert, [PortfolioBookResult.oversold]); für
  *    den Steuer-Export wird der ungedeckte Rest trotzdem eine Veräusserung mit seinem Erlösanteil, ohne
  *    Kaufpreis ([PortfolioDisposal.uncovered]) — so fehlt kein Verkauf.

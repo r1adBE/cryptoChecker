@@ -31,7 +31,7 @@ const val FEEDBACK_URL = "https://github.com/r1adBE/cryptoChecker/issues/new/cho
 /** «Börse wünschen»: GitHub-Issue mit der Vorlage `.github/ISSUE_TEMPLATE/exchange_request.md`. */
 const val EXCHANGE_REQUEST_URL = "https://github.com/r1adBE/cryptoChecker/issues/new?template=exchange_request.md"
 
-/** Runde 15: Quellcode der App, öffentlich unter der MIT-Lizenz. */
+/** Quellcode der App, öffentlich unter der MIT-Lizenz. */
 const val SOURCE_CODE_URL = "https://github.com/r1adBE/cryptoChecker"
 
 /** Datenschutzerklärung (GitHub Pages), gleich wie im Store-Eintrag und in iOS `AppLinks`. */

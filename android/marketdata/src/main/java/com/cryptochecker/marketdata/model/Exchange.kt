@@ -36,8 +36,8 @@ abstract class Exchange(
 
     /**
      * Storage key of the exchange in the database, settings, backups and widgets. Set it explicitly to a fixed
-     * string (by convention the class name, identical to the iOS `key`); it used to come from
-     * `javaClass.simpleName`, which tied saved data to class names and R8. Never change it after release —
+     * string (by convention the class name, identical to the iOS `key`), not derived from
+     * `javaClass.simpleName`, which would tie saved data to class names and R8. Never change it after release —
      * `ExchangeKeyTest` guards the list.
      */
     abstract val key: String
@@ -372,7 +372,7 @@ abstract class Exchange(
         out.removeAll { pair -> pair.base.isEmpty() || pair.quote.isEmpty() }
     }
 
-    // ── Volle Coin-Namen (Identität «gleicher Token», K-8) ───────────────────────
+    // ── Volle Coin-Namen (Identität «gleicher Token») ────────────────────────────
 
     /**
      * Optional: symbol → full coin name (e.g. Gate `base_name`) from the same response as the pair list, without

@@ -8,8 +8,8 @@ package com.cryptochecker.app.domain.market
  * Jetzt (Pulse, «Heute auffällig» — Karten) → Einordnung (Fear & Greed, Marktphase, Dominanz
  * mit Altcoin-Saison, Zyklus/Halving) → Daten (Krypto-Markt, Gas, Wirtschaftsdaten, Coin) —
  * Einordnung und Daten als Zeilen ohne Karte. Die drei stehen als Register nebeneinander
- * ([MarketSections.of]); [HEADER_CONTEXT] und [HEADER_DATA] zeigen nichts mehr (früher die
- * Überschriften zum Aufklappen) und bleiben nur, damit die Reihenfolge gleich bleibt.
+ * ([MarketSections.of]); [HEADER_CONTEXT] und [HEADER_DATA] zeigen nichts und bleiben
+ * nur, damit die Reihenfolge gleich bleibt.
  */
 enum class MarketRevealSlot {
     PULSE,

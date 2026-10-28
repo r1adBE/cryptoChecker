@@ -327,7 +327,7 @@ enum BackgroundRefresh {
                     await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat)
                 }
             }
-            // Fear & Greed und Kennzahlen (früher eigene Aufgabe): nur wenn fällig, höchstens bis zur Endzeit
+            // Fear & Greed und Kennzahlen in derselben Aufgabe: nur wenn fällig, höchstens bis zur Endzeit
             if zoneDue && !Task.isCancelled {
                 await runZoneStep(settings: settings, deadline: deadline)
             }

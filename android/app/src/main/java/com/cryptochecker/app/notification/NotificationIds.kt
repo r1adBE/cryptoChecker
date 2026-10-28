@@ -3,10 +3,10 @@ package com.cryptochecker.app.notification
 /**
  * Mitteilungs-Nummern je Paar bzw. Alarm, ohne Überschneidungen.
  *
- * Bisher «Basis + id» (Kurs 100 000, Alarm 200 000, Aktivität 300 000, Portfolio-Alarm 400 000):
- * Ab id 100 000 lief ein Bereich in den nächsten (Kurs-Meldung von Paar 100 001 = Alarm 1), und
- * sehr grosse ids liefen über Int hinaus. Jetzt:
- *  - id 0 … 99 999: unverändert «Basis + id» (offene Meldungen bleiben nach dem Update zuordenbar);
+ * Nicht nur «Basis + id» (Kurs 100 000, Alarm 200 000, Aktivität 300 000, Portfolio-Alarm 400 000):
+ * Ab id 100 000 liefe ein Bereich in den nächsten (Kurs-Meldung von Paar 100 001 = Alarm 1), und
+ * sehr grosse ids liefen über Int hinaus. Darum:
+ *  - id 0 … 99 999: «Basis + id»;
  *  - sonst (auch negativ): eigener Block je Art ab 1 000 000 000, je [LARGE_SPAN] gross —
  *    getrennt von den kleinen Bereichen, den festen Nummern (< 100 000) und voneinander.
  *    Innerhalb einer Art gleich wären erst ids, die sich um ein Vielfaches von 250 Mio. unterscheiden.
@@ -40,11 +40,5 @@ object NotificationIds {
         val n = notificationId.toLong()
         val large = LARGE_START + kind.ordinal * LARGE_SPAN
         return n in kind.smallBase until kind.smallBase + SMALL_LIMIT || n in large until large + LARGE_SPAN
-    }
-
-    /** id aus einer Nummer des kleinen Bereichs zurückrechnen; im grossen Bereich nicht eindeutig: null. */
-    fun smallIdOf(kind: Kind, notificationId: Int): Long? {
-        val n = notificationId.toLong() - kind.smallBase
-        return n.takeIf { it in 0 until SMALL_LIMIT }
     }
 }

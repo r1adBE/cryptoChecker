@@ -122,7 +122,7 @@ final class SettingsSearchTests: XCTestCase {
     }
 
     /// Portfolio an einem Ort — die Suche nach «Portfolio» zeigt zuerst die Seite (Zeile unter
-    /// «Allgemein»), den alten Schalter der Gruppe «Mehr» gibt es nicht mehr — wie `portfolio_pageComesFirst` (Android).
+    /// «Allgemein») — wie `portfolio_pageComesFirst` (Android).
     @MainActor
     func testPortfolioSearchFindsPageFirst() {
         let items = SettingsSearchCatalog.items(settings: AppSettings())

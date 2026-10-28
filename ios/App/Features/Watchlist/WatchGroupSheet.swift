@@ -4,7 +4,7 @@ import SwiftUI
 
 /// Gruppe wählen: «Keine Gruppe», bestehende Gruppen oder eine neue anlegen.
 /// Eine Auswahl gilt sofort; nur die neue Gruppe braucht «Speichern» — wie `GroupDialog`.
-/// IOS5-R02: schliesst erst nach bestätigter Rückfrage F-08; «Abbrechen» = Blatt bleibt (samt Name).
+/// Schliesst erst nach bestätigter Rückfrage «nicht gespeichert»; «Abbrechen» = Blatt bleibt (samt Name).
 @MainActor
 struct WatchGroupSheet: View {
     /// Höchstlänge eines Gruppennamens (wie `GROUP_NAME_MAX`).

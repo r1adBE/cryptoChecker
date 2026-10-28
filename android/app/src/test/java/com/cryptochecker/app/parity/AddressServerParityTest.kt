@@ -64,12 +64,11 @@ class AddressServerParityTest {
         val cases = fixture["restore"].list().map { it.obj() }
         assertTrue(cases.any { it["trusted"] == false && it["current"] == null && it["value"] != null })
         for (c in cases) {
-            val present = c["present"] as Boolean
             val value = c["value"] as String?
             val current = c["current"] as String?
             val trusted = c["trusted"] as Boolean
-            assertEquals(c.toString(), c["result"], AddressServer.restored(present, value, current, trusted))
-            val note = BackupRestorePolicy.addressServerNote(present, value, current, trusted)
+            assertEquals(c.toString(), c["result"], AddressServer.restored(value, current, trusted))
+            val note = BackupRestorePolicy.addressServerNote(value, current, trusted)
             assertEquals(c.toString(), c["note"], note?.name)
         }
     }

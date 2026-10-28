@@ -48,7 +48,7 @@ class RateLimitSignalTest {
         assertTrue(RateLimitSignal.okBodyRateLimited("""{"error":["EAPI:Rate limit exceeded"]}"""))
         assertTrue(RateLimitSignal.okBodyRateLimited("""{"msg":"Too many requests"}"""))
         assertTrue(RateLimitSignal.okBodyRateLimited("""{"retCode":"10006"}"""))
-        // Unlesbar: wie bisher der ganze Text
+        // Unlesbar: der ganze Text
         assertTrue(RateLimitSignal.okBodyRateLimited("Too many requests"))
         assertTrue(RateLimitSignal.okBodyRateLimited("""[{"msg":"Too many requests"""))
     }

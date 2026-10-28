@@ -26,9 +26,8 @@ import java.math.BigDecimal
  *  - [PAYMENT]: «Damit bezahlt» — Tausch gegen Waren/Dienstleistungen: überall eine Veräusserung zum MARKTWERT
  *    wie ein Verkauf ([isSaleLike]; Preis = Marktwert je Coin, Erlös = Menge × Preis, kein Geld erhalten), Steuer-Export
  *    mit Vermerk «Zahlung mit Krypto». Ohne Preis zum Tagesschluss geschätzt ([PortfolioLedger.valueAtDayClose]).
- * Ältere Versionen kennen nur [BUY]/[SELL] bzw. kein [SWAP]/[GIFT]/[PAYMENT]: Sie zählen unbekannte Arten beim
- * Wiederherstellen als ungültig (Rückfrage, nichts stürzt ab). Der Name wird als Text gespeichert (Room-Enum-Konverter):
- * ein neues Mitglied braucht keine Migration, alte Daten lesen sich unverändert.
+ * Unbekannte Arten zählen beim Wiederherstellen als ungültig (Rückfrage, nichts stürzt ab). Der Name wird als Text
+ * gespeichert (Room-Enum-Konverter).
  */
 enum class PortfolioTxType {
     BUY, SELL, TRANSFER, REWARD, DEPOSIT, WITHDRAWAL, SWAP, GIFT, PAYMENT;

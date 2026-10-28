@@ -145,7 +145,7 @@ final class Lighter: Exchange, @unchecked Sendable { // @unchecked: wie `Exchang
 
     /// Eine Zeile von `exchangeStats`; `daily_price_change` ist bereits Prozent über gleitende 24 h. Ohne Handel in
     /// 24 h (`daily_trades_count` 0) meldet Lighter die Veränderung als 0 — das ist keine gemessene Veränderung,
-    /// darum bleibt sie leer statt «0,00 %». Fehlt das Zählfeld, gilt die Veränderung wie bisher.
+    /// darum bleibt sie leer statt «0,00 %». Fehlt das Zählfeld, gilt die gemeldete Veränderung.
     ///
     /// Eine Handelszeit nennt Lighter nicht. Ohne Handel in 24 h lag der letzte aber spätestens 24 h zurück: Diese
     /// Obergrenze gilt als Börsenzeit. So sperrt die bestehende Regel (`exchangeTime` älter als 2 h)

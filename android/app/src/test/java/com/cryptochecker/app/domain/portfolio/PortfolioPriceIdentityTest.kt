@@ -10,7 +10,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Binance-Ticker im Portfolio nur für denselben Token (K-8). Wie `PortfolioPriceIdentityTests.swift`. */
+/** Binance-Ticker im Portfolio nur für denselben Token. Wie `PortfolioPriceIdentityTests.swift`. */
 class PortfolioPriceIdentityTest {
 
     private val binance = mapOf("LUNA" to "Terra", "TON" to "Toncoin", "GMT" to "STEPN", "HOT" to "Holo", "BTC" to "Bitcoin")
@@ -27,7 +27,7 @@ class PortfolioPriceIdentityTest {
     fun sameOrUnknownNameKeepsBinance() {
         assertTrue(PortfolioPriceIdentity.binanceTickerAllowed("LUNA", "Terra 2.0", "Terra"))
         assertTrue(PortfolioPriceIdentity.binanceTickerAllowed("TON", "The Open Network", "Toncoin"))
-        // Ohne Namen in der Merkliste bzw. bei Binance: wie bisher
+        // Ohne Namen in der Merkliste bzw. bei Binance: erlaubt
         assertTrue(PortfolioPriceIdentity.binanceTickerAllowed("GMT", null, "STEPN"))
         assertTrue(PortfolioPriceIdentity.binanceTickerAllowed("GMT", "GoMining", null))
     }
@@ -76,7 +76,7 @@ class PortfolioPriceIdentityTest {
         assertEquals(split["unverified"].list().toSet(), got.unverified)
     }
 
-    /** Ohne andere Paarlisten bleibt alles wie früher: kein Coin «Kurs ungeprüft». */
+    /** Ohne andere Paarlisten: kein Coin «Kurs ungeprüft». */
     @Test
     fun withoutOtherListsNothingUnverified() {
         assertEquals(PortfolioPriceIdentity.BinanceCheck.USE, PortfolioPriceIdentity.binanceCheck("BEAM", null, "Beam Gaming"))

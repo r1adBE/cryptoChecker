@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.logos
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 /**
- * Freigabe einer Logo-Adresse ([CoinLogos.isAllowedUrl], SEC3-02) mit echtem URL-Parser statt
+ * Freigabe einer Logo-Adresse ([CoinLogos.isAllowedUrl]) mit echtem URL-Parser statt
  * ausgeschnittenem Host: Ein «#» oder «\» in der Authority (der Parser beendet den Host dort) kann die Liste nicht mehr
  * umgehen. Gleich in iOS `LogoURLPolicy` (gemeinsame Fälle `testdata/parity/logo_url_allow.json`).
  *

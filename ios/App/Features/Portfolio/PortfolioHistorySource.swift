@@ -2,7 +2,7 @@ import Foundation
 import os
 
 /// Tagesschlüsse eines Coins und wie viele Tage bis heute dafür abgefragt wurden (`span`);
-/// `ranges` = Eröffnung/Hoch/Tief derselben Kerzen (nil bei Einträgen älterer Versionen — Kerzen
+/// `ranges` = Eröffnung/Hoch/Tief derselben Kerzen (nil bei Einträgen ohne dieses Feld — Kerzen
 /// dann ohne Docht, bis der Eintrag nach 12 h neu geholt wird).
 struct PortfolioCoinCloses: Codable, Sendable {
     let closes: [Int: Double]
@@ -59,7 +59,7 @@ struct PortfolioOwnCloses: Codable, Sendable {
 /// höchstens 1000), in USDT umgerechnet (Fiat mit den Devisen-Tageskursen, `HistoricPriceSource.usdToSeries`);
 /// ebenfalls 12 h gemerkt («phisto_<COIN>»).
 ///
-/// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Tagesschlüsse USDT/USD von Kraken (`usdtUsdDaily`, Paar USDTZUSD über
+/// USDT zum Marktkurs: Tagesschlüsse USDT/USD von Kraken (`usdtUsdDaily`, Paar USDTZUSD über
 /// dieselben eigenen Tageskerzen, 12 h gemerkt «phisto_USDTZUSD») — nur mit Portfolio (nur dessen Abrufe holen sie). Damit
 /// rechnen USD- und Fiat-Kerzen eigener Börsen in USDT (`PortfolioExchangeRoute.ownDailyUsdt`) und die Umrechnung von
 /// Verlauf und Export in Fiat (`UsdtUsdRates`). Fehlen Kraken Tage, füllt Coinbase USDT-USD sie (`usdtUsdDaily`).

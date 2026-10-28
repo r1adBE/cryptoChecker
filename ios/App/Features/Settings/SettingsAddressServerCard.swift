@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Einstellungen › Portfolio › «Eigener Server für Adressen» (nur Bitcoin, `AddressServer`) — wie Android
-/// `AddressServerCard`. Leer = öffentliche Knoten wie bisher; gesetzt = nur dorthin, ohne Rückfall.
+/// `AddressServerCard`. Leer = öffentliche Knoten; gesetzt = nur dorthin, ohne Rückfall.
 @MainActor
 struct SettingsAddressServerCard: View {
     @EnvironmentObject private var data: AppData

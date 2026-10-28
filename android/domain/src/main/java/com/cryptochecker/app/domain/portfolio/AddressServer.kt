@@ -3,7 +3,7 @@ package com.cryptochecker.app.domain.portfolio
 /**
  * Eigener Server für Adressabfragen (Einstellungen › Portfolio), nur Bitcoin: Esplora-/mempool-kompatible API, z. B.
  * «https://knoten.example/api» (Abfrage `{basis}/address/{adr}` wie bei mempool.space). Gesetzt: Bitcoin-Adressen und
- * xpub fragen nur dort, ohne Rückfall auf öffentliche Knoten (sonst sähen diese die Adressen doch); leer: wie bisher
+ * xpub fragen nur dort, ohne Rückfall auf öffentliche Knoten (sonst sähen diese die Adressen doch); leer:
  * [AddressBalance.BTC_HOSTS]. Andere Netze bleiben bei den öffentlichen Knoten: Litecoin, XRP, TON, TRON, Solana und
  * Cardano haben kein verbreitetes selbst betriebenes Standardformat in der App, und eine 0x-Adresse geht an mehrere
  * EVM-Netze (dafür bräuchte es je Netz einen eigenen Knoten).
@@ -71,12 +71,12 @@ object AddressServer {
         consentNeeded(addresses.size, addresses.count { it.isXpub }, check.kind in KEY_KINDS)
 
     /**
-     * Wert aus einer Sicherung: fehlt der Schlüssel, bleibt [current]; ungültig: bleibt [current]; leer/null löscht.
+     * Wert aus einer Sicherung: ungültig: bleibt [current]; leer/null löscht.
      * Nur eine Sicherung mit Passwort ([trusted]) ändert ihn: Eine Datei ohne Echtheitsprüfung setzt, ersetzt und
      * löscht nie (sonst gingen die Bitcoin-Adressen an einen fremden Server bzw. an öffentliche Knoten).
      */
-    fun restored(present: Boolean, value: String?, current: String?, trusted: Boolean): String? {
-        if (!present || !trusted) return current
+    fun restored(value: String?, current: String?, trusted: Boolean): String? {
+        if (!trusted) return current
         if (value.isNullOrBlank()) return null
         val c = check(value)
         return if (c.problem == null) c.url else current

@@ -175,4 +175,10 @@
     <string name="alarm_reliability_storage_no_key">백그라운드 경보 일시 중지됨 – 관심 목록이 저장되지 않음</string>
     <string name="alarms_limit_reached">거래쌍 하나에 경보는 최대 %1$s개까지 설정할 수 있습니다.</string>
     <string name="alarms_reference_rate_hint">ECB 기준 환율은 하루에 한 번만 정해지므로 경보가 없습니다.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">하락폭은 100퍼센트 미만이어야 합니다.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">기준이 올바르지 않습니다 – 조정해 주세요</string>
 </resources>

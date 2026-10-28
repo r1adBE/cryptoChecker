@@ -24,7 +24,7 @@ object BackupJournalCodec {
     fun journalJson(previous: PreviousState, createdAt: Long = System.currentTimeMillis()): JSONObject = JSONObject()
         .put("format", RestoreJournal.FORMAT)
         .put("version", RestoreJournal.VERSION)
-        // Alter des Journals für [RestoreRecoveryPolicy] (ältere Journale: Änderungszeit der Datei)
+        // Alter des Journals für [RestoreRecoveryPolicy]
         .put("createdAt", createdAt)
         .put("watches", JSONArray().apply { previous.watches.forEach { put(watchToJson(it)) } })
         .put("alarms", JSONArray().apply { previous.alarms.forEach { put(alarmToJson(it)) } })
@@ -35,25 +35,32 @@ object BackupJournalCodec {
             WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(previous.watchedAddresses.mapNotNull { it.toDomain() })).asOrgJson(),
         )
         .put("favorites", JSONObject().apply {
-            previous.favorites.forEach { (kind, items) -> put(kind.name, JSONArray(items.toList())) }
+            FavoriteKind.entries.forEach { kind -> put(kind.name, JSONArray(previous.favorites[kind].orEmpty().toList())) }
         })
         .put("settings", previous.settings)
 
-    /** Gegenstück zu [journalJson]. */
+    /**
+     * Gegenstück zu [journalJson]: gleiches Format wie eine Sicherung, jeder Teil und jedes Feld Pflicht
+     * ([BackupFields.checkParts]); sonst [IllegalArgumentException] (Journal unlesbar).
+     */
     fun previousFromJournal(root: JSONObject): PreviousState {
         require(root.optString("format") == RestoreJournal.FORMAT) { "Kein Journal" }
-        val favorites = root.optJSONObject("favorites")
+        require((root.opt("version") as? Number)?.toDouble() == RestoreJournal.VERSION.toDouble()) { "Journal-Version" }
+        BackupFields.checkParts(root)
+        val favorites = root.getJSONObject("favorites")
+        val watches = root.getJSONArray("watches")
         return PreviousState(
-            watches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }.orEmpty(),
-            alarms = root.optJSONArray("alarms")?.let(AlarmJson::parse)?.items.orEmpty(),
-            portfolio = root.optJSONArray("portfolio")?.let(PortfolioJson::parseTxs)?.items.orEmpty(),
-            portfolioAlarms = root.optJSONArray("portfolioAlarms")?.let(PortfolioJson::parseAlarms)?.items.orEmpty(),
-            watchedAddresses = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)?.asDomainJson()))
-                .map { WatchedAddressEntity.from(it) },
+            watches = (0 until watches.length()).map { jsonToWatch(watches.getJSONObject(it)) },
+            alarms = AlarmJson.parse(root.getJSONArray("alarms")).items,
+            portfolio = PortfolioJson.parseTxs(root.getJSONArray("portfolio")).items,
+            portfolioAlarms = PortfolioJson.parseAlarms(root.getJSONArray("portfolioAlarms")).items,
+            watchedAddresses = WatchedAddressRules.merge(
+                emptyList(), WatchedAddressRules.fromJson(root.getJSONArray(WatchedAddressRules.BACKUP_KEY).asDomainJson()),
+            ).map { WatchedAddressEntity.from(it) },
             favorites = FavoriteKind.entries.associateWith { kind ->
-                favorites?.optJSONArray(kind.name)?.let { arr -> (0 until arr.length()).mapNotNull { arr.opt(it) as? String }.toSet() }.orEmpty()
+                favorites.getJSONArray(kind.name).let { arr -> (0 until arr.length()).map { arr.getString(it) }.toSet() }
             },
-            settings = root.optJSONObject("settings") ?: JSONObject(),
+            settings = root.getJSONObject("settings"),
         )
     }
 

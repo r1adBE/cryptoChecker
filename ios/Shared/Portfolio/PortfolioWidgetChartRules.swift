@@ -14,7 +14,7 @@ enum PortfolioWidgetChart {
     static let maxCloseAgeDays = 1
 
     /// Anzeigewährung ein USD-Stablecoin (USDT, USDC …)? Dann fallen die drei Anzeigen auf «Nur USDT» zusammen. USD
-    /// selbst nicht mehr: USDT gilt dort seinen Marktkurs USDT/USD (`usdtFactor`) wie in jeder anderen Fiat-Währung.
+    /// selbst nicht: USDT gilt dort seinen Marktkurs USDT/USD (`usdtFactor`) wie in jeder anderen Fiat-Währung.
     /// Wie Android `collapsesToUsdt`.
     static func collapsesToUsdt(_ currency: String) -> Bool {
         let code = CurrencyConversion.normalize(currency)
@@ -146,13 +146,12 @@ enum PortfolioWidgetChart {
     static func dailyData(trades: [PortfolioTx], closes: [String: [Int: Double]],
                           ranges: [String: [Int: PortfolioDayRange]], holdings: [String: Double],
                           current: [String: Double], todayEpochDay: Int, todayUtcDay: Int,
-                          dayEndMillis: (Int) -> Int64,
                           addresses: [AddressBalanceHistory] = [],
                           method: CostMethod = .defaultMethod) -> PortfolioWidgetDailyData {
         guard !holdings.isEmpty else { return .empty }
         let usable = usableCloses(closes, todayUtcDay: todayUtcDay)
         let series = PortfolioHistory.build(trades: trades, closes: usable, livePrices: current, range: .year,
-                                            todayEpochDay: todayEpochDay, dayEndMillis: dayEndMillis, fxRate: 1,
+                                            todayEpochDay: todayEpochDay, fxRate: 1,
                                             ranges: ranges.filter { usable[$0.key] != nil }, addresses: addresses,
                                             method: method)
         let points = series.skipped.isEmpty && series.hasChart ? series.points : []

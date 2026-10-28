@@ -89,7 +89,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0xFFAFB1
         case .BLUE: 0xA8C6FD
         case .GREEN: 0x88D4AD
-        // #92CFCA wie Android zur Laufzeit (vorher #95D0CC aus einem älteren Grundton)
+        // #92CFCA wie Android zur Laufzeit
         case .MARRS_GREEN: 0x92CFCA
         }
     }

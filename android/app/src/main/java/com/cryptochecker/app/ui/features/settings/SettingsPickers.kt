@@ -193,7 +193,7 @@ internal fun AccentColorList(selected: AccentColor, onSelected: (AccentColor) ->
                         Modifier
                             .size(22.dp)
                             .clip(CircleShape)
-                            // K3: Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
+                            // Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
                             .background(accentButtonColor(accent, LocalDarkTheme.current))
                     )
                 }

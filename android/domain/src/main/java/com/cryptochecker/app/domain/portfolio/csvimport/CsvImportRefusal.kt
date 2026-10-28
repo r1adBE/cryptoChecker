@@ -2,7 +2,7 @@ package com.cryptochecker.app.domain.portfolio.csvimport
 
 /**
  * Warum der CSV-Import keine Vorschau zeigt — die Meldung nennt den Grund, statt eine zu grosse Datei als «kein
- * unterstütztes Format» abzutun (früher wurde [CsvImportResult.tooLarge] nie ausgewertet).
+ * unterstütztes Format» abzutun ([CsvImportResult.tooLarge] wird ausgewertet).
  * Spiegel: `CsvImportRefusal.swift`.
  */
 enum class CsvImportRefusal {

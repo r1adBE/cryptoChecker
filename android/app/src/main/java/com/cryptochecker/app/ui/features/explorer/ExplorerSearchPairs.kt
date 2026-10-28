@@ -126,7 +126,7 @@ internal fun PairHitRow(hit: SearchHit, search: SearchUi) {
     // Schon in der Merkliste: Häkchen statt «+» (Screenreader: «Schon in der Merkliste»)
     val watched = search.isWatched(hit)
     val action = stringResource(if (watched) R.string.a11y_in_watchlist else R.string.explorer_add_to_watchlist)
-    // EIN Fokus je Treffer: die Zeile liest Paar und Börse samt Aktion vor; «+» ist nur Bild (vorher doppelt fokussierbar)
+    // EIN Fokus je Treffer: die Zeile liest Paar und Börse samt Aktion vor; «+» ist nur Bild
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier

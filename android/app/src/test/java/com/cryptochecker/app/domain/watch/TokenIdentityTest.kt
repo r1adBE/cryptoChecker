@@ -10,7 +10,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Gleicher Token? (K-8): gemeinsame Fälle `testdata/parity/token_identity.json` (Gegenstück `Tests/TokenIdentityTests.swift`). */
+/** Gleicher Token? Gemeinsame Fälle `testdata/parity/token_identity.json` (Gegenstück `Tests/TokenIdentityTests.swift`). */
 class TokenIdentityTest {
 
     private val data = ParityJson.load("token_identity.json")

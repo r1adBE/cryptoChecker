@@ -10,7 +10,7 @@ import java.time.ZoneId
 import kotlin.random.Random
 
 /**
- * [PortfolioCostPartPool] gegen die frühere Liste der Herkunftsteile ([FormerParts]: jeder Abgang schreibt alle Teile
+ * [PortfolioCostPartPool] gegen die einfache Liste der Herkunftsteile ([ReferenceParts]: jeder Abgang schreibt alle Teile
  * neu): zufällige Folgen mit Seed aus Zugängen, Teil- und Ganz-Abgängen und Zugängen zu früheren Tagen. Gleiche Zahl
  * und Zeitpunkte der Teile, Summen exakt, Beträge bis auf die Rundung der 34. Stelle; kurze Folgen mit runden Zahlen
  * exakt gleich (wie die Paritäts-Fixtures). Dazu die Umrechnung grosser Ansichten ohne Auslesen ([weightedSum],
@@ -21,8 +21,8 @@ class PortfolioCostPartPoolTest {
     private val mc = PortfolioDecimal.MC
     private val utc: ZoneId = ZoneId.of("UTC")
 
-    /** Frühere Rechnung (Referenz): Liste, die jeder Abgang Teil für Teil neu schreibt; mit [zone] je Tag ein Teil. */
-    private class FormerParts(private val zone: ZoneId?) {
+    /** Einfache Rechnung (Referenz): Liste, die jeder Abgang Teil für Teil neu schreibt; mit [zone] je Tag ein Teil. */
+    private class ReferenceParts(private val zone: ZoneId?) {
         val parts = ArrayList<PortfolioCostPart>()
         private val dayIndex = HashMap<LocalDate, Int>()
 
@@ -63,10 +63,10 @@ class PortfolioCostPartPoolTest {
         }
     }
 
-    /** Neue gegen frühere Rechnung über [steps] zufällige Schritte; [nice]: runde Beträge und Anteile. */
+    /** Pool gegen einfache Rechnung über [steps] zufällige Schritte; [nice]: runde Beträge und Anteile. */
     private fun compare(seed: Int, steps: Int, zone: ZoneId?, nice: Boolean, exact: Boolean) {
         val rnd = Random(seed)
-        val former = FormerParts(zone)
+        val reference = ReferenceParts(zone)
         val pool = PortfolioCostPartPool(zone)
         var cost = BigDecimal.ZERO
         var time = 1_700_000_000_000L
@@ -80,13 +80,13 @@ class PortfolioCostPartPoolTest {
                     val usdt = if (nice) BigDecimal(50 * (1 + rnd.nextInt(100))) else randomAmount(rnd)
                     val at = if (zone != null && rnd.nextInt(5) == 0) time - rnd.nextLong(0, 20 * DAY) else time
                     cost += usdt
-                    former.add(at, usdt)
+                    reference.add(at, usdt)
                     pool.add(at, usdt)
                 }
                 else -> {
                     val fraction = if (nice) NICE[rnd.nextInt(NICE.size)] else randomFraction(rnd)
                     val removed = if (rnd.nextInt(30) == 0) cost else cost.multiply(fraction, mc)
-                    val expected = former.take(removed, cost)
+                    val expected = reference.take(removed, cost)
                     val actual = pool.take(removed, cost)
                     assertParts("$label Schritt $step", expected, actual, exact)
                     cost = if (removed >= cost) BigDecimal.ZERO else cost - removed
@@ -94,7 +94,7 @@ class PortfolioCostPartPoolTest {
             }
         }
         val open = pool.toList(cost)
-        assertParts("$label offen", former.parts, open, exact)
+        assertParts("$label offen", reference.parts, open, exact)
         if (open.isNotEmpty()) assertEquals("$label Summe offen", 0, open.sumOf { it.usdt }.compareTo(cost))
     }
 
@@ -117,7 +117,7 @@ class PortfolioCostPartPoolTest {
     }
 
     @Test
-    fun matchesFormerListOnRandomSequences() {
+    fun matchesReferenceListOnRandomSequences() {
         for (seed in 1..24) compare(seed, steps = 400, zone = null, nice = false, exact = false)
         for (seed in 25..48) compare(seed, steps = 400, zone = utc, nice = false, exact = false)
     }

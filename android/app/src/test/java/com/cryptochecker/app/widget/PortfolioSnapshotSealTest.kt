@@ -19,7 +19,7 @@ class PortfolioSnapshotSealTest {
 
     private fun newKey(): SecretKey = KeyGenerator.getInstance("AES").apply { init(256) }.generateKey()
 
-    private val payload = """{"total":83385.24,"currency":"CHF","positions_v2":"[{\"s\":\"BTC\",\"q\":\"1.3\"}]"}"""
+    private val payload = """{"total":83385.24,"currency":"CHF","positions":"[{\"s\":\"BTC\",\"q\":\"1.3\"}]"}"""
 
     @Test
     fun roundTrip() {

@@ -177,7 +177,7 @@ extension PriceWithQuote {
     /// Wie `PriceWithQuote`, aber als ein Text für «Zahl Währung» (`value`, z. B. «1’234.00 USDT»):
     /// die Währung am Ende (2–10 Grossbuchstaben/Ziffern, auch vor Bidi-Steuerzeichen) klein und grau wie dort (footnote,
     /// onSurfaceVariant), die Zahl bleibt in Schrift und Farbe der Ansicht. Als ein Text bricht der
-    /// Betrag bei grosser Schrift wie bisher um. Ohne Währung («—», «•••») unverändert.
+    /// Betrag bei grosser Schrift um. Ohne Währung («—», «•••») unverändert.
     /// Wie `withSmallQuote` (Android).
     static func text(_ value: String) -> Text {
         // Bidi-Steuerzeichen am Ende (Isolation) bleiben hinter der Währung

@@ -55,7 +55,7 @@ class VolumeDataSource @Inject constructor(
         }
         val result = pairCandlesOf(
             pair, price,
-            // Name des Coins an der Börse des Paars (gleicher Token, K-8) — wie der Chart
+            // Name des Coins an der Börse des Paars (gleicher Token) — wie der Chart
             identityName = tokenIdentityStore.pairName(pair.exchangeKey, pair.base),
             ownSupported = ownCandles.supports(pair, interval),
             own = { ownCandles.candles(pair, interval, limit) },
@@ -115,7 +115,7 @@ class VolumeDataSource @Inject constructor(
          * Kontrakt) und der Kurs [price] bekannt ist, die Kette [chain] — jede Reihe nur bei gleichem
          * Token ([OwnCandlePolicy.acceptsFallback]), sonst die nächste Quelle der Kette. [identityName] (Name
          * des Coins an der Börse des Paars) geht wie beim Chart an die Kette: Binance-Quellen nur ohne klaren
-         * Namens-Widerspruch ([com.cryptochecker.app.domain.watch.TokenIdentity.compatible], K-8).
+         * Namens-Widerspruch ([com.cryptochecker.app.domain.watch.TokenIdentity.compatible]).
          */
         suspend fun pairCandlesOf(
             pair: CandlePair,

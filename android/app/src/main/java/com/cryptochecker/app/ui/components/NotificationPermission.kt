@@ -169,9 +169,9 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
 }
 
 /**
- * System-Abfrage über [launcher] starten. ARC5-R01: nie auf einem abgemeldeten Launcher (Komposition schon
+ * System-Abfrage über [launcher] starten. Nie auf einem abgemeldeten Launcher (Komposition schon
  * weg) — der wirft `IllegalStateException`; dann nicht fragen, nicht abstürzen und [onLaunched] (als gefragt merken) nicht
- * aufrufen. true = gestartet. Eigene Funktion, damit ein Unit-Test sie mit einem Fake-Launcher prüft (TST6-R1).
+ * aufrufen. true = gestartet. Eigene Funktion, damit ein Unit-Test sie mit einem Fake-Launcher prüft.
  */
 // Nur ab Android 13 aufgerufen (rememberNotificationPermissionRequest prüft TIRAMISU vorher); die Konstante ist ein
 // einkompilierter String und auf älteren Versionen harmlos.

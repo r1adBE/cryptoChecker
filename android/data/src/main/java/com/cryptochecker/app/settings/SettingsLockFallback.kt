@@ -13,12 +13,12 @@ import timber.log.Timber
 import java.io.IOException
 
 /**
- * Die Portfolio-Sperre ist kein «fail-open» mehr. Früher stand sie nach einer beschädigten
- * Einstellungsdatei (ersetzt durch Standardwerte, Sperre aus) oder einem Lesefehler still auf «aus» — wer das Gerät in
- * der Hand hatte, sah das Portfolio. Jetzt gilt der Wert als unbekannt und damit als «an» ([effective]):
+ * Die Portfolio-Sperre ist kein «fail-open»: Stünde sie nach einer beschädigten Einstellungsdatei (ersetzt durch
+ * Standardwerte, Sperre aus) oder einem Lesefehler still auf «aus», sähe jeder mit dem Gerät in der Hand das
+ * Portfolio. Darum gilt der Wert dann als unbekannt und damit als «an» ([effective]):
  *  - Datei beschädigt: vorgemerkt in [StorageRecoveryNotice.recordSettingsReset] (eigene Ablage, nicht die kaputte
  *    Datei), bis der Nutzer die Sperre selbst setzt ([SettingsRepository.setAppLock] → [StorageRecoveryNotice.confirmAppLock]).
- *    Ohne Displaysperre bietet der Sperr-Zustand wie bisher an, sie nach Rückfrage auszuschalten.
+ *    Ohne Displaysperre bietet der Sperr-Zustand an, sie nach Rückfrage auszuschalten.
  *  - Lesefehler (I/O): für diesen Lesevorgang Standardwerte mit Sperre an ([unreadable]); die Datei selbst ist
  *    unverändert, der nächste lesbare Stand gilt wieder. Hinweis «Einstellungen zurückgesetzt» wie bei beschädigter Datei.
  * Gespiegelt in iOS `SharedStorage.LoadedSettings.appLockAssumed` und `AppData.settingsWereReset`.

@@ -49,11 +49,11 @@ final class PortfolioStoredFieldsTests: XCTestCase {
         linked.linkedImportKey = "COINBASE|D"
         linked.importRestoreState = try XCTUnwrap(CsvRestoreState.from(json: stateJSON))
         linked.importBatch = "COINBASE:1729100000000:1b2c3d4e"
-        XCTAssertEqual(BackupManager.jsonToTx(BackupManager.txToJson(linked)), linked)
+        XCTAssertEqual(try BackupManager.jsonToTx(BackupManager.txToJson(linked)), linked)
         XCTAssertEqual(try JSONDecoder().decode(PortfolioTx.self, from: JSONEncoder().encode(linked)), linked)
         var orphan = BackupManager.txToJson(linked)
         orphan["importKey"] = NSNull()
-        let restoredOrphan = try XCTUnwrap(BackupManager.jsonToTx(orphan))
+        let restoredOrphan = try XCTUnwrap(try BackupManager.jsonToTx(orphan))
         XCTAssertNil(restoredOrphan.linkedImportKey)
         XCTAssertNil(restoredOrphan.importRestoreState)
     }

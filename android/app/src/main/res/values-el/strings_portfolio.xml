@@ -315,4 +315,10 @@
         <item quantity="other">Αφαιρούνται επίσης %d παρτίδες και το ιστορικό υπολοίπου.</item>
     </plurals>
     <string name="portfolio_address_remove_history">Αφαιρείται επίσης το ιστορικό υπολοίπου.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Δεν ήταν δυνατή η αποθήκευση – δοκίμασε ξανά</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Μη έγκυρο όριο – διάγραψέ τον και δημιούργησέ τον ξανά</string>
 </resources>

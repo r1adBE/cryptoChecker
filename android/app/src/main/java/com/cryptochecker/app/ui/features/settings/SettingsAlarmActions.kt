@@ -14,17 +14,17 @@ import com.cryptochecker.app.notification.alarmChannel
 
 /**
  * Kursmitteilung eines Paars an/aus — wie der Schalter im Aktionsblatt (`WatchlistViewModel.setNotificationEnabled`).
- * UX4-R3: [onDone] nach dem Schreiben, true = geschrieben (erst dann die Erlaubnis fragen).
+ * [onDone] nach dem Schreiben, true = geschrieben (erst dann die Erlaubnis fragen).
  */
 fun SettingsViewModel.setPairNotification(watchId: Long, enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
-    // Rückfrage F-08 vorher; «Abbrechen» = nichts
+    // Rückfrage «nicht gespeichert» vorher; «Abbrechen» = nichts
     viewModelScope.launch { onDone(watchRepository.confirmUserWrite() && applyPairNotification(watchId, enabled)) }
 }
 
 /** «Alle an» / «Alle aus» für alle Paare der Merkliste; [onDone] wie bei [setPairNotification] (mindestens eins geschrieben). */
 fun SettingsViewModel.setAllPairNotifications(enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
     viewModelScope.launch {
-        // EINE Rückfrage F-08 für alle Paare (nicht je Paar); «Abbrechen» = nichts
+        // EINE Rückfrage «nicht gespeichert» für alle Paare (nicht je Paar); «Abbrechen» = nichts
         if (!watchRepository.confirmUserWrite()) return@launch onDone(false)
         onDone(watchRepository.getWatches().filter { it.notificationEnabled != enabled }
             .count { applyPairNotification(it.id, enabled) } > 0)

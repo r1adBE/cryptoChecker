@@ -5,7 +5,7 @@ import XCTest
 
 /// Verschlüsselte Dateien: Format (`ProtectedContainer`), Lesen und Schreiben (`ProtectedFile`) und die
 /// Überführung beim Start (`ProtectedStorage.prepareAtLaunch`) mit gefälschtem Schlüsselbund — jeder Fehler lässt die
-/// Klartext-Datei stehen. Gegenstück zu `DatabaseOpenPlannerTest.kt` (Android, Datenbanken). Läuft in einem
+/// Klartext-Datei stehen. Nur iOS (Android überführt keinen Klartext). Läuft in einem
 /// temporären Ordner, nie auf der App Group oder dem echten Schlüsselbund.
 final class ProtectedFileTests: XCTestCase {
 

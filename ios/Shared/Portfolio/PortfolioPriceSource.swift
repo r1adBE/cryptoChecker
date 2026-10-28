@@ -78,7 +78,7 @@ enum PortfolioPriceSource {
                 Self.isSymbol(coin) && coin != Self.stable && (force || !Self.isFresh(coin, now: now))
             }
             guard !toFetch.isEmpty else { return }
-            // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); ohne Namen nur bei eindeutigem
+            // Binance-Ticker nur für denselben Token (Namen der Merkliste); ohne Namen nur bei eindeutigem
             // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»; mehrdeutig laut anderen
             // Paarlisten: Binance-Kurs, aber «Kurs ungeprüft»
             let identity = TokenIdentityStore.shared

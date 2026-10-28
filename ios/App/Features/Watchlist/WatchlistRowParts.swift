@@ -28,7 +28,7 @@ extension WatchlistRow {
     }
 
     private var pairName: some View {
-        // Deaktiviert: onSurfaceVariant statt abgeblasst (Kontrast AA, L-13)
+        // Deaktiviert: onSurfaceVariant statt abgeblasst (Kontrast AA)
         let base = Text(watch.baseAsset)
             .font(.headline)
             .foregroundStyle(off ? AppColors.onSurfaceVariant : AppColors.onSurface)
@@ -107,7 +107,7 @@ extension WatchlistRow {
                 AssetKindIconView(kind: kind)
                     .foregroundStyle(highlight.highlights(kind) ? accent.primary : AppColors.onSurfaceVariant)
                     .opacity(iconOpacity)
-                // Kursmitteilung (Entscheid 16. Oktober 2026, wieder in der Zeile): schlichte Glocke = an,
+                // Kursmitteilung in der Zeile: schlichte Glocke = an,
                 // durchgestrichene = aus (Paar aus oder Hauptschalter aus). Danach die Alarmglocke (mit Wellen),
                 // nur bei mind. einem aktiven Alarm — wie Android
                 let priceOn: Bool = A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,

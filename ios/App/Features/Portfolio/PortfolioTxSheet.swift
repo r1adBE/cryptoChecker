@@ -31,7 +31,7 @@ struct PortfolioTxSheet: View {
     /// Einzahlung: ursprüngliches Kaufdatum (optional, ≤ Datum der Einzahlung) für die Haltedauer im Steuer-Export.
     @State var acquiredDate: Date?
     @State var note: String
-    // Gebühr und Börse (D1): zugeklappt, ausser beim Bearbeiten mit Angaben
+    // Gebühr und Börse: zugeklappt, ausser beim Bearbeiten mit Angaben
     @State var feeText: String
     @State var feeUnit: PortfolioFeeUnit
     @State var exchange: String
@@ -54,7 +54,7 @@ struct PortfolioTxSheet: View {
     @State var toCoinQuery: String
     @State var toAmountText: String
     @State var swapValueText: String
-    // K-2: Preis/Wert in der Anzeigewährung eingeben (gespeichert wird immer USDT, umgerechnet mit dem Tageskurs)
+    // Preis/Wert in der Anzeigewährung eingeben (gespeichert wird immer USDT, umgerechnet mit dem Tageskurs)
     @State var entryFiat = false
     /// Umschalten auf die Anzeigewährung: Felder (noch USDT) umrechnen, sobald der Kurs da ist.
     @State var pendingToFiat = false
@@ -83,7 +83,7 @@ struct PortfolioTxSheet: View {
         case toCoin, toAmount, swapValue
     }
 
-    /// Laden des Devisenkurses für die Eingabe in der Anzeigewährung (K-2).
+    /// Laden des Devisenkurses für die Eingabe in der Anzeigewährung.
     enum EntryFxState { case loading, ready, failed }
 
     init(initial: PortfolioTxDraft, onAskEnablePortfolio: @escaping () -> Void = {}) {
@@ -146,7 +146,7 @@ struct PortfolioTxSheet: View {
     }
     var fields: PortfolioTxForm.Fields { PortfolioTxForm.fields(type) }
     var isSwap: Bool { type == .SWAP }
-    // K-2: Eingabe in der Anzeigewährung — nur mit Preis-/Wertfeld und nicht für USD (USDT gilt als USD)
+    // Eingabe in der Anzeigewährung — nur mit Preis-/Wertfeld und nicht für USD (USDT gilt als USD)
     var currency: String { data.settings.portfolioCurrency }
     var entryKey: String { "\(currency)|\(CutoffDay(date).iso)" }
     private var fiatPossible: Bool { currency != "USD" && (fields.price || isSwap) }
@@ -270,7 +270,7 @@ struct PortfolioTxSheet: View {
                         acquiredRow
                     }
                     amountField
-                    // Tausch: erhaltener Coin und Menge; K-2: Preis/Wert in USDT oder in der Anzeigewährung
+                    // Tausch: erhaltener Coin und Menge; Preis/Wert in USDT oder in der Anzeigewährung
                     Group {
                         if isSwap {
                             swapReceivedFields
@@ -291,7 +291,7 @@ struct PortfolioTxSheet: View {
                             template: data.settings.taxTemplate, decimalSeparator: decimalSeparator, priceText: $priceText, priceHint: $priceHint,
                             priceAuto: $priceAuto, priceHistoricDay: $priceHistoricDay)
                     }
-                    // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026) — wie Android
+                    // Notiz direkt unter dem Preis, bei allen Arten — wie Android
                     noteField
                     // Verschenkt an Ehe-/Lebenspartner: UK/CA ohne Gewinn und Verlust (`TaxTemplate.spouseGiftNeutral`)
                     if type == .GIFT {
@@ -354,7 +354,7 @@ struct PortfolioTxSheet: View {
         .task(id: feeCoinSymbol) { await prefillFeeCoinPrice() }
         // Vorbelegter heutiger Kurs gilt nur für heute: anderer Tag → leeren, zurück auf heute → wieder vorbelegen
         .onChange(of: date) { _, _ in applyDateChange() }
-        // K-2: Tageskurs USD → Anzeigewährung für das Datum (heute: aktueller Kurs), nur in der Anzeigewährung
+        // Tageskurs USD → Anzeigewährung für das Datum (heute: aktueller Kurs), nur in der Anzeigewährung
         .task(id: "\(entryKey)|\(entryFiat)") { await loadEntryFx() }
         .alert(L("portfolio_tx_save_failed"), isPresented: $saveFailed) {
             Button(L("action_close"), role: .cancel) {}

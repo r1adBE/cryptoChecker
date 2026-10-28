@@ -93,4 +93,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">רישום staking ללא רישום נגדי – לבדוק את היתרה</string>
     <string name="portfolio_csv_skip_amount_too_small">הכמות קטנה מדי – תהיה 0 בשמירה</string>
     <string name="portfolio_csv_skip_invalid_swap">החלפה בלי מטבע או כמות תקינים שהתקבלו</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">הקובץ נקרא מחדש …</string>
 </resources>

@@ -20,7 +20,7 @@ extension PortfolioTotalCard {
         }
         // Kursquelle: steht sie schon auf der Karte, nicht noch einmal unter «Hinweise»
         if usdtNote?.kind != .PRICE_SOURCE { items.append(HintItem(text: priceSourceText)) }
-        // G-9: Modell nahe an der Zahl, nicht nur im (i); Ø ist eine bewusste Wahl: kein Hinweis «nicht FIFO»
+        // Modell nahe an der Zahl, nicht nur im (i); Ø ist eine bewusste Wahl: kein Hinweis «nicht FIFO»
         if summary.unrealized != nil, summary.method.isFifo {
             items.append(HintItem(text: L("ledger_fifo_cost_note")))
         }
@@ -32,7 +32,7 @@ extension PortfolioTotalCard {
             }
             if costFx?.usdtApproximate == true { items.append(HintItem(text: L("ledger_cost_fx_usdt_assumed"))) }
         }
-        // Was im Gewinn seit Kauf fehlt (M3: nur diese Coins, nicht das ganze Portfolio)
+        // Was im Gewinn seit Kauf fehlt (nur diese Coins, nicht das ganze Portfolio)
         if !summary.missingCostCoins.isEmpty {
             let count: Int = summary.missingCostCoins.count
             // Antippen: Einträge ohne Einstand
@@ -87,7 +87,7 @@ extension PortfolioTotalCard {
         return items
     }
 
-    /// Bereich «Hinweise» unter der Karte (L-15), zugeklappt: eine Zeile «Hinweise (n)» mit Pfeil
+    /// Bereich «Hinweise» unter der Karte, zugeklappt: eine Zeile «Hinweise (n)» mit Pfeil
     /// (44 pt hoch, Fehlerfarbe, wenn eine Zeile ein Fehler ist); offen die Zeilen eng untereinander
     /// (`.subheadline`), eingerückt wie der Inhalt der Karte — wie Android `TotalCardHints`.
     @ViewBuilder

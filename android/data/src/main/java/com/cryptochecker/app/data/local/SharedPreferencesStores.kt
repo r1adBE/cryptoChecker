@@ -6,7 +6,7 @@ import androidx.core.content.edit
 import com.cryptochecker.app.util.KeyValueStore
 import com.cryptochecker.app.util.KeyValueStores
 
-/** [KeyValueStores] mit SharedPreferences (privat, Dateiname = Name): dieselben Dateien wie bisher. */
+/** [KeyValueStores] mit SharedPreferences (privat, Dateiname = Name). */
 class SharedPreferencesStores(context: Context) : KeyValueStores {
     private val app = context.applicationContext
 

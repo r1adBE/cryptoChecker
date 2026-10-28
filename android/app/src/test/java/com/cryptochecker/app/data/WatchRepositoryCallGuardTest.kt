@@ -7,15 +7,15 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Review TST4-01, F-08: Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei. Die
+ * Rückfrage «nicht gespeichert» je AUFRUF statt je Datei. Die
  * Schreibwege des Nutzers kommen aus dem Repository (Funktionen, deren Rumpf `userWriteRefused(` enthält, plus
  * Weiterleitungen darauf); jeder Aufruf ausserhalb von `data/` (Oberfläche, Mitteilungen, Widgets …) liegt in einer Funktion,
  * die vorher [confirmUserWrite] fragt (Block noch offen) bzw. im Block von `launchWrite { … }`. Ein Hilfsweg ohne eigene
  * Frage (z. B. `deleteSnapshots`) gilt, wenn jeder seiner Aufrufer fragt. Gegenwart siehe [WatchRepositoryLockTest].
- * Review TST5-R2: Die Richtung der Bedingung zählt — nur die im Code benutzten Formen ([consentCovers]); ein Schreibweg im
+ * Die Richtung der Bedingung zählt — nur die im Code benutzten Formen ([consentCovers]); ein Schreibweg im
  * Ablehnungszweig (`if (!confirmUserWrite()) { write() }`, `if (confirmUserWrite()) 0 else write()`) ist ein Befund.
- * Review ARC7-01: auch der Rest der Bedingung zählt (`if (!c && flag) return`, `if (c || flag) write()` sind Befunde).
- * Review ARC7-02: Die Zustimmung gilt nur für die Coroutine der Aktion samt Kindern (`WatchlistNotSavedGate`). Ein
+ * Auch der Rest der Bedingung zählt (`if (!c && flag) return`, `if (c || flag) write()` sind Befunde).
+ * Die Zustimmung gilt nur für die Coroutine der Aktion samt Kindern (`WatchlistNotSavedGate`). Ein
  * Schreibweg in einem Block `x.launch { … }`/`x.async { … }` mit Empfänger (anderer Scope, `GlobalScope`,
  * `CoroutineScope(…)`, auch erneut `viewModelScope`), der NACH der Zustimmung beginnt, ist losgelöst und ein Befund
  * ([escapes]); Kind-Coroutinen (`launch { … }` ohne Empfänger, `withContext`) bleiben erlaubt.
@@ -53,7 +53,7 @@ class WatchRepositoryCallGuardTest {
         val result = check(sources, paths.first)
         assertTrue("zu wenige Aufrufe gefunden (${result.calls}) — Scan defekt?", result.calls >= 20)
         assertEquals("Ausnahmeliste veraltet", SYSTEM_CALLS.toSet(), result.exempted)
-        assertTrue("Schreibweg ohne Rückfrage F-08 davor:\n" + result.problems.joinToString("\n"), result.problems.isEmpty())
+        assertTrue("Schreibweg ohne Rückfrage «nicht gespeichert» davor:\n" + result.problems.joinToString("\n"), result.problems.isEmpty())
         // Jedes launchWrite fragt selbst und führt seinen Block nur nach der Zustimmung aus
         var launchWrites = 0
         for ((file, text) in sources) {
@@ -64,10 +64,10 @@ class WatchRepositoryCallGuardTest {
     }
 
     /**
-     * Review TST5-R2: Gegenprobe zur Richtung der Bedingung. Alle im Code benutzten Formen bestehen; Schreibwege im
+     * Gegenprobe zur Richtung der Bedingung. Alle im Code benutzten Formen bestehen; Schreibwege im
      * Ablehnungszweig, nach einem Zweig ohne `return`, hinter unbenutztem Ergebnis, nach `||` einer positiven Zustimmung
      * oder hinter `!c &&` sind Befunde. Ebenso ein `launchWrite`, das seinen Block im Ablehnungszweig ausführt.
-     * ARC7-01: Rest der Bedingung — `!c && flag` vor `return`, `c || flag` und `c && flag || x` sind Befunde.
+     * Rest der Bedingung — `!c && flag` vor `return`, `c || flag` und `c && flag || x` sind Befunde.
      */
     @Test
     fun conditionDirectionIsChecked() {
@@ -157,7 +157,7 @@ class WatchRepositoryCallGuardTest {
     }
 
     /**
-     * Review ARC7-02: Gegenprobe zum Ausweichen in eine losgelöste Coroutine. Kind-Coroutinen und ein geschlossener Block
+     * Gegenprobe zum Ausweichen in eine losgelöste Coroutine. Kind-Coroutinen und ein geschlossener Block
      * davor bestehen; ein Schreibweg in `x.launch`/`x.async` mit Empfänger nach der Zustimmung (anderer Scope, erneut
      * `viewModelScope`, `GlobalScope`, `CoroutineScope(…)`, im Block von `launchWrite`, über einen Hilfsweg) ist ein Befund.
      */
@@ -381,7 +381,7 @@ class WatchRepositoryCallGuardTest {
 
     private fun asksBefore(text: String, from: Int, pos: Int): Boolean {
         val part = text.substring(from, pos)
-        // confirmUserWrite(): nur im Zweig nach der Zustimmung (TST5-R2)
+        // confirmUserWrite(): nur im Zweig nach der Zustimmung
         val consent = CONFIRM.findAll(part).any {
             val end = from + it.range.last + 1
             consentCovers(text, from + it.range.first, end, pos) && !escapes(text, end, pos)
@@ -394,7 +394,7 @@ class WatchRepositoryCallGuardTest {
                 at = matching(text, at, '(', ')') + 1
                 while (text[at].isWhitespace()) at++
             }
-            // TST5-R1: Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
+            // Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
             text[at] == '{' && at < pos && neverBelow(text, at + 1, pos, 1, start = 1) && !escapes(text, at + 1, pos)
         }
     }
@@ -413,12 +413,12 @@ class WatchRepositoryCallGuardTest {
 
     /**
      * Liegt [pos] im Zweig NACH der Zustimmung des Aufrufs `confirmUserWrite()` ([start] bis [end])? Nur die im Code
-     * benutzten Formen (TST5-R2):
+     * benutzten Formen:
      * - `if (!c) return…` bzw. `if (!c) { …; return… }`: danach im selben Block, auch im `else`-Zweig;
      * - `if (!c || write()) return…`: im Rest der Bedingung; `if (!c) 0 else write()`: im `else`-Zweig;
      * - `if (c) write() else …`: im Rest der Bedingung nach `&&` und im then-Zweig;
      * - `f(c && write())`: im Rest des Ausdrucks.
-     * ARC7-01: Der Rest der Bedingung muss passen — verneint leer oder `|| …`, positiv leer oder `&& …` ohne `||`.
+     * Der Rest der Bedingung muss passen — verneint leer oder `|| …`, positiv leer oder `&& …` ohne `||`.
      * Alles andere zählt nicht (Ablehnungszweig, Zweig ohne `return`, unbenutztes Ergebnis, `||` nach positiver Zustimmung).
      */
     private fun consentCovers(text: String, start: Int, end: Int, pos: Int): Boolean {
@@ -434,7 +434,7 @@ class WatchRepositoryCallGuardTest {
         val condOpen = text.indexOf('(', window + head.range.first)
         val condClose = matching(text, condOpen, '(', ')')
         val restAt = skipWs(text, end)
-        // ARC7-01: verneint nur `|| …` (Ablehnung genügt fürs `return`), positiv nur `&& …` ohne `||` auf oberster Ebene
+        // Verneint nur `|| …` (Ablehnung genügt fürs `return`), positiv nur `&& …` ohne `||` auf oberster Ebene
         if (pos < condClose) return if (negated) text.startsWith("||", restAt)
         else text.startsWith("&&", restAt) && !hasTopLevelOr(text, restAt, pos)
         val restOk = when {
@@ -462,7 +462,7 @@ class WatchRepositoryCallGuardTest {
     }
 
     /**
-     * ARC7-02: Beginnt zwischen der Zustimmung ([from]) und dem Schreibweg ([pos]) ein Block `x.launch { … }` bzw.
+     * Beginnt zwischen der Zustimmung ([from]) und dem Schreibweg ([pos]) ein Block `x.launch { … }` bzw.
      * `x.async { … }` mit Empfänger, der [pos] noch umschliesst? Dann läuft der Schreibweg losgelöst von der Coroutine der
      * Aktion (ihre Zustimmung gilt dort nicht). Geschlossene Blöcke davor zählen nicht.
      */
@@ -551,7 +551,7 @@ class WatchRepositoryCallGuardTest {
         val IF_HEAD = Regex("""\bif\s*\(\s*(!\s*)?(?:\w+\s*\??\.\s*)?$""")
         val NEGATED = Regex("""!\s*(?:\w+\s*\??\.\s*)?$""")
         val BLOCK_CALL = Regex("""(?<![\w.])block\(""")
-        /** ARC7-02: neue Coroutine mit Empfänger (`appScope.launch(…) {`, `GlobalScope.async {`, `CoroutineScope(…).launch {`). */
+        /** Neue Coroutine mit Empfänger (`appScope.launch(…) {`, `GlobalScope.async {`, `CoroutineScope(…).launch {`). */
         val ESCAPE = Regex("""(?:\b\w+|\))\s*\??\.\s*(?:launch|async)\s*([({])""")
         val LAUNCH_WRITE = Regex("""(?<!fun )\blaunchWrite\s*([({])""")
     }

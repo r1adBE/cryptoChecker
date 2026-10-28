@@ -12,7 +12,7 @@ object ListWidgetHeader {
 
     /**
      * Feste Breiten (dp, widget_list.xml): Rand 2 × 8, Kopfzeile innen 4 + 0, Logo 18 + 4,
-     * Abstand Titel → Uhrzeit 4, Uhrzeit-Rand rechts 4, Aktualisieren-Knopf 48 (Tippfläche; Summe wie früher 2 + 44).
+     * Abstand Titel → Uhrzeit 4, Uhrzeit-Rand rechts 4, Aktualisieren-Knopf 48 (Tippfläche).
      */
     const val FIXED_DP = 2 * 8f + 4f + 0f + 18f + 4f + 4f + 4f + 48f
 

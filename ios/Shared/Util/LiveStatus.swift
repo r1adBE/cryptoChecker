@@ -1,6 +1,6 @@
 import Foundation
 
-/// «Live» muss stimmen (K-1): Frische-Schwelle je Paar und das Wort «Live» in der Status-Pille —
+/// «Live» muss stimmen: Frische-Schwelle je Paar und das Wort «Live» in der Status-Pille —
 /// wie `LiveStatus.kt`.
 ///
 ///  - Paar am Live-Strom (seine Börse liefert gerade per WebSocket Kurse, nur bei «Live, solange

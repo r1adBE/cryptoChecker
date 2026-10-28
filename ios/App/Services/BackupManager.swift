@@ -56,7 +56,7 @@ enum BackupManager {
     // MARK: Sichern
 
     /// Sicherung als Datei; mit `password` verschlüsselt (`BackupCrypto`, gleiches Format wie
-    /// unter Android), sonst wie bisher als lesbares JSON. Die App nimmt den Weg über
+    /// unter Android), sonst als lesbares JSON. Die App nimmt den Weg über
     /// `plainExportData` + `encryptedFile` (Schlüsselableitung im Hintergrund).
     @MainActor
     static func exportData(_ data: AppData, password: String?) throws -> Data {
@@ -104,7 +104,7 @@ enum BackupManager {
             "settings": settingsJson(data.settings),
             // Neueste zuerst — wie `portfolioDao.getAll()`
             "portfolio": data.portfolio.map(txToJson),
-            // Alarme «Portfolio-Wert» (Runde 28), nach Id — wie Android
+            // Alarme «Portfolio-Wert», nach Id — wie Android
             "portfolioAlarms": data.portfolioAlarms.map(portfolioAlarmToJson),
             // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
             WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(data.watchedAddresses)),
@@ -112,8 +112,8 @@ enum BackupManager {
         return try encode(root)
     }
 
-    /// Kompakt (ältere Versionen schrieben `.prettyPrinted`, gut ein Drittel grösser); das Einlesen nimmt beides.
-    /// Sortierte Schlüssel wie bisher: gleicher Stand ergibt dieselbe Datei.
+    /// Kompakt (`.prettyPrinted` wäre gut ein Drittel grösser); das Einlesen nimmt beides.
+    /// Sortierte Schlüssel: gleicher Stand ergibt dieselbe Datei.
     static func encode(_ root: [String: Any]) throws -> Data {
         try JSONSerialization.data(withJSONObject: root, options: [.sortedKeys])
     }
@@ -125,7 +125,7 @@ enum BackupManager {
     static func needsPassword(_ file: Data) throws -> Bool {
         try BackupLimits.checkDepth(file)
         guard let root = try JSONSerialization.jsonObject(with: file) as? [String: Any] else { throw Failure.notABackup }
-        // Verschlüsselt: eigenes «format» (cryptochecker-backup-enc), ältere Versionen lehnen sie ab
+        // Verschlüsselt: eigenes «format» (cryptochecker-backup-enc)
         if BackupCrypto.isEnvelope(root) { return true }
         guard root["format"] as? String == format else { throw Failure.notABackup }
         return false
@@ -168,10 +168,10 @@ enum BackupManager {
         else { throw Failure.notABackup }
         // Neuere Version: schon vor der Rückfrage ablehnen (klare Meldung, nichts übernommen)
         _ = try BackupVersion.check(root["version"])
-        // Unlesbares Paar: hier nichts über die Grenzen sagen — das Wiederherstellen lehnt die Datei danach ohnehin ab
-        let watchlist = try? restoredWatchlist(root)
-        return RestorePreview(invalid: parsedAlarms(root).invalid + parsedPortfolio(root).invalid + parsedPortfolioAlarms(root).invalid,
-                              droppedPairs: watchlist?.droppedPairs ?? 0, droppedAlarms: watchlist?.droppedAlarms ?? 0)
+        try BackupFields.checkParts(root)
+        let watchlist = try restoredWatchlist(root)
+        let invalid = try parsedAlarms(root).invalid + parsedPortfolio(root).invalid + parsedPortfolioAlarms(root).invalid
+        return RestorePreview(invalid: invalid, droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms)
     }
 
     /// Was eine Wiederherstellung übernommen hat (wie Android `RestoreResult`); `appLockKept` = eine Sicherung ohne
@@ -197,18 +197,32 @@ enum BackupManager {
         _ = try BackupVersion.check(root["version"])
     }
 
-    /// Transaktionen der Sicherung; nil = Sicherung ohne Portfolio. Ungültige werden gezählt.
-    private static func parsedPortfolio(_ root: [String: Any]) -> (items: [PortfolioTx]?, invalid: Int) {
-        guard let list = root["portfolio"] as? [Any] else { return (nil, 0) }
-        let items = list.compactMap { ($0 as? [String: Any]).flatMap(jsonToTx) }
+    /// Teil `key` der Sicherung mit Typ `T`; fehlt er oder hat er einen anderen Typ: `Failure.invalid`.
+    static func part<T>(_ root: [String: Any], _ key: String) throws -> T {
+        guard let value = root[key] as? T else { throw Failure.invalid(key) }
+        return value
+    }
+
+    /// Einträge der Liste `key`, gelesen mit `read` (Felder geprüft, `BackupFields`); nil = ungültig, wird gezählt.
+    static func parsedEntries<T>(_ root: [String: Any], _ key: String,
+                                 _ read: ([String: Any]) throws -> T?) throws -> (items: [T], invalid: Int) {
+        let list: [Any] = try part(root, key)
+        var items: [T] = []
+        for item in list {
+            guard let o = item as? [String: Any] else { throw Failure.invalid(key) }
+            if let value = try read(o) { items.append(value) }
+        }
         return (items, list.count - items.count)
     }
 
-    /// Portfolio-Alarme der Sicherung; nil = ohne. Ungültige werden gezählt.
-    private static func parsedPortfolioAlarms(_ root: [String: Any]) -> (items: [PortfolioAlarm]?, invalid: Int) {
-        guard let list = root["portfolioAlarms"] as? [Any] else { return (nil, 0) }
-        let items = list.compactMap { ($0 as? [String: Any]).flatMap(jsonToPortfolioAlarm) }
-        return (items, list.count - items.count)
+    /// Transaktionen der Sicherung. Ungültige werden gezählt.
+    private static func parsedPortfolio(_ root: [String: Any]) throws -> (items: [PortfolioTx], invalid: Int) {
+        try parsedEntries(root, "portfolio", jsonToTx)
+    }
+
+    /// Portfolio-Alarme der Sicherung. Ungültige werden gezählt.
+    private static func parsedPortfolioAlarms(_ root: [String: Any]) throws -> (items: [PortfolioAlarm], invalid: Int) {
+        try parsedEntries(root, "portfolioAlarms", jsonToPortfolioAlarm)
     }
 
     /// Ersetzt Merkliste, Alarme, Favoriten und Einstellungen durch die Sicherung.
@@ -229,6 +243,7 @@ enum BackupManager {
         else { throw Failure.notABackup }
         // Sicherung einer neueren App-Version: ganz ablehnen, bevor etwas gelesen oder ersetzt wird
         _ = try BackupVersion.check(root["version"])
+        try BackupFields.checkParts(root)
 
         // Merkliste und Alarme lesen, bereinigen und begrenzen (`restoredWatchlist`, wie Android): Paare mit unzulässigen
         // Kennungen und über den Grenzen fallen weg, gezählt für die Erfolgsmeldung
@@ -236,33 +251,29 @@ enum BackupManager {
         let watches = watchlist.watches
         let alarms = watchlist.alarms
 
+        // Je Art eine Liste von Texten (`BackupFields.checkParts`)
         var favorites: [FavoriteKind: Set<String>] = [:]
-        if let fav = root["favorites"] as? [String: Any] {
-            for kind in FavoriteKind.allCases {
-                if let arr = fav[kind.rawValue] as? [Any] {
-                    favorites[kind] = Set(arr.compactMap { $0 as? String })
-                }
-            }
+        let fav: [String: Any] = try part(root, "favorites")
+        for kind in FavoriteKind.allCases {
+            let list: [String] = try part(fav, kind.rawValue)
+            favorites[kind] = Set(list)
         }
 
-        let settingsJson = root["settings"] as? [String: Any]
-        var newSettings = settingsJson.map { applySettings($0, onto: data.settings, trusted: encrypted) }
+        let settingsJson: [String: Any] = try part(root, "settings")
+        var newSettings = try applySettings(settingsJson, onto: data.settings, trusted: encrypted)
         // Portfolio-Sperre: ohne Passwort keine Echtheitsprüfung — nie ausschalten, solange sie an ist
-        let lock = BackupRestorePolicy.appLock(wanted: settingsJson.flatMap { bool($0, "appLock") },
+        let lock = BackupRestorePolicy.appLock(wanted: try part(settingsJson, "appLock"),
                                                current: data.settings.appLock, encrypted: encrypted,
                                                canAuthenticate: AppLock.canAuthenticate())
-        if let v = lock.apply { newSettings?.appLock = v }
+        if let v = lock.apply { newSettings.appLock = v }
         // Eigener Bitcoin-Server: Hinweis in der Meldung (nicht übernommen, entfernt oder ersetzt)
-        let serverNote = settingsJson.flatMap { o in
-            BackupRestorePolicy.addressServerNote(present: o["addressServerBtc"] != nil, value: string(o, "addressServerBtc"),
-                                                  current: data.settings.addressServerBtc, trusted: encrypted)
-        }
+        let serverNote = BackupRestorePolicy.addressServerNote(
+            value: settingsJson["addressServerBtc"] as? String,
+            current: data.settings.addressServerBtc, trusted: encrypted)
 
-        // Ältere Sicherungen haben noch kein Portfolio: dann bleibt das bestehende stehen.
         // Ungültige Einträge nur mit Bestätigung weglassen (nie still)
-        let parsedTx = parsedPortfolio(root)
-        // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen
-        let parsedPfAlarms = parsedPortfolioAlarms(root)
+        let parsedTx = try parsedPortfolio(root)
+        let parsedPfAlarms = try parsedPortfolioAlarms(root)
         let invalid = watchlist.invalidAlarms + parsedTx.invalid + parsedPfAlarms.invalid
         if invalid > acceptInvalid { throw Failure.unconfirmedInvalid(invalid) }
         let portfolio = parsedTx.items
@@ -273,15 +284,13 @@ enum BackupManager {
         snapshot.watches = watches
         snapshot.alarms = alarms
         // Wiederhergestellte Portfolio-Alarme sind scharf und ohne letzte Meldung
-        snapshot.portfolioAlarms = portfolioAlarms.map { list in
-            list.map { a in
-                var copy = a
-                copy.referenceAt = 0
-                copy.lastTriggeredAt = 0
-                copy.lastTriggeredValue = nil
-                return copy
-            }
-        } ?? old.portfolioAlarms
+        snapshot.portfolioAlarms = portfolioAlarms.map { a in
+            var copy = a
+            copy.referenceAt = 0
+            copy.lastTriggeredAt = 0
+            copy.lastTriggeredValue = nil
+            return copy
+        }
         // Ids nie wiederverwenden: über dem bisherigen Zähler und über allen neuen ids
         // (`nextId` ohne Überlauf — eine id Int64.max aus der Datei brach mit «max + 1» ab)
         snapshot.nextPortfolioAlarmId = SharedStorage.nextId(stored: old.nextPortfolioAlarmId ?? 1,
@@ -298,7 +307,7 @@ enum BackupManager {
         let oldWatched = data.currentWatchedAddressFile()
         // Unlesbare Datei: Rückrollen legt sie unverändert zurück statt den leeren Stand zu schreiben
         let oldWatchedIntact = data.watchedAddressIntact
-        let watched = watchedEntries(root)
+        let watched = try watchedEntries(root)
 
         // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android).
         // Nie ohne: ein mittendrin beendeter Lauf liesse sonst einen halben Stand ohne Rückweg
@@ -307,7 +316,7 @@ enum BackupManager {
         do {
             steps.run({
                 data.replaceAll(snapshot: snapshot, settings: newSettings, favorites: favorites)
-                restoreColumnSort(root["settings"] as? [String: Any])
+                restoreColumnSort(settingsJson)
             }, undo: {
                 data.replaceAll(snapshot: old, settings: oldSettings, favorites: oldFavorites)
                 if let oldColumnSort {
@@ -321,13 +330,10 @@ enum BackupManager {
             try steps.run({
                 guard data.restorePortfolio(portfolio) else { throw Failure.invalid("portfolio") }
             }, undo: { _ = data.rollBackPortfolioFile(oldPortfolio) })
-            // Fehlt der Schlüssel (ältere Sicherung), bleiben die bestehenden Adressen stehen.
-            // Sonst ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
-            if let watched {
-                try steps.run({
-                    guard data.replaceWatchedAddresses(watched) != nil else { throw Failure.invalid(WatchedAddressRules.backupKey) }
-                }, undo: { data.rollBackWatchedAddresses(oldWatched, wasIntact: oldWatchedIntact) })
-            }
+            // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
+            try steps.run({
+                guard data.replaceWatchedAddresses(watched) != nil else { throw Failure.invalid(WatchedAddressRules.backupKey) }
+            }, undo: { data.rollBackWatchedAddresses(oldWatched, wasIntact: oldWatchedIntact) })
         } catch {
             steps.rollBack()
             if journal { RestoreJournal.delete() }
@@ -343,7 +349,7 @@ enum BackupManager {
         // Alarme ersetzt (Ids der Sicherung können sich mit bisherigen decken) — alte Vermerke
         // «wird gemeldet» gelten nicht mehr (wie Android)
         AlarmDelivery.pairs.removeAll()
-        if portfolioAlarms != nil { AlarmDelivery.portfolio.removeAll() }
+        AlarmDelivery.portfolio.removeAll()
         return RestoreResult(watches: watches.count, alarms: alarms.count, appLockKept: lock.keptOn,
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms,
                              addressServerNote: serverNote)

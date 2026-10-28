@@ -38,7 +38,7 @@ struct WatchlistListView: View {
     /// Logo · «Merkliste» links, rechts «Uhrzeit · Dauer» und der Aktualisieren-Knopf.
     private var header: some View {
         HStack(spacing: 4) {
-            // L-19: Logo 18 wie Android (`widget_list.xml`), Titel 13 fett, Uhrzeit 12
+            // Logo 18 wie Android (`widget_list.xml`), Titel 13 fett, Uhrzeit 12
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 18)
             WatchlistHeaderTitle(entry: entry, palette: palette,
                                  titleSizes: (normal: WidgetFont.body, small: WidgetFont.label), metaSize: 12)
@@ -71,9 +71,9 @@ struct WatchlistListView: View {
                     let watch = shown[index]
                     // Trennlinie zwischen den Paaren (über jeder Zeile ausser der ersten, also nie
                     // unter der letzten): neutral (Haupttext mit geringer Deckkraft, nie Akzentfarbe —
-                    // wie WidgetContrast.dividerColor auf Android). L-19: eine Regel für beide —
+                    // wie WidgetContrast.dividerColor auf Android). Eine Regel für beide —
                     // über die ganze Zeilenbreite (wie `item_divider` in widget_list_item.xml),
-                    // nicht mehr eingerückt (die Plakette fehlt ohne «Coin-Logos in Widgets»).
+                    // nicht eingerückt (die Plakette fehlt ohne «Coin-Logos in Widgets»).
                     if index > 0 {
                         Rectangle()
                             .fill(palette.divider)
@@ -167,7 +167,7 @@ private struct WatchlistHeaderTitle: View {
 
 /// Eine Zeile, zweizeilig und eng: oben Paar und Kurs, unten Börse und
 /// Veränderung mit Pfeil und Vorzeichen — die Richtung hängt nie allein an der Farbe.
-/// VoiceOver liest die Zeile als einen Satz. L-19: Masse wie Android (`widget_list_item.xml`):
+/// VoiceOver liest die Zeile als einen Satz. Masse wie Android (`widget_list_item.xml`):
 /// Plakette 24, Abstand 8, Paar und Kurs 14 fett, Börse und Veränderung 11; kein Favoriten-Stern.
 private struct WatchlistWidgetRow: View {
     let watch: Watch

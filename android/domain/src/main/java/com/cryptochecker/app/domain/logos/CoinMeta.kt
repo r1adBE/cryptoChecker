@@ -11,7 +11,7 @@ import com.cryptochecker.app.domain.mirror.DataMirror
  * (gemeinsame Testfälle `testdata/parity/coin_meta.json`).
  *
  * - [merge]: Rangliste (CoinGecko), Binance-Symbolliste und Alpha-Liste → Logo-Adressen, Namen und
- *   Alpha-Kürzel, mit derselben Vorrangregel wie bisher (CoinGecko Rang 1–1000 → Binance → Alpha →
+ *   Alpha-Kürzel, mit derselben Vorrangregel (CoinGecko Rang 1–1000 → Binance → Alpha →
  *   CoinGecko Rang 1001–2500; erstes Vorkommen gewinnt).
  * - Ersatz [URL]: `coin_meta.json` der Release «data» auf GitHub, stündlich von der GitHub Action
  *   «Market data» gebaut — **nur** aus den öffentlichen Binance-Listen (Kürzel, Namen, Bild-Adressen,
@@ -140,7 +140,7 @@ object CoinMeta {
         !directOk || !CoinLogos.isFresh(lastDirectAt, now, DIRECT_STALE_MILLIS)
 
     /**
-     * Listen zusammenführen, Vorrang wie bisher: [geckoTop] (Rang 1–1000), dann Binance (Lücken,
+     * Listen zusammenführen, Vorrang: [geckoTop] (Rang 1–1000), dann Binance (Lücken,
      * TradFi gegen die Kürzel von [geckoTop]), dann Alpha (Lücken), zuletzt [geckoExtra]. Fehlende
      * Quellen (null bzw. leer) überspringen.
      */
@@ -234,7 +234,7 @@ object CoinMeta {
     fun hasNames(entries: List<CoinLogos.BinanceEntry>): Boolean = entries.any { !it.fullName.isNullOrBlank() }
 
     /**
-     * Binance-Namen für «gleicher Token» (K-8, [com.cryptochecker.app.domain.watch.TokenIdentity]):
+     * Binance-Namen für «gleicher Token» ([com.cryptochecker.app.domain.watch.TokenIdentity]):
      * Kürzel gross → `fullName`, Spot vor Futures.
      */
     fun binanceFullNames(entries: List<CoinLogos.BinanceEntry>): Map<String, String> {

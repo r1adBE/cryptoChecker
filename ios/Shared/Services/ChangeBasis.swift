@@ -11,8 +11,8 @@ import SwiftUI
 ///  - `utc(_:)`: seit 00:00 in einer festen Zone UTC−12 … UTC+14 (volle Stunden, ohne
 ///    Sommerzeit); `UTC_DAY` ist UTC+0.
 /// Gespeichert und gesichert unter `rawValue` (Schlüssel «changeBasis», wie Android): «ROLLING_24H»,
-/// «SINCE_LAST», «LOCAL_DAY», «UTC_DAY» (UTC+0) und «UTC_DAY+8» / «UTC_DAY-5». Ältere Versionen kennen die
-/// Namen mit Versatz nicht und nehmen dann den Standard.
+/// «SINCE_LAST», «LOCAL_DAY», «UTC_DAY» (UTC+0) und «UTC_DAY+8» / «UTC_DAY-5». Unbekannte Namen
+/// ergeben den Standard.
 struct ChangeBasis: RawRepresentable, Hashable, Codable, CaseIterable, Sendable {
     enum Kind: Sendable { case rolling24h, sinceLast, localDay, utcDay }
 
@@ -89,7 +89,7 @@ struct ChangeBasis: RawRepresentable, Hashable, Codable, CaseIterable, Sendable 
         }
     }
 
-    /// Unbekannt oder fehlend (ältere Version, neuere Sicherung): Standard.
+    /// Unbekannt oder fehlend (z. B. neuere Sicherung): Standard.
     static func from(name: String?) -> ChangeBasis {
         name.flatMap { ChangeBasis(rawValue: $0) } ?? .default
     }
@@ -268,7 +268,7 @@ enum ChangeBasisMath {
         basis.isDay || DayChange.needsCandles(tickerChange)
     }
 
-    /// Endgültiger Wert je Basis: rollend wie bisher (Ticker vor Kerzen), Tages-Basen nur aus Kerzen.
+    /// Endgültiger Wert je Basis: rollend (Ticker vor Kerzen), Tages-Basen nur aus Kerzen.
     static func choose(_ basis: ChangeBasis, tickerChange: Double?, candles: () -> Double?) -> Double? {
         guard basis.isDay else { return DayChange.choose(tickerChange: tickerChange, candles: candles) }
         guard let value = candles(), value.isFinite else { return nil }

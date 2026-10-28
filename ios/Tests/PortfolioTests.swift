@@ -127,10 +127,10 @@ final class PortfolioCalculatorTests: XCTestCase {
         XCTAssertEqual(s.totalValue, 0, accuracy: d)
     }
 
-    /// Widget-Stand: Zahl der Coins ohne Kurs («ohne 1 Coin»); älterer Stand ohne Feld lädt mit 0.
-    func testWidgetSnapshotMissingPricesDecodesBackwardCompatible() throws {
-        let old = #"{"total":1,"currency":"USD","updatedAt":5,"empty":false}"#
-        let decoded = try JSONDecoder().decode(PortfolioWidgetSnapshot.self, from: Data(old.utf8))
+    /// Widget-Stand: Zahl der Coins ohne Kurs («ohne 1 Coin»); ohne Angabe 0, nie negativ.
+    func testWidgetSnapshotMissingPricesCount() throws {
+        let minimal = #"{"total":1,"currency":"USD","updatedAt":5,"empty":false}"#
+        let decoded = try JSONDecoder().decode(PortfolioWidgetSnapshot.self, from: Data(minimal.utf8))
         XCTAssertNil(decoded.missingPrices)
         XCTAssertEqual(decoded.missingCount, 0)
         var snapshot = decoded
@@ -189,7 +189,7 @@ final class PortfolioCalculatorTests: XCTestCase {
     }
 
     func testSummaryExcludesOnlyCoinWithoutCost() {
-        // M3: Ein Kauf ohne Preis nimmt nur diesen Coin aus dem Gewinn seit Kauf — wie Android
+        // Ein Kauf ohne Preis nimmt nur diesen Coin aus dem Gewinn seit Kauf — wie Android
         let s = PortfolioCalculator.summarize([buy("BTC", 1, 100, 1), buy("ETH", 1, nil, 1)], prices: ["BTC": 200, "ETH": 50])
         XCTAssertTrue(s.costMissing)
         XCTAssertEqual(s.missingCostCoins, ["ETH"])
@@ -269,7 +269,7 @@ final class PortfolioCalculatorTests: XCTestCase {
     }
 }
 
-/// CC-01: verworfene Einträge beim Lesen von `portfolio.json` werden gezählt (die Datei gilt dann als nicht ganz
+/// Verworfene Einträge beim Lesen von `portfolio.json` werden gezählt (die Datei gilt dann als nicht ganz
 /// lesbar und wird vor dem Überschreiben gesichert).
 final class PortfolioFileIntegrityTests: XCTestCase {
     func testDroppedEntriesAreCounted() throws {

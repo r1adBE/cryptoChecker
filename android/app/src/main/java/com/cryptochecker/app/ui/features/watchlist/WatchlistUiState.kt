@@ -203,7 +203,7 @@ internal fun filterByGroup(
 internal fun sparklinesFit(enabled: Boolean, screenWidthDp: Int, fontScale: Float): Boolean =
     enabled && screenWidthDp >= SPARKLINE_MIN_SCREEN_DP * fontScale.coerceAtLeast(1f)
 
-/** Frische-Schwelle, bis die Einstellungen gelesen sind (wie bisher fest 45 Minuten). */
+/** Frische-Schwelle, bis die Einstellungen gelesen sind (fest 45 Minuten). */
 private const val INITIAL_STALE_AFTER_MILLIS = 45 * 60_000L
 
 /** Mindestbreite des Bildschirms (dp, bei Schriftgrösse 100 %) für das Mini-Chart. */

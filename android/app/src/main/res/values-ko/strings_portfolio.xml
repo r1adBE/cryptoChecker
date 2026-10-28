@@ -306,4 +306,10 @@
         <item quantity="other">로트 %d개와 잔액 기록도 삭제됩니다.</item>
     </plurals>
     <string name="portfolio_address_remove_history">잔액 기록도 삭제됩니다.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">저장할 수 없습니다 – 다시 시도해 주세요</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">기준이 올바르지 않습니다 – 삭제 후 다시 만들어 주세요</string>
 </resources>

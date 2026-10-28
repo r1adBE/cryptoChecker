@@ -15,8 +15,8 @@ import Foundation
 /// scharf (`QuietHours.mayFire`) — wie die Kursalarme. Reine Logik — wie `DepegAlarm.kt`.
 enum DepegAlarm {
     /// Messen? Mit eingeschaltetem Alarm immer; sonst, sobald ein Portfolio da ist (eingeschaltet und mit Transaktionen
-    /// oder beobachteten Adressen): Die Messung ist der Live-Kurs USDT/USD der Bewertung (`liveUsdtUsd`, Owner-Entscheid
-    /// Okt. 2026). Gemeldet wird weiterhin nur mit eingeschaltetem Alarm. Wie `DepegAlarm.shouldMeasure` (Android).
+    /// oder beobachteten Adressen): Die Messung ist der Live-Kurs USDT/USD der Bewertung (`liveUsdtUsd`).
+    /// Gemeldet wird nur mit eingeschaltetem Alarm. Wie `DepegAlarm.shouldMeasure` (Android).
     /// Ebenso mit `fiatConversion`: Fiat-Alarm oder ≈ Umrechnung auf einem Paar, dessen Faktor an USDT hängt
     /// (`FiatAlarmGuard.needsUsdtMeasurement`) — sonst rechnete sie still USDT = 1. Wie Android.
     static func shouldMeasure(depegAlarm: Bool, portfolioEnabled: Bool, hasPortfolioData: Bool,
@@ -78,9 +78,9 @@ enum DepegAlarm {
     ///  1. Jeder Kurs ausserhalb 0.05…3 ist ein Börsenfehler.
     ///  2. Im Normalbereich (0.5…1.5) genügt eine Quelle; im Einbruch-Bereich (0.05…0.5, 1.5…3) zählt ein Kurs nur,
     ///     wenn eine andere Quelle innerhalb von `breakAgreement` übereinstimmt — ein einzelner Ausreisser bleibt
-    ///     unplausibel, ein echter Einbruch (mehrere Börsen bei 0.30) wird nicht mehr weggefiltert.
+    ///     unplausibel, ein echter Einbruch (mehrere Börsen bei 0.30) wird nicht weggefiltert.
     ///  3. Beide direkten Quellen gültig: der Wert näher bei 1 (USDC/USDT zählt nicht). Eine direkte: der Wert näher bei
-    ///     1 aus ihr und USDC/USDT (wie bisher: gemeldet wird nur, wenn beide abweichen). Keine direkte: USDC/USDT
+    ///     1 aus ihr und USDC/USDT (gemeldet wird nur, wenn beide abweichen). Keine direkte: USDC/USDT
     ///     allein (`Measurement.viaUsdc`).
     static func measure(kraken: Double?, coinbase: Double?, binanceUsdc: Double?) -> Measurement? {
         var usdc: Double?
@@ -123,7 +123,7 @@ enum DepegAlarm {
     /// Taugt der letzte Kurs `last` einer Quelle für die Messung? Dieselbe Regel wie bei Kursalarmen
     /// (`AlarmFreshness.exchangeTimeTooOld`): Meldet die Börse eine Zeit des Kurses (`exchangeTime`) älter als 2 Std.,
     /// steht der Wert (Handel ruht) — er zählt wie keine Antwort (nil), damit weder eine alte Zahl als frische Messung
-    /// gespeichert wird noch der Alarm auf ihr auslöst. Ohne Zeit der Börse zählt der Kurs wie bisher. Wie Android.
+    /// gespeichert wird noch der Alarm auf ihr auslöst. Ohne Zeit der Börse zählt der Kurs. Wie Android.
     static func usablePrice(last: Double?, exchangeTime: Int64?, now: Int64) -> Double? {
         guard let last, !AlarmFreshness.exchangeTimeTooOld(exchangeTime, now: now) else { return nil }
         return last
@@ -221,11 +221,11 @@ enum DepegAlarm {
 
     /// Zeile zu «USDT = 1» auf der Portfolio-Karte — UNABHÄNGIG vom Depeg-Alarm: Die Annahme gilt immer, also
     /// steht sie da, sobald sie die Zahlen trägt; der Alarm liefert nur die Abweichung dazu. Wie `cardNote` (Android):
-    ///  1. frische Messung ≥ Schwelle (`cardWarning`, wie bisher immer auf der Karte) → `.DEVIATION`;
+    ///  1. frische Messung ≥ Schwelle (`cardWarning`, immer auf der Karte) → `.DEVIATION`;
     ///  2. sonst `valuesViaUsdt` (`PortfolioExchangeRoute.usdtParityShown`) → `.PRICE_SOURCE`;
     ///  3. sonst enthält der Bestand `holdingCoins` USDT (`PortfolioStables.isValuation`) → `.USDT_ASSUMED`;
     ///  4. sonst keine Zeile (nil).
-    /// Mit USDT zum Marktkurs (`usdtMarket`, Owner-Entscheid Okt. 2026): frischer Kurs (`liveUsdtUsd`) → keine Zeile
+    /// Mit USDT zum Marktkurs (`usdtMarket`): frischer Kurs (`liveUsdtUsd`) → keine Zeile
     /// (nichts angenommen, die Werte rechnen mit dem Markt); ohne ihn trägt Ersatz 1 die Zahlen → wie 2./3., aber immer
     /// `.USDT_ASSUMED` («USDT = 1 angenommen» = Markierung der Näherung). Mit frischem Kurs und Werten, die an USDT
     /// hängen: bestätigter Einbruch → `.USDT_BREAK`; Kurs nur aus USDC/USDT → `.VIA_USDC`.

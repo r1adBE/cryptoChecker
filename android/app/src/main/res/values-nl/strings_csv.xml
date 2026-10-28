@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">stakingboeking zonder tegenboeking – saldo controleren</string>
     <string name="portfolio_csv_skip_amount_too_small">hoeveelheid te klein – wordt 0 bij opslaan</string>
     <string name="portfolio_csv_skip_invalid_swap">ruil zonder geldige ontvangen munt of hoeveelheid</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Bestand wordt opnieuw gelezen …</string>
 </resources>

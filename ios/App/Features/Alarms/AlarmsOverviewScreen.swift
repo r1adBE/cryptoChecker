@@ -76,7 +76,7 @@ struct AlarmsOverviewScreen: View {
                     EmptyStateView(
                         systemImage: "bell.and.waves.left.and.right",
                         title: L("alarms_overview_empty"),
-                        // L-18: Beispiel im Stil der Alarm-Sätze (wie Android `AlarmsEmptyExample`)
+                        // Beispiel im Stil der Alarm-Sätze (wie Android `AlarmsEmptyExample`)
                         example: AlarmsEmptyExample.text,
                         // Leere Merkliste: ohne Paar kein Alarm — direkt «Paar hinzufügen» statt einer Sackgasse (wie Android)
                         actionTitle: watches.isEmpty ? L("shortcut_add") : L("alarms_add"),
@@ -97,7 +97,7 @@ struct AlarmsOverviewScreen: View {
                     if let id = pickedPair { openWatchId = id }
                     pickedPair = nil
                 }) {
-                    let input = data.alarmPairPickerInput // PERF4-R1: einmal je Stand
+                    let input = data.alarmPairPickerInput // einmal je Stand
                     AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey) { id in
                         pickedPair = id
                         pickPair = false
@@ -250,7 +250,7 @@ struct AlarmsOverviewScreen: View {
             VStack(spacing: 0) {
                 ForEach(items) { item in
                     let alarm = item.alarm
-                    // Ganze Zeile schaltet; Rückfrage F-08 vorher und «Schwelle ungültig» nicht einschalten (FUN3-02)
+                    // Ganze Zeile schaltet; Rückfrage vorher, «Schwelle ungültig» nicht einschalten
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
@@ -261,7 +261,7 @@ struct AlarmsOverviewScreen: View {
                             } cancelled: { refusedToggles &+= 1 }
                         }
                     ), enabled: BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: !alarm.enabled),
-                    verticalPadding: 8, dimsLabel: false) { // UX4-R4: Hinweis nicht mitdimmen
+                    verticalPadding: 8, dimsLabel: false) { // Hinweis nicht mitdimmen
                         HStack(spacing: Spacing.sm) {
                             Image(systemName: AlarmStyle.symbol(alarm.condition))
                                 .scaledFont(size: 13, weight: .semibold, relativeTo: .footnote)
@@ -340,7 +340,7 @@ struct AlarmsOverviewScreen: View {
 
             VStack(spacing: 0) {
                 ForEach(alarms) { alarm in
-                    // FUN3-01: «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten
+                    // «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten
                     let invalid = PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
@@ -353,7 +353,7 @@ struct AlarmsOverviewScreen: View {
                             Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis.storage, hidden: hidePortfolio))
                                 .font(.subheadline.monospacedDigit())
                                 .foregroundStyle(alarm.enabled ? AppColors.onSurface : AppColors.onSurfaceVariant)
-                            // FUN4-R2: kein Editor für Portfolio-Alarme – löschen und neu anlegen
+                            // Kein Editor für Portfolio-Alarme – löschen und neu anlegen
                             Text(L(invalid ? "portfolio_alarm_threshold_invalid_recreate"
                                    : (alarm.repeating ? "alarm_repeating" : "alarm_once")))
                                 .font(.caption)

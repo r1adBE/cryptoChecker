@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.asOrgJson
+import com.cryptochecker.app.data.BackupFields
 import com.cryptochecker.app.data.asDomainJson
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -210,19 +211,23 @@ object PortfolioBackupMirror {
     /**
      * Kopie lesen und prüfen (ohne Datenbank, testbar). Ungültige Transaktionen und Alarme werden
      * gezählt ([PortfolioJson.parseTxs]) statt still verworfen.
-     * @throws IllegalArgumentException bei fremdem Format.
+     * @throws IllegalArgumentException bei fremdem Format, anderer Version, fehlender Liste oder fehlendem Feld eines
+     * Eintrags ([encode] schreibt alle; [BackupFields]).
      */
     fun parse(text: String): Content {
         com.cryptochecker.app.data.BackupLimits.checkDepth(text)
         val root = JSONObject(text)
         require(root.optString("format") == FORMAT) { "Unbekanntes Format" }
-        val txs = root.optJSONArray("portfolio")?.let(PortfolioJson::parseTxs)
-        val alarms = root.optJSONArray("portfolioAlarms")?.let(PortfolioJson::parseAlarms)
+        require((root.opt("version") as? Number)?.toDouble() == VERSION.toDouble()) { "Version ${root.opt("version")}" }
+        BackupFields.checkEntries(root, listOf(BackupFields.TX, BackupFields.PORTFOLIO_ALARM, BackupFields.WATCHED_ADDRESS))
+        val txs = PortfolioJson.parseTxs(root.getJSONArray("portfolio"))
+        val alarms = PortfolioJson.parseAlarms(root.getJSONArray("portfolioAlarms"))
+        val addresses = WatchedAddressRules.fromJson(root.getJSONArray(WatchedAddressRules.BACKUP_KEY).asDomainJson())
         return Content(
-            txs = txs?.items.orEmpty(),
-            alarms = alarms?.items.orEmpty(),
-            invalid = (txs?.invalid ?: 0) + (alarms?.invalid ?: 0),
-            addresses = WatchedAddressRules.merge(emptyList(), WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)?.asDomainJson())),
+            txs = txs.items,
+            alarms = alarms.items,
+            invalid = txs.invalid + alarms.invalid,
+            addresses = WatchedAddressRules.merge(emptyList(), addresses),
         )
     }
 

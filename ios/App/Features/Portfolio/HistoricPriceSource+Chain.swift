@@ -9,7 +9,7 @@ extension HistoricPriceSource {
     private static let chainDays = 1000
 
     /// Paar einer Kettenquelle (`HistoricCloseChain.pairs`) für die eigenen Kerzen. USDC gilt wie USDT (≈ 1 USD, wie
-    /// bisher Coinbase USDC); die Kennung bestimmt das Paar, die Gegenwährung nur die Umrechnung im Verlauf.
+    /// Coinbase USDC); die Kennung bestimmt das Paar, die Gegenwährung nur die Umrechnung im Verlauf.
     static func chainCandlePair(_ source: String, base: String, _ p: HistoricCloseChain.ChainPair) -> CandlePair {
         CandlePair(exchangeKey: source, exchangeName: HistoricCloseChain.provider(source), base: base,
                    quote: p.quote == "USDC" ? "USDT" : p.quote, pairId: p.pairId)

@@ -16,7 +16,7 @@ import java.io.IOException
  * Inhalt mit Portfolio-Daten: versiegelt (AES-GCM, Schlüssel im Keystore unter eigenem Alias [KEY_ALIAS], wie die Aufnahme
  * des Portfolio-Widgets [PortfolioSnapshotSeal]) in `noBackupFilesDir` — nie in einer Sicherung, nie im Klartext auf dem
  * Speicher. Ohne Schlüssel kein Journal — dann lehnt das Wiederherstellen ab, bevor etwas ersetzt wird
- * ([BackupJournalUnavailableException]); früher lief es weiter, mit Zurückrollen nur im selben Lauf.
+ * ([BackupJournalUnavailableException]), statt ohne Journal weiterzulaufen (Zurückrollen nur im selben Lauf).
  */
 class RestoreJournal(
     private val file: File,
@@ -37,9 +37,6 @@ class RestoreJournal(
     }
 
     fun exists(): Boolean = file.exists()
-
-    /** Änderungszeit der Datei (ms); 0 = unbekannt. Für Journale ohne «createdAt» ([RestoreRecoveryPolicy.createdAt]). */
-    fun lastModified(): Long = file.lastModified()
 
     /** Versiegelt und atomar schreiben (erst Nachbardatei, dann umbenennen); false = kein Schlüssel, kein Journal. */
     fun write(text: String): Boolean {
@@ -88,7 +85,7 @@ class RestoreJournal(
         const val FILE_NAME = "restore_journal.sealed"
 
         /** Eigener Keystore-Alias: geht der Schlüssel der Widget-Aufnahme verloren, bleibt das Journal lesbar. */
-        const val KEY_ALIAS = "cryptochecker_restore_journal_v1"
+        const val KEY_ALIAS = "cryptochecker_restore_journal"
 
         const val FORMAT = "cryptochecker-restore-journal"
         const val VERSION = 1

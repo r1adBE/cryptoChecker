@@ -16,7 +16,7 @@ enum PortfolioAlarmKind: String, Codable, CaseIterable, Sendable {
 }
 
 /// Ein Alarm «Portfolio-Wert» — entspricht `PortfolioAlarmEntity` (Android). Gespeichert in
-/// `SharedStorage.Snapshot.portfolioAlarms` (optional: ältere Dateien haben keine).
+/// `SharedStorage.Snapshot.portfolioAlarms` (nil = Datei fehlt oder nicht lesbar).
 struct PortfolioAlarm: Codable, Identifiable, Hashable, Sendable {
     var id: Int64
     var kind: PortfolioAlarmKind
@@ -89,7 +89,7 @@ struct PortfolioReading: Equatable, Sendable {
     /// (auch USD) seinen Marktkurs wie im Portfolio-Kopf (`PortfolioStables.usdtUsd`); nil = keiner (× 1, Näherung).
     /// Wie Android.
     var usdtUsdLive: Double? = nil
-    /// Wert (USDT, zum letzten Kurs) der Coins mit altem Kurs; nil = unbekannt (älterer Stand: dann wesentlich). Wie Android.
+    /// Wert (USDT, zum letzten Kurs) der Coins mit altem Kurs; nil = unbekannt (dann wesentlich). Wie Android.
     var staleValueUsdt: Double? = nil
     /// Zählende Adressen, deren Guthaben noch nie geladen wurde (`AddressBalance.pendingCount`): sie fehlen im Gesamtwert —
     /// dann prüft KEIN Portfolio-Alarm; seit über 24 Stunden scheiternde zählen nicht. Wie Android.
@@ -113,7 +113,7 @@ struct PortfolioReading: Equatable, Sendable {
 enum PortfolioAlarmPause: Equatable, Sendable {
     /// So viele zählende Adressen ohne je geladenes Guthaben.
     case addressesPending(Int)
-    /// Kein aktueller Kurs für diese Coins (leer = Namen unbekannt, älterer Stand).
+    /// Kein aktueller Kurs für diese Coins (leer = Namen unbekannt).
     case noPrice([String])
     /// Token-Guthaben dieser Adressen nicht bestätigt (wesentlich, wie ein alter Kurs).
     case tokensStale([String])
@@ -296,7 +296,7 @@ enum PortfolioAlarmLogic {
     /// Nach dem Melden: ein einmaliger Alarm schaltet sich ab, ein wiederholender bleibt an.
     static func enabledAfterFire(repeating: Bool) -> Bool { repeating }
 
-    /// Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Review FUN3-01: «fällt um»
+    /// Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). «fällt um»
     /// nur unter `maxFallPercent`: Die Veränderung «heute» fällt nie unter −100 %, so ein Alarm löste nie aus. Wie Android
     /// (`portfolio_alarm.json`, «threshold»).
     static func isValidThreshold(_ kind: PortfolioAlarmKind, _ threshold: Double?) -> Bool {
@@ -311,8 +311,8 @@ enum PortfolioAlarmLogic {
     /// Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`BackupManager.exceedsFall`).
     static let maxFallPercent = 100.0
 
-    /// Review FUN3-01: «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
-    /// ausgeschaltet und in der Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. FUN4-R2: kein Editor, darum Hinweis «löschen und neu anlegen»
+    /// «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
+    /// ausgeschaltet und in der Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. Kein Editor, darum Hinweis «löschen und neu anlegen»
     /// (`portfolio_alarm_threshold_invalid_recreate`). Wie Android.
     static func exceedsFall(_ kind: PortfolioAlarmKind, _ threshold: Double) -> Bool {
         kind == .CHANGE_DOWN && threshold.isFinite && threshold >= maxFallPercent

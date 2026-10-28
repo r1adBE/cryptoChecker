@@ -1,13 +1,13 @@
 import XCTest
 
-/// Review TST4-01, F-08: Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie
+/// Rückfrage «Merkliste wird nicht gespeichert» je AUFRUF statt je Datei — wie
 /// Android `WatchRepositoryCallGuardTest`. Die Schreibwege kommen aus `AppData` (Funktionen in `App/Services/AppData*.swift`,
 /// deren Rumpf `watchlistWriteRefused(` enthält, plus Weiterleitungen darauf; Überladungen nach Argument-Bezeichnern). Jeder
 /// Aufruf `data.<Schreibweg>(` in `App` ausserhalb von `Services` liegt im Block von `withWatchlistConfirm { … }` (nicht im
 /// `cancelled:`-Block) oder in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`). Ein
 /// Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt (z. B. `addStarterConfirmed` oder `saveDraftNow`, dessen
 /// einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer Funktion zählt dabei nie als fragender Hilfsweg.
-/// Review ARC7-02: `confirmWatchlistWrite` ist privat (die Aktion läuft nur über `withWatchlistConfirm` unter
+/// `confirmWatchlistWrite` ist privat (die Aktion läuft nur über `withWatchlistConfirm` unter
 /// `runConsented`), ein direkter Aufruf zählt nie; ein Schreibweg in einer losgelösten Ausführung im Block
 /// (`Task.detached`, `DispatchQueue….async`/`asyncAfter`) ist ein Befund — ein erbender `Task { … }` nicht.
 /// Abgrenzung: Das Verhalten der Zustimmung selbst (ohne abgelehnt, mit geschrieben, erbender Task ja, `Task.detached`
@@ -38,10 +38,10 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         let result = CallGuard.check(screens, writes: writes, allowed: Self.allowed)
         XCTAssertGreaterThanOrEqual(result.calls, 30, "zu wenige Aufrufe gefunden — Scan defekt?")
         XCTAssertEqual(result.exempted.count, Self.allowed.count, "Ausnahmeliste veraltet")
-        XCTAssertTrue(result.problems.isEmpty, "Schreibweg ohne Rückfrage F-08 davor:\n" + result.problems.joined(separator: "\n"))
+        XCTAssertTrue(result.problems.isEmpty, "Schreibweg ohne Rückfrage «nicht gespeichert» davor:\n" + result.problems.joined(separator: "\n"))
     }
 
-    /// Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, direkt hinter `confirmWatchlistWrite` (ARC7-02), im
+    /// Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, direkt hinter `confirmWatchlistWrite`, im
     /// `cancelled:`-Block, nach dem Block, Zeichenkette mit Kommentarzeichen → Befund; Hilfsweg und andere Überladung → kein Befund.
     /// Regex-Literal mit `//` verdeckt nichts; Schreibweg vor der Frage in einer Funktion mit Closure-Parameter → Befund.
     func testCounterSampleIsFlagged() {
@@ -104,7 +104,7 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
                         "ownClosureParam"])
     }
 
-    /// Review TST5-R2/ARC7-02: `confirmWatchlistWrite` ist privat — keine Form eines direkten Aufrufs zählt, auch nicht
+    /// `confirmWatchlistWrite` ist privat — keine Form eines direkten Aufrufs zählt, auch nicht
     /// `guard await … else { … }` mit Schreibweg danach (die Aktion liefe nicht unter `runConsented`); ebenso im else-Block,
     /// im `else` eines `if`, nach `if !(…)`, hinter unbenutztem oder gespeichertem Ergebnis, im positiven `if` und
     /// ausserhalb des Blocks → Befund.
@@ -160,7 +160,7 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
                        ["guardLine", "guardBlock", "inElse", "ifElse", "negatedIf", "ignored", "stored", "positiveIf", "outsideTask"])
     }
 
-    /// Review ARC7-02: Gegenprobe zum Ausweichen aus der Aktion. Ein erbender `Task` im Block und ein geschlossener
+    /// Gegenprobe zum Ausweichen aus der Aktion. Ein erbender `Task` im Block und ein geschlossener
     /// losgelöster Block davor bestehen; ein Schreibweg in `Task.detached`, `DispatchQueue….async`/`asyncAfter` (auch mit
     /// `execute:`) im Block von `withWatchlistConfirm` oder eines fragenden Hilfswegs → Befund.
     func testDetachedExecutionIsFlagged() {
@@ -210,7 +210,7 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
                        ["inDetached", "inMainAsync", "inAsyncAfter", "withExecute", "viaHelper"])
     }
 
-    /// REL6-R1: mehrzeiliges Regex-Literal auch mit Leerzeichen/Tab bzw. CRLF nach `#/` — ein `/*` darin öffnet keinen
+    /// Mehrzeiliges Regex-Literal auch mit Leerzeichen/Tab bzw. CRLF nach `#/` — ein `/*` darin öffnet keinen
     /// Kommentar, der Schreibweg danach bleibt sichtbar (wie `ios_release_audit.py --self-test`).
     func testMultilineRegexWithSpaceOrCRLF() {
         let repo = CallGuard.Source(#"""

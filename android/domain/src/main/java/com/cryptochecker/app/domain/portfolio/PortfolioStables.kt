@@ -7,7 +7,7 @@ import com.cryptochecker.app.domain.convert.CurrencyConversion
  * Widget, Portfolio-Alarme) — reines Kotlin, gespiegelt in `Shared/Portfolio/PortfolioStables.swift`:
  *  - Liste: [CurrencyConversion.USD_STABLES] (dieselbe wie die «≈ Umrechnung» der Merkliste).
  *  - USDT ist die interne Rechenwährung (1 USDT = 1 USDT). In Fiat (auch USD) gilt USDT seinen Marktkurs USDT/USD
- *    ([usdtUsd], [UsdtUsdRates]; Owner-Entscheid Okt. 2026, früher fest 1): aktuell der Live-Kurs, für einen Tag der
+ *    ([usdtUsd], [UsdtUsdRates]): aktuell der Live-Kurs, für einen Tag der
  *    Tagesschluss USDT/USD. Ohne Kurs (offline, Tag ohne Schluss) gilt 1 als NÄHERUNG ([UsdtUsd.approximate]) —
  *    nie still: die Anzeige markiert sie («USDT = 1 angenommen», Steuer-CSV Vermerk je Zeile). So bleiben Werte
  *    USDT-notierter Portfolios auch offline sichtbar. USD (Fiat) selbst ist in USD immer 1.

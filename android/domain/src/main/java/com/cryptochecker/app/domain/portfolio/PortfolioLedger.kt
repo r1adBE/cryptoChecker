@@ -30,7 +30,7 @@ data class PortfolioLedgerEvent(val trade: PortfolioTrade, val feeLeg: Boolean, 
  *  - Kauf, Belohnung, Einzahlung: + (Menge × Preis + Gebühr USDT + Wert der Gebühr im dritten Coin).
  *    Belohnung zählt also zum Wert beim Erhalt als Zufluss (kein Gewinn im Zeitraum), erst die
  *    spätere Kursbewegung. Kauf ohne Preis: unbekannt. Belohnung ohne Wert: zum MARKTKURS ihres Zeitpunkts
- *    (neutral wie eine Einzahlung ohne Preis — eine Belohnung von 0.00001 BTC ohne Wert lässt den Coin nicht mehr
+ *    (neutral wie eine Einzahlung ohne Preis — eine Belohnung von 0.00001 BTC ohne Wert lässt den Coin nicht
  *    aus «Heute/7 T/1 J» fallen); Einstand und Steuer-Einkünfte bleiben ohne Wert.
  *  - Verkauf: − (verkaufte Menge × Preis − Gebühr USDT − Wert der Gebühr im dritten Coin); ohne Preis
  *    unbekannt; ohne Bestand 0. Reicht der Bestand nicht, zählt der gedeckte Anteil des GANZEN Erlöses (samt Gebühren)
@@ -46,7 +46,7 @@ data class PortfolioLedgerEvent(val trade: PortfolioTrade, val feeLeg: Boolean, 
  *    kein Gewinn/Verlust aus dem Abgang; ohne Marktkurs unbekannt (Coin fehlt im Zeitraum). Reicht der Bestand nicht,
  *    zählen Wert UND Gebühren nur zum gedeckten Anteil (abgegeben / (Menge + Gebühr im Coin)) wie beim Verkauf.
  *  - Einzahlung ohne Preis: zum MARKTKURS ihres Zeitpunkts wie eine Adress-Beobachtung — eingebrachtes Geld,
- *    kein Gewinn; der Coin fehlt nicht mehr ein Jahr lang im Zeitraum. Der Einstand bleibt unbekannt («Seit
+ *    kein Gewinn; der Coin fehlt nicht ein Jahr lang im Zeitraum. Der Einstand bleibt unbekannt («Seit
  *    Kauf», Steuer). Ohne Marktkurs unbekannt.
  *  - Adress-Einträge ([AddressBalance.isAddressTrade], Einzahlung/Auszahlung ohne Preis aus
  *    [AddressBalanceHistory.trades]): zum Marktkurs (kein Gewinn aus Guthaben-Änderungen).
@@ -173,7 +173,7 @@ object PortfolioLedger {
      *  - Tausch ohne Wert (z. B. Kraken Krypto↔Krypto): Wert = abgegebene Menge × Tagesschluss des abgegebenen
      *    Coins, sonst erhaltene Menge × Tagesschluss des erhaltenen Coins — Erlös des abgegebenen und Einstand des
      *    erhaltenen Coins, [PortfolioTrade.valueEstimated]. Mit erfasstem Wert unverändert.
-     * Ohne Kurs bleibt der Wert unbekannt wie bisher. Ohne solche Transaktionen dieselbe Liste.
+     * Ohne Kurs bleibt der Wert unbekannt. Ohne solche Transaktionen dieselbe Liste.
      */
     fun valueAtDayClose(trades: List<PortfolioTrade>, price: ((String, Long) -> BigDecimal?)?): List<PortfolioTrade> {
         if (trades.none(::needsDayClose)) return trades

@@ -39,7 +39,7 @@ internal object AlarmLogTexts {
         AlarmLogOutcome.FX_UNSURE -> context.getString(R.string.alarm_outcome_fx_unsure)
     }
 
-    /** Wer geprüft hat, z. B. «über Widget»; null bei älteren Einträgen ohne Angabe. */
+    /** Wer geprüft hat, z. B. «über Widget»; null bei Einträgen ohne Angabe. */
     fun source(context: Context, entry: AlarmLogEntry): String? = when (entry.source) {
         null -> null
         CheckTrigger.FOREGROUND -> context.getString(R.string.alarm_log_source_app)

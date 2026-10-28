@@ -57,7 +57,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /*
- * Runde 23f: Hauptseite der Einstellungen als kurze, gruppierte Liste (wie die Einstellungen
+ * Hauptseite der Einstellungen als kurze, gruppierte Liste (wie die Einstellungen
  * grosser Börsen-Apps): je Gruppe eine Karte wie im Markt-Tab «Jetzt» ([SettingsSection]) mit der
  * Überschrift oben in der Karte, darunter schlichte Zeilen mit Titel, aktuellem Wert in Grau und
  * Pfeil. Alles Ausführliche steht auf Unterseiten
@@ -68,8 +68,7 @@ import kotlinx.coroutines.withContext
  * · rote Karte «App zurücksetzen». Kurs-Aktualisierung und Widgets stehen wieder auf der Hauptseite, weil
  * Alarm-Hinweis und Widget-Hilfe dorthin verweisen und beide oft gesucht werden. Portfolio hat
  * genau einen Ort: die Zeile unter «Allgemein» führt zur Seite mit Schalter, Sperre, Methode, Steuer-Vorlage
- * und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Kein «Erweitert» mehr
- *: was zur Merkliste gehört, steht auf «Merkliste» (auch Token & TradFi), Meldungen auf «Alarme»
+ * und Systemsicherung — Einstellungen › Portfolio, wie die Hinweise der App es nennen. Was zur Merkliste gehört, steht auf «Merkliste» (auch Token & TradFi), Meldungen auf «Alarme»
  * (Markt-Meldungen, Sprachausgabe), Aussehen unter «Darstellung» (Coin-Logos); Datenschutz, Börse wünschen,
  * Quellcode, Lizenzen und (freigeschaltet) Entwickler stehen auf «Über die App».
  * Jede Zeile der Hauptseite trägt links ein schlichtes graues Symbol (Unterseiten ohne);
@@ -83,7 +82,7 @@ fun SettingsScreen(
 ) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val languageTag by viewModel.languageTag.collectAsStateWithLifecycle()
-    // Runde 31: Suche oben; bleibt nach dem Öffnen eines Treffers stehen (zurück = weitere Treffer)
+    // Suche oben; bleibt nach dem Öffnen eines Treffers stehen (zurück = weitere Treffer)
     var query by rememberSaveable { mutableStateOf("") }
     // Treffer auf der Hauptseite selbst (Sprache, Widgets, Links): Zeile kurz hervorheben
     var mainHighlight by remember { mutableStateOf<String?>(null) }
@@ -223,7 +222,7 @@ fun SettingsScreen(
                                         .padding(end = 4.dp)
                                         .size(10.dp)
                                         .clip(CircleShape)
-                                        // K3: Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
+                                        // Farbe der Knöpfe (hell/dunkel), nicht die Grundfarbe
                                         .background(accentButtonColor(settings.accentColor, LocalDarkTheme.current))
                                 )
                                 SettingsValueText(accentName)
@@ -238,7 +237,7 @@ fun SettingsScreen(
                             valueContent = { PriceArrows(settings.priceColorScheme, settings.priceColorsInverted) },
                             onClick = { onOpenPage(SettingsPage.PRICE_COLORS) }
                         )
-                        // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen (von «Erweitert» hierher)
+                        // Coin-Logos (App, Portfolio, Widgets) gehören zum Aussehen
                         SettingsAnchor("main.coin_logos") {
                             SettingsNavRow(
                                 title = stringResource(R.string.settings_coin_logos),
@@ -255,7 +254,7 @@ fun SettingsScreen(
                         )
                     }
 
-                    // 3 Mehr: Sicherung, Über die App (ohne eigene Seite «Erweitert»: Token & TradFi auf «Merkliste»,
+                    // 3 Mehr: Sicherung, Über die App (Token & TradFi stehen auf «Merkliste»,
                     // Markt-Meldungen und Sprachausgabe auf «Alarme», Coin-Logos unter «Darstellung», Entwickler auf
                     // «Über die App»)
                     SettingsSection(stringResource(R.string.settings_group_more)) {

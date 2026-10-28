@@ -101,7 +101,7 @@ class AlarmEvaluatorTest {
 
     @Test
     fun `move window checks the old reference after the window ran out`() {
-        // Hintergrund im Stundentakt: Bezug 61 Min. alt, Fenster 1 h — früher nur neu angesetzt, nie gemeldet
+        // Hintergrund im Stundentakt: Bezug 61 Min. alt, Fenster 1 h
         val a = alarm(AlarmCondition.MOVE_PERCENT_WINDOW, 5.0, referencePrice = 100.0)
             .copy(windowHours = 1, referenceAt = now - 61 * 60_000L)
         assertFalse(evaluator.needsReference(a, now))

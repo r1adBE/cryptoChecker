@@ -23,7 +23,7 @@ class CoinLogosAlphaTest {
     @Test
     fun alphaOnly_onlyWithAlphaOnAndLogosNamesOff() {
         assertTrue(CoinLogos.alphaOnly(logos = false, names = false, includeAlpha = true))
-        // Alpha aus: wie bisher nichts
+        // Alpha aus: nichts
         assertFalse(CoinLogos.alphaOnly(logos = false, names = false, includeAlpha = false))
         // Logos oder Namen an: die Liste kommt mit dem ganzen Abgleich
         assertFalse(CoinLogos.alphaOnly(logos = true, names = false, includeAlpha = true))

@@ -4,8 +4,8 @@ import Foundation
 /// Speicher neben dem Fehlertext mit (`BulkTickers.exchangeFailure`, `PriceRefresher.Fetched.exchangeFailure`);
 /// gespeichert wird weiterhin nur der Text (`StoredError.sanitize`).
 ///
-/// Warum neben dem Text: Die Einordnung (`RefreshReportLogic.classify`) suchte bisher Stichwörter («ssl», «eof»,
-/// «timeout» …) im Text. Mit der Art entscheidet der Typ; die Stichwortsuche bleibt nur für Texte ohne Art
+/// Warum neben dem Text: Die Einordnung (`RefreshReportLogic.classify`) müsste sonst Stichwörter («ssl», «eof»,
+/// «timeout» …) im Text suchen. Mit der Art entscheidet der Typ; die Stichwortsuche bleibt nur für Texte ohne Art
 /// (gespeicherte ältere Fehler, eigene Marker, Meldungen der Börse). Wie `ExchangeFailure.kt` (Android).
 ///
 /// Nur Foundation: auch im Widget nutzbar.
@@ -14,7 +14,7 @@ enum ExchangeFailure: Equatable, Sendable {
     case timeout
     /// Keine Verbindung: Host unbekannt, Verbindung abgelehnt/abgebrochen, Netz weg.
     case offline
-    /// TLS/SSL gescheitert — zählt wie bisher als «kein Netz».
+    /// TLS/SSL gescheitert — zählt als «kein Netz».
     case ssl
     /// HTTP-Fehlercode ohne Bremse (z. B. 400, 404, 500).
     case httpStatus(Int)
@@ -30,7 +30,7 @@ enum ExchangeFailure: Equatable, Sendable {
     case other
 
     /// Ursache für Bericht, Pause und Anzeige; nil = die Art legt sie nicht fest, dann entscheidet der Text.
-    /// parse, message und other tragen ihre Aussage im Text: dort bleibt die Einordnung wie bisher.
+    /// parse, message und other tragen ihre Aussage im Text: dort entscheidet der Text.
     var refreshFailure: RefreshFailure? {
         switch self {
         case .timeout: return .TIMEOUT

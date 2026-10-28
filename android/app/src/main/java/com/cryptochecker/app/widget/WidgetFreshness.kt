@@ -8,7 +8,7 @@ import com.cryptochecker.app.domain.watch.PriceFreshness
 import com.cryptochecker.app.domain.watch.isNotTraded
 
 /**
- * Frische eines Kurses in den Widgets — gleiche Regeln wie die Merkliste (K-1, K-4):
+ * Frische eines Kurses in den Widgets — gleiche Regeln wie die Merkliste:
  *  - «veraltet»: Widgets sind nie am Live-Strom, also immer die Abfrage-Schwelle
  *    ([LiveStatus.pollingStaleAfterMillis]: 3 × Hintergrund-Intervall, mind. 15 Min.).
  *  - «Kurs unverändert seit 14:05» ([PriceFreshness.unchangedSince]) bei Börsen ohne eigene Zeit,

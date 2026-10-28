@@ -37,7 +37,6 @@ class SettingsPlacementTest {
         assertEquals(SettingsHome.GENERAL, SettingsPage.PORTFOLIO.home)
         assertEquals(SettingsHome.APPEARANCE, SettingsPage.COIN_LOGOS.home)
         assertEquals(setOf(SettingsHome.GENERAL, SettingsHome.APPEARANCE, SettingsHome.MORE), SettingsHome.entries.toSet())
-        assertNull("frühere Route «Erweitert» führt zurück", SettingsPage.fromName("ADVANCED"))
     }
 
     @Test
@@ -129,7 +128,7 @@ class SettingsSearchAnchorsTest {
 // ---- aus SettingsUiEventsTest
 
 /**
- * Einstellungen › Kursmitteilungen (Review ARC6-R01/UX6-R1): Erlaubnis-Abfrage nur nach «Trotzdem» und nur beim Einschalten,
+ * Einstellungen › Kursmitteilungen: Erlaubnis-Abfrage nur nach «Trotzdem» und nur beim Einschalten,
  * als Ereignis für den aktuellen Bildschirm statt als Rückruf in die alte Komposition.
  */
 class SettingsUiEventsTest {
@@ -158,7 +157,7 @@ class SettingsUiEventsTest {
         val dir = findUp(listOf("", "app/", "android/app/").map { it + "src/main/java/com/cryptochecker/app/ui/features/settings" })
         assertNotNull("settings-Quellen nicht gefunden (Arbeitsverzeichnis?)", dir)
         val page = File(dir, "SettingsAlarmPages.kt").readText()
-        // Kein Rückruf nach F-08, der den Launcher der Komposition beim Tippen aufruft
+        // Kein Rückruf nach der Rückfrage «nicht gespeichert», der den Launcher der Komposition beim Tippen aufruft
         assertFalse(Regex("""written\s*->[^}]*requestNotifications\(\)""").containsMatchIn(page))
         assertEquals(2, Regex("""askPermissionAfterWrite\(uiEvents\.requestNotifications""").findAll(page).count())
         assertEquals(1, Regex("""CollectScreenEvents\(uiEvents\.requestNotifications\)""").findAll(page).count())

@@ -84,7 +84,7 @@ class WidgetTextFitTest {
         val sized: (String, Float) -> Float = { text, sp -> text.length * sp / 2f }
         val list = listOf("A".repeat(20), "A".repeat(10))
         val sizes = WidgetTextFit.CHANGE_LINE_SIZES_SP
-        // 20 Zeichen: 12 sp = 120, 11 sp = 110 (J-18: nie unter 11 sp)
+        // 20 Zeichen: 12 sp = 120, 11 sp = 110 (nie unter 11 sp)
         assertEquals(listOf(12f, 11f), sizes)
         assertEquals("A".repeat(20) to 12f, WidgetTextFit.firstFittingSized(list, sizes, 120f, sized))
         assertEquals("A".repeat(20) to 11f, WidgetTextFit.firstFittingSized(list, sizes, 115f, sized))

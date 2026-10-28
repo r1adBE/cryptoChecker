@@ -41,7 +41,7 @@ class StarterPairsTest {
     @Test
     fun fallbackFiveCoins() {
         assertEquals(listOf("BTC", "ETH", "XRP", "BNB", "SOL"), StarterCoins.fallback("DE").map { it.symbol })
-        // Schweiz/Liechtenstein: Binance wie überall ausser den USA (Entscheid 15. Oktober 2026)
+        // Schweiz/Liechtenstein: Binance wie überall ausser den USA
         assertEquals(listOf("BTC", "ETH", "XRP", "BNB", "SOL"), StarterCoins.fallback("CH").map { it.symbol })
         // Binance.US: ohne XRP
         assertEquals(listOf("BTC", "ETH", "BNB", "SOL", "DOGE"), StarterCoins.fallback("US").map { it.symbol })
@@ -53,8 +53,7 @@ class StarterPairsTest {
         assertEquals("Binance", StarterPairs.exchangeKey(" li "))
         assertEquals("BinanceUs", StarterPairs.exchangeKey("US"))
         assertEquals("Binance", StarterPairs.exchangeKey("DE"))
-        assertEquals("USDT", StarterPairs.startQuote("CH"))
-        assertEquals("USDT", StarterPairs.startQuote(null))
+        assertEquals("USDT", StarterPairs.startQuote())
         assertEquals(StarterPairs.Pair("Binance", "Binance", "BTC", "USDT", "BTCUSDT"), StarterPairs.pairFor("btc", "CH"))
     }
 
@@ -101,6 +100,5 @@ class StarterPairsTest {
         assertEquals("Binance.US", StarterPairs.exchangeName(StarterPairs.effectiveRegion("DE", binanceBlocked = true)) { names[it] })
         // Ohne Registry-Namen: Schlüssel
         assertEquals("BinanceUs", StarterPairs.exchangeName("US"))
-        assertEquals("USDT", StarterPairs.startQuote("US"))
     }
 }

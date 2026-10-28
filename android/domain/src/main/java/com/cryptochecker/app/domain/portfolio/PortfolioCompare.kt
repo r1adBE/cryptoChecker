@@ -2,7 +2,7 @@ package com.cryptochecker.app.domain.portfolio
 
 /**
  * Darstellung des Wertverlaufs bei einer Umrechnungswährung (Umschalter «CHF | USDT | Vergleich»):
- * [CURRENCY] = in der gewählten Währung (Standard, wie bisher), [USDT] = unumgerechnet,
+ * [CURRENCY] = in der gewählten Währung (Standard), [USDT] = unumgerechnet,
  * [COMPARE] = beide Kurven als Veränderung in Prozent. Gespeichert unter dem Namen (nur auf diesem
  * Gerät, nicht in der Sicherung); gespiegelt in `Shared/Portfolio/PortfolioCompare.swift`.
  */
@@ -117,7 +117,7 @@ object PortfolioCompare {
     /**
      * Welche Darstellung gilt: [saved] nur, wenn sie möglich ist — USDT braucht den unumgerechneten
      * Verlauf mit Tageskursen ([usdtAvailable]), der Vergleich zusätzlich einen Ausgangspunkt
-     * ([compareAvailable]); sonst in der Währung (wie bisher).
+     * ([compareAvailable]); sonst in der Währung.
      */
     fun effectiveView(saved: PortfolioHistoryView, usdtAvailable: Boolean, compareAvailable: Boolean): PortfolioHistoryView =
         when {

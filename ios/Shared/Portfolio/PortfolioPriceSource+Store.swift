@@ -7,7 +7,7 @@ extension PortfolioPriceSource {
     /// Gemerkte Kurse: Datei in der App Group, nie im Geräte-Backup — sie nennt die gehaltenen Coins
     /// (wie die Zwischenspeicher des Portfolio-Widgets, `PortfolioStore.applyBackupPolicy`; Android:
     /// `noBackupFilesDir`). Getrennt vom Zwischenspeicher: `cached` und `prices` (auch Widget und
-    /// Hintergrund) sehen nur Kurse dieses Prozesses, wie bisher.
+    /// Hintergrund) sehen nur Kurse dieses Prozesses.
     static var storeURL: URL { SharedStorage.directory.appendingPathComponent("portfolio_last_prices.txt") }
     /// Gemerkte Kurse; nil = Datei noch nicht gelesen.
     // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)

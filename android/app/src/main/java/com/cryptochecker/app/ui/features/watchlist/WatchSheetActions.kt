@@ -266,7 +266,7 @@ internal fun SheetMoreActions(
             onClick = onRefresh
         )
     }
-    // Einzel-Widget mit diesem Paar auf den Startbildschirm (Runde 13b); kann der
+    // Einzel-Widget mit diesem Paar auf den Startbildschirm; kann der
     // Startbildschirm das nicht, eine kurze Anleitung
     SheetAction(
         icon = R.drawable.ic_widgets,

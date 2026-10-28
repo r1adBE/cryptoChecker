@@ -240,7 +240,7 @@ final class PortfolioModel: ObservableObject {
             return
         }
         // Anzeigewährung: dieselben Tageskurse wie der Wertverlauf, sofern sie bis zum Stichtag zurückreichen — Kopf
-        // und Kurve zeigen dieselbe Zahl; sonst wie bisher USDT (× heutiger Kurs in der Karte). Wie Android.
+        // und Kurve zeigen dieselbe Zahl; sonst USDT (× heutiger Kurs in der Karte). Wie Android.
         let currency = data.settings.portfolioCurrency
         var known: (from: LocalDay, rates: [Int: Double]?)?
         if let s = fxSeries, s.currency == currency { known = (from: s.from, rates: s.rates) }
@@ -333,7 +333,6 @@ final class PortfolioModel: ObservableObject {
                 let today = PortfolioHistory.utcToday()
                 let series = PortfolioHistory.build(trades: txs, closes: closes, livePrices: live, range: range,
                                                     todayEpochDay: today,
-                                                    dayEndMillis: { PortfolioHistory.dayEndMillis($0) },
                                                     ranges: ranges, addresses: addresses, method: method)
                 var seen = Set<String>()
                 let drawn = txs.flatMap(\.coins).map { PortfolioCalculator.normalizeCoin($0) }

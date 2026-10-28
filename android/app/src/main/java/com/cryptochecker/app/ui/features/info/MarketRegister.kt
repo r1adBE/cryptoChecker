@@ -7,8 +7,8 @@ import com.cryptochecker.app.domain.market.MarketSections
 import java.time.ZoneId
 
 /**
- * Sprung von aussen an eine Stelle des Markt-Tabs (G-10: statt der Register «Jetzt» | «Einordnung» | «Daten»
- * zwei Unterseiten). Die Navigation merkt sich einen offenen Sprung gespeichert (übersteht Prozess-Neustart) und
+ * Sprung von aussen an eine Stelle des Markt-Tabs (der Tab selbst und die zwei Unterseiten «Einordnung» und
+ * «Daten»). Die Navigation merkt sich einen offenen Sprung gespeichert (übersteht Prozess-Neustart) und
  * gibt ihn dem Tab mit, ohne dessen ViewModel vorzeitig zu erzeugen; der Tab entscheidet (oben bzw. Unterseite
  * «Daten», die per Routen-Argument zum Hinweis scrollt) und meldet ihn als erledigt. Wie `AppRouter.marketJump` (iOS).
  */

@@ -57,7 +57,7 @@ enum VolumeDataSource {
                             limit count: Int) async -> Sourced<[MarketCandle]>? {
         let key = "P|\(pair.cacheKey)|\(interval.rawValue)|\(count)"
         if let hit = cached(key, now: EpochTime.nowMillis) { return hit.candles }
-        // Name des Coins an der Börse des Paars (gleicher Token, K-8) — wie der Chart
+        // Name des Coins an der Börse des Paars (gleicher Token) — wie der Chart
         let identityName = TokenIdentityStore.shared.pairName(exchangeKey: pair.exchangeKey, base: pair.base)
         let result = await pairCandlesOf(
             pair, price: price, identityName: identityName,
@@ -80,7 +80,7 @@ enum VolumeDataSource {
     /// und der Kurs `price` bekannt ist, die Kette `chain` — jede Reihe nur bei gleichem Token
     /// (`OwnCandlePolicy.acceptsFallback`), sonst die nächste Quelle der Kette. `identityName` (Name des Coins an
     /// der Börse des Paars) geht wie beim Chart an die Kette: Binance-Quellen nur ohne klaren Namens-Widerspruch
-    /// (`TokenIdentity.compatible`, K-8). Wie Android.
+    /// (`TokenIdentity.compatible`). Wie Android.
     static func pairCandlesOf(
         _ pair: CandlePair, price: Double?, identityName: String?, ownSupported: Bool,
         own: () async -> Sourced<[MarketCandle]>?,

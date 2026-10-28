@@ -11,7 +11,7 @@ import kotlin.math.min
  *    Bestand je Coin und Tag = alle Transaktionen bis zum Ende des UTC-Tags ([utcDayEnd]); Zuflüsse liegen auf dem
  *    UTC-Tag ihrer Zeit. Sonst lag ein Kauf um 00:30 Zürich-Sommerzeit (22:30 UTC des Vortags) im Bestand am Anfang
  *    von «7 T», aber nach dem Anfang der Kurve — ein Scheingewinn. Die Achse darf lokale Daten zeigen (der Tag eines
- *    Punkts ist der Kalendertag seiner Kerze); `dayEndMillis` der Aufrufer zählt für die Zuordnung nicht mehr.
+ *    Punkts ist der Kalendertag seiner Kerze).
  *    Verkäufe werden wie in [PortfolioCalculator] beim Bestand gekappt.
  *  - Wert = Σ Bestand × Tagesschlusskurs (UTC-Tageskerze desselben Kalendertags) × [fxRate].
  *    Fehlt an einem Tag die Kerze, gilt der letzte bekannte Schluss davor; vor der ersten
@@ -136,7 +136,6 @@ object PortfolioHistory {
      * @param closes Tagesschluss in USDT je Coin (Grossschreibung) und UTC-Tag; fehlt ein Coin
      *   (oder ist seine Liste leer), hat er keinen Verlauf.
      * @param livePrices aktuelle USDT-Kurse für den heutigen Punkt.
-     * @param dayEndMillis nicht mehr für die Zuordnung verwendet (UTC-Tage, [utcDayEnd]); bleibt für ältere Aufrufer.
      * @param fxRate Umrechnung USDT → Anzeigewährung (1 = keine).
      * @param ranges Eröffnung/Hoch/Tief der Tageskerzen je Coin und UTC-Tag (optional): Damit bekommt
      *   jeder Punkt [PortfolioHistoryPoint.open]/[PortfolioHistoryPoint.high]/[PortfolioHistoryPoint.low]
@@ -152,14 +151,13 @@ object PortfolioHistory {
         livePrices: Map<String, Double>,
         range: PortfolioHistoryRange,
         todayEpochDay: Long,
-        @Suppress("UNUSED_PARAMETER") dayEndMillis: (Long) -> Long = { utcDayEnd(it) },
         fxRate: Double = 1.0,
         ranges: Map<String, Map<Long, PortfolioDayRange>> = emptyMap(),
         addresses: List<AddressBalanceHistory> = emptyList(),
         /** Einstandsmethode: Bestände wie die Karte ([PortfolioHoldingsBook]). */
         method: CostMethod = CostMethod.DEFAULT,
     ): PortfolioHistorySeries {
-        // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone des Aufrufers
+        // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone
         val dayEndMillis: (Long) -> Long = { utcDayEnd(it) }
         // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe. Tausch ohne Wert (und die übrigen Fälle von
         // [PortfolioLedger.valueAtDayClose]) zum selben Tageskurs wie die Karte ([PortfolioPeriodChange.marketPriceAt]):
@@ -176,8 +174,8 @@ object PortfolioHistory {
 
         // Erster Tag mit einer Transaktion (UTC): kleinster Tag, dessen Ende nach ihr liegt
         val firstTime = valid.minOf { it.time }
-        val start = startDay(range, firstTime, todayEpochDay, dayEndMillis)
-        val capped = isCapped(range, firstTime, todayEpochDay, dayEndMillis)
+        val start = startDay(range, firstTime, todayEpochDay)
+        val capped = isCapped(range, firstTime, todayEpochDay)
 
         val coins = PortfolioLedger.coins(valid).sorted()
         // Schritte je Coin einmal gesammelt (Bestände, Zuflüsse und Gewinn/Verlust nutzen dieselben)

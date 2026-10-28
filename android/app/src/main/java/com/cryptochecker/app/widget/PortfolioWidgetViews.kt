@@ -19,7 +19,7 @@ import kotlin.math.floor
  * [WidgetPrefs.getPortfolioView]; gespiegelt in `PortfolioWidgetView`, iOS):
  *  - [OVERVIEW]: wie die erste Karte im Portfolio-Tab — Gesamtwert, Veränderung über den Zeitraum
  *    und die Kennzahlen Heute · 7 T · Gesamt,
- *  - [CHART]: Gesamtwert mit Wertverlauf (bisher die einzige Ansicht, deshalb Standard),
+ *  - [CHART]: Gesamtwert mit Wertverlauf (Standard),
  *  - [LIST]: die Positionen nach Wert wie die Liste im Portfolio-Tab.
  */
 enum class PortfolioWidgetView {
@@ -35,7 +35,7 @@ enum class PortfolioWidgetView {
     val usesRange: Boolean get() = this != LIST
 
     companion object {
-        /** Neue und bestehende Widgets ohne Wahl: Chart wie bisher. */
+        /** Widgets ohne Wahl: Chart. */
         val DEFAULT = CHART
 
         fun fromName(name: String?): PortfolioWidgetView = entries.firstOrNull { it.name == name } ?: DEFAULT
@@ -183,7 +183,7 @@ object PortfolioWidgetViews {
     /**
      * Zeitraum der Veränderung je Position in der Liste, so wie sie aufgenommen wurde
      * ([PortfolioSnapshot.stamp]): «seit 00:00» (Ortszeit/UTC) nur, wenn die Aufnahme ab Tagesbeginn
-     * rechnete; sonst (auch «seit letztem Stand», ältere Aufnahmen ohne Stempel) rollende 24 Stunden.
+     * rechnete; sonst (auch «seit letztem Stand», Aufnahmen ohne Stempel) rollende 24 Stunden.
      */
     fun rowChangeBasis(snapshot: PortfolioSnapshot): ChangeBasis =
         snapshot.stamp?.basis?.takeIf { it.isDay } ?: ChangeBasis.ROLLING_24H
@@ -236,7 +236,7 @@ object PortfolioWidgetViews {
 
     /**
      * Gewinn/Verlust einer Position ([PortfolioPosition.pnlAmount]/[PortfolioPosition.pnlPercent]); null =
-     * unbekannt (Kurs am Anfang oder Preis einer Transaktion fehlt, ältere Aufnahme) → «—».
+     * unbekannt (Kurs am Anfang oder Preis einer Transaktion fehlt) → «—».
      */
     fun rowPnl(position: PortfolioPosition): PortfolioListTotalChange? {
         val amount = position.pnlAmount?.takeIf { it.isFinite() } ?: return null

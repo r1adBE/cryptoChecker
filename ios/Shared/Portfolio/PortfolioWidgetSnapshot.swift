@@ -8,16 +8,16 @@ struct PortfolioWidgetPosition: Codable, Equatable, Sendable {
     var sharePercent: Double
     var change24hPercent: Double?
     /// Gehaltene Menge als Dezimaltext (`DecimalText.plain`) für «1.3 BTC» im Widget
-    /// (`WidgetQuantityFormat`); nil = älterer Stand (dann ohne Menge).
+    /// (`WidgetQuantityFormat`); nil = Menge nicht darstellbar (dann ohne Menge).
     var quantity: String? = nil
     /// MEIN Gewinn/Verlust auf dieser Position über 24 h bzw. seit Tagesbeginn (gleiche %-Basis wie
-    /// `change24hPercent`) in der Anzeigewährung (`PortfolioPeriodChange.todayByCoin`); nil = unbekannt oder
-    /// älterer Stand — wie `PortfolioPosition.pnlAmount` (Android).
+    /// `change24hPercent`) in der Anzeigewährung (`PortfolioPeriodChange.todayByCoin`); nil = unbekannt oder andere
+    /// %-Basis (`shown`) — wie `PortfolioPosition.pnlAmount` (Android).
     var pnlAmount: Double? = nil
     /// `pnlAmount` in Prozent von Wert am Anfang + Zugängen; nil = unbekannt.
     var pnlPercent: Double? = nil
     /// Buchungen dieses Coins für die Liste (`PortfolioWidgetEntries`, heutiger Wert in der Anzeigewährung); nil =
-    /// älterer Stand — wie `PortfolioPosition.entries` (Android).
+    /// keine Buchungen berechnet — wie `PortfolioPosition.entries` (Android).
     var entries: [PortfolioWidgetEntry]? = nil
 }
 
@@ -32,9 +32,8 @@ struct PortfolioWidgetPoint: Codable, Equatable, Sendable {
 /// Portfolio-Werte berechnet, und in der Hintergrund-Aktualisierung; das Widget
 /// liest ihn aus der App Group (Datei `portfolio_widget.json`, `PortfolioWidgetStore.snapshotURL`).
 ///
-/// `totalUsdt`, `positions`, `otherPositions` und `history` kamen später dazu (grosses
-/// Widget), `unrealized` mit den Ansichten «Übersicht» und «Liste». Sie sind optional: Ein gespeicherter Stand ohne sie lädt weiter (dann nil),
-/// und ältere Versionen ignorieren die zusätzlichen Felder beim Lesen.
+/// `totalUsdt`, `positions`, `otherPositions` und `history` (grosses Widget) und `unrealized` (Ansichten
+/// «Übersicht» und «Liste») sind optional: Der Stand für ein leeres Portfolio (`emptyPortfolio`) hat sie nicht (nil).
 struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// Gesamtwert in `currency`.
     var total: Double
@@ -47,7 +46,7 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     var updatedAt: Int64
     /// Keine offene Position (keine Transaktion oder alles verkauft).
     var empty: Bool
-    /// Gesamtwert in USDT; nil = unbekannt (älterer Stand).
+    /// Gesamtwert in USDT; nil = leeres Portfolio.
     var totalUsdt: Double?
     /// Die grössten Positionen, absteigend nach Wert (höchstens `PortfolioWidgetStore.maxPositions`).
     var positions: [PortfolioWidgetPosition]?
@@ -56,13 +55,13 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// Wertverlauf des heutigen Bestands (Anzeigewährung), aufsteigend nach Zeit.
     var history: [PortfolioWidgetPoint]?
     /// Mit welcher %-Basis (und welchem Tagesbeginn) Veränderung und Verlauf gerechnet sind;
-    /// nil = älterer Stand (rollende 24 Stunden).
+    /// nil = leeres Portfolio (rollende 24 Stunden).
     var stamp: ChangeStamp?
     /// Kursveränderung je offenem Coin in Prozent (gleiche %-Basis wie `changePercent`) — für
-    /// «Grösste Bewegungen» im Portfolio-Tab (Runde 28; nil bei älterem Stand).
+    /// «Grösste Bewegungen» im Portfolio-Tab; nil = leeres Portfolio oder andere %-Basis (`shown`).
     var coinChanges: [String: Double]?
     /// Offene Coins ohne aktuellen Kurs — zählen in `total` als 0 (wie der Rechner, App-Hinweis
-    /// `portfolio_current_missing`); das Widget zeigt «ohne 1 Coin». nil bei älterem Stand (= 0),
+    /// `portfolio_current_missing`); das Widget zeigt «ohne 1 Coin». nil = leeres Portfolio (= 0),
     /// wie `PortfolioSnapshot.missingPrices` (Android).
     var missingPrices: Int?
     /// Tagesverlauf in USDT für 7 T / 30 T / 1 J (höchstens ein Jahr bis heute, aus den schon geladenen
@@ -71,14 +70,15 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// Veränderung des heutigen Bestands je Zeitraum in USDT, Schlüssel = Tage («7», «30», «365»).
     var periodChanges: [String: PortfolioWidgetChange]?
     /// ± seit Kauf (unrealisiert) in USDT mit Prozent — «Gesamt» der Übersicht im Widget wie in der
-    /// Gesamtkarte des Portfolio-Tabs; nil = unbekannt (Kaufpreis fehlt oder älterer Stand). Wie
+    /// Gesamtkarte des Portfolio-Tabs; nil = unbekannt (Kaufpreis fehlt oder leeres Portfolio). Wie
     /// `PortfolioSnapshot.unrealized` (Android).
     var unrealized: PortfolioWidgetChange?
     /// Coins, die in «Heute» fehlen, weil ihnen der Vergleichskurs fehlt
-    /// (`PortfolioPeriodChange.todayFromCoinChanges`); nil bei älterem Stand — wie Android.
+    /// (`PortfolioPeriodChange.todayFromCoinChanges`); nil = leeres Portfolio — wie Android.
     var todaySkipped: [String]?
     /// MEIN Gewinn/Verlust je offenem Coin seit Beginn der %-Basis in USDT (`PortfolioPeriodChange.todayByCoin`)
-    /// für die Zeilen im Portfolio-Tab — die Summe ist `changeAmount` (in USDT); nil bei älterem Stand.
+    /// für die Zeilen im Portfolio-Tab — die Summe ist `changeAmount` (in USDT); nil = leeres Portfolio
+    /// oder andere %-Basis (`shown`).
     var coinPnl: [String: PortfolioWidgetChange]?
     /// Bewertete Coins, deren Kurs beim Aufnehmen NICHT frisch war (`PortfolioPriceFallback.staleCoins`) — sie zählen
     /// mit ihrem letzten Kurs; das Widget zeigt «teilweise alter Kurs», Portfolio-Alarme prüfen nicht (ausser
@@ -86,27 +86,27 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// Wie Android `PortfolioSnapshot.stalePrices`.
     var stalePrices: Int?
     /// Merkzettel der App für «Seit Kauf» und «7 T» in der Anzeigewährung (`PortfolioDisplayFx`) — gespeichert, damit
-    /// auch Stände aus dem Hintergrund und dem Widget damit rechnen; nil = keiner (älterer Stand, USDT). Wie Android.
+    /// auch Stände aus dem Hintergrund und dem Widget damit rechnen; nil = keiner (USDT). Wie Android.
     var displayFx: PortfolioDisplayFx?
     /// «Seit Kauf» in `currency` zum Kurs der Erwerbstage wie die Gesamtkarte (`PortfolioDisplayFigures.unrealized`);
-    /// `skipped` = fehlende Coins («unvollständig»). nil = unbekannt bzw. älterer Stand — das Widget zeigt in der
+    /// `skipped` = fehlende Coins («unvollständig»). nil = unbekannt bzw. leeres Portfolio — das Widget zeigt in der
     /// Anzeigewährung dann «—» statt USDT × heutiger Kurs. Wie Android `unrealizedDisplay`.
     var unrealizedDisplay: PortfolioWidgetChange?
     /// «7 T» in `currency` mit den Tageskursen der App wie die Gesamtkarte (`PortfolioDisplayFigures.periodFx`); nil =
     /// nicht rechenbar: das Widget zeigt dann `periodChanges` in USDT mit Einheit «USDT». Wie Android `weekDisplay`.
     var weekDisplay: PortfolioWidgetChange?
-    /// Coins zu `missingPrices` (Grossschreibung, sortiert) — Hinweis «Portfolio-Alarme pausiert»; nil bei älterem Stand.
+    /// Coins zu `missingPrices` (Grossschreibung, sortiert) — Hinweis «Portfolio-Alarme pausiert»; nil = keine.
     var missingCoins: [String]?
-    /// Coins zu `stalePrices` (sortiert) — Hinweis «Portfolio-Alarme pausiert»; nil bei älterem Stand.
+    /// Coins zu `stalePrices` (sortiert) — Hinweis «Portfolio-Alarme pausiert»; nil = keine.
     var staleCoins: [String]?
     /// Wert der Coins mit altem Kurs in USDT (zum letzten Kurs) — Portfolio-Alarme prüfen trotzdem, wenn er unwesentlich
-    /// ist (`PortfolioAlarmLogic.staleMaterial`); nil = unbekannt (älterer Stand). Wie Android `staleValueUsdt`.
+    /// ist (`PortfolioAlarmLogic.staleMaterial`); nil = keine alten Kurse. Wie Android `staleValueUsdt`.
     var staleValueUsdt: Double?
     /// Zählende Adressen ohne je geladenes Guthaben (`AddressBalance.pendingCount`) — fehlen in `total`; Portfolio-Alarme
-    /// prüfen dann nicht. nil = 0 (älterer Stand). Wie Android `addressesPending`.
+    /// prüfen dann nicht. nil = 0. Wie Android `addressesPending`.
     var addressesPending: Int?
     /// Zählende Adressen, die seit über 24 Stunden nicht laden (`AddressAlarmState.failing`) — Alarme rechnen ohne sie;
-    /// nil = keine (älterer Stand). Wie Android `addressesFailing`.
+    /// nil = keine. Wie Android `addressesFailing`.
     var addressesFailing: [String]?
     /// Adressen mit nicht bestätigten Token-Guthaben (`AddressAlarmState.staleTokenAddresses`) — wie ein alter Kurs; nil = keine.
     var staleTokenAddresses: [String]?
@@ -114,7 +114,7 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     var staleTokenValueUsdt: Double?
     /// Bewertete Coins mit «Kurs ungeprüft» (Token nicht bestätigt, `PortfolioPrices.unverified`), ohne
     /// die schon in `staleCoins` — für Portfolio-Alarme wie ein alter Kurs (Wert `unverifiedValueUsdt`); das Widget zeigt
-    /// deswegen NICHT «teilweise alter Kurs». nil = keine (älterer Stand). Wie Android `unverifiedCoins`.
+    /// deswegen NICHT «teilweise alter Kurs». nil = keine. Wie Android `unverifiedCoins`.
     var unverifiedCoins: [String]?
     /// Wert dieser Coins in USDT; nil = 0. Wie Android `unverifiedValueUsdt`.
     var unverifiedValueUsdt: Double?
@@ -165,17 +165,17 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     static let emptyPortfolio = PortfolioWidgetSnapshot(total: 0, changeAmount: nil, changePercent: nil,
                                                         currency: "USD", updatedAt: 0, empty: true)
 
-    /// Positionen (leer bei älterem Stand).
+    /// Positionen (leer bei leerem Portfolio).
     var topPositions: [PortfolioWidgetPosition] { positions ?? [] }
-    /// Wertverlauf (leer bei älterem Stand).
+    /// Wertverlauf (leer bei leerem Portfolio).
     var valueHistory: [PortfolioWidgetPoint] { history ?? [] }
-    /// Coins ohne Kurs (0 bei älterem Stand).
+    /// Coins ohne Kurs (0, wenn nil).
     var missingCount: Int { Swift.max(0, missingPrices ?? 0) }
-    /// Coins mit altem Kurs (0 bei älterem Stand).
+    /// Coins mit altem Kurs (0, wenn nil).
     var staleCount: Int { Swift.max(0, stalePrices ?? 0) }
-    /// Nie geladene zählende Adressen (0 bei älterem Stand).
+    /// Nie geladene zählende Adressen (0, wenn nil).
     var pendingAddressCount: Int { Swift.max(0, addressesPending ?? 0) }
-    /// Tagesverlauf (leer bei älterem Stand).
+    /// Tagesverlauf (leer ohne taugliche Tageskurse).
     var dailyPoints: [PortfolioHistoryPoint] { (daily ?? []).map(\.point) }
 
     /// Mit Tagesverlauf und Veränderung je Zeitraum (`PortfolioWidgetChart.dailyData`).

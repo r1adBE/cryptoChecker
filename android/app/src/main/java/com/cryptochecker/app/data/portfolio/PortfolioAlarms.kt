@@ -54,7 +54,7 @@ class PortfolioAlarmRepository @Inject constructor(
     }
 
     suspend fun setEnabled(id: Long, enabled: Boolean) {
-        // FUN3-01: «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen)
+        // «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen)
         if (enabled && dao.getAll().any { it.id == id && PortfolioAlarmLogic.exceedsFall(it.kind, it.threshold) }) return
         dao.setEnabled(id, enabled)
     }

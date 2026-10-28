@@ -177,7 +177,6 @@ class PortfolioTxTypesTest {
 
     @Test
     fun `history cash flows cover rewards, transfer fees and fee coins`() {
-        val dayEnd: (Long) -> Long = { d -> (d + 1) * day - 1 }
         val today = 20_000L
         val closes = mapOf(
             "DOT" to (today - 30..today).associateWith { 10.0 },
@@ -192,7 +191,7 @@ class PortfolioTxTypesTest {
             tx(3, "DOT", PortfolioTxType.REWARD, "1", "10", (today - 2) * day + 1),
             tx(4, "DOT", PortfolioTxType.TRANSFER, "2", null, (today - 1) * day + 1, feeCoin = "BNB", feeAmount = "0.01", feePrice = "300"),
         )
-        val s = PortfolioHistory.build(withFlows, closes, live, PortfolioHistoryRange.WEEK, today, dayEnd)
+        val s = PortfolioHistory.build(withFlows, closes, live, PortfolioHistoryRange.WEEK, today)
         assertEquals(
             listOf(PortfolioCashFlow(today - 2, 10.0), PortfolioCashFlow(today - 1, -3.0), PortfolioCashFlow(today - 1, 3.0)),
             s.cashFlows!!.sortedWith(compareBy({ it.epochDay }, { it.amount })),
@@ -204,11 +203,11 @@ class PortfolioTxTypesTest {
         val unpricedReward = base + tx(3, "DOT", PortfolioTxType.REWARD, "1", null, (today - 2) * day + 1)
         assertEquals(
             listOf(PortfolioCashFlow(today - 2, 10.0)),
-            PortfolioHistory.build(unpricedReward, closes, live, PortfolioHistoryRange.WEEK, today, dayEnd).cashFlows,
+            PortfolioHistory.build(unpricedReward, closes, live, PortfolioHistoryRange.WEEK, today).cashFlows,
         )
         // Kauf ohne Preis bleibt unbekannt
         val unknown = base + tx(3, "DOT", PortfolioTxType.BUY, "1", null, (today - 2) * day + 1)
-        assertNull(PortfolioHistory.build(unknown, closes, live, PortfolioHistoryRange.WEEK, today, dayEnd).cashFlows)
+        assertNull(PortfolioHistory.build(unknown, closes, live, PortfolioHistoryRange.WEEK, today).cashFlows)
     }
 
     @Test

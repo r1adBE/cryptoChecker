@@ -235,4 +235,16 @@
     <string name="compare_title">השוואה</string>
     <string name="compare_basis">הקווים מציגים את השינוי באחוזים מתחילת התקופה.</string>
     <string name="compare_from_high">מול שיא 30 יום</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">צמדים שלא שוחזרו: %1$d – רשימת המעקב מלאה</item>
+        <item quantity="two">צמדים שלא שוחזרו: %1$d – רשימת המעקב מלאה</item>
+        <item quantity="other">צמדים שלא שוחזרו: %1$d – רשימת המעקב מלאה</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">רשימת המעקב וההתראות שלה לא נשמרות כרגע. השינוי הזה ושינויים נוספים יאבדו כשהאפליקציה תיסגר. לשנות בכל זאת?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">לשנות בכל זאת</string>
 </resources>

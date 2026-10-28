@@ -41,7 +41,7 @@ import com.cryptochecker.app.domain.portfolio.candleDays
 
 /**
  * Tagesschlüsse eines Coins und wie viele Tage bis heute dafür abgefragt wurden ([span]);
- * [ranges] = Eröffnung/Hoch/Tief derselben Kerzen (leer bei Einträgen älterer Versionen).
+ * [ranges] = Eröffnung/Hoch/Tief derselben Kerzen (kann leer sein).
  */
 data class CoinCloses(
     val closes: Map<Long, Double>,
@@ -111,7 +111,7 @@ class HistoryRoutes(val pairs: Map<String, CandlePair>, val unresolved: Set<Stri
  * dieser Börse ([OwnCandleDataSource], höchstens 1000 je Abfrage), in USDT umgerechnet (Fiat mit den
  * Devisen-Tageskursen, [HistoricPriceSource.usdToSeries]); ebenfalls 12 h gemerkt («phisto_<COIN>»).
  *
- * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Tagesschlüsse USDT/USD von Kraken ([usdtUsdDaily], Paar USDTZUSD über
+ * USDT zum Marktkurs: Tagesschlüsse USDT/USD von Kraken ([usdtUsdDaily], Paar USDTZUSD über
  * dieselben eigenen Tageskerzen, 12 h gemerkt «phisto_USDTZUSD») — nur mit Portfolio (nur dessen Abrufe holen sie). Damit
  * rechnen USD- und Fiat-Kerzen eigener Börsen in USDT ([PortfolioExchangeRoute.ownDailyUsdt]) und die Umrechnung von
  * Verlauf und Export in Fiat ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates]). Fehlen Kraken Tage (nicht erreichbar,

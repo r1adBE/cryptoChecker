@@ -266,7 +266,7 @@ class PriceFetcher @Inject constructor(
 /**
  * «Zu viele Anfragen» (429) oder «gesperrt» (418) bei einer Einzelabfrage: Die übrigen, noch nicht gesendeten
  * Einzelabfragen derselben Börse in diesem Durchlauf gehen nicht mehr hinaus, sondern enden mit demselben
- * Fehlertext — samt «retry-after», die Pause je Börse ([ExchangeBackoff]) wirkt wie bisher. Schon laufende
+ * Fehlertext — samt «retry-after», die Pause je Börse ([ExchangeBackoff]) wirkt. Schon laufende
  * Abfragen laufen zu Ende. Je Börse und Durchlauf eine Instanz. Wie `SingleRateGate` in `PriceFetcher.swift`.
  */
 class SingleRateGate {

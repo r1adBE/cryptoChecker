@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">Staking-Buchung ohne Gegenbuchung – Bestand prüfen</string>
     <string name="portfolio_csv_skip_amount_too_small">Menge zu klein – wird beim Speichern 0</string>
     <string name="portfolio_csv_skip_invalid_swap">Tausch ohne gültigen erhaltenen Coin bzw. erhaltene Menge</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Datei wird neu gelesen …</string>
 </resources>

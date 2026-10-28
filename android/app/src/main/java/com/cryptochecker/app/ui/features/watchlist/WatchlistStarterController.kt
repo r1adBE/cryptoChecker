@@ -80,7 +80,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
     val deselected: StateFlow<Set<String>> = _deselected.asStateFlow()
 
     /** Quote der Start-Paare: USDT (Binance und Binance.US). */
-    val quote: String = StarterPairs.startQuote(starterRegion())
+    val quote: String = StarterPairs.startQuote()
 
     /**
      * Anzeigename der Start-Börse («Binance», bei Standort-Sperre «Binance.US»); wechselt nach der Prüfung der
@@ -223,7 +223,7 @@ internal class WatchlistStarterController @AssistedInject constructor(
         val existing = watchRepository.getWatches().map { Triple(it.exchangeKey, it.baseAsset, it.quoteAsset) }
         val toAdd = StarterPairs.missing(wanted, existing)
         if (toAdd.isEmpty()) return
-        // UX3-04: Rückfrage F-08 EINMAL für alle Startpaare, vor dem Erst-Moment; «Abbrechen» = nichts
+        // Rückfrage «nicht gespeichert» EINMAL für alle Startpaare, vor dem Erst-Moment; «Abbrechen» = nichts
         if (!watchRepository.confirmUserWrite()) return
         // Erst-Moment vor dem Speichern bereitstellen: Zeilen, Häkchen, Haptik und Banner
         addMoments.postStarter(toAdd.map { AddMoment.Added(it.exchangeKey, it.base, it.quote, "${it.base}/${it.quote}") })

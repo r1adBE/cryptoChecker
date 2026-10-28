@@ -18,20 +18,20 @@ data class PortfolioPosition(
     val change24hPercent: Double?,
     /**
      * Gehaltene Menge als Dezimaltext ([com.cryptochecker.app.util.DecimalText.plain]) für «1.3 BTC» im
-     * Widget ([com.cryptochecker.app.util.WidgetQuantityFormat]); null = ältere Aufnahme (dann ohne Menge).
+     * Widget ([com.cryptochecker.app.util.WidgetQuantityFormat]); null = ohne Menge.
      */
     val quantity: String? = null,
     /**
      * MEIN Gewinn/Verlust auf dieser Position über 24 h bzw. seit Tagesbeginn (gleiche %-Basis wie
      * [change24hPercent]) in der Anzeigewährung ([PortfolioPeriodChange.todayByCoin]); null = unbekannt
-     * oder ältere Aufnahme.
+     * oder nicht gespeichert.
      */
     val pnlAmount: Double? = null,
     /** [pnlAmount] in Prozent von Wert am Anfang + Zugängen; null = unbekannt. */
     val pnlPercent: Double? = null,
     /**
      * Buchungen dieses Coins für die Liste ([PortfolioWidgetEntries]), zeitlich aufsteigend; leer = mehr als
-     * [PortfolioWidgetEntries.MAX_PER_COIN] oder keine; null = ältere Aufnahme.
+     * [PortfolioWidgetEntries.MAX_PER_COIN] oder keine; null = nicht gespeichert.
      */
     val entries: List<PortfolioWidgetEntry>? = null,
 )
@@ -84,7 +84,7 @@ data class PositionRows(val shown: List<PortfolioPosition>, val more: Int)
  */
 object PortfolioWidgetMath {
 
-    /** Höchstens so viele Positionen werden gespeichert (Ansicht «Liste» des Widgets; ältere Aufnahmen: 5). */
+    /** Höchstens so viele Positionen werden gespeichert (Ansicht «Liste» des Widgets). */
     const val MAX_POSITIONS = 12
 
     /** So viele Positionen zeigt die grosse Stufe. */
@@ -124,7 +124,7 @@ object PortfolioWidgetMath {
     /** ≈ USDT: 12 sp, 1 dp Abstand. */
     fun usdtHeightDp(fontScale: Float): Float = line(12f, fontScale) + 1f
 
-    /** Fusszeile: 12 sp (vorher 11, J-18: 10), 4 dp Abstand. */
+    /** Fusszeile: 12 sp, 4 dp Abstand. */
     fun footerHeightDp(fontScale: Float): Float = line(12f, fontScale) + 4f
 
     /** Zeile der Positionsliste: 12 sp und 4 dp Abstand. */

@@ -88,7 +88,7 @@ class TaxExportWindowParityTest {
             assertEquals("$label proceeds ${r.proceedsTarget}", 0, BigDecimal(e["proceedsTarget"] as String).compareTo(r.proceedsTarget))
             assertFalse("$label noFx", r.fxMissing)
         }
-        // Wie früher (Kurse nur bis zum Ende des Steuerjahrs): Zugänge nach dem 5. April ohne Devisenkurs
+        // Kurse nur bis zum Ende des Steuerjahrs: Zugänge nach dem 5. April ohne Devisenkurs
         val truncated = rates.filterKeys { it <= period.end.toEpochDay() }
         val old = TaxExport.gainRows(trades, TaxMethod.UK_POOL, period, zone, currency, truncated, priceAt, rules = TaxTemplate.UK.eventRules)
         assertEquals(data["truncatedFxMissing"].num()!!.toInt(), old.count { it.fxMissing })

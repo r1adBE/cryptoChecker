@@ -97,4 +97,11 @@
     <string name="portfolio_storage_locked">保存済みのデータを今は読み取れないため、変更できません。アプリを再起動してください。</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">この端末は現在キーを提供していません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。バックグラウンドのアラームは一時停止中です。次回の起動時にもう一度試します。</string>
+
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">「アドレス用の独自サーバー」は復元されませんでした。暗号化されていないバックアップでは変更できません。</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">バックアップのとおり「アドレス用の独自サーバー」を削除しました。Bitcoin アドレスは再び公開ノードに問い合わせます。</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">「アドレス用の独自サーバー」をバックアップのサーバーに置き換えました。</string>
 </resources>

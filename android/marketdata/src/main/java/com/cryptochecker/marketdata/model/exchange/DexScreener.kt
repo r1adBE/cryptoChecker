@@ -178,7 +178,7 @@ class DexScreener : Exchange("DexScreener", "Dex Screener") {
          * Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen
          * dürfen ([SAFE_PART]; keine Leerzeichen, kein zweites «/», kein «?», «#», «%»). Gilt für Einzelkurs, Suchtreffer
          * und Sicherung. Wie iOS `DexScreener.isSafePairId` (`testdata/parity/dex_pair_id.json`).
-         * SEC3-R1: kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
+         * Kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
          */
         fun isSafePairId(pairId: String): Boolean {
             val cut = pairId.indexOf('/')

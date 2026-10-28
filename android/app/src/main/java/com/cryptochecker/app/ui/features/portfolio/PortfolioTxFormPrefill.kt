@@ -67,7 +67,7 @@ internal suspend fun TxFormState.prefillFeeCoinPrice(feeCoinSymbol: String, coin
     }
 }
 
-/** K-2: Tageskurs USD → Anzeigewährung für das Datum der Transaktion (heute: aktueller Kurs), nur in der Anzeigewährung. */
+/** Tageskurs USD → Anzeigewährung für das Datum der Transaktion (heute: aktueller Kurs), nur in der Anzeigewährung. */
 internal suspend fun TxFormState.loadEntryFx(currency: String, day: LocalDate, load: suspend (String, LocalDate) -> EntryFx?) {
     if (!entryFiat || currency == "USD") return
     val key = "$currency|$day"

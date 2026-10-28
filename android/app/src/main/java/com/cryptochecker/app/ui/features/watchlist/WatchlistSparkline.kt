@@ -33,8 +33,8 @@ import kotlinx.coroutines.flow.first
  * ganze Reihe (letzter ≥ erster Wert = steigend), gemäss Einstellung «Kursfarben».
  * Hoher Kontrast: Fläche kräftiger (18 % statt 12 %), die Linie ist immer voll.
  * [stale] (Kurs veraltet): ganze Form im neutralen Grau des veralteten Kurses (onSurfaceVariant, wie
- * [RowPrice]), ohne Fläche — alte Daten sollen nicht mehr nach Kursrichtung «schön» aussehen; früher
- * nur halbe Deckkraft in Kursfarbe.
+ * [RowPrice]), ohne Fläche — alte Daten sollen nicht nach Kursrichtung «schön» aussehen (auch nicht
+ * mit halber Deckkraft in Kursfarbe).
  * Für den Screenreader beschreibt die Zeile den Verlauf ([A11yText.chart]).
  */
 @Composable

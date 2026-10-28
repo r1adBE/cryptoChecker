@@ -16,7 +16,7 @@ class NotificationDefaultsTest {
 
     @Test
     fun newPairsStartWithPriceNotification() {
-        // Entscheid 16. Oktober 2026: neue Paare zeigen den Kurs in der Mitteilungsleiste (vorher aus)
+        // Neue Paare zeigen den Kurs in der Mitteilungsleiste
         assertTrue(WatchRepository.DEFAULT_NOTIFICATION_ENABLED)
         // Gespeicherte/gesicherte Paare: Entity-Standard unverändert (kein Schemawechsel)
         assertTrue(WatchEntity(exchangeKey = "Kraken", exchangeName = "Kraken", baseAsset = "BTC", quoteAsset = "EUR").notificationEnabled)

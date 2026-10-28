@@ -56,14 +56,14 @@ class PriceColorSchemeTest {
 
     @Test
     fun `Werte wie in der Spezifikation`() {
-        // Feste Börsenfarben (Entscheid 18. Oktober 2026): hell, dunkel, je normal und hoher Kontrast
+        // Feste Börsenfarben: hell, dunkel, je normal und hoher Kontrast
         assertTones(PriceColorScheme.GREEN_RED, 0xFF127248, 0xFF0ECB81, 0xFF025430, 0xFF30DE92, up = true)
         assertTones(PriceColorScheme.GREEN_RED, 0xFFC3213A, 0xFFFC6F7D, 0xFF911127, 0xFFFFAEB7, up = false)
         assertTones(PriceColorScheme.TRADITIONAL, 0xFF0A7262, 0xFF3EAE97, 0xFF005246, 0xFF5AD8BE, up = true)
         assertTones(PriceColorScheme.TRADITIONAL, 0xFFCC0416, 0xFFFE7062, 0xFF960208, 0xFFFEB2A4, up = false)
         assertTones(PriceColorScheme.BLUE_ORANGE, 0xFF064E93, 0xFF4F9FFD, 0xFF00335F, 0xFFCFEAFF, up = true)
         assertTones(PriceColorScheme.BLUE_ORANGE, 0xFFB73900, 0xFFFFA73E, 0xFF842A00, 0xFFFFB46A, up = false)
-        // «Ruhig Farbsehschwäche»: die früheren Werte von «Farbsehschwäche»
+        // «Ruhig Farbsehschwäche»: gedämpfte Werte
         assertEquals(0xFF1460AB.toInt(), PriceColorScheme.CALM_COLOR_VISION.up(dark = false))
         assertEquals(0xFF9F4300.toInt(), PriceColorScheme.CALM_COLOR_VISION.down(dark = false))
         assertEquals(0xFF6C2E00.toInt(), PriceColorScheme.CALM_COLOR_VISION.down(dark = false, highContrast = true))
@@ -120,7 +120,7 @@ class PriceColorSchemeTest {
         assertEquals(0xFF396E54.toInt(), PriceColorScheme.CALM.up(dark = false))
         assertEquals(0xFF61AE87.toInt(), PriceColorScheme.CALM.up(dark = true))
         assertEquals(0xFF771D23.toInt(), PriceColorScheme.CALM.down(dark = false))
-        // Dunkel Lachs-Rot statt Rosa (Entscheid 18. Oktober 2026, früher #FFAFA8)
+        // Dunkel Lachs-Rot statt Rosa (#FFAFA8)
         assertEquals(0xFFFFB097.toInt(), PriceColorScheme.CALM.down(dark = true))
         for (up in listOf(true, false)) {
             val color = if (up) PriceColorScheme.CALM.up(dark = true) else PriceColorScheme.CALM.down(dark = true)
@@ -130,7 +130,7 @@ class PriceColorSchemeTest {
 
     /**
      * «Ruhig»: steigend und fallend auch in der Helligkeit getrennt (hell fallend dunkler, dunkel
-     * heller) — sonst bei Deuteranopie kaum unterscheidbar (früher 1.16:1). Normal ≥ 1.5:1
+     * heller) — sonst bei Deuteranopie kaum unterscheidbar (etwa 1.16:1). Normal ≥ 1.5:1
      * (Leuchtdichte und simuliert), hoher Kontrast ≥ 1.25:1; für jede Akzentfarbe.
      */
     @Test
@@ -147,7 +147,7 @@ class PriceColorSchemeTest {
                 assertTrue(key, if (dark) luminance(down) > luminance(up) else luminance(down) < luminance(up))
             }
         }
-        // Belegt: die früheren Werte lagen gleich hell
+        // Belegt: dieses Paar läge gleich hell
         assertTrue(deuteranopeContrast(0xFF396E54.toInt(), 0xFFA74340.toInt()) < 1.2)
     }
 
@@ -171,7 +171,7 @@ class PriceColorSchemeTest {
 
     /**
      * «Frisch», «Traditionell» und «Farbsehschwäche»: feste Börsenfarben — bei jeder Akzentfarbe,
-     * hell/dunkel, normal/hoher Kontrast und getauscht genau der Standard (Entscheid 16. Oktober 2026).
+     * hell/dunkel, normal/hoher Kontrast und getauscht genau der Standard.
      */
     @Test
     fun `Boersenschemata bleiben bei jedem Akzent Standard`() {
@@ -215,7 +215,7 @@ class PriceColorSchemeTest {
             // Getauscht: Petrol dann für fallend
             assertEquals(rise, PriceColorScheme.CALM_COLOR_VISION.down(dark, hc, inverted = true, accent = AccentColor.BLUE))
         }
-        // Belegt: das bisherige Blau lag zu nah am Akzent (hell ΔE ≈ 5)
+        // Belegt: dieses Blau läge zu nah am Akzent (hell ΔE ≈ 5)
         assertTrue(deltaE2000(PriceColorScheme.CALM_COLOR_VISION.up(dark = false), BLUE_ACCENT_LIGHT[0]) < 15.0)
     }
 
@@ -270,7 +270,7 @@ class PriceColorSchemeTest {
 
     /**
      * «Ruhig» neben Orange (Standard): fallend liest sich als Rot — HSL-Farbton 345°…10°, bunt
-     * (C* ≥ 40 hell, ≥ 30 dunkel; früher Weinrot/Rosé HSL 328°/334°). Hoher Kontrast im selben Farbton.
+     * (C* ≥ 40 hell, ≥ 30 dunkel; nicht Weinrot/Rosé HSL 328°/334°). Hoher Kontrast im selben Farbton.
      */
     @Test
     fun `Ruhig neben Orange fallend rot`() {
@@ -289,7 +289,7 @@ class PriceColorSchemeTest {
             }
             assertTrue("$key: C* %.1f".format(chroma), chroma >= minChroma)
         }
-        // Belegt: das frühere Weinrot war kein Rot
+        // Belegt: dieses Weinrot ist kein Rot
         assertTrue(hslHue(0xFF701F4A.toInt()) in 300.0..340.0)
     }
 
@@ -326,8 +326,8 @@ class PriceColorSchemeTest {
     }
 
     /*
-     * Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche» (Entscheid 18. Oktober 2026:
-     * «Farben wie bei allen Börsen»). Hart nur der Kontrast (`Kontrast auf allen Flaechen`); die
+     * Feste Börsenfarben «Frisch», «Traditionell», «Farbsehschwäche»
+     * («Farben wie bei allen Börsen»). Hart nur der Kontrast (`Kontrast auf allen Flaechen`); die
      * Zieltöne und der Abstand dazu stehen in android/tools/check_price_colors.py.
      */
 
@@ -372,13 +372,13 @@ class PriceColorSchemeTest {
                 assertTrue("$key/$sim: ΔE %.2f".format(d), d >= 35.0)
             }
         }
-        // Belegt: die Werte bis 16. Oktober 2026 lagen gleich hell (1.00:1)
+        // Belegt: diese Werte lägen gleich hell (1.00:1)
         assertTrue(contrast(0xFF005ED6.toInt(), 0xFFB63900.toInt()) < 1.05)
     }
 
     /**
      * «Ruhig» dunkel fallend: Lachs-Rot (HSL 5–15°, C* ≥ 35) statt Rosa; Karmin neben Orange so rot,
-     * wie ΔE 20 zum Akzent erlaubt (HSL ≥ 350° oder ≤ 10°). Entscheid 18. Oktober 2026.
+     * wie ΔE 20 zum Akzent erlaubt (HSL ≥ 350° oder ≤ 10°).
      */
     @Test
     fun `Ruhig dunkel fallend Lachs-Rot`() {
@@ -447,7 +447,7 @@ class PriceColorSchemeTest {
         val LIGHT_SURFACES = listOf(
             0xFFFFFFFF.toInt(), 0xFFF9F9F9.toInt(), 0xFFF3F3F3.toInt(), 0xFFEEEEEE.toInt(),
             0xFFE8E8E8.toInt(), 0xFFE4E4E4.toInt(), 0xFFE2E2E2.toInt(),
-            // K-9 warm (Lowest #FFFDFA, Widget-Grundfläche #F1EEE9, tiefe Fläche #E7E4DD)
+            // Warme Flächen (Lowest #FFFDFA, Widget-Grundfläche #F1EEE9, tiefe Fläche #E7E4DD)
             0xFFFFFDFA.toInt(), 0xFFFBF9F6.toInt(), 0xFFF6F3EE.toInt(), 0xFFF1EEE9.toInt(), 0xFFEBE8E2.toInt(),
             0xFFE7E4DD.toInt(), 0xFFE5E2DB.toInt(),
         )

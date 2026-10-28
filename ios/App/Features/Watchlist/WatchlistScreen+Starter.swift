@@ -49,10 +49,10 @@ extension WatchlistScreen {
     }
 
     /// «Kurse von Binance in USDT. Abwählen, …»: Börse (bei Standort-Sperre Binance.US) und Quote halbfett in
-    /// der Textfarbe, der Rest wie bisher.
+    /// der Textfarbe, der Rest normal.
     private func starterSourceText(region: String?) -> AttributedString {
         let exchange = StarterPairs.exchangeName(region)
-        let quote = StarterPairs.startQuote(region)
+        let quote = StarterPairs.startQuote()
         var text = AttributedString(L("starter_source_text", BidiText.isolate(exchange), BidiText.isolate(quote)))
         for part in [exchange, quote] where !part.isEmpty {
             if let range = text.range(of: part) {
@@ -176,7 +176,7 @@ extension WatchlistScreen {
     }
 
     private func addStarterNow(_ symbols: [String]) {
-        // UX3-04: EINE Rückfrage F-08 für alle Startpaare, vorher; «Abbrechen» = nichts, kein Moment
+        // EINE Rückfrage «nicht gespeichert» für alle Startpaare, vorher; «Abbrechen» = nichts, kein Moment
         data.withWatchlistConfirm { addStarterConfirmed(symbols) }
     }
 

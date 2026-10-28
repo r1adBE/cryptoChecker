@@ -325,7 +325,7 @@ final class SharedStorageTests: XCTestCase {
         XCTAssertEqual(own.alarms[0].lastTriggeredAt, 9_000)
     }
 
-    /// «Deaktiviert» (seit DB v14 / dieser Runde): ältere Dateien ohne Feld → aktiv; gespeichert und
+    /// «Deaktiviert»: Dateien ohne Feld → aktiv; gespeichert und
     /// wieder gelesen bleibt der Wert erhalten; ein unlesbarer Wert kostet nicht das ganze Paar.
     func testDisabledDecodesLenientlyAndRoundTrips() throws {
         let decoder = JSONDecoder()
@@ -486,7 +486,7 @@ final class SharedStorageTests: XCTestCase {
                                                        protectedDataAvailable: false), .inaccessible)
         XCTAssertEqual(SharedStorage.settingsReadState(hasData: false, decodes: false, markerPresent: false,
                                                        protectedDataAvailable: true), .missing)
-        // Da, aber unlesbar: Ablage war zugänglich — Standardwerte wie bisher
+        // Da, aber unlesbar: Ablage war zugänglich — Standardwerte
         XCTAssertEqual(SharedStorage.settingsReadState(hasData: true, decodes: false, markerPresent: true,
                                                        protectedDataAvailable: false), .missing)
     }

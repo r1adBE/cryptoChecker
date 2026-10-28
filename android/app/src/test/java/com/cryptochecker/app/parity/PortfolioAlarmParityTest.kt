@@ -15,7 +15,7 @@ class PortfolioAlarmParityTest {
 
     private val data = ParityJson.load("portfolio_alarm.json")
 
-    /** FUN3-01: «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus. */
+    /** «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus. */
     @Test
     fun threshold() {
         val block = data["threshold"].obj()

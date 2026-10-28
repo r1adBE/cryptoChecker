@@ -68,7 +68,7 @@ final class CsvTokenizeLimitsTests: XCTestCase {
         XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: false, preview: long), .tooLarge)
         // Über 16 MB: das Lesen bricht ab, keine Vorschau
         XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: true, preview: nil), .tooLarge)
-        // Fremdes Format oder nicht lesbar: wie bisher
+        // Fremdes Format oder nicht lesbar: unlesbar
         XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: false, preview: preview("a,b,c\n1,2,3\n")), .unreadable)
         XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: false, preview: nil), .unreadable)
         // Lesbare Datei: Vorschau

@@ -5,7 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Kurs aus einem Merklisten-Paar an einer anderen Börse statt der ungeprüften Kerze (L-2). Wie `PortfolioTxFormTests` (iOS). */
+/** Kurs aus einem Merklisten-Paar an einer anderen Börse statt der ungeprüften Kerze. Wie `PortfolioTxFormTests` (iOS). */
 class PortfolioWatchPairTest {
 
     private fun w(
@@ -44,11 +44,11 @@ class PortfolioWatchPairTest {
 
     @Test
     fun conflictingNamesGiveNoPick() {
-        // K-8: zwei verschiedene Token unter «CAT» in der Merkliste → unklar, welcher im Portfolio steht
+        // Zwei verschiedene Token unter «CAT» in der Merkliste → unklar, welcher im Portfolio steht
         val gate = Candidate("GateIo", "CAT", "USDT", null, true, false, 5, name = "Simon's Cat")
         val other = Candidate("Upbit", "CAT", "KRW", null, true, false, 9, name = "Catcoin")
         assertNull(PortfolioWatchPair.pick("CAT", listOf(gate, other)))
-        // Gleicher Name in anderer Schreibweise oder unbekannt: wie bisher
+        // Gleicher Name in anderer Schreibweise oder unbekannt: gilt als derselbe Token
         val same = other.copy(name = "Simons Cat")
         assertEquals(gate, PortfolioWatchPair.pick("CAT", listOf(gate, same)))
         assertEquals(gate, PortfolioWatchPair.pick("CAT", listOf(gate, other.copy(name = null))))

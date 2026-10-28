@@ -38,7 +38,7 @@ class VolumeSpikeTest {
 
     @Test
     fun missingLastClosedHourMeansZeroVolumeNotAnOlderCandle() {
-        // Ohne Kerze der letzten abgeschlossenen Stunde: früher galt die vorletzte VORHANDENE Kerze
+        // Ohne Kerze der letzten abgeschlossenen Stunde: nicht die vorletzte VORHANDENE Kerze
         val candles = (running - 26 until running - 1).map { candle(it, 10.0) }.toMutableList()
         candles[candles.lastIndex] = candle(running - 2, 100.0) // grosse, aber ältere Stunde
         val spike = assertNotNullSpike(VolumeDataSource.spikeOf(candles, now))

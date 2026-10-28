@@ -75,8 +75,8 @@ struct WidgetPalette {
     }
 }
 
-/// Hintergrund: flache Grundfarbe (surfaceContainer), neutral ohne Akzentfarbe — L-19: wie Android
-/// (`WidgetColors.baseColor`, flach), kein Verlauf mehr; `containerBackground` braucht nur eine Fläche.
+/// Hintergrund: flache Grundfarbe (surfaceContainer), neutral ohne Akzentfarbe — wie Android
+/// (`WidgetColors.baseColor`, flach), kein Verlauf; `containerBackground` braucht nur eine Fläche.
 /// Die Akzentfarbe bleibt dem App-Logo und dem Kurs-Etikett im Chart vorbehalten.
 struct WidgetBackground: View {
     let palette: WidgetPalette

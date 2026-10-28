@@ -30,8 +30,8 @@ object BackupFormat {
     fun parse(text: String): BackupFile {
         BackupLimits.checkDepth(text)
         val root = JSONObject(text)
-        // Verschlüsselt: eigenes «format» (cryptochecker-backup-enc), damit ältere App-Versionen
-        // die Datei ablehnen statt sie als leere Sicherung zu übernehmen
+        // Verschlüsselt: eigenes «format» (cryptochecker-backup-enc), damit ein Leser ohne Entschlüsselung
+        // die Datei ablehnt statt sie als leere Sicherung zu übernehmen
         if (!BackupCrypto.isEnvelope(root.optString("format"), root.optString("enc"))) {
             require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
             return BackupFile.Plain(text)

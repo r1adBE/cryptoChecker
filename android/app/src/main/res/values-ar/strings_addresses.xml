@@ -45,4 +45,21 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">حساب Taproot ‏(BIP86): تُشتق من هذا المفتاح عناوين bc1p…، للاستلام والفكّة.</string>
     <string name="portfolio_address_taproot_hint">محفظة Taproot؟ الصق بدلًا من ذلك الواصف tr(…) من محفظتك – إذ يُبحث في xpub العادي عن عناوين Legacy وSegWit فقط.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">تعذّر الوصول إلى الخادم الخاص</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">من يشغّل %1$s يرى كل العناوين المستعلَم عنها من هذه المحفظة ويمكنه ربطها ببعضها وبعنوان IP الخاص بك.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">لتجنّب ذلك أدخل خادمك الخاص من الإعدادات › المحفظة › خادم خاص للعناوين.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="zero">+%1$d رمز غير معروف (غير محتسب)</item>
+        <item quantity="one">+%1$d رمز غير معروف (غير محتسب)</item>
+        <item quantity="two">+%1$d رمزان غير معروفين (غير محتسبين)</item>
+        <item quantity="few">+%1$d رموز غير معروفة (غير محتسبة)</item>
+        <item quantity="many">+%1$d رمزًا غير معروف (غير محتسبة)</item>
+        <item quantity="other">+%1$d رمز غير معروف (غير محتسبة)</item>
+    </plurals>
 </resources>

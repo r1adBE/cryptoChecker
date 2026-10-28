@@ -102,10 +102,10 @@ private fun Arrow(symbol: String, on: Boolean) {
     )
 }
 
-/** Pfeile der Sortierzeile: 12 sp (früher 7 sp bei 35 % Deckkraft, dann 11 sp). */
+/** Pfeile der Sortierzeile: 12 sp. */
 private val SORT_ARROW_SIZE = 12.sp
 
-/** Tippfläche einer Spalte: mind. 48 dp (früher 40). */
+/** Tippfläche einer Spalte: mind. 48 dp. */
 private val SORT_TOUCH_MIN = 48.dp
 
 /**

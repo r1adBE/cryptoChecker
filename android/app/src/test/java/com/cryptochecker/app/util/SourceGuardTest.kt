@@ -25,7 +25,7 @@ class SourceGuardTest {
     }
 
     /**
-     * SEC4-R1/TST4-R1: Jede Testdatei, die einen iOS-Pfad liest (Zeichenkette mit `ios/` oder `.swift`),
+     * Jede Testdatei, die einen iOS-Pfad liest (Zeichenkette mit `ios/` oder `.swift`),
      * nutzt [SourceGuard] — kein stilles `if (exists())`/`return` mehr. Kommentare zählen nicht.
      */
     @Test

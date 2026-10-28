@@ -100,4 +100,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">запис стейкінгу без зустрічного запису – перевір залишок</string>
     <string name="portfolio_csv_skip_amount_too_small">замала кількість – під час збереження стане 0</string>
     <string name="portfolio_csv_skip_invalid_swap">обмін без коректної отриманої монети або кількості</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Файл читається знову …</string>
 </resources>

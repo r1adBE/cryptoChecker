@@ -80,7 +80,7 @@ class BackupManager @Inject constructor(
 
     /**
      * Schreibt die Sicherung; mit [password] verschlüsselt ([BackupCrypto], gleiches Format
-     * wie unter iOS), sonst wie bisher als lesbares JSON. Danach wird die Datei zurückgelesen und Byte für Byte
+     * wie unter iOS), sonst als lesbares JSON. Danach wird die Datei zurückgelesen und Byte für Byte
      * verglichen; weicht sie ab → [BackupNotVerifiedException] (der Nutzer soll in eine neue Datei sichern).
      */
     suspend fun export(uri: Uri, password: String?) = withContext(Dispatchers.IO) {
@@ -109,7 +109,7 @@ class BackupManager @Inject constructor(
             // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
             .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(portfolio.third)).asOrgJson())
 
-        // Kompakt (ältere Sicherungen eingerückt, das Einlesen nimmt beides) und nie grösser als lesbar
+        // Kompakt (das Einlesen nimmt auch eingerückte) und nie grösser als lesbar
         val plain = BackupFormat.encode(root)
         val bytes = if (password == null) plain
         else withPasswordChars(password) { BackupCrypto.toJson(BackupCrypto.encrypt(plain, it)).toByteArray(Charsets.UTF_8) }
@@ -201,24 +201,20 @@ class BackupManager @Inject constructor(
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
         // Neuere Version: schon vor der Rückfrage ablehnen (klare Meldung, nichts übernommen)
         checkVersion(root)
-        // Unlesbares Paar: hier nichts über die Grenzen sagen — das Wiederherstellen lehnt die Datei danach ohnehin ab
-        val watchlist = try {
-            BackupWatchlistCodec.readWatchlist(root)
-        } catch (e: org.json.JSONException) {
-            null
-        }
+        BackupFields.checkParts(root)
+        val watchlist = BackupWatchlistCodec.readWatchlist(root)
         RestorePreview(
-            invalid = (root.optJSONArray("alarms")?.let { AlarmJson.parse(it).invalid } ?: 0) +
-                (root.optJSONArray("portfolio")?.let { PortfolioJson.parseTxs(it).invalid } ?: 0) +
-                (root.optJSONArray("portfolioAlarms")?.let { PortfolioJson.parseAlarms(it).invalid } ?: 0),
-            droppedPairs = watchlist?.droppedPairs ?: 0,
-            droppedAlarms = watchlist?.droppedAlarms ?: 0,
+            invalid = AlarmJson.parse(root.getJSONArray("alarms")).invalid +
+                PortfolioJson.parseTxs(root.getJSONArray("portfolio")).invalid +
+                PortfolioJson.parseAlarms(root.getJSONArray("portfolioAlarms")).invalid,
+            droppedPairs = watchlist.droppedPairs,
+            droppedAlarms = watchlist.droppedAlarms,
         )
     }
 
     /**
      * Ersetzt Merkliste, Alarme, Favoriten und Einstellungen durch die Sicherung.
-     * [password] nur für verschlüsselte Sicherungen; ältere, lesbare Sicherungen brauchen keines.
+     * [password] nur für verschlüsselte Sicherungen; lesbare Sicherungen brauchen keines.
      *
      * Alles oder nichts, so weit es geht: Erst wird die ganze Datei gelesen und bereinigt
      * ([WatchlistRestoreCleanup]), dann geschrieben — Merkliste zuerst (da kann am ehesten etwas
@@ -242,32 +238,27 @@ class BackupManager @Inject constructor(
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
         // Sicherung einer neueren App-Version: ganz ablehnen, bevor etwas gelesen oder ersetzt wird
         checkVersion(root)
+        BackupFields.checkParts(root)
 
         // ── 1. Alles lesen und prüfen, bevor etwas geschrieben wird ──
         // Paare mit unzulässigen Kennungen und über den Grenzen fallen weg, gezählt ([BackupWatchlistCodec.readWatchlist])
         val watchlist = BackupWatchlistCodec.readWatchlist(root)
         val watches = watchlist.watches
         val alarms = watchlist.alarms
-        // Ältere Sicherungen haben noch kein Portfolio: dann bleibt das bestehende stehen.
-        val parsedPortfolio = root.optJSONArray("portfolio")?.let(PortfolioJson::parseTxs)
-        // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen
-        val parsedPortfolioAlarms = root.optJSONArray("portfolioAlarms")?.let(PortfolioJson::parseAlarms)
-        val invalid = watchlist.invalidAlarms + (parsedPortfolio?.invalid ?: 0) + (parsedPortfolioAlarms?.invalid ?: 0)
+        val parsedPortfolio = PortfolioJson.parseTxs(root.getJSONArray("portfolio"))
+        val parsedPortfolioAlarms = PortfolioJson.parseAlarms(root.getJSONArray("portfolioAlarms"))
+        val invalid = watchlist.invalidAlarms + parsedPortfolio.invalid + parsedPortfolioAlarms.invalid
         if (invalid > acceptInvalid) throw UnconfirmedInvalidEntriesException(invalid)
-        val portfolio = parsedPortfolio?.items
-        val portfolioAlarms = parsedPortfolioAlarms?.items
-        // Fehlt der Schlüssel (ältere Sicherung), bleiben die bestehenden Adressen stehen.
-        // Sonst ersetzen wie die Transaktionen (ungültige fallen weg, [WatchedAddressRules.merge])
-        val watchedAddresses = if (root.has(WatchedAddressRules.BACKUP_KEY)) {
-            WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY)?.asDomainJson())
-        } else null
-        // Nur Texte übernehmen (wie iOS); fehlt eine Art, bleibt sie stehen
-        val favorites = root.optJSONObject("favorites")?.let { fav ->
-            FavoriteKind.entries.mapNotNull { kind ->
-                fav.optJSONArray(kind.name)?.let { arr -> kind to (0 until arr.length()).mapNotNull { arr.opt(it) as? String }.toSet() }
-            }.toMap()
-        }.orEmpty()
-        val settings = root.optJSONObject("settings")
+        val portfolio = parsedPortfolio.items
+        val portfolioAlarms = parsedPortfolioAlarms.items
+        // Adressen ersetzen wie die Transaktionen (ungültige fallen weg, [WatchedAddressRules.merge])
+        val watchedAddresses = WatchedAddressRules.fromJson(root.getJSONArray(WatchedAddressRules.BACKUP_KEY).asDomainJson())
+        // Je Art eine Liste von Texten ([BackupFields.checkParts])
+        val fav = root.getJSONObject("favorites")
+        val favorites = FavoriteKind.entries.associateWith { kind ->
+            fav.getJSONArray(kind.name).let { arr -> (0 until arr.length()).map { arr.getString(it) }.toSet() }
+        }
+        val settings = root.getJSONObject("settings")
 
         // ── 2. Bisherigen Stand merken (für das Zurückrollen) ──
         val previous = PreviousState(
@@ -293,16 +284,16 @@ class BackupManager @Inject constructor(
                 RestoreRun.Write(Step.WATCHLIST, touchedBefore = false) { writeWatchlist(watches, alarms) },
                 RestoreRun.Write(Step.PORTFOLIO, touchedBefore = false) {
                     portfolioDatabase.withTransaction {
-                        if (portfolio != null) portfolioRepository.replaceAll(portfolio)
-                        if (portfolioAlarms != null) portfolioAlarmRepository.replaceAll(portfolioAlarms)
-                        if (watchedAddresses != null) portfolioRepository.replaceWatchedAddresses(watchedAddresses)
+                        portfolioRepository.replaceAll(portfolio)
+                        portfolioAlarmRepository.replaceAll(portfolioAlarms)
+                        portfolioRepository.replaceWatchedAddresses(watchedAddresses)
                     }
                 },
                 RestoreRun.Write(Step.FAVORITES, touchedBefore = true) {
                     favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
                 },
                 RestoreRun.Write(Step.SETTINGS, touchedBefore = true) {
-                    settings?.let { settingsNotes = settingsCodec.restoreSettings(it, trusted = encrypted) }
+                    settingsNotes = settingsCodec.restoreSettings(settings, trusted = encrypted)
                 },
             ),
             rollBack = { touched, cause -> rollBack(previous, touched, cause) },
@@ -318,7 +309,7 @@ class BackupManager @Inject constructor(
             // Alte Meldungen entfernt der Aufrufer (Ids können sich mit den neuen decken)
             replacedWatchIds = previous.watches.map { it.id },
             replacedAlarmIds = previous.alarms.map { it.id },
-            replacedPortfolioAlarmIds = if (portfolioAlarms != null) previous.portfolioAlarms.map { it.id } else emptyList(),
+            replacedPortfolioAlarmIds = previous.portfolioAlarms.map { it.id },
             droppedPairs = watchlist.droppedPairs,
             droppedAlarms = watchlist.droppedAlarms,
             addressServerNote = settingsNotes.addressServer,

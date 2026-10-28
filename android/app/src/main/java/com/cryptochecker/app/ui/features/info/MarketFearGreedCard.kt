@@ -55,7 +55,7 @@ internal fun fearGreedLabel(value: Int): String = stringResource(
 )
 
 /**
- * Fear & Greed als erste Zeile unter «Einordnung» im Stil des Puls-Widgets (Entscheid 17. Oktober 2026): die Zahl
+ * Fear & Greed als erste Zeile unter «Einordnung» im Stil des Puls-Widgets: die Zahl
  * gross mit dem Wort der Stufe daneben, darunter eine neutrale Spur 0–100 mit EINEM Punkt in der Farbe der Stufe —
  * kein Regenbogen-Verlauf. Tippen zeigt Gestern / Woche / Monat und die Quelle. Auf «Jetzt» kompakt ([compact]: Zahl
  * in Titelgrösse statt Display) — dort ist die Heldenkarte darüber die einzige betonte Karte.
@@ -104,7 +104,7 @@ internal fun FearGreedRow(
  * Zahl gross und Wort der Stufe, darunter die neutrale Spur mit dem Stufenpunkt. Punktfarbe wie im Puls-Widget
  * aus den Kursfarben ([MarketScaleColors]: Angst = fallend, Gier = steigend, je Stufe ≥ 3:1 als Grafik), passend
  * zu den Kurspfeilen; die Zahl und das Wort stehen in der Textfarbe — die Farbe trägt nie allein. [value] null = grauer Platzhalter in derselben Höhe.
- * [compact]: Zahl in [headline] (22 sp) statt [displayCompact] (28 sp, gleich gross wie bisher `headlineMedium`).
+ * [compact]: Zahl in [headline] (22 sp) statt [displayCompact] (28 sp, gleich gross wie `headlineMedium`).
  */
 @Composable
 private fun FearGreedGauge(value: Int?, compact: Boolean) {

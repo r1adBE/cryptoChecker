@@ -223,4 +223,15 @@
     <string name="compare_title">Sammenligning</string>
     <string name="compare_basis">Linjerne viser ændringen i procent siden periodens start.</string>
     <string name="compare_from_high">ift. 30 d top</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d par ikke gendannet – overvågningslisten er fuld</item>
+        <item quantity="other">%1$d par ikke gendannet – overvågningslisten er fuld</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Overvågningslisten med alarmer gemmes ikke lige nu. Denne og flere ændringer går tabt, når appen lukkes. Ændr alligevel?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Ændr alligevel</string>
 </resources>

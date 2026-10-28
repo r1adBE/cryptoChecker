@@ -34,10 +34,10 @@ data class PortfolioCostFxFigures(
 )
 
 /**
- * Einstand der offenen Bestände in der Anzeigewährung zum Kurs des Erwerbstags (Owner-Entscheid Okt. 2026) — reines
+ * Einstand der offenen Bestände in der Anzeigewährung zum Kurs des Erwerbstags — reines
  * Kotlin, gespiegelt in `PortfolioCostFx.swift`:
- *  - Bisher rechnete die Karte auch den Einstand mit dem heutigen Faktor um; «Seit Kauf (CHF)» zeigte so nur die
- *    Bewegung in USDT. Jetzt: Wert heute × heutiger Faktor ([PortfolioStables.usdtTo], wie der Gesamtwert) − Σ Teil
+ *  - Nicht auch den Einstand mit dem heutigen Faktor: «Seit Kauf (CHF)» zeigte so nur die
+ *    Bewegung in USDT. Darum: Wert heute × heutiger Faktor ([PortfolioStables.usdtTo], wie der Gesamtwert) − Σ Teil
  *    des Einstands × Faktor SEINES Tags. Der Faktor eines Tags folgt genau der Regel des Steuer-Exports
  *    ([TaxExport.rateOn]): Devisenkurs des Tags bzw. des letzten Tags davor (höchstens [TaxExport.FX_MAX_GAP_DAYS]
  *    Tage) × USDT/USD-Tagesschluss DES Tags (ohne Schluss × 1, [PortfolioCostFxFigures.usdtApproximate]). Ab heute

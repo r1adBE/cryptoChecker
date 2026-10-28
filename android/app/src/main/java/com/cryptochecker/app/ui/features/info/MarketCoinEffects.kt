@@ -21,9 +21,9 @@ import com.cryptochecker.app.ui.theme.SnackbarKind
 internal const val MARKET_COIN_UI_EVENTS = "market_coin_ui_events"
 
 /**
- * Review ARC5-R01: Rückmeldungen der Aktionen aus «Heute auffällig» ([MarketCoinSheets]) nach der Rückfrage
- * F-08 im GERADE gezeigten Bildschirm — Erlaubnis über die Launcher dieser Komposition (nie über einen abgemeldeten),
- * Vorschau «hinzugefügt» und Blatt in ihrem [state]. Ablauf wie vorher in den Rückrufen.
+ * Rückmeldungen der Aktionen aus «Heute auffällig» ([MarketCoinSheets]) nach der Rückfrage
+ * «nicht gespeichert» im GERADE gezeigten Bildschirm — Erlaubnis über die Launcher dieser Komposition (nie über einen
+ * abgemeldeten), Vorschau «hinzugefügt» und Blatt in ihrem [state].
  */
 @Composable
 internal fun MarketCoinUiEffects(

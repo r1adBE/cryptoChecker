@@ -87,7 +87,7 @@ private val DEPOSIT = listOf(
  * Art aus dem Text der Datei (Wörter statt Teiltext, feste Reihenfolge); null = nicht unterstützt (Dividende, Forex …):
  *  1. Eigene Mittel zurück aus Staking/Earn («Unstaking», «Redeem», «Staking withdrawal», «Auszahlung Staking») →
  *     [CsvImportKind.TRANSFER] (kein Gewinn, keine Belohnung); mit Belohnungswort bleibt es eine Belohnung.
- *  2. Tausch, Verkauf, Kauf wie bisher.
+ *  2. Tausch, Verkauf, Kauf.
  *  3. Belohnung («Staking reward», «Staking-Belohnung», «Interest», «Airdrop», «Staking» allein).
  *  4. Gebühr, Auszahlung («Withdraw», «Send», «Retrait»), Einzahlung («Deposit», «Receive»).
  */

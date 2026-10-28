@@ -30,7 +30,7 @@ final class PerKeyDefaultsTests: XCTestCase {
         XCTAssertEqual(DexLiquidityStore.get("ethereum/BBB", defaults: defaults), 500)
     }
 
-    /// Ein zweiter Prozess, der denselben Stand gelesen hat, überschreibt den anderen Pool nicht mehr.
+    /// Ein zweiter Prozess, der denselben Stand gelesen hat, überschreibt den anderen Pool nicht.
     func testSchreibenEinesPoolsLaesstAnderePoolsStehen() {
         let other = UserDefaults(suiteName: suite)!
         DexLiquidityStore.put("a/1", 20_000, defaults: defaults)

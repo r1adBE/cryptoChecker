@@ -175,4 +175,10 @@
     <string name="alarm_reliability_storage_no_key">Cảnh báo nền đang tạm dừng – danh sách chưa được lưu</string>
     <string name="alarms_limit_reached">Mỗi cặp chỉ có thể có tối đa %1$s cảnh báo.</string>
     <string name="alarms_reference_rate_hint">Tỷ giá tham chiếu của ECB chỉ được ấn định mỗi ngày một lần – không có cảnh báo cho chúng.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Mức giảm phải nhỏ hơn 100 phần trăm.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Ngưỡng không hợp lệ – vui lòng điều chỉnh</string>
 </resources>

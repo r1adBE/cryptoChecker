@@ -157,7 +157,7 @@ class WidgetQuantityParityTest {
             amounts = mapOf("BTC" to 1.13, "ETH" to 1.2e-5),
         )
         assertEquals(listOf("1.13", "0.000012"), top.positions.map { it.quantity })
-        // Ohne Mengen (ältere Aufrufe): keine
+        // Ohne Mengen: keine
         val old = PortfolioWidgetMath.topPositions(mapOf("BTC" to 1.0), 1.0, 1.0, emptyMap())
         assertNull(old.positions.single().quantity)
 

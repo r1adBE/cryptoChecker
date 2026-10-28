@@ -122,8 +122,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
     /**
      * Lauf des Fortschritts: steigt bei jedem Zurücksetzen ([clearProgress]). Meldungen kommen vom Abgleich
      * (Dispatchers.Default) bzw. vom Datenbank-Thread und werden auf dem Main-Thread gesetzt ([postProgress]); eine
-     * verspätete Meldung eines früheren Laufs fällt weg. Vorher setzte der Hintergrund den Wert direkt — in UI-Tests
-     * zeichnete Compose dann auf dem Hintergrund-Thread («CalledFromWrongThread») und stürzte beim Beenden der
+     * verspätete Meldung eines früheren Laufs fällt weg. Nicht direkt aus dem Hintergrund gesetzt: In UI-Tests
+     * zeichnete Compose sonst auf dem Hintergrund-Thread («CalledFromWrongThread») und stürzte beim Beenden der
      * Activity ab (UiFlowsTest.importCsvAndUndo).
      */
     private var progressRun = 0

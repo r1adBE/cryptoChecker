@@ -199,7 +199,7 @@ object PulseWidgetMath {
      * Nebenzeile(n) in dieser Reihenfolge versuchen (wie iOS `PulseSideLayout.candidates`): beides
      * in einer Zeile, sonst Fear & Greed und Marktbreite untereinander (nur mit Höhe für zwei
      * Zeilen, [twoLines]), sonst nur Fear & Greed, sonst nur die Marktbreite. So verschwindet die
-     * Marktbreite nicht mehr, wenn das Widget hoch genug ist.
+     * Marktbreite nicht, wenn das Widget hoch genug ist.
      */
     fun sideCandidates(hasFearGreed: Boolean, hasBreadth: Boolean, twoLines: Boolean): List<PulseSideLayout> = when {
         hasFearGreed && hasBreadth -> listOfNotNull(
@@ -225,7 +225,7 @@ object PulseWidgetMath {
      * Anordnung der Nebenzeile(n) aus gemessenen Textbreiten (dp, 12 sp; null = Teil fehlt):
      * [bothWidthDp] «● Fear & Greed 72 · Gier · Top 30 · 24h ↗ 22 ↘ 8», [fearGreedWidthDp] und
      * [breadthWidthDp] je allein. Zwei Zeilen nur, wenn die Höhe sie trägt ([sideLinesFit]) und
-     * jeder Teil ganz in seine Zeile passt — sonst wie bisher nur ein Teil. Nie abgeschnitten.
+     * jeder Teil ganz in seine Zeile passt — sonst nur ein Teil. Nie abgeschnitten.
      * [breadthLineWidthDp]: die Marktbreite als eigene zweite Zeile (dort mit Punkt «● Top 30 …», also
      * breiter); allein in der ersten Zeile steht sie ohne Punkt und wird mit [breadthWidthDp] gemessen.
      */

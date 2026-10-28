@@ -348,7 +348,7 @@ class CsvImportParityTest {
         )
     }
 
-    /** Fiat-Liste des Imports = Währungen mit Devisenkurs (eine Quelle der Wahrheit, früher doppelt). */
+    /** Fiat-Liste des Imports = Währungen mit Devisenkurs (eine Quelle der Wahrheit). */
     @Test
     fun fiatListMatchesFxCurrencies() {
         assertEquals(FxRateSource.CURRENCIES.toSet(), CsvImport.FX_FIAT)

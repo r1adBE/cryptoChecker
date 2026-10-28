@@ -4,8 +4,8 @@ import java.io.File
 
 /**
  * Beiseitegelegte, unlesbare Datenbankdateien (`<db>.unreadable…`, [DatabaseOpenPlanner]) nicht
- * mehr für immer behalten. Früher blieben sie samt den früheren Schlüsseln liegen (Speicher, und eine Kopie der
- * Nutzerdaten mehr auf dem Gerät).
+ * für immer behalten: Sie belegen samt den früheren Schlüsseln Speicher, und sie sind eine Kopie der Nutzerdaten mehr
+ * auf dem Gerät.
  *
  * Gelöscht wird vorsichtig, nur wenn alles zutrifft:
  *  - die aktuelle Datei öffnet mit dem gespeicherten Schlüssel (der Aufruf kommt nur von dort — nie die aktuelle Datei),
@@ -13,7 +13,7 @@ import java.io.File
  *  - der Hinweis «Gespeicherte Daten liessen sich nicht entsperren» ist bestätigt ([allowed]),
  *  - die App kennt die Kopie seit mindestens [MAX_AGE_DAYS] Tagen ([seen]; gezählt ab dem ersten Start, der sie sah —
  *    die Änderungszeit der Datei taugt nicht, Umbenennen behält die des letzten Schreibens).
- * Danach dürfen auch die früheren Schlüssel weg (wie bisher, sobald keine beiseitegelegte Datei mehr wartet).
+ * Danach dürfen auch die früheren Schlüssel weg (sobald keine beiseitegelegte Datei mehr wartet).
  * Reines Kotlin bis auf die kleine Merkdatei ([SeenStore]).
  */
 object AsideRetention {

@@ -39,7 +39,7 @@ object DatabaseEncryptionNotice {
     /**
      * Datenbanken, die in diesem Prozess nur im Arbeitsspeicher liegen ([Decision.Refused]: kein Schlüssel, nie
      * unverschlüsselt angelegt; dazu [storedKept]). Nicht gespeichert: Jeder Start entscheidet neu. Das Portfolio nennt es,
-     * und was Daten aus anderen Dateien übernimmt und dort löscht (Systemsicherungs-Kopie, Altbestand), wartet bis dahin.
+     * und was Daten aus anderen Dateien übernimmt und dort löscht (Systemsicherungs-Kopie), wartet bis dahin.
      */
     val inMemory: StateFlow<Set<String>> = inMemoryNames.asStateFlow()
 

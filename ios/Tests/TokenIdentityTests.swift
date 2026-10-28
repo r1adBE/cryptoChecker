@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Gleicher Token? (K-8): gemeinsame Fälle `Parity/token_identity.json` (Gegenstück `TokenIdentityTest.kt`).
+/// Gleicher Token?: gemeinsame Fälle `Parity/token_identity.json` (Gegenstück `TokenIdentityTest.kt`).
 final class TokenIdentityTests: XCTestCase {
     private typealias S = TestSupport
 

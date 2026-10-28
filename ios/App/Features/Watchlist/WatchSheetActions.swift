@@ -34,7 +34,7 @@ extension WatchActionsSheet {
                 title: L("watch_action_favorite"),
                 selected: watch.favorite
             ) {
-                // Rückfrage F-08 vorher; «Abbrechen» = nichts, keine Haptik
+                // Rückfrage «nicht gespeichert» vorher; «Abbrechen» = nichts, keine Haptik
                 data.withWatchlistConfirm {
                     data.toggleFavorite(watch)
                     // Wie Android: gesperrt → nur der Hinweis, keine Haptik
@@ -181,7 +181,7 @@ extension WatchActionsSheet {
 
     private func moveButton(_ symbol: String, _ key: String, disabled: Bool, action: @escaping () -> Void) -> some View {
         Button {
-            // Rückfrage F-08 vorher (verschieben schreibt die Merkliste)
+            // Rückfrage «nicht gespeichert» vorher (verschieben schreibt die Merkliste)
             data.withWatchlistConfirm {
                 Haptics.play(.selection)
                 withAnimation(.spring(duration: 0.35)) { action() }
@@ -266,7 +266,7 @@ enum WatchPreview {
     static let quoteAsset = "USDT"
 
     /// Vorschau-Paar zu `symbol`; nil, wenn es Binance nicht gibt oder die gespeicherte Paarliste das
-    /// Spot-Paar nicht führt (dann wie bisher die Suche auf der Seite «Paar hinzufügen»). Die Zeilen kommen ohnehin
+    /// Spot-Paar nicht führt (dann die Suche auf der Seite «Paar hinzufügen»). Die Zeilen kommen ohnehin
     /// aus den Binance-Tickern «…USDT», die Prüfung ist nur die Absicherung.
     static func watch(symbol: String) async -> Watch? {
         let base = symbol.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

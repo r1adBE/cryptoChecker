@@ -59,7 +59,7 @@ data class Position3d(val kind: Position3dKind, val percent: Double, val thresho
  * σ₁ₕ ist die Standardabweichung (Stichprobe) der Stunden-Renditen VOR dem bewerteten 24-h-Fenster
  * (höchstens 72, mindestens 24 Stunden) — so bläht die Bewegung selbst ihre Schwelle nicht auf.
  * √24 rechnet die Stunden- auf die Tagesschwankung um (Zufallsweg-Näherung). Gibt es zu wenig
- * Verlauf, gelten die bisherigen festen Schwellen.
+ * Verlauf, gelten feste Schwellen.
  */
 object RelativeMove {
 
@@ -81,7 +81,7 @@ object RelativeMove {
     /** Untergrenze für den Markt über 24 h in %. */
     const val MARKET_FLOOR_PERCENT = 1.0
 
-    /** Stark ab diesem Vielfachen der Schwelle (vorher 3 % bei 1,5 %). */
+    /** Stark ab diesem Vielfachen der Schwelle. */
     const val STRONG_FACTOR = 2.0
 
     /** Tagesfenster der Bewegung in Stunden (√24 für die Umrechnung). */
@@ -122,7 +122,7 @@ object RelativeMove {
 
     /**
      * Schwelle für eine 24-h-Bewegung: max([floor], [k] · σ · √24); ohne σ [fallback]
-     * (die bisherige feste Schwelle).
+     * (feste Schwelle).
      */
     fun threshold24h(sigma: Double?, k: Double, floor: Double, fallback: Double): Double =
         if (sigma == null) fallback else maxOf(floor, k * sigma * sqrt(MOVE_HOURS.toDouble()))

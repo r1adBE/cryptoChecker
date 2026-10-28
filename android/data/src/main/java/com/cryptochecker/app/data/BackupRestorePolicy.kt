@@ -20,31 +20,29 @@ object BackupRestorePolicy {
     data class AppLockDecision(val apply: Boolean?, val keptOn: Boolean)
 
     /**
-     * [wanted] = Wert in der Sicherung (null = fehlt), [current] = Sperre jetzt, [encrypted] = Sicherung
+     * [wanted] = Wert in der Sicherung, [current] = Sperre jetzt, [encrypted] = Sicherung
      * mit Passwort, [canAuthenticate] = Gerät kann entsperren (sonst sperrte «an» das Portfolio aus).
      */
-    fun appLock(wanted: Boolean?, current: Boolean, encrypted: Boolean, canAuthenticate: Boolean): AppLockDecision =
-        when (wanted) {
-            null -> AppLockDecision(apply = null, keptOn = false)
-            true -> AppLockDecision(apply = if (canAuthenticate) true else null, keptOn = false)
-            false ->
-                if (current && !encrypted) AppLockDecision(apply = null, keptOn = true)
-                else AppLockDecision(apply = false, keptOn = false)
+    fun appLock(wanted: Boolean, current: Boolean, encrypted: Boolean, canAuthenticate: Boolean): AppLockDecision =
+        when {
+            wanted -> AppLockDecision(apply = if (canAuthenticate) true else null, keptOn = false)
+            current && !encrypted -> AppLockDecision(apply = null, keptOn = true)
+            else -> AppLockDecision(apply = false, keptOn = false)
         }
 
     /**
      * «Portfolio in Systemsicherung» aus der Sicherung: neuer Wert oder null (unverändert). Ohne Echtheitsprüfung
      * ([trusted] false) nur ausschalten — einschalten gäbe die Portfolio-Daten in die Systemsicherung.
      */
-    fun systemBackup(wanted: Boolean?, current: Boolean, trusted: Boolean): Boolean? =
-        if (wanted == true && !current && !trusted) null else wanted
+    fun systemBackup(wanted: Boolean, current: Boolean, trusted: Boolean): Boolean? =
+        if (wanted && !current && !trusted) null else wanted
 
     /**
      * «Beträge verbergen» aus der Sicherung: neuer Wert oder null (unverändert). Ohne Echtheitsprüfung
      * ([trusted] false) nur einschalten — ausschalten zeigte die Beträge offen.
      */
-    fun hideAmounts(wanted: Boolean?, current: Boolean, trusted: Boolean): Boolean? =
-        if (wanted == false && current && !trusted) null else wanted
+    fun hideAmounts(wanted: Boolean, current: Boolean, trusted: Boolean): Boolean? =
+        if (!wanted && current && !trusted) null else wanted
 
     /** Hinweis zum eigenen Bitcoin-Server in der Meldung nach dem Wiederherstellen ([addressServerNote]). */
     enum class AddressServerNote {
@@ -60,10 +58,10 @@ object BackupRestorePolicy {
 
     /**
      * Hinweis zum eigenen Bitcoin-Server ([AddressServer.restored], gleiche Fälle in address_server.json «restore»):
-     * null = nichts zu sagen (Wert gleich, ungültig, fehlt, oder neu gesetzt, wo keiner war).
+     * null = nichts zu sagen (Wert gleich, ungültig oder neu gesetzt, wo keiner war).
      */
-    fun addressServerNote(present: Boolean, value: String?, current: String?, trusted: Boolean): AddressServerNote? {
-        val wanted = AddressServer.restored(present, value, current, trusted = true)
+    fun addressServerNote(value: String?, current: String?, trusted: Boolean): AddressServerNote? {
+        val wanted = AddressServer.restored(value, current, trusted = true)
         return when {
             wanted == current -> null
             !trusted -> AddressServerNote.KEPT

@@ -7,7 +7,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Freigabe von Logo-Adressen (`testdata/parity/logo_url_allow.json`, SEC3-02): die Prüfung entscheidet
+ * Freigabe von Logo-Adressen (`testdata/parity/logo_url_allow.json`): die Prüfung entscheidet
  * wie der URL-Parser, der die Anfrage stellt. Gegenstück: `Tests/LogoURLAllowParityTests.swift`.
  */
 class LogoUrlAllowParityTest {

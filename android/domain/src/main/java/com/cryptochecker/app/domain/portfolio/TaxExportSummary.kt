@@ -97,7 +97,7 @@ fun TaxExport.yearSummary(
     // auch dort die alte Rechtslage, darum gerechnet ohne Option
     val atOld = rows.filter { it.oldHolding == true }
     // Gebühr-Aufwände (feeExpense, z. B. Gebühr verbraucht den ganzen Zugang) sind kein Spekulationsgeschäft: sie bleiben
-    // wie bisher im Posten Neubestand, auch vor dem 1.3.2022
+    // im Posten Neubestand, auch vor dem 1.3.2022
     val atEarlyNew = if (template == TaxTemplate.AT) {
         rows.filter { it.oldHolding != true && it.feeExpense == null && it.soldDate < TaxTemplate.AT_SWAP_NEUTRAL_FROM }
     } else emptyList()
@@ -129,7 +129,7 @@ fun TaxExport.yearSummary(
         if (unclassifiedRows.isNotEmpty()) lines += Acc(unclassifiedRows, all, fx).line(TaxLine.UNCLASSIFIED, fx)
         net = Acc(rows, all, fx)
     } else if (template == TaxTemplate.AT) {
-        // Neubestand zum Sondersteuersatz: Verkäufe ab dem 1.3.2022; Gebühr-Aufwände wie bisher hier (nicht in den
+        // Neubestand zum Sondersteuersatz: Verkäufe ab dem 1.3.2022; Gebühr-Aufwände hier (nicht in den
         // Spekulationsgeschäften, siehe [atEarlyNew])
         val newRows = rows.filter {
             it.oldHolding != true && (it.soldDate >= TaxTemplate.AT_SWAP_NEUTRAL_FROM || it.feeExpense != null)

@@ -5,7 +5,7 @@ import Foundation
 /// Testfälle `testdata/parity/coin_meta.json`).
 ///
 /// - `merge`: Rangliste (CoinGecko), Binance-Symbolliste und Alpha-Liste → Logo-Adressen, Namen und
-///   Alpha-Kürzel, mit derselben Vorrangregel wie bisher (CoinGecko Rang 1–1000 → Binance → Alpha →
+///   Alpha-Kürzel, mit fester Vorrangregel (CoinGecko Rang 1–1000 → Binance → Alpha →
 ///   CoinGecko Rang 1001–2500; erstes Vorkommen gewinnt).
 /// - Ersatz `url`: `coin_meta.json` der Release «data» auf GitHub, stündlich von der GitHub Action
 ///   «Market data» gebaut — **nur** aus den öffentlichen Binance-Listen (Kürzel, Namen, Bild-Adressen,
@@ -118,7 +118,7 @@ enum CoinMeta {
         !directOk || !CoinLogos.isFresh(savedAt: lastDirectAt, now: now, ttl: directStaleMillis)
     }
 
-    /// Listen zusammenführen, Vorrang wie bisher: `geckoTop` (Rang 1–1000), dann Binance (Lücken,
+    /// Listen zusammenführen, Vorrang: `geckoTop` (Rang 1–1000), dann Binance (Lücken,
     /// TradFi gegen `crypto` bzw. die Kürzel von `geckoTop`), dann Alpha (Lücken), zuletzt `geckoExtra`.
     static func merge(geckoTop: [GeckoRow], binance: [CoinLogos.BinanceEntry]?, alpha: [CoinLogos.AlphaEntry]?,
                       geckoExtra: [GeckoRow] = [], crypto: Set<String>? = nil) -> Lists {
@@ -186,7 +186,7 @@ enum CoinMeta {
         return String(decoding: data, as: UTF8.self)
     }
 
-    /// Binance-Namen für «gleicher Token» (K-8): Kürzel gross → `fullName`, Spot vor Futures.
+    /// Binance-Namen für «gleicher Token»: Kürzel gross → `fullName`, Spot vor Futures.
     /// Binance-Liste aus der Ersatzdatei gegen die gespeicherte `saved` abwägen: Die Ersatzdatei kann nur
     /// Kürzel tragen (ohne `fullName`, Bild-Adressen, Schlagworte). Eine Liste ohne Namen ersetzt nie eine
     /// mit Namen — sonst wären nach 48 h ohne direkte Liste Namen und Logos weg —, sie ergänzt nur Kürzel,

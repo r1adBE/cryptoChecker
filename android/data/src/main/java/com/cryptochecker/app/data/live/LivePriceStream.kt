@@ -40,7 +40,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Live-Kurse per WebSocket für die SICHTBARE Merkliste (Runde 31), nur solange die App im
+ * Live-Kurse per WebSocket für die SICHTBARE Merkliste, nur solange die App im
  * Vordergrund ist, die Merkliste angezeigt wird, das Gerät online ist und «Live-Kurse in der
  * App» eingeschaltet ist. Je Börse eine Verbindung (bei vielen Paaren mehrere, siehe
  * [LivePlanner]); Börsen ohne WebSocket bleiben bei der REST-Abfrage im gewohnten Takt.

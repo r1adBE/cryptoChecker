@@ -16,7 +16,7 @@ annotation class DeviceOverride(val fontScale: Float = 0f, val language: String 
 /**
  * Setzt die [DeviceOverride] der Testmethode allein für die Oberfläche der App ([TestDisplayOverride]: Schrift, Sprache,
  * Leserichtung in Compose) — nicht systemweit, ohne `settings put` und ohne Wechsel der App-Sprache. Darum bleibt nichts
- * für die übrigen Tests zurück (ein früherer Versuch über die Gerätekonfiguration stellte nicht sauber zurück und
+ * für die übrigen Tests zurück (ein Weg über die Gerätekonfiguration stellte nicht sauber zurück und
  * brachte danach `UiFlowsTest` zum Absturz). Muss vor der Compose-Regel stehen (`order` kleiner), damit die Activity
  * gleich mit der Einstellung zeichnet; danach immer zurückgesetzt. Ohne Annotation tut die Regel nichts.
  */

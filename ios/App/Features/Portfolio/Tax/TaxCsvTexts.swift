@@ -88,7 +88,7 @@ struct TaxCsvTexts: Sendable {
     /// AT (nur diese Vorlage füllt sie, `withTemplateTexts`): Einkünfte getrennt wie in der Jahresübersicht
     /// (`TaxIncomeRow.interest`) — Vermerk je Zeile «Zins – steuerpflichtig beim Zufluss» bzw. «Staking – nur zur
     /// Information (Anschaffungskosten 0, besteuert beim Verkauf)» und statt der einen Summe zwei Summenzeilen «Summe Zins
-    /// (steuerpflichtig)» / «Summe Staking (Information)». Leer (alle anderen Vorlagen) = eine Summe wie bisher. Wie Android.
+    /// (steuerpflichtig)» / «Summe Staking (Information)». Leer (alle anderen Vorlagen) = eine Summe. Wie Android.
     var incomeInterest: String = ""
     var incomeStaking: String = ""
     var totalInterest: String = ""
@@ -98,7 +98,7 @@ struct TaxCsvTexts: Sendable {
     var incomeBeforeNewLaw: String = ""
     /// DE/AT (nur diese Vorlagen füllen ihn, `withTemplateTexts`, `TaxTemplate.withdrawalFeeApart`): Summenzeile
     /// «Auszahlungsgebühren» — die Gebühr-Zeilen einer Auszahlung zählen dann NICHT in der Summe der Gewinne, sondern in
-    /// dieser eigenen Zeile, wie der eigene Posten der Jahresübersicht. Leer = in der Summe wie bisher. Wie Android.
+    /// dieser eigenen Zeile, wie der eigene Posten der Jahresübersicht. Leer = in der Summe. Wie Android.
     var withdrawalFeesTotal: String = ""
 
     /// Aus den App-Texten; Währungsspalten mit `currency`, Zeitzone der Daten `zone` (die der Vorlage, Neutral: Gerät).

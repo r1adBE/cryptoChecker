@@ -66,7 +66,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     var watchlistGroup: String? = nil
     /// Ungewöhnliche Aktivität (Bewegung, Volumen, Futures) als Mitteilung melden.
     var activityAlerts: Bool = false
-    /// Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Mitteilungen); Standard = bisherige Schwellen.
+    /// Empfindlichkeit von «Ungewöhnliche Aktivität» (Karte und Mitteilungen); Standard = `.NORMAL`.
     var activitySensitivity: ActivitySensitivity = .NORMAL
     /// Morgen-Mitteilung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten.
     var macroNotifications: Bool = false
@@ -111,7 +111,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     var quietHoursEnabled: Bool = false
     var quietHoursStart: Int = QuietHours.defaultStart
     var quietHoursEnd: Int = QuietHours.defaultEnd
-    /// Portfolio-Sperre (Schlüssel «appLock» wie bisher): Portfolio-Tab, Unterseiten, Sicherung mit
+    /// Portfolio-Sperre (Schlüssel «appLock»): Portfolio-Tab, Unterseiten, Sicherung mit
     /// Portfolio-Daten und Portfolio-Widget erst nach Face ID / Touch ID / Code — beim Start und
     /// nach mehr als einer Minute im Hintergrund. Die übrige App ist nie gesperrt.
     var appLock: Bool = false
@@ -149,11 +149,11 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// («portfolioHistoryPnl»); nicht in der Sicherung.
     var portfolioHistoryPnl: Bool = false
     /// Einstandsmethode des Portfolios (FIFO | Ø): Einstand, Ø, «Seit Kauf», realisiert und Steuer-Export. Standard
-    /// FIFO, wie Android («costMethod»); in der App-Sicherung (fehlt der Schlüssel → FIFO).
+    /// FIFO, wie Android («costMethod»); in der App-Sicherung (unbekannter Wert → FIFO).
     var costMethod: CostMethod = .defaultMethod
     /// Steuer-Vorlage der Arbeitsunterlage (Neutral | DE | AT | CH | UK | US | CA | AU | FR | JP), Standard Neutral — wie
     /// Android («tax_template»). Die Region des Geräts wird nur vorgeschlagen, nie still übernommen. In der App-Sicherung
-    /// («taxTemplate»; fehlt der Schlüssel, bleibt die Einstellung stehen).
+    /// («taxTemplate»; unbekannter Wert → Neutral).
     var taxTemplate: TaxTemplate = .defaultTemplate
     /// Hinweis «Beta, vereinfachte Regeln …» zu den Länder-Vorlagen einmal mit OK bestätigt — wie Android
     /// («tax_template_confirmed»); nur auf diesem Gerät, nicht in der Sicherung.

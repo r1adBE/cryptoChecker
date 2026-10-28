@@ -109,7 +109,7 @@ enum PortfolioWidgetText {
         PortfolioWidgetChart.direction(plan).map(Double.init)
     }
 
-    /// %-Basis, mit der der Stand gerechnet ist (älterer Stand: rollend).
+    /// %-Basis, mit der der Stand gerechnet ist (ohne Angabe, z. B. leeres Portfolio: rollend).
     static func basis(_ s: PortfolioWidgetSnapshot) -> ChangeBasis { s.stamp?.basis ?? .ROLLING_24H }
 
     /// Kurzform des Zeitraums der Veränderung: 24 h nach der %-Basis («24h», «heute»), sonst «7T» …

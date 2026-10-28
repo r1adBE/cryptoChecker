@@ -268,8 +268,8 @@ internal fun PreviewHint(text: String) {
 }
 
 /**
- * «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — zwei Zeilen ohne harte Begrenzung (vorher eine
- * Zeile mit maxLines = 1: bei grosser Schrift fehlten Menge und Preis).
+ * «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — zwei Zeilen ohne harte Begrenzung (mit
+ * maxLines = 1 fehlten bei grosser Schrift Menge und Preis).
  */
 @Composable
 internal fun PreviewRow(tx: CsvImportTx) {

@@ -7,7 +7,6 @@ final class PortfolioNumbersTests: XCTestCase {
 
     private var nextId: Int64 = 1
     private let d = 1e-9
-    private let utc = TimeZone(identifier: "UTC")!
     private let today = LocalDay(2026, 10, 6).epochDay
 
     private func buy(_ coin: String, _ amount: Double, _ time: Int64) -> PortfolioTx {
@@ -22,8 +21,7 @@ final class PortfolioNumbersTests: XCTestCase {
     private func build(_ trades: [PortfolioTx], _ closes: [String: [Int: Double]],
                        _ live: [String: Double]) -> PortfolioHistorySeries {
         PortfolioHistory.build(trades: trades, closes: closes, livePrices: live, range: .week,
-                               todayEpochDay: today,
-                               dayEndMillis: { PortfolioHistory.dayEndMillis($0, timeZone: self.utc) })
+                               todayEpochDay: today)
     }
 
     /// «Heute» für «7 T/1 J», Verlauf und Erwerbstage ist der UTC-Tag: 00:30 Zürich-Sommerzeit ist UTC noch der Vortag.
@@ -149,7 +147,7 @@ final class PortfolioNumbersTests: XCTestCase {
     }
 
     func testConversionUsdtAtMarketPrice() {
-        // Owner-Entscheid Okt. 2026: USDT gilt seinen Marktkurs; USD bleibt 1 (wie CurrencyConversionTest.kt)
+        // USDT gilt seinen Marktkurs; USD bleibt 1 (wie CurrencyConversionTest.kt)
         XCTAssertEqual(CurrencyConversion.stableToUsd("USDT", marketUsdt: nil, usdtUsd: 0.97) ?? .nan, 0.97, accuracy: 1e-12)
         XCTAssertEqual(CurrencyConversion.stableToUsd("USD", marketUsdt: nil, usdtUsd: 0.97), 1)
         // andere Stablecoins: Marktkurs in USDT × USDT/USD
@@ -333,7 +331,7 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertFalse(PricePlausibility.acceptSourceClose(5, primary: false, sourceLatest: 1.5, current: 1))
         XCTAssertFalse(PricePlausibility.acceptSourceClose(5, primary: false, sourceLatest: 40, current: 1))
         XCTAssertFalse(PricePlausibility.acceptSourceClose(5, primary: false, sourceLatest: nil, current: 1))
-        // Kein aktueller Kurs bekannt: streng → nicht übernommen (früher: gilt ungeprüft)
+        // Kein aktueller Kurs bekannt: streng → nicht übernommen (nicht «gilt ungeprüft»)
         XCTAssertFalse(PricePlausibility.acceptSourceClose(5, primary: false, sourceLatest: 1, current: nil))
         XCTAssertFalse(PricePlausibility.acceptSourceClose(5, primary: false, sourceLatest: nil, current: nil))
         XCTAssertFalse(PricePlausibility.acceptSourceClose(5, primary: true, sourceLatest: 1, current: .nan))
@@ -645,7 +643,7 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertFalse(PortfolioHistoryFx.chunkMayHaveRates(from: sun, to: sat, today: sun))
     }
 
-    /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag
+    /// USDT zum Marktkurs: jeder Tag × USDT/USD-Schluss DES Tags, heute × Live-Kurs; ein Tag
     /// ohne Schluss rechnet mit 1 und markiert die Näherung (`usdtApproximate`). Wie Android.
     func testUsdtAtMarketScalesEachDayAndFlagsMissingClose() {
         let usdt = UsdtUsdRates(live: 0.98, daily: [day("2026-10-02"): 0.97, day("2026-10-03"): 0.97, day("2026-10-04"): 0.97])
@@ -682,7 +680,7 @@ final class PortfolioNumbersTests: XCTestCase {
         for (got, want) in zip(r.series.points.map(\.value), [800.0, 800, 800, 810, 820]) {
             XCTAssertEqual(got, want, accuracy: 1e-6)
         }
-        // Ohne USDT/USD-Kurse (bisherige Rechnung) keine Markierung
+        // Ohne USDT/USD-Kurse (USDT = 1 USD) keine Markierung
         XCTAssertFalse(PortfolioHistoryFx.convert(flatUsd, dailyRates: rates, currentRate: 0.82,
                                                   todayEpochDay: today).usdtApproximate)
     }
@@ -747,7 +745,6 @@ final class PortfolioNumbersTests: XCTestCase {
                        _ live: [String: Double], addresses: [AddressBalanceHistory] = []) -> PortfolioHistorySeries {
         PortfolioHistory.build(trades: trades, closes: closes, livePrices: live, range: range,
                                todayEpochDay: today,
-                               dayEndMillis: { PortfolioHistory.dayEndMillis($0, timeZone: self.utc) },
                                addresses: addresses)
     }
 
@@ -907,7 +904,7 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertEqual(PortfolioPeriodChange.marketPriceAt("USDT", live: nil, closes: [:], time: Int64(today) * day), 1)
     }
 
-    /// K-1: USDT zum USD-Kurs, Verlauf in der Anzeigewährung samt Devisenbewegung — wie Android `fxLabelFlags`.
+    /// USDT zum USD-Kurs, Verlauf in der Anzeigewährung samt Devisenbewegung — wie Android `fxLabelFlags`.
     func testFxLabelFlags() {
         XCTAssertTrue(PortfolioHistoryFx.convertsUsdtAsUsd("chf"))
         XCTAssertFalse(PortfolioHistoryFx.convertsUsdtAsUsd("USD"))
@@ -922,7 +919,7 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertFalse(PortfolioHistoryFx.convert(series, dailyRates: nil, currentRate: 0.8, todayEpochDay: 2).includesFx)
     }
 
-    /// K-7: Fehler (Netz, Sperre) ist nicht «kein Kurs» — wie Android.
+    /// Fehler (Netz, Sperre) ist nicht «kein Kurs» — wie Android.
     func testPriceIssueSeparatesErrorsFromNoPrice() {
         XCTAssertEqual(PortfolioPriceIssue.of(failed: false, allSourcesBlocked: false, networkFailed: false), .noPrice)
         XCTAssertEqual(PortfolioPriceIssue.of(failed: true, allSourcesBlocked: false, networkFailed: false), .unavailable)
@@ -937,7 +934,6 @@ final class PortfolioChartTests: XCTestCase {
 
     private var nextId: Int64 = 1
     private let d = 1e-9
-    private let utc = TimeZone(identifier: "UTC")!
     private let today = LocalDay(2026, 10, 6).epochDay
     /// Fünf Jahre (5 × 365 + 1 Schalttag) — Beispiel für einen langen Verlauf.
     private let fiveYearsDays = 1826
@@ -1047,7 +1043,6 @@ final class PortfolioChartTests: XCTestCase {
         let trades = [buy("BTC", 2, noon(today - 2)), buy("USDT", 50, noon(today - 2))]
         return PortfolioHistory.build(trades: trades, closes: closes, livePrices: ["BTC": 121], range: .month,
                                       todayEpochDay: today,
-                                      dayEndMillis: { PortfolioHistory.dayEndMillis($0, timeZone: self.utc) },
                                       ranges: ranges)
     }
 
@@ -1142,7 +1137,7 @@ final class PortfolioChartTests: XCTestCase {
 }
 
 /// Zeitraum «Seit 1. Kauf» (`PortfolioHistory.startDay`, `isCapped`, `candleDays`) — wie
-/// `PortfolioHistoryTest.kt`: nicht mehr auf 5 Jahre begrenzt, nur frühestens ab den ersten Kursdaten.
+/// `PortfolioHistoryTest.kt`: nicht auf 5 Jahre begrenzt, nur frühestens ab den ersten Kursdaten.
 final class PortfolioHistoryRangeTests: XCTestCase {
 
     private var nextId: Int64 = 1
@@ -1165,15 +1160,15 @@ final class PortfolioHistoryRangeTests: XCTestCase {
     }
 
     private func start(_ range: PortfolioHistoryRange, _ first: Int64) -> Int {
-        PortfolioHistory.startDay(range: range, firstTradeMillis: first, todayEpochDay: today, dayEndMillis: dayEnd)
+        PortfolioHistory.startDay(range: range, firstTradeMillis: first, todayEpochDay: today)
     }
 
     private func capped(_ range: PortfolioHistoryRange, _ first: Int64) -> Bool {
-        PortfolioHistory.isCapped(range: range, firstTradeMillis: first, todayEpochDay: today, dayEndMillis: dayEnd)
+        PortfolioHistory.isCapped(range: range, firstTradeMillis: first, todayEpochDay: today)
     }
 
     private func candleDays(_ range: PortfolioHistoryRange, _ first: Int64?) -> Int {
-        PortfolioHistory.candleDays(range: range, firstTradeMillis: first, todayEpochDay: today, dayEndMillis: dayEnd)
+        PortfolioHistory.candleDays(range: range, firstTradeMillis: first, todayEpochDay: today)
     }
 
     func testSinceFirstStartsAtTheFirstTransaction() {
@@ -1182,20 +1177,19 @@ final class PortfolioHistoryRangeTests: XCTestCase {
         XCTAssertFalse(capped(.sinceFirst, first))
         let s = PortfolioHistory.build(trades: [buy("BTC", 1, first), buy("BTC", 1, noon(today - 10))],
                                        closes: ["BTC": flatCloses(900)], livePrices: ["BTC": 50], range: .sinceFirst,
-                                       todayEpochDay: today, dayEndMillis: dayEnd)
+                                       todayEpochDay: today)
         XCTAssertEqual(s.points.count, 801)
         XCTAssertEqual(s.points.first?.epochDay, today - 800)
         XCTAssertFalse(s.capped)
     }
 
     func testSinceFirstIsNotLimitedToFiveYears() {
-        // Erster Kauf vor gut 7 Jahren: ganz gezeigt, nicht mehr auf 5 Jahre gekappt
+        // Erster Kauf vor gut 7 Jahren: ganz gezeigt, nicht auf 5 Jahre gekappt
         let first = noon(today - 2600)
         XCTAssertEqual(start(.sinceFirst, first), today - 2600)
         XCTAssertFalse(capped(.sinceFirst, first))
         let s = PortfolioHistory.build(trades: [buy("BTC", 1, first)], closes: ["BTC": flatCloses(2700)],
-                                       livePrices: ["BTC": 50], range: .sinceFirst, todayEpochDay: today,
-                                       dayEndMillis: dayEnd)
+                                       livePrices: ["BTC": 50], range: .sinceFirst, todayEpochDay: today)
         XCTAssertEqual(s.points.count, 2601)
         XCTAssertFalse(s.capped)
         XCTAssertEqual(candleDays(.sinceFirst, first), 2602)
@@ -1208,8 +1202,7 @@ final class PortfolioHistoryRangeTests: XCTestCase {
         XCTAssertEqual(start(.sinceFirst, first), dataStart)
         XCTAssertTrue(capped(.sinceFirst, first))
         let s = PortfolioHistory.build(trades: [buy("BTC", 1, first)], closes: ["BTC": flatCloses(4100)],
-                                       livePrices: ["BTC": 50], range: .sinceFirst, todayEpochDay: today,
-                                       dayEndMillis: dayEnd)
+                                       livePrices: ["BTC": 50], range: .sinceFirst, todayEpochDay: today)
         XCTAssertEqual(s.points.count, today - dataStart + 1)
         XCTAssertTrue(s.capped)
         // Erster Kauf genau am ersten Tag mit Kursdaten: nicht begrenzt

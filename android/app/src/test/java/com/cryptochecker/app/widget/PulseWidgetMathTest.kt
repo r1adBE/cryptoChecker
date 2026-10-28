@@ -154,7 +154,7 @@ class PulseWidgetMathTest {
         // Mittel (250 dp, 224 dp nutzbar): untereinander in zwei Zeilen
         assertEquals(PulseSideLayout.TWO_LINES, layout(250, 200))
         assertEquals(PulseSideLayout.TWO_LINES, layout(250, 186))
-        // Höhe nur für eine Nebenzeile: wie bisher zuerst Fear & Greed
+        // Höhe nur für eine Nebenzeile: zuerst Fear & Greed
         assertEquals(PulseSideLayout.FEAR_GREED, layout(250, 185))
         assertEquals(PulseSideLayout.FEAR_GREED, layout(250, 168))
         // Zweizeilige Schlagzeile braucht für zwei Nebenzeilen mehr Höhe

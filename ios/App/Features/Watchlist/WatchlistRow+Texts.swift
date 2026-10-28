@@ -31,7 +31,7 @@ extension WatchlistRow {
         guard stale else {
             // Börse ohne eigene Zeit, Kurs steht lange: nicht frisch wirken (`PriceFreshness`)
             if let unchanged = unchangedText { return ("\(BidiText.isolate(watch.exchangeName)) · \(unchanged)", false, unchanged) }
-            // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht seit L-14 nur im Aktionsblatt
+            // Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht nur im Aktionsblatt
             return (watch.exchangeName, false, nil)
         }
         return ("\(BidiText.isolate(watch.exchangeName)) · \(ago)", false, nil)

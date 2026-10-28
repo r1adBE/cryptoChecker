@@ -112,7 +112,7 @@ class AlarmsOverviewViewModel @Inject constructor(
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
         viewModelScope.launch {
-            // Rückfrage F-08 vorher; «Abbrechen» = nichts
+            // Rückfrage «nicht gespeichert» vorher; «Abbrechen» = nichts
             if (!watchRepository.confirmUserWrite()) return@launch
             // Abgelehnt (Merkliste gesperrt, «fällt um ≥ 100 %» einschalten): Alarm bleibt, wie er ist, seine Mitteilung bleibt
             if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch

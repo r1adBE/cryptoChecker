@@ -44,7 +44,7 @@ object PortfolioWidgetChart {
 
     const val HOUR_MILLIS = 3_600_000L
 
-    /** Stundenverlauf über mehr als diese Spanne (ältere Aufnahmen bis 48 h): Gitter je Tag statt je Stunde. */
+    /** Stundenverlauf über mehr als diese Spanne: Gitter je Tag statt je Stunde. */
     const val HOURLY_GRID_MAX_SPAN_MILLIS = 26 * HOUR_MILLIS
 
     /** Tageskurse eines Coins zählen nur, wenn der jüngste Schluss höchstens so viele UTC-Tage alt ist. */
@@ -64,7 +64,7 @@ object PortfolioWidgetChart {
 
     /**
      * Wirksame Anzeige: Ist die Anzeigewährung ein USD-Stablecoin ([collapsesToUsdt]), fallen die drei Möglichkeiten
-     * auf «Nur USDT» zusammen (USD nicht: dort wie jede Fiat-Währung); ohne USDT-Wert (ältere Aufnahme) bleibt nur
+     * auf «Nur USDT» zusammen (USD nicht: dort wie jede Fiat-Währung); ohne USDT-Wert bleibt nur
      * die Umrechnung.
      */
     fun effectiveDisplay(chosen: PortfolioDisplay, currency: String, hasUsdt: Boolean): PortfolioDisplay = when {
@@ -209,7 +209,6 @@ object PortfolioWidgetChart {
         current: Map<String, Double>,
         todayEpochDay: Long,
         todayUtcDay: Long,
-        dayEndMillis: (Long) -> Long,
         addresses: List<AddressBalanceHistory> = emptyList(),
         /** Einstandsmethode: Bestände wie Karte und App ([PortfolioHoldingsBook]). */
         method: CostMethod = CostMethod.DEFAULT,
@@ -222,7 +221,6 @@ object PortfolioWidgetChart {
             livePrices = current,
             range = PortfolioHistoryRange.YEAR,
             todayEpochDay = todayEpochDay,
-            dayEndMillis = dayEndMillis,
             fxRate = 1.0,
             ranges = ranges.filterKeys { it in usable },
             addresses = addresses,

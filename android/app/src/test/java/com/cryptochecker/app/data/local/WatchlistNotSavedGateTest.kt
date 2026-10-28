@@ -25,10 +25,10 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * F-08: Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTests.swift`.
+ * Rückfrage «nicht gespeichert» vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTests.swift`.
  * Einmal je Aktion vorher, Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage weg.
  * Ohne Oberfläche kurz auf sie warten, Durchlass ohne Oberfläche wird im Schreibweg nicht abgelehnt.
- * Review F-27: dieser Durchlass gilt nur für die eigene Aktion (Coroutine samt Kindern), nicht global.
+ * Dieser Durchlass gilt nur für die eigene Aktion (Coroutine samt Kindern), nicht global.
  */
 class WatchlistNotSavedGateTest {
 
@@ -137,7 +137,7 @@ class WatchlistNotSavedGateTest {
         }
     }
 
-    /** ARC3-R02: Wartende Aktion abgebrochen (ViewModel weg) → keine offene Frage mehr, nichts bestätigt. */
+    /** Wartende Aktion abgebrochen (ViewModel weg) → keine offene Frage mehr, nichts bestätigt. */
     @Test
     fun sharedCancelledWaiterClearsTheQuestion() = runBlocking {
         val expected = data["cancelledWaiter"].obj()
@@ -170,7 +170,7 @@ class WatchlistNotSavedGateTest {
     }
 
     /**
-     * Review ARC4-R02, Variante A: ohne Oberfläche beim Bestätigen erst warten; erscheint sie, wird gefragt,
+     * Ohne Oberfläche beim Bestätigen erst warten; erscheint sie, wird gefragt,
      * sonst durchgelassen — und die Sicherung lehnt die Schreibwege dieser Aktion nicht still ab.
      */
     @Test
@@ -215,7 +215,7 @@ class WatchlistNotSavedGateTest {
     }
 
     /**
-     * Review F-27: Durchlass ohne Oberfläche nur für die eigene Aktion. A läuft ohne Frage durch; danach ist die Oberfläche
+     * Durchlass ohne Oberfläche nur für die eigene Aktion. A läuft ohne Frage durch; danach ist die Oberfläche
      * da. A (auch in einer Kind-Coroutine) schreibt, eine andere Aktion ohne Bestätigung wird abgelehnt, eine andere mit
      * Bestätigung fragt, ihr «Abbrechen» lehnt A nicht ab; nach dem Ende von A gilt die Sicherung wieder.
      */
@@ -254,7 +254,7 @@ class WatchlistNotSavedGateTest {
     }
 
     /**
-     * Review ARC7-02: Grenze des Durchlasses — er gilt für Kind-Coroutinen von A, nicht für eine Coroutine, die A in
+     * Grenze des Durchlasses — er gilt für Kind-Coroutinen von A, nicht für eine Coroutine, die A in
      * einem anderen Scope startet (losgelöst, eigener Job): deren Schreibweg wird abgelehnt.
      */
     @Test

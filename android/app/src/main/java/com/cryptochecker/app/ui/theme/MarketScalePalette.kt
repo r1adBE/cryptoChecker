@@ -5,13 +5,13 @@ import com.cryptochecker.app.settings.PriceColorScheme
 import kotlin.math.roundToInt
 
 /**
- * J-15: Farben der fünfstufigen Skala «Extreme Angst» … «Extreme Gier» (Fear & Greed), abgeleitet
+ * Farben der fünfstufigen Skala «Extreme Angst» … «Extreme Gier» (Fear & Greed), abgeleitet
  * aus den aktiven Kursfarben — so gilt auch das Schema für Farbsehschwäche, hoher Kontrast und der
  * Tausch. Angst = Fallend-Farbe, Gier = Steigend-Farbe, die mittleren Stufen je zu 45 % mit dem
  * neutralen Grau gemischt. Nur für Flächen (Skala, Markierung), nie für Schrift; jede Stufe hält
  * ≥ 3:1 (Nicht-Text-Kontrast) auf allen Flächen bis #E2E2E2 bzw. #353535 (MarketScalePaletteTest).
  * Gilt für den Stufenpunkt der Fear-&-Greed-Karte ([MarketScaleColors]) und des Puls-Widgets
- * (Entscheid: Skala folgt den Kursfarben, passend zu den Pfeilen; früher eine feste Skala).
+ * (Skala folgt den Kursfarben, passend zu den Pfeilen).
  * Reines Kotlin, wie iOS `MarketScalePalette.swift`.
  */
 object MarketScalePalette {

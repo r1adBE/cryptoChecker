@@ -70,7 +70,7 @@ fun WatchlistScreen(
     onAddClick: () -> Unit,
     onOpenAlarms: (Long) -> Unit,
     onOpenAllAlarms: () -> Unit = {},
-    /** Einstellungen › Alarme › Markt-Meldungen (Empfindlichkeit); früher «Anpassen» in der Aktivitätskarte. */
+    /** Einstellungen › Alarme › Markt-Meldungen (Empfindlichkeit). */
     onOpenActivitySettings: () -> Unit = {},
     /** Logo mit App-Namen im Überlaufmenü: «Über die App». */
     onOpenAbout: () -> Unit = {},
@@ -116,7 +116,7 @@ fun WatchlistScreen(
 
     // Uhr für «vor 2 Min.» — alle 30 Sekunden neu ([rememberWatchlistClock])
     val now = rememberWatchlistClock()
-    // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.) und «Live» nur, wenn alle dabei sind (K-1)
+    // Paare am Live-Strom: eigene Frische-Schwelle (2 Min.) und «Live» nur, wenn alle dabei sind
     val liveIds = live.liveWatchIds
     // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
     // Als State (nicht «by»): gelesen wird nur in den Zeilen bzw. im Aktionsblatt ([WithLiveQuote]),
@@ -225,7 +225,7 @@ fun WatchlistScreen(
         }
     }
     // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen» (ohne Rückfrage, mit «Rückgängig», weiteres Löschen als
-    // Sammel-Banner) bzw. nach rechts wischen (Favorit): Haptik und Banner (ARC5-R01) über Ereignisse im
+    // Sammel-Banner) bzw. nach rechts wischen (Favorit): Haptik und Banner über Ereignisse im
     // aktuellen Bildschirm ([WatchlistUiEffects] in [WatchlistSheets])
     val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
     val deleteWithUndo: (WatchEntity) -> Unit = { uiEvents.deleteWithUndo(viewModel, it) }

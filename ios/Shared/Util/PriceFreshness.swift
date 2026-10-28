@@ -77,7 +77,7 @@ enum PriceFreshness {
     }
 
     /// `priceChangedAt` nach einem erfolgreichen Abruf zum Zeitpunkt `time`: bleibt bei gleichem Kurs
-    /// stehen (sofern bekannt), sonst `time`. Unbekannt (0, z. B. nach dem Update) beginnt bei `time`.
+    /// stehen (sofern bekannt), sonst `time`. Unbekannt (0) beginnt bei `time`.
     static func nextPriceChangedAt(previousPrice: Double?, previousChangedAt: Int64, price: Double,
                                    time: Int64) -> Int64 {
         if let previousPrice, previousPrice == price, previousChangedAt > 0 { return previousChangedAt }

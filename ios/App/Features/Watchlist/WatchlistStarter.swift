@@ -6,7 +6,7 @@ import SwiftUI
 /// Karte im Stil von «Ungewöhnliche Aktivität»: die fünf Startcoins mit Kurs in der
 /// Start-Quote USDT (Binance, in den USA Binance.US — `StarterPairs.exchangeKey`), 24-h-Änderung und Auswahlkreis rechts. Zeile
 /// tippen = an/ab; anfangs sind alle gewählt. Darunter «Zur Merkliste hinzufügen (n)»
-/// und «Alle/Keine auswählen». Hinzufügen geht über `onAdd` (gleicher Weg wie bisher).
+/// und «Alle/Keine auswählen». Hinzufügen geht über `onAdd`.
 @MainActor
 struct WatchlistStarterPicker: View {
     let coins: [StarterCoin]
@@ -34,7 +34,7 @@ struct WatchlistStarterPicker: View {
     @State private var logosReady = false
     @Environment(\.coinLogosEnabled) private var coinLogosEnabled
 
-    private var quote: String { StarterPairs.startQuote(region) }
+    private var quote: String { StarterPairs.startQuote() }
 
     private func isSelected(_ coin: StarterCoin) -> Bool {
         selection?.contains(coin.symbol) ?? true

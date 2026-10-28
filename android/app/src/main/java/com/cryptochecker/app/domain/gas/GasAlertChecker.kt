@@ -49,10 +49,10 @@ object GasAlertLogic {
      * Gespeicherter Zustand für die aktuelle Grenze: Wurde er bei einer anderen Grenze gemerkt
      * (geändert oder zwischendurch aus = 0), ist der Alarm wieder scharf — sonst bliebe er nach
      * einer neuen Grenze stumm, bis die Gebühr einmal deutlich über der alten lag.
-     * [storedThreshold] null = keine Grenze gemerkt: Zustand übernehmen.
+     * [storedThreshold] null = keine Grenze gemerkt: scharf.
      */
     fun armedFor(storedArmed: Boolean, storedThreshold: Double?, threshold: Double): Boolean =
-        if (storedThreshold != null && storedThreshold != threshold) true else storedArmed
+        if (storedThreshold != threshold) true else storedArmed
 }
 
 /**
@@ -92,7 +92,7 @@ class GasAlertChecker @Inject constructor(
             prefs.edit { putLong(KEY_LAST_CHECK, now - MIN_INTERVAL_MILLIS + RETRY_AFTER_FAILURE_MILLIS) }
             return@withLock
         }
-        // Käme eine Meldung jetzt an (Erlaubnis, Mitteilungen an, Kanal nicht stumm)? Nachtruhe: lautlos wie bisher
+        // Käme eine Meldung jetzt an (Erlaubnis, Mitteilungen an, Kanal nicht stumm)? Nachtruhe: lautlos
         val deliverable = notifier.canShowMarketNotice()
 
         report.evm.firstOrNull { it.network == GasNetwork.ETHEREUM }?.let { eth ->

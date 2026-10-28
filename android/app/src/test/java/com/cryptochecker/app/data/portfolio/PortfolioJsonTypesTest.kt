@@ -33,8 +33,8 @@ class PortfolioJsonTypesTest {
     }
 
     @Test
-    fun missingOptionalFieldsReadAsNone() {
-        val o = JSONObject().put("id", 1).put("coin", "eth").put("type", "BUY").put("amountText", "2").put("time", 7L)
+    fun nullFieldsReadAsNone() {
+        val o = PortfolioJson.txToJson(PortfolioTxEntity(id = 1, coin = "eth", type = PortfolioTxType.BUY, amount = BigDecimal("2"), time = 7L))
         val t = PortfolioJson.jsonToTx(o)!!
         assertNull(t.transferFrom); assertNull(t.transferTo); assertNull(t.feeCoin); assertNull(t.feeCoinAmount)
         assertEquals("ETH", t.coin)
@@ -44,7 +44,7 @@ class PortfolioJsonTypesTest {
     fun unknownTypeIsCountedAsInvalidNotDropped() {
         val arr = JSONArray()
             .put(PortfolioJson.txToJson(transfer))
-            .put(JSONObject().put("coin", "BTC").put("type", "LOAN").put("amountText", "1").put("time", 1L))
+            .put(PortfolioJson.txToJson(transfer).put("type", "LOAN"))
         val parsed = PortfolioJson.parseTxs(arr)
         assertEquals(1, parsed.items.size)
         assertEquals(1, parsed.invalid)
@@ -150,7 +150,7 @@ class PortfolioJsonTypesTest {
         val parsed = PortfolioJson.parseTxs(arr)
         assertEquals(1, parsed.items.size)
         assertEquals(3, parsed.invalid)
-        // Ältere Sicherung ohne Importlauf; zu lange Kennung wird weggelassen
+        // Ohne Importlauf: keiner; zu lange Kennung wird weggelassen
         assertNull(PortfolioJson.jsonToTx(PortfolioJson.txToJson(transfer))!!.importBatch)
         assertNull(PortfolioJson.jsonToTx(PortfolioJson.txToJson(swap).put("importBatch", "x".repeat(65)))!!.importBatch)
     }

@@ -235,4 +235,16 @@
     <string name="compare_title">Confronto</string>
     <string name="compare_basis">Le linee mostrano la variazione percentuale dall’inizio del periodo.</string>
     <string name="compare_from_high">vs massimo 30 g</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d coppia non ripristinata – lista di osservazione piena</item>
+        <item quantity="many">%1$d coppie non ripristinate – lista di osservazione piena</item>
+        <item quantity="other">%1$d coppie non ripristinate – lista di osservazione piena</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">La lista con i suoi allarmi al momento non viene salvata. Questa e le altre modifiche andranno perse alla chiusura dell\'app. Vuoi modificare comunque?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Modifica comunque</string>
 </resources>

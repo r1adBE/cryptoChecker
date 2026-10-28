@@ -77,7 +77,7 @@ class RefreshEffectsAlarmTest {
         assertEquals(2, f.notifier.alarmPosts.size)
     }
 
-    /** Wie iOS IOS2-R03: Lauf abgebrochen (Worker gestoppt) → keine Meldung, der Alarm bleibt scharf. */
+    /** Wie iOS: Lauf abgebrochen (Worker gestoppt) → keine Meldung, der Alarm bleibt scharf. */
     @Test
     fun cancelledRunDoesNotNotify() {
         val f = RefreshFixture(listOf(watch()), listOf(above(100.0)))
@@ -96,7 +96,7 @@ class RefreshEffectsAlarmTest {
     }
 
     /**
-     * Gegenstück zu iOS IOS3-R01: Abbruch während der Melde-Schleife — der erste Alarm ist gemeldet und
+     * Gegenstück zu iOS: Abbruch während der Melde-Schleife — der erste Alarm ist gemeldet und
      * gespeichert, der zweite wird nicht mehr gemeldet und bleibt scharf.
      */
     @Test

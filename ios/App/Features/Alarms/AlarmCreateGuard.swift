@@ -2,7 +2,7 @@ import Foundation
 
 /// Ein neuer Alarm je Editor: Ein zweiter Tipp auf «Speichern» bzw. eine Vorlage, während das Blatt noch zugeht, legte
 /// sonst einen zweiten, gleichen Alarm an (id 0 → neuer Eintrag). Wie `AlarmCreateGuard` (Android).
-/// Bearbeiten (feste id) sperrt ebenfalls (IOS6-01): sonst speicherte ein Doppeltipp zweimal (Haptik, Bestätigung doppelt).
+/// Bearbeiten (feste id) sperrt ebenfalls: sonst speicherte ein Doppeltipp zweimal (Haptik, Bestätigung doppelt).
 struct AlarmCreateGuard {
     private(set) var used = false
 
@@ -14,7 +14,7 @@ struct AlarmCreateGuard {
         return true
     }
 
-    /// UX4-06: «Abbrechen» in der Rückfrage F-08 — nichts angelegt, der nächste Tipp zählt wieder.
+    /// «Abbrechen» in der Rückfrage «nicht gespeichert» — nichts angelegt, der nächste Tipp zählt wieder.
     mutating func reset() {
         used = false
     }

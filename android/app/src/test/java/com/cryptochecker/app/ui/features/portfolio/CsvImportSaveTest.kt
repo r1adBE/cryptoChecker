@@ -88,7 +88,7 @@ class CsvImportSaveTest {
             )
         }
         advanceUntilIdle()
-        // Eine Zeile war schon da (übersprungen wie bisher), zwei gespeicherte Seiten verknüpft
+        // Eine Zeile war schon da (übersprungen), zwei gespeicherte Seiten verknüpft
         assertEquals(CsvImportSaveOutcome.Saved(inserted = 9_999, count = 10_001), outcome)
         assertEquals(10_000, portfolio.rows.size)
         assertEquals(CsvImportProgress(CsvImportStep.SAVE, 0, keys.size), progress.first())
@@ -106,7 +106,7 @@ class CsvImportSaveTest {
         val failed = saveCsvImport(insert = { error("Platte voll") }, link = { linkCalls++; 1 })
         assertEquals(CsvImportSaveOutcome.Failed(locked = false), failed)
         assertEquals(0, linkCalls)
-        // Verknüpfen gescheitert, aber Zeilen angelegt: zählt (wie bisher)
+        // Verknüpfen gescheitert, aber Zeilen angelegt: zählt
         val partly = saveCsvImport(insert = { 3 }, link = { error("Verknüpfen gescheitert") })
         assertEquals(CsvImportSaveOutcome.Saved(inserted = 3, count = 3), partly)
     }

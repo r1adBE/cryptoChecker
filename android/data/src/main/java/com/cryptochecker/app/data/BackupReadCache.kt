@@ -4,9 +4,9 @@ import java.security.MessageDigest
 import java.security.SecureRandom
 
 /**
- * Eine gewählte Sicherung einmal je Wiederherstellen lesen. Früher las jeder Schritt die Datei neu
- * (Passwort nötig? → ungültige Einträge → Wiederherstellen): eine verschlüsselte Datei bis 64 MB dreimal, mit zweimal
- * Argon2id (64 MiB am Stück) — auf Geräten mit wenig Arbeitsspeicher endete das in einem OutOfMemoryError.
+ * Eine gewählte Sicherung einmal je Wiederherstellen lesen. Läse jeder Schritt die Datei neu
+ * (Passwort nötig? → ungültige Einträge → Wiederherstellen), wäre das eine verschlüsselte Datei bis 64 MB dreimal, mit
+ * zweimal Argon2id (64 MiB am Stück) — auf Geräten mit wenig Arbeitsspeicher ein OutOfMemoryError.
  *
  * Gemerkt wird nur der letzte Stand einer Datei [K]: die gelesene Datei [F] und nach erfolgreichem Entschlüsseln der
  * Klartext samt einem Fingerabdruck des Passworts, mit dem er entstand (anderes Passwort → neu entschlüsseln; falsches →

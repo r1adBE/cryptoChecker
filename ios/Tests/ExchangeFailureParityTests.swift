@@ -69,10 +69,10 @@ final class ExchangeFailureParityTests: XCTestCase {
         XCTAssertEqual(ConnectionErrors.describe(noPrice), "Parsed ticker has no data")
         XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(noPrice),
                                                   failure: ExchangeFailure.of(noPrice)))
-        // Interner Fehler ohne Text: kein «nicht mehr gehandelt» (früher 6 h stumm)
+        // Interner Fehler ohne Text: kein «nicht mehr gehandelt» (sonst 6 h stumm)
         XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: nil, failure: .other))
         XCTAssertFalse(NotTraded.confirmedBySingle(gotPrice: false, error: " ", failure: .parse))
-        // Ohne Art (gespeicherte Ergebnisse) wie bisher
+        // Ohne Art (gespeicherte Ergebnisse) entscheidet der Text
         XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: nil))
     }
 

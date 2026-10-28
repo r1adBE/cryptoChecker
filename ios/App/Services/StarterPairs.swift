@@ -3,7 +3,7 @@ import Foundation
 /// Startbörse und Startpaar der leeren Merkliste — wie `StarterPairs.kt`.
 ///
 /// Binance Spot `<COIN>/USDT` («BTCUSDT») in allen Regionen ausser den USA (auch Schweiz und
-/// Liechtenstein, Entscheid 15. Oktober 2026); in der Geräte-Region USA Binance.US `<COIN>/USDT`
+/// Liechtenstein); in der Geräte-Region USA Binance.US `<COIN>/USDT`
 /// (gleiche Schnittstelle, `api.binance.us`). Schlüssel wie `Exchange.key` in `ExchangesConfig`.
 enum StarterPairs {
     static let binanceKey = "Binance"
@@ -64,7 +64,7 @@ enum StarterPairs {
     }
 
     /// Anzeige-Quote für Kurse ohne eigene Quote.
-    static func startQuote(_ region: String?) -> String { startQuoteValue }
+    static func startQuote() -> String { startQuoteValue }
 
     /// Startpaar eines Coins für die Region.
     static func pair(for coin: String, region: String?) -> (exchangeKey: String, pair: ExchangePair) {

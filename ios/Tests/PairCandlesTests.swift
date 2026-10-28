@@ -81,7 +81,7 @@ final class PairCandlesTests: XCTestCase {
                                                             chain: chain([series], foreign, names: ["Catcoin"], base: "CAT"))
         XCTAssertNil(rejected)
         XCTAssertEqual(foreign.all, ["Simon's Cat"])
-        // Gleicher Token (andere Schreibweise): wie bisher mit Kursband
+        // Gleicher Token (andere Schreibweise): mit Kursband
         let same = await VolumeDataSource.pairCandlesOf(cat, price: 101, identityName: "Simon's Cat", ownSupported: false,
                                                         own: { nil },
                                                         chain: chain([series], Counter(), names: ["Simons Cat"], base: "CAT"))

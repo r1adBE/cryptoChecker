@@ -82,11 +82,11 @@ enum AddressServer {
                              newIsKey: check.kind.map { keyKinds.contains($0) } ?? false)
     }
 
-    /// Wert aus einer Sicherung: fehlt der Schlüssel, bleibt `current`; ungültig: bleibt `current`; leer/nil löscht.
+    /// Wert aus einer Sicherung: ungültig: bleibt `current`; leer/nil löscht.
     /// Nur eine Sicherung mit Passwort (`trusted`) ändert ihn: Eine Datei ohne Echtheitsprüfung setzt, ersetzt und
     /// löscht nie (sonst gingen die Bitcoin-Adressen an einen fremden Server bzw. an öffentliche Knoten).
-    static func restored(present: Bool, value: String?, current: String?, trusted: Bool) -> String? {
-        guard present, trusted else { return current }
+    static func restored(value: String?, current: String?, trusted: Bool) -> String? {
+        guard trusted else { return current }
         guard let value, !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
         let c = check(value)
         return c.problem == nil ? c.url : current

@@ -244,7 +244,7 @@ struct PortfolioProvider: AppIntentTimelineProvider {
 
 struct PortfolioWidget: Widget {
     var body: some WidgetConfiguration {
-        // Gleiche `kind` wie früher (StaticConfiguration): abgelegte Widgets bleiben und
+        // Fester `kind` (`PortfolioWidgetStore.kind`): abgelegte Widgets bleiben und
         // erhalten die Standardwerte der Einrichtung.
         AppIntentConfiguration(kind: PortfolioWidgetStore.kind,
                                intent: PortfolioWidgetIntent.self,

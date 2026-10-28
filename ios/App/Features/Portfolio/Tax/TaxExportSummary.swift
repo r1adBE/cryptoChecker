@@ -56,7 +56,7 @@ extension TaxExport {
         // lit. c EStG), gerechnet ohne Option — wie Android
         let atOld = rows.filter { $0.oldHolding == true }
         // Gebühr-Aufwände (feeExpense, z. B. Gebühr verbraucht den ganzen Zugang) sind kein Spekulationsgeschäft: sie bleiben
-        // wie bisher im Posten Neubestand, auch vor dem 1.3.2022 (wie Android)
+        // im Posten Neubestand, auch vor dem 1.3.2022 (wie Android)
         let atEarlyNew = template == .AT
             ? rows.filter { $0.oldHolding != true && $0.feeExpense == nil && $0.soldDate < TaxTemplate.atSwapNeutralFrom } : []
         let atOption = atEarlyNew.contains { !($0.soldDate < TaxTemplate.atOptionFrom) }
@@ -90,7 +90,7 @@ extension TaxExport {
             if !unclassifiedRows.isEmpty { lines.append(Acc(unclassifiedRows, all, fx: fx).line(.UNCLASSIFIED, fx: fx)) }
             net = Acc(rows, all, fx: fx)
         } else if template == .AT {
-            // Neubestand zum Sondersteuersatz: Verkäufe ab dem 1.3.2022; Gebühr-Aufwände wie bisher hier (nicht in den
+            // Neubestand zum Sondersteuersatz: Verkäufe ab dem 1.3.2022; Gebühr-Aufwände hier (nicht in den
             // Spekulationsgeschäften, siehe `atEarlyNew`)
             let newRows = rows.filter {
                 $0.oldHolding != true && (!($0.soldDate < TaxTemplate.atSwapNeutralFrom) || $0.feeExpense != nil)

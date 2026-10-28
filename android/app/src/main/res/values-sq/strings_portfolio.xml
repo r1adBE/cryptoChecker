@@ -315,4 +315,10 @@
         <item quantity="other">Hiqen edhe %d pjesë dhe historiku i balancës.</item>
     </plurals>
     <string name="portfolio_address_remove_history">Hiqet edhe historiku i balancës.</string>
+
+    <!-- Portfolio: Änderung nicht geschrieben (Fehler, nicht gesperrt) – Banner/Hinweis statt «entfernt» -->
+    <string name="portfolio_write_failed">Nuk mund të ruhej – provo përsëri</string>
+
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
+    <string name="portfolio_alarm_threshold_invalid_recreate">Kufiri i pavlefshëm – fshije dhe krijoje sërish</string>
 </resources>

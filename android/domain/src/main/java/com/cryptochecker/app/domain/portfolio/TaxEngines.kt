@@ -241,7 +241,7 @@ object TaxEngines {
      *    (Gebühr im Coin und im dritten Coin) wird eine eigene Veräusserung der Gebühr-Coins zum Marktwert ([networkFeeSales]);
      *  - mit [TaxEventRules.quoteFeeIsInfo]: die Gebühr USDT einer Umbuchung erhöht den Einstand nicht (sie
      *    fällt weg; [disposals] führt sie als Zeile zur Information).
-     * Danach Gebühr-Zeilen und Werte ohne Marktwert wie bisher ([PortfolioLedger.valueAtDayClose]).
+     * Danach Gebühr-Zeilen und Werte ohne Marktwert ([PortfolioLedger.valueAtDayClose]).
      */
     fun applyRules(
         trades: List<PortfolioTrade>,

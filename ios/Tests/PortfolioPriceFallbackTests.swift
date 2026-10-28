@@ -59,7 +59,7 @@ final class PortfolioPriceFallbackTests: XCTestCase {
         XCTAssertEqual(PortfolioPriceFallback.decode(text), ["ETH": StoredPrice(price: 3000, at: now)])
     }
 
-    /// «Kurs ungeprüft» wird mit dem Kurs gemerkt; ältere Dateien ohne Feld gelten als geprüft. Wie Android.
+    /// «Kurs ungeprüft» wird mit dem Kurs gemerkt; Zeilen ohne Feld gelten als geprüft. Wie Android.
     func testUnverifiedFlagRoundTrip() {
         let entries: [String: StoredPrice] = [
             "BTC": StoredPrice(price: 65_432.1, at: now),
@@ -68,9 +68,9 @@ final class PortfolioPriceFallbackTests: XCTestCase {
         let text = PortfolioPriceFallback.encode(entries)
         XCTAssertTrue(text.contains("\nBEAM;0.02;\(now);u"))
         XCTAssertEqual(PortfolioPriceFallback.decode(text), entries)
-        // Älterer Stand ohne 4. Feld: geprüft; unbekanntes 4. Feld: Zeile verworfen
-        let old = PortfolioPriceFallback.formatHeader + "\nBEAM;0.02;\(now)\nETH;3000.0;\(now);x"
-        XCTAssertEqual(PortfolioPriceFallback.decode(old), ["BEAM": StoredPrice(price: 0.02, at: now)])
+        // Ohne 4. Feld: geprüft; unbekanntes 4. Feld: Zeile verworfen
+        let plain = PortfolioPriceFallback.formatHeader + "\nBEAM;0.02;\(now)\nETH;3000.0;\(now);x"
+        XCTAssertEqual(PortfolioPriceFallback.decode(plain), ["BEAM": StoredPrice(price: 0.02, at: now)])
     }
 
     /// Neuerer Kurs gewinnt samt Stand: ein später geprüfter Kurs hebt «ungeprüft» auf.

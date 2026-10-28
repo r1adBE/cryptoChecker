@@ -34,7 +34,7 @@ typealias Locked<T> = Pair<T, LockedTail?>
  *
  * Die Sperre ist nicht wiedereintrittsfähig. Statt still zu verklemmen, bricht ein erneutes Sperren in derselben
  * Coroutine (auch in Kind-Coroutinen) mit [IllegalStateException] ab; erkannt am Kontext-Element, das die Sperre
- * für die Dauer des Blocks setzt. Coroutinen in fremden Scopes erben es nicht — sie warten wie bisher.
+ * für die Dauer des Blocks setzt. Coroutinen in fremden Scopes erben es nicht — sie warten.
  */
 @Singleton
 class RefreshLock @Inject constructor() {

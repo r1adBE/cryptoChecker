@@ -21,7 +21,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioPeriodParts.parts
  * fehlt der Coin im Zeitraum und steht in [TodayChange.skipped]. Prozent = Gewinn ÷ (Wert am Anfang + Zugänge im
  * Zeitraum). Einzahlung, Belohnung und Zugang aus Tausch ohne Wert sowie eine Gebühr im dritten Coin ohne Preis
  * zählen zum MARKTKURS ihres Zeitpunkts (neutral wie eine Auszahlung ohne Preis) — eine einzelne Buchung ohne Preis
- * lässt den Coin also nicht mehr aus «Heute/7 T/1 J» fallen. Belohnungen im Zeitraum (Wert
+ * lässt den Coin also nicht aus «Heute/7 T/1 J» fallen. Belohnungen im Zeitraum (Wert
  * beim Erhalt) stehen zusätzlich in [TodayChange.rewardsUsd] — für «Belohnungen +X» unter der Zahl.
  * Wert am Anfang = Bestand am Stichtag (Transaktionen bis Ende des UTC-Tags) × Schluss der
  * UTC-Tageskerze am Kalendertag [DAYS] Tage vor heute oder der letzte davor — EINE Tagesgrenze (UTC) wie der
@@ -238,7 +238,7 @@ object PortfolioPeriodChange {
         // Ausgelassene Coins (Transaktion ohne Preis) auch aus der Kursänderung nehmen
         val amount = change.amountUsd + parts.gain - parts.held - parts.skippedHeld
         val base = parts.start + parts.buys
-        // Gezählte Coins (z. B. ganz heute gekauft, ohne Veränderung) fehlen nicht mehr
+        // Gezählte Coins (z. B. ganz heute gekauft, ohne Veränderung) fehlen nicht
         val skipped = (change.skipped.filter { it !in parts.countedCoins } + parts.skipped).distinct().sorted()
         return TodayChange(amount, if (base > PortfolioCalculator.EPS) amount / base * 100.0 else null, skipped, parts.rewards)
     }

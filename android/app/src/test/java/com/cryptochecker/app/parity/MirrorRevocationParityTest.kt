@@ -11,7 +11,7 @@ import java.io.File
 import java.nio.file.Files
 
 /**
- * Sperrliste des Spiegels (F-29), gemeinsame Testfälle `mirror_signature.json` → `revocation` (iOS:
+ * Sperrliste des Spiegels, gemeinsame Testfälle `mirror_signature.json` → `revocation` (iOS:
  * `MirrorRevocationTests.swift`), signiert mit zwei Test-Schlüsseln.
  */
 class MirrorRevocationParityTest {

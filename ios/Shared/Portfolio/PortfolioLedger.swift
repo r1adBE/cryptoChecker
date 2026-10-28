@@ -35,7 +35,7 @@ struct PortfolioLedgerEvent: Sendable {
 /// Geld, kein Gewinn — der Einstand bleibt unbekannt); Adress-Einträge (negative Id, ohne Preis) zum Marktkurs;
 /// Umbuchung + (Gebühr USDT + Wert der Gebühr im dritten Coin), ohne Bestand in der Quelle 0; Gebühr-Abgang − (Gebühr × Gebühr-Preis).
 /// Belohnung ohne Wert und Gebühr im dritten Coin ohne Preis (Gebühr-Abgang wie Haupttransaktion, `feeMarketPrice`)
-/// zum MARKTKURS ihres Zeitpunkts — eine Buchung ohne Preis lässt den Coin nicht mehr aus «Heute/7 T/1 J» fallen;
+/// zum MARKTKURS ihres Zeitpunkts — eine Buchung ohne Preis lässt den Coin nicht aus «Heute/7 T/1 J» fallen;
 /// nur ohne Marktkurs nil. Wie Android.
 /// Tausch (neutral): abgegebener Coin wie ein Verkauf zum Wert des Tauschs, erhaltener Coin + Wert; ohne Wert je zum
 /// Marktkurs des Coins (erhalten: Menge vor Gebühr × Kurs); Bestand abgegeben − (Menge + Gebühr im Coin), erhalten

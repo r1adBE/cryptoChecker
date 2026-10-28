@@ -86,4 +86,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">regjistrim stakingu pa kundërregjistrim – kontrollo gjendjen</string>
     <string name="portfolio_csv_skip_amount_too_small">sasi shumë e vogël – bëhet 0 kur ruhet</string>
     <string name="portfolio_csv_skip_invalid_swap">shkëmbim pa monedhë ose sasi të marrë të vlefshme</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Skedari po lexohet sërish …</string>
 </resources>

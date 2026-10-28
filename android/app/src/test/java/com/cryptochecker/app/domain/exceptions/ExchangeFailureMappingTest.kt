@@ -73,7 +73,7 @@ class ExchangeFailureMappingTest {
     fun answerWithoutPriceStillConfirmsNotTraded() {
         val noPrice = ExchangeParseException(UserFriendlyExchangeError.NO_TICKER_DATA)
         assertTrue(NotTraded.confirmedBySingle(false, noPrice.message, noPrice.toExchangeFailure()))
-        // Interner Fehler ohne Text: kein «nicht mehr gehandelt» (früher 6 h stumm)
+        // Interner Fehler ohne Text: kein «nicht mehr gehandelt» (sonst 6 h stumm)
         assertFalse(NotTraded.confirmedBySingle(false, null, ExchangeFailure.Other))
         assertFalse(NotTraded.confirmedBySingle(false, "", IllegalStateException().toExchangeFailure()))
         assertFalse(NotTraded.confirmedBySingle(false, " ", ExchangeFailure.Parse))

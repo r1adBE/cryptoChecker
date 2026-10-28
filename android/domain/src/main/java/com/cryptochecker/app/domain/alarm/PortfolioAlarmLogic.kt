@@ -75,7 +75,7 @@ data class PortfolioReading(
      * ausser ihr Wert ist unwesentlich ([staleValueUsdt], [PortfolioAlarmLogic.IMMATERIAL_SHARE]).
      */
     val stalePrices: Int = 0,
-    /** Wert (USDT, zum letzten Kurs) der Coins mit altem Kurs; null = unbekannt (ältere Aufnahme: dann wesentlich). */
+    /** Wert (USDT, zum letzten Kurs) der Coins mit altem Kurs; null = unbekannt (dann wesentlich). */
     val staleValueUsdt: Double? = null,
     /**
      * Zählende Adressen, deren Guthaben noch nie geladen wurde
@@ -115,7 +115,7 @@ sealed interface PortfolioAlarmPause {
     /** So viele zählende Adressen ohne je geladenes Guthaben. */
     data class AddressesPending(val count: Int) : PortfolioAlarmPause
 
-    /** Kein aktueller Kurs für diese Coins (leer = Namen unbekannt, ältere Aufnahme). */
+    /** Kein aktueller Kurs für diese Coins (leer = Namen unbekannt). */
     data class NoPrice(val coins: List<String>) : PortfolioAlarmPause
 
     /** Token-Guthaben dieser Adressen nicht bestätigt (wesentlich, wie ein alter Kurs). */
@@ -333,7 +333,7 @@ object PortfolioAlarmLogic {
     fun notifyAfterSave(updatedRows: Int): Boolean = updatedRows > 0
 
     /**
-     * Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Review FUN3-01: «fällt um»
+     * Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). «fällt um»
      * nur unter [MAX_FALL_PERCENT]: Die Veränderung «heute» fällt nie unter −100 %, so ein Alarm löste nie aus.
      * Gemeinsame Fälle `portfolio_alarm.json` («threshold»).
      */
@@ -350,8 +350,8 @@ object PortfolioAlarmLogic {
     const val MAX_FALL_PERCENT = 100.0
 
     /**
-     * Review FUN3-01: «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
-     * ausgeschaltet und in der Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. FUN4-R2: kein Editor, darum
+     * «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
+     * ausgeschaltet und in der Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. Kein Editor, darum
      * Hinweis «löschen und neu anlegen» (`portfolio_alarm_threshold_invalid_recreate`). Wie iOS.
      */
     fun exceedsFall(kind: PortfolioAlarmKind, threshold: Double): Boolean =

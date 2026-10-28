@@ -42,7 +42,7 @@ struct PortfolioAddressSheet: View {
                 ForEach(addresses) { a in
                     row(a)
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button { askRemove = a } label: { // UX4-R5: ohne Rolle, Zeile bleibt bis zur Rückfrage
+                            Button { askRemove = a } label: { // ohne Rolle, Zeile bleibt bis zur Rückfrage
                                 Label(L("portfolio_address_remove"), systemImage: "trash")
                             }
                             .tint(AppColors.destructive)

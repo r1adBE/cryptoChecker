@@ -45,4 +45,16 @@
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Akun Taproot (BIP86): alamat bc1p… diturunkan dari kunci ini, untuk penerimaan dan kembalian.</string>
     <string name="portfolio_address_taproot_hint">Wallet Taproot? Tempelkan deskriptor tr(…) dari walletmu sebagai gantinya – xpub biasa hanya dicari sebagai alamat Legacy dan SegWit.</string>
+
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Server sendiri tidak terjangkau</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Siapa pun yang mengelola %1$s melihat semua alamat dompet ini yang ditanyakan dan bisa menghubungkannya satu sama lain serta dengan alamat IP-mu.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Untuk menghindarinya, masukkan servermu sendiri di Pengaturan › Portofolio › Server sendiri untuk alamat.</string>
+
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d token tak dikenal (tidak dihitung)</item>
+    </plurals>
 </resources>

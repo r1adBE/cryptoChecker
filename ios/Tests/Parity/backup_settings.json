@@ -51,5 +51,21 @@
   "taxTemplate": "CH",
   "watchlistColumnSort": "PRICE_DESC",
   "addressServerBtc": "https://node.example.org/api"
- }
+ },
+ "nullable": ["darkMode", "watchlistColumnSort", "addressServerBtc"],
+ "invalidDescription": "Each key in «settings» is required (removing any one makes the backup invalid). Each case below replaces one value of «settings»; the backup must be invalid on both platforms (Android BackupSettingsCodec.checkSettings, iOS BackupManager.checkSettings). «indicatorAlerts» lists only enabled kinds, so a missing kind is valid.",
+ "invalid": [
+  {"name": "Schalter als Text", "key": "priceNotifications", "value": "true"},
+  {"name": "Schalter als Zahl", "key": "ttsEnabled", "value": 1},
+  {"name": "Ganzzahl als Text", "key": "backgroundIntervalMinutes", "value": "30"},
+  {"name": "Ganzzahl gebrochen", "key": "quietHoursStart", "value": 1320.5},
+  {"name": "Kommazahl als Text", "key": "notificationChangePercent", "value": "2.5"},
+  {"name": "Text als Zahl", "key": "portfolioCurrency", "value": 392},
+  {"name": "Text null", "key": "taxTemplate", "value": null},
+  {"name": "Schalter null", "key": "appLock", "value": null},
+  {"name": "Dunkelmodus als Text", "key": "darkMode", "value": "dark"},
+  {"name": "Server als Zahl", "key": "addressServerBtc", "value": 5},
+  {"name": "Grenze als Text", "key": "indicatorAlerts", "value": {"MAYER_ABOVE": "200"}},
+  {"name": "Grenzen als Liste", "key": "indicatorAlerts", "value": [200]}
+ ]
 }

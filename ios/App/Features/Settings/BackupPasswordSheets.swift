@@ -1,7 +1,7 @@
 import SwiftUI
 
 /*
- * Runde 25: Passwortschutz der Sicherungsdatei (BackupCrypto) — wie `BackupDialogs.kt`.
+ * Passwortschutz der Sicherungsdatei (BackupCrypto) — wie `BackupDialogs.kt`.
  * Passwörter nur im `@State` des Blatts, nie in einer Meldung.
  */
 

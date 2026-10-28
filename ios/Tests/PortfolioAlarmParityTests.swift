@@ -5,7 +5,7 @@ import XCTest
 final class PortfolioAlarmParityTests: XCTestCase {
     private func data() throws -> [String: Any] { try TestSupport.fixture("portfolio_alarm") }
 
-    /// FUN3-01: «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus; die
+    /// «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus; die
     /// einmalige Bereinigung schaltet genau diese aus.
     func testThreshold() throws {
         let block = try XCTUnwrap(try data()["threshold"] as? [String: Any])
@@ -20,7 +20,7 @@ final class PortfolioAlarmParityTests: XCTestCase {
             XCTAssertEqual(PortfolioAlarmLogic.exceedsFall(kind, threshold), c["exceedsFall"] as? Bool, "\(name): fällt ≥ 100")
             let json: [String: Any] = ["id": 1, "kind": kind.rawValue, "threshold": threshold,
                                        "currency": kind.isValue ? "CHF" : NSNull(), "enabled": true, "repeating": false]
-            let restored = BackupManager.jsonToPortfolioAlarm(json)
+            let restored = try BackupManager.jsonToPortfolioAlarm(json)
             XCTAssertEqual(restored != nil, c["restored"] as? Bool, "\(name): übernommen")
             XCTAssertEqual(restored?.enabled ?? false, c["restoredEnabled"] as? Bool, "\(name): danach an")
         }

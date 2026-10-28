@@ -39,7 +39,7 @@ final class WidgetDataFreshnessTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(WidgetCadence.retryAfterMillis, 20 * 60_000)
     }
 
-    /// Höchstens ein früher Neuversuch je Takt — nicht mehr jede Minute.
+    /// Höchstens ein früher Neuversuch je Takt — nicht jede Minute.
     func testAtMostOneQuickRetryPerCadence() {
         let now = Date(timeIntervalSince1970: 1_700_000_000)
         let first = WidgetCadence.nextReload(now: now, wantsQuickRetry: true, lastQuickRetryAt: nil)

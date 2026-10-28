@@ -95,7 +95,7 @@ class ActivityAnalyzerTest {
         val stats = ActivityAnalyzer.hourStats(withoutRunning, inNextHour)!!
         assertEquals(5.0, stats.movePercent, 1e-9)
         assertEquals(t0 + 25 * h, stats.candleOpenTime)
-        // Ohne «jetzt» gilt die letzte Kerze als laufend (bisheriges Verhalten)
+        // Ohne «jetzt» gilt die letzte Kerze als laufend
         assertEquals(t0 + 24 * h, ActivityAnalyzer.hourStats(withoutRunning)!!.candleOpenTime)
         // Neueste volle Stunde fehlt ganz: keine Bewegung, kein PRICE_MOVE
         assertNull(ActivityAnalyzer.hourStats(withoutRunning, inNextHour + h))

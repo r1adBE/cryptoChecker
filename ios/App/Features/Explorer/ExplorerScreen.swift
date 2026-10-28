@@ -5,7 +5,7 @@ import UIKit
 /// Paar), darunter eingeklappt «Erweitert / nach Börse» Schritt für Schritt, die Sammelaufnahme mehrerer
 /// Paare und die Suche nach DEX-Pools.
 ///
-/// Kein eigener Tab (seit Runde 31): Die Merkliste schiebt die Seite auf ihren `NavigationStack`
+/// Kein eigener Tab: Die Merkliste schiebt die Seite auf ihren `NavigationStack`
 /// (`AppRouter.showExplorer` – «+», Shortcut, Widget, Link "add"), «Heute auffällig» auf den Stapel
 /// des Markt-Tabs (`AppRouter.showExchangeExplorer`).
 struct ExplorerScreen: View {
@@ -156,7 +156,7 @@ struct ExplorerScreen: View {
                 preciseSteps
             }
 
-            // Runde 13b: fehlende Börse → GitHub-Vorlage «Exchange request»
+            // Fehlende Börse → GitHub-Vorlage «Exchange request»
             if let target = URL(string: AppLinks.exchangeRequest) {
                 exchangeMissingRow(target)
             }

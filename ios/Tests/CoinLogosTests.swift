@@ -126,7 +126,7 @@ final class CoinLogosTests: XCTestCase {
     func testNames() throws {
         let data = try S.fixture("coin_logos")
         for c in S.list(data["cleanName"]) {
-            XCTAssertEqual(CoinLogos.cleanName(string(c["raw"]), symbol: string(c["symbol"])), string(c["expected"]), "cleanName: \(c)")
+            XCTAssertEqual(CoinLogos.cleanName(string(c["raw"])), string(c["expected"]), "cleanName: \(c)")
         }
         let n = try XCTUnwrap(data["names"] as? [String: Any])
         var map: [String: String] = [:]

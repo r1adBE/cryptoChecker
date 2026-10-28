@@ -20,19 +20,23 @@ extension BackupManager {
         ]
     }
 
-    /// Unbekannte Art (neuere Version), ungültiger Schwellwert oder fehlende Währung: überspringen.
+    /// Jedes Feld von `portfolioAlarmToJson` muss da sein (`BackupFields.portfolioAlarm`), sonst `Failure.invalid`.
+    /// nil = ungültig (unbekannte Art einer neueren Version, ungültiger Schwellwert, Wert-Alarm ohne Währung), gezählt.
     /// «fällt um ≥ 100 %»: übernommen, aber ausgeschaltet (`PortfolioAlarmLogic.exceedsFall`, wie die Paar-Alarme).
-    static func jsonToPortfolioAlarm(_ o: [String: Any]) -> PortfolioAlarm? {
-        guard let name = string(o, "kind"), let kind = PortfolioAlarmKind(rawValue: name),
-              let threshold = double(o, "threshold"),
+    static func jsonToPortfolioAlarm(_ o: [String: Any]) throws -> PortfolioAlarm? {
+        let name: String = try part(o, "kind")
+        let threshold: Double = try part(o, "threshold")
+        guard let kind = PortfolioAlarmKind(rawValue: name),
               PortfolioAlarmLogic.isValidThreshold(kind, threshold) || PortfolioAlarmLogic.exceedsFall(kind, threshold)
         else { return nil }
-        let currency = isNull(o, "currency") ? nil : Alarm.validCurrency(string(o, "currency"))
+        let currency = try textOrNull(o, "currency").flatMap { Alarm.validCurrency($0) }
         if kind.isValue && currency == nil { return nil }
-        return PortfolioAlarm(id: max(0, int64(o, "id") ?? 0), kind: kind, threshold: threshold,
-                              currency: kind.isValue ? currency : nil,
-                              enabled: (bool(o, "enabled") ?? true) && !PortfolioAlarmLogic.exceedsFall(kind, threshold),
-                              repeating: bool(o, "repeating") ?? false)
+        let id: Int64 = try part(o, "id")
+        let enabled: Bool = try part(o, "enabled")
+        return try PortfolioAlarm(id: max(0, id), kind: kind, threshold: threshold,
+                                  currency: kind.isValue ? currency : nil,
+                                  enabled: enabled && !PortfolioAlarmLogic.exceedsFall(kind, threshold),
+                                  repeating: part(o, "repeating"))
     }
 
     // MARK: Beobachtete Adressen
@@ -43,10 +47,9 @@ extension BackupManager {
         WatchedAddressRules.json(entries)
     }
 
-    /// Adressen der Sicherung; nil = Schlüssel fehlt (bestehende bleiben).
-    static func watchedEntries(_ root: [String: Any]) -> [WatchedAddressBackupEntry]? {
-        guard root[WatchedAddressRules.backupKey] != nil else { return nil }
-        return WatchedAddressRules.entries(fromJSON: root[WatchedAddressRules.backupKey] as? [Any])
+    /// Adressen der Sicherung; fehlt der Schlüssel oder ist er keine Liste: `Failure.invalid`.
+    static func watchedEntries(_ root: [String: Any]) throws -> [WatchedAddressBackupEntry] {
+        try WatchedAddressRules.entries(fromJSON: part(root, WatchedAddressRules.backupKey) as [Any])
     }
 
     // MARK: Portfolio
@@ -96,68 +99,69 @@ extension BackupManager {
         return o
     }
 
-    /// Wie `jsonToTx` (Android): ohne Coin, Art oder gültige Menge → nil.
-    static func jsonToTx(_ o: [String: Any]) -> PortfolioTx? {
-        let coin = PortfolioCalculator.normalizeCoin(string(o, "coin") ?? "")
-        guard let type = PortfolioTxType(rawValue: string(o, "type") ?? "") else { return nil }
-        guard let amount = exact(o, "amountText"), amount > 0 else { return nil }
+    /// Wie `jsonToTx` (Android): jedes Feld von `txToJson` muss da sein (`BackupFields.tx`), sonst `Failure.invalid`;
+    /// ungültige Werte (ohne Coin, unbekannte Art, keine gültige Menge, Tausch ohne erhaltenen Coin) → nil, gezählt.
+    static func jsonToTx(_ o: [String: Any]) throws -> PortfolioTx? {
+        let coin = PortfolioCalculator.normalizeCoin(try part(o, "coin"))
+        guard let type = PortfolioTxType(rawValue: try part(o, "type")) else { return nil }
+        guard let amount = try exact(o, "amountText"), amount > 0 else { return nil }
         guard !coin.isEmpty else { return nil }
-        let price: Decimal? = exact(o, "priceText").flatMap { $0 >= 0 ? $0 : nil }
-        let note: String? = isNull(o, "note") ? nil
-            : Watch.validNote(string(o, "note"))  // höchstens 120 Zeichen wie in der Merkliste
-        // Fehlt oder ungültig: keine Gebühr
-        let fee: Decimal? = PortfolioTx.validFee(exact(o, "feeText"))
-        let feeUnit: PortfolioFeeUnit? = fee == nil ? nil
-            : PortfolioFeeUnit.from(name: isNull(o, "feeUnit") ? nil : string(o, "feeUnit"))
-        var tx = PortfolioTx(
-            id: max(int64(o, "id") ?? 0, 0),
+        let price: Decimal? = try exact(o, "priceText").flatMap { $0 >= 0 ? $0 : nil }
+        // Höchstens 120 Zeichen wie die Notiz in der Merkliste
+        let note: String? = try textOrNull(o, "note").flatMap { Watch.validNote($0) }
+        // null oder ungültig: keine Gebühr
+        let fee: Decimal? = PortfolioTx.validFee(try exact(o, "feeText"))
+        let feeUnit: PortfolioFeeUnit? = try fee == nil ? nil : PortfolioFeeUnit.from(name: textOrNull(o, "feeUnit"))
+        let id: Int64 = try part(o, "id")
+        let time: Int64 = try part(o, "time")
+        var tx = try PortfolioTx(
+            id: max(id, 0),
             coin: coin,
             type: type,
             amountExact: amount,
             priceExact: price,
-            time: int64(o, "time") ?? EpochTime.nowMillis,
+            time: time,
             note: note,
             feeExact: fee,
             feeUnit: feeUnit,
-            exchange: isNull(o, "exchange") ? nil : PortfolioTx.cleanExchange(string(o, "exchange"))
+            exchange: PortfolioTx.cleanExchange(textOrNull(o, "exchange"))
         )
-        // Fehlen = keine Angabe. Gebühr im dritten Coin nur mit Coin und Menge > 0
-        tx.transferFrom = isNull(o, "transferFrom") ? nil : PortfolioTx.cleanExchange(string(o, "transferFrom"))
-        let feeCoinAmount = isNull(o, "feeCoinAmountText") ? nil : PortfolioDecimal.parse(string(o, "feeCoinAmountText"))
-        if let third = PortfolioTx.cleanFeeCoin(isNull(o, "feeCoin") ? nil : string(o, "feeCoin"), coin: coin,
-                                                amount: feeCoinAmount) {
+        // Gebühr im dritten Coin nur mit Coin und Menge > 0
+        tx.transferFrom = PortfolioTx.cleanExchange(try textOrNull(o, "transferFrom"))
+        if let third = PortfolioTx.cleanFeeCoin(try textOrNull(o, "feeCoin"), coin: coin,
+                                                amount: try exact(o, "feeCoinAmountText")) {
             tx.feeCoin = third.coin
             tx.feeCoinAmountExact = third.amount
-            tx.feeCoinPriceExact = isNull(o, "feeCoinPriceText") ? nil
-                : PortfolioDecimal.parse(string(o, "feeCoinPriceText")).flatMap { $0 >= 0 ? $0 : nil }
+            tx.feeCoinPriceExact = try exact(o, "feeCoinPriceText").flatMap { $0 >= 0 ? $0 : nil }
         }
-        tx.transferTo = isNull(o, "transferTo") ? nil : PortfolioTx.cleanExchange(string(o, "transferTo"))
-        tx.giftToSpouse = (o["giftToSpouse"] as? Bool ?? false) && type == .GIFT
+        tx.transferTo = PortfolioTx.cleanExchange(try textOrNull(o, "transferTo"))
+        let gift: Bool = try part(o, "giftToSpouse")
+        tx.giftToSpouse = gift && type == .GIFT
         // Zweiter Schlüssel nur mit erstem, Zustand nur mit Verknüpfung
-        tx.importKey = isNull(o, "importKey") ? nil : PortfolioTx.cleanImportKey(string(o, "importKey"))
-        tx.linkedImportKey = tx.importKey == nil || isNull(o, "linkedImportKey") ? nil
-            : PortfolioTx.cleanImportKey(string(o, "linkedImportKey"))
+        tx.importKey = PortfolioTx.cleanImportKey(try textOrNull(o, "importKey"))
+        tx.linkedImportKey = try tx.importKey == nil ? nil : PortfolioTx.cleanImportKey(textOrNull(o, "linkedImportKey"))
         tx.importRestoreState = tx.linkedImportKey == nil ? nil : CsvRestoreState.from(json: o["importRestoreState"])
-        tx.acquiredTime = isNull(o, "acquiredTime") ? nil : PortfolioTx.cleanAcquiredTime(type, int64(o, "acquiredTime"))
+        let acquired: Int64? = try o["acquiredTime"] is NSNull ? nil : part(o, "acquiredTime") as Int64
+        tx.acquiredTime = PortfolioTx.cleanAcquiredTime(type, acquired)
         // Tausch: ohne gültigen erhaltenen Coin und Menge ungültig (gezählt) — wie Android
         if type == .SWAP {
-            guard let to = PortfolioTx.cleanToCoin(isNull(o, "toCoin") ? nil : string(o, "toCoin"), coin: coin),
-                  let toAmount = (isNull(o, "toAmountText") ? nil : PortfolioDecimal.parse(string(o, "toAmountText"))),
-                  toAmount > 0 else { return nil }
+            guard let to = PortfolioTx.cleanToCoin(try textOrNull(o, "toCoin"), coin: coin),
+                  let toAmount = try exact(o, "toAmountText"), toAmount > 0 else { return nil }
             tx.toCoin = to
             tx.toAmountExact = toAmount
-            tx.swapValueExact = isNull(o, "swapValueText") ? nil
-                : PortfolioDecimal.parse(string(o, "swapValueText")).flatMap { $0 >= 0 ? $0 : nil }
+            tx.swapValueExact = try exact(o, "swapValueText").flatMap { $0 >= 0 ? $0 : nil }
         }
-        tx.importBatch = isNull(o, "importBatch") ? nil : PortfolioImportBatch.clean(string(o, "importBatch"))
-        // Gebühr-Zeile und Zins: fehlt = nein — wie Android
-        tx.feeRow = (o["feeRow"] as? Bool ?? false) && type == .SELL
-        tx.interest = (o["interest"] as? Bool ?? false) && type == .REWARD
+        tx.importBatch = PortfolioImportBatch.clean(try textOrNull(o, "importBatch"))
+        let feeRow: Bool = try part(o, "feeRow")
+        let interest: Bool = try part(o, "interest")
+        tx.feeRow = feeRow && type == .SELL
+        tx.interest = interest && type == .REWARD
         return tx
     }
 
-    /// Exakte Zahl aus dem Text `key` — wie `PortfolioJson.decimal` (Android). Fehlt/ungültig = nil.
-    private static func exact(_ o: [String: Any], _ key: String) -> Decimal? {
-        isNull(o, key) ? nil : PortfolioDecimal.parse(string(o, key))
+    /// Exakte Zahl aus dem Text `key` — wie `PortfolioJson.decimal` (Android). null/ungültig = nil; fehlt das Feld oder
+    /// ist es kein Text: `Failure.invalid`.
+    private static func exact(_ o: [String: Any], _ key: String) throws -> Decimal? {
+        try textOrNull(o, key).flatMap { PortfolioDecimal.parse($0) }
     }
 }

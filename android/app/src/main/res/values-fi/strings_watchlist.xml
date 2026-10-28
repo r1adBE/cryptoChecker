@@ -223,4 +223,15 @@
     <string name="compare_title">Vertailu</string>
     <string name="compare_basis">Viivat näyttävät muutoksen prosentteina jakson alusta.</string>
     <string name="compare_from_high">vs. 30 pv huippu</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d pari ei palautettu – seurantalista on täynnä</item>
+        <item quantity="other">%1$d paria ei palautettu – seurantalista on täynnä</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Seurantalistaa hälytyksineen ei tallenneta juuri nyt. Tämä ja muut muutokset katoavat, kun sovellus suljetaan. Muutetaanko silti?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Muuta silti</string>
 </resources>

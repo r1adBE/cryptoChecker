@@ -112,7 +112,7 @@ enum CandleDataSource {
     /// siehe `DataFreshness.candleProvider`) — für die Herkunftsangabe im Markt-Tab.
     /// `accept`: Prüfung des Aufrufers (z. B. gleicher Token, Kurs ±25 %); false = nächste Quelle
     /// der Kette statt aufgeben (eine fremde Reihe gleichen Kürzels bei der ersten Quelle).
-    /// `identityName`: wie bei `candles` — Quellen nur ohne klaren Namens-Widerspruch (K-8, gleiche Regel wie
+    /// `identityName`: wie bei `candles` — Quellen nur ohne klaren Namens-Widerspruch (gleiche Regel wie
     /// `TokenIdentity.fallbackSeriesAllowed`).
     static func candlesSourced(base: String, quote: String, interval: CandleInterval, limit: Int,
                                preferFutures: Bool = false, identityName: String? = nil,

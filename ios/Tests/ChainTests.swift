@@ -285,11 +285,12 @@ final class ChainTests: XCTestCase {
         XCTAssertEqual(WatchedAddressRules.withNetworks(one, se["after"] as? [String] ?? []).lastAttempt, 0)
         // «Tokens mitzählen» aus: Netz-Guthaben bleiben, Token weg
         XCTAssertEqual(Set(WatchedAddressRules.withCountTokens(base, false).tokenBalances.keys), ["ARBITRUM:ETH", "BSC:BNB"])
-        // Ältere Datei ohne neue Felder
-        let legacy = try JSONDecoder().decode(WatchedAddress.self, from: Data(#"{"chain":"SOL","address":"x"}"#.utf8))
-        XCTAssertNil(legacy.networks)
-        XCTAssertTrue(legacy.countInPortfolio)
-        XCTAssertEqual(legacy.unknownTokens, 0)
+        // Ohne die nur bei Abweichung geschriebenen Felder: Standardwerte
+        let plain = Data(#"{"id":1,"chain":"SOL","address":"x","lastUpdated":0,"lastAttempt":0,"addedAt":0,"observations":[]}"#.utf8)
+        let decoded = try JSONDecoder().decode(WatchedAddress.self, from: plain)
+        XCTAssertNil(decoded.networks)
+        XCTAssertTrue(decoded.countInPortfolio)
+        XCTAssertEqual(decoded.unknownTokens, 0)
     }
 
     func testWrappedCoinsStayOwnCoinWithBaseFallback() {

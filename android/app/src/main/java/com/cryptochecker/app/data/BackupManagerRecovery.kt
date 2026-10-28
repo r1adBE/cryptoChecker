@@ -25,7 +25,8 @@ internal suspend fun BackupManager.recoverFromJournal(text: String) {
     } catch (e: Exception) {
         null
     }
-    val createdAt = RestoreRecoveryPolicy.createdAt(root?.optLong("createdAt", 0L) ?: 0L, journal.lastModified())
+    // «createdAt» schreibt jedes Journal; fehlt es (unlesbar), gilt das Alter als unbekannt: aufgeben
+    val createdAt = (root?.opt("createdAt") as? Number)?.toLong() ?: 0L
     val attemptedFor = StorageRecoveryNotice.rollBackAttemptedFor(context)
     if (RestoreRecoveryPolicy.decide(createdAt, attemptedFor, System.currentTimeMillis()) == RestoreRecoveryPolicy.Decision.GIVE_UP) {
         Timber.w("Wiederherstellen abgebrochen: Journal zu alt oder schon einmal versucht, kein Zurückrollen")

@@ -139,7 +139,7 @@ final class CoinListsTests: XCTestCase {
         for symbol in try XCTUnwrap(expected["withoutNames"] as? [String]) {
             XCTAssertNil(fullNames[symbol], symbol)
         }
-        // Ohne gespeicherte Liste füllt die Ersatzdatei wie bisher
+        // Ohne gespeicherte Liste füllt die Ersatzdatei
         let fresh = await fetch(fetcher, request())
         XCTAssertEqual((fresh.binance ?? []).map(\.name), ["BTC", "ETH", "WLD", "SOL"])
     }

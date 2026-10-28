@@ -376,7 +376,6 @@ extension PortfolioWidgetStore {
                                                    // Stichtag «7 T/1 J» und Verlauf in UTC-Tagen wie die Tageskerzen
                                                    todayEpochDay: PortfolioHistory.epochDay(utcMillis: now),
                                                    todayUtcDay: PortfolioHistory.epochDay(utcMillis: now),
-                                                   dayEndMillis: { PortfolioHistory.dayEndMillis($0) },
                                                    addresses: addresses, method: method)
         var result = snapshot.with(daily)
         // «7 T» in der Anzeigewährung wie die Gesamtkarte (Tagesfaktoren der App); ohne passende Faktoren nil — das

@@ -37,10 +37,10 @@ class RefreshResultProcessor constructor(
     /**
      * Wertet die geholten Kurse aus.
      *
-     * Früher lief das Paar für Paar mit je vier Datenbankzugriffen (Kurs
-     * schreiben, Paar neu lesen, Alarme lesen, Meldekurs schreiben). Bei
-     * mehreren hundert Paaren waren das über tausend einzelne Schreibvorgänge,
-     * nach jedem lud die Watchlist alle Paare neu. Jetzt: ein Schreibvorgang
+     * Nicht Paar für Paar mit je vier Datenbankzugriffen (Kurs
+     * schreiben, Paar neu lesen, Alarme lesen, Meldekurs schreiben): Bei
+     * mehreren hundert Paaren wären das über tausend einzelne Schreibvorgänge,
+     * nach jedem lüde die Watchlist alle Paare neu. Darum: ein Schreibvorgang
      * für alle Kurse, eine Abfrage für alle Alarme, ein Schreibvorgang für
      * die Meldekurse.
      */

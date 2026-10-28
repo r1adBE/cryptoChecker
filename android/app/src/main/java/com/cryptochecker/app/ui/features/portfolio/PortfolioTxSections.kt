@@ -228,7 +228,7 @@ internal fun TxSwapReceivedSection(state: TxFormState, d: TxFormDerived, coins: 
     )
 }
 
-/** K-2: «Eingabe in: USDT | CHF» mit Hinweis, solange der Kurs lädt bzw. wenn es für den Tag keinen gibt. */
+/** «Eingabe in: USDT | CHF» mit Hinweis, solange der Kurs lädt bzw. wenn es für den Tag keinen gibt. */
 @Composable
 internal fun TxEntryCurrencySection(state: TxFormState, d: TxFormDerived, currency: String) {
     val fxFailed = state.fxFailed(currency, d.day)

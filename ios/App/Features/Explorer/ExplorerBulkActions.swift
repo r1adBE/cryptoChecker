@@ -73,7 +73,7 @@ extension ExplorerViewModel {
             return
         }
         let pairs = bulkPairs
-        // EINE Rückfrage F-08 für alle Paare, vorher; «Abbrechen» = nichts angelegt, keine Meldung
+        // EINE Rückfrage «nicht gespeichert» für alle Paare, vorher; «Abbrechen» = nichts angelegt, keine Meldung
         data.withWatchlistConfirm { [weak self] in self?.addBulkPairsNow(exchange, pairs) }
     }
 
@@ -105,15 +105,14 @@ extension ExplorerViewModel {
 }
 
 /// Wie viele Paare von «Alle …-Paare» sind noch nicht in der Merkliste? Gleiche Identität wie beim Anlegen
-/// (`AppData.insertOutcome`, Kontrakttyp angeglichen) — wie Android `bulkNewCount`.
+/// (`AppData.insertOutcome`) — wie Android `bulkNewCount`.
 enum ExplorerBulkCount {
     static func newCount(exchangeKey: String?, pairs: [ExchangePair], watches: [Watch]) -> Int {
         guard let exchangeKey else { return 0 }
         let present = Set(watches.map(\.identity))
         return pairs.filter { p in
-            let contract = FuturesContractType.normalized(exchangeKey: exchangeKey, pairId: p.pairId, p.contractType)
             let key = WatchIdentity.key(exchangeKey: exchangeKey, base: p.base, quote: p.quote,
-                                        contract: String(contract.rawValue), pairId: p.pairId)
+                                        contract: String(p.contractType.rawValue), pairId: p.pairId)
             return !present.contains(key)
         }.count
     }

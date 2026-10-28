@@ -59,7 +59,7 @@ struct XpubCache: Codable, Equatable, Sendable {
         usedChange = ints(.cu, self.change.count)
         fullScan = max(0, (try? c.decodeIfPresent(Int64.self, forKey: .f)) ?? 0)
         script = ((try? c.decodeIfPresent(String.self, forKey: .s)) ?? nil).flatMap { Bip32.Script(code: $0) }
-        // Nur benutzte Indizes (fehlt «re»/«ce»: ältere Fassung, die nächste Suche fragt alle)
+        // Nur benutzte Indizes (fehlt «re»/«ce»: keine leere benutzte Adresse)
         let usedR = Set(usedReceive), usedC = Set(usedChange)
         emptyReceive = ints(.re, self.receive.count).filter { usedR.contains($0) }
         emptyChange = ints(.ce, self.change.count).filter { usedC.contains($0) }
@@ -220,7 +220,7 @@ final class XpubScan {
 
     /// Neuer Zwischenspeicher nach der Suche: Adressen je Kette (vom Aufrufer abgeleitet, mindestens bis zum höchsten
     /// gefragten Index), benutzte Indizes, Zeit der vollständigen Suche (`now` bei `.FULL`). `limitedFallback`: nach
-    /// `.FULL` false, sonst wie zuvor (den Rückfall setzt der Aufrufer). Wie Android.
+    /// `.FULL` false, sonst unverändert (den Rückfall setzt der Aufrufer). Wie Android.
     func cache(receive: [String], change: [String], now: Int64, script: Bip32.Script? = nil) -> XpubCache {
         XpubCache(receive: receive, change: change,
                   usedReceive: states[0].used.filter { $0 < receive.count }.sorted(),

@@ -18,12 +18,8 @@ struct WatchInsertion {
     }
 
     /// Ein Paar einfügen: angelegt (mit Id), schon vorhanden oder Merkliste voll (`WatchlistLimits.maxPairs`).
-    mutating func insert(_ s: inout SharedStorage.Snapshot, exchange: Exchange, pair rawPair: ExchangePair,
+    mutating func insert(_ s: inout SharedStorage.Snapshot, exchange: Exchange, pair: ExchangePair,
                          group: String? = nil) -> AddWatchOutcome {
-        // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
-        var pair = rawPair
-        pair.contractType = FuturesContractType.normalized(exchangeKey: exchange.key, pairId: pair.pairId,
-                                                           pair.contractType)
         let wanted = WatchIdentity.key(exchangeKey: exchange.key, base: pair.base, quote: pair.quote,
                                        contract: String(pair.contractType.rawValue), pairId: pair.pairId)
         if present.contains(wanted) { return .duplicate }

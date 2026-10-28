@@ -47,7 +47,7 @@ fun CoinLogos.pickTradFi(entries: List<BinanceEntry>, crypto: Set<String>, into:
 
 /** Namen der TradFi-Paare in derselben Reihenfolge wie [pickTradFi] («NVDAB» → «NVIDIA»). */
 fun CoinLogos.pickTradFiNames(entries: List<BinanceEntry>, crypto: Set<String>, into: MutableMap<String, String> = LinkedHashMap()): Map<String, String> =
-    pickTradFi(entries, crypto, into) { e -> cleanName(e.fullName, e.name) }
+    pickTradFi(entries, crypto, into) { e -> cleanName(e.fullName) }
 
 private fun CoinLogos.pickTradFi(
     entries: List<BinanceEntry>,
@@ -78,11 +78,9 @@ private val STOCK_SUFFIX = Regex("""[\s,(]*(bStocks?|xStocks?|Tokeni[sz]ed Stock
 /**
  * Name zum Anzeigen: ohne Zusatz der tokenisierten Aktien («NVIDIA bStocks» → «NVIDIA»), ohne
  * Tabs und Zeilenumbrüche, gekürzt auf [NAME_MAX]. null, wenn leer. Ein Name gleich dem Kürzel
- * bleibt («BNB», «XRP», «Bonk» zu BONK) — besser als «–». [symbol] ist nur noch der Vollständigkeit
- * halber da (Aufrufer und gemeinsame Testfälle).
+ * bleibt («BNB», «XRP», «Bonk» zu BONK) — besser als «–».
  */
-@Suppress("UNUSED_PARAMETER")
-fun CoinLogos.cleanName(raw: String?, symbol: String? = null): String? {
+fun CoinLogos.cleanName(raw: String?): String? {
     var s = raw?.replace(SPACES, " ")?.trim() ?: return null
     s = s.replace(STOCK_SUFFIX, "").trim()
     if (s.isEmpty()) return null
@@ -94,7 +92,7 @@ fun CoinLogos.pickNames(ranked: List<Pair<String, String?>>, into: MutableMap<St
     for ((symbol, name) in ranked) {
         val key = normalize(symbol)
         if (key.isEmpty() || key in into) continue
-        into[key] = cleanName(name, symbol) ?: continue
+        into[key] = cleanName(name) ?: continue
     }
     return into
 }

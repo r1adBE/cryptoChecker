@@ -294,4 +294,38 @@
     <string name="settings_price_overlay_needs">Funziona solo insieme a «%1$s».</string>
     <string name="settings_price_overlay_grant">Consenti la visualizzazione sopra altre app</string>
     <string name="price_overlay_close">Chiudi overlay</string>
+
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Server personale per indirizzi</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Solo Bitcoin: il tuo server compatibile con Esplora o mempool (ad es. https://nodo.example/api, serve un certificato pubblicamente attendibile, ad es. Let\'s Encrypt). Se è impostato, gli indirizzi Bitcoin e le xpub vengono interrogati solo lì – mai su nodi pubblici, nemmeno se il tuo server non è raggiungibile. Le altre reti continuano a usare nodi pubblici. Vuoto = nodi pubblici.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Server Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Prova</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Prova in corso…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Il server risponde – blocco %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Nessuna risposta valida – controlla l’indirizzo e il certificato</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">In uso: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Non impostato – si usano nodi pubblici</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Sono ammessi solo indirizzi https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Niente nome utente o password nell’indirizzo</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Niente parte ? o # nell’indirizzo</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Indirizzo del server non valido</string>
+
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Passare ai nodi pubblici?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">I tuoi indirizzi Bitcoin e le xpub verranno allora interrogati su nodi pubblici: %1$s. Questi vedono gli indirizzi insieme al tuo indirizzo IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Usa nodi pubblici</string>
 </resources>

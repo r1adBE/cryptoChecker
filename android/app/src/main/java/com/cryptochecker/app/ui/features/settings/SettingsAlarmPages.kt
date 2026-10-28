@@ -30,7 +30,7 @@ import com.cryptochecker.app.util.PercentText
 
 /**
  * Alarme: «Wie aktuell?» (öffnet «Kurs-Aktualisierung», [onOpenPage]), «Damit Alarme ankommen», Markt-Meldungen
- * ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]) — hier statt unter «Erweitert» —,
+ * ([onOpenMarketAlerts]) und Sprachausgabe ([onOpenSpeech]),
  * Kurs-Mitteilungen, Ruhezeit, Ton, Alarm-Signal, Nachtruhe, Zahl am App-Symbol, USDT-Depeg, Probe-Alarm.
  */
 @Composable
@@ -241,7 +241,7 @@ internal fun AlarmsPage(
 internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val watches by viewModel.watches.collectAsStateWithLifecycle()
     val requestNotifications = rememberNotificationPermissionRequest()
-    // Erlaubnis als Ereignis: kommt die Antwort auf F-08 erst nach dem Drehen, fragt die neue Komposition (ARC6-R01)
+    // Erlaubnis als Ereignis: kommt die Antwort auf die Rückfrage «nicht gespeichert» erst nach dem Drehen, fragt die neue Komposition
     val uiEvents = rememberSettingsUiEvents()
     com.cryptochecker.app.ui.components.CollectScreenEvents(uiEvents.requestNotifications) { requestNotifications() }
     // Merkliste gesperrt: Schalter abgelehnt (bleibt beim echten Zustand) — kurz sagen, warum; Einstellungen melden per Toast
@@ -258,7 +258,7 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
             ) {
                 FilledTonalButton(
                     onClick = {
-                        // UX4-R3: Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
+                        // Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
                         viewModel.setAllPairNotifications(true, askPermissionAfterWrite(uiEvents.requestNotifications, true))
                     },
                     enabled = watches.any { !it.notificationEnabled },

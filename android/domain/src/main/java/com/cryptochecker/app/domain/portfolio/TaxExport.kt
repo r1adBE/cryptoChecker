@@ -124,8 +124,8 @@ object TaxExport {
     /**
      * USD → Zielwährung am [date]: USD = 1; sonst der Kurs des Tags oder des letzten Tags davor (höchstens
      * [FX_MAX_GAP_DAYS] Tage); [rates] = Tag (Tage seit 1970) → Kurs, null = nicht geladen.
-     * Mit [usdtUsd] (USDT/USD-Tagesschluss je Datum, Owner-Entscheid Okt. 2026): USDT → Zielwährung = Kurs × USDT/USD
-     * DES Tags; ohne Schluss × 1 ([usdtApproximateOn] markiert die Zeile). null = USDT gilt 1 USD (bisherige Rechnung).
+     * Mit [usdtUsd] (USDT/USD-Tagesschluss je Datum): USDT → Zielwährung = Kurs × USDT/USD
+     * DES Tags; ohne Schluss × 1 ([usdtApproximateOn] markiert die Zeile). null = USDT gilt 1 USD.
      */
     fun rateOn(
         rates: Map<Long, BigDecimal>?,

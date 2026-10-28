@@ -144,7 +144,7 @@ final class DexPairIdParityTests: XCTestCase {
         XCTAssertEqual(missing?.message, DexScreener.poolNotFound)
     }
 
-    /// SEC3-R1: die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs.
+    /// Die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs.
     func testSammelabfrageNurMitGueltigerKennung() throws {
         for c in try cases() {
             let id = try XCTUnwrap(c["pairId"] as? String)

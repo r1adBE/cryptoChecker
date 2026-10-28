@@ -23,8 +23,8 @@ class IndicatorAlertRulesTest {
         val first = IndicatorAlertRules.decide(k, 2.5, 2.4, wasCrossed = false)
         assertTrue(first.notify); assertEquals(true, first.crossed)
         val again = IndicatorAlertRules.decide(k, 2.6, 2.4, wasCrossed = true)
-        // Kein zweites Mal melden; Zustand erneut schreiben (samt aktueller Grenze)
-        assertFalse(again.notify); assertEquals(true, again.crossed)
+        // Kein zweites Mal melden; Zustand bleibt
+        assertFalse(again.notify); assertNull(again.crossed)
         val back = IndicatorAlertRules.decide(k, 2.3, 2.4, wasCrossed = true)
         assertFalse(back.notify); assertEquals(false, back.crossed)
         // Fehlender Wert: nichts ändern
@@ -47,23 +47,8 @@ class IndicatorAlertRulesTest {
         assertTrue(IndicatorAlertRules.decide(k, 2.5, 2.0, wasCrossed = false).notify)
         // Gleiche Grenze: bleibt gemeldet (keine Doppelmeldung)
         assertTrue(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = 240, current = 240))
-        // Keine Grenze gemerkt: übernehmen
-        assertTrue(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = null, current = 200))
+        // Keine Grenze gemerkt: zählt nicht
+        assertFalse(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = null, current = 200))
         assertFalse(IndicatorAlertRules.wasCrossed(storedCrossed = false, storedThreshold = 240, current = 200))
-    }
-
-    @Test
-    fun `old state without stored bound picks up the bound and a later new bound notifies`() {
-        val k = IndicatorAlertKind.MAYER_ABOVE
-        // Nach dem Update: gemerkt «jenseits», keine Grenze gespeichert → übernehmen, nicht doppelt melden …
-        val wasCrossed = IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = null, current = 240)
-        val run = IndicatorAlertRules.decide(k, 2.6, 2.4, wasCrossed)
-        assertFalse(run.notify)
-        // … aber den Zustand schreiben: der Aufrufer speichert dabei die Grenze 240 mit
-        assertEquals(true, run.crossed)
-        // Danach neue Grenze 2.00×, Wert weiter jenseits → neu bewerten und melden
-        val afterChange = IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = 240, current = 200)
-        assertFalse(afterChange)
-        assertTrue(IndicatorAlertRules.decide(k, 2.6, 2.0, afterChange).notify)
     }
 }

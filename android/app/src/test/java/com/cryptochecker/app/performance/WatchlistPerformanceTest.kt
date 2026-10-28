@@ -94,8 +94,8 @@ class WatchlistPerformanceTest {
     fun searchWithCoinNames() {
         val queries = listOf("btc", "usdt kraken", "bitcoin", "layer", "pépé eur", "xyz")
         // Je Tastendruck wie in der App ([WatchSearchIndex]): Schlüssel schon gefaltet, nur die Anfrage wird
-        // gefaltet und verglichen — erwartet wenige ms für sechs Anfragen. Grenze 250 statt 1000 ms (früher faltete
-        // jede Anfrage acht Felder je Paar), weiterhin ein Vielfaches des Erwarteten
+        // gefaltet und verglichen — erwartet wenige ms für sechs Anfragen. Grenze 250 ms (nicht jede Anfrage
+        // faltet acht Felder je Paar), immer noch ein Vielfaches des Erwarteten
         assertScales("Suche je Tastendruck (6 Anfragen, mit Coin-Namen)", limitMillis = 250.0) { n ->
             val watches = PerformanceData.watches(n)
             val names = coinNames(watches)
@@ -104,7 +104,7 @@ class WatchlistPerformanceTest {
                 queries.sumOf { q -> index.filter(watches, q, names).size }
             }
         }
-        // Vorbereitung: alle Schlüssel neu falten (Suche geöffnet) — so viel wie früher jede Anfrage
+        // Vorbereitung: alle Schlüssel neu falten (Suche geöffnet) — so viel wie sonst jede Anfrage
         assertScales("Suche: Schlüssel vorbereiten (mit Coin-Namen)", limitMillis = 1_000.0) { n ->
             val watches = PerformanceData.watches(n)
             val names = coinNames(watches)

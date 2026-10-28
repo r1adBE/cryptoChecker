@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Review IOS4-R01: Vermerke «wird gemeldet» beim Löschen erst nach dem Ergebnis DIESES Schreibens kürzen.
+/// Vermerke «wird gemeldet» beim Löschen erst nach dem Ergebnis DIESES Schreibens kürzen.
 final class DeliveryMarkerPruneTests: XCTestCase {
     /// (a) Lösch-Schreiben scheitert → Vermerk bleibt (auch wenn alle früheren Schreiben gelangen).
     func testLoeschSchreibenScheitertVermerkBleibt() {
@@ -23,7 +23,7 @@ final class DeliveryMarkerPruneTests: XCTestCase {
         XCTAssertTrue(AppData.markersPrunable(written: true, locked: false, pending: true, fileExists: false))
     }
 
-    /// Die Löschwege kürzen nicht mehr sofort nach dem Einreihen, sondern über die Warteschlange.
+    /// Die Löschwege kürzen nicht sofort nach dem Einreihen, sondern über die Warteschlange.
     func testLoeschwegeKuerzenErstNachDemSchreiben() throws {
         let alarms = try source("AppData+Alarms.swift"), watchlist = try source("AppData+Watchlist.swift")
         let markers = try source("AppData+DeliveryMarkers.swift")

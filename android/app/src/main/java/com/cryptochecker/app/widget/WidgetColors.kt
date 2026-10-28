@@ -37,7 +37,7 @@ class WidgetColors(
         return Color.argb(alpha, Color.red(baseColor), Color.green(baseColor), Color.blue(baseColor))
     }
 
-    // Dieselben Kursfarben wie in der App (die früheren Widget-Grüntöne lagen
+    // Dieselben Kursfarben wie in der App (eigene Widget-Grüntöne lagen
     // hell unter 4.5:1). Die Richtung steht zusätzlich immer als + / −.
     val upColor: Int
         get() = priceColors.up(dark, highContrast, inverted, accent)
@@ -78,7 +78,7 @@ class WidgetColors(
             inverted: Boolean = false,
         ): WidgetColors = base(accent, dark).copyWith(priceColors, highContrast, inverted, accent)
 
-        // Hoher Kontrast: Nebentexte wie der Haupttext, «0.00%» im bisherigen Nebentext-Grau, die Akzentfarbe
+        // Hoher Kontrast: Nebentexte wie der Haupttext, «0.00%» im Nebentext-Grau, die Akzentfarbe
         // (Titel, Knopf, Chart-Linie, Initialen) wie in der App auf 7:1 zur dunkelsten Kartenfläche gehoben
         // (`withHighContrast` im App-Thema). onAccent bleibt: Der Akzent rückt dabei von ihm weg (hell dunkler,
         // dunkel heller), der Kontrast im Kurs-Etikett steigt also nur.

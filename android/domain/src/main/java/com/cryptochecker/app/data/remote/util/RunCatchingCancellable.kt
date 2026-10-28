@@ -7,7 +7,7 @@ import kotlin.coroutines.cancellation.CancellationException
 /**
  * Wie [runCatching], schluckt aber keinen Abbruch: Ist die eigene Coroutine abgebrochen (Bildschirm
  * zu, Job beendet, äusseres withTimeout), wird weitergeworfen. Die Zeitüberschreitung einer INNEREN
- * Anfrage (eigenes withTimeout, OkHttp) gilt dagegen wie bisher als gewöhnlicher Fehler.
+ * Anfrage (eigenes withTimeout, OkHttp) gilt dagegen als gewöhnlicher Fehler.
  */
 suspend inline fun <R> runCatchingCancellable(block: () -> R): Result<R> =
     try {

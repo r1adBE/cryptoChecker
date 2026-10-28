@@ -52,8 +52,8 @@ object HttpBodyLimit {
     }
 
     /**
-     * Startgrösse des Puffers: die angekündigte Länge, höchstens [INITIAL_BUFFER_MAX]. Früher bis
-     * [BULK_MAX_BYTES] auf einmal — ein Server, der 16 MB ankündigt und dann nichts schickt, belegte so je Anfrage 16 MB.
+     * Startgrösse des Puffers: die angekündigte Länge, höchstens [INITIAL_BUFFER_MAX]. Nicht gleich
+     * [BULK_MAX_BYTES]: Ein Server, der 16 MB ankündigt und dann nichts schickt, belegte sonst je Anfrage 16 MB.
      * Grössere Antworten wachsen beim Lesen nach (ByteArrayOutputStream verdoppelt).
      */
     fun initialCapacity(contentLength: Long, maxBytes: Long): Int =

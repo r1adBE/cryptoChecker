@@ -24,10 +24,10 @@ extension CsvImport {
     }
 
     /// Preise in USDT umrechnen. `fx(Währung, Tag)` = Einheiten dieser Währung je 1 USD; nil = kein Kurs.
-    /// `usdtUsd` = USDT/USD-Tagesschlüsse (Tag → Schluss; Owner-Entscheid Okt. 2026, wie der Steuer-Export
+    /// `usdtUsd` = USDT/USD-Tagesschlüsse (Tag → Schluss; wie der Steuer-Export
     /// `TaxExport.rateOn`): USD bzw. Fiat → USDT = Betrag ÷ (Devisenkurs × USDT/USD DES Tags) — ein Kauf über 10 000 USD
     /// ergibt im Export wieder 10 000 USD Einstand. Fehlt der Schluss des Tags: × 1, Zeile als Näherung markiert
-    /// (`usdtApproximate`). nil = USD gilt 1:1 als USDT (frühere Rechnung, ohne Markierung). Wie Android.
+    /// (`usdtApproximate`). nil = USD gilt 1:1 als USDT (ohne Markierung). Wie Android.
     static func priceInUsdt(_ rows: [CsvImportRow], zone: String = CsvImportParser.defaultZone,
                             usdtUsd: [Int: Decimal]? = nil,
                             fx: (String, Int64) -> Decimal?) -> [CsvImportPriced] {

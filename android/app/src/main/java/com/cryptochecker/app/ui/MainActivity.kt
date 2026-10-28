@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 settingsRepository.cached to wasLoaded
             }
             val settings by settingsRepository.settings.collectAsState(initial = initialSettings.first)
-            // Erstes Bild erst, wenn gelesene Einstellungen zusammengesetzt sind (K-6): entweder
+            // Erstes Bild erst, wenn gelesene Einstellungen zusammengesetzt sind: entweder
             // waren sie schon beim Aufbau da, oder ein Wert aus der Datei ist eingetroffen
             SideEffect {
                 if (initialSettings.second || settings !== initialSettings.first) settingsShown = true
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                             openTarget = openTarget.value,
                             onOpenTargetHandled = { openTarget.value = null }
                         )
-                        // F-08: Frage vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
+                        // Rückfrage «nicht gespeichert» vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
                         com.cryptochecker.app.ui.components.WatchlistNotSavedGateHost()
                     }
                 }
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     private var settingsShown = false
 
     /**
-     * Ersatz für das frühere runBlocking beim Prozessstart (K-6): Die Einstellungen kommen
+     * Kein runBlocking beim Prozessstart: Die Einstellungen kommen
      * asynchron aus DataStore; bis sie in der Oberfläche stehen, bleibt der Startbildschirm
      * stehen (setKeepOnScreenCondition, wird vor jedem Bild abgefragt) – der Hauptthread bleibt
      * frei, kein ANR. So zeigt schon das erste Bild Akzent, Tabs und Hell/Dunkel wie gespeichert.
@@ -214,7 +214,7 @@ class MainActivity : AppCompatActivity() {
         const val EXTRA_WATCH_ID = "watch_id"
         private const val NO_WATCH = -1L
 
-        /** Längstens so lange wartet das erste Bild auf die Einstellungen (K-6). */
+        /** Längstens so lange wartet das erste Bild auf die Einstellungen. */
         private const val FIRST_FRAME_WAIT_MILLIS = 1_500L
 
         /**

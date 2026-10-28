@@ -60,7 +60,7 @@ final class CsvImportRereadTests: XCTestCase {
 
 // ---- aus CsvReadChoiceTests
 
-/// Review FUN-01: «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen
+/// «Importieren» nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen
 /// Lesart (`csv_import.json` › «confirmGate»). Gegenstück: `CsvReadChoiceParityTest.kt`.
 final class CsvReadChoiceTests: XCTestCase {
     private typealias S = TestSupport

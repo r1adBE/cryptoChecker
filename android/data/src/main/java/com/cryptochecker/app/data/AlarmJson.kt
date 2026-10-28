@@ -46,49 +46,50 @@ object AlarmJson {
             threshold >= MAX_FALL_PERCENT
 
     /**
-     * Review FUN3-02/UX3-06: Schalter auf [enable] stellen erlaubt? Einschalten eines [exceedsFall]-Alarms
+     * Schalter auf [enable] stellen erlaubt? Einschalten eines [exceedsFall]-Alarms
      * nie (er löst nie aus, die Karte zeigt «Schwelle ungültig») — erst im Editor anpassen; ausschalten immer. Wie iOS
      * `BackupManager.toggleAllowed` (Fälle `alarm_toggle.json`).
      */
     fun toggleAllowed(condition: AlarmCondition, threshold: Double, enable: Boolean): Boolean =
         !enable || !exceedsFall(condition, threshold)
 
-    /** Alle Alarme einer Liste; ungültige (auch Nicht-Objekte) werden gezählt. */
+    /** Alle Alarme einer Liste (Felder geprüft, [BackupFields.ALARM]); ungültige werden gezählt. */
     fun parse(array: JSONArray): PortfolioJson.Parsed<AlarmEntity> {
         val items = ArrayList<AlarmEntity>(array.length())
         var invalid = 0
         for (i in 0 until array.length()) {
-            val alarm = array.optJSONObject(i)?.let(::fromJson)
+            val alarm = fromJson(array.getJSONObject(i))
             if (alarm == null) invalid++ else items += alarm
         }
         return PortfolioJson.Parsed(items, invalid)
     }
 
     /**
-     * Ein Alarm; null = ungültig (Id/Paar fehlt, Alarmart unbekannt, Schwelle nicht endlich bzw. ≤ 0, wo sie positiv sein
-     * muss). Fallend ≥ 100 %: übernommen, aber ausgeschaltet ([exceedsFall]).
+     * Ein Alarm (Felder geprüft, [BackupFields.ALARM], sonst [org.json.JSONException]); null = ungültig (Alarmart
+     * unbekannt, Schwelle nicht endlich bzw. ≤ 0, wo sie positiv sein muss). Fallend ≥ 100 %: übernommen, aber
+     * ausgeschaltet ([exceedsFall]).
      */
     fun fromJson(o: JSONObject): AlarmEntity? {
-        if (!o.has("id") || !o.has("watchId")) return null
-        val condition = AlarmCondition.entries.firstOrNull { it.name == o.optString("condition") } ?: return null
-        val threshold = o.optDouble("threshold").takeIf { it.isFinite() } ?: return null
+        val condition = AlarmCondition.entries.firstOrNull { it.name == o.getString("condition") }
+        val threshold = o.getDouble("threshold")
+        if (condition == null || !threshold.isFinite()) return null
         if (needsPositiveThreshold(condition) && threshold <= 0.0) return null
         return AlarmEntity(
-            id = o.optLong("id"),
-            watchId = o.optLong("watchId"),
+            id = o.getLong("id"),
+            watchId = o.getLong("watchId"),
             condition = condition,
             threshold = threshold,
-            enabled = o.optBoolean("enabled", true) && !exceedsFall(condition, threshold),
-            repeating = o.optBoolean("repeating", false),
-            sound = o.optBoolean("sound", true),
-            vibrate = o.optBoolean("vibrate", true),
-            speak = o.optBoolean("speak", false),
-            referencePrice = if (o.isNull("referencePrice")) null else o.optDouble("referencePrice").takeIf { it.isFinite() },
-            // Auf 1 … 365 gekürzt (optInt würde grosse Zahlen still umbrechen), wie iOS `Alarm.clampWindowHours`
-            windowHours = o.optLong("windowHours", 1L).coerceIn(1L, MAX_WINDOW_HOURS.toLong()).toInt(),
-            // Ältere Sicherungen kennen die Alarmwährung nicht (= Quote-Währung)
+            enabled = o.getBoolean("enabled") && !exceedsFall(condition, threshold),
+            repeating = o.getBoolean("repeating"),
+            sound = o.getBoolean("sound"),
+            vibrate = o.getBoolean("vibrate"),
+            speak = o.getBoolean("speak"),
+            referencePrice = if (o.isNull("referencePrice")) null else o.getDouble("referencePrice").takeIf { it.isFinite() },
+            // Auf 1 … 365 gekürzt (getInt würde grosse Zahlen still umbrechen), wie iOS `Alarm.clampWindowHours`
+            windowHours = o.getLong("windowHours").coerceIn(1L, MAX_WINDOW_HOURS.toLong()).toInt(),
+            // null = Quote-Währung
             currency = if (o.isNull("currency")) null
-            else o.optString("currency").trim().uppercase().takeIf { c -> c.length == 3 && c.all { it in 'A'..'Z' } },
+            else o.getString("currency").trim().uppercase().takeIf { c -> c.length == 3 && c.all { it in 'A'..'Z' } },
         )
     }
 }

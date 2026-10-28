@@ -181,4 +181,10 @@
     <string name="alarm_reliability_storage_no_key">Alarmet në sfond janë pezulluar – lista nuk është ruajtur</string>
     <string name="alarms_limit_reached">Një çift mund të ketë më së shumti %1$s alarme.</string>
     <string name="alarms_reference_rate_hint">Kurset e referencës së BQE-së caktohen vetëm një herë në ditë – për to nuk ka alarme.</string>
+
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
+    <string name="alarm_threshold_error_percent_down_below">Një rënie duhet të jetë nën 100 për qind.</string>
+
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (aus einer Sicherung) löst nie aus – ausgeschaltet, Schwelle anpassen -->
+    <string name="alarm_threshold_invalid_fix">Kufiri i pavlefshëm – ndryshoje</string>
 </resources>

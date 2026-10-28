@@ -5,7 +5,7 @@ import XCTest
 
 // ---- aus PortfolioCoinLedgerKeyTests
 
-/// PERF3-R1: Schlüssel der Coin-Ansicht hängt nur an den Kursen des Coins und der Coins, deren Tageskurs
+/// Schlüssel der Coin-Ansicht hängt nur an den Kursen des Coins und der Coins, deren Tageskurs
 /// seine Zeilen brauchen — wie Android `PortfolioCoinDetailFlowTest`.
 final class PortfolioCoinLedgerKeyTests: XCTestCase {
     private var trades: [PortfolioTx] {
@@ -35,7 +35,7 @@ final class PortfolioCoinLedgerKeyTests: XCTestCase {
         let a = input(["BTC": 40_000, "SOL": 100, "ETH": 2_000])
         XCTAssertEqual(a.key, input(["BTC": 40_000, "SOL": 100, "ETH": 2_100]).key)
         XCTAssertNotEqual(a.key, input(["BTC": 40_000, "SOL": 110, "ETH": 2_000]).key)
-        // Gleiches Ergebnis wie mit allen Kursen (frühere Rechnung)
+        // Gleiches Ergebnis wie mit allen Kursen
         let full = PortfolioCoinLedgerInput(key: PortfolioCoinLedgerKey(
             coin: "BTC", trades: trades, prices: ["BTC": 40_000, "SOL": 100, "ETH": 2_000], method: .FIFO,
             closesStamp: 0, feeCoins: fee), closes: [:])

@@ -4,14 +4,11 @@ import Foundation
 // Punkt unter dem Finger, Schluss an einem Tag — wie `PortfolioHistoryDays.kt` (Android).
 
 extension PortfolioHistory {
-    /// Erster Tag des Verlaufs: erster Transaktionstag (lokal: kleinster Tag, dessen Ende nicht
+    /// Erster Tag des Verlaufs: erster Transaktionstag (UTC: kleinster Tag, dessen Ende nicht
     /// vor `firstTradeMillis` liegt) oder Beginn des Zeitraums, je nachdem, was später ist; nie
     /// nach `todayEpochDay`. «Seit 1. Kauf»: Beginn = erster Transaktionstag, frühestens
-    /// `dataStartEpochDay`. `dayEndMillis` steigt mit dem Tag (binäre Suche).
-    static func startDay(range: PortfolioHistoryRange, firstTradeMillis: Int64, todayEpochDay: Int,
-                         dayEndMillis: (Int) -> Int64 = { PortfolioHistory.utcDayEnd($0) }) -> Int {
-        // Tage nach UTC (wie `build`); `dayEndMillis` bleibt für ältere Aufrufer
-        let dayEndMillis: (Int) -> Int64 = { PortfolioHistory.utcDayEnd($0) }
+    /// `dataStartEpochDay`. Tage nach UTC (`utcDayEnd`, wie `build`). Wie Android.
+    static func startDay(range: PortfolioHistoryRange, firstTradeMillis: Int64, todayEpochDay: Int) -> Int {
         var lo: Int
         if range == .sinceFirst {
             // Der lokale Tag liegt höchstens einen Tag neben dem UTC-Tag (Zeitzonen −12 h … +14 h)
@@ -22,7 +19,7 @@ extension PortfolioHistory {
         var hi = todayEpochDay
         while lo < hi {
             let mid = lo + (hi - lo) / 2
-            if dayEndMillis(mid) < firstTradeMillis {
+            if utcDayEnd(mid) < firstTradeMillis {
                 lo = mid + 1
             } else {
                 hi = mid
@@ -32,8 +29,7 @@ extension PortfolioHistory {
     }
 
     /// «Seit 1. Kauf» und der erste Kauf liegt vor dem ersten Tag mit Kursdaten (`dataStartEpochDay`).
-    static func isCapped(range: PortfolioHistoryRange, firstTradeMillis: Int64, todayEpochDay: Int,
-                         dayEndMillis: (Int) -> Int64 = { PortfolioHistory.utcDayEnd($0) }) -> Bool {
+    static func isCapped(range: PortfolioHistoryRange, firstTradeMillis: Int64, todayEpochDay: Int) -> Bool {
         guard range == .sinceFirst, dataStartEpochDay <= todayEpochDay else { return false }
         return firstTradeMillis <= utcDayEnd(dataStartEpochDay - 1)
     }
@@ -41,11 +37,9 @@ extension PortfolioHistory {
     /// Tageskerzen je Coin für `range`: `maxDays` für 7 T, 30 T und 1 J (eine gemeinsame Abfrage);
     /// «Seit 1. Kauf» bis zum Starttag samt einem Tag davor (Zeitzone), mindestens `maxDays`.
     /// Ohne Transaktion (`firstTradeMillis` nil) `maxDays`.
-    static func candleDays(range: PortfolioHistoryRange, firstTradeMillis: Int64?, todayEpochDay: Int,
-                           dayEndMillis: (Int) -> Int64) -> Int {
+    static func candleDays(range: PortfolioHistoryRange, firstTradeMillis: Int64?, todayEpochDay: Int) -> Int {
         guard range == .sinceFirst, let firstTradeMillis else { return maxDays }
-        let start = startDay(range: range, firstTradeMillis: firstTradeMillis, todayEpochDay: todayEpochDay,
-                             dayEndMillis: dayEndMillis)
+        let start = startDay(range: range, firstTradeMillis: firstTradeMillis, todayEpochDay: todayEpochDay)
         return max(maxDays, todayEpochDay - start + 2)
     }
 

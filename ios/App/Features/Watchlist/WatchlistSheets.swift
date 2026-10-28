@@ -23,7 +23,7 @@ extension WatchlistScreen {
                 .environmentObject(data)
                 .environment(\.appAccent, accent)
                 .environment(\.changeView, changeView)
-                // Halb hoch öffnen, auf volle Höhe ziehbar (L-16, `WatchActionsDetents`)
+                // Halb hoch öffnen, auf volle Höhe ziehbar (`WatchActionsDetents`)
                 .modifier(WatchActionsDetents())
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(28)
@@ -111,7 +111,7 @@ extension WatchlistScreen {
                 if let id = pickedAlarmPair { alarmsFor = id }
                 pickedAlarmPair = nil
             }) {
-                let input = data.alarmPairPickerInput // PERF4-R1: einmal je Stand
+                let input = data.alarmPairPickerInput // einmal je Stand
                 AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey) { id in
                     pickedAlarmPair = id
                     pickAlarmPair = false

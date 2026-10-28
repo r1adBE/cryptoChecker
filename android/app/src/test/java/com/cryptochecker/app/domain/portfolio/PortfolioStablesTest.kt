@@ -22,7 +22,7 @@ class PortfolioStablesTest {
     fun oneListEverywhere() {
         assertEquals(CurrencyConversion.USD_STABLES, PortfolioStables.COINS)
         assertEquals(CurrencyConversion.USD_STABLES, CutoffExport.STABLES)
-        // früher fehlten diese im Portfolio
+        // auch diese zählen im Portfolio
         assertTrue(PortfolioHistory.isStable("usde"))
         assertTrue(CutoffExport.isStable(" PYUSD "))
         assertFalse(PortfolioStables.isStable("BTC"))
@@ -64,14 +64,13 @@ class PortfolioStablesTest {
     @Test
     fun historyUsesStableClosesWithoutFallbackOne() {
         val zone = ZoneId.of("Europe/Zurich")
-        val dayEnd: (Long) -> Long = { day -> LocalDate.ofEpochDay(day + 1).atStartOfDay(zone).toInstant().toEpochMilli() - 1 }
         val today = LocalDate.of(2026, 10, 6).toEpochDay()
         val noon = LocalDate.ofEpochDay(today - 3).atTime(12, 0).atZone(zone).toInstant().toEpochMilli()
         val trades = listOf(buy("USDC", 100.0, noon), buy("DAI", 10.0, noon))
         // USDC: Schluss je Tag; DAI ganz ohne Kerzen → fehlt (kein stilles 1), steht unter «ohne …»
         val closes = mapOf("USDC" to mapOf(today - 3 to 0.97, today - 2 to 0.98, today - 1 to 0.99))
         val s = PortfolioHistory.build(
-            trades, closes, mapOf("USDC" to 0.995), PortfolioHistoryRange.WEEK, today, dayEnd,
+            trades, closes, mapOf("USDC" to 0.995), PortfolioHistoryRange.WEEK, today,
         )
         assertEquals(listOf("DAI"), s.skipped)
         assertEquals(listOf(97.0, 98.0, 99.0, 99.5), s.points.map { Math.round(it.value * 1000) / 1000.0 })

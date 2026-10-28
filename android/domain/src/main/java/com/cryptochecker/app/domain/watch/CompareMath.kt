@@ -12,7 +12,7 @@ data class CompareFigures(val change7d: Double?, val change30d: Double?, val fro
 data class CompareBounds(val minTime: Long, val maxTime: Long, val minPercent: Double, val maxPercent: Double)
 
 /**
- * Vergleichsansicht (Merkliste › markieren › «Vergleichen», Wunsch Inhaber 27.10.2026): 2 bis 4 Paare, eine Linie je
+ * Vergleichsansicht (Merkliste › markieren › «Vergleichen»): 2 bis 4 Paare, eine Linie je
  * Paar in % ab Beginn des Zeitraums, darunter Kurs, 24 h, 7 T, 30 T und Abstand zum 30-Tage-Hoch. Nur Kerzen, die die
  * App fürs Aktionsblatt ohnehin lädt. Wie iOS `CompareMath` (Paritäts-Fixture `compare.json`).
  */

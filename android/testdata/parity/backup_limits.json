@@ -21,8 +21,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -38,8 +43,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": null,
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -55,8 +65,13 @@
         "quoteAsset": "SOL",
         "contractType": "NONE",
         "pairId": "solana/7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -72,8 +87,13 @@
         "quoteAsset": "TESTUSD",
         "contractType": "NONE",
         "pairId": "tTESTBTC:TESTUSD",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -89,8 +109,13 @@
         "quoteAsset": "USD",
         "contractType": "NONE",
         "pairId": "BTC-USD",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -106,8 +131,13 @@
         "quoteAsset": "USD",
         "contractType": "NONE",
         "pairId": "XBT/USD",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -123,8 +153,13 @@
         "quoteAsset": "USD",
         "contractType": "PERPETUAL",
         "pairId": "2:BTCUSD_PERP",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -140,8 +175,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -157,8 +197,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "币安人生USDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -174,8 +219,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTC USDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -191,8 +241,13 @@
         "quoteAsset": "USDC",
         "contractType": "NONE",
         "pairId": "@107",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -208,8 +263,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTC-EUR&x=1",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -225,8 +285,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTC\nUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -242,8 +307,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -259,8 +329,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -276,8 +351,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -293,8 +373,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -310,8 +395,13 @@
         "quoteAsset": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -327,8 +417,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -344,8 +439,13 @@
         "quoteAsset": "USDC.e",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -361,8 +461,13 @@
         "quoteAsset": "USD",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -378,8 +483,13 @@
         "quoteAsset": "USD",
         "contractType": "NONE",
         "pairId": null,
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -395,8 +505,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -412,8 +527,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -429,8 +549,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -446,8 +571,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -463,8 +593,13 @@
         "quoteAsset": "USD/../x",
         "contractType": "NONE",
         "pairId": null,
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -480,8 +615,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -497,8 +637,13 @@
         "quoteAsset": "USD (solana)",
         "contractType": "NONE",
         "pairId": "solana/7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -514,8 +659,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -531,8 +681,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -548,8 +703,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -565,8 +725,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": false,
       "group": null,
@@ -582,8 +747,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": "  DeFi  ",
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": "DeFi",
@@ -599,8 +769,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": "   ",
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -616,8 +791,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": "aaaaaaaaaaaaaaaaaaaaaaaa",
@@ -633,8 +813,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": "aaaaaaaaaaaaaaaaaaaaaaa b",
-        "note": null
+        "note": null,
+        "disabled": false
       },
       "kept": true,
       "group": "aaaaaaaaaaaaaaaaaaaaaaa",
@@ -650,8 +835,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+        "note": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b",
+        "disabled": false
       },
       "kept": true,
       "group": null,
@@ -667,8 +857,13 @@
         "quoteAsset": "USDT",
         "contractType": "NONE",
         "pairId": "BTCUSDT",
+        "sortOrder": 0,
+        "notificationEnabled": false,
+        "ttsEnabled": false,
+        "favorite": false,
         "group": null,
-        "note": "  merken  "
+        "note": "  merken  ",
+        "disabled": false
       },
       "kept": true,
       "group": null,

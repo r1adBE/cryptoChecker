@@ -29,7 +29,7 @@ import re
 import sys
 import tempfile
 
-# Datenschicht seit Build 142 im Modul android/data (gleiches Paket)
+# Datenschicht im Modul android/data (gleiches Paket)
 ANDROID = "android/data/src/main/java/com/cryptochecker/app/data/remote/HttpUserAgent.kt"
 IOS = "ios/Shared/Core/HttpUserAgent.swift"
 FIXTURE = "android/testdata/parity/address_privacy.json"

@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.withContext
 
 /**
- * Review ARC5-R01: Ergebnis einer Aktion als Einmal-Ereignis für den GERADE gezeigten Bildschirm. Ein
- * Rückruf des Bildschirms, der erst nach der Rückfrage F-08 läuft, träfe nach dem Neuerstellen der Activity (Drehen,
+ * Ergebnis einer Aktion als Einmal-Ereignis für den GERADE gezeigten Bildschirm. Ein
+ * Rückruf des Bildschirms, der erst nach der Rückfrage «nicht gespeichert» läuft, träfe nach dem Neuerstellen der Activity (Drehen,
  * Dunkelmodus, Sprache) die alte Komposition: ihr Zustand, ihre Snackbar und ihr schon abgemeldeter Erlaubnis-Launcher
  * (`IllegalStateException`). Darum schicken Rückrufe nur Daten hierher; ausgeführt wird in [CollectScreenEvents] des
  * aktuellen Bildschirms. Lebt so lange wie das ViewModel, das es hält; gepuffert, bis ein Bildschirm sammelt; jedes

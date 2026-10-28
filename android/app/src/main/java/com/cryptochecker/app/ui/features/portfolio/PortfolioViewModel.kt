@@ -238,7 +238,7 @@ class PortfolioViewModel @Inject constructor(
         }
     }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null) // Rechnen nicht auf dem Main-Thread
 
-    // PERF3-R1: Kursfunktion der Coin-Ansicht nicht mehr hier, sondern in coinDetailFlow (CoinFeePrices)
+    // Kursfunktion der Coin-Ansicht steht in coinDetailFlow (CoinFeePrices), nicht hier
 
     /** Zeitraum des Wertverlaufs (zuletzt gewählt, nur auf diesem Gerät). */
     val historyRange: StateFlow<PortfolioHistoryRange> = settingsRepository.settings

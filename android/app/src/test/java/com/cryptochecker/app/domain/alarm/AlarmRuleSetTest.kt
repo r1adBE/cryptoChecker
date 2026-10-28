@@ -90,13 +90,13 @@ class AlarmCardStatusTest {
     }
 }
 
-// ---- aus AlarmDeliveryB104Test
+// ---- aus PortfolioAlarmDeliveryTest
 
 /**
- * Review ARC2-02: Portfolio-Alarme laufen über [AlarmDelivery] mit eigenem Vermerk-Speicher (wie iOS
- * `AlarmDelivery.portfolio`). Gegenstück: `Tests/AlarmDeliveryB104Tests`.
+ * Portfolio-Alarme laufen über [AlarmDelivery] mit eigenem Vermerk-Speicher (wie iOS
+ * `AlarmDelivery.portfolio`). Gegenstück: `Tests/PortfolioAlarmDeliveryTests`.
  */
-class AlarmDeliveryB104Test {
+class PortfolioAlarmDeliveryTest {
 
     private val at = 1_700_000_000_000L
 
@@ -174,7 +174,7 @@ class AlarmDeliveryRetractTest {
 
 // ---- aus AlarmFreshnessTest
 
-/** Alarme nicht auf einem laut Börse über 2 Stunden alten Kurs; ohne Börsenzeit wie bisher. Wie iOS. */
+/** Alarme nicht auf einem laut Börse über 2 Stunden alten Kurs; ohne Börsenzeit gilt der Kurs. Wie iOS. */
 class AlarmFreshnessTest {
 
     private val now = 1_700_000_000_000L

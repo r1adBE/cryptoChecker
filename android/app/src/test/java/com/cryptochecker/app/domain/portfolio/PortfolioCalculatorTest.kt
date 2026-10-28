@@ -228,7 +228,7 @@ class PortfolioCalculatorTest {
 
     @Test
     fun summaryExcludesOnlyCoinWithoutCost() {
-        // M3: Ein Kauf ohne Preis nimmt nur diesen Coin aus dem Gewinn seit Kauf, nicht das ganze Portfolio
+        // Ein Kauf ohne Preis nimmt nur diesen Coin aus dem Gewinn seit Kauf, nicht das ganze Portfolio
         val trades = listOf(buy("BTC", 1.0, 100.0, 1), buy("ETH", 1.0, null, 1))
         val s = PortfolioCalculator.summarize(trades, mapOf("BTC" to 200.0, "ETH" to 50.0))
         assertTrue(s.costMissing)

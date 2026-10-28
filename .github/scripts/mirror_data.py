@@ -329,7 +329,7 @@ MANIFEST_VERSION = 1
 # Public key of MIRROR_SIGNING_KEY (ECDSA P-256, SubjectPublicKeyInfo DER, Base64), built into the apps
 PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1"
               "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw==")
-# Reserve key (F-29): its private part is kept offline by the owner; the apps accept both keys. If the signing key is
+# Reserve key: its private part is kept offline by the owner; the apps accept both keys. If the signing key is
 # lost, the secret is switched to the reserve key without an app update; if it leaked, the leaked key must also be
 # removed from the apps with the next update (until then it stays valid) - DEVELOPMENT.md, "Reserve key"
 RESERVE_PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k"
@@ -557,7 +557,7 @@ def _selftest_manifest():
             assert build_manifest(data, out3, k, pub, None, now) == "unsigned"
             assert os.path.exists(os.path.join(out3, MANIFEST)) and not os.path.exists(os.path.join(out3, SIGNATURE))
             os.remove(os.path.join(out3, MANIFEST))
-        # Key list (active + reserve, F-29): signed if the secret matches any key, unsigned if it matches none
+        # Key list (active + reserve): signed if the secret matches any key, unsigned if it matches none
         other_der = run("pkey", "-in", os.path.join(d, "o.pem"), "-pubout", "-outform", "DER")
         other_pub = base64.b64encode(other_der).decode()
         out4 = os.path.join(d, "out4")

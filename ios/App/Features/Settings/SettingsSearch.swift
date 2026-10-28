@@ -1,6 +1,6 @@
 import Foundation
 
-/// Suche in den Einstellungen (Runde 31) — reine Logik, wie `SettingsSearch.kt`.
+/// Suche in den Einstellungen — reine Logik, wie `SettingsSearch.kt`.
 ///
 /// Ein Eintrag ist eine Zeile der Hauptseite oder ein Punkt einer Unterseite: `title` wie
 /// angezeigt, `path` die Seite bzw. Gruppe darüber (z. B. «Alarme»), `synonyms` weitere

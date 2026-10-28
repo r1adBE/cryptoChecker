@@ -333,7 +333,7 @@ class WidgetChartGeometry(
 
         /**
          * Kennzahlen für den Screenreader-Satz: Kerzen = erste Eröffnung, letzter
-         * Schluss, höchstes Hoch, tiefstes Tief; Linie = Schlusskurse wie bisher.
+         * Schluss, höchstes Hoch, tiefstes Tief; Linie = Schlusskurse.
          */
         fun summary(candles: List<WidgetCandle>, type: WidgetChartType): ChartSummary? {
             if (candles.size < 2) return null

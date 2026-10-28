@@ -33,7 +33,7 @@ class WatchlistRestoreCleanupTest {
 
     @Test
     fun samePairUnderTwoIdsKeepsFirstAndMovesAlarms() {
-        // Vorher: insertWatch (IGNORE) übersprang Id 2, deren Alarm verletzte den Fremdschlüssel
+        // Mit insertWatch (IGNORE) fiele Id 2 weg, und deren Alarm verletzte den Fremdschlüssel
         val (w, a) = clean(listOf(W(1, "BTC"), W(2, "BTC")), listOf(A(10, 1), A(11, 2)))
         assertEquals(listOf(W(1, "BTC")), w)
         assertEquals(listOf(A(10, 1), A(11, 1)), a)

@@ -22,7 +22,7 @@ data class PortfolioHistoryConverted(
  * testbar; gespiegelt in `Shared/Portfolio/PortfolioHistoryFx.swift`):
  *  - Jeder Punkt (Wert in USDT) × Kurs USD → Zielwährung SEINES Tags (× USDT/USD-Tagesschluss, wenn [UsdtUsdRates]
  *    mitgegeben: USDT zum Marktkurs, Tag ohne Schluss = 1 als Näherung, [PortfolioHistoryConverted.usdtApproximate];
- *    ohne sie USDT = USD wie früher). Wochenenden und
+ *    ohne sie USDT = USD). Wochenenden und
  *    Feiertage (keine EZB-Fixierung) nehmen den Kurs des letzten Geschäftstags davor ([rateOn]).
  *  - Der heutige Punkt nimmt den aktuellen Kurs (wie die Umrechnungszeile im Kopf).
  *  - Liegt ein Tag vor dem ersten Tageskurs, gilt der erste (die Abfrage beginnt ohnehin
@@ -210,7 +210,7 @@ object PortfolioHistoryFx {
      * @param dailyRates Tag (Tage seit 1970-01-01) → Einheiten Zielwährung je USD; null = nicht geladen
      * @param currentRate aktueller Kurs USD → Zielwährung (für heute und als Ausweich)
      * @param todayEpochDay heutiger Tag (lokal)
-     * @param usdt Marktkurse USDT/USD; null = USDT gilt 1 USD (bisherige Rechnung)
+     * @param usdt Marktkurse USDT/USD; null = USDT gilt 1 USD
      */
     fun convert(
         series: PortfolioHistorySeries,

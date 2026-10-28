@@ -61,30 +61,36 @@ object PortfolioJson {
     /** Gelesene Einträge und wie viele ungültig waren (nicht übernommen). */
     data class Parsed<T>(val items: List<T>, val invalid: Int)
 
-    /** Alle Transaktionen einer Liste; ungültige (auch Nicht-Objekte) werden gezählt, nicht still verworfen. */
+    /**
+     * Alle Transaktionen einer Liste (Felder geprüft, [com.cryptochecker.app.data.BackupFields.TX]); ungültige werden
+     * gezählt, nicht still verworfen.
+     */
     fun parseTxs(array: JSONArray): Parsed<PortfolioTxEntity> = parse(array, ::jsonToTx)
 
-    /** Alle Portfolio-Alarme einer Liste; ungültige werden gezählt. */
+    /** Alle Portfolio-Alarme einer Liste (Felder geprüft); ungültige werden gezählt. */
     fun parseAlarms(array: JSONArray): Parsed<PortfolioAlarmEntity> = parse(array, ::jsonToAlarm)
 
     private fun <T> parse(array: JSONArray, read: (JSONObject) -> T?): Parsed<T> {
         val items = ArrayList<T>(array.length())
         var invalid = 0
         for (i in 0 until array.length()) {
-            val item = array.optJSONObject(i)?.let(read)
+            val item = read(array.getJSONObject(i))
             if (item == null) invalid++ else items += item
         }
         return Parsed(items, invalid)
     }
 
-    /** Unvollständige oder ungültige Einträge → null (der Aufrufer zählt sie, [parseTxs]). */
+    /**
+     * Eine Transaktion; jedes Feld, das [txToJson] schreibt, muss da sein ([org.json.JSONException] sonst — geprüft wird
+     * vorher mit `BackupFields`). Ungültige Werte → null (der Aufrufer zählt sie, [parseTxs]).
+     */
     fun jsonToTx(o: JSONObject): PortfolioTxEntity? {
-        val coin = PortfolioCalculator.normalizeCoin(o.optString("coin"))
+        val coin = PortfolioCalculator.normalizeCoin(o.getString("coin"))
         // Unbekannte Art (neuere Version): ungültig, wird gezählt ([parseTxs])
-        val type = PortfolioTxType.fromName(o.optString("type")) ?: return null
+        val type = PortfolioTxType.fromName(o.getString("type")) ?: return null
         val amount = decimal(o, "amountText")?.takeIf { it.signum() > 0 } ?: return null
         if (coin.isEmpty()) return null
-        // Fehlt oder ungültig: keine Gebühr
+        // null oder ungültig: keine Gebühr
         val fee = decimal(o, "feeText")?.takeIf { it.signum() > 0 }
         // Gebühr im dritten Coin: nur mit Coin und Menge > 0, sonst keine
         val third = cleanFeeCoin(text(o, "feeCoin"), coin, text(o, "feeCoinAmountText")?.let { PortfolioDecimal.parse(it) })
@@ -97,38 +103,37 @@ object PortfolioJson {
         val importKey = cleanImportKey(text(o, "importKey"))
         val linkedImportKey = cleanImportKey(text(o, "linkedImportKey"))?.takeIf { importKey != null }
         val price = decimal(o, "priceText")?.takeIf { it.signum() >= 0 }
-        val note = if (o.isNull("note")) null else TextLimit.clean(o.optString("note"), NOTE_MAX)
+        val note = text(o, "note")?.let { TextLimit.clean(it, NOTE_MAX) }
         return PortfolioTxEntity(
-            id = o.optLong("id", 0L).coerceAtLeast(0L),
+            id = o.getLong("id").coerceAtLeast(0L),
             coin = coin,
             type = type,
             amount = amount,
             priceUsdt = price,
-            time = o.optLong("time", System.currentTimeMillis()),
+            time = o.getLong("time"),
             // Höchstens 120 Zeichen wie die Notiz in der Merkliste
             note = note,
             fee = fee,
-            feeUnit = fee?.let { PortfolioFeeUnit.fromName(if (o.isNull("feeUnit")) null else o.optString("feeUnit")).name },
-            exchange = if (o.isNull("exchange")) null else cleanExchange(o.optString("exchange")),
+            feeUnit = fee?.let { PortfolioFeeUnit.fromName(text(o, "feeUnit")).name },
+            exchange = cleanExchange(text(o, "exchange")),
             transferFrom = cleanExchange(text(o, "transferFrom")),
             transferTo = cleanExchange(text(o, "transferTo")),
             feeCoin = third?.first,
             feeCoinAmount = third?.second,
             feeCoinPriceUsdt = third?.let { text(o, "feeCoinPriceText")?.let { t -> PortfolioDecimal.parse(t) }?.takeIf { it.signum() >= 0 } },
             importKey = importKey,
-            acquiredTime = cleanAcquiredTime(type, if (o.has("acquiredTime") && !o.isNull("acquiredTime")) o.optLong("acquiredTime", 0L) else null),
+            acquiredTime = cleanAcquiredTime(type, if (o.isNull("acquiredTime")) null else o.getLong("acquiredTime")),
             toCoin = toCoin,
             toAmount = toAmount,
             swapValueUsdt = swapValue,
             importBatch = PortfolioImportBatch.clean(text(o, "importBatch")),
-            giftToSpouse = o.optBoolean("giftToSpouse", false) && type == PortfolioTxType.GIFT,
+            giftToSpouse = o.getBoolean("giftToSpouse") && type == PortfolioTxType.GIFT,
             linkedImportKey = linkedImportKey,
             importRestoreState = linkedImportKey?.let {
-                o.optJSONObject("importRestoreState")?.let { state -> CsvRestoreState.decode(state.toString()) }
+                if (o.isNull("importRestoreState")) null else CsvRestoreState.decode(o.getJSONObject("importRestoreState").toString())
             },
-            // Gebühr-Zeile und Zins: fehlt = nein
-            feeRow = type == PortfolioTxType.SELL && o.optBoolean("feeRow", false),
-            interest = type == PortfolioTxType.REWARD && o.optBoolean("interest", false),
+            feeRow = type == PortfolioTxType.SELL && o.getBoolean("feeRow"),
+            interest = type == PortfolioTxType.REWARD && o.getBoolean("interest"),
         )
     }
 
@@ -142,8 +147,8 @@ object PortfolioJson {
     fun cleanAcquiredTime(type: PortfolioTxType, acquiredTime: Long?): Long? =
         acquiredTime?.takeIf { type == PortfolioTxType.DEPOSIT && it > 0L }
 
-    /** Text oder null (fehlt / JSON null). */
-    private fun text(o: JSONObject, key: String): String? = if (!o.has(key) || o.isNull(key)) null else o.optString(key)
+    /** Text oder null (JSON null); das Feld muss da sein. */
+    private fun text(o: JSONObject, key: String): String? = if (o.isNull(key)) null else o.getString(key)
 
     /**
      * Gebühr im dritten Coin bereinigt: Coin normalisiert (höchstens [MAX_FEE_COIN] Zeichen, nicht der Coin
@@ -165,7 +170,7 @@ object PortfolioJson {
     /** Höchstlänge eines Gebühr-Coins (wie die Coin-Eingabe des Erfassen-Blatts). */
     const val MAX_FEE_COIN = 15
 
-    /** Exakte Zahl aus dem Text [key]; fehlt/ungültig = null. */
+    /** Exakte Zahl aus dem Text [key]; null/ungültig = null. */
     private fun decimal(o: JSONObject, key: String): BigDecimal? = text(o, key)?.let { PortfolioDecimal.parse(it) }
 
     /** Börse: getrimmt, höchstens [MAX_EXCHANGE] sichtbare Zeichen (nie mitten im Emoji gekürzt); leer = null. */
@@ -183,24 +188,25 @@ object PortfolioJson {
         .put("repeating", a.repeating)
 
     /**
-     * Unbekannte Art (neuere Version) oder ungültiger Schwellwert: überspringen. «fällt um ≥ 100 %»
-     * übernommen, aber ausgeschaltet ([PortfolioAlarmLogic.exceedsFall], wie die Paar-Alarme).
+     * Ein Portfolio-Alarm (Felder geprüft, sonst [org.json.JSONException]). Unbekannte Art (neuere Version) oder
+     * ungültiger Schwellwert: ungültig (gezählt). «fällt um ≥ 100 %» übernommen, aber ausgeschaltet
+     * ([PortfolioAlarmLogic.exceedsFall], wie die Paar-Alarme).
      */
     fun jsonToAlarm(o: JSONObject): PortfolioAlarmEntity? {
-        val kind = PortfolioAlarmKind.fromName(o.optString("kind")) ?: return null
-        val threshold = o.optDouble("threshold").takeIf {
+        val kind = PortfolioAlarmKind.fromName(o.getString("kind")) ?: return null
+        val threshold = o.getDouble("threshold").takeIf {
             PortfolioAlarmLogic.isValidThreshold(kind, it) || PortfolioAlarmLogic.exceedsFall(kind, it)
         } ?: return null
-        val currency = if (o.isNull("currency")) null else o.optString("currency").trim().uppercase()
-            .takeIf { code -> code.length == 3 && code.all { it in 'A'..'Z' } }
+        val currency = text(o, "currency")?.trim()?.uppercase()
+            ?.takeIf { code -> code.length == 3 && code.all { it in 'A'..'Z' } }
         if (kind.isValue && currency == null) return null
         return PortfolioAlarmEntity(
-            id = o.optLong("id", 0L).coerceAtLeast(0L),
+            id = o.getLong("id").coerceAtLeast(0L),
             kind = kind,
             threshold = threshold,
             currency = currency.takeIf { kind.isValue },
-            enabled = o.optBoolean("enabled", true) && !PortfolioAlarmLogic.exceedsFall(kind, threshold),
-            repeating = o.optBoolean("repeating", false),
+            enabled = o.getBoolean("enabled") && !PortfolioAlarmLogic.exceedsFall(kind, threshold),
+            repeating = o.getBoolean("repeating"),
         )
     }
 }

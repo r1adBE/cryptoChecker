@@ -54,7 +54,7 @@ class AlarmSentenceTest {
         assertEquals("0%", AlarmSentence.signedPercent(0.04, Locale.US))
     }
 
-    /** Open-Interest-Schwellen bis 1000 %: mit Tausendertrennung wie früher `getPercentInstance` («1,000%»). */
+    /** Open-Interest-Schwellen bis 1000 %: mit Tausendertrennung wie `getPercentInstance` («1,000%»). */
     @Test
     fun alarmProzentMitTausendertrennung() {
         assertEquals("1,000%", AlarmSentence.percent(1000.0, Locale.US))
@@ -63,7 +63,7 @@ class AlarmSentenceTest {
         assertEquals("1,000%", parts(Kind.OI_UP, 1000.0, Locale.US)?.value)
         assertEquals("+1,234.5%", AlarmSentence.signedPercent(1234.5, Locale.US))
         assertEquals("\u22121.500\u00A0%", AlarmSentence.fundingPercent(-1500.0, Locale.GERMANY))
-        // ohne grouping (Standard) wie bisher ohne Trennung
+        // ohne grouping (Standard) ohne Trennung
         assertEquals("1000%", PercentText.unsigned(1000.0, 2, Locale.US, minDecimals = 0))
     }
 

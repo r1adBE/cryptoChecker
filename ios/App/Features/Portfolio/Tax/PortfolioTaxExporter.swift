@@ -229,7 +229,7 @@ enum PortfolioTaxExporter {
                                                                           until: until)
             // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums) bis zum
             // spätesten genutzten Zugang (UK: 30-Tage-Regel über das Ende des Steuerjahrs hinaus) — Spanne und Zeilen
-            // aus EINER Rechnung der Veräusserungen (`TaxExport.GainsRun`; CA: zweite mit den Kursen, wie bisher)
+            // aus EINER Rechnung der Veräusserungen (`TaxExport.GainsRun`; CA: zweite mit den Kursen)
             let run = TaxExport.GainsRun(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
                                          rules: template.eventRules, walletFrom: walletFrom)
             let span = run.span(until: until, today: today)

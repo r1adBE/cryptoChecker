@@ -24,7 +24,7 @@ val keystore: Map<String, String> =
     keystoreProperties.stringPropertyNames().associateWith { keystoreProperties.getProperty(it) }
 
 // Store-Build: «./gradlew -PrequireReleaseSigning=true :app:bundleRelease» bricht ohne keystore.properties ab,
-// statt still ein unsigniertes Bundle zu bauen. Ohne die Eigenschaft (CI, lokale Builds) bleibt alles wie bisher.
+// statt still ein unsigniertes Bundle zu bauen. Ohne die Eigenschaft (CI, lokale Builds) bleibt der Build unsigniert.
 if (providers.gradleProperty("requireReleaseSigning").orNull == "true" && !keystorePropertiesFile.exists()) {
     throw GradleException(
         "requireReleaseSigning=true, aber ${keystorePropertiesFile.path} fehlt (Vorlage: keystore.properties.example)",
@@ -32,7 +32,7 @@ if (providers.gradleProperty("requireReleaseSigning").orNull == "true" && !keyst
 }
 
 // Quell-Commit für «Diagnose teilen». Store-Build: -PgitCommit=<Hash aus dem public-Klon>, CI: GITHUB_SHA,
-// sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache). REL3-R1: Nur ein voller
+// sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache). Nur ein voller
 // Commit-Hash (40 Zeichen 0-9a-f) zählt, alles andere wird «local» (und der Guard unten bricht beim Store-Build ab).
 val gitCommitRaw: String = providers.gradleProperty("gitCommit").orElse(providers.environmentVariable("GITHUB_SHA"))
     .getOrElse("").trim()
@@ -126,7 +126,7 @@ android {
     }
 
     // Fremd-Datei aus kotlinx-serialization (Prüfwerte des Herstellers, für die App ohne Nutzen): nicht ins APK/AAB —
-    // Geheimnis-Scanner melden sie sonst als Token (Audit F-23)
+    // Geheimnis-Scanner melden sie sonst als Token
     packaging {
         resources {
             excludes += "META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/verification.properties"
@@ -352,7 +352,7 @@ if (providers.gradleProperty("coverage").orNull == "true") {
 }
 
 // Lieferkette: XProcessing des Hilt-Compilers in allen Konfigurationen auf die Room-Version (sonst 2.8.4
-// neben 2.8.5 in :data; Inhaber 27.10.: beim nächsten «Supply chain update» überall 2.8.5)
+// neben 2.8.5 in :data; beim nächsten «Supply chain update» überall 2.8.5)
 configurations.configureEach {
     resolutionStrategy.eachDependency {
         if (requested.group == "androidx.room" && requested.name == "room-compiler-processing") {

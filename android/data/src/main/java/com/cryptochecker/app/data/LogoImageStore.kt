@@ -319,7 +319,7 @@ class LogoImageStore @Inject constructor(
 
     private companion object {
         /** Kürzel, die nur die Zusatzseiten der Rangliste bringen ([CoinLogos.extraOnlyKeys]). */
-        const val KEY_EXTRA_ONLY = "extra_only_v1"
+        const val KEY_EXTRA_ONLY = "extra_only"
         /** Mitgelieferte Icons im Speicher (eigene Vorsilbe: Vorrang haben die geladenen Logos). */
         const val BUNDLED_MEMORY_PREFIX = "B_"
         const val MEMORY_BYTES = 4 * 1024 * 1024

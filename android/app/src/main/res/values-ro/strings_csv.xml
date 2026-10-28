@@ -93,4 +93,7 @@
     <string name="portfolio_csv_skip_staking_unpaired">înregistrare de staking fără contrapartidă – verifică soldul</string>
     <string name="portfolio_csv_skip_amount_too_small">cantitate prea mică – devine 0 la salvare</string>
     <string name="portfolio_csv_skip_invalid_swap">schimb fără monedă sau cantitate primită validă</string>
+
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
+    <string name="portfolio_csv_import_rereading">Fișierul se citește din nou …</string>
 </resources>

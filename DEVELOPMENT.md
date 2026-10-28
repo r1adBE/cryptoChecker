@@ -152,7 +152,7 @@ Override `fillPairList(call, body, out)` (whole response as text) or
 `fillPairList(call:body:)` / `fillPairList(call:json:)`.
 
 Offer only pairs that can be traded normally: Binance `status == "TRADING"`, Kraken AssetPairs
-`status == "online"` (since build 69; `cancel_only`, `post_only`, `limit_only`, `reduce_only` are dropped, a missing
+`status == "online"` (`cancel_only`, `post_only`, `limit_only`, `reduce_only` are dropped, a missing
 `status` in older responses counts as online). A watched pair that drops out is not removed: its row ends as «no
 longer traded» through the bulk/single path below (section 6). Kraken reports such pairs with close price 0; the
 single ticker treats that as «no price» (not 0), so `NotTraded.confirmedBySingle` marks the pair instead of the
@@ -462,7 +462,7 @@ own step («Performance tests») with nothing else running; `-PperformanceTests=
 Reports: `android/app/build/reports/tests/testDebugUnitTest/index.html`.
 
 Source guards (`FileLengthTest`, `HapticsUsageTest`, contrast and backup-rule checks …) fail when a file they read is
-missing (`SourceGuard`, since build 105 – before, they passed silently). Swift sources count as optional locally: in an
+missing (`SourceGuard`). Swift sources count as optional locally: in an
 Android-only checkout those tests are reported as skipped; the *Android* workflow sets `REQUIRE_IOS_SOURCES=true`, so
 there a missing Swift file fails the run.
 
@@ -549,21 +549,20 @@ app and runs the unit tests and then the UI tests in the Simulator (two steps).
 **Android instrumented test** (`app/src/androidTest`, `CoreFlowTest`): starter selection →
 add BTC → price alarm → new price → alarm and notification → swipe to delete → Undo →
 portfolio lock shows the locked state. Hilt replaces the network client with fixed prices
-(`FakeRemoteDataModule`), so no exchange is called. `DatabaseMigrationTest` opens a fresh main database with
-Room (schema validated against the entities) and checks the update path of the portfolio database: it creates old
-portfolio databases by hand, fills them and lets Room open them – Room runs the migrations (v1 → current) and
-validates the result against the entities; it also covers taking over the system-backup copy. `RoomSchemaMigrationTest`
-(since build 103) checks the portfolio paths against the exported schemas with `MigrationTestHelper` (all
-PortfolioDatabase versions). Needs an emulator or a device.
+(`FakeRemoteDataModule`), so no exchange is called. `DatabaseFreshInstallTest` opens the main and the portfolio
+database with Room as on a fresh install (Room validates the schema against the entities); it also covers taking
+over the system-backup copy when the portfolio database is created. `RoomSchemaMigrationTest` creates each database
+exactly from its exported schema with `MigrationTestHelper` and lets Room open it (identity hash against the
+entities). Needs an emulator or a device.
 
-*Golden schemas*: `app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json` is the golden schema of the
-current AppDatabase version 1 (`…PortfolioDatabase/6.json` for the portfolio database, version 6). Room writes them
-while building; they are committed and never edited by hand – `room_schema_drift.py` (CI) fails when an entity
-changes without a new version. The unit test `RoomSchemaRulesTest` (no device needed) requires for the current
-version N of each database: `N.json` exists and names its version; if N > 1 also `N-1.json`, N-1 → N in
-`ALL_MIGRATIONS` and a migration test **with data** for N-1 → N that is listed in the test (`MAIN_DATA_TESTS` /
-`PORTFOLIO_DATA_TESTS`) and declared in `RoomSchemaMigrationTest` (currently only `portfolioVersion5To6`; AppDatabase
-has no migration yet). A new version therefore means: bump `VERSION`, add the migration (AppDatabase: create
+*Golden schemas*: both Room databases are at version 1 with no migration –
+`app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json` and `…PortfolioDatabase/1.json` are their golden
+schemas. Room writes them while building; they are committed and never edited by hand – `room_schema_drift.py` (CI)
+fails when an entity changes without a new version. The unit test `RoomSchemaRulesTest` (no device needed) requires
+for the current version N of each database: `N.json` exists and names its version; if N > 1 also `N-1.json`,
+N-1 → N in `ALL_MIGRATIONS` and a migration test **with data** for N-1 → N that is listed in the test
+(`MAIN_DATA_TESTS` / `PORTFOLIO_DATA_TESTS`, both empty today) and declared in `RoomSchemaMigrationTest`. A future
+schema change therefore needs a version bump plus a migration: bump `VERSION`, add the migration (create
 `ALL_MIGRATIONS` and pass it to the builder in `LocalDataModule`), commit the exported schema, write the data test
 and add it to the list.
 
@@ -580,7 +579,7 @@ instrumented tests (`assembleDebugAndroidTest`); running them takes an emulator 
 for every push, so it has its own workflow:
 
 **Android device tests** (`.github/workflows/android-device-tests.yml`): on every push to `main` that touches
-`android/` (or the workflow and its smoke script), on every release tag `v*` (since build 104; GitHub ignores the
+`android/` (or the workflow and its smoke script), on every release tag `v*` (GitHub ignores the
 paths filter for tags) and by hand under *Actions › Android device tests › Run workflow*; a weekly schedule is
 prepared but commented out. On pull requests only two jobs can run: `migration-tests` when a database file
 changes (entities, DAOs, schemas) and `release-smoke` when a file changes that decides about the R8 release build
@@ -589,7 +588,7 @@ cache), builds `:app:assembleDebug` and `:app:assembleDebugAndroidTest` before t
 starts, then runs `:app:connectedDebugAndroidTest` on an x86_64 emulator with KVM
 (`reactivecircus/android-emulator-runner`: API 34, `google_apis`, Pixel 6 profile, animations
 off) – i.e. everything in `app/src/androidTest`, including `CoreFlowTest` and
-`DatabaseMigrationTest`. On failure the test reports are uploaded as the artifact
+`DatabaseFreshInstallTest`. On failure the test reports are uploaded as the artifact
 `device-test-reports` (kept 14 days). The job has a 60-minute timeout; on pull requests a newer push cancels
 the older run, on `main` and tags every run is kept so each commit gets a result; its token is read-only
 (`permissions: contents: read`). Pushing a new or
@@ -703,7 +702,7 @@ and field table lives in the script; update it together with an adapter (URLs an
 as in `android/testdata/exchanges/exchange_*.json`). On a failure the job opens ONE issue
 «Exchange API check failed» (or updates the open one) and the run stays green (the issue is the signal); when all pass again it
 closes the issue. HTTP 451 (and 403 for exchanges that block US cloud IPs) counts as skipped,
-since GitHub's runners are in the US. Since build 104 the scheduled data workflows (`exchange-live-check.yml`,
+since GitHub's runners are in the US. The scheduled data workflows (`exchange-live-check.yml`,
 `macro-calendar.yml`, `exchange-data.yml`) run in two jobs: the fetch job (`contents: read` only) talks to third-party
 servers and uploads its result as an artifact; the publish job (write/issue permissions, no third-party requests)
 checks out `github.sha` afresh, downloads the artifact with `gh run download` (`actions: read`; `macro-calendar.yml`
@@ -809,7 +808,7 @@ shrinks, raise it only deliberately with the reason in the same pull request).
 **Coverage (logic gate).** Both platforms report line coverage of the unit tests as ONE notice on the run page, each
 with two numbers: *total* (every measured source file) and *logic* – the share that tests are expected to cover. The
 *logic* number is a gate: below `MIN_LOGIC` (workflow env, set just under the first measured value – Android 58 %
-of 60.6 %, iOS 78 % of 80.0 % in build 121) or without a report the job is red. It stops regressions without forcing
+of 60.6 %, iOS 78 % of 80.0 %) or without a report the job is red. It stops regressions without forcing
 new work; raise `MIN_LOGIC` when coverage grows. (`--min-logic P` in both scripts; without it they only display.)
 
 * *Android* (`android.yml`, step «Coverage (logic gate)»): Kover is applied only with
@@ -931,7 +930,7 @@ error: the cache (also expired) or else the built-in `macro_events.json` is used
 calendar `macro-calendar.yml` starts «Market data» (`actions: write`), so the manifest follows within minutes;
 until then (and while Pages deploys) the apps keep their cache.
 
-*Reserve key* (F-29): the apps and `mirror_data.py` (`PUBLIC_KEYS`) accept a second public key,
+*Reserve key*: the apps and `mirror_data.py` (`PUBLIC_KEYS`) accept a second public key,
 `RESERVE_PUBLIC_KEY` (`productionReservePublicKey` in `mirror_signature.json`). Its private key is not a secret on
 GitHub; the owner keeps it offline in two separate places (password manager plus a second offline copy). If
 `MIRROR_SIGNING_KEY` is lost or leaks, set the environment secret to the reserve private key — the released apps keep
@@ -940,7 +939,7 @@ trusting the mirror without an update. Then create a new reserve pair and ship i
 Backup rule: every private signing key exists in two offline places before its public key ships; never in the
 repository, a chat, a ticket or a CI log.
 
-*Revocation list* (F-29): every manifest carries `"revoked"` — key ids (`keyId` / `key_id`: SHA-256 hex of the public
+*Revocation list*: every manifest carries `"revoked"` — key ids (`keyId` / `key_id`: SHA-256 hex of the public
 key DER bytes) of revoked signing keys; `mirror_data.py` writes `REVOKED_KEY_IDS`, normally an empty list (a missing
 field counts as empty, so older manifests stay valid; `artifact_check.py` accepts both). The apps honour an id only in
 a fresh, validly signed manifest of the OTHER built-in key; their own id (self-revocation) and unknown ids are
@@ -964,12 +963,11 @@ the public key into `MirrorManifest.kt`, `MirrorManifest.swift` and `productionP
 `MIRROR_SIGNING_KEY` with the new private key and, at the same time, `PUBLIC_KEY` in `mirror_data.py` (the workflow
 checks its own signature against `PUBLIC_KEYS` and otherwise publishes unsigned); older app versions then ignore the mirror and
 use the providers directly. If the private key leaked, replace the secret at once and ship the new public key quickly.
-Keep the private key file offline; never commit it. Rotated in build 113 (the previous private key was lost; no app
-with the old key was released).
+Keep the private key file offline; never commit it.
 
 **CoinGecko is never mirrored.** The CoinGecko API terms forbid redistributing and storing their
-data, so `global.txt`, `coins30.txt` and `coins40.txt` were removed in Build 42 (the workflow deletes
-the old assets) and there is no `COINGECKO_API_KEY` secret any more. The apps ask CoinGecko directly
+data, so the mirror carries no CoinGecko file (no `global.txt`, `coins30.txt` or `coins40.txt`) and there is no
+`COINGECKO_API_KEY` secret. The apps ask CoinGecko directly
 (keyless): `/global` cached for 30 minutes, the top 30/40 for the starter coins for 24 hours, and the
 top 40 for the Spot tab and the «Why?» market breadth as one shared request kept in memory for
 10 minutes. Everything that shows CoinGecko data carries the line «Powered by CoinGecko» (see
@@ -1002,19 +1000,17 @@ while the search is open (`WatchSearchIndex` / `WatchlistSearchIndex`, keyed by 
 fields and coin name as fingerprint); a keystroke folds only the query (tests `WatchSearchIndexTest`,
 `WatchlistSearchIndexTests`).
 
-**Coin-first search (build 56)** (`ExplorerCoinSearch.kt` / `ExplorerCoinSearch.swift`, parity cases
+**Coin-first search** (`ExplorerCoinSearch.kt` / `ExplorerCoinSearch.swift`, parity cases
 `coin_search.json`): «Add pair» lists coins first. Rank: exact symbol (or gold/silver alias) → exact name →
 symbol prefix → name prefix → name contains; ties by number of exchanges, then shorter name. Picking a coin
 suggests one pair: region default exchange first (Binance, or Binance.US in the US / when Binance is geo-blocked),
 then favourite exchanges; spot before perpetual before dated; quote order display currency → USDT → USD → USDC →
-EUR → BTC (owner decision 17 Oct 2026: display currency first). Only pair lists already on the device are
+EUR → BTC (display currency first). Only pair lists already on the device are
 searched; missing lists load only after the user taps «Load lists» (privacy note next to the button). The
 step-by-step flow stays as «Advanced / by exchange».
 
 **Coin logos** (`CoinLogos.kt` / `CoinLogos.swift`, parity cases `coin_logos.json`): there is
-no own logo list or logo pack any more (Build 42 removed `build_logos.py`, `requirements-logos.txt`,
-`coin-logos.yml`, `docs/logos`, `logos.pack` and `stocks.txt`; CoinGecko's API terms forbid
-redistributing their data). Every install builds the same list itself: the
+no own logo list or logo pack (CoinGecko's API terms forbid redistributing their data). Every install builds the same list itself: the
 symbol → image map comes from CoinGecko `/coins/markets` (pages 1–4 = top 1000 first, first occurrence by
 market cap wins), gaps filled from the Binance website list `bapi/composite/v1/public/marketing/symbol/list`
 (`name` → `logo` on `*.bnbstatic.com`, unofficial; only symbols CoinGecko lacks, e.g. XAU, XAG,
@@ -1041,7 +1037,7 @@ rejected); DEX pools (`DexScreener`) always show initials. Android:
 `CoinBadge` (`portfolio = true` → `LocalPortfolioCoinLogoSource`), sync started by
 `CoinLogoSync` when `CoinLogoUse.needed` (app, widgets, or portfolio with the tab on; app
 start, switch on, portfolio tab on). Logo switch defaults: «In the app» on, «In the portfolio» on (matters
-only while the Portfolio tab is on — off for new installs since build 44), «In widgets» off; widgets via
+only while the Portfolio tab is on — off by default), «In widgets» off; widgets via
 `WidgetCoinLogos` (24 dp bitmaps). iOS: `CoinLogoStore` (actor, `syncAll` from
 `AppData.startCoinLogoSync`) → `CoinBadge` (`coinLogosEnabled` environment,
 `CoinLogoRevision`); widgets via `WidgetLogos` (disk only) and the `widgetLogos` environment.
@@ -1063,9 +1059,8 @@ time, the word «outdated» and the screen-reader sentence: `OutdatedRule.afterM
 = `outdatedAfterMillis`, iOS `AppData.staleAfterMillis` = `outdatedAfterMillis`, widgets the same
 (`WidgetOutdated`). A stale price is drawn in `onSurfaceVariant` (Android
 `colorScheme.onSurfaceVariant`, iOS `AppColors.onSurfaceVariant`, ≥ 4.5:1 in light and dark), not
-faded with 50 % alpha (Build 42). There is no live service any more: the Android foreground service «Always frequent»
-(`PriceService`, `LiveInterval`) was removed before 1.0 because Google Play does not allow `dataSync`
-for a permanent price ticker; `AppSettings.liveService` is always `false`.
+faded with 50 % alpha. There is no live service: Google Play does not allow a `dataSync` foreground service for a
+permanent price ticker, so prices are live only while the watchlist is open ([section 14](#14-live-prices-websocket)).
 
 **Source and age.** Every row under «Context» and «Data» (except the calendar-based halving)
 ends its secondary line with the provider that actually delivered the value and its age, e.g.
@@ -1073,8 +1068,8 @@ ends its secondary line with the provider that actually delivered the value and 
 `DataStamp`, both platforms). Sources with a fallback chain report the one that answered
 (candles: Binance / Binance.US / Coinbase / Bybit; Bitcoin indicators add «Coin Metrics» when
 on-chain values are present; gas: the Ethereum RPC host and mempool.space). The provider is
-stored next to the timestamp in the cache file (`src` on Android, `provider` on iOS; older
-files without it simply show no provider). Age: < 1 min «just now», < 60 min «N min ago»,
+stored next to the timestamp in the cache file (`src` on Android, `provider` on iOS; a
+file without it simply shows no provider). Age: < 1 min «just now», < 60 min «N min ago»,
 today «today HH:MM», otherwise the date. Older than **3 × TTL** → the age is shown in the
 warning colour and screen readers add «outdated».
 
@@ -1091,12 +1086,9 @@ Changing a TTL: update both platforms, `CycleCachePolicyTest` (Android),
 While the **watchlist is on screen and the app is in the foreground**, prices of the
 visible pairs (the selected group) come from the exchanges' public WebSocket tickers instead
 of REST polling. Setting: *Settings › Price updates › «Update frequency»* — `UpdateMode`
-(`SPARSAM` «Economical» = default and recommended for new installs since build 43, `LIVE_OFFEN` «Live while open» = labelled «needs more data and battery»; never call Live the recommended choice); `liveWebSocket` is derived from
-it. `IMMER_KURZ` («Always frequent», removed before 1.0) is only read from old data and backups and
-always becomes `LIVE_OFFEN` (`withoutService`); a stored value is rewritten once by
-`UpdateModeMigration` (DataStore), which also migrates the old switches. Backups write `updateMode`
-(never `IMMER_KURZ`) and keep writing the old flags for older versions with `liveService = false`
-(restore prefers `updateMode`). Tests: `UpdateModeTest`. Background refresh (WorkManager, BGTask) and widgets never open a
+(`SPARSAM` «Economical» = default and recommended, `LIVE_OFFEN` «Live while open» = labelled «needs more data and battery»; never call Live the recommended choice); `liveWebSocket` is derived from
+it. These two are the only values, stored and backed up under the enum name (`update_mode` / `updateMode`): an
+unknown or missing stored value reads as the default; a backup with an unknown value leaves the setting unchanged. Tests: `UpdateModeTest`. Background refresh (WorkManager, BGTask) and widgets never open a
 WebSocket — they keep using REST.
 
 **Supported exchanges** (only documented public endpoints, no keys):
@@ -1148,15 +1140,15 @@ All other exchanges keep REST polling at the configured interval.
   (`LiveRules.skipRest`, rolling basis only); if the stream stalls, the pair falls back to REST
   automatically.
 
-**Never show «Live» unless every visible pair is live** (build 44, `LiveStatus` —
+**Never show «Live» unless every visible pair is live** (`LiveStatus` —
 Android `domain/watch/LiveStatus.kt`, iOS `ios/Shared/Util/LiveStatus.swift`, tests `LiveStatusTest` /
 `LiveStatusTests`):
 
 * «Outdated» is decided **per pair**: a pair on a live socket is stale after **2 min** without a new
   price (`LIVE_STALE_MILLIS`); every other pair — also in «Live while open», where exchanges without
   WebSocket are not polled on a timer while the watchlist is open — uses the polling threshold
-  **3 × background interval, at least 15 min** (`pollingStaleAfterMillis`). The old «Always frequent»
-  service (`liveService`) plays no part in this decision any more; do not bring it back.
+  **3 × background interval, at least 15 min** (`pollingStaleAfterMillis`). There is no permanent live
+  service in this decision; do not add one.
 * The pill says «Live» only when the view has at least one traded, active pair, **all** of them are
   on a socket and none is stale (`allLive`). Mixed views show the usual sentence («Current ·
   12 min ago»), and the time is the newest **polled** pair (`shownTime`), so live pairs do not make an
@@ -1196,8 +1188,7 @@ shared building blocks instead of styling numbers by hand:
   secondary grey text, never in the price colour (e.g. «↗ +41.71% · 24h · Updated …»,
   «↘ −38,412.95 USDT −27.85% · 1Y»).
 * **Buttons on the accent colour** use the theme's normal contrast colour (`AppColors.onAccent` /
-  iOS `\.onAccent`); there is no user setting for it any more (the former «Text on pills and
-  buttons» / `pillTextColor` is ignored when an old backup is imported and no longer exported).
+  iOS `\.onAccent`); there is no user setting for it.
 * **Diagonal arrows.** Up/down is always ↗ (U+2197) / ↘ (U+2198) (`PriceFormat.changeArrow`,
   iOS `arrow.up.right` / `arrow.down.right`); no ▲/▼ for price moves. The arrow follows the
   sign, never the colour swap. ▲/▼ remain only for markers that are not price moves (e.g. sort direction).
@@ -1221,14 +1212,14 @@ shared building blocks instead of styling numbers by hand:
   settings page, in About and in the licences. A new screen with CoinGecko data needs the line too
   (CoinGecko API terms § 4.2.3).
 * **Stale is a colour, not transparency.** Stale watchlist prices use `onSurfaceVariant`; do not go
-  back to fading the price with alpha to mark age (it falls below 4.5:1). Since build 45 the same holds
+  back to fading the price with alpha to mark age (it falls below 4.5:1). The same holds
   for disabled watchlist rows (texts in `onSurfaceVariant`, «Binance · disabled» says it in words; only
   logo and symbols keep a reduced opacity) and for a stale portfolio total (amount in
-  `onSurfaceVariant`, «Prices from … · outdated» in the warning colour). Since build 60 the mini chart of a
+  `onSurfaceVariant`, «Prices from … · outdated» in the warning colour). The mini chart of a
   stale row follows suit: full shape in the same `onSurfaceVariant` grey as the stale price, no gradient fill,
-  no up/down colour (`Sparkline(stale =)`, iOS `WatchlistSparkline(stale:)`; was 50 % opacity) — old data must
+  no up/down colour (`Sparkline(stale =)`, iOS `WatchlistSparkline(stale:)`; no reduced opacity) — old data must
   not look «nice». The screen-reader sentence still describes the chart.
-* **Exchange time vs fetch time** (build 44, `PriceFreshness` — Android `domain/watch/PriceFreshness.kt`,
+* **Exchange time vs fetch time** (`PriceFreshness` — Android `domain/watch/PriceFreshness.kt`,
   iOS `ios/Shared/Util/PriceFreshness.swift`; widgets `WidgetFreshness`; parity
   `testdata/parity/price_freshness.json`). Many exchanges (Kraken, Gate.io, Hyperliquid, bitFlyer, the
   Gemini bulk request …) send no time with their ticker, so the fetch stamps «now» and a last price
@@ -1249,20 +1240,19 @@ the tests named here.
 
 * **Exact ledger, floating-point valuation.** Transaction amounts, buy prices and fees are exact
   decimals: Android `BigDecimal` (`PortfolioDecimal`, `MathContext.DECIMAL128`, at most 18 decimal
-  places, dust below 1E-20 counts as 0), iOS `Decimal` (`PortfolioDecimal.swift`; since build 45
+  places, dust below 1E-20 counts as 0), iOS `Decimal` (`PortfolioDecimal.swift`;
   divisions are rounded to **34 significant digits** like `DECIMAL128`, `significantDigits`, so both
   platforms give the same average cost). Holdings, cost basis and realized gain are summed exactly
   (`holdingsExact`, `costBasisExact`, `realizedExact`), so 1 satoshi (0.00000001 BTC) never drifts;
-  since build 45 the unrealized gain of a position is computed as an exact decimal too. Only the
+  the unrealized gain of a position is computed as an exact decimal too. Only the
   valuation with market prices (Double) is floating point. When only part of a holding has a
   purchase price, the average is labelled as the average of that part («Avg. of X with purchase
-  price», `portfolio_avg_partial`), never shown as the average of the whole holding. iOS import
-  of backups applies the same number limits to the old numeric fields as to the text fields, like
-  Android `PortfolioJson.decimal` (`PortfolioDecimal.withinLimits`: below 10³⁰, at most 40 decimal
-  places; absurd values count as invalid entries). Never parse amounts through `Double` (`PriceFormat.parseDecimalAmount`,
-  `ThresholdParser.parseDecimal`). Android stores them as TEXT (portfolio DB v2,
-  `PortfolioDecimalConverters`, `MIGRATION_1_2`); backup and portfolio files write the old numbers
-  plus `amountText` / `priceText` / `feeText`, readers prefer the text.
+  price», `portfolio_avg_partial`), never shown as the average of the whole holding. Backup import
+  applies the same number limits on both platforms (`PortfolioDecimal.parse`, iOS `PortfolioDecimal.withinLimits`:
+  below 10³⁰, at most 40 decimal places; absurd values count as invalid entries). Never parse amounts through `Double` (`PriceFormat.parseDecimalAmount`,
+  `ThresholdParser.parseDecimal`). Android stores them as TEXT
+  (`PortfolioDecimalConverters`); backup and portfolio files carry only the exact text fields `amountText` /
+  `priceText` / `feeText`.
 * **Average cost with fees.** No FIFO. A fee in USDT (`feeUnit` quote) raises the cost of a buy and
   lowers the proceeds of a sell; a fee in the coin reduces the amount received on a buy and adds to
   the amount removed on a sell.
@@ -1277,10 +1267,10 @@ the tests named here.
   `TodayChange.skipped` / `PortfolioChange.skipped`; the card names it (`ledger_period_without`),
   the other coins still count. Same rule as «Since purchase». The widget shows 7 d / 1 y only when
   nothing was skipped (a smaller widget has no room for the hint). Never go back to «one missing →
-  whole period —». Since build 44 «Today» follows exactly the same skip rule as 7 d: skipped coins are
+  whole period —». «Today» follows exactly the same skip rule as 7 d: skipped coins are
   named on the card, the widget says «Today without …» (`widget_portfolio_today_without`). The 24 h
   history uses hourly prices for stablecoins too (only USDT is flat at 1, others need their own hourly
-  price). Since build 46 the value history has two modes («Value» | «Gain/loss», remembered): the gain
+  price). The value history has two modes («Value» | «Gain/loss», remembered): the gain
   curve is P&L(d) = value(d) − net invested(d) with the cash flows of `PortfolioLedger.flow`, so buys and
   sells never move it; the header always shows «Value X · Gain Y (Z %)» with Y = P&L over the range and
   Z = Y ÷ (start value + gross inflows in the range; sales not subtracted – the same base as «Today» and the rows), «Since 1st buy» ÷ all money put in; base ≤ 0 → amount only.
@@ -1298,7 +1288,7 @@ the tests named here.
   The repeating «today ±x %» alarm re-arms only after the change is back by
   `changeRearmMargin` (20 % of the threshold, at least 0.5 points); value alarms keep the 0.2 %
   hysteresis.
-* **A fired portfolio alarm is stored with compare-and-set** (Android, build 44):
+* **A fired portfolio alarm is stored with compare-and-set** (Android):
   `PortfolioAlarmDao.markTriggered` updates only if the alarm is still enabled with the same
   reference, kind, threshold, repeat flag and currency as when it was read; 0 rows → nothing is
   notified (the user's edit wins), like `WatchDao.markAlarmTriggered`. With the portfolio lock on,
@@ -1306,18 +1296,18 @@ the tests named here.
 * **Fees at the edges.** A sell with nothing left changes neither «realized» nor the period gain
   (its USDT fee is ignored on both). `oversold` counts amount + coin fee, and so does the sell
   warning in the transaction sheet («Amount plus fee is more than your holdings»,
-  `portfolio_sell_exceeds_fee`, build 45). A USDT fee on a buy
+  `portfolio_sell_exceeds_fee`). A USDT fee on a buy
   without a price belongs to the unknown cost of that part.
 * **Restore never drops data silently.** Portfolio transactions and alarms that cannot be read are
   counted (`PortfolioJson.parseTxs/parseAlarms`, Swift `BackupManager.invalidPortfolioEntries`) and named
   in the confirmation (`backup_restore_invalid`); `restore(…, acceptInvalid)` stops before replacing
   anything if the file holds more invalid entries than the user confirmed. Every backup read goes
   through `BackupLimits` (16 MB, JSON nesting ≤ 32), also the Android system-backup copy. Portfolio
-  notes are at most 120 characters (`NOTE_MAX` / `Watch.noteMax`). Since build 45 the restore from a
+  notes are at most 120 characters (`NOTE_MAX` / `Watch.noteMax`). The restore from a
   **system / device backup** counts invalid rows too and shows them once when the portfolio is opened
   (`portfolio_system_restore_invalid`; Android `PortfolioRestoreNotice` / `SystemRestoreNoticeDialog`,
   iOS `PortfolioRestoreNotice`, remembered per file so the same file is not reported again).
-* **An unencrypted backup cannot weaken protection** (build 45). Importing a backup without a
+* **An unencrypted backup cannot weaken protection.** Importing a backup without a
   password shows a warning before replacing (`backup_restore_unencrypted_warning`: check that it comes
   from you; it names the four protected settings with their exact labels — `BackupUnencryptedWarningTest`).
   Its settings are applied, except four changes that would lower protection (`BackupRestorePolicy`, Kotlin and
@@ -1389,7 +1379,7 @@ the tests named here.
   would land in value and profit unnoticed. Tests: `PortfolioStablesTest` / `PortfolioNumbersTests`.
 * **Identity check for candle prices.** A coin not on Binance spot first takes the price of a
   watchlist pair of the same coin on another spot exchange (`PortfolioWatchPair.pick`: active, spot,
-  not Binance, quote USDT → USD → fiat, then the most recently updated; build 45) – that is the token
+  not Binance, quote USDT → USD → fiat, then the most recently updated) – that is the token
   the user chose. Only without such a pair does it get its portfolio price from
   the last hourly candle of the candle chain. That price counts only if it is within **1/3 … 3**
   (`PricePlausibility.acceptCandle` = `sameToken`) of an independent reference
@@ -1397,20 +1387,20 @@ the tests named here.
   (USD-stable spot pairs, active, price at most 30 days old), otherwise the last good stored price
   (`PortfolioPriceFallback`). Fails → the candle is discarded and the last good price stays, shown
   with its own «as of» time (faded once stale); with no stored price the coin shows «—». Never let a
-  failing candle overwrite the stored price. No reference at all → since build 45 the coin has **no
+  failing candle overwrite the stored price. No reference at all → the coin has **no
   price** (`PricePlausibility.candleUnchecked`, `PortfolioPrices.unchecked`): the position shows «—»
   with «Price unchecked» (`portfolio_price_unchecked`) and the coin is named in the «without …» list
   – see «Unchecked prices never count as money». The reference is read from local data only – never
   add a request for it. Tests: `PricePlausibilityTest` / `PortfolioWatchPairTest` /
   `PortfolioNumbersTests`.
-* **Unchecked prices never count as money** (build 45). A price whose token could not be confirmed
+* **Unchecked prices never count as money.** A price whose token could not be confirmed
   (a candle price without any reference, a cut-off close without a matching current price) is never
   added to anything that looks like money: not to the total, «Since purchase», «Today», 7 d / 1 y,
   the value history, the widget, portfolio alarms or the cut-off CSV, and it is never kept as a last
   good price or used as a reference (`PortfolioPriceSource` leaves `uncheckedCoins` out). Show «—» and say
   why («Price unchecked» / «unchecked (no matching price)»). Never fall back to «better a price than
   none» – the same ticker on a fallback exchange can be another token.
-* **Portfolio history from the route exchange first** (build 45). For a coin with a route
+* **Portfolio history from the route exchange first.** For a coin with a route
   (`PortfolioExchangeRoute`), `PortfolioHistorySource` loads that exchange's own daily candles
   (`OwnCandleDataSource`, at most 1000 per request, converted to USDT – fiat with the daily FX series,
   cached 12 h as `phisto_<COIN>`, iOS `App/Features/Portfolio/PortfolioHistorySource.swift`). If the
@@ -1421,7 +1411,7 @@ the tests named here.
   Binance series. A scaled coin is named under the chart and on the card
   (`portfolio_history_scaled`, `portfolio_period_scaled`). Same series for value history, 7 d, 1 y
   and the portfolio widget.
-* **Fallback chain for historical daily closes** (build 84). `HistoricCloseChain` (pure, both platforms, parity
+* **Fallback chain for historical daily closes.** `HistoricCloseChain` (pure, both platforms, parity
   `testdata/parity/historic_close_chain.json`, tests `HistoricCloseChainParityTest(s)`) fixes the order and the
   identity rules; only exchanges the app already talks to, **no new hosts** (all candles go through
   `OwnCandleDataSource`: its time limit, `BlockedSources` 451/403 block, 429/418 pause via `CandleHostPauses` /
@@ -1451,7 +1441,7 @@ the tests named here.
   - FX is untouched: `usdTo` (Frankfurter answers a weekend/holiday with the last business day) and `usdToSeries`
     (from `LEAD_DAYS` = 7 days earlier, gaps filled with the previous rate by `PortfolioHistoryFx.rateOn`) do not use
     the chain. Stablecoin rules (`PortfolioStables`) are unchanged.
-* **Prefill only what is true for the chosen date** (build 45). The add-transaction sheet prefills
+* **Prefill only what is true for the chosen date.** The add-transaction sheet prefills
   the current price only for a transaction dated **today**. Choosing another date clears a prefilled
   (untouched) price and shows «Enter the price on the purchase day – leave empty if unknown»
   (`portfolio_tx_price_past_hint`; `PortfolioTxForm` on both platforms, tests
@@ -1459,9 +1449,9 @@ the tests named here.
   rule: never prefill a value that is only true for another date.
 * **Stablecoins in the watchlist ≈ line.** Only USD and USDT are 1 (`CurrencyConversion.stableToUsd`,
   `stableNeedsMarket`); other stablecoins (USDC, DAI …) use the portfolio's cached market price
-  (`PortfolioPriceSource.cached`), and without a valid one the row shows **no** ≈ value (build 45 –
-  no silent par any more). The ≈ line never starts a request of its own. FX rates are fetched again
-  after **3 h** (`FxRateSource`, TTL = `CurrencyConversion.FX_STALE_MILLIS`, was 6 h); if the rate
+  (`PortfolioPriceSource.cached`), and without a valid one the row shows **no** ≈ value (no
+  silent par). The ≈ line never starts a request of its own. FX rates are fetched again
+  after **3 h** (`FxRateSource`, TTL = `CurrencyConversion.FX_STALE_MILLIS`); if the rate
   behind a ≈ value is older than 3 h, the line adds its time («· rate 08:15», `converted_fx_stale`,
   `staleFxTime`).
 * **Stablecoins without a daily close («7 d»).** Elsewhere a stablecoin without a price has no
@@ -1472,24 +1462,19 @@ the tests named here.
   change. iOS «Today» samples (every 30 minutes) store prices after the same stablecoin rule as
   Android (a stablecoin without a price is left out, never stored as 1); never store raw market
   prices there. Tests: `PortfolioPeriodChangeTest` / `PortfolioNumbersTests`.
-* **Portfolio tab: off for new installs, existing installs keep it** (build 44). The default in
-  `AppSettings` is `portfolioEnabled = false`. Android: an existing install (any stored key) gets the
-  former default «on» written once by `InstallDefaultsMigration` (`LEGACY_PORTFOLIO_ENABLED`), an
-  explicit choice stays. iOS: stored settings without the field decode to the former «on»
-  (`legacyPortfolioEnabled`); settings from before «portfolio on by default» (older versions wrote
-  the old «off» with the blob) are turned on once by the marker `portfolioDefaultV2`, after that
-  every choice stays. A backup without the field restores «on». While the tab is off, the
+* **Portfolio tab: off by default.** The default in `AppSettings` is `portfolioEnabled = false`; stored
+  settings without the field read as that default. A backup carries the switch (`portfolioEnabled`). While the tab is off, the
   «Add to portfolio» action of a pair is hidden. Store texts and review notes must not promise a
   visible Portfolio tab on first launch. Tests: `PortfolioDefaultTest` / `SettingsLogicTests`.
 * **Android main database is in the system backup.** `AppDatabase` runs
   `PRAGMA secure_delete = ON` on every open (`SecureDeleteCallback` in `di/LocalDataModule.kt`,
   as a query, failure only logged) so deleted or overwritten rows are zeroed instead of staying
   in free pages.
-* **iOS portfolio alarms and the backup switch.** Portfolio alarm thresholds belong in
-  `portfolio_alarms.json`. They are removed from `watchlist.json` only after that file was
-  written; until then (old install or write error) `watchlist.json` keeps them and is excluded
-  from backup while «Portfolio in system backup» is off (`SharedStorage.writeFiles`). The next
-  save retries.
+* **iOS portfolio alarms and the backup switch.** Portfolio alarm thresholds live only in
+  `portfolio_alarms.json`, never in `watchlist.json`; that file (and its `.unreadable` copy) is excluded
+  from backup while «Portfolio in system backup» is off. If it cannot be written (no key, write error), the
+  alarms stay in memory (`SharedStorage.portfolioAlarmsPending`) and the next save retries
+  (`SharedStorage.writeFiles`).
 * **Re-lock closes backup dialogs.** When the portfolio lock engages again (session timeout,
   60 s in background), every portfolio-related sheet closes: the add-transaction sheets and the
   backup dialogs (Android export dialog and restore step; iOS export options, restore password
@@ -1508,21 +1493,18 @@ the tests named here.
   password. Reading caps `m ≤ 262 144` (256 MiB), `t ≤ 10`, `p ≤ 4` (minimum m = 8·p) so a crafted
   file cannot stall the device; out of memory is a clear error (`NotEnoughMemoryException` /
   `Failure.notEnoughMemory`, message `backup_not_enough_memory`), never a fallback to weaker parameters.
-  **v2** files (PBKDF2-HMAC-SHA256, `iter` 600 000 or 210 000 read from the file, accepted range
-  10 000 … 10 000 000, no AAD) stay readable unchanged; only tests still write v2. Shared vectors
-  (v3 exact ciphertexts incl. the production parameters, v2, manipulated headers, RFC 9106) live in
+  v3 is the only encrypted format; a file with another `v` is not readable. Shared vectors
+  (v3 exact ciphertexts incl. the production parameters, manipulated headers, RFC 9106) live in
   `testdata/parity/backup_crypto.json` – keep both platforms in sync with it. Changing parameters: new
   constant on both platforms plus a vector; never change how existing files are read. Passwords go to
   `BackupCrypto` as `CharArray` (Android) / NFC UTF-8 bytes (iOS) and are wiped after the derivation.
   Argon2id with 64 MiB takes a few hundred ms up to a few seconds – call encryption and decryption
   only off the main thread (Android `Dispatchers.IO`, iOS a detached task; the «Continue» button
-  stays disabled while checking). New backup passwords need at least **12** characters (since build 69;
-  10 from build 45, 8 before) (`MIN_PASSWORD_LENGTH` / `minPasswordLength`, Unicode characters); `isWeak`
+  stays disabled while checking). New backup passwords need at least **12** characters (`MIN_PASSWORD_LENGTH` / `minPasswordLength`, Unicode characters); `isWeak`
   (shorter than 12, only digits, one repeated character, a common sequence such as «12345678» or «password»,
   a keyboard walk, a decorated common word, a repeated chunk) **blocks** the export (`isPasswordAllowed`,
-  `canExport`, `backup_password_too_weak`; the hint appears from the minimum length on). The former rule
-  «≤ 2 character classes and shorter than 12» is covered by the minimum length and was removed. Reading is not
-  affected: older files decrypt with any password. Cases in `testdata/parity/backup_passwords.json`.
+  `canExport`, `backup_password_too_weak`; the hint appears from the minimum length on). Reading is not
+  affected: a file decrypts with its password, whatever its length. Cases in `testdata/parity/backup_passwords.json`.
 * **iOS widget caches.** Portfolio widget data that is not needed for a restore (hourly prices,
   value history, candle attempts) is stored as files in the App Group and always excluded from
   backup (`BackupExclusion`), not in the App Group `UserDefaults`, which cannot be excluded.
@@ -1540,7 +1522,7 @@ the tests named here.
   HH:MM»). Offline the Market tab keeps its last data and starts no reload; expired data reloads when the
   device is back online. Do not build another pill for a new screen.
 
-* **Ledger types (build 46).** All position, period, history and cut-off maths goes through
+* **Ledger types.** All position, period, history and cut-off maths goes through
   `PortfolioLedger` (Kotlin/Swift, fixture `portfolio.json`, `PortfolioTxTypesTest(s)`). BUY/REWARD/DEPOSIT
   add holdings (with a price: cost basis += amount × price + fees; without: holdings without purchase price);
   SELL realizes gain; WITHDRAWAL removes holdings at average cost **without gain**; TRANSFER never realizes
@@ -1549,16 +1531,24 @@ the tests named here.
   (`feeCoin`, `feeCoinAmount`, `feeCoinPriceUsdt`) is a disposal of the fee coin at the fee price and adds
   its value to the main transaction's cost (or takes it from the proceeds); without a fee price the result
   is marked incomplete (`feeValueMissing`, `realizedFeeMissing`), never guessed. The third-coin fee has its
-  own fields – never reuse `fee`, older builds would read it as USDT. Room portfolio DB v4: `MIGRATION_2_3` added
-  the build-46 columns; `MIGRATION_3_4` (build 58) adds `giftToSpouse` (INTEGER NOT NULL DEFAULT 0),
-  `linkedImportKey` and `importRestoreState` and rewrites existing rows that still carry the build-56/57 packed forms
-  (`LegacyStorageMigration`, same rules on iOS when `portfolio.json` is read and on both platforms when an old backup is
-  restored; cases in `legacy_storage_migration.json`). Schema JSON `app/schemas/…PortfolioDatabase/4.json`.
-  Backup/system-backup copy: the three fields are additive (`importRestoreState` as a JSON object), backup
-  `version` stays 1 – a bump would make older builds refuse the whole file; they ignore the fields and only lose the
-  spouse flag, the second import key and the undo state of linked transfers.
-* **Cost method FIFO (build 46).** `CostMethod.FIFO` is the default for everyone, average cost («Ø») is a
-  setting (`portfolio_cost_method`, part of the app backup; old backups → FIFO). `PortfolioFifo`: one queue per
+  own fields – never reuse `fee` (it is always the quote/USDT fee). The Room portfolio database also has
+  `giftToSpouse` (INTEGER NOT NULL DEFAULT 0), `linkedImportKey` and `importRestoreState` (schema JSON
+  `app/schemas/…PortfolioDatabase/1.json`). Backup/system-backup copy: these fields are additive
+  (`importRestoreState` as a JSON object) and backup `version` stays 1 – readers refuse a newer `version` as a whole
+  (`BackupVersion.check`) but ignore unknown fields. A backup without `version` (a number), without `createdAt`,
+  without one of the parts the export writes (`watches`, `alarms`, `favorites`, `settings`, `portfolio`,
+  `portfolioAlarms`, `watchedAddresses`, each with its type), without a favorites kind (list of texts), without a
+  settings field or with an entry that lacks a field the writer always writes (or has it with another type) is
+  invalid and nothing is replaced (`BackupFields.checkParts`, both platforms; settings fields in
+  `BackupSettingsCodec.FIELDS` / `BackupManager.settingsFields`, entry fields in `BackupFields`; cases in
+  `testdata/parity/backup_settings.json` and `backup_entries.json`). Null only where the writer writes null; fields the
+  writer omits when empty (watched addresses: `label`, `observations` …) are optional; `indicatorAlerts` lists only
+  enabled kinds. Entries with invalid values (unknown kind, amount 0 …) are still counted and named before the restore.
+  The restore journal (Android `BackupJournalCodec`, iOS via `restore`) and the system-backup copy
+  (`PortfolioBackupMirror`: `version` and its three lists with their entries) follow the same rule; a journal
+  without `createdAt` has an unknown age and is given up.
+* **Cost method FIFO.** `CostMethod.FIFO` is the default for everyone, average cost («Ø») is a
+  setting (`portfolio_cost_method`, part of the app backup; an unknown value → FIFO). `PortfolioFifo`: one queue per
   coin across all exchanges and wallets, lots ordered by acquisition time (a DEPOSIT may carry the original
   `acquiredTime`), then transaction time, then id. Buys/rewards/deposits create lots (unknown price → lot with
   unknown cost); sells consume oldest lots and produce `PortfolioDisposal` rows (one per lot slice; proceeds
@@ -1568,19 +1558,19 @@ the tests named here.
   priced lot (total cost basis unchanged – write this down for tax advisors). Ø keeps `costParts` so the tax
   export converts each acquisition at its own date's FX. Trades are grouped per coin once
   (`PortfolioLedger.eventsByCoin`); FIFO keeps a running holdings total.
-* **FIFO cost parts (build 58).** FIFO lots carry their cost basis as dated parts like Ø (`PortfolioCostParts`,
+* **FIFO cost parts.** FIFO lots carry their cost basis as dated parts like Ø (`PortfolioCostParts`,
   invariant: sum of parts = cost, exact): the acquisition, a transfer fee spread onto the lot at the transfer's time,
   and a carried network-fee cost with its original parts. Consuming a lot takes all parts pro rata
-  (`PortfolioDisposal.costParts` is now filled for FIFO and FIFO_WALLET too), so the tax export converts each part at
+  (`PortfolioDisposal.costParts` is filled for FIFO and FIFO_WALLET too), so the tax export converts each part at
   its own date: CH, lot 2018 5000 USDT (rate 1.00) + transfer fee 2024 100 USDT (rate 0.85) = 5085 CHF, not 5100
   (`tax_export.json` › `fifoCostParts`, FIFO = FIFO_WALLET = Ø). The «cost at purchase-date rates (Ø)» note stays for
   pooled rows only (parts without a lot date). The card is unchanged: it converts every USDT amount at today's rate
   (`PortfolioHistoryFx.forCard`), hence the sentence «The tax CSV can differ from ‘realized’»
   (`tax_export_realized_differs`, shown in the export dialog below the template notes and on the total card under
   «Realized» as secondary text). US transition seed lots keep only their acquisition date (tax currency USD).
-* **Unassigned fee – «open item visible» (build 58, owner decision).** The share of a transfer fee (USDT + value of
+* **Unassigned fee – «open item visible».** The share of a transfer fee (USDT + value of
   a third-coin fee) that falls on coins WITHOUT a purchase price belongs to their unknown cost basis and cannot be
-  added to a known one. It is no longer dropped silently: `PortfolioUnassignedFee` per transfer from
+  added to a known one. It is never dropped silently: `PortfolioUnassignedFee` per transfer from
   `PortfolioFifo.spread` (FIFO, FIFO_WALLET), the Ø transfer branch of `PortfolioCalculator` and `TaxPool.addFee`
   (UK/CA pools without template rules); `CoinPosition.unassignedFeeUsdt`, `PortfolioSummary.unassignedFeeUsdt`,
   `CoinLedger.unassignedFees`; tax export info row after the totals (`TaxExport.unassignedFeesIn`, `gainsCsv`
@@ -1589,51 +1579,51 @@ the tests named here.
   lost-fee-cost hint, and the portfolio sum as one line under the total card's «Hints» – in USDT like the other
   amounts there, hidden as «•••». The fee-coin disposal (`feeLeg`) is unchanged.
   Templates with `quoteFeeIsInfo` drop the USDT transfer fee before the calculation, so nothing is left open there.
-  Cases: `portfolio.json` («B58 …»).
-* **AT staking note (build 58).** AT keeps acquisition cost 0 for staking with own coins and airdrops (§ 27b Abs. 2
+  Cases: `portfolio.json` («unassigned fee …»).
+* **AT staking note.** AT keeps acquisition cost 0 for staking with own coins and airdrops (§ 27b Abs. 2
   EStG, BMF «Kryptowährungen»); the export note `tax_note_at_staking` says that the recorded value on receipt does not
-  matter. Lending interest stays at the value on receipt (`TaxEngines.interestReward`, since build 55).
-* **USDT line on the card (build 58).** `DepegAlarm.cardNote` (both platforms, parity `depeg_alarm.json` › `cardNote`)
-  decides the «USDT = 1» line independently of the depeg alarm: fresh reading ≥ threshold → deviation warning (as
-  before, always shown); else values hanging on USDT = USD (`PortfolioExchangeRoute.usdtParityShown`) → price-source
+  matter. Lending interest stays at the value on receipt (`TaxEngines.interestReward`).
+* **USDT line on the card.** `DepegAlarm.cardNote` (both platforms, parity `depeg_alarm.json` › `cardNote`)
+  decides the «USDT = 1» line independently of the depeg alarm: fresh reading ≥ threshold → deviation warning (always
+  shown); else values hanging on USDT = USD (`PortfolioExchangeRoute.usdtParityShown`) → price-source
   line; else holdings containing USDT → `portfolio_usdt_assumed` («USDT dollar rate missing – counted as 1 US dollar»); else no line.
   With `usdtMarket = true` (USDT at market price, see below): a fresh plausible reading (`DepegAlarm.liveUsdtUsd`) →
   no line; otherwise `USDT_ASSUMED` whenever values depend on USDT – the visible marker of the 1-fallback.
   The total card gets the last reading, the threshold and the screen clock (`depegReading`, `depegThresholdTenths`,
   `now`) and calls `cardNote` itself; the price-source line moves under «Hints» unless it is the card line.
-  `VIA_USDC` (`portfolio_usdt_via_usdc`) warns that a USDC depeg falsifies the value (build 85); Aster's quote «U» (United Stables) is deliberately not in `USD_STABLES` – the set also classifies base coins (`PortfolioStables.isStable`), so a coin «U» would be treated as a stablecoin.
-* **Exchange connections checked (build 58).** `ExchangeVerification.LAST_VERIFIED` (Swift `lastVerified`) is the UTC
+  `VIA_USDC` (`portfolio_usdt_via_usdc`) warns that a USDC depeg falsifies the value; Aster's quote «U» (United Stables) is deliberately not in `USD_STABLES` – the set also classifies base coins (`PortfolioStables.isStable`), so a coin «U» would be treated as a stablecoin.
+* **Exchange connections checked.** `ExchangeVerification.LAST_VERIFIED` (Swift `lastVerified`) is the UTC
   date of the newest recorded exchange response; `ExchangeVerificationTest(s)` fail when a newer recording is added
   without moving the date. About shows it with `about_exchanges_verified` below the CoinGecko line, the date in the
   device's medium date format (Android `ofLocalizedDate(MEDIUM)` via `LocaleNumbers.dates`, iOS
   `CycleFormat.mediumDate`).
-* **Country event rules (build 56).** `TaxTemplate.eventRules` (`TaxEventRules`, both platforms) is applied once
+* **Country event rules.** `TaxTemplate.eventRules` (`TaxEventRules`, both platforms) is applied once
   before every tax calculation: `giftIsDisposal`; `spouseGiftNeutral` (UK TCGA 1992 s. 58, CA ITA 73(1): a GIFT
-  marked «to spouse / civil partner» – own field `giftToSpouse` since build 58, effective only on a GIFT
-  (`isGiftToSpouse`); builds 56/57 stored the marker `@spouse` in `transferTo` – is proceeds = cost);
+  marked «to spouse / civil partner» – own field `giftToSpouse`, effective only on a GIFT
+  (`isGiftToSpouse`) – is proceeds = cost);
   `networkFeeIsDisposal` (UK/US/CA/AU/JP: a network fee in crypto on a transfer or withdrawal becomes its own
   disposal of the fee coins at market value, placed before the transaction; no cost-basis increase, no extra
   loss); `quoteFeeIsInfo` (UK/US/CA/AU/JP: a withdrawal fee in USDT/cash is listed as information only, own
   `WITHDRAWAL_FEES` summary line, not netted – UK HMRC CRYPTO22150; elsewhere no rule allows a deduction).
   DE/AT/CH/FR/Neutral unchanged. Rules table and cases in `tax_templates.json` / `tax_export.json`.
-  Build 57: `quoteFeeIsInfo` also covers a USDT/cash fee on a transfer between own wallets – `applyRules` drops it
+  `quoteFeeIsInfo` also covers a USDT/cash fee on a transfer between own wallets – `applyRules` drops it
   from the transfer (no cost-basis increase) and `TaxEngines.disposals` adds an info row
   (`PortfolioFeeExpense.TRANSFER`, own `TRANSFER_FEES` summary line, not in totals); DE (no administrative view on
   own-wallet transfer fees), CH (ESTV does not classify), Neutral and the portfolio view keep the fee in the cost
   basis, AT and FR never counted it (§ 27a Abs. 4 Z 2 EStG; not part of the French acquisition-price total).
-* **Tax export (build 46).** `TaxExport` (Kotlin/Swift, fixture `tax_export.json`): realized gains per year
+* **Tax export.** `TaxExport` (Kotlin/Swift, fixture `tax_export.json`): realized gains per year
   (FIFO lot slices or Ø sales; acquired/sold date, holding days, «> 1 year» = sold after acquisition date + 1
   calendar year, local dates; cost at acquisition-date FX, proceeds at sale-date FX, daily ECB rates via
   Frankfurter, up to 7 days back), income per year (rewards at value when received), year-end holdings
   (cut-off CSV on 31 Dec). Totals only over rows with cost, proceeds and gain known, plus «proceeds without
   purchase price»; header states method, currency, time zone, «not tax advice». Exact decimals, rounding only
   when printing.
-* **Money-path rules from the build 46 review.** A withdrawal without price is valued at that day's market
+* **Money-path rules.** A withdrawal without price is valued at that day's market
   price in period/history flows (never an invented loss); a deposit without price is valued at market as money
   put in (cost basis stays unknown); value alarms never fire or re-arm while a coin price is missing, %-change
   alarms not while «Today» skips coins; the card shows «Withdrawn: …» (value change of withdrawn coins until
   withdrawal) and «Rewards +… (not in gain)»; the history says when a range includes withdrawals.
-* **Coin metadata and logos (build 46).** Lists first: the Binance symbol list and the Binance Alpha list are
+* **Coin metadata and logos.** Lists first: the Binance symbol list and the Binance Alpha list are
   fetched in parallel, each on its own (`CoinLists`), and names plus α flags are saved and shown at once – before
   pair lists, CoinGecko pages and images. If a direct list fails, the app uses `coin_meta.json` from the GitHub
   release «data» (built by `mirror_data.py` from Binance lists only – never CoinGecko data or images). A snapshot
@@ -1642,7 +1632,7 @@ the tests named here.
   `android/tools/gen_coin_assets.py` (`--meta live` needs network – run it before each release so Alpha is in
   the snapshot). Images: all entries are downloaded (never per watchlist coin), 6 parallel per host, a
   429/403/503 pauses only that host (Retry-After, ≤ 6 h) and is never a per-image failure.
-* **Build 47 rules.** Gift vs payment: `PAYMENT` is a disposal at market value in every template, `GIFT` only where
+* **Gift, fee rows, same-time events, bulk rows, colours.** Gift vs payment: `PAYMENT` is a disposal at market value in every template, `GIFT` only where
   `TaxTemplate.giftIsDisposal` (UK, CA, AU), elsewhere it leaves like a withdrawal. A fee row is SELL + price 0 + an
   import key; a manual sell at 0 is a real sale. Same-time events: inflows before outflows, then id (ledger comparator,
   reused by the tax engines). Bulk tickers: a row whose price key is present but null/""/0 is an inactive market and
@@ -1651,35 +1641,35 @@ the tests named here.
   scheme keeps ΔE2000 ≥ 24 between the accent primary and rising/falling (`ColorDifference`, fixture
   `price_colors.json`). iOS strings: `ios/tools/ios_overrides.json` replaces single Android texts per language in
   the iOS catalog (German «Mitteilung» on iOS, «Benachrichtigung» on Android). Build number +1 with every state.
-* **Tax templates (build 46).** `TaxTemplates`/`TaxEngines`: Neutral (default) plus DE, AT, CH, UK, US, CA, AU, FR,
+* **Tax templates.** `TaxTemplates`/`TaxEngines`: Neutral (default) plus DE, AT, CH, UK, US, CA, AU, FR,
   JP – each with cost method, tax-year boundaries (UK 6 Apr, AU 1 Jul), holding buckets, crypto-to-crypto
   treatment and thresholds, sources and «Stand» in code comments. Engines: UK same-day / 30-day / Section 104
   pool, CA superficial loss, FR prix total d'acquisition, JP total average, AT Alt-/Neubestand. Data rows state
   facts only («held > 1 year»); legal conclusions appear only as labelled orientation lines in the summary.
-  CH (build 80, `TaxWealthCh`): «wealth value 31.12. (orientation)» = holdings at the end of 31 December (Zurich)
+  CH (`TaxWealthCh`): «wealth value 31.12. (orientation)» = holdings at the end of 31 December (Zurich)
   × the 31.12. close in CHF, per coin, reusing the year-end holdings export; a missing or unverified close or FX
   rate marks that coin «not calculated» and the total incomplete (never today's price); capital gains and the
   wealth tax amount stay uncalculated; parity fixture `tax_ch_wealth.json`.
   The template is never applied silently from the device region. Every CSV text cell starting with = + - @,
   tab or CR gets an apostrophe (formula injection); numbers are written separately.
-* **Binance Alpha (build 46).** With «Incl. Alpha tokens» on, Alpha tokens missing on Binance spot are added as
+* **Binance Alpha.** With «Incl. Alpha tokens» on, Alpha tokens missing on Binance spot are added as
   Binance pairs `ALPHA_<alphaId>USDT` (α), priced in one bulk request from the Alpha token list and charted from
   the Alpha klines (source «Binance Alpha», no fallback chain). On other exchanges a pair is α when its symbol
   (1000-prefix stripped) is in the Alpha list, Binance does not list it regularly, it is not TradFi and the names
   don't clearly differ (`TokenIdentity`). Saved pairs always stay.
-* **Fee-eats-amount rule (build 46).** A buy or swap whose coin fee is ≥ the amount received cannot be saved (CSV
-  skips it); old data books the value as a fee expense everywhere. A quote fee on a withdrawal is a realized
+* **Fee-eats-amount rule.** A buy or swap whose coin fee is ≥ the amount received cannot be saved (CSV
+  skips it); a stored one books the value as a fee expense everywhere. A quote fee on a withdrawal is a realized
   expense on the card, in periods and in the export.
-* **Stale and partial values (build 46).** Portfolio alarms run only when every priced holding has a fresh
+* **Stale and partial values.** Portfolio alarms run only when every priced holding has a fresh
   price; widget and history may show a value with up to 20 % stale prices but must mark it («partly old
   price»). A partial total or «Since purchase» carries an inline marker at the number. Wrapped/bridged tokens
   keep their own symbol; only without an own pair are they priced via the base coin, labelled.
-* **One holdings book (build 46).** `PortfolioHoldingsBook` / `PortfolioCalculator.holdingsAt(trades, time, method)`
+* **One holdings book.** `PortfolioHoldingsBook` / `PortfolioCalculator.holdingsAt(trades, time, method)`
   decides holdings for every screen and file: card, periods, history, widget, alarms, cut-off and tax export
   must never compute holdings another way (FIFO_WALLET caps sells/withdrawals per wallet). The realized
   «incomplete» flag comes from the same disposal rows as the tax export. Bulk ticker parsers report
   unreadable rows per pair (error, never «unchanged»); most rows failing = format error.
-* **Swap, wallet FIFO, imports (build 46).** SWAP is one transaction (`toCoin`, `toAmount`, `swapValueUsdt`):
+* **Swap, wallet FIFO, imports.** SWAP is one transaction (`toCoin`, `toAmount`, `swapValueUsdt`):
   disposal of the given coin at the swap value, new lot of the received coin at that value; without value the
   gain stays incomplete (USDT legs are automatic). `CostMethod.FIFO_WALLET`: queues per exchange/wallet (empty =
   «not specified»), transfers move lots with their purchase date, a shortfall never borrows from another
@@ -1687,22 +1677,22 @@ the tests named here.
   lots per coin (`openLots`). DE annual summary (`TaxExport.yearSummary` with the DE template): ≤/> 1 year, § 23 EStG Freigrenze
   (1000 € from 2024, 600 € 2009–2023, 512 € before) and § 22 Nr. 3 (256 €), a Freigrenze (whole amount taxable
   at or above), labelled «orientation, not tax advice». Everything is called a working paper («Arbeitsunterlage»).
-* **One day boundary (build 46).** Period windows, start holdings and the history buckets use UTC days like the
+* **One day boundary.** Period windows, start holdings and the history buckets use UTC days like the
   daily candles; labels may show local dates. Unpriced inflows (rewards, deposits, swap-ins) and unpriced
   third-coin fees are valued at that day's market price in period flows; a coin is skipped only without any
   market price, and app card, rows, widget and alarms show the same figure with the same «without …».
-* **Exchange time (build 46).** Never stamp server/envelope time as trade time (Binance closeTime, Bybit `time`,
+* **Exchange time.** Never stamp server/envelope time as trade time (Binance closeTime, Bybit `time`,
   HTX `ts`, Bitget, Poloniex, MEXC futures, KuCoin, WOO X futures, Indodax): unknown exchange time lets «unchanged
-  since» work from `priceChangedAt`. Exception (build 81): WOO X spot is an hourly close, so its exchange time is the
+  since» work from `priceChangedAt`. Exception: WOO X spot is an hourly close, so its exchange time is the
   end of the information in that candle (response time while it runs, start + 1 h once closed) and the 2-hour
-  alarm rule and «outdated» apply; since build 91 the second request (last trade) replaces price and time with the
+  alarm rule and «outdated» apply; the second request (last trade) replaces price and time with the
   real trade when it succeeds. A bulk response can declare itself incomplete (`bulkResponseComplete`; One
   Trading keeps only ACTIVE spot rows and is incomplete when it dropped futures or closed books), so a missing
   pair falls back to the single ticker instead of «not traded».
-* **Token identity (build 46).** `TokenIdentity`: same contract → same token; known names compared after
+* **Token identity.** `TokenIdentity`: same contract → same token; known names compared after
   normalising (table for LUNA/LUNC, CAT, NVDA, TON…); clearly different names reject a fallback even within the
   price band; without names the old symbol + band rule applies (weak).
-* **Watched addresses (build 46).** Read-only public BTC/ETH addresses (`AddressValidation` refuses seed
+* **Watched addresses.** Read-only public BTC/ETH addresses (`AddressValidation` refuses seed
   phrases, private keys, xprv; EIP-55 checksum). The summed balance per coin is merged as a synthetic
   position part (`addressHoldingsExact`) – never written to the transaction table or CSV; it counts in total,
   widget and alarms, never in «Since purchase» or the tax export, and never turns purchased lots into «no
@@ -1712,11 +1702,11 @@ the tests named here.
   refresh is capped (8 s total, 5 s per request) and never delays prices or alarms. Requests at most every 10 min per address, none without
   addresses; hosts are listed in the privacy policy. Addresses (not balances) are part of the app backup
   and follow «Portfolio in system backup».
-* **Opening lots of watched addresses (build 84, rule build 85).** `AddressCostLots` count like buys in the address
+* **Opening lots of watched addresses.** `AddressCostLots` count like buys in the address
   wallet, capped at the holding before the recorded movements of that wallet (observed balance + recorded outflows −
   recorded inflows, all dates, as FIFO per wallet books them); only the rest stays address part without cost basis.
-* **Networks for watched addresses (build 46).** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
-  on the device, gap 20 on the first scan; Taproot accounts (build 81) only as a `tr(…)` descriptor – origin,
+* **Networks for watched addresses.** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
+  on the device, gap 20 on the first scan; Taproot accounts only as a `tr(…)` descriptor – origin,
   `/0/*`, `/1/*` or `/<0;1>/*`, BIP380 checksum checked – stored as `tr(xpub…/<0;1>/*)`, BIP86 key tweak, bech32m;
   a plain xpub keeps the old type detection; vectors in `taproot.json`), Ethereum and the EVM chains BNB Smart Chain, Polygon, Arbitrum, Base, OP Mainnet,
   Avalanche (native coin + curated token lists, one batched request per chain), Solana (SOL + SPL/Token-2022 by
@@ -1724,31 +1714,30 @@ the tests named here.
   shut down 2024), DOGE/BCH are rejected (no keyless service whose terms allow it). Keyless public nodes only,
   every host listed in the privacy policy (a test checks it). «Show only» addresses never count; an address
   whose coin is also in own transactions asks «Count / Show only».
-* **CSV import (build 46).** `csvimport/` parsers detect Relai/Swissquote by header names; times without
+* **CSV import.** `csvimport/` parsers detect Relai/Swissquote by header names; times without
   offset are Europe/Zurich; duplicates by `importKey` (stored on the transaction). Rows without price
   import without price and are named in the preview. Conversion to USDT uses the daily FX rate of the last
   business day ≤ date.
-* **Exchange exports (build 56).** `CsvImportBinance` (transaction history + both trade-history layouts; fills
+* **Exchange exports.** `CsvImportBinance` (transaction history + both trade-history layouts; fills
   with the same second, pair and side are merged so both exports produce the same key; a buy and a sell of one
   coin in the same second in the transaction history are skipped; a Binance trade within 5 s of an imported one
   that is not an exact match is held back as `POSSIBLE_DUPLICATE`), `CsvImportCoinbase` (transaction report incl.
   preamble, current and 2021 layout), `CsvImportBitpanda` (transaction history with header block). Moves between
   accounts of one exchange are skipped (`INTERNAL_MOVE`). Fixtures: synthetic files in `android/testdata/csv/`
   (copy in `ios/Tests/Csv/`, first line says «synthetic»), cases in `csv_exchanges.json`.
-* **Transfers across exchanges (build 56).** `CsvTransferMatch`: same coin, different exchanges, deposit between
+* **Transfers across exchanges.** `CsvTransferMatch`: same coin, different exchanges, deposit between
   2 h before and 72 h after the withdrawal, deposit ≤ withdrawal, difference ≤ 5 % → one TRANSFER (amount sent,
   fee = difference in the coin). Within one file and against stored *imported* rows (manual rows are never
   changed). Exactly one candidate → preselected; several → shown, off (preview id `linkId` = «withdrawal →
   deposit», never stored). The linked row keeps both import keys in own fields – `importKey` = withdrawal,
-  `linkedImportKey` = deposit (build 58) – so re-importing either file finds duplicates (`importKeys()` returns
+  `linkedImportKey` = deposit – so re-importing either file finds duplicates (`importKeys()` returns
   both). A stored row that gets linked moves into the new import run and keeps its original state plus the state of
   the absorbed row of the later file in `importRestoreState` (`CsvRestoreState`, versioned JSON `{"v":1,"stored":
   {…},"absorbed":{…}}`, documented in the class); `undoPlan` restores it exactly when the later import is undone, and
   undoing the *earlier* import turns the linked transfer back into that deposit or withdrawal, kept in the later
-  import run (undoing the later run afterwards removes it). No length limit for linking any more (builds 56/57
-  packed everything into the 200-character import key with `" ⇄ "`/`" ⟲ "` and skipped rows that did not fit;
-  those forms are read only by `LegacyStorageMigration`, shortened `~hash` parts of old links still count as
-  duplicates via `LegacyStorageMigration.shortKey`). Cases in `csv_transfers.json` (both undo orders and both in
+  import run (undoing the later run afterwards removes it). Linking has no length limit (the keys live in their own
+  fields, not packed into the 200-character import key). Duplicates are recognised only by the exact stored keys
+  (`importKey`, `linkedImportKey`). Cases in `csv_transfers.json` (both undo orders and both in
   sequence).
 * **Kraken ledger CSV.** `CsvImportKraken` reads the «Ledgers» export (txid, refid, time UTC, type, subtype,
   asset, amount, fee): trade/spend/receive legs paired by refid (money ↔ coin = buy/sell, coin ↔ coin = swap),
@@ -1756,32 +1745,34 @@ the tests named here.
   are normalised (XXBT → BTC, ZEUR → EUR, DOT.S → DOT). Fixture `kraken_ledger` in `csv_import.json`.
 * **Swap fees from both sides.** `CsvImport.swapFee`: one side → that fee; same unit → sum; different units →
   both rows skipped (`TWO_FEES`), never drop a fee silently.
-* **Exact cut-off CSV (build 46).** `CutoffExport` works on `BigDecimal`/`Decimal`; Double prices are
+* **Exact cut-off CSV.** `CutoffExport` works on `BigDecimal`/`Decimal`; Double prices are
   converted through their shortest decimal text (`PortfolioDecimal.of`); rounding only when printing.
-* **Per-coin gain (build 46).** App list and widget rows show the position's own gain for the change
+* **Per-coin gain.** App list and widget rows show the position's own gain for the change
   basis («24h +1'250 CHF · +1.5 %», per-coin `todayByCoin`; percent ÷ (start value + inflows)), never the
   token's market change; the rows add up to the total «Today» (parity check `byCoin`). The widget list has a
   pinned «Total» row (share 100 %, total value, total gain) and the «As of» line (with «Today without …»); both always stay visible, coin rows give way first.
   Per-coin and total gain are persisted in the widget snapshot on both platforms.
-* **Widget quantity (build 46).** `WidgetQuantityFormat`: at most 2 decimals, truncated (never more than
+* **Widget quantity.** `WidgetQuantityFormat`: at most 2 decimals, truncated (never more than
   held), below 0.01 two significant digits, from the snapshot's exact quantity text.
-* **«Since purchase» with unpriced coins (build 46).** When part of a position has no buy price (deposit
+* **«Since purchase» with unpriced coins.** When part of a position has no buy price (deposit
   without price, address), «Since purchase» is computed for the priced part only and marked «without x COIN
   lacking a buy price» (`ledger_partial_cost`). Never fold unpriced coins in at cost 0.
 * **CSV withdrawals need a choice.** Each imported withdrawal is either a transfer to an own wallet (cost
   moves along) or leaves the portfolio; the preview asks per row and proposes «transfer» only when a counted
   address matches. Never decide silently.
-* **Overlap auto-switch.** An address switches to «Show only» automatically only when its amounts match the
-  transactions (`overlapV2` / `ovl2` marker); otherwise it counts again once, with Undo.
+* **Overlap auto-switch.** A counting address whose overlap was never decided (`overlapChecked`) switches to
+  «Show only» automatically once, with a hint and Undo, only when the amounts of all its coins match the
+  transactions (`WatchedAddressRules.overlapAutoShowOnly`); otherwise it keeps counting and the «Also in own
+  transactions» hint stays. Any choice by the user sets `overlapChecked`.
 * **Tax template texts = formulas.** Every sentence in `tax_note_*` / `tax_line_*` must describe what the
   engine does; a change to an engine needs its text in all 31 languages and a worked example in
   `tax_templates.json` (parity tested). CSV cell texts contain no `;` or `,`.
 * **Exact checks and run log.** «Check on time» (Android only, off by default) uses `SCHEDULE_EXACT_ALARM`
   and falls back to WorkManager without the permission; every background check (worker, exact, BGTask,
   widget, foreground) writes one line to the run log (20 entries, no backup). A check within 5 min of the last
-  one is skipped and logged as such. Since build 55 iOS widget refreshes also check price alarms (logged as
+  one is skipped and logged as such. iOS widget refreshes also check price alarms (logged as
   «Widget · prices and price alerts»), with the same show → verify → mark order as the app (`AlarmDelivery`).
-* **Snapshot time is never exchange time (build 46).** Only a real last-trade time may go into
+* **Snapshot time is never exchange time.** Only a real last-trade time may go into
   `ticker.timestamp`. Server/snapshot clocks (Bitso `created_at`, Crypto.com `t`, Bitstamp/Bitvavo/BtcTurk/ZebPay
   `timestamp`, Phemex ns `timestamp`, Gemini `volume.timestamp`, like Binance `closeTime`, Bybit/OKX/HTX `ts`) stay
   out, otherwise «Unchanged since» never shows.
@@ -1795,7 +1786,7 @@ the tests named here.
 * **USDT depeg alarm.** Pure rule in `DepegAlarm` (parity `depeg_alarm.json`): both sources must deviate,
   fire once per episode, re-arm at half the threshold, quiet hours hold it. Its reading doubles as the live
   USDT/USD price of the valuation (`DepegAlarm.liveUsdtUsd`, ≤ 30 min, 0.5…1.5).
-* **USDT at market price (owner decision Oct 2026).** USDT stays the internal unit (1 USDT = 1 USDT, all
+* **USDT at market price.** USDT stays the internal unit (1 USDT = 1 USDT, all
   ledgers/history in USDT), but USDT → fiat (USD included; USD itself stays 1) uses the USDT/USD market price like
   USDC/DAI: `PortfolioStables.usdtUsd` (plausible 0.5…1.5, else **1 marked approximate** – never silent, values never
   go blank), `usdtTo` (USD→target × USDT/USD), `UsdtUsdRates` (live from today, daily close before; a day without
@@ -1811,10 +1802,9 @@ the tests named here.
   `USDTZUSD` / Binance `USDCUSDT` tickers, at most every 5 min; with the alarm off they only store the reading
   (`DepegReadingStore` / `DepegAlarmCheck.lastReading`), never notify. Also started from the portfolio refresh.
   Daily closes: `PortfolioHistorySource.usdtUsdDaily` = Kraken daily candles `USDTZUSD` through `OwnCandleDataSource`
-  and the own-candle cache (`phisto_USDTZUSD`, 12 h; gaps filled from Coinbase `USDT-USD`, build 84); `PortfolioDailyPrices.usdtUsd` carries them with every history
+  and the own-candle cache (`phisto_USDTZUSD`, 12 h; gaps filled from Coinbase `USDT-USD`); `PortfolioDailyPrices.usdtUsd` carries them with every history
   load, and USD/fiat candles of own exchanges divide by them (`ownDailyUsdt`). Callers: total card and rows use
-  `displayFxRate` / `displayRate(for:)` (FX × live USDT/USD) and `cardNote(usdtMarket = true)` (the deviation line
-  and `portfolio_usdt_depeg_warning` are gone); history and «7 d»/«1 y» pass `UsdtUsdRates(live, daily)`
+  `displayFxRate` / `displayRate(for:)` (FX × live USDT/USD) and `cardNote(usdtMarket = true)` (no deviation line); history and «7 d»/«1 y» pass `UsdtUsdRates(live, daily)`
   (`PortfolioHistoryUi.usdtApproximate` → caption `portfolio_usdt_assumed`); widget snapshot and its draw-time rebase
   multiply by `PortfolioWidgetChart.usdtFactor` (not for USD – the widget shows USDT there); «Today» converts back
   with the snapshot's own factor (`fxFactor`); `PortfolioPriceSource` passes the live rate to `toUsdt`;
@@ -1833,7 +1823,7 @@ the tests named here.
 * **Gemini**: an ambiguous symbol always goes through `/symbols/details`.
 * **Background decisions are pure** (`work/BackgroundWorkPolicy.kt`): exact alarm arm/cancel, fired action,
   rescheduling actions, worker outcome. Receivers and the worker only call it. No `runBlocking` at app start.
-* **User-Agent** carries the real app version on both platforms (`HttpUserAgent`). Exception (build 104): every
+* **User-Agent** carries the real app version on both platforms (`HttpUserAgent`). Exception: every
   host that sees watched addresses (`AddressBalance.PRIVACY_HOSTS`/`privacyHosts`) gets `HttpUserAgent.NEUTRAL`
   (Firefox ESR 153 string, one value for both platforms, `address_privacy.json`) on *every* request, gas fees and
   halving included (Android: `UserAgentInterceptor` host rule; iOS: `ExchangeHTTP.sessionFor(host:requested:)`). The
@@ -1843,18 +1833,18 @@ the tests named here.
   or the value names the app or its version; warning once the Firefox version is estimated older than 6 months
   (assumption: a new major version every 4 weeks, reference Firefox 153 ≈ October 2026 – `REFERENCE_DATE` in the
   script). Then update `HttpUserAgent.NEUTRAL`, `HttpUserAgent.neutral` and `address_privacy.json` together.
-* **Live stream message cap (residual risk, build 104).** Android checks the 1 MiB cap only after OkHttp has read
-  the whole message (text and, since build 104, binary → UTF-8 like iOS `.data`): OkHttp has no incoming size limit
+* **Live stream message cap (residual risk).** Android checks the 1 MiB cap only after OkHttp has read
+  the whole message (text and binary → UTF-8 like iOS `.data`): OkHttp has no incoming size limit
   and always offers `permessage-deflate`, inflating before the listener (switching it off would need a network
   interceptor stripping `Sec-WebSocket-Extensions`; not done – more traffic, and uncompressed frames are unbounded
   too). A hostile or broken exchange endpoint (TLS-authenticated) could therefore exhaust memory before the cut;
   iOS limits inside `URLSessionWebSocketTask` (`maximumMessageSize`).
 * **Stablecoin trades are swaps (CSV).** A buy/sell priced in a stablecoin (`PortfolioStables` set) is imported as
   a SWAP into/out of the stablecoin; only fiat (`CsvImport.FIAT`) makes a BUY/SELL. FR/AT treat crypto→stablecoin
-  as neutral; a manual «Sell» always means a sale for fiat. Converted rows keep their old key as accepted duplicate.
+  as neutral; a manual «Sell» always means a sale for fiat.
 * **Tax rules by date.** US lot method is per wallet from tax year 2025; AT swaps before 1.3.2022 are disposals,
   Altvermögen = acquired before 1.3.2021; CA superficial loss and all gain/loss decisions use the tax currency
-  when rates exist. Every rule has an `[R10]` fixture in `tax_templates.json`.
+  when rates exist. Every rule has a fixture in `tax_templates.json`.
 * **Background budgets.** Exact checks have a deadline (receiver ~19 s) and at most 8 s per exchange
   (`CheckBudget`); widget receivers stop after 9 s and draw from cache first. A timeout marks only that pair.
 * **One path for price notifications.** Every place that turns a price notification on goes through
@@ -1896,11 +1886,9 @@ Change a rule → change the JSON first, then both implementations.
   breadth: CoinGecko · 13:05», «Futures: Bybit · open interest compared with 2 hours ago», «Fear &
   Greed: today» (UTC days, like alternative.me). A new factor must report its source.
 * **Open interest history.** `OiSeries`: up to 5 samples, at least 30 min apart, at most 12 h old,
-  only from the **same futures source** (a sample of another exchange restarts the history; old
-  samples without a source match any). The current value is compared with the **median** of the
+  only from the **same futures source** (a sample of another exchange restarts the history). The current value is compared with the **median** of the
   samples at least 30 min old; the direction counts as consistent only if the value is above (or
-  below) every one of them, otherwise «Open interest mixed». The old single stored sample is migrated
-  as a sample without a source. Alarms keep their own 26 h history.
+  below) every one of them, otherwise «Open interest mixed». Alarms keep their own 26 h history.
 * **Funding trend.** `FundingTrendRules`: the last 4 settlements (`limit=4`) of the coin's USDT
   perpetual from Binance Futures / Bybit / OKX, the pair's own exchange first; fetched only when the
   sheet opens, at most once per pair every 10 minutes. Rates are compared per 8 hours.
@@ -1931,7 +1919,7 @@ Change a rule → change the JSON first, then both implementations.
   The trend uses the reported current interval only, never one guessed from settlement spacing.
 * **Binance COIN-M.** Pairs «2:BTCUSD_PERP» use `dapi.binance.com` (`premiumIndex` list,
   `openInterest` in contracts × contract value from `GET /dapi/v1/exchangeInfo` («contractSize» per
-  symbol, `coinMContractUsd`, build 45; only without it BTC 100 USD, others 10 USD), `fundingRate` history;
+  symbol, `coinMContractUsd`; only without it BTC 100 USD, others 10 USD), `fundingRate` history;
   `FuturesParsers.binanceCoinM`, source «Binance COIN-M»). `FuturesSources.own(exchangeKey, pairId)` /
   `note(…, pairId)` make USDⓈ-M data on a COIN-M pair a reference. Always pass the pair id.
   Fixtures: `futures_derivatives.json` («intervals»), `alarms_derivatives.json`. A new futures source
@@ -1952,7 +1940,7 @@ Change a rule → change the JSON first, then both implementations.
   Tests: `BitcoinIndicatorModelTest`, `IndicatorAlertRulesTest`, `HalvingMathTest` (Swift in
   `ExchangesTests.swift`).
 * **Candles come from the pair's own exchange first; fallback only labelled and same-token
-  checked** (build 44). Sheet chart, mini chart, single-coin widget, the 24 h fallback reference and
+  checked**. Sheet chart, mini chart, single-coin widget, the 24 h fallback reference and
   «Why?» ask the pair's own exchange first: `ExchangeCandleRegistry` with one `ExchangeCandleSource`
   per exchange (Android `data/remote/candles/ExchangeCandleSourcesMajor.kt` / `ExchangeCandleSourcesGlobal.kt`,
   `OwnCandleDataSource`, `OwnHourlyCandles`; iOS `ios/Shared/Services/Candles/`; parity
@@ -1967,7 +1955,7 @@ Change a rule → change the JSON first, then both implementations.
   fallback source. TradFi pairs (stocks, metals, FX) never use the chain, and DexScreener pairs are
   bound to the remembered pool (`chain/pairAddress`) — no candles of another pool or exchange
   (`OwnCandlePolicy.allowsFallback`). Dated futures (week … quarter) use only their own contract's
-  candles, never the perpetual's or the spot's. Since build 45 volume alarms, quick alarms and «Why?»
+  candles, never the perpetual's or the spot's. Volume alarms, quick alarms and «Why?»
   load a watchlist pair's hourly candles through the same acceptance as the chart
   (`VolumeDataSource.pairCandles` → `pairCandlesOf`, `OwnCandlePolicy.acceptsFallback`): own exchange
   first, chain only with the same-token check, no chain series without a price, for TradFi, DEX or
@@ -1981,8 +1969,8 @@ Change a rule → change the JSON first, then both implementations.
 * **Chart cache invalidation.** The stored chart (`SheetChart` cache, keyed by base and quote) is
   dropped on a manual refresh, pull-to-refresh, and when the live price has moved more than 3 % since
   it was stored (`SheetChart.PRICE_JUMP`, `priceJumped`). Axis minimum: a span of 1 % (±0.5 %) around
-  the middle for stablecoins (`STABLE_MIN_SPAN`), 0.2 % (±0.1 %) for other flat series (`MIN_SPAN`); since
-  build 44 the widget charts use the same minimum spans (`WidgetChartGeometry`). Approximated volume bars (no quote volume from the source, e.g. Coinbase: amount × close) are
+  the middle for stablecoins (`STABLE_MIN_SPAN`), 0.2 % (±0.1 %) for other flat series (`MIN_SPAN`); the
+  widget charts use the same minimum spans (`WidgetChartGeometry`). Approximated volume bars (no quote volume from the source, e.g. Coinbase: amount × close) are
   drawn at half strength and marked «≈». Geometry is computed off the main thread.
 * **AssetKind and Alpha.** `AssetKind.of(exchangeKey, base, tradFi, alphaSymbols)` (Android
   `domain/watch/AssetKind.kt`, iOS in `WatchFilter.swift`): TradFi from the pair-list flag first;
@@ -2002,22 +1990,22 @@ Change a rule → change the JSON first, then both implementations.
 
 ## 18. Screen layout rules
 
-* **Shared building blocks (build 56).** One card (`AppCard` / `.appCard(level:)`: top 20, nested 16, always
+* **Shared building blocks.** One card (`AppCard` / `.appCard(level:)`: top 20, nested 16, always
   `surfaceContainer`, never a border), one primary button (`AppFab` / `PortfolioAddButton`, accent fill, 56),
   one empty state (`EmptyState` / `EmptyStateView`: icon → title → message → example → button → links, scrolls),
-  in everyday words (build 58, portfolio: example without a USDT price, button «Add your first purchase», then the
+  in everyday words (portfolio: example without a USDT price, button «Add your first purchase», then the
   text buttons «Bought on an exchange? Import its file» (keeps the `portfolio_import_csv` test tag) and «Just watch
   a wallet address»),
   one unavailable row (grey cloud icon, «Market data currently unavailable», Retry – red only for user-input
   errors). Tab bars grow to about 1.3× text size; beyond that iOS shows the Large Content Viewer, Android a
   tooltip. The watchlist base symbol is never truncated. Typography: display 34, headline 22, section title 16
   semibold; `labelSmall` / `.caption2` only for source credits, legal footers and chart labels – capped by
-  `TypographyUsageTest`. A new screen uses these blocks instead of its own variants. Build 57: the watchlist
+  `TypographyUsageTest`. A new screen uses these blocks instead of its own variants. The watchlist
   mini-chart is 48 instead of 56 dp/pt in rows narrower than 360 (`DenseRowText.sparklineWidth`, both platforms),
   and the watchlist exchange/time line and the converted price use body size (14 sp / `.subheadline`); other
   dense-row metadata (coin name, notes, errors, portfolio rows, market row captions) stays at 12 because a fixed
   line count would cut it at the largest font scale.
-* **Plain-language market summary (build 56).** `MarketPlainSummary` (pure, both platforms, cases
+* **Plain-language market summary.** `MarketPlainSummary` (pure, both platforms, cases
   `market_plain_summary.json`) turns data the Market tab already has into three sentences (direction, mood,
   what stands out) shown above the cards; no new requests.
 * **No change pills – app and widgets.** Every change is coloured text (arrow + signed value in the price colour, U+2212 for minus, grey for 0/unknown/deactivated, «Ø» averages in the warning text colour); the time window is always small secondary grey (rules in section 15). This holds for watchlist rows, the pulse line, the action sheet, «Market data», «Why?», the Market cards (Fear & Greed number in its scale colour, «Crypto market … ↘ −2.77% · 24h», «Unusual today» rows with grey «24h»), the Portfolio (Today · 7 d · Total, the 1-year line under the total, hidden while the history is shorter than one year) and all home-screen widgets. Status indicators (`DataStatusPill`) are not change pills and stay.
@@ -2027,12 +2015,11 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 * **Settings structure.** Main page (`SettingsScreen.kt` / `SettingsScreen.swift`): **General**
   (Language – on iOS it opens the system Settings app –, Currency, Watchlist, Portfolio, Alarms, Price updates),
   **Appearance** (Mode, Theme, Price colours, Coin logos, Widgets), **More** (Data / backup, About) and
-  «Reset app» alone in its own red card at the very bottom (build 53, regrouped in build 55). Since build 83
-  Portfolio has exactly one place: the row under General opens the Portfolio page (`PortfolioPage` /
+  «Reset app» alone in its own red card at the very bottom. Portfolio has exactly one place: the row under General opens the Portfolio page (`PortfolioPage` /
   `PortfolioSettingsPage`) with the «Show Portfolio tab» switch on top, then lock, hide amounts, cost method, tax
   template and «Portfolio in system backup» – so «Settings › Portfolio» in hints and the widget is literally true;
   the search lists that page first for «Portfolio».
-  Since build 132 there is no «Advanced» page: every setting sits where it belongs – Token & TradFi on the
+  There is no «Advanced» page: every setting sits where it belongs – Token & TradFi on the
   Watchlist page, Market alerts and Speech output on the Alerts page, Coin logos under Appearance, Developer on
   the About page (debug builds only). **Rule: the main page stays short.** A new detail or fine-tuning setting
   goes onto the existing sub-page it belongs to (watchlist → Watchlist, looks → Appearance, alerts → Alerts) or a
@@ -2049,10 +2036,10 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   below (change in the price colour, period and time small and grey; no second row of changes), then
   the tiles Alarm · Why? · Favorite, then chart, range, «Market data» and «More». No second 24 h change
   next to the range on 24 h (the line under the price already shows it); on 7 d / 30 d / 1 y the
-  change stays as coloured text, because it shows that range's change. Since build 45 the sheet opens
+  change stays as coloured text, because it shows that range's change. The sheet opens
   at **half height** (price, actions, start of the chart) and can be dragged to full height.
-* **Portfolio total card is a report** (build 45). The card shows the amounts only, on a calm
-  gradient (8 % → 2 % of the accent colour, was 16 % → 4 %); all hints (price sources, average cost,
+* **Portfolio total card is a report.** The card shows the amounts only, on a calm
+  gradient (8 % → 2 % of the accent colour); all hints (price sources, average cost,
   missing coins, scaled history, unchecked prices) go into a small «Notes» block **below** the card
   (`portfolio_card_hints`). A new hint goes there, never into the card.
 * **«Why?» layout.** Fixed order, top to bottom: (1) the card «In short · As of HH:MM»
@@ -2070,8 +2057,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   line (alarm editor and portfolio alarm sheet). Text per platform: Android `alarm_timing_text_android`
   / `alarm_first_text_android`; iOS `alarm_timing_text_ios_open` – the system checks in the background
   about every 15 minutes or less often and «Live while open» only helps while the app is open, so on
-  both platforms no choice suppresses the hint (Android `LIVE_SERVICE_COVERS_CLOSED_APP`, iOS
-  `liveServiceCoversClosedApp`, both `false`). Never promise faster checks with the app closed. The «shown» flag (`alarmTimingHintShown`) is device-only and not part of the backup.
+  both platforms no choice suppresses the hint. Never promise faster checks with the app closed. The «shown» flag (`alarmTimingHintShown`) is device-only and not part of the backup.
 * **iOS background time budget.** `RefreshBudget` (`BackgroundRefresh.swift`): network at most 15 s
   (`PriceRefresher(networkBudgetMillis:)` cancels the remaining exchanges), whole task 25 s, portfolio
   only with at least 6 s left, side checks with at least 5 s, 2 s reserve before the expiration; the
@@ -2080,7 +2066,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   older than the alarm. `BackgroundOffBanner` warns above the alarms when Background App Refresh is
   off/restricted or Low Power Mode is on.
 * **Backup alarms are validated.** Pair alarms go through `AlarmJson.parse` (Android) /
-  `BackupManager.alarmFromJson` (iOS): unknown condition, non-finite threshold or missing id/watchId →
+  `BackupManager.alarmFromJson` (iOS): unknown condition or a threshold ≤ 0 where it must be positive →
   invalid, counted with the portfolio entries in `invalidEntries` and named in the confirmation
   (`backup_restore_invalid`). Shared cases: `testdata/parity/backup_alarms.json`. A new alarm kind
   must be added to both parsers and the fixture.
@@ -2099,29 +2085,27 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   since …» per alarm id and the alarm row shows «Could not be checked (no exchange rate / no candle
   data)». Memory only (this device, not in the backup, no database column); cleared by the next
   successful check or an app restart. Never treat a skipped check as «not met».
-* **Calm defaults for new installs (Build 42).** Non-dismissible («ongoing») price notifications are
-  off. New pairs (also the starter watchlist) get the price notification since 16 Oct 2026
-  (`WatchRepository.DEFAULT_NOTIFICATION_ENABLED = true`; owner decision: someone installing a price checker
-  wants to see the price; before that it was off). Existing installs keep their value through
-  a one-time migration (`OngoingNotificationsMigration`, `AppSettings.ongoingForMigration`). Changing a
-  default means a migration that keeps the stored behaviour of existing users.
+* **Calm defaults.** Non-dismissible («ongoing») price notifications are off
+  (`AppSettings.ongoingNotifications = false`). New pairs (also the starter watchlist) get the price notification
+  (`WatchRepository.DEFAULT_NOTIFICATION_ENABLED = true`: someone installing a price checker wants to see the
+  price).
 * **Watchlist header.** The add-pair button carries its text («+ Add pair», `AddPairButton`, iOS
   `addPairButton`; only the starter screen uses the round «+» because a text button sits below it).
   The alarm bell is always visible, marked when alarms are active (Android filled, iOS with waves), without
-  a count. Since build 60 its target follows `AlarmBellRoute.of(alarmCount, watchCount)` (Android
+  a count. Its target follows `AlarmBellRoute.of(alarmCount, watchCount)` (Android
   `domain/watch/AlarmBellRoute.kt`, iOS `AlarmBellRoute.swift`, same test cases): with at least one alarm
   (everything the overview would list — pair alarms also when switched off, portfolio alarms only with the
   portfolio on; not loaded yet counts as «has alarms») the overview as before; with none it leads straight to
   creating one — one pair: its alarm page (which opens the editor), several: the pair picker of the empty
   overview first (`AlarmPairPicker`, iOS `confirmationDialog`), empty watchlist: add a coin (explorer). The
   starter screen's bell does the same; the menu item «All alarms» always opens the overview.
-* **«What is moving with it?» is announced** (build 60). The starter screen (empty watchlist) and the first-run
+* **«What is moving with it?» is announced.** The starter screen (empty watchlist) and the first-run
   gesture hint carry one line «Tap a coin to see what is moving along with it» (`watch_hint_tap_why`; starter
   with the ⚡ symbol, gesture hint as its bold first line). Tapping a row stays the only way in (action sheet).
-* **Thin watchlist row** (build 45). A row shows logo, pair, price, change (and mini chart if on) and
+* **Thin watchlist row.** A row shows logo, pair, price, change (and mini chart if on) and
   at most **one** bell: the alarm bell with waves, only when the pair has at least one active alarm.
-  The price-notification state is no longer drawn in the row (only on its switch in the action sheet),
-  and the source note for a foreign change / mini chart moved to the action sheet (see «Row source»).
+  The price-notification state is not drawn in the row (only on its switch in the action sheet),
+  and the source note for a foreign change / mini chart is in the action sheet (see «Row source»).
   Sort arrows in the column header are 11 sp in `onSurfaceVariant` (no transparency) with a touch
   target of at least 48 dp (`WatchlistSortBar`). The alarm empty state (overview and per pair) shows
   an example sentence in the style of the alarm sentences («For example: Tell me when BTC rises above
@@ -2129,7 +2113,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 * **Cut-off export is checked like the history.** `PricePlausibility.acceptSourceClose` is strict for the
   cut-off CSV: every source needs a valid current price; Binance spot must pass `sameToken`, other sources the
   25 % rule. Otherwise the price field stays empty with «unchecked» – never export an unchecked number.
-  Format (build 45, `CutoffCsvFormat.forLocale`): UTF-8 with BOM, CRLF; separator and decimal mark follow
+  Format (`CutoffCsvFormat.forLocale`): UTF-8 with BOM, CRLF; separator and decimal mark follow
   the device region so Excel splits the file and reads numbers: Switzerland/Liechtenstein «;» with the
   region's decimal mark (de-CH «;» + «.»), other regions with decimal comma «;» + «,», all others
   «,» + «.».
@@ -2140,14 +2124,14 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 * **Contrast is computed, not assumed.** Accent primaries (light) reach 4.5:1 on every surface up to
   `#E2E2E2`, price colours on every surface up to `#353535`/`#E2E2E2` (`AccentContrastTest`, price colour
   tests). Zone colours are only for non-text marks (≥ 3:1); numbers stay in text colour. The Fear & Greed card
-  (since build 69, like the pulse widget) shows the number large with the level word next to it and one level dot
-  (`MarketScaleColors`; since build 80 in the user's price colours via `MarketScalePalette.steps` — fear = down,
+  (like the pulse widget) shows the number large with the level word next to it and one level dot
+  (`MarketScaleColors`; in the user's price colours via `MarketScalePalette.steps` — fear = down,
   greed = up, incl. colour-blind scheme, high contrast, swap and accent substitutes, so it matches the price arrows;
   the pulse widget derives the same steps from its own up/down colours) on a neutral `outlineVariant` track — no five-colour gradient. Widget text at least 11 sp/pt. Light dividers
-  (`outlineVariant`, all light schemes and iOS `ColorTokens.outlineVariant`) are `#ADA9A0` since build 58:
-  2.23:1 on `#FBF9F6` (before `#C9C6BF`, 1.62:1), deliberately below 3:1 – the only outline of a control is
-  `outline`. Dark mode unchanged (`#474747`).
-* **Fixed exchange price colours** (decision 18 October 2026: «colours like every exchange; the accent
+  (`outlineVariant`, all light schemes and iOS `ColorTokens.outlineVariant`) are `#ADA9A0`:
+  2.23:1 on `#FBF9F6`, deliberately below 3:1 – the only outline of a control is
+  `outline`. Dark mode: `#474747`.
+* **Fixed exchange price colours** (decision: «colours like every exchange; the accent
   colour must not confuse»). «Fresh», «Traditional» and «Colour vision» keep one tone per direction for every
   accent; only the two «Calm» schemes dodge a similar accent. Each colour is the nearest (CIEDE2000) to the
   exchange's own tone, preferring the same HSL hue with only the lightness adjusted: «Fresh» = Binance
@@ -2166,7 +2150,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   | Traditional | `#0A7262` / `#CC0416` | `#3EAE97` / `#FE7062` | `#005246` / `#960208` | `#5AD8BE` / `#FEB2A4` |
   | Colour vision | `#064E93` / `#B73900` | `#4F9FFD` / `#FFA73E` | `#00335F` / `#842A00` | `#CFEAFF` / `#FFB46A` |
 
-  «Calm» dark falling (same decision): salmon red `#FFB097` (HSL 14°, C* 35.6, before the pinker `#FFAFA8`),
+  «Calm» dark falling (same decision): salmon red `#FFB097` (HSL 14°, C* 35.6),
   still 1.5:1 lighter than rising, also after deuteranopia simulation; beside the orange accent `#FFAFBB`
   (HSL 351°, ΔE 20.3 to `#ED835E`); beside the red accent plum stays (any red ≥ 24 from `#FF7173` is almost white).
 * **Alarms wait for a deliverable notification.** One-time and repeating alarms (pair and portfolio, both
@@ -2180,8 +2164,8 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `PricePlausibility.sameToken` returns false without a valid reference.
 * **Row source.** When the % change or the mini chart of a watchlist row come from another
   exchange than the pair's, the action sheet says so under the price (`DayChange.rowSource` →
-  «Change: …», «Chart: …», «Change & chart: …»); since build 45 this note is no longer in the row
-  itself (too dense). Since build 60 the row marks a % change from another exchange's candles with a small
+  «Change: …», «Chart: …», «Change & chart: …»); this note is not in the row
+  itself (too dense). The row marks a % change from another exchange's candles with a small
   «*» in `onSurfaceVariant` after the value and says «Change from Binance candles» (`change_candle_source`) in
   the row's screen-reader sentence; no extra tap target, the sheet explains it. Rule
   `DayChange.rowChangeMarker(foreignSource, shownChange, sinceLast)`: only for a shown, finite value and not
@@ -2197,7 +2181,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   closed-app alarm out indefinitely. The zone/indicator task follows the same rule (`scheduleZone`).
 * **Store texts follow the code.** Quiet hours hold alarms (they ring afterwards if the condition
   still holds), with the app closed Android checks about every 15 minutes or less often (device and
-  battery dependent), iOS checks when the system allows; there is no «Always frequent» any more.
+  battery dependent), iOS checks when the system allows; there is no «Always frequent» mode.
   Any change to alarm timing or quiet hours needs the store texts in all 31 languages.
 * **Widget previews.** The picker previews (PNG `widget_preview_*_img.png` and the Android 12+ preview
   layouts `layout/widget_preview_*.xml`) must show what the live widgets draw. When a
@@ -2205,7 +2189,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   83,142.00, ETH 2,505.49, SOL 109.60, XRP 1.394 – Android `values/widget_preview_samples.xml`, iOS
   preview data in `Widgets/WidgetData.swift`). List dividers in the watchlist and portfolio list widgets
   are neutral (text colour at 25 %, 45 % with high contrast, `WidgetContrast.dividerColor` /
-  `WidgetStyle.divider`), never the accent colour. Widget backgrounds are neutral too: since build 45
+  `WidgetStyle.divider`), never the accent colour. Widget backgrounds are neutral too:
   the iOS widgets are flat like Android (plain `surfaceContainer`, no gradient, no accent glow; same
   logo, title and row sizes; disabled pairs grey instead of 60 % opacity).
 * **Logo sync after a network failure.** `CoinLogoRetry` (both platforms): a failed list fetch without
@@ -2213,14 +2197,14 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   was the cause; the sync runs again when the connection returns and on the next foreground, with a
   growing pause between attempts (5 s → 15 s → 30 s → 60 s … at most 15 min, `backoffMillis`), and
   never two syncs in parallel. Same requests as a normal sync – no per-coin fetch.
-* **File size (build 58).** Screens, view models, widget renderers and the notifier stay below ~450
+* **File size.** Screens, view models, widget renderers and the notifier stay below ~450
   lines. A longer file is split by responsibility into files of the same package/folder – pure moves, no
   behaviour change – each with a German header comment (what it holds, why it is separate); a twin on the
   other platform gets the same file name. View models keep their state (flows, jobs, `@Published`) in the
   class; actions move into Kotlin extension functions (members they use become `internal`) or Swift
   `extension` files (`private` → internal, `private(set)` dropped only where an extension writes). Public
   API called from `data/`, `domain/` or `work/` stays a member. File map:
-  watchlist VM → controllers that own their state privately (build 77): `WatchlistStarterController`,
+  watchlist VM → controllers that own their state privately: `WatchlistStarterController`,
   `WatchlistEditController`, `WatchlistRefreshController`, plus the injected `WatchlistSheetData` (iOS: data helpers of
   `WatchlistRow`) and `WatchlistGroupFilter`; the screen collects one `WatchlistUiState` and the live-price map; explorer VM →
   `ExplorerSearchActions`, `ExplorerSelectionActions`, `ExplorerBulkActions`, `ExplorerDexActions`; iOS
@@ -2240,7 +2224,7 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   `AppTabBar`; portfolio widget → `PortfolioWidgetOverview`, `PortfolioWidgetList` (both), Android
   `PortfolioWidgetTexts`, `PortfolioWidgetValues`, `PortfolioWidgetChartView`; single widget → Android
   `SingleWidgetCandles`, `SingleWidgetChart`, iOS `SingleWidgetProvider`; `AppNotifier` →
-  `AppNotifierPrices`, `AppNotifierDelivery`. Phase 2: portfolio VM (`PortfolioViewModel` / `PortfolioModel`) →
+  `AppNotifierPrices`, `AppNotifierDelivery`; portfolio VM (`PortfolioViewModel` / `PortfolioModel`) →
   `PortfolioLoadActions`, Android `PortfolioEditActions`, `PortfolioAddressActions`, `PortfolioTxDraft`,
   `PortfolioHistoryLoad` (both), iOS `PortfolioUi` (as Android); transaction sheet → `PortfolioQuickAdd`,
   `PortfolioTxFields` (iOS also `PortfolioTxLedgerFields`, `PortfolioTxActions`), Android `PortfolioTxInput`;
@@ -2249,12 +2233,12 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
   → `AppData+Watchlist`, `+Portfolio`, `+Refresh`, `+Live`, `+Settings`, `+CoinLogos` (next to `+Alarms`,
   `+Reading`, `+WatchEdits`, `+WatchedAddresses`); `BackupManager.swift` → `BackupLimits.swift` (as Android),
   `BackupManager+Portfolio`, `+Watchlist`, `+Settings`; `WatchlistScreen.kt` → `WatchlistScreenEffects.kt`.
-  Split in build 77: `PortfolioTxSheet.kt` (frame only; `TxFormState` in `PortfolioTxFormState.kt`, sections in
+  Further splits: `PortfolioTxSheet.kt` (frame only; `TxFormState` in `PortfolioTxFormState.kt`, sections in
   `PortfolioTxSections.kt`, save checks in `PortfolioTxForm.check`), `TaxEngines` (one file per country engine),
   `TaxExport` (Rows/Summary/Csv; iOS in `App/Features/Portfolio/Tax/`), `PriceRefresher` (`RefreshLock` with a
   `RefreshLockScope` token, `LivePriceApplier`, `ChartRefresher`, `RefreshResultProcessor`, `RefreshSideChecks`),
   `CoinLogoRepository` (facade over `LogoImageStore`, `CoinListSync`, `AlphaTokens`, `CoinNames`).
-  Build 81 split every production file over 650 lines by responsibility (largest now ≈ 455 lines), with parallel
+  Production files over 650 lines are split by responsibility, with parallel
   names on both platforms: `BackupManager` → `BackupFormat`, `BackupWatchlistCodec`, `BackupSettingsCodec`,
   `BackupJournalCodec`; `AppNotifier` → `AppNotifierAlarms`, `AppNotifierMarket` (posting functions are extensions,
   call sites import them); `TaxExportSummary` → `TaxSummaryModel`, `TaxSummaryTexts` (both platforms);
@@ -2270,10 +2254,9 @@ Layout decisions that keep the app calm. Same structure on Android and iOS, same
 
 ## 19. Storage encryption
 
-Since build 59 user data is encrypted at rest on both platforms (owner decision 17 Oct 2026). The rule above all
-others: **a migration may fail, it may never lose data** – the plaintext file is replaced only by a verified
-encrypted copy, through an atomic rename, and every failure leaves the plaintext file as it was and retries on the
-next start.
+User data is encrypted at rest on both platforms. The rule above all others: **never lose data** – a file that
+cannot be opened is set aside, never deleted; a plaintext copy is replaced only by a verified encrypted file, through
+an atomic rename; without a key nothing with user data is written in plaintext.
 
 **Android – SQLCipher for both Room databases.**
 * Library: `net.zetetic:sqlcipher-android` (`@aar`, no transitive dependencies), version in the version catalog
@@ -2281,136 +2264,144 @@ next start.
   `room-runtime` as an api dependency – no own pin. R8 keeps `net.zetetic.**` (JNI). Native library per ABI
   (`libsqlcipher.so`, 16 KB page aligned since 4.6.1).
 * `LocalDataModule` gives both builders the same `EncryptingOpenHelperFactory`. It decides on the **first access**
-  to a file (Room never touches the database on the main thread, so the one-time migration never runs there):
-  encrypted (`SupportOpenHelperFactory` with the raw key), plaintext fallback (framework SQLite as up to build 58) – never for a new portfolio database (build 81): without a key
-  `cryptochecker_portfolio.db` is not created; `Decision.Refused` opens an in-memory SQLite instead
-  (`DatabaseEncryptionNotice.inMemory`, banner `portfolio_storage_in_memory`; the portfolio callbacks skip the mirror
-  takeover) and the next start tries again; an existing plaintext
-  portfolio or watchlist file without a key is only read since build 91 (`OpenPlan.COPY_TO_MEMORY`,
-  `Decision.PlaintextKept`: `PlaintextMemoryCopy` attaches the file and copies every table into the in-memory database
-  when the Room `identity_hash` matches; the file stays byte-identical, changes are not saved – like iOS
-  `ProtectedFile.write(requireSealed:)`; `PlaintextMemoryCopyTest` on the device) and migrates at the next start with a key
-  (`DatabaseEncryptionMigration.planOpen`),
-  or – while the Keystore temporarily refuses the key of an encrypted file – `DatabaseKeyUnavailableException`
-  and nothing changed. Background entry points skip the run and retry later, logged at debug level
-  (`Throwable.isDatabaseKeyUnavailable()` checks the cause chain): `PriceUpdateWorker` returns `Result.retry()`,
-  `ExactCheckReceiver` re-arms the next exact alarm, widget receivers (`launchAsync`/`ReceiverAsync`) keep the drawn
-  state, `PriceWidgetService` keeps its rows (an exception there would kill the process). The UI shows its usual
-  error state.
+  to a file (Room never touches the database on the main thread, so encrypting a restored system-backup copy never
+  runs there) through `DatabaseOpenPlanner.prepare` (pure Kotlin, fakes in `DatabaseOpenPlannerTest`; file and SQL
+  layer `SqlCipherDatabaseFiles`, keys `DatabaseKeyStore`). A database file is either absent or encrypted
+  (`FileKind.ABSENT` / `ENCRYPTED`); every file is created and opened only encrypted. The decisions:
+  - `Decision.Encrypted` – open (or let Room create) with `SupportOpenHelperFactory` and the raw key.
+  - `Decision.Refused` – no file and no key could be created: no file is created; the database lives in an
+    in-memory SQLite for this run (`DatabaseEncryptionNotice.markInMemory`/`inMemory`, banner
+    `portfolio_storage_in_memory`; the portfolio callbacks skip the mirror takeover) and the next start tries again.
+  - `Decision.KeyUnavailable` – the Keystore temporarily refuses the key of an encrypted file: the file stays
+    untouched. `DatabaseOpenPlanner.planOpen` picks `KEEP_FILE_IN_MEMORY` (portfolio and watchlist, app in the
+    foreground: empty in-memory database for this run, `DatabaseEncryptionNotice.storedKept`, the stored state comes
+    back after a restart) or `WAIT` (`DatabaseKeyUnavailableException`, nothing changed). Background entry points
+    skip the run and retry later, logged at debug level (`Throwable.isDatabaseKeyUnavailable()` checks the cause
+    chain): `PriceUpdateWorker` returns `Result.retry()`, `ExactCheckReceiver` re-arms the next exact alarm, widget
+    receivers (`launchAsync`/`ReceiverAsync`) keep the drawn state, `PriceWidgetService` keeps its rows (an
+    exception there would kill the process). The UI shows its usual error state.
+  Preparation runs under a process-wide lock per database (`EncryptingOpenHelperFactory.prepareLock`): the system
+  backup builds its own factory.
 * Keys: `DatabaseKeyStore` – per database 32 random bytes, wrapped with AES-256-GCM by a Keystore key of its own
-  per database (`cryptochecker_db_key_v1_app`, `…_portfolio`; `DatabaseKeyStore.aliasFor`), so a permanently broken
+  per database (`cryptochecker_db_key_app`, `…_portfolio`; `DatabaseKeyStore.aliasFor`), so a permanently broken
   Keystore key only affects that one database. Creating a Keystore key runs under a process-wide lock (two first
   opens at the same time would otherwise overwrite each other's key). No user authentication (WorkManager, widgets
   and alarm receivers must work after the first unlock; no component is `directBootAware`). Stored in `noBackupFilesDir/db_keys/<db>.key`
   (format: version byte, 12-byte IV, ciphertext + tag). SQLCipher gets the key as raw key `x'<64 hex>'`, so no
-  PBKDF2 runs per connection. A key file is only (re)created while no encrypted file depends on it; a replaced
-  one is kept as `.previous`.
-* Orchestration: `DatabaseEncryptionMigration` (pure Kotlin, harness + `DatabaseEncryptionMigrationTest`), file and
-  SQL layer `SqlCipherDatabaseFiles`. Whether a file is encrypted is read from its header
-  (`SQLite format 3\0` = plaintext) – no preference flag that a restored old backup could contradict. Steps for a
-  plaintext file: delete a stale `.encrypting` copy → `wal_checkpoint(TRUNCATE)` → the WAL must be empty (else
-  fallback) → fingerprint (user_version, per table row count + order-independent row checksum over all columns,
-  incl. `sqlite_sequence`, without `android_metadata`) → `ATTACH … KEY` + `sqlcipher_export` + `user_version` into
-  `<db>.encrypting` → fingerprint of the copy with the key must be identical → delete `-wal/-shm/-journal` →
-  rename the copy over the database. Room migrations (portfolio database) run afterwards on the
-  encrypted file.
-* Plaintext fallback is not silent (build 69): `EncryptingOpenHelperFactory` records every decision in
-  `DatabaseEncryptionNotice` (own SharedPreferences, never in a backup; rule `EncryptionPending`, pure Kotlin +
-  `EncryptionPendingTest`): `Plaintext` and `Refused` add the database, `Encrypted` removes it, `KeyUnavailable` changes
-  nothing. While the set is not empty, Settings › Backup shows «Encryption not active yet – the app will try again
-  at the next start» (`backup_encryption_pending`); persisted, so it also covers a database not opened in this
-  process (portfolio).
+  PBKDF2 runs per connection. A key is only created while no encrypted file depends on it; a replaced one is kept,
+  numbered, as `.previous`, `.previous.1` … (`Keys.previous`). Reading retries temporary Keystore errors
+  (`DatabaseKeyRetry`, 3 × 500 ms); a suspicious failure (`UnrecoverableKeyException`, no key returned) counts as lost
+  only when it happens again in a later run (`SuspectMarker`, `<db>.key-suspect`).
 * Before Room opens an encrypted file the key is checked (`opens`): Room's `onCorruption` would delete a file that
   SQLite does not recognise. All own connections use an error handler that never deletes.
-* Key permanently lost (alias gone, invalidated, wrong tag, or key does not open the file): the file is renamed to
-  `<db>.unreadable` (+ `-wal/-shm`), a new key and an empty database are created, `StorageRecoveryNotice` shows
-  once «restore a backup file» (`storage_recovery_title/message`). With «Portfolio in system backup» on, the new
-  portfolio database imports the local mirror on creation by itself.
+* Key permanently lost (invalidated, wrong tag, or no stored or previous key opens the file): first a previous key
+  is tried (`previousOpening`, it then becomes the stored one again); otherwise the file is renamed to
+  `<db>.unreadable` (+ `-wal/-shm`), a new key and an empty database are created and `StorageRecoveryNotice` shows
+  «restore a backup file» (`storage_recovery_title/message`) until the user confirms it or restores a backup. If a
+  previous key opens a set-aside file at a later start, it comes back (`restoreFromAside`, the meanwhile new file
+  stays as `<db>.replaced`, notice «unlocked again»). Set-aside copies are deleted only after the notice was
+  confirmed and at least 30 days after the app first saw them (`AsideRetention`, `<db>.aside-seen`); previous keys
+  go once no set-aside file is left. With «Portfolio in system backup» on, a new portfolio database imports the local
+  mirror on creation by itself.
+* «Encryption not active yet»: `EncryptingOpenHelperFactory` records every decision in `DatabaseEncryptionNotice`
+  (own SharedPreferences, never in a backup; rule `EncryptionPending`, pure Kotlin + `EncryptionPendingTest`):
+  `Refused` adds the database (no key, kept in memory), `Encrypted` removes it, `KeyUnavailable` changes nothing.
+  While the set is not empty, Settings › Backup shows «Encryption not active yet – the app will try again at the
+  next start» (`backup_encryption_pending`); persisted, so it also covers a database not opened in this process
+  (portfolio).
 * System backup: the encrypted `cryptochecker.db` is useless on another device, so the backup rules carry
   `cryptochecker_system_backup.db` instead – `xml-v28/backup_rules.xml` (Android 9–11) and
-  `data_extraction_rules.xml` (12+), **not** `xml/backup_rules.xml` (Android 8/8.1, since build 60): API 26/27
+  `data_extraction_rules.xml` (12+), **not** `xml/backup_rules.xml` (Android 8/8.1): API 26/27
   ignore `requireFlags="clientSideEncryption"` and would upload the plaintext copy without end-to-end encryption.
   There `SystemBackupAgent` does not create the copy at all (`SystemBackupScope.writesDatabaseCopy(sdkInt)`, same
   limit 28 as `PortfolioLockPolicy.SYSTEM_BACKUP_MIN_SDK`) and only runs the rule-based backup (favorites,
-  language, migration flag – not the settings DataStore, which holds the own Esplora server address); a restore on such a device brings no watchlist (the redirected file is
-  not in the rules and Android drops it). `PortfolioLockPolicyTest` checks the three rule files, `BackupRulesAndroid8Test` the Android 8/8.1 allow-list. `SystemBackupAgent` (`android:backupAgent`,
-  `fullBackupOnly`) writes and verifies that plaintext copy only inside `onFullBackup`, runs the normal rule-based
-  backup (`super`) and deletes it; if the copy fails, the backup run is aborted so the previous backup survives.
-  `onRestoreFinished` turns the restored copy into `cryptochecker.db`, which the next start encrypts like an update.
-  A build ≤ 58 backup brings `cryptochecker.db` (+ `-wal`) itself; Android checks restored files against the
-  *current* rules and would drop them, so `onRestoreFile` redirects them to the copy's name (the rules also list
-  `cryptochecker_system_backup.db-wal`, restore only – it never exists during a backup) and the same path follows. The portfolio database and the key
-  files are never in a backup; `portfolio_system_backup.json` stays the opt-in plain JSON mirror.
-* Portfolio widget snapshot (build 60): `PortfolioSnapshotStore` keeps the whole snapshot (totals, positions,
+  language – not the settings DataStore, which holds the own Esplora server address); a restore on such a device
+  brings no watchlist. `PortfolioLockPolicyTest` checks the three rule files, `BackupRulesAndroid8Test` the Android
+  8/8.1 allow-list. `SystemBackupAgent` (`android:backupAgent`, `fullBackupOnly`) writes and verifies that plaintext
+  copy only inside `onFullBackup` (`DatabaseSystemBackup.write`), runs the normal rule-based backup (`super`) and
+  deletes it; if the copy fails, the backup run is aborted so the previous backup survives. After a restore,
+  `onRestoreFinished` → `DatabaseSystemBackup.adoptRestored` encrypts the copy directly into `cryptochecker.db`
+  (stored or new key, `SqlCipherDatabaseFiles.encryptCopy`) and deletes it. If no key is available in the backup
+  process, the copy stays and the next start encrypts it before Room opens the database
+  (`DatabaseOpenPlanner` → `Files.encryptRestoredCopy`; no key at that start either → `Refused`, the copy stays and no
+  empty file displaces it). `encryptCopy`: `ATTACH … KEY` + `sqlcipher_export` + `user_version` into `<db>.encrypting`
+  → fingerprint of source and copy must be identical (`DatabaseFingerprint`: user_version, per table row count +
+  order-independent row checksum over all columns, incl. `sqlite_sequence`, without `android_metadata`) → delete
+  `-wal/-shm/-journal` → rename the copy over the database → delete the plaintext copy. At start,
+  `DatabaseSystemBackup.cleanUpLeftover` deletes a copy next to an existing database (an interrupted backup). The
+  portfolio database and the key files are never in a backup; `portfolio_system_backup.json` stays the opt-in plain
+  JSON mirror, present only during a backup or until the new portfolio database has imported it.
+* Portfolio widget snapshot: `PortfolioSnapshotStore` keeps the whole snapshot (totals, positions,
   P/L, daily/period changes, the held coins' price samples and hourly prices) as **one** sealed entry
   `sealed_snapshot` in the SharedPreferences `portfolio_widget` – the widget reads synchronously, a small blob
-  decrypts fast. Payload: a JSON object whose keys are the former single entries (`total`, `positions_v2`, …
-  `coin_pnl_v7`), so the per-version fallbacks stay. Container and rules in `PortfolioSnapshotSeal` (pure Kotlin,
+  decrypts fast. Payload: a JSON object with one key per part (`total`, `positions`, … `coin_pnl`); a missing
+  or unreadable part loads as absent. Container and rules in `PortfolioSnapshotSeal` (pure Kotlin,
   harness + `PortfolioSnapshotSealTest`): Base64 of `CCWS` + version byte 1 + 12-byte IV + AES-256-GCM ciphertext
-  and tag, magic and version as AAD; `planRead` (no key → nothing; sealed → open; only plaintext of build ≤ 59
-  → read once, write sealed, remove the plaintext keys) and `planWrite` (no key → write nothing, a sealed entry
-  stays, plaintext keys are removed). A broken, foreign or newer entry opens as «no snapshot» and the next save
-  replaces it (it is a cache). Key: `PortfolioSnapshotKeyStore`, own Keystore alias `cryptochecker_widget_key_v1`
+  and tag, magic and version as AAD; `planRead` (no key or no entry → nothing; otherwise open) and `planWrite` (no key
+  → write nothing, a sealed entry stays). A broken, foreign or newer entry opens as «no snapshot» and the next save
+  replaces it (it is a cache). Key: `PortfolioSnapshotKeyStore`, own Keystore alias `cryptochecker_widget_key`
   (no user authentication, created under a process-wide lock, a permanently broken entry is deleted and
   recreated) – deliberately independent of `DatabaseKeyStore`. Without a key every reader gets `null`, so
   widgets show their empty state (`widget_portfolio_empty`) and the Portfolio tab starts without the stored
-  «Today» values until it has computed its own (`showStoredToday`). Still plain in that file: the remembered FX rate (`fx_*`, no holdings). Never in a backup rule (as before).
-* Other Android files outside the databases (checked for build 60, no amounts or addresses): settings
+  «Today» values until it has computed its own (`showStoredToday`). Still plain in that file: the remembered FX rate
+  (`fx_*`, no holdings). Never in a backup rule.
+* Other Android files outside the databases (no amounts or addresses): settings
   DataStore, `refresh_stats`, `activity`, `move_history`, `widgets` (widget configuration), `recent_searches`,
   `check_runs.txt`, `token_names.json`, coin lists/logos and `portfolio_last_prices.txt` (USDT prices of the held
   coins – reveals which coins, not how many; same as iOS). `portfolio_system_backup.json` is the documented
   opt-in plaintext mirror.
-* Tests: `DatabaseEncryptionTest` (androidTest: portfolio v3, plaintext main database, failed verification, lost
-  key, backup copy round trip, plain SQLite cannot read the result) and `RealDatabaseEncryptionTest` (runs only when
-  `app/src/androidTest/assets/realdb/` holds `cryptochecker.db` / `cryptochecker_portfolio.db` with `-wal/-shm`
-  from a test device – never commit real holdings).
+* Tests: `DatabaseOpenPlannerTest`, `DatabaseFingerprintTest`, `DatabaseKeyRetryTest`, `DatabaseKeyRecoveryTest`,
+  `AsideRetentionTest`, `EncryptionPendingTest` (unit) and `DatabaseEncryptionTest` / `DatabaseEncryptionParallelTest`
+  (androidTest, real SQLCipher and Keystore: unreadable without the key, lost key sets aside and a previous key brings
+  it back, a temporarily unavailable key leaves the file untouched, system-backup copy round trip – encrypted on
+  restore or, without a key, at the next start).
 
 **iOS – sealed files in the App Group.**
 * `Shared/Storage/ProtectedFile.swift`: format `ProtectedContainer` – `CCSE`, version byte 1, 12-byte nonce,
-  AES-256-GCM ciphertext, 16-byte tag; magic + version are authenticated. JSON never starts with `CCSE`, so every
-  reader still accepts old plaintext files.
+  AES-256-GCM ciphertext, 16-byte tag; magic + version are authenticated. JSON never starts with `CCSE`, so a
+  plaintext file is recognised at once.
 * Key: 256 bit in the keychain (`StorageKey`, service `com.cryptochecker.storage-key`), access group = the App Group
   `group.com.cryptochecker.app` (works with the existing `application-groups` entitlement for app and widgets; a
   `keychain-access-groups` entitlement is deliberately not added because it would change the default group of all
-  keychain items). `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` since build 69 (owner decision 17 Oct 2026;
-  before `kSecAttrAccessibleAfterFirstUnlock`): readable after the first unlock (widgets, background), but never
-  part of an iCloud/computer backup and never moved to another iPhone — whoever gets hold of a device backup has
-  the sealed files but never their key. Consequence, said up front under Settings › Backup on both platforms
-  («Before switching devices, create a backup file…», `backup_device_bound`; Android Keystore keys are
-  device-bound too): after restoring a device backup on a **new** iPhone the sealed files cannot be opened;
-  `prepareAtLaunch` sets them aside (`.locked`) and `StorageRecoveryNotice` names it once — the way back is the
-  backup file. Existing installs: `StorageKey.restrictToThisDevice` (called by `prepareAtLaunch` when the key was
-  found) reads the item's `kSecAttrAccessible` and changes only that attribute with `SecItemUpdate` — same key
-  bytes, same service/account/access group (widgets keep reading); never delete and recreate (every file would
-  become unreadable). If it fails (e.g. before the first unlock) nothing changes and the next start retries.
-  Only the app creates the key; widgets only read it.
-* Protected files (`ProtectedStorage.files`): watchlist, portfolio alarms, portfolio, watched addresses, portfolio
-  widget snapshot, `alarm_log.json` (build 80) and their `.unreadable` copies. The widget snapshot is written only sealed
-  (`PortfolioWidgetStore.writeSnapshotFile` checks the key first, since build 60): without a key or when the
-  write fails nothing is stored – the former fallback into the App Group defaults (plaintext amounts) is gone, and
-  `migrateSnapshotToFile` moves a leftover defaults entry into the sealed file or removes it. Plain on purpose (no amounts, addresses or notes; Android keeps
-  them outside the databases too): price caches of the portfolio widget, `portfolio_last_prices.txt`,
+  keychain items). The item is created with `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly`: readable after the
+  first unlock (widgets, background), but never part of an iCloud/computer backup and never moved to another
+  iPhone — whoever gets hold of a device backup has the sealed files but never their key. Consequence, said up front
+  under Settings › Backup on both platforms («Before switching devices, create a backup file…», `backup_device_bound`;
+  Android Keystore keys are device-bound too): after restoring a device backup on a **new** iPhone the sealed files
+  cannot be opened; `prepareAtLaunch` sets them aside (`.locked`) and `StorageRecoveryNotice` names it once — the
+  way back is the backup file. Only the app creates the key; widgets only read it. «Reset app» deletes it and creates
+  a new one (`StorageKey.renew`, generation marker so widgets re-read).
+* Protected files (`ProtectedStorage.files`): `watchlist.json`, `portfolio_alarms.json`, `portfolio.json`,
+  `watched_addresses.json`, the portfolio widget snapshot `portfolio_widget.json` and `alarm_log.json` are only ever
+  written sealed (`sealedOnly`, `ProtectedFile.write(requireSealed:)`): without a key the write throws `.locked`, the
+  caller keeps the state in memory and writes at the next save (e.g. `SharedStorage.watchlistPending` /
+  `portfolioAlarmsPending`); the widget snapshot is then simply not stored (a cache) – never in the App Group
+  defaults. Only the `.unreadable` copies of watchlist, portfolio alarms and portfolio (`ProtectedFile.writeCopy`) may
+  be written plain without a key; the next start seals them. Plain on purpose (no amounts, addresses or notes;
+  Android keeps them outside the databases too): price caches of the portfolio widget, `portfolio_last_prices.txt`,
   `check_runs.txt`, coin names/logos, `phemex_scales.json`, `alarm.lease`, App Group defaults.
-* All reads/writes of these files go through `ProtectedFile`: `read` returns plaintext (old plain file unchanged),
-  throws `.locked` without key (callers treat it as «inaccessible»: never overwrite) and `.damaged(raw)` for a
-  broken sealed file (treated like corrupt JSON: raw bytes preserved). `write` seals, writes a sibling temp file,
-  reads it back, decrypts and compares, then `rename(2)`; without key it writes plaintext as before.
+* All reads/writes of these files go through `ProtectedFile`: `read` opens a sealed file, throws `.locked` without
+  key or for a newer container version (callers treat it as «inaccessible»: never overwrite) and `.damaged(raw)` for
+  a broken sealed file **or a plaintext file** (treated like corrupt JSON: raw bytes preserved). `write` seals,
+  writes a sibling temp file, reads it back, decrypts and compares, then `rename(2)`.
 * `ProtectedStorage.prepareAtLaunch` (first thing in `AppData.init`): keychain unreadable → touch nothing; no key
   but sealed files → move them to `<name>.locked` (never delete), then create the key and show
-  `StorageRecoveryNotice`; key found → restrict an old keychain item to this device (above); then encrypt every
-  plaintext file (coordinated like `SharedStorage`, only replaced if the file is still byte-identical,
-  backup-exclusion flag restored). Every file left plaintext (keychain unreadable, no key possible, failed
-  encryption) is listed in `LaunchOutcome.keptPlain`; `encryptionPending` → Settings › Backup shows
-  `backup_encryption_pending` like Android. Tests: `ProtectedFileTests` (fake keychain, incl. the
-  accessibility migration).
+  `StorageRecoveryNotice`; then seal every plaintext `.unreadable` copy (coordinated like `SharedStorage`, only
+  replaced if the file is still byte-identical, backup-exclusion flag restored) and bring back a `.locked` file the
+  key opens (the meanwhile new file stays as `.replaced`). A plaintext `sealedOnly` file is left alone and reads as
+  damaged. A copy left plaintext (keychain unreadable, no key possible, failed sealing) is listed in
+  `LaunchOutcome.keptPlain` and kept out of the device backup while plain (`PlainBackupExclusion`);
+  `encryptionPending` → Settings › Backup shows `backup_encryption_pending` like Android. Tests: `ProtectedFileTests`
+  (fake keychain), `WatchlistSealedTests`, `SharedStorageTests`.
 * File protection stays the system default (complete until first user authentication).
 
 **Rules for later changes.** Never open an encrypted database with a helper that deletes on corruption; never create
-a key while an encrypted file depends on the stored one; new files with user data go into
-`ProtectedStorage.files` (iOS) or a Room database / a sealed entry like `PortfolioSnapshotSeal` (Android); a
-cache with amounts is rather not written than written in plaintext; a file with the watchlist, holdings, amounts or
-addresses never goes into `xml/backup_rules.xml` (Android 8/8.1 back it up without end-to-end encryption); a schema change keeps working because migrations run
-after the encryption step.
+a key while an encrypted file depends on the stored one; never create a database file or a user-data file without
+encryption; new files with user data go into `ProtectedStorage.files` as `sealedOnly` (iOS) or a Room database / a
+sealed entry like `PortfolioSnapshotSeal` (Android); a cache with amounts is rather not written than written in
+plaintext; a file with the watchlist, holdings, amounts or addresses never goes into `xml/backup_rules.xml`
+(Android 8/8.1 back it up without end-to-end encryption); a schema change needs a version bump plus a migration
+(section 12), which Room runs on the encrypted file.
 
 ## Alarm log (build 80)
 
@@ -2621,6 +2612,36 @@ after the encryption step.
   `PortfolioHistorySource` (Android-bound constructor dependencies).
   Measured in CI: `:data` 57.9 % (from 43.1 %); new gate `coverage_summary.py --min-module data=50` (`MIN_DATA` in
   android.yml) next to the overall logic gate of 58 %.
+* Build 163: compatibility code for earlier builds removed on both platforms (owner decision: no migrations, no
+  fallbacks, nothing from earlier builds stays readable). Settings: no DataStore migrations, legacy keys or downgrade
+  write-back; `UpdateMode` only `SPARSAM`/`LIVE_OFFEN`; `liveIntervalSeconds` and the old backup flags gone; iOS
+  legacy zone background task and its `BGTaskSchedulerPermittedIdentifiers` entry removed. Widgets: no legacy
+  prefs, no plaintext snapshot migration (`PortfolioSnapshotSeal.planRead(sealed, keyReady)`), no App Group defaults
+  leftovers. Portfolio database restarted at version 1 (schema `1.json`, same identity hash), migrations and
+  `LegacyStorageMigration` gone, CSV import keys only in the current form (`legacyKeys`/`shortKey` gone),
+  `overlapLegacy` and its one-time revert and hint gone (string `portfolio_address_overlap_restored` removed).
+  Backups: only v3 (Argon2id); backups and `portfolio.json` carry only `amountText`/`priceText`/`feeText`.
+  Android encryption: no plaintext conversion – `DatabaseEncryptionMigration` → `DatabaseOpenPlanner`,
+  `DatabaseFingerprintDiff` → `DatabaseFingerprint`, `PlaintextMemoryCopy` and `RealDatabaseEncryptionTest` removed;
+  the system-backup copy is encrypted on restore (`DatabaseSystemBackup.adoptRestored`) or, without a key, at the next
+  start before Room opens; string `watchlist_storage_copy_in_memory` (and `strings_restore.xml`) removed. iOS: user
+  files only sealed (`ProtectedStorage` `sealedOnly`, a plain file there counts as damaged), only the `.unreadable`
+  copies may be written plain without a key; portfolio alarms never in `watchlist.json`; keychain items created
+  device-only without a later switch. Start-up clean-ups removed (old cache and report keys, jsDelivr logo folder,
+  `map4`/`names4`, legacy OI key, move-history split, `FallAlarmCleanup`, inverse-perpetual normalisation, VACUUM after
+  `secure_delete`); unused `ActivityAnalyzer.oiChange`/`OiUpdate` removed. Comments describe the current state only
+  (no review IDs, rounds or build history); `line_limit.py` build-number ceiling 0. Docs (this guide's reference
+  part, READMEs, SECURITY, privacy page) describe the current behaviour. Screenshot tour: taps above the action sheet
+  when back does not close it. `demo-backup.json` in the current format.
+  Final pass after an independent review: backups, the restore journal and the portfolio system-backup copy are read
+  strictly (`BackupFields` on both platforms, fixture `backup_entries.json`; `version` a number, every part, settings
+  field and entry field the writer always writes is required, otherwise the whole backup is invalid); indicator and gas
+  alarms treat a missing stored bound as changed; Android storage keys and cache files without version suffixes
+  (notification channels `alarms_vN` keep theirs); string resources moved from `strings_r*`/`dimens_r10_widget` into
+  the area files (`dimens_widgets.xml`); tests renamed by content (no build numbers), `DatabaseMigrationTest` →
+  `DatabaseFreshInstallTest`; `FuturesContractType.normalized`, `smallIdOf` and unused parameters (`dayEndMillis`,
+  `cleanName` symbol, `startQuote` region) removed; parity fixtures without review IDs or history; the «Verlauf»
+  sections of both READMEs removed (history lives here and in the CHANGELOG).
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
@@ -3218,6 +3239,3 @@ Warnings that are not fixed, each with the reason. Everything else is fixed; CI 
   lock); moving them to `OSAllocatedUnfairLock` would need `withLockUnchecked`, the same trust in a different
   spelling. The rest are Apple delegate classes (WatchConnectivity, BGTask) whose callbacks arrive on arbitrary
   threads, and two value boxes holding non-`Sendable` system objects.
-* **Build numbers in comments (6).** `SettingsDataStore` (defaults introduced by builds 42–44), `CsvTransferMatch` and
-  `CsvRestoreState` (CSV state of build 56) and two test fixtures name storage formats of early test versions that the
-  migrations still read; the build number is the precise name of that format.

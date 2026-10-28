@@ -10,9 +10,7 @@ final class StarterPairsTests: XCTestCase {
         XCTAssertEqual(StarterPairs.exchangeKey("us"), "BinanceUs")
         XCTAssertEqual(StarterPairs.exchangeKey("DE"), "Binance")
         XCTAssertEqual(StarterPairs.exchangeKey(nil), "Binance")
-        XCTAssertEqual(StarterPairs.startQuote("CH"), "USDT")
-        XCTAssertEqual(StarterPairs.startQuote("US"), "USDT")
-        XCTAssertEqual(StarterPairs.startQuote(nil), "USDT")
+        XCTAssertEqual(StarterPairs.startQuote(), "USDT")
     }
 
     func testBinanceAndBinanceUs() {
@@ -62,7 +60,6 @@ final class StarterPairsTests: XCTestCase {
         XCTAssertEqual(StarterPairs.exchangeName(StarterPairs.effectiveRegion("DE", binanceBlocked: true)), "Binance.US")
         // Ohne Registry-Namen: Schlüssel (wie Android)
         XCTAssertEqual(StarterPairs.exchangeName("US", name: { _ in nil }), "BinanceUs")
-        XCTAssertEqual(StarterPairs.startQuote("US"), "USDT")
     }
 
     func testFallbackCoins() {

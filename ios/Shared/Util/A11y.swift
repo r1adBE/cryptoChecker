@@ -67,7 +67,7 @@ enum A11y {
         }
     }
 
-    /// Zeitraum ausgeschrieben: «24h» (wie bisher), «Seit 00:00 UTC+8», «Seit 00:00 Ortszeit».
+    /// Zeitraum ausgeschrieben: «24h», «Seit 00:00 UTC+8», «Seit 00:00 Ortszeit».
     static func changeLongLabel(_ basis: ChangeBasis) -> String {
         switch basis.kind {
         case .rolling24h: return L("widget_range_24h")

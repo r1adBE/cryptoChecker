@@ -150,7 +150,7 @@ internal fun LazyItemScope.WatchlistItem(
         }
     }
 
-    // Mini-Chart einer anderen Börse: im Zeilensatz nennen (sichtbar steht es seit L-14 im Aktionsblatt)
+    // Mini-Chart einer anderen Börse: im Zeilensatz nennen (sichtbar steht es im Aktionsblatt)
     val chartSource = remember(sparkline, watch.exchangeKey, watch.lastPrice != null) {
         if (sparkline != null) sparklineSource(watch) else null
     }

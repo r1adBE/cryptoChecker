@@ -247,4 +247,17 @@
     <string name="compare_title">Porovnání</string>
     <string name="compare_basis">Čáry ukazují procentní změnu od začátku období.</string>
     <string name="compare_from_high">vs. max. 30 d</string>
+
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">Neobnovené páry: %1$d – seznam sledovaných je plný</item>
+        <item quantity="few">Neobnovené páry: %1$d – seznam sledovaných je plný</item>
+        <item quantity="many">Neobnovené páry: %1$d – seznam sledovaných je plný</item>
+        <item quantity="other">Neobnovené páry: %1$d – seznam sledovaných je plný</item>
+    </plurals>
+
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Seznam včetně alarmů se teď neukládá. Tato i další změny se po zavření aplikace ztratí. Přesto změnit?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
+    <string name="watchlist_not_saved_confirm_action">Přesto změnit</string>
 </resources>

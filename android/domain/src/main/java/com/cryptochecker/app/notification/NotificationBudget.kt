@@ -6,7 +6,7 @@ import kotlin.math.min
 /**
  * Wie viele Mitteilungen die App gleichzeitig zeigt. Android verwirft ab rund
  * [SYSTEM_LIMIT] offenen Mitteilungen je App jede weitere still — auch Alarme. Darum
- * (Entscheid Oktober 2026): höchstens [MAX_PRICE] Kurs-Mitteilungen einzeln, der Rest in EINER
+ * höchstens [MAX_PRICE] Kurs-Mitteilungen einzeln, der Rest in EINER
  * Sammelmeldung («+N weitere Kurse»); Alarme haben Vorrang — für sie wandern zuerst
  * Kurs-Mitteilungen in die Sammelmeldung. Reines Kotlin.
  */

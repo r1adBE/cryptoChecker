@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Binance-Ticker im Portfolio nur für denselben Token (K-8). Wie `PortfolioPriceIdentityTest.kt`.
+/// Binance-Ticker im Portfolio nur für denselben Token. Wie `PortfolioPriceIdentityTest.kt`.
 final class PortfolioPriceIdentityTests: XCTestCase {
     private let binance = ["LUNA": "Terra", "TON": "Toncoin", "GMT": "STEPN", "HOT": "Holo", "BTC": "Bitcoin"]
 
@@ -15,7 +15,7 @@ final class PortfolioPriceIdentityTests: XCTestCase {
     func testSameOrUnknownNameKeepsBinance() {
         XCTAssertTrue(PortfolioPriceIdentity.binanceTickerAllowed("LUNA", watchName: "Terra 2.0", binanceName: "Terra"))
         XCTAssertTrue(PortfolioPriceIdentity.binanceTickerAllowed("TON", watchName: "The Open Network", binanceName: "Toncoin"))
-        // Ohne Namen in der Merkliste bzw. bei Binance: wie bisher
+        // Ohne Namen in der Merkliste bzw. bei Binance: Kürzel genügt
         XCTAssertTrue(PortfolioPriceIdentity.binanceTickerAllowed("GMT", watchName: nil, binanceName: "STEPN"))
         XCTAssertTrue(PortfolioPriceIdentity.binanceTickerAllowed("GMT", watchName: "GoMining", binanceName: nil))
     }

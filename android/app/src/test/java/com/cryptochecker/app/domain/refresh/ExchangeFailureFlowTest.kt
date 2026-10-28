@@ -30,7 +30,7 @@ class ExchangeFailureFlowTest {
         // Zeitüberschreitung, deren Text zufällig «too many requests» enthält: keine Sperre
         gate.send { Fetched(null, "proxy: too many requests timeout", failure = ExchangeFailure.Timeout) }
         assertNull(gate.blocked)
-        // Ohne Art (gespeicherter Text): wie bisher über die Stichwörter
+        // Ohne Art (gespeicherter Text): über die Stichwörter
         assertEquals(true, SingleRateGate.isRateLimit("EGeneral:Too many requests"))
         assertEquals(false, SingleRateGate.isRateLimit("EGeneral:Too many requests", ExchangeFailure.HttpStatus(404)))
     }

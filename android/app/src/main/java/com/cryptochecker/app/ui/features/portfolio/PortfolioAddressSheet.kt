@@ -234,7 +234,7 @@ internal fun PortfolioAddressSheet(
     }
 
     askRemove?.let { target ->
-        // Was mitgeht, nennen: Eröffnungsposten und Guthaben-Verlauf (vorher still mitgelöscht)
+        // Was mitgeht, nennen: Eröffnungsposten und Guthaben-Verlauf (nicht still mitlöschen)
         val removal = remember(target) { WatchedAddressUndo.removal(target) }
         val alsoRemoved = when {
             removal.lots > 0 && removal.history ->

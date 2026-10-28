@@ -57,7 +57,7 @@ MAX_COMPILER_WARNINGS = 0
 
 # Required Reason APIs (Apple, «Describing use of required reason API»), as they appear in Swift: category -> patterns.
 # Comments are removed before the scan, so a comment naming an API does not count (string-aware:
-# "//" or "/*" inside a string literal opens no comment, SEC4-01).
+# "//" or "/*" inside a string literal opens no comment).
 REQUIRED_REASON_APIS = {
     "NSPrivacyAccessedAPICategorySystemBootTime": (
         r"\bsystemUptime\b", r"\bmach_absolute_time\b", r"kern\.boottime", r"\bKERN_BOOTTIME\b"),
@@ -214,9 +214,9 @@ def binary_hits(binary):
 
 
 def strip_comments(text):
-    """Swift comments (line, nested block) -> spaces, newlines kept (line numbers stay). SEC4-01: a
+    """Swift comments (line, nested block) -> spaces, newlines kept (line numbers stay). A
     small tokenizer: string literals (plain, multi-line, raw #"..."# with escapes and interpolation) are skipped,
-    so "a//b" or "/0/*" no longer hides the code after it. REL5-R1: extended regex literals #/.../#
+    so "a//b" or "/0/*" hides no code after it. Extended regex literals #/.../#
     (any number of #, multi-line when #/ ends the line, spaces/tabs/CR allowed) are skipped too, so #/a//b/# hides nothing. Bare /.../ literals
     are not recognised on purpose: telling them apart from division needs a parser - a wrong guess would blank real
     code. The app builds in Swift 6 mode, where bare /.../ literals are possible; it does not use any - keep using
@@ -256,7 +256,7 @@ def strip_comments(text):
             hashes += 1
             i += 1
         i += 1
-        # Multi-line when only spaces/tabs (and a CR of CRLF) follow #/ up to the line end (REL6-R1)
+        # Multi-line when only spaces/tabs (and a CR of CRLF) follow #/ up to the line end
         j = i
         while j < n and text[j] in " \t":
             j += 1
@@ -402,7 +402,7 @@ def self_test():
         ("// statt `systemUptime` (seit Build 105)\nlet s = clock_gettime_nsec_np(CLOCK_MONOTONIC)", []),
         ("/* mach_absolute_time()\n systemUptime */ let x = 1", []),
         ('let u = "https://example.com" // systemUptime', []),
-        # SEC4-01: comment markers inside strings hide nothing; more FileTimestamp functions
+        # Comment markers inside strings hide nothing; more FileTimestamp functions
         ('let p = "a//b"; let t = ProcessInfo.processInfo.systemUptime', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ('let a = ["/0/*"]\nlet t = ProcessInfo.processInfo.systemUptime\nlet b = "*/"',
          ["NSPrivacyAccessedAPICategorySystemBootTime"]),
@@ -413,7 +413,7 @@ def self_test():
         ("let n = fgetattrlist(fd, &list, buf, size, 0)", ["NSPrivacyAccessedAPICategoryFileTimestamp"],
          {"NSPrivacyAccessedAPITypes": []}),
         ("/* a /* nested */ systemUptime */ let x = 1", []),
-        # REL5-R1: extended regex literals hide nothing; a regex in a comment or string stays inert
+        # Extended regex literals hide nothing; a regex in a comment or string stays inert
         ("let r = #/a//b/#; let t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ("let r = #/https?://x/#; let t = ProcessInfo.processInfo.systemUptime",
          ["NSPrivacyAccessedAPICategorySystemBootTime"]),
@@ -423,7 +423,7 @@ def self_test():
         ("let r = #/x\\/#\"/#; let t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ("// docs/#/en-us mach_absolute_time()\nlet x = 1", []),
         ('let u = "docs/#/en"; let t = mach_absolute_time()', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
-        # REL6-R1: multi-line also with spaces/tabs or CRLF after #/
+        # Multi-line also with spaces/tabs or CRLF after #/
         ("let r = #/ \t\n a /* c\n/#\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ("let r = #/\r\n a /* c\r\n/#\r\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ("let r = #/ \r\n a /* c\n/#\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
@@ -491,7 +491,7 @@ def cmd_app(app, widget, gradle, src, log, out):
     if not os.path.isfile(os.path.join(app, "PrivacyInfo.xcprivacy")):
         add("error", "PrivacyInfo.xcprivacy missing in the app bundle")
     else:
-        # SEC3-01: required-reason APIs in the sources against the manifest in the bundle
+        # Required-reason APIs in the sources against the manifest in the bundle
         privacy_from_files(src, os.path.join(app, "PrivacyInfo.xcprivacy"))
     appex = os.path.join(app, "PlugIns", f"{widget}.appex")
     binaries = [os.path.join(app, str(info.get("CFBundleExecutable", "CryptoChecker")))]

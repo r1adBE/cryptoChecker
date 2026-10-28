@@ -25,7 +25,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.time.LocalDate
-import java.time.ZoneId
 
 /** «Seit Kauf» und Einstand in der Anzeigewährung zum Kurs der Erwerbstage ([PortfolioViewModel.costFx]). */
 internal fun PortfolioViewModel.costFxFlow(): StateFlow<com.cryptochecker.app.domain.portfolio.PortfolioCostFxFigures?> = combine(
@@ -71,7 +70,7 @@ internal fun PortfolioViewModel.widgetDisplayFxFlow(): StateFlow<PortfolioDispla
  * Gewinn/Verlust seit dem Tagesschluss vor [days] Tagen ([PortfolioPeriodChange.gain]). [display]: in der
  * Anzeigewährung mit denselben Tageskursen wie der Wertverlauf ([PortfolioHistoryFx.rateFunction]) — Kopf und Kurve
  * zeigen dieselbe Zahl; als Gegenwert zum heutigen Kurs ([PortfolioHistoryFx.forCard]), weil die Karte Beträge mit
- * dem heutigen Kurs anzeigt. Ohne passende Tageskurse wie bisher USDT (× heutiger Kurs in der Karte).
+ * dem heutigen Kurs anzeigt. Ohne passende Tageskurse USDT (× heutiger Kurs in der Karte).
  */
 internal fun PortfolioViewModel.periodChange(days: Int, display: Boolean): StateFlow<TodayChange?> = combine(
     summary, _closes, calcTransactions, _prices,
@@ -141,7 +140,6 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
     if (converted && viaFx && (fxSeries == null || fxSeries.currency != code || fxSeries.from.isAfter(fxSeriesFrom(txs, range)))) {
         return@combine null
     }
-    val zone = ZoneId.systemDefault()
     // Heute als UTC-Tag: der Verlauf zählt in UTC-Tagen ([PortfolioHistory.build]), wie «7 T/1 J»
     val today = PortfolioHistory.utcToday()
     // Eigene Börse, sonst Binance skaliert — Dochte und Eröffnung mit demselben Faktor wie die Schlüsse
@@ -152,7 +150,6 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
         livePrices = p.prices,
         range = range,
         todayEpochDay = today,
-        dayEndMillis = dayEndIn(zone),
         ranges = routed.ranges,
         // Adress-Guthaben ab ihrer ersten Beobachtung (Wert und Gewinn/Verlust)
         addresses = addresses,

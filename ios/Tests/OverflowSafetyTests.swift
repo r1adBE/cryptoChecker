@@ -17,20 +17,22 @@ final class OverflowSafetyTests: XCTestCase {
         XCTAssertGreaterThan(now + SafeMillis.minutes(Int.max), now)
     }
 
-    func testBackupWithHugeSettingsRestoresClamped() {
-        let backup: [String: Any] = [
+    func testBackupWithHugeSettingsRestoresClamped() throws {
+        let backup = TestSupport.settingsBackup(AppSettings(), [
             "backgroundIntervalMinutes": NSNumber(value: Int64.max),
             "alarmCooldownMinutes": NSNumber(value: Int64.max),
-        ]
-        let s = BackupManager.applySettings(backup, onto: AppSettings())
+        ])
+        let s = try BackupManager.applySettings(backup, onto: AppSettings())
         XCTAssertEqual(s.backgroundIntervalMinutes, AppSettings.maxBackgroundIntervalMinutes)
         XCTAssertEqual(s.alarmCooldownMinutes, AppSettings.maxAlarmCooldownMinutes)
         // Untergrenzen bleiben
-        let low = BackupManager.applySettings(["backgroundIntervalMinutes": 1, "alarmCooldownMinutes": -5], onto: AppSettings())
+        let low = try BackupManager.applySettings(
+            TestSupport.settingsBackup(AppSettings(), ["backgroundIntervalMinutes": 1, "alarmCooldownMinutes": -5]), onto: AppSettings())
         XCTAssertEqual(low.backgroundIntervalMinutes, AppSettings.minBackgroundIntervalMinutes)
         XCTAssertEqual(low.alarmCooldownMinutes, 0)
         // Werte der Auswahl bleiben unverändert
-        let kept = BackupManager.applySettings(["backgroundIntervalMinutes": 60, "alarmCooldownMinutes": 15], onto: AppSettings())
+        let kept = try BackupManager.applySettings(
+            TestSupport.settingsBackup(AppSettings(), ["backgroundIntervalMinutes": 60, "alarmCooldownMinutes": 15]), onto: AppSettings())
         XCTAssertEqual(kept.backgroundIntervalMinutes, 60)
         XCTAssertEqual(kept.alarmCooldownMinutes, 15)
     }
@@ -49,7 +51,7 @@ final class OverflowSafetyTests: XCTestCase {
     }
 
     func testTimeRulesDoNotTrapOnHugeValues() {
-        // Planung beim Start (früher Absturz bei jedem Start)
+        // Planung beim Start (sonst Absturz bei jedem Start)
         let begin = RefreshSchedule.earliestBegin(lastRunMillis: now - 1_000, intervalMinutes: Int.max, now: now)
         XCTAssertGreaterThan(begin.timeIntervalSince1970, TimeInterval(now) / 1000)
         _ = RefreshSchedule.nextBegin(lastRunMillis: now, intervalMinutes: Int.max, zoneLastRunMillis: now, now: now)
