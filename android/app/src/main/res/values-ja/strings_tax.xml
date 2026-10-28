@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">自分のウォレット間の振替で USDT または法定通貨で払った手数料も同様です：取得原価には加えず、参考情報としてのみ表示します。</string>
     <string name="tax_note_uk">HMRC に基づく対応付け：同日、次に翌30日間、次に Section 104 に基づく合算保有（Section 104 pool）。</string>
     <string name="tax_note_us_transition">2025年1月1日の移行（Rev. Proc. 2024-28、セーフハーバー）：過去の年が全ウォレット共通のFIFOだった場合、2024年12月31日時点の残りのロットはコインを保有するウォレットに配分され、最も古いコインを持つウォレットが最も古い取得原価を受け取ります。この配分はアプリ独自のルールです。ご自身の記録と照合してください。</string>
-    <string name="tax_note_us_wallet">2025 課税年度から IRS はウォレット/取引所ごとの取得原価を求めています（Rev. Proc. 2024-28）– エクスポートは 2025 年以降ウォレットごとの FIFO で計算します – 2025 年より前は設定した取得原価の計算方法が適用されます。</string>
+    <string name="tax_note_us_wallet">2025 課税年度から IRS はウォレット/取引所ごとの取得原価を求めています（Rev. Proc. 2024-28）– エクスポートは 2025 年以降ウォレットごとの FIFO で計算します – 2025 年より前はすべてのウォレットをまとめた FIFO、取得原価の計算方法がウォレットごとの FIFO の場合はウォレットごとの FIFO で計算します。</string>
     <string name="tax_note_withdrawal_fee">USDT または法定通貨の出庫手数料は損失ではありません：法定通貨の手数料は控除できず、USDT の手数料は額面での譲渡で利益はありません – 参考情報としてのみ表示します（%1$s）。</string>
     <string name="tax_summary_at_interest_income">算入：受取時に特別税率 27.5パーセントの所得（§ 27b 第2項第1号 EStG / BMF）– コインはこの価値を取得原価として保持します</string>
     <string name="tax_summary_at_reward_info">参考情報のみ – どの合計にも含まれません：報酬は取得原価 0 で新保有分に入り、売却時にのみ課税されます（利益に含まれ済み）– § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">監視中のアドレスは総額に含まれますが、取得原価がありません。そのため利益は高めに出ている可能性があります。取得原価を購入として記録してください。</string>
+    <string name="tax_summary_fr_rewards_income">この金額は、報酬が受領時に所得として課税されたことを前提としています（受領時の価額を取得価額に算入）– そうでない場合は、取得価額 0 とするのが慎重な解釈です。</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">価格の記録がない時価（手数料、贈与/支払い、交換、報酬、ネットワーク手数料、ポートフォリオ総額）は取引日の終値（UTC）</string>

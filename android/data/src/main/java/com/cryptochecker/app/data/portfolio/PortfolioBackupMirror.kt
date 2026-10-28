@@ -7,6 +7,7 @@ import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
@@ -17,6 +18,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
+import java.math.BigDecimal
 
 /**
  * Schalter «Portfolio in Systemsicherung» (Android).
@@ -246,28 +248,30 @@ object PortfolioBackupMirror {
         val content = parse(text)
         val txs = content.txs
         val alarms = content.alarms
-        // Spalten und Speicherform wie Room: Enums als Name, Boolean als 0/1, Dezimalzahlen als Text
-        // ([PortfolioDecimalConverters]; ein BigDecimal würde sonst als ganze Zahl gebunden)
-        val decimals = PortfolioDecimalConverters()
+        // Spalten und Speicherform wie Room: Enums als Name, Boolean als 0/1, Dezimalzahlen als Text (ein BigDecimal
+        // würde sonst als ganze Zahl gebunden) — Mengen, Gebühren und Werte auf 18 Nachkommastellen wie [cleanForSave],
+        // Preise wie [PortfolioDecimalConverters]
+        val amountText = { v: BigDecimal? -> v?.let { PortfolioDecimal.text(it) } }
+        val prices = PortfolioDecimalConverters()
         val restoreStates = PortfolioRestoreStateConverters()
         txs.forEach { t ->
             db.execSQL(
                 "INSERT OR REPLACE INTO `portfolio_tx` (`id`, `coin`, `type`, `amount`, `priceUsdt`, `time`, `note`, " +
                     "`fee`, `feeUnit`, `exchange`, `transferFrom`, `transferTo`, `feeCoin`, `feeCoinAmount`, " +
                     "`feeCoinPriceUsdt`, `importKey`, `acquiredTime`, `toCoin`, `toAmount`, `swapValueUsdt`, `importBatch`, " +
-                    "`giftToSpouse`, `linkedImportKey`, `importRestoreState`, `feeRow`, `interest`) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "`giftToSpouse`, `linkedImportKey`, `importRestoreState`, `feeRow`, `interest`, `stakingMove`) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 arrayOf<Any?>(
-                    t.id.takeIf { keepIds && it > 0 }, t.coin, t.type.name, decimals.toText(t.amount), decimals.toText(t.priceUsdt),
-                    t.time, t.note, decimals.toText(t.fee), t.feeUnit, t.exchange,
-                    t.transferFrom, t.transferTo, t.feeCoin, decimals.toText(t.feeCoinAmount), decimals.toText(t.feeCoinPriceUsdt),
+                    t.id.takeIf { keepIds && it > 0 }, t.coin, t.type.name, amountText(t.amount), prices.toText(t.priceUsdt),
+                    t.time, t.note, amountText(t.fee), t.feeUnit, t.exchange,
+                    t.transferFrom, t.transferTo, t.feeCoin, amountText(t.feeCoinAmount), prices.toText(t.feeCoinPriceUsdt),
                     t.importKey, t.acquiredTime,
                     // Tausch und Importlauf
-                    t.toCoin, decimals.toText(t.toAmount), decimals.toText(t.swapValueUsdt), t.importBatch,
+                    t.toCoin, amountText(t.toAmount), amountText(t.swapValueUsdt), t.importBatch,
                     // Partner-Merker und Verknüpfung
                     if (t.giftToSpouse) 1L else 0L, t.linkedImportKey, restoreStates.toText(t.importRestoreState),
-                    // Gebühr-Zeile und Zins
-                    if (t.feeRow) 1L else 0L, if (t.interest) 1L else 0L,
+                    // Gebühr-Zeile, Zins und Staking-Umbuchung
+                    if (t.feeRow) 1L else 0L, if (t.interest) 1L else 0L, if (t.stakingMove) 1L else 0L,
                 ),
             )
         }

@@ -34,6 +34,7 @@ internal fun PortfolioTxEntity.toStoredMove(): CsvStoredMove? {
         exchange = exchange,
         importBatch = importBatch,
         linkedImportKey = linkedImportKey,
+        stakingMove = stakingMove && type == PortfolioTxType.TRANSFER,
     )
 }
 
@@ -60,4 +61,5 @@ internal fun CsvImportTx.toEntity() = PortfolioTxEntity(
     // Gebühr-Zeile und Zins (eigene Merker)
     feeRow = feeRow,
     interest = interest,
+    stakingMove = stakingMove,
 )

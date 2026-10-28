@@ -13,6 +13,7 @@ import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
 import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.portfolio.AddressAlarmState
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
+import com.cryptochecker.app.domain.portfolio.AddressBooked
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioChange
@@ -201,7 +202,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
         val settings = settingsRepository.current()
         val basis = settings.changeBasis.storage
         // Beobachtete Adress-Guthaben: zählen in Heute, 7 T / 30 T / 1 J und im 24-h-Verlauf erst ab ihrer
-        // ersten Beobachtung (nie rückwirkend); Fehler → ohne (dann nur der eigene Bestand)
+        // ersten Beobachtung (nie rückwirkend) und ohne das schon Gebuchte (wie die Karte, [AddressBooked]);
+        // Fehler → ohne (dann nur der eigene Bestand)
         val watched = try {
             repository.getWatchedAddresses()
         } catch (e: CancellationException) {
@@ -209,7 +211,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
         } catch (e: Exception) {
             emptyList()
         }
-        val addresses = AddressBalanceHistory.of(watched)
+        val addresses = AddressBooked.histories(watched, transactions.map { it.toTrade() })
         // Zählende Adressen ohne je geladenes Guthaben: fehlen im Gesamtwert — Portfolio-Alarme prüfen dann nicht (seit über
         // 24 h scheiternde rechnen sie ohne); nicht bestätigte Token-Guthaben gelten wie ein alter Kurs
         val addressState = AddressAlarmState.of(watched, System.currentTimeMillis())
@@ -287,7 +289,7 @@ class PortfolioSnapshotUpdater @Inject constructor(
                     unrealizedDisplay = PortfolioDisplayFigures.unrealized(summary.open, code, rate, memo),
                     displayFx = memo,
                 )
-                // «Heute»: eigener Bestand + zuletzt beobachtetes Adress-Guthaben; die Reihe rechnet Änderungen
+                // «Heute»: Bestand der Karte (eigener samt Posten + Adress-Teil); die Reihe rechnet Änderungen
                 // seit Beginn der %-Basis als Zu-/Abfluss heraus (nie rückwirkend)
                 .withHonestToday(
                     transactions, todayHoldings(summary.open, addresses),

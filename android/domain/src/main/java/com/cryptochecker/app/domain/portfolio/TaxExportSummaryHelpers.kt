@@ -89,6 +89,32 @@ fun TaxExport.frOutflowLine(
 }
 
 /**
+ * FR: Kaufdaten der Herkunft ([TaxOutflow.ptaReductionParts]) der Abgänge ohne Verkauf im Jahr [period] — die Kürzung
+ * wird zu ihren Kursen umgerechnet ([frOutflowLine]), also braucht die Devisenspanne ([TaxExport.fxSpan]) sie auch in
+ * einem Jahr ohne Abtretung. Andere Methoden: leer.
+ */
+fun TaxExport.frOutflowTimes(
+    trades: List<PortfolioTrade>,
+    method: TaxMethod,
+    period: TaxPeriod,
+    zone: ZoneId,
+    priceAt: ((String, Long) -> BigDecimal?)?,
+): List<Long> =
+    if (method != TaxMethod.FR_PTA) emptyList()
+    else TaxEngines.outflows(trades.filter { it.amount.signum() > 0 }, method, priceAt)
+        .filter { localDate(it.time, zone) in period }
+        .flatMap { it.ptaReductionParts.timeBounds() }
+
+/**
+ * FR: Belohnungen mit Erwerb bis zum Ende von [period] — sie stecken zum Wert beim Erhalt in der Erwerbspreis-Summe
+ * ([TaxSummaryNote.FR_REWARDS_INCOME]).
+ */
+fun TaxExport.frRewards(trades: List<PortfolioTrade>, zone: ZoneId, period: TaxPeriod): Boolean =
+    trades.any { t ->
+        t.type == PortfolioTxType.REWARD && t.amount.signum() > 0 && !localDate(t.acquisitionTime, zone).isAfter(period.end)
+    }
+
+/**
  * AT: Belohnungen (ohne Zinsen) mit Erwerb vom 1.3.2021 bis 28.2.2022 bis zum Ende von [period] — sie stecken mit
  * Anschaffungskosten 0 im Neubestand ([TaxSummaryNote.AT_STAKING_ZERO_COST]).
  */

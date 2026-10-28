@@ -372701,187 +372701,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اعتبارًا من السنة الضريبية 2025 تطلب IRS تكلفة الشراء لكل wallet/منصة (Rev. Proc. 2024-28) – ويستخدم التصدير FIFO لكل wallet من 2025 – وقبل 2025 تنطبق طريقة حساب تكلفة الشراء الخاصة بك."
+            "value" : "اعتبارًا من السنة الضريبية 2025 تطلب IRS تكلفة الشراء لكل wallet/منصة (Rev. Proc. 2024-28) – ويستخدم التصدير FIFO لكل wallet من 2025 – وقبل 2025 يستخدم FIFO عبر كل المحافظ، أو FIFO لكل wallet إذا كانت هذه طريقة حساب تكلفة الشراء الخاصة بك."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Od zdaňovacího roku 2025 vyžaduje IRS pořizovací cenu zvlášť pro peněženku/burzu (Rev. Proc. 2024-28) – export počítá od roku 2025 FIFO zvlášť pro peněženku – předtím platí tvá metoda pořizovací ceny."
+            "value" : "Od zdaňovacího roku 2025 vyžaduje IRS pořizovací cenu zvlášť pro peněženku/burzu (Rev. Proc. 2024-28) – export počítá od roku 2025 FIFO zvlášť pro peněženku – předtím FIFO přes všechny peněženky, nebo FIFO zvlášť pro peněženku, pokud je to tvá metoda pořizovací ceny."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fra skatteåret 2025 kræver IRS anskaffelsespris pr. wallet/børs (Rev. Proc. 2024-28) – eksporten bruger FIFO pr. wallet fra 2025 – før 2025 gælder din anskaffelsesprismetode."
+            "value" : "Fra skatteåret 2025 kræver IRS anskaffelsespris pr. wallet/børs (Rev. Proc. 2024-28) – eksporten bruger FIFO pr. wallet fra 2025 – før 2025 FIFO på tværs af alle wallets, eller FIFO pr. wallet, hvis det er din anskaffelsesprismetode."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ab Steuerjahr 2025 verlangt die IRS den Einstand je Wallet/Börse (Rev. Proc. 2024-28) – der Export rechnet ab 2025 FIFO je Wallet – davor gilt deine Einstandsmethode."
+            "value" : "Ab Steuerjahr 2025 verlangt die IRS den Einstand je Wallet/Börse (Rev. Proc. 2024-28) – der Export rechnet ab 2025 FIFO je Wallet – davor FIFO über alle Wallets, oder FIFO je Wallet, wenn das deine Einstandsmethode ist."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Από το φορολογικό έτος 2025 η IRS απαιτεί κόστος κτήσης ανά πορτοφόλι/ανταλλακτήριο (Rev. Proc. 2024-28) – η εξαγωγή χρησιμοποιεί FIFO ανά πορτοφόλι από το 2025 – πριν από το 2025 ισχύει η μέθοδος κόστους κτήσης σου."
+            "value" : "Από το φορολογικό έτος 2025 η IRS απαιτεί κόστος κτήσης ανά πορτοφόλι/ανταλλακτήριο (Rev. Proc. 2024-28) – η εξαγωγή χρησιμοποιεί FIFO ανά πορτοφόλι από το 2025 – πριν από το 2025 FIFO σε όλα τα πορτοφόλια, ή FIFO ανά πορτοφόλι, αν αυτή είναι η μέθοδος κόστους κτήσης σου."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "From tax year 2025 the IRS requires cost basis per wallet or exchange (Rev. Proc. 2024-28): the export uses FIFO per wallet from 2025 and your cost method for earlier years."
+            "value" : "From tax year 2025 the IRS requires cost basis per wallet or exchange (Rev. Proc. 2024-28): the export uses FIFO per wallet from 2025 – for earlier years FIFO across all wallets, or FIFO per wallet if that is your cost method."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desde el ejercicio fiscal 2025 el IRS exige el coste de adquisición por wallet/exchange (Rev. Proc. 2024-28) – la exportación usa FIFO por wallet desde 2025 – antes de 2025 se aplica tu método del coste de adquisición."
+            "value" : "Desde el ejercicio fiscal 2025 el IRS exige el coste de adquisición por wallet/exchange (Rev. Proc. 2024-28) – la exportación usa FIFO por wallet desde 2025 – antes de 2025 FIFO sobre todos los wallets, o FIFO por wallet si ese es tu método del coste de adquisición."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "از سال مالیاتی 2025 IRS بهای تمام‌شده را برای هر کیف پول/صرافی می‌خواهد (Rev. Proc. 2024-28) – خروجی از 2025 FIFO برای هر کیف پول حساب می‌کند – پیش از 2025 روش محاسبهٔ بهای تمام‌شدهٔ تو اعمال می‌شود."
+            "value" : "از سال مالیاتی 2025 IRS بهای تمام‌شده را برای هر کیف پول/صرافی می‌خواهد (Rev. Proc. 2024-28) – خروجی از 2025 FIFO برای هر کیف پول حساب می‌کند – پیش از 2025 FIFO روی همهٔ کیف پول‌ها، یا FIFO برای هر کیف پول اگر این روش محاسبهٔ بهای تمام‌شدهٔ تو باشد."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verovuodesta 2025 IRS vaatii hankintahinnan lompakoittain/pörsseittäin (Rev. Proc. 2024-28) – vienti laskee FIFO:n lompakoittain vuodesta 2025 – sitä ennen pätee oma hankintahinnan laskentatapasi."
+            "value" : "Verovuodesta 2025 IRS vaatii hankintahinnan lompakoittain/pörsseittäin (Rev. Proc. 2024-28) – vienti laskee FIFO:n lompakoittain vuodesta 2025 – sitä ennen FIFO kaikkien lompakoiden yli, tai FIFO lompakoittain, jos se on hankintahinnan laskentatapasi."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "À partir de l’année fiscale 2025 l’IRS exige le coût de revient par wallet/plateforme (Rev. Proc. 2024-28) – l’export applique FIFO par wallet dès 2025 – avant 2025 ta méthode du coût de revient s’applique."
+            "value" : "À partir de l’année fiscale 2025 l’IRS exige le coût de revient par wallet/plateforme (Rev. Proc. 2024-28) – l’export applique FIFO par wallet dès 2025 – avant 2025 FIFO sur tous les wallets, ou FIFO par wallet si c’est ta méthode du coût de revient."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "החל משנת המס 2025 ה-IRS דורש עלות רכישה לפי ארנק/בורסה (Rev. Proc. 2024-28) – הייצוא מחשב FIFO לפי ארנק מ-2025 – לפני 2025 חלה שיטת חישוב עלות הרכישה שלך."
+            "value" : "החל משנת המס 2025 ה-IRS דורש עלות רכישה לפי ארנק/בורסה (Rev. Proc. 2024-28) – הייצוא מחשב FIFO לפי ארנק מ-2025 – לפני 2025 FIFO על כל הארנקים יחד, או FIFO לפי ארנק אם זו שיטת חישוב עלות הרכישה שנבחרה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "कर वर्ष 2025 से IRS हर वॉलेट/एक्सचेंज के लिए लागत माँगता है (Rev. Proc. 2024-28) – एक्सपोर्ट 2025 से हर वॉलेट के लिए FIFO लगाता है – 2025 से पहले तुम्हारी लागत पद्धति लागू होती है।"
+            "value" : "कर वर्ष 2025 से IRS हर वॉलेट/एक्सचेंज के लिए लागत माँगता है (Rev. Proc. 2024-28) – एक्सपोर्ट 2025 से हर वॉलेट के लिए FIFO लगाता है – 2025 से पहले सभी वॉलेट पर एक साथ FIFO, या हर वॉलेट के लिए FIFO अगर वही तुम्हारी लागत पद्धति है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A 2025-ös adóévtől az IRS tárcánként/tőzsdénként kéri a bekerülési értéket (Rev. Proc. 2024-28) – az export 2025-től tárcánkénti FIFO-val számol – előtte a te bekerülési érték módszered érvényes."
+            "value" : "A 2025-ös adóévtől az IRS tárcánként/tőzsdénként kéri a bekerülési értéket (Rev. Proc. 2024-28) – az export 2025-től tárcánkénti FIFO-val számol – előtte az összes tárcára együtt FIFO, vagy tárcánkénti FIFO, ha ez a te bekerülési érték módszered."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mulai tahun pajak 2025 IRS mewajibkan biaya perolehan per dompet/bursa (Rev. Proc. 2024-28) – ekspor memakai FIFO per dompet mulai 2025 – sebelum 2025 berlaku metode biaya perolehanmu."
+            "value" : "Mulai tahun pajak 2025 IRS mewajibkan biaya perolehan per dompet/bursa (Rev. Proc. 2024-28) – ekspor memakai FIFO per dompet mulai 2025 – sebelum 2025 FIFO atas semua dompet, atau FIFO per dompet jika itu metode biaya perolehanmu."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dall’anno fiscale 2025 l’IRS richiede il costo di carico per wallet/exchange (Rev. Proc. 2024-28) – l’export usa FIFO per wallet dal 2025 – prima del 2025 vale il tuo metodo del costo di carico."
+            "value" : "Dall’anno fiscale 2025 l’IRS richiede il costo di carico per wallet/exchange (Rev. Proc. 2024-28) – l’export usa FIFO per wallet dal 2025 – prima del 2025 FIFO su tutti i wallet, oppure FIFO per wallet se è il tuo metodo del costo di carico."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025 課税年度から IRS はウォレット/取引所ごとの取得原価を求めています（Rev. Proc. 2024-28）– エクスポートは 2025 年以降ウォレットごとの FIFO で計算します – 2025 年より前は設定した取得原価の計算方法が適用されます。"
+            "value" : "2025 課税年度から IRS はウォレット/取引所ごとの取得原価を求めています（Rev. Proc. 2024-28）– エクスポートは 2025 年以降ウォレットごとの FIFO で計算します – 2025 年より前はすべてのウォレットをまとめた FIFO、取得原価の計算方法がウォレットごとの FIFO の場合はウォレットごとの FIFO で計算します。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025 과세연도부터 IRS는 지갑/거래소별 매입 원가를 요구합니다(Rev. Proc. 2024-28) – 내보내기는 2025년부터 지갑별 FIFO로 계산합니다 – 2025년 이전에는 설정한 매입 원가 계산 방식이 적용됩니다."
+            "value" : "2025 과세연도부터 IRS는 지갑/거래소별 매입 원가를 요구합니다(Rev. Proc. 2024-28) – 내보내기는 2025년부터 지갑별 FIFO로 계산합니다 – 2025년 이전에는 모든 지갑을 합친 FIFO로, 매입 원가 계산 방식이 지갑별 FIFO이면 지갑별 FIFO로 계산합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fra skatteåret 2025 krever IRS inngangsverdi per wallet/børs (Rev. Proc. 2024-28) – eksporten bruker FIFO per wallet fra 2025 – før 2025 gjelder din metode for inngangsverdi."
+            "value" : "Fra skatteåret 2025 krever IRS inngangsverdi per wallet/børs (Rev. Proc. 2024-28) – eksporten bruker FIFO per wallet fra 2025 – før 2025 FIFO på tvers av alle wallets, eller FIFO per wallet hvis det er din metode for inngangsverdi."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vanaf belastingjaar 2025 eist de IRS de kostprijs per wallet/beurs (Rev. Proc. 2024-28) – de export rekent vanaf 2025 FIFO per wallet – daarvoor geldt je kostprijsmethode."
+            "value" : "Vanaf belastingjaar 2025 eist de IRS de kostprijs per wallet/beurs (Rev. Proc. 2024-28) – de export rekent vanaf 2025 FIFO per wallet – daarvoor FIFO over alle wallets, of FIFO per wallet als dat je kostprijsmethode is."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Od roku podatkowego 2025 IRS wymaga kosztu nabycia osobno dla walleta/giełdy (Rev. Proc. 2024-28) – eksport liczy FIFO osobno dla walleta od 2025 – wcześniej obowiązuje twoja metoda kosztu nabycia."
+            "value" : "Od roku podatkowego 2025 IRS wymaga kosztu nabycia osobno dla walleta/giełdy (Rev. Proc. 2024-28) – eksport liczy FIFO osobno dla walleta od 2025 – wcześniej FIFO łącznie dla wszystkich walletów albo FIFO osobno dla walleta, jeśli to twoja metoda kosztu nabycia."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A partir do ano fiscal de 2025 o IRS exige o custo de aquisição por carteira/corretora (Rev. Proc. 2024-28) – a exportação usa FIFO por carteira a partir de 2025 – antes de 2025 aplica-se o teu método do custo de aquisição."
+            "value" : "A partir do ano fiscal de 2025 o IRS exige o custo de aquisição por carteira/corretora (Rev. Proc. 2024-28) – a exportação usa FIFO por carteira a partir de 2025 – antes de 2025 FIFO em todas as carteiras, ou FIFO por carteira se esse for o teu método do custo de aquisição."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A partir do ano fiscal de 2025 o IRS exige o custo de aquisição por carteira/corretora (Rev. Proc. 2024-28) – a exportação usa FIFO por carteira a partir de 2025 – antes de 2025 vale o seu método do custo de aquisição."
+            "value" : "A partir do ano fiscal de 2025 o IRS exige o custo de aquisição por carteira/corretora (Rev. Proc. 2024-28) – a exportação usa FIFO por carteira a partir de 2025 – antes de 2025 FIFO em todas as carteiras, ou FIFO por carteira se esse for o seu método do custo de aquisição."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Din anul fiscal 2025 IRS cere costul de achiziție pe wallet/bursă (Rev. Proc. 2024-28) – exportul folosește FIFO pe wallet din 2025 – înainte de 2025 se aplică metoda ta a costului de achiziție."
+            "value" : "Din anul fiscal 2025 IRS cere costul de achiziție pe wallet/bursă (Rev. Proc. 2024-28) – exportul folosește FIFO pe wallet din 2025 – înainte de 2025 FIFO pe toate wallet-urile, sau FIFO pe wallet dacă aceasta este metoda ta a costului de achiziție."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "С 2025 налогового года IRS требует стоимость покупки по каждому кошельку/бирже (Rev. Proc. 2024-28) – экспорт с 2025 года считает FIFO по кошельку – до 2025 года действует твой метод расчёта стоимости покупки."
+            "value" : "С 2025 налогового года IRS требует стоимость покупки по каждому кошельку/бирже (Rev. Proc. 2024-28) – экспорт с 2025 года считает FIFO по кошельку – до 2025 года FIFO по всем кошелькам вместе или FIFO по кошельку, если это твой метод расчёта стоимости покупки."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nga viti tatimor 2025 IRS kërkon koston e blerjes për çdo wallet/bursë (Rev. Proc. 2024-28) – eksporti përdor FIFO për wallet nga 2025 – para 2025 vlen metoda jote e kostos së blerjes."
+            "value" : "Nga viti tatimor 2025 IRS kërkon koston e blerjes për çdo wallet/bursë (Rev. Proc. 2024-28) – eksporti përdor FIFO për wallet nga 2025 – para 2025 FIFO për të gjitha wallet-et bashkë, ose FIFO për wallet nëse kjo është metoda jote e kostos së blerjes."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Från beskattningsåret 2025 kräver IRS anskaffningsvärde per wallet/börs (Rev. Proc. 2024-28) – exporten räknar FIFO per wallet från 2025 – före 2025 gäller din metod för anskaffningsvärde."
+            "value" : "Från beskattningsåret 2025 kräver IRS anskaffningsvärde per wallet/börs (Rev. Proc. 2024-28) – exporten räknar FIFO per wallet från 2025 – före 2025 FIFO över alla wallets, eller FIFO per wallet om det är din metod för anskaffningsvärde."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ตั้งแต่ปีภาษี 2025 IRS กำหนดให้คิดต้นทุนแยกตามวอลเล็ต/กระดานเทรด (Rev. Proc. 2024-28) – การส่งออกใช้ FIFO แยกตามวอลเล็ตตั้งแต่ปี 2025 – ก่อนปี 2025 ใช้วิธีคิดต้นทุนของคุณ"
+            "value" : "ตั้งแต่ปีภาษี 2025 IRS กำหนดให้คิดต้นทุนแยกตามวอลเล็ต/กระดานเทรด (Rev. Proc. 2024-28) – การส่งออกใช้ FIFO แยกตามวอลเล็ตตั้งแต่ปี 2025 – ก่อนปี 2025 ใช้ FIFO รวมทุกวอลเล็ต หรือ FIFO แยกตามวอลเล็ตหากวิธีคิดต้นทุนที่ตั้งไว้เป็นแบบนั้น"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "2025 vergi yılından itibaren IRS cüzdan/borsa bazında maliyet istiyor (Rev. Proc. 2024-28) – dışa aktarma 2025’ten itibaren cüzdan bazında FIFO kullanır – 2025 öncesinde senin maliyet yöntemin geçerlidir."
+            "value" : "2025 vergi yılından itibaren IRS cüzdan/borsa bazında maliyet istiyor (Rev. Proc. 2024-28) – dışa aktarma 2025’ten itibaren cüzdan bazında FIFO kullanır – 2025 öncesinde tüm cüzdanlar genelinde FIFO, maliyet yöntemin cüzdan bazında FIFO ise cüzdan bazında FIFO kullanılır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "З 2025 податкового року IRS вимагає вартість купівлі за кожним гаманцем/біржею (Rev. Proc. 2024-28) – експорт з 2025 року рахує FIFO за гаманцем – до 2025 року діє твій метод розрахунку вартості купівлі."
+            "value" : "З 2025 податкового року IRS вимагає вартість купівлі за кожним гаманцем/біржею (Rev. Proc. 2024-28) – експорт з 2025 року рахує FIFO за гаманцем – до 2025 року FIFO за всіма гаманцями разом або FIFO за гаманцем, якщо це твій метод розрахунку вартості купівлі."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Từ năm thuế 2025 IRS yêu cầu giá vốn theo từng ví/sàn (Rev. Proc. 2024-28) – bản xuất dùng FIFO theo từng ví từ 2025 – trước 2025 áp dụng phương pháp tính giá vốn của bạn."
+            "value" : "Từ năm thuế 2025 IRS yêu cầu giá vốn theo từng ví/sàn (Rev. Proc. 2024-28) – bản xuất dùng FIFO theo từng ví từ 2025 – trước 2025 dùng FIFO chung cho mọi ví, hoặc FIFO theo từng ví nếu đó là phương pháp tính giá vốn của bạn."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自 2025 纳税年度起 IRS 要求按钱包/交易所计算成本（Rev. Proc. 2024-28）——导出自 2025 年起按钱包使用 FIFO——2025 年之前适用你设置的成本计算方法。"
+            "value" : "自 2025 纳税年度起 IRS 要求按钱包/交易所计算成本（Rev. Proc. 2024-28）——导出自 2025 年起按钱包使用 FIFO——2025 年之前对所有钱包合并使用 FIFO；若设置的成本计算方法为按钱包 FIFO，则按钱包使用 FIFO。"
           }
         }
       }
@@ -375365,6 +375365,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "观察地址计入总价值，但没有购入成本——因此收益可能偏高。请将成本记录为买入。"
+          }
+        }
+      }
+    },
+    "tax_summary_fr_rewards_income" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يفترض المبلغ أن المكافآت خضعت للضريبة كدخل عند استلامها (القيمة عند الاستلام ضمن تكلفة الاقتناء) – وإلا فإن تكلفة اقتناء 0 هي القراءة الأكثر حذرًا."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Částka předpokládá, že odměny byly zdaněny jako příjem při obdržení (hodnota při obdržení v pořizovací ceně) – jinak by opatrnější výklad byl pořizovací cena 0."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beløbet forudsætter, at belønninger blev beskattet som indkomst ved modtagelsen (værdi ved modtagelse i anskaffelsessummen) – ellers ville anskaffelsessum 0 være den forsigtige læsning."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Betrag nimmt an, dass Belohnungen beim Erhalt als Einkommen versteuert wurden (Wert beim Erhalt im Erwerbspreis) – sonst wäre Erwerbspreis 0 die vorsichtige Lesart."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το ποσό προϋποθέτει ότι οι ανταμοιβές φορολογήθηκαν ως εισόδημα κατά τη λήψη (αξία κατά τη λήψη στο κόστος κτήσης) – αλλιώς η προσεκτική ανάγνωση θα ήταν κόστος κτήσης 0."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The amount assumes rewards were taxed as income when received (value on receipt in the acquisition cost) – otherwise acquisition cost 0 would be the cautious reading."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El importe supone que las recompensas tributaron como ingreso al recibirlas (valor al recibirlas en el coste de adquisición) – si no, la lectura prudente sería coste de adquisición 0."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این مبلغ فرض می‌کند پاداش‌ها هنگام دریافت به‌عنوان درآمد مشمول مالیات شده‌اند (ارزش هنگام دریافت در بهای تمام‌شده) – در غیر این صورت بهای تمام‌شدهٔ 0 برداشت محتاطانه‌تر است."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Summa olettaa, että palkkiot verotettiin tulona vastaanotettaessa (arvo vastaanotettaessa hankintamenossa) – muuten varovainen tulkinta olisi hankintameno 0."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le montant suppose que les récompenses ont été imposées comme revenu à la réception (valeur à la réception dans le prix d’acquisition) – sinon, la lecture prudente serait un prix d’acquisition de 0."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסכום מניח שהתגמולים חויבו במס כהכנסה בעת קבלתם (השווי בעת הקבלה בעלות הרכישה) – אחרת, הקריאה הזהירה היא עלות רכישה 0."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "यह राशि मानती है कि रिवॉर्ड मिलने पर आय के रूप में कर लगा था (मिलने के समय का मूल्य अधिग्रहण लागत में) – वरना सावधान व्याख्या अधिग्रहण लागत 0 होती।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az összeg feltételezi, hogy a jutalmakat megszerzéskor jövedelemként adóztatták (a megszerzéskori érték a beszerzési értékben) – különben az óvatos olvasat 0 beszerzési érték lenne."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jumlah ini mengasumsikan hadiah dikenai pajak sebagai penghasilan saat diterima (nilai saat diterima dalam biaya perolehan) – jika tidak, biaya perolehan 0 adalah tafsiran yang hati-hati."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’importo presuppone che le ricompense siano state tassate come reddito al ricevimento (valore al ricevimento nel costo d’acquisto) – altrimenti la lettura prudente sarebbe costo d’acquisto 0."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この金額は、報酬が受領時に所得として課税されたことを前提としています（受領時の価額を取得価額に算入）– そうでない場合は、取得価額 0 とするのが慎重な解釈です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 금액은 보상이 수령 시 소득으로 과세되었다고 가정합니다(수령 시 가치를 취득가액에 포함) – 그렇지 않다면 취득가액 0이 보수적인 해석입니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beløpet forutsetter at belønninger ble beskattet som inntekt ved mottak (verdi ved mottak i anskaffelseskosten) – ellers ville anskaffelseskost 0 være den forsiktige lesningen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Het bedrag gaat ervan uit dat beloningen bij ontvangst als inkomen zijn belast (waarde bij ontvangst in de aanschafprijs) – anders zou aanschafprijs 0 de voorzichtige lezing zijn."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kwota zakłada, że nagrody zostały opodatkowane jako dochód przy otrzymaniu (wartość przy otrzymaniu w koszcie nabycia) – w przeciwnym razie ostrożniejszym odczytaniem byłby koszt nabycia 0."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O montante pressupõe que as recompensas foram tributadas como rendimento ao serem recebidas (valor na receção no custo de aquisição) – caso contrário, a leitura prudente seria custo de aquisição 0."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O valor supõe que as recompensas foram tributadas como renda ao serem recebidas (valor no recebimento no custo de aquisição) – caso contrário, a leitura prudente seria custo de aquisição 0."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suma presupune că recompensele au fost impozitate ca venit la primire (valoarea la primire în costul de achiziție) – altfel, interpretarea prudentă ar fi cost de achiziție 0."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сумма предполагает, что вознаграждения облагались налогом как доход при получении (стоимость при получении в цене приобретения) – иначе осторожным прочтением была бы цена приобретения 0."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shuma supozon se shpërblimet janë tatuar si të ardhura kur u morën (vlera në marrje në koston e blerjes) – përndryshe, leximi i kujdesshëm do të ishte kosto blerjeje 0."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beloppet förutsätter att belöningar beskattades som inkomst vid mottagandet (värde vid mottagandet i anskaffningsutgiften) – annars vore anskaffningsutgift 0 den försiktiga läsningen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จำนวนนี้ถือว่ารางวัลถูกเก็บภาษีเป็นรายได้เมื่อได้รับ (มูลค่า ณ วันที่ได้รับรวมอยู่ในต้นทุนการได้มา) – หากไม่ใช่ การตีความอย่างระมัดระวังคือต้นทุนการได้มาเป็น 0"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutar, ödüllerin alındığında gelir olarak vergilendirildiğini varsayar (alındığı andaki değer edinim maliyetinde) – aksi halde ihtiyatlı yorum edinim maliyetinin 0 olmasıdır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сума припускає, що винагороди оподатковувалися як дохід під час отримання (вартість на момент отримання у ціні придбання) – інакше обережним прочитанням була б ціна придбання 0."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Số tiền này giả định phần thưởng đã bị đánh thuế như thu nhập khi nhận (giá trị lúc nhận nằm trong giá vốn) – nếu không, cách hiểu thận trọng là giá vốn bằng 0."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该金额假定奖励在收到时已作为收入纳税（收到时的价值计入取得成本）– 否则，较审慎的理解是取得成本为 0。"
           }
         }
       }

@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 
 /// Neutrale Art einer importierten Zeile — vor der Zuordnung zu den Buchungsarten des Portfolios
@@ -221,7 +222,8 @@ enum CsvImport {
     }
 
     /// Schlüssel gegen doppelten Import (Aufbau wie Android `CsvImport.key`). Zeit: UTC-ms; steht sie ohne Versatz in
-    /// der Datei (`localTime`), «L» + Kalenderzeit — eine andere Zeitzone beim zweiten Import ändert ihn nicht.
+    /// der Datei (`localTime`), «L» + Kalenderzeit — eine andere Zeitzone beim zweiten Import ändert ihn nicht. Ein
+    /// Schlüssel über `maxKeyBytes` wird in `withOccurrence` durch seinen Hash ersetzt (`stableKey`).
     static func key(format: CsvImportFormat, kind: CsvImportKind, coin: String, amount: Decimal,
                     price: Decimal?, timeMillis: Int64, externalId: String?, localTime: Int64? = nil) -> String {
         let time: String = localTime.map { "L\($0)" } ?? String(timeMillis)
@@ -233,14 +235,30 @@ enum CsvImport {
         return "\(format.rawValue)|\(kind.rawValue)|\(coin)|\(time)|\(text(amount))|\(price.map { text($0) } ?? "-")"
     }
 
-    /// Wiederholte Schlüssel eindeutig machen (zweites Vorkommen «#2» usw.), Reihenfolge bleibt.
+    /// Wiederholte Schlüssel eindeutig machen (zweites Vorkommen «#2» usw.), Reihenfolge bleibt; danach jeder Schlüssel
+    /// in seiner gespeicherten Form (`stableKey`).
     static func withOccurrence(_ keys: [String]) -> [String] {
         var seen: [String: Int] = [:]
         return keys.map { k in
             let n = (seen[k] ?? 0) + 1
             seen[k] = n
-            return n == 1 ? k : "\(k)#\(n)"
+            return stableKey(n == 1 ? k : "\(k)#\(n)")
         }
+    }
+
+    /// Höchstlänge eines Herkunftsschlüssels in UTF-8-Bytes — dieselbe Grenze wie beim Speichern
+    /// (`PortfolioTx.maxImportKey`, auf beiden Plattformen in UTF-8-Bytes gezählt).
+    static let maxKeyBytes = 200
+
+    /// Gespeicherte Form eines Schlüssels: bis `maxKeyBytes` UTF-8-Bytes unverändert; länger (z. B. eine Kennung mit
+    /// über 190 Zeichen) «<Format>|h:<SHA-256 des ganzen Schlüssels, hex>» — gleich lang, stabil über Importe und
+    /// Plattformen, statt beim Speichern still zu entfallen (dann käme die Zeile beim nächsten Import doppelt). Wie Android.
+    static func stableKey(_ key: String) -> String {
+        let bytes = Data(key.utf8)
+        guard bytes.count > maxKeyBytes else { return key }
+        let hash = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
+        let format = key.split(separator: "|", maxSplits: 1, omittingEmptySubsequences: false).first.map(String.init) ?? key
+        return "\(format)|h:\(hash)"
     }
 
     /// Gebühr eines Tauschs aus beiden Seiten (wie Android `CsvImport.swapFee`): eine Seite → diese; beide in

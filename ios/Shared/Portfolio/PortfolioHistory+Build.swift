@@ -20,9 +20,10 @@ extension PortfolioHistory {
     /// Näherung: Hoch und Tief der Coins fallen kaum je auf denselben Zeitpunkt — die Summe ist eine
     /// obere bzw. untere SCHRANKE des tatsächlichen Tageshochs/-tiefs des Portfolios, kein gemessener
     /// Wert. Coins ohne Kerze an dem Tag (oder USDT) zählen mit ihrem Tageswert in allen dreien.
-    /// `addresses`: beobachtete Adress-Guthaben (`AddressBalanceHistory`) — Adress-Einträge in `trades`
-    /// (`AddressBalance.withAddresses`) zählen nie rückwirkend, nur die Reihe ab ihrer ersten Beobachtung;
-    /// Änderungen und Auszahlungen ohne Preis zum Marktkurs ihres Tags. Wie Android.
+    /// `addresses`: beobachtete Adress-Guthaben (`AddressBalanceHistory`, von `AddressBooked.histories` ohne das schon
+    /// Gebuchte) — der Adress-Teil in `trades` (`AddressBalance.withAddresses`) zählt nie rückwirkend, Eröffnungsposten
+    /// wie Käufe, die Reihe ab ihrer ersten Beobachtung; Änderungen und Auszahlungen ohne Preis zum Marktkurs ihres Tags.
+    /// Heute endet die Kurve so beim Bestand der Karte. Wie Android.
     static func build(trades: [PortfolioTx],
                       closes: [String: [Int: Double]],
                       livePrices: [String: Double],
@@ -34,10 +35,11 @@ extension PortfolioHistory {
                       method: CostMethod = .defaultMethod) -> PortfolioHistorySeries {
         // EINE Tagesgrenze: UTC-Tag (wie Tageskerzen und «7 T/1 J»), nicht die lokale Zeitzone
         let dayEndMillis: (Int) -> Int64 = { PortfolioHistory.utcDayEnd($0) }
-        // Adress-Einträge nie rückwirkend; nur die beobachtete Reihe. Tausch ohne Wert (und die übrigen Fälle von
-        // `PortfolioLedger.valueAtDayClose`) zum selben Tageskurs wie die Karte (`PortfolioPeriodChange.marketPriceAt`):
-        // EIN Wert für beide Seiten, sonst bewerteten Kurve und Karte denselben Tausch verschieden
-        let raw = trades.filter { $0.amount > 0 && !$0.amount.isInfinite && !AddressBalance.isAddressTrade($0.id) }
+        // Adress-Teil nie rückwirkend; dafür die Reihe ohne Gebuchtes (`AddressBooked`), Posten wie Käufe. Tausch ohne
+        // Wert (und die übrigen Fälle von `PortfolioLedger.valueAtDayClose`) zum selben Tageskurs wie die Karte
+        // (`PortfolioPeriodChange.marketPriceAt`): EIN Wert für beide Seiten, sonst bewerteten Kurve und Karte denselben
+        // Tausch verschieden
+        let raw = trades.filter { $0.amount > 0 && !$0.amount.isInfinite && !AddressBalance.isAddressPart($0.id) }
             + AddressBalanceHistory.trades(addresses)
         let valid = PortfolioLedger.valueAtDayClose(
             raw,

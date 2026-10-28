@@ -308,12 +308,9 @@ object CsvImportBinance {
 
     // ---------- Zahlen ----------
 
-    private val EXPONENT = Regex("^-?[0-9]+(\\.[0-9]+)?[eE][-+]?[0-9]{1,3}$")
-
-    /** Zahl mit Punkt als Dezimalzeichen; auch «1E-8» (Binance schreibt sehr kleine Beträge so). */
-    fun decimal(text: String): BigDecimal? {
-        val t = text.trim()
-        if (EXPONENT.matches(t)) return runCatching { BigDecimal(t).stripTrailingZeros() }.getOrNull()
-        return CsvImportParser.parseNumber(t, '.')
-    }
+    /**
+     * Zahl mit Punkt als Dezimalzeichen; auch «1E-8» (Binance schreibt sehr kleine Beträge so; die Regel für die
+     * wissenschaftliche Schreibweise gilt für alle Formate, [CsvImportParser.parseNumber]).
+     */
+    fun decimal(text: String): BigDecimal? = CsvImportParser.parseNumber(text.trim(), '.')
 }

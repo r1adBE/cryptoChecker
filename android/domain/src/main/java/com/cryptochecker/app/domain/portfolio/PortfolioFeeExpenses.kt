@@ -34,8 +34,11 @@ enum class PortfolioFeeExpense {
  */
 object PortfolioFeeExpenses {
 
-    /** Aufwand (USDT) und «Wert der Gebühr im dritten Coin fehlt». */
-    class Expense(val usdt: BigDecimal, val feeValueMissing: Boolean)
+    /**
+     * Aufwand (USDT), «Wert der Gebühr im dritten Coin fehlt» und «enthält einen geschätzten Gebühr-Preis»
+     * ([PortfolioTrade.feePriceEstimated], Vermerk «Wert geschätzt»).
+     */
+    class Expense(val usdt: BigDecimal, val feeValueMissing: Boolean, val estimated: Boolean = false)
 
     /** Gebühr verbraucht den ganzen Zugang [e]; null = nicht so oder ohne Preis/Wert. */
     fun consumed(e: PortfolioLedgerEvent): Expense? {
@@ -48,22 +51,23 @@ object PortfolioFeeExpenses {
         if (!t.type.isInflow || t.received.signum() > 0) return null
         val price = t.validPrice ?: return null
         val feeValue = t.thirdFeeValue
-        return Expense(t.amount * price + t.quoteFee + (feeValue ?: BigDecimal.ZERO), feeValue == null)
+        return Expense(t.amount * price + t.quoteFee + (feeValue ?: BigDecimal.ZERO), feeValue == null, t.feePriceEstimated)
     }
 
     /**
      * Auszahlung bei Bestand [holdings]: Gebühr USDT + Wert der Gebühr im dritten Coin zum gedeckten Anteil
-     * ([PortfolioLedger.withdrawnShare]); null = keine Gebühr oder nichts abgegeben.
+     * ([PortfolioLedger.withdrawnShare]); null = keine Gebühr oder nichts abgegeben. [thirdFee] false: nur die Gebühr
+     * USDT (FR: die Gebühr im dritten Coin ist dort eine eigene Abtretung).
      */
-    fun withdrawal(t: PortfolioTrade, holdings: BigDecimal): Expense? {
+    fun withdrawal(t: PortfolioTrade, holdings: BigDecimal, thirdFee: Boolean = true): Expense? {
         // Auszahlung und Verschenkt (wie eine Auszahlung)
         if (!t.type.isWithdrawalLike || t.amount.signum() <= 0) return null
         val share = PortfolioLedger.withdrawnShare(t, holdings) ?: return null
-        val feeValue = t.thirdFeeValue
+        val feeValue = if (thirdFee) t.thirdFeeValue else BigDecimal.ZERO
         val full = t.quoteFee + (feeValue ?: BigDecimal.ZERO)
         if (full.signum() <= 0 && feeValue != null) return null
         val usdt = if (share.compareTo(BigDecimal.ONE) == 0) full else full.multiply(share, PortfolioDecimal.MC)
-        return Expense(usdt, feeValue == null)
+        return Expense(usdt, feeValue == null, thirdFee && t.feePriceEstimated)
     }
 
     /**
@@ -123,22 +127,28 @@ object PortfolioFeeExpenses {
             lotTxId = t.id, acquiredTime = t.time, lotKind = if (e.swapIn) PortfolioTxType.SWAP else t.type,
             amount = amountOf(e, kind), costUsdt = x.usdt, proceedsUsdt = BigDecimal.ZERO, gainUsdt = x.usdt.negate(),
             holdingDays = 0L, feeLeg = false, feeValueMissing = x.feeValueMissing, method = method,
-            wallet = wallet, feeExpense = kind,
+            wallet = wallet, feeExpense = kind, valueEstimated = x.estimated,
         )
     }
 
     /**
      * Alle Gebühr-Aufwände eines Coins (eigene Rechnungen der Steuer-Vorlagen, [TaxEngines]); Auszahlung nur mit Bestand
      * ([PortfolioHoldingsBook], ein Topf). [CostMethod.FIFO] wie die Posten-Teile dort. [swaps] false: ohne den verbrauchten
-     * Zugang eines Tauschs (Vorlagen, bei denen der Tausch keine Veräusserung ist).
+     * Zugang eines Tauschs (Vorlagen, bei denen der Tausch keine Veräusserung ist). [withdrawalThirdFee] false: Auszahlung
+     * nur mit der Gebühr USDT ([withdrawal]).
      */
-    fun of(symbol: String, events: List<PortfolioLedgerEvent>, swaps: Boolean = true): List<PortfolioDisposal> {
+    fun of(
+        symbol: String,
+        events: List<PortfolioLedgerEvent>,
+        swaps: Boolean = true,
+        withdrawalThirdFee: Boolean = true,
+    ): List<PortfolioDisposal> {
         val out = ArrayList<PortfolioDisposal>()
         val book = PortfolioHoldingsBook(CostMethod.FIFO)
         for (e in events) {
             consumed(e)?.takeIf { swaps || !e.swapIn }?.let { out += disposal(symbol, e, PortfolioFeeExpense.CONSUMED, it, CostMethod.FIFO) }
             if (!e.feeLeg && !e.swapIn && book.capFor(e).signum() > 0) {
-                withdrawal(e.trade, book.capFor(e))?.let { out += disposal(symbol, e, PortfolioFeeExpense.WITHDRAWAL, it, CostMethod.FIFO) }
+                withdrawal(e.trade, book.capFor(e), withdrawalThirdFee)?.let { out += disposal(symbol, e, PortfolioFeeExpense.WITHDRAWAL, it, CostMethod.FIFO) }
             }
             book.apply(e)
         }

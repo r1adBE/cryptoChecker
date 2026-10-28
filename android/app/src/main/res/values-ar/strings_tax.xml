@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">ينطبق الأمر نفسه على رسوم بـ USDT أو نقدًا عند التحويل بين محافظك: لا تُضاف إلى التكلفة وتظهر للعلم فقط.</string>
     <string name="tax_note_uk">المطابقة وفق HMRC: اليوم نفسه، ثم الأيام الثلاثون التالية، ثم المجمع المشترك وفق Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">الانتقال في 1.1.2025 (Rev. Proc. 2024-28، الملاذ الآمن): إذا استُخدم FIFO عبر كل المحافظ في السنوات السابقة، تذهب الدفعات المتبقية في 31.12.2024 إلى المحافظ التي تحتفظ بالعملات – وتحصل المحفظة ذات العملات الأقدم على التكلفة الأقدم. هذا التوزيع قاعدة من التطبيق – قارنه بسجلاتك.</string>
-    <string name="tax_note_us_wallet">اعتبارًا من السنة الضريبية 2025 تطلب IRS تكلفة الشراء لكل wallet/منصة (Rev. Proc. 2024-28) – ويستخدم التصدير FIFO لكل wallet من 2025 – وقبل 2025 تنطبق طريقة حساب تكلفة الشراء الخاصة بك.</string>
+    <string name="tax_note_us_wallet">اعتبارًا من السنة الضريبية 2025 تطلب IRS تكلفة الشراء لكل wallet/منصة (Rev. Proc. 2024-28) – ويستخدم التصدير FIFO لكل wallet من 2025 – وقبل 2025 يستخدم FIFO عبر كل المحافظ، أو FIFO لكل wallet إذا كانت هذه طريقة حساب تكلفة الشراء الخاصة بك.</string>
     <string name="tax_note_withdrawal_fee">رسوم السحب بـ USDT أو نقدًا ليست خسارة: الرسوم النقدية غير قابلة للخصم، ورسوم USDT تصرّف بالقيمة الاسمية بلا ربح – تظهر للعلم فقط (%1$s).</string>
     <string name="tax_summary_at_interest_income">يُحتسب: دخل عند الاستلام بالنسبة الخاصة 27.5 بالمئة (§ 27b الفقرة 2 البند 1 EStG / BMF) – تحتفظ العملات بهذه القيمة كتكلفة اقتناء</string>
     <string name="tax_summary_at_reward_info">للعلم فقط – غير مُدرج في أي مجموع: تدخل المكافآت في الرصيد الجديد بتكلفة اقتناء 0 ولا تُفرض عليها الضريبة إلا عند البيع (ضمن الأرباح بالفعل) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">تُحتسب العناوين المراقَبة ضمن القيمة الإجمالية لكن ليست لها تكلفة اقتناء – لذلك يكون الربح على الأرجح أعلى من اللازم. سجّل التكلفة كعملية شراء.</string>
+    <string name="tax_summary_fr_rewards_income">يفترض المبلغ أن المكافآت خضعت للضريبة كدخل عند استلامها (القيمة عند الاستلام ضمن تكلفة الاقتناء) – وإلا فإن تكلفة اقتناء 0 هي القراءة الأكثر حذرًا.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">القيم السوقية دون سعر مسجّل (الرسوم، الإهداء/الدفع، المبادلة، المكافآت، رسوم الشبكة، قيمة المحفظة) بسعر الإغلاق اليومي (UTC) ليوم المعاملة</string>

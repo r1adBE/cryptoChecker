@@ -1249,10 +1249,16 @@ the tests named here.
   purchase price, the average is labelled as the average of that part («Avg. of X with purchase
   price», `portfolio_avg_partial`), never shown as the average of the whole holding. Backup import
   applies the same number limits on both platforms (`PortfolioDecimal.parse`, iOS `PortfolioDecimal.withinLimits`:
-  below 10³⁰, at most 40 decimal places; absurd values count as invalid entries). Never parse amounts through `Double` (`PriceFormat.parseDecimalAmount`,
+  below 10³⁰, at most 40 decimal places; absurd values count as invalid entries). Saving refuses a transaction whose
+  numbers would not read back (Android `storable` after `cleanForSave`, iOS `AppData.cleanedPortfolioTx`, same rule as
+  the CSV preview `unsavableReason` → `BAD_NUMBER`): amounts, fees and values ≥ 10³⁰, or a price > 0 that would store as
+  0. Never parse amounts through `Double` (`PriceFormat.parseDecimalAmount`,
   `ThresholdParser.parseDecimal`). Android stores them as TEXT
   (`PortfolioDecimalConverters`); backup and portfolio files carry only the exact text fields `amountText` /
-  `priceText` / `feeText`.
+  `priceText` / `feeText`. Amounts, fees and swap values are stored with 18 decimals (`PortfolioDecimal.text`); prices
+  (`priceText`, `feeCoinPriceText`, also in `CsvRestoreState`) keep **34 significant digits, at least 18 and at most 40
+  decimals** (`PortfolioDecimal.priceText`), so a BABYDOGE price of 1.3717333…E-9 or 4E-19 survives saving instead of
+  shrinking or turning into a free buy (fixture `csv_import.json` › `priceText`).
 * **Average cost with fees.** No FIFO. A fee in USDT (`feeUnit` quote) raises the cost of a buy and
   lowers the proceeds of a sell; a fee in the coin reduces the amount received on a buy and adds to
   the amount removed on a sell.
@@ -1280,7 +1286,11 @@ the tests named here.
   a day change are left out, never filled flat), then `todayAdjusted` removes today's trades
   (Android `PortfolioSnapshotUpdater.withHonestToday`, iOS `PortfolioWidgetStore.compute`). Card,
   widget and portfolio alarm all read `snapshot.changeAmount` / `changePercent`; the view model
-  must not adjust again, or the three numbers drift apart.
+  must not adjust again, or the three numbers drift apart. Rolling, each coin's window starts at the time of
+  its comparison price (hourly price 20–25 h ago, else the stored sample 20–48 h ago;
+  `PortfolioWidgetSeries.changeSince` → `todayAdjusted(coinStart)`), so a buy after that price is a flow, never a
+  gain. The widget's fallback line (`valueHistory`) leaves coins without a valid current price out of every point,
+  like the hourly line.
 * **Portfolio alarms in another currency.** A value alarm keeps the currency it was created in.
   When the snapshot is in another currency (conversion currency changed), the value is
   `totalUsdt × usdTo[currency]` (`PortfolioReading.usdTo`, filled from `FxRateSource`; iOS
@@ -1328,10 +1338,12 @@ the tests named here.
   `canShowPortfolioAlarm`).
 * **Live stream stop.** `stopAll` clears its state before it suspends to save (Android) or checks a
   generation counter after `await flush` (iOS actor), so a newer `reconcile` keeps its session.
-* **Fresh share instead of the oldest coin.** The value is recorded (history, alarms) when at least
-  **80 %** of it has prices younger than the update limit (`PortfolioPriceFallback.freshShare`,
-  `mayRecordShare`, `MIN_FRESH_SHARE = 0.8`), checked per coin from `PortfolioPrices.times`. One
-  rarely traded coin must not block the alarm for the whole portfolio.
+* **Fresh share instead of the oldest coin.** A snapshot (widget, «today», value history) is recorded when at least
+  **80 %** of the value has prices younger than the update limit (`PortfolioPriceFallback.freshShare`,
+  `mayRecordShare`, `MIN_FRESH_SHARE = 0.8`), checked per coin from `PortfolioPrices.times`. Portfolio alarms use their
+  own, stricter rule: they check only while the value with old prices (plus unconfirmed token balances and unverified
+  prices) stays below **1 %** of the total (`PortfolioAlarmLogic.staleMaterial`, `IMMATERIAL_SHARE = 0.01`). One
+  rarely traded coin must not block the alarms for the whole portfolio.
 * **Price from the entered exchange.** `PortfolioExchangeRoute` (both platforms, tests
   `PortfolioExchangeRouteTest(s)`): a coin whose transactions with an exchange all name the same
   spot exchange is valued at that exchange's spot price – pair order USDT, USD (÷ USDT/USD market price,
@@ -1529,12 +1541,23 @@ the tests named here.
   gain, a network fee in the coin only lowers the amount (its cost stays in the basis), and the destination
   (`transferTo`) decides the pricing exchange from then on (`PortfolioExchangeRoute`). A fee in a third coin
   (`feeCoin`, `feeCoinAmount`, `feeCoinPriceUsdt`) is a disposal of the fee coin at the fee price and adds
-  its value to the main transaction's cost (or takes it from the proceeds); without a fee price the result
-  is marked incomplete (`feeValueMissing`, `realizedFeeMissing`), never guessed. The third-coin fee has its
-  own fields – never reuse `fee` (it is always the quote/USDT fee). The Room portfolio database also has
-  `giftToSpouse` (INTEGER NOT NULL DEFAULT 0), `linkedImportKey` and `importRestoreState` (schema JSON
-  `app/schemas/…PortfolioDatabase/1.json`). Backup/system-backup copy: these fields are additive
-  (`importRestoreState` as a JSON object) and backup `version` stays 1 – readers refuse a newer `version` as a whole
+  its value to the main transaction's cost (or takes it from the proceeds); on the card a missing fee price
+  marks the result incomplete (`feeValueMissing`, `realizedFeeMissing`), never guessed (no estimated prices, like
+  rewards without value). The tax export has one rule for every third-coin fee without a price, whatever the
+  type (buy, reward, deposit, sell, payment, swap, transfer, withdrawal, gift): the fee is valued at the fee coin's
+  UTC day close (`PortfolioLedger.dayCloseNeeds`, `valueThirdFeesAtDayClose`, `feePriceEstimated`) – in the cost
+  of a buy or transfer, off the proceeds of a sale or swap, in the expense of a withdrawal. The fee coin's row and
+  every row that contains the fee value carry «value estimated» instead of «without fee value». Without a close the
+  row keeps «without fee value». In general every value the tax export takes from a day close carries «value
+  estimated» (`valueEstimated`), also an FR payment without market value and the network fee sold at the close where
+  it is a disposal (UK, US, CA, AU, JP, coin fee and third-coin fee); a recorded price or a stablecoin carries none.
+  The info lines «fee not assigned» and lost fee cost (`TaxExport.feesIn`) are computed without day closes, so an
+  estimated fee share on holdings without purchase price is not listed there. Fixtures: `tax_templates.json`,
+  `tax_day_close.json`. The
+  third-coin fee has its own fields – never reuse `fee` (it is always the quote/USDT fee). The Room portfolio database also has
+  `giftToSpouse`, `feeRow`, `interest`, `stakingMove` (INTEGER NOT NULL DEFAULT 0), `linkedImportKey` and
+  `importRestoreState` (schema JSON `app/schemas/…PortfolioDatabase/1.json`). Backup/system-backup copy: these fields
+  are additive (`importRestoreState` as a JSON object) and backup `version` stays 1 – readers refuse a newer `version` as a whole
   (`BackupVersion.check`) but ignore unknown fields. A backup without `version` (a number), without `createdAt`,
   without one of the parts the export writes (`watches`, `alarms`, `favorites`, `settings`, `portfolio`,
   `portfolioAlarms`, `watchedAddresses`, each with its type), without a favorites kind (list of texts), without a
@@ -1644,7 +1667,14 @@ the tests named here.
 * **Tax templates.** `TaxTemplates`/`TaxEngines`: Neutral (default) plus DE, AT, CH, UK, US, CA, AU, FR,
   JP – each with cost method, tax-year boundaries (UK 6 Apr, AU 1 Jul), holding buckets, crypto-to-crypto
   treatment and thresholds, sources and «Stand» in code comments. Engines: UK same-day / 30-day / Section 104
-  pool, CA superficial loss, FR prix total d'acquisition, JP total average, AT Alt-/Neubestand. Data rows state
+  pool, CA superficial loss, FR prix total d'acquisition, JP total average, AT Alt-/Neubestand. UK: all disposals of
+  a day are one disposal – same-day, 30-day and pool matches go to the day as a whole and are split pro rata by
+  quantity (pool part at the day's last disposal). FR: a third-coin fee uses one price (recorded, else day close,
+  marked «value estimated» like every third-coin fee) for the acquisition total, the price before fees and its own
+  cession – without one the total is incomplete; a
+  withdrawal fee row is only the USDT fee at the covered share; the FX span includes the purchase dates behind a
+  reduction of the total by a withdrawal/gift; with rewards up to the year end the gains line notes that the value
+  on receipt assumes income taxation on receipt (otherwise cost 0 would be the cautious reading). Data rows state
   facts only («held > 1 year»); legal conclusions appear only as labelled orientation lines in the summary.
   CH (`TaxWealthCh`): «wealth value 31.12. (orientation)» = holdings at the end of 31 December (Zurich)
   × the 31.12. close in CHF, per coin, reusing the year-end holdings export; a missing or unverified close or FX
@@ -1660,9 +1690,9 @@ the tests named here.
 * **Fee-eats-amount rule.** A buy or swap whose coin fee is ≥ the amount received cannot be saved (CSV
   skips it); a stored one books the value as a fee expense everywhere. A quote fee on a withdrawal is a realized
   expense on the card, in periods and in the export.
-* **Stale and partial values.** Portfolio alarms run only when every priced holding has a fresh
-  price; widget and history may show a value with up to 20 % stale prices but must mark it («partly old
-  price»). A partial total or «Since purchase» carries an inline marker at the number. Wrapped/bridged tokens
+* **Stale and partial values.** Portfolio alarms run only while old prices are immaterial (below 1 % of the value,
+  `PortfolioAlarmLogic.staleMaterial`; coins without any price block value alarms); widget and history may show a value
+  with up to 20 % stale prices but must mark it («partly old price»). A partial total or «Since purchase» carries an inline marker at the number. Wrapped/bridged tokens
   keep their own symbol; only without an own pair are they priced via the base coin, labelled.
 * **One holdings book.** `PortfolioHoldingsBook` / `PortfolioCalculator.holdingsAt(trades, time, method)`
   decides holdings for every screen and file: card, periods, history, widget, alarms, cut-off and tax export
@@ -1675,10 +1705,12 @@ the tests named here.
   «not specified»), transfers move lots with their purchase date, a shortfall never borrows from another
   wallet (`walletShortfalls`). CSV imports carry `importBatch`; «Undo import» deletes exactly one batch. Open
   lots per coin (`openLots`). DE annual summary (`TaxExport.yearSummary` with the DE template): ≤/> 1 year, § 23 EStG Freigrenze
-  (1000 € from 2024, 600 € 2009–2023, 512 € before) and § 22 Nr. 3 (256 €), a Freigrenze (whole amount taxable
+  (1000 € from 2024, 600 € 2008–2023, 512 € before) and § 22 Nr. 3 (256 €), a Freigrenze (whole amount taxable
   at or above), labelled «orientation, not tax advice». Everything is called a working paper («Arbeitsunterlage»).
 * **One day boundary.** Period windows, start holdings and the history buckets use UTC days like the
-  daily candles; labels may show local dates. Unpriced inflows (rewards, deposits, swap-ins) and unpriced
+  daily candles; labels may show local dates. The 7 d / 1 y window starts after the last millisecond of the base
+  day (`PortfolioPeriodChange.windowStart` = `PortfolioHistory.utcDayEnd`): a trade at exactly 00:00:00.000 UTC
+  is in the window, as in the history. Unpriced inflows (rewards, deposits, swap-ins) and unpriced
   third-coin fees are valued at that day's market price in period flows; a coin is skipped only without any
   market price, and app card, rows, widget and alarms show the same figure with the same «without …».
 * **Exchange time.** Never stamp server/envelope time as trade time (Binance closeTime, Bybit `time`,
@@ -1698,13 +1730,19 @@ the tests named here.
   widget and alarms, never in «Since purchase» or the tax export, and never turns purchased lots into «no
   purchase price». Periods and history use the observed balance history (`AddressBalanceHistory`: first
   observation plus the last per UTC day, stored with the address): an address counts only from its first
-  observation, later balance changes are inflows/outflows at market, nothing is backdated. Background address
+  observation, later balance changes are inflows/outflows at market, nothing is backdated. One holdings rule
+  (`AddressBooked`) for card, «Today», 7 d / 1 y, history, widget and cut-off/CH wealth: own bookings + opening
+  lots (buys from their date) + address part = observed balance minus what lots and recorded movements of the
+  address wallet already book. Periods and history apply it at every observation (max(balance(t) − booked moves up
+  to t, 0); moves clamped to the last observation, recorded ones only up to the balance fetch), so the last step is
+  the card's address part and «Today» uses `ledgerHoldingsExact` + that step. Background address
   refresh is capped (8 s total, 5 s per request) and never delays prices or alarms. Requests at most every 10 min per address, none without
   addresses; hosts are listed in the privacy policy. Addresses (not balances) are part of the app backup
   and follow «Portfolio in system backup».
 * **Opening lots of watched addresses.** `AddressCostLots` count like buys in the address
   wallet, capped at the holding before the recorded movements of that wallet (observed balance + recorded outflows −
   recorded inflows, all dates, as FIFO per wallet books them); only the rest stays address part without cost basis.
+  Periods and history count them like buys from their date, as the card and the cut-off do.
 * **Networks for watched addresses.** BTC (addresses incl. Taproot `bc1p…`, and xpub/ypub/zpub, derived
   on the device, gap 20 on the first scan; Taproot accounts only as a `tr(…)` descriptor – origin,
   `/0/*`, `/1/*` or `/<0;1>/*`, BIP380 checksum checked – stored as `tr(xpub…/<0;1>/*)`, BIP86 key tweak, bech32m;
@@ -1715,9 +1753,16 @@ the tests named here.
   every host listed in the privacy policy (a test checks it). «Show only» addresses never count; an address
   whose coin is also in own transactions asks «Count / Show only».
 * **CSV import.** `csvimport/` parsers detect Relai/Swissquote by header names; times without
-  offset are Europe/Zurich; duplicates by `importKey` (stored on the transaction). Rows without price
+  offset are Europe/Zurich; duplicates by `importKey` (stored on the transaction). A key longer than **200 UTF-8 bytes**
+  (e.g. an ID cell over 190 characters) is replaced by `«format»|h:«SHA-256 hex»` of the whole key including `#n`
+  (`CsvImport.stableKey`, applied in `withOccurrence`); saving and backups accept at most 200 UTF-8 bytes on both
+  platforms (`cleanImportKey`), so a key is never dropped silently (fixture `importKeys`, `cleanImportKeys`). Numbers in
+  scientific notation as Excel writes them («1.234E-05», «1,234E-05») are read by every format
+  (`CsvImportParser.parseNumber`; value below 10³⁰, at most 40 decimals). Rows the save would refuse are skipped in the
+  preview (`unsavableReason`: `MISSING_FIELD`, `AMOUNT_TOO_SMALL`, `BAD_NUMBER`, `INVALID_SWAP`). Rows without price
   import without price and are named in the preview. Conversion to USDT uses the daily FX rate of the last
-  business day ≤ date.
+  business day ≤ date. Choosing another time zone re-reads the text and reloads the rates when a day now falls outside
+  the loaded range (`CsvImportRateDays.of`/`cover`, fixture `rateDays`), instead of silently taking the previous day's rate.
 * **Exchange exports.** `CsvImportBinance` (transaction history + both trade-history layouts; fills
   with the same second, pair and side are merged so both exports produce the same key; a buy and a sell of one
   coin in the same second in the transaction history are skipped; a Binance trade within 5 s of an imported one
@@ -1735,10 +1780,18 @@ the tests named here.
   the absorbed row of the later file in `importRestoreState` (`CsvRestoreState`, versioned JSON `{"v":1,"stored":
   {…},"absorbed":{…}}`, documented in the class); `undoPlan` restores it exactly when the later import is undone, and
   undoing the *earlier* import turns the linked transfer back into that deposit or withdrawal, kept in the later
-  import run (undoing the later run afterwards removes it). Linking has no length limit (the keys live in their own
-  fields, not packed into the 200-character import key). Duplicates are recognised only by the exact stored keys
-  (`importKey`, `linkedImportKey`). Cases in `csv_transfers.json` (both undo orders and both in
-  sequence).
+  import run (undoing the later run afterwards removes it). Both keys live in their own fields (each within the
+  200-byte key limit, long ones hashed by `CsvImport.stableKey`), never packed into one. Duplicates are recognised only by
+  the exact stored keys (`importKey`, `linkedImportKey`). A stored side is a withdrawal candidate when it is a withdrawal
+  or a transfer without destination that is not a staking move (choice «to own wallet»,
+  `CsvTransferMatch.storedWithdrawal`). Staking transfers of a file («Unstaking», «Redeem», `CsvImportKind.TRANSFER`)
+  carry the stored flag `stakingMove` (only on TRANSFER; set by `CsvImportMapping.toTx`, kept by the editor while the
+  kind stays TRANSFER, never set for a manual entry) and are never candidates – with or without note; the note plays
+  no part. Saving writes the new rows and the stored
+  sides in **one** write (Android `insertImportedLinked` in one Room transaction, iOS `AppData.withImported` in one file
+  write); a stored side deleted or linked meanwhile is left out and its absorbed new row is saved as a normal row instead
+  (`CsvTransferMatch.withFallbacks`/`fallbacks`; a withdrawal without choice stays a withdrawal). Cases in
+  `csv_transfers.json` (both undo orders and both in sequence, `fallbacks`).
 * **Kraken ledger CSV.** `CsvImportKraken` reads the «Ledgers» export (txid, refid, time UTC, type, subtype,
   asset, amount, fee): trade/spend/receive legs paired by refid (money ↔ coin = buy/sell, coin ↔ coin = swap),
   deposit/withdrawal of coins, staking/earn rewards (inflows only); internal moves are skipped. Kraken codes
@@ -1812,9 +1865,11 @@ the tests named here.
   tax export passes `usdtUsd` (daily closes since the first needed date) and `TaxCsvTexts.usdtAssumed =
   portfolio_usdt_assumed`; the cut-off export multiplies its rate by USDT/USD of the date (today live) and adds the
   line `CutoffCsvTexts.usdtAssumed` when there is none (`CutoffExport.csv(usdtApproximate)`, column «Rate USDT→…»).
-  The USD display currency keeps showing USDT on the card (no conversion); the portfolio-alarm fallback
-  `PortfolioAlarmLogic.totalIn` (alarm in a currency other than the snapshot's) and the fiat-entry/CSV-import
-  conversions still treat USDT as 1 USD.
+  The USD display currency keeps showing USDT on the card (no conversion). The portfolio-alarm fallback
+  `PortfolioAlarmLogic.totalIn` (alarm in a currency other than the snapshot's) multiplies by the live rate
+  (`usdtUsdLive`; without it × 1 and the alarm text says «USDT = 1 assumed», `usdtAssumed`); fiat entry in the
+  transaction sheet (`PortfolioTxForm.entryRate`) and the CSV import (`CsvImport.priceInUsdt`) use the USDT/USD close
+  of the transaction's day (today the live rate; missing → × 1, marked as approximation).
 * **Change basis must be visible.** A % from a UTC day open (`StarterPrice.sinceUtcDay`, currently unused since starters are Binance) is labelled «since
   00:00 UTC»; Hyperliquid's % (mark vs prevDayPx) is labelled «Mark» (`Exchange.changeIsMark`). WOO spot needs 24
   contiguous hourly candles.
@@ -2670,6 +2725,23 @@ plaintext; a file with the watchlist, holdings, amounts or addresses never goes 
   every build configuration. Privacy page names `CryptoChecker-Wear`/`CryptoChecker-Watch`. Tests: fixture
   `watch_quotes.json` (stale fetch, equal start), `WatchFetcherTest`, `SerialPublisherTest` (wear and app),
   `WatchQuoteFileTests`, `WatchCacheTests`.
+* Build 166: money-path review (independent recalculation in Python Decimal, fixtures verified). Watched addresses:
+  `AddressBooked` subtracts what the app already books (effective opening lots, recorded moves of the address wallet)
+  from the observed series, so card, «Today», periods, history, widget and cut-off share one holdings book; opening lots
+  count as buys from their date everywhere. Period window starts at `utcDayEnd(baseDay)`; «Today» starts per coin at
+  the time of its reference price (`coinStart`); widget fallback history only over coins with a valid current price.
+  CSV: keys over 200 UTF-8 bytes become `<format>|h:<sha256>` (`CsvImport.stableKey`), insert and link in one
+  transaction (Android Room, iOS one file write) with fallback rows (`CsvTransferMatch.withFallbacks`), FX range
+  reload after time-zone changes (`CsvImportRateDays`), `stakingMove` marker on CSV staking transfers (Room column,
+  iOS field, backups, `BackupFields`) instead of the note rule, `unsavableReason` checks limits (≥ 1e30, price that
+  would store as 0), prices stored with 34 significant digits (`PortfolioDecimal.priceText`), exponent notation in the
+  common number parser. Tax: every third-coin fee without price valued at the UTC day close with «value estimated»
+  (`thirdFeeNeedsDayClose`, `valueThirdFeesAtDayClose`; card keeps no estimates), every day-close value carries the
+  note (FR crypto payment, network fee in the coin), FR acquisition total with that fee value and FX span over the
+  reduction origin (`frOutflowTimes`), FR withdrawal fee share, FR rewards note (`tax_summary_fr_rewards_income`), UK
+  same-day sales split pro rata for all three rules, DE exemption 600 € from 2008, `tax_note_us_wallet` reworded.
+  Rule questions decided: CA superficial loss, FR rewards at value on receipt (with note), DE transfer fee in cost –
+  unchanged.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).

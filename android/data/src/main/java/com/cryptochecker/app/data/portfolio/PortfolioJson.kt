@@ -8,6 +8,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.util.TextLimit
@@ -27,7 +28,7 @@ object PortfolioJson {
         .put("type", t.type.name)
         // Zahlen exakt als Text («amountText»: «0.00000001»)
         .put("amountText", PortfolioDecimal.text(t.amount))
-        .put("priceText", t.priceUsdt?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
+        .put("priceText", t.priceUsdt?.let { PortfolioDecimal.priceText(it) } ?: JSONObject.NULL)
         .put("time", t.time)
         .put("note", t.note ?: JSONObject.NULL)
         // Gebühr und Börse; fehlen = keine Angabe
@@ -39,7 +40,7 @@ object PortfolioJson {
         .put("transferTo", t.transferTo ?: JSONObject.NULL)
         .put("feeCoin", t.feeCoin ?: JSONObject.NULL)
         .put("feeCoinAmountText", t.feeCoinAmount?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
-        .put("feeCoinPriceText", t.feeCoinPriceUsdt?.let { PortfolioDecimal.text(it) } ?: JSONObject.NULL)
+        .put("feeCoinPriceText", t.feeCoinPriceUsdt?.let { PortfolioDecimal.priceText(it) } ?: JSONObject.NULL)
         // CSV-Import: Herkunft der Zeile — nach dem Wiederherstellen weiterhin als doppelt erkannt
         .put("importKey", t.importKey ?: JSONObject.NULL)
         // Einzahlung: ursprüngliches Kaufdatum; fehlt = Datum der Einzahlung
@@ -54,9 +55,10 @@ object PortfolioJson {
         .put("giftToSpouse", t.giftToSpouse && t.type == PortfolioTxType.GIFT)
         .put("linkedImportKey", t.linkedImportKey ?: JSONObject.NULL)
         .put("importRestoreState", t.importRestoreState?.toJson()?.asOrgJson() ?: JSONObject.NULL)
-        // Gebühr-Zeile und Zins als eigene Merker
+        // Gebühr-Zeile, Zins und Staking-Umbuchung als eigene Merker
         .put("feeRow", t.feeRow && t.type == PortfolioTxType.SELL)
         .put("interest", t.interest && t.type == PortfolioTxType.REWARD)
+        .put("stakingMove", t.stakingMove && t.type == PortfolioTxType.TRANSFER)
 
     /** Gelesene Einträge und wie viele ungültig waren (nicht übernommen). */
     data class Parsed<T>(val items: List<T>, val invalid: Int)
@@ -134,6 +136,7 @@ object PortfolioJson {
             },
             feeRow = type == PortfolioTxType.SELL && o.getBoolean("feeRow"),
             interest = type == PortfolioTxType.REWARD && o.getBoolean("interest"),
+            stakingMove = type == PortfolioTxType.TRANSFER && o.getBoolean("stakingMove"),
         )
     }
 
@@ -161,11 +164,15 @@ object PortfolioJson {
         return c to a
     }
 
-    /** Herkunftsschlüssel: getrimmt, höchstens [MAX_IMPORT_KEY] Zeichen (länger = ungültig, weggelassen); leer = null. */
+    /**
+     * Herkunftsschlüssel: getrimmt, höchstens [MAX_IMPORT_KEY] UTF-8-Bytes (länger = ungültig, weggelassen; der CSV-Import
+     * ersetzt längere durch ihren Hash, [com.cryptochecker.app.domain.portfolio.csvimport.CsvImport.stableKey]); leer =
+     * null. In Bytes gezählt, damit beide Plattformen dieselben Schlüssel annehmen. Wie iOS.
+     */
     fun cleanImportKey(raw: String?): String? =
-        raw?.trim()?.takeIf { it.isNotEmpty() && it.length <= MAX_IMPORT_KEY }
+        raw?.trim()?.takeIf { it.isNotEmpty() && it.toByteArray(Charsets.UTF_8).size <= MAX_IMPORT_KEY }
 
-    const val MAX_IMPORT_KEY = 200
+    const val MAX_IMPORT_KEY = CsvImport.MAX_KEY_BYTES
 
     /** Höchstlänge eines Gebühr-Coins (wie die Coin-Eingabe des Erfassen-Blatts). */
     const val MAX_FEE_COIN = 15

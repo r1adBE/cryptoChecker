@@ -281,7 +281,7 @@
   }
  ],
  "deSummary": {
-  "_comment": "Jahresübersicht DE über TaxExport.yearSummary(…, TaxTemplate.DE, …) / summaryCsv: kurzfristig ≤ 1 Jahr (Gewinne, Verluste, netto), langfristig > 1 Jahr; Freigrenze § 23 EStG 600 € bis 2023, 1000 € ab 2024 (steuerfrei bei weniger); § 22 Nr. 3 256 €. EUR über eurRates (USD → EUR je Tag); eur false = ohne EUR-Kurse (Prüfung offen). Tausch (4) ist eine Veräusserung. 'gains' = gainsCsv (EUR, FIFO) mit Vermerk «swap». Zähler (…Count) werden als Merker der Posten geprüft: > 0 ↔ «unvollständig» bzw. «ohne Devisenkurs» bzw. Posten «ohne Haltedauer» vorhanden. 'labels' = Texte je TaxLine für summaryCsv.",
+  "_comment": "Jahresübersicht DE über TaxExport.yearSummary(…, TaxTemplate.DE, …) / summaryCsv: kurzfristig ≤ 1 Jahr (Gewinne, Verluste, netto), langfristig > 1 Jahr; Freigrenze § 23 EStG 512 € bis 2007, 600 € 2008–2023, 1000 € ab 2024 (steuerfrei bei weniger); § 22 Nr. 3 256 €. EUR über eurRates (USD → EUR je Tag); eur false = ohne EUR-Kurse (Prüfung offen). Tausch (4) ist eine Veräusserung. 'gains' = gainsCsv (EUR, FIFO) mit Vermerk «swap». Zähler (…Count) werden als Merker der Posten geprüft: > 0 ↔ «unvollständig» bzw. «ohne Devisenkurs» bzw. Posten «ohne Haltedauer» vorhanden. 'labels' = Texte je TaxLine für summaryCsv.",
   "zone": "Europe/Berlin",
   "trades": [
    {
@@ -650,8 +650,12 @@
   ],
   "limits": [
    [
-    2008,
+    2007,
     "512"
+   ],
+   [
+    2008,
+    "600"
    ],
    [
     2009,
@@ -1257,5 +1261,32 @@
    }
   ],
   "truncatedFxMissing": 2
+ },
+ "frOutflowSpan": {
+  "_comment": "FR: Devisenspanne auch für die Herkunft einer Kürzung der Erwerbspreis-Summe (Abgang ohne Verkauf) in einem Jahr ohne Abtretung — Kauf 10.3.2023, 2025 nur eine Schenkung (Kürzung zum Kurs des Kaufdatums) → Kurse ab 10.3.2023, nicht erst ab 1.1.2025.",
+  "year": 2025,
+  "today": "2026-10-28",
+  "trades": [
+   {
+    "id": 1,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "1",
+    "time": 1678449600000,
+    "price": "10000"
+   },
+   {
+    "id": 2,
+    "coin": "BTC",
+    "type": "GIFT",
+    "amount": "0.5",
+    "time": 1748779200000
+   }
+  ],
+  "prices": {
+   "BTC": "20000"
+  },
+  "from": "2023-03-10",
+  "until": "2025-12-31"
  }
 }

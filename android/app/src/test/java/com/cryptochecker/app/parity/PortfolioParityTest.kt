@@ -13,6 +13,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
+import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
+import com.cryptochecker.app.domain.portfolio.PriceSample
+import com.cryptochecker.app.domain.portfolio.TimedPrice
 import com.cryptochecker.app.domain.portfolio.UsdtUsdRates
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -333,6 +337,50 @@ class PortfolioParityTest {
             near("$name history pnl", e["historyPnl"].num(), history.pnlChange)
             // Dieselbe Zahl in Kopf und Kurve
             near("$name same number", gain?.amountUsd, history.pnlChange)
+        }
+    }
+
+    /** Widget ohne Stundenkurse: ein Coin ohne gültigen aktuellen Kurs fehlt in allen Punkten (keine Linie ohne Bewegung). */
+    @Test
+    fun widgetFallback() {
+        for (raw in data["widgetFallback"].list()) {
+            val c = raw.obj()
+            val name = c["name"] as String
+            val history = c["history"].list().map { it.obj() }.map { PriceSample(it["time"].num()!!.toLong(), prices(it["prices"])) }
+            val points = PortfolioWidgetMath.valueHistory(
+                prices(c["holdings"]), history, prices(c["current"]), c["now"].num()!!.toLong(), c["fxRate"].num()!!,
+            )
+            val expected = c["expected"].list().map { it.obj() }
+            assertEquals("$name times", expected.map { it["time"].num()!!.toLong() }, points.map { it.time })
+            expected.zip(points).forEach { (e, p) -> near("$name value", e["value"].num(), p.value) }
+        }
+    }
+
+    /** «Heute»: Beginn je Coin = Zeit seines Vergleichskurses; ein Kauf nach der Basis ist Zufluss, kein Gewinn. */
+    @Test
+    fun todayBase() {
+        for (raw in data["todayBase"].list()) {
+            val c = raw.obj()
+            val name = c["name"] as String
+            val now = c["now"].num()!!.toLong()
+            val current = prices(c["current"])
+            val base = c["base"].obj().let { PriceSample(it["time"].num()!!.toLong(), prices(it["prices"])) }
+            val hourly = c["hourly"].obj().mapValues { (_, list) ->
+                list.list().map { it.obj() }.map { TimedPrice(it["time"].num()!!.toLong(), it["price"].num()!!) }
+            }
+            val since = PortfolioWidgetSeries.changeSince(current, base, hourly, now)
+            val e = c["expected"].obj()
+            assertEquals("$name since", e["since"].obj().mapValues { it.value.num()!!.toLong() }, since)
+            val coinChanges = prices(c["coinChanges"])
+            val holdings = prices(c["holdings"])
+            val trades = c["trades"].list().map(::trade)
+            val start = c["windowStart"].num()!!.toLong()
+            val change = PortfolioPeriodChange.todayFromCoinChanges(holdings, current, coinChanges)
+            val today = PortfolioPeriodChange.todayAdjusted(change, trades, current, coinChanges, start, coinStart = since)
+            near("$name amount", e["amount"].num(), today?.amountUsd)
+            near("$name percent", e["percent"].num(), today?.percent)
+            val rows = PortfolioPeriodChange.todayByCoin(holdings, trades, current, coinChanges, start, coinStart = since)
+            near("$name rows sum", e["amount"].num(), rows.values.sumOf { it.amountUsd })
         }
     }
 

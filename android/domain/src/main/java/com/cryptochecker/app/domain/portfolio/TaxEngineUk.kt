@@ -39,33 +39,49 @@ fun TaxEngines.ukPool(
     val remaining = HashMap<TaxStep, BigDecimal>()
     val pieces = HashMap<TaxStep, ArrayList<TaxPiece>>()
     disposes.forEach { remaining[it] = it.qty; pieces[it] = ArrayList() }
-    // 1. Gleicher Tag: alle Abgänge des Tags gemeinsam gegen die Zugänge des Tags, anteilig nach Menge
-    for ((d, group) in disposes.groupBy { day(it.time, zone) }) {
-        val pool = dayPools[d] ?: continue
-        val total = group.fold(BigDecimal.ZERO) { a, s -> a + s.qty }
-        val matched = total.min(pool.held)
-        if (matched.signum() <= 0) continue
-        var left = matched
+    // Alle Abgänge eines Tags sind EINE Veräusserung (CRYPTO22200): jede Zuordnung (gleicher Tag, 30 Tage, Pool) gilt der
+    // Gruppe und wird anteilig nach dem offenen Rest ihrer Abgänge verteilt — Menge [q], letzter Abgang mit Rest bekommt
+    // den Rest (Summe exakt [q]); [take] nimmt je Abgang seinen Anteil
+    fun split(group: List<TaxStep>, q: BigDecimal, take: (TaxStep, BigDecimal) -> Unit) {
+        val total = group.fold(BigDecimal.ZERO) { a, s -> a + remaining.getValue(s) }
+        if (q.signum() <= 0 || total.signum() <= 0) return
+        val last = group.indexOfLast { remaining.getValue(it).signum() > 0 }
+        var left = q
         group.forEachIndexed { i, s ->
-            val want = if (i == group.size - 1) left else matched.multiply(s.qty).divide(total, PortfolioDecimal.MC)
+            val r = remaining.getValue(s)
+            if (r.signum() <= 0) return@forEachIndexed
+            val want = if (i == last) left else q.multiply(r).divide(total, PortfolioDecimal.MC)
             left -= want
+            take(s, want)
+        }
+    }
+    fun openOf(group: List<TaxStep>): BigDecimal = group.fold(BigDecimal.ZERO) { a, s -> a + remaining.getValue(s) }
+    // Gruppen je Tag, zeitlich (Abgänge sind zeitlich sortiert)
+    val groups = disposes.groupBy { day(it.time, zone) }
+    // 1. Gleicher Tag: die Gruppe gegen die Zugänge des Tags
+    for ((d, group) in groups) {
+        val pool = dayPools[d] ?: continue
+        split(group, openOf(group).min(pool.held)) { s, want ->
             val taken = pool.take(want)
             remaining[s] = remaining.getValue(s) - taken.removed
             pieces.getValue(s) += piecesOf(taken, TaxMatch.SAME_DAY, dayFirst[d])
         }
     }
-    // 2. 30 Tage: früheste Veräusserung zuerst, Zugänge der 30 Tage danach früheste zuerst
-    for (s in disposes) {
-        val d = day(s.time, zone)
+    // 2. 30 Tage: früheste Gruppe zuerst, Zugänge der 30 Tage danach früheste zuerst
+    for ((d, group) in groups) {
         for ((ad, pool) in dayPools.subMap(d.plusDays(1), d.plusDays(TaxTemplate.UK_BB_DAYS + 1))) {
-            val r = remaining.getValue(s)
+            val r = openOf(group)
             if (r.signum() <= 0) break
             if (pool.held.signum() <= 0) continue
-            val taken = pool.take(r)
-            remaining[s] = r - taken.removed
-            pieces.getValue(s) += piecesOf(taken, TaxMatch.THIRTY_DAY, dayFirst[ad])
+            split(group, r.min(pool.held)) { s, want ->
+                val taken = pool.take(want)
+                remaining[s] = remaining.getValue(s) - taken.removed
+                pieces.getValue(s) += piecesOf(taken, TaxMatch.THIRTY_DAY, dayFirst[ad])
+            }
         }
     }
+    // Der Pool-Teil einer Gruppe beim letzten Abgang des Tags (alle Buchungen bis dahin im Pool)
+    val groupAt = groups.values.associateBy { it.last() }
     // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
     // Buchungstag), Rest der Abgänge aus dem Pool
     val pool = TaxPool(zone)
@@ -94,17 +110,19 @@ fun TaxEngines.ukPool(
                     added.add(d) -> enter(d, dayOwn.getValue(d))
                 }
             }
-            TaxStepKind.DISPOSE -> {
-                val list = pieces.getValue(s)
-                val r = remaining.getValue(s)
-                if (r.signum() > 0) {
-                    val taken = pool.take(r)
-                    list += piecesOf(taken, TaxMatch.POOL)
-                    val rest = r - taken.removed
-                    if (rest.signum() > 0) list += TaxPiece(rest, null, uncovered = true)
+            TaxStepKind.DISPOSE -> groupAt[s]?.let { group ->
+                split(group, openOf(group).min(pool.held)) { m, want ->
+                    val taken = pool.take(want)
+                    remaining[m] = remaining.getValue(m) - taken.removed
+                    pieces.getValue(m) += piecesOf(taken, TaxMatch.POOL)
                 }
-                // Erlös vor Gebühren mitführen: die Meldegrenze an HMRC prüft die Erlöse vor Abzug der Kosten
-                out += emit(coin, s, list, s.proceeds, gross = s.gross)
+                for (m in group) {
+                    val list = pieces.getValue(m)
+                    val rest = remaining.getValue(m)
+                    if (rest.signum() > 0) list += TaxPiece(rest, null, uncovered = true)
+                    // Erlös vor Gebühren mitführen: die Meldegrenze an HMRC prüft die Erlöse vor Abzug der Kosten
+                    out += emit(coin, m, list, m.proceeds, gross = m.gross)
+                }
             }
             TaxStepKind.REMOVE -> pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))

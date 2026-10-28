@@ -147,6 +147,7 @@ extension TaxSummaryTexts {
                 .WINDOW_OPEN: L("tax_summary_window_open", TaxExport.noteDateToken),
                 .UK_HMRC_REPORT: L("tax_summary_uk_hmrc_report"),
                 .FR_ADDRESS_NO_COST: L("tax_summary_fr_address_no_cost"),
+                .FR_REWARDS_INCOME: L("tax_summary_fr_rewards_income"),
             ],
             // Coin und Menge setzt die Übersicht ein (`wealthCoinLabel`): hier nur die Platzhalter
             wealthCoin: L("tax_ch_wealth_coin", TaxExport.wealthCoinToken, TaxExport.wealthAmountToken),

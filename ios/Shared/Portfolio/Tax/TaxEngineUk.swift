@@ -39,8 +39,24 @@ extension TaxEngines {
             remaining[i] = steps[i].qty
             pieces[i] = []
         }
-        // 1. Gleicher Tag: alle Abgänge des Tags gemeinsam gegen die Zugänge des Tags, anteilig nach Menge
-        // Gruppen in der Reihenfolge ihres ersten Abgangs; Tag → Gruppe über ein Verzeichnis (kein Suchen je Abgang)
+        // Alle Abgänge eines Tags sind EINE Veräusserung (CRYPTO22200): jede Zuordnung (gleicher Tag, 30 Tage, Pool) gilt
+        // der Gruppe und wird anteilig nach dem offenen Rest ihrer Abgänge verteilt — Menge `q`, letzter Abgang mit Rest
+        // bekommt den Rest (Summe exakt `q`); `take` nimmt je Abgang seinen Anteil. Wie Android `split`.
+        func split(_ idx: [Int], _ q: Decimal, _ take: (Int, Decimal) -> Void) {
+            let total: Decimal = idx.reduce(Decimal(0)) { $0 + (remaining[$1] ?? 0) }
+            guard q > 0, total > 0 else { return }
+            let last = idx.lastIndex { (remaining[$0] ?? 0) > 0 }
+            var left = q
+            for (n, i) in idx.enumerated() {
+                let r = remaining[i] ?? 0
+                guard r > 0 else { continue }
+                let want: Decimal = n == last ? left : PortfolioDecimal.divide(q * r, total)
+                left -= want
+                take(i, want)
+            }
+        }
+        func openOf(_ idx: [Int]) -> Decimal { idx.reduce(Decimal(0)) { $0 + (remaining[$1] ?? 0) } }
+        // Gruppen je Tag in der Reihenfolge ihres ersten Abgangs; Tag → Gruppe über ein Verzeichnis (kein Suchen je Abgang)
         var groups: [(day: LocalDay, idx: [Int])] = []
         var groupOf: [LocalDay: Int] = [:]
         for i in disposeIdx {
@@ -52,43 +68,42 @@ extension TaxEngines {
                 groups.append((d, [i]))
             }
         }
+        // 1. Gleicher Tag: die Gruppe gegen die Zugänge des Tags
         for g in groups {
             guard var pool = dayPools[g.day] else { continue }
-            let total: Decimal = g.idx.reduce(Decimal(0)) { $0 + steps[$1].qty }
-            let matched = min(total, pool.held)
-            guard matched > 0 else { continue }
-            var left = matched
-            for (n, i) in g.idx.enumerated() {
-                let want: Decimal = n == g.idx.count - 1 ? left : PortfolioDecimal.divide(matched * steps[i].qty, total)
-                left -= want
+            split(g.idx, min(openOf(g.idx), pool.held)) { i, want in
                 let taken = pool.take(want)
                 remaining[i] = (remaining[i] ?? 0) - taken.removed
                 pieces[i, default: []] += piecesOf(taken, match: .SAME_DAY, matchedTime: dayFirst[g.day])
             }
             dayPools[g.day] = pool
         }
-        // 2. 30 Tage: früheste Veräusserung zuerst, Zugänge der 30 Tage danach früheste zuerst
-        for i in disposeIdx {
-            let d = day(steps[i].time, zone)
-            let to = d.plusDays(TaxTemplate.ukBbDays)
-            // Erster Zugangstag nach `d` per binärer Suche, dann nur die Tage bis `to` — wie `subMap` (Android)
+        // 2. 30 Tage: früheste Gruppe zuerst, Zugänge der 30 Tage danach früheste zuerst
+        for g in groups {
+            let to = g.day.plusDays(TaxTemplate.ukBbDays)
+            // Erster Zugangstag nach dem Tag der Gruppe per binärer Suche, dann nur die Tage bis `to` — wie `subMap` (Android)
             var lo = 0
             var hi = poolDays.count
             while lo < hi {
                 let mid = (lo + hi) / 2
-                if d < poolDays[mid] { hi = mid } else { lo = mid + 1 }
+                if g.day < poolDays[mid] { hi = mid } else { lo = mid + 1 }
             }
             for ad in poolDays[lo...] {
                 if to < ad { break }
-                let r = remaining[i] ?? 0
+                let r = openOf(g.idx)
                 if r <= 0 { break }
                 guard var pool = dayPools[ad], pool.held > 0 else { continue }
-                let taken = pool.take(r)
+                split(g.idx, min(r, pool.held)) { i, want in
+                    let taken = pool.take(want)
+                    remaining[i] = (remaining[i] ?? 0) - taken.removed
+                    pieces[i, default: []] += piecesOf(taken, match: .THIRTY_DAY, matchedTime: dayFirst[ad])
+                }
                 dayPools[ad] = pool
-                remaining[i] = r - taken.removed
-                pieces[i, default: []] += piecesOf(taken, match: .THIRTY_DAY, matchedTime: dayFirst[ad])
             }
         }
+        // Der Pool-Teil einer Gruppe beim letzten Abgang des Tags (alle Buchungen bis dahin im Pool)
+        var groupAt: [Int: [Int]] = [:]
+        for g in groups { if let last = g.idx.last { groupAt[last] = g.idx } }
         // 3. Section-104-Pool: Rest der Tages-Zugänge am Tag des Zugangs (Anteil nachgebuchter Einzahlungen erst an ihrem
         // Buchungstag), Rest der Abgänge aus dem Pool
         var pool = TaxPool(zone: zone)
@@ -121,16 +136,19 @@ extension TaxEngines {
                     enter(d, dayOwn[d] ?? 0)
                 }
             case .dispose:
-                var list = pieces[i] ?? []
-                let r = remaining[i] ?? 0
-                if r > 0 {
-                    let taken = pool.take(r)
-                    list += piecesOf(taken, match: .POOL)
-                    let rest = r - taken.removed
-                    if rest > 0 { list.append(Piece(amount: rest, cost: nil, uncovered: true)) }
+                guard let group = groupAt[i] else { break }
+                split(group, min(openOf(group), pool.held)) { m, want in
+                    let taken = pool.take(want)
+                    remaining[m] = (remaining[m] ?? 0) - taken.removed
+                    pieces[m, default: []] += piecesOf(taken, match: .POOL)
                 }
-                // Erlös vor Gebühren mitführen: die Meldegrenze an HMRC prüft die Erlöse vor Abzug der Kosten
-                out += emit(coin, s, list, proceeds: s.proceeds, gross: s.gross)
+                for m in group {
+                    var list = pieces[m] ?? []
+                    let rest = remaining[m] ?? 0
+                    if rest > 0 { list.append(Piece(amount: rest, cost: nil, uncovered: true)) }
+                    // Erlös vor Gebühren mitführen: die Meldegrenze an HMRC prüft die Erlöse vor Abzug der Kosten
+                    out += emit(coin, steps[m], list, proceeds: steps[m].proceeds, gross: steps[m].gross)
+                }
             case .remove:
                 _ = pool.take(s.qty)
             case .networkFee:

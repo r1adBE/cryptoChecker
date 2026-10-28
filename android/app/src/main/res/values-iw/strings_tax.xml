@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">אותו דבר חל על עמלה ב-USDT או במזומן בהעברה בין הארנקים שלך: היא לא מתווספת לעלות ומוצגת לידיעה בלבד.</string>
     <string name="tax_note_uk">התאמה לפי HMRC: אותו יום, אחר כך 30 הימים הבאים, אחר כך מאגר משותף לפי Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">מעבר ב-1.1.2025 (Rev. Proc. 2024-28, safe harbor): אם בשנים קודמות חושב FIFO על פני כל הארנקים, היתרות ב-31.12.2024 עוברות לארנקים שבהם המטבעות – הארנק עם המטבעות הוותיקים ביותר מקבל את העלות המוקדמת ביותר. הקצאה זו היא כלל של האפליקציה – השוו לרישומים שלך.</string>
-    <string name="tax_note_us_wallet">החל משנת המס 2025 ה-IRS דורש עלות רכישה לפי ארנק/בורסה (Rev. Proc. 2024-28) – הייצוא מחשב FIFO לפי ארנק מ-2025 – לפני 2025 חלה שיטת חישוב עלות הרכישה שלך.</string>
+    <string name="tax_note_us_wallet">החל משנת המס 2025 ה-IRS דורש עלות רכישה לפי ארנק/בורסה (Rev. Proc. 2024-28) – הייצוא מחשב FIFO לפי ארנק מ-2025 – לפני 2025 FIFO על כל הארנקים יחד, או FIFO לפי ארנק אם זו שיטת חישוב עלות הרכישה שנבחרה.</string>
     <string name="tax_note_withdrawal_fee">עמלת משיכה ב-USDT או במזומן אינה הפסד: עמלה במזומן אינה ניתנת לניכוי, עמלה ב-USDT היא מימוש לפי הערך הנקוב ללא רווח – היא מוצגת לידיעה בלבד (%1$s).</string>
     <string name="tax_summary_at_interest_income">נספר: הכנסה בעת הקבלה בשיעור המיוחד של 27.5 אחוז (§ 27b ס׳ 2 מס׳ 1 EStG / BMF) – המטבעות שומרים על שווי זה כעלות רכישה</string>
     <string name="tax_summary_at_reward_info">לידיעה בלבד – לא נכלל באף סכום: תגמולים נכנסים ליתרה החדשה בעלות רכישה 0 וממוסים רק במכירה (כבר ברווחים) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">כתובות במעקב נכללות בשווי הכולל אך אין להן עלות רכישה – לכן הרווח כנראה גבוה מדי. רשמו את העלות כרכישה.</string>
+    <string name="tax_summary_fr_rewards_income">הסכום מניח שהתגמולים חויבו במס כהכנסה בעת קבלתם (השווי בעת הקבלה בעלות הרכישה) – אחרת, הקריאה הזהירה היא עלות רכישה 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">שווי שוק ללא מחיר רשום (עמלות, ניתן במתנה/שולם, החלפה, תגמולים, עמלות רשת, שווי התיק) לפי מחיר הסגירה היומי (UTC) של יום העסקה</string>

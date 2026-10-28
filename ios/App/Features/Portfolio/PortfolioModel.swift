@@ -155,10 +155,10 @@ final class PortfolioModel: ObservableObject {
         }
     }
 
-    /// Beobachtete Adress-Guthaben (`AddressBalanceHistory.of`) für Heute / 7 T / 1 J und den Wertverlauf: zählen ab
-    /// ihrer ersten Beobachtung, nie rückwirkend — wie `PortfolioViewModel.addressHistories`.
+    /// Beobachtete Adress-Guthaben für 7 T / 1 J und den Wertverlauf (`AddressBooked.histories`): ab ihrer ersten
+    /// Beobachtung, nie rückwirkend, ohne das schon Gebuchte (wie die Karte) — wie `PortfolioViewModel.addressHistories`.
     var addressHistories: [AddressBalanceHistory] {
-        AddressBalanceHistory.of(data.watchedAddresses)
+        AddressBooked.histories(data.watchedAddresses, real: data.portfolio)
     }
 
     /// Veränderungen je Coin aus dem gespeicherten Stand (nur, wenn er zur %-Basis und zum Tag passt).

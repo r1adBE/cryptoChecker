@@ -126,7 +126,7 @@ class PortfolioCoinDeletionTest {
 
 /**
  * CSV-Import: geänderte gespeicherte Seiten verknüpfter Umbuchungen ([linkedStoredEntities], geschrieben in EINER
- * Datenbank-Transaktion von [linkStoredTransfers]) und Hinweis «unvollständig» unter einem Teilwert der CH-Steuerkarte
+ * Datenbank-Transaktion von [insertImportedLinked]) und Hinweis «unvollständig» unter einem Teilwert der CH-Steuerkarte
  * (iOS `PortfolioWriteFailureTests`).
  */
 class PortfolioCsvLinksTest {

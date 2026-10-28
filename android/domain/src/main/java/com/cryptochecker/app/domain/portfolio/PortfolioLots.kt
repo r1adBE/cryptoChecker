@@ -201,8 +201,9 @@ data class PortfolioDisposal(
     /** Zahlung mit Krypto ([PortfolioTxType.PAYMENT], Veräusserung zum Marktwert): Vermerk «Zahlung mit Krypto». */
     val payment: Boolean = false,
     /**
-     * Erlös aus einem geschätzten Wert ([PortfolioTrade.valueEstimated], Tagesschluss): Vermerk «Wert geschätzt
-     * (Tagesschluss)» — geschätzt, nicht fehlend.
+     * Wert aus einem geschätzten Kurs (Tagesschluss): [PortfolioTrade.valueEstimated] bzw. Gebühr im dritten Coin mit
+     * [PortfolioTrade.feePriceEstimated] (Zeile der Gebühr-Coins, Erlös bzw. Aufwand mit dem Wert der Gebühr): Vermerk
+     * «Wert geschätzt (Tagesschluss)» — geschätzt, nicht fehlend.
      */
     val valueEstimated: Boolean = false,
     // ---- Nur Steuer-Vorlagen ([TaxEngines]) ----

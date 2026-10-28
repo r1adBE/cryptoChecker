@@ -96,6 +96,21 @@ class CsvImportMappingTest {
         assertEquals("Network fee", feeTx.note)
     }
 
+    /** Staking-Umbuchung («Unstaking», «Redeem»): Merker gesetzt, mit oder ohne Notiz; andere Arten nie. */
+    @Test
+    fun stakingTransferSetsMarker() {
+        val row = CsvImportRow(1, CsvImportKind.TRANSFER, "Unstaking", "ETH", BigDecimal("2"), null, null, null, null, 5L, null, "k")
+        val withNote = CsvImportMapping.toTx(CsvImport.priceInUsdt(listOf(row)) { _, _ -> null }.single())
+        assertEquals(PortfolioTxType.TRANSFER, withNote.type)
+        assertTrue(withNote.stakingMove)
+        assertEquals("Unstaking", withNote.note)
+        val noNote = CsvImportMapping.toTx(CsvImport.priceInUsdt(listOf(row.copy(rawKind = " "))) { _, _ -> null }.single())
+        assertTrue(noNote.stakingMove)
+        assertNull(noNote.note)
+        val withdrawal = row.copy(kind = CsvImportKind.WITHDRAWAL)
+        assertFalse(CsvImportMapping.toTx(CsvImport.priceInUsdt(listOf(withdrawal)) { _, _ -> null }.single(), true).stakingMove)
+    }
+
     @Test
     fun fxNeedsPerCurrencyWithDayRange() {
         val needs = CsvImportMapping.fxNeeds(CsvImportParser.parse(csv).rows)
@@ -112,6 +127,8 @@ class CsvImportMappingTest {
         assertEquals(PortfolioTxType.WITHDRAWAL, plain.getValue(4).type)
         assertEquals(PortfolioTxType.TRANSFER, asTransfer.getValue(4).type)
         assertNull(asTransfer.getValue(4).transferTo) // die Formate liefern kein Ziel
+        // Auszahlung als Umbuchung bleibt eine Auszahlung (keine Staking-Umbuchung)
+        assertFalse(asTransfer.getValue(4).stakingMove)
         // Gebühr in Coin bleibt (Netzwerkgebühr der Umbuchung)
         assertEquals(plain.getValue(4).fee, asTransfer.getValue(4).fee)
         // Gebühr-Zeilen bleiben Veräusserungen ohne Erlös

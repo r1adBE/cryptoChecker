@@ -45,6 +45,8 @@ struct PortfolioTxDraft: Identifiable {
     var feeRow = false
     /// Belohnung ist ein Zins (Lending; nur bei `.REWARD`, im Blatt umschaltbar).
     var interest = false
+    /// Staking-Umbuchung (CSV) — bleibt beim Bearbeiten erhalten, solange die Art «Umbuchung» bleibt; von Hand nie gesetzt.
+    var stakingMove = false
 
     init(coin: String = "", priceUsdt: Double? = nil) {
         self.coin = PortfolioCalculator.normalizeCoin(coin)
@@ -78,6 +80,7 @@ struct PortfolioTxDraft: Identifiable {
         importRestoreState = tx.importRestoreState
         feeRow = tx.feeRow
         interest = tx.interest
+        stakingMove = tx.stakingMove
     }
 
     var isEdit: Bool { txId != 0 }

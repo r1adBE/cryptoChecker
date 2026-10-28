@@ -92,10 +92,11 @@ extension PortfolioCalculator {
         /// Rest `uncovered`. `proceeds` = Erlös des GANZEN Abgangs; `coveredProceeds` = Anteil des gedeckten Teils.
         func record(_ t: PortfolioTx, _ taken: Taken?, hadPriced: Bool, proceeds: Decimal?, coveredProceeds: Decimal?,
                     uncovered: Decimal, feeLeg: Bool, feeMissing: Bool, swap: Bool = false) {
-            // Schenkung (als Veräusserung), Zahlung mit Krypto und geschätzter Wert: Vermerke im Steuer-Export
+            // Schenkung (als Veräusserung), Zahlung mit Krypto, geschätzter Wert bzw. Gebühr-Preis: Vermerke im Steuer-Export
             let gift = !feeLeg && t.fromGift
             let payment = !feeLeg && t.type == .PAYMENT && !t.fromGift
-            let estimated = !feeLeg && t.valueEstimated
+            // Geschätzter Gebühr-Preis auch am Erlös, den die Gebühr mindert
+            let estimated = feeLeg ? t.feePriceEstimated : t.valueEstimated || (t.feePriceEstimated && proceeds != nil)
             func add(_ amount: Decimal, cost: Decimal?, proceeds part: Decimal?, gain: Decimal?,
                      costParts: PortfolioCostPartList = [], isUncovered: Bool = false) {
                 guard amount > 0 else { return }

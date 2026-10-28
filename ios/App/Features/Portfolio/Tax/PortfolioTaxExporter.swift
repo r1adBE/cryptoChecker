@@ -56,8 +56,8 @@ enum PortfolioTaxExporter {
         return { coin, time in fees(coin, time) ?? base?(coin, time) }
     }
 
-    /// Gebühr-Zeilen (`PortfolioLedger.isFeeDisposal`, CSV «Fee»), Verschenkt/bezahlt ohne Marktwert und Tausch ohne Wert
-    /// (`PortfolioLedger.dayCloseNeeds`) bis Ende `until` (Standard: Ende `period`): zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
+    /// Gebühr-Zeilen (`PortfolioLedger.isFeeDisposal`, CSV «Fee»), Verschenkt/bezahlt ohne Marktwert, Tausch ohne Wert,
+    /// Belohnungen ohne Wert und Gebühren im dritten Coin ohne Preis (`PortfolioLedger.dayCloseNeeds`) bis Ende `until` (Standard: Ende `period`): zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
     /// (`TaxDayClose`, gleicher Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst nil. Ohne solche
     /// nil. Wie Android.
     static func feeDisposalPrices(_ transactions: [PortfolioTx], period: TaxPeriod,

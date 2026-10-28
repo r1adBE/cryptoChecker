@@ -246,6 +246,8 @@ extension PortfolioTxSheet {
         tx.interest = type == .REWARD && interest
         // Gebühr-Zeile bleibt eine, solange die Art «Verkauf» bleibt
         tx.feeRow = type == .SELL && initial.feeRow
+        // Staking-Umbuchung bleibt eine, solange die Art «Umbuchung» bleibt; neu erfasst nie (dann eine Auszahlung)
+        tx.stakingMove = type == .TRANSFER && initial.stakingMove
         // Gebühr im dritten Coin, die diese Art im Blatt nicht zeigt (CSV-Import): bei gleicher Art behalten
         let keepThird = !fields.thirdCoinFee && isEdit && type == initial.type && initial.feeCoin != nil
         if keepThird {

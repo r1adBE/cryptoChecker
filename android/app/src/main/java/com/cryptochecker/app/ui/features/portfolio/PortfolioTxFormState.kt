@@ -288,6 +288,8 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
             interest = type == PortfolioTxType.REWARD && interest,
             // Gebühr-Zeile bleibt eine, solange die Art «Verkauf» bleibt
             feeRow = type == PortfolioTxType.SELL && initial.feeRow,
+            // Staking-Umbuchung bleibt eine, solange die Art «Umbuchung» bleibt; neu erfasst nie (dann eine Auszahlung)
+            stakingMove = type == PortfolioTxType.TRANSFER && initial.stakingMove,
             feeCoin = if (keepThird) initial.feeCoin else if (third) d.feeCoinSymbol else null,
             feeCoinAmount = if (keepThird) initial.feeCoinAmount else if (third) d.feeCoinAmount else null,
             feeCoinPriceUsdt = if (keepThird) initial.feeCoinPriceUsdt else if (third && !d.feeInReceived) d.feeCoinPrice else null,

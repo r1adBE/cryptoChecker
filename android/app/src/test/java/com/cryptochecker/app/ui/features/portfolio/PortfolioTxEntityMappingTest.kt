@@ -43,6 +43,7 @@ class PortfolioTxEntityMappingTest {
         linkedImportKey = "binance:43",
         feeRow = true,
         interest = true,
+        stakingMove = true,
     )
 
     // ---- Entwurf ----
@@ -76,6 +77,7 @@ class PortfolioTxEntityMappingTest {
         assertNull(draft.importRestoreState)
         assertTrue(draft.feeRow)
         assertTrue(draft.interest)
+        assertTrue(draft.stakingMove)
     }
 
     @Test
@@ -114,12 +116,17 @@ class PortfolioTxEntityMappingTest {
         assertEquals("binance", move.exchange)
         assertEquals("batch-1", move.importBatch)
         assertEquals("binance:43", move.linkedImportKey)
+        // Merker der Staking-Umbuchung nur bei einer Umbuchung
+        assertFalse(move.stakingMove)
     }
 
     @Test
     fun toStoredMoveForDepositAndTransfer() {
         assertEquals(PortfolioTxType.DEPOSIT, full.copy(type = PortfolioTxType.DEPOSIT).toStoredMove()?.type)
         assertEquals(PortfolioTxType.TRANSFER, full.copy(type = PortfolioTxType.TRANSFER).toStoredMove()?.type)
+        // Staking-Umbuchung: Merker kommt mit, die Notiz zählt nicht
+        assertTrue(full.copy(type = PortfolioTxType.TRANSFER, note = null).toStoredMove()!!.stakingMove)
+        assertFalse(full.copy(type = PortfolioTxType.TRANSFER, stakingMove = false).toStoredMove()!!.stakingMove)
     }
 
     @Test

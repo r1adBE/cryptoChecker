@@ -20,10 +20,12 @@ enum PortfolioFeeExpense: String, Sendable, Equatable {
 /// Je Fall eine Veräusserung: Einstand = Aufwand, Erlös 0, Gewinn = −Aufwand, Haltedauer 0.
 enum PortfolioFeeExpenses {
 
-    /// Aufwand (USDT) und «Wert der Gebühr im dritten Coin fehlt».
+    /// Aufwand (USDT), «Wert der Gebühr im dritten Coin fehlt» und «enthält einen geschätzten Gebühr-Preis»
+    /// (`PortfolioTx.feePriceEstimated`, Vermerk «Wert geschätzt»).
     struct Expense {
         let usdt: Decimal
         let feeValueMissing: Bool
+        var estimated = false
     }
 
     /// Gebühr verbraucht den ganzen Zugang `e`; nil = nicht so oder ohne Preis/Wert.
@@ -38,20 +40,21 @@ enum PortfolioFeeExpenses {
         guard let price = t.validPriceExact else { return nil }
         let feeValue = t.thirdFeeValue
         let usdt: Decimal = t.amountExact * price + t.quoteFeeExact + (feeValue ?? 0)
-        return Expense(usdt: usdt, feeValueMissing: feeValue == nil)
+        return Expense(usdt: usdt, feeValueMissing: feeValue == nil, estimated: t.feePriceEstimated)
     }
 
     /// Auszahlung bei Bestand `holdings`: Gebühr USDT + Wert der Gebühr im dritten Coin zum gedeckten Anteil
-    /// (`PortfolioLedger.withdrawnShare`); nil = keine Gebühr oder nichts abgegeben.
-    static func withdrawal(_ t: PortfolioTx, holdings: Decimal) -> Expense? {
+    /// (`PortfolioLedger.withdrawnShare`); nil = keine Gebühr oder nichts abgegeben. `thirdFee` false: nur die Gebühr USDT
+    /// (FR: die Gebühr im dritten Coin ist dort eine eigene Abtretung).
+    static func withdrawal(_ t: PortfolioTx, holdings: Decimal, thirdFee: Bool = true) -> Expense? {
         // Auszahlung und Verschenkt (wie eine Auszahlung)
         if !t.type.isWithdrawalLike || t.amountExact <= 0 { return nil }
         guard let share = PortfolioLedger.withdrawnShare(t, holdings: holdings) else { return nil }
-        let feeValue = t.thirdFeeValue
+        let feeValue: Decimal? = thirdFee ? t.thirdFeeValue : 0
         let full: Decimal = t.quoteFeeExact + (feeValue ?? 0)
         if full <= 0 && feeValue != nil { return nil }
         let usdt = share == 1 ? full : PortfolioDecimal.multiply(full, share)
-        return Expense(usdt: usdt, feeValueMissing: feeValue == nil)
+        return Expense(usdt: usdt, feeValueMissing: feeValue == nil, estimated: thirdFee && t.feePriceEstimated)
     }
 
     /// Gebühr einer Auszahlung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht erfassten Teil fällt:
@@ -100,19 +103,22 @@ enum PortfolioFeeExpenses {
             lotTxId: t.id, acquiredTime: t.time, lotKind: e.swapIn ? .SWAP : t.type,
             amount: amountOf(e, kind), costUsdt: x.usdt, proceedsUsdt: 0, gainUsdt: -x.usdt,
             holdingDays: 0, feeLeg: false, feeValueMissing: x.feeValueMissing, method: method,
-            wallet: wallet, feeExpense: kind)
+            wallet: wallet, valueEstimated: x.estimated, feeExpense: kind)
     }
 
     /// Alle Gebühr-Aufwände eines Coins (eigene Rechnungen der Steuer-Vorlagen, `TaxEngines`); Auszahlung nur mit Bestand
     /// (`PortfolioHoldingsBook`, ein Topf). `swaps` false: ohne den verbrauchten Zugang eines Tauschs.
-    static func of(_ symbol: String, _ events: [PortfolioLedgerEvent], swaps: Bool = true) -> [PortfolioDisposal] {
+    /// `withdrawalThirdFee` false: Auszahlung nur mit der Gebühr USDT (`withdrawal`).
+    static func of(_ symbol: String, _ events: [PortfolioLedgerEvent], swaps: Bool = true,
+                   withdrawalThirdFee: Bool = true) -> [PortfolioDisposal] {
         var out: [PortfolioDisposal] = []
         var book = PortfolioHoldingsBook(method: .FIFO)
         for e in events {
             if let x = consumed(e), swaps || !e.swapIn {
                 out.append(disposal(symbol, e, .CONSUMED, x, method: .FIFO))
             }
-            if !e.feeLeg && !e.swapIn && book.cap(for: e) > 0, let x = withdrawal(e.trade, holdings: book.cap(for: e)) {
+            let cap = book.cap(for: e)
+            if !e.feeLeg && !e.swapIn && cap > 0, let x = withdrawal(e.trade, holdings: cap, thirdFee: withdrawalThirdFee) {
                 out.append(disposal(symbol, e, .WITHDRAWAL, x, method: .FIFO))
             }
             book.apply(e)

@@ -31,8 +31,7 @@ enum TaxEngines {
                           rules: TaxEventRules? = nil,
                           walletFrom: LocalDay? = nil) -> [PortfolioDisposal] {
         let applied = rules ?? .of(method)
-        // Belohnungen ohne Wert zum Tagesschluss (Einstand statt unbekannt, `PortfolioLedger.valueRewardsAtDayClose`)
-        let input = applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, price: priceAt), rules: applied, priceAt: priceAt)
+        let input = applyRules(dayCloseValued(trades, priceAt), rules: applied, priceAt: priceAt)
         let rows: [PortfolioDisposal]
         if let cm = method.costMethod {
             let valued = PortfolioLedger.valueAtDayClose(input, price: priceAt)
@@ -207,8 +206,8 @@ enum TaxEngines {
 
     /// Netzwerkgebühr in Krypto einer Umbuchung (eigene Wallets), Auszahlung oder Schenkung als eigene Veräusserung — wie
     /// Android `networkFeeSales`: je Gebühr-Coin ein Verkauf der Gebühr-Menge zum Marktwert (erfasster Preis bzw.
-    /// Gebühr-Preis, Stablecoin 1, sonst `priceAt` = Tagesschluss des UTC-Tags der Transaktion, `TaxDayClose`; ohne Kurs
-    /// Erlös unbekannt) mit Id und Zeit der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR
+    /// Gebühr-Preis, Stablecoin 1, sonst `priceAt` = Tagesschluss des UTC-Tags der Transaktion, `TaxDayClose`, Vermerk
+    /// «Wert geschätzt»; ohne Kurs Erlös unbekannt) mit Id und Zeit der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR
     /// ihr in die Liste, damit die Gebühr-Coins (stabil sortiert) die Quelle zuerst verlassen. Die Transaktion verliert diese Gebühr: keine Mengen-
     /// oder Einstandsänderung der Umbuchung, kein Einstand-Zuschlag und kein Aufwand der Gebühr im dritten Coin (sonst
     /// zählte ihr Wert doppelt). Die Gebühr USDT bleibt.
@@ -219,18 +218,25 @@ enum TaxEngines {
             return
         }
         let wallet = t.type == .TRANSFER ? t.transferFrom : t.exchange
-        func sale(_ coin: String, _ qty: Decimal, _ recorded: Decimal?) -> PortfolioTx {
-            PortfolioTx(id: t.id, coin: coin, type: .SELL, amountExact: qty,
-                        priceExact: feePrice(coin, recorded, t.time, priceAt), time: t.time, exchange: wallet)
+        // Kurs zum Tagesschluss (kein erfasster Preis, kein Stablecoin) bzw. schon geschätzter Gebühr-Preis: «Wert geschätzt»
+        func sale(_ coin: String, _ qty: Decimal, _ recorded: Decimal?, estimated: Bool) -> PortfolioTx {
+            let price = feePrice(coin, recorded, t.time, priceAt)
+            let hasRecorded = recorded.map { $0 >= 0 } ?? false
+            let atClose = price != nil && !hasRecorded && PortfolioStables.needsQuote(coin)
+            var s = PortfolioTx(id: t.id, coin: coin, type: .SELL, amountExact: qty,
+                                priceExact: price, time: t.time, exchange: wallet)
+            s.valueEstimated = estimated || atClose
+            return s
         }
         var rest = t
         if t.coinFeeExact > 0 {
-            out.append(sale(PortfolioCalculator.normalizeCoin(t.coin), t.coinFeeExact, t.validPriceExact))
+            out.append(sale(PortfolioCalculator.normalizeCoin(t.coin), t.coinFeeExact, t.validPriceExact, estimated: false))
             rest.feeExact = nil
             rest.feeUnit = nil
         }
         if let c = t.thirdFeeCoin {
-            out.append(sale(c, t.thirdFeeAmount, t.thirdFeePrice))
+            // Gebühr-Preis schon zum Tagesschluss gesetzt (`dayCloseValued`): Merker mitgeben
+            out.append(sale(c, t.thirdFeeAmount, t.thirdFeePrice, estimated: t.feePriceEstimated))
             rest.feeCoin = nil
             rest.feeCoinAmountExact = nil
             rest.feeCoinPriceExact = nil
@@ -271,8 +277,15 @@ enum TaxEngines {
     static func outflows(_ trades: [PortfolioTx], method: TaxMethod,
                          priceAt: ((String, Int64) -> Decimal?)? = nil) -> [TaxOutflow] {
         guard method == .FR_PTA else { return [] }
-        let input = applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, price: priceAt), rules: .of(method), priceAt: priceAt)
+        let input = applyRules(dayCloseValued(trades, priceAt), rules: .of(method), priceAt: priceAt)
         return run(input, method: method, timeZone: TimeZone(identifier: "UTC") ?? .current, priceAt: priceAt).outflows
+    }
+
+    /// Nur Steuer-Export, vor jeder Rechnung: Belohnungen ohne Wert und jede Gebühr im dritten Coin ohne Preis zum
+    /// Tagesschluss (`PortfolioLedger.valueRewardsAtDayClose`, `valueThirdFeesAtDayClose`) — wie Android.
+    private static func dayCloseValued(_ trades: [PortfolioTx], _ priceAt: ((String, Int64) -> Decimal?)?) -> [PortfolioTx] {
+        PortfolioLedger.valueThirdFeesAtDayClose(PortfolioLedger.valueRewardsAtDayClose(trades, price: priceAt),
+                                                 price: priceAt)
     }
 
     /// Ergebnis einer Rechnung: Veräusserungen, vermerkter Gebühr-Einstand, nicht zugeordnete Gebühren, FR-Abgänge ohne Verkauf.
@@ -319,32 +332,21 @@ enum TaxEngines {
         var byId: [Int64: PortfolioTx] = [:]
         for t in real { byId[t.id] = t }
         let atNewFrom = startMillis(TaxTemplate.atNewFrom, timeZone)
+        // FR: die Gebühr im dritten Coin einer Auszahlung ist schon eine eigene Abtretung (frPta) — als Aufwand bleibt nur
+        // die Gebühr USDT, zum gedeckten Anteil wie jeder Auszahlungsaufwand
+        let fr = method == .FR_PTA
         for entry in PortfolioLedger.eventsByCoin(real) {
-            for var d in PortfolioFeeExpenses.of(entry.coin, entry.events, swaps: swaps) {
+            for var d in PortfolioFeeExpenses.of(entry.coin, entry.events, swaps: swaps, withdrawalThirdFee: !fr) {
                 // AT Neubestand: eine Gebühr, die den ganzen Zugang verbraucht, ist nur Anschaffungsnebenkosten — nicht
                 // anzusetzen (§ 27a Abs. 4 Z 2 EStG), also kein abziehbarer Verlust
                 if method == .AT_MOVING_AVERAGE, d.feeExpense == .CONSUMED,
                    (byId[d.sellTxId]?.acquisitionTime ?? d.sellTime) >= atNewFrom {
                     continue
                 }
-                if method == .FR_PTA {
+                if fr {
                     // FR: der ganze Kaufpreis samt Gebühr steckt schon in der Erwerbspreis-Summe (frPta) — eine
                     // Verlust-Zeile für den verbrauchten Zugang zählte ihn ein zweites Mal
                     if d.feeExpense == .CONSUMED { continue }
-                    // FR: Gebühr im dritten Coin einer Auszahlung ist schon eine eigene Abtretung (frPta) — als Aufwand
-                    // bleibt nur die Gebühr USDT
-                    if d.feeExpense == .WITHDRAWAL, let t = byId[d.sellTxId], t.thirdFeeCoin != nil {
-                        let q = t.quoteFeeExact
-                        if q <= 0 { continue }
-                        var e = PortfolioDisposal(
-                            coin: d.coin, sellTxId: d.sellTxId, sellTime: d.sellTime, lotTxId: d.lotTxId,
-                            acquiredTime: d.acquiredTime, lotKind: d.lotKind, amount: d.amount, costUsdt: q,
-                            proceedsUsdt: d.proceedsUsdt, gainUsdt: -q, holdingDays: d.holdingDays, feeLeg: d.feeLeg,
-                            feeValueMissing: false, method: d.method, costParts: d.costParts, uncovered: d.uncovered,
-                            wallet: d.wallet, swap: d.swap)
-                        e.feeExpense = d.feeExpense
-                        d = e
-                    }
                     d.grossProceedsUsdt = 0
                 }
                 out.append(d)

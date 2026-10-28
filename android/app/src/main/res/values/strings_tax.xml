@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">The same applies to a USDT or cash fee on a transfer between your own wallets: it is not added to the cost basis and is listed as information only.</string>
     <string name="tax_note_uk">Matching per HMRC: same day → next 30 days → Section 104 pool.</string>
     <string name="tax_note_us_transition">Transition 1 Jan 2025 (Rev. Proc. 2024-28 safe harbor): if earlier years used FIFO across all wallets, the remaining lots as of 31 Dec 2024 go to the wallets holding the coins – the wallet with the oldest coins gets the oldest cost basis. This allocation is an app rule – check it against your own records.</string>
-    <string name="tax_note_us_wallet">From tax year 2025 the IRS requires cost basis per wallet or exchange (Rev. Proc. 2024-28): the export uses FIFO per wallet from 2025 and your cost method for earlier years.</string>
+    <string name="tax_note_us_wallet">From tax year 2025 the IRS requires cost basis per wallet or exchange (Rev. Proc. 2024-28): the export uses FIFO per wallet from 2025 – for earlier years FIFO across all wallets, or FIFO per wallet if that is your cost method.</string>
     <string name="tax_note_withdrawal_fee">A withdrawal fee in USDT or cash is not a loss: a cash fee is not a deductible cost, a USDT fee is a disposal at par without gain – it is listed as information only (%1$s).</string>
     <string name="tax_summary_at_interest_income">counts: income on receipt at the special rate of 27.5 percent (§ 27b(2) no. 1 EStG / BMF) – the coins keep this value as acquisition cost</string>
     <string name="tax_summary_at_reward_info">for information only – not part of any total: rewards enter the new holdings at acquisition cost 0 and are taxed only on sale (already in the gains) – § 27b para. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Watched addresses count towards the total value but have no acquisition cost – the gain is therefore likely too high. Record the cost as a purchase.</string>
+    <string name="tax_summary_fr_rewards_income">The amount assumes rewards were taxed as income when received (value on receipt in the acquisition cost) – otherwise acquisition cost 0 would be the cautious reading.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Market values without a recorded price (fees, gifts/payments, swaps, rewards, network fees, portfolio value) at the daily close (UTC) of the transaction day</string>

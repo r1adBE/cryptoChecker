@@ -23,7 +23,7 @@ import javax.inject.Singleton
 /** Zugriff auf die Portfolio-Transaktionen. */
 @Singleton
 class PortfolioRepository @Inject constructor(
-    /** Eigene Portfolio-Datenbank (auch für [linkStoredTransfers]). */
+    /** Eigene Portfolio-Datenbank (auch für [insertImportedLinked]). */
     val database: PortfolioDatabase,
     private val portfolioDao: PortfolioDao,
     private val watchedAddressDao: WatchedAddressDao,
@@ -41,7 +41,7 @@ class PortfolioRepository @Inject constructor(
      */
     suspend fun save(tx: PortfolioTxEntity): Long {
         val clean = cleanForSave(tx)
-        require(clean.coin.isNotEmpty() && clean.amount.signum() > 0) { "Ungültige Transaktion" }
+        require(clean.storable()) { "Ungültige Transaktion" }
         // In der Transaktion geprüft: Die Datenbank ist dann geöffnet, der Merker also verlässlich
         return database.withTransaction {
             ensureWritable()
@@ -231,7 +231,7 @@ class PortfolioRepository @Inject constructor(
         val clean = withContext(Dispatchers.Default) {
             transactions.map { tx ->
                 cleanForSave(tx.copy(id = 0, importBatch = batch ?: tx.importBatch)).also {
-                    require(it.coin.isNotEmpty() && it.amount.signum() > 0) { "Ungültige Transaktion" }
+                    require(it.storable()) { "Ungültige Transaktion" }
                 }
             }
         }

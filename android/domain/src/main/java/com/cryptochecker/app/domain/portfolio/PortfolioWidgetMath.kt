@@ -293,7 +293,8 @@ object PortfolioWidgetMath {
     /**
      * Wertverlauf des HEUTIGEN Bestands über die gemerkten Kursstände ([history], aufsteigend)
      * und den aktuellen Stand — wie «heute»: Käufe und Verkäufe seither verschieben die
-     * Linie nicht. Fehlt einem Coin in einem Stand der Kurs, zählt der aktuelle Kurs.
+     * Linie nicht. Fehlt einem Coin in einem Stand der Kurs, zählt der aktuelle Kurs. Coins ohne gültigen aktuellen Kurs
+     * fehlen in ALLEN Punkten (wie im Gesamtwert und im Stundenverlauf) — sonst fiele die Linie ohne jede Bewegung.
      * @return aufsteigend nach Zeit, letzter Punkt = [now]; leer ohne offenen Bestand
      */
     fun valueHistory(
@@ -306,9 +307,9 @@ object PortfolioWidgetMath {
         /** Adress-Guthaben je Coin als Stufen ([PortfolioWidgetSeries.amountAt]): nie rückwirkend. */
         addressSteps: Map<String, List<AddressObservation>> = emptyMap(),
     ): List<PortfolioValuePoint> {
-        val open = holdings.filter { (_, amount) -> amount > PortfolioCalculator.EPS && amount.isFinite() }
-        if (open.isEmpty()) return emptyList()
         fun valid(price: Double?): Double? = price?.takeIf { it > 0.0 && it.isFinite() }
+        val open = holdings.filter { (coin, amount) -> amount > PortfolioCalculator.EPS && amount.isFinite() && valid(current[coin]) != null }
+        if (open.isEmpty()) return emptyList()
         fun value(prices: Map<String, Double>, time: Long): Double =
             open.entries.sumOf { (coin, amount) ->
                 PortfolioWidgetSeries.amountAt(coin, amount, time, addressSteps) * (valid(prices[coin]) ?: valid(current[coin]) ?: 0.0)

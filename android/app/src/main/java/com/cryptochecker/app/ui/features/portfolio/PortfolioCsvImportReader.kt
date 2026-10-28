@@ -17,6 +17,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportProgress
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRateDays
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportStep
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvProgressThrottle
@@ -32,12 +33,12 @@ import java.time.ZoneId
 
 /**
  * Text, Ergebnis, Schlüssel, Tageskurse, USDT/USD-Schlüsse ([CsvImport.priceInUsdt]) — für eine neue Vorschau;
- * [choice] = Lesart, mit der gelesen wurde.
+ * [choice] = Lesart, mit der gelesen wurde; [rateDays] = Tage, für die die Kurse geladen wurden ([CsvImportRateDays.of]).
  */
 internal class CsvImportInput(
     val text: String, val result: CsvImportResult, val keys: Set<String>,
     val rates: Map<String, List<Pair<Long, Double>>>, val usdtUsd: Map<Long, BigDecimal>,
-    val choice: CsvReadChoice,
+    val choice: CsvReadChoice, val rateDays: Map<String, LongRange> = emptyMap(),
 )
 
 /** Datei lesen, zerlegen und Kurse laden für [PortfolioCsvImportViewModel]. */
@@ -54,8 +55,10 @@ internal class PortfolioCsvImportReader(
     }
 
     /** Text mit der Lesart [choice] lesen und Tageskurse für den Zeitraum laden (die Vorschau bildet [mapCsvPreview]). */
-    suspend fun prepare(text: String, choice: CsvReadChoice): CsvImportInput {
-        val result = parse(text, choice)
+    suspend fun prepare(text: String, choice: CsvReadChoice): CsvImportInput = load(text, parse(text, choice), choice)
+
+    /** Kurse für das gelesene [result] laden. */
+    private suspend fun load(text: String, result: CsvImportResult, choice: CsvReadChoice): CsvImportInput {
         // Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage)
         val rates = HashMap<String, List<Pair<Long, Double>>>()
         for ((currency, days) in CsvImportMapping.fxNeeds(result.rows, result.fxZone)) {
@@ -64,12 +67,22 @@ internal class PortfolioCsvImportReader(
             if (series != null) rates[currency] = series.entries.map { it.key to it.value }.sortedBy { it.first }
         }
         val keys = repository.importKeys()
-        return CsvImportInput(text, result, keys, rates, usdtUsdCloses(result), choice)
+        val days = CsvImportRateDays.of(result.rows, result.fxZone)
+        return CsvImportInput(text, result, keys, rates, usdtUsdCloses(result), choice, days)
     }
 
-    /** Nur neu zerlegen (andere Zeitzone): Schlüssel, Tageskurse und USDT/USD-Schlüsse bleiben. */
-    suspend fun reparse(read: CsvImportInput, choice: CsvReadChoice): CsvImportInput =
-        CsvImportInput(read.text, parse(read.text, choice), read.keys, read.rates, read.usdtUsd, choice)
+    /**
+     * Nur neu zerlegen (andere Zeitzone): Schlüssel, Tageskurse und USDT/USD-Schlüsse bleiben — ausser ein Tag liegt nun
+     * ausserhalb der geladenen Kurse ([CsvImportRateDays.cover]; die Zeitzone schob eine Zeile auf den nächsten Tag): dann
+     * neu laden, sonst gälte still der Kurs des Vortags.
+     */
+    suspend fun reparse(read: CsvImportInput, choice: CsvReadChoice): CsvImportInput {
+        val result = parse(read.text, choice)
+        if (!CsvImportRateDays.cover(read.rateDays, CsvImportRateDays.of(result.rows, result.fxZone))) {
+            return load(read.text, result, choice)
+        }
+        return CsvImportInput(read.text, result, read.keys, read.rates, read.usdtUsd, choice, read.rateDays)
+    }
 
     private suspend fun parse(text: String, choice: CsvReadChoice): CsvImportResult = withContext(Dispatchers.Default) {
         CsvImportParser.parse(text, ZoneId.systemDefault().id, choice.zone, choice.dateOrder, choice.decimalMark)

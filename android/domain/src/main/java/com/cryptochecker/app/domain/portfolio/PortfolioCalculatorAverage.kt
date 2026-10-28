@@ -93,10 +93,11 @@ fun PortfolioCalculator.average(
         feeMissing: Boolean,
         swap: Boolean = false,
     ) {
-        // Schenkung (als Veräusserung), Zahlung mit Krypto und geschätzter Wert: Vermerke im Steuer-Export
+        // Schenkung (als Veräusserung), Zahlung mit Krypto, geschätzter Wert bzw. Gebühr-Preis: Vermerke im Steuer-Export
         val gift = !feeLeg && t.fromGift
         val payment = !feeLeg && t.type == PortfolioTxType.PAYMENT && !t.fromGift
-        val estimated = !feeLeg && t.valueEstimated
+        // Geschätzter Gebühr-Preis auch am Erlös, den die Gebühr mindert
+        val estimated = if (feeLeg) t.feePriceEstimated else t.valueEstimated || (t.feePriceEstimated && proceeds != null)
         fun add(
             amount: BigDecimal,
             costPart: BigDecimal?,

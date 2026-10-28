@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Ugyanez vonatkozik a saját tárcáid közötti átvezetés USDT-ben vagy készpénzben fizetett díjára: nem növeli a bekerülési értéket, csak tájékoztatásként szerepel.</string>
     <string name="tax_note_uk">Párosítás a HMRC szerint: azonos nap → majd a következő 30 nap → majd a összevont állomány a Section 104 szerint (Section 104 pool).</string>
     <string name="tax_note_us_transition">Átmenet 2025.1.1. (Rev. Proc. 2024-28, safe harbor): ha a korábbi években az összes tárcán átívelő FIFO-t használtad, a 2024.12.31-i maradék tételek azokhoz a tárcákhoz kerülnek, amelyekben az érmék vannak – a legrégebbi érméket tartó tárca kapja a legrégebbi bekerülési értéket. Ez a hozzárendelés az alkalmazás szabálya – vesd össze a saját nyilvántartásoddal.</string>
-    <string name="tax_note_us_wallet">A 2025-ös adóévtől az IRS tárcánként/tőzsdénként kéri a bekerülési értéket (Rev. Proc. 2024-28) – az export 2025-től tárcánkénti FIFO-val számol – előtte a te bekerülési érték módszered érvényes.</string>
+    <string name="tax_note_us_wallet">A 2025-ös adóévtől az IRS tárcánként/tőzsdénként kéri a bekerülési értéket (Rev. Proc. 2024-28) – az export 2025-től tárcánkénti FIFO-val számol – előtte az összes tárcára együtt FIFO, vagy tárcánkénti FIFO, ha ez a te bekerülési érték módszered.</string>
     <string name="tax_note_withdrawal_fee">Az USDT-ben vagy készpénzben fizetett kifizetési díj nem veszteség: a készpénzes díj nem vonható le, az USDT-díj névértéken történő elidegenítés nyereség nélkül – csak tájékoztatásként szerepel (%1$s).</string>
     <string name="tax_summary_at_interest_income">beszámít: jövedelem a beérkezéskor 27,5 százalékos különadókulccsal (EStG 27b. § (2) 1. pont / BMF) – a coinok ezt az értéket tartják meg bekerülési értékként</string>
     <string name="tax_summary_at_reward_info">csak tájékoztatásul – egyik összegben sem: a jutalmak 0 bekerülési értékkel kerülnek az új állományba és csak eladáskor adóznak (már a nyereségben) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">A figyelt címek beleszámítanak a teljes értékbe, de nincs beszerzési áruk – ezért a nyereség inkább túl magas. Rögzítsd a beszerzési árat vételként.</string>
+    <string name="tax_summary_fr_rewards_income">Az összeg feltételezi, hogy a jutalmakat megszerzéskor jövedelemként adóztatták (a megszerzéskori érték a beszerzési értékben) – különben az óvatos olvasat 0 beszerzési érték lenne.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Rögzített ár nélküli piaci értékek (díjak, elajándékozva/fizetve, csere, jutalmak, hálózati díjak, portfólióérték) a tranzakció napjának napi záróárán (UTC)</string>

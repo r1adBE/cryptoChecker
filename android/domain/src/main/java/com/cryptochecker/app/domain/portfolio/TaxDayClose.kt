@@ -8,8 +8,8 @@ import java.time.ZoneOffset
 
 /**
  * Welcher Tagesschluss gilt, wenn der Steuer-Export einen Marktkurs schätzen muss: IMMER der Schluss des UTC-Tags der
- * Transaktion — für Gebühr-Zeilen, Verschenkt/bezahlt und Tausch ohne Wert, Belohnungen ohne Wert, Netzwerkgebühren als
- * Veräusserung und den FR-Gesamtwert.
+ * Transaktion — für Gebühr-Zeilen, Verschenkt/bezahlt und Tausch ohne Wert, Belohnungen ohne Wert, jede Gebühr im dritten
+ * Coin ohne Preis ([PortfolioLedger.dayCloseNeeds]), Netzwerkgebühren als Veräusserung und den FR-Gesamtwert.
  *
  * Warum diese Regel: Karte und Wertverlauf ([PortfolioPeriodChange.marketPriceAt]), Einkünfte ([TaxExport.incomeRows]) und
  * Gebühr-Zeilen rechneten schon so, und die Quellen liefern Tageskerzen in UTC (Schluss = 24:00 UTC). Nähmen

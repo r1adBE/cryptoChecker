@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Totéž platí pro poplatek v USDT nebo hotovosti při převodu mezi vlastními peněženkami: nepřičítá se k pořizovací ceně a uvádí se jen pro informaci.</string>
     <string name="tax_note_uk">Párování podle HMRC: stejný den → pak následujících 30 dnů → pak společný soubor dle Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">Přechod 1. 1. 2025 (Rev. Proc. 2024-28, safe harbor): pokud se v dřívějších letech počítalo FIFO přes všechny peněženky, zbývající položky k 31. 12. 2024 připadnou peněženkám, v nichž coiny jsou – peněženka s nejstaršími coiny dostane nejstarší pořizovací cenu. Toto přiřazení je pravidlo aplikace – porovnej je s vlastními záznamy.</string>
-    <string name="tax_note_us_wallet">Od zdaňovacího roku 2025 vyžaduje IRS pořizovací cenu zvlášť pro peněženku/burzu (Rev. Proc. 2024-28) – export počítá od roku 2025 FIFO zvlášť pro peněženku – předtím platí tvá metoda pořizovací ceny.</string>
+    <string name="tax_note_us_wallet">Od zdaňovacího roku 2025 vyžaduje IRS pořizovací cenu zvlášť pro peněženku/burzu (Rev. Proc. 2024-28) – export počítá od roku 2025 FIFO zvlášť pro peněženku – předtím FIFO přes všechny peněženky, nebo FIFO zvlášť pro peněženku, pokud je to tvá metoda pořizovací ceny.</string>
     <string name="tax_note_withdrawal_fee">Poplatek za výběr v USDT nebo hotovosti není ztráta: poplatek v hotovosti není odčitatelný, poplatek v USDT je prodej za nominální hodnotu bez zisku – uvádí se jen pro informaci (%1$s).</string>
     <string name="tax_summary_at_interest_income">počítá se: příjem při přijetí se zvláštní sazbou 27,5 procenta (§ 27b odst. 2 bod 1 EStG / BMF) – mince si tuto hodnotu ponechají jako pořizovací cenu</string>
     <string name="tax_summary_at_reward_info">jen pro informaci – v žádném součtu: odměny vstupují do nového stavu s pořizovací cenou 0 a daní se až při prodeji (již v ziscích) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Sledované adresy se započítávají do celkové hodnoty, ale nemají pořizovací cenu – zisk je proto spíše nadhodnocený. Zadej pořizovací cenu jako nákup.</string>
+    <string name="tax_summary_fr_rewards_income">Částka předpokládá, že odměny byly zdaněny jako příjem při obdržení (hodnota při obdržení v pořizovací ceně) – jinak by opatrnější výklad byl pořizovací cena 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Tržní hodnoty bez zadané ceny (poplatky, darováno/zaplaceno, směna, odměny, síťové poplatky, hodnota portfolia) podle denního závěrečného kurzu (UTC) dne transakce</string>

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import java.math.BigDecimal
 
 // CSV-Import ([CsvImportParser]): Zahlen mit Dezimal- und Tausendertrennzeichen der Börse lesen.
@@ -60,10 +61,12 @@ private fun CsvImportParser.stripGrouping(text: String): String = buildString {
  * Beide Zeichen vorhanden: das letzte ist das Dezimalzeichen. Nur eines, mehrfach: Tausender.
  * Nur eines, einmal: Dezimalzeichen — ausser [hint] sagt das andere und die Gruppen passen (Tausender).
  * Tausender nur mit gültigen Gruppen ([grouped]): «0.001» bleibt 0.001, auch in einer Datei mit Dezimalkomma.
+ * Wissenschaftliche Schreibweise, wie Excel kleine Beträge speichert ([scientific]): «1.234E-05», «1,234E-05».
  */
 fun CsvImportParser.parseNumber(text: String, hint: Char? = null): BigDecimal? {
     val t = stripGrouping(text)
     if (t.isEmpty()) return null
+    if (t.any { it == 'e' || it == 'E' }) return scientific(t)
     val dots = t.count { it == '.' }
     val commas = t.count { it == ',' }
     val plain = when {
@@ -97,3 +100,19 @@ private fun CsvImportParser.grouped(text: String, sep: Char): Boolean {
 }
 
 private val PLAIN = Regex("^-?[0-9]+(\\.[0-9]+)?$")
+
+/** Mantisse mit höchstens einem Dezimalzeichen («.» oder «,», nie Tausender), «E»/«e», Exponent mit 1–3 Ziffern. */
+private val SCIENTIFIC = Regex("^(-?[0-9]+(?:[.,][0-9]+)?)[eE](-?[0-9]{1,3})$")
+
+/**
+ * «1.234E-05» → 0.00001234 (das «+» eines Exponenten entfernt schon [stripGrouping]). Mantisse wie [parseNumber]
+ * höchstens 60 Zeichen; der Wert muss in den Grenzen des Speicherns liegen ([PortfolioDecimal.withinLimits]: unter 10³⁰,
+ * höchstens 40 Nachkommastellen), sonst ungültig. Wie iOS.
+ */
+private fun scientific(t: String): BigDecimal? {
+    val m = SCIENTIFIC.matchEntire(t) ?: return null
+    val mantissa = m.groupValues[1].replace(',', '.')
+    if (mantissa.length > 60) return null
+    val value = runCatching { BigDecimal(mantissa).scaleByPowerOfTen(m.groupValues[2].toInt()) }.getOrNull() ?: return null
+    return value.stripTrailingZeros().takeIf { PortfolioDecimal.withinLimits(it) }
+}

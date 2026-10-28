@@ -29,7 +29,8 @@ final class CsvTransferMatchTests: XCTestCase {
                       importKey: string(o["importKey"]) ?? "", transferFrom: string(o["transferFrom"]),
                       transferTo: string(o["transferTo"]), priceUsdt: dec(o["priceUsdt"]),
                       acquiredTime: id(o["acquiredTime"]), exchange: string(o["exchange"]),
-                      importBatch: string(o["importBatch"]), linkedImportKey: string(o["linkedImportKey"]))
+                      importBatch: string(o["importBatch"]), linkedImportKey: string(o["linkedImportKey"]),
+                      stakingMove: o["stakingMove"] as? Bool ?? false)
     }
 
     /// Zustand aus dem Fixture (Format `CsvRestoreState`) — über die JSON-Form wie aus Datei und Sicherung.
@@ -270,7 +271,7 @@ final class CsvTransferMatchTests: XCTestCase {
         XCTAssertEqual(split.fresh.map(\.key), strings(d["unknown"]))
     }
 
-    /// Verknüpft wird ohne Längengrenze: lange Schlüssel bleiben vollständig, kein Zustand geht verloren.
+    /// Verknüpft wird mit langen Schlüsseln (bis 200 UTF-8-Bytes): sie bleiben vollständig, kein Zustand geht verloren.
     func testLongKeysLinkWithoutLimit() throws {
         let c = try XCTUnwrap(try cases().first { string($0["name"]) == "stored side with separators in its text and a long key both link" })
         let found = links(c)
@@ -302,5 +303,64 @@ final class CsvTransferMatchTests: XCTestCase {
         // Gespeichert erkennt der nächste Import beide Seiten als doppelt (importKey + linkedImportKey)
         let u = try XCTUnwrap(plan.storedUpdates.first)
         XCTAssertEqual(Set([u.importKey, u.linkedImportKey]), Set([old.importKey, found[0].depositKey]))
+    }
+
+    /// Ersatzzeilen (`fallbacks`): die neue Zeile, die gegen eine gespeicherte Seite aufgeht, kommt mit (in der Reihenfolge
+    /// der Vorschau) und ist der Seite zugeordnet — sie wird angelegt, wenn die Verknüpfung beim Speichern nicht mehr geht.
+    func testAbsorbedRowsComeAlongAsFallbacks() throws {
+        let all = S.list(try data()["fallbacks"])
+        XCTAssertFalse(all.isEmpty)
+        for f in all {
+            let name = string(f["case"]) ?? ""
+            let c = try XCTUnwrap(try cases().first { string($0["name"]) == name })
+            let txs = S.list(c["txs"]).map(tx)
+            let found = links(c)
+            let plan = CsvTransferMatch.apply(txs, links: found, chosen: CsvTransferMatch.defaultChoice(found))
+            XCTAssertEqual(CsvTransferMatch.withFallbacks(txs, plan: plan).map(\.importKey), strings(f["rows"]), "\(name) rows")
+            let expected = ((f["fallbacks"] as? [String: Any]) ?? [:]).compactMapValues { id($0) }
+            XCTAssertEqual(CsvTransferMatch.fallbacks(plan), expected, "\(name) fallbacks")
+        }
+    }
+
+    /// Speichern (`AppData.withImported`): Verknüpfung und Ersatzzeile in EINEM Stand — ist die gespeicherte Seite
+    /// inzwischen weg, wird die aufgehende Zeile als eigene Zeile angelegt statt verloren zu gehen; sonst verknüpft und
+    /// ohne Ersatzzeile. Wie Android `insertImportedLinked`.
+    func testSaveKeepsAbsorbedRowWhenLinkFails() throws {
+        let c = try XCTUnwrap(try cases().first { string($0["name"]) == "new deposit against a stored withdrawal of an earlier import" })
+        let txs = S.list(c["txs"]).map(tx)
+        let found = links(c)
+        let plan = CsvTransferMatch.apply(txs, links: found, chosen: CsvTransferMatch.defaultChoice(found))
+        let list = CsvTransferMatch.withFallbacks(txs, plan: plan).map(PortfolioCsvImporter.tx)
+        let fallbacks = CsvTransferMatch.fallbacks(plan)
+        var withdrawal = PortfolioTx(coin: "BTC", type: .WITHDRAWAL, amountExact: Decimal(string: "0.005") ?? 0,
+                                     time: S.millis("2024-01-11T15:30:00Z"))
+        withdrawal.id = 7
+        withdrawal.importKey = "BINANCE|WITHDRAWAL|BTC|L1704987000000|0.005|-"
+        // Gespeicherte Seite noch da: verknüpft, die neue Einzahlung geht darin auf
+        let linked = try AppData.withImported(list, batch: "b2", in: PortfolioFile(transactions: [withdrawal], nextId: 8),
+                                              links: plan.storedUpdates, fallbacks: fallbacks, cancelled: { false },
+                                              onRow: { _ in })
+        XCTAssertEqual(linked.count, 0)
+        XCTAssertEqual(linked.linked, 1)
+        XCTAssertEqual(linked.file.transactions.map(\.type), [.TRANSFER])
+        XCTAssertEqual(linked.file.transactions.first?.linkedImportKey, "COINBASE|65a1b2c3d4e5f60718293a01")
+        // Inzwischen gelöscht: die Einzahlung wird eine eigene Zeile, nichts geht verloren
+        var rows: [Int] = []
+        let alone = try AppData.withImported(list, batch: "b2", in: PortfolioFile(transactions: [], nextId: 8),
+                                             links: plan.storedUpdates, fallbacks: fallbacks, cancelled: { false },
+                                             onRow: { rows.append($0) })
+        XCTAssertEqual(alone.count, 1)
+        XCTAssertEqual(alone.linked, 0)
+        XCTAssertEqual(alone.file.transactions.map(\.type), [.DEPOSIT])
+        XCTAssertEqual(alone.file.transactions.first?.importKey, "COINBASE|65a1b2c3d4e5f60718293a01")
+        XCTAssertEqual(rows.last, list.count)
+        // Schon anders verknüpft: ebenfalls eigene Zeile
+        var taken = withdrawal
+        taken.linkedImportKey = "KRAKEN|D9"
+        let other = try AppData.withImported(list, batch: "b2", in: PortfolioFile(transactions: [taken], nextId: 8),
+                                             links: plan.storedUpdates, fallbacks: fallbacks, cancelled: { false },
+                                             onRow: { _ in })
+        XCTAssertEqual(other.count, 1)
+        XCTAssertEqual(other.linked, 0)
     }
 }

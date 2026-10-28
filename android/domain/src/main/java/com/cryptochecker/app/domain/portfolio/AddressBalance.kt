@@ -276,9 +276,9 @@ object AddressBalance {
     //    ([CoinPosition.addressHoldingsExact]).
     //  - Einstand, Ø, «Seit Kauf», realisiert und Steuer nur aus den eigenen Transaktionen — ein Adress-Guthaben
     //    macht den Einstand gekaufter Coins nicht «unvollständig».
-    //  - Heute / 7 T / 1 J und Wertverlauf: Adress-Einträge zählen NICHT rückwirkend. Nur eine beobachtete
-    //    Guthaben-Reihe ([AddressBalanceHistory]) zählt, ab ihrer ersten Beobachtung; Änderungen zwischen
-    //    Beobachtungen sind Zu-/Abflüsse zum Marktkurs (kein Gewinn).
+    //  - Heute / 7 T / 1 J und Wertverlauf: der Adress-Teil zählt NICHT rückwirkend. Nur eine beobachtete
+    //    Guthaben-Reihe ([AddressBalanceHistory]) zählt, ab ihrer ersten Beobachtung und ohne das schon Gebuchte
+    //    ([AddressBooked]); Änderungen zwischen Beobachtungen sind Zu-/Abflüsse zum Marktkurs (kein Gewinn).
     // Die echten Transaktionen bleiben unverändert (Liste, Export, Sicherung kennen diese Einträge nicht).
     // Eröffnungsposten ([AddressCostLots]) belegen einen Teil des Guthabens mit Einstand — sie rechnen wie Käufe
     // (Wallet = Adresse), nur der Rest bleibt Adress-Teil ohne Einstand ([isAddressPart]).
@@ -311,8 +311,9 @@ object AddressBalance {
     }
 
     /**
-     * Adress-Eintrag statt echter Transaktion (Adress-Einzahlung oder Eröffnungsposten, [AddressCostLots])? Zeiträume,
-     * Verlauf, Stichtag und Listen lassen beide weg.
+     * Adress-Eintrag statt echter Transaktion (Adress-Einzahlung oder Eröffnungsposten, [AddressCostLots])? Listen und
+     * Stichtag lassen beide weg (der Stichtag rechnet seine Posten selbst, [AddressCutoff]); Zeiträume und Verlauf nur
+     * den Adress-Teil ([isAddressPart]).
      */
     fun isAddressTrade(id: Long): Boolean = id < 0
 

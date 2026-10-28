@@ -3,8 +3,9 @@ import Foundation
 /// Gespeicherte, importierte Auszahlung, Einzahlung oder Umbuchung ohne Gegenstück — mögliche zweite Seite einer neuen
 /// Zeile (`CsvTransferMatch.candidates`). Nur importierte Transaktionen: von Hand erfasste Einzahlungen tragen oft bewusst
 /// einen Kaufpreis oder ein Kaufdatum, das eine Umbuchung verwerfen würde. Die Felder ab `priceUsdt` braucht nur der Zustand
-/// für «Import rückgängig» (`CsvTransferMatch.restoreState`); `linkedImportKey` gesetzt = schon verknüpft. Wie Android
-/// `CsvStoredMove`.
+/// für «Import rückgängig» (`CsvTransferMatch.restoreState`); `linkedImportKey` gesetzt = schon verknüpft. `stakingMove`:
+/// Staking-Umbuchung aus der Datei («Unstaking», «Redeem»), nie eine Auszahlung (`CsvTransferMatch.storedWithdrawal`).
+/// Wie Android `CsvStoredMove`.
 struct CsvStoredMove: Equatable {
     let id: Int64
     let coin: String
@@ -24,6 +25,7 @@ struct CsvStoredMove: Equatable {
     var exchange: String? = nil
     var importBatch: String? = nil
     var linkedImportKey: String? = nil
+    var stakingMove = false
 }
 
 /// Importierte Transaktion für «Import rückgängig» (`CsvTransferMatch.undoPlan`): Id, Importlauf, Zustand vor einer
@@ -72,7 +74,8 @@ struct CsvTransferLink: Equatable, Identifiable {
 
 /// Gespeicherte Transaktion `id` wird die verknüpfte Umbuchung — wie Android `CsvStoredTransfer`: Herkunft der Auszahlung in
 /// `importKey`, der Einzahlung in `linkedImportKey`, Zustand davor in `restoreState`; die App setzt dazu den Importlauf des
-/// verknüpfenden Imports, damit «Import rückgängig» dieses Laufs die Verknüpfung löst.
+/// verknüpfenden Imports, damit «Import rückgängig» dieses Laufs die Verknüpfung löst. `absorbed` = die darin aufgehende
+/// neue Zeile; ohne Verknüpfung beim Speichern eigene Zeile (`CsvTransferMatch.withFallbacks`).
 struct CsvStoredTransfer: Equatable {
     let id: Int64
     let amount: Decimal
@@ -86,6 +89,7 @@ struct CsvStoredTransfer: Equatable {
     let importKey: String
     let linkedImportKey: String
     let restoreState: CsvRestoreState
+    var absorbed: CsvImportTx? = nil
 }
 
 /// Ergebnis der gewählten Umbuchungen: neue Transaktionen und Änderungen gespeicherter.
@@ -149,6 +153,15 @@ enum CsvTransferMatch {
             }
         }
         return CsvUndoPlan(delete: delete, revert: revert, detach: detach)
+    }
+
+    /// Gespeicherte Seite als Auszahlung: eine Auszahlung oder eine Umbuchung ohne Ziel (Wahl «Auf eigene Wallet»), die
+    /// keine Staking-Umbuchung ist. Eine Staking-Umbuchung der Datei («Unstaking», «Redeem», `CsvImportKind.TRANSFER`)
+    /// trägt den Merker `stakingMove` (`CsvImportMapping.toTx`, unabhängig von der Notiz) — eigene Mittel zurück aus
+    /// Staking, die nie eine Börse verlassen: als Auszahlung verknüpft, ginge eine spätere echte Einzahlung darin auf und die
+    /// echte Auszahlung fände kein Gegenstück mehr. Wie Android.
+    static func storedWithdrawal(_ s: CsvStoredMove) -> Bool {
+        s.type == .WITHDRAWAL || (s.type == .TRANSFER && s.transferTo == nil && !s.stakingMove)
     }
 
     /// Herkunft (Börse) aus dem Format am Anfang eines Herkunftsschlüssels («BINANCE|…» → Binance); unbekannt = nil.
@@ -220,7 +233,7 @@ enum CsvTransferMatch {
         }
         // Schon verknüpft (zweiter Herkunftsschlüssel): kein Kandidat mehr
         for s in stored where s.linkedImportKey == nil {
-            if s.type == .WITHDRAWAL || (s.type == .TRANSFER && s.transferTo == nil) {
+            if storedWithdrawal(s) {
                 outs.append(withdrawal(s.importKey, s.coin, s.amount, s.fee, s.feeUnit, s.feeCoin, s.feeCoinAmount, s.time,
                                        s.transferFrom ?? placeOf(s.importKey), stored: s))
             } else if s.type == .DEPOSIT {
@@ -325,7 +338,7 @@ enum CsvTransferMatch {
             return CsvStoredTransfer(id: id, amount: l.received, fee: l.fee, feeUnit: l.feeUnit, feeCoin: l.feeCoin,
                                      feeCoinAmount: l.feeCoinAmount, time: l.withdrawalTime, transferFrom: l.from,
                                      transferTo: l.to, importKey: l.withdrawalKey, linkedImportKey: l.depositKey,
-                                     restoreState: state)
+                                     restoreState: state, absorbed: l.absorbed)
         }
         return CsvTransferPlan(transactions: out, storedUpdates: updates)
     }

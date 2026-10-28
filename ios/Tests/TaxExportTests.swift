@@ -93,6 +93,19 @@ final class TaxExportTests: XCTestCase {
         }
     }
 
+    /// FR: die Devisenspanne reicht bis zur Herkunft einer Kürzung durch einen Abgang ohne Verkauf (Jahr ohne Abtretung).
+    func testFrOutflowSpanReachesTheOrigin() throws {
+        let d = try data()
+        let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))
+        let c = try XCTUnwrap(d["frOutflowSpan"] as? [String: Any])
+        var prices: [String: Decimal] = [:]
+        for (k, v) in c["prices"] as? [String: Any] ?? [:] { prices[k] = dec(v) }
+        let span = TaxExport.fxSpan(trades(c), method: .FR_PTA, period: TaxTemplate.FR.period(Int(int64(c["year"]))),
+                                    timeZone: zone, priceAt: { coin, _ in prices[coin] }, today: day(c["today"]))
+        XCTAssertEqual(span.from, day(c["from"]))
+        XCTAssertEqual(span.until, day(c["until"]))
+    }
+
     /// USDT zum Marktkurs: Umrechnung × USDT/USD-Tagesschluss; ohne Schluss USDT = 1 als
     /// Näherung, je Zeile vermerkt. Wie Android.
     func testUsdtMarket() throws {

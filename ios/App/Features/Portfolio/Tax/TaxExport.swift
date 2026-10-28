@@ -88,11 +88,11 @@ enum TaxExport {
         return Array(header.prefix(1)) + [chWealthNote] + Array(header.dropFirst())
     }
 
-    /// Freigrenze § 23 Abs. 3 Satz 5 EStG in EUR (steuerfrei bei WENIGER als der Grenze): 1000 € ab 2024, 600 € 2009–2023,
-    /// 512 € bis 2008 — wie `privateSalesLimitEur` (Android).
+    /// Freigrenze § 23 Abs. 3 Satz 5 EStG in EUR (steuerfrei bei WENIGER als der Grenze): 1000 € ab 2024, 600 € 2008–2023
+    /// (ab Veranlagungszeitraum 2008), 512 € bis 2007 — wie `privateSalesLimitEur` (Android).
     static func privateSalesLimitEur(_ year: Int) -> Decimal {
         if year >= 2024 { return 1000 }
-        if year >= 2009 { return 600 }
+        if year >= 2008 { return 600 }
         return 512
     }
 
@@ -242,7 +242,8 @@ enum TaxExport {
     /// Erster und letzter Tag mit Devisenbedarf in einem Durchgang (die Veräusserungen nur einmal gerechnet). Erster wie
     /// `fxFrom`. Letzter: `until` (`priceUntil`) oder das späteste Datum eines Zugangs, den eine Veräusserung des Jahres
     /// nutzt (Kaufdatum, Zuordnung, Herkunftsteil), höchstens heute (`today`, nie vor dem Ende des Steuerjahrs) — UK: ein
-    /// Kauf am 20. April deckt einen Verkauf vom 2. April und braucht den Kurs SEINES Datums. Wie Android.
+    /// Kauf am 20. April deckt einen Verkauf vom 2. April und braucht den Kurs SEINES Datums. FR: dazu die Herkunft der
+    /// Kürzungen durch Abgänge ohne Verkauf des Jahres (`frOutflowTimes`). Wie Android.
     static func fxSpan(_ trades: [PortfolioTx], method: TaxMethod, period: TaxPeriod, timeZone: TimeZone,
                        priceAt: ((String, Int64) -> Decimal?)? = nil, rules: TaxEventRules? = nil,
                        walletFrom: LocalDay? = nil, until: LocalDay? = nil,
@@ -250,7 +251,8 @@ enum TaxExport {
         let upTo = spanPeriod(method, period: period)
         let used = disposals(in: trades, method: method, period: upTo, timeZone: timeZone, priceAt: priceAt,
                              rules: rules, walletFrom: walletFrom)
-        return span(of: used, period: period, timeZone: timeZone, until: until, today: today)
+        return span(of: used, period: period, timeZone: timeZone, until: until, today: today,
+                    extra: frOutflowTimes(trades, method: method, period: period, timeZone: timeZone, priceAt: priceAt))
     }
 
     /// Steuerjahr, dessen Veräusserungen `fxSpan` auswertet: `period`; CA alle bis zu dessen Ende.
@@ -258,9 +260,10 @@ enum TaxExport {
         method == .CA_ACB ? TaxPeriod(startYear: period.startYear, start: LocalDay(1, 1, 1), end: period.end) : period
     }
 
-    /// `fxSpan` aus den schon gerechneten Veräusserungen `used` (Verkaufsdatum in `spanPeriod`).
+    /// `fxSpan` aus den schon gerechneten Veräusserungen `used` (Verkaufsdatum in `spanPeriod`) und weiteren Zeitpunkten
+    /// `extra` (FR: `frOutflowTimes`).
     static func span(of used: [PortfolioDisposal], period: TaxPeriod, timeZone: TimeZone, until: LocalDay?,
-                     today: LocalDay?) -> (from: LocalDay, until: LocalDay) {
+                     today: LocalDay?, extra: [Int64] = []) -> (from: LocalDay, until: LocalDay) {
         // FIFO: Kaufdatum der Posten; Durchschnitt/Pool: Datum jedes Herkunftsteils des Einstands
         let times = used
             .flatMap { d -> [Int64] in
@@ -268,7 +271,7 @@ enum TaxExport {
                 if let a = d.acquiredTime { out.append(a) }
                 if let m = d.matchedTime { out.append(m) }
                 return out + d.costParts.timeBounds
-            }
+            } + extra
         var from = period.start
         if let first = times.min().map({ localDay($0, timeZone: timeZone) }), first < period.start { from = first }
         var wanted = until ?? period.end

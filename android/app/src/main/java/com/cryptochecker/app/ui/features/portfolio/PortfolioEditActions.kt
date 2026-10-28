@@ -129,6 +129,7 @@ fun PortfolioViewModel.save(draft: TxDraft, onAskEnablePortfolio: () -> Unit = {
                     importRestoreState = draft.importRestoreState,
                     feeRow = draft.feeRow && draft.type == PortfolioTxType.SELL,
                     interest = draft.interest && draft.type == PortfolioTxType.REWARD,
+                    stakingMove = draft.stakingMove && draft.type == PortfolioTxType.TRANSFER,
                 )
             )
             true

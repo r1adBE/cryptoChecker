@@ -44,9 +44,9 @@ data class AddressCostLot(
  *    Regeln wie [AddressBalance.holdings].
  *  - Auch eine Adresse OHNE Posten verrechnet die erfassten Bewegungen ihrer Wallet ([covers]): eine Umbuchung zur
  *    Adresse steckt schon im Guthaben und zählt nur einmal (nur die erste zählende Adresse je Wallet, [movesOwners]).
- *  - Heute / 7 T / 1 J und Wertverlauf lassen die Posten weg (Adress-Einträge, [AddressBalance.isAddressTrade]): dort
- *    zählt das beobachtete Guthaben zum Wert, nie rückwirkend. Stichtag und CH-Vermögenswert rechnen wie die Karte mit
- *    dem Guthaben am Stichtag ([AddressCutoff]).
+ *  - Heute / 7 T / 1 J und Wertverlauf rechnen wie die Karte: Posten als Käufe ab ihrer Zeit, dazu die beobachtete Reihe
+ *    ohne den Teil, den Posten und erfasste Bewegungen schon abbilden ([AddressBooked]). Stichtag und CH-Vermögenswert
+ *    ebenso mit dem Guthaben am Stichtag ([AddressCutoff]).
  * Gespeichert mit der Adresse (Android Spalte `costLots`, iOS `watched_addresses.json`), in der App-Sicherung unter
  * «costLots» je Adresse: `[{"id":1,"coin":"BTC","t":…,"amount":"0.5","price":"30000"}]` («cost» statt «price», wenn
  * gesamt eingegeben).
@@ -174,25 +174,26 @@ object AddressCostLots {
      * Guthaben enthält jede Bewegung bis zu seinem Abruf, auch frühere ([fetched] wählt sie aus). Adress-Einträge zählen
      * nicht; Wallet ohne Namen = keine Bewegungen (sonst fielen alle Transaktionen ohne Börse hinein).
      */
-    fun recorded(coin: String, wallet: String?, trades: List<PortfolioTrade>): BigDecimal {
+    fun recorded(coin: String, wallet: String?, trades: List<PortfolioTrade>): BigDecimal =
+        trades.fold(BigDecimal.ZERO) { sum, t -> sum + recordedMove(coin, wallet, t) }
+
+    /** Beitrag EINER Transaktion [t] zu [recorded] (Zugang +, Abgang −, sonst 0) — auch für die Reihen ([AddressBooked]). */
+    fun recordedMove(coin: String, wallet: String?, t: PortfolioTrade): BigDecimal {
         val key = PortfolioWallets.key(wallet)
         var net = BigDecimal.ZERO
-        if (key == PortfolioWallets.UNSPECIFIED) return net
+        if (key == PortfolioWallets.UNSPECIFIED || AddressBalance.isAddressTrade(t.id) || t.amount.signum() <= 0) return net
         fun at(name: String?) = PortfolioWallets.key(name) == key
-        for (t in trades) {
-            if (AddressBalance.isAddressTrade(t.id) || t.amount.signum() <= 0) continue
-            if (PortfolioCalculator.normalizeCoin(t.coin) == coin) {
-                net += when {
-                    t.type == PortfolioTxType.TRANSFER ->
-                        (if (at(t.transferTo)) t.amount else BigDecimal.ZERO) - (if (at(t.transferFrom)) t.amount + t.coinFee else BigDecimal.ZERO)
-                    !at(t.exchange) -> BigDecimal.ZERO
-                    t.type.isInflow -> t.received
-                    else -> -(t.amount + t.coinFee)
-                }
+        if (PortfolioCalculator.normalizeCoin(t.coin) == coin) {
+            net += when {
+                t.type == PortfolioTxType.TRANSFER ->
+                    (if (at(t.transferTo)) t.amount else BigDecimal.ZERO) - (if (at(t.transferFrom)) t.amount + t.coinFee else BigDecimal.ZERO)
+                !at(t.exchange) -> BigDecimal.ZERO
+                t.type.isInflow -> t.received
+                else -> -(t.amount + t.coinFee)
             }
-            if (t.swapToCoin == coin && at(t.exchange)) net += t.swapReceived
-            if (t.thirdFeeCoin == coin && at(if (t.type == PortfolioTxType.TRANSFER) t.transferFrom else t.exchange)) net -= t.thirdFeeAmount
         }
+        if (t.swapToCoin == coin && at(t.exchange)) net += t.swapReceived
+        if (t.thirdFeeCoin == coin && at(if (t.type == PortfolioTxType.TRANSFER) t.transferFrom else t.exchange)) net -= t.thirdFeeAmount
         return net
     }
 

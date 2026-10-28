@@ -35,7 +35,8 @@ data class CsvAbsorbedRow(
  * Entity, Sicherung und iOS-Modell 23 fast immer leere Felder mit; als ein Feld bleibt es eine Einheit mit eigener
  * Fassungsnummer ([VERSION]), die sich ohne weitere Datenbank-Migration erweitern lässt.
  *
- * Format (Fassung 1; Zahlen exakt als Text wie [PortfolioDecimal.text], fehlende Werte weggelassen):
+ * Format (Fassung 1; Zahlen exakt als Text wie [PortfolioDecimal.text], Preise wie [PortfolioDecimal.priceText], fehlende
+ * Werte weggelassen):
  * ```
  * {"v": 1,
  *  "stored":   {"type", "amount", "priceUsdt"?, "time", "fee"?, "feeUnit"?, "feeCoin"?, "feeCoinAmount"?,
@@ -68,13 +69,13 @@ data class CsvRestoreState(
         val stored = JsonObject()
             .put("type", type.name)
             .put("amount", PortfolioDecimal.text(amount))
-            .putDecimal("priceUsdt", priceUsdt)
+            .putPrice("priceUsdt", priceUsdt)
             .put("time", time)
             .putDecimal("fee", fee)
             .putText("feeUnit", feeUnit?.name)
             .putText("feeCoin", feeCoin)
             .putDecimal("feeCoinAmount", feeCoinAmount)
-            .putDecimal("feeCoinPriceUsdt", feeCoinPrice)
+            .putPrice("feeCoinPriceUsdt", feeCoinPrice)
             .putText("transferFrom", transferFrom)
             .putText("transferTo", transferTo)
             .apply { acquiredTime?.let { put("acquiredTime", it) } }
@@ -88,7 +89,7 @@ data class CsvRestoreState(
                 JsonObject()
                     .put("type", a.type.name)
                     .put("amount", PortfolioDecimal.text(a.amount))
-                    .putDecimal("priceUsdt", a.priceUsdt)
+                    .putPrice("priceUsdt", a.priceUsdt)
                     .put("time", a.time)
                     .putDecimal("fee", a.fee)
                     .putText("feeUnit", a.feeUnit?.name)
@@ -109,7 +110,7 @@ data class CsvRestoreState(
 
         /**
          * Längster gespeicherter Text — nur gegen unsinnige Eingaben aus einer Sicherung; ein echter Zustand (zwei
-         * Herkunftsschlüssel à höchstens 200 Zeichen, Börsen à 40, Zahlen) bleibt weit darunter.
+         * Herkunftsschlüssel à höchstens 200 UTF-8-Bytes, Börsen à 40, Zahlen) bleibt weit darunter.
          */
         const val MAX_TEXT = 4_000
 
@@ -165,6 +166,9 @@ data class CsvRestoreState(
 
         private fun JsonObject.putDecimal(name: String, value: BigDecimal?): JsonObject =
             apply { if (value != null) put(name, PortfolioDecimal.text(value)) }
+
+        private fun JsonObject.putPrice(name: String, value: BigDecimal?): JsonObject =
+            apply { if (value != null) put(name, PortfolioDecimal.priceText(value)) }
 
         /** Text oder null (fehlt, JSON null, kein Text oder leer). */
         private fun JsonObject.text(name: String): String? =

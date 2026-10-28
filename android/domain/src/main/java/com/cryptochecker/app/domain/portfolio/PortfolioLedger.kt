@@ -152,12 +152,14 @@ object PortfolioLedger {
     /**
      * (Coin, Zeit), für die [valueAtDayClose] einen Tagesschluss braucht (Coins normalisiert): Gebühr-Zeile, Damit bezahlt
      * und Verschenkt (Schenkung als Veräusserung, [TaxEngines.applyRules]) ohne Marktwert der Coin selbst, Tausch beide Coins (abgegeben
-     * zuerst, sonst erhalten); dazu Belohnungen ohne Wert für den Steuer-Export ([valueRewardsAtDayClose]).
+     * zuerst, sonst erhalten); dazu Belohnungen ohne Wert und der Gebühr-Coin jeder Transaktion mit Gebühr im dritten Coin
+     * ohne Preis für den Steuer-Export ([valueRewardsAtDayClose], [valueThirdFeesAtDayClose]).
      */
     fun dayCloseNeeds(trades: List<PortfolioTrade>): Set<Pair<String, Long>> {
         val out = LinkedHashSet<Pair<String, Long>>()
         for (t in trades) {
             val gift = t.type == PortfolioTxType.GIFT && t.validPrice == null
+            if (thirdFeeNeedsDayClose(t)) t.thirdFeeCoin?.let { out += it to t.time }
             if (t.amount.signum() <= 0 || !(needsDayClose(t) || gift || rewardNeedsDayClose(t))) continue
             out += PortfolioCalculator.normalizeCoin(t.coin) to t.time
             t.swapToCoin?.takeIf { t.type == PortfolioTxType.SWAP }?.let { out += it to t.time }
@@ -211,6 +213,28 @@ object PortfolioLedger {
             if (!rewardNeedsDayClose(t)) t
             else price(PortfolioCalculator.normalizeCoin(t.coin), t.time)?.takeIf { it.signum() > 0 }
                 ?.let { t.copy(priceUsdt = it, valueEstimated = true) } ?: t
+        }
+    }
+
+    /** Transaktion jeder Art (gültige Menge) mit Gebühr im dritten Coin ohne Preis — für [valueThirdFeesAtDayClose]. */
+    fun thirdFeeNeedsDayClose(t: PortfolioTrade): Boolean =
+        t.amount.signum() > 0 && t.thirdFeeCoin != null && t.thirdFeePrice == null
+
+    /**
+     * Nur Steuer-Export ([TaxEngines.disposals], [TaxEngines.outflows]), eine Regel für alle Arten: Gebühr im dritten Coin
+     * ohne Preis ([thirdFeeNeedsDayClose]) zum Tagesschluss des Gebühr-Coins am UTC-Tag der Transaktion [price] (≥ 0) —
+     * Gebühr-Preis = Kurs, [PortfolioTrade.feePriceEstimated]: Vermerk «Wert geschätzt» an der Zeile der Gebühr-Coins und an
+     * jeder Zeile, deren Wert die Gebühr enthält (Erlös eines Verkaufs/Tauschs, Aufwand einer Auszahlung). Die Gebühr steckt
+     * so im Einstand eines Zugangs bzw. einer Umbuchung und mindert den Erlös eines Verkaufs/Tauschs. Ohne Kurs unverändert;
+     * die Karte rechnet ohne geschätzte Preise — beide «ohne Wert der Gebühr» ([CoinPosition.feeValueMissing]).
+     */
+    fun valueThirdFeesAtDayClose(trades: List<PortfolioTrade>, price: ((String, Long) -> BigDecimal?)?): List<PortfolioTrade> {
+        if (price == null || trades.none(::thirdFeeNeedsDayClose)) return trades
+        return trades.map { t ->
+            val coin = t.thirdFeeCoin
+            if (coin == null || !thirdFeeNeedsDayClose(t)) t
+            else price(coin, t.time)?.takeIf { it.signum() >= 0 }
+                ?.let { t.copy(feeCoinPrice = it, feePriceEstimated = true) } ?: t
         }
     }
 

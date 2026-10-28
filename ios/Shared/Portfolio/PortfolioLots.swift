@@ -182,7 +182,9 @@ struct PortfolioDisposal: Sendable, Equatable {
     var gift = false
     /// Zahlung mit Krypto (`.PAYMENT`, Veräusserung zum Marktwert): Vermerk «Zahlung mit Krypto».
     var payment = false
-    /// Erlös aus geschätztem Wert (`PortfolioTx.valueEstimated`, Tagesschluss): Vermerk «Wert geschätzt (Tagesschluss)».
+    /// Wert aus einem geschätzten Kurs (Tagesschluss): `PortfolioTx.valueEstimated` bzw. Gebühr im dritten Coin mit
+    /// `feePriceEstimated` (Zeile der Gebühr-Coins, Erlös bzw. Aufwand mit dem Wert der Gebühr): Vermerk «Wert geschätzt
+    /// (Tagesschluss)».
     var valueEstimated = false
     // ---- Nur Steuer-Vorlagen (`TaxEngines`), wie Android ----
     /// `.UK_POOL`: Zuordnung (gleicher Tag, 30 Tage, Pool); sonst nil.

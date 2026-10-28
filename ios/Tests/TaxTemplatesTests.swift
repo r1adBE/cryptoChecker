@@ -241,6 +241,8 @@ final class TaxTemplatesTests: XCTestCase {
                 if let v = e["gift"] as? Bool { XCTAssertEqual(g.gift, v, "\(label) gift") }
                 if let v = e["payment"] as? Bool { XCTAssertEqual(g.payment, v, "\(label) payment") }
                 if let v = e["valueEstimated"] as? Bool { XCTAssertEqual(g.valueEstimated, v, "\(label) valueEstimated") }
+                // Gebühr im dritten Coin ohne Wert (auch ohne Tagesschluss)
+                if let v = e["feeValueMissing"] as? Bool { XCTAssertEqual(g.feeValueMissing, v, "\(label) feeValueMissing") }
                 // Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
                 if let v = e["spouseGift"] as? Bool { XCTAssertEqual(g.spouseGift, v, "\(label) spouseGift") }
                 // FR-Gesamtwert samt beobachteter Adressen (ohne Einstand)
@@ -352,7 +354,7 @@ final class TaxTemplatesTests: XCTestCase {
                         .AT_TRANSITION_2021: "attransition", .AT_WITHOUT_OPTION: "atnooption",
                         .AT_STAKING_ZERO_COST: "atstaking", .WINDOW_OPEN: "window " + TaxExport.noteDateToken,
                         .UK_HMRC_REPORT: "ukreport", .AT_INTEREST_OLD_LAW: "atinterestold",
-                        .FR_ADDRESS_NO_COST: "fraddress"])
+                        .FR_ADDRESS_NO_COST: "fraddress", .FR_REWARDS_INCOME: "frrewards"])
             let csv = TaxExport.summaryCsv(s, texts: texts, header: ["H"])
             let lines = String(csv.dropFirst()).components(separatedBy: "\r\n").filter { !$0.isEmpty }
             // Zusatz-Vermerke (Datum eingesetzt) und Status «Verlust» stehen in der Hinweis-Spalte ihres Postens

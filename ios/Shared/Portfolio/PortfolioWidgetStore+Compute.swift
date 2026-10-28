@@ -81,17 +81,18 @@ extension PortfolioWidgetStore {
 
     /// Wertverlauf des HEUTIGEN Bestands über die gemerkten Stände (vor `stamp`) und den
     /// aktuellen Stand — wie «heute»: Käufe und Verkäufe seither verschieben die Linie
-    /// nicht. Fehlt einem Coin in einem Stand der Kurs, zählt der aktuelle.
+    /// nicht. Fehlt einem Coin in einem Stand der Kurs, zählt der aktuelle; Coins ohne gültigen aktuellen Kurs fehlen in
+    /// ALLEN Punkten (wie im Gesamtwert und im Stundenverlauf), sonst fiele die Linie ohne jede Bewegung.
     /// `addressSteps`: Adress-Guthaben je Coin als Stufen (`PortfolioWidgetSeries.amountAt`) — nie rückwirkend.
     static func valueHistory(holdings: [String: Double], history: [PricePoint], current: [String: Double],
                              stamp: Int64, factor: Double,
                              addressSteps: [String: [AddressObservation]] = [:]) -> [PortfolioWidgetPoint] {
-        let open = holdings.filter { $0.value > PortfolioCalculator.eps && $0.value.isFinite }
-        guard !open.isEmpty else { return [] }
         func valid(_ price: Double?) -> Double? {
             guard let price, price > 0, price.isFinite else { return nil }
             return price
         }
+        let open = holdings.filter { $0.value > PortfolioCalculator.eps && $0.value.isFinite && valid(current[$0.key]) != nil }
+        guard !open.isEmpty else { return [] }
         func value(_ prices: [String: Double], at time: Int64) -> Double {
             var sum = 0.0
             for (coin, amount) in open {
@@ -305,10 +306,12 @@ extension PortfolioWidgetStore {
                                                                        currentRate: factor, memo: memo)
         // «Heute» für Karte, Widget und Portfolio-Alarm aus EINER Rechnung: Kursänderung je Coin mit
         // Vergleichskurs (Coins ohne fehlen statt flach mitzuzählen), um Käufe/Verkäufe seit Beginn der
-        // %-Basis berichtigt — wie Android `withHonestToday`
+        // %-Basis berichtigt, je Coin seit der Zeit seines Vergleichskurses (rollend) — wie Android `withHonestToday`
         let todayStart = ChangeBasisMath.dayStart(basis, now: now) ?? (now - 86_400_000)
-        // «Heute»: eigener Bestand + zuletzt beobachtetes Adress-Guthaben; die Reihe rechnet Änderungen seit Beginn
-        // der %-Basis als Zu-/Abfluss heraus (nie rückwirkend) — wie Android `todayHoldings`
+        let since: [String: Int64] = dayStart != nil ? [:] : PortfolioWidgetSeries.changeSince(
+            current: current, baseTime: ref?.at, basePrices: ref?.prices, prices: hourlyPrices, now: stamp)
+        // «Heute»: Bestand der Karte (eigener samt Posten + Adress-Teil = letzte Stufe der Reihe ohne Gebuchtes); die
+        // Reihe rechnet Änderungen seit Beginn der %-Basis als Zu-/Abfluss heraus (nie rückwirkend) — wie Android
         let observed = AddressBalanceHistory.latestByCoin(addresses)
         var ledgerHoldings: [String: Double] = [:]
         for p in summary.open {
@@ -319,7 +322,7 @@ extension PortfolioWidgetStore {
                                                                   coinChanges: changes)
             .flatMap { PortfolioPeriodChange.todayAdjusted($0, trades: transactions, current: current,
                                                            coinChanges: changes, windowStart: todayStart,
-                                                           addresses: addresses, method: method) }
+                                                           addresses: addresses, method: method, coinStart: since) }
         snapshot.changeAmount = adjusted.flatMap { $0.amount.isFinite ? $0.amount * factor : nil }
         snapshot.changePercent = adjusted?.percent.flatMap { $0.isFinite ? $0 : nil }
         snapshot.todaySkipped = adjusted?.skipped ?? []
@@ -327,7 +330,7 @@ extension PortfolioWidgetStore {
         // Anzeigewährung an den Positionen des Widgets — wie Android `withHonestToday`
         let byCoin = PortfolioPeriodChange.todayByCoin(holdings: ledgerHoldings, trades: transactions, current: current,
                                                        coinChanges: changes, windowStart: todayStart,
-                                                       addresses: addresses, method: method)
+                                                       addresses: addresses, method: method, coinStart: since)
         var coinPnl: [String: PortfolioWidgetChange] = [:]
         for (coin, c) in byCoin {
             coinPnl[coin] = PortfolioWidgetChange(amount: c.amount, percent: c.percent.flatMap { $0.isFinite ? $0 : nil })

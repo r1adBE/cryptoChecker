@@ -41,7 +41,7 @@ enum BackupFields {
         ("importKey", .stringOrNull), ("acquiredTime", .intOrNull), ("toCoin", .stringOrNull),
         ("toAmountText", .stringOrNull), ("swapValueText", .stringOrNull), ("importBatch", .stringOrNull),
         ("giftToSpouse", .bool), ("linkedImportKey", .stringOrNull), ("importRestoreState", .objectOrNull),
-        ("feeRow", .bool), ("interest", .bool),
+        ("feeRow", .bool), ("interest", .bool), ("stakingMove", .bool),
     ])
 
     static let portfolioAlarm = Entry(part: "portfolioAlarms", required: [

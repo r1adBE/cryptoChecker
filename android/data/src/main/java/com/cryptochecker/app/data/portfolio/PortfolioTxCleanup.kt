@@ -9,9 +9,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 
 /**
  * Bereinigte Fassung von [tx] für [PortfolioRepository.save]: Coin vereinheitlicht (Grossbuchstaben), Gebühr, Umbuchung,
- * Tausch und Herkunftsschlüssel geprüft. Mengen und Gebühren schon hier auf die gespeicherten 18 Nachkommastellen
- * gerundet ([PortfolioDecimal.amount], dieselbe Regel wie beim Speichern): eine Menge unter 10⁻¹⁸ ist danach 0 und wird
- * abgelehnt, statt als 0 gespeichert zu werden. Wirft bei einem ungültigen Tausch.
+ * Tausch und Herkunftsschlüssel geprüft. Mengen, Gebühren und der Wert eines Tauschs schon hier auf die gespeicherten
+ * 18 Nachkommastellen gerundet ([PortfolioDecimal.amount], dieselbe Regel wie beim Speichern); Preise rundet erst
+ * [PortfolioDecimalConverters] ([PortfolioDecimal.price]), damit [storable] einen Preis > 0 erkennt, der zu 0 würde. Eine
+ * Menge unter 10⁻¹⁸ ist danach 0 und wird abgelehnt, statt als 0 gespeichert zu werden. Wirft bei einem ungültigen Tausch.
  */
 fun cleanForSave(tx: PortfolioTxEntity): PortfolioTxEntity {
     // Gebühr nur gültig (> 0) und dann immer mit Einheit; ohne Gebühr keine Einheit
@@ -40,6 +41,8 @@ fun cleanForSave(tx: PortfolioTxEntity): PortfolioTxEntity {
         transferTo = if (transfer) PortfolioJson.cleanExchange(tx.transferTo) else null,
         // An Ehe-/Lebenspartner gibt es nur bei einer Schenkung
         giftToSpouse = tx.giftToSpouse && tx.type == PortfolioTxType.GIFT,
+        // Staking-Umbuchung gibt es nur bei einer Umbuchung
+        stakingMove = tx.stakingMove && transfer,
         feeCoin = third?.first,
         feeCoinAmount = third?.second,
         feeCoinPriceUsdt = if (third != null) tx.feeCoinPriceUsdt?.takeIf { it.signum() >= 0 } else null,
@@ -49,8 +52,21 @@ fun cleanForSave(tx: PortfolioTxEntity): PortfolioTxEntity {
         acquiredTime = PortfolioJson.cleanAcquiredTime(tx.type, tx.acquiredTime),
         toCoin = toCoin,
         toAmount = toAmount,
-        swapValueUsdt = if (swap) tx.swapValueUsdt?.takeIf { it.signum() >= 0 } else null,
+        swapValueUsdt = if (swap) tx.swapValueUsdt?.takeIf { it.signum() >= 0 }?.let { PortfolioDecimal.amount(it) } else null,
         importBatch = PortfolioImportBatch.clean(tx.importBatch),
     )
     return clean
+}
+
+/**
+ * Bereinigte Transaktion speicherbar: Coin nicht leer, Menge > 0 und jede Zahl gespeichert wieder lesbar (unter 10³⁰,
+ * [PortfolioDecimal.storableAmount] bzw. [PortfolioDecimal.storablePrice]; ein Preis > 0 wird nie zu 0) — dieselbe Regel
+ * wie die CSV-Vorschau ([com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping.unsavableReason]). Wie iOS
+ * `AppData.cleanedPortfolioTx`.
+ */
+fun PortfolioTxEntity.storable(): Boolean {
+    if (coin.isEmpty() || amount.signum() <= 0) return false
+    val amounts = listOfNotNull(amount, fee, feeCoinAmount, toAmount, swapValueUsdt)
+    val prices = listOfNotNull(priceUsdt, feeCoinPriceUsdt)
+    return amounts.all { PortfolioDecimal.storableAmount(it) } && prices.all { PortfolioDecimal.storablePrice(it) }
 }

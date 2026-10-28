@@ -46,7 +46,9 @@ import java.time.ZoneId
  *    Dienstleistung = Abtretung): bei einem Verkauf EINE Operation — Preis vor Gebühren = (Menge + Gebühr im Coin) ×
  *    Preis + Wert der Gebühr im dritten Coin, Erlös = Menge × Preis − Gebühr USDT; sonst (Umbuchung, Auszahlung, Tausch,
  *    dritter Coin eines Kaufs) eigene Abtretung der Gebühr-Coins zu ihrem Wert (Preis/Wert des Tauschs, Stablecoin 1,
- *    sonst `priceAt`), vor dem Rest der Transaktion. Gebühr im erhaltenen Coin (Kauf, Tausch) = weniger erhalten.
+ *    sonst `priceAt`), vor dem Rest der Transaktion. Gebühr im dritten Coin: EIN Kurs (erfasst, sonst `priceAt`) für
+ *    Erwerbspreis-Summe, Preis vor Gebühren und ihre Abtretung; ohne Kurs ist die Summe danach unvollständig. Gebühr im
+ *    erhaltenen Coin (Kauf, Tausch) = weniger erhalten.
  *    Jede Art ausdrücklich: Umbuchung (eigene Wallets) und Tausch (aufgeschoben) ändern die PTA sonst nicht; Auszahlung
  *    (Abgang ohne Verkauf: Schenkung, Verlust, unbekannt) kürzt die PTA um PTA × Wert der Menge / Gesamtwert davor
  *    (BOFiP BOI-RPPM-PVBMC-30-20 § 100: Kürzung um die «fractions de capital initial» auch bei Abtretungen «à titre
@@ -110,8 +112,7 @@ object TaxEngines {
         /** US-Übergang ([TaxTemplate.walletFrom]): mit [TaxMethod.FIFO_WALLET] universell bis vor diesen Tag; sonst null. */
         walletFrom: LocalDate? = null,
     ): List<PortfolioDisposal> {
-        // Belohnungen ohne Wert zum Tagesschluss (Einstand statt unbekannt, [PortfolioLedger.valueRewardsAtDayClose])
-        val input = applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, priceAt), rules, priceAt)
+        val input = applyRules(dayCloseValued(trades, priceAt), rules, priceAt)
         val rows = method.costMethod?.let {
             val valued = PortfolioLedger.valueAtDayClose(input, priceAt)
             if (walletFrom != null && it == CostMethod.FIFO_WALLET) usTransition(valued, walletFrom, zone)
@@ -267,7 +268,7 @@ object TaxEngines {
     /**
      * Netzwerkgebühr in Krypto einer Umbuchung (eigene Wallets), Auszahlung oder Schenkung als eigene Veräusserung: je
      * Gebühr-Coin ein Verkauf der Gebühr-Menge zum Marktwert (erfasster Preis bzw. Gebühr-Preis, Stablecoin 1, sonst
-     * [priceAt] = Tagesschluss des UTC-Tags der Transaktion, [TaxDayClose]; ohne Kurs Erlös unbekannt) mit Id und Zeit
+     * [priceAt] = Tagesschluss des UTC-Tags, [TaxDayClose], «Wert geschätzt»; ohne Kurs Erlös unbekannt) mit Id und Zeit
      * der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR ihr in die Liste, damit die
      * Gebühr-Coins (stabil sortiert, [PortfolioLedger.ORDER]) die Quelle zuerst verlassen. Die Transaktion selbst verliert diese Gebühr: eine Umbuchung
      * ändert danach weder Menge noch Einstand, die Gebühr im dritten Coin erhöht keinen Einstand und ist bei einer
@@ -280,17 +281,19 @@ object TaxEngines {
             return
         }
         val wallet = if (t.type == PortfolioTxType.TRANSFER) t.transferFrom else t.exchange
-        fun sale(coin: String, qty: BigDecimal, recorded: BigDecimal?) = PortfolioTrade(
-            id = t.id, coin = coin, type = PortfolioTxType.SELL, amount = qty,
-            priceUsdt = feePrice(coin, recorded, t.time, priceAt), time = t.time, exchange = wallet,
-        )
+        // Kurs zum Tagesschluss (kein erfasster Preis, kein Stablecoin) bzw. schon geschätzter Gebühr-Preis: «Wert geschätzt»
+        fun sale(coin: String, qty: BigDecimal, recorded: BigDecimal?, estimated: Boolean) = feePrice(coin, recorded, t.time, priceAt).let { p ->
+            val atClose = p != null && recorded?.takeIf { it.signum() >= 0 } == null && PortfolioStables.needsQuote(coin)
+            PortfolioTrade(t.id, coin, PortfolioTxType.SELL, qty, p, t.time, exchange = wallet, valueEstimated = estimated || atClose)
+        }
         var rest = t
         if (t.coinFee.signum() > 0) {
-            out += sale(PortfolioCalculator.normalizeCoin(t.coin), t.coinFee, t.validPrice)
+            out += sale(PortfolioCalculator.normalizeCoin(t.coin), t.coinFee, t.validPrice, false)
             rest = rest.copy(fee = null, feeUnit = null)
         }
         t.thirdFeeCoin?.let { c ->
-            out += sale(c, t.thirdFeeAmount, t.thirdFeePrice)
+            // Gebühr-Preis schon zum Tagesschluss gesetzt ([dayCloseValued]): Merker mitgeben
+            out += sale(c, t.thirdFeeAmount, t.thirdFeePrice, t.feePriceEstimated)
             rest = rest.copy(feeCoin = null, feeCoinAmount = null, feeCoinPrice = null)
         }
         out += rest
@@ -325,7 +328,15 @@ object TaxEngines {
     /** [TaxMethod.FR_PTA]: Abgänge ohne Verkauf mit Kürzung der Erwerbspreis-Summe, zeitlich; sonst leer. */
     fun outflows(trades: List<PortfolioTrade>, method: TaxMethod, priceAt: ((String, Long) -> BigDecimal?)? = null): List<TaxOutflow> =
         if (method != TaxMethod.FR_PTA) emptyList()
-        else run(applyRules(PortfolioLedger.valueRewardsAtDayClose(trades, priceAt), TaxEventRules.of(method), priceAt), method, ZoneId.of("UTC"), priceAt).outflows
+        else run(applyRules(dayCloseValued(trades, priceAt), TaxEventRules.of(method), priceAt), method, ZoneId.of("UTC"), priceAt).outflows
+
+    /**
+     * Nur Steuer-Export, vor jeder Rechnung: Belohnungen ohne Wert ([PortfolioLedger.valueRewardsAtDayClose]) und jede
+     * Gebühr im dritten Coin ohne Preis ([PortfolioLedger.valueThirdFeesAtDayClose]) zum Tagesschluss — Einstand bzw.
+     * Erlös statt unbekannt oder still zu gross/zu klein.
+     */
+    private fun dayCloseValued(trades: List<PortfolioTrade>, priceAt: ((String, Long) -> BigDecimal?)?): List<PortfolioTrade> =
+        PortfolioLedger.valueThirdFeesAtDayClose(PortfolioLedger.valueRewardsAtDayClose(trades, priceAt), priceAt)
 
     /** Ergebnis einer Rechnung: Veräusserungen, vermerkter Gebühr-Einstand, nicht zugeordnete Gebühren, FR-Abgänge ohne Verkauf. */
     class TaxRun(
@@ -363,25 +374,20 @@ object TaxEngines {
         val swaps = method != TaxMethod.FR_PTA && method != TaxMethod.AT_MOVING_AVERAGE
         val byId = real.associateBy { it.id }
         val atNewFrom = TaxTemplate.AT_NEW_FROM.atStartOfDay(zone).toInstant().toEpochMilli()
-        val expenses = PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> PortfolioFeeExpenses.of(coin, ev, swaps) }
+        // FR: die Gebühr im dritten Coin einer Auszahlung ist schon eine eigene Abtretung (frPta) — als Aufwand bleibt nur
+        // die Gebühr USDT, zum gedeckten Anteil wie jeder Auszahlungsaufwand
+        val fr = method == TaxMethod.FR_PTA
+        val expenses = PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> PortfolioFeeExpenses.of(coin, ev, swaps, !fr) }
             .mapNotNull { d ->
                 // AT Neubestand: eine Gebühr, die den ganzen Zugang verbraucht, ist nur Anschaffungsnebenkosten — nicht
                 // anzusetzen (§ 27a Abs. 4 Z 2 EStG), also kein abziehbarer Verlust
                 if (method == TaxMethod.AT_MOVING_AVERAGE && d.feeExpense == PortfolioFeeExpense.CONSUMED &&
                     (byId[d.sellTxId]?.acquisitionTime ?: d.sellTime) >= atNewFrom
                 ) return@mapNotNull null
-                if (method != TaxMethod.FR_PTA) return@mapNotNull d
+                if (!fr) return@mapNotNull d
                 // FR: der ganze Kaufpreis samt Gebühr steckt schon in der Erwerbspreis-Summe (frPta) — eine Verlust-Zeile
                 // für den verbrauchten Zugang zählte ihn ein zweites Mal
-                if (d.feeExpense == PortfolioFeeExpense.CONSUMED) return@mapNotNull null
-                // FR: Gebühr im dritten Coin einer Auszahlung ist schon eine eigene Abtretung (frPta) — als Aufwand bleibt
-                // nur die Gebühr USDT
-                val t = byId[d.sellTxId]
-                if (d.feeExpense == PortfolioFeeExpense.WITHDRAWAL && t != null && t.thirdFeeCoin != null) {
-                    val q = t.quoteFee
-                    if (q.signum() <= 0) null
-                    else d.copy(costUsdt = q, gainUsdt = q.negate(), feeValueMissing = false, grossProceedsUsdt = BigDecimal.ZERO)
-                } else d.copy(grossProceedsUsdt = BigDecimal.ZERO)
+                if (d.feeExpense == PortfolioFeeExpense.CONSUMED) null else d.copy(grossProceedsUsdt = BigDecimal.ZERO)
             }
         return TaxRun(
             (out + expenses).sortedWith(compareBy<PortfolioDisposal> { it.sellTime }.thenBy { it.sellTxId }.thenBy { it.coin }),

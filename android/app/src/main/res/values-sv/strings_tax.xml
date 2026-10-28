@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Detsamma gäller en avgift i USDT eller kontanter vid en överföring mellan dina egna wallets: den läggs inte till anskaffningsvärdet och visas endast som information.</string>
     <string name="tax_note_uk">Matchning enligt HMRC: samma dag → sedan de följande 30 dagarna → sedan samlat innehav enligt Section 104 (Section 104-poolen).</string>
     <string name="tax_note_us_transition">Övergång 1.1.2025 (Rev. Proc. 2024-28, safe harbor): användes FIFO över alla plånböcker tidigare år, går restposterna per 31.12.2024 till de plånböcker som innehåller coinsen – plånboken med de äldsta coinsen får det äldsta anskaffningsvärdet. Fördelningen är en regel i appen – jämför med ditt eget underlag.</string>
-    <string name="tax_note_us_wallet">Från beskattningsåret 2025 kräver IRS anskaffningsvärde per wallet/börs (Rev. Proc. 2024-28) – exporten räknar FIFO per wallet från 2025 – före 2025 gäller din metod för anskaffningsvärde.</string>
+    <string name="tax_note_us_wallet">Från beskattningsåret 2025 kräver IRS anskaffningsvärde per wallet/börs (Rev. Proc. 2024-28) – exporten räknar FIFO per wallet från 2025 – före 2025 FIFO över alla wallets, eller FIFO per wallet om det är din metod för anskaffningsvärde.</string>
     <string name="tax_note_withdrawal_fee">En uttagsavgift i USDT eller kontanter är ingen förlust: en kontantavgift är inte avdragsgill, en USDT-avgift är en avyttring till pari utan vinst – den visas endast som information (%1$s).</string>
     <string name="tax_summary_at_interest_income">räknas: inkomst vid mottagandet till den särskilda skattesatsen 27,5 procent (§ 27b st. 2 nr 1 EStG / BMF) – mynten behåller detta värde som anskaffningsvärde</string>
     <string name="tax_summary_at_reward_info">endast för information – ingår inte i någon summa: belöningar går in i det nya innehavet med anskaffningsvärde 0 och beskattas först vid försäljning (redan i vinsterna) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Bevakade adresser räknas in i det totala värdet men saknar anskaffningsvärde – vinsten blir därför sannolikt för hög. Registrera anskaffningsvärdet som ett köp.</string>
+    <string name="tax_summary_fr_rewards_income">Beloppet förutsätter att belöningar beskattades som inkomst vid mottagandet (värde vid mottagandet i anskaffningsutgiften) – annars vore anskaffningsutgift 0 den försiktiga läsningen.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Marknadsvärden utan registrerat pris (avgifter, bortskänkt/betalt, byte, belöningar, nätverksavgifter, portföljvärde) till dagens stängningskurs (UTC) på transaktionsdagen</string>

@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">La fel pentru un comision în USDT sau numerar la un transfer între propriile portofele: nu se adaugă la costul de achiziție și apare doar informativ.</string>
     <string name="tax_note_uk">Asociere conform HMRC: aceeași zi → apoi următoarele 30 de zile → apoi fondul comun conform Section 104 (Section 104 pool).</string>
     <string name="tax_note_us_transition">Tranziție la 1.1.2025 (Rev. Proc. 2024-28, safe harbor): dacă anii anteriori foloseau FIFO pe toate portofelele, loturile rămase la 31.12.2024 trec la portofelele care dețin monedele – portofelul cu cele mai vechi monede primește cel mai vechi cost. Această alocare este o regulă a aplicației – compar-o cu evidențele tale.</string>
-    <string name="tax_note_us_wallet">Din anul fiscal 2025 IRS cere costul de achiziție pe wallet/bursă (Rev. Proc. 2024-28) – exportul folosește FIFO pe wallet din 2025 – înainte de 2025 se aplică metoda ta a costului de achiziție.</string>
+    <string name="tax_note_us_wallet">Din anul fiscal 2025 IRS cere costul de achiziție pe wallet/bursă (Rev. Proc. 2024-28) – exportul folosește FIFO pe wallet din 2025 – înainte de 2025 FIFO pe toate wallet-urile, sau FIFO pe wallet dacă aceasta este metoda ta a costului de achiziție.</string>
     <string name="tax_note_withdrawal_fee">Un comision de retragere în USDT sau numerar nu e pierdere: în numerar nu e deductibil, în USDT e o înstrăinare la paritate fără câștig – apare doar informativ (%1$s).</string>
     <string name="tax_summary_at_interest_income">contează: venit la primire la cota specială de 27,5 la sută (§ 27b alin. 2 pct. 1 EStG / BMF) – monedele păstrează această valoare drept cost de achiziție</string>
     <string name="tax_summary_at_reward_info">doar informativ – în niciun total: recompensele intră în noile dețineri cu cost de achiziție 0 și sunt impozitate abia la vânzare (deja în câștiguri) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Adresele urmărite intră în valoarea totală, dar nu au cost de achiziție – câștigul este, prin urmare, probabil prea mare. Înregistrează costul ca achiziție.</string>
+    <string name="tax_summary_fr_rewards_income">Suma presupune că recompensele au fost impozitate ca venit la primire (valoarea la primire în costul de achiziție) – altfel, interpretarea prudentă ar fi cost de achiziție 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Valori de piață fără preț înregistrat (comisioane, dăruit/plătit, schimb, recompense, comisioane de rețea, valoarea portofoliului) la închiderea zilnică (UTC) a zilei tranzacției</string>

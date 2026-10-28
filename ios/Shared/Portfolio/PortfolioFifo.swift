@@ -166,10 +166,10 @@ enum PortfolioFifo {
             let total = removed + uncovered
             guard total > 0 else { return }
             let wallet = walletOf(q)
-            // Schenkung (als Veräusserung), Zahlung mit Krypto und geschätzter Wert: Vermerke im Steuer-Export
+            // Schenkung, Zahlung mit Krypto, geschätzter Wert bzw. Gebühr-Preis (auch am Erlös, den sie mindert): Vermerke
             let gift = !feeLeg && t.fromGift
             let payment = !feeLeg && t.type == .PAYMENT && !t.fromGift
-            let estimated = !feeLeg && t.valueEstimated
+            let estimated = feeLeg ? t.feePriceEstimated : t.valueEstimated || (t.feePriceEstimated && proceeds != nil)
             let weights = soldParts ?? slices.map(\.amount)
             let restWeight = soldParts != nil ? (uncoveredSold ?? uncovered) : uncovered
             let weightTotal = weights.reduce(Decimal(0), +) + restWeight

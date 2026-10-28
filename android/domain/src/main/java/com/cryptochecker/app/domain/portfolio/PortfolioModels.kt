@@ -115,6 +115,12 @@ data class PortfolioTrade(
      * ohne Wert — Steuer-Export «Wert geschätzt (Tagesschluss)» (geschätzt, nicht fehlend). Nie gespeichert.
      */
     val valueEstimated: Boolean = false,
+    /**
+     * Gebühr-Preis im dritten Coin nur geschätzt (Tagesschluss, [PortfolioLedger.valueThirdFeesAtDayClose]; nur
+     * Steuer-Export, jede Art): die Zeile der Gebühr-Coins und jede Zeile mit dem Wert der Gebühr (Erlös eines
+     * Verkaufs/Tauschs, Aufwand einer Auszahlung) tragen den Vermerk «Wert geschätzt (Tagesschluss)». Nie gespeichert.
+     */
+    val feePriceEstimated: Boolean = false,
     /** Aus einem CSV-Import ([com.cryptochecker.app.data.portfolio.PortfolioTxEntity.importKey] gesetzt). */
     val imported: Boolean = false,
     /**

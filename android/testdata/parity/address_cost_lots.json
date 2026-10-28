@@ -1,5 +1,5 @@
 {
-  "_comment": "Einstand für Adressguthaben (AddressCostLots; begrenzt auf den Bestand vor den erfassten Bewegungen der Adress-Wallet; es verrechnen auch Adressen ohne Posten diese Bewegungen, nur bis zum Abruf des Guthabens [lastUpdated], und «cutoff» = Stichtag/CH-Vermögen wie die Karte: holdings = Buchungen + Posten bis zum Stichtag, address = Adress-Teil ohne Einstand, note = Posten nach der benutzten Beobachtung; je Methode holdings + address = Karte) und Einträge ohne Einstand (PortfolioCostGaps). Gleiche Fälle in AddressCostLotsParityTest.kt und AddressCostLotsParityTests.swift. Beträge exakt als Text; Vergleich bis auf Rundung der 34. Stelle.",
+  "_comment": "Einstand für Adressguthaben (AddressCostLots; begrenzt auf den Bestand vor den erfassten Bewegungen der Adress-Wallet; es verrechnen auch Adressen ohne Posten diese Bewegungen, nur bis zum Abruf des Guthabens [lastUpdated], und «cutoff» = Stichtag/CH-Vermögen wie die Karte: holdings = Buchungen + Posten bis zum Stichtag, address = Adress-Teil ohne Einstand, note = Posten nach der benutzten Beobachtung; je Methode holdings + address = Karte; «booked» = letzte Stufe der Reihe ohne das schon Gebuchte [AddressBooked] = Adress-Teil der Karte, eigener Bestand samt Posten + booked = Karte («Heute»); «periods» = 7 T und Verlauf mit derselben Regel) und Einträge ohne Einstand (PortfolioCostGaps). Gleiche Fälle in AddressCostLotsParityTest.kt und AddressCostLotsParityTests.swift. Beträge exakt als Text; Vergleich bis auf Rundung der 34. Stelle.",
   "today": 19723,
   "cases": [
     {
@@ -14,6 +14,7 @@
       ],
       "coverage": [{"address": 1, "coin": "BTC", "lotted": "0.3", "excess": "0", "unlotted": "0.2"}],
       "addressPart": {"BTC": "0.2"},
+      "booked": {"BTC": "0.2"},
       "lotTrades": [{"id": -1000001000, "coin": "BTC", "amount": "0.3", "price": "10000", "time": 1600000000000, "exchange": "Cold"}],
       "holdingsAt": {"BTC": "0.5"},
       "methods": {
@@ -39,6 +40,7 @@
       ],
       "coverage": [{"address": 2, "coin": "BTC", "lotted": "0.25", "excess": "0.05", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [
         {"id": -1000002000, "coin": "BTC", "amount": "0.15", "price": "10000", "time": 1600000000000, "exchange": "bc1qtestcapped"},
         {"id": -1000002001, "coin": "BTC", "amount": "0.1", "price": "30000", "time": 1610000000000, "exchange": "bc1qtestcapped"}
@@ -63,6 +65,7 @@
       ],
       "coverage": [{"address": 3, "coin": "BTC", "lotted": "0.5", "excess": "0", "unlotted": "0.5"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [],
       "holdingsAt": {"BTC": "1"},
       "methods": {
@@ -79,6 +82,7 @@
       "trades": [],
       "coverage": [{"address": 4, "coin": "BTC", "lotted": "0", "excess": "0.5", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [],
       "holdingsAt": {},
       "methods": {}
@@ -95,6 +99,7 @@
       ],
       "coverage": [{"address": 6, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [{"id": -1000006000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
       "holdingsAt": {},
       "methods": {
@@ -120,6 +125,7 @@
       ],
       "coverage": [{"address": 7, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [{"id": -1000007000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
       "holdingsAt": {"BTC": "0.4"},
       "methods": {
@@ -143,6 +149,7 @@
       ],
       "coverage": [{"address": 8, "coin": "BTC", "lotted": "0.5", "excess": "0.5", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [{"id": -1000008000, "coin": "BTC", "amount": "0.5", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
       "holdingsAt": {"BTC": "1"},
       "methods": {
@@ -161,6 +168,7 @@
       "trades": [{"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "20000", "time": 1600000000000, "exchange": "Binance"}, {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1610000000000, "transferFrom": "Binance", "transferTo": "Ledger"}, {"id": 3, "coin": "BTC", "type": "SELL", "amount": "0.1", "price": "30000", "time": 1650000000000, "exchange": "Binance"}],
       "coverage": [],
       "addressPart": {"BTC": "1.0"},
+      "booked": {"BTC": "1"},
       "lotTrades": [],
       "holdingsAt": {"BTC": "0.4"},
       "methods": {"FIFO": {"BTC": {"holdings": "1.4", "address": "1.0", "cost": "8000", "realized": "1000"}}, "FIFO_WALLET": {"BTC": {"holdings": "1.4", "address": "1.0", "cost": "8000", "realized": "1000"}}, "AVERAGE": {"BTC": {"holdings": "1.4", "address": "1.0", "cost": "8000", "realized": "1000"}}},
@@ -173,6 +181,7 @@
       "trades": [{"id": 1, "coin": "BTC", "type": "TRANSFER", "amount": "0.5", "time": 1622505600000, "transferFrom": "Ledger", "transferTo": "Binance"}],
       "coverage": [],
       "addressPart": {"BTC": "1"},
+      "booked": {"BTC": "1"},
       "lotTrades": [],
       "holdingsAt": {},
       "methods": {"FIFO": {"BTC": {"holdings": "1", "address": "1"}}, "FIFO_WALLET": {"BTC": {"holdings": "1", "address": "1"}}, "AVERAGE": {"BTC": {"holdings": "1", "address": "1"}}},
@@ -185,6 +194,7 @@
       "trades": [{"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "20000", "time": 1600000000000, "exchange": "Binance"}, {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.5", "time": 1610000000000, "transferFrom": "Binance", "transferTo": "Ledger"}],
       "coverage": [],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [],
       "holdingsAt": {"BTC": "0.5"},
       "methods": {"FIFO": {"BTC": {"holdings": "0.5", "address": "0", "cost": "10000", "realized": "0"}}, "FIFO_WALLET": {"BTC": {"holdings": "0.5", "address": "0", "cost": "10000", "realized": "0"}}, "AVERAGE": {"BTC": {"holdings": "0.5", "address": "0", "cost": "10000", "realized": "0"}}},
@@ -197,6 +207,7 @@
       "trades": [{"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "20000", "time": 1600000000000, "exchange": "Binance"}, {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.5", "time": 1610000000000, "transferFrom": "Binance", "transferTo": "Ledger"}],
       "coverage": [{"address": 12, "coin": "BTC", "lotted": "0", "excess": "0.1", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [],
       "holdingsAt": {"BTC": "0.5"},
       "methods": {"FIFO": {"BTC": {"holdings": "0.5", "address": "0", "cost": "10000", "realized": "0"}}, "FIFO_WALLET": {"BTC": {"holdings": "0.5", "address": "0", "cost": "10000", "realized": "0"}}, "AVERAGE": {"BTC": {"holdings": "0.5", "address": "0", "cost": "10000", "realized": "0"}}},
@@ -209,6 +220,7 @@
       "trades": [{"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "20000", "time": 1600000000000, "exchange": "Binance"}, {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1680000000000, "transferFrom": "Binance", "transferTo": "Ledger"}],
       "coverage": [],
       "addressPart": {"BTC": "1.0"},
+      "booked": {"BTC": "1"},
       "lotTrades": [],
       "holdingsAt": {"BTC": "0.5"},
       "methods": {"FIFO": {"BTC": {"holdings": "1.5", "address": "1.0", "cost": "10000", "realized": "0"}}, "FIFO_WALLET": {"BTC": {"holdings": "1.5", "address": "1.0", "cost": "10000", "realized": "0"}}, "AVERAGE": {"BTC": {"holdings": "1.5", "address": "1.0", "cost": "10000", "realized": "0"}}},
@@ -221,6 +233,7 @@
       "trades": [],
       "coverage": [{"address": 14, "coin": "BTC", "lotted": "0.4", "excess": "0", "unlotted": "0.1"}],
       "addressPart": {"BTC": "0.1"},
+      "booked": {"BTC": "0.1"},
       "lotTrades": [{"id": -1000014000, "coin": "BTC", "amount": "0.4", "price": "10000", "time": 1659312000000, "exchange": "Ledger"}],
       "holdingsAt": {},
       "methods": {"FIFO": {"BTC": {"holdings": "0.5", "address": "0.1", "cost": "4000", "realized": "0"}}},
@@ -233,6 +246,7 @@
       "trades": [{"id": 1, "coin": "BTC", "type": "TRANSFER", "amount": "1", "time": 1622505600000, "transferFrom": "Ledger", "transferTo": "Binance"}, {"id": 2, "coin": "BTC", "type": "SELL", "amount": "1", "price": "30000", "time": 1650000000000, "exchange": "Binance"}],
       "coverage": [{"address": 15, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [{"id": -1000015000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
       "holdingsAt": {},
       "methods": {"FIFO": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "FIFO_WALLET": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "AVERAGE": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}},
@@ -246,6 +260,7 @@
       "trades": [{"id": 1, "coin": "BTC", "type": "SELL", "amount": "1", "price": "30000", "time": 1650000000000, "exchange": "Ledger"}],
       "coverage": [{"address": 16, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
       "addressPart": {},
+      "booked": {},
       "lotTrades": [{"id": -1000016000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
       "holdingsAt": {},
       "methods": {"FIFO": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "FIFO_WALLET": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "AVERAGE": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}},
@@ -253,6 +268,37 @@
       "cutoff": {"time": 1704067199999, "holdings": {}, "address": {}, "lots": 1, "note": false}
     }
   ],
+  "periods": {
+    "_comment": "Zeiträume und Verlauf mit beobachteten Adressen (AddressBooked): eigene Buchungen + Posten ab ihrer Zeit + Reihe ohne das schon Gebuchte; Stichtag 7 T = today − 7, Schluss 50000 bis gestern, aktuell 55000. holdings = Bestand der Karte = letzter Punkt ÷ Kurs. Gleiche Fälle in AddressCostLotsParityTest.kt und AddressCostLotsParityTests.swift.",
+    "today": 20000,
+    "closes": {"BTC": {"19950": 50000, "19951": 50000, "19952": 50000, "19953": 50000, "19954": 50000, "19955": 50000, "19956": 50000, "19957": 50000, "19958": 50000, "19959": 50000, "19960": 50000, "19961": 50000, "19962": 50000, "19963": 50000, "19964": 50000, "19965": 50000, "19966": 50000, "19967": 50000, "19968": 50000, "19969": 50000, "19970": 50000, "19971": 50000, "19972": 50000, "19973": 50000, "19974": 50000, "19975": 50000, "19976": 50000, "19977": 50000, "19978": 50000, "19979": 50000, "19980": 50000, "19981": 50000, "19982": 50000, "19983": 50000, "19984": 50000, "19985": 50000, "19986": 50000, "19987": 50000, "19988": 50000, "19989": 50000, "19990": 50000, "19991": 50000, "19992": 50000, "19993": 50000, "19994": 50000, "19995": 50000, "19996": 50000, "19997": 50000, "19998": 50000, "19999": 50000}},
+    "current": {"BTC": 55000},
+    "cases": [
+      {
+        "name": "lot and recorded transfer into the address count once in 7 T and the history",
+        "method": "FIFO",
+        "addresses": [
+          {"id": 21, "chain": "BTC", "address": "bc1qtestperiodone", "label": "Ledger", "lastBalance": "1.3", "lastUpdated": 1726790400000, "observations": [{"t": 1726272000000, "b": "1.0"}, {"t": 1726790400000, "b": "1.3"}], "costLots": [{"id": 1, "coin": "BTC", "t": 1724544000000, "amount": "0.2", "price": "30000"}]}
+        ],
+        "trades": [
+          {"id": 1, "coin": "BTC", "type": "BUY", "amount": "0.5", "price": "40000", "time": 1724976000000, "exchange": "Binance"},
+          {"id": 2, "coin": "BTC", "type": "TRANSFER", "amount": "0.3", "time": 1726704000000, "transferFrom": "Binance", "transferTo": "Ledger"}
+        ],
+        "expected": {"addressTrades": [{"time": 1726272000000, "type": "DEPOSIT", "amount": "0.8"}], "holdings": "1.5", "gain": 7500.0, "percent": 10.0, "firstPoint": 75000.0, "lastPoint": 82500.0}
+      },
+      {
+        "name": "FIFO per wallet: sale from the address wallet uses the lot, not the observed balance",
+        "method": "FIFO_WALLET",
+        "addresses": [
+          {"id": 22, "chain": "BTC", "address": "bc1qtestperiodtwo", "label": "Cold", "lastBalance": "0.5", "lastUpdated": 1726790400000, "observations": [{"t": 1726272000000, "b": "1"}, {"t": 1726790400000, "b": "0.5"}], "costLots": [{"id": 1, "coin": "BTC", "t": 1724544000000, "amount": "1", "price": "20000"}]}
+        ],
+        "trades": [
+          {"id": 1, "coin": "BTC", "type": "SELL", "amount": "0.5", "price": "45000", "time": 1726704000000, "exchange": "Cold"}
+        ],
+        "expected": {"addressTrades": [], "holdings": "0.5", "gain": 2500.0, "percent": 10.0, "firstPoint": 25000.0, "lastPoint": 27500.0}
+      }
+    ]
+  },
   "gaps": {
     "trades": [
       {"id": 10, "coin": "BTC", "type": "DEPOSIT", "amount": "0.5", "time": 1600000000000},

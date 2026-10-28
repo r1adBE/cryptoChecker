@@ -135,6 +135,43 @@ final class TaxDayCloseParityTests: XCTestCase {
         XCTAssertEqual(rounded(transfer.coinFeeExact * networkClose), expectedValue)
     }
 
+    /// Gebühr im dritten Coin ohne Preis, jede Art: Bedarf des Gebühr-Coins am UTC-Tag der Transaktion, Gebühr-Preis =
+    /// Schluss (Vermerk «Wert geschätzt»), Einstand des Kaufs samt Gebühr; ohne Schluss bzw. mit erfasstem Gebühr-Preis
+    /// unverändert.
+    func testThirdFeeAtDayClose() throws {
+        let a = try XCTUnwrap(try data()["thirdFee"] as? [String: Any])
+        let txs = TestSupport.list(a["trades"]).map { t -> PortfolioTx in
+            var tx = PortfolioTx(id: int64(t["id"]), coin: t["coin"] as? String ?? "",
+                                 type: PortfolioTxType(rawValue: t["type"] as? String ?? "") ?? .BUY,
+                                 amountExact: dec(t["amount"]) ?? 0, priceExact: dec(t["price"]), time: int64(t["time"]),
+                                 feeExact: nil, feeUnit: nil)
+            tx.feeCoin = t["feeCoin"] as? String
+            tx.feeCoinAmountExact = dec(t["feeCoinAmount"])
+            tx.feeCoinPriceExact = dec(t["feeCoinPrice"])
+            tx.transferFrom = t["transferFrom"] as? String
+            tx.transferTo = t["transferTo"] as? String
+            tx.toCoin = t["toCoin"] as? String
+            tx.toAmountExact = dec(t["toAmount"])
+            tx.swapValueExact = dec(t["swapValue"])
+            return tx
+        }
+        let needs = PortfolioLedger.dayCloseNeeds(txs).map { "\($0.coin)|\(TaxDayClose.day($0.time))" }
+        let expected = (a["needs"] as? [[Any]] ?? []).map { "\($0[0] as? String ?? "")|\(int64($0[1]))" }
+        XCTAssertEqual(needs, expected)
+        let valued = PortfolioLedger.valueThirdFeesAtDayClose(txs, price: TaxDayClose.lookup(closes(a)))
+        for e in TestSupport.list(a["valued"]) {
+            let t = try XCTUnwrap(valued.first { $0.id == int64(e["id"]) })
+            let label = "\(t.id) \(t.type.rawValue)"
+            XCTAssertEqual(t.feeCoinPriceExact, dec(e["feeCoinPrice"]), label)
+            XCTAssertEqual(t.feePriceEstimated, e["estimated"] as? Bool, label)
+            XCTAssertEqual(t.thirdFeeValue, dec(e["feeValue"]), label)
+        }
+        let buy = try XCTUnwrap(valued.first { $0.type == .BUY })
+        let price = try XCTUnwrap(buy.priceExact)
+        let fee = try XCTUnwrap(buy.thirdFeeValue)
+        XCTAssertEqual(buy.amountExact * price + fee, dec(a["cost"]))
+    }
+
     /// Kurz nach Mitternacht Ortszeit gilt der Schluss des UTC-Tags, nicht des lokalen Kalendertags.
     func testUtcDayDecides() throws {
         let d = try data()

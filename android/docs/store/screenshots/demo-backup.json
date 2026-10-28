@@ -151,7 +151,8 @@
       "linkedImportKey": null,
       "importRestoreState": null,
       "feeRow": false,
-      "interest": false
+      "interest": false,
+      "stakingMove": false
     },
     {
       "id": 2,
@@ -179,7 +180,8 @@
       "linkedImportKey": null,
       "importRestoreState": null,
       "feeRow": false,
-      "interest": false
+      "interest": false,
+      "stakingMove": false
     },
     {
       "id": 1,
@@ -207,7 +209,8 @@
       "linkedImportKey": null,
       "importRestoreState": null,
       "feeRow": false,
-      "interest": false
+      "interest": false,
+      "stakingMove": false
     }
   ],
   "portfolioAlarms": [],

@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Det samme gælder et gebyr i USDT eller kontanter ved en overførsel mellem dine egne wallets: det lægges ikke til anskaffelsesprisen og vises kun til information.</string>
     <string name="tax_note_uk">Matching efter HMRC: samme dag → derefter de næste 30 dage → derefter samlet beholdning efter Section 104 (Section 104-pool).</string>
     <string name="tax_note_us_transition">Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brugte tidligere år FIFO på tværs af alle wallets, går restposterne pr. 31.12.2024 til de wallets, der rummer coinsene – walletten med de ældste coins får den ældste anskaffelsessum. Denne fordeling er en regel i appen – sammenhold den med dine egne optegnelser.</string>
-    <string name="tax_note_us_wallet">Fra skatteåret 2025 kræver IRS anskaffelsespris pr. wallet/børs (Rev. Proc. 2024-28) – eksporten bruger FIFO pr. wallet fra 2025 – før 2025 gælder din anskaffelsesprismetode.</string>
+    <string name="tax_note_us_wallet">Fra skatteåret 2025 kræver IRS anskaffelsespris pr. wallet/børs (Rev. Proc. 2024-28) – eksporten bruger FIFO pr. wallet fra 2025 – før 2025 FIFO på tværs af alle wallets, eller FIFO pr. wallet, hvis det er din anskaffelsesprismetode.</string>
     <string name="tax_note_withdrawal_fee">Et udbetalingsgebyr i USDT eller kontanter er intet tab: et kontantgebyr er ikke fradragsberettiget, et USDT-gebyr er en afhændelse til pari uden gevinst – det vises kun til information (%1$s).</string>
     <string name="tax_summary_at_interest_income">tæller: indkomst ved modtagelse til den særlige sats på 27,5 procent (§ 27b stk. 2 nr. 1 EStG / BMF) – mønterne beholder denne værdi som anskaffelsespris</string>
     <string name="tax_summary_at_reward_info">kun til orientering – indgår ikke i nogen sum: belønninger indgår i den nye beholdning med anskaffelsespris 0 og beskattes først ved salg (allerede i gevinsterne) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Overvågede adresser tæller med i den samlede værdi, men har ingen anskaffelsessum – gevinsten er derfor snarere for høj. Registrér anskaffelsessummen som et køb.</string>
+    <string name="tax_summary_fr_rewards_income">Beløbet forudsætter, at belønninger blev beskattet som indkomst ved modtagelsen (værdi ved modtagelse i anskaffelsessummen) – ellers ville anskaffelsessum 0 være den forsigtige læsning.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Markedsværdier uden registreret pris (gebyrer, givet væk/betalt, bytte, belønninger, netværksgebyrer, porteføljeværdi) til dagens lukkekurs (UTC) på transaktionsdagen</string>

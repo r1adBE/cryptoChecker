@@ -16,6 +16,8 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredMove
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
+import com.cryptochecker.app.domain.portfolio.csvimport.fallbacks
+import com.cryptochecker.app.domain.portfolio.csvimport.withFallbacks
 import java.io.File
 import java.math.BigDecimal
 import java.time.Instant
@@ -68,6 +70,7 @@ class CsvTransferMatchParityTest {
         exchange = o["exchange"] as String?,
         importBatch = o["importBatch"] as String?,
         linkedImportKey = o["linkedImportKey"] as String?,
+        stakingMove = o["stakingMove"] == true,
     )
 
     /** Zustand aus dem Fixture (Format [CsvRestoreState]) — über den Text, wie ihn die Datenbank speichert. */
@@ -276,7 +279,7 @@ class CsvTransferMatchParityTest {
         assertEquals(d["unknown"].list(), split.fresh.map { it.key })
     }
 
-    /** Verknüpft wird ohne Längengrenze: lange Schlüssel bleiben vollständig, kein Zustand geht verloren. */
+    /** Verknüpft wird mit langen Schlüsseln (bis 200 UTF-8-Bytes): sie bleiben vollständig, kein Zustand geht verloren. */
     @Test
     fun longKeysLinkWithoutLimit() {
         val c = cases().first { it["name"] == "stored side with separators in its text and a long key both link" }
@@ -306,5 +309,24 @@ class CsvTransferMatchParityTest {
         // Gespeichert erkennt der nächste Import beide Seiten als doppelt (importKey + linkedImportKey)
         val u = plan.storedUpdates.single()
         assertEquals(setOf(old.importKey, links.single().depositKey), setOf(u.importKey, u.linkedImportKey))
+    }
+
+    /**
+     * Ersatzzeilen (`fallbacks`): die neue Zeile, die gegen eine gespeicherte Seite aufgeht, kommt mit (in der Reihenfolge der
+     * Vorschau) und ist der Seite zugeordnet — sie wird angelegt, wenn die Verknüpfung beim Speichern nicht mehr geht.
+     */
+    @Test
+    fun absorbedRowsComeAlongAsFallbacks() {
+        val all = data["fallbacks"].list().map { it.obj() }
+        assertTrue(all.isNotEmpty())
+        for (f in all) {
+            val c = cases().first { it["name"] == f["case"] }
+            val txs = c["txs"].list().map { tx(it.obj()) }
+            val links = linksOf(c)
+            val plan = CsvTransferMatch.apply(txs, links, CsvTransferMatch.defaultChoice(links))
+            val m = f["case"] as String
+            assertEquals("$m rows", f["rows"].list(), CsvTransferMatch.withFallbacks(txs, plan).map { it.importKey })
+            assertEquals("$m fallbacks", f["fallbacks"].obj().mapValues { it.value.num()!!.toLong() }, CsvTransferMatch.fallbacks(plan))
+        }
     }
 }

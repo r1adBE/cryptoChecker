@@ -13,7 +13,7 @@ import com.cryptochecker.app.data.BackupLimits
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
-import com.cryptochecker.app.data.portfolio.linkStoredTransfers
+import com.cryptochecker.app.data.portfolio.insertImportedLinked
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
@@ -235,8 +235,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
     }
 
     /**
-     * Zeitzone der Zeiten ohne Versatz wählen: den Text im Speicher neu zuordnen (Datei und Tageskurse werden nicht neu
-     * geladen; ein um einen Tag verschobenes Datum nimmt den Kurs des letzten Geschäftstags davor).
+     * Zeitzone der Zeiten ohne Versatz wählen: den Text im Speicher neu zuordnen; Tageskurse nur neu laden, wenn ein Tag
+     * nun ausserhalb der geladenen liegt ([PortfolioCsvImportReader.reparse]).
      */
     fun setZone(zone: String?) = reread(chosen.copy(zone = zone)) { read, choice ->
         // Tag/Monat und Dezimalzeichen wie beim letzten Lesen: nur neu zuordnen; sonst ganz neu (Tageskurse)
@@ -338,10 +338,11 @@ class PortfolioCsvImportViewModel @Inject constructor(
         val throttle = CsvProgressThrottle(CsvImportStep.SAVE, plan.entities.size) { postProgress(it, run) }
         throttle.start()
         return withContext(NonCancellable) {
-            saveCsvImport(
-                insert = { repository.insertImported(plan.entities, plan.batch, throttle::row, saveCancelled::get) },
-                link = { repository.linkStoredTransfers(plan.storedUpdates, plan.batch) },
-            )
+            saveCsvImport {
+                repository.insertImportedLinked(
+                    plan.entities, plan.batch, plan.storedUpdates, plan.fallbacks, throttle::row, saveCancelled::get,
+                )
+            }
         }
     }
 

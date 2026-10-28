@@ -221,12 +221,14 @@ struct PortfolioCsvImportSheet: View {
 
     /// Datei mit der gewählten Zeitzone, Reihenfolge Tag/Monat und dem Dezimalzeichen neu lesen und zuordnen — einmal
     /// lesen (bis 16 MB) und zuordnen abseits des Haupt-Threads (`PortfolioCsvImporter.reread`); Tageskurse und
-    /// USDT/USD-Schlüsse nur neu laden, wenn sie veraltet sind (`ratesStale`), sonst bleiben die bekannten. Die Vorschau
+    /// USDT/USD-Schlüsse nur neu laden, wenn sie veraltet sind (`ratesStale`) oder ein Tag ausserhalb der geladenen liegt
+    /// (`CsvImportRateDays.cover`), sonst bleiben die bekannten. Die Vorschau
     /// wird auf dem MainActor übernommen; inzwischen anders gewählt: verwerfen.
     func remap() {
         let text = loaded.text
         let existingKeys = loaded.existingKeys
-        let known = rates ?? CsvImportRates(fx: loaded.rates, usdtUsd: loaded.usdtUsd)
+        let known = rates ?? CsvImportRates(fx: loaded.rates, usdtUsd: loaded.usdtUsd,
+                                            days: CsvImportRateDays.of(loaded.result.rows, zone: loaded.result.fxZone))
         let deviceZone = TimeZone.current.identifier
         let choice = chosenRead
         let refetch = ratesStale
@@ -246,10 +248,9 @@ struct PortfolioCsvImportSheet: View {
             }.value
             // Inzwischen anders gewählt bzw. neuer angestossen: verwerfen (die neuere Neuzuordnung übernimmt)
             guard generation == remapGeneration, chosenRead == choice else { return }
-            if refetch {
-                rates = computed.rates
-                ratesStale = false
-            }
+            // Neu geladen (veraltet oder ein Tag ausserhalb der geladenen) oder unverändert: gilt fürs nächste Neu-Lesen
+            rates = computed.rates
+            if refetch { ratesStale = false }
             preview = computed.preview
             builtWith = choice
             rereading = false
@@ -288,31 +289,36 @@ struct PortfolioCsvImportSheet: View {
         guard CsvImportMapping.allWithdrawalsDecided(plan.transactions, choices: choices) else { return }
         var destinations: [String: String?] = [:]
         for p in proposals { destinations[p.importKey] = p.transferTo }
-        // Datei «neueste zuerst»: älteste zuerst speichern (Id folgt der Zeit) — wie Android
+        // Datei «neueste zuerst»: älteste zuerst speichern (Id folgt der Zeit) — wie Android. Neue Zeilen, die gegen eine
+        // gespeicherte Seite aufgehen, als Ersatz dabei: gespeichert nur, wenn die Verknüpfung beim Speichern nicht geht
+        let rows = CsvTransferMatch.withFallbacks(preview.transactions, plan: plan)
         let txs: [CsvImportTx] = CsvImportMapping.insertOrder(
-            CsvImportMapping.applyWithdrawalChoices(plan.transactions, choices: choices, destinations: destinations))
+            CsvImportMapping.applyWithdrawalChoices(rows, choices: choices, destinations: destinations))
         // Kennung dieses Importlaufs («Import rückgängig»): Format, Zeit, Hash der Zeilenschlüssel — wie Android
         let batch = PortfolioImportBatch.newId(format: preview.format.rawValue,
                                                time: Int64(Date().timeIntervalSince1970 * 1000),
                                                keys: txs.map(\.importKey))
         let list = txs.map(PortfolioCsvImporter.tx)
         let storedUpdates = plan.storedUpdates
+        let fallbacks = CsvTransferMatch.fallbacks(plan)
         // Zusammenstellen im Hintergrund mit Fortschritt; «Abbrechen» bis zum Schreiben lässt alles unverändert
         let report = saveRun.begin(.saving)
         saveRun.attach(Task {
             // Speichern zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
             let backgroundTask = BackgroundTaskGuard.begin("csvImportSave")
             defer { backgroundTask.end() }
-            let written = await data.insertImportedPortfolioTxs(list, batch: batch, progress: report)
+            // Anlegen und Verknüpfen in EINEM Schreibvorgang — wie Android `insertImportedLinked`
+            let written = await data.insertImportedPortfolioTxs(list, batch: batch, links: storedUpdates,
+                                                                fallbacks: fallbacks, progress: report)
             // «Abbrechen» gedrückt: das Blatt ist schon zu
             let closed = Task.isCancelled
             // Abgebrochen vor dem Schreiben: nichts gespeichert. Kam «Abbrechen» erst während des Schreibens (im
-            // Hintergrund), gilt der Import: Verknüpfungen setzen und melden wie sonst
+            // Hintergrund), gilt der Import: melden wie sonst
             if written == .cancelled && closed { return }
             saveRun.end()
             switch written {
-            case .written(let inserted):
-                finishSave(inserted: inserted, storedUpdates: storedUpdates, batch: batch, closed: closed)
+            case .written(let inserted, let linked):
+                finishSave(inserted: inserted, linked: linked)
             // Nicht geschrieben: Grund nennen statt «0 importiert» — wie Android
             case .failed: reportSaveFailed(closed: closed)
             case .cancelled: break
@@ -320,34 +326,16 @@ struct PortfolioCsvImportSheet: View {
         })
     }
 
-    /// Nach dem Anlegen (geschrieben, nicht mehr abbrechbar): gespeicherte Seiten verknüpfter Umbuchungen ändern,
-    /// Portfolio bei Bedarf einschalten, melden und schliessen.
-    private func finishSave(inserted: Int, storedUpdates: [CsvStoredTransfer], batch: String, closed: Bool) {
-        // Gespeicherte Seiten verknüpfter Umbuchungen: neu gelesen, inzwischen gelöscht oder verknüpft → ausgelassen;
-        // die Transaktion wechselt in diesen Importlauf («Import rückgängig» setzt sie zurück) — wie Android `linkStoredTransfers`
-        var linkedStored = 0
-        var linkFailed = false
-        for u in storedUpdates {
-            guard let current = data.portfolio.first(where: { $0.id == u.id }), current.linkedImportKey == nil else { continue }
-            guard data.savePortfolioTx(PortfolioCsvImporter.linked(current, u, batch: batch)) != nil else {
-                linkFailed = true
-                continue
-            }
-            linkedStored += 1
-        }
-        let count = inserted + linkedStored
-        // Nur Verknüpfungen und keine davon geschrieben: ebenfalls ein Fehler, nicht «0 importiert»
-        if count == 0 && linkFailed {
-            reportSaveFailed(closed: closed)
-            return
-        }
+    /// Nach dem Schreiben (angelegt und verknüpft, nicht mehr abbrechbar): Portfolio bei Bedarf einschalten, melden und
+    /// schliessen.
+    private func finishSave(inserted: Int, linked: Int) {
         // Erste Transaktion mit ausgeschaltetem Portfolio: einschalten (Tab erscheint), wie von Hand — nur neu angelegte
         var enabled = false
         if inserted > 0, PortfolioOff.enableOnSave(isNew: true, portfolioEnabled: data.settings.portfolioEnabled) {
             data.settings.portfolioEnabled = true
             enabled = true
         }
-        onImported(count, enabled)
+        onImported(inserted + linked, enabled)
         dismiss()
     }
 

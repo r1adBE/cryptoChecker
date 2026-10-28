@@ -208,8 +208,8 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertNil(read.feeCoinAmountExact)
         XCTAssertNil(read.feeCoinPriceExact)
         // Unbekannte Art (neuere Version): Eintrag wird verworfen und gezählt, die Datei bleibt lesbar
-        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"LOAN","amountText":"1","time":1,"feeRow":false,"interest":false},"#
-            + #"{"id":2,"coin":"BTC","type":"REWARD","amountText":"1","time":2,"feeRow":false,"interest":false}],"nextId":3}"#
+        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"LOAN","amountText":"1","time":1,"feeRow":false,"interest":false,"stakingMove":false},"#
+            + #"{"id":2,"coin":"BTC","type":"REWARD","amountText":"1","time":2,"feeRow":false,"interest":false,"stakingMove":false}],"nextId":3}"#
         let file = try JSONDecoder().decode(PortfolioFile.self, from: Data(json.utf8))
         XCTAssertEqual(file.transactions.map(\.type), [.REWARD])
         XCTAssertEqual(file.dropped, 1)
@@ -275,8 +275,8 @@ final class PortfolioTxTypesTests: XCTestCase {
         var sameCoin = BackupManager.txToJson(swap)
         sameCoin["toCoin"] = "btc"
         XCTAssertNil(try BackupManager.jsonToTx(sameCoin))
-        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"SWAP","amountText":"1","time":1,"feeRow":false,"interest":false},"#
-            + #"{"id":2,"coin":"BTC","type":"SWAP","amountText":"1","time":2,"toCoin":"ETH","toAmountText":"3","feeRow":false,"interest":false}],"nextId":3}"#
+        let json = #"{"transactions":[{"id":1,"coin":"BTC","type":"SWAP","amountText":"1","time":1,"feeRow":false,"interest":false,"stakingMove":false},"#
+            + #"{"id":2,"coin":"BTC","type":"SWAP","amountText":"1","time":2,"toCoin":"ETH","toAmountText":"3","feeRow":false,"interest":false,"stakingMove":false}],"nextId":3}"#
         let file = try JSONDecoder().decode(PortfolioFile.self, from: Data(json.utf8))
         XCTAssertEqual(file.transactions.map(\.id), [2])
         XCTAssertEqual(file.dropped, 1)

@@ -56,20 +56,23 @@ struct PortfolioImportSave {
     /// Höchstens so viele Runden (neu zusammenstellen bzw. schreiben), wenn andere Schreibvorgänge dazwischenkommen.
     static let maxRounds = 4
 
-    /// Zusammenstellen (mit Fortschritt, abbrechbar) und in einem Schreibvorgang speichern. Abgebrochen vor dem
-    /// Schreiben: `.cancelled`, nichts geschrieben. Hat ein anderes Schreiben den Stand inzwischen geändert, wird auf
-    /// dem neuen Stand noch einmal zusammengestellt — ebenfalls im Hintergrund.
-    func run(_ list: [PortfolioTx], batch: String?,
+    /// Zusammenstellen samt Verknüpfungen (`links`, `fallbacks`: `AppData.withImported`; mit Fortschritt, abbrechbar)
+    /// und in einem Schreibvorgang speichern. Abgebrochen vor dem Schreiben: `.cancelled`, nichts geschrieben. Hat ein
+    /// anderes Schreiben den Stand inzwischen geändert, wird auf dem neuen Stand noch einmal zusammengestellt — ebenfalls
+    /// im Hintergrund, die Verknüpfungen neu geprüft.
+    func run(_ list: [PortfolioTx], batch: String?, links: [CsvStoredTransfer] = [], fallbacks: [String: Int64] = [:],
              progress: @escaping @Sendable (CsvImportProgress) -> Void) async -> PortfolioImportWrite {
         var builtOn = current().file
-        guard var built = await Self.build(list, batch: batch, on: builtOn, progress: progress) else {
+        guard var built = await Self.build(list, batch: batch, links: links, fallbacks: fallbacks, on: builtOn,
+                                           progress: progress) else {
             return .cancelled
         }
         for _ in 0..<Self.maxRounds {
             let now = current()
             if now.file.nextId != builtOn.nextId || now.file.transactions != builtOn.transactions {
                 // Inzwischen anders gespeichert (selten): auf dem aktuellen Stand noch einmal, danach erneut prüfen
-                guard let again = await Self.build(list, batch: batch, on: now.file, progress: nil) else {
+                guard let again = await Self.build(list, batch: batch, links: links, fallbacks: fallbacks, on: now.file,
+                                                   progress: nil) else {
                     return .cancelled
                 }
                 built = again
@@ -78,9 +81,9 @@ struct PortfolioImportSave {
             }
             // Erst das Schreiben zählt: ein «Abbrechen» davor verwirft den zusammengestellten Stand
             guard !Task.isCancelled else { return .cancelled }
-            guard built.count > 0 else { return .written(0) }
+            guard built.count > 0 || built.linked > 0 else { return .written(0) }
             switch await write(built.file, now.generation) {
-            case .saved: return .written(built.count)
+            case .saved: return .written(built.count, linked: built.linked)
             case .failed: return .failed
             case .superseded: continue
             }
@@ -88,14 +91,17 @@ struct PortfolioImportSave {
         return .failed
     }
 
-    /// `base` samt den importierten Zeilen, losgelöst zusammengestellt (`AppData.withImported`); nil = abgebrochen.
-    nonisolated static func build(_ list: [PortfolioTx], batch: String?, on base: PortfolioFile,
+    /// `base` samt den importierten Zeilen und Verknüpfungen, losgelöst zusammengestellt (`AppData.withImported`);
+    /// nil = abgebrochen.
+    nonisolated static func build(_ list: [PortfolioTx], batch: String?, links: [CsvStoredTransfer] = [],
+                                  fallbacks: [String: Int64] = [:], on base: PortfolioFile,
                                   progress: (@Sendable (CsvImportProgress) -> Void)?) async
-        -> (file: PortfolioFile, count: Int)? {
-        await CsvImportBackground.run { () -> (file: PortfolioFile, count: Int)? in
+        -> (file: PortfolioFile, count: Int, linked: Int)? {
+        await CsvImportBackground.run { () -> (file: PortfolioFile, count: Int, linked: Int)? in
             var throttle = progress.map { CsvProgressThrottle(step: .SAVE, total: list.count, report: $0) }
             throttle?.start()
-            return try? AppData.withImported(list, batch: batch, in: base, cancelled: { Task.isCancelled }) { done in
+            return try? AppData.withImported(list, batch: batch, in: base, links: links, fallbacks: fallbacks,
+                                             cancelled: { Task.isCancelled }) { done in
                 throttle?.row(done)
             }
         }

@@ -79,7 +79,10 @@ fun TaxEngines.frPta(
         advanceAddresses(t.time)
         if (t.amount.signum() > 0) {
             val price = t.validPrice
-            val feeValue = t.thirdFeeValue
+            // Gebühr im dritten Coin: EIN Kurs für Erwerbspreis-Summe, Preis vor Gebühren und ihre eigene Abtretung —
+            // erfasst, sonst priceAt (Tagesschluss); fehlt er, ist die Summe danach unvollständig
+            val thirdPrice = t.thirdFeeCoin?.let { tc -> t.thirdFeePrice ?: priceAt?.invoke(tc, t.time)?.takeIf { it.signum() >= 0 } }
+            val feeValue = if (t.thirdFeeCoin == null) zero else thirdPrice?.let { t.thirdFeeAmount * it }
             // Kurs des Haupt-Coins für Gebühr und Abgang: Preis, Wert des Tauschs je Coin, Stablecoin 1, sonst priceAt
             val unit = price ?: t.swapValue?.divide(t.amount, mc)
                 ?: BigDecimal.ONE.takeIf { !PortfolioStables.needsQuote(coin) }
@@ -91,7 +94,7 @@ fun TaxEngines.frPta(
              * Gebühr in Krypto ausserhalb eines Verkaufs: eigene Abtretung gegen eine Dienstleistung
              * (BOI-RPPM-PVBMC-30-10 § 70 Remarque 1) — Abtretungspreis = Wert der Gebühr, keine weiteren Gebühren.
              */
-            fun feeCession(feeCoin: String, qty: BigDecimal, p: BigDecimal?, feeLeg: Boolean) {
+            fun feeCession(feeCoin: String, qty: BigDecimal, p: BigDecimal?, feeLeg: Boolean, estimated: Boolean = false) {
                 if (qty.signum() <= 0) return
                 val held = books[feeCoin]?.total ?: zero
                 // Nur der gedeckte Anteil ist eine Abtretung mit Einstand (wie im Verkaufspfad): eine Gebühr in einem nie
@@ -120,7 +123,7 @@ fun TaxEngines.frPta(
                         holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
                         method = CostMethod.AVERAGE, costParts = parts,
                         costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = coveredGross,
-                        addressValueIncluded = withAddresses,
+                        addressValueIncluded = withAddresses, valueEstimated = estimated,
                     )
                 }
                 if (covered < qty) {
@@ -133,7 +136,7 @@ fun TaxEngines.frPta(
                         amount = rest, costUsdt = null, proceedsUsdt = restGross, gainUsdt = null,
                         holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
                         method = CostMethod.AVERAGE, uncovered = true,
-                        costIncomplete = true, grossProceedsUsdt = restGross,
+                        costIncomplete = true, grossProceedsUsdt = restGross, valueEstimated = estimated,
                     )
                 }
             }
@@ -141,7 +144,7 @@ fun TaxEngines.frPta(
             /** Gebühr im dritten Coin (ausser beim Verkauf): eigene Abtretung zum erfassten Preis bzw. priceAt. */
             fun thirdFeeCession() {
                 val tc = t.thirdFeeCoin ?: return
-                feeCession(tc, t.thirdFeeAmount, t.thirdFeePrice ?: priceAt?.invoke(tc, t.time)?.takeIf { it.signum() >= 0 }, true)
+                feeCession(tc, t.thirdFeeAmount, thirdPrice, true, t.feePriceEstimated)
             }
             when (t.type) {
                 PortfolioTxType.BUY, PortfolioTxType.REWARD, PortfolioTxType.DEPOSIT -> {
@@ -151,6 +154,8 @@ fun TaxEngines.frPta(
                         val c = t.amount * price + t.quoteFee + (feeValue ?: zero)
                         pta += c
                         if (c.signum() != 0) ptaParts = ptaParts + PortfolioCostPart(t.acquisitionTime, c)
+                        // Wert der Gebühr im dritten Coin unbekannt: die Summe enthält sie nicht
+                        if (feeValue == null) incomplete = true
                     } else {
                         // Ohne Preis (z. B. Einzahlung ohne Kaufpreis): zum Wert 0 (BOFiP § 90), aber unvollständig
                         incomplete = true
@@ -175,6 +180,9 @@ fun TaxEngines.frPta(
                     val grossCovered = part(gross)
                     val netCovered = part(net)
                     val feeMissing = gross != null && feeValue == null
+                    // Wert zum Tagesschluss: Zahlung ohne Marktwert ([PortfolioLedger.valueAtDayClose]) bzw. Gebühr im dritten
+                    // Coin ([PortfolioLedger.valueThirdFeesAtDayClose]) im Preis vor Gebühren
+                    val feeEstimated = gross != null && (t.valueEstimated || t.feePriceEstimated)
                     if (removed.signum() > 0) {
                         // Gesamtwert unmittelbar vor der Abtretung (verkaufter Coin zum Verkaufspreis)
                         val value = portfolioValue(coin, price, t.time)
@@ -199,7 +207,7 @@ fun TaxEngines.frPta(
                             method = CostMethod.AVERAGE, costParts = parts,
                             // Ohne Gesamtwert (Kurs fehlt) ist schon diese Abtretung unvollständig
                             costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = grossCovered,
-                            addressValueIncluded = withAddresses,
+                            addressValueIncluded = withAddresses, valueEstimated = feeEstimated,
                         )
                     }
                     if (removed < requested) {
@@ -212,6 +220,7 @@ fun TaxEngines.frPta(
                             holdingDays = null, feeLeg = false, feeValueMissing = feeMissing,
                             method = CostMethod.AVERAGE, uncovered = true,
                             costIncomplete = true, grossProceedsUsdt = gross?.let { it - (grossCovered ?: zero) },
+                            valueEstimated = feeEstimated,
                         )
                     }
                 }

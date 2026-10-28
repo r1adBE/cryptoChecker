@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">내 지갑 간 이체에서 USDT 또는 현금으로 낸 수수료도 마찬가지입니다: 매입 원가에 더하지 않고 참고용으로만 표시됩니다.</string>
     <string name="tax_note_uk">HMRC 기준 매칭: 같은 날 → 그다음 이후 30일 → 그다음 Section 104에 따른 통합 보유분(Section 104 pool).</string>
     <string name="tax_note_us_transition">2025년 1월 1일 전환(Rev. Proc. 2024-28, 세이프 하버): 이전 연도에 모든 지갑에 걸쳐 FIFO를 썼다면 2024년 12월 31일 기준 남은 로트는 코인을 보유한 지갑으로 배분되며, 가장 오래된 코인이 있는 지갑이 가장 오래된 취득가를 받습니다. 이 배분은 앱의 규칙입니다. 본인 기록과 대조하세요.</string>
-    <string name="tax_note_us_wallet">2025 과세연도부터 IRS는 지갑/거래소별 매입 원가를 요구합니다(Rev. Proc. 2024-28) – 내보내기는 2025년부터 지갑별 FIFO로 계산합니다 – 2025년 이전에는 설정한 매입 원가 계산 방식이 적용됩니다.</string>
+    <string name="tax_note_us_wallet">2025 과세연도부터 IRS는 지갑/거래소별 매입 원가를 요구합니다(Rev. Proc. 2024-28) – 내보내기는 2025년부터 지갑별 FIFO로 계산합니다 – 2025년 이전에는 모든 지갑을 합친 FIFO로, 매입 원가 계산 방식이 지갑별 FIFO이면 지갑별 FIFO로 계산합니다.</string>
     <string name="tax_note_withdrawal_fee">USDT 또는 현금 출금 수수료는 손실이 아닙니다: 현금 수수료는 공제할 수 없고, USDT 수수료는 이익 없는 액면가 처분입니다 – 참고용으로만 표시됩니다(%1$s).</string>
     <string name="tax_summary_at_interest_income">합산: 받은 시점에 특별세율 27.5퍼센트로 과세되는 소득(§ 27b 제2항 제1호 EStG / BMF) – 코인은 이 가치를 취득원가로 유지합니다</string>
     <string name="tax_summary_at_reward_info">참고용 – 어떤 합계에도 포함 안 됨: 보상은 취득원가 0으로 신규 보유분에 들어가며 매도 시에만 과세됩니다(이미 이익에 포함) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">관찰 중인 주소는 총 가치에 포함되지만 취득원가가 없습니다. 따라서 이익이 과대 계산되었을 수 있습니다. 취득원가를 매수로 기록하세요.</string>
+    <string name="tax_summary_fr_rewards_income">이 금액은 보상이 수령 시 소득으로 과세되었다고 가정합니다(수령 시 가치를 취득가액에 포함) – 그렇지 않다면 취득가액 0이 보수적인 해석입니다.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">기록된 가격이 없는 시장 가치(수수료, 증여/결제, 교환, 보상, 네트워크 수수료, 포트폴리오 가치)는 거래일의 일일 종가(UTC) 기준</string>

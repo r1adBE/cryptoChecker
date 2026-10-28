@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Lo stesso vale per una commissione in USDT o contanti su un trasferimento tra i tuoi wallet: non si aggiunge al costo di carico e compare solo come informazione.</string>
     <string name="tax_note_uk">Abbinamento secondo HMRC: stesso giorno → poi i 30 giorni successivi → poi il pool comune (Section 104 pool).</string>
     <string name="tax_note_us_transition">Transizione all’1.1.2025 (Rev. Proc. 2024-28, safe harbor): se gli anni precedenti usavano FIFO su tutti i wallet, i lotti residui al 31.12.2024 vanno ai wallet che detengono i coin – il wallet con i coin più vecchi riceve il costo più vecchio. Questa ripartizione è una regola dell’app – confrontala con i tuoi documenti.</string>
-    <string name="tax_note_us_wallet">Dall’anno fiscale 2025 l’IRS richiede il costo di carico per wallet/exchange (Rev. Proc. 2024-28) – l’export usa FIFO per wallet dal 2025 – prima del 2025 vale il tuo metodo del costo di carico.</string>
+    <string name="tax_note_us_wallet">Dall’anno fiscale 2025 l’IRS richiede il costo di carico per wallet/exchange (Rev. Proc. 2024-28) – l’export usa FIFO per wallet dal 2025 – prima del 2025 FIFO su tutti i wallet, oppure FIFO per wallet se è il tuo metodo del costo di carico.</string>
     <string name="tax_note_withdrawal_fee">Una commissione di prelievo in USDT o contanti non è una perdita: in contanti non è deducibile, in USDT è una cessione alla pari senza guadagno – compare solo come informazione (%1$s).</string>
     <string name="tax_summary_at_interest_income">conta: reddito alla ricezione con aliquota speciale del 27,5 per cento (§ 27b c. 2 n. 1 EStG / BMF) – le monete mantengono questo valore come costo d’acquisto</string>
     <string name="tax_summary_at_reward_info">solo a titolo informativo – in nessun totale: le ricompense entrano nel nuovo patrimonio a costo d’acquisto 0 e sono tassate solo alla vendita (già nelle plusvalenze) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Gli indirizzi osservati contano nel valore totale ma non hanno un costo di acquisto – il guadagno è quindi probabilmente troppo alto. Registra il costo come acquisto.</string>
+    <string name="tax_summary_fr_rewards_income">L’importo presuppone che le ricompense siano state tassate come reddito al ricevimento (valore al ricevimento nel costo d’acquisto) – altrimenti la lettura prudente sarebbe costo d’acquisto 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Valori di mercato senza prezzo registrato (commissioni, regalato/pagato, scambio, ricompense, commissioni di rete, valore del portafoglio) alla chiusura giornaliera (UTC) del giorno della transazione</string>

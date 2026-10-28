@@ -263,12 +263,32 @@ enum PortfolioWidgetSeries {
                             now: Int64) -> [String: Double] {
         var out: [String: Double] = [:]
         for (coin, price) in current {
-            guard let nowPrice = valid(price) else { continue }
-            let window = (prices[coin.uppercased()] ?? []).filter {
-                now - $0.at >= dayMinSpanMillis && now - $0.at <= windowMillis + hourMillis
-            }
-            guard let oldest = window.min(by: { $0.at < $1.at }), let then = valid(oldest.price) else { continue }
+            guard let nowPrice = valid(price), let oldest = dayAgo(prices, coin: coin, now: now),
+                  let then = valid(oldest.price) else { continue }
             out[coin] = (nowPrice / then - 1) * 100
+        }
+        return out
+    }
+
+    /// Vergleichskurs von `coinChanges`: ältester gemerkter Kurs zwischen `now` − 25 h und `now` − 20 h.
+    private static func dayAgo(_ prices: [String: [PortfolioTimedPrice]], coin: String, now: Int64) -> PortfolioTimedPrice? {
+        (prices[coin.uppercased()] ?? [])
+            .filter { now - $0.at >= dayMinSpanMillis && now - $0.at <= windowMillis + hourMillis }
+            .min(by: { $0.at < $1.at })
+    }
+
+    /// «Heute» rollend: Zeit des Vergleichskurses je Coin — Stundenkurs von `coinChanges` (geht vor), sonst der Stand
+    /// `baseTime`/`basePrices` (`PortfolioWidgetStore.coinChanges`). Sie ist der Beginn des Zeitraums je Coin
+    /// (`PortfolioPeriodChange.todayAdjusted` `coinStart`): eine Basis von vor 40 h mit Zeitraum 24 h zählte einen Kauf vor
+    /// 30 h zum alten Kurs als Gewinn. Wie Android.
+    static func changeSince(current: [String: Double], baseTime: Int64?, basePrices: [String: Double]?,
+                            prices: [String: [PortfolioTimedPrice]], now: Int64) -> [String: Int64] {
+        var out: [String: Int64] = [:]
+        if let baseTime {
+            for coin in PortfolioWidgetStore.coinChanges(current: current, reference: basePrices).keys { out[coin] = baseTime }
+        }
+        for (coin, price) in current where valid(price) != nil {
+            if let then = dayAgo(prices, coin: coin, now: now), valid(then.price) != nil { out[coin] = then.at }
         }
         return out
     }

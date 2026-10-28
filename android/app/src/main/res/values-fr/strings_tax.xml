@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Il en va de même pour des frais en USDT ou en espèces lors d’un transfert entre tes propres wallets : ils ne s’ajoutent pas au coût de revient et figurent à titre d’information.</string>
     <string name="tax_note_uk">Rapprochement selon HMRC : même jour → puis les 30 jours suivants → puis le pool commun (Section 104 pool).</string>
     <string name="tax_note_us_transition">Transition au 1.1.2025 (Rev. Proc. 2024-28, safe harbor) : si les années précédentes utilisaient le FIFO sur tous les portefeuilles, les lots restants au 31.12.2024 vont aux portefeuilles qui détiennent les coins – le portefeuille aux coins les plus anciens reçoit le coût le plus ancien. Cette répartition est une règle de l’app – à comparer avec tes propres relevés.</string>
-    <string name="tax_note_us_wallet">À partir de l’année fiscale 2025 l’IRS exige le coût de revient par wallet/plateforme (Rev. Proc. 2024-28) – l’export applique FIFO par wallet dès 2025 – avant 2025 ta méthode du coût de revient s’applique.</string>
+    <string name="tax_note_us_wallet">À partir de l’année fiscale 2025 l’IRS exige le coût de revient par wallet/plateforme (Rev. Proc. 2024-28) – l’export applique FIFO par wallet dès 2025 – avant 2025 FIFO sur tous les wallets, ou FIFO par wallet si c’est ta méthode du coût de revient.</string>
     <string name="tax_note_withdrawal_fee">Des frais de retrait en USDT ou en espèces ne sont pas une perte : des frais en espèces ne sont pas déductibles, des frais en USDT sont une cession au pair sans plus-value – ils figurent à titre d’information (%1$s).</string>
     <string name="tax_summary_at_interest_income">compte : revenu à la réception au taux spécial de 27,5 pour cent (§ 27b al. 2 n° 1 EStG / BMF) – les coins gardent cette valeur comme coût d’acquisition</string>
     <string name="tax_summary_at_reward_info">pour information uniquement – dans aucun total : les récompenses entrent dans le nouveau stock au coût d’acquisition 0 et ne sont imposées qu’à la vente (déjà dans les gains) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Les adresses surveillées comptent dans la valeur globale mais n\'ont pas de prix d\'acquisition – la plus-value est donc plutôt surestimée. Saisis le prix d\'acquisition comme achat.</string>
+    <string name="tax_summary_fr_rewards_income">Le montant suppose que les récompenses ont été imposées comme revenu à la réception (valeur à la réception dans le prix d’acquisition) – sinon, la lecture prudente serait un prix d’acquisition de 0.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Valeurs de marché sans prix saisi (frais, donné/payé, échange, récompenses, frais de réseau, valeur du portefeuille) à la clôture journalière (UTC) du jour de la transaction</string>

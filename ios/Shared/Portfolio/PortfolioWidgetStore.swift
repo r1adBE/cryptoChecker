@@ -210,7 +210,7 @@ enum PortfolioWidgetStore {
         let snapshot = compute(transactions: transactions, prices: prices, currency: currency, rate: resolvedRate,
                                extraHourly: extraHourly, basis: settings.changeBasis.storage,
                                method: settings.costMethod,
-                               addresses: AddressBalanceHistory.of(watched),
+                               addresses: AddressBooked.histories(watched, real: transactions),
                                staleAfterMillis: PortfolioPriceFallback.staleAfterMillis(
                                    backgroundIntervalMinutes: settings.backgroundIntervalMinutes),
                                displayFx: displayFx,

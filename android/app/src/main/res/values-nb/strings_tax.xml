@@ -189,7 +189,7 @@
     <string name="tax_note_transfer_fee">Det samme gjelder et gebyr i USDT eller kontanter ved en overføring mellom dine egne wallets: det legges ikke til inngangsverdien og vises kun som informasjon.</string>
     <string name="tax_note_uk">Matching etter HMRC: samme dag → så de neste 30 dagene → så samlet beholdning etter Section 104 (Section 104 pool)en.</string>
     <string name="tax_note_us_transition">Overgang 1.1.2025 (Rev. Proc. 2024-28, safe harbor): brukte tidligere år FIFO på tvers av alle lommebøker, går restpostene per 31.12.2024 til lommebøkene som har coinsene – lommeboken med de eldste coinsene får den eldste kostprisen. Denne fordelingen er en regel i appen – sammenlign med egne opptegnelser.</string>
-    <string name="tax_note_us_wallet">Fra skatteåret 2025 krever IRS inngangsverdi per wallet/børs (Rev. Proc. 2024-28) – eksporten bruker FIFO per wallet fra 2025 – før 2025 gjelder din metode for inngangsverdi.</string>
+    <string name="tax_note_us_wallet">Fra skatteåret 2025 krever IRS inngangsverdi per wallet/børs (Rev. Proc. 2024-28) – eksporten bruker FIFO per wallet fra 2025 – før 2025 FIFO på tvers av alle wallets, eller FIFO per wallet hvis det er din metode for inngangsverdi.</string>
     <string name="tax_note_withdrawal_fee">Et uttaksgebyr i USDT eller kontanter er intet tap: et kontantgebyr er ikke fradragsberettiget, et USDT-gebyr er en avhendelse til pari uten gevinst – det vises kun som informasjon (%1$s).</string>
     <string name="tax_summary_at_interest_income">teller: inntekt ved mottak til særskilt sats på 27,5 prosent (§ 27b ledd 2 nr. 1 EStG / BMF) – myntene beholder denne verdien som inngangsverdi</string>
     <string name="tax_summary_at_reward_info">kun til informasjon – inngår ikke i noen sum: belønninger går inn i den nye beholdningen med inngangsverdi 0 og beskattes først ved salg (allerede i gevinstene) – § 27b Abs. 2 EStG / BMF</string>
@@ -251,6 +251,7 @@
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Overvåkede adresser teller med i totalverdien, men har ingen inngangsverdi – gevinsten blir derfor trolig for høy. Registrer inngangsverdien som et kjøp.</string>
+    <string name="tax_summary_fr_rewards_income">Beløpet forutsetter at belønninger ble beskattet som inntekt ved mottak (verdi ved mottak i anskaffelseskosten) – ellers ville anskaffelseskost 0 være den forsiktige lesningen.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Markedsverdier uten registrert pris (gebyrer, gitt bort/betalt, bytte, belønninger, nettverksgebyrer, porteføljeverdi) til dagens sluttkurs (UTC) på transaksjonsdagen</string>

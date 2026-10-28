@@ -20,7 +20,8 @@ struct CsvAbsorbedRow: Hashable, Sendable {
 /// darin aufgegangene neue Zeile. Wie Android
 /// `CsvRestoreState` — dort steht auch, warum EIN Feld mit eigener Fassungsnummer statt 23 einzelner Felder.
 ///
-/// Format (Fassung 1; Zahlen exakt als Text wie `PortfolioDecimal.text`, fehlende Werte weggelassen):
+/// Format (Fassung 1; Zahlen exakt als Text wie `PortfolioDecimal.text`, Preise wie `PortfolioDecimal.priceText`, fehlende
+/// Werte weggelassen):
 /// `{"v": 1, "stored": {type, amount, priceUsdt?, time, fee?, feeUnit?, feeCoin?, feeCoinAmount?, feeCoinPriceUsdt?,
 /// transferFrom?, transferTo?, acquiredTime?, exchange?, importKey, importBatch?}, "absorbed": {type, amount, priceUsdt?, time,
 /// fee?, feeUnit?, feeCoin?, feeCoinAmount?, importKey}?}`. Unbekannte Fassung oder unlesbar → Fehler beim Lesen (der
@@ -101,13 +102,13 @@ extension CsvRestoreState: Codable {
         var s = root.nestedContainer(keyedBy: Keys.self, forKey: .stored)
         try s.encode(type.rawValue, forKey: .type)
         try s.encode(PortfolioDecimal.text(amount), forKey: .amount)
-        try s.encodeIfPresent(priceUsdt.map(PortfolioDecimal.text), forKey: .priceUsdt)
+        try s.encodeIfPresent(priceUsdt.map(PortfolioDecimal.priceText), forKey: .priceUsdt)
         try s.encode(time, forKey: .time)
         try s.encodeIfPresent(fee.map(PortfolioDecimal.text), forKey: .fee)
         try s.encodeIfPresent(feeUnit?.rawValue, forKey: .feeUnit)
         try s.encodeIfPresent(feeCoin, forKey: .feeCoin)
         try s.encodeIfPresent(feeCoinAmount.map(PortfolioDecimal.text), forKey: .feeCoinAmount)
-        try s.encodeIfPresent(feeCoinPrice.map(PortfolioDecimal.text), forKey: .feeCoinPriceUsdt)
+        try s.encodeIfPresent(feeCoinPrice.map(PortfolioDecimal.priceText), forKey: .feeCoinPriceUsdt)
         try s.encodeIfPresent(transferFrom, forKey: .transferFrom)
         try s.encodeIfPresent(transferTo, forKey: .transferTo)
         try s.encodeIfPresent(acquiredTime, forKey: .acquiredTime)
@@ -118,7 +119,7 @@ extension CsvRestoreState: Codable {
         var a = root.nestedContainer(keyedBy: Keys.self, forKey: .absorbed)
         try a.encode(absorbed.type.rawValue, forKey: .type)
         try a.encode(PortfolioDecimal.text(absorbed.amount), forKey: .amount)
-        try a.encodeIfPresent(absorbed.priceUsdt.map(PortfolioDecimal.text), forKey: .priceUsdt)
+        try a.encodeIfPresent(absorbed.priceUsdt.map(PortfolioDecimal.priceText), forKey: .priceUsdt)
         try a.encode(absorbed.time, forKey: .time)
         try a.encodeIfPresent(absorbed.fee.map(PortfolioDecimal.text), forKey: .fee)
         try a.encodeIfPresent(absorbed.feeUnit?.rawValue, forKey: .feeUnit)

@@ -116,9 +116,18 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
     /// Belohnung ist ein Zins (Lending) — AT: Einkunft beim Zufluss, Anschaffungskosten = Wert. CSV-Import setzt es, im
     /// Erfassen-Blatt umschaltbar. Nur bei `.REWARD`. Wie `PortfolioTxEntity.interest`.
     var interest = false
+    /// Staking-Umbuchung (CSV «Unstaking», «Redeem»): eigene Mittel zwischen Staking und Guthaben derselben Börse, nie eine
+    /// Auszahlung (`CsvTransferMatch.storedWithdrawal`). CSV-Import setzt es; bleibt beim Bearbeiten erhalten, solange die
+    /// Art «Umbuchung» bleibt. Nur bei `.TRANSFER`. Wie `PortfolioTxEntity.stakingMove`.
+    var stakingMove = false
     /// Wert nur geschätzt (Tagesschluss, `PortfolioLedger.valueAtDayClose`): Verschenkt/bezahlt ohne Marktwert bzw. Tausch
     /// ohne Wert — Steuer-Export «Wert geschätzt (Tagesschluss)». Nie gespeichert (nicht in `CodingKeys`). Wie Android.
     var valueEstimated = false
+    /// Gebühr-Preis im dritten Coin nur geschätzt (Tagesschluss, `PortfolioLedger.valueThirdFeesAtDayClose`; nur
+    /// Steuer-Export, jede Art): die Zeile der Gebühr-Coins und jede Zeile mit dem Wert der Gebühr (Erlös eines
+    /// Verkaufs/Tauschs, Aufwand einer Auszahlung) tragen den Vermerk «Wert geschätzt (Tagesschluss)». Nie gespeichert
+    /// (nicht in `CodingKeys`). Wie Android.
+    var feePriceEstimated = false
     /// Verschenkt, im Steuer-Export als Veräusserung gerechnet (`TaxEngines.applyRules`: Art `.PAYMENT` mit diesem
     /// Merker, Vermerk «Schenkung»). Nie gespeichert. Wie Android.
     var fromGift = false
@@ -194,8 +203,8 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         case toCoin, toAmountText, swapValueText, importBatch
         // Partner-Merker und Verknüpfung (zweiter Herkunftsschlüssel, Zustand davor)
         case giftToSpouse, linkedImportKey, importRestoreState
-        // Gebühr-Zeile und Zins
-        case feeRow, interest
+        // Gebühr-Zeile, Zins und Staking-Umbuchung
+        case feeRow, interest, stakingMove
     }
 
     // Abgeleitete Werte und Bereinigung (Gebühren, Tausch, Route …): PortfolioTx+Derived.swift
@@ -205,7 +214,8 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         PortfolioDecimal.parse((try? c.decodeIfPresent(String.self, forKey: key)) ?? nil)
     }
 
-    // Pflicht sind die Felder, die `encode` immer schreibt (Id, Coin, Art, Menge, Zeit, Gebühr-Zeile, Zins); die übrigen
+    // Pflicht sind die Felder, die `encode` immer schreibt (Id, Coin, Art, Menge, Zeit, Gebühr-Zeile, Zins,
+    // Staking-Umbuchung); die übrigen
     // stehen nur mit Wert in der Datei. Ohne Pflichtfeld oder gültige Menge ist der Eintrag unbrauchbar (wird beim Laden
     // übersprungen und gezählt).
     init(from decoder: Decoder) throws {
@@ -255,9 +265,10 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
             }
         }
         importBatch = PortfolioImportBatch.clean((try? c.decodeIfPresent(String.self, forKey: .importBatch)) ?? nil)
-        // Gebühr-Zeile und Zins: nur bei Verkauf bzw. Belohnung
+        // Gebühr-Zeile, Zins und Staking-Umbuchung: nur bei Verkauf, Belohnung bzw. Umbuchung
         feeRow = try c.decode(Bool.self, forKey: .feeRow) && type == .SELL
         interest = try c.decode(Bool.self, forKey: .interest) && type == .REWARD
+        stakingMove = try c.decode(Bool.self, forKey: .stakingMove) && type == .TRANSFER
         guard !coin.isEmpty, amountExact > 0 else {
             throw DecodingError.dataCorruptedError(forKey: .amountText, in: c, debugDescription: "Ungültige Transaktion")
         }
@@ -269,7 +280,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         try c.encode(coin, forKey: .coin)
         try c.encode(type, forKey: .type)
         try c.encode(PortfolioDecimal.text(amountExact), forKey: .amountText)
-        try c.encodeIfPresent(priceExact.map(PortfolioDecimal.text), forKey: .priceText)
+        try c.encodeIfPresent(priceExact.map(PortfolioDecimal.priceText), forKey: .priceText)
         try c.encode(time, forKey: .time)
         try c.encodeIfPresent(note, forKey: .note)
         try c.encodeIfPresent(feeExact.map(PortfolioDecimal.text), forKey: .feeText)
@@ -279,7 +290,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         try c.encodeIfPresent(transferTo, forKey: .transferTo)
         try c.encodeIfPresent(feeCoin, forKey: .feeCoin)
         try c.encodeIfPresent(feeCoinAmountExact.map(PortfolioDecimal.text), forKey: .feeCoinAmountText)
-        try c.encodeIfPresent(feeCoinPriceExact.map(PortfolioDecimal.text), forKey: .feeCoinPriceText)
+        try c.encodeIfPresent(feeCoinPriceExact.map(PortfolioDecimal.priceText), forKey: .feeCoinPriceText)
         try c.encodeIfPresent(importKey, forKey: .importKey)
         try c.encodeIfPresent(Self.cleanAcquiredTime(type, acquiredTime), forKey: .acquiredTime)
         if type == .SWAP {
@@ -294,6 +305,7 @@ struct PortfolioTx: Codable, Identifiable, Hashable, Sendable {
         // Immer geschrieben (auch false), wie Android
         try c.encode(feeRow && type == .SELL, forKey: .feeRow)
         try c.encode(interest && type == .REWARD, forKey: .interest)
+        try c.encode(stakingMove && type == .TRANSFER, forKey: .stakingMove)
     }
 }
 

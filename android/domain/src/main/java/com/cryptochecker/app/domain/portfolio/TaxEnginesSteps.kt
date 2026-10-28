@@ -29,7 +29,7 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
         if (e.feeLeg) {
             val fee = t.thirdFeeAmount
             val p = t.thirdFeePrice?.let { fee * it }
-            out += TaxStep(TaxStepKind.DISPOSE, t, fee, proceeds = p, gross = p, feeLeg = true)
+            out += TaxStep(TaxStepKind.DISPOSE, t, fee, proceeds = p, gross = p, feeLeg = true, estimated = t.feePriceEstimated)
             continue
         }
         if (e.swapIn) {
@@ -57,7 +57,8 @@ fun TaxEngines.steps(events: List<PortfolioLedgerEvent>): List<TaxStep> {
                     proceeds = gross?.let { it - t.quoteFee - (feeValue ?: zero) }, gross = gross,
                     swap = swap, feeMissing = gross != null && feeValue == null,
                     gift = t.fromGift, payment = t.type == PortfolioTxType.PAYMENT && !t.fromGift,
-                    estimated = t.valueEstimated,
+                    // Geschätzter Gebühr-Preis im dritten Coin: der Erlös enthält ihn ([PortfolioLedger.valueThirdFeesAtDayClose])
+                    estimated = t.valueEstimated || (t.feePriceEstimated && gross != null),
                 )
             }
             // Verschenkt (beim Schenkenden keine Veräusserung): wie eine Auszahlung; an Ehe-/Lebenspartner (Merker nur

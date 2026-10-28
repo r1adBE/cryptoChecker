@@ -23,6 +23,8 @@ data class AddressBalancesAt(val balances: Map<String, BigDecimal>, val unobserv
  *    Beobachtungen = Zu- bzw. Abfluss der Differenz zum Marktkurs der späteren Beobachtung (wie eine Ein-/
  *    Auszahlung zum Marktwert). Ein neu eingegangener Betrag ist also nie Gewinn; gezählt wird nur die
  *    Kursbewegung des beobachteten Guthabens danach.
+ *  - Was die App schon bucht (Eröffnungsposten, erfasste Bewegungen der Adress-Wallet), zählt nicht noch einmal
+ *    ([moves], [AddressBooked]).
  *  - Speichern: [append] behält die erste Beobachtung überhaupt und je UTC-Tag die letzte.
  */
 data class AddressBalanceHistory(
@@ -33,6 +35,11 @@ data class AddressBalanceHistory(
     val token: String? = null,
     /** Schlüssel des weiteren Guthabens ([WatchedAddress.tokenBalances]); unterscheidet z. B. USDC und USDC.e. */
     val key: String? = null,
+    /**
+     * Gebuchte Bewegungen, die diese Reihe enthält (Eröffnungsposten, erfasste Bewegungen der Adress-Wallet) — nur an der
+     * ersten Reihe je Adresse und Coin, gesetzt von [AddressBooked.histories]; [trades] rechnet sie heraus.
+     */
+    val moves: List<AddressMove> = emptyList(),
 ) {
     val coin: String get() = token ?: chain.coin
 
@@ -76,16 +83,23 @@ data class AddressBalanceHistory(
          * Einzahlung (+) bzw. Auszahlung (−) der Differenz OHNE Preis mit negativer Id
          * ([AddressBalance.isAddressTrade]) — [PortfolioPeriodChange] und [PortfolioHistory] bewerten sie zum
          * Marktkurs ihres Zeitpunkts. Dieselbe Adresse (gleiches Netz, gleicher Coin) zählt nur einmal (die erste Reihe).
+         * Reihen mit gebuchten Bewegungen ([moves]) zählen ohne sie ([AddressBooked.held]).
          */
         fun trades(histories: List<AddressBalanceHistory>): List<PortfolioTrade> {
             val out = ArrayList<PortfolioTrade>()
-            val seen = ArrayList<AddressBalanceHistory>()
-            var nextId = -1_000_001L
+            val kept = ArrayList<AddressBalanceHistory>()
             for (h in histories) {
-                if (seen.any { it.chain == h.chain && it.series == h.series && WatchedAddressRules.sameAddress(h.chain, it.address, h.address) }) continue
-                seen += h
+                if (kept.any { it.chain == h.chain && it.series == h.series && WatchedAddressRules.sameAddress(h.chain, it.address, h.address) }) continue
+                kept += h
+            }
+            var nextId = -1_000_001L
+            for (h in kept) {
+                // Mit gebuchten Bewegungen: alle Reihen dieser Adresse und dieses Coins zusammen ohne sie ([AddressBooked.held])
+                val group = kept.filter { AddressBooked.sameGroup(it, h) }
+                val steps = if (group.all { it.moves.isEmpty() }) h.observations.sortedBy { it.time }
+                else if (group.first() === h) AddressBooked.held(group) else continue
                 var previous = BigDecimal.ZERO
-                for (o in h.observations.sortedBy { it.time }) {
+                for (o in steps) {
                     if (o.balance.signum() < 0) continue
                     val delta = o.balance - previous
                     previous = o.balance

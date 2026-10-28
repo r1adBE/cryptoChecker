@@ -14,8 +14,10 @@ final class CsvImportUnsavableTests: XCTestCase {
 
     private func tx(_ c: [String: Any]) throws -> CsvImportTx {
         let type = try XCTUnwrap(PortfolioTxType(rawValue: c["type"] as? String ?? ""))
+        let fee = decimal(c["fee"])
         return CsvImportTx(line: 2, coin: c["coin"] as? String ?? "", type: type, amount: decimal(c["amount"]) ?? -1,
-                           priceUsdt: nil, time: 1_700_000_000_000, fee: nil, feeUnit: nil, feeCoin: nil,
+                           priceUsdt: decimal(c["priceUsdt"]), time: 1_700_000_000_000, fee: fee,
+                           feeUnit: fee == nil ? nil : .COIN, feeCoin: nil,
                            feeCoinAmount: nil, note: nil, importKey: "TEST|1", toCoin: c["toCoin"] as? String,
                            toAmount: decimal(c["toAmount"]))
     }

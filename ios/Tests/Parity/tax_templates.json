@@ -2135,7 +2135,8 @@
           "portfolioValue": null,
           "gross": "30",
           "costIncomplete": true,
-          "uncovered": true
+          "uncovered": true,
+          "valueEstimated": true
         },
         {
           "coin": "BTC",
@@ -3539,7 +3540,8 @@
           "cost": "2",
           "proceeds": "3",
           "gain": "1",
-          "wallet": "Ex"
+          "wallet": "Ex",
+          "valueEstimated": true
         },
         {
           "coin": "TOK",
@@ -3549,7 +3551,8 @@
           "cost": "1",
           "proceeds": "1.5",
           "gain": "0.5",
-          "wallet": "Ex"
+          "wallet": "Ex",
+          "valueEstimated": true
         }
       ],
       "feeRows": [
@@ -3840,7 +3843,7 @@
       ]
     },
     {
-      "name": "[TST-3] JP 総平均法: Übertrag über mehrere Jahre (年末評価額 = Ø-Stückpreis × Restmenge = Anfangsbestand des Folgejahrs)",
+      "name": "JP 総平均法: Übertrag über mehrere Jahre (年末評価額 = Ø-Stückpreis × Restmenge = Anfangsbestand des Folgejahrs)",
       "_calc": "Von Hand nach 総平均法 (所得税法施行令 119条の2: Stückpreis je Kalenderjahr = (Anfangsbestand-Einstand + Zugänge des Jahres) / (Anfangsmenge + Zugangsmenge), jede Veräusserung des Jahres zu diesem Stückpreis). 2024: (2×100 + 2×200)/4 = 150; Verkauf 1 zu 300: Einstand 150, Gewinn 150; Jahresende 3 × 150 = 450. 2025 ohne Zugang: 450/3 = 150; Verkauf 1 zu 120: Einstand 150, Verlust −30; Jahresende 2 × 150 = 300. 2026: (300 + 1×450)/(2 + 1) = 250 — auch der Kauf NACH dem Verkauf zählt (Jahres-Durchschnitt, nicht 移動平均法: dort wären es 150); Verkauf 2 zu 300: Einstand 500, Gewinn 100.",
       "method": "JP_TOTAL_AVERAGE",
       "trades": [
@@ -3924,7 +3927,7 @@
       ]
     },
     {
-      "name": "[TST-3] JP 総平均法: kompletter Verkauf (zweimal im Jahr alles verkauft; nichts in den Folgejahr-Einstand)",
+      "name": "JP 総平均法: kompletter Verkauf (zweimal im Jahr alles verkauft; nichts in den Folgejahr-Einstand)",
       "_calc": "Von Hand nach 総平均法: 2025 Zugänge 1×1000 + 2×3000 = 7000 für 3 → Stückpreis 7000/3 = 2333,33333333…; gilt für BEIDE Verkäufe des Jahres, auch den im März vor dem Kauf im November. Verkauf 1 zu 2000: Einstand 2333,33333333, Verlust −333,33333333. Verkauf 2 zu 4000: Einstand 4666,66666667, Gewinn 3333,33333333. Jahresende Menge 0 → Einstand 0 (Rundungsrest der Teilung verfällt mit der Menge). 2026: nur der neue Kauf 1 zu 500 → Stückpreis 500; Verkauf 1 zu 800: Einstand 500, Gewinn 300.",
       "method": "JP_TOTAL_AVERAGE",
       "trades": [
@@ -4008,7 +4011,7 @@
       ]
     },
     {
-      "name": "[TST-3] JP 総平均法: Einzahlung ohne Kaufpreis (Einstand unbekannt bleibt unbekannt, auch im Übertrag)",
+      "name": "JP 総平均法: Einzahlung ohne Kaufpreis (Einstand unbekannt bleibt unbekannt, auch im Übertrag)",
       "_calc": "Die App setzt keinen Schätzwert ein (Arbeitsunterlage): Einzahlung 1 ohne Kaufpreis ist Bestand mit unbekanntem Einstand. 総平均法 über die Zugänge mit Kaufpreis: 3×100/3 = 100. Jeder Abgang nimmt bekannten und unbekannten Teil nach Menge (3 : 1 → Anteil 0,75). 2025 Verkauf 2 zu 200: 1,5 mit Einstand 1,5 × 100 = 150, Erlös 300, Gewinn 150; 0,5 ohne Einstand, Erlös 100, Gewinn unbekannt. Jahresende 2 = 1,5 bekannt (Einstand 150) + 0,5 unbekannt. 2026 ohne Zugang: Stückpreis 150/1,5 = 100, Anteil weiter 0,75; Verkauf 2 zu 300: 1,5 → Einstand 150, Erlös 450, Gewinn 300; 0,5 → Erlös 150, Gewinn unbekannt.",
       "method": "JP_TOTAL_AVERAGE",
       "trades": [
@@ -4084,7 +4087,7 @@
       ]
     },
     {
-      "name": "[TST-3] JP 総平均法: Netzwerkgebühr frisst den Rest bis auf Staub (1E-21) — kein Rest-Einstand ins Folgejahr",
+      "name": "JP 総平均法: Netzwerkgebühr frisst den Rest bis auf Staub (1E-21) — kein Rest-Einstand ins Folgejahr",
       "_calc": "Netzwerkgebühr in Krypto = 譲渡 zum Marktwert (国税庁 FAQ; Tagesschluss 150). 2025: Stückpreis 100/1 = 100. Verkauf 0,9 zu 200: Einstand 90, Gewinn 90. Gebühr 0,099999999999999999999 (≈ 0,1): Einstand ≈ 10, Erlös ≈ 15, Gewinn ≈ 5 (8 Stellen). Rest 1E-21 = Staub; 年末評価額 = 100 × 1E-21 ≈ 0 — die Gebühr ist veräussert, also bleibt kein Gebühr-Einstand liegen (nichts vermerkt, nichts übertragen). 2026: (≈0 + 300)/(≈0 + 1) = 300 (8 Stellen); Verkauf 1 zu 400: Einstand 300, Gewinn 100. Falsch wäre ein Übertrag des Gebühr-Einstands (Stückpreis 310).",
       "method": "JP_TOTAL_AVERAGE",
       "prices": {
@@ -4479,6 +4482,1111 @@
           "gain": "1500",
           "oldHolding": false,
           "wallet": "B"
+        }
+      ]
+    },
+    {
+      "name": "Kauf mit Gebühr im dritten Coin ohne Preis (FIFO/DE): Gebühr zum Tagesschluss 0.01 × 600 = 6 im Einstand — BTC-Posten 4006 statt 4000, Gewinn 994; Gebühr-Zeile BNB 6 − 5 = 1, Vermerk «Wert geschätzt»",
+      "method": "FIFO",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-01-10",
+          "acquired": "2025-01-02",
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": null,
+          "valueEstimated": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": "2025-01-10",
+          "amount": "0.1",
+          "cost": "4006",
+          "proceeds": "5000",
+          "gain": "994",
+          "match": null,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Kauf mit Gebühr im dritten Coin ohne Preis (UK): Pool-Einstand 4006, Gewinn 994; Gebühr-Zeile BNB aus dem Pool, Vermerk «Wert geschätzt»",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-01-10",
+          "acquired": null,
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": "POOL",
+          "valueEstimated": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.1",
+          "cost": "4006",
+          "proceeds": "5000",
+          "gain": "994",
+          "match": "POOL",
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "Belohnung mit Gebühr im dritten Coin ohne Preis (Ø): Einstand 4000 + 6 = 4006",
+      "method": "AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "REWARD",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-01-10",
+          "acquired": null,
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": null,
+          "valueEstimated": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.1",
+          "cost": "4006",
+          "proceeds": "5000",
+          "gain": "994",
+          "match": null,
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "FR Kauf mit Gebühr im dritten Coin ohne Preis: Tagesschluss 600 auch in der Erwerbspreis-Summe — Abtretung BNB 300 (Einstand 300 × 300/600 = 150), PTA 150 + 10000 + 300 = 10450, Verkauf 10450 × 20000/20300",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "300"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.5"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "20000"
+        }
+      ],
+      "prices": {
+        "BNB": "600",
+        "BTC": "20000"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-01-10",
+          "acquired": null,
+          "amount": "0.5",
+          "cost": "150",
+          "proceeds": "300",
+          "gain": "150",
+          "match": null,
+          "portfolioValue": "600",
+          "gross": "300",
+          "costIncomplete": false,
+          "valueEstimated": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "10295.56650246305418719211822660099",
+          "proceeds": "20000",
+          "gain": "9704.43349753694581280788177339901",
+          "match": null,
+          "portfolioValue": "20300",
+          "gross": "20000",
+          "costIncomplete": false
+        }
+      ]
+    },
+    {
+      "name": "FR Kauf mit Gebühr im dritten Coin ganz ohne Kurs: Erwerbspreis-Summe ohne die Gebühr ist unvollständig — der Verkauf danach «unvollständig» (Einstand 10000 × 20000/20000)",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.5"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "20000"
+        }
+      ],
+      "prices": {
+        "BTC": "20000"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-01-10",
+          "acquired": null,
+          "amount": "0.5",
+          "cost": null,
+          "proceeds": null,
+          "gain": null,
+          "match": null,
+          "costIncomplete": true,
+          "uncovered": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "10000",
+          "proceeds": "20000",
+          "gain": "10000",
+          "match": null,
+          "portfolioValue": "20000",
+          "gross": "20000",
+          "costIncomplete": true
+        }
+      ]
+    },
+    {
+      "name": "FR Verkauf mit Gebühr im dritten Coin ohne erfassten Preis: Tagesschluss 600 im Preis vor Gebühren — 20000 + 0.5 × 600 = 20300, Einstand 10300 × 20300/20600 = 10150",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "300"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "20000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.5"
+        }
+      ],
+      "prices": {
+        "BNB": "600",
+        "BTC": "20000"
+      },
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "10150",
+          "proceeds": "20000",
+          "gain": "9850",
+          "match": null,
+          "portfolioValue": "20600",
+          "gross": "20300",
+          "costIncomplete": false,
+          "valueEstimated": true
+        }
+      ]
+    },
+    {
+      "name": "Verkauf mit Gebühr im dritten Coin ohne Preis (FIFO): Gebühr zum Tagesschluss 0.01 × 600 = 6 mindert den Erlös — 5000 − 6 = 4994, Gewinn 994; Gebühr-Zeile BNB 6 − 5 = 1; beide Zeilen «Wert geschätzt», nicht «ohne Wert der Gebühr»",
+      "method": "FIFO",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-03-01",
+          "acquired": "2025-01-02",
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": null,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": "2025-01-10",
+          "amount": "0.1",
+          "cost": "4000",
+          "proceeds": "4994",
+          "gain": "994",
+          "match": null,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        }
+      ]
+    },
+    {
+      "name": "Verkauf mit Gebühr im dritten Coin ohne Preis und ohne Tagesschluss (FIFO): bleibt «ohne Wert der Gebühr» — Erlös 5000 ohne Gebühr, Gebühr-Zeile BNB ohne Erlös, kein «Wert geschätzt»",
+      "method": "FIFO",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        }
+      ],
+      "prices": {
+        "ETH": "3000"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-03-01",
+          "acquired": "2025-01-02",
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": null,
+          "gain": null,
+          "match": null,
+          "valueEstimated": false,
+          "feeValueMissing": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": "2025-01-10",
+          "amount": "0.1",
+          "cost": "4000",
+          "proceeds": "5000",
+          "gain": "1000",
+          "match": null,
+          "valueEstimated": false,
+          "feeValueMissing": true
+        }
+      ]
+    },
+    {
+      "name": "Verkauf mit Gebühr im dritten Coin ohne Preis (UK): Pool, Erlös 5000 − 6 = 4994, Gewinn 994; Gebühr-Zeile BNB aus dem Pool 6 − 5 = 1; beide «Wert geschätzt»",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": "POOL",
+          "valueEstimated": true,
+          "feeValueMissing": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.1",
+          "cost": "4000",
+          "proceeds": "4994",
+          "gain": "994",
+          "match": "POOL",
+          "valueEstimated": true,
+          "feeValueMissing": false
+        }
+      ]
+    },
+    {
+      "name": "Tausch mit Gebühr im dritten Coin ohne Preis (Ø): Erlös = Wert des Tauschs 5000 − Gebühr 0.01 × 600 = 4994, Gewinn 994; Gebühr-Zeile BNB 6 − 5 = 1; beide «Wert geschätzt»",
+      "method": "AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "toCoin": "ETH",
+          "toAmount": "1.5",
+          "swapValue": "5000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": null,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.1",
+          "cost": "4000",
+          "proceeds": "4994",
+          "gain": "994",
+          "match": null,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        }
+      ]
+    },
+    {
+      "name": "Umbuchung mit Gebühr im dritten Coin ohne Preis (FIFO): Gebühr zum Tagesschluss 6 in den Einstand — Verkauf danach Einstand 4006, Gewinn 994; Gebühr-Zeile BNB 6 − 5 = 1 «Wert geschätzt»",
+      "method": "FIFO",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.1",
+          "time": 1738411200000,
+          "transferFrom": "X",
+          "transferTo": "Y",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-02-01",
+          "acquired": "2025-01-02",
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": null,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": "2025-01-10",
+          "amount": "0.1",
+          "cost": "4006",
+          "proceeds": "5000",
+          "gain": "994",
+          "match": null,
+          "valueEstimated": false,
+          "feeValueMissing": false
+        }
+      ]
+    },
+    {
+      "name": "Umbuchung mit Gebühr im dritten Coin ohne Preis (UK, Netzwerkgebühr = Veräusserung): BNB-Verkauf zum Tagesschluss 6 aus dem Pool (Einstand 5) «Wert geschätzt»; BTC-Einstand bleibt 4000, Gewinn 1000",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.1",
+          "time": 1738411200000,
+          "transferFrom": "X",
+          "transferTo": "Y",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "time": 1740830400000,
+          "price": "50000"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": "POOL",
+          "valueEstimated": true,
+          "feeValueMissing": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.1",
+          "cost": "4000",
+          "proceeds": "5000",
+          "gain": "1000",
+          "match": "POOL",
+          "valueEstimated": false,
+          "feeValueMissing": false
+        }
+      ]
+    },
+    {
+      "name": "Auszahlung mit Gebühr im dritten Coin ohne Preis (FIFO): Aufwand = Wert der Gebühr zum Tagesschluss 0.01 × 600 = 6 «Wert geschätzt»; Gebühr-Zeile BNB 6 − 5 = 1",
+      "method": "FIFO",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "500"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "0.05",
+          "time": 1738411200000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01"
+        }
+      ],
+      "prices": {
+        "BNB": "600"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-02-01",
+          "acquired": "2025-01-02",
+          "amount": "0.01",
+          "cost": "5",
+          "proceeds": "6",
+          "gain": "1",
+          "match": null,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-02-01",
+          "acquired": "2025-02-01",
+          "amount": "0",
+          "cost": "6",
+          "proceeds": "0",
+          "gain": "-6",
+          "match": null,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        }
+      ]
+    },
+    {
+      "name": "FR Tausch mit Gebühr im dritten Coin ohne Preis: Abtretung der Gebühr-Coins zum Tagesschluss 0.5 × 600 = 300, Gesamtwert 20000 + 600 = 20600, Einstand 10300 × 300/20600 = 150 «Wert geschätzt»; Tausch selbst aufgeschoben",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "300"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SWAP",
+          "amount": "1",
+          "time": 1740830400000,
+          "toCoin": "ETH",
+          "toAmount": "10",
+          "swapValue": "20000",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.5"
+        }
+      ],
+      "prices": {
+        "BNB": "600",
+        "BTC": "20000"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.5",
+          "cost": "150",
+          "proceeds": "300",
+          "gain": "150",
+          "match": null,
+          "portfolioValue": "20600",
+          "gross": "300",
+          "costIncomplete": false,
+          "valueEstimated": true
+        }
+      ]
+    },
+    {
+      "name": "UK Netzwerkgebühr im Coin zum Tagesschluss = Veräusserung «Wert geschätzt»: Umbuchung ohne Preis, Gebühr 0.001 BTC × 50000 = 50, Pool-Einstand 40; Umbuchung mit erfasstem Preis 45000: Erlös 45, kein Vermerk",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1736510400000,
+          "price": "40000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.05",
+          "time": 1738411200000,
+          "fee": "0.001",
+          "feeUnit": "COIN",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.05",
+          "time": 1740830400000,
+          "price": "45000",
+          "fee": "0.001",
+          "feeUnit": "COIN",
+          "transferFrom": "Y",
+          "transferTo": "X"
+        }
+      ],
+      "prices": {
+        "BTC": "50000"
+      },
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.001",
+          "cost": "40",
+          "proceeds": "50",
+          "gain": "10",
+          "match": "POOL",
+          "valueEstimated": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.001",
+          "cost": "40",
+          "proceeds": "45",
+          "gain": "5",
+          "match": "POOL",
+          "valueEstimated": false
+        }
+      ]
+    },
+    {
+      "name": "FR Zahlung mit Krypto ohne Marktwert: Preis = Tagesschluss 20000 «Wert geschätzt» — 0.5 × 20000 = 10000, Gesamtwert 20000, Einstand 10000 × 10000/20000 = 5000",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "PAYMENT",
+          "amount": "0.5",
+          "time": 1740830400000
+        }
+      ],
+      "prices": {
+        "BTC": "20000"
+      },
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "0.5",
+          "cost": "5000",
+          "proceeds": "10000",
+          "gain": "5000",
+          "match": null,
+          "portfolioValue": "20000",
+          "gross": "10000",
+          "costIncomplete": false,
+          "valueEstimated": true,
+          "feeValueMissing": false
+        }
+      ]
+    },
+    {
+      "name": "FR Auszahlung über den Bestand mit Gebühr USDT und Gebühr im dritten Coin: Aufwand nur die Gebühr USDT zum gedeckten Anteil 1/2 — 10 × 0.5 = 5 (nicht 10); BNB-Gebühr eigene Abtretung 30",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735819200000,
+          "price": "2000"
+        },
+        {
+          "id": 2,
+          "coin": "BNB",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1735822800000,
+          "price": "300"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "WITHDRAWAL",
+          "amount": "2",
+          "time": 1736510400000,
+          "fee": "10",
+          "feeUnit": "QUOTE",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.1",
+          "feeCoinPrice": "300"
+        }
+      ],
+      "prices": {
+        "ETH": "2000",
+        "BNB": "300"
+      },
+      "disposals": [
+        {
+          "coin": "BNB",
+          "sold": "2025-01-10",
+          "acquired": null,
+          "amount": "0.1",
+          "cost": "30",
+          "proceeds": "30",
+          "gain": "0",
+          "match": null,
+          "portfolioValue": "2300",
+          "gross": "30",
+          "costIncomplete": false
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-01-10",
+          "acquired": "2025-01-10",
+          "amount": "0",
+          "cost": "5",
+          "proceeds": "0",
+          "gain": "-5",
+          "match": null,
+          "gross": "0"
+        }
+      ],
+      "outflows": [
+        {
+          "coin": "ETH",
+          "amount": "2",
+          "value": "4000",
+          "reduction": "2270"
+        }
+      ]
+    },
+    {
+      "name": "UK zwei Verkäufe am selben Tag = EINE Veräusserung (CRYPTO22200): 30 Tage (4 zu 200) und Pool (zu 100) anteilig 2:6 — je Verkauf 1/4 aus «30 Tage», 3/4 aus dem Pool (nicht erster Verkauf zuerst)",
+      "method": "UK_POOL",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "10",
+          "time": 1714564800000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "2",
+          "time": 1718013600000,
+          "price": "300"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "6",
+          "time": 1718031600000,
+          "price": "300"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "4",
+          "time": 1718884800000,
+          "price": "200"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": "2024-06-20",
+          "amount": "1",
+          "cost": "200",
+          "proceeds": "300",
+          "gain": "100",
+          "match": "THIRTY_DAY"
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "1",
+          "cost": "100",
+          "proceeds": "300",
+          "gain": "200",
+          "match": "POOL"
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": "2024-06-20",
+          "amount": "3",
+          "cost": "600",
+          "proceeds": "900",
+          "gain": "300",
+          "match": "THIRTY_DAY"
+        },
+        {
+          "coin": "BTC",
+          "sold": "2024-06-10",
+          "acquired": null,
+          "amount": "3",
+          "cost": "300",
+          "proceeds": "900",
+          "gain": "600",
+          "match": "POOL"
         }
       ]
     }
@@ -5121,7 +6229,7 @@
           null
         ]
       ],
-      "_calc": "[TST-3] Übertrag aus 2024 (3 Stück, Einstand 450 → 150/Stück), 2025 ohne Zugang: Verkauf 1 zu 120 = Verlust −30; Erlös 120; 雑所得 netto −30 (ein Verlust mindert andere Einkünfte nicht — der Posten zeigt nur die Summe)."
+      "_calc": "Übertrag aus 2024 (3 Stück, Einstand 450 → 150/Stück), 2025 ohne Zugang: Verkauf 1 zu 120 = Verlust −30; Erlös 120; 雑所得 netto −30 (ein Verlust mindert andere Einkünfte nicht — der Posten zeigt nur die Summe)."
     },
     {
       "template": "JP",
@@ -5215,7 +6323,7 @@
           null
         ]
       ],
-      "_calc": "[TST-3] 2026: (Übertrag 300 + Kauf 450)/(2 + 1) = 250 je Stück, auch für den Verkauf vor dem Kauf; Verkauf 2 zu 300: Gewinn 600 − 500 = 100."
+      "_calc": "2026: (Übertrag 300 + Kauf 450)/(2 + 1) = 250 je Stück, auch für den Verkauf vor dem Kauf; Verkauf 2 zu 300: Gewinn 600 − 500 = 100."
     },
     {
       "template": "FR",
@@ -8553,6 +9661,86 @@
           null,
           "440",
           "BELOW"
+        ]
+      ]
+    },
+    {
+      "template": "FR",
+      "method": "FR_PTA",
+      "year": 2025,
+      "_calc": "Kauf 1 BTC zu 10000, Belohnung 0,1 BTC zum Wert 20000 je Coin (2000 in der Erwerbspreis-Summe), Verkauf 0,5 zu 30000: Gesamtwert 1,1 × 30000 = 33000, Einstand 12000 × 15000/33000, Gewinn 15000 − Einstand. Belohnungen in der Erwerbspreis-Summe → Vermerk FR_REWARDS_INCOME am Posten Gewinne (setzt Versteuerung beim Erhalt voraus; sonst Erwerbspreis 0 vorsichtiger).",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "10000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "REWARD",
+          "amount": "0.1",
+          "time": 1738411200000,
+          "price": "20000"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "time": 1748779200000,
+          "price": "30000"
+        }
+      ],
+      "prices": {
+        "BTC": "30000"
+      },
+      "lines": [
+        [
+          "GAINS",
+          "9545.45454545",
+          "9545.45454545",
+          null,
+          "FR_REWARDS_INCOME"
+        ],
+        [
+          "LOSSES",
+          "0",
+          "0",
+          null
+        ],
+        [
+          "NET",
+          "9545.45454545",
+          "9545.45454545",
+          null
+        ],
+        [
+          "PROCEEDS",
+          "15000",
+          "15000",
+          null
+        ],
+        [
+          "INCOME",
+          "2000",
+          "2000",
+          null
+        ],
+        [
+          "FR_THRESHOLD",
+          null,
+          "305",
+          "REACHED"
+        ],
+        [
+          "FR_RATE",
+          null,
+          null,
+          null
         ]
       ]
     }

@@ -46,6 +46,8 @@ struct CsvImportLoaded: Identifiable {
 struct CsvImportRates: Sendable {
     var fx: [String: [(day: Int, rate: Double)]]
     var usdtUsd: [Int: Decimal]
+    /// Tage, für die geladen wurde (`CsvImportRateDays.of`); ein Neu-Lesen darüber hinaus lädt neu.
+    var days: [String: ClosedRange<Int64>] = [:]
 }
 
 /// Vorschläge zu einer Vorschau: je Auszahlung (`CsvImportMapping.proposeWithdrawals`) und mögliche Umbuchungen
@@ -164,14 +166,17 @@ enum PortfolioCsvImporter {
 
     /// Neu lesen mit der Lesart `choice` (abseits des Haupt-Threads aufrufen): Text zerlegen und die Vorschau umrechnen.
     /// `refetch` = Tageskurse und USDT/USD-Tagesschlüsse für den neuen Zeitraum neu laden (andere Reihenfolge Tag/Monat
-    /// bzw. anderes Dezimalzeichen); sonst bleiben `known` samt USDT/USD — wie Android `prepare` bzw. `reparse`.
+    /// bzw. anderes Dezimalzeichen); sonst bleiben `known` samt USDT/USD — ausser ein Tag liegt nun ausserhalb der
+    /// geladenen (`CsvImportRateDays.cover`; eine andere Zeitzone schob eine Zeile auf den nächsten Tag): dann ebenfalls
+    /// neu laden, sonst gälte still der Kurs des Vortags — wie Android `prepare` bzw. `reparse`.
     static func reread(_ text: String, choice: CsvReadChoice, deviceZone: String, existingKeys: Set<String>,
                        known: CsvImportRates, refetch: Bool) async -> (preview: CsvImportPreview, rates: CsvImportRates) {
         let result = CsvImportParser.parse(text, deviceZone: deviceZone, zone: choice.zone, dateOrder: choice.dateOrder,
                                            decimalMark: choice.decimalMark)
         var rates = known
-        if refetch {
-            rates = CsvImportRates(fx: await fetchRates(result), usdtUsd: await fetchUsdtUsd(result))
+        let days = CsvImportRateDays.of(result.rows, zone: result.fxZone)
+        if refetch || !CsvImportRateDays.cover(known.days, days) {
+            rates = CsvImportRates(fx: await fetchRates(result), usdtUsd: await fetchUsdtUsd(result), days: days)
         }
         let preview = mapPreview(result, existingKeys: existingKeys, rates: rates.fx, withdrawalsAsTransfer: false,
                                  usdtUsd: rates.usdtUsd)
@@ -228,6 +233,7 @@ enum PortfolioCsvImporter {
         // Gebühr-Zeile und Zins (eigene Merker)
         tx.feeRow = t.feeRow && t.type == .SELL
         tx.interest = t.interest && t.type == .REWARD
+        tx.stakingMove = t.stakingMove && t.type == .TRANSFER
         return tx
     }
 
@@ -242,11 +248,12 @@ enum PortfolioCsvImporter {
                              feeCoinAmount: tx.feeCoinAmountExact, time: tx.time, importKey: key,
                              transferFrom: tx.transferFrom, transferTo: tx.transferTo, priceUsdt: tx.priceExact,
                              feeCoinPrice: tx.feeCoinPriceExact, acquiredTime: tx.acquiredTime, exchange: tx.exchange,
-                             importBatch: tx.importBatch, linkedImportKey: tx.linkedImportKey)
+                             importBatch: tx.importBatch, linkedImportKey: tx.linkedImportKey,
+                             stakingMove: tx.stakingMove && tx.type == .TRANSFER)
     }
 
     /// Gespeicherte Transaktion als verknüpfte Umbuchung (`CsvStoredTransfer`) im Importlauf `batch` des verknüpfenden
-    /// Imports (ihr Zustand davor samt früherem Lauf steht in `importRestoreState`) — wie Android `linkStoredTransfers`.
+    /// Imports (ihr Zustand davor samt früherem Lauf steht in `importRestoreState`) — wie Android `linkedStoredEntities`.
     static func linked(_ tx: PortfolioTx, _ u: CsvStoredTransfer, batch: String) -> PortfolioTx {
         var out = tx
         out.type = .TRANSFER
