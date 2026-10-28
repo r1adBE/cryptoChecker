@@ -253,10 +253,11 @@ jobs:
         env:
           REQUIRE_IOS_SOURCES: 'true'
           MIN_LOGIC: '58'
+          MIN_DATA: '50'      # :data (storage, network) on its own, owner's target
         run: |
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --self-test
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/coverage_summary.py" --merged app --min-logic "$MIN_LOGIC" \
-            app=app domain=domain data=data marketdata=marketdata
+            --min-module "data=$MIN_DATA" app=app domain=domain data=data marketdata=marketdata
 
       # Evidence of the audited release build: R8 mapping (deobfuscate crashes of exactly this
       # build), AAB, merged manifest with summary and merger report.

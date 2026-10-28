@@ -18,11 +18,12 @@ the total comes from it, files are attributed to the module whose sources contai
 reports are listed as «own tests only». Without «--min-logic», missing reports are only listed: a missing merged
 report then falls back to the modules' own reports (display only).
 
+«--min-module NAME=P» (with --min-logic, repeatable): the same gate for one module's «logic» coverage.
 «--min-logic P»: exit 1 with an error annotation when the total «logic» coverage is below P percent, when there is no
 coverage data at all, or when «--merged NAME» is given and NAME's report is missing (no silent fallback to the
 modules' own reports - a missing report must never pass the gate). Without it: display only, always exit 0.
 
-Usage: python3 -I coverage_summary.py --merged app [--min-logic 58] app=app domain=domain data=data marketdata=marketdata
+Usage: python3 -I coverage_summary.py --merged app [--min-logic 58] [--min-module data=50] app=app domain=domain data=data marketdata=marketdata
        python3 -I coverage_summary.py --self-test
 """
 import contextlib
@@ -138,7 +139,7 @@ def tally(report, owner, sources):
 
 
 def summary(modules, merged=None):
-    head, lines, _ = summary_tally(modules, merged)
+    head, lines, _, _ = summary_tally(modules, merged)
     return head, lines
 
 
@@ -157,7 +158,7 @@ def summary_tally(modules, merged=None):
     sources = [(name, source_roots(module_dir)) for name, module_dir in modules]
     dirs = dict(modules)
     merged_report = find_report(dirs[merged]) if merged in dirs else None
-    lines, total = [], Tally()
+    lines, total, parts = [], Tally(), {}
     if merged_report:
         per_module = tally(merged_report, merged, sources)
         for name, _ in modules:
@@ -165,6 +166,7 @@ def summary_tally(modules, merged=None):
             if part is None:
                 lines.append(f"{name}: not in the merged report")
                 continue
+            parts[name] = part
             for attr in ("missed", "covered", "logic_missed", "logic_covered"):
                 setattr(total, attr, getattr(total, attr) + getattr(part, attr))
             note = "" if name == merged else f" (incl. tests of {merged})"
@@ -184,12 +186,13 @@ def summary_tally(modules, merged=None):
                 lines.append(f"{name}: no Kover report")
                 continue
             part = tally(report, name, [s for s in sources if s[0] == name]).get(name, Tally())
+            parts[name] = part
             for attr in ("missed", "covered", "logic_missed", "logic_covered"):
                 setattr(total, attr, getattr(total, attr) + getattr(part, attr))
             lines.append(f"{name}: {part.text()}")
         head = f"Line coverage (unit tests, debug): {total.text()}"
     lines.append("logic = without UI (files with @Composable, widget rendering, activities) and generated code")
-    return head, lines, total
+    return head, lines, total, parts
 
 
 def escape(text):
@@ -286,7 +289,12 @@ def self_test():
         assert main(["--merged", "none", "--min-logic", "50"] + mods) == 1
         assert main(["--merged", "absent", "--min-logic", "50", "good=" + good]) == 1
         assert main(["--merged", "none"] + mods) == 0
+        # Per-module gate: good has 100 %, an unknown module = no data = red
+        assert main(["--min-logic", "50", "--min-module", "good=90", "good=" + good]) == 0
+        assert main(["--min-logic", "50", "--min-module", "other=10", "good=" + good]) == 1
     text = out.getvalue()
+    assert "::notice title=Coverage gate::good: logic coverage 100.0 % ≥ gate 90 %" in text, text
+    assert "::error title=Coverage gate::other: no logic coverage data" in text, text
     assert text.count("::error title=Coverage gate::merged report of «none» missing") == 1, text
     assert text.count("::error title=Coverage gate::merged report of «absent» missing") == 1, text
     print("coverage_summary self-test ok")
@@ -296,7 +304,7 @@ def self_test():
 def main(argv):
     if argv == ["--self-test"]:
         return self_test()
-    merged, minimum, modules, args = None, None, [], list(argv)
+    merged, minimum, module_minimums, modules, args = None, None, {}, [], list(argv)
     while args:
         arg = args.pop(0)
         if arg == "--merged" and args:
@@ -305,9 +313,13 @@ def main(argv):
         if arg == "--min-logic" and args:
             minimum = float(args.pop(0))
             continue
+        if arg == "--min-module" and args:
+            module, _, value = args.pop(0).partition("=")
+            module_minimums[module] = float(value)
+            continue
         name, _, module_dir = arg.partition("=")
         modules.append((name, module_dir or name))
-    head, lines, total = summary_tally(modules, merged)
+    head, lines, total, parts = summary_tally(modules, merged)
     print(head)
     print("\n".join(lines))
     print(f"::notice title=Coverage::{escape(head + chr(10) + chr(10).join(lines))}")
@@ -321,6 +333,11 @@ def main(argv):
         return 1
     ok, message = logic_gate(total, minimum)
     print(f"::{'notice' if ok else 'error'} title=Coverage gate::{message}")
+    # Per-module gate (--min-module NAME=P): «logic» of that module in the (merged) report
+    for module, module_minimum in module_minimums.items():
+        module_ok, module_message = logic_gate(parts.get(module, Tally()), module_minimum)
+        print(f"::{'notice' if module_ok else 'error'} title=Coverage gate::{module}: {module_message}")
+        ok = ok and module_ok
     return 0 if ok else 1
 
 

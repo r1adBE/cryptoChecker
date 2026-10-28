@@ -2619,6 +2619,8 @@ after the encryption step.
   with test folders and in-memory SharedPreferences), proxy fakes for `WatchDao`, `PortfolioDao`,
   `ExchangeRepository`. Still uncovered: `PulseDataSource`, `ExchangeRepositoryImpl`, `SparklineRepository`,
   `PortfolioHistorySource` (Android-bound constructor dependencies).
+  Measured in CI: `:data` 57.9 % (from 43.1 %); new gate `coverage_summary.py --min-module data=50` (`MIN_DATA` in
+  android.yml) next to the overall logic gate of 58 %.
 * Build 157: `WatchlistRefreshController`, `WatchlistStarterController`, `WatchlistEditController` are created
   through Dagger assisted factories (`@AssistedInject`, nested `Factory`; the ViewModel passes `viewModelScope` and its
   callbacks) – `WatchlistViewModel` 20 → 14 dependencies (`@Inject internal constructor`, the factories are internal).
