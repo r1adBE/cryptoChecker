@@ -37,7 +37,6 @@ import com.cryptochecker.marketdata.watch.WatchCoins
 import com.cryptochecker.marketdata.watch.WatchFreshness
 import com.cryptochecker.marketdata.watch.WatchSettings
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
 
@@ -64,8 +63,8 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
                 scope,
                 shown = { store.shown },
                 fetch = { coins -> WatchPriceSource.fetch(coins) },
-                save = { quotes ->
-                    store.mergeQuotes(quotes, System.currentTimeMillis())
+                save = { quotes, startedAt ->
+                    store.mergeQuotes(quotes, startedAt)
                     onQuotesChanged()
                 },
             )
@@ -73,10 +72,10 @@ fun WatchApp(store: WatchStore, onQuotesChanged: () -> Unit) {
         val loading by fetcher.loading.collectAsState()
         val failed by fetcher.failed.collectAsState()
 
-        /** Änderung auf der Uhr: mit nächster Änderungsnummer speichern und ans Handy geben. */
+        /** Änderung auf der Uhr: mit nächster Änderungsnummer speichern und den aktuellen Stand ans Handy geben. */
         fun change(edit: (WatchSettings) -> WatchSettings) {
-            val next = store.updateSettings { edit(it).nextRevision() }
-            scope.launch { WatchDataLayer.publish(context, next) }
+            store.updateSettings { edit(it).nextRevision() }
+            WatchDataLayer.publish(context, store)
         }
 
         // Beim Öffnen: Stand des Handys holen (Wahl, Favoriten)

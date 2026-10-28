@@ -15,6 +15,11 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 165)
+
+* Watch apps: a fetch started earlier (app, complication or widget) never overwrites a newer price; on the Apple Watch app and complication share one file for prices. Phone and watch settings are sent in order and with the current state, also right after the watch connects. The Apple Watch complication is described as «Price». The Apple Watch stops reading a price answer after 4 MB, like Wear OS.
+* The privacy page names the user agents of the watch apps.
+
 ## 16.2.2 (build 164)
 
 * Watch apps (Wear OS and Apple Watch): a slower earlier fetch can no longer overwrite a newer one; if only some coins arrive, the others keep their last price with their own age; the open Wear app follows changes made on the phone; tapping a coin row no longer reloads (only «Refresh» does); phone and watch settings are reconciled by a change number (on a tie the phone wins).

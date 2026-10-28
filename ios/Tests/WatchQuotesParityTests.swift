@@ -4,7 +4,8 @@ import XCTest
 /// Uhr-Apps (`Parity/watch_quotes.json`) — wie Android `WatchQuotesParityTest.kt` (:wear) und
 /// `WatchFreshnessParityTest.kt`: Antworten je Börse (Abfrage je Coin), Ausweich-Reihenfolge Binance → Bybit → OKX mit
 /// nur den fehlenden Coins, höchstens 8 Coins, Abfrage-Adressen, Alter und «veraltet», Kurse je Coin zusammenführen
-/// samt Alter je Coin (`WatchCache`) und Laufnummer der Abrufe (`WatchFetchGate`).
+/// samt Alter je Coin, ohne dass ein älterer Abruf einen neueren Kurs überschreibt (`WatchCache`), und Laufnummer der
+/// Abrufe (`WatchFetchGate`).
 final class WatchQuotesParityTests: XCTestCase {
 
     /// Gestellte Abfragen (Abfragen je Börse laufen gleichzeitig).
@@ -120,7 +121,7 @@ final class WatchQuotesParityTests: XCTestCase {
             }, uniquingKeysWith: { a, _ in a })
             let fresh = Dictionary(TestSupport.list(c["fresh"]).map { ($0["symbol"] as? String ?? "", quote($0)) },
                                    uniquingKeysWith: { a, _ in a })
-            let merged = WatchCache.merge(old, fresh: fresh, time: Int64(TestSupport.number(c["time"]) ?? 0),
+            let merged = WatchCache.merge(old, fresh: fresh, startedAt: Int64(TestSupport.number(c["startedAt"]) ?? 0),
                                           keep: strings(c["keep"]))
             let expected = TestSupport.list(c["expected"])
             XCTAssertEqual(Set(merged.keys), Set(expected.compactMap { $0["symbol"] as? String }), name)

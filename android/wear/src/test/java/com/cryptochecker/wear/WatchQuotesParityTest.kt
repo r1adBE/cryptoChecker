@@ -18,7 +18,8 @@ import java.util.Collections
 /**
  * Uhr-App (`testdata/parity/watch_quotes.json`) — wie iOS `WatchQuotesParityTests.swift`: Antworten je Börse (Abfrage
  * je Coin), Ausweich-Reihenfolge Binance → Bybit → OKX mit nur den fehlenden Coins, höchstens 8 Coins, Abfrage-Adressen,
- * Kurse je Coin zusammenführen samt Alter je Coin ([WatchCache]) und Laufnummer der Abrufe ([WatchFetchGate]).
+ * Kurse je Coin zusammenführen samt Alter je Coin, ohne dass ein älterer Abruf einen neueren Kurs überschreibt
+ * ([WatchCache]), und Laufnummer der Abrufe ([WatchFetchGate]).
  */
 class WatchQuotesParityTest {
 
@@ -132,7 +133,7 @@ class WatchQuotesParityTest {
             val name = c.getString("name")
             val old = objects(c.getJSONArray("old")).associate { it.getString("symbol") to WatchCached(quote(it), it.getLong("time")) }
             val fresh = objects(c.getJSONArray("fresh")).associate { it.getString("symbol") to quote(it) }
-            val merged = WatchCache.merge(old, fresh, c.getLong("time"), strings(c.getJSONArray("keep")))
+            val merged = WatchCache.merge(old, fresh, c.getLong("startedAt"), strings(c.getJSONArray("keep")))
             val expected = objects(c.getJSONArray("expected"))
             assertEquals(name, expected.map { it.getString("symbol") }.toSet(), merged.keys)
             for (e in expected) {

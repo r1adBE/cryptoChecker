@@ -31,9 +31,11 @@ class PriceComplicationService : SuspendingComplicationDataSourceService() {
         val coin = favorites.firstOrNull() ?: return NoDataComplicationData()
         var cached = store.quotes()[coin]
         if (cached == null || System.currentTimeMillis() - cached.time > MAX_AGE_MS) {
+            val startedAt = System.currentTimeMillis()
             val fresh = runCatching { WatchPriceSource.fetch(favorites) }.getOrNull().orEmpty()
-            // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis, bleibt sein letzter Kurs samt Zeit
-            if (fresh.isNotEmpty()) cached = store.mergeQuotes(fresh, System.currentTimeMillis())[coin] ?: cached
+            // Je Coin zusammengeführt: fehlt der erste Coin im neuen Ergebnis oder hat ein später gestarteter Abruf
+            // schon geschrieben, bleibt der gespeicherte Kurs samt Zeit
+            if (fresh.isNotEmpty()) cached = store.mergeQuotes(fresh, startedAt)[coin] ?: cached
         }
         val shown = cached ?: return NoDataComplicationData()
         val q = shown.quote

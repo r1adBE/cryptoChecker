@@ -46,8 +46,12 @@ class PhoneWatchSync @Inject constructor(
     private val scope = appScope(Dispatchers.IO, "PhoneWatchSync")
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
     private val lock = Mutex()
+    private val publishing = SerialPublisher()
     private val _state = MutableStateFlow(WatchSettings())
     private var started = false
+
+    /** Gespeicherter Stand schon in [_state] geladen; nur unter [lock] lesen und setzen. */
+    private var loaded = false
 
     /** Aktueller Stand (Wahl, eigene Liste, Liste aus den Favoriten). */
     val state: StateFlow<WatchSettings> = _state.asStateFlow()
@@ -60,7 +64,7 @@ class PhoneWatchSync @Inject constructor(
         if (started) return
         started = true
         scope.launch {
-            lock.withLock { _state.value = WatchSettings.fromJson(prefs.getString(KEY, null)) ?: WatchSettings() }
+            lock.withLock { ensureLoaded() }
             watchRepository.observeWatches()
                 .map { watches -> WatchCoins.fromFavorites(watches.filter { it.favorite }.sortedBy { it.sortOrder }.map { it.baseAsset }) }
                 .distinctUntilChanged()
@@ -100,16 +104,31 @@ class PhoneWatchSync @Inject constructor(
         update(publish = false) { WatchSettings.merge(it, remote, remoteIsPhone = false) }
     }
 
+    /**
+     * Gespeicherten Stand einmal laden, bevor etwas zusammengeführt wird: startet der Prozess über [PhoneWatchListener]
+     * oder ändert sich die Wahl, bevor [start] geladen hat, darf keine Änderung gegen den leeren Anfangsstand
+     * (Änderungsnummer 0) laufen und den gespeicherten Stand überschreiben. Nur unter [lock].
+     */
+    private fun ensureLoaded() {
+        if (loaded) return
+        _state.value = WatchSettings.fromJson(prefs.getString(KEY, null)) ?: WatchSettings()
+        loaded = true
+    }
+
+    /**
+     * Ändern und speichern unter [lock] (nach [ensureLoaded]); veröffentlicht wird danach nacheinander
+     * ([SerialPublisher]) und immer der aktuelle Stand, nicht der Wert dieser Änderung.
+     */
     private suspend fun update(publish: Boolean, change: (WatchSettings) -> WatchSettings) {
-        val next = lock.withLock {
+        lock.withLock {
+            ensureLoaded()
             val before = _state.value
             val after = change(before)
             if (after == before) return
             _state.value = after
             prefs.edit { putString(KEY, after.toJson()) }
-            after
         }
-        if (publish) publish(next)
+        if (publish) publishing.publish({ _state.value }) { publish(it) }
     }
 
     private suspend fun publish(settings: WatchSettings) = withContext(Dispatchers.IO) {
