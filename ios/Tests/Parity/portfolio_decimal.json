@@ -1,5 +1,5 @@
 {
-  "description": "PortfolioDecimal (Android PortfolioDecimal.kt / iOS PortfolioDecimal+Exact.swift): divide = a / b, multiply = a × b, divideProduct = a × b / c with the product exact; every result rounded ONCE to 34 significant digits, half even (Android MathContext.DECIMAL128). iOS Decimal computes with 38 digits: rounding to 38 first and then to 34 differs in the last digit for the cases marked doubleRounding (e.g. 376761.99 / 41.47463084 -> ...303, not ...302). expected = plain text without exponent and trailing zeros. plainDecimalDiffers: a plain iOS Decimal product (rounded only beyond 38 digits) would not give this result. Expected values computed independently with Python decimal.",
+  "description": "PortfolioDecimal (Android PortfolioDecimal.kt / iOS PortfolioDecimal+Exact.swift): divide = a / b, multiply = a × b, divideProduct = a × b / c with the product exact; every result rounded ONCE to 34 significant digits, half even (Android MathContext.DECIMAL128). iOS Decimal computes with 38 digits: rounding to 38 first and then to 34 differs in the last digit for the cases marked doubleRounding (e.g. 376761.99 / 41.47463084 -> ...303, not ...302). expected = plain text without exponent and trailing zeros. plainDecimalDiffers: a plain iOS Decimal product (rounded only beyond 38 digits) would not give this result. Expected values computed independently with Python decimal. exponents: regression cases with large, small or mixed exponents (operand exponents summing below -128, results near the smallest Decimal exponent or padded to the largest); iOS computes these exactly, never with plain Decimal arithmetic whose exponent would wrap.",
   "divide": [
     {
       "a": "376761.99",
@@ -74,6 +74,36 @@
       "a": "1234.567890123456789012345678901234567",
       "b": "-0.000000000000000003",
       "expected": "-411522630041152263004.1152263004115"
+    },
+    {
+      "a": "1E-60",
+      "b": "3E+30",
+      "expected": "0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003333333333333333333333333333333333",
+      "exponents": "mixedExponents"
+    },
+    {
+      "a": "7",
+      "b": "0.0000000000000000000000000000000000000000000000000000000000003",
+      "expected": "23333333333333333333333333333333330000000000000000000000000000",
+      "exponents": "largeExponent"
+    },
+    {
+      "a": "0.1",
+      "b": "0.3",
+      "expected": "0.3333333333333333333333333333333333",
+      "exponents": "smallExponents"
+    },
+    {
+      "a": "99999999999999999999999999999999999999",
+      "b": "0.000000000000000000000000000007",
+      "expected": "14285714285714285714285714285714290000000000000000000000000000000000",
+      "exponents": "largeMantissa"
+    },
+    {
+      "a": "1E-90",
+      "b": "9999999999999999999999999999999999",
+      "expected": "0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "exponents": "belowMinExponent"
     }
   ],
   "multiply": [
@@ -159,6 +189,48 @@
       "b": "31920.76786828941662984699719737583",
       "expected": "495724.9300000000000000000000000001",
       "plainDecimalDiffers": true
+    },
+    {
+      "a": "0.1",
+      "b": "0.1",
+      "expected": "0.01",
+      "exponents": "smallExponents"
+    },
+    {
+      "a": "1E-30",
+      "b": "1E29",
+      "expected": "0.1",
+      "exponents": "mixedExponents"
+    },
+    {
+      "a": "1.234567890123456789012345678901234567E-40",
+      "b": "9.876543210987654321098765432109876543E-40",
+      "expected": "0.0000000000000000000000000000000000000000000000000000000000000000000000000000001219326311370217952261850327338668",
+      "exponents": "mantissaExponentsBelowMin"
+    },
+    {
+      "a": "9.999999999999999999999999999999999E-60",
+      "b": "3E-30",
+      "expected": "0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000003",
+      "exponents": "nearMinExponent"
+    },
+    {
+      "a": "1E+70",
+      "b": "1E+70",
+      "expected": "100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "exponents": "paddedExponent"
+    },
+    {
+      "a": "123456789012345678901234567890.1234567",
+      "b": "0.00000000000000000000000000000000000001",
+      "expected": "0.000000001234567890123456789012345678901235",
+      "exponents": "mixedExponents"
+    },
+    {
+      "a": "-3.402823669209384634633746074317682114E+20",
+      "b": "2.5E-21",
+      "expected": "-0.8507059173023461586584365185794205",
+      "exponents": "largeMantissa"
     }
   ],
   "divideProduct": [
@@ -199,6 +271,34 @@
       "b": "0.3333333333333333333333333333333333",
       "c": "0.000000000000000001",
       "expected": "333333333333333333333.3333333333333"
+    },
+    {
+      "a": "1E-60",
+      "b": "1E-30",
+      "c": "7",
+      "expected": "0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001428571428571428571428571428571429",
+      "exponents": "nearMinExponent"
+    },
+    {
+      "a": "9999999999999999999999999999999999E+50",
+      "b": "1E+40",
+      "c": "3",
+      "expected": "3333333333333333333333333333333333000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "exponents": "largeExponent"
+    },
+    {
+      "a": "0.000000000000000000000000000000000000012345678901234567890123456789012345678",
+      "b": "98765432109876543210987654321098765432",
+      "c": "0.0000000000000000000000000000000000003",
+      "expected": "4064421037900726507539501091128893000",
+      "exponents": "mixedExponents"
+    },
+    {
+      "a": "1E-30",
+      "b": "1E29",
+      "c": "0.1",
+      "expected": "1",
+      "exponents": "mixedExponents"
     }
   ]
 }

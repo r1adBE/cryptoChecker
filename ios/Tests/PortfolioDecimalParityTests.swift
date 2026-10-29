@@ -48,6 +48,27 @@ final class PortfolioDecimalParityTests: XCTestCase {
         }
     }
 
+    /// Unter 10⁻¹²⁸ (nur iOS, `Decimal` hat 8 Bit Exponent): weniger Stellen, die letzte bei 10⁻¹²⁸, bis 0 — nie ein
+    /// übergelaufener Exponent (früher −130 → +126). Muster aus `PortfolioCostPartPoolTests`: Produkt vieler Anteile.
+    func testUnderflowShrinksToZero() throws {
+        let tiny = try dec("5E-65")
+        XCTAssertEqual(PortfolioDecimal.multiply(tiny, try dec("2E-64")), try dec("1E-128"))
+        XCTAssertEqual(PortfolioDecimal.multiply(tiny, tiny), 0)
+        XCTAssertEqual(PortfolioDecimal.multiply(try dec("1.234567E-100"), try dec("1E-25")), try dec("1.235E-125"))
+        XCTAssertEqual(PortfolioDecimal.divide(1, try dec("3E127")), try dec("3E-128"))
+        XCTAssertEqual(PortfolioDecimal.divide(try dec("1E-100"), try dec("1E60")), 0)
+        var rng = PerformanceRandom(seed: 7)
+        var product: Decimal = 1
+        for _ in 0..<700 {
+            let total = Decimal(1_000 + rng.nextInt(7))
+            let share = PortfolioDecimal.divide(total - Decimal(1 + rng.nextInt(999)), total)
+            let next = PortfolioDecimal.multiply(product, share)
+            XCTAssertTrue(next >= 0 && next <= product, "\(product) × \(share) = \(next)")
+            product = next
+        }
+        XCTAssertEqual(product, 0)
+    }
+
     /// Jede Gruppe enthält Fälle, in denen doppeltes Runden abwiche.
     func testDoubleRoundingCovered() throws {
         let fixture = try S.fixture("portfolio_decimal")
